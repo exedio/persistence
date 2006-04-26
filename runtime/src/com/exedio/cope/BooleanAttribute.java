@@ -23,19 +23,24 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 {
 	static final int[] ALLOWED_VALUES = {0, 1};
 
-	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultValue)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 	}
 	
 	public BooleanAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique);
+		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	public FunctionAttribute<Boolean> copyFunctionAttribute()
 	{
-		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null);
+		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+	}
+	
+	public BooleanAttribute defaultTo(final Boolean defaultValue)
+	{
+		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
 	}
 	
 	@Override

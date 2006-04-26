@@ -37,6 +37,7 @@ public class Main
 {
 	public static final Model itemSerializationModel = new Model(new Type[]{ ItemSerializationItem.TYPE });
 	public static final Model deleteModel = new Model(new Type[]{ DeleteItem.TYPE, DeleteOtherItem.TYPE} );
+	public static final Model defaultToModel = new Model(new Type[]{ DefaultToItem.TYPE } );
 	public static final Model enumModel = new Model(new Type[] { EnumItem.TYPE, EnumItem2.TYPE });
 	public static final Model dayModel = new Model(new Type[] { DayItem.TYPE });
 	public static final Model dataModel = new Model(new Type[]{ DataItem.TYPE, DataSubItem.TYPE });
@@ -94,6 +95,7 @@ public class Main
 		tearDown(com.exedio.cope.testmodel.Main.model);
 		tearDown(itemSerializationModel);
 		tearDown(deleteModel);
+		tearDown(defaultToModel);
 		tearDown(enumModel);
 		tearDown(dayModel);
 		tearDown(dataModel);

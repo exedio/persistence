@@ -23,19 +23,24 @@ import java.util.Date;
 public final class DateAttribute extends FunctionAttribute<Date>
 {
 
-	private DateAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	private DateAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Date defaultValue)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 	}
 	
 	public DateAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique);
+		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	public FunctionAttribute<Date> copyFunctionAttribute()
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null);
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+	}
+	
+	public DateAttribute defaultTo(final Date defaultValue)
+	{
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
 	}
 	
 	@Override

@@ -26,7 +26,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 
 	private ItemAttribute(final boolean isfinal, final boolean optional, final boolean unique, final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, null/* defaultValue makes no sense for ItemAttribute */);
 		this.policy = policy;
 		if(policy==null)
 			throw new RuntimeException("delete policy for attribute "+this+" must not be null");

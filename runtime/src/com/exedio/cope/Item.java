@@ -25,8 +25,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.exedio.cope.Attribute.Option;
-import com.exedio.cope.ItemAttribute.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -143,6 +141,16 @@ public abstract class Item extends Cope
 		//System.out.println("create item "+type+" "+pk);
 		
 		final Map<Attribute, Object> attributeValues = executeSetValues(setValues, null);
+		for(final Attribute attribute : type.getAttributes())
+		{
+			if(attribute instanceof FunctionAttribute)
+			{
+				final FunctionAttribute fa = (FunctionAttribute)attribute;
+				final Object defaultValue = fa.defaultValue;
+				if(defaultValue!=null && !attributeValues.containsKey(attribute))
+					attributeValues.put(attribute, defaultValue);
+			}
+		}
 		for(final Attribute attribute : attributeValues.keySet())
 		{
 			if(!attribute.getType().isAssignableFrom(type))

@@ -26,19 +26,24 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class LongAttribute extends FunctionAttribute<Long>
 {
 
-	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultValue)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 	}
 	
 	public LongAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique);
+		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	public FunctionAttribute<Long> copyFunctionAttribute()
 	{
-		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null);
+		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+	}
+	
+	public LongAttribute defaultTo(final Long defaultValue)
+	{
+		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
 	}
 	
 	@Override

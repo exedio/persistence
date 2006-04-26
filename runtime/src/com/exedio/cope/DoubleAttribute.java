@@ -26,19 +26,24 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class DoubleAttribute extends FunctionAttribute<Double>
 {
 
-	private DoubleAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	private DoubleAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultValue)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 	}
 	
 	public DoubleAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique);
+		this(option.isFinal, option.optional, option.unique, null);
 	}
 
 	public FunctionAttribute<Double> copyFunctionAttribute()
 	{
-		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null);
+		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+	}
+	
+	public DoubleAttribute defaultTo(final Double defaultValue)
+	{
+		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
 	}
 	
 	@Override

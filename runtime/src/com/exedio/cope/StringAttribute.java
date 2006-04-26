@@ -31,10 +31,10 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	public static final int DEFAULT_LENGTH = 100;
 
 	private StringAttribute(
-			final boolean isfinal, final boolean optional, final boolean unique,
+			final boolean isfinal, final boolean optional, final boolean unique, final String defaultValue,
 			final int minimumLength, final int maximumLength)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 
@@ -48,7 +48,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	public StringAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique, 0, DEFAULT_LENGTH);
+		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	@Deprecated
 	public StringAttribute(final Option option, final int minimumLength)
 	{
-		this(option.isFinal, option.optional, option.unique, minimumLength, DEFAULT_LENGTH);
+		this(option.isFinal, option.optional, option.unique, null, minimumLength, DEFAULT_LENGTH);
 	}
 	
 	/**
@@ -66,12 +66,17 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	@Deprecated
 	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
 	{
-		this(option.isFinal, option.optional, option.unique, minimumLength, maximumLength);
+		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength);
 	}
 	
 	public FunctionAttribute<String> copyFunctionAttribute()
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, minimumLength, maximumLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, minimumLength, maximumLength);
+	}
+	
+	public StringAttribute defaultTo(final String defaultValue)
+	{
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, minimumLength, maximumLength);
 	}
 	
 	@Override
@@ -82,17 +87,17 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, minimumLength, maximumLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, minimumLength, maximumLength);
 	}
 	
 	public StringAttribute lengthMin(final int minimumLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, minimumLength, DEFAULT_LENGTH);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, minimumLength, DEFAULT_LENGTH);
 	}
 	
 	public StringAttribute lengthMax(final int maximumLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, 0, maximumLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, 0, maximumLength);
 	}
 	
 	/**
@@ -106,7 +111,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	public StringAttribute lengthExact(final int exactLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, exactLength, exactLength);
+		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, exactLength, exactLength);
 	}
 	
 	public final int getMinimumLength()
@@ -151,12 +156,13 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		row.put(getColumn(), cell);
 	}
 	
-	void checkNotNullValue(final Object value, final Item item)
+	@Override
+	void checkNotNullValue(final Object value, final Item item/* TODO SOON rename to exceptionItem */)
 		throws
 			LengthViolationException
 	{
 		final String stringValue = (String)value;
-		// TODO make only one call to stringValue.length()
+		// TODO SOON make only one call to stringValue.length()
 		if(stringValue.length()<minimumLength)
 			throw new LengthViolationException(this, item, stringValue, true);
 		if(stringValue.length()>maximumLength)

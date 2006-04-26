@@ -35,15 +35,44 @@ public abstract class FunctionAttribute<E extends Object>
 	implements Function<E>
 {
 	final UniqueConstraint implicitUniqueConstraint;
+	final E defaultValue;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
-	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique, final E defaultValue)
 	{
 		super(isfinal, optional);
+		this.defaultValue = defaultValue;
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint(this) :
 				null;
+		
+		if(defaultValue!=null && !defaultValue.equals(""))
+		{
+			try
+			{
+				// TODO SOON use checkValue when it is supported on non-initialized features 
+				checkNotNullValue(defaultValue, null);
+			}
+			catch(ConstraintViolationException e)
+			{
+				// BEWARE
+				// Must not make exception e available to public,
+				// since it contains a reference to this function attribute,
+				// which has not been constructed successfully.
+				// TODO SOON use some ConstraintViolationException#getMessageWithoutFeature()
+				throw new RuntimeException(
+						"The default value of the attribute " +
+						"does not comply to one of it's own constraints, " +
+						"caused a " + e.getClass().getSimpleName() + ". " +
+						"Default value was " + defaultValue);
+			}
+		}
+	}
+	
+	public final E getDefaultValue()
+	{
+		return defaultValue;
 	}
 	
 	private Class<?> valueClass;
@@ -92,7 +121,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * and {@link Item(FunctionAttribute[])} (for <tt>initial==true</tt>)
 	 * and throws the exception specified there.
 	 */
-	final void checkValue(final Object value, final Item item)
+	final void checkValue(final Object value, final Item item/* TODO SOON rename to exceptionItem */)
 		throws
 			MandatoryViolationException,
 			LengthViolationException
@@ -104,6 +133,7 @@ public abstract class FunctionAttribute<E extends Object>
 		}
 		else
 		{
+			// TODO SOON do this earlier to make this method available on non-initialized attributes 
 			if(value.equals("") &&
 					!optional &&
 					!getType().getModel().supportsEmptyStrings()) // TODO dont call supportsEmptyStrings that often
@@ -122,11 +152,11 @@ public abstract class FunctionAttribute<E extends Object>
 
 	/**
 	 * Further checks non-null attribute values already checked by
-	 * {@link #checkValue(boolean, Object, Item)}.
+	 * {@link #checkValue(Object, Item)}.
 	 * To be overidden by subclasses,
 	 * the default implementation does nothing.
 	 */
-	void checkNotNullValue(final Object value, final Item item)
+	void checkNotNullValue(final Object/* TODO SOON use E */ value, final Item item/* TODO SOON rename to exceptionItem */)
 		throws
 			LengthViolationException
 	{

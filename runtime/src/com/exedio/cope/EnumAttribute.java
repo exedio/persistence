@@ -28,14 +28,14 @@ import bak.pcj.map.IntKeyOpenHashMap;
 public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 {
 	
-	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final E defaultValue)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 	}
 	
 	public EnumAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique);
+		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	private List<E> values = null;
@@ -89,8 +89,15 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 	
 	public FunctionAttribute<E> copyFunctionAttribute()
 	{
-		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null);
+		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
 	}
+	
+	/* TODO does not work with the instrumentor yet
+	public EnumAttribute<E> defaultTo(final E defaultValue)
+	{
+		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+	}
+	*/
 	
 	public List<E> getValues()
 	{

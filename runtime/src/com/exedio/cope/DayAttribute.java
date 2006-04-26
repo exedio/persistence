@@ -23,19 +23,24 @@ import com.exedio.cope.util.Day;
 public final class DayAttribute extends FunctionAttribute<Day>
 {
 	
-	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultValue)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 	}
 	
 	public DayAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique);
+		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	public FunctionAttribute<Day> copyFunctionAttribute()
 	{
-		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null);
+		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+	}
+	
+	public DayAttribute defaultTo(final Day defaultValue)
+	{
+		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
 	}
 	
 	@Override

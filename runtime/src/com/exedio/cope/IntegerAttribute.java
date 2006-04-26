@@ -27,21 +27,26 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class IntegerAttribute extends FunctionAttribute<Integer> implements IntegerFunction
 {
 
-	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique)
+	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultValue)
 	{
-		super(isfinal, optional, unique);
+		super(isfinal, optional, unique, defaultValue);
 	}
 	
 	public IntegerAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique);
+		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	public FunctionAttribute<Integer> copyFunctionAttribute()
 	{
-		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null);
+		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
 	}
 
+	public IntegerAttribute defaultTo(final Integer defaultValue)
+	{
+		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+	}
+	
 	@Override
 	Class initialize(final java.lang.reflect.Type genericType)
 	{
