@@ -441,6 +441,7 @@ public abstract class Item extends Cope
 		return new Type<C>(javaClass, id);
 	}
 	
+	/* TODO does not work with the instrumentor yet
 	protected static final <E extends Enum> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> javaClass)
 	{
 		return new EnumAttribute<E>(option);
@@ -455,6 +456,7 @@ public abstract class Item extends Cope
 	{
 		return new ItemAttribute<E>(option, policy);
 	}
+	*/
 	
 	// activation/deactivation -----------------------------------------------------
 	
