@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.IntegerAttribute;
@@ -84,7 +85,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		initialize(uniqueConstraint, name + "UniqueConstraint");
 	}
 	
-	public Collection<T> getTargets(final S source)
+	public List<T> getTargets(final S source)
 	{
 		final Query q = new Query(target, this.source.equal(source));
 		q.setOrderBy(order, true);
@@ -127,9 +128,9 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	}
 	
 	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private Collection<T> castTarget(final Collection c)
+	private List<T> castTarget(final List c)
 	{
-		return (Collection<T>)c;
+		return (List<T>)c;
 	}
 	
 	@SuppressWarnings("unchecked") // TODO Query does not support generics

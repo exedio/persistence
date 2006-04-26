@@ -612,12 +612,12 @@ public final class Type<C extends Item>
 	 * result in an <tt>UnsupportedOperationException</tt>.
 	 * @param condition the condition the searched items must match.
 	 */
-	public Collection<? extends C> search(final Condition condition)
+	public List<? extends C> search(final Condition condition)
 	{
 		return castCollection(newQuery(condition).search());
 	}
 	
-	public Collection<? extends C> search(final Condition condition, final Function orderBy, final boolean ascending)
+	public List<? extends C> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
 		final Query query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
@@ -625,7 +625,7 @@ public final class Type<C extends Item>
 	}
 	
 	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private Collection<? extends C> castCollection(final Collection o)
+	private List<? extends C> castCollection(final List o) //TODO SOON rename to castList
 	{
 		return o;
 	}

@@ -239,7 +239,7 @@ public final class Query
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <tt>UnsupportedOperationException</tt>.
 	 */
-	public final Collection<? extends Object> search()
+	public final List<? extends Object> search()
 	{
 		check();
 		
@@ -255,7 +255,7 @@ public final class Query
 		);
 	}
 	
-	Collection<? extends Object> searchUncached()
+	List<? extends Object> searchUncached()
 	{
 		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
 	}

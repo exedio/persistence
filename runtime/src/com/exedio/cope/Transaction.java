@@ -18,15 +18,15 @@
 
 package com.exedio.cope;
 
-import bak.pcj.set.IntOpenHashSet;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
+import bak.pcj.set.IntOpenHashSet;
 
 import com.exedio.dsmf.SQLRuntimeException;
-import java.util.Collection;
-import java.util.Iterator;
 
 
 public final class Transaction
@@ -153,7 +153,7 @@ public final class Transaction
 		}		
 	}
 	
-	final Collection<? extends Object> search( Query query )
+	final List<? extends Object> search( Query query )
 	{
 		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
 		{

@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 import org.apache.commons.collections.map.LRUMap;
@@ -145,14 +145,14 @@ final class Cache
 		return queryCaches!=null;
 	}
 	
-	Collection<? extends Object> search(final Query query)
+	List<? extends Object> search(final Query query)
 	{
 		if ( queryCaches==null )
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		Query.Key key = new Query.Key( query );
-		Collection<? extends Object> result;
+		List<? extends Object> result;
 		synchronized ( queryCaches )
 		{
 			result = castQC(queryCaches.get(key));
@@ -187,9 +187,9 @@ final class Cache
 	}
 	
 	@SuppressWarnings("unchecked") // TODO apache.LRUMap does not support generics
-	private static final Collection<? extends Object> castQC(final Object o)
+	private static final List<? extends Object> castQC(final Object o) //TODO SOON rename to castQL
 	{
-		return (Collection<? extends Object>)o;
+		return (List<? extends Object>)o;
 	}
 	
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
