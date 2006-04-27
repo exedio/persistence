@@ -56,7 +56,7 @@ public class ServletUtil
 			}
 			
 			final Model model = (Model)modelField.get(null);
-			initialize(model, config);
+			initialize(model, config.getServletContext());
 			return model;
 		}
 		catch(ClassNotFoundException e)
@@ -69,10 +69,8 @@ public class ServletUtil
 		}
 	}
 	
-	public static final void initialize(final Model model, final ServletConfig config)
+	public static final void initialize(final Model model, final ServletContext context)
 	{
-		final ServletContext context = config.getServletContext();
-		
 		model.setPropertiesInitially(
 			new com.exedio.cope.Properties(
 				new File(context.getRealPath("WEB-INF/cope.properties"))));
