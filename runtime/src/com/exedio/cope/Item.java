@@ -164,6 +164,17 @@ public abstract class Item extends Cope
 		final Entity entity = getEntity(false);
 		entity.put(attributeValues);
 		entity.write(toBlobs(attributeValues));
+		
+		postCreate();
+	}
+	
+	
+	/**
+	 * Is called after every item creation. Overide this method when needed. 
+	 */
+	protected void postCreate()
+	{
+		//empty default implementation
 	}
 	
 	/**

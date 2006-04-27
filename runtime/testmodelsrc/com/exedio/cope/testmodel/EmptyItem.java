@@ -40,6 +40,23 @@ public class EmptyItem extends Item
 	 */
 	boolean pk;
 	
+	/**
+	 * This is a non-persistent attribute of this item
+	 * which is modifier after the item is created.
+	 * Used for testing {@link Item#postCreate()}.
+	 */
+	private int postCreateValue;
+	
+	protected final void postCreate()
+	{
+		postCreateValue = 5;
+	}
+	
+	public final int getPostCreateValue()
+	{
+		return postCreateValue;
+	}
+	
 /**
 
 	 **

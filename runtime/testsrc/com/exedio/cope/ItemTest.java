@@ -128,5 +128,13 @@ public class ItemTest extends TestmodelTest
 		assertDelete(item2);
 		assertDelete(item1);
 	}
+	
+	public void testItemPostCreate()
+	{
+		final EmptyItem item = EmptyItem.TYPE.newItem(null);
+		assertEquals(5, item.getPostCreateValue());
+		
+		assertDelete(item);
+	}
 
 }
