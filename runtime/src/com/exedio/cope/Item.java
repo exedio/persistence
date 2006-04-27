@@ -170,11 +170,12 @@ public abstract class Item extends Cope
 	
 	
 	/**
-	 * Is called after every item creation. Overide this method when needed. 
+	 * Is called after every item creation. Override this method when needed.
+	 * The default implementation does nothing. 
 	 */
 	protected void postCreate()
 	{
-		//empty default implementation
+		// empty default implementation
 	}
 	
 	/**
