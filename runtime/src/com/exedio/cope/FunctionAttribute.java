@@ -121,7 +121,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * and {@link Item(FunctionAttribute[])} (for <tt>initial==true</tt>)
 	 * and throws the exception specified there.
 	 */
-	final void checkValue(final Object value, final Item item/* TODO SOON rename to exceptionItem */)
+	final void checkValue(final Object value, final Item exceptionItem)
 		throws
 			MandatoryViolationException,
 			LengthViolationException
@@ -129,7 +129,7 @@ public abstract class FunctionAttribute<E extends Object>
 		if(value == null)
 		{
 			if(!optional)
-				throw new MandatoryViolationException(this, item);
+				throw new MandatoryViolationException(this, exceptionItem);
 		}
 		else
 		{
@@ -137,7 +137,7 @@ public abstract class FunctionAttribute<E extends Object>
 			if(value.equals("") &&
 					!optional &&
 					!getType().getModel().supportsEmptyStrings()) // TODO dont call supportsEmptyStrings that often
-				throw new MandatoryViolationException(this, item);
+				throw new MandatoryViolationException(this, exceptionItem);
 			
 			if(!(valueClass.isAssignableFrom(value.getClass())))
 			{
@@ -146,7 +146,7 @@ public abstract class FunctionAttribute<E extends Object>
 						", but was a " + value.getClass().getName() +
 						" for " + toString() + '.');
 			}
-			checkNotNullValue(value, item);
+			checkNotNullValue(value, exceptionItem);
 		}
 	}
 
