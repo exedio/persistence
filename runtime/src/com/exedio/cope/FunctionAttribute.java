@@ -156,7 +156,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * To be overidden by subclasses,
 	 * the default implementation does nothing.
 	 */
-	void checkNotNullValue(final Object/* TODO SOON use E */ value, final Item item/* TODO SOON rename to exceptionItem */)
+	void checkNotNullValue(final Object/* TODO SOON use E */ value, final Item exceptionItem)
 		throws
 			LengthViolationException
 	{
