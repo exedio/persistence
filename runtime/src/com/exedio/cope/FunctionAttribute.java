@@ -60,12 +60,12 @@ public abstract class FunctionAttribute<E extends Object>
 				// Must not make exception e available to public,
 				// since it contains a reference to this function attribute,
 				// which has not been constructed successfully.
-				// TODO SOON use some ConstraintViolationException#getMessageWithoutFeature()
 				throw new RuntimeException(
 						"The default value of the attribute " +
 						"does not comply to one of it's own constraints, " +
-						"caused a " + e.getClass().getSimpleName() + ". " +
-						"Default value was " + defaultValue);
+						"caused a " + e.getClass().getSimpleName() +
+						": " + e.getMessageWithoutFeature() +
+						". Default value was '" + defaultValue + "'.");
 			}
 		}
 	}

@@ -101,7 +101,8 @@ public class DefaultToTest extends AbstractLibTest
 			//e.printStackTrace();
 			assertEquals(
 					"The default value of the attribute does not comply to one of it's own constraints, " +
-					"caused a LengthViolationException. Default value was 1234",
+					"caused a LengthViolationException: length violation on a newly created item, '1234' is too long. " +
+					"Default value was '1234'.",
 					e.getMessage());
 		}
 	}

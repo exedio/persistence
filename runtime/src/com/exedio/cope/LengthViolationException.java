@@ -79,4 +79,12 @@ public final class LengthViolationException extends ConstraintViolationException
 			" for "+ stringAttribute;
 	}
 	
+	public String getMessageWithoutFeature()
+	{
+		return
+			"length violation on " + getItemID() +
+			", '" + value + "' is too " +
+			(isTooShort?"short":"long");
+	}
+	
 }

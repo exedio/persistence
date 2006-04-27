@@ -91,4 +91,13 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 			"is too long for " + dataAttribute;
 	}
 	
+	public String getMessageWithoutFeature()
+	{
+		return
+			"length violation on " + getItemID() +
+			", " + length + " bytes " +
+			(lengthExact ? "" : "or more ") +
+			"is too long";
+	}
+	
 }

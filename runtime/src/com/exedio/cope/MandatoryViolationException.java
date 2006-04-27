@@ -61,4 +61,9 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 		return "mandatory violation on " + getItemID() + " for " + mandatoryAttribute;
 	}
 	
+	public String getMessageWithoutFeature()
+	{
+		return "mandatory violation on " + getItemID();
+	}
+	
 }

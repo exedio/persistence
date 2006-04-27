@@ -61,4 +61,9 @@ public final class FinalViolationException extends ConstraintViolationException
 		return "final violation on " + getItemID() + " for " + finalAttribute;
 	}
 	
+	public String getMessageWithoutFeature()
+	{
+		return "final violation on " + getItemID();
+	}
+	
 }
