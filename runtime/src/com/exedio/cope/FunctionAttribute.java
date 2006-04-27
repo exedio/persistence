@@ -146,7 +146,7 @@ public abstract class FunctionAttribute<E extends Object>
 						", but was a " + value.getClass().getName() +
 						" for " + toString() + '.');
 			}
-			checkNotNullValue(value, exceptionItem);
+			checkNotNullValue(cast(value), exceptionItem);
 		}
 	}
 
@@ -156,7 +156,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * To be overidden by subclasses,
 	 * the default implementation does nothing.
 	 */
-	void checkNotNullValue(final Object/* TODO SOON use E */ value, final Item exceptionItem)
+	void checkNotNullValue(final E value, final Item exceptionItem)
 		throws
 			LengthViolationException
 	{
