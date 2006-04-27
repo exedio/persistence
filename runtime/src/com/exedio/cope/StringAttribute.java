@@ -157,16 +157,16 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	}
 	
 	@Override
-	void checkNotNullValue(final Object value, final Item item/* TODO SOON rename to exceptionItem */)
+	void checkNotNullValue(final Object value, final Item exceptionItem)
 		throws
 			LengthViolationException
 	{
 		final String stringValue = (String)value;
 		// TODO SOON make only one call to stringValue.length()
 		if(stringValue.length()<minimumLength)
-			throw new LengthViolationException(this, item, stringValue, true);
+			throw new LengthViolationException(this, exceptionItem, stringValue, true);
 		if(stringValue.length()>maximumLength)
-			throw new LengthViolationException(this, item, stringValue, false);
+			throw new LengthViolationException(this, exceptionItem, stringValue, false);
 	}
 	
 	public final EqualCondition equal(final Join join, final String value)
