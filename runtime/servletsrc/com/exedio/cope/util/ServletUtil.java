@@ -28,12 +28,11 @@ import com.exedio.cope.Model;
 
 public class ServletUtil
 {
-
-	public static final Model getModel(final ServletConfig config)
+	public static final Model getModel(final ServletContext context)
 	{
 		try
 		{
-			final String modelName = config.getInitParameter("model");
+			final String modelName = context.getInitParameter("model");
 			if(modelName==null)
 				throw new NullPointerException("init-param 'model' missing");
 
@@ -56,7 +55,7 @@ public class ServletUtil
 			}
 			
 			final Model model = (Model)modelField.get(null);
-			initialize(model, config);
+			initialize(model, context);
 			return model;
 		}
 		catch(ClassNotFoundException e)
@@ -69,13 +68,10 @@ public class ServletUtil
 		}
 	}
 	
-	public static final void initialize(final Model model, final ServletConfig config)
+	public static final void initialize(final Model model, final ServletContext context)
 	{
-		final ServletContext context = config.getServletContext();
-		
 		model.setPropertiesInitially(
 			new com.exedio.cope.Properties(
 				new File(context.getRealPath("WEB-INF/cope.properties"))));
 	}
-
 }

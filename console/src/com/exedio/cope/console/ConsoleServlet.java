@@ -82,7 +82,7 @@ public final class ConsoleServlet extends CopsServlet
 		
 		try
 		{
-			model = ServletUtil.getModel(getServletConfig());
+			model = ServletUtil.getModel(getServletContext());
 		}
 		catch(RuntimeException e)
 		{
