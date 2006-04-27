@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import java.io.File;
 import java.lang.reflect.Field;
 
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
@@ -28,18 +29,33 @@ import com.exedio.cope.Model;
 
 public class ServletUtil
 {
+	public static final String PARAMETER_MODEL = "model";
+	public static final char DIVIDER = '#';
 
 	public static final Model getModel(final ServletConfig config)
 	{
+		Model model = getModelByName(config.getInitParameter(PARAMETER_MODEL));
+		initialize(model, config.getServletContext());
+		return model;
+	}
+	
+	public static final Model getModel(final FilterConfig config)
+	{
+		Model model = getModelByName(config.getInitParameter(PARAMETER_MODEL));
+		initialize(model, config.getServletContext());
+		return model;
+	}
+	
+	private static final Model getModelByName(final String modelName)
+	{
+		if(modelName==null)
+			throw new NullPointerException("init-param '"+PARAMETER_MODEL+"' missing");
+		
 		try
 		{
-			final String modelName = config.getInitParameter("model");
-			if(modelName==null)
-				throw new NullPointerException("init-param 'model' missing");
-
-			final int pos = modelName.indexOf('#');
+			final int pos = modelName.indexOf(DIVIDER);
 			if(pos<=0)
-				throw new RuntimeException("init-param 'model' does not contain '#', but was "+modelName);
+				throw new RuntimeException("init-param '"+PARAMETER_MODEL+"' does not contain '"+DIVIDER+"', but was "+modelName);
 			final String modelClassName = modelName.substring(0, pos);
 			final String modelAttributeName = modelName.substring(pos+1);
 
@@ -55,9 +71,7 @@ public class ServletUtil
 				throw new RuntimeException("field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.", e);
 			}
 			
-			final Model model = (Model)modelField.get(null);
-			initialize(model, config.getServletContext());
-			return model;
+			return (Model)modelField.get(null);
 		}
 		catch(ClassNotFoundException e)
 		{
