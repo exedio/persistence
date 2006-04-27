@@ -155,7 +155,7 @@ final class Cache
 		List<? extends R> result;
 		synchronized ( queryCaches )
 		{
-			result = Cache.<R>castQC(queryCaches.get(key));
+			result = Cache.<R>castQL(queryCaches.get(key));
 		}
 		if ( result==null )
 		{
@@ -187,7 +187,7 @@ final class Cache
 	}
 	
 	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
-	private static final <R> List<? extends R> castQC(final Object o) //TODO SOON rename to castQL
+	private static final <R> List<? extends R> castQL(final Object o)
 	{
 		return (List<? extends R>)o;
 	}
