@@ -251,6 +251,9 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(STANDARD, "getPrivateHash");
 		assertNoMethod(STANDARD, "getMandatoryHash");
 
+		assertMethod(STANDARD, "setXMLReader", new Class[]{STRING}, FINAL, new Class[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getXMLReader", STRING, FINAL);
+		
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
 		assertConstructor(TYPE_NONE, new Class[]{}, PRIVATE);
