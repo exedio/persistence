@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
@@ -122,7 +122,7 @@ public class VectorRelationTest extends AbstractLibTest
 			final RelationTargetItem[] expectedTargets,
 			final int[] expectedOrders)
 	{
-		final Query q = VectorRelationItem.TYPE.newQuery(null);
+		final Query<VectorRelationItem> q = VectorRelationItem.TYPE.newQuery(null);
 		q.setOrderBy(
 				new Function[]{VectorRelationItem.vectorSource, VectorRelationItem.vectorTarget, VectorRelationItem.relation.getOrder()},
 				new boolean[]{true, true, true});
@@ -131,7 +131,7 @@ public class VectorRelationTest extends AbstractLibTest
 		final ArrayList<RelationTargetItem> actualTargets = new ArrayList<RelationTargetItem>();
 		final ArrayList<Integer> actualOrders = new ArrayList<Integer>();
 		
-		final Collection<VectorRelationItem> actualTupels = cast(q.search());
+		final List<? extends VectorRelationItem> actualTupels = q.search();
 		for(final VectorRelationItem actualTupel : actualTupels)
 		{
 			actualSources.add(actualTupel.getVectorSource());
@@ -145,12 +145,6 @@ public class VectorRelationTest extends AbstractLibTest
 		assertEquals(Arrays.asList(expectedSources), actualSources);
 		assertEquals(Arrays.asList(expectedTargets), actualTargets);
 		assertEquals(expectedOrderList, actualOrders);
-	}
-	
-	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private static final Collection<VectorRelationItem> cast(final Collection c)
-	{
-		return (Collection<VectorRelationItem>)c;
 	}
 	
 }

@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
@@ -637,14 +637,14 @@ public class StringTest extends TestmodelTest
 		}
 	}
 	
-	protected static Collection<? extends Object> search(final FunctionAttribute selectAttribute)
+	protected static List<? extends Object> search(final FunctionAttribute<? extends Object> selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 	
-	protected static Collection<? extends Object> search(final FunctionAttribute selectAttribute, final Condition condition)
+	protected static List<? extends Object> search(final FunctionAttribute<? extends Object> selectAttribute, final Condition condition)
 	{
-		return new Query(selectAttribute, condition).search();
+		return new Query<Object>(selectAttribute, condition).search();
 	}
 
 }

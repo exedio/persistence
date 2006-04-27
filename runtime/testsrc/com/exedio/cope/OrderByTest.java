@@ -208,7 +208,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(expectedReverseOrder, query.search());
 		}
 		{
-			final Query query2 = new Query(item.someNotNullString, item1.TYPE, null);
+			final Query query2 = new Query<String>(item.someNotNullString, item1.TYPE, null);
 			query2.setOrderByAndThis(orderFunction, true);
 
 			if(limitCount==-1)

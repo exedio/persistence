@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.exedio.cope.Item;
@@ -74,16 +73,16 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		initialize(uniqueConstraint, name + "UniqueConstraint");
 	}
 	
-	public List<T> getTargets(final S source)
+	public List<? extends T> getTargets(final S source)
 	{
-		final Query q = new Query(target, this.source.equal(source));
-		return castTarget(q.search());
+		final Query<T> q = new Query<T>(target, this.source.equal(source));
+		return q.search();
 	}
 
-	public List<S> getSources(final T target)
+	public List<? extends S> getSources(final T target)
 	{
-		final Query q = new Query(source, this.target.equal(target));
-		return castSource(q.search());
+		final Query<S> q = new Query<S>(source, this.target.equal(target));
+		return q.search();
 	}
 
 	/**
@@ -137,16 +136,4 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		return removeFromTargets(source, target);
 	}
 
-	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private List<S> castSource(final List c)
-	{
-		return (List<S>)c;
-	}
-	
-	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private List<T> castTarget(final List c)
-	{
-		return (List<T>)c;
-	}
-	
 }

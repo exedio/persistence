@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Collection;
+import java.util.List;
 
 
 
@@ -270,9 +271,9 @@ public class DeleteTest extends AbstractLibTest
 		assertSame(item, searchResult1.iterator().next());
 
 		// test Query.search with selects
-		final Query query2 = new Query(item.selfNullify, null);
+		final Query<DeleteItem> query2 = new Query<DeleteItem>(item.selfNullify, null);
 		query2.setOrderByThis(true);
-		final Collection searchResult2 = query2.search();
+		final List<? extends DeleteItem> searchResult2 = query2.search();
 		assertEquals(list(item2, null), searchResult2);
 		assertSame(item2, searchResult2.iterator().next());
 	}

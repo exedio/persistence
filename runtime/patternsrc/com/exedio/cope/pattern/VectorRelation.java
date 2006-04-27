@@ -85,26 +85,26 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		initialize(uniqueConstraint, name + "UniqueConstraint");
 	}
 	
-	public List<T> getTargets(final S source)
+	public List<? extends T> getTargets(final S source)
 	{
-		final Query q = new Query(target, this.source.equal(source));
+		final Query<T> q = new Query<T>(target, this.source.equal(source));
 		q.setOrderBy(order, true);
-		return castTarget(q.search());
+		return q.search();
 	}
 
-	public Collection<S> getSources(final T target)
+	public List<? extends S> getSources(final T target)
 	{
-		final Query q = new Query(source, this.target.equal(target));
+		final Query<S> q = new Query<S>(source, this.target.equal(target));
 		q.setOrderBy(order, true);
-		return castSource(q.search());
+		return q.search();
 	}
 
 	public void setTargets(final S source, final Collection<T> targets)
 	{
-		final Type type = getType();
-		final Query q = type.newQuery(this.source.equal(source));
+		final Type<? extends Item> type = getType();
+		final Query<? extends Item> q = type.newQuery(this.source.equal(source));
 		q.setOrderBy(order, true);
-		final Collection<Item> oldTupels = castRelation(q.search());
+		final Collection<? extends Item> oldTupels = q.search();
 
 		// TODO: this implementation wastes resources !!
 		for(final Item tupel : oldTupels)
@@ -119,24 +119,6 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 					this.order.map(order++),
 			});
 		}
-	}
-	
-	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private Collection<S> castSource(final Collection c)
-	{
-		return (Collection<S>)c;
-	}
-	
-	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private List<T> castTarget(final List c)
-	{
-		return (List<T>)c;
-	}
-	
-	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private Collection<Item> castRelation(final Collection c)
-	{
-		return (Collection<Item>)c;
 	}
 	
 }

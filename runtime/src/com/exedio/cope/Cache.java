@@ -145,17 +145,17 @@ final class Cache
 		return queryCaches!=null;
 	}
 	
-	List<? extends Object> search(final Query query)
+	<R> List<? extends R> search(final Query<R> query)
 	{
 		if ( queryCaches==null )
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		Query.Key key = new Query.Key( query );
-		List<? extends Object> result;
+		List<? extends R> result;
 		synchronized ( queryCaches )
 		{
-			result = castQC(queryCaches.get(key));
+			result = Cache.<R>castQC(queryCaches.get(key));
 		}
 		if ( result==null )
 		{
@@ -186,10 +186,10 @@ final class Cache
 		return result;		
 	}
 	
-	@SuppressWarnings("unchecked") // TODO apache.LRUMap does not support generics
-	private static final List<? extends Object> castQC(final Object o) //TODO SOON rename to castQL
+	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
+	private static final <R> List<? extends R> castQC(final Object o) //TODO SOON rename to castQL
 	{
-		return (List<? extends Object>)o;
+		return (List<? extends R>)o;
 	}
 	
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )

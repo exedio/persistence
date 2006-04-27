@@ -153,7 +153,7 @@ public final class Transaction
 		}		
 	}
 	
-	final List<? extends Object> search( Query query )
+	final <R> List<? extends R> search(final Query<R> query)
 	{
 		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
 		{

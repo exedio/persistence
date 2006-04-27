@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
+import java.util.List;
 
 import com.exedio.cope.util.Day;
 
@@ -127,14 +127,14 @@ public class DayAttributeTest extends AbstractLibTest
 		}
 	}
 	
-	protected static Collection<? extends Object> search(final DayAttribute selectAttribute)
+	protected static List<? extends Day> search(final DayAttribute selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 	
-	protected static Collection<? extends Object> search(final DayAttribute selectAttribute, final Condition condition)
+	protected static List<? extends Day> search(final DayAttribute selectAttribute, final Condition condition)
 	{
-		return new Query(selectAttribute, condition).search();
+		return new Query<Day>(selectAttribute, condition).search();
 	}
 	
 }

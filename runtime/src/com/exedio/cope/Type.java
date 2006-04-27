@@ -598,7 +598,7 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked") // TODO Transaction.getEntityIfActive and Query and reflection do not support generics
+	@SuppressWarnings("unchecked") // TODO Transaction.getEntityIfActive and reflection do not support generics
 	private C cast(final Object o)
 	{
 		return (C)o;
@@ -614,22 +614,16 @@ public final class Type<C extends Item>
 	 */
 	public List<? extends C> search(final Condition condition)
 	{
-		return castCollection(newQuery(condition).search());
+		return newQuery(condition).search();
 	}
 	
 	public List<? extends C> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
-		final Query query = newQuery(condition);
+		final Query<C> query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
-		return castCollection(query.search());
+		return query.search();
 	}
 	
-	@SuppressWarnings("unchecked") // TODO Query does not support generics
-	private List<? extends C> castCollection(final List o) //TODO SOON rename to castList
-	{
-		return o;
-	}
-
 	/**
 	 * Searches equivalently to {@link #search(Condition)},
 	 * but assumes that the condition forces the search result to have at most one element.
@@ -641,12 +635,12 @@ public final class Type<C extends Item>
 	 */
 	public C searchUnique(final Condition condition)
 	{
-		return cast(newQuery(condition).searchUnique());
+		return newQuery(condition).searchUnique();
 	}
 	
-	public Query newQuery(final Condition condition)
+	public Query<C> newQuery(final Condition condition)
 	{
-		return new Query(thisFunction, this, condition);
+		return new Query<C>(thisFunction, this, condition);
 	}
 	
 	public String toString()

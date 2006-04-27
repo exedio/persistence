@@ -1004,7 +1004,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final " + List.class.getName() + '<'); // TODO: obey attribute visibility
+			o.write("public final " + List.class.getName() + "<? extends "); // TODO: obey attribute visibility
 			o.write(endType);
 			o.write("> get");
 			o.write(endNameCamel);

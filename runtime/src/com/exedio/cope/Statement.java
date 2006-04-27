@@ -49,7 +49,7 @@ final class Statement
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
 
-	Statement(final Database database, final boolean prepare, final Query query, final boolean defineColumnTypes)
+	Statement(final Database database, final boolean prepare, final Query<? extends Object> query, final boolean defineColumnTypes)
 	{
 		if(database==null)
 			throw new NullPointerException();

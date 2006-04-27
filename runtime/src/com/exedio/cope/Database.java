@@ -135,7 +135,7 @@ abstract class Database
 		return new Statement(this, prepare, qualifyTable, isDefiningColumnTypes());
 	}
 	
-	protected final Statement createStatement(final Query query)
+	protected final Statement createStatement(final Query<? extends Object> query)
 	{
 		return new Statement(this, prepare, query, isDefiningColumnTypes());
 	}
@@ -263,7 +263,7 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	public final ArrayList<Object> search(final Connection connection, final Query query, final boolean doCountOnly)
+	public final ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly)
 	{
 		buildStage = false;
 

@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public final class Query
+public final class Query<R>
 {
 	final static int UNLIMITED_COUNT = -66;
 	
@@ -45,7 +45,7 @@ public final class Query
 	boolean makeStatementInfo = false;
 	private StatementInfo statementInfo = null;
 	
-	public Query(final Function select, final Condition condition)
+	public Query(final Function<? extends R> select, final Condition condition)
 	{
 		this.selects = new Function[]{select};
 		this.type = select.getType();
@@ -53,7 +53,7 @@ public final class Query
 		this.condition = condition;
 	}
 	
-	public Query(final Function select, final Type type, final Condition condition)
+	public Query(final Function<R> select, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
 		this.selects = new Function[]{select};
@@ -79,7 +79,7 @@ public final class Query
 		this.condition = condition;
 	}
 	
-	private final Join join(final Join join)
+	private Join join(final Join join)
 	{
 		if(joins==null)
 			joins = new ArrayList<Join>();
@@ -239,7 +239,7 @@ public final class Query
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <tt>UnsupportedOperationException</tt>.
 	 */
-	public final List<? extends Object> search()
+	public List<? extends R> search()
 	{
 		check();
 		
@@ -247,7 +247,7 @@ public final class Query
 		{
 			if(makeStatementInfo)
 				addStatementInfo(new StatementInfo("skipped search because limitCount==0"));
-			return Collections.<Object>emptyList();
+			return Collections.<R>emptyList();
 		}
 		
 		return model.getCurrentTransaction().search(
@@ -255,9 +255,15 @@ public final class Query
 		);
 	}
 	
-	List<? extends Object> searchUncached()
+	List<? extends R> searchUncached()
 	{
-		return Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false));
+		return castQL(Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false)));
+	}
+	
+	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
+	private List<? extends R> castQL(final List o)
+	{
+		return o;
 	}
 	
 	/**
@@ -275,7 +281,7 @@ public final class Query
 		return ((Integer)result.iterator().next()).intValue();
 	}
 
-	private final void check()
+	private void check()
 	{
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		if(condition!=null)
@@ -306,7 +312,7 @@ public final class Query
 	 * This method does it's best to avoid issuing two queries
 	 * for searching and counting.
 	 */
-	public final Result searchAndCountWithoutLimit()
+	public Result searchAndCountWithoutLimit()
 	{
 		final Collection data = search();
 		final int dataSize = data.size();
@@ -365,12 +371,12 @@ public final class Query
 	 * @throws RuntimeException if the search result size is greater than one.
 	 * @see Type#searchUnique(Condition)
 	 */
-	public Object searchUnique()
+	public R searchUnique()
 	{
-		final Iterator searchResult = search().iterator();
+		final Iterator<? extends R> searchResult = search().iterator();
 		if(searchResult.hasNext())
 		{
-			final Object result = searchResult.next();
+			final R result = searchResult.next();
 			if(searchResult.hasNext())
 				throw new RuntimeException(toString());
 			else
@@ -453,7 +459,7 @@ public final class Query
 		final Model model;
 		final Function[] selects;
 		final Type type;
-		final ArrayList joins;
+		final ArrayList<Join> joins;
 		final Condition condition;
 
 		final Function[] orderBy;
@@ -467,7 +473,7 @@ public final class Query
 		String name = null;
 		int hits = 0;
 		
-		Key( final Query query )
+		Key(final Query<? extends Object> query)
 		{
 			model = query.model;
 			selects = query.selects;

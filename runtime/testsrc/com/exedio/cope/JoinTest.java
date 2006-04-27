@@ -17,6 +17,8 @@
  */
 package com.exedio.cope;
 
+import java.util.List;
+
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 
@@ -43,29 +45,29 @@ public class JoinTest extends TestmodelTest
 		assertNotEquals(PointerItem.pointer.equalTarget(), PointerItem.pointer2.equalTarget());
 		
 		{
-			final Query query = PointerTargetItem.TYPE.newQuery(null);
+			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
 			final Join join = query.join(PointerItem.TYPE, PointerItem.code.isNotNull());
 			assertEquals(list(join), query.getJoins());
 			assertContains(item2b, item2a, item2b, item2a, query.search());
 		}
 		{
-			final Query query = PointerTargetItem.TYPE.newQuery(null);
+			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item2b, item2a, query.search());
 		}
 		{
-			final Query query = new Query(PointerItem.TYPE.getThis(), PointerTargetItem.TYPE, null);
+			final Query<PointerItem> query = new Query<PointerItem>(PointerItem.TYPE.getThis(), PointerTargetItem.TYPE, null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1b, item1a, query.search());
 		}
 		{
-			final Query query = PointerTargetItem.TYPE.newQuery(null);
+			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
 			query.join(PointerItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertContains(item2b, query.search());
 		}
 		{
-			final Query query = PointerItem.TYPE.newQuery(PointerTargetItem.code.equal("item2a"));
+			final Query<PointerItem> query = PointerItem.TYPE.newQuery(PointerTargetItem.code.equal("item2a"));
 			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1a, query.search());
 		}
@@ -79,7 +81,7 @@ public class JoinTest extends TestmodelTest
 			assertEquals(list(item1a, item1b), query.search());
 		}
 		{
-			final Query query = new Query(new Function[]{PointerTargetItem.code, PointerItem.TYPE.getThis(), PointerItem.code}, PointerTargetItem.TYPE, null);
+			final Query<List> query = new Query<List>(new Function[]{PointerTargetItem.code, PointerItem.TYPE.getThis(), PointerItem.code}, PointerTargetItem.TYPE, null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(
 					list("item1a2b", item1b, "item1b"),

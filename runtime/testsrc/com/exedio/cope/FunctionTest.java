@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.List;
+
 import com.exedio.cope.testmodel.StringItem;
 
 public class FunctionTest extends TestmodelTest
@@ -69,7 +71,7 @@ public class FunctionTest extends TestmodelTest
 		assertContains(
 				list("5ffff",  "5FFFF",  Integer.valueOf(5), "4ddd", "4DDD", Integer.valueOf(4), Integer.valueOf(9), Integer.valueOf(9)),
 				list("6ggggg", "6GGGGG", Integer.valueOf(6), "2b",   "2B",   Integer.valueOf(2), Integer.valueOf(8), Integer.valueOf(8)),
-				new Query(new Function[]{
+				new Query<List>(new Function[]{
 						item1.min4, item1.min4Upper, item1.min4UpperLength,
 						item1.max4, item1.max4Upper, item1.max4UpperLength,
 						item1.min4AndMax4UpperLength,

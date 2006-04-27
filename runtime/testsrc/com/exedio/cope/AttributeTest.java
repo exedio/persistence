@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
+import java.util.List;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -40,14 +40,14 @@ public abstract class AttributeTest extends TestmodelTest
 		deleteOnTearDown(item2 = new AttributeItem("someString2", 6, 7l, 2.3, false, someItem2, AttributeItem.SomeEnum.enumValue2));
 	}
 	
-	protected static Collection<? extends Object> search(final FunctionAttribute selectAttribute)
+	protected static <R> List<? extends R> search(final FunctionAttribute<? extends R> selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 	
-	protected static Collection<? extends Object> search(final FunctionAttribute selectAttribute, final Condition condition)
+	protected static <R> List<? extends R> search(final FunctionAttribute<? extends R> selectAttribute, final Condition condition)
 	{
-		return new Query(selectAttribute, condition).search();
+		return new Query<R>(selectAttribute, condition).search();
 	}
 	
 }
