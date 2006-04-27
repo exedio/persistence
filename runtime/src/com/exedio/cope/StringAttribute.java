@@ -161,10 +161,10 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		throws
 			LengthViolationException
 	{
-		// TODO SOON make only one call to stringValue.length()
-		if(value.length()<minimumLength)
+		final int length = value.length();
+		if(length<minimumLength)
 			throw new LengthViolationException(this, exceptionItem, value, true);
-		if(value.length()>maximumLength)
+		if(length>maximumLength)
 			throw new LengthViolationException(this, exceptionItem, value, false);
 	}
 	
