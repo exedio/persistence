@@ -70,7 +70,7 @@ public final class MediaServlet extends HttpServlet
 
 		try
 		{
-			final Model model = ServletUtil.getModel(getServletContext());
+			final Model model = ServletUtil.getModel(getServletConfig());
 			for(final Type<Item> type : model.getTypes())
 			{
 				for(final Feature feature : type.getDeclaredFeatures())

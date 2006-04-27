@@ -21,7 +21,7 @@ package com.exedio.copernica;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import javax.servlet.ServletContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -166,18 +166,18 @@ public final class CopernicaServlet extends CopsServlet
 	{
 		try
 		{
-			final ServletContext context = getServletContext();
-			final String providerName = context.getInitParameter("provider");
+			final ServletConfig config = getServletConfig();
+			final String providerName = config.getInitParameter("provider");
 			if(providerName==null)
 			{
-				final Model model = ServletUtil.getModel(context);
+				final Model model = ServletUtil.getModel(config);
 				return new PureCopernicaProvider(model);
 			}
 			else
 			{
 				final Class providerClass = Class.forName(providerName);
 				final CopernicaProvider provider = (CopernicaProvider)providerClass.newInstance();
-				provider.initialize(context);
+				provider.initialize(config);
 				return provider;
 			}
 		}

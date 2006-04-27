@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.ServletContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Attribute;
@@ -41,9 +41,9 @@ import com.exedio.cope.util.ServletUtil;
 public abstract class TransientCopernicaProvider implements CopernicaProvider
 {
 	
-	public void initialize(final ServletContext context)
+	public void initialize(final ServletConfig config)
 	{
-		ServletUtil.initialize(getModel(), context);
+		ServletUtil.initialize(getModel(), config);
 	}
 	
 	// Transient Languages

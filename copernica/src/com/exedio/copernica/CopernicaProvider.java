@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 
-import javax.servlet.ServletContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Attribute;
@@ -39,7 +39,7 @@ public interface CopernicaProvider
 	/**
 	 * Is called once after the constructor.
 	 */
-	void initialize(ServletContext context);
+	void initialize(ServletConfig config);
 	
 	Collection<? extends CopernicaLanguage> getDisplayLanguages();
 	
