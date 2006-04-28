@@ -69,6 +69,12 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return result;
 	}
 	
+	/**
+	 * Returns true, if a value for the attribute should be specified
+	 * on the creation of an item.
+	 * This default implementation returns
+	 * <tt>{@link #isFinal()} || {@link #isMandatory()}</tt>.
+	 */
 	public final boolean isInitial()
 	{
 		return isfinal || !optional;
