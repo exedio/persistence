@@ -109,11 +109,11 @@ abstract class CopeAttribute extends CopeFeature
 			return true;
 		
 		final Feature instance = getInstance();
-		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
-		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
-		final boolean isView = instance instanceof View;
-
-		return (isfinal || notNull) && !isView;
+		if(!(instance instanceof Attribute)) // TODO Settable instead of Attribute
+			return false;
+		
+		final Attribute attribute = (Attribute)instance;
+		return attribute.isFinal() || attribute.isMandatory();
 	}
 
 	// TODO: put into rtlib
