@@ -69,6 +69,11 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return result;
 	}
 	
+	public final boolean isInitial()
+	{
+		return isfinal || !optional;
+	}
+	
 	abstract void checkValue(final Object value, final Item item);
 		
 	// patterns ---------------------------------------------------------------------

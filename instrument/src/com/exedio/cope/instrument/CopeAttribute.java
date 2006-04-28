@@ -102,7 +102,6 @@ abstract class CopeAttribute extends CopeFeature
 		throw new RuntimeException();
 	}
 	
-	// TODO: put into rtlib
 	final boolean isInitial()
 	{
 		if(initial)
@@ -112,8 +111,7 @@ abstract class CopeAttribute extends CopeFeature
 		if(!(instance instanceof Attribute)) // TODO Settable instead of Attribute
 			return false;
 		
-		final Attribute attribute = (Attribute)instance;
-		return attribute.isFinal() || attribute.isMandatory();
+		return ((Attribute)instance).isInitial();
 	}
 
 	// TODO: put into rtlib
