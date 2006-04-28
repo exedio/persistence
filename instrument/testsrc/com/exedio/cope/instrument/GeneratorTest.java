@@ -88,7 +88,6 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(STANDARD, new Class[]{
 				STRING, // notNullString
 				STRING, // finalString
-				STRING, // finalDefaultString TODO should not happen
 				STRING, // initialString
 				int.class, // nativeInteger
 				long.class, // nativeLong
