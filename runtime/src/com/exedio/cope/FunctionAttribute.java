@@ -86,7 +86,6 @@ public abstract class FunctionAttribute<E extends Object>
 	 */
 	public final boolean isInitial()
 	{
-		//return super.isInitial();
 		return isfinal || (!optional && defaultValue==null);
 	}
 	
