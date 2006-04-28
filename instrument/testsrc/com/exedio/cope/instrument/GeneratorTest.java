@@ -88,6 +88,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(STANDARD, new Class[]{
 				STRING, // notNullString
 				STRING, // finalString
+				STRING, // finalDefaultString TODO should not happen
 				STRING, // initialString
 				int.class, // nativeInteger
 				long.class, // nativeLong
@@ -109,6 +110,8 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "setNotNullString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "getFinalString", STRING, PUBLIC|FINAL);
 		assertNoMethod(STANDARD, "setFinalString", new Class[]{STRING});
+		assertMethod(STANDARD, "getFinalDefaultString", STRING, PUBLIC|FINAL);
+		assertNoMethod(STANDARD, "setFinalDefaultString", new Class[]{STRING});
 		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(STANDARD, "findByUniqueString", new Class[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);

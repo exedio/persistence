@@ -34,6 +34,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	private final StringAttribute stringAttribute;
 	private final String value;
 	private final boolean isTooShort;
+	private final int border;
 	
 	/**
 	 * Creates a new LengthViolationException with the neccessary information about the violation.
@@ -41,12 +42,13 @@ public final class LengthViolationException extends ConstraintViolationException
 	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationException(final StringAttribute stringAttribute, final Item item, final String value, final boolean isTooShort)
+	public LengthViolationException(final StringAttribute stringAttribute, final Item item, final String value, final boolean isTooShort, final int border)
 	{
 		super(stringAttribute, item, null);
 		this.stringAttribute = stringAttribute;
 		this.value = value;
 		this.isTooShort = isTooShort;
+		this.border = border;
 	}
 	
 	/**
@@ -76,7 +78,9 @@ public final class LengthViolationException extends ConstraintViolationException
 			"length violation on " + getItemID() +
 			", '" + value + "' is too " +
 			(isTooShort?"short":"long") +
-			" for "+ stringAttribute;
+			" for "+ stringAttribute +
+			", must be at " + (isTooShort?"least":"most") +
+			' ' + border + " characters.";
 	}
 	
 	public String getMessageWithoutFeature()
@@ -84,7 +88,9 @@ public final class LengthViolationException extends ConstraintViolationException
 		return
 			"length violation on " + getItemID() +
 			", '" + value + "' is too " +
-			(isTooShort?"short":"long");
+			(isTooShort?"short":"long") +
+			", must be at " + (isTooShort?"least":"most") +
+			' ' + border + " characters.";
 	}
 	
 }

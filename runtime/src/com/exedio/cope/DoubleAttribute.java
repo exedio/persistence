@@ -29,6 +29,7 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 	private DoubleAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultValue)
 	{
 		super(isfinal, optional, unique, defaultValue);
+		checkDefaultValue();
 	}
 	
 	public DoubleAttribute(final Option option)

@@ -46,7 +46,10 @@ public abstract class FunctionAttribute<E extends Object>
 			unique ?
 				new UniqueConstraint(this) :
 				null;
-		
+	}
+	
+	final void checkDefaultValue()
+	{
 		if(defaultValue!=null && !defaultValue.equals(""))
 		{
 			try
@@ -65,7 +68,7 @@ public abstract class FunctionAttribute<E extends Object>
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
 						": " + e.getMessageWithoutFeature() +
-						". Default value was '" + defaultValue + "'.");
+						" Default value was '" + defaultValue + "'.");
 			}
 		}
 	}

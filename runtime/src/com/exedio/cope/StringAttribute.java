@@ -44,6 +44,8 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 			throw new RuntimeException("maximum length must be greater zero, but was " + maximumLength + '.');
 		if(minimumLength>maximumLength)
 			throw new RuntimeException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
+		
+		checkDefaultValue();
 	}
 	
 	public StringAttribute(final Option option)
@@ -163,9 +165,9 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	{
 		final int length = value.length();
 		if(length<minimumLength)
-			throw new LengthViolationException(this, exceptionItem, value, true);
+			throw new LengthViolationException(this, exceptionItem, value, true, minimumLength);
 		if(length>maximumLength)
-			throw new LengthViolationException(this, exceptionItem, value, false);
+			throw new LengthViolationException(this, exceptionItem, value, false, maximumLength);
 	}
 	
 	public final EqualCondition equal(final Join join, final String value)

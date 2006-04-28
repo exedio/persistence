@@ -30,6 +30,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultValue)
 	{
 		super(isfinal, optional, unique, defaultValue);
+		checkDefaultValue();
 	}
 	
 	public IntegerAttribute(final Option option)

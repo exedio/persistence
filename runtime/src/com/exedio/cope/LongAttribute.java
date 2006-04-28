@@ -29,6 +29,7 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultValue)
 	{
 		super(isfinal, optional, unique, defaultValue);
+		checkDefaultValue();
 	}
 	
 	public LongAttribute(final Option option)

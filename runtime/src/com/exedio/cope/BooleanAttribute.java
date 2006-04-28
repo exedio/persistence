@@ -26,6 +26,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultValue)
 	{
 		super(isfinal, optional, unique, defaultValue);
+		checkDefaultValue();
 	}
 	
 	public BooleanAttribute(final Option option)

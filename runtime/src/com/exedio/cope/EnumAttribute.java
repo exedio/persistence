@@ -31,6 +31,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final E defaultValue)
 	{
 		super(isfinal, optional, unique, defaultValue);
+		checkDefaultValue();
 	}
 	
 	public EnumAttribute(final Option option)

@@ -26,6 +26,7 @@ public final class DayAttribute extends FunctionAttribute<Day>
 	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultValue)
 	{
 		super(isfinal, optional, unique, defaultValue);
+		checkDefaultValue();
 	}
 	
 	public DayAttribute(final Option option)

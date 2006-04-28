@@ -37,6 +37,8 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 			if(isfinal)
 				throw new RuntimeException("final attribute "+this+" cannot have delete policy nullify");
 		}
+		
+		checkDefaultValue();
 	}
 	
 	public ItemAttribute(final Option option)

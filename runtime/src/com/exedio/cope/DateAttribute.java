@@ -26,6 +26,7 @@ public final class DateAttribute extends FunctionAttribute<Date>
 	private DateAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Date defaultValue)
 	{
 		super(isfinal, optional, unique, defaultValue);
+		checkDefaultValue();
 	}
 	
 	public DateAttribute(final Option option)
