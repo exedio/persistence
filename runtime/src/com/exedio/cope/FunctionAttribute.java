@@ -124,13 +124,6 @@ public abstract class FunctionAttribute<E extends Object>
 		return (Class<E>)type;
 	}
 	
-	private boolean convertEmptyStrings = false;
-	
-	void materialize()
-	{
-		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
-	}
-	
 	public abstract FunctionAttribute<E> copyFunctionAttribute();
 
 	abstract E get(final Row row);
@@ -154,12 +147,6 @@ public abstract class FunctionAttribute<E extends Object>
 		}
 		else
 		{
-			// TODO SOON do this earlier to make this method available on non-initialized attributes 
-			if(value.equals("") &&
-					!optional &&
-					convertEmptyStrings)
-				throw new MandatoryViolationException(this, exceptionItem);
-			
 			if(!(valueClass.isAssignableFrom(value.getClass())))
 			{
 				throw new ClassCastException(

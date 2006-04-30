@@ -133,8 +133,11 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		return result;
 	}
 	
+	private boolean convertEmptyStrings = false;
+	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
+		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
 		return new StringColumn(table, name, optional, minimumLength, maximumLength);
 	}
 	
@@ -146,7 +149,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	void set(final Row row, final String surface)
 	{
 		final String cell;
-		if(getType().getModel().supportsEmptyStrings()) // TODO dont fetch this that often
+		if(!convertEmptyStrings)
 			cell = surface;
 		else
 		{
@@ -163,6 +166,9 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		throws
 			LengthViolationException
 	{
+		if(convertEmptyStrings && value.length()==0 && !optional)
+			throw new MandatoryViolationException(this, exceptionItem);
+		
 		final int length = value.length();
 		if(length<minimumLength)
 			throw new LengthViolationException(this, exceptionItem, value, true, minimumLength);
