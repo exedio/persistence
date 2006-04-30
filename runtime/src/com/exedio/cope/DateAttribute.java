@@ -70,7 +70,7 @@ public final class DateAttribute extends FunctionAttribute<Date>
 	 * Returns true, if a value for the attribute should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>{@link #isFinal()} || ({@link #isMandatory()} && {@link #getDefaultValue()}==null && ! {@link #isDefaultNow()})</tt>.
+	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultValue() getDefaultValue()}==null && ! {@link #isDefaultNow()})</tt>.
 	 */
 	public final boolean isInitial()
 	{

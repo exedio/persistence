@@ -88,7 +88,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * Returns true, if a value for the attribute should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>{@link #isFinal()} || ({@link #isMandatory()} && {@link #getDefaultValue()}==null)</tt>.
+	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultValue()}==null)</tt>.
 	 */
 	public boolean isInitial()
 	{
