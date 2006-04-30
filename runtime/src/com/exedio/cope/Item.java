@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.exedio.cope.Attribute.Option;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -461,18 +462,22 @@ public abstract class Item extends Cope
 		return new Type<C>(javaClass, id);
 	}
 	
-	/* TODO does not work with the instrumentor yet
-	protected static final <E extends Enum> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> javaClass)
+	public static final <E extends Enum> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> javaClass)
 	{
+		// TODO remove when EnumAttribute constructor takes javaClass
+		if(!Enum.class.isAssignableFrom(javaClass))
+			throw new RuntimeException("is not a subclass of " + javaClass.getName() + ": "+javaClass.getName());
+		
 		return new EnumAttribute<E>(option);
 	}
 	
-	protected static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass)
+	/* TODO does not work with the instrumentor yet
+	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass)
 	{
 		return new ItemAttribute<E>(option);
 	}
 	
-	protected static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass, final DeletePolicy policy)
+	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass, final DeletePolicy policy)
 	{
 		return new ItemAttribute<E>(option, policy);
 	}

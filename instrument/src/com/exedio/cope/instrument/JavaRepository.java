@@ -270,8 +270,20 @@ final class JavaRepository
 			if(name.endsWith("Hash")) // TODO this is a hack
 				return DummyHash.class;
 			
+			final JavaClass javaClass = getJavaClass(name);
+			if(javaClass!=null)
+			{
+				//System.out.println("++++++++++++++++getClass(\""+name+"\") == "+javaClass+","+javaClass.isEnum);
+				if(javaClass.isEnum)
+					return DummyEnum.class;
+			}
+			
 			return null;
 		}
+	}
+	
+	static enum DummyEnum
+	{
 	}
 	
 	public static final class DummyHash extends Hash

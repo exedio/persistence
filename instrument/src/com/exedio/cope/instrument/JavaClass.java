@@ -42,6 +42,7 @@ final class JavaClass extends JavaFeature
 	
 	private final HashMap<String, JavaAttribute> attributes = new HashMap<String, JavaAttribute>();
 	private final ArrayList<JavaAttribute> attributeList = new ArrayList<JavaAttribute>();
+	final boolean isEnum;
 	final String classExtends;
 	final List<String> classImplements;
 	private String docComment;
@@ -52,12 +53,13 @@ final class JavaClass extends JavaFeature
 	 */
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
-			final int modifiers, final String name,
+			final int modifiers, final boolean isEnum, final String name,
 			final String classExtends, final List<String> classImplements)
 	throws InjectorParseException
 	{
 		super(file, parent, modifiers, null, name);
 		this.nameSpace = new NameSpace(file.nameSpace);
+		this.isEnum = isEnum;
 		this.classExtends = classExtends;
 		this.classImplements = Collections.unmodifiableList(classImplements);
 		file.add(this);

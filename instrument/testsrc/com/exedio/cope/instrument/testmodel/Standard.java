@@ -63,8 +63,8 @@ public class Standard extends Item
 	public static final DateAttribute mandatoryDate = new DateAttribute(MANDATORY);
 	private static final DateAttribute privateDate = new DateAttribute(OPTIONAL);
 
-	public static final EnumAttribute<Enum1> mandatoryEnum = new EnumAttribute<Enum1>(MANDATORY);
-	protected static final EnumAttribute<Enum2> protectedEnum = new EnumAttribute<Enum2>(OPTIONAL);
+	public static final EnumAttribute<Enum1> mandatoryEnum = newEnumAttribute(MANDATORY, Enum1.class);
+	protected static final EnumAttribute<Enum2> protectedEnum = newEnumAttribute(OPTIONAL, Enum2.class);
 	
 	public enum Enum1
 	{

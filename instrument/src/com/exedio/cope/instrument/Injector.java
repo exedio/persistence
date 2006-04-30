@@ -570,7 +570,7 @@ final class Injector
 				if(readToken()!='{')
 					throw new ParseException("'{' expected");
 				parseBody(false, null);
-				final JavaClass result = new JavaClass(javaFile, parent, modifiers, enumName, null, Collections.<String>emptyList());
+				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null, Collections.<String>emptyList());
 				
 				consumer.onClass(result);
 				result.setClassEndPosition(output.length());
@@ -852,7 +852,7 @@ final class Injector
 			}
 		}
 		
-		final JavaClass jc = new JavaClass(javaFile, parent, modifiers, classname, classExtends, classImplements);
+		final JavaClass jc = new JavaClass(javaFile, parent, modifiers, false, classname, classExtends, classImplements);
 		//cc.print(System.out);
 
 		consumer.onClass(jc);
