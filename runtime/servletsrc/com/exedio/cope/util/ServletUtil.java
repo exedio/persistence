@@ -29,8 +29,8 @@ import com.exedio.cope.Model;
 
 public class ServletUtil
 {
-	public static final String PARAMETER_MODEL = "model";
-	public static final char DIVIDER = '#';
+	private static final String PARAMETER_MODEL = "model";
+	private static final char DIVIDER = '#';
 
 	public static final Model getModel(final ServletConfig config)
 	{
