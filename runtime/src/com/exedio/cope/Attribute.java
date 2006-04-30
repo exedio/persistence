@@ -134,6 +134,12 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 			throw new RuntimeException();
 
 		this.column = createColumn(table, getName(), optional);
+		materialize();
+	}
+	
+	void materialize()
+	{
+		// empty default implementation
 	}
 	
 	final Column getColumn()

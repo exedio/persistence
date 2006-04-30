@@ -50,7 +50,7 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	final void checkDefaultValue()
 	{
-		if(defaultValue!=null && !defaultValue.equals(""))
+		if(defaultValue!=null)
 		{
 			try
 			{
@@ -118,10 +118,17 @@ public abstract class FunctionAttribute<E extends Object>
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // TODO remove when getClass is removed
 	private final Class<E> castClass(final java.lang.reflect.Type type)
 	{
 		return (Class<E>)type;
+	}
+	
+	private boolean convertEmptyStrings = false;
+	
+	void materialize()
+	{
+		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
 	}
 	
 	public abstract FunctionAttribute<E> copyFunctionAttribute();
@@ -150,7 +157,7 @@ public abstract class FunctionAttribute<E extends Object>
 			// TODO SOON do this earlier to make this method available on non-initialized attributes 
 			if(value.equals("") &&
 					!optional &&
-					!getType().getModel().supportsEmptyStrings()) // TODO dont call supportsEmptyStrings that often
+					convertEmptyStrings)
 				throw new MandatoryViolationException(this, exceptionItem);
 			
 			if(!(valueClass.isAssignableFrom(value.getClass())))
