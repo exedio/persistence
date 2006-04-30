@@ -121,12 +121,12 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumAttribute<SomeEnum> someEnum = new EnumAttribute<SomeEnum>(OPTIONAL);
+	public static final EnumAttribute<SomeEnum> someEnum = newEnumAttribute(OPTIONAL, SomeEnum.class);
 
 	/**
 	 * A mandatory enumeration attribute
 	 */
-	public static final EnumAttribute<SomeEnum> someNotNullEnum = new EnumAttribute<SomeEnum>(MANDATORY);
+	public static final EnumAttribute<SomeEnum> someNotNullEnum = newEnumAttribute(MANDATORY, SomeEnum.class);
 
 	/**
 	 * A data attribute.

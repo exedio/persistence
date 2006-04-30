@@ -44,9 +44,9 @@ public class DefaultToItem extends Item
 	}
 	
 	/* TODO does not work with the instrumentor yet
-	public static final EnumAttribute<State> enumOne = new EnumAttribute<State>(MANDATORY).defaultTo(State.ONE);
-	public static final EnumAttribute<State> enumTwo = new EnumAttribute<State>(OPTIONAL).defaultTo(State.TWO);
-	public static final EnumAttribute<State> enumNone = new EnumAttribute<State>(OPTIONAL);
+	public static final EnumAttribute<State> enumOne = newEnumAttribute(MANDATORY, State.class).defaultTo(State.ONE);
+	public static final EnumAttribute<State> enumTwo = newEnumAttribute(OPTIONAL, State.class).defaultTo(State.TWO);
+	public static final EnumAttribute<State> enumNone = newEnumAttribute(OPTIONAL, State.class);
 	*/
 
 	/**
