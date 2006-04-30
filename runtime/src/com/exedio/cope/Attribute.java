@@ -114,9 +114,9 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 
 	private Column column;
 	
-	void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType)
+	void initialize(final Type<? extends Item> type, final String name)
 	{
-		super.initialize(type, name, genericType);
+		super.initialize(type, name);
 		
 		final ArrayList<Pattern> patterns = patternsWhileTypeInitialization;
 		patternsWhileTypeInitialization = null;

@@ -27,7 +27,7 @@ public abstract class Feature
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType)
+	void initialize(final Type<? extends Item> type, final String name)
 	{
 		if(type==null)
 			throw new RuntimeException();

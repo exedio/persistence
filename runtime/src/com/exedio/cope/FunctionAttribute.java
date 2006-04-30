@@ -92,12 +92,12 @@ public abstract class FunctionAttribute<E extends Object>
 	final Class<E> valueClass; // TODO SOON move up
 	
 	@Override
-	final void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType/* TODO SOON remove */)
+	final void initialize(final Type<? extends Item> type, final String name)
 	{
-		super.initialize(type, name, genericType);
+		super.initialize(type, name);
 		
 		if(implicitUniqueConstraint!=null)
-			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, genericType);
+			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX);
 	}
 	
 	final void checkValueClass(final Class<? extends Object> superClass)

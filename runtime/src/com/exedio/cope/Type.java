@@ -145,7 +145,7 @@ public final class Type<C extends Item>
 						final Feature feature = (Feature)field.get(null); 
 						if(feature==null)
 							throw new RuntimeException(field.getName());
-						feature.initialize(this, field.getName(), field.getGenericType());
+						feature.initialize(this, field.getName());
 					}
 				}
 			}

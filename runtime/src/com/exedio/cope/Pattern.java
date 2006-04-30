@@ -49,9 +49,9 @@ package com.exedio.cope;
 public abstract class Pattern extends Feature
 {
 	@Override
-	final void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType)
+	final void initialize(final Type<? extends Item> type, final String name)
 	{
-		super.initialize(type, name, genericType);
+		super.initialize(type, name);
 		initialize();
 	}
 	
@@ -72,12 +72,12 @@ public abstract class Pattern extends Feature
 	
 	protected final void initialize(final Attribute<? extends Object> attribute, final String name)
 	{
-		attribute.initialize(getType(), name, (java.lang.reflect.Type)null);
+		attribute.initialize(getType(), name);
 	}
 	
 	protected final void initialize(final UniqueConstraint uniqueConstraint, final String name)
 	{
-		uniqueConstraint.initialize(getType(), name, (java.lang.reflect.Type)null);
+		uniqueConstraint.initialize(getType(), name);
 	}
 	
 	// Make non-final method from super class final
