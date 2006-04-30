@@ -466,7 +466,7 @@ public abstract class Item extends Cope
 	{
 		// TODO remove when EnumAttribute constructor takes javaClass
 		if(!Enum.class.isAssignableFrom(javaClass))
-			throw new RuntimeException("is not a subclass of " + javaClass.getName() + ": "+javaClass.getName());
+			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+javaClass.getName());
 		
 		return new EnumAttribute<E>(option);
 	}
