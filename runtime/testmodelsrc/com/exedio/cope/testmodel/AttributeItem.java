@@ -111,12 +111,12 @@ public class AttributeItem extends Item
 	/**
 	 * An attribute referencing another persistent item
 	 */
-	public static final ItemAttribute<EmptyItem> someItem = new ItemAttribute<EmptyItem>(OPTIONAL);
+	public static final ItemAttribute<EmptyItem> someItem = newItemAttribute(OPTIONAL, EmptyItem.class);
 
 	/**
 	 * An mandatory attribute referencing another persistent item
 	 */
-	public static final ItemAttribute<EmptyItem> someNotNullItem = new ItemAttribute<EmptyItem>(MANDATORY);
+	public static final ItemAttribute<EmptyItem> someNotNullItem = newItemAttribute(MANDATORY, EmptyItem.class);
 
 	/**
 	 * An enumeration attribute

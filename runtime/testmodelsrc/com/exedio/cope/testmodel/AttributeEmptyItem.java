@@ -29,9 +29,9 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class AttributeEmptyItem extends Item
 {
-	public static final ItemAttribute<AttributeItem> parent = new ItemAttribute<AttributeItem>(OPTIONAL, CASCADE);
+	public static final ItemAttribute<AttributeItem> parent = newItemAttribute(OPTIONAL, AttributeItem.class, CASCADE);
 
-	public static final ItemAttribute<EmptyItem> key = new ItemAttribute<EmptyItem>(OPTIONAL);
+	public static final ItemAttribute<EmptyItem> key = newItemAttribute(OPTIONAL, EmptyItem.class);
 	
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 

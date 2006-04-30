@@ -276,6 +276,8 @@ final class JavaRepository
 				//System.out.println("++++++++++++++++getClass(\""+name+"\") == "+javaClass+","+javaClass.isEnum);
 				if(javaClass.isEnum)
 					return DummyEnum.class;
+				if(isItem(javaClass))
+					return DummyItem.class;
 			}
 			
 			return null;
@@ -283,6 +285,10 @@ final class JavaRepository
 	}
 	
 	static enum DummyEnum
+	{
+	}
+	
+	static class DummyItem extends Item
 	{
 	}
 	

@@ -24,18 +24,18 @@ package com.exedio.cope;
 public class DeleteItem extends Item
 {
 
-	public static final ItemAttribute<DeleteItem> selfForbid = new ItemAttribute<DeleteItem>(OPTIONAL);
+	public static final ItemAttribute<DeleteItem> selfForbid = newItemAttribute(OPTIONAL, DeleteItem.class);
 
-	public static final ItemAttribute<DeleteItem> selfNullify = new ItemAttribute<DeleteItem>(OPTIONAL, NULLIFY);
+	public static final ItemAttribute<DeleteItem> selfNullify = newItemAttribute(OPTIONAL, DeleteItem.class, NULLIFY);
 
-	public static final ItemAttribute<DeleteItem> selfCascade = new ItemAttribute<DeleteItem>(OPTIONAL, CASCADE);
-	public static final ItemAttribute<DeleteItem> selfCascade2 = new ItemAttribute<DeleteItem>(OPTIONAL, CASCADE);
+	public static final ItemAttribute<DeleteItem> selfCascade = newItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
+	public static final ItemAttribute<DeleteItem> selfCascade2 = newItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
 	
-	public static final ItemAttribute<DeleteOtherItem> otherForbid = new ItemAttribute<DeleteOtherItem>(OPTIONAL);
+	public static final ItemAttribute<DeleteOtherItem> otherForbid = newItemAttribute(OPTIONAL, DeleteOtherItem.class);
 
-	public static final ItemAttribute<DeleteOtherItem> otherNullify = new ItemAttribute<DeleteOtherItem>(OPTIONAL, NULLIFY);
+	public static final ItemAttribute<DeleteOtherItem> otherNullify = newItemAttribute(OPTIONAL, DeleteOtherItem.class, NULLIFY);
 
-	public static final ItemAttribute<DeleteOtherItem> otherCascade = new ItemAttribute<DeleteOtherItem>(OPTIONAL, CASCADE);
+	public static final ItemAttribute<DeleteOtherItem> otherCascade = newItemAttribute(OPTIONAL, DeleteOtherItem.class, CASCADE);
 	
 
 	public String name = null;

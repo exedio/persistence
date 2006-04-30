@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.ItemAttribute.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -471,17 +472,23 @@ public abstract class Item extends Cope
 		return new EnumAttribute<E>(option);
 	}
 	
-	/* TODO does not work with the instrumentor yet
 	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass)
 	{
+		// TODO remove when ItemAttribute constructor takes javaClass
+		if(!Item.class.isAssignableFrom(javaClass))
+			throw new RuntimeException("is not a subclass of " + Item.class.getName() + ": "+javaClass.getName());
+		
 		return new ItemAttribute<E>(option);
 	}
 	
 	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass, final DeletePolicy policy)
 	{
+		// TODO remove when ItemAttribute constructor takes javaClass
+		if(!Item.class.isAssignableFrom(javaClass))
+			throw new RuntimeException("is not a subclass of " + Item.class.getName() + ": "+javaClass.getName());
+		
 		return new ItemAttribute<E>(option, policy);
 	}
-	*/
 	
 	// activation/deactivation -----------------------------------------------------
 	

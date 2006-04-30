@@ -30,7 +30,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 		new StringAttribute(UNIQUE_OPTIONAL);
 
 	public static final ItemAttribute<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		new ItemAttribute<NameLongNameLongNameLongNameLongNameLongNameLongItem>(OPTIONAL, NULLIFY);
+		newItemAttribute(OPTIONAL, NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);
 	
 /**
 

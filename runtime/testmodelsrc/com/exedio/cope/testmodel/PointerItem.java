@@ -30,13 +30,13 @@ public class PointerItem extends Item
 
 	public static final StringAttribute code = new StringAttribute(MANDATORY);
 	
-	public static final ItemAttribute<PointerTargetItem> pointer = new ItemAttribute<PointerTargetItem>(MANDATORY);
+	public static final ItemAttribute<PointerTargetItem> pointer = newItemAttribute(MANDATORY, PointerTargetItem.class);
 
-	public static final ItemAttribute<PointerTargetItem> pointer2 = new ItemAttribute<PointerTargetItem>(OPTIONAL);
+	public static final ItemAttribute<PointerTargetItem> pointer2 = newItemAttribute(OPTIONAL, PointerTargetItem.class);
 
-	public static final ItemAttribute<PointerItem> self = new ItemAttribute<PointerItem>(OPTIONAL);
+	public static final ItemAttribute<PointerItem> self = newItemAttribute(OPTIONAL, PointerItem.class);
 
-	public static final ItemAttribute<EmptyItem2> empty2 = new ItemAttribute<EmptyItem2>(OPTIONAL);
+	public static final ItemAttribute<EmptyItem2> empty2 = newItemAttribute(OPTIONAL, EmptyItem2.class);
 
 /**
 

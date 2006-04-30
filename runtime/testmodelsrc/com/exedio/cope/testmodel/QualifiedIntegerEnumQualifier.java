@@ -30,7 +30,7 @@ import com.exedio.cope.UniqueConstraint;
  */
 public class QualifiedIntegerEnumQualifier extends Item
 {
-	public static final ItemAttribute<QualifiedItem> up = new ItemAttribute<QualifiedItem>(FINAL, CASCADE);
+	public static final ItemAttribute<QualifiedItem> up = newItemAttribute(FINAL, QualifiedItem.class, CASCADE);
 	
 	public static final IntegerAttribute keyX = new IntegerAttribute(FINAL);
 	public static final EnumAttribute<KeyEnum> keyY = newEnumAttribute(FINAL, KeyEnum.class);
