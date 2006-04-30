@@ -56,19 +56,19 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
 	}
 	
-	private Type<? extends E> targetType = null;
-	private Type<? extends E> onlyPossibleTargetType = null;
+	private Type<? extends E> valueType = null;
+	private Type<? extends E> onlyPossibleValueType = null;
 	private StringColumn typeColumn = null;
 	
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */
-	public Type<? extends E> getTargetType() // TODO SOON rename to getValueType (and attributes)
+	public Type<? extends E> getTargetType() // TODO SOON rename to getValueType
 	{
-		if(targetType==null)
+		if(valueType==null)
 			throw new RuntimeException();
 
-		return targetType;
+		return valueType;
 	}
 	
 	/**
@@ -81,21 +81,21 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		if(targetType!=null)
+		if(valueType!=null)
 			throw new RuntimeException();
-		if(onlyPossibleTargetType!=null)
+		if(onlyPossibleValueType!=null)
 			throw new RuntimeException();
 		if(typeColumn!=null)
 			throw new RuntimeException();
 		
-		targetType = Type.findByJavaClass(valueClass);
-		targetType.registerReference(this);
+		valueType = Type.findByJavaClass(valueClass);
+		valueType.registerReference(this);
 		
 		final ItemColumn result = new ItemColumn(table, name, optional, valueClass, this);
 		
-		final String[] typeColumnValues = targetType.getTypesOfInstancesColumnValues();
+		final String[] typeColumnValues = valueType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
-			onlyPossibleTargetType = targetType.getOnlyPossibleTypeOfInstances();
+			onlyPossibleValueType = valueType.getOnlyPossibleTypeOfInstances();
 		else
 			typeColumn = new StringColumn(table, result.id + "Type"/* not equal to "name"! */, optional, typeColumnValues);
 
@@ -104,7 +104,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	
 	StringColumn getTypeColumn()
 	{
-		if(targetType==null)
+		if(valueType==null)
 			throw new RuntimeException();
 
 		return typeColumn;
@@ -138,7 +138,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 			}
 			else
 			{
-				cellType = onlyPossibleTargetType;
+				cellType = onlyPossibleValueType;
 				
 				if(cellType==null)
 					throw new RuntimeException();
