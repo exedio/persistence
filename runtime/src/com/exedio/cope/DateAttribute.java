@@ -22,33 +22,56 @@ import java.util.Date;
 
 public final class DateAttribute extends FunctionAttribute<Date>
 {
+	private final boolean defaultNow;
 
-	private DateAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Date defaultValue)
+	private DateAttribute(
+			final boolean isfinal, final boolean optional, final boolean unique,
+			final Date defaultValue, final boolean defaultNow)
 	{
 		super(isfinal, optional, unique, Date.class, defaultValue);
+		this.defaultNow = defaultNow;
+
+		assert !(defaultValue!=null && defaultNow);
 		checkDefaultValue();
 	}
 	
 	public DateAttribute(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique, null);
+		this(option.isFinal, option.optional, option.unique, null, false);
 	}
 	
 	public FunctionAttribute<Date> copyFunctionAttribute()
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, defaultNow);
 	}
 	
 	public DateAttribute defaultTo(final Date defaultValue)
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, false);
+	}
+	
+	public DateAttribute defaultToNow()
+	{
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, null, true);
+	}
+	
+	public boolean isDefaultNow()
+	{
+		return defaultNow;
+	}
+	
+	@Override
+	Date computeDefault()
+	{
+		return defaultNow ? new Date() : super.computeDefault();
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
+		final Model model = getType().getModel();
 		final boolean useLong =
-			getType().getModel().getProperties().getDatabaseDontSupportNativeDate() ||
-			!(getType().getModel().getDatabase().getDateTimestampType()!=null);
+			model.getProperties().getDatabaseDontSupportNativeDate() ||
+			!(model.getDatabase().getDateTimestampType()!=null);
 		
 		return
 				useLong

@@ -36,14 +36,25 @@ public class DefaultToTest extends AbstractLibTest
 		assertEquals(integer(5), DefaultToItem.integerFive.getDefaultValue());
 		assertEquals(integer(50), DefaultToItem.integerFifty.getDefaultValue());
 		assertEquals(null, DefaultToItem.integerNone.getDefaultValue());
+
 		assertEquals(date(8), DefaultToItem.dateEight.getDefaultValue());
 		assertEquals(date(80), DefaultToItem.dateEighty.getDefaultValue());
+		assertEquals(null, DefaultToItem.dateNow.getDefaultValue());
+		assertEquals(null, DefaultToItem.dateNowOpt.getDefaultValue());
 		assertEquals(null, DefaultToItem.dateNone.getDefaultValue());
 		
+		assertEquals(false, DefaultToItem.dateEight.isDefaultNow());
+		assertEquals(false, DefaultToItem.dateEighty.isDefaultNow());
+		assertEquals(true,  DefaultToItem.dateNow.isDefaultNow());
+		assertEquals(true,  DefaultToItem.dateNowOpt.isDefaultNow());
+		assertEquals(false, DefaultToItem.dateNone.isDefaultNow());
+		
 		{
+			final Date before = new Date();
 			final DefaultToItem item = new DefaultToItem(new SetValue[]{
 					DefaultToItem.booleanNone.map(false),
 			});
+			final Date after = new Date();
 			deleteOnTearDown(item);
 			assertEquals(TRUE, item.getBooleanTrue());
 			assertEquals(false, item.getBooleanNone());
@@ -52,6 +63,8 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(date(80), item.getDateEighty());
+			assertWithin(before, after, item.getDateNow());
+			assertWithin(before, after, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 		}
 		{
@@ -62,6 +75,9 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.integerFifty.map(51),
 					DefaultToItem.dateEight.map(date(9)),
 					DefaultToItem.dateEighty.map(date(81)),
+					DefaultToItem.dateNow.map(date(501)),
+					DefaultToItem.dateNowOpt.map(date(502)),
+					DefaultToItem.dateNone.map(date(503)),
 			});
 			deleteOnTearDown(item);
 			assertEquals(FALSE, item.getBooleanTrue());
@@ -71,15 +87,21 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(9), item.getDateEight());
 			assertEquals(date(81), item.getDateEighty());
-			assertEquals(null, item.getDateNone());
+			assertEquals(date(501), item.getDateNow());
+			assertEquals(date(502), item.getDateNowOpt());
+			assertEquals(date(503), item.getDateNone());
 		}
 		{
+			final Date before = new Date();
 			final DefaultToItem item = new DefaultToItem(new SetValue[]{
 					DefaultToItem.booleanTrue.map(null),
 					DefaultToItem.booleanNone.map(true),
 					DefaultToItem.integerFifty.map(null),
 					DefaultToItem.dateEighty.map(null),
+					DefaultToItem.dateNowOpt.map(null),
+					DefaultToItem.dateNone.map(null),
 			});
+			final Date after = new Date();
 			deleteOnTearDown(item);
 			assertEquals(null, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
@@ -88,9 +110,15 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(null, item.getDateEighty());
+			assertWithin(before, after, item.getDateNow());
+			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 		}
 
+		assertEquals(null, new DateAttribute(Item.MANDATORY).defaultTo(date(44)).defaultToNow().getDefaultValue());
+		assertEquals(true, new DateAttribute(Item.MANDATORY).defaultTo(date(44)).defaultToNow().isDefaultNow());
+		assertEquals(date(55), new DateAttribute(Item.MANDATORY).defaultToNow().defaultTo(date(55)).getDefaultValue());
+		assertEquals(false, new DateAttribute(Item.MANDATORY).defaultToNow().defaultTo(date(55)).isDefaultNow());
 		try
 		{
 			new StringAttribute(Item.OPTIONAL).lengthMax(3).defaultTo("1234");

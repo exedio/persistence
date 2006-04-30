@@ -148,7 +148,7 @@ public abstract class Item extends Cope
 			if(attribute instanceof FunctionAttribute)
 			{
 				final FunctionAttribute fa = (FunctionAttribute)attribute;
-				final Object defaultValue = fa.defaultValue;
+				final Object defaultValue = fa.computeDefault();
 				if(defaultValue!=null && !attributeValues.containsKey(attribute))
 					attributeValues.put(attribute, defaultValue);
 			}

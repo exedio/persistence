@@ -73,7 +73,13 @@ public abstract class FunctionAttribute<E extends Object>
 		}
 	}
 	
+	// TODO SOON rename to getDefaultConstant
 	public final E getDefaultValue()
+	{
+		return defaultValue;
+	}
+	
+	E computeDefault()
 	{
 		return defaultValue;
 	}
