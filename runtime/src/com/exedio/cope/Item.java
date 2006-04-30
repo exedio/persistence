@@ -220,7 +220,7 @@ public abstract class Item extends Cope
 		return pk;
 	}
 
-	public final Object get(final Function function)
+	public final <E> E get(final Function<E> function)
 	{
 		return function.get(this);
 	}
