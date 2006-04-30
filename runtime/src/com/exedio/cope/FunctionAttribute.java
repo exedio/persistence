@@ -34,6 +34,7 @@ public abstract class FunctionAttribute<E extends Object>
 	implements Function<E>
 {
 	final UniqueConstraint implicitUniqueConstraint;
+	final Class<E> valueClass;
 	final E defaultValue;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
@@ -88,8 +89,6 @@ public abstract class FunctionAttribute<E extends Object>
 	{
 		return isfinal || (!optional && defaultValue==null);
 	}
-	
-	final Class<E> valueClass; // TODO SOON move up
 	
 	@Override
 	final void initialize(final Type<? extends Item> type, final String name)
