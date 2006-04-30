@@ -65,6 +65,7 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(date(80), item.getDateEighty());
 			assertWithin(before, after, item.getDateNow());
 			assertWithin(before, after, item.getDateNowOpt());
+			assertEquals(item.getDateNow(), item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 		}
 		{
@@ -128,11 +129,11 @@ public class DefaultToTest extends AbstractLibTest
 		{
 			//e.printStackTrace();
 			assertEquals(
-					"The default value of the attribute does not comply to one of it's own constraints, " +
+					"The default constant of the attribute does not comply to one of it's own constraints, " +
 					"caused a LengthViolationException: " +
 					"length violation on a newly created item, '1234' is too long, " +
 					"must be at most 3 characters. " +
-					"Default value was '1234'.",
+					"Default constant was '1234'.",
 					e.getMessage());
 		}
 	}

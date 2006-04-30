@@ -22,7 +22,7 @@ import java.util.Date;
 
 public final class DateAttribute extends FunctionAttribute<Date>
 {
-	private final boolean defaultNow;
+	final boolean defaultNow;
 
 	private DateAttribute(
 			final boolean isfinal, final boolean optional, final boolean unique,
@@ -58,12 +58,6 @@ public final class DateAttribute extends FunctionAttribute<Date>
 	public boolean isDefaultNow()
 	{
 		return defaultNow;
-	}
-	
-	@Override
-	Date computeDefault()
-	{
-		return defaultNow ? new Date() : super.computeDefault();
 	}
 	
 	/**

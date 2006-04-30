@@ -78,11 +78,6 @@ public abstract class FunctionAttribute<E extends Object>
 		return defaultConstant;
 	}
 	
-	E computeDefault()
-	{
-		return defaultConstant;
-	}
-	
 	/**
 	 * Returns true, if a value for the attribute should be specified
 	 * on the creation of an item.

@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -143,13 +144,20 @@ public abstract class Item extends Cope
 		//System.out.println("create item "+type+" "+pk);
 		
 		final Map<Attribute, Object> attributeValues = executeSetValues(setValues, null);
+		Date now = null;
 		for(final Attribute attribute : type.getAttributes())
 		{
-			if(attribute instanceof FunctionAttribute)
+			if(attribute instanceof FunctionAttribute && !attributeValues.containsKey(attribute))
 			{
 				final FunctionAttribute fa = (FunctionAttribute)attribute;
-				final Object defaultValue = fa.computeDefault();
-				if(defaultValue!=null && !attributeValues.containsKey(attribute))
+				Object defaultValue = fa.defaultConstant;
+				if(defaultValue==null && fa instanceof DateAttribute && ((DateAttribute)fa).defaultNow)
+				{
+					if(now==null)
+						now = new Date();
+					defaultValue = now;
+				}
+				if(defaultValue!=null)
 					attributeValues.put(attribute, defaultValue);
 			}
 		}
