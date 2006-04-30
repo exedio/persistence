@@ -182,20 +182,11 @@ final class JavaRepository
 					return Item.class.isAssignableFrom(extendsClass);
 			}
 			{
-				final JavaClass byFullName = javaClassByFullName.get(classExtends);
-				//System.out.println("--------------*2"+byFullName);
-				if(byFullName!=null)
+				final JavaClass byName = getJavaClass(classExtends);
+				//System.out.println("--------------*2"+byName);
+				if(byName!=null)
 				{
-					javaClass = byFullName;
-					continue;
-				}
-			}
-			{
-				final JavaClass byShortName = javaClassByShortName.get(classExtends);
-				//System.out.println("--------------*3"+byShortName);
-				if(byShortName!=null)
-				{
-					javaClass = byShortName;
+					javaClass = byName;
 					continue;
 				}
 			}
@@ -229,6 +220,11 @@ final class JavaRepository
 			throw new RuntimeException(javaClass.getFullName());
 	}
 	
+	final JavaClass getJavaClass(final String name)
+	{
+		return (name.indexOf('.')<0) ? javaClassByShortName.get(name) : javaClassByFullName.get(name);
+	}
+	
 	void add(final CopeType copeType)
 	{
 		assert !buildStage;
@@ -243,7 +239,7 @@ final class JavaRepository
 	{
 		assert !buildStage;
 		
-		final JavaClass javaClass = (className.indexOf('.')<0) ? javaClassByShortName.get(className) : javaClassByFullName.get(className);
+		final JavaClass javaClass = getJavaClass(className);
 		if(javaClass==null)
 			throw new RuntimeException("no java class for "+className);
 		
