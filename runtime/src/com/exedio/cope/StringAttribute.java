@@ -34,7 +34,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultValue,
 			final int minimumLength, final int maximumLength)
 	{
-		super(isfinal, optional, unique, defaultValue);
+		super(isfinal, optional, unique, String.class, defaultValue);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 
@@ -79,12 +79,6 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	public StringAttribute defaultTo(final String defaultValue)
 	{
 		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, minimumLength, maximumLength);
-	}
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		return String.class;
 	}
 	
 	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)

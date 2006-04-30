@@ -25,7 +25,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 
 	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultValue)
 	{
-		super(isfinal, optional, unique, defaultValue);
+		super(isfinal, optional, unique, Boolean.class, defaultValue);
 		checkDefaultValue();
 	}
 	
@@ -42,12 +42,6 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	public BooleanAttribute defaultTo(final Boolean defaultValue)
 	{
 		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
-	}
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		return Boolean.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

@@ -463,31 +463,19 @@ public abstract class Item extends Cope
 		return new Type<C>(javaClass, id);
 	}
 	
-	public static final <E extends Enum> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> javaClass)
+	public static final <E extends Enum> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> valueClass)
 	{
-		// TODO remove when EnumAttribute constructor takes javaClass
-		if(!Enum.class.isAssignableFrom(javaClass))
-			throw new RuntimeException("is not a subclass of " + Enum.class.getName() + ": "+javaClass.getName());
-		
-		return new EnumAttribute<E>(option);
+		return new EnumAttribute<E>(option, valueClass);
 	}
 	
-	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass)
+	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> valueClass)
 	{
-		// TODO remove when ItemAttribute constructor takes javaClass
-		if(!Item.class.isAssignableFrom(javaClass))
-			throw new RuntimeException("is not a subclass of " + Item.class.getName() + ": "+javaClass.getName());
-		
-		return new ItemAttribute<E>(option);
+		return new ItemAttribute<E>(option, valueClass);
 	}
 	
-	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> javaClass, final DeletePolicy policy)
+	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
-		// TODO remove when ItemAttribute constructor takes javaClass
-		if(!Item.class.isAssignableFrom(javaClass))
-			throw new RuntimeException("is not a subclass of " + Item.class.getName() + ": "+javaClass.getName());
-		
-		return new ItemAttribute<E>(option, policy);
+		return new ItemAttribute<E>(option, valueClass, policy);
 	}
 	
 	// activation/deactivation -----------------------------------------------------

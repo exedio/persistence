@@ -29,7 +29,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 
 	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultValue)
 	{
-		super(isfinal, optional, unique, defaultValue);
+		super(isfinal, optional, unique, Integer.class, defaultValue);
 		checkDefaultValue();
 	}
 	
@@ -46,12 +46,6 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	public IntegerAttribute defaultTo(final Integer defaultValue)
 	{
 		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
-	}
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		return Integer.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

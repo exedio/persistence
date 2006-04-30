@@ -28,7 +28,7 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 
 	private DoubleAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultValue)
 	{
-		super(isfinal, optional, unique, defaultValue);
+		super(isfinal, optional, unique, Double.class, defaultValue);
 		checkDefaultValue();
 	}
 	
@@ -45,12 +45,6 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 	public DoubleAttribute defaultTo(final Double defaultValue)
 	{
 		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
-	}
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		return Double.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

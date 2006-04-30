@@ -28,7 +28,7 @@ public final class LongAttribute extends FunctionAttribute<Long>
 
 	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultValue)
 	{
-		super(isfinal, optional, unique, defaultValue);
+		super(isfinal, optional, unique, Long.class, defaultValue);
 		checkDefaultValue();
 	}
 	
@@ -45,12 +45,6 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	public LongAttribute defaultTo(final Long defaultValue)
 	{
 		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
-	}
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		return Long.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

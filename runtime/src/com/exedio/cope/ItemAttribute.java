@@ -24,9 +24,10 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 
 	private final DeletePolicy policy;
 
-	private ItemAttribute(final boolean isfinal, final boolean optional, final boolean unique, final DeletePolicy policy)
+	private ItemAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, null/* defaultValue makes no sense for ItemAttribute */);
+		super(isfinal, optional, unique, valueClass, null/* defaultValue makes no sense for ItemAttribute */);
+		checkValueClass(Item.class);
 		this.policy = policy;
 		if(policy==null)
 			throw new RuntimeException("delete policy for attribute "+this+" must not be null");
@@ -37,33 +38,26 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 			if(isfinal)
 				throw new RuntimeException("final attribute "+this+" cannot have delete policy nullify");
 		}
-		
+		this.targetTypeClass = valueClass;
 		checkDefaultValue();
 	}
 	
-	public ItemAttribute(final Option option)
+	public ItemAttribute(final Option option, final Class<E> valueClass)
 	{
-		this(option, Item.FORBID);
+		this(option, valueClass, Item.FORBID);
 	}
 	
-	public ItemAttribute(final Option option, final DeletePolicy policy)
+	public ItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
-		this(option.isFinal, option.optional, option.unique, policy);
+		this(option.isFinal, option.optional, option.unique, valueClass, policy);
 	}
 
 	public FunctionAttribute<E> copyFunctionAttribute()
 	{
-		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, policy);
+		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
 	}
 	
-	private Class<E> targetTypeClass = null;
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		targetTypeClass = getClass(genericType, Item.class); // TODO get targetTypeClass in constructor
-		return targetTypeClass;
-	}
+	private final Class<E> targetTypeClass; // TODO SOON remove
 	
 	private Type<? extends E> targetType = null;
 	private Type<? extends E> onlyPossibleTargetType = null;

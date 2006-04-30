@@ -25,7 +25,7 @@ public final class DayAttribute extends FunctionAttribute<Day>
 	
 	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultValue)
 	{
-		super(isfinal, optional, unique, defaultValue);
+		super(isfinal, optional, unique, Day.class, defaultValue);
 		checkDefaultValue();
 	}
 	
@@ -42,12 +42,6 @@ public final class DayAttribute extends FunctionAttribute<Day>
 	public DayAttribute defaultTo(final Day defaultValue)
 	{
 		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
-	}
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		return Day.class;
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

@@ -27,27 +27,17 @@ import bak.pcj.map.IntKeyOpenHashMap;
 
 public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 {
+	private final List<E> values;
+	private final IntKeyOpenHashMap numbersToValues;
+	private final HashMap<E, Integer> valuesToNumbers;
+	private final HashMap<String, E> codesToValues;
 	
-	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final E defaultValue)
+	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultValue)
 	{
-		super(isfinal, optional, unique, defaultValue);
-		checkDefaultValue();
-	}
-	
-	public EnumAttribute(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null);
-	}
-	
-	private List<E> values = null;
-	private IntKeyOpenHashMap numbersToValues = null;
-	private HashMap<E, Integer> valuesToNumbers = null;
-	private HashMap<String, E> codesToValues = null;
-	
-	@Override
-	Class initialize(final java.lang.reflect.Type genericType)
-	{
-		final Class<E> enumClass = getClass(genericType, Enum.class); // TODO get enumClass in constructor
+		super(isfinal, optional, unique, valueClass, defaultValue);
+		checkValueClass(Enum.class);
+
+		final Class<E> enumClass = valueClass; // TODO SOON remove
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
@@ -79,7 +69,7 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		this.valuesToNumbers = valuesToNumbers;
 		this.codesToValues = codesToValues;
 		
-		return enumClass;
+		checkDefaultValue();
 	}
 	
 	@SuppressWarnings("unchecked") // TODO pcj.IntKeyOpenHashMap does not support generics
@@ -88,9 +78,14 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return (E)o;
 	}
 	
+	public EnumAttribute(final Option option, final Class<E> valueClass)
+	{
+		this(option.isFinal, option.optional, option.unique, valueClass, null);
+	}
+	
 	public FunctionAttribute<E> copyFunctionAttribute()
 	{
-		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultValue);
 	}
 	
 	/* TODO does not work with the instrumentor yet

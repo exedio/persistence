@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,9 +37,10 @@ public abstract class FunctionAttribute<E extends Object>
 	final E defaultValue;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
-	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique, final E defaultValue)
+	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultValue)
 	{
 		super(isfinal, optional);
+		this.valueClass = valueClass;
 		this.defaultValue = defaultValue;
 		this.implicitUniqueConstraint =
 			unique ?
@@ -89,39 +89,21 @@ public abstract class FunctionAttribute<E extends Object>
 		return isfinal || (!optional && defaultValue==null);
 	}
 	
-	private Class<?> valueClass;
+	final Class<E> valueClass; // TODO SOON move up
 	
 	@Override
-	final void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType)
+	final void initialize(final Type<? extends Item> type, final String name, final java.lang.reflect.Type genericType/* TODO SOON remove */)
 	{
 		super.initialize(type, name, genericType);
 		
 		if(implicitUniqueConstraint!=null)
 			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, genericType);
-		
-		valueClass = initialize(genericType); // TODO get valueClass in constructor
 	}
 	
-	abstract Class initialize(java.lang.reflect.Type genericType);
-	
-	final Class<E> getClass(final java.lang.reflect.Type genericType, final Class<? extends Object> superClass)
+	final void checkValueClass(final Class<? extends Object> superClass)
 	{
-		final java.lang.reflect.Type[] results = ((ParameterizedType)genericType).getActualTypeArguments();
-		if(results.length!=1)
-			throw new RuntimeException("not a valid type for " + getClass().getSimpleName() + ": " + genericType);
-
-		final Class<E> result = castClass(results[0]);
-
-		if(!superClass.isAssignableFrom(result))
-			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+result.getName());
-		
-		return result;
-	}
-	
-	@SuppressWarnings("unchecked") // TODO remove when getClass is removed
-	private final Class<E> castClass(final java.lang.reflect.Type type)
-	{
-		return (Class<E>)type;
+		if(!superClass.isAssignableFrom(valueClass))
+			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
 	
 	public abstract FunctionAttribute<E> copyFunctionAttribute();
