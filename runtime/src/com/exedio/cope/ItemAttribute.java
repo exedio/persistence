@@ -63,7 +63,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */
-	public Type<? extends E> getTargetType() // TODO SOON rename to getValueType
+	public Type<? extends E> getValueType()
 	{
 		if(valueType==null)
 			throw new RuntimeException();
@@ -131,7 +131,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 				if(cellTypeID==null)
 					throw new RuntimeException("inconsistent type column");
 				
-				cellType = cast(getTargetType().getModel().findTypeByID(cellTypeID));
+				cellType = cast(getValueType().getModel().findTypeByID(cellTypeID));
 				
 				if(cellType==null)
 					throw new RuntimeException(cellTypeID);

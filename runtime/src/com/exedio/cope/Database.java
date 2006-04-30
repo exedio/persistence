@@ -396,7 +396,7 @@ abstract class Database
 					if(orderBy[i] instanceof ItemAttribute)
 					{
 						final ItemAttribute<? extends Item> itemOrderBy = (ItemAttribute<? extends Item>)orderBy[i];
-						itemOrderBy.getTargetType().getPkSource().appendOrderByExpression(bf, itemOrderBy);
+						itemOrderBy.getValueType().getPkSource().appendOrderByExpression(bf, itemOrderBy);
 					}
 					else if(orderBy[i] instanceof Type.This)
 					{

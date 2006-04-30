@@ -39,21 +39,21 @@ public final class EqualTargetCondition extends Condition // TODO replace by Equ
 		this.attribute = attribute;
 		this.targetJoin = targetJoin;
 		
-		if(targetJoin!=null && targetJoin.getType()!=attribute.getTargetType())
-			throw new RuntimeException("invalid type of join, expected "+targetJoin.getType()+" but was "+attribute.getTargetType());
+		if(targetJoin!=null && targetJoin.getType()!=attribute.getValueType())
+			throw new RuntimeException("invalid type of join, expected "+targetJoin.getType()+" but was "+attribute.getValueType());
 	}
 
 	void append(final Statement bf)
 	{
 		bf.append(attribute, (Join)null).
 			append('=').
-			appendPK(attribute.getTargetType(), targetJoin);
+			appendPK(attribute.getValueType(), targetJoin);
 	}
 
 	void check(final Query query)
 	{
 		check(attribute, query);
-		check(attribute.getTargetType(), query);
+		check(attribute.getValueType(), query);
 	}
 
 	public boolean equals(final Object other)
@@ -73,7 +73,7 @@ public final class EqualTargetCondition extends Condition // TODO replace by Equ
 
 	public String toString()
 	{
-		return attribute.getName() + "=" + attribute.getTargetType().getJavaClass().getName() + ".PK";
+		return attribute.getName() + "=" + attribute.getValueType().getJavaClass().getName() + ".PK";
 	}
 
 }
