@@ -54,6 +54,7 @@ public final class Type<C extends Item>
 	
 	private Model model;
 	private ArrayList<Type<? extends C>> typesOfInstances;
+	private HashMap<String, Type<? extends C>> typesOfInstancesMap;
 	private Type<? extends C> onlyPossibleTypeOfInstances;
 	private String[] typesOfInstancesColumnValues;
 	
@@ -299,6 +300,8 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		if(this.typesOfInstances!=null)
 			throw new RuntimeException();
+		if(this.typesOfInstancesMap!=null)
+			throw new RuntimeException();
 		if(this.onlyPossibleTypeOfInstances!=null)
 			throw new RuntimeException();
 		if(this.typesOfInstancesColumnValues!=null)
@@ -323,10 +326,16 @@ public final class Type<C extends Item>
 				onlyPossibleTypeOfInstances = castTypeInstance(typesOfInstances.iterator().next());
 				break;
 			default:
+				final HashMap<String, Type> typesOfInstancesMap = new HashMap<String, Type>();
 				typesOfInstancesColumnValues = new String[typesOfInstances.size()];
 				int i = 0;
 				for(final Type t : typesOfInstances)
+				{
+					if(typesOfInstancesMap.put(t.id, t)!=null)
+						throw new RuntimeException(t.id);
 					typesOfInstancesColumnValues[i++] = t.id;
+				}
+				this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
 				break;
 		}
 		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
@@ -336,6 +345,12 @@ public final class Type<C extends Item>
 	private ArrayList<Type<? extends C>> castTypeInstanceArrayList(final ArrayList l)
 	{
 		return l;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
+	{
+		return m;
 	}
 	
 	private void collectTypesOfInstances(final ArrayList<Type> result, int levelLimit)
@@ -410,6 +425,11 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 
 		return Collections.unmodifiableList(typesOfInstances);
+	}
+	
+	Type<? extends C> getTypeOfInstance(final String id)
+	{
+		return typesOfInstancesMap.get(id);
 	}
 	
 	Type<? extends C> getOnlyPossibleTypeOfInstances()

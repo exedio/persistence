@@ -131,7 +131,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 				if(cellTypeID==null)
 					throw new RuntimeException("inconsistent type column");
 				
-				cellType = cast(getValueType().getModel().findTypeByID(cellTypeID));
+				cellType = getValueType().getTypeOfInstance(cellTypeID);
 				
 				if(cellType==null)
 					throw new RuntimeException(cellTypeID);
@@ -148,12 +148,6 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		}
 	}
 	
-	@SuppressWarnings("unchecked") // OK: Model#findTypeByID cannot return checked types
-	private Type<? extends E> cast(Type t)
-	{
-		return t;
-	}
-		
 	void set(final Row row, final E surface)
 	{
 		if(surface==null)
