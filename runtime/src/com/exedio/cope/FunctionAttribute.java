@@ -90,7 +90,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * This implementation returns
 	 * <tt>{@link #isFinal()} || ({@link #isMandatory()} && {@link #getDefaultValue()}==null)</tt>.
 	 */
-	public final boolean isInitial()
+	public boolean isInitial()
 	{
 		return isfinal || (!optional && defaultValue==null);
 	}

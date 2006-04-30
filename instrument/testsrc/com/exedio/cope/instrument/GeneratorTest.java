@@ -145,6 +145,10 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "setPrivateDate", new Class[]{Date.class}, PRIVATE|FINAL);
 		assertMethod(STANDARD, "touchPrivateDate", new Class[]{}, PRIVATE|FINAL);
 
+		assertMethod(STANDARD, "getNowDate", Date.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setNowDate", new Class[]{Date.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "touchNowDate", new Class[]{}, PUBLIC|FINAL);
+
 		assertMethod(STANDARD, "getMandatoryEnum", Standard.Enum1.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setMandatoryEnum", new Class[]{Standard.Enum1.class}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "getProtectedEnum", Enum2.class, PROTECTED|FINAL);

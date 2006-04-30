@@ -66,6 +66,17 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		return defaultNow ? new Date() : super.computeDefault();
 	}
 	
+	/**
+	 * Returns true, if a value for the attribute should be specified
+	 * on the creation of an item.
+	 * This implementation returns
+	 * <tt>{@link #isFinal()} || ({@link #isMandatory()} && {@link #getDefaultValue()}==null && ! {@link #isDefaultNow()})</tt>.
+	 */
+	public final boolean isInitial()
+	{
+		return isfinal || (!optional && (defaultValue==null && !defaultNow));
+	}
+	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final Model model = getType().getModel();
