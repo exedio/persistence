@@ -75,6 +75,18 @@ class CopeNameSpace extends NameSpace
 		return super.getVariableImpl(name, recurse);
 	}
 	
+	protected Variable getImportedVar(final String name) throws bsh.UtilEvalError
+	{
+		System.out.println("++++++++++++++++getImportedVar(\""+name+"\")");
+		return super.getImportedVar(name);
+	}
+	
+	public String[] getVariableNames()
+	{
+		System.out.println("++++++++++++++++getVariableNames()");
+		return super.getVariableNames();
+	}
+	
 	public Variable[] getDeclaredVariables()
 	{
 		System.out.println("++++++++++++++++getDeclaredVariables()");
