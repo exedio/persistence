@@ -27,9 +27,9 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class IntegerAttribute extends FunctionAttribute<Integer> implements IntegerFunction
 {
 
-	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultValue)
+	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultConstant)
 	{
-		super(isfinal, optional, unique, Integer.class, defaultValue);
+		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
@@ -40,12 +40,12 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	
 	public FunctionAttribute<Integer> copyFunctionAttribute()
 	{
-		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 
-	public IntegerAttribute defaultTo(final Integer defaultValue)
+	public IntegerAttribute defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

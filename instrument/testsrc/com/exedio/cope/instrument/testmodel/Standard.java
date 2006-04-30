@@ -43,7 +43,7 @@ public class Standard extends Item
 	public static final StringAttribute defaultString = new StringAttribute(OPTIONAL);
 	public static final StringAttribute notNullString = new StringAttribute(MANDATORY);
 	public static final StringAttribute finalString = new StringAttribute(FINAL_OPTIONAL);
-	public static final StringAttribute defaultToString = new StringAttribute(MANDATORY).defaultTo("defaultValue for finalDefaultString");
+	public static final StringAttribute defaultToString = new StringAttribute(MANDATORY).defaultTo("defaultConstant for finalDefaultString");
 	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE_OPTIONAL);
 	/** @cope.initial */
 	public static final StringAttribute initialString = new StringAttribute(OPTIONAL);

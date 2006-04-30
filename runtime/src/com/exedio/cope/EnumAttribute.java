@@ -32,9 +32,9 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 	private final HashMap<E, Integer> valuesToNumbers;
 	private final HashMap<String, E> codesToValues;
 	
-	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultValue)
+	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
-		super(isfinal, optional, unique, valueClass, defaultValue);
+		super(isfinal, optional, unique, valueClass, defaultConstant);
 		checkValueClass(Enum.class);
 
 		final ArrayList<E> values = new ArrayList<E>();
@@ -78,13 +78,13 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 	
 	public FunctionAttribute<E> copyFunctionAttribute()
 	{
-		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultValue);
+		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
 	
 	/* TODO does not work with the instrumentor yet
-	public EnumAttribute<E> defaultTo(final E defaultValue)
+	public EnumAttribute<E> defaultTo(final E defaultConstant)
 	{
-		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	*/
 	

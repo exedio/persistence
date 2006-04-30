@@ -23,9 +23,9 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 {
 	static final int[] ALLOWED_VALUES = {0, 1};
 
-	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultValue)
+	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
 	{
-		super(isfinal, optional, unique, Boolean.class, defaultValue);
+		super(isfinal, optional, unique, Boolean.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
@@ -36,12 +36,12 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	
 	public FunctionAttribute<Boolean> copyFunctionAttribute()
 	{
-		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
-	public BooleanAttribute defaultTo(final Boolean defaultValue)
+	public BooleanAttribute defaultTo(final Boolean defaultConstant)
 	{
-		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

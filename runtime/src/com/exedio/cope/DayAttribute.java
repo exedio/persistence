@@ -23,9 +23,9 @@ import com.exedio.cope.util.Day;
 public final class DayAttribute extends FunctionAttribute<Day>
 {
 	
-	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultValue)
+	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultConstant)
 	{
-		super(isfinal, optional, unique, Day.class, defaultValue);
+		super(isfinal, optional, unique, Day.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
@@ -36,12 +36,12 @@ public final class DayAttribute extends FunctionAttribute<Day>
 	
 	public FunctionAttribute<Day> copyFunctionAttribute()
 	{
-		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
-	public DayAttribute defaultTo(final Day defaultValue)
+	public DayAttribute defaultTo(final Day defaultConstant)
 	{
-		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

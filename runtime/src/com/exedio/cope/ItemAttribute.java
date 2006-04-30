@@ -26,7 +26,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 
 	private ItemAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, valueClass, null/* defaultValue makes no sense for ItemAttribute */);
+		super(isfinal, optional, unique, valueClass, null/* defaultConstant makes no sense for ItemAttribute */);
 		checkValueClass(Item.class);
 		this.policy = policy;
 		if(policy==null)

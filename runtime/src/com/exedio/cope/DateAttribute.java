@@ -26,12 +26,12 @@ public final class DateAttribute extends FunctionAttribute<Date>
 
 	private DateAttribute(
 			final boolean isfinal, final boolean optional, final boolean unique,
-			final Date defaultValue, final boolean defaultNow)
+			final Date defaultConstant, final boolean defaultNow)
 	{
-		super(isfinal, optional, unique, Date.class, defaultValue);
+		super(isfinal, optional, unique, Date.class, defaultConstant);
 		this.defaultNow = defaultNow;
 
-		assert !(defaultValue!=null && defaultNow);
+		assert !(defaultConstant!=null && defaultNow);
 		checkDefaultValue();
 	}
 	
@@ -42,12 +42,12 @@ public final class DateAttribute extends FunctionAttribute<Date>
 	
 	public FunctionAttribute<Date> copyFunctionAttribute()
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, defaultNow);
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
 	}
 	
-	public DateAttribute defaultTo(final Date defaultValue)
+	public DateAttribute defaultTo(final Date defaultConstant)
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue, false);
+		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, false);
 	}
 	
 	public DateAttribute defaultToNow()
@@ -70,11 +70,11 @@ public final class DateAttribute extends FunctionAttribute<Date>
 	 * Returns true, if a value for the attribute should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultValue() getDefaultValue()}==null && ! {@link #isDefaultNow()})</tt>.
+	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()})</tt>.
 	 */
 	public final boolean isInitial()
 	{
-		return isfinal || (!optional && (defaultValue==null && !defaultNow));
+		return isfinal || (!optional && (defaultConstant==null && !defaultNow));
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)

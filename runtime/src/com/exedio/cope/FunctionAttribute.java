@@ -35,14 +35,14 @@ public abstract class FunctionAttribute<E extends Object>
 {
 	final UniqueConstraint implicitUniqueConstraint;
 	final Class<E> valueClass;
-	final E defaultValue;
+	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
-	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultValue)
+	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional);
 		this.valueClass = valueClass;
-		this.defaultValue = defaultValue;
+		this.defaultConstant = defaultConstant;
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint(this) :
@@ -51,11 +51,11 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	final void checkDefaultValue()
 	{
-		if(defaultValue!=null)
+		if(defaultConstant!=null)
 		{
 			try
 			{
-				checkValue(defaultValue, null);
+				checkValue(defaultConstant, null);
 			}
 			catch(ConstraintViolationException e)
 			{
@@ -64,35 +64,34 @@ public abstract class FunctionAttribute<E extends Object>
 				// since it contains a reference to this function attribute,
 				// which has not been constructed successfully.
 				throw new RuntimeException(
-						"The default value of the attribute " +
+						"The default constant of the attribute " +
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
 						": " + e.getMessageWithoutFeature() +
-						" Default value was '" + defaultValue + "'.");
+						" Default constant was '" + defaultConstant + "'.");
 			}
 		}
 	}
 	
-	// TODO SOON rename to getDefaultConstant
-	public final E getDefaultValue()
+	public final E getDefaultConstant()
 	{
-		return defaultValue;
+		return defaultConstant;
 	}
 	
 	E computeDefault()
 	{
-		return defaultValue;
+		return defaultConstant;
 	}
 	
 	/**
 	 * Returns true, if a value for the attribute should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultValue()}==null)</tt>.
+	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant()}==null)</tt>.
 	 */
 	public boolean isInitial()
 	{
-		return isfinal || (!optional && defaultValue==null);
+		return isfinal || (!optional && defaultConstant==null);
 	}
 	
 	@Override

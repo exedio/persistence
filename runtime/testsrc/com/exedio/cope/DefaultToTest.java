@@ -31,17 +31,17 @@ public class DefaultToTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(TRUE, DefaultToItem.booleanTrue.getDefaultValue());
-		assertEquals(null, DefaultToItem.booleanNone.getDefaultValue());
-		assertEquals(integer(5), DefaultToItem.integerFive.getDefaultValue());
-		assertEquals(integer(50), DefaultToItem.integerFifty.getDefaultValue());
-		assertEquals(null, DefaultToItem.integerNone.getDefaultValue());
+		assertEquals(TRUE, DefaultToItem.booleanTrue.getDefaultConstant());
+		assertEquals(null, DefaultToItem.booleanNone.getDefaultConstant());
+		assertEquals(integer(5), DefaultToItem.integerFive.getDefaultConstant());
+		assertEquals(integer(50), DefaultToItem.integerFifty.getDefaultConstant());
+		assertEquals(null, DefaultToItem.integerNone.getDefaultConstant());
 
-		assertEquals(date(8), DefaultToItem.dateEight.getDefaultValue());
-		assertEquals(date(80), DefaultToItem.dateEighty.getDefaultValue());
-		assertEquals(null, DefaultToItem.dateNow.getDefaultValue());
-		assertEquals(null, DefaultToItem.dateNowOpt.getDefaultValue());
-		assertEquals(null, DefaultToItem.dateNone.getDefaultValue());
+		assertEquals(date(8), DefaultToItem.dateEight.getDefaultConstant());
+		assertEquals(date(80), DefaultToItem.dateEighty.getDefaultConstant());
+		assertEquals(null, DefaultToItem.dateNow.getDefaultConstant());
+		assertEquals(null, DefaultToItem.dateNowOpt.getDefaultConstant());
+		assertEquals(null, DefaultToItem.dateNone.getDefaultConstant());
 		
 		assertEquals(false, DefaultToItem.dateEight.isDefaultNow());
 		assertEquals(false, DefaultToItem.dateEighty.isDefaultNow());
@@ -115,9 +115,9 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getDateNone());
 		}
 
-		assertEquals(null, new DateAttribute(Item.MANDATORY).defaultTo(date(44)).defaultToNow().getDefaultValue());
+		assertEquals(null, new DateAttribute(Item.MANDATORY).defaultTo(date(44)).defaultToNow().getDefaultConstant());
 		assertEquals(true, new DateAttribute(Item.MANDATORY).defaultTo(date(44)).defaultToNow().isDefaultNow());
-		assertEquals(date(55), new DateAttribute(Item.MANDATORY).defaultToNow().defaultTo(date(55)).getDefaultValue());
+		assertEquals(date(55), new DateAttribute(Item.MANDATORY).defaultToNow().defaultTo(date(55)).getDefaultConstant());
 		assertEquals(false, new DateAttribute(Item.MANDATORY).defaultToNow().defaultTo(date(55)).isDefaultNow());
 		try
 		{

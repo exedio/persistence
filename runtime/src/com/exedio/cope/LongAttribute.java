@@ -26,9 +26,9 @@ import com.exedio.cope.search.LessEqualCondition;
 public final class LongAttribute extends FunctionAttribute<Long>
 {
 
-	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultValue)
+	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
 	{
-		super(isfinal, optional, unique, Long.class, defaultValue);
+		super(isfinal, optional, unique, Long.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
@@ -39,12 +39,12 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	
 	public FunctionAttribute<Long> copyFunctionAttribute()
 	{
-		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
-	public LongAttribute defaultTo(final Long defaultValue)
+	public LongAttribute defaultTo(final Long defaultConstant)
 	{
-		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultValue);
+		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	Column createColumn(final Table table, final String name, final boolean optional)
