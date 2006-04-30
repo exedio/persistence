@@ -37,15 +37,14 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		super(isfinal, optional, unique, valueClass, defaultValue);
 		checkValueClass(Enum.class);
 
-		final Class<E> enumClass = valueClass; // TODO SOON remove
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
 		final HashMap<String, E> codesToValues = new HashMap<String, E>();
 		
-		final E[] enumConstants = enumClass.getEnumConstants();
+		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
-			throw new RuntimeException("must have at least one enum value: " + toString());
+			throw new RuntimeException("must have at least one enum value: " + valueClass);
 		
 		for(int j = 0; j<enumConstants.length; j++)
 		{
@@ -55,12 +54,12 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 			values.add(enumConstant);
 
 			if(numbersToValues.put(number, enumConstant)!=null)
-				throw new RuntimeException("duplicate number " + number + " for enum attribute on "+enumClass.toString());
+				throw new RuntimeException("duplicate number " + number + " for enum attribute on " + valueClass);
 			if(valuesToNumbers.put(enumConstant, number)!=null)
-				throw new RuntimeException("duplicate value " + enumConstant + " for enum attribute on "+enumClass.toString());
+				throw new RuntimeException("duplicate value " + enumConstant + " for enum attribute on " + valueClass);
 				
 			if(codesToValues.put(code, enumConstant)!=null)
-				throw new RuntimeException("duplicate code " + code + " for enum attribute on "+enumClass.toString());
+				throw new RuntimeException("duplicate code " + code + " for enum attribute on " + valueClass);
 		}
 		values.trimToSize();
 		numbersToValues.trimToSize();
@@ -70,12 +69,6 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		this.codesToValues = codesToValues;
 		
 		checkDefaultValue();
-	}
-	
-	@SuppressWarnings("unchecked") // TODO pcj.IntKeyOpenHashMap does not support generics
-	private E cast(final Object o)
-	{
-		return (E)o;
 	}
 	
 	public EnumAttribute(final Option option, final Class<E> valueClass)
@@ -108,6 +101,12 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return result;
 	}
 
+	@SuppressWarnings("unchecked") // TODO pcj.IntKeyOpenHashMap does not support generics
+	private E cast(final Object o)
+	{
+		return (E)o;
+	}
+	
 	private Integer getNumber(final E value)
 	{
 		final Integer result = valuesToNumbers.get(value);
