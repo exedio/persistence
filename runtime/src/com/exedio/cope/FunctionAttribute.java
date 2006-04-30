@@ -55,8 +55,7 @@ public abstract class FunctionAttribute<E extends Object>
 		{
 			try
 			{
-				// TODO SOON use checkValue when it is supported on non-initialized features 
-				checkNotNullValue(defaultValue, null);
+				checkValue(defaultValue, null);
 			}
 			catch(ConstraintViolationException e)
 			{
