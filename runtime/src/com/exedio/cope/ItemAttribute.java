@@ -38,7 +38,6 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 			if(isfinal)
 				throw new RuntimeException("final attribute "+this+" cannot have delete policy nullify");
 		}
-		this.targetTypeClass = valueClass;
 		checkDefaultValue();
 	}
 	
@@ -57,8 +56,6 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
 	}
 	
-	private final Class<E> targetTypeClass; // TODO SOON remove
-	
 	private Type<? extends E> targetType = null;
 	private Type<? extends E> onlyPossibleTargetType = null;
 	private StringColumn typeColumn = null;
@@ -66,7 +63,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */
-	public Type<? extends E> getTargetType()
+	public Type<? extends E> getTargetType() // TODO SOON rename to getValueType (and attributes)
 	{
 		if(targetType==null)
 			throw new RuntimeException();
@@ -91,10 +88,10 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		if(typeColumn!=null)
 			throw new RuntimeException();
 		
-		targetType = Type.findByJavaClass(targetTypeClass);
+		targetType = Type.findByJavaClass(valueClass);
 		targetType.registerReference(this);
 		
-		final ItemColumn result = new ItemColumn(table, name, optional, targetTypeClass, this);
+		final ItemColumn result = new ItemColumn(table, name, optional, valueClass, this);
 		
 		final String[] typeColumnValues = targetType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
