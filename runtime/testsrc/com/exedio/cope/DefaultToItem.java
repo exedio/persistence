@@ -38,15 +38,15 @@ public class DefaultToItem extends Item
 	public static final DateAttribute dateEighty = new DateAttribute(OPTIONAL).defaultTo(new Date(80));
 	public static final DateAttribute dateNone = new DateAttribute(OPTIONAL);
 
-	enum State
+	enum DefaultToEnum
 	{
 		ONE, TWO, THREE;
 	}
 	
 	/* TODO does not work with the instrumentor yet
-	public static final EnumAttribute<State> enumOne = newEnumAttribute(MANDATORY, State.class).defaultTo(State.ONE);
-	public static final EnumAttribute<State> enumTwo = newEnumAttribute(OPTIONAL, State.class).defaultTo(State.TWO);
-	public static final EnumAttribute<State> enumNone = newEnumAttribute(OPTIONAL, State.class);
+	public static final EnumAttribute<DefaultToEnum> enumOne = newEnumAttribute(MANDATORY, DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
+	public static final EnumAttribute<DefaultToEnum> enumTwo = newEnumAttribute(OPTIONAL, DefaultToEnum.class).defaultTo(DefaultToEnum.TWO);
+	public static final EnumAttribute<DefaultToEnum> enumNone = newEnumAttribute(OPTIONAL, DefaultToEnum.class);
 	*/
 
 	/**
