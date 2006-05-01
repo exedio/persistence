@@ -48,6 +48,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( AttributeQualifiedTest.class );
 		
 		suite.addTestSuite( DeleteTest.class );
+		suite.addTestSuite( DeleteRelationTest.class );
 		suite.addTestSuite( NameTest.class );
 		suite.addTestSuite( StringTest.class );
 		suite.addTestSuite( EnumTest.class );
