@@ -52,8 +52,8 @@ public final class Type<C extends Item>
 
 	private ArrayList<Type<? extends C>> subTypes = null;
 
-	private ArrayList<ItemAttribute> referencesWhileInitialization = new ArrayList<ItemAttribute>();
-	private List<ItemAttribute> declaredReferences = null;
+	private ArrayList<ItemAttribute<C>> referencesWhileInitialization = new ArrayList<ItemAttribute<C>>();
+	private List<ItemAttribute<C>> declaredReferences = null;
 	private List<ItemAttribute> references = null;
 	
 	private Model model;
@@ -284,7 +284,7 @@ public final class Type<C extends Item>
 		return t;
 	}
 	
-	void registerReference(final ItemAttribute reference)
+	void registerReference(final ItemAttribute<C> reference)
 	{
 		referencesWhileInitialization.add(reference);
 	}
@@ -377,7 +377,32 @@ public final class Type<C extends Item>
 		this.declaredReferences = Collections.unmodifiableList(referencesWhileInitialization);
 		referencesWhileInitialization.trimToSize();
 		this.referencesWhileInitialization = null;
-		this.references = supertype!=null ? inherit(supertype.getReferences(), declaredReferences) : declaredReferences;
+		if(supertype!=null)
+		{
+			final List<ItemAttribute> inherited = supertype.getReferences();
+			final List<ItemAttribute<C>> declared = declaredReferences;
+			if(declared.isEmpty())
+				this.references = inherited;
+			else if(inherited.isEmpty())
+			{
+				final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>(declared);
+				result.trimToSize();
+				this.references = Collections.<ItemAttribute>unmodifiableList(result);
+			}
+			else
+			{
+				final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>(inherited);
+				result.addAll(declared);
+				result.trimToSize();
+				this.references = Collections.<ItemAttribute>unmodifiableList(result);
+			}
+		}
+		else // TODO SOON
+		{
+			final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>(declaredReferences);
+			result.trimToSize();
+			this.references = Collections.<ItemAttribute>unmodifiableList(result);
+		}
 	}
 	
 	void materialize(final Database database)
@@ -530,7 +555,7 @@ public final class Type<C extends Item>
 	 * which {@link ItemAttribute#getValueType value type} equals this type.
 	 * @see #getReferences()
 	 */
-	public List<ItemAttribute> getDeclaredReferences()
+	public List<ItemAttribute<C>> getDeclaredReferences()
 	{
 		assert declaredReferences!=null;
 		return declaredReferences;
