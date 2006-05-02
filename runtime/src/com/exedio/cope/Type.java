@@ -36,6 +36,7 @@ public final class Type<C extends Item>
 
 	final Class<C> javaClass;
 	final String id;
+	final boolean isAbstract;
 	private final Type<? extends Item> supertype; // TODO SOON make package private and use in in the core
 	
 	final Function<C> thisFunction = new This<C>(this);
@@ -112,6 +113,7 @@ public final class Type<C extends Item>
 	{
 		this.javaClass = javaClass;
 		this.id = id;
+		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
@@ -513,7 +515,7 @@ public final class Type<C extends Item>
 	
 	public boolean isAbstract()
 	{
-		return ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
+		return isAbstract;
 	}
 	
 	public Function<C> getThis()
