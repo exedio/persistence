@@ -71,11 +71,11 @@ public final class Model
 		final ArrayList<Type<Item>> concreteTypes = new ArrayList<Type<Item>>();
 
 		for(final Type<Item> type : this.types)
-			if(!type.isAbstract())
+			if(!type.isAbstract)
 				concreteTypes.add(type);
 		
 		for(final Type<Item> type : this.typesSorted)
-			type.initialize(this, type.isAbstract() ? abstractTypeCount-- : concreteTypeCount++);
+			type.initialize(this, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
 		
 		for(final Type<Item> type : this.typesSorted)
 			type.postInitialize();
@@ -449,7 +449,7 @@ public final class Model
 		final Type type = findTypeByID(typeID);
 		if(type==null)
 			throw new NoSuchIDException(id, true, "type <" + typeID + "> does not exist");
-		if(type.isAbstract())
+		if(type.isAbstract)
 			throw new NoSuchIDException(id, true, "type is abstract");
 		
 		final String idString = id.substring(pos+1);

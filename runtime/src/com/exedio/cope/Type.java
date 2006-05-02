@@ -292,7 +292,7 @@ public final class Type<C extends Item>
 	{
 		if(model==null)
 			throw new RuntimeException();
-		assert (transientNumber<0) == isAbstract();
+		assert (transientNumber<0) == isAbstract;
 
 		if(this.model!=null)
 			throw new RuntimeException();
@@ -361,7 +361,7 @@ public final class Type<C extends Item>
 			throw new RuntimeException(result.toString());
 		levelLimit--;
 		
-		if(!isAbstract())
+		if(!isAbstract)
 			result.add(this);
 		
 		for(final Type<? extends C> t : getSubTypes())
