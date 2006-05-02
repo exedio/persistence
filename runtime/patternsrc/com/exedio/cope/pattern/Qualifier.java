@@ -38,7 +38,7 @@ public final class Qualifier extends Pattern
 	private final FunctionAttribute[] keys;
 	private final List<FunctionAttribute> keyList;
 	private final UniqueConstraint qualifyUnique;
-	private List<Attribute<Object>> attributes;
+	private List<Attribute> attributes;
 
 	public Qualifier(final UniqueConstraint qualifyUnique)
 	{
@@ -93,7 +93,7 @@ public final class Qualifier extends Pattern
 
 		final Type<? extends Item> type = qualifyUnique.getType();
 		final List<Attribute> typeAttributes = type.getAttributes();
-		final ArrayList<Attribute<Object>> attributesModifiyable = new ArrayList<Attribute<Object>>(typeAttributes.size());
+		final ArrayList<Attribute> attributesModifiyable = new ArrayList<Attribute>(typeAttributes.size());
 		for(final Attribute attribute : type.getAttributes())
 		{
 			if(attribute!=parent && !keyList.contains(attribute))
@@ -102,7 +102,7 @@ public final class Qualifier extends Pattern
 		this.attributes = Collections.unmodifiableList(attributesModifiyable);
 	}
 
-	public List<Attribute<Object>> getAttributes()
+	public List<Attribute> getAttributes()
 	{
 		if(this.attributes==null)
 			throw new RuntimeException();
