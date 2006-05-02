@@ -54,6 +54,7 @@ public final class Type<C extends Item>
 
 	private ArrayList<ItemAttribute> referencesWhileInitialization = new ArrayList<ItemAttribute>();
 	private List<ItemAttribute> declaredReferences = null;
+	private List<ItemAttribute> references = null;
 	
 	private Model model;
 	private ArrayList<Type<? extends C>> typesOfInstances;
@@ -376,6 +377,7 @@ public final class Type<C extends Item>
 		this.declaredReferences = Collections.unmodifiableList(referencesWhileInitialization);
 		referencesWhileInitialization.trimToSize();
 		this.referencesWhileInitialization = null;
+		this.references = supertype!=null ? inherit(supertype.getReferences(), declaredReferences) : declaredReferences;
 	}
 	
 	void materialize(final Database database)
@@ -542,13 +544,8 @@ public final class Type<C extends Item>
 	 */
 	public List<ItemAttribute> getReferences()
 	{
-		// TODO SOON precompute
-		final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>();
-		if(supertype!=null)
-			result.addAll(supertype.getReferences());
-		if(declaredReferences!=null)
-			result.addAll(declaredReferences);
-		return Collections.unmodifiableList(result);
+		assert references!=null;
+		return references;
 	}
 
 	/**
