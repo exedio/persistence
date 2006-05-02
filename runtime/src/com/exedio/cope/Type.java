@@ -50,7 +50,7 @@ public final class Type<C extends Item>
 	private final List<UniqueConstraint> uniqueConstraints;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
-	private ArrayList<ItemAttribute> references = null;
+	private ArrayList<ItemAttribute> references = null; // TODO SOON rename to declaredReferences
 	
 	private Model model;
 	private ArrayList<Type<? extends C>> typesOfInstances;
@@ -514,10 +514,28 @@ public final class Type<C extends Item>
 	/**
 	 * Returns all {@link ItemAttribute}s of the model this type belongs to,
 	 * which {@link ItemAttribute#getValueType value type} equals this type.
+	 * @see #getReferences()
 	 */
 	public List<ItemAttribute> getDeclaredReferences()
 	{
 		return references==null ? Collections.<ItemAttribute>emptyList() : Collections.unmodifiableList(references);
+	}
+
+	/**
+	 * Returns all {@link ItemAttribute}s of the model this type belongs to,
+	 * which {@link ItemAttribute#getValueType value type} equals this type
+	 * or any of it's super types.
+	 * @see #getDeclaredReferences()
+	 */
+	public List<ItemAttribute> getReferences()
+	{
+		// TODO SOON precompute
+		final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>();
+		if(supertype!=null)
+			result.addAll(supertype.getReferences());
+		if(references!=null)
+			result.addAll(references);
+		return Collections.unmodifiableList(result);
 	}
 
 	/**

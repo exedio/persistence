@@ -48,7 +48,9 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( AttributeQualifiedTest.class );
 		
 		suite.addTestSuite( DeleteTest.class );
+		// TODO SOON remove
 		suite.addTestSuite( DeleteRelationTest.class );
+		suite.addTestSuite( DeleteHierarchyTest.class );
 		suite.addTestSuite( NameTest.class );
 		suite.addTestSuite( StringTest.class );
 		suite.addTestSuite( EnumTest.class );
