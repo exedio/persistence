@@ -147,7 +147,7 @@ class ItemCop_Jspm
 						}
 						else if(attribute.isFinal() && attribute instanceof FunctionAttribute)
 						{
-							%><b><%=item.get((FunctionAttribute)attribute)%></b><%
+							%><b><%=item.get((FunctionAttribute<? extends Object>)attribute)%></b><%
 						}
 						else if(field instanceof RadioField
 									|| field instanceof CheckboxField
