@@ -36,7 +36,7 @@ public final class Type<C extends Item>
 
 	final Class<C> javaClass;
 	final String id;
-	private final Type<? extends Item> supertype; // TODO make package private and use in in the core
+	private final Type<? extends Item> supertype; // TODO SOON make package private and use in in the core
 	
 	final Function<C> thisFunction = new This<C>(this);
 	private final List<Feature> declaredFeatures;
@@ -50,7 +50,9 @@ public final class Type<C extends Item>
 	private final List<UniqueConstraint> uniqueConstraints;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
-	private ArrayList<ItemAttribute> declaredReferences = null;
+
+	private ArrayList<ItemAttribute> referencesWhileInitialization = new ArrayList<ItemAttribute>();
+	private List<ItemAttribute> declaredReferences = null;
 	
 	private Model model;
 	private ArrayList<Type<? extends C>> typesOfInstances;
@@ -281,13 +283,7 @@ public final class Type<C extends Item>
 	
 	void registerReference(final ItemAttribute reference)
 	{
-		if(this.model==null)
-			throw new RuntimeException();
-
-		if(declaredReferences==null)
-			declaredReferences = new ArrayList<ItemAttribute>();
-			
-		declaredReferences.add(reference);
+		referencesWhileInitialization.add(reference);
 	}
 	
 	void initialize(final Model model, final int transientNumber)
@@ -339,6 +335,10 @@ public final class Type<C extends Item>
 				break;
 		}
 		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
+
+		for(final Attribute a : declaredAttributes)
+			if(a instanceof ItemAttribute)
+				((ItemAttribute)a).postInitialize();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -364,6 +364,16 @@ public final class Type<C extends Item>
 		
 		for(final Type<? extends C> t : getSubTypes())
 			t.collectTypesOfInstances(result, levelLimit);
+	}
+	
+	void postInitialize()
+	{
+		if(this.declaredReferences!=null)
+			throw new RuntimeException();
+		
+		this.declaredReferences = Collections.unmodifiableList(referencesWhileInitialization);
+		referencesWhileInitialization.trimToSize();
+		this.referencesWhileInitialization = null;
 	}
 	
 	void materialize(final Database database)
@@ -518,7 +528,8 @@ public final class Type<C extends Item>
 	 */
 	public List<ItemAttribute> getDeclaredReferences()
 	{
-		return declaredReferences==null ? Collections.<ItemAttribute>emptyList() : Collections.unmodifiableList(declaredReferences);
+		assert declaredReferences!=null;
+		return declaredReferences;
 	}
 
 	/**

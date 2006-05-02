@@ -79,17 +79,23 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return policy;
 	}
 	
-	Column createColumn(final Table table, final String name, final boolean optional)
+	void postInitialize()
 	{
 		if(valueType!=null)
+			throw new RuntimeException();
+		
+		valueType = Type.findByJavaClass(valueClass);
+		valueType.registerReference(this);
+	}
+	
+	Column createColumn(final Table table, final String name, final boolean optional)
+	{
+		if(valueType==null)
 			throw new RuntimeException();
 		if(onlyPossibleValueType!=null)
 			throw new RuntimeException();
 		if(typeColumn!=null)
 			throw new RuntimeException();
-		
-		valueType = Type.findByJavaClass(valueClass);
-		valueType.registerReference(this);
 		
 		final ItemColumn result = new ItemColumn(table, name, optional, valueClass, this);
 		

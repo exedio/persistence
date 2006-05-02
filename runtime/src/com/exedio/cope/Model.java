@@ -73,6 +73,10 @@ public final class Model
 			if(!isAbstract)
 				concreteTypes.add(type);
 		}
+		
+		for(final Type<Item> type : this.types)
+			type.postInitialize();
+		
 		this.concreteTypeCount = concreteTypeCount;
 		this.concreteTypes = castTypeArray(concreteTypes.toArray(new Type[concreteTypeCount]));
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
