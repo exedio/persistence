@@ -56,14 +56,14 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
 	}
 	
-	private Type<? extends E> valueType = null;
+	private Type<E> valueType = null;
 	private Type<? extends E> onlyPossibleValueType = null;
 	private StringColumn typeColumn = null;
 	
 	/**
 	 * Returns the type of items, this attribute accepts instances of.
 	 */
-	public Type<? extends E> getValueType()
+	public Type<E> getValueType()
 	{
 		if(valueType==null)
 			throw new RuntimeException();
