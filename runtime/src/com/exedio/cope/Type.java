@@ -50,7 +50,7 @@ public final class Type<C extends Item>
 	private final List<UniqueConstraint> uniqueConstraints;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
-	private ArrayList<ItemAttribute> references = null; // TODO SOON rename to declaredReferences
+	private ArrayList<ItemAttribute> declaredReferences = null;
 	
 	private Model model;
 	private ArrayList<Type<? extends C>> typesOfInstances;
@@ -284,10 +284,10 @@ public final class Type<C extends Item>
 		if(this.model==null)
 			throw new RuntimeException();
 
-		if(references==null)
-			references = new ArrayList<ItemAttribute>();
+		if(declaredReferences==null)
+			declaredReferences = new ArrayList<ItemAttribute>();
 			
-		references.add(reference);
+		declaredReferences.add(reference);
 	}
 	
 	void initialize(final Model model, final int transientNumber)
@@ -518,7 +518,7 @@ public final class Type<C extends Item>
 	 */
 	public List<ItemAttribute> getDeclaredReferences()
 	{
-		return references==null ? Collections.<ItemAttribute>emptyList() : Collections.unmodifiableList(references);
+		return declaredReferences==null ? Collections.<ItemAttribute>emptyList() : Collections.unmodifiableList(declaredReferences);
 	}
 
 	/**
@@ -533,8 +533,8 @@ public final class Type<C extends Item>
 		final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>();
 		if(supertype!=null)
 			result.addAll(supertype.getReferences());
-		if(references!=null)
-			result.addAll(references);
+		if(declaredReferences!=null)
+			result.addAll(declaredReferences);
 		return Collections.unmodifiableList(result);
 	}
 
