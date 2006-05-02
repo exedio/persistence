@@ -23,7 +23,6 @@ import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -203,14 +202,13 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			final StringBuffer result = new StringBuffer();
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)uniqueConstraints.iterator().next();
 			boolean first = true;
-			for(Iterator i = uniqueConstraint.getUniqueAttributes().iterator(); i.hasNext(); )
+			for(final FunctionAttribute<Object> attribute : uniqueConstraint.getUniqueAttributes())
 			{
 				if(first)
 					first = false;
 				else
 					result.append(" - ");
 
-				final FunctionAttribute attribute = (FunctionAttribute)i.next();
 				final Object value = item.get(attribute);
 
 				final String valueString;
