@@ -373,7 +373,7 @@ public final class Query<R>
 	 */
 	public R searchUnique()
 	{
-		final Iterator<? extends R> searchResult = search().iterator();
+		final Iterator<R> searchResult = search().iterator();
 		if(searchResult.hasNext())
 		{
 			final R result = searchResult.next();
