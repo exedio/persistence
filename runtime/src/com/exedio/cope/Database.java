@@ -540,11 +540,11 @@ abstract class Database
 
 		listener.load(connection, state);
 		
-		final Statement bf = createStatement(state.type.getSupertype()!=null);
+		final Statement bf = createStatement(state.type.supertype!=null);
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type type = state.type; type!=null; type = type.getSupertype())
+		for(Type type = state.type; type!=null; type = type.supertype)
 		{
 			for(final Column column : type.getTable().getColumns())
 			{
@@ -568,7 +568,7 @@ abstract class Database
 
 		bf.append(" from ");
 		first = true;
-		for(Type type = state.type; type!=null; type = type.getSupertype())
+		for(Type type = state.type; type!=null; type = type.supertype)
 		{
 			if(first)
 				first = false;
@@ -580,7 +580,7 @@ abstract class Database
 			
 		bf.append(" where ");
 		first = true;
-		for(Type type = state.type; type!=null; type = type.getSupertype())
+		for(Type type = state.type; type!=null; type = type.supertype)
 		{
 			if(first)
 				first = false;
@@ -629,7 +629,7 @@ abstract class Database
 	{
 		buildStage = false;
 
-		final Type supertype = type.getSupertype();
+		final Type supertype = type.supertype;
 		if(supertype!=null)
 			store(connection, state, present, blobs, supertype);
 			
@@ -745,7 +745,7 @@ abstract class Database
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		for(Type currentType = type; currentType!=null; currentType = currentType.getSupertype())
+		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table currentTable = currentType.getTable();
 			final Statement bf = createStatement();

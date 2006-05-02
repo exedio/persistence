@@ -100,7 +100,7 @@ public final class Model
 
 			//System.out.println("------------------------------ "+types[i].getID());
 
-			for(Type type = types[i]; type!=null; type=type.getSupertype())
+			for(Type type = types[i]; type!=null; type=type.supertype)
 			{
 				//System.out.println("-------------------------------> "+type.getID());
 				if(!typeSet.contains(type))

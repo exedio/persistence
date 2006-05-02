@@ -37,7 +37,7 @@ public final class Type<C extends Item>
 	final Class<C> javaClass;
 	final String id;
 	final boolean isAbstract;
-	private final Type<? extends Item> supertype; // TODO SOON make package private and use in in the core
+	final Type<? extends Item> supertype;
 	
 	final Function<C> thisFunction = new This<C>(this);
 	private final List<Feature> declaredFeatures;

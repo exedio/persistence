@@ -93,7 +93,7 @@ final class PersistentState extends State implements Database.ResultSetHandler
 		else
 		{
 			int columnIndex = 1;
-			for(Type itype = type; itype!=null; itype = itype.getSupertype())
+			for(Type itype = type; itype!=null; itype = itype.supertype)
 			{
 				for(final Column column : itype.getTable().getColumns())
 				{

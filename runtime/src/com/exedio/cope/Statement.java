@@ -71,7 +71,7 @@ final class Statement
 		for(Iterator i = types.iterator(); i.hasNext(); )
 		{
 			final JoinType joinType = (JoinType)i.next();
-			for(Type type = joinType.type; type!=null; type=type.getSupertype())
+			for(Type type = joinType.type; type!=null; type=type.supertype)
 			{
 				final Table table = type.getTable();
 				final Object previous = joinTypeTableByTable.get(table);
@@ -368,7 +368,7 @@ final class Statement
 	void appendTypeDefinition(final Join join, final Type type)
 	{
 		boolean first = true;
-		for(Type currentType = type; currentType!=null; currentType=currentType.getSupertype())
+		for(Type currentType = type; currentType!=null; currentType=currentType.supertype)
 		{
 			if(first)
 				first = false;
@@ -389,7 +389,7 @@ final class Statement
 	void appendTypeJoinCondition(final String prefix, final Join join, final Type type)
 	{
 		boolean first = true;
-		for(Type currentType = type.getSupertype(); currentType!=null; currentType=currentType.getSupertype())
+		for(Type currentType = type.supertype; currentType!=null; currentType=currentType.supertype)
 		{
 			if(first)
 			{
