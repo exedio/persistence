@@ -166,11 +166,8 @@ public final class Model
 				this.properties = properties;
 				this.database = properties.createDatabase();
 				
-				for(int i = 0; i<typesSorted.length; i++)
-				{
-					final Type type = typesSorted[i];
+				for(final Type type : typesSorted)
 					type.materialize(database);
-				}
 				
 				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
