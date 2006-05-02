@@ -29,12 +29,12 @@ public class DeleteHierarchyTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(list(), DeleteHierarchySource.TYPE.getDeclaredReferences());
-		assertEquals(list(), DeleteHierarchySource.TYPE.getReferences());
-		assertEquals(list(DeleteHierarchySource.target), DeleteHierarchyTargetSuper.TYPE.getDeclaredReferences());
-		assertEquals(list(DeleteHierarchySource.target), DeleteHierarchyTargetSuper.TYPE.getReferences());
-		assertEquals(list(), DeleteHierarchyTargetSub.TYPE.getDeclaredReferences());
-		assertEquals(list(DeleteHierarchySource.target), DeleteHierarchyTargetSub.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(), DeleteHierarchySource.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(), DeleteHierarchySource.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(DeleteHierarchySource.target), DeleteHierarchyTargetSuper.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(DeleteHierarchySource.target), DeleteHierarchyTargetSuper.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(), DeleteHierarchyTargetSub.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(DeleteHierarchySource.target), DeleteHierarchyTargetSub.TYPE.getReferences());
 		
 		// test persistence
 		final DeleteHierarchyTargetSub target = new DeleteHierarchyTargetSub("target");

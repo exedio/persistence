@@ -36,7 +36,9 @@ public class DeleteTest extends AbstractLibTest
 	public void testForbid()
 	{
 		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade, item.selfCascade2), item.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade, item.selfCascade2), item.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getReferences());
 		
 		assertSame(Item.FORBID, item.selfForbid.getDeletePolicy());
 		assertSame(Item.FORBID, item.otherForbid.getDeletePolicy());

@@ -35,7 +35,9 @@ public class AttributeItemTest extends AttributeTest
 		assertEquals(EmptyItem.TYPE, item.someItem.getValueType());
 		assertEquals(Item.FORBID, item.someItem.getDeletePolicy());
 		assertEqualsUnmodifiable(list(), SumItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(), SumItem.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getReferences());
 		
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(someItem);
