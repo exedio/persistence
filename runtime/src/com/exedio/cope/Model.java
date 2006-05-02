@@ -44,6 +44,7 @@ public final class Model
 {
 	private final Type<Item>[] types;
 	private final Type<Item>[] concreteTypes;
+	private final Type<Item>[] typesSorted;
 	final int concreteTypeCount;
 	private final List<Type<Item>> typeList;
 	private final List<Type<Item>> concreteTypeList;
@@ -62,6 +63,8 @@ public final class Model
 	{
 		this.types = castTypeArray(types);
 		this.typeList = Collections.unmodifiableList(Arrays.asList(this.types));
+		this.typesSorted = sort(this.types);
+		assert types.length==typesSorted.length;
 
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
@@ -82,6 +85,47 @@ public final class Model
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		
 		assert this.concreteTypeCount==this.concreteTypes.length;
+	}
+	
+	private static final Type<Item>[] sort(final Type<Item>[] types)
+	{
+		final HashSet<Type> typeSet = new HashSet<Type>(Arrays.asList(types));
+		final HashSet<Type> done = new HashSet<Type>();
+		//System.out.println(">--------------------"+Arrays.asList(types));
+
+		final ArrayList<Type> result = new ArrayList<Type>();
+		for(int i = 0; i<types.length; i++)
+		{
+			final ArrayList<Type> stack = new ArrayList<Type>();
+
+			//System.out.println("------------------------------ "+types[i].getID());
+
+			for(Type type = types[i]; type!=null; type=type.getSupertype())
+			{
+				//System.out.println("-------------------------------> "+type.getID());
+				if(!typeSet.contains(type))
+					throw new RuntimeException("type "+type.id+ " is supertype of " + types[i].id + " but not part of the model");
+				stack.add(type);
+			}
+			
+			for(ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
+			{
+				final Type type = j.previous();
+				//System.out.println("-------------------------------) "+type.getID());
+
+				if(!done.contains(type))
+				{
+					//System.out.println("-------------------------------] "+type.getID());
+					result.add(type);
+					done.add(type);
+				}
+			}
+		}
+		if(!done.equals(typeSet))
+			throw new RuntimeException(done.toString()+"<->"+typeSet.toString());
+		
+		//System.out.println("<--------------------"+result);
+		return castTypeArray(result.toArray(new Type[]{}));
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -118,40 +162,14 @@ public final class Model
 				this.properties = properties;
 				this.database = properties.createDatabase();
 				
-				final HashSet<Type> typeSet = new HashSet<Type>(Arrays.asList(types));
-				final HashSet<Type> materialized = new HashSet<Type>();
-		
-				for(int i = 0; i<types.length; i++)
+				for(int i = 0; i<typesSorted.length; i++)
 				{
-					final ArrayList<Type> stack = new ArrayList<Type>();
-	
-					//System.out.println("------------------------------ "+types[i].getID());
-	
-					for(Type type = types[i]; type!=null; type=type.getSupertype())
-					{
-						//System.out.println("-------------------------------> "+type.getID());
-						if(!typeSet.contains(type))
-							throw new RuntimeException("type "+type.id+ " is supertype of " + types[i].id + " but not part of the model");
-						stack.add(type);
-					}
-					
-					for(ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
-					{
-						final Type type = j.previous();
-						//System.out.println("-------------------------------) "+type.getID());
-	
-						if(!materialized.contains(type))
-						{
-							//System.out.println("-------------------------------] "+type.getID());
-							type.materialize(database);
-							if(typesByID.put(type.id, type)!=null)
-								throw new RuntimeException(type.id);
-							materialized.add(type);
-						}
-					}
+					final Type type = typesSorted[i];
+					type.materialize(database);
+					// TODO SOON put into constructor
+					if(typesByID.put(type.id, type)!=null)
+						throw new RuntimeException(type.id);
 				}
-				if(!materialized.equals(typeSet))
-					throw new RuntimeException(materialized.toString()+"<->"+typeSet.toString());
 				
 				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
