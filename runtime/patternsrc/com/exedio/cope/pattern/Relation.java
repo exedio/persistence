@@ -73,13 +73,13 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		initialize(uniqueConstraint, name + "UniqueConstraint");
 	}
 	
-	public List<? extends T> getTargets(final S source)
+	public List<T> getTargets(final S source)
 	{
 		final Query<T> q = new Query<T>(target, this.source.equal(source));
 		return q.search();
 	}
 
-	public List<? extends S> getSources(final T target)
+	public List<S> getSources(final T target)
 	{
 		final Query<S> q = new Query<S>(source, this.target.equal(target));
 		return q.search();

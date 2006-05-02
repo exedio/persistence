@@ -239,7 +239,7 @@ public final class Query<R>
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <tt>UnsupportedOperationException</tt>.
 	 */
-	public List<? extends R> search()
+	public List<R> search()
 	{
 		check();
 		
@@ -255,13 +255,13 @@ public final class Query<R>
 		);
 	}
 	
-	List<? extends R> searchUncached()
+	List<R> searchUncached()
 	{
 		return castQL(Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false)));
 	}
 	
 	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
-	private List<? extends R> castQL(final List o)
+	private List<R> castQL(final List o)
 	{
 		return o;
 	}

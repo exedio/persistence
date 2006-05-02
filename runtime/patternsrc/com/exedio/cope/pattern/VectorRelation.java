@@ -85,21 +85,21 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		initialize(uniqueConstraint, name + "UniqueConstraint");
 	}
 	
-	public List<? extends T> getTargets(final S source)
+	public List<T> getTargets(final S source)
 	{
 		final Query<T> q = new Query<T>(target, this.source.equal(source));
 		q.setOrderBy(order, true);
 		return q.search();
 	}
 
-	public List<? extends S> getSources(final T target)
+	public List<S> getSources(final T target)
 	{
 		final Query<S> q = new Query<S>(source, this.target.equal(target));
 		q.setOrderBy(order, true);
 		return q.search();
 	}
 
-	public void setTargets(final S source, final Collection<T> targets)
+	public void setTargets(final S source, final Collection<? extends T> targets)
 	{
 		final Type<? extends Item> type = getType();
 		final Query<? extends Item> q = type.newQuery(this.source.equal(source));

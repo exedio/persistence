@@ -145,14 +145,14 @@ final class Cache
 		return queryCaches!=null;
 	}
 	
-	<R> List<? extends R> search(final Query<R> query)
+	<R> List<R> search(final Query<R> query)
 	{
 		if ( queryCaches==null )
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		Query.Key key = new Query.Key( query );
-		List<? extends R> result;
+		List<R> result;
 		synchronized ( queryCaches )
 		{
 			result = Cache.<R>castQL(queryCaches.get(key));
@@ -187,9 +187,9 @@ final class Cache
 	}
 	
 	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
-	private static final <R> List<? extends R> castQL(final Object o)
+	private static final <R> List<R> castQL(final Object o)
 	{
-		return (List<? extends R>)o;
+		return (List<R>)o;
 	}
 	
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
