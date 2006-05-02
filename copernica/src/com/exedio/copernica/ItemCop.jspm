@@ -85,15 +85,14 @@ class ItemCop_Jspm
 						%>
 						</td>
 					</tr><%
-				final Collection sections = form.getSections();
+				final Collection<Form.Section> sections = form.getSections();
 				if(!sections.isEmpty())
 				{
 					%>
 					<tr>
 						<td><%
-					for(Iterator i = sections.iterator(); i.hasNext(); )
+					for(final Form.Section section : sections)
 					{
-						final Form.Section section = (Form.Section)i.next();
 						final String id = section.id;
 						final String name = section.name;
 						%>
