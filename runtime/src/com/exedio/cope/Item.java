@@ -324,9 +324,8 @@ public abstract class Item extends Cope
 				}
 				case CASCADE:
 				{
-					for(Iterator j = attribute.getType().search(attribute.equal(this)).iterator(); j.hasNext(); )
+					for(final Item item : attribute.getType().search(attribute.equal(this)))
 					{
-						final Item item = (Item)j.next();
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
 							item.checkDeleteCopeItem(toDelete);
@@ -352,10 +351,9 @@ public abstract class Item extends Cope
 				{
 					case NULLIFY:
 					{
-						final Query q = attribute.getType().newQuery(attribute.equal(this));
-						for(Iterator j = q.search().iterator(); j.hasNext(); )
+						final Query<? extends Item> q = attribute.getType().newQuery(attribute.equal(this));
+						for(final Item item : q.search())
 						{
-							final Item item = (Item)j.next();
 							//System.out.println("------------nullify:"+item.toString());
 							item.set(attribute, null);
 						}
