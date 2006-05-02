@@ -71,8 +71,12 @@ public final class Model
 		final ArrayList<Type<Item>> concreteTypes = new ArrayList<Type<Item>>();
 
 		for(final Type<Item> type : this.types)
+		{
+			if(typesByID.put(type.id, type)!=null)
+				throw new RuntimeException(type.id);
 			if(!type.isAbstract)
 				concreteTypes.add(type);
+		}
 		
 		for(final Type<Item> type : this.typesSorted)
 			type.initialize(this, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
@@ -166,9 +170,6 @@ public final class Model
 				{
 					final Type type = typesSorted[i];
 					type.materialize(database);
-					// TODO SOON put into constructor
-					if(typesByID.put(type.id, type)!=null)
-						throw new RuntimeException(type.id);
 				}
 				
 				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
