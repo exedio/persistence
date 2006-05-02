@@ -69,15 +69,18 @@ public final class Model
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
 		final ArrayList<Type<Item>> concreteTypes = new ArrayList<Type<Item>>();
+
 		for(final Type<Item> type : this.types)
+			if(!type.isAbstract())
+				concreteTypes.add(type);
+		
+		for(final Type<Item> type : this.typesSorted)
 		{
 			final boolean isAbstract = type.isAbstract();
 			type.initialize(this, isAbstract ? abstractTypeCount-- : concreteTypeCount++);
-			if(!isAbstract)
-				concreteTypes.add(type);
 		}
 		
-		for(final Type<Item> type : this.types)
+		for(final Type<Item> type : this.typesSorted)
 			type.postInitialize();
 		
 		this.concreteTypeCount = concreteTypeCount;
