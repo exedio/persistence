@@ -75,10 +75,7 @@ public final class Model
 				concreteTypes.add(type);
 		
 		for(final Type<Item> type : this.typesSorted)
-		{
-			final boolean isAbstract = type.isAbstract();
-			type.initialize(this, isAbstract ? abstractTypeCount-- : concreteTypeCount++);
-		}
+			type.initialize(this, type.isAbstract() ? abstractTypeCount-- : concreteTypeCount++);
 		
 		for(final Type<Item> type : this.typesSorted)
 			type.postInitialize();
