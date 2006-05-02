@@ -86,11 +86,11 @@ public final class Type<C extends Item>
 	{
 		final Type<X> result = castType(typesByClass.get(javaClass));
 		if(result==null)
-			throw new RuntimeException("there is no type for "+javaClass);
+			throw new RuntimeException("there is no type for " + javaClass);
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
 	private static final <X extends Item> Type<X> castType(final Type t)
 	{
 		return (Type<X>)t;
