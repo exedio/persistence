@@ -511,7 +511,11 @@ public final class Type<C extends Item>
 		return thisFunction;
 	}
 
-	public List<ItemAttribute> getReferences()
+	/**
+	 * Returns all {@link ItemAttribute}s of the model this type belongs to,
+	 * which {@link ItemAttribute#getValueType value type} equals this type.
+	 */
+	public List<ItemAttribute> getDeclaredReferences()
 	{
 		return references==null ? Collections.<ItemAttribute>emptyList() : Collections.unmodifiableList(references);
 	}
