@@ -37,7 +37,7 @@ public final class Type<C extends Item>
 	final Class<C> javaClass;
 	final String id;
 	final boolean isAbstract;
-	final Type<? extends Item> supertype;
+	final Type<? super C> supertype;
 	
 	final Function<C> thisFunction = new This<C>(this);
 	private final List<Feature> declaredFeatures;
@@ -525,7 +525,7 @@ public final class Type<C extends Item>
 	 * (i.e. the superclass of this type's java class is {@link Item}),
 	 * then null is returned.
 	 */
-	public Type getSupertype()
+	public Type<? super C> getSupertype()
 	{
 		return supertype;
 	}
