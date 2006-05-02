@@ -172,13 +172,13 @@ class ItemCop_Jspm
 						final Qualifier qualifier = (Qualifier)feature;
 						final Collection<? extends Item> values =
 							qualifier.getQualifyUnique().getType().search(qualifier.getParent().equal(item));
-						for(final Attribute anyAttribute : qualifier.getAttributes())
+						for(final Attribute<Object> anyAttribute : qualifier.getAttributes())
 						{
 							for(final Item value : values)
 							{
 								if(anyAttribute instanceof FunctionAttribute)
 								{
-									final FunctionAttribute attribute = (FunctionAttribute)anyAttribute;
+									final FunctionAttribute<Object> attribute = (FunctionAttribute<Object>)anyAttribute;
 									final Object qualifiedValue = value.get(attribute);
 									if(qualifiedValue!=null)
 									{
