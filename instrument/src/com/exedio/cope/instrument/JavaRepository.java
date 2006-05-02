@@ -286,10 +286,12 @@ final class JavaRepository
 	
 	static enum DummyEnum
 	{
+		// just a dummy
 	}
 	
 	static class DummyItem extends Item
 	{
+		// just a dummy
 	}
 	
 	public static final class DummyHash extends Hash
