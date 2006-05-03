@@ -689,12 +689,12 @@ public final class Type<C extends Item>
 	 * result in an <tt>UnsupportedOperationException</tt>.
 	 * @param condition the condition the searched items must match.
 	 */
-	public List<? extends C> search(final Condition condition)
+	public List<C> search(final Condition condition)
 	{
 		return newQuery(condition).search();
 	}
 	
-	public List<? extends C> search(final Condition condition, final Function orderBy, final boolean ascending)
+	public List<C> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
 		final Query<C> query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
