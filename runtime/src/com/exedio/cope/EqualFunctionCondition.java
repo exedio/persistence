@@ -18,20 +18,19 @@
 
 package com.exedio.cope;
 
-// TODO SOON rename to EqualFunctionCondition
-public final class EqualAttributeCondition extends Condition
+public final class EqualFunctionCondition extends Condition
 {
 	// TODO SOON rename to function1/2
 	public final Function attribute1;
 	public final Function attribute2;
 
 	/**
-	 * Creates a new EqualAttributeCondition.
+	 * Creates a new EqualFunctionCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
 	 * @see StringAttribute#equal(StringAttribute)
 	 */
-	public EqualAttributeCondition(
+	public EqualFunctionCondition(
 				final Function attribute1,
 				final Function attribute2)
 	{
@@ -59,10 +58,10 @@ public final class EqualAttributeCondition extends Condition
 
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof EqualAttributeCondition))
+		if(!(other instanceof EqualFunctionCondition))
 			return false;
 		
-		final EqualAttributeCondition o = (EqualAttributeCondition)other;
+		final EqualFunctionCondition o = (EqualFunctionCondition)other;
 		
 		return attribute1.equals(o.attribute1) && attribute2.equals(o.attribute2);
 	}
