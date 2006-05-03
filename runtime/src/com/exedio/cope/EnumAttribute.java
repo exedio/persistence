@@ -25,12 +25,11 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
+public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 {
 	private final List<E> values;
 	private final IntKeyOpenHashMap numbersToValues;
 	private final HashMap<E, Integer> valuesToNumbers;
-	private final HashMap<String, E> codesToValues;
 	
 	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
@@ -40,7 +39,6 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
 		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
-		final HashMap<String, E> codesToValues = new HashMap<String, E>();
 		
 		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
@@ -49,7 +47,6 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		for(int j = 0; j<enumConstants.length; j++)
 		{
 			final E enumConstant = enumConstants[j];
-			final String code = enumConstant.name();
 			final int number = (enumConstant.ordinal() + 1) * 10;
 			values.add(enumConstant);
 
@@ -57,16 +54,12 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 				throw new RuntimeException("duplicate number " + number + " for enum attribute on " + valueClass);
 			if(valuesToNumbers.put(enumConstant, number)!=null)
 				throw new RuntimeException("duplicate value " + enumConstant + " for enum attribute on " + valueClass);
-				
-			if(codesToValues.put(code, enumConstant)!=null)
-				throw new RuntimeException("duplicate code " + code + " for enum attribute on " + valueClass);
 		}
 		values.trimToSize();
 		numbersToValues.trimToSize();
 		this.values = Collections.unmodifiableList(values);
 		this.numbersToValues = numbersToValues;
 		this.valuesToNumbers = valuesToNumbers;
-		this.codesToValues = codesToValues;
 		
 		checkDefaultValue();
 	}
@@ -114,10 +107,13 @@ public final class EnumAttribute<E extends Enum> extends FunctionAttribute<E>
 		return result;
 	}
 
+	/**
+	 * @see Enum#valueOf(Class, String)
+	 */
 	public E getValue(final String code)
 	{
 		//System.out.println("EnumerationValue#getValue("+code+") from "+codesToValues);
-		return codesToValues.get(code);
+		return Enum.valueOf(valueClass, code);
 	}
 
 	Column createColumn(final Table table, final String name, final boolean optional)

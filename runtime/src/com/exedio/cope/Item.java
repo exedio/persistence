@@ -469,7 +469,7 @@ public abstract class Item extends Cope
 		return new Type<C>(javaClass, id);
 	}
 	
-	public static final <E extends Enum> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> valueClass)
+	public static final <E extends Enum<E>> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> valueClass)
 	{
 		return new EnumAttribute<E>(option, valueClass);
 	}
