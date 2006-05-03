@@ -74,12 +74,10 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
 	
-	/* TODO does not work with the instrumentor yet
 	public EnumAttribute<E> defaultTo(final E defaultConstant)
 	{
-		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
-	*/
 	
 	public List<E> getValues()
 	{

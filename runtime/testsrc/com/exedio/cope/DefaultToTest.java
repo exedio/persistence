@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Date;
 
+import com.exedio.cope.DefaultToItem.DefaultToEnum;
+
 
 public class DefaultToTest extends AbstractLibTest
 {
@@ -49,6 +51,10 @@ public class DefaultToTest extends AbstractLibTest
 		assertEquals(true,  DefaultToItem.dateNowOpt.isDefaultNow());
 		assertEquals(false, DefaultToItem.dateNone.isDefaultNow());
 		
+		assertEquals(DefaultToEnum.ONE, DefaultToItem.enumOne.getDefaultConstant());
+		assertEquals(DefaultToEnum.TWO, DefaultToItem.enumTwo.getDefaultConstant());
+		assertEquals(null, DefaultToItem.enumNone.getDefaultConstant());
+		
 		{
 			final Date before = new Date();
 			final DefaultToItem item = new DefaultToItem(new SetValue[]{
@@ -67,6 +73,9 @@ public class DefaultToTest extends AbstractLibTest
 			assertWithin(before, after, item.getDateNowOpt());
 			assertEquals(item.getDateNow(), item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
+			assertEquals(DefaultToEnum.ONE, item.getEnumOne());
+			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
+			assertEquals(null, item.getEnumNone());
 		}
 		{
 			final DefaultToItem item = new DefaultToItem(new SetValue[]{
@@ -79,6 +88,9 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.dateNow.map(date(501)),
 					DefaultToItem.dateNowOpt.map(date(502)),
 					DefaultToItem.dateNone.map(date(503)),
+					DefaultToItem.enumOne.map(DefaultToEnum.THREE),
+					DefaultToItem.enumTwo.map(DefaultToEnum.ONE),
+					DefaultToItem.enumNone.map(DefaultToEnum.TWO),
 			});
 			deleteOnTearDown(item);
 			assertEquals(FALSE, item.getBooleanTrue());
@@ -91,6 +103,9 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(date(501), item.getDateNow());
 			assertEquals(date(502), item.getDateNowOpt());
 			assertEquals(date(503), item.getDateNone());
+			assertEquals(DefaultToEnum.THREE, item.getEnumOne());
+			assertEquals(DefaultToEnum.ONE, item.getEnumTwo());
+			assertEquals(DefaultToEnum.TWO, item.getEnumNone());
 		}
 		{
 			final Date before = new Date();
@@ -101,6 +116,9 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.dateEighty.map(null),
 					DefaultToItem.dateNowOpt.map(null),
 					DefaultToItem.dateNone.map(null),
+					DefaultToItem.enumOne.map(DefaultToEnum.TWO),
+					DefaultToItem.enumTwo.map(null),
+					DefaultToItem.enumNone.map(null),
 			});
 			final Date after = new Date();
 			deleteOnTearDown(item);
@@ -114,6 +132,9 @@ public class DefaultToTest extends AbstractLibTest
 			assertWithin(before, after, item.getDateNow());
 			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
+			assertEquals(DefaultToEnum.TWO, item.getEnumOne());
+			assertEquals(null, item.getEnumTwo());
+			assertEquals(null, item.getEnumNone());
 		}
 
 		assertEquals(null, new DateAttribute(Item.MANDATORY).defaultTo(date(44)).defaultToNow().getDefaultConstant());

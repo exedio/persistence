@@ -275,7 +275,7 @@ final class JavaRepository
 			{
 				//System.out.println("++++++++++++++++getClass(\""+name+"\") == "+javaClass+","+javaClass.isEnum);
 				if(javaClass.isEnum)
-					return DummyEnum.class;
+					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
 					return DummyItem.class;
 			}
@@ -284,9 +284,13 @@ final class JavaRepository
 		}
 	}
 	
-	static enum DummyEnum
+	// BEWARE
+	// The name of this enum and its only enum value
+	// must match the names used in the hack of the beanshell.
+	// see bsh-core.PATCH
+	public static enum EnumBeanShellHackClass
 	{
-		// just a dummy
+		BEANSHELL_HACK_ATTRIBUTE;
 	}
 	
 	static class DummyItem extends Item
