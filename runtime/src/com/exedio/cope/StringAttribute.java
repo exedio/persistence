@@ -175,9 +175,9 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		return new EqualCondition<String>(new JoinedFunction<String>(this, join), value);
 	}
 	
-	public final EqualFunctionCondition equal(final StringAttribute other)
+	public final EqualFunctionCondition equal(final StringAttribute right)
 	{
-		return new EqualFunctionCondition(this, other);
+		return new EqualFunctionCondition(this, right);
 	}
 	
 	public final LikeCondition like(final String value)

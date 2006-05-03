@@ -20,9 +20,8 @@ package com.exedio.cope;
 
 public final class EqualFunctionCondition extends Condition
 {
-	// TODO SOON rename to function1/2
-	public final Function attribute1;
-	public final Function attribute2;
+	public final Function left;
+	public final Function right;
 
 	/**
 	 * Creates a new EqualFunctionCondition.
@@ -31,29 +30,29 @@ public final class EqualFunctionCondition extends Condition
 	 * @see StringAttribute#equal(StringAttribute)
 	 */
 	public EqualFunctionCondition(
-				final Function attribute1,
-				final Function attribute2)
+				final Function left,
+				final Function right)
 	{
-		if(attribute1==null)
-			throw new NullPointerException("attribute1 must not be null");
-		if(attribute2==null)
-			throw new NullPointerException("attribute2 must not be null");
+		if(left==null)
+			throw new NullPointerException("left function must not be null");
+		if(right==null)
+			throw new NullPointerException("right function must not be null");
 
-		this.attribute1 = attribute1;
-		this.attribute2 = attribute2;
+		this.left = left;
+		this.right = right;
 	}
 
 	void append(final Statement bf)
 	{
-		bf.append(attribute1, (Join)null).
+		bf.append(left, (Join)null).
 			append('=').
-			append(attribute2, (Join)null);
+			append(right, (Join)null);
 	}
 
 	void check(final Query query)
 	{
-		check(attribute1, query);
-		check(attribute2, query);
+		check(left, query);
+		check(right, query);
 	}
 
 	public boolean equals(final Object other)
@@ -63,17 +62,17 @@ public final class EqualFunctionCondition extends Condition
 		
 		final EqualFunctionCondition o = (EqualFunctionCondition)other;
 		
-		return attribute1.equals(o.attribute1) && attribute2.equals(o.attribute2);
+		return left.equals(o.left) && right.equals(o.right);
 	}
 	
 	public int hashCode()
 	{
-		return attribute1.hashCode() ^ attribute2.hashCode();
+		return left.hashCode() ^ right.hashCode();
 	}
 
 	public String toString()
 	{
-		return attribute1.toString() + '=' + attribute2.toString();
+		return left.toString() + '=' + right.toString();
 	}
 
 }
