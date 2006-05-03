@@ -22,7 +22,6 @@ package com.exedio.copernica;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
-import java.util.Iterator;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.DataAttribute;
