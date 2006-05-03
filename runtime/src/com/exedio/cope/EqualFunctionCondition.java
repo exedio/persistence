@@ -27,7 +27,7 @@ public final class EqualFunctionCondition extends Condition
 	 * Creates a new EqualFunctionCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see StringAttribute#equal(StringAttribute)
+	 * @see FunctionAttribute#equal(Function)
 	 */
 	public EqualFunctionCondition(
 				final Function left,
