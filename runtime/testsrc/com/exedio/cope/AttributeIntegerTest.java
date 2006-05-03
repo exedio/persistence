@@ -25,7 +25,7 @@ public class AttributeIntegerTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
 		assertEquals(null, item.getSomeInteger());
-		assertContains(item, item2, item.TYPE.search(item.someInteger.equal(null)));
+		assertContains(item, item2, item.TYPE.search(item.someInteger.equal((Integer)null)));
 		assertContains(item, item2, item.TYPE.search(item.someInteger.isNull()));
 		assertContains(item.TYPE.search(item.someInteger.notEqual(null)));
 		assertContains(item.TYPE.search(item.someInteger.isNotNull()));
@@ -57,7 +57,7 @@ public class AttributeIntegerTest extends AttributeTest
 		assertEquals(
 			list(item2),
 			item.TYPE.search(item.someInteger.notEqual(10)));
-		assertEquals(list(item2), item.TYPE.search(item.someInteger.equal(null)));
+		assertEquals(list(item2), item.TYPE.search(item.someInteger.equal((Integer)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someInteger.isNull()));
 		assertEquals(list(item), item.TYPE.search(item.someInteger.notEqual(null)));
 		assertEquals(list(item), item.TYPE.search(item.someInteger.isNotNull()));

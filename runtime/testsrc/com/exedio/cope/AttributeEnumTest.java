@@ -107,7 +107,7 @@ public class AttributeEnumTest extends AttributeTest
 		assertContains(item,
 				item.TYPE.search(item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item2,
-				item.TYPE.search(item.someEnum.equal(null)));
+				item.TYPE.search(item.someEnum.equal((SomeEnum)null)));
 		assertContains(item, item2,
 				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnum.enumValue1)));
 		assertContains(item2,

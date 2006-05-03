@@ -25,7 +25,7 @@ public class AttributeBooleanTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someBoolean.getType());
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal(null)));
+		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal((Boolean)null)));
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item.TYPE.search(item.someBoolean.notEqual(null)));
 		assertContains(item.TYPE.search(item.someBoolean.isNotNull()));
@@ -72,7 +72,7 @@ public class AttributeBooleanTest extends AttributeTest
 
 		item.setSomeBoolean(null);
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal(null)));
+		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal((Boolean)null)));
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
 		assertContains(item.TYPE.search(item.someBoolean.notEqual(null)));
 		assertContains(item.TYPE.search(item.someBoolean.isNotNull()));

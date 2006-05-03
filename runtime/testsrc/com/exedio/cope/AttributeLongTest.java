@@ -25,7 +25,7 @@ public class AttributeLongTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
 		assertEquals(null, item.getSomeLong());
-		assertContains(item, item2, item.TYPE.search(item.someLong.equal(null)));
+		assertContains(item, item2, item.TYPE.search(item.someLong.equal((Long)null)));
 		assertContains(item, item2, item.TYPE.search(item.someLong.isNull()));
 		assertContains(item.TYPE.search(item.someLong.notEqual(null)));
 		assertContains(item.TYPE.search(item.someLong.isNotNull()));
@@ -58,7 +58,7 @@ public class AttributeLongTest extends AttributeTest
 			list(item2),
 			item.TYPE.search(item.someLong.notEqual(11)));
 
-		assertEquals(list(item2), item.TYPE.search(item.someLong.equal(null)));
+		assertEquals(list(item2), item.TYPE.search(item.someLong.equal((Long)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someLong.isNull()));
 		assertEquals(list(item), item.TYPE.search(item.someLong.notEqual(null)));
 		assertEquals(list(item), item.TYPE.search(item.someLong.isNotNull()));

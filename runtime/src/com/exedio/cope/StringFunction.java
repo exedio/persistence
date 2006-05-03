@@ -28,6 +28,7 @@ public interface StringFunction extends Function<String>
 	EqualCondition equal(String value);
 	EqualCondition equal(Join join, String value);
 	NotEqualCondition notEqual(String value);
+	EqualFunctionCondition equal(Function<String> right);
 	LikeCondition like(String value);
 	LengthView length();
 }

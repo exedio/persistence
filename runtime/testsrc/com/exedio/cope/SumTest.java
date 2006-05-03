@@ -84,7 +84,7 @@ public class SumTest extends TestmodelTest
 		assertEquals(null, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
-		assertContains(item, item.TYPE.search(item.num1.equal(null)));
+		assertContains(item, item.TYPE.search(item.num1.equal((Integer)null)));
 		assertContains(item, item.TYPE.search(item.num2.equal(2)));
 		assertContains(item, item.TYPE.search(item.num3.equal(3)));
 
@@ -92,11 +92,11 @@ public class SumTest extends TestmodelTest
 		assertEquals(null, item.getSum13());
 		assertEquals(i5, item.getSum23());
 		assertEquals(null, item.getSum123());
-		assertContains(item, item.TYPE.search(item.sum12.equal(null)));
-		assertContains(item, item.TYPE.search(item.sum13.equal(null)));
+		assertContains(item, item.TYPE.search(item.sum12.equal((Integer)null)));
+		assertContains(item, item.TYPE.search(item.sum13.equal((Integer)null)));
 		assertContains(item, item.TYPE.search(item.sum23.equal(5)));
-		assertContains(item, item.TYPE.search(item.sum123.equal(null)));
-		assertContains(item, item.TYPE.search(item.sum12a3.equal(null)));
+		assertContains(item, item.TYPE.search(item.sum123.equal((Integer)null)));
+		assertContains(item, item.TYPE.search(item.sum12a3.equal((Integer)null)));
 	}
 	
 }

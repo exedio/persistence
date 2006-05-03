@@ -281,6 +281,11 @@ public abstract class FunctionAttribute<E extends Object>
 		return new NotEqualCondition<E>(this, value);
 	}
 	
+	public final EqualFunctionCondition equal(final Function<E> right)
+	{
+		return new EqualFunctionCondition(this, right);
+	}
+	
 	public final LessCondition less(final E value)
 	{
 		return new LessCondition<E>(this, value);
