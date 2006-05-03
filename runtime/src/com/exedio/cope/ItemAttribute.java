@@ -176,14 +176,14 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
 	}
 	
-	public final EqualTargetCondition equalTarget()
+	public final EqualAttributeCondition equalTarget()
 	{
-		return new EqualTargetCondition(this, null);
+		return new EqualAttributeCondition(this, getValueType().thisFunction);
 	}
 	
-	public final EqualTargetCondition equalTarget(final Join targetJoin)
+	public final EqualAttributeCondition equalTarget(final Join targetJoin)
 	{
-		return new EqualTargetCondition(this, targetJoin);
+		return new EqualAttributeCondition(this, new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
 	}
 	
 	public static enum DeletePolicy

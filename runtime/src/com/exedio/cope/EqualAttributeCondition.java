@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
-
+// TODO SOON rename to EqualFunctionCondition
 public final class EqualAttributeCondition extends Condition
 {
-	public final FunctionAttribute attribute1;
-	public final FunctionAttribute attribute2;
+	// TODO SOON rename to function1/2
+	public final Function attribute1;
+	public final Function attribute2;
 
 	/**
 	 * Creates a new EqualAttributeCondition.
@@ -31,8 +32,8 @@ public final class EqualAttributeCondition extends Condition
 	 * @see StringAttribute#equal(StringAttribute)
 	 */
 	public EqualAttributeCondition(
-				final FunctionAttribute attribute1,
-				final FunctionAttribute attribute2)
+				final Function attribute1,
+				final Function attribute2)
 	{
 		if(attribute1==null)
 			throw new NullPointerException("attribute1 must not be null");
@@ -73,7 +74,7 @@ public final class EqualAttributeCondition extends Condition
 
 	public String toString()
 	{
-		return attribute1.getName() + "=" + attribute2.getName();
+		return attribute1.toString() + '=' + attribute2.toString();
 	}
 
 }
