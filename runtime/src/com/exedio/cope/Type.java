@@ -374,8 +374,8 @@ public final class Type<C extends Item>
 		if(this.declaredReferences!=null)
 			throw new RuntimeException();
 		
-		this.declaredReferences = Collections.unmodifiableList(referencesWhileInitialization);
 		referencesWhileInitialization.trimToSize();
+		this.declaredReferences = Collections.unmodifiableList(referencesWhileInitialization);
 		this.referencesWhileInitialization = null;
 		if(supertype!=null)
 		{
