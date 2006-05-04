@@ -97,7 +97,7 @@ public final class Transaction
 		return closed;
 	}
 	
-	final Entity getEntity(final Item item, final boolean present)
+	Entity getEntity(final Item item, final boolean present)
 	{
 		assertNotClosed();
 		
@@ -144,7 +144,7 @@ public final class Transaction
 		}
 	}
 	
-	final void removeEntity(final Item item)
+	void removeEntity(final Item item)
 	{
 		final IntKeyOpenHashMap entityMap = entityMaps[item.type.transientNumber];
 		if(entityMap!=null)
@@ -153,7 +153,7 @@ public final class Transaction
 		}		
 	}
 	
-	final <R> List<R> search(final Query<R> query)
+	<R> List<R> search(final Query<R> query)
 	{
 		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
 		{
@@ -219,7 +219,7 @@ public final class Transaction
 		invalidationsForType.add( pk );
 	}
 
-	final Entity getEntityIfActive(final Type type, final int pk)
+	Entity getEntityIfActive(final Type type, final int pk)
 	{
 		assertNotClosed();
 
