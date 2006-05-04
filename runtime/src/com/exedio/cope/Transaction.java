@@ -186,14 +186,14 @@ public final class Transaction
 		return false;
 	}
 	
-	private boolean isInvalidated(final Type type)
+	private boolean isInvalidated(final Type<?> type)
 	{
 		if(type==null)
 			throw new NullPointerException();
 		
-		for(Iterator i = type.getTypesOfInstances().iterator(); i.hasNext(); )
+		for(final Type<?> instanceType : type.getTypesOfInstances())
 		{
-			final IntOpenHashSet invalidationsForType = invalidations[((Type)i.next()).transientNumber];
+			final IntOpenHashSet invalidationsForType = invalidations[instanceType.transientNumber];
 			if(invalidationsForType!=null && !invalidationsForType.isEmpty())
 				return true;
 		}
@@ -330,9 +330,9 @@ public final class Transaction
 				connection = null;
 				connectionPool = null;
 			}
-			for(int i = 0; i<entityMaps.length; i++)
-				if(entityMaps[i]!=null)
-					entityMaps[i].clear();
+			for(final IntKeyOpenHashMap entityMap : entityMaps)
+				if(entityMap!=null)
+					entityMap.clear();
 			closed = true;
 		}
 	}
