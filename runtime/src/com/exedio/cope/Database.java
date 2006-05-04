@@ -285,6 +285,9 @@ abstract class Database
 			appendLimitClause(bf, limitStart, limitCount);
 		
 		bf.append(' ');
+		
+		if(query.distinct)
+			bf.append("distinct ");
 
 		final Function[] selects = query.selects;
 		final Column[] selectColumns = new Column[selects.length];
@@ -1372,6 +1375,7 @@ abstract class Database
 	
 	abstract int getLimitSupport();
 	
+	// TODO SOON make an enum
 	protected static final int LIMIT_SUPPORT_NONE = 26;
 	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_SELECT = 63;
 	protected static final int LIMIT_SUPPORT_CLAUSE_AFTER_WHERE = 93;

@@ -32,6 +32,7 @@ public final class Query<R>
 	
 	final Model model;
 	final Function[] selects;
+	boolean distinct = false;
 	final Type type;
 	ArrayList<Join> joins = null;
 	Condition condition;
@@ -67,6 +68,16 @@ public final class Query<R>
 		this.selects = selects;
 		this.type = type;
 		this.condition = condition;
+	}
+	
+	public boolean isDistinct()
+	{
+		return distinct;
+	}
+	
+	public void setDistinct(final boolean distinct)
+	{
+		this.distinct = distinct;
 	}
 	
 	public Type getType()
@@ -274,7 +285,7 @@ public final class Query<R>
 	 * {@link #search()} would have returned for this query with
 	 * {@link #setLimit(int)} reset set to <tt>(0)</tt>.
 	 */
-	public final int countWithoutLimit()
+	public int countWithoutLimit()
 	{
 		check();
 		final Collection result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
@@ -392,6 +403,9 @@ public final class Query<R>
 		
 		bf.append("select ");
 		
+		if(distinct)
+			bf.append("distinct ");
+		
 		for(int i = 0; i<selects.length; i++)
 		{
 			if(i>0)
@@ -458,6 +472,7 @@ public final class Query<R>
 	{
 		final Model model;
 		final Function[] selects;
+		final boolean distinct;
 		final Type type;
 		final ArrayList<Join> joins;
 		final Condition condition;
@@ -477,6 +492,7 @@ public final class Query<R>
 		{
 			model = query.model;
 			selects = query.selects;
+			distinct = query.distinct;
 			type = query.type;
 			joins = query.joins==null ? null : new ArrayList<Join>(query.joins);
 			condition = query.condition;
@@ -496,6 +512,7 @@ public final class Query<R>
 			Key other = (Key)obj;
 			return equals( model, other.model )
 				&& Arrays.equals( selects, other.selects )
+				&& distinct == other.distinct
 				&& equals( type, other.type )
 				&& equals( joins, other.joins )
 				&& equals( condition, other.condition )
@@ -560,6 +577,7 @@ public final class Query<R>
 		{
 			return hashCode(model) 
 					^ hashCode(selects)
+					^ hashCode(distinct)
 					^ hashCode(type)
 					^ hashCode(joins)
 					^ hashCode(condition)

@@ -63,6 +63,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SumOrderTest.class );
 		suite.addTestSuite( OrderByTest.class );
 		suite.addTestSuite( SelectTest.class );
+		suite.addTestSuite( DistinctTest.class );
 		suite.addTestSuite( FunctionTest.class );
 		suite.addTestSuite( LiteralConditionTest.class );
 		suite.addTestSuite( JoinTest.class );
