@@ -62,7 +62,7 @@ abstract class Database
 	final ConnectionPool connectionPool;
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
-	final LIMIT_SUPPORT limitSupport;
+	final LimitSupport limitSupport;
 	final long blobLengthFactor;
 	final boolean oracle; // TODO remove
 	
@@ -76,7 +76,7 @@ abstract class Database
 		this.connectionPool = new ConnectionPool(properties);
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
-		this.limitSupport = properties.getDatabaseDontSupportLimit() ? LIMIT_SUPPORT.NONE : getLimitSupport();
+		this.limitSupport = properties.getDatabaseDontSupportLimit() ? LimitSupport.NONE : getLimitSupport();
 		this.blobLengthFactor = getBlobLengthFactor();
 		this.oracle = getClass().getName().equals("com.exedio.cope.OracleDatabase");
 		
@@ -267,12 +267,12 @@ abstract class Database
 		final ArrayList queryJoins = query.joins;
 		final Statement bf = createStatement(query);
 		
-		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT.CLAUSES_AROUND)
+		if(!doCountOnly && limitActive && limitSupport==LimitSupport.CLAUSES_AROUND)
 			appendLimitClause(bf, limitStart, limitCount);
 		
 		bf.append("select");
 		
-		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT.CLAUSE_AFTER_SELECT)
+		if(!doCountOnly && limitActive && limitSupport==LimitSupport.CLAUSE_AFTER_SELECT)
 			appendLimitClause(bf, limitStart, limitCount);
 		
 		bf.append(' ');
@@ -407,11 +407,11 @@ abstract class Database
 				}
 			}
 			
-			if(limitActive && limitSupport==LIMIT_SUPPORT.CLAUSE_AFTER_WHERE)
+			if(limitActive && limitSupport==LimitSupport.CLAUSE_AFTER_WHERE)
 				appendLimitClause(bf, limitStart, limitCount);
 		}
 
-		if(!doCountOnly && limitActive && limitSupport==LIMIT_SUPPORT.CLAUSES_AROUND)
+		if(!doCountOnly && limitActive && limitSupport==LimitSupport.CLAUSES_AROUND)
 			appendLimitClause2(bf, limitStart, limitCount);
 		
 		final Type[] types = selectTypes;
@@ -440,7 +440,7 @@ abstract class Database
 						return;
 					}
 					
-					if(limitStart>0 && limitSupport==LIMIT_SUPPORT.NONE)
+					if(limitStart>0 && limitSupport==LimitSupport.NONE)
 					{
 						// TODO: ResultSet.relative
 						// Would like to use
@@ -451,7 +451,7 @@ abstract class Database
 							resultSet.next();
 					}
 						
-					int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=LIMIT_SUPPORT.NONE)) ? Integer.MAX_VALUE : limitCount );
+					int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=LimitSupport.NONE)) ? Integer.MAX_VALUE : limitCount );
 					if(i<=0)
 						throw new RuntimeException(String.valueOf(limitCount));
 					
@@ -1364,10 +1364,9 @@ abstract class Database
 	public abstract String getDateTimestampType();
 	public abstract String getBlobType(long maximumLength);
 	
-	abstract LIMIT_SUPPORT getLimitSupport();
+	abstract LimitSupport getLimitSupport();
 	
-	// TODO SOON rename to LimitSupport
-	static enum LIMIT_SUPPORT
+	static enum LimitSupport
 	{
 		NONE,
 		CLAUSE_AFTER_SELECT,

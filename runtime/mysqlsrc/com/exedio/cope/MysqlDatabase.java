@@ -121,9 +121,9 @@ public final class MysqlDatabase extends Database
 			return "LONGBLOB";
 	}
 	
-	LIMIT_SUPPORT getLimitSupport()
+	LimitSupport getLimitSupport()
 	{
-		return LIMIT_SUPPORT.CLAUSE_AFTER_WHERE;
+		return LimitSupport.CLAUSE_AFTER_WHERE;
 	}
 
 	void appendLimitClause(final Statement bf, final int start, final int count)

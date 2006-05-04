@@ -100,9 +100,9 @@ final class OracleDatabase extends Database
 		return "BLOB";
 	}
 	
-	LIMIT_SUPPORT getLimitSupport()
+	LimitSupport getLimitSupport()
 	{
-		return LIMIT_SUPPORT.CLAUSES_AROUND;
+		return LimitSupport.CLAUSES_AROUND;
 	}
 
 	void appendLimitClause(final Statement bf, final int start, final int count)

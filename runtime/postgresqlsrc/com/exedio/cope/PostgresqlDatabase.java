@@ -80,10 +80,10 @@ final class PostgresqlDatabase extends Database
 		return null;
 	}
 	
-	LIMIT_SUPPORT getLimitSupport()
+	LimitSupport getLimitSupport()
 	{
 		// TODO support limit clause
-		return LIMIT_SUPPORT.NONE;
+		return LimitSupport.NONE;
 	}
 
 	void appendLimitClause(final Statement bf, final int start, final int count)
