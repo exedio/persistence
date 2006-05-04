@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.Attribute.Option;
@@ -311,7 +312,7 @@ public abstract class Item extends Cope
 	{
 		toDelete.add(this);
 		
-		for(final ItemAttribute<Item> attribute : type.getReferences()) // TODO warning
+		for(final ItemAttribute<Item> attribute : castReferences(type.getReferences()))
 		{
 			switch(attribute.getDeletePolicy())
 			{
@@ -345,7 +346,7 @@ public abstract class Item extends Cope
 		try
 		{
 			// TODO make sure, no item is deleted twice
-			for(final ItemAttribute<Item> attribute : type.getReferences()) // TODO warning
+			for(final ItemAttribute<Item> attribute : castReferences(type.getReferences()))
 			{
 				switch(attribute.getDeletePolicy())
 				{
@@ -397,6 +398,12 @@ public abstract class Item extends Cope
 			// cannot happen, since nullify ItemAttributes cannot be final
 			throw new RuntimeException(e);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private final List<ItemAttribute<Item>> castReferences(final List l)
+	{
+		return (List<ItemAttribute<Item>>)l;
 	}
 	
 	/**
