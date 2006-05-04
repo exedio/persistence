@@ -747,7 +747,12 @@ public final class Type<C extends Item>
 		final Entity entity = getModel().getCurrentTransaction().getEntityIfActive(this, pk);
 		if(entity!=null)
 			return cast(entity.getItem());
-
+		else
+			return createItemObject(pk);
+	}
+	
+	C createItemObject(final int pk)
+	{
 		try
 		{
 			return

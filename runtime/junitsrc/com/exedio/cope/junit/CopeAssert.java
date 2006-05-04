@@ -36,6 +36,12 @@ public abstract class CopeAssert extends TestCase
 {
 	public final static void assertContainsList(final List<? extends Object> expected, final Collection<? extends Object> actual)
 	{
+		if(expected==null && actual==null)
+			return;
+		
+		assertNotNull("expected null, but was " + actual, expected);
+		assertNotNull("expected " + expected + ", but was null", actual);
+		
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
 				!actual.containsAll(expected))

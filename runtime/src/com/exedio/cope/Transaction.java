@@ -20,12 +20,15 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import bak.pcj.IntIterator;
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntOpenHashSet;
 
+import com.exedio.cope.util.ModificationListener;
 import com.exedio.dsmf.SQLRuntimeException;
 
 
@@ -268,7 +271,7 @@ public final class Transaction
 		{
 			final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
 			if ( invalidatedPKs!=null )
-			{				
+			{
 				model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
 			}
 		}
@@ -330,9 +333,34 @@ public final class Transaction
 				connection = null;
 				connectionPool = null;
 			}
+			
+			final List<ModificationListener> commitListeners = model.modificationListeners;
+			if(!commitListeners.isEmpty())
+			{
+				final ArrayList<Item> items = new ArrayList<Item>();
+				
+				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+				{
+					final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
+					if(invalidationSet!=null)
+					{
+						for(IntIterator i = invalidationSet.iterator(); i.hasNext(); )
+							items.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
+					}
+				}
+				
+				if(!items.isEmpty())
+				{
+					// make a copy of commitListeners to avoid ConcurrentModificationViolations
+					for(final ModificationListener listener : new ArrayList<ModificationListener>(commitListeners))
+						listener.onModifyingCommit(items);
+				}
+			}
+			
 			for(final IntKeyOpenHashMap entityMap : entityMaps)
 				if(entityMap!=null)
 					entityMap.clear();
+			
 			closed = true;
 		}
 	}

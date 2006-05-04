@@ -27,7 +27,14 @@ public class MatchItem extends Item
 
 	public static final StringAttribute text = new StringAttribute(OPTIONAL);
 	
-/**
+	public MatchItem(final String text)
+	{
+		this(new com.exedio.cope.SetValue[]{
+				MatchItem.text.map(text),
+		});
+	}
+	
+	/**
 
 	 **
 	 * Creates a new MatchItem with all the attributes initially needed.

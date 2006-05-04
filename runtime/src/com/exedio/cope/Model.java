@@ -35,6 +35,7 @@ import java.util.Set;
 
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
+import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -49,6 +50,7 @@ public final class Model
 	private final List<Type<Item>> typeList;
 	private final List<Type<Item>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
+	final List<ModificationListener> modificationListeners = Collections.synchronizedList(new ArrayList<ModificationListener>());
 
 	// set by setPropertiesInitially
 	private Properties properties;
@@ -199,6 +201,11 @@ public final class Model
 			throw newNotInitializedException();
 
 		return typesByID.get(id);
+	}
+	
+	Type getConcreteType(final int transientNumber)
+	{
+		return concreteTypes[transientNumber];
 	}
 	
 	private RuntimeException newNotInitializedException()
@@ -470,6 +477,17 @@ public final class Model
 			throw new NoSuchIDException(id, false, "item <"+idNumber+"> does not exist");
 		}
 		return result;
+	}
+	
+	public void addModificationListener(final ModificationListener listener)
+	{
+		// TODO do not hard link to allow GC remove listeners
+		modificationListeners.add(listener);
+	}
+	
+	public void removeModificationListener(final ModificationListener listener)
+	{
+		modificationListeners.remove(listener);
 	}
 	
 	public CacheInfo[] getCacheInfo()
