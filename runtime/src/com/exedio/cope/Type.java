@@ -371,8 +371,9 @@ public final class Type<C extends Item>
 	
 	void postInitialize()
 	{
-		if(this.declaredReferences!=null)
-			throw new RuntimeException();
+		assert referencesWhileInitialization!=null;
+		assert declaredReferences==null;
+		assert references==null;
 		
 		referencesWhileInitialization.trimToSize();
 		this.declaredReferences = Collections.unmodifiableList(referencesWhileInitialization);
@@ -384,25 +385,25 @@ public final class Type<C extends Item>
 			if(declared.isEmpty())
 				this.references = inherited;
 			else if(inherited.isEmpty())
-			{
-				final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>(declared);
-				result.trimToSize();
-				this.references = Collections.<ItemAttribute>unmodifiableList(result);
-			}
+				this.references = castReferences(declared);
 			else
 			{
 				final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>(inherited);
 				result.addAll(declared);
 				result.trimToSize();
-				this.references = Collections.<ItemAttribute>unmodifiableList(result);
+				this.references = Collections.unmodifiableList(result);
 			}
 		}
-		else // TODO SOON
+		else
 		{
-			final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>(declaredReferences);
-			result.trimToSize();
-			this.references = Collections.<ItemAttribute>unmodifiableList(result);
+			this.references = castReferences(declaredReferences);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private final List<ItemAttribute> castReferences(final List l)
+	{
+		return (List<ItemAttribute>)l;
 	}
 	
 	void materialize(final Database database)
