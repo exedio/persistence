@@ -56,12 +56,7 @@ final class Cache
 	
 	private IntKeyOpenHashMap getStateMap( Type type )
 	{
-		return getStateMap( type.transientNumber );
-	}
-	
-	private IntKeyOpenHashMap getStateMap( int transientTypeNumber )
-	{
-		return stateMaps[ transientTypeNumber ];
+		return stateMaps[type.transientNumber];
 	}
 	
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
@@ -194,7 +189,7 @@ final class Cache
 	
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
 	{
-		final IntKeyOpenHashMap stateMap = getStateMap( transientTypeNumber );
+		final IntKeyOpenHashMap stateMap = stateMaps[transientTypeNumber];
 		if(stateMap!=null)
 		{
 			synchronized ( stateMap )
@@ -233,9 +228,8 @@ final class Cache
 
 	void clear()
 	{
-		for ( int i=0; i<stateMaps.length; i++ )
+		for(final IntKeyOpenHashMap stateMap : stateMaps)
 		{
-			final IntKeyOpenHashMap stateMap = getStateMap( i );
 			if(stateMap!=null)
 			{
 				synchronized ( stateMap )
@@ -259,7 +253,7 @@ final class Cache
 		
 		final CacheInfo[] result = new CacheInfo[stateMaps.length];
 		
-		for(int i=0; i<stateMaps.length; i++ )
+		for(int i=0; i<stateMaps.length; i++)
 		{
 			final long now = System.currentTimeMillis();
 			final int numberOfItemsInCache;
@@ -267,7 +261,7 @@ final class Cache
 			long ageMin = Integer.MAX_VALUE;
 			long ageMax = 0;
 
-			final IntKeyOpenHashMap stateMap = getStateMap(i);
+			final IntKeyOpenHashMap stateMap = stateMaps[i];
 			if(stateMap!=null)
 			{
 				synchronized(stateMap)
