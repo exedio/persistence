@@ -79,9 +79,9 @@ final class HsqldbDatabase extends Database
 		return 2;
 	}
 
-	int getLimitSupport()
+	LIMIT_SUPPORT getLimitSupport()
 	{
-		return LIMIT_SUPPORT_CLAUSE_AFTER_SELECT;
+		return LIMIT_SUPPORT.CLAUSE_AFTER_SELECT;
 	}
 
 	void appendLimitClause(final Statement bf, final int start, final int count)
