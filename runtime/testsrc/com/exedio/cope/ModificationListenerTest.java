@@ -97,14 +97,29 @@ public class ModificationListenerTest extends AbstractLibTest
 		super.tearDown();
 	}
 	
-	static class TestListener implements ModificationListener
+	class TestListener implements ModificationListener
 	{
 		Collection<Item> items = null;
 		
 		public void onModifyingCommit(final Collection<Item> items)
 		{
 			assertTrue(items!=null);
+			assertTrue(!items.isEmpty());
+			assertUnmodifiable(items);
+			
 			assertTrue(this.items==null);
+			
+			//assertTrue(model.getOpenTransactions().isEmpty()); TODO
+			try
+			{
+				model.getCurrentTransaction();
+				//fail(); TODO
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
+			}
+			
 			this.items = items;
 		}
 		

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -351,9 +352,10 @@ public final class Transaction
 				
 				if(!items.isEmpty())
 				{
+					final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
 					// make a copy of commitListeners to avoid ConcurrentModificationViolations
 					for(final ModificationListener listener : new ArrayList<ModificationListener>(commitListeners))
-						listener.onModifyingCommit(items);
+						listener.onModifyingCommit(itemsUnmodifiable);
 				}
 			}
 			
