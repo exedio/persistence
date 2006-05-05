@@ -56,12 +56,6 @@ public abstract class StringView
 		return (String)getObject(item);
 	}
 	
-	// TODO SOON move to View
-	public final NotEqualCondition notEqual(final String value)
-	{
-		return new NotEqualCondition<String>(this, value);
-	}
-	
 	public final LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);
@@ -71,6 +65,4 @@ public abstract class StringView
 	{
 		return new LengthView(this);
 	}
-	// TODO SOON end of move to View
-	
 }

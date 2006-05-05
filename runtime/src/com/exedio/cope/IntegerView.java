@@ -76,15 +76,9 @@ public abstract class IntegerView
 		return (Integer)getObject(item);
 	}
 	
-	// TODO SOON move to View
 	public final EqualCondition equal(final int value)
 	{
 		return new EqualCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
-	public final NotEqualCondition notEqual(final Integer value)
-	{
-		return new NotEqualCondition<Integer>(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final int value)
@@ -111,7 +105,6 @@ public abstract class IntegerView
 	{
 		return new GreaterEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
-	// TODO SOON end of move to View
 	
 	public final SumView sum(final IntegerFunction other)
 	{

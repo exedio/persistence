@@ -174,4 +174,8 @@ public abstract class View<E> extends Feature implements Function<E>
 		return OrCondition.in(this, values);
 	}
 	
+	public final NotEqualCondition notEqual(final E value)
+	{
+		return new NotEqualCondition<E>(this, value);
+	}
 }
