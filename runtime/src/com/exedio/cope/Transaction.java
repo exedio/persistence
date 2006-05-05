@@ -263,50 +263,6 @@ public final class Transaction
 		fireInvalidations(false); // TODO SOON move this into close(boolean)
 	}
 	
-	private void fireInvalidations(final boolean rollback)
-	{
-		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
-		{
-			for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
-			{
-				final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
-				if ( invalidatedPKs!=null )
-				{
-					model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
-				}
-			}
-		}
-		
-		if(!rollback)
-		{
-			final List<ModificationListener> commitListeners = model.modificationListeners;
-			if(!commitListeners.isEmpty())
-			{
-				final ArrayList<Item> items = new ArrayList<Item>();
-				
-				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
-				{
-					final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
-					if(invalidationSet!=null)
-					{
-						for(IntIterator i = invalidationSet.iterator(); i.hasNext(); )
-							items.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
-					}
-				}
-				
-				if(!items.isEmpty())
-				{
-					final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
-					// make a copy of commitListeners to avoid ConcurrentModificationViolations
-					for(final ModificationListener listener : new ArrayList<ModificationListener>(commitListeners))
-						listener.onModifyingCommit(itemsUnmodifiable);
-				}
-			}
-		}
-		
-		// TODO SOON clean invalidations
-	}
-
 	/**
 	 * calling this method directly breaks model.openTransactions
 	 */
@@ -367,6 +323,50 @@ public final class Transaction
 		}
 	}
 	
+	private void fireInvalidations(final boolean rollback)
+	{
+		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
+		{
+			for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
+			{
+				final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
+				if ( invalidatedPKs!=null )
+				{
+					model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
+				}
+			}
+		}
+		
+		if(!rollback)
+		{
+			final List<ModificationListener> commitListeners = model.modificationListeners;
+			if(!commitListeners.isEmpty())
+			{
+				final ArrayList<Item> items = new ArrayList<Item>();
+				
+				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+				{
+					final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
+					if(invalidationSet!=null)
+					{
+						for(IntIterator i = invalidationSet.iterator(); i.hasNext(); )
+							items.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
+					}
+				}
+				
+				if(!items.isEmpty())
+				{
+					final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
+					// make a copy of commitListeners to avoid ConcurrentModificationViolations
+					for(final ModificationListener listener : new ArrayList<ModificationListener>(commitListeners))
+						listener.onModifyingCommit(itemsUnmodifiable);
+				}
+			}
+		}
+		
+		// TODO SOON clean invalidations
+	}
+
 	public String getName()
 	{
 		return name;
