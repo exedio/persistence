@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.function.SumView;
+import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -106,9 +106,9 @@ public abstract class IntegerView
 		return new GreaterEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
-	public final SumView sum(final IntegerFunction other)
+	public final PlusView sum(final IntegerFunction other)
 	{
-		return new SumView(new IntegerFunction[]{this, other});
+		return new PlusView(new IntegerFunction[]{this, other});
 	}
 
 }

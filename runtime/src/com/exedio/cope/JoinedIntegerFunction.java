@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.SumView;
+import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
@@ -62,9 +62,9 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 		return new GreaterEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
-	public final SumView sum(final IntegerFunction other)
+	public final PlusView sum(final IntegerFunction other)
 	{
-		return new SumView(new IntegerFunction[]{this, other});
+		return new PlusView(new IntegerFunction[]{this, other});
 	}
 
 }

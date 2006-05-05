@@ -22,20 +22,20 @@ import com.exedio.cope.IntegerView;
 import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerFunction;
 
-public final class SumView
+public final class PlusView
 	extends IntegerView
 	implements IntegerFunction
 {
 
 	/**
-	 * Creates a new SumView.
+	 * Creates a new PlusView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper methods.
 	 * @see IntegerFunction#sum(IntegerFunction)
 	 * @see Cope#sum(IntegerFunction,IntegerFunction)
 	 * @see Cope#sum(IntegerFunction,IntegerFunction,IntegerFunction)
 	 */
-	public SumView(final IntegerFunction[] addends)
+	public PlusView(final IntegerFunction[] addends)
 	{
 		super(addends, makePlusses(addends.length), "sum");
 	}

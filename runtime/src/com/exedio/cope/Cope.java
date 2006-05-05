@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.SumView;
+import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.OrCondition;
 
@@ -53,14 +53,14 @@ public abstract class Cope
 		return new OrCondition(new Condition[]{condition1, condition2, condition3});
 	}
 	
-	public static final SumView sum(final IntegerFunction addend1, final IntegerFunction addend2)
+	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2)
 	{
-		return new SumView(new IntegerFunction[]{addend1, addend2});
+		return new PlusView(new IntegerFunction[]{addend1, addend2});
 	}
 
-	public static final SumView sum(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
+	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
 	{
-		return new SumView(new IntegerFunction[]{addend1, addend2, addend3});
+		return new PlusView(new IntegerFunction[]{addend1, addend2, addend3});
 	}
 	
 }
