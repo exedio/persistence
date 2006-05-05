@@ -15,6 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 package com.exedio.cope;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.List;
 import com.exedio.cope.testmodel.PlusItem;
 
 
-public class SumOrderTest extends TestmodelTest
+public class PlusOrderTest extends TestmodelTest
 {
 	PlusItem item1;
 	PlusItem item2;
