@@ -50,7 +50,7 @@ public final class Transaction
 	}
 	
 	/**
-	 *	calling this method directly break model.transactionThreads
+	 * calling this method directly breaks model.transactionThreads
 	 */
 	void bindToCurrentThread()
 	{
@@ -74,7 +74,7 @@ public final class Transaction
 	}
 	
 	/**
-	 *	calling this method directly break model.transactionThreads
+	 * calling this method directly breaks model.transactionThreads
 	 */
 	void unbindThread()
 	{
@@ -258,15 +258,15 @@ public final class Transaction
 	}
 	
 	/**
-	 *	calling this method directly break model.openTransactions
+	 * calling this method directly breaks model.openTransactions
 	 */
 	void commitInternal()
 	{
 		close(false);
-		fireInvalidations();
+		fireInvalidations(false); // TODO SOON move this into close(boolean)
 	}
 	
-	private void fireInvalidations()
+	private void fireInvalidations(final boolean rollback)
 	{
 		for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
 		{
@@ -276,19 +276,48 @@ public final class Transaction
 				model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
 			}
 		}
+		
+		if(!rollback)
+		{
+			final List<ModificationListener> commitListeners = model.modificationListeners;
+			if(!commitListeners.isEmpty())
+			{
+				final ArrayList<Item> items = new ArrayList<Item>();
+				
+				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+				{
+					final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
+					if(invalidationSet!=null)
+					{
+						for(IntIterator i = invalidationSet.iterator(); i.hasNext(); )
+							items.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
+					}
+				}
+				
+				if(!items.isEmpty())
+				{
+					final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
+					// make a copy of commitListeners to avoid ConcurrentModificationViolations
+					for(final ModificationListener listener : new ArrayList<ModificationListener>(commitListeners))
+						listener.onModifyingCommit(itemsUnmodifiable);
+				}
+			}
+		}
+		
+		// TODO SOON clean invalidations
 	}
 
 	/**
-	 *	calling this method directly break model.openTransactions
+	 * calling this method directly breaks model.openTransactions
 	 */
 	void rollbackInternal()
 	{
 		boolean supportsReadCommitted = model.supportsReadCommitted();
 		close(true);
-		if ( ! supportsReadCommitted )
+		if ( ! supportsReadCommitted ) // TODO SOON move this into close(boolean)
 		{
 			// please send any complaints to derschuldige@hsqldb.org
-			fireInvalidations();
+			fireInvalidations(true);
 		}
 	}
 	
@@ -298,7 +327,7 @@ public final class Transaction
 			throw new RuntimeException("transaction "+name+" has already been closed");
 	}	
 	
-	private void close(final boolean rollback)
+	private void close(final boolean rollback) // TODO SOON rename commitOrRollback
 	{
 		assertNotClosed();
 
@@ -333,32 +362,6 @@ public final class Transaction
 				}
 				connection = null;
 				connectionPool = null;
-			}
-			
-			// TODO SOON move this outside the finally block
-			// TODO SOON skip this if rollback
-			final List<ModificationListener> commitListeners = model.modificationListeners;
-			if(!commitListeners.isEmpty())
-			{
-				final ArrayList<Item> items = new ArrayList<Item>();
-				
-				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
-				{
-					final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
-					if(invalidationSet!=null)
-					{
-						for(IntIterator i = invalidationSet.iterator(); i.hasNext(); )
-							items.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
-					}
-				}
-				
-				if(!items.isEmpty())
-				{
-					final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
-					// make a copy of commitListeners to avoid ConcurrentModificationViolations
-					for(final ModificationListener listener : new ArrayList<ModificationListener>(commitListeners))
-						listener.onModifyingCommit(itemsUnmodifiable);
-				}
 			}
 			
 			for(final IntKeyOpenHashMap entityMap : entityMaps)

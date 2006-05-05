@@ -69,6 +69,13 @@ public class ModificationListenerTest extends AbstractLibTest
 		l.assertIt(list(item1, item2));
 
 		model.startTransaction("CommitListenerTest5");
+		item1.setText("item1R");
+		item2.setText("item2R");
+		l.assertIt(null);
+		model.rollback();
+		l.assertIt(null);
+
+		model.startTransaction("CommitListenerTest5");
 		final MatchItem item3 = new MatchItem("item3");
 		item1.setText("item1z");
 		l.assertIt(null);
