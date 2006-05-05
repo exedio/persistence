@@ -267,6 +267,7 @@ public final class Transaction
 	{
 		assertNotClosed();
 
+		// notify database
 		try
 		{
 			if(connection!=null)
@@ -306,7 +307,8 @@ public final class Transaction
 			
 			closed = true;
 		}
-		
+
+		// notify global cache
 		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
 		{
 			for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
@@ -318,7 +320,8 @@ public final class Transaction
 				}
 			}
 		}
-		
+
+		// notify ModificationListeners
 		if(!rollback)
 		{
 			final List<ModificationListener> commitListeners = model.modificationListeners;
@@ -345,8 +348,17 @@ public final class Transaction
 				}
 			}
 		}
-		
-		// TODO SOON clean invalidations
+
+		// cleanup
+		for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+		{
+			final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
+			if(invalidationSet!=null)
+			{
+				invalidationSet.clear();
+				invalidations[transientTypeNumber] = null;
+			}
+		}
 	}
 
 	public String getName()
