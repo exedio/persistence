@@ -65,12 +65,9 @@ public final class Transaction
 		boundThread = Thread.currentThread();
 	}
 	
-	void assertBoundToCurrentThread()
+	boolean assertBoundToCurrentThread()
 	{
-		if ( ! Thread.currentThread().equals(boundThread) ) // TODO SOON use assert
-		{
-			throw new RuntimeException();
-		}
+		return Thread.currentThread().equals(boundThread);
 	}
 	
 	/**

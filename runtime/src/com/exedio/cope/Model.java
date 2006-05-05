@@ -592,19 +592,14 @@ public final class Model
 		{
 			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");
 		}
-		result.assertBoundToCurrentThread(); // TODO SOON use assert
+		assert result.assertBoundToCurrentThread();
 		return result;
 	}
 	
 	private Transaction getCurrentTransactionIfAvailable()
 	{
 		final Transaction result = transactionThreads.get();
-		
-		if( result!=null )
-		{
-			result.assertBoundToCurrentThread(); // TODO SOON use assert
-		}
-
+		assert result==null || result.assertBoundToCurrentThread();
 		return result;
 	}
 	
