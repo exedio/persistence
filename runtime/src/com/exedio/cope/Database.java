@@ -1169,13 +1169,13 @@ abstract class Database
 		}
 	}
 	
-	final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
+	private final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
 			throws UniqueViolationException
 	{
 		executeSQLUpdate(connection, statement, expectedRows, null);
 	}
 
-	final void executeSQLUpdate(
+	private final void executeSQLUpdate(
 			final Connection connection,
 			final Statement statement, final int expectedRows,
 			final UniqueConstraint onlyThreatenedUniqueConstraint)

@@ -140,21 +140,4 @@ final class HsqldbDatabase extends Database
 		return extractConstraintName(e, -104, "Unique constraint violation: ");
 	}
 
-	protected void close()
-	{
-		try
-		{
-			Statement statement = createStatement();
-			statement.append( "SHUTDOWN" );
-			Connection conn = getConnectionPool().getConnection();
-			executeSQLUpdate( conn, statement, 0 );
-			getConnectionPool().putConnection( conn );
-		}
-		catch ( SQLException e )
-		{
-			throw new SQLRuntimeException( e, "SHUTDOWN" );
-		}
-		super.close();
-	}
-
 }
