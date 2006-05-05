@@ -65,7 +65,18 @@ abstract class Database
 	final java.util.Properties tableOptions;
 	final LimitSupport limitSupport;
 	final long blobLengthFactor;
+	
+	// probed on the initial connection
 	final boolean supportsReadCommitted;
+	final String databaseProductName;
+	final String databaseProductVersion;
+	final int databaseMajorVersion;
+	final int databaseMinorVersion;
+	final String driverName;
+	final String driverVersion;
+	final int driverMajorVersion;
+	final int driverMinorVersion;
+	
 	final boolean oracle; // TODO remove
 	
 	protected Database(final Driver driver, final Properties properties)
@@ -98,6 +109,16 @@ abstract class Database
 			supportsReadCommitted =
 				!fakesSupportReadCommitted() &&
 				dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
+
+			probeError = "getInfo";
+			databaseProductName = dmd.getDatabaseProductName();
+			databaseProductVersion = dmd.getDatabaseProductVersion();
+			databaseMajorVersion = dmd.getDatabaseMajorVersion();
+			databaseMinorVersion = dmd.getDatabaseMinorVersion();
+			driverName = dmd.getDriverName();
+			driverVersion = dmd.getDriverVersion();
+			driverMajorVersion = dmd.getDriverMajorVersion();
+			driverMinorVersion = dmd.getDriverMinorVersion();
 		}
 		catch(SQLException e)
 		{

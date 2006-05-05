@@ -19,9 +19,6 @@
 package com.exedio.cope;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,9 +32,8 @@ import java.util.Set;
 
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
-import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.ConnectionPoolInfo;
-import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.cope.util.ModificationListener;
 import com.exedio.dsmf.Schema;
 
 
@@ -526,35 +522,20 @@ public final class Model
 	{
 		if(database==null)
 			throw newNotInitializedException();
+		final Database db = database;
 		
-		final ConnectionPool cp = database.getConnectionPool();
-		Connection c = null;
 		try
 		{
-			c = cp.getConnection();
-			final DatabaseMetaData dmd = c.getMetaData(); // TODO SOON probe this in database constructor
 			final java.util.Properties result = new java.util.Properties();
-			result.setProperty("database.name", dmd.getDatabaseProductName());
-			result.setProperty("database.version", dmd.getDatabaseProductVersion() + ' ' + '(' + dmd.getDatabaseMajorVersion() + '.' + dmd.getDatabaseMinorVersion() + ')');
-			result.setProperty("driver.name", dmd.getDriverName());
-			result.setProperty("driver.version", dmd.getDriverVersion() + ' ' + '(' + dmd.getDriverMajorVersion() + '.' + dmd.getDriverMinorVersion() + ')');
+			result.setProperty("database.name", db.databaseProductName);
+			result.setProperty("database.version", db.databaseProductVersion + ' ' + '(' + db.databaseMajorVersion + '.' + db.databaseMinorVersion + ')');
+			result.setProperty("driver.name", db.driverName);
+			result.setProperty("driver.version", db.driverVersion + ' ' + '(' + db.driverMajorVersion + '.' + db.driverMinorVersion + ')');
 			return result;
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, "getMetaData");
 		}
 		finally
 		{
-			try
-			{
-				if(c!=null)
-					cp.putConnection(c);
-			}
-			catch(SQLException e)
-			{
-				// ooops
-			}
+			// TODO SOON remove
 		}
 	}
 
