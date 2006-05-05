@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.SumItem;
+import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
@@ -30,7 +30,7 @@ import com.exedio.dsmf.UniqueConstraint;
 
 public class SchemaTest extends TestmodelTest
 {
-	private static final String TABLE1X = "SumItemX";
+	private static final String TABLE1X = "PlusItemX";
 	private static final String COLUMN1X = "num2X";
 	
 	public static final Class CHECK = CheckConstraint.class;
@@ -40,9 +40,9 @@ public class SchemaTest extends TestmodelTest
 
 	public void testSchema()
 	{
-		final String TABLE1 = SumItem.TYPE.getTableName();
-		final String COLUMN1 = SumItem.num2.getColumnName();
-		assertEquals("SumItem", TABLE1);
+		final String TABLE1 = PlusItem.TYPE.getTableName();
+		final String COLUMN1 = PlusItem.num2.getColumnName();
+		assertEquals("PlusItem", TABLE1);
 		assertEquals("num2", COLUMN1);
 
 		final String column1Type;

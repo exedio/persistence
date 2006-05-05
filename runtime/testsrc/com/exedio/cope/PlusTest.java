@@ -18,19 +18,19 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.SumItem;
+import com.exedio.cope.testmodel.PlusItem;
 
 
 public class PlusTest extends TestmodelTest
 {
-	SumItem item;
-	SumItem item2;
+	PlusItem item;
+	PlusItem item2;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new SumItem(1, 2, 3));
-		deleteOnTearDown(item2 = new SumItem(3, 4, 5));
+		deleteOnTearDown(item = new PlusItem(1, 2, 3));
+		deleteOnTearDown(item2 = new PlusItem(3, 4, 5));
 	}
 	
 	public void testSum()

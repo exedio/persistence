@@ -21,21 +21,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.testmodel.SumItem;
+import com.exedio.cope.testmodel.PlusItem;
 
 
 public class SumOrderTest extends TestmodelTest
 {
-	SumItem item1;
-	SumItem item2;
-	SumItem item3;
+	PlusItem item1;
+	PlusItem item2;
+	PlusItem item3;
 	
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item1 = new SumItem(1, 6, -1000));
-		deleteOnTearDown(item2 = new SumItem(2, 1, -1000));
-		deleteOnTearDown(item3 = new SumItem(6, 2, -1000));
+		deleteOnTearDown(item1 = new PlusItem(1, 6, -1000));
+		deleteOnTearDown(item2 = new PlusItem(2, 1, -1000));
+		deleteOnTearDown(item3 = new PlusItem(6, 2, -1000));
 	}
 	
 	public void testSumOrder()

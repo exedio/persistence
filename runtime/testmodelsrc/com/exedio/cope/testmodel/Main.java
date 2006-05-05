@@ -35,7 +35,7 @@ public class Main
 		AttributeEmptyItem.TYPE,
 		StringItem.TYPE,
 		MediaItem.TYPE,
-		SumItem.TYPE,
+		PlusItem.TYPE,
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,
 		QualifiedStringQualifier.TYPE,

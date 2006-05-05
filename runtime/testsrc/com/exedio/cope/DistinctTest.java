@@ -20,19 +20,19 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.testmodel.SumItem;
+import com.exedio.cope.testmodel.PlusItem;
 
 public class DistinctTest extends TestmodelTest
 {
-	SumItem item1, item2, item3, item4;
+	PlusItem item1, item2, item3, item4;
 	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item1 = new SumItem(1, 2, 0));
-		deleteOnTearDown(item2 = new SumItem(1, 3, 0));
-		deleteOnTearDown(item3 = new SumItem(1, 4, 0));
-		deleteOnTearDown(item4 = new SumItem(1, 4, 0));
+		deleteOnTearDown(item1 = new PlusItem(1, 2, 0));
+		deleteOnTearDown(item2 = new PlusItem(1, 3, 0));
+		deleteOnTearDown(item3 = new PlusItem(1, 4, 0));
+		deleteOnTearDown(item4 = new PlusItem(1, 4, 0));
 	}
 	
 	public void testDistinct()

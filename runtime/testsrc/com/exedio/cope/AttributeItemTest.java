@@ -24,7 +24,7 @@ import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
-import com.exedio.cope.testmodel.SumItem;
+import com.exedio.cope.testmodel.PlusItem;
 
 
 public class AttributeItemTest extends AttributeTest
@@ -34,8 +34,8 @@ public class AttributeItemTest extends AttributeTest
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(EmptyItem.TYPE, item.someItem.getValueType());
 		assertEquals(Item.FORBID, item.someItem.getDeletePolicy());
-		assertEqualsUnmodifiable(list(), SumItem.TYPE.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(), SumItem.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(), PlusItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(), PlusItem.TYPE.getReferences());
 		assertEqualsUnmodifiable(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getReferences());
 		

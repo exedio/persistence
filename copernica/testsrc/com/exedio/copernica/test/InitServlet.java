@@ -43,7 +43,7 @@ import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.StringItem;
-import com.exedio.cope.testmodel.SumItem;
+import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.copernica.CopernicaProvider;
 import com.exedio.cops.CopsServlet;
 
@@ -153,17 +153,17 @@ public class InitServlet extends CopsServlet
 			final MediaItem dataItem3 = new MediaItem("media item 3 error");
 			dataItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma/unknownmi");
 			
-			new SumItem(1, 2, 3);
-			new SumItem(4, 5, 4);
-			new SumItem(9, 2, 6);
-			new SumItem(2, 8, 1);
-			new SumItem(5, 6, 7);
-			new SumItem(3, 5, 9);
-			new SumItem(6, 4, 0);
-			new SumItem(8, 1, 2);
-			new SumItem(2, 9, 7);
-			new SumItem(5, 2, 0);
-			new SumItem(6, 7, 6);
+			new PlusItem(1, 2, 3);
+			new PlusItem(4, 5, 4);
+			new PlusItem(9, 2, 6);
+			new PlusItem(2, 8, 1);
+			new PlusItem(5, 6, 7);
+			new PlusItem(3, 5, 9);
+			new PlusItem(6, 4, 0);
+			new PlusItem(8, 1, 2);
+			new PlusItem(2, 9, 7);
+			new PlusItem(5, 2, 0);
+			new PlusItem(6, 7, 6);
 
 			{
 				final QualifiedItem qualifiedItem1 = new QualifiedItem();
