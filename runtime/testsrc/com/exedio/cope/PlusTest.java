@@ -40,17 +40,17 @@ public class PlusTest extends TestmodelTest
 		assertEquals(item.TYPE, item.plus13.getType());
 		assertEquals(item.TYPE, item.plus23.getType());
 		assertEquals(item.TYPE, item.plus123.getType());
-		assertEquals(item.TYPE, item.sum12a3.getType());
+		assertEquals(item.TYPE, item.plus12a3.getType());
 		assertEquals("plus12", item.plus12.getName());
 		assertEquals("plus13", item.plus13.getName());
 		assertEquals("plus23", item.plus23.getName());
 		assertEquals("plus123", item.plus123.getName());
-		assertEquals("sum12a3", item.sum12a3.getName());
+		assertEquals("plus12a3", item.plus12a3.getName());
 		assertEqualsUnmodifiable(list(item.num1, item.num2), item.plus12.getSources());
 		assertEqualsUnmodifiable(list(item.num1, item.num3), item.plus13.getSources());
 		assertEqualsUnmodifiable(list(item.num2, item.num3), item.plus23.getSources());
 		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.plus123.getSources());
-		assertEqualsUnmodifiable(list(item.plus12, item.num3), item.sum12a3.getSources());
+		assertEqualsUnmodifiable(list(item.plus12, item.num3), item.plus12a3.getSources());
 		
 		// test equals/hashCode
 		assertEquals(item.plus12, item.plus12);
@@ -75,7 +75,7 @@ public class PlusTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(item.plus13.equal(4)));
 		assertContains(item, item.TYPE.search(item.plus23.equal(5)));
 		assertContains(item, item.TYPE.search(item.plus123.equal(6)));
-		assertContains(item, item.TYPE.search(item.sum12a3.equal(6)));
+		assertContains(item, item.TYPE.search(item.plus12a3.equal(6)));
 		assertContains(item, item.TYPE.search(item.num1.plus(item.num2).equal(3)));
 		
 		// test null propagation
@@ -96,7 +96,7 @@ public class PlusTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(item.plus13.equal((Integer)null)));
 		assertContains(item, item.TYPE.search(item.plus23.equal(5)));
 		assertContains(item, item.TYPE.search(item.plus123.equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.sum12a3.equal((Integer)null)));
+		assertContains(item, item.TYPE.search(item.plus12a3.equal((Integer)null)));
 	}
 	
 }
