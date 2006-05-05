@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.dsmf.SQLRuntimeException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.hsqldb.jdbcDriver;
