@@ -524,19 +524,12 @@ public final class Model
 			throw newNotInitializedException();
 		final Database db = database;
 		
-		try
-		{
-			final java.util.Properties result = new java.util.Properties();
-			result.setProperty("database.name", db.databaseProductName);
-			result.setProperty("database.version", db.databaseProductVersion + ' ' + '(' + db.databaseMajorVersion + '.' + db.databaseMinorVersion + ')');
-			result.setProperty("driver.name", db.driverName);
-			result.setProperty("driver.version", db.driverVersion + ' ' + '(' + db.driverMajorVersion + '.' + db.driverMinorVersion + ')');
-			return result;
-		}
-		finally
-		{
-			// TODO SOON remove
-		}
+		final java.util.Properties result = new java.util.Properties();
+		result.setProperty("database.name", db.databaseProductName);
+		result.setProperty("database.version", db.databaseProductVersion + ' ' + '(' + db.databaseMajorVersion + '.' + db.databaseMinorVersion + ')');
+		result.setProperty("driver.name", db.driverName);
+		result.setProperty("driver.version", db.driverVersion + ' ' + '(' + db.driverMajorVersion + '.' + db.driverMinorVersion + ')');
+		return result;
 	}
 
 	// ----------------------- transaction
