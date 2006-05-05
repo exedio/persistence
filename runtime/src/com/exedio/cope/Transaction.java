@@ -67,7 +67,7 @@ public final class Transaction
 	
 	void assertBoundToCurrentThread()
 	{
-		if ( ! Thread.currentThread().equals(boundThread) )
+		if ( ! Thread.currentThread().equals(boundThread) ) // TODO SOON use assert
 		{
 			throw new RuntimeException();
 		}
@@ -335,6 +335,8 @@ public final class Transaction
 				connectionPool = null;
 			}
 			
+			// TODO SOON move this outside the finally block
+			// TODO SOON skip this if rollback
 			final List<ModificationListener> commitListeners = model.modificationListeners;
 			if(!commitListeners.isEmpty())
 			{
