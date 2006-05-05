@@ -41,13 +41,13 @@ public class PlusOrderTest extends TestmodelTest
 	
 	public void testSumOrder()
 	{
-		assertEquals(i7, item1.getSum12());
-		assertEquals(i3, item2.getSum12());
-		assertEquals(i8, item3.getSum12());
+		assertEquals(i7, item1.getPlus12());
+		assertEquals(i3, item2.getPlus12());
+		assertEquals(i8, item3.getPlus12());
 
 		assertOrder(list(item1, item2, item3), item1.num1);
 		assertOrder(list(item2, item3, item1), item1.num2);
-		assertOrder(list(item2, item1, item3), item1.sum12);
+		assertOrder(list(item2, item1, item3), item1.plus12);
 	}
 
 	private void assertOrder(final List<? extends Object> expectedOrder, final Function searchFunction)
