@@ -617,7 +617,7 @@ public final class Model
 		Transaction tx = getCurrentTransaction();
 		openTransactions.remove( tx );
 		setTransaction(null);
-		tx.rollbackInternal();
+		tx.commitOrRollback(true);
 	}
 	
 	public void rollbackIfNotCommitted()
@@ -634,7 +634,7 @@ public final class Model
 		Transaction tx = getCurrentTransaction();
 		openTransactions.remove( tx );
 		setTransaction(null);
-		tx.commitInternal();
+		tx.commitOrRollback(false);
 	}
 
 	/**

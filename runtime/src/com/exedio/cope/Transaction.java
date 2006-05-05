@@ -254,29 +254,16 @@ public final class Transaction
 		return connection;
 	}
 	
-	/**
-	 * calling this method directly breaks model.openTransactions
-	 */
-	void commitInternal()
-	{
-		commitOrRollback(false);
-	}
-	
-	/**
-	 * calling this method directly breaks model.openTransactions
-	 */
-	void rollbackInternal()
-	{
-		commitOrRollback(true);
-	}
-	
 	private void assertNotClosed()
 	{
 		if(closed)
 			throw new RuntimeException("transaction "+name+" has already been closed");
 	}	
 	
-	private void commitOrRollback(final boolean rollback)
+	/**
+	 * calling this method directly breaks model.openTransactions
+	 */
+	void commitOrRollback(final boolean rollback)
 	{
 		assertNotClosed();
 
