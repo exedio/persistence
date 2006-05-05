@@ -124,6 +124,21 @@ public class LiteralConditionTest extends TestmodelTest
 			item1.TYPE.search(item1.someDate.greaterOrEqual(date)));
 		assertContains(item3, item4, item5,
 			item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(AttributeItem.SomeEnum.enumValue2)));
+		
+		// in
+		assertContains(item1, item3,
+			item1.TYPE.search(item1.someNotNullString.in(listg("string1", "string3", "stringNone"))));
+		assertContains(item1, item3,
+			item1.TYPE.search(item1.someNotNullInteger.in(listg(1, 3, 25))));
+		assertContains(item1, item3,
+			item1.TYPE.search(item1.someNotNullLong.in(listg(11l, 13l, 255l))));
+		assertContains(item1, item3,
+			item1.TYPE.search(item1.someNotNullDouble.in(listg(2.1, 2.3, 25.2))));
+		assertContains(item1, item3,
+			item1.TYPE.search(item1.someDate.in(listg(offset(date, -2), date, offset(date, +25)))));
+		assertContains(item1, item2, item3,
+			item1.TYPE.search(item1.someNotNullEnum.in(listg(AttributeItem.SomeEnum.enumValue1, AttributeItem.SomeEnum.enumValue2))));
+
 	}
 
 }

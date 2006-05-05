@@ -56,11 +56,7 @@ public abstract class StringView
 		return (String)getObject(item);
 	}
 	
-	public final EqualCondition equal(final String value)
-	{
-		return new EqualCondition<String>(this, value);
-	}
-	
+	// TODO SOON move to View
 	public final EqualCondition equal(final Join join, final String value)
 	{
 		return new EqualCondition<String>(new JoinedFunction<String>(this, join), value);
@@ -80,5 +76,6 @@ public abstract class StringView
 	{
 		return new LengthView(this);
 	}
+	// TODO SOON end of move to View
 	
 }

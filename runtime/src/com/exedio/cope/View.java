@@ -21,9 +21,12 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import com.exedio.cope.search.OrCondition;
 
 /**
  * A <tt>view</tt> represents a value computed from the
@@ -154,6 +157,22 @@ public abstract class View<E> extends Feature implements Function<E>
 	public final Type<? extends Item> getType()
 	{
 		return (sourceType!=null) ? sourceType : super.getType();
+	}
+	
+	public final EqualCondition equal(final E value)
+	{
+		return new EqualCondition<E>(this, value);
+	}
+	
+	public final OrCondition in(final Collection<E> values)
+	{
+		final EqualCondition[] result = new EqualCondition[values.size()];
+
+		int i = 0;
+		for(E value : values)
+			result[i++] = equal(value);
+		
+		return new OrCondition(result);
 	}
 	
 }

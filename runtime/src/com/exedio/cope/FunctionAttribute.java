@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.OrCondition;
 
 public abstract class FunctionAttribute<E extends Object>
 	extends Attribute<E>
@@ -274,6 +276,17 @@ public abstract class FunctionAttribute<E extends Object>
 	public final EqualCondition<E> equal(final E value)
 	{
 		return new EqualCondition<E>(this, value);
+	}
+	
+	public final OrCondition in(final Collection<E> values)
+	{
+		final EqualCondition[] result = new EqualCondition[values.size()];
+
+		int i = 0;
+		for(E value : values)
+			result[i++] = equal(value);
+		
+		return new OrCondition(result);
 	}
 	
 	public final NotEqualCondition notEqual(final E value)
