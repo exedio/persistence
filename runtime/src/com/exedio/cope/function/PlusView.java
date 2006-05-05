@@ -37,7 +37,7 @@ public final class PlusView
 	 */
 	public PlusView(final IntegerFunction[] addends)
 	{
-		super(addends, makePlusses(addends.length), "sum");
+		super(addends, makePlusses(addends.length), "plus");
 	}
 	
 	private static final String[] makePlusses(final int length)
