@@ -265,12 +265,15 @@ public final class Transaction
 	
 	private void fireInvalidations(final boolean rollback)
 	{
-		for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
+		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
 		{
-			final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
-			if ( invalidatedPKs!=null )
+			for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
 			{
-				model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
+				final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
+				if ( invalidatedPKs!=null )
+				{
+					model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
+				}
 			}
 		}
 		
@@ -309,13 +312,8 @@ public final class Transaction
 	 */
 	void rollbackInternal()
 	{
-		boolean supportsReadCommitted = model.supportsReadCommitted();
 		commitOrRollback(true);
-		if ( ! supportsReadCommitted ) // TODO SOON move this into close(boolean)
-		{
-			// please send any complaints to derschuldige@hsqldb.org
-			fireInvalidations(true);
-		}
+		fireInvalidations(true);
 	}
 	
 	private void assertNotClosed()
