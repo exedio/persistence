@@ -260,7 +260,6 @@ public final class Transaction
 	void commitInternal()
 	{
 		commitOrRollback(false);
-		fireInvalidations(false); // TODO SOON move this into close(boolean)
 	}
 	
 	/**
@@ -269,7 +268,6 @@ public final class Transaction
 	void rollbackInternal()
 	{
 		commitOrRollback(true);
-		fireInvalidations(true);
 	}
 	
 	private void assertNotClosed()
@@ -321,10 +319,7 @@ public final class Transaction
 			
 			closed = true;
 		}
-	}
-	
-	private void fireInvalidations(final boolean rollback)
-	{
+		
 		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
 		{
 			for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
