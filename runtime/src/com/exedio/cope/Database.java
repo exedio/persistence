@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -85,16 +86,22 @@ abstract class Database
 		assert limitSupport!=null;
 		
 		Connection probeConnection = null;
+		String probeError = "unknown";
 		try
 		{
 			probeConnection = connectionPool.getConnection();
+			
+			probeError = "getMetaData()";
+			final DatabaseMetaData dmd = probeConnection.getMetaData();
+			
+			probeError = "supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED)";
 			supportsReadCommitted =
 				!fakesSupportReadCommitted() &&
-				probeConnection.getMetaData().supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
+				dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
 		}
 		catch(SQLException e)
 		{
-			throw new SQLRuntimeException(e, "getMetaData().supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED)");
+			throw new SQLRuntimeException(e, probeError);
 		}
 		finally
 		{
