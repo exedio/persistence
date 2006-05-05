@@ -59,7 +59,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( HierarchyTest.class );
 		suite.addTestSuite( HierarchyEmptyTest.class );
 		suite.addTestSuite( SearchTest.class );
-		suite.addTestSuite( SumTest.class );
+		suite.addTestSuite( PlusTest.class );
 		suite.addTestSuite( SumOrderTest.class );
 		suite.addTestSuite( OrderByTest.class );
 		suite.addTestSuite( SelectTest.class );

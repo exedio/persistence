@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.SumItem;
 
 
-public class SumTest extends TestmodelTest
+public class PlusTest extends TestmodelTest
 {
 	SumItem item;
 	SumItem item2;
