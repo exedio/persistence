@@ -327,19 +327,22 @@ public final class Transaction
 			final List<ModificationListener> commitListeners = model.modificationListeners;
 			if(!commitListeners.isEmpty())
 			{
-				final ArrayList<Item> items = new ArrayList<Item>();
+				ArrayList<Item> items = null;
 				
 				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
 				{
 					final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
 					if(invalidationSet!=null)
 					{
+						if(items==null)
+							items = new ArrayList<Item>();
+						
 						for(IntIterator i = invalidationSet.iterator(); i.hasNext(); )
 							items.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
 					}
 				}
 				
-				if(!items.isEmpty())
+				if(items!=null && !items.isEmpty())
 				{
 					final List<Item> itemsUnmodifiable = Collections.unmodifiableList(items);
 					// make a copy of commitListeners to avoid ConcurrentModificationViolations
