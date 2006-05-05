@@ -34,5 +34,11 @@ public interface IntegerFunction extends Function<Integer>
 	LessEqualCondition lessOrEqual(int value);
 	GreaterCondition greater(int value);
 	GreaterEqualCondition greaterOrEqual(int value);
+	PlusView plus(IntegerFunction other);
+	
+	/**
+	 * @deprecated use {@link #plus(IntegerFunction)}.
+	 */
+	@Deprecated
 	PlusView sum(IntegerFunction other);
 }

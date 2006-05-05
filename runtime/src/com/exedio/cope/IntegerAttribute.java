@@ -117,9 +117,17 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		return new GreaterEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
-	public final PlusView sum(final IntegerFunction other)
+	public final PlusView plus(final IntegerFunction other)
 	{
 		return new PlusView(new IntegerFunction[]{this, other});
 	}
 
+	/**
+	 * @deprecated use {@link #plus(IntegerFunction)}.
+	 */
+	@Deprecated
+	public final PlusView sum(final IntegerFunction other)
+	{
+		return plus(other);
+	}
 }

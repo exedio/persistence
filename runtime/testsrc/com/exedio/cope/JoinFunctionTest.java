@@ -51,7 +51,7 @@ public class JoinFunctionTest extends AbstractLibTest
 			final Join j2 = q.join(a1.TYPE, single.name.equal("single"));
 			q.setCondition(
 					new JoinedIntegerFunction(a1.integer, j1).
-						sum(
+						plus(
 					new JoinedIntegerFunction(a1.integer, j2)).
 							greaterOrEqual(6));
 			assertContains(single, q.search());

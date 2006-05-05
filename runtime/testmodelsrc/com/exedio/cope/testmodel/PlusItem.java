@@ -34,15 +34,15 @@ public class PlusItem extends Item
 
 	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
 	
-	public static final PlusView sum12 = num1.sum(num2);
+	public static final PlusView sum12 = num1.plus(num2);
 
-	public static final PlusView sum13 = num1.sum(num3);
+	public static final PlusView sum13 = num1.plus(num3);
 
-	public static final PlusView sum23 = num2.sum(num3);
+	public static final PlusView sum23 = num2.plus(num3);
 
 	public static final PlusView sum123 = plus(num1, num2, num3);
 
-	public static final PlusView sum12a3 = sum12.sum(num3);
+	public static final PlusView sum12a3 = sum12.plus(num3);
 	
 	public PlusItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

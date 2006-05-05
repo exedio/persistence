@@ -54,8 +54,8 @@ public class PlusTest extends TestmodelTest
 		
 		// test equals/hashCode
 		assertEquals(item.sum12, item.sum12);
-		assertEquals(item.sum12, item.num1.sum(item.num2));
-		assertNotEquals(item.sum12, item.num2.sum(item.num1));
+		assertEquals(item.sum12, item.num1.plus(item.num2));
+		assertNotEquals(item.sum12, item.num2.plus(item.num1));
 		assertNotEquals(item.sum12, item.sum23);
 		assertNotEquals(item.sum12, item.num1);
 
@@ -76,7 +76,7 @@ public class PlusTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(item.sum23.equal(5)));
 		assertContains(item, item.TYPE.search(item.sum123.equal(6)));
 		assertContains(item, item.TYPE.search(item.sum12a3.equal(6)));
-		assertContains(item, item.TYPE.search(item.num1.sum(item.num2).equal(3)));
+		assertContains(item, item.TYPE.search(item.num1.plus(item.num2).equal(3)));
 		
 		// test null propagation
 		item.setNum1(null);

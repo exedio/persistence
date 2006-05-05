@@ -31,7 +31,7 @@ public final class PlusView
 	 * Creates a new PlusView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper methods.
-	 * @see IntegerFunction#sum(IntegerFunction)
+	 * @see IntegerFunction#plus(IntegerFunction)
 	 * @see Cope#plus(IntegerFunction,IntegerFunction)
 	 * @see Cope#plus(IntegerFunction,IntegerFunction,IntegerFunction)
 	 */
