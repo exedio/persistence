@@ -532,7 +532,7 @@ public final class Model
 		try
 		{
 			c = cp.getConnection();
-			final DatabaseMetaData dmd = c.getMetaData();
+			final DatabaseMetaData dmd = c.getMetaData(); // TODO SOON probe this in database constructor
 			final java.util.Properties result = new java.util.Properties();
 			result.setProperty("database.name", dmd.getDatabaseProductName());
 			result.setProperty("database.version", dmd.getDatabaseProductVersion() + ' ' + '(' + dmd.getDatabaseMajorVersion() + '.' + dmd.getDatabaseMinorVersion() + ')');
