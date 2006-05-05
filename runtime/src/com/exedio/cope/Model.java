@@ -618,6 +618,7 @@ public final class Model
 		{
 			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");
 		}
+		result.assertBoundToCurrentThread(); // TODO SOON use assert
 		return result;
 	}
 	
@@ -627,7 +628,7 @@ public final class Model
 		
 		if( result!=null )
 		{
-			result.assertBoundToCurrentThread();
+			result.assertBoundToCurrentThread(); // TODO SOON use assert
 		}
 
 		return result;
@@ -646,8 +647,8 @@ public final class Model
 	{
 		Transaction tx = getCurrentTransaction();
 		openTransactions.remove( tx );
-		tx.rollbackInternal();
 		setTransaction(null);
+		tx.rollbackInternal();
 	}
 	
 	public void rollbackIfNotCommitted()
@@ -663,8 +664,8 @@ public final class Model
 	{
 		Transaction tx = getCurrentTransaction();
 		openTransactions.remove( tx );
-		tx.commitInternal();
 		setTransaction(null);
+		tx.commitInternal();
 	}
 
 	/**

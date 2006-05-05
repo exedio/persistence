@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
@@ -109,11 +110,11 @@ public class ModificationListenerTest extends AbstractLibTest
 			
 			assertTrue(this.items==null);
 			
-			//assertTrue(model.getOpenTransactions().isEmpty()); TODO
+			assertContains(model.getOpenTransactions());
 			try
 			{
 				model.getCurrentTransaction();
-				//fail(); TODO
+				fail();
 			}
 			catch(RuntimeException e)
 			{
