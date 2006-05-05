@@ -259,7 +259,7 @@ public final class Transaction
 	 */
 	void commitInternal()
 	{
-		close(false);
+		commitOrRollback(false);
 		fireInvalidations(false); // TODO SOON move this into close(boolean)
 	}
 	
@@ -310,7 +310,7 @@ public final class Transaction
 	void rollbackInternal()
 	{
 		boolean supportsReadCommitted = model.supportsReadCommitted();
-		close(true);
+		commitOrRollback(true);
 		if ( ! supportsReadCommitted ) // TODO SOON move this into close(boolean)
 		{
 			// please send any complaints to derschuldige@hsqldb.org
@@ -324,7 +324,7 @@ public final class Transaction
 			throw new RuntimeException("transaction "+name+" has already been closed");
 	}	
 	
-	private void close(final boolean rollback) // TODO SOON rename commitOrRollback
+	private void commitOrRollback(final boolean rollback)
 	{
 		assertNotClosed();
 
