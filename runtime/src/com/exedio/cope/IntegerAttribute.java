@@ -123,7 +123,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	}
 
 	/**
-	 * @deprecated use {@link #plus(IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
 	 */
 	@Deprecated
 	public final PlusView sum(final IntegerFunction other)

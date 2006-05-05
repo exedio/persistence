@@ -37,7 +37,7 @@ public interface IntegerFunction extends Function<Integer>
 	PlusView plus(IntegerFunction other);
 	
 	/**
-	 * @deprecated use {@link #plus(IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
 	 */
 	@Deprecated
 	PlusView sum(IntegerFunction other);

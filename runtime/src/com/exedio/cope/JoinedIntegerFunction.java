@@ -68,7 +68,7 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 	}
 
 	/**
-	 * @deprecated use {@link #plus(IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
 	 */
 	@Deprecated
 	public final PlusView sum(final IntegerFunction other)

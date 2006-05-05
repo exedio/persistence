@@ -64,7 +64,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * @deprecated use {@link #plus(IntegerFunction, IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(IntegerFunction, IntegerFunction)}.
 	 */
 	@Deprecated
 	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2)
@@ -73,7 +73,7 @@ public abstract class Cope
 	}
 
 	/**
-	 * @deprecated use {@link #plus(IntegerFunction, IntegerFunction, IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(IntegerFunction, IntegerFunction, IntegerFunction)}.
 	 */
 	@Deprecated
 	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
