@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.util.Collection;
+
+import com.exedio.cope.search.OrCondition;
+
 
 public interface Function<E extends Object>
 {
@@ -27,4 +31,10 @@ public interface Function<E extends Object>
 	void appendParameter(Statement bf, E value);
 	
 	Type<? extends Item> getType();
+
+	EqualCondition equal(E value);
+	EqualCondition equal(Join join, E value);
+	OrCondition in(Collection<E> value);
+	NotEqualCondition notEqual(E value);
+	EqualFunctionCondition equal(Function<E> right);
 }

@@ -57,11 +57,6 @@ public abstract class StringView
 	}
 	
 	// TODO SOON move to View
-	public final EqualCondition equal(final Join join, final String value)
-	{
-		return new EqualCondition<String>(new JoinedFunction<String>(this, join), value);
-	}
-	
 	public final NotEqualCondition notEqual(final String value)
 	{
 		return new NotEqualCondition<String>(this, value);

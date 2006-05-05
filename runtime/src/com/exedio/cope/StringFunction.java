@@ -18,24 +18,11 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.function.LengthView;
-import com.exedio.cope.search.OrCondition;
-
 
 public interface StringFunction extends Function<String>
 {
 	String get(Item item);
-	
-	// TODO SOON move to Function
-	EqualCondition equal(String value);
-	EqualCondition equal(Join join, String value);
-	OrCondition in(Collection<String> value);
-	NotEqualCondition notEqual(String value);
-	EqualFunctionCondition equal(Function<String> right);
-	// TODO SOON end of move to Function
-	
 	LikeCondition like(String value);
 	LengthView length();
 }

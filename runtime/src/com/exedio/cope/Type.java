@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.search.OrCondition;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -815,6 +816,38 @@ public final class Type<C extends Item>
 			throw new RuntimeException(); // TODO
 		}
 
+		public final EqualCondition<E> equal(final E value)
+		{
+			return new EqualCondition<E>(this, value);
+		}
+		
+		public final EqualCondition<E> equal(final Join join, final E value)
+		{
+			return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
+		}
+		
+		public final OrCondition in(final Collection<E> values)
+		{
+			// TODO SOON reuse code
+			final EqualCondition[] result = new EqualCondition[values.size()];
+
+			int i = 0;
+			for(E value : values)
+				result[i++] = equal(value);
+			
+			return new OrCondition(result);
+		}
+		
+		public final NotEqualCondition notEqual(final E value)
+		{
+			return new NotEqualCondition<E>(this, value);
+		}
+		
+		public final EqualFunctionCondition equal(final Function<E> right)
+		{
+			return new EqualFunctionCondition(this, right);
+		}
+		
 		public String toString()
 		{
 			return type.id + "#this";

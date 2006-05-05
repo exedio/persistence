@@ -170,11 +170,6 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 			throw new LengthViolationException(this, exceptionItem, value, false, maximumLength);
 	}
 	
-	public final EqualCondition equal(final Join join, final String value)
-	{
-		return new EqualCondition<String>(new JoinedFunction<String>(this, join), value);
-	}
-	
 	public final LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);

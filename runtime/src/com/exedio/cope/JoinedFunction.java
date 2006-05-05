@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.util.Collection;
+
+import com.exedio.cope.search.OrCondition;
+
 
 public class JoinedFunction<E> implements Function<E>
 {
@@ -51,6 +55,38 @@ public class JoinedFunction<E> implements Function<E>
 	public final Type<? extends Item> getType()
 	{
 		return function.getType();
+	}
+	
+	public final EqualCondition<E> equal(final E value)
+	{
+		return new EqualCondition<E>(this, value);
+	}
+	
+	public final EqualCondition<E> equal(final Join join, final E value)
+	{
+		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
+	}
+	
+	public final OrCondition in(final Collection<E> values)
+	{
+		// TODO SOON reuse code
+		final EqualCondition[] result = new EqualCondition[values.size()];
+
+		int i = 0;
+		for(E value : values)
+			result[i++] = equal(value);
+		
+		return new OrCondition(result);
+	}
+	
+	public final NotEqualCondition notEqual(final E value)
+	{
+		return new NotEqualCondition<E>(this, value);
+	}
+	
+	public final EqualFunctionCondition equal(final Function<E> right)
+	{
+		return new EqualFunctionCondition(this, right);
 	}
 	
 	public final boolean equals(final Object other)

@@ -164,6 +164,11 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new EqualCondition<E>(this, value);
 	}
 	
+	public final EqualCondition<E> equal(final Join join, final E value)
+	{
+		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
+	}
+	
 	public final OrCondition in(final Collection<E> values)
 	{
 		final EqualCondition[] result = new EqualCondition[values.size()];

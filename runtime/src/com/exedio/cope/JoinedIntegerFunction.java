@@ -32,19 +32,9 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 		super(function, join);
 	}
 	
-	public final EqualCondition equal(final Integer value)
-	{
-		return new EqualCondition<Integer>(this, value);
-	}
-	
 	public final EqualCondition equal(final int value)
 	{
 		return new EqualCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
-	public final NotEqualCondition notEqual(final Integer value)
-	{
-		return new NotEqualCondition<Integer>(this, value);
 	}
 	
 	public final NotEqualCondition notEqual(final int value)
