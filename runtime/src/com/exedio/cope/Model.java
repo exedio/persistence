@@ -673,18 +673,7 @@ public final class Model
 	 */
 	boolean supportsReadCommitted()
 	{
-		try
-		{
-			return
-				!database.fakesSupportReadCommitted() &&
-				getCurrentTransaction().getConnection().getMetaData().supportsTransactionIsolationLevel( 
-					Connection.TRANSACTION_READ_COMMITTED
-				);
-		}
-		catch (SQLException e)
-		{
-			throw new RuntimeException( e );
-		}
+		return database.supportsReadCommitted;
 	}
 	
 	/**

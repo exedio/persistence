@@ -64,6 +64,7 @@ abstract class Database
 	final java.util.Properties tableOptions;
 	final LimitSupport limitSupport;
 	final long blobLengthFactor;
+	final boolean supportsReadCommitted;
 	final boolean oracle; // TODO remove
 	
 	protected Database(final Driver driver, final Properties properties)
@@ -82,6 +83,34 @@ abstract class Database
 		
 		//System.out.println("using database "+getClass());
 		assert limitSupport!=null;
+		
+		Connection probeConnection = null;
+		try
+		{
+			probeConnection = connectionPool.getConnection();
+			supportsReadCommitted =
+				!fakesSupportReadCommitted() &&
+				probeConnection.getMetaData().supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getMetaData().supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED)");
+		}
+		finally
+		{
+			if(probeConnection!=null)
+			{
+				try
+				{
+					connectionPool.putConnection(probeConnection);
+					probeConnection = null;
+				}
+				catch(SQLException e)
+				{
+					throw new SQLRuntimeException(e, "putConnection");
+				}
+			}
+		}
 	}
 	
 	public final Driver getDriver()
