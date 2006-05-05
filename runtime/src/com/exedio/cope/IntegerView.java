@@ -117,6 +117,6 @@ public abstract class IntegerView
 	@Deprecated
 	public final PlusView sum(final IntegerFunction other)
 	{
-		return sum(other);
+		return plus(other);
 	}
 }
