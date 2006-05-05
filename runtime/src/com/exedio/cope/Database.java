@@ -1169,13 +1169,13 @@ abstract class Database
 		}
 	}
 	
-	private final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
+	final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
 			throws UniqueViolationException
 	{
 		executeSQLUpdate(connection, statement, expectedRows, null);
 	}
 
-	private final void executeSQLUpdate(
+	final void executeSQLUpdate(
 			final Connection connection,
 			final Statement statement, final int expectedRows,
 			final UniqueConstraint onlyThreatenedUniqueConstraint)
@@ -1620,6 +1620,11 @@ abstract class Database
 			throws SQLException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
+	}
+	
+	protected void close()
+	{
+		getConnectionPool().flush();
 	}
 	
 	

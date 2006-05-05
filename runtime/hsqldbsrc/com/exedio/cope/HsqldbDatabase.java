@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.SQLRuntimeException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.hsqldb.jdbcDriver;
@@ -136,6 +138,23 @@ final class HsqldbDatabase extends Database
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, -104, "Unique constraint violation: ");
+	}
+
+	protected void close()
+	{
+		try
+		{
+			Statement statement = createStatement();
+			statement.append( "SHUTDOWN" );
+			Connection conn = getConnectionPool().getConnection();
+			executeSQLUpdate( conn, statement, 0 );
+			getConnectionPool().putConnection( conn );
+		}
+		catch ( SQLException e )
+		{
+			throw new SQLRuntimeException( e, "SHUTDOWN" );
+		}
+		super.close();
 	}
 
 }

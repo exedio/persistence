@@ -419,7 +419,7 @@ public final class Model
 
 	public void close()
 	{
-		database.getConnectionPool().flush();
+		database.close();
 	}
 
 	public Schema getVerifiedSchema()
