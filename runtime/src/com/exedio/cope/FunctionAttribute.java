@@ -285,13 +285,7 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	public final OrCondition in(final Collection<E> values)
 	{
-		final EqualCondition[] result = new EqualCondition[values.size()];
-
-		int i = 0;
-		for(E value : values)
-			result[i++] = equal(value);
-		
-		return new OrCondition(result);
+		return OrCondition.in(this, values);
 	}
 	
 	public final NotEqualCondition notEqual(final E value)

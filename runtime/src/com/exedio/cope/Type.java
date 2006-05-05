@@ -828,14 +828,7 @@ public final class Type<C extends Item>
 		
 		public final OrCondition in(final Collection<E> values)
 		{
-			// TODO SOON reuse code
-			final EqualCondition[] result = new EqualCondition[values.size()];
-
-			int i = 0;
-			for(E value : values)
-				result[i++] = equal(value);
-			
-			return new OrCondition(result);
+			return OrCondition.in(this, values);
 		}
 		
 		public final NotEqualCondition notEqual(final E value)

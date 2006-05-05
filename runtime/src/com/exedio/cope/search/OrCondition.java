@@ -18,8 +18,12 @@
 
 package com.exedio.cope.search;
 
+import java.util.Collection;
+
 import com.exedio.cope.CompositeCondition;
 import com.exedio.cope.Condition;
+import com.exedio.cope.EqualCondition;
+import com.exedio.cope.Function;
 
 public final class OrCondition extends CompositeCondition
 {
@@ -30,5 +34,16 @@ public final class OrCondition extends CompositeCondition
 	public OrCondition(final Condition[] conditions)
 	{
 		super(" or ", conditions);
+	}
+	
+	public static final <E> OrCondition in(final Function<E> function, final Collection<E> values)
+	{
+		final EqualCondition[] result = new EqualCondition[values.size()];
+
+		int i = 0;
+		for(E value : values)
+			result[i++] = function.equal(value);
+		
+		return new OrCondition(result);
 	}
 }

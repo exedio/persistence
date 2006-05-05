@@ -171,13 +171,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	public final OrCondition in(final Collection<E> values)
 	{
-		final EqualCondition[] result = new EqualCondition[values.size()];
-
-		int i = 0;
-		for(E value : values)
-			result[i++] = equal(value);
-		
-		return new OrCondition(result);
+		return OrCondition.in(this, values);
 	}
 	
 }
