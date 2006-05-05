@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
