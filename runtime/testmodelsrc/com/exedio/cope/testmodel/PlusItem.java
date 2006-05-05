@@ -40,7 +40,7 @@ public class PlusItem extends Item
 
 	public static final PlusView sum23 = num2.sum(num3);
 
-	public static final PlusView sum123 = sum(num1, num2, num3);
+	public static final PlusView sum123 = plus(num1, num2, num3);
 
 	public static final PlusView sum12a3 = sum12.sum(num3);
 	

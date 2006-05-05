@@ -32,8 +32,8 @@ public final class PlusView
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper methods.
 	 * @see IntegerFunction#sum(IntegerFunction)
-	 * @see Cope#sum(IntegerFunction,IntegerFunction)
-	 * @see Cope#sum(IntegerFunction,IntegerFunction,IntegerFunction)
+	 * @see Cope#plus(IntegerFunction,IntegerFunction)
+	 * @see Cope#plus(IntegerFunction,IntegerFunction,IntegerFunction)
 	 */
 	public PlusView(final IntegerFunction[] addends)
 	{

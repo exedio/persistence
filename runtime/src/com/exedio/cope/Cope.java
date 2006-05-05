@@ -53,14 +53,32 @@ public abstract class Cope
 		return new OrCondition(new Condition[]{condition1, condition2, condition3});
 	}
 	
-	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2)
+	public static final PlusView plus(final IntegerFunction addend1, final IntegerFunction addend2)
 	{
 		return new PlusView(new IntegerFunction[]{addend1, addend2});
 	}
 
-	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
+	public static final PlusView plus(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
 	{
 		return new PlusView(new IntegerFunction[]{addend1, addend2, addend3});
+	}
+
+	/**
+	 * @deprecated use {@link #plus(IntegerFunction, IntegerFunction)}.
+	 */
+	@Deprecated
+	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2)
+	{
+		return plus(addend1, addend2);
+	}
+
+	/**
+	 * @deprecated use {@link #plus(IntegerFunction, IntegerFunction, IntegerFunction)}.
+	 */
+	@Deprecated
+	public static final PlusView sum(final IntegerFunction addend1, final IntegerFunction addend2, final IntegerFunction addend3)
+	{
+		return plus(addend1, addend2, addend3);
 	}
 	
 }
