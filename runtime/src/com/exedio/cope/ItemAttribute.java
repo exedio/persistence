@@ -171,6 +171,15 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		}
 	}
 	
+	public static enum DeletePolicy
+	{
+		FORBID(),
+		NULLIFY(),
+		CASCADE();
+	}
+	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition equal(final E value, final Join join)
 	{
 		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
@@ -184,13 +193,6 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 	public final EqualFunctionCondition equalTarget(final Join targetJoin)
 	{
 		return new EqualFunctionCondition(this, new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
-	}
-	
-	public static enum DeletePolicy
-	{
-		FORBID(),
-		NULLIFY(),
-		CASCADE();
 	}
 	
 }

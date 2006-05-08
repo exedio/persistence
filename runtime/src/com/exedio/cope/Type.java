@@ -816,6 +816,13 @@ public final class Type<C extends Item>
 			throw new RuntimeException(); // TODO
 		}
 
+		public String toString()
+		{
+			return type.id + "#this";
+		}
+		
+		// convenience methods for conditions and views ---------------------------------
+
 		public final EqualCondition<E> equal(final E value)
 		{
 			return new EqualCondition<E>(this, value);
@@ -839,11 +846,6 @@ public final class Type<C extends Item>
 		public final EqualFunctionCondition equal(final Function<E> right)
 		{
 			return new EqualFunctionCondition(this, right);
-		}
-		
-		public String toString()
-		{
-			return type.id + "#this";
 		}
 	}
 }

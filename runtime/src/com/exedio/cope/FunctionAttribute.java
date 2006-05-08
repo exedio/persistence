@@ -263,6 +263,8 @@ public abstract class FunctionAttribute<E extends Object>
 		return Collections.singletonMap(this, value);
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+	
 	public final EqualCondition isNull()
 	{
 		return new EqualCondition<E>(this, null);

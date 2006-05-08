@@ -26,7 +26,8 @@ import com.exedio.cope.search.LessEqualCondition;
 
 public interface IntegerFunction extends Function<Integer>
 {
-	EqualCondition equal(Integer value);
+	// convenience methods for conditions and views ---------------------------------
+
 	EqualCondition equal(int value);
 	NotEqualCondition notEqual(Integer value);
 	NotEqualCondition notEqual(int value);

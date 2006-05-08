@@ -100,6 +100,8 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 		return new SetValue(this, value ? Boolean.TRUE : Boolean.FALSE);
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition equal(final boolean value)
 	{
 		return new EqualCondition<Boolean>(this, value ? Boolean.TRUE : Boolean.FALSE);

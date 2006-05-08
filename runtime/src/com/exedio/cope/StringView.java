@@ -56,6 +56,8 @@ public abstract class StringView
 		return (String)getObject(item);
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);

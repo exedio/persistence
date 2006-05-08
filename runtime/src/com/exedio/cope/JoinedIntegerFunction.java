@@ -32,6 +32,8 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 		super(function, join);
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition equal(final int value)
 	{
 		return new EqualCondition<Integer>(this, Integer.valueOf(value));

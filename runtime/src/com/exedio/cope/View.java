@@ -159,6 +159,8 @@ public abstract class View<E> extends Feature implements Function<E>
 		return (sourceType!=null) ? sourceType : super.getType();
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition equal(final E value)
 	{
 		return new EqualCondition<E>(this, value);

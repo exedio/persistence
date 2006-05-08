@@ -86,6 +86,8 @@ public final class LongAttribute extends FunctionAttribute<Long>
 		return new SetValue(this, Long.valueOf(value));
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition equal(final long value)
 	{
 		return new EqualCondition<Long>(this, Long.valueOf(value));

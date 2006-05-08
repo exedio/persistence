@@ -76,6 +76,8 @@ public abstract class IntegerView
 		return (Integer)getObject(item);
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition equal(final int value)
 	{
 		return new EqualCondition<Integer>(this, Integer.valueOf(value));

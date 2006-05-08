@@ -32,6 +32,7 @@ public interface Function<E extends Object>
 	
 	Type<? extends Item> getType();
 
+	// convenience methods for conditions and views ---------------------------------
 	EqualCondition equal(E value);
 	EqualCondition equal(Join join, E value);
 	OrCondition in(Collection<E> value);

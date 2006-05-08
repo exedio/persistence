@@ -93,6 +93,8 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		return new SetValue(this, new Double(value));
 	}
 	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition equal(final double value)
 	{
 		return new EqualCondition<Double>(this, new Double(value));
