@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 public interface Selectable<E extends Object>
 {
-	// TODO SOON return type can be shortened to <?> (in all implementations too)
 	Type<? extends Item> getType();
 
 	void append(Statement bf, Join join);
