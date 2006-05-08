@@ -139,6 +139,12 @@ public class LiteralConditionTest extends TestmodelTest
 		assertContains(item1, item2, item3,
 			item1.TYPE.search(item1.someNotNullEnum.in(listg(AttributeItem.SomeEnum.enumValue1, AttributeItem.SomeEnum.enumValue2))));
 
+		{
+			final Query<Integer> q = new Query<Integer>(item1.someNotNullInteger.sum(), null);
+			assertEquals(new Integer(1+2+3+4+5), q.searchUnique());
+			q.setCondition(item1.someNotNullInteger.less(4));
+			assertEquals(new Integer(1+2+3), q.searchUnique());
+		}
 	}
 
 }

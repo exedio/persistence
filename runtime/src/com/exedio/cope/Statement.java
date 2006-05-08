@@ -152,7 +152,7 @@ final class Statement
 		return this;
 	}
 		
-	Statement append(final Function function, final Join join)
+	Statement append(final Selectable function, final Join join)
 	{
 		function.append(this, join);
 		return this;

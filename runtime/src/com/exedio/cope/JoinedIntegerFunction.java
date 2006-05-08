@@ -23,6 +23,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.SumAggregate;
 
 
 public final class JoinedIntegerFunction extends JoinedFunction<Integer> implements IntegerFunction
@@ -76,5 +77,10 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 	public final PlusView sum(final IntegerFunction other)
 	{
 		return plus(other);
+	}
+
+	public final SumAggregate sum()
+	{
+		return new SumAggregate(this);
 	}
 }

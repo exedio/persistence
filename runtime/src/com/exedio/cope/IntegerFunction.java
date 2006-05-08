@@ -23,6 +23,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.SumAggregate;
 
 public interface IntegerFunction extends Function<Integer>
 {
@@ -41,4 +42,6 @@ public interface IntegerFunction extends Function<Integer>
 	 */
 	@Deprecated
 	PlusView sum(IntegerFunction other);
+
+	SumAggregate sum();
 }

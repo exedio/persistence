@@ -27,6 +27,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.SumAggregate;
 
 public abstract class IntegerView
 	extends StaticView<Integer>
@@ -120,5 +121,10 @@ public abstract class IntegerView
 	public final PlusView sum(final IntegerFunction other)
 	{
 		return plus(other);
+	}
+
+	public final SumAggregate sum()
+	{
+		return new SumAggregate(this);
 	}
 }

@@ -150,9 +150,16 @@ class IntegerColumn extends Column
 		else
 		{
 			if (longInsteadOfInt)
+			{
 				return (Long)sqlInteger;
+			}
 			else
-				return (Integer)sqlInteger;
+			{
+				if(sqlInteger instanceof Integer)
+					return (Integer)sqlInteger;
+				else
+					return Integer.valueOf(((Number)sqlInteger).intValue()); // for SumAggregate
+			}
 		}
 	}
 

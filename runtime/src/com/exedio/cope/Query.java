@@ -31,7 +31,7 @@ public final class Query<R>
 	final static int UNLIMITED_COUNT = -66;
 	
 	final Model model;
-	final Function[] selects;
+	final Selectable[] selects;
 	boolean distinct = false;
 	final Type type;
 	ArrayList<Join> joins = null;
@@ -46,23 +46,23 @@ public final class Query<R>
 	boolean makeStatementInfo = false;
 	private StatementInfo statementInfo = null;
 	
-	public Query(final Function<? extends R> select, final Condition condition)
+	public Query(final Selectable<? extends R> select, final Condition condition)
 	{
-		this.selects = new Function[]{select};
+		this.selects = new Selectable[]{select};
 		this.type = select.getType();
 		this.model = this.type.getModel();
 		this.condition = condition;
 	}
 	
-	public Query(final Function<R> select, final Type type, final Condition condition)
+	public Query(final Selectable<R> select, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
-		this.selects = new Function[]{select};
+		this.selects = new Selectable[]{select};
 		this.type = type;
 		this.condition = condition;
 	}
 	
-	public Query(final Function[] selects, final Type type, final Condition condition)
+	public Query(final Selectable[] selects, final Type type, final Condition condition)
 	{
 		this.model = type.getModel();
 		this.selects = selects;
@@ -382,7 +382,7 @@ public final class Query<R>
 	 * @throws RuntimeException if the search result size is greater than one.
 	 * @see Type#searchUnique(Condition)
 	 */
-	public R searchUnique()
+	public R searchUnique() // TODO SOON rename to searchSingleton
 	{
 		final Iterator<R> searchResult = search().iterator();
 		if(searchResult.hasNext())
@@ -471,7 +471,7 @@ public final class Query<R>
 	static final class Key
 	{
 		final Model model;
-		final Function[] selects;
+		final Selectable[] selects;
 		final boolean distinct;
 		final Type type;
 		final ArrayList<Join> joins;

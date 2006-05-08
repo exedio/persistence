@@ -337,7 +337,7 @@ abstract class Database
 		if(query.distinct)
 			bf.append("distinct ");
 
-		final Function[] selects = query.selects;
+		final Selectable[] selects = query.selects;
 		final Column[] selectColumns = new Column[selects.length];
 		final Type[] selectTypes = new Type[selects.length];
 
@@ -349,7 +349,7 @@ abstract class Database
 		{
 			for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 			{
-				final Function select = selects[selectIndex];
+				final Selectable select = selects[selectIndex];
 				final Column selectColumn;
 				final Type selectType = select.getType();
 				final Table selectTable;
@@ -358,7 +358,38 @@ abstract class Database
 				if(selectIndex>0)
 					bf.append(',');
 				
-				if(select instanceof FunctionAttribute)
+				if(select instanceof Aggregate)
+				{
+					bf.append(select, null);
+					final Function selectSource = ((Aggregate)select).getSource();
+					
+					if(selectSource instanceof FunctionAttribute)
+					{
+						selectColumn = ((FunctionAttribute)selectSource).getColumn();
+					}
+					else if(selectSource instanceof Type.This)
+					{
+						selectTable = selectType.getTable();
+						selectPrimaryKey = selectTable.primaryKey;
+						selectColumn = selectPrimaryKey;
+		
+						if(selectColumn.primaryKey)
+						{
+							final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
+							if(selectTypeColumn==null)
+								selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
+						}
+						else
+							selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
+					}
+					else
+					{
+						selectColumn = null;
+						final View view = (View)selectSource;
+						bf.append(view, (Join)null).defineColumn(view);
+					}
+				}
+				else if(select instanceof FunctionAttribute)
 				{
 					selectColumn = ((FunctionAttribute)select).getColumn();
 					bf.append(select, (Join)null).defineColumn(selectColumn);
@@ -520,7 +551,14 @@ abstract class Database
 							
 						for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 						{
-							final Function select = selects[selectIndex];
+							final Selectable select;
+							{
+								Selectable select0 = selects[selectIndex];
+								if(select0 instanceof Aggregate)
+									select0 = ((Aggregate)select0).getSource();
+								select = select0;
+							}
+							
 							final Object resultCell;
 							if(select instanceof FunctionAttribute)
 							{
