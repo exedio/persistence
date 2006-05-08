@@ -25,7 +25,7 @@ abstract class StaticView<E> extends View<E>
 	private final String[] sqlFragments;
 	
 	public StaticView(
-			final Function<? extends Object>[] sources,
+			final Function<?>[] sources,
 			final String[] sqlFragments,
 			final String functionName,
 			final int jdbcType)

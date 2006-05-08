@@ -28,7 +28,7 @@ public abstract class StringView
 	implements StringFunction
 {
 	public StringView(
-			final Function<? extends Object>[] sources,
+			final Function<?>[] sources,
 			final String[] sqlFragments,
 			final String functionName)
 	{
