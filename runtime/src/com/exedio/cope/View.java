@@ -45,8 +45,10 @@ import com.exedio.cope.search.OrCondition;
  */
 public abstract class View<E> extends Feature implements Function<E>
 {
+	// TODO SOON return type can be shortened to <?> (in many other cases too)
 	private final Function<? extends Object>[] sources;
 	private final List<Function<? extends Object>> sourceList;
+	// TODO SOON rename to name
 	private final String functionName;
 	final int jdbcType;
 	final Type<? extends Item> sourceType;

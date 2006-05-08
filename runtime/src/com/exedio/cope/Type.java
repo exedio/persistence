@@ -716,7 +716,7 @@ public final class Type<C extends Item>
 	 * @throws RuntimeException if the search result size is greater than one.
 	 * @see Query#searchUnique()
 	 */
-	public C searchUnique(final Condition condition)
+	public C searchUnique(final Condition condition) // TODO SOON rename to searchSingleton
 	{
 		return newQuery(condition).searchUnique();
 	}
