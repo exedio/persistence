@@ -22,7 +22,7 @@ import com.exedio.cope.function.LengthView;
 
 public interface StringFunction extends Function<String>
 {
-	String get(Item item);
+	// convenience methods for conditions and views ---------------------------------
 	LikeCondition like(String value);
 	LengthView length();
 }
