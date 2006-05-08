@@ -62,6 +62,12 @@ public final class UniqueConstraint extends Feature
 		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
 	}
 	
+	@SuppressWarnings("unchecked") // OK: no generic array creation
+	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2, final FunctionAttribute uniqueAttribute3, final FunctionAttribute uniqueAttribute4)
+	{
+		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3, uniqueAttribute4});
+	}
+	
 	public final List<FunctionAttribute<Object>> getUniqueAttributes()
 	{
 		return uniqueAttributeList;
