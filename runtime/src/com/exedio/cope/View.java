@@ -47,16 +47,15 @@ public abstract class View<E> extends Feature implements Function<E>
 {
 	private final Function<?>[] sources;
 	private final List<Function<?>> sourceList;
-	// TODO SOON rename to name
-	private final String functionName;
+	private final String name;
 	final int jdbcType;
 	final Type<? extends Item> sourceType;
 
-	public View(final Function<?>[] sources, final String functionName, final int jdbcType)
+	public View(final Function<?>[] sources, final String name, final int jdbcType)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
-		this.functionName = functionName;
+		this.name = name;
 		this.jdbcType = jdbcType;
 		
 		Type<? extends Item> sourceType;
@@ -105,7 +104,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	final String toStringNonInitialized()
 	{
-		final StringBuffer buf = new StringBuffer(functionName);
+		final StringBuffer buf = new StringBuffer(name);
 		buf.append('(');
 		for(int i = 0; i<sources.length; i++)
 		{
@@ -125,7 +124,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		
 		final View o = (View)other;
 		
-		if(!functionName.equals(o.functionName) || sources.length!=o.sources.length)
+		if(!name.equals(o.name) || sources.length!=o.sources.length)
 			return false;
 		
 		for(int i = 0; i<sources.length; i++)
@@ -139,7 +138,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	public int hashCode()
 	{
-		int result = functionName.hashCode();
+		int result = name.hashCode();
 		
 		for(int i = 0; i<sources.length; i++)
 			result = (31*result) + sources[i].hashCode(); // may not be commutative
