@@ -714,11 +714,20 @@ public final class Type<C extends Item>
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
 	 * @throws RuntimeException if the search result size is greater than one.
-	 * @see Query#searchUnique()
+	 * @see Query#searchSingleton()
 	 */
-	public C searchUnique(final Condition condition) // TODO SOON rename to searchSingleton
+	public C searchSingleton(final Condition condition)
 	{
-		return newQuery(condition).searchUnique();
+		return newQuery(condition).searchSingleton();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #searchSingleton(Condition)}.
+	 */
+	@Deprecated
+	public C searchUnique(final Condition condition)
+	{
+		return searchSingleton(condition);
 	}
 	
 	public Query<C> newQuery(final Condition condition)

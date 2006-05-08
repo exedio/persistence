@@ -380,9 +380,9 @@ public final class Query<R>
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
 	 * @throws RuntimeException if the search result size is greater than one.
-	 * @see Type#searchUnique(Condition)
+	 * @see Type#searchSingleton(Condition)
 	 */
-	public R searchUnique() // TODO SOON rename to searchSingleton
+	public R searchSingleton()
 	{
 		final Iterator<R> searchResult = search().iterator();
 		if(searchResult.hasNext())
@@ -395,6 +395,15 @@ public final class Query<R>
 		}
 		else
 			return null;
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #searchSingleton()}.
+	 */
+	@Deprecated
+	public R searchUnique()
+	{
+		return searchSingleton();
 	}
 	
 	public String toString()

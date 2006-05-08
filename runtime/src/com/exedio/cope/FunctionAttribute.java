@@ -250,7 +250,7 @@ public abstract class FunctionAttribute<E extends Object>
 	public final Item searchUnique(final E value)
 	{
 		// TODO: search nativly for unique constraints
-		return getType().searchUnique(new EqualCondition<E>(this, value));
+		return getType().searchSingleton(new EqualCondition<E>(this, value));
 	}
 
 	public final SetValue map(final E value)

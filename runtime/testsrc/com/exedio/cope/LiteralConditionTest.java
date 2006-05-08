@@ -141,9 +141,9 @@ public class LiteralConditionTest extends TestmodelTest
 
 		{
 			final Query<Integer> q = new Query<Integer>(item1.someNotNullInteger.sum(), null);
-			assertEquals(new Integer(1+2+3+4+5), q.searchUnique());
+			assertEquals(new Integer(1+2+3+4+5), q.searchSingleton());
 			q.setCondition(item1.someNotNullInteger.less(4));
-			assertEquals(new Integer(1+2+3), q.searchUnique());
+			assertEquals(new Integer(1+2+3), q.searchSingleton());
 		}
 	}
 
