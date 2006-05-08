@@ -47,11 +47,4 @@ abstract class StaticView<E> extends View<E>
 		bf.append(sqlFragments[sqlFragments.length-1]);
 	}
 
-	// convenience methods for conditions and views ---------------------------------
-
-	public final EqualFunctionCondition equal(final Function<E> right)
-	{
-		return new EqualFunctionCondition(this, right);
-	}
-	
 }

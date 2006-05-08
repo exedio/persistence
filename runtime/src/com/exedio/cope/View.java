@@ -26,6 +26,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
+import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.OrCondition;
 
 /**
@@ -179,5 +183,30 @@ public abstract class View<E> extends Feature implements Function<E>
 	public final NotEqualCondition notEqual(final E value)
 	{
 		return new NotEqualCondition<E>(this, value);
+	}
+
+	public final EqualFunctionCondition equal(final Function<E> right)
+	{
+		return new EqualFunctionCondition(this, right);
+	}
+	
+	public final LessCondition less(final E value)
+	{
+		return new LessCondition<E>(this, value);
+	}
+	
+	public final LessEqualCondition lessOrEqual(final E value)
+	{
+		return new LessEqualCondition<E>(this, value);
+	}
+	
+	public final GreaterCondition greater(final E value)
+	{
+		return new GreaterCondition<E>(this, value);
+	}
+	
+	public final GreaterEqualCondition greaterOrEqual(final E value)
+	{
+		return new GreaterEqualCondition<E>(this, value);
 	}
 }

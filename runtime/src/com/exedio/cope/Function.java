@@ -20,6 +20,10 @@ package com.exedio.cope;
 
 import java.util.Collection;
 
+import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
+import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.OrCondition;
 
 
@@ -38,4 +42,8 @@ public interface Function<E extends Object>
 	OrCondition in(Collection<E> value);
 	NotEqualCondition notEqual(E value);
 	EqualFunctionCondition equal(Function<E> right);
+	LessCondition less(E value);
+	LessEqualCondition lessOrEqual(E value);
+	GreaterCondition greater(E value);
+	GreaterEqualCondition greaterOrEqual(E value);
 }

@@ -20,6 +20,10 @@ package com.exedio.cope;
 
 import java.util.Collection;
 
+import com.exedio.cope.search.GreaterCondition;
+import com.exedio.cope.search.GreaterEqualCondition;
+import com.exedio.cope.search.LessCondition;
+import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.OrCondition;
 
 
@@ -57,6 +61,28 @@ public class JoinedFunction<E> implements Function<E>
 		return function.getType();
 	}
 	
+	public final boolean equals(final Object other)
+	{
+		if(!(other instanceof JoinedFunction))
+			return false;
+		
+		final JoinedFunction o = (JoinedFunction)other;
+		
+		return function.equals(o.function) && join.equals(o.join);
+	}
+	
+	public final int hashCode()
+	{
+		return function.hashCode() ^ join.hashCode();
+	}
+
+	public final String toString()
+	{
+		return function.toString();
+	}
+	
+	// convenience methods for conditions and views ---------------------------------
+
 	public final EqualCondition<E> equal(final E value)
 	{
 		return new EqualCondition<E>(this, value);
@@ -82,24 +108,23 @@ public class JoinedFunction<E> implements Function<E>
 		return new EqualFunctionCondition(this, right);
 	}
 	
-	public final boolean equals(final Object other)
+	public final LessCondition less(final E value)
 	{
-		if(!(other instanceof JoinedFunction))
-			return false;
-		
-		final JoinedFunction o = (JoinedFunction)other;
-		
-		return function.equals(o.function) && join.equals(o.join);
+		return new LessCondition<E>(this, value);
 	}
 	
-	public final int hashCode()
+	public final LessEqualCondition lessOrEqual(final E value)
 	{
-		return function.hashCode() ^ join.hashCode();
-	}
-
-	public final String toString()
-	{
-		return function.toString();
+		return new LessEqualCondition<E>(this, value);
 	}
 	
+	public final GreaterCondition greater(final E value)
+	{
+		return new GreaterCondition<E>(this, value);
+	}
+	
+	public final GreaterEqualCondition greaterOrEqual(final E value)
+	{
+		return new GreaterEqualCondition<E>(this, value);
+	}
 }
