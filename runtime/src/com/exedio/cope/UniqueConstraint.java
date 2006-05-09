@@ -29,11 +29,11 @@ import com.exedio.dsmf.Table;
 public final class UniqueConstraint extends Feature
 {
 	
-	private final FunctionAttribute<Object>[] uniqueAttributes;
-	private final List<FunctionAttribute<Object>> uniqueAttributeList;
+	private final FunctionAttribute<?>[] uniqueAttributes;
+	private final List<FunctionAttribute<?>> uniqueAttributeList;
 	private String databaseID;
 
-	private UniqueConstraint(final FunctionAttribute<Object>[] uniqueAttributes)
+	private UniqueConstraint(final FunctionAttribute<?>[] uniqueAttributes)
 	{
 		this.uniqueAttributes = uniqueAttributes;
 		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
@@ -44,31 +44,27 @@ public final class UniqueConstraint extends Feature
 	/**
 	 * Is not public, because one should use {@link Item#UNIQUE} etc.
 	 */
-	@SuppressWarnings("unchecked") // OK: no generic array creation
 	UniqueConstraint(final FunctionAttribute uniqueAttribute)
 	{
 		this(new FunctionAttribute[]{uniqueAttribute});
 	}
 	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2)
 	{
 		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2});
 	}
 	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2, final FunctionAttribute uniqueAttribute3)
 	{
 		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
 	}
 	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
 	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2, final FunctionAttribute uniqueAttribute3, final FunctionAttribute uniqueAttribute4)
 	{
 		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3, uniqueAttribute4});
 	}
 	
-	public final List<FunctionAttribute<Object>> getUniqueAttributes()
+	public final List<FunctionAttribute<?>> getUniqueAttributes()
 	{
 		return uniqueAttributeList;
 	}
@@ -105,7 +101,7 @@ public final class UniqueConstraint extends Feature
 		{
 			if(i>0)
 				bf.append(',');
-			final Attribute<Object> uniqueAttribute = uniqueAttributes[i];
+			final FunctionAttribute<?> uniqueAttribute = uniqueAttributes[i];
 			bf.append(uniqueAttribute.getColumn().protectedID);
 		}
 		bf.append(')');
@@ -136,16 +132,22 @@ public final class UniqueConstraint extends Feature
 	public final Item searchUnique(final Object[] values)
 	{
 		// TODO: search nativly for unique constraints
-		final List<FunctionAttribute<Object>> attributes = getUniqueAttributes();
+		final List<FunctionAttribute<?>> attributes = getUniqueAttributes();
 		if(attributes.size()!=values.length)
 			throw new RuntimeException("-"+attributes.size()+'-'+values.length);
 
-		final Iterator<FunctionAttribute<Object>> attributeIterator = attributes.iterator();
+		final Iterator<FunctionAttribute<?>> attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
 		for(int j = 0; attributeIterator.hasNext(); j++)
-			conditions[j] = new EqualCondition<Object>(attributeIterator.next(), values[j]);
+			conditions[j] = new EqualCondition<Object>(castAttribute(attributeIterator.next()), values[j]);
 
 		return getType().searchSingleton(new AndCondition(conditions));
+	}
+	
+	@SuppressWarnings("unchecked") // TODO add some kind of FunctionAttribute#castToE
+	private static final FunctionAttribute<Object> castAttribute(FunctionAttribute<?> a)
+	{
+		return (FunctionAttribute<Object>)a;
 	}
 	
 }

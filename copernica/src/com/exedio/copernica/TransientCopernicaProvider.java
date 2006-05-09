@@ -202,7 +202,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			final StringBuffer result = new StringBuffer();
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)uniqueConstraints.iterator().next();
 			boolean first = true;
-			for(final FunctionAttribute<Object> attribute : uniqueConstraint.getUniqueAttributes())
+			for(final FunctionAttribute<?> attribute : uniqueConstraint.getUniqueAttributes())
 			{
 				if(first)
 					first = false;

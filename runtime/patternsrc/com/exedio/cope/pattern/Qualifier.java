@@ -47,7 +47,7 @@ public final class Qualifier extends Pattern
 				"argument of qualifier constructor is null, " +
 				"may happen due to bad class initialization order.");
 		
-		final List<FunctionAttribute<Object>> attributes = qualifyUnique.getUniqueAttributes();
+		final List<FunctionAttribute<?>> attributes = qualifyUnique.getUniqueAttributes();
 		if(attributes.size()<2)
 			throw new RuntimeException(attributes.toString());
 
