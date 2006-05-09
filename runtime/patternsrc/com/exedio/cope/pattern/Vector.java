@@ -55,11 +55,11 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		// TODO SOON
 		boolean initial = false;
 		boolean isFinal = false;
-		for(int i = 0; i<sources.length; i++)
+		for(FunctionAttribute<T> source : sources)
 		{
-			registerSource(sources[i]);
-			initial = initial || sources[i].isInitial();
-			isFinal = isFinal || sources[i].isFinal();
+			registerSource(source);
+			initial = initial || source.isInitial();
+			isFinal = isFinal || source.isFinal();
 		}
 		this.initial = initial;
 		this.isFinal = isFinal;

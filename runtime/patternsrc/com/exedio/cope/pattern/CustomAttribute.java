@@ -66,11 +66,11 @@ public abstract class CustomAttribute<E>
 		// TODO SOON
 		boolean initial = false;
 		boolean isFinal = false;
-		for(int i = 0; i<storages.length; i++)
+		for(FunctionAttribute<? extends Object> storage : storages)
 		{
-			registerSource(storages[i]);
-			initial = initial || storages[i].isInitial();
-			isFinal = isFinal || storages[i].isFinal();
+			registerSource(storage);
+			initial = initial || storage.isInitial();
+			isFinal = isFinal || storage.isFinal();
 		}
 		this.initial = initial;
 		this.isFinal = isFinal;
