@@ -823,13 +823,7 @@ public final class Type<C extends Item>
 		
 		public E get(final Item item)
 		{
-			return cast(item);
-		}
-		
-		@SuppressWarnings("unchecked") // items not covered by generics
-		private E cast(final Object o)
-		{
-			return (E)o;
+			return type.cast(item);
 		}
 		
 		public void append(Statement bf, Join join)
