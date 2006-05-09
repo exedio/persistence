@@ -197,9 +197,9 @@ final class CopeType
 	public int getInitialConstructorModifier()
 	{
 		int inheritedModifier = accessModifier;
-		for(final CopeFeature initialAttribute : getInitialFeatures()) // TODO SOON rename
+		for(final CopeFeature initialFeature : getInitialFeatures())
 		{
-			final int intialFeatureAccessModifier = initialAttribute.accessModifier;
+			final int intialFeatureAccessModifier = initialFeature.accessModifier;
 			if(inheritedModifier<intialFeatureAccessModifier)
 				inheritedModifier = intialFeatureAccessModifier;
 		}
