@@ -143,21 +143,19 @@ class IntegerColumn extends Column
 		// IMPLEMENTATION NOTE for MySQL
 		// A SumAggregate across an IntegerFunction may return Longs or Doubles,
 		// so we support all here.
+		if (longInsteadOfInt)
 		{
-			if (longInsteadOfInt)
-			{
-				if(sqlInteger instanceof Long)
-					return (Long)sqlInteger;
-				else
-					return Long.valueOf(((Number)sqlInteger).longValue());
-			}
+			if(sqlInteger instanceof Long)
+				return (Long)sqlInteger;
 			else
-			{
-				if(sqlInteger instanceof Integer)
-					return (Integer)sqlInteger;
-				else
-					return Integer.valueOf(((Number)sqlInteger).intValue());
-			}
+				return Long.valueOf(((Number)sqlInteger).longValue());
+		}
+		else
+		{
+			if(sqlInteger instanceof Integer)
+				return (Integer)sqlInteger;
+			else
+				return Integer.valueOf(((Number)sqlInteger).intValue());
 		}
 	}
 
