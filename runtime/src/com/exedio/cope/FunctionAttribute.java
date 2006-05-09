@@ -169,7 +169,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 */
 	public final E cast(final Object o)
 	{
-		return Type.verboseCast(valueClass, o);
+		return Cope.verboseCast(valueClass, o);
 	}
 
 	public final void set(final Item item, final E value)
