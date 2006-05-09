@@ -70,8 +70,8 @@ public final class Type<C extends Item>
 	private Table table;
 	private PkSource pkSource;
 
-	private final Constructor creationConstructor;
-	private final Constructor reactivationConstructor;
+	private final Constructor<C> creationConstructor;
+	private final Constructor<C> reactivationConstructor;
 	
 	/**
 	 * This number uniquely identifies a type within its model.
@@ -256,11 +256,11 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Constructor getConstructor(final Class[] params, final String name)
+	private Constructor<C> getConstructor(final Class[] params, final String name)
 	{
 		try
 		{
-			final Constructor result = javaClass.getDeclaredConstructor(params);
+			final Constructor<C> result = javaClass.getDeclaredConstructor(params);
 			result.setAccessible(true);
 			return result;
 		}
@@ -656,13 +656,13 @@ public final class Type<C extends Item>
 		try
 		{
 			result =
-				cast((Item)creationConstructor.newInstance(
+				creationConstructor.newInstance(
 					new Object[]{
 						setValues!=null
 						? setValues
 						: EMPTY_SET_VALUES
 					}
-				));
+				);
 		}
 		catch(InstantiationException e)
 		{
@@ -783,12 +783,12 @@ public final class Type<C extends Item>
 		try
 		{
 			return
-				cast((Item)reactivationConstructor.newInstance(
+				reactivationConstructor.newInstance(
 					new Object[]{
 						REACTIVATION_DUMMY,
 						Integer.valueOf(pk)
 					}
-				));
+				);
 		}
 		catch(InstantiationException e)
 		{
