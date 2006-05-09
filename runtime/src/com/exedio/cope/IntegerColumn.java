@@ -17,7 +17,6 @@
  */
 package com.exedio.cope;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -140,29 +139,24 @@ class IntegerColumn extends Column
 		// Whether the returned object is an Integer or a BigDecimal,
 		// depends on whether OracleStatement.defineColumnType is used or not,
 		// so we support both here.
-		if(sqlInteger instanceof BigDecimal)
-		{
-			// TODO SOON remove this branch
-			if (longInsteadOfInt)
-				return Long.valueOf(((BigDecimal)sqlInteger).longValue());
-			else
-				return Integer.valueOf(((BigDecimal)sqlInteger).intValue());
-		}
-		else
+		//
+		// IMPLEMENTATION NOTE for MySQL
+		// A SumAggregate across an IntegerFunction may return Longs or Doubles,
+		// so we support all here.
 		{
 			if (longInsteadOfInt)
 			{
 				if(sqlInteger instanceof Long)
 					return (Long)sqlInteger;
 				else
-					return Long.valueOf(((Number)sqlInteger).longValue()); // for SumAggregate
+					return Long.valueOf(((Number)sqlInteger).longValue());
 			}
 			else
 			{
 				if(sqlInteger instanceof Integer)
 					return (Integer)sqlInteger;
 				else
-					return Integer.valueOf(((Number)sqlInteger).intValue()); // for SumAggregate
+					return Integer.valueOf(((Number)sqlInteger).intValue());
 			}
 		}
 	}
