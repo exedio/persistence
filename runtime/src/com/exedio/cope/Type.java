@@ -98,7 +98,7 @@ public final class Type<C extends Item>
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
 	public <X extends Item> Type<X> castType(final Class<X> clazz)
 	{
-		if(!javaClass.equals(clazz))
+		if(javaClass!=clazz)
 			throw new ClassCastException("expected " + clazz.getName() + ", but was " + javaClass.getName());
 		
 		return (Type<X>)this;
