@@ -17,6 +17,7 @@
  */
 package com.exedio.cope;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -49,9 +50,21 @@ final class DoubleColumn extends Column
 	{
 		final Object loadedDouble = resultSet.getObject(columnIndex);
 		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-		row.put(this, (loadedDouble!=null) ? (Double)loadedDouble : null);
+		row.put(this, (loadedDouble!=null) ? convertSQLResult(loadedDouble) : null);
 	}
 
+	private final static Double convertSQLResult(final Object sqlDouble)
+	{
+		if(sqlDouble instanceof BigDecimal)
+		{
+			return Double.valueOf(((BigDecimal)sqlDouble).doubleValue()); // for SumAggregate on Oracle
+		}
+		else
+		{
+			return (Double)sqlDouble;
+		}
+	}
+	
 	final String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)

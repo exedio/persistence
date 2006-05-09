@@ -79,8 +79,8 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 		return plus(other);
 	}
 
-	public final SumAggregate sum()
+	public final SumAggregate<Integer> sum()
 	{
-		return new SumAggregate(this);
+		return new SumAggregate<Integer>(this);
 	}
 }

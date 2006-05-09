@@ -43,5 +43,5 @@ public interface IntegerFunction extends Function<Integer>
 	@Deprecated
 	PlusView sum(IntegerFunction other);
 
-	SumAggregate sum();
+	SumAggregate<Integer> sum();
 }

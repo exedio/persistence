@@ -22,6 +22,7 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
+import com.exedio.cope.search.SumAggregate;
 
 public final class DoubleAttribute extends FunctionAttribute<Double>
 {
@@ -125,4 +126,8 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		return new GreaterEqualCondition<Double>(this, new Double(value));
 	}
 	
+	public final SumAggregate<Double> sum()
+	{
+		return new SumAggregate<Double>(this);
+	}
 }

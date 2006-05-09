@@ -142,6 +142,7 @@ class IntegerColumn extends Column
 		// so we support both here.
 		if(sqlInteger instanceof BigDecimal)
 		{
+			// TODO SOON remove this branch
 			if (longInsteadOfInt)
 				return Long.valueOf(((BigDecimal)sqlInteger).longValue());
 			else
@@ -151,7 +152,10 @@ class IntegerColumn extends Column
 		{
 			if (longInsteadOfInt)
 			{
-				return (Long)sqlInteger;
+				if(sqlInteger instanceof Long)
+					return (Long)sqlInteger;
+				else
+					return Long.valueOf(((Number)sqlInteger).longValue()); // for SumAggregate
 			}
 			else
 			{

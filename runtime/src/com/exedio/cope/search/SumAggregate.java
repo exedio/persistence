@@ -21,9 +21,9 @@ package com.exedio.cope.search;
 import com.exedio.cope.Aggregate;
 import com.exedio.cope.Function;
 
-public class SumAggregate extends Aggregate<Integer>
+public class SumAggregate<E extends Number> extends Aggregate<E>
 {
-	public SumAggregate(final Function<Integer> source)
+	public SumAggregate(final Function<E> source)
 	{
 		super(source, "sum", "sum");
 	}
