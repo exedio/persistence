@@ -239,19 +239,19 @@ final class Generator
 		if(!type.hasInitialConstructor())
 			return;
 
-		final List<CopeFeature> initialAttributes = type.getInitialFeatures(); // TODO SOON rename to initialFeatures
+		final List<CopeFeature> initialFeatures = type.getInitialFeatures();
 		final SortedSet<Class> constructorExceptions = type.getConstructorExceptions();
 		
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_INITIAL, type.name));
 		o.write(lineSeparator);
-		for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
+		for(final CopeFeature feature : initialFeatures)
 		{
 			o.write("\t * @param ");
-			o.write(initialAttribute.name);
+			o.write(feature.name);
 			o.write(' ');
-			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(initialAttribute.name)));
+			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
 			o.write(lineSeparator);
 		}
 		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
@@ -263,16 +263,16 @@ final class Generator
 
 			boolean first = true;
 			final StringBuffer initialAttributesBuf = new StringBuffer();
-			for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
+			for(final CopeFeature feature : initialFeatures)
 			{
-				if(!initialAttribute.getSetterExceptions().contains(constructorException))
+				if(!feature.getSetterExceptions().contains(constructorException))
 					continue;
 
 				if(first)
 					first = false;
 				else
 					initialAttributesBuf.append(", ");
-				initialAttributesBuf.append(initialAttribute.name);
+				initialAttributesBuf.append(feature.name);
 			}
 
 			final String pattern;
@@ -294,7 +294,7 @@ final class Generator
 		o.write('(');
 		
 		boolean first = true;
-		for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
+		for(final CopeFeature feature : initialFeatures)
 		{
 			if(first)
 				first = false;
@@ -303,9 +303,9 @@ final class Generator
 			
 			o.write(lineSeparator);
 			o.write("\t\t\t\tfinal ");
-			o.write(initialAttribute.getBoxedType());
+			o.write(feature.getBoxedType());
 			o.write(' ');
-			o.write(initialAttribute.name);
+			o.write(feature.name);
 		}
 		
 		o.write(')');
@@ -315,14 +315,14 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t\tthis(new "+SetValue.class.getName()+"[]{");
 		o.write(lineSeparator);
-		for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
+		for(final CopeFeature feature : initialFeatures)
 		{
 			o.write("\t\t\t");
 			o.write(type.name);
 			o.write('.');
-			o.write(initialAttribute.name);
+			o.write(feature.name);
 			o.write(".map(");
-			o.write(initialAttribute.name);
+			o.write(feature.name);
 			o.write("),");
 			o.write(lineSeparator);
 		}
