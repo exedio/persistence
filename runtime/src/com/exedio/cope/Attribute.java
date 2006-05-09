@@ -76,6 +76,7 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 	 * <tt>{@link #isFinal()} || {@link #isMandatory()}</tt>.
 	 */
 	public boolean isInitial()
+	// TODO SOON move up
 	{
 		return isfinal || !optional;
 	}
