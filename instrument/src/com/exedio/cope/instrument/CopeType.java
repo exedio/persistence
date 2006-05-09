@@ -21,14 +21,13 @@ package com.exedio.cope.instrument;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Item;
 import com.exedio.cope.util.ClassComparator;
 
 final class CopeType
@@ -198,9 +197,8 @@ final class CopeType
 	public int getInitialConstructorModifier()
 	{
 		int inheritedModifier = accessModifier;
-		for(Iterator i = getInitialAttributes().iterator(); i.hasNext(); )
+		for(final CopeFeature initialAttribute : getInitialAttributes()) // TODO SOON rename
 		{
-			final CopeAttribute initialAttribute = (CopeAttribute)i.next();
 			final int attributeAccessModifier = initialAttribute.accessModifier;
 			if(inheritedModifier<attributeAccessModifier)
 				inheritedModifier = attributeAccessModifier;
@@ -209,12 +207,12 @@ final class CopeType
 		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
 	}
 	
-	private ArrayList<CopeAttribute> initialAttributes = null;
+	private ArrayList<CopeFeature> initialAttributes = null; // TODO SOON rename to initialFeatures
 	private TreeSet<Class> constructorExceptions = null;
 	
-	private final void makeInitialAttributesAndConstructorExceptions()
+	private final void makeInitialAttributesAndConstructorExceptions() // TODO SOON rename to makeInitialFeaturesAndConstructorExceptions
 	{
-		initialAttributes = new ArrayList<CopeAttribute>();
+		initialAttributes = new ArrayList<CopeFeature>();
 		constructorExceptions = new TreeSet<Class>(ClassComparator.getInstance());
 		
 		final CopeType superclass = getSuperclass();
@@ -226,9 +224,9 @@ final class CopeType
 		
 		for(final CopeFeature feature : getFeatures())
 		{
-			if(feature instanceof CopeAttribute)
+			if(!(feature instanceof CopeQualifier))
 			{
-				final CopeAttribute attribute = (CopeAttribute)feature;
+				final CopeFeature attribute = feature; // TODO SOON remove
 				if(attribute.isInitial())
 				{
 					initialAttributes.add(attribute);
@@ -243,7 +241,7 @@ final class CopeType
 	 * Return all initial attributes of this class.
 	 * Initial attributes are all attributes, which are final or mandatory.
 	 */
-	public final List<CopeAttribute> getInitialAttributes()
+	public final List<CopeFeature> getInitialAttributes() // TODO SOON rename to getInitialFeatures
 	{
 		if(initialAttributes == null)
 			makeInitialAttributesAndConstructorExceptions();

@@ -239,14 +239,14 @@ final class Generator
 		if(!type.hasInitialConstructor())
 			return;
 
-		final List<CopeAttribute> initialAttributes = type.getInitialAttributes();
+		final List<CopeFeature> initialAttributes = type.getInitialAttributes(); // TODO SOON rename to initialFeatures
 		final SortedSet<Class> constructorExceptions = type.getConstructorExceptions();
 		
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(CONSTRUCTOR_INITIAL, type.name));
 		o.write(lineSeparator);
-		for(final CopeAttribute initialAttribute : initialAttributes)
+		for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
 		{
 			o.write("\t * @param ");
 			o.write(initialAttribute.name);
@@ -263,7 +263,7 @@ final class Generator
 
 			boolean first = true;
 			final StringBuffer initialAttributesBuf = new StringBuffer();
-			for(final CopeAttribute initialAttribute : initialAttributes)
+			for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
 			{
 				if(!initialAttribute.getSetterExceptions().contains(constructorException))
 					continue;
@@ -294,7 +294,7 @@ final class Generator
 		o.write('(');
 		
 		boolean first = true;
-		for(final CopeAttribute initialAttribute : initialAttributes)
+		for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
 		{
 			if(first)
 				first = false;
@@ -315,7 +315,7 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t\tthis(new "+SetValue.class.getName()+"[]{");
 		o.write(lineSeparator);
-		for(final CopeAttribute initialAttribute : initialAttributes)
+		for(final CopeFeature initialAttribute : initialAttributes) // TODO SOON rename
 		{
 			o.write("\t\t\t");
 			o.write(type.name);

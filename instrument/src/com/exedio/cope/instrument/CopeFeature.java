@@ -39,6 +39,7 @@ abstract class CopeFeature
 	final int modifier;
 	final int accessModifier;
 	final Option setterOption;
+	final boolean initial;
 	private Feature value;
 	
 	CopeFeature(final CopeType parent, final JavaAttribute javaAttribute)
@@ -51,6 +52,7 @@ abstract class CopeFeature
 
 		final String docComment = javaAttribute.getDocComment();
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
+		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
 		
 		parent.register(this);
 	}
@@ -73,6 +75,15 @@ abstract class CopeFeature
 		return value;
 	}
 	
+	final boolean isInitial()
+	{
+		if(initial)
+			return true;
+		
+		final Feature instance = getInstance();
+		return instance instanceof Settable && ((Settable)instance).isInitial();
+	}
+
 	private final boolean isWriteable()
 	{
 		final Feature instance = getInstance();

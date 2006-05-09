@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.Settable;
 
 abstract class CopeAttribute extends CopeFeature
 {
@@ -31,7 +30,6 @@ abstract class CopeAttribute extends CopeFeature
 	final String persistentType;
 
 	final Option getterOption;
-	final boolean initial;
 	
 	CopeAttribute(
 			final CopeType parent,
@@ -45,7 +43,6 @@ abstract class CopeAttribute extends CopeFeature
 		
 		final String docComment = javaAttribute.getDocComment();
 		this.getterOption = new Option(Injector.findDocTagLine(docComment, TAG_GETTER), true);
-		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
 	}
 	
 	final int getGeneratedGetterModifier()
@@ -94,15 +91,6 @@ abstract class CopeAttribute extends CopeFeature
 		throw new RuntimeException();
 	}
 	
-	final boolean isInitial()
-	{
-		if(initial)
-			return true;
-		
-		final Feature instance = getInstance();
-		return instance instanceof Settable && ((Settable)instance).isInitial();
-	}
-
 	final boolean isImplicitlyUnique()
 	{
 		final Feature instance = getInstance();

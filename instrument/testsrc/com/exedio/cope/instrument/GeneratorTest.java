@@ -95,6 +95,8 @@ public class GeneratorTest extends InstrumentorTest
 				boolean.class, // nativeBoolean
 				Date.class, // mandatoryDate
 				Standard.Enum1.class, // mandatoryEnum
+				String.class, // mandatoryHash
+				String.class, // privateSetterHash
 			}, PUBLIC,
 			new Class[]{
 				LENGTH_VIOLATION,
