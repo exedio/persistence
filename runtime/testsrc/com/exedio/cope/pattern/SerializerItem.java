@@ -28,9 +28,9 @@ import com.exedio.cope.Item;
  */
 public class SerializerItem extends Item
 {
-	public static final Serializer<Integer> integer = new Serializer<Integer>(OPTIONAL);
+	public static final Serializer<Integer> integer = new Serializer<Integer>(Integer.class, OPTIONAL);
 	
-	public static final Serializer<Map> map = new Serializer<Map>(OPTIONAL);
+	public static final Serializer<Map> map = new Serializer<Map>(Map.class, OPTIONAL);
 	
 	// TODO should be generated
 	Integer getInteger()

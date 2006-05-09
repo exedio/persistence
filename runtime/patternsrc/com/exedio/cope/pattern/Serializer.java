@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.FinalViolationException;
@@ -55,18 +56,20 @@ import com.exedio.cope.UniqueViolationException;
  */
 public final class Serializer<E> extends Pattern implements Settable<E>
 {
+	private final Class<E> valueClass;
 	private final DataAttribute source;
 
-	public Serializer(final DataAttribute source)
+	public Serializer(final Class<E> valueClass, final DataAttribute source)
 	{
+		this.valueClass = valueClass;
 		this.source = source;
 
 		registerSource(source);
 	}
 	
-	public Serializer(final Attribute.Option option)
+	public Serializer(final Class<E> valueClass, final Attribute.Option option)
 	{
-		this(new DataAttribute(option));
+		this(valueClass, new DataAttribute(option));
 	}
 	
 	// TODO allow setting of length of DataAttribute
@@ -110,7 +113,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		{
 			final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
 			ois = new ObjectInputStream(bis);
-			result = cast(ois.readObject());
+			result = Cope.verboseCast(valueClass, ois.readObject());
 			ois.close();
 			ois = null;
 		}
@@ -159,12 +162,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
 	{
 		return Collections.singletonMap(source, serialize(value));
-	}
-	
-	@SuppressWarnings("unchecked") // OK: deserialization does not support generics
-	private E cast(final Object o)
-	{
-		return (E)o;
 	}
 	
 	private byte[] serialize(final E value)
