@@ -210,7 +210,7 @@ final class CopeType
 	private ArrayList<CopeFeature> initialAttributes = null; // TODO SOON rename to initialFeatures
 	private TreeSet<Class> constructorExceptions = null;
 	
-	private final void makeInitialAttributesAndConstructorExceptions() // TODO SOON rename to makeInitialFeaturesAndConstructorExceptions
+	private final void makeInitialFeaturesAndConstructorExceptions()
 	{
 		initialAttributes = new ArrayList<CopeFeature>();
 		constructorExceptions = new TreeSet<Class>(ClassComparator.getInstance());
@@ -239,7 +239,7 @@ final class CopeType
 	public final List<CopeFeature> getInitialFeatures()
 	{
 		if(initialAttributes == null)
-			makeInitialAttributesAndConstructorExceptions();
+			makeInitialFeaturesAndConstructorExceptions();
 		return initialAttributes;
 	}
 
@@ -253,7 +253,7 @@ final class CopeType
 	public final SortedSet<Class> getConstructorExceptions()
 	{
 		if(constructorExceptions == null)
-			makeInitialAttributesAndConstructorExceptions();
+			makeInitialFeaturesAndConstructorExceptions();
 		return constructorExceptions;
 	}
 
