@@ -187,7 +187,7 @@ public abstract class CustomAttribute<E>
 		item.set(convert(execute(value, item)));
 	}
 	
-	private static final SetValue[] convert(Map<? extends Attribute, ? extends Object> map)
+	private static final SetValue[] convert(Map<? extends Attribute, ?> map)
 	{
 		final SetValue[] result = new SetValue[map.size()];
 		int n = 0;
@@ -197,7 +197,7 @@ public abstract class CustomAttribute<E>
 		return result;
 	}
 	
-	public final Map<? extends FunctionAttribute, ? extends Object> execute(final E value, final Item exceptionItem) throws CustomAttributeException
+	public final Map<? extends FunctionAttribute, ?> execute(final E value, final Item exceptionItem) throws CustomAttributeException
 	{
 		final Object result;
 		try
