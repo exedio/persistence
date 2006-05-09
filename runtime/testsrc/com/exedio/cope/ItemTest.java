@@ -45,14 +45,24 @@ public class ItemTest extends TestmodelTest
 		assertEquals(EmptyItem.TYPE, item2.getCopeType());
 		assertEquals(EmptyItem2.TYPE, item3.getCopeType());
 		
-		assertSame(item1, EmptyItem.TYPE.cast(item1));
+		assertSame(item1, item1.TYPE.cast(item1));
 		try
 		{
-			EmptyItem.TYPE.cast(item3);
+			item1.TYPE.cast(item3);
 		}
 		catch(ClassCastException e)
 		{
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + item3.TYPE.getJavaClass().getName(), e.getMessage());
+		}
+
+		assertSame(item1.TYPE, item1.TYPE.castType(EmptyItem.class));
+		try
+		{
+			item1.TYPE.castType(EmptyItem2.class);
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected " + EmptyItem2.class.getName() + ", but was " + item1.TYPE.getJavaClass().getName(), e.getMessage());
 		}
 
 		assertID(0, item1);
