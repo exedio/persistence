@@ -412,8 +412,13 @@ final class Generator
 			writeGetterBody(attribute);
 			o.write("\t}");
 		}
-		
-		// setter
+		writeSetter(attribute);
+		writeUniqueFinder(attribute);
+	}
+	
+	private void writeSetter(final CopeAttribute attribute) throws IOException
+	{
+		final String type = attribute.getBoxedType();
 		if(attribute.hasGeneratedSetter())
 		{
 			writeCommentHeader();
@@ -457,8 +462,6 @@ final class Generator
 				o.write("\t}");
 			}
 		}
-		
-		writeUniqueFinder(attribute);
 	}
 	
 	private void writeHash(final CopeHash hash)
