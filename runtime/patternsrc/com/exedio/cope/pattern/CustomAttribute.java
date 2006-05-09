@@ -63,17 +63,18 @@ public abstract class CustomAttribute<E>
 		this.storages = storages;
 		this.storageList = Collections.unmodifiableList(Arrays.asList(storages));
 
-		// TODO SOON
-		boolean initial = false;
-		boolean isFinal = false;
-		for(FunctionAttribute<? extends Object> storage : storages)
 		{
-			registerSource(storage);
-			initial = initial || storage.isInitial();
-			isFinal = isFinal || storage.isFinal();
+			boolean initial = false;
+			boolean isFinal = false;
+			for(FunctionAttribute<? extends Object> storage : storages)
+			{
+				registerSource(storage);
+				initial = initial || storage.isInitial();
+				isFinal = isFinal || storage.isFinal();
+			}
+			this.initial = initial;
+			this.isFinal = isFinal;
 		}
-		this.initial = initial;
-		this.isFinal = isFinal;
 		
 		final Method[] methods = getClass().getDeclaredMethods();
 		Method getter = null; 
