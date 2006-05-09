@@ -87,17 +87,11 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 	
 	private E getValue(final int number)
 	{
-		final E result = cast(numbersToValues.get(number));
+		final E result = cast(numbersToValues.get(number)); // TODO remove cast when pcj.IntKeyOpenHashMap supports generics
 		assert result!=null : toString() + number;
 		return result;
 	}
 
-	@SuppressWarnings("unchecked") // TODO pcj.IntKeyOpenHashMap does not support generics
-	private E cast(final Object o)
-	{
-		return (E)o;
-	}
-	
 	private Integer getNumber(final E value)
 	{
 		final Integer result = valuesToNumbers.get(value);

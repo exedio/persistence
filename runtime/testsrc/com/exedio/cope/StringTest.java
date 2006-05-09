@@ -71,6 +71,19 @@ public class StringTest extends TestmodelTest
 		
 		assertEquals(item.TYPE, item.min4Upper.getType());
 		assertEquals("min4Upper", item.min4Upper.getName());
+		
+		assertSame(null, item.any.cast(null));
+		assertSame("hallo", item.any.cast("hallo"));
+		try
+		{
+			item.any.cast(1);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(null, e.getMessage()); // TODO should contain actual class
+		}
+		
 		{
 			final StringAttribute orig = new StringAttribute(Item.OPTIONAL);
 			assertEquals(false, orig.isFinal());

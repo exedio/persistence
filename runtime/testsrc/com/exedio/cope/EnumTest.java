@@ -42,6 +42,27 @@ public class EnumTest extends AbstractLibTest
 
 	public void testIt()
 	{
+		assertSame(null, item.status.cast(null));
+		assertSame(EnumItem.Status.status1, item.status.cast(EnumItem.Status.status1));
+		try
+		{
+			item.status.cast(1);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(null, e.getMessage()); // TODO should contain actual class
+		}
+		try
+		{
+			item.status.cast(EnumItem2.Status.state1);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(null, e.getMessage()); // TODO should contain actual class
+		}
+		
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());
 	}

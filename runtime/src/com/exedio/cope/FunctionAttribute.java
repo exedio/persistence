@@ -172,9 +172,9 @@ public abstract class FunctionAttribute<E extends Object>
 	}
 	
 	/**
-	 * @see Class#cast(Object) 
+	 * @see Class#cast(Object)
 	 */
-	private E cast(final Object o) // TODO probably could be public
+	public final E cast(final Object o)
 	{
   		return valueClass.cast(o);
 	}
