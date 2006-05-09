@@ -45,13 +45,24 @@ import com.exedio.cope.search.OrCondition;
 public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 {
 	private final FunctionAttribute<T>[] sources;
+	private final boolean initial;
+	private final boolean isFinal;
 
 	public Vector(final FunctionAttribute<T>[] sources)
 	{
 		this.sources = sources;
 
+		// TODO SOON
+		boolean initial = false;
+		boolean isFinal = false;
 		for(int i = 0; i<sources.length; i++)
+		{
 			registerSource(sources[i]);
+			initial = initial || sources[i].isInitial();
+			isFinal = isFinal || sources[i].isFinal();
+		}
+		this.initial = initial;
+		this.isFinal = isFinal;
 	}
 	
 	public Vector(final FunctionAttribute<T> source1)
@@ -109,20 +120,12 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 	
 	public boolean isInitial()
 	{
-		// TODO SOON precompute
-		for(final FunctionAttribute<T> source : sources)
-			if(source.isInitial())
-				return true;
-		return false;
+		return initial;
 	}
 	
 	public boolean isFinal()
 	{
-		// TODO SOON precompute
-		for(final FunctionAttribute<T> source : sources)
-			if(source.isFinal())
-				return true;
-		return false;
+		return isFinal;
 	}
 	
 	public SortedSet<Class> getSetterExceptions()

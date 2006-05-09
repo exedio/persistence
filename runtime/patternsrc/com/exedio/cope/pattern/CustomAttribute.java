@@ -40,6 +40,8 @@ public abstract class CustomAttribute<E>
 {
 	private final FunctionAttribute<? extends Object>[] storages;
 	private final List<FunctionAttribute<? extends Object>> storageList;
+	private final boolean initial;
+	private final boolean isFinal;
 	private final Method getter;
 	private final Method setter;
 	private final Class valueType;
@@ -60,8 +62,18 @@ public abstract class CustomAttribute<E>
 	{
 		this.storages = storages;
 		this.storageList = Collections.unmodifiableList(Arrays.asList(storages));
+
+		// TODO SOON
+		boolean initial = false;
+		boolean isFinal = false;
 		for(int i = 0; i<storages.length; i++)
+		{
 			registerSource(storages[i]);
+			initial = initial || storages[i].isInitial();
+			isFinal = isFinal || storages[i].isFinal();
+		}
+		this.initial = initial;
+		this.isFinal = isFinal;
 		
 		final Method[] methods = getClass().getDeclaredMethods();
 		Method getter = null; 
@@ -110,20 +122,12 @@ public abstract class CustomAttribute<E>
 	
 	public final boolean isInitial()
 	{
-		// TODO SOON precompute
-		for(final FunctionAttribute storage : storages)
-			if(storage.isInitial())
-				return true;
-		return false;
+		return initial;
 	}
 	
 	public final boolean isFinal()
 	{
-		// TODO SOON precompute
-		for(final FunctionAttribute storage : storages)
-			if(storage.isFinal())
-				return true;
-		return false;
+		return isFinal;
 	}
 	
 	public final SortedSet<Class> getSetterExceptions()
