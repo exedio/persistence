@@ -92,7 +92,7 @@ public class AttributeItemTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someItem + '.', e.getMessage());
+			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
 		}
 		
 		final EmptyItem2 wrongItem = new EmptyItem2();
@@ -104,7 +104,7 @@ public class AttributeItemTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName() + " for " + item.someItem + '.', e.getMessage());
+			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName(), e.getMessage());
 		}
 	}
 	

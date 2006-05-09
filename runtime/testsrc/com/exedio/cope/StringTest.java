@@ -516,11 +516,7 @@ public class StringTest extends TestmodelTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals(
-					"expected a " + String.class.getName() + ", " +
-					"but was a " + Integer.class.getName() +
-					" for " + item.any + '.',
-					e.getMessage());
+			assertEquals("expected a " + String.class.getName() + ", " + "but was a " + Integer.class.getName(), e.getMessage());
 		}
 	}
 	

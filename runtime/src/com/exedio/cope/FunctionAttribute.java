@@ -129,14 +129,6 @@ public abstract class FunctionAttribute<E extends Object>
 		}
 		else
 		{
-			// TODO SOON remove
-			if(!(valueClass.isAssignableFrom(value.getClass())))
-			{
-				throw new ClassCastException(
-						"expected a " + valueClass.getName() +
-						", but was a " + value.getClass().getName() +
-						" for " + toString() + '.');
-			}
 			checkNotNullValue(cast(value), exceptionItem);
 		}
 	}

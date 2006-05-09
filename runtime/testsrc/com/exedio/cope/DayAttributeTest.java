@@ -123,7 +123,7 @@ public class DayAttributeTest extends AbstractLibTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.day + '.', e.getMessage());
+			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
 		}
 	}
 	

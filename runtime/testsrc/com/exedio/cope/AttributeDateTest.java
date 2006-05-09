@@ -98,7 +98,7 @@ public class AttributeDateTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDate + '.', e.getMessage());
+			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
 		}
 	}
 	

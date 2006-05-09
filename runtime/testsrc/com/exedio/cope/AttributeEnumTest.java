@@ -136,7 +136,7 @@ public class AttributeEnumTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someEnum + '.', e.getMessage());
+			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
 		}
 		
 		try
@@ -146,7 +146,7 @@ public class AttributeEnumTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName() + " for " + item.someEnum + '.', e.getMessage());
+			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName(), e.getMessage());
 		}
 	}
 	

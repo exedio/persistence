@@ -83,7 +83,7 @@ public class AttributeLongTest extends AttributeTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someLong + '.', e.getMessage());
+			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
 		}
 	}
 	
