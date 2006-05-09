@@ -239,7 +239,7 @@ final class Generator
 		if(!type.hasInitialConstructor())
 			return;
 
-		final List<CopeFeature> initialAttributes = type.getInitialAttributes(); // TODO SOON rename to initialFeatures
+		final List<CopeFeature> initialAttributes = type.getInitialFeatures(); // TODO SOON rename to initialFeatures
 		final SortedSet<Class> constructorExceptions = type.getConstructorExceptions();
 		
 		writeCommentHeader();

@@ -197,7 +197,7 @@ final class CopeType
 	public int getInitialConstructorModifier()
 	{
 		int inheritedModifier = accessModifier;
-		for(final CopeFeature initialAttribute : getInitialAttributes()) // TODO SOON rename
+		for(final CopeFeature initialAttribute : getInitialFeatures()) // TODO SOON rename
 		{
 			final int attributeAccessModifier = initialAttribute.accessModifier;
 			if(inheritedModifier<attributeAccessModifier)
@@ -218,7 +218,7 @@ final class CopeType
 		final CopeType superclass = getSuperclass();
 		if(superclass!=null)
 		{
-			initialAttributes.addAll(superclass.getInitialAttributes());
+			initialAttributes.addAll(superclass.getInitialFeatures());
 			constructorExceptions.addAll(superclass.getConstructorExceptions());
 		}
 		
@@ -237,11 +237,7 @@ final class CopeType
 		constructorExceptions.remove(FinalViolationException.class);
 	}
 
-	/**
-	 * Return all initial attributes of this class.
-	 * Initial attributes are all attributes, which are final or mandatory.
-	 */
-	public final List<CopeFeature> getInitialAttributes() // TODO SOON rename to getInitialFeatures
+	public final List<CopeFeature> getInitialFeatures()
 	{
 		if(initialAttributes == null)
 			makeInitialAttributesAndConstructorExceptions();
@@ -251,7 +247,7 @@ final class CopeType
 	/**
 	 * Returns all exceptions, the generated constructor of this class should throw.
 	 * This is the unification of throws clauses of all the setters of the
-	 * {@link #getInitialAttributes() initial attributes},
+	 * {@link #getInitialFeatures() initial attributes},
 	 * but without the FinalViolationException,
 	 * because final attributes can only be written in the constructor.
 	 */
