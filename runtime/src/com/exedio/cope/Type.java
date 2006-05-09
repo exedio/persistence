@@ -653,7 +653,7 @@ public final class Type<C extends Item>
 		try
 		{
 			result =
-				cast(creationConstructor.newInstance(
+				cast((Item)creationConstructor.newInstance(
 					new Object[]{
 						setValues!=null
 						? setValues
@@ -692,9 +692,9 @@ public final class Type<C extends Item>
 		return clazz.cast(o);
 	}
 	
-	private C cast(final Object o) // TODO SOON make public
+	public C cast(final Item item)
 	{
-		return verboseCast(javaClass, o);
+		return verboseCast(javaClass, item);
 	}
 
 	/**
@@ -780,7 +780,7 @@ public final class Type<C extends Item>
 		try
 		{
 			return
-				cast(reactivationConstructor.newInstance(
+				cast((Item)reactivationConstructor.newInstance(
 					new Object[]{
 						REACTIVATION_DUMMY,
 						Integer.valueOf(pk)
