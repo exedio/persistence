@@ -19,9 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
-import java.util.Collection;
-
-import com.exedio.cope.pattern.Hash;
 
 
 final class CopeHash extends CopeFeature
@@ -37,16 +34,13 @@ final class CopeHash extends CopeFeature
 		// TODO: implement checker option: return checkerOption.getModifier(javaAttribute.modifier);
 	}
 
-	final int getGeneratedSetterModifier()
+	boolean isBoxed()
 	{
-		return (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL;
-		// TODO: implement getter option: return setterOption.getModifier(javaAttribute.modifier);
+		return false;
 	}
 	
-	Collection<Class> getSetterExceptions() throws InjectorParseException
+	String getBoxedType()
 	{
-		final Hash instance = (Hash)getInstance();
-		return instance.getSetterExceptions();
+		throw new RuntimeException();
 	}
-	
 }

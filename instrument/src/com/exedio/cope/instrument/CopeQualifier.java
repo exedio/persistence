@@ -68,4 +68,14 @@ final class CopeQualifier extends CopeFeature
 			result[i] = uniqueAttributes[i+1];
 		return result;
 	}
+
+	boolean isBoxed()
+	{
+		return false;
+	}
+	
+	String getBoxedType()
+	{
+		throw new RuntimeException();
+	}
 }

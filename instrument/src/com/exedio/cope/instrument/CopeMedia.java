@@ -23,22 +23,24 @@ import java.lang.reflect.Modifier;
 
 final class CopeMedia extends CopeFeature
 {
-	public final Option setterOption;
 
 	public CopeMedia(final CopeType parent, final JavaAttribute javaAttribute)
 	{
 		super(parent, javaAttribute);
-		this.setterOption = new Option(Injector.findDocTagLine(javaAttribute.getDocComment(), TAG_SETTER), true);
 	}
 
 	final int getGeneratedGetterModifier()
 	{
 		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE) | Modifier.FINAL;
 	}
-
-	final int getGeneratedSetterModifier()
+	
+	boolean isBoxed()
 	{
-		return setterOption.getModifier(modifier);
+		return false;
 	}
 	
+	String getBoxedType()
+	{
+		throw new RuntimeException();
+	}
 }

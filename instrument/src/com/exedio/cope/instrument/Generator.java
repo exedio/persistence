@@ -416,7 +416,7 @@ final class Generator
 		writeUniqueFinder(attribute);
 	}
 	
-	private void writeSetter(final CopeAttribute attribute) throws IOException
+	private void writeSetter(final CopeFeature attribute/* TODO SOON rename to feature */) throws IOException
 	{
 		final String type = attribute.getBoxedType();
 		if(attribute.hasGeneratedSetter())
@@ -1258,7 +1258,7 @@ final class Generator
 	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeSetterBody(final CopeAttribute attribute)
+	private void writeSetterBody(final CopeFeature attribute/* TODO SOON rename to feature */)
 	throws IOException
 	{
 		o.write("\t\t");
@@ -1277,7 +1277,7 @@ final class Generator
 	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeToucherBody(final CopeAttribute attribute)
+	private void writeToucherBody(final CopeFeature attribute/* TODO SOON rename to feature */)
 	throws IOException
 	{
 		o.write("\t\t");

@@ -82,4 +82,13 @@ final class CopeRelation extends CopeFeature
 		throw new RuntimeException("no " + (source?"source":"target") + " found for relation " + parent.javaClass.getFullName() + '#' + name);
 	}
 	
+	boolean isBoxed()
+	{
+		return false;
+	}
+	
+	String getBoxedType()
+	{
+		throw new RuntimeException();
+	}
 }

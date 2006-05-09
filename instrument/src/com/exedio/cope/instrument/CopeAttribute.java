@@ -18,13 +18,9 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.SortedSet;
-
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 
 abstract class CopeAttribute extends CopeFeature
@@ -35,7 +31,6 @@ abstract class CopeAttribute extends CopeFeature
 	final String persistentType;
 
 	final Option getterOption;
-	final Option setterOption;
 	final boolean initial;
 	
 	CopeAttribute(
@@ -50,7 +45,6 @@ abstract class CopeAttribute extends CopeFeature
 		
 		final String docComment = javaAttribute.getDocComment();
 		this.getterOption = new Option(Injector.findDocTagLine(docComment, TAG_GETTER), true);
-		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
 		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
 	}
 	
@@ -109,23 +103,10 @@ abstract class CopeAttribute extends CopeFeature
 		return instance instanceof Settable && ((Settable)instance).isInitial();
 	}
 
-	private final boolean isWriteable()
-	{
-		final Feature instance = getInstance();
-		return instance instanceof Settable && !((Settable)instance).isFinal();
-	}
-	
 	final boolean isImplicitlyUnique()
 	{
 		final Feature instance = getInstance();
 		return instance instanceof FunctionAttribute && ((FunctionAttribute)instance).getImplicitUniqueConstraint()!=null;
-	}
-
-	final boolean isTouchable()
-	{
-		final Object instance = getInstance();
-
-		return instance instanceof DateAttribute;
 	}
 
 	final boolean hasIsGetter()
@@ -134,32 +115,6 @@ abstract class CopeAttribute extends CopeFeature
 		final boolean isBoolean = instance instanceof BooleanAttribute;
 
 		return isBoolean && getterOption.booleanAsIs;
-	}
-
-	final boolean hasGeneratedSetter()
-	{
-		return isWriteable() && setterOption.exists;
-	}
-	
-	final int getGeneratedSetterModifier()
-	{
-		return setterOption.getModifier(modifier);
-	}
-	
-	final SortedSet<Class> getSetterExceptions()
-	{
-		final Feature instance = getInstance();
-		final SortedSet<Class> result = ((Settable<Object>)instance).getSetterExceptions();
-		if(isBoxed())
-			result.remove(MandatoryViolationException.class);
-		return result;
-	}
-	
-	final SortedSet<Class> getToucherExceptions()
-	{
-		final SortedSet<Class> result = getSetterExceptions();
-		result.remove(MandatoryViolationException.class);
-		return result;
 	}
 
 }

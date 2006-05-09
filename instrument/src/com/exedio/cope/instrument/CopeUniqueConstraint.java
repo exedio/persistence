@@ -61,4 +61,13 @@ final class CopeUniqueConstraint extends CopeFeature
 		return result;
 	}
 	
+	boolean isBoxed()
+	{
+		return false;
+	}
+	
+	String getBoxedType()
+	{
+		throw new RuntimeException();
+	}
 }

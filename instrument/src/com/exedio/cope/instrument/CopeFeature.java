@@ -18,10 +18,15 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.SortedSet;
+
+import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
+import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Settable;
 
 
-class CopeFeature
+abstract class CopeFeature
 {
 	static final String TAG_PREFIX = "cope.";
 	static final String TAG_GETTER  = TAG_PREFIX + "getter";
@@ -33,6 +38,7 @@ class CopeFeature
 	final String name;
 	final int modifier;
 	final int accessModifier;
+	final Option setterOption;
 	private Feature value;
 	
 	CopeFeature(final CopeType parent, final JavaAttribute javaAttribute)
@@ -42,6 +48,10 @@ class CopeFeature
 		this.name = javaAttribute.name;
 		this.modifier = javaAttribute.modifier;
 		this.accessModifier = javaAttribute.getAccessModifier();
+
+		final String docComment = javaAttribute.getDocComment();
+		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
+		
 		parent.register(this);
 	}
 	
@@ -63,4 +73,45 @@ class CopeFeature
 		return value;
 	}
 	
+	private final boolean isWriteable()
+	{
+		final Feature instance = getInstance();
+		return instance instanceof Settable && !((Settable)instance).isFinal();
+	}
+	
+	final boolean hasGeneratedSetter()
+	{
+		return isWriteable() && setterOption.exists;
+	}
+	
+	final int getGeneratedSetterModifier()
+	{
+		return setterOption.getModifier(modifier);
+	}
+	
+	abstract boolean isBoxed();
+	abstract String getBoxedType();
+	
+	final SortedSet<Class> getSetterExceptions()
+	{
+		final Feature instance = getInstance();
+		final SortedSet<Class> result = ((Settable<Object>)instance).getSetterExceptions();
+		if(isBoxed())
+			result.remove(MandatoryViolationException.class);
+		return result;
+	}
+	
+	final boolean isTouchable()
+	{
+		final Object instance = getInstance();
+		return instance instanceof DateAttribute;
+	}
+
+	final SortedSet<Class> getToucherExceptions()
+	{
+		final SortedSet<Class> result = getSetterExceptions();
+		result.remove(MandatoryViolationException.class);
+		return result;
+	}
+
 }

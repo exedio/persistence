@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 
+
 final class CopeVector extends CopeFeature
 {
 
@@ -27,4 +28,13 @@ final class CopeVector extends CopeFeature
 		super(parent, javaAttribute);
 	}
 
+	boolean isBoxed()
+	{
+		return false;
+	}
+	
+	String getBoxedType()
+	{
+		throw new RuntimeException();
+	}
 }
