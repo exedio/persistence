@@ -139,15 +139,9 @@ public final class UniqueConstraint extends Feature
 		final Iterator<FunctionAttribute<?>> attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
 		for(int j = 0; attributeIterator.hasNext(); j++)
-			conditions[j] = new EqualCondition<Object>(castAttribute(attributeIterator.next()), values[j]);
+			conditions[j] = attributeIterator.next().equalWithCast(values[j]);
 
 		return getType().searchSingleton(new AndCondition(conditions));
-	}
-	
-	@SuppressWarnings("unchecked") // TODO add some kind of FunctionAttribute#castToE
-	private static final FunctionAttribute<Object> castAttribute(FunctionAttribute<?> a)
-	{
-		return (FunctionAttribute<Object>)a;
 	}
 	
 }

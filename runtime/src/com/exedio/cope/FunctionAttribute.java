@@ -171,10 +171,12 @@ public abstract class FunctionAttribute<E extends Object>
 		return cast(getEntity(item).get(this));
 	}
 	
-	@SuppressWarnings("unchecked")
-	private E cast(final Object o)
+	/**
+	 * @see Class#cast(Object) 
+	 */
+	private E cast(final Object o) // TODO probably could be public
 	{
-		return (E)o;
+  		return valueClass.cast(o);
 	}
 
 	public final void set(final Item item, final E value)
@@ -278,6 +280,12 @@ public abstract class FunctionAttribute<E extends Object>
 	public final EqualCondition<E> equal(final E value)
 	{
 		return new EqualCondition<E>(this, value);
+	}
+	
+	// TODO put into Function interface
+	public final EqualCondition<E> equalWithCast(final Object value)
+	{
+		return new EqualCondition<E>(this, cast(value));
 	}
 	
 	public final EqualCondition<E> equal(final Join join, final E value)
