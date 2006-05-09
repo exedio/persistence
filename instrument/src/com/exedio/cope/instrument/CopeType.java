@@ -226,11 +226,10 @@ final class CopeType
 		{
 			if(!(feature instanceof CopeQualifier))
 			{
-				final CopeFeature attribute = feature; // TODO SOON remove
-				if(attribute.isInitial())
+				if(feature.isInitial())
 				{
-					initialAttributes.add(attribute);
-					constructorExceptions.addAll(attribute.getSetterExceptions());
+					initialAttributes.add(feature);
+					constructorExceptions.addAll(feature.getSetterExceptions());
 				}
 			}
 		}
