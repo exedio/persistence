@@ -38,27 +38,25 @@ public abstract class CustomAttribute<E>
 	extends Pattern
 	implements Settable<E>
 {
-	private final FunctionAttribute<? extends Object>[] storages;
-	private final List<FunctionAttribute<? extends Object>> storageList;
+	private final FunctionAttribute<?>[] storages;
+	private final List<FunctionAttribute<?>> storageList;
 	private final boolean initial;
 	private final boolean isFinal;
 	private final Method getter;
 	private final Method setter;
 	private final Class valueType;
 	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
-	public CustomAttribute(final FunctionAttribute storage)
+	public CustomAttribute(final FunctionAttribute<?> storage)
 	{
 		this(new FunctionAttribute[]{storage});
 	}
 	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
-	public CustomAttribute(final FunctionAttribute storage1, final FunctionAttribute storage2)
+	public CustomAttribute(final FunctionAttribute<?> storage1, final FunctionAttribute<?> storage2)
 	{
 		this(new FunctionAttribute[]{storage1, storage2});
 	}
 	
-	public CustomAttribute(final FunctionAttribute<? extends Object>[] storages)
+	public CustomAttribute(final FunctionAttribute<?>[] storages)
 	{
 		this.storages = storages;
 		this.storageList = Collections.unmodifiableList(Arrays.asList(storages));
@@ -66,7 +64,7 @@ public abstract class CustomAttribute<E>
 		{
 			boolean initial = false;
 			boolean isFinal = false;
-			for(FunctionAttribute<? extends Object> storage : storages)
+			for(FunctionAttribute<?> storage : storages)
 			{
 				registerSource(storage);
 				initial = initial || storage.isInitial();
@@ -116,7 +114,7 @@ public abstract class CustomAttribute<E>
 		this.valueType = getter.getReturnType();
 	}
 	
-	public final List<FunctionAttribute<? extends Object>> getStorages()
+	public final List<FunctionAttribute<?>> getStorages()
 	{
 		return storageList;
 	}
