@@ -207,18 +207,18 @@ final class CopeType
 		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
 	}
 	
-	private ArrayList<CopeFeature> initialAttributes = null; // TODO SOON rename to initialFeatures
+	private ArrayList<CopeFeature> initialFeatures = null;
 	private TreeSet<Class> constructorExceptions = null;
 	
 	private final void makeInitialFeaturesAndConstructorExceptions()
 	{
-		initialAttributes = new ArrayList<CopeFeature>();
+		initialFeatures = new ArrayList<CopeFeature>();
 		constructorExceptions = new TreeSet<Class>(ClassComparator.getInstance());
 		
 		final CopeType superclass = getSuperclass();
 		if(superclass!=null)
 		{
-			initialAttributes.addAll(superclass.getInitialFeatures());
+			initialFeatures.addAll(superclass.getInitialFeatures());
 			constructorExceptions.addAll(superclass.getConstructorExceptions());
 		}
 		
@@ -228,7 +228,7 @@ final class CopeType
 			{
 				if(feature.isInitial())
 				{
-					initialAttributes.add(feature);
+					initialFeatures.add(feature);
 					constructorExceptions.addAll(feature.getSetterExceptions());
 				}
 			}
@@ -238,9 +238,9 @@ final class CopeType
 
 	public final List<CopeFeature> getInitialFeatures()
 	{
-		if(initialAttributes == null)
+		if(initialFeatures == null)
 			makeInitialFeaturesAndConstructorExceptions();
-		return initialAttributes;
+		return initialFeatures;
 	}
 
 	/**
