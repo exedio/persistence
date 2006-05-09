@@ -176,6 +176,12 @@ public abstract class FunctionAttribute<E extends Object>
 	 */
 	public final E cast(final Object o)
 	{
+		// NOTE:
+		// This code is redundant to the following call to Class#cast(Object),
+		// but creates an exception with a much more verbose message.
+		if(o!= null && !valueClass.isInstance(o))
+			throw new ClassCastException("expected a " + valueClass.getName() + ", but was a " + o.getClass().getName());
+		
   		return valueClass.cast(o);
 	}
 

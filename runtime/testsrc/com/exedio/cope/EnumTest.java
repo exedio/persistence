@@ -51,7 +51,7 @@ public class EnumTest extends AbstractLibTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals(null, e.getMessage()); // TODO should contain actual class
+			assertEquals("expected a " + EnumItem.Status.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -60,7 +60,7 @@ public class EnumTest extends AbstractLibTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals(null, e.getMessage()); // TODO should contain actual class
+			assertEquals("expected a " + EnumItem.Status.class.getName() + ", but was a " + EnumItem2.Status.class.getName(), e.getMessage());
 		}
 		
 		assertEquals(status1, item.getStatus());

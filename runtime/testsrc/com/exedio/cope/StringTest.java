@@ -81,7 +81,7 @@ public class StringTest extends TestmodelTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals(null, e.getMessage()); // TODO should contain actual class
+			assertEquals("expected a " + String.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
 		}
 		
 		{
