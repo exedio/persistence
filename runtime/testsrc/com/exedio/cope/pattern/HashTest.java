@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
@@ -55,6 +56,9 @@ public class HashTest extends AbstractLibTest
 		assertEquals("explicitExternal", item.explicitExternal.getName());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
 		assertEqualsUnmodifiable(list(item.explicitExternal), item.explicitExternalWrap.getPatterns());
+		assertEquals(false, item.explicitExternalWrap.isInitial());
+		assertEquals(false, item.explicitExternalWrap.isFinal());
+		assertContains(LengthViolationException.class, item.explicitExternalWrap.getSetterExceptions());
 
 		assertNull(item.getExplicitExternalWrap());
 		assertTrue(item.checkExplicitExternal(null));
@@ -93,6 +97,9 @@ public class HashTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
 		assertEquals("implicitExternalHash", item.implicitExternal.getStorage().getName());
 		assertEqualsUnmodifiable(list(item.implicitExternal), item.implicitExternal.getStorage().getPatterns());
+		assertEquals(false, item.implicitExternal.isInitial());
+		assertEquals(false, item.implicitExternal.isFinal());
+		assertContains(LengthViolationException.class, item.implicitExternal.getSetterExceptions());
 		
 		assertEquals(null, item.get(item.implicitExternal.getStorage()));
 		assertTrue(item.checkImplicitExternal(null));
@@ -113,6 +120,9 @@ public class HashTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
 		assertEquals("internalHash", item.internal.getStorage().getName());
 		assertEqualsUnmodifiable(list(item.internal), item.internal.getStorage().getPatterns());
+		assertEquals(false, item.internal.isInitial());
+		assertEquals(false, item.internal.isFinal());
+		assertContains(LengthViolationException.class, item.internal.getSetterExceptions());
 		
 		assertEquals(null, item.get(item.internal.getStorage()));
 		assertTrue(item.checkInternal(null));

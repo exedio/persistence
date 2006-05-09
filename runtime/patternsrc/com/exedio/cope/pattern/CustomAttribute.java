@@ -108,6 +108,24 @@ public abstract class CustomAttribute<E>
 		return storageList;
 	}
 	
+	public final boolean isInitial()
+	{
+		// TODO SOON precompute
+		for(final FunctionAttribute storage : storages)
+			if(storage.isInitial())
+				return true;
+		return false;
+	}
+	
+	public final boolean isFinal()
+	{
+		// TODO SOON precompute
+		for(final FunctionAttribute storage : storages)
+			if(storage.isFinal())
+				return true;
+		return false;
+	}
+	
 	public final SortedSet<Class> getSetterExceptions()
 	{
 		final SortedSet<Class> result = storages[0].getSetterExceptions();

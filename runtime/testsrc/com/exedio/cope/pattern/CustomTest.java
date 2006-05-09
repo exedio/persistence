@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
@@ -64,6 +65,9 @@ public class CustomTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.numberString), item.number.getStorages());
 		assertEqualsUnmodifiable(list(item.number), item.numberString.getPatterns());
 		assertEquals(Integer.class, item.number.getValueType());
+		assertEquals(false, item.number.isInitial());
+		assertEquals(false, item.number.isFinal());
+		assertContains(LengthViolationException.class, item.number.getSetterExceptions());
 
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
@@ -162,6 +166,10 @@ public class CustomTest extends AbstractLibTest
 			assertEquals(i56, numberItem56.getNumber());
 			assertEquals(i56, numberItem56.number.get(numberItem56));
 		}
+		
+		assertEquals(false, item.elements.isInitial());
+		assertEquals(false, item.elements.isFinal());
+		assertContains(item.elements.getSetterExceptions());
 		
 		item.setElements(listg(i2, i4, i8));
 		assertEquals(list(i2, i4, i8), item.getElements());

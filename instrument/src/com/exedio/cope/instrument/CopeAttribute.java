@@ -20,14 +20,12 @@ package com.exedio.cope.instrument;
 
 import java.util.SortedSet;
 
-import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
-import com.exedio.cope.View;
 
 abstract class CopeAttribute extends CopeFeature
 {
@@ -108,20 +106,13 @@ abstract class CopeAttribute extends CopeFeature
 			return true;
 		
 		final Feature instance = getInstance();
-		if(!(instance instanceof Attribute)) // TODO Settable instead of Attribute
-			return false;
-		
-		return ((Attribute)instance).isInitial();
+		return instance instanceof Settable && ((Settable)instance).isInitial();
 	}
 
-	// TODO: put into rtlib
 	private final boolean isWriteable()
 	{
 		final Feature instance = getInstance();
-		final boolean isfinal = instance instanceof Attribute && ((Attribute)instance).isFinal();
-		final boolean isView = instance instanceof View;
-
-		return !isfinal && !isView;
+		return instance instanceof Settable && !((Settable)instance).isFinal();
 	}
 	
 	final boolean isImplicitlyUnique()

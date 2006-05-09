@@ -70,6 +70,13 @@ public class SerializerTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.integer), item.integer.getSource().getPatterns());
 		assertEqualsUnmodifiable(list(item.map), item.map.getSource().getPatterns());
 		
+		assertEquals(false, item.integer.isInitial());
+		assertEquals(false, item.integer.isFinal());
+		assertContains(item.integer.getSetterExceptions());
+		assertEquals(false, item.map.isInitial());
+		assertEquals(false, item.map.isFinal());
+		assertContains(item.map.getSetterExceptions());
+		
 		final HashMap<String, String> map1 = new HashMap<String, String>();
 		map1.put("key1a", "value1a");
 		map1.put("key1b", "value1b");

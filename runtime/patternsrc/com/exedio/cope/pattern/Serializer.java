@@ -82,7 +82,17 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source;
 	}
 	
-	public final SortedSet<Class> getSetterExceptions()
+	public boolean isInitial()
+	{
+		return source.isInitial();
+	}
+	
+	public boolean isFinal()
+	{
+		return source.isFinal();
+	}
+	
+	public SortedSet<Class> getSetterExceptions()
 	{
 		return source.getSetterExceptions();
 	}

@@ -24,11 +24,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.Main;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
 
 public class VectorTest extends AbstractLibTest
@@ -77,6 +78,9 @@ public class VectorTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.nums), item.num1.getPatterns());
 		assertEqualsUnmodifiable(list(item.nums), item.num2.getPatterns());
 		assertEqualsUnmodifiable(list(item.nums), item.num3.getPatterns());
+		assertEquals(false, item.nums.isInitial());
+		assertEquals(false, item.nums.isFinal());
+		assertContains(item.nums.getSetterExceptions());
 
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
@@ -89,6 +93,9 @@ public class VectorTest extends AbstractLibTest
 		assertTrue(!dateSourcesIterator.hasNext());
 		assertEqualsUnmodifiable(list(item.dates), date1.getPatterns());
 		assertEqualsUnmodifiable(list(item.dates), date2.getPatterns());
+		assertEquals(false, item.dates.isInitial());
+		assertEquals(false, item.dates.isFinal());
+		assertContains(item.dates.getSetterExceptions());
 
 		assertEquals(item.TYPE, item.strings.getType());
 		assertEquals("strings", item.strings.getName());
@@ -105,6 +112,9 @@ public class VectorTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.strings), string2.getPatterns());
 		assertEqualsUnmodifiable(list(item.strings), string3.getPatterns());
 		assertEqualsUnmodifiable(list(item.strings), string4.getPatterns());
+		assertEquals(false, item.strings.isInitial());
+		assertEquals(false, item.strings.isFinal());
+		assertContains(LengthViolationException.class, item.strings.getSetterExceptions());
 
 		assertEquals(
 				list(item.num1, item.num2, item.num3, date1, date2, string1, string2, string3, string4),

@@ -107,7 +107,25 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}
 	
-	public final SortedSet<Class> getSetterExceptions()
+	public boolean isInitial()
+	{
+		// TODO SOON precompute
+		for(final FunctionAttribute<T> source : sources)
+			if(source.isInitial())
+				return true;
+		return false;
+	}
+	
+	public boolean isFinal()
+	{
+		// TODO SOON precompute
+		for(final FunctionAttribute<T> source : sources)
+			if(source.isFinal())
+				return true;
+		return false;
+	}
+	
+	public SortedSet<Class> getSetterExceptions()
 	{
 		final SortedSet<Class> result = sources[0].getSetterExceptions();
 		for(int i = 1; i<sources.length; i++)

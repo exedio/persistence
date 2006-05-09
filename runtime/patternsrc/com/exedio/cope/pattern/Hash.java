@@ -66,6 +66,16 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage;
 	}
 	
+	public final boolean isInitial()
+	{
+		return storage.isInitial();
+	}
+	
+	public final boolean isFinal()
+	{
+		return storage.isFinal();
+	}
+	
 	public SortedSet<Class> getSetterExceptions()
 	{
 		return storage.getSetterExceptions();
