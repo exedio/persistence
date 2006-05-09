@@ -487,26 +487,7 @@ final class Generator
 		writeCheckerBody(hash);
 		o.write("\t}");
 
-		// setter
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(SETTER, link(hash.name)));
-		o.write(lineSeparator);
-		writeCommentFooter();
-		writeModifier(hash.getGeneratedSetterModifier());
-		o.write("void set");
-		o.write(toCamelCase(hash.name));
-		o.write("(final ");
-		o.write(String.class.getName());
-		o.write(' ');
-		o.write(hash.name);
-		o.write(')');
-		o.write(lineSeparator);
-		writeThrowsClause(hash.getSetterExceptions());
-		o.write("\t{");
-		o.write(lineSeparator);
-		writeSetterBody(hash);
-		o.write("\t}");
+		writeSetter(hash);
 	}
 	
 	private void writeMediaGetter(final CopeMedia media,

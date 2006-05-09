@@ -41,6 +41,6 @@ final class CopeHash extends CopeFeature
 	
 	String getBoxedType()
 	{
-		throw new RuntimeException();
+		return String.class.getName();
 	}
 }
