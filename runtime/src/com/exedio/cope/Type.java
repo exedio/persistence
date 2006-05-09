@@ -89,16 +89,19 @@ public final class Type<C extends Item>
 	 */
 	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
 	{
-		final Type<X> result = castType(typesByClass.get(javaClass));
+		final Type<?> result = typesByClass.get(javaClass);
 		if(result==null)
 			throw new RuntimeException("there is no type for " + javaClass);
-		return result;
+		return result.castType(javaClass);
 	}
 	
-	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
-	private static final <X extends Item> Type<X> castType(final Type t)
+	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
+	private <X extends Item> Type<X> castType(final Class<X> clazz) // TODO make public
 	{
-		return (Type<X>)t;
+		if(!javaClass.equals(clazz))
+			throw new ClassCastException("expected type " + clazz.getName() + ", but was " + javaClass);
+		
+		return (Type<X>)this;
 	}
 	
 	private ArrayList<Feature> featuresWhileConstruction;
