@@ -59,6 +59,17 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return !optional;
 	}
 	
+	/**
+	 * Returns true, if a value for the attribute should be specified
+	 * on the creation of an item.
+	 * This default implementation returns
+	 * <tt>{@link #isFinal()} || {@link #isMandatory()}</tt>.
+	 */
+	public boolean isInitial()
+	{
+		return isfinal || !optional;
+	}
+	
 	public SortedSet<Class> getSetterExceptions()
 	{
 		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
@@ -67,18 +78,6 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		if(!optional)
 			result.add(MandatoryViolationException.class);
 		return result;
-	}
-	
-	/**
-	 * Returns true, if a value for the attribute should be specified
-	 * on the creation of an item.
-	 * This default implementation returns
-	 * <tt>{@link #isFinal()} || {@link #isMandatory()}</tt>.
-	 */
-	public boolean isInitial()
-	// TODO SOON move up
-	{
-		return isfinal || !optional;
 	}
 	
 	abstract void checkValue(final Object value, final Item item);
