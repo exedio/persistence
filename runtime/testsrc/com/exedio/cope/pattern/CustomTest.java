@@ -64,7 +64,7 @@ public class CustomTest extends AbstractLibTest
 		assertEquals("number", item.number.getName());
 		assertEqualsUnmodifiable(list(item.numberString), item.number.getStorages());
 		assertEqualsUnmodifiable(list(item.number), item.numberString.getPatterns());
-		assertEquals(Integer.class, item.number.getValueType());
+		assertEquals(Integer.class, item.number.getValueClass());
 		assertEquals(false, item.number.isInitial());
 		assertEquals(false, item.number.isFinal());
 		assertContains(LengthViolationException.class, item.number.getSetterExceptions());

@@ -44,7 +44,7 @@ public abstract class CustomAttribute<E>
 	private final boolean isFinal;
 	private final Method getter;
 	private final Method setter;
-	private final Class valueType;
+	private final Class valueClass;
 	
 	public CustomAttribute(final FunctionAttribute<?> storage)
 	{
@@ -111,7 +111,7 @@ public abstract class CustomAttribute<E>
 		
 		this.getter = getter;
 		this.setter = setter;
-		this.valueType = getter.getReturnType();
+		this.valueClass = getter.getReturnType();
 	}
 	
 	public final List<FunctionAttribute<?>> getStorages()
@@ -146,13 +146,13 @@ public abstract class CustomAttribute<E>
 				initialize(storages[i], name+"Storage"+i);
 	}
 	
-	public final Class getValueType()
+	public final Class getValueClass()
 	{
-		assert valueType!=null;
-		return valueType;
+		assert valueClass!=null;
+		return valueClass;
 	}
 
-	@SuppressWarnings("unchecked") // OK: reflection does not support generics
+	@SuppressWarnings("unchecked") // TODO use runtime information for making cast safe
 	private E cast(final Object o)
 	{
 		return (E)o;
