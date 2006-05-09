@@ -416,49 +416,49 @@ final class Generator
 		writeUniqueFinder(attribute);
 	}
 	
-	private void writeSetter(final CopeFeature attribute/* TODO SOON rename to feature */) throws IOException
+	private void writeSetter(final CopeFeature feature) throws IOException
 	{
-		final String type = attribute.getBoxedType();
-		if(attribute.hasGeneratedSetter())
+		final String type = feature.getBoxedType();
+		if(feature.hasGeneratedSetter())
 		{
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(SETTER, link(attribute.name)));
+			o.write(format(SETTER, link(feature.name)));
 			o.write(lineSeparator);
 			writeCommentFooter(SETTER_CUSTOMIZE);
-			writeModifier(attribute.getGeneratedSetterModifier());
+			writeModifier(feature.getGeneratedSetterModifier());
 			o.write("void set");
-			o.write(toCamelCase(attribute.name));
-			o.write(attribute.setterOption.suffix);
+			o.write(toCamelCase(feature.name));
+			o.write(feature.setterOption.suffix);
 			o.write("(final ");
 			o.write(type);
 			o.write(' ');
-			o.write(attribute.name);
+			o.write(feature.name);
 			o.write(')');
 			o.write(lineSeparator);
-			writeThrowsClause(attribute.getSetterExceptions());
+			writeThrowsClause(feature.getSetterExceptions());
 			o.write("\t{");
 			o.write(lineSeparator);
-			writeSetterBody(attribute);
+			writeSetterBody(feature);
 			o.write("\t}");
 			
 			// touch for date attributes
-			if(attribute.isTouchable())
+			if(feature.isTouchable())
 			{
 				writeCommentHeader();
 				o.write("\t * ");
-				o.write(format(TOUCHER, link(attribute.name)));
+				o.write(format(TOUCHER, link(feature.name)));
 				o.write(lineSeparator);
 				writeCommentFooter();
-				writeModifier(attribute.getGeneratedSetterModifier());
+				writeModifier(feature.getGeneratedSetterModifier());
 				o.write("void touch");
-				o.write(toCamelCase(attribute.name));
+				o.write(toCamelCase(feature.name));
 				o.write("()");
 				o.write(lineSeparator);
-				writeThrowsClause(attribute.getToucherExceptions());
+				writeThrowsClause(feature.getToucherExceptions());
 				o.write("\t{");
 				o.write(lineSeparator);
-				writeToucherBody(attribute);
+				writeToucherBody(feature);
 				o.write("\t}");
 			}
 		}
@@ -1258,15 +1258,15 @@ final class Generator
 	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeSetterBody(final CopeFeature attribute/* TODO SOON rename to feature */)
+	private void writeSetterBody(final CopeFeature feature)
 	throws IOException
 	{
 		o.write("\t\t");
-		o.write(attribute.parent.name);
+		o.write(feature.parent.name);
 		o.write('.');
-		o.write(attribute.name);
+		o.write(feature.name);
 		o.write(".set(this,");
-		o.write(attribute.name);
+		o.write(feature.name);
 		o.write(");");
 		o.write(lineSeparator);
 	}
@@ -1277,13 +1277,13 @@ final class Generator
 	 * and it should return the o stream after immediately after a line break.
 	 * This means, doing nothing fullfils the contract.
 	 */
-	private void writeToucherBody(final CopeFeature attribute/* TODO SOON rename to feature */)
+	private void writeToucherBody(final CopeFeature feature)
 	throws IOException
 	{
 		o.write("\t\t");
-		o.write(attribute.parent.name);
+		o.write(feature.parent.name);
 		o.write('.');
-		o.write(attribute.name);
+		o.write(feature.name);
 		o.write(".touch(this);");
 		o.write(lineSeparator);
 	}
