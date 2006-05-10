@@ -18,17 +18,30 @@
 
 package com.exedio.cope.search;
 
+import java.util.List;
+
 import com.exedio.cope.CompositeCondition;
 import com.exedio.cope.Condition;
 
 public final class AndCondition extends CompositeCondition
 {
+	private static final String OPERATOR = " and ";
+
+	/**
+	 * @throws NullPointerException if <tt>conditions==null</tt>
+	 * @throws RuntimeException if <tt>conditions.size()==0</tt>
+	 */
+	public AndCondition(final List<? extends Condition> conditions)
+	{
+		super(OPERATOR, conditions);
+	}
+	
 	/**
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws RuntimeException if <tt>conditions.length==0</tt>
 	 */
 	public AndCondition(final Condition[] conditions)
 	{
-		super(" and ", conditions);
+		super(OPERATOR, conditions);
 	}
 }

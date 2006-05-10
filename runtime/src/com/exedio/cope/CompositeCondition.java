@@ -18,12 +18,19 @@
 
 package com.exedio.cope;
 
+import java.util.List;
+
 
 public abstract class CompositeCondition extends Condition
 {
 	private final String operator;
 	public final Condition[] conditions;
 
+	public CompositeCondition(final String operator, final List<? extends Condition> conditions)
+	{
+		this(operator, conditions.toArray(new Condition[conditions.size()]));
+	}
+	
 	public CompositeCondition(final String operator, final Condition[] conditions)
 	{
 		if(operator==null)

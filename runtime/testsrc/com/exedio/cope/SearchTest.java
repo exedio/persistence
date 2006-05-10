@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.exedio.cope.search.AndCondition;
 import com.exedio.cope.search.OrCondition;
 import com.exedio.cope.testmodel.AttributeItem;
@@ -58,7 +61,7 @@ public class SearchTest extends TestmodelTest
 		
 		try
 		{
-			new AndCondition(null);
+			new AndCondition((Condition[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -67,7 +70,25 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new OrCondition(null);
+			new AndCondition((List<Condition>)null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			// fine
+		}
+		try
+		{
+			new OrCondition((Condition[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			// fine
+		}
+		try
+		{
+			new OrCondition((List<Condition>)null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -85,7 +106,25 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
+			new AndCondition(Collections.<Condition>emptyList());
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+		}
+		try
+		{
 			new OrCondition(new Condition[0]);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+		}
+		try
+		{
+			new OrCondition(Collections.<Condition>emptyList());
 			fail();
 		}
 		catch(RuntimeException e)

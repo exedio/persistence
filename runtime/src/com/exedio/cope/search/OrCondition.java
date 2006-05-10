@@ -19,6 +19,7 @@
 package com.exedio.cope.search;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.exedio.cope.CompositeCondition;
 import com.exedio.cope.Condition;
@@ -27,13 +28,24 @@ import com.exedio.cope.Function;
 
 public final class OrCondition extends CompositeCondition
 {
+	private static final String OPERATOR = " or ";
+	
+	/**
+	 * @throws NullPointerException if <tt>conditions==null</tt>
+	 * @throws RuntimeException if <tt>conditions.size()==0</tt>
+	 */
+	public OrCondition(final List<? extends Condition> conditions)
+	{
+		super(OPERATOR, conditions);
+	}
+	
 	/**
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws RuntimeException if <tt>conditions.length==0</tt>
 	 */
 	public OrCondition(final Condition[] conditions)
 	{
-		super(" or ", conditions);
+		super(OPERATOR, conditions);
 	}
 	
 	public static final <E> OrCondition in(final Function<E> function, final Collection<E> values)
