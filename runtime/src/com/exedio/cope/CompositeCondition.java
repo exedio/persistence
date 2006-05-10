@@ -18,20 +18,28 @@
 
 package com.exedio.cope;
 
+import java.util.Collection;
 import java.util.List;
 
-
-public abstract class CompositeCondition extends Condition
+public final class CompositeCondition extends Condition
 {
-	private final String operator;
+	private final Operator operator;
 	public final Condition[] conditions;
 
-	public CompositeCondition(final String operator, final List<? extends Condition> conditions)
+	/**
+	 * @throws NullPointerException if <tt>conditions==null</tt>
+	 * @throws RuntimeException if <tt>conditions.size()==0</tt>
+	 */
+	public CompositeCondition(final Operator operator, final List<? extends Condition> conditions)
 	{
 		this(operator, conditions.toArray(new Condition[conditions.size()]));
 	}
 	
-	public CompositeCondition(final String operator, final Condition[] conditions)
+	/**
+	 * @throws NullPointerException if <tt>conditions==null</tt>
+	 * @throws RuntimeException if <tt>conditions.length==0</tt>
+	 */
+	public CompositeCondition(final Operator operator, final Condition[] conditions)
 	{
 		if(operator==null)
 			throw new NullPointerException("operator must not be null");
@@ -48,19 +56,19 @@ public abstract class CompositeCondition extends Condition
 		this.conditions = conditions;
 	}
 
-	final void append(final Statement bf)
+	void append(final Statement bf)
 	{
 		bf.append('(');
 		conditions[0].append(bf);
 		for(int i = 1; i<conditions.length; i++)
 		{
-			bf.append(operator);
+			bf.append(operator.sql);
 			conditions[i].append(bf);
 		}
 		bf.append(')');
 	}
 
-	final void check(final Query query)
+	void check(final Query query)
 	{
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i].check(query);
@@ -95,7 +103,7 @@ public abstract class CompositeCondition extends Condition
 		return result;
 	}
 
-	public final String toString()
+	public String toString()
 	{
 		final StringBuffer buf = new StringBuffer();
 		
@@ -110,4 +118,29 @@ public abstract class CompositeCondition extends Condition
 		
 		return buf.toString();
 	}
+
+	public static final <E> CompositeCondition in(final Function<E> function, final Collection<E> values)
+	{
+		final EqualCondition[] result = new EqualCondition[values.size()];
+
+		int i = 0;
+		for(E value : values)
+			result[i++] = function.equal(value);
+		
+		return new CompositeCondition(Operator.OR, result);
+	}
+	
+	static enum Operator
+	{
+		AND(" and "),
+		OR(" or ");
+		
+		private final String sql;
+		
+		Operator(final String sql)
+		{
+			this.sql = sql;
+		}
+	}
+
 }

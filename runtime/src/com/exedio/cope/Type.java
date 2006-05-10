@@ -32,7 +32,6 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.OrCondition;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -842,9 +841,9 @@ public final class Type<C extends Item>
 			return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
 		}
 		
-		public final OrCondition in(final Collection<E> values)
+		public final CompositeCondition in(final Collection<E> values)
 		{
-			return OrCondition.in(this, values);
+			return CompositeCondition.in(this, values);
 		}
 		
 		public final NotEqualCondition notEqual(final E value)

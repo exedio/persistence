@@ -21,9 +21,6 @@ package com.exedio.cope;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.OrCondition;
-
 public abstract class Condition
 {
 	abstract void append(Statement statment);
@@ -90,14 +87,14 @@ public abstract class Condition
 		return new NotCondition(this);
 	}
 	
-	public final AndCondition and(final Condition other)
+	public final CompositeCondition and(final Condition other)
 	{
-		return new AndCondition(new Condition[]{this, other});
+		return new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{this, other});
 	}
 	
-	public final OrCondition or(final Condition other)
+	public final CompositeCondition or(final Condition other)
 	{
-		return new OrCondition(new Condition[]{this, other});
+		return new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{this, other});
 	}
 	
 	public abstract boolean equals(Object o);

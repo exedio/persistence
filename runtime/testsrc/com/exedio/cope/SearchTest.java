@@ -21,8 +21,6 @@ package com.exedio.cope;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.OrCondition;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
@@ -61,7 +59,7 @@ public class SearchTest extends TestmodelTest
 		
 		try
 		{
-			new AndCondition((Condition[])null);
+			Cope.and((Condition[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -70,7 +68,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new AndCondition((List<Condition>)null);
+			Cope.and((List<Condition>)null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -79,7 +77,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new OrCondition((Condition[])null);
+			Cope.or((Condition[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -88,7 +86,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new OrCondition((List<Condition>)null);
+			Cope.or((List<Condition>)null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -97,7 +95,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new AndCondition(new Condition[0]);
+			Cope.and(new Condition[0]);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -106,7 +104,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new AndCondition(Collections.<Condition>emptyList());
+			Cope.and(Collections.<Condition>emptyList());
 			fail();
 		}
 		catch(RuntimeException e)
@@ -115,7 +113,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new OrCondition(new Condition[0]);
+			Cope.or(new Condition[0]);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -124,7 +122,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			new OrCondition(Collections.<Condition>emptyList());
+			Cope.or(Collections.<Condition>emptyList());
 			fail();
 		}
 		catch(RuntimeException e)

@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
+import com.exedio.cope.CompositeCondition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -39,8 +41,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.OrCondition;
 
 public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 {
@@ -197,7 +197,7 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		return result;
 	}
 	
-	public AndCondition equal(final Collection<T> value)
+	public CompositeCondition equal(final Collection<T> value)
 	{
 		int i = 0;
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
@@ -208,10 +208,10 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		for(; i<sources.length; i++)
 			conditions[i] = new EqualCondition<T>(sources[i], null);
 
-		return new AndCondition(conditions);
+		return Cope.and(conditions);
 	}
 	
-	public OrCondition notEqual(final Collection<T> value)
+	public CompositeCondition notEqual(final Collection<T> value)
 	{
 		int i = 0;
 		final NotEqualCondition[] conditions = new NotEqualCondition[sources.length];
@@ -222,17 +222,17 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		for(; i<sources.length; i++)
 			conditions[i] = new NotEqualCondition<T>(sources[i], null);
 
-		return new OrCondition(conditions);
+		return Cope.or(conditions);
 	}
 
-	public OrCondition contains(final T value)
+	public CompositeCondition contains(final T value)
 	{
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
 		for(int i = 0; i<sources.length; i++)
 			conditions[i] = new EqualCondition<T>(sources[i], value);
 
-		return new OrCondition(conditions);
+		return Cope.or(conditions);
 	}
 	
 }

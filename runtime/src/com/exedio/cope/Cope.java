@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
+import java.util.List;
+
 import com.exedio.cope.function.PlusView;
-import com.exedio.cope.search.AndCondition;
-import com.exedio.cope.search.OrCondition;
 
 /**
  * Utility class for creating conditions.
@@ -33,24 +33,44 @@ public abstract class Cope
 	Cope()
 	{/* do not allow class to be subclassed by public */}
 
-	public static final AndCondition and(final Condition condition1, final Condition condition2)
+	public static final CompositeCondition and(final Condition condition1, final Condition condition2)
 	{
-		return new AndCondition(new Condition[]{condition1, condition2});
+		return new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2});
 	}
 	
-	public static final AndCondition and(final Condition condition1, final Condition condition2, final Condition condition3)
+	public static final CompositeCondition and(final Condition condition1, final Condition condition2, final Condition condition3)
 	{
-		return new AndCondition(new Condition[]{condition1, condition2, condition3});
+		return new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2, condition3});
 	}
 	
-	public static final OrCondition or(final Condition condition1, final Condition condition2)
+	public static final CompositeCondition and(final List<? extends Condition> conditions)
 	{
-		return new OrCondition(new Condition[]{condition1, condition2});
+		return new CompositeCondition(CompositeCondition.Operator.AND, conditions);
 	}
 	
-	public static final OrCondition or(final Condition condition1, final Condition condition2, final Condition condition3)
+	public static final CompositeCondition and(final Condition[] conditions)
 	{
-		return new OrCondition(new Condition[]{condition1, condition2, condition3});
+		return new CompositeCondition(CompositeCondition.Operator.AND, conditions);
+	}
+	
+	public static final CompositeCondition or(final Condition condition1, final Condition condition2)
+	{
+		return new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2});
+	}
+	
+	public static final CompositeCondition or(final Condition condition1, final Condition condition2, final Condition condition3)
+	{
+		return new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2, condition3});
+	}
+	
+	public static final CompositeCondition or(final List<? extends Condition> conditions)
+	{
+		return new CompositeCondition(CompositeCondition.Operator.OR, conditions);
+	}
+	
+	public static final CompositeCondition or(final Condition[] conditions)
+	{
+		return new CompositeCondition(CompositeCondition.Operator.OR, conditions);
 	}
 	
 	public static final PlusView plus(final IntegerFunction addend1, final IntegerFunction addend2)

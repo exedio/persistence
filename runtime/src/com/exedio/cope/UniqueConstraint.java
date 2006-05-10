@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.search.AndCondition;
 import com.exedio.dsmf.Table;
 
 public final class UniqueConstraint extends Feature
@@ -141,7 +140,7 @@ public final class UniqueConstraint extends Feature
 		for(int j = 0; attributeIterator.hasNext(); j++)
 			conditions[j] = attributeIterator.next().equalWithCast(values[j]);
 
-		return getType().searchSingleton(new AndCondition(conditions));
+		return getType().searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
 	}
 	
 }

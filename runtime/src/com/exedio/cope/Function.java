@@ -24,7 +24,6 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.OrCondition;
 
 
 public interface Function<E> extends Selectable<E>
@@ -37,7 +36,7 @@ public interface Function<E> extends Selectable<E>
 	// convenience methods for conditions and views ---------------------------------
 	EqualCondition equal(E value);
 	EqualCondition equal(Join join, E value);
-	OrCondition in(Collection<E> value);
+	CompositeCondition in(Collection<E> value);
 	NotEqualCondition notEqual(E value);
 	EqualFunctionCondition equal(Function<E> right);
 	LessCondition less(E value);

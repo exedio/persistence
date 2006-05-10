@@ -24,7 +24,6 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.OrCondition;
 
 
 public class JoinedFunction<E> implements Function<E>
@@ -93,9 +92,9 @@ public class JoinedFunction<E> implements Function<E>
 		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
 	}
 	
-	public final OrCondition in(final Collection<E> values)
+	public final CompositeCondition in(final Collection<E> values)
 	{
-		return OrCondition.in(this, values);
+		return CompositeCondition.in(this, values);
 	}
 	
 	public final NotEqualCondition notEqual(final E value)

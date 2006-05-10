@@ -30,7 +30,6 @@ import com.exedio.cope.search.GreaterCondition;
 import com.exedio.cope.search.GreaterEqualCondition;
 import com.exedio.cope.search.LessCondition;
 import com.exedio.cope.search.LessEqualCondition;
-import com.exedio.cope.search.OrCondition;
 
 /**
  * A <tt>view</tt> represents a value computed from the
@@ -175,9 +174,9 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
 	}
 	
-	public final OrCondition in(final Collection<E> values)
+	public final CompositeCondition in(final Collection<E> values)
 	{
-		return OrCondition.in(this, values);
+		return CompositeCondition.in(this, values);
 	}
 	
 	public final NotEqualCondition notEqual(final E value)
