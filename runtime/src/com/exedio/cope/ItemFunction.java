@@ -22,4 +22,12 @@ public interface ItemFunction<E extends Item> extends Function<E>
 {
 	Type<E> getValueType();
 	StringColumn getTypeColumnIfExists();
+	
+	// convenience methods for conditions and views ---------------------------------
+
+	TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1);
+	TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2);
+	TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3);
+	TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<E> excludedType4);
+	TypeNotInCondition typeNotIn(final Type[] excludedTypes);
 }

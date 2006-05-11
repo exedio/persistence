@@ -56,21 +56,21 @@ public class TypeNotInConditionTest extends AbstractLibTest
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
 
-		assertContains(itema, itemb1, itemb2, itema.TYPE.search(Cope.typeNotIn(itema.TYPE.getThis(), itemc1.TYPE)));
-		assertContains(itema, itemb2, itema.TYPE.search(Cope.typeNotIn(itema.TYPE.getThis(), itemb1.TYPE)));
-		assertContains(itema, itemb2, itema.TYPE.search(Cope.typeNotIn(itema.TYPE.getThis(), itemb1.TYPE, itemc1.TYPE)));
-		assertContains(itema, itemb1, itemc1, itema.TYPE.search(Cope.typeNotIn(itema.TYPE.getThis(), itemb2.TYPE)));
-		assertContains(itema, itemb1, itema.TYPE.search(Cope.typeNotIn(itema.TYPE.getThis(), itemb2.TYPE, itemc1.TYPE)));
-		assertContains(itema.TYPE.search(Cope.typeNotIn(itema.TYPE.getThis(), itema.TYPE)));
-		assertContains(itema.TYPE.search(Cope.typeNotIn(itema.TYPE.getThis(), new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
+		assertContains(itema, itemb1, itemb2, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
+		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb1.TYPE)));
+		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb1.TYPE, itemc1.TYPE)));
+		assertContains(itema, itemb1, itemc1, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb2.TYPE)));
+		assertContains(itema, itemb1, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb2.TYPE, itemc1.TYPE)));
+		assertContains(itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itema.TYPE)));
+		assertContains(itema.TYPE.search(itema.TYPE.getThis().typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
 
-		assertContains(reffa, reffb1, reffb2, reffa.TYPE.search(Cope.typeNotIn(reffa.ref, itemc1.TYPE)));
-		assertContains(reffa, reffb2, reffa.TYPE.search(Cope.typeNotIn(reffa.ref, itemb1.TYPE)));
-		assertContains(reffa, reffb2, reffa.TYPE.search(Cope.typeNotIn(reffa.ref, itemb1.TYPE, itemc1.TYPE)));
-		assertContains(reffa, reffb1, reffc1, reffa.TYPE.search(Cope.typeNotIn(reffa.ref, itemb2.TYPE)));
-		assertContains(reffa, reffb1, reffa.TYPE.search(Cope.typeNotIn(reffa.ref, itemb2.TYPE, itemc1.TYPE)));
-		assertContains(reffa.TYPE.search(Cope.typeNotIn(reffa.ref, itema.TYPE)));
-		assertContains(reffa.TYPE.search(Cope.typeNotIn(reffa.ref, new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
+		assertContains(reffa, reffb1, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemc1.TYPE)));
+		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemb1.TYPE)));
+		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemb1.TYPE, itemc1.TYPE)));
+		assertContains(reffa, reffb1, reffc1, reffa.TYPE.search(reffa.ref.typeNotIn(itemb2.TYPE)));
+		assertContains(reffa, reffb1, reffa.TYPE.search(reffa.ref.typeNotIn(itemb2.TYPE, itemc1.TYPE)));
+		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(itema.TYPE)));
+		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage
@@ -78,7 +78,7 @@ public class TypeNotInConditionTest extends AbstractLibTest
 	{
 		try
 		{
-			itemb2.TYPE.search(Cope.typeNotIn(itemb2.TYPE.getThis(), (Type)itemb1.TYPE));
+			itemb2.TYPE.search(itemb2.TYPE.getThis().typeNotIn((Type)itemb1.TYPE));
 			fail();
 		}
 		catch(RuntimeException e)
@@ -87,7 +87,7 @@ public class TypeNotInConditionTest extends AbstractLibTest
 		}
 		try
 		{
-			itemb1.TYPE.search(Cope.typeNotIn(itemb1.TYPE.getThis(), (Type)itema.TYPE));
+			itemb1.TYPE.search(itemb1.TYPE.getThis().typeNotIn((Type)itema.TYPE));
 			fail();
 		}
 		catch(RuntimeException e)

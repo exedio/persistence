@@ -404,7 +404,7 @@ public final class Type<C extends Item>
 	}
 	
 	@SuppressWarnings("unchecked")
-	private final List<ItemAttribute> castReferences(final List l)
+	private List<ItemAttribute> castReferences(final List l)
 	{
 		return (List<ItemAttribute>)l;
 	}
@@ -837,49 +837,74 @@ public final class Type<C extends Item>
 		
 		// convenience methods for conditions and views ---------------------------------
 
-		public final EqualCondition<E> equal(final E value)
+		public EqualCondition<E> equal(final E value)
 		{
 			return new EqualCondition<E>(this, value);
 		}
 		
-		public final EqualCondition<E> equal(final Join join, final E value)
+		public EqualCondition<E> equal(final Join join, final E value)
 		{
 			return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
 		}
 		
-		public final CompositeCondition in(final Collection<E> values)
+		public CompositeCondition in(final Collection<E> values)
 		{
 			return CompositeCondition.in(this, values);
 		}
 		
-		public final NotEqualCondition notEqual(final E value)
+		public NotEqualCondition notEqual(final E value)
 		{
 			return new NotEqualCondition<E>(this, value);
 		}
 		
-		public final EqualFunctionCondition equal(final Function<E> right)
+		public EqualFunctionCondition equal(final Function<E> right)
 		{
 			return new EqualFunctionCondition(this, right);
 		}
 
-		public final CompareCondition less(final E value)
+		public CompareCondition less(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 		}
 		
-		public final CompareCondition lessOrEqual(final E value)
+		public CompareCondition lessOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
 		}
 		
-		public final CompareCondition greater(final E value)
+		public CompareCondition greater(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 		}
 		
-		public final CompareCondition greaterOrEqual(final E value)
+		public CompareCondition greaterOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
+		}
+		
+		public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1)
+		{
+			return new TypeNotInCondition<E>(this, excludedType1);
+		}
+
+		public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
+		{
+			return new TypeNotInCondition<E>(this, excludedType1, excludedType2);
+		}
+
+		public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
+		{
+			return new TypeNotInCondition<E>(this, excludedType1, excludedType2, excludedType3);
+		}
+
+		public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<E> excludedType4)
+		{
+			return new TypeNotInCondition<E>(this, excludedType1, excludedType2, excludedType3, excludedType4);
+		}
+
+		public TypeNotInCondition typeNotIn(final Type[] excludedTypes)
+		{
+			return new TypeNotInCondition<E>(this, excludedTypes);
 		}
 	}
 }

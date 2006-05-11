@@ -21,7 +21,6 @@ package com.exedio.cope;
 
 public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> implements ItemFunction<E>
 {
-
 	private final DeletePolicy policy;
 
 	private ItemAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final DeletePolicy policy)
@@ -185,19 +184,43 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public final EqualCondition equal(final E value, final Join join)
+	public EqualCondition equal(final E value, final Join join)
 	{
 		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
 	}
 	
-	public final EqualFunctionCondition equalTarget()
+	public EqualFunctionCondition equalTarget()
 	{
 		return new EqualFunctionCondition(this, getValueType().thisFunction);
 	}
 	
-	public final EqualFunctionCondition equalTarget(final Join targetJoin)
+	public EqualFunctionCondition equalTarget(final Join targetJoin)
 	{
 		return new EqualFunctionCondition(this, new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
 	}
 	
+	public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1)
+	{
+		return new TypeNotInCondition<E>(this, excludedType1);
+	}
+
+	public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
+	{
+		return new TypeNotInCondition<E>(this, excludedType1, excludedType2);
+	}
+
+	public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
+	{
+		return new TypeNotInCondition<E>(this, excludedType1, excludedType2, excludedType3);
+	}
+
+	public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<E> excludedType4)
+	{
+		return new TypeNotInCondition<E>(this, excludedType1, excludedType2, excludedType3, excludedType4);
+	}
+
+	public TypeNotInCondition typeNotIn(final Type[] excludedTypes)
+	{
+		return new TypeNotInCondition<E>(this, excludedTypes);
+	}
 }
