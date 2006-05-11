@@ -19,13 +19,22 @@
 package com.exedio.cope;
 
 
-public abstract class LiteralCondition<E> extends Condition
+public final class LiteralCondition<E> extends Condition
 {
 	private final Operator operator;
 	private final Function<E> function;
 	private final E value;
 
-	protected LiteralCondition(final Operator operator, final Function<E> function, final E value)
+	/**
+	 * Creates a new LiteralCondition.
+	 * Instead of using this constructor directly,
+	 * you may want to use the convenience methods.
+	 * @see com.exedio.cope.Function#less(Object)
+	 * @see com.exedio.cope.Function#lessOrEqual(Object)
+	 * @see com.exedio.cope.Function#greater(Object)
+	 * @see com.exedio.cope.Function#greaterOrEqual(Object)
+	 */
+	public LiteralCondition(final Operator operator, final Function<E> function, final E value)
 	{
 		this.operator = operator;
 		this.function = function;
@@ -39,19 +48,19 @@ public abstract class LiteralCondition<E> extends Condition
 			throw new NullPointerException();
 	}
 	
-	final void append(final Statement bf)
+	void append(final Statement bf)
 	{
 		bf.append(function, (Join)null).
 			append(operator.sql).
 			appendParameter(function, value);
 	}
 
-	final void check(final Query query)
+	void check(final Query query)
 	{
 		check(function, query);
 	}
 
-	public final boolean equals(final Object other)
+	public boolean equals(final Object other)
 	{
 		if(!(other instanceof LiteralCondition))
 			return false;
@@ -61,12 +70,12 @@ public abstract class LiteralCondition<E> extends Condition
 		return operator.equals(o.operator) && function.equals(o.function) && value.equals(o.value);
 	}
 	
-	public final int hashCode()
+	public int hashCode()
 	{
 		return operator.hashCode() ^ function.hashCode() ^ value.hashCode() ^ 918276;
 	}
 
-	public final String toString()
+	public String toString()
 	{
 		return function.toString() + operator.sql + '\'' + value + '\'';
 	}

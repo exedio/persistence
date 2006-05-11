@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.SumAggregate;
 
 public final class LongAttribute extends FunctionAttribute<Long>
@@ -98,27 +94,6 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	{
 		return new NotEqualCondition<Long>(this, Long.valueOf(value));
 	}
-	
-	public final LessCondition less(final long value)
-	{
-		return new LessCondition<Long>(this, Long.valueOf(value));
-	}
-	
-	public final LessEqualCondition lessOrEqual(final long value)
-	{
-		return new LessEqualCondition<Long>(this, Long.valueOf(value));
-	}
-	
-	public final GreaterCondition greater(final long value)
-	{
-		return new GreaterCondition<Long>(this, Long.valueOf(value));
-	}
-	
-	public final GreaterEqualCondition greaterOrEqual(final long value)
-	{
-		return new GreaterEqualCondition<Long>(this, Long.valueOf(value));
-	}
-	
 	
 	public final SumAggregate<Long> sum()
 	{

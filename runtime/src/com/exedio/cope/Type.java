@@ -28,10 +28,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -856,24 +852,24 @@ public final class Type<C extends Item>
 			return new EqualFunctionCondition(this, right);
 		}
 
-		public final LessCondition less(final E value)
+		public final LiteralCondition less(final E value)
 		{
-			return new LessCondition<E>(this, value);
+			return new LiteralCondition<E>(LiteralCondition.Operator.Less, this, value);
 		}
 		
-		public final LessEqualCondition lessOrEqual(final E value)
+		public final LiteralCondition lessOrEqual(final E value)
 		{
-			return new LessEqualCondition<E>(this, value);
+			return new LiteralCondition<E>(LiteralCondition.Operator.LessEqual, this, value);
 		}
 		
-		public final GreaterCondition greater(final E value)
+		public final LiteralCondition greater(final E value)
 		{
-			return new GreaterCondition<E>(this, value);
+			return new LiteralCondition<E>(LiteralCondition.Operator.Greater, this, value);
 		}
 		
-		public final GreaterEqualCondition greaterOrEqual(final E value)
+		public final LiteralCondition greaterOrEqual(final E value)
 		{
-			return new GreaterEqualCondition<E>(this, value);
+			return new LiteralCondition<E>(LiteralCondition.Operator.GreaterEqual, this, value);
 		}
 	}
 }

@@ -20,12 +20,6 @@ package com.exedio.cope;
 
 import java.util.Collection;
 
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
-
-
 public interface Function<E> extends Selectable<E>
 {
 	E get(Item item);
@@ -39,8 +33,8 @@ public interface Function<E> extends Selectable<E>
 	CompositeCondition in(Collection<E> value);
 	NotEqualCondition notEqual(E value);
 	EqualFunctionCondition equal(Function<E> right);
-	LessCondition less(E value);
-	LessEqualCondition lessOrEqual(E value);
-	GreaterCondition greater(E value);
-	GreaterEqualCondition greaterOrEqual(E value);
+	LiteralCondition less(E value);
+	LiteralCondition lessOrEqual(E value);
+	LiteralCondition greater(E value);
+	LiteralCondition greaterOrEqual(E value);
 }

@@ -148,7 +148,7 @@ public class LiteralConditionTest extends TestmodelTest
 		{
 			final Query<Long> q = new Query<Long>(item1.someNotNullLong.sum(), null);
 			assertEquals(new Long(11+12+13+14+15), q.searchSingleton());
-			q.setCondition(item1.someNotNullLong.less(14));
+			q.setCondition(item1.someNotNullLong.less(14l));
 			assertEquals(new Long(11+12+13), q.searchSingleton());
 		}
 		{

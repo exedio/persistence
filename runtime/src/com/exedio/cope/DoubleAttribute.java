@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.SumAggregate;
 
 public final class DoubleAttribute extends FunctionAttribute<Double>
@@ -104,26 +100,6 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 	public final NotEqualCondition notEqual(final double value)
 	{
 		return new NotEqualCondition<Double>(this, new Double(value));
-	}
-	
-	public final LessCondition less(final double value)
-	{
-		return new LessCondition<Double>(this, new Double(value));
-	}
-	
-	public final LessEqualCondition lessOrEqual(final double value)
-	{
-		return new LessEqualCondition<Double>(this, new Double(value));
-	}
-	
-	public final GreaterCondition greater(final double value)
-	{
-		return new GreaterCondition<Double>(this, new Double(value));
-	}
-	
-	public final GreaterEqualCondition greaterOrEqual(final double value)
-	{
-		return new GreaterEqualCondition<Double>(this, new Double(value));
 	}
 	
 	public final SumAggregate<Double> sum()

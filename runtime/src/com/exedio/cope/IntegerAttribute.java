@@ -19,10 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.function.PlusView;
-import com.exedio.cope.search.GreaterCondition;
-import com.exedio.cope.search.GreaterEqualCondition;
-import com.exedio.cope.search.LessCondition;
-import com.exedio.cope.search.LessEqualCondition;
 import com.exedio.cope.search.SumAggregate;
 
 public final class IntegerAttribute extends FunctionAttribute<Integer> implements IntegerFunction
@@ -98,26 +94,6 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	public final NotEqualCondition notEqual(final int value)
 	{
 		return new NotEqualCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
-	public final LessCondition less(final int value)
-	{
-		return new LessCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
-	public final LessEqualCondition lessOrEqual(final int value)
-	{
-		return new LessEqualCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
-	public final GreaterCondition greater(final int value)
-	{
-		return new GreaterCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
-	public final GreaterEqualCondition greaterOrEqual(final int value)
-	{
-		return new GreaterEqualCondition<Integer>(this, Integer.valueOf(value));
 	}
 	
 	public final PlusView plus(final IntegerFunction other)
