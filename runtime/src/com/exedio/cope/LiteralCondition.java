@@ -41,12 +41,9 @@ public abstract class LiteralCondition<E> extends Condition
 	
 	final void append(final Statement bf)
 	{
-		bf.append(function, (Join)null);
-		if(value!=null)
-			bf.append(operator).
-				appendParameter(function, value);
-		else
-			bf.append(" is null");
+		bf.append(function, (Join)null).
+			append(operator).
+			appendParameter(function, value);
 	}
 
 	final void check(final Query query)
