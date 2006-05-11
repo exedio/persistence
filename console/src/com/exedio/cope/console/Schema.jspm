@@ -74,7 +74,7 @@ final class Schema_Jspm
 	{
 		%>
 		<form action="<%=cop%>" method="POST">
-			<h4>Database</h4>
+			<h4>Schema</h4>
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
 			<input type="submit" name="DROP" value="drop"/>
