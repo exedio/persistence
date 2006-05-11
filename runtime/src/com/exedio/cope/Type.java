@@ -39,7 +39,7 @@ public final class Type<C extends Item>
 	final boolean isAbstract;
 	final Type<? super C> supertype;
 	
-	final Function<C> thisFunction = new This<C>(this);
+	final ItemFunction<C> thisFunction = new This<C>(this);
 	private final List<Feature> declaredFeatures;
 	private final List<Feature> features;
 	private final HashMap<String, Feature> declaredFeaturesByName;
@@ -549,7 +549,7 @@ public final class Type<C extends Item>
 		return isAbstract;
 	}
 	
-	public Function<C> getThis()
+	public ItemFunction<C> getThis()
 	{
 		return thisFunction;
 	}
@@ -790,7 +790,7 @@ public final class Type<C extends Item>
 
 	static final int NOT_A_PK = Integer.MIN_VALUE;	
 
-	static final class This<E extends Item> implements Function<E>
+	static final class This<E extends Item> implements Function<E>, ItemFunction<E>
 	{
 		final Type<E> type;
 		
@@ -820,6 +820,16 @@ public final class Type<C extends Item>
 			throw new RuntimeException(); // TODO
 		}
 
+		public Type<E> getValueType()
+		{
+			return type;
+		}
+		
+		public StringColumn getTypeColumnIfExists()
+		{
+			return type.getTable().typeColumn;
+		}
+		
 		public String toString()
 		{
 			return type.id + "#this";

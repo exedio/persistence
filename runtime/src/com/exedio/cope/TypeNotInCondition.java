@@ -22,7 +22,7 @@ import java.util.TreeSet;
 
 public final class TypeNotInCondition<E extends Item> extends Condition
 {
-	private final Function<E> function;
+	private final ItemFunction<E> function;
 	private Type<E>[] excludedTypes;
 
 	/**
@@ -33,7 +33,7 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 	 * @see Cope#typeNotIn(Function, Type, Type, Type)
 	 * @see Cope#typeNotIn(Function, Type, Type, Type, Type)
 	 */
-	public TypeNotInCondition(final Function<E> function, final Type[] excludedTypes)
+	public TypeNotInCondition(final ItemFunction<E> function, final Type[] excludedTypes)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
@@ -52,45 +52,30 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 		return (Type<X>[])o;
 	}
 	
-	public TypeNotInCondition(final Function<E> function, final Type<? extends E> excludedType1)
+	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1)
 	{
 		this(function, new Type[]{excludedType1});
 	}
 	
-	public TypeNotInCondition(final Function<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
+	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
 	{
 		this(function, new Type[]{excludedType1, excludedType2});
 	}
 	
-	public TypeNotInCondition(final Function<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
+	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
 	{
 		this(function, new Type[]{excludedType1, excludedType2, excludedType3});
 	}
 	
-	public TypeNotInCondition(final Function<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<? extends E> excludedType4)
+	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<? extends E> excludedType4)
 	{
 		this(function, new Type[]{excludedType1, excludedType2, excludedType3, excludedType4});
 	}
 	
 	void append(final Statement bf)
 	{
-		final Type type;
-		final StringColumn column;
-		
-		if(function instanceof Type.This)
-		{
-			final Type.This<E> thisFunction = (Type.This<E>)function;
-			type = thisFunction.type;
-			column = type.getTable().typeColumn;
-		}
-		else if(function instanceof ItemAttribute)
-		{
-			final ItemAttribute<E> attributeFunction = (ItemAttribute<E>)function;
-			type = attributeFunction.getValueType();
-			column = attributeFunction.getTypeColumnIfExists();
-		}
-		else
-			throw new RuntimeException(function.toString()+'-'+function.getClass());
+		final Type type = function.getValueType();
+		final StringColumn column = function.getTypeColumnIfExists();
 		
 		if(column==null)
 			throw new RuntimeException("type " + type + " has no subtypes, therefore a TypeNotInCondition makes no sense");

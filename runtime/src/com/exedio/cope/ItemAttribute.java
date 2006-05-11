@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
+public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> implements ItemFunction<E>
 {
 
 	private final DeletePolicy policy;
@@ -116,7 +116,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return typeColumn;
 	}
 	
-	StringColumn getTypeColumnIfExists()
+	public StringColumn getTypeColumnIfExists()
 	{
 		return typeColumn;
 	}

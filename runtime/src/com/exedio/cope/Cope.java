@@ -73,27 +73,27 @@ public abstract class Cope
 		return new CompositeCondition(CompositeCondition.Operator.OR, conditions);
 	}
 	
-	public static final <E extends Item> TypeNotInCondition typeNotIn(final Function<E> function, final Type<? extends E> excludedType1)
+	public static final <E extends Item> TypeNotInCondition typeNotIn(final ItemFunction<E> function, final Type<? extends E> excludedType1)
 	{
 		return new TypeNotInCondition<E>(function, excludedType1);
 	}
 
-	public static final <E extends Item> TypeNotInCondition typeNotIn(final Function<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
+	public static final <E extends Item> TypeNotInCondition typeNotIn(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
 	{
 		return new TypeNotInCondition<E>(function, excludedType1, excludedType2);
 	}
 
-	public static final <E extends Item> TypeNotInCondition typeNotIn(final Function<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
+	public static final <E extends Item> TypeNotInCondition typeNotIn(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
 	{
 		return new TypeNotInCondition<E>(function, excludedType1, excludedType2, excludedType3);
 	}
 
-	public static final <E extends Item> TypeNotInCondition typeNotIn(final Function<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<E> excludedType4)
+	public static final <E extends Item> TypeNotInCondition typeNotIn(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<E> excludedType4)
 	{
 		return new TypeNotInCondition<E>(function, excludedType1, excludedType2, excludedType3, excludedType4);
 	}
 
-	public static final <E extends Item> TypeNotInCondition typeNotIn(final Function<E> function, final Type[] excludedTypes)
+	public static final <E extends Item> TypeNotInCondition typeNotIn(final ItemFunction<E> function, final Type[] excludedTypes)
 	{
 		return new TypeNotInCondition<E>(function, excludedTypes);
 	}
