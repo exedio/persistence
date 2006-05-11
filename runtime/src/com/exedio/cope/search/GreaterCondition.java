@@ -31,7 +31,7 @@ public class GreaterCondition<E> extends LiteralCondition<E>
 	 */
 	public GreaterCondition(final Function<E> function, final E value)
 	{
-		super(">", function, value);
+		super(Operator.Greater, function, value);
 	}
 	
 }

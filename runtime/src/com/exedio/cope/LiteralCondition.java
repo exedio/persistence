@@ -21,11 +21,11 @@ package com.exedio.cope;
 
 public abstract class LiteralCondition<E> extends Condition
 {
-	private final String operator;
+	private final Operator operator;
 	private final Function<E> function;
 	private final E value;
 
-	protected LiteralCondition(final String operator, final Function<E> function, final E value)
+	protected LiteralCondition(final Operator operator, final Function<E> function, final E value)
 	{
 		this.operator = operator;
 		this.function = function;
@@ -42,7 +42,7 @@ public abstract class LiteralCondition<E> extends Condition
 	final void append(final Statement bf)
 	{
 		bf.append(function, (Join)null).
-			append(operator).
+			append(operator.sql).
 			appendParameter(function, value);
 	}
 
@@ -68,7 +68,22 @@ public abstract class LiteralCondition<E> extends Condition
 
 	public final String toString()
 	{
-		return function.toString() + operator + '\'' + value + '\'';
+		return function.toString() + operator.sql + '\'' + value + '\'';
+	}
+
+	public static enum Operator
+	{
+		Less("<"),
+		LessEqual("<="),
+		Greater(">"),
+		GreaterEqual(">=");
+		
+		private final String sql;
+		
+		Operator(final String sql)
+		{
+			this.sql = sql;
+		}
 	}
 
 }

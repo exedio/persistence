@@ -31,7 +31,7 @@ public class LessEqualCondition<E> extends LiteralCondition<E>
 	 */
 	public LessEqualCondition(final Function<E> function, final E value)
 	{
-		super("<=", function, value);
+		super(Operator.LessEqual, function, value);
 	}
 	
 }
