@@ -852,24 +852,24 @@ public final class Type<C extends Item>
 			return new EqualFunctionCondition(this, right);
 		}
 
-		public final LiteralCondition less(final E value)
+		public final CompareCondition less(final E value)
 		{
-			return new LiteralCondition<E>(LiteralCondition.Operator.Less, this, value);
+			return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 		}
 		
-		public final LiteralCondition lessOrEqual(final E value)
+		public final CompareCondition lessOrEqual(final E value)
 		{
-			return new LiteralCondition<E>(LiteralCondition.Operator.LessEqual, this, value);
+			return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
 		}
 		
-		public final LiteralCondition greater(final E value)
+		public final CompareCondition greater(final E value)
 		{
-			return new LiteralCondition<E>(LiteralCondition.Operator.Greater, this, value);
+			return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 		}
 		
-		public final LiteralCondition greaterOrEqual(final E value)
+		public final CompareCondition greaterOrEqual(final E value)
 		{
-			return new LiteralCondition<E>(LiteralCondition.Operator.GreaterEqual, this, value);
+			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 		}
 	}
 }

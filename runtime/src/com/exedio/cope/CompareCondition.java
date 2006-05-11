@@ -19,14 +19,14 @@
 package com.exedio.cope;
 
 
-public final class LiteralCondition<E> extends Condition
+public final class CompareCondition<E> extends Condition
 {
 	private final Operator operator;
 	private final Function<E> function;
 	private final E value;
 
 	/**
-	 * Creates a new LiteralCondition.
+	 * Creates a new CompareCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see com.exedio.cope.Function#less(Object)
@@ -34,7 +34,7 @@ public final class LiteralCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#greater(Object)
 	 * @see com.exedio.cope.Function#greaterOrEqual(Object)
 	 */
-	public LiteralCondition(final Operator operator, final Function<E> function, final E value)
+	public CompareCondition(final Operator operator, final Function<E> function, final E value)
 	{
 		this.operator = operator;
 		this.function = function;
@@ -62,10 +62,10 @@ public final class LiteralCondition<E> extends Condition
 
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof LiteralCondition))
+		if(!(other instanceof CompareCondition))
 			return false;
 		
-		final LiteralCondition o = (LiteralCondition)other;
+		final CompareCondition o = (CompareCondition)other;
 		
 		return operator.equals(o.operator) && function.equals(o.function) && value.equals(o.value);
 	}

@@ -33,8 +33,8 @@ public interface Function<E> extends Selectable<E>
 	CompositeCondition in(Collection<E> value);
 	NotEqualCondition notEqual(E value);
 	EqualFunctionCondition equal(Function<E> right);
-	LiteralCondition less(E value);
-	LiteralCondition lessOrEqual(E value);
-	LiteralCondition greater(E value);
-	LiteralCondition greaterOrEqual(E value);
+	CompareCondition less(E value);
+	CompareCondition lessOrEqual(E value);
+	CompareCondition greater(E value);
+	CompareCondition greaterOrEqual(E value);
 }
