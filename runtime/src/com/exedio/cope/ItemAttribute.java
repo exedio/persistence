@@ -116,6 +116,11 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E>
 		return typeColumn;
 	}
 	
+	StringColumn getTypeColumnIfExists()
+	{
+		return typeColumn;
+	}
+	
 	E get(final Row row)
 	{
 		final Object cell = row.get(getColumn());

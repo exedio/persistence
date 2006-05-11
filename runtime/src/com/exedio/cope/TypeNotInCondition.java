@@ -22,7 +22,7 @@ import java.util.TreeSet;
 
 public final class TypeNotInCondition<E extends Item> extends Condition
 {
-	private final Type.This<E> function;
+	private final Function<E> function;
 	private Type<E>[] excludedTypes;
 
 	/**
@@ -42,10 +42,7 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 		if(excludedTypes.length==0)
 			throw new NullPointerException("excludedTypes must not be empty");
 
-		if(!(function instanceof Type.This)) // TODO remove, so this work with ItemAttribute as well
-			throw new RuntimeException("TypeNotInCondition for functions other than Type#getThis not yet implemented.");
-
-		this.function = (Type.This<E>)function;
+		this.function = function;
 		this.excludedTypes = TypeNotInCondition.<E>cast(excludedTypes);
 	}
 	
@@ -77,8 +74,24 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 	
 	void append(final Statement bf)
 	{
-		final Type type = function.type;
-		final StringColumn column = type.getTable().typeColumn;
+		final Type type;
+		final StringColumn column;
+		
+		if(function instanceof Type.This)
+		{
+			final Type.This<E> thisFunction = (Type.This<E>)function;
+			type = thisFunction.type;
+			column = type.getTable().typeColumn;
+		}
+		else if(function instanceof ItemAttribute)
+		{
+			final ItemAttribute<E> attributeFunction = (ItemAttribute<E>)function;
+			type = attributeFunction.getValueType();
+			column = attributeFunction.getTypeColumnIfExists();
+		}
+		else
+			throw new RuntimeException(function.toString()+'-'+function.getClass());
+		
 		if(column==null)
 			throw new RuntimeException("type " + type + " has no subtypes, therefore a TypeNotInCondition makes no sense");
 		
