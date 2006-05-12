@@ -462,7 +462,7 @@ public final class Type<C extends Item>
 	 * and including this type itself,
 	 * which are not abstract.
 	 */
-	List<Type<? extends C>> getTypesOfInstances()
+	public List<Type<? extends C>> getTypesOfInstances()
 	{
 		if(typesOfInstances==null)
 			throw new RuntimeException();
