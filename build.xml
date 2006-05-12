@@ -43,6 +43,7 @@
 	<macrodef name="ljar">
 		<attribute name="jarfile" />
 		<attribute name="name" />
+		<attribute name="classpath" />
 		<element name="fileset" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local jar @{jarfile}" /-->
@@ -55,6 +56,7 @@
 					<attribute name="Implementation-Title" value="exedio @{name}" />
 					<attribute name="Implementation-Version" value="${build.tag}" />
 					<attribute name="Implementation-Vendor" value="exedio GmbH" />
+					<attribute name="Class-Path" value="@{classpath}" />
 				</manifest>
 			</jar>
 		</sequential>
@@ -210,7 +212,7 @@
 		<copy file="build/runtime/testprotocol.properties"
 				todir="build/runtime/classes/com/exedio/cope"
 				failonerror="false" />
-		<ljar name="cope" jarfile="build/exedio-cope.jar">
+		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="pcj.jar commons-collections.jar">
 			<fileset dir="build/runtime/classes" />
 		</ljar>
 	</target>
@@ -253,7 +255,7 @@
 	</target>
 	
 	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.compile">
-		<ljar name="cope test" jarfile="build/exedio-cope-test.jar">
+		<ljar name="cope test" jarfile="build/exedio-cope-test.jar" classpath="exedio-cope.jar junit.jar">
 			<fileset dir="build/dsmf/testclasses" />
 			<fileset dir="build/runtime/testclasses" />
 			<fileset dir="build/runtime/testmodelclasses" />
@@ -461,7 +463,7 @@
 	</target>
 	
 	<target name="instrument.jar" depends="instrument.compile">
-		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar">
+		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope.jar bsh-core.jar">
 			<fileset dir="build/instrument/classes" />
 		</ljar>
 	</target>
@@ -552,7 +554,7 @@
 	</target>
 	
 	<target name="console.jar" depends="console.compile">
-		<ljar name="cope console" jarfile="build/exedio-cope-console.jar">
+		<ljar name="cope console" jarfile="build/exedio-cope-console.jar" classpath="exedio-cope.jar exedio-cops.jar">
 			<fileset dir="build/console/classes" />
 		</ljar>
 	</target>
@@ -593,7 +595,7 @@
 	</target>
 	
 	<target name="copernica.jar" depends="copernica.compile">
-		<ljar name="copernica" jarfile="build/exedio-copernica.jar">
+		<ljar name="copernica" jarfile="build/exedio-copernica.jar" classpath="exedio-cope.jar exedio-cops.jar">
 			<fileset dir="build/copernica/classes" />
 		</ljar>
 	</target>
