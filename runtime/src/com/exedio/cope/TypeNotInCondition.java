@@ -27,11 +27,12 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 
 	/**
 	 * Instead of using this constructor directly,
-	 * you may want to use the convenience method.
-	 * @see Cope#typeNotIn(Function, Type)
-	 * @see Cope#typeNotIn(Function, Type, Type)
-	 * @see Cope#typeNotIn(Function, Type, Type, Type)
-	 * @see Cope#typeNotIn(Function, Type, Type, Type, Type)
+	 * you may want to use the convenience methods.
+	 * @see ItemFunction#typeNotIn(Type)
+	 * @see ItemFunction#typeNotIn(Type, Type)
+	 * @see ItemFunction#typeNotIn(Type, Type, Type)
+	 * @see ItemFunction#typeNotIn(Type, Type, Type, Type)
+	 * @see ItemFunction#typeNotIn(Type[])
 	 */
 	public TypeNotInCondition(final ItemFunction<E> function, final Type[] excludedTypes)
 	{
