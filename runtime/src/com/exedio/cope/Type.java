@@ -101,16 +101,9 @@ public final class Type<C extends Item>
 	
 	private ArrayList<Feature> featuresWhileConstruction;
 	
-	private static final String classToId(final Class javaClass)
-	{
-		final String className = javaClass.getName();
-		final int pos = className.lastIndexOf('.');
-		return className.substring(pos+1).intern();
-	}
-
 	Type(final Class<C> javaClass)
 	{
-		this(javaClass, classToId(javaClass));
+		this(javaClass, javaClass.getSimpleName());
 	}
 	
 	Type(final Class<C> javaClass, final String id)
