@@ -180,9 +180,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 
 	public String getDisplayName(final CopernicaLanguage displayLanguage, final Type type)
 	{
-		final String className = type.getJavaClass().getName();
-		final int pos = className.lastIndexOf('.');
-		return breakupName(className.substring(pos+1));
+		return breakupName(type.getID());
 	}
 
 	public String getDisplayName(final CopernicaLanguage displayLanguage, final Feature feature)
