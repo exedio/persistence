@@ -37,10 +37,10 @@ public final class PlusView
 	 */
 	public PlusView(final IntegerFunction[] addends)
 	{
-		super(addends, makePlusses(addends.length), "plus");
+		super(addends, "plus", sqlFragments(addends.length));
 	}
 	
-	private static final String[] makePlusses(final int length)
+	private static final String[] sqlFragments(final int length)
 	{
 		final String[] result = new String[length+1];
 

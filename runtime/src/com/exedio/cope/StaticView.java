@@ -26,11 +26,11 @@ abstract class StaticView<E> extends View<E>
 	
 	StaticView(
 			final Function<?>[] sources,
-			final String[] sqlFragments,
-			final String functionName,
-			final int jdbcType)
+			final String name,
+			final int jdbcType,
+			final String[] sqlFragments)
 	{
-		super(sources, functionName, jdbcType);
+		super(sources, name, jdbcType);
 		this.sources = sources;
 		this.sqlFragments = sqlFragments;
 		if(sources.length+1!=sqlFragments.length)

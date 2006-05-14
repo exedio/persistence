@@ -26,7 +26,7 @@ public class LengthView
 	extends IntegerView
 	implements IntegerFunction
 {
-	private static final String[] sql = {"LENGTH(", ")"};
+	private static final String[] sqlFragments = {"LENGTH(", ")"};
 
 	/**
 	 * Creates a new LengthView.
@@ -36,7 +36,7 @@ public class LengthView
 	 */
 	public LengthView(final StringFunction source)
 	{
-		super(new StringFunction[]{source}, sql, "length");
+		super(new StringFunction[]{source}, "length", sqlFragments);
 	}
 
 	public final Object mapJava(final Object[] sourceValues)

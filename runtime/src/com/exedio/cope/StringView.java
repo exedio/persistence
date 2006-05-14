@@ -29,10 +29,10 @@ public abstract class StringView
 {
 	public StringView(
 			final Function<?>[] sources,
-			final String[] sqlFragments,
-			final String functionName)
+			final String name,
+			final String[] sqlFragments)
 	{
-		super(sources, sqlFragments, functionName, StringColumn.JDBC_TYPE);
+		super(sources, name, StringColumn.JDBC_TYPE, sqlFragments);
 	}
 
 	final Object load(final ResultSet resultSet, final int columnIndex)

@@ -26,7 +26,7 @@ public final class UppercaseView
 	extends StringView
 	implements StringFunction
 {
-	private static final String[] sql = {"UPPER(", ")"};
+	private static final String[] sqlFragments = {"UPPER(", ")"};
 
 	/**
 	 * Creates a new UppercaseView.
@@ -36,7 +36,7 @@ public final class UppercaseView
 	 */
 	public UppercaseView(final StringFunction source)
 	{
-		super(new StringFunction[]{source}, sql, "upper");
+		super(new StringFunction[]{source}, "upper", sqlFragments);
 	}
 
 	public final Object mapJava(final Object[] sourceValues)

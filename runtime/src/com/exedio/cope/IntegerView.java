@@ -31,10 +31,10 @@ public abstract class IntegerView
 {
 	public IntegerView(
 			final Function<?>[] sources,
-			final String[] sqlFragments,
-			final String functionName)
+			final String name,
+			final String[] sqlFragments)
 	{
-		super(sources, sqlFragments, functionName, IntegerColumn.JDBC_TYPE_INT);
+		super(sources, name, IntegerColumn.JDBC_TYPE_INT, sqlFragments);
 	}
 
 	final Object load(final ResultSet resultSet, final int columnIndex)
