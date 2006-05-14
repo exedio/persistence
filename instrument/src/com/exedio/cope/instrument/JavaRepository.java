@@ -71,7 +71,7 @@ final class JavaRepository
 	private boolean generateStage = false;
 	
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
-	private final HashMap<String, JavaClass> javaClassByShortName = new HashMap<String, JavaClass>();
+	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<String, JavaClass>();
 	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<String, JavaClass>();
 	
 	private final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
@@ -212,7 +212,7 @@ final class JavaRepository
 		assert buildStage && !generateStage;
 		
 		//final JavaClass previous =
-		javaClassByShortName.put(javaClass.name, javaClass);
+		javaClassBySimpleName.put(javaClass.name, javaClass);
 		
 		//if(previous!=null) System.out.println("collision:"+previous.getFullName()+','+javaClass.getFullName());
 		
@@ -222,7 +222,7 @@ final class JavaRepository
 	
 	final JavaClass getJavaClass(final String name)
 	{
-		return (name.indexOf('.')<0) ? javaClassByShortName.get(name) : javaClassByFullName.get(name);
+		return (name.indexOf('.')<0) ? javaClassBySimpleName.get(name) : javaClassByFullName.get(name);
 	}
 	
 	void add(final CopeType copeType)

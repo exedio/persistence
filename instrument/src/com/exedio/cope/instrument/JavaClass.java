@@ -53,11 +53,11 @@ final class JavaClass extends JavaFeature
 	 */
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
-			final int modifiers, final boolean isEnum, final String name,
+			final int modifiers, final boolean isEnum, final String simpleName,
 			final String classExtends, final List<String> classImplements)
 	throws InjectorParseException
 	{
-		super(file, parent, modifiers, null, name);
+		super(file, parent, modifiers, null, simpleName);
 		this.nameSpace = new NameSpace(file.nameSpace);
 		this.isEnum = isEnum;
 		this.classExtends = classExtends;
