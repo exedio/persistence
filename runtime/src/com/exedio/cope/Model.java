@@ -678,7 +678,7 @@ public final class Model
 	public void checkItemAttributes()
 	{
 		for(final Type<Item> t : getTypes())
-			for(final Attribute a : t.getAttributes())
+			for(final Attribute a : t.getDeclaredAttributes())
 				if(a instanceof ItemAttribute)
 				{
 					final int count = ((ItemAttribute)a).checkTypeColumn();

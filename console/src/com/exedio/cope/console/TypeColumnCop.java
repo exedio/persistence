@@ -45,7 +45,7 @@ final class TypeColumnCop extends AdminCop
 		final ArrayList<ItemAttribute> attributes = new ArrayList<ItemAttribute>();
 		
 		for(final Type<Item> t : model.getTypes())
-			for(final Attribute a : t.getAttributes())
+			for(final Attribute a : t.getDeclaredAttributes())
 				if(a instanceof ItemAttribute)
 				{
 					final ItemAttribute ia = (ItemAttribute)a;
