@@ -151,6 +151,8 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 	 * This information is needed only, if you want to access
 	 * the database without cope.
 	 * In this case you should really know, what you are doing.
+	 * Any INSERT/UPDATE/DELETE on the database bypassing cope
+	 * may lead to inconsistent caches.
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
 	 * 
