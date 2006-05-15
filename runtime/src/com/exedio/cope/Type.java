@@ -509,12 +509,60 @@ public final class Type<C extends Item>
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
 	 * 
+	 * @see #getPrimaryKeyColumnName()
+	 * @see #getTypeColumnName()
 	 * @see Attribute#getColumnName()
 	 * @see ItemAttribute#getTypeColumnName()
 	 */
 	public String getTableName()
 	{
 		return table.id;
+	}
+	
+	/**
+	 * Returns the name of primary key column in the database for this type
+	 * - <b>use with care!</b>
+	 * <p>
+	 * This information is needed only, if you want to access
+	 * the database without cope.
+	 * In this case you should really know, what you are doing.
+	 * Please note, that this string may vary,
+	 * if a cope model is configured for different databases.
+	 * 
+	 * @see #getTableName()
+	 * @see #getTypeColumnName()
+	 * @see Attribute#getColumnName()
+	 */
+	public String getPrimaryKeyColumnName()
+	{
+		return table.primaryKey.id;
+	}
+	
+	/**
+	 * Returns the name of type column in the database for this type
+	 * - <b>use with care!</b>
+	 * <p>
+	 * This information is needed only, if you want to access
+	 * the database without cope.
+	 * In this case you should really know, what you are doing.
+	 * Please note, that this string may vary,
+	 * if a cope model is configured for different databases.
+	 * 
+	 * @throws RuntimeException
+	 *         if there is no type column for this type,
+	 *         because <code>{@link Type#getTypesOfInstances()}</code>
+	 *         contains one type only.
+	 * @see #getTableName()
+	 * @see #getPrimaryKeyColumnName()
+	 * @see Attribute#getColumnName()
+	 * @see ItemAttribute#getTypeColumnName()
+	 */
+	public String getTypeColumnName()
+	{
+		if(table.typeColumn==null)
+			throw new RuntimeException("no type column for " + this);
+
+		return table.typeColumn.id;
 	}
 	
 	/**

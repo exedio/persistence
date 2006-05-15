@@ -122,12 +122,13 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	 *         because <code>{@link #getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 * @see Type#getTableName()
+	 * @see Type#getTypeColumnName()
 	 * @see Attribute#getColumnName()
 	 */
-	public final String getTypeColumnName()
+	public String getTypeColumnName()
 	{
 		if(typeColumn==null)
-			throw new RuntimeException("not type column for " + this);
+			throw new RuntimeException("no type column for " + this);
 
 		return typeColumn.id;
 	}
