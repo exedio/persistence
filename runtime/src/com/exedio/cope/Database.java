@@ -1584,13 +1584,13 @@ abstract class Database
 		final Table table = attribute.getType().getTable();
 		final Table valueTable = attribute.getValueType().getTable();
 		
-		final Statement bf = createStatement(true);
+		final Statement bf = createStatement(false);
 		bf.append("select count(*) from ").
-			append(table.protectedID).append(',').append(valueTable.protectedID).
-			append(" where ").
-			append(attribute.getColumn()).append('=').append(valueTable.primaryKey).
-			append(" and ").
-			append(attribute.getTypeColumn()).append("<>").append(valueTable.typeColumn);
+			append(table.protectedID).append(" a,").append(valueTable.protectedID).
+			append(" b where a.").
+			append(attribute.getColumn()).append("=b.").append(valueTable.primaryKey).
+			append(" and a.").
+			append(attribute.getTypeColumn()).append("<>b.").append(valueTable.typeColumn);
 		
 		System.out.println("CHECK:"+bf.toString());
 		
