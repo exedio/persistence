@@ -500,7 +500,8 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * Returns the name of database table for this type - <b>use with care!</b>
+	 * Returns the name of database table for this type
+	 * - <b>use with care!</b>
 	 * <p>
 	 * This information is needed only, if you want to access
 	 * the database without cope.

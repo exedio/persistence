@@ -145,7 +145,8 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 	}
 	
 	/**
-	 * Returns the name of database column for this attribute - <b>use with care!</b>
+	 * Returns the name of database column for this attribute
+	 * - <b>use with care!</b>
 	 * <p>
 	 * This information is needed only, if you want to access
 	 * the database without cope.
