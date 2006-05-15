@@ -91,6 +91,7 @@ final class Admin_Jspm
 									final ArrayList<ItemAttribute> attributes, final boolean test)
 		throws IOException
 	{
+		int sumCount = 0;
 		%>
 		<ol><%
 		for(final ItemAttribute attribute : attributes)
@@ -99,7 +100,9 @@ final class Admin_Jspm
 			<li><%=attribute.toString()%><%
 			if(test)
 			{
+				out.flush();
 				final int count = attribute.checkTypeColumn();
+				sumCount += count;
 				if(count!=0)
 				{
 					%>: <b>bad tupels: <%=count%>.</b><%
@@ -112,7 +115,22 @@ final class Admin_Jspm
 			%></li><%
 		}
 		%>
-		</ol>
+		</ol><%
+		if(test)
+		{
+		%>
+		<p>Overall: <%
+			if(sumCount!=0)
+			{
+				%><b>bad tupels: <%=sumCount%>.</b><%
+			}
+			else
+			{
+				%>ok.<%
+			}
+			%></p><%
+		}
+		%>
 		<form action="<%=cop%>" method="POST">
 			<input type="submit" name="<%=cop.TEST%>" value="test all" />
 		</form><%
