@@ -1,0 +1,71 @@
+/*
+ * Copyright (C) 2004-2006  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.util;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+import com.exedio.cope.Model;
+import com.exedio.cope.util.ServletUtil;
+
+/**
+ * @author Stephan Frisch, exedio GmbH
+ */
+public class TransactionFilter implements Filter
+{
+	private Model model;
+	
+	public void init(FilterConfig config) throws ServletException
+	{
+		model = ServletUtil.getModel(config);
+	}
+
+	public void doFilter(
+			final ServletRequest request,
+			final ServletResponse response,
+			final FilterChain chain) throws IOException, ServletException
+	{
+		try
+		{
+			model.startTransaction();
+			chain.doFilter(request, response);
+			model.commit();
+		}
+		catch(Exception e)
+		{
+			model.rollback();
+		}
+		finally
+		{
+			model.rollbackIfNotCommitted();
+		}
+	}
+	
+	public void destroy()
+	{
+		// empty implementation
+	}
+	
+}
