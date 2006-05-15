@@ -71,6 +71,8 @@ public class TypeNotInConditionTest extends AbstractLibTest
 		assertContains(reffa, reffb1, reffa.TYPE.search(reffa.ref.typeNotIn(itemb2.TYPE, itemc1.TYPE)));
 		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(itema.TYPE)));
 		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
+		
+		model.checkItemAttributes();
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage

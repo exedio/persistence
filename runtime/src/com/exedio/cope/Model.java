@@ -672,4 +672,19 @@ public final class Model
 		cache.clear();
 	}
 	
+	/**
+	 * @see ItemAttribute#checkTypeColumn()
+	 */
+	public void checkItemAttributes()
+	{
+		for(final Type<Item> t : getTypes())
+			for(final Attribute a : t.getAttributes())
+				if(a instanceof ItemAttribute)
+				{
+					final int count = ((ItemAttribute)a).checkTypeColumn();
+					if(count!=0)
+						throw new RuntimeException("wrong type column for " + a + " on " + count + " tuples.");
+				}
+	}
+	
 }

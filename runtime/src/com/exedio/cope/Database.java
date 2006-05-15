@@ -1577,6 +1577,41 @@ abstract class Database
 		}
 	}
 	
+	final int checkTypeColumn(final Connection connection, final ItemAttribute attribute)
+	{
+		buildStage = false;
+		
+		final Table table = attribute.getType().getTable();
+		final Table valueTable = attribute.getValueType().getTable();
+		
+		final Statement bf = createStatement(true);
+		bf.append("select count(*) from ").
+			append(table.protectedID).append(',').append(valueTable.protectedID).
+			append(" where ").
+			append(attribute.getColumn()).append('=').append(valueTable.primaryKey).
+			append(" and ").
+			append(attribute.getTypeColumn()).append("<>").append(valueTable.typeColumn);
+		
+		System.out.println("CHECK:"+bf.toString());
+		
+		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
+		executeSQLQuery(connection, bf, handler, false);
+		return handler.result;
+	}
+	
+	private static class CheckTypeColumnResultSetHandler implements ResultSetHandler
+	{
+		int result = Integer.MIN_VALUE;
+
+		public void run(final ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			
+			result = resultSet.getInt(1);
+		}
+	}
+	
 	public final Schema makeSchema()
 	{
 		final Schema result = new Schema(driver, connectionPool);

@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.cops.Cop;
 
+// TODO SOON rename to ConsoleCop
 abstract class AdminCop extends Cop
 {
 	final String name;
@@ -52,6 +53,7 @@ abstract class AdminCop extends Cop
 		return new AdminCop[]{
 				new PropertiesCop(false),
 				new SchemaCop(null, false, false),
+				new TypeColumnCop(),
 				new ConnectionStatsCop(),
 				new CacheStatsCop(),
 				new MediaStatsCop(),
@@ -100,6 +102,7 @@ abstract class AdminCop extends Cop
 	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request) throws IOException;
 	
 	static final String TAB = "t";
+	static final String TAB_TYPE_COLUMNS = "tc";
 	static final String TAB_CONNECTION_STATS = "cp";
 	static final String TAB_CACHE_STATS = "ca";
 	static final String TAB_MEDIA_STATS = "m";
@@ -109,6 +112,8 @@ abstract class AdminCop extends Cop
 	static final AdminCop getCop(final HttpServletRequest request)
 	{
 		final String tab = request.getParameter(TAB);
+		if(TAB_TYPE_COLUMNS.equals(tab))
+			return new TypeColumnCop();
 		if(TAB_CONNECTION_STATS.equals(tab))
 			return new ConnectionStatsCop();
 		if(TAB_CACHE_STATS.equals(tab))

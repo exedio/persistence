@@ -21,11 +21,13 @@ package com.exedio.cope.console;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
@@ -34,6 +36,7 @@ import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
 
+// TODO SOON rename to Console_Jspm
 final class Admin_Jspm
 {
 	static final void write(
@@ -84,6 +87,37 @@ final class Admin_Jspm
 <%
 	}
 
+	final static void write(final PrintStream out, final TypeColumnCop cop,
+									final ArrayList<ItemAttribute> attributes, final boolean test)
+		throws IOException
+	{
+		%>
+		<ol><%
+		for(final ItemAttribute attribute : attributes)
+		{
+			%>
+			<li><%=attribute.toString()%><%
+			if(test)
+			{
+				final int count = attribute.checkTypeColumn();
+				if(count!=0)
+				{
+					%>: <b>bad tupels: <%=count%>.</b><%
+				}
+				else
+				{
+					%>: ok.<%
+				}
+			}
+			%></li><%
+		}
+		%>
+		</ol>
+		<form action="<%=cop%>" method="POST">
+			<input type="submit" name="<%=cop.TEST%>" value="test all" />
+		</form><%
+	}
+	
 	final static void write(final PrintStream out, final ConnectionPoolInfo info, final ConnectionStatsCop cop)
 		throws IOException
 	{

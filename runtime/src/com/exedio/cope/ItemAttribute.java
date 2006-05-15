@@ -203,6 +203,14 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		}
 	}
 	
+	public int checkTypeColumn()
+	{
+		return
+			typeColumn!=null
+			? getColumn().table.database.checkTypeColumn(getType().getModel().getCurrentTransaction().getConnection(), this)
+			: 0;
+	}
+	
 	public static enum DeletePolicy
 	{
 		FORBID(),
