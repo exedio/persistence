@@ -28,7 +28,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.util.ServletUtil;
 
 /**
  * @author Stephan Frisch, exedio GmbH
