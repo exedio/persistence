@@ -33,7 +33,7 @@ import com.exedio.cope.util.ServletUtil;
 /**
  * @author Stephan Frisch, exedio GmbH
  */
-public class TransactionFilter implements Filter
+public final class TransactionFilter implements Filter
 {
 	private Model model;
 	
