@@ -107,6 +107,31 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		return result;
 	}
 	
+	/**
+	 * Returns the name of type column in the database for this attribute
+	 * - <b>use with care!</b>
+	 * <p>
+	 * This information is needed only, if you want to access
+	 * the database without cope.
+	 * In this case you should really know, what you are doing.
+	 * Please note, that this string may vary,
+	 * if a cope model is configured for different databases.
+	 * 
+	 * @throws RuntimeException
+	 *         if there is no type column for this ItemAttribute,
+	 *         because <code>{@link #getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
+	 *         contains one type only.
+	 * @see Type#getTableName()
+	 * @see Attribute#getColumnName()
+	 */
+	public final String getTypeColumnName()
+	{
+		if(typeColumn==null)
+			throw new RuntimeException("not type column for " + this);
+
+		return typeColumn.id;
+	}
+	
 	StringColumn getTypeColumn()
 	{
 		if(valueType==null)

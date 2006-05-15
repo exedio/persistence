@@ -500,7 +500,7 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * Returns the name of database table for this type - use with care!
+	 * Returns the name of database table for this type - <b>use with care!</b>
 	 * <p>
 	 * This information is needed only, if you want to access
 	 * the database without cope.
@@ -509,6 +509,7 @@ public final class Type<C extends Item>
 	 * if a cope model is configured for different databases.
 	 * 
 	 * @see Attribute#getColumnName()
+	 * @see ItemAttribute#getTypeColumnName()
 	 */
 	public String getTableName()
 	{
