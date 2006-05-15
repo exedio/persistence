@@ -22,11 +22,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.dsmf.ConnectionProvider;
+import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionPool implements ConnectionProvider
 {
@@ -171,12 +171,12 @@ final class ConnectionPool implements ConnectionProvider
 			
 			try
 			{
-				for(Iterator i = copyOfIdle.iterator(); i.hasNext(); )
-					((Connection)i.next()).close();
+				for(final Connection c : copyOfIdle)
+					c.close();
 			}
 			catch(SQLException e)
 			{
-				throw new RuntimeException(e);
+				throw new SQLRuntimeException(e, "close()");
 			}
 		}
 
