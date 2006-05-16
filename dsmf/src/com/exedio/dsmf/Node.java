@@ -42,7 +42,7 @@ public abstract class Node
 			return Color.class.getEnumConstants()[Math.max(ordinal(), other.ordinal())];
 		}
 		
-		Color minSeverity(final Color other)
+		Color min(final Color other)
 		{
 			return Color.class.getEnumConstants()[Math.min(ordinal(), other.ordinal())];
 		}

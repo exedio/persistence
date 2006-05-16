@@ -51,7 +51,7 @@ public final class LastAnalyzed extends Node
 			particularColor = Color.OK;
 
 		if(!table.required())
-			particularColor = particularColor.minSeverity(Color.WARNING);
+			particularColor = particularColor.min(Color.WARNING);
 				
 		cumulativeColor = particularColor;
 	}
