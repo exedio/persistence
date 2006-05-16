@@ -679,26 +679,20 @@ public final class Model
 	{
 		for(final Type<Item> t : getTypes())
 		{
-			final ItemFunction tt = t.getThis();
-			if(tt.needsCheckTypeColumn())
-			{
-				final int typeCount = tt.checkTypeColumn();
-				if(typeCount!=0)
-					throw new RuntimeException("wrong type column for " + tt + " on " + typeCount + " tuples.");
-			}
-			
+			checkTypeColumn(t.getThis());
 			for(final Attribute a : t.getDeclaredAttributes())
 				if(a instanceof ItemAttribute)
-				{
-					final ItemAttribute ia = (ItemAttribute)a;
-					if(ia.needsCheckTypeColumn())
-					{
-						final int attributeCount = ia.checkTypeColumn();
-						if(attributeCount!=0)
-							throw new RuntimeException("wrong type column for " + a + " on " + attributeCount + " tuples.");
-					}
-				}
+					checkTypeColumn((ItemAttribute)a);
 		}
 	}
 	
+	private static final void checkTypeColumn(final ItemFunction f)
+	{
+		if(f.needsCheckTypeColumn())
+		{
+			final int count = f.checkTypeColumn();
+			if(count!=0)
+				throw new RuntimeException("wrong type column for " + f + " on " + count + " tuples.");
+		}
+	}
 }
