@@ -22,9 +22,10 @@ package com.exedio.cope.console;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -263,22 +264,34 @@ final class Properties_Jspm
 		}
 	}
 
-	final static void write(final PrintStream out, final Package thePackage)
+	final static void write(final PrintStream out, final TreeSet<Package> jar)
 		throws IOException
 	{
 			%>
 			<tr>
-				<th colspan="2"><%=thePackage.getName()%></th>
+				<th colspan="2"><%
+				boolean first = true;
+				for(final Package pack : jar)
+				{
+					if(first)
+						first = false;
+					else
+						{%>, <%}
+						
+					%><%=pack.getName()%><%
+				}
+				%></th>
 			</tr><%
-			write(out, "specification.title", thePackage.getSpecificationTitle());
-			write(out, "specification.version", thePackage.getSpecificationVersion());
-			write(out, "specification.vendor", thePackage.getSpecificationVendor());
-			write(out, "implementation.title", thePackage.getImplementationTitle());
+			final Package thePackage = jar.iterator().next();
+			write(out, "specification.title",    thePackage.getSpecificationTitle());
+			write(out, "specification.version",  thePackage.getSpecificationVersion());
+			write(out, "specification.vendor",   thePackage.getSpecificationVendor());
+			write(out, "implementation.title",   thePackage.getImplementationTitle());
 			write(out, "implementation.version", thePackage.getImplementationVersion());
-			write(out, "implementation.vendor", thePackage.getImplementationVendor());
+			write(out, "implementation.vendor",  thePackage.getImplementationVendor());
 	}
 
-	final static void writeVm(final PrintStream out, final VmCop cop, final Package[] packages)
+	final static void writeVm(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
 		throws IOException
 	{
 		%>
@@ -301,8 +314,8 @@ final class Properties_Jspm
 				<th colspan="2"><a href="<%=cop.toToggleAllPackages()%>"><%if(cop.allPackages){%>hide<%}else{%>show<%}%> none-cope</a></th>
 			</tr><%
 
-			for(int i = 0; i<packages.length; i++)
-				write(out, packages[i]);
+			for(final TreeSet<Package> jar : jars)
+				write(out, jar);
 			%>
 		</table><%
 	}

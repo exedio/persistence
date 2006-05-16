@@ -20,10 +20,13 @@ package com.exedio.cope.console;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
 
@@ -53,9 +56,53 @@ final class VmCop extends ConsoleCop
 		return new VmCop(!allPackages);
 	}
 	
+	private static final Comparator<Package> COMPARATOR = new Comparator<Package>()
+	{
+		public int compare(final Package p1, final Package p2)
+		{
+			return p1.getName().compareTo(p2.getName());
+		}
+	};
+	
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Properties_Jspm.writeVm(out, this, allPackages ? Package.getPackages() : new Package[]{Cope.class.getPackage(), VmCop.class.getPackage()});
+		final HashMap<String, TreeSet<Package>> jarMap = new HashMap<String, TreeSet<Package>>();
+		
+		for(final Package pack : Package.getPackages())
+		{
+			if(!allPackages && !pack.getName().startsWith("com.exedio."))
+				continue;
+			
+			if(pack.getSpecificationTitle()==null &&
+				pack.getSpecificationVersion()==null &&
+				pack.getSpecificationVendor()==null &&
+				pack.getImplementationTitle()==null &&
+				pack.getImplementationVersion()==null &&
+				pack.getImplementationVendor()==null)
+				continue;
+				
+			final String key =
+				pack.getSpecificationTitle() + '|' +
+				pack.getSpecificationVersion() + '|' +
+				pack.getSpecificationVendor() + '|' +
+				pack.getImplementationTitle() + '|' +
+				pack.getImplementationVersion() + '|' +
+				pack.getImplementationVendor();
+			
+			TreeSet<Package> jar = jarMap.get(key);
+			
+			if(jar==null)
+			{
+				jar = new TreeSet<Package>(COMPARATOR);
+				jarMap.put(key, jar);
+			}
+			jar.add(pack);
+		}
+		
+		final ArrayList<TreeSet<Package>> jars = new ArrayList<TreeSet<Package>>();
+		jars.addAll(jarMap.values());
+		
+		Properties_Jspm.writeVm(out, this, jars);
 	}
 	
 }
