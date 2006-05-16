@@ -27,7 +27,7 @@ import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
@@ -88,13 +88,13 @@ final class Admin_Jspm
 	}
 
 	final static void write(final PrintStream out, final TypeColumnCop cop,
-									final ArrayList<ItemAttribute> attributes, final boolean test)
+									final ArrayList<ItemFunction> attributes, final boolean test)
 		throws IOException
 	{
 		int sumCount = 0;
 		%>
 		<ol><%
-		for(final ItemAttribute attribute : attributes)
+		for(final ItemFunction attribute : attributes) // TODO SOON rename
 		{
 			%>
 			<li><%=attribute.toString()%><%

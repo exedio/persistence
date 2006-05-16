@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
@@ -42,16 +43,22 @@ final class TypeColumnCop extends AdminCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		final ArrayList<ItemAttribute> attributes = new ArrayList<ItemAttribute>();
+		final ArrayList<ItemFunction> attributes = new ArrayList<ItemFunction>(); // TODO SOON rename
 		
 		for(final Type<Item> t : model.getTypes())
+		{
+			final ItemFunction<Item> tt = t.getThis();
+			if(tt.needsCheckTypeColumn())
+				attributes.add(tt);
+			
 			for(final Attribute a : t.getDeclaredAttributes())
 				if(a instanceof ItemAttribute)
 				{
 					final ItemAttribute ia = (ItemAttribute)a;
-					if(ia.getValueType().getTypesOfInstances().size()>1)
+					if(ia.needsCheckTypeColumn())
 						attributes.add(ia);
 				}
+		}
 		
 		if(request.getParameter(TEST)!=null)
 		{
