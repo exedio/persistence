@@ -284,9 +284,9 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
 			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect(AttributeItem.someData.getMimeMajor())+")>=1) AND (LENGTH("+protect(AttributeItem.someData.getMimeMajor())+")<=30)) OR ("+protect(AttributeItem.someData.getMimeMajor())+" IS NULL)");
 
-			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, Table.PK_COLUMN_NAME);
+			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, AttributeItem.TYPE.getPrimaryKeyColumnName());
 
-			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", Table.PK_COLUMN_NAME);
+			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", AttributeItem.TYPE.getPrimaryKeyColumnName());
 
 			final com.exedio.dsmf.Table uniqueItem = schema.getTable("UNIQUE_ITEMS");
 			assertNotNull(uniqueItem);
