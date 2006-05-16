@@ -67,7 +67,7 @@ final class Schema_Jspm
 			<h4>Constraints</h4>
 			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_PK     %>" checked="true" />pk
 			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_FK     %>" checked="true" />fk
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_UNIQUE %>" checked="true" />uniqe
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_UNIQUE %>" checked="true" />unique
 			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_CHECK  %>" checked="true" />check
 			<br>
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
