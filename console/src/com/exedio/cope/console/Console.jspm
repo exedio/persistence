@@ -87,20 +87,20 @@ final class Console_Jspm
 	}
 
 	final static void write(final PrintStream out, final TypeColumnCop cop,
-									final ArrayList<ItemFunction> attributes, final boolean test)
+									final ArrayList<ItemFunction> functions, final boolean test)
 		throws IOException
 	{
 		int sumCount = 0;
 		%>
 		<ol><%
-		for(final ItemFunction attribute : attributes) // TODO SOON rename
+		for(final ItemFunction function : functions)
 		{
 			%>
-			<li><%=attribute.toString()%><%
+			<li><%=function.toString()%><%
 			if(test)
 			{
 				out.flush();
-				final int count = attribute.checkTypeColumn();
+				final int count = function.checkTypeColumn();
 				sumCount += count;
 				if(count!=0)
 				{
