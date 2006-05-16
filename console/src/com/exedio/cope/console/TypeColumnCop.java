@@ -43,20 +43,20 @@ final class TypeColumnCop extends ConsoleCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		final ArrayList<ItemFunction> attributes = new ArrayList<ItemFunction>(); // TODO SOON rename
+		final ArrayList<ItemFunction> functions = new ArrayList<ItemFunction>();
 		
 		for(final Type<Item> t : model.getTypes())
 		{
 			final ItemFunction<Item> tt = t.getThis();
 			if(tt.needsCheckTypeColumn())
-				attributes.add(tt);
+				functions.add(tt);
 			
 			for(final Attribute a : t.getDeclaredAttributes())
 				if(a instanceof ItemAttribute)
 				{
 					final ItemAttribute ia = (ItemAttribute)a;
 					if(ia.needsCheckTypeColumn())
-						attributes.add(ia);
+						functions.add(ia);
 				}
 		}
 		
@@ -65,7 +65,7 @@ final class TypeColumnCop extends ConsoleCop
 			try
 			{
 				model.startTransaction();
-				Console_Jspm.write(out, this, attributes, true);
+				Console_Jspm.write(out, this, functions, true);
 				model.commit();
 			}
 			finally
@@ -74,7 +74,7 @@ final class TypeColumnCop extends ConsoleCop
 			}
 		}
 		else
-			Console_Jspm.write(out, this, attributes, false);
+			Console_Jspm.write(out, this, functions, false);
 	}
 	
 }
