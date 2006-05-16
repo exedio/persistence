@@ -40,21 +40,6 @@ import com.exedio.dsmf.UniqueConstraint;
 
 final class Schema_Jspm
 {
-	private static final String color(final Schema.COLOR color) // TODO SOON remove
-	{
-		switch(color)
-		{
-		case OK:
-			return "ok";
-		case WARNING:
-			return "warning";
-		case ERROR:
-			return "error";
-		default:
-			throw new RuntimeException(String.valueOf(color));
-		}
-	}
-	
 	private static final String type(final Constraint constraint)
 	{
 		if(constraint instanceof CheckConstraint)
@@ -134,7 +119,7 @@ final class Schema_Jspm
 			}
 
 		final Schema schema = model.getVerifiedSchema();
-		final String schemaColor = color(schema.getCumulativeColor());
+		final String schemaColor = schema.getCumulativeColor().toString();
 		final boolean narrow = cop.isNarrow();
 
 %>
@@ -173,9 +158,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 	if(cop.skipTable(table))
 		continue;
 	
-	final String tableColor = color(table.getCumulativeColor());
 	%>
-	<li class="<%=tableColor%>"><%
+	<li class="<%=table.getCumulativeColor()%>"><%
 	
 	%><small>tab<%=tableCount%></small> <%
 	if(!narrow)
@@ -196,7 +180,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 	final String tableError = table.getError();
 	if(tableError!=null)
 	{
-		%> <span class="<%=color(table.getParticularColor())
+		%> <span class="<%=table.getParticularColor()
 										%>"><%=tableError%></span><%
 	}
 	if(table.exists())
@@ -234,7 +218,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			final Date date = lastAnalyzed.getDate();
 			final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
 			%>
-			<li class="<%=color(lastAnalyzed.getCumulativeColor())%>">
+			<li class="<%=lastAnalyzed.getCumulativeColor()%>">
 				last analyzed: <%=lastAnalyzedString%>
 				<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.getName()%>"/>analyze
 			</li><%
@@ -244,7 +228,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		if(options!=null)
 		{
 			%>
-			<li class="<%=color(Schema.COLOR.OK)%>">
+			<li class="<%=Schema.COLOR.OK%>">
 				options: <pre><%=options%></pre>
 			</li><%
 		}
@@ -253,9 +237,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		for(Iterator j = table.getColumns().iterator(); j.hasNext(); columnCount++)
 		{
 			final Column column = (Column)j.next();
-			final String color = color(column.getCumulativeColor());
 			%>
-			<li class="<%=color%>">
+			<li class="<%=column.getCumulativeColor()%>">
 				<small>col<%=columnCount%></small> <%=column.getName()%><%
 			
 			if(cop.showRenameFields && column.exists())
@@ -282,7 +265,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			if(error!=null)
 			{
 				%>
-				<span class="<%=color(column.getParticularColor())%>"><%=error%></span><%
+				<span class="<%=column.getParticularColor()%>"><%=error%></span><%
 			}
 			if(column.exists())
 			{
@@ -306,9 +289,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); constraintCount++)
 		{
 			final Constraint constraint = (Constraint)j.next();
-			final String constraintColor = color(constraint.getCumulativeColor());
 			%>
-			<li class="<%=constraintColor%>">
+			<li class="<%=constraint.getCumulativeColor()%>">
 				<small><%=type(constraint)%><%=constraintCount%></small> <%=constraint.getName()%><%
 			
 			final String constraintCondition = constraint.getRequiredCondition();
@@ -321,7 +303,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			if(constraintError!=null)
 			{
 				%>
-				<span class="<%=color(constraint.getParticularColor())%>"><%=constraintError%></span><%
+				<span class="<%=constraint.getParticularColor()%>"><%=constraintError%></span><%
 			}
 			if(constraint.exists())
 			{

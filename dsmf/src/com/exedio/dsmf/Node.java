@@ -26,16 +26,18 @@ public abstract class Node
 {
 	public static enum COLOR // TODO SOON rename to Color
 	{
-		NOT_YET_CALC(0),
-		OK(1),
-		WARNING(2),
-		ERROR(3);
+		NOT_YET_CALC(0, "not_yet"),
+		OK(1, "ok"),
+		WARNING(2, "warning"),
+		ERROR(3, "error");
 		
 		private final int severity;
+		private final String style;
 		
-		COLOR(final int severity)
+		COLOR(final int severity, final String style)
 		{
 			this.severity = severity;
+			this.style = style;
 		}
 		
 		COLOR maxSeverity(final COLOR other)
@@ -46,6 +48,11 @@ public abstract class Node
 		COLOR minSeverity(final COLOR other)
 		{
 			return COLOR.class.getEnumConstants()[Math.min(severity, other.severity)];
+		}
+		
+		public String toString()
+		{
+			return style;
 		}
 	}
 	
