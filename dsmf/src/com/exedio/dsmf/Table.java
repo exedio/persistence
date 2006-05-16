@@ -234,19 +234,19 @@ public final class Table extends Node
 		if(lastAnalyzed!=null)
 		{
 			lastAnalyzed.finish();
-			cumulativeColor = cumulativeColor.maxSeverity(lastAnalyzed.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(lastAnalyzed.cumulativeColor);
 		}
 			
 		for(final Column column : columnList)
 		{
 			column.finish();
-			cumulativeColor = cumulativeColor.maxSeverity(column.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(column.cumulativeColor);
 		}
 
 		for(final Constraint constraint : constraintList)
 		{
 			constraint.finish();
-			cumulativeColor = cumulativeColor.maxSeverity(constraint.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(constraint.cumulativeColor);
 		}
 	}
 	

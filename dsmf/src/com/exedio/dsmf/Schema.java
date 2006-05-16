@@ -84,7 +84,7 @@ public final class Schema extends Node
 		for(final Table table : tableList)
 		{
 			table.finish();
-			cumulativeColor = cumulativeColor.maxSeverity(table.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(table.cumulativeColor);
 		}
 	}
 	
