@@ -70,22 +70,22 @@ final class Table
 	private static final String TYPE_COLUMN_NAME = "class";
 
 	/**
-	 * The name of the alias for inner ROWNUMs in oracle.
+	 * A name for table aliases is sql statements.
 	 * The value "return" prevents name collisions
 	 * with columns for cope attributes,
 	 * since "return" is a reserved java keyword,
 	 * which cannot be used for java attributes.
 	 */
-	static final String ROWNUM_INNER_ALIAS = "return";
+	static final String SQL_ALIAS_1 = "return";
 
 	/**
-	 * The name of the alias for inner view for ROWNUMs in oracle.
+	 * A name for table aliases is sql statements.
 	 * The value "break" prevents name collisions
 	 * with columns for cope attributes,
 	 * since "break" is a reserved java keyword,
 	 * which cannot be used for java attributes.
 	 */
-	static final String ROWNUM_INNER_VIEW_ALIAS = "break";
+	static final String SQL_ALIAS_2 = "break";
 
 	void addColumn(final Column column)
 	{

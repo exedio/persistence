@@ -114,7 +114,7 @@ final class OracleDatabase extends Database
 		// see http://www.php-faq.de/q/q-oracle-limit.html
 		bf.append("select * from(");
 		if(start>0)
-			bf.append("select "+com.exedio.cope.Table.ROWNUM_INNER_VIEW_ALIAS+".*,ROWNUM "+com.exedio.cope.Table.ROWNUM_INNER_ALIAS+" from(");
+			bf.append("select "+com.exedio.cope.Table.SQL_ALIAS_2+".*,ROWNUM "+com.exedio.cope.Table.SQL_ALIAS_1+" from(");
 	}
 	
 	void appendLimitClause2(final Statement bf, final int start, final int count)
@@ -124,11 +124,11 @@ final class OracleDatabase extends Database
 
 		bf.append(')');
 		if(start>0)
-			bf.append(com.exedio.cope.Table.ROWNUM_INNER_VIEW_ALIAS+' ');
+			bf.append(com.exedio.cope.Table.SQL_ALIAS_2+' ');
 		if(count!=Query.UNLIMITED_COUNT)
 			bf.append("where ROWNUM<=").appendParameter(start+count);
 		if(start>0)
-			bf.append(")where "+com.exedio.cope.Table.ROWNUM_INNER_ALIAS+'>').appendParameter(start);
+			bf.append(")where "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(start);
 	}
 	
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
