@@ -70,20 +70,20 @@ final class Table
 	private static final String TYPE_COLUMN_NAME = "class";
 
 	/**
-	 * A name for table aliases is sql statements.
+	 * A name for aliases is sql statements.
 	 * The value "return" prevents name collisions
-	 * with columns for cope attributes,
+	 * with columns for cope attributes / types,
 	 * since "return" is a reserved java keyword,
-	 * which cannot be used for java attributes.
+	 * which cannot be used for java attributes / classes.
 	 */
 	static final String SQL_ALIAS_1 = "return";
 
 	/**
-	 * A name for table aliases is sql statements.
+	 * A name for aliases is sql statements.
 	 * The value "break" prevents name collisions
-	 * with columns for cope attributes,
+	 * with columns for cope attributes / types,
 	 * since "break" is a reserved java keyword,
-	 * which cannot be used for java attributes.
+	 * which cannot be used for java attributes / classes.
 	 */
 	static final String SQL_ALIAS_2 = "break";
 
