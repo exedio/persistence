@@ -119,7 +119,9 @@ final class Console_Jspm
 			if(test)
 			{
 				out.flush();
+				final long startMillis = System.currentTimeMillis();
 				final int count = function.checkTypeColumn();
+				final long finishMillis = System.currentTimeMillis();
 				sumCount += count;
 				if(count!=0)
 				{
@@ -129,6 +131,7 @@ final class Console_Jspm
 				{
 					%>: ok.<%
 				}
+				%> (<%=(finishMillis-startMillis)%>ms)<%
 			}
 			%></li><%
 		}
