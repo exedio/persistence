@@ -1583,22 +1583,22 @@ abstract class Database
 		
 		final Table table = attribute.getType().getTable();
 		final Table valueTable = attribute.getValueType().getTable();
-		final String SQL_ALIAS_1 = driver.protectName(Table.SQL_ALIAS_1);
-		final String SQL_ALIAS_2 = driver.protectName(Table.SQL_ALIAS_2);
+		final String alias1 = driver.protectName(Table.SQL_ALIAS_1);
+		final String alias2 = driver.protectName(Table.SQL_ALIAS_2);
 		
 		final Statement bf = createStatement(false);
 		bf.append("select count(*) from ").
-			append(table.protectedID).append(' ').append(SQL_ALIAS_1).
+			append(table.protectedID).append(' ').append(alias1).
 			append(',').
-			append(valueTable.protectedID).append(' ').append(SQL_ALIAS_2).
+			append(valueTable.protectedID).append(' ').append(alias2).
 			append(" where ").
-			append(SQL_ALIAS_1).append('.').append(attribute.getColumn()).
+			append(alias1).append('.').append(attribute.getColumn()).
 			append('=').
-			append(SQL_ALIAS_2).append('.').append(valueTable.primaryKey).
+			append(alias2).append('.').append(valueTable.primaryKey).
 			append(" and ").
-			append(SQL_ALIAS_1).append('.').append(attribute.getTypeColumn()).
+			append(alias1).append('.').append(attribute.getTypeColumn()).
 			append("<>").
-			append(SQL_ALIAS_2).append('.').append(valueTable.typeColumn);
+			append(alias2).append('.').append(valueTable.typeColumn);
 		
 		System.out.println("CHECK:"+bf.toString());
 		
