@@ -52,7 +52,7 @@ final class MediaStatsCop extends ConsoleCop
 			}
 		}
 
-		Admin_Jspm.writeMediaStats(out, medias, model.getProperties().getMediaRootUrl(), this);
+		Console_Jspm.writeMediaStats(out, medias, model.getProperties().getMediaRootUrl(), this);
 	}
 	
 }

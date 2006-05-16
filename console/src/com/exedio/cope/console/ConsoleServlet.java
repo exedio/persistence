@@ -110,7 +110,7 @@ public final class ConsoleServlet extends CopsServlet
 		final ConsoleCop cop = ConsoleCop.getCop(request);
 		cop.initialize();
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
-		Admin_Jspm.write(out, request, model, cop);
+		Console_Jspm.write(out, request, model, cop);
 		out.close();
 	}
 

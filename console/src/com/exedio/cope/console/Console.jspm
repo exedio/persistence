@@ -36,8 +36,7 @@ import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
 
-// TODO SOON rename to Console_Jspm
-final class Admin_Jspm
+final class Console_Jspm
 {
 	static final void write(
 				final PrintStream out,
