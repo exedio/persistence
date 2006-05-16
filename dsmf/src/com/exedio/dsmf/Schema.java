@@ -75,8 +75,8 @@ public final class Schema extends Node
 
 	void finish()
 	{
-		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
-			throw new RuntimeException();
+		assert particularColor==null;
+		assert cumulativeColor==null;
 		
 		particularColor = Color.OK;
 

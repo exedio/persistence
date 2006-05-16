@@ -26,28 +26,25 @@ public abstract class Node
 {
 	public static enum Color
 	{
-		NOT_YET_CALC(0, "not_yet"),
-		OK(1, "ok"),
-		WARNING(2, "warning"),
-		ERROR(3, "error");
+		OK("ok"),
+		WARNING("warning"),
+		ERROR("error");
 		
-		private final int severity;
 		private final String style;
 		
-		Color(final int severity, final String style)
+		Color(final String style)
 		{
-			this.severity = severity;
 			this.style = style;
 		}
 		
 		Color maxSeverity(final Color other)
 		{
-			return Color.class.getEnumConstants()[Math.max(severity, other.severity)];
+			return Color.class.getEnumConstants()[Math.max(ordinal(), other.ordinal())];
 		}
 		
 		Color minSeverity(final Color other)
 		{
-			return Color.class.getEnumConstants()[Math.min(severity, other.severity)];
+			return Color.class.getEnumConstants()[Math.min(ordinal(), other.ordinal())];
 		}
 		
 		public String toString()
@@ -60,8 +57,8 @@ public abstract class Node
 	final ConnectionProvider connectionProvider;
 
 	String error = null;
-	Color particularColor = Schema.Color.NOT_YET_CALC;
-	Color cumulativeColor = Schema.Color.NOT_YET_CALC;
+	Color particularColor = null;
+	Color cumulativeColor = null;
 	
 	Node(final Driver driver, final ConnectionProvider connectionProvider)
 	{
@@ -205,24 +202,24 @@ public abstract class Node
 
 	public final String getError()
 	{
-		if(particularColor==Schema.Color.NOT_YET_CALC)
-			throw new RuntimeException();
+		assert particularColor!=null;
+		assert cumulativeColor!=null;
 
 		return error;
 	}
 
 	public final Color getParticularColor()
 	{
-		if(particularColor==Schema.Color.NOT_YET_CALC)
-			throw new RuntimeException();
+		assert particularColor!=null;
+		assert cumulativeColor!=null;
 
 		return particularColor;
 	}
 
 	public final Color getCumulativeColor()
 	{
-		if(cumulativeColor==Schema.Color.NOT_YET_CALC)
-			throw new RuntimeException();
+		assert particularColor!=null;
+		assert cumulativeColor!=null;
 
 		return cumulativeColor;
 	}

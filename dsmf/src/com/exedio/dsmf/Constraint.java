@@ -88,8 +88,8 @@ public abstract class Constraint extends Node
 
 	final void finish()
 	{
-		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
-			throw new RuntimeException();
+		assert particularColor==null;
+		assert cumulativeColor==null;
 
 		// TODO: make this dependend on type of constraint:
 		// check/not null constraint are yellow only if missing

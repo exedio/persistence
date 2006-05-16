@@ -206,8 +206,8 @@ public final class Table extends Node
 		
 	void finish()
 	{
-		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
-			throw new RuntimeException();
+		assert particularColor==null;
+		assert cumulativeColor==null;
 
 		final String error;
 		final Color particularColor;

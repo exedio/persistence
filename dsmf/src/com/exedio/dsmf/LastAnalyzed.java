@@ -39,8 +39,8 @@ public final class LastAnalyzed extends Node
 
 	void finish()
 	{
-		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
-			throw new RuntimeException();
+		assert particularColor==null;
+		assert cumulativeColor==null;
 
 		if(date==null)
 		{
