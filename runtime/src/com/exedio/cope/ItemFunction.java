@@ -23,6 +23,16 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	Type<E> getValueType();
 	StringColumn getTypeColumnIfExists();
 	
+	/**
+	 * @see #checkTypeColumn()
+	 */
+	boolean needsCheckTypeColumn();
+
+	/**
+	 * @see #needsCheckTypeColumn()
+	 */
+	int checkTypeColumn();
+	
 	// convenience methods for conditions and views ---------------------------------
 
 	TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1);

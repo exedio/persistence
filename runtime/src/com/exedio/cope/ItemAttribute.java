@@ -203,21 +203,15 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		}
 	}
 	
-	/**
-	 * @see #checkTypeColumn()
-	 */
 	public boolean needsCheckTypeColumn()
 	{
 		return typeColumn!=null;
 	}
 	
-	/**
-	 * @see #needsCheckTypeColumn()
-	 */
 	public int checkTypeColumn()
 	{
 		if(!needsCheckTypeColumn())
-			throw new RuntimeException("no check for type column needed for item attribute " + this);
+			throw new RuntimeException("no check for type column needed for " + this);
 		
 		return getColumn().table.database.checkTypeColumn(getType().getModel().getCurrentTransaction().getConnection(), this);
 	}

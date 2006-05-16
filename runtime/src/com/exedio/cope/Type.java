@@ -781,25 +781,6 @@ public final class Type<C extends Item>
 		return new Query<C>(thisFunction, this, condition);
 	}
 	
-	/**
-	 * @see #checkTypeColumn()
-	 */
-	public boolean needsCheckTypeColumn()
-	{
-		return supertype!=null && supertype.getTable().typeColumn!=null;
-	}
-
-	/**
-	 * @see #needsCheckTypeColumn()
-	 */
-	public int checkTypeColumn()
-	{
-		if(!needsCheckTypeColumn())
-			throw new RuntimeException("no check for type column needed for type " + this);
-		
-		return table.database.checkTypeColumn(getModel().getCurrentTransaction().getConnection(), this);
-	}
-	
 	public String toString()
 	{
 		return id;
@@ -896,6 +877,19 @@ public final class Type<C extends Item>
 		public StringColumn getTypeColumnIfExists()
 		{
 			return type.getTable().typeColumn;
+		}
+		
+		public boolean needsCheckTypeColumn()
+		{
+			return type.supertype!=null && type.supertype.getTable().typeColumn!=null;
+		}
+
+		public int checkTypeColumn()
+		{
+			if(!needsCheckTypeColumn())
+				throw new RuntimeException("no check for type column needed for " + this);
+			
+			return type.table.database.checkTypeColumn(type.getModel().getCurrentTransaction().getConnection(), type);
 		}
 		
 		public String toString()
