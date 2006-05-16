@@ -30,7 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
 
 
-final class PropertiesCop extends AdminCop
+final class PropertiesCop extends ConsoleCop
 {
 	static final String SHOW_UNSPECIFIED = "up";
 	

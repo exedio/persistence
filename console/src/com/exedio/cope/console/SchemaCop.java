@@ -31,7 +31,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
 
-final class SchemaCop extends AdminCop
+final class SchemaCop extends ConsoleCop
 {
 	static final String SCHEMA = "schema";
 	static final String SHOW = "show";

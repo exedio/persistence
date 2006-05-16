@@ -32,7 +32,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
 
-final class DbCop extends AdminCop
+final class DbCop extends ConsoleCop
 {
 
 	DbCop()

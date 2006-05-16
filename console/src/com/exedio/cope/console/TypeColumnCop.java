@@ -31,7 +31,7 @@ import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
-final class TypeColumnCop extends AdminCop
+final class TypeColumnCop extends ConsoleCop
 {
 	final static String TEST = "TEST_TYPE_COLUMNS";
 

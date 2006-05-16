@@ -27,7 +27,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
 
-final class VmCop extends AdminCop
+final class VmCop extends ConsoleCop
 {
 	static final String ALL_PACKAGES = "ap";
 	

@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 
 
-final class ConnectionStatsCop extends AdminCop
+final class ConnectionStatsCop extends ConsoleCop
 {
 
 	ConnectionStatsCop()

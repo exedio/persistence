@@ -43,7 +43,7 @@ final class Admin_Jspm
 				final PrintStream out,
 				final HttpServletRequest request,
 				final Model model,
-				final AdminCop cop)
+				final ConsoleCop cop)
 		throws IOException
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
@@ -60,10 +60,10 @@ final class Admin_Jspm
 		<h1>COPE Console</h3>
 		<p><%
 		
-		final AdminCop[] tabs = cop.getTabs();
+		final ConsoleCop[] tabs = cop.getTabs();
 		for(int i = 0; i<tabs.length; i++)
 		{
-			final AdminCop tab = tabs[i];
+			final ConsoleCop tab = tabs[i];
 			if(cop.name.equals(tab.name))
 			{
 			%>

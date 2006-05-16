@@ -28,12 +28,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.cops.Cop;
 
-// TODO SOON rename to ConsoleCop
-abstract class AdminCop extends Cop
+abstract class ConsoleCop extends Cop
 {
 	final String name;
 
-	protected AdminCop(final String name)
+	protected ConsoleCop(final String name)
 	{
 		this.name = name;
 	}
@@ -48,9 +47,9 @@ abstract class AdminCop extends Cop
 		df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 	}
 	
-	final AdminCop[] getTabs()
+	final ConsoleCop[] getTabs()
 	{
-		return new AdminCop[]{
+		return new ConsoleCop[]{
 				new PropertiesCop(false),
 				new SchemaCop(null, false, false),
 				new TypeColumnCop(),
@@ -109,7 +108,7 @@ abstract class AdminCop extends Cop
 	static final String TAB_VM = "vm";
 	static final String TAB_DB = "db";
 	
-	static final AdminCop getCop(final HttpServletRequest request)
+	static final ConsoleCop getCop(final HttpServletRequest request)
 	{
 		final String tab = request.getParameter(TAB);
 		if(TAB_TYPE_COLUMNS.equals(tab))

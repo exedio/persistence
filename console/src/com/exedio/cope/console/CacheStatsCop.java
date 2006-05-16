@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 
 
-final class CacheStatsCop extends AdminCop
+final class CacheStatsCop extends ConsoleCop
 {
 
 	CacheStatsCop()

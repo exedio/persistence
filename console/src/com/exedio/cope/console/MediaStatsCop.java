@@ -30,7 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
 
-final class MediaStatsCop extends AdminCop
+final class MediaStatsCop extends ConsoleCop
 {
 
 	MediaStatsCop()
