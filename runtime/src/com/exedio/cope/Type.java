@@ -781,6 +781,14 @@ public final class Type<C extends Item>
 		return new Query<C>(thisFunction, this, condition);
 	}
 	
+	public int checkTypeColumn()
+	{
+		return
+			supertype!=null && supertype.getTable().typeColumn!=null
+			? table.database.checkTypeColumn(getModel().getCurrentTransaction().getConnection(), this)
+			: 0;
+	}
+	
 	public String toString()
 	{
 		return id;

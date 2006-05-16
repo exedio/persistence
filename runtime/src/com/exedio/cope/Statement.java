@@ -163,6 +163,13 @@ final class Statement
 		return append(type.getTable().primaryKey, join);
 	}
 		
+	Statement append(final Table table)
+	{
+		this.text.append(table.protectedID);
+			
+		return this;
+	}
+		
 	Statement append(final Column column)
 	{
 		return append(column, (Join)null);

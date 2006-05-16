@@ -1577,6 +1577,34 @@ abstract class Database
 		}
 	}
 	
+	final int checkTypeColumn(final Connection connection, final Type type)
+	{
+		buildStage = false;
+		
+		final Table table = type.getTable();
+		final Table superTable = type.getSupertype().getTable();
+		
+		final Statement bf = createStatement(true);
+		bf.append("select count(*) from ").
+			append(table).append(',').append(superTable).
+			append(" where ").
+			append(table.primaryKey).append('=').append(superTable.primaryKey).
+			append(" and ");
+		
+		if(table.typeColumn!=null)
+			bf.append(table.typeColumn);
+		else
+			bf.appendParameter(type.id);
+			
+		bf.append("<>").append(superTable.typeColumn);
+		
+		System.out.println("CHECKT:"+bf.toString());
+		
+		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
+		executeSQLQuery(connection, bf, handler, false);
+		return handler.result;
+	}
+	
 	final int checkTypeColumn(final Connection connection, final ItemAttribute attribute)
 	{
 		buildStage = false;
@@ -1588,9 +1616,9 @@ abstract class Database
 		
 		final Statement bf = createStatement(false);
 		bf.append("select count(*) from ").
-			append(table.protectedID).append(' ').append(alias1).
+			append(table).append(' ').append(alias1).
 			append(',').
-			append(valueTable.protectedID).append(' ').append(alias2).
+			append(valueTable).append(' ').append(alias2).
 			append(" where ").
 			append(alias1).append('.').append(attribute.getColumn()).
 			append('=').
@@ -1600,7 +1628,7 @@ abstract class Database
 			append("<>").
 			append(alias2).append('.').append(valueTable.typeColumn);
 		
-		System.out.println("CHECK:"+bf.toString());
+		System.out.println("CHECKA:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false);

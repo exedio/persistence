@@ -673,18 +673,25 @@ public final class Model
 	}
 	
 	/**
+	 * @see Type#checkTypeColumn()
 	 * @see ItemAttribute#checkTypeColumn()
 	 */
-	public void checkItemAttributes()
+	public void checkTypeColumns()
 	{
 		for(final Type<Item> t : getTypes())
+		{
+			final int typeCount = t.checkTypeColumn();
+			if(typeCount!=0)
+				throw new RuntimeException("wrong type column for type " + t + " on " + typeCount + " tuples.");
+			
 			for(final Attribute a : t.getDeclaredAttributes())
 				if(a instanceof ItemAttribute)
 				{
-					final int count = ((ItemAttribute)a).checkTypeColumn();
-					if(count!=0)
-						throw new RuntimeException("wrong type column for " + a + " on " + count + " tuples.");
+					final int attributeCount = ((ItemAttribute)a).checkTypeColumn();
+					if(attributeCount!=0)
+						throw new RuntimeException("wrong type column for item attribute " + a + " on " + attributeCount + " tuples.");
 				}
+		}
 	}
 	
 }
