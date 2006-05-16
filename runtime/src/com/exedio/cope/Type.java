@@ -781,12 +781,23 @@ public final class Type<C extends Item>
 		return new Query<C>(thisFunction, this, condition);
 	}
 	
+	/**
+	 * @see #checkTypeColumn()
+	 */
+	public boolean needsCheckTypeColumn()
+	{
+		return supertype!=null && supertype.getTable().typeColumn!=null;
+	}
+
+	/**
+	 * @see #needsCheckTypeColumn()
+	 */
 	public int checkTypeColumn()
 	{
-		return
-			supertype!=null && supertype.getTable().typeColumn!=null
-			? table.database.checkTypeColumn(getModel().getCurrentTransaction().getConnection(), this)
-			: 0;
+		if(!needsCheckTypeColumn())
+			throw new RuntimeException("no check for type column needed for type " + this);
+		
+		return table.database.checkTypeColumn(getModel().getCurrentTransaction().getConnection(), this);
 	}
 	
 	public String toString()

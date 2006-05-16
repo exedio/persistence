@@ -203,12 +203,23 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		}
 	}
 	
+	/**
+	 * @see #checkTypeColumn()
+	 */
+	public boolean needsCheckTypeColumn()
+	{
+		return typeColumn!=null;
+	}
+	
+	/**
+	 * @see #needsCheckTypeColumn()
+	 */
 	public int checkTypeColumn()
 	{
-		return
-			typeColumn!=null
-			? getColumn().table.database.checkTypeColumn(getType().getModel().getCurrentTransaction().getConnection(), this)
-			: 0;
+		if(!needsCheckTypeColumn())
+			throw new RuntimeException("no check for type column needed for item attribute " + this);
+		
+		return getColumn().table.database.checkTypeColumn(getType().getModel().getCurrentTransaction().getConnection(), this);
 	}
 	
 	public static enum DeletePolicy
