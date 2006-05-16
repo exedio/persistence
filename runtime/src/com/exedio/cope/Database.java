@@ -195,11 +195,11 @@ abstract class Database
 		makeSchema().create();
 	}
 
-	public void createDatabaseConstraints()
+	public void createDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 		
-		makeSchema().createConstraints();
+		makeSchema().createConstraints(mask);
 	}
 
 	//private static int checkTableTime = 0;
@@ -274,11 +274,11 @@ abstract class Database
 		makeSchema().drop();
 	}
 	
-	public void dropDatabaseConstraints()
+	public void dropDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 
-		makeSchema().dropConstraints();
+		makeSchema().dropConstraints(mask);
 	}
 	
 	public void tearDownDatabase()
@@ -288,11 +288,11 @@ abstract class Database
 		makeSchema().tearDown();
 	}
 
-	public void tearDownDatabaseConstraints()
+	public void tearDownDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 
-		makeSchema().tearDownConstraints();
+		makeSchema().tearDownConstraints(mask);
 	}
 	
 	public void checkEmptyDatabase(final Connection connection)

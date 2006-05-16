@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.CacheInfo;
+import com.exedio.dsmf.Constraint;
 
 
 
@@ -127,8 +128,16 @@ public class HierarchyEmptyTest extends AbstractLibTest
 	public void testModel()
 	{
 		model.checkDatabase();
-		model.dropDatabaseConstraints();
-		model.createDatabaseConstraints();
+		model.dropDatabaseConstraints(Constraint.MASK_ALL);
+		model.createDatabaseConstraints(Constraint.MASK_ALL);
+		model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+		model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+		model.dropDatabaseConstraints(Constraint.MASK_FK);
+		model.createDatabaseConstraints(Constraint.MASK_FK);
+		model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
+		model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
+		model.dropDatabaseConstraints(Constraint.MASK_CHECK);
+		model.createDatabaseConstraints(Constraint.MASK_CHECK);
 		
 		assertEquals(list(
 				HierarchyEmptySub.TYPE,

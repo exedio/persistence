@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
+import com.exedio.dsmf.Constraint;
 
 public class ItemTest extends TestmodelTest
 {
@@ -116,8 +117,16 @@ public class ItemTest extends TestmodelTest
 	public void testCheckDatabase()
 	{
 		model.checkDatabase();
-		model.dropDatabaseConstraints();
-		model.createDatabaseConstraints();
+		model.dropDatabaseConstraints(Constraint.MASK_ALL);
+		model.createDatabaseConstraints(Constraint.MASK_ALL);
+		model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+		model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+		model.dropDatabaseConstraints(Constraint.MASK_FK);
+		model.createDatabaseConstraints(Constraint.MASK_FK);
+		model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
+		model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
+		model.dropDatabaseConstraints(Constraint.MASK_CHECK);
+		model.createDatabaseConstraints(Constraint.MASK_CHECK);
 		assertNotNull(model.getCacheInfo());
 		assertNotNull(model.getCacheQueryInfo());
 		model.getCacheQueryHistogram();

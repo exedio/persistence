@@ -65,6 +65,11 @@ final class Schema_Jspm
 			<input type="submit" name="DROP" value="drop"/>
 			<hr>
 			<h4>Constraints</h4>
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_PK     %>" checked="true" />pk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_FK     %>" checked="true" />fk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_UNIQUE %>" checked="true" />uniqe
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_CHECK  %>" checked="true" />check
+			<br>
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
 			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
@@ -73,6 +78,10 @@ final class Schema_Jspm
 			<%
 			if("POST".equals(request.getMethod()))
 			{
+				int mask = 0;
+				for(String s : request.getParameterValues("CONSTRAINT_MASK"))
+					mask = mask | Integer.parseInt(s);
+					
 				if(request.getParameter("CREATE")!=null)
 				{
 					model.createDatabase();
@@ -90,17 +99,17 @@ final class Schema_Jspm
 				}
 				else if(request.getParameter("CREATE_CONSTRAINTS")!=null)
 				{
-					model.createDatabaseConstraints();
+					model.createDatabaseConstraints(mask);
 					%><div class="message">Database constraints successfully created!</div><%
 				}
 				else if(request.getParameter("TEARDOWN_CONSTRAINTS")!=null)
 				{
-					model.tearDownDatabaseConstraints();
+					model.tearDownDatabaseConstraints(mask);
 					%><div class="message">Database constraints successfully torn down!</div><%
 				}
 				else if(request.getParameter("DROP_CONSTRAINTS")!=null)
 				{
-					model.dropDatabaseConstraints();
+					model.dropDatabaseConstraints(mask);
 					%><div class="message">Database constraints successfully dropped!</div><%
 				}
 				else if(request.getParameter("APPLY")!=null)

@@ -327,29 +327,29 @@ public final class Table extends Node
 
 	}
 	
-	final void createConstraints(final boolean secondPhase)
+	final void createConstraints(final int mask, final boolean secondPhase)
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.secondPhase==secondPhase)
+			if(constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
 				constraint.create();
 		}
 	}
 	
-	final void dropConstraints(final boolean secondPhase)
+	final void dropConstraints(final int mask, final boolean secondPhase)
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.secondPhase==secondPhase)
+			if(constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
 				constraint.drop();
 		}
 	}
 	
-	final void tearDownConstraints(final boolean secondPhase)
+	final void tearDownConstraints(final int mask, final boolean secondPhase)
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.secondPhase==secondPhase)
+			if(constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
 			{
 				try
 				{

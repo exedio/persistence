@@ -97,7 +97,7 @@ public final class Schema extends Node
 			t.create();
 	
 		for(final Table t : tableList)
-			t.createConstraints(true);
+			t.createConstraints(Constraint.MASK_ALL, true);
 	
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
@@ -109,7 +109,7 @@ public final class Schema extends Node
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(true);
+			i.previous().dropConstraints(Constraint.MASK_ALL, true);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().drop();
 		//final long amount = (System.currentTimeMillis()-time);
@@ -123,7 +123,7 @@ public final class Schema extends Node
 		{
 			try
 			{
-				table.dropConstraints(true);
+				table.dropConstraints(Constraint.MASK_ALL, true);
 			}
 			catch(SQLRuntimeException e2)
 			{
@@ -164,29 +164,29 @@ public final class Schema extends Node
 		while(deleted);
 	}
 
-	public final void createConstraints()
+	public final void createConstraints(final int mask)
 	{
 		for(final Table t : tableList)
-			t.createConstraints(false);
+			t.createConstraints(mask, false);
 		for(final Table t : tableList)
-			t.createConstraints(true);
+			t.createConstraints(mask, true);
 	}
 
-	public final void dropConstraints()
+	public final void dropConstraints(final int mask)
 	{
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(true);
+			i.previous().dropConstraints(mask, true);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(false);
+			i.previous().dropConstraints(mask, false);
 	}
 	
-	public final void tearDownConstraints()
+	public final void tearDownConstraints(final int mask)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(true);
+			i.previous().tearDownConstraints(mask, true);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(false);
+			i.previous().tearDownConstraints(mask, false);
 	}
 
 }

@@ -270,9 +270,9 @@ public final class Model
 		clearCache();
 	}
 
-	public void createDatabaseConstraints()
+	public void createDatabaseConstraints(final int mask)
 	{
-		database.createDatabaseConstraints();
+		database.createDatabaseConstraints(mask);
 	}
 
 	private void createDataDirectories(final Type type)
@@ -397,9 +397,9 @@ public final class Model
 		clearCache();
 	}
 
-	public void dropDatabaseConstraints()
+	public void dropDatabaseConstraints(final int mask)
 	{
-		database.dropDatabaseConstraints();
+		database.dropDatabaseConstraints(mask);
 	}
 
 	public void tearDownDatabase()
@@ -412,9 +412,9 @@ public final class Model
 		clearCache();
 	}
 	
-	public void tearDownDatabaseConstraints()
+	public void tearDownDatabaseConstraints(final int mask)
 	{
-		database.tearDownDatabaseConstraints();
+		database.tearDownDatabaseConstraints(mask);
 	}
 
 	public void close()

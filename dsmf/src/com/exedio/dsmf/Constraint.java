@@ -20,20 +20,27 @@ package com.exedio.dsmf;
 
 public abstract class Constraint extends Node
 {
+	public static final int MASK_PK = 1;
+	public static final int MASK_FK = 2;
+	public static final int MASK_UNIQUE = 4;
+	public static final int MASK_CHECK = 8;
+	public static final int MASK_ALL = MASK_PK | MASK_FK | MASK_UNIQUE | MASK_CHECK;
+	
 	final Table table;
 	final String name;
+	final int mask;
 	final boolean secondPhase;
 	private final boolean required;
 	final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
-	Constraint(final Table table, final String name, final boolean secondPhase, final boolean required)
+	Constraint(final Table table, final String name, final int mask, final boolean secondPhase, final boolean required)
 	{
-		this(table, name, secondPhase, required, null);
+		this(table, name, mask, secondPhase, required, null);
 	}
 
-	Constraint(final Table table, final String name, final boolean secondPhase, final boolean required, final String condition)
+	Constraint(final Table table, final String name, final int mask, final boolean secondPhase, final boolean required, final String condition)
 	{
 		super(table.driver, table.connectionProvider);
 		
@@ -41,9 +48,20 @@ public abstract class Constraint extends Node
 			throw new RuntimeException(name);
 		if(name==null)
 			throw new RuntimeException(table.name);
+		switch(mask)
+		{
+			case MASK_PK:
+			case MASK_FK:
+			case MASK_UNIQUE:
+			case MASK_CHECK:
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(mask));
+		}
 
 		this.table = table;
 		this.name = name;
+		this.mask = mask;
 		this.secondPhase = secondPhase;
 		this.required = required;
 		if(required)
@@ -65,6 +83,11 @@ public abstract class Constraint extends Node
 	public final String getName()
 	{
 		return name;
+	}
+	
+	public boolean matchesMask(final int mask)
+	{
+		return (this.mask & mask) > 0;
 	}
 	
 	public final String getRequiredCondition()
