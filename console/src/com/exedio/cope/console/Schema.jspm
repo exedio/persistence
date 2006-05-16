@@ -40,15 +40,15 @@ import com.exedio.dsmf.UniqueConstraint;
 
 final class Schema_Jspm
 {
-	private static final String color(final int color)
+	private static final String color(final Schema.COLOR color) // TODO SOON remove
 	{
 		switch(color)
 		{
-		case Schema.COLOR_OK:
+		case OK:
 			return "ok";
-		case Schema.COLOR_WARNING:
+		case WARNING:
 			return "warning";
-		case Schema.COLOR_ERROR:
+		case ERROR:
 			return "error";
 		default:
 			throw new RuntimeException(String.valueOf(color));
@@ -244,7 +244,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		if(options!=null)
 		{
 			%>
-			<li class="<%=color(Schema.COLOR_OK)%>">
+			<li class="<%=color(Schema.COLOR.OK)%>">
 				options: <pre><%=options%></pre>
 			</li><%
 		}

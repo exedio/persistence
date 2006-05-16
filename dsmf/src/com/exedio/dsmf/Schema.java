@@ -75,16 +75,16 @@ public final class Schema extends Node
 
 	void finish()
 	{
-		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
+		if(cumulativeColor!=COLOR.NOT_YET_CALC || particularColor!=COLOR.NOT_YET_CALC)
 			throw new RuntimeException();
 		
-		particularColor = COLOR_OK;
+		particularColor = COLOR.OK;
 
 		cumulativeColor = particularColor;
 		for(final Table table : tableList)
 		{
 			table.finish();
-			cumulativeColor = Math.max(cumulativeColor, table.cumulativeColor);
+			cumulativeColor = cumulativeColor.maxSeverity(table.cumulativeColor);
 		}
 	}
 	

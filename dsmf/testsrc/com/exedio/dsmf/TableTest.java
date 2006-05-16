@@ -46,13 +46,13 @@ public class TableTest extends SchemaReadyTest
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
 			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
+			assertEquals(Schema.COLOR.OK, table.getParticularColor());
 
 			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
+			assertEquals(Schema.COLOR.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 			
 			table.renameTo(TABLE1X);
@@ -67,13 +67,13 @@ public class TableTest extends SchemaReadyTest
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
 				assertEquals("MISSING !!!", table.getError());
-				assertEquals(Schema.COLOR_ERROR, table.getParticularColor());
+				assertEquals(Schema.COLOR.ERROR, table.getParticularColor());
 
 				final Column column = table.getColumn(COLUMN1);
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
-				assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
+				assertEquals(Schema.COLOR.ERROR, column.getParticularColor());
 				assertEquals(intType, column.getType());
 			}
 			{
@@ -82,13 +82,13 @@ public class TableTest extends SchemaReadyTest
 				assertEquals(false, tableX.required());
 				assertEquals(true, tableX.exists());
 				assertEquals("not used", tableX.getError());
-				assertEquals(Schema.COLOR_WARNING, tableX.getParticularColor());
+				assertEquals(Schema.COLOR.WARNING, tableX.getParticularColor());
 
 				final Column column = tableX.getColumn(COLUMN1);
 				assertEquals(false, column.required());
 				assertEquals(true, column.exists());
 				assertEquals("not used", column.getError());
-				assertEquals(Schema.COLOR_WARNING, column.getParticularColor());
+				assertEquals(Schema.COLOR.WARNING, column.getParticularColor());
 				assertEquals(intType, column.getType());
 
 				tableX.renameTo(TABLE1);
@@ -103,13 +103,13 @@ public class TableTest extends SchemaReadyTest
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
 			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
+			assertEquals(Schema.COLOR.OK, table.getParticularColor());
 
 			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
+			assertEquals(Schema.COLOR.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 			
 			table.drop();
@@ -124,13 +124,13 @@ public class TableTest extends SchemaReadyTest
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
 				assertEquals("MISSING !!!", table.getError());
-				assertEquals(Schema.COLOR_ERROR, table.getParticularColor());
+				assertEquals(Schema.COLOR.ERROR, table.getParticularColor());
 
 				final Column column = table.getColumn(COLUMN1);
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
 				assertEquals("missing", column.getError());
-				assertEquals(Schema.COLOR_ERROR, column.getParticularColor());
+				assertEquals(Schema.COLOR.ERROR, column.getParticularColor());
 				assertEquals(intType, column.getType());
 
 				table.create();
@@ -145,13 +145,13 @@ public class TableTest extends SchemaReadyTest
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
 			assertEquals(null, table.getError());
-			assertEquals(Schema.COLOR_OK, table.getParticularColor());
+			assertEquals(Schema.COLOR.OK, table.getParticularColor());
 
 			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
 			assertEquals(null, column.getError());
-			assertEquals(Schema.COLOR_OK, column.getParticularColor());
+			assertEquals(Schema.COLOR.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 		}
 	}

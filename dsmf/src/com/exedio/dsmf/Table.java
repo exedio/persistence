@@ -206,25 +206,25 @@ public final class Table extends Node
 		
 	void finish()
 	{
-		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
+		if(cumulativeColor!=COLOR.NOT_YET_CALC || particularColor!=COLOR.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		final String error;
-		final int particularColor;
+		final COLOR particularColor;
 		if(!exists)
 		{
 			error = "MISSING !!!";
-			particularColor = COLOR_ERROR;
+			particularColor = COLOR.ERROR;
 		}
 		else if(!required)
 		{
 			error = "not used";
-			particularColor = COLOR_WARNING;
+			particularColor = COLOR.WARNING;
 		}
 		else
 		{
 			error = null;
-			particularColor = COLOR_OK;
+			particularColor = COLOR.OK;
 		}
 				
 		this.error = error;
@@ -234,19 +234,19 @@ public final class Table extends Node
 		if(lastAnalyzed!=null)
 		{
 			lastAnalyzed.finish();
-			cumulativeColor = Math.max(cumulativeColor, lastAnalyzed.cumulativeColor);
+			cumulativeColor = cumulativeColor.maxSeverity(lastAnalyzed.cumulativeColor);
 		}
 			
 		for(final Column column : columnList)
 		{
 			column.finish();
-			cumulativeColor = Math.max(cumulativeColor, column.cumulativeColor);
+			cumulativeColor = cumulativeColor.maxSeverity(column.cumulativeColor);
 		}
 
 		for(final Constraint constraint : constraintList)
 		{
 			constraint.finish();
-			cumulativeColor = Math.max(cumulativeColor, constraint.cumulativeColor);
+			cumulativeColor = cumulativeColor.maxSeverity(constraint.cumulativeColor);
 		}
 	}
 	

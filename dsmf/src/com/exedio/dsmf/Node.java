@@ -24,17 +24,37 @@ import java.sql.SQLException;
 
 public abstract class Node
 {
-	static final int COLOR_NOT_YET_CALC = 0;
-	public static final int COLOR_OK = 1;
-	public static final int COLOR_WARNING = 2;
-	public static final int COLOR_ERROR = 3;
+	public static enum COLOR // TODO SOON rename to Color
+	{
+		NOT_YET_CALC(0),
+		OK(1),
+		WARNING(2),
+		ERROR(3);
+		
+		private final int severity;
+		
+		COLOR(final int severity)
+		{
+			this.severity = severity;
+		}
+		
+		COLOR maxSeverity(final COLOR other)
+		{
+			return COLOR.class.getEnumConstants()[Math.max(severity, other.severity)];
+		}
+		
+		COLOR minSeverity(final COLOR other)
+		{
+			return COLOR.class.getEnumConstants()[Math.min(severity, other.severity)];
+		}
+	}
 	
 	final Driver driver;
 	final ConnectionProvider connectionProvider;
 
 	String error = null;
-	int particularColor = Schema.COLOR_NOT_YET_CALC;
-	int cumulativeColor = Schema.COLOR_NOT_YET_CALC;
+	COLOR particularColor = Schema.COLOR.NOT_YET_CALC;
+	COLOR cumulativeColor = Schema.COLOR.NOT_YET_CALC;
 	
 	Node(final Driver driver, final ConnectionProvider connectionProvider)
 	{
@@ -178,23 +198,23 @@ public abstract class Node
 
 	public final String getError()
 	{
-		if(particularColor==Schema.COLOR_NOT_YET_CALC)
+		if(particularColor==Schema.COLOR.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return error;
 	}
 
-	public final int getParticularColor()
+	public final COLOR getParticularColor()
 	{
-		if(particularColor==Schema.COLOR_NOT_YET_CALC)
+		if(particularColor==Schema.COLOR.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return particularColor;
 	}
 
-	public final int getCumulativeColor()
+	public final COLOR getCumulativeColor()
 	{
-		if(cumulativeColor==Schema.COLOR_NOT_YET_CALC)
+		if(cumulativeColor==Schema.COLOR.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return cumulativeColor;

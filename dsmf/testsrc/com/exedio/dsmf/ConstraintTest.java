@@ -92,7 +92,7 @@ public class ConstraintTest extends SchemaReadyTest
 		final Table table = schema.getTable(TABLE);
 		assertNotNull(table);
 		assertEquals(null, table.getError());
-		assertEquals(Schema.COLOR_OK, table.getParticularColor());
+		assertEquals(Schema.COLOR.OK, table.getParticularColor());
 		
 		assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 		if(!postgresql)
@@ -163,7 +163,7 @@ public class ConstraintTest extends SchemaReadyTest
 			assertEquals(constraintName, constraintType, constraint.getClass());
 			assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
 			assertEquals(constraintName, null, constraint.getError());
-			assertEquals(constraintName, Schema.COLOR_OK, constraint.getParticularColor());
+			assertEquals(constraintName, Schema.COLOR.OK, constraint.getParticularColor());
 		}
 		else
 			assertEquals(constraintName, null, constraint);

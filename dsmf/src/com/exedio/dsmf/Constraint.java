@@ -88,26 +88,26 @@ public abstract class Constraint extends Node
 
 	final void finish()
 	{
-		if(cumulativeColor!=COLOR_NOT_YET_CALC || particularColor!=COLOR_NOT_YET_CALC)
+		if(cumulativeColor!=COLOR.NOT_YET_CALC || particularColor!=COLOR.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		// TODO: make this dependend on type of constraint:
 		// check/not null constraint are yellow only if missing
 		// foreign key/unique constraint are red when missing or unused
 		final String error;
-		final int particularColor;
+		final COLOR particularColor;
 		if(!exists)
 		{
 			error = "missing";
-			particularColor = COLOR_ERROR;
+			particularColor = COLOR.ERROR;
 		}
 		else if(!required)
 		{
 			error = "not used";
 			if(!table.required())
-				particularColor = COLOR_WARNING;
+				particularColor = COLOR.WARNING;
 			else
-				particularColor = COLOR_ERROR;
+				particularColor = COLOR.ERROR;
 		}
 		else
 		{
@@ -115,22 +115,22 @@ public abstract class Constraint extends Node
 				!requiredCondition.equals(existingCondition))
 			{
 				error = "different condition in database: expected ---" + requiredCondition + "---, but was ---" + existingCondition + "---";
-				particularColor = COLOR_ERROR;
+				particularColor = COLOR.ERROR;
 			}
 			else if(requiredCondition==null && existingCondition!=null)
 			{
 				error = "surplus condition in database: ---" + existingCondition + "---";
-				particularColor = COLOR_ERROR;
+				particularColor = COLOR.ERROR;
 			}
 			else if(requiredCondition!=null && existingCondition==null)
 			{
 				error = "missing condition in database: ---" + requiredCondition + "---";
-				particularColor = COLOR_ERROR;
+				particularColor = COLOR.ERROR;
 			}
 			else
 			{
 				error = null;
-				particularColor = COLOR_OK;
+				particularColor = COLOR.OK;
 			}
 		}
 
