@@ -1586,17 +1586,17 @@ abstract class Database
 		
 		final Statement bf = createStatement(false);
 		bf.append("select count(*) from ").
-			append(table.protectedID).append(" ").append(Table.SQL_ALIAS_1).
-			append(",").
-			append(valueTable.protectedID).append(" ").append(Table.SQL_ALIAS_2).
+			append(table.protectedID).append(' ').append(Table.SQL_ALIAS_1).
+			append(',').
+			append(valueTable.protectedID).append(' ').append(Table.SQL_ALIAS_2).
 			append(" where ").
-			append(Table.SQL_ALIAS_1).append(".").append(attribute.getColumn()).
-			append("=").
-			append(Table.SQL_ALIAS_2).append(".").append(valueTable.primaryKey).
+			append(Table.SQL_ALIAS_1).append('.').append(attribute.getColumn()).
+			append('=').
+			append(Table.SQL_ALIAS_2).append('.').append(valueTable.primaryKey).
 			append(" and ").
-			append(Table.SQL_ALIAS_1).append(".").append(attribute.getTypeColumn()).
+			append(Table.SQL_ALIAS_1).append('.').append(attribute.getTypeColumn()).
 			append("<>").
-			append(Table.SQL_ALIAS_2).append(".").append(valueTable.typeColumn);
+			append(Table.SQL_ALIAS_2).append('.').append(valueTable.typeColumn);
 		
 		System.out.println("CHECK:"+bf.toString());
 		
