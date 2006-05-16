@@ -63,7 +63,6 @@
 	</macrodef>
 	
 	<macrodef name="foreachdb">
-		<attribute name="message" />
 		<attribute name="skipSwitch" />
 		<element name="body" optional="false" />
 		<sequential>
@@ -77,14 +76,14 @@
 					<for param="db" list="${@{db.file}.db}">
 						<sequential>
 							<property file="@{db.file}" prefix="@{db.file}." />
-							<!--echo message="@{message} @{db} skip switch:${@{db.file}.x-build.skip.@{skipSwitch}}." /-->
+							<!--echo message="Doing @{skipSwitch} for @{db} skip switch:${@{db.file}.x-build.skip.@{skipSwitch}}." /-->
 							<if>
 								<istrue value="${@{db.file}.x-build.skip.@{skipSwitch}}"/>
 								<then>
-									<echo level="warning" message="@{message} @{db} skipped because skip switch." />
+									<echo level="warning" message="Skipped @{skipSwitch} for @{db}." />
 								</then>
 								<else>
-									<echo level="info" message="@{message} @{db}" />
+									<echo level="info" message="Doing @{skipSwitch} for @{db}" />
 									<!-- this is a dummy loop to create the attribute @{db.driver} -->
 									<for param="db.driver" list="${@{db.file}.x-build.driver}">
 										<sequential>
@@ -126,7 +125,7 @@
 	
 	<target name="dsmf.test" depends="dsmf.test.compile">
 		<mkdir dir="build/testresults" />
-		<foreachdb message="Testing" skipSwitch="dsmf.test">
+		<foreachdb skipSwitch="dsmf.test">
 			<body>
 				<junit taskname="junit @{db}" fork="yes"
 						 haltonerror="true" haltonfailure="true"
@@ -265,7 +264,7 @@
 	<target name="runtime.test" depends="runtime.test.compile">
 		<delete file="build/runtime/testprotocol.properties" />
 		<mkdir dir="build/testresults" />
-		<foreachdb message="Testing" skipSwitch="runtime.test">
+		<foreachdb skipSwitch="runtime.test">
 			<body>
 				<mkdir dir="build/runtime/test.@{db}/data" />
 				<copy file="@{db.file}"
@@ -315,7 +314,7 @@
 	</target>
 	
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
-		<foreachdb message="Tearing down" skipSwitch="runtime.teardown">
+		<foreachdb skipSwitch="runtime.teardown">
 			<body>
 				<mkdir dir="build/runtime/teardown.@{db}/data" />
 				<copy file="@{db.file}"
@@ -356,7 +355,7 @@
 			</instr>
 		</emma>
 		
-		<foreachdb message="Checking Test Coverage" skipSwitch="runtime.test">
+		<foreachdb skipSwitch="runtime.test">
 			<body>
 				<mkdir dir="build/runtime/emma.@{db}/data" />
 				<copy file="@{db.file}"
@@ -391,7 +390,7 @@
 	<target name="runtime.testwebapp"
 			  depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile,
 							console.compile, copernica.compile">
-		<foreachdb message="Using" skipSwitch="runtime.testwebapp">
+		<foreachdb skipSwitch="runtime.testwebapp">
 			<body>
 				<mkdir dir="build/runtime/testwebapp-@{db}" />
 				
@@ -430,7 +429,7 @@
 	</target>
 	
 	<target name="runtime.tomcat" depends="runtime.testwebapp, catalina.home">
-		<foreachdb message="Using" skipSwitch="runtime.tomcat">
+		<foreachdb skipSwitch="runtime.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{db}.xml"
 						file="runtime/testwebapp.xml">
@@ -624,7 +623,7 @@
 	</target>
 	
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
-		<foreachdb message="Using" skipSwitch="copernica.testwebapp">
+		<foreachdb skipSwitch="copernica.testwebapp">
 			<body>
 				<mkdir dir="build/copernica/testwebapp-@{db}" />
 				
@@ -663,7 +662,7 @@
 	</target>
 	
 	<target name="copernica.tomcat" depends="copernica.testwebapp, catalina.home">
-		<foreachdb message="Using" skipSwitch="copernica.tomcat">
+		<foreachdb skipSwitch="copernica.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{db}.xml"
 						file="copernica/copetest.xml">
@@ -704,7 +703,7 @@
 	</target>
 
 	<target name="copernica.index">
-		<foreachdb message="Indexing" skipSwitch="copernica.db">
+		<foreachdb skipSwitch="copernica.db">
 			<body>
 				<mkdir dir="build/copernica/index" />
 				<copy file="copernica/index.html" tofile="build/copernica/index/@{db}.html">
