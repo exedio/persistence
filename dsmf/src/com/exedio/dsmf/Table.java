@@ -206,25 +206,25 @@ public final class Table extends Node
 		
 	void finish()
 	{
-		if(cumulativeColor!=COLOR.NOT_YET_CALC || particularColor!=COLOR.NOT_YET_CALC)
+		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		final String error;
-		final COLOR particularColor;
+		final Color particularColor;
 		if(!exists)
 		{
 			error = "MISSING !!!";
-			particularColor = COLOR.ERROR;
+			particularColor = Color.ERROR;
 		}
 		else if(!required)
 		{
 			error = "not used";
-			particularColor = COLOR.WARNING;
+			particularColor = Color.WARNING;
 		}
 		else
 		{
 			error = null;
-			particularColor = COLOR.OK;
+			particularColor = Color.OK;
 		}
 				
 		this.error = error;

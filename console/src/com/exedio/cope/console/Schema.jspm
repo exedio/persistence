@@ -228,7 +228,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		if(options!=null)
 		{
 			%>
-			<li class="<%=Schema.COLOR.OK%>">
+			<li class="<%=Schema.Color.OK%>">
 				options: <pre><%=options%></pre>
 			</li><%
 		}

@@ -79,20 +79,20 @@ public final class Column extends Node
 
 	void finish()
 	{
-		if(cumulativeColor!=COLOR.NOT_YET_CALC || particularColor!=COLOR.NOT_YET_CALC)
+		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		final String error;
-		final COLOR particularColor;
+		final Color particularColor;
 		if(existingType==null)
 		{
 			error = "missing";
-			particularColor = COLOR.ERROR;
+			particularColor = Color.ERROR;
 		}
 		else if(requiredType==null)
 		{
 			error = "not used";
-			particularColor = COLOR.WARNING;
+			particularColor = Color.WARNING;
 		}
 		else
 		{
@@ -101,12 +101,12 @@ public final class Column extends Node
 				!requiredType.equals(existingType))
 			{
 				error = "different type in database: >"+existingType+"<";
-				particularColor = COLOR.ERROR;
+				particularColor = Color.ERROR;
 			}
 			else
 			{
 				error = null;
-				particularColor = COLOR.OK;
+				particularColor = Color.OK;
 			}
 		}
 				

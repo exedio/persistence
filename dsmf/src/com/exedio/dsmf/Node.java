@@ -24,7 +24,7 @@ import java.sql.SQLException;
 
 public abstract class Node
 {
-	public static enum COLOR // TODO SOON rename to Color
+	public static enum Color
 	{
 		NOT_YET_CALC(0, "not_yet"),
 		OK(1, "ok"),
@@ -34,20 +34,20 @@ public abstract class Node
 		private final int severity;
 		private final String style;
 		
-		COLOR(final int severity, final String style)
+		Color(final int severity, final String style)
 		{
 			this.severity = severity;
 			this.style = style;
 		}
 		
-		COLOR maxSeverity(final COLOR other)
+		Color maxSeverity(final Color other)
 		{
-			return COLOR.class.getEnumConstants()[Math.max(severity, other.severity)];
+			return Color.class.getEnumConstants()[Math.max(severity, other.severity)];
 		}
 		
-		COLOR minSeverity(final COLOR other)
+		Color minSeverity(final Color other)
 		{
-			return COLOR.class.getEnumConstants()[Math.min(severity, other.severity)];
+			return Color.class.getEnumConstants()[Math.min(severity, other.severity)];
 		}
 		
 		public String toString()
@@ -60,8 +60,8 @@ public abstract class Node
 	final ConnectionProvider connectionProvider;
 
 	String error = null;
-	COLOR particularColor = Schema.COLOR.NOT_YET_CALC;
-	COLOR cumulativeColor = Schema.COLOR.NOT_YET_CALC;
+	Color particularColor = Schema.Color.NOT_YET_CALC;
+	Color cumulativeColor = Schema.Color.NOT_YET_CALC;
 	
 	Node(final Driver driver, final ConnectionProvider connectionProvider)
 	{
@@ -205,23 +205,23 @@ public abstract class Node
 
 	public final String getError()
 	{
-		if(particularColor==Schema.COLOR.NOT_YET_CALC)
+		if(particularColor==Schema.Color.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return error;
 	}
 
-	public final COLOR getParticularColor()
+	public final Color getParticularColor()
 	{
-		if(particularColor==Schema.COLOR.NOT_YET_CALC)
+		if(particularColor==Schema.Color.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return particularColor;
 	}
 
-	public final COLOR getCumulativeColor()
+	public final Color getCumulativeColor()
 	{
-		if(cumulativeColor==Schema.COLOR.NOT_YET_CALC)
+		if(cumulativeColor==Schema.Color.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		return cumulativeColor;

@@ -39,19 +39,19 @@ public final class LastAnalyzed extends Node
 
 	void finish()
 	{
-		if(cumulativeColor!=COLOR.NOT_YET_CALC || particularColor!=COLOR.NOT_YET_CALC)
+		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
 			throw new RuntimeException();
 
 		if(date==null)
 		{
 			error = "not analyzed !!!";
-			particularColor = COLOR.ERROR;
+			particularColor = Color.ERROR;
 		}
 		else
-			particularColor = COLOR.OK;
+			particularColor = Color.OK;
 
 		if(!table.required())
-			particularColor = particularColor.minSeverity(COLOR.WARNING);
+			particularColor = particularColor.minSeverity(Color.WARNING);
 				
 		cumulativeColor = particularColor;
 	}

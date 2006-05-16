@@ -75,10 +75,10 @@ public final class Schema extends Node
 
 	void finish()
 	{
-		if(cumulativeColor!=COLOR.NOT_YET_CALC || particularColor!=COLOR.NOT_YET_CALC)
+		if(cumulativeColor!=Color.NOT_YET_CALC || particularColor!=Color.NOT_YET_CALC)
 			throw new RuntimeException();
 		
-		particularColor = COLOR.OK;
+		particularColor = Color.OK;
 
 		cumulativeColor = particularColor;
 		for(final Table table : tableList)
