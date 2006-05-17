@@ -331,7 +331,7 @@ public final class Table extends Node
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
+			if(constraint.isSupported() && constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
 				constraint.create();
 		}
 	}
@@ -340,7 +340,7 @@ public final class Table extends Node
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
+			if(constraint.isSupported() && constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
 				constraint.drop();
 		}
 	}
