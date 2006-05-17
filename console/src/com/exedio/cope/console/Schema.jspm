@@ -323,6 +323,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 				}
 			}
 			else if( constraint.required() &&
+						constraint.isSupported() &&
 						constraint.getTable().exists() )
 			{
 				%>

@@ -82,7 +82,7 @@ abstract class Column
 			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);
 		else
 		{
-			if(table.database.supportsCheckConstraints())
+			// TODO SOON remove block
 			{
 				final String ccinn = getCheckConstraintIfNotNull();
 				final String checkConstraint;

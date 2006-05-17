@@ -219,7 +219,7 @@ public final class Model
 	
 	public boolean supportsCheckConstraints()
 	{
-		return database.supportsCheckConstraints();
+		return database.driver.supportsCheckConstraints();
 	}
 	
 	/**

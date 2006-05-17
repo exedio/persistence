@@ -46,6 +46,11 @@ public abstract class Driver
 		return '"' + name + '"';
 	}
 	
+	public boolean supportsCheckConstraints()
+	{
+		return true;
+	}
+	
 	public String canonizeTableName(final String tableName)
 	{
 		return tableName;

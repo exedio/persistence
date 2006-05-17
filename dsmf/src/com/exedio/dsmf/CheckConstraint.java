@@ -35,6 +35,12 @@ public class CheckConstraint extends Constraint
 			throw new RuntimeException(name);
 	}
 
+	@Override
+	public boolean isSupported()
+	{
+		return driver.supportsCheckConstraints();
+	}
+	
 	final void createInTable(final StringBuffer bf)
 	{
 		bf.append(",constraint ").

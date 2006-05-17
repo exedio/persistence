@@ -121,8 +121,16 @@ public abstract class Constraint extends Node
 		final Color particularColor;
 		if(!exists)
 		{
-			error = "missing";
-			particularColor = Color.ERROR;
+			if(isSupported())
+			{
+				error = "missing";
+				particularColor = Color.ERROR;
+			}
+			else
+			{
+				error = "not supported";
+				particularColor = Color.OK;
+			}
 		}
 		else if(!required)
 		{
@@ -175,6 +183,11 @@ public abstract class Constraint extends Node
 	public final String toString()
 	{
 		return name;
+	}
+	
+	public boolean isSupported()
+	{
+		return true;
 	}
 	
 	abstract void createInTable(StringBuffer bf);

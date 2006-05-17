@@ -164,11 +164,6 @@ public final class MysqlDatabase extends Database
 			append("))");
 	}
 	
-	public boolean supportsCheckConstraints()
-	{
-		return false;
-	}
-
 	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
 	{
 		// TODO: MySQL does not deliver constraint name in exception

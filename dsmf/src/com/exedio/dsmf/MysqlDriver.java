@@ -50,7 +50,13 @@ public final class MysqlDriver extends Driver
 
 		return PROTECTOR + name + PROTECTOR;
 	}
-	
+
+	@Override
+	public boolean supportsCheckConstraints()
+	{
+		return false;
+	}
+
 	public String canonizeTableName(final String tableName)
 	{
 		return toLowerCase ? tableName.toLowerCase() : tableName;

@@ -1414,11 +1414,6 @@ abstract class Database
 		return trimString(longName, 25);
 	}
 
-	public boolean supportsCheckConstraints()
-	{
-		return true;
-	}
-	
 	public boolean supportsGetBytes()
 	{
 		return true;
