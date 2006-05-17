@@ -34,6 +34,7 @@ public class HierarchyTest extends AbstractLibTest
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), HierarchySuper.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchySuper.TYPE, HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), HierarchySuper.TYPE.getSubTypesTransitively());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE), HierarchySuper.TYPE.getTypesOfInstances());
 		assertTrue(HierarchySuper.TYPE.isAssignableFrom(HierarchySuper.TYPE));
 		assertTrue(HierarchySuper.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
@@ -71,6 +72,7 @@ public class HierarchyTest extends AbstractLibTest
 		// model HierarchyFirstSub
 		assertEquals(HierarchySuper.TYPE, HierarchyFirstSub.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(), HierarchyFirstSub.TYPE.getSubTypes());
+		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE), HierarchyFirstSub.TYPE.getSubTypesTransitively());
 		assertEqualsUnmodifiable(list(HierarchyFirstSub.TYPE), HierarchyFirstSub.TYPE.getTypesOfInstances());
 		assertFalse(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchySuper.TYPE));
 		assertTrue(HierarchyFirstSub.TYPE.isAssignableFrom(HierarchyFirstSub.TYPE));
@@ -151,8 +153,10 @@ public class HierarchyTest extends AbstractLibTest
 		
 		// model HierarchySingle
 		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSuper.TYPE.getSubTypes());
+		assertEquals(list(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE), HierarchySingleSuper.TYPE.getSubTypesTransitively());
 		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSuper.TYPE.getTypesOfInstances());
 		assertEquals(list(), HierarchySingleSub.TYPE.getSubTypes());
+		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSub.TYPE.getSubTypesTransitively());
 		assertEquals(list(HierarchySingleSub.TYPE), HierarchySingleSub.TYPE.getTypesOfInstances());
 		assertTrue(HierarchySingleSuper.TYPE.isAbstract());
 		assertFalse(HierarchySingleSub.TYPE.isAbstract());

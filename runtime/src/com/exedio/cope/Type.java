@@ -57,6 +57,7 @@ public final class Type<C extends Item>
 	private List<ItemAttribute> references = null;
 	
 	private Model model;
+	private ArrayList<Type<? extends C>> subTypesTransitively;
 	private ArrayList<Type<? extends C>> typesOfInstances;
 	private HashMap<String, Type<? extends C>> typesOfInstancesMap;
 	private Type<? extends C> onlyPossibleTypeOfInstances;
@@ -293,6 +294,8 @@ public final class Type<C extends Item>
 
 		if(this.model!=null)
 			throw new RuntimeException();
+		if(this.subTypesTransitively!=null)
+			throw new RuntimeException();
 		if(this.typesOfInstances!=null)
 			throw new RuntimeException();
 		if(this.typesOfInstancesMap!=null)
@@ -311,8 +314,9 @@ public final class Type<C extends Item>
 		this.model = model;
 		this.transientNumber = transientNumber;
 		
+		final ArrayList<Type> subTypesTransitively = new ArrayList<Type>();
 		final ArrayList<Type> typesOfInstances = new ArrayList<Type>();
-		collectTypesOfInstances(typesOfInstances, 15);
+		collectSubTypes(subTypesTransitively, typesOfInstances, 15);
 		switch(typesOfInstances.size())
 		{
 			case 0:
@@ -333,6 +337,7 @@ public final class Type<C extends Item>
 				this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
 				break;
 		}
+		this.subTypesTransitively = castTypeInstanceArrayList(subTypesTransitively);
 		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
 
 		for(final Attribute a : declaredAttributes)
@@ -352,17 +357,18 @@ public final class Type<C extends Item>
 		return m;
 	}
 	
-	private void collectTypesOfInstances(final ArrayList<Type> result, int levelLimit)
+	private void collectSubTypes(final ArrayList<Type> all, final ArrayList<Type> concrete, int levelLimit)
 	{
 		if(levelLimit<=0)
-			throw new RuntimeException(result.toString());
+			throw new RuntimeException(all.toString());
 		levelLimit--;
 		
+		all.add(this);
 		if(!isAbstract)
-			result.add(this);
+			concrete.add(this);
 		
 		for(final Type<? extends C> t : getSubTypes())
-			t.collectTypesOfInstances(result, levelLimit);
+			t.collectSubTypes(all, concrete, levelLimit);
 	}
 	
 	void postInitialize()
@@ -583,9 +589,23 @@ public final class Type<C extends Item>
 		return supertype;
 	}
 	
+	/**
+	 * @see #getSubTypesTransitively()
+	 */
 	public List<Type<? extends C>> getSubTypes()
 	{
 		return subTypes==null ? Collections.<Type<? extends C>>emptyList() : Collections.unmodifiableList(subTypes);
+	}
+	
+	/**
+	 * @see #getSubTypes()
+	 */
+	public List<Type<? extends C>> getSubTypesTransitively()
+	{
+		if(subTypesTransitively==null)
+			throw new RuntimeException();
+
+		return Collections.unmodifiableList(subTypesTransitively);
 	}
 	
 	public boolean isAssignableFrom(final Type type)
