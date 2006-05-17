@@ -377,7 +377,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		}
 		else
 		{
-			%><b>violated for <%=count%> tupels</b><%
+			%><font color="#F00"><b>violated for <%=count%> tupels</b></font><%
 		}
 		%>, <%=endTime-startTime%>ms.</li><%
 		out.flush();
@@ -393,7 +393,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		}
 		else
 		{
-			%><b>violated for <%=count%> tupels.</b><%
+			%><font color="#F00"><b>violated for <%=count%> tupels.</b></font><%
 		}
 		%></li><%
 		out.flush();
