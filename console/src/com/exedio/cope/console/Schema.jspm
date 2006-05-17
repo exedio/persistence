@@ -115,8 +115,11 @@ final class Schema_Jspm
 				}
 				else if(request.getParameter("CHECK_UNSUPPORTED_CONSTRAINTS")!=null)
 				{
-					model.checkUnsupportedConstraints();
-					%><div class="message">Unsupported database constraints successfully checked!</div><%
+	%>
+	<ol><%
+					SchemaCop.writeCheckUnsupportedConstraints(out, request, model);
+	%>
+	</ol><%
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{
@@ -363,6 +366,39 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		out.flush();
 	}
 	
+	final static void writeDoneCheck(final PrintStream out, final long startTime, final int count)
+		throws IOException
+	{
+		final long endTime = System.currentTimeMillis();
+		%><li class="timelog"><%
+		if(count==0)
+		{
+			%>ok<%
+		}
+		else
+		{
+			%><b>violated for <%=count%> tupels</b><%
+		}
+		%>, <%=endTime-startTime%>ms.</li><%
+		out.flush();
+	}
+	
+	final static void writeDoneCheckSum(final PrintStream out, final int count)
+		throws IOException
+	{
+		%><li class="timelog">Overall: <%
+		if(count==0)
+		{
+			%>ok.<%
+		}
+		else
+		{
+			%><b>violated for <%=count%> tupels.</b><%
+		}
+		%></li><%
+		out.flush();
+	}
+	
 	final static void writeDrop(final PrintStream out, final Constraint constraint)
 		throws IOException
 	{
@@ -450,6 +486,15 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		<li>schema.getTable(&quot;<b><%=
 			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
 			constraint.getName()%></b>&quot;).create();</li><%
+	}
+
+	final static void writeCheck(final PrintStream out, final Constraint constraint)
+		throws IOException
+	{
+		%>
+		<li>schema.getTable(&quot;<b><%=
+			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
+			constraint.getName()%></b>&quot;).check();</li><%
 	}
 
 }
