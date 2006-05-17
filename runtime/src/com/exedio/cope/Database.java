@@ -1593,7 +1593,7 @@ abstract class Database
 			
 		bf.append("<>").append(superTable.typeColumn);
 		
-		System.out.println("CHECKT:"+bf.toString());
+		//System.out.println("CHECKT:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false);
@@ -1623,7 +1623,7 @@ abstract class Database
 			append("<>").
 			append(alias2).append('.').append(valueTable.typeColumn);
 		
-		System.out.println("CHECKA:"+bf.toString());
+		//System.out.println("CHECKA:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false);
