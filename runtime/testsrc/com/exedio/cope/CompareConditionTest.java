@@ -157,6 +157,8 @@ public class CompareConditionTest extends TestmodelTest
 			q.setCondition(item1.someNotNullDouble.less(2.4));
 			assertEquals(new Double(2.1+2.2+2.3).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
+
+		model.checkUnsupportedConstraints();
 	}
 
 }

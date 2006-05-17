@@ -386,6 +386,17 @@ public final class Table extends Node
 		//System.out.println("analyzeTable:"+bf);
 		executeSQL(bf.toString());
 	}
+	
+	public final void checkUnsupportedConstraints()
+	{
+		for(final Constraint c : getConstraints())
+			if(!c.isSupported())
+			{
+				final int count = c.check();
+				if(count!=0)
+					throw new RuntimeException("constraint violated for " + c + " on " + count + " tuples.");
+			}
+	}
 
 	public final String toString()
 	{

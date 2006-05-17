@@ -188,5 +188,11 @@ public final class Schema extends Node
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().tearDownConstraints(mask, false);
 	}
-
+	
+	public final void checkUnsupportedConstraints()
+	{
+		for(final Table t : getTables())
+			t.checkUnsupportedConstraints();
+	}
+	
 }

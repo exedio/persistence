@@ -695,4 +695,9 @@ public final class Model
 				throw new RuntimeException("wrong type column for " + f + " on " + count + " tuples.");
 		}
 	}
+	
+	public void checkUnsupportedConstraints()
+	{
+		database.makeSchema().checkUnsupportedConstraints();
+	}
 }

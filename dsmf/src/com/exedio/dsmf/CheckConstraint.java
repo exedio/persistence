@@ -18,6 +18,9 @@
 
 package com.exedio.dsmf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class CheckConstraint extends Constraint
 {
@@ -40,7 +43,37 @@ public class CheckConstraint extends Constraint
 	{
 		return driver.supportsCheckConstraints();
 	}
+
+	@Override
+	public int check()
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("select count(*) from ").
+			append(protectName(table.name)).
+			append(" where not(").
+			append(requiredCondition).
+			append(')');
+
+		System.out.println("CHECKC:"+bf.toString());
+		
+		final CheckResultSetHandler handler = new CheckResultSetHandler();
+		querySQL(bf.toString(), handler);
+		return handler.result;
+	}
 	
+	private static class CheckResultSetHandler implements ResultSetHandler
+	{
+		int result = Integer.MIN_VALUE;
+
+		public void run(final ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			
+			result = resultSet.getInt(1);
+		}
+	}
+
 	final void createInTable(final StringBuffer bf)
 	{
 		bf.append(",constraint ").

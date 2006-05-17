@@ -190,6 +190,11 @@ public abstract class Constraint extends Node
 		return true;
 	}
 	
+	public int check()
+	{
+		throw new RuntimeException("no yet implemented"); // TODO
+	}
+	
 	abstract void createInTable(StringBuffer bf);
 	public abstract void create();
 	public abstract void drop();

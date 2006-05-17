@@ -504,6 +504,8 @@ public class StringTest extends TestmodelTest
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		
+		model.checkUnsupportedConstraints();
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage
