@@ -73,6 +73,7 @@ final class Schema_Jspm
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
 			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
+			<input type="submit" name="CHECK_UNSUPPORTED_CONSTRAINTS" value="check unsupported"/>
 			<hr>
 			<h4>Details</h4>
 			<%
@@ -111,6 +112,11 @@ final class Schema_Jspm
 				{
 					model.dropDatabaseConstraints(mask);
 					%><div class="message">Database constraints successfully dropped!</div><%
+				}
+				else if(request.getParameter("CHECK_UNSUPPORTED_CONSTRAINTS")!=null)
+				{
+					model.checkUnsupportedConstraints();
+					%><div class="message">Unsupported database constraints successfully checked!</div><%
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{
