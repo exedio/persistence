@@ -54,7 +54,7 @@ public class CheckConstraint extends Constraint
 			append(requiredCondition).
 			append(')');
 
-		System.out.println("CHECKC:"+bf.toString());
+		//System.out.println("CHECKC:"+bf.toString());
 		
 		final CheckResultSetHandler handler = new CheckResultSetHandler();
 		querySQL(bf.toString(), handler);
