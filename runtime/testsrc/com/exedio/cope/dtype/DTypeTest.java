@@ -60,14 +60,18 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(list(akkuTime, memory), handy.getAttributes());
 		
 		assertEquals(null, akkuTime.get(item));
+		assertEquals(null, memory.get(item));
 		
 		akkuTime.set(item, 5);
 		assertEquals(5, akkuTime.get(item));
+		assertEquals(null, memory.get(item));
 		
 		akkuTime.set(item, 80);
 		assertEquals(80, akkuTime.get(item));
+		assertEquals(null, memory.get(item));
 		
 		memory.set(item, "80TB");
+		assertEquals(80, akkuTime.get(item));
 		assertEquals("80TB", memory.get(item));
 	}
 	
