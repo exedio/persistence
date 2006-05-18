@@ -27,7 +27,7 @@ public class DTypeItem extends Item
 	
 	public static final DTypeSystem features = new DTypeSystem();
 
-/**
+	/**
 
 	 **
 	 * Creates a new DTypeItem with all the attributes initially needed.
