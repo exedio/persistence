@@ -1,0 +1,88 @@
+/*
+ * Copyright (C) 2004-2006  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.dtype;
+
+import java.util.List;
+
+import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringAttribute;
+import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.util.ReactivationConstructorDummy;
+
+public final class DType extends Item
+{
+	public static final StringAttribute parentTypeId = new StringAttribute(FINAL);
+	public static final StringAttribute dtypeSystemName = new StringAttribute(FINAL);
+	public static final StringAttribute code = new StringAttribute(FINAL);
+	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parentTypeId, dtypeSystemName, code);
+	
+	
+	public DAttribute addAttribute(final String name, final DAttribute.ValueType valueType)
+	{
+		final List<DAttribute> attributes = getAttributes(); // TODO make more efficient
+		final int position = attributes.isEmpty() ? 0 : (attributes.get(attributes.size()-1).getPosition()+1);
+		//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
+		return new DAttribute(this, position, name, valueType);
+	}
+	
+	public DAttribute addStringAttribute(final String name)
+	{
+		return addAttribute(name, DAttribute.ValueType.STRING);
+	}
+	
+	public DAttribute addIntegerAttribute(final String name)
+	{
+		return addAttribute(name, DAttribute.ValueType.INTEGER);
+	}
+	
+	public List<DAttribute> getAttributes()
+	{
+		return DAttribute.TYPE.search(DAttribute.parent.equal(this), DAttribute.position, true);
+	}
+	
+	
+	
+	DType(final DTypeSystem dtypeSystem, final String code)
+	{
+		super(new SetValue[]{
+				DType.parentTypeId.map(dtypeSystem.getType().getID()),
+				DType.dtypeSystemName.map(dtypeSystem.getName()),
+				DType.code.map(code),
+		});
+	}
+	
+	private DType(final SetValue[] initialAttributes)
+	{
+		super(initialAttributes);
+	}
+	
+	private DType(final ReactivationConstructorDummy d, final int pk)
+	{
+		super(d, pk);
+	}
+	
+	public String getCode()
+	{
+		return code.get(this);
+	}
+	
+	public static final Type<DType> TYPE = newType(DType.class);
+}

@@ -78,6 +78,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ModificationListenerTest.class );
 
+		suite.addTest( com.exedio.cope.dtype.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		
