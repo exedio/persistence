@@ -43,31 +43,25 @@ import com.exedio.cope.UniqueConstraint;
 public final class VectorRelation<S extends Item, T extends Item> extends Pattern
 {
 	final ItemAttribute<S> source;
-	final ItemAttribute<T> target;
 	final IntegerAttribute order;
 	final UniqueConstraint uniqueConstraint;
+	final ItemAttribute<T> target;
 	
-	// TODO SOON order should be source, order, uniqueConstraint, target
 	public VectorRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
 	{
 		this.source = source;
-		this.target = target;
 		this.order = new IntegerAttribute(Attribute.Option.FINAL);
 		this.uniqueConstraint = new UniqueConstraint(source, order);
+		this.target = target;
 		
 		registerSource(source);
-		registerSource(target);
 		registerSource(order);
+		registerSource(target);
 	}
 	
 	public ItemAttribute<S> getSource()
 	{
 		return source;
-	}
-	
-	public ItemAttribute<T> getTarget()
-	{
-		return target;
 	}
 	
 	public IntegerAttribute getOrder()
@@ -78,6 +72,11 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	public UniqueConstraint getUniqueConstraint()
 	{
 		return uniqueConstraint;
+	}
+	
+	public ItemAttribute<T> getTarget()
+	{
+		return target;
 	}
 	
 	// second initialization phase ---------------------------------------------------
