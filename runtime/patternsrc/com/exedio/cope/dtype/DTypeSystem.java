@@ -63,4 +63,28 @@ public final class DTypeSystem extends Pattern
 				DType.dtypeSystemName.equal(getName())));
 	}
 	
+	public Object get(final DAttribute attribute, final Item item)
+	{
+		final int pos = attribute.getPositionPerValueType();
+		switch(attribute.getValueType())
+		{
+			case STRING:  return strings [pos].get(item);
+			case INTEGER: return integers[pos].get(item);
+			default:
+				throw new RuntimeException(attribute.getValueType().toString());
+		}
+	}
+	
+	public void set(final DAttribute attribute, final Item item, final Object value)
+	{
+		final int pos = attribute.getPositionPerValueType();
+		switch(attribute.getValueType())
+		{
+			case STRING:  strings [pos].set(item, (String) value); break;
+			case INTEGER: integers[pos].set(item, (Integer)value); break;
+			default:
+				throw new RuntimeException(attribute.getValueType().toString());
+		}
+	}
+	
 }

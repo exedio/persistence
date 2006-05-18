@@ -37,7 +37,7 @@ public class DTypeTest extends AbstractLibTest
 		deleteOnTearDown(item2 = new DTypeItem("item2"));
 	}
 	
-	public void testExplicitExternal()
+	public void testIt()
 	{
 		assertEquals(item.TYPE, item.features.getType());
 		assertEquals("features", item.features.getName());
@@ -58,6 +58,17 @@ public class DTypeTest extends AbstractLibTest
 		deleteOnTearDown(memory);
 		assertEquals(1, memory.getPosition());
 		assertEquals(list(akkuTime, memory), handy.getAttributes());
+		
+		assertEquals(null, akkuTime.get(item));
+		
+		akkuTime.set(item, 5);
+		assertEquals(5, akkuTime.get(item));
+		
+		akkuTime.set(item, 80);
+		assertEquals(80, akkuTime.get(item));
+		
+		memory.set(item, "80TB");
+		assertEquals("80TB", memory.get(item));
 	}
 	
 }

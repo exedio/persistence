@@ -39,8 +39,10 @@ public final class DType extends Item
 	{
 		final List<DAttribute> attributes = getAttributes(); // TODO make more efficient
 		final int position = attributes.isEmpty() ? 0 : (attributes.get(attributes.size()-1).getPosition()+1);
+		final List<DAttribute> attributesPerValuetype = getAttributes(valueType); // TODO make more efficient
+		final int positionPerValuetype = attributesPerValuetype.isEmpty() ? 0 : (attributesPerValuetype.get(attributesPerValuetype.size()-1).getPositionPerValueType()+1);
 		//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
-		return new DAttribute(this, position, name, valueType);
+		return new DAttribute(this, position, name, valueType, positionPerValuetype);
 	}
 	
 	public DAttribute addStringAttribute(final String name)
@@ -56,6 +58,11 @@ public final class DType extends Item
 	public List<DAttribute> getAttributes()
 	{
 		return DAttribute.TYPE.search(DAttribute.parent.equal(this), DAttribute.position, true);
+	}
+	
+	public List<DAttribute> getAttributes(final DAttribute.ValueType valueType)
+	{
+		return DAttribute.TYPE.search(DAttribute.parent.equal(this).and(DAttribute.valueType.equal(valueType)), DAttribute.position, true);
 	}
 	
 	
@@ -77,6 +84,26 @@ public final class DType extends Item
 	private DType(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d, pk);
+	}
+	
+	private String getParentTypeId()
+	{
+		return parentTypeId.get(this);
+	}
+	
+	public Type getParentType()
+	{
+		return TYPE.getModel().findTypeByID(getParentTypeId());
+	}
+	
+	private String getDtypeSystemName()
+	{
+		return dtypeSystemName.get(this);
+	}
+	
+	public DTypeSystem getDtypeSystem()
+	{
+		return (DTypeSystem)getParentType().getFeature(getDtypeSystemName());
 	}
 	
 	public String getCode()

@@ -34,7 +34,7 @@ public final class DAttribute extends Item
 	public static final IntegerAttribute position = new IntegerAttribute(FINAL);
 	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, position);
 
-	public static final StringAttribute name = new StringAttribute(FINAL);
+	public static final StringAttribute name = new StringAttribute(FINAL); // TODO SOON move down
 
 	public static enum ValueType
 	{
@@ -42,17 +42,30 @@ public final class DAttribute extends Item
 		INTEGER;
 	}
 	public static final EnumAttribute<ValueType> valueType = newEnumAttribute(FINAL, ValueType.class);
+	public static final IntegerAttribute positionPerValueType = new IntegerAttribute(FINAL);
+	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
+	
+	public Object get(final Item item)
+	{
+		return getParent().getDtypeSystem().get(this, item);
+	}
+	
+	public void set(final Item item, final Object value)
+	{
+		getParent().getDtypeSystem().set(this, item, value);
+	}
 	
 	
 
 	
-	DAttribute(final DType parent, final int position, final String name, final ValueType valueType)
+	DAttribute(final DType parent, final int position, final String name, final ValueType valueType, final int positionPerValueType)
 	{
 		super(new SetValue[]{
 				DAttribute.parent.map(parent),
 				DAttribute.position.map(position),
 				DAttribute.name.map(name),
 				DAttribute.valueType.map(valueType),
+				DAttribute.positionPerValueType.map(positionPerValueType),
 		});
 	}
 	
@@ -66,9 +79,24 @@ public final class DAttribute extends Item
 		super(d, pk);
 	}
 	
-	int getPosition()
+	public DType getParent()
+	{
+		return parent.get(this);
+	}
+	
+	public int getPosition()
 	{
 		return position.getMandatory(this);
+	}
+	
+	public ValueType getValueType()
+	{
+		return valueType.get(this);
+	}
+	
+	int getPositionPerValueType()
+	{
+		return positionPerValueType.getMandatory(this);
 	}
 	
 	public static final Type<DAttribute> TYPE = newType(DAttribute.class);
