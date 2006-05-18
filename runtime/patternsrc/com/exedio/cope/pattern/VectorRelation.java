@@ -31,6 +31,15 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
+/**
+ * Makes a list of instances of type <tt>T</tt> available
+ * on any instance of type <tt>S</tt>.
+ * This list can contain duplicates,
+ * and the user has full control of the order of it's elements.
+ * 
+ * @see Relation
+ * @author Ralf Wiebicke
+ */
 public final class VectorRelation<S extends Item, T extends Item> extends Pattern
 {
 	final ItemAttribute<S> source;
@@ -38,12 +47,13 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	final IntegerAttribute order;
 	final UniqueConstraint uniqueConstraint;
 	
+	// TODO SOON order should be source, order, uniqueConstraint, target
 	public VectorRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
 	{
 		this.source = source;
 		this.target = target;
 		this.order = new IntegerAttribute(Attribute.Option.FINAL);
-		this.uniqueConstraint = new UniqueConstraint(source, target, order);
+		this.uniqueConstraint = new UniqueConstraint(source, order);
 		
 		registerSource(source);
 		registerSource(target);

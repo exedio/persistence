@@ -28,6 +28,15 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
 
+/**
+ * Makes a set of instances of type <tt>T</tt> available
+ * on any instance of type <tt>S</tt>.
+ * This set cannot contain duplicates,
+ * and the user has no control of the order of it's elements.
+ * 
+ * @see VectorRelation
+ * @author Ralf Wiebicke
+ */
 public final class Relation<S extends Item, T extends Item> extends Pattern
 {
 	final ItemAttribute<S> source;
