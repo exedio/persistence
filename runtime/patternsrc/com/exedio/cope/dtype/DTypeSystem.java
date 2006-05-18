@@ -74,6 +74,9 @@ public final class DTypeSystem extends Pattern
 	
 	public void setType(final Item item, final DType type)
 	{
+		if(type!=null && !this.equals(type.getDtypeSystem()))
+			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getDtypeSystem() + ", but mut be " + toString());
+		
 		// TODO SOON clean all attributes
 		this.type.set(item, type);
 	}
