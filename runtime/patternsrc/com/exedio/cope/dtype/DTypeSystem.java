@@ -22,11 +22,13 @@ import java.util.List;
 
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringAttribute;
 
 public final class DTypeSystem extends Pattern
 {
+	private final ItemAttribute<DType> type;
 	private final StringAttribute[] strings;
 	private final IntegerAttribute[] integers;
 
@@ -34,7 +36,8 @@ public final class DTypeSystem extends Pattern
 	{
 		strings = new StringAttribute[5];
 		integers = new IntegerAttribute[8];
-		
+
+		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
 		for(int i = 0; i<strings.length; i++)
 			registerSource(strings[i] = new StringAttribute(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)
@@ -45,6 +48,7 @@ public final class DTypeSystem extends Pattern
 	{
 		final String name = getName();
 		
+		initialize(type, name + "Type");
 		for(int i = 0; i<strings.length; i++)
 			initialize(strings[i], name + "String" + (i+1/*TODO: make this '1' customizable*/));
 		for(int i = 0; i<integers.length; i++)
@@ -63,8 +67,28 @@ public final class DTypeSystem extends Pattern
 				DType.dtypeSystemName.equal(getName())));
 	}
 	
+	public DType getType(final Item item)
+	{
+		return this.type.get(item);
+	}
+	
+	public void setType(final Item item, final DType type)
+	{
+		// TODO SOON clean all attributes
+		this.type.set(item, type);
+	}
+	
+	public void assertType(final DAttribute attribute, final Item item)
+	{
+		final DType attributeType = attribute.getParent();
+		final DType itemType = type.get(item);
+		if(!attributeType.equals(itemType))
+			throw new RuntimeException("dynamic type mismatch: attribute has type " + attributeType.getCode() + ", but item has " + (itemType!=null ? itemType.getCode() : "none"));
+	}
+	
 	public Object get(final DAttribute attribute, final Item item)
 	{
+		assertType(attribute, item);
 		final int pos = attribute.getPositionPerValueType();
 		switch(attribute.getValueType())
 		{
@@ -77,6 +101,7 @@ public final class DTypeSystem extends Pattern
 	
 	public void set(final DAttribute attribute, final Item item, final Object value)
 	{
+		assertType(attribute, item);
 		final int pos = attribute.getPositionPerValueType();
 		switch(attribute.getValueType())
 		{
