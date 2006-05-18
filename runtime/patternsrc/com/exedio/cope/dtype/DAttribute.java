@@ -34,8 +34,6 @@ public final class DAttribute extends Item
 	public static final IntegerAttribute position = new IntegerAttribute(FINAL);
 	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, position);
 
-	public static final StringAttribute name = new StringAttribute(FINAL); // TODO SOON move down
-
 	public static enum ValueType
 	{
 		STRING,
@@ -45,6 +43,8 @@ public final class DAttribute extends Item
 	public static final IntegerAttribute positionPerValueType = new IntegerAttribute(FINAL);
 	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
 	
+	public static final StringAttribute name = new StringAttribute(FINAL);
+
 	public Object get(final Item item)
 	{
 		return getParent().getDtypeSystem().get(this, item);
