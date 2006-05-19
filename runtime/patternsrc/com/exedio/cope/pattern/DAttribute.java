@@ -30,7 +30,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DAttribute extends Item
 {
-	public static final ItemAttribute<DType> parent = newItemAttribute(FINAL, DType.class);
+	public static final ItemAttribute<DType> parent = newItemAttribute(FINAL, DType.class, CASCADE);
 	public static final IntegerAttribute position = new IntegerAttribute(FINAL);
 	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, position);
 

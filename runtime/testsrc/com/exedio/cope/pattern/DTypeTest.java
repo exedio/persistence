@@ -53,14 +53,12 @@ public class DTypeTest extends AbstractLibTest
 		assertContains(cellPhone.getAttributes());
 
 		final DAttribute akkuTime = cellPhone.addIntegerAttribute("akkuTime");
-		deleteOnTearDown(akkuTime);
 		assertEquals(DAttribute.ValueType.INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getName());
 		assertEquals(list(akkuTime), cellPhone.getAttributes());
 
 		final DAttribute memory = cellPhone.addStringAttribute("memory");
-		deleteOnTearDown(memory);
 		assertEquals(DAttribute.ValueType.STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getName());
@@ -101,7 +99,6 @@ public class DTypeTest extends AbstractLibTest
 		assertContains(cellPhone, organizer, item.features.getTypes());
 
 		final DAttribute weight = organizer.addIntegerAttribute("weight");
-		deleteOnTearDown(weight);
 		assertEquals(DAttribute.ValueType.INTEGER, weight.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("weight", weight.getName());
@@ -115,14 +112,12 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(500, item2.getFeatures(weight));
 		
 		final DAttribute bluetooth = organizer.addBooleanAttribute("bluetooth");
-		deleteOnTearDown(bluetooth);
 		assertEquals(DAttribute.ValueType.BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getName());
 		assertEquals(list(weight, bluetooth), organizer.getAttributes());
 		
 		final DAttribute length = organizer.addDoubleAttribute("length");
-		deleteOnTearDown(length);
 		assertEquals(DAttribute.ValueType.DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getName());
