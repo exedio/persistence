@@ -35,10 +35,12 @@ public final class DTypeSystem extends Pattern
 	private final IntegerAttribute[] integers;
 	private final FunctionAttribute<?>[] attributes;
 
-	public DTypeSystem()
+	public DTypeSystem(
+			final int stringCapacity,
+			final int integerCapacity)
 	{
-		strings = new StringAttribute[5];
-		integers = new IntegerAttribute[8];
+		strings = new StringAttribute[stringCapacity];
+		integers = new IntegerAttribute[integerCapacity];
 		attributes = new FunctionAttribute[strings.length+integers.length];
 
 		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
@@ -49,6 +51,24 @@ public final class DTypeSystem extends Pattern
 			registerSource(attributes[n++] = integers[i] = new IntegerAttribute(Item.OPTIONAL));
 	}
 
+	private FunctionAttribute<?>[] array(final DAttribute.ValueType valueType)
+	{
+		switch(valueType)
+		{
+			case STRING:  return strings;
+			case INTEGER: return integers;
+			default:
+				throw new RuntimeException(valueType.toString());
+		}
+	}
+	
+	void assertCapacity(final DAttribute.ValueType valueType, final int positionPerValuetype)
+	{
+		final int capacity = array(valueType).length;
+		if(capacity<=positionPerValuetype)
+			throw new RuntimeException("capacity for " + valueType + " exceeded, " + capacity + " available, but tried to allocate " + (positionPerValuetype+1));
+	}
+	
 	public void initialize()
 	{
 		final String name = getName();
@@ -100,7 +120,7 @@ public final class DTypeSystem extends Pattern
 	private FunctionAttribute<?> getAttribute(final DAttribute attribute)
 	{
 		final int pos = attribute.getPositionPerValueType();
-		switch(attribute.getValueType())
+		switch(attribute.getValueType()) // TODO SOON use array(valueType)
 		{
 			case STRING:  return strings [pos];
 			case INTEGER: return integers[pos];

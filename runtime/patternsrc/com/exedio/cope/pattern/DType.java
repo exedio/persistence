@@ -41,6 +41,7 @@ public final class DType extends Item
 		final int position = attributes.isEmpty() ? 0 : (attributes.get(attributes.size()-1).getPosition()+1);
 		final List<DAttribute> attributesPerValuetype = getAttributes(valueType); // TODO make more efficient
 		final int positionPerValuetype = attributesPerValuetype.isEmpty() ? 0 : (attributesPerValuetype.get(attributesPerValuetype.size()-1).getPositionPerValueType()+1);
+		getDtypeSystem().assertCapacity(valueType, positionPerValuetype);
 		//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
 		return new DAttribute(this, position, name, valueType, positionPerValuetype);
 	}

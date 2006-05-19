@@ -141,6 +141,18 @@ public class DTypeTest extends AbstractLibTest
 		}
 		assertEquals(500, item2.getFeatures(weight));
 		
+		assertContains(akkuTime, memory, cellPhone.getAttributes());
+		try
+		{
+			cellPhone.addStringAttribute("tooMuch");
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("capacity for STRING exceeded, 1 available, but tried to allocate 2", e.getMessage());
+		}
+		assertContains(akkuTime, memory, cellPhone.getAttributes());
+		
 		// test cleaning of attributes on setting type
 		item2.setFeaturesType(cellPhone);
 		assertEquals(null, item2.getFeatures(akkuTime)); // must not be 500 left from weight
