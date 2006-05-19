@@ -368,15 +368,12 @@ public class SchemaTest extends TestmodelTest
 	{
 		final Constraint constraint = table.getConstraint(constraintName);
 		final boolean expectedSupported = model.supportsCheckConstraints() || constraintType!=CHECK;
-		{ // TODO SOON remove
-			assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
-			assertEquals(constraintName, constraintType, constraint.getClass());
-			assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
-			assertEquals(expectedSupported, constraint.isSupported());
-			assertEquals(constraintName, expectedSupported ? null : "not supported", constraint.getError());
-			assertEquals(constraintName, Schema.Color.OK, constraint.getParticularColor());
-		}
-
+		assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
+		assertEquals(constraintName, constraintType, constraint.getClass());
+		assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
+		assertEquals(expectedSupported, constraint.isSupported());
+		assertEquals(constraintName, expectedSupported ? null : "not supported", constraint.getError());
+		assertEquals(constraintName, Schema.Color.OK, constraint.getParticularColor());
 		return constraint;
 	}
 	

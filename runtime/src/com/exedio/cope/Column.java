@@ -82,29 +82,26 @@ abstract class Column
 			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);
 		else
 		{
-			// TODO SOON remove block
+			final String ccinn = getCheckConstraintIfNotNull();
+			final String checkConstraint;
+			
+			if(optional)
 			{
-				final String ccinn = getCheckConstraintIfNotNull();
-				final String checkConstraint;
-				
-				if(optional)
-				{
-					if(ccinn!=null)
-						checkConstraint = "(" + ccinn + ") OR (" + protectedID + " IS NULL)";
-					else
-						checkConstraint = null;
-				}
+				if(ccinn!=null)
+					checkConstraint = "(" + ccinn + ") OR (" + protectedID + " IS NULL)";
 				else
-				{
-					if(ccinn!=null)
-						checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
-					else
-						checkConstraint = protectedID + " IS NOT NULL";
-				}
-	
-				if(checkConstraint!=null)
-					new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_Ck"), checkConstraint);
+					checkConstraint = null;
 			}
+			else
+			{
+				if(ccinn!=null)
+					checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
+				else
+					checkConstraint = protectedID + " IS NOT NULL";
+			}
+
+			if(checkConstraint!=null)
+				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_Ck"), checkConstraint);
 		}
 	}
 		
