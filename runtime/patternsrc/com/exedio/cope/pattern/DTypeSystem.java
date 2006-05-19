@@ -92,7 +92,7 @@ public final class DTypeSystem extends Pattern
 
 		for(final DAttribute.ValueType valueType : DAttribute.ValueType.values())
 		{
-			final FunctionAttribute[] array = array(valueType);
+			final FunctionAttribute<?>[] array = array(valueType);
 			final String postfix = valueType.postfix;
 			for(int i = 0; i<array.length; i++)
 				initialize(array[i], name + postfix + (i+1/*TODO: make this '1' customizable*/));
