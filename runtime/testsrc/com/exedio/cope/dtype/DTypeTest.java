@@ -100,6 +100,7 @@ public class DTypeTest extends AbstractLibTest
 		weight.set(item2, 500);
 		assertEquals(500, weight.get(item2));
 		
+		// wrong value type
 		try
 		{
 			weight.set(item2, "510");
@@ -109,6 +110,28 @@ public class DTypeTest extends AbstractLibTest
 		{
 			assertEquals("java.lang.String", e.getMessage()); // TODO SOON better message
 		}
+		assertEquals(500, weight.get(item2));
+
+		// wrong dtype
+		try
+		{
+			weight.get(item);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
+		}
+		try
+		{
+			weight.set(item, 510);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
+		}
+		assertEquals(500, weight.get(item2));
 
 		item.setFeaturesType(null);
 		assertEquals(null, item.getFeaturesType());
