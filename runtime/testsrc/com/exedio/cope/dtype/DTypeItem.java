@@ -38,6 +38,18 @@ public class DTypeItem extends Item
 	{
 		features.setType(this, type);
 	}
+	
+	// TODO generate
+	public Object getFeatures(final DAttribute attribute)
+	{
+		return attribute.get(this);
+	}
+	
+	// TODO generate
+	public void setFeatures(final DAttribute attribute, final Object value)
+	{
+		attribute.set(this, value);
+	}
 
 	/**
 

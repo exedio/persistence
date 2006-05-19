@@ -66,20 +66,20 @@ public class DTypeTest extends AbstractLibTest
 		
 		item.setFeaturesType(cellPhone);
 		assertEquals(cellPhone, item.getFeaturesType());
-		assertEquals(null, akkuTime.get(item));
-		assertEquals(null, memory.get(item));
+		assertEquals(null, item.getFeatures(akkuTime));
+		assertEquals(null, item.getFeatures(memory));
 		
-		akkuTime.set(item, 5);
-		assertEquals(5, akkuTime.get(item));
-		assertEquals(null, memory.get(item));
+		item.setFeatures(akkuTime, 5);
+		assertEquals(5, item.getFeatures(akkuTime));
+		assertEquals(null, item.getFeatures(memory));
 		
-		akkuTime.set(item, 80);
-		assertEquals(80, akkuTime.get(item));
-		assertEquals(null, memory.get(item));
+		item.setFeatures(akkuTime, 80);
+		assertEquals(80, item.getFeatures(akkuTime));
+		assertEquals(null, item.getFeatures(memory));
 		
-		memory.set(item, "80TB");
-		assertEquals(80, akkuTime.get(item));
-		assertEquals("80TB", memory.get(item));
+		item.setFeatures(memory, "80TB");
+		assertEquals(80, item.getFeatures(akkuTime));
+		assertEquals("80TB", item.getFeatures(memory));
 		
 		final DType organizer = item.features.createType("organizer");
 		deleteOnTearDown(organizer);
@@ -95,27 +95,27 @@ public class DTypeTest extends AbstractLibTest
 		
 		item2.setFeaturesType(organizer);
 		assertEquals(organizer, item2.getFeaturesType());
-		assertEquals(null, weight.get(item2));
+		assertEquals(null, item2.getFeatures(weight));
 
-		weight.set(item2, 500);
-		assertEquals(500, weight.get(item2));
+		item2.setFeatures(weight, 500);
+		assertEquals(500, item2.getFeatures(weight));
 		
 		// wrong value type
 		try
 		{
-			weight.set(item2, "510");
+			item2.setFeatures(weight, "510");
 			fail();
 		}
 		catch(ClassCastException e)
 		{
 			assertEquals("java.lang.String", e.getMessage()); // TODO SOON better message
 		}
-		assertEquals(500, weight.get(item2));
+		assertEquals(500, item2.getFeatures(weight));
 
 		// wrong dtype
 		try
 		{
-			weight.get(item);
+			item.getFeatures(weight);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -124,19 +124,19 @@ public class DTypeTest extends AbstractLibTest
 		}
 		try
 		{
-			weight.set(item, 510);
+			item.setFeatures(weight, 510);
 			fail();
 		}
 		catch(RuntimeException e)
 		{
 			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
 		}
-		assertEquals(500, weight.get(item2));
+		assertEquals(500, item2.getFeatures(weight));
 		
 		// test cleaning of attributes on setting type
 		item2.setFeaturesType(cellPhone);
-		assertEquals(null, akkuTime.get(item2)); // must not be 500 left from weight
-		assertEquals(null, memory.get(item2));
+		assertEquals(null, item2.getFeatures(akkuTime)); // must not be 500 left from weight
+		assertEquals(null, item2.getFeatures(memory));
 
 		item.setFeaturesType(null);
 		assertEquals(null, item.getFeaturesType());
