@@ -116,7 +116,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("java.lang.String", e.getMessage()); // TODO SOON better message
+			assertEquals("expected a " + Integer.class.getName() + ", but was a " + String.class.getName(), e.getMessage());
 		}
 		assertEquals(500, item2.getFeatures(weight));
 
