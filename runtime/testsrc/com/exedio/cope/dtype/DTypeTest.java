@@ -99,6 +99,16 @@ public class DTypeTest extends AbstractLibTest
 
 		weight.set(item2, 500);
 		assertEquals(500, weight.get(item2));
+		
+		try
+		{
+			weight.set(item2, "510");
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("java.lang.String", e.getMessage()); // TODO SOON better message
+		}
 
 		item.setFeaturesType(null);
 		assertEquals(null, item.getFeaturesType());
