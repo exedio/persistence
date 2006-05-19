@@ -82,7 +82,7 @@ final class OracleDatabase extends Database
 		if(maxLength<=varcharLength)
 			return (varchar?"VARCHAR2(":"NVARCHAR2(")+maxLength+")";
 		else
-			return varchar?"CLOB":"NCLOB";
+			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}
 	
 	public String getDayType()
