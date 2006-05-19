@@ -159,6 +159,8 @@ public abstract class FunctionAttribute<E extends Object>
 	}
 	
 	/**
+	 * Casts <tt>o</tt> to <tt>E</tt>.
+	 * @throws ClassCastException if <tt>o</tt> is not assignable to <tt>E</tt>
 	 * @see Class#cast(Object)
 	 */
 	public final E cast(final Object o)
@@ -169,6 +171,17 @@ public abstract class FunctionAttribute<E extends Object>
 	public final void set(final Item item, final E value)
 	{
 		item.set(this, value);
+	}
+
+	/**
+	 * {@link #cast(Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link #set(Item, Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public final void setAndCast(final Item item, final Object value)
+	{
+		set(item, cast(value));
 	}
 
 	public final void append(final Statement bf, final Join join)
