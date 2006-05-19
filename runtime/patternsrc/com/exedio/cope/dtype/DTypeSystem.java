@@ -20,10 +20,12 @@ package com.exedio.cope.dtype;
 
 import java.util.List;
 
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
 
 public final class DTypeSystem extends Pattern
@@ -31,17 +33,20 @@ public final class DTypeSystem extends Pattern
 	private final ItemAttribute<DType> type;
 	private final StringAttribute[] strings;
 	private final IntegerAttribute[] integers;
+	private final FunctionAttribute<?>[] attributes;
 
 	public DTypeSystem()
 	{
 		strings = new StringAttribute[5];
 		integers = new IntegerAttribute[8];
+		attributes = new FunctionAttribute[strings.length+integers.length];
 
 		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
+		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(strings[i] = new StringAttribute(Item.OPTIONAL));
+			registerSource(attributes[n++] = strings[i] = new StringAttribute(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)
-			registerSource(integers[i] = new IntegerAttribute(Item.OPTIONAL));
+			registerSource(attributes[n++] = integers[i] = new IntegerAttribute(Item.OPTIONAL));
 	}
 
 	public void initialize()
@@ -77,11 +82,14 @@ public final class DTypeSystem extends Pattern
 		if(type!=null && !this.equals(type.getDtypeSystem()))
 			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getDtypeSystem() + ", but mut be " + toString());
 		
-		// TODO SOON clean all attributes
-		this.type.set(item, type);
+		final SetValue[] values = new SetValue[1+attributes.length];
+		values[0] = this.type.map(type);
+		for(int i = 0; i<attributes.length; i++)
+			values[1+i] = attributes[i].map(null);
+		item.set(values);
 	}
 	
-	public void assertType(final DAttribute attribute, final Item item)
+	private void assertType(final DAttribute attribute, final Item item)
 	{
 		final DType attributeType = attribute.getParent();
 		final DType itemType = type.get(item);
