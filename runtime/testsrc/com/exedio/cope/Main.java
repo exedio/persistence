@@ -20,9 +20,9 @@ package com.exedio.cope;
 
 import java.io.File;
 
-import com.exedio.cope.dtype.DAttribute;
-import com.exedio.cope.dtype.DType;
-import com.exedio.cope.dtype.DTypeItem;
+import com.exedio.cope.pattern.DAttribute;
+import com.exedio.cope.pattern.DType;
+import com.exedio.cope.pattern.DTypeItem;
 import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.HashItem;
 import com.exedio.cope.pattern.JavaViewItem;

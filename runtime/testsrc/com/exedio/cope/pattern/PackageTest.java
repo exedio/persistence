@@ -37,6 +37,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(QualifierTest.class);
 		suite.addTestSuite(RelationTest.class);
 		suite.addTestSuite(VectorRelationTest.class);
+		suite.addTestSuite(DTypeTest.class);
 		return suite;
 	}
 
