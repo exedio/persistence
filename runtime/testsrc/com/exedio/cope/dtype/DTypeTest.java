@@ -44,25 +44,25 @@ public class DTypeTest extends AbstractLibTest
 		
 		assertContains(item.features.getTypes());
 		
-		final DType handy = item.features.createType("handy");
-		deleteOnTearDown(handy);
-		assertContains(handy, item.features.getTypes());
-		assertContains(handy.getAttributes());
+		final DType cellPhone = item.features.createType("cellPhone");
+		deleteOnTearDown(cellPhone);
+		assertContains(cellPhone, item.features.getTypes());
+		assertContains(cellPhone.getAttributes());
 
-		final DAttribute akkuTime = handy.addIntegerAttribute("akkuTime");
+		final DAttribute akkuTime = cellPhone.addIntegerAttribute("akkuTime");
 		deleteOnTearDown(akkuTime);
 		assertEquals(0, akkuTime.getPosition());
-		assertEquals(list(akkuTime), handy.getAttributes());
+		assertEquals(list(akkuTime), cellPhone.getAttributes());
 
-		final DAttribute memory = handy.addStringAttribute("memory");
+		final DAttribute memory = cellPhone.addStringAttribute("memory");
 		deleteOnTearDown(memory);
 		assertEquals(1, memory.getPosition());
-		assertEquals(list(akkuTime, memory), handy.getAttributes());
+		assertEquals(list(akkuTime, memory), cellPhone.getAttributes());
 		
 		assertEquals(null, item.features.getType(item));
 		
-		item.features.setType(item, handy);
-		assertEquals(handy, item.features.getType(item));
+		item.features.setType(item, cellPhone);
+		assertEquals(cellPhone, item.features.getType(item));
 		
 		assertEquals(null, akkuTime.get(item));
 		assertEquals(null, memory.get(item));
