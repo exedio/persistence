@@ -97,17 +97,22 @@ public final class DTypeSystem extends Pattern
 			throw new RuntimeException("dynamic type mismatch: attribute has type " + attributeType.getCode() + ", but item has " + (itemType!=null ? itemType.getCode() : "none"));
 	}
 	
-	public Object get(final DAttribute attribute, final Item item)
+	private FunctionAttribute getAttribute(final DAttribute attribute)
 	{
-		assertType(attribute, item);
 		final int pos = attribute.getPositionPerValueType();
 		switch(attribute.getValueType())
 		{
-			case STRING:  return strings [pos].get(item);
-			case INTEGER: return integers[pos].get(item);
+			case STRING:  return strings [pos];
+			case INTEGER: return integers[pos];
 			default:
 				throw new RuntimeException(attribute.getValueType().toString());
 		}
+	}
+	
+	public Object get(final DAttribute attribute, final Item item)
+	{
+		assertType(attribute, item);
+		return getAttribute(attribute).get(item);
 	}
 	
 	public void set(final DAttribute attribute, final Item item, final Object value)
