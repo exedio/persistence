@@ -36,10 +36,17 @@ public final class DAttribute extends Item
 
 	public static enum ValueType
 	{
-		STRING,
-		BOOLEAN,
-		INTEGER,
-		DOUBLE;
+		STRING("String"),
+		BOOLEAN("Bool"),
+		INTEGER("Int"),
+		DOUBLE("Double");
+		
+		final String postfix;
+		
+		ValueType(final String postfix)
+		{
+			this.postfix = postfix;
+		}
 	}
 	public static final EnumAttribute<ValueType> valueType = newEnumAttribute(FINAL, ValueType.class);
 	public static final IntegerAttribute positionPerValueType = new IntegerAttribute(FINAL);

@@ -33,21 +33,20 @@ import com.exedio.cope.StringAttribute;
 public final class DTypeSystem extends Pattern
 {
 	private final ItemAttribute<DType> type;
+	private final FunctionAttribute<?>[] attributes;
 
-	private final StringAttribute[] strings;
+	private final StringAttribute[]  strings;
 	private final BooleanAttribute[] booleans;
 	private final IntegerAttribute[] integers;
 	private final DoubleAttribute[]  doubles;
 	
-	private final FunctionAttribute<?>[] attributes;
-
 	public DTypeSystem(
 			final int stringCapacity,
 			final int booleanCapacity,
 			final int integerCapacity,
 			final int doubleCapacity)
 	{
-		strings = new StringAttribute[stringCapacity];
+		strings  = new StringAttribute[stringCapacity];
 		booleans = new BooleanAttribute[booleanCapacity];
 		integers = new IntegerAttribute[integerCapacity];
 		doubles  = new DoubleAttribute [doubleCapacity];
@@ -56,13 +55,13 @@ public final class DTypeSystem extends Pattern
 		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(attributes[n++] = strings[i] = new StringAttribute(Item.OPTIONAL));
+			registerSource(attributes[n++] = strings [i] = new StringAttribute(Item.OPTIONAL));
 		for(int i = 0; i<booleans.length; i++)
 			registerSource(attributes[n++] = booleans[i] = new BooleanAttribute(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)
 			registerSource(attributes[n++] = integers[i] = new IntegerAttribute(Item.OPTIONAL));
 		for(int i = 0; i<doubles.length; i++)
-			registerSource(attributes[n++] = doubles[i] = new DoubleAttribute(Item.OPTIONAL));
+			registerSource(attributes[n++] = doubles [i] = new DoubleAttribute(Item.OPTIONAL));
 	}
 
 	private FunctionAttribute<?>[] array(final DAttribute.ValueType valueType)
@@ -90,14 +89,14 @@ public final class DTypeSystem extends Pattern
 		final String name = getName();
 		
 		initialize(type, name + "Type");
-		for(int i = 0; i<strings.length; i++)
-			initialize(strings[i], name + "String" + (i+1/*TODO: make this '1' customizable*/));
-		for(int i = 0; i<booleans.length; i++)
-			initialize(booleans[i], name + "Bool"  + (i+1/*TODO: make this '1' customizable*/));
-		for(int i = 0; i<integers.length; i++)
-			initialize(integers[i], name + "Int" + (i+1/*TODO: make this '1' customizable*/));
-		for(int i = 0; i<doubles.length; i++)
-			initialize(doubles[i], name + "Double" + (i+1/*TODO: make this '1' customizable*/));
+
+		for(final DAttribute.ValueType valueType : DAttribute.ValueType.values())
+		{
+			final FunctionAttribute[] array = array(valueType);
+			final String postfix = valueType.postfix;
+			for(int i = 0; i<array.length; i++)
+				initialize(array[i], name + postfix + (i+1/*TODO: make this '1' customizable*/));
+		}
 	}
 	
 	public DType createType(final String code)
