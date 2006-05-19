@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import java.util.List;
 
+import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
@@ -31,24 +33,36 @@ import com.exedio.cope.StringAttribute;
 public final class DTypeSystem extends Pattern
 {
 	private final ItemAttribute<DType> type;
+
 	private final StringAttribute[] strings;
+	private final BooleanAttribute[] booleans;
 	private final IntegerAttribute[] integers;
+	private final DoubleAttribute[]  doubles;
+	
 	private final FunctionAttribute<?>[] attributes;
 
 	public DTypeSystem(
 			final int stringCapacity,
-			final int integerCapacity)
+			final int booleanCapacity,
+			final int integerCapacity,
+			final int doubleCapacity)
 	{
 		strings = new StringAttribute[stringCapacity];
+		booleans = new BooleanAttribute[booleanCapacity];
 		integers = new IntegerAttribute[integerCapacity];
-		attributes = new FunctionAttribute[strings.length+integers.length];
+		doubles  = new DoubleAttribute [doubleCapacity];
+		attributes = new FunctionAttribute[strings.length + booleans.length + integers.length + doubles.length];
 
 		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
 			registerSource(attributes[n++] = strings[i] = new StringAttribute(Item.OPTIONAL));
+		for(int i = 0; i<booleans.length; i++)
+			registerSource(attributes[n++] = booleans[i] = new BooleanAttribute(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)
 			registerSource(attributes[n++] = integers[i] = new IntegerAttribute(Item.OPTIONAL));
+		for(int i = 0; i<doubles.length; i++)
+			registerSource(attributes[n++] = doubles[i] = new DoubleAttribute(Item.OPTIONAL));
 	}
 
 	private FunctionAttribute<?>[] array(final DAttribute.ValueType valueType)
@@ -56,7 +70,9 @@ public final class DTypeSystem extends Pattern
 		switch(valueType)
 		{
 			case STRING:  return strings;
+			case BOOLEAN: return booleans;
 			case INTEGER: return integers;
+			case DOUBLE:  return doubles;
 			default:
 				throw new RuntimeException(valueType.toString());
 		}
@@ -76,8 +92,12 @@ public final class DTypeSystem extends Pattern
 		initialize(type, name + "Type");
 		for(int i = 0; i<strings.length; i++)
 			initialize(strings[i], name + "String" + (i+1/*TODO: make this '1' customizable*/));
+		for(int i = 0; i<booleans.length; i++)
+			initialize(booleans[i], name + "Bool"  + (i+1/*TODO: make this '1' customizable*/));
 		for(int i = 0; i<integers.length; i++)
 			initialize(integers[i], name + "Int" + (i+1/*TODO: make this '1' customizable*/));
+		for(int i = 0; i<doubles.length; i++)
+			initialize(doubles[i], name + "Double" + (i+1/*TODO: make this '1' customizable*/));
 	}
 	
 	public DType createType(final String code)

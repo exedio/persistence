@@ -51,9 +51,19 @@ public final class DType extends Item
 		return addAttribute(name, DAttribute.ValueType.STRING);
 	}
 	
+	public DAttribute addBooleanAttribute(final String name)
+	{
+		return addAttribute(name, DAttribute.ValueType.BOOLEAN);
+	}
+	
 	public DAttribute addIntegerAttribute(final String name)
 	{
 		return addAttribute(name, DAttribute.ValueType.INTEGER);
+	}
+	
+	public DAttribute addDoubleAttribute(final String name)
+	{
+		return addAttribute(name, DAttribute.ValueType.DOUBLE);
 	}
 	
 	public List<DAttribute> getAttributes()

@@ -37,7 +37,9 @@ public final class DAttribute extends Item
 	public static enum ValueType
 	{
 		STRING,
-		INTEGER;
+		BOOLEAN,
+		INTEGER,
+		DOUBLE;
 	}
 	public static final EnumAttribute<ValueType> valueType = newEnumAttribute(FINAL, ValueType.class);
 	public static final IntegerAttribute positionPerValueType = new IntegerAttribute(FINAL);
@@ -97,6 +99,11 @@ public final class DAttribute extends Item
 	int getPositionPerValueType()
 	{
 		return positionPerValueType.getMandatory(this);
+	}
+	
+	public String getName()
+	{
+		return name.get(this);
 	}
 	
 	public static final Type<DAttribute> TYPE = newType(DAttribute.class);
