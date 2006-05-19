@@ -71,6 +71,12 @@ public class DTypeTest extends AbstractLibTest
 		
 		item.setFeatures(akkuTime, 5);
 		assertEquals(5, item.getFeatures(akkuTime));
+		assertEquals(5, akkuTime.get(item));
+		assertEquals(null, item.getFeatures(memory));
+		
+		akkuTime.set(item, 10);
+		assertEquals(10, item.getFeatures(akkuTime));
+		assertEquals(10, akkuTime.get(item));
 		assertEquals(null, item.getFeatures(memory));
 		
 		item.setFeatures(akkuTime, 80);
@@ -79,7 +85,9 @@ public class DTypeTest extends AbstractLibTest
 		
 		item.setFeatures(memory, "80TB");
 		assertEquals(80, item.getFeatures(akkuTime));
+		assertEquals(80, akkuTime.get(item));
 		assertEquals("80TB", item.getFeatures(memory));
+		assertEquals("80TB", memory.get(item));
 		
 		final DType organizer = item.features.createType("organizer");
 		deleteOnTearDown(organizer);

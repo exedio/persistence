@@ -42,13 +42,13 @@ public class DTypeItem extends Item
 	// TODO generate
 	public Object getFeatures(final DAttribute attribute)
 	{
-		return attribute.get(this);
+		return features.get(attribute, this);
 	}
 	
 	// TODO generate
 	public void setFeatures(final DAttribute attribute, final Object value)
 	{
-		attribute.set(this, value);
+		features.set(attribute, this, value);
 	}
 
 	/**
