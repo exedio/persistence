@@ -129,7 +129,7 @@ public final class DTypeSystem extends Pattern
 		// thrown by the last line.
 		final int capacity = array.length;
 		if(capacity<=pos)
-			throw new RuntimeException("accessing " + attribute + " exceeded capacity for " + valueType + " , " + capacity + " available, but tried to access " + (pos+1));
+			throw new RuntimeException("accessing " + attribute + " exceeded capacity for " + valueType + ", " + capacity + " available, but tried to access " + (pos+1));
 
 		return array[pos];
 	}
