@@ -66,7 +66,6 @@ public class DTypeTest extends AbstractLibTest
 		
 		item.features.setType(item, cellPhone);
 		assertEquals(cellPhone, item.features.getType(item));
-		
 		assertEquals(null, akkuTime.get(item));
 		assertEquals(null, memory.get(item));
 		
@@ -89,8 +88,22 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("organizer", organizer.getCode());
 		assertContains(cellPhone, organizer, item.features.getTypes());
 
+		final DAttribute weight = organizer.addIntegerAttribute("weight");
+		deleteOnTearDown(weight);
+		assertEquals(0, akkuTime.getPosition());
+		assertEquals(list(weight), organizer.getAttributes());
+		
+		item2.features.setType(item2, organizer);
+		assertEquals(organizer, item2.features.getType(item2));
+		assertEquals(null, weight.get(item2));
+
+		weight.set(item2, 500);
+		assertEquals(500, weight.get(item2));
+
 		item.features.setType(item, null);
 		assertEquals(null, item.features.getType(item));
+		item2.features.setType(item2, null);
+		assertEquals(null, item2.features.getType(item));
 	}
 	
 }
