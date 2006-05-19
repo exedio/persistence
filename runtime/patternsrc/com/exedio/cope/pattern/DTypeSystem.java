@@ -119,14 +119,19 @@ public final class DTypeSystem extends Pattern
 	
 	private FunctionAttribute<?> getAttribute(final DAttribute attribute)
 	{
+		final DAttribute.ValueType valueType = attribute.getValueType();
 		final int pos = attribute.getPositionPerValueType();
-		switch(attribute.getValueType()) // TODO SOON use array(valueType)
-		{
-			case STRING:  return strings [pos];
-			case INTEGER: return integers[pos];
-			default:
-				throw new RuntimeException(attribute.getValueType().toString());
-		}
+
+		final FunctionAttribute[] array = array(valueType);
+		
+		// make a more verbose exception instead 
+		// of the ArrayIndexOutOfBoundException
+		// thrown by the last line.
+		final int capacity = array.length;
+		if(capacity<=pos)
+			throw new RuntimeException("accessing " + attribute + " exceeded capacity for " + valueType + " , " + capacity + " available, but tried to access " + (pos+1));
+
+		return array[pos];
 	}
 	
 	public Object get(final DAttribute attribute, final Item item)
