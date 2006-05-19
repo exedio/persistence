@@ -132,6 +132,11 @@ public class DTypeTest extends AbstractLibTest
 			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
 		}
 		assertEquals(500, weight.get(item2));
+		
+		// test cleaning of attributes on setting type
+		item2.setFeaturesType(cellPhone);
+		assertEquals(null, akkuTime.get(item2)); // must not be 500 left from weight
+		assertEquals(null, memory.get(item2));
 
 		item.setFeaturesType(null);
 		assertEquals(null, item.getFeaturesType());
