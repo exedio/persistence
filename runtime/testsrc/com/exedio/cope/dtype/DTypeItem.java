@@ -26,6 +26,18 @@ public class DTypeItem extends Item
 	public static final StringAttribute name = new StringAttribute(FINAL);
 	
 	public static final DTypeSystem features = new DTypeSystem();
+	
+	// TODO generate
+	public DType getFeaturesType()
+	{
+		return features.getType(this);
+	}
+
+	// TODO generate
+	public void setFeaturesType(final DType type)
+	{
+		features.setType(this, type);
+	}
 
 	/**
 

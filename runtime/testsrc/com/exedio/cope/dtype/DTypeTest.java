@@ -62,10 +62,10 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(1, memory.getPosition());
 		assertEquals(list(akkuTime, memory), cellPhone.getAttributes());
 		
-		assertEquals(null, item.features.getType(item));
+		assertEquals(null, item.getFeaturesType());
 		
-		item.features.setType(item, cellPhone);
-		assertEquals(cellPhone, item.features.getType(item));
+		item.setFeaturesType(cellPhone);
+		assertEquals(cellPhone, item.getFeaturesType());
 		assertEquals(null, akkuTime.get(item));
 		assertEquals(null, memory.get(item));
 		
@@ -93,17 +93,17 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals(list(weight), organizer.getAttributes());
 		
-		item2.features.setType(item2, organizer);
-		assertEquals(organizer, item2.features.getType(item2));
+		item2.setFeaturesType(organizer);
+		assertEquals(organizer, item2.getFeaturesType());
 		assertEquals(null, weight.get(item2));
 
 		weight.set(item2, 500);
 		assertEquals(500, weight.get(item2));
 
-		item.features.setType(item, null);
-		assertEquals(null, item.features.getType(item));
-		item2.features.setType(item2, null);
-		assertEquals(null, item2.features.getType(item));
+		item.setFeaturesType(null);
+		assertEquals(null, item.getFeaturesType());
+		item2.setFeaturesType(null);
+		assertEquals(null, item2.getFeaturesType());
 	}
 	
 }
