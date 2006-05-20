@@ -47,7 +47,7 @@
 		<element name="fileset" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local jar @{jarfile}" /-->
-			<jar jarfile="@{jarfile}">
+			<jar jarfile="@{jarfile}" duplicate="fail">
 				<fileset />
 				<manifest>
 					<attribute name="Specification-Title" value="exedio @{name}" />
