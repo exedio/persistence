@@ -66,7 +66,7 @@ public final class DTypeSystem extends Pattern
 		for(int i = 0; i<doubles.length; i++)
 			registerSource(attributes[n++] = doubles [i] = new DoubleAttribute(Item.OPTIONAL));
 		for(int i = 0; i<enums.length; i++)
-			registerSource(attributes[n++] = enums   [i] = new ItemAttribute(Item.OPTIONAL, DEnumValue.class));
+			registerSource(attributes[n++] = enums   [i] = new ItemAttribute<DEnumValue>(Item.OPTIONAL, DEnumValue.class));
 	}
 
 	private FunctionAttribute<?>[] array(final DAttribute.ValueType valueType)
