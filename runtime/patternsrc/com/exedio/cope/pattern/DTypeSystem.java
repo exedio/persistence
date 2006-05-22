@@ -139,7 +139,7 @@ public final class DTypeSystem extends Pattern
 	public void setType(final Item item, final DType type)
 	{
 		if(type!=null && !this.equals(type.getDtypeSystem()))
-			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getDtypeSystem() + ", but mut be " + toString());
+			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getDtypeSystem() + ", but must be " + toString());
 		
 		final SetValue[] values = new SetValue[1+attributes.length];
 		values[0] = this.type.map(type);
@@ -182,6 +182,17 @@ public final class DTypeSystem extends Pattern
 	public void set(final DAttribute attribute, final Item item, final Object value)
 	{
 		assertType(attribute, item);
+		
+		if(value!=null &&
+			value instanceof DEnumValue &&
+			attribute.getValueType()==DAttribute.ValueType.ENUM)
+		{
+			final DEnumValue enumValue = (DEnumValue)value;
+			final DAttribute enumValueParent = enumValue.getParent();
+			if(!enumValueParent.equals(attribute))
+				throw new RuntimeException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + attribute);
+		}
+		
 		getAttribute(attribute).setAndCast(item, value);
 	}
 	

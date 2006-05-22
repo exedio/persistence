@@ -175,6 +175,17 @@ public class DTypeTest extends AbstractLibTest
 
 		item2.setFeatures(manufacturer, manufacturer1);
 		assertEquals(manufacturer1, item2.getFeatures(manufacturer));
+		try
+		{
+			item2.setFeatures(manufacturer, colorBlue);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("dynamic type system mismatch: enum value " + colorBlue + " has type " + color + ", but must be " + manufacturer, e.getMessage());
+		}
+		assertEquals(manufacturer1, item2.getFeatures(manufacturer));
+
 		
 		// wrong value type
 		try
