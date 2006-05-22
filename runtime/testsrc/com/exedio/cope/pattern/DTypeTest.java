@@ -159,6 +159,23 @@ public class DTypeTest extends AbstractLibTest
 		item2.setFeatures(color, colorBlue);
 		assertEquals(colorBlue, item2.getFeatures(color));
 		
+		final DAttribute manufacturer = organizer.addEnumAttribute("manufacturer");
+		assertEquals(DAttribute.ValueType.ENUM, manufacturer.getValueType());
+		assertEquals(4, manufacturer.getPosition());
+		assertEquals("manufacturer", manufacturer.getCode());
+		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getAttributes());
+		assertContains(manufacturer.getEnumValues());
+		assertEquals(null, item2.getFeatures(manufacturer));
+		
+		final DEnumValue manufacturer1 = manufacturer.addEnumValue("manufacturer1");
+		assertEquals(manufacturer, manufacturer1.getParent());
+		assertEquals(0, manufacturer1.getPosition());
+		assertEquals("manufacturer1", manufacturer1.getCode());
+		assertContains(manufacturer1, manufacturer.getEnumValues());
+
+		item2.setFeatures(manufacturer, manufacturer1);
+		assertEquals(manufacturer1, item2.getFeatures(manufacturer));
+		
 		// wrong value type
 		try
 		{
