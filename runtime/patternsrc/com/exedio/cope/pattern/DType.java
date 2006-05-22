@@ -71,9 +71,9 @@ public final class DType extends Item
 		return DAttribute.TYPE.search(DAttribute.parent.equal(this), DAttribute.position, true);
 	}
 	
-	public DAttribute getAttribute(final String name)
+	public DAttribute getAttribute(final String code)
 	{
-		return DAttribute.TYPE.searchSingleton(DAttribute.parent.equal(this).and(DAttribute.name.equal(name)));
+		return DAttribute.TYPE.searchSingleton(DAttribute.parent.equal(this).and(DAttribute.code.equal(code)));
 	}
 	
 	private List<DAttribute> getAttributes(final DAttribute.ValueType valueType)

@@ -52,8 +52,8 @@ public final class DAttribute extends Item
 	public static final IntegerAttribute positionPerValueType = new IntegerAttribute(FINAL);
 	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
 	
-	public static final StringAttribute name = new StringAttribute(FINAL);
-	public static final UniqueConstraint uniqueConstraintName = new UniqueConstraint(parent, name);
+	public static final StringAttribute code = new StringAttribute(FINAL);
+	public static final UniqueConstraint uniqueConstraintCode = new UniqueConstraint(parent, code);
 
 	public Object get(final Item item)
 	{
@@ -68,12 +68,12 @@ public final class DAttribute extends Item
 	
 
 	
-	DAttribute(final DType parent, final int position, final String name, final ValueType valueType, final int positionPerValueType)
+	DAttribute(final DType parent, final int position, final String code, final ValueType valueType, final int positionPerValueType)
 	{
 		super(new SetValue[]{
 				DAttribute.parent.map(parent),
 				DAttribute.position.map(position),
-				DAttribute.name.map(name),
+				DAttribute.code.map(code),
 				DAttribute.valueType.map(valueType),
 				DAttribute.positionPerValueType.map(positionPerValueType),
 		});
@@ -109,9 +109,9 @@ public final class DAttribute extends Item
 		return positionPerValueType.getMandatory(this);
 	}
 	
-	public String getName()
+	public String getCode()
 	{
-		return name.get(this);
+		return code.get(this);
 	}
 	
 	public static final Type<DAttribute> TYPE = newType(DAttribute.class);

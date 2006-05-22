@@ -58,7 +58,7 @@ public class DTypeTest extends AbstractLibTest
 		final DAttribute akkuTime = cellPhone.addIntegerAttribute("akkuTime");
 		assertEquals(DAttribute.ValueType.INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
-		assertEquals("akkuTime", akkuTime.getName());
+		assertEquals("akkuTime", akkuTime.getCode());
 		assertEquals(list(akkuTime), cellPhone.getAttributes());
 		assertEquals(akkuTime, cellPhone.getAttribute("akkuTime"));
 		assertEquals(null, cellPhone.getAttribute("akkuTimeX"));
@@ -66,7 +66,7 @@ public class DTypeTest extends AbstractLibTest
 		final DAttribute memory = cellPhone.addStringAttribute("memory");
 		assertEquals(DAttribute.ValueType.STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
-		assertEquals("memory", memory.getName());
+		assertEquals("memory", memory.getCode());
 		assertEquals(list(akkuTime, memory), cellPhone.getAttributes());
 		
 		assertEquals(null, item.getFeaturesType());
@@ -106,7 +106,7 @@ public class DTypeTest extends AbstractLibTest
 		final DAttribute weight = organizer.addIntegerAttribute("weight");
 		assertEquals(DAttribute.ValueType.INTEGER, weight.getValueType());
 		assertEquals(0, akkuTime.getPosition());
-		assertEquals("weight", weight.getName());
+		assertEquals("weight", weight.getCode());
 		assertEquals(list(weight), organizer.getAttributes());
 		
 		item2.setFeaturesType(organizer);
@@ -119,13 +119,13 @@ public class DTypeTest extends AbstractLibTest
 		final DAttribute bluetooth = organizer.addBooleanAttribute("bluetooth");
 		assertEquals(DAttribute.ValueType.BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
-		assertEquals("bluetooth", bluetooth.getName());
+		assertEquals("bluetooth", bluetooth.getCode());
 		assertEquals(list(weight, bluetooth), organizer.getAttributes());
 		
 		final DAttribute length = organizer.addDoubleAttribute("length");
 		assertEquals(DAttribute.ValueType.DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
-		assertEquals("length", length.getName());
+		assertEquals("length", length.getCode());
 		assertEquals(list(weight, bluetooth, length), organizer.getAttributes());
 		
 		assertEquals(null, item2.getFeatures(bluetooth));
