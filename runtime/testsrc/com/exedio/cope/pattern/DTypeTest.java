@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Main;
+import com.exedio.cope.UniqueViolationException;
 
 public class DTypeTest extends AbstractLibTest
 {
@@ -50,6 +51,8 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(item.features, cellPhone.getDtypeSystem());
 		assertEquals("cellPhone", cellPhone.getCode());
 		assertContains(cellPhone, item.features.getTypes());
+		assertEquals(cellPhone, item.features.getType("cellPhone"));
+		assertEquals(null, item.features.getType("cellPhoneX"));
 		assertContains(cellPhone.getAttributes());
 
 		final DAttribute akkuTime = cellPhone.addIntegerAttribute("akkuTime");
@@ -57,6 +60,8 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getName());
 		assertEquals(list(akkuTime), cellPhone.getAttributes());
+		assertEquals(akkuTime, cellPhone.getAttribute("akkuTime"));
+		assertEquals(null, cellPhone.getAttribute("akkuTimeX"));
 
 		final DAttribute memory = cellPhone.addStringAttribute("memory");
 		assertEquals(DAttribute.ValueType.STRING, memory.getValueType());
@@ -173,6 +178,18 @@ public class DTypeTest extends AbstractLibTest
 		catch(RuntimeException e)
 		{
 			assertEquals("capacity for STRING exceeded, 1 available, but tried to allocate 2", e.getMessage());
+		}
+		assertContains(akkuTime, memory, cellPhone.getAttributes());
+		
+		assertContains(akkuTime, memory, cellPhone.getAttributes());
+		try
+		{
+			cellPhone.addDoubleAttribute("akkuTime");
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals("unique violation for DAttribute#uniqueConstraintName", e.getMessage());
 		}
 		assertContains(akkuTime, memory, cellPhone.getAttributes());
 		

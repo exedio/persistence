@@ -111,6 +111,14 @@ public final class DTypeSystem extends Pattern
 				DType.dtypeSystemName.equal(getName())));
 	}
 	
+	public DType getType(final String code)
+	{
+		return DType.TYPE.searchSingleton(
+				DType.parentTypeId.equal(getType().getID()).and(
+				DType.dtypeSystemName.equal(getName())).and(
+				DType.code.equal(code)));
+	}
+	
 	public DType getType(final Item item)
 	{
 		return this.type.get(item);

@@ -53,6 +53,7 @@ public final class DAttribute extends Item
 	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
 	
 	public static final StringAttribute name = new StringAttribute(FINAL);
+	public static final UniqueConstraint uniqueConstraintName = new UniqueConstraint(parent, name);
 
 	public Object get(final Item item)
 	{
