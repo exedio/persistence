@@ -47,6 +47,7 @@ public class EmptyItem extends Item
 	 */
 	private int postCreateValue;
 	
+	@Override
 	protected final void postCreate()
 	{
 		postCreateValue = 5;
@@ -57,7 +58,7 @@ public class EmptyItem extends Item
 		return postCreateValue;
 	}
 	
-/**
+	/**
 
 	 **
 	 * Creates a new EmptyItem with all the attributes initially needed.
