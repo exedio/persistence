@@ -139,8 +139,6 @@ public abstract class Item extends Cope
 			LengthViolationException,
 			ClassCastException
 	{
-		preCreate(setValues);
-		
 		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
@@ -187,15 +185,6 @@ public abstract class Item extends Cope
 	 * The default implementation does nothing. 
 	 */
 	protected void postCreate()
-	{
-		// empty default implementation
-	}
-	
-	/**
-	 * Is called before every item creation. Override this method when needed.
-	 * The default implementation does nothing. 
-	 */
-	protected void preCreate(final SetValue[] setValues)
 	{
 		// empty default implementation
 	}
