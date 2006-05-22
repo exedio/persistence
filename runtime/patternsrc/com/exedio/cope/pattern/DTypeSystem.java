@@ -52,7 +52,7 @@ public final class DTypeSystem extends Pattern
 		booleans = new BooleanAttribute[booleanCapacity];
 		integers = new IntegerAttribute[integerCapacity];
 		doubles  = new DoubleAttribute [doubleCapacity];
-		enums    = new ItemAttribute[enumCapacity];
+		enums    = castEnumArray(new ItemAttribute[enumCapacity]);
 		attributes = new FunctionAttribute[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
@@ -67,6 +67,12 @@ public final class DTypeSystem extends Pattern
 			registerSource(attributes[n++] = doubles [i] = new DoubleAttribute(Item.OPTIONAL));
 		for(int i = 0; i<enums.length; i++)
 			registerSource(attributes[n++] = enums   [i] = new ItemAttribute<DEnumValue>(Item.OPTIONAL, DEnumValue.class));
+	}
+	
+	@SuppressWarnings("unchecked") // OK: no generic array creation
+	private static final ItemAttribute<DEnumValue>[] castEnumArray(final ItemAttribute[] o)
+	{
+		return (ItemAttribute<DEnumValue>[])o;
 	}
 
 	private FunctionAttribute<?>[] array(final DAttribute.ValueType valueType)
