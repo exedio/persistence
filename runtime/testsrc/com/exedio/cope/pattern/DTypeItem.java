@@ -25,7 +25,7 @@ public class DTypeItem extends Item
 {
 	public static final StringAttribute name = new StringAttribute(FINAL);
 	
-	public static final DTypeSystem features = new DTypeSystem(1, 1, 1, 1);
+	public static final DTypeSystem features = new DTypeSystem(1, 1, 1, 1, 1);
 	
 	// TODO generate
 	public DType getFeaturesType()

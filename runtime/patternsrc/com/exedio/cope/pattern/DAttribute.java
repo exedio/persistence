@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.List;
+
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
@@ -39,7 +41,8 @@ public final class DAttribute extends Item
 		STRING("String"),
 		BOOLEAN("Bool"),
 		INTEGER("Int"),
-		DOUBLE("Double");
+		DOUBLE("Double"),
+		ENUM("Enum");
 		
 		final String postfix;
 		
@@ -63,6 +66,33 @@ public final class DAttribute extends Item
 	public void set(final Item item, final Object value)
 	{
 		getParent().getDtypeSystem().set(this, item, value);
+	}
+	
+	private void assertEnum()
+	{
+		final ValueType vt = getValueType();
+		if(vt!=ValueType.ENUM)
+			throw new RuntimeException("operation allowed for getValueType()==ENUM attributes only, but was " + vt);
+	}
+	
+	public List<DEnumValue> getEnumValues()
+	{
+		assertEnum();
+		return DEnumValue.TYPE.search(DEnumValue.parent.equal(this), DEnumValue.position, true);
+	}
+	
+	public DEnumValue getEnumValue(final String code)
+	{
+		assertEnum();
+		return DEnumValue.TYPE.searchSingleton(DEnumValue.parent.equal(this).and(DEnumValue.code.equal(code)));
+	}
+	
+	public DEnumValue addEnumValue(final String code)
+	{
+		assertEnum();
+		final List<DEnumValue> values = getEnumValues(); // TODO make more efficient
+		final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
+		return new DEnumValue(this, position, code);
 	}
 	
 	

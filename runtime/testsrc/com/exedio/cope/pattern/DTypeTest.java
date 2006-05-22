@@ -134,6 +134,30 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(true, item2.getFeatures(bluetooth));
 		assertEquals(2.2, item2.getFeatures(length));
 		
+		final DAttribute color = organizer.addEnumAttribute("color");
+		assertEquals(DAttribute.ValueType.ENUM, color.getValueType());
+		assertEquals(3, color.getPosition());
+		assertEquals("color", color.getCode());
+		assertEquals(list(weight, bluetooth, length, color), organizer.getAttributes());
+		assertContains(color.getEnumValues());
+		assertEquals(null, item2.getFeatures(color));
+		
+		final DEnumValue colorRed = color.addEnumValue("red");
+		assertEquals(color, colorRed.getParent());
+		assertEquals(0, colorRed.getPosition());
+		assertEquals("red", colorRed.getCode());
+		assertContains(colorRed, color.getEnumValues());
+		assertEquals(colorRed, color.getEnumValue("red"));
+		assertEquals(null, color.getEnumValue("redX"));
+		
+		final DEnumValue colorBlue = color.addEnumValue("blue");
+		assertEquals(color, colorBlue.getParent());
+		assertEquals(1, colorBlue.getPosition());
+		assertEquals("blue", colorBlue.getCode());
+		assertContains(colorRed, colorBlue, color.getEnumValues());
+
+		item2.setFeatures(color, colorBlue);
+		assertEquals(colorBlue, item2.getFeatures(color));
 		
 		// wrong value type
 		try
@@ -191,6 +215,35 @@ public class DTypeTest extends AbstractLibTest
 			assertEquals("unique violation for DAttribute#uniqueConstraintName", e.getMessage());
 		}
 		assertContains(akkuTime, memory, cellPhone.getAttributes());*/
+		
+		try
+		{
+			akkuTime.getEnumValues();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
+		}
+		try
+		{
+			akkuTime.getEnumValue(null);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
+		}
+		try
+		{
+			akkuTime.addEnumValue(null);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
+		}
+			
 		
 		// test cleaning of attributes on setting type
 		item2.setFeaturesType(cellPhone);

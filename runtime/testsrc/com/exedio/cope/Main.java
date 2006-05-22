@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.File;
 
 import com.exedio.cope.pattern.DAttribute;
+import com.exedio.cope.pattern.DEnumValue;
 import com.exedio.cope.pattern.DType;
 import com.exedio.cope.pattern.DTypeItem;
 import com.exedio.cope.pattern.CustomItem;
@@ -68,7 +69,7 @@ public class Main
 		});
 	public static final Model hierarchyEmptyModel = new Model(new Type[] { HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE });
 	public static final Model joinFunctionModel = new Model(new Type[] { JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE });
-	public static final Model dtypeModel = new Model(new Type[] { DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE });
+	public static final Model dtypeModel = new Model(new Type[] { DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE });
 
 	private static final void tearDown(final Model model)
 	{

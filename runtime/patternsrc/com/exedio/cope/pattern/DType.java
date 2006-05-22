@@ -66,6 +66,11 @@ public final class DType extends Item
 		return addAttribute(name, DAttribute.ValueType.DOUBLE);
 	}
 	
+	public DAttribute addEnumAttribute(final String name)
+	{
+		return addAttribute(name, DAttribute.ValueType.ENUM);
+	}
+	
 	public List<DAttribute> getAttributes()
 	{
 		return DAttribute.TYPE.search(DAttribute.parent.equal(this), DAttribute.position, true);

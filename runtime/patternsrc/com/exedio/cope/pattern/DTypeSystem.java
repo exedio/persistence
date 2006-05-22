@@ -39,18 +39,21 @@ public final class DTypeSystem extends Pattern
 	private final BooleanAttribute[] booleans;
 	private final IntegerAttribute[] integers;
 	private final DoubleAttribute[]  doubles;
+	private final ItemAttribute<DEnumValue>[]  enums;
 	
 	public DTypeSystem(
 			final int stringCapacity,
 			final int booleanCapacity,
 			final int integerCapacity,
-			final int doubleCapacity)
+			final int doubleCapacity,
+			final int enumCapacity)
 	{
 		strings  = new StringAttribute[stringCapacity];
 		booleans = new BooleanAttribute[booleanCapacity];
 		integers = new IntegerAttribute[integerCapacity];
 		doubles  = new DoubleAttribute [doubleCapacity];
-		attributes = new FunctionAttribute[strings.length + booleans.length + integers.length + doubles.length];
+		enums    = new ItemAttribute[enumCapacity];
+		attributes = new FunctionAttribute[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
 		int n = 0;
@@ -62,6 +65,8 @@ public final class DTypeSystem extends Pattern
 			registerSource(attributes[n++] = integers[i] = new IntegerAttribute(Item.OPTIONAL));
 		for(int i = 0; i<doubles.length; i++)
 			registerSource(attributes[n++] = doubles [i] = new DoubleAttribute(Item.OPTIONAL));
+		for(int i = 0; i<enums.length; i++)
+			registerSource(attributes[n++] = enums   [i] = new ItemAttribute(Item.OPTIONAL, DEnumValue.class));
 	}
 
 	private FunctionAttribute<?>[] array(final DAttribute.ValueType valueType)
@@ -72,6 +77,7 @@ public final class DTypeSystem extends Pattern
 			case BOOLEAN: return booleans;
 			case INTEGER: return integers;
 			case DOUBLE:  return doubles;
+			case ENUM:    return enums;
 			default:
 				throw new RuntimeException(valueType.toString());
 		}
