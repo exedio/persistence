@@ -34,7 +34,7 @@ public abstract class IntegerView
 			final String name,
 			final String[] sqlFragments)
 	{
-		super(sources, name, IntegerColumn.JDBC_TYPE_INT, sqlFragments);
+		super(sources, name, Integer.class, IntegerColumn.JDBC_TYPE_INT, sqlFragments);
 	}
 
 	final Object load(final ResultSet resultSet, final int columnIndex)

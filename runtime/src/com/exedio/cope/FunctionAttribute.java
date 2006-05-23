@@ -158,11 +158,6 @@ public abstract class FunctionAttribute<E extends Object>
 		return cast(getEntity(item).get(this));
 	}
 	
-	/**
-	 * Casts <tt>o</tt> to <tt>E</tt>.
-	 * @throws ClassCastException if <tt>o</tt> is not assignable to <tt>E</tt>
-	 * @see Class#cast(Object)
-	 */
 	public final E cast(final Object o)
 	{
 		return Cope.verboseCast(valueClass, o);
@@ -282,10 +277,9 @@ public abstract class FunctionAttribute<E extends Object>
 		return new EqualCondition<E>(this, value);
 	}
 	
-	// TODO put into Function interface
-	public final EqualCondition<E> equalWithCast(final Object value)
+	public final EqualCondition<E> equalAndCast(final Object value)
 	{
-		return new EqualCondition<E>(this, cast(value));
+		return equal(cast(value));
 	}
 	
 	public final EqualCondition<E> equal(final Join join, final E value)
@@ -303,6 +297,11 @@ public abstract class FunctionAttribute<E extends Object>
 		return new NotEqualCondition<E>(this, value);
 	}
 	
+	public final NotEqualCondition notEqualAndCast(final Object value)
+	{
+		return notEqual(cast(value));
+	}
+	
 	public final EqualFunctionCondition equal(final Function<E> right)
 	{
 		return new EqualFunctionCondition(this, right);
@@ -313,9 +312,19 @@ public abstract class FunctionAttribute<E extends Object>
 		return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 	}
 	
+	public final CompareCondition lessAndCast(final Object value)
+	{
+		return less(cast(value));
+	}
+	
 	public final CompareCondition lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
+	}
+	
+	public final CompareCondition lessOrEqualAndCast(final Object value)
+	{
+		return lessOrEqual(cast(value));
 	}
 	
 	public final CompareCondition greater(final E value)
@@ -323,9 +332,18 @@ public abstract class FunctionAttribute<E extends Object>
 		return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 	}
 	
+	public final CompareCondition greaterAndCast(final Object value)
+	{
+		return greater(cast(value));
+	}
+	
 	public final CompareCondition greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 	}
 	
+	public final CompareCondition greaterOrEqualAndCast(final Object value)
+	{
+		return greaterOrEqual(cast(value));
+	}
 }

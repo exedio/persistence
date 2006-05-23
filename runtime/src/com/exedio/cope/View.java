@@ -42,14 +42,16 @@ public abstract class View<E> extends Feature implements Function<E>
 	private final Function<?>[] sources;
 	private final List<Function<?>> sourceList;
 	private final String name;
+	final Class<E> valueClass;
 	final int jdbcType;
 	final Type<? extends Item> sourceType;
 
-	public View(final Function<?>[] sources, final String name, final int jdbcType)
+	public View(final Function<?>[] sources, final String name, final Class<E> valueClass, final int jdbcType)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
 		this.name = name;
+		this.valueClass = valueClass;
 		this.jdbcType = jdbcType;
 		
 		Type<? extends Item> sourceType;
@@ -86,6 +88,11 @@ public abstract class View<E> extends Feature implements Function<E>
 			values[pos++] = ((Function)i.next()).get(item);
 	
 		return mapJava(values);
+	}
+	
+	public final E cast(final Object o)
+	{
+		return Cope.verboseCast(valueClass, o);
 	}
 	
 	public final void appendParameter(final Statement bf, final E value)
@@ -164,6 +171,11 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new EqualCondition<E>(this, value);
 	}
 	
+	public final EqualCondition equalAndCast(final Object value)
+	{
+		return equal(cast(value));
+	}
+	
 	public final EqualCondition<E> equal(final Join join, final E value)
 	{
 		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
@@ -178,6 +190,11 @@ public abstract class View<E> extends Feature implements Function<E>
 	{
 		return new NotEqualCondition<E>(this, value);
 	}
+	
+	public final NotEqualCondition notEqualAndCast(final Object value)
+	{
+		return notEqual(cast(value));
+	}
 
 	public final EqualFunctionCondition equal(final Function<E> right)
 	{
@@ -189,9 +206,19 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 	}
 	
+	public final CompareCondition lessAndCast(final Object value)
+	{
+		return less(cast(value));
+	}
+	
 	public final CompareCondition lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
+	}
+	
+	public final CompareCondition lessOrEqualAndCast(final Object value)
+	{
+		return lessOrEqual(cast(value));
 	}
 	
 	public final CompareCondition greater(final E value)
@@ -199,8 +226,18 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 	}
 	
+	public final CompareCondition greaterAndCast(final Object value)
+	{
+		return greater(cast(value));
+	}
+	
 	public final CompareCondition greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
+	}
+	
+	public final CompareCondition greaterOrEqualAndCast(final Object value)
+	{
+		return greaterOrEqual(cast(value));
 	}
 }

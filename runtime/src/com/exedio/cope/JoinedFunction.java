@@ -40,6 +40,11 @@ public class JoinedFunction<E> implements Function<E>
 		return function.get(item);
 	}
 
+	public final E cast(final Object o)
+	{
+		return function.cast(o);
+	}
+
 	public final void append(final Statement bf, final Join join)
 	{
 		function.append(bf, this.join);
@@ -82,6 +87,11 @@ public class JoinedFunction<E> implements Function<E>
 		return new EqualCondition<E>(this, value);
 	}
 	
+	public final EqualCondition<E> equalAndCast(final Object value)
+	{
+		return equal(cast(value));
+	}
+	
 	public final EqualCondition<E> equal(final Join join, final E value)
 	{
 		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
@@ -97,6 +107,11 @@ public class JoinedFunction<E> implements Function<E>
 		return new NotEqualCondition<E>(this, value);
 	}
 	
+	public final NotEqualCondition notEqualAndCast(final Object value)
+	{
+		return notEqual(cast(value));
+	}
+	
 	public final EqualFunctionCondition equal(final Function<E> right)
 	{
 		return new EqualFunctionCondition(this, right);
@@ -107,9 +122,19 @@ public class JoinedFunction<E> implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 	}
 	
+	public final CompareCondition lessAndCast(final Object value)
+	{
+		return less(cast(value));
+	}
+	
 	public final CompareCondition lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
+	}
+	
+	public final CompareCondition lessOrEqualAndCast(final Object value)
+	{
+		return lessOrEqual(cast(value));
 	}
 	
 	public final CompareCondition greater(final E value)
@@ -117,8 +142,19 @@ public class JoinedFunction<E> implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 	}
 	
+	public final CompareCondition greaterAndCast(final Object value)
+	{
+		return greater(cast(value));
+	}
+	
 	public final CompareCondition greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 	}
+	
+	public final CompareCondition greaterOrEqualAndCast(final Object value)
+	{
+		return greaterOrEqual(cast(value));
+	}
+	
 }

@@ -138,7 +138,7 @@ public final class UniqueConstraint extends Feature
 		final Iterator<FunctionAttribute<?>> attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
 		for(int j = 0; attributeIterator.hasNext(); j++)
-			conditions[j] = attributeIterator.next().equalWithCast(values[j]);
+			conditions[j] = attributeIterator.next().equalAndCast(values[j]);
 
 		return getType().searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
 	}

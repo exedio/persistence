@@ -32,7 +32,7 @@ public abstract class StringView
 			final String name,
 			final String[] sqlFragments)
 	{
-		super(sources, name, StringColumn.JDBC_TYPE, sqlFragments);
+		super(sources, name, String.class, StringColumn.JDBC_TYPE, sqlFragments);
 	}
 
 	final Object load(final ResultSet resultSet, final int columnIndex)

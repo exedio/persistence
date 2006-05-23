@@ -879,6 +879,11 @@ public final class Type<C extends Item>
 			return type.cast(item);
 		}
 		
+		public E cast(final Object o)
+		{
+			return type.cast((Item)o);
+		}
+		
 		public void append(Statement bf, Join join)
 		{
 			bf.appendPK(type, join);
@@ -924,6 +929,11 @@ public final class Type<C extends Item>
 			return new EqualCondition<E>(this, value);
 		}
 		
+		public EqualCondition<E> equalAndCast(final Object value)
+		{
+			return equal(cast(value));
+		}
+		
 		public EqualCondition<E> equal(final Join join, final E value)
 		{
 			return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
@@ -939,6 +949,11 @@ public final class Type<C extends Item>
 			return new NotEqualCondition<E>(this, value);
 		}
 		
+		public NotEqualCondition notEqualAndCast(final Object value)
+		{
+			return notEqual(cast(value));
+		}
+		
 		public EqualFunctionCondition equal(final Function<E> right)
 		{
 			return new EqualFunctionCondition(this, right);
@@ -949,9 +964,19 @@ public final class Type<C extends Item>
 			return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 		}
 		
+		public CompareCondition lessAndCast(final Object value)
+		{
+			return less(cast(value));
+		}
+		
 		public CompareCondition lessOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
+		}
+		
+		public CompareCondition lessOrEqualAndCast(final Object value)
+		{
+			return lessOrEqual(cast(value));
 		}
 		
 		public CompareCondition greater(final E value)
@@ -959,9 +984,19 @@ public final class Type<C extends Item>
 			return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 		}
 		
+		public CompareCondition greaterAndCast(final Object value)
+		{
+			return greater(cast(value));
+		}
+		
 		public CompareCondition greaterOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
+		}
+		
+		public CompareCondition greaterOrEqualAndCast(final Object value)
+		{
+			return greaterOrEqual(cast(value));
 		}
 		
 		public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1)
