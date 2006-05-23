@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -44,7 +45,7 @@ public abstract class CustomAttribute<E>
 	private final boolean isFinal;
 	private final Method getter;
 	private final Method setter;
-	private final Class valueClass;
+	private final Class<E> valueClass;
 	
 	public CustomAttribute(final FunctionAttribute<?> storage)
 	{
@@ -111,7 +112,13 @@ public abstract class CustomAttribute<E>
 		
 		this.getter = getter;
 		this.setter = setter;
-		this.valueClass = getter.getReturnType();
+		this.valueClass = castClass(getter.getReturnType());
+	}
+
+	@SuppressWarnings("unchecked") // TODO check this cast with runtime information
+	private final Class<E> castClass(Class<?> c)
+	{
+		return (Class<E>)c;
 	}
 	
 	public final List<FunctionAttribute<?>> getStorages()
@@ -152,12 +159,11 @@ public abstract class CustomAttribute<E>
 		return valueClass;
 	}
 
-	@SuppressWarnings("unchecked") // TODO use runtime information for making cast safe
-	private E cast(final Object o)
+	public final E cast(final Object o)
 	{
-		return (E)o;
+		return Cope.verboseCast(valueClass, o);
 	}
-	
+
 	public final E get(final Item item)
 	{
 		final Object[] params = new Object[storages.length];
@@ -187,6 +193,18 @@ public abstract class CustomAttribute<E>
 		item.set(convert(execute(value, item)));
 	}
 	
+	/**
+	 * {@link #cast(Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link #set(Item, Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	// TODO put into Settable
+	public final void setAndCast(final Item item, final Object value)
+	{
+		set(item, cast(value));
+	}
+
 	private static final SetValue[] convert(Map<? extends Attribute, ?> map)
 	{
 		final SetValue[] result = new SetValue[map.size()];

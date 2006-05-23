@@ -174,6 +174,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * {@link #set(Item, Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
+	// TODO put into Settable
 	public final void setAndCast(final Item item, final Object value)
 	{
 		set(item, cast(value));
