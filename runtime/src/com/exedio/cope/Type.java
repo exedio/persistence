@@ -100,6 +100,17 @@ public final class Type<C extends Item>
 		return (Type<X>)this;
 	}
 	
+	/**
+	 * @throws RuntimeException if there is no type for the given java class.
+	 */
+	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
+	{
+		final Type<? extends Item> result = typesByClass.get(javaClass);
+		if(result==null)
+			throw new RuntimeException("there is no type for " + javaClass);
+		return result;
+	}
+	
 	private ArrayList<Feature> featuresWhileConstruction;
 	
 	Type(final Class<C> javaClass)
