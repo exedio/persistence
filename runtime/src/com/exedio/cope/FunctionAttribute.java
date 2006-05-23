@@ -248,7 +248,7 @@ public abstract class FunctionAttribute<E extends Object>
 	public final Item searchUnique(final E value)
 	{
 		// TODO: search nativly for unique constraints
-		return getType().searchSingleton(new EqualCondition<E>(this, value));
+		return getType().searchSingleton(equal(value));
 	}
 
 	public final SetValue map(final E value)
@@ -265,12 +265,12 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	public final EqualCondition isNull()
 	{
-		return new EqualCondition<E>(this, null);
+		return equal((E)null);
 	}
 	
 	public final NotEqualCondition isNotNull()
 	{
-		return new NotEqualCondition<E>(this, null);
+		return notEqual(null);
 	}
 	
 	public final EqualCondition<E> equal(final E value)
@@ -285,7 +285,7 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	public final EqualCondition<E> equal(final Join join, final E value)
 	{
-		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
+		return new JoinedFunction<E>(this, join).equal(value);
 	}
 	
 	public final CompositeCondition in(final Collection<E> values)

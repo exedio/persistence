@@ -53,10 +53,10 @@ public class AttributeLongTest extends AttributeTest
 		assertEquals(Long.valueOf(11), item.getSomeLong());
 		assertEquals(
 			list(item),
-			item.TYPE.search(item.someLong.equal(11)));
+			item.TYPE.search(item.someLong.equal(11l)));
 		assertEquals(
 			list(item2),
-			item.TYPE.search(item.someLong.notEqual(11)));
+			item.TYPE.search(item.someLong.notEqual(11l)));
 
 		assertEquals(list(item2), item.TYPE.search(item.someLong.equal((Long)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someLong.isNull()));

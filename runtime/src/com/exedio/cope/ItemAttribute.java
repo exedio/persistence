@@ -225,19 +225,14 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public EqualCondition equal(final E value, final Join join)
-	{
-		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
-	}
-	
 	public EqualFunctionCondition equalTarget()
 	{
-		return new EqualFunctionCondition(this, getValueType().thisFunction);
+		return equal(getValueType().thisFunction);
 	}
 	
 	public EqualFunctionCondition equalTarget(final Join targetJoin)
 	{
-		return new EqualFunctionCondition(this, new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
+		return equal(new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
 	}
 	
 	public TypeNotInCondition typeNotIn(final Type<? extends E> excludedType1)

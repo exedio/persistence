@@ -178,7 +178,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	public final EqualCondition<E> equal(final Join join, final E value)
 	{
-		return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
+		return new JoinedFunction<E>(this, join).equal(value);
 	}
 	
 	public final CompositeCondition in(final Collection<E> values)

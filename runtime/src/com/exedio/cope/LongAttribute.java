@@ -85,16 +85,6 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public final EqualCondition equal(final long value)
-	{
-		return new EqualCondition<Long>(this, Long.valueOf(value));
-	}
-	
-	public final NotEqualCondition notEqual(final long value)
-	{
-		return new NotEqualCondition<Long>(this, Long.valueOf(value));
-	}
-	
 	public final SumAggregate<Long> sum()
 	{
 		return new SumAggregate<Long>(this);

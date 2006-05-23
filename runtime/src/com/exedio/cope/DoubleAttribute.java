@@ -92,16 +92,6 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public final EqualCondition equal(final double value)
-	{
-		return new EqualCondition<Double>(this, new Double(value));
-	}
-	
-	public final NotEqualCondition notEqual(final double value)
-	{
-		return new NotEqualCondition<Double>(this, new Double(value));
-	}
-	
 	public final SumAggregate<Double> sum()
 	{
 		return new SumAggregate<Double>(this);

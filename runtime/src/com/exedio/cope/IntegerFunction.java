@@ -25,8 +25,6 @@ public interface IntegerFunction extends Function<Integer>
 {
 	// convenience methods for conditions and views ---------------------------------
 
-	EqualCondition equal(int value);
-	NotEqualCondition notEqual(int value);
 	PlusView plus(IntegerFunction other);
 	
 	/**

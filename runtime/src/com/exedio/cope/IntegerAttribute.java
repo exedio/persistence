@@ -86,16 +86,6 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public final EqualCondition equal(final int value)
-	{
-		return new EqualCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
-	public final NotEqualCondition notEqual(final int value)
-	{
-		return new NotEqualCondition<Integer>(this, Integer.valueOf(value));
-	}
-	
 	public final PlusView plus(final IntegerFunction other)
 	{
 		return new PlusView(new IntegerFunction[]{this, other});

@@ -203,10 +203,10 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
 		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = new EqualCondition<T>(sources[i], it.next());
+			conditions[i] = sources[i].equal(it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = new EqualCondition<T>(sources[i], null);
+			conditions[i] = sources[i].equal((T)null);
 
 		return Cope.and(conditions);
 	}
@@ -217,10 +217,10 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		final NotEqualCondition[] conditions = new NotEqualCondition[sources.length];
 		
 		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = new NotEqualCondition<T>(sources[i], it.next());
+			conditions[i] = sources[i].notEqual(it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = new NotEqualCondition<T>(sources[i], null);
+			conditions[i] = sources[i].notEqual(null);
 
 		return Cope.or(conditions);
 	}
@@ -230,7 +230,7 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
 		for(int i = 0; i<sources.length; i++)
-			conditions[i] = new EqualCondition<T>(sources[i], value);
+			conditions[i] = sources[i].equal(value);
 
 		return Cope.or(conditions);
 	}
