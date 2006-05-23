@@ -168,7 +168,7 @@
 			<sequential>
 				<basename file="@{driver.file}" property="@{driver.file}.name" suffix=".driver.properties" />
 				<property file="@{driver.file}" prefix="@{driver.file}." />
-				<echo message="compiling driver ${@{driver.file}.name} with ${@{driver.file}.jar}." />
+				<echo message="Compiling driver ${@{driver.file}.name} with ${@{driver.file}.jar}." />
 				<!--echo message="file=@{driver.file},driver=${@{driver.file}.name},jar=${@{driver.file}.jar}." /-->
 				<ljavac srcdir="runtime/${@{driver.file}.name}src" destdir="build/runtime/classes">
 					<classpath>
