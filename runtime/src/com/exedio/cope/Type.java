@@ -85,10 +85,7 @@ public final class Type<C extends Item>
 	 */
 	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
 	{
-		final Type<?> result = typesByClass.get(javaClass);
-		if(result==null)
-			throw new RuntimeException("there is no type for " + javaClass);
-		return result.castType(javaClass);
+		return findByJavaClassUnchecked(javaClass).castType(javaClass);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
@@ -947,7 +944,7 @@ public final class Type<C extends Item>
 		
 		public EqualCondition<E> equal(final Join join, final E value)
 		{
-			return new EqualCondition<E>(new JoinedFunction<E>(this, join), value);
+			return new JoinedFunction<E>(this, join).equal(value);
 		}
 		
 		public CompositeCondition in(final Collection<E> values)
