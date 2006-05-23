@@ -24,5 +24,8 @@ public interface StringFunction extends Function<String>
 {
 	// convenience methods for conditions and views ---------------------------------
 	LikeCondition like(String value);
+	LikeCondition startsWith(String value);
+	LikeCondition endsWith(String value);
+	LikeCondition contains(String value);
 	LengthView length();
 }

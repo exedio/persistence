@@ -177,6 +177,21 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		return new LikeCondition(this, value);
 	}
 	
+	public final LikeCondition startsWith(final String value)
+	{
+		return LikeCondition.startsWith(this, value);
+	}
+	
+	public final LikeCondition endsWith(final String value)
+	{
+		return LikeCondition.endsWith(this, value);
+	}
+	
+	public final LikeCondition contains(final String value)
+	{
+		return LikeCondition.contains(this, value);
+	}
+	
 	public final LengthView length()
 	{
 		return new LengthView(this);
