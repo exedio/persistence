@@ -36,7 +36,7 @@ public interface Function<E> extends Selectable<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 	
-	EqualCondition equal(E value);
+	EqualCondition<E> equal(E value);
 
 	/**
 	 * {@link #cast(Object) Casts}
@@ -44,12 +44,12 @@ public interface Function<E> extends Selectable<E>
 	 * {@link #equal(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	EqualCondition equalAndCast(Object value);
+	EqualCondition<E> equalAndCast(Object value);
 	
-	EqualCondition equal(Join join, E value);
+	EqualCondition<E> equal(Join join, E value);
 	CompositeCondition in(Collection<E> value);
 
-	NotEqualCondition notEqual(E value);
+	NotEqualCondition<E> notEqual(E value);
 	
 	/**
 	 * {@link #cast(Object) Casts}
@@ -57,10 +57,10 @@ public interface Function<E> extends Selectable<E>
 	 * {@link #notEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	NotEqualCondition notEqualAndCast(Object value);
+	NotEqualCondition<E> notEqualAndCast(Object value);
 	
 	EqualFunctionCondition equal(Function<E> right);
-	CompareCondition less(E value);
+	CompareCondition<E> less(E value);
 
 	/**
 	 * {@link #cast(Object) Casts}
@@ -68,9 +68,9 @@ public interface Function<E> extends Selectable<E>
 	 * {@link #less(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	CompareCondition lessAndCast(Object value);
+	CompareCondition<E> lessAndCast(Object value);
 
-	CompareCondition lessOrEqual(E value);
+	CompareCondition<E> lessOrEqual(E value);
 
 	/**
 	 * {@link #cast(Object) Casts}
@@ -78,9 +78,9 @@ public interface Function<E> extends Selectable<E>
 	 * {@link #lessOrEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	CompareCondition lessOrEqualAndCast(Object value);
+	CompareCondition<E> lessOrEqualAndCast(Object value);
 	
-	CompareCondition greater(E value);
+	CompareCondition<E> greater(E value);
 
 	/**
 	 * {@link #cast(Object) Casts}
@@ -88,9 +88,9 @@ public interface Function<E> extends Selectable<E>
 	 * {@link #greater(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	CompareCondition greaterAndCast(Object value);
+	CompareCondition<E> greaterAndCast(Object value);
 	
-	CompareCondition greaterOrEqual(E value);
+	CompareCondition<E> greaterOrEqual(E value);
 
 	/**
 	 * {@link #cast(Object) Casts}
@@ -98,5 +98,5 @@ public interface Function<E> extends Selectable<E>
 	 * {@link #greaterOrEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	CompareCondition greaterOrEqualAndCast(Object value);
+	CompareCondition<E> greaterOrEqualAndCast(Object value);
 }

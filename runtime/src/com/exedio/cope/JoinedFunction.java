@@ -102,12 +102,12 @@ public class JoinedFunction<E> implements Function<E>
 		return CompositeCondition.in(this, values);
 	}
 	
-	public final NotEqualCondition notEqual(final E value)
+	public final NotEqualCondition<E> notEqual(final E value)
 	{
 		return new NotEqualCondition<E>(this, value);
 	}
 	
-	public final NotEqualCondition notEqualAndCast(final Object value)
+	public final NotEqualCondition<E> notEqualAndCast(final Object value)
 	{
 		return notEqual(cast(value));
 	}
@@ -117,42 +117,42 @@ public class JoinedFunction<E> implements Function<E>
 		return new EqualFunctionCondition(this, right);
 	}
 	
-	public final CompareCondition less(final E value)
+	public final CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 	}
 	
-	public final CompareCondition lessAndCast(final Object value)
+	public final CompareCondition<E> lessAndCast(final Object value)
 	{
 		return less(cast(value));
 	}
 	
-	public final CompareCondition lessOrEqual(final E value)
+	public final CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
 	}
 	
-	public final CompareCondition lessOrEqualAndCast(final Object value)
+	public final CompareCondition<E> lessOrEqualAndCast(final Object value)
 	{
 		return lessOrEqual(cast(value));
 	}
 	
-	public final CompareCondition greater(final E value)
+	public final CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 	}
 	
-	public final CompareCondition greaterAndCast(final Object value)
+	public final CompareCondition<E> greaterAndCast(final Object value)
 	{
 		return greater(cast(value));
 	}
 	
-	public final CompareCondition greaterOrEqual(final E value)
+	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 	}
 	
-	public final CompareCondition greaterOrEqualAndCast(final Object value)
+	public final CompareCondition<E> greaterOrEqualAndCast(final Object value)
 	{
 		return greaterOrEqual(cast(value));
 	}

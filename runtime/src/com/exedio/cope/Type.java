@@ -952,12 +952,12 @@ public final class Type<C extends Item>
 			return CompositeCondition.in(this, values);
 		}
 		
-		public NotEqualCondition notEqual(final E value)
+		public NotEqualCondition<E> notEqual(final E value)
 		{
 			return new NotEqualCondition<E>(this, value);
 		}
 		
-		public NotEqualCondition notEqualAndCast(final Object value)
+		public NotEqualCondition<E> notEqualAndCast(final Object value)
 		{
 			return notEqual(cast(value));
 		}
@@ -967,42 +967,42 @@ public final class Type<C extends Item>
 			return new EqualFunctionCondition(this, right);
 		}
 
-		public CompareCondition less(final E value)
+		public CompareCondition<E> less(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 		}
 		
-		public CompareCondition lessAndCast(final Object value)
+		public CompareCondition<E> lessAndCast(final Object value)
 		{
 			return less(cast(value));
 		}
 		
-		public CompareCondition lessOrEqual(final E value)
+		public CompareCondition<E> lessOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
 		}
 		
-		public CompareCondition lessOrEqualAndCast(final Object value)
+		public CompareCondition<E> lessOrEqualAndCast(final Object value)
 		{
 			return lessOrEqual(cast(value));
 		}
 		
-		public CompareCondition greater(final E value)
+		public CompareCondition<E> greater(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 		}
 		
-		public CompareCondition greaterAndCast(final Object value)
+		public CompareCondition<E> greaterAndCast(final Object value)
 		{
 			return greater(cast(value));
 		}
 		
-		public CompareCondition greaterOrEqual(final E value)
+		public CompareCondition<E> greaterOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 		}
 		
-		public CompareCondition greaterOrEqualAndCast(final Object value)
+		public CompareCondition<E> greaterOrEqualAndCast(final Object value)
 		{
 			return greaterOrEqual(cast(value));
 		}

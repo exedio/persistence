@@ -166,12 +166,12 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public final EqualCondition equal(final E value)
+	public final EqualCondition<E> equal(final E value)
 	{
 		return new EqualCondition<E>(this, value);
 	}
 	
-	public final EqualCondition equalAndCast(final Object value)
+	public final EqualCondition<E> equalAndCast(final Object value)
 	{
 		return equal(cast(value));
 	}
@@ -186,12 +186,12 @@ public abstract class View<E> extends Feature implements Function<E>
 		return CompositeCondition.in(this, values);
 	}
 	
-	public final NotEqualCondition notEqual(final E value)
+	public final NotEqualCondition<E> notEqual(final E value)
 	{
 		return new NotEqualCondition<E>(this, value);
 	}
 	
-	public final NotEqualCondition notEqualAndCast(final Object value)
+	public final NotEqualCondition<E> notEqualAndCast(final Object value)
 	{
 		return notEqual(cast(value));
 	}
@@ -201,42 +201,42 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new EqualFunctionCondition(this, right);
 	}
 	
-	public final CompareCondition less(final E value)
+	public final CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 	}
 	
-	public final CompareCondition lessAndCast(final Object value)
+	public final CompareCondition<E> lessAndCast(final Object value)
 	{
 		return less(cast(value));
 	}
 	
-	public final CompareCondition lessOrEqual(final E value)
+	public final CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
 	}
 	
-	public final CompareCondition lessOrEqualAndCast(final Object value)
+	public final CompareCondition<E> lessOrEqualAndCast(final Object value)
 	{
 		return lessOrEqual(cast(value));
 	}
 	
-	public final CompareCondition greater(final E value)
+	public final CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 	}
 	
-	public final CompareCondition greaterAndCast(final Object value)
+	public final CompareCondition<E> greaterAndCast(final Object value)
 	{
 		return greater(cast(value));
 	}
 	
-	public final CompareCondition greaterOrEqual(final E value)
+	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 	}
 	
-	public final CompareCondition greaterOrEqualAndCast(final Object value)
+	public final CompareCondition<E> greaterOrEqualAndCast(final Object value)
 	{
 		return greaterOrEqual(cast(value));
 	}
