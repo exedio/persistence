@@ -293,7 +293,7 @@ public abstract class FunctionAttribute<E extends Object>
 		return CompositeCondition.in(this, values);
 	}
 	
-	public final NotEqualCondition notEqual(final E value)
+	public final NotEqualCondition<E> notEqual(final E value)
 	{
 		return new NotEqualCondition<E>(this, value);
 	}
