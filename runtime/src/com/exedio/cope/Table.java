@@ -71,21 +71,12 @@ final class Table
 
 	/**
 	 * A name for aliases is sql statements.
-	 * The value "return" prevents name collisions
+	 * The value prevents name collisions
 	 * with columns for cope attributes / types,
-	 * since "return" is a reserved java keyword,
+	 * since is is a reserved java keyword,
 	 * which cannot be used for java attributes / classes.
 	 */
-	static final String SQL_ALIAS_1 = "return";
-
-	/**
-	 * A name for aliases is sql statements.
-	 * The value "break" prevents name collisions
-	 * with columns for cope attributes / types,
-	 * since "break" is a reserved java keyword,
-	 * which cannot be used for java attributes / classes.
-	 */
-	static final String SQL_ALIAS_2 = "break";
+	static final String SQL_ALIAS_1 = "return", SQL_ALIAS_2 = "break";
 
 	void addColumn(final Column column)
 	{
