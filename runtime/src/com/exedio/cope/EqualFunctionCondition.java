@@ -18,20 +18,20 @@
 
 package com.exedio.cope;
 
-public final class EqualFunctionCondition extends Condition
+public final class EqualFunctionCondition<E> extends Condition
 {
-	public final Function left;
-	public final Function right;
+	public final Function<E> left;
+	public final Function<E> right;
 
 	/**
 	 * Creates a new EqualFunctionCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods.
-	 * @see FunctionAttribute#equal(Function)
+	 * you may want to use the convenience functions.
+	 * @see Function#equal(Function)
 	 */
 	public EqualFunctionCondition(
-				final Function left,
-				final Function right)
+				final Function<E> left,
+				final Function<E> right)
 	{
 		if(left==null)
 			throw new NullPointerException("left function must not be null");

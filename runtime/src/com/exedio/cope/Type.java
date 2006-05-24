@@ -962,9 +962,9 @@ public final class Type<C extends Item>
 			return notEqual(cast(value));
 		}
 		
-		public EqualFunctionCondition equal(final Function<E> right)
+		public EqualFunctionCondition<E> equal(final Function<E> right)
 		{
-			return new EqualFunctionCondition(this, right);
+			return new EqualFunctionCondition<E>(this, right);
 		}
 
 		public CompareCondition<E> less(final E value)

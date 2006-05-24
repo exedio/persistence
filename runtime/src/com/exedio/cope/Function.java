@@ -59,7 +59,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	NotEqualCondition<E> notEqualAndCast(Object value);
 	
-	EqualFunctionCondition equal(Function<E> right);
+	EqualFunctionCondition<E> equal(Function<E> right);
 	CompareCondition<E> less(E value);
 
 	/**
