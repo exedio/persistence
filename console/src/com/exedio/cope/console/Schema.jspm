@@ -494,7 +494,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		%>
 		<li>schema.getTable(&quot;<b><%=
 			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
-			constraint.getName()%></b>&quot;).check();</li><%
+			constraint.getName()%></b>&quot;).check(); // <%=
+			constraint.getRequiredCondition()%></li><%
 	}
 
 }
