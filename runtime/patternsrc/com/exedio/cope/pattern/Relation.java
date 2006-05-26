@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.Item;
@@ -25,6 +27,7 @@ import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
 
@@ -143,6 +146,29 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	public boolean removeFromSources(final T target, final S source)
 	{
 		return removeFromTargets(source, target);
+	}
+
+	/**
+	 * Returns all relations where <tt>type</tt>
+	 * is either the target type or source type.
+	 */
+	public static final List<Relation> getRelations(final Type<?> type)
+	{
+		// TODO cache result
+		ArrayList<Relation> result = null;
+		
+		for(final ItemAttribute<?> ia : type.getReferences())
+			for(final Pattern pattern : ia.getPatterns())
+			{
+				if(pattern instanceof Relation)
+				{
+					if(result==null)
+						result = new ArrayList<Relation>();
+					result.add((Relation)pattern);
+				}
+			}
+		
+		return result!=null ? Collections.unmodifiableList(result) : Collections.<Relation>emptyList();
 	}
 
 }
