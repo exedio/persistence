@@ -303,7 +303,7 @@ final class Console_Jspm
 		}
 	}
 
-	final static void writeMediaStats(final PrintStream out, final Collection media, final MediaStatsCop cop)
+	final static void writeMediaStats(final PrintStream out, final Collection<MediaPath> media, final MediaStatsCop cop)
 		throws IOException
 	{
 		final String[] names = {
@@ -329,9 +329,8 @@ final class Console_Jspm
 				<th>class</th>
 			</tr><%
 	
-			for(Iterator i = media.iterator(); i.hasNext(); )
+			for(final MediaPath path : media)
 			{
-				final MediaPath path = (MediaPath)i.next();
 				final String type = path.getType().getID();
 				final String name = path.getName();
 				final int[] data = {
