@@ -107,7 +107,7 @@ public final class ConsoleServlet extends CopsServlet
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 
-		final ConsoleCop cop = ConsoleCop.getCop(request);
+		final ConsoleCop cop = ConsoleCop.getCop(model, request);
 		cop.initialize();
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 		Console_Jspm.write(out, request, response, model, cop);

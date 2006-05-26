@@ -24,18 +24,21 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
-import com.exedio.cope.util.ConnectionPoolInfo;
-import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
+import com.exedio.cope.util.ConnectionPoolInfo;
+import com.exedio.cope.util.PoolCounter;
 
 final class Console_Jspm
 {
@@ -300,7 +303,7 @@ final class Console_Jspm
 		}
 	}
 
-	final static void writeMediaStats(final PrintStream out, final Collection media, final String prefix, final MediaStatsCop cop)
+	final static void writeMediaStats(final PrintStream out, final Collection media, final MediaStatsCop cop)
 		throws IOException
 	{
 		final String[] names = {
@@ -343,7 +346,16 @@ final class Console_Jspm
 				%>
 			<tr>
 				<td><%=type%></td>
-				<td><a href="<%=prefix%><%=type%>/<%=name%>/0"><%=name%></a><%
+				<td><%
+				if(path instanceof Media)
+				{
+					%><a href="<%=cop.toMedia((Media)path)%>"><%
+				}
+				%><%=name%><%
+				if(path instanceof Media)
+				{
+					%></a><%
+				}
 				if(path instanceof MediaRedirect)
 				{
 					final MediaRedirect redirect = (MediaRedirect)path;
@@ -360,6 +372,33 @@ final class Console_Jspm
 		</table><%
 	}
 
+	final static void writeMedia(
+				final PrintStream out,
+				final List<? extends Item> items,
+				final MediaStatsCop cop)
+		throws IOException
+	{
+		final Media media = cop.media;
+		%>
+		<table class="properties">
+			<tr><th colspan="4"><%=media.getType().getID()%>.<%=media.getName()%> (first 50)</th></tr>
+			<tr>
+				<th>Item</th><th>Content Type</th><th>Length</th><th>Last Modified</th></tr><%
+	
+			for(final Item item : items)
+			{
+				%>
+			<tr>
+				<td><a href="<%=media.getURL(item)%>"><%=item.getCopeID()%></a></td>
+				<td><%=media.getContentType(item)%></td>
+				<td><%=media.getLength(item)%></td>
+				<td><%=cop.format(media.getLastModified(item))%></td>
+			</tr><%
+			}
+		%>
+		</table><%
+	}
+	
 	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns)
 	{
 			%>

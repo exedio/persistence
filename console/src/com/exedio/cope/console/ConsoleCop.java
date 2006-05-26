@@ -93,6 +93,11 @@ abstract class ConsoleCop extends Cop
 		return df.format(date);
 	}
 	
+	final String format(final long date)
+	{
+		return df.format(new Date(date));
+	}
+	
 	void writeHead(HttpServletRequest request, PrintStream out) throws IOException
 	{
 		// default implementation does nothing
@@ -108,7 +113,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_VM = "vm";
 	static final String TAB_DB = "db";
 	
-	static final ConsoleCop getCop(final HttpServletRequest request)
+	static final ConsoleCop getCop(final Model model, final HttpServletRequest request)
 	{
 		final String tab = request.getParameter(TAB);
 		if(TAB_TYPE_COLUMNS.equals(tab))
@@ -118,7 +123,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_CACHE_STATS.equals(tab))
 			return new CacheStatsCop();
 		if(TAB_MEDIA_STATS.equals(tab))
-			return new MediaStatsCop();
+			return MediaStatsCop.getMediaStatsCop(model, request);
 		if(TAB_VM.equals(tab))
 			return VmCop.getVmCop(request);
 		if(TAB_DB.equals(tab))

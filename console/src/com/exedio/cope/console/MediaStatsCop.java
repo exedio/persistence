@@ -21,38 +21,89 @@ package com.exedio.cope.console;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.Type;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 
 final class MediaStatsCop extends ConsoleCop
 {
 
+	static final String MEDIA_TYPE = "mt";
+	static final String MEDIA_NAME = "mn";
+	
+	final Media media;
+
 	MediaStatsCop()
 	{
+		this(null);
+	}
+	
+	private MediaStatsCop(final Media media)
+	{
 		super("media");
+		this.media = media;
+		
 		addParameter(TAB, TAB_MEDIA_STATS);
+
+		if(media!=null)
+		{
+			addParameter(MEDIA_TYPE, media.getType().getID());
+			addParameter(MEDIA_NAME, media.getName());
+		}
+	}
+	
+	MediaStatsCop toMedia(final Media media)
+	{
+		return new MediaStatsCop(media);
+	}
+	
+	static MediaStatsCop getMediaStatsCop(final Model model, final HttpServletRequest request)
+	{
+		final String typeID = request.getParameter(MEDIA_TYPE);
+		return new MediaStatsCop((typeID==null) ? null : (Media)model.findTypeByID(typeID).getFeature(request.getParameter(MEDIA_NAME)));
 	}
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
-
-		for(final Type<Item> type : model.getTypes())
+		if(media==null)
 		{
-			for(final Feature feature : type.getDeclaredFeatures())
+			final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
+	
+			for(final Type<Item> type : model.getTypes())
 			{
-				if(feature instanceof MediaPath)
-					medias.add((MediaPath)feature);
+				for(final Feature feature : type.getDeclaredFeatures())
+				{
+					if(feature instanceof MediaPath)
+						medias.add((MediaPath)feature);
+				}
+			}
+	
+			Console_Jspm.writeMediaStats(out, medias, this);
+		}
+		else
+		{
+			try
+			{
+				model.startTransaction("MediaStatsCop#media");
+				final Query<? extends Item> q = media.getType().newQuery(media.getIsNull().isNotNull());
+				q.setLimit(0, 50);
+				final List<? extends Item> items = q.search();
+				Console_Jspm.writeMedia(out, items, this);
+				model.commit();
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
 			}
 		}
-
-		Console_Jspm.writeMediaStats(out, medias, model.getProperties().getMediaRootUrl(), this);
 	}
 	
 }
