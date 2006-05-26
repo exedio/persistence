@@ -80,8 +80,10 @@ final class Schema_Jspm
 			if("POST".equals(request.getMethod()))
 			{
 				int mask = 0;
-				for(String s : request.getParameterValues("CONSTRAINT_MASK"))
-					mask = mask | Integer.parseInt(s);
+				final String[] constraintMaskParameterValues = request.getParameterValues("CONSTRAINT_MASK");
+				if(constraintMaskParameterValues!=null)
+					for(String s : constraintMaskParameterValues)
+						mask = mask | Integer.parseInt(s);
 					
 				if(request.getParameter("CREATE")!=null)
 				{
