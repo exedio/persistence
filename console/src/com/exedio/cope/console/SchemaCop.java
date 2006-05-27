@@ -33,10 +33,10 @@ import com.exedio.dsmf.Table;
 
 final class SchemaCop extends ConsoleCop
 {
-	static final String SCHEMA = "schema";
-	static final String SHOW = "show";
-	static final String SHOW_DROP_BOXES = "drop";
-	static final String SHOW_RENAME_FIELDS = "rename";
+	private static final String SCHEMA = "schema";
+	private static final String SHOW = "show";
+	private static final String SHOW_DROP_BOXES = "drop";
+	private static final String SHOW_RENAME_FIELDS = "rename";
 
 	final String table;
 	final boolean showDropBoxes;
@@ -56,8 +56,12 @@ final class SchemaCop extends ConsoleCop
 			addParameter(SHOW, SHOW_RENAME_FIELDS);
 	}
 	
-	static SchemaCop getCop(final String schemaID, final HttpServletRequest request)
+	static SchemaCop getSchemaCop(final HttpServletRequest request)
 	{
+		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
+		if(schemaID==null)
+			return null;
+		
 		boolean showDropBoxes = false;
 		boolean showRenameFields = false;
 

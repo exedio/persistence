@@ -129,10 +129,9 @@ abstract class ConsoleCop extends Cop
 		if(TAB_DB.equals(tab))
 			return new DbCop();
 
-		// TODO SOON make it work as for MediaCop
-		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
-		if(schemaID!=null)
-			return SchemaCop.getCop(schemaID, request);
+		final SchemaCop schemaCop = SchemaCop.getSchemaCop(request);
+		if(schemaCop!=null)
+			return schemaCop;
 		
 		final MediaCop mediaCop = MediaCop.getMediaCop(model, request);
 		if(mediaCop!=null)

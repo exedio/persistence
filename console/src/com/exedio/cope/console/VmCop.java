@@ -32,7 +32,7 @@ import com.exedio.cope.Model;
 
 final class VmCop extends ConsoleCop
 {
-	static final String ALL_PACKAGES = "ap";
+	private static final String ALL_PACKAGES = "ap";
 	
 	final boolean allPackages;
 

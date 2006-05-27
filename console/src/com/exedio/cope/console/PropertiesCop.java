@@ -32,7 +32,7 @@ import com.exedio.cope.Properties;
 
 final class PropertiesCop extends ConsoleCop
 {
-	static final String SHOW_UNSPECIFIED = "up";
+	private static final String SHOW_UNSPECIFIED = "up";
 	
 	final boolean showUnspecified;
 
