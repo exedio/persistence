@@ -374,7 +374,7 @@ final class Console_Jspm
 	final static void writeMedia(
 				final PrintStream out,
 				final List<? extends Item> items,
-				final MediaStatsCop cop)
+				final MediaCop cop)
 		throws IOException
 	{
 		final Media media = cop.media;

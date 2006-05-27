@@ -20,45 +20,52 @@ package com.exedio.cope.console;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
+import com.exedio.cope.Query;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaPath;
 
-final class MediaStatsCop extends ConsoleCop
+final class MediaCop extends ConsoleCop
 {
 
-	MediaStatsCop()
+	private static final String MEDIA_TYPE = "mt";
+	private static final String MEDIA_NAME = "mn";
+	
+	final Media media;
+
+	MediaCop(final Media media)
 	{
-		super("media");
-		addParameter(TAB, TAB_MEDIA_STATS);
+		super("media - " + media.getType().getID() + '.' + media.getName());
+		this.media = media;
+		addParameter(MEDIA_TYPE, media.getType().getID());
+		addParameter(MEDIA_NAME, media.getName());
 	}
 	
-	MediaCop toMedia(final Media media)
+	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
 	{
-		return new MediaCop(media);
+		final String typeID = request.getParameter(MEDIA_TYPE);
+		return (typeID==null) ? null : new MediaCop((Media)model.findTypeByID(typeID).getFeature(request.getParameter(MEDIA_NAME)));
 	}
-	
+
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
-
-		for(final Type<Item> type : model.getTypes())
+		try
 		{
-			for(final Feature feature : type.getDeclaredFeatures())
-			{
-				if(feature instanceof MediaPath)
-					medias.add((MediaPath)feature);
-			}
+			model.startTransaction("MediaStatsCop#media");
+			final Query<? extends Item> q = media.getType().newQuery(media.getIsNull().isNotNull());
+			q.setLimit(0, 50);
+			final List<? extends Item> items = q.search();
+			Console_Jspm.writeMedia(out, items, this);
+			model.commit();
 		}
-
-		Console_Jspm.writeMediaStats(out, medias, this);
+		finally
+		{
+			model.rollbackIfNotCommitted();
+		}
 	}
 	
 }

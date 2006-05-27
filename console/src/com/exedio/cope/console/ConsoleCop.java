@@ -123,16 +123,21 @@ abstract class ConsoleCop extends Cop
 		if(TAB_CACHE_STATS.equals(tab))
 			return new CacheStatsCop();
 		if(TAB_MEDIA_STATS.equals(tab))
-			return MediaStatsCop.getMediaStatsCop(model, request);
+			return new MediaStatsCop();
 		if(TAB_VM.equals(tab))
 			return VmCop.getVmCop(request);
 		if(TAB_DB.equals(tab))
 			return new DbCop();
 
+		// TODO SOON make it work as for MediaCop
 		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
 		if(schemaID!=null)
 			return SchemaCop.getCop(schemaID, request);
 		
+		final MediaCop mediaCop = MediaCop.getMediaCop(model, request);
+		if(mediaCop!=null)
+			return mediaCop;
+
 		return PropertiesCop.getPropertiesCop(request);
 	}
 
