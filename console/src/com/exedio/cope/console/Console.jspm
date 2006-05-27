@@ -56,7 +56,7 @@ final class Console_Jspm
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=ConsoleServlet.ENCODING%>">
-		<title>COPE Console</title>
+		<title>COPE Console - <%=cop.name%></title>
 		<link rel="STYLESHEET" type="text/css" href="<%=ConsoleServlet.stylesheet.url(request)%>"><%
 		cop.writeHead(request, out);
 		%>
