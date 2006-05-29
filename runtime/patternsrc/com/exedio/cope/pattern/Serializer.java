@@ -75,6 +75,16 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		this(valueClass, new DataAttribute(option));
 	}
 	
+	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataAttribute source)
+	{
+		return new Serializer<E>(valueClass, source);
+	}
+	
+	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final Attribute.Option option)
+	{
+		return new Serializer<E>(valueClass, option);
+	}
+	
 	// TODO allow setting of length of DataAttribute
 	
 	public void initialize()
