@@ -61,14 +61,14 @@ final class JavaRepository
 	// reusing externalNameSpace is more efficient than another root nameSpace
 	final CopeNameSpace nameSpace = new NameSpace(externalNameSpace);
 	
-	/**
-	 * Distiguishes two stages in life cycle of this repository,
-	 * and its contents:
-	 * building the repository and querying the repository.
-	 */
-	private boolean buildStage = true;
+	static enum Stage
+	{
+		BUILD,
+		BETWEEN,
+		GENERATE;
+	}
 	
-	private boolean generateStage = false;
+	private Stage stage = Stage.BUILD;
 	
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<String, JavaClass>();
@@ -78,10 +78,8 @@ final class JavaRepository
 	
 	void endBuildStage()
 	{
-		assert buildStage;
-		assert !generateStage;
-		
-		buildStage = false;
+		assert stage==Stage.BUILD;
+		stage = Stage.BETWEEN;
 		
 		// TODO put this into a new class CopeType
 		for(final JavaClass javaClass : javaClassByFullName.values())
@@ -149,7 +147,7 @@ final class JavaRepository
 			}
 		}
 		
-		generateStage = true;
+		stage = Stage.GENERATE;
 
 		for(final CopeType ct : copeTypeByJavaClass.values())
 			ct.endBuildStage();
@@ -157,12 +155,12 @@ final class JavaRepository
 	
 	boolean isBuildStage()
 	{
-		return buildStage;
+		return stage==Stage.BUILD;
 	}
 
 	boolean isGenerateStage()
 	{
-		return generateStage;
+		return stage==Stage.GENERATE;
 	}
 	
 	boolean isItem(JavaClass javaClass)
@@ -197,19 +195,19 @@ final class JavaRepository
 
 	void add(final JavaFile file)
 	{
-		assert buildStage;
+		assert stage==Stage.BUILD;
 		files.add(file);
 	}
 	
 	final List<JavaFile> getFiles()
 	{
-		assert !buildStage;
+		assert stage==Stage.GENERATE;
 		return files;
 	}
 	
 	void add(final JavaClass javaClass)
 	{
-		assert buildStage && !generateStage;
+		assert stage==Stage.BUILD;
 		
 		//final JavaClass previous =
 		javaClassBySimpleName.put(javaClass.name, javaClass);
@@ -227,8 +225,7 @@ final class JavaRepository
 	
 	void add(final CopeType copeType)
 	{
-		assert !buildStage;
-		assert !generateStage;
+		assert stage==Stage.BETWEEN;
 		
 		if(copeTypeByJavaClass.put(copeType.javaClass, copeType)!=null)
 			throw new RuntimeException(copeType.javaClass.getFullName());
@@ -237,7 +234,7 @@ final class JavaRepository
 	
 	CopeType getCopeType(final String className)
 	{
-		assert !buildStage;
+		assert stage==Stage.BETWEEN || stage==Stage.GENERATE;
 		
 		final JavaClass javaClass = getJavaClass(className);
 		if(javaClass==null)
@@ -261,7 +258,7 @@ final class JavaRepository
 		
 		public Class getClass(final String name) throws UtilEvalError
 		{
-			assert generateStage;
+			assert stage==Stage.GENERATE;
 			
 			final Class superResult = super.getClass(name);
 			if(superResult!=null)
