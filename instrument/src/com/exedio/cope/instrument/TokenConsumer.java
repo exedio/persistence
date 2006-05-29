@@ -18,9 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-interface TokenConsumer
+interface TokenConsumer // TODO SOON rename
 {
-	void addToken(char token);
-	
 	void addChar(char c);
 }

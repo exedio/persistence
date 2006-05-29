@@ -19,8 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents an attribute of a class parsed by the
@@ -89,60 +87,6 @@ final class JavaAttribute
 	String getDocComment()
 	{
 		return docComment;
-	}
-	
-	private final ArrayList<String> initializerArguments = new ArrayList<String>();
-	private final StringBuffer currentArgument = new StringBuffer();
-	private int bracketLevel = 0;
-	
-	@SuppressWarnings("fallthrough")
-	public void addToken(final char token)
-	{
-		switch(token)
-		{
-			case '(':
-			{
-				bracketLevel++;
-				break;
-			}
-			case ')':
-			{
-				if(bracketLevel==1)
-				{
-					initializerArguments.add(currentArgument.toString());
-					currentArgument.setLength(0);
-				}
-				bracketLevel--;
-				break;
-			}
-			case ' ':
-			case '\t':
-			case '\n':
-			case '\r':
-				break;
-			case ',':
-			{
-				if(bracketLevel==1)
-				{
-					initializerArguments.add(currentArgument.toString());
-					currentArgument.setLength(0);
-					break;
-				}
-			}
-			default:
-			{
-				if(bracketLevel==1)
-				{
-					currentArgument.append(token);
-				}
-				break;
-			}
-		}
-	}
-	
-	List<String> getInitializerArguments()
-	{
-		return initializerArguments;
 	}
 	
 	// --------------------

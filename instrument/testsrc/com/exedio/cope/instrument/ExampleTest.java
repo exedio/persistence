@@ -63,7 +63,6 @@ public class ExampleTest extends InjectorTest
 			assertAttributeHeader("type", "Integer", Modifier.PRIVATE);
 		assertText("private Integer type=new Integer(5);");
 		assertAttribute("type", null, type);
-		assertEquals(list("5"), type.getInitializerArguments());
 		assertEquals("new Integer(5)", type.getInitializer());
 		assertText("\n  ");
 

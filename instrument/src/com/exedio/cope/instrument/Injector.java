@@ -345,14 +345,12 @@ final class Injector
 	 * the delimiter, which terminated the attribute initializer
 	 * (';' or ',') or '}' for methods.
 	 */
-	@SuppressWarnings("fallthrough")
 	private char parseBody(final boolean attribute, final TokenConsumer tokenConsumer)
 		throws IOException, EndException, ParseException
 	{
 		//System.out.println("    body("+(attribute?"attribute":"method")+")");
 
 		int bracketdepth = (attribute ? 0 : 1);
-		int curlyBracketDepth = bracketdepth;
 		char c = read();
 		while (true)
 		{
@@ -366,20 +364,14 @@ final class Injector
 						c = read();
 					break;
 				case '{' :
-					curlyBracketDepth++;
-					// FALL THROUGH
 				case '(' :
 					bracketdepth++;
 					//System.out.print("<("+bracketdepth+")>");
-					if(tokenConsumer!=null && curlyBracketDepth==0)
-						tokenConsumer.addToken(c);
 					if(tokenConsumer!=null)
 						tokenConsumer.addChar(c);
 					c = read();
 					break;
 				case '}' :
-					curlyBracketDepth--;
-					// FALL THROUGH
 				case ')' :
 					bracketdepth--;
 					//System.out.print("<("+bracketdepth+")>");
@@ -387,8 +379,6 @@ final class Injector
 						return '}';
 					if (bracketdepth < 0)
 						throw new ParseException("';' expected.");
-					if (tokenConsumer!=null && curlyBracketDepth==0)
-						tokenConsumer.addToken(c);
 					if(tokenConsumer!=null)
 						tokenConsumer.addChar(c);
 					c = read();
@@ -404,16 +394,12 @@ final class Injector
 				case ',' :
 					if (bracketdepth == 0)
 						return ',';
-					if (tokenConsumer!=null && curlyBracketDepth==0)
-						tokenConsumer.addToken(c);
 					if(tokenConsumer!=null)
 						tokenConsumer.addChar(c);
 					c = read();
 					break;
 					// ignore brackets inside of literal String's
 				case '"' :
-					if (tokenConsumer!=null && curlyBracketDepth==0)
-						tokenConsumer.addToken(c);
 					if(tokenConsumer!=null)
 						tokenConsumer.addChar(c);
 					il : while (true)
@@ -421,8 +407,6 @@ final class Injector
 						switch (c=read())
 						{
 							case '"' :
-								if (tokenConsumer!=null && curlyBracketDepth==0)
-									tokenConsumer.addToken(c);
 								if(tokenConsumer!=null)
 									tokenConsumer.addChar(c);
 								break il;
@@ -434,8 +418,6 @@ final class Injector
 									tokenConsumer.addChar(escapedChar);
 								break; // ignore escaped characters for tokenConsumer.addToken()
 							default:
-								if (tokenConsumer!=null && curlyBracketDepth==0)
-									tokenConsumer.addToken(c);
 								if(tokenConsumer!=null)
 									tokenConsumer.addChar(c);
 						}
@@ -471,8 +453,6 @@ final class Injector
 				case '<' :
 					if(bracketdepth>0)
 					{
-						if (tokenConsumer!=null && curlyBracketDepth==0)
-							tokenConsumer.addToken(c);
 						if(tokenConsumer!=null)
 							tokenConsumer.addChar(c);
 						c = read();
@@ -482,8 +462,6 @@ final class Injector
 						buf.append(c);
 						while(true)
 						{
-							if (tokenConsumer!=null && curlyBracketDepth==0)
-								tokenConsumer.addToken(c);
 							if(tokenConsumer!=null)
 								tokenConsumer.addChar(c);
 							c = read();
@@ -494,8 +472,6 @@ final class Injector
 					}
 					break;
 				default :
-					if (tokenConsumer!=null && curlyBracketDepth==0)
-						tokenConsumer.addToken(c);
 					if(tokenConsumer!=null)
 						tokenConsumer.addChar(c);
 					c = read();
