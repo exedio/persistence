@@ -180,7 +180,7 @@ final class Statement
 		if(qualifyTable)
 		{
 			this.text.
-				append(join!=null ? getName(join, column.table) : column.table.protectedID).
+				append(getName(join, column.table)).
 				append('.');
 		}
 		this.text.
@@ -414,18 +414,21 @@ final class Statement
 		}
 	}
 	
+	private JoinTable getJoinTable(final Join join, final Table table)
+	{
+		return joinTables!=null ? joinTables.get(new JoinTable(join, table)) : null;
+	}
+
 	private String getAlias(final Join join, final Table table)
 	{
-		return (joinTables.get(new JoinTable(join, table))).alias;
+		final JoinTable jt = getJoinTable(join, table);
+		return (jt!=null) ? jt.alias : null;
 	}
 
 	private String getName(final Join join, final Table table)
 	{
-		final String alias = getAlias(join, table);
-		if(alias!=null)
-			return alias;
-		else
-			return table.protectedID;
+		final JoinTable jt = getJoinTable(join, table);
+		return (jt!=null && jt.alias!=null) ? jt.alias : table.protectedID;
 	}
 
 }
