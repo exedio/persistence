@@ -39,7 +39,6 @@ public final class Qualifier extends Pattern
 	private final FunctionAttribute[] keys;
 	private final List<FunctionAttribute> keyList;
 	private final UniqueConstraint qualifyUnique; // TODO SOON rename to uniqueConstraint
-	private List<Attribute> attributes;
 
 	public Qualifier(final UniqueConstraint qualifyUnique)
 	{
@@ -90,18 +89,8 @@ public final class Qualifier extends Pattern
 	
 	// second initialization phase ---------------------------------------------------
 
-	public void initialize()
-	{
-		if(this.attributes!=null)
-			throw new RuntimeException();
-
-		final Type<?> type = getType();
-		final Type<?> uniqueConstraintType = qualifyUnique.getType();
-		if(!type.equals(uniqueConstraintType))
-			throw new RuntimeException("unique contraint for qualifier must be declared on the same type as the qualifier itself, expected " + type.getID() + ", but got " + uniqueConstraintType.getID());
-		// TODO SOON do this in all patterns and make a method for this
-	}
-
+	private List<Attribute> attributes;
+	
 	public List<Attribute> getAttributes()
 	{
 		if(this.attributes==null)
