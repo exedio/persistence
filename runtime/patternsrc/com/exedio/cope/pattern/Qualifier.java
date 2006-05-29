@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
@@ -170,6 +171,8 @@ public final class Qualifier extends Pattern
 		return item;
 	}
 	
+	private static final HashMap<Type<?>, List<Qualifier>> qualifiers = new HashMap<Type<?>, List<Qualifier>>();
+	
 	/**
 	 * Returns all qualifiers where <tt>type</tt> is
 	 * the parent type {@link #getParent()()}.{@link ItemAttribute#getValueType() getValueType()}.
@@ -178,25 +181,35 @@ public final class Qualifier extends Pattern
 	 */
 	public static final List<Qualifier> getQualifiers(final Type<?> type)
 	{
-		// TODO SOON cache result
-		ArrayList<Qualifier> result = null;
-		
-		for(final ItemAttribute<?> ia : type.getReferences())
-			for(final Pattern pattern : ia.getPatterns())
+		synchronized(qualifiers)
+		{
 			{
-				if(pattern instanceof Qualifier)
+				final List<Qualifier> cachedResult = qualifiers.get(type);
+				if(cachedResult!=null)
+					return cachedResult;
+			}
+			
+			final ArrayList<Qualifier> resultModifiable = new ArrayList<Qualifier>();
+			
+			for(final ItemAttribute<?> ia : type.getReferences())
+				for(final Pattern pattern : ia.getPatterns())
 				{
-					final Qualifier qualifier = (Qualifier)pattern;
-					if(ia==qualifier.getParent())
+					if(pattern instanceof Qualifier)
 					{
-						if(result==null)
-							result = new ArrayList<Qualifier>();
-						result.add(qualifier);
+						final Qualifier qualifier = (Qualifier)pattern;
+						if(ia==qualifier.getParent())
+							resultModifiable.add(qualifier);
 					}
 				}
-			}
-		
-		return result!=null ? Collections.unmodifiableList(result) : Collections.<Qualifier>emptyList();
+			resultModifiable.trimToSize();
+			
+			final List<Qualifier> result =
+				!resultModifiable.isEmpty()
+				? Collections.unmodifiableList(resultModifiable)
+				: Collections.<Qualifier>emptyList();
+			qualifiers.put(type, result);
+			return result;
+		}
 	}
 
 }

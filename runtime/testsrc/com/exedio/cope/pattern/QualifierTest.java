@@ -81,6 +81,10 @@ public class QualifierTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE));
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(EmptyItem.TYPE)); // make sure, that key types dont influence the result
 
+		// test caching
+		assertSame(Qualifier.getQualifiers(QualifiedItem.TYPE), Qualifier.getQualifiers(QualifiedItem.TYPE));
+		assertSame(Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE), Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE));
+		
 		// test persistence
 		assertEquals(null, item.getQualifier(key1));
 		assertEquals(null, item.getQualifiedA(key1));
