@@ -56,6 +56,11 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		registerSource(target);
 	}
 	
+	public static final <S extends Item, T extends Item> Relation<S,T> newRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
+	{
+		return new Relation<S, T>(source, target);
+	}
+	
 	public ItemAttribute<S> getSource()
 	{
 		return source;
