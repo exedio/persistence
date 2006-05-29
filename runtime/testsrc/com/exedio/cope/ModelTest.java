@@ -85,7 +85,7 @@ public class ModelTest extends TestmodelTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("property zack in wrongKey is not allowed.", e.getMessage());
+				assertEquals("property zack in wrongKey is not allowed, but only one of [media.rooturl, connectionPool.activeLimit, dataAttribute.bufferSizeDefault, dataAttribute.bufferSizeLimit, datadir.path, cache.limit, database.dontSupport.limit, connectionPool.idleLimit, database.dontSupport.emptyStrings, pksource.butterfly, connectionPool.idleInitial, database.user, media.offsetExpires, fulltextIndex, cache.queryLogging, cache.queryLimit, database.url, database.dontSupport.nativeDate, database, database.password, database.log, database.dontSupport.preparedStatements] or one starting with [database.forcename., database.tableOption., database.hsqldb., x-build].", e.getMessage());
 			}
 		}
 	}

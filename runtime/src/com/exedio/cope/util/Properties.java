@@ -363,7 +363,7 @@ public class Properties
 					}
 				}
 				if(error)
-					throw new RuntimeException("property "+key+" in "+source+" is not allowed.");
+					throw new RuntimeException("property " + key + " in " + source + " is not allowed, but only one of " + allowedValues + " or one starting with " + allowedPrefixes + '.');
 			}
 		}
 	}
