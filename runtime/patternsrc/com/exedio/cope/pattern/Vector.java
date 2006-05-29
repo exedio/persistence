@@ -52,18 +52,16 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 	{
 		this.sources = sources;
 
+		boolean initial = false;
+		boolean isFinal = false;
+		for(FunctionAttribute<T> source : sources)
 		{
-			boolean initial = false;
-			boolean isFinal = false;
-			for(FunctionAttribute<T> source : sources)
-			{
-				registerSource(source);
-				initial = initial || source.isInitial();
-				isFinal = isFinal || source.isFinal();
-			}
-			this.initial = initial;
-			this.isFinal = isFinal;
+			registerSource(source);
+			initial = initial || source.isInitial();
+			isFinal = isFinal || source.isFinal();
 		}
+		this.initial = initial;
+		this.isFinal = isFinal;
 	}
 	
 	public Vector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
