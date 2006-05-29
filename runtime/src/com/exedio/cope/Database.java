@@ -209,62 +209,77 @@ abstract class Database
 		buildStage = false;
 
 		//final long time = System.currentTimeMillis();
-		final Statement bf = createStatement(true);
-		bf.append("select count(*) from ").defineColumnInteger();
-		boolean first = true;
-
-		for(final Table table : tables)
-		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append(table.protectedID);
-		}
 		
-		bf.append(" where ");
-		first = true;
-		for(final Table table : tables)
+		// IMPLEMENTATION NOTE
+		// MySQL can have at most 63 joined tables in one statement
+		// and other databases probably have similar constraints as
+		// well, so we limit the number of joined table here.
+		final int CHUNK_LENGTH = 60;
+		final int tablesSize = tables.size();
+		
+		for(int chunkFromIndex = 0; chunkFromIndex<tablesSize; chunkFromIndex+=CHUNK_LENGTH)
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(" and ");
-
-			final Column primaryKey = table.primaryKey;
-			bf.append(primaryKey).
-				append('=').
-				appendParameter(Type.NOT_A_PK);
+			final int chunkToIndex = Math.min(chunkFromIndex+CHUNK_LENGTH, tablesSize);
+			final List<Table> tableChunk = tables.subList(chunkFromIndex, chunkToIndex);
 			
-			for(final Column column : table.getColumns())
+			final Statement bf = createStatement(true);
+			bf.append("select count(*) from ").defineColumnInteger();
+			boolean first = true;
+	
+			for(final Table table : tableChunk)
 			{
-				bf.append(" and ").
-					append(column);
-				
-				if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>=4000))
-				{
-					bf.append("is not null");
-				}
+				if(first)
+					first = false;
 				else
+					bf.append(',');
+	
+				bf.append(table.protectedID);
+			}
+			
+			bf.append(" where ");
+			first = true;
+			for(final Table table : tableChunk)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(" and ");
+	
+				final Column primaryKey = table.primaryKey;
+				bf.append(primaryKey).
+					append('=').
+					appendParameter(Type.NOT_A_PK);
+				
+				for(final Column column : table.getColumns())
 				{
-					bf.append('=').
-						appendParameter(column, column.getCheckValue());
+					bf.append(" and ").
+						append(column);
+					
+					if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>=4000))
+					{
+						bf.append("is not null");
+					}
+					else
+					{
+						bf.append('=').
+							appendParameter(column, column.getCheckValue());
+					}
 				}
 			}
-		}
-		
-		executeSQLQuery(connection, bf,
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			
+			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
+			executeSQLQuery(connection, bf,
+				new ResultSetHandler()
 				{
-					if(!resultSet.next())
-						throw new SQLException(NO_SUCH_ROW);
-				}
-			},
-			false
-		);
+					public void run(final ResultSet resultSet) throws SQLException
+					{
+						if(!resultSet.next())
+							throw new SQLException(NO_SUCH_ROW);
+					}
+				},
+				false
+			);
+		}
 	}	
 
 	public void dropDatabase()
