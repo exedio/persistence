@@ -52,20 +52,36 @@ public class QualifierTest extends TestmodelTest
 		throws UniqueViolationException, MandatoryViolationException, IntegrityViolationException,
 			LengthViolationException, FinalViolationException
 	{
-		assertEquals(QualifiedItem.TYPE, QualifiedItem.qualifier.getType());
-		assertEquals("qualifier", QualifiedItem.qualifier.getName());
-		assertEquals(QualifiedItem.qualifier.getParent(), QualifiedEmptyQualifier.parent);
-		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.key), QualifiedItem.qualifier.getKeys());
-		assertEquals(QualifiedItem.qualifier.getQualifyUnique(), QualifiedEmptyQualifier.qualifyUnique);
+		// test model
+		assertEquals(QualifiedEmptyQualifier.TYPE, QualifiedEmptyQualifier.qualifier.getType());
+		assertEquals("qualifier", QualifiedEmptyQualifier.qualifier.getName());
+		assertEquals(QualifiedEmptyQualifier.parent, QualifiedEmptyQualifier.qualifier.getParent());
+		assertEquals(list(QualifiedEmptyQualifier.qualifier), QualifiedEmptyQualifier.parent.getPatterns());
+		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.key), QualifiedEmptyQualifier.qualifier.getKeys());
+		assertEquals(list(/* TODO SOON QualifiedEmptyQualifier.qualifier*/), QualifiedEmptyQualifier.key.getPatterns());
+		assertEquals(QualifiedEmptyQualifier.qualifyUnique, QualifiedEmptyQualifier.qualifier.getQualifyUnique());
+		assertEqualsUnmodifiable(list(item.number), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.number,
-				item.qualifier,
-				item.stringQualifier,
-				item.intEnumQualifier,
-			}), item.TYPE.getFeatures());
+				QualifiedEmptyQualifier.parent,
+				QualifiedEmptyQualifier.key,
+				QualifiedEmptyQualifier.qualifyUnique,
+				QualifiedEmptyQualifier.qualifier,
+				QualifiedEmptyQualifier.qualifiedA,
+				QualifiedEmptyQualifier.qualifiedB,
+			}),
+			QualifiedEmptyQualifier.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
-							QualifiedItem.qualifier.getAttributes());
+				QualifiedEmptyQualifier.qualifier.getAttributes());
+		
+		assertEquals(list(
+				QualifiedEmptyQualifier.qualifier,
+				QualifiedStringQualifier.stringQualifier,
+				QualifiedIntegerEnumQualifier.intEnumQualifier),
+			Qualifier.getQualifiers(QualifiedItem.TYPE));
+		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE));
+		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(EmptyItem.TYPE)); // make sure, that key types dont influence the result
 
+		// test persistence
 		assertEquals(null, item.getQualifier(key1));
 		assertEquals(null, item.getQualifiedA(key1));
 		assertEquals(null, item.getQualifiedB(key1));
@@ -147,11 +163,11 @@ public class QualifierTest extends TestmodelTest
 		QualifiedStringQualifier.findByQualifyUnique(item, "key1").deleteCopeItem();
 		QualifiedStringQualifier.findByQualifyUnique(item, "key2").deleteCopeItem();
 
-		assertEquals(QualifiedIntegerEnumQualifier.up, QualifiedItem.intEnumQualifier.getParent());
+		assertEquals(QualifiedIntegerEnumQualifier.up, QualifiedIntegerEnumQualifier.intEnumQualifier.getParent());
 		assertEqualsUnmodifiable(
 				list(QualifiedIntegerEnumQualifier.keyX, QualifiedIntegerEnumQualifier.keyY),
-				QualifiedItem.intEnumQualifier.getKeys());
-		assertEquals(QualifiedIntegerEnumQualifier.qualifyUnique, QualifiedItem.intEnumQualifier.getQualifyUnique());
+				QualifiedIntegerEnumQualifier.intEnumQualifier.getKeys());
+		assertEquals(QualifiedIntegerEnumQualifier.qualifyUnique, QualifiedIntegerEnumQualifier.intEnumQualifier.getQualifyUnique());
 		
 		assertEquals(null, item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		assertEquals(null, item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
@@ -192,7 +208,7 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(null, item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		assertEquals(null, item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		
-		item.intEnumQualifier.set(
+		QualifiedIntegerEnumQualifier.intEnumQualifier.set(
 				new Object[]{item, Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
 				new SetValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1")});
 		final QualifiedIntegerEnumQualifier setterItem =
@@ -201,7 +217,7 @@ public class QualifierTest extends TestmodelTest
 		assertEquals("A-20-key1", item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		assertEquals("B-20-key1", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		
-		item.intEnumQualifier.set(
+		QualifiedIntegerEnumQualifier.intEnumQualifier.set(
 				new Object[]{item, Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1},
 				new SetValue[]{QualifiedIntegerEnumQualifier.qualifiedA.map("A-20-key1-c"), QualifiedIntegerEnumQualifier.qualifiedB.map("B-20-key1-c")});
 		assertEquals(setterItem,

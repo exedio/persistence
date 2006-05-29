@@ -23,14 +23,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Qualifier;
 
-/**
- */
 public class QualifiedName extends Item
 {
 	public static final ItemAttribute<Qualified> parent = newItemAttribute(OPTIONAL, Qualified.class, CASCADE);
 	public static final StringAttribute key = new StringAttribute(OPTIONAL);
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
+	public static final Qualifier nameQualifier = new Qualifier(parentKey);
 
 	public static final IntegerAttribute number = new IntegerAttribute(MANDATORY);
 	public static final IntegerAttribute optionalNumber = new IntegerAttribute(OPTIONAL);
@@ -66,7 +66,7 @@ public class QualifiedName extends Item
 	public static final IntegerAttribute internalSetterNumber = new IntegerAttribute(MANDATORY);
 	
 
-/**
+	/**
 
 	 **
 	 * Creates a new QualifiedName with all the attributes initially needed.

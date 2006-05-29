@@ -28,8 +28,10 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -774,6 +776,8 @@ final class Generator
 	private void writeQualifier(final CopeQualifier qualifier)
 	throws IOException, InjectorParseException
 	{
+		final String qualifierClassName = qualifier.parent.javaClass.getFullName();
+
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(QUALIFIER);
@@ -781,7 +785,7 @@ final class Generator
 		writeCommentFooter();
 
 		o.write("public final "); // TODO: obey attribute visibility
-		o.write(qualifier.qualifierClassString);
+		o.write(qualifierClassName);
 		o.write(" get");
 		o.write(toCamelCase(qualifier.name));
 		o.write('(');
@@ -793,8 +797,10 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\treturn (");
-		o.write(qualifier.qualifierClassString);
-		o.write(")");
+		o.write(qualifierClassName);
+		o.write(')');
+		o.write(qualifierClassName);
+		o.write('.');
 		o.write(qualifier.name);
 		o.write(".getQualifier(new Object[]{this");
 		writeQualifierCall(qualifier);
@@ -804,7 +810,7 @@ final class Generator
 		o.write("\t}");
 		
 		final List qualifierAttributes = Arrays.asList(qualifier.getUniqueConstraint().getAttributes());
-		for(final CopeFeature feature : qualifier.getQualifierClass().getFeatures())
+		for(final CopeFeature feature : qualifier.parent.getFeatures())
 		{
 			if(feature instanceof CopeAttribute)
 			{
@@ -820,6 +826,7 @@ final class Generator
 	private void writeQualifierGetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException, InjectorParseException
 	{
+		final String qualifierClassName = qualifier.parent.javaClass.getFullName();
 		if(attribute.getterOption.exists)
 		{
 			writeCommentHeader();
@@ -845,11 +852,13 @@ final class Generator
 			o.write("\t\treturn (");
 			o.write(resultType);
 			o.write(')');
+			o.write(qualifierClassName);
+			o.write('.');
 			o.write(qualifier.name);
 			o.write(".get(new Object[]{this");
 			writeQualifierCall(qualifier);
 			o.write("},");
-			o.write(qualifier.qualifierClassString);
+			o.write(qualifierClassName);
 			o.write('.');
 			o.write(attribute.name);
 			o.write(");");
@@ -862,6 +871,7 @@ final class Generator
 	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException, InjectorParseException
 	{
+		final String qualifierClassName = qualifier.parent.javaClass.getFullName();
 		if(attribute.setterOption.exists)
 		{
 			writeCommentHeader();
@@ -889,10 +899,12 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t\t");
-			o.write(qualifier.qualifierClassString);
+			o.write(qualifierClassName);
 			o.write('.');
 			o.write(attribute.name);
 			o.write(".set(");
+			o.write(qualifierClassName);
+			o.write('.');
 			o.write(qualifier.name);
 			o.write(".getForSet(new Object[]{this");
 			writeQualifierCall(qualifier);
@@ -1177,19 +1189,19 @@ final class Generator
 					writeAccessMethods((CopeAttribute)feature);
 				else if(feature instanceof CopeUniqueConstraint)
 					writeUniqueFinder((CopeUniqueConstraint)feature);
-				else if(feature instanceof CopeQualifier)
-					writeQualifier((CopeQualifier)feature);
 				else if(feature instanceof CopeVector)
 					writeVector((CopeVector)feature);
 				else if(feature instanceof CopeMedia)
 					writeMedia((CopeMedia)feature);
 				else if(feature instanceof CopeHash)
 					writeHash((CopeHash)feature);
-				else if(feature instanceof CopeRelation)
+				else if(feature instanceof CopeRelation || feature instanceof CopeQualifier)
 					; // is handled below
 				else
 					throw new RuntimeException(feature.getClass().getName());
 			}
+			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
+				writeQualifier(qualifier);
 			for(final CopeRelation relation : sort(type.getRelations(true)))
 				writeRelation(relation, false);
 			for(final CopeRelation relation : sort(type.getRelations(false)))
@@ -1199,17 +1211,17 @@ final class Generator
 		}
 	}
 	
-	private static final List<CopeRelation> sort(final List<CopeRelation> l)
+	private static final <X extends CopeFeature> List<X> sort(final List<X> l)
 	{
-		final CopeRelation[] a = l.toArray(new CopeRelation[l.size()]);
-		Arrays.sort(a, new Comparator<CopeRelation>()
+		final ArrayList<X> result = new ArrayList<X>(l);
+		Collections.sort(result, new Comparator<X>()
 				{
-					public int compare(final CopeRelation a, final CopeRelation b)
+					public int compare(final X a, final X b)
 					{
 						return a.parent.javaClass.getFullName().compareTo(b.parent.javaClass.getFullName());
 					}
 				});
-		return Arrays.asList(a);
+		return result;
 	}
 
 	/**

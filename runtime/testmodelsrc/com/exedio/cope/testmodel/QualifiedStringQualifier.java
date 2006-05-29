@@ -23,6 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Qualifier;
 
 /**
  * @author Ralf Wiebicke
@@ -34,6 +35,7 @@ public class QualifiedStringQualifier extends Item
 	public static final StringAttribute key = new StringAttribute(FINAL);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
+	public static final Qualifier stringQualifier = new Qualifier(qualifyUnique);
 	
 	public static final IntegerAttribute qualifiedA = new IntegerAttribute(OPTIONAL);
 	public static final IntegerAttribute qualifiedB = new IntegerAttribute(OPTIONAL);

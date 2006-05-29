@@ -37,7 +37,7 @@ public final class Qualifier extends Pattern
 	private final ItemAttribute<Item> parent;
 	private final FunctionAttribute[] keys;
 	private final List<FunctionAttribute> keyList;
-	private final UniqueConstraint qualifyUnique;
+	private final UniqueConstraint qualifyUnique; // TODO SOON rename to uniqueConstraint
 	private List<Attribute> attributes;
 
 	public Qualifier(final UniqueConstraint qualifyUnique)
@@ -57,6 +57,8 @@ public final class Qualifier extends Pattern
 			this.keys[i] = attributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.qualifyUnique = qualifyUnique;
+		
+		registerSource(parent);
 	}
 
 	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
@@ -65,9 +67,9 @@ public final class Qualifier extends Pattern
 		return (ItemAttribute<Item>)a;
 	}
 	
-	// TODO implicit external source: new Qualifier(QualifiedStringQualifier.key))
-	// TODO internal source: new Qualifier(stringAttribute(OPTIONAL))
-	// TODO use registerPattern on sources
+	// TODO SOON implicit external source: new Qualifier(QualifiedStringQualifier.key))
+	// TODO SOON internal source: new Qualifier(stringAttribute(OPTIONAL))
+	// TODO SOON use registerPattern on sources
 
 	public ItemAttribute<Item> getParent()
 	{
@@ -79,7 +81,7 @@ public final class Qualifier extends Pattern
 		return keyList;
 	}
 
-	public UniqueConstraint getQualifyUnique()
+	public UniqueConstraint getQualifyUnique() // TODO SOON rename to getUniqueConstraint
 	{
 		return qualifyUnique;
 	}
@@ -91,21 +93,26 @@ public final class Qualifier extends Pattern
 		if(this.attributes!=null)
 			throw new RuntimeException();
 
-		final Type<? extends Item> type = qualifyUnique.getType();
-		final List<Attribute> typeAttributes = type.getAttributes();
-		final ArrayList<Attribute> attributesModifiyable = new ArrayList<Attribute>(typeAttributes.size());
-		for(final Attribute attribute : type.getAttributes())
-		{
-			if(attribute!=parent && !keyList.contains(attribute))
-				attributesModifiyable.add(attribute);
-		}
-		this.attributes = Collections.unmodifiableList(attributesModifiyable);
+		final Type<?> type = getType();
+		final Type<?> uniqueConstraintType = qualifyUnique.getType();
+		if(!type.equals(uniqueConstraintType))
+			throw new RuntimeException("unique contraint for qualifier must be declared on the same type as the qualifier itself, expected " + type.getID() + ", but got " + uniqueConstraintType.getID());
+		// TODO SOON do this in all patterns and make a method for this
 	}
 
 	public List<Attribute> getAttributes()
 	{
 		if(this.attributes==null)
-			throw new RuntimeException();
+		{
+			final List<Attribute> typeAttributes = getType().getAttributes();
+			final ArrayList<Attribute> attributesModifiyable = new ArrayList<Attribute>(typeAttributes.size());
+			for(final Attribute attribute : typeAttributes)
+			{
+				if(attribute!=parent && !keyList.contains(attribute))
+					attributesModifiyable.add(attribute);
+			}
+			this.attributes = Collections.unmodifiableList(attributesModifiyable);
+		}
 
 		return attributes;
 	}
@@ -161,4 +168,30 @@ public final class Qualifier extends Pattern
 		
 		return item;
 	}
+	
+	/**
+	 * Returns all qualifiers where <tt>type</tt> is
+	 * the parent type {@link #getParent()()}.{@link ItemAttribute#getValueType() getValueType()}.
+	 * 
+	 * @see Relation#getRelations(Type)
+	 */
+	public static final List<Qualifier> getQualifiers(final Type<?> type)
+	{
+		// TODO SOON cache result
+		ArrayList<Qualifier> result = null;
+		
+		for(final ItemAttribute<?> ia : type.getReferences())
+			for(final Pattern pattern : ia.getPatterns())
+			{
+				if(pattern instanceof Qualifier)
+				{
+					if(result==null)
+						result = new ArrayList<Qualifier>();
+					result.add((Qualifier)pattern);
+				}
+			}
+		
+		return result!=null ? Collections.unmodifiableList(result) : Collections.<Qualifier>emptyList();
+	}
+
 }

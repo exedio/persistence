@@ -24,6 +24,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Qualifier;
 
 /**
  * @author Ralf Wiebicke
@@ -36,6 +37,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final EnumAttribute<KeyEnum> keyY = newEnumAttribute(FINAL, KeyEnum.class);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(up, keyX, keyY);
+	public static final Qualifier intEnumQualifier = new Qualifier(qualifyUnique);
 	
 	public static final StringAttribute qualifiedA = new StringAttribute(OPTIONAL);
 	public static final StringAttribute qualifiedB = new StringAttribute(OPTIONAL);
@@ -46,7 +48,8 @@ public class QualifiedIntegerEnumQualifier extends Item
 		key2,
 		key3;
 	}
-/**
+	
+	/**
 
 	 **
 	 * Creates a new QualifiedIntegerEnumQualifier with all the attributes initially needed.

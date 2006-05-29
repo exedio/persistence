@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Qualifier;
 
 
 /**
@@ -34,10 +35,11 @@ public class AttributeEmptyItem extends Item
 	public static final ItemAttribute<EmptyItem> key = newItemAttribute(OPTIONAL, EmptyItem.class);
 	
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
+	public static final Qualifier emptyItem = new Qualifier(parentKey);
 
 	public static final StringAttribute someQualifiedString = new StringAttribute(OPTIONAL);
 
-/**
+	/**
 
 	 **
 	 * Creates a new AttributeEmptyItem with all the attributes initially needed.

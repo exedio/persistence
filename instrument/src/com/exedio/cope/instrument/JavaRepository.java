@@ -149,10 +149,10 @@ final class JavaRepository
 			}
 		}
 		
+		generateStage = true;
+
 		for(final CopeType ct : copeTypeByJavaClass.values())
 			ct.endBuildStage();
-		
-		generateStage = true;
 	}
 	
 	boolean isBuildStage()

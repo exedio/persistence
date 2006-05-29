@@ -53,6 +53,7 @@ public abstract class Pattern extends Feature
 	{
 		super.initialize(type, name);
 		initialize();
+		// TODO SOON check type of sources equals own type, introduce getSources
 	}
 	
 	protected final void registerSource(final Attribute attribute)

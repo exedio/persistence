@@ -93,7 +93,7 @@ final class CopeType
 	void endBuildStage()
 	{
 		assert !javaClass.file.repository.isBuildStage();
-		assert !javaClass.file.repository.isGenerateStage();
+		assert javaClass.file.repository.isGenerateStage();
 		
 		final String extname = javaClass.classExtends;
 		
@@ -122,7 +122,7 @@ final class CopeType
 	void addSubtype(final CopeType subtype)
 	{
 		assert !javaClass.file.repository.isBuildStage();
-		assert !javaClass.file.repository.isGenerateStage();
+		assert javaClass.file.repository.isGenerateStage();
 		
 		subtypes.add(subtype);
 	}
@@ -148,13 +148,31 @@ final class CopeType
 		return isAbstract() || !getSubtypes().isEmpty();
 	}
 	
+	private final ArrayList<CopeQualifier> qualifiers = new ArrayList<CopeQualifier>();
+	
+	void addQualifier(final CopeQualifier qualifier)
+	{
+		assert !javaClass.file.repository.isBuildStage();
+		assert javaClass.file.repository.isGenerateStage();
+		
+		qualifiers.add(qualifier);
+	}
+	
+	List<CopeQualifier> getQualifiers()
+	{
+		assert !javaClass.file.repository.isBuildStage();
+		assert javaClass.file.repository.isGenerateStage();
+		
+		return Collections.unmodifiableList(qualifiers);
+	}
+
 	private final ArrayList<CopeRelation> sourceRelations = new ArrayList<CopeRelation>();
 	private final ArrayList<CopeRelation> targetRelations = new ArrayList<CopeRelation>();
 	
 	void addRelation(final CopeRelation relation, final boolean source)
 	{
 		assert !javaClass.file.repository.isBuildStage();
-		assert !javaClass.file.repository.isGenerateStage();
+		assert javaClass.file.repository.isGenerateStage();
 		
 		(source ? sourceRelations : targetRelations).add(relation);
 	}

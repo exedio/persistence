@@ -22,8 +22,6 @@ import java.util.List;
 
 final class CopeQualifier extends CopeFeature
 {
-	final String qualifierClassString;
-	final String uniqueConstraintString;
 	final String constraintName;
 
 	public CopeQualifier(final CopeType parent, final JavaAttribute javaAttribute)
@@ -34,27 +32,21 @@ final class CopeQualifier extends CopeFeature
 		final List<String> initializerArguments = javaAttribute.getInitializerArguments();
 		if(initializerArguments.size()!=1)
 			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
-		uniqueConstraintString = initializerArguments.get(0);
 
-		final int dot = uniqueConstraintString.lastIndexOf('.');
-		if(dot<0)
-			throw new InjectorParseException("Qualifier argument must have dot, but is "+uniqueConstraintString);
-		this.qualifierClassString = uniqueConstraintString.substring(0, dot);
-
-		this.constraintName = uniqueConstraintString.substring(dot+1);
-	}
-	
-	CopeType getQualifierClass()
-	{
-		return parent.javaClass.file.repository.getCopeType(qualifierClassString);
+		this.constraintName = initializerArguments.get(0);
 	}
 	
 	CopeUniqueConstraint getUniqueConstraint() throws InjectorParseException
 	{
-		final CopeUniqueConstraint result = (CopeUniqueConstraint)getQualifierClass().getFeature(constraintName);
+		final CopeUniqueConstraint result = (CopeUniqueConstraint)parent.getFeature(constraintName);
 		if(result==null)
-			throw new InjectorParseException("unique constraint not found "+uniqueConstraintString);
+			throw new InjectorParseException("unique constraint not found "+constraintName);
 		return result;
+	}
+	
+	CopeAttribute getQualifierParent() throws InjectorParseException
+	{
+		return getUniqueConstraint().getAttributes()[0];
 	}
 	
 	CopeAttribute[] getKeyAttributes() throws InjectorParseException
@@ -69,6 +61,14 @@ final class CopeQualifier extends CopeFeature
 		return result;
 	}
 
+	private CopeType qualifiedType = null;
+	
+	void endBuildStage()
+	{
+		qualifiedType = javaAttribute.file.repository.getCopeType(getQualifierParent().getBoxedType());
+		qualifiedType.addQualifier(this);
+	}
+	
 	boolean isBoxed()
 	{
 		return false;
