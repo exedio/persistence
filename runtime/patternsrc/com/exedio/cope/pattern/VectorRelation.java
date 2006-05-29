@@ -59,6 +59,11 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		registerSource(target);
 	}
 	
+	public static final <S extends Item, T extends Item> VectorRelation<S,T> newRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
+	{
+		return new VectorRelation<S, T>(source, target);
+	}
+	
 	public ItemAttribute<S> getSource()
 	{
 		return source;

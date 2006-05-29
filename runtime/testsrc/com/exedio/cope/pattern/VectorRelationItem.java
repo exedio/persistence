@@ -29,7 +29,7 @@ public class VectorRelationItem extends Item
 	public static final ItemAttribute<RelationSourceItem> vectorSource = newItemAttribute(MANDATORY, RelationSourceItem.class, CASCADE);
 	public static final ItemAttribute<RelationTargetItem> vectorTarget = newItemAttribute(MANDATORY, RelationTargetItem.class, CASCADE);
 	
-	public static final VectorRelation<RelationSourceItem, RelationTargetItem> relation = new VectorRelation<RelationSourceItem, RelationTargetItem>(vectorSource, vectorTarget);
+	public static final VectorRelation<RelationSourceItem, RelationTargetItem> relation = VectorRelation.newRelation(vectorSource, vectorTarget);
 
 	/**
 
