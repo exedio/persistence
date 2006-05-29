@@ -66,11 +66,6 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		}
 	}
 	
-	public Vector(final FunctionAttribute<T> source1)
-	{
-		this(Vector.<T>cast(new FunctionAttribute[]{source1}));
-	}
-	
 	public Vector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
 	{
 		this(Vector.<T>cast(new FunctionAttribute[]{source1, source2}));
@@ -84,6 +79,21 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 	public Vector(final FunctionAttribute<T> template, final int length)
 	{
 		this(template2Sources(template, length));
+	}
+	
+	public static final <T> Vector<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	{
+		return new Vector<T>(source1, source2);
+	}
+	
+	public static final <T> Vector<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	{
+		return new Vector<T>(source1, source2, source3);
+	}
+	
+	public static final <T> Vector<T> newVector(final FunctionAttribute<T> template, final int length)
+	{
+		return new Vector<T>(template, length);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
