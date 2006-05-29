@@ -57,8 +57,9 @@ public final class Qualifier extends Pattern
 			this.keys[i] = attributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.qualifyUnique = qualifyUnique;
-		
-		registerSource(parent);
+
+		for(final FunctionAttribute attribute : attributes)
+			registerSource(attribute);
 	}
 
 	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
@@ -185,9 +186,13 @@ public final class Qualifier extends Pattern
 			{
 				if(pattern instanceof Qualifier)
 				{
-					if(result==null)
-						result = new ArrayList<Qualifier>();
-					result.add((Qualifier)pattern);
+					final Qualifier qualifier = (Qualifier)pattern;
+					if(ia==qualifier.getParent())
+					{
+						if(result==null)
+							result = new ArrayList<Qualifier>();
+						result.add(qualifier);
+					}
 				}
 			}
 		

@@ -58,7 +58,7 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(QualifiedEmptyQualifier.parent, QualifiedEmptyQualifier.qualifier.getParent());
 		assertEquals(list(QualifiedEmptyQualifier.qualifier), QualifiedEmptyQualifier.parent.getPatterns());
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.key), QualifiedEmptyQualifier.qualifier.getKeys());
-		assertEquals(list(/* TODO SOON QualifiedEmptyQualifier.qualifier*/), QualifiedEmptyQualifier.key.getPatterns());
+		assertEquals(list(QualifiedEmptyQualifier.qualifier), QualifiedEmptyQualifier.key.getPatterns());
 		assertEquals(QualifiedEmptyQualifier.qualifyUnique, QualifiedEmptyQualifier.qualifier.getQualifyUnique());
 		assertEqualsUnmodifiable(list(item.number), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -73,7 +73,7 @@ public class QualifierTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
 				QualifiedEmptyQualifier.qualifier.getAttributes());
 		
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				QualifiedEmptyQualifier.qualifier,
 				QualifiedStringQualifier.stringQualifier,
 				QualifiedIntegerEnumQualifier.intEnumQualifier),
