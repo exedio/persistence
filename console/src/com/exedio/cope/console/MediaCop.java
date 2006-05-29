@@ -55,7 +55,7 @@ final class MediaCop extends ConsoleCop
 	{
 		try
 		{
-			model.startTransaction("MediaStatsCop#media");
+			model.startTransaction(getClass().getName());
 			final Query<? extends Item> q = media.getType().newQuery(media.getIsNull().isNotNull());
 			q.setLimit(0, 50);
 			final List<? extends Item> items = q.search();
