@@ -59,7 +59,7 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(list(QualifiedEmptyQualifier.qualifier), QualifiedEmptyQualifier.parent.getPatterns());
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.key), QualifiedEmptyQualifier.qualifier.getKeys());
 		assertEquals(list(QualifiedEmptyQualifier.qualifier), QualifiedEmptyQualifier.key.getPatterns());
-		assertEquals(QualifiedEmptyQualifier.qualifyUnique, QualifiedEmptyQualifier.qualifier.getQualifyUnique());
+		assertEquals(QualifiedEmptyQualifier.qualifyUnique, QualifiedEmptyQualifier.qualifier.getUniqueConstraint());
 		assertEqualsUnmodifiable(list(item.number), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				QualifiedEmptyQualifier.parent,
@@ -171,7 +171,7 @@ public class QualifierTest extends TestmodelTest
 		assertEqualsUnmodifiable(
 				list(QualifiedIntegerEnumQualifier.keyX, QualifiedIntegerEnumQualifier.keyY),
 				QualifiedIntegerEnumQualifier.intEnumQualifier.getKeys());
-		assertEquals(QualifiedIntegerEnumQualifier.qualifyUnique, QualifiedIntegerEnumQualifier.intEnumQualifier.getQualifyUnique());
+		assertEquals(QualifiedIntegerEnumQualifier.qualifyUnique, QualifiedIntegerEnumQualifier.intEnumQualifier.getUniqueConstraint());
 		
 		assertEquals(null, item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		assertEquals(null, item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));

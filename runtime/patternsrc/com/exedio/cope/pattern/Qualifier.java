@@ -82,7 +82,7 @@ public final class Qualifier extends Pattern
 		return keyList;
 	}
 
-	public UniqueConstraint getQualifyUnique() // TODO SOON rename to getUniqueConstraint
+	public UniqueConstraint getUniqueConstraint()
 	{
 		return qualifyUnique;
 	}
