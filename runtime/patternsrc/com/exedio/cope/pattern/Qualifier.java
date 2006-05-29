@@ -38,16 +38,16 @@ public final class Qualifier extends Pattern
 	private final ItemAttribute<Item> parent;
 	private final FunctionAttribute[] keys;
 	private final List<FunctionAttribute> keyList;
-	private final UniqueConstraint qualifyUnique; // TODO SOON rename to uniqueConstraint
+	private final UniqueConstraint uniqueConstraint;
 
-	public Qualifier(final UniqueConstraint qualifyUnique)
+	public Qualifier(final UniqueConstraint uniqueConstraint)
 	{
-		if(qualifyUnique==null)
+		if(uniqueConstraint==null)
 			throw new RuntimeException(
 				"argument of qualifier constructor is null, " +
 				"may happen due to bad class initialization order.");
 		
-		final List<FunctionAttribute<?>> attributes = qualifyUnique.getUniqueAttributes();
+		final List<FunctionAttribute<?>> attributes = uniqueConstraint.getUniqueAttributes();
 		if(attributes.size()<2)
 			throw new RuntimeException(attributes.toString());
 
@@ -56,7 +56,7 @@ public final class Qualifier extends Pattern
 		for(int i = 0; i<this.keys.length; i++)
 			this.keys[i] = attributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
-		this.qualifyUnique = qualifyUnique;
+		this.uniqueConstraint = uniqueConstraint;
 
 		for(final FunctionAttribute attribute : attributes)
 			registerSource(attribute);
@@ -84,7 +84,7 @@ public final class Qualifier extends Pattern
 
 	public UniqueConstraint getUniqueConstraint()
 	{
-		return qualifyUnique;
+		return uniqueConstraint;
 	}
 	
 	// second initialization phase ---------------------------------------------------
@@ -110,12 +110,12 @@ public final class Qualifier extends Pattern
 
 	public Item getQualifier(final Object[] values)
 	{
-		return qualifyUnique.searchUnique(values);
+		return uniqueConstraint.searchUnique(values);
 	}
 	
 	public Object get(final Object[] values, final FunctionAttribute attribute)
 	{
-		final Item item = qualifyUnique.searchUnique(values);
+		final Item item = uniqueConstraint.searchUnique(values);
 		if(item!=null)
 			return attribute.get(item);
 		else
@@ -124,22 +124,22 @@ public final class Qualifier extends Pattern
 	
 	public Item getForSet(final Object[] keys)
 	{
-		Item item = qualifyUnique.searchUnique(keys);
+		Item item = uniqueConstraint.searchUnique(keys);
 		if(item==null)
 		{
 			final SetValue[] keySetValues = new SetValue[keys.length];
 			int j = 0;
-			for(final FunctionAttribute uniqueAttribute : qualifyUnique.getUniqueAttributes())
+			for(final FunctionAttribute uniqueAttribute : uniqueConstraint.getUniqueAttributes())
 				keySetValues[j] = new SetValue(uniqueAttribute, keys[j++]);
 			
-			item = qualifyUnique.getType().newItem(keySetValues);
+			item = uniqueConstraint.getType().newItem(keySetValues);
 		}
 		return item;
 	}
 
 	public Item set(final Object[] keys, final SetValue[] values)
 	{
-		Item item = qualifyUnique.searchUnique(keys);
+		Item item = uniqueConstraint.searchUnique(keys);
 		
 		if(item==null)
 		{
@@ -147,10 +147,10 @@ public final class Qualifier extends Pattern
 			System.arraycopy(values, 0, keyValues, 0, values.length);
 			
 			int j = 0;
-			for(final FunctionAttribute uniqueAttribute : qualifyUnique.getUniqueAttributes())
+			for(final FunctionAttribute uniqueAttribute : uniqueConstraint.getUniqueAttributes())
 				keyValues[j + values.length] = new SetValue(uniqueAttribute, keys[j++]);
 			
-			item = qualifyUnique.getType().newItem(keyValues);
+			item = uniqueConstraint.getType().newItem(keyValues);
 		}
 		else
 		{
