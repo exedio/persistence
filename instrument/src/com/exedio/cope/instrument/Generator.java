@@ -809,7 +809,7 @@ final class Generator
 
 		o.write("\t}");
 		
-		final List qualifierAttributes = Arrays.asList(qualifier.getUniqueConstraint().getAttributes());
+		final List qualifierAttributes = Arrays.asList(qualifier.getAttributes());
 		for(final CopeFeature feature : qualifier.parent.getFeatures())
 		{
 			if(feature instanceof CopeAttribute)

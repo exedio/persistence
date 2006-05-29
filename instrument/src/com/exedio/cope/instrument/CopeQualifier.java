@@ -18,40 +18,52 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.List;
+import java.util.ArrayList;
+
+import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.pattern.Qualifier;
 
 final class CopeQualifier extends CopeFeature
 {
-	final String constraintName;
 
 	public CopeQualifier(final CopeType parent, final JavaAttribute javaAttribute)
 		throws InjectorParseException
 	{
 		super(parent, javaAttribute);
-		
-		final List<String> initializerArguments = javaAttribute.getInitializerArguments();
-		if(initializerArguments.size()!=1)
-			throw new InjectorParseException("Qualifier must have 1 argument, but has "+initializerArguments);
-
-		this.constraintName = initializerArguments.get(0);
 	}
 	
-	CopeUniqueConstraint getUniqueConstraint() throws InjectorParseException
+	CopeAttribute[] getAttributes() throws InjectorParseException
 	{
-		final CopeUniqueConstraint result = (CopeUniqueConstraint)parent.getFeature(constraintName);
-		if(result==null)
-			throw new InjectorParseException("unique constraint not found "+constraintName);
+		final ArrayList<String> attributeList = new ArrayList<String>();
+		
+		final Qualifier instance = (Qualifier)getInstance();
+		for(final FunctionAttribute attributeInstance : instance.getUniqueConstraint().getUniqueAttributes())
+			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
+		
+		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);
+		
+		final CopeAttribute[] result = new CopeAttribute[attributes.length];
+		for(int i = 0; i<attributes.length; i++ )
+		{
+			final CopeFeature feature = parent.getFeature(attributes[i]);
+			if(feature==null)
+				throw new InjectorParseException("attribute >"+attributes[i]+"< in unique constraint "+name+" not found.");
+			if(!(feature instanceof CopeAttribute))
+				throw new InjectorParseException("attribute >"+attributes[i]+"< in unique constraint "+name+" is not an attribute, but "+feature.getClass().getName());
+			final CopeAttribute attribute = (CopeAttribute)feature;
+			result[i] = attribute;
+		}
 		return result;
 	}
 	
 	CopeAttribute getQualifierParent() throws InjectorParseException
 	{
-		return getUniqueConstraint().getAttributes()[0];
+		return getAttributes()[0];
 	}
 	
 	CopeAttribute[] getKeyAttributes() throws InjectorParseException
 	{
-		final CopeAttribute[] uniqueAttributes = getUniqueConstraint().getAttributes();
+		final CopeAttribute[] uniqueAttributes = getAttributes();
 		if(uniqueAttributes.length<2)
 			throw new RuntimeException(uniqueAttributes.toString());
 		
