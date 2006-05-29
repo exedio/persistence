@@ -68,26 +68,8 @@ public class ModelTest extends TestmodelTest
 	public void testSetPropertiesInitially()
 	{
 		final Properties defaultProps = getProperties();
+		// test duplicate call of setPropertiesInitially
 		model.setPropertiesInitially(defaultProps);
-
-		final String defaultSource = defaultProps.getSource();
-		final int defaultSourceSpace = defaultSource.indexOf(' ');
-		final File file = new File(defaultSource.substring(0, defaultSourceSpace));
-		final java.util.Properties newProps = Properties.loadProperties(file);
-		
-		{
-			final java.util.Properties props = (java.util.Properties)newProps.clone();
-			props.setProperty("zack", "zosch");
-			try
-			{
-				new Properties(props, "wrongKey");
-				fail();
-			}
-			catch(RuntimeException e)
-			{
-				assertEquals("property zack in wrongKey is not allowed, but only one of [media.rooturl, connectionPool.activeLimit, dataAttribute.bufferSizeDefault, dataAttribute.bufferSizeLimit, datadir.path, cache.limit, database.dontSupport.limit, connectionPool.idleLimit, database.dontSupport.emptyStrings, pksource.butterfly, connectionPool.idleInitial, database.user, media.offsetExpires, fulltextIndex, cache.queryLogging, cache.queryLimit, database.url, database.dontSupport.nativeDate, database, database.password, database.log, database.dontSupport.preparedStatements] or one starting with [database.forcename., database.tableOption., database.hsqldb., x-build].", e.getMessage());
-			}
-		}
 	}
 	
 	public void testType() throws IOException
