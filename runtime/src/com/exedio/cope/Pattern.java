@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+
 /**
  * A common super class for all patterns.
  * <p>
@@ -48,17 +50,30 @@ package com.exedio.cope;
  */
 public abstract class Pattern extends Feature
 {
+	// TODO SOON introduce getSources
+	private final ArrayList<Attribute> sources = new ArrayList<Attribute>();
+	
 	@Override
 	final void initialize(final Type<? extends Item> type, final String name)
 	{
 		super.initialize(type, name);
 		initialize();
-		// TODO SOON check type of sources equals own type, introduce getSources
+
+		for(final Attribute source : sources)
+		{
+			if(!source.isInitialized())
+				throw new RuntimeException("Source " + source + " of pattern " + this + " has not been initialized.");
+			final Type<? extends Item> sourceType = source.getType();
+			//System.out.println("----------check"+source);
+			if(!sourceType.equals(type))
+				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
+		}
 	}
 	
 	protected final void registerSource(final Attribute attribute)
 	{
 		attribute.registerPattern(this);
+		sources.add(attribute);
 	}
 
 	/**
