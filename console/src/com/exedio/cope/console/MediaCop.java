@@ -59,7 +59,7 @@ final class MediaCop extends ConsoleCop
 			final Query<? extends Item> q = media.getType().newQuery(media.getIsNull().isNotNull());
 			q.setLimit(0, 50);
 			final List<? extends Item> items = q.search();
-			Console_Jspm.writeMedia(out, items, this);
+			Console_Jspm.writeBody(this, out, items);
 			model.commit();
 		}
 		finally

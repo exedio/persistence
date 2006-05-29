@@ -37,7 +37,7 @@ final class ConnectionStatsCop extends ConsoleCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Console_Jspm.write(out, model.getConnectionPoolInfo(), this);
+		Console_Jspm.writeBody(this, out, model.getConnectionPoolInfo());
 	}
 	
 }

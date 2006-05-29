@@ -108,8 +108,11 @@ final class Console_Jspm
 		
 	}
 
-	final static void write(final PrintStream out, final TypeColumnCop cop,
-									final ArrayList<ItemFunction> functions, final boolean test)
+	final static void writeBody(
+			final TypeColumnCop cop,
+			final PrintStream out,
+			final ArrayList<ItemFunction> functions,
+			final boolean test)
 		throws IOException
 	{
 		int sumCount = 0;
@@ -160,7 +163,10 @@ final class Console_Jspm
 		</form><%
 	}
 	
-	final static void write(final PrintStream out, final ConnectionPoolInfo info, final ConnectionStatsCop cop)
+	final static void writeBody(
+			final ConnectionStatsCop cop,
+			final PrintStream out,
+			final ConnectionPoolInfo info)
 		throws IOException
 	{
 		final PoolCounter poolCounter = info.getCounter();
@@ -226,11 +232,12 @@ final class Console_Jspm
 		</table><%
 	}
 
-	final static void write(final PrintStream out,
-									final CacheInfo[] infos,
-									final int[] queryInfos,
-									final CacheQueryInfo[] queryHistogram,
-									final CacheStatsCop cop)
+	final static void writeBody(
+			final CacheStatsCop cop,
+			final PrintStream out,
+			final CacheInfo[] infos,
+			final int[] queryInfos,
+			final CacheQueryInfo[] queryHistogram)
 		throws IOException
 	{
 		final String[] names = {
@@ -303,7 +310,10 @@ final class Console_Jspm
 		}
 	}
 
-	final static void writeMediaStats(final PrintStream out, final Collection<MediaPath> media, final MediaStatsCop cop)
+	final static void writeBody(
+			final MediaStatsCop cop,
+			final PrintStream out,
+			final Collection<MediaPath> media)
 		throws IOException
 	{
 		final String[] names = {
@@ -371,10 +381,10 @@ final class Console_Jspm
 		</table><%
 	}
 
-	final static void writeMedia(
+	final static void writeBody(
+				final MediaCop cop,
 				final PrintStream out,
-				final List<? extends Item> items,
-				final MediaCop cop)
+				final List<? extends Item> items)
 		throws IOException
 	{
 		final Media media = cop.media;

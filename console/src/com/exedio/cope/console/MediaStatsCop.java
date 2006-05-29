@@ -58,7 +58,7 @@ final class MediaStatsCop extends ConsoleCop
 			}
 		}
 
-		Console_Jspm.writeMediaStats(out, medias, this);
+		Console_Jspm.writeBody(this, out, medias);
 	}
 	
 }

@@ -37,7 +37,7 @@ final class CacheStatsCop extends ConsoleCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Console_Jspm.write(out, model.getCacheInfo(), model.getCacheQueryInfo(), model.getCacheQueryHistogram(), this);
+		Console_Jspm.writeBody(this, out, model.getCacheInfo(), model.getCacheQueryInfo(), model.getCacheQueryHistogram());
 	}
 	
 }

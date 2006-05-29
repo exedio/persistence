@@ -93,7 +93,7 @@ final class SchemaCop extends ConsoleCop
 
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Schema_Jspm.writeSchema(out, model, this, request);
+		Schema_Jspm.writeBody(this, out, model, request);
 	}
 	
 	final SchemaCop narrow(final Table table)

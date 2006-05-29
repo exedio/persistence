@@ -54,7 +54,11 @@ final class Schema_Jspm
 			throw new RuntimeException(constraint.getClass().getName());
 	}
 	
-	final static void writeSchema(final PrintStream out, final Model model, final SchemaCop cop, final HttpServletRequest request)
+	final static void writeBody(
+			final SchemaCop cop,
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request)
 		throws IOException
 	{
 		%>
