@@ -111,7 +111,8 @@ public final class CompositeCondition extends Condition
 		bf.append(conditions[0].toString());
 		for(int i = 1; i<conditions.length; i++)
 		{
-			bf.append(operator).
+			bf.append(' ').
+				append(operator).
 				append(' ').
 				append(conditions[i].toString());
 		}
