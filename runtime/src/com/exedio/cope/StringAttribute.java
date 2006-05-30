@@ -197,18 +197,27 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		return new LengthView(this);
 	}
 	
-	public final UppercaseView uppercase()
+	public final UppercaseView toUpperCase()
 	{
 		return new UppercaseView(this);
 	}
 	
+	/**
+	 * @deprecated renamed to {@link #toUpperCase()}
+	 */
+	@Deprecated
+	public final UppercaseView uppercase()
+	{
+		return toUpperCase();
+	}
+	
 	public final EqualCondition equalIgnoreCase(final String value)
 	{
-		return uppercase().equal(value.toUpperCase());
+		return toUpperCase().equal(value.toUpperCase());
 	}
 	
 	public final LikeCondition likeIgnoreCase(final String value)
 	{
-		return uppercase().like(value.toUpperCase());
+		return toUpperCase().like(value.toUpperCase());
 	}
 }

@@ -157,8 +157,8 @@ public class StringTest extends TestmodelTest
 		assertEquals(item.any.startsWith("hallo"), item.any.like("hallo%"));
 		assertEquals(item.any.endsWith("hallo"), item.any.like("%hallo"));
 		assertEquals(item.any.contains("hallo"), item.any.like("%hallo%"));
-		assertEquals(item.any.equalIgnoreCase("hallo"), item.any.uppercase().equal("HALLO"));
-		assertEquals(item.any.likeIgnoreCase("hallo%"), item.any.uppercase().like("HALLO%"));
+		assertEquals(item.any.equalIgnoreCase("hallo"), item.any.toUpperCase().equal("HALLO"));
+		assertEquals(item.any.likeIgnoreCase("hallo%"), item.any.toUpperCase().like("HALLO%"));
 
 		// any
 		item.setAny("1234");
@@ -573,7 +573,7 @@ public class StringTest extends TestmodelTest
 		final String VALUE_UPPER = "SOMESTRING";
 		final String VALUE2_UPPER = "SOMESTRING2";
 		
-		final UppercaseView saup = sa.uppercase();
+		final UppercaseView saup = sa.toUpperCase();
 		final LengthView saln = sa.length();
 		
 		assertEquals(null, sa.get(item));

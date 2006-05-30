@@ -29,7 +29,7 @@ public interface StringFunction extends Function<String>
 	LikeCondition endsWith(String value);
 	LikeCondition contains(String value);
 	LengthView length();
-	UppercaseView uppercase();
+	UppercaseView toUpperCase();
 	EqualCondition equalIgnoreCase(String value);
 	LikeCondition likeIgnoreCase(String value);
 }

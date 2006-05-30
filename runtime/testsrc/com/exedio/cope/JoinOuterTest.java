@@ -48,14 +48,14 @@ public class JoinOuterTest extends TestmodelTest
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.uppercase().equal(PointerTargetItem.code.uppercase()));
+			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.toUpperCase().equal(PointerTargetItem.code.toUpperCase()));
 			assertEquals(list(join), query.getJoins());
 			assertContains(leftJoined, query.search());
 		}
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
 			assertEquals(list(), query.getJoins());
-			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.uppercase().equal(PointerTargetItem.code));
+			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.toUpperCase().equal(PointerTargetItem.code));
 			assertEquals(list(join), query.getJoins());
 			assertContains(query.search());
 		}

@@ -48,8 +48,8 @@ public class StringItem extends Item
 	public static final StringAttribute long1M = new StringAttribute(OPTIONAL).lengthMax(1000*1000);
 	public static final StringAttribute long40M = new StringAttribute(OPTIONAL).lengthMax(40*1000*1000);
 	
-	public static final UppercaseView min4Upper = min4.uppercase();
-	public static final UppercaseView max4Upper = max4.uppercase();
+	public static final UppercaseView min4Upper = min4.toUpperCase();
+	public static final UppercaseView max4Upper = max4.toUpperCase();
 
 	public static final LengthView min4UpperLength = min4Upper.length();
 	public static final LengthView max4UpperLength = max4Upper.length();

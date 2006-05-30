@@ -84,18 +84,18 @@ public abstract class StringView
 		return new LengthView(this);
 	}
 	
-	public final UppercaseView uppercase()
+	public final UppercaseView toUpperCase()
 	{
 		return new UppercaseView(this);
 	}
 	
 	public final EqualCondition equalIgnoreCase(final String value)
 	{
-		return uppercase().equal(value.toUpperCase());
+		return toUpperCase().equal(value.toUpperCase());
 	}
 	
 	public final LikeCondition likeIgnoreCase(final String value)
 	{
-		return uppercase().like(value.toUpperCase());
+		return toUpperCase().like(value.toUpperCase());
 	}
 }

@@ -32,7 +32,7 @@ public abstract class HierarchySuper extends Item
 	
 	public static final StringAttribute superString = new StringAttribute(OPTIONAL);
 
-	public static final UppercaseView superStringUpper = superString.uppercase();
+	public static final UppercaseView superStringUpper = superString.toUpperCase();
 	
 /**
 

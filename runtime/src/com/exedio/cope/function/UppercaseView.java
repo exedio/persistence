@@ -32,7 +32,7 @@ public final class UppercaseView
 	 * Creates a new UppercaseView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
-	 * {@link StringAttribute#uppercase()}.
+	 * {@link StringAttribute#toUpperCase()}.
 	 */
 	public UppercaseView(final StringFunction source)
 	{

@@ -28,7 +28,7 @@ public class HierarchyFirstSub extends HierarchySuper
 
 	public static final StringAttribute firstSubString = new StringAttribute(UNIQUE_OPTIONAL);
 	
-	public static final UppercaseView firstSubStringUpper = firstSubString.uppercase();
+	public static final UppercaseView firstSubStringUpper = firstSubString.toUpperCase();
 	
 	
 /**
