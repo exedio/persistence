@@ -375,7 +375,7 @@ abstract class Database
 				
 				if(select instanceof Aggregate)
 				{
-					bf.append(select, null);
+					bf.append(select, null).defineColumn((Aggregate)select);
 					final Function selectSource = ((Aggregate)select).getSource();
 					
 					if(selectSource instanceof FunctionAttribute)

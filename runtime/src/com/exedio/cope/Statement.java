@@ -281,6 +281,25 @@ final class Statement
 		return this;
 	}
 		
+	Statement defineColumn(final Aggregate aggregate)
+	{
+		if(columnTypes!=null)
+		{
+			final Function<?> source = aggregate.source;
+			final int jdbcType;
+			// TODO SOON put this into Selectable
+			if(source instanceof FunctionAttribute)
+				jdbcType = ((FunctionAttribute)source).getColumn().jdbcType;
+			else if(source instanceof View)
+				jdbcType = ((View)source).jdbcType;
+			else
+				throw new RuntimeException(source.getClass().toString());
+			
+			columnTypes.add(jdbcType);
+		};
+		return this;
+	}
+		
 	Statement defineColumn(final Column column)
 	{
 		if(columnTypes!=null)

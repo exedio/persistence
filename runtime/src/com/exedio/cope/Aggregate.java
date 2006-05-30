@@ -26,7 +26,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	 * always equals the type of the source, but it does for
 	 * SUM, MIN, MAX, AVG.
 	 */
-	private final Function<E> source;
+	final Function<E> source;
 	private final String name;
 	private final String sqlPrefix;
 
