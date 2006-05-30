@@ -153,6 +153,11 @@ public class StringTest extends TestmodelTest
 		assertEquals(item.any.equal(item.mandatory), item.any.equal(item.mandatory));
 		assertNotEquals(item.any.equal(item.mandatory), item.any.equal(item.any));
 
+		// test convenience for conditions
+		assertEquals(item.any.startsWith("hallo"), item.any.like("hallo%"));
+		assertEquals(item.any.endsWith("hallo"), item.any.like("%hallo"));
+		assertEquals(item.any.contains("hallo"), item.any.like("%hallo%"));
+
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());
