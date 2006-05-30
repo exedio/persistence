@@ -345,7 +345,7 @@ final class Injector
 	 * the delimiter, which terminated the attribute initializer
 	 * (';' or ',') or '}' for methods.
 	 */
-	private char parseBody(final boolean attribute, final TokenConsumer tokenConsumer)
+	private char parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
 		throws IOException, EndException, ParseException
 	{
 		//System.out.println("    body("+(attribute?"attribute":"method")+")");

@@ -31,7 +31,7 @@ import java.lang.reflect.Modifier;
  */
 final class JavaAttribute
 	extends JavaFeature
-	implements TokenConsumer
+	implements InitializerConsumer
 {
 	private String docComment;
 	
