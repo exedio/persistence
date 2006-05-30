@@ -20,5 +20,5 @@ package com.exedio.cope.instrument;
 
 interface InitializerConsumer
 {
-	void addChar(char c);
+	void addToInitializer(char c);
 }

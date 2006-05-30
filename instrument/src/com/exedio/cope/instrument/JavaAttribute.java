@@ -94,7 +94,7 @@ final class JavaAttribute
 	private StringBuffer initializerBuf = new StringBuffer();
 	private String initializer = null;
 
-	public void addChar(char c)
+	public void addToInitializer(char c)
 	{
 		initializerBuf.append(c);
 	}

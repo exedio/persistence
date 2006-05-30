@@ -368,7 +368,7 @@ final class Injector
 					bracketdepth++;
 					//System.out.print("<("+bracketdepth+")>");
 					if(tokenConsumer!=null)
-						tokenConsumer.addChar(c);
+						tokenConsumer.addToInitializer(c);
 					c = read();
 					break;
 				case '}' :
@@ -380,7 +380,7 @@ final class Injector
 					if (bracketdepth < 0)
 						throw new ParseException("';' expected.");
 					if(tokenConsumer!=null)
-						tokenConsumer.addChar(c);
+						tokenConsumer.addToInitializer(c);
 					c = read();
 					break;
 				case ';' :
@@ -395,31 +395,31 @@ final class Injector
 					if (bracketdepth == 0)
 						return ',';
 					if(tokenConsumer!=null)
-						tokenConsumer.addChar(c);
+						tokenConsumer.addToInitializer(c);
 					c = read();
 					break;
 					// ignore brackets inside of literal String's
 				case '"' :
 					if(tokenConsumer!=null)
-						tokenConsumer.addChar(c);
+						tokenConsumer.addToInitializer(c);
 					il : while (true)
 					{
 						switch (c=read())
 						{
 							case '"' :
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(c);
+									tokenConsumer.addToInitializer(c);
 								break il;
 							case '\\' :
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(c);
+									tokenConsumer.addToInitializer(c);
 								final char escapedChar = read();
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(escapedChar);
+									tokenConsumer.addToInitializer(escapedChar);
 								break; // ignore escaped characters for tokenConsumer.addToken()
 							default:
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(c);
+									tokenConsumer.addToInitializer(c);
 						}
 					}
 					c = read();
@@ -427,25 +427,25 @@ final class Injector
 					// ignore brackets inside of literal characters
 				case '\'' :
 					if(tokenConsumer!=null)
-						tokenConsumer.addChar(c);
+						tokenConsumer.addToInitializer(c);
 					il : while (true)
 					{
 						switch(c = read())
 						{
 							case '\'' :
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(c);
+									tokenConsumer.addToInitializer(c);
 								break il;
 							case '\\' :
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(c);
+									tokenConsumer.addToInitializer(c);
 								final char escapedChar = read();
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(escapedChar);
+									tokenConsumer.addToInitializer(escapedChar);
 								break; // ignore escaped characters for tokenConsumer.addToken()
 							default:
 								if(tokenConsumer!=null)
-									tokenConsumer.addChar(c);
+									tokenConsumer.addToInitializer(c);
 						}
 					}
 					c = read();
@@ -454,7 +454,7 @@ final class Injector
 					if(bracketdepth>0)
 					{
 						if(tokenConsumer!=null)
-							tokenConsumer.addChar(c);
+							tokenConsumer.addToInitializer(c);
 						c = read();
 					}
 					else
@@ -463,7 +463,7 @@ final class Injector
 						while(true)
 						{
 							if(tokenConsumer!=null)
-								tokenConsumer.addChar(c);
+								tokenConsumer.addToInitializer(c);
 							c = read();
 							if(c=='>')
 								break;
@@ -473,7 +473,7 @@ final class Injector
 					break;
 				default :
 					if(tokenConsumer!=null)
-						tokenConsumer.addChar(c);
+						tokenConsumer.addToInitializer(c);
 					c = read();
 					break;
 			}
