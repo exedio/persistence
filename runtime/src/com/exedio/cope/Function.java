@@ -33,7 +33,14 @@ public interface Function<E> extends Selectable<E>
 	 */
 	E cast(Object o);
 	
+	/**
+	 * For internal use within COPE only.
+	 */
 	void append(Statement bf, Join join);
+	
+	/**
+	 * For internal use within COPE only.
+	 */
 	void appendParameter(Statement bf, E value);
 	
 	// convenience methods for conditions and views ---------------------------------
