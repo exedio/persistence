@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Collection;
 
+import com.exedio.cope.search.ExtremumAggregate;
+
 public interface Function<E> extends Selectable<E>
 {
 	E get(Item item);
@@ -99,4 +101,7 @@ public interface Function<E> extends Selectable<E>
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
 	CompareCondition<E> greaterOrEqualAndCast(Object value);
+
+	ExtremumAggregate<E> min();
+	ExtremumAggregate<E> max();
 }

@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.search.ExtremumAggregate;
+
 /**
  * A <tt>view</tt> represents a value computed from the
  * attributes of a {@link Type}.
@@ -239,5 +241,15 @@ public abstract class View<E> extends Feature implements Function<E>
 	public final CompareCondition<E> greaterOrEqualAndCast(final Object value)
 	{
 		return greaterOrEqual(cast(value));
+	}
+	
+	public final ExtremumAggregate<E> min()
+	{
+		return new ExtremumAggregate<E>(this, true);
+	}
+	
+	public final ExtremumAggregate<E> max()
+	{
+		return new ExtremumAggregate<E>(this, false);
 	}
 }

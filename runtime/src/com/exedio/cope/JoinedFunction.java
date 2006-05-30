@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Collection;
 
+import com.exedio.cope.search.ExtremumAggregate;
+
 
 public class JoinedFunction<E> implements Function<E>
 {
@@ -157,4 +159,13 @@ public class JoinedFunction<E> implements Function<E>
 		return greaterOrEqual(cast(value));
 	}
 	
+	public final ExtremumAggregate<E> min()
+	{
+		return new ExtremumAggregate<E>(this, true);
+	}
+	
+	public final ExtremumAggregate<E> max()
+	{
+		return new ExtremumAggregate<E>(this, false);
+	}
 }

@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -1005,6 +1006,16 @@ public final class Type<C extends Item>
 		public CompareCondition<E> greaterOrEqualAndCast(final Object value)
 		{
 			return greaterOrEqual(cast(value));
+		}
+		
+		public ExtremumAggregate<E> min()
+		{
+			return new ExtremumAggregate<E>(this, true);
+		}
+		
+		public ExtremumAggregate<E> max()
+		{
+			return new ExtremumAggregate<E>(this, false);
 		}
 		
 		public TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1)

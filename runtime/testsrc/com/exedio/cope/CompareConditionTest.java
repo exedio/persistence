@@ -138,7 +138,30 @@ public class CompareConditionTest extends TestmodelTest
 			item1.TYPE.search(item1.someDate.in(listg(offset(date, -2), date, offset(date, +25)))));
 		assertContains(item1, item2, item3,
 			item1.TYPE.search(item1.someNotNullEnum.in(listg(AttributeItem.SomeEnum.enumValue1, AttributeItem.SomeEnum.enumValue2))));
+		
+		// min
+		assertEquals("string1", new Query<String>(item1.someNotNullString.min(), null).searchSingleton());
+		assertEquals(new Integer(1), new Query<Integer>(item1.someNotNullInteger.min(), null).searchSingleton());
+		assertEquals(new Long(11l), new Query<Long>(item1.someNotNullLong.min(), null).searchSingleton());
+		assertEquals(new Double(2.1), new Query<Double>(item1.someNotNullDouble.min(), null).searchSingleton());
+		assertEquals(offset(date, -2), new Query<Date>(item1.someDate.min(), null).searchSingleton());
+		assertEquals(AttributeItem.SomeEnum.enumValue1, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.min(), null).searchSingleton());
 
+		// max
+		assertEquals("string5", new Query<String>(item1.someNotNullString.max(), null).searchSingleton());
+		assertEquals(new Integer(5), new Query<Integer>(item1.someNotNullInteger.max(), null).searchSingleton());
+		assertEquals(new Long(15l), new Query<Long>(item1.someNotNullLong.max(), null).searchSingleton());
+		assertEquals(new Double(2.5), new Query<Double>(item1.someNotNullDouble.max(), null).searchSingleton());
+		assertEquals(offset(date, +2), new Query<Date>(item1.someDate.max(), null).searchSingleton());
+		assertEquals(AttributeItem.SomeEnum.enumValue3, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.max(), null).searchSingleton());
+
+		// test extremum aggregate
+		assertEquals(true,  item1.someNotNullString.min().isMinimum());
+		assertEquals(false, item1.someNotNullString.min().isMaximum());
+		assertEquals(false, item1.someNotNullString.max().isMinimum());
+		assertEquals(true,  item1.someNotNullString.max().isMaximum());
+
+		// sum
 		{
 			final Query<Integer> q = new Query<Integer>(item1.someNotNullInteger.sum(), null);
 			assertEquals(new Integer(1+2+3+4+5), q.searchSingleton());

@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
+import com.exedio.cope.search.ExtremumAggregate;
+
 public abstract class FunctionAttribute<E extends Object>
 	extends Attribute<E>
 	implements Function<E>
@@ -346,5 +348,15 @@ public abstract class FunctionAttribute<E extends Object>
 	public final CompareCondition<E> greaterOrEqualAndCast(final Object value)
 	{
 		return greaterOrEqual(cast(value));
+	}
+
+	public final ExtremumAggregate<E> min()
+	{
+		return new ExtremumAggregate<E>(this, true);
+	}
+	
+	public final ExtremumAggregate<E> max()
+	{
+		return new ExtremumAggregate<E>(this, false);
 	}
 }
