@@ -898,6 +898,11 @@ public final class Type<C extends Item>
 			bf.appendPK(type, join);
 		}
 		
+		public final int getJDBCType()
+		{
+			return IntegerColumn.JDBC_TYPE_INT;
+		}
+		
 		public void appendParameter(Statement bf, E value)
 		{
 			throw new RuntimeException(); // TODO

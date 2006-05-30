@@ -375,7 +375,7 @@ abstract class Database
 				
 				if(select instanceof Aggregate)
 				{
-					bf.append(select, null).defineColumn((Aggregate)select);
+					bf.append(select, null).defineColumn(select);
 					final Function selectSource = ((Aggregate)select).getSource();
 					
 					if(selectSource instanceof FunctionAttribute)
@@ -407,7 +407,7 @@ abstract class Database
 				else if(select instanceof FunctionAttribute)
 				{
 					selectColumn = ((FunctionAttribute)select).getColumn();
-					bf.append(select, (Join)null).defineColumn(selectColumn);
+					bf.append(select, (Join)null).defineColumn(select);
 					if(select instanceof ItemAttribute)
 					{
 						final StringColumn typeColumn = ((ItemAttribute)select).getTypeColumn();
@@ -421,7 +421,7 @@ abstract class Database
 					selectPrimaryKey = selectTable.primaryKey;
 					selectColumn = selectPrimaryKey;
 	
-					bf.appendPK(selectType, (Join)null).defineColumn(selectColumn);
+					bf.appendPK(selectType, (Join)null).defineColumn(select);
 	
 					if(selectColumn.primaryKey)
 					{

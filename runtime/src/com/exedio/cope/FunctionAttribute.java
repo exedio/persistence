@@ -187,6 +187,11 @@ public abstract class FunctionAttribute<E extends Object>
 		bf.append(getColumn(), join);
 	}
 	
+	public final int getJDBCType()
+	{
+		return getColumn().jdbcType;
+	}
+	
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		final Row dummyRow = new Row();

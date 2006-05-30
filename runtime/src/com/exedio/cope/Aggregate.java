@@ -66,6 +66,11 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append(')');
 	}
 	
+	public final int getJDBCType()
+	{
+		return source.getJDBCType();
+	}
+	
 	@Override
 	public final boolean equals(final Object other)
 	{

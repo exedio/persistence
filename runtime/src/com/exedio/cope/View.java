@@ -97,6 +97,11 @@ public abstract class View<E> extends Feature implements Function<E>
 		return Cope.verboseCast(valueClass, o);
 	}
 	
+	public final int getJDBCType()
+	{
+		return jdbcType;
+	}
+	
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		if(bf.parameters==null)
