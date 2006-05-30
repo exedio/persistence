@@ -47,19 +47,19 @@ public final class Qualifier extends Pattern
 				"argument of qualifier constructor is null, " +
 				"may happen due to bad class initialization order.");
 		
-		final List<FunctionAttribute<?>> attributes = uniqueConstraint.getUniqueAttributes();
-		if(attributes.size()<2)
-			throw new RuntimeException(attributes.toString());
+		final List<FunctionAttribute<?>> uniqueAttributes = uniqueConstraint.getUniqueAttributes();
+		if(uniqueAttributes.size()<2)
+			throw new RuntimeException(uniqueAttributes.toString());
 
-		this.parent = castItemAttribute(attributes.get(0));
-		this.keys = new FunctionAttribute[attributes.size()-1];
+		this.parent = castItemAttribute(uniqueAttributes.get(0));
+		this.keys = new FunctionAttribute[uniqueAttributes.size()-1];
 		for(int i = 0; i<this.keys.length; i++)
-			this.keys[i] = attributes.get(i+1);
+			this.keys[i] = uniqueAttributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.uniqueConstraint = uniqueConstraint;
 
-		for(final FunctionAttribute attribute : attributes)
-			registerSource(attribute);
+		for(final FunctionAttribute uniqueAttribute : uniqueAttributes)
+			registerSource(uniqueAttribute);
 	}
 
 	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
