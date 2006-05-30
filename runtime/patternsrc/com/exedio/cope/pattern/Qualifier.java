@@ -70,7 +70,6 @@ public final class Qualifier extends Pattern
 	
 	// TODO SOON implicit external source: new Qualifier(QualifiedStringQualifier.key))
 	// TODO SOON internal source: new Qualifier(stringAttribute(OPTIONAL))
-	// TODO SOON use registerPattern on sources
 
 	public ItemAttribute<Item> getParent()
 	{
