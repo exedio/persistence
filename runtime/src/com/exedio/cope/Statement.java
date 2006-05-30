@@ -277,7 +277,7 @@ final class Statement
 	Statement defineColumn(final Selectable selectable)
 	{
 		if(columnTypes!=null)
-			columnTypes.add(selectable.getJDBCType());
+			columnTypes.add(selectable.getTypeForDefiningColumn());
 		return this;
 	}
 		

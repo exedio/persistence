@@ -66,9 +66,9 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append(')');
 	}
 	
-	public final int getJDBCType()
+	public final int getTypeForDefiningColumn()
 	{
-		return source.getJDBCType();
+		return source.getTypeForDefiningColumn();
 	}
 	
 	@Override

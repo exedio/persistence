@@ -52,9 +52,9 @@ public class JoinedFunction<E> implements Function<E>
 		function.append(bf, this.join);
 	}
 	
-	public final int getJDBCType()
+	public final int getTypeForDefiningColumn()
 	{
-		return function.getJDBCType();
+		return function.getTypeForDefiningColumn();
 	}
 	
 	public final void appendParameter(final Statement bf, final E value)

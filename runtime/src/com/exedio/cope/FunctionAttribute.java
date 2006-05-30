@@ -187,7 +187,7 @@ public abstract class FunctionAttribute<E extends Object>
 		bf.append(getColumn(), join);
 	}
 	
-	public final int getJDBCType()
+	public final int getTypeForDefiningColumn()
 	{
 		return getColumn().jdbcType;
 	}

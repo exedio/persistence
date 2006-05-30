@@ -898,7 +898,7 @@ public final class Type<C extends Item>
 			bf.appendPK(type, join);
 		}
 		
-		public final int getJDBCType()
+		public final int getTypeForDefiningColumn()
 		{
 			return IntegerColumn.JDBC_TYPE_INT;
 		}

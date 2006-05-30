@@ -30,5 +30,5 @@ public interface Selectable<E extends Object>
 	/**
 	 * For internal use within COPE only.
 	 */
-	int getJDBCType();
+	int getTypeForDefiningColumn();
 }
