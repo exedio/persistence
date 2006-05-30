@@ -105,19 +105,19 @@ public final class CompositeCondition extends Condition
 
 	public String toString()
 	{
-		final StringBuffer buf = new StringBuffer();
+		final StringBuffer bf = new StringBuffer();
 		
-		buf.append('(');
-		buf.append(conditions[0].toString());
+		bf.append('(');
+		bf.append(conditions[0].toString());
 		for(int i = 1; i<conditions.length; i++)
 		{
-			buf.append(operator).
+			bf.append(operator).
 				append(' ').
 				append(conditions[i].toString());
 		}
-		buf.append(')');
+		bf.append(')');
 		
-		return buf.toString();
+		return bf.toString();
 	}
 
 	public static final <E> CompositeCondition in(final Function<E> function, final Collection<E> values)
