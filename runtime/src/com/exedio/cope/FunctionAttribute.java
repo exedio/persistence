@@ -189,7 +189,7 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	public final int getTypeForDefiningColumn()
 	{
-		return getColumn().jdbcType;
+		return getColumn().typeForDefiningColumn;
 	}
 	
 	public final void appendParameter(final Statement bf, final E value)

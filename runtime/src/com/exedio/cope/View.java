@@ -45,16 +45,16 @@ public abstract class View<E> extends Feature implements Function<E>
 	private final List<Function<?>> sourceList;
 	private final String name;
 	final Class<E> valueClass;
-	final int jdbcType;
+	final int typeForDefiningColumn;
 	final Type<? extends Item> sourceType;
 
-	public View(final Function<?>[] sources, final String name, final Class<E> valueClass, final int jdbcType)
+	public View(final Function<?>[] sources, final String name, final Class<E> valueClass, final int typeForDefiningColumn)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
 		this.name = name;
 		this.valueClass = valueClass;
-		this.jdbcType = jdbcType;
+		this.typeForDefiningColumn = typeForDefiningColumn;
 		
 		Type<? extends Item> sourceType;
 		try
@@ -99,7 +99,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	public final int getTypeForDefiningColumn()
 	{
-		return jdbcType;
+		return typeForDefiningColumn;
 	}
 	
 	public final void appendParameter(final Statement bf, final E value)

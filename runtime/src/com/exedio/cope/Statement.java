@@ -284,7 +284,7 @@ final class Statement
 	Statement defineColumn(final Column column)
 	{
 		if(columnTypes!=null)
-			columnTypes.add(column.jdbcType);
+			columnTypes.add(column.typeForDefiningColumn);
 		return this;
 	}
 		

@@ -31,19 +31,19 @@ abstract class Column
 	final String protectedID;
 	final boolean primaryKey;
 	final boolean optional;
-	final int jdbcType;
+	final int typeForDefiningColumn;
 	
 	Column(
 			final Table table, final String id,
 			final boolean primaryKey, final boolean optional,
-			final int jdbcType)
+			final int typeForDefiningColumn)
 	{
 		this.table = table;
 		this.id = table.database.makeName(table.id, id).intern();
 		this.protectedID = table.database.getDriver().protectName(this.id).intern();
 		this.primaryKey = primaryKey;
 		this.optional = optional;
-		this.jdbcType = jdbcType;
+		this.typeForDefiningColumn = typeForDefiningColumn;
 		table.addColumn(this);
 	}
 	
