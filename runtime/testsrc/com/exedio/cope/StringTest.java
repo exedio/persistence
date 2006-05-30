@@ -157,6 +157,8 @@ public class StringTest extends TestmodelTest
 		assertEquals(item.any.startsWith("hallo"), item.any.like("hallo%"));
 		assertEquals(item.any.endsWith("hallo"), item.any.like("%hallo"));
 		assertEquals(item.any.contains("hallo"), item.any.like("%hallo%"));
+		assertEquals(item.any.equalIgnoreCase("hallo"), item.any.uppercase().equal("HALLO"));
+		assertEquals(item.any.likeIgnoreCase("hallo%"), item.any.uppercase().like("HALLO%"));
 
 		// any
 		item.setAny("1234");

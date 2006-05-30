@@ -202,4 +202,13 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		return new UppercaseView(this);
 	}
 	
+	public final EqualCondition equalIgnoreCase(final String value)
+	{
+		return uppercase().equal(value.toUpperCase());
+	}
+	
+	public final LikeCondition likeIgnoreCase(final String value)
+	{
+		return uppercase().like(value.toUpperCase());
+	}
 }

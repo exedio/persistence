@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.function.LengthView;
+import com.exedio.cope.function.UppercaseView;
 
 public interface StringFunction extends Function<String>
 {
@@ -28,4 +29,7 @@ public interface StringFunction extends Function<String>
 	LikeCondition endsWith(String value);
 	LikeCondition contains(String value);
 	LengthView length();
+	UppercaseView uppercase();
+	EqualCondition equalIgnoreCase(String value);
+	LikeCondition likeIgnoreCase(String value);
 }

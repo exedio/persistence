@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.cope.function.LengthView;
+import com.exedio.cope.function.UppercaseView;
 
 public abstract class StringView
 	extends StaticView<String>
@@ -81,5 +82,20 @@ public abstract class StringView
 	public final LengthView length()
 	{
 		return new LengthView(this);
+	}
+	
+	public final UppercaseView uppercase()
+	{
+		return new UppercaseView(this);
+	}
+	
+	public final EqualCondition equalIgnoreCase(final String value)
+	{
+		return uppercase().equal(value.toUpperCase());
+	}
+	
+	public final LikeCondition likeIgnoreCase(final String value)
+	{
+		return uppercase().like(value.toUpperCase());
 	}
 }
