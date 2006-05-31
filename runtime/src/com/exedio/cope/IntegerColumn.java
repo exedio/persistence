@@ -137,7 +137,9 @@ class IntegerColumn extends Column
 			return bf.toString();
 		}
 		else
-			return null;
+		{
+			return '(' + protectedID + ">=" + minimum + ") AND (" + protectedID + "<=" + maximum + ')';
+		}
 	}
 	
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)

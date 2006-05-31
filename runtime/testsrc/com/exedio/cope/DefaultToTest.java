@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.File;
 import java.util.Date;
 
 import com.exedio.cope.DefaultToItem.DefaultToEnum;
@@ -28,6 +29,16 @@ public class DefaultToTest extends AbstractLibTest
 	public DefaultToTest()
 	{
 		super(Main.defaultToModel);
+	}
+	
+	protected Properties getProperties()
+	{
+		final File dpf = Properties.getDefaultPropertyFile();
+		final java.util.Properties dp = Properties.loadProperties(dpf);
+		
+		dp.setProperty("database.forcename.DefaultToItem_dateEighty_Ck", "DefltToItm_dateEighty_Ck");
+		
+		return new Properties(dp, dpf.getAbsolutePath()+" plus NameTest forced names");
 	}
 	
 	public void testIt()

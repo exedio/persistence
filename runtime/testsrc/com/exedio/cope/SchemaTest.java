@@ -122,6 +122,10 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, table.getError());
 			assertEquals(Schema.Color.OK, table.getParticularColor());
 
+			final Constraint constraint = table.getConstraint("PlusItem_num2_Ck");
+			if(model.supportsCheckConstraints())
+				constraint.drop();
+			
 			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
