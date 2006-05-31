@@ -84,7 +84,7 @@ public final class Transaction
 	
 	/**
 	 *	index in array is {@link Type#transientNumber transient type number};
-	 * value in array is a map, where the keys are {@link Item#pk item pks} 
+	 * value in array is a map, where the keys are {@link Item#pk item pks}
 	 * and the values are {@link Entity}s
 	 */
 	final IntKeyOpenHashMap[] entityMaps;
@@ -137,7 +137,7 @@ public final class Transaction
 		}
 		else
 		{
-			if ( !present ) 
+			if ( !present )
 			{
 				throw new RuntimeException("tried to create entity that is already in cache: "+item.getCopeID());
 			}

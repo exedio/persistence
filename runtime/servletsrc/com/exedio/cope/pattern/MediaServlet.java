@@ -39,7 +39,7 @@ import com.exedio.cope.util.ServletUtil;
  *
  * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,
  * providing the name of the cope model via an init-parameter.
- * Typically, your <tt>web.xml</tt> would contain a snippet like this:  
+ * Typically, your <tt>web.xml</tt> would contain a snippet like this:
  *
  * <pre>
  * &lt;servlet&gt;

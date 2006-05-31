@@ -23,7 +23,7 @@ import bsh.NameSpace;
 /**
  * Override default imports of standard NameSpace,
  * to make it conform to a javac compiler run.
- * 
+ *
  * @author Ralf Wiebicke
  */
 class CopeNameSpace extends NameSpace
@@ -45,7 +45,7 @@ class CopeNameSpace extends NameSpace
 		importPackage("java.lang");
 	}
 
-	/*public Object get(final String name, final Interpreter interpreter) throws UtilEvalError 
+	/*public Object get(final String name, final Interpreter interpreter) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++get(\""+name+"\",Interpreter)");
 		return super.get(name, interpreter);

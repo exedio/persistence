@@ -22,7 +22,7 @@ import java.sql.SQLException;
 
 /**
  * A wrapper for an unexpected SQLException.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class SQLRuntimeException extends RuntimeException

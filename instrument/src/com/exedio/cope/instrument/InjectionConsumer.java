@@ -27,7 +27,7 @@ package com.exedio.cope.instrument;
  * java parser. Therefore, the interface of each method
  * specifies the position of the output stream, when
  * the method is called.
- * 
+ *
  * @author Ralf Wiebicke
  */
 interface InjectionConsumer

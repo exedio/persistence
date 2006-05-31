@@ -40,10 +40,10 @@ public final class JavaView extends Pattern
 			: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
 		
 		final Class javaClass = getType().getJavaClass();
-		final Method getter; 
+		final Method getter;
 		try
 		{
-			getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null); 
+			getter = javaClass.getDeclaredMethod("get"+nameUpper, (Class[])null);
 		}
 		catch(NoSuchMethodException e)
 		{

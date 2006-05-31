@@ -45,7 +45,7 @@ import java.util.ArrayList;
  * <pre>static final Hash hash = new MD5Hash(OPTIONAL)</pre>
  * </dd>
  * </dl>
- * 
+ *
  * @author Ralf Wiebicke
  */
 public abstract class Pattern extends Feature

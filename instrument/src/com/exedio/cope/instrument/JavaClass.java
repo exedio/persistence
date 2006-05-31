@@ -33,7 +33,7 @@ import bsh.UtilEvalError;
  * Represents a class parsed by the java parser.
  * Is an inner class, if parent is not null.
  * @see Injector
- * 
+ *
  * @author Ralf Wiebicke
  */
 final class JavaClass extends JavaFeature
@@ -199,7 +199,7 @@ final class JavaClass extends JavaFeature
 			
 			return Primitive.VOID;
 	   }
-	   
+	
 	}
 	
 	final HashMap<Object, JavaAttribute> javaAttributesByInstance = new HashMap<Object, JavaAttribute>();

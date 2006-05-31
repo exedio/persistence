@@ -29,7 +29,7 @@ import junit.framework.Assert;
  * Makes the <tt>ByteArrayInputStream</tt> close-sensitive,
  * i.e. all methods except <tt>close</tt> throw an <tt>IOException</tt>,
  * if the stream has already been closed.
- * 
+ *
  * @author Ralf Wiebicke
  */
 class TestByteArrayInputStream extends InputStream

@@ -24,8 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *	An implementation of <tt>DatabaseListener</tt> that can be used to expect load and search calls 
- * in unit tests, and to verify that all these and no other calls have been made 
+ *	An implementation of <tt>DatabaseListener</tt> that can be used to expect load and search calls
+ * in unit tests, and to verify that all these and no other calls have been made
  * to the wrapped database.
  */
 public class ExpectingDatabaseListener implements DatabaseListener
@@ -47,7 +47,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 
 	private List<Call> getExpectedCalls()
 	{
-		if ( expectedCalls==null ) 
+		if ( expectedCalls==null )
 		{
 			expectedCalls = new LinkedList<Call>();
 		}
@@ -99,7 +99,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 		return result;
 	}
 
-	static abstract class Call 
+	static abstract class Call
 	{
 		final Transaction tx;
 

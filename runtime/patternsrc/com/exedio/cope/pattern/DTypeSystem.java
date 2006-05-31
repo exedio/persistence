@@ -163,7 +163,7 @@ public final class DTypeSystem extends Pattern
 
 		final FunctionAttribute[] array = array(valueType);
 		
-		// make a more verbose exception instead 
+		// make a more verbose exception instead
 		// of the ArrayIndexOutOfBoundException
 		// thrown by the last line.
 		final int capacity = array.length;

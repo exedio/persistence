@@ -24,7 +24,7 @@ package com.exedio.cope;
  *
  * This exception will be thrown by {@link Item#set(FunctionAttribute,Object) Item.set}
  * if that attribute is {@link Attribute#isFinal() final}.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class FinalViolationException extends ConstraintViolationException

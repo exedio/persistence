@@ -172,7 +172,7 @@ final class Cache
 				synchronized(queryCaches)
 				{
 					originalKey = (Query.Key)queryCaches.getKey(key);
-				} 
+				}
 				originalKey.hits++;
 			}
 			queryHits++;

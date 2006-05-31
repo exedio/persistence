@@ -36,7 +36,7 @@ import com.exedio.cope.UniqueViolationException;
  * on any instance of type <tt>S</tt>.
  * This set cannot contain duplicates,
  * and the user has no control of the order of it's elements.
- * 
+ *
  * @see VectorRelation
  * @author Ralf Wiebicke
  */
@@ -157,7 +157,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	 * Returns all relations where <tt>type</tt> is either
 	 * the target type {@link #getTarget()}.{@link ItemAttribute#getValueType() getValueType()} or
 	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()}.
-	 * 
+	 *
 	 * @see Qualifier#getQualifiers(Type)
 	 */
 	public static final List<Relation> getRelations(final Type<?> type)

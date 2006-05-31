@@ -29,7 +29,7 @@ import bsh.UtilEvalError;
  * Manages the mapping of type names and types.
  * This depends on the current package and all
  * imported packages/classes.
- * 
+ *
  * @author Ralf Wiebicke
  */
 final class JavaFile

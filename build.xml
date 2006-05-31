@@ -679,7 +679,7 @@
 			<classpath>
 				<fileset dir="lib/jwebunit">
 					<include name="*.jar" />
-				</fileset> 
+				</fileset>
 			</classpath>
 		</ljavac>
 	</target>

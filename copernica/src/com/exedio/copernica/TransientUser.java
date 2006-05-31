@@ -21,7 +21,7 @@ package com.exedio.copernica;
 public class TransientUser implements CopernicaUser
 {
 	final String id;
-	private final String password; 
+	private final String password;
 	private final String name;
 	
 	public TransientUser(final String id, final String password, final String name)

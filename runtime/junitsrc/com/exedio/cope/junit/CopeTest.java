@@ -122,16 +122,16 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 
-	public void runBare() throws Throwable 
+	public void runBare() throws Throwable
 	{
 		setUp();
-		try 
+		try
 		{
 			testMethodFinished = false;
 			runTest();
 			testMethodFinished = true;
 		}
-		finally 
+		finally
 		{
 			tearDown();
 		}

@@ -24,7 +24,7 @@ package com.exedio.cope;
  *
  * This exception will be thrown by {@link DataAttribute#set(Item,byte[])} etc.
  * and item constructors.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class DataLengthViolationException extends ConstraintViolationException

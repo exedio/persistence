@@ -154,7 +154,7 @@ public final class Type<C extends Item>
 					if(Feature.class.isAssignableFrom(fieldType))
 					{
 						field.setAccessible(true);
-						final Feature feature = (Feature)field.get(null); 
+						final Feature feature = (Feature)field.get(null);
 						if(feature==null)
 							throw new RuntimeException(field.getName());
 						feature.initialize(this, field.getName());
@@ -525,7 +525,7 @@ public final class Type<C extends Item>
 	 * may lead to inconsistent caches.
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
-	 * 
+	 *
 	 * @see #getPrimaryKeyColumnName()
 	 * @see #getTypeColumnName()
 	 * @see Attribute#getColumnName()
@@ -547,7 +547,7 @@ public final class Type<C extends Item>
 	 * may lead to inconsistent caches.
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
-	 * 
+	 *
 	 * @see #getTableName()
 	 * @see #getTypeColumnName()
 	 * @see Attribute#getColumnName()
@@ -568,7 +568,7 @@ public final class Type<C extends Item>
 	 * may lead to inconsistent caches.
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
-	 * 
+	 *
 	 * @throws RuntimeException
 	 *         if there is no type column for this type,
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
@@ -664,7 +664,7 @@ public final class Type<C extends Item>
 	 * If you want to get all persistent attributes of this type,
 	 * including attributes inherited from super types,
 	 * use {@link #getAttributes}.
-	 * <p> 
+	 * <p>
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */

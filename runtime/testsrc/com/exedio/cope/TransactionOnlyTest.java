@@ -8,7 +8,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 		super( Main.cacheIsolationModel );
 	}
 	
-	public void testNesting() 
+	public void testNesting()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
 		Transaction tx = model.getCurrentTransaction();

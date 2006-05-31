@@ -37,7 +37,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  * <p>
  * To enable serialization for subclasses of <tt>Item</tt>,
  * see {@link #Item()}.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public abstract class Item extends Cope
@@ -182,7 +182,7 @@ public abstract class Item extends Cope
 	
 	/**
 	 * Is called after every item creation. Override this method when needed.
-	 * The default implementation does nothing. 
+	 * The default implementation does nothing.
 	 */
 	protected void postCreate()
 	{

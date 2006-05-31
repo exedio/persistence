@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
  * <p>
  * This class is used within cope as a value class for
  * {@link com.exedio.cope.DayAttribute}.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class Day // TODO implement Comparable

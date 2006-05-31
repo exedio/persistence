@@ -117,7 +117,7 @@ class IntegerColumn extends Column
 	
 	final String getDatabaseType()
 	{
-		return table.database.getIntegerType(minimum, maximum); 
+		return table.database.getIntegerType(minimum, maximum);
 	}
 
 	final String getCheckConstraintIgnoringMandatory()

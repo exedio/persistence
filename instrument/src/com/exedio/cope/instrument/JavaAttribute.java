@@ -26,7 +26,7 @@ import java.lang.reflect.Modifier;
  * Contains additional information about this attribute
  * described in the doccomment of this attribute.
  * @see Injector
- * 
+ *
  * @author Ralf Wiebicke
  */
 final class JavaAttribute

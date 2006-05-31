@@ -26,7 +26,7 @@ import com.exedio.cope.StringAttribute;
 
 /**
  * Uses hashes from the java.security package.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public class JavaHash extends Hash

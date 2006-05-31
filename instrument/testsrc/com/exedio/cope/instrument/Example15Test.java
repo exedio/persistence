@@ -23,8 +23,8 @@ import java.lang.reflect.Modifier;
 public class Example15Test extends InjectorTest
 {
 
-	// TODO spaces in generics 
-	// TODO constructor with generics 
+	// TODO spaces in generics
+	// TODO constructor with generics
 	// TODO enums
 	// TODO annotations
 

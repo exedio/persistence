@@ -22,7 +22,7 @@ package com.exedio.cope;
  * The name of this item is deliberately chosen to collide with
  * {@link NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem},
  * after trimming of database names
- * 
+ *
  * @author Ralf Wiebicke
  */
 public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem extends Item

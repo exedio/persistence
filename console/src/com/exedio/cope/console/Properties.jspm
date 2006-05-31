@@ -211,7 +211,7 @@ final class Properties_Jspm
 					if(i==0 || !value.equals(properties[i-1].get(key)))
 					{
 				%>
-				<td<% 
+				<td<%
 					if(rowspan!=1){ %> rowspan="<%=rowspan%>"<% }
 					if(value.equals(current.get(key))){ %> bgcolor="#cff"<% }
 					%>><%

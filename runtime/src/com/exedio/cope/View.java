@@ -36,7 +36,7 @@ import com.exedio.cope.search.ExtremumAggregate;
  * <p>
  * For an overview here is a
  * <a href="functions.png">UML diagram</a>.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public abstract class View<E> extends Feature implements Function<E>

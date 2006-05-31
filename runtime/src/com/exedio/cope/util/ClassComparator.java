@@ -31,7 +31,7 @@ public final class ClassComparator implements Comparator<Class>
 
 	private ClassComparator()
 	{
-		// do not allow instantiation, is a singleton 
+		// do not allow instantiation, is a singleton
 	}
 
 	public int compare(final Class c1, final Class c2)

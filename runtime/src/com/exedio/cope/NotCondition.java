@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public final class NotCondition extends Condition
 {
-	private final Condition argument; 
+	private final Condition argument;
 
 	/**
 	 * Creates a new NotCondition.

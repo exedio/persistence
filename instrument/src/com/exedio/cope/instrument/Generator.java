@@ -235,7 +235,7 @@ final class Generator
 		return MessageFormat.format(pattern, new Object[]{ parameter1, parameter2 });
 	}
 
-	private void writeInitialConstructor(final CopeType type) 
+	private void writeInitialConstructor(final CopeType type)
 	throws IOException
 	{
 		if(!type.hasInitialConstructor())

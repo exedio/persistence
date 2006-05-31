@@ -35,7 +35,7 @@ import com.exedio.cope.util.ClassComparator;
  * <p>
  * For an overview here is a
  * <a href="attributes.png">UML diagram</a>.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public abstract class Attribute<E> extends Feature implements Settable<E>
@@ -155,7 +155,7 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 	 * may lead to inconsistent caches.
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
-	 * 
+	 *
 	 * @see Type#getTableName()
 	 * @see ItemAttribute#getTypeColumnName()
 	 */

@@ -33,7 +33,7 @@ import com.exedio.cope.Type;
 final class TypeCop extends CopernicaCop
 {
 	final Type type;
-	final Function orderBy; 
+	final Function orderBy;
 	final boolean orderAscending;
 	final int limitStart;
 	final int limitCount;
@@ -139,7 +139,7 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(provider, language, type, orderBy, orderAscending, limitStart, newCount);
 	}
 	
-	final TypeCop orderBy(final Function newOrderBy, final boolean ascending) 
+	final TypeCop orderBy(final Function newOrderBy, final boolean ascending)
 	{
 		return new TypeCop(provider, language, type, newOrderBy, ascending, limitStart, limitCount);
 	}

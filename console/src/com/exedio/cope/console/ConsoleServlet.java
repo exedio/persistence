@@ -34,11 +34,11 @@ import com.exedio.cops.ResourceSet;
 
 /**
  * The servlet providing the COPE Database Administration application.
- * 
+ *
  * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,
  * providing the name of the cope model via an init-parameter.
  * Typically, your <tt>web.xml</tt> would contain a snippet like this:
- * 
+ *
  * <pre>
  * &lt;servlet&gt;
  *    &lt;servlet-name&gt;console&lt;/servlet-name&gt;
@@ -53,7 +53,7 @@ import com.exedio.cops.ResourceSet;
  *    &lt;url-pattern&gt;/console/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
  * </pre>
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class ConsoleServlet extends CopsServlet

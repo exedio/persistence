@@ -146,7 +146,7 @@ public class ItemTest extends TestmodelTest
 			AttributeItem.someNotNullLong.map(60l),
 			AttributeItem.someNotNullDouble.map(20.2),
 			AttributeItem.someNotNullBoolean.map(false),
-			AttributeItem.someNotNullItem.map(item1), 
+			AttributeItem.someNotNullItem.map(item1),
 			AttributeItem.someNotNullEnum.map(AttributeItem.SomeEnum.enumValue3)});
 		
 		assertEquals("someGenericString", item2.getSomeNotNullString());

@@ -584,7 +584,7 @@ public final class Query<R>
 		
 		public int hashCode()
 		{
-			return hashCode(model) 
+			return hashCode(model)
 					^ hashCode(selects)
 					^ hashCode(distinct)
 					^ hashCode(type)

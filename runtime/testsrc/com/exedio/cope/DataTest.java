@@ -343,7 +343,7 @@ public class DataTest extends AbstractLibTest
 					new SetValue(DataItem.data, new Integer(1)),
 			});
 		}
-		catch(ClassCastException e) 
+		catch(ClassCastException e)
 		{
 			assertEquals("expected a byte[], but was a java.lang.Integer for " + item.data + '.', e.getMessage());
 		}

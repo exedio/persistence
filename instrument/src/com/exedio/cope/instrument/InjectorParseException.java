@@ -23,7 +23,7 @@ package com.exedio.cope.instrument;
  * java language. Should never be thrown on java code, which passes
  * javac sucessfully (otherwise it's a bug.)
  * @see Injector
- * 
+ *
  * @author Ralf Wiebicke
  */
 class InjectorParseException extends RuntimeException

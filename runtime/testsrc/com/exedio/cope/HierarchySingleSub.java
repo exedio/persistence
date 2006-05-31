@@ -35,7 +35,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 			HierarchySingleSub.superInt.map(initialSuperInt),
 			HierarchySingleSub.subString.map(subString),
 		});
-	} 
+	}
 
 /**
 

@@ -118,7 +118,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	 * may lead to inconsistent caches.
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
-	 * 
+	 *
 	 * @throws RuntimeException
 	 *         if there is no type column for this ItemAttribute,
 	 *         because <code>{@link #getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>

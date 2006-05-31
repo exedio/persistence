@@ -111,7 +111,7 @@ public class AttributeDateTest extends AttributeTest
 		dates[0] = new Date();
 		for ( int i=1; i<dates.length; i++ )
 		{
-			do 
+			do
 			{
 				dates[i] = new Date();
 			}

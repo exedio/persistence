@@ -311,7 +311,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	 * that for that time no request for that data will reach the servlet.
 	 * This may reduce the load on the server.
 	 * If zero, no Expires header is sent.
-	 * 
+	 *
 	 * TODO: make this configurable per media as well.
 	 */
 	public int getMediaOffsetExpires()

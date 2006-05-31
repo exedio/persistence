@@ -145,7 +145,7 @@ public final class Model
 	 * <p>
 	 * Usually you may want to use this method, if you want to initialize model
 	 * from different servlets with equal properties in an undefined order.
-	 * 
+	 *
 	 * @throws RuntimeException if a subsequent call provides properties different
 	 * 									to the first call.
 	 */
@@ -647,7 +647,7 @@ public final class Model
 	
 	/**
 	 * Returns the collection of open {@link Transaction}s
-	 * on this model. 
+	 * on this model.
 	 * <p>
 	 * Returns a unmodifiable synchronized view on the actual data,
 	 * so iterating over the collection on a live server may cause

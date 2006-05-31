@@ -27,7 +27,7 @@ import java.util.List;
  * Simulates the behaviour of a set of pools with different pool sizes,
  * and collects statistics about the efficiency of such pools.
  * Useful for determining pool sizes.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class PoolCounter

@@ -24,7 +24,7 @@ package com.exedio.cope;
  *
  * This exception will be thrown by {@link FunctionAttribute#set(Item,Object)}
  * and item constructors.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class LengthViolationException extends ConstraintViolationException

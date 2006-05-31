@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 /**
  * Is thrown, when a persistent modification violates a constraint.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public abstract class ConstraintViolationException extends RuntimeException

@@ -25,7 +25,7 @@ import com.exedio.cope.function.PlusView;
 /**
  * Utility class for creating conditions.
  * May be subclassed to access methods without class qualifier.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public abstract class Cope

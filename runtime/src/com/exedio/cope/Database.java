@@ -1360,7 +1360,7 @@ abstract class Database
 					words.add(buf.toString());
 					int potential = 1;
 					for(int j = buf.length()-1; j>=0; j--, potential++)
-						trimPotential[j] += potential; 
+						trimPotential[j] += potential;
 					buf.setLength(0);
 				}
 				if(buf.length()<maxLength)
@@ -1373,7 +1373,7 @@ abstract class Database
 				words.add(buf.toString());
 				int potential = 1;
 				for(int j = buf.length()-1; j>=0; j--, potential++)
-					trimPotential[j] += potential; 
+					trimPotential[j] += potential;
 				buf.setLength(0);
 			}
 		}

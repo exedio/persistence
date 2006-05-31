@@ -219,7 +219,7 @@ public final class Media extends MediaPath
 	{
 		return toMajorMinor(contentType, false);
 	}
-          
+
 	private final static String toMajorMinor(final String contentType, final boolean major) throws IllegalContentTypeException
 	{
 		if(contentType!=null)
@@ -235,7 +235,7 @@ public final class Media extends MediaPath
 		else
 			return null;
 	}
-          
+
 	/**
 	 * Returns the content type of this media.
 	 * Returns null, if there is no data for this media.

@@ -76,7 +76,7 @@ public abstract class CustomAttribute<E>
 		}
 		
 		final Method[] methods = getClass().getDeclaredMethods();
-		Method getter = null; 
+		Method getter = null;
 		Method setter = null;
 		for(int i = 0; i<methods.length; i++)
 		{

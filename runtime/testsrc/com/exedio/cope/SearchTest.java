@@ -147,7 +147,7 @@ public class SearchTest extends TestmodelTest
 		assertContainsUnmodifiable(item2, item.TYPE.search(item.someNotNullInteger.equal(0).not()));
 		
 		assertContainsUnmodifiable(item, item2, item.TYPE.search(null));
-		assertContainsUnmodifiable(item, item2, 
+		assertContainsUnmodifiable(item, item2,
 			item.TYPE.search(
 				Cope.or(
 					item.someNotNullString.equal("someString"),

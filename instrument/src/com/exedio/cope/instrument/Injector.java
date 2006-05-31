@@ -43,7 +43,7 @@ import java.util.zip.CheckedInputStream;
  * To use the parser, provide an implemention of the
  * InjectionConsumer interface to the constructor.
  * @see InjectionConsumer
- * 
+ *
  * @author Ralf Wiebicke
  */
 final class Injector

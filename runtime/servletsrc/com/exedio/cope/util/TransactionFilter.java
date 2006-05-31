@@ -31,10 +31,10 @@ import com.exedio.cope.Model;
 
 /**
  * A filter for starting/closing cope transactions.
- * 
+ *
  * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,
  * providing the name of the cope model via an init-parameter.
- * Typically, your <tt>web.xml</tt> would contain a snippet like this:  
+ * Typically, your <tt>web.xml</tt> would contain a snippet like this:
  * <pre>
  * &lt;filter&gt;
  *    &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
@@ -50,7 +50,7 @@ import com.exedio.cope.Model;
  *    &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
  * &lt;/filter-mapping&gt;
  * </pre>
- * 
+ *
  * @author Stephan Frisch, exedio GmbH
  */
 public final class TransactionFilter implements Filter

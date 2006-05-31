@@ -28,7 +28,7 @@ package com.exedio.cope;
  * <p>
  * This exception is also thrown for empty strings if
  * {@link Model#supportsEmptyStrings()} is false.
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class MandatoryViolationException extends ConstraintViolationException

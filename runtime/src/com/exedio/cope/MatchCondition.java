@@ -21,14 +21,14 @@ package com.exedio.cope;
 
 /**
  * A condition matching a fulltext index. EXPERIMENTAL!!!
- * 
+ *
  * Cope has no support for creating fulltext indexes
  * together with the schema yet,
  * so you have to do this manually.
- * 
+ *
  * MySQL: create fulltext index <index_name> on <table_name>(<column_name>)
  * Oracle: create index <index_name> ON <table_name>(<column_name>) indextype is CTXSYS.CONTEXT
- * 
+ *
  * @author Ralf Wiebicke
  */
 public final class MatchCondition extends Condition

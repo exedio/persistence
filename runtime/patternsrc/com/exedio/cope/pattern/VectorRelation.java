@@ -36,7 +36,7 @@ import com.exedio.cope.UniqueConstraint;
  * on any instance of type <tt>S</tt>.
  * This list can contain duplicates,
  * and the user has full control of the order of it's elements.
- * 
+ *
  * @see Relation
  * @author Ralf Wiebicke
  */
