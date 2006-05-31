@@ -98,4 +98,19 @@ public abstract class StringView
 	{
 		return toUpperCase().like(value.toUpperCase());
 	}
+	
+	public final LikeCondition startsWithIgnoreCase(final String value)
+	{
+		return LikeCondition.startsWith(toUpperCase(), value.toUpperCase());
+	}
+	
+	public final LikeCondition endsWithIgnoreCase(final String value)
+	{
+		return LikeCondition.endsWith(toUpperCase(), value.toUpperCase());
+	}
+	
+	public final LikeCondition containsIgnoreCase(final String value)
+	{
+		return LikeCondition.contains(toUpperCase(), value.toUpperCase());
+	}
 }

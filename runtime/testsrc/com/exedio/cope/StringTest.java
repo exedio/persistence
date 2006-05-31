@@ -159,6 +159,9 @@ public class StringTest extends TestmodelTest
 		assertEquals(item.any.contains("hallo"), item.any.like("%hallo%"));
 		assertEquals(item.any.equalIgnoreCase("hallo"), item.any.toUpperCase().equal("HALLO"));
 		assertEquals(item.any.likeIgnoreCase("hallo%"), item.any.toUpperCase().like("HALLO%"));
+		assertEquals(item.any.startsWithIgnoreCase("hallo"), item.any.toUpperCase().like("HALLO%"));
+		assertEquals(item.any.endsWithIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO"));
+		assertEquals(item.any.containsIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO%"));
 
 		// any
 		item.setAny("1234");

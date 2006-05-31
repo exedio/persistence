@@ -32,4 +32,7 @@ public interface StringFunction extends Function<String>
 	UppercaseView toUpperCase();
 	EqualCondition equalIgnoreCase(String value);
 	LikeCondition likeIgnoreCase(String value);
+	LikeCondition startsWithIgnoreCase(String value);
+	LikeCondition endsWithIgnoreCase(String value);
+	LikeCondition containsIgnoreCase(String value);
 }
