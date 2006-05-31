@@ -92,6 +92,9 @@ public class ItemTest extends TestmodelTest
 		
 		assertSame(item1, item1.get(item1.TYPE.getThis()));
 		assertSame(item1, item1.TYPE.getThis().get(item1));
+		assertContains(item1, item1.TYPE.search(item1.TYPE.getThis().equal(item1)));
+		assertContains(item2, item1.TYPE.search(item1.TYPE.getThis().notEqual(item1)));
+		assertContains(item1, item2, item1.TYPE.search(item1.TYPE.getThis().in(listg(item1, item2))));
 
 		final EmptyItem item4 = new EmptyItem();
 		assertID(2, item4);

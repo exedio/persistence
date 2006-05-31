@@ -905,9 +905,9 @@ public final class Type<C extends Item>
 			return IntegerColumn.JDBC_TYPE_INT;
 		}
 		
-		public void appendParameter(Statement bf, E value)
+		public void appendParameter(final Statement bf, final E value)
 		{
-			throw new RuntimeException(); // TODO
+			bf.appendParameter(value.pk);
 		}
 
 		public Type<E> getValueType()
