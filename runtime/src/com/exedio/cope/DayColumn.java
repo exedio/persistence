@@ -41,7 +41,7 @@ final class DayColumn extends Column
 		return table.database.getDayType();
 	}
 
-	final String getCheckConstraintIfNotNull()
+	final String getCheckConstraintIgnoringMandatory()
 	{
 		return null;
 	}

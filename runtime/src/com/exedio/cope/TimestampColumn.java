@@ -39,7 +39,7 @@ final class TimestampColumn extends Column
 		return table.database.getDateTimestampType();
 	}
 
-	final String getCheckConstraintIfNotNull()
+	final String getCheckConstraintIgnoringMandatory()
 	{
 		return null;
 	}

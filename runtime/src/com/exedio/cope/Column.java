@@ -57,7 +57,7 @@ abstract class Column
 		return table.typeColumn;
 	}
 
-	abstract String getCheckConstraintIfNotNull(); // TODO SOON rename to getCheckConstraintIgnoringMandatory
+	abstract String getCheckConstraintIgnoringMandatory();
 	
 	public final String toString()
 	{
@@ -78,7 +78,7 @@ abstract class Column
 	{
 		new com.exedio.dsmf.Column(dsmfTable, id, getDatabaseType());
 
-		final String ccinn = getCheckConstraintIfNotNull();
+		final String ccinn = getCheckConstraintIgnoringMandatory();
 		if(primaryKey)
 		{
 			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);

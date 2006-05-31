@@ -78,7 +78,7 @@ final class StringColumn extends Column
 		return table.database.getStringType(maximumLength);
 	}
 
-	final String getCheckConstraintIfNotNull()
+	final String getCheckConstraintIgnoringMandatory()
 	{
 		final StringBuffer bf = new StringBuffer();
 

@@ -42,7 +42,7 @@ final class BlobColumn extends Column
 		return table.database.getBlobType(maximumLength);
 	}
 
-	final String getCheckConstraintIfNotNull()
+	final String getCheckConstraintIgnoringMandatory()
 	{
 		return "LENGTH(" + protectedID + ")<=" + (maximumLength*table.database.getBlobLengthFactor());
 	}

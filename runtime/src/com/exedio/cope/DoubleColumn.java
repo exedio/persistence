@@ -37,7 +37,7 @@ final class DoubleColumn extends Column
 		return table.database.getDoubleType();
 	}
 
-	final String getCheckConstraintIfNotNull()
+	final String getCheckConstraintIgnoringMandatory()
 	{
 		return null;
 	}

@@ -120,7 +120,7 @@ class IntegerColumn extends Column
 		return table.database.getIntegerType(minimum, maximum); 
 	}
 
-	final String getCheckConstraintIfNotNull()
+	final String getCheckConstraintIgnoringMandatory()
 	{
 		if(allowedValues!=null)
 		{
