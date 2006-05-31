@@ -18,14 +18,12 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-
 final class ButterflyPkSource extends PkSource
 {
 	
-	ButterflyPkSource(final Table table)
+	ButterflyPkSource(final Type type)
 	{
-		super(table);
+		super(type);
 	}
 
 	private int nextPkLo = Type.NOT_A_PK;
@@ -42,13 +40,13 @@ final class ButterflyPkSource extends PkSource
 		}
 	}
 
-	int nextPK(final Connection connection)
+	int nextPK()
 	{
 		synchronized(lock)
 		{
 			if(nextPkLo==Type.NOT_A_PK)
 			{
-				final int[] minMaxPks = table.database.getMinMaxPK(connection, table);
+				final int[] minMaxPks = getMinMaxPK();
 				if(minMaxPks==null)
 				{
 					nextPkLo = -1;

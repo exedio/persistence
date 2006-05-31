@@ -1544,47 +1544,9 @@ abstract class Database
 	}
 
 
-	public final PkSource makePkSource(final Table table)
+	public final PkSource makePkSource(final Type type)
 	{
-		return butterflyPkSource ? (PkSource)new ButterflyPkSource(table) : new SequentialPkSource(table);
-	}
-	
-	public final int[] getMinMaxPK(final Connection connection, final Table table)
-	{
-		buildStage = false;
-
-		final Statement bf = createStatement();
-		final String primaryKeyProtectedID = table.primaryKey.protectedID;
-		bf.append("select min(").
-			append(primaryKeyProtectedID).defineColumnInteger().
-			append("),max(").
-			append(primaryKeyProtectedID).defineColumnInteger().
-			append(") from ").
-			append(table.protectedID);
-			
-		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-		executeSQLQuery(connection, bf, handler, false);
-		return handler.result;
-	}
-	
-	private static class NextPKResultSetHandler implements ResultSetHandler
-	{
-		int[] result;
-
-		public void run(final ResultSet resultSet) throws SQLException
-		{
-			if(!resultSet.next())
-				throw new SQLException(NO_SUCH_ROW);
-			
-			final Object oLo = resultSet.getObject(1);
-			if(oLo!=null)
-			{
-				result = new int[2];
-				result[0] = convertSQLResult(oLo);
-				final Object oHi = resultSet.getObject(2);
-				result[1] = convertSQLResult(oHi);
-			}
-		}
+		return butterflyPkSource ? (PkSource)new ButterflyPkSource(type) : new SequentialPkSource(type);
 	}
 	
 	final int checkTypeColumn(final Connection connection, final Type type)

@@ -434,7 +434,7 @@ public final class Type<C extends Item>
 		if(supertype!=null)
 			pkSource = supertype.getPkSource();
 		else
-			pkSource = database.makePkSource(table);
+			pkSource = database.makePkSource(this);
 		
 		for(final Attribute a : declaredAttributes)
 			a.materialize(table);

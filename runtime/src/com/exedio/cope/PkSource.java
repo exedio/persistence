@@ -18,19 +18,19 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
+import java.util.List;
 
 abstract class PkSource
 {
-	final Table table;
+	final Type type;
 	
-	PkSource(final Table table)
+	PkSource(final Type type)
 	{
-		this.table = table;
+		this.type = type;
 	}
 
 	abstract void flushPK();
-	abstract int nextPK(Connection connection);
+	abstract int nextPK();
 	abstract long pk2id(int pk);
 	abstract int id2pk(long id, String idString) throws NoSuchIDException;
 
@@ -42,4 +42,24 @@ abstract class PkSource
 	abstract void appendDeterministicOrderByExpression(Statement bf, Type orderBy);
 	
 	abstract void appendOrderByExpression(Statement bf, Function orderBy);
+	
+	protected final int[] getMinMaxPK()
+	{
+		final Query<List> q = new Query<List>(new Selectable[]{type.getThis().min(), type.getThis().max()}, type, null);
+		final List qr = q.searchSingleton();
+
+		assert qr.size()==2;
+		final Item minItem = (Item)qr.get(0);
+		final Item maxItem = (Item)qr.get(1);
+
+		assert (minItem==null) == (maxItem==null);
+		if(minItem==null)
+			return null;
+		
+		final int[] result = new int[2];
+		result[0] = minItem.pk;
+		result[1] = maxItem.pk;
+		return result;
+	}
+
 }
