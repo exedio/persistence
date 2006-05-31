@@ -485,7 +485,7 @@ public final class Media extends MediaPath
 			//System.out.println("not modified");
 			response.setStatus(response.SC_NOT_MODIFIED);
 			
-			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
+			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 			
 			return notModified;
 		}
@@ -496,7 +496,7 @@ public final class Media extends MediaPath
 			response.setContentLength(contentLength);
 			//response.setHeader("Cache-Control", "public");
 
-			System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
+			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
 
 			ServletOutputStream out = null;
 			try
