@@ -46,7 +46,7 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DoubleColumn(table, name, optional, 30);
+		return new DoubleColumn(table, name, optional);
 	}
 
 	Double get(final Row row)

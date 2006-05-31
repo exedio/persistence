@@ -26,18 +26,15 @@ final class DoubleColumn extends Column
 {
 	static final int JDBC_TYPE = Types.DOUBLE;
 	
-	final int precision;
-
 	DoubleColumn(final Table table, final String id, 
-					  final boolean optional, final int precision)
+					  final boolean optional)
 	{
 		super(table, id, false, optional, JDBC_TYPE);
-		this.precision = precision;
 	}
 	
 	final String getDatabaseType()
 	{
-		return table.database.getDoubleType(precision);
+		return table.database.getDoubleType();
 	}
 
 	final String getCheckConstraintIfNotNull()

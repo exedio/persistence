@@ -72,9 +72,9 @@ final class OracleDatabase extends Database
 		return "NUMBER(" + ((minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? 10 : 20) + ')'; // TODO do this more precisely
 	}
 
-	public String getDoubleType(final int precision)
+	public String getDoubleType()
 	{
-		return "NUMBER(" + precision + ",8)";
+		return "NUMBER(30,8)";
 	}
 
 	public String getStringType(final int maxLength)

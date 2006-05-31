@@ -66,7 +66,7 @@ public final class MysqlDatabase extends Database
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
 	}
 
-	public String getDoubleType(final int precision)
+	public String getDoubleType()
 	{
 		return "double";
 	}

@@ -1455,7 +1455,7 @@ abstract class Database
 	}
 
 	public abstract String getIntegerType(long minimum, long maximum);
-	public abstract String getDoubleType(int precision);
+	public abstract String getDoubleType();
 	public abstract String getStringType(int maxLength);
 	public abstract String getDayType();
 	

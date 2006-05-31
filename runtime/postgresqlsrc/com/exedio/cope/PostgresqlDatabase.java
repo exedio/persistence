@@ -53,7 +53,7 @@ final class PostgresqlDatabase extends Database
 		return "INTEGER";
 	}
 
-	public String getDoubleType(final int precision)
+	public String getDoubleType()
 	{
 		return "DOUBLE PRECISION";
 	}
