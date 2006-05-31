@@ -78,12 +78,12 @@ abstract class Column
 	{
 		new com.exedio.dsmf.Column(dsmfTable, id, getDatabaseType());
 
-		final String ccinn = getCheckConstraintIgnoringMandatory();
+		final String ccim = getCheckConstraintIgnoringMandatory();
 		if(primaryKey)
 		{
 			new PrimaryKeyConstraint(dsmfTable, table.database.makeName(table.id + "_" + "Pk"), id);
-			if(ccinn!=null)
-				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_CkPk"), ccinn);
+			if(ccim!=null)
+				new CheckConstraint(dsmfTable, table.database.makeName(table.id + "_" + id + "_CkPk"), ccim);
 		}
 		else
 		{
@@ -91,15 +91,15 @@ abstract class Column
 			
 			if(optional)
 			{
-				if(ccinn!=null)
-					checkConstraint = "(" + ccinn + ") OR (" + protectedID + " IS NULL)";
+				if(ccim!=null)
+					checkConstraint = "(" + ccim + ") OR (" + protectedID + " IS NULL)";
 				else
 					checkConstraint = null;
 			}
 			else
 			{
-				if(ccinn!=null)
-					checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + ccinn + ')';
+				if(ccim!=null)
+					checkConstraint = "(" + protectedID + " IS NOT NULL) AND (" + ccim + ')';
 				else
 					checkConstraint = protectedID + " IS NOT NULL";
 			}
