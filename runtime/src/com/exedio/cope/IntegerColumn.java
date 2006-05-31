@@ -26,36 +26,63 @@ class IntegerColumn extends Column
 	static final int JDBC_TYPE_INT = Types.INTEGER;
 	static final int JDBC_TYPE_LONG = Types.BIGINT;
 	
-	final int precision;
+	final long minimum;
+	final long maximum;
 	final boolean longInsteadOfInt;
 	final int[] allowedValues;
 
 	IntegerColumn(final Table table, final String id,
 					  final boolean optional,
-					  final int precision,
-					  final boolean longInsteadOfInt, final int[] allowedValues)
+					  final long minimum, final long maximum,
+					  final boolean longInsteadOfInt)
 	{
 		super(table, id, false, optional, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
-		this.precision = precision;
+		this.minimum = minimum;
+		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
-		this.allowedValues = allowedValues;
+		this.allowedValues = null;
 
-		if(allowedValues!=null)
-		{
-		 	if(allowedValues.length<2)
-				throw new RuntimeException(id);
-			
-			// ensure, that allowedValues are unique and ordered
-			int current = Integer.MIN_VALUE;
-			for(int i = 0; i<allowedValues.length; i++)
-			{
-				if(current>=allowedValues[i])
-					throw new RuntimeException();
-				current = allowedValues[i];
-			}
-		}
+		assert assertMembers();
 	}
 
+	IntegerColumn(final Table table, final String id,
+					  final boolean optional,
+					  final int[] allowedValues)
+	{
+		super(table, id, false, optional, JDBC_TYPE_INT);
+		this.minimum = 0;
+		this.maximum = max(allowedValues);
+		this.longInsteadOfInt = false;
+		this.allowedValues = allowedValues;
+		
+		if(allowedValues.length<2)
+			throw new RuntimeException(id);
+		
+		// ensure, that allowedValues are unique and ordered
+		int current = Integer.MIN_VALUE;
+		for(int i = 0; i<allowedValues.length; i++)
+		{
+			if(current>=allowedValues[i])
+				throw new RuntimeException();
+			current = allowedValues[i];
+		}
+		assert assertMembers();
+	}
+
+	private static final int max(final int[] ints)
+	{
+		int result = 0;
+		
+		for(int i = 0; i<ints.length; i++)
+		{
+			final int inti = ints[i];
+			if(result<inti)
+				result = inti;
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Creates a primary key column.
 	 */	
@@ -72,14 +99,25 @@ class IntegerColumn extends Column
 
 		super(table, Table.PK_COLUMN_NAME, true, true, JDBC_TYPE_INT);
 
-		this.precision = ItemColumn.SYNTETIC_PRIMARY_KEY_PRECISION;
+		this.minimum = Type.MIN_PK;
+		this.maximum = Type.MAX_PK;
 		this.longInsteadOfInt = false;
 		this.allowedValues = null;
+		
+		assert assertMembers();
+	}
+
+	private boolean assertMembers()
+	{
+		assert minimum<=maximum;
+		assert longInsteadOfInt || minimum>=Integer.MIN_VALUE;
+		assert longInsteadOfInt || maximum<=Integer.MAX_VALUE;
+		return true;
 	}
 	
 	final String getDatabaseType()
 	{
-		return table.database.getIntegerType(precision); 
+		return table.database.getIntegerType(minimum, maximum); 
 	}
 
 	final String getCheckConstraintIfNotNull()

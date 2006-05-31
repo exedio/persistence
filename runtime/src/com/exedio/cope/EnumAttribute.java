@@ -115,7 +115,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		for(E value : values)
 			allowedValues[in++] = getNumber(value).intValue();
 
-		return new IntegerColumn(table, name, optional, 10, false, allowedValues);
+		return new IntegerColumn(table, name, optional, allowedValues);
 	}
 	
 	E get(final Row row)

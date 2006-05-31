@@ -1454,7 +1454,7 @@ abstract class Database
 		return 1;
 	}
 
-	public abstract String getIntegerType(int precision);
+	public abstract String getIntegerType(long minimum, long maximum);
 	public abstract String getDoubleType(int precision);
 	public abstract String getStringType(int maxLength);
 	public abstract String getDayType();

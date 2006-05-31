@@ -67,9 +67,9 @@ final class OracleDatabase extends Database
 		this.varcharLength = varchar ? 4000 : 2000;
 	}
 	
-	public String getIntegerType(final int precision)
+	public String getIntegerType(final long minimum, final long maximum)
 	{
-		return "NUMBER(" + precision + ')';
+		return "NUMBER(" + ((minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? 10 : 20) + ')'; // TODO do this more precisely
 	}
 
 	public String getDoubleType(final int precision)

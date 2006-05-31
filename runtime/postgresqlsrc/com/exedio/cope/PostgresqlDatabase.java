@@ -48,7 +48,7 @@ final class PostgresqlDatabase extends Database
 		super(new PostgresqlDriver(), properties);
 	}
 	
-	public String getIntegerType(final int precision)
+	public String getIntegerType(final long minimum, final long maximum)
 	{
 		return "INTEGER";
 	}

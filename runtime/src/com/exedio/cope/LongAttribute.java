@@ -46,7 +46,7 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, optional, 20, true, null);
+		return new IntegerColumn(table, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
 	
 	Long get(final Row row)

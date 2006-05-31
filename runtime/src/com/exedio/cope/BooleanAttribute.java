@@ -46,7 +46,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, optional, 1, false, ALLOWED_VALUES);
+		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}
 	
 	Boolean get(final Row row)

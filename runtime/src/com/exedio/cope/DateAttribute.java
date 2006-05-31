@@ -80,7 +80,7 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		
 		return
 				useLong
-				? (Column)new IntegerColumn(table, name, optional, 20, true, null)
+				? (Column)new IntegerColumn(table, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true)
 				: (Column)new TimestampColumn(table, name, optional);
 	}
 	

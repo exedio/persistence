@@ -22,8 +22,6 @@ import com.exedio.dsmf.ForeignKeyConstraint;
 
 final class ItemColumn extends IntegerColumn
 {
-	static final int SYNTETIC_PRIMARY_KEY_PRECISION = 10;
-
 	final Class<? extends Item> targetTypeClass;
 	final String integrityConstraintName;
 	final ItemAttribute attribute;
@@ -32,7 +30,7 @@ final class ItemColumn extends IntegerColumn
 					  final boolean optional,
 					  final Class<? extends Item> targetTypeClass, final ItemAttribute attribute)
 	{
-		super(table, id, optional, SYNTETIC_PRIMARY_KEY_PRECISION, false, null);
+		super(table, id, optional, Type.MIN_PK, Type.MAX_PK, false);
 		if(targetTypeClass==null)
 			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;

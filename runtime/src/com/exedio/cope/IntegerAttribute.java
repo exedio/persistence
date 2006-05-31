@@ -47,7 +47,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, optional, 10, false, null);
+		return new IntegerColumn(table, name, optional, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 	}
 	
 	Integer get(final Row row)

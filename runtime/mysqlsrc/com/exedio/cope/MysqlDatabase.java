@@ -60,10 +60,10 @@ public final class MysqlDatabase extends Database
 		this.placeholdersInLimit = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));
 	}
 
-	public String getIntegerType(final int precision)
+	public String getIntegerType(final long minimum, final long maximum)
 	{
-		// TODO: use precision to select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
-		return (precision <= 10) ? "integer" : "bigint";
+		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
+		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
 	}
 
 	public String getDoubleType(final int precision)
