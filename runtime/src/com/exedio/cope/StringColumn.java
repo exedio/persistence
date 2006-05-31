@@ -38,6 +38,8 @@ final class StringColumn extends Column
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.allowedValues = null;
+		
+		assert minimumLength<=maximumLength;
 	}
 	
 	StringColumn(
@@ -53,6 +55,8 @@ final class StringColumn extends Column
 			throw new RuntimeException(id);
 		for(int i = 0; i<allowedValues.length; i++)
 			allowedValues[i] = allowedValues[i].intern();
+		
+		assert minimumLength<=maximumLength;
 	}
 	
 	private static final int maxLength(final String[] strings)
