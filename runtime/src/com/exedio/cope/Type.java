@@ -866,9 +866,9 @@ public final class Type<C extends Item>
 		}
 	}
 
-	static final int MIN_PK = Integer.MIN_VALUE + 1;	
-	static final int MAX_PK = Integer.MAX_VALUE;	
-	static final int NOT_A_PK = Integer.MIN_VALUE;	
+	static final int MIN_PK = Integer.MIN_VALUE + 1;
+	static final int MAX_PK = Integer.MAX_VALUE;
+	static final int NOT_A_PK = Integer.MIN_VALUE;
 
 	static final class This<E extends Item> implements Function<E>, ItemFunction<E>
 	{
