@@ -449,10 +449,12 @@ abstract class Database
 		}
 
 		bf.append(" from ").
+			appendTableDefinition((Join)null, query.type.getTable()).
 			appendTypeDefinition((Join)null, query.type);
 
 		if(queryJoins!=null)
 		{
+			// TODO SOON use generics and for-each loop
 			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
 			{
 				final Join join = (Join)i.next();
@@ -460,7 +462,7 @@ abstract class Database
 				bf.append(' ').
 					append(join.getKindString()).
 					append(" join ").
-					appendTypeDefinition(join, join.type);
+					appendTableDefinition(join, join.type.getTable());
 				
 				final Condition joinCondition = join.condition;
 				if(joinCondition!=null)
@@ -468,6 +470,8 @@ abstract class Database
 					bf.append(" on ");
 					joinCondition.append(bf);
 				}
+				
+				bf.appendTypeDefinition(join, join.type);
 			}
 		}
 

@@ -372,33 +372,29 @@ final class Statement
 		}
 	}
 	
+	Statement appendTableDefinition(final Join join, final Table table)
+	{
+		append(table.protectedID);
+		final String alias = getAlias(join, table);
+		if(alias!=null)
+		{
+			append(' ').
+			append(alias);
+		}
+		return this;
+	}
+	
 	void appendTypeDefinition(final Join join, final Type type)
 	{
-		boolean first = true;
-		for(Type currentType = type; currentType!=null; currentType=currentType.supertype)
+		for(Type currentType = type.supertype; currentType!=null; currentType=currentType.supertype)
 		{
-			if(!first)
-				append(" inner join ");
-			
 			final Table table = currentType.getTable();
-			append(table.protectedID);
-			final String alias = getAlias(join, table);
-			if(alias!=null)
-			{
-				append(' ').
-				append(alias);
-			}
-
-			if(!first)
-			{
-				append(" on ");
-				append(table.primaryKey, join);
-				append('=');
-				append(type.getTable().primaryKey, join);
-			}
-			
-			if(first)
-				first = false;
+			append(" inner join ");
+			appendTableDefinition(join, table);
+			append(" on ");
+			append(table.primaryKey, join);
+			append('=');
+			append(type.getTable().primaryKey, join);
 		}
 	}
 	
