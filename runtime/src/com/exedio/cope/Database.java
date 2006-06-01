@@ -457,7 +457,7 @@ abstract class Database
 			for(final Join join : queryJoins)
 			{
 				bf.append(' ').
-					append(join.getKindString()).
+					append(join.kind.sql).
 					append(" join ").
 					appendTableDefinition(join, join.type.getTable());
 				

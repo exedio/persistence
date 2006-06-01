@@ -21,31 +21,34 @@ package com.exedio.cope;
 
 public final class Join
 {
-	public static final int KIND_INNER = 0;
-	public static final int KIND_OUTER_LEFT = 1;
-	public static final int KIND_OUTER_RIGHT = 2;
+	static enum KIND // TODO SOON rename to Kind
+	{
+		INNER("inner"),
+		OUTER_LEFT("left outer"),
+		OUTER_RIGHT("right outer");
+		
+		final String sql;
+		
+		KIND(final String sql)
+		{
+			this.sql = sql;
+		}
+	}
 	
-	final int kind;
+	final KIND kind;
 	final Type type;
 	Condition condition;
 	
-	Join(final int kind, final Type type, final Condition condition)
+	Join(final KIND kind, final Type type, final Condition condition)
 	{
 		this.kind = kind;
 		this.type = type;
 		this.condition = condition;
 
-		switch(kind)
-		{
-			case KIND_INNER:
-			case KIND_OUTER_LEFT:
-			case KIND_OUTER_RIGHT:
-				break;
-			default:
-				throw new RuntimeException("illegal value for kind: "+String.valueOf(kind));
-		}
+		if(kind==null)
+			throw new NullPointerException("kind must not be null");
 		if(type==null)
-			throw new NullPointerException();
+			throw new NullPointerException("type must not be null");
 	}
 	
 	public void setCondition(final Condition condition)
@@ -53,7 +56,7 @@ public final class Join
 		this.condition = condition;
 	}
 	
-	public final int getKind()
+	public final KIND getKind()
 	{
 		return kind;
 	}
@@ -63,21 +66,9 @@ public final class Join
 		return type;
 	}
 	
-	final String getKindString()
-	{
-		switch(kind)
-		{
-			case KIND_INNER: return "inner";
-			case KIND_OUTER_LEFT: return "left outer";
-			case KIND_OUTER_RIGHT: return "right outer";
-			default:
-				throw new RuntimeException(String.valueOf(kind));
-		}
-	}
-	
 	public final String toString()
 	{
-		return getKindString() + " join " + type + (condition!=null ? (" on "+condition) : "");
+		return kind.sql + " join " + type + (condition!=null ? (" on "+condition) : "");
 	}
 
 }

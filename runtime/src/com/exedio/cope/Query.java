@@ -105,7 +105,7 @@ public final class Query<R>
 	 */
 	public Join join(final Type type)
 	{
-		return join(new Join(Join.KIND_INNER, type, null));
+		return join(new Join(Join.KIND.INNER, type, null));
 	}
 	
 	/**
@@ -113,17 +113,17 @@ public final class Query<R>
 	 */
 	public Join join(final Type type, final Condition condition)
 	{
-		return join(new Join(Join.KIND_INNER, type, condition));
+		return join(new Join(Join.KIND.INNER, type, condition));
 	}
 	
 	public Join joinOuterLeft(final Type type, final Condition condition)
 	{
-		return join(new Join(Join.KIND_OUTER_LEFT, type, condition));
+		return join(new Join(Join.KIND.OUTER_LEFT, type, condition));
 	}
 	
 	public Join joinOuterRight(final Type type, final Condition condition)
 	{
-		return join(new Join(Join.KIND_OUTER_RIGHT, type, condition));
+		return join(new Join(Join.KIND.OUTER_RIGHT, type, condition));
 	}
 	
 	public List<Join> getJoins()
@@ -303,7 +303,7 @@ public final class Query<R>
 			for(Iterator i = joins.iterator(); i.hasNext(); )
 			{
 				final Join join = (Join)i.next();
-				if(join.getKind()==Join.KIND_OUTER_RIGHT)
+				if(join.getKind()==Join.KIND.OUTER_RIGHT)
 					throw new RuntimeException("right outer joins not supported, see Model#supportsRightOuterJoins");
 			}
 		}
@@ -433,7 +433,7 @@ public final class Query<R>
 				final Join join = (Join)i.next();
 				
 				bf.append(' ').
-					append(join.getKindString()).
+					append(join.kind.sql).
 					append(" join ").
 					append(join.type);
 
