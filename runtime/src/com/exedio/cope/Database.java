@@ -336,7 +336,7 @@ abstract class Database
 		final int limitCount = query.limitCount;
 		final boolean limitActive = limitStart>0 || limitCount!=Query.UNLIMITED_COUNT;
 
-		final ArrayList queryJoins = query.joins;
+		final ArrayList<Join> queryJoins = query.joins;
 		final Statement bf = createStatement(query);
 		
 		if(!doCountOnly && limitActive && limitSupport==LimitSupport.CLAUSES_AROUND)
@@ -454,11 +454,8 @@ abstract class Database
 
 		if(queryJoins!=null)
 		{
-			// TODO SOON use generics and for-each loop
-			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
+			for(final Join join : queryJoins)
 			{
-				final Join join = (Join)i.next();
-				
 				bf.append(' ').
 					append(join.getKindString()).
 					append(" join ").
