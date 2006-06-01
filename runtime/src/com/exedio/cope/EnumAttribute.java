@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
@@ -29,7 +29,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 {
 	private final List<E> values;
 	private final IntKeyOpenHashMap numbersToValues;
-	private final HashMap<E, Integer> valuesToNumbers;
+	private final EnumMap<E, Integer> valuesToNumbers;
 	
 	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
@@ -38,7 +38,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
-		final HashMap<E, Integer> valuesToNumbers = new HashMap<E, Integer>();
+		final EnumMap<E, Integer> valuesToNumbers = new EnumMap<E, Integer>(valueClass);
 		
 		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
