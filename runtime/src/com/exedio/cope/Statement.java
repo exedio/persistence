@@ -137,9 +137,9 @@ final class Statement
 		return this;
 	}
 	
-	private boolean firstOrderBy = true;
+	private boolean firstOrderBy = true; // TODO SOON remove
 	
-	Statement appendOrderBy()
+	Statement appendOrderBy() // TODO SOON remove
 	{
 		if(firstOrderBy)
 		{
@@ -377,10 +377,8 @@ final class Statement
 		boolean first = true;
 		for(Type currentType = type; currentType!=null; currentType=currentType.supertype)
 		{
-			if(first)
-				first = false;
-			else
-				append(',');
+			if(!first)
+				append(" inner join ");
 			
 			final Table table = currentType.getTable();
 			append(table.protectedID);
@@ -390,27 +388,17 @@ final class Statement
 				append(' ').
 				append(alias);
 			}
-		}
-	}
-	
-	void appendTypeJoinCondition(final String prefix, final Join join, final Type type)
-	{
-		boolean first = true;
-		for(Type currentType = type.supertype; currentType!=null; currentType=currentType.supertype)
-		{
-			if(first)
-			{
-				append(prefix);
-				first = false;
-			}
-			else
-				append(" and ");
-			
-			final Table table = currentType.getTable();
 
-			append(table.primaryKey, join);
-			append('=');
-			append(type.getTable().primaryKey, join);
+			if(!first)
+			{
+				append(" on ");
+				append(table.primaryKey, join);
+				append('=');
+				append(type.getTable().primaryKey, join);
+			}
+			
+			if(first)
+				first = false;
 		}
 	}
 	

@@ -468,7 +468,6 @@ abstract class Database
 					bf.append(" on ");
 					joinCondition.append(bf);
 				}
-				bf.appendTypeJoinCondition(joinCondition!=null ? " and " : " on ", join, join.type);
 			}
 		}
 
@@ -477,7 +476,6 @@ abstract class Database
 			bf.append(" where ");
 			query.condition.append(bf);
 		}
-		bf.appendTypeJoinCondition(query.condition!=null ? " and " : " where ", (Join)null, query.type);
 		
 		if(!doCountOnly)
 		{
