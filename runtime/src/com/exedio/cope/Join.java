@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public final class Join
 {
-	static enum KIND // TODO SOON rename to Kind
+	static enum Kind
 	{
 		INNER("inner"),
 		OUTER_LEFT("left outer"),
@@ -29,17 +29,17 @@ public final class Join
 		
 		final String sql;
 		
-		KIND(final String sql)
+		Kind(final String sql)
 		{
 			this.sql = sql;
 		}
 	}
 	
-	final KIND kind;
+	final Kind kind;
 	final Type type;
 	Condition condition;
 	
-	Join(final KIND kind, final Type type, final Condition condition)
+	Join(final Kind kind, final Type type, final Condition condition)
 	{
 		this.kind = kind;
 		this.type = type;
@@ -56,7 +56,7 @@ public final class Join
 		this.condition = condition;
 	}
 	
-	public final KIND getKind()
+	public final Kind getKind()
 	{
 		return kind;
 	}
