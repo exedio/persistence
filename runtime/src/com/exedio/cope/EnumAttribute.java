@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
@@ -29,7 +28,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 {
 	private final List<E> values;
 	private final IntKeyOpenHashMap numbersToValues;
-	private final EnumMap<E, Integer> valuesToNumbers;
+	private final int[] valuesToNumbers;
 	
 	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
@@ -38,11 +37,11 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 
 		final ArrayList<E> values = new ArrayList<E>();
 		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
-		final EnumMap<E, Integer> valuesToNumbers = new EnumMap<E, Integer>(valueClass);
 		
 		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
 			throw new RuntimeException("must have at least one enum value: " + valueClass);
+		final int[] valuesToNumbers = new int[enumConstants.length];
 		
 		for(int j = 0; j<enumConstants.length; j++)
 		{
@@ -52,8 +51,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 
 			if(numbersToValues.put(number, enumConstant)!=null)
 				throw new RuntimeException("duplicate number " + number + " for enum attribute on " + valueClass);
-			if(valuesToNumbers.put(enumConstant, number)!=null)
-				throw new RuntimeException("duplicate value " + enumConstant + " for enum attribute on " + valueClass);
+			valuesToNumbers[enumConstant.ordinal()] = number;
 		}
 		values.trimToSize();
 		numbersToValues.trimToSize();
@@ -76,6 +74,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 	
 	public EnumAttribute<E> defaultTo(final E defaultConstant)
 	{
+		assert isValid(defaultConstant);
 		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
 	
@@ -92,11 +91,10 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		return result;
 	}
 
-	private Integer getNumber(final E value)
+	private int getNumber(final E value)
 	{
-		final Integer result = valuesToNumbers.get(value);
-		assert result!=null : toString() + value;
-		return result;
+		assert isValid(value);
+		return valuesToNumbers[value.ordinal()];
 	}
 
 	/**
@@ -110,12 +108,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final int[] allowedValues = new int[values.size()];
-		int in = 0;
-		for(E value : values)
-			allowedValues[in++] = getNumber(value).intValue();
-
-		return new IntegerColumn(table, name, optional, allowedValues);
+		return new IntegerColumn(table, name, optional, valuesToNumbers);
 	}
 	
 	E get(final Row row)
@@ -129,7 +122,16 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		
 	void set(final Row row, final E surface)
 	{
+		assert isValid(surface);
 		row.put(getColumn(), surface==null ? null : getNumber(surface));
 	}
 	
+	private boolean isValid(final E value)
+	{
+		if(value==null)
+			return true;
+
+		final Class actualValueClass = value.getClass();
+      return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
+	}
 }
