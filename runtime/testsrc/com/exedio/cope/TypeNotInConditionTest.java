@@ -80,8 +80,15 @@ public class TypeNotInConditionTest extends AbstractLibTest
 			itemc1.setTextc1("textC1");
 			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemc1.TYPE);
-			j.setCondition(new JoinedFunction(itemc1.textc1, j).equal(itemc1.textc1));
+			j.setCondition(new JoinedFunction<String>(itemc1.textc1, j).equal(itemc1.textc1));
 			assertContains(itemc1, q.search());
+		}
+		if(!hsqldb&&!oracle) // TODO SOON dont know why
+		{
+			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(itemb2.TYPE);
+			j.setCondition(new JoinedFunction<String>(itemc1.code, j).equal(itemb2.code));
+			assertContains(q.search());
 		}
 	}
 
