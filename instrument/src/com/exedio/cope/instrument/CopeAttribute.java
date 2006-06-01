@@ -52,7 +52,7 @@ abstract class CopeAttribute extends CopeFeature
 
 	/**
 	 * Returns the type of this attribute to be used in accessor (setter/getter) methods.
-	 * Differs from {@link #getPersistentType() the persistent type},
+	 * Differs from {@link #persistentType the persistent type},
 	 * if and only if the attribute is {@link #isBoxed() boxed}.
 	 */
 	String getBoxedType()

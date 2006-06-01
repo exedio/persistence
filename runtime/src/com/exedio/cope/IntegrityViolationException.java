@@ -26,7 +26,7 @@ package com.exedio.cope;
  * <p>
  * Also knows as foreign key constraint violation.
  * <p>
- * This exception is thrown by {@link Item#deleteCopeItem}.
+ * This exception is thrown by {@link Item#deleteCopeItem()}.
  *
  * @author Ralf Wiebicke
  */

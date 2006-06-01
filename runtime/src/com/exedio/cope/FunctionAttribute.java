@@ -109,8 +109,8 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	/**
 	 * Checks attribute values set by
-	 * {@link Item#setAttribute(FunctionAttribute,Object)} (for <tt>initial==false</tt>)
-	 * and {@link Item(FunctionAttribute[])} (for <tt>initial==true</tt>)
+	 * {@link Item#set(FunctionAttribute,Object)} (for <tt>initial==false</tt>)
+	 * and {@link Item#Item(SetValue[])} (for <tt>initial==true</tt>)
 	 * and throws the exception specified there.
 	 */
 	final void checkValue(final Object value, final Item exceptionItem)

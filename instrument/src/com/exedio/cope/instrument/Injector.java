@@ -68,11 +68,8 @@ final class Injector
 
 	/**
 	 * Constructs a new java parser.
-	 * @param input
+	 * @param inputFile
 	 * the input stream to be parsed.
-	 * @param output
-	 * the target, where the modified input stream is written to.
-	 * May be null, if only reading is desired.
 	 * @param consumer
 	 * an implementation of InjectionConsumer,
 	 * listening to parsed elements of the input stream.

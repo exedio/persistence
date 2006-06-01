@@ -1493,8 +1493,8 @@ abstract class Database
 	abstract void appendLimitClause(Statement bf, int start, int count);
 	
 	/**
-	 * Same as {@link #appendLimitClause(Statement, int, int}.
-	 * Is used for {@link #LIMIT_SUPPORT_CLAUSES_AROUND} only,
+	 * Same as {@link #appendLimitClause(Statement, int, int)}.
+	 * Is used for {@link LimitSupport#CLAUSES_AROUND} only,
 	 * for the postfix.
 	 */
 	abstract void appendLimitClause2(Statement bf, int start, int count);

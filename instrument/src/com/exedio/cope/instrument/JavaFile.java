@@ -49,7 +49,7 @@ final class JavaFile
 	 * Distiguishes two stages in life cycle of this object:
 	 * getting imports via addImport and finding types via findType.
 	 * @see #addImport
-	 * @see #findType
+	 * @see #findTypeExternally(String)
 	 */
 	private boolean buildStageForImports = true;
 	

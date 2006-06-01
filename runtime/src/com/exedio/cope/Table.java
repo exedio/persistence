@@ -92,7 +92,7 @@ final class Table
 	 * excluding primary key column
 	 * and the optional type column for the primary key.
 	 * @see #getAllColumns()
-	 * @see #getPrimaryKey()
+	 * @see #primaryKey
 	 */
 	List<Column> getColumns()
 	{
@@ -106,7 +106,7 @@ final class Table
 	 * Returns all columns of this type,
 	 * including primary key column.
 	 * @see #getColumns()
-	 * @see #getPrimaryKey()
+	 * @see #primaryKey
 	 */
 	List<Column> getAllColumns()
 	{
