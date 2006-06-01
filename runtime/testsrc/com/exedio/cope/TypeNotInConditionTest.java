@@ -73,6 +73,16 @@ public class TypeNotInConditionTest extends AbstractLibTest
 		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
 		
 		model.checkTypeColumns();
+		
+		// test self joins and inheritance
+		if(!hsqldb&&!oracle) // TODO SOON dont know why
+		{
+			itemc1.setTextc1("textC1");
+			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(itemc1.TYPE);
+			j.setCondition(new JoinedFunction(itemc1.textc1, j).equal(itemc1.textc1));
+			assertContains(itemc1, q.search());
+		}
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage
