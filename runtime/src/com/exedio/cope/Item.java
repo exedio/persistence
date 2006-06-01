@@ -139,7 +139,7 @@ public abstract class Item extends Cope
 			LengthViolationException,
 			ClassCastException
 	{
-		this.pk = type.getPkSource().nextPK();
+		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);

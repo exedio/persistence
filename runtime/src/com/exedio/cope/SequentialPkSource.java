@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+
 final class SequentialPkSource extends PkSource
 {
 	
-	SequentialPkSource(final Type type)
+	SequentialPkSource(final Table table)
 	{
-		super(type);
+		super(table);
 	}
 
 	private int nextPk = Type.NOT_A_PK;
@@ -37,13 +39,13 @@ final class SequentialPkSource extends PkSource
 		}
 	}
 
-	int nextPK()
+	int nextPK(final Connection connection)
 	{
 		synchronized(lock)
 		{
 			if(nextPk==Type.NOT_A_PK)
 			{
-				final int[] minMaxPks = getMinMaxPK();
+				final int[] minMaxPks = table.database.getMinMaxPK(connection, table);
 				if(minMaxPks==null)
 				{
 					nextPk = 0;
@@ -55,7 +57,7 @@ final class SequentialPkSource extends PkSource
 					
 					if(minMaxPks[0]<0)
 						throw new RuntimeException(
-								"The smallest pk for type " + type.id +
+								"The smallest pk for table " + table.id +
 									" is " + minMaxPks[0] + " but must be non-negative for use with SequentialPkSource." +
 								" You may consider using " + Properties.PKSOURCE_BUTTERFLY + " instead.");
 					
