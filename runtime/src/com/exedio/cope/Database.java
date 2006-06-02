@@ -634,10 +634,10 @@ abstract class Database
 		return result;
 	}
 	
-	private void log(final long start, final long end, final String sqlText)
+	private void log(final long start, final long end, final Statement statement)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
-		System.out.println(df.format(new Date(start)) + "  " + (end-start) + "ms:  " + sqlText);
+		System.out.println(df.format(new Date(start)) + "  " + (end-start) + "ms:  " + statement.getText()+"   "+statement.parameters);
 	}
 	
 	public void load(final Connection connection, final PersistentState state)
@@ -1187,7 +1187,7 @@ abstract class Database
 			final long logEnd = log ? System.currentTimeMillis() : 0;
 			
 			if(this.log)
-				log(logStart, logEnd, sqlText);
+				log(logStart, logEnd, statement);
 			
 			if(makeStatementInfo)
 				return makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logResultRead, logEnd);
@@ -1261,7 +1261,7 @@ abstract class Database
 			final long logEnd = log ? System.currentTimeMillis() : 0;
 
 			if(log)
-				log(logStart, logEnd, sqlText);
+				log(logStart, logEnd, statement);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
