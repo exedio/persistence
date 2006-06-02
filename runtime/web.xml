@@ -135,6 +135,19 @@
 		<url-pattern>/hierarchy/console/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>typeNotInConditionConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.Main#typeNotInConditionModel</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>typeNotInConditionConsole</servlet-name>
+		<url-pattern>/typeNotInCondition/console/*</url-pattern>
+	</servlet-mapping>
+	
 	<description>Cope Test Application</description>
 	<display-name>Cope Test Application</display-name>
 	
