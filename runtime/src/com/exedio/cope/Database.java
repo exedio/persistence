@@ -487,7 +487,10 @@ abstract class Database
 				final boolean[] orderAscending = query.orderAscending;
 				for(int i = 0; i<orderBy.length; i++)
 				{
-					bf.appendOrderBy();
+					if(i==0)
+						bf.append(" order by ");
+					else
+						bf.append(',');
 					
 					if(orderBy[i] instanceof ItemAttribute)
 					{
