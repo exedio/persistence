@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
@@ -308,6 +310,38 @@ final class Console_Jspm
 		%>
 		</table><%
 		}
+	}
+
+	final static void writeBody(
+			final PrimaryKeysCop cop,
+			final PrintStream out,
+			final Map<Type, int[]> primaryKeys)
+		throws IOException
+	{
+		%>
+		<table class="properties">
+			<tr>
+				<th colspan="2">Primary Keys</th>
+			</tr>
+			<tr><th>Type</th><th>Info</th></tr><%
+			for(final Type type : primaryKeys.keySet())
+			{
+			%>
+			<tr><td><%=type.getID()%></td><td><%
+				final int[] info = primaryKeys.get(type);
+				for(int i : info)
+				{
+					switch(i)
+					{
+						case Integer.MIN_VALUE: %>MIN <% break;
+						case Integer.MAX_VALUE: %>MAX <% break;
+						default:%><%=i%> <%
+					}
+				}
+				%></td></tr><%
+			}
+		%>
+		</table><%
 	}
 
 	final static void writeBody(

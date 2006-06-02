@@ -514,6 +514,11 @@ public final class Type<C extends Item>
 		return table;
 	}
 	
+	public int[] getPrimaryKeyInfo()
+	{
+		return getPkSource().getPrimaryKeyInfo();
+	}
+	
 	/**
 	 * Returns the name of database table for this type
 	 * - <b>use with care!</b>

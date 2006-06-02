@@ -42,4 +42,6 @@ abstract class PkSource
 	abstract void appendDeterministicOrderByExpression(Statement bf, Type orderBy);
 	
 	abstract void appendOrderByExpression(Statement bf, Function orderBy);
+
+	abstract int[] getPrimaryKeyInfo();
 }

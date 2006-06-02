@@ -55,6 +55,7 @@ abstract class ConsoleCop extends Cop
 				new TypeColumnCop(),
 				new ConnectionStatsCop(),
 				new CacheStatsCop(),
+				new PrimaryKeysCop(),
 				new MediaStatsCop(),
 				new VmCop(false),
 				new DbCop(),
@@ -109,6 +110,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_TYPE_COLUMNS = "tc";
 	static final String TAB_CONNECTION_STATS = "cp";
 	static final String TAB_CACHE_STATS = "ca";
+	static final String TAB_PRIMARY_KEY = "pk";
 	static final String TAB_MEDIA_STATS = "m";
 	static final String TAB_VM = "vm";
 	static final String TAB_DB = "db";
@@ -122,6 +124,8 @@ abstract class ConsoleCop extends Cop
 			return new ConnectionStatsCop();
 		if(TAB_CACHE_STATS.equals(tab))
 			return new CacheStatsCop();
+		if(TAB_PRIMARY_KEY.equals(tab))
+			return new PrimaryKeysCop();
 		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop();
 		if(TAB_VM.equals(tab))

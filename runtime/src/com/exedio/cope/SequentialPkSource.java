@@ -108,4 +108,8 @@ final class SequentialPkSource extends PkSource
 		bf.append(orderBy, (Join)null);
 	}
 
+	int[] getPrimaryKeyInfo()
+	{
+		return new int[]{nextPk};
+	}
 }

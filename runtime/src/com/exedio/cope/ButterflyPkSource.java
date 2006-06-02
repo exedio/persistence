@@ -130,4 +130,8 @@ final class ButterflyPkSource extends PkSource
 			append("*4+1)");
 	}
 
+	int[] getPrimaryKeyInfo()
+	{
+		return new int[]{nextPkLo, nextPkHi, nextIsLo?0:1};
+	}
 }
