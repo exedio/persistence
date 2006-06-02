@@ -1139,8 +1139,9 @@ abstract class Database
 		ResultSet resultSet = null;
 		try
 		{
+			final boolean log = this.log || makeStatementInfo;
 			final String sqlText = statement.getText();
-			final long logStart = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+			final long logStart = log ? System.currentTimeMillis() : 0;
 			final long logPrepared;
 			final long logExecuted;
 			
@@ -1150,9 +1151,9 @@ abstract class Database
 
 				defineColumnTypes(statement.columnTypes, sqlStatement);
 				
-				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+				logPrepared = log ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
-				logExecuted = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+				logExecuted = log ? System.currentTimeMillis() : 0;
 				resultSetHandler.run(resultSet);
 			}
 			else
@@ -1165,12 +1166,12 @@ abstract class Database
 
 				defineColumnTypes(statement.columnTypes, sqlStatement);
 				
-				logPrepared = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+				logPrepared = log ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
-				logExecuted = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+				logExecuted = log ? System.currentTimeMillis() : 0;
 				resultSetHandler.run(resultSet);
 			}
-			final long logResultRead = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+			final long logResultRead = log ? System.currentTimeMillis() : 0;
 			
 			if(resultSet!=null)
 			{
@@ -1183,9 +1184,9 @@ abstract class Database
 				sqlStatement = null;
 			}
 
-			final long logEnd = (log||makeStatementInfo) ? System.currentTimeMillis() : 0;
+			final long logEnd = log ? System.currentTimeMillis() : 0;
 			
-			if(log)
+			if(this.log)
 				log(logStart, logEnd, sqlText);
 			
 			if(makeStatementInfo)
