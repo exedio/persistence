@@ -76,7 +76,7 @@ public class TypeNotInConditionTest extends AbstractLibTest
 		
 		System.out.println("------------------------"+model.getDatabaseInfo().get("database.version"));
 		// test self joins and inheritance
-		if(!hsqldb&&!oracle&&!((String)model.getDatabaseInfo().get("database.version")).endsWith("(5.0)")) // TODO dont know why
+		if(!hsqldb&&!oracle) // TODO dont know why
 		{
 			itemc1.setTextc1("textC1");
 			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
