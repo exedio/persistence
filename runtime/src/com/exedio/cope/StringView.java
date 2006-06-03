@@ -36,17 +36,20 @@ public abstract class StringView
 		super(sources, name, String.class, StringColumn.JDBC_TYPE, sqlFragments);
 	}
 
+	@Override
 	final Object load(final ResultSet resultSet, final int columnIndex)
 	throws SQLException
 	{
 		return resultSet.getString(columnIndex);
 	}
 
+	@Override
 	final String surface2Database(final Object value)
 	{
 		return StringColumn.cacheToDatabaseStatic(value);
 	}
 	
+	@Override
 	final void surface2DatabasePrepared(final Statement bf, final Object value)
 	{
 		bf.appendParameter((String)value);

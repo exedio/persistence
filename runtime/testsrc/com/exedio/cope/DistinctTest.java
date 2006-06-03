@@ -26,6 +26,7 @@ public class DistinctTest extends TestmodelTest
 {
 	PlusItem item1, item2, item3, item4;
 	
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

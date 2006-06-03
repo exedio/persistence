@@ -37,32 +37,38 @@ final class BlobColumn extends Column
 			throw new RuntimeException("database does not support BLOBs for "+table.id+'.'+id+'.');
 	}
 	
+	@Override
 	final String getDatabaseType()
 	{
 		return table.database.getBlobType(maximumLength);
 	}
 
+	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
 		return "LENGTH(" + protectedID + ")<=" + (maximumLength*table.database.getBlobLengthFactor());
 	}
 	
+	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		throw new RuntimeException(id);
 	}
 	
+	@Override
 	final String cacheToDatabase(final Object cache)
 	{
 		throw new RuntimeException(id);
 	}
 	
+	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		throw new RuntimeException(id);
 	}
 
+	@Override
 	Object getCheckValue()
 	{
 		throw new RuntimeException(id);

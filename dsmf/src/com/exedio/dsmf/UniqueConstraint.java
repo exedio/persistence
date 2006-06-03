@@ -43,6 +43,7 @@ public class UniqueConstraint extends Constraint
 		return clause;
 	}
 
+	@Override
 	final void createInTable(final StringBuffer bf)
 	{
 		bf.append(",constraint ").
@@ -51,6 +52,7 @@ public class UniqueConstraint extends Constraint
 			append(clause);
 	}
 	
+	@Override
 	public final void create()
 	{
 		if(!driver.canDropUniqueConstraints())
@@ -67,6 +69,7 @@ public class UniqueConstraint extends Constraint
 		executeSQL(bf.toString());
 	}
 	
+	@Override
 	public final void drop()
 	{
 		if(!driver.canDropUniqueConstraints())

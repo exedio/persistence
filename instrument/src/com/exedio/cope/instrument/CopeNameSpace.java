@@ -40,6 +40,7 @@ class CopeNameSpace extends NameSpace
 	 * to make it conform to a javac compiler run.
 	 * Implements Java Language Specification 7.5.3. "Automatic Imports".
 	 */
+	@Override
 	public final void loadDefaultImports()
 	{
 		importPackage("java.lang");

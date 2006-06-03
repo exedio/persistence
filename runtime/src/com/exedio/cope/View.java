@@ -110,6 +110,7 @@ public abstract class View<E> extends Feature implements Function<E>
 			surface2DatabasePrepared(bf, value);
 	}
 	
+	@Override
 	final String toStringNonInitialized()
 	{
 		final StringBuffer buf = new StringBuffer(name);
@@ -125,6 +126,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		return buf.toString();
 	}
 	
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof View))
@@ -144,6 +146,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		return true;
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		int result = name.hashCode();
@@ -166,6 +169,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		super.initialize(type, name);
 	}
 	
+	@Override
 	public final Type<? extends Item> getType()
 	{
 		return (sourceType!=null) ? sourceType : super.getType();

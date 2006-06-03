@@ -40,6 +40,7 @@ final class JavaMethod extends JavaBehaviour
 	/**
 	 * See Java Specification 8.4.3 &quot;Method Modifiers&quot;
 	 */
+	@Override
 	public final int getAllowedModifiers()
 	{
 		return

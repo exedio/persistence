@@ -31,6 +31,7 @@ public abstract class AttributeTest extends TestmodelTest
 	protected AttributeItem item;
 	protected AttributeItem item2;
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

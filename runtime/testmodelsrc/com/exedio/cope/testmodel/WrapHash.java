@@ -39,6 +39,7 @@ public class WrapHash extends Hash
 		super(storageOption);
 	}
 
+	@Override
 	public String hash(final String plainText)
 	{
 		if(plainText == null)

@@ -43,6 +43,7 @@ public class CompareConditionTest extends TestmodelTest
 		return new Date(date.getTime()+offset);
 	}
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

@@ -28,6 +28,7 @@ import com.meterware.httpunit.WebRequest;
 
 public class AuthorizationTest extends WebTestCase
 {
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -37,6 +38,7 @@ public class AuthorizationTest extends WebTestCase
 		submit("CREATE");
 	}
 	
+	@Override
 	public void tearDown() throws Exception
 	{
 		beginAt("console?schema=");

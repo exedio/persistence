@@ -79,6 +79,7 @@ public abstract class Item extends Cope
 	 * <pre>(o != null) && (o instanceof Item) && getCopeID().equals(((Item)o).getCopeID())</pre>
 	 * Does not activate this item, if it's not already active.
 	 */
+	@Override
 	public final boolean equals(final Object o)
 	{
 		return (o!=null) && (getClass()==o.getClass()) && (pk==((Item)o).pk);
@@ -89,11 +90,13 @@ public abstract class Item extends Cope
 	 * Note, that this is not neccessarily equivalent to <tt>getCopeID().hashCode()</tt>.
 	 * Does not activate this item, if it's not already active.
 	 */
+	@Override
 	public final int hashCode()
 	{
 		return getClass().hashCode() ^ pk;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return getCopeID();

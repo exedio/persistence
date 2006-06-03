@@ -101,6 +101,7 @@ public final class Day // TODO implement Comparable
 		return new GregorianCalendar(year, month-1, day).getTimeInMillis();
 	}
 	
+	@Override
 	public boolean equals(final Object o)
 	{
 		if(!(o instanceof Day))
@@ -110,11 +111,13 @@ public final class Day // TODO implement Comparable
 		return day==d.day && month==d.month && year==d.year;
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return day ^ month ^ year;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return String.valueOf(year) + '/' + month + '/' + day;

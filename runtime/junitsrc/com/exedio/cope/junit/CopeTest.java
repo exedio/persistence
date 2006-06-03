@@ -122,6 +122,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 
+	@Override
 	public void runBare() throws Throwable
 	{
 		setUp();
@@ -142,6 +143,7 @@ public abstract class CopeTest extends CopeAssert
 		return new Properties();
 	}
 	
+	@Override
 	protected void setUp() throws Exception
 	{
 		model.setPropertiesInitially(getProperties());
@@ -154,6 +156,7 @@ public abstract class CopeTest extends CopeAssert
 		model.checkEmptyDatabase();
 	}
 	
+	@Override
 	protected void tearDown() throws Exception
 	{
 		final boolean hadTransaction = model.hasCurrentTransaction();

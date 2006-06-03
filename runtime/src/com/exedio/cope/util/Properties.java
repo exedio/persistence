@@ -113,11 +113,13 @@ public class Properties
 			}
 		}
 		
+		@Override
 		public Object getDefaultValue()
 		{
 			return Boolean.valueOf(defaultValue);
 		}
 		
+		@Override
 		public Object getValue()
 		{
 			return Boolean.valueOf(value);
@@ -165,11 +167,13 @@ public class Properties
 			}
 		}
 		
+		@Override
 		public Object getDefaultValue()
 		{
 			return Integer.valueOf(defaultValue);
 		}
 		
+		@Override
 		public Object getValue()
 		{
 			return Integer.valueOf(value);
@@ -231,11 +235,13 @@ public class Properties
 				this.value = s;
 		}
 		
+		@Override
 		public Object getDefaultValue()
 		{
 			return defaultValue;
 		}
 		
+		@Override
 		public Object getValue()
 		{
 			return value;
@@ -246,6 +252,7 @@ public class Properties
 			return value;
 		}
 		
+		@Override
 		public boolean hasHiddenValue()
 		{
 			return hideValue;
@@ -264,11 +271,13 @@ public class Properties
 			this.value = (valueString==null) ? null : new File(valueString);
 		}
 		
+		@Override
 		public Object getDefaultValue()
 		{
 			return null;
 		}
 		
+		@Override
 		public Object getValue()
 		{
 			return value;
@@ -279,6 +288,7 @@ public class Properties
 			return value;
 		}
 		
+		@Override
 		public boolean hasHiddenValue()
 		{
 			return false;
@@ -305,11 +315,13 @@ public class Properties
 			}
 		}
 		
+		@Override
 		public Object getDefaultValue()
 		{
 			return null;
 		}
 		
+		@Override
 		public Object getValue()
 		{
 			return value;

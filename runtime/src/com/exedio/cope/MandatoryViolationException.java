@@ -56,11 +56,13 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 		return mandatoryAttribute;
 	}
 
+	@Override
 	public String getMessage()
 	{
 		return "mandatory violation on " + getItemID() + " for " + mandatoryAttribute;
 	}
 	
+	@Override
 	public String getMessageWithoutFeature()
 	{
 		return "mandatory violation on " + getItemID();

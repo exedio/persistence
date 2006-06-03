@@ -42,6 +42,7 @@ final class PureCopernicaProvider extends TransientCopernicaProvider
 		return model;
 	}
 
+	@Override
 	public int getLimitCountCeiling(final Type type)
 	{
 		return Integer.MAX_VALUE;

@@ -28,16 +28,19 @@ final class DeletedState extends State
 		transaction.addInvalidation( item.type, item.pk );
 	}
 	
+	@Override
 	Object get(final FunctionAttribute attribute)
 	{
 		throw new NoSuchItemException(item);		
 	}
 
+	@Override
 	State put(Transaction transaction, FunctionAttribute attribute, Object value)
 	{
 		throw new NoSuchItemException(item);
 	}
 	
+	@Override
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		assert blobs==null;
@@ -52,26 +55,31 @@ final class DeletedState extends State
 		return null;
 	}
 
+	@Override
 	State delete( Transaction transaction )
 	{
 		throw new NoSuchItemException(item);
 	}
 
+	@Override
 	Object store(Column column)
 	{
 		throw new RuntimeException();
 	}
 
+	@Override
 	Row stealValues()
 	{
 		throw new RuntimeException();
 	}
 
+	@Override
 	boolean exists()
 	{
 		return false;
 	}
 
+	@Override
 	public String toStringWithValues()
 	{
 		return toString();

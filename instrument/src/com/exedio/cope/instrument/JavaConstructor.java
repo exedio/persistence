@@ -39,6 +39,7 @@ final class JavaConstructor extends JavaBehaviour
 	 * See Java Language Specification 8.6.3
 	 * &quot;Constructor Modifiers&quot;
 	 */
+	@Override
 	public final int getAllowedModifiers()
 	{
 		return

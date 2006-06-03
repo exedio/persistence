@@ -121,11 +121,13 @@ final class CopeNativeAttribute extends CopeAttribute
 		fillNativeTypeMap(DayAttribute.class,     Day.class);
 	}
 	
+	@Override
 	public final String getBoxedType()
 	{
 		return isBoxed() ? nativeType : persistentType;
 	}
 	
+	@Override
 	public final boolean isBoxed()
 	{
 		final Feature instance = getInstance();
@@ -134,6 +136,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		return (notNull && nativeType!=null);
 	}
 	
+	@Override
 	public final String getBoxingPrefix()
 	{
 		if(!isBoxed())
@@ -142,6 +145,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		return toBoxingPrefixMapping.get(typeClass);
 	}
 	
+	@Override
 	public final String getBoxingPostfix()
 	{
 		if(!isBoxed())
@@ -150,6 +154,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		return toBoxingPostfixMapping.get(typeClass);
 	}
 	
+	@Override
 	public final String getUnBoxingPrefix()
 	{
 		if(!isBoxed())
@@ -158,6 +163,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		return toUnboxingPrefixMapping.get(typeClass);
 	}
 	
+	@Override
 	public final String getUnBoxingPostfix()
 	{
 		if(!isBoxed())

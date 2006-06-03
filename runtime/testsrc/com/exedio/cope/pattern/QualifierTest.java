@@ -40,6 +40,7 @@ public class QualifierTest extends TestmodelTest
 	EmptyItem key1;
 	EmptyItem key2;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

@@ -114,6 +114,7 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 
 	private Column column;
 	
+	@Override
 	void initialize(final Type<? extends Item> type, final String name)
 	{
 		super.initialize(type, name);

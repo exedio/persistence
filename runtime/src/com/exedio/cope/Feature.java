@@ -71,6 +71,7 @@ public abstract class Feature
 		return super.toString();
 	}
 	
+	@Override
 	public final String toString()
 	{
 		return type!=null ? (type.id+'#'+name) : toStringNonInitialized();

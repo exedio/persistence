@@ -381,6 +381,7 @@ public final class Transaction
 		}
 	}
 	
+	@Override
 	public String toString()
 	{
 		return "CT." + getID() + (closed?"(closed)":"");

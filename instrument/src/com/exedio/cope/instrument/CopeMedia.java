@@ -34,11 +34,13 @@ final class CopeMedia extends CopeFeature
 		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE) | Modifier.FINAL;
 	}
 	
+	@Override
 	boolean isBoxed()
 	{
 		return false;
 	}
 	
+	@Override
 	String getBoxedType()
 	{
 		throw new RuntimeException();

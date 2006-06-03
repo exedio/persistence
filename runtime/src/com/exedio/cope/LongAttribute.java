@@ -34,6 +34,7 @@ public final class LongAttribute extends FunctionAttribute<Long>
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
+	@Override
 	public FunctionAttribute<Long> copyFunctionAttribute()
 	{
 		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
@@ -44,16 +45,19 @@ public final class LongAttribute extends FunctionAttribute<Long>
 		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
 	
+	@Override
 	Long get(final Row row)
 	{
 		return (Long)row.get(getColumn());
 	}
 		
+	@Override
 	void set(final Row row, final Long surface)
 	{
 		row.put(getColumn(), surface);

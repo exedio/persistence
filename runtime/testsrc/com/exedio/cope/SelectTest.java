@@ -50,6 +50,7 @@ public class SelectTest extends TestmodelTest
 		return result;
 	}
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

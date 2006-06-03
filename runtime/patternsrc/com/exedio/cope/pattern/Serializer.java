@@ -87,6 +87,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	
 	// TODO allow setting of length of DataAttribute
 	
+	@Override
 	public void initialize()
 	{
 		if(!source.isInitialized())

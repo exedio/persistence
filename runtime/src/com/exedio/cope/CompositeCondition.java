@@ -56,6 +56,7 @@ public final class CompositeCondition extends Condition
 		this.conditions = conditions;
 	}
 
+	@Override
 	void append(final Statement bf)
 	{
 		bf.append('(');
@@ -68,12 +69,14 @@ public final class CompositeCondition extends Condition
 		bf.append(')');
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i].check(query);
 	}
 	
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompositeCondition))
@@ -93,6 +96,7 @@ public final class CompositeCondition extends Condition
 		return true;
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		int result = operator.hashCode();
@@ -103,6 +107,7 @@ public final class CompositeCondition extends Condition
 		return result;
 	}
 
+	@Override
 	public String toString()
 	{
 		final StringBuffer bf = new StringBuffer();

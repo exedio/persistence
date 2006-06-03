@@ -36,11 +36,13 @@ final class DayColumn extends Column
 		super(table, id, false, optional, JDBC_TYPE);
 	}
 	
+	@Override
 	final String getDatabaseType()
 	{
 		return table.database.getDayType();
 	}
 
+	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
 		return null;
@@ -72,6 +74,7 @@ final class DayColumn extends Column
 		return new Day(m/12, (m%12)+1, (transientNumber%31)+1);
 	}
 	
+	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
@@ -80,6 +83,7 @@ final class DayColumn extends Column
 		row.put(this, (loadedDate!=null) ? Integer.valueOf(getTransientNumber(loadedDate)) : null);
 	}
 	
+	@Override
 	final String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
@@ -91,11 +95,13 @@ final class DayColumn extends Column
 		}
 	}
 	
+	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		return (cache==null) ? null : new Date(getDay(((Integer)cache).intValue()).getTimeInMillis());
 	}
 
+	@Override
 	Object getCheckValue()
 	{
 		return Integer.valueOf(DayColumn.getTransientNumber(new Day(2005, 9, 26)));

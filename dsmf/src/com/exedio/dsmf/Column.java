@@ -77,6 +77,7 @@ public final class Column extends Node
 		this.existingType = existingType;
 	}
 
+	@Override
 	void finish()
 	{
 		assert particularColor==null;
@@ -175,6 +176,7 @@ public final class Column extends Node
 		executeSQL(bf.toString());
 	}
 	
+	@Override
 	public final String toString()
 	{
 		return name;

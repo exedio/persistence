@@ -45,16 +45,19 @@ final class PersistentState extends State implements Database.ResultSetHandler
 		lastUsageMillis = System.currentTimeMillis();
 	}
 	
+	@Override
 	Object get(FunctionAttribute attribute)
 	{
 		return attribute.get(row);
 	}
 
+	@Override
 	<E> State put(final Transaction transaction, final FunctionAttribute<E> attribute, final E value)
 	{
 		return new ModifiedState( transaction, this ).put(transaction, attribute, value);
 	}
 
+	@Override
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		if(blobs!=null && !blobs.isEmpty())
@@ -63,11 +66,13 @@ final class PersistentState extends State implements Database.ResultSetHandler
 		return this;
 	}
 
+	@Override
 	State delete(Transaction transaction)
 	{
 		return new DeletedState( transaction, this );
 	}
 
+	@Override
 	Object store(final Column column)
 	{
 		//throw new RuntimeException();
@@ -75,11 +80,13 @@ final class PersistentState extends State implements Database.ResultSetHandler
 		return row.get(column);
 	}
 
+	@Override
 	Row stealValues()
 	{
 		return new Row(row);
 	}
 
+	@Override
 	boolean exists()
 	{
 		return true;
@@ -114,6 +121,7 @@ final class PersistentState extends State implements Database.ResultSetHandler
 		return lastUsageMillis;
 	}
 	
+	@Override
 	public String toStringWithValues()
 	{
 		return toString()+row.toString();

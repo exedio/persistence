@@ -74,6 +74,7 @@ public class CheckConstraint extends Constraint
 		}
 	}
 
+	@Override
 	final void createInTable(final StringBuffer bf)
 	{
 		bf.append(",constraint ").
@@ -83,6 +84,7 @@ public class CheckConstraint extends Constraint
 			append(')');
 	}
 	
+	@Override
 	public final void create()
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -97,6 +99,7 @@ public class CheckConstraint extends Constraint
 		executeSQL(bf.toString());
 	}
 	
+	@Override
 	public final void drop()
 	{
 		final StringBuffer bf = new StringBuffer();

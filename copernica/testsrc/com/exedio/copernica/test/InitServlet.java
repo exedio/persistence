@@ -54,6 +54,7 @@ public class InitServlet extends CopsServlet
 	
 	final static String ENCODING = "utf-8";
 
+	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)

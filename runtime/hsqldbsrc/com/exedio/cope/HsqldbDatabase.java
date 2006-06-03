@@ -43,47 +43,56 @@ final class HsqldbDatabase extends Database
 		super(new HsqldbDriver(), properties);
 	}
 
+	@Override
 	public String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
 	}
 
+	@Override
 	public String getDoubleType()
 	{
 		return "double";
 	}
 
+	@Override
 	public String getStringType(final int maxLength)
 	{
 		return "varchar("+maxLength+")";
 	}
 	
+	@Override
 	public String getDayType()
 	{
 		return "date";
 	}
 	
+	@Override
 	public String getDateTimestampType()
 	{
 		return "timestamp";
 	}
 
+	@Override
 	public String getBlobType(final long maximumLength)
 	{
 		return "binary";
 	}
 	
+	@Override
 	public int getBlobLengthFactor()
 	{
 		return 2;
 	}
 
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_SELECT;
 	}
 
+	@Override
 	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
 		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
@@ -95,21 +104,25 @@ final class HsqldbDatabase extends Database
 			appendParameter(count!=Query.UNLIMITED_COUNT ? count : 0);
 	}
 	
+	@Override
 	void appendLimitClause2(final Statement bf, final int start, final int count)
 	{
 		throw new RuntimeException(bf.toString());
 	}
 	
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		appendMatchClauseByLike(bf, function, value);
 	}
 	
+	@Override
 	public boolean supportsRightOuterJoins()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean fakesSupportReadCommitted()
 	{
 		return true;
@@ -133,6 +146,7 @@ final class HsqldbDatabase extends Database
 			return null;
 	}
 	
+	@Override
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, -104, "Unique constraint violation: ");

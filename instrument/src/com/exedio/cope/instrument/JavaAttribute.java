@@ -67,6 +67,7 @@ final class JavaAttribute
 	/**
 	 * See Java Specification 8.3.1 &quot;Field Modifiers&quot;
 	 */
+	@Override
 	final int getAllowedModifiers()
 	{
 		return Modifier.PUBLIC

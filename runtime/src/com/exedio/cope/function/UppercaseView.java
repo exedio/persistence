@@ -39,8 +39,10 @@ public final class UppercaseView
 		super(new StringFunction[]{source}, "upper", sqlFragments);
 	}
 
+	@Override
 	public final Object mapJava(final Object[] sourceValues)
 	{
+		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
 		return sourceValue==null ? null : ((String)sourceValue).toUpperCase();
 	}

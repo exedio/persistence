@@ -144,6 +144,7 @@ public final class Media extends MediaPath
 		return lastModified;
 	}
 	
+	@Override
 	public void initialize()
 	{
 		super.initialize();
@@ -438,6 +439,7 @@ public final class Media extends MediaPath
 	
 	private long start = System.currentTimeMillis();
 	
+	@Override
 	public Date getStart()
 	{
 		return new Date(start);
@@ -450,6 +452,7 @@ public final class Media extends MediaPath
 	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 	
+	@Override
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
@@ -542,36 +545,43 @@ public final class Media extends MediaPath
 				throw new NullPointerException("fixedMimeMinor must not be null");
 		}
 		
+		@Override
 		String getFixedMimeMajor()
 		{
 			return major;
 		}
 		
+		@Override
 		String getFixedMimeMinor()
 		{
 			return minor;
 		}
 		
+		@Override
 		StringAttribute getMimeMajor()
 		{
 			return null;
 		}
 		
+		@Override
 		StringAttribute getMimeMinor()
 		{
 			return null;
 		}
 		
+		@Override
 		void initialize(final String name)
 		{
 			// no attributes to be initialized
 		}
 		
+		@Override
 		String getContentType(final Item item)
 		{
 			return full;
 		}
 		
+		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
 			if(contentType!=null && !full.equals(contentType))
@@ -599,37 +609,44 @@ public final class Media extends MediaPath
 			registerSource(this.minor);
 		}
 		
+		@Override
 		String getFixedMimeMajor()
 		{
 			return major;
 		}
 		
+		@Override
 		String getFixedMimeMinor()
 		{
 			return null;
 		}
 		
+		@Override
 		StringAttribute getMimeMajor()
 		{
 			return null;
 		}
 		
+		@Override
 		StringAttribute getMimeMinor()
 		{
 			return minor;
 		}
 		
+		@Override
 		void initialize(final String name)
 		{
 			if(!minor.isInitialized())
 				Media.this.initialize(minor, name+"Minor");
 		}
 		
+		@Override
 		String getContentType(final Item item)
 		{
 			return prefix + minor.get(item);
 		}
 		
+		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
 			if(contentType!=null && !contentType.startsWith(prefix))
@@ -658,26 +675,31 @@ public final class Media extends MediaPath
 			registerSource(this.minor);
 		}
 		
+		@Override
 		String getFixedMimeMajor()
 		{
 			return null;
 		}
 		
+		@Override
 		String getFixedMimeMinor()
 		{
 			return null;
 		}
 		
+		@Override
 		StringAttribute getMimeMajor()
 		{
 			return major;
 		}
 		
+		@Override
 		StringAttribute getMimeMinor()
 		{
 			return minor;
 		}
 		
+		@Override
 		void initialize(final String name)
 		{
 			if(!major.isInitialized())
@@ -686,11 +708,13 @@ public final class Media extends MediaPath
 				Media.this.initialize(minor, name+"Minor");
 		}
 		
+		@Override
 		String getContentType(final Item item)
 		{
 			return major.get(item) + '/' + minor.get(item);
 		}
 		
+		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
 			values.add(this.major.map(toMajor(contentType)));

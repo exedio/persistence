@@ -51,6 +51,7 @@ final class MediaCop extends ConsoleCop
 		return (typeID==null) ? null : new MediaCop((Media)model.findTypeByID(typeID).getFeature(request.getParameter(MEDIA_NAME)));
 	}
 
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		try

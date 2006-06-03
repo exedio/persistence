@@ -82,6 +82,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 		return lengthExact;
 	}
 	
+	@Override
 	public String getMessage()
 	{
 		return
@@ -91,6 +92,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 			"is too long for " + dataAttribute;
 	}
 	
+	@Override
 	public String getMessageWithoutFeature()
 	{
 		return

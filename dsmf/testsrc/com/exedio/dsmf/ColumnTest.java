@@ -24,6 +24,7 @@ public class ColumnTest extends SchemaReadyTest
 	private static final String COLUMN1 = "someColumn";
 	private static final String COLUMN1X = "someColumnWrong";
 
+	@Override
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();

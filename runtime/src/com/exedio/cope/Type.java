@@ -815,6 +815,7 @@ public final class Type<C extends Item>
 		return new Query<C>(thisFunction, this, condition);
 	}
 	
+	@Override
 	public String toString()
 	{
 		return id;
@@ -938,6 +939,7 @@ public final class Type<C extends Item>
 			return type.table.database.checkTypeColumn(type.getModel().getCurrentTransaction().getConnection(), type);
 		}
 		
+		@Override
 		public String toString()
 		{
 			return type.id + "#this";

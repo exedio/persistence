@@ -73,6 +73,7 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 		this(function, new Type[]{excludedType1, excludedType2, excludedType3, excludedType4});
 	}
 	
+	@Override
 	void append(final Statement bf)
 	{
 		final Type type = function.getValueType();
@@ -110,11 +111,13 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 		bf.append(')');
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		check(function, query);
 	}
 
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof TypeNotInCondition))
@@ -125,11 +128,13 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 		return function.equals(o.function) && equals(excludedTypes, o.excludedTypes);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return function.hashCode() ^ hashCode(excludedTypes);
 	}
 
+	@Override
 	public String toString()
 	{
 		return function.toString() + " not in (" + excludedTypes + ')';

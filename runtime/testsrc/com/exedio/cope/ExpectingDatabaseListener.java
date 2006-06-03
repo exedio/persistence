@@ -137,7 +137,8 @@ public class ExpectingDatabaseListener implements DatabaseListener
 			this.item = item;
 		}
 		
-		void checkLoad( Connection connection, PersistentState state )
+		@Override
+		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad( Connection connection, PersistentState state )
 		{
 			checkConnection( connection );
 			if ( !item.equals(state.item) )
@@ -146,6 +147,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 			}
 		}
 		
+		@Override
 		public String toString()
 		{
 			return "Load("+tx.getName()+"/"+item.getCopeID()+")";
@@ -162,7 +164,8 @@ public class ExpectingDatabaseListener implements DatabaseListener
 			this.type = type;
 		}
 		
-		void checkSearch( Connection connection, Query query )
+		@Override
+		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( Connection connection, Query query )
 		{
 			checkConnection( connection );
 			if ( !type.equals(query.getType()) )
@@ -171,6 +174,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 			}
 		}
 		
+		@Override
 		public String toString()
 		{
 			return "Search("+tx.getName()+"/"+type+")";

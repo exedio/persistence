@@ -48,6 +48,7 @@ public final class CompareCondition<E> extends Condition
 			throw new NullPointerException();
 	}
 	
+	@Override
 	void append(final Statement bf)
 	{
 		bf.append(function, (Join)null).
@@ -55,11 +56,13 @@ public final class CompareCondition<E> extends Condition
 			appendParameter(function, value);
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		check(function, query);
 	}
 
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompareCondition))
@@ -70,11 +73,13 @@ public final class CompareCondition<E> extends Condition
 		return operator.equals(o.operator) && function.equals(o.function) && value.equals(o.value);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return operator.hashCode() ^ function.hashCode() ^ value.hashCode() ^ 918276;
 	}
 
+	@Override
 	public String toString()
 	{
 		return function.toString() + operator.sql + '\'' + value + '\'';

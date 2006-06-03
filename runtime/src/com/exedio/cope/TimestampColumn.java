@@ -34,16 +34,19 @@ final class TimestampColumn extends Column
 		assert table.database.getDateTimestampType()!=null;
 	}
 	
+	@Override
 	final String getDatabaseType()
 	{
 		return table.database.getDateTimestampType();
 	}
 
+	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
 		return null;
 	}
 	
+	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
@@ -52,6 +55,7 @@ final class TimestampColumn extends Column
 		row.put(this, (loadedTimestamp!=null) ? Long.valueOf(((Date)loadedTimestamp).getTime()) : null);
 	}
 	
+	@Override
 	final String cacheToDatabase(final Object cache)
 	{
 		// Don't use a static instance,
@@ -66,11 +70,13 @@ final class TimestampColumn extends Column
 		}
 	}
 	
+	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		return (cache==null) ? null : new Timestamp(((Long)cache).longValue());
 	}
 
+	@Override
 	Object getCheckValue()
 	{
 		return Long.valueOf(System.currentTimeMillis());

@@ -55,6 +55,7 @@ final class PropertiesCop extends ConsoleCop
 		return new PropertiesCop(!showUnspecified);
 	}
 	
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final Properties props = model.getProperties();

@@ -144,6 +144,7 @@ public abstract class CustomAttribute<E>
 		return result;
 	}
 	
+	@Override
 	public final void initialize()
 	{
 		final String name = getName();

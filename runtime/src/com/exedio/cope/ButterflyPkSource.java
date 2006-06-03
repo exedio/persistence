@@ -33,6 +33,7 @@ final class ButterflyPkSource extends PkSource
 	private boolean nextIsLo;
 	private final Object lock = new Object();
 	
+	@Override
 	void flushPK()
 	{
 		synchronized(lock)
@@ -42,6 +43,7 @@ final class ButterflyPkSource extends PkSource
 		}
 	}
 
+	@Override
 	int nextPK(final Connection connection)
 	{
 		synchronized(lock)
@@ -78,6 +80,7 @@ final class ButterflyPkSource extends PkSource
 		}
 	}
 
+	@Override
 	long pk2id(final int pk)
 	{
 		// needs no synchronized, since this method
@@ -93,6 +96,7 @@ final class ButterflyPkSource extends PkSource
 				-((longPk<<1)|1l); // -(2*pk + 1)
 	}
 
+	@Override
 	int id2pk(final long id, final String idString)
 			throws NoSuchIDException
 	{
@@ -116,6 +120,7 @@ final class ButterflyPkSource extends PkSource
 		return (int)result;
 	}
 	
+	@Override
 	void appendDeterministicOrderByExpression(final Statement bf, final Type orderBy)
 	{
 		bf.append("abs(").
@@ -123,6 +128,7 @@ final class ButterflyPkSource extends PkSource
 			append("*4+1)");
 	}
 
+	@Override
 	void appendOrderByExpression(final Statement bf, final Function orderBy)
 	{
 		bf.append("abs(").
@@ -130,6 +136,7 @@ final class ButterflyPkSource extends PkSource
 			append("*4+1)");
 	}
 
+	@Override
 	int[] getPrimaryKeyInfo()
 	{
 		return new int[]{nextPkLo, nextPkHi, nextIsLo?0:1};

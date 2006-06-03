@@ -31,6 +31,7 @@ final class SequentialPkSource extends PkSource
 	private int nextPk = Type.NOT_A_PK;
 	private final Object lock = new Object();
 	
+	@Override
 	void flushPK()
 	{
 		synchronized(lock)
@@ -39,6 +40,7 @@ final class SequentialPkSource extends PkSource
 		}
 	}
 
+	@Override
 	int nextPK(final Connection connection)
 	{
 		synchronized(lock)
@@ -73,6 +75,7 @@ final class SequentialPkSource extends PkSource
 		}
 	}
 
+	@Override
 	long pk2id(final int pk)
 	{
 		// needs no synchronized, since this method
@@ -84,6 +87,7 @@ final class SequentialPkSource extends PkSource
 		return pk;
 	}
 
+	@Override
 	int id2pk(final long id, final String idString)
 			throws NoSuchIDException
 	{
@@ -98,16 +102,19 @@ final class SequentialPkSource extends PkSource
 		return (int)id;
 	}
 	
+	@Override
 	void appendDeterministicOrderByExpression(final Statement bf, final Type orderBy)
 	{
 		bf.appendPK(orderBy, (Join)null);
 	}
 
+	@Override
 	void appendOrderByExpression(final Statement bf, final Function orderBy)
 	{
 		bf.append(orderBy, (Join)null);
 	}
 
+	@Override
 	int[] getPrimaryKeyInfo()
 	{
 		return new int[]{nextPk};

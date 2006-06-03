@@ -40,6 +40,7 @@ public abstract class SchemaTest extends TestCase
 	Connection connection1; // visible for BatchTest
 	private Connection connection2;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -93,6 +94,7 @@ public abstract class SchemaTest extends TestCase
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
 	}
 	
+	@Override
 	public void tearDown() throws Exception
 	{
 		if(connection1!=null)

@@ -47,6 +47,7 @@ final class CopeRelation extends CopeFeature
 	private CopeType sourceType = null;
 	private CopeType targetType = null;
 	
+	@Override
 	void endBuildStage()
 	{
 		sourceType = javaAttribute.file.repository.getCopeType(sourceTypeString);
@@ -82,11 +83,13 @@ final class CopeRelation extends CopeFeature
 		throw new RuntimeException("no " + (source?"source":"target") + " found for relation " + parent.javaClass.getFullName() + '#' + name);
 	}
 	
+	@Override
 	boolean isBoxed()
 	{
 		return false;
 	}
 	
+	@Override
 	String getBoxedType()
 	{
 		throw new RuntimeException();

@@ -43,6 +43,7 @@ public final class MysqlDriver extends Driver
 	/**
 	 * Use backticks to protect name for mysql.
 	 */
+	@Override
 	public String protectName(final String name)
 	{
 		if(name.indexOf(PROTECTOR)>=0)
@@ -57,11 +58,13 @@ public final class MysqlDriver extends Driver
 		return false;
 	}
 
+	@Override
 	public String canonizeTableName(final String tableName)
 	{
 		return toLowerCase ? tableName.toLowerCase() : tableName;
 	}
 
+	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
@@ -119,6 +122,7 @@ public final class MysqlDriver extends Driver
 		return protectedName.substring(1, protectedName.length()-1);
 	}
 
+	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);
@@ -238,16 +242,19 @@ public final class MysqlDriver extends Driver
 		}
 	}
 
+	@Override
 	void appendTableCreateStatement(final StringBuffer bf)
 	{
 		bf.append(" engine=innodb");
 	}
 	
+	@Override
 	boolean needsTargetColumnName()
 	{
 		return true;
 	}
 	
+	@Override
 	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -263,6 +270,7 @@ public final class MysqlDriver extends Driver
 	}
 
 	// TODO is same as hsqldb
+	@Override
 	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -275,11 +283,13 @@ public final class MysqlDriver extends Driver
 		return bf.toString();
 	}
 
+	@Override
 	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		throw new RuntimeException("not implemented");
 	}
 
+	@Override
 	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -290,11 +300,13 @@ public final class MysqlDriver extends Driver
 		return bf.toString();
 	}
 	
+	@Override
 	boolean canDropUniqueConstraints()
 	{
 		return false;
 	}
 	
+	@Override
 	boolean canDropPrimaryKeyConstraints()
 	{
 		return false;

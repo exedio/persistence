@@ -61,6 +61,7 @@ public class ForeignKeyConstraint extends Constraint
 		return targetColumn;
 	}
 	
+	@Override
 	public final void create()
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -84,11 +85,13 @@ public class ForeignKeyConstraint extends Constraint
 		executeSQL(bf.toString());
 	}
 	
+	@Override
 	public final void drop()
 	{
 		executeSQL(driver.getDropForeignKeyConstraintStatement(protectName(table.name), protectName(name)));
 	}
 
+	@Override
 	final void createInTable(final StringBuffer bf)
 	{
 		bf.append(",constraint ").

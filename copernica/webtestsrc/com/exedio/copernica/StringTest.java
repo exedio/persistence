@@ -36,6 +36,7 @@ public class StringTest extends AbstractWebTest
 	private static final String MAX4 = "Max4";
 	private static final String MIN4MAX8 = "Min4 Max8";
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

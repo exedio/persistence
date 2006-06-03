@@ -86,11 +86,13 @@ final class SchemaCop extends ConsoleCop
 			return new SchemaCop(schemaID, showDropBoxes, showRenameFields);
 	}
 	
+	@Override
 	void writeHead(final HttpServletRequest request, final PrintStream out) throws IOException
 	{
 		Schema_Jspm.writeHead(request, out);
 	}
 
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		Schema_Jspm.writeBody(this, out, model, request);

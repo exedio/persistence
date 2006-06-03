@@ -34,11 +34,13 @@ final class CopeHash extends CopeFeature
 		// TODO: implement checker option: return checkerOption.getModifier(javaAttribute.modifier);
 	}
 
+	@Override
 	boolean isBoxed()
 	{
 		return false;
 	}
 	
+	@Override
 	String getBoxedType()
 	{
 		return String.class.getName();

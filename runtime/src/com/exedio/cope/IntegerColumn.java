@@ -115,11 +115,13 @@ class IntegerColumn extends Column
 		return true;
 	}
 	
+	@Override
 	final String getDatabaseType()
 	{
 		return table.database.getIntegerType(minimum, maximum);
 	}
 
+	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
 		if(allowedValues!=null)
@@ -142,6 +144,7 @@ class IntegerColumn extends Column
 		}
 	}
 	
+	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
@@ -151,6 +154,7 @@ class IntegerColumn extends Column
 		row.put(this, (loadedInteger!=null) ? convertSQLResult(loadedInteger) : null);
 	}
 
+	@Override
 	final String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
@@ -164,11 +168,13 @@ class IntegerColumn extends Column
 		}
 	}
 	
+	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		return longInsteadOfInt ? (Long)cache : (Object)(Integer)cache;
 	}
 	
+	@Override
 	final Object getCheckValue()
 	{
 		return longInsteadOfInt ? (Object)Long.valueOf(1) : Integer.valueOf(1);

@@ -32,21 +32,25 @@ final class EmptyCop extends CopernicaCop
 		super(provider, language);
 	}
 	
-	final  CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
+	@Override
+	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
 	{
 		return new EmptyCop(provider, newLanguage);
 	}
 
+	@Override
 	final boolean isType(final Type type)
 	{
 		return false;
 	}
 	
+	@Override
 	final String getTitle()
 	{
 		return "Copernica";
 	}
 
+	@Override
 	void writeBody(final HttpServletRequest request, final PrintStream out)
 		throws IOException
 	{

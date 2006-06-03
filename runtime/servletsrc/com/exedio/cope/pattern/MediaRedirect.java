@@ -71,6 +71,7 @@ public final class MediaRedirect extends MediaPath
 	private long start = System.currentTimeMillis();
 	private final Object startLock = new Object();
 	
+	@Override
 	public final Date getStart()
 	{
 		final long startLocal;
@@ -83,6 +84,7 @@ public final class MediaRedirect extends MediaPath
 
 	private static final String RESPONSE_LOCATION = "Location";
 	
+	@Override
 	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)

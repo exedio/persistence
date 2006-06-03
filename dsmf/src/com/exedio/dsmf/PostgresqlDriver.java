@@ -31,6 +31,7 @@ public final class PostgresqlDriver extends Driver
 		super(null, "pga_");
 	}
 
+	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		switch(dataType)
@@ -42,6 +43,7 @@ public final class PostgresqlDriver extends Driver
 		}
 	}
 
+	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);
@@ -117,12 +119,14 @@ public final class PostgresqlDriver extends Driver
 			});*/
 	}
 
+	@Override
 	void appendTableCreateStatement(final StringBuffer bf)
 	{
 		bf.append(" without oids");
 	}
 	
 	// same as oracle
+	@Override
 	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -136,6 +140,7 @@ public final class PostgresqlDriver extends Driver
 	}
 
 	// same as hsqldb
+	@Override
 	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -149,6 +154,7 @@ public final class PostgresqlDriver extends Driver
 	}
 
 	// same as oracle
+	@Override
 	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuffer bf = new StringBuffer();

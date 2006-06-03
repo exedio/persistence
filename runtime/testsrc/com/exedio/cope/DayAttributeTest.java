@@ -34,6 +34,7 @@ public class DayAttributeTest extends AbstractLibTest
 		super(Main.dayModel);
 	}
 	
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

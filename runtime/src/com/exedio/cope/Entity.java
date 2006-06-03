@@ -73,6 +73,7 @@ final class Entity
 		return state.exists();
 	}
 	
+	@Override
 	public String toString()
 	{
 		return "Entity["+(state==null?"no state":state.toString())+"]";

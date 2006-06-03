@@ -33,6 +33,7 @@ public class EnumTest extends AbstractLibTest
 		super(Main.enumModel);
 	}
 	
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

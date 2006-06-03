@@ -49,6 +49,7 @@ public class MediaTest extends AbstractLibTest
 	private final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 	private final byte[] data21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

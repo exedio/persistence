@@ -33,6 +33,7 @@ public class StringTest extends TestmodelTest
 	StringItem item, item2;
 	int numberOfItems;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

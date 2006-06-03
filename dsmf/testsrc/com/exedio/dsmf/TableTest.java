@@ -25,6 +25,7 @@ public class TableTest extends SchemaReadyTest
 	private static final String TABLE1X = "SomeTableWrong";
 	private static final String COLUMN1 = "someColumn";
 	
+	@Override
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();

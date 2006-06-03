@@ -30,6 +30,7 @@ public class DTypeTest extends AbstractLibTest
 	
 	DTypeItem item, item2;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

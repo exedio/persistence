@@ -109,6 +109,7 @@ public abstract class Constraint extends Node
 		this.existingCondition = condition;
 	}
 
+	@Override
 	final void finish()
 	{
 		assert particularColor==null;
@@ -180,6 +181,7 @@ public abstract class Constraint extends Node
 		return exists;
 	}
 	
+	@Override
 	public final String toString()
 	{
 		return name;

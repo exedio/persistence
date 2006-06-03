@@ -32,16 +32,19 @@ final class DoubleColumn extends Column
 		super(table, id, false, optional, JDBC_TYPE);
 	}
 	
+	@Override
 	final String getDatabaseType()
 	{
 		return table.database.getDoubleType();
 	}
 
+	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
 		return null;
 	}
 
+	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
@@ -62,6 +65,7 @@ final class DoubleColumn extends Column
 		}
 	}
 	
+	@Override
 	final String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
@@ -70,11 +74,13 @@ final class DoubleColumn extends Column
 			return ((Double)cache).toString();
 	}
 	
+	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		return (Double)cache;
 	}
 	
+	@Override
 	Object getCheckValue()
 	{
 		return new Double(2.2);

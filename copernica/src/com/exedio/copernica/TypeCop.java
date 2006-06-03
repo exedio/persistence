@@ -72,26 +72,31 @@ final class TypeCop extends CopernicaCop
 			addParameter(COUNT, String.valueOf(limitCount));
 	}
 	
+	@Override
 	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
 	{
 		return new TypeCop(provider, newLanguage, type, orderBy, orderAscending, limitStart, limitCount);
 	}
 	
+	@Override
 	final boolean isType(final Type type)
 	{
 		return this.type == type;
 	}
 
+	@Override
 	final String getTitle()
 	{
 		return provider.getDisplayName(language, type);
 	}
 
+	@Override
 	final CopernicaCop toPrev()
 	{
 		return limitStart==0 ? null : previousPage();
 	}
 	
+	@Override
 	final CopernicaCop toNext()
 	{
 		computeItems();
@@ -179,6 +184,7 @@ final class TypeCop extends CopernicaCop
 		statementInfo = query.getStatementInfo();
 	}
 	
+	@Override
 	void writeBody(final HttpServletRequest request, final PrintStream out)
 		throws IOException
 	{

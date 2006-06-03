@@ -40,6 +40,7 @@ public class DataTest extends AbstractLibTest
 	private final byte[] data11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
 	private byte[] dataBig;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -55,6 +56,7 @@ public class DataTest extends AbstractLibTest
 		deleteOnTearDown(item = new DataItem());
 	}
 	
+	@Override
 	public void tearDown() throws Exception
 	{
 		// release memory

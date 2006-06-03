@@ -86,6 +86,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	
 	// second initialization phase ---------------------------------------------------
 
+	@Override
 	public void initialize()
 	{
 		final String name = getName();

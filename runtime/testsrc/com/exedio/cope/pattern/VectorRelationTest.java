@@ -39,6 +39,7 @@ public class VectorRelationTest extends AbstractLibTest
 	RelationSourceItem source1, source2;
 	RelationTargetItem target1, target2, target3;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

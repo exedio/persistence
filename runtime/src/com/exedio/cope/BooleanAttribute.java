@@ -34,6 +34,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
+	@Override
 	public FunctionAttribute<Boolean> copyFunctionAttribute()
 	{
 		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
@@ -44,11 +45,13 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}
 	
+	@Override
 	Boolean get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
@@ -71,6 +74,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	static final Integer FALSE = Integer.valueOf(0);
 	static final Integer TRUE = Integer.valueOf(1);
 		
+	@Override
 	void set(final Row row, final Boolean surface)
 	{
 		row.put(getColumn(), surface==null ? null : surface.booleanValue() ? TRUE : FALSE);

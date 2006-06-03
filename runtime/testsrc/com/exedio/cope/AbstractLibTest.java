@@ -59,6 +59,7 @@ public abstract class AbstractLibTest extends CopeTest
 	private final ArrayList<File> files = new ArrayList<File>();
 	private TestByteArrayInputStream testStream;
 	
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -70,6 +71,7 @@ public abstract class AbstractLibTest extends CopeTest
 		files.clear();
 	}
 	
+	@Override
 	protected void tearDown() throws Exception
 	{
 		for(Iterator i = files.iterator(); i.hasNext(); )

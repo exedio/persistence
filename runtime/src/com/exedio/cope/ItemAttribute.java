@@ -50,6 +50,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		this(option.isFinal, option.optional, option.unique, valueClass, policy);
 	}
 
+	@Override
 	public FunctionAttribute<E> copyFunctionAttribute()
 	{
 		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
@@ -87,6 +88,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		valueType.registerReference(this);
 	}
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		if(valueType==null)
@@ -148,6 +150,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		return typeColumn;
 	}
 	
+	@Override
 	E get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
@@ -186,6 +189,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		}
 	}
 	
+	@Override
 	void set(final Row row, final E surface)
 	{
 		if(surface==null)

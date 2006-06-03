@@ -108,6 +108,7 @@ public final class UniqueConstraint extends Feature
 		new com.exedio.dsmf.UniqueConstraint(dsmfTable, getDatabaseID(), bf.toString());
 	}
 	
+	@Override
 	final String toStringNonInitialized()
 	{
 		final StringBuffer buf = new StringBuffer();

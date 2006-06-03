@@ -78,6 +78,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	
 	// second initialization phase ---------------------------------------------------
 
+	@Override
 	public void initialize()
 	{
 		final String name = getName();

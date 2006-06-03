@@ -46,6 +46,7 @@ final class DbCop extends ConsoleCop
 		return (s==null) ? "n/a" : s.replaceAll("\n", "<br>");
 	}
 
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final java.util.Properties current = model.getDatabaseInfo();

@@ -44,6 +44,7 @@ public final class MD5Hash extends JavaHash
 		this(new StringAttribute(storageOption).lengthExact(LENGTH));
 	}
 
+	@Override
 	public SortedSet<Class> getSetterExceptions()
 	{
 		final SortedSet<Class> result = super.getSetterExceptions();

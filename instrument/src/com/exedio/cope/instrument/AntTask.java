@@ -50,6 +50,7 @@ public final class AntTask extends Task
 		this.verbose = verbose;
 	}
 
+	@Override
    public void execute() throws BuildException
 	{
 		try

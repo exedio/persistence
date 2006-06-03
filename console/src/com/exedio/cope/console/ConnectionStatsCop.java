@@ -35,6 +35,7 @@ final class ConnectionStatsCop extends ConsoleCop
 		addParameter(TAB, TAB_CONNECTION_STATS);
 	}
 
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		Console_Jspm.writeBody(this, out, model.getConnectionPoolInfo());

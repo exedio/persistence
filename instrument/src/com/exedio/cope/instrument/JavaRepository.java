@@ -256,6 +256,7 @@ final class JavaRepository
 			super(parent);
 		}
 		
+		@Override
 		public Class getClass(final String name) throws UtilEvalError
 		{
 			assert stage==Stage.GENERATE;
@@ -307,6 +308,7 @@ final class JavaRepository
 			super(storageOption);
 		}
 		
+		@Override
 		public String hash(final String plainText)
 		{
 			throw new RuntimeException(); // should not happen

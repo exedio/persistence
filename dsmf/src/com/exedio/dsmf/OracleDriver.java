@@ -36,6 +36,7 @@ public final class OracleDriver extends Driver
 		super(schema, SYSTEM_TABLE_PREFIX);
 	}
 
+	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
@@ -98,6 +99,7 @@ public final class OracleDriver extends Driver
 		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
 	}
 	
+	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);
@@ -188,6 +190,7 @@ public final class OracleDriver extends Driver
 			});
 	}
 
+	@Override
 	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -200,6 +203,7 @@ public final class OracleDriver extends Driver
 		return bf.toString();
 	}
 
+	@Override
 	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -213,6 +217,7 @@ public final class OracleDriver extends Driver
 		return bf.toString();
 	}
 
+	@Override
 	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuffer bf = new StringBuffer();

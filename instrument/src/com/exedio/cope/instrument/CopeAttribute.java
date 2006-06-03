@@ -55,6 +55,7 @@ abstract class CopeAttribute extends CopeFeature
 	 * Differs from {@link #persistentType the persistent type},
 	 * if and only if the attribute is {@link #isBoxed() boxed}.
 	 */
+	@Override
 	String getBoxedType()
 	{
 		return persistentType;
@@ -66,6 +67,7 @@ abstract class CopeAttribute extends CopeFeature
 	 * and the persistent type is convertable to a native types (int, double, boolean).
 	 * @see #getBoxedType()
 	 */
+	@Override
 	boolean isBoxed()
 	{
 		return false;

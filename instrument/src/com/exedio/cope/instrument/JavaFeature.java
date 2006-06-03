@@ -145,6 +145,7 @@ abstract class JavaFeature
 		}
 	}
 	
+	@Override
 	public String toString()
 	{
 		return getClass().getName()+'('+name+')';

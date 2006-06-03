@@ -20,6 +20,7 @@ package com.exedio.dsmf;
 
 public abstract class SchemaReadyTest extends SchemaTest
 {
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -29,6 +30,7 @@ public abstract class SchemaReadyTest extends SchemaTest
 		schema.create();
 	}
 
+	@Override
 	public void tearDown() throws Exception
 	{
 		getSchema().tearDown();

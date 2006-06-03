@@ -97,7 +97,9 @@ public abstract class Condition
 		return new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{this, other});
 	}
 	
+	@Override
 	public abstract boolean equals(Object o);
+	@Override
 	public abstract int hashCode();
 	
 	static final boolean equals(final Object o1, final Object o2)

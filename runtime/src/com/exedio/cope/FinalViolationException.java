@@ -56,11 +56,13 @@ public final class FinalViolationException extends ConstraintViolationException
 		return finalAttribute;
 	}
 
+	@Override
 	public String getMessage()
 	{
 		return "final violation on " + getItemID() + " for " + finalAttribute;
 	}
 	
+	@Override
 	public String getMessageWithoutFeature()
 	{
 		return "final violation on " + getItemID();

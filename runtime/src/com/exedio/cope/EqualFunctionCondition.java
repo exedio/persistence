@@ -42,6 +42,7 @@ public final class EqualFunctionCondition<E> extends Condition
 		this.right = right;
 	}
 
+	@Override
 	void append(final Statement bf)
 	{
 		bf.append(left, (Join)null).
@@ -49,12 +50,14 @@ public final class EqualFunctionCondition<E> extends Condition
 			append(right, (Join)null);
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		check(left, query);
 		check(right, query);
 	}
 
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof EqualFunctionCondition))
@@ -65,11 +68,13 @@ public final class EqualFunctionCondition<E> extends Condition
 		return left.equals(o.left) && right.equals(o.right);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return left.hashCode() ^ right.hashCode();
 	}
 
+	@Override
 	public String toString()
 	{
 		return left.toString() + '=' + right.toString();

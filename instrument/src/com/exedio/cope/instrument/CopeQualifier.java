@@ -75,17 +75,20 @@ final class CopeQualifier extends CopeFeature
 
 	private CopeType qualifiedType = null;
 	
+	@Override
 	void endBuildStage()
 	{
 		qualifiedType = javaAttribute.file.repository.getCopeType(getQualifierParent().getBoxedType());
 		qualifiedType.addQualifier(this);
 	}
 	
+	@Override
 	boolean isBoxed()
 	{
 		return false;
 	}
 	
+	@Override
 	String getBoxedType()
 	{
 		throw new RuntimeException();

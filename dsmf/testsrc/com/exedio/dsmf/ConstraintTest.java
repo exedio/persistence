@@ -49,6 +49,7 @@ public class ConstraintTest extends SchemaReadyTest
 	private static final String UNIQUE_DOUBLE_COLUMN2 = "uniqueDouble2";
 	private static final String UNIQUE_DOUBLE_NAME = "uniqueDoubleId";
 
+	@Override
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();

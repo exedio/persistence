@@ -45,6 +45,7 @@ public final class CacheQueryInfo implements Comparable
 		return hits;
 	}
 	
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CacheQueryInfo))
@@ -55,6 +56,7 @@ public final class CacheQueryInfo implements Comparable
 		return query.equals(o.query);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return query.hashCode() ^ 298742165;

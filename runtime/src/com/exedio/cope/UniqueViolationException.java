@@ -61,11 +61,13 @@ public final class UniqueViolationException extends ConstraintViolationException
 		return constraint;
 	}
 	
+	@Override
 	public String getMessage()
 	{
 		return "unique violation for " + constraint;
 	}
 	
+	@Override
 	public String getMessageWithoutFeature()
 	{
 		return "unique violation";

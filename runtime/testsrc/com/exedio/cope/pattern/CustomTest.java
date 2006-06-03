@@ -36,6 +36,7 @@ public class CustomTest extends AbstractLibTest
 	
 	CustomItem item;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

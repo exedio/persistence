@@ -35,6 +35,7 @@ public abstract class MediaPath extends Pattern
 	private String urlPath = null;
 	private String mediaRootUrl = null;
 
+	@Override
 	public void initialize()
 	{
 		final String name = getName();

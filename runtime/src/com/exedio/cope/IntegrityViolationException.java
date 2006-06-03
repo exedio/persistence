@@ -61,11 +61,13 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 		return attribute;
 	}
 	
+	@Override
 	public String getMessage()
 	{
 		return "integrity violation on deletion of " + getItemID() + " because of " + attribute;
 	}
 	
+	@Override
 	public String getMessageWithoutFeature()
 	{
 		return "integrity violation on deletion of " + getItemID();

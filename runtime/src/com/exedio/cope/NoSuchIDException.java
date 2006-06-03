@@ -50,6 +50,7 @@ public final class NoSuchIDException extends Exception
 		this.detail = "wrong number format <"+numberString+">";
 	}
 
+	@Override
 	public String getMessage()
 	{
 		return "no such id <" + id + ">, " + detail;

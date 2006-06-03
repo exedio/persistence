@@ -66,6 +66,7 @@ public final class Join
 		return type;
 	}
 	
+	@Override
 	public final String toString()
 	{
 		return kind.sql + " join " + type + (condition!=null ? (" on "+condition) : "");

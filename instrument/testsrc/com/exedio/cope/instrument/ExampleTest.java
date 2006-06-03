@@ -28,6 +28,7 @@ public class ExampleTest extends InjectorTest
 		super("Example.java", true);
 	}
 
+	@Override
 	public void assertInjection()
 	{
 		assertText(

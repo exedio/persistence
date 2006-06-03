@@ -34,6 +34,7 @@ public class OrderByTest extends TestmodelTest
 	protected EmptyItem someItem, someItem2;
 	protected AttributeItem item1, item2, item3, item4, item5, item;
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

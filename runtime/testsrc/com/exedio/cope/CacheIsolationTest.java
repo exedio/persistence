@@ -27,6 +27,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		super( Main.cacheIsolationModel );
 	}
 	
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

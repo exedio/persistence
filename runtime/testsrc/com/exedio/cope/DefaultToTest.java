@@ -31,6 +31,7 @@ public class DefaultToTest extends AbstractLibTest
 		super(Main.defaultToModel);
 	}
 	
+	@Override
 	protected Properties getProperties()
 	{
 		final File dpf = Properties.getDefaultPropertyFile();

@@ -285,6 +285,7 @@ final class Statement
 		return text.toString();
 	}
 
+	@Override
 	public String toString()
 	{
 		if(parameters==null)
@@ -328,17 +329,20 @@ final class Statement
 			this.table = table;
 		}
 		
+		@Override
 		public int hashCode()
 		{
 			return (join==null ? 1982763 : System.identityHashCode(join)) ^ System.identityHashCode(table);
 		}
 		
+		@Override
 		public boolean equals(final Object other)
 		{
 			final JoinTable o = (JoinTable)other;
 			return join==o.join && table==o.table;
 		}
 		
+		@Override
 		public String toString()
 		{
 			return (join==null?"-":join.type.id) + '/' + table.id;

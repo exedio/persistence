@@ -29,6 +29,7 @@ public class JoinTest extends TestmodelTest
 	PointerTargetItem item2a;
 	PointerTargetItem item2b;
 
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

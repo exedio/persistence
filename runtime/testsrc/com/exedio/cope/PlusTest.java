@@ -26,6 +26,7 @@ public class PlusTest extends TestmodelTest
 	PlusItem item;
 	PlusItem item2;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

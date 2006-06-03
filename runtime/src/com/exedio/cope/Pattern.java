@@ -97,6 +97,7 @@ public abstract class Pattern extends Feature
 	}
 	
 	// Make non-final method from super class final
+	@Override
 	public final Type<? extends Item> getType()
 	{
 		return super.getType();

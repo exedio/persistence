@@ -29,6 +29,7 @@ public final class HsqldbDriver extends Driver
 		super(null, null);
 	}
 
+	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		switch(dataType)
@@ -57,6 +58,7 @@ public final class HsqldbDriver extends Driver
 	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.SYSTEM_CHECK_CONSTRAINTS";
 	private static final String SYSTEM_INDEXINFO = "INFORMATION_SCHEMA.SYSTEM_INDEXINFO";
 
+	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);
@@ -130,6 +132,7 @@ public final class HsqldbDriver extends Driver
 			});
 	}
 
+	@Override
 	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -142,6 +145,7 @@ public final class HsqldbDriver extends Driver
 		return bf.toString();
 	}
 
+	@Override
 	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -154,11 +158,13 @@ public final class HsqldbDriver extends Driver
 		return bf.toString();
 	}
 
+	@Override
 	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		throw new RuntimeException("not implemented");
 	}
 
+	@Override
 	boolean canDropPrimaryKeyConstraints()
 	{
 		// TODO: check this again with hsqldb 1.8

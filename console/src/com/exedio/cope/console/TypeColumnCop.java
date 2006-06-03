@@ -41,6 +41,7 @@ final class TypeColumnCop extends ConsoleCop
 		addParameter(TAB, TAB_TYPE_COLUMNS);
 	}
 
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final ArrayList<ItemFunction> functions = new ArrayList<ItemFunction>();

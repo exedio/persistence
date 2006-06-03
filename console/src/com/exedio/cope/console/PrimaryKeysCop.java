@@ -45,6 +45,7 @@ final class PrimaryKeysCop extends ConsoleCop
 		}
 	};
 
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final TreeMap<Type, int[]> primaryKeys = new TreeMap<Type, int[]>(TYPE_COMPARATOR);

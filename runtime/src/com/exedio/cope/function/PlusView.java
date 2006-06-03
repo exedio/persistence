@@ -52,6 +52,7 @@ public final class PlusView
 		return result;
 	}
 
+	@Override
 	public final Object mapJava(final Object[] sourceValues)
 	{
 		int result = 0;

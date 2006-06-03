@@ -32,6 +32,7 @@ public class TransactionTest extends TestmodelTest
 		return new AttributeItem(code, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 	}
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

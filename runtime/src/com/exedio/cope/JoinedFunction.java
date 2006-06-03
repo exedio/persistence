@@ -67,6 +67,7 @@ public class JoinedFunction<E> implements Function<E>
 		return function.getType();
 	}
 	
+	@Override
 	public final boolean equals(final Object other)
 	{
 		if(!(other instanceof JoinedFunction))
@@ -77,11 +78,13 @@ public class JoinedFunction<E> implements Function<E>
 		return function.equals(o.function) && join.equals(o.join);
 	}
 	
+	@Override
 	public final int hashCode()
 	{
 		return function.hashCode() ^ join.hashCode();
 	}
 
+	@Override
 	public final String toString()
 	{
 		return function.toString();

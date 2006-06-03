@@ -39,8 +39,10 @@ public class LengthView
 		super(new StringFunction[]{source}, "length", sqlFragments);
 	}
 
+	@Override
 	public final Object mapJava(final Object[] sourceValues)
 	{
+		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
 		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
 	}

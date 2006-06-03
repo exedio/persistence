@@ -67,6 +67,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		this(option.isFinal, option.optional, option.unique, valueClass, null);
 	}
 	
+	@Override
 	public FunctionAttribute<E> copyFunctionAttribute()
 	{
 		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
@@ -106,11 +107,13 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		return Enum.valueOf(valueClass, code);
 	}
 
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, valuesToNumbers);
 	}
 	
+	@Override
 	E get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
@@ -120,6 +123,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 				getValue(((Integer)cell).intValue());
 	}
 		
+	@Override
 	void set(final Row row, final E surface)
 	{
 		assert isValid(surface);

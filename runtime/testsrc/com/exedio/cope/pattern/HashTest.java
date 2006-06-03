@@ -35,6 +35,7 @@ public class HashTest extends AbstractLibTest
 	
 	HashItem item;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

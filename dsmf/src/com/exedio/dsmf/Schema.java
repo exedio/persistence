@@ -73,6 +73,7 @@ public final class Schema extends Node
 		finish();
 	}
 
+	@Override
 	void finish()
 	{
 		assert particularColor==null;

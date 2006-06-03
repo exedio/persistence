@@ -37,6 +37,7 @@ public final class LastAnalyzed extends Node
 		return date;
 	}
 
+	@Override
 	void finish()
 	{
 		assert particularColor==null;

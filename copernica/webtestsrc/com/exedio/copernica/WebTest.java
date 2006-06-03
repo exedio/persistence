@@ -41,6 +41,7 @@ public class WebTest extends AbstractWebTest
 	String someItem;
 	String someNotNullItem;
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

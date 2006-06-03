@@ -34,6 +34,7 @@ public final class DayAttribute extends FunctionAttribute<Day>
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
+	@Override
 	public FunctionAttribute<Day> copyFunctionAttribute()
 	{
 		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
@@ -44,17 +45,20 @@ public final class DayAttribute extends FunctionAttribute<Day>
 		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new DayColumn(table, name, optional);
 	}
 	
+	@Override
 	Day get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : DayColumn.getDay(((Integer)cell).intValue());
 	}
 		
+	@Override
 	void set(final Row row, final Day surface)
 	{
 		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber(surface)));

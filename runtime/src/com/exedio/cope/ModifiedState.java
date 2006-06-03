@@ -33,22 +33,26 @@ final class ModifiedState extends State
 		transaction.addInvalidation( item.type, item.pk );
 	}
 
+	@Override
 	Object get(FunctionAttribute attribute)
 	{
 		return attribute.get(row);
 	}
 
+	@Override
 	<E> State put(final Transaction transaction, final FunctionAttribute<E> attribute, final E value)
 	{
 		attribute.set(row, value);
 		return this;
 	}
 
+	@Override
 	public final State delete( Transaction transaction )
 	{
 		return new DeletedState( transaction, this );
 	}
 
+	@Override
 	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
 	{
 		try
@@ -68,11 +72,13 @@ final class ModifiedState extends State
 		}
 	}
 	
+	@Override
 	Object store(final Column column)
 	{
 		return row.get(column);
 	}
 
+	@Override
 	Row stealValues()
 	{
 		final Row result = row;
@@ -80,11 +86,13 @@ final class ModifiedState extends State
 		return result;
 	}
 
+	@Override
 	boolean exists()
 	{
 		return true;
 	}
 
+	@Override
 	public String toStringWithValues()
 	{
 		return toString()+row.toString();

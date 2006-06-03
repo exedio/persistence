@@ -51,6 +51,7 @@ final class ItemColumn extends IntegerColumn
 		this.attribute = null;
 	}
 
+	@Override
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
 		super.makeSchema(dsmfTable);

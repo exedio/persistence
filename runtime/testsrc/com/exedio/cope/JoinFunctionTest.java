@@ -32,6 +32,7 @@ public class JoinFunctionTest extends AbstractLibTest
 	private JoinFunctionItem b1;
 	private JoinFunctionItem b3;
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

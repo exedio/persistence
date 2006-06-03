@@ -38,6 +38,7 @@ public final class NotCondition extends Condition
 		this.argument = argument;
 	}
 	
+	@Override
 	void append(final Statement bf)
 	{
 		bf.append("not(");
@@ -45,11 +46,13 @@ public final class NotCondition extends Condition
 		bf.append(')');
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		argument.check(query);
 	}
 
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof NotCondition))
@@ -60,11 +63,13 @@ public final class NotCondition extends Condition
 		return argument.equals(o.argument);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return argument.hashCode() ^ 8432756;
 	}
 
+	@Override
 	public final String toString()
 	{
 		return "!(" + argument + ')';

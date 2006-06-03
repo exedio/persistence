@@ -33,6 +33,7 @@ public class Example15Test extends InjectorTest
 		super("Example15.java", false);
 	}
 
+	@Override
 	public void assertInjection()
 	{
 		assertPackage("com.exedio.cope.instrument");

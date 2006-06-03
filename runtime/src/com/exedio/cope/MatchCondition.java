@@ -50,16 +50,19 @@ public final class MatchCondition extends Condition
 			throw new NullPointerException("value must ot be null");
 	}
 	
+	@Override
 	void append(final Statement bf)
 	{
 		bf.appendMatch(function, value);
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		check(function, query);
 	}
 
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof MatchCondition))
@@ -70,11 +73,13 @@ public final class MatchCondition extends Condition
 		return function.equals(o.function) && value.equals(o.value);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return function.hashCode() ^ value.hashCode() ^ 1872643;
 	}
 
+	@Override
 	public final String toString()
 	{
 		return function.toString() + " matches '" + value + '\'';

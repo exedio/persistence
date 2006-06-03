@@ -43,6 +43,7 @@ public class PrimaryKeyConstraint extends Constraint
 		return primaryKeyColumn;
 	}
 
+	@Override
 	final void createInTable(final StringBuffer bf)
 	{
 		bf.append(",constraint ").
@@ -52,6 +53,7 @@ public class PrimaryKeyConstraint extends Constraint
 			append(')');
 	}
 	
+	@Override
 	public final void create()
 	{
 		if(!driver.canDropPrimaryKeyConstraints())
@@ -69,6 +71,7 @@ public class PrimaryKeyConstraint extends Constraint
 		executeSQL(bf.toString());
 	}
 	
+	@Override
 	public final void drop()
 	{
 		if(!driver.canDropPrimaryKeyConstraints())

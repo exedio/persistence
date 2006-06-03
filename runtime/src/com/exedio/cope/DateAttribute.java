@@ -40,6 +40,7 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		this(option.isFinal, option.optional, option.unique, null, false);
 	}
 	
+	@Override
 	public FunctionAttribute<Date> copyFunctionAttribute()
 	{
 		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
@@ -66,11 +67,13 @@ public final class DateAttribute extends FunctionAttribute<Date>
 	 * This implementation returns
 	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()})</tt>.
 	 */
+	@Override
 	public final boolean isInitial()
 	{
 		return isfinal || (!optional && (defaultConstant==null && !defaultNow));
 	}
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final Model model = getType().getModel();
@@ -84,12 +87,14 @@ public final class DateAttribute extends FunctionAttribute<Date>
 				: (Column)new TimestampColumn(table, name, optional);
 	}
 	
+	@Override
 	Date get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : new Date(((Long)cell).longValue());
 	}
 		
+	@Override
 	void set(final Row row, final Date surface)
 	{
 		row.put(getColumn(), surface==null ? null : Long.valueOf(surface.getTime()));

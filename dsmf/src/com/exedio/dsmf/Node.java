@@ -47,6 +47,7 @@ public abstract class Node
 			return Color.class.getEnumConstants()[Math.min(ordinal(), other.ordinal())];
 		}
 		
+		@Override
 		public String toString()
 		{
 			return style;

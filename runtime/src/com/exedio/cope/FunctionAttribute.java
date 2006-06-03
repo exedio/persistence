@@ -82,6 +82,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * This implementation returns
 	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant()}==null)</tt>.
 	 */
+	@Override
 	public boolean isInitial()
 	{
 		return isfinal || (!optional && defaultConstant==null);
@@ -113,6 +114,7 @@ public abstract class FunctionAttribute<E extends Object>
 	 * and {@link Item#Item(SetValue[])} (for <tt>initial==true</tt>)
 	 * and throws the exception specified there.
 	 */
+	@Override
 	final void checkValue(final Object value, final Item exceptionItem)
 		throws
 			MandatoryViolationException,
@@ -152,6 +154,7 @@ public abstract class FunctionAttribute<E extends Object>
 		return item.type.getModel().getCurrentTransaction().getEntity(item, present);
 	}
 
+	@Override
 	public final E get(final Item item)
 	{
 		if(!getType().isAssignableFrom(item.type))
@@ -165,6 +168,7 @@ public abstract class FunctionAttribute<E extends Object>
 		return Cope.verboseCast(valueClass, o);
 	}
 
+	@Override
 	public final void set(final Item item, final E value)
 	{
 		item.set(this, value);
@@ -222,6 +226,7 @@ public abstract class FunctionAttribute<E extends Object>
 		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.<UniqueConstraint>emptyList();
 	}
 	
+	@Override
 	public SortedSet<Class> getSetterExceptions()
 	{
 		final SortedSet<Class> result = super.getSetterExceptions();

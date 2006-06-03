@@ -32,13 +32,14 @@ public class DeleteOtherItem extends Item
 		this.name = name;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return name;
 	}
 	
 	
-/**
+	/**
 
 	 **
 	 * Creates a new DeleteOtherItem with all the attributes initially needed.

@@ -33,6 +33,7 @@ public class ItemSerializationTest extends AbstractLibTest
 	
 	private ItemSerializationItem item;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

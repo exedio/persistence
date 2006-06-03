@@ -110,6 +110,7 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		return result;
 	}
 	
+	@Override
 	public void initialize()
 	{
 		final String name = getName();

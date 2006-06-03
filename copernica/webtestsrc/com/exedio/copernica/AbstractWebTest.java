@@ -34,6 +34,7 @@ public class AbstractWebTest extends WebTestCase
 
 	protected static final String SAVE_BUTTON = "Save";
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -46,6 +47,7 @@ public class AbstractWebTest extends WebTestCase
 		submit("INIT");
 	}
 	
+	@Override
 	public void tearDown() throws Exception
 	{
 		beginAt("console?schema=");

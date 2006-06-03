@@ -31,6 +31,7 @@ public class PlusOrderTest extends TestmodelTest
 	PlusItem item2;
 	PlusItem item3;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

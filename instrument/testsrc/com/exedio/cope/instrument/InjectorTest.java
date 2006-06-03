@@ -315,6 +315,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.javaBehaviour = javaBehaviour;
 		}
 		
+		@Override
 		public String toString()
 		{
 			return "BehaviourHeaderEvent("+javaBehaviour+")";
@@ -330,6 +331,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.javaAttribute = javaAttribute;
 		}
 		
+		@Override
 		public String toString()
 		{
 			return "AttributeHeaderEvent:"+javaAttribute.toString();
@@ -347,6 +349,7 @@ public abstract class InjectorTest extends InstrumentorTest
 			this.docComment = docComment;
 		}
 		
+		@Override
 		public String toString()
 		{
 			return "ClassFeatureEvent("+javaFeature+")";

@@ -96,6 +96,7 @@ public final class DTypeSystem extends Pattern
 			throw new RuntimeException("capacity for " + valueType + " exceeded, " + capacity + " available, but tried to allocate " + (positionPerValuetype+1));
 	}
 	
+	@Override
 	public void initialize()
 	{
 		final String name = getName();

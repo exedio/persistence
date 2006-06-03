@@ -29,6 +29,7 @@ public class MatchTest extends AbstractLibTest
 	
 	MatchItem item;
 
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

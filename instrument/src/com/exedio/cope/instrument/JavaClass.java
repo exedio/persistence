@@ -116,6 +116,7 @@ final class JavaClass extends JavaFeature
 		return (modifier & Modifier.INTERFACE) > 0;
 	}
 	
+	@Override
 	public final int getAllowedModifiers()
 	{
 		return
@@ -182,6 +183,7 @@ final class JavaClass extends JavaFeature
 			super(parent);
 		}
 		
+		@Override
 	   public Object getVariable(final String name) throws UtilEvalError
 	   {
 			//System.out.println("++++++++++++++++1--------getVariable(\""+name+"\")");
@@ -216,6 +218,7 @@ final class JavaClass extends JavaFeature
 		return result;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return getFullName();

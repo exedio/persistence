@@ -35,6 +35,7 @@ public class JavaViewTest extends AbstractLibTest
 	
 	JavaViewItem item;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

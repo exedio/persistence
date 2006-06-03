@@ -69,6 +69,7 @@ public final class ConsoleServlet extends CopsServlet
 	static final Resource reportScript = new Resource(resources, "admin-report.js");
 	static final Resource logo = new Resource(resources, "logo.png");
 	
+	@Override
 	public final void init() throws ServletException
 	{
 		super.init();
@@ -91,6 +92,7 @@ public final class ConsoleServlet extends CopsServlet
 		}
 	}
 
+	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)

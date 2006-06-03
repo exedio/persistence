@@ -40,22 +40,26 @@ final class ItemCop extends CopernicaCop
 	
 	ItemForm form;
 
+	@Override
 	final void init(final HttpServletRequest request)
 	{
 		super.init(request);
 		this.form = new ItemForm(this, request);
 	}
 	
+	@Override
 	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
 	{
 		return new ItemCop(provider, newLanguage, item);
 	}
 
+	@Override
 	final boolean isType(final Type type)
 	{
 		return item.getCopeType() == type;
 	}
 
+	@Override
 	final String getTitle()
 	{
 		if(form!=null && form.deletedName!=null)
@@ -64,6 +68,7 @@ final class ItemCop extends CopernicaCop
 		return provider.getDisplayName(this, language, item);
 	}
 
+	@Override
 	void writeBody(final HttpServletRequest request, final PrintStream out)
 		throws IOException
 	{

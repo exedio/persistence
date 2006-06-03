@@ -72,6 +72,7 @@ public final class LengthViolationException extends ConstraintViolationException
 		return isTooShort;
 	}
 
+	@Override
 	public String getMessage()
 	{
 		return
@@ -83,6 +84,7 @@ public final class LengthViolationException extends ConstraintViolationException
 			' ' + border + " characters.";
 	}
 	
+	@Override
 	public String getMessageWithoutFeature()
 	{
 		return

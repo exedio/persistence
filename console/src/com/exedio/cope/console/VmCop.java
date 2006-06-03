@@ -64,6 +64,7 @@ final class VmCop extends ConsoleCop
 		}
 	};
 	
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final HashMap<String, TreeSet<Package>> jarMap = new HashMap<String, TreeSet<Package>>();

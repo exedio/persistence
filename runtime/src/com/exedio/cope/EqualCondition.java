@@ -39,6 +39,7 @@ public final class EqualCondition<E> extends Condition
 		this.value = value;
 	}
 	
+	@Override
 	void append(final Statement bf)
 	{
 		function.append(bf, null);
@@ -49,11 +50,13 @@ public final class EqualCondition<E> extends Condition
 			bf.append(" is null");
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		check(function, query);
 	}
 
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof EqualCondition))
@@ -64,11 +67,13 @@ public final class EqualCondition<E> extends Condition
 		return function.equals(o.function) && equals(value, o.value);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return function.hashCode() ^ hashCode(value);
 	}
 
+	@Override
 	public String toString()
 	{
 		return function.toString() + "='" + value + '\'';

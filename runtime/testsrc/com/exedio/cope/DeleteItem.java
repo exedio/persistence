@@ -46,13 +46,14 @@ public class DeleteItem extends Item
 		this.name = name;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return name!=null ? name : getCopeID();
 	}
 	
 	
-/**
+	/**
 
 	 **
 	 * Creates a new DeleteItem with all the attributes initially needed.

@@ -36,6 +36,7 @@ public class MD5Test extends AbstractLibTest
 	
 	MD5Item item;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

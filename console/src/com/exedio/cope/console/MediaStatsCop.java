@@ -45,6 +45,7 @@ final class MediaStatsCop extends ConsoleCop
 		return new MediaCop(media);
 	}
 	
+	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();

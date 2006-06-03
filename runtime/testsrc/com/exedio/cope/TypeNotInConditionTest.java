@@ -36,6 +36,7 @@ public class TypeNotInConditionTest extends AbstractLibTest
 	TypeNotInConditionRefItem reffb2;
 	TypeNotInConditionRefItem reffc1;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

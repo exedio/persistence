@@ -59,6 +59,7 @@ abstract class Column
 
 	abstract String getCheckConstraintIgnoringMandatory();
 	
+	@Override
 	public final String toString()
 	{
 		return id;

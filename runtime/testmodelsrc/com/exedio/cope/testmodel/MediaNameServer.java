@@ -49,6 +49,7 @@ public final class MediaNameServer extends MediaPath
 		return source;
 	}
 	
+	@Override
 	public void initialize()
 	{
 		super.initialize();
@@ -60,6 +61,7 @@ public final class MediaNameServer extends MediaPath
 	
 	private long start = System.currentTimeMillis();
 	
+	@Override
 	public final Date getStart()
 	{
 		return new Date(start);
@@ -70,6 +72,7 @@ public final class MediaNameServer extends MediaPath
 	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 	
+	@Override
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)

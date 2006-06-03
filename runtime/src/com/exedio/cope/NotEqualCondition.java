@@ -39,6 +39,7 @@ public final class NotEqualCondition<E> extends Condition
 		this.value = value;
 	}
 	
+	@Override
 	void append(final Statement bf)
 	{
 		if(value!=null)
@@ -59,11 +60,13 @@ public final class NotEqualCondition<E> extends Condition
 				append(" is not null");
 	}
 
+	@Override
 	void check(final Query query)
 	{
 		check(function, query);
 	}
 
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof NotEqualCondition))
@@ -74,11 +77,13 @@ public final class NotEqualCondition<E> extends Condition
 		return function.equals(o.function) && equals(value, o.value);
 	}
 	
+	@Override
 	public int hashCode()
 	{
 		return function.hashCode() ^ hashCode(value) ^ 1276534;
 	}
 
+	@Override
 	public final String toString()
 	{
 		return function.toString() + "!='" + value + '\'';

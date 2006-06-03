@@ -360,6 +360,7 @@ public final class Query<R>
 			return countWithoutLimit;
 		}
 		
+		@Override
 		public boolean equals(final Object o)
 		{
 			final Result or = (Result)o;
@@ -367,6 +368,7 @@ public final class Query<R>
 			return countWithoutLimit==or.countWithoutLimit && data.equals(or.data);
 		}
 		
+		@Override
 		public String toString()
 		{
 			return data.toString() + '(' + countWithoutLimit + ')';
@@ -406,6 +408,7 @@ public final class Query<R>
 		return searchSingleton();
 	}
 	
+	@Override
 	public String toString()
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -512,6 +515,7 @@ public final class Query<R>
 			makeStatementInfo = query.makeStatementInfo;
 		}
 		
+		@Override
 		public boolean equals( Object obj )
 		{
 			if ( obj==null )
@@ -582,6 +586,7 @@ public final class Query<R>
 			}
 		}
 		
+		@Override
 		public int hashCode()
 		{
 			return hashCode(model)

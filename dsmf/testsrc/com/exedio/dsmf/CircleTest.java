@@ -34,6 +34,7 @@ public class CircleTest extends SchemaReadyTest
 	private static final String SELF_COLUMN = "selfForeignKey";
 	private static final String SELF_NAME = "selfForeignKeyId";
 
+	@Override
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();

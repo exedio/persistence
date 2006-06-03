@@ -34,6 +34,7 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 
+	@Override
 	public FunctionAttribute<Double> copyFunctionAttribute()
 	{
 		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
@@ -44,16 +45,19 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new DoubleColumn(table, name, optional);
 	}
 
+	@Override
 	Double get(final Row row)
 	{
 		return (Double)row.get(getColumn());
 	}
 	
+	@Override
 	void set(final Row row, final Double surface)
 	{
 		row.put(getColumn(), surface);

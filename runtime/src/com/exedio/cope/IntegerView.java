@@ -37,6 +37,7 @@ public abstract class IntegerView
 		super(sources, name, Integer.class, IntegerColumn.JDBC_TYPE_INT, sqlFragments);
 	}
 
+	@Override
 	final Object load(final ResultSet resultSet, final int columnIndex)
 	throws SQLException
 	{
@@ -55,6 +56,7 @@ public abstract class IntegerView
 			return null;
 	}
 
+	@Override
 	final String surface2Database(final Object value)
 	{
 		if(value==null)
@@ -63,6 +65,7 @@ public abstract class IntegerView
 			return ((Integer)value).toString();
 	}
 	
+	@Override
 	final void surface2DatabasePrepared(final Statement bf, final Object value)
 	{
 		bf.appendParameter(((Integer)value).intValue());

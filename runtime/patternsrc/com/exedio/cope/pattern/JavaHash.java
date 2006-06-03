@@ -70,6 +70,7 @@ public class JavaHash extends Hash
 		return s.getBytes(encoding);
 	}
 	
+	@Override
 	public final String hash(final String plainText)
 	{
 		if(plainText == null)

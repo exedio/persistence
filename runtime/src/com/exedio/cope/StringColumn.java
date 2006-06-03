@@ -73,11 +73,13 @@ final class StringColumn extends Column
 		return result;
 	}
 	
+	@Override
 	final String getDatabaseType()
 	{
 		return table.database.getStringType(maximumLength);
 	}
 
+	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -116,6 +118,7 @@ final class StringColumn extends Column
 		return bf.length()==0 ? null : bf.toString();
 	}
 
+	@Override
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
@@ -123,6 +126,7 @@ final class StringColumn extends Column
 		row.put(this, resultSet.getString(columnIndex));
 	}
 
+	@Override
 	String cacheToDatabase(final Object cache)
 	{
 		return cacheToDatabaseStatic(cache);
@@ -159,11 +163,13 @@ final class StringColumn extends Column
 		}
 	}
 
+	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
 		return (String)cache;
 	}
 	
+	@Override
 	Object getCheckValue()
 	{
 		return "z";

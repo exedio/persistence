@@ -83,6 +83,7 @@ public final class CopernicaServlet extends CopsServlet
 	static final Resource stylesheet = new Resource(resources, "copernica.css");
 	static final Resource logo = new Resource(resources, "exedio.png");
 	
+	@Override
 	public void init() throws ServletException
 	{
 		super.init();
@@ -98,6 +99,7 @@ public final class CopernicaServlet extends CopsServlet
 		this.checked = false;
 	}
 
+	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)

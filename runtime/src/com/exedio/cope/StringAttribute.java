@@ -71,6 +71,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength);
 	}
 	
+	@Override
 	public FunctionAttribute<String> copyFunctionAttribute()
 	{
 		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
@@ -120,6 +121,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		return maximumLength;
 	}
 	
+	@Override
 	public SortedSet<Class> getSetterExceptions()
 	{
 		final SortedSet<Class> result = super.getSetterExceptions();
@@ -129,17 +131,20 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	
 	private boolean convertEmptyStrings = false;
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
 		return new StringColumn(table, name, optional, minimumLength, maximumLength);
 	}
 	
+	@Override
 	String get(final Row row)
 	{
 		return (String)row.get(getColumn());
 	}
 		
+	@Override
 	void set(final Row row, final String surface)
 	{
 		final String cell;

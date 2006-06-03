@@ -35,6 +35,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
+	@Override
 	public FunctionAttribute<Integer> copyFunctionAttribute()
 	{
 		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
@@ -45,16 +46,19 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 	}
 	
+	@Override
 	Integer get(final Row row)
 	{
 		return (Integer)row.get(getColumn());
 	}
 	
+	@Override
 	void set(final Row row, final Integer surface)
 	{
 		row.put(getColumn(), surface);

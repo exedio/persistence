@@ -42,6 +42,7 @@ public class VectorTest extends AbstractLibTest
 
 	VectorItem item;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

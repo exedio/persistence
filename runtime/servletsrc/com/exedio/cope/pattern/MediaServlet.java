@@ -64,6 +64,7 @@ public final class MediaServlet extends HttpServlet
 	
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	
+	@Override
 	public final void init() throws ServletException
 	{
 		super.init();
@@ -90,6 +91,7 @@ public final class MediaServlet extends HttpServlet
 		}
 	}
 
+	@Override
 	protected final void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response)

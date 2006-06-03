@@ -204,6 +204,7 @@ public final class Table extends Node
 		return constraintMap.get(constraintName);
 	}
 		
+	@Override
 	void finish()
 	{
 		assert particularColor==null;
@@ -398,6 +399,7 @@ public final class Table extends Node
 			}
 	}
 
+	@Override
 	public final String toString()
 	{
 		return name;

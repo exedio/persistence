@@ -29,6 +29,7 @@ public class NameTest extends AbstractLibTest
 		super(Main.nameModel);
 	}
 
+	@Override
 	protected Properties getProperties()
 	{
 		final File dpf = Properties.getDefaultPropertyFile();
@@ -45,6 +46,7 @@ public class NameTest extends AbstractLibTest
 	NameLongNameLongNameLongNameLongNameLongNameLongItem item;
 	NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem itemca, itemcb;
 	
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
