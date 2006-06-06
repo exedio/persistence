@@ -155,13 +155,30 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	}
 
 	/**
-	 * Returns all relations where <tt>type</tt> is either
-	 * the target type {@link #getTarget()}.{@link ItemAttribute#getValueType() getValueType()} or
+	 * Returns all relations where <tt>type</tt> is
 	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()}.
 	 *
+	 * @see #getRelationsByTarget(Type)
 	 * @see Qualifier#getQualifiers(Type)
 	 */
-	public static final List<Relation> getRelations(final Type<?> type)
+	public static final List<Relation> getRelationsBySource(final Type<?> type)
+	{
+		return getRelations(type, true);
+	}
+
+	/**
+	 * Returns all relations where <tt>type</tt> is
+	 * the target type {@link #getTarget()}.{@link ItemAttribute#getValueType() getValueType()}.
+	 *
+	 * @see #getRelationsBySource(Type)
+	 * @see Qualifier#getQualifiers(Type)
+	 */
+	public static final List<Relation> getRelationsByTarget(final Type<?> type)
+	{
+		return getRelations(type, false);
+	}
+
+	private static final List<Relation> getRelations(final Type<?> type, final boolean source)
 	{
 		// TODO SOON cache result
 		ArrayList<Relation> result = null;
@@ -171,13 +188,16 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 			{
 				if(pattern instanceof Relation)
 				{
-					if(result==null)
-						result = new ArrayList<Relation>();
-					result.add((Relation)pattern);
+					final Relation relation = (Relation)pattern;
+					if(type.equals((source ? relation.getSource() : relation.getTarget()).getValueType()))
+					{
+						if(result==null)
+							result = new ArrayList<Relation>();
+						result.add(relation);
+					}
 				}
 			}
 		
 		return result!=null ? Collections.unmodifiableList(result) : Collections.<Relation>emptyList();
 	}
-
 }
