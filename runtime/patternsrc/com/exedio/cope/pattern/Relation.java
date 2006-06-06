@@ -94,14 +94,12 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	
 	public List<T> getTargets(final S source)
 	{
-		final Query<T> q = new Query<T>(target, this.source.equal(source));
-		return q.search();
+		return new Query<T>(target, this.source.equal(source)).search();
 	}
 
 	public List<S> getSources(final T target)
 	{
-		final Query<S> q = new Query<S>(source, this.target.equal(target));
-		return q.search();
+		return new Query<S>(source, this.target.equal(target)).search();
 	}
 
 	/**
@@ -226,7 +224,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 				if(pattern instanceof Relation)
 				{
 					final Relation relation = (Relation)pattern;
-					if(type.equals((source ? relation.getSource() : relation.getTarget()).getValueType()))
+					if(type.equals((source ? relation.source : relation.target).getValueType()))
 					{
 						if(result==null)
 							result = new ArrayList<Relation>();
