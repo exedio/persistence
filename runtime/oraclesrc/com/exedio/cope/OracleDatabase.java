@@ -67,16 +67,19 @@ final class OracleDatabase extends Database
 		this.varcharLength = varchar ? 4000 : 2000;
 	}
 	
+	@Override
 	public String getIntegerType(final long minimum, final long maximum)
 	{
 		return "NUMBER(" + ((minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? 10 : 20) + ')'; // TODO do this more precisely
 	}
 
+	@Override
 	public String getDoubleType()
 	{
 		return "NUMBER(30,8)";
 	}
 
+	@Override
 	public String getStringType(final int maxLength)
 	{
 		if(maxLength<=varcharLength)
@@ -85,26 +88,31 @@ final class OracleDatabase extends Database
 			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}
 	
+	@Override
 	public String getDayType()
 	{
 		return "DATE";
 	}
 	
+	@Override
 	public String getDateTimestampType()
 	{
 		return "TIMESTAMP(3)";
 	}
 	
+	@Override
 	public String getBlobType(final long maximumLength)
 	{
 		return "BLOB";
 	}
 	
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSES_AROUND;
 	}
 
+	@Override
 	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
 		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
@@ -117,6 +125,7 @@ final class OracleDatabase extends Database
 			bf.append("select "+com.exedio.cope.Table.SQL_ALIAS_2+".*,ROWNUM "+com.exedio.cope.Table.SQL_ALIAS_1+" from(");
 	}
 	
+	@Override
 	void appendLimitClause2(final Statement bf, final int start, final int count)
 	{
 		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
@@ -131,6 +140,7 @@ final class OracleDatabase extends Database
 			bf.append(")where "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(start);
 	}
 	
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(contains(").
@@ -140,11 +150,13 @@ final class OracleDatabase extends Database
 			append(")>0)");
 	}
 	
+	@Override
 	public boolean supportsEmptyStrings()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean supportsGetBytes()
 	{
 		return false;
@@ -165,16 +177,19 @@ final class OracleDatabase extends Database
 			return null;
 	}
 	
+	@Override
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, 1, "ORA-00001: unique constraint (", ") violated\n");
 	}
 
+	@Override
 	public boolean isDefiningColumnTypes()
 	{
 		return true;
 	}
 	
+	@Override
 	public void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
 			throws SQLException
 	{
@@ -188,6 +203,7 @@ final class OracleDatabase extends Database
 		}
 	}
 
+	@Override
 	protected void completeSchema(final Schema schema)
 	{
 		final Table planTable = new Table(schema, "PLAN_TABLE");
@@ -214,6 +230,7 @@ final class OracleDatabase extends Database
 		new Column(planTable, "OTHER", "LONG");
 	}
 	
+	@Override
 	protected StatementInfo makeStatementInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)

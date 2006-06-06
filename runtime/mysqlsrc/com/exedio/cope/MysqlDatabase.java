@@ -60,17 +60,20 @@ public final class MysqlDatabase extends Database
 		this.placeholdersInLimit = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));
 	}
 
+	@Override
 	public String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
 	}
 
+	@Override
 	public String getDoubleType()
 	{
 		return "double";
 	}
 
+	@Override
 	public String getStringType(final int maxLength)
 	{
 		assert TWOPOW8==256;
@@ -93,11 +96,13 @@ public final class MysqlDatabase extends Database
 			return "longtext character set utf8 binary";
 	}
 	
+	@Override
 	public String getDayType()
 	{
 		return "DATE";
 	}
 	
+	@Override
 	public String getDateTimestampType()
 	{
 		// TODO
@@ -109,6 +114,7 @@ public final class MysqlDatabase extends Database
 		return null;
 	}
 	
+	@Override
 	public String getBlobType(final long maximumLength)
 	{
 		if(maximumLength<TWOPOW8)
@@ -121,11 +127,13 @@ public final class MysqlDatabase extends Database
 			return "LONGBLOB";
 	}
 	
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_WHERE;
 	}
 
+	@Override
 	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
 		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
@@ -150,11 +158,13 @@ public final class MysqlDatabase extends Database
 			bf.append(Integer.toString(countInStatement));
 	}
 	
+	@Override
 	void appendLimitClause2(final Statement bf, final int start, final int count)
 	{
 		throw new RuntimeException(bf.toString());
 	}
 	
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(match(").
@@ -176,11 +186,13 @@ public final class MysqlDatabase extends Database
 			return null;
 	}
 
+	@Override
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, 1062, "Duplicate entry ");
 	}
 
+	@Override
 	protected StatementInfo makeStatementInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)

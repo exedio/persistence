@@ -48,54 +48,64 @@ final class PostgresqlDatabase extends Database
 		super(new PostgresqlDriver(), properties);
 	}
 	
+	@Override
 	public String getIntegerType(final long minimum, final long maximum)
 	{
 		return "INTEGER";
 	}
 
+	@Override
 	public String getDoubleType()
 	{
 		return "DOUBLE PRECISION";
 	}
 
+	@Override
 	public String getStringType(final int maxLength)
 	{
 		return "VARCHAR("+maxLength+')';
 	}
 	
+	@Override
 	public String getDayType()
 	{
 		return "DATE";
 	}
 	
 	// TODO check if there is a suitable column type
+	@Override
 	public String getDateTimestampType()
 	{
 		return null;
 	}
 	
 	// TODO check if there is a suitable column type
+	@Override
 	public String getBlobType(final long maximumLength)
 	{
 		return null;
 	}
 	
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		// TODO support limit clause
 		return LimitSupport.NONE;
 	}
 
+	@Override
 	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
 		throw new RuntimeException();
 	}
 	
+	@Override
 	void appendLimitClause2(final Statement bf, final int start, final int count)
 	{
 		throw new RuntimeException();
 	}
 	
+	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		// TODO check for full text indexes
@@ -117,6 +127,7 @@ final class PostgresqlDatabase extends Database
 			return null;
 	}
 	
+	@Override
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
 		return extractConstraintName(e, 1, "ORA-00001: unique constraint (", ") violated\n");
