@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Collection;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
@@ -32,6 +34,12 @@ public class RelationTargetItem extends Item
 	public final java.util.List<? extends com.exedio.cope.pattern.RelationSourceItem> getVectorSource()
 	{
 		return com.exedio.cope.pattern.VectorRelationItem.relation.getSources(this);
+	}
+	
+	// TODO SOON generate
+	public final void setSource(final Collection<? extends com.exedio.cope.pattern.RelationSourceItem> source)
+	{
+		com.exedio.cope.pattern.RelationItem.relation.setSources(this, source);
 	}
 	
 	/**

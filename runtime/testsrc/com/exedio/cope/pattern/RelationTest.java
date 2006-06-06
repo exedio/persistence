@@ -139,6 +139,30 @@ public class RelationTest extends AbstractLibTest
 		assertContains(target1.getSource());
 		assertContains(target2, source2.getTarget());
 		assertContains(source2, target2.getSource());
+		
+		source2.setTarget(listg(target1));
+		assertContains(source1.getTarget());
+		assertContains(source2, target1.getSource());
+		assertContains(target1, source2.getTarget());
+		assertContains(target2.getSource());
+		
+		source2.setTarget(listg(target2, target1));
+		assertContains(source1.getTarget());
+		assertContains(source2, target1.getSource());
+		assertContains(target1, target2, source2.getTarget());
+		assertContains(source2, target2.getSource());
+		
+		target1.setSource(listg(source1));
+		assertContains(target1, source1.getTarget());
+		assertContains(source1, target1.getSource());
+		assertContains(target2, source2.getTarget());
+		assertContains(source2, target2.getSource());
+		
+		target1.setSource(listg(source2, source1));
+		assertContains(target1, source1.getTarget());
+		assertContains(source1, source2, target1.getSource());
+		assertContains(target1, target2, source2.getTarget());
+		assertContains(source2, target2.getSource());
 	}
 	
 }

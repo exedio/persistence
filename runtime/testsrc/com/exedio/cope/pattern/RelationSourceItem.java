@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Collection;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
 
@@ -28,6 +30,12 @@ import com.exedio.cope.StringAttribute;
 public class RelationSourceItem extends Item
 {
 	public static final StringAttribute code = new StringAttribute(UNIQUE);
+	
+	// TODO SOON generate
+	public final void setTarget(final Collection<? extends com.exedio.cope.pattern.RelationTargetItem> target)
+	{
+		com.exedio.cope.pattern.RelationItem.relation.setTargets(this, target);
+	}
 	
 	/**
 

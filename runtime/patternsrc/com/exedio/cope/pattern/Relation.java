@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -154,6 +155,42 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		return removeFromTargets(source, target);
 	}
 
+	public void setTargets(final S source, final Collection<? extends T> targets)
+	{
+		final Type<? extends Item> type = getType();
+		final Collection<? extends Item> oldTupels = type.search(this.source.equal(source));
+
+		// TODO SOON: this implementation wastes resources !!
+		for(final Item tupel : oldTupels)
+			tupel.deleteCopeItem();
+
+		for(final T target : targets)
+		{
+			type.newItem(new SetValue[]{
+					this.source.map(source),
+					this.target.map(target),
+			});
+		}
+	}
+	
+	public void setSources(final T target, final Collection<? extends S> sources)
+	{
+		final Type<? extends Item> type = getType();
+		final Collection<? extends Item> oldTupels = type.search(this.target.equal(target));
+
+		// TODO SOON: this implementation wastes resources !!
+		for(final Item tupel : oldTupels)
+			tupel.deleteCopeItem();
+
+		for(final S source : sources)
+		{
+			type.newItem(new SetValue[]{
+					this.source.map(source),
+					this.target.map(target),
+			});
+		}
+	}
+	
 	/**
 	 * Returns all relations where <tt>type</tt> is
 	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()}.
