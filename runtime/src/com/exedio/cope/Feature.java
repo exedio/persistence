@@ -62,6 +62,7 @@ public abstract class Feature
 	{
 		if(this.type==null)
 			throw new FeatureNotInitializedException();
+		assert name!=null;
 
 		return name;
 	}
