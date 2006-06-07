@@ -168,6 +168,17 @@ public abstract class FunctionAttribute<E extends Object>
 		return Cope.verboseCast(valueClass, o);
 	}
 
+	public final Collection<E> castCollection(final Collection<?> c)
+	{
+		if(c==null)
+			return null;
+		
+		final ArrayList<E> result = new ArrayList<E>(c.size());
+		for(final Object o : c)
+			result.add(Cope.verboseCast(valueClass, o));
+		return result;
+	}
+
 	@Override
 	public final void set(final Item item, final E value)
 	{

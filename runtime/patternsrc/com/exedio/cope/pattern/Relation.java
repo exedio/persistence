@@ -103,6 +103,16 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		return new Query<S>(source, this.target.equal(target)).search();
 	}
 
+	public List<T> getTargetsAndCast(final Item source)
+	{
+		return getTargets(this.source.cast(source));
+	}
+
+	public List<S> getSourcesAndCast(final Item target)
+	{
+		return getSources(this.target.cast(target));
+	}
+
 	/**
 	 * @return <tt>true</tt> if the result of {@link #getTargets} changed as a result of the call.
 	 */
@@ -189,6 +199,18 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 			});
 		}
 	}
+	
+	public void setTargetsAndCast(final Item source, final Collection<?> targets)
+	{
+		setTargets(this.source.cast(source), this.target.castCollection(targets));
+	}
+	
+	public void setSourcesAndCast(final Item target, final Collection<?> sources)
+	{
+		setSources(this.target.cast(target), this.source.castCollection(sources));
+	}
+	
+	// static convenience methods ---------------------------------
 	
 	private static final HashMap<Type<?>, List<Relation>> cacheForGetRelationsBySource = new HashMap<Type<?>, List<Relation>>();
 	
