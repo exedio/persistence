@@ -38,17 +38,24 @@ public final class DAttribute extends Item
 
 	public static enum ValueType
 	{
-		STRING("String"),
-		BOOLEAN("Bool"),
-		INTEGER("Int"),
-		DOUBLE("Double"),
-		ENUM("Enum");
+		STRING (String.class,     "String"),
+		BOOLEAN(Boolean.class,    "Bool"),
+		INTEGER(Integer.class,    "Int"),
+		DOUBLE (Double.class,     "Double"),
+		ENUM   (DEnumValue.class, "Enum");
 		
+		final Class valueClass;
 		final String postfix;
 		
-		ValueType(final String postfix)
+		ValueType(final Class valueClass, final String postfix)
 		{
+			this.valueClass = valueClass;
 			this.postfix = postfix;
+		}
+		
+		public final Class getValueClass()
+		{
+			return valueClass;
 		}
 	}
 	public static final EnumAttribute<ValueType> valueType = newEnumAttribute(FINAL, ValueType.class);

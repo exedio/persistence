@@ -40,6 +40,12 @@ public class DTypeTest extends AbstractLibTest
 	
 	public void testIt()
 	{
+		assertEquals(String.class,     DAttribute.ValueType.STRING.getValueClass());
+		assertEquals(Boolean.class,    DAttribute.ValueType.BOOLEAN.getValueClass());
+		assertEquals(Integer.class,    DAttribute.ValueType.INTEGER.getValueClass());
+		assertEquals(Double.class,     DAttribute.ValueType.DOUBLE.getValueClass());
+		assertEquals(DEnumValue.class, DAttribute.ValueType.ENUM.getValueClass());
+		
 		assertEquals(item.TYPE, item.features.getType());
 		assertEquals("features", item.features.getName());
 		
