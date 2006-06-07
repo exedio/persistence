@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Item;
@@ -189,6 +190,8 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		}
 	}
 	
+	private static final HashMap<Type<?>, List<Relation>> cacheForGetRelationsBySource = new HashMap<Type<?>, List<Relation>>();
+	
 	/**
 	 * Returns all relations where <tt>type</tt> is
 	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()}.
@@ -198,9 +201,11 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	 */
 	public static final List<Relation> getRelationsBySource(final Type<?> type)
 	{
-		return getRelations(type, true);
+		return getRelations(cacheForGetRelationsBySource, type, true);
 	}
 
+	private static final HashMap<Type<?>, List<Relation>> cacheForGetRelationsByTarget = new HashMap<Type<?>, List<Relation>>();
+	
 	/**
 	 * Returns all relations where <tt>type</tt> is
 	 * the target type {@link #getTarget()}.{@link ItemAttribute#getValueType() getValueType()}.
@@ -210,29 +215,39 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	 */
 	public static final List<Relation> getRelationsByTarget(final Type<?> type)
 	{
-		return getRelations(type, false);
+		return getRelations(cacheForGetRelationsByTarget, type, false);
 	}
 
-	private static final List<Relation> getRelations(final Type<?> type, final boolean source)
+	private static final List<Relation> getRelations(final HashMap<Type<?>, List<Relation>> cache, final Type<?> type, final boolean source)
 	{
-		// TODO SOON cache result
-		ArrayList<Relation> result = null;
-		
-		for(final ItemAttribute<?> ia : type.getReferences())
-			for(final Pattern pattern : ia.getPatterns())
+		synchronized(cache)
+		{
 			{
-				if(pattern instanceof Relation)
+				final List<Relation> cachedResult = cache.get(type);
+				if(cachedResult!=null)
+					return cachedResult;
+			}
+			
+			final ArrayList<Relation> resultModifiable = new ArrayList<Relation>();
+			
+			for(final ItemAttribute<?> ia : type.getReferences())
+				for(final Pattern pattern : ia.getPatterns())
 				{
-					final Relation relation = (Relation)pattern;
-					if(type.equals((source ? relation.source : relation.target).getValueType()))
+					if(pattern instanceof Relation)
 					{
-						if(result==null)
-							result = new ArrayList<Relation>();
-						result.add(relation);
+						final Relation relation = (Relation)pattern;
+						if(type.equals((source ? relation.source : relation.target).getValueType()))
+							resultModifiable.add(relation);
 					}
 				}
-			}
-		
-		return result!=null ? Collections.unmodifiableList(result) : Collections.<Relation>emptyList();
+			resultModifiable.trimToSize();
+			
+			final List<Relation> result =
+				!resultModifiable.isEmpty()
+				? Collections.unmodifiableList(resultModifiable)
+				: Collections.<Relation>emptyList();
+			cache.put(type, result);
+			return result;
+		}
 	}
 }
