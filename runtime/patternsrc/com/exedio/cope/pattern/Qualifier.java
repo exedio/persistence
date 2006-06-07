@@ -159,7 +159,7 @@ public final class Qualifier extends Pattern
 		return item;
 	}
 	
-	private static final HashMap<Type<?>, List<Qualifier>> qualifiers = new HashMap<Type<?>, List<Qualifier>>();
+	private static final HashMap<Type<?>, List<Qualifier>> cacheForGetQualifiers = new HashMap<Type<?>, List<Qualifier>>();
 	
 	/**
 	 * Returns all qualifiers where <tt>type</tt> is
@@ -170,10 +170,10 @@ public final class Qualifier extends Pattern
 	 */
 	public static final List<Qualifier> getQualifiers(final Type<?> type)
 	{
-		synchronized(qualifiers)
+		synchronized(cacheForGetQualifiers)
 		{
 			{
-				final List<Qualifier> cachedResult = qualifiers.get(type);
+				final List<Qualifier> cachedResult = cacheForGetQualifiers.get(type);
 				if(cachedResult!=null)
 					return cachedResult;
 			}
@@ -196,7 +196,7 @@ public final class Qualifier extends Pattern
 				!resultModifiable.isEmpty()
 				? Collections.unmodifiableList(resultModifiable)
 				: Collections.<Qualifier>emptyList();
-			qualifiers.put(type, result);
+			cacheForGetQualifiers.put(type, result);
 			return result;
 		}
 	}
