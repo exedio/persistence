@@ -765,7 +765,7 @@
 		<delete dir="build" />
 	</target>
 	
-	<target name="api">
+	<target name="api" depends="local.properties">
 
 		<property name="api.private" value="off" />
 		<property name="api.link.cops"  value="http://download.exedio.com/api/cops" />
@@ -816,7 +816,7 @@
 				<pathelement location="lib/pcj.jar" />
 				<pathelement location="lib/commons-collections.jar" />
 				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/ant.jar" />
+				<pathelement location="${ant.jar}" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
