@@ -386,12 +386,13 @@ public final class Query<R>
 	 */
 	public R searchSingleton()
 	{
-		final Iterator<R> searchResult = search().iterator();
+		final Collection<R> searchResultCollection = search();
+		final Iterator<R> searchResult = searchResultCollection.iterator();
 		if(searchResult.hasNext())
 		{
 			final R result = searchResult.next();
 			if(searchResult.hasNext())
-				throw new RuntimeException(toString());
+				throw new RuntimeException("expected result of size one or less, but was " + searchResultCollection + " for query: " + toString());
 			else
 				return result;
 		}
