@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -88,22 +89,41 @@ public final class Qualifier extends Pattern
 	
 	// second initialization phase ---------------------------------------------------
 
-	private List<Attribute> attributes;
+	private List<Feature> features;
 	
+	public List<Feature> getFeatures()
+	{
+		if(this.features==null)
+		{
+			final List<Feature> typeFeatures = getType().getFeatures();
+			final ArrayList<Feature> result = new ArrayList<Feature>(typeFeatures.size());
+			for(final Feature f : typeFeatures)
+			{
+				if(f!=this && f!=parent && !keyList.contains(f) && f!=uniqueConstraint)
+					result.add(f);
+			}
+			result.trimToSize();
+			this.features = Collections.unmodifiableList(result);
+		}
+		return features;
+	}
+
+	private List<Attribute> attributes;
+
 	public List<Attribute> getAttributes()
 	{
 		if(this.attributes==null)
 		{
-			final List<Attribute> typeAttributes = getType().getAttributes();
-			final ArrayList<Attribute> attributesModifiyable = new ArrayList<Attribute>(typeAttributes.size());
-			for(final Attribute attribute : typeAttributes)
+			final List<Feature> features = getFeatures();
+			final ArrayList<Attribute> result = new ArrayList<Attribute>(features.size());
+			for(final Feature f : features)
 			{
-				if(attribute!=parent && !keyList.contains(attribute))
-					attributesModifiyable.add(attribute);
+				if(f instanceof Attribute)
+					result.add((Attribute)f);
 			}
-			this.attributes = Collections.unmodifiableList(attributesModifiyable);
+			result.trimToSize();
+			this.attributes = Collections.unmodifiableList(result);
 		}
-
 		return attributes;
 	}
 
