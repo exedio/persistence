@@ -26,8 +26,7 @@ import com.exedio.cope.testmodel.EmptyItem;
 
 public class SearchTest extends TestmodelTest
 {
-	public void testUnmodifiableSearchResult()
-			throws IntegrityViolationException
+	public void testSearch()
 	{
 		// test conditions
 		final AttributeItem x = null;
@@ -157,6 +156,19 @@ public class SearchTest extends TestmodelTest
 				Cope.and(
 					item.someNotNullString.equal("someString"),
 					item.someNotNullString.equal("someString2"))));
+		
+		// test Query#searchSingleton
+		assertEquals(null, item.TYPE.searchSingleton(item.someNotNullString.equal("someStringx")));
+		assertEquals(item, item.TYPE.searchSingleton(item.someNotNullString.equal("someString")));
+		try
+		{
+			item.TYPE.searchSingleton(null);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("select AttributeItem#this from AttributeItem", e.getMessage());
+		}
 		
 		assertDelete(item);
 		assertDelete(item2);
