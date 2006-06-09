@@ -32,7 +32,7 @@ import com.exedio.cope.Model;
 /**
  * A filter for starting/closing cope transactions.
  *
- * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,
+ * In order to use it, you have to deploy the filter in your <tt>web.xml</tt>,
  * providing the name of the cope model via an init-parameter.
  * Typically, your <tt>web.xml</tt> would contain a snippet like this:
  * <pre>
