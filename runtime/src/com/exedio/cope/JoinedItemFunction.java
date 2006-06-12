@@ -51,6 +51,31 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	public TypeNotInCondition<E> typeIn(final Type<? extends E> type1)
+	{
+		return new TypeNotInCondition<E>(this, false, type1);
+	}
+
+	public TypeNotInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2)
+	{
+		return new TypeNotInCondition<E>(this, false, type1, type2);
+	}
+
+	public TypeNotInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
+	{
+		return new TypeNotInCondition<E>(this, false, type1, type2, type3);
+	}
+
+	public TypeNotInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
+	{
+		return new TypeNotInCondition<E>(this, false, type1, type2, type3, type4);
+	}
+
+	public TypeNotInCondition<E> typeIn(final Type[] types)
+	{
+		return new TypeNotInCondition<E>(this, false, types);
+	}
+	
 	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1)
 	{
 		return new TypeNotInCondition<E>(this, true, type1);

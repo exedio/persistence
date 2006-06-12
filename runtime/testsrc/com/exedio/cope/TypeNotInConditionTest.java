@@ -64,6 +64,7 @@ public class TypeNotInConditionTest extends AbstractLibTest // TODO SOON rename 
 		assertContains(itema, itemb1, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb2.TYPE, itemc1.TYPE)));
 		assertContains(itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itema.TYPE)));
 		assertContains(itema.TYPE.search(itema.TYPE.getThis().typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
+		assertContains(itemc1, itema.TYPE.search(itema.TYPE.getThis().typeIn(itemc1.TYPE)));
 
 		assertContains(reffa, reffb1, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemc1.TYPE)));
 		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemb1.TYPE)));
@@ -72,6 +73,7 @@ public class TypeNotInConditionTest extends AbstractLibTest // TODO SOON rename 
 		assertContains(reffa, reffb1, reffa.TYPE.search(reffa.ref.typeNotIn(itemb2.TYPE, itemc1.TYPE)));
 		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(itema.TYPE)));
 		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
+		assertContains(reffc1, reffa.TYPE.search(reffa.ref.typeIn(itemc1.TYPE)));
 		
 		model.checkTypeColumns();
 		
