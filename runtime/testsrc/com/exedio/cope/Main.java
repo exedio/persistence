@@ -53,7 +53,7 @@ public class Main
 	public static final Model serializerModel = new Model(new Type[] { SerializerItem.TYPE });
 	public static final Model customModel = new Model(new Type[] { CustomItem.TYPE, JavaViewItem.TYPE });
 	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
-	public static final Model typeNotInConditionModel = new Model(new Type[] { TypeNotInConditionAItem.TYPE, TypeNotInConditionB1Item.TYPE, TypeNotInConditionB2Item.TYPE, TypeNotInConditionC1Item.TYPE, TypeNotInConditionRefItem.TYPE }); // TODO SOON rename
+	public static final Model typeInConditionModel = new Model(new Type[] { TypeNotInConditionAItem.TYPE, TypeNotInConditionB1Item.TYPE, TypeNotInConditionB2Item.TYPE, TypeNotInConditionC1Item.TYPE, TypeNotInConditionRefItem.TYPE });
 	public static final Model relationModel = new Model(new Type[] { RelationItem.TYPE, VectorRelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE });
 	public static final Model nameModel = new Model(new Type[] {
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
@@ -119,7 +119,7 @@ public class Main
 		tearDown(relationModel);
 		tearDown(customModel);
 		tearDown(cacheIsolationModel);
-		tearDown(typeNotInConditionModel);
+		tearDown(typeInConditionModel);
 		tearDown(nameModel);
 		tearDown(matchModel);
 		tearDown(hierarchyModel);

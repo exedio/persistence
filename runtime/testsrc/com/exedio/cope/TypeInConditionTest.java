@@ -23,7 +23,7 @@ public class TypeInConditionTest extends AbstractLibTest
 {
 	public TypeInConditionTest()
 	{
-		super(Main.typeNotInConditionModel);
+		super(Main.typeInConditionModel);
 	}
 	
 	TypeNotInConditionAItem itema;
