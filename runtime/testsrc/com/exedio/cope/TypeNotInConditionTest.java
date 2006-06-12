@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class TypeNotInConditionTest extends AbstractLibTest
+public class TypeNotInConditionTest extends AbstractLibTest // TODO SOON rename to TypeInConditionTest
 {
 	public TypeNotInConditionTest()
 	{

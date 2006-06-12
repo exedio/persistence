@@ -35,9 +35,9 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1);
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2);
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3);
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<E> excludedType4);
-	TypeNotInCondition<E> typeNotIn(final Type[] excludedTypes);
+	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1);
+	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2);
+	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
+	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	TypeNotInCondition<E> typeNotIn(final Type[] types);
 }

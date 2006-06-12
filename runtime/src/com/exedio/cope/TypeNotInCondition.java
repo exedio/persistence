@@ -20,10 +20,11 @@ package com.exedio.cope;
 
 import java.util.TreeSet;
 
-public final class TypeNotInCondition<E extends Item> extends Condition
+public final class TypeNotInCondition<E extends Item> extends Condition // TODO SOON rename to TypeInCondition
 {
 	private final ItemFunction<E> function;
-	private Type<E>[] excludedTypes;
+	private final boolean not;
+	private Type<E>[] excludedTypes; // TODO SOON rename
 
 	/**
 	 * Instead of using this constructor directly,
@@ -34,16 +35,17 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 	 * @see ItemFunction#typeNotIn(Type, Type, Type, Type)
 	 * @see ItemFunction#typeNotIn(Type[])
 	 */
-	public TypeNotInCondition(final ItemFunction<E> function, final Type[] excludedTypes)
+	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type[] excludedTypes)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
 		if(excludedTypes==null)
-			throw new NullPointerException("excludedTypes must not be null");
+			throw new NullPointerException("types must not be null");
 		if(excludedTypes.length==0)
-			throw new NullPointerException("excludedTypes must not be empty");
+			throw new NullPointerException("types must not be empty");
 
 		this.function = function;
+		this.not = not;
 		this.excludedTypes = TypeNotInCondition.<E>cast(excludedTypes);
 	}
 	
@@ -53,24 +55,24 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 		return (Type<X>[])o;
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1)
+	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
 	{
-		this(function, new Type[]{excludedType1});
+		this(function, not, new Type[]{type1});
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
+	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		this(function, new Type[]{excludedType1, excludedType2});
+		this(function, not, new Type[]{type1, type2});
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
+	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		this(function, new Type[]{excludedType1, excludedType2, excludedType3});
+		this(function, not, new Type[]{type1, type2, type3});
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<? extends E> excludedType4)
+	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
-		this(function, new Type[]{excludedType1, excludedType2, excludedType3, excludedType4});
+		this(function, not, new Type[]{type1, type2, type3, type4});
 	}
 	
 	@Override
@@ -82,24 +84,26 @@ public final class TypeNotInCondition<E extends Item> extends Condition
 		if(column==null)
 			throw new RuntimeException("type " + type + " has no subtypes, therefore a TypeNotInCondition makes no sense");
 		
-		bf.append(column, null).
-			append(" not in(");
+		bf.append(column, null);
+		if(not)
+			bf.append(" not");
+		bf.append(" in(");
 		
-		final TreeSet<String> excludedTypeIds = new TreeSet<String>(); // order ids to produce canonical queries for query cache
+		final TreeSet<String> typeIds = new TreeSet<String>(); // order ids to produce canonical queries for query cache
 		for(final Type<E> t : excludedTypes)
 		{
 			if(!type.isAssignableFrom(t))
 				throw new RuntimeException("type " + type + " is not assignable from excluded type " + t);
 			
 			for(final Type ti : t.getTypesOfInstances())
-				excludedTypeIds.add(ti.id);
+				typeIds.add(ti.id);
 		}
 		
-		if(excludedTypeIds.isEmpty())
+		if(typeIds.isEmpty())
 			throw new RuntimeException("no concrete type for " + excludedTypes);
 
 		boolean first = true;
-		for(final String id : excludedTypeIds)
+		for(final String id : typeIds)
 		{
 			if(first)
 				first = false;

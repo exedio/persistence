@@ -239,28 +239,28 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		return equal(new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
 	}
 	
-	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1)
+	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1)
 	{
-		return new TypeNotInCondition<E>(this, excludedType1);
+		return new TypeNotInCondition<E>(this, true, type1);
 	}
 
-	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2)
+	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		return new TypeNotInCondition<E>(this, excludedType1, excludedType2);
+		return new TypeNotInCondition<E>(this, true, type1, type2);
 	}
 
-	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3)
+	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		return new TypeNotInCondition<E>(this, excludedType1, excludedType2, excludedType3);
+		return new TypeNotInCondition<E>(this, true, type1, type2, type3);
 	}
 
-	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> excludedType1, final Type<? extends E> excludedType2, final Type<? extends E> excludedType3, final Type<E> excludedType4)
+	public TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
-		return new TypeNotInCondition<E>(this, excludedType1, excludedType2, excludedType3, excludedType4);
+		return new TypeNotInCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
-	public TypeNotInCondition<E> typeNotIn(final Type[] excludedTypes)
+	public TypeNotInCondition<E> typeNotIn(final Type[] types)
 	{
-		return new TypeNotInCondition<E>(this, excludedTypes);
+		return new TypeNotInCondition<E>(this, true, types);
 	}
 }
