@@ -31,10 +31,10 @@ public class TypeInConditionTest extends AbstractLibTest
 	TypeInConditionB2Item itemb2;
 	TypeInConditionC1Item itemc1;
 
-	TypeNotInConditionRefItem reffa;
-	TypeNotInConditionRefItem reffb1;
-	TypeNotInConditionRefItem reffb2;
-	TypeNotInConditionRefItem reffc1;
+	TypeInConditionRefItem reffa;
+	TypeInConditionRefItem reffb1;
+	TypeInConditionRefItem reffb2;
+	TypeInConditionRefItem reffc1;
 	
 	@Override
 	public void setUp() throws Exception
@@ -46,10 +46,10 @@ public class TypeInConditionTest extends AbstractLibTest
 		deleteOnTearDown(itemb2 = new TypeInConditionB2Item("itemb2"));
 		deleteOnTearDown(itemc1 = new TypeInConditionC1Item("itemc1"));
 		
-		deleteOnTearDown(reffa = new TypeNotInConditionRefItem(itema));
-		deleteOnTearDown(reffb1 = new TypeNotInConditionRefItem(itemb1));
-		deleteOnTearDown(reffb2 = new TypeNotInConditionRefItem(itemb2));
-		deleteOnTearDown(reffc1 = new TypeNotInConditionRefItem(itemc1));
+		deleteOnTearDown(reffa = new TypeInConditionRefItem(itema));
+		deleteOnTearDown(reffb1 = new TypeInConditionRefItem(itemb1));
+		deleteOnTearDown(reffb2 = new TypeInConditionRefItem(itemb2));
+		deleteOnTearDown(reffc1 = new TypeInConditionRefItem(itemc1));
 	}
 	
 	public void testIt()
