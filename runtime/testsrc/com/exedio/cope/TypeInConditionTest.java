@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 
-public class TypeNotInConditionTest extends AbstractLibTest // TODO SOON rename to TypeInConditionTest
+public class TypeInConditionTest extends AbstractLibTest
 {
-	public TypeNotInConditionTest()
+	public TypeInConditionTest()
 	{
 		super(Main.typeNotInConditionModel);
 	}
@@ -52,7 +52,7 @@ public class TypeNotInConditionTest extends AbstractLibTest // TODO SOON rename 
 		deleteOnTearDown(reffc1 = new TypeNotInConditionRefItem(itemc1));
 	}
 	
-	public void testTypeNotInCondition()
+	public void testTypeNotInCondition() // TODO SOON rename
 	{
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
