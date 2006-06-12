@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import com.exedio.cope.Item;
@@ -173,17 +174,36 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		final Type<? extends Item> type = getType();
 		final Collection<? extends Item> oldTupels = type.search(leftAttribute.equal(leftItem));
 
-		// TODO SOON: this implementation wastes resources !!
+		//System.out.println("---------start");
+		// TODO for better performance one could modify tuples, if rightAttribute is not FINAL
+		final HashSet<R> keptRightItems = new HashSet<R>();
 		for(final Item tupel : oldTupels)
-			tupel.deleteCopeItem();
+		{
+			final R rightItem = rightAttribute.get(tupel);
+			if(rightItems.contains(rightItem))
+			{
+				if(!keptRightItems.add(rightItem))
+					assert false;
+			}
+			else
+			{
+				//System.out.println("---------delete--"+leftItem+'-'+rightItem);
+				tupel.deleteCopeItem();
+			}
+		}
 
 		for(final R rightItem : rightItems)
 		{
-			type.newItem(new SetValue[]{
-					leftAttribute.map(leftItem),
-					rightAttribute.map(rightItem),
-			});
+			if(!keptRightItems.contains(rightItem))
+			{
+				//System.out.println("---------create--"+leftItem+'-'+rightItem);
+				type.newItem(new SetValue[]{
+						leftAttribute.map(leftItem),
+						rightAttribute.map(rightItem),
+				});
+			}
 		}
+		//System.out.println("---------end");
 	}
 	
 	public void setTargets(final S source, final Collection<? extends T> targets)
