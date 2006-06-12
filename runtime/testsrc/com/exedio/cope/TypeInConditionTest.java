@@ -26,7 +26,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		super(Main.typeInConditionModel);
 	}
 	
-	TypeNotInConditionAItem itema;
+	TypeInConditionAItem itema;
 	TypeInConditionB1Item itemb1;
 	TypeInConditionB2Item itemb2;
 	TypeInConditionC1Item itemc1;
@@ -41,7 +41,7 @@ public class TypeInConditionTest extends AbstractLibTest
 	{
 		super.setUp();
 		
-		deleteOnTearDown(itema = new TypeNotInConditionAItem("itema"));
+		deleteOnTearDown(itema = new TypeInConditionAItem("itema"));
 		deleteOnTearDown(itemb1 = new TypeInConditionB1Item("itemb1"));
 		deleteOnTearDown(itemb2 = new TypeInConditionB2Item("itemb2"));
 		deleteOnTearDown(itemc1 = new TypeInConditionC1Item("itemc1"));

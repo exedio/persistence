@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class TypeInConditionB1Item extends TypeNotInConditionAItem
+public class TypeInConditionB1Item extends TypeInConditionAItem
 {
 	public static final StringAttribute textb1 = new StringAttribute(OPTIONAL);
 
