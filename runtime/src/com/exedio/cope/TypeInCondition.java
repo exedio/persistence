@@ -24,7 +24,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 {
 	private final ItemFunction<E> function;
 	private final boolean not;
-	private Type<E>[] excludedTypes; // TODO SOON rename
+	private Type<E>[] types;
 
 	/**
 	 * Instead of using this constructor directly,
@@ -40,18 +40,18 @@ public final class TypeInCondition<E extends Item> extends Condition
 	 * @see ItemFunction#typeNotIn(Type, Type, Type, Type)
 	 * @see ItemFunction#typeNotIn(Type[])
 	 */
-	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type[] excludedTypes)
+	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type[] types)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
-		if(excludedTypes==null)
+		if(types==null)
 			throw new NullPointerException("types must not be null");
-		if(excludedTypes.length==0)
+		if(types.length==0)
 			throw new NullPointerException("types must not be empty");
 
 		this.function = function;
 		this.not = not;
-		this.excludedTypes = TypeInCondition.<E>cast(excludedTypes);
+		this.types = TypeInCondition.<E>cast(types);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -95,7 +95,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 		bf.append(" in(");
 		
 		final TreeSet<String> typeIds = new TreeSet<String>(); // order ids to produce canonical queries for query cache
-		for(final Type<E> t : excludedTypes)
+		for(final Type<E> t : types)
 		{
 			if(!type.isAssignableFrom(t))
 				throw new RuntimeException("type " + type + " is not assignable from excluded type " + t);
@@ -105,7 +105,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 		}
 		
 		if(typeIds.isEmpty())
-			throw new RuntimeException("no concrete type for " + excludedTypes);
+			throw new RuntimeException("no concrete type for " + types);
 
 		boolean first = true;
 		for(final String id : typeIds)
@@ -134,19 +134,19 @@ public final class TypeInCondition<E extends Item> extends Condition
 		
 		final TypeInCondition o = (TypeInCondition)other;
 		
-		return function.equals(o.function) && not==o.not && equals(excludedTypes, o.excludedTypes);
+		return function.equals(o.function) && not==o.not && equals(types, o.types);
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return function.hashCode() ^ (not?21365:237634)^ hashCode(excludedTypes);
+		return function.hashCode() ^ (not?21365:237634)^ hashCode(types);
 	}
 
 	@Override
 	public String toString()
 	{
-		return function.toString() + (not?" not":"") + " in (" + excludedTypes + ')';
+		return function.toString() + (not?" not":"") + " in (" + types + ')';
 	}
 	
 }
