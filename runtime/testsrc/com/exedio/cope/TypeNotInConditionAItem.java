@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class TypeNotInConditionAItem extends Item
+public class TypeNotInConditionAItem extends Item // TODO SOON rename
 {
 	public static final StringAttribute code = new StringAttribute(FINAL_UNIQUE);
 	
