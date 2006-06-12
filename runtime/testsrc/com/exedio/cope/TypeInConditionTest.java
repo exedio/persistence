@@ -117,7 +117,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("type TypeNotInConditionB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
+			assertEquals("type TypeInConditionB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
 		}
 		try
 		{
@@ -126,7 +126,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("type TypeNotInConditionB1Item is not assignable from type TypeNotInConditionAItem", e.getMessage());
+			assertEquals("type TypeInConditionB1Item is not assignable from type TypeInConditionAItem", e.getMessage());
 		}
 	}
 	
