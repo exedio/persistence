@@ -164,40 +164,36 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		return removeFromTargets(source, target);
 	}
 
-	public void setTargets(final S source, final Collection<? extends T> targets)
+	private <L extends Item, R extends Item> void set(
+			final ItemAttribute<L> leftAttribute,
+			final ItemAttribute<R> rightAttribute,
+			final L leftItem,
+			final Collection<? extends R> rightItems)
 	{
 		final Type<? extends Item> type = getType();
-		final Collection<? extends Item> oldTupels = type.search(this.source.equal(source));
+		final Collection<? extends Item> oldTupels = type.search(leftAttribute.equal(leftItem));
 
 		// TODO SOON: this implementation wastes resources !!
 		for(final Item tupel : oldTupels)
 			tupel.deleteCopeItem();
 
-		for(final T target : targets)
+		for(final R rightItem : rightItems)
 		{
 			type.newItem(new SetValue[]{
-					this.source.map(source),
-					this.target.map(target),
+					leftAttribute.map(leftItem),
+					rightAttribute.map(rightItem),
 			});
 		}
 	}
 	
+	public void setTargets(final S source, final Collection<? extends T> targets)
+	{
+		set(this.source, this.target, source, targets);
+	}
+	
 	public void setSources(final T target, final Collection<? extends S> sources)
 	{
-		final Type<? extends Item> type = getType();
-		final Collection<? extends Item> oldTupels = type.search(this.target.equal(target));
-
-		// TODO SOON: this implementation wastes resources !!
-		for(final Item tupel : oldTupels)
-			tupel.deleteCopeItem();
-
-		for(final S source : sources)
-		{
-			type.newItem(new SetValue[]{
-					this.source.map(source),
-					this.target.map(target),
-			});
-		}
+		set(this.target, this.source, target, sources);
 	}
 	
 	public void setTargetsAndCast(final Item source, final Collection<?> targets)
