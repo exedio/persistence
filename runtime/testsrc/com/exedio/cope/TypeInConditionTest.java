@@ -29,7 +29,7 @@ public class TypeInConditionTest extends AbstractLibTest
 	TypeNotInConditionAItem itema;
 	TypeInConditionB1Item itemb1;
 	TypeInConditionB2Item itemb2;
-	TypeNotInConditionC1Item itemc1;
+	TypeInConditionC1Item itemc1;
 
 	TypeNotInConditionRefItem reffa;
 	TypeNotInConditionRefItem reffb1;
@@ -44,7 +44,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		deleteOnTearDown(itema = new TypeNotInConditionAItem("itema"));
 		deleteOnTearDown(itemb1 = new TypeInConditionB1Item("itemb1"));
 		deleteOnTearDown(itemb2 = new TypeInConditionB2Item("itemb2"));
-		deleteOnTearDown(itemc1 = new TypeNotInConditionC1Item("itemc1"));
+		deleteOnTearDown(itemc1 = new TypeInConditionC1Item("itemc1"));
 		
 		deleteOnTearDown(reffa = new TypeNotInConditionRefItem(itema));
 		deleteOnTearDown(reffb1 = new TypeNotInConditionRefItem(itemb1));
@@ -81,26 +81,26 @@ public class TypeInConditionTest extends AbstractLibTest
 		// test self joins and inheritance
 		{
 			itemc1.setTextc1("textC1");
-			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemc1.TYPE);
 			j.setCondition(new JoinedFunction<String>(itemc1.textc1, j).equal(itemc1.textc1));
 			assertContains(itemc1, q.search());
 		}
 		if(!hsqldb&&!oracle&&!((String)model.getDatabaseInfo().get("database.version")).endsWith("(5.0)")) // TODO dont know why
 		{
-			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(new JoinedFunction<String>(itemc1.code, j).equal(itemb2.code));
 			assertContains(q.search());
 		}
 		if(!hsqldb&&!oracle) // TODO dont know why
 		{
-			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE)));
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
 			assertContains(q.search());
 		}
 		{
-			final Query<TypeNotInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE));
 			assertContains(q.search());
