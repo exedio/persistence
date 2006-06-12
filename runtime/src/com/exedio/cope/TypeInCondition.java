@@ -98,7 +98,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 		for(final Type<E> t : types)
 		{
 			if(!type.isAssignableFrom(t))
-				throw new RuntimeException("type " + type + " is not assignable from excluded type " + t);
+				throw new RuntimeException("type " + type + " is not assignable from type " + t);
 			
 			for(final Type ti : t.getTypesOfInstances())
 				typeIds.add(ti.id);

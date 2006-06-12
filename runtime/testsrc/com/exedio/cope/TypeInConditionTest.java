@@ -126,7 +126,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("type TypeNotInConditionB1Item is not assignable from excluded type TypeNotInConditionAItem", e.getMessage());
+			assertEquals("type TypeNotInConditionB1Item is not assignable from type TypeNotInConditionAItem", e.getMessage());
 		}
 	}
 	
