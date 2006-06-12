@@ -52,7 +52,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		deleteOnTearDown(reffc1 = new TypeNotInConditionRefItem(itemc1));
 	}
 	
-	public void testTypeNotInCondition() // TODO SOON rename
+	public void testIt()
 	{
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
@@ -117,7 +117,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("type TypeNotInConditionB2Item has no subtypes, therefore a TypeNotInCondition makes no sense", e.getMessage());
+			assertEquals("type TypeNotInConditionB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
 		}
 		try
 		{
