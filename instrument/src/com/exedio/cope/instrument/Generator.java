@@ -1093,7 +1093,7 @@ final class Generator
 		}
 
 		// setter
-		if(vector && !source)
+		if(!vector || !source)
 		{
 			writeCommentHeader();
 			o.write("\t * ");
