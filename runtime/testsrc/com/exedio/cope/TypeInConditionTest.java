@@ -28,7 +28,7 @@ public class TypeInConditionTest extends AbstractLibTest
 	
 	TypeNotInConditionAItem itema;
 	TypeNotInConditionB1Item itemb1;
-	TypeNotInConditionB2Item itemb2;
+	TypeInConditionB2Item itemb2;
 	TypeNotInConditionC1Item itemc1;
 
 	TypeNotInConditionRefItem reffa;
@@ -43,7 +43,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		
 		deleteOnTearDown(itema = new TypeNotInConditionAItem("itema"));
 		deleteOnTearDown(itemb1 = new TypeNotInConditionB1Item("itemb1"));
-		deleteOnTearDown(itemb2 = new TypeNotInConditionB2Item("itemb2"));
+		deleteOnTearDown(itemb2 = new TypeInConditionB2Item("itemb2"));
 		deleteOnTearDown(itemc1 = new TypeNotInConditionC1Item("itemc1"));
 		
 		deleteOnTearDown(reffa = new TypeNotInConditionRefItem(itema));
