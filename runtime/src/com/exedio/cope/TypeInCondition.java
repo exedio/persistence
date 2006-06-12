@@ -134,19 +134,19 @@ public final class TypeInCondition<E extends Item> extends Condition
 		
 		final TypeInCondition o = (TypeInCondition)other;
 		
-		return function.equals(o.function) && equals(excludedTypes, o.excludedTypes);
+		return function.equals(o.function) && not==o.not && equals(excludedTypes, o.excludedTypes);
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return function.hashCode() ^ hashCode(excludedTypes);
+		return function.hashCode() ^ (not?21365:237634)^ hashCode(excludedTypes);
 	}
 
 	@Override
 	public String toString()
 	{
-		return function.toString() + " not in (" + excludedTypes + ')';
+		return function.toString() + (not?" not":"") + " in (" + excludedTypes + ')';
 	}
 	
 }
