@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.TreeSet;
 
-public final class TypeNotInCondition<E extends Item> extends Condition // TODO SOON rename to TypeInCondition
+public final class TypeInCondition<E extends Item> extends Condition
 {
 	private final ItemFunction<E> function;
 	private final boolean not;
@@ -29,13 +29,18 @@ public final class TypeNotInCondition<E extends Item> extends Condition // TODO 
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
+	 * @see ItemFunction#typeIn(Type)
+	 * @see ItemFunction#typeIn(Type, Type)
+	 * @see ItemFunction#typeIn(Type, Type, Type)
+	 * @see ItemFunction#typeIn(Type, Type, Type, Type)
+	 * @see ItemFunction#typeIn(Type[])
 	 * @see ItemFunction#typeNotIn(Type)
 	 * @see ItemFunction#typeNotIn(Type, Type)
 	 * @see ItemFunction#typeNotIn(Type, Type, Type)
 	 * @see ItemFunction#typeNotIn(Type, Type, Type, Type)
 	 * @see ItemFunction#typeNotIn(Type[])
 	 */
-	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type[] excludedTypes)
+	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type[] excludedTypes)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
@@ -46,7 +51,7 @@ public final class TypeNotInCondition<E extends Item> extends Condition // TODO 
 
 		this.function = function;
 		this.not = not;
-		this.excludedTypes = TypeNotInCondition.<E>cast(excludedTypes);
+		this.excludedTypes = TypeInCondition.<E>cast(excludedTypes);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -55,22 +60,22 @@ public final class TypeNotInCondition<E extends Item> extends Condition // TODO 
 		return (Type<X>[])o;
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
+	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
 	{
 		this(function, not, new Type[]{type1});
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
+	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		this(function, not, new Type[]{type1, type2});
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
+	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		this(function, not, new Type[]{type1, type2, type3});
 	}
 	
-	public TypeNotInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
+	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
 		this(function, not, new Type[]{type1, type2, type3, type4});
 	}
@@ -82,7 +87,7 @@ public final class TypeNotInCondition<E extends Item> extends Condition // TODO 
 		final StringColumn column = function.getTypeColumnIfExists();
 		
 		if(column==null)
-			throw new RuntimeException("type " + type + " has no subtypes, therefore a TypeNotInCondition makes no sense");
+			throw new RuntimeException("type " + type + " has no subtypes, therefore a TypeInCondition makes no sense");
 		
 		bf.append(column, null);
 		if(not)
@@ -124,10 +129,10 @@ public final class TypeNotInCondition<E extends Item> extends Condition // TODO 
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof TypeNotInCondition))
+		if(!(other instanceof TypeInCondition))
 			return false;
 		
-		final TypeNotInCondition o = (TypeNotInCondition)other;
+		final TypeInCondition o = (TypeInCondition)other;
 		
 		return function.equals(o.function) && equals(excludedTypes, o.excludedTypes);
 	}

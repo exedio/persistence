@@ -35,15 +35,15 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	TypeNotInCondition<E> typeIn(final Type<? extends E> type1);
-	TypeNotInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2);
-	TypeNotInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
-	TypeNotInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
-	TypeNotInCondition<E> typeIn(final Type[] types);
+	TypeInCondition<E> typeIn(final Type<? extends E> type1);
+	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2);
+	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
+	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	TypeInCondition<E> typeIn(final Type[] types);
 	
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1);
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2);
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
-	TypeNotInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
-	TypeNotInCondition<E> typeNotIn(final Type[] types);
+	TypeInCondition<E> typeNotIn(final Type<? extends E> type1);
+	TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2);
+	TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
+	TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	TypeInCondition<E> typeNotIn(final Type[] types);
 }
