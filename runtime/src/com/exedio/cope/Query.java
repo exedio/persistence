@@ -90,6 +90,24 @@ public final class Query<R>
 		this.condition = condition;
 	}
 	
+	public Condition getCondition()
+	{
+		return this.condition;
+	}
+
+	/**
+	 * If there is already a condition set for this query,
+	 * this is equivalent to
+	 * <tt>{@link #setCondition(Condition) setCondition}({@link #getCondition()}.{@link Condition#and(Condition) and}(narrowingCondition))</tt>.
+	 */
+	public void narrow(final Condition narrowingCondition)
+	{
+		condition =
+			condition!=null
+			? condition.and(narrowingCondition)
+			: narrowingCondition;
+	}
+	
 	private Join join(final Join join)
 	{
 		if(joins==null)
