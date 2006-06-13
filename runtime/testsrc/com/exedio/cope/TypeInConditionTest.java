@@ -105,6 +105,18 @@ public class TypeInConditionTest extends AbstractLibTest
 			j.setCondition(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE));
 			assertContains(q.search());
 		}
+		if(!hsqldb&&!oracle) // TODO dont know why
+		{
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
+			q.join(itemb2.TYPE);
+			assertContains(q.search());
+		}
+		{
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(itemb2.TYPE);
+			j.setCondition(itema.TYPE.getThis().typeNotIn(itemc1.TYPE));
+			assertContains(q.search());
+		}
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage
