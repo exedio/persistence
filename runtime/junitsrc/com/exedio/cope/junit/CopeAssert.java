@@ -187,7 +187,7 @@ public abstract class CopeAssert extends TestCase
 
 	public final static Map<? extends Object, ? extends Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
 	{
-		final HashMap result = new HashMap<Object, Object>();
+		final HashMap<Object, Object> result = new HashMap<Object, Object>();
 		result.put(key1, value1);
 		result.put(key2, value2);
 		return result;
