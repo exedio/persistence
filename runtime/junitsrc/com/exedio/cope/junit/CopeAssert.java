@@ -24,8 +24,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -173,6 +175,24 @@ public abstract class CopeAssert extends TestCase
 		return Arrays.asList((T[])new Object[]{o1, o2, o3});
 	}
 	
+	public final static Map<? extends Object, ? extends Object> map()
+	{
+		return Collections.<Object, Object>emptyMap();
+	}
+
+	public final static Map<? extends Object, ? extends Object> map(final Object key1, final Object value1)
+	{
+		return Collections.<Object, Object>singletonMap(key1, value1);
+	}
+
+	public final static Map<? extends Object, ? extends Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
+	{
+		final HashMap result = new HashMap<Object, Object>();
+		result.put(key1, value1);
+		result.put(key2, value2);
+		return result;
+	}
+
 	public final static <T extends Object> void assertUnmodifiable(final Collection<T> c)
 	{
 		try
@@ -229,6 +249,14 @@ public abstract class CopeAssert extends TestCase
 	public final static void assertEqualsUnmodifiable(final List<? extends Object> expected, final Collection<? extends Object> actual)
 	{
 		assertUnmodifiable(actual);
+		assertEquals(expected, actual);
+	}
+	
+	public final static void assertEqualsUnmodifiable(final Map<? extends Object, ? extends Object> expected, final Map<? extends Object, ? extends Object> actual)
+	{
+		assertUnmodifiable(actual.keySet());
+		assertUnmodifiable(actual.values());
+		assertUnmodifiable(actual.entrySet());
 		assertEquals(expected, actual);
 	}
 	

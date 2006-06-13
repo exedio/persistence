@@ -18,12 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -228,45 +229,29 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	
 	// static convenience methods ---------------------------------
 	
-	private static final HashMap<Type<?>, List<Relation>> cacheForGetRelationsBySource = new HashMap<Type<?>, List<Relation>>();
+	private static final HashMap<Type<?>, Map<Relation, Integer>> cacheForGetRelations = new HashMap<Type<?>, Map<Relation, Integer>>();
+	
+	public static final int IS_SOURCE = 1;
+	public static final int IS_TARGET = 2;
 	
 	/**
-	 * Returns all relations where <tt>type</tt> is
-	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()}.
-	 *
-	 * @see #getRelationsByTarget(Type)
-	 * @see Qualifier#getQualifiers(Type)
-	 */
-	public static final List<Relation> getRelationsBySource(final Type<?> type)
-	{
-		return getRelations(cacheForGetRelationsBySource, type, true);
-	}
-
-	private static final HashMap<Type<?>, List<Relation>> cacheForGetRelationsByTarget = new HashMap<Type<?>, List<Relation>>();
-	
-	/**
-	 * Returns all relations where <tt>type</tt> is
+	 * Returns all relations where <tt>type</tt> is either
+	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()} or
 	 * the target type {@link #getTarget()}.{@link ItemAttribute#getValueType() getValueType()}.
 	 *
-	 * @see #getRelationsBySource(Type)
 	 * @see Qualifier#getQualifiers(Type)
 	 */
-	public static final List<Relation> getRelationsByTarget(final Type<?> type)
+	public static final Map<Relation, Integer> getRelations(final Type<?> type)
 	{
-		return getRelations(cacheForGetRelationsByTarget, type, false);
-	}
-
-	private static final List<Relation> getRelations(final HashMap<Type<?>, List<Relation>> cache, final Type<?> type, final boolean source)
-	{
-		synchronized(cache)
+		synchronized(cacheForGetRelations)
 		{
 			{
-				final List<Relation> cachedResult = cache.get(type);
+				final Map<Relation, Integer> cachedResult = cacheForGetRelations.get(type);
 				if(cachedResult!=null)
 					return cachedResult;
 			}
 			
-			final ArrayList<Relation> resultModifiable = new ArrayList<Relation>();
+			final LinkedHashMap<Relation, Integer> resultModifiable = new LinkedHashMap<Relation, Integer>();
 			
 			for(final ItemAttribute<?> ia : type.getReferences())
 				for(final Pattern pattern : ia.getPatterns())
@@ -274,17 +259,27 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 					if(pattern instanceof Relation)
 					{
 						final Relation relation = (Relation)pattern;
-						if(type.equals((source ? relation.source : relation.target).getValueType()))
-							resultModifiable.add(relation);
+						final int value;
+						if(ia==relation.source)
+							value = IS_SOURCE;
+						else if(ia==relation.target)
+							value = IS_TARGET;
+						else
+							continue;
+						
+						if(value>0)
+						{
+							final Integer previous = resultModifiable.get(relation);
+							resultModifiable.put(relation, (previous!=null) ? (previous.intValue() | value) : value);
+						}
 					}
 				}
-			resultModifiable.trimToSize();
 			
-			final List<Relation> result =
+			final Map<Relation, Integer> result =
 				!resultModifiable.isEmpty()
-				? Collections.unmodifiableList(resultModifiable)
-				: Collections.<Relation>emptyList();
-			cache.put(type, result);
+				? Collections.unmodifiableMap(resultModifiable)
+				: Collections.<Relation, Integer>emptyMap();
+			cacheForGetRelations.put(type, result);
 			return result;
 		}
 	}

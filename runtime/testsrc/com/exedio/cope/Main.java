@@ -20,16 +20,17 @@ package com.exedio.cope;
 
 import java.io.File;
 
+import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.DAttribute;
 import com.exedio.cope.pattern.DEnumValue;
 import com.exedio.cope.pattern.DType;
 import com.exedio.cope.pattern.DTypeItem;
-import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.HashItem;
 import com.exedio.cope.pattern.JavaViewItem;
 import com.exedio.cope.pattern.MD5Item;
 import com.exedio.cope.pattern.MediaItem;
 import com.exedio.cope.pattern.RelationItem;
+import com.exedio.cope.pattern.RelationSelfItem;
 import com.exedio.cope.pattern.RelationSourceItem;
 import com.exedio.cope.pattern.RelationTargetItem;
 import com.exedio.cope.pattern.SerializerItem;
@@ -54,7 +55,7 @@ public class Main
 	public static final Model customModel = new Model(new Type[] { CustomItem.TYPE, JavaViewItem.TYPE });
 	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
 	public static final Model typeInConditionModel = new Model(new Type[] { TypeInConditionAItem.TYPE, TypeInConditionB1Item.TYPE, TypeInConditionB2Item.TYPE, TypeInConditionC1Item.TYPE, TypeInConditionRefItem.TYPE });
-	public static final Model relationModel = new Model(new Type[] { RelationItem.TYPE, VectorRelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE });
+	public static final Model relationModel = new Model(new Type[] { RelationItem.TYPE, RelationSelfItem.TYPE, VectorRelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE });
 	public static final Model nameModel = new Model(new Type[] {
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,

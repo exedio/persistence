@@ -185,8 +185,7 @@ public final class Qualifier extends Pattern
 	 * Returns all qualifiers where <tt>type</tt> is
 	 * the parent type {@link #getParent()}.{@link ItemAttribute#getValueType() getValueType()}.
 	 *
-	 * @see Relation#getRelationsBySource(Type)
-	 * @see Relation#getRelationsByTarget(Type)
+	 * @see Relation#getRelations(Type)
 	 */
 	public static final List<Qualifier> getQualifiers(final Type<?> type)
 	{
@@ -206,7 +205,7 @@ public final class Qualifier extends Pattern
 					if(pattern instanceof Qualifier)
 					{
 						final Qualifier qualifier = (Qualifier)pattern;
-						if(ia==qualifier.getParent())
+						if(ia==qualifier.parent)
 							resultModifiable.add(qualifier);
 					}
 				}
