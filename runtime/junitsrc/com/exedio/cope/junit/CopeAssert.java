@@ -98,57 +98,57 @@ public abstract class CopeAssert extends TestCase
 		assertContains(o1, o2, actual);
 	}
 
-	public final static List<? extends Object> list()
+	public final static List<Object> list()
 	{
 		return Collections.<Object>emptyList();
 	}
 
-	public final static List<? extends Object> list(final Object o)
+	public final static List<Object> list(final Object o)
 	{
 		return Collections.singletonList(o);
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2)
+	public final static List<Object> list(final Object o1, final Object o2)
 	{
 		return Arrays.asList(new Object[]{o1, o2});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9});
 	}
 	
-	public final static List<? extends Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9, final Object o10)
+	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9, final Object o10)
 	{
 		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9, o10});
 	}
@@ -175,17 +175,17 @@ public abstract class CopeAssert extends TestCase
 		return Arrays.asList((T[])new Object[]{o1, o2, o3});
 	}
 	
-	public final static Map<? extends Object, ? extends Object> map()
+	public final static Map<Object, Object> map()
 	{
 		return Collections.<Object, Object>emptyMap();
 	}
 
-	public final static Map<? extends Object, ? extends Object> map(final Object key1, final Object value1)
+	public final static Map<Object, Object> map(final Object key1, final Object value1)
 	{
 		return Collections.<Object, Object>singletonMap(key1, value1);
 	}
 
-	public final static Map<? extends Object, ? extends Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
+	public final static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
 	{
 		final HashMap<Object, Object> result = new HashMap<Object, Object>();
 		result.put(key1, value1);
