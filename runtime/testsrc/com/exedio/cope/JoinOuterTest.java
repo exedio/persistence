@@ -41,37 +41,37 @@ public class JoinOuterTest extends TestmodelTest
 	{
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
-			assertEquals(list(), query.getJoins());
+			assertEqualsUnmodifiable(list(), query.getJoins());
 			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
-			assertEquals(list(join), query.getJoins());
+			assertEqualsUnmodifiable(list(join), query.getJoins());
 			assertContains(leftJoined, query.search());
 		}
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
-			assertEquals(list(), query.getJoins());
+			assertEqualsUnmodifiable(list(), query.getJoins());
 			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.toUpperCase().equal(PointerTargetItem.code.toUpperCase()));
-			assertEquals(list(join), query.getJoins());
+			assertEqualsUnmodifiable(list(join), query.getJoins());
 			assertContains(leftJoined, query.search());
 		}
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
-			assertEquals(list(), query.getJoins());
+			assertEqualsUnmodifiable(list(), query.getJoins());
 			final Join join = query.join(PointerTargetItem.TYPE, PointerItem.code.toUpperCase().equal(PointerTargetItem.code));
-			assertEquals(list(join), query.getJoins());
+			assertEqualsUnmodifiable(list(join), query.getJoins());
 			assertContains(query.search());
 		}
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
-			assertEquals(list(), query.getJoins());
+			assertEqualsUnmodifiable(list(), query.getJoins());
 			final Join join = query.joinOuterLeft(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
-			assertEquals(list(join), query.getJoins());
+			assertEqualsUnmodifiable(list(join), query.getJoins());
 			assertContains(leftJoined, leftLonely, query.search());
 		}
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
-			assertEquals(list(), query.getJoins());
+			assertEqualsUnmodifiable(list(), query.getJoins());
 			final Join join = query.joinOuterRight(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
-			assertEquals(list(join), query.getJoins());
+			assertEqualsUnmodifiable(list(join), query.getJoins());
 			if(hsqldb)
 			{
 				try

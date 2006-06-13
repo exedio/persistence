@@ -128,7 +128,7 @@ public final class Query<R>
 	
 	public List<Join> getJoins()
 	{
-		return joins==null ? Collections.<Join>emptyList() : joins;
+		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
 	
 	public void setOrderByThis(final boolean ascending)
