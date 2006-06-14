@@ -27,7 +27,6 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
-import com.exedio.cope.JoinedFunction;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.NotEqualCondition;
