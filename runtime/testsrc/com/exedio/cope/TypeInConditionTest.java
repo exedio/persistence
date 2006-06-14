@@ -145,6 +145,15 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		try
 		{
+			reffa.TYPE.search(reffa.refb2.typeNotIn((Type)itemb1.TYPE));
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("type TypeInConditionB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
+		}
+		try
+		{
 			itemb1.TYPE.search(itemb1.TYPE.getThis().typeNotIn((Type)itema.TYPE));
 			fail();
 		}

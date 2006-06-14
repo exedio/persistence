@@ -147,7 +147,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	
 	public void appendType(final Statement bf, final Join join)
 	{
-		bf.append(typeColumn, join); // TODO SOON
+		bf.append(Statement.assertTypeColumn(typeColumn, getValueType()), join);
 	}
 	
 	@Override
