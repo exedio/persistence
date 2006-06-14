@@ -901,7 +901,7 @@ public final class Type<C extends Item>
 			return type.cast((Item)o);
 		}
 		
-		public void append(Statement bf, Join join)
+		public void append(final Statement bf, final Join join)
 		{
 			bf.appendPK(type, join);
 		}
