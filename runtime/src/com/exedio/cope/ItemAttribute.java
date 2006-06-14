@@ -236,7 +236,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	
 	public EqualFunctionCondition equalTarget(final Join targetJoin)
 	{
-		return equal(new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
+		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
 	
 	public TypeInCondition<E> typeIn(final Type<? extends E> type1)

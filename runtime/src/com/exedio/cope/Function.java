@@ -111,4 +111,6 @@ public interface Function<E> extends Selectable<E>
 
 	ExtremumAggregate<E> min();
 	ExtremumAggregate<E> max();
+	
+	JoinedFunction<E> bind(Join join);
 }

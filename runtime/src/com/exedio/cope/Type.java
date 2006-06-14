@@ -959,7 +959,7 @@ public final class Type<C extends Item>
 		
 		public EqualCondition<E> equal(final Join join, final E value)
 		{
-			return new JoinedFunction<E>(this, join).equal(value);
+			return this.bind(join).equal(value);
 		}
 		
 		public CompositeCondition in(final Collection<E> values)
@@ -1031,6 +1031,11 @@ public final class Type<C extends Item>
 		{
 			return new ExtremumAggregate<E>(this, false);
 		}
+
+		public final JoinedFunction<E> bind(final Join join)
+		{
+			return new JoinedFunction(this, join);
+		}
 		
 		public EqualFunctionCondition equalTarget()
 		{
@@ -1039,7 +1044,7 @@ public final class Type<C extends Item>
 		
 		public EqualFunctionCondition equalTarget(final Join targetJoin)
 		{
-			return equal(new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
+			return equal(getValueType().thisFunction.bind(targetJoin));
 		}
 		
 		public TypeInCondition<E> typeIn(final Type<? extends E> type1)

@@ -308,7 +308,7 @@ public abstract class FunctionAttribute<E extends Object>
 	
 	public final EqualCondition<E> equal(final Join join, final E value)
 	{
-		return new JoinedFunction<E>(this, join).equal(value);
+		return this.bind(join).equal(value);
 	}
 	
 	public final CompositeCondition in(final Collection<E> values)
@@ -379,5 +379,10 @@ public abstract class FunctionAttribute<E extends Object>
 	public final ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<E>(this, false);
+	}
+
+	public final JoinedFunction<E> bind(final Join join)
+	{
+		return new JoinedFunction(this, join);
 	}
 }

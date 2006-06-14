@@ -83,14 +83,14 @@ public class TypeInConditionTest extends AbstractLibTest
 			itemc1.setTextc1("textC1");
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemc1.TYPE);
-			j.setCondition(new JoinedFunction<String>(itemc1.textc1, j).equal(itemc1.textc1));
+			j.setCondition(itemc1.textc1.bind(j).equal(itemc1.textc1));
 			assertContains(itemc1, q.search());
 		}
 		if(!hsqldb&&!oracle&&!((String)model.getDatabaseInfo().get("database.version")).endsWith("(5.0)")) // TODO dont know why
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
-			j.setCondition(new JoinedFunction<String>(itemc1.code, j).equal(itemb2.code));
+			j.setCondition(itemc1.code.bind(j).equal(itemb2.code));
 			assertContains(q.search());
 		}
 		if(!hsqldb&&!oracle) // TODO dont know why

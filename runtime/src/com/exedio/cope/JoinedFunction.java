@@ -23,11 +23,16 @@ import java.util.Collection;
 import com.exedio.cope.search.ExtremumAggregate;
 
 
-public class JoinedFunction<E> implements Function<E>
+public class JoinedFunction<E> implements Function<E> // TODO SOON rename to BindFunction
 {
 	final Function<E> function;
 	final Join join;
 	
+	/**
+	 * Instead o using this constructor directly,
+	 * you may want to use the convenience methods.
+	 * @see Function#bind(Join)
+	 */
 	public JoinedFunction(final Function<E> function, final Join join)
 	{
 		assert function!=null;
@@ -104,7 +109,7 @@ public class JoinedFunction<E> implements Function<E>
 	
 	public final EqualCondition<E> equal(final Join join, final E value)
 	{
-		return new JoinedFunction<E>(this, join).equal(value);
+		return this.bind(join).equal(value);
 	}
 	
 	public final CompositeCondition in(final Collection<E> values)
@@ -175,5 +180,10 @@ public class JoinedFunction<E> implements Function<E>
 	public final ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<E>(this, false);
+	}
+
+	public final JoinedFunction<E> bind(final Join join)
+	{
+		return new JoinedFunction(function, join); // using "function" instead of "this" is a small short-cut
 	}
 }
