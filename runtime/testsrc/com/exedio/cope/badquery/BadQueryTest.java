@@ -51,24 +51,26 @@ public class BadQueryTest extends AbstractLibTest
 			assertContains(query.search());
 		}
 		
-		// without specifying join
-		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-		final Join superJoin = query.join(SuperContainer.TYPE);
-		query.join(SubContainer.TYPE);
-		query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
-		try
 		{
-			query.search();
-			fail();
-		}
-		catch(SQLRuntimeException e)
-		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("select `QueryItem`.`this` "));
-			assertEquals(
-					model.getDatabaseInfo().getProperty("database.version").endsWith("(5.0)")
-					? "Unknown column 'SuperContainer.class' in 'where clause'"
-					: "Unknown table 'SuperContainer' in where clause",
-					e.getCause().getMessage());
+			// without specifying join
+			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
+			final Join superJoin = query.join(SuperContainer.TYPE);
+			query.join(SubContainer.TYPE);
+			query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
+			try
+			{
+				query.search();
+				fail();
+			}
+			catch(SQLRuntimeException e)
+			{
+				assertTrue(e.getMessage(), e.getMessage().startsWith("select `QueryItem`.`this` "));
+				assertEquals(
+						model.getDatabaseInfo().getProperty("database.version").endsWith("(5.0)")
+						? "Unknown column 'SuperContainer.class' in 'where clause'"
+						: "Unknown table 'SuperContainer' in where clause",
+						e.getCause().getMessage());
+			}
 		}
 	}
 	
