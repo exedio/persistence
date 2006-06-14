@@ -54,7 +54,7 @@ public class BadQueryTest extends AbstractLibTest
 		{
 			// without specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			final Join superJoin = query.join(SuperContainer.TYPE);
+			query.join(SuperContainer.TYPE);
 			query.join(SubContainer.TYPE);
 			query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
 			try
