@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ final class Statement
 	final StringBuffer text = new StringBuffer();
 	final ArrayList<Object> parameters;
 	private final HashMap<JoinTable, JoinTable> joinTables;
+	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
 	
@@ -45,6 +47,7 @@ final class Statement
 		this.database = database;
 		this.parameters = prepare ? new ArrayList<Object>() : null;
 		this.joinTables = null;
+		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
@@ -97,6 +100,8 @@ final class Statement
 			}
 		}
 		
+		HashSet<Table> ambiguousTables = null;
+		
 		for(final Map.Entry<Table, Object> entry : joinTypeTableByTable.entrySet())
 		{
 			final Table table = entry.getKey();
@@ -110,12 +115,16 @@ final class Statement
 					final JoinTable joinType = (JoinTable)j.next();
 					joinType.alias = table.id + (aliasNumber++);
 				}
+				if(ambiguousTables==null)
+					ambiguousTables = new HashSet<Table>();
+				ambiguousTables.add(table);
 			}
 		}
 		//System.out.println("-------"+joinTables.keySet().toString());
 		
 		this.qualifyTable = joinTables.size()>1;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
+		this.ambiguousTables = ambiguousTables;
 	}
 	
 	@SuppressWarnings("unchecked") // OK: joinTypeTableByTable contains both JoinTable and List<JoinTable>
@@ -164,7 +173,7 @@ final class Statement
 		if(qualifyTable)
 		{
 			this.text.
-				append(getName(join, column.table)).
+				append(getName(join, column.table, column)).
 				append('.');
 		}
 		this.text.
@@ -397,10 +406,17 @@ final class Statement
 		return (jt!=null) ? jt.alias : null;
 	}
 
-	private String getName(final Join join, final Table table)
+	private String getName(final Join join, final Table table, final Column exceptionColumn)
 	{
 		final JoinTable jt = getJoinTable(join, table);
-		return (jt!=null && jt.alias!=null) ? jt.alias : table.protectedID;
+		if(jt!=null && jt.alias!=null)
+			return jt.alias;
+		else
+		{
+			if(ambiguousTables!=null && ambiguousTables.contains(table))
+				throw new RuntimeException("feature " + exceptionColumn + " is ambiguous, use JoinedFunction");
+			return table.protectedID;
+		}
 	}
 	
 	static final StringColumn assertTypeColumn(final StringColumn tc, final Type t)

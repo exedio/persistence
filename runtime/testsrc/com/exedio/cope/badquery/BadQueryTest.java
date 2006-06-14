@@ -91,17 +91,9 @@ public class BadQueryTest extends AbstractLibTest
 				query.search();
 				fail();
 			}
-			catch(SQLRuntimeException e)
+			catch(RuntimeException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("select "));
-				if(hsqldb)
-					assertTrue(e.getCause().getMessage(), e.getCause().getMessage().startsWith("Column not found: SuperContainer.class in statement [select "));
-				else
-					assertEquals(
-							model.getDatabaseInfo().getProperty("database.version").endsWith("(5.0)")
-							? "Unknown column 'SuperContainer.class' in 'where clause'"
-							: "Unknown table 'SuperContainer' in where clause",
-							e.getCause().getMessage());
+				assertEquals("feature SuperContainer#class is ambiguous, use JoinedFunction", e.getMessage());
 			}
 		}
 	}
