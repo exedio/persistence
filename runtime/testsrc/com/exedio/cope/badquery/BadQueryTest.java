@@ -42,7 +42,7 @@ public class BadQueryTest extends AbstractLibTest
 		//System.out.println("----------"+model.getDatabaseInfo().getProperty("database.version"));
 		
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
-		query.join(SuperContainer.TYPE, QueryItem.item.equal(castEvilItem(SuperContainer.TYPE.getThis())));
+		query.join(SuperContainer.TYPE);
 		query.join(SubContainer.TYPE);
 		try
 		{
