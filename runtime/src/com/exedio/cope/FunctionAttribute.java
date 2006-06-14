@@ -383,6 +383,6 @@ public abstract class FunctionAttribute<E extends Object>
 
 	public final JoinedFunction<E> bind(final Join join)
 	{
-		return new JoinedFunction(this, join);
+		return new JoinedFunction<E>(this, join);
 	}
 }

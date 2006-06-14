@@ -1034,12 +1034,12 @@ public final class Type<C extends Item>
 
 		public final JoinedFunction<E> bind(final Join join)
 		{
-			return new JoinedFunction(this, join);
+			return new JoinedFunction<E>(this, join);
 		}
 		
 		public JoinedItemFunction<E> bindItem(final Join join)
 		{
-			return new JoinedItemFunction(this, join);
+			return new JoinedItemFunction<E>(this, join);
 		}
 		
 		public EqualFunctionCondition equalTarget()

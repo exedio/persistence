@@ -241,7 +241,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	
 	public JoinedItemFunction<E> bindItem(final Join join)
 	{
-		return new JoinedItemFunction(this, join);
+		return new JoinedItemFunction<E>(this, join);
 	}
 	
 	public TypeInCondition<E> typeIn(final Type<? extends E> type1)

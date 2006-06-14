@@ -184,6 +184,6 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 
 	public final JoinedFunction<E> bind(final Join join)
 	{
-		return new JoinedFunction(function, join); // using "function" instead of "this" is a small short-cut
+		return new JoinedFunction<E>(function, join); // using "function" instead of "this" is a small short-cut
 	}
 }

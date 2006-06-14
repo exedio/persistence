@@ -68,7 +68,7 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	
 	public JoinedItemFunction<E> bindItem(final Join join)
 	{
-		return new JoinedItemFunction(itemFunction, join); // using "itemFunction" instead of "this" is a small short-cut
+		return new JoinedItemFunction<E>(itemFunction, join); // using "itemFunction" instead of "this" is a small short-cut
 	}
 	
 	public TypeInCondition<E> typeIn(final Type<? extends E> type1)
