@@ -90,6 +90,11 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	public JoinedIntegerFunction bindInt(final Join join)
+	{
+		return new JoinedIntegerFunction(this, join);
+	}
+	
 	public final PlusView plus(final IntegerFunction other)
 	{
 		return new PlusView(new IntegerFunction[]{this, other});

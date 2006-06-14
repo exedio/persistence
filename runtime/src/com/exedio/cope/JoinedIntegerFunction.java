@@ -21,15 +21,28 @@ package com.exedio.cope;
 import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
-public final class JoinedIntegerFunction extends JoinedFunction<Integer> implements IntegerFunction
+public final class JoinedIntegerFunction extends JoinedFunction<Integer> implements IntegerFunction // TODO SOON rename to BindIntegerFunction
 {
+	final IntegerFunction integerFunction;
+	
+	/**
+	 * Instead of using this constructor directly,
+	 * you may want to use the convenience methods.
+	 * @see IntegerFunction#bindInt(Join)
+	 */
 	public JoinedIntegerFunction(final IntegerFunction function, final Join join)
 	{
 		super(function, join);
+		this.integerFunction = function;
 	}
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	public JoinedIntegerFunction bindInt(final Join join)
+	{
+		return new JoinedIntegerFunction(integerFunction, join); // using "integerFunction" instead of "this" is a small short-cut
+	}
+	
 	public final PlusView plus(final IntegerFunction other)
 	{
 		return new PlusView(new IntegerFunction[]{this, other});
