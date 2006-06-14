@@ -37,7 +37,7 @@ public class BadQueryTest extends AbstractLibTest
 	
 	public void testIt()
 	{
-		if(hsqldb||oracle)
+		if(oracle)
 			return;
 		
 		//System.out.println("----------"+model.getDatabaseInfo().getProperty("database.version"));
@@ -45,8 +45,8 @@ public class BadQueryTest extends AbstractLibTest
 		{
 			// with specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			final Join superJoin = query.join(SuperContainer.TYPE);
-			query.join(SubContainer.TYPE);
+			final Join superJoin = query.join(SuperContainer.TYPE); superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			query.setCondition(new JoinedItemFunction<SuperContainer>(SuperContainer.TYPE.getThis(), superJoin).typeNotIn(SubContainer.TYPE));
 			assertContains(query.search());
 		}
@@ -54,8 +54,8 @@ public class BadQueryTest extends AbstractLibTest
 		{
 			// without specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			query.join(SuperContainer.TYPE);
-			query.join(SubContainer.TYPE);
+			final Join superJoin = query.join(SuperContainer.TYPE); superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
 			try
 			{
@@ -64,7 +64,10 @@ public class BadQueryTest extends AbstractLibTest
 			}
 			catch(SQLRuntimeException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("select `QueryItem`.`this` "));
+				assertTrue(e.getMessage(), e.getMessage().startsWith("select "));
+				if(hsqldb)
+					assertTrue(e.getCause().getMessage(), e.getCause().getMessage().startsWith("Column not found: SuperContainer.class in statement [select "));
+				else
 				assertEquals(
 						model.getDatabaseInfo().getProperty("database.version").endsWith("(5.0)")
 						? "Unknown column 'SuperContainer.class' in 'where clause'"
