@@ -39,6 +39,9 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	EqualFunctionCondition equalTarget();
+	EqualFunctionCondition equalTarget(Join targetJoin);
+	
 	TypeInCondition<E> typeIn(final Type<? extends E> type1);
 	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2);
 	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);

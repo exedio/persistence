@@ -1032,6 +1032,16 @@ public final class Type<C extends Item>
 			return new ExtremumAggregate<E>(this, false);
 		}
 		
+		public EqualFunctionCondition equalTarget()
+		{
+			return equal(getValueType().thisFunction);
+		}
+		
+		public EqualFunctionCondition equalTarget(final Join targetJoin)
+		{
+			return equal(new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
+		}
+		
 		public TypeInCondition<E> typeIn(final Type<? extends E> type1)
 		{
 			return new TypeInCondition<E>(this, false, type1);

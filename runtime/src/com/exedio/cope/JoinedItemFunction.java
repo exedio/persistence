@@ -51,6 +51,16 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	public EqualFunctionCondition equalTarget()
+	{
+		return equal(getValueType().thisFunction);
+	}
+	
+	public EqualFunctionCondition equalTarget(final Join targetJoin)
+	{
+		return equal(new JoinedFunction<E>(getValueType().thisFunction, targetJoin));
+	}
+	
 	public TypeInCondition<E> typeIn(final Type<? extends E> type1)
 	{
 		return new TypeInCondition<E>(this, false, type1);
