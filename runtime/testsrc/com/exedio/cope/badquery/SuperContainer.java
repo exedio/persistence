@@ -18,10 +18,12 @@
 
 package com.exedio.cope.badquery;
 
+import com.exedio.cope.BooleanAttribute;
+
 
 public class SuperContainer extends SuperItem
 {
-	public static final com.exedio.cope.BooleanAttribute superflag = new com.exedio.cope.BooleanAttribute(MANDATORY);
+	public static final BooleanAttribute superflag = new BooleanAttribute(MANDATORY);
 	
 	/**
 

@@ -18,10 +18,12 @@
 
 package com.exedio.cope.badquery;
 
+import com.exedio.cope.ItemAttribute;
+
 
 public class QueryItem extends SuperItem
 {
-	public static final com.exedio.cope.ItemAttribute<SuperItem> item = newItemAttribute(FINAL, SuperItem.class);
+	public static final ItemAttribute<SuperItem> item = newItemAttribute(FINAL, SuperItem.class);
 	
 	/**
 

@@ -18,9 +18,11 @@
 
 package com.exedio.cope.badquery;
 
+import com.exedio.cope.BooleanAttribute;
+
 public class SubContainer extends SuperContainer
 {
-	public static final com.exedio.cope.BooleanAttribute subflag = new com.exedio.cope.BooleanAttribute(OPTIONAL).defaultTo(Boolean.FALSE);
+	public static final BooleanAttribute subflag = new BooleanAttribute(OPTIONAL).defaultTo(Boolean.FALSE);
 	
 	/**
 
