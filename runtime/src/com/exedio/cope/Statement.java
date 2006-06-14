@@ -97,10 +97,9 @@ final class Statement
 			}
 		}
 		
-		for(Iterator i = joinTypeTableByTable.entrySet().iterator(); i.hasNext(); )
+		for(final Map.Entry<Table, Object> entry : joinTypeTableByTable.entrySet())
 		{
-			final Map.Entry entry = (Map.Entry)i.next();
-			final Table table = (Table)entry.getKey();
+			final Table table = entry.getKey();
 			final Object value = entry.getValue();
 			if(value instanceof ArrayList)
 			{
