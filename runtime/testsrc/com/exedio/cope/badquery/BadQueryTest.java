@@ -45,7 +45,8 @@ public class BadQueryTest extends AbstractLibTest
 		{
 			// with specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			final Join superJoin = query.join(SuperContainer.TYPE); superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			final Join superJoin = query.join(SuperContainer.TYPE);
+			superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			query.setCondition(new JoinedItemFunction<SuperContainer>(SuperContainer.TYPE.getThis(), superJoin).typeNotIn(SubContainer.TYPE));
 			assertContains(query.search());
@@ -54,7 +55,8 @@ public class BadQueryTest extends AbstractLibTest
 		{
 			// without specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			final Join superJoin = query.join(SuperContainer.TYPE); superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			final Join superJoin = query.join(SuperContainer.TYPE);
+			superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
 			try
