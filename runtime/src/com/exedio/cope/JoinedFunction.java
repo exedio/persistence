@@ -29,7 +29,7 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 	final Join join;
 	
 	/**
-	 * Instead o using this constructor directly,
+	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see Function#bind(Join)
 	 */

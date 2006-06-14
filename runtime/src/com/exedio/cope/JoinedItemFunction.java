@@ -24,7 +24,7 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	final ItemFunction<E> itemFunction;
 	
 	/**
-	 * Instead o using this constructor directly,
+	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see ItemFunction#bindItem(Join)
 	 */
