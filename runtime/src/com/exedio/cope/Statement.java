@@ -345,7 +345,7 @@ final class Statement
 		@Override
 		public String toString()
 		{
-			return (join==null?"-":join.type.id) + '/' + table.id;
+			return (join==null?"-":join.type.id) + '/' + table.id + '>' + (alias==null?"-":alias);
 		}
 	}
 	
@@ -402,6 +402,14 @@ final class Statement
 	{
 		final JoinTable jt = getJoinTable(join, table);
 		return (jt!=null && jt.alias!=null) ? jt.alias : table.protectedID;
+	}
+	
+	static final StringColumn assertTypeColumn(final StringColumn tc, final Type t)
+	{
+		if(tc==null)
+			throw new RuntimeException("type " + t + " has no subtypes, therefore a TypeInCondition makes no sense");
+		else
+			return tc;
 	}
 
 }

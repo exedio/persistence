@@ -84,12 +84,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 	void append(final Statement bf)
 	{
 		final Type type = function.getValueType();
-		final StringColumn column = function.getTypeColumnIfExists();
-		
-		if(column==null)
-			throw new RuntimeException("type " + type + " has no subtypes, therefore a TypeInCondition makes no sense");
-		
-		bf.append(column, null);
+		function.appendType(bf, null);
 		if(not)
 			bf.append(" not");
 		bf.append(" in(");

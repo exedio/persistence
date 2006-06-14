@@ -34,9 +34,9 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 		return itemFunction.getValueType();
 	}
 	
-	public StringColumn getTypeColumnIfExists()
+	public void appendType(final Statement bf, final Join join)
 	{
-		return itemFunction.getTypeColumnIfExists();
+		itemFunction.appendType(bf, this.join);
 	}
 	
 	public boolean needsCheckTypeColumn()

@@ -145,9 +145,9 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		return typeColumn;
 	}
 	
-	public StringColumn getTypeColumnIfExists()
+	public void appendType(final Statement bf, final Join join)
 	{
-		return typeColumn;
+		bf.append(typeColumn, join); // TODO SOON
 	}
 	
 	@Override

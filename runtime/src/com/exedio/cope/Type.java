@@ -906,6 +906,11 @@ public final class Type<C extends Item>
 			bf.appendPK(type, join);
 		}
 		
+		public void appendType(final Statement bf, final Join join)
+		{
+			bf.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);
+		}
+		
 		public final int getTypeForDefiningColumn()
 		{
 			return IntegerColumn.JDBC_TYPE_INT;
@@ -919,11 +924,6 @@ public final class Type<C extends Item>
 		public Type<E> getValueType()
 		{
 			return type;
-		}
-		
-		public StringColumn getTypeColumnIfExists()
-		{
-			return type.getTable().typeColumn;
 		}
 		
 		public boolean needsCheckTypeColumn()

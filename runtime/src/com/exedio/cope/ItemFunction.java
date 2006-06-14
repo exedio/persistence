@@ -21,7 +21,11 @@ package com.exedio.cope;
 public interface ItemFunction<E extends Item> extends Function<E>
 {
 	Type<E> getValueType();
-	StringColumn getTypeColumnIfExists();
+
+	/**
+	 * For internal use within COPE only.
+	 */
+	void appendType(Statement bf, Join join);
 	
 	/**
 	 * @see #checkTypeColumn()
