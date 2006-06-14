@@ -35,6 +35,25 @@ public class BadQueryTest extends AbstractLibTest
 		super(model);
 	}
 	
+	QueryItem left1, left2, leftX;
+	SuperContainer middle1, middle2, middleX;
+	SubContainer right1, right2;
+	
+	@Override
+	public void setUp() throws Exception
+	{
+		super.setUp();
+		
+		deleteOnTearDown(leftX = new QueryItem("leftX"));
+		deleteOnTearDown(left1 = new QueryItem("left1"));
+		deleteOnTearDown(left2 = new QueryItem("left2"));
+		deleteOnTearDown(middleX = new SuperContainer("middleX", leftX, false));
+		deleteOnTearDown(middle1 = new SuperContainer("middle1", left1, false));
+		deleteOnTearDown(middle2 = new SubContainer("middle2", left2, false, middleX));
+		deleteOnTearDown(right1 = new SubContainer("right1", leftX, false, middle1));
+		deleteOnTearDown(right2 = new SubContainer("right2", leftX, false, middle2));
+	}
+	
 	public void testIt()
 	{
 		if(oracle)
@@ -49,7 +68,15 @@ public class BadQueryTest extends AbstractLibTest
 			superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			query.setCondition(new JoinedItemFunction<SuperContainer>(SuperContainer.TYPE.getThis(), superJoin).typeNotIn(SubContainer.TYPE));
-			assertContains(query.search());
+			assertContains(leftX, left1, query.search());
+		}
+		{
+			// with specifying join but without condition
+			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
+			final Join superJoin = query.join(SuperContainer.TYPE);
+			superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
+			assertContains(leftX, left1, left2, query.search());
 		}
 		
 		{
