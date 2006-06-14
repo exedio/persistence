@@ -27,7 +27,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public class BadQueryTest extends AbstractLibTest
 {
-	static final Model model = new Model(new Type[]{SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE, SubContained.TYPE});
+	static final Model model = new Model(new Type[]{SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE});
 	
 	public BadQueryTest()
 	{
@@ -39,9 +39,10 @@ public class BadQueryTest extends AbstractLibTest
 		if(hsqldb||oracle)
 			return;
 		
+		//System.out.println("----------"+model.getDatabaseInfo().getProperty("database.version"));
+		
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
 		query.join(SuperContainer.TYPE, QueryItem.item.equal(castEvilItem(SuperContainer.TYPE.getThis())));
-		query.join(SubContained.TYPE, SubContained.container.equalTarget());
 		query.join(SubContainer.TYPE);
 		try
 		{
