@@ -20,6 +20,8 @@ package com.exedio.cope.badquery;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ItemFunction;
+import com.exedio.cope.Join;
+import com.exedio.cope.JoinedItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
@@ -42,9 +44,9 @@ public class BadQueryTest extends AbstractLibTest
 		//System.out.println("----------"+model.getDatabaseInfo().getProperty("database.version"));
 		
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-		query.join(SuperContainer.TYPE);
+		final Join superJoin = query.join(SuperContainer.TYPE);
 		query.join(SubContainer.TYPE);
-		query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
+		query.setCondition(new JoinedItemFunction<SuperContainer>(SuperContainer.TYPE.getThis(), superJoin).typeNotIn(SubContainer.TYPE));
 		try
 		{
 			query.search();
