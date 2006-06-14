@@ -25,6 +25,12 @@ public class SuperItem extends Item
 {
 	public static final StringAttribute code = new StringAttribute(FINAL);
 	
+	@Override
+	public String toString()
+	{
+		return getCode();
+	}
+	
 	/**
 
 	 **
