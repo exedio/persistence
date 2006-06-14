@@ -56,11 +56,6 @@ public class BadQueryTest extends AbstractLibTest
 	
 	public void testIt()
 	{
-		if(oracle)
-			return;
-		
-		//System.out.println("----------"+model.getDatabaseInfo().getProperty("database.version"));
-
 		{
 			// with specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
