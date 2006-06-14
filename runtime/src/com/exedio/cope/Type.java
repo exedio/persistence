@@ -1037,6 +1037,11 @@ public final class Type<C extends Item>
 			return new JoinedFunction(this, join);
 		}
 		
+		public JoinedItemFunction<E> bindItem(final Join join)
+		{
+			return new JoinedItemFunction(this, join);
+		}
+		
 		public EqualFunctionCondition equalTarget()
 		{
 			return equal(getValueType().thisFunction);

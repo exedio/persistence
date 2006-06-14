@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> implements ItemFunction<E>
+public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> implements ItemFunction<E> // TODO SOON rename to BindItemFunction
 {
 	final ItemFunction<E> itemFunction;
 	
@@ -59,6 +59,11 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	public EqualFunctionCondition equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
+	}
+	
+	public JoinedItemFunction<E> bindItem(final Join join)
+	{
+		return new JoinedItemFunction(itemFunction, join); // using "itemFunction" instead of "this" is a small short-cut
 	}
 	
 	public TypeInCondition<E> typeIn(final Type<? extends E> type1)

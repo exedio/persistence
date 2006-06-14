@@ -20,7 +20,6 @@ package com.exedio.cope.badquery;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Join;
-import com.exedio.cope.JoinedItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
@@ -59,16 +58,16 @@ public class BadQueryTest extends AbstractLibTest
 			// with specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 			final Join superJoin = query.join(SuperContainer.TYPE);
-			superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			superJoin.setCondition(SuperContainer.queryItem.bindItem(superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
-			query.setCondition(new JoinedItemFunction<SuperContainer>(SuperContainer.TYPE.getThis(), superJoin).typeNotIn(SubContainer.TYPE));
+			query.setCondition(SuperContainer.TYPE.getThis().bindItem(superJoin).typeNotIn(SubContainer.TYPE));
 			assertContains(leftX, left1, query.search());
 		}
 		{
 			// with specifying join but without condition
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 			final Join superJoin = query.join(SuperContainer.TYPE);
-			superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			superJoin.setCondition(SuperContainer.queryItem.bindItem(superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			assertContains(leftX, left1, left2, query.search());
 		}
@@ -77,7 +76,7 @@ public class BadQueryTest extends AbstractLibTest
 			// without specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 			final Join superJoin = query.join(SuperContainer.TYPE);
-			superJoin.setCondition(new JoinedItemFunction<QueryItem>(SuperContainer.queryItem, superJoin).equalTarget());
+			superJoin.setCondition(SuperContainer.queryItem.bindItem(superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
 			query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
 			try
