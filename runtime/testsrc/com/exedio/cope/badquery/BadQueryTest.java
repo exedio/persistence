@@ -24,7 +24,6 @@ import com.exedio.cope.JoinedItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
-import com.exedio.dsmf.SQLRuntimeException;
 
 public class BadQueryTest extends AbstractLibTest
 {
