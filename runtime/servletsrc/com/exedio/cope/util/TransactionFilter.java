@@ -56,14 +56,13 @@ import com.exedio.cope.Model;
 public final class TransactionFilter implements Filter
 {
 	private Model model;
-	private String transactionName = getClass().getName();
+	private String transactionName = null;
 	
 	public void init(FilterConfig config) throws ServletException
 	{
 		model = ServletUtil.getModel(config);
 		final String transactionNameParameter = config.getInitParameter("transactionName");
-		if(transactionNameParameter!=null)
-			transactionName = transactionNameParameter;
+		transactionName = (transactionNameParameter!=null) ? transactionNameParameter : getClass().getName();
 	}
 
 	public void doFilter(
