@@ -552,24 +552,6 @@ public final class Query<R>
 				&& limitCount == other.limitCount;
 		}
 		
-		private static boolean equals( Object a, Object b )
-		{
-			assert a==null || !a.getClass().isArray();
-			assert b==null || !b.getClass().isArray();
-			return a==null ? b==null : ( b!=null && a.equals(b) );
-		}
-		
-		private static int hashCode( Object obj )
-		{
-			assert obj==null || !obj.getClass().isArray();
-			return obj==null ? 0 : obj.hashCode();
-		}
-		
-		private static int hashCode( boolean b )
-		{
-			return b ? 1 : 0;
-		}
-		
 		@Override
 		public int hashCode()
 		{
@@ -583,6 +565,24 @@ public final class Query<R>
 					^ Arrays.hashCode(orderAscending)
 					^ limitStart
 					^ limitCount;
+		}
+		
+		private static boolean equals(final Object a, final Object b)
+		{
+			assert a==null || !a.getClass().isArray();
+			assert b==null || !b.getClass().isArray();
+			return a==null ? b==null : ( b!=null && a.equals(b) );
+		}
+		
+		private static int hashCode(final Object obj)
+		{
+			assert obj==null || !obj.getClass().isArray();
+			return obj==null ? 0 : obj.hashCode();
+		}
+		
+		private static int hashCode(final boolean b)
+		{
+			return b ? 1 : 0;
 		}
 		
 		@Override
