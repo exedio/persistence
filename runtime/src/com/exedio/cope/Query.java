@@ -570,52 +570,17 @@ public final class Query<R>
 			return b ? 1 : 0;
 		}
 		
-		private static int hashCode( Object[] selects ) // TODO SOON use method from Arrays
-		{
-			if ( selects==null )
-			{
-				return 0;
-			}
-			else
-			{
-				int hash = 0;
-				for ( int i=0; i<selects.length; i++ )
-				{
-					hash ^= hashCode( selects[i] );
-				}
-				return hash;
-			}
-		}
-		
-		private static int hashCode( boolean[] array ) // TODO SOON use method from Arrays
-		{
-			// use Arrays.hashCode() in JDK 1.5
-			if ( array==null )
-			{
-				return 0;
-			}
-			else
-			{
-				int hash = 0;
-				for ( int i=0; i<array.length; i++ )
-				{
-					hash = 3*hash + hashCode( array[i] );
-				}
-				return hash;
-			}
-		}
-		
 		@Override
 		public int hashCode()
 		{
 			return hashCode(model)
-					^ hashCode(selects)
+					^ Arrays.hashCode(selects)
 					^ hashCode(distinct)
 					^ hashCode(type)
 					^ hashCode(joins)
 					^ hashCode(condition)
-					^ hashCode(orderBy)
-					^ hashCode(orderAscending)
+					^ Arrays.hashCode(orderBy)
+					^ Arrays.hashCode(orderAscending)
 					^ limitStart
 					^ limitCount;
 		}
