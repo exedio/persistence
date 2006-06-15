@@ -67,6 +67,25 @@ public final class Join
 	}
 	
 	@Override
+	public boolean equals(final Object other)
+	{
+		final Join o = (Join)other;
+		return
+			kind==o.kind &&
+			type==o.type &&
+			condition==o.condition; // TODO SOON should use equals, but this causes infinite recursion
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return
+			kind.hashCode() ^
+			type.hashCode() ^
+			(condition==null ? 0 : condition.hashCode());
+	}
+	
+	@Override
 	public final String toString()
 	{
 		return kind.sql + " join " + type + (condition!=null ? (" on "+condition) : "");
