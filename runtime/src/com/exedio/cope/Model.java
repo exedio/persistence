@@ -53,6 +53,7 @@ public final class Model
 	private Object propertiesLock = new Object();
 	private Database database;
 	private Cache cache;
+	private boolean logTransactions = false;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
 	private final Set<Transaction> openTransactions = Collections.synchronizedSet(new HashSet<Transaction>());
@@ -172,6 +173,7 @@ public final class Model
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = getProperties();
 				this.cache = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryLogging());
+				this.logTransactions = properties.getTransactionLog();
 
 				return;
 			}
@@ -552,6 +554,9 @@ public final class Model
 		if(database==null)
 			throw newNotInitializedException();
 		
+		if(logTransactions)
+			System.out.println("transaction start " + name);
+
 		if( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
 		final Transaction result = new Transaction(this, name);
@@ -615,6 +620,10 @@ public final class Model
 	public void rollback()
 	{
 		Transaction tx = getCurrentTransaction();
+		
+		if(logTransactions)
+			System.out.println("transaction start " + tx.name);
+		
 		openTransactions.remove( tx );
 		setTransaction(null);
 		tx.commitOrRollback(true);
@@ -632,6 +641,10 @@ public final class Model
 	public void commit()
 	{
 		Transaction tx = getCurrentTransaction();
+		
+		if(logTransactions)
+			System.out.println("transaction start " + tx.name);
+		
 		openTransactions.remove( tx );
 		setTransaction(null);
 		tx.commitOrRollback(false);

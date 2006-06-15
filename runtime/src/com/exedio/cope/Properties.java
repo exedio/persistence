@@ -49,6 +49,8 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 10, 0);
 	
+	private final BooleanField transactionLog = new BooleanField("transaction.log", false);
+
 	private final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
 	private final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
 	private final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
@@ -267,6 +269,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public int getConnectionPoolIdleLimit()
 	{
 		return connectionPoolIdleLimit.getIntValue();
+	}
+	
+	public boolean getTransactionLog()
+	{
+		return transactionLog.getBooleanValue();
 	}
 	
 	public int getCacheLimit()
