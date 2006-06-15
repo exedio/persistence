@@ -622,7 +622,7 @@ public final class Model
 		Transaction tx = getCurrentTransaction();
 		
 		if(logTransactions)
-			System.out.println("transaction start " + tx.name);
+			System.out.println("transaction rollback " + tx.name);
 		
 		openTransactions.remove( tx );
 		setTransaction(null);
@@ -643,7 +643,7 @@ public final class Model
 		Transaction tx = getCurrentTransaction();
 		
 		if(logTransactions)
-			System.out.println("transaction start " + tx.name);
+			System.out.println("transaction commit " + tx.name);
 		
 		openTransactions.remove( tx );
 		setTransaction(null);
