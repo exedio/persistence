@@ -166,7 +166,7 @@ final class Cache
 		}
 		else
 		{
-			if(logQueryCache)
+			if(logQueryCache || query.makeStatementInfo)
 			{
 				final Query.Key originalKey;
 				synchronized(queryCaches)
@@ -174,6 +174,9 @@ final class Cache
 					originalKey = (Query.Key)queryCaches.getKey(key);
 				}
 				originalKey.hits++;
+				
+				if(query.makeStatementInfo)
+					query.addStatementInfo(new StatementInfo("from query cache, hit #" + originalKey.hits));
 			}
 			queryHits++;
 		}
