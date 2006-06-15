@@ -533,21 +533,17 @@ public final class Query<R>
 		}
 		
 		@Override
-		public boolean equals( Object obj )
+		public boolean equals(final Object obj)
 		{
-			if ( obj==null )
-			{
-				throw new NullPointerException( "must not compare Query.Key to null" );
-			}
 			final Key other = (Key)obj;
-			return equals( model, other.model )
-				&& Arrays.equals( selects, other.selects )
+			return equals(model, other.model)
+				&& Arrays.equals(selects, other.selects)
 				&& distinct == other.distinct
-				&& equals( type, other.type )
-				&& equals( joins, other.joins )
-				&& equals( condition, other.condition )
-				&& Arrays.equals( orderBy, other.orderBy )
-				&& Arrays.equals( orderAscending, other.orderAscending )
+				&& equals(type, other.type)
+				&& equals(joins, other.joins)
+				&& equals(condition, other.condition)
+				&& Arrays.equals(orderBy, other.orderBy)
+				&& Arrays.equals(orderAscending, other.orderAscending)
 				&& limitStart == other.limitStart
 				&& limitCount == other.limitCount;
 		}
