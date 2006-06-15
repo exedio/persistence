@@ -514,7 +514,7 @@ public final class Query<R>
 		final int limitStart;
 		final int limitCount;
 
-		final boolean makeStatementInfo;
+		final boolean makeStatementInfo; // TODO SOON remove
 		
 		String name = null;
 		int hits = 0;
@@ -557,11 +557,14 @@ public final class Query<R>
 		
 		private static boolean equals( Object a, Object b )
 		{
+			assert a==null || !a.getClass().isArray();
+			assert b==null || !b.getClass().isArray();
 			return a==null ? b==null : ( b!=null && a.equals(b) );
 		}
 		
 		private static int hashCode( Object obj )
 		{
+			assert obj==null || !obj.getClass().isArray();
 			return obj==null ? 0 : obj.hashCode();
 		}
 		
@@ -570,7 +573,7 @@ public final class Query<R>
 			return b ? 1 : 0;
 		}
 		
-		private static int hashCode( Object[] selects )
+		private static int hashCode( Object[] selects ) // TODO SOON use method from Arrays
 		{
 			if ( selects==null )
 			{
@@ -587,7 +590,7 @@ public final class Query<R>
 			}
 		}
 		
-		private static int hashCode( boolean[] array )
+		private static int hashCode( boolean[] array ) // TODO SOON use method from Arrays
 		{
 			// use Arrays.hashCode() in JDK 1.5
 			if ( array==null )
