@@ -507,14 +507,13 @@ public final class Query<R>
 		final Type type;
 		final ArrayList<Join> joins;
 		final Condition condition;
-
 		final Function[] orderBy;
 		final boolean[] orderAscending;
 
 		final int limitStart;
 		final int limitCount;
 
-		final boolean makeStatementInfo; // TODO SOON remove
+		// makeStatementInfo and statementInfo are deliberatly left out
 		
 		String name = null;
 		int hits = 0;
@@ -531,7 +530,6 @@ public final class Query<R>
 			orderAscending = query.orderAscending;
 			limitStart = query.limitStart;
 			limitCount = query.limitCount;
-			makeStatementInfo = query.makeStatementInfo;
 		}
 		
 		@Override
@@ -551,8 +549,7 @@ public final class Query<R>
 				&& Arrays.equals( orderBy, other.orderBy )
 				&& Arrays.equals( orderAscending, other.orderAscending )
 				&& limitStart == other.limitStart
-				&& limitCount == other.limitCount
-				&& makeStatementInfo == other.makeStatementInfo;
+				&& limitCount == other.limitCount;
 		}
 		
 		private static boolean equals( Object a, Object b )
@@ -620,8 +617,7 @@ public final class Query<R>
 					^ hashCode(orderBy)
 					^ hashCode(orderAscending)
 					^ limitStart
-					^ limitCount
-					^ hashCode(makeStatementInfo);
+					^ limitCount;
 		}
 		
 		@Override
