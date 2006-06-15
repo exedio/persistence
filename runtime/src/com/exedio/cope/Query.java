@@ -515,6 +515,8 @@ public final class Query<R>
 
 		// makeStatementInfo and statementInfo are deliberatly left out
 		
+		private final int hashCode;
+		
 		String name = null;
 		int hits = 0;
 		
@@ -529,6 +531,17 @@ public final class Query<R>
 			orderAscending = query.orderAscending;
 			limitStart = query.limitStart;
 			limitCount = query.limitCount;
+			
+			hashCode =
+				Arrays.hashCode(selects)
+				^ hashCode(distinct)
+				^ hashCode(type)
+				^ hashCode(joins)
+				^ hashCode(condition)
+				^ Arrays.hashCode(orderBy)
+				^ Arrays.hashCode(orderAscending)
+				^ limitStart
+				^ limitCount;
 		}
 		
 		@Override
@@ -550,16 +563,7 @@ public final class Query<R>
 		@Override
 		public int hashCode()
 		{
-			return
-					Arrays.hashCode(selects)
-					^ hashCode(distinct)
-					^ hashCode(type)
-					^ hashCode(joins)
-					^ hashCode(condition)
-					^ Arrays.hashCode(orderBy)
-					^ Arrays.hashCode(orderAscending)
-					^ limitStart
-					^ limitCount;
+			return hashCode;
 		}
 		
 		private static boolean equals(final Object a, final Object b)
