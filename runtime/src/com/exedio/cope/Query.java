@@ -501,7 +501,7 @@ public final class Query<R>
 	
 	static final class Key
 	{
-		final Model model;
+		// model left out, because it can be computed from type
 		final Selectable[] selects;
 		final boolean distinct;
 		final Type type;
@@ -520,7 +520,6 @@ public final class Query<R>
 		
 		Key(final Query<? extends Object> query)
 		{
-			model = query.model;
 			selects = query.selects;
 			distinct = query.distinct;
 			type = query.type;
@@ -536,8 +535,8 @@ public final class Query<R>
 		public boolean equals(final Object obj)
 		{
 			final Key other = (Key)obj;
-			return equals(model, other.model)
-				&& Arrays.equals(selects, other.selects)
+			return
+				Arrays.equals(selects, other.selects)
 				&& distinct == other.distinct
 				&& equals(type, other.type)
 				&& equals(joins, other.joins)
@@ -551,8 +550,8 @@ public final class Query<R>
 		@Override
 		public int hashCode()
 		{
-			return hashCode(model)
-					^ Arrays.hashCode(selects)
+			return
+					Arrays.hashCode(selects)
 					^ hashCode(distinct)
 					^ hashCode(type)
 					^ hashCode(joins)
