@@ -505,7 +505,7 @@ public final class Query<R>
 		final Selectable[] selects;
 		final boolean distinct;
 		final Type type;
-		final ArrayList<Join> joins;
+		final Join[] joins;
 		final Condition condition;
 		final Function[] orderBy;
 		final boolean[] orderAscending;
@@ -525,7 +525,7 @@ public final class Query<R>
 			selects = query.selects;
 			distinct = query.distinct;
 			type = query.type;
-			joins = query.joins==null ? null : new ArrayList<Join>(query.joins);
+			joins = query.joins==null ? null : query.joins.toArray(new Join[query.joins.size()]);
 			condition = query.condition;
 			orderBy = query.orderBy;
 			orderAscending = query.orderAscending;
@@ -536,7 +536,7 @@ public final class Query<R>
 				Arrays.hashCode(selects)
 				^ hashCode(distinct)
 				^ hashCode(type)
-				^ hashCode(joins)
+				^ Arrays.hashCode(joins)
 				^ hashCode(condition)
 				^ Arrays.hashCode(orderBy)
 				^ Arrays.hashCode(orderAscending)
@@ -552,7 +552,7 @@ public final class Query<R>
 				Arrays.equals(selects, other.selects)
 				&& distinct == other.distinct
 				&& type==type
-				&& equals(joins, other.joins)
+				&& Arrays.equals(joins, other.joins)
 				&& equals(condition, other.condition)
 				&& Arrays.equals(orderBy, other.orderBy)
 				&& Arrays.equals(orderAscending, other.orderAscending)

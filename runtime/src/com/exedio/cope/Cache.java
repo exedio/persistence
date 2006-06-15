@@ -211,9 +211,8 @@ final class Cache
 					}
 					else if ( key.joins!=null )
 					{
-						for ( Iterator iter = key.joins.iterator(); iter.hasNext(); )
+						for(final Join nextJoin : key.joins)
 						{
-							Join nextJoin = (Join)iter.next();
 							if ( nextJoin.type.transientNumber==transientTypeNumber )
 							{
 								keys.remove();
