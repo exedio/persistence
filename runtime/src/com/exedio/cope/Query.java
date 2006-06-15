@@ -541,15 +541,15 @@ public final class Query<R>
 			{
 				throw new NullPointerException( "must not compare Query.Key to null" );
 			}
-			Key other = (Key)obj;
+			final Key other = (Key)obj;
 			return equals( model, other.model )
 				&& Arrays.equals( selects, other.selects )
 				&& distinct == other.distinct
 				&& equals( type, other.type )
 				&& equals( joins, other.joins )
 				&& equals( condition, other.condition )
-				&& equals( orderBy, other.orderBy )
-				&& orderAscending==other.orderAscending
+				&& Arrays.equals( orderBy, other.orderBy )
+				&& Arrays.equals( orderAscending, other.orderAscending )
 				&& limitStart == other.limitStart
 				&& limitCount == other.limitCount
 				&& makeStatementInfo == other.makeStatementInfo;
@@ -619,6 +619,12 @@ public final class Query<R>
 					^ limitStart
 					^ limitCount
 					^ hashCode(makeStatementInfo);
-		}		
+		}
+		
+		@Override
+		public String toString()
+		{
+			return name!=null ? name : super.toString();
+		}
 	}
 }
