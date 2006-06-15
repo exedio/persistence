@@ -551,7 +551,7 @@ public final class Query<R>
 			return
 				Arrays.equals(selects, other.selects)
 				&& distinct == other.distinct
-				&& equals(type, other.type)
+				&& type==type
 				&& equals(joins, other.joins)
 				&& equals(condition, other.condition)
 				&& Arrays.equals(orderBy, other.orderBy)
