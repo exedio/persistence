@@ -139,6 +139,21 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		}
 	}
 	
+	public List<T> getTargetsAndCast(final Item source)
+	{
+		return getTargets(this.source.cast(source));
+	}
+
+	public List<S> getSourcesAndCast(final Item target)
+	{
+		return getSources(this.target.cast(target));
+	}
+
+	public void setTargetsAndCast(final Item source, final Collection<?> targets)
+	{
+		setTargets(this.source.cast(source), this.target.castCollection(targets));
+	}
+	
 	// static convenience methods ---------------------------------
 	
 	private static final HashMap<Type<?>, List<VectorRelation>> cacheForGetRelations = new HashMap<Type<?>, List<VectorRelation>>();
