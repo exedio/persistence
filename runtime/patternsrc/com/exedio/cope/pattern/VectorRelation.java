@@ -18,7 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
@@ -136,4 +139,46 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		}
 	}
 	
+	// static convenience methods ---------------------------------
+	
+	private static final HashMap<Type<?>, List<VectorRelation>> cacheForGetRelations = new HashMap<Type<?>, List<VectorRelation>>();
+	
+	/**
+	 * Returns all relations where <tt>type</tt> is
+	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()}.
+	 *
+	 * @see Relation#getRelations(Type)
+	 * @see Qualifier#getQualifiers(Type)
+	 */
+	public static final List<VectorRelation> getRelations(final Type<?> type)
+	{
+		synchronized(cacheForGetRelations)
+		{
+			{
+				final List<VectorRelation> cachedResult = cacheForGetRelations.get(type);
+				if(cachedResult!=null)
+					return cachedResult;
+			}
+			
+			final ArrayList<VectorRelation> resultModifiable = new ArrayList<VectorRelation>();
+			
+			for(final ItemAttribute<?> ia : type.getReferences())
+				for(final Pattern pattern : ia.getPatterns())
+				{
+					if(pattern instanceof VectorRelation)
+					{
+						final VectorRelation relation = (VectorRelation)pattern;
+						if(ia==relation.source)
+							resultModifiable.add(relation);
+					}
+				}
+			
+			final List<VectorRelation> result =
+				!resultModifiable.isEmpty()
+				? Collections.unmodifiableList(resultModifiable)
+				: Collections.<VectorRelation>emptyList();
+			cacheForGetRelations.put(type, result);
+			return result;
+		}
+	}
 }

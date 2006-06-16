@@ -186,6 +186,7 @@ public final class Qualifier extends Pattern
 	 * the parent type {@link #getParent()}.{@link ItemAttribute#getValueType() getValueType()}.
 	 *
 	 * @see Relation#getRelations(Type)
+	 * @see VectorRelation#getRelations(Type)
 	 */
 	public static final List<Qualifier> getQualifiers(final Type<?> type)
 	{

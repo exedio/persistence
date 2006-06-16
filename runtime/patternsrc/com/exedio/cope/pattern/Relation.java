@@ -239,6 +239,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()} or
 	 * the target type {@link #getTarget()}.{@link ItemAttribute#getValueType() getValueType()}.
 	 *
+	 * @see VectorRelation#getRelations(Type)
 	 * @see Qualifier#getQualifiers(Type)
 	 */
 	public static final Map<Relation, Integer> getRelations(final Type<?> type)
