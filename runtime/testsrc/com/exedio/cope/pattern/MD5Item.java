@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
+import com.exedio.cope.pattern.MD5Hash;
 
 /**
  * @author Ralf Wiebicke

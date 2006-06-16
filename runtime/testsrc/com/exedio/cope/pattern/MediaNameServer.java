@@ -28,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaPath;
 
 /**
  * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.

@@ -23,7 +23,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.hsqldb.lib.HsqlTimer.Task;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.DataType;
+import org.apache.tools.ant.types.FileList;
+import org.apache.tools.ant.types.FileSet;
 
 public final class AntTask extends Task
 {

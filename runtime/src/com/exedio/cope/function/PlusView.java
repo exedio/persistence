@@ -18,9 +18,9 @@
 
 package com.exedio.cope.function;
 
+import com.exedio.cope.IntegerView;
 import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerFunction;
-import com.exedio.cope.IntegerView;
 
 public final class PlusView
 	extends IntegerView

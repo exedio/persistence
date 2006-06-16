@@ -18,9 +18,9 @@
 
 package com.exedio.cope.testmodel;
 
+import com.exedio.cope.SetValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.function.PlusView;
 
 /**

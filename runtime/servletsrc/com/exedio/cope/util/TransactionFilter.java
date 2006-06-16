@@ -59,7 +59,7 @@ public final class TransactionFilter implements Filter
 	private String transactionName = null;
 	
 	public void init(FilterConfig config) throws ServletException
-	{	
+	{
 		model = ServletUtil.getModel(config);
 		final String transactionNameParameter = config.getInitParameter("transactionName");
 		transactionName = (transactionNameParameter!=null) ? transactionNameParameter : getClass().getName();

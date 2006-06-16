@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringAttribute;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaRedirect;
 
 /**
  * @author Ralf Wiebicke

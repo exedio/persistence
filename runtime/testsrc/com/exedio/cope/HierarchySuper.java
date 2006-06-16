@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.Item;
+import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.UppercaseView;
 
 /**

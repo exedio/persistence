@@ -82,7 +82,7 @@ public final class Join
 		return
 			kind.hashCode() ^
 			type.hashCode() ^
-			(condition==null ? 0 : System.identityHashCode(condition)); // TODO SOON should use hashCode(), but this causes infinite recursion
+			(condition==null ? 0 : condition.hashCode());
 	}
 	
 	@Override
