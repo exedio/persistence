@@ -240,4 +240,9 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	{
 		return LikeCondition.contains(toUpperCase(), value.toUpperCase());
 	}
+	
+	public JoinedStringFunction bindString(final Join join)
+	{
+		return new JoinedStringFunction(this, join);
+	}
 }

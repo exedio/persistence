@@ -18,8 +18,8 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.IntegerView;
 import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.IntegerView;
 import com.exedio.cope.StringFunction;
 
 public class LengthView

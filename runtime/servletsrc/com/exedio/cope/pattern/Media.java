@@ -33,14 +33,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateAttribute;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Attribute.Option;
 

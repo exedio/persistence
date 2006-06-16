@@ -20,12 +20,12 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.testmodel.EmptyItem;

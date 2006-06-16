@@ -20,10 +20,10 @@ package com.exedio.cope.testmodel;
 
 import java.util.Date;
 
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.PlusView;

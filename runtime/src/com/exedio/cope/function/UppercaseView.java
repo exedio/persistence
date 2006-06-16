@@ -18,9 +18,9 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.StringView;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
+import com.exedio.cope.StringView;
 
 public final class UppercaseView
 	extends StringView

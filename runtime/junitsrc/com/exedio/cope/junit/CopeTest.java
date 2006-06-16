@@ -18,12 +18,12 @@
 
 package com.exedio.cope.junit;
 
-import com.exedio.cope.IntegrityViolationException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;

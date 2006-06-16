@@ -44,6 +44,7 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 	 * because the inner JoinedFunction &quot;wins&quot;.
 	 * @see JoinedFunction#bind(Join)
 	 * @see JoinedItemFunction#bindItem(Join)
+	 * @see JoinedStringFunction#bindString(Join)
 	 */
 	public JoinedIntegerFunction bindInt(final Join join)
 	{

@@ -5,8 +5,8 @@ Some initial test comment.
 package// hallo
   com.exedio.cope.instrument;
 
-import java.util.*;
 import java.text.Format;
+import java.util.List;
 
 /**
 	Represents an attribute or association partner of a class.
