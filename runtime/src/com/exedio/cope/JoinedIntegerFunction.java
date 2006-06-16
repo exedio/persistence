@@ -38,9 +38,16 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	/**
+	 * Return this.
+	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
+	 * because the inner JoinedFunction &quot;wins&quot;.
+	 * @see JoinedFunction#bind(Join)
+	 * @see JoinedItemFunction#bindItem(Join)
+	 */
 	public JoinedIntegerFunction bindInt(final Join join)
 	{
-		return new JoinedIntegerFunction(integerFunction, join); // using "integerFunction" instead of "this" is a small short-cut
+		return this;
 	}
 	
 	public final PlusView plus(final IntegerFunction other)

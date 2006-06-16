@@ -66,9 +66,16 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
 	
+	/**
+	 * Return this.
+	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
+	 * because the inner JoinedFunction &quot;wins&quot;.
+	 * @see JoinedFunction#bind(Join)
+	 * @see JoinedIntegerFunction#bindInt(Join)
+	 */
 	public JoinedItemFunction<E> bindItem(final Join join)
 	{
-		return new JoinedItemFunction<E>(itemFunction, join); // using "itemFunction" instead of "this" is a small short-cut
+		return this;
 	}
 	
 	public TypeInCondition<E> typeIn(final Type<? extends E> type1)

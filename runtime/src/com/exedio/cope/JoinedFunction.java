@@ -182,8 +182,15 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 		return new ExtremumAggregate<E>(this, false);
 	}
 
+	/**
+	 * Return this.
+	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
+	 * because the inner JoinedFunction &quot;wins&quot;.
+	 * @see JoinedIntegerFunction#bindInt(Join)
+	 * @see JoinedItemFunction#bindItem(Join)
+	 */
 	public final JoinedFunction<E> bind(final Join join)
 	{
-		return new JoinedFunction<E>(function, join); // using "function" instead of "this" is a small short-cut
+		return this;
 	}
 }
