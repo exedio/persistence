@@ -72,6 +72,7 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	 * because the inner JoinedFunction &quot;wins&quot;.
 	 * @see JoinedFunction#bind(Join)
 	 * @see JoinedIntegerFunction#bindInt(Join)
+	 * @see JoinedStringFunction#bindString(Join)
 	 */
 	public JoinedItemFunction<E> bindItem(final Join join)
 	{
