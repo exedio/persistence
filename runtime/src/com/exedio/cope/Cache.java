@@ -37,9 +37,9 @@ final class Cache
 	private final int[] hits, misses;
 	private final MyLRUMap queryCaches;
 	private int queryHits=0, queryMisses=0;
-	private final boolean logQueryCache;
+	private final boolean queryHistogram;
 	
-	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean logQueryCache)
+	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean queryHistogram)
 	{
 		this.mapSizeLimits = mapSizeLimits;
 		queryCaches = queryCacheSizeLimit>0 ? new MyLRUMap(queryCacheSizeLimit) : null;
@@ -51,7 +51,7 @@ final class Cache
 		}
 		hits = new int[numberOfConcreteTypes];
 		misses = new int[numberOfConcreteTypes];
-		this.logQueryCache = logQueryCache;
+		this.queryHistogram = queryHistogram;
 	}
 	
 	private IntKeyOpenHashMap getStateMap( Type type )
@@ -159,14 +159,14 @@ final class Cache
 			{
 				queryCaches.put( key, result );				
 			}
-			if(logQueryCache)
+			if(queryHistogram)
 				key.name = query.toString();
 			
 			queryMisses++;
 		}
 		else
 		{
-			if(logQueryCache || query.makeStatementInfo)
+			if(queryHistogram || query.makeStatementInfo)
 			{
 				final Query.Key originalKey;
 				synchronized(queryCaches)
@@ -313,7 +313,7 @@ final class Cache
 	
 	CacheQueryInfo[] getQueryHistogram()
 	{
-		if(!logQueryCache)
+		if(!queryHistogram)
 			return null;
 		
 		final TreeSet<CacheQueryInfo> result = new TreeSet<CacheQueryInfo>();
