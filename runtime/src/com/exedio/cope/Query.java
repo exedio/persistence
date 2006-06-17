@@ -450,10 +450,8 @@ public final class Query<R>
 
 		if(joins!=null)
 		{
-			for(Iterator i = joins.iterator(); i.hasNext(); )
+			for(final Join join : joins)
 			{
-				final Join join = (Join)i.next();
-				
 				bf.append(' ').
 					append(join.kind.sql).
 					append(" join ").
