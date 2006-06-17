@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
+import com.exedio.cope.Properties;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
@@ -294,7 +295,8 @@ final class Console_Jspm
 			final QueryCacheStatsCop cop,
 			final PrintStream out,
 			final int[] queryInfos,
-			final CacheQueryInfo[] queryHistogram)
+			final CacheQueryInfo[] queryHistogram,
+			final boolean queryHistogramAccurate)
 		throws IOException
 	{
 		final Runtime rt = Runtime.getRuntime();
@@ -310,8 +312,18 @@ final class Console_Jspm
 			<tr><th>Total Memory</th><td><%=rt.totalMemory()%></td></tr>
 			<tr><th>Free Memory</th><td><%=rt.freeMemory()%></td></tr>
 		</table><%
-		if(queryHistogram!=null)
+
+		if(!queryHistogramAccurate)
 		{
+		%>
+		<div class="message">
+			<b>Values not accurate:</b>
+			Property <tt><%=Properties.CACHE_QUERY_HISTOGRAM%></tt> is not enabled.
+			Therefore the column <b>Hits</b> counts queries only,
+			for which <tt>Query#enableMakeStatementInfo()</tt> has been set.
+		</div><%
+		}
+
 		%>
 		<table class="statistics">
 			<tr><th colspan="2">Query Cache Histogram</th></tr>
@@ -325,7 +337,6 @@ final class Console_Jspm
 		}
 		%>
 		</table><%
-		}
 	}
 
 	final static void writeBody(

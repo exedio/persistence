@@ -53,7 +53,8 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 	private final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
 	private final IntField cacheQueryLimit = new IntField("cache.queryLimit", 10000, 0);
-	private final BooleanField cacheQueryLogging = new BooleanField("cache.queryLogging", false);
+	public static final String CACHE_QUERY_HISTOGRAM = "cache.queryLogging";
+	private final BooleanField cacheQueryLogging = new BooleanField(CACHE_QUERY_HISTOGRAM, false);
 
 	final IntField dataAttributeBufferSizeDefault = new IntField("dataAttribute.bufferSizeDefault", 20*1024, 1);
 	final IntField dataAttributeBufferSizeLimit = new IntField("dataAttribute.bufferSizeLimit", 1024*1024, 1);

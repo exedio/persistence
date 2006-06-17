@@ -310,9 +310,6 @@ final class Cache
 	
 	CacheQueryInfo[] getQueryHistogram()
 	{
-		if(!queryHistogram)
-			return null;
-		
 		final TreeSet<CacheQueryInfo> result = new TreeSet<CacheQueryInfo>();
 		
 		if(queryCaches!=null)
