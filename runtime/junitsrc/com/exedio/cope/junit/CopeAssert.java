@@ -98,81 +98,14 @@ public abstract class CopeAssert extends TestCase
 		assertContains(o1, o2, actual);
 	}
 
-	public final static List<Object> list()
+	public final static List<Object> list(final Object... o)
 	{
-		return Collections.<Object>emptyList();
-	}
-
-	public final static List<Object> list(final Object o)
-	{
-		return Collections.singletonList(o);
+		return Arrays.asList(o);
 	}
 	
-	public final static List<Object> list(final Object o1, final Object o2)
+	public final static <T> List<T> listg(final T... o)
 	{
-		return Arrays.asList(new Object[]{o1, o2});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3, o4});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9});
-	}
-	
-	public final static List<Object> list(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Object o9, final Object o10)
-	{
-		return Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7, o8, o9, o10});
-	}
-	
-	public final static <T> List<T> listg()
-	{
-		return Collections.<T>emptyList();
-	}
-
-	public final static <T> List<T> listg(final T o)
-	{
-		return Collections.singletonList(o);
-	}
-	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
-	public final static <T> List<T> listg(final T o1, final T o2)
-	{
-		return Arrays.asList((T[])new Object[]{o1, o2});
-	}
-	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
-	public final static <T> List<T> listg(final T o1, final T o2, final T o3)
-	{
-		return Arrays.asList((T[])new Object[]{o1, o2, o3});
+		return Arrays.asList(o);
 	}
 	
 	public final static Map<Object, Object> map()

@@ -181,7 +181,7 @@ public class HierarchyTest extends AbstractLibTest
 		
 		// test polymorphic pointers
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list(null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		singleSub1a.setHierarchySuper( firstItem );
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
 		assertEquals(list(firstItem), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
@@ -202,10 +202,10 @@ public class HierarchyTest extends AbstractLibTest
 
 		singleSub1a.setHierarchySuper(null);
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list(null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		restartTransaction();
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list(null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		
 		// test wrong attributes
 		try

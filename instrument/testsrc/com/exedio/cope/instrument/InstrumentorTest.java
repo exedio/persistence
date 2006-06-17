@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -26,10 +26,9 @@ import junit.framework.TestCase;
 public class InstrumentorTest extends TestCase
 {
 
-	protected List list(final Object o)
+	protected final static <T> List<T> list(final T... o)
 	{
-		return Collections.singletonList(o);
+		return Arrays.asList(o);
 	}
 	
-
 }
