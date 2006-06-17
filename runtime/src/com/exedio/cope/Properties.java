@@ -287,7 +287,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return cacheQueryLimit.getIntValue();
 	}
 	
-	public boolean getCacheQueryLogging() // TODO SOON rename to getCacheQueryHistogram
+	public boolean getCacheQueryHistogram()
 	{
 		return cacheQueryHistogram.getBooleanValue();
 	}
