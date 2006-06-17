@@ -159,9 +159,6 @@ final class Cache
 			{
 				queryCaches.put( key, result );				
 			}
-			if(queryHistogram)
-				key.name = query.toString();
-			
 			queryMisses++;
 		}
 		else
@@ -325,7 +322,7 @@ final class Cache
 				for(Iterator i = queryCaches.keySet().iterator(); i.hasNext(); )
 				{
 					final Query.Key key = (Query.Key)i.next();
-					result.add(new CacheQueryInfo(key.name, key.hits));
+					result.add(new CacheQueryInfo(key.toString(), key.hits)); // TODO SOON compute this afterwards inside CacheQueryInfo
 				}
 			}
 		}

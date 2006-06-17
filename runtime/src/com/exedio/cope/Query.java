@@ -432,6 +432,11 @@ public final class Query<R>
 	{
 		final StringBuffer bf = new StringBuffer();
 		
+		// BEWARE
+		// this method duplicates Query.Key#toString(),
+		// so if you change something here,
+		// you will probably want to change it there as well
+		
 		bf.append("select ");
 		
 		if(distinct)
@@ -515,7 +520,6 @@ public final class Query<R>
 		
 		private final int hashCode;
 		
-		String name = null;
 		int hits = 0;
 		
 		Key(final Query<? extends Object> query)
@@ -585,7 +589,76 @@ public final class Query<R>
 		@Override
 		public String toString()
 		{
-			return name!=null ? name : super.toString();
+			final StringBuffer bf = new StringBuffer();
+			
+			// BEWARE
+			// this method duplicates Query#toString(),
+			// so if you change something here,
+			// you will probably want to change it there as well
+			
+			bf.append("select ");
+			
+			if(distinct)
+				bf.append("distinct ");
+			
+			for(int i = 0; i<selects.length; i++)
+			{
+				if(i>0)
+					bf.append(',');
+
+				bf.append(selects[i]);
+			}
+
+			bf.append(" from ").
+				append(type);
+
+			if(joins!=null)
+			{
+				for(final Join join : joins)
+				{
+					bf.append(' ').
+						append(join.kind.sql).
+						append(" join ").
+						append(join.type);
+
+					final Condition joinCondition = join.condition;
+					if(joinCondition!=null)
+					{
+						bf.append(" on ").
+							append(joinCondition);
+					}
+				}
+			}
+
+			if(condition!=null)
+			{
+				bf.append(" where ").
+					append(condition);
+			}
+
+			if(orderBy!=null)
+			{
+				bf.append(" order by ");
+				for(int i = 0; i<orderBy.length; i++)
+				{
+					if(i>0)
+						bf.append(", ");
+					
+					bf.append(orderBy[i]);
+					if(!orderAscending[i])
+						bf.append(" desc");
+				}
+			}
+			
+			if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
+			{
+				bf.append(" limit ").
+					append(limitStart).
+					append(' ').
+					append(limitCount);
+			}
+			
+			return bf.toString();
 		}
 	}
 }
