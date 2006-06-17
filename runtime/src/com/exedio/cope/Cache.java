@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 import org.apache.commons.collections.map.LRUMap;
@@ -36,14 +37,16 @@ final class Cache
 	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
-	private final MyLRUMap queryCaches;
+	private final MyLRUMap queryCachesRaw;
+	private final Map<Query.Key, List<?>> queryCaches;
 	private int queryHits=0, queryMisses=0;
 	private final boolean queryHistogram;
 	
 	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean queryHistogram)
 	{
 		this.mapSizeLimits = mapSizeLimits;
-		queryCaches = queryCacheSizeLimit>0 ? new MyLRUMap(queryCacheSizeLimit) : null;
+		queryCachesRaw = queryCacheSizeLimit>0 ? new MyLRUMap(queryCacheSizeLimit) : null;
+		queryCaches = castQueryCaches(queryCachesRaw);
 		final int numberOfConcreteTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
@@ -53,6 +56,12 @@ final class Cache
 		hits = new int[numberOfConcreteTypes];
 		misses = new int[numberOfConcreteTypes];
 		this.queryHistogram = queryHistogram;
+	}
+	
+	@SuppressWarnings("unchecked") // TODO commons-collections do not support generics
+	private static final Map<Query.Key, List<?>> castQueryCaches(final MyLRUMap m)
+	{
+		return (Map<Query.Key, List<?>>)m;
 	}
 	
 	private IntKeyOpenHashMap getStateMap( Type type )
@@ -169,7 +178,7 @@ final class Cache
 				final Query.Key originalKey;
 				synchronized(queryCaches)
 				{
-					originalKey = (Query.Key)queryCaches.getKey(key);
+					originalKey = (Query.Key)queryCachesRaw.getKey(key);
 				}
 				originalKey.hits++;
 				
@@ -183,9 +192,9 @@ final class Cache
 	}
 	
 	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
-	private static final <R> List<R> castQL(final Object o)
+	private static final <R> List<R> castQL(final List l)
 	{
-		return (List<R>)o;
+		return (List<R>)l;
 	}
 	
 	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
@@ -202,10 +211,10 @@ final class Cache
 		{
 			synchronized ( queryCaches )
 			{
-				Iterator keys = queryCaches.keySet().iterator();
+				final Iterator<Query.Key> keys = queryCaches.keySet().iterator();
 				while ( keys.hasNext() )
 				{
-					Query.Key key = (Query.Key)keys.next();
+					final Query.Key key = keys.next();
 					if ( key.type.transientNumber==transientTypeNumber )
 					{
 						keys.remove();
