@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
@@ -310,19 +311,22 @@ final class Cache
 	
 	CacheQueryInfo[] getQueryHistogram()
 	{
-		final TreeSet<CacheQueryInfo> result = new TreeSet<CacheQueryInfo>();
+		final ArrayList<Query.Key> unsortedResult = new ArrayList<Query.Key>();
 		
 		if(queryCaches!=null)
 		{
 			synchronized(queryCaches)
 			{
-				for(Iterator i = queryCaches.keySet().iterator(); i.hasNext(); )
-				{
-					final Query.Key key = (Query.Key)i.next();
-					result.add(new CacheQueryInfo(key.toString(), key.hits)); // TODO SOON compute this afterwards inside CacheQueryInfo
-				}
+				unsortedResult.addAll(queryCaches.keySet());
+				// NOTE:
+				// It is important to keep Key.toString()
+				// out of the synchronized block.
 			}
 		}
+
+		final TreeSet<CacheQueryInfo> result = new TreeSet<CacheQueryInfo>();
+		for(final Query.Key key : unsortedResult)
+			result.add(new CacheQueryInfo(key.toString(), key.hits));
 		
 		return result.toArray(new CacheQueryInfo[result.size()]);
 	}
