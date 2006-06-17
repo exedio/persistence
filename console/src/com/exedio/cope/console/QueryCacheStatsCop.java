@@ -26,19 +26,19 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 
 
-final class CacheStatsCop extends ConsoleCop
+final class QueryCacheStatsCop extends ConsoleCop
 {
 
-	CacheStatsCop()
+	QueryCacheStatsCop()
 	{
-		super("cache");
-		addParameter(TAB, TAB_CACHE_STATS);
+		super("query cache");
+		addParameter(TAB, TAB_QUERY_CACHE_STATS);
 	}
 
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
-		Console_Jspm.writeBody(this, out, model.getCacheInfo());
+		Console_Jspm.writeBody(this, out, model.getCacheQueryInfo(), model.getCacheQueryHistogram());
 	}
 	
 }

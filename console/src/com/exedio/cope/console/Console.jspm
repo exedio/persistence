@@ -237,9 +237,7 @@ final class Console_Jspm
 	final static void writeBody(
 			final CacheStatsCop cop,
 			final PrintStream out,
-			final CacheInfo[] infos,
-			final int[] queryInfos,
-			final CacheQueryInfo[] queryHistogram)
+			final CacheInfo[] infos)
 		throws IOException
 	{
 		final String[] names = {
@@ -257,9 +255,6 @@ final class Console_Jspm
 			<tr>
 				<th colspan="<%=names.length+2%>">Cache Statistics</th>
 			</tr>
-			<tr><th>Query Hits</th><td colspan="<%=names.length+1%>"><%=queryInfos[0]%></td></tr>
-			<tr><th>Query Misses</th><td colspan="<%=names.length+1%>"><%=queryInfos[1]%></td></tr>
-			<tr><th>Queries in Cache</th><td colspan="<%=names.length+1%>"><%=queryInfos[2]%></td></tr>
 			<tr><th>Max Memory</th><td colspan="<%=names.length+1%>"><%=rt.maxMemory()%></td></tr>
 			<tr><th>Total Memory</th><td colspan="<%=names.length+1%>"><%=rt.totalMemory()%></td></tr>
 			<tr><th>Free Memory</th><td colspan="<%=names.length+1%>"><%=rt.freeMemory()%></td></tr><%
@@ -293,7 +288,28 @@ final class Console_Jspm
 			}
 		%>
 		</table><%
+	}
 
+	final static void writeBody(
+			final QueryCacheStatsCop cop,
+			final PrintStream out,
+			final int[] queryInfos,
+			final CacheQueryInfo[] queryHistogram)
+		throws IOException
+	{
+		final Runtime rt = Runtime.getRuntime();
+		%>
+		<table class="statistics">
+			<tr>
+				<th colspan="2">Query Cache Statistics</th>
+			</tr>
+			<tr><th>Hits</th><td><%=queryInfos[0]%></td></tr>
+			<tr><th>Misses</th><td><%=queryInfos[1]%></td></tr>
+			<tr><th>Queries in Cache</th><td><%=queryInfos[2]%></td></tr>
+			<tr><th>Max Memory</th><td><%=rt.maxMemory()%></td></tr>
+			<tr><th>Total Memory</th><td><%=rt.totalMemory()%></td></tr>
+			<tr><th>Free Memory</th><td><%=rt.freeMemory()%></td></tr>
+		</table><%
 		if(queryHistogram!=null)
 		{
 		%>
