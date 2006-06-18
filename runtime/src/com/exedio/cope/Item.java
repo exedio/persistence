@@ -514,15 +514,15 @@ public abstract class Item extends Cope
 	private static final Map<Attribute, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
-		for(final SetValue<?> av : sources)
+		for(final SetValue<?> source : sources)
 		{
-			if(av.settable instanceof Attribute)
+			if(source.settable instanceof Attribute)
 			{
-				putAttribute(result, av);
+				putAttribute(result, source);
 			}
 			else
 			{
-				for(final SetValue part : execute(av, exceptionItem))
+				for(final SetValue part : execute(source, exceptionItem))
 					putAttribute(result, part);
 			}
 		}
