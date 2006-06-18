@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -99,6 +100,16 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return result;
 	}
 
+	public final SetValue<E> map(final E value)
+	{
+		return new SetValue<E>(this, value);
+	}
+	
+	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
+	{
+		return Collections.singletonMap(this, value);
+	}
+	
 	abstract void checkValue(final Object value, final Item item);
 		
 	// patterns ---------------------------------------------------------------------

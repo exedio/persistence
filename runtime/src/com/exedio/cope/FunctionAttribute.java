@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 
 import com.exedio.cope.search.ExtremumAggregate;
@@ -244,16 +243,6 @@ public abstract class FunctionAttribute<E extends Object>
 		return getType().searchSingleton(equal(value));
 	}
 
-	public final SetValue<E> map(final E value) // TODO SOON move up to Attribute
-	{
-		return new SetValue<E>(this, value);
-	}
-	
-	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem) // TODO SOON move up to Attribute
-	{
-		return Collections.singletonMap(this, value);
-	}
-	
 	// convenience methods for conditions and views ---------------------------------
 	
 	public final EqualCondition<E> isNull()
