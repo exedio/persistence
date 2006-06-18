@@ -525,9 +525,7 @@ public abstract class Item extends Cope
 			}
 			else
 			{
-				final SetValue[] parts = execute(av, exceptionItem);
-				
-				for(final SetValue part : parts)
+				for(final SetValue part : execute(av, exceptionItem))
 				{
 					if(result.put((Attribute)part.settable, part.value)!=null)
 						throw new RuntimeException("duplicate function attribute "+part.settable.toString());
