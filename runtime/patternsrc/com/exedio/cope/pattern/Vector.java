@@ -146,20 +146,20 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		return result;
 	}
 	
-	public List<Object> get(final Item item)
+	public List<T> get(final Item item)
 	{
-		final ArrayList<Object> result = new ArrayList<Object>(sources.length);
+		final ArrayList<T> result = new ArrayList<T>(sources.length);
 
 		for(int i = 0; i<sources.length; i++)
 		{
-			final Object value = sources[i].get(item);
+			final T value = sources[i].get(item);
 			if(value!=null)
 				result.add(value);
 		}
 		return result;
 	}
 	
-	public void set(final Item item, final Collection<T> value)
+	public void set(final Item item, final Collection<? extends T> value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -170,7 +170,7 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		int i = 0;
 		final SetValue[] setValues = new SetValue[sources.length];
 
-		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
+		for(Iterator<? extends T> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
 
 		for(; i<sources.length; i++)

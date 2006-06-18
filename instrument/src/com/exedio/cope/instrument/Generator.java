@@ -919,6 +919,8 @@ final class Generator
 	private void writeVector(final CopeVector vector)
 		throws IOException
 	{
+		final String type = vector.getType();
+		
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(VECTOR_GETTER);
@@ -927,7 +929,9 @@ final class Generator
 
 		o.write("public final "); // TODO: obey attribute visibility
 		o.write(List.class.getName());
-		o.write(" get");
+		o.write('<');
+		o.write(type);
+		o.write("> get");
 		o.write(toCamelCase(vector.name));
 		o.write("()");
 		o.write(lineSeparator);
@@ -954,7 +958,9 @@ final class Generator
 		o.write(toCamelCase(vector.name));
 		o.write("(final ");
 		o.write(Collection.class.getName());
-		o.write(' ');
+		o.write("<? extends ");
+		o.write(type);
+		o.write("> ");
 		o.write(vector.name);
 		o.write(')');
 		o.write(lineSeparator);

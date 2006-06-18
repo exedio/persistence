@@ -18,8 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-
-
 final class CopeVector extends CopeFeature
 {
 
@@ -38,5 +36,10 @@ final class CopeVector extends CopeFeature
 	String getBoxedType()
 	{
 		throw new RuntimeException();
+	}
+	
+	String getType()
+	{
+		return Injector.getGenerics(javaAttribute.type).iterator().next();
 	}
 }

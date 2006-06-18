@@ -133,17 +133,17 @@ public class VectorTest extends AbstractLibTest
 		assertContains(item, item.TYPE.search(item.nums.contains(i3)));
 		assertContains(item.TYPE.search(item.nums.contains(null)));
 		
-		item.setNums(list(i3, i2, i1));
+		item.setNums(listg(i3, i2, i1));
 		assertEquals(i3, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i1, item.getNum3());
 
-		item.setNums(list(i2, i1));
+		item.setNums(listg(i2, i1));
 		assertEquals(i2, item.getNum1());
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(list());
+		item.setNums(VectorTest.<Integer>listg());
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
@@ -178,12 +178,12 @@ public class VectorTest extends AbstractLibTest
 		
 		final Date ts1 = new Date(8172541283976l);
 		final Date ts2 = new Date(3874656234632l);
-		item.setDates(list(ts1, ts2));
+		item.setDates(listg(ts1, ts2));
 		assertEquals(list(ts1, ts2), item.getDates());
 		assertEquals(ts1, item.get(date1));
 		assertEquals(ts2, item.get(date2));
 		
-		item.setStrings(list("hallo", "bello"));
+		item.setStrings(listg("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());
 		assertEquals("hallo", item.get(string1));
 		assertEquals("bello", item.get(string2));
