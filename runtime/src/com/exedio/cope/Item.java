@@ -516,23 +516,23 @@ public abstract class Item extends Cope
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
 		for(final SetValue<?> av : source)
 		{
-			final Settable<?> settable = av.settable;
-			
-			if(settable instanceof Attribute)
+			if(av.settable instanceof Attribute)
 			{
-				if(result.put((Attribute)settable, av.value)!=null)
-					throw new RuntimeException("duplicate attribute "+settable.toString());
+				putAttribute(result, av);
 			}
 			else
 			{
 				for(final SetValue part : execute(av, exceptionItem))
-				{
-					if(result.put((Attribute)part.settable, part.value)!=null)
-						throw new RuntimeException("duplicate function attribute "+part.settable.toString());
-				}
+					putAttribute(result, part);
 			}
 		}
 		return result;
+	}
+	
+	private static final void putAttribute(final HashMap<Attribute, Object> result, final SetValue<?> setValue)
+	{
+		if(result.put((Attribute)setValue.settable, setValue.value)!=null)
+			throw new RuntimeException("duplicate function attribute " + setValue.settable.toString());
 	}
 	
 	private static final <X extends Object> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
