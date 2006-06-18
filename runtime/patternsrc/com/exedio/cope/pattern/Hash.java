@@ -18,13 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.SortedSet;
 
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
@@ -108,9 +105,9 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return new SetValue<String>(this, value);
 	}
 	
-	public final Map<? extends FunctionAttribute, ? extends Object> execute(final String value, final Item exceptionItem)
+	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
-		return Collections.singletonMap(storage, hash(value));
+		return new SetValue[]{ storage.map(hash(value)) };
 	}
 	
 	public final EqualCondition<String> equal(final String value)

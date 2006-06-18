@@ -514,9 +514,8 @@ public abstract class Item extends Cope
 	private static final Map<Attribute, Object> executeSetValues(final SetValue<?>[] source, final Item exceptionItem)
 	{
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
-		for(int i = 0; i<source.length; i++)
+		for(final SetValue<?> av : source)
 		{
-			final SetValue<?> av = source[i];
 			final Settable<?> settable = av.settable;
 			
 			if(settable instanceof Attribute)
@@ -526,19 +525,19 @@ public abstract class Item extends Cope
 			}
 			else
 			{
-				final Map<? extends Attribute, ? extends Object> part = execute(av, exceptionItem);
+				final SetValue[] parts = execute(av, exceptionItem);
 				
-				for(Attribute attribute : part.keySet())
+				for(final SetValue part : parts)
 				{
-					if(result.put(attribute, part.get(attribute))!=null)
-						throw new RuntimeException("duplicate function attribute "+attribute.toString());
+					if(result.put((Attribute)part.settable, part.value)!=null)
+						throw new RuntimeException("duplicate function attribute "+part.settable.toString());
 				}
 			}
 		}
 		return result;
 	}
 	
-	private static final <X extends Object> Map<? extends Attribute, ? extends Object> execute(final SetValue<X> sv, final Item exceptionItem)
+	private static final <X extends Object> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
 	{
 		return sv.settable.execute(sv.value, exceptionItem);
 	}

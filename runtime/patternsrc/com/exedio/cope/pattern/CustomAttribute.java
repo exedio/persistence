@@ -22,12 +22,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 
-import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
@@ -191,7 +188,7 @@ public abstract class CustomAttribute<E>
 
 	public final void set(final Item item, final E value) throws CustomAttributeException
 	{
-		item.set(convert(execute(value, item)));
+		item.set(execute(value, item));
 	}
 	
 	/**
@@ -206,17 +203,7 @@ public abstract class CustomAttribute<E>
 		set(item, cast(value));
 	}
 
-	private static final SetValue[] convert(Map<? extends Attribute, ?> map)
-	{
-		final SetValue[] result = new SetValue[map.size()];
-		int n = 0;
-		for(final Attribute<?> attribute : map.keySet())
-			result[n++] = Cope.mapAndCast(attribute, map.get(attribute));
-		
-		return result;
-	}
-	
-	public final Map<? extends FunctionAttribute, ?> execute(final E value, final Item exceptionItem) throws CustomAttributeException
+	public final SetValue[] execute(final E value, final Item exceptionItem) throws CustomAttributeException
 	{
 		final Object result;
 		try
@@ -241,15 +228,9 @@ public abstract class CustomAttribute<E>
 		}
 		
 		if(storages.length==1)
-			return Collections.singletonMap(storages[0], result);
+			return new SetValue[]{ Cope.mapAndCast(storages[0], result) };
 		else
-		{
-			final SetValue[] resultArray = (SetValue[])result;
-			final HashMap<FunctionAttribute, Object> resultMap = new HashMap<FunctionAttribute, Object>();
-			for(int i = 0; i<resultArray.length; i++)
-				resultMap.put((FunctionAttribute)resultArray[i].settable, resultArray[i].value);
-			return resultMap;
-		}
+			return (SetValue[])result;
 	}
 	
 	public final SetValue<E> map(final E value)

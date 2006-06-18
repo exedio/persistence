@@ -18,13 +18,12 @@
 
 package com.exedio.cope;
 
-import java.util.Map;
 import java.util.SortedSet;
 
 public interface Settable<E>
 {
 	SetValue map(E value);
-	Map<? extends Attribute, ? extends Object> execute(E value, Item exceptionItem); // TODO SOON return SetValue[]
+	SetValue[] execute(E value, Item exceptionItem);
 	
 	/**
 	 * Returns true, if a value for the settable should be specified

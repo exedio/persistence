@@ -22,10 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 
 import com.exedio.cope.CompositeCondition;
@@ -192,16 +190,16 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		return new SetValue<Collection<T>>(this, value);
 	}
 	
-	public Map<? extends FunctionAttribute, ? extends Object> execute(final Collection value, final Item exceptionItem)
+	public SetValue[] execute(final Collection value, final Item exceptionItem)
 	{
 		int i = 0;
-		final HashMap<FunctionAttribute, Object> result = new HashMap<FunctionAttribute, Object>();
+		final SetValue[] result = new SetValue[sources.length];
 
 		for(final Object v : value)
-			result.put(sources[i++], v);
+			result[i] = Cope.mapAndCast(sources[i++], v);
 
 		for(; i<sources.length; i++)
-			result.put(sources[i], null);
+			result[i] = Cope.mapAndCast(sources[i], null);
 		
 		return result;
 	}

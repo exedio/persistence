@@ -23,8 +23,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Collections;
-import java.util.Map;
 import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
@@ -173,9 +171,9 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new SetValue<E>(this, value);
 	}
 	
-	public Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
+	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
-		return Collections.singletonMap(source, serialize(value));
+		return new SetValue[]{ source.map(serialize(value)) };
 	}
 	
 	private byte[] serialize(final E value)
