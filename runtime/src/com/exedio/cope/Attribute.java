@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.SortedSet;
@@ -42,11 +43,13 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 {
 	final boolean isfinal;
 	final boolean optional;
+	final Class<E> valueClass;
 
-	Attribute(final boolean isfinal, final boolean optional)
+	Attribute(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
+		this.valueClass = valueClass;
 	}
 	
 	public final boolean isFinal()
@@ -80,6 +83,22 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return result;
 	}
 	
+	public final E cast(final Object o)
+	{
+		return Cope.verboseCast(valueClass, o);
+	}
+
+	public final Collection<E> castCollection(final Collection<?> c)
+	{
+		if(c==null)
+			return null;
+		
+		final ArrayList<E> result = new ArrayList<E>(c.size());
+		for(final Object o : c)
+			result.add(Cope.verboseCast(valueClass, o));
+		return result;
+	}
+
 	abstract void checkValue(final Object value, final Item item);
 		
 	// patterns ---------------------------------------------------------------------
@@ -165,10 +184,20 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return column.id;
 	}
 	
+	/**
+	 * {@link #cast(Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link #set(Item, Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public final void setAndCast(final Item item, final Object value)
+	{
+		set(item, cast(value));
+	}
+
 	abstract Column createColumn(Table table, String name, boolean optional);
 	public abstract E get(Item item);
 	public abstract void set(Item item, E value);
-	public abstract E cast(Object o);
 	
 	public static enum Option
 	{

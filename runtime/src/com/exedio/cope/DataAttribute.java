@@ -39,7 +39,7 @@ public final class DataAttribute extends Attribute<byte[]>
 	
 	private DataAttribute(final boolean isfinal, final boolean optional, final long maximumLength)
 	{
-		super(isfinal, optional);
+		super(isfinal, optional, byte[].class);
 		this.maximumLength = maximumLength;
 		
 		if(maximumLength<=0)
@@ -150,12 +150,6 @@ public final class DataAttribute extends Attribute<byte[]>
 		impl.set(item, data);
 	}
 	
-	@Override
-	public final byte[] cast(final Object o) // TODO SOON put into Attribute
-	{
-		return Cope.verboseCast(byte[].class, o);
-	}
-
 	/**
 	 * Reads data for this persistent data attribute
 	 * and writes it into the given steam.

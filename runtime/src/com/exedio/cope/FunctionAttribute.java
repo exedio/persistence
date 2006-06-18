@@ -32,14 +32,12 @@ public abstract class FunctionAttribute<E extends Object>
 	implements Function<E>
 {
 	final UniqueConstraint implicitUniqueConstraint;
-	final Class<E> valueClass;
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
 	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
-		super(isfinal, optional);
-		this.valueClass = valueClass;
+		super(isfinal, optional, valueClass);
 		this.defaultConstant = defaultConstant;
 		this.implicitUniqueConstraint =
 			unique ?
@@ -164,38 +162,9 @@ public abstract class FunctionAttribute<E extends Object>
 	}
 	
 	@Override
-	public final E cast(final Object o) // TODO SOON put into Attribute
-	{
-		return Cope.verboseCast(valueClass, o);
-	}
-
-	public final Collection<E> castCollection(final Collection<?> c)
-	{
-		if(c==null)
-			return null;
-		
-		final ArrayList<E> result = new ArrayList<E>(c.size());
-		for(final Object o : c)
-			result.add(Cope.verboseCast(valueClass, o));
-		return result;
-	}
-
-	@Override
 	public final void set(final Item item, final E value)
 	{
 		item.set(this, value);
-	}
-
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #set(Item, Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	// TODO put into Settable
-	public final void setAndCast(final Item item, final Object value)
-	{
-		set(item, cast(value));
 	}
 
 	public final void append(final Statement bf, final Join join)
