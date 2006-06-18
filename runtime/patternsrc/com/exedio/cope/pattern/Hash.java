@@ -103,9 +103,9 @@ public abstract class Hash extends Pattern implements Settable<String>
 			return expectedHash.equals(actualHash);
 	}
 	
-	public final SetValue map(final String value)
+	public final SetValue<String> map(final String value)
 	{
-		return new SetValue(this, value);
+		return new SetValue<String>(this, value);
 	}
 	
 	public final Map<? extends FunctionAttribute, ? extends Object> execute(final String value, final Item exceptionItem)

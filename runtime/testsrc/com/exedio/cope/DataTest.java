@@ -253,7 +253,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on DataItem.0, 11 bytes is too long for DataItem#data10", e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for DataItem#data10", e.getMessage());
 		}
 		assertData(data10, item.getData10());
 		try
@@ -268,7 +268,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(false, e.isLengthExact());
-			assertEquals(e.getMessage(), "length violation on DataItem.0, 11 bytes or more is too long for DataItem#data10", e.getMessage());
+			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for DataItem#data10", e.getMessage());
 		}
 		if(model.getProperties().hasDatadirPath()) // TODO should not be needed
 			item.setData10(data10);
@@ -285,7 +285,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on DataItem.0, 11 bytes is too long for DataItem#data10", e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for DataItem#data10", e.getMessage());
 		}
 		assertData(data10, item.getData10());
 		
@@ -325,6 +325,40 @@ public class DataTest extends AbstractLibTest
 			assertData(data10, item3.getData10());
 		}
 
+		assertData(data10, item.getData10());
+		try
+		{
+			item.set(new SetValue[]{DataItem.data10.map(data11)});
+		}
+		catch(DataLengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
+			assertEquals(11, e.getLength());
+			assertEquals(true, e.isLengthExact());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for DataItem#data10", e.getMessage());
+		}
+		assertData(data10, item.getData10());
+
+		try
+		{
+			DataItem.TYPE.newItem(new SetValue[]{DataItem.data10.map(data11)});
+		}
+		catch(DataLengthViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
+			assertEquals(11, e.getLength());
+			assertEquals(true, e.isLengthExact());
+			assertEquals("length violation on a newly created item, 11 bytes is too long for DataItem#data10", e.getMessage());
+		}
+	}
+	
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
 		item.data.set(item, data8);
 		assertData(data8, item.getData());
 		try
@@ -349,36 +383,7 @@ public class DataTest extends AbstractLibTest
 		{
 			assertEquals("expected a byte[], but was a java.lang.Integer for " + item.data + '.', e.getMessage());
 		}
-
-		assertData(data10, item.getData10());
-		try
-		{
-			item.set(new SetValue[]{DataItem.data10.map(data11)});
-		}
-		catch(DataLengthViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getDataAttribute());
-			assertEquals(item.data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on DataItem.0, 11 bytes is too long for DataItem#data10", e.getMessage());
-		}
-		assertData(data10, item.getData10());
-
-		try
-		{
-			DataItem.TYPE.newItem(new SetValue[]{DataItem.data10.map(data11)});
-		}
-		catch(DataLengthViolationException e)
-		{
-			assertEquals(null, e.getItem());
-			assertEquals(item.data10, e.getDataAttribute());
-			assertEquals(item.data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on a newly created item, 11 bytes is too long for DataItem#data10", e.getMessage());
-		}
+		assertData(data8, item.getData());
 	}
 	
 }

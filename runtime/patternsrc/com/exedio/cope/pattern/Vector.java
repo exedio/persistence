@@ -159,7 +159,7 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		return result;
 	}
 	
-	public void set(final Item item, final Collection value)
+	public void set(final Item item, final Collection<T> value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -170,11 +170,11 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		int i = 0;
 		final SetValue[] setValues = new SetValue[sources.length];
 
-		for(Iterator it = value.iterator(); it.hasNext(); i++)
-			setValues[i] = new SetValue(sources[i], it.next());
+		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
+			setValues[i] = sources[i].map(it.next());
 
 		for(; i<sources.length; i++)
-			setValues[i] = new SetValue(sources[i], null);
+			setValues[i] = sources[i].map(null);
 		
 		try
 		{
@@ -187,9 +187,9 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		}
 	}
 	
-	public SetValue map(final Collection value)
+	public SetValue<Collection<T>> map(final Collection<T> value)
 	{
-		return new SetValue(this, value);
+		return new SetValue<Collection<T>>(this, value);
 	}
 	
 	public Map<? extends FunctionAttribute, ? extends Object> execute(final Collection value, final Item exceptionItem)

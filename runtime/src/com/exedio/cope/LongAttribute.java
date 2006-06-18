@@ -82,11 +82,6 @@ public final class LongAttribute extends FunctionAttribute<Long>
 		set(item, Long.valueOf(value));
 	}
 	
-	public final SetValue map(final long value)
-	{
-		return new SetValue(this, Long.valueOf(value));
-	}
-	
 	// convenience methods for conditions and views ---------------------------------
 
 	public final SumAggregate<Long> sum()

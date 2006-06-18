@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
@@ -148,8 +149,8 @@ public final class Qualifier extends Pattern
 		{
 			final SetValue[] keySetValues = new SetValue[keys.length];
 			int j = 0;
-			for(final FunctionAttribute uniqueAttribute : uniqueConstraint.getUniqueAttributes())
-				keySetValues[j] = new SetValue(uniqueAttribute, keys[j++]);
+			for(final FunctionAttribute<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
+				keySetValues[j] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keySetValues);
 		}
@@ -166,8 +167,8 @@ public final class Qualifier extends Pattern
 			System.arraycopy(values, 0, keyValues, 0, values.length);
 			
 			int j = 0;
-			for(final FunctionAttribute uniqueAttribute : uniqueConstraint.getUniqueAttributes())
-				keyValues[j + values.length] = new SetValue(uniqueAttribute, keys[j++]);
+			for(final FunctionAttribute<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
+				keyValues[j + values.length] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keyValues);
 		}
@@ -179,6 +180,8 @@ public final class Qualifier extends Pattern
 		return item;
 	}
 	
+	// static convenience methods ---------------------------------
+
 	private static final HashMap<Type<?>, List<Qualifier>> cacheForGetQualifiers = new HashMap<Type<?>, List<Qualifier>>();
 	
 	/**

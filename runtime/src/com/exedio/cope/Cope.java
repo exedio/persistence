@@ -117,4 +117,9 @@ public abstract class Cope
 		return clazz.cast(o);
 	}
 	
+	public static final <X> SetValue<X> mapAndCast(final Attribute<X> a, final Object o)
+	{
+		return new SetValue<X>(a, a.cast(o));
+	}
+	
 }

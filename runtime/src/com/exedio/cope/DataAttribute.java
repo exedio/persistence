@@ -150,6 +150,12 @@ public final class DataAttribute extends Attribute<byte[]>
 		impl.set(item, data);
 	}
 	
+	@Override
+	public final byte[] cast(final Object o) // TODO SOON put into Attribute
+	{
+		return Cope.verboseCast(byte[].class, o);
+	}
+
 	/**
 	 * Reads data for this persistent data attribute
 	 * and writes it into the given steam.
@@ -213,9 +219,9 @@ public final class DataAttribute extends Attribute<byte[]>
 		impl.set(item, data);
 	}
 	
-	public final SetValue map(final byte[] value)
+	public final SetValue<byte[]> map(final byte[] value)
 	{
-		return new SetValue(this, value);
+		return new SetValue<byte[]>(this, value);
 	}
 	
 	public final Map<? extends Attribute, ? extends Object> execute(final byte[] value, final Item exceptionItem)

@@ -168,6 +168,7 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 	abstract Column createColumn(Table table, String name, boolean optional);
 	public abstract E get(Item item);
 	public abstract void set(Item item, E value);
+	public abstract E cast(Object o);
 	
 	public static enum Option
 	{

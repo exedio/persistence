@@ -168,9 +168,9 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		source.set(item, serialize(value));
 	}
 	
-	public SetValue map(final E value)
+	public SetValue<E> map(final E value)
 	{
-		return new SetValue(this, value);
+		return new SetValue<E>(this, value);
 	}
 	
 	public Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)

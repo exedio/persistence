@@ -210,8 +210,8 @@ public abstract class CustomAttribute<E>
 	{
 		final SetValue[] result = new SetValue[map.size()];
 		int n = 0;
-		for(Attribute attribute : map.keySet())
-			result[n++] = new SetValue(attribute, map.get(attribute));
+		for(final Attribute<?> attribute : map.keySet())
+			result[n++] = Cope.mapAndCast(attribute, map.get(attribute));
 		
 		return result;
 	}
@@ -252,9 +252,9 @@ public abstract class CustomAttribute<E>
 		}
 	}
 	
-	public final SetValue map(final E value)
+	public final SetValue<E> map(final E value)
 	{
-		return new SetValue(this, value);
+		return new SetValue<E>(this, value);
 	}
 
 }

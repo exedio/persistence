@@ -32,12 +32,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
@@ -47,8 +49,7 @@ import com.exedio.cope.LongAttribute;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
-import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
@@ -495,8 +496,8 @@ final class ItemForm extends Form
 			}
 			if(field.error==null)
 			{
-				final FunctionAttribute attribute = (FunctionAttribute)field.key;
-				setValues.add(new SetValue(attribute, field.getContent()));
+				final FunctionAttribute<?> attribute = (FunctionAttribute)field.key;
+				setValues.add(Cope.mapAndCast(attribute, field.getContent()));
 			}
 		}
 		try

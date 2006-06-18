@@ -89,11 +89,6 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		}
 	}
 	
-	public final SetValue map(final double value)
-	{
-		return new SetValue(this, new Double(value));
-	}
-	
 	// convenience methods for conditions and views ---------------------------------
 
 	public final SumAggregate<Double> sum()

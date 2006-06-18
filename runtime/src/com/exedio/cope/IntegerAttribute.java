@@ -83,11 +83,6 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		set(item, Integer.valueOf(value));
 	}
 
-	public final SetValue map(final int value)
-	{
-		return new SetValue(this, Integer.valueOf(value));
-	}
-	
 	// convenience methods for conditions and views ---------------------------------
 
 	public JoinedIntegerFunction bindInt(final Join join)

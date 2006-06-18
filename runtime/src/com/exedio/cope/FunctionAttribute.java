@@ -163,7 +163,8 @@ public abstract class FunctionAttribute<E extends Object>
 		return cast(getEntity(item).get(this));
 	}
 	
-	public final E cast(final Object o)
+	@Override
+	public final E cast(final Object o) // TODO SOON put into Attribute
 	{
 		return Cope.verboseCast(valueClass, o);
 	}
@@ -274,12 +275,12 @@ public abstract class FunctionAttribute<E extends Object>
 		return getType().searchSingleton(equal(value));
 	}
 
-	public final SetValue map(final E value)
+	public final SetValue<E> map(final E value) // TODO SOON move up to Attribute
 	{
-		return new SetValue(this, value);
+		return new SetValue<E>(this, value);
 	}
 	
-	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem)
+	public final Map<? extends Attribute, ? extends Object> execute(final E value, final Item exceptionItem) // TODO SOON move up to Attribute
 	{
 		return Collections.singletonMap(this, value);
 	}

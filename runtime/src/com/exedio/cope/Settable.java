@@ -24,7 +24,7 @@ import java.util.SortedSet;
 public interface Settable<E>
 {
 	SetValue map(E value);
-	Map<? extends Attribute, ? extends Object> execute(E value, Item exceptionItem);
+	Map<? extends Attribute, ? extends Object> execute(E value, Item exceptionItem); // TODO SOON return SetValue[]
 	
 	/**
 	 * Returns true, if a value for the settable should be specified

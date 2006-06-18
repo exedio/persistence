@@ -18,18 +18,18 @@
 
 package com.exedio.cope;
 
-public final class SetValue
+public final class SetValue<E>
 {
-	public final Settable settable;
-	public final Object value;
+	public final Settable<E> settable;
+	public final E value;
 	
 	/**
 	 * Creates a new SetValue.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe implementations of
-	 * {@link Settable#map(Object)}.
+	 * you may want to use the convenience functions.
+	 * @see Settable#map(Object)
 	 */
-	public SetValue(final Settable settable, final Object value)
+	public SetValue(final Settable<E> settable, final E value)
 	{
 		this.settable = settable;
 		this.value = value;

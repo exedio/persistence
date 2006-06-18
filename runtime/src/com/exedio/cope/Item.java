@@ -511,13 +511,13 @@ public abstract class Item extends Cope
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	private static final Map<Attribute, Object> executeSetValues(final SetValue[] source, final Item exceptionItem)
+	private static final Map<Attribute, Object> executeSetValues(final SetValue<?>[] source, final Item exceptionItem)
 	{
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
 		for(int i = 0; i<source.length; i++)
 		{
-			final SetValue av = source[i];
-			final Settable settable = av.settable;
+			final SetValue<?> av = source[i];
+			final Settable<?> settable = av.settable;
 			
 			if(settable instanceof Attribute)
 			{
@@ -526,7 +526,7 @@ public abstract class Item extends Cope
 			}
 			else
 			{
-				final Map<Attribute, Object> part = settable.execute(av.value, exceptionItem); // TODO warning
+				final Map<? extends Attribute, ? extends Object> part = execute(av, exceptionItem);
 				
 				for(Attribute attribute : part.keySet())
 				{
@@ -536,6 +536,11 @@ public abstract class Item extends Cope
 			}
 		}
 		return result;
+	}
+	
+	private static final <X extends Object> Map<? extends Attribute, ? extends Object> execute(final SetValue<X> sv, final Item exceptionItem)
+	{
+		return sv.settable.execute(sv.value, exceptionItem);
 	}
 	
 	private final HashMap<BlobColumn, byte[]> toBlobs(final Map<Attribute, Object> attributeValues)
