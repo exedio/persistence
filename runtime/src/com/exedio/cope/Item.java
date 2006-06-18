@@ -511,10 +511,10 @@ public abstract class Item extends Cope
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	private static final Map<Attribute, Object> executeSetValues(final SetValue<?>[] source, final Item exceptionItem)
+	private static final Map<Attribute, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
 		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
-		for(final SetValue<?> av : source)
+		for(final SetValue<?> av : sources)
 		{
 			if(av.settable instanceof Attribute)
 			{
