@@ -47,7 +47,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 		if(types==null)
 			throw new NullPointerException("types must not be null");
 		if(types.length==0)
-			throw new NullPointerException("types must not be empty");
+			throw new RuntimeException("types must not be empty");
 
 		this.function = function;
 		this.not = not;
