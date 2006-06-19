@@ -75,7 +75,7 @@ public final class TransactionFilter implements Filter
 			model.startTransaction(transactionName);
 			chain.doFilter(request, response);
 			model.commit();
-		}		
+		}
 		finally
 		{
 			model.rollbackIfNotCommitted();
