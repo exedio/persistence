@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
-
 
 public class PolymorphQueryCacheInvalidationTest extends AbstractLibTest
 {
