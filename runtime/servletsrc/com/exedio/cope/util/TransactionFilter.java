@@ -76,9 +76,11 @@ public final class TransactionFilter implements Filter
 			chain.doFilter(request, response);
 			model.commit();
 		}
-		catch(Exception e)
+		catch(Throwable t)
 		{
 			model.rollback();
+			t.printStackTrace();
+			throw new RuntimeException(t);
 		}
 		finally
 		{
