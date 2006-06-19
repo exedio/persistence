@@ -27,7 +27,7 @@ final class CreatedState extends State
 	CreatedState(final Transaction transaction, final Item item)
 	{
 		super( item );
-		transaction.addInvalidation( item.type, item.pk );
+		transaction.addInvalidation(item);
 	}
 	
 	@Override

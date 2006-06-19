@@ -30,7 +30,7 @@ final class ModifiedState extends State
 	{
 		super( original.item );
 		row = original.stealValues();
-		transaction.addInvalidation( item.type, item.pk );
+		transaction.addInvalidation(item);
 	}
 
 	@Override

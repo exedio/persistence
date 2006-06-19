@@ -25,7 +25,7 @@ final class DeletedState extends State
 	DeletedState(final Transaction transaction, final State original)
 	{
 		super( original.item );
-		transaction.addInvalidation( item.type, item.pk );
+		transaction.addInvalidation(item);
 	}
 	
 	@Override

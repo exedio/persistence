@@ -208,16 +208,16 @@ public final class Transaction
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
 	
-	// TODO change parameters to Item
-	void addInvalidation(final Type type, final int pk)
+	void addInvalidation(final Item item)
 	{
-		IntOpenHashSet invalidationsForType = invalidations[ type.transientNumber ];
+		final int typeTransientNumber = item.type.transientNumber;
+		IntOpenHashSet invalidationsForType = invalidations[typeTransientNumber];
 		if ( invalidationsForType==null )
 		{
 			invalidationsForType = new IntOpenHashSet();
-			invalidations[ type.transientNumber ] = invalidationsForType;
+			invalidations[typeTransientNumber] = invalidationsForType;
 		}
-		invalidationsForType.add( pk );
+		invalidationsForType.add(item.pk);
 	}
 
 	Entity getEntityIfActive(final Type type, final int pk)
