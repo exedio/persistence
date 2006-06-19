@@ -22,7 +22,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import bak.pcj.IntIterator;
@@ -166,7 +165,7 @@ public final class Transaction
 		}
 	}
 	
-	private boolean isInvalidated( Query query )
+	private boolean isInvalidated(final Query<?> query)
 	{
 		if ( isInvalidated(query.type) )
 		{
@@ -176,9 +175,8 @@ public final class Transaction
 		{
 			return false;
 		}
-		for ( Iterator iter = query.joins.iterator(); iter.hasNext(); )
+		for(final Join nextJoin : query.joins)
 		{
-			Join nextJoin = (Join)iter.next();
 			if ( isInvalidated(nextJoin.type) )
 			{
 				return true;
