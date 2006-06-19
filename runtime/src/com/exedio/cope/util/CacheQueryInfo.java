@@ -76,5 +76,10 @@ public final class CacheQueryInfo implements Comparable
 				return -1;
 		}
 	}
+	
+	public String toString()
+	{
+		return query + ':' + hits;
+	}
 
 }
