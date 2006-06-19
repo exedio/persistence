@@ -52,10 +52,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractLibTest
 
 		restartTransaction();
 		
-		if(model.getProperties().getCacheQueryLimit()==0)
-			assertContains(itema, itemb1a, itemb1b, q.search());
-		else
-			assertContains(itema, itemb1a, /* TODO SOON itemb1b,*/ q.search());
+		assertContains(itema, itemb1a, itemb1b, q.search());
 	}
 
 }

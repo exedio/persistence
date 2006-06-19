@@ -225,7 +225,7 @@ final class Cache
 				while ( keys.hasNext() )
 				{
 					final Query.Key key = keys.next();
-					if ( key.type.transientNumber==transientTypeNumber )
+					if(matchesType(key.type, transientTypeNumber))
 					{
 						keys.remove();
 					}
@@ -233,7 +233,7 @@ final class Cache
 					{
 						for(final Join nextJoin : key.joins)
 						{
-							if ( nextJoin.type.transientNumber==transientTypeNumber )
+							if(matchesType(nextJoin.type, transientTypeNumber))
 							{
 								keys.remove();
 								break;
@@ -243,6 +243,14 @@ final class Cache
 				}
 			}
 		}
+	}
+	
+	private static final boolean matchesType(final Type<?> queryType, final int invalidatedTypeNumber)
+	{
+		for(final Type t : queryType.getTypesOfInstances())
+			if(t.transientNumber == invalidatedTypeNumber)
+				return true;
+		return false;
 	}
 
 	void clear()
