@@ -197,7 +197,17 @@ final class Cache
 		return (List<R>)l;
 	}
 	
-	void invalidate( int transientTypeNumber, IntOpenHashSet invalidatedPKs )
+	void invalidate(final IntOpenHashSet[] invalidations)
+	{
+		for(int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+		{
+			final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
+			if(invalidatedPKs!=null)
+				invalidate(transientTypeNumber, invalidatedPKs);
+		}
+	}
+	
+	private void invalidate(final int transientTypeNumber, final IntOpenHashSet invalidatedPKs)
 	{
 		final IntKeyOpenHashMap stateMap = stateMaps[transientTypeNumber];
 		if(stateMap!=null)

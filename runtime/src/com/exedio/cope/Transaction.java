@@ -309,14 +309,7 @@ public final class Transaction
 		// notify global cache
 		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
 		{
-			for ( int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++ )
-			{
-				final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
-				if ( invalidatedPKs!=null )
-				{
-					model.getCache().invalidate( transientTypeNumber, invalidatedPKs );
-				}
-			}
+			model.getCache().invalidate(invalidations);
 		}
 
 		// notify ModificationListeners
