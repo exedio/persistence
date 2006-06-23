@@ -32,11 +32,8 @@ public abstract class Feature
 	 */
 	void initialize(final Type<? extends Item> type, final String name)
 	{
-		if(type==null)
-			throw new RuntimeException();
-		if(name==null)
-			throw new RuntimeException();
-
+		assert type!=null;
+		assert name!=null;
 		assert this.type==null;
 		assert this.name==null;
 		assert this.id==null;
