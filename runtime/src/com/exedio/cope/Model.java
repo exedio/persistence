@@ -192,13 +192,33 @@ public final class Model
 	{
 		return concreteTypeList;
 	}
-	
+
+	/**
+	 * @see Type#getID()
+	 */
 	public Type findTypeByID(final String id)
 	{
 		if(this.properties==null)
 			throw newNotInitializedException();
 
 		return typesByID.get(id);
+	}
+	
+	/**
+	 * @see Feature#getID()
+	 */
+	public Feature findFeatureByID(final String id)
+	{
+		if(this.properties==null)
+			throw newNotInitializedException();
+
+		final int pos = id.indexOf(Feature.ID_SEPARATOR);
+		if(pos<0)
+			return null;
+		final Type t = typesByID.get(id.substring(0, pos));
+		if(t==null)
+			return null;
+		return t.getDeclaredFeature(id.substring(pos+1));
 	}
 	
 	Type getConcreteType(final int transientNumber)

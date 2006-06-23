@@ -23,6 +23,9 @@ public abstract class Feature
 {
 	private Type<? extends Item> type;
 	private String name;
+	private String id;
+	
+	final static char ID_SEPARATOR = '.';
 
 	/**
 	 * Is called in the constructor of the containing type.
@@ -34,13 +37,13 @@ public abstract class Feature
 		if(name==null)
 			throw new RuntimeException();
 
-		if(this.type!=null)
-			throw new RuntimeException();
-		if(this.name!=null)
-			throw new RuntimeException();
+		assert this.type==null;
+		assert this.name==null;
+		assert this.id==null;
 
 		this.type = type;
 		this.name = name.intern();
+		this.id =   (type.id + ID_SEPARATOR + name).intern();
 		
 		type.registerInitialization(this);
 	}
@@ -67,13 +70,25 @@ public abstract class Feature
 		return name;
 	}
 	
+	/**
+	 * @see Model#findFeatureByID(String)
+	 */
+	public final String getID()
+	{
+		if(this.type==null)
+			throw new FeatureNotInitializedException();
+		assert id!=null;
+
+		return id;
+	}
+	
 	String toStringNonInitialized()
 	{
 		return super.toString();
 	}
 	
 	@Override
-	public final String toString()
+	public final String toString() // TODO SOON use id
 	{
 		return type!=null ? (type.id+'#'+name) : toStringNonInitialized();
 	}

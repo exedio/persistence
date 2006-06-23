@@ -449,6 +449,9 @@ public final class Type<C extends Item>
 		return javaClass;
 	}
 	
+	/**
+	 * @see Model#findTypeByID(String)
+	 */
 	public String getID()
 	{
 		return id;
