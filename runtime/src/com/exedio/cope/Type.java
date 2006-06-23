@@ -214,7 +214,7 @@ public final class Type<C extends Item>
 					for(final Feature f : declared.values())
 					{
 						if(result.put(f.getName(), f)!=null)
-							throw new RuntimeException("cannot override inherited feature "+f.getName()+" in type "+id);
+							System.out.println("hiding inherited feature " + f.getName() + " in type " + id);
 					}
 					this.featuresByName = result;
 				}

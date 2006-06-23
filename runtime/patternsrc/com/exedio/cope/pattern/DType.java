@@ -124,7 +124,7 @@ public final class DType extends Item
 	
 	public DTypeSystem getDtypeSystem()
 	{
-		return (DTypeSystem)getParentType().getFeature(getDtypeSystemName());
+		return (DTypeSystem)getParentType().getDeclaredFeature(getDtypeSystemName());
 	}
 	
 	public String getCode()

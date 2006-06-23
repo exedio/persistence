@@ -48,7 +48,7 @@ final class MediaCop extends ConsoleCop
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
 	{
 		final String typeID = request.getParameter(MEDIA_TYPE);
-		return (typeID==null) ? null : new MediaCop((Media)model.findTypeByID(typeID).getFeature(request.getParameter(MEDIA_NAME)));
+		return (typeID==null) ? null : new MediaCop((Media)model.findTypeByID(typeID).getDeclaredFeature(request.getParameter(MEDIA_NAME)));
 	}
 
 	@Override

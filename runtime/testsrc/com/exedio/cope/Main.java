@@ -71,6 +71,7 @@ public class Main
 	public static final Model hierarchyEmptyModel = new Model(new Type[] { HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE });
 	public static final Model joinFunctionModel = new Model(new Type[] { JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE });
 	public static final Model dtypeModel = new Model(new Type[] { DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE });
+	public static final Model hiddenFeatureModel = new Model(new Type[] { HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE });
 
 	private static final void tearDown(final Model model)
 	{
@@ -127,6 +128,7 @@ public class Main
 		tearDown(hierarchyEmptyModel);
 		tearDown(joinFunctionModel);
 		tearDown(dtypeModel);
+		tearDown(hiddenFeatureModel);
 	}
 
 }
