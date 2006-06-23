@@ -52,7 +52,7 @@ public class SearchTest extends TestmodelTest
 		catch(RuntimeException e)
 		{
 			assertEquals(
-				"function AttributeItem#someInteger belongs to type AttributeItem, which is not a type of the query: EmptyItem, []",
+				"function " + x.someInteger + " belongs to type AttributeItem, which is not a type of the query: EmptyItem, []",
 				e.getMessage());
 		}
 		

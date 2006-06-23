@@ -133,7 +133,7 @@ public class AttributeItemTest extends AttributeTest
 			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
 			assertEquals(item.someNotNullItem, e.getFeature());
-			assertEquals("mandatory violation on " + item + " for AttributeItem#someNotNullItem", e.getMessage());
+			assertEquals("mandatory violation on " + item + " for " + item.someNotNullItem, e.getMessage());
 		}
 		assertEquals(someItem2, item.getSomeNotNullItem());
 		assertDeleteFails(someItem2, item.someNotNullItem);
@@ -148,7 +148,7 @@ public class AttributeItemTest extends AttributeTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
 			assertEquals(item.someNotNullItem, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for AttributeItem#someNotNullItem", e.getMessage());
+			assertEquals("mandatory violation on a newly created item for " + item.someNotNullItem, e.getMessage());
 		}
 	}
 	

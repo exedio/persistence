@@ -177,7 +177,7 @@ public class AttributeEnumTest extends AttributeTest
 			assertEquals(item, e.getItem());
 			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
 			assertEquals(item.someNotNullEnum, e.getFeature());
-			assertEquals("mandatory violation on " + item + " for AttributeItem#someNotNullEnum", e.getMessage());
+			assertEquals("mandatory violation on " + item + " for "+ item.someNotNullEnum, e.getMessage());
 		}
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue3,
@@ -193,7 +193,7 @@ public class AttributeEnumTest extends AttributeTest
 			assertEquals(null, e.getItem());
 			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
 			assertEquals(item.someNotNullEnum, e.getFeature());
-			assertEquals("mandatory violation on a newly created item for AttributeItem#someNotNullEnum", e.getMessage());
+			assertEquals("mandatory violation on a newly created item for " + item.someNotNullEnum, e.getMessage());
 		}
 	}
 }

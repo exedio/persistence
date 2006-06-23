@@ -253,7 +253,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for DataItem#data10", e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
 		}
 		assertData(data10, item.getData10());
 		try
@@ -268,7 +268,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(false, e.isLengthExact());
-			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for DataItem#data10", e.getMessage());
+			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for " + item.data10, e.getMessage());
 		}
 		if(model.getProperties().hasDatadirPath()) // TODO should not be needed
 			item.setData10(data10);
@@ -285,7 +285,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for DataItem#data10", e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
 		}
 		assertData(data10, item.getData10());
 		
@@ -337,7 +337,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for DataItem#data10", e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
 		}
 		assertData(data10, item.getData10());
 
@@ -352,7 +352,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on a newly created item, 11 bytes is too long for DataItem#data10", e.getMessage());
+			assertEquals("length violation on a newly created item, 11 bytes is too long for " + item.data10, e.getMessage());
 		}
 	}
 	

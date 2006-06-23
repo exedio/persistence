@@ -195,7 +195,7 @@ public class MediaTest extends AbstractLibTest
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for MediaTestItem#fileData", e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for " + item.file.getData(), e.getMessage());
 			}
 			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 			try
@@ -210,7 +210,7 @@ public class MediaTest extends AbstractLibTest
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for MediaTestItem#fileData", e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for " + item.file.getData(), e.getMessage());
 			}
 			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 			try
@@ -225,7 +225,7 @@ public class MediaTest extends AbstractLibTest
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(false, e.isLengthExact());
-				assertEquals("length violation on MediaTestItem.0, 21 bytes or more is too long for MediaTestItem#fileData", e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes or more is too long for " + item.file.getData(), e.getMessage());
 			}
 			assertStreamClosed();
 			//assertFile(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO

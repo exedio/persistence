@@ -85,9 +85,9 @@ public abstract class Feature
 	}
 	
 	@Override
-	public final String toString() // TODO SOON use id
+	public final String toString()
 	{
-		return type!=null ? (type.id+'#'+name) : toStringNonInitialized();
+		return type!=null ? (id) : toStringNonInitialized();
 	}
 	
 }
