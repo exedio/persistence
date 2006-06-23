@@ -945,7 +945,7 @@ public final class Type<C extends Item>
 		@Override
 		public String toString()
 		{
-			return type.id + "#this"; // TODO SOON use dot
+			return type.id + ".this";
 		}
 		
 		// convenience methods for conditions and views ---------------------------------

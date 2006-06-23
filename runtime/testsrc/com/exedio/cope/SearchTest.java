@@ -167,7 +167,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select AttributeItem#this from AttributeItem", e.getMessage());
+			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select " + item.TYPE.getThis() + " from AttributeItem", e.getMessage());
 		}
 		
 		assertDelete(item);

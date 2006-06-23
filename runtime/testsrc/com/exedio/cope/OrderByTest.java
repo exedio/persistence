@@ -58,13 +58,13 @@ public class OrderByTest extends TestmodelTest
 			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByThis(true);
 			assertEquals(list(item1, item2, item3, item4, item5), query.search());
-			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#this", query.toString());
+			assertEquals("select " + item1.TYPE.getThis() + " from AttributeItem order by " + item1.TYPE.getThis(), query.toString());
 		}
 		{
 			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderByThis(false);
 			assertEquals(list(item5, item4, item3, item2, item1), query.search());
-			assertEquals("select AttributeItem#this from AttributeItem order by AttributeItem#this desc", query.toString());
+			assertEquals("select " + item1.TYPE.getThis() + " from AttributeItem order by " + item1.TYPE.getThis() + " desc", query.toString());
 		}
 		
 		// simple order
@@ -78,11 +78,11 @@ public class OrderByTest extends TestmodelTest
 			final Query query = item1.TYPE.newQuery(null);
 			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true, true});
 			assertEquals(list(item5, item4, item3, item1, item2), query.search());
-			assertEquals("select AttributeItem#this from AttributeItem order by " + item1.someNotNullBoolean + ", " + item.someNotNullInteger, query.toString());
+			assertEquals("select " + item1.TYPE.getThis() + " from AttributeItem order by " + item1.someNotNullBoolean + ", " + item.someNotNullInteger, query.toString());
 			
 			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{false, true});
 			assertEquals(list(item1, item2, item5, item4, item3), query.search());
-			assertEquals("select AttributeItem#this from AttributeItem order by " + item1.someNotNullBoolean + " desc, " + item.someNotNullInteger, query.toString());
+			assertEquals("select " + item1.TYPE.getThis() + " from AttributeItem order by " + item1.someNotNullBoolean + " desc, " + item.someNotNullInteger, query.toString());
 			
 			query.setOrderBy(new Function[]{item1.someNotNullEnum,item1.someNotNullString}, new boolean[]{true, true});
 			assertEquals(list(item1, item4, item2, item5, item3), query.search());
