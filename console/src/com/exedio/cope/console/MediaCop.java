@@ -32,23 +32,21 @@ import com.exedio.cope.pattern.Media;
 final class MediaCop extends ConsoleCop
 {
 
-	private static final String MEDIA_TYPE = "mt";
-	private static final String MEDIA_NAME = "mn";
+	private static final String MEDIA = "m";
 	
 	final Media media;
 
 	MediaCop(final Media media)
 	{
-		super("media - " + media.getType().getID() + '.' + media.getName());
+		super("media - " + media.getID());
 		this.media = media;
-		addParameter(MEDIA_TYPE, media.getType().getID());
-		addParameter(MEDIA_NAME, media.getName());
+		addParameter(MEDIA, media.getID());
 	}
 	
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
 	{
-		final String typeID = request.getParameter(MEDIA_TYPE);
-		return (typeID==null) ? null : new MediaCop((Media)model.findTypeByID(typeID).getDeclaredFeature(request.getParameter(MEDIA_NAME)));
+		final String mediaID = request.getParameter(MEDIA);
+		return (mediaID==null) ? null : new MediaCop((Media)model.findFeatureByID(mediaID));
 	}
 
 	@Override
