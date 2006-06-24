@@ -45,6 +45,7 @@ public class HashTest extends AbstractLibTest
 	public void testExplicitExternal()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
 				item.explicitExternalWrap,
 				item.explicitExternal,
 				item.implicitExternal,

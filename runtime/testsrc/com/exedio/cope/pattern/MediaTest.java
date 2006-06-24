@@ -76,6 +76,7 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(21, data21.length);
 		
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
 				item.name,
 				item.file,
 				item.file.getData(),

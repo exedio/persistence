@@ -51,12 +51,14 @@ public class RelationTest extends AbstractLibTest
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
+				RelationItem.TYPE.getThis(),
 				RelationItem.source,
 				RelationItem.target,
 				RelationItem.relation,
 				RelationItem.relation.getUniqueConstraint(),
 			}), RelationItem.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
+				RelationItem.TYPE.getThis(),
 				RelationItem.source,
 				RelationItem.target,
 				RelationItem.relation,

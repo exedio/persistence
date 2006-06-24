@@ -61,8 +61,9 @@ public class QualifierTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.key), QualifiedEmptyQualifier.qualifier.getKeys());
 		assertEquals(list(QualifiedEmptyQualifier.qualifier), QualifiedEmptyQualifier.key.getPatterns());
 		assertEquals(QualifiedEmptyQualifier.qualifyUnique, QualifiedEmptyQualifier.qualifier.getUniqueConstraint());
-		assertEqualsUnmodifiable(list(item.number), item.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.number), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				QualifiedEmptyQualifier.TYPE.getThis(),
 				QualifiedEmptyQualifier.parent,
 				QualifiedEmptyQualifier.key,
 				QualifiedEmptyQualifier.qualifyUnique,

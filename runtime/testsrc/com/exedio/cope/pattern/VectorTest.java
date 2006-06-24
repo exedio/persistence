@@ -53,6 +53,7 @@ public class VectorTest extends AbstractLibTest
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
 				item.num1,
 				item.num2,
 				item.num3,

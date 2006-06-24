@@ -56,6 +56,7 @@ public class VectorRelationTest extends AbstractLibTest
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
+				VectorRelationItem.TYPE.getThis(),
 				VectorRelationItem.vectorSource,
 				VectorRelationItem.vectorTarget,
 				VectorRelationItem.relation,
@@ -63,6 +64,7 @@ public class VectorRelationTest extends AbstractLibTest
 				VectorRelationItem.relation.getUniqueConstraint(),
 			}), VectorRelationItem.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
+				VectorRelationItem.TYPE.getThis(),
 				VectorRelationItem.vectorSource,
 				VectorRelationItem.vectorTarget,
 				VectorRelationItem.relation,

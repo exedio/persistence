@@ -32,6 +32,7 @@ public class UniqueItemTest extends TestmodelTest
 	{
 		assertEqualsUnmodifiable(
 			list(
+				ItemWithSingleUnique.TYPE.getThis(),
 				ItemWithSingleUnique.uniqueString,
 				ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(),
 				ItemWithSingleUnique.otherString
@@ -39,6 +40,7 @@ public class UniqueItemTest extends TestmodelTest
 			ItemWithSingleUnique.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
+				ItemWithSingleUnique.TYPE.getThis(),
 				ItemWithSingleUnique.uniqueString,
 				ItemWithSingleUnique.uniqueString.getImplicitUniqueConstraint(),
 				ItemWithSingleUnique.otherString
@@ -286,6 +288,7 @@ public class UniqueItemTest extends TestmodelTest
 	{
 		assertEqualsUnmodifiable(
 			list(
+				ItemWithDoubleUnique.TYPE.getThis(),
 				ItemWithDoubleUnique.string,
 				ItemWithDoubleUnique.integer,
 				ItemWithDoubleUnique.doubleUnique
@@ -293,6 +296,7 @@ public class UniqueItemTest extends TestmodelTest
 			ItemWithDoubleUnique.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
+				ItemWithDoubleUnique.TYPE.getThis(),
 				ItemWithDoubleUnique.string,
 				ItemWithDoubleUnique.integer,
 				ItemWithDoubleUnique.doubleUnique

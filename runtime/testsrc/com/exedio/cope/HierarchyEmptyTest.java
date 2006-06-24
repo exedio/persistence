@@ -49,10 +49,12 @@ public class HierarchyEmptyTest extends AbstractLibTest
 				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySuper.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(
+				HierarchyEmptySuper.TYPE.getThis(),
 				HierarchyEmptySuper.superInt,
 				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySuper.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(
+				HierarchyEmptySuper.TYPE.getThis(),
 				HierarchyEmptySuper.superInt,
 				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySuper.TYPE.getFeatures());
@@ -76,8 +78,9 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySub.TYPE.getAttributes());
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(HierarchyEmptySub.superInt.getImplicitUniqueConstraint()), HierarchyEmptySub.TYPE.getUniqueConstraints());
-		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(HierarchyEmptySub.TYPE.getThis()), HierarchyEmptySub.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(
+				HierarchyEmptySub.TYPE.getThis(),
 				HierarchyEmptySuper.superInt,
 				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
 			), HierarchyEmptySub.TYPE.getFeatures());

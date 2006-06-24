@@ -45,6 +45,7 @@ public class JavaViewTest extends AbstractLibTest
 	public void testNumber() throws NoSuchMethodException
 	{
 		assertEquals(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
 				item.numberString,
 				item.number,
 			}), item.TYPE.getDeclaredFeatures());

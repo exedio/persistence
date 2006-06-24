@@ -40,7 +40,7 @@ public final class Type<C extends Item>
 	final boolean isAbstract;
 	final Type<? super C> supertype;
 	
-	final ItemFunction<C> thisFunction = new This<C>(this);
+	final This<C> thisFunction = new This<C>(this);
 	private final List<Feature> declaredFeatures;
 	private final List<Feature> features;
 	private final HashMap<String, Feature> declaredFeaturesByName;
@@ -142,7 +142,8 @@ public final class Type<C extends Item>
 
 		// declared features
 		final Field[] fields = javaClass.getDeclaredFields();
-		this.featuresWhileConstruction = new ArrayList<Feature>(fields.length);
+		this.featuresWhileConstruction = new ArrayList<Feature>(fields.length + 1);
+		thisFunction.initialize(this, This.NAME);
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
@@ -202,18 +203,24 @@ public final class Type<C extends Item>
 		}
 		else
 		{
-			this.features = inherit(supertype.getFeatures(), this.declaredFeatures);
+			{
+				final ArrayList<Feature> features = new ArrayList<Feature>();
+				features.add(thisFunction);
+				final List<Feature> superFeatures = supertype.getFeatures();
+				features.addAll(superFeatures.subList(1, superFeatures.size()));
+				features.addAll(this.declaredFeatures.subList(1, this.declaredFeatures.size()));
+				features.trimToSize();
+				this.features = Collections.unmodifiableList(features);
+			}
 			{
 				final HashMap<String, Feature> inherited = supertype.featuresByName;
 				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
-				if(declared.isEmpty())
-					this.featuresByName = inherited;
-				else
+				// TODO SOON remove block
 				{
 					final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
 					for(final Feature f : declared.values())
 					{
-						if(result.put(f.getName(), f)!=null)
+						if(result.put(f.getName(), f)!=null && !(f instanceof This))
 							System.out.println("hiding inherited feature " + f.getName() + " in type " + id);
 					}
 					this.featuresByName = result;
@@ -227,7 +234,7 @@ public final class Type<C extends Item>
 		// Here we don't precompute the constructor parameters
 		// because they are needed in the initialization phase
 		// only.
-		this.creationConstructor = getConstructor(new Class[]{(new SetValue[0]).getClass()}, "creation");
+		this.creationConstructor = getConstructor(new Class[]{SetValue[].class}, "creation");
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 	}
 	
@@ -635,7 +642,7 @@ public final class Type<C extends Item>
 		return isAbstract;
 	}
 	
-	public ItemFunction<C> getThis()
+	public This<C> getThis()
 	{
 		return thisFunction;
 	}
@@ -879,8 +886,10 @@ public final class Type<C extends Item>
 	static final int MAX_PK = Integer.MAX_VALUE;
 	static final int NOT_A_PK = Integer.MIN_VALUE;
 
-	static final class This<E extends Item> implements Function<E>, ItemFunction<E>
+	public static final class This<E extends Item> extends Feature implements Function<E>, ItemFunction<E>
 	{
+		private static final String NAME = "this";
+		
 		final Type<E> type;
 		
 		private This(final Type<E> type)
@@ -889,9 +898,12 @@ public final class Type<C extends Item>
 			this.type = type;
 		}
 		
-		public Type<E> getType()
+		@Override
+		void initialize(final Type<? extends Item> type, final String name)
 		{
-			return type;
+			super.initialize(type, name);
+			assert this.type == type;
+			assert NAME.equals(name);
 		}
 		
 		public E get(final Item item)
@@ -940,12 +952,6 @@ public final class Type<C extends Item>
 				throw new RuntimeException("no check for type column needed for " + this);
 			
 			return type.table.database.checkTypeColumn(type.getModel().getCurrentTransaction().getConnection(), type);
-		}
-		
-		@Override
-		public String toString()
-		{
-			return type.id + ".this";
 		}
 		
 		// convenience methods for conditions and views ---------------------------------

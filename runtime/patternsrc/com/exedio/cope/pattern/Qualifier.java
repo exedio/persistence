@@ -96,11 +96,13 @@ public final class Qualifier extends Pattern
 	{
 		if(this.features==null)
 		{
-			final List<Feature> typeFeatures = getType().getFeatures();
+			final Type<?> type = getType();
+			final Type.This<?> typeThis = type.getThis();
+			final List<Feature> typeFeatures = type.getFeatures();
 			final ArrayList<Feature> result = new ArrayList<Feature>(typeFeatures.size());
 			for(final Feature f : typeFeatures)
 			{
-				if(f!=this && f!=parent && !keyList.contains(f) && f!=uniqueConstraint)
+				if(f!=typeThis && f!=this && f!=parent && !keyList.contains(f) && f!=uniqueConstraint)
 					result.add(f);
 			}
 			result.trimToSize();

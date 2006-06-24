@@ -49,6 +49,7 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("0123456789abcdef", JavaHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
 
 		assertEquals(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
 				item.password,
 				item.password.getStorage(),
 				item.hashed1MD5,

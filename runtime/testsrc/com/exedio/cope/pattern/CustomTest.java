@@ -52,6 +52,7 @@ public class CustomTest extends AbstractLibTest
 	public void testNumber() throws IOException
 	{
 		assertEquals(Arrays.asList(new Feature[]{
+				item.TYPE.getThis(),
 				item.numberString,
 				item.number,
 				item.element1,

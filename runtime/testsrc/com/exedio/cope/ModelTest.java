@@ -145,6 +145,7 @@ public class ModelTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(), item.TYPE.getDeclaredUniqueConstraints());
 
 		final Feature[] features = {
+			item.TYPE.getThis(),
 			item.someString,
 			item.someStringUpperCase,
 			item.someStringLength,
