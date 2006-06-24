@@ -59,12 +59,12 @@ public class GeneratorTest extends InstrumentorTest
 	public static final int FINAL = Modifier.FINAL;
 	
 	final static Class STRING = String.class;
-	final static Class BYTE_ARRAY = (new byte[]{}).getClass();
+	final static Class BYTE_ARRAY = byte[].class;
 	final static Class INPUT_STREAM = InputStream.class;
 	final static Class OUTPUT_STREAM = OutputStream.class;
 	final static Class IO_EXCEPTION = IOException.class;
 	
-	final static Class SET_VALUE_ARRAY = (new SetValue[0]).getClass();
+	final static Class SET_VALUE_ARRAY = SetValue[].class;
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
 	final static Class LENGTH_VIOLATION = LengthViolationException.class;
