@@ -215,16 +215,13 @@ public final class Type<C extends Item>
 			{
 				final HashMap<String, Feature> inherited = supertype.featuresByName;
 				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
-				// TODO SOON remove block
+				final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
+				for(final Feature f : declared.values())
 				{
-					final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
-					for(final Feature f : declared.values())
-					{
-						if(result.put(f.getName(), f)!=null && !(f instanceof This))
-							System.out.println("hiding inherited feature " + f.getName() + " in type " + id);
-					}
-					this.featuresByName = result;
+					if(result.put(f.getName(), f)!=null && !(f instanceof This))
+						System.out.println("hiding inherited feature " + f.getName() + " in type " + id);
 				}
+				this.featuresByName = result;
 			}
 			this.attributes = inherit(supertype.getAttributes(), this.declaredAttributes);
 			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
