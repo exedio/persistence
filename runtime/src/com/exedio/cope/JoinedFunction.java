@@ -52,6 +52,11 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 		return function.cast(o);
 	}
 
+	public final Class<E> getValueClass()
+	{
+		return function.getValueClass();
+	}
+
 	public final void append(final Statement bf, final Join join)
 	{
 		function.append(bf, this.join);

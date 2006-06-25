@@ -83,6 +83,11 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return result;
 	}
 	
+	public final Class getValueClass()
+	{
+		return valueClass;
+	}
+	
 	public final E cast(final Object o)
 	{
 		return Cope.verboseCast(valueClass, o);

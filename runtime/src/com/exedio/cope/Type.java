@@ -913,6 +913,11 @@ public final class Type<C extends Item>
 			return type.cast((Item)o);
 		}
 		
+		public Class<E> getValueClass()
+		{
+			return type.javaClass;
+		}
+		
 		public void append(final Statement bf, final Join join)
 		{
 			bf.appendPK(type, join);

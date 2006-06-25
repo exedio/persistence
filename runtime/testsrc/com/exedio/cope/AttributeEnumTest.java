@@ -34,6 +34,7 @@ public class AttributeEnumTest extends AttributeTest
 	{
 		// model
 		assertEquals(item.TYPE, item.someEnum.getType());
+		assertEquals(AttributeItem.SomeEnum.class, item.someEnum.getValueClass());
 		assertEquals(
 			list(
 				AttributeItem.SomeEnum.enumValue1,

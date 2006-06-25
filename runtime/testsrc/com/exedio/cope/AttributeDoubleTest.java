@@ -18,12 +18,28 @@
 
 package com.exedio.cope;
 
+import java.util.Date;
+
 
 public class AttributeDoubleTest extends AttributeTest
 {
+	static final Double CONST = 1.1;
+
 	public void testSomeDouble()
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
+		assertSame(null, item.someDouble.cast(null));
+		assertSame(CONST, item.someDouble.cast(CONST));
+		try
+		{
+			item.someDouble.cast(1);
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a " + Double.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+		}
+		assertEquals(Date.class, item.someDate.getValueClass());
+
 		assertEquals(null, item.getSomeDouble());
 		assertContains(item, item2, item.TYPE.search(item.someDouble.equal((Double)null)));
 		assertContains(item, item2, item.TYPE.search(item.someDouble.isNull()));

@@ -21,9 +21,23 @@ package com.exedio.cope;
 
 public class AttributeIntegerTest extends AttributeTest
 {
+	static final Integer CONST = 1;
+	
 	public void testSomeInteger()
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
+		assertSame(null, item.someInteger.cast(null));
+		assertSame(CONST, item.someInteger.cast(CONST));
+		try
+		{
+			item.someInteger.cast(1l);
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName(), e.getMessage());
+		}
+		assertEquals(Integer.class, item.someInteger.getValueClass());
+
 		assertEquals(null, item.getSomeInteger());
 		assertContains(item, item2, item.TYPE.search(item.someInteger.equal((Integer)null)));
 		assertContains(item, item2, item.TYPE.search(item.someInteger.isNull()));

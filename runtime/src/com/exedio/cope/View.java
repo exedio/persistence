@@ -97,6 +97,11 @@ public abstract class View<E> extends Feature implements Function<E>
 		return Cope.verboseCast(valueClass, o);
 	}
 	
+	public final Class<E> getValueClass()
+	{
+		return valueClass;
+	}
+	
 	public final int getTypeForDefiningColumn()
 	{
 		return typeForDefiningColumn;

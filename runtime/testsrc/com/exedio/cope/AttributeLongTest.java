@@ -21,9 +21,23 @@ package com.exedio.cope;
 
 public class AttributeLongTest extends AttributeTest
 {
+	static final Long CONST = 1l;
+	
 	public void testSomeLong()
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
+		assertSame(null, item.someLong.cast(null));
+		assertSame(CONST, item.someLong.cast(CONST));
+		try
+		{
+			item.someLong.cast(1);
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+		}
+		assertEquals(Long.class, item.someLong.getValueClass());
+
 		assertEquals(null, item.getSomeLong());
 		assertContains(item, item2, item.TYPE.search(item.someLong.equal((Long)null)));
 		assertContains(item, item2, item.TYPE.search(item.someLong.isNull()));

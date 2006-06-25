@@ -132,6 +132,18 @@ public class DataTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(), item.data10.getPatterns());
 		assertEquals(10, item.data10.getMaximumLength());
 		
+		assertSame(null, item.data.cast(null));
+		assertSame(data10, item.data.cast(data10));
+		try
+		{
+			item.data.cast(1);
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a " + byte[].class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+		}
+		assertEquals(byte[].class, item.data.getValueClass());
+
 		try
 		{
 			new DataAttribute(Item.OPTIONAL).lengthMax(0);

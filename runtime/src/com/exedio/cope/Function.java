@@ -33,6 +33,8 @@ public interface Function<E> extends Selectable<E>
 	 */
 	E cast(Object o);
 	
+	Class<E> getValueClass();
+	
 	/**
 	 * For internal use within COPE only.
 	 */

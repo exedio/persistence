@@ -36,6 +36,18 @@ public class AttributeDateTest extends AttributeTest
 		final Date nextDate = new Date(date.getTime()+1l);
 
 		assertEquals(item.TYPE, item.someDate.getType());
+		assertSame(null, item.someDate.cast(null));
+		assertSame(date, item.someDate.cast(date));
+		try
+		{
+			item.someDate.cast(1);
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+		}
+		assertEquals(Date.class, item.someDate.getValueClass());
+
 		assertEquals(null, item.getSomeDate());
 		assertContains(item, item2, item.TYPE.search(item.someDate.equal((Date)null)));
 		assertContains(item, item2, item.TYPE.search(item.someDate.isNull()));

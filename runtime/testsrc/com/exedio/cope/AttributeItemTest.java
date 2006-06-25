@@ -33,6 +33,7 @@ public class AttributeItemTest extends AttributeTest
 	{
 		assertEquals(item.TYPE, item.someItem.getType());
 		assertEquals(EmptyItem.TYPE, item.someItem.getValueType());
+		assertEquals(EmptyItem.class, item.someItem.getValueClass());
 		assertEquals(Item.FORBID, item.someItem.getDeletePolicy());
 		assertEqualsUnmodifiable(list(), PlusItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(), PlusItem.TYPE.getReferences());

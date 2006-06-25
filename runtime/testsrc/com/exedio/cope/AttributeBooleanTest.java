@@ -24,6 +24,18 @@ public class AttributeBooleanTest extends AttributeTest
 	public void testSomeBoolean()
 	{
 		assertEquals(item.TYPE, item.someBoolean.getType());
+		assertSame(null, item.someBoolean.cast(null));
+		assertSame(Boolean.TRUE, item.someBoolean.cast(Boolean.TRUE));
+		try
+		{
+			item.someBoolean.cast(1);
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a " + Boolean.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+		}
+		assertEquals(Boolean.class, item.someBoolean.getValueClass());
+
 		assertEquals(null, item.getSomeBoolean());
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal((Boolean)null)));
 		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
