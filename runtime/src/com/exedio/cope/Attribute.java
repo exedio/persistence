@@ -83,7 +83,7 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return result;
 	}
 	
-	public final Class getValueClass()
+	public final Class<E> getValueClass()
 	{
 		return valueClass;
 	}
