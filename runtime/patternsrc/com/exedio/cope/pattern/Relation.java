@@ -26,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
@@ -107,12 +108,12 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 
 	public List<T> getTargetsAndCast(final Item source)
 	{
-		return getTargets(this.source.cast(source));
+		return getTargets(Cope.verboseCast(this.source.getValueClass(), source));
 	}
 
 	public List<S> getSourcesAndCast(final Item target)
 	{
-		return getSources(this.target.cast(target));
+		return getSources(Cope.verboseCast(this.target.getValueClass(), target));
 	}
 
 	/**
@@ -219,12 +220,12 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	
 	public void setTargetsAndCast(final Item source, final Collection<?> targets)
 	{
-		setTargets(this.source.cast(source), this.target.castCollection(targets));
+		setTargets(Cope.verboseCast(this.source.getValueClass(), source), this.target.castCollection(targets));
 	}
 	
 	public void setSourcesAndCast(final Item target, final Collection<?> sources)
 	{
-		setSources(this.target.cast(target), this.source.castCollection(sources));
+		setSources(Cope.verboseCast(this.target.getValueClass(), target), this.source.castCollection(sources));
 	}
 	
 	// static convenience methods ---------------------------------

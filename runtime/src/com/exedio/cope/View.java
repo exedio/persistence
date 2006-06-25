@@ -92,11 +92,6 @@ public abstract class View<E> extends Feature implements Function<E>
 		return mapJava(values);
 	}
 	
-	public final E cast(final Object o)
-	{
-		return Cope.verboseCast(valueClass, o);
-	}
-	
 	public final Class<E> getValueClass()
 	{
 		return valueClass;
@@ -187,11 +182,6 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new EqualCondition<E>(this, value);
 	}
 	
-	public final EqualCondition<E> equalAndCast(final Object value)
-	{
-		return equal(cast(value));
-	}
-	
 	public final EqualCondition<E> equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
@@ -207,11 +197,6 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new NotEqualCondition<E>(this, value);
 	}
 	
-	public final NotEqualCondition<E> notEqualAndCast(final Object value)
-	{
-		return notEqual(cast(value));
-	}
-
 	public final EqualFunctionCondition<E> equal(final Function<E> right)
 	{
 		return new EqualFunctionCondition<E>(this, right);
@@ -222,19 +207,9 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 	}
 	
-	public final CompareCondition<E> lessAndCast(final Object value)
-	{
-		return less(cast(value));
-	}
-	
 	public final CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
-	}
-	
-	public final CompareCondition<E> lessOrEqualAndCast(final Object value)
-	{
-		return lessOrEqual(cast(value));
 	}
 	
 	public final CompareCondition<E> greater(final E value)
@@ -242,19 +217,9 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 	}
 	
-	public final CompareCondition<E> greaterAndCast(final Object value)
-	{
-		return greater(cast(value));
-	}
-	
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
-	}
-	
-	public final CompareCondition<E> greaterOrEqualAndCast(final Object value)
-	{
-		return greaterOrEqual(cast(value));
 	}
 	
 	public final ExtremumAggregate<E> min()

@@ -26,13 +26,6 @@ public interface Function<E> extends Selectable<E>
 {
 	E get(Item item);
 
-	/**
-	 * Casts <tt>o</tt> to <tt>E</tt>.
-	 * @throws ClassCastException if <tt>o</tt> is not assignable to <tt>E</tt>
-	 * @see Class#cast(Object)
-	 */
-	E cast(Object o);
-	
 	Class<E> getValueClass();
 	
 	/**
@@ -48,71 +41,15 @@ public interface Function<E> extends Selectable<E>
 	// convenience methods for conditions and views ---------------------------------
 	
 	EqualCondition<E> equal(E value);
-
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #equal(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	EqualCondition<E> equalAndCast(Object value);
-	
 	EqualCondition<E> equal(Join join, E value);
 	CompositeCondition in(Collection<E> value);
-
 	NotEqualCondition<E> notEqual(E value);
-	
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #notEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	NotEqualCondition<E> notEqualAndCast(Object value);
-	
 	EqualFunctionCondition<E> equal(Function<E> right);
 	CompareCondition<E> less(E value);
-
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #less(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	CompareCondition<E> lessAndCast(Object value);
-
 	CompareCondition<E> lessOrEqual(E value);
-
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #lessOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	CompareCondition<E> lessOrEqualAndCast(Object value);
-	
 	CompareCondition<E> greater(E value);
-
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #greater(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	CompareCondition<E> greaterAndCast(Object value);
-	
 	CompareCondition<E> greaterOrEqual(E value);
-
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #greaterOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	CompareCondition<E> greaterOrEqualAndCast(Object value);
-
 	ExtremumAggregate<E> min();
 	ExtremumAggregate<E> max();
-	
 	JoinedFunction<E> bind(Join join);
 }

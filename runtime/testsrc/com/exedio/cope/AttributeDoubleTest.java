@@ -28,16 +28,6 @@ public class AttributeDoubleTest extends AttributeTest
 	public void testSomeDouble()
 	{
 		assertEquals(item.TYPE, item.someDouble.getType());
-		assertSame(null, item.someDouble.cast(null));
-		assertSame(CONST, item.someDouble.cast(CONST));
-		try
-		{
-			item.someDouble.cast(1);
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + Double.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
-		}
 		assertEquals(Date.class, item.someDate.getValueClass());
 
 		assertEquals(null, item.getSomeDouble());

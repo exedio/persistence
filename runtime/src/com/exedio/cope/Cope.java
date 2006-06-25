@@ -119,7 +119,84 @@ public abstract class Cope
 	
 	public static final <X> SetValue<X> mapAndCast(final Attribute<X> a, final Object o)
 	{
-		return new SetValue<X>(a, a.cast(o));
+		return new SetValue<X>(a, Cope.verboseCast(a.getValueClass(), o));
 	}
 	
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Attribute#set(Item, Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public static final <X> void setAndCast(final Attribute<X> attribute, final Item item, final Object value)
+	{
+		attribute.set(item, verboseCast(attribute.getValueClass(), value));
+	}
+
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Function#equal(Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public static final <X> EqualCondition<X> equalAndCast(final Function<X> function, final Object value)
+	{
+		return function.equal(verboseCast(function.getValueClass(), value));
+	}
+	
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Function#notEqual(Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public static final <X> NotEqualCondition<X> notEqualAndCast(final Function<X> function, final Object value)
+	{
+		return function.notEqual(verboseCast(function.getValueClass(), value));
+	}
+	
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Function#less(Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public static final <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
+	{
+		return function.less(verboseCast(function.getValueClass(), value));
+	}
+
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Function#lessOrEqual(Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public static final <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
+	{
+		return function.lessOrEqual(verboseCast(function.getValueClass(), value));
+	}
+	
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Function#greater(Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public static final <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
+	{
+		return function.greater(verboseCast(function.getValueClass(), value));
+	}
+	
+	/**
+	 * {@link #verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Function#greaterOrEqual(Object)}
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 */
+	public static final <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
+	{
+		return function.greaterOrEqual(verboseCast(function.getValueClass(), value));
+	}
+
 }

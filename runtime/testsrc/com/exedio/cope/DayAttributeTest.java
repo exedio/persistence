@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.util.Day;
@@ -50,16 +49,6 @@ public class DayAttributeTest extends AbstractLibTest
 		final Day nextDay = new Day(2005, 9, 24);
 
 		assertEquals(item.TYPE, item.day.getType());
-		assertSame(null, item.day.cast(null));
-		assertSame(day, item.day.cast(day));
-		try
-		{
-			item.day.cast(new Date(12481));
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + Day.class.getName() + ", but was a " + Date.class.getName(), e.getMessage());
-		}
 		assertEquals(Day.class, item.day.getValueClass());
 
 		assertEquals(DEFAULT, item.getDay());

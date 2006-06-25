@@ -40,27 +40,6 @@ public class AttributeItemTest extends AttributeTest
 		assertEqualsUnmodifiable(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(AttributeEmptyItem.parent), AttributeItem.TYPE.getReferences());
 		
-		assertSame(null, item.someItem.cast(null));
-		assertSame(someItem, item.someItem.cast(someItem));
-		try
-		{
-			item.someItem.cast(1);
-			fail();
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
-		}
-		try
-		{
-			item.someItem.cast(item);
-			fail();
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + AttributeItem.class.getName(), e.getMessage());
-		}
-		
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(someItem);
 		assertEquals(someItem, item.getSomeItem());

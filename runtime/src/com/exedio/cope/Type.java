@@ -908,11 +908,6 @@ public final class Type<C extends Item>
 			return type.cast(item);
 		}
 		
-		public E cast(final Object o)
-		{
-			return type.cast((Item)o);
-		}
-		
 		public Class<E> getValueClass()
 		{
 			return type.javaClass;
@@ -963,11 +958,6 @@ public final class Type<C extends Item>
 			return new EqualCondition<E>(this, value);
 		}
 		
-		public EqualCondition<E> equalAndCast(final Object value)
-		{
-			return equal(cast(value));
-		}
-		
 		public EqualCondition<E> equal(final Join join, final E value)
 		{
 			return this.bind(join).equal(value);
@@ -983,11 +973,6 @@ public final class Type<C extends Item>
 			return new NotEqualCondition<E>(this, value);
 		}
 		
-		public NotEqualCondition<E> notEqualAndCast(final Object value)
-		{
-			return notEqual(cast(value));
-		}
-		
 		public EqualFunctionCondition<E> equal(final Function<E> right)
 		{
 			return new EqualFunctionCondition<E>(this, right);
@@ -998,19 +983,9 @@ public final class Type<C extends Item>
 			return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
 		}
 		
-		public CompareCondition<E> lessAndCast(final Object value)
-		{
-			return less(cast(value));
-		}
-		
 		public CompareCondition<E> lessOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
-		}
-		
-		public CompareCondition<E> lessOrEqualAndCast(final Object value)
-		{
-			return lessOrEqual(cast(value));
 		}
 		
 		public CompareCondition<E> greater(final E value)
@@ -1018,19 +993,9 @@ public final class Type<C extends Item>
 			return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
 		}
 		
-		public CompareCondition<E> greaterAndCast(final Object value)
-		{
-			return greater(cast(value));
-		}
-		
 		public CompareCondition<E> greaterOrEqual(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
-		}
-		
-		public CompareCondition<E> greaterOrEqualAndCast(final Object value)
-		{
-			return greaterOrEqual(cast(value));
 		}
 		
 		public ExtremumAggregate<E> min()

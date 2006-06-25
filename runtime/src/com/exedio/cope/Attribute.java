@@ -88,11 +88,6 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return valueClass;
 	}
 	
-	public final E cast(final Object o)
-	{
-		return Cope.verboseCast(valueClass, o);
-	}
-
 	public final Collection<E> castCollection(final Collection<?> c)
 	{
 		if(c==null)
@@ -199,17 +194,6 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		return column.id;
 	}
 	
-	/**
-	 * {@link #cast(Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link #set(Item, Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
-	 */
-	public final void setAndCast(final Item item, final Object value)
-	{
-		set(item, cast(value));
-	}
-
 	abstract Column createColumn(Table table, String name, boolean optional);
 	public abstract E get(Item item);
 	public abstract void set(Item item, E value);

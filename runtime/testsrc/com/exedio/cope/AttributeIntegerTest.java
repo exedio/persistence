@@ -26,16 +26,6 @@ public class AttributeIntegerTest extends AttributeTest
 	public void testSomeInteger()
 	{
 		assertEquals(item.TYPE, item.someInteger.getType());
-		assertSame(null, item.someInteger.cast(null));
-		assertSame(CONST, item.someInteger.cast(CONST));
-		try
-		{
-			item.someInteger.cast(1l);
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName(), e.getMessage());
-		}
 		assertEquals(Integer.class, item.someInteger.getValueClass());
 
 		assertEquals(null, item.getSomeInteger());

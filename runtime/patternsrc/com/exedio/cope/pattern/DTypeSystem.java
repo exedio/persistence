@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.List;
 
 import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegerAttribute;
@@ -194,7 +195,7 @@ public final class DTypeSystem extends Pattern
 				throw new RuntimeException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + attribute);
 		}
 		
-		getAttribute(attribute).setAndCast(item, value);
+		Cope.setAndCast(getAttribute(attribute), item, value);
 	}
 	
 }

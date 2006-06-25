@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Attribute;
+import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -141,17 +142,17 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	
 	public List<T> getTargetsAndCast(final Item source)
 	{
-		return getTargets(this.source.cast(source));
+		return getTargets(Cope.verboseCast(this.source.getValueClass(), source));
 	}
 
 	public List<S> getSourcesAndCast(final Item target)
 	{
-		return getSources(this.target.cast(target));
+		return getSources(Cope.verboseCast(this.target.getValueClass(), target));
 	}
 
 	public void setTargetsAndCast(final Item source, final Collection<?> targets)
 	{
-		setTargets(this.source.cast(source), this.target.castCollection(targets));
+		setTargets(Cope.verboseCast(this.source.getValueClass(), source), this.target.castCollection(targets));
 	}
 	
 	// static convenience methods ---------------------------------

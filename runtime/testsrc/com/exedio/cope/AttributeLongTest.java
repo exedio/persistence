@@ -26,16 +26,6 @@ public class AttributeLongTest extends AttributeTest
 	public void testSomeLong()
 	{
 		assertEquals(item.TYPE, item.someLong.getType());
-		assertSame(null, item.someLong.cast(null));
-		assertSame(CONST, item.someLong.cast(CONST));
-		try
-		{
-			item.someLong.cast(1);
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
-		}
 		assertEquals(Long.class, item.someLong.getValueClass());
 
 		assertEquals(null, item.getSomeLong());

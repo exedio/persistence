@@ -43,27 +43,8 @@ public class EnumTest extends AbstractLibTest
 
 	public void testIt()
 	{
-		assertSame(null, item.status.cast(null));
-		assertSame(EnumItem.Status.status1, item.status.cast(EnumItem.Status.status1));
-		try
-		{
-			item.status.cast(1);
-			fail();
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + EnumItem.Status.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
-		}
-		try
-		{
-			item.status.cast(EnumItem2.Status.state1);
-			fail();
-		}
-		catch(ClassCastException e)
-		{
-			assertEquals("expected a " + EnumItem.Status.class.getName() + ", but was a " + EnumItem2.Status.class.getName(), e.getMessage());
-		}
-		
+		assertEquals(EnumItem.Status.class, item.status.getValueClass());
+		assertEquals(EnumItem2.Status.class, item2.status.getValueClass());
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());
 	}
