@@ -79,16 +79,16 @@ public class MediaTest extends AbstractLibTest
 				item.TYPE.getThis(),
 				item.name,
 				item.file,
-				item.file.getData(),
+				item.file.getBody(),
 				item.file.getMimeMajor(),
 				item.file.getMimeMinor(),
 				item.file.getLastModified(),
 				item.image,
-				item.image.getData(),
+				item.image.getBody(),
 				item.image.getMimeMinor(),
 				item.image.getLastModified(),
 				item.photo,
-				item.photo.getData(),
+				item.photo.getBody(),
 				item.photo.getLastModified(),
 				item.foto,
 				item.nameServer,
@@ -98,12 +98,12 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(null, item.file.getFixedMimeMajor());
 		assertEquals(null, item.file.getFixedMimeMinor());
 		assertEquals(20, item.file.getMaximumLength());
-		final DataAttribute fileData = item.file.getData();
-		assertSame(item.TYPE, fileData.getType());
-		assertSame("fileData", fileData.getName());
-		assertEquals(20, fileData.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.file), fileData.getPatterns());
-		assertSame(item.file, Media.get(fileData));
+		final DataAttribute fileBody = item.file.getBody();
+		assertSame(item.TYPE, fileBody.getType());
+		assertSame("fileBody", fileBody.getName());
+		assertEquals(20, fileBody.getMaximumLength());
+		assertEqualsUnmodifiable(list(item.file), fileBody.getPatterns());
+		assertSame(item.file, Media.get(fileBody));
 		final StringAttribute fileMajor = item.file.getMimeMajor();
 		assertSame(item.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
@@ -191,12 +191,12 @@ public class MediaTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileData, e.getDataAttribute());
-				assertSame(fileData, e.getFeature());
+				assertSame(fileBody, e.getDataAttribute());
+				assertSame(fileBody, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for " + item.file.getData(), e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for " + item.file.getBody(), e.getMessage());
 			}
 			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 			try
@@ -206,12 +206,12 @@ public class MediaTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileData, e.getDataAttribute());
-				assertSame(fileData, e.getFeature());
+				assertSame(fileBody, e.getDataAttribute());
+				assertSame(fileBody, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for " + item.file.getData(), e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes is too long for " + item.file.getBody(), e.getMessage());
 			}
 			assertFile(data20, before, after, "emptyMajor/emptyMinor", ".emptyMajor.emptyMinor");
 			try
@@ -221,12 +221,12 @@ public class MediaTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileData, e.getDataAttribute());
-				assertSame(fileData, e.getFeature());
+				assertSame(fileBody, e.getDataAttribute());
+				assertSame(fileBody, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(false, e.isLengthExact());
-				assertEquals("length violation on MediaTestItem.0, 21 bytes or more is too long for " + item.file.getData(), e.getMessage());
+				assertEquals("length violation on MediaTestItem.0, 21 bytes or more is too long for " + item.file.getBody(), e.getMessage());
 			}
 			assertStreamClosed();
 			//assertFile(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
@@ -239,12 +239,12 @@ public class MediaTest extends AbstractLibTest
 		assertEquals("image", item.image.getFixedMimeMajor());
 		assertEquals(null, item.image.getFixedMimeMinor());
 		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
-		final DataAttribute imageData = item.image.getData();
-		assertSame(item.TYPE, imageData.getType());
-		assertSame("imageData", imageData.getName());
-		assertEquals(Media.DEFAULT_LENGTH, imageData.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.image), imageData.getPatterns());
-		assertSame(item.image, Media.get(imageData));
+		final DataAttribute imageBody = item.image.getBody();
+		assertSame(item.TYPE, imageBody.getType());
+		assertSame("imageBody", imageBody.getName());
+		assertEquals(Media.DEFAULT_LENGTH, imageBody.getMaximumLength());
+		assertEqualsUnmodifiable(list(item.image), imageBody.getPatterns());
+		assertSame(item.image, Media.get(imageBody));
 		assertEquals(null, item.image.getMimeMajor());
 		final StringAttribute imageMinor = item.image.getMimeMinor();
 		assertSame(item.TYPE, imageMinor.getType());
@@ -298,12 +298,12 @@ public class MediaTest extends AbstractLibTest
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
 		assertEquals(2000, item.photo.getMaximumLength());
-		final DataAttribute photoData = item.photo.getData();
-		assertSame(item.TYPE, photoData.getType());
-		assertSame("photoData", photoData.getName());
-		assertEquals(2000, photoData.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.photo), photoData.getPatterns());
-		assertSame(item.photo, Media.get(photoData));
+		final DataAttribute photoBody = item.photo.getBody();
+		assertSame(item.TYPE, photoBody.getType());
+		assertSame("photoBody", photoBody.getName());
+		assertEquals(2000, photoBody.getMaximumLength());
+		assertEqualsUnmodifiable(list(item.photo), photoBody.getPatterns());
+		assertSame(item.photo, Media.get(photoBody));
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
 		final DateAttribute photoLastModified = item.photo.getLastModified();
@@ -365,22 +365,22 @@ public class MediaTest extends AbstractLibTest
 		// logs -----------------------------------------------
 		
 		assertEquals(0, item.photo.noSuchItem.get());
-		assertEquals(0, item.photo.dataIsNull.get());
+		assertEquals(0, item.photo.isNull.get());
 		assertEquals(0, item.photo.notModified.get());
 		assertEquals(0, item.photo.delivered.get());
 		
 		item.photo.noSuchItem.increment();
 		assertEquals(1, item.photo.noSuchItem.get());
-		assertEquals(0, item.photo.dataIsNull.get());
+		assertEquals(0, item.photo.isNull.get());
 		assertEquals(0, item.photo.notModified.get());
 		assertEquals(0, item.photo.delivered.get());
 
 		item.photo.noSuchItem.increment();
-		item.photo.dataIsNull.increment();
+		item.photo.isNull.increment();
 		item.photo.notModified.increment();
 		item.photo.delivered.increment();
 		assertEquals(2, item.photo.noSuchItem.get());
-		assertEquals(1, item.photo.dataIsNull.get());
+		assertEquals(1, item.photo.isNull.get());
 		assertEquals(1, item.photo.notModified.get());
 		assertEquals(1, item.photo.delivered.get());
 	}
@@ -388,7 +388,7 @@ public class MediaTest extends AbstractLibTest
 	private void assertFileNull() throws IOException
 	{
 		assertTrue(item.isFileNull());
-		assertEquals(null, item.getFileData());
+		assertEquals(null, item.getFileBody());
 		assertDataFile(null);
 		assertEquals(-1, item.getFileLength());
 		assertEquals(-1, item.getFileLastModified());
@@ -403,7 +403,7 @@ public class MediaTest extends AbstractLibTest
 	throws IOException
 	{
 		assertTrue(!item.isFileNull());
-		assertData(expectedData, item.getFileData());
+		assertData(expectedData, item.getFileBody());
 		assertDataFile(expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
 		assertWithin(before, after, new Date(item.getFileLastModified()));
@@ -417,14 +417,14 @@ public class MediaTest extends AbstractLibTest
 		assertTrue(tempFile.delete());
 		assertFalse(tempFile.exists());
 		
-		item.getFileData(tempFile);
+		item.getFileBody(tempFile);
 		assertEqualContent(expectedData, tempFile);
 	}
 	
 	private void assertImageNull() throws IOException
 	{
 		assertTrue(item.isImageNull());
-		assertEquals(null, item.getImageData());
+		assertEquals(null, item.getImageBody());
 		assertEquals(-1, item.getImageLength());
 		assertEquals(null, item.getImageContentType());
 		assertEquals(null, item.getImageURL());
@@ -436,7 +436,7 @@ public class MediaTest extends AbstractLibTest
 	throws IOException
 	{
 		assertTrue(!item.isImageNull());
-		assertData(expectedData, item.getImageData());
+		assertData(expectedData, item.getImageBody());
 		assertEquals(expectedData.length, item.getImageLength());
 		assertEquals(expectedContentType, item.getImageContentType());
 		assertTrue(item.getImageURL().endsWith(expectedExtension));
@@ -446,7 +446,7 @@ public class MediaTest extends AbstractLibTest
 	{
 		assertTrue(item.photo.isNull(item));
 		assertTrue(item.isPhotoNull());
-		assertEquals(null, item.getPhotoData());
+		assertEquals(null, item.getPhotoBody());
 		assertEquals(-1, item.getPhotoLength());
 		assertEquals(null, item.getPhotoContentType());
 		assertEquals(null, item.getPhotoURL());
@@ -456,7 +456,7 @@ public class MediaTest extends AbstractLibTest
 	throws IOException
 	{
 		assertTrue(!item.isPhotoNull());
-		assertData(expectedData, item.getPhotoData());
+		assertData(expectedData, item.getPhotoBody());
 		assertEquals(expectedData.length, item.getPhotoLength());
 		assertEquals("image/jpeg", item.getPhotoContentType());
 		assertTrue(item.getPhotoURL().endsWith(".jpg"));

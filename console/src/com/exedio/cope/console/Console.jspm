@@ -408,7 +408,7 @@ final class Console_Jspm
 					path.exception.get(),
 					path.notAnItem.get(),
 					path.noSuchItem.get(),
-					path.dataIsNull.get(),
+					path.isNull.get(),
 					path.notModified.get(),
 					path.delivered.get(),
 				};

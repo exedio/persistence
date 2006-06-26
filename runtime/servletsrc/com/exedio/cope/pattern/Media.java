@@ -48,20 +48,20 @@ public final class Media extends MediaPath
 {
 	private final Option option;
 	final boolean optional;
-	final DataAttribute data;
+	final DataAttribute body;
 	final ContentType contentType;
 	final DateAttribute lastModified;
 
 	public static final long DEFAULT_LENGTH = DataAttribute.DEFAULT_LENGTH;
 	
-	private Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor, final long dataMaximumLength)
+	private Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor, final long bodyMaximumLength)
 	{
 		if(option==null)
 			throw new NullPointerException("option must not be null");
 		
 		this.option = option;
 		this.optional = option.optional;
-		registerSource(this.data = new DataAttribute(option).lengthMax(dataMaximumLength));
+		registerSource(this.body = new DataAttribute(option).lengthMax(bodyMaximumLength));
 		
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null)
 		{
@@ -116,12 +116,12 @@ public final class Media extends MediaPath
 	
 	public long getMaximumLength()
 	{
-		return data.getMaximumLength();
+		return body.getMaximumLength();
 	}
 	
-	public DataAttribute getData()
+	public DataAttribute getBody()
 	{
-		return data;
+		return body;
 	}
 	
 	public StringAttribute getMimeMajor()
@@ -150,8 +150,8 @@ public final class Media extends MediaPath
 		super.initialize();
 		
 		final String name = getName();
-		if(data!=null && !data.isInitialized())
-			initialize(data, name+"Data");
+		if(body!=null && !body.isInitialized())
+			initialize(body, name+"Body");
 		contentType.initialize(name);
 		initialize(lastModified, name+"LastModified");
 	}
@@ -176,8 +176,9 @@ public final class Media extends MediaPath
 	}
 
 	/**
-	 * Returns a URL pointing to the data of this media.
-	 * Returns null, if there is no data for this media.
+	 * Returns a URL the content of this media is available under,
+	 * if a {@link MediaServlet} is properly installed.
+	 * Returns null, if this media is null.
 	 */
 	public String getURL(final Item item)
 	{
@@ -239,7 +240,7 @@ public final class Media extends MediaPath
 
 	/**
 	 * Returns the content type of this media.
-	 * Returns null, if there is no data for this media.
+	 * Returns null, if this media is null.
 	 */
 	public String getContentType(final Item item)
 	{
@@ -251,8 +252,8 @@ public final class Media extends MediaPath
 	
 	/**
 	 * Returns the date of the last modification
-	 * of the data of this media.
-	 * Returns -1, if there is no data for this media.
+	 * of this media.
+	 * Returns null, if this media is null.
 	 */
 	public long getLastModified(final Item item)
 	{
@@ -263,43 +264,43 @@ public final class Media extends MediaPath
 	}
 
 	/**
-	 * Returns the length of the data of this media.
-	 * Returns -1, if there is no data for this media.
+	 * Returns the length of the body of this media.
+	 * Returns -1, if this media is null.
 	 */
 	public long getLength(final Item item)
 	{
 		if(isNull(item))
 			return -1;
 		
-		final long result = data.getLength(item);
+		final long result = body.getLength(item);
 		
 		assert result>=0 : item.getCopeID();
 		return result;
 	}
 
 	/**
-	 * Returns the data of this media.
-	 * Returns null, if there is no data for this media.
+	 * Returns the body of this media.
+	 * Returns null, if this media is null.
 	 */
-	public byte[] getData(final Item item)
+	public byte[] getBody(final Item item)
 	{
-		return this.data.get(item);
+		return this.body.get(item);
 	}
 
 	/**
-	 * Provides data for this persistent media.
-	 * @param data give null to remove data.
+	 * Sets the contents of this media.
+	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if body is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
-	 *         if data is longer than {@link #getMaximumLength()}
+	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	public void set(final Item item, final byte[] data, final String contentType)
+	public void set(final Item item, final byte[] body, final String contentType)
 		throws DataLengthViolationException
 	{
 		try
 		{
-			set(item, (Object)data, contentType);
+			set(item, (Object)body, contentType);
 		}
 		catch(IOException e)
 		{
@@ -308,99 +309,98 @@ public final class Media extends MediaPath
 	}
 	
 	/**
-	 * Reads data for this media and writes it into the given steam.
-	 * Does nothing, if there is no data for this media.
+	 * Writes the body of this media into the given steam.
+	 * Does nothing, if this media is null.
 	 * @throws NullPointerException
-	 *         if data is null.
-	 * @throws IOException if writing data throws an IOException.
+	 *         if <tt>body</tt> is null.
+	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	public void getData(final Item item, final OutputStream data) throws IOException
+	public void getBody(final Item item, final OutputStream body) throws IOException
 	{
-		this.data.get(item, data);
+		this.body.get(item, body);
 	}
 
 	/**
-	 * Provides data for this persistent media.
-	 * Closes <data>data</data> after reading the contents of the stream.
-	 * @param data give null to remove data.
+	 * Sets the contents of this media.
+	 * Closes <tt>body</tt> after reading the contents of the stream.
+	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if <tt>body</tt> is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
-	 *         if data is longer than {@link #getMaximumLength()}
-	 * @throws IOException if reading data throws an IOException.
+	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
+	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	public void set(final Item item, final InputStream data, final String contentType)
+	public void set(final Item item, final InputStream body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		try
 		{
-			set(item, (Object)data, contentType);
+			set(item, (Object)body, contentType);
 		}
 		finally
 		{
-			if(data!=null)
-				data.close();
+			if(body!=null)
+				body.close();
 		}
 	}
 	
 	/**
-	 * Reads data of this media
-	 * and writes it into the given file.
-	 * Does nothing, if there is no data for this media.
+	 * Writes the body of this media into the given file.
+	 * Does nothing, if this media is null.
 	 * @throws NullPointerException
-	 *         if data is null.
-	 * @throws IOException if writing data throws an IOException.
+	 *         if <tt>body</tt> is null.
+	 * @throws IOException if writing <tt>body</tt> throws an IOException.
 	 */
-	public void getData(final Item item, final File data) throws IOException
+	public void getBody(final Item item, final File body) throws IOException
 	{
-		this.data.get(item, data);
+		this.body.get(item, body);
 	}
 
 	/**
-	 * Provides data for this persistent media.
-	 * @param data give null to remove data.
+	 * Sets the contents of this media.
+	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if <tt>body</tt> is null and attribute is {@link Attribute#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
-	 *         if data is longer than {@link #getMaximumLength()}
-	 * @throws IOException if reading data throws an IOException.
+	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
+	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
-	public void set(final Item item, final File data, final String contentType)
+	public void set(final Item item, final File body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
-		set(item, (Object)data, contentType);
+		set(item, (Object)body, contentType);
 	}
 	
-	private void set(final Item item, final Object data, final String contentType)
+	private void set(final Item item, final Object body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
-		if(data!=null)
+		if(body!=null)
 		{
 			if(contentType==null)
-				throw new RuntimeException("if data is not null, content type must also be not null");
+				throw new RuntimeException("if body is not null, content type must also be not null");
 			
 			final long length;
-			if(data instanceof byte[])
-				length = ((byte[])data).length;
-			else if(data instanceof InputStream)
+			if(body instanceof byte[])
+				length = ((byte[])body).length;
+			else if(body instanceof InputStream)
 				length = -1;
 			else
-				length = ((File)data).length();
+				length = ((File)body).length();
 			
-			if(length>this.data.getMaximumLength())
-				throw new DataLengthViolationException(this.data, item, length, true);
+			if(length>this.body.getMaximumLength())
+				throw new DataLengthViolationException(this.body, item, length, true);
 		}
 		else
 		{
 			if(contentType!=null)
-				throw new RuntimeException("if data is null, content type must also be null");
+				throw new RuntimeException("if body is null, content type must also be null");
 		}
 
 		final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 		this.contentType.map(values, contentType);
-		values.add(this.lastModified.map(data!=null ? new Date() : null));
-		if(data instanceof byte[])
-			values.add(this.data.map((byte[])data));
+		values.add(this.lastModified.map(body!=null ? new Date() : null));
+		if(body instanceof byte[])
+			values.add(this.body.map((byte[])body));
 		
 		try
 		{
@@ -413,12 +413,12 @@ public final class Media extends MediaPath
 		}
 		
 		// TODO set InputStream/File via Item.set(SetValue[]) as well
-		if(data instanceof byte[])
+		if(body instanceof byte[])
 			/* already set above */;
-		else if(data instanceof InputStream)
-			this.data.set(item, (InputStream)data);
+		else if(body instanceof InputStream)
+			this.body.set(item, (InputStream)body);
 		else
-			this.data.set(item, (File)data);
+			this.body.set(item, (File)body);
 	}
 	
 	public final static Media get(final DataAttribute attribute)
@@ -428,7 +428,7 @@ public final class Media extends MediaPath
 			if(pattern instanceof Media)
 			{
 				final Media media = (Media)pattern;
-				if(media.getData()==attribute)
+				if(media.getBody()==attribute)
 					return media;
 			}
 		}
@@ -461,7 +461,7 @@ public final class Media extends MediaPath
 		final String contentType = getContentType(item);
 		//System.out.println("contentType="+contentType);
 		if(contentType==null)
-			return dataIsNull;
+			return isNull;
 
 		response.setContentType(contentType);
 
@@ -505,7 +505,7 @@ public final class Media extends MediaPath
 			try
 			{
 				out = response.getOutputStream();
-				getData(item, out);
+				getBody(item, out);
 				return delivered;
 			}
 			finally

@@ -33,7 +33,7 @@ public class AttributeDataTest extends AttributeTest
 		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());
 		assertEquals(null, item.getSomeDataURL());
-		assertEquals(null, item.getSomeDataData());
+		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());
 
 		final byte[] bytes = {3,7,1,4};
@@ -47,12 +47,12 @@ public class AttributeDataTest extends AttributeTest
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
-		assertData(bytes, item.getSomeDataData());
+		assertData(bytes, item.getSomeDataBody());
 		assertEquals("someMimeMajor/someMimeMinor", item.getSomeDataContentType());
 
 		restartTransaction();
 		assertEquals(expectedURL, item.getSomeDataURL());
-		assertData(bytes, item.getSomeDataData());
+		assertData(bytes, item.getSomeDataBody());
 		assertEquals("someMimeMajor/someMimeMinor", item.getSomeDataContentType());
 
 		assertDataMime(item, "image/jpeg", bytes, "jpg");
@@ -69,11 +69,11 @@ public class AttributeDataTest extends AttributeTest
 		}
 		item.setSomeData(stream(manyBytes),"someMimeMajor/someMimeMinor");
 		assertStreamClosed();
-		assertData(manyBytes, item.getSomeDataData());
+		assertData(manyBytes, item.getSomeDataBody());
 
 		item.setSomeData((InputStream)null, null);
 		assertEquals(null, item.getSomeDataURL());
-		assertEquals(null, item.getSomeDataData());
+		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());
 	}
 

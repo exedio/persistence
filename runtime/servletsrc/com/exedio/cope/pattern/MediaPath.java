@@ -63,7 +63,7 @@ public abstract class MediaPath extends Pattern
 	public final Log exception = new Log("exception", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	public final Log notAnItem = new Log("not an item", HttpServletResponse.SC_NOT_FOUND);
 	public final Log noSuchItem = new Log("no such item", HttpServletResponse.SC_NOT_FOUND);
-	public final Log dataIsNull = new Log("data is null", HttpServletResponse.SC_NOT_FOUND);
+	public final Log isNull = new Log("is null", HttpServletResponse.SC_NOT_FOUND);
 	public final Log notModified = new Log("not modified", HttpServletResponse.SC_OK);
 	public final Log delivered = new Log("delivered", HttpServletResponse.SC_OK);
 

@@ -75,7 +75,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
-		assertData(data, item.getSomeDataData());
+		assertData(data, item.getSomeDataBody());
 		assertEquals(contentType, item.getSomeDataContentType());
 	}
 

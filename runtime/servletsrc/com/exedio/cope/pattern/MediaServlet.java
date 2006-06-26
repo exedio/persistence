@@ -34,7 +34,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
 
 /**
- * A servlet providing access to the data of {@link MediaPath}
+ * A servlet providing access to the contents of {@link MediaPath}
  * and its subclasses.
  *
  * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,

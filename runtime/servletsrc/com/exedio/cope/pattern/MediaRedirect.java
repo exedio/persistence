@@ -92,7 +92,7 @@ public final class MediaRedirect extends MediaPath
 	{
 		final String url = target.getURL(item);
 		if(url==null)
-			return dataIsNull;
+			return isNull;
 		
 		final String location =
 			request.getScheme() + "://" +

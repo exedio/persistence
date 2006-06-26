@@ -81,7 +81,7 @@ public final class MediaNameServer extends MediaPath
 		final String content = source.get(item);
 		//System.out.println("contentType="+contentType);
 		if(content==null)
-			return dataIsNull;
+			return isNull;
 		
 		if(content.endsWith(" error"))
 			throw new RuntimeException("test error in MediaNameServer");
