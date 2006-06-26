@@ -151,7 +151,7 @@ public final class Query<R>
 	
 	public void setOrderByThis(final boolean ascending)
 	{
-		this.orderBy = new Function[]{type.getThis()};
+		this.orderBy = new Function[]{type.thisFunction};
 		this.orderAscending = new boolean[]{ascending};
 	}
 	
@@ -169,7 +169,7 @@ public final class Query<R>
 		if(orderBy==null)
 			throw new NullPointerException("orderBy is null");
 		
-		this.orderBy = new Function[]{orderBy, type.getThis()};
+		this.orderBy = new Function[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
 	}
 	
