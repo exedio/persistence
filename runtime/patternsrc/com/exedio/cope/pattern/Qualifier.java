@@ -38,8 +38,8 @@ import com.exedio.cope.UniqueConstraint;
 public final class Qualifier extends Pattern
 {
 	private final ItemAttribute<Item> parent;
-	private final FunctionAttribute[] keys;
-	private final List<FunctionAttribute> keyList;
+	private final FunctionAttribute<?>[] keys;
+	private final List<FunctionAttribute<?>> keyList;
 	private final UniqueConstraint uniqueConstraint;
 
 	public Qualifier(final UniqueConstraint uniqueConstraint)
@@ -54,7 +54,7 @@ public final class Qualifier extends Pattern
 			throw new RuntimeException(uniqueAttributes.toString());
 
 		this.parent = castItemAttribute(uniqueAttributes.get(0));
-		this.keys = new FunctionAttribute[uniqueAttributes.size()-1];
+		this.keys = new FunctionAttribute<?>[uniqueAttributes.size()-1];
 		for(int i = 0; i<this.keys.length; i++)
 			this.keys[i] = uniqueAttributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
@@ -78,7 +78,7 @@ public final class Qualifier extends Pattern
 		return parent;
 	}
 
-	public List<FunctionAttribute> getKeys()
+	public List<FunctionAttribute<?>> getKeys()
 	{
 		return keyList;
 	}
