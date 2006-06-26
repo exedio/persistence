@@ -28,8 +28,8 @@ public class HiddenFeatureTest extends AbstractLibTest
 	
 	public void testHierarchy()
 	{
-		final HiddenFeatureSuperItem sp = null;
-		final HiddenFeatureSubItem sb = null;
+		HiddenFeatureSuperItem sp = null;
+		HiddenFeatureSubItem sb = null;
 		final Type.This spt = sp.TYPE.getThis();
 		final Type.This sbt = sb.TYPE.getThis();
 
@@ -104,6 +104,36 @@ public class HiddenFeatureTest extends AbstractLibTest
 		assertSame(null, model.findFeatureByID("HiddenFeatureSuperItemhiddenOther"));
 		assertSame(null, model.findFeatureByID("HiddenFeatureSuperItem.nonHiddenSub"));
 		assertSame(null, model.findFeatureByID("HiddenFeatureSubItem.nonHiddenSuper"));
+
+		deleteOnTearDown(sp = new HiddenFeatureSuperItem());
+		sp.setHiddenSame("hiddenSameSuperSuper");
+		sp.setHiddenOther("hiddenOtherSuperSuper");
+		deleteOnTearDown(sb = new HiddenFeatureSubItem());
+		sb.setHiddenSame("hiddenSameSuperSub");
+		sb.setHiddenOther("hiddenOtherSuperSub");
+		sb.hiddenSame.set(sb, "hiddenSameSub");
+		sb.hiddenOther.set(sb, 55);
+
+		restartTransaction();
+		assertEquals("hiddenSameSuperSuper", sp.getHiddenSame());
+		assertEquals("hiddenOtherSuperSuper", sp.getHiddenOther());
+		assertEquals("hiddenSameSuperSub", sb.getHiddenSame());
+		assertEquals("hiddenOtherSuperSub", sb.getHiddenOther());
+		assertEquals("hiddenSameSub", sb.hiddenSame.get(sb));
+		assertEquals(new Integer(55), sb.hiddenOther.get(sb));
+		
+		assertContains(sp, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
+		assertContains(sp, sp.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));
+		assertContains(sb, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
+		assertContains(sb, sp.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSub")));
+
+		assertContains(sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
+		assertContains(sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));
+		assertContains(sb, sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
+		assertContains(sb, sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSub")));
+
+		assertContains(sb, sb.TYPE.search(sb.hiddenSame.equal("hiddenSameSub")));
+		assertContains(sb, sb.TYPE.search(sb.hiddenOther.equal(55)));
 	}
 	
 }
