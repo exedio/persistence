@@ -381,7 +381,7 @@ final class Console_Jspm
 			"Exception (500)",
 			"Not An Item (404)",
 			"No Such Item (404)",
-			"Data Is Null (404)",
+			"Is Null (404)",
 			"Not Modified (304)",
 			"Delivered (200/301)",
 		};
