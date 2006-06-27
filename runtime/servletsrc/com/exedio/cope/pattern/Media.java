@@ -253,7 +253,7 @@ public final class Media extends MediaPath
 	/**
 	 * Returns the date of the last modification
 	 * of this media.
-	 * Returns null, if this media is null.
+	 * Returns -1, if this media is null.
 	 */
 	public long getLastModified(final Item item)
 	{
