@@ -286,7 +286,6 @@ public final class MysqlDriver extends Driver
 	@Override
 	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
-		//ALTER TABLE Item MODIFY ownerType varchar(30);
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(tableName).
@@ -294,7 +293,6 @@ public final class MysqlDriver extends Driver
 			append(columnName).
 			append(' ').
 			append(newColumnType);
-		//System.out.println("------------------"+bf.toString());
 		return bf.toString();
 	}
 

@@ -35,6 +35,7 @@ public abstract class SchemaTest extends TestCase
 	private Driver driver;
 	String stringType;
 	String intType;
+	String intType2;
 	boolean supportsCheckConstraints = true;
 	private SimpleConnectionProvider provider;
 	Connection connection1; // visible for BatchTest
@@ -63,6 +64,7 @@ public abstract class SchemaTest extends TestCase
 			driver = new HsqldbDriver();
 			stringType = "varchar(8)";
 			intType = "integer";
+			intType2 = null;
 		}
 		else if("mysql".equals(database))
 		{
@@ -70,6 +72,7 @@ public abstract class SchemaTest extends TestCase
 			driver = new MysqlDriver("this", Boolean.valueOf(config.getProperty("database.mysql.tolowercase")).booleanValue());
 			stringType = "varchar(8) binary";
 			intType = "integer";
+			intType2 = "bigint";
 			supportsCheckConstraints = false;
 		}
 		else if("oracle".equals(database))
@@ -78,6 +81,7 @@ public abstract class SchemaTest extends TestCase
 			driver = new OracleDriver(user.toUpperCase());
 			stringType = "VARCHAR2(8)";
 			intType = "NUMBER(12)";
+			intType2 = "NUMBER(15)";
 		}
 		else if("postgresql".equals(database))
 		{
@@ -85,6 +89,7 @@ public abstract class SchemaTest extends TestCase
 			driver = new PostgresqlDriver();
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
+			intType2 = null;
 		}
 		else
 			throw new RuntimeException(database);

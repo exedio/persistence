@@ -106,6 +106,47 @@ public class ColumnTest extends SchemaReadyTest
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
+			if(intType2!=null)
+				column.modify(intType2);
+		}
+		// COLUMN MODIFIED
+		if(intType2!=null)
+		{
+			final Schema schema = getVerifiedSchema();
+
+			final Table table = schema.getTable(TABLE1);
+			assertNotNull(table);
+			assertEquals(true, table.required());
+			assertEquals(true, table.exists());
+			assertEquals(null, table.getError());
+			assertEquals(Schema.Color.OK, table.getParticularColor());
+
+			final Column column = table.getColumn(COLUMN1);
+			assertEquals(true, column.required());
+			assertEquals(true, column.exists());
+			assertEquals("different type in database: >"+intType2+"<", column.getError());
+			assertEquals(Schema.Color.ERROR, column.getParticularColor());
+			assertEquals(intType, column.getType());
+			column.modify(intType);
+		}
+		// OK
+		{
+			final Schema schema = getVerifiedSchema();
+
+			final Table table = schema.getTable(TABLE1);
+			assertNotNull(table);
+			assertEquals(true, table.required());
+			assertEquals(true, table.exists());
+			assertEquals(null, table.getError());
+			assertEquals(Schema.Color.OK, table.getParticularColor());
+
+			final Column column = table.getColumn(COLUMN1);
+			assertEquals(true, column.required());
+			assertEquals(true, column.exists());
+			assertEquals(null, column.getError());
+			assertEquals(Schema.Color.OK, column.getParticularColor());
+			assertEquals(intType, column.getType());
+
 			column.drop();
 		}
 		// COLUMN DROPPED
