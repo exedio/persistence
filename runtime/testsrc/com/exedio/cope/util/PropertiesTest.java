@@ -84,11 +84,29 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 	
+	File file1;
+	File file2;
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+
+		file1 = File.createTempFile("PropertiesTest-", ".tmp");
+		file2 = File.createTempFile("PropertiesTest-", ".tmp");
+	}
+	
+	@Override
+	protected void tearDown() throws Exception
+	{
+		file1.delete();
+		file2.delete();
+
+		super.tearDown();
+	}
+	
 	public void testIt() throws IOException
 	{
-		final File file1 = File.createTempFile("PropertiesTest-", ".tmp");
-		final File file2 = File.createTempFile("PropertiesTest-", ".tmp");
-		
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
