@@ -107,7 +107,7 @@ public abstract class AbstractLibTest extends CopeTest
 		FileOutputStream s = null;
 		try
 		{
-			result = File.createTempFile("cope-AbstractLibTest-", ".tmp");
+			result = File.createTempFile("exedio-cope-AbstractLibTest-", ".tmp");
 			s = new FileOutputStream(result);
 			s.write(data);
 		}

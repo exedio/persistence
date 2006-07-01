@@ -413,7 +413,7 @@ public class MediaTest extends AbstractLibTest
 	
 	private final void assertDataFile(final byte[] expectedData) throws IOException
 	{
-		final File tempFile = File.createTempFile("cope-MediaTest.", ".tmp");
+		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
 		assertTrue(tempFile.delete());
 		assertFalse(tempFile.exists());
 		

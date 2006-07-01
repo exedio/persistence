@@ -89,7 +89,7 @@ public class DataTest extends AbstractLibTest
 			item.getData(tempStream);
 			assertData(expectedData, tempStream.toByteArray());
 			
-			final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
+			final File tempFile = File.createTempFile("exedio-cope-DataTest-", ".tmp");
 			assertTrue(tempFile.delete());
 			assertFalse(tempFile.exists());
 			item.getData(tempFile);

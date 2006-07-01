@@ -92,8 +92,8 @@ public class PropertiesTest extends CopeAssert
 	{
 		super.setUp();
 
-		file1 = File.createTempFile("PropertiesTest-", ".tmp");
-		file2 = File.createTempFile("PropertiesTest-", ".tmp");
+		file1 = File.createTempFile("exedio-cope-PropertiesTest-", ".tmp");
+		file2 = File.createTempFile("exedio-cope-PropertiesTest-", ".tmp");
 	}
 	
 	@Override
