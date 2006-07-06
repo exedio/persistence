@@ -65,7 +65,7 @@ final class Console_Jspm
 		%>
 	</head>
 	<body>
-		<a href="http://www.exedio.com/" target="_blank" border="0"><img src="<%=ConsoleServlet.logo.url(request)%>" width="200" height="66" align="right"></a>
+		<a href="http://www.exedio.com/" target="_blank" border="0"><img src="<%=ConsoleServlet.logo.url(request)%>" border="0" width="200" height="66" align="right"></a>
 		<h1>COPE Console</h3>
 		<p><%
 		
