@@ -36,7 +36,7 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	}
 	
 	@Override
-	public FunctionAttribute<Integer> copyFunctionAttribute()
+	public IntegerAttribute copyFunctionAttribute()
 	{
 		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

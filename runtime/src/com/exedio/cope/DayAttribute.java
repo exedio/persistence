@@ -35,7 +35,7 @@ public final class DayAttribute extends FunctionAttribute<Day>
 	}
 	
 	@Override
-	public FunctionAttribute<Day> copyFunctionAttribute()
+	public DayAttribute copyFunctionAttribute()
 	{
 		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

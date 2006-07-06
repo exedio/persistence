@@ -72,7 +72,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	}
 	
 	@Override
-	public FunctionAttribute<String> copyFunctionAttribute()
+	public StringAttribute copyFunctionAttribute()
 	{
 		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
 	}

@@ -35,7 +35,7 @@ public final class LongAttribute extends FunctionAttribute<Long>
 	}
 	
 	@Override
-	public FunctionAttribute<Long> copyFunctionAttribute()
+	public LongAttribute copyFunctionAttribute()
 	{
 		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

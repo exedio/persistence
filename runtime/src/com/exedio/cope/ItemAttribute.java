@@ -51,7 +51,7 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	}
 
 	@Override
-	public FunctionAttribute<E> copyFunctionAttribute()
+	public ItemAttribute<E> copyFunctionAttribute()
 	{
 		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
 	}

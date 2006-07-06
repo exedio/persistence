@@ -35,7 +35,7 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 	}
 
 	@Override
-	public FunctionAttribute<Double> copyFunctionAttribute()
+	public DoubleAttribute copyFunctionAttribute()
 	{
 		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

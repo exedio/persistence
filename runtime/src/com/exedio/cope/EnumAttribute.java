@@ -68,7 +68,7 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 	}
 	
 	@Override
-	public FunctionAttribute<E> copyFunctionAttribute()
+	public EnumAttribute<E> copyFunctionAttribute()
 	{
 		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}

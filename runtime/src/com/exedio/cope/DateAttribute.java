@@ -41,7 +41,7 @@ public final class DateAttribute extends FunctionAttribute<Date>
 	}
 	
 	@Override
-	public FunctionAttribute<Date> copyFunctionAttribute()
+	public DateAttribute copyFunctionAttribute()
 	{
 		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
 	}

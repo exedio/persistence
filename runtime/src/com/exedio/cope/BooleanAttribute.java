@@ -35,7 +35,7 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 	}
 	
 	@Override
-	public FunctionAttribute<Boolean> copyFunctionAttribute()
+	public BooleanAttribute copyFunctionAttribute()
 	{
 		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
