@@ -121,12 +121,9 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	public void setTargets(final S source, final Collection<? extends T> targets)
 	{
 		final Type<? extends Item> type = getType();
-		final Query<? extends Item> q = type.newQuery(this.source.equal(source));
-		q.setOrderBy(order, true);
-		final Collection<? extends Item> oldTupels = q.search();
 
 		// TODO: this implementation wastes resources !!
-		for(final Item tupel : oldTupels)
+		for(final Item tupel : type.newQuery(this.source.equal(source)).search())
 			tupel.deleteCopeItem();
 
 		int order = 0;
