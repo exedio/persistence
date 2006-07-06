@@ -26,7 +26,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -118,6 +120,41 @@ public final class Type<C extends Item>
 	
 	Type(final Class<C> javaClass, final String id)
 	{
+		this(javaClass, id, getFeatureMap(javaClass));
+	}
+	
+	private static final LinkedHashMap<String, Feature> getFeatureMap(final Class<?> javaClass)
+	{
+		final LinkedHashMap<String, Feature> result = new LinkedHashMap<String, Feature>();
+		final Field[] fields = javaClass.getDeclaredFields();
+		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
+		try
+		{
+			for(final Field field : fields)
+			{
+				if((field.getModifiers()&expectedModifier)==expectedModifier)
+				{
+					final Class fieldType = field.getType();
+					if(Feature.class.isAssignableFrom(fieldType))
+					{
+						field.setAccessible(true);
+						final Feature feature = (Feature)field.get(null);
+						if(feature==null)
+							throw new RuntimeException(field.getName());
+						result.put(field.getName(), feature);
+					}
+				}
+			}
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+	
+	Type(final Class<C> javaClass, final String id, final LinkedHashMap<String, Feature> featureMap)
+	{
 		this.javaClass = javaClass;
 		this.id = id;
 		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
@@ -141,32 +178,10 @@ public final class Type<C extends Item>
 		}
 
 		// declared features
-		final Field[] fields = javaClass.getDeclaredFields();
-		this.featuresWhileConstruction = new ArrayList<Feature>(fields.length + 1);
+		this.featuresWhileConstruction = new ArrayList<Feature>(featureMap.size() + 1);
 		thisFunction.initialize(this, This.NAME);
-		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
-		try
-		{
-			for(final Field field : fields)
-			{
-				if((field.getModifiers()&expectedModifier)==expectedModifier)
-				{
-					final Class fieldType = field.getType();
-					if(Feature.class.isAssignableFrom(fieldType))
-					{
-						field.setAccessible(true);
-						final Feature feature = (Feature)field.get(null);
-						if(feature==null)
-							throw new RuntimeException(field.getName());
-						feature.initialize(this, field.getName());
-					}
-				}
-			}
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
+		for(final Map.Entry<String, Feature> entry : featureMap.entrySet())
+			entry.getValue().initialize(this, entry.getKey());
 		featuresWhileConstruction.trimToSize();
 		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
 		// make sure, method registerInitialization fails from now on
