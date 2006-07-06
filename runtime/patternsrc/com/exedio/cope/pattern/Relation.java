@@ -174,12 +174,11 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 			final Collection<? extends R> rightItems)
 	{
 		final Type<? extends Item> type = getType();
-		final Collection<? extends Item> oldTupels = type.search(leftAttribute.equal(leftItem));
 
 		//System.out.println("---------start");
 		// TODO for better performance one could modify tuples, if rightAttribute is not FINAL
 		final HashSet<R> keptRightItems = new HashSet<R>();
-		for(final Item tupel : oldTupels)
+		for(final Item tupel : type.search(leftAttribute.equal(leftItem)))
 		{
 			final R rightItem = rightAttribute.get(tupel);
 			if(rightItems.contains(rightItem))
