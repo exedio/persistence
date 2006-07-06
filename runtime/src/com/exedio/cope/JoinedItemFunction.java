@@ -26,7 +26,7 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see ItemFunction#bindItem(Join)
+	 * @see ItemFunction#bind(Join)
 	 */
 	public JoinedItemFunction(final ItemFunction<E> function, final Join join)
 	{
@@ -71,10 +71,9 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
 	 * because the inner JoinedFunction &quot;wins&quot;.
 	 * @see JoinedFunction#bind(Join)
-	 * @see JoinedIntegerFunction#bindInt(Join)
-	 * @see JoinedStringFunction#bindString(Join)
 	 */
-	public JoinedItemFunction<E> bindItem(final Join join)
+	@Override
+	public JoinedItemFunction<E> bind(final Join join)
 	{
 		return this;
 	}

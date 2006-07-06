@@ -39,7 +39,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	JoinedItemFunction<E> bindItem(Join join);
+	JoinedItemFunction<E> bind(Join join);
 	
 	EqualFunctionCondition equalTarget();
 	EqualFunctionCondition equalTarget(Join targetJoin);

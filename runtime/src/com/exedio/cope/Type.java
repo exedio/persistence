@@ -1008,12 +1008,7 @@ public final class Type<C extends Item>
 			return new ExtremumAggregate<E>(this, false);
 		}
 
-		public final JoinedFunction<E> bind(final Join join)
-		{
-			return new JoinedFunction<E>(this, join);
-		}
-		
-		public JoinedItemFunction<E> bindItem(final Join join)
+		public final JoinedItemFunction<E> bind(final Join join)
 		{
 			return new JoinedItemFunction<E>(this, join);
 		}

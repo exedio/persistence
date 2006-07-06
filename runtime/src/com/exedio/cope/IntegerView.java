@@ -78,7 +78,8 @@ public abstract class IntegerView
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public final JoinedIntegerFunction bindInt(final Join join)
+	@Override
+	public final JoinedIntegerFunction bind(final Join join)
 	{
 		return new JoinedIntegerFunction(this, join);
 	}

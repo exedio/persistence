@@ -156,10 +156,8 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 	 * Return this.
 	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
 	 * because the inner JoinedFunction &quot;wins&quot;.
-	 * @see JoinedIntegerFunction#bindInt(Join)
-	 * @see JoinedItemFunction#bindItem(Join)
 	 */
-	public final JoinedFunction<E> bind(final Join join)
+	public JoinedFunction<E> bind(final Join join)
 	{
 		return this;
 	}

@@ -232,7 +232,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new ExtremumAggregate<E>(this, false);
 	}
 
-	public final JoinedFunction<E> bind(final Join join)
+	public JoinedFunction<E> bind(final Join join)
 	{
 		return new JoinedFunction<E>(this, join);
 	}

@@ -117,7 +117,8 @@ public abstract class StringView
 		return LikeCondition.contains(toUpperCase(), value.toUpperCase());
 	}
 	
-	public final JoinedStringFunction bindString(final Join join)
+	@Override
+	public final JoinedStringFunction bind(final Join join)
 	{
 		return new JoinedStringFunction(this, join);
 	}

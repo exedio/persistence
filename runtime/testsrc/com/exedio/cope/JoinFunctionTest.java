@@ -51,9 +51,9 @@ public class JoinFunctionTest extends AbstractLibTest
 			final Join j1 = q.join(a1.TYPE, single.name.equal("single"));
 			final Join j2 = q.join(a1.TYPE, single.name.equal("single"));
 			q.setCondition(
-					a1.integer.bindInt(j1).
+					a1.integer.bind(j1).
 						plus(
-					a1.integer.bindInt(j2)).
+					a1.integer.bind(j2)).
 							greaterOrEqual(6));
 			assertContains(single, q.search());
 			// TODO let j1 be the principal type of query

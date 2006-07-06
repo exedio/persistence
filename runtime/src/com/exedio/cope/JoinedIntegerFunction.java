@@ -28,7 +28,7 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see IntegerFunction#bindInt(Join)
+	 * @see IntegerFunction#bind(Join)
 	 */
 	public JoinedIntegerFunction(final IntegerFunction function, final Join join)
 	{
@@ -43,10 +43,9 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
 	 * because the inner JoinedFunction &quot;wins&quot;.
 	 * @see JoinedFunction#bind(Join)
-	 * @see JoinedItemFunction#bindItem(Join)
-	 * @see JoinedStringFunction#bindString(Join)
 	 */
-	public JoinedIntegerFunction bindInt(final Join join)
+	@Override
+	public JoinedIntegerFunction bind(final Join join)
 	{
 		return this;
 	}

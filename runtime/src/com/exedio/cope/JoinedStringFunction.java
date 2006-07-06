@@ -29,7 +29,7 @@ public class JoinedStringFunction extends JoinedFunction<String> implements Stri
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see IntegerFunction#bindInt(Join)
+	 * @see IntegerFunction#bind(Join)
 	 */
 	public JoinedStringFunction(final StringFunction function, final Join join)
 	{
@@ -42,10 +42,9 @@ public class JoinedStringFunction extends JoinedFunction<String> implements Stri
 	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
 	 * because the inner JoinedFunction &quot;wins&quot;.
 	 * @see JoinedFunction#bind(Join)
-	 * @see JoinedIntegerFunction#bindInt(Join)
-	 * @see JoinedItemFunction#bindItem(Join)
 	 */
-	public JoinedStringFunction bindString(final Join join)
+	@Override
+	public JoinedStringFunction bind(final Join join)
 	{
 		return this;
 	}
