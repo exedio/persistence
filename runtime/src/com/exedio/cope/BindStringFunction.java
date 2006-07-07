@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 
-public class JoinedStringFunction extends BindFunction<String> implements StringFunction
+public class BindStringFunction extends BindFunction<String> implements StringFunction
 {
 
 	final StringFunction stringFunction;
@@ -31,7 +31,7 @@ public class JoinedStringFunction extends BindFunction<String> implements String
 	 * you may want to use the convenience methods.
 	 * @see IntegerFunction#bind(Join)
 	 */
-	public JoinedStringFunction(final StringFunction function, final Join join)
+	public BindStringFunction(final StringFunction function, final Join join)
 	{
 		super(function, join);
 		this.stringFunction = function;
@@ -43,7 +43,7 @@ public class JoinedStringFunction extends BindFunction<String> implements String
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public JoinedStringFunction bind(final Join join)
+	public BindStringFunction bind(final Join join)
 	{
 		return this;
 	}

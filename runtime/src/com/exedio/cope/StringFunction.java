@@ -24,7 +24,7 @@ import com.exedio.cope.function.UppercaseView;
 public interface StringFunction extends Function<String>
 {
 	// convenience methods for conditions and views ---------------------------------
-	JoinedStringFunction bind(Join join);
+	BindStringFunction bind(Join join);
 	LikeCondition like(String value);
 	LikeCondition startsWith(String value);
 	LikeCondition endsWith(String value);

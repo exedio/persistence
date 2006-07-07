@@ -118,8 +118,8 @@ public abstract class StringView
 	}
 	
 	@Override
-	public final JoinedStringFunction bind(final Join join)
+	public final BindStringFunction bind(final Join join)
 	{
-		return new JoinedStringFunction(this, join);
+		return new BindStringFunction(this, join);
 	}
 }

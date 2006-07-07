@@ -242,8 +242,8 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	}
 	
 	@Override
-	public JoinedStringFunction bind(final Join join)
+	public BindStringFunction bind(final Join join)
 	{
-		return new JoinedStringFunction(this, join);
+		return new BindStringFunction(this, join);
 	}
 }
