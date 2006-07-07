@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
-public final class JoinedIntegerFunction extends JoinedFunction<Integer> implements IntegerFunction // TODO SOON rename to BindIntegerFunction
+public final class JoinedIntegerFunction extends BindFunction<Integer> implements IntegerFunction // TODO SOON rename to BindIntegerFunction
 {
 	final IntegerFunction integerFunction;
 	
@@ -40,9 +40,8 @@ public final class JoinedIntegerFunction extends JoinedFunction<Integer> impleme
 
 	/**
 	 * Return this.
-	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
-	 * because the inner JoinedFunction &quot;wins&quot;.
-	 * @see JoinedFunction#bind(Join)
+	 * It makes no sense wrapping a BindFunction into another BindFunction,
+	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
 	public JoinedIntegerFunction bind(final Join join)

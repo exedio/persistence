@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 
-public class JoinedStringFunction extends JoinedFunction<String> implements StringFunction
+public class JoinedStringFunction extends BindFunction<String> implements StringFunction
 {
 
 	final StringFunction stringFunction;
@@ -39,9 +39,8 @@ public class JoinedStringFunction extends JoinedFunction<String> implements Stri
 	
 	/**
 	 * Return this.
-	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
-	 * because the inner JoinedFunction &quot;wins&quot;.
-	 * @see JoinedFunction#bind(Join)
+	 * It makes no sense wrapping a BindFunction into another BindFunction,
+	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
 	public JoinedStringFunction bind(final Join join)

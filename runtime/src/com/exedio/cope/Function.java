@@ -51,5 +51,5 @@ public interface Function<E> extends Selectable<E>
 	CompareCondition<E> greaterOrEqual(E value);
 	ExtremumAggregate<E> min();
 	ExtremumAggregate<E> max();
-	JoinedFunction<E> bind(Join join);
+	BindFunction<E> bind(Join join);
 }

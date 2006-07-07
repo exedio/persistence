@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> implements ItemFunction<E> // TODO SOON rename to BindItemFunction
+public final class JoinedItemFunction<E extends Item> extends BindFunction<E> implements ItemFunction<E> // TODO SOON rename to BindItemFunction
 {
 	final ItemFunction<E> itemFunction;
 	
@@ -68,9 +68,8 @@ public final class JoinedItemFunction<E extends Item> extends JoinedFunction<E> 
 	
 	/**
 	 * Return this.
-	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
-	 * because the inner JoinedFunction &quot;wins&quot;.
-	 * @see JoinedFunction#bind(Join)
+	 * It makes no sense wrapping a BindFunction into another BindFunction,
+	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
 	public JoinedItemFunction<E> bind(final Join join)

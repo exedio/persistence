@@ -23,7 +23,7 @@ import java.util.Collection;
 import com.exedio.cope.search.ExtremumAggregate;
 
 
-public class JoinedFunction<E> implements Function<E> // TODO SOON rename to BindFunction
+public class BindFunction<E> implements Function<E>
 {
 	final Function<E> function;
 	final Join join;
@@ -33,7 +33,7 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 	 * you may want to use the convenience methods.
 	 * @see Function#bind(Join)
 	 */
-	public JoinedFunction(final Function<E> function, final Join join)
+	public BindFunction(final Function<E> function, final Join join)
 	{
 		assert function!=null;
 		assert join!=null;
@@ -75,10 +75,10 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof JoinedFunction))
+		if(!(other instanceof BindFunction))
 			return false;
 		
-		final JoinedFunction o = (JoinedFunction)other;
+		final BindFunction o = (BindFunction)other;
 		
 		return function.equals(o.function) && join.equals(o.join);
 	}
@@ -154,10 +154,10 @@ public class JoinedFunction<E> implements Function<E> // TODO SOON rename to Bin
 
 	/**
 	 * Return this.
-	 * It makes no sense wrapping a JoinedFunction into another JoinedFunction,
-	 * because the inner JoinedFunction &quot;wins&quot;.
+	 * It makes no sense wrapping a BindFunction into another BindFunction,
+	 * because the inner BindFunction &quot;wins&quot;.
 	 */
-	public JoinedFunction<E> bind(final Join join)
+	public BindFunction<E> bind(final Join join)
 	{
 		return this;
 	}

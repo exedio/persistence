@@ -310,8 +310,8 @@ public abstract class FunctionAttribute<E extends Object>
 		return new ExtremumAggregate<E>(this, false);
 	}
 
-	public JoinedFunction<E> bind(final Join join)
+	public BindFunction<E> bind(final Join join)
 	{
-		return new JoinedFunction<E>(this, join);
+		return new BindFunction<E>(this, join);
 	}
 }
