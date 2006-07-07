@@ -25,7 +25,7 @@ public interface IntegerFunction extends Function<Integer>
 {
 	// convenience methods for conditions and views ---------------------------------
 
-	JoinedIntegerFunction bind(Join join);
+	BindIntegerFunction bind(Join join);
 	
 	PlusView plus(IntegerFunction other);
 	

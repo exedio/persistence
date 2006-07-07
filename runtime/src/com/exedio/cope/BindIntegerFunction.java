@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
-public final class JoinedIntegerFunction extends BindFunction<Integer> implements IntegerFunction // TODO SOON rename to BindIntegerFunction
+public final class BindIntegerFunction extends BindFunction<Integer> implements IntegerFunction
 {
 	final IntegerFunction integerFunction;
 	
@@ -30,7 +30,7 @@ public final class JoinedIntegerFunction extends BindFunction<Integer> implement
 	 * you may want to use the convenience methods.
 	 * @see IntegerFunction#bind(Join)
 	 */
-	public JoinedIntegerFunction(final IntegerFunction function, final Join join)
+	public BindIntegerFunction(final IntegerFunction function, final Join join)
 	{
 		super(function, join);
 		this.integerFunction = function;
@@ -44,7 +44,7 @@ public final class JoinedIntegerFunction extends BindFunction<Integer> implement
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public JoinedIntegerFunction bind(final Join join)
+	public BindIntegerFunction bind(final Join join)
 	{
 		return this;
 	}
