@@ -240,9 +240,9 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 	}
 	
 	@Override
-	public JoinedItemFunction<E> bind(final Join join)
+	public BindItemFunction<E> bind(final Join join)
 	{
-		return new JoinedItemFunction<E>(this, join);
+		return new BindItemFunction<E>(this, join);
 	}
 	
 	public TypeInCondition<E> typeIn(final Type<? extends E> type1)

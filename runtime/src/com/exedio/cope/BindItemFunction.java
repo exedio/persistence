@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class JoinedItemFunction<E extends Item> extends BindFunction<E> implements ItemFunction<E> // TODO SOON rename to BindItemFunction
+public final class BindItemFunction<E extends Item> extends BindFunction<E> implements ItemFunction<E>
 {
 	final ItemFunction<E> itemFunction;
 	
@@ -28,7 +28,7 @@ public final class JoinedItemFunction<E extends Item> extends BindFunction<E> im
 	 * you may want to use the convenience methods.
 	 * @see ItemFunction#bind(Join)
 	 */
-	public JoinedItemFunction(final ItemFunction<E> function, final Join join)
+	public BindItemFunction(final ItemFunction<E> function, final Join join)
 	{
 		super(function, join);
 		this.itemFunction = function;
@@ -72,7 +72,7 @@ public final class JoinedItemFunction<E extends Item> extends BindFunction<E> im
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public JoinedItemFunction<E> bind(final Join join)
+	public BindItemFunction<E> bind(final Join join)
 	{
 		return this;
 	}
