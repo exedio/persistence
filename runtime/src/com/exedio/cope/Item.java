@@ -83,7 +83,11 @@ public abstract class Item extends Cope
 	@Override
 	public final boolean equals(final Object o)
 	{
-		return (o!=null) && (o instanceof Item) && (type==((Item)o).type) && (pk==((Item)o).pk); // TODO SOON do cast only once
+		if(o==null || !(o instanceof Item))
+			return false;
+
+		final Item i = (Item)o;
+		return type==i.type && pk==i.pk;
 	}
 
 	/**
