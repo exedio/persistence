@@ -761,11 +761,9 @@ public final class Type<C extends Item>
 		if(withoutJavaClass)
 			return cast(new ItemWithoutJavaClass(setValues, this));
 
-		// TODO SOON remove local variable
-		final C result;
 		try
 		{
-			result =
+			return
 				creationConstructor.newInstance(
 					new Object[]{
 						setValues!=null
@@ -790,8 +788,6 @@ public final class Type<C extends Item>
 			else
 				throw new RuntimeException(e);
 		}
-		
-		return result;
 	}
 
 	public C cast(final Item item)
