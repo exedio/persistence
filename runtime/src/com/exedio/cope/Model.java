@@ -39,12 +39,12 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
-	private final Type<Item>[] types;
-	private final Type<Item>[] concreteTypes;
-	private final Type<Item>[] typesSorted;
+	private final Type<?>[] types;
+	private final Type<?>[] concreteTypes;
+	private final Type<?>[] typesSorted;
 	final int concreteTypeCount;
-	private final List<Type<Item>> typeList;
-	private final List<Type<Item>> concreteTypeList;
+	private final List<Type<?>> typeList;
+	private final List<Type<?>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 	final List<ModificationListener> modificationListeners = Collections.synchronizedList(new ArrayList<ModificationListener>());
 
@@ -60,16 +60,16 @@ public final class Model
 	
 	public Model(final Type[] types)
 	{
-		this.types = castTypeArray(types);
+		this.types = types;
 		this.typeList = Collections.unmodifiableList(Arrays.asList(this.types));
 		this.typesSorted = sort(this.types);
 		assert types.length==typesSorted.length;
 
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
-		final ArrayList<Type<Item>> concreteTypes = new ArrayList<Type<Item>>();
+		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
 
-		for(final Type<Item> type : this.types)
+		for(final Type<?> type : this.types)
 		{
 			if(typesByID.put(type.id, type)!=null)
 				throw new RuntimeException(type.id);
@@ -77,20 +77,20 @@ public final class Model
 				concreteTypes.add(type);
 		}
 		
-		for(final Type<Item> type : this.typesSorted)
+		for(final Type<?> type : this.typesSorted)
 			type.initialize(this, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
 		
-		for(final Type<Item> type : this.typesSorted)
+		for(final Type<?> type : this.typesSorted)
 			type.postInitialize();
 		
 		this.concreteTypeCount = concreteTypeCount;
-		this.concreteTypes = castTypeArray(concreteTypes.toArray(new Type[concreteTypeCount]));
+		this.concreteTypes = concreteTypes.toArray(new Type[concreteTypeCount]);
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		
 		assert this.concreteTypeCount==this.concreteTypes.length;
 	}
 	
-	private static final Type<Item>[] sort(final Type<Item>[] types)
+	private static final Type<?>[] sort(final Type<?>[] types)
 	{
 		final HashSet<Type> typeSet = new HashSet<Type>(Arrays.asList(types));
 		final HashSet<Type> done = new HashSet<Type>();
@@ -128,13 +128,7 @@ public final class Model
 			throw new RuntimeException(done.toString()+"<->"+typeSet.toString());
 		
 		//System.out.println("<--------------------"+result);
-		return castTypeArray(result.toArray(new Type[]{}));
-	}
-	
-	@SuppressWarnings("unchecked") // OK: no generic array creation
-	private static final Type<Item>[] castTypeArray(final Type[] ts)
-	{
-		return (Type<Item>[])ts;
+		return result.toArray(new Type[]{});
 	}
 	
 	/**
@@ -183,12 +177,12 @@ public final class Model
 		this.properties.ensureEquality(properties);
 	}
 
-	public List<Type<Item>> getTypes()
+	public List<Type<?>> getTypes()
 	{
 		return typeList;
 	}
 	
-	public List<Type<Item>> getConcreteTypes()
+	public List<Type<?>> getConcreteTypes()
 	{
 		return concreteTypeList;
 	}
@@ -407,8 +401,8 @@ public final class Model
 	public void dropDatabase()
 	{
 		// TODO: rework this method
-		final List<Type<Item>> types = typeList;
-		for(ListIterator<Type<Item>> i = types.listIterator(types.size()); i.hasPrevious(); )
+		final List<Type<?>> types = typeList;
+		for(ListIterator<Type<?>> i = types.listIterator(types.size()); i.hasPrevious(); )
 			i.previous().onDropTable();
 
 		database.dropDatabase();
@@ -710,7 +704,7 @@ public final class Model
 	 */
 	public void checkTypeColumns()
 	{
-		for(final Type<Item> t : getTypes())
+		for(final Type<?> t : getTypes())
 		{
 			checkTypeColumn(t.thisFunction);
 			for(final Attribute a : t.getDeclaredAttributes())

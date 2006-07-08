@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ServletUtil;
@@ -72,7 +71,7 @@ public final class MediaServlet extends HttpServlet
 		try
 		{
 			final Model model = ServletUtil.getModel(getServletConfig());
-			for(final Type<Item> type : model.getTypes())
+			for(final Type<?> type : model.getTypes())
 			{
 				for(final Feature feature : type.getDeclaredFeatures())
 				{
