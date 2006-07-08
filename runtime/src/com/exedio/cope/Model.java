@@ -60,34 +60,66 @@ public final class Model
 	
 	public Model(final Type[] types)
 	{
-		this.types = types;
-		this.typeList = Collections.unmodifiableList(Arrays.asList(this.types));
-		this.typesSorted = sort(this.types);
-		assert types.length==typesSorted.length;
+		final Type<?>[] explicitTypes = types;
+		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
+		assert types.length==explicitTypesSorted.length;
 
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
+		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
 		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
 
-		for(final Type<?> type : this.types)
+		for(final Type<?> type : explicitTypes)
 		{
 			if(typesByID.put(type.id, type)!=null)
 				throw new RuntimeException(type.id);
+			typesL.add(type);
 			if(!type.isAbstract)
 				concreteTypes.add(type);
+			for(final Feature f : type.getDeclaredFeatures())
+				if(f instanceof Pattern)
+					for(final Type<ItemWithoutJavaClass> gt : ((Pattern)f).generatedTypes)
+					{
+						if(typesByID.put(gt.id, gt)!=null)
+							throw new RuntimeException(gt.id);
+						typesL.add(gt);
+						if(!gt.isAbstract)
+							concreteTypes.add(gt);
+					}
 		}
 		
-		for(final Type<?> type : this.typesSorted)
+		for(final Type<?> type : explicitTypesSorted)
+		{
 			type.initialize(this, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
+			typesSorted.add(type);
+			for(final Feature f : type.getDeclaredFeatures())
+				if(f instanceof Pattern)
+					for(final Type gt : ((Pattern)f).generatedTypes)
+					{
+						gt.initialize(this, gt.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
+						typesSorted.add(gt);
+					}
+		}
 		
-		for(final Type<?> type : this.typesSorted)
+		for(final Type<?> type : explicitTypesSorted)
+		{
 			type.postInitialize();
+			for(final Feature f : type.getDeclaredFeatures())
+				if(f instanceof Pattern)
+					for(final Type gt : ((Pattern)f).generatedTypes)
+						gt.postInitialize();
+		}
 		
+		this.types = typesL.toArray(new Type[typesL.size()]);
+		this.typeList = Collections.unmodifiableList(typesL);
 		this.concreteTypeCount = concreteTypeCount;
 		this.concreteTypes = concreteTypes.toArray(new Type[concreteTypeCount]);
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
+		this.typesSorted = typesSorted.toArray(new Type[typesSorted.size()]);
 		
 		assert this.concreteTypeCount==this.concreteTypes.length;
+		assert this.concreteTypeCount==this.concreteTypeList.size();
 	}
 	
 	private static final Type<?>[] sort(final Type<?>[] types)

@@ -42,7 +42,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  */
 public abstract class Item extends Cope
 {
-	final transient Type<? extends Item> type = Type.findByJavaClass(getClass());
+	final transient Type<? extends Item> type;
 
 	/**
 	 * The primary key of the item,
@@ -70,6 +70,7 @@ public abstract class Item extends Cope
 	 */
 	public final Type<? extends Item> getCopeType()
 	{
+		assert type!=null;
 		return type;
 	}
 
@@ -82,7 +83,7 @@ public abstract class Item extends Cope
 	@Override
 	public final boolean equals(final Object o)
 	{
-		return (o!=null) && (getClass()==o.getClass()) && (pk==((Item)o).pk);
+		return (o!=null) && (o instanceof Item) && (type==((Item)o).type) && (pk==((Item)o).pk); // TODO SOON do cast only once
 	}
 
 	/**
@@ -93,7 +94,7 @@ public abstract class Item extends Cope
 	@Override
 	public final int hashCode()
 	{
-		return getClass().hashCode() ^ pk;
+		return type.hashCode() ^ pk;
 	}
 	
 	@Override
@@ -136,12 +137,16 @@ public abstract class Item extends Cope
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
 	protected Item(final SetValue[] setValues)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			LengthViolationException,
-			ClassCastException
 	{
+		this(setValues, null);
+	}
+
+	/**
+	 * To be used from {@link ItemWithoutJavaClass} only.
+	 */
+	Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
+	{
+		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
 		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
@@ -202,11 +207,17 @@ public abstract class Item extends Cope
 		final ReactivationConstructorDummy reactivationDummy,
 		final int pk)
 	{
+		this(pk, null);
+		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
+			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
+	}
+
+	protected Item(final int pk, final Type<? extends Item> typeWithoutJavaClass)
+	{
+		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
 		this.pk = pk;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
-		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
-			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
 		if(pk==Type.NOT_A_PK)
 			throw new RuntimeException();
 	}
@@ -226,6 +237,7 @@ public abstract class Item extends Cope
 	 */
 	protected Item()
 	{
+		type = Type.findByJavaClass(getClass());
 		pk = suppressWarning(this.pk);
 	}
 	

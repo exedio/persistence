@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * A common super class for all patterns.
@@ -52,6 +53,7 @@ public abstract class Pattern extends Feature
 {
 	// TODO SOON introduce getSources
 	private final ArrayList<Attribute> sources = new ArrayList<Attribute>();
+	final ArrayList<Type<ItemWithoutJavaClass>> generatedTypes = new ArrayList<Type<ItemWithoutJavaClass>>();
 	
 	@Override
 	final void initialize(final Type<? extends Item> type, final String name)
@@ -94,6 +96,14 @@ public abstract class Pattern extends Feature
 	protected final void initialize(final UniqueConstraint uniqueConstraint, final String name)
 	{
 		uniqueConstraint.initialize(getType(), name);
+	}
+	
+	protected final Type<?> newType(final LinkedHashMap<String, Feature> features)
+	{
+		final String id = getType().getID() + '.' + getName();
+		final Type<ItemWithoutJavaClass> result = new Type<ItemWithoutJavaClass>(ItemWithoutJavaClass.class, id, features);
+		generatedTypes.add(result);
+		return result;
 	}
 	
 	// Make non-final method from super class final

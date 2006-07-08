@@ -16,30 +16,21 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-public class PackageTest extends TestCase
+final class ItemWithoutJavaClass extends Item
 {
-
-	public static Test suite()
+	protected ItemWithoutJavaClass(final SetValue[] setValues, final Type<? extends Item> type)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(HashTest.class);
-		suite.addTestSuite(MD5Test.class);
-		suite.addTestSuite(VectorTest.class);
-		suite.addTestSuite(AttributeListTest.class);
-		suite.addTestSuite(CustomTest.class);
-		suite.addTestSuite(JavaViewTest.class);
-		suite.addTestSuite(MediaTest.class);
-		suite.addTestSuite(QualifierTest.class);
-		suite.addTestSuite(RelationTest.class);
-		suite.addTestSuite(VectorRelationTest.class);
-		suite.addTestSuite(DTypeTest.class);
-		return suite;
+		super(setValues, type);
+		assert type!=null;
 	}
 
+	protected ItemWithoutJavaClass(final int pk, final Type<? extends Item> type)
+	{
+		super(pk, type);
+	}
+	
+	// TODO make an empty deserialization constructor
 }

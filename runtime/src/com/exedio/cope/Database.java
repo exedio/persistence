@@ -1348,7 +1348,7 @@ abstract class Database
 			throw new RuntimeException("longString must not be empty");
 
 		if(longString.length()<=maxLength)
-			return longString;
+			return (longString.indexOf('.')<=0) ? longString : longString.replace('.', '_');
 
 		int longStringLength = longString.length();
 		final int[] trimPotential = new int[maxLength];
@@ -1357,7 +1357,9 @@ abstract class Database
 			final StringBuffer buf = new StringBuffer();
 			for(int i=0; i<longString.length(); i++)
 			{
-				final char c = longString.charAt(i);
+				char c = longString.charAt(i);
+				if(c=='.')
+					c = '_';
 				if((c=='_' || Character.isUpperCase(c) || Character.isDigit(c)) && buf.length()>0)
 				{
 					words.add(buf.toString());

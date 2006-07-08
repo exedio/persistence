@@ -38,6 +38,7 @@ public final class Type<C extends Item>
 	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
 
 	final Class<C> javaClass;
+	private final boolean withoutJavaClass;
 	final String id;
 	final boolean isAbstract;
 	final Type<? super C> supertype;
@@ -156,6 +157,7 @@ public final class Type<C extends Item>
 	Type(final Class<C> javaClass, final String id, final LinkedHashMap<String, Feature> featureMap)
 	{
 		this.javaClass = javaClass;
+		this.withoutJavaClass = (javaClass==ItemWithoutJavaClass.class);
 		this.id = id;
 		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
@@ -164,7 +166,8 @@ public final class Type<C extends Item>
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
 		
-		typesByClass.put(javaClass, this);
+		if(!withoutJavaClass)
+			typesByClass.put(javaClass, this);
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
@@ -275,6 +278,9 @@ public final class Type<C extends Item>
 	
 	private Constructor<C> getConstructor(final Class[] params, final String name)
 	{
+		if(withoutJavaClass)
+			return null;
+		
 		try
 		{
 			final Constructor<C> result = javaClass.getDeclaredConstructor(params);
@@ -752,6 +758,10 @@ public final class Type<C extends Item>
 	public C newItem(final SetValue[] setValues)
 		throws ConstraintViolationException
 	{
+		if(withoutJavaClass)
+			return cast(new ItemWithoutJavaClass(setValues, this));
+
+		// TODO SOON remove local variable
 		final C result;
 		try
 		{
@@ -870,6 +880,9 @@ public final class Type<C extends Item>
 	
 	C createItemObject(final int pk)
 	{
+		if(withoutJavaClass)
+			return cast(new ItemWithoutJavaClass(pk, this));
+
 		try
 		{
 			return

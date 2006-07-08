@@ -71,6 +71,19 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>attributeListConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.Main#attributeListModel</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>attributeListConsole</servlet-name>
+		<url-pattern>/attributeList/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>vectorConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
