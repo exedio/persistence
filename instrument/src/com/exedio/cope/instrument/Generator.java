@@ -94,6 +94,8 @@ final class Generator
 	private static final String QUALIFIER = "Returns the qualifier.";
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
+	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the attribute list {0}.";
+	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the attribute list {0}.";
 	private static final String VECTOR_GETTER = "Returns the value of the vector.";
 	private static final String VECTOR_SETTER = "Sets the vector.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
@@ -920,10 +922,11 @@ final class Generator
 		throws IOException
 	{
 		final String type = vector.getType();
+		final String name = vector.name;
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(VECTOR_GETTER);
+		o.write(vector.flat?VECTOR_GETTER:MessageFormat.format(ATTIBUTE_LIST_GETTER, link(name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
 
@@ -950,7 +953,7 @@ final class Generator
 
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(VECTOR_SETTER);
+		o.write(vector.flat?VECTOR_SETTER:MessageFormat.format(ATTIBUTE_LIST_SETTER, link(name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
 

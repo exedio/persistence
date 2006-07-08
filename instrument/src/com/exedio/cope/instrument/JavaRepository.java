@@ -40,6 +40,7 @@ import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.AttributeList;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
@@ -133,8 +134,10 @@ final class JavaRepository
 								new CopeQualifier(type, javaAttribute);
 							else if(Hash.class.isAssignableFrom(typeClass))
 								new CopeHash(type, javaAttribute);
+							else if(AttributeList.class.isAssignableFrom(typeClass))
+								new CopeVector(type, javaAttribute, false);
 							else if(Vector.class.isAssignableFrom(typeClass))
-								new CopeVector(type, javaAttribute);
+								new CopeVector(type, javaAttribute, true);
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
 							else if(Relation.class.isAssignableFrom(typeClass))

@@ -20,10 +20,12 @@ package com.exedio.cope.instrument;
 
 final class CopeVector extends CopeFeature
 {
+	final boolean flat; // TODO remove
 
-	public CopeVector(final CopeType parent, final JavaAttribute javaAttribute)
+	public CopeVector(final CopeType parent, final JavaAttribute javaAttribute, final boolean flat)
 	{
 		super(parent, javaAttribute);
+		this.flat = flat;
 	}
 
 	@Override
