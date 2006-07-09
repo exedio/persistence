@@ -51,6 +51,14 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	final UniqueConstraint uniqueConstraint;
 	final ItemAttribute<T> target;
 	
+	/**
+	 * @deprecated
+	 * use {@link #newRelation(ItemAttribute, ItemAttribute)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new VectorRelation&lt;Source, Target&gt;(source, target)</tt>
+	 * one can write <tt>VectorRelation.newRelation(source, target)</tt>
+	 */
+	@Deprecated
 	public VectorRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
 	{
 		this.source = source;
@@ -63,6 +71,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		registerSource(target);
 	}
 	
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <S extends Item, T extends Item> VectorRelation<S,T> newRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
 	{
 		return new VectorRelation<S, T>(source, target);

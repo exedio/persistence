@@ -51,6 +51,14 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	final ItemAttribute<T> target;
 	final UniqueConstraint uniqueConstraint;
 	
+	/**
+	 * @deprecated
+	 * use {@link #newRelation(ItemAttribute, ItemAttribute)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new Relation&lt;Source, Target&gt;(source, target)</tt>
+	 * one can write <tt>Relation.newRelation(source, target)</tt>
+	 */
+	@Deprecated
 	public Relation(final ItemAttribute<S> source, final ItemAttribute<T> target)
 	{
 		this.source = source;
@@ -60,7 +68,8 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		registerSource(source);
 		registerSource(target);
 	}
-	
+
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <S extends Item, T extends Item> Relation<S,T> newRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
 	{
 		return new Relation<S, T>(source, target);
