@@ -125,4 +125,8 @@ public final class AttributeList<T> extends Pattern
 		}
 	}
 	
+	public void setAndCast(final Item item, final Collection<?> value)
+	{
+		set(item, element.castCollection(value));
+	}
 }
