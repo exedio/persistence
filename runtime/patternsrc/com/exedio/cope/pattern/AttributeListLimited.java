@@ -62,17 +62,17 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		this.isFinal = isFinal;
 	}
 	
-	public AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	private AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
 	{
 		this(AttributeListLimited.<T>cast(new FunctionAttribute[]{source1, source2}));
 	}
 	
-	public AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	private AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
 	{
 		this(AttributeListLimited.<T>cast(new FunctionAttribute[]{source1, source2, source3}));
 	}
 	
-	public AttributeListLimited(final FunctionAttribute<T> template, final int maximumSize)
+	private AttributeListLimited(final FunctionAttribute<T> template, final int maximumSize)
 	{
 		this(template2Sources(template, maximumSize));
 	}
