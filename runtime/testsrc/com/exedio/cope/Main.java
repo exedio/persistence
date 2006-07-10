@@ -35,7 +35,7 @@ import com.exedio.cope.pattern.RelationSourceItem;
 import com.exedio.cope.pattern.RelationTargetItem;
 import com.exedio.cope.pattern.SerializerItem;
 import com.exedio.cope.pattern.AttributeListItem;
-import com.exedio.cope.pattern.VectorItem;
+import com.exedio.cope.pattern.AttributeListLimitedItem;
 import com.exedio.cope.pattern.VectorRelationItem;
 
 
@@ -51,7 +51,7 @@ public class Main
 	public static final Model mediaModel = new Model(new Type[]{ MediaItem.TYPE });
 	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
-	public static final Model vectorModel = new Model(new Type[] { VectorItem.TYPE });
+	public static final Model vectorModel = new Model(new Type[] { AttributeListLimitedItem.TYPE });
 	public static final Model attributeListModel = new Model(new Type[] { AttributeListItem.TYPE });
 	public static final Model serializerModel = new Model(new Type[] { SerializerItem.TYPE });
 	public static final Model customModel = new Model(new Type[] { CustomItem.TYPE, JavaViewItem.TYPE });
