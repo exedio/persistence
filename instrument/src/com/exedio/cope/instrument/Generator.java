@@ -96,8 +96,6 @@ final class Generator
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
 	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the attribute list {0}.";
 	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the attribute list {0}.";
-	private static final String VECTOR_GETTER = "Returns the value of the vector.";
-	private static final String VECTOR_SETTER = "Sets the vector.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
@@ -926,7 +924,7 @@ final class Generator
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(vector.flat?VECTOR_GETTER:MessageFormat.format(ATTIBUTE_LIST_GETTER, link(name)));
+		o.write(MessageFormat.format(ATTIBUTE_LIST_GETTER, link(name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
 
@@ -953,7 +951,7 @@ final class Generator
 
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(vector.flat?VECTOR_SETTER:MessageFormat.format(ATTIBUTE_LIST_SETTER, link(name)));
+		o.write(MessageFormat.format(ATTIBUTE_LIST_SETTER, link(name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
 

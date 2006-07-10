@@ -135,9 +135,9 @@ final class JavaRepository
 							else if(Hash.class.isAssignableFrom(typeClass))
 								new CopeHash(type, javaAttribute);
 							else if(AttributeList.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute, false);
+								new CopeAttributeList(type, javaAttribute);
 							else if(AttributeListLimited.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute, true);
+								new CopeAttributeList(type, javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
 							else if(Relation.class.isAssignableFrom(typeClass))
