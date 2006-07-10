@@ -134,9 +134,7 @@ final class JavaRepository
 								new CopeQualifier(type, javaAttribute);
 							else if(Hash.class.isAssignableFrom(typeClass))
 								new CopeHash(type, javaAttribute);
-							else if(AttributeList.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute);
-							else if(AttributeListLimited.class.isAssignableFrom(typeClass))
+							else if(AttributeList.class.isAssignableFrom(typeClass) || AttributeListLimited.class.isAssignableFrom(typeClass))
 								new CopeAttributeList(type, javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
