@@ -157,6 +157,12 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		return result;
 	}
 	
+	private void assertValue(final Collection<?> value)
+	{
+		if(value.size()>sources.length)
+			throw new RuntimeException("value exceeds limit " + sources.length + " for " + toString() + ": " + value);
+	}
+	
 	public void set(final Item item, final Collection<? extends T> value)
 		throws
 			UniqueViolationException,
@@ -165,6 +171,7 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 			FinalViolationException,
 			ClassCastException
 	{
+		assertValue(value);
 		int i = 0;
 		final SetValue[] setValues = new SetValue[sources.length];
 
@@ -192,6 +199,7 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 	
 	public SetValue[] execute(final Collection value, final Item exceptionItem)
 	{
+		assertValue(value);
 		int i = 0;
 		final SetValue[] result = new SetValue[sources.length];
 

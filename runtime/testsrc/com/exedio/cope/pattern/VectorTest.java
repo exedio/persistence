@@ -134,12 +134,29 @@ public class VectorTest extends AbstractLibTest
 		assertContains(item, item.TYPE.search(item.nums.contains(i3)));
 		assertContains(item.TYPE.search(item.nums.contains(null)));
 		
+		// test persistence
 		item.setNums(listg(i3, i2, i1));
+		assertEquals(list(i3, i2, i1), item.getNums());
 		assertEquals(i3, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i1, item.getNum3());
 
 		item.setNums(listg(i2, i1));
+		assertEquals(list(i2, i1), item.getNums());
+		assertEquals(i2, item.getNum1());
+		assertEquals(i1, item.getNum2());
+		assertEquals(null, item.getNum3());
+
+		try
+		{
+			item.setNums(listg(i2, i1, i3, i1));
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("value exceeds limit 3 for " + item.nums + ": " + listg(i2, i1, i3, i1), e.getMessage());
+		}
+		assertEquals(list(i2, i1), item.getNums());
 		assertEquals(i2, item.getNum1());
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
