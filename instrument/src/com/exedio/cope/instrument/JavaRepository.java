@@ -45,7 +45,7 @@ import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.pattern.Relation;
-import com.exedio.cope.pattern.Vector;
+import com.exedio.cope.pattern.AttributeListLimited;
 import com.exedio.cope.pattern.VectorRelation;
 
 final class JavaRepository
@@ -136,7 +136,7 @@ final class JavaRepository
 								new CopeHash(type, javaAttribute);
 							else if(AttributeList.class.isAssignableFrom(typeClass))
 								new CopeVector(type, javaAttribute, false);
-							else if(Vector.class.isAssignableFrom(typeClass))
+							else if(AttributeListLimited.class.isAssignableFrom(typeClass))
 								new CopeVector(type, javaAttribute, true);
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);

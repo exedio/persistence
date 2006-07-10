@@ -40,13 +40,13 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 
-public final class Vector<T> extends Pattern implements Settable<Collection<T>>
+public final class AttributeListLimited<T> extends Pattern implements Settable<Collection<T>>
 {
 	private final FunctionAttribute<T>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;
 
-	public Vector(final FunctionAttribute<T>[] sources)
+	public AttributeListLimited(final FunctionAttribute<T>[] sources)
 	{
 		this.sources = sources;
 
@@ -62,34 +62,34 @@ public final class Vector<T> extends Pattern implements Settable<Collection<T>>
 		this.isFinal = isFinal;
 	}
 	
-	public Vector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	public AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
 	{
-		this(Vector.<T>cast(new FunctionAttribute[]{source1, source2}));
+		this(AttributeListLimited.<T>cast(new FunctionAttribute[]{source1, source2}));
 	}
 	
-	public Vector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	public AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
 	{
-		this(Vector.<T>cast(new FunctionAttribute[]{source1, source2, source3}));
+		this(AttributeListLimited.<T>cast(new FunctionAttribute[]{source1, source2, source3}));
 	}
 	
-	public Vector(final FunctionAttribute<T> template, final int length)
+	public AttributeListLimited(final FunctionAttribute<T> template, final int length)
 	{
 		this(template2Sources(template, length));
 	}
 	
-	public static final <T> Vector<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
 	{
-		return new Vector<T>(source1, source2);
+		return new AttributeListLimited<T>(source1, source2);
 	}
 	
-	public static final <T> Vector<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
 	{
-		return new Vector<T>(source1, source2, source3);
+		return new AttributeListLimited<T>(source1, source2, source3);
 	}
 	
-	public static final <T> Vector<T> newVector(final FunctionAttribute<T> template, final int length)
+	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> template, final int length)
 	{
-		return new Vector<T>(template, length);
+		return new AttributeListLimited<T>(template, length);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation

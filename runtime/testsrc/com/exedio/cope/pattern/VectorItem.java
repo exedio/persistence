@@ -40,15 +40,15 @@ public class VectorItem extends Item
 
 	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
 	
-	public static final Vector<Integer> nums = Vector.newVector(num1, num2, num3);
+	public static final AttributeListLimited<Integer> nums = AttributeListLimited.newVector(num1, num2, num3);
 
 	// implicit external source
 
-	public static final Vector<Date> dates = Vector.newVector(new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL));
+	public static final AttributeListLimited<Date> dates = AttributeListLimited.newVector(new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL));
 
 	// internal source
 
-	public static final Vector<String> strings = Vector.newVector(new StringAttribute(OPTIONAL).lengthRange(1, 11), 4);
+	public static final AttributeListLimited<String> strings = AttributeListLimited.newVector(new StringAttribute(OPTIONAL).lengthRange(1, 11), 4);
 
 	public VectorItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
