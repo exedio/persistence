@@ -72,9 +72,9 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		this(AttributeListLimited.<T>cast(new FunctionAttribute[]{source1, source2, source3}));
 	}
 	
-	public AttributeListLimited(final FunctionAttribute<T> template, final int length)
+	public AttributeListLimited(final FunctionAttribute<T> template, final int maximumSize)
 	{
-		this(template2Sources(template, length));
+		this(template2Sources(template, maximumSize));
 	}
 	
 	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
@@ -87,9 +87,9 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		return new AttributeListLimited<T>(source1, source2, source3);
 	}
 	
-	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> template, final int length)
+	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> template, final int maximumSize)
 	{
-		return new AttributeListLimited<T>(template, length);
+		return new AttributeListLimited<T>(template, maximumSize);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -98,11 +98,11 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		return (FunctionAttribute<X>[])o;
 	}
 	
-	private final static <Y> FunctionAttribute<Y>[] template2Sources(final FunctionAttribute<Y> template, final int length)
+	private final static <Y> FunctionAttribute<Y>[] template2Sources(final FunctionAttribute<Y> template, final int maximumSize)
 	{
-		final FunctionAttribute<Y>[] result = cast(new FunctionAttribute[length]);
+		final FunctionAttribute<Y>[] result = cast(new FunctionAttribute[maximumSize]);
 		
-		for(int i = 0; i<length; i++)
+		for(int i = 0; i<maximumSize; i++)
 			result[i] = template.copyFunctionAttribute();
 
 		return result;
