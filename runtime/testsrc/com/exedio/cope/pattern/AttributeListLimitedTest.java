@@ -37,7 +37,7 @@ public class AttributeListLimitedTest extends AbstractLibTest
 	
 	public AttributeListLimitedTest()
 	{
-		super(Main.vectorModel);
+		super(Main.attributeListLimitedModel);
 	}
 
 	AttributeListLimitedItem item;

@@ -51,7 +51,7 @@ public class Main
 	public static final Model mediaModel = new Model(new Type[]{ MediaItem.TYPE });
 	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
 	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
-	public static final Model vectorModel = new Model(new Type[] { AttributeListLimitedItem.TYPE });
+	public static final Model attributeListLimitedModel = new Model(new Type[] { AttributeListLimitedItem.TYPE });
 	public static final Model attributeListModel = new Model(new Type[] { AttributeListItem.TYPE });
 	public static final Model serializerModel = new Model(new Type[] { SerializerItem.TYPE });
 	public static final Model customModel = new Model(new Type[] { CustomItem.TYPE, JavaViewItem.TYPE });
@@ -118,7 +118,7 @@ public class Main
 		tearDown(dataModel);
 		tearDown(hashModel);
 		tearDown(md5Model);
-		tearDown(vectorModel);
+		tearDown(attributeListLimitedModel);
 		tearDown(attributeListModel);
 		tearDown(serializerModel);
 		tearDown(relationModel);

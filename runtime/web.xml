@@ -84,16 +84,16 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>vectorConsole</servlet-name>
+		<servlet-name>attributeListLimitedConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#vectorModel</param-value>
+			<param-value>com.exedio.cope.Main#attributeListLimitedModel</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>vectorConsole</servlet-name>
-		<url-pattern>/vector/console/*</url-pattern>
+		<servlet-name>attributeListLimitedConsole</servlet-name>
+		<url-pattern>/attributeListLimited/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
