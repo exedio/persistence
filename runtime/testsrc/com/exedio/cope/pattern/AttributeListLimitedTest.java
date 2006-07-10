@@ -32,10 +32,10 @@ import com.exedio.cope.Main;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringAttribute;
 
-public class VectorTest extends AbstractLibTest
+public class AttributeListLimitedTest extends AbstractLibTest
 {
 	
-	public VectorTest()
+	public AttributeListLimitedTest()
 	{
 		super(Main.vectorModel);
 	}
@@ -49,7 +49,7 @@ public class VectorTest extends AbstractLibTest
 		deleteOnTearDown(item = new VectorItem(1, 2, 3));
 	}
 	
-	public void testVector()
+	public void testIt()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
@@ -161,13 +161,13 @@ public class VectorTest extends AbstractLibTest
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(VectorTest.<Integer>listg());
+		item.setNums(AttributeListLimitedTest.<Integer>listg());
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
-		assertContains(item, item.TYPE.search(item.nums.equal(VectorTest.<Integer>listg())));
+		assertContains(item, item.TYPE.search(item.nums.equal(AttributeListLimitedTest.<Integer>listg())));
 		assertContains(item.TYPE.search(item.nums.equal(listg(i1))));
-		assertContains(item.TYPE.search(item.nums.notEqual(VectorTest.<Integer>listg())));
+		assertContains(item.TYPE.search(item.nums.notEqual(AttributeListLimitedTest.<Integer>listg())));
 		assertContains(item, item.TYPE.search(item.nums.notEqual(listg(i1))));
 		assertContains(item.TYPE.search(item.nums.contains(i1)));
 		assertContains(item.TYPE.search(item.nums.contains(i2)));
@@ -207,12 +207,12 @@ public class VectorTest extends AbstractLibTest
 		assertEquals("bello", item.get(string2));
 		assertEquals(null, item.get(string3));
 		assertEquals(null, item.get(string4));
-		assertContains(item.TYPE.search(item.strings.equal(VectorTest.<String>listg())));
+		assertContains(item.TYPE.search(item.strings.equal(AttributeListLimitedTest.<String>listg())));
 		assertContains(item.TYPE.search(item.strings.equal(listg("hallo"))));
 		assertContains(item, item.TYPE.search(item.strings.equal(listg("hallo", "bello"))));
 		assertContains(item.TYPE.search(item.strings.equal(listg("bello", "hallo", "zollo"))));
 		assertContains(item.TYPE.search(item.strings.equal(listg("bello", "hallo"))));
-		assertContains(item, item.TYPE.search(item.strings.notEqual(VectorTest.<String>listg())));
+		assertContains(item, item.TYPE.search(item.strings.notEqual(AttributeListLimitedTest.<String>listg())));
 		assertContains(item, item.TYPE.search(item.strings.notEqual(listg("hallo"))));
 		assertContains(item.TYPE.search(item.strings.notEqual(listg("hallo", "bello"))));
 		assertContains(item, item.TYPE.search(item.strings.notEqual(listg("bello", "hallo", "zollo"))));
