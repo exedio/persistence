@@ -918,7 +918,7 @@ final class Generator
 		}
 	}
 	
-	private void writeVector(final CopeVector vector)
+	private void writeVector(final CopeAttributeList vector)
 		throws IOException
 	{
 		final String type = vector.getType();
@@ -1198,8 +1198,8 @@ final class Generator
 					writeAccessMethods((CopeAttribute)feature);
 				else if(feature instanceof CopeUniqueConstraint)
 					writeUniqueFinder((CopeUniqueConstraint)feature);
-				else if(feature instanceof CopeVector)
-					writeVector((CopeVector)feature);
+				else if(feature instanceof CopeAttributeList)
+					writeVector((CopeAttributeList)feature);
 				else if(feature instanceof CopeMedia)
 					writeMedia((CopeMedia)feature);
 				else if(feature instanceof CopeHash)
