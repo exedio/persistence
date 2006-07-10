@@ -77,17 +77,17 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		this(template2Sources(template, maximumSize));
 	}
 	
-	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	public static final <T> AttributeListLimited<T> newList(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
 	{
 		return new AttributeListLimited<T>(source1, source2);
 	}
 	
-	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	public static final <T> AttributeListLimited<T> newList(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
 	{
 		return new AttributeListLimited<T>(source1, source2, source3);
 	}
 	
-	public static final <T> AttributeListLimited<T> newVector(final FunctionAttribute<T> template, final int maximumSize)
+	public static final <T> AttributeListLimited<T> newList(final FunctionAttribute<T> template, final int maximumSize)
 	{
 		return new AttributeListLimited<T>(template, maximumSize);
 	}
