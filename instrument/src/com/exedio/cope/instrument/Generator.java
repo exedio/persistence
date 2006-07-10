@@ -916,11 +916,11 @@ final class Generator
 		}
 	}
 	
-	private void write(final CopeAttributeList vector)
+	private void write(final CopeAttributeList list)
 		throws IOException
 	{
-		final String type = vector.getType();
-		final String name = vector.name;
+		final String type = list.getType();
+		final String name = list.name;
 		
 		writeCommentHeader();
 		o.write("\t * ");
@@ -933,7 +933,7 @@ final class Generator
 		o.write('<');
 		o.write(type);
 		o.write("> get");
-		o.write(toCamelCase(vector.name));
+		o.write(toCamelCase(list.name));
 		o.write("()");
 		o.write(lineSeparator);
 
@@ -941,9 +941,9 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\treturn ");
-		o.write(vector.parent.name);
+		o.write(list.parent.name);
 		o.write('.');
-		o.write(vector.name);
+		o.write(list.name);
 		o.write(".get(this);");
 		o.write(lineSeparator);
 
@@ -956,13 +956,13 @@ final class Generator
 		writeCommentFooter();
 
 		o.write("public final void set"); // TODO: obey attribute visibility
-		o.write(toCamelCase(vector.name));
+		o.write(toCamelCase(list.name));
 		o.write("(final ");
 		o.write(Collection.class.getName());
 		o.write("<? extends ");
 		o.write(type);
 		o.write("> ");
-		o.write(vector.name);
+		o.write(list.name);
 		o.write(')');
 		o.write(lineSeparator);
 
@@ -977,11 +977,11 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t\t");
-		o.write(vector.parent.name);
+		o.write(list.parent.name);
 		o.write('.');
-		o.write(vector.name);
+		o.write(list.name);
 		o.write(".set(this,");
-		o.write(vector.name);
+		o.write(list.name);
 		o.write(");");
 		o.write(lineSeparator);
 
