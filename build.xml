@@ -452,8 +452,8 @@
 	
 	<!-- instrument -->
 	
-	<target name="instrument.compile" depends="runtime.compile">
-		<ljavac srcdir="instrument/src" destdir="build/instrument/classes" includeAntRuntime="true">
+	<target name="instrument.core.compile" depends="runtime.compile">
+		<ljavac srcdir="instrument/src" destdir="build/instrument/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/bsh-core.jar" />
@@ -461,6 +461,17 @@
 		</ljavac>
 	</target>
 	
+	<target name="instrument.ant.compile" depends="runtime.compile, instrument.core.compile">
+		<ljavac srcdir="instrument/antsrc" destdir="build/instrument/classes" includeAntRuntime="true">
+			<classpath>
+				<pathelement location="build/runtime/classes" />
+				<pathelement location="lib/bsh-core.jar" />
+			</classpath>
+		</ljavac>
+	</target>
+	
+	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />
+
 	<target name="instrument.jar" depends="instrument.compile">
 		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope.jar bsh-core.jar">
 			<fileset dir="build/instrument/classes" />
@@ -810,6 +821,7 @@
 			<fileset file="runtime/servletsrc/com" includes="**/*.java" />
 			<fileset file="runtime/junitsrc/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
+			<fileset file="instrument/antsrc/com" includes="**/*.java" />
 			<fileset file="console/src/com" includes="**/*.java" />
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
