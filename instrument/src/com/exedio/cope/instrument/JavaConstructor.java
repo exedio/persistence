@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2000  Ralf Wiebicke
  * Copyright (C) 2004-2006  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
