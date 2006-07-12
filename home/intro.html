@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="cope.css">
+	</head>
+	<body>
+		<a href="http://www.exedio.com">
+			<img src="exedio.png" width="200" height="66" border="0" align="right">
+		</a>
+		<h1>COPE</h1>
+		<div>Cope with Object Persistence</div>
+		
+		<h2>Your first item</h2>
+		<a href="http://sourceforge.net/">
+			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
+				width="88" height="31" border="0" align="right" alt="SourceForge.net Logo" />
+		</a>
+		<div>
+			Creating a new persistent class within COPE is
+			as easy as creating any java class.
+			Make sure, the class extends <tt>Item</tt>
+		</div>
+		<pre>
+import com.exedio.cope.Item;
+
+class Customer extends Item
+{
+}
+		</pre>
+		<div>
+			Now a persistent class is'nt very useful
+			without any persistent attributes,
+			we also create our first one.
+			To do this we declare a static final constant
+			of the type <tt>StringAttribute</tt>.
+		</div>
+		<pre>
+import com.exedio.cope.Item;
+import com.exedio.cope.StringAttribute;
+
+class Customer extends Item
+{
+   static final StringAttribute email = new StringAttribute(DEFAULT);
+}
+		</pre>
+		<div>
+			Thats the way you declare persistent classes and fields.
+			Now we have to setup some one-time preparations to make the whole thing work.
+		</div>
+		<h2>preparations</h2>
+		<div>
+			Get a copy of <tt>cope-exedio.jar</tt>
+			and make it available to your classes.
+		</div>
+		<div>
+			Next we will install the code instrumentor of cope.
+			With <a href="http://ant.apache.org/">ant</a> this works like this:
+		<pre>
+&lt;taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask"&gt;
+  &lt;classpath&gt;
+    &lt;pathelement location="lib/exedio-cope-instrument.jar" /&gt;
+  &lt;/classpath&gt;
+&lt;/taskdef&gt;
+
+&lt;target name="instrument"&gt;
+  &lt;instrument verbose="false"&gt;
+    &lt;fileset dir="${basedir}/src"&gt;
+      &lt;include name="*.java" /&gt;
+    &lt;/fileset&gt;
+  &lt;/instrument&gt;
+&lt;/target&gt;
+		</pre>
+
+			
+			Also get a jdbc driver in your classpath.
+			In this manual we will start with
+			<a href="http://www.hsqldb.org">hsqldb</a>, version 1.8.0.
+			
+			
+			
+			<pre>
+database=hsqldb
+database.url=jdbc:hsqldb:mem:copetest
+database.user=sa
+database.password=
+			</pre>
+		</div>
+		<div>
+		</div>
+	</body>
+</html>
