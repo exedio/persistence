@@ -27,3 +27,7 @@ H2 { font-size:18pt; }
 H3 { font-size:14pt; }
 H4 { font-size:12pt; }
 
+div
+{
+	margin-top:12pt;
+}
