@@ -258,7 +258,8 @@ database.password=<i>password</i>
 <pre>
 public static main(String[] args)
 {
-   model.setPropertiesInitially(new Properties(new File("cope.properties")));
+   model.setPropertiesInitially(
+      new Properties(new File("cope.properties")));
    model.createDatabase();
    Customer c = new Customer("copetest@exedio.com");
    System.out.println("email:"+customer.getEmail());
