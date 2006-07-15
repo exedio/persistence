@@ -12,7 +12,19 @@ A:VISITED   { color:#606; }
 A:ACTIVE    { color:#900; }
 A:HOVER     { color:#606; background-color:#EEF; }
 
-H1,H2,H3,H4
+H1
+{
+	font-size:24pt;
+	width:100%;
+	font-family:Arial,Helvetica,Helv,sans-serif;
+	font-weight:bold;
+	color:#000;
+	background-color:#FFF;
+	padding:2pt;
+	border-width:1px; border-color:#FFF;
+}
+
+H2,H3,H4
 {
 	width:100%;
 	font-family:Arial,Helvetica,Helv,sans-serif;
@@ -23,7 +35,6 @@ H1,H2,H3,H4
 	border-width:1px; border-color:#FFF;
 }
 
-H1 { font-size:24pt; }
 H2 { font-size:18pt; }
 H3 { font-size:14pt; }
 H4 { font-size:12pt; }
