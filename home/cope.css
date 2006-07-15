@@ -50,3 +50,19 @@ pre
 	margin:12pt;
 	padding:2pt;
 }
+
+img.exedio
+{
+	float:right;
+	border:0;
+	width:200px;
+	height:66px;
+}
+
+img.sf
+{
+	float:right;
+	border:0;
+	width:88px;
+	height:31px;
+}
