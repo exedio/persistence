@@ -136,8 +136,23 @@ static final StringAttribute email =
 static final Customer findbyEmail(String email);
 </pre>
 		<div>
-			which does exactly, what it's name suggests.
+			which does, what it's name suggests.
 		</div>
+		<div>
+			For unique constraints across multiple attributes
+			the notation is slightly different:
+		</div>
+<pre>
+class MatrixElement
+{
+   static final IntegerAttribute x =
+       new IntegerAttribute(DEFAULT);
+   static final IntegerAttribute y =
+       new IntegerAttribute(DEFAULT);
+   static final UniqueConstraint xy =
+       new UniqueConstraint(x, y);
+}
+</pre>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
