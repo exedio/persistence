@@ -7,37 +7,37 @@ body
 	background-color:#FFF;
 }
 
-A:LINK      { color:#009; }
-A:VISITED   { color:#606; }
-A:ACTIVE    { color:#900; }
-A:HOVER     { color:#606; background-color:#EEF; }
+a:link      { color:#009; }
+a:visited   { color:#606; }
+a:active    { color:#900; }
+a:hover     { color:#606; background-color:#eef; }
 
-H1
+h1
 {
 	font-size:24pt;
 	width:100%;
 	font-family:Arial,Helvetica,Helv,sans-serif;
 	font-weight:bold;
 	color:#000;
-	background-color:#FFF;
+	background-color:#fff;
 	padding:2pt;
-	border-width:1px; border-color:#FFF;
+	border-width:1px; border-color:#fff;
 }
 
-H2,H3,H4
+h2,h3,h4
 {
 	width:100%;
 	font-family:Arial,Helvetica,Helv,sans-serif;
 	font-weight:bold;
 	color:#000;
-	background-color:#EEF;
+	background-color:#eef;
 	padding:2pt;
-	border-width:1px; border-color:#FFF;
+	border-width:1px; border-color:#fff;
 }
 
-H2 { font-size:18pt; }
-H3 { font-size:14pt; }
-H4 { font-size:12pt; }
+h2 { font-size:18pt; }
+h3 { font-size:14pt; }
+h4 { font-size:12pt; }
 
 div
 {
