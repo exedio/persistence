@@ -207,20 +207,32 @@ class Main
 			Just make sure, that all your persistent types show up in the list.
 		</div>
 		<div>
-			Also get a jdbc driver in your classpath.
-			In this manual we will start with
-			<a href="http://www.hsqldb.org">hsqldb</a>, version 1.8.0.
-			
-			
-			
+			Next we will setup the database connection to be used by cope.
+			First put a jdbc driver
+			(i.e. <tt>hsqldb.jar</tt> or <tt>mysql-connector-bin-3.1.12.jar</tt>)
+			in your classpath.
+		</div>
+		<div>
+			Then create a file <tt>cope.properties</tt> with the following
+			contents for hsqldb:
+		</div>
 <pre>
 database=hsqldb
 database.url=jdbc:hsqldb:mem:copetest
 database.user=sa
 database.password=
 </pre>
-		</div>
 		<div>
+			or alternativly for mysql:
+		</div>
+<pre>
+database=mysql
+database.url=jdbc:mysql://<i>localhost</i>/<i>copetest</i>
+database.user=<i>user</i>
+database.password=<i>password</i>
+</pre>
+		<div>
+			Parts in <tt><i>italics</i></tt> need to be adapted to your database.
 		</div>
 	</body>
 </html>
