@@ -3,17 +3,31 @@
 		<link rel="stylesheet" href="cope.css">
 	</head>
 	<body>
-		<a href="http://www.exedio.com">
+		<a href="http://www.exedio.com/">
 			<img src="exedio.png" width="200" height="66" border="0" align="right">
 		</a>
 		<h1>COPE</h1>
 		<div>Cope with Object Persistence</div>
 		
-		<h2>Your first item</h2>
+		<h2>Initial Trail</h2>
 		<a href="http://sourceforge.net/">
 			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
 				width="88" height="31" border="0" align="right" alt="SourceForge.net Logo" />
 		</a>
+		<div>
+			This is the initial trail of the cope documentation trails.
+			It gives you a step-by-step introduction into the persistence framework cope.
+		</div>
+		<div>
+			If you already decided to use cope for a project,
+			you may want to use the cope demoshop as a template.
+			This way you can skip most of the steps described here.
+			The demoshop is available under the
+			<a href="http://www.opensource.org/licenses/mit-license.php">The MIT License</a>.
+			<br>
+			<a href="http://sourceforge.net/project/showfiles.php?group_id=152867">Download</a>
+		</div>
+		<h3>Your first item</h3>
 		<div>
 			Creating a new persistent class within COPE is
 			as easy as creating any java class.
@@ -46,7 +60,7 @@ class Customer extends Item
 			Thats the way you declare persistent classes and fields.
 			Now we have to setup the cope source code instrumentor.
 		</div>
-		<h2>setting up the instrumentor</h2>
+		<h3>setting up the instrumentor</h3>
 		<div>
 			The instrumentor inserts a few methods and constructors into your
 			source code, so you don't have to write it on your own.
@@ -91,7 +105,7 @@ class Customer extends Item
 			Now the instrumentor is ready to run.
 			On the command line type <tt>ant instrument</tt>.
 		</div>
-		<h2>results of the instrumentor</h2>
+		<h3>results of the instrumentor</h3>
 		<div>
 			After running the instrumentor,
 			the class <tt>Customer</tt> contains a few more methods and constructors.
@@ -186,7 +200,7 @@ class Customer extends Item
 		<div>
 			Next we will really store some persistent data.
 		</div>
-		<h2>Make it run</h2>
+		<h3>Make it run</h3>
 		<div>
 			First we have to tell cope,
 			which persistent types are to be maintained by the project.
@@ -262,5 +276,15 @@ public static main(String[] args)
 		On hsqldb the method work multiple times,
 		because the database is in-memory only.
 	</div>
+		<h3>Further Reading</h3>
+		<div>
+			This was the initial trail of the cope tour.
+			You may now proceed to trails:
+			<ul>
+				<li>more fun with attributes</li>
+				<li>searching</li>
+				<li>cope within a web application</li>
+			</ul>
+		</div>
 	</body>
 </html>
