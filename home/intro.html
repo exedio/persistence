@@ -265,17 +265,17 @@ public static main(String[] args)
    System.out.println("email2:"+customer.getEmail());
 }
 </pre>
-	<div>
-		The call to <tt>createDatabase</tt> builds the schema of the database.
-		For this example it issues an sql statement like
-		<tt>create table Customer ( email varchar(100) )</tt>
-		to the database.
-		Note, that for mysql the main method work once only.
-		On any subsequent calls <tt>createDatabase</tt> fails,
-		because table <tt>Customer</tt> already exists.
-		On hsqldb the method work multiple times,
-		because the database is in-memory only.
-	</div>
+		<div>
+			The call to <tt>createDatabase</tt> builds the schema of the database.
+			For this example it issues an sql statement like
+			<tt>create table Customer ( email varchar(100) )</tt>
+			to the database.
+			Note, that for mysql the main method work once only.
+			On any subsequent calls <tt>createDatabase</tt> fails,
+			because table <tt>Customer</tt> already exists.
+			On hsqldb the method work multiple times,
+			because the database is in-memory only.
+		</div>
 		<h3>Further Reading</h3>
 		<div>
 			This was the initial trail of the cope tour.
