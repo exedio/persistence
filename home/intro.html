@@ -188,6 +188,25 @@ class Customer extends Item
 		</div>
 		<h2>Make it run</h2>
 		<div>
+			First we have to tell cope,
+			which persistent types are to be maintained by the project.
+			For now this will be type customer only.
+			So we write a new class <tt>Main</tt>:
+		</div>
+<pre>
+class Main
+{
+   static final Model model = new Model(
+         Customer.TYPE
+      );
+}
+</pre>
+		<div>
+			Of course, if you already have some central kind of main class,
+			you can use this instead of writing a new one.
+			Just make sure, that all your persistent types show up in the list.
+		</div>
+		<div>
 			Also get a jdbc driver in your classpath.
 			In this manual we will start with
 			<a href="http://www.hsqldb.org">hsqldb</a>, version 1.8.0.
