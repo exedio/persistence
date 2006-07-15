@@ -43,3 +43,10 @@ div
 {
 	margin-top:12pt;
 }
+
+pre
+{
+	background-color:#eee;
+	margin:12pt;
+	padding:2pt;
+}

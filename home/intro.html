@@ -115,10 +115,10 @@ class Customer extends Item
 			The first one in the <i>default creation constructor</i>:
 		</div>
 <pre>
-   Customer(String email)
-   {
-      this(new SetValue[]{Customer.email.map(email)});
-   }
+Customer(String email)
+{
+   this(new SetValue[]{Customer.email.map(email)});
+}
 </pre>
 		<div>
 			It creates a new customer and sets the initial value of the attribute
@@ -130,10 +130,10 @@ class Customer extends Item
 			Next one is the generic creation constructor:
 		</div>
 <pre>
-   Customer(SetValue[] setValues)
-   {
-      super(setValue);
-   }
+Customer(SetValue[] setValues)
+{
+   super(setValue);
+}
 </pre>
 		<div>
 			It creates a new customer and sets the initial values for any set of attributes
@@ -160,15 +160,15 @@ class Customer extends Item
 			and <i>attribute setter</i> for the attribute <tt>email</tt>:
 		</div>
 <pre>
-   String getEmail()
-   {
-      return email.get(this);
-   }
+String getEmail()
+{
+   return email.get(this);
+}
 
-   void setEmail(String email)
-   {
-      Customer.email.set(this, email);
-   }
+void setEmail(String email)
+{
+   Customer.email.set(this, email);
+}
 </pre>
 		<div>
 			These allow convenient read/write access to the values of the attribute,
@@ -178,7 +178,7 @@ class Customer extends Item
 			Last but not least there is the <i>type constant</i>:
 		</div>
 <pre>
-   static final Type TYPE = Type.newType(Customer.class);
+static final Type TYPE = Type.newType(Customer.class);
 </pre>
 		<div>
 			This is useful for all sorts of things,
