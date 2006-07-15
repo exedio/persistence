@@ -190,7 +190,7 @@ class Customer extends Item
 		<div>
 			First we have to tell cope,
 			which persistent types are to be maintained by the project.
-			For now this will be type customer only.
+			For now this will be type <tt>Customer</tt> only.
 			So we write a new class <tt>Main</tt>:
 		</div>
 <pre>
@@ -233,6 +233,34 @@ database.password=<i>password</i>
 </pre>
 		<div>
 			Parts in <tt><i>italics</i></tt> need to be adapted to your database.
+			For mysql make sure, that the database does exist (<tt>create database copetest</tt>)
+			and is accessible for the user.
 		</div>
+		<div>
+			Finally we can add a main method to class <tt>Main</tt>,
+			that creates a customer in the database.
+		</div>
+<pre>
+public static main(String[] args)
+{
+   model.setPropertiesInitially(new Properties(new File("cope.properties")));
+   model.createDatabase();
+   Customer c = new Customer("copetest@exedio.com");
+   System.out.println("email:"+customer.getEmail());
+   c.setEmail("copetest@exedio.com");
+   System.out.println("email2:"+customer.getEmail());
+}
+</pre>
+	<div>
+		The call to <tt>createDatabase</tt> builds the schema of the database.
+		For this example it issues an sql statement like
+		<tt>create table Customer ( email varchar(100) )</tt>
+		to the database.
+		Note, that for mysql the main method work once only.
+		On any subsequent calls <tt>createDatabase</tt> fails,
+		because table <tt>Customer</tt> already exists.
+		On hsqldb the method work multiple times,
+		because the database is in-memory only.
+	</div>
 	</body>
 </html>
