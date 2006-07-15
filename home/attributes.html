@@ -96,6 +96,24 @@ void setLoginCounter(Long loginCounter) { ... }
 			</ol>
 				</li>
 		</div>
+		<h3>Default Values</h3>
+		<div>
+			What we did above with the login counter is probably not,
+			what one would want in a real project.
+			One would probably rather want to make it <i>mandatory</i>
+			and initialize it to zero for any newly created customer.
+			This can be specified by:
+		</div>
+<pre>
+static final LongAttribute loginCounter =
+    new LongAttribute(DEFAULT).defaultTo(0);
+</pre>
+		<div>
+			In the instrumented code the type for setter/getter
+			changes back to primitives again,
+			but the <i>default creation constructor</i> does also
+			not have a parameter for <tt>loginCounter</tt>.
+		</div>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
