@@ -29,7 +29,7 @@ class Customer extends Item
 		<div>
 			Now a persistent class is'nt very useful
 			without any persistent attributes,
-			we also create our first one.
+			so we also create our first one.
 			To do this we declare a static final constant
 			of the type <tt>StringAttribute</tt>.
 		</div>
@@ -122,7 +122,7 @@ class Customer extends Item
    }
 </pre>
 		<div>
-			It creates a new customer and sets the initial values for any set of attribute
+			It creates a new customer and sets the initial values for any set of attributes
 			for that customer.
 			This comes handy if there are more attributes in class Customer,
 			since by default not all attributes are set by the <i>default creation constructor</i>.
@@ -182,6 +182,9 @@ class Customer extends Item
 					<tt>Customer.TYPE.search(Customer.email.equal("cope@exedio.com"))</tt>.
 				</li>
 			</ol>
+		</div>
+		<div>
+			Next we will really store some persistent data.
 		</div>
 		<h2>Make it run</h2>
 		<div>
