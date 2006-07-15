@@ -41,39 +41,39 @@ import com.exedio.cope.pattern.VectorRelationItem;
 
 public class Main
 {
-	public static final Model itemSerializationModel = new Model(new Type[]{ ItemSerializationItem.TYPE });
-	public static final Model deleteModel = new Model(new Type[]{ DeleteItem.TYPE, DeleteOtherItem.TYPE} );
-	public static final Model deleteHierarchyModel = new Model(new Type[]{ DeleteHierarchySource.TYPE, DeleteHierarchyTargetSuper.TYPE, DeleteHierarchyTargetSub.TYPE } );
-	public static final Model defaultToModel = new Model(new Type[]{ DefaultToItem.TYPE } );
-	public static final Model enumModel = new Model(new Type[] { EnumItem.TYPE, EnumItem2.TYPE });
-	public static final Model dayModel = new Model(new Type[] { DayItem.TYPE });
-	public static final Model dataModel = new Model(new Type[]{ DataItem.TYPE, DataSubItem.TYPE });
-	public static final Model mediaModel = new Model(new Type[]{ MediaItem.TYPE });
-	public static final Model hashModel = new Model(new Type[] { HashItem.TYPE });
-	public static final Model md5Model = new Model(new Type[] { MD5Item.TYPE });
-	public static final Model attributeListLimitedModel = new Model(new Type[] { AttributeListLimitedItem.TYPE });
-	public static final Model attributeListModel = new Model(new Type[] { AttributeListItem.TYPE });
-	public static final Model serializerModel = new Model(new Type[] { SerializerItem.TYPE });
-	public static final Model customModel = new Model(new Type[] { CustomItem.TYPE, JavaViewItem.TYPE });
-	public static final Model cacheIsolationModel = new Model(new Type[] { CacheIsolationItem.TYPE });
-	public static final Model typeInConditionModel = new Model(new Type[] { TypeInConditionAItem.TYPE, TypeInConditionB1Item.TYPE, TypeInConditionB2Item.TYPE, TypeInConditionC1Item.TYPE, TypeInConditionRefItem.TYPE });
-	public static final Model relationModel = new Model(new Type[] { RelationItem.TYPE, RelationSelfItem.TYPE, VectorRelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE });
-	public static final Model nameModel = new Model(new Type[] {
+	public static final Model itemSerializationModel = new Model(ItemSerializationItem.TYPE);
+	public static final Model deleteModel = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
+	public static final Model deleteHierarchyModel = new Model(DeleteHierarchySource.TYPE, DeleteHierarchyTargetSuper.TYPE, DeleteHierarchyTargetSub.TYPE);
+	public static final Model defaultToModel = new Model(DefaultToItem.TYPE);
+	public static final Model enumModel = new Model(EnumItem.TYPE, EnumItem2.TYPE);
+	public static final Model dayModel = new Model(DayItem.TYPE);
+	public static final Model dataModel = new Model(DataItem.TYPE, DataSubItem.TYPE);
+	public static final Model mediaModel = new Model(MediaItem.TYPE);
+	public static final Model hashModel = new Model(HashItem.TYPE);
+	public static final Model md5Model = new Model(MD5Item.TYPE);
+	public static final Model attributeListLimitedModel = new Model(AttributeListLimitedItem.TYPE);
+	public static final Model attributeListModel = new Model(AttributeListItem.TYPE);
+	public static final Model serializerModel = new Model(SerializerItem.TYPE);
+	public static final Model customModel = new Model(CustomItem.TYPE, JavaViewItem.TYPE);
+	public static final Model cacheIsolationModel = new Model(CacheIsolationItem.TYPE);
+	public static final Model typeInConditionModel = new Model(TypeInConditionAItem.TYPE, TypeInConditionB1Item.TYPE, TypeInConditionB2Item.TYPE, TypeInConditionC1Item.TYPE, TypeInConditionRefItem.TYPE);
+	public static final Model relationModel = new Model(RelationItem.TYPE, RelationSelfItem.TYPE, VectorRelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE);
+	public static final Model nameModel = new Model(
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE });
-	public static final Model matchModel = new Model(new Type[] { MatchItem.TYPE });
-	public static final Model hierarchyModel = new Model(new Type[] {
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE);
+	public static final Model matchModel = new Model(MatchItem.TYPE);
+	public static final Model hierarchyModel = new Model(
 			HierarchyFirstSub.TYPE,
 			HierarchySecondSub.TYPE,
 			HierarchySuper.TYPE, // deliberately put this type below it's sub types to test correct functionality
 			HierarchySingleSuper.TYPE,
-			HierarchySingleSub.TYPE,
-		});
-	public static final Model hierarchyEmptyModel = new Model(new Type[] { HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE });
-	public static final Model joinFunctionModel = new Model(new Type[] { JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE });
-	public static final Model dtypeModel = new Model(new Type[] { DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE });
-	public static final Model hiddenFeatureModel = new Model(new Type[] { HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE });
+			HierarchySingleSub.TYPE
+		);
+	public static final Model hierarchyEmptyModel = new Model(HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE);
+	public static final Model joinFunctionModel = new Model(JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE);
+	public static final Model dtypeModel = new Model(DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE);
+	public static final Model hiddenFeatureModel = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
 
 	private static final void tearDown(final Model model)
 	{

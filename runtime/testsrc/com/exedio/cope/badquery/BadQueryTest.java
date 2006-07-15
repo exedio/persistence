@@ -22,11 +22,10 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.Type;
 
 public class BadQueryTest extends AbstractLibTest
 {
-	static final Model model = new Model(new Type[]{SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE});
+	static final Model model = new Model(SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE);
 	
 	public BadQueryTest()
 	{

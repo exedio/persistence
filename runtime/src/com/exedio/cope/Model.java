@@ -58,7 +58,7 @@ public final class Model
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
 	private final Set<Transaction> openTransactions = Collections.synchronizedSet(new HashSet<Transaction>());
 	
-	public Model(final Type[] types)
+	public Model(final Type... types)
 	{
 		final Type<?>[] explicitTypes = types;
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
