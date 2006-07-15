@@ -47,6 +47,55 @@ class Customer extends Item
 			Also the <i>default creation constructor</i>
 			will have parameters for the initial values of these attributes.
 		</div>
+		<h3>Allowing Null</h3>
+		<div>
+			You may have asked yourself, what this <code>DEFAULT</code> argument
+			of all attribute constructors means.
+			Well, this means, that the attribute is <i>mandatory</i>,
+			i.e. null values are not allowed for these attributes.
+			If you don't like this, change it to <i>optional</i>.
+		</div>
+<pre>
+static final LongAttribute loginCounter =
+    new LongAttribute(OPTIONAL);
+</pre>
+		<div>
+			When you run the instrumentor, you may notice 
+			a few changes in the generated code.
+			<ol>
+				<li>
+					The <i>default creation constructor</i> does not
+					include a parameter for <tt>loginCounter</tt> anymore.
+					This is because a value for <tt>loginCounter</tt> is not needed
+					for constructing an instance of Customer anymore.
+					If you still want to have <tt>loginCounter</tt> included into
+					the <i>default creation constructor</i> add a
+					<tt>@cope.initial</tt> tag to the attribute:
+<pre>
+/**
+ * @cope.initial
+ */
+static final LongAttribute loginCounter =
+    new LongAttribute(OPTIONAL);
+</pre>
+				</li>
+				<li>
+					The signature of the getter and setter for <tt>loginCounter</tt>
+					changed.
+					Before, it used the primitive type <tt>long</tt>
+<pre>
+long getLoginCounter() { ... }
+void setLoginCounter(long loginCounter) { ... }
+</pre>
+					but now being optional it uses the wrapper class <tt>java.lang.Long</tt>.
+<pre>
+Long getLoginCounter() { ... }
+void setLoginCounter(Long loginCounter) { ... }
+</pre>
+				</li>
+			</ol>
+				</li>
+		</div>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
