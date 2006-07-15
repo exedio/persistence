@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="cope.css">
+	</head>
+	<body>
+		<a href="http://www.exedio.com/">
+			<img src="exedio.png" class="exedio">
+		</a>
+		<h1><a href="index.html">COPE</a></h1>
+		<div>Cope with Object Persistence</div>
+		
+		<h2>Attribute Trail</h2>
+		<a href="http://sourceforge.net/">
+			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
+				class="sf" alt="SourceForge.net Logo" />
+		</a>
+		<div>
+			While the <a href="intro.html>">initial trail</a>
+			covered string attributes  only,
+			this trails visits all kinds of other attributes
+			as well as the more special features of string attributes.
+		</div>
+		<h3>Common Primitives</h3>
+		<div>
+			COPE provides attributes for all commonly used java primitives
+			as well as for <tt>String</tt> and <tt>java.util.Date</tt>.
+			This looks like this.
+		</div>
+<pre>
+class Customer extends Item
+{
+   static final StringAttribute email =
+       new StringAttribute(DEFAULT);
+   static final DateAttribute registrationDate =
+       new DateAttribute(DEFAULT);
+   static final LongAttribute loginCounter =
+       new LongAttribute(DEFAULT);
+   static final IntegerAttribute subsequentLoginFailures =
+       new IntegerAttribute(DEFAULT);
+   static final DoubleAttribute priceCoefficient =
+       new DoubleAttribute(DEFAULT);
+}
+</pre>
+		<div>
+			Run the instrumentor, and you get setters/getters for all
+			the new attributes.
+			Also the <i>default creation constructor</i>
+			will have parameters for the initial values of these attributes.
+		</div>
+		<h3>Further Reading</h3>
+		<div>
+			This was the attribute trail of the cope tour.
+			You may now proceed to trails:
+			<ul>
+				<li>transactions</li>
+				<li>searching</li>
+				<li>cope within a web application</li>
+				<li>media</li>
+				<li>understanding patterns</li>
+			</ul>
+		</div>
+	</body>
+</html>
