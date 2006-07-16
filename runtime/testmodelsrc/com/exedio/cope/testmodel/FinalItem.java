@@ -29,7 +29,7 @@ import com.exedio.cope.StringAttribute;
 public class FinalItem extends Item
 {
 	public static final StringAttribute finalString = new StringAttribute(FINAL);
-	public static final IntegerAttribute nonFinalInteger = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute nonFinalInteger = new IntegerAttribute();
 
 /**
 

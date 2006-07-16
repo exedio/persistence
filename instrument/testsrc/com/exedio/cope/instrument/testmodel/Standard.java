@@ -41,30 +41,30 @@ import com.exedio.cope.pattern.Media;
 public class Standard extends Item
 {
 	public static final StringAttribute defaultString = new StringAttribute(OPTIONAL);
-	public static final StringAttribute notNullString = new StringAttribute(MANDATORY);
+	public static final StringAttribute notNullString = new StringAttribute();
 	public static final StringAttribute finalString = new StringAttribute(FINAL_OPTIONAL);
-	public static final StringAttribute defaultToString = new StringAttribute(MANDATORY).defaultTo("defaultConstant for finalDefaultString");
+	public static final StringAttribute defaultToString = new StringAttribute().defaultTo("defaultConstant for finalDefaultString");
 	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE_OPTIONAL);
 	/** @cope.initial */
 	public static final StringAttribute initialString = new StringAttribute(OPTIONAL);
 
 	public static final IntegerAttribute defaultInteger = new IntegerAttribute(OPTIONAL);
-	public static final IntegerAttribute nativeInteger = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute nativeInteger = new IntegerAttribute();
 
 	public static final LongAttribute defaultLong = new LongAttribute(OPTIONAL);
-	public static final LongAttribute nativeLong = new LongAttribute(MANDATORY);
+	public static final LongAttribute nativeLong = new LongAttribute();
 
 	public static final DoubleAttribute defaultDouble = new DoubleAttribute(OPTIONAL);
-	public static final DoubleAttribute nativeDouble = new DoubleAttribute(MANDATORY);
+	public static final DoubleAttribute nativeDouble = new DoubleAttribute();
 
 	public static final BooleanAttribute defaultBoolean = new BooleanAttribute(OPTIONAL);
-	public static final BooleanAttribute nativeBoolean = new BooleanAttribute(MANDATORY);
+	public static final BooleanAttribute nativeBoolean = new BooleanAttribute();
 
-	public static final DateAttribute mandatoryDate = new DateAttribute(MANDATORY);
+	public static final DateAttribute mandatoryDate = new DateAttribute();
 	private static final DateAttribute privateDate = new DateAttribute(OPTIONAL);
-	public static final DateAttribute nowDate = new DateAttribute(MANDATORY).defaultToNow();
+	public static final DateAttribute nowDate = new DateAttribute().defaultToNow();
 
-	public static final EnumAttribute<Enum1> mandatoryEnum = newEnumAttribute(MANDATORY, Enum1.class);
+	public static final EnumAttribute<Enum1> mandatoryEnum = newEnumAttribute(Enum1.class);
 	protected static final EnumAttribute<Enum2> protectedEnum = newEnumAttribute(OPTIONAL, Enum2.class);
 	
 	public enum Enum1
@@ -142,11 +142,11 @@ public class Standard extends Item
 	
 	public static final Hash publicHash = new MD5Hash(privateString);
 	private static final Hash privateHash = new MD5Hash(defaultString);
-	public static final Hash mandatoryHash = new MD5Hash(MANDATORY);
+	public static final Hash mandatoryHash = new MD5Hash();
 	/**
 	 * @cope.setter private
 	 */
-	public static final Hash privateSetterHash = new MD5Hash(MANDATORY);
+	public static final Hash privateSetterHash = new MD5Hash();
 	
 	/**
 	 * An upper-case attribute

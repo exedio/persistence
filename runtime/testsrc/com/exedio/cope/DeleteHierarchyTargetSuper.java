@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class DeleteHierarchyTargetSuper extends Item
 {
-	static final StringAttribute code = new StringAttribute(MANDATORY);
+	static final StringAttribute code = new StringAttribute();
 
 /**
 

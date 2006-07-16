@@ -84,7 +84,7 @@ public class DeleteTest extends AbstractLibTest
 
 		try
 		{
-			new ItemAttribute<DeleteItem>(Item.MANDATORY, DeleteItem.class, Item.NULLIFY);
+			new ItemAttribute<DeleteItem>(DeleteItem.class, Item.NULLIFY);
 		}
 		catch(RuntimeException e)
 		{

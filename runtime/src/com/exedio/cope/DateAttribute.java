@@ -35,6 +35,11 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		checkDefaultValue();
 	}
 	
+	public DateAttribute()
+	{
+		this(Item.MANDATORY);
+	}
+	
 	public DateAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, false);

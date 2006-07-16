@@ -28,7 +28,7 @@ public class AttributeListItem extends Item
 {
 
 	public static final AttributeList<String> strings = AttributeList.newList(new StringAttribute(OPTIONAL).lengthRange(4, 8));
-	public static final AttributeList<Date> dates = AttributeList.newList(new DateAttribute(MANDATORY));
+	public static final AttributeList<Date> dates = AttributeList.newList(new DateAttribute());
 	
 	/**
 

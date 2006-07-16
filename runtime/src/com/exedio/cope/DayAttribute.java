@@ -29,6 +29,11 @@ public final class DayAttribute extends FunctionAttribute<Day>
 		checkDefaultValue();
 	}
 	
+	public DayAttribute()
+	{
+		this(Item.MANDATORY);
+	}
+	
 	public DayAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);

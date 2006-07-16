@@ -24,7 +24,7 @@ import com.exedio.cope.ItemAttribute;
 public class SuperContainer extends SuperItem
 {
 	public static final ItemAttribute<QueryItem> queryItem = newItemAttribute(FINAL, QueryItem.class);
-	public static final BooleanAttribute superflag = new BooleanAttribute(MANDATORY);
+	public static final BooleanAttribute superflag = new BooleanAttribute();
 	
 	/**
 

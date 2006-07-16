@@ -44,6 +44,8 @@ public final class DataAttribute extends Attribute<byte[]>
 			throw new RuntimeException("maximum length must be greater zero, but was " + maximumLength + '.');
 	}
 	
+	// TODO, empty constructor missing, since DataAttribute cannot be MANDATORY
+	
 	public DataAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, DEFAULT_LENGTH);
@@ -51,9 +53,9 @@ public final class DataAttribute extends Attribute<byte[]>
 		if(option.unique)
 			throw new RuntimeException("DataAttribute cannot be unique");
 		if(!option.optional)
-			throw new RuntimeException("DataAttribute cannot be mandatory");
+			throw new RuntimeException("DataAttribute cannot be mandatory"); // TODO
 		if(option.isFinal)
-			throw new RuntimeException("DataAttribute cannot be final");
+			throw new RuntimeException("DataAttribute cannot be final"); // TODO
 	}
 	
 	public DataAttribute lengthMax(final long maximumLength)

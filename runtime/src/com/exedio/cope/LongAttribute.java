@@ -29,6 +29,11 @@ public final class LongAttribute extends FunctionAttribute<Long>
 		checkDefaultValue();
 	}
 	
+	public LongAttribute()
+	{
+		this(Item.MANDATORY);
+	}
+	
 	public LongAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);

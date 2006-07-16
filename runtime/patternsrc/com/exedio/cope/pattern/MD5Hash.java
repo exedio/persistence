@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.SortedSet;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Attribute.Option;
@@ -39,6 +40,11 @@ public final class MD5Hash extends JavaHash
 		super(storage, HASH, encoding);
 	}
 
+	public MD5Hash()
+	{
+		this(Item.MANDATORY);
+	}
+	
 	public MD5Hash(final Option storageOption)
 	{
 		this(new StringAttribute(storageOption).lengthExact(LENGTH));

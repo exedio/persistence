@@ -30,15 +30,15 @@
 class Customer extends Item
 {
    static final StringAttribute email =
-       new StringAttribute(DEFAULT);
+       new StringAttribute();
    static final DateAttribute registrationDate =
-       new DateAttribute(DEFAULT);
+       new DateAttribute();
    static final LongAttribute loginCounter =
-       new LongAttribute(DEFAULT);
+       new LongAttribute();
    static final IntegerAttribute subsequentLoginFailures =
-       new IntegerAttribute(DEFAULT);
+       new IntegerAttribute();
    static final DoubleAttribute priceCoefficient =
-       new DoubleAttribute(DEFAULT);
+       new DoubleAttribute();
 }
 </pre>
 		<div>
@@ -49,11 +49,10 @@ class Customer extends Item
 		</div>
 		<h3>Allowing Null</h3>
 		<div>
-			You may have asked yourself, what this <code>DEFAULT</code> argument
-			of all attribute constructors means.
-			Well, this means, that the attribute is <i>mandatory</i>,
-			i.e. null values are not allowed for these attributes.
-			If you don't like this, change it to <i>optional</i>.
+			You may have noticed, that you cannot store null
+			into any of the attributes.
+			This is because attributes are <i>mandatory</i> by default.
+			You can easily change this to <i>optional</i>.
 		</div>
 <pre>
 static final LongAttribute loginCounter =
@@ -106,7 +105,7 @@ void setLoginCounter(<b>Long</b> loginCounter) { ... }
 		</div>
 <pre>
 static final LongAttribute loginCounter =
-    new LongAttribute(DEFAULT)<b>.defaultTo(0)</b>;
+    new LongAttribute()<b>.defaultTo(0)</b>;
 </pre>
 		<div>
 			In the instrumented code the type for setter/getter
@@ -122,7 +121,7 @@ static final LongAttribute loginCounter =
 		</div>
 <pre>
 static final DateAttribute registrationDate =
-    new DateAttribute(DEFAULT)<b>.defaultToNow()</b>;
+    new DateAttribute()<b>.defaultToNow()</b>;
 </pre>
 		<h3>Unique Attributes</h3>
 		<div>
@@ -156,9 +155,9 @@ static final Customer findbyEmail(String email);
 class MatrixElement
 {
    static final IntegerAttribute x =
-       new IntegerAttribute(DEFAULT);
+       new IntegerAttribute();
    static final IntegerAttribute y =
-       new IntegerAttribute(DEFAULT);
+       new IntegerAttribute();
    static final UniqueConstraint xy =
        new UniqueConstraint(x, y);
 }
@@ -182,7 +181,7 @@ class Customer extends Item
    }
    
    static final EnumAttribute&lt;Status&gt; email =
-       newEnumAttribute(DEFAULT, Status.class);
+       newEnumAttribute(Status.class);
 }
 </pre>
 		<h3>Further Reading</h3>

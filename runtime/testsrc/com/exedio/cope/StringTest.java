@@ -117,7 +117,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = new StringAttribute(Item.MANDATORY).lengthRange(10, 20);
+			final StringAttribute orig = new StringAttribute().lengthRange(10, 20);
 			assertEquals(false, orig.isFinal());
 			assertEquals(true, orig.isMandatory());
 			assertEquals(10, orig.getMinimumLength());

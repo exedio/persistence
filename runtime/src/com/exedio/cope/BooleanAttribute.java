@@ -29,6 +29,11 @@ public final class BooleanAttribute extends FunctionAttribute<Boolean>
 		checkDefaultValue();
 	}
 	
+	public BooleanAttribute()
+	{
+		this(Item.MANDATORY);
+	}
+	
 	public BooleanAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);

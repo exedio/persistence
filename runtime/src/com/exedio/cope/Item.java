@@ -501,14 +501,29 @@ public abstract class Item extends Cope
 		return new Type<C>(javaClass, id);
 	}
 	
+	public static final <E extends Enum<E>> EnumAttribute<E> newEnumAttribute(final Class<E> valueClass)
+	{
+		return new EnumAttribute<E>(valueClass);
+	}
+	
 	public static final <E extends Enum<E>> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> valueClass)
 	{
 		return new EnumAttribute<E>(option, valueClass);
 	}
 	
+	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Class<E> valueClass)
+	{
+		return new ItemAttribute<E>(valueClass);
+	}
+	
 	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> valueClass)
 	{
 		return new ItemAttribute<E>(option, valueClass);
+	}
+	
+	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return new ItemAttribute<E>(valueClass, policy);
 	}
 	
 	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)

@@ -48,6 +48,11 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		checkDefaultValue();
 	}
 	
+	public StringAttribute()
+	{
+		this(Item.MANDATORY);
+	}
+	
 	public StringAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH);

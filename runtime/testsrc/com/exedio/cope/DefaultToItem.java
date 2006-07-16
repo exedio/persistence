@@ -28,15 +28,15 @@ public class DefaultToItem extends Item
 {
 
 	public static final BooleanAttribute booleanTrue = new BooleanAttribute(OPTIONAL).defaultTo(true);
-	public static final BooleanAttribute booleanNone = new BooleanAttribute(MANDATORY);
+	public static final BooleanAttribute booleanNone = new BooleanAttribute();
 
-	public static final IntegerAttribute integerFive = new IntegerAttribute(MANDATORY).defaultTo(5);
+	public static final IntegerAttribute integerFive = new IntegerAttribute().defaultTo(5);
 	public static final IntegerAttribute integerFifty = new IntegerAttribute(OPTIONAL).defaultTo(50);
 	public static final IntegerAttribute integerNone = new IntegerAttribute(OPTIONAL);
 
-	public static final DateAttribute dateEight = new DateAttribute(MANDATORY).defaultTo(new Date(8));
+	public static final DateAttribute dateEight = new DateAttribute().defaultTo(new Date(8));
 	public static final DateAttribute dateEighty = new DateAttribute(OPTIONAL).defaultTo(new Date(80));
-	public static final DateAttribute dateNow = new DateAttribute(MANDATORY).defaultToNow();
+	public static final DateAttribute dateNow = new DateAttribute().defaultToNow();
 	public static final DateAttribute dateNowOpt = new DateAttribute(OPTIONAL).defaultToNow();
 	public static final DateAttribute dateNone = new DateAttribute(OPTIONAL);
 
@@ -45,7 +45,7 @@ public class DefaultToItem extends Item
 		ONE, TWO, THREE;
 	}
 	
-	public static final EnumAttribute<DefaultToEnum> enumOne = newEnumAttribute(MANDATORY, DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
+	public static final EnumAttribute<DefaultToEnum> enumOne = newEnumAttribute(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
 	public static final EnumAttribute<DefaultToEnum> enumTwo = newEnumAttribute(OPTIONAL, DefaultToEnum.class).defaultTo(DefaultToEnum.TWO);
 	public static final EnumAttribute<DefaultToEnum> enumNone = newEnumAttribute(OPTIONAL, DefaultToEnum.class);
 

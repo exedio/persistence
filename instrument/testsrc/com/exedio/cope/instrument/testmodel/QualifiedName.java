@@ -32,38 +32,38 @@ public class QualifiedName extends Item
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 	public static final Qualifier nameQualifier = new Qualifier(parentKey);
 
-	public static final IntegerAttribute number = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute number = new IntegerAttribute();
 	public static final IntegerAttribute optionalNumber = new IntegerAttribute(OPTIONAL);
 	
 	/**
 	 * @cope.getter none
 	 */
-	public static final IntegerAttribute noneGetterNumber = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute noneGetterNumber = new IntegerAttribute();
 
 	/**
 	 * @cope.getter private
 	 */
-	public static final IntegerAttribute privateGetterNumber = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute privateGetterNumber = new IntegerAttribute();
 
 	/**
 	 * @cope.getter internal
 	 */
-	public static final IntegerAttribute internalGetterNumber = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute internalGetterNumber = new IntegerAttribute();
 	
 	/**
 	 * @cope.setter none
 	 */
-	public static final IntegerAttribute noneSetterNumber = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute noneSetterNumber = new IntegerAttribute();
 
 	/**
 	 * @cope.setter private
 	 */
-	public static final IntegerAttribute privateSetterNumber = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute privateSetterNumber = new IntegerAttribute();
 
 	/**
 	 * @cope.setter internal
 	 */
-	public static final IntegerAttribute internalSetterNumber = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute internalSetterNumber = new IntegerAttribute();
 	
 
 	/**

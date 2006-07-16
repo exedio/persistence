@@ -24,7 +24,7 @@ import com.exedio.cope.LongAttribute;
 
 public class Sub extends Super
 {
-	public static final BooleanAttribute subMandatory = new BooleanAttribute(MANDATORY);
+	public static final BooleanAttribute subMandatory = new BooleanAttribute();
 	
 	/**
 	 * @cope.initial

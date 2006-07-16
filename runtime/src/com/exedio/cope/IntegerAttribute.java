@@ -30,6 +30,11 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		checkDefaultValue();
 	}
 	
+	public IntegerAttribute()
+	{
+		this(Item.MANDATORY);
+	}
+	
 	public IntegerAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);

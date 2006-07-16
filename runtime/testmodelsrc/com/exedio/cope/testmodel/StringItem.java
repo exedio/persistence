@@ -37,7 +37,7 @@ public class StringItem extends Item
 {
 	public static final StringAttribute any = new StringAttribute(OPTIONAL);
 
-	public static final StringAttribute mandatory = new StringAttribute(MANDATORY);
+	public static final StringAttribute mandatory = new StringAttribute();
 	
 	public static final StringAttribute min4 = new StringAttribute(OPTIONAL).lengthMin(4);
 	public static final StringAttribute max4 = new StringAttribute(OPTIONAL).lengthMax(4);

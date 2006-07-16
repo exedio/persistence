@@ -40,11 +40,21 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		checkDefaultValue();
 	}
 	
+	public ItemAttribute(final Class<E> valueClass)
+	{
+		this(Item.MANDATORY, valueClass, Item.FORBID);
+	}
+	
 	public ItemAttribute(final Option option, final Class<E> valueClass)
 	{
 		this(option, valueClass, Item.FORBID);
 	}
 	
+	public ItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		this(Item.MANDATORY, valueClass, policy);
+	}
+
 	public ItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
 		this(option.isFinal, option.optional, option.unique, valueClass, policy);

@@ -29,6 +29,11 @@ public final class DoubleAttribute extends FunctionAttribute<Double>
 		checkDefaultValue();
 	}
 	
+	public DoubleAttribute()
+	{
+		this(Item.MANDATORY);
+	}
+
 	public DoubleAttribute(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);

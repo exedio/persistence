@@ -61,7 +61,7 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory string attribute.
 	 */
-	public static final StringAttribute someNotNullString = new StringAttribute(MANDATORY);
+	public static final StringAttribute someNotNullString = new StringAttribute();
 
 	/**
 	 * An integer attribute
@@ -71,7 +71,7 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory integer attribute
 	 */
-	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute(MANDATORY);
+	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute();
 
 	/**
 	 * An integer attribute
@@ -81,7 +81,7 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory integer attribute
 	 */
-	public static final LongAttribute someNotNullLong = new LongAttribute(MANDATORY);
+	public static final LongAttribute someNotNullLong = new LongAttribute();
 
 	/**
 	 * A double attribute
@@ -91,7 +91,7 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory double attribute
 	 */
-	public static final DoubleAttribute someNotNullDouble = new DoubleAttribute(MANDATORY);
+	public static final DoubleAttribute someNotNullDouble = new DoubleAttribute();
 
 	public static final DateAttribute someDate = new DateAttribute(OPTIONAL);
 
@@ -105,7 +105,7 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory boolean attribute
 	 */
-	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute(MANDATORY);
+	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute();
 	
 	/**
 	 * An attribute referencing another persistent item
@@ -115,7 +115,7 @@ public class AttributeItem extends Item
 	/**
 	 * An mandatory attribute referencing another persistent item
 	 */
-	public static final ItemAttribute<EmptyItem> someNotNullItem = newItemAttribute(MANDATORY, EmptyItem.class);
+	public static final ItemAttribute<EmptyItem> someNotNullItem = newItemAttribute(EmptyItem.class);
 
 	/**
 	 * An enumeration attribute
@@ -125,7 +125,7 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory enumeration attribute
 	 */
-	public static final EnumAttribute<SomeEnum> someNotNullEnum = newEnumAttribute(MANDATORY, SomeEnum.class);
+	public static final EnumAttribute<SomeEnum> someNotNullEnum = newEnumAttribute(SomeEnum.class);
 
 	/**
 	 * A data attribute.

@@ -62,6 +62,11 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		checkDefaultValue();
 	}
 	
+	public EnumAttribute(final Class<E> valueClass)
+	{
+		this(Item.MANDATORY, valueClass);
+	}
+	
 	public EnumAttribute(final Option option, final Class<E> valueClass)
 	{
 		this(option.isFinal, option.optional, option.unique, valueClass, null);

@@ -16,6 +16,6 @@ public class Customer extends Item
 	/**
 	 * The password of the customer, transparently md5-encoded.
 	 */
-	public static final MD5Hash password = new MD5Hash(MANDATORY);
+	public static final MD5Hash password = new MD5Hash();
 
 }

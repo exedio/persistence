@@ -27,7 +27,7 @@ import com.exedio.cope.StringAttribute;
 public class PointerTargetItem extends Item
 {
 
-	public static final StringAttribute code = new StringAttribute(MANDATORY);
+	public static final StringAttribute code = new StringAttribute();
 
 /**
 

@@ -27,7 +27,7 @@ public class JoinFunctionItemSingle extends Item
 	/**
 	 * @cope.initial
 	 */
-	public static final StringAttribute name = new StringAttribute(MANDATORY);
+	public static final StringAttribute name = new StringAttribute();
 
 	
 /**
