@@ -163,6 +163,28 @@ class MatrixElement
        new UniqueConstraint(x, y);
 }
 </pre>
+		<h3>Enum Attributes</h3>
+		<div>
+			A common pattern in persistent models are attributes,
+			the can have a value out of a predefined set of values.
+			For that purpose java provides enums since JDK 1.5.
+			COPE allows you to store such enums in attributes
+			just like any other primitive:
+		</div>
+<pre>
+class Customer extends Item
+{
+   static enum Status
+   {
+      STANDARD,
+      GOLD,
+      PLATINUM,
+   }
+   
+   static final EnumAttribute&lt;Status&gt; email =
+       newEnumAttribute(DEFAULT, Status.class);
+}
+</pre>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
