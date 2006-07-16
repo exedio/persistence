@@ -261,10 +261,12 @@ public static main(String[] args)
    model.setPropertiesInitially(
       new Properties(new File("cope.properties")));
    model.createDatabase();
+   model.startTransaction();
    Customer c = new Customer("copetest@exedio.com");
    System.out.println("email:"+customer.getEmail());
    c.setEmail("copetest@exedio.com");
    System.out.println("email2:"+customer.getEmail());
+   model.commit();
 }
 </pre>
 		<div>
