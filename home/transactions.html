@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="cope.css">
+	</head>
+	<body>
+		<a href="http://www.exedio.com/">
+			<img src="exedio.png" class="exedio">
+		</a>
+		<h1><a href="index.html">COPE</a></h1>
+		<div>Cope with Object Persistence</div>
+		
+		<h2>Transactions Trail</h2>
+		<a href="http://sourceforge.net/">
+			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
+				class="sf" alt="SourceForge.net Logo" />
+		</a>
+		<div>
+			This trail assumes,
+			that you are already familar with the general meaning of
+			<a href="http://en.wikipedia.org/wiki/Database_transaction">transactions</a>.
+			It shows you, how to start, commit and rollback transactions within cope.
+		</div>
+		<h3>When to use transactions</h3>
+		<div>
+			The short anser is <i>always</i>.
+			Whenever you want to read, write or search persistent data,
+			this must happen within the boundaries of a transaction.
+			These boundaries are marked by calls to the methods
+			<tt>Model.startTransaction()</tt> and <tt>Model.commit()</tt>
+			or <tt>Model.rollback()</tt>.
+		</div>
+		<div>
+			Any attempt to access persistent data outside a transaction
+			will cause an exception.
+			There is no equivalent to what is known as <i>auto-commit</i>
+			in relational databases.
+		</div>
+		<h3>Example</h3>
+		<div>
+			Since you also have to take care of exceptions,
+			the standard way of using transactions looks like this:
+		</div>
+<pre>
+boolean failure = true;
+try
+{
+   Main.model.startTransaction();
+   ...
+   Main.model.commit();
+   failure=false;
+}
+finally
+{
+   if(failure)
+      Main.model.rollback();
+}
+</pre>
+		<div>
+			For your convenience, cope provides a method
+			<tt>Model.rollbackIfNotCommitted()</tt>
+			which does a <i>rollback</i> if and only if the transaction
+			has not been closed (committed or rolled back) before.
+			Therefore you can make the code a little bit shorter:
+		</div>
+<pre>
+try
+{
+   Main.model.startTransaction();
+   ...
+   Main.model.commit();
+}
+finally
+{
+   Main.model.rollbackIfNotCommitted();
+}
+</pre>
+		<h3>Further Reading</h3>
+		<div>
+			There is not much more to say about transactions,
+			so you may want to proceed to any of the following trails:
+			<ul>
+				<li>
+					<a href="searching.html">Searching Trail</a>
+					gives you an introduction into the searching capabilities of cope.
+				</li>
+				<li>
+					<a href="attributes2.html">Attribute Reloaded Trail</a>
+					covers all the more specific possibilities to store data with cope.
+				</li>
+				<li>
+					<a href="webapplications.html">Web Application Trail</a>
+					shows you the little differences when using cope within a web container.
+					This includes a helper class for managing transactions as well.
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
