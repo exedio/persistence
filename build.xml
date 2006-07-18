@@ -785,17 +785,17 @@
 		<property name="api.link.junit" value="http://junit.sourceforge.net/javadoc" />
 		<property name="api.link.ant"   value="http://www.dpml.net/api/ant/1.6.5" />
 
-		<delete dir="api" />
-		<mkdir  dir="api" />
+		<delete dir="home/api" />
+		<mkdir  dir="home/api" />
 
-		<copy todir="api/com/exedio/cope">
+		<copy todir="home/api/com/exedio/cope">
 			<fileset dir="runtime/doc">
 				<include name="*.png" />
 			</fileset>
 		</copy>
 
 		<javadoc
-				destdir="api"
+				destdir="home/api"
 				maxmemory="60m"
 				source="1.5"
 				private="${api.private}"
@@ -841,11 +841,11 @@
 		</javadoc>
 	</target>
 
-	<target name="api.zip" depends="api">
+	<target name="home.zip" depends="api">
 		<mkdir dir="build/runtime" />
-		<tar destfile="build/exedio-cope-api.tar.bz2"
+		<tar destfile="build/exedio-cope-home.tar.bz2"
 			  compression="bzip2">
-			<tarfileset dir="${basedir}/api" />
+			<tarfileset dir="${basedir}/home" />
 		</tar>
 	</target>
 	
@@ -863,6 +863,7 @@
 			<tarfileset dir="${basedir}">
 				<exclude name="build/**" />
 				<exclude name="api/**" />
+				<exclude name="home/api/**" />
 				<exclude name="cruise/**" />
 				<exclude name="**/*_Jspm.java" />
 				
@@ -894,7 +895,7 @@
 	
 	<target name="dist" depends="dist.tar, dist.test" />
 	
-	<target name="all" depends="build, api.zip, dist" />
+	<target name="all" depends="build, home.zip, dist" />
 
 	<target name="cruise" depends="all">
 		<delete dir="cruise" />
@@ -906,7 +907,7 @@
 			<fileset file="${basedir}/build/exedio-cope-console.jar" />
 			<fileset file="${basedir}/build/exedio-copernica.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src.tar.gz" />
-			<fileset file="${basedir}/build/exedio-cope-api.tar.bz2" />
+			<fileset file="${basedir}/build/exedio-cope-home.tar.bz2" />
 		</copy>
 	</target>
 	
