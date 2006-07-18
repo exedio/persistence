@@ -46,18 +46,18 @@ public class ServletUtil
 		return model;
 	}
 	
-	private static final Model getModelByName(final String modelName)
+	private static final Model getModelByName(final String initParam)
 	{
-		if(modelName==null)
+		if(initParam==null)
 			throw new NullPointerException("init-param '"+PARAMETER_MODEL+"' missing");
 		
 		try
 		{
-			final int pos = modelName.indexOf(DIVIDER);
+			final int pos = initParam.indexOf(DIVIDER);
 			if(pos<=0)
-				throw new RuntimeException("init-param '"+PARAMETER_MODEL+"' does not contain '"+DIVIDER+"', but was "+modelName);
-			final String modelClassName = modelName.substring(0, pos);
-			final String modelAttributeName = modelName.substring(pos+1);
+				throw new RuntimeException("init-param '"+PARAMETER_MODEL+"' does not contain '"+DIVIDER+"', but was "+initParam);
+			final String modelClassName = initParam.substring(0, pos);
+			final String modelAttributeName = initParam.substring(pos+1);
 
 			final Class modelClass = Class.forName(modelClassName);
 
