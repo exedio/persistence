@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="cope.css">
+	</head>
+	<body>
+		<a href="http://www.exedio.com/">
+			<img src="exedio.png" class="exedio">
+		</a>
+		<h1><a href="index.html">COPE</a></h1>
+		<div>Cope with Object Persistence</div>
+		
+		<h2>We Application Trail</h2>
+		<a href="http://sourceforge.net/">
+			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
+				class="sf" alt="SourceForge.net Logo" />
+		</a>
+		<div>
+			COPE itself doesn't care,
+			whether it runs in a web container or not.
+			However it provides some additional convenience,
+			when used within web applications.
+		</div>
+		<h3>Initialization</h3>
+		<div>
+			COPE must be told, where to connect to the database.
+			Within a servlet you probably
+			want to do this in the <tt>init()</tt> method.
+			The file <tt>cope.properties</tt> should be in the
+			<tt>WEB-INF</tt> subdirectory to protect it against client access.
+			So you will probably want to write something like this:
+		</div>
+<pre>
+public void init() throws ServletException
+{
+   Main.model.setPropertiesInitially(
+      new com.exedio.cope.Properties(
+         new File(getServletContext().
+           getRealPath("WEB-INF/cope.properties"))));
+}
+</pre>
+		<div>
+			For your convenience, there is a helper method,
+			which does just that:
+		</div>
+<pre>
+public void init() throws ServletException
+{
+   ServletUtil.initialize(Main.model, getServletContext());
+}
+</pre>
+		<h3>Transactions</h3>
+		<div>
+			From the <a href="transactions.html">Transaction Trail</a> you
+			already know, how to use transactions with COPE.
+			With a single servlet you may want to write something like this:
+		</div>
+<pre>
+protected void doGet(
+      HttpServletRequest request,
+      HttpServletResponse response)
+{
+   try
+   {
+      Main.model.startTransaction();
+      ...
+      Main.model.commit();
+   }
+   finally
+   {
+      Main.model.rollbackIfNotCommitted();
+   }
+}
+</pre>
+		<div>
+			However, this is not always feasible.
+			Sometimes you just don't have a single servlet in your application.
+			Even worse, the method <tt>doGet</tt> could be called rentrantly.
+			This is very common when using the struts framework.
+		</div>
+		<div>
+			A nice solution for both problems is putting the transaction handling into a
+			<a href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/javax/servlet/Filter.html">filter</a>.
+			Class
+			<a href="api/com/exedio/cope/util/TransactionFilter.html">TransactionFilter</a>
+			provides such a filter.
+			It must be deployed in your <tt>web.xml</tt>:
+		</div>
+<pre>
+&lt;filter&gt;
+   &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
+   &lt;filter-class&gt;com.exedio.cope.util.TransactionFilter&lt;/filter-class&gt;
+   &lt;init-param&gt;
+      &lt;param-name&gt;model&lt;/param-name&gt;
+      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+   &lt;/init-param&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+   &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
+   &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+   &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
+&lt;/filter-mapping&gt;
+</pre>
+		<div>
+			The example above applies the filter for all request to <tt>*.do</tt>,
+			a typical setting for struts.
+			It assumes, that the main class resides in package <tt>com.exedio.demoshop</tt>,
+			please adapt this to your package.
+		</div>
+			
+		<h3>Further Reading</h3>
+		<div>
+			This was the attribute trail of the cope tour.
+			You may now proceed to trails:
+			<ul>
+				<li>
+					<a href="searching.html">Searching Trail</a>
+					gives you an introduction into the searching capabilities of cope.
+				</li>
+				<li>
+					<a href="attributes2.html">Attribute Reloaded Trail</a>
+					covers all the more specific possibilities to store data with cope.
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

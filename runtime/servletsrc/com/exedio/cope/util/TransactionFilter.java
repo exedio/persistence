@@ -41,7 +41,7 @@ import com.exedio.cope.Model;
  *    &lt;filter-class&gt;com.exedio.cope.util.TransactionFilter&lt;/filter-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
- *       &lt;param-value&gt;{@link com.exedio.cope.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
+ *       &lt;param-value&gt;{@link com.exedio.cope.Model com.exedio.demoshop.Main#model}&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/filter&gt;
  * &lt;filter-mapping&gt;
