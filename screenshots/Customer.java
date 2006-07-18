@@ -8,7 +8,7 @@ import com.exedio.cope.pattern.MD5Hash;
 public class Customer extends Item
 {
 	/**
-	 * The unique email address of the customer. 
+	 * The unique email address of the customer.
 	 */
 	public static final StringAttribute email =
 		new StringAttribute(UNIQUE);
