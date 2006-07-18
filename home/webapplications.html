@@ -48,6 +48,13 @@ public void init() throws ServletException
    ServletUtil.initialize(Main.model, getServletContext());
 }
 </pre>
+		<div>
+			Even this can be ommitted, if you use the <i>TransactionFilter</i>
+			explained below.
+			Please note, that <tt>setPropertiesInitially</tt> is idempotent,
+			it doesn't hurt to call it more than once,
+			for example if you have more than one servlet.
+		</div>
 		<h3>Transactions</h3>
 		<div>
 			From the <a href="transactions.html">Transaction Trail</a> you
@@ -73,7 +80,9 @@ protected void doGet(
 </pre>
 		<div>
 			However, this is not always feasible.
-			Sometimes you just don't have a single servlet in your application.
+			Sometimes you just don't have a single servlet
+			(or small number of servlets)
+			in your application.
 			Even worse, the method <tt>doGet</tt> could be called rentrantly.
 			This is very common when using the struts framework.
 		</div>
@@ -106,7 +115,11 @@ protected void doGet(
 			It assumes, that the main class resides in package <tt>com.exedio.demoshop</tt>,
 			please adapt this to your package.
 		</div>
-			
+		<div>
+			As a side effect, the <i>TransactionFilter</i> initializes the
+			model in its own <tt>init()</tt>,
+			so you don't have to care about it anymore.
+		</div>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
