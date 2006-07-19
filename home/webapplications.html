@@ -90,10 +90,7 @@ protected void doGet(
 			A nice solution for both problems is putting the transaction handling into a
 			<a href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/javax/servlet/Filter.html">filter</a>.
 			Class
-			<a href="api/com/exedio/cope/util/TransactionFilter.html">TransactionFilter</a>
-			provides such a filter.
-			It must be deployed in your <tt>web.xml</tt>:
-		</div>
+			<a href="api/com/exedio/cope/util/TransactionFilter.html">TransactionFilter</a></div>
 <pre>
 &lt;filter&gt;
    &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
@@ -121,6 +118,7 @@ protected void doGet(
 			so you don't have to care about it anymore.
 		</div>
 		<h3>COPE Console</h3>
+		<img src="console.png" border="0" align="right">
 		<div>
 			When you start up your web application,
 			you have to create the database schema at least once.
@@ -130,6 +128,32 @@ protected void doGet(
 			which assists you in creating/dropping/migrating the database schema
 			and more.
 		</div>
+		<div>
+			On the right you see the relevant part of the <i>COPE console</i>.
+			The button <i>create</i> creates the database schema,
+			the button <i>drop</i> drops it.
+		</div>
+		<div>
+			To deploy the <i>COPE console</i> in your application,
+			put the file <tt>exedio-cope-console.jar</tt> into your
+			<tt>WEB-INF/lib</tt> directory.
+			Then you just mount another servlet within your <tt>web.xml</tt>:
+		</div>
+		<br clear="right">
+<pre>
+&lt;servlet&gt;
+   &lt;servlet-name&gt;console&lt;/servlet-name&gt;
+   &lt;servlet-class&gt;com.exedio.cope.console.ConsoleServlet&lt;/servlet-class&gt;
+   &lt;init-param&gt;
+      &lt;param-name&gt;model&lt;/param-name&gt;
+      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+   &lt;/init-param&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+   &lt;servlet-name&gt;console&lt;/servlet-name&gt;
+   &lt;url-pattern&gt;/console/*&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</pre>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
