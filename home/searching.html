@@ -83,7 +83,20 @@ Customer.TYPE.search(Customer.email.startsWith("cope@exedio."));
 <pre>
 Customer.TYPE.search(Customer.loginCounter.greaterOrEqual(10));
 </pre>
-		<div></div>
+		<div>
+			In constract to the queries above,
+			all the following queries will not compile:
+		</div>
+<pre>
+Customer.TYPE.search(Customer.email.equal(10));
+Customer.TYPE.search(Customer.loginCounter.greaterOrEqual("cope@exedio.com"));
+Customer.TYPE.search(Customer.loginCounter.like("cope@exedio.%"));
+</pre>
+		<div>
+			The first one tries to kompare a string attribute to an integer literal.
+			The second query kompares an integer attribute to a string attribute.
+			The third uses the operator "like" on an integer attribute instead of a string attribute.
+		</div>
 		<h3>Limits</h3>
 		<h3>Further Reading</h3>
 		<div>
