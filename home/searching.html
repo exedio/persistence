@@ -95,7 +95,7 @@ TYPE.search(email.startsWith("cope@exedio."));
 TYPE.search(loginCounter.greaterOrEqual(10));
 </pre>
 		<div>
-			In constract to the queries above,
+			In contrast to the queries above,
 			all the following queries will not compile:
 		</div>
 <pre>
@@ -104,13 +104,36 @@ TYPE.search(loginCounter.greaterOrEqual("cope@exedio.com"));
 TYPE.search(loginCounter.like("cope@exedio.%"));
 </pre>
 		<div>
-			The first one tries to kompare a string attribute to an integer literal.
-			The second query kompares an integer attribute to a string attribute.
+			The first one tries to compare a string attribute to an integer literal.
+			The second query compares an integer attribute to a string attribute.
 			The third uses the operator "like" on an integer attribute instead of a string attribute.
 		</div>
 		<h3>Sorting</h3>
 		<div>
+		<div>
+			Here again a query, that searches for customers,
+			that have logged in more than 10 times,
+			but now sorted by their email adresses:
 		</div>
+<pre>
+TYPE.search(loginCounter.greaterOrEqual(10), email, true);
+</pre>
+		<div>
+			The third parameter specifies accending order.
+			Use <tt>false</tt> to order descendingly.
+		</div>
+		<div>
+			If you want to order by multiple attributes,
+			you have to use an explicit query for the first time.
+			This looks like this:
+		</div>
+<pre>
+Query&lt;Customer&gt; q = TYPE.newQuery(loginCounter.greaterOrEqual(10));
+q.setOrderBy(
+   new Function[] { loginCounter, email },
+   new boolean[] { true, false };
+List&lt;Customer&gt; customers = q.search();
+</pre>
 		<h3>Limits</h3>
 		<h3>Further Reading</h3>
 		<div>
