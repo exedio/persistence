@@ -159,6 +159,45 @@ protected void doGet(
 			otherwise the servlet cannot deliver it's resources
 			(style sheet etc).
 		</div>
+		<h3>Copernica</h3>
+		<a href="copernica1.png">
+			<img src="copernica1.w200.jpg" width="200" height="163" border="0" align="right">
+		</a>
+		<a href="copernica2.png">
+			<img src="copernica2.w200.jpg" width="200" height="113" border="0" align="right" valign="bottom">
+		</a>
+		<div>
+			<i>Copernica</i> is an experimental generic backoffice for COPE.
+			It allows the user to query and manipulate the data stored
+			in a COPE model.
+		</div>
+		<div>
+			Although <i>Copernica</i> is still in a very early stage of development,
+			it already allows access to the persistent data
+			suitable for development and debugging.
+		</div>
+		<div>
+			Deploying <i>Copernica</i> in your application
+			is very similar to the <i>COPE console</i>.
+			Put the file <tt>exedio-copernica.jar</tt> into your
+			<tt>WEB-INF/lib</tt> directory
+			and the following snippet into your <tt>web.xml</tt>:
+		</div>
+		<br clear="right">
+<pre>
+&lt;servlet&gt;
+   &lt;servlet-name&gt;copernica&lt;/servlet-name&gt;
+   &lt;servlet-class&gt;com.exedio.copernica.CopernicaServlet&lt;/servlet-class&gt;
+   &lt;init-param&gt;
+      &lt;param-name&gt;model&lt;/param-name&gt;
+      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+   &lt;/init-param&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+   &lt;servlet-name&gt;copernica&lt;/servlet-name&gt;
+   &lt;url-pattern&gt;/copernica/*&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</pre>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
