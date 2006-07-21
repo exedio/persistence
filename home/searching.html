@@ -54,26 +54,37 @@ List&lt;Customer&gt; allCustomers =
 			Compiling this statement does not cause an "unchecked warning",
 			the return type of search is really a <tt>List&lt;Customer&gt;</tt>
 		</div>
+		<div>
+			If you put the code above into class <tt>Customer</tt>,
+			you can write even shorter:
+		</div>
+<pre>
+List&lt;Customer&gt; allCustomers = TYPE.search(null);
+</pre>
+		<div>
+			For brevity we will assume, that all the examples below are
+			located in class <tt>Customer</tt>.
+		</div>
 		<h3>Conditions</h3>
 		<div>
 			Conditions restrict the number of items found by a query.
 			This is equivalent to the "where clause" in SQL.
-			Lets search for the customer with a certain email address.
+			Lets search for the customer with a certain email address:
 		</div>
 <pre>
-Customer.TYPE.search(Customer.email.equal("cope@exedio.com"));
+TYPE.search(email.equal("cope@exedio.com"));
 </pre>
 		<div>
 			For a "like condition" write:
 		</div>
 <pre>
-Customer.TYPE.search(Customer.email.like("cope@exedio.%"));
+TYPE.search(email.like("cope@exedio.%"));
 </pre>
 		<div>
 			which is equivalent to:
 		</div>
 <pre>
-Customer.TYPE.search(Customer.email.startsWith("cope@exedio."));
+TYPE.search(email.startsWith("cope@exedio."));
 </pre>
 		<div>
 			Of course searching works for integer attributes as well.
@@ -81,16 +92,16 @@ Customer.TYPE.search(Customer.email.startsWith("cope@exedio."));
 			that have logged in more than 10 times:
 		</div>
 <pre>
-Customer.TYPE.search(Customer.loginCounter.greaterOrEqual(10));
+TYPE.search(loginCounter.greaterOrEqual(10));
 </pre>
 		<div>
 			In constract to the queries above,
 			all the following queries will not compile:
 		</div>
 <pre>
-Customer.TYPE.search(Customer.email.equal(10));
-Customer.TYPE.search(Customer.loginCounter.greaterOrEqual("cope@exedio.com"));
-Customer.TYPE.search(Customer.loginCounter.like("cope@exedio.%"));
+TYPE.search(email.equal(10));
+TYPE.search(loginCounter.greaterOrEqual("cope@exedio.com"));
+TYPE.search(loginCounter.like("cope@exedio.%"));
 </pre>
 		<div>
 			The first one tries to kompare a string attribute to an integer literal.
