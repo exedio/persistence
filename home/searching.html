@@ -43,8 +43,8 @@ class Customer extends Item
 			this class:
 		</div>
 <pre>
-   List&lt;Customer&gt; allCustomers =
-      Customer.TYPE.search(null);
+List&lt;Customer&gt; allCustomers =
+   Customer.TYPE.search(null);
 </pre>
 		<div>
 			The parameter <tt>null</tt> means, that there is no condition
@@ -54,6 +54,37 @@ class Customer extends Item
 			Compiling this statement does not cause an "unchecked warning",
 			the return type of search is really a <tt>List&lt;Customer&gt;</tt>
 		</div>
+		<h3>Conditions</h3>
+		<div>
+			Conditions restrict the number of items found by a query.
+			This is equivalent to the "where clause" in SQL.
+			Lets search for the customer with a certain email address.
+		</div>
+<pre>
+Customer.TYPE.search(Customer.email.equal("cope@exedio.com"));
+</pre>
+		<div>
+			For a "like condition" write:
+		</div>
+<pre>
+Customer.TYPE.search(Customer.email.like("cope@exedio.%"));
+</pre>
+		<div>
+			which is equivalent to:
+		</div>
+<pre>
+Customer.TYPE.search(Customer.email.startsWith("cope@exedio."));
+</pre>
+		<div>
+			Of course searching works for integer attributes as well.
+			Here a query, that searches for customers,
+			that have logged in more than 10 times:
+		</div>
+<pre>
+Customer.TYPE.search(Customer.loginCounter.greaterOrEqual(10));
+</pre>
+		<div></div>
+		<h3>Limits</h3>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
