@@ -154,6 +154,11 @@ protected void doGet(
    &lt;url-pattern&gt;/console/*&lt;/url-pattern&gt;
 &lt;/servlet-mapping&gt;
 </pre>
+		<div>
+			Note, that the trailing "/*" in the url-pattern is mandatory,
+			otherwise the servlet cannot deliver it's resources
+			(style sheet etc).
+		</div>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
