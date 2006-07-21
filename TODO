@@ -3,8 +3,6 @@
 	- instrumentation for modified files only
 	- disable/different access modifier for all generated methods
 * Lib
-	- JDK 1.5
-		- use integer database version of JDBC connection
 	- constraints
 		- range (minimum/maximum) for integers/doubles
 		- precision (number of fractional digits) for doubles
@@ -15,7 +13,7 @@
 			+ conditions contradicting constraints
 			+ skipping db searches at all
 		- oracle statistics
-		- group by / aggregates
+		- group by
 	- Transactions: introduce timestamp and use it in
 		* Item#touch
 		* timestamp of data files
@@ -36,7 +34,7 @@
 		* implement redundant (computed) medias, such as thumbnails
 		* redundantly maintain width/height for images
 	- move Item#touch into separate pattern Timestamp
-	- Vector: allow length terminated instead of null terminated as well
+	- AtributeListLimited: allow length terminated instead of null terminated as well
 	- Cache: store values in three arrays int[], double[], String[] instead of a Map,
 		saves lots of objects going through full GC.
 	- allow (fulltext) indexes to be declared in java source code,
