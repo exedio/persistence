@@ -20,7 +20,17 @@
 			this trails visits all kinds of other attributes
 			as well as the more special features of string attributes.
 		</div>
-		<h3>Common Primitives</h3>
+		<h3><a name="contents">Contents</a></h3>
+		<ul>
+			<li><a href="#common">Common Primitives</a></li>
+			<li><a href="#null">Allowing Null</a></li>
+			<li><a href="#defaults">Default Values</a></li>
+			<li><a href="#unique">Unique Attributes</a></li>
+			<li><a href="#enum">Enum Attributes</a></li>
+			<li><a href="#item">Item Attributes</a></li>
+			<li><a href="#further">Further Reading</a></li>
+		</ul>
+		<h3><a name="common">Common Primitives</a></h3>
 		<div>
 			COPE provides attributes for all commonly used java primitives
 			as well as for <tt>String</tt> and <tt>java.util.Date</tt>.
@@ -47,7 +57,7 @@ class Customer extends Item
 			Also the <i>default creation constructor</i>
 			will have parameters for the initial values of these attributes.
 		</div>
-		<h3>Allowing Null</h3>
+		<h3><a name="null">Allowing Null</a></h3>
 		<div>
 			You may have noticed, that you cannot store null
 			into any of the attributes.
@@ -95,7 +105,7 @@ void setLoginCounter(<b>Long</b> loginCounter) { ... }
 			</ol>
 				</li>
 		</div>
-		<h3>Default Values</h3>
+		<h3><a name="defaults">Default Values</a></h3>
 		<div>
 			What we did above with the login counter is probably not,
 			what one would want in a real project.
@@ -123,7 +133,7 @@ static final LongAttribute loginCounter =
 static final DateAttribute registrationDate =
     new DateAttribute()<b>.defaultToNow()</b>;
 </pre>
-		<h3>Unique Attributes</h3>
+		<h3><a name="unique">Unique Attributes</a></h3>
 		<div>
 			Probably you wouldn't want to have more than one customer
 			for any given email address.
@@ -162,7 +172,7 @@ class MatrixElement
        new UniqueConstraint(x, y);
 }
 </pre>
-		<h3>Enum Attributes</h3>
+		<h3><a name="enum">Enum Attributes</a></h3>
 		<div>
 			A common pattern in persistent models are attributes,
 			the can have a value out of a predefined set of values.
@@ -184,7 +194,7 @@ class Customer extends Item
        newEnumAttribute(Status.class);
 }
 </pre>
-		<h3>Item Attributes</h3>
+		<h3><a name="item">Item Attributes</a></h3>
 		<div>
 			An item attributes stores a reference to another persistent item.
 			It's the object oriented counter part of
@@ -233,7 +243,7 @@ static final ItemAttribute&lt;ProductGroup&gt; productGroup =
 			Of course <i>nullify</i> makes no sense for a <i>mandatory</i> attribute,
 			so I changed it to <i>optional</i>.
 		</div>
-		<h3>Further Reading</h3>
+		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the attribute trail of the cope tour.
 			You may now proceed to trails:

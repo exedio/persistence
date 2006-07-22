@@ -27,7 +27,15 @@
 			<br>
 			<a href="http://sourceforge.net/project/showfiles.php?group_id=152867">Download</a>
 		</div>
-		<h3>Your first item</h3>
+		<h3><a name="contents">Contents</a></h3>
+		<ul>
+			<li><a href="#item">Your first item</a></li>
+			<li><a href="#instrument">Setting up the instrumentor</a></li>
+			<li><a href="#results">Results of the instrumentor</a></li>
+			<li><a href="#run">Make it run</a></li>
+			<li><a href="#further">Further Reading</a></li>
+		</ul>
+		<h3><a name="item">Your first item</a></h3>
 		<div>
 			Creating a new persistent class within COPE is
 			as easy as creating any java class.
@@ -60,7 +68,7 @@ class Customer extends Item
 			Thats the way you declare persistent classes and fields.
 			Now we have to setup the cope source code instrumentor.
 		</div>
-		<h3>setting up the instrumentor</h3>
+		<h3><a name="instrument">Setting up the instrumentor</a></h3>
 		<div>
 			The instrumentor inserts a few methods and constructors into your
 			source code, so you don't have to write it on your own.
@@ -106,7 +114,7 @@ class Customer extends Item
 			Now the instrumentor is ready to run.
 			On the command line type <tt>ant instrument</tt>.
 		</div>
-		<h3>results of the instrumentor</h3>
+		<h3><a name="results">Results of the instrumentor</a></h3>
 		<div>
 			After running the instrumentor,
 			the class <tt>Customer</tt> contains a few more methods and constructors.
@@ -201,7 +209,7 @@ static final Type TYPE = Type.newType(Customer.class);
 		<div>
 			Next we will really store some persistent data.
 		</div>
-		<h3>Make it run</h3>
+		<h3><a name="run">Make it run</a></h3>
 		<div>
 			First we have to tell cope,
 			which persistent types are to be maintained by the project.
@@ -280,7 +288,7 @@ public static main(String[] args)
 			On hsqldb the method work multiple times,
 			because the database is in-memory only.
 		</div>
-		<h3>Further Reading</h3>
+		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the initial trail of the cope tour.
 			You may now proceed to the following trails:

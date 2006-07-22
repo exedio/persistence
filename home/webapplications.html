@@ -20,7 +20,15 @@
 			However it provides some additional convenience,
 			when used within web applications.
 		</div>
-		<h3>Initialization</h3>
+		<h3><a name="contents">Contents</a></h3>
+		<ul>
+			<li><a href="#initialize">Initialization</a></li>
+			<li><a href="#transactions">Transactions</a></li>
+			<li><a href="#console">COPE Console</a></li>
+			<li><a href="#copernica">Copernica</a></li>
+			<li><a href="#further">Further Reading</a></li>
+		</ul>
+		<h3><a name="initialize">Initialization</a></h3>
 		<div>
 			COPE must be told, where to connect to the database.
 			Within a servlet you probably
@@ -55,7 +63,7 @@ public void init() throws ServletException
 			it doesn't hurt to call it more than once,
 			for example if you have more than one servlet.
 		</div>
-		<h3>Transactions</h3>
+		<h3><a name="transactions">Transactions</a></h3>
 		<div>
 			From the <a href="transactions.html">Transaction Trail</a> you
 			already know, how to use transactions with COPE.
@@ -117,7 +125,7 @@ protected void doGet(
 			model in its own <tt>init()</tt>,
 			so you don't have to care about it anymore.
 		</div>
-		<h3>COPE Console</h3>
+		<h3><a name="console">COPE Console</a></h3>
 		<img src="console.png" width="406" height="241" border="0" align="right">
 		<div>
 			When you start up your web application,
@@ -159,7 +167,7 @@ protected void doGet(
 			otherwise the servlet cannot deliver it's resources
 			(style sheet etc).
 		</div>
-		<h3>Copernica</h3>
+		<h3><a name="copernica">Copernica</a></h3>
 		<a href="copernica1.png">
 			<img src="copernica1.w200.jpg" width="200" height="163" border="0" align="right">
 		</a>
@@ -198,7 +206,7 @@ protected void doGet(
    &lt;url-pattern&gt;/copernica/*&lt;/url-pattern&gt;
 &lt;/servlet-mapping&gt;
 </pre>
-		<h3>Further Reading</h3>
+		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the attribute trail of the cope tour.
 			You may now proceed to trails:
