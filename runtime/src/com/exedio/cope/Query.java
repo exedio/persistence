@@ -149,6 +149,25 @@ public final class Query<R>
 		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
 	
+	public List<Function> getOrderByFunctions()
+	{
+		return
+			orderBy==null
+			? Collections.<Function>emptyList()
+			: Collections.unmodifiableList(Arrays.asList(orderBy));
+	}
+	
+	public List<Boolean> getOrderByAscending()
+	{
+		if(orderAscending==null)
+			return Collections.<Boolean>emptyList();
+		
+		final ArrayList<Boolean> result = new ArrayList<Boolean>(orderAscending.length);
+		for(int i = 0; i<orderAscending.length; i++)
+			result.add(orderAscending[i]);
+		return Collections.unmodifiableList(result);
+	}
+	
 	public void setOrderByThis(final boolean ascending)
 	{
 		this.orderBy = new Function[]{type.thisFunction};
@@ -188,6 +207,47 @@ public final class Query<R>
 		this.orderAscending = ascending;
 	}
 
+	public void addOrderBy(final Function orderBy)
+	{
+		addOrderBy(orderBy, true);
+	}
+	
+	public void addOrderByDescending(final Function orderBy)
+	{
+		addOrderBy(orderBy, false);
+	}
+	
+	public void addOrderBy(final Function orderBy, final boolean ascending)
+	{
+		if(this.orderBy==null)
+			this.orderBy = new Function[]{ orderBy };
+		else
+		{
+			final int l = this.orderBy.length;
+			final Function[] result = new Function[l+1];
+			System.arraycopy(this.orderBy, 0, result, 0, l);
+			result[l] = orderBy;
+			this.orderBy = result;
+		}
+
+		if(this.orderAscending==null)
+			this.orderAscending = new boolean[]{ ascending };
+		else
+		{
+			final int l = this.orderAscending.length;
+			final boolean[] result = new boolean[l+1];
+			System.arraycopy(this.orderAscending, 0, result, 0, l);
+			result[l] = ascending;
+			this.orderAscending = result;
+		}
+	}
+	
+	public void resetOrderBy()
+	{
+		orderBy = null;
+		orderAscending = null;
+	}
+	
 	/**
 	 * @see #setLimit(int)
 	 * @param count the maximum number of items to be found.

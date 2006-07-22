@@ -50,6 +50,52 @@ public class OrderByTest extends TestmodelTest
 	
 	public void testOrderBy()
 	{
+		{
+			final Query q = item1.TYPE.newQuery(null);
+			assertEquals(list(), q.getOrderByFunctions());
+			assertEquals(list(), q.getOrderByAscending());
+			
+			q.setOrderByThis(false);
+			assertEquals(list(item1.TYPE.getThis()), q.getOrderByFunctions());
+			assertEquals(list(false), q.getOrderByAscending());
+			
+			q.setOrderBy(item1.day, true);
+			assertEquals(list(item1.day), q.getOrderByFunctions());
+			assertEquals(list(true), q.getOrderByAscending());
+			
+			q.setOrderBy(item1.someBoolean, false);
+			assertEquals(list(item1.someBoolean), q.getOrderByFunctions());
+			assertEquals(list(false), q.getOrderByAscending());
+			
+			q.setOrderByAndThis(item1.someBoolean, false);
+			assertEquals(list(item1.someBoolean, item.TYPE.getThis()), q.getOrderByFunctions());
+			assertEquals(list(false, true), q.getOrderByAscending());
+			
+			q.setOrderBy(new Function[]{item1.someString, item1.someDate}, new boolean[]{false, true});
+			assertEquals(list(item1.someString, item1.someDate), q.getOrderByFunctions());
+			assertEquals(list(false, true), q.getOrderByAscending());
+			
+			q.addOrderBy(item.someEnum, true);
+			assertEquals(list(item1.someString, item1.someDate, item.someEnum), q.getOrderByFunctions());
+			assertEquals(list(false, true, true), q.getOrderByAscending());
+
+			q.resetOrderBy();
+			assertEquals(list(), q.getOrderByFunctions());
+			assertEquals(list(), q.getOrderByAscending());
+
+			q.addOrderBy(item.someDouble, false);
+			assertEquals(list(item1.someDouble), q.getOrderByFunctions());
+			assertEquals(list(false), q.getOrderByAscending());
+
+			q.addOrderBy(item.someItem);
+			assertEquals(list(item1.someDouble, item.someItem), q.getOrderByFunctions());
+			assertEquals(list(false, true), q.getOrderByAscending());
+
+			q.addOrderByDescending(item.someLong);
+			assertEquals(list(item1.someDouble, item.someItem, item.someLong), q.getOrderByFunctions());
+			assertEquals(list(false, true, false), q.getOrderByAscending());
+		}
+		
 		// no order at all
 		assertContains(item4, item2, item1, item3, item5, item1.TYPE.newQuery(null).search());
 

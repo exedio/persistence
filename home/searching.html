@@ -127,9 +127,8 @@ TYPE.search(loginCounter.greaterOrEqual(10), email, true);
 		</div>
 <pre>
 Query&lt;Customer&gt; q = TYPE.newQuery(loginCounter.greaterOrEqual(10));
-q.setOrderBy(
-   new Function[] { loginCounter, email },
-   new boolean[] { true, false };
+q.addOrderBy(loginCounter);
+q.addOrderByDescending(email);
 List&lt;Customer&gt; customers = q.search();
 </pre>
 		<h3>Limits</h3>
