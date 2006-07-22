@@ -796,11 +796,24 @@ public final class Type<C extends Item>
 	}
 
 	/**
+	 * Searches for all items of this type.
+	 * <p>
+	 * Returns an unmodifiable collection.
+	 * Any attempts to modify the returned collection, whether direct or via its iterator,
+	 * result in an <tt>UnsupportedOperationException</tt>.
+	 */
+	public List<C> search()
+	{
+		return search(null);
+	}
+	
+	/**
 	 * Searches for items of this type, that match the given condition.
 	 * <p>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <tt>UnsupportedOperationException</tt>.
+	 * 
 	 * @param condition the condition the searched items must match.
 	 */
 	public List<C> search(final Condition condition)
