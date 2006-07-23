@@ -89,20 +89,23 @@ protected void doGet(
 		<div>
 			However, this is not always feasible.
 			Sometimes you just don't have a single servlet
-			(or small number of servlets)
+			(or a small number of servlets)
 			in your application.
-			Even worse, the method <tt>doGet</tt> could be called rentrantly.
+			Even worse, the method <tt>doGet</tt> could be called reentrantly.
 			This is very common when using the struts framework.
 		</div>
 		<div>
-			A nice solution for both problems is putting the transaction handling into a
+			A nice solution for both problems is delegating the transaction handling into a
 			<a href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/javax/servlet/Filter.html">filter</a>.
 			Class
-			<a href="api/com/exedio/cope/util/TransactionFilter.html">TransactionFilter</a></div>
+			<a href="api/com/exedio/cope/util/TransactionFilter.html">TransactionFilter</a>
+			does just that.
+			Put the following snippet in your <tt>web.xml</tt>:
+		</div>
 <pre>
 &lt;filter&gt;
    &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
-   &lt;filter-class&gt;com.exedio.cope.util.TransactionFilter&lt;/filter-class&gt;
+   &lt;filter-class&gt;<a href="api/com/exedio/cope/util/TransactionFilter.html">com.exedio.cope.util.TransactionFilter</a>&lt;/filter-class&gt;
    &lt;init-param&gt;
       &lt;param-name&gt;model&lt;/param-name&gt;
       &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
