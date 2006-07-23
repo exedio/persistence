@@ -182,24 +182,16 @@ void setEmail(String email)
 			Last but not least there is the <i>type constant</i>:
 		</div>
 <pre>
-static final Type&lt;Customer&gt; TYPE = Type.newType(Customer.class);
+static final Type&lt;Customer&gt; TYPE =
+    Type.newType(Customer.class);
 </pre>
 		<div>
 			This is useful for all sorts of things,
 			most prominently searching the database.
-			We'll get there in detail later.
-			For now just two examples:
-			<ol>
-				<li>
-					Searching for all customers is as easy as
-					<tt>Customer.TYPE.<a href="api/com/exedio/cope/Type.html#search()">search</a>()</tt>.
-					The result of this is even a typed list <tt>List&lt;Customer&gt;</tt>
-				</li>
-				<li>
-					Searching for customers with a certain email address is done by
-					<tt>Customer.TYPE.search(Customer.email.equal("cope@exedio.com"))</tt>.
-				</li>
-			</ol>
+			For instance searching for all customers is as easy as
+			<tt>Customer.TYPE.<a href="api/com/exedio/cope/Type.html#search()">search</a>()</tt>,
+			which returns a <tt>List&lt;Customer&gt;</tt>.
+			More on this in the <a href="searching.html">Searching Trail</a>.
 		</div>
 		<div>
 			Next we will really store some persistent data.
