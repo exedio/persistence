@@ -87,7 +87,7 @@ TYPE.search(email.startsWith("cope@exedio."));
 		<div>
 			Of course searching works for integer attributes as well.
 			Here a query, that searches for customers,
-			that have logged in more than 10 times:
+			that have logged in at least 10 times:
 		</div>
 <pre>
 TYPE.search(loginCounter.greaterOrEqual(10));
@@ -126,11 +126,22 @@ TYPE.search(loginCounter.greaterOrEqual(10), email, true);
 			This looks like this:
 		</div>
 <pre>
-Query&lt;Customer&gt; q = TYPE.newQuery(loginCounter.greaterOrEqual(10));
+Query&lt;Customer&gt; q =
+   TYPE.newQuery(loginCounter.greaterOrEqual(10));
 q.addOrderBy(loginCounter);
 q.addOrderByDescending(email);
 List&lt;Customer&gt; customers = q.search();
 </pre>
+		<div>
+			This query finds all customers,
+			which have logged in at least 10 times,
+			sorted by the number of their logins ascendingly
+			and their email adress descendingly.
+		<div>
+			Note, that all the methods <tt>Type.search(...)</tt> in the examples before
+			use an instance of <tt>Query</tt> in their implementation.
+			They are convenience methods for the most common and simple queries.
+		</div>
 		<h3>Limits</h3>
 		<h3>Further Reading</h3>
 		<div>
