@@ -87,17 +87,17 @@ TYPE.search(email.startsWith("cope@exedio."));
 		<div>
 			Of course searching works for integer attributes as well.
 			Here a query, that searches for customers,
-			that have logged in at least 10 times:
+			that have logged in at least 8 times:
 		</div>
 <pre>
-TYPE.search(loginCounter.greaterOrEqual(10));
+TYPE.search(loginCounter.greaterOrEqual(8));
 </pre>
 		<div>
 			In contrast to the queries above,
 			all the following queries will not compile:
 		</div>
 <pre>
-TYPE.search(email.equal(10));
+TYPE.search(email.equal(8));
 TYPE.search(loginCounter.greaterOrEqual("cope@exedio.com"));
 TYPE.search(loginCounter.like("cope@exedio.%"));
 </pre>
@@ -110,11 +110,11 @@ TYPE.search(loginCounter.like("cope@exedio.%"));
 		<div>
 		<div>
 			Here again a query, that searches for customers,
-			that have logged in more than 10 times,
+			that have logged in more than 8 times,
 			but now sorted by their email adresses:
 		</div>
 <pre>
-TYPE.search(loginCounter.greaterOrEqual(10), email, true);
+TYPE.search(loginCounter.greaterOrEqual(8), email, true);
 </pre>
 		<div>
 			The third parameter specifies accending order.
@@ -127,22 +127,35 @@ TYPE.search(loginCounter.greaterOrEqual(10), email, true);
 		</div>
 <pre>
 Query&lt;Customer&gt; q =
-   TYPE.newQuery(loginCounter.greaterOrEqual(10));
+   TYPE.newQuery(loginCounter.greaterOrEqual(8));
 q.addOrderBy(loginCounter);
 q.addOrderByDescending(email);
 List&lt;Customer&gt; customers = q.search();
 </pre>
 		<div>
 			This query finds all customers,
-			which have logged in at least 10 times,
+			which have logged in at least 8 times,
 			sorted by the number of their logins ascendingly
 			and their email adress descendingly.
 		<div>
 			Note, that all the methods <tt>Type.search(...)</tt> in the examples before
-			use an instance of <tt>Query</tt> in their implementation.
+			use an instance of <tt>Query</tt> in their implementation as well.
 			They are convenience methods for the most common and simple queries.
 		</div>
 		<h3>Limits</h3>
+		<div>
+			Sometimes you want to fetch just a part of the result of a query.
+			This is commonly needed for paging.
+			The following query gets the third page of a list of all customers,
+			which have logged in at least 8 times.
+			Each page contains 10 customers:
+		</div>
+<pre>
+Query&lt;Customer&gt; q =
+   TYPE.newQuery(loginCounter.greaterOrEqual(8));
+q.setLimit(20, 10);
+List&lt;Customer&gt; customers = q.search();
+</pre>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
