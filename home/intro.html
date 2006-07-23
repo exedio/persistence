@@ -39,12 +39,10 @@
 		<div>
 			Creating a new persistent class within COPE is
 			as easy as creating any java class.
-			Make sure, the class extends <tt>Item</tt>
+			Make sure, the class extends <a href="api/com/exedio/cope/Item.html">Item</a>:
 		</div>
 <pre>
-import com.exedio.cope.Item;
-
-class Customer extends Item
+class Customer extends <a href="api/com/exedio/cope/Item.html">Item</a>
 {
 }
 </pre>
@@ -53,15 +51,12 @@ class Customer extends Item
 			without any persistent attributes,
 			so we also create our first one.
 			To do this we declare a static final constant
-			of the type <tt>StringAttribute</tt>.
+			of the type <a href="api/com/exedio/cope/StringAttribute.html">StringAttribute</a>.
 		</div>
 <pre>
-import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
-
 class Customer extends Item
 {
-   static final StringAttribute email = new StringAttribute();
+   static final <a href="api/com/exedio/cope/StringAttribute.html">StringAttribute</a> email = new <a href="api/com/exedio/cope/StringAttribute.html#StringAttribute()">StringAttribute</a>();
 }
 </pre>
 		<div>
@@ -90,7 +85,7 @@ class Customer extends Item
 			Put the following into your <tt>build.xml</tt>
 <pre>
 &lt;taskdef name="instrument"
-         classname="com.exedio.cope.instrument.AntTask"&gt;
+         classname="<a href="api/com/exedio/cope/instrument/AntTask.html">com.exedio.cope.instrument.AntTask</a>"&gt;
   &lt;classpath&gt;
     &lt;pathelement location="<i>lib/exedio-cope-instrument.jar</i>" /&gt;
   &lt;/classpath&gt;
