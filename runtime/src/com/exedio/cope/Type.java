@@ -821,6 +821,17 @@ public final class Type<C extends Item>
 		return newQuery(condition).search();
 	}
 	
+	/**
+	 * Searches for items of this type, that match the given condition.
+	 * The result is sorted by the given function <tt>orderBy</tt>.
+	 * <p>
+	 * Returns an unmodifiable collection.
+	 * Any attempts to modify the returned collection, whether direct or via its iterator,
+	 * result in an <tt>UnsupportedOperationException</tt>.
+	 * 
+	 * @param condition the condition the searched items must match.
+	 * @param ascending whether the result is sorted ascendingly (<tt>true</tt>) or descendingly (<tt>false</tt>).
+	 */
 	public List<C> search(final Condition condition, final Function orderBy, final boolean ascending)
 	{
 		final Query<C> query = newQuery(condition);
