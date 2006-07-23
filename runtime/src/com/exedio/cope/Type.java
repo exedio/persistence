@@ -851,6 +851,11 @@ public final class Type<C extends Item>
 		return searchSingleton(condition);
 	}
 	
+	public Query<C> newQuery()
+	{
+		return newQuery(null);
+	}
+	
 	public Query<C> newQuery(final Condition condition)
 	{
 		return new Query<C>(thisFunction, this, condition);
