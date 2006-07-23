@@ -179,14 +179,14 @@ else
    throw new RuntimeException("oops");
 </pre>
 		<div>
-			There is a convenience method <tt>searchSingleton</tt>,
+			There is a convenience method <a href="api/com/exedio/cope/Query.html#searchSingleton()">searchSingleton</a>,
 			which avoids writing such code over and over again:
 		</div>
 <pre>
 Query&lt;Customer&gt; q =
    TYPE.newQuery(loginCounter.greaterOrEqual(8));
 q.setLimit(0, 1);
-return q.searchSingleton();
+return q.<a href="api/com/exedio/cope/Query.html#searchSingleton()">searchSingleton</a>();
 </pre>
 		<div>
 			This method is useful, whenever you are sure,

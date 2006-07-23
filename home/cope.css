@@ -51,6 +51,11 @@ pre
 	padding:2pt;
 }
 
+pre a
+{
+	text-decoration:none;
+}
+
 img.exedio
 {
 	float:right;
