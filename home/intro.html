@@ -182,7 +182,7 @@ void setEmail(String email)
 			Last but not least there is the <i>type constant</i>:
 		</div>
 <pre>
-static final Type TYPE = Type.newType(Customer.class);
+static final Type&lt;Customer&gt; TYPE = Type.newType(Customer.class);
 </pre>
 		<div>
 			This is useful for all sorts of things,
@@ -192,7 +192,7 @@ static final Type TYPE = Type.newType(Customer.class);
 			<ol>
 				<li>
 					Searching for all customers is as easy as
-					<tt>Customer.TYPE.search(null)</tt>.
+					<tt>Customer.TYPE.<a href="api/com/exedio/cope/Type.html#search()">search</a>()</tt>.
 					The result of this is even a typed list <tt>List&lt;Customer&gt;</tt>
 				</li>
 				<li>
