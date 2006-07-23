@@ -156,6 +156,47 @@ Query&lt;Customer&gt; q =
 q.setLimit(20, 10);
 List&lt;Customer&gt; customers = q.search();
 </pre>
+		<div>
+			Sometimes you may just want to have the first element of the result.
+			Then you would probably write something like this:
+		</div>
+<pre>
+Query&lt;Customer&gt; q =
+   TYPE.newQuery(loginCounter.greaterOrEqual(8));
+q.setLimit(0, 1);
+List&lt;Customer&gt; customers = q.search();
+</pre>
+		<div>
+			After such a one-line-only query,
+			there often some code like this:
+		</div>
+<pre>
+if(customers.size()==0)
+   return null;
+else if(customers.size()==0)
+   return customers.get(0);
+else
+   throw new RuntimeException("oops");
+</pre>
+		<div>
+			There is a convenience method <tt>searchSingleton</tt>,
+			which avoids writing such code over and over again:
+		</div>
+<pre>
+Query&lt;Customer&gt; q =
+   TYPE.newQuery(loginCounter.greaterOrEqual(8));
+q.setLimit(0, 1);
+return q.searchSingleton();
+</pre>
+		<div>
+			This method is useful, whenever you are sure,
+			that the result set can have at most one element.
+			This happens if
+			you use limits as above or
+			you restrict your query to match a <i>unique</i> attribute or
+			when using <i>aggregators</i> as explained below.
+		</div>
+		<h3>Aggregators</h3>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
