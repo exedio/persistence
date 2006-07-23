@@ -464,7 +464,7 @@ public final class Query<R>
 	 */
 	public R searchSingleton()
 	{
-		final Collection<R> searchResultCollection = search();
+		final List<R> searchResultCollection = search();
 		final Iterator<R> searchResult = searchResultCollection.iterator();
 		if(searchResult.hasNext())
 		{
