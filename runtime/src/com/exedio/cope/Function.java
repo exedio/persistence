@@ -40,15 +40,46 @@ public interface Function<E> extends Selectable<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 	
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is equal to the given parameter.
+	 */
 	EqualCondition<E> equal(E value);
+	
 	EqualCondition<E> equal(Join join, E value);
 	CompositeCondition in(Collection<E> value);
 	NotEqualCondition<E> notEqual(E value);
 	EqualFunctionCondition<E> equal(Function<E> right);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is less than the given parameter.
+	 */
 	CompareCondition<E> less(E value);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is not greater than the given parameter.
+	 */
 	CompareCondition<E> lessOrEqual(E value);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is greater than the given parameter.
+	 */
 	CompareCondition<E> greater(E value);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is not less than the given parameter.
+	 */
 	CompareCondition<E> greaterOrEqual(E value);
+
 	ExtremumAggregate<E> min();
 	ExtremumAggregate<E> max();
 	BindFunction<E> bind(Join join);

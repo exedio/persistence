@@ -21,6 +21,12 @@ package com.exedio.cope;
 import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
+/**
+ * Represents an attribute within a {@link Type type},
+ * that enables instances of that type to store a integer.
+ *
+ * @author Ralf Wiebicke
+ */
 public final class IntegerAttribute extends FunctionAttribute<Integer> implements IntegerFunction
 {
 
@@ -30,6 +36,9 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 		checkDefaultValue();
 	}
 	
+	/**
+	 * Creates a new mandatory <tt>IntegerAttribute</tt>.
+	 */
 	public IntegerAttribute()
 	{
 		this(Item.MANDATORY);

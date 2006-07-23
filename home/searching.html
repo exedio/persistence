@@ -30,12 +30,12 @@
 			consisting of one persistent class only:
 		</div>
 <pre>
-class Customer extends Item
+class Customer extends <a href="api/com/exedio/cope/Item.html">Item</a>
 {
-   static final StringAttribute email =
-       new StringAttribute();
-   static final IntegerAttribute loginCounter =
-       new IntegerAttribute();
+   static final <a href="api/com/exedio/cope/StringAttribute.html">StringAttribute</a> email =
+       new <a href="api/com/exedio/cope/StringAttribute.html#StringAttribute()">StringAttribute</a>();
+   static final <a href="api/com/exedio/cope/IntegerAttribute.html">IntegerAttribute</a> loginCounter =
+       new <a href="api/com/exedio/cope/IntegerAttribute.html#IntegerAttribute()">IntegerAttribute</a>();
 }
 </pre>
 		<div>
@@ -44,7 +44,7 @@ class Customer extends Item
 		</div>
 <pre>
 List&lt;Customer&gt; allCustomers =
-   Customer.TYPE.search();
+   Customer.TYPE.<a href="api/com/exedio/cope/Type.html#search()">search</a>();
 </pre>
 		<div>
 			Note, that the static final field <tt>Customer.TYPE</tt> is
@@ -57,7 +57,7 @@ List&lt;Customer&gt; allCustomers =
 			you can write even shorter:
 		</div>
 <pre>
-List&lt;Customer&gt; allCustomers = TYPE.search();
+List&lt;Customer&gt; allCustomers = TYPE.<a href="api/com/exedio/cope/Type.html#search()">search</a>();
 </pre>
 		<div>
 			For brevity we will assume, that all the examples below are
@@ -70,19 +70,19 @@ List&lt;Customer&gt; allCustomers = TYPE.search();
 			Lets search for the customer with a certain email address:
 		</div>
 <pre>
-TYPE.search(email.equal("cope@exedio.com"));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/Function.html#equal(E)">equal</a>("cope@exedio.com"));
 </pre>
 		<div>
 			For a "like condition" write:
 		</div>
 <pre>
-TYPE.search(email.like("cope@exedio.%"));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/StringFunction.html#like(java.lang.String)">like</a>("cope@exedio.%"));
 </pre>
 		<div>
 			which is equivalent to:
 		</div>
 <pre>
-TYPE.search(email.startsWith("cope@exedio."));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/StringFunction.html#startsWith(java.lang.String)">startsWith</a>("cope@exedio."));
 </pre>
 		<div>
 			Of course searching works for integer attributes as well.
@@ -90,16 +90,16 @@ TYPE.search(email.startsWith("cope@exedio."));
 			that have logged in at least 8 times:
 		</div>
 <pre>
-TYPE.search(loginCounter.greaterOrEqual(8));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(loginCounter.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8));
 </pre>
 		<div>
 			In contrast to the queries above,
 			all the following queries will not compile:
 		</div>
 <pre>
-TYPE.search(email.equal(8));
-TYPE.search(loginCounter.greaterOrEqual("cope@exedio.com"));
-TYPE.search(loginCounter.like("cope@exedio.%"));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.equal(8));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(loginCounter.greaterOrEqual("cope@exedio.com"));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(loginCounter.like("cope@exedio.%"));
 </pre>
 		<div>
 			The first one tries to compare a string attribute to an integer literal.
@@ -114,7 +114,7 @@ TYPE.search(loginCounter.like("cope@exedio.%"));
 			but now sorted by their email adresses:
 		</div>
 <pre>
-TYPE.search(loginCounter.greaterOrEqual(8), email, true);
+TYPE.search(loginCounter.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8), email, true);
 </pre>
 		<div>
 			The third parameter specifies accending order.
@@ -127,7 +127,7 @@ TYPE.search(loginCounter.greaterOrEqual(8), email, true);
 		</div>
 <pre>
 Query&lt;Customer&gt; q =
-   TYPE.newQuery(loginCounter.greaterOrEqual(8));
+   TYPE.newQuery(loginCounter.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8));
 q.addOrderBy(loginCounter);
 q.addOrderByDescending(email);
 List&lt;Customer&gt; customers = q.search();
@@ -152,7 +152,7 @@ List&lt;Customer&gt; customers = q.search();
 		</div>
 <pre>
 Query&lt;Customer&gt; q =
-   TYPE.newQuery(loginCounter.greaterOrEqual(8));
+   TYPE.newQuery(loginCounter.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8));
 q.setLimit(20, 10);
 List&lt;Customer&gt; customers = q.search();
 </pre>
@@ -162,7 +162,7 @@ List&lt;Customer&gt; customers = q.search();
 		</div>
 <pre>
 Query&lt;Customer&gt; q =
-   TYPE.newQuery(loginCounter.greaterOrEqual(8));
+   TYPE.newQuery(loginCounter.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8));
 q.setLimit(0, 1);
 List&lt;Customer&gt; customers = q.search();
 </pre>
@@ -184,7 +184,7 @@ else
 		</div>
 <pre>
 Query&lt;Customer&gt; q =
-   TYPE.newQuery(loginCounter.greaterOrEqual(8));
+   TYPE.newQuery(loginCounter.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8));
 q.setLimit(0, 1);
 return q.<a href="api/com/exedio/cope/Query.html#searchSingleton()">searchSingleton</a>();
 </pre>

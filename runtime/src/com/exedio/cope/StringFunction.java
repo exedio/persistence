@@ -25,10 +25,35 @@ public interface StringFunction extends Function<String>
 {
 	// convenience methods for conditions and views ---------------------------------
 	BindStringFunction bind(Join join);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is matches the given parameter.
+	 */
 	LikeCondition like(String value);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * starts with the given parameter.
+	 */
 	LikeCondition startsWith(String value);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * ends with the given parameter.
+	 */
 	LikeCondition endsWith(String value);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * contains the given parameter.
+	 */
 	LikeCondition contains(String value);
+	
 	LengthView length();
 	UppercaseView toUpperCase();
 	EqualCondition equalIgnoreCase(String value);

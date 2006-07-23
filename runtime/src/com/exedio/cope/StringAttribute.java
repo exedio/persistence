@@ -23,6 +23,12 @@ import java.util.SortedSet;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 
+/**
+ * Represents an attribute within a {@link Type type},
+ * that enables instances of that type to store a string.
+ *
+ * @author Ralf Wiebicke
+ */
 public final class StringAttribute extends FunctionAttribute<String> implements StringFunction
 {
 	private final int minimumLength;
@@ -48,6 +54,9 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 		checkDefaultValue();
 	}
 	
+	/**
+	 * Creates a new mandatory <tt>StringAttribute</tt>.
+	 */
 	public StringAttribute()
 	{
 		this(Item.MANDATORY);
