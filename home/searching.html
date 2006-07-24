@@ -223,8 +223,17 @@ List&lt;Integer&gt; loginCounters = q.search();
 		</div>
 <pre>
 Query&lt;Integer&gt; q =
-   new Query&lt;String&gt;(loginCounter.<b>sum()</b>);
+   new Query&lt;Integer&gt;(loginCounter.<b>sum()</b>);
 Integer totalLoginCounters = q.searchSingleton();
+</pre>
+		<div>
+			Aggregates can be used for getting minimum and maximum as well.
+			The following example queries the greatest login counter:
+		</div>
+<pre>
+Query&lt;Integer&gt; q =
+   new Query&lt;Integer&gt;(loginCounter.<b>max()</b>);
+Integer maximumLoginCounter = q.searchSingleton();
 </pre>
 		<h3>Joins</h3>
 		<h3>Further Reading</h3>
