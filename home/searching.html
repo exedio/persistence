@@ -244,7 +244,7 @@ Integer maximumLoginCounter = q.searchSingleton();
 class Order extends <a href="api/com/exedio/cope/Item.html">Item</a>
 {
    static final <a href="api/com/exedio/cope/ItemAttribute.html">ItemAttribute</a>&lt;Customer&gt; buyer =
-       new <a href="api/com/exedio/cope/ItemAttribute.html#ItemAttribute(java.lang.Class)">ItemAttribute</a>(Customer.class);
+       <a href="api/com/exedio/cope/Item.html#newItemAttribute(java.lang.Class)">newItemAttribute</a>(Customer.class);
    static final <a href="api/com/exedio/cope/DoubleAttribute.html">DoubleAttribute</a> total =
        new <a href="api/com/exedio/cope/DoubleAttribute.html#DoubleAttribute()">DoubleAttribute</a>();
 }
