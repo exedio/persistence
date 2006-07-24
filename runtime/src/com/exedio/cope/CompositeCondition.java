@@ -137,14 +137,14 @@ public final class CompositeCondition extends Condition
 		return new CompositeCondition(Operator.OR, result);
 	}
 	
-	static enum Operator
+	public static enum Operator
 	{
 		AND(" and "),
 		OR(" or ");
 		
 		private final String sql;
 		
-		Operator(final String sql)
+		private Operator(final String sql)
 		{
 			this.sql = sql;
 		}
