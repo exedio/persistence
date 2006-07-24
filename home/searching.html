@@ -196,7 +196,37 @@ return q.<a href="api/com/exedio/cope/Query.html#searchSingleton()">searchSingle
 			you restrict your query to match a <i>unique</i> attribute or
 			when using <i>aggregators</i> as explained below.
 		</div>
-		<h3>Aggregators</h3>
+		<h3>Selecting and Aggregating</h3>
+		<div>
+			Sometimes you just want to deal with values of attributes, not items.
+			For instance you might want to have a list of the email addresses of
+			all customers:
+		</div>
+<pre>
+Query&lt;String&gt; q = new Query&lt;String&gt;(email);
+List&lt;String&gt; emails = q.search();
+</pre>
+		<div>
+			Of course you can combine this with sorting and limits.
+			Or the list of the greatest 10 login counters you could write:
+		</div>
+<pre>
+Query&lt;Integer&gt; q = new Query&lt;String&gt;(loginCounter);
+q.setOrderBy(loginCounter, true);
+q.setLimit(0, 10);
+List&lt;Integer&gt; loginCounters = q.search();
+</pre>
+		<div>
+			Or you might want to compute the sum of the login counters
+			of all customers.
+			This is called aggregating:
+		</div>
+<pre>
+Query&lt;Integer&gt; q =
+   new Query&lt;String&gt;(loginCounter.<b>sum()</b>);
+Integer totalLoginCounters = q.searchSingleton();
+</pre>
+		<h3>Joins</h3>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
