@@ -249,6 +249,25 @@ class Order extends <a href="api/com/exedio/cope/Item.html">Item</a>
        new <a href="api/com/exedio/cope/DoubleAttribute.html#DoubleAttribute()">DoubleAttribute</a>();
 }
 </pre>
+		<div>
+			Now we can use a join to search for all orders,
+			where the customer has a email address
+			from the .com top level domain:
+		</div>
+<pre>
+Query&lt;Order&gt; q = Order.TYPE.newQuery(Customer.email.endsWith(".com"));
+q.join(Order.buyer.equal(Customer.TYPE.getThis()));
+List&lt;Order&gt; orders = q.search();
+</pre>
+		<div>
+			Note the join condition in the second line,
+			it specifies a <i>natural join</i> on the item attribute <tt>buyer</tt>.
+			The join condition can also be specified in a short form,
+			using a convenience method:
+		</div>
+<pre>
+q.join(Order.buyer.<b>equalTarget()</b>);
+</pre>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
