@@ -236,6 +236,19 @@ Query&lt;Integer&gt; q =
 Integer maximumLoginCounter = q.searchSingleton();
 </pre>
 		<h3>Joins</h3>
+		<div>
+			To demonstrate joins with COPE,
+			we have to define another persistent class:
+		</div>
+<pre>
+class Order extends <a href="api/com/exedio/cope/Item.html">Item</a>
+{
+   static final <a href="api/com/exedio/cope/ItemAttribute.html">ItemAttribute</a>&lt;Customer&gt; buyer =
+       new <a href="api/com/exedio/cope/ItemAttribute.html#ItemAttribute(java.lang.Class)">ItemAttribute</a>(Customer.class);
+   static final <a href="api/com/exedio/cope/DoubleAttribute.html">DoubleAttribute</a> total =
+       new <a href="api/com/exedio/cope/DoubleAttribute.html#DoubleAttribute()">DoubleAttribute</a>();
+}
+</pre>
 		<h3>Further Reading</h3>
 		<div>
 			This was the attribute trail of the cope tour.
