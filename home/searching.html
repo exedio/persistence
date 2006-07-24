@@ -76,13 +76,13 @@ TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">s
 			For a "like condition" write:
 		</div>
 <pre>
-TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/StringFunction.html#like(java.lang.String)">like</a>("cope@exedio.%"));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/StringFunction.html#like(java.lang.String)"><b>like</b></a>("cope@exedio.<b>%</b>"));
 </pre>
 		<div>
 			which is equivalent to:
 		</div>
 <pre>
-TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/StringFunction.html#startsWith(java.lang.String)">startsWith</a>("cope@exedio."));
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/StringFunction.html#startsWith(java.lang.String)"><b>startsWith</b></a>("cope@exedio."));
 </pre>
 		<div>
 			Of course searching works for integer attributes as well.
@@ -208,7 +208,7 @@ List&lt;String&gt; emails = q.search();
 </pre>
 		<div>
 			Of course you can combine this with sorting and limits.
-			Or the list of the greatest 10 login counters you could write:
+			To get a list of the greatest 10 login counters you could write:
 		</div>
 <pre>
 Query&lt;Integer&gt; q = new Query&lt;String&gt;(loginCounter);
