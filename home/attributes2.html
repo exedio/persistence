@@ -1,0 +1,69 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="cope.css">
+	</head>
+	<body>
+		<a href="http://www.exedio.com/">
+			<img src="exedio.png" class="exedio">
+		</a>
+		<h1><a href="index.html">COPE</a></h1>
+		<div>Cope with Object Persistence</div>
+		
+		<h2>Attribute Reloaded Trail</h2>
+		<a href="http://sourceforge.net/">
+			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
+				class="sf" alt="SourceForge.net Logo" />
+		</a>
+		<div>
+			While the <a href="attributes.html">Attribute Trail</a>
+			covered the most fundamental attributes only,
+			this trails shows you some more special ways to store data with COPE.
+			Although most of the features below are not attributes in a formal sense
+			(means subclasses of class <a href="api/com/exedio/cope/Attribute.html">Attribute</a>)
+			you don't have to care about this until you want to develop such features yourself.
+		</div>
+		<h3><a name="hashes">Hashes</a></h3>
+		<div>
+			If you want to store a string encoded by a hash algorithm,
+			such as the password of the customer,
+			then put the following into class <tt>Customer</tt>:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/pattern/MD5Hash.html">MD5Hash</a> password = new <a href="api/com/exedio/cope/pattern/MD5Hash.html#MD5Hash()">MD5Hash</a>();
+</pre>
+		<div>
+			The instrumentor will generate a method for checking the password
+			instead of a getter method:
+		</div>
+<pre>
+boolean checkPassword(String password)
+{
+   return Customer.password.check(this, password);
+}
+</pre>
+		<div>
+			Using the super classes of <tt>MD5Hash</tt>
+			you can choose any hash algorithm provided by the java.security package
+			or even implement a custom algorithm.
+		</div>
+		<h3><a name="further">Further Reading</a></h3>
+		<div>
+			This was the attribute trail of the cope tour.
+			You may now proceed to trails:
+			<ul>
+				<li>
+					<a href="transactions.html">Transactions Trail</a>
+					tells you how to use transactions in cope.
+				</li>
+				<li>
+					<a href="searching.html">Searching Trail</a>
+					gives you an introduction into the searching capabilities of cope.
+				</li>
+				<li>
+					<a href="webapplications.html">Web Application Trail</a>
+					shows you the little differences when using cope within a web container.
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
