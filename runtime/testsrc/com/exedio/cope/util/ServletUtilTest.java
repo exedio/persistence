@@ -226,7 +226,10 @@ public class ServletUtilTest extends CopeAssert
 		public String getRealPath(String name)
 		{
 			if("WEB-INF/cope.properties".equals(name))
-				return System.getProperty("com.exedio.cope.properties");
+			{
+				final String p = System.getProperty("com.exedio.cope.properties");
+				return p!=null ? p : "cope.properties";
+			}
 			else
 				throw new RuntimeException(name);
 		}
