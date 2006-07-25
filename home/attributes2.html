@@ -46,6 +46,31 @@ boolean checkPassword(String password)
 			you can choose any hash algorithm provided by the java.security package
 			or even implement a custom algorithm.
 		</div>
+		<h3><a name="attributelists">Attribute Lists</a></h3>
+		<div>
+			Sometimes you may want to store multiple values for an attribute,
+			such as multiple email addresses for the customer.
+			This can be achieved with <i>attribute lists</i>:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/pattern/AttributeList.html">AttributeList</a>&lt;String&gt; emails =
+    <a href="api/com/exedio/cope/pattern/AttributeList.html">AttributeList</a>.<a href="api/com/exedio/cope/pattern/AttributeList.html#newList(com.exedio.cope.FunctionAttribute)">newList</a>(new StringAttribute());
+</pre>
+		<div>
+			Internally this is implemented by an extra table in the database,
+			so you can store lists of any size.
+			If you are sure, that the list cannot a exceed a certain size,
+			you may decide to use a <i>limited attribute list</i>:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/pattern/AttributeListLimited.html">AttributeListLimited</a>&lt;String&gt; emails =
+    <a href="api/com/exedio/cope/pattern/AttributeListLimited.html">AttributeListLimited</a>.<a href="api/com/exedio/cope/pattern/AttributeListLimited.html#newList(com.exedio.cope.FunctionAttribute, int)">newList</a>(new StringAttribute(OPTIONAL), 4);
+</pre>
+		<div>
+			Internally there are 4 string attributes used for storing the elements of the list.
+			If someone tries to store a list of more than 4 elements,
+			an exception is thrown.
+		</div>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the attribute trail of the cope tour.
