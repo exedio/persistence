@@ -24,7 +24,17 @@
 			and it will completely remove any chance of
 			<a href="http://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>.
 		</div>
-		<h3>Simple Query</h3>
+		<h3><a name="contents">Contents</a></h3>
+		<ul>
+			<li><a href="#simple">Simple Query</a></li>
+			<li><a href="#conditions">Conditions</a></li>
+			<li><a href="#sorting">Sorting</a></li>
+			<li><a href="#limits">Limits</a></li>
+			<li><a href="#selecting">Selecting and Aggregating</a></li>
+			<li><a href="#joins">Joins</a></li>
+			<li><a href="#further">Further Reading</a></li>
+		</ul>
+		<h3><a name="simple">Simple Query</a></h3>
 		<div>
 			First we define a simple example model
 			consisting of one persistent class only:
@@ -63,7 +73,7 @@ List&lt;Customer&gt; allCustomers = TYPE.<a href="api/com/exedio/cope/Type.html#
 			For brevity we will assume, that all the examples below are
 			located in class <tt>Customer</tt>.
 		</div>
-		<h3>Conditions</h3>
+		<h3><a name="conditions">Conditions</a></h3>
 		<div>
 			Conditions restrict the number of items found by a query.
 			This is equivalent to the "where clause" in SQL.
@@ -106,7 +116,7 @@ TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">s
 			The second query compares an integer attribute to a string attribute.
 			The third uses the operator "like" on an integer attribute instead of a string attribute.
 		</div>
-		<h3>Sorting</h3>
+		<h3><a name="sorting">Sorting</a></h3>
 		<div>
 		<div>
 			Here again a query, that searches for customers,
@@ -142,7 +152,7 @@ List&lt;Customer&gt; customers = q.search();
 			use an instance of <tt>Query</tt> in their implementation as well.
 			They are convenience methods for the most common and simple queries.
 		</div>
-		<h3>Limits</h3>
+		<h3><a name="limits">Limits</a></h3>
 		<div>
 			Sometimes you want to fetch just a part of the result of a query.
 			This is commonly needed for paging.
@@ -196,7 +206,7 @@ return q.<a href="api/com/exedio/cope/Query.html#searchSingleton()">searchSingle
 			you restrict your query to match a <i>unique</i> attribute or
 			when using <i>aggregators</i> as explained below.
 		</div>
-		<h3>Selecting and Aggregating</h3>
+		<h3><a name="selecting">Selecting and Aggregating</a></h3>
 		<div>
 			Sometimes you just want to deal with values of attributes, not items.
 			For instance you might want to have a list of the email addresses of
@@ -235,7 +245,7 @@ Query&lt;Integer&gt; q =
    new Query&lt;Integer&gt;(loginCounter.<b>max()</b>);
 Integer maximumLoginCounter = q.searchSingleton();
 </pre>
-		<h3>Joins</h3>
+		<h3><a name="joins">Joins</a></h3>
 		<div>
 			To demonstrate joins with COPE,
 			we have to define another persistent class:
@@ -268,7 +278,7 @@ List&lt;Order&gt; orders = q.search();
 <pre>
 q.join(Order.buyer.<b>equalTarget()</b>);
 </pre>
-		<h3>Further Reading</h3>
+		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the attribute trail of the cope tour.
 			You may now proceed to trails:
