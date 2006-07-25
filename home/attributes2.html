@@ -71,6 +71,19 @@ static final <a href="api/com/exedio/cope/pattern/AttributeListLimited.html">Att
 			If someone tries to store a list of more than 4 elements,
 			an exception is thrown.
 		</div>
+		<h3><a name="dayattributes">Day Attributes</a></h3>
+		<div>
+			Class <a href="api/com/exedio/cope/DateAttribute.html">DateAttribute</a>
+			already stores time stamps with millisecond precision.
+			However, sometimes you just want to store a day.
+			Millisecond precision is then just an additional source for mistakes.
+			Since the java runtime library does not provide a value class for this,
+			COPE has to introduce it's own <a href="api/com/exedio/cope/util/Day.html">Day</a>.
+			To define a <i>day attribute</i> within a type write:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/DayAttribute.html">DayAttribute</a> dateOfBirth = new <a href="api/com/exedio/cope/DayAttribute.html#DayAttribute()">DayAttribute</a>();
+</pre>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the attribute trail of the cope tour.
