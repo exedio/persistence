@@ -25,19 +25,22 @@ import java.security.NoSuchAlgorithmException;
 import com.exedio.cope.StringAttribute;
 
 /**
- * Uses hashes from the java.security package.
+ * Uses hash algorithms from {@link MessageDigest}.
  *
  * @author Ralf Wiebicke
  */
 public class JavaHash extends Hash
 {
-	private final String hash;
+	private final String algorithm;
 	private final String encoding;
-	
-	public JavaHash(final StringAttribute storage, final String hash, final String encoding)
+
+	/**
+	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
+	 */
+	public JavaHash(final StringAttribute storage, final String algorithm, final String encoding)
 	{
 		super(storage);
-		this.hash = hash;
+		this.algorithm = algorithm;
 		this.encoding = encoding;
 
 		try
@@ -55,14 +58,17 @@ public class JavaHash extends Hash
 		}
 	}
 
-	public JavaHash(final StringAttribute storage, final String hash)
+	/**
+	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
+	 */
+	public JavaHash(final StringAttribute storage, final String algorithm)
 	{
-		this(storage, hash, "utf8");
+		this(storage, algorithm, "utf8");
 	}
 	
 	private final MessageDigest createDigest() throws NoSuchAlgorithmException
 	{
-		return MessageDigest.getInstance(hash);
+		return MessageDigest.getInstance(algorithm);
 	}
 	
 	private final byte[] encode(final String s) throws UnsupportedEncodingException
