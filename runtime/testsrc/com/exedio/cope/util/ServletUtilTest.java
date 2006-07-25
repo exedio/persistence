@@ -39,6 +39,7 @@ public class ServletUtilTest extends CopeAssert
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	public static final Model modelOk2 = new Model(ModelOk2.TYPE);
+	public static final Model modelNull = null;
 
 	public void testIt()
 	{
@@ -49,6 +50,16 @@ public class ServletUtilTest extends CopeAssert
 		assertModelNotInitialized(modelOk2);
 		assertSame(modelOk2, ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2")));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
+
+		try
+		{
+			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull"));
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 	
 	private static final void assertModelNotInitialized(final Model model)
