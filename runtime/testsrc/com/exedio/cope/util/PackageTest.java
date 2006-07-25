@@ -31,6 +31,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(DayTest.class);
 		suite.addTestSuite(PoolCounterTest.class);
 		suite.addTestSuite(PropertiesTest.class);
+		suite.addTestSuite(ServletUtilTest.class);
 		return suite;
 	}
 
