@@ -25,7 +25,7 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Attribute.Option;
 
-public final class MD5Hash extends JavaHash
+public final class MD5Hash extends JavaSecurityHash
 {
 	private static final String HASH = "MD5";
 	private static final int LENGTH = 32;

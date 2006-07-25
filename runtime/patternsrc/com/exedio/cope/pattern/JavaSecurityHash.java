@@ -29,7 +29,7 @@ import com.exedio.cope.StringAttribute;
  *
  * @author Ralf Wiebicke
  */
-public class JavaHash extends Hash
+public class JavaSecurityHash extends Hash
 {
 	private final String algorithm;
 	private final String encoding;
@@ -37,7 +37,7 @@ public class JavaHash extends Hash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaHash(final StringAttribute storage, final String algorithm, final String encoding)
+	public JavaSecurityHash(final StringAttribute storage, final String algorithm, final String encoding)
 	{
 		super(storage);
 		this.algorithm = algorithm;
@@ -61,7 +61,7 @@ public class JavaHash extends Hash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaHash(final StringAttribute storage, final String algorithm)
+	public JavaSecurityHash(final StringAttribute storage, final String algorithm)
 	{
 		this(storage, algorithm, "utf8");
 	}

@@ -45,8 +45,8 @@ public class MD5Test extends AbstractLibTest
 	
 	public void testMD5()
 	{
-		assertEquals("000ff0aa", JavaHash.encodeBytes(new byte[]{0x00, 0x0F, (byte)0xF0, (byte)0xAA}));
-		assertEquals("0123456789abcdef", JavaHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
+		assertEquals("000ff0aa", JavaSecurityHash.encodeBytes(new byte[]{0x00, 0x0F, (byte)0xF0, (byte)0xAA}));
+		assertEquals("0123456789abcdef", JavaSecurityHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
 
 		assertEquals(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),
@@ -94,7 +94,7 @@ public class MD5Test extends AbstractLibTest
 		}
 		try
 		{
-			new JavaHash(new StringAttribute(item.OPTIONAL), "NIXUS");
+			new JavaSecurityHash(new StringAttribute(item.OPTIONAL), "NIXUS");
 			fail("should have thrown NoSuchAlgorithmException");
 		}
 		catch(RuntimeException e)
