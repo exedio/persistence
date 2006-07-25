@@ -34,19 +34,15 @@ public class ServletUtil
 
 	public static final Model getModel(final ServletConfig config)
 	{
-		Model model = getModelByName(config.getInitParameter(PARAMETER_MODEL));
-		initialize(model, config.getServletContext());
-		return model;
+		return getModelByName(config.getInitParameter(PARAMETER_MODEL), config.getServletContext());
 	}
 	
 	public static final Model getModel(final FilterConfig config)
 	{
-		Model model = getModelByName(config.getInitParameter(PARAMETER_MODEL));
-		initialize(model, config.getServletContext());
-		return model;
+		return getModelByName(config.getInitParameter(PARAMETER_MODEL), config.getServletContext());
 	}
 	
-	private static final Model getModelByName(final String initParam)
+	private static final Model getModelByName(final String initParam, final ServletContext context)
 	{
 		if(initParam==null)
 			throw new NullPointerException("init-param '"+PARAMETER_MODEL+"' missing");
@@ -71,7 +67,9 @@ public class ServletUtil
 				throw new RuntimeException("field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.", e);
 			}
 			
-			return (Model)modelField.get(null);
+			final Model result = (Model)modelField.get(null);
+			initialize(result, context);
+			return result;
 		}
 		catch(ClassNotFoundException e)
 		{
