@@ -60,6 +60,11 @@ public final class Model
 	
 	public Model(final Type... types)
 	{
+		if(types==null)
+			throw new NullPointerException("types must not be null");
+		if(types.length==0)
+			throw new RuntimeException("types must not be empty");
+		
 		final Type<?>[] explicitTypes = types;
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
 		assert types.length==explicitTypesSorted.length;
