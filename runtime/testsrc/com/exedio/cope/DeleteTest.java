@@ -273,7 +273,7 @@ public class DeleteTest extends AbstractLibTest
 		assertSame(item, searchResult1.iterator().next());
 
 		// test Query.search with selects
-		final Query<DeleteItem> query2 = new Query<DeleteItem>(item.selfNullify, null);
+		final Query<DeleteItem> query2 = new Query<DeleteItem>(item.selfNullify);
 		query2.setOrderByThis(true);
 		final List<? extends DeleteItem> searchResult2 = query2.search();
 		assertEquals(list(item2, null), searchResult2);

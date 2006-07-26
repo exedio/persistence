@@ -141,20 +141,20 @@ public class CompareConditionTest extends TestmodelTest
 			item1.TYPE.search(item1.someNotNullEnum.in(listg(AttributeItem.SomeEnum.enumValue1, AttributeItem.SomeEnum.enumValue2))));
 		
 		// min
-		assertEquals("string1", new Query<String>(item1.someNotNullString.min(), null).searchSingleton());
-		assertEquals(new Integer(1), new Query<Integer>(item1.someNotNullInteger.min(), null).searchSingleton());
-		assertEquals(new Long(11l), new Query<Long>(item1.someNotNullLong.min(), null).searchSingleton());
-		assertEquals(new Double(2.1), new Query<Double>(item1.someNotNullDouble.min(), null).searchSingleton());
-		assertEquals(offset(date, -2), new Query<Date>(item1.someDate.min(), null).searchSingleton());
-		assertEquals(AttributeItem.SomeEnum.enumValue1, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.min(), null).searchSingleton());
+		assertEquals("string1", new Query<String>(item1.someNotNullString.min()).searchSingleton());
+		assertEquals(new Integer(1), new Query<Integer>(item1.someNotNullInteger.min()).searchSingleton());
+		assertEquals(new Long(11l), new Query<Long>(item1.someNotNullLong.min()).searchSingleton());
+		assertEquals(new Double(2.1), new Query<Double>(item1.someNotNullDouble.min()).searchSingleton());
+		assertEquals(offset(date, -2), new Query<Date>(item1.someDate.min()).searchSingleton());
+		assertEquals(AttributeItem.SomeEnum.enumValue1, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.min()).searchSingleton());
 
 		// max
-		assertEquals("string5", new Query<String>(item1.someNotNullString.max(), null).searchSingleton());
-		assertEquals(new Integer(5), new Query<Integer>(item1.someNotNullInteger.max(), null).searchSingleton());
-		assertEquals(new Long(15l), new Query<Long>(item1.someNotNullLong.max(), null).searchSingleton());
-		assertEquals(new Double(2.5), new Query<Double>(item1.someNotNullDouble.max(), null).searchSingleton());
-		assertEquals(offset(date, +2), new Query<Date>(item1.someDate.max(), null).searchSingleton());
-		assertEquals(AttributeItem.SomeEnum.enumValue3, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.max(), null).searchSingleton());
+		assertEquals("string5", new Query<String>(item1.someNotNullString.max()).searchSingleton());
+		assertEquals(new Integer(5), new Query<Integer>(item1.someNotNullInteger.max()).searchSingleton());
+		assertEquals(new Long(15l), new Query<Long>(item1.someNotNullLong.max()).searchSingleton());
+		assertEquals(new Double(2.5), new Query<Double>(item1.someNotNullDouble.max()).searchSingleton());
+		assertEquals(offset(date, +2), new Query<Date>(item1.someDate.max()).searchSingleton());
+		assertEquals(AttributeItem.SomeEnum.enumValue3, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.max()).searchSingleton());
 
 		// test extremum aggregate
 		assertEquals(true,  item1.someNotNullString.min().isMinimum());
@@ -164,19 +164,19 @@ public class CompareConditionTest extends TestmodelTest
 
 		// sum
 		{
-			final Query<Integer> q = new Query<Integer>(item1.someNotNullInteger.sum(), null);
+			final Query<Integer> q = new Query<Integer>(item1.someNotNullInteger.sum());
 			assertEquals(new Integer(1+2+3+4+5), q.searchSingleton());
 			q.setCondition(item1.someNotNullInteger.less(4));
 			assertEquals(new Integer(1+2+3), q.searchSingleton());
 		}
 		{
-			final Query<Long> q = new Query<Long>(item1.someNotNullLong.sum(), null);
+			final Query<Long> q = new Query<Long>(item1.someNotNullLong.sum());
 			assertEquals(new Long(11+12+13+14+15), q.searchSingleton());
 			q.setCondition(item1.someNotNullLong.less(14l));
 			assertEquals(new Long(11+12+13), q.searchSingleton());
 		}
 		{
-			final Query<Double> q = new Query<Double>(item1.someNotNullDouble.sum(), null);
+			final Query<Double> q = new Query<Double>(item1.someNotNullDouble.sum());
 			assertEquals(new Double(2.1+2.2+2.3+2.4+2.5).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
 			q.setCondition(item1.someNotNullDouble.less(2.4));
 			assertEquals(new Double(2.1+2.2+2.3).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);

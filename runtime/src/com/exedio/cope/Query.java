@@ -46,6 +46,11 @@ public final class Query<R>
 	boolean makeStatementInfo = false;
 	private StatementInfo statementInfo = null;
 	
+	public Query(final Selectable<? extends R> select)
+	{
+		this(select, (Condition)null);
+	}
+	
 	public Query(final Selectable<? extends R> select, final Condition condition)
 	{
 		this.selects = new Selectable[]{select};
