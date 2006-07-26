@@ -350,11 +350,11 @@ final class Generator
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.name);
-		o.write("(final "+SetValue.class.getName()+"[] initialAttributes)");
+		o.write("(final "+SetValue.class.getName()+"[] setValues)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\tsuper(initialAttributes);");
+		o.write("\t\tsuper(setValues);");
 		o.write(lineSeparator);
 		o.write("\t}");
 	}
