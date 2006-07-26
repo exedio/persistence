@@ -152,7 +152,7 @@ static final StringAttribute email =
 			In the instrumented code you will find a new convenience method
 		</div>
 <pre>
-static final Customer findbyEmail(String email);
+static final Customer findByEmail(String email);
 </pre>
 		<div>
 			which does, what it's name suggests.
@@ -162,7 +162,7 @@ static final Customer findbyEmail(String email);
 			the notation is slightly different:
 		</div>
 <pre>
-class MatrixElement
+class MatrixElement extends Item
 {
    static final IntegerAttribute x =
        new IntegerAttribute();
