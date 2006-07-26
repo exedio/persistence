@@ -214,7 +214,7 @@ class ProductGroup extends Item
 class Product extends Item
 {
    static final ItemAttribute&lt;ProductGroup&gt; productGroup =
-       newEnumAttribute(ProductGroup.class);
+       newItemAttribute(ProductGroup.class);
 }
 </pre>
 		<div>
@@ -224,11 +224,11 @@ class Product extends Item
 			of an item attribute is <i>forbid</i>.
 			Alternativly you may want to have all products of a product group to be deleted,
 			if that product group is deleted.
-			To achive this, change the <i>default policy</i> to <i>cascade</i>.
+			To achive this, change the <i>delete policy</i> to <i>cascade</i>.
 		</div>
 <pre>
 static final ItemAttribute&lt;ProductGroup&gt; productGroup =
-    newEnumAttribute(ProductGroup.class, <b>CASCADE</b>);
+    newItemAttribute(ProductGroup.class, <b>CASCADE</b>);
 </pre>
 		<div>
 			Yet another alternative is to set the item attribute to null
@@ -237,7 +237,7 @@ static final ItemAttribute&lt;ProductGroup&gt; productGroup =
 		</div>
 <pre>
 static final ItemAttribute&lt;ProductGroup&gt; productGroup =
-    newEnumAttribute(<b>OPTIONAL</b>, ProductGroup.class, <b>NULLIFY</b>);
+    newItemAttribute(<b>OPTIONAL</b>, ProductGroup.class, <b>NULLIFY</b>);
 </pre>
 		<div>
 			Of course <i>nullify</i> makes no sense for a <i>mandatory</i> attribute,
