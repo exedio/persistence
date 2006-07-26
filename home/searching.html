@@ -221,7 +221,7 @@ List&lt;String&gt; emails = q.search();
 			To get a list of the greatest 10 login counters you could write:
 		</div>
 <pre>
-Query&lt;Integer&gt; q = new Query&lt;String&gt;(loginCounter);
+Query&lt;Integer&gt; q = new Query&lt;Integer&gt;(loginCounter);
 q.setOrderBy(loginCounter, true);
 q.setLimit(0, 10);
 List&lt;Integer&gt; loginCounters = q.search();
