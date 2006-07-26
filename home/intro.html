@@ -258,9 +258,9 @@ public static void main(String[] args)
    model.createDatabase();
    model.startTransaction();
    Customer c = new Customer("copetest@exedio.com");
-   System.out.println("email:"+customer.getEmail());
+   System.out.println("email:"+c.getEmail());
    c.setEmail("copetest@exedio.com");
-   System.out.println("email2:"+customer.getEmail());
+   System.out.println("email2:"+c.getEmail());
    model.commit();
 }
 </pre>
