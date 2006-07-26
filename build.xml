@@ -877,8 +877,8 @@
 			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
 				<exclude name="build/**" />
-				<exclude name="api/**" />
 				<exclude name="home/api/**" />
+				<exclude name="home/lib/**" />
 				<exclude name="cruise/**" />
 				<exclude name="**/*_Jspm.java" />
 				
