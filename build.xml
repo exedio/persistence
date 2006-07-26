@@ -849,6 +849,8 @@
 				<include name="exedio-cope-instrument.jar" />
 			</fileset>
 			<fileset dir="lib">
+				<include name="commons-collections.jar" />
+				<include name="pcj.jar" />
 				<include name="bsh-core.jar" />
 			</fileset>
 		</copy>
