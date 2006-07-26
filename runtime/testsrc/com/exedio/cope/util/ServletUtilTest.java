@@ -53,6 +53,26 @@ public class ServletUtilTest extends CopeAssert
 
 		try
 		{
+			ServletUtil.getModel(new MockFilterConfig(null));
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("init-param 'model' missing", e.getMessage());
+		}
+
+		try
+		{
+			ServletUtil.getModel(new MockFilterConfig("zack"));
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("init-param 'model' does not contain '#', but was zack", e.getMessage());
+		}
+
+		try
+		{
 			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull"));
 			fail();
 		}
