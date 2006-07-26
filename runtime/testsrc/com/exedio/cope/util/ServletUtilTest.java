@@ -73,6 +73,16 @@ public class ServletUtilTest extends CopeAssert
 
 		try
 		{
+			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists"));
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
+		}
+
+		try
+		{
 			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull"));
 			fail();
 		}
