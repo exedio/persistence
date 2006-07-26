@@ -266,7 +266,7 @@ class Order extends <a href="api/com/exedio/cope/Item.html">Item</a>
 		</div>
 <pre>
 Query&lt;Order&gt; q = Order.TYPE.newQuery(Customer.email.endsWith(".com"));
-q.join(Order.buyer.equal(Customer.TYPE.getThis()));
+q.join(Order.TYPE, Order.buyer.equal(Customer.TYPE.getThis()));
 List&lt;Order&gt; orders = q.search();
 </pre>
 		<div>
@@ -276,7 +276,7 @@ List&lt;Order&gt; orders = q.search();
 			using a convenience method:
 		</div>
 <pre>
-q.join(Order.buyer.<b>equalTarget()</b>);
+q.join(Order.TYPE, Order.buyer.<b>equalTarget()</b>);
 </pre>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>
