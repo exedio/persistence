@@ -774,6 +774,7 @@
 	
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
 		<delete dir="build" />
+		<delete dir="home/lib" />
 	</target>
 	
 	<target name="api" depends="local.properties">
@@ -840,8 +841,20 @@
 			<group title="Database Schema Management Facility" packages="com.exedio.dsmf" />
 		</javadoc>
 	</target>
+	
+	<target name="home.lib" depends="runtime.jar, instrument.jar">
+		<copy todir="home/lib">
+			<fileset dir="build">
+				<include name="exedio-cope.jar" />
+				<include name="exedio-cope-instrument.jar" />
+			</fileset>
+			<fileset dir="lib">
+				<include name="bsh-core.jar" />
+			</fileset>
+		</copy>
+	</target>
 
-	<target name="home.zip" depends="api">
+	<target name="home.zip" depends="api, home.lib">
 		<mkdir dir="build/runtime" />
 		<tar destfile="build/exedio-cope-home.tar.bz2"
 			  compression="bzip2">
