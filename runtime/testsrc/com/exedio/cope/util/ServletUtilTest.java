@@ -39,51 +39,66 @@ public class ServletUtilTest extends CopeAssert
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	public static final Model modelOk2 = new Model(ModelOk2.TYPE);
+	public static final Model modelContext = new Model(ModelContext.TYPE);
 	public static final Model modelNull = null;
 
 	public void testIt()
 	{
 		assertModelNotInitialized(modelOk);
-		assertSame(modelOk, ServletUtil.getModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk")));
+		assertSame(modelOk, ServletUtil.getModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
 		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
 
 		assertModelNotInitialized(modelOk2);
-		assertSame(modelOk2, ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2")));
+		assertSame(modelOk2, ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
+
+		assertModelNotInitialized(modelContext);
+		assertSame(modelContext, ServletUtil.getModel(new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
+		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig(null));
+			ServletUtil.getModel(new MockFilterConfig(null, "nameNull"));
 			fail();
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("init-param 'model' missing", e.getMessage());
+			assertEquals("filter nameNull: neither init-param nor context-param 'model' set", e.getMessage());
 		}
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig("zack"));
+			ServletUtil.getModel(new MockServletConfig("zick", "nameZick"));
 			fail();
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("init-param 'model' does not contain '#', but was zack", e.getMessage());
+			assertEquals("servlet nameZick: init-param 'model' does not contain '#', but was zick", e.getMessage());
 		}
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists"));
+			ServletUtil.getModel(new MockFilterConfig("zack", "nameZack"));
 			fail();
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
+			assertEquals("filter nameZack: init-param 'model' does not contain '#', but was zack", e.getMessage());
 		}
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull"));
+			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"));
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("filter nameNotExists: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
+		}
+
+		try
+		{
+			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"));
 			fail();
 		}
 		catch(NullPointerException e)
@@ -108,15 +123,18 @@ public class ServletUtilTest extends CopeAssert
 	private static class MockServletConfig implements ServletConfig
 	{
 		final String model;
+		final String name;
 
-		MockServletConfig(final String model)
+		MockServletConfig(final String model, final String name)
 		{
 			this.model = model;
+			this.name = name;
+			assert name!=null;
 		}
 
 		public ServletContext getServletContext()
 		{
-			return new MockServletContext();
+			return new MockServletContext(null);
 		}
 
 		public String getInitParameter(final String name)
@@ -129,7 +147,7 @@ public class ServletUtilTest extends CopeAssert
 
 		public String getServletName()
 		{
-			throw new RuntimeException();
+			return name;
 		}
 
 		public Enumeration getInitParameterNames()
@@ -141,15 +159,26 @@ public class ServletUtilTest extends CopeAssert
 	private static class MockFilterConfig implements FilterConfig
 	{
 		final String model;
+		final String name;
+		final ServletContext context;
 
-		MockFilterConfig(final String model)
+		MockFilterConfig(final String model, final String name)
+		{
+			this(model, name, new MockServletContext(null));
+		}
+
+		MockFilterConfig(final String model, final String name, final ServletContext context)
 		{
 			this.model = model;
+			this.name = name;
+			this.context = context;
+			assert name!=null;
+			assert context!=null;
 		}
 
 		public ServletContext getServletContext()
 		{
-			return new MockServletContext();
+			return context;
 		}
 
 		public String getInitParameter(final String name)
@@ -162,7 +191,7 @@ public class ServletUtilTest extends CopeAssert
 
 		public String getFilterName()
 		{
-			throw new RuntimeException();
+			return name;
 		}
 
 		public Enumeration getInitParameterNames()
@@ -173,6 +202,12 @@ public class ServletUtilTest extends CopeAssert
 
 	private static class MockServletContext implements ServletContext
 	{
+		final String model;
+		
+		MockServletContext(final String model)
+		{
+			this.model = model;
+		}
 
 		public ServletContext getContext(String name)
 		{
@@ -271,7 +306,10 @@ public class ServletUtilTest extends CopeAssert
 
 		public String getInitParameter(String name)
 		{
-			throw new RuntimeException(name);
+			if("model".equals(name))
+				return model;
+			else
+				throw new RuntimeException(name);
 		}
 
 		public Enumeration getInitParameterNames()
@@ -391,5 +429,48 @@ public class ServletUtilTest extends CopeAssert
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	public static final com.exedio.cope.Type<ModelOk2> TYPE = newType(ModelOk2.class)
+;}
+	static class ModelContext extends Item
+	{
+	/**
+
+	 **
+	 * Creates a new ModelContext with all the attributes initially needed.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of attributes.
+	 */
+	ModelContext()
+	{
+		this(new com.exedio.cope.SetValue[]{
+		});
+	}/**
+
+	 **
+	 * Creates a new ModelContext and sets the given attributes initially.
+	 * This constructor is called by {@link com.exedio.cope.Type#newItem Type.newItem}.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.generic.constructor public|package|protected|private|none</tt> in the class comment.
+	 */
+	private ModelContext(final com.exedio.cope.SetValue[] initialAttributes)
+	{
+		super(initialAttributes);
+	}/**
+
+	 **
+	 * Reactivation constructor. Used for internal purposes only.
+	 * @see com.exedio.cope.Item#Item(com.exedio.cope.util.ReactivationConstructorDummy,int)
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 */
+	private ModelContext(com.exedio.cope.util.ReactivationConstructorDummy d,final int pk)
+	{
+		super(d,pk);
+	}/**
+
+	 **
+	 * The persistent type information for modelContext.
+	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
+	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
+	 */
+	public static final com.exedio.cope.Type<ModelContext> TYPE = newType(ModelContext.class)
 ;}
 }

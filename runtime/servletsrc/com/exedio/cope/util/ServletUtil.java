@@ -34,26 +34,40 @@ public class ServletUtil
 
 	public static final Model getModel(final ServletConfig config)
 	{
-		return getModelByName(config.getInitParameter(PARAMETER_MODEL), config.getServletContext());
+		return getModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
 	}
 	
 	public static final Model getModel(final FilterConfig config)
 	{
-		return getModelByName(config.getInitParameter(PARAMETER_MODEL), config.getServletContext());
+		return getModel(config.getInitParameter(PARAMETER_MODEL), "filter", config.getFilterName(), config.getServletContext());
 	}
 	
-	private static final Model getModelByName(final String initParam, final ServletContext context)
+	private static final Model getModel(final String initParam, final String kind, final String name, final ServletContext context)
 	{
+		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
+		final String modelName;
+		final String modelNameSource;
 		if(initParam==null)
-			throw new NullPointerException("init-param '"+PARAMETER_MODEL+"' missing");
+		{
+			final String contextParam = context.getInitParameter(PARAMETER_MODEL);
+			if(contextParam==null)
+				throw new NullPointerException(kind + ' ' + name + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
+			modelName = contextParam;
+			modelNameSource = "context-param";
+		}
+		else
+		{
+			modelName = initParam;
+			modelNameSource = "init-param";
+		}
 		
 		try
 		{
-			final int pos = initParam.indexOf(DIVIDER);
+			final int pos = modelName.indexOf(DIVIDER);
 			if(pos<=0)
-				throw new RuntimeException("init-param '"+PARAMETER_MODEL+"' does not contain '"+DIVIDER+"', but was "+initParam);
-			final String modelClassName = initParam.substring(0, pos);
-			final String modelAttributeName = initParam.substring(pos+1);
+				throw new RuntimeException(kind + ' ' + name + ": " + modelNameSource + " '"+PARAMETER_MODEL+"' does not contain '"+DIVIDER+"', but was "+modelName);
+			final String modelClassName = modelName.substring(0, pos);
+			final String modelAttributeName = modelName.substring(pos+1);
 
 			final Class modelClass = Class.forName(modelClassName);
 
@@ -64,7 +78,7 @@ public class ServletUtil
 			}
 			catch(NoSuchFieldException e)
 			{
-				throw new RuntimeException("field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.", e);
+				throw new RuntimeException(kind + ' ' + name + ": field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.", e);
 			}
 			
 			final Model result = (Model)modelField.get(null);
