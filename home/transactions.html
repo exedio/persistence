@@ -45,7 +45,7 @@ boolean failure = true;
 try
 {
    Main.model.startTransaction();
-   ...
+   // put the body of the transaction here
    Main.model.commit();
    failure = false;
 }
@@ -66,7 +66,7 @@ finally
 try
 {
    Main.model.startTransaction();
-   ...
+   // put the body of the transaction here
    Main.model.commit();
 }
 finally
