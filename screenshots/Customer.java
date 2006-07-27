@@ -3,7 +3,7 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.pattern.MD5Hash;
 
 /**
- * Defines a persistent class customer within your application .
+ * Defines a persistent class customer within your application.
  */
 public class Customer extends Item
 {
