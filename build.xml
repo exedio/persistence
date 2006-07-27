@@ -810,7 +810,7 @@
 			<doctitle><![CDATA[Cope with Object Persistence<br>API Specification]]></doctitle>
 			<header>exedio cope</header>
 			<footer><![CDATA[Cope with<br>Object<br>Persistence]]></footer>
-			<bottom><![CDATA[<small>Copyright &copy; 2004-2006 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
+			<bottom><![CDATA[<a href="http://sourceforge.net/" target="_top"><img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1" width="88" height="31" border="0" align="right" alt="SourceForge.net Logo" /></a><small>Copyright &copy; 2004-2006 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
 			<link href="${api.link.jdk}"   packagelistLoc="package-list/jdk"   offline="true" />
 			<link href="${api.link.j2ee}"  packagelistLoc="package-list/j2ee"  offline="true" />
 			<link href="${api.link.junit}" packagelistLoc="package-list/junit" offline="true" />
