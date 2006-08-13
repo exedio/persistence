@@ -20,6 +20,9 @@ package com.exedio.cope;
 
 import java.io.File;
 
+import com.exedio.cope.pattern.AttributeListItem;
+import com.exedio.cope.pattern.AttributeListLimitedItem;
+import com.exedio.cope.pattern.AttributeMapItem;
 import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.DAttribute;
 import com.exedio.cope.pattern.DEnumValue;
@@ -34,8 +37,6 @@ import com.exedio.cope.pattern.RelationSelfItem;
 import com.exedio.cope.pattern.RelationSourceItem;
 import com.exedio.cope.pattern.RelationTargetItem;
 import com.exedio.cope.pattern.SerializerItem;
-import com.exedio.cope.pattern.AttributeListItem;
-import com.exedio.cope.pattern.AttributeListLimitedItem;
 import com.exedio.cope.pattern.VectorRelationItem;
 
 
@@ -53,6 +54,7 @@ public class Main
 	public static final Model md5Model = new Model(MD5Item.TYPE);
 	public static final Model attributeListLimitedModel = new Model(AttributeListLimitedItem.TYPE);
 	public static final Model attributeListModel = new Model(AttributeListItem.TYPE);
+	public static final Model attributeMapModel = new Model(AttributeMapItem.TYPE);
 	public static final Model serializerModel = new Model(SerializerItem.TYPE);
 	public static final Model customModel = new Model(CustomItem.TYPE, JavaViewItem.TYPE);
 	public static final Model cacheIsolationModel = new Model(CacheIsolationItem.TYPE);
@@ -120,6 +122,7 @@ public class Main
 		tearDown(md5Model);
 		tearDown(attributeListLimitedModel);
 		tearDown(attributeListModel);
+		tearDown(attributeMapModel);
 		tearDown(serializerModel);
 		tearDown(relationModel);
 		tearDown(customModel);
