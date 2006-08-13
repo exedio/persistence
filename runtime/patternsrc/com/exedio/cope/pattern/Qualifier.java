@@ -135,7 +135,7 @@ public final class Qualifier extends Pattern
 		return uniqueConstraint.searchUnique(keys);
 	}
 	
-	public <X> X get(final Object[] keys, final FunctionAttribute<X> attribute)
+	public <X> X get(final FunctionAttribute<X> attribute, final Object[] keys)
 	{
 		final Item item = uniqueConstraint.searchUnique(keys);
 		if(item!=null)
@@ -159,7 +159,7 @@ public final class Qualifier extends Pattern
 		return item;
 	}
 	
-	public <X> void set(final Object[] keys, final FunctionAttribute<X> attribute, final X value)
+	public <X> void set(final FunctionAttribute<X> attribute, final X value, final Object[] keys)
 	{
 		final Item item = getForSet(keys);
 		attribute.set(item, value);

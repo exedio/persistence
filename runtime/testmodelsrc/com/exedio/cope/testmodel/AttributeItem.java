@@ -692,7 +692,7 @@ public class AttributeItem extends Item
 	 */
 	public final java.lang.String getSomeQualifiedString(final EmptyItem key)
 	{
-		return com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.get(new Object[]{this,key},com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString);
+		return com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.get(com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString,new Object[]{this,key});
 	}/**
 
 	 **
@@ -703,7 +703,7 @@ public class AttributeItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.set(new Object[]{this,key},com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString,someQualifiedString);
+		com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.set(com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString,someQualifiedString,new Object[]{this,key});
 	}/**
 
 	 **
