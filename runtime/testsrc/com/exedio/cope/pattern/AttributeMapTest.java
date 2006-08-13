@@ -65,7 +65,7 @@ public class AttributeMapTest extends AbstractLibTest
 		assertEquals("uniqueConstraint", item.language.getUniqueConstraint().getName());
 		assertSame(item.language.getRelationType(), item.language.getUniqueConstraint().getType());
 
-		assertEquals("AttributeMapItem.language", AttributeMapItem.language.getRelationType().getID());
+		assertEquals("AttributeMapItem.language", item.language.getRelationType().getID());
 		assertEquals("com.exedio.cope.ItemWithoutJavaClass", item.language.getRelationType().getJavaClass().getName());
 		assertEquals(null, item.language.getRelationType().getSupertype());
 		assertEquals(list(), item.language.getRelationType().getSubTypes());
@@ -79,6 +79,7 @@ public class AttributeMapTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(AttributeMapItem.LanguageEntry.name, AttributeMapItem.LanguageEntry.nameLength), item.language.getAttributes());
 
 		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.language, item.code), item.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(item.TYPE, item.language.getRelationType(), item.code.getRelationType()), model.getTypes());
 
 		// test persistence
 		assertEquals(null, item.getName(DE));
