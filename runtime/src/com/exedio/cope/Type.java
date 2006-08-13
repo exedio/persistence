@@ -471,7 +471,7 @@ public final class Type<C extends Item>
 	
 	public Class<C> getJavaClass()
 	{
-		return javaClass;
+		return withoutJavaClass ? null : javaClass;
 	}
 	
 	/**

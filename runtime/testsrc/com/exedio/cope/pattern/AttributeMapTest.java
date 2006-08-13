@@ -66,7 +66,7 @@ public class AttributeMapTest extends AbstractLibTest
 		assertSame(item.language.getRelationType(), item.language.getUniqueConstraint().getType());
 
 		assertEquals("AttributeMapItem.language", item.language.getRelationType().getID());
-		assertEquals("com.exedio.cope.ItemWithoutJavaClass", item.language.getRelationType().getJavaClass().getName());
+		assertEquals(null, item.language.getRelationType().getJavaClass());
 		assertEquals(null, item.language.getRelationType().getSupertype());
 		assertEquals(list(), item.language.getRelationType().getSubTypes());
 		assertEqualsUnmodifiable(
