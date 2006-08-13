@@ -89,7 +89,7 @@ public class QualifiedItem extends Item
 	 */
 	public final com.exedio.cope.testmodel.QualifiedEmptyQualifier getQualifier(final EmptyItem key)
 	{
-		return (com.exedio.cope.testmodel.QualifiedEmptyQualifier)com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.getQualifier(new Object[]{this,key});
+		return (com.exedio.cope.testmodel.QualifiedEmptyQualifier)com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.getQualifier(this,key);
 	}/**
 
 	 **
@@ -98,7 +98,7 @@ public class QualifiedItem extends Item
 	 */
 	public final java.lang.String getQualifiedA(final EmptyItem key)
 	{
-		return com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.get(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedA,new Object[]{this,key});
+		return com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.get(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedA,this,key);
 	}/**
 
 	 **
@@ -109,7 +109,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.set(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedA,qualifiedA,new Object[]{this,key});
+		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.set(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedA,qualifiedA,this,key);
 	}/**
 
 	 **
@@ -118,7 +118,7 @@ public class QualifiedItem extends Item
 	 */
 	public final java.lang.String getQualifiedB(final EmptyItem key)
 	{
-		return com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.get(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedB,new Object[]{this,key});
+		return com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.get(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedB,this,key);
 	}/**
 
 	 **
@@ -129,7 +129,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.set(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedB,qualifiedB,new Object[]{this,key});
+		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.set(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedB,qualifiedB,this,key);
 	}/**
 
 	 **
@@ -138,7 +138,7 @@ public class QualifiedItem extends Item
 	 */
 	public final com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier getIntEnumQualifier(final java.lang.Integer keyX,final KeyEnum keyY)
 	{
-		return (com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier)com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.getQualifier(new Object[]{this,keyX,keyY});
+		return (com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier)com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.getQualifier(this,keyX,keyY);
 	}/**
 
 	 **
@@ -147,7 +147,7 @@ public class QualifiedItem extends Item
 	 */
 	public final java.lang.String getQualifiedA(final java.lang.Integer keyX,final KeyEnum keyY)
 	{
-		return com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.get(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedA,new Object[]{this,keyX,keyY});
+		return com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.get(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedA,this,keyX,keyY);
 	}/**
 
 	 **
@@ -158,7 +158,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.set(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA,new Object[]{this,keyX,keyY});
+		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.set(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA,this,keyX,keyY);
 	}/**
 
 	 **
@@ -167,7 +167,7 @@ public class QualifiedItem extends Item
 	 */
 	public final java.lang.String getQualifiedB(final java.lang.Integer keyX,final KeyEnum keyY)
 	{
-		return com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.get(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedB,new Object[]{this,keyX,keyY});
+		return com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.get(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedB,this,keyX,keyY);
 	}/**
 
 	 **
@@ -178,7 +178,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.set(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB,new Object[]{this,keyX,keyY});
+		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.set(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB,this,keyX,keyY);
 	}/**
 
 	 **
@@ -187,7 +187,7 @@ public class QualifiedItem extends Item
 	 */
 	public final com.exedio.cope.testmodel.QualifiedStringQualifier getStringQualifier(final java.lang.String key)
 	{
-		return (com.exedio.cope.testmodel.QualifiedStringQualifier)com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.getQualifier(new Object[]{this,key});
+		return (com.exedio.cope.testmodel.QualifiedStringQualifier)com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.getQualifier(this,key);
 	}/**
 
 	 **
@@ -196,7 +196,7 @@ public class QualifiedItem extends Item
 	 */
 	public final java.lang.Integer getQualifiedA(final java.lang.String key)
 	{
-		return com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.get(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedA,new Object[]{this,key});
+		return com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.get(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedA,this,key);
 	}/**
 
 	 **
@@ -205,7 +205,7 @@ public class QualifiedItem extends Item
 	 */
 	public final void setQualifiedA(final java.lang.String key,final java.lang.Integer qualifiedA)
 	{
-		com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.set(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedA,qualifiedA,new Object[]{this,key});
+		com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.set(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedA,qualifiedA,this,key);
 	}/**
 
 	 **
@@ -214,7 +214,7 @@ public class QualifiedItem extends Item
 	 */
 	public final java.lang.Integer getQualifiedB(final java.lang.String key)
 	{
-		return com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.get(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedB,new Object[]{this,key});
+		return com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.get(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedB,this,key);
 	}/**
 
 	 **
@@ -223,7 +223,7 @@ public class QualifiedItem extends Item
 	 */
 	public final void setQualifiedB(final java.lang.String key,final java.lang.Integer qualifiedB)
 	{
-		com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.set(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedB,qualifiedB,new Object[]{this,key});
+		com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.set(com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedB,qualifiedB,this,key);
 	}/**
 
 	 **

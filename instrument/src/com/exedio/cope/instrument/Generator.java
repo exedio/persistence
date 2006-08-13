@@ -802,9 +802,9 @@ final class Generator
 		o.write(qualifierClassName);
 		o.write('.');
 		o.write(qualifier.name);
-		o.write(".getQualifier(new Object[]{this");
+		o.write(".getQualifier(this");
 		writeQualifierCall(qualifier);
-		o.write("});");
+		o.write(");");
 		o.write(lineSeparator);
 
 		o.write("\t}");
@@ -856,9 +856,9 @@ final class Generator
 			o.write(qualifierClassName);
 			o.write('.');
 			o.write(attribute.name);
-			o.write(",new Object[]{this");
+			o.write(",this");
 			writeQualifierCall(qualifier);
-			o.write("});");
+			o.write(");");
 			o.write(lineSeparator);
 	
 			o.write("\t}");
@@ -905,9 +905,9 @@ final class Generator
 			o.write(attribute.name);
 			o.write(',');
 			o.write(attribute.name);
-			o.write(",new Object[]{this");
+			o.write(",this");
 			writeQualifierCall(qualifier);
-			o.write("});");
+			o.write(");");
 			o.write(lineSeparator);
 			o.write("\t}");
 		}
