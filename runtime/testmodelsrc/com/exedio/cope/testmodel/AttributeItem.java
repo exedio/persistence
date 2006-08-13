@@ -703,7 +703,7 @@ public class AttributeItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString.set(com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.getForSet(new Object[]{this,key}),someQualifiedString);
+		com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.set(new Object[]{this,key},com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString,someQualifiedString);
 	}/**
 
 	 **

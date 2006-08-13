@@ -109,7 +109,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedA.set(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.getForSet(new Object[]{this,key}),qualifiedA);
+		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.set(new Object[]{this,key},com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedA,qualifiedA);
 	}/**
 
 	 **
@@ -129,7 +129,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedB.set(com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.getForSet(new Object[]{this,key}),qualifiedB);
+		com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifier.set(new Object[]{this,key},com.exedio.cope.testmodel.QualifiedEmptyQualifier.qualifiedB,qualifiedB);
 	}/**
 
 	 **
@@ -158,7 +158,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedA.set(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.getForSet(new Object[]{this,keyX,keyY}),qualifiedA);
+		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.set(new Object[]{this,keyX,keyY},com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedA,qualifiedA);
 	}/**
 
 	 **
@@ -178,7 +178,7 @@ public class QualifiedItem extends Item
 			throws
 				com.exedio.cope.LengthViolationException
 	{
-		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedB.set(com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.getForSet(new Object[]{this,keyX,keyY}),qualifiedB);
+		com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.intEnumQualifier.set(new Object[]{this,keyX,keyY},com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.qualifiedB,qualifiedB);
 	}/**
 
 	 **
@@ -205,7 +205,7 @@ public class QualifiedItem extends Item
 	 */
 	public final void setQualifiedA(final java.lang.String key,final java.lang.Integer qualifiedA)
 	{
-		com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedA.set(com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.getForSet(new Object[]{this,key}),qualifiedA);
+		com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.set(new Object[]{this,key},com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedA,qualifiedA);
 	}/**
 
 	 **
@@ -223,7 +223,7 @@ public class QualifiedItem extends Item
 	 */
 	public final void setQualifiedB(final java.lang.String key,final java.lang.Integer qualifiedB)
 	{
-		com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedB.set(com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.getForSet(new Object[]{this,key}),qualifiedB);
+		com.exedio.cope.testmodel.QualifiedStringQualifier.stringQualifier.set(new Object[]{this,key},com.exedio.cope.testmodel.QualifiedStringQualifier.qualifiedB,qualifiedB);
 	}/**
 
 	 **

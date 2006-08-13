@@ -158,6 +158,12 @@ public final class Qualifier extends Pattern
 		}
 		return item;
 	}
+	
+	public <X> void set(final Object[] keys, final FunctionAttribute<X> attribute, final X value)
+	{
+		final Item item = getForSet(keys);
+		attribute.set(item, value);
+	}
 
 	public Item set(final Object[] keys, final SetValue[] values)
 	{

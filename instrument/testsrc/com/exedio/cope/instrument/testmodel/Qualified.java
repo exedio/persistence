@@ -81,7 +81,7 @@ public class Qualified extends Item
 	 */
 	public final void setNumber(final java.lang.String key,final int number)
 	{
-		com.exedio.cope.instrument.testmodel.QualifiedName.number.set(com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.getForSet(new Object[]{this,key}),number);
+		com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.set(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.number,number);
 	}/**
 
 	 **
@@ -99,7 +99,7 @@ public class Qualified extends Item
 	 */
 	public final void setOptionalNumber(final java.lang.String key,final java.lang.Integer optionalNumber)
 	{
-		com.exedio.cope.instrument.testmodel.QualifiedName.optionalNumber.set(com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.getForSet(new Object[]{this,key}),optionalNumber);
+		com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.set(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.optionalNumber,optionalNumber);
 	}/**
 
 	 **
@@ -108,7 +108,7 @@ public class Qualified extends Item
 	 */
 	public final void setNoneGetterNumber(final java.lang.String key,final int noneGetterNumber)
 	{
-		com.exedio.cope.instrument.testmodel.QualifiedName.noneGetterNumber.set(com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.getForSet(new Object[]{this,key}),noneGetterNumber);
+		com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.set(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.noneGetterNumber,noneGetterNumber);
 	}/**
 
 	 **
@@ -126,7 +126,7 @@ public class Qualified extends Item
 	 */
 	public final void setPrivateGetterNumber(final java.lang.String key,final int privateGetterNumber)
 	{
-		com.exedio.cope.instrument.testmodel.QualifiedName.privateGetterNumber.set(com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.getForSet(new Object[]{this,key}),privateGetterNumber);
+		com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.set(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.privateGetterNumber,privateGetterNumber);
 	}/**
 
 	 **
@@ -144,7 +144,7 @@ public class Qualified extends Item
 	 */
 	public final void setInternalGetterNumber(final java.lang.String key,final int internalGetterNumber)
 	{
-		com.exedio.cope.instrument.testmodel.QualifiedName.internalGetterNumber.set(com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.getForSet(new Object[]{this,key}),internalGetterNumber);
+		com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.set(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.internalGetterNumber,internalGetterNumber);
 	}/**
 
 	 **
@@ -171,7 +171,7 @@ public class Qualified extends Item
 	 */
 	private final void setPrivateSetterNumber(final java.lang.String key,final int privateSetterNumber)
 	{
-		com.exedio.cope.instrument.testmodel.QualifiedName.privateSetterNumber.set(com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.getForSet(new Object[]{this,key}),privateSetterNumber);
+		com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.set(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.privateSetterNumber,privateSetterNumber);
 	}/**
 
 	 **
@@ -189,7 +189,7 @@ public class Qualified extends Item
 	 */
 	private final void setInternalSetterNumberInternal(final java.lang.String key,final int internalSetterNumber)
 	{
-		com.exedio.cope.instrument.testmodel.QualifiedName.internalSetterNumber.set(com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.getForSet(new Object[]{this,key}),internalSetterNumber);
+		com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.set(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.internalSetterNumber,internalSetterNumber);
 	}/**
 
 	 **
