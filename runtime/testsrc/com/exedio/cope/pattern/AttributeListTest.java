@@ -42,7 +42,7 @@ public class AttributeListTest extends AbstractLibTest
 		deleteOnTearDown(item = new AttributeListItem());
 	}
 	
-	public void testVector()
+	public void testIt()
 	{
 		// test model
 		assertEquals(list(
@@ -77,10 +77,12 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals("dates", item.dates.getName());
 
 		assertEquals("AttributeListItem.strings", item.strings.getRelationType().getID());
+		assertEquals("com.exedio.cope.ItemWithoutJavaClass", item.dates.getRelationType().getJavaClass().getName());
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
 
 		assertEquals("AttributeListItem.dates", item.dates.getRelationType().getID());
+		assertEquals("com.exedio.cope.ItemWithoutJavaClass", item.dates.getRelationType().getJavaClass().getName());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
 
