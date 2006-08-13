@@ -130,14 +130,14 @@ public final class Qualifier extends Pattern
 		return attributes;
 	}
 
-	public Item getQualifier(final Object[] values)
+	public Item getQualifier(final Object[] keys)
 	{
-		return uniqueConstraint.searchUnique(values);
+		return uniqueConstraint.searchUnique(keys);
 	}
 	
-	public <X> X get(final Object[] values, final FunctionAttribute<X> attribute)
+	public <X> X get(final Object[] keys, final FunctionAttribute<X> attribute)
 	{
-		final Item item = uniqueConstraint.searchUnique(values);
+		final Item item = uniqueConstraint.searchUnique(keys);
 		if(item!=null)
 			return attribute.get(item);
 		else
