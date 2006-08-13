@@ -835,9 +835,8 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			final String resultType = attribute.persistentType;
 			writeModifier(attribute.getGeneratedGetterModifier());
-			o.write(resultType);
+			o.write(attribute.persistentType);
 			o.write(" get");
 			o.write(toCamelCase(attribute.name));
 			o.write(attribute.getterOption.suffix);
@@ -849,9 +848,7 @@ final class Generator
 			o.write("\t{");
 			o.write(lineSeparator);
 	
-			o.write("\t\treturn (");
-			o.write(resultType);
-			o.write(')');
+			o.write("\t\treturn ");
 			o.write(qualifierClassName);
 			o.write('.');
 			o.write(qualifier.name);

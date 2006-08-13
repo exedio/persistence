@@ -72,7 +72,7 @@ public class Qualified extends Item
 	 */
 	public final java.lang.Integer getNumber(final java.lang.String key)
 	{
-		return (java.lang.Integer)com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.number);
+		return com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.number);
 	}/**
 
 	 **
@@ -90,7 +90,7 @@ public class Qualified extends Item
 	 */
 	public final java.lang.Integer getOptionalNumber(final java.lang.String key)
 	{
-		return (java.lang.Integer)com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.optionalNumber);
+		return com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.optionalNumber);
 	}/**
 
 	 **
@@ -117,7 +117,7 @@ public class Qualified extends Item
 	 */
 	private final java.lang.Integer getPrivateGetterNumber(final java.lang.String key)
 	{
-		return (java.lang.Integer)com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.privateGetterNumber);
+		return com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.privateGetterNumber);
 	}/**
 
 	 **
@@ -135,7 +135,7 @@ public class Qualified extends Item
 	 */
 	private final java.lang.Integer getInternalGetterNumberInternal(final java.lang.String key)
 	{
-		return (java.lang.Integer)com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.internalGetterNumber);
+		return com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.internalGetterNumber);
 	}/**
 
 	 **
@@ -153,7 +153,7 @@ public class Qualified extends Item
 	 */
 	public final java.lang.Integer getNoneSetterNumber(final java.lang.String key)
 	{
-		return (java.lang.Integer)com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.noneSetterNumber);
+		return com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.noneSetterNumber);
 	}/**
 
 	 **
@@ -162,7 +162,7 @@ public class Qualified extends Item
 	 */
 	public final java.lang.Integer getPrivateSetterNumber(final java.lang.String key)
 	{
-		return (java.lang.Integer)com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.privateSetterNumber);
+		return com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.privateSetterNumber);
 	}/**
 
 	 **
@@ -180,7 +180,7 @@ public class Qualified extends Item
 	 */
 	public final java.lang.Integer getInternalSetterNumber(final java.lang.String key)
 	{
-		return (java.lang.Integer)com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.internalSetterNumber);
+		return com.exedio.cope.instrument.testmodel.QualifiedName.nameQualifier.get(new Object[]{this,key},com.exedio.cope.instrument.testmodel.QualifiedName.internalSetterNumber);
 	}/**
 
 	 **

@@ -692,7 +692,7 @@ public class AttributeItem extends Item
 	 */
 	public final java.lang.String getSomeQualifiedString(final EmptyItem key)
 	{
-		return (java.lang.String)com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.get(new Object[]{this,key},com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString);
+		return com.exedio.cope.testmodel.AttributeEmptyItem.emptyItem.get(new Object[]{this,key},com.exedio.cope.testmodel.AttributeEmptyItem.someQualifiedString);
 	}/**
 
 	 **
