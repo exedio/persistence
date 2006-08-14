@@ -37,7 +37,7 @@ public final class Type<C extends Item>
 {
 	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
 
-	final Class<C> javaClass;
+	private final Class<C> javaClass;
 	private final boolean withoutJavaClass;
 	final String id;
 	final boolean isAbstract;
