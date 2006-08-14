@@ -652,7 +652,10 @@ public final class Type<C extends Item>
 	
 	public boolean isAssignableFrom(final Type type)
 	{
-		return javaClass.isAssignableFrom(type.javaClass);
+		return 
+			(withoutJavaClass||type.withoutJavaClass)
+			? (this==type)
+			: javaClass.isAssignableFrom(type.javaClass);
 	}
 	
 	public boolean isAbstract()

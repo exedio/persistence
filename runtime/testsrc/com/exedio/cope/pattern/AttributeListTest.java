@@ -80,11 +80,13 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
+		assertEquals(false, item.strings.getRelationType().isAbstract());
 
 		assertEquals("AttributeListItem.dates", item.dates.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
+		assertEquals(false, item.dates.getRelationType().isAbstract());
 
 		assertEquals(item.strings.getRelationType(), item.strings.getParent().getType());
 		assertEquals(item.strings.getRelationType(), item.strings.getOrder().getType());
@@ -103,6 +105,11 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals("order", item.dates.getOrder().getName());
 		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
 		assertEquals("element", item.dates.getElement().getName());
+
+		assertTrue(item.strings.getRelationType().isAssignableFrom(item.strings.getRelationType()));
+		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.dates.getRelationType()));
+		assertTrue(!item.TYPE.isAssignableFrom(item.strings.getRelationType()));
+		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.TYPE));
 
 		// test persistence
 		assertEquals(list(), item.getStrings());
