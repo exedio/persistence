@@ -81,12 +81,16 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
 		assertEquals(false, item.strings.getRelationType().isAbstract());
+		assertEquals(null, item.strings.getRelationType().getThis().getValueClass());
+		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
 
 		assertEquals("AttributeListItem.dates", item.dates.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
 		assertEquals(false, item.dates.getRelationType().isAbstract());
+		assertEquals(null, item.dates.getRelationType().getThis().getValueClass());
+		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
 
 		assertEquals(item.strings.getRelationType(), item.strings.getParent().getType());
 		assertEquals(item.strings.getRelationType(), item.strings.getOrder().getType());

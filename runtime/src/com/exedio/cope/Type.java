@@ -966,7 +966,7 @@ public final class Type<C extends Item>
 		
 		public Class<E> getValueClass()
 		{
-			return type.javaClass;
+			return type.getJavaClass();
 		}
 		
 		public void append(final Statement bf, final Join join)
