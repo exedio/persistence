@@ -174,7 +174,7 @@ final class Cache
 				originalKey.hits++;
 				
 				if(query.makeStatementInfo)
-					query.addStatementInfo(new StatementInfo("from query cache, hit #" + originalKey.hits));
+					query.addStatementInfo(new StatementInfo("query cache hit #" + originalKey.hits));
 			}
 			queryHits++;
 		}
