@@ -70,4 +70,10 @@ public final class StatementInfo
 				s.print(o, level);
 	}
 
+	@Override
+	public String toString()
+	{
+		return text;
+	}
+
 }
