@@ -155,7 +155,6 @@
 		<ljavac srcdir="runtime/src" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/pcj.jar" />
-				<pathelement location="lib/commons-collections.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -211,7 +210,7 @@
 		<copy file="build/runtime/testprotocol.properties"
 				todir="build/runtime/classes/com/exedio/cope"
 				failonerror="false" />
-		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="pcj.jar commons-collections.jar">
+		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="pcj.jar">
 			<fileset dir="build/runtime/classes" />
 		</ljar>
 	</target>
@@ -280,7 +279,6 @@
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/pcj.jar" />
-						<pathelement location="lib/commons-collections.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 				</nbjpdastart-->
@@ -295,7 +293,6 @@
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/pcj.jar" />
-						<pathelement location="lib/commons-collections.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
@@ -331,7 +328,6 @@
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/pcj.jar" />
-						<pathelement location="lib/commons-collections.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
@@ -374,7 +370,6 @@
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/pcj.jar" />
-						<pathelement location="lib/commons-collections.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 						<pathelement location="lib/servlet-api.jar" />
@@ -404,7 +399,6 @@
 				
 				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="lib/pcj.jar" />
-					<fileset file="lib/commons-collections.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{db.driver}" />
 				</copy>
@@ -648,7 +642,6 @@
 				
 				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="lib/pcj.jar" />
-					<fileset file="lib/commons-collections.jar" />
 					<fileset file="lib/commons-fileupload-1.1.jar" />
 					<fileset file="lib/commons-io-1.2.jar" />
 					<fileset file="lib/exedio-cops.jar" />
@@ -827,7 +820,6 @@
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
 				<pathelement location="lib/pcj.jar" />
-				<pathelement location="lib/commons-collections.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="${ant.jar}" />
 				<pathelement location="lib/bsh-core.jar" />
@@ -849,7 +841,6 @@
 				<include name="exedio-cope-instrument.jar" />
 			</fileset>
 			<fileset dir="lib">
-				<include name="commons-collections.jar" />
 				<include name="pcj.jar" />
 				<include name="bsh-core.jar" />
 			</fileset>

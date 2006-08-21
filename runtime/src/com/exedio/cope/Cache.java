@@ -20,11 +20,10 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-
-import org.apache.commons.collections.map.LRUMap;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntOpenHashSet;
@@ -37,16 +36,14 @@ final class Cache
 	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
-	private final MyLRUMap queryCachesRaw;
-	private final Map<Query.Key, List<?>> queryCaches;
+	private final MyLRUMap<Query.Key, List<?>> queryCaches;
 	private int queryHits=0, queryMisses=0;
 	private final boolean queryHistogram;
 	
 	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean queryHistogram)
 	{
 		this.mapSizeLimits = mapSizeLimits;
-		queryCachesRaw = queryCacheSizeLimit>0 ? new MyLRUMap(queryCacheSizeLimit) : null;
-		queryCaches = castQueryCaches(queryCachesRaw);
+		queryCaches = queryCacheSizeLimit>0 ? new MyLRUMap<Query.Key, List<?>>(queryCacheSizeLimit) : null;
 		final int numberOfConcreteTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
@@ -56,12 +53,6 @@ final class Cache
 		hits = new int[numberOfConcreteTypes];
 		misses = new int[numberOfConcreteTypes];
 		this.queryHistogram = queryHistogram;
-	}
-	
-	@SuppressWarnings("unchecked") // TODO commons-collections do not support generics
-	private static final Map<Query.Key, List<?>> castQueryCaches(final MyLRUMap m)
-	{
-		return (Map<Query.Key, List<?>>)m;
 	}
 	
 	private IntKeyOpenHashMap getStateMap( Type type )
@@ -178,7 +169,7 @@ final class Cache
 				final Query.Key originalKey;
 				synchronized(queryCaches)
 				{
-					originalKey = (Query.Key)queryCachesRaw.getKey(key);
+					originalKey = queryCaches.getKeyInefficiently(key);
 				}
 				originalKey.hits++;
 				
@@ -358,19 +349,32 @@ final class Cache
 		return result.toArray(new CacheQueryInfo[result.size()]);
 	}
 	
-	private static final class MyLRUMap extends LRUMap
+	private static final class MyLRUMap<K,V> extends LinkedHashMap<K,V>
 	{
 		private static final long serialVersionUID = 19641264861283476l;
 		
+		private final int maxSize;
+		
 		MyLRUMap(final int maxSize)
 		{
-			super(maxSize);
+			super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
+			this.maxSize = maxSize;
 		}
 		
-		Object getKey(final Object key)
+		K getKeyInefficiently(final K key)
 		{
-			final HashEntry entry = getEntry(key);
-			return (entry == null) ? null : entry.getKey();
+			// TODO terribly inefficient implementation
+			for(K k : keySet())
+				if(key.equals(k))
+					return k;
+			return null;
+		}
+		
+		@Override
+		protected boolean removeEldestEntry(final Map.Entry<K,V> eldest)
+		{
+			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
+			return size() > maxSize;
 		}
 	}
 
