@@ -118,6 +118,33 @@ public class StatementInfoTest extends TestmodelTest
 		
 		query.clearStatementInfo();
 		assertNull(query.getStatementInfo());
+		
+		query.search();
+		final StatementInfo cached1 = query.getStatementInfo();
+		if(model.getProperties().getCacheQueryLimit()>0)
+		{
+			assertEquals("from query cache, hit #1", cached1.getText());
+			assertEqualsUnmodifiable(list(), cached1.getChilds());
+		}
+		else
+		{
+			assertTrue(cached1.getText(), cached1.getText().startsWith("select "));
+		}
+
+		query.clearStatementInfo();
+		assertNull(query.getStatementInfo());
+		
+		query.search();
+		final StatementInfo cached2 = query.getStatementInfo();
+		if(model.getProperties().getCacheQueryLimit()>0)
+		{
+			assertEquals("from query cache, hit #2", cached2.getText());
+			assertEqualsUnmodifiable(list(), cached2.getChilds());
+		}
+		else
+		{
+			assertTrue(cached1.getText(), cached1.getText().startsWith("select "));
+		}
 	}
 	
 }
