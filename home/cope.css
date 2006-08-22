@@ -78,3 +78,14 @@ img.sf
 	width:88px;
 	height:31px;
 }
+
+address
+{
+	width:100%;
+	font-size:8pt;
+	font-style:normal;
+	padding-top:5px;
+	border-top-width:1px;
+	border-top-style:solid;
+	margin-top:40px;
+}
