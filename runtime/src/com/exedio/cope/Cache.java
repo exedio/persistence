@@ -91,7 +91,8 @@ final class Cache
 				synchronized (stateMap)
 				{
 					oldValue = stateMap.put( item.pk, state );
-	
+
+					// TODO use a LRU map instead
 					mapSize = stateMap.size();
 					if(mapSize>=mapSizeLimit)
 					{
