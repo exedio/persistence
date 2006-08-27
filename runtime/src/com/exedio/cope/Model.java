@@ -49,10 +49,10 @@ public final class Model
 	final List<ModificationListener> modificationListeners = Collections.synchronizedList(new ArrayList<ModificationListener>());
 
 	// set by setPropertiesInitially
-	private Properties properties;
+	private Properties propertiesIfSet;
 	private Object propertiesLock = new Object();
-	private Database database;
-	private Cache cache;
+	private Database databaseIfPropertiesSet;
+	private Cache cacheIfPropertiesSet;
 	private boolean logTransactions = false;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
@@ -188,22 +188,24 @@ public final class Model
 
 		synchronized(propertiesLock)
 		{
-			if(this.properties==null)
+			if(this.propertiesIfSet==null)
 			{
-				if(this.database!=null)
+				if(this.databaseIfPropertiesSet!=null)
+					throw new RuntimeException();
+				if(this.cacheIfPropertiesSet!=null)
 					throw new RuntimeException();
 		
-				this.properties = properties;
-				this.database = properties.createDatabase();
+				this.propertiesIfSet = properties;
+				this.databaseIfPropertiesSet = properties.createDatabase();
 				
 				for(final Type type : typesSorted)
-					type.materialize(database);
+					type.materialize(databaseIfPropertiesSet);
 				
 				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = getProperties();
-				this.cache = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryHistogram());
+				this.cacheIfPropertiesSet = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
 				return;
@@ -211,9 +213,33 @@ public final class Model
 		}
 		
 		// can be done outside the synchronized block
-		this.properties.ensureEquality(properties);
+		this.propertiesIfSet.ensureEquality(properties);
 	}
 
+	public Properties getProperties()
+	{
+		if(propertiesIfSet==null)
+			throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
+
+		return propertiesIfSet;
+	}
+	
+	Database getDatabase()
+	{
+		if(databaseIfPropertiesSet==null)
+			throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
+
+		return databaseIfPropertiesSet;
+	}
+	
+	Cache getCache()
+	{
+		if(cacheIfPropertiesSet==null)
+			throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
+
+		return cacheIfPropertiesSet;
+	}
+	
 	public List<Type<?>> getTypes()
 	{
 		return typeList;
@@ -229,9 +255,8 @@ public final class Model
 	 */
 	public Type findTypeByID(final String id)
 	{
-		if(this.properties==null)
-			throw newNotInitializedException();
-
+		getProperties(); // ensure initialization
+		
 		return typesByID.get(id);
 	}
 	
@@ -240,9 +265,6 @@ public final class Model
 	 */
 	public Feature findFeatureByID(final String id)
 	{
-		if(this.properties==null)
-			throw newNotInitializedException();
-
 		final int pos = id.indexOf(Feature.ID_SEPARATOR);
 		if(pos<0)
 			return null;
@@ -257,22 +279,9 @@ public final class Model
 		return concreteTypes[transientNumber];
 	}
 	
-	private RuntimeException newNotInitializedException()
-	{
-		throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
-	}
-	
-	public Properties getProperties()
-	{
-		if(properties==null)
-			throw newNotInitializedException();
-
-		return properties;
-	}
-	
 	public boolean supportsCheckConstraints()
 	{
-		return database.driver.supportsCheckConstraints();
+		return getDatabase().driver.supportsCheckConstraints();
 	}
 	
 	/**
@@ -290,28 +299,20 @@ public final class Model
 	 */
 	public boolean supportsEmptyStrings()
 	{
-		return !getProperties().getDatabaseDontSupportEmptyStrings() && database.supportsEmptyStrings();
+		return !getProperties().getDatabaseDontSupportEmptyStrings() && getDatabase().supportsEmptyStrings();
 	}
 
 	public boolean supportsRightOuterJoins()
 	{
-		return database.supportsRightOuterJoins();
+		return getDatabase().supportsRightOuterJoins();
 	}
 
-	Database getDatabase()
-	{
-		if(database==null)
-			throw newNotInitializedException();
-
-		return database;
-	}
-	
 	/**
 	 * @return the listener previously registered for this model
 	 */
 	DatabaseListener setDatabaseListener(final DatabaseListener listener)
 	{
-		return database.setListener(listener);
+		return getDatabase().setListener(listener);
 	}
 	
 	public void createDatabase()
@@ -319,13 +320,13 @@ public final class Model
 		for(int i = 0; i<types.length; i++)
 			createDataDirectories(types[i]);
 
-		database.createDatabase();
+		getDatabase().createDatabase();
 		clearCache();
 	}
 
 	public void createDatabaseConstraints(final int mask)
 	{
-		database.createDatabaseConstraints(mask);
+		getDatabase().createDatabaseConstraints(mask);
 	}
 
 	private void createDataDirectories(final Type type)
@@ -339,7 +340,7 @@ public final class Model
 			{
 				if(typeDirectory==null)
 				{
-					final File directory = properties.getDatadirPath();
+					final File directory = getProperties().getDatadirPath();
 					typeDirectory = new File(directory, type.id);
 					typeDirectory.mkdir();
 				}
@@ -360,7 +361,7 @@ public final class Model
 			{
 				if(typeDirectory==null)
 				{
-					final File directory = properties.getDatadirPath();
+					final File directory = getProperties().getDatadirPath();
 					typeDirectory = new File(directory, type.id);
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());
@@ -394,7 +395,7 @@ public final class Model
 			{
 				if(typeDirectory==null)
 				{
-					final File directory = properties.getDatadirPath();
+					final File directory = getProperties().getDatadirPath();
 					typeDirectory = new File(directory, type.id);
 				}
 				final File attributeDirectory = new File(typeDirectory, attribute.getName());
@@ -427,12 +428,12 @@ public final class Model
 	public void checkDatabase()
 	{
 		// TODO: check for data attribute directories
-		database.checkDatabase(getCurrentTransaction().getConnection());
+		getDatabase().checkDatabase(getCurrentTransaction().getConnection());
 	}
 
 	public void checkEmptyDatabase()
 	{
-		database.checkEmptyDatabase(getCurrentTransaction().getConnection());
+		getDatabase().checkEmptyDatabase(getCurrentTransaction().getConnection());
 	}
 
 	public void dropDatabase()
@@ -442,7 +443,7 @@ public final class Model
 		for(ListIterator<Type<?>> i = types.listIterator(types.size()); i.hasPrevious(); )
 			i.previous().onDropTable();
 
-		database.dropDatabase();
+		getDatabase().dropDatabase();
 
 		for(int i = 0; i<this.types.length; i++)
 			dropDataDirectories(this.types[i]);
@@ -452,12 +453,12 @@ public final class Model
 
 	public void dropDatabaseConstraints(final int mask)
 	{
-		database.dropDatabaseConstraints(mask);
+		getDatabase().dropDatabaseConstraints(mask);
 	}
 
 	public void tearDownDatabase()
 	{
-		database.tearDownDatabase();
+		getDatabase().tearDownDatabase();
 
 		for(int i = 0; i<this.types.length; i++)
 			tearDownDataDirectories(this.types[i]);
@@ -467,23 +468,23 @@ public final class Model
 	
 	public void tearDownDatabaseConstraints(final int mask)
 	{
-		database.tearDownDatabaseConstraints(mask);
+		getDatabase().tearDownDatabaseConstraints(mask);
 	}
 
 	public void close()
 	{
-		database.close();
+		getDatabase().close();
 	}
 
 	public Schema getVerifiedSchema()
 	{
 		// TODO: check data directories
-		return database.makeVerifiedSchema();
+		return getDatabase().makeVerifiedSchema();
 	}
 
 	public Schema getSchema()
 	{
-		return database.makeSchema();
+		return getDatabase().makeSchema();
 	}
 
 	/**
@@ -541,42 +542,27 @@ public final class Model
 	
 	public CacheInfo[] getCacheInfo()
 	{
-		if(cache==null)
-			throw newNotInitializedException();
-		
-		return cache.getInfo(concreteTypes);
+		return getCache().getInfo(concreteTypes);
 	}
 	
 	public int[] getCacheQueryInfo()
 	{
-		if(cache==null)
-			throw newNotInitializedException();
-		
-		return cache.getQueryInfo();
+		return getCache().getQueryInfo();
 	}
 	
 	public CacheQueryInfo[] getCacheQueryHistogram()
 	{
-		if(cache==null)
-			throw newNotInitializedException();
-		
-		return cache.getQueryHistogram();
+		return getCache().getQueryHistogram();
 	}
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()
 	{
-		if(database==null)
-			throw newNotInitializedException();
-		
-		return database.getConnectionPool().getInfo();
+		return getDatabase().getConnectionPool().getInfo();
 	}
 	
 	public java.util.Properties getDatabaseInfo()
 	{
-		if(database==null)
-			throw newNotInitializedException();
-		final Database db = database;
-		
+		final Database db = getDatabase();
 		final java.util.Properties result = new java.util.Properties();
 		result.setProperty("database.name", db.databaseProductName);
 		result.setProperty("database.version", db.databaseProductVersion + ' ' + '(' + db.databaseMajorVersion + '.' + db.databaseMinorVersion + ')');
@@ -602,8 +588,7 @@ public final class Model
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		if(database==null)
-			throw newNotInitializedException();
+		getDatabase(); // ensure initialization
 		
 		if(logTransactions)
 			System.out.println("transaction start " + name);
@@ -706,7 +691,7 @@ public final class Model
 	 */
 	boolean supportsReadCommitted()
 	{
-		return database.supportsReadCommitted;
+		return getDatabase().supportsReadCommitted;
 	}
 	
 	/**
@@ -723,17 +708,9 @@ public final class Model
 		return Collections.unmodifiableCollection( openTransactions );
 	}
 	
-	Cache getCache()
-	{
-		if(cache==null)
-			throw newNotInitializedException();
-		
-		return cache;
-	}
-	
 	public void clearCache()
 	{
-		cache.clear();
+		getCache().clear();
 	}
 	
 	/**
@@ -762,6 +739,6 @@ public final class Model
 	
 	public void checkUnsupportedConstraints()
 	{
-		database.makeSchema().checkUnsupportedConstraints();
+		getDatabase().makeSchema().checkUnsupportedConstraints();
 	}
 }
