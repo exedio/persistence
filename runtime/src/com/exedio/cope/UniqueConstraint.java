@@ -28,44 +28,44 @@ import com.exedio.dsmf.Table;
 public final class UniqueConstraint extends Feature
 {
 	
-	private final FunctionAttribute<?>[] uniqueAttributes;
-	private final List<FunctionAttribute<?>> uniqueAttributeList;
+	private final FunctionAttribute<?>[] attributes;
+	private final List<FunctionAttribute<?>> attributeList;
 	private String databaseID;
 
-	private UniqueConstraint(final FunctionAttribute<?>[] uniqueAttributes)
+	private UniqueConstraint(final FunctionAttribute<?>[] attributes)
 	{
-		this.uniqueAttributes = uniqueAttributes;
-		this.uniqueAttributeList = Collections.unmodifiableList(Arrays.asList(uniqueAttributes));
-		for(int i = 0; i<uniqueAttributes.length; i++)
-			uniqueAttributes[i].registerUniqueConstraint(this);
+		this.attributes = attributes;
+		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
+		for(int i = 0; i<attributes.length; i++)
+			attributes[i].registerUniqueConstraint(this);
 	}
 	
 	/**
 	 * Is not public, because one should use {@link Item#UNIQUE} etc.
 	 */
-	UniqueConstraint(final FunctionAttribute uniqueAttribute)
+	UniqueConstraint(final FunctionAttribute attribute)
 	{
-		this(new FunctionAttribute[]{uniqueAttribute});
+		this(new FunctionAttribute[]{attribute});
 	}
 	
-	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2)
+	public UniqueConstraint(final FunctionAttribute attribute1, final FunctionAttribute attribute2)
 	{
-		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2});
+		this(new FunctionAttribute[]{attribute1, attribute2});
 	}
 	
-	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2, final FunctionAttribute uniqueAttribute3)
+	public UniqueConstraint(final FunctionAttribute attribute1, final FunctionAttribute attribute2, final FunctionAttribute attribute3)
 	{
-		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3});
+		this(new FunctionAttribute[]{attribute1, attribute2, attribute3});
 	}
 	
-	public UniqueConstraint(final FunctionAttribute uniqueAttribute1, final FunctionAttribute uniqueAttribute2, final FunctionAttribute uniqueAttribute3, final FunctionAttribute uniqueAttribute4)
+	public UniqueConstraint(final FunctionAttribute attribute1, final FunctionAttribute attribute2, final FunctionAttribute attribute3, final FunctionAttribute attribute4)
 	{
-		this(new FunctionAttribute[]{uniqueAttribute1, uniqueAttribute2, uniqueAttribute3, uniqueAttribute4});
+		this(new FunctionAttribute[]{attribute1, attribute2, attribute3, attribute4});
 	}
 	
 	public final List<FunctionAttribute<?>> getUniqueAttributes()
 	{
-		return uniqueAttributeList;
+		return attributeList;
 	}
 	
 	static final String IMPLICIT_UNIQUE_SUFFIX = "ImplicitUnique";
@@ -96,11 +96,11 @@ public final class UniqueConstraint extends Feature
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');
-		for(int i = 0; i<uniqueAttributes.length; i++)
+		for(int i = 0; i<attributes.length; i++)
 		{
 			if(i>0)
 				bf.append(',');
-			final FunctionAttribute<?> uniqueAttribute = uniqueAttributes[i];
+			final FunctionAttribute<?> uniqueAttribute = attributes[i];
 			bf.append(uniqueAttribute.getColumn().protectedID);
 		}
 		bf.append(')');
@@ -114,11 +114,11 @@ public final class UniqueConstraint extends Feature
 		final StringBuffer buf = new StringBuffer();
 		
 		buf.append("unique(");
-		buf.append(uniqueAttributes[0].toString());
-		for(int i = 1; i<uniqueAttributes.length; i++)
+		buf.append(attributes[0].toString());
+		for(int i = 1; i<attributes.length; i++)
 		{
 			buf.append(',');
-			buf.append(uniqueAttributes[i].toString());
+			buf.append(attributes[i].toString());
 		}
 		buf.append(')');
 		
