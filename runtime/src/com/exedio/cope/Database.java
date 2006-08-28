@@ -874,14 +874,7 @@ abstract class Database
 
 			//System.out.println("deleting "+bf.toString());
 
-			try
-			{
-				executeSQLUpdate(connection, bf);
-			}
-			catch(UniqueViolationException e)
-			{
-				throw new RuntimeException(e);
-			}
+			executeSQLUpdate(connection, bf);
 		}
 	}
 
@@ -1112,14 +1105,7 @@ abstract class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		try
-		{
-			executeSQLUpdate(connection, bf);
-		}
-		catch(UniqueViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
+		executeSQLUpdate(connection, bf);
 	}
 	
 	static interface ResultSetHandler

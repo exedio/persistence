@@ -365,64 +365,41 @@ public abstract class Item extends Cope
 		
 		//final String tostring = toString();
 		//System.out.println("------------delete:"+tostring);
-		try
+		// TODO make sure, no item is deleted twice
+		for(final ItemAttribute<Item> attribute : castReferences(type.getReferences()))
 		{
-			// TODO make sure, no item is deleted twice
-			for(final ItemAttribute<Item> attribute : castReferences(type.getReferences()))
+			switch(attribute.getDeletePolicy())
 			{
-				switch(attribute.getDeletePolicy())
+				case NULLIFY:
 				{
-					case NULLIFY:
+					final Query<? extends Item> q = attribute.getType().newQuery(attribute.equal(this));
+					for(final Item item : q.search())
 					{
-						final Query<? extends Item> q = attribute.getType().newQuery(attribute.equal(this));
-						for(final Item item : q.search())
-						{
-							//System.out.println("------------nullify:"+item.toString());
-							item.set(attribute, null);
-						}
-						break;
+						//System.out.println("------------nullify:"+item.toString());
+						item.set(attribute, null);
 					}
-					case CASCADE:
-					{
-						final Query<?> q = attribute.getType().newQuery(attribute.equal(this));
-						for(Iterator j = q.search().iterator(); j.hasNext(); )
-						{
-							final Item item = (Item)j.next();
-							//System.out.println("------------check:"+item.toString());
-							if(!toDelete.contains(item))
-								item.deleteCopeItem(toDelete);
-						}
-						break;
-					}
-					case FORBID:
-						// avoid warnings
-						break;
+					break;
 				}
+				case CASCADE:
+				{
+					final Query<?> q = attribute.getType().newQuery(attribute.equal(this));
+					for(Iterator j = q.search().iterator(); j.hasNext(); )
+					{
+						final Item item = (Item)j.next();
+						//System.out.println("------------check:"+item.toString());
+						if(!toDelete.contains(item))
+							item.deleteCopeItem(toDelete);
+					}
+					break;
+				}
+				case FORBID:
+					// avoid warnings
+					break;
 			}
-			Entity entity = getEntity();
-			entity.delete();
-			entity.write(null);
 		}
-		catch(UniqueViolationException e)
-		{
-			// cannot happen, since null does not violate uniqueness
-			throw new RuntimeException(e);
-		}
-		catch(MandatoryViolationException e)
-		{
-			// cannot happen, since nullify ItemAttributes cannot be mandatory
-			throw new RuntimeException(e);
-		}
-		catch(LengthViolationException e)
-		{
-			// cannot happen, since there are no StringAttributes written
-			throw new RuntimeException(e);
-		}
-		catch(FinalViolationException e)
-		{
-			// cannot happen, since nullify ItemAttributes cannot be final
-			throw new RuntimeException(e);
-		}
+		Entity entity = getEntity();
+		entity.delete();
+		entity.write(null);
 	}
 	
 	@SuppressWarnings("unchecked")
