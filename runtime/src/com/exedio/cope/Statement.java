@@ -38,8 +38,10 @@ final class Statement
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
+	final int expectedRows;
+	static final int NO_ROWS_EXPECTED = -1;
 	
-	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean defineColumnTypes)
+	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean defineColumnTypes, final int expectedRows)
 	{
 		if(database==null)
 			throw new NullPointerException();
@@ -50,6 +52,7 @@ final class Statement
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
+		this.expectedRows = expectedRows;
 	}
 
 	Statement(final Database database, final boolean prepare, final Query<? extends Object> query, final boolean defineColumnTypes)
@@ -125,6 +128,8 @@ final class Statement
 		this.qualifyTable = joinTables.size()>1;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 		this.ambiguousTables = ambiguousTables;
+
+		this.expectedRows = -1;
 	}
 	
 	@SuppressWarnings("unchecked") // OK: joinTypeTableByTable contains both JoinTable and List<JoinTable>

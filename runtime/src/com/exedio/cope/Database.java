@@ -175,12 +175,22 @@ abstract class Database
 	
 	protected final Statement createStatement()
 	{
-		return createStatement(true);
+		return createStatement(true, Statement.NO_ROWS_EXPECTED);
 	}
 	
 	protected final Statement createStatement(final boolean qualifyTable)
 	{
-		return new Statement(this, prepare, qualifyTable, isDefiningColumnTypes());
+		return createStatement(qualifyTable, Statement.NO_ROWS_EXPECTED);
+	}
+	
+	protected final Statement createStatement(final int expectedRows)
+	{
+		return createStatement(true, expectedRows);
+	}
+	
+	protected final Statement createStatement(final boolean qualifyTable, final int expectedRows)
+	{
+		return new Statement(this, prepare, qualifyTable, isDefiningColumnTypes(), expectedRows);
 	}
 	
 	protected final Statement createStatement(final Query<? extends Object> query)
@@ -743,7 +753,7 @@ abstract class Database
 
 		final List<Column> columns = table.getColumns();
 
-		final Statement bf = createStatement();
+		final Statement bf = createStatement(1);
 		final StringColumn typeColumn = table.typeColumn;
 		if(present)
 		{
@@ -842,7 +852,7 @@ abstract class Database
 
 		//System.out.println("storing "+bf.toString());
 		final List uqs = type.declaredUniqueConstraints;
-		executeSQLUpdate(connection, bf, 1, uqs.size()==1?(UniqueConstraint)uqs.iterator().next():null);
+		executeSQLUpdate(connection, bf, uqs.size()==1?(UniqueConstraint)uqs.iterator().next():null);
 	}
 
 	public void delete(final Connection connection, final Item item)
@@ -854,7 +864,7 @@ abstract class Database
 		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table currentTable = currentType.getTable();
-			final Statement bf = createStatement();
+			final Statement bf = createStatement(1);
 			bf.append("delete from ").
 				append(currentTable.protectedID).
 				append(" where ").
@@ -866,7 +876,7 @@ abstract class Database
 
 			try
 			{
-				executeSQLUpdate(connection, bf, 1);
+				executeSQLUpdate(connection, bf);
 			}
 			catch(UniqueViolationException e)
 			{
@@ -1071,7 +1081,7 @@ abstract class Database
 		buildStage = false;
 
 		final Table table = column.table;
-		final Statement bf = createStatement();
+		final Statement bf = createStatement(1);
 		bf.append("update ").
 			append(table.protectedID).
 			append(" set ").
@@ -1104,7 +1114,7 @@ abstract class Database
 		//System.out.println("storing "+bf.toString());
 		try
 		{
-			executeSQLUpdate(connection, bf, 1, null);
+			executeSQLUpdate(connection, bf);
 		}
 		catch(UniqueViolationException e)
 		{
@@ -1135,6 +1145,8 @@ abstract class Database
 		final ResultSetHandler resultSetHandler,
 		final boolean makeStatementInfo)
 	{
+		assert statement.expectedRows==Statement.NO_ROWS_EXPECTED : statement;
+
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
 		try
@@ -1225,15 +1237,15 @@ abstract class Database
 		}
 	}
 	
-	private final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
+	private final void executeSQLUpdate(final Connection connection, final Statement statement)
 			throws UniqueViolationException
 	{
-		executeSQLUpdate(connection, statement, expectedRows, null);
+		executeSQLUpdate(connection, statement, null);
 	}
 
 	private final void executeSQLUpdate(
 			final Connection connection,
-			final Statement statement, final int expectedRows,
+			final Statement statement,
 			final UniqueConstraint onlyThreatenedUniqueConstraint)
 		throws UniqueViolationException
 	{
@@ -1264,8 +1276,8 @@ abstract class Database
 				log(logStart, logEnd, statement);
 
 			//System.out.println("("+rows+"): "+statement.getText());
-			if(rows!=expectedRows)
-				throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
+			if(rows!=statement.expectedRows)
+				throw new RuntimeException("expected "+statement.expectedRows+" rows, but got "+rows+" on statement "+sqlText);
 		}
 		catch(SQLException e)
 		{
