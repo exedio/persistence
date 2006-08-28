@@ -33,6 +33,7 @@ import org.apache.tools.ant.types.FileSet;
 public final class AntTask extends Task
 {
 	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<DataType>();
+	private boolean longJavadoc = true;
 	private boolean verbose = true;
 
 	public void addFileset(final FileSet fileSet)
@@ -45,6 +46,11 @@ public final class AntTask extends Task
 		fileSetsOrLists.add(fileList);
 	}
 	
+	public void setLongJavadoc(final boolean longJavadoc)
+	{
+		this.longJavadoc = longJavadoc;
+	}
+
 	public void setVerbose(final boolean verbose)
 	{
 		this.verbose = verbose;
@@ -85,7 +91,7 @@ public final class AntTask extends Task
 				}
 			}
 
-			(new Main()).run(sourcefiles, verbose);
+			(new Main()).run(sourcefiles, longJavadoc, verbose);
 		}
 		catch(Exception e)
 		{

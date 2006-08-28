@@ -36,7 +36,7 @@ public final class Main
 	{
 		try
 		{
-			(new Main()).run(new File("."), args, true);
+			(new Main()).run(new File("."), args, true, true);
 		}
 		catch(RuntimeException e)
 		{
@@ -66,17 +66,17 @@ public final class Main
 		o.println(" tobemodified1.java ...");
 	}
 	
-	final void run(final File dir, final String[] args, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final File dir, final String[] args, final boolean longJavadoc, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		final ArrayList<File> sourcefiles = new ArrayList<File>();
 		
 		for(int i=0; i<args.length; i++)
 			sourcefiles.add(new File(dir, args[i]));
 		
-		run(sourcefiles, verbose);
+		run(sourcefiles, longJavadoc, verbose);
 	}
 		
-	final void run(final ArrayList<File> inputFiles, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final ArrayList<File> inputFiles, final boolean longJavadoc, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		{
 			final Package runtimePackage = Cope.class.getPackage();
@@ -158,7 +158,7 @@ public final class Main
 					throw new RuntimeException("error: output file is not a regular file.");
 			}
 			
-			final Generator generator = new Generator(injector.javaFile, outputFile);
+			final Generator generator = new Generator(injector.javaFile, outputFile, longJavadoc);
 			try
 			{
 				generator.write();

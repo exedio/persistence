@@ -116,8 +116,9 @@ final class Generator
 	private final Writer o;
 	private final CRC32 outputCRC = new CRC32();
 	private final String lineSeparator;
+	private final boolean longJavadoc;
 	
-	Generator(final JavaFile javaFile, final File outputFile) throws FileNotFoundException
+	Generator(final JavaFile javaFile, final File outputFile, final boolean longJavadoc) throws FileNotFoundException
 	{
 		this.javaFile = javaFile;
 		this.o = new OutputStreamWriter(new CheckedOutputStream(new FileOutputStream(outputFile), outputCRC));
@@ -130,6 +131,8 @@ final class Generator
 		}
 		else
 			lineSeparator = systemLineSeparator;
+		
+		this.longJavadoc = longJavadoc;
 	}
 	
 	void close() throws IOException
@@ -187,9 +190,12 @@ final class Generator
 	{
 		o.write("/**");
 		o.write(lineSeparator);
-		o.write(lineSeparator);
-		o.write("\t **");
-		o.write(lineSeparator);
+		if(longJavadoc)
+		{
+			o.write(lineSeparator);
+			o.write("\t **");
+			o.write(lineSeparator);
+		}
 	}
 
 	private void writeCommentFooter()
