@@ -54,6 +54,9 @@ public final class Type<C extends Item>
 	final List<UniqueConstraint> declaredUniqueConstraints;
 	private final List<UniqueConstraint> uniqueConstraints;
 
+	private final Constructor<C> creationConstructor;
+	private final Constructor<C> reactivationConstructor;
+
 	private ArrayList<Type<? extends C>> subTypes = null;
 
 	private ArrayList<ItemAttribute<C>> referencesWhileInitialization = new ArrayList<ItemAttribute<C>>();
@@ -67,12 +70,6 @@ public final class Type<C extends Item>
 	private Type<? extends C> onlyPossibleTypeOfInstances;
 	private String[] typesOfInstancesColumnValues;
 	
-	private Table table;
-	private PkSource pkSource;
-
-	private final Constructor<C> creationConstructor;
-	private final Constructor<C> reactivationConstructor;
-	
 	/**
 	 * This number uniquely identifies a type within its model.
 	 * However, this number is not stable across JVM restarts.
@@ -84,6 +81,9 @@ public final class Type<C extends Item>
 	 */
 	int transientNumber = -1;
 
+	private Table table;
+	private PkSource pkSource;
+	
 	/**
 	 * @throws RuntimeException if there is no type for the given java class.
 	 */
