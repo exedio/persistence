@@ -469,6 +469,24 @@ public final class Type<C extends Item>
 		this.table.finish();
 	}
 	
+	void dematerialize()
+	{
+		if(this.model==null)
+			throw new RuntimeException();
+		if(this.table==null)
+			throw new RuntimeException();
+		if(this.pkSource==null)
+			throw new RuntimeException();
+
+		table = null;
+		pkSource = null;
+		
+		for(final Attribute a : declaredAttributes)
+			a.dematerialize();
+		for(final UniqueConstraint uc : declaredUniqueConstraints)
+			uc.dematerialize();
+	}
+	
 	public Class<C> getJavaClass()
 	{
 		return withoutJavaClass ? null : javaClass;

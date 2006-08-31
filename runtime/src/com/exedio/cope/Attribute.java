@@ -166,6 +166,11 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 		this.column = createColumn(table, getName(), optional);
 	}
 	
+	void dematerialize()
+	{
+		this.column = null;
+	}
+	
 	final Column getColumn()
 	{
 		if(this.column==null)

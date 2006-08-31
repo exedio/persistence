@@ -84,6 +84,14 @@ public final class UniqueConstraint extends Feature
 		database.addUniqueConstraint(databaseID, this);
 	}
 
+	final void dematerialize()
+	{
+		if(this.databaseID==null)
+			throw new RuntimeException();
+
+		this.databaseID = null;
+	}
+
 	private final String getDatabaseID()
 	{
 		if(databaseID==null)

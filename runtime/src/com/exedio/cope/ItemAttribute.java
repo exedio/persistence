@@ -118,6 +118,17 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 
 		return result;
 	}
+
+	@Override
+	void dematerialize()
+	{
+		if(this.onlyPossibleValueType==null && this.typeColumn==null)
+			throw new RuntimeException();
+
+		super.dematerialize();
+		this.onlyPossibleValueType = null;
+		this.typeColumn = null;
+	}
 	
 	/**
 	 * Returns the name of type column in the database for this attribute

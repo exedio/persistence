@@ -204,7 +204,7 @@ public final class Model
 				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
-				final Properties p = getProperties();
+				final Properties p = properties;
 				this.cacheIfPropertiesSet = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
@@ -214,6 +214,33 @@ public final class Model
 		
 		// can be done outside the synchronized block
 		this.propertiesIfSet.ensureEquality(properties);
+	}
+
+	public void unsetProperties()
+	{
+		synchronized(propertiesLock)
+		{
+			if(this.propertiesIfSet!=null)
+			{
+				if(this.databaseIfPropertiesSet==null)
+					throw new RuntimeException();
+				if(this.cacheIfPropertiesSet==null)
+					throw new RuntimeException();
+		
+				this.propertiesIfSet = null;
+				final Database db = this.databaseIfPropertiesSet;
+				this.databaseIfPropertiesSet = null;
+				
+				for(final Type type : typesSorted)
+					type.dematerialize();
+				
+				this.cacheIfPropertiesSet = null;
+				
+				db.close();
+
+				return;
+			}
+		}
 	}
 
 	public Properties getProperties()
