@@ -283,5 +283,23 @@ public class ModelTest extends TestmodelTest
 	{
 		return (Class<Item>)c;
 	}
-
+	
+	public void testUnsetProperties()
+	{
+		model.commit();
+		final Properties p = model.getProperties();
+		assertNotNull(p);
+		model.unsetProperties();
+		try
+		{
+			assertSame(null, model.getProperties());
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("model not yet initialized, use setPropertiesInitially", e.getMessage());
+		}
+		model.setPropertiesInitially(p);
+		assertSame(p, model.getProperties());
+		model.startTransaction("ModelTest.testUnsetProperties");
+	}
 }
