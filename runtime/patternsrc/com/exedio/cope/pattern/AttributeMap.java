@@ -18,12 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
@@ -36,26 +31,31 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-public final class AttributeMap extends Pattern
+public final class AttributeMap<K,V> extends Pattern
 {
-	private final Class<?> attributesDefinition;
-	private ItemAttribute<?> parent = null;
-	private final FunctionAttribute<?> key;
+	private ItemAttribute<? extends Item> parent = null;
+	private final FunctionAttribute<K> key;
 	private UniqueConstraint uniqueConstraint = null;
+	private final FunctionAttribute<V> value;
 	private Type<?> relationType = null;
-	private List<Feature> features;
-	private List<Attribute> attributes;
 
-	public AttributeMap(final FunctionAttribute<?> key, final Class<?> attributesDefinition)
+	private AttributeMap(final FunctionAttribute<K> key, final FunctionAttribute<V> value)
 	{
-		this.attributesDefinition = attributesDefinition;
 		this.key = key;
-		if(attributesDefinition==null)
-			throw new NullPointerException("attributesDefinition must not be null");
+		this.value = value;
 		if(key==null)
 			throw new NullPointerException("key must not be null");
 		if(key.getImplicitUniqueConstraint()!=null)
 			throw new NullPointerException("key must not be unique");
+		if(value==null)
+			throw new NullPointerException("value must not be null");
+		if(value.getImplicitUniqueConstraint()!=null)
+			throw new NullPointerException("value must not be unique");
+	}
+	
+	public static final <K,V> AttributeMap<K,V> newMap(final FunctionAttribute<K> key, final FunctionAttribute<V> value)
+	{
+		return new AttributeMap<K,V>(key, value);
 	}
 	
 	@Override
@@ -69,44 +69,8 @@ public final class AttributeMap extends Pattern
 		relationTypeFeatures.put("parent", parent);
 		relationTypeFeatures.put("key", key);
 		relationTypeFeatures.put("uniqueConstraint", uniqueConstraint);
-
-		// TODO SOON duplicates Type#getFeatureMap
-		final Field[] fields = attributesDefinition.getDeclaredFields();
-		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
-		final ArrayList<Feature> features = new ArrayList<Feature>(fields.length);
-		final ArrayList<Attribute> attributes = new ArrayList<Attribute>(fields.length);
-		try
-		{
-			for(final Field field : fields)
-			{
-				if((field.getModifiers()&expectedModifier)==expectedModifier)
-				{
-					final Class fieldType = field.getType();
-					if(Feature.class.isAssignableFrom(fieldType))
-					{
-						field.setAccessible(true);
-						final Feature feature = (Feature)field.get(null);
-						if(feature==null)
-							throw new RuntimeException(field.getName());
-						relationTypeFeatures.put(field.getName(), feature);
-						features.add(feature);
-						if(feature instanceof Attribute)
-							attributes.add((Attribute)feature);
-					}
-				}
-			}
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		
+		relationTypeFeatures.put("value", value);
 		this.relationType = newType(relationTypeFeatures);
-
-		features.trimToSize();
-		attributes.trimToSize();
-		this.features = Collections.unmodifiableList(features);
-		this.attributes = Collections.unmodifiableList(attributes);
 	}
 	
 	public ItemAttribute<?> getParent()
@@ -115,7 +79,7 @@ public final class AttributeMap extends Pattern
 		return parent;
 	}
 	
-	public FunctionAttribute<?> getKey()
+	public FunctionAttribute<K> getKey()
 	{
 		return key;
 	}
@@ -126,50 +90,39 @@ public final class AttributeMap extends Pattern
 		return uniqueConstraint;
 	}
 	
+	public FunctionAttribute<V> getValue()
+	{
+		return value;
+	}
+
 	public Type<?> getRelationType()
 	{
 		assert relationType!=null;
 		return relationType;
 	}
 	
-	public List<Feature> getFeatures()
+	public V get(final Item item, final K key)
 	{
-		return features;
-	}
-
-	public List<Attribute> getAttributes()
-	{
-		return attributes;
-	}
-
-	public <X> X get(final FunctionAttribute<X> attribute, final Object... keys)
-	{
-		final Item item = uniqueConstraint.searchUnique(keys);
-		if(item!=null)
-			return attribute.get(item);
+		final Item relationItem = uniqueConstraint.searchUnique(new Object[]{item, key});
+		if(relationItem!=null)
+			return value.get(relationItem);
 		else
 			return null;
 	}
 	
-	private Item getForSet(final Object... keys)
+	public void set(final V value, final Item item, final K key)
 	{
-		Item item = uniqueConstraint.searchUnique(keys);
-		if(item==null)
+		final Item relationItem = uniqueConstraint.searchUnique(new Object[]{item, key});
+		if(relationItem==null)
 		{
-			final SetValue[] keySetValues = new SetValue[keys.length];
-			int j = 0;
-			for(final FunctionAttribute<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
-				keySetValues[j] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
-			
-			item = uniqueConstraint.getType().newItem(keySetValues);
+			uniqueConstraint.getType().newItem(new SetValue[]{
+					Cope.mapAndCast(this.parent, item),
+					this.key.map(key),
+					this.value.map(value),
+			});
 		}
-		return item;
-	}
-	
-	public <X> void set(final FunctionAttribute<X> attribute, final X value, final Object... keys)
-	{
-		final Item item = getForSet(keys);
-		attribute.set(item, value);
+		else
+			this.value.set(relationItem, value);
 	}
 
 }

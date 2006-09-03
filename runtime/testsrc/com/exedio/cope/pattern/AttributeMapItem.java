@@ -29,44 +29,36 @@ public class AttributeMapItem extends Item
 		DE, EN, PL;
 	}
 	
-	static class LanguageEntry
-	{
-		static final StringAttribute name = new StringAttribute(OPTIONAL);
-		static final IntegerAttribute nameLength = new IntegerAttribute(OPTIONAL);
-	}
-
-	public static final AttributeMap language = new AttributeMap(newEnumAttribute(Language.class), LanguageEntry.class);
+	public static final AttributeMap<Language, String> name = AttributeMap.newMap(newEnumAttribute(Language.class), new StringAttribute(OPTIONAL));
 	
-	static class CodeEntry
-	{
-		static final StringAttribute string = new StringAttribute(OPTIONAL);
-		static final IntegerAttribute integer = new IntegerAttribute(OPTIONAL);
-	}
-
-	public static final AttributeMap code = new AttributeMap(new StringAttribute().lengthRange(4, 8), CodeEntry.class);
+	public static final AttributeMap<Language, Integer> nameLength = AttributeMap.newMap(newEnumAttribute(Language.class), new IntegerAttribute(OPTIONAL));
+	
+	public static final AttributeMap<String, String> string = AttributeMap.newMap(new StringAttribute().lengthRange(4, 8), new StringAttribute(OPTIONAL));
+	
+	public static final AttributeMap<String, Integer> integer = AttributeMap.newMap(new StringAttribute().lengthRange(4, 8), new IntegerAttribute(OPTIONAL));
 	
 	// TODO SOON generate
 	public final String getName(final Language language)
 	{
-		return AttributeMapItem.language.get(LanguageEntry.name, this, language);
+		return AttributeMapItem.name.get(this, language);
 	}
 	
 	// TODO SOON generate
 	public final void setName(final Language language, final String name)
 	{
-		AttributeMapItem.language.set(LanguageEntry.name, name, this, language);
+		AttributeMapItem.name.set(name, this, language);
 	}
 	
 	// TODO SOON generate
 	public final Integer getNameLength(final Language language)
 	{
-		return AttributeMapItem.language.get(LanguageEntry.nameLength, this, language);
+		return AttributeMapItem.nameLength.get(this, language);
 	}
 	
 	// TODO SOON generate
 	public final void setNameLength(final Language language, final Integer nameLength)
 	{
-		AttributeMapItem.language.set(LanguageEntry.nameLength, nameLength, this, language);
+		AttributeMapItem.nameLength.set(nameLength, this, language);
 	}
 	
 	/**

@@ -47,39 +47,42 @@ public class AttributeMapTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(item.TYPE, item.language.getType());
-		assertEquals("language", item.language.getName());
+		assertEquals(item.TYPE, item.name.getType());
+		assertEquals("name", item.name.getName());
 
-		assertEquals(item.TYPE, item.language.getParent().getValueType());
-		assertEquals("parent", item.language.getParent().getName());
-		assertEquals(DeletePolicy.CASCADE, item.language.getParent().getDeletePolicy());
-		assertSame(item.language.getRelationType(), item.language.getParent().getType());
-		assertEqualsUnmodifiable(list(), item.language.getParent().getPatterns());
+		assertEquals(item.TYPE, item.name.getParent().getValueType());
+		assertEquals("parent", item.name.getParent().getName());
+		assertEquals(DeletePolicy.CASCADE, item.name.getParent().getDeletePolicy());
+		assertSame(item.name.getRelationType(), item.name.getParent().getType());
+		assertEqualsUnmodifiable(list(), item.name.getParent().getPatterns());
 
-		assertEquals(AttributeMapItem.Language.class, ((EnumAttribute)item.language.getKey()).getValueClass());
-		assertEquals("key", item.language.getKey().getName());
-		assertSame(item.language.getRelationType(), item.language.getKey().getType());
-		assertEqualsUnmodifiable(list(), item.language.getKey().getPatterns());
+		assertEquals(AttributeMapItem.Language.class, ((EnumAttribute)item.name.getKey()).getValueClass());
+		assertEquals("key", item.name.getKey().getName());
+		assertSame(item.name.getRelationType(), item.name.getKey().getType());
+		assertEqualsUnmodifiable(list(), item.name.getKey().getPatterns());
 
-		assertEqualsUnmodifiable(list(item.language.getParent(), item.language.getKey()), item.language.getUniqueConstraint().getUniqueAttributes());
-		assertEquals("uniqueConstraint", item.language.getUniqueConstraint().getName());
-		assertSame(item.language.getRelationType(), item.language.getUniqueConstraint().getType());
+		assertEqualsUnmodifiable(list(item.name.getParent(), item.name.getKey()), item.name.getUniqueConstraint().getUniqueAttributes());
+		assertEquals("uniqueConstraint", item.name.getUniqueConstraint().getName());
+		assertSame(item.name.getRelationType(), item.name.getUniqueConstraint().getType());
 
-		assertEquals("AttributeMapItem.language", item.language.getRelationType().getID());
-		assertEquals(null, item.language.getRelationType().getJavaClass());
-		assertEquals(null, item.language.getRelationType().getSupertype());
-		assertEquals(list(), item.language.getRelationType().getSubTypes());
+		assertEquals(String.class, item.name.getValue().getValueClass());
+		assertEquals("value", item.name.getValue().getName());
+		assertSame(item.name.getRelationType(), item.name.getValue().getType());
+		assertEqualsUnmodifiable(list(), item.name.getValue().getPatterns());
+
+		assertEquals("AttributeMapItem.name", item.name.getRelationType().getID());
+		assertEquals(null, item.name.getRelationType().getJavaClass());
+		assertEquals(null, item.name.getRelationType().getSupertype());
+		assertEquals(list(), item.name.getRelationType().getSubTypes());
 		assertEqualsUnmodifiable(
 				list(
-						item.language.getRelationType().getThis(),
-						item.language.getParent(), item.language.getKey(), item.language.getUniqueConstraint(),
-						AttributeMapItem.LanguageEntry.name, AttributeMapItem.LanguageEntry.nameLength),
-				AttributeMapItem.language.getRelationType().getFeatures());
-		assertEqualsUnmodifiable(list(AttributeMapItem.LanguageEntry.name, AttributeMapItem.LanguageEntry.nameLength), item.language.getFeatures());
-		assertEqualsUnmodifiable(list(AttributeMapItem.LanguageEntry.name, AttributeMapItem.LanguageEntry.nameLength), item.language.getAttributes());
+						item.name.getRelationType().getThis(),
+						item.name.getParent(), item.name.getKey(), item.name.getUniqueConstraint(),
+						item.name.getValue()),
+				item.name.getRelationType().getFeatures());
 
-		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.language, item.code), item.TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(item.TYPE, item.language.getRelationType(), item.code.getRelationType()), model.getTypes());
+		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.name, item.nameLength, item.string, item.integer), item.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());
 
 		// test persistence
 		assertEquals(null, item.getName(DE));
