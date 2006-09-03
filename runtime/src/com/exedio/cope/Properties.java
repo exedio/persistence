@@ -67,7 +67,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	// If you another attributes here,
 	// you probably have to add another
 	// test to ensureEquality as well.
-	private final Constructor database;
+	private final Constructor<? extends Database> database;
 
 	public Properties()
 	{
@@ -117,7 +117,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		ensureValidity(new String[]{"x-build"});
 	}
 	
-	private static final Constructor getDatabaseConstructor(final String databaseCode, final String source)
+	private static final Constructor<? extends Database> getDatabaseConstructor(final String databaseCode, final String source)
 	{
 		if(databaseCode.length()<=2)
 			throw new RuntimeException("database from " + source + " must have at least two characters, but was " + databaseCode);
@@ -128,20 +128,21 @@ public final class Properties extends com.exedio.cope.util.Properties
 			databaseCode.substring(1) +
 			"Database";
 
-		final Class databaseClass;
+		final Class<?> databaseClassRaw;
 		try
 		{
-			databaseClass = Class.forName(databaseName);
+			databaseClassRaw = Class.forName(databaseName);
 		}
 		catch(ClassNotFoundException e)
 		{
 			throw new RuntimeException("class "+databaseName+" from "+source+" not found.");
 		}
 
-		if(!Database.class.isAssignableFrom(databaseClass))
+		if(!Database.class.isAssignableFrom(databaseClassRaw))
 		{
 			throw new RuntimeException("class "+databaseName+" from "+source+" not a subclass of "+Database.class.getName()+".");
 		}
+		final Class<? extends Database> databaseClass = databaseClassRaw.asSubclass(Database.class);
 		try
 		{
 			return databaseClass.getDeclaredConstructor(new Class[]{Properties.class});
@@ -161,7 +162,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	{
 		try
 		{
-			return (Database)database.newInstance(new Object[]{this});
+			return database.newInstance(new Object[]{this});
 		}
 		catch(InstantiationException e)
 		{
