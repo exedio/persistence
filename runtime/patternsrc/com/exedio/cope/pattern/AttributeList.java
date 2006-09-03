@@ -35,7 +35,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-public final class AttributeList<T> extends Pattern
+public final class AttributeList<T> extends Pattern // TODO SOON rename T to E
 {
 	private ItemAttribute<?> parent = null;
 	private final IntegerAttribute order;

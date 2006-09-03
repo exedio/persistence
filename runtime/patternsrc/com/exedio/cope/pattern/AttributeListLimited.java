@@ -40,7 +40,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 
-public final class AttributeListLimited<T> extends Pattern implements Settable<Collection<T>>
+public final class AttributeListLimited<T> extends Pattern implements Settable<Collection<T>> // TODO SOON rename T to E
 {
 	private final FunctionAttribute<T>[] sources;
 	private final boolean initial;
