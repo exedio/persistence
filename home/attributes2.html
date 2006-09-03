@@ -29,6 +29,7 @@
 		<ul>
 			<li><a href="#hashes">Hashes</a></li>
 			<li><a href="#attributelists">Attribute Lists</a></li>
+			<li><a href="#attributemaps">Attribute Maps</a></li>
 			<li><a href="#dayattributes">Day Attributes</a></li>
 			<li><a href="#further">Further Reading</a></li>
 		</ul>
@@ -81,6 +82,41 @@ static final <a href="api/com/exedio/cope/pattern/AttributeListLimited.html">Att
 			If someone tries to store a list of more than 4 elements,
 			an exception is thrown.
 		</div>
+		<h3><a name="attributemaps">Attribute Maps</a></h3>
+		<div>
+			Especially in international applications you may want to store multiple attribute values,
+			such as one price of a product for each country or one description for each language.
+			The following example specifies the latter:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newItemAttribute(Language.class), new StringAttribute());
+</pre>
+		<div>
+			The instrumentor will create appropriate methods for accessing the <i>attribute map</i>:
+		</div>
+<pre>
+String getDescription(Language k)
+{
+    return Product.description.get(this, k);
+}
+
+void setDescription(Language k, String description)
+{
+    Product.description.set(description, this, k);
+}
+</pre>
+		<div>
+			This example assumes, that there is already a persistent item <tt>Language</tt>.
+			If you decide to use use a fixed set of languages in your application,
+			you may use an enum instead:
+		</div>
+<pre>
+static enum Language { DE, EN, PL; }
+
+static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newEnumAttribute(Language.class), new StringAttribute());
+</pre>
 		<h3><a name="dayattributes">Day Attributes</a></h3>
 		<div>
 			Class <a href="api/com/exedio/cope/DateAttribute.html">DateAttribute</a>
