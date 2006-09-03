@@ -997,7 +997,6 @@ final class Generator
 	
 	private void write(final CopeAttributeMap map) throws IOException
 	{
-		final String qualifierClassName = map.parent.javaClass.getFullName();
 		if(true) // TODO SOON getter option
 		{
 			writeCommentHeader();
@@ -1019,7 +1018,7 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t\treturn ");
-			o.write(qualifierClassName);
+			o.write(map.parent.name);
 			o.write('.');
 			o.write(map.name);
 			o.write(".get(this," + ATTRIBUTE_MAP_KEY + ");");
@@ -1051,7 +1050,7 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t\t");
-			o.write(qualifierClassName);
+			o.write(map.parent.name);
 			o.write('.');
 			o.write(map.name);
 			o.write(".set(");

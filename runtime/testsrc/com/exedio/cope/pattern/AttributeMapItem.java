@@ -77,7 +77,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final String getName(final Language k)
 	{
-		return com.exedio.cope.pattern.AttributeMapItem.name.get(this,k);
+		return AttributeMapItem.name.get(this,k);
 	}/**
 
 	 **
@@ -86,7 +86,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setName(final Language k,final String name)
 	{
-		com.exedio.cope.pattern.AttributeMapItem.name.set(name,this,k);
+		AttributeMapItem.name.set(name,this,k);
 	}/**
 
 	 **
@@ -95,7 +95,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final Integer getNameLength(final Language k)
 	{
-		return com.exedio.cope.pattern.AttributeMapItem.nameLength.get(this,k);
+		return AttributeMapItem.nameLength.get(this,k);
 	}/**
 
 	 **
@@ -104,7 +104,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setNameLength(final Language k,final Integer nameLength)
 	{
-		com.exedio.cope.pattern.AttributeMapItem.nameLength.set(nameLength,this,k);
+		AttributeMapItem.nameLength.set(nameLength,this,k);
 	}/**
 
 	 **
@@ -113,7 +113,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final String getString(final String k)
 	{
-		return com.exedio.cope.pattern.AttributeMapItem.string.get(this,k);
+		return AttributeMapItem.string.get(this,k);
 	}/**
 
 	 **
@@ -122,7 +122,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setString(final String k,final String string)
 	{
-		com.exedio.cope.pattern.AttributeMapItem.string.set(string,this,k);
+		AttributeMapItem.string.set(string,this,k);
 	}/**
 
 	 **
@@ -131,7 +131,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final Integer getInteger(final String k)
 	{
-		return com.exedio.cope.pattern.AttributeMapItem.integer.get(this,k);
+		return AttributeMapItem.integer.get(this,k);
 	}/**
 
 	 **
@@ -140,7 +140,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setInteger(final String k,final Integer integer)
 	{
-		com.exedio.cope.pattern.AttributeMapItem.integer.set(integer,this,k);
+		AttributeMapItem.integer.set(integer,this,k);
 	}/**
 
 	 **
