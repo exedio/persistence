@@ -51,6 +51,8 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
 {
+	private static final char ATTRIBUTE_MAP_KEY = 'k';
+	
 	private static final String THROWS_NULL   = "if {0} is null.";
 	private static final String THROWS_UNIQUE = "if {0} is not unique.";
 	private static final String THROWS_LENGTH = "if {0} violates its length constraint.";
@@ -96,6 +98,8 @@ final class Generator
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
 	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the attribute list {0}.";
 	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the attribute list {0}.";
+	private static final String ATTIBUTE_MAP_GETTER = "Returns the value mapped to <tt>" + ATTRIBUTE_MAP_KEY + "</tt> by the attribute map {0}.";
+	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the attribute list {0}.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
@@ -815,7 +819,7 @@ final class Generator
 
 		o.write("\t}");
 		
-		final List qualifierAttributes = Arrays.asList(qualifier.getAttributes());
+		final List<CopeAttribute> qualifierAttributes = Arrays.asList(qualifier.getAttributes());
 		for(final CopeFeature feature : qualifier.parent.getFeatures())
 		{
 			if(feature instanceof CopeAttribute)
@@ -832,9 +836,9 @@ final class Generator
 	private void writeQualifierGetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException, InjectorParseException
 	{
-		final String qualifierClassName = qualifier.parent.javaClass.getFullName();
 		if(attribute.getterOption.exists)
 		{
+			final String qualifierClassName = qualifier.parent.javaClass.getFullName();
 			writeCommentHeader();
 			o.write("\t * ");
 			o.write(QUALIFIER_GETTER);
@@ -874,9 +878,9 @@ final class Generator
 	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException, InjectorParseException
 	{
-		final String qualifierClassName = qualifier.parent.javaClass.getFullName();
 		if(attribute.setterOption.exists)
 		{
+			final String qualifierClassName = qualifier.parent.javaClass.getFullName();
 			writeCommentHeader();
 			o.write("\t * ");
 			o.write(QUALIFIER_SETTER);
@@ -989,6 +993,73 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t}");
+	}
+	
+	private void write(final CopeAttributeMap map) throws IOException
+	{
+		final String qualifierClassName = map.parent.javaClass.getFullName();
+		if(true) // TODO SOON getter option
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(MessageFormat.format(ATTIBUTE_MAP_GETTER, link(map.name)));
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write("public final "); // TODO SOON getter option
+			o.write(map.getValueType());
+			o.write(" get");
+			o.write(toCamelCase(map.name));
+			o.write("(final ");
+			o.write(map.getKeyType());
+			o.write(" " + ATTRIBUTE_MAP_KEY + ")");
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\treturn ");
+			o.write(qualifierClassName);
+			o.write('.');
+			o.write(map.name);
+			o.write(".get(this," + ATTRIBUTE_MAP_KEY + ");");
+			o.write(lineSeparator);
+	
+			o.write("\t}");
+		}
+		if(true) // TODO SOON setter option
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(MessageFormat.format(ATTIBUTE_MAP_SETTER, link(map.name)));
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write("public final "); // TODO SOON setter option
+			o.write("void set");
+			o.write(toCamelCase(map.name));
+			o.write("(final ");
+			o.write(map.getKeyType());
+			o.write(" " + ATTRIBUTE_MAP_KEY + ",final ");
+			o.write(map.getValueType());
+			o.write(' ');
+			o.write(map.name);
+			o.write(')');
+			o.write(lineSeparator);
+			
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\t");
+			o.write(qualifierClassName);
+			o.write('.');
+			o.write(map.name);
+			o.write(".set(");
+			o.write(map.name);
+			o.write(",this," + ATTRIBUTE_MAP_KEY + ");");
+			o.write(lineSeparator);
+			o.write("\t}");
+		}
 	}
 	
 	private void writeRelation(final CopeRelation relation, final boolean source)
@@ -1201,6 +1272,8 @@ final class Generator
 					writeUniqueFinder((CopeUniqueConstraint)feature);
 				else if(feature instanceof CopeAttributeList)
 					write((CopeAttributeList)feature);
+				else if(feature instanceof CopeAttributeMap)
+					write((CopeAttributeMap)feature);
 				else if(feature instanceof CopeMedia)
 					writeMedia((CopeMedia)feature);
 				else if(feature instanceof CopeHash)

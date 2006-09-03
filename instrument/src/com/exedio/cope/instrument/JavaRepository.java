@@ -41,11 +41,12 @@ import com.exedio.cope.StringAttribute;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.AttributeList;
+import com.exedio.cope.pattern.AttributeListLimited;
+import com.exedio.cope.pattern.AttributeMap;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.pattern.Relation;
-import com.exedio.cope.pattern.AttributeListLimited;
 import com.exedio.cope.pattern.VectorRelation;
 
 final class JavaRepository
@@ -136,6 +137,8 @@ final class JavaRepository
 								new CopeHash(type, javaAttribute);
 							else if(AttributeList.class.isAssignableFrom(typeClass) || AttributeListLimited.class.isAssignableFrom(typeClass))
 								new CopeAttributeList(type, javaAttribute);
+							else if(AttributeMap.class.isAssignableFrom(typeClass))
+								new CopeAttributeMap(type, javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
 							else if(Relation.class.isAssignableFrom(typeClass))
