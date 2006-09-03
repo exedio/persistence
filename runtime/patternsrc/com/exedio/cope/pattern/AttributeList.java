@@ -35,15 +35,15 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-public final class AttributeList<T> extends Pattern // TODO SOON rename T to E
+public final class AttributeList<E> extends Pattern
 {
 	private ItemAttribute<?> parent = null;
 	private final IntegerAttribute order;
 	private UniqueConstraint uniqueConstraint = null;
-	private final FunctionAttribute<T> element;
+	private final FunctionAttribute<E> element;
 	private Type<?> relationType = null;
 
-	private AttributeList(final FunctionAttribute<T> element)
+	private AttributeList(final FunctionAttribute<E> element)
 	{
 		this.order = new IntegerAttribute(Attribute.Option.FINAL);
 		this.element = element;
@@ -53,9 +53,9 @@ public final class AttributeList<T> extends Pattern // TODO SOON rename T to E
 			throw new NullPointerException("element must not be unique");
 	}
 	
-	public static final <T> AttributeList<T> newList(final FunctionAttribute<T> element)
+	public static final <E> AttributeList<E> newList(final FunctionAttribute<E> element)
 	{
-		return new AttributeList<T>(element);
+		return new AttributeList<E>(element);
 	}
 	
 	@Override
@@ -90,7 +90,7 @@ public final class AttributeList<T> extends Pattern // TODO SOON rename T to E
 		return uniqueConstraint;
 	}
 	
-	public FunctionAttribute<T> getElement()
+	public FunctionAttribute<E> getElement()
 	{
 		return element;
 	}
@@ -101,21 +101,21 @@ public final class AttributeList<T> extends Pattern // TODO SOON rename T to E
 		return relationType;
 	}
 	
-	public List<T> get(final Item item)
+	public List<E> get(final Item item)
 	{
-		final Query<T> q = new Query<T>(element, Cope.equalAndCast(this.parent, item));
+		final Query<E> q = new Query<E>(element, Cope.equalAndCast(this.parent, item));
 		q.setOrderBy(order, true);
 		return q.search();
 	}
 
-	public void set(final Item item, final Collection<? extends T> value)
+	public void set(final Item item, final Collection<? extends E> value)
 	{
 		// TODO: this implementation wastes resources !!
 		for(final Item tupel : this.relationType.newQuery(Cope.equalAndCast(this.parent, item)).search())
 			tupel.deleteCopeItem();
 
 		int order = 0;
-		for(final T element : value)
+		for(final E element : value)
 		{
 			this.relationType.newItem(new SetValue[]{
 					Cope.mapAndCast(this.parent, item),

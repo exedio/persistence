@@ -40,19 +40,19 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 
-public final class AttributeListLimited<T> extends Pattern implements Settable<Collection<T>> // TODO SOON rename T to E
+public final class AttributeListLimited<E> extends Pattern implements Settable<Collection<E>>
 {
-	private final FunctionAttribute<T>[] sources;
+	private final FunctionAttribute<E>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;
 
-	public AttributeListLimited(final FunctionAttribute<T>[] sources)
+	public AttributeListLimited(final FunctionAttribute<E>[] sources)
 	{
 		this.sources = sources;
 
 		boolean initial = false;
 		boolean isFinal = false;
-		for(FunctionAttribute<T> source : sources)
+		for(FunctionAttribute<E> source : sources)
 		{
 			registerSource(source);
 			initial = initial || source.isInitial();
@@ -62,34 +62,34 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		this.isFinal = isFinal;
 	}
 	
-	private AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	private AttributeListLimited(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2)
 	{
-		this(AttributeListLimited.<T>cast(new FunctionAttribute[]{source1, source2}));
+		this(AttributeListLimited.<E>cast(new FunctionAttribute[]{source1, source2}));
 	}
 	
-	private AttributeListLimited(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	private AttributeListLimited(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2, final FunctionAttribute<E> source3)
 	{
-		this(AttributeListLimited.<T>cast(new FunctionAttribute[]{source1, source2, source3}));
+		this(AttributeListLimited.<E>cast(new FunctionAttribute[]{source1, source2, source3}));
 	}
 	
-	private AttributeListLimited(final FunctionAttribute<T> template, final int maximumSize)
+	private AttributeListLimited(final FunctionAttribute<E> template, final int maximumSize)
 	{
 		this(template2Sources(template, maximumSize));
 	}
 	
-	public static final <T> AttributeListLimited<T> newList(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2)
+	public static final <E> AttributeListLimited<E> newList(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2)
 	{
-		return new AttributeListLimited<T>(source1, source2);
+		return new AttributeListLimited<E>(source1, source2);
 	}
 	
-	public static final <T> AttributeListLimited<T> newList(final FunctionAttribute<T> source1, final FunctionAttribute<T> source2, final FunctionAttribute<T> source3)
+	public static final <E> AttributeListLimited<E> newList(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2, final FunctionAttribute<E> source3)
 	{
-		return new AttributeListLimited<T>(source1, source2, source3);
+		return new AttributeListLimited<E>(source1, source2, source3);
 	}
 	
-	public static final <T> AttributeListLimited<T> newList(final FunctionAttribute<T> template, final int maximumSize)
+	public static final <E> AttributeListLimited<E> newList(final FunctionAttribute<E> template, final int maximumSize)
 	{
-		return new AttributeListLimited<T>(template, maximumSize);
+		return new AttributeListLimited<E>(template, maximumSize);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -115,13 +115,13 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		
 		for(int i = 0; i<sources.length; i++)
 		{
-			final FunctionAttribute<T> source = sources[i];
+			final FunctionAttribute<E> source = sources[i];
 			if(!source.isInitialized())
 				initialize(source, name+(i+1/*TODO: make this '1' customizable*/));
 		}
 	}
 	
-	public List<FunctionAttribute<T>> getSources()
+	public List<FunctionAttribute<E>> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}
@@ -144,13 +144,13 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		return result;
 	}
 	
-	public List<T> get(final Item item)
+	public List<E> get(final Item item)
 	{
-		final ArrayList<T> result = new ArrayList<T>(sources.length);
+		final ArrayList<E> result = new ArrayList<E>(sources.length);
 
 		for(int i = 0; i<sources.length; i++)
 		{
-			final T value = sources[i].get(item);
+			final E value = sources[i].get(item);
 			if(value!=null)
 				result.add(value);
 		}
@@ -163,7 +163,7 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 			throw new RuntimeException("value exceeds limit " + sources.length + " for " + toString() + ": " + value);
 	}
 	
-	public void set(final Item item, final Collection<? extends T> value)
+	public void set(final Item item, final Collection<? extends E> value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -175,7 +175,7 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		int i = 0;
 		final SetValue[] setValues = new SetValue[sources.length];
 
-		for(Iterator<? extends T> it = value.iterator(); it.hasNext(); i++)
+		for(Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
 
 		for(; i<sources.length; i++)
@@ -192,9 +192,9 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		}
 	}
 	
-	public SetValue<Collection<T>> map(final Collection<T> value)
+	public SetValue<Collection<E>> map(final Collection<E> value)
 	{
-		return new SetValue<Collection<T>>(this, value);
+		return new SetValue<Collection<E>>(this, value);
 	}
 	
 	public SetValue[] execute(final Collection value, final Item exceptionItem)
@@ -212,26 +212,26 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		return result;
 	}
 	
-	public CompositeCondition equal(final Collection<T> value)
+	public CompositeCondition equal(final Collection<E> value)
 	{
 		int i = 0;
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
-		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
+		for(Iterator<E> it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = sources[i].equal(it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = sources[i].equal((T)null);
+			conditions[i] = sources[i].equal((E)null);
 
 		return Cope.and(conditions);
 	}
 	
-	public CompositeCondition notEqual(final Collection<T> value)
+	public CompositeCondition notEqual(final Collection<E> value)
 	{
 		int i = 0;
 		final NotEqualCondition[] conditions = new NotEqualCondition[sources.length];
 		
-		for(Iterator<T> it = value.iterator(); it.hasNext(); i++)
+		for(Iterator<E> it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = sources[i].notEqual(it.next());
 
 		for(; i<sources.length; i++)
@@ -240,7 +240,7 @@ public final class AttributeListLimited<T> extends Pattern implements Settable<C
 		return Cope.or(conditions);
 	}
 
-	public CompositeCondition contains(final T value)
+	public CompositeCondition contains(final E value)
 	{
 		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
