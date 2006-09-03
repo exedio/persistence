@@ -115,14 +115,20 @@ public final class AttributeMap<K,V> extends Pattern
 		final Item relationItem = uniqueConstraint.searchUnique(new Object[]{item, key});
 		if(relationItem==null)
 		{
-			uniqueConstraint.getType().newItem(new SetValue[]{
-					Cope.mapAndCast(this.parent, item),
-					this.key.map(key),
-					this.value.map(value),
-			});
+			if(value!=null)
+				uniqueConstraint.getType().newItem(new SetValue[]{
+						Cope.mapAndCast(this.parent, item),
+						this.key.map(key),
+						this.value.map(value),
+				});
 		}
 		else
-			this.value.set(relationItem, value);
+		{
+			if(value!=null)
+				this.value.set(relationItem, value);
+			else
+				relationItem.deleteCopeItem();
+		}
 	}
 
 }
