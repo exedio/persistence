@@ -90,7 +90,8 @@ static final <a href="api/com/exedio/cope/pattern/AttributeListLimited.html">Att
 		</div>
 <pre>
 static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newItemAttribute(Language.class), new StringAttribute());
+    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newItemAttribute(Language.class),
+                        new StringAttribute());
 </pre>
 		<div>
 			The instrumentor will create appropriate methods for accessing the <i>attribute map</i>:
@@ -115,7 +116,8 @@ void setDescription(Language k, String description)
 static enum Language { DE, EN, PL; }
 
 static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newEnumAttribute(Language.class), new StringAttribute());
+    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newEnumAttribute(Language.class),
+                        new StringAttribute());
 </pre>
 		<h3><a name="dayattributes">Day Attributes</a></h3>
 		<div>
