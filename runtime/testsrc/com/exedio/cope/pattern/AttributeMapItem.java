@@ -86,7 +86,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setName(final Language k,final String name)
 	{
-		AttributeMapItem.name.set(name,this,k);
+		AttributeMapItem.name.set(this,k,name);
 	}/**
 
 	 **
@@ -104,7 +104,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setNameLength(final Language k,final Integer nameLength)
 	{
-		AttributeMapItem.nameLength.set(nameLength,this,k);
+		AttributeMapItem.nameLength.set(this,k,nameLength);
 	}/**
 
 	 **
@@ -122,7 +122,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setString(final String k,final String string)
 	{
-		AttributeMapItem.string.set(string,this,k);
+		AttributeMapItem.string.set(this,k,string);
 	}/**
 
 	 **
@@ -140,7 +140,7 @@ public class AttributeMapItem extends Item
 	 */
 	public final void setInteger(final String k,final Integer integer)
 	{
-		AttributeMapItem.integer.set(integer,this,k);
+		AttributeMapItem.integer.set(this,k,integer);
 	}/**
 
 	 **

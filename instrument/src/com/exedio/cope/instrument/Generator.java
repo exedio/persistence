@@ -1053,9 +1053,9 @@ final class Generator
 			o.write(map.parent.name);
 			o.write('.');
 			o.write(map.name);
-			o.write(".set(");
+			o.write(".set(this," + ATTRIBUTE_MAP_KEY + ',');
 			o.write(map.name);
-			o.write(",this," + ATTRIBUTE_MAP_KEY + ");");
+			o.write(");");
 			o.write(lineSeparator);
 			o.write("\t}");
 		}

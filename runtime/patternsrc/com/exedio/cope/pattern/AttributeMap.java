@@ -110,7 +110,7 @@ public final class AttributeMap<K,V> extends Pattern
 			return null;
 	}
 	
-	public void set(final V value, final Item item, final K key)
+	public void set(final Item item, final K key, final V value)
 	{
 		final Item relationItem = uniqueConstraint.searchUnique(new Object[]{item, key});
 		if(relationItem==null)
