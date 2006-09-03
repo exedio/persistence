@@ -99,7 +99,7 @@ final class Generator
 	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the attribute list {0}.";
 	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the attribute list {0}.";
 	private static final String ATTIBUTE_MAP_GETTER = "Returns the value mapped to <tt>" + ATTRIBUTE_MAP_KEY + "</tt> by the attribute map {0}.";
-	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the attribute list {0}.";
+	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the attribute map {0}.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
