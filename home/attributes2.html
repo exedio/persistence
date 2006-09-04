@@ -119,6 +119,24 @@ static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMa
     <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newEnumAttribute(Language.class),
                         new StringAttribute());
 </pre>
+		<div>
+			As with <i>attribute lists</i> this is implemented by an extra table in the database,
+			so you can store maps of any size.
+			If the key space of the map is limited to an enum,
+			you may decide to use a <i>limited attribute map</i> instead:
+		</div>
+<pre>
+static enum Language { DE, EN, PL; }
+
+static final <a href="api/com/exedio/cope/pattern/AttributeMapLimited.html">AttributeMapLimited</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/AttributeMapLimited.html">AttributeMapLimited</a>.<a href="api/com/exedio/cope/pattern/AttributeMapLimited.html#newMap(java.lang.Class, com.exedio.cope.FunctionAttribute)">newMap</a>(Language.class,
+                        new StringAttribute(OPTIONAL));
+</pre>
+		<div>
+			Internally three string attributes
+			<tt>nameDE</tt>, <tt>nameEN</tt>, <tt>namePL</tt>
+			are used for storing the values of the map.
+		</div>
 		<h3><a name="dayattributes">Day Attributes</a></h3>
 		<div>
 			Class <a href="api/com/exedio/cope/DateAttribute.html">DateAttribute</a>
