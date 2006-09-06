@@ -36,14 +36,14 @@ final class Cache
 	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
-	private final MyLRUMap<Query.Key, List<?>> queryCaches;
+	private final MyLRUMap<Query.Key, List<?>> queries;
 	private int queryHits=0, queryMisses=0;
 	private final boolean queryHistogram;
 	
 	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean queryHistogram)
 	{
 		this.mapSizeLimits = mapSizeLimits;
-		queryCaches = queryCacheSizeLimit>0 ? new MyLRUMap<Query.Key, List<?>>(queryCacheSizeLimit) : null;
+		queries = queryCacheSizeLimit>0 ? new MyLRUMap<Query.Key, List<?>>(queryCacheSizeLimit) : null;
 		final int numberOfConcreteTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
@@ -139,27 +139,27 @@ final class Cache
 	
 	boolean supportsQueryCaching()
 	{
-		return queryCaches!=null;
+		return queries!=null;
 	}
 	
 	<R> List<R> search(final Query<R> query)
 	{
-		if ( queryCaches==null )
+		if(queries==null)
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		Query.Key key = new Query.Key( query );
 		List<R> result;
-		synchronized ( queryCaches )
+		synchronized(queries)
 		{
-			result = Cache.<R>castQL(queryCaches.get(key));
+			result = Cache.<R>castQL(queries.get(key));
 		}
 		if ( result==null )
 		{
 			result = query.searchUncached();
-			synchronized ( queryCaches )
+			synchronized(queries)
 			{
-				queryCaches.put( key, result );				
+				queries.put(key, result);				
 			}
 			queryMisses++;
 		}
@@ -168,9 +168,9 @@ final class Cache
 			if(queryHistogram || query.makeStatementInfo)
 			{
 				final Query.Key originalKey;
-				synchronized(queryCaches)
+				synchronized(queries)
 				{
-					originalKey = queryCaches.getKeyInefficiently(key);
+					originalKey = queries.getKeyInefficiently(key);
 				}
 				originalKey.hits++;
 				
@@ -209,11 +209,11 @@ final class Cache
 				stateMap.keySet().removeAll( invalidatedPKs );
 			}
 		}
-		if ( queryCaches!=null )
+		if(queries!=null)
 		{
-			synchronized ( queryCaches )
+			synchronized(queries)
 			{
-				final Iterator<Query.Key> keys = queryCaches.keySet().iterator();
+				final Iterator<Query.Key> keys = queries.keySet().iterator();
 				while ( keys.hasNext() )
 				{
 					final Query.Key key = keys.next();
@@ -257,11 +257,11 @@ final class Cache
 				}
 			}
 		}
-		if(queryCaches!=null)
+		if(queries!=null)
 		{
-			synchronized(queryCaches)
+			synchronized(queries)
 			{
-				queryCaches.clear();
+				queries.clear();
 			}
 		}
 	}
@@ -315,11 +315,11 @@ final class Cache
 	{
 		final int queriesInCache;
 		
-		if(queryCaches!=null)
+		if(queries!=null)
 		{
-			synchronized(queryCaches)
+			synchronized(queries)
 			{
-				queriesInCache = queryCaches.size();
+				queriesInCache = queries.size();
 			}
 		}
 		else
@@ -332,11 +332,11 @@ final class Cache
 	{
 		final ArrayList<Query.Key> unsortedResult = new ArrayList<Query.Key>();
 		
-		if(queryCaches!=null)
+		if(queries!=null)
 		{
-			synchronized(queryCaches)
+			synchronized(queries)
 			{
-				unsortedResult.addAll(queryCaches.keySet());
+				unsortedResult.addAll(queries.keySet());
 				// NOTE:
 				// It is important to keep Key.toString()
 				// out of the synchronized block.
