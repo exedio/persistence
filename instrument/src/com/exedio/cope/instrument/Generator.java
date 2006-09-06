@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.zip.CRC32;
@@ -98,6 +99,8 @@ final class Generator
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
 	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the attribute list {0}.";
 	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the attribute list {0}.";
+	private static final String ATTIBUTE_SET_GETTER = "Returns the contents of the attribute set {0}.";
+	private static final String ATTIBUTE_SET_SETTER = "Sets the contents of the attribute set {0}.";
 	private static final String ATTIBUTE_MAP_GETTER = "Returns the value mapped to <tt>" + ATTRIBUTE_MAP_KEY + "</tt> by the attribute map {0}.";
 	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the attribute map {0}.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
@@ -931,12 +934,12 @@ final class Generator
 		
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(MessageFormat.format(ATTIBUTE_LIST_GETTER, link(name)));
+		o.write(MessageFormat.format(list.set?ATTIBUTE_SET_GETTER:ATTIBUTE_LIST_GETTER, link(name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
 
 		o.write("public final "); // TODO: obey attribute visibility
-		o.write(List.class.getName());
+		o.write((list.set?Set.class:List.class).getName());
 		o.write('<');
 		o.write(type);
 		o.write("> get");
@@ -958,7 +961,7 @@ final class Generator
 
 		writeCommentHeader();
 		o.write("\t * ");
-		o.write(MessageFormat.format(ATTIBUTE_LIST_SETTER, link(name)));
+		o.write(MessageFormat.format(list.set?ATTIBUTE_SET_SETTER:ATTIBUTE_LIST_SETTER, link(name)));
 		o.write(lineSeparator);
 		writeCommentFooter();
 

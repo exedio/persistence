@@ -44,6 +44,7 @@ import com.exedio.cope.pattern.AttributeList;
 import com.exedio.cope.pattern.AttributeListLimited;
 import com.exedio.cope.pattern.AttributeMap;
 import com.exedio.cope.pattern.AttributeMapLimited;
+import com.exedio.cope.pattern.AttributeSet;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
@@ -137,7 +138,9 @@ final class JavaRepository
 							else if(Hash.class.isAssignableFrom(typeClass))
 								new CopeHash(type, javaAttribute);
 							else if(AttributeList.class.isAssignableFrom(typeClass) || AttributeListLimited.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute);
+								new CopeAttributeList(type, javaAttribute, false);
+							else if(AttributeSet.class.isAssignableFrom(typeClass))
+								new CopeAttributeList(type, javaAttribute, true);
 							else if(AttributeMap.class.isAssignableFrom(typeClass) || AttributeMapLimited.class.isAssignableFrom(typeClass))
 								new CopeAttributeMap(type, javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))

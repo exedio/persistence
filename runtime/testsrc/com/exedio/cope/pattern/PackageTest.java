@@ -32,6 +32,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MD5Test.class);
 		suite.addTestSuite(AttributeListLimitedTest.class);
 		suite.addTestSuite(AttributeListTest.class);
+		suite.addTestSuite(AttributeSetTest.class);
 		suite.addTestSuite(AttributeMapLimitedTest.class);
 		suite.addTestSuite(AttributeMapTest.class);
 		suite.addTestSuite(CustomTest.class);
