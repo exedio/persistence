@@ -64,6 +64,7 @@ public class AttributeMapTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.name.getParent(), item.name.getKey()), item.name.getUniqueConstraint().getUniqueAttributes());
 		assertEquals("uniqueConstraint", item.name.getUniqueConstraint().getName());
 		assertSame(item.name.getRelationType(), item.name.getUniqueConstraint().getType());
+		assertEquals(list(item.name.getParent(), item.name.getKey()), item.name.getUniqueConstraint().getUniqueAttributes());
 
 		assertEquals(String.class, item.name.getValue().getValueClass());
 		assertEquals("value", item.name.getValue().getName());
