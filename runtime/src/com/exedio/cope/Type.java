@@ -931,13 +931,7 @@ public final class Type<C extends Item>
 
 		try
 		{
-			return
-				reactivationConstructor.newInstance(
-					new Object[]{
-						REACTIVATION_DUMMY,
-						Integer.valueOf(pk)
-					}
-				);
+			return reactivationConstructor.newInstance(REACTIVATION_DUMMY, pk);
 		}
 		catch(InstantiationException e)
 		{
