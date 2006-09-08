@@ -39,14 +39,14 @@ final class Cache
 	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
-	private final MyLRUMap<Query.Key, List<?>> queries;
+	private final LRUMap<Query.Key, List<?>> queries;
 	private int queryHits=0, queryMisses=0;
 	private final boolean queryHistogram;
 	
 	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean queryHistogram)
 	{
 		this.mapSizeLimits = mapSizeLimits;
-		queries = queryCacheSizeLimit>0 ? new MyLRUMap<Query.Key, List<?>>(queryCacheSizeLimit) : null;
+		queries = queryCacheSizeLimit>0 ? new LRUMap<Query.Key, List<?>>(queryCacheSizeLimit) : null;
 		final int numberOfConcreteTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
@@ -354,13 +354,13 @@ final class Cache
 		return result.toArray(new CacheQueryInfo[result.size()]);
 	}
 	
-	private static final class MyLRUMap<K,V> extends LinkedHashMap<K,V>
+	private static final class LRUMap<K,V> extends LinkedHashMap<K,V>
 	{
 		private static final long serialVersionUID = 19641264861283476l;
 		
 		private final int maxSize;
 		
-		MyLRUMap(final int maxSize)
+		LRUMap(final int maxSize)
 		{
 			super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
 			this.maxSize = maxSize;
