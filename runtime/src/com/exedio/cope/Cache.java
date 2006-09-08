@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -170,9 +173,10 @@ final class Cache
 				final Query.Key originalKey;
 				synchronized(queries)
 				{
-					originalKey = queries.getKeyInefficiently(key);
+					originalKey = queries.getKeyIfHackSucceeded(key);
 				}
-				originalKey.hits++;
+				if(originalKey!=null)
+					originalKey.hits++;
 				
 				if(query.makeStatementInfo)
 					query.addStatementInfo(new StatementInfo("query cache hit #" + originalKey.hits));
@@ -362,13 +366,41 @@ final class Cache
 			this.maxSize = maxSize;
 		}
 		
-		K getKeyInefficiently(final K key)
+		private static Method getEntry = null;
+
+		static
 		{
-			// TODO terribly inefficient implementation
-			for(K k : keySet())
-				if(key.equals(k))
-					return k;
-			return null;
+			try
+			{
+				final Method m = HashMap.class.getDeclaredMethod("getEntry", Object.class);
+				m.setAccessible(true);
+				getEntry = m;
+			}
+			catch(Exception e)
+			{
+				System.out.println("Accessing getEntry method failed, no query histograms available: " + e.getMessage());;
+			}
+		}
+		
+		@SuppressWarnings("unchecked") // OK: reflection does not support generics
+		K getKeyIfHackSucceeded(final K key)
+		{
+			if(getEntry==null)
+				return null;
+			
+			try
+			{
+				Map.Entry e = (Map.Entry)getEntry.invoke(this, key);
+				return (K)e.getKey();
+			}
+			catch(InvocationTargetException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
 		}
 		
 		@Override
