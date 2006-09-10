@@ -31,7 +31,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-public final class AttributeMap<K,V> extends Pattern
+public final class FieldMap<K,V> extends Pattern
 {
 	private ItemField<? extends Item> parent = null;
 	private final FunctionField<K> key;
@@ -39,7 +39,7 @@ public final class AttributeMap<K,V> extends Pattern
 	private final FunctionField<V> value;
 	private Type<?> relationType = null;
 
-	private AttributeMap(final FunctionField<K> key, final FunctionField<V> value)
+	private FieldMap(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		this.key = key;
 		this.value = value;
@@ -53,9 +53,9 @@ public final class AttributeMap<K,V> extends Pattern
 			throw new NullPointerException("value must not be unique");
 	}
 	
-	public static final <K,V> AttributeMap<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
+	public static final <K,V> FieldMap<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
 	{
-		return new AttributeMap<K,V>(key, value);
+		return new FieldMap<K,V>(key, value);
 	}
 	
 	@Override
