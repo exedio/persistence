@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumField;
@@ -57,8 +57,8 @@ public class Standard extends Item
 	public static final DoubleAttribute defaultDouble = new DoubleAttribute(OPTIONAL);
 	public static final DoubleAttribute nativeDouble = new DoubleAttribute();
 
-	public static final BooleanAttribute defaultBoolean = new BooleanAttribute(OPTIONAL);
-	public static final BooleanAttribute nativeBoolean = new BooleanAttribute();
+	public static final BooleanField defaultBoolean = new BooleanField(OPTIONAL);
+	public static final BooleanField nativeBoolean = new BooleanField();
 
 	public static final DateField mandatoryDate = new DateField();
 	private static final DateField privateDate = new DateField(OPTIONAL);
@@ -122,7 +122,7 @@ public class Standard extends Item
 	/**
 	 * @cope.getter boolean-as-is
 	 */
-	public static final BooleanAttribute asIsBoolean = new BooleanAttribute(OPTIONAL);
+	public static final BooleanField asIsBoolean = new BooleanField(OPTIONAL);
 	
 	public static final StringField doubleUnique1 = new StringField(OPTIONAL);
 	public static final IntegerField doubleUnique2 = new IntegerField(OPTIONAL);

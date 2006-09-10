@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DoubleAttribute;
@@ -213,9 +213,9 @@ final class ItemForm extends Form
 			else
 				return new EnumField(enumAttribute, enumAttribute.get(item), cop);
 		}
-		else if(attribute instanceof BooleanAttribute)
+		else if(attribute instanceof BooleanField)
 		{
-			final BooleanAttribute boolAttribute = (BooleanAttribute)attribute;
+			final BooleanField boolAttribute = (BooleanField)attribute;
 			if(attribute.isMandatory())
 			{
 				if(post)
@@ -412,7 +412,7 @@ final class ItemForm extends Form
 		/**
 		 * Constructs a form field with an initial value.
 		 */
-		BooleanEnumField(final BooleanAttribute attribute, final Boolean value, final ItemCop cop)
+		BooleanEnumField(final BooleanField attribute, final Boolean value, final ItemCop cop)
 		{
 			super(ItemForm.this, attribute, attribute.getName(), value==null ? VALUE_NULL : value.booleanValue() ? VALUE_ON : VALUE_OFF);
 			
@@ -423,7 +423,7 @@ final class ItemForm extends Form
 		/**
 		 * Constructs a form field with a value obtained from the submitted form.
 		 */
-		BooleanEnumField(final BooleanAttribute attribute, final ItemCop cop)
+		BooleanEnumField(final BooleanField attribute, final ItemCop cop)
 		{
 			super(ItemForm.this, attribute, attribute.getName());
 			addOptions(cop);

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
@@ -100,12 +100,12 @@ public class AttributeItem extends Item
 	/**
 	 * An boolean attribute
 	 */
-	public static final BooleanAttribute someBoolean = new BooleanAttribute(OPTIONAL);
+	public static final BooleanField someBoolean = new BooleanField(OPTIONAL);
 
 	/**
 	 * A mandatory boolean attribute
 	 */
-	public static final BooleanAttribute someNotNullBoolean = new BooleanAttribute();
+	public static final BooleanField someNotNullBoolean = new BooleanField();
 	
 	/**
 	 * An attribute referencing another persistent item

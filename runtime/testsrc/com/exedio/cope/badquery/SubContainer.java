@@ -18,13 +18,13 @@
 
 package com.exedio.cope.badquery;
 
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.ItemField;
 
 public class SubContainer extends SuperContainer
 {
 	public static final ItemField<SuperContainer> superContainer = newItemAttribute(FINAL, SuperContainer.class);
-	public static final BooleanAttribute subflag = new BooleanAttribute(OPTIONAL).defaultTo(Boolean.FALSE);
+	public static final BooleanField subflag = new BooleanField(OPTIONAL).defaultTo(Boolean.FALSE);
 	
 	/**
 

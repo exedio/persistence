@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.List;
 
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.FunctionAttribute;
@@ -37,7 +37,7 @@ public final class DTypeSystem extends Pattern
 	private final FunctionAttribute<?>[] attributes;
 
 	private final StringField[]  strings;
-	private final BooleanAttribute[] booleans;
+	private final BooleanField[] booleans;
 	private final IntegerField[] integers;
 	private final DoubleAttribute[]  doubles;
 	private final ItemField<DEnumValue>[]  enums;
@@ -50,7 +50,7 @@ public final class DTypeSystem extends Pattern
 			final int enumCapacity)
 	{
 		strings  = new StringField[stringCapacity];
-		booleans = new BooleanAttribute[booleanCapacity];
+		booleans = new BooleanField[booleanCapacity];
 		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleAttribute [doubleCapacity];
 		enums    = castEnumArray(new ItemField[enumCapacity]);
@@ -61,7 +61,7 @@ public final class DTypeSystem extends Pattern
 		for(int i = 0; i<strings.length; i++)
 			registerSource(attributes[n++] = strings [i] = new StringField(Item.OPTIONAL));
 		for(int i = 0; i<booleans.length; i++)
-			registerSource(attributes[n++] = booleans[i] = new BooleanAttribute(Item.OPTIONAL));
+			registerSource(attributes[n++] = booleans[i] = new BooleanField(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)
 			registerSource(attributes[n++] = integers[i] = new IntegerField(Item.OPTIONAL));
 		for(int i = 0; i<doubles.length; i++)

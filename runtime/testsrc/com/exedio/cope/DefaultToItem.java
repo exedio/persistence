@@ -27,8 +27,8 @@ import java.util.Date;
 public class DefaultToItem extends Item
 {
 
-	public static final BooleanAttribute booleanTrue = new BooleanAttribute(OPTIONAL).defaultTo(true);
-	public static final BooleanAttribute booleanNone = new BooleanAttribute();
+	public static final BooleanField booleanTrue = new BooleanField(OPTIONAL).defaultTo(true);
+	public static final BooleanField booleanNone = new BooleanField();
 
 	public static final IntegerField integerFive = new IntegerField().defaultTo(5);
 	public static final IntegerField integerFifty = new IntegerField(OPTIONAL).defaultTo(50);

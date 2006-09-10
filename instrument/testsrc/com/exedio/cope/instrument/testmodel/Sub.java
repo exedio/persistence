@@ -18,13 +18,13 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.LongField;
 
 public class Sub extends Super
 {
-	public static final BooleanAttribute subMandatory = new BooleanAttribute();
+	public static final BooleanField subMandatory = new BooleanField();
 	
 	/**
 	 * @cope.initial

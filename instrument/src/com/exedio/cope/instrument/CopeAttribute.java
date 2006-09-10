@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 
@@ -102,7 +102,7 @@ abstract class CopeAttribute extends CopeFeature
 	final boolean hasIsGetter()
 	{
 		final Feature instance = getInstance();
-		final boolean isBoolean = instance instanceof BooleanAttribute;
+		final boolean isBoolean = instance instanceof BooleanField;
 
 		return isBoolean && getterOption.booleanAsIs;
 	}

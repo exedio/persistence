@@ -26,7 +26,7 @@ import java.util.List;
 import bsh.UtilEvalError;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
@@ -111,7 +111,7 @@ final class JavaRepository
 									IntegerFunction.class.isAssignableFrom(typeClass) ||
 									LongField.class.equals(typeClass) ||
 									DoubleAttribute.class.equals(typeClass) ||
-									BooleanAttribute.class.equals(typeClass) ||
+									BooleanField.class.equals(typeClass) ||
 									DateField.class.equals(typeClass) ||
 									DayAttribute.class.equals(typeClass) ||
 									StringFunction.class.isAssignableFrom(typeClass))

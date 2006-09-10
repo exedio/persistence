@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.BooleanAttribute;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
@@ -236,9 +236,9 @@ final class TypeCop_Jspm
 								%><%=cop.getDisplayName(value)%><%
 							}
 						}
-						else if(feature instanceof BooleanAttribute)
+						else if(feature instanceof BooleanField)
 						{
-							final Boolean value = ((BooleanAttribute)feature).get(item);
+							final Boolean value = ((BooleanField)feature).get(item);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%

@@ -19,35 +19,35 @@
 package com.exedio.cope;
 
 
-public final class BooleanAttribute extends FunctionAttribute<Boolean>
+public final class BooleanField extends FunctionAttribute<Boolean>
 {
 	static final int[] ALLOWED_VALUES = {0, 1};
 
-	private BooleanAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
+	private BooleanField(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
 	{
 		super(isfinal, optional, unique, Boolean.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
-	public BooleanAttribute()
+	public BooleanField()
 	{
 		this(Item.MANDATORY);
 	}
 	
-	public BooleanAttribute(final Option option)
+	public BooleanField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	@Override
-	public BooleanAttribute copyFunctionAttribute()
+	public BooleanField copyFunctionAttribute()
 	{
-		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new BooleanField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
-	public BooleanAttribute defaultTo(final Boolean defaultConstant)
+	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
-		return new BooleanAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new BooleanField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	@Override
