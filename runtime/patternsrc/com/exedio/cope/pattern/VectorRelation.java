@@ -26,7 +26,7 @@ import java.util.List;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
@@ -47,7 +47,7 @@ import com.exedio.cope.UniqueConstraint;
 public final class VectorRelation<S extends Item, T extends Item> extends Pattern
 {
 	final ItemAttribute<S> source;
-	final IntegerAttribute order;
+	final IntegerField order;
 	final UniqueConstraint uniqueConstraint;
 	final ItemAttribute<T> target;
 	
@@ -62,7 +62,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	public VectorRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
 	{
 		this.source = source;
-		this.order = new IntegerAttribute(Attribute.Option.FINAL);
+		this.order = new IntegerField(Attribute.Option.FINAL);
 		this.uniqueConstraint = new UniqueConstraint(source, order);
 		this.target = target;
 		
@@ -82,7 +82,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		return source;
 	}
 	
-	public IntegerAttribute getOrder()
+	public IntegerField getOrder()
 	{
 		return order;
 	}

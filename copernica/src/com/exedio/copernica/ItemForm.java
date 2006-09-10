@@ -40,7 +40,6 @@ import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
@@ -236,12 +235,12 @@ final class ItemForm extends Form
 					return new BooleanEnumField(boolAttribute, boolAttribute.get(item), cop);
 			}
 		}
-		else if(attribute instanceof IntegerAttribute)
+		else if(attribute instanceof com.exedio.cope.IntegerField)
 		{
 			if(post)
 				return new IntegerField(this, attribute, name);
 			else
-				return new IntegerField(this, attribute, name, ((IntegerAttribute)attribute).get(item));
+				return new IntegerField(this, attribute, name, ((com.exedio.cope.IntegerField)attribute).get(item));
 		}
 		else if(attribute instanceof LongAttribute)
 		{

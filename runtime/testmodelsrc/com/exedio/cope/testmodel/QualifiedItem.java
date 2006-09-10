@@ -18,7 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.KeyEnum;
 
@@ -27,7 +27,7 @@ import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.KeyEnum;
  */
 public class QualifiedItem extends Item
 {
-	public static final IntegerAttribute number = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField number = new IntegerField(OPTIONAL);
 	
 	/**
 

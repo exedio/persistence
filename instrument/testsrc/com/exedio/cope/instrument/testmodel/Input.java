@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
@@ -28,7 +28,7 @@ import com.exedio.cope.UniqueConstraint;
 public class Input extends Item
 {
 	public static final StringField string = new StringField( FINAL );
-	public static final IntegerAttribute integer = new IntegerAttribute( FINAL );
+	public static final IntegerField integer = new IntegerField( FINAL );
 	public static final UniqueConstraint unique = new UniqueConstraint( string, integer );
 	
 /**

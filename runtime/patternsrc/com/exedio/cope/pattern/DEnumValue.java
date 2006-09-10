@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.SetValue;
@@ -31,7 +31,7 @@ public final class DEnumValue extends Item
 {
 	public static final ItemAttribute<DAttribute> parent = newItemAttribute(FINAL, DAttribute.class, CASCADE);
 
-	public static final IntegerAttribute position = new IntegerAttribute(FINAL);
+	public static final IntegerField position = new IntegerField(FINAL);
 	public static final UniqueConstraint uniquePosition = new UniqueConstraint(parent, position);
 	
 	public static final StringField code = new StringField(FINAL);

@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.SetValue;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.function.PlusView;
 
@@ -28,11 +28,11 @@ import com.exedio.cope.function.PlusView;
  */
 public class PlusItem extends Item
 {
-	public static final IntegerAttribute num1 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField num1 = new IntegerField(OPTIONAL);
 
-	public static final IntegerAttribute num2 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField num2 = new IntegerField(OPTIONAL);
 
-	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField num3 = new IntegerField(OPTIONAL);
 	
 	public static final PlusView plus12 = num1.plus(num2);
 

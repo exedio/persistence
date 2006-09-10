@@ -22,7 +22,7 @@ import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringField;
@@ -48,8 +48,8 @@ public class Standard extends Item
 	/** @cope.initial */
 	public static final StringField initialString = new StringField(OPTIONAL);
 
-	public static final IntegerAttribute defaultInteger = new IntegerAttribute(OPTIONAL);
-	public static final IntegerAttribute nativeInteger = new IntegerAttribute();
+	public static final IntegerField defaultInteger = new IntegerField(OPTIONAL);
+	public static final IntegerField nativeInteger = new IntegerField();
 
 	public static final LongAttribute defaultLong = new LongAttribute(OPTIONAL);
 	public static final LongAttribute nativeLong = new LongAttribute();
@@ -125,7 +125,7 @@ public class Standard extends Item
 	public static final BooleanAttribute asIsBoolean = new BooleanAttribute(OPTIONAL);
 	
 	public static final StringField doubleUnique1 = new StringField(OPTIONAL);
-	public static final IntegerAttribute doubleUnique2 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField doubleUnique2 = new IntegerField(OPTIONAL);
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
 	public static final Media anyMedia = new Media(OPTIONAL);

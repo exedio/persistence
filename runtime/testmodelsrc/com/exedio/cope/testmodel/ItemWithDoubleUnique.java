@@ -18,7 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
@@ -31,7 +31,7 @@ public class ItemWithDoubleUnique extends Item
 {
 	public static final StringField string = new StringField();
 	
-	public static final IntegerAttribute integer = new IntegerAttribute();
+	public static final IntegerField integer = new IntegerField();
 	
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(string, integer);
 

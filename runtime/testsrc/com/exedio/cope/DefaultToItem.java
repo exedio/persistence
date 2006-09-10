@@ -30,9 +30,9 @@ public class DefaultToItem extends Item
 	public static final BooleanAttribute booleanTrue = new BooleanAttribute(OPTIONAL).defaultTo(true);
 	public static final BooleanAttribute booleanNone = new BooleanAttribute();
 
-	public static final IntegerAttribute integerFive = new IntegerAttribute().defaultTo(5);
-	public static final IntegerAttribute integerFifty = new IntegerAttribute(OPTIONAL).defaultTo(50);
-	public static final IntegerAttribute integerNone = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField integerFive = new IntegerField().defaultTo(5);
+	public static final IntegerField integerFifty = new IntegerField(OPTIONAL).defaultTo(50);
+	public static final IntegerField integerNone = new IntegerField(OPTIONAL);
 
 	public static final DateAttribute dateEight = new DateAttribute().defaultTo(new Date(8));
 	public static final DateAttribute dateEighty = new DateAttribute(OPTIONAL).defaultTo(new Date(80));

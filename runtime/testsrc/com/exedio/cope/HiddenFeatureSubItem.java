@@ -32,7 +32,7 @@ public class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	 * @cope.getter none
 	 * @cope.setter none
 	 */
-	public static final IntegerAttribute hiddenOther = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField hiddenOther = new IntegerField(OPTIONAL);
 	
 	/**
 

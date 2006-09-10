@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -31,11 +31,11 @@ public class AttributeMapItem extends Item
 	
 	public static final AttributeMap<Language, String> name = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new StringField());
 	
-	public static final AttributeMap<Language, Integer> nameLength = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new IntegerAttribute());
+	public static final AttributeMap<Language, Integer> nameLength = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new IntegerField());
 	
 	public static final AttributeMap<String, String> string = AttributeMap.newMap(new StringField(FINAL).lengthRange(4, 8), new StringField());
 	
-	public static final AttributeMap<String, Integer> integer = AttributeMap.newMap(new StringField(FINAL).lengthRange(4, 8), new IntegerAttribute());
+	public static final AttributeMap<String, Integer> integer = AttributeMap.newMap(new StringField(FINAL).lengthRange(4, 8), new IntegerField());
 	
 	/**
 

@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.SetValue;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -85,11 +85,11 @@ public final class CustomItem extends Item
 		});
 	}
 
-	public static final IntegerAttribute element1 = new IntegerAttribute(OPTIONAL);
-	public static final IntegerAttribute element2 = new IntegerAttribute(OPTIONAL);
-	public static final IntegerAttribute element3 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField element1 = new IntegerField(OPTIONAL);
+	public static final IntegerField element2 = new IntegerField(OPTIONAL);
+	public static final IntegerField element3 = new IntegerField(OPTIONAL);
 	
-	public static final CustomAttribute<List<Integer>> elements = new CustomAttribute<List<Integer>>(new IntegerAttribute[]{element1, element2, element3})
+	public static final CustomAttribute<List<Integer>> elements = new CustomAttribute<List<Integer>>(new IntegerField[]{element1, element2, element3})
 	{
 		List get(final Integer element1, final Integer element2, final Integer element3)
 		{

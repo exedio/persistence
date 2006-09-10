@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Date;
 
 import com.exedio.cope.DateAttribute;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
@@ -34,11 +34,11 @@ public class AttributeListLimitedItem extends Item
 {
 	// explicit external source
 
-	public static final IntegerAttribute num1 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField num1 = new IntegerField(OPTIONAL);
 
-	public static final IntegerAttribute num2 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField num2 = new IntegerField(OPTIONAL);
 
-	public static final IntegerAttribute num3 = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField num3 = new IntegerField(OPTIONAL);
 	
 	public static final AttributeListLimited<Integer> nums = AttributeListLimited.newList(num1, num2, num3);
 

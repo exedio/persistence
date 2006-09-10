@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.List;
 
 import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.SetValue;
@@ -33,7 +33,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 public final class DAttribute extends Item
 {
 	public static final ItemAttribute<DType> parent = newItemAttribute(FINAL, DType.class, CASCADE);
-	public static final IntegerAttribute position = new IntegerAttribute(FINAL);
+	public static final IntegerField position = new IntegerField(FINAL);
 	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, position);
 
 	public static enum ValueType
@@ -59,7 +59,7 @@ public final class DAttribute extends Item
 		}
 	}
 	public static final EnumAttribute<ValueType> valueType = newEnumAttribute(FINAL, ValueType.class);
-	public static final IntegerAttribute positionPerValueType = new IntegerAttribute(FINAL);
+	public static final IntegerField positionPerValueType = new IntegerField(FINAL);
 	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
 	
 	public static final StringField code = new StringField(FINAL);

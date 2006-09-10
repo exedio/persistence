@@ -27,10 +27,10 @@ import com.exedio.cope.search.SumAggregate;
  *
  * @author Ralf Wiebicke
  */
-public final class IntegerAttribute extends FunctionAttribute<Integer> implements IntegerFunction
+public final class IntegerField extends FunctionAttribute<Integer> implements IntegerFunction
 {
 
-	private IntegerAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultConstant)
+	private IntegerField(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultConstant)
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		checkDefaultValue();
@@ -39,25 +39,25 @@ public final class IntegerAttribute extends FunctionAttribute<Integer> implement
 	/**
 	 * Creates a new mandatory <tt>IntegerAttribute</tt>.
 	 */
-	public IntegerAttribute()
+	public IntegerField()
 	{
 		this(Item.MANDATORY);
 	}
 	
-	public IntegerAttribute(final Option option)
+	public IntegerField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	@Override
-	public IntegerAttribute copyFunctionAttribute()
+	public IntegerField copyFunctionAttribute()
 	{
-		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 
-	public IntegerAttribute defaultTo(final Integer defaultConstant)
+	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	@Override

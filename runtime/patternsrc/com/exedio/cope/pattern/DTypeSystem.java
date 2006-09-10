@@ -24,7 +24,7 @@ import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
@@ -38,7 +38,7 @@ public final class DTypeSystem extends Pattern
 
 	private final StringField[]  strings;
 	private final BooleanAttribute[] booleans;
-	private final IntegerAttribute[] integers;
+	private final IntegerField[] integers;
 	private final DoubleAttribute[]  doubles;
 	private final ItemAttribute<DEnumValue>[]  enums;
 	
@@ -51,7 +51,7 @@ public final class DTypeSystem extends Pattern
 	{
 		strings  = new StringField[stringCapacity];
 		booleans = new BooleanAttribute[booleanCapacity];
-		integers = new IntegerAttribute[integerCapacity];
+		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleAttribute [doubleCapacity];
 		enums    = castEnumArray(new ItemAttribute[enumCapacity]);
 		attributes = new FunctionAttribute[strings.length + booleans.length + integers.length + doubles.length + enums.length];
@@ -63,7 +63,7 @@ public final class DTypeSystem extends Pattern
 		for(int i = 0; i<booleans.length; i++)
 			registerSource(attributes[n++] = booleans[i] = new BooleanAttribute(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)
-			registerSource(attributes[n++] = integers[i] = new IntegerAttribute(Item.OPTIONAL));
+			registerSource(attributes[n++] = integers[i] = new IntegerField(Item.OPTIONAL));
 		for(int i = 0; i<doubles.length; i++)
 			registerSource(attributes[n++] = doubles [i] = new DoubleAttribute(Item.OPTIONAL));
 		for(int i = 0; i<enums.length; i++)

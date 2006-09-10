@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -31,7 +31,7 @@ public class AttributeMapLimitedItem extends Item
 	
 	public static final AttributeMapLimited<Language, String> name = AttributeMapLimited.newMap(Language.class, new StringField(OPTIONAL));
 	
-	public static final AttributeMapLimited<Language, Integer> nameLength = AttributeMapLimited.newMap(Language.class, new IntegerAttribute(OPTIONAL));
+	public static final AttributeMapLimited<Language, Integer> nameLength = AttributeMapLimited.newMap(Language.class, new IntegerField(OPTIONAL));
 	
 	/**
 

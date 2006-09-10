@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.StringField;
@@ -32,38 +32,38 @@ public class QualifiedName extends Item
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 	public static final Qualifier nameQualifier = new Qualifier(parentKey);
 
-	public static final IntegerAttribute number = new IntegerAttribute();
-	public static final IntegerAttribute optionalNumber = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField number = new IntegerField();
+	public static final IntegerField optionalNumber = new IntegerField(OPTIONAL);
 	
 	/**
 	 * @cope.getter none
 	 */
-	public static final IntegerAttribute noneGetterNumber = new IntegerAttribute();
+	public static final IntegerField noneGetterNumber = new IntegerField();
 
 	/**
 	 * @cope.getter private
 	 */
-	public static final IntegerAttribute privateGetterNumber = new IntegerAttribute();
+	public static final IntegerField privateGetterNumber = new IntegerField();
 
 	/**
 	 * @cope.getter internal
 	 */
-	public static final IntegerAttribute internalGetterNumber = new IntegerAttribute();
+	public static final IntegerField internalGetterNumber = new IntegerField();
 	
 	/**
 	 * @cope.setter none
 	 */
-	public static final IntegerAttribute noneSetterNumber = new IntegerAttribute();
+	public static final IntegerField noneSetterNumber = new IntegerField();
 
 	/**
 	 * @cope.setter private
 	 */
-	public static final IntegerAttribute privateSetterNumber = new IntegerAttribute();
+	public static final IntegerField privateSetterNumber = new IntegerField();
 
 	/**
 	 * @cope.setter internal
 	 */
-	public static final IntegerAttribute internalSetterNumber = new IntegerAttribute();
+	public static final IntegerField internalSetterNumber = new IntegerField();
 	
 
 	/**

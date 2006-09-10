@@ -18,7 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.StringField;
@@ -37,8 +37,8 @@ public class QualifiedStringQualifier extends Item
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	public static final Qualifier stringQualifier = new Qualifier(qualifyUnique);
 	
-	public static final IntegerAttribute qualifiedA = new IntegerAttribute(OPTIONAL);
-	public static final IntegerAttribute qualifiedB = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField qualifiedA = new IntegerField(OPTIONAL);
+	public static final IntegerField qualifiedB = new IntegerField(OPTIONAL);
 	
 
 /**

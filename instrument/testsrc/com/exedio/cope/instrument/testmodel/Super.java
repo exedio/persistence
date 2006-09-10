@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.DayAttribute;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -32,7 +32,7 @@ public abstract class Super extends Item
 	/**
 	 * @cope.initial
 	 */
-	public static final IntegerAttribute superInitial = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField superInitial = new IntegerField(OPTIONAL);
 
 	public static final DayAttribute superNonInitial = new DayAttribute(OPTIONAL);
 

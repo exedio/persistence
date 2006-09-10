@@ -35,11 +35,11 @@ public class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem exte
 	 * {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber},
 	 * after trimming of database names
 	 */
-	public static final IntegerAttribute collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber =
-		new IntegerAttribute(OPTIONAL);
+	public static final IntegerField collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber =
+		new IntegerField(OPTIONAL);
 	
-	public static final IntegerAttribute collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber =
-		new IntegerAttribute(OPTIONAL);
+	public static final IntegerField collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber =
+		new IntegerField(OPTIONAL);
 	
 /**
 

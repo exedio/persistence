@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.function.UppercaseView;
@@ -28,7 +28,7 @@ import com.exedio.cope.function.UppercaseView;
  */
 public abstract class HierarchySuper extends Item
 {
-	public static final IntegerAttribute superInt = new IntegerAttribute(UNIQUE);
+	public static final IntegerField superInt = new IntegerField(UNIQUE);
 	
 	public static final StringField superString = new StringField(OPTIONAL);
 

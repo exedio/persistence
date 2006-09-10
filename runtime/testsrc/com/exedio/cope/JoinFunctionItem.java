@@ -32,7 +32,7 @@ public class JoinFunctionItem extends Item
 	/**
 	 * @cope.initial
 	 */
-	public static final IntegerAttribute integer = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField integer = new IntegerField(OPTIONAL);
 
 	
 /**

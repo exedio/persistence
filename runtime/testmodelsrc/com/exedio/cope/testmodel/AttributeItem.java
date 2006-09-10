@@ -23,7 +23,7 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
@@ -66,12 +66,12 @@ public class AttributeItem extends Item
 	/**
 	 * An integer attribute
 	 */
-	public static final IntegerAttribute someInteger = new IntegerAttribute(OPTIONAL);
+	public static final IntegerField someInteger = new IntegerField(OPTIONAL);
 
 	/**
 	 * A mandatory integer attribute
 	 */
-	public static final IntegerAttribute someNotNullInteger = new IntegerAttribute();
+	public static final IntegerField someNotNullInteger = new IntegerField();
 
 	/**
 	 * An integer attribute

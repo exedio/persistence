@@ -26,7 +26,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
-import com.exedio.cope.IntegerAttribute;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
@@ -38,14 +38,14 @@ import com.exedio.cope.UniqueConstraint;
 public final class AttributeList<E> extends Pattern
 {
 	private ItemAttribute<?> parent = null;
-	private final IntegerAttribute order;
+	private final IntegerField order;
 	private UniqueConstraint uniqueConstraint = null;
 	private final FunctionAttribute<E> element;
 	private Type<?> relationType = null;
 
 	private AttributeList(final FunctionAttribute<E> element)
 	{
-		this.order = new IntegerAttribute(Attribute.Option.FINAL);
+		this.order = new IntegerField(Attribute.Option.FINAL);
 		this.element = element;
 		if(element==null)
 			throw new NullPointerException("element must not be null");
@@ -79,7 +79,7 @@ public final class AttributeList<E> extends Pattern
 		return parent;
 	}
 	
-	public IntegerAttribute getOrder()
+	public IntegerField getOrder()
 	{
 		return order;
 	}
