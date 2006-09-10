@@ -24,12 +24,12 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 
-public final class AttributeMapLimited<K extends Enum<K>,V> extends Pattern
+public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 {
 	private final Class<K> keyClass;
 	private final EnumMap<K, FunctionField<V>> attributes;
 
-	private AttributeMapLimited(final Class<K> keyClass, final FunctionField<V> valueTemplate)
+	private FieldMapLimited(final Class<K> keyClass, final FunctionField<V> valueTemplate)
 	{
 		this.keyClass = keyClass;
 		this.attributes = new EnumMap<K, FunctionField<V>>(keyClass);
@@ -42,9 +42,9 @@ public final class AttributeMapLimited<K extends Enum<K>,V> extends Pattern
 		}
 	}
 	
-	public static final <K extends Enum<K>,V> AttributeMapLimited<K,V> newMap(final Class<K> keyClass, final FunctionField<V> value)
+	public static final <K extends Enum<K>,V> FieldMapLimited<K,V> newMap(final Class<K> keyClass, final FunctionField<V> value)
 	{
-		return new AttributeMapLimited<K,V>(keyClass, value);
+		return new FieldMapLimited<K,V>(keyClass, value);
 	}
 	
 	@Override

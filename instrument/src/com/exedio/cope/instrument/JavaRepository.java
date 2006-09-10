@@ -43,7 +43,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.FieldList;
 import com.exedio.cope.pattern.FieldListLimited;
 import com.exedio.cope.pattern.FieldMap;
-import com.exedio.cope.pattern.AttributeMapLimited;
+import com.exedio.cope.pattern.FieldMapLimited;
 import com.exedio.cope.pattern.FieldSet;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
@@ -141,7 +141,7 @@ final class JavaRepository
 								new CopeAttributeList(type, javaAttribute, false);
 							else if(FieldSet.class.isAssignableFrom(typeClass))
 								new CopeAttributeList(type, javaAttribute, true);
-							else if(FieldMap.class.isAssignableFrom(typeClass) || AttributeMapLimited.class.isAssignableFrom(typeClass))
+							else if(FieldMap.class.isAssignableFrom(typeClass) || FieldMapLimited.class.isAssignableFrom(typeClass))
 								new CopeAttributeMap(type, javaAttribute);
 							else if(Media.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
