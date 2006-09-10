@@ -493,7 +493,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @deprecated Renamed to {@link #newEnumField(Option, Class)}.
+	 * @deprecated Renamed to {@link #newEnumField(com.exedio.cope.Field.Option, Class)}.
 	 */
 	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Option option, final Class<E> valueClass)
@@ -521,7 +521,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @deprecated Renamed to {@link #newItemField(Option, Class)}.
+	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class)}.
 	 */
 	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass)
@@ -535,7 +535,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @deprecated Renamed to {@link #newItemField(Class, DeletePolicy)}.
+	 * @deprecated Renamed to {@link #newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)}.
 	 */
 	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
@@ -549,7 +549,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @deprecated Renamed to {@link #newItemField(Option, Class, DeletePolicy)}.
+	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class, com.exedio.cope.ItemField.DeletePolicy)}.
 	 */
 	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
