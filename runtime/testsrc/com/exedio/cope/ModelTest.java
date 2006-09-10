@@ -140,7 +140,7 @@ public class ModelTest extends TestmodelTest
 			item.someData.getLastModified(),
 		};
 		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getFields());
-		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), item.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(), item.TYPE.getDeclaredUniqueConstraints());
 

@@ -40,7 +40,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.TYPE, HierarchyEmptySub.TYPE), HierarchyEmptySuper.TYPE.getTypesOfInstances());
 		assertTrue(HierarchyEmptySuper.TYPE.isAssignableFrom(HierarchyEmptySuper.TYPE));
 		assertTrue(HierarchyEmptySuper.TYPE.isAssignableFrom(HierarchyEmptySuper.TYPE));
-		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySuper.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySuper.TYPE.getDeclaredFields());
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySuper.TYPE.getFields());
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()
@@ -74,7 +74,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertTrue(HierarchyEmptySub.TYPE.isAssignableFrom(HierarchyEmptySub.TYPE));
 		assertFalse(HierarchyEmptySub.TYPE.isAssignableFrom(HierarchySecondSub.TYPE));
 		assertFalse(HierarchySecondSub.TYPE.isAssignableFrom(HierarchyEmptySub.TYPE));
-		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredAttributes());
+		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredFields());
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySub.TYPE.getFields());
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(HierarchyEmptySub.superInt.getImplicitUniqueConstraint()), HierarchyEmptySub.TYPE.getUniqueConstraints());

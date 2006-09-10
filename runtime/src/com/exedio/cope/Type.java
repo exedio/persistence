@@ -716,11 +716,20 @@ public final class Type<C extends Item>
 	 * <p>
 	 * If you want to get all persistent attributes of this type,
 	 * including attributes inherited from super types,
-	 * use {@link #getAttributes}.
+	 * use {@link #getFields()}.
 	 * <p>
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
+	public List<Field> getDeclaredFields()
+	{
+		return declaredAttributes;
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #getDeclaredFields()}.
+	 */
+	@Deprecated
 	public List<Field> getDeclaredAttributes()
 	{
 		return declaredAttributes;
@@ -736,7 +745,7 @@ public final class Type<C extends Item>
 	 * <p>
 	 * If you want to get persistent attributes declared by this type only,
 	 * excluding attributes inherited from super types,
-	 * use {@link #getDeclaredAttributes}.
+	 * use {@link #getDeclaredFields()}.
 	 */
 	public List<Field> getFields()
 	{

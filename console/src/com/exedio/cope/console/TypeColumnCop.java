@@ -51,7 +51,7 @@ final class TypeColumnCop extends ConsoleCop
 			if(tt.needsCheckTypeColumn())
 				functions.add(tt);
 			
-			for(final Field a : t.getDeclaredAttributes())
+			for(final Field a : t.getDeclaredFields())
 				if(a instanceof ItemField)
 				{
 					final ItemField ia = (ItemField)a;

@@ -120,7 +120,7 @@ public class AttributeListLimitedTest extends AbstractLibTest
 
 		assertEquals(
 				list(item.num1, item.num2, item.num3, date1, date2, string1, string2, string3, string4),
-				item.TYPE.getDeclaredAttributes());
+				item.TYPE.getDeclaredFields());
 
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());

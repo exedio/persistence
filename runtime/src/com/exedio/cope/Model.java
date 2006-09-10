@@ -748,7 +748,7 @@ public final class Model
 		for(final Type<?> t : getTypes())
 		{
 			checkTypeColumn(t.thisFunction);
-			for(final Field a : t.getDeclaredAttributes())
+			for(final Field a : t.getDeclaredFields())
 				if(a instanceof ItemField)
 					checkTypeColumn((ItemField)a);
 		}
