@@ -35,14 +35,14 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-public final class AttributeSet<E> extends Pattern
+public final class FieldSet<E> extends Pattern
 {
 	private ItemField<?> parent = null;
 	private final FunctionField<E> element;
 	private UniqueConstraint uniqueConstraint = null;
 	private Type<?> relationType = null;
 
-	private AttributeSet(final FunctionField<E> element)
+	private FieldSet(final FunctionField<E> element)
 	{
 		this.element = element;
 		if(element==null)
@@ -51,9 +51,9 @@ public final class AttributeSet<E> extends Pattern
 			throw new NullPointerException("element must not be unique");
 	}
 	
-	public static final <E> AttributeSet<E> newSet(final FunctionField<E> element)
+	public static final <E> FieldSet<E> newSet(final FunctionField<E> element)
 	{
-		return new AttributeSet<E>(element);
+		return new FieldSet<E>(element);
 	}
 	
 	@Override

@@ -27,8 +27,8 @@ import com.exedio.cope.StringField;
 public class AttributeSetItem extends Item
 {
 
-	public static final AttributeSet<String> strings = AttributeSet.newSet(new StringField(OPTIONAL).lengthRange(4, 8));
-	public static final AttributeSet<Date> dates = AttributeSet.newSet(new DateField());
+	public static final FieldSet<String> strings = FieldSet.newSet(new StringField(OPTIONAL).lengthRange(4, 8));
+	public static final FieldSet<Date> dates = FieldSet.newSet(new DateField());
 	
 	/**
 
