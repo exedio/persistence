@@ -20,34 +20,34 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public final class DoubleAttribute extends FunctionAttribute<Double>
+public final class DoubleField extends FunctionAttribute<Double>
 {
 
-	private DoubleAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultConstant)
+	private DoubleField(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultConstant)
 	{
 		super(isfinal, optional, unique, Double.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
-	public DoubleAttribute()
+	public DoubleField()
 	{
 		this(Item.MANDATORY);
 	}
 
-	public DoubleAttribute(final Option option)
+	public DoubleField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 
 	@Override
-	public DoubleAttribute copyFunctionAttribute()
+	public DoubleField copyFunctionAttribute()
 	{
-		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DoubleField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
-	public DoubleAttribute defaultTo(final Double defaultConstant)
+	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DoubleField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	@Override

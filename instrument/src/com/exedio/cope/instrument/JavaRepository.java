@@ -30,7 +30,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
-import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
@@ -110,7 +110,7 @@ final class JavaRepository
 								if(
 									IntegerFunction.class.isAssignableFrom(typeClass) ||
 									LongField.class.equals(typeClass) ||
-									DoubleAttribute.class.equals(typeClass) ||
+									DoubleField.class.equals(typeClass) ||
 									BooleanField.class.equals(typeClass) ||
 									DateField.class.equals(typeClass) ||
 									DayAttribute.class.equals(typeClass) ||

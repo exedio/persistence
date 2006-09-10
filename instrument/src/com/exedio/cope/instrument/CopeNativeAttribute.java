@@ -25,7 +25,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
-import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.DoubleField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.LongField;
@@ -115,7 +115,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		fillNativeTypeMap(BooleanField.class, Boolean.class, boolean.class, "(", "?"+Boolean.class.getName()+".TRUE:"+Boolean.class.getName()+".FALSE)", "(", ").booleanValue()");
 		fillNativeTypeMap(LongField.class,    Long.class,    long.class);
 		fillNativeTypeMap(IntegerFunction.class,  Integer.class, int.class);
-		fillNativeTypeMap(DoubleAttribute.class,  Double.class,  double.class);
+		fillNativeTypeMap(DoubleField.class,  Double.class,  double.class);
 		fillNativeTypeMap(StringFunction.class,   String.class);
 		fillNativeTypeMap(DateField.class,    Date.class);
 		fillNativeTypeMap(DayAttribute.class,     Day.class);

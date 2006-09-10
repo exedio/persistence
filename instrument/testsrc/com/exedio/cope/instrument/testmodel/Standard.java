@@ -20,7 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
-import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -54,8 +54,8 @@ public class Standard extends Item
 	public static final LongField defaultLong = new LongField(OPTIONAL);
 	public static final LongField nativeLong = new LongField();
 
-	public static final DoubleAttribute defaultDouble = new DoubleAttribute(OPTIONAL);
-	public static final DoubleAttribute nativeDouble = new DoubleAttribute();
+	public static final DoubleField defaultDouble = new DoubleField(OPTIONAL);
+	public static final DoubleField nativeDouble = new DoubleField();
 
 	public static final BooleanField defaultBoolean = new BooleanField(OPTIONAL);
 	public static final BooleanField nativeBoolean = new BooleanField();

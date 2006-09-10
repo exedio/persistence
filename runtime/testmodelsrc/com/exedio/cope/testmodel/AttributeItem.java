@@ -21,7 +21,7 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
-import com.exedio.cope.DoubleAttribute;
+import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -86,12 +86,12 @@ public class AttributeItem extends Item
 	/**
 	 * A double attribute
 	 */
-	public static final DoubleAttribute someDouble = new DoubleAttribute(OPTIONAL);
+	public static final DoubleField someDouble = new DoubleField(OPTIONAL);
 
 	/**
 	 * A mandatory double attribute
 	 */
-	public static final DoubleAttribute someNotNullDouble = new DoubleAttribute();
+	public static final DoubleField someNotNullDouble = new DoubleField();
 
 	public static final DateField someDate = new DateField(OPTIONAL);
 
