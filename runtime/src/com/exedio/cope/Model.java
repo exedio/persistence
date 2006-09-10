@@ -362,7 +362,7 @@ public final class Model
 
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
-			final Attribute attribute = (Attribute)i.next();
+			final Field attribute = (Field)i.next();
 			if((attribute instanceof DataField) && !((DataField)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
@@ -383,7 +383,7 @@ public final class Model
 
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
-			final Attribute attribute = (Attribute)i.next();
+			final Field attribute = (Field)i.next();
 			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
@@ -417,7 +417,7 @@ public final class Model
 
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
-			final Attribute attribute = (Attribute)i.next();
+			final Field attribute = (Field)i.next();
 			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
@@ -748,7 +748,7 @@ public final class Model
 		for(final Type<?> t : getTypes())
 		{
 			checkTypeColumn(t.thisFunction);
-			for(final Attribute a : t.getDeclaredAttributes())
+			for(final Field a : t.getDeclaredAttributes())
 				if(a instanceof ItemField)
 					checkTypeColumn((ItemField)a);
 		}

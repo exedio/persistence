@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 
-import com.exedio.cope.Attribute;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
@@ -109,7 +108,7 @@ class ItemCop_Jspm
 				}
 				%>
 				<table border="1"><%
-				for(final Attribute attribute : form.displayedAttributes)
+				for(final com.exedio.cope.Field attribute : form.displayedAttributes)
 				{
 					final Field field = form.getFieldByKey(attribute);
 					%>
@@ -169,7 +168,7 @@ class ItemCop_Jspm
 						final Qualifier qualifier = (Qualifier)feature;
 						final Collection<? extends Item> values =
 							qualifier.getUniqueConstraint().getType().search(qualifier.getParent().equal(item));
-						for(final Attribute anyAttribute : qualifier.getAttributes())
+						for(final com.exedio.cope.Field anyAttribute : qualifier.getAttributes())
 						{
 							for(final Item value : values)
 							{

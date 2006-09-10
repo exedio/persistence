@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -49,8 +48,8 @@ public final class Type<C extends Item>
 	private final HashMap<String, Feature> declaredFeaturesByName;
 	private final HashMap<String, Feature> featuresByName;
 
-	private final List<Attribute> declaredAttributes;
-	private final List<Attribute> attributes;
+	private final List<Field> declaredAttributes;
+	private final List<Field> attributes;
 	final List<UniqueConstraint> declaredUniqueConstraints;
 	private final List<UniqueConstraint> uniqueConstraints;
 
@@ -127,11 +126,11 @@ public final class Type<C extends Item>
 	private static final LinkedHashMap<String, Feature> getFeatureMap(final Class<?> javaClass)
 	{
 		final LinkedHashMap<String, Feature> result = new LinkedHashMap<String, Feature>();
-		final Field[] fields = javaClass.getDeclaredFields();
+		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 		try
 		{
-			for(final Field field : fields)
+			for(final java.lang.reflect.Field field : fields)
 			{
 				if((field.getModifiers()&expectedModifier)==expectedModifier)
 				{
@@ -192,13 +191,13 @@ public final class Type<C extends Item>
 
 		// declared attributes / unique constraints
 		{
-			final ArrayList<Attribute> declaredAttributes = new ArrayList<Attribute>(declaredFeatures.size());
+			final ArrayList<Field> declaredAttributes = new ArrayList<Field>(declaredFeatures.size());
 			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
 			for(final Feature feature : declaredFeatures)
 			{
-				if(feature instanceof Attribute)
-					declaredAttributes.add((Attribute)feature);
+				if(feature instanceof Field)
+					declaredAttributes.add((Field)feature);
 				if(feature instanceof UniqueConstraint)
 					declaredUniqueConstraints.add((UniqueConstraint)feature);
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
@@ -374,7 +373,7 @@ public final class Type<C extends Item>
 		this.subTypesTransitively = castTypeInstanceArrayList(subTypesTransitively);
 		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
 
-		for(final Attribute a : declaredAttributes)
+		for(final Field a : declaredAttributes)
 			if(a instanceof ItemField)
 				((ItemField)a).postInitialize();
 	}
@@ -461,7 +460,7 @@ public final class Type<C extends Item>
 		else
 			pkSource = database.makePkSource(table);
 		
-		for(final Attribute a : declaredAttributes)
+		for(final Field a : declaredAttributes)
 			a.materialize(table);
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.materialize(database);
@@ -481,7 +480,7 @@ public final class Type<C extends Item>
 		table = null;
 		pkSource = null;
 		
-		for(final Attribute a : declaredAttributes)
+		for(final Field a : declaredAttributes)
 			a.dematerialize();
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.dematerialize();
@@ -579,7 +578,7 @@ public final class Type<C extends Item>
 	 *
 	 * @see #getPrimaryKeyColumnName()
 	 * @see #getTypeColumnName()
-	 * @see Attribute#getColumnName()
+	 * @see Field#getColumnName()
 	 * @see ItemField#getTypeColumnName()
 	 */
 	public String getTableName()
@@ -601,7 +600,7 @@ public final class Type<C extends Item>
 	 *
 	 * @see #getTableName()
 	 * @see #getTypeColumnName()
-	 * @see Attribute#getColumnName()
+	 * @see Field#getColumnName()
 	 */
 	public String getPrimaryKeyColumnName()
 	{
@@ -626,7 +625,7 @@ public final class Type<C extends Item>
 	 *         contains one type only.
 	 * @see #getTableName()
 	 * @see #getPrimaryKeyColumnName()
-	 * @see Attribute#getColumnName()
+	 * @see Field#getColumnName()
 	 * @see ItemField#getTypeColumnName()
 	 */
 	public String getTypeColumnName()
@@ -722,7 +721,7 @@ public final class Type<C extends Item>
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
-	public List<Attribute> getDeclaredAttributes()
+	public List<Field> getDeclaredAttributes()
 	{
 		return declaredAttributes;
 	}
@@ -739,7 +738,7 @@ public final class Type<C extends Item>
 	 * excluding attributes inherited from super types,
 	 * use {@link #getDeclaredAttributes}.
 	 */
-	public List<Attribute> getAttributes()
+	public List<Field> getAttributes()
 	{
 		return attributes;
 	}

@@ -19,7 +19,7 @@ package com.exedio.copernica.test;
 
 import java.util.Arrays;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.Model;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
@@ -61,10 +61,10 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 		);
 		
 		setSections(AttributeItem.TYPE,
-			Arrays.asList(new Attribute[]{AttributeItem.someString, AttributeItem.someNotNullString}),
+			Arrays.asList(new Field[]{AttributeItem.someString, AttributeItem.someNotNullString}),
 			Arrays.asList(new TransientSection[]
 			{
-				new TransientSection("numbers", new Attribute[] {
+				new TransientSection("numbers", new Field[] {
 						AttributeItem.someInteger,
 						AttributeItem.someLong,
 						AttributeItem.someDouble,
@@ -72,12 +72,12 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 						AttributeItem.someNotNullLong,
 						AttributeItem.someNotNullDouble,
 						}),
-				new TransientSection("data", new Attribute[]{
+				new TransientSection("data", new Field[]{
 						AttributeItem.someEnum,
 						AttributeItem.someNotNullEnum,
 						AttributeItem.someData.getBody(), // TODO should specify someData here
 						}),
-				new TransientSection("other", new Attribute[]{
+				new TransientSection("other", new Field[]{
 						AttributeItem.someDate,
 						AttributeItem.someBoolean,
 						AttributeItem.someNotNullBoolean,

@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.StringField;
-import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.Field.Option;
 import com.exedio.cope.pattern.Hash;
 
 

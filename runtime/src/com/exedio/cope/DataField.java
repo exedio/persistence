@@ -29,7 +29,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 
 
-public final class DataField extends Attribute<byte[]>
+public final class DataField extends Field<byte[]>
 {
 	private final long maximumLength;
 
@@ -137,7 +137,7 @@ public final class DataField extends Attribute<byte[]>
 	 * Provides data for this persistent data attribute.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if data is null and attribute is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 */
@@ -171,7 +171,7 @@ public final class DataField extends Attribute<byte[]>
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if data is null and attribute is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
@@ -202,7 +202,7 @@ public final class DataField extends Attribute<byte[]>
 	 * Provides data for this persistent data attribute.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if data is null and attribute is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.

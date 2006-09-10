@@ -117,7 +117,7 @@ public abstract class Cope
 		return clazz.cast(o);
 	}
 	
-	public static final <X> SetValue<X> mapAndCast(final Attribute<X> a, final Object o)
+	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
 		return new SetValue<X>(a, Cope.verboseCast(a.getValueClass(), o));
 	}
@@ -125,10 +125,10 @@ public abstract class Cope
 	/**
 	 * {@link #verboseCast(Class, Object) Casts}
 	 * <tt>value</tt> to <tt>E</tt> before calling
-	 * {@link Attribute#set(Item, Object)}
+	 * {@link Field#set(Item, Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	public static final <X> void setAndCast(final Attribute<X> attribute, final Item item, final Object value)
+	public static final <X> void setAndCast(final Field<X> attribute, final Item item, final Object value)
 	{
 		attribute.set(item, verboseCast(attribute.getValueClass(), value));
 	}

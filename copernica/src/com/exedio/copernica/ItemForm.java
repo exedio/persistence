@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
 
-import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
@@ -71,7 +70,7 @@ final class ItemForm extends Form
 	/*TODO final*/ boolean hasFiles;
 	boolean toSave = false;
 	final CopernicaSection currentSection;
-	final List<Attribute> displayedAttributes;
+	final List<com.exedio.cope.Field> displayedAttributes;
 	boolean deleted = false;
 	String deletedName = null;
 	String deletedError = null;
@@ -84,7 +83,7 @@ final class ItemForm extends Form
 		this.type = item.getCopeType();
 		final CopernicaProvider provider = cop.provider;
 		final Model model = provider.getModel();
-		final List<Attribute> hiddenAttributes;
+		final List<com.exedio.cope.Field> hiddenAttributes;
 		final Collection sections = provider.getSections(type);
 		final ArrayList<Field> visibleFields = new ArrayList<Field>();
 
@@ -122,13 +121,13 @@ final class ItemForm extends Form
 					currentSection = firstSection;
 			}
 
-			displayedAttributes = new ArrayList<Attribute>(provider.getMainAttributes(type));
-			hiddenAttributes = new ArrayList<Attribute>();
+			displayedAttributes = new ArrayList<com.exedio.cope.Field>(provider.getMainAttributes(type));
+			hiddenAttributes = new ArrayList<com.exedio.cope.Field>();
 			for(Iterator i = sections.iterator(); i.hasNext(); )
 			{
 				final CopernicaSection section = (CopernicaSection)i.next();
 				new Section(section.getCopernicaID(), section.getCopernicaName(cop.language));
-				final Collection<? extends Attribute> sectionAttributes = section.getCopernicaAttributes();
+				final Collection<? extends com.exedio.cope.Field> sectionAttributes = section.getCopernicaAttributes();
 				if(section.equals(currentSection))
 					displayedAttributes.addAll(sectionAttributes);
 				else
@@ -139,9 +138,9 @@ final class ItemForm extends Form
 		{
 			currentSection = null;
 			displayedAttributes = type.getAttributes();
-			hiddenAttributes = Collections.<Attribute>emptyList();
+			hiddenAttributes = Collections.<com.exedio.cope.Field>emptyList();
 		}
-		final ArrayList<Attribute> attributes = new ArrayList<Attribute>(displayedAttributes.size()+hiddenAttributes.size());
+		final ArrayList<com.exedio.cope.Field> attributes = new ArrayList<com.exedio.cope.Field>(displayedAttributes.size()+hiddenAttributes.size());
 		attributes.addAll(displayedAttributes);
 		attributes.addAll(hiddenAttributes);
 
@@ -165,9 +164,8 @@ final class ItemForm extends Form
 		final boolean post = save || sectionButton || getParameter(CHECK_BUTTON)!=null;
 		boolean hasFilesTemp = false;
 		
-		for(Iterator j = attributes.iterator(); j.hasNext(); )
+		for(final com.exedio.cope.Field anyAttribute : attributes)
 		{
-			final Attribute anyAttribute = (Attribute)j.next();
 			if(!anyAttribute.isFinal())
 			{
 				if(anyAttribute instanceof FunctionField)

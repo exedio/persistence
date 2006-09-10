@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -136,7 +136,7 @@ public abstract class Item extends Cope
 	/**
 	 * @throws MandatoryViolationException
 	 *         if <tt>value</tt> is null and <tt>attribute</tt>
-	 *         is {@link Attribute#isMandatory() mandatory}.
+	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
@@ -156,9 +156,9 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
 		
-		final Map<Attribute, Object> attributeValues = executeSetValues(setValues, null);
+		final Map<Field, Object> attributeValues = executeSetValues(setValues, null);
 		Date now = null;
-		for(final Attribute attribute : type.getAttributes())
+		for(final Field attribute : type.getAttributes())
 		{
 			if(attribute instanceof FunctionField && !attributeValues.containsKey(attribute))
 			{
@@ -174,12 +174,12 @@ public abstract class Item extends Cope
 					attributeValues.put(attribute, defaultValue);
 			}
 		}
-		for(final Attribute attribute : attributeValues.keySet())
+		for(final Field attribute : attributeValues.keySet())
 		{
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute " + attribute + " does not belong to type " + type.toString());
 		}
-		for(final Attribute attribute : type.getAttributes())
+		for(final Field attribute : type.getAttributes())
 		{
 			attribute.checkValue(attributeValues.get(attribute), null);
 		}
@@ -258,9 +258,9 @@ public abstract class Item extends Cope
 	/**
 	 * @throws MandatoryViolationException
 	 *         if <tt>value</tt> is null and <tt>attribute</tt>
-	 *         is {@link Attribute#isMandatory() mandatory}.
+	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws FinalViolationException
-	 *         if <tt>attribute</tt> is {@link Attribute#isFinal() final}.
+	 *         if <tt>attribute</tt> is {@link Field#isFinal() final}.
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
@@ -288,9 +288,9 @@ public abstract class Item extends Cope
 	/**
 	 * @throws MandatoryViolationException
 	 *         if <tt>value</tt> is null and <tt>attribute</tt>
-	 *         is {@link Attribute#isMandatory() mandatory}.
+	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws FinalViolationException
-	 *         if <tt>attribute</tt> is {@link Attribute#isFinal() final}.
+	 *         if <tt>attribute</tt> is {@link Field#isFinal() final}.
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
@@ -302,8 +302,8 @@ public abstract class Item extends Cope
 			FinalViolationException,
 			ClassCastException
 	{
-		final Map<Attribute, Object> attributeValues = executeSetValues(setValues, this);
-		for(final Attribute attribute : attributeValues.keySet())
+		final Map<Field, Object> attributeValues = executeSetValues(setValues, this);
+		for(final Field attribute : attributeValues.keySet())
 		{
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute "+attribute+" does not belong to type "+type.toString());
@@ -431,38 +431,38 @@ public abstract class Item extends Cope
 
 	// convenience for subclasses --------------------------------------------------
 	
-	public static final Attribute.Option MANDATORY = Attribute.Option.MANDATORY;
-	public static final Attribute.Option OPTIONAL = Attribute.Option.OPTIONAL;
-	public static final Attribute.Option UNIQUE = Attribute.Option.UNIQUE;
-	public static final Attribute.Option UNIQUE_OPTIONAL = Attribute.Option.UNIQUE_OPTIONAL;
-	public static final Attribute.Option FINAL = Attribute.Option.FINAL;
-	public static final Attribute.Option FINAL_OPTIONAL = Attribute.Option.FINAL_OPTIONAL;
-	public static final Attribute.Option FINAL_UNIQUE = Attribute.Option.FINAL_UNIQUE;
-	public static final Attribute.Option FINAL_UNIQUE_OPTIONAL = Attribute.Option.FINAL_UNIQUE_OPTIONAL;
+	public static final Field.Option MANDATORY = Field.Option.MANDATORY;
+	public static final Field.Option OPTIONAL = Field.Option.OPTIONAL;
+	public static final Field.Option UNIQUE = Field.Option.UNIQUE;
+	public static final Field.Option UNIQUE_OPTIONAL = Field.Option.UNIQUE_OPTIONAL;
+	public static final Field.Option FINAL = Field.Option.FINAL;
+	public static final Field.Option FINAL_OPTIONAL = Field.Option.FINAL_OPTIONAL;
+	public static final Field.Option FINAL_UNIQUE = Field.Option.FINAL_UNIQUE;
+	public static final Field.Option FINAL_UNIQUE_OPTIONAL = Field.Option.FINAL_UNIQUE_OPTIONAL;
 
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL}.
 	 */
 	@Deprecated
-	public static final Attribute.Option READ_ONLY = FINAL;
+	public static final Field.Option READ_ONLY = FINAL;
 	
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL_OPTIONAL}.
 	 */
 	@Deprecated
-	public static final Attribute.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
+	public static final Field.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
 	
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE}.
 	 */
 	@Deprecated
-	public static final Attribute.Option READ_ONLY_UNIQUE = FINAL_UNIQUE;
+	public static final Field.Option READ_ONLY_UNIQUE = FINAL_UNIQUE;
 
 	/**
 	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE_OPTIONAL}.
 	 */
 	@Deprecated
-	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
+	public static final Field.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
 	
 	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
@@ -525,12 +525,12 @@ public abstract class Item extends Cope
 		return type.getModel().getCurrentTransaction().getEntityIfActive(type, pk);
 	}
 	
-	private static final Map<Attribute, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
+	private static final Map<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
-		final HashMap<Attribute, Object> result = new HashMap<Attribute, Object>();
+		final HashMap<Field, Object> result = new HashMap<Field, Object>();
 		for(final SetValue<?> source : sources)
 		{
-			if(source.settable instanceof Attribute)
+			if(source.settable instanceof Field)
 			{
 				putAttribute(result, source);
 			}
@@ -543,9 +543,9 @@ public abstract class Item extends Cope
 		return result;
 	}
 	
-	private static final void putAttribute(final HashMap<Attribute, Object> result, final SetValue<?> setValue)
+	private static final void putAttribute(final HashMap<Field, Object> result, final SetValue<?> setValue)
 	{
-		if(result.put((Attribute)setValue.settable, setValue.value)!=null)
+		if(result.put((Field)setValue.settable, setValue.value)!=null)
 			throw new RuntimeException("duplicate function attribute " + setValue.settable.toString());
 	}
 	
@@ -554,11 +554,11 @@ public abstract class Item extends Cope
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 	
-	private final HashMap<BlobColumn, byte[]> toBlobs(final Map<Attribute, Object> attributeValues)
+	private final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> attributeValues)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
-		for(final Attribute attribute : attributeValues.keySet())
+		for(final Field attribute : attributeValues.keySet())
 		{
 			if(!(attribute instanceof DataField))
 				continue;

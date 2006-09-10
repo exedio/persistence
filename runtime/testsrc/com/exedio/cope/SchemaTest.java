@@ -386,7 +386,7 @@ public class SchemaTest extends TestmodelTest
 		return protect(type.getTableName());
 	}
 	
-	private final String protect(final Attribute attribute)
+	private final String protect(final Field attribute)
 	{
 		return protect(attribute.getColumnName());
 	}

@@ -25,7 +25,7 @@ import java.util.List;
 
 import bsh.UtilEvalError;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -105,7 +105,7 @@ final class JavaRepository
 
 						if(typeClass!=null)
 						{
-							if(Function.class.isAssignableFrom(typeClass)||Attribute.class.isAssignableFrom(typeClass))
+							if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 							{
 								if(
 									IntegerFunction.class.isAssignableFrom(typeClass) ||
@@ -311,7 +311,7 @@ final class JavaRepository
 			super(storage);
 		}
 		
-		public DummyHash(final com.exedio.cope.Attribute.Option storageOption)
+		public DummyHash(final com.exedio.cope.Field.Option storageOption)
 		{
 			super(storageOption);
 		}

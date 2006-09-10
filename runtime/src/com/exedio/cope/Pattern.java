@@ -52,7 +52,7 @@ import java.util.LinkedHashMap;
 public abstract class Pattern extends Feature
 {
 	// TODO SOON introduce getSources
-	private final ArrayList<Attribute> sources = new ArrayList<Attribute>();
+	private final ArrayList<Field> sources = new ArrayList<Field>();
 	final ArrayList<Type<ItemWithoutJavaClass>> generatedTypes = new ArrayList<Type<ItemWithoutJavaClass>>();
 	
 	@Override
@@ -61,7 +61,7 @@ public abstract class Pattern extends Feature
 		super.initialize(type, name);
 		initialize();
 
-		for(final Attribute source : sources)
+		for(final Field source : sources)
 		{
 			if(!source.isInitialized())
 				throw new RuntimeException("Source " + source + " of pattern " + this + " has not been initialized.");
@@ -72,7 +72,7 @@ public abstract class Pattern extends Feature
 		}
 	}
 	
-	protected final void registerSource(final Attribute attribute)
+	protected final void registerSource(final Field attribute)
 	{
 		attribute.registerPattern(this);
 		sources.add(attribute);
@@ -88,7 +88,7 @@ public abstract class Pattern extends Feature
 		// empty default implementation
 	}
 	
-	protected final void initialize(final Attribute<? extends Object> attribute, final String name)
+	protected final void initialize(final Field<? extends Object> attribute, final String name)
 	{
 		attribute.initialize(getType(), name);
 	}

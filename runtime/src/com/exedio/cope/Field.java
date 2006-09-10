@@ -39,13 +39,13 @@ import com.exedio.cope.util.ClassComparator;
  *
  * @author Ralf Wiebicke
  */
-public abstract class Attribute<E> extends Feature implements Settable<E>
+public abstract class Field<E> extends Feature implements Settable<E>
 {
 	final boolean isfinal;
 	final boolean optional;
 	final Class<E> valueClass;
 
-	Attribute(final boolean isfinal, final boolean optional, final Class<E> valueClass)
+	Field(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;

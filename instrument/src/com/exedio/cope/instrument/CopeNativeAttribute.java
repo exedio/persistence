@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
@@ -131,7 +131,7 @@ final class CopeNativeAttribute extends CopeAttribute
 	public final boolean isBoxed()
 	{
 		final Feature instance = getInstance();
-		final boolean notNull = instance instanceof Attribute && ((Attribute)instance).isMandatory();
+		final boolean notNull = instance instanceof Field && ((Field)instance).isMandatory();
 
 		return (notNull && nativeType!=null);
 	}

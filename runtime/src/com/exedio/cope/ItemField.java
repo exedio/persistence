@@ -148,7 +148,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	 *         contains one type only.
 	 * @see Type#getTableName()
 	 * @see Type#getTypeColumnName()
-	 * @see Attribute#getColumnName()
+	 * @see Field#getColumnName()
 	 */
 	public String getTypeColumnName()
 	{

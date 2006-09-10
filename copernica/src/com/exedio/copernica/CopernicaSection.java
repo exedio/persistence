@@ -20,10 +20,10 @@ package com.exedio.copernica;
 
 import java.util.Collection;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 
 public interface CopernicaSection extends Component
 {
-	Collection<? extends Attribute> getCopernicaAttributes();
+	Collection<? extends Field> getCopernicaAttributes();
 	
 }

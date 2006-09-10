@@ -23,7 +23,7 @@ package com.exedio.cope;
  * because it cannot be written with any value.
  *
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
- * if that attribute is {@link Attribute#isFinal() final}.
+ * if that attribute is {@link Field#isFinal() final}.
  *
  * @author Ralf Wiebicke
  */
@@ -31,14 +31,14 @@ public final class FinalViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 19862582163486l;
 	
-	private final Attribute finalAttribute;
+	private final Field finalAttribute;
 	
 	/**
 	 * Creates a new FinalViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param finalAttribute initializes, what is returned by {@link #getFinalAttribute()}.
 	 */
-	public FinalViolationException(final Attribute finalAttribute, final Item item)
+	public FinalViolationException(final Field finalAttribute, final Item item)
 	{
 		super(finalAttribute, item, null);
 		
@@ -51,7 +51,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Attribute getFinalAttribute()
+	public Field getFinalAttribute()
 	{
 		return finalAttribute;
 	}

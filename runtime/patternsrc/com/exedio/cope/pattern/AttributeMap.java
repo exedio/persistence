@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.LinkedHashMap;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -63,7 +63,7 @@ public final class AttributeMap<K,V> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = Item.newItemAttribute(Attribute.Option.FINAL, type.getJavaClass(), ItemField.DeletePolicy.CASCADE);
+		parent = Item.newItemAttribute(Field.Option.FINAL, type.getJavaClass(), ItemField.DeletePolicy.CASCADE);
 		uniqueConstraint = new UniqueConstraint(parent, key);
 		final LinkedHashMap<String, Feature> relationTypeFeatures = new LinkedHashMap<String, Feature>();
 		relationTypeFeatures.put("parent", parent);

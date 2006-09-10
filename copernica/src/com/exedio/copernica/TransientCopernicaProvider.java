@@ -28,7 +28,7 @@ import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -104,14 +104,14 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	// Transient Sections
 	
-	private HashMap<Type, Collection<? extends Attribute>> transientMainAttributes = null;
+	private HashMap<Type, Collection<? extends Field>> transientMainAttributes = null;
 	private HashMap<Type, Collection<? extends CopernicaSection>> transientSections = null;
 	
-	protected final void setSections(final Type type, final Collection<? extends Attribute> mainAttributes, final Collection<? extends CopernicaSection> sections)
+	protected final void setSections(final Type type, final Collection<? extends Field> mainAttributes, final Collection<? extends CopernicaSection> sections)
 	{
 		if(transientMainAttributes==null)
 		{
-			transientMainAttributes = new HashMap<Type, Collection<? extends Attribute>>();
+			transientMainAttributes = new HashMap<Type, Collection<? extends Field>>();
 			transientSections = new HashMap<Type, Collection<? extends CopernicaSection>>();
 		}
 
@@ -119,7 +119,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 		transientSections.put(type, sections);
 	}
 	
-	public Collection<? extends Attribute> getMainAttributes(final Type type)
+	public Collection<? extends Field> getMainAttributes(final Type type)
 	{
 		return transientMainAttributes==null ? null : transientMainAttributes.get(type);
 	}

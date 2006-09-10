@@ -32,7 +32,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
@@ -42,7 +42,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.Field.Option;
 
 public final class Media extends MediaPath
 {
@@ -291,7 +291,7 @@ public final class Media extends MediaPath
 	 * Sets the contents of this media.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if body is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if body is null and attribute is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
@@ -325,7 +325,7 @@ public final class Media extends MediaPath
 	 * Closes <tt>body</tt> after reading the contents of the stream.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if <tt>body</tt> is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if <tt>body</tt> is null and attribute is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
@@ -360,7 +360,7 @@ public final class Media extends MediaPath
 	 * Sets the contents of this media.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if <tt>body</tt> is null and attribute is {@link Attribute#isMandatory() mandatory}.
+	 *         if <tt>body</tt> is null and attribute is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.

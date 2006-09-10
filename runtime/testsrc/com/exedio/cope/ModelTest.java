@@ -117,7 +117,7 @@ public class ModelTest extends TestmodelTest
 		assertSame(item.TYPE, item.TYPE.getThis().getType());
 		assertEquals("AttributeItem.this", item.TYPE.getThis().toString());
 		
-		final Attribute[] attributes = {
+		final Field[] attributes = {
 			item.someString,
 			item.someNotNullString,
 			item.someInteger,

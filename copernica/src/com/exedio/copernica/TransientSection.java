@@ -24,22 +24,22 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 
 public class TransientSection
 	extends TransientComponent
 	implements CopernicaSection
 {
-	private final List<? extends Attribute> attributes;
+	private final List<? extends Field> attributes;
 	private final HashMap names = new HashMap();
 	
-	public TransientSection(final String id, final Attribute[] attributes)
+	public TransientSection(final String id, final Field[] attributes)
 	{
 		super(id);
 		this.attributes = Collections.unmodifiableList(Arrays.asList(attributes));
 	}
 	
-	public Collection<? extends Attribute> getCopernicaAttributes()
+	public Collection<? extends Field> getCopernicaAttributes()
 	{
 		return attributes;
 	}

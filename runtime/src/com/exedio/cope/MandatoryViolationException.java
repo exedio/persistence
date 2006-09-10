@@ -24,7 +24,7 @@ package com.exedio.cope;
  *
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
  * and item constructors
- * if that attribute is {@link Attribute#isMandatory() mandatory}.
+ * if that attribute is {@link Field#isMandatory() mandatory}.
  * <p>
  * This exception is also thrown for empty strings if
  * {@link Model#supportsEmptyStrings()} is false.
@@ -35,14 +35,14 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 {
 	private static final long serialVersionUID = 37264512124982l;
 	
-	private final Attribute mandatoryAttribute;
+	private final Field mandatoryAttribute;
 	
 	/**
 	 * Creates a new MandatoryViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param mandatoryAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
 	 */
-	MandatoryViolationException(final Attribute mandatoryAttribute, final Item item)
+	MandatoryViolationException(final Field mandatoryAttribute, final Item item)
 	{
 		super(mandatoryAttribute, item, null);
 		this.mandatoryAttribute = mandatoryAttribute;
@@ -51,7 +51,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Attribute getMandatoryAttribute()
+	public Field getMandatoryAttribute()
 	{
 		return mandatoryAttribute;
 	}

@@ -32,7 +32,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.Field.Option;
 
 public abstract class Hash extends Pattern implements Settable<String>
 {

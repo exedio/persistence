@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -65,7 +65,7 @@ public final class Qualifier extends Pattern
 	}
 
 	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
-	private static final ItemField<Item> castItemAttribute(final Attribute a)
+	private static final ItemField<Item> castItemAttribute(final Field a)
 	{
 		return (ItemField<Item>)a;
 	}
@@ -111,18 +111,18 @@ public final class Qualifier extends Pattern
 		return features;
 	}
 
-	private List<Attribute> attributes;
+	private List<Field> attributes;
 
-	public List<Attribute> getAttributes()
+	public List<Field> getAttributes()
 	{
 		if(this.attributes==null)
 		{
 			final List<Feature> features = getFeatures();
-			final ArrayList<Attribute> result = new ArrayList<Attribute>(features.size());
+			final ArrayList<Field> result = new ArrayList<Field>(features.size());
 			for(final Feature f : features)
 			{
-				if(f instanceof Attribute)
-					result.add((Attribute)f);
+				if(f instanceof Field)
+					result.add((Field)f);
 			}
 			result.trimToSize();
 			this.attributes = Collections.unmodifiableList(result);

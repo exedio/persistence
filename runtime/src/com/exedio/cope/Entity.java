@@ -42,9 +42,9 @@ final class Entity
 	}
 	
 	@SuppressWarnings("unchecked") // TODO dont know how
-	void put(final Map<Attribute, Object> attributeValues)
+	void put(final Map<Field, Object> attributeValues)
 	{
-		for(final Attribute attribute : attributeValues.keySet())
+		for(final Field attribute : attributeValues.keySet())
 		{
 			if(attribute instanceof FunctionField)
 				put((FunctionField)attribute, attributeValues.get(attribute));

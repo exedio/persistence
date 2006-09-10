@@ -25,7 +25,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.SortedSet;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -68,7 +68,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		registerSource(source);
 	}
 	
-	public Serializer(final Class<E> valueClass, final Attribute.Option option)
+	public Serializer(final Class<E> valueClass, final Field.Option option)
 	{
 		this(valueClass, new DataField(option));
 	}
@@ -78,7 +78,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new Serializer<E>(valueClass, source);
 	}
 	
-	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final Attribute.Option option)
+	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final Field.Option option)
 	{
 		return new Serializer<E>(valueClass, option);
 	}

@@ -27,7 +27,7 @@ import java.util.SortedSet;
 import com.exedio.cope.search.ExtremumAggregate;
 
 public abstract class FunctionField<E extends Object>
-	extends Attribute<E>
+	extends Field<E>
 	implements Function<E>
 {
 	final UniqueConstraint implicitUniqueConstraint;

@@ -25,7 +25,7 @@ import java.util.Collection;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Attribute;
+import com.exedio.cope.Field;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -45,7 +45,7 @@ public interface CopernicaProvider
 	
 	Collection<? extends CopernicaCategory> getRootCategories();
 	
-	Collection<? extends Attribute> getMainAttributes(Type type);
+	Collection<? extends Field> getMainAttributes(Type type);
 
 	Collection<? extends CopernicaSection> getSections(Type type);
 	

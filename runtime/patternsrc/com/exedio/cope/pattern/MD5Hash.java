@@ -23,7 +23,7 @@ import java.util.SortedSet;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Attribute.Option;
+import com.exedio.cope.Field.Option;
 
 public final class MD5Hash extends JavaSecurityHash
 {
