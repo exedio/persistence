@@ -28,7 +28,7 @@ import java.util.SortedSet;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataAttribute;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
@@ -47,7 +47,7 @@ import com.exedio.cope.UniqueViolationException;
  * BEWARE:
  * Generally this is not a good idea.
  * In contrast to normal attributes, such as
- * {@link StringField}, {@link DateAttribute},
+ * {@link StringField}, {@link DateField},
  * etc. there is no searching, order by or caching.
  * The main purpose is to maintain database compatibility
  * to legacy systems.

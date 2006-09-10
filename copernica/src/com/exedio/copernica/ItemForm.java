@@ -35,7 +35,6 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataAttribute;
-import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -254,12 +253,12 @@ final class ItemForm extends Form
 			else
 				return new DoubleField(this, attribute, name, ((DoubleAttribute)attribute).get(item));
 		}
-		else if(attribute instanceof DateAttribute)
+		else if(attribute instanceof com.exedio.cope.DateField)
 		{
 			if(post)
 				return new DateField(this, attribute, name);
 			else
-				return new DateField(this, attribute, name, ((DateAttribute)attribute).get(item));
+				return new DateField(this, attribute, name, ((com.exedio.cope.DateField)attribute).get(item));
 		}
 		else if(attribute instanceof com.exedio.cope.StringField)
 		{

@@ -36,7 +36,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DataLengthViolationException;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -50,7 +50,7 @@ public final class Media extends MediaPath
 	final boolean optional;
 	final DataAttribute body;
 	final ContentType contentType;
-	final DateAttribute lastModified;
+	final DateField lastModified;
 
 	public static final long DEFAULT_LENGTH = DataAttribute.DEFAULT_LENGTH;
 	
@@ -81,7 +81,7 @@ public final class Media extends MediaPath
 		else
 			throw new RuntimeException();
 		
-		registerSource(this.lastModified = new DateAttribute(option));
+		registerSource(this.lastModified = new DateField(option));
 	}
 	
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
@@ -134,7 +134,7 @@ public final class Media extends MediaPath
 		return contentType.getMimeMinor();
 	}
 	
-	public DateAttribute getLastModified()
+	public DateField getLastModified()
 	{
 		return lastModified;
 	}

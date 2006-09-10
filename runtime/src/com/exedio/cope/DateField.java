@@ -20,11 +20,11 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-public final class DateAttribute extends FunctionAttribute<Date>
+public final class DateField extends FunctionAttribute<Date>
 {
 	final boolean defaultNow;
 
-	private DateAttribute(
+	private DateField(
 			final boolean isfinal, final boolean optional, final boolean unique,
 			final Date defaultConstant, final boolean defaultNow)
 	{
@@ -35,30 +35,30 @@ public final class DateAttribute extends FunctionAttribute<Date>
 		checkDefaultValue();
 	}
 	
-	public DateAttribute()
+	public DateField()
 	{
 		this(Item.MANDATORY);
 	}
 	
-	public DateAttribute(final Option option)
+	public DateField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, false);
 	}
 	
 	@Override
-	public DateAttribute copyFunctionAttribute()
+	public DateField copyFunctionAttribute()
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
 	}
 	
-	public DateAttribute defaultTo(final Date defaultConstant)
+	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, false);
+		return new DateField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, false);
 	}
 	
-	public DateAttribute defaultToNow()
+	public DateField defaultToNow()
 	{
-		return new DateAttribute(isfinal, optional, implicitUniqueConstraint!=null, null, true);
+		return new DateField(isfinal, optional, implicitUniqueConstraint!=null, null, true);
 	}
 	
 	public boolean isDefaultNow()

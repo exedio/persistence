@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.Date;
 
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
@@ -44,7 +44,7 @@ public class AttributeListLimitedItem extends Item
 
 	// implicit external source
 
-	public static final AttributeListLimited<Date> dates = AttributeListLimited.newList(new DateAttribute(OPTIONAL), new DateAttribute(OPTIONAL));
+	public static final AttributeListLimited<Date> dates = AttributeListLimited.newList(new DateField(OPTIONAL), new DateField(OPTIONAL));
 
 	// internal source
 

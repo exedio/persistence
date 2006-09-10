@@ -34,11 +34,11 @@ public class DefaultToItem extends Item
 	public static final IntegerField integerFifty = new IntegerField(OPTIONAL).defaultTo(50);
 	public static final IntegerField integerNone = new IntegerField(OPTIONAL);
 
-	public static final DateAttribute dateEight = new DateAttribute().defaultTo(new Date(8));
-	public static final DateAttribute dateEighty = new DateAttribute(OPTIONAL).defaultTo(new Date(80));
-	public static final DateAttribute dateNow = new DateAttribute().defaultToNow();
-	public static final DateAttribute dateNowOpt = new DateAttribute(OPTIONAL).defaultToNow();
-	public static final DateAttribute dateNone = new DateAttribute(OPTIONAL);
+	public static final DateField dateEight = new DateField().defaultTo(new Date(8));
+	public static final DateField dateEighty = new DateField(OPTIONAL).defaultTo(new Date(80));
+	public static final DateField dateNow = new DateField().defaultToNow();
+	public static final DateField dateNowOpt = new DateField(OPTIONAL).defaultToNow();
+	public static final DateField dateNone = new DateField(OPTIONAL);
 
 	enum DefaultToEnum
 	{

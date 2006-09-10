@@ -27,7 +27,7 @@ import java.util.Date;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DataLengthViolationException;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
 import com.exedio.cope.StringField;
@@ -112,7 +112,7 @@ public class MediaTest extends AbstractLibTest
 		assertSame(item.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
 		assertEqualsUnmodifiable(list(item.file), fileMinor.getPatterns());
-		final DateAttribute fileLastModified = item.file.getLastModified();
+		final DateField fileLastModified = item.file.getLastModified();
 		assertSame(item.TYPE, fileLastModified.getType());
 		assertEquals("fileLastModified", fileLastModified.getName());
 		assertEqualsUnmodifiable(list(item.file), fileLastModified.getPatterns());
@@ -250,7 +250,7 @@ public class MediaTest extends AbstractLibTest
 		assertSame(item.TYPE, imageMinor.getType());
 		assertEquals("imageMinor", imageMinor.getName());
 		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());
-		final DateAttribute imageLastModified = item.image.getLastModified();
+		final DateField imageLastModified = item.image.getLastModified();
 		assertSame(item.TYPE, imageLastModified.getType());
 		assertEquals("imageLastModified", imageLastModified.getName());
 		assertEqualsUnmodifiable(list(item.image), imageLastModified.getPatterns());
@@ -306,7 +306,7 @@ public class MediaTest extends AbstractLibTest
 		assertSame(item.photo, Media.get(photoBody));
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
-		final DateAttribute photoLastModified = item.photo.getLastModified();
+		final DateField photoLastModified = item.photo.getLastModified();
 		assertSame(item.TYPE, photoLastModified.getType());
 		assertEquals("photoLastModified", photoLastModified.getName());
 		assertEqualsUnmodifiable(list(item.photo), photoLastModified.getPatterns());

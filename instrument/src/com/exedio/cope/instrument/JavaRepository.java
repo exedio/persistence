@@ -28,7 +28,7 @@ import bsh.UtilEvalError;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumField;
@@ -112,7 +112,7 @@ final class JavaRepository
 									LongAttribute.class.equals(typeClass) ||
 									DoubleAttribute.class.equals(typeClass) ||
 									BooleanAttribute.class.equals(typeClass) ||
-									DateAttribute.class.equals(typeClass) ||
+									DateField.class.equals(typeClass) ||
 									DayAttribute.class.equals(typeClass) ||
 									StringFunction.class.isAssignableFrom(typeClass))
 								{

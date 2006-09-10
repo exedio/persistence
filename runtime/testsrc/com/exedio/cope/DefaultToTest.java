@@ -149,10 +149,10 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getEnumNone());
 		}
 
-		assertEquals(null, new DateAttribute().defaultTo(date(44)).defaultToNow().getDefaultConstant());
-		assertEquals(true, new DateAttribute().defaultTo(date(44)).defaultToNow().isDefaultNow());
-		assertEquals(date(55), new DateAttribute().defaultToNow().defaultTo(date(55)).getDefaultConstant());
-		assertEquals(false, new DateAttribute().defaultToNow().defaultTo(date(55)).isDefaultNow());
+		assertEquals(null, new DateField().defaultTo(date(44)).defaultToNow().getDefaultConstant());
+		assertEquals(true, new DateField().defaultTo(date(44)).defaultToNow().isDefaultNow());
+		assertEquals(date(55), new DateField().defaultToNow().defaultTo(date(55)).getDefaultConstant());
+		assertEquals(false, new DateField().defaultToNow().defaultTo(date(55)).isDefaultNow());
 		try
 		{
 			new StringField(Item.OPTIONAL).lengthMax(3).defaultTo("1234");

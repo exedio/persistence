@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.LengthViolationException;
@@ -90,8 +90,8 @@ public class AttributeListLimitedTest extends AbstractLibTest
 		assertEquals(2, dateSources.size());
 		assertUnmodifiable(dateSources);
 		final Iterator dateSourcesIterator = dateSources.iterator();
-		final DateAttribute date1 = assertDate(dateSourcesIterator, 1);
-		final DateAttribute date2 = assertDate(dateSourcesIterator, 2);
+		final DateField date1 = assertDate(dateSourcesIterator, 1);
+		final DateField date2 = assertDate(dateSourcesIterator, 2);
 		assertTrue(!dateSourcesIterator.hasNext());
 		assertEqualsUnmodifiable(list(item.dates), date1.getPatterns());
 		assertEqualsUnmodifiable(list(item.dates), date2.getPatterns());
@@ -246,9 +246,9 @@ public class AttributeListLimitedTest extends AbstractLibTest
 		assertEquals(null, item3.get(string4));
 	}
 	
-	private final DateAttribute assertDate(final Iterator i, final int num)
+	private final DateField assertDate(final Iterator i, final int num)
 	{
-		final DateAttribute date = (DateAttribute)i.next();
+		final DateField date = (DateField)i.next();
 		assertEquals(item.TYPE, date.getType());
 		assertEquals("dates"+num, date.getName());
 		assertEquals(false, date.isMandatory());

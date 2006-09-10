@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.Date;
 
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -28,7 +28,7 @@ public class AttributeSetItem extends Item
 {
 
 	public static final AttributeSet<String> strings = AttributeSet.newSet(new StringField(OPTIONAL).lengthRange(4, 8));
-	public static final AttributeSet<Date> dates = AttributeSet.newSet(new DateAttribute());
+	public static final AttributeSet<Date> dates = AttributeSet.newSet(new DateField());
 	
 	/**
 

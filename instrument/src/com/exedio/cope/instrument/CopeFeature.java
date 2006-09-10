@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.util.SortedSet;
 
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
@@ -115,7 +115,7 @@ abstract class CopeFeature
 	final boolean isTouchable()
 	{
 		final Object instance = getInstance();
-		return instance instanceof DateAttribute;
+		return instance instanceof DateField;
 	}
 
 	final SortedSet<Class> getToucherExceptions()

@@ -164,7 +164,7 @@ public abstract class Item extends Cope
 			{
 				final FunctionAttribute fa = (FunctionAttribute)attribute;
 				Object defaultValue = fa.defaultConstant;
-				if(defaultValue==null && fa instanceof DateAttribute && ((DateAttribute)fa).defaultNow)
+				if(defaultValue==null && fa instanceof DateField && ((DateField)fa).defaultNow)
 				{
 					if(now==null)
 						now = new Date();

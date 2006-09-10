@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.LongAttribute;
 
 public class Sub extends Super
@@ -31,7 +31,7 @@ public class Sub extends Super
 	 */
 	public static final LongAttribute subInitial = new LongAttribute(OPTIONAL);
 
-	public static final DateAttribute subNonInitial = new DateAttribute(OPTIONAL);
+	public static final DateField subNonInitial = new DateField(OPTIONAL);
 
 /**
 

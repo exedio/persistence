@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumField;
@@ -93,7 +93,7 @@ public class AttributeItem extends Item
 	 */
 	public static final DoubleAttribute someNotNullDouble = new DoubleAttribute();
 
-	public static final DateAttribute someDate = new DateAttribute(OPTIONAL);
+	public static final DateField someDate = new DateField(OPTIONAL);
 
 	public static final DayAttribute day = new DayAttribute(OPTIONAL);
 

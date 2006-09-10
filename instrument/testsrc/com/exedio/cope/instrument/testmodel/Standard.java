@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DateAttribute;
+import com.exedio.cope.DateField;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
@@ -60,9 +60,9 @@ public class Standard extends Item
 	public static final BooleanAttribute defaultBoolean = new BooleanAttribute(OPTIONAL);
 	public static final BooleanAttribute nativeBoolean = new BooleanAttribute();
 
-	public static final DateAttribute mandatoryDate = new DateAttribute();
-	private static final DateAttribute privateDate = new DateAttribute(OPTIONAL);
-	public static final DateAttribute nowDate = new DateAttribute().defaultToNow();
+	public static final DateField mandatoryDate = new DateField();
+	private static final DateField privateDate = new DateField(OPTIONAL);
+	public static final DateField nowDate = new DateField().defaultToNow();
 
 	public static final EnumField<Enum1> mandatoryEnum = newEnumAttribute(Enum1.class);
 	protected static final EnumField<Enum2> protectedEnum = newEnumAttribute(OPTIONAL, Enum2.class);
