@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class AttributeMapLimitedItem extends Item
 {
@@ -29,7 +29,7 @@ public class AttributeMapLimitedItem extends Item
 		DE, EN, PL;
 	}
 	
-	public static final AttributeMapLimited<Language, String> name = AttributeMapLimited.newMap(Language.class, new StringAttribute(OPTIONAL));
+	public static final AttributeMapLimited<Language, String> name = AttributeMapLimited.newMap(Language.class, new StringField(OPTIONAL));
 	
 	public static final AttributeMapLimited<Language, Integer> nameLength = AttributeMapLimited.newMap(Language.class, new IntegerAttribute(OPTIONAL));
 	

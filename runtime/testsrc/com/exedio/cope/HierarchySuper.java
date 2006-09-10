@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.function.UppercaseView;
 
 /**
@@ -30,7 +30,7 @@ public abstract class HierarchySuper extends Item
 {
 	public static final IntegerAttribute superInt = new IntegerAttribute(UNIQUE);
 	
-	public static final StringAttribute superString = new StringAttribute(OPTIONAL);
+	public static final StringField superString = new StringField(OPTIONAL);
 
 	public static final UppercaseView superStringUpper = superString.toUpperCase();
 	

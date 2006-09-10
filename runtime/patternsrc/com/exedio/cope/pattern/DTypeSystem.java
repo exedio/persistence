@@ -29,14 +29,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public final class DTypeSystem extends Pattern
 {
 	private final ItemAttribute<DType> type;
 	private final FunctionAttribute<?>[] attributes;
 
-	private final StringAttribute[]  strings;
+	private final StringField[]  strings;
 	private final BooleanAttribute[] booleans;
 	private final IntegerAttribute[] integers;
 	private final DoubleAttribute[]  doubles;
@@ -49,7 +49,7 @@ public final class DTypeSystem extends Pattern
 			final int doubleCapacity,
 			final int enumCapacity)
 	{
-		strings  = new StringAttribute[stringCapacity];
+		strings  = new StringField[stringCapacity];
 		booleans = new BooleanAttribute[booleanCapacity];
 		integers = new IntegerAttribute[integerCapacity];
 		doubles  = new DoubleAttribute [doubleCapacity];
@@ -59,7 +59,7 @@ public final class DTypeSystem extends Pattern
 		registerSource(type = new ItemAttribute<DType>(Item.OPTIONAL, DType.class));
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(attributes[n++] = strings [i] = new StringAttribute(Item.OPTIONAL));
+			registerSource(attributes[n++] = strings [i] = new StringField(Item.OPTIONAL));
 		for(int i = 0; i<booleans.length; i++)
 			registerSource(attributes[n++] = booleans[i] = new BooleanAttribute(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)

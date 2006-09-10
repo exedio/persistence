@@ -36,7 +36,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 
 /**
@@ -47,7 +47,7 @@ import com.exedio.cope.UniqueViolationException;
  * BEWARE:
  * Generally this is not a good idea.
  * In contrast to normal attributes, such as
- * {@link StringAttribute}, {@link DateAttribute},
+ * {@link StringField}, {@link DateAttribute},
  * etc. there is no searching, order by or caching.
  * The main purpose is to maintain database compatibility
  * to legacy systems.

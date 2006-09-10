@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * An item having a unique final attribute.
@@ -30,7 +30,7 @@ public class UniqueFinal extends Item
 	/**
 	 * An attribute that is unique and final.
 	 */
-	public static final StringAttribute uniqueFinalString = new StringAttribute(FINAL_UNIQUE_OPTIONAL);
+	public static final StringField uniqueFinalString = new StringField(FINAL_UNIQUE_OPTIONAL);
 
 /**
 

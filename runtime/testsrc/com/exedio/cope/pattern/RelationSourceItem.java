@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * @cope.generic.constructor package
@@ -27,7 +27,7 @@ import com.exedio.cope.StringAttribute;
  */
 public class RelationSourceItem extends Item
 {
-	public static final StringAttribute code = new StringAttribute(UNIQUE);
+	public static final StringField code = new StringField(UNIQUE);
 	
 	/**
 

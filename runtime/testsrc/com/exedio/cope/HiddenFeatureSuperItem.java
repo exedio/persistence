@@ -20,9 +20,9 @@ package com.exedio.cope;
 
 public class HiddenFeatureSuperItem extends Item
 {
-	public static final StringAttribute nonHiddenSuper = new StringAttribute(OPTIONAL);
-	public static final StringAttribute hiddenSame = new StringAttribute(OPTIONAL);
-	public static final StringAttribute hiddenOther = new StringAttribute(OPTIONAL);
+	public static final StringField nonHiddenSuper = new StringField(OPTIONAL);
+	public static final StringField hiddenSame = new StringField(OPTIONAL);
+	public static final StringField hiddenOther = new StringField(OPTIONAL);
 	
 	/**
 

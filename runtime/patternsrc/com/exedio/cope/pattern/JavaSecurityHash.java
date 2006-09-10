@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * Uses hash algorithms from {@link MessageDigest}.
@@ -37,7 +37,7 @@ public class JavaSecurityHash extends Hash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(final StringAttribute storage, final String algorithm, final String encoding)
+	public JavaSecurityHash(final StringField storage, final String algorithm, final String encoding)
 	{
 		super(storage);
 		this.algorithm = algorithm;
@@ -61,7 +61,7 @@ public class JavaSecurityHash extends Hash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(final StringAttribute storage, final String algorithm)
+	public JavaSecurityHash(final StringField storage, final String algorithm)
 	{
 		this(storage, algorithm, "utf8");
 	}

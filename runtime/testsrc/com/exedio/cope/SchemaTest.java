@@ -281,7 +281,7 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.Color.OK, attributeItem.getParticularColor());
 
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+protect(AttributeItem.someNotNullString)+" IS NOT NULL) AND (LENGTH("+protect(AttributeItem.someNotNullString)+")<="+StringAttribute.DEFAULT_LENGTH+")");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+protect(AttributeItem.someNotNullString)+" IS NOT NULL) AND (LENGTH("+protect(AttributeItem.someNotNullString)+")<="+StringField.DEFAULT_LENGTH+")");
 			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect(AttributeItem.someBoolean)+" IN (0,1)) OR ("+protect(AttributeItem.someBoolean)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullBoolean)+" IN (0,1))");
 			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect(AttributeItem.someEnum)+" IN (10,20,30)) OR ("+protect(AttributeItem.someEnum)+" IS NULL)");
@@ -329,7 +329,7 @@ public class SchemaTest extends TestmodelTest
 			}
 			assertEquals(string8, min4Max8.getType());
 
-			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "((LENGTH("+protect("MIN_4")+")>=4) AND (LENGTH("+protect("MIN_4")+")<="+StringAttribute.DEFAULT_LENGTH+")) OR ("+protect("MIN_4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "((LENGTH("+protect("MIN_4")+")>=4) AND (LENGTH("+protect("MIN_4")+")<="+StringField.DEFAULT_LENGTH+")) OR ("+protect("MIN_4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "(LENGTH("+protect("MAX_4")+")<=4) OR ("+protect("MAX_4")+" IS NULL)");
 			assertCheckConstraint(stringItem, "STRINGITEMS_MIN4_MAX8_Ck", "((LENGTH("+protect("MIN4_MAX8")+")>=4) AND (LENGTH("+protect("MIN4_MAX8")+")<=8)) OR ("+protect("MIN4_MAX8")+" IS NULL)");
 			assertCheckConstraint(stringItem, "STRINGITEMS_EXACT_6_Ck",   "(LENGTH("+protect("EXACT_6")+")=6) OR ("+protect("EXACT_6")+" IS NULL)");

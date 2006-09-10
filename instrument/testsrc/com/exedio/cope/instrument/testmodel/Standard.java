@@ -25,7 +25,7 @@ import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.MD5Hash;
@@ -40,13 +40,13 @@ import com.exedio.cope.pattern.Media;
  */
 public class Standard extends Item
 {
-	public static final StringAttribute defaultString = new StringAttribute(OPTIONAL);
-	public static final StringAttribute notNullString = new StringAttribute();
-	public static final StringAttribute finalString = new StringAttribute(FINAL_OPTIONAL);
-	public static final StringAttribute defaultToString = new StringAttribute().defaultTo("defaultConstant for finalDefaultString");
-	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE_OPTIONAL);
+	public static final StringField defaultString = new StringField(OPTIONAL);
+	public static final StringField notNullString = new StringField();
+	public static final StringField finalString = new StringField(FINAL_OPTIONAL);
+	public static final StringField defaultToString = new StringField().defaultTo("defaultConstant for finalDefaultString");
+	public static final StringField uniqueString = new StringField(UNIQUE_OPTIONAL);
 	/** @cope.initial */
-	public static final StringAttribute initialString = new StringAttribute(OPTIONAL);
+	public static final StringField initialString = new StringField(OPTIONAL);
 
 	public static final IntegerAttribute defaultInteger = new IntegerAttribute(OPTIONAL);
 	public static final IntegerAttribute nativeInteger = new IntegerAttribute();
@@ -72,59 +72,59 @@ public class Standard extends Item
 		ENUM1A, ENUM1B;
 	}
 
-	private static final StringAttribute privateString = new StringAttribute(OPTIONAL);
+	private static final StringField privateString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.getter none
 	 */
-	public static final StringAttribute noneGetterString = new StringAttribute(OPTIONAL);
+	public static final StringField noneGetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.getter private
 	 */
-	public static final StringAttribute privateGetterString = new StringAttribute(OPTIONAL);
+	public static final StringField privateGetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.getter internal
 	 */
-	public static final StringAttribute internalGetterString = new StringAttribute(OPTIONAL);
+	public static final StringField internalGetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.setter none
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringAttribute noneSetterString = new StringAttribute(OPTIONAL);
+	public static final StringField noneSetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.setter private
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringAttribute privateSetterString = new StringAttribute(OPTIONAL);
+	public static final StringField privateSetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.setter internal
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringAttribute internalSetterString = new StringAttribute(OPTIONAL);
+	public static final StringField internalSetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.getter non-final
 	 * @cope.setter protected
 	 */
-	public static final StringAttribute nonfinalGetterString = new StringAttribute(OPTIONAL);
+	public static final StringField nonfinalGetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.getter protected
 	 * @cope.setter non-final
 	 */
-	public static final StringAttribute nonfinalSetterString = new StringAttribute(OPTIONAL);
+	public static final StringField nonfinalSetterString = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.getter boolean-as-is
 	 */
 	public static final BooleanAttribute asIsBoolean = new BooleanAttribute(OPTIONAL);
 	
-	public static final StringAttribute doubleUnique1 = new StringAttribute(OPTIONAL);
+	public static final StringField doubleUnique1 = new StringField(OPTIONAL);
 	public static final IntegerAttribute doubleUnique2 = new IntegerAttribute(OPTIONAL);
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
@@ -151,7 +151,7 @@ public class Standard extends Item
 	/**
 	 * An upper-case attribute
 	 */
-	static final StringAttribute XMLReader = new StringAttribute(OPTIONAL);
+	static final StringField XMLReader = new StringField(OPTIONAL);
 
 	/**
 	 * Some other variable

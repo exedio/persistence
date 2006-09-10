@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaRedirect;
 
@@ -29,7 +29,7 @@ import com.exedio.cope.pattern.MediaRedirect;
 public class MediaItem extends Item
 {
 	
-	public static final StringAttribute name = new StringAttribute(OPTIONAL);
+	public static final StringField name = new StringField(OPTIONAL);
 
 	public static final Media file = new Media(OPTIONAL).lengthMax(200*1000);
 

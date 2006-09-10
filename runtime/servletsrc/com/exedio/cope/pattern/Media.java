@@ -41,7 +41,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.Attribute.Option;
 
 public final class Media extends MediaPath
@@ -69,13 +69,13 @@ public final class Media extends MediaPath
 		}
 		else if(fixedMimeMajor!=null && fixedMimeMinor==null)
 		{
-			final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
+			final StringField mimeMinor = new StringField(option).lengthRange(1, 30);
 			this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
 		}
 		else if(fixedMimeMajor==null && fixedMimeMinor==null)
 		{
-			final StringAttribute mimeMajor = new StringAttribute(option).lengthRange(1, 30);
-			final StringAttribute mimeMinor = new StringAttribute(option).lengthRange(1, 30);
+			final StringField mimeMajor = new StringField(option).lengthRange(1, 30);
+			final StringField mimeMinor = new StringField(option).lengthRange(1, 30);
 			this.contentType = new StoredContentType(mimeMajor, mimeMinor);
 		}
 		else
@@ -124,12 +124,12 @@ public final class Media extends MediaPath
 		return body;
 	}
 	
-	public StringAttribute getMimeMajor()
+	public StringField getMimeMajor()
 	{
 		return contentType.getMimeMajor();
 	}
 	
-	public StringAttribute getMimeMinor()
+	public StringField getMimeMinor()
 	{
 		return contentType.getMimeMinor();
 	}
@@ -520,8 +520,8 @@ public final class Media extends MediaPath
 	{
 		abstract String getFixedMimeMajor();
 		abstract String getFixedMimeMinor();
-		abstract StringAttribute getMimeMajor();
-		abstract StringAttribute getMimeMinor();
+		abstract StringField getMimeMajor();
+		abstract StringField getMimeMinor();
 		abstract void initialize(String name);
 		abstract String getContentType(Item item);
 		abstract void map(ArrayList<SetValue> values, String contentType);
@@ -558,13 +558,13 @@ public final class Media extends MediaPath
 		}
 		
 		@Override
-		StringAttribute getMimeMajor()
+		StringField getMimeMajor()
 		{
 			return null;
 		}
 		
 		@Override
-		StringAttribute getMimeMinor()
+		StringField getMimeMinor()
 		{
 			return null;
 		}
@@ -593,9 +593,9 @@ public final class Media extends MediaPath
 	{
 		private final String major;
 		private final String prefix;
-		private final StringAttribute minor;
+		private final StringField minor;
 		
-		HalfFixedContentType(final String major, final StringAttribute minor)
+		HalfFixedContentType(final String major, final StringField minor)
 		{
 			this.major = major;
 			this.prefix = major + '/';
@@ -622,13 +622,13 @@ public final class Media extends MediaPath
 		}
 		
 		@Override
-		StringAttribute getMimeMajor()
+		StringField getMimeMajor()
 		{
 			return null;
 		}
 		
 		@Override
-		StringAttribute getMimeMinor()
+		StringField getMimeMinor()
 		{
 			return minor;
 		}
@@ -658,10 +658,10 @@ public final class Media extends MediaPath
 
 	final class StoredContentType extends ContentType
 	{
-		private final StringAttribute major;
-		private final StringAttribute minor;
+		private final StringField major;
+		private final StringField minor;
 		
-		StoredContentType(final StringAttribute major, final StringAttribute minor)
+		StoredContentType(final StringField major, final StringField minor)
 		{
 			this.major = major;
 			this.minor = minor;
@@ -688,13 +688,13 @@ public final class Media extends MediaPath
 		}
 		
 		@Override
-		StringAttribute getMimeMajor()
+		StringField getMimeMajor()
 		{
 			return major;
 		}
 		
 		@Override
-		StringAttribute getMimeMinor()
+		StringField getMimeMinor()
 		{
 			return minor;
 		}

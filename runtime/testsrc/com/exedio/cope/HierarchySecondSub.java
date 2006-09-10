@@ -25,7 +25,7 @@ package com.exedio.cope;
 public class HierarchySecondSub extends HierarchySuper
 {
 
-	public static final StringAttribute firstSubString = new StringAttribute(OPTIONAL);
+	public static final StringField firstSubString = new StringField(OPTIONAL);
 	
 /**
 

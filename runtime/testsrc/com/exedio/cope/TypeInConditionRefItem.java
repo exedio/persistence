@@ -24,7 +24,7 @@ package com.exedio.cope;
 public class TypeInConditionRefItem extends Item
 {
 	public static final ItemAttribute<TypeInConditionAItem> ref = newItemAttribute(FINAL, TypeInConditionAItem.class);
-	public static final StringAttribute code = new StringAttribute(FINAL_UNIQUE);
+	public static final StringField code = new StringField(FINAL_UNIQUE);
 	public static final ItemAttribute<TypeInConditionB2Item> refb2 = newItemAttribute(OPTIONAL, TypeInConditionB2Item.class);
 	
 	@Override

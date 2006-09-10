@@ -25,7 +25,7 @@ package com.exedio.cope;
 public class MatchItem extends Item
 {
 
-	public static final StringAttribute text = new StringAttribute(OPTIONAL);
+	public static final StringField text = new StringField(OPTIONAL);
 	
 	public MatchItem(final String text)
 	{

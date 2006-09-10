@@ -21,7 +21,7 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Qualifier;
 
@@ -32,7 +32,7 @@ public class QualifiedStringQualifier extends Item
 {
 	public static final ItemAttribute<QualifiedItem> parent = newItemAttribute(FINAL, QualifiedItem.class);
 	
-	public static final StringAttribute key = new StringAttribute(FINAL);
+	public static final StringField key = new StringField(FINAL);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	public static final Qualifier stringQualifier = new Qualifier(qualifyUnique);

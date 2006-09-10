@@ -25,7 +25,7 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class MD5Test extends AbstractLibTest
 {
@@ -84,7 +84,7 @@ public class MD5Test extends AbstractLibTest
 
 		try
 		{
-			new MD5Hash(new StringAttribute(item.OPTIONAL), "nixus");
+			new MD5Hash(new StringField(item.OPTIONAL), "nixus");
 			fail("should have thrown UnsupportedEncodingException");
 		}
 		catch(RuntimeException e)
@@ -94,7 +94,7 @@ public class MD5Test extends AbstractLibTest
 		}
 		try
 		{
-			new JavaSecurityHash(new StringAttribute(item.OPTIONAL), "NIXUS");
+			new JavaSecurityHash(new StringField(item.OPTIONAL), "NIXUS");
 			fail("should have thrown NoSuchAlgorithmException");
 		}
 		catch(RuntimeException e)

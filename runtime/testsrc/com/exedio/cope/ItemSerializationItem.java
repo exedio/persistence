@@ -30,7 +30,7 @@ public class ItemSerializationItem extends Item implements Serializable
 	/**
 	 * @cope.initial
 	 */
-	public static final StringAttribute name = new StringAttribute(OPTIONAL);
+	public static final StringField name = new StringField(OPTIONAL);
 	
 	
 	public ItemSerializationItem()

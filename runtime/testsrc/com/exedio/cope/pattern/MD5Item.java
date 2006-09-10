@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.MD5Hash;
 
 /**
@@ -34,7 +34,7 @@ public class MD5Item extends Item
 		return password.getStorage().get(this);
 	}
 	
-	public static final StringAttribute hashed1MD5 = new StringAttribute(OPTIONAL);
+	public static final StringField hashed1MD5 = new StringField(OPTIONAL);
 	public static final MD5Hash hashed1 = new MD5Hash(hashed1MD5);
 	public static final MD5Hash hashed1Latin = new MD5Hash(hashed1MD5, "ISO-8859-1");
 

@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 /**
- * Signals, that an attempt to write a {@link StringAttribute string attribute} has been failed,
+ * Signals, that an attempt to write a {@link StringField string attribute} has been failed,
  * because value to be written violated the length constraint on that attribute.
  *
  * This exception will be thrown by {@link FunctionAttribute#set(Item,Object)}
@@ -31,7 +31,7 @@ public final class LengthViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 21864323501623l;
 	
-	private final StringAttribute stringAttribute;
+	private final StringField stringAttribute;
 	private final String value;
 	private final boolean isTooShort;
 	private final int border;
@@ -42,7 +42,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationException(final StringAttribute stringAttribute, final Item item, final String value, final boolean isTooShort, final int border)
+	public LengthViolationException(final StringField stringAttribute, final Item item, final String value, final boolean isTooShort, final int border)
 	{
 		super(stringAttribute, item, null);
 		this.stringAttribute = stringAttribute;
@@ -54,7 +54,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public StringAttribute getStringAttribute()
+	public StringField getStringAttribute()
 	{
 		return stringAttribute;
 	}

@@ -19,11 +19,11 @@
 package com.exedio.cope.badquery;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class SuperItem extends Item
 {
-	public static final StringAttribute code = new StringAttribute(FINAL);
+	public static final StringField code = new StringField(FINAL);
 	
 	@Override
 	public String toString()

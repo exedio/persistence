@@ -19,11 +19,11 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class DTypeItem extends Item
 {
-	public static final StringAttribute name = new StringAttribute(FINAL);
+	public static final StringField name = new StringField(FINAL);
 	
 	public static final DTypeSystem features = new DTypeSystem(1, 1, 1, 1, 2);
 	

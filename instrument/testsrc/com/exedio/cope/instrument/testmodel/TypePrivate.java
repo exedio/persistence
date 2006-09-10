@@ -20,7 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * @cope.type private
@@ -28,7 +28,7 @@ import com.exedio.cope.StringAttribute;
  */
 public class TypePrivate extends Item
 {
-	public static final StringAttribute defaultString = new StringAttribute(OPTIONAL);
+	public static final StringField defaultString = new StringField(OPTIONAL);
 
 	/**
 	 * Creates a new TypeNone and sets the given attributes initially.

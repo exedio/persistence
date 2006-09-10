@@ -20,7 +20,7 @@ package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Qualifier;
 
@@ -36,8 +36,8 @@ public class QualifiedEmptyQualifier extends Item
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	public static final Qualifier qualifier = new Qualifier(qualifyUnique);
 	
-	public static final StringAttribute qualifiedA = new StringAttribute(OPTIONAL);
-	public static final StringAttribute qualifiedB = new StringAttribute(OPTIONAL);
+	public static final StringField qualifiedA = new StringField(OPTIONAL);
+	public static final StringField qualifiedB = new StringField(OPTIONAL);
 	
 
 /**

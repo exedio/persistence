@@ -18,11 +18,11 @@
 
 package com.exedio.cope.badquery;
 
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class QueryItem extends SuperItem
 {
-	public static final StringAttribute name = new StringAttribute(OPTIONAL);
+	public static final StringField name = new StringField(OPTIONAL);
 	
 	/**
 

@@ -19,13 +19,13 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  */
 public class JavaViewItem extends Item
 {
-	public static final StringAttribute numberString = new StringAttribute(OPTIONAL);
+	public static final StringField numberString = new StringField(OPTIONAL);
 	
 	public static final JavaView number = new JavaView();
 	

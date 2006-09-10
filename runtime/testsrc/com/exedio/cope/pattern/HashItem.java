@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.testmodel.WrapHash;
 
@@ -29,10 +29,10 @@ import com.exedio.cope.testmodel.WrapHash;
  */
 public class HashItem extends Item
 {
-	public static final StringAttribute explicitExternalWrap = new StringAttribute(OPTIONAL);
+	public static final StringField explicitExternalWrap = new StringField(OPTIONAL);
 	public static final Hash explicitExternal = new WrapHash(explicitExternalWrap);
 
-	public static final Hash implicitExternal = new WrapHash(new StringAttribute(OPTIONAL));
+	public static final Hash implicitExternal = new WrapHash(new StringField(OPTIONAL));
 
 	public static final Hash internal = new WrapHash(OPTIONAL);
 

@@ -26,13 +26,13 @@ import java.util.List;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  */
 public final class CustomItem extends Item
 {
-	public static final StringAttribute numberString = new StringAttribute(OPTIONAL);
+	public static final StringField numberString = new StringField(OPTIONAL);
 	
 	public static final CustomAttribute<Integer> number = new CustomAttribute<Integer>(numberString)
 	{

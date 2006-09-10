@@ -19,14 +19,14 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * @author Ralf Wiebicke
  */
 public class RelationTargetItem extends Item
 {
-	public static final StringAttribute code = new StringAttribute(UNIQUE);
+	public static final StringField code = new StringField(UNIQUE);
 
 	// TODO generate, cannot generate because name conflicts in project, needs switch-off option
 	public final java.util.List<? extends com.exedio.cope.pattern.RelationSourceItem> getVectorSource()

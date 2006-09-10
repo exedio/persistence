@@ -22,16 +22,16 @@ import java.util.List;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DType extends Item
 {
-	public static final StringAttribute parentTypeId = new StringAttribute(FINAL);
-	public static final StringAttribute dtypeSystemName = new StringAttribute(FINAL);
-	public static final StringAttribute code = new StringAttribute(FINAL);
+	public static final StringField parentTypeId = new StringField(FINAL);
+	public static final StringField dtypeSystemName = new StringField(FINAL);
+	public static final StringField code = new StringField(FINAL);
 	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parentTypeId, dtypeSystemName, code);
 	
 	

@@ -20,14 +20,14 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 
 /**
  */
 public class Input extends Item
 {
-	public static final StringAttribute string = new StringAttribute( FINAL );
+	public static final StringField string = new StringField( FINAL );
 	public static final IntegerAttribute integer = new IntegerAttribute( FINAL );
 	public static final UniqueConstraint unique = new UniqueConstraint( string, integer );
 	

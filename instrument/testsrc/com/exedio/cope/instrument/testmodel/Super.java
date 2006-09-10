@@ -21,13 +21,13 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  */
 public abstract class Super extends Item
 {
-	public static final StringAttribute superMandatory = new StringAttribute().lengthExact(5);
+	public static final StringField superMandatory = new StringField().lengthExact(5);
 	
 	/**
 	 * @cope.initial

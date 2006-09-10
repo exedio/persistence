@@ -25,7 +25,7 @@ import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -62,7 +62,7 @@ public final class DAttribute extends Item
 	public static final IntegerAttribute positionPerValueType = new IntegerAttribute(FINAL);
 	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
 	
-	public static final StringAttribute code = new StringAttribute(FINAL);
+	public static final StringField code = new StringField(FINAL);
 	public static final UniqueConstraint uniqueConstraintCode = new UniqueConstraint(parent, code);
 
 	public Object get(final Item item)

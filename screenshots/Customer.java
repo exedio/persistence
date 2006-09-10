@@ -10,8 +10,8 @@ public class Customer extends Item
    /**
     * The unique email address of the customer.
     */
-   public static final StringAttribute email =
-       new StringAttribute(UNIQUE);
+   public static final StringField email =
+       new StringField(UNIQUE);
 
    /**
     * The password of the customer, transparently

@@ -20,7 +20,7 @@ package com.exedio.cope.testmodel;
 
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * An item having a final attribute.
@@ -28,7 +28,7 @@ import com.exedio.cope.StringAttribute;
  */
 public class FinalItem extends Item
 {
-	public static final StringAttribute finalString = new StringAttribute(FINAL);
+	public static final StringField finalString = new StringField(FINAL);
 	public static final IntegerAttribute nonFinalInteger = new IntegerAttribute();
 
 /**

@@ -19,13 +19,13 @@
 package com.exedio.cope.instrument.testmodel.sub;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  */
 public class SubTarget extends Item
 {
-	public static final StringAttribute string = new StringAttribute(FINAL);
+	public static final StringField string = new StringField(FINAL);
 
 /**
 

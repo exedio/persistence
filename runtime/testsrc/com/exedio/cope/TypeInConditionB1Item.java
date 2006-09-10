@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class TypeInConditionB1Item extends TypeInConditionAItem
 {
-	public static final StringAttribute textb1 = new StringAttribute(OPTIONAL);
+	public static final StringField textb1 = new StringField(OPTIONAL);
 
 /**
 

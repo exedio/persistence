@@ -22,12 +22,12 @@ import java.util.Date;
 
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class AttributeSetItem extends Item
 {
 
-	public static final AttributeSet<String> strings = AttributeSet.newSet(new StringAttribute(OPTIONAL).lengthRange(4, 8));
+	public static final AttributeSet<String> strings = AttributeSet.newSet(new StringField(OPTIONAL).lengthRange(4, 8));
 	public static final AttributeSet<Date> dates = AttributeSet.newSet(new DateAttribute());
 	
 	/**

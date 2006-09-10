@@ -24,7 +24,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.PlusView;
 import com.exedio.cope.function.UppercaseView;
@@ -35,18 +35,18 @@ import com.exedio.cope.function.UppercaseView;
  */
 public class StringItem extends Item
 {
-	public static final StringAttribute any = new StringAttribute(OPTIONAL);
+	public static final StringField any = new StringField(OPTIONAL);
 
-	public static final StringAttribute mandatory = new StringAttribute();
+	public static final StringField mandatory = new StringField();
 	
-	public static final StringAttribute min4 = new StringAttribute(OPTIONAL).lengthMin(4);
-	public static final StringAttribute max4 = new StringAttribute(OPTIONAL).lengthMax(4);
-	public static final StringAttribute min4Max8 = new StringAttribute(OPTIONAL).lengthRange(4, 8);
-	public static final StringAttribute exact6 = new StringAttribute(OPTIONAL).lengthExact(6);
+	public static final StringField min4 = new StringField(OPTIONAL).lengthMin(4);
+	public static final StringField max4 = new StringField(OPTIONAL).lengthMax(4);
+	public static final StringField min4Max8 = new StringField(OPTIONAL).lengthRange(4, 8);
+	public static final StringField exact6 = new StringField(OPTIONAL).lengthExact(6);
 	
-	public static final StringAttribute long1K = new StringAttribute(OPTIONAL).lengthMax(1000);
-	public static final StringAttribute long1M = new StringAttribute(OPTIONAL).lengthMax(1000*1000);
-	public static final StringAttribute long40M = new StringAttribute(OPTIONAL).lengthMax(40*1000*1000);
+	public static final StringField long1K = new StringField(OPTIONAL).lengthMax(1000);
+	public static final StringField long1M = new StringField(OPTIONAL).lengthMax(1000*1000);
+	public static final StringField long40M = new StringField(OPTIONAL).lengthMax(40*1000*1000);
 	
 	public static final UppercaseView min4Upper = min4.toUpperCase();
 	public static final UppercaseView max4Upper = max4.toUpperCase();

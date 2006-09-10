@@ -27,7 +27,7 @@ import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 import com.exedio.cope.pattern.Media;
@@ -41,7 +41,7 @@ public class AttributeItem extends Item
 	/**
 	 * A string attribute.
 	 */
-	public static final StringAttribute someString = new StringAttribute(OPTIONAL);
+	public static final StringField someString = new StringField(OPTIONAL);
 
 	/**
 	 * Test non-persistent static final attributes.
@@ -61,7 +61,7 @@ public class AttributeItem extends Item
 	/**
 	 * A mandatory string attribute.
 	 */
-	public static final StringAttribute someNotNullString = new StringAttribute();
+	public static final StringField someNotNullString = new StringField();
 
 	/**
 	 * An integer attribute

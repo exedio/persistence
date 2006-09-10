@@ -24,10 +24,10 @@ package com.exedio.cope;
 public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 {
 
-	public static final StringAttribute code = new StringAttribute(UNIQUE);
+	public static final StringField code = new StringField(UNIQUE);
 
-	public static final StringAttribute codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		new StringAttribute(UNIQUE_OPTIONAL);
+	public static final StringField codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
+		new StringField(UNIQUE_OPTIONAL);
 
 	public static final ItemAttribute<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		newItemAttribute(OPTIONAL, NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);

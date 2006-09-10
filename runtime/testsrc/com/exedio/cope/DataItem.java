@@ -33,7 +33,7 @@ public class DataItem extends Item
 	public static final DataAttribute data10 = new DataAttribute(OPTIONAL).lengthMax(10);
 	public static final DataAttribute data10k = new DataAttribute(OPTIONAL).lengthMax(10*1000);
 	public static final DataAttribute data100M = new DataAttribute(OPTIONAL).lengthMax(100*1000*1000);
-	public static final StringAttribute name = new StringAttribute(OPTIONAL);
+	public static final StringField name = new StringField(OPTIONAL);
 	
 	public boolean isDataNull() // TODO generate this
 	{

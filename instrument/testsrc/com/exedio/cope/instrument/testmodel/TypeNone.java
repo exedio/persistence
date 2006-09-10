@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * @cope.type none
@@ -29,7 +29,7 @@ import com.exedio.cope.StringAttribute;
  */
 public class TypeNone extends Item
 {
-	public static final StringAttribute defaultString = new StringAttribute(OPTIONAL);
+	public static final StringField defaultString = new StringField(OPTIONAL);
 
 /**
 

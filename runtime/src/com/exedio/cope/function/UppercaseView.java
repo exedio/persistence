@@ -19,7 +19,7 @@
 package com.exedio.cope.function;
 
 import com.exedio.cope.StringView;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 
 public final class UppercaseView
@@ -32,7 +32,7 @@ public final class UppercaseView
 	 * Creates a new UppercaseView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
-	 * {@link StringAttribute#toUpperCase()}.
+	 * {@link StringField#toUpperCase()}.
 	 */
 	public UppercaseView(final StringFunction source)
 	{

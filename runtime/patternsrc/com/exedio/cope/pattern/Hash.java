@@ -30,15 +30,15 @@ import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Attribute.Option;
 
 public abstract class Hash extends Pattern implements Settable<String>
 {
-	private final StringAttribute storage;
+	private final StringField storage;
 
-	public Hash(final StringAttribute storage)
+	public Hash(final StringField storage)
 	{
 		if(storage==null)
 			throw new NullPointerException("hash storage must not be null");
@@ -48,7 +48,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public Hash(final Option storageOption)
 	{
-		this(new StringAttribute(storageOption));
+		this(new StringField(storageOption));
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 			initialize(storage, getName()+"Hash");
 	}
 	
-	public final StringAttribute getStorage()
+	public final StringField getStorage()
 	{
 		return storage;
 	}

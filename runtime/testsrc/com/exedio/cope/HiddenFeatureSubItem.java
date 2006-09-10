@@ -20,13 +20,13 @@ package com.exedio.cope;
 
 public class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 {
-	public static final StringAttribute nonHiddenSub = new StringAttribute(OPTIONAL);
+	public static final StringField nonHiddenSub = new StringField(OPTIONAL);
 	
 	/**
 	 * @cope.getter none
 	 * @cope.setter none
 	 */
-	public static final StringAttribute hiddenSame = new StringAttribute(OPTIONAL);
+	public static final StringField hiddenSame = new StringField(OPTIONAL);
 
 	/**
 	 * @cope.getter none

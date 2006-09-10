@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 
@@ -37,14 +37,14 @@ import com.exedio.cope.pattern.MediaPath;
  */
 public final class MediaNameServer extends MediaPath
 {
-	final StringAttribute source;
+	final StringField source;
 
-	public MediaNameServer(final StringAttribute source)
+	public MediaNameServer(final StringField source)
 	{
 		this.source = source;
 	}
 	
-	public StringAttribute getSource()
+	public StringField getSource()
 	{
 		return source;
 	}

@@ -22,9 +22,9 @@ package com.exedio.cope;
  */
 public class CacheIsolationItem extends Item
 {
-	public static final StringAttribute uniqueString = new StringAttribute( UNIQUE_OPTIONAL );
+	public static final StringField uniqueString = new StringField( UNIQUE_OPTIONAL );
 	
-	public static final StringAttribute name = new StringAttribute();
+	public static final StringField name = new StringField();
 	
 /**
 

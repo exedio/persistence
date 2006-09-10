@@ -20,7 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 
@@ -28,7 +28,7 @@ import com.exedio.cope.instrument.testmodel.sub.SubTarget;
  */
 public class DoubleUnique extends Item
 {
-	public static final StringAttribute string = new StringAttribute(FINAL);
+	public static final StringField string = new StringField(FINAL);
 	public static final ItemAttribute<SubTarget> item = newItemAttribute(FINAL, SubTarget.class, CASCADE);
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
 	

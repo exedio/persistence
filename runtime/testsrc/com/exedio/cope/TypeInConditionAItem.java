@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class TypeInConditionAItem extends Item
 {
-	public static final StringAttribute code = new StringAttribute(FINAL_UNIQUE);
+	public static final StringField code = new StringField(FINAL_UNIQUE);
 	
 	@Override
 	public final String toString()

@@ -37,7 +37,7 @@ import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LongAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.AttributeList;
@@ -306,7 +306,7 @@ final class JavaRepository
 	
 	public static final class DummyHash extends Hash
 	{
-		public DummyHash(final StringAttribute storage)
+		public DummyHash(final StringField storage)
 		{
 			super(storage);
 		}

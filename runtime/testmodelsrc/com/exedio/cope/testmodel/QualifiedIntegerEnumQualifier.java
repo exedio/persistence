@@ -22,7 +22,7 @@ import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Qualifier;
 
@@ -39,8 +39,8 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(up, keyX, keyY);
 	public static final Qualifier intEnumQualifier = new Qualifier(qualifyUnique);
 	
-	public static final StringAttribute qualifiedA = new StringAttribute(OPTIONAL);
-	public static final StringAttribute qualifiedB = new StringAttribute(OPTIONAL);
+	public static final StringField qualifiedA = new StringField(OPTIONAL);
+	public static final StringField qualifiedB = new StringField(OPTIONAL);
 
 	public static enum KeyEnum
 	{

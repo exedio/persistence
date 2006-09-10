@@ -30,7 +30,7 @@ import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.Main;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class AttributeListLimitedTest extends AbstractLibTest
 {
@@ -105,10 +105,10 @@ public class AttributeListLimitedTest extends AbstractLibTest
 		assertEquals(4, stringSources.size());
 		assertUnmodifiable(stringSources);
 		final Iterator stringSourcesIterator = stringSources.iterator();
-		final StringAttribute string1 = assertString(stringSourcesIterator, 1);
-		final StringAttribute string2 = assertString(stringSourcesIterator, 2);
-		final StringAttribute string3 = assertString(stringSourcesIterator, 3);
-		final StringAttribute string4 = assertString(stringSourcesIterator, 4);
+		final StringField string1 = assertString(stringSourcesIterator, 1);
+		final StringField string2 = assertString(stringSourcesIterator, 2);
+		final StringField string3 = assertString(stringSourcesIterator, 3);
+		final StringField string4 = assertString(stringSourcesIterator, 4);
 		assertTrue(!stringSourcesIterator.hasNext());
 		assertEqualsUnmodifiable(list(item.strings), string1.getPatterns());
 		assertEqualsUnmodifiable(list(item.strings), string2.getPatterns());
@@ -256,9 +256,9 @@ public class AttributeListLimitedTest extends AbstractLibTest
 		return date;
 	}
 
-	private final StringAttribute assertString(final Iterator i, final int num)
+	private final StringField assertString(final Iterator i, final int num)
 	{
-		final StringAttribute string = (StringAttribute)i.next();
+		final StringField string = (StringField)i.next();
 		assertEquals(item.TYPE, string.getType());
 		assertEquals("strings"+num, string.getName());
 		assertEquals(false, string.isMandatory());

@@ -52,14 +52,14 @@ public class StringTest extends TestmodelTest
 		assertEquals(false, item.any.isMandatory());
 		assertEqualsUnmodifiable(list(), item.any.getPatterns());
 		assertEquals(0, item.any.getMinimumLength());
-		assertEquals(StringAttribute.DEFAULT_LENGTH, item.any.getMaximumLength());
+		assertEquals(StringField.DEFAULT_LENGTH, item.any.getMaximumLength());
 
 		assertEquals(item.TYPE, item.mandatory.getType());
 		assertEquals("mandatory", item.mandatory.getName());
 		assertEquals(true, item.mandatory.isMandatory());
 
 		assertEquals(4, item.min4.getMinimumLength());
-		assertEquals(StringAttribute.DEFAULT_LENGTH, item.min4.getMaximumLength());
+		assertEquals(StringField.DEFAULT_LENGTH, item.min4.getMaximumLength());
 
 		assertEquals(0, item.max4.getMinimumLength());
 		assertEquals(4, item.max4.getMaximumLength());
@@ -74,56 +74,56 @@ public class StringTest extends TestmodelTest
 		assertEquals("min4Upper", item.min4Upper.getName());
 		
 		{
-			final StringAttribute orig = new StringAttribute(Item.OPTIONAL);
+			final StringField orig = new StringField(Item.OPTIONAL);
 			assertEquals(false, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertEquals(0, orig.getMinimumLength());
-			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
+			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
 
-			final StringAttribute copy = orig.copyFunctionAttribute();
+			final StringField copy = orig.copyFunctionAttribute();
 			assertEquals(false, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertEquals(0, copy.getMinimumLength());
-			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
+			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = new StringAttribute(Item.FINAL_OPTIONAL).lengthMin(10);
+			final StringField orig = new StringField(Item.FINAL_OPTIONAL).lengthMin(10);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNull(orig.getImplicitUniqueConstraint());
 			assertEquals(10, orig.getMinimumLength());
-			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
+			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
 			
-			final StringAttribute copy = orig.copyFunctionAttribute();
+			final StringField copy = orig.copyFunctionAttribute();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNull(copy.getImplicitUniqueConstraint());
 			assertEquals(10, copy.getMinimumLength());
-			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
+			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = new StringAttribute(Item.FINAL_UNIQUE_OPTIONAL).lengthMin(20);
+			final StringField orig = new StringField(Item.FINAL_UNIQUE_OPTIONAL).lengthMin(20);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNotNull(orig.getImplicitUniqueConstraint());
 			assertEquals(20, orig.getMinimumLength());
-			assertEquals(StringAttribute.DEFAULT_LENGTH, orig.getMaximumLength());
+			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
 			
-			final StringAttribute copy = orig.copyFunctionAttribute();
+			final StringField copy = orig.copyFunctionAttribute();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNotNull(copy.getImplicitUniqueConstraint());
 			assertEquals(20, copy.getMinimumLength());
-			assertEquals(StringAttribute.DEFAULT_LENGTH, copy.getMaximumLength());
+			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringAttribute orig = new StringAttribute().lengthRange(10, 20);
+			final StringField orig = new StringField().lengthRange(10, 20);
 			assertEquals(false, orig.isFinal());
 			assertEquals(true, orig.isMandatory());
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(20, orig.getMaximumLength());
 			
-			final StringAttribute copy = orig.copyFunctionAttribute();
+			final StringField copy = orig.copyFunctionAttribute();
 			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
 			assertEquals(10, copy.getMinimumLength());
@@ -525,7 +525,7 @@ public class StringTest extends TestmodelTest
 	{
 		try
 		{
-			new StringAttribute(Item.OPTIONAL).lengthRange(minimumLength, maximumLength);
+			new StringField(Item.OPTIONAL).lengthRange(minimumLength, maximumLength);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -555,7 +555,7 @@ public class StringTest extends TestmodelTest
 		return result;
 	}
 
-	void assertString(final Item item, final Item item2, final StringAttribute sa)
+	void assertString(final Item item, final Item item2, final StringField sa)
 	{
 		final Type<? extends Item> type = item.getCopeType();
 		assertEquals(type, item2.getCopeType());
@@ -675,7 +675,7 @@ public class StringTest extends TestmodelTest
 		assertContains(item, item2, type.search(sa.isNull()));
 	}
 	
-	private void assertStringSet(final Item item, final StringAttribute sa, final String value)
+	private void assertStringSet(final Item item, final StringField sa, final String value)
 	{
 		//if(value.length()<=100) System.out.println("---------"+value+"------------");
 		

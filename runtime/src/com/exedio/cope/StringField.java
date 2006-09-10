@@ -29,14 +29,14 @@ import com.exedio.cope.function.UppercaseView;
  *
  * @author Ralf Wiebicke
  */
-public final class StringAttribute extends FunctionAttribute<String> implements StringFunction
+public final class StringField extends FunctionAttribute<String> implements StringFunction
 {
 	private final int minimumLength;
 	private final int maximumLength;
 	
 	public static final int DEFAULT_LENGTH = 100;
 
-	private StringAttribute(
+	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
 			final int minimumLength, final int maximumLength)
 	{
@@ -57,12 +57,12 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	/**
 	 * Creates a new mandatory <tt>StringAttribute</tt>.
 	 */
-	public StringAttribute()
+	public StringField()
 	{
 		this(Item.MANDATORY);
 	}
 	
-	public StringAttribute(final Option option)
+	public StringField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH);
 	}
@@ -71,7 +71,7 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	 * @deprecated use {@link #lengthMin(int)} instead.
 	 */
 	@Deprecated
-	public StringAttribute(final Option option, final int minimumLength)
+	public StringField(final Option option, final int minimumLength)
 	{
 		this(option.isFinal, option.optional, option.unique, null, minimumLength, DEFAULT_LENGTH);
 	}
@@ -80,49 +80,49 @@ public final class StringAttribute extends FunctionAttribute<String> implements 
 	 * @deprecated use {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
 	 */
 	@Deprecated
-	public StringAttribute(final Option option, final int minimumLength, final int maximumLength)
+	public StringField(final Option option, final int minimumLength, final int maximumLength)
 	{
 		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength);
 	}
 	
 	@Override
-	public StringAttribute copyFunctionAttribute()
+	public StringField copyFunctionAttribute()
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
 	}
 	
-	public StringAttribute defaultTo(final String defaultConstant)
+	public StringField defaultTo(final String defaultConstant)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
 	}
 	
-	public StringAttribute lengthRange(final int minimumLength, final int maximumLength)
+	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
 	}
 	
-	public StringAttribute lengthMin(final int minimumLength)
+	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, DEFAULT_LENGTH);
+		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, DEFAULT_LENGTH);
 	}
 	
-	public StringAttribute lengthMax(final int maximumLength)
+	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, 0, maximumLength);
+		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, 0, maximumLength);
 	}
 	
 	/**
 	 * @deprecated use {@link #lengthMax(int)}.
 	 */
 	@Deprecated
-	public StringAttribute lengthMaxUnchecked(final int maximumLength)
+	public StringField lengthMaxUnchecked(final int maximumLength)
 	{
 		return lengthMax(maximumLength);
 	}
 	
-	public StringAttribute lengthExact(final int exactLength)
+	public StringField lengthExact(final int exactLength)
 	{
-		return new StringAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, exactLength, exactLength);
+		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, exactLength, exactLength);
 	}
 	
 	public final int getMinimumLength()

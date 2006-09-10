@@ -50,7 +50,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringAttribute;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.CustomAttributeException;
@@ -265,12 +264,12 @@ final class ItemForm extends Form
 			else
 				return new DateField(this, attribute, name, ((DateAttribute)attribute).get(item));
 		}
-		else if(attribute instanceof StringAttribute)
+		else if(attribute instanceof com.exedio.cope.StringField)
 		{
 			if(post)
 				return new StringField(this, attribute, name);
 			else
-				return new StringField(this, attribute, name, ((StringAttribute)attribute).get(item));
+				return new StringField(this, attribute, name, ((com.exedio.cope.StringField)attribute).get(item));
 		}
 		else if(attribute instanceof ItemAttribute)
 		{

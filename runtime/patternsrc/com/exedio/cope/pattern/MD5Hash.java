@@ -22,7 +22,7 @@ import java.util.SortedSet;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.Attribute.Option;
 
 public final class MD5Hash extends JavaSecurityHash
@@ -30,12 +30,12 @@ public final class MD5Hash extends JavaSecurityHash
 	private static final String HASH = "MD5";
 	private static final int LENGTH = 32;
 
-	public MD5Hash(final StringAttribute storage)
+	public MD5Hash(final StringField storage)
 	{
 		super(storage, HASH);
 	}
 
-	public MD5Hash(final StringAttribute storage, final String encoding)
+	public MD5Hash(final StringField storage, final String encoding)
 	{
 		super(storage, HASH, encoding);
 	}
@@ -47,14 +47,14 @@ public final class MD5Hash extends JavaSecurityHash
 	
 	public MD5Hash(final Option storageOption)
 	{
-		this(new StringAttribute(storageOption).lengthExact(LENGTH));
+		this(new StringField(storageOption).lengthExact(LENGTH));
 	}
 
 	@Override
 	public SortedSet<Class> getSetterExceptions()
 	{
 		final SortedSet<Class> result = super.getSetterExceptions();
-		final StringAttribute storage = getStorage();
+		final StringField storage = getStorage();
 		if(storage.getMinimumLength()<=LENGTH && storage.getMaximumLength()>=LENGTH)
 			result.remove(LengthViolationException.class);
 		return result;

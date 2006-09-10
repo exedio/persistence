@@ -30,7 +30,7 @@ import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Main;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class MediaTest extends AbstractLibTest
 {
@@ -104,11 +104,11 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(20, fileBody.getMaximumLength());
 		assertEqualsUnmodifiable(list(item.file), fileBody.getPatterns());
 		assertSame(item.file, Media.get(fileBody));
-		final StringAttribute fileMajor = item.file.getMimeMajor();
+		final StringField fileMajor = item.file.getMimeMajor();
 		assertSame(item.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
 		assertEqualsUnmodifiable(list(item.file), fileMajor.getPatterns());
-		final StringAttribute fileMinor = item.file.getMimeMinor();
+		final StringField fileMinor = item.file.getMimeMinor();
 		assertSame(item.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
 		assertEqualsUnmodifiable(list(item.file), fileMinor.getPatterns());
@@ -246,7 +246,7 @@ public class MediaTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.image), imageBody.getPatterns());
 		assertSame(item.image, Media.get(imageBody));
 		assertEquals(null, item.image.getMimeMajor());
-		final StringAttribute imageMinor = item.image.getMimeMinor();
+		final StringField imageMinor = item.image.getMimeMinor();
 		assertSame(item.TYPE, imageMinor.getType());
 		assertEquals("imageMinor", imageMinor.getName());
 		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());

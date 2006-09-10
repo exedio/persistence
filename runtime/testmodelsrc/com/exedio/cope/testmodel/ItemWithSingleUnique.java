@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * An item having a unique attribute.
@@ -30,9 +30,9 @@ public class ItemWithSingleUnique extends Item
 	/**
 	 * An attribute that is unique.
 	 */
-	public static final StringAttribute uniqueString = new StringAttribute(UNIQUE_OPTIONAL);
+	public static final StringField uniqueString = new StringField(UNIQUE_OPTIONAL);
 
-	public static final StringAttribute otherString = new StringAttribute(OPTIONAL);
+	public static final StringField otherString = new StringField(OPTIONAL);
 
 /**
 

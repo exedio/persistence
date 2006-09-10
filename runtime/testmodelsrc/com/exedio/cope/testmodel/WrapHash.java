@@ -18,7 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 import com.exedio.cope.Attribute.Option;
 import com.exedio.cope.pattern.Hash;
 
@@ -29,7 +29,7 @@ import com.exedio.cope.pattern.Hash;
  */
 public class WrapHash extends Hash
 {
-	public WrapHash(final StringAttribute storage)
+	public WrapHash(final StringField storage)
 	{
 		super(storage);
 	}

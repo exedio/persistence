@@ -20,7 +20,7 @@ package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemAttribute;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * @author Ralf Wiebicke
@@ -28,7 +28,7 @@ import com.exedio.cope.StringAttribute;
 public class PointerItem extends Item
 {
 
-	public static final StringAttribute code = new StringAttribute();
+	public static final StringField code = new StringField();
 	
 	public static final ItemAttribute<PointerTargetItem> pointer = newItemAttribute(PointerTargetItem.class);
 

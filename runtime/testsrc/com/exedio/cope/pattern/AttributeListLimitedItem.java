@@ -24,7 +24,7 @@ import com.exedio.cope.DateAttribute;
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * @cope.generic.constructor package
@@ -48,7 +48,7 @@ public class AttributeListLimitedItem extends Item
 
 	// internal source
 
-	public static final AttributeListLimited<String> strings = AttributeListLimited.newList(new StringAttribute(OPTIONAL).lengthRange(1, 11), 4);
+	public static final AttributeListLimited<String> strings = AttributeListLimited.newList(new StringField(OPTIONAL).lengthRange(1, 11), 4);
 
 	public AttributeListLimitedItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

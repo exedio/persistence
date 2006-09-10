@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.IntegerAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 public class AttributeMapItem extends Item
 {
@@ -29,13 +29,13 @@ public class AttributeMapItem extends Item
 		DE, EN, PL;
 	}
 	
-	public static final AttributeMap<Language, String> name = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new StringAttribute());
+	public static final AttributeMap<Language, String> name = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new StringField());
 	
 	public static final AttributeMap<Language, Integer> nameLength = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new IntegerAttribute());
 	
-	public static final AttributeMap<String, String> string = AttributeMap.newMap(new StringAttribute(FINAL).lengthRange(4, 8), new StringAttribute());
+	public static final AttributeMap<String, String> string = AttributeMap.newMap(new StringField(FINAL).lengthRange(4, 8), new StringField());
 	
-	public static final AttributeMap<String, Integer> integer = AttributeMap.newMap(new StringAttribute(FINAL).lengthRange(4, 8), new IntegerAttribute());
+	public static final AttributeMap<String, Integer> integer = AttributeMap.newMap(new StringField(FINAL).lengthRange(4, 8), new IntegerAttribute());
 	
 	/**
 

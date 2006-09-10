@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringAttribute;
+import com.exedio.cope.StringField;
 
 /**
  * An item having a unique mandatory attribute.
@@ -30,7 +30,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	/**
 	 * An attribute that is unique and mandatory.
 	 */
-	public static final StringAttribute uniqueNotNullString = new StringAttribute(UNIQUE);
+	public static final StringField uniqueNotNullString = new StringField(UNIQUE);
 
 /**
 
