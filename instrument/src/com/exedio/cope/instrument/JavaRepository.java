@@ -27,7 +27,7 @@ import bsh.UtilEvalError;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
@@ -124,7 +124,7 @@ final class JavaRepository
 								{
 									new CopeObjectAttribute(type, javaAttribute, typeClass);
 								}
-								else if(DataAttribute.class.equals(typeClass))
+								else if(DataField.class.equals(typeClass))
 								{
 									new CopeDataAttribute(type, javaAttribute, typeClass);
 								}

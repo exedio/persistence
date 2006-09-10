@@ -49,7 +49,7 @@ final class Entity
 			if(attribute instanceof FunctionAttribute)
 				put((FunctionAttribute)attribute, attributeValues.get(attribute));
 			else
-				assert attribute instanceof DataAttribute;
+				assert attribute instanceof DataField;
 		}	
 	}
 	

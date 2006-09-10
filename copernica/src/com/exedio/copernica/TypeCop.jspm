@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
@@ -175,9 +175,9 @@ final class TypeCop_Jspm
 						final Feature feature = (Feature)j.next();
 						%>
 					<td><%
-						if(feature instanceof DataAttribute)
+						if(feature instanceof DataField)
 						{
-							final DataAttribute dataAttribute = (DataAttribute)feature;
+							final DataField dataAttribute = (DataField)feature;
 							final Media media = Media.get(dataAttribute);
 							final String url = media.getURL(item);
 							if(url==null)

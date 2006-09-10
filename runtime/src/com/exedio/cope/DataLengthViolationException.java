@@ -19,10 +19,10 @@
 package com.exedio.cope;
 
 /**
- * Signals, that an attempt to write a {@link DataAttribute data attribute} has been failed,
+ * Signals, that an attempt to write a {@link DataField data attribute} has been failed,
  * because value to be written violated the length constraint on that attribute.
  *
- * This exception will be thrown by {@link DataAttribute#set(Item,byte[])} etc.
+ * This exception will be thrown by {@link DataField#set(Item,byte[])} etc.
  * and item constructors.
  *
  * @author Ralf Wiebicke
@@ -31,7 +31,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 {
 	private static final long serialVersionUID = 1982536426881212456l;
 	
-	private final DataAttribute dataAttribute;
+	private final DataField dataAttribute;
 	private final long length;
 	private final boolean lengthExact;
 	
@@ -42,7 +42,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	 * @param length initializes, what is returned by {@link #getLength()}.
 	 * @param lengthExact initializes, what is returned by {@link #isLengthExact()}.
 	 */
-	public DataLengthViolationException(final DataAttribute dataAttribute, final Item item, final long length, final boolean lengthExact)
+	public DataLengthViolationException(final DataField dataAttribute, final Item item, final long length, final boolean lengthExact)
 	{
 		super(dataAttribute, item, null);
 		
@@ -57,7 +57,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public DataAttribute getDataAttribute()
+	public DataField getDataAttribute()
 	{
 		return dataAttribute;
 	}

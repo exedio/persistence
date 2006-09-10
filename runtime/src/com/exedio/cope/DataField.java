@@ -29,13 +29,13 @@ import java.io.OutputStream;
 import java.util.HashMap;
 
 
-public final class DataAttribute extends Attribute<byte[]>
+public final class DataField extends Attribute<byte[]>
 {
 	private final long maximumLength;
 
 	public static final long DEFAULT_LENGTH = 10*1000*1000;
 	
-	private DataAttribute(final boolean isfinal, final boolean optional, final long maximumLength)
+	private DataField(final boolean isfinal, final boolean optional, final long maximumLength)
 	{
 		super(isfinal, optional, byte[].class);
 		this.maximumLength = maximumLength;
@@ -46,7 +46,7 @@ public final class DataAttribute extends Attribute<byte[]>
 	
 	// TODO, empty constructor missing, since DataAttribute cannot be MANDATORY
 	
-	public DataAttribute(final Option option)
+	public DataField(final Option option)
 	{
 		this(option.isFinal, option.optional, DEFAULT_LENGTH);
 
@@ -58,9 +58,9 @@ public final class DataAttribute extends Attribute<byte[]>
 			throw new RuntimeException("DataAttribute cannot be final"); // TODO
 	}
 	
-	public DataAttribute lengthMax(final long maximumLength)
+	public DataField lengthMax(final long maximumLength)
 	{
-		return new DataAttribute(isfinal, optional, maximumLength);
+		return new DataField(isfinal, optional, maximumLength);
 	}
 	
 	public long getMaximumLength()
@@ -267,7 +267,7 @@ public final class DataAttribute extends Attribute<byte[]>
 		{
 			super(true);
 			this.model = model;
-			this.column = new BlobColumn(table, name, optional, DataAttribute.this.maximumLength);
+			this.column = new BlobColumn(table, name, optional, DataField.this.maximumLength);
 		}
 		
 		@Override
@@ -301,7 +301,7 @@ public final class DataAttribute extends Attribute<byte[]>
 			try
 			{
 				// TODO make more efficient implementation
-				column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null, DataAttribute.this);
+				column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null, DataField.this);
 			}
 			catch(IOException e)
 			{
@@ -312,14 +312,14 @@ public final class DataAttribute extends Attribute<byte[]>
 		@Override
 		void get(final Item item, final OutputStream data)
 		{
-			column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, DataAttribute.this);
+			column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, DataField.this);
 		}
 		
 		@Override
 		void set(final Item item, final InputStream data)
 		throws MandatoryViolationException, IOException
 		{
-			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, DataAttribute.this);
+			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, DataField.this);
 		}
 		
 		@Override
@@ -352,7 +352,7 @@ public final class DataAttribute extends Attribute<byte[]>
 				{
 					final long length = data.length();
 					if(length>maximumLength)
-						throw new DataLengthViolationException(DataAttribute.this, item, length, true);
+						throw new DataLengthViolationException(DataField.this, item, length, true);
 					
 					source =  new FileInputStream(data);
 				}
@@ -417,7 +417,7 @@ public final class DataAttribute extends Attribute<byte[]>
 			{
 				try
 				{
-					return DataAttribute.copy(new FileInputStream(file), file.length());
+					return DataField.copy(new FileInputStream(file), file.length());
 				}
 				catch(FileNotFoundException e)
 				{
@@ -483,7 +483,7 @@ public final class DataAttribute extends Attribute<byte[]>
 					if(data!=null)
 					{
 						in = new FileInputStream(file);
-						DataAttribute.this.copy(in, data, file.length(), item);
+						DataField.this.copy(in, data, file.length(), item);
 						in.close();
 						data.close();
 					}
@@ -517,7 +517,7 @@ public final class DataAttribute extends Attribute<byte[]>
 				if(data!=null)
 				{
 					out = new FileOutputStream(file);
-					DataAttribute.this.copy(data, out, item);
+					DataField.this.copy(data, out, item);
 					out.close();
 					data.close();
 				}
@@ -545,7 +545,7 @@ public final class DataAttribute extends Attribute<byte[]>
 			if(length>0)
 			{
 				if(length>maximumLength)
-					throw new DataLengthViolationException(DataAttribute.this, item, length, true);
+					throw new DataLengthViolationException(DataField.this, item, length, true);
 				
 				InputStream sourceS = null;
 				OutputStream targetS = null;
@@ -553,7 +553,7 @@ public final class DataAttribute extends Attribute<byte[]>
 				{
 					sourceS = new FileInputStream(source);
 					targetS = new FileOutputStream(target);
-					DataAttribute.this.copy(sourceS, targetS, length, item);
+					DataField.this.copy(sourceS, targetS, length, item);
 				}
 				finally
 				{

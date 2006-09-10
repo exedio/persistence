@@ -560,10 +560,10 @@ public abstract class Item extends Cope
 		
 		for(final Attribute attribute : attributeValues.keySet())
 		{
-			if(!(attribute instanceof DataAttribute))
+			if(!(attribute instanceof DataField))
 				continue;
 			
-			final DataAttribute da = (DataAttribute)attribute;
+			final DataField da = (DataField)attribute;
 			da.impl.fillBlob((byte[])attributeValues.get(attribute), result, this);
 		}
 		return result;

@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
@@ -98,7 +98,7 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(null, item.file.getFixedMimeMajor());
 		assertEquals(null, item.file.getFixedMimeMinor());
 		assertEquals(20, item.file.getMaximumLength());
-		final DataAttribute fileBody = item.file.getBody();
+		final DataField fileBody = item.file.getBody();
 		assertSame(item.TYPE, fileBody.getType());
 		assertSame("fileBody", fileBody.getName());
 		assertEquals(20, fileBody.getMaximumLength());
@@ -239,7 +239,7 @@ public class MediaTest extends AbstractLibTest
 		assertEquals("image", item.image.getFixedMimeMajor());
 		assertEquals(null, item.image.getFixedMimeMinor());
 		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
-		final DataAttribute imageBody = item.image.getBody();
+		final DataField imageBody = item.image.getBody();
 		assertSame(item.TYPE, imageBody.getType());
 		assertSame("imageBody", imageBody.getName());
 		assertEquals(Media.DEFAULT_LENGTH, imageBody.getMaximumLength());
@@ -298,7 +298,7 @@ public class MediaTest extends AbstractLibTest
 		assertEquals("image", item.photo.getFixedMimeMajor());
 		assertEquals("jpeg", item.photo.getFixedMimeMinor());
 		assertEquals(2000, item.photo.getMaximumLength());
-		final DataAttribute photoBody = item.photo.getBody();
+		final DataField photoBody = item.photo.getBody();
 		assertSame(item.TYPE, photoBody.getType());
 		assertSame("photoBody", photoBody.getName());
 		assertEquals(2000, photoBody.getMaximumLength());

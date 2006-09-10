@@ -34,7 +34,7 @@ import org.apache.commons.fileupload.FileItem;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.Cope;
-import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
@@ -179,7 +179,7 @@ final class ItemForm extends Form
 					if(displayedAttributes.contains(anyAttribute))
 						visibleFields.add(field);
 				}
-				else if(anyAttribute instanceof DataAttribute)
+				else if(anyAttribute instanceof DataField)
 				{
 					toSave = true;
 					hasFilesTemp = true;
@@ -462,9 +462,9 @@ final class ItemForm extends Form
 		for(Iterator i = getFields().iterator(); i.hasNext(); )
 		{
 			final Field field = (Field)i.next();
-			if(field.key instanceof DataAttribute)
+			if(field.key instanceof DataField)
 			{
-				final DataAttribute attribute = (DataAttribute)field.key;
+				final DataField attribute = (DataField)field.key;
 				final Media media = Media.get(attribute);
 				final FileItem fileItem = getParameterFile(attribute.getName());
 				

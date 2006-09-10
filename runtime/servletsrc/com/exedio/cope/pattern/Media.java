@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
@@ -48,11 +48,11 @@ public final class Media extends MediaPath
 {
 	private final Option option;
 	final boolean optional;
-	final DataAttribute body;
+	final DataField body;
 	final ContentType contentType;
 	final DateField lastModified;
 
-	public static final long DEFAULT_LENGTH = DataAttribute.DEFAULT_LENGTH;
+	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 	
 	private Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor, final long bodyMaximumLength)
 	{
@@ -61,7 +61,7 @@ public final class Media extends MediaPath
 		
 		this.option = option;
 		this.optional = option.optional;
-		registerSource(this.body = new DataAttribute(option).lengthMax(bodyMaximumLength));
+		registerSource(this.body = new DataField(option).lengthMax(bodyMaximumLength));
 		
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null)
 		{
@@ -119,7 +119,7 @@ public final class Media extends MediaPath
 		return body.getMaximumLength();
 	}
 	
-	public DataAttribute getBody()
+	public DataField getBody()
 	{
 		return body;
 	}
@@ -421,7 +421,7 @@ public final class Media extends MediaPath
 			this.body.set(item, (File)body);
 	}
 	
-	public final static Media get(final DataAttribute attribute)
+	public final static Media get(final DataField attribute)
 	{
 		for(final Pattern pattern : attribute.getPatterns())
 		{

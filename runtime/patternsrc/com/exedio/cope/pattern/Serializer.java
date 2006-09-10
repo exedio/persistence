@@ -27,7 +27,7 @@ import java.util.SortedSet;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
-import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
@@ -43,7 +43,7 @@ import com.exedio.cope.UniqueViolationException;
  * Stores a java object by serialization - use with care!
  * <p>
  * Stores serializable objects into a backing
- * {@link DataAttribute}.
+ * {@link DataField}.
  * BEWARE:
  * Generally this is not a good idea.
  * In contrast to normal attributes, such as
@@ -55,9 +55,9 @@ import com.exedio.cope.UniqueViolationException;
 public final class Serializer<E> extends Pattern implements Settable<E>
 {
 	private final Class<E> valueClass;
-	private final DataAttribute source;
+	private final DataField source;
 
-	public Serializer(final Class<E> valueClass, final DataAttribute source)
+	public Serializer(final Class<E> valueClass, final DataField source)
 	{
 		if(valueClass==null)
 			throw new NullPointerException("valueClass must not be null");
@@ -70,10 +70,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	
 	public Serializer(final Class<E> valueClass, final Attribute.Option option)
 	{
-		this(valueClass, new DataAttribute(option));
+		this(valueClass, new DataField(option));
 	}
 	
-	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataAttribute source)
+	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
 	{
 		return new Serializer<E>(valueClass, source);
 	}
@@ -92,7 +92,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			initialize(source, getName() + "Data");
 	}
 	
-	public DataAttribute getSource()
+	public DataField getSource()
 	{
 		return source;
 	}

@@ -29,10 +29,10 @@ import java.io.OutputStream;
 public class DataItem extends Item
 {
 
-	public static final DataAttribute data = new DataAttribute(OPTIONAL);
-	public static final DataAttribute data10 = new DataAttribute(OPTIONAL).lengthMax(10);
-	public static final DataAttribute data10k = new DataAttribute(OPTIONAL).lengthMax(10*1000);
-	public static final DataAttribute data100M = new DataAttribute(OPTIONAL).lengthMax(100*1000*1000);
+	public static final DataField data = new DataField(OPTIONAL);
+	public static final DataField data10 = new DataField(OPTIONAL).lengthMax(10);
+	public static final DataField data10k = new DataField(OPTIONAL).lengthMax(10*1000);
+	public static final DataField data100M = new DataField(OPTIONAL).lengthMax(100*1000*1000);
 	public static final StringField name = new StringField(OPTIONAL);
 	
 	public boolean isDataNull() // TODO generate this

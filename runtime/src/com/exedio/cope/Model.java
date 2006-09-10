@@ -363,7 +363,7 @@ public final class Model
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)i.next();
-			if((attribute instanceof DataAttribute) && !((DataAttribute)attribute).impl.blob)
+			if((attribute instanceof DataField) && !((DataField)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
@@ -384,7 +384,7 @@ public final class Model
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)i.next();
-			if(attribute instanceof DataAttribute && !((DataAttribute)attribute).impl.blob)
+			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
@@ -418,7 +418,7 @@ public final class Model
 		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
 		{
 			final Attribute attribute = (Attribute)i.next();
-			if(attribute instanceof DataAttribute && !((DataAttribute)attribute).impl.blob)
+			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
 			{
 				if(typeDirectory==null)
 				{

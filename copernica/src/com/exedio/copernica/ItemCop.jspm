@@ -24,7 +24,7 @@ import java.io.PrintStream;
 import java.util.Collection;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.DataAttribute;
+import com.exedio.cope.DataField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.FunctionAttribute;
@@ -116,9 +116,9 @@ class ItemCop_Jspm
 					<tr>
 						<td><%=provider.getDisplayName(null, attribute)%></td>
 						<td><%
-						if(attribute instanceof DataAttribute)
+						if(attribute instanceof DataField)
 						{
-							final DataAttribute dataAttribute = (DataAttribute)attribute;
+							final DataField dataAttribute = (DataField)attribute;
 							final Media media = Media.get(dataAttribute);
 							final String attributeName = attribute.getName();
 							final String url = media.getURL(item);

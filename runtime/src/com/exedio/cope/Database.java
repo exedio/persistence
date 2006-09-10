@@ -926,11 +926,11 @@ abstract class Database
 			if(blob==null)
 				return null;
 
-			return DataAttribute.copy(blob.getBinaryStream(), blob.length());
+			return DataField.copy(blob.getBinaryStream(), blob.length());
 		}
 	}
 	
-	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataAttribute attribute)
+	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField attribute)
 	{
 		buildStage = false;
 
@@ -1058,7 +1058,7 @@ abstract class Database
 	
 	public final void store(
 			final Connection connection, final BlobColumn column, final Item item,
-			final InputStream data, final DataAttribute attribute)
+			final InputStream data, final DataField attribute)
 		throws IOException
 	{
 		buildStage = false;

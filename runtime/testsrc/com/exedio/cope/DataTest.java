@@ -136,7 +136,7 @@ public class DataTest extends AbstractLibTest
 
 		try
 		{
-			new DataAttribute(Item.OPTIONAL).lengthMax(0);
+			new DataField(Item.OPTIONAL).lengthMax(0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -145,7 +145,7 @@ public class DataTest extends AbstractLibTest
 		}
 		try
 		{
-			new DataAttribute(Item.OPTIONAL).lengthMax(-10);
+			new DataField(Item.OPTIONAL).lengthMax(-10);
 			fail();
 		}
 		catch(RuntimeException e)
