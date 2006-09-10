@@ -35,7 +35,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-public final class AttributeList<E> extends Pattern
+public final class FieldList<E> extends Pattern
 {
 	private ItemField<?> parent = null;
 	private final IntegerField order;
@@ -43,7 +43,7 @@ public final class AttributeList<E> extends Pattern
 	private final FunctionField<E> element;
 	private Type<?> relationType = null;
 
-	private AttributeList(final FunctionField<E> element)
+	private FieldList(final FunctionField<E> element)
 	{
 		this.order = new IntegerField(Field.Option.FINAL);
 		this.element = element;
@@ -53,9 +53,9 @@ public final class AttributeList<E> extends Pattern
 			throw new NullPointerException("element must not be unique");
 	}
 	
-	public static final <E> AttributeList<E> newList(final FunctionField<E> element)
+	public static final <E> FieldList<E> newList(final FunctionField<E> element)
 	{
-		return new AttributeList<E>(element);
+		return new FieldList<E>(element);
 	}
 	
 	@Override

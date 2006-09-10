@@ -27,8 +27,8 @@ import com.exedio.cope.StringField;
 public class AttributeListItem extends Item
 {
 
-	public static final AttributeList<String> strings = AttributeList.newList(new StringField(OPTIONAL).lengthRange(4, 8));
-	public static final AttributeList<Date> dates = AttributeList.newList(new DateField());
+	public static final FieldList<String> strings = FieldList.newList(new StringField(OPTIONAL).lengthRange(4, 8));
+	public static final FieldList<Date> dates = FieldList.newList(new DateField());
 	
 	/**
 
