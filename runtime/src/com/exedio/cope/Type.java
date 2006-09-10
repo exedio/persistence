@@ -59,9 +59,9 @@ public final class Type<C extends Item>
 
 	private ArrayList<Type<? extends C>> subTypes = null;
 
-	private ArrayList<ItemAttribute<C>> referencesWhileInitialization = new ArrayList<ItemAttribute<C>>();
-	private List<ItemAttribute<C>> declaredReferences = null;
-	private List<ItemAttribute> references = null;
+	private ArrayList<ItemField<C>> referencesWhileInitialization = new ArrayList<ItemField<C>>();
+	private List<ItemField<C>> declaredReferences = null;
+	private List<ItemField> references = null;
 	
 	private Model model;
 	private ArrayList<Type<? extends C>> subTypesTransitively;
@@ -315,7 +315,7 @@ public final class Type<C extends Item>
 		return t;
 	}
 	
-	void registerReference(final ItemAttribute<C> reference)
+	void registerReference(final ItemField<C> reference)
 	{
 		referencesWhileInitialization.add(reference);
 	}
@@ -375,8 +375,8 @@ public final class Type<C extends Item>
 		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
 
 		for(final Attribute a : declaredAttributes)
-			if(a instanceof ItemAttribute)
-				((ItemAttribute)a).postInitialize();
+			if(a instanceof ItemField)
+				((ItemField)a).postInitialize();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -416,15 +416,15 @@ public final class Type<C extends Item>
 		this.referencesWhileInitialization = null;
 		if(supertype!=null)
 		{
-			final List<ItemAttribute> inherited = supertype.getReferences();
-			final List<ItemAttribute<C>> declared = declaredReferences;
+			final List<ItemField> inherited = supertype.getReferences();
+			final List<ItemField<C>> declared = declaredReferences;
 			if(declared.isEmpty())
 				this.references = inherited;
 			else if(inherited.isEmpty())
 				this.references = castReferences(declared);
 			else
 			{
-				final ArrayList<ItemAttribute> result = new ArrayList<ItemAttribute>(inherited);
+				final ArrayList<ItemField> result = new ArrayList<ItemField>(inherited);
 				result.addAll(declared);
 				result.trimToSize();
 				this.references = Collections.unmodifiableList(result);
@@ -437,9 +437,9 @@ public final class Type<C extends Item>
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<ItemAttribute> castReferences(final List l)
+	private List<ItemField> castReferences(final List l)
 	{
-		return (List<ItemAttribute>)l;
+		return (List<ItemField>)l;
 	}
 	
 	void materialize(final Database database)
@@ -580,7 +580,7 @@ public final class Type<C extends Item>
 	 * @see #getPrimaryKeyColumnName()
 	 * @see #getTypeColumnName()
 	 * @see Attribute#getColumnName()
-	 * @see ItemAttribute#getTypeColumnName()
+	 * @see ItemField#getTypeColumnName()
 	 */
 	public String getTableName()
 	{
@@ -627,7 +627,7 @@ public final class Type<C extends Item>
 	 * @see #getTableName()
 	 * @see #getPrimaryKeyColumnName()
 	 * @see Attribute#getColumnName()
-	 * @see ItemAttribute#getTypeColumnName()
+	 * @see ItemField#getTypeColumnName()
 	 */
 	public String getTypeColumnName()
 	{
@@ -687,23 +687,23 @@ public final class Type<C extends Item>
 	}
 
 	/**
-	 * Returns all {@link ItemAttribute}s of the model this type belongs to,
-	 * which {@link ItemAttribute#getValueType value type} equals this type.
+	 * Returns all {@link ItemField}s of the model this type belongs to,
+	 * which {@link ItemField#getValueType value type} equals this type.
 	 * @see #getReferences()
 	 */
-	public List<ItemAttribute<C>> getDeclaredReferences()
+	public List<ItemField<C>> getDeclaredReferences()
 	{
 		assert declaredReferences!=null;
 		return declaredReferences;
 	}
 
 	/**
-	 * Returns all {@link ItemAttribute}s of the model this type belongs to,
-	 * which {@link ItemAttribute#getValueType value type} equals this type
+	 * Returns all {@link ItemField}s of the model this type belongs to,
+	 * which {@link ItemField#getValueType value type} equals this type
 	 * or any of it's super types.
 	 * @see #getDeclaredReferences()
 	 */
-	public List<ItemAttribute> getReferences()
+	public List<ItemField> getReferences()
 	{
 		assert references!=null;
 		return references;

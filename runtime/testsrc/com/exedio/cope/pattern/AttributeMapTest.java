@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.Main;
-import com.exedio.cope.ItemAttribute.DeletePolicy;
+import com.exedio.cope.ItemField.DeletePolicy;
 
 public class AttributeMapTest extends AbstractLibTest
 {

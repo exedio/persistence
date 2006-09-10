@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -29,7 +29,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DEnumValue extends Item
 {
-	public static final ItemAttribute<DAttribute> parent = newItemAttribute(FINAL, DAttribute.class, CASCADE);
+	public static final ItemField<DAttribute> parent = newItemAttribute(FINAL, DAttribute.class, CASCADE);
 
 	public static final IntegerField position = new IntegerField(FINAL);
 	public static final UniqueConstraint uniquePosition = new UniqueConstraint(parent, position);

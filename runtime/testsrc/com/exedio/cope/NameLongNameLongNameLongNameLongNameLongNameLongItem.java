@@ -29,7 +29,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	public static final StringField codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		new StringField(UNIQUE_OPTIONAL);
 
-	public static final ItemAttribute<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
+	public static final ItemField<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		newItemAttribute(OPTIONAL, NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);
 	
 /**

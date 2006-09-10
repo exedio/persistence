@@ -28,7 +28,7 @@ import java.util.Map;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
@@ -47,19 +47,19 @@ import com.exedio.cope.UniqueViolationException;
  */
 public final class Relation<S extends Item, T extends Item> extends Pattern
 {
-	final ItemAttribute<S> source;
-	final ItemAttribute<T> target;
+	final ItemField<S> source;
+	final ItemField<T> target;
 	final UniqueConstraint uniqueConstraint;
 	
 	/**
 	 * @deprecated
-	 * use {@link #newRelation(ItemAttribute, ItemAttribute)} instead,
+	 * use {@link #newRelation(ItemField, ItemField)} instead,
 	 * which allows ommitting the generics:
 	 * instead of <tt>new Relation&lt;Source, Target&gt;(source, target)</tt>
 	 * one can write <tt>Relation.newRelation(source, target)</tt>
 	 */
 	@Deprecated
-	public Relation(final ItemAttribute<S> source, final ItemAttribute<T> target)
+	public Relation(final ItemField<S> source, final ItemField<T> target)
 	{
 		this.source = source;
 		this.target = target;
@@ -70,17 +70,17 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	}
 
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
-	public static final <S extends Item, T extends Item> Relation<S,T> newRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
+	public static final <S extends Item, T extends Item> Relation<S,T> newRelation(final ItemField<S> source, final ItemField<T> target)
 	{
 		return new Relation<S, T>(source, target);
 	}
 	
-	public ItemAttribute<S> getSource()
+	public ItemField<S> getSource()
 	{
 		return source;
 	}
 	
-	public ItemAttribute<T> getTarget()
+	public ItemField<T> getTarget()
 	{
 		return target;
 	}
@@ -177,8 +177,8 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	}
 
 	private <L extends Item, R extends Item> void set(
-			final ItemAttribute<L> leftAttribute,
-			final ItemAttribute<R> rightAttribute,
+			final ItemField<L> leftAttribute,
+			final ItemField<R> rightAttribute,
 			final L leftItem,
 			final Collection<? extends R> rightItems)
 	{
@@ -245,8 +245,8 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	
 	/**
 	 * Returns all relations where <tt>type</tt> is either
-	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()} or
-	 * the target type {@link #getTarget()}.{@link ItemAttribute#getValueType() getValueType()}.
+	 * the source type {@link #getSource()}.{@link ItemField#getValueType() getValueType()} or
+	 * the target type {@link #getTarget()}.{@link ItemField#getValueType() getValueType()}.
 	 *
 	 * @see VectorRelation#getRelations(Type)
 	 * @see Qualifier#getQualifiers(Type)
@@ -263,7 +263,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 			
 			final LinkedHashMap<Relation, Integer> resultModifiable = new LinkedHashMap<Relation, Integer>();
 			
-			for(final ItemAttribute<?> ia : type.getReferences())
+			for(final ItemField<?> ia : type.getReferences())
 				for(final Pattern pattern : ia.getPatterns())
 				{
 					if(pattern instanceof Relation)

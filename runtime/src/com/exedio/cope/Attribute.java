@@ -192,7 +192,7 @@ public abstract class Attribute<E> extends Feature implements Settable<E>
 	 * if a cope model is configured for different databases.
 	 *
 	 * @see Type#getTableName()
-	 * @see ItemAttribute#getTypeColumnName()
+	 * @see ItemField#getTypeColumnName()
 	 */
 	public final String getColumnName()
 	{

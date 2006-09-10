@@ -42,7 +42,6 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.MandatoryViolationException;
@@ -270,12 +269,12 @@ final class ItemForm extends Form
 			else
 				return new StringField(this, attribute, name, ((com.exedio.cope.StringField)attribute).get(item));
 		}
-		else if(attribute instanceof ItemAttribute)
+		else if(attribute instanceof com.exedio.cope.ItemField)
 		{
 			if(post)
 				return new ItemField(attribute, name, model, cop);
 			else
-				return new ItemField(attribute, name, ((ItemAttribute<? extends Item>)attribute).get(item), model, cop);
+				return new ItemField(attribute, name, ((com.exedio.cope.ItemField<? extends Item>)attribute).get(item), model, cop);
 		}
 		else
 		{

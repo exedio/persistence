@@ -34,7 +34,7 @@ import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StatementInfo;
 import com.exedio.cope.Type;
@@ -199,9 +199,9 @@ final class TypeCop_Jspm
 								%></a><%
 							}
 						}
-						else if(feature instanceof ItemAttribute)
+						else if(feature instanceof ItemField)
 						{
-							final Item value = ((ItemAttribute<? extends Item>)feature).get(item);
+							final Item value = ((ItemField<? extends Item>)feature).get(item);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%

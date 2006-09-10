@@ -19,11 +19,11 @@
 package com.exedio.cope.badquery;
 
 import com.exedio.cope.BooleanAttribute;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 
 public class SuperContainer extends SuperItem
 {
-	public static final ItemAttribute<QueryItem> queryItem = newItemAttribute(FINAL, QueryItem.class);
+	public static final ItemField<QueryItem> queryItem = newItemAttribute(FINAL, QueryItem.class);
 	public static final BooleanAttribute superflag = new BooleanAttribute();
 	
 	/**

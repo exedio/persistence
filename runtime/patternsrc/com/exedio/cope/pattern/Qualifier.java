@@ -29,7 +29,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
@@ -37,7 +37,7 @@ import com.exedio.cope.UniqueConstraint;
 
 public final class Qualifier extends Pattern
 {
-	private final ItemAttribute<Item> parent;
+	private final ItemField<Item> parent;
 	private final FunctionAttribute<?>[] keys;
 	private final List<FunctionAttribute<?>> keyList;
 	private final UniqueConstraint uniqueConstraint;
@@ -65,15 +65,15 @@ public final class Qualifier extends Pattern
 	}
 
 	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
-	private static final ItemAttribute<Item> castItemAttribute(final Attribute a)
+	private static final ItemField<Item> castItemAttribute(final Attribute a)
 	{
-		return (ItemAttribute<Item>)a;
+		return (ItemField<Item>)a;
 	}
 	
 	// TODO implicit external source: new Qualifier(QualifiedStringQualifier.key))
 	// TODO internal source: new Qualifier(stringAttribute(OPTIONAL))
 
-	public ItemAttribute<Item> getParent()
+	public ItemField<Item> getParent()
 	{
 		return parent;
 	}
@@ -194,7 +194,7 @@ public final class Qualifier extends Pattern
 	
 	/**
 	 * Returns all qualifiers where <tt>type</tt> is
-	 * the parent type {@link #getParent()}.{@link ItemAttribute#getValueType() getValueType()}.
+	 * the parent type {@link #getParent()}.{@link ItemField#getValueType() getValueType()}.
 	 *
 	 * @see Relation#getRelations(Type)
 	 * @see VectorRelation#getRelations(Type)
@@ -211,7 +211,7 @@ public final class Qualifier extends Pattern
 			
 			final ArrayList<Qualifier> resultModifiable = new ArrayList<Qualifier>();
 			
-			for(final ItemAttribute<?> ia : type.getReferences())
+			for(final ItemField<?> ia : type.getReferences())
 				for(final Pattern pattern : ia.getPatterns())
 				{
 					if(pattern instanceof Qualifier)

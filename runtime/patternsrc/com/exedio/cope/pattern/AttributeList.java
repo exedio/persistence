@@ -28,7 +28,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
@@ -37,7 +37,7 @@ import com.exedio.cope.UniqueConstraint;
 
 public final class AttributeList<E> extends Pattern
 {
-	private ItemAttribute<?> parent = null;
+	private ItemField<?> parent = null;
 	private final IntegerField order;
 	private UniqueConstraint uniqueConstraint = null;
 	private final FunctionAttribute<E> element;
@@ -63,7 +63,7 @@ public final class AttributeList<E> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = Item.newItemAttribute(Attribute.Option.FINAL, type.getJavaClass(), ItemAttribute.DeletePolicy.CASCADE);
+		parent = Item.newItemAttribute(Attribute.Option.FINAL, type.getJavaClass(), ItemField.DeletePolicy.CASCADE);
 		uniqueConstraint = new UniqueConstraint(parent, order);
 		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
 		features.put("parent", parent);
@@ -73,7 +73,7 @@ public final class AttributeList<E> extends Pattern
 		this.relationType = newType(features);
 	}
 	
-	public ItemAttribute<?> getParent()
+	public ItemField<?> getParent()
 	{
 		assert parent!=null;
 		return parent;

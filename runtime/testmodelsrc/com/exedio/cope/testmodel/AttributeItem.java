@@ -25,7 +25,7 @@ import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringField;
 import com.exedio.cope.function.LengthView;
@@ -110,12 +110,12 @@ public class AttributeItem extends Item
 	/**
 	 * An attribute referencing another persistent item
 	 */
-	public static final ItemAttribute<EmptyItem> someItem = newItemAttribute(OPTIONAL, EmptyItem.class);
+	public static final ItemField<EmptyItem> someItem = newItemAttribute(OPTIONAL, EmptyItem.class);
 
 	/**
 	 * An mandatory attribute referencing another persistent item
 	 */
-	public static final ItemAttribute<EmptyItem> someNotNullItem = newItemAttribute(EmptyItem.class);
+	public static final ItemField<EmptyItem> someNotNullItem = newItemAttribute(EmptyItem.class);
 
 	/**
 	 * An enumeration attribute

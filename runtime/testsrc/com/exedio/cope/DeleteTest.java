@@ -84,20 +84,20 @@ public class DeleteTest extends AbstractLibTest
 
 		try
 		{
-			new ItemAttribute<DeleteItem>(DeleteItem.class, Item.NULLIFY);
+			new ItemField<DeleteItem>(DeleteItem.class, Item.NULLIFY);
 		}
 		catch(RuntimeException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("mandatory attribute "+ItemAttribute.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().startsWith("mandatory attribute "+ItemField.class.getName()+'@'));
 			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
 		}
 		try
 		{
-			new ItemAttribute<DeleteItem>(Item.FINAL_OPTIONAL, DeleteItem.class, Item.NULLIFY);
+			new ItemField<DeleteItem>(Item.FINAL_OPTIONAL, DeleteItem.class, Item.NULLIFY);
 		}
 		catch(RuntimeException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("final attribute "+ItemAttribute.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().startsWith("final attribute "+ItemField.class.getName()+'@'));
 			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
 		}
 

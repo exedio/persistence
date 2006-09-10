@@ -28,7 +28,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
@@ -46,20 +46,20 @@ import com.exedio.cope.UniqueConstraint;
  */
 public final class VectorRelation<S extends Item, T extends Item> extends Pattern
 {
-	final ItemAttribute<S> source;
+	final ItemField<S> source;
 	final IntegerField order;
 	final UniqueConstraint uniqueConstraint;
-	final ItemAttribute<T> target;
+	final ItemField<T> target;
 	
 	/**
 	 * @deprecated
-	 * use {@link #newRelation(ItemAttribute, ItemAttribute)} instead,
+	 * use {@link #newRelation(ItemField, ItemField)} instead,
 	 * which allows ommitting the generics:
 	 * instead of <tt>new VectorRelation&lt;Source, Target&gt;(source, target)</tt>
 	 * one can write <tt>VectorRelation.newRelation(source, target)</tt>
 	 */
 	@Deprecated
-	public VectorRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
+	public VectorRelation(final ItemField<S> source, final ItemField<T> target)
 	{
 		this.source = source;
 		this.order = new IntegerField(Attribute.Option.FINAL);
@@ -72,12 +72,12 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	}
 	
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
-	public static final <S extends Item, T extends Item> VectorRelation<S,T> newRelation(final ItemAttribute<S> source, final ItemAttribute<T> target)
+	public static final <S extends Item, T extends Item> VectorRelation<S,T> newRelation(final ItemField<S> source, final ItemField<T> target)
 	{
 		return new VectorRelation<S, T>(source, target);
 	}
 	
-	public ItemAttribute<S> getSource()
+	public ItemField<S> getSource()
 	{
 		return source;
 	}
@@ -92,7 +92,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		return uniqueConstraint;
 	}
 	
-	public ItemAttribute<T> getTarget()
+	public ItemField<T> getTarget()
 	{
 		return target;
 	}
@@ -167,7 +167,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	
 	/**
 	 * Returns all relations where <tt>type</tt> is
-	 * the source type {@link #getSource()}.{@link ItemAttribute#getValueType() getValueType()}.
+	 * the source type {@link #getSource()}.{@link ItemField#getValueType() getValueType()}.
 	 *
 	 * @see Relation#getRelations(Type)
 	 * @see Qualifier#getQualifiers(Type)
@@ -184,7 +184,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 			
 			final ArrayList<VectorRelation> resultModifiable = new ArrayList<VectorRelation>();
 			
-			for(final ItemAttribute<?> ia : type.getReferences())
+			for(final ItemField<?> ia : type.getReferences())
 				for(final Pattern pattern : ia.getPatterns())
 				{
 					if(pattern instanceof VectorRelation)

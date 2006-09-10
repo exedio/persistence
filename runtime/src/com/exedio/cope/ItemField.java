@@ -19,11 +19,11 @@
 package com.exedio.cope;
 
 
-public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> implements ItemFunction<E>
+public final class ItemField<E extends Item> extends FunctionAttribute<E> implements ItemFunction<E>
 {
 	private final DeletePolicy policy;
 
-	private ItemAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final DeletePolicy policy)
+	private ItemField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final DeletePolicy policy)
 	{
 		super(isfinal, optional, unique, valueClass, null/* defaultConstant makes no sense for ItemAttribute */);
 		checkValueClass(Item.class);
@@ -40,30 +40,30 @@ public final class ItemAttribute<E extends Item> extends FunctionAttribute<E> im
 		checkDefaultValue();
 	}
 	
-	public ItemAttribute(final Class<E> valueClass)
+	public ItemField(final Class<E> valueClass)
 	{
 		this(Item.MANDATORY, valueClass, Item.FORBID);
 	}
 	
-	public ItemAttribute(final Option option, final Class<E> valueClass)
+	public ItemField(final Option option, final Class<E> valueClass)
 	{
 		this(option, valueClass, Item.FORBID);
 	}
 	
-	public ItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
+	public ItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		this(Item.MANDATORY, valueClass, policy);
 	}
 
-	public ItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
+	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
 		this(option.isFinal, option.optional, option.unique, valueClass, policy);
 	}
 
 	@Override
-	public ItemAttribute<E> copyFunctionAttribute()
+	public ItemField<E> copyFunctionAttribute()
 	{
-		return new ItemAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
+		return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
 	}
 	
 	private Type<E> valueType = null;

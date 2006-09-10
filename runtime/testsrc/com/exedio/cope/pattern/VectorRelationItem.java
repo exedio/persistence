@@ -19,15 +19,15 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 
 /**
  * @author Ralf Wiebicke
  */
 public class VectorRelationItem extends Item
 {
-	public static final ItemAttribute<RelationSourceItem> vectorSource = newItemAttribute(RelationSourceItem.class, CASCADE);
-	public static final ItemAttribute<RelationTargetItem> vectorTarget = newItemAttribute(RelationTargetItem.class, CASCADE);
+	public static final ItemField<RelationSourceItem> vectorSource = newItemAttribute(RelationSourceItem.class, CASCADE);
+	public static final ItemField<RelationTargetItem> vectorTarget = newItemAttribute(RelationTargetItem.class, CASCADE);
 	
 	public static final VectorRelation<RelationSourceItem, RelationTargetItem> relation = VectorRelation.newRelation(vectorSource, vectorTarget);
 

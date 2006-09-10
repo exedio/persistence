@@ -24,11 +24,11 @@ final class ItemColumn extends IntegerColumn
 {
 	final Class<? extends Item> targetTypeClass;
 	final String integrityConstraintName;
-	final ItemAttribute attribute;
+	final ItemField attribute;
 
 	ItemColumn(final Table table, final String id,
 					  final boolean optional,
-					  final Class<? extends Item> targetTypeClass, final ItemAttribute attribute)
+					  final Class<? extends Item> targetTypeClass, final ItemField attribute)
 	{
 		super(table, id, optional, Type.MIN_PK, Type.MAX_PK, false);
 		if(targetTypeClass==null)

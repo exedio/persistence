@@ -749,8 +749,8 @@ public final class Model
 		{
 			checkTypeColumn(t.thisFunction);
 			for(final Attribute a : t.getDeclaredAttributes())
-				if(a instanceof ItemAttribute)
-					checkTypeColumn((ItemAttribute)a);
+				if(a instanceof ItemField)
+					checkTypeColumn((ItemField)a);
 		}
 	}
 	

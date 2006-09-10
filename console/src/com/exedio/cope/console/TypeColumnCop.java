@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Attribute;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
@@ -52,9 +52,9 @@ final class TypeColumnCop extends ConsoleCop
 				functions.add(tt);
 			
 			for(final Attribute a : t.getDeclaredAttributes())
-				if(a instanceof ItemAttribute)
+				if(a instanceof ItemField)
 				{
-					final ItemAttribute ia = (ItemAttribute)a;
+					final ItemField ia = (ItemField)a;
 					if(ia.needsCheckTypeColumn())
 						functions.add(ia);
 				}

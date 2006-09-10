@@ -25,7 +25,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
@@ -33,7 +33,7 @@ import com.exedio.cope.UniqueConstraint;
 
 public final class AttributeMap<K,V> extends Pattern
 {
-	private ItemAttribute<? extends Item> parent = null;
+	private ItemField<? extends Item> parent = null;
 	private final FunctionAttribute<K> key;
 	private UniqueConstraint uniqueConstraint = null;
 	private final FunctionAttribute<V> value;
@@ -63,7 +63,7 @@ public final class AttributeMap<K,V> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = Item.newItemAttribute(Attribute.Option.FINAL, type.getJavaClass(), ItemAttribute.DeletePolicy.CASCADE);
+		parent = Item.newItemAttribute(Attribute.Option.FINAL, type.getJavaClass(), ItemField.DeletePolicy.CASCADE);
 		uniqueConstraint = new UniqueConstraint(parent, key);
 		final LinkedHashMap<String, Feature> relationTypeFeatures = new LinkedHashMap<String, Feature>();
 		relationTypeFeatures.put("parent", parent);
@@ -73,7 +73,7 @@ public final class AttributeMap<K,V> extends Pattern
 		this.relationType = newType(relationTypeFeatures);
 	}
 	
-	public ItemAttribute<?> getParent()
+	public ItemField<?> getParent()
 	{
 		assert parent!=null;
 		return parent;

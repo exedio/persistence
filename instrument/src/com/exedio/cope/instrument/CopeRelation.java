@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import java.util.List;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.VectorRelation;
 
@@ -63,7 +63,7 @@ final class CopeRelation extends CopeFeature
 	
 	String getEndName(final boolean source)
 	{
-		final ItemAttribute<? extends Item> endAttribute;
+		final ItemField<? extends Item> endAttribute;
 		if(vector)
 		{
 			final VectorRelation<? extends Item,? extends Item> instance = (VectorRelation<? extends Item,? extends Item>)getInstance();

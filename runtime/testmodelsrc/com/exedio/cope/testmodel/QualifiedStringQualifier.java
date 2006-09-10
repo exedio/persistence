@@ -20,7 +20,7 @@ package com.exedio.cope.testmodel;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Qualifier;
@@ -30,7 +30,7 @@ import com.exedio.cope.pattern.Qualifier;
  */
 public class QualifiedStringQualifier extends Item
 {
-	public static final ItemAttribute<QualifiedItem> parent = newItemAttribute(FINAL, QualifiedItem.class);
+	public static final ItemField<QualifiedItem> parent = newItemAttribute(FINAL, QualifiedItem.class);
 	
 	public static final StringField key = new StringField(FINAL);
 	

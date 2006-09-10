@@ -35,7 +35,7 @@ import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.LongAttribute;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
@@ -120,7 +120,7 @@ final class JavaRepository
 								}
 								else if(
 									EnumAttribute.class.equals(typeClass)||
-									ItemAttribute.class.equals(typeClass))
+									ItemField.class.equals(typeClass))
 								{
 									new CopeObjectAttribute(type, javaAttribute, typeClass);
 								}

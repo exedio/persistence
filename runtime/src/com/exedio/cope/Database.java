@@ -408,9 +408,9 @@ abstract class Database
 				{
 					selectColumn = ((FunctionAttribute)select).getColumn();
 					bf.append(select, (Join)null).defineColumn(select);
-					if(select instanceof ItemAttribute)
+					if(select instanceof ItemField)
 					{
-						final StringColumn typeColumn = ((ItemAttribute)select).getTypeColumn();
+						final StringColumn typeColumn = ((ItemField)select).getTypeColumn();
 						if(typeColumn!=null)
 							bf.append(',').append(typeColumn).defineColumn(typeColumn);
 					}
@@ -492,9 +492,9 @@ abstract class Database
 					else
 						bf.append(',');
 					
-					if(orderBy[i] instanceof ItemAttribute)
+					if(orderBy[i] instanceof ItemField)
 					{
-						final ItemAttribute<? extends Item> itemOrderBy = (ItemAttribute<? extends Item>)orderBy[i];
+						final ItemField<? extends Item> itemOrderBy = (ItemField<? extends Item>)orderBy[i];
 						itemOrderBy.getValueType().getPkSource().appendOrderByExpression(bf, itemOrderBy);
 					}
 					else if(orderBy[i] instanceof Type.This)
@@ -581,9 +581,9 @@ abstract class Database
 							{
 								selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
 								final FunctionAttribute selectAttribute = (FunctionAttribute)select;
-								if(select instanceof ItemAttribute)
+								if(select instanceof ItemField)
 								{
-									final StringColumn typeColumn = ((ItemAttribute)selectAttribute).getTypeColumn();
+									final StringColumn typeColumn = ((ItemField)selectAttribute).getTypeColumn();
 									if(typeColumn!=null)
 										typeColumn.load(resultSet, columnIndex++, dummyRow);
 								}
@@ -1606,7 +1606,7 @@ abstract class Database
 		return handler.result;
 	}
 	
-	final int checkTypeColumn(final Connection connection, final ItemAttribute attribute)
+	final int checkTypeColumn(final Connection connection, final ItemField attribute)
 	{
 		buildStage = false;
 		

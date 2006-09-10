@@ -19,7 +19,7 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemAttribute;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
 /**
@@ -30,13 +30,13 @@ public class PointerItem extends Item
 
 	public static final StringField code = new StringField();
 	
-	public static final ItemAttribute<PointerTargetItem> pointer = newItemAttribute(PointerTargetItem.class);
+	public static final ItemField<PointerTargetItem> pointer = newItemAttribute(PointerTargetItem.class);
 
-	public static final ItemAttribute<PointerTargetItem> pointer2 = newItemAttribute(OPTIONAL, PointerTargetItem.class);
+	public static final ItemField<PointerTargetItem> pointer2 = newItemAttribute(OPTIONAL, PointerTargetItem.class);
 
-	public static final ItemAttribute<PointerItem> self = newItemAttribute(OPTIONAL, PointerItem.class);
+	public static final ItemField<PointerItem> self = newItemAttribute(OPTIONAL, PointerItem.class);
 
-	public static final ItemAttribute<EmptyItem2> empty2 = newItemAttribute(OPTIONAL, EmptyItem2.class);
+	public static final ItemField<EmptyItem2> empty2 = newItemAttribute(OPTIONAL, EmptyItem2.class);
 
 /**
 

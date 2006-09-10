@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.Attribute.Option;
-import com.exedio.cope.ItemAttribute.DeletePolicy;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
@@ -331,7 +331,7 @@ public abstract class Item extends Cope
 	{
 		toDelete.add(this);
 		
-		for(final ItemAttribute<Item> attribute : castReferences(type.getReferences()))
+		for(final ItemField<Item> attribute : castReferences(type.getReferences()))
 		{
 			switch(attribute.getDeletePolicy())
 			{
@@ -366,7 +366,7 @@ public abstract class Item extends Cope
 		//final String tostring = toString();
 		//System.out.println("------------delete:"+tostring);
 		// TODO make sure, no item is deleted twice
-		for(final ItemAttribute<Item> attribute : castReferences(type.getReferences()))
+		for(final ItemField<Item> attribute : castReferences(type.getReferences()))
 		{
 			switch(attribute.getDeletePolicy())
 			{
@@ -403,9 +403,9 @@ public abstract class Item extends Cope
 	}
 	
 	@SuppressWarnings("unchecked")
-	private final List<ItemAttribute<Item>> castReferences(final List l)
+	private final List<ItemField<Item>> castReferences(final List l)
 	{
-		return (List<ItemAttribute<Item>>)l;
+		return (List<ItemField<Item>>)l;
 	}
 	
 	/**
@@ -464,9 +464,9 @@ public abstract class Item extends Cope
 	@Deprecated
 	public static final Attribute.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
 	
-	public static final ItemAttribute.DeletePolicy FORBID = ItemAttribute.DeletePolicy.FORBID;
-	public static final ItemAttribute.DeletePolicy NULLIFY = ItemAttribute.DeletePolicy.NULLIFY;
-	public static final ItemAttribute.DeletePolicy CASCADE = ItemAttribute.DeletePolicy.CASCADE;
+	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
+	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
+	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 	
 	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass)
 	{
@@ -488,24 +488,24 @@ public abstract class Item extends Cope
 		return new EnumAttribute<E>(option, valueClass);
 	}
 	
-	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Class<E> valueClass)
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass)
 	{
-		return new ItemAttribute<E>(valueClass);
+		return new ItemField<E>(valueClass);
 	}
 	
-	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> valueClass)
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass)
 	{
-		return new ItemAttribute<E>(option, valueClass);
+		return new ItemField<E>(option, valueClass);
 	}
 	
-	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemAttribute<E>(valueClass, policy);
+		return new ItemField<E>(valueClass, policy);
 	}
 	
-	public static final <E extends Item> ItemAttribute<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemAttribute<E>(option, valueClass, policy);
+		return new ItemField<E>(option, valueClass, policy);
 	}
 	
 	// activation/deactivation -----------------------------------------------------

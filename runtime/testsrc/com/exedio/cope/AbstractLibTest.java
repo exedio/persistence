@@ -197,12 +197,12 @@ public abstract class AbstractLibTest extends CopeTest
 		assertTrue(!item.existsCopeItem());
 	}
 
-	void assertDeleteFails(final Item item, final ItemAttribute attribute)
+	void assertDeleteFails(final Item item, final ItemField attribute)
 	{
 		assertDeleteFails(item, attribute, item);
 	}
 	
-	void assertDeleteFails(final Item item, final ItemAttribute attribute, final Item itemToBeDeleted)
+	void assertDeleteFails(final Item item, final ItemField attribute, final Item itemToBeDeleted)
 	{
 		try
 		{

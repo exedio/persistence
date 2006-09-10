@@ -26,7 +26,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 {
 
 	public static final StringField subString = new StringField(OPTIONAL);
-	public static final ItemAttribute<HierarchySuper> hierarchySuper = newItemAttribute(OPTIONAL, HierarchySuper.class);
+	public static final ItemField<HierarchySuper> hierarchySuper = newItemAttribute(OPTIONAL, HierarchySuper.class);
 	
 	
 	public HierarchySingleSub(final int initialSuperInt, final String subString)

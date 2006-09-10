@@ -22,7 +22,7 @@ package com.exedio.cope;
 /**
  * Signals, that an attempt to delete an item has been failed,
  * because some other item point to that item with some
- * {@link ItemAttribute item attribute}.
+ * {@link ItemField item attribute}.
  * <p>
  * Also knows as foreign key constraint violation.
  * <p>
@@ -34,7 +34,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 {
 	private static final long serialVersionUID = 217658164836512l;
 	
-	private final ItemAttribute attribute;
+	private final ItemField attribute;
 
 	/**
 	 * Creates a new UniqueViolationException with the neccessary information about the violation.
@@ -42,7 +42,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * @param attribute initializes, what is returned by {@link #getAttribute()}.
 	 * @throws NullPointerException if <tt>item</tt> or <tt>attribute</tt> is null.
 	 */
-	IntegrityViolationException(final ItemAttribute attribute, final Item item)
+	IntegrityViolationException(final ItemField attribute, final Item item)
 	{
 		super(attribute, item, null);
 		
@@ -56,7 +56,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * Returns the item attribute, for which the integrity (foreign key) constraint has been violated.
 	 * Returns null, if the violated constraint is unknown.
 	 */
-	public ItemAttribute getAttribute()
+	public ItemField getAttribute()
 	{
 		return attribute;
 	}
