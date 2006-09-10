@@ -41,7 +41,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.FieldList;
-import com.exedio.cope.pattern.AttributeListLimited;
+import com.exedio.cope.pattern.FieldListLimited;
 import com.exedio.cope.pattern.AttributeMap;
 import com.exedio.cope.pattern.AttributeMapLimited;
 import com.exedio.cope.pattern.AttributeSet;
@@ -137,7 +137,7 @@ final class JavaRepository
 								new CopeQualifier(type, javaAttribute);
 							else if(Hash.class.isAssignableFrom(typeClass))
 								new CopeHash(type, javaAttribute);
-							else if(FieldList.class.isAssignableFrom(typeClass) || AttributeListLimited.class.isAssignableFrom(typeClass))
+							else if(FieldList.class.isAssignableFrom(typeClass) || FieldListLimited.class.isAssignableFrom(typeClass))
 								new CopeAttributeList(type, javaAttribute, false);
 							else if(AttributeSet.class.isAssignableFrom(typeClass))
 								new CopeAttributeList(type, javaAttribute, true);

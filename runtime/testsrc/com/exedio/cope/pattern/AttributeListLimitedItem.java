@@ -40,15 +40,15 @@ public class AttributeListLimitedItem extends Item
 
 	public static final IntegerField num3 = new IntegerField(OPTIONAL);
 	
-	public static final AttributeListLimited<Integer> nums = AttributeListLimited.newList(num1, num2, num3);
+	public static final FieldListLimited<Integer> nums = FieldListLimited.newList(num1, num2, num3);
 
 	// implicit external source
 
-	public static final AttributeListLimited<Date> dates = AttributeListLimited.newList(new DateField(OPTIONAL), new DateField(OPTIONAL));
+	public static final FieldListLimited<Date> dates = FieldListLimited.newList(new DateField(OPTIONAL), new DateField(OPTIONAL));
 
 	// internal source
 
-	public static final AttributeListLimited<String> strings = AttributeListLimited.newList(new StringField(OPTIONAL).lengthRange(1, 11), 4);
+	public static final FieldListLimited<String> strings = FieldListLimited.newList(new StringField(OPTIONAL).lengthRange(1, 11), 4);
 
 	public AttributeListLimitedItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
