@@ -158,7 +158,7 @@ public abstract class Item extends Cope
 		
 		final Map<Field, Object> attributeValues = executeSetValues(setValues, null);
 		Date now = null;
-		for(final Field attribute : type.getAttributes())
+		for(final Field attribute : type.getFields())
 		{
 			if(attribute instanceof FunctionField && !attributeValues.containsKey(attribute))
 			{
@@ -179,7 +179,7 @@ public abstract class Item extends Cope
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("attribute " + attribute + " does not belong to type " + type.toString());
 		}
-		for(final Field attribute : type.getAttributes())
+		for(final Field attribute : type.getFields())
 		{
 			attribute.checkValue(attributeValues.get(attribute), null);
 		}

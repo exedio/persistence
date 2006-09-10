@@ -240,7 +240,7 @@ public final class Type<C extends Item>
 				}
 				this.featuresByName = result;
 			}
-			this.attributes = inherit(supertype.getAttributes(), this.declaredAttributes);
+			this.attributes = inherit(supertype.getFields(), this.declaredAttributes);
 			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
 		}
 
@@ -738,9 +738,18 @@ public final class Type<C extends Item>
 	 * excluding attributes inherited from super types,
 	 * use {@link #getDeclaredAttributes}.
 	 */
-	public List<Field> getAttributes()
+	public List<Field> getFields()
 	{
 		return attributes;
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #getFields()}.
+	 */
+	@Deprecated
+	public List<Field> getAttributes()
+	{
+		return getFields();
 	}
 	
 	public List<Feature> getDeclaredFeatures()

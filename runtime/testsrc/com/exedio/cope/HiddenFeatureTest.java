@@ -40,7 +40,7 @@ public class HiddenFeatureTest extends AbstractLibTest
 		assertEquals(list(spt, sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getDeclaredFeatures());
 		assertEquals(list(spt, sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getFeatures());
 		assertEquals(list(sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getDeclaredAttributes());
-		assertEquals(list(sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getAttributes());
+		assertEquals(list(sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther), sp.TYPE.getFields());
 		assertSame(sp.TYPE, spt.getType());
 		assertSame(sp.TYPE, sp.nonHiddenSuper.getType());
 		assertSame(sp.TYPE, sp.hiddenSame.getType());
@@ -63,7 +63,7 @@ public class HiddenFeatureTest extends AbstractLibTest
 		assertEquals(list(sbt, sb.nonHiddenSub, sb.hiddenSame, sb.hiddenOther), sb.TYPE.getDeclaredFeatures());
 		assertEquals(list(sbt, sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther, sb.nonHiddenSub, sb.hiddenSame, sb.hiddenOther), sb.TYPE.getFeatures());
 		assertEquals(list(sb.nonHiddenSub, sb.hiddenSame, sb.hiddenOther), sb.TYPE.getDeclaredAttributes());
-		assertEquals(list(sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther, sb.nonHiddenSub, sb.hiddenSame, sb.hiddenOther), sb.TYPE.getAttributes());
+		assertEquals(list(sp.nonHiddenSuper, sp.hiddenSame, sp.hiddenOther, sb.nonHiddenSub, sb.hiddenSame, sb.hiddenOther), sb.TYPE.getFields());
 		assertSame(sb.TYPE, sbt.getType());
 		assertSame(sb.TYPE, sb.nonHiddenSub.getType());
 		assertSame(sb.TYPE, sb.hiddenSame.getType());

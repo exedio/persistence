@@ -65,7 +65,7 @@ public class AttributeMapLimitedTest extends AbstractLibTest
 				list(
 						item.name.getAttribute(DE), item.name.getAttribute(EN), item.name.getAttribute(PL),
 						item.nameLength.getAttribute(DE), item.nameLength.getAttribute(EN), item.nameLength.getAttribute(PL)),
-				item.TYPE.getAttributes());
+				item.TYPE.getFields());
 
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
 

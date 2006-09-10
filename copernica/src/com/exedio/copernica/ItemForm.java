@@ -137,7 +137,7 @@ final class ItemForm extends Form
 		else
 		{
 			currentSection = null;
-			displayedAttributes = type.getAttributes();
+			displayedAttributes = type.getFields();
 			hiddenAttributes = Collections.<com.exedio.cope.Field>emptyList();
 		}
 		final ArrayList<com.exedio.cope.Field> attributes = new ArrayList<com.exedio.cope.Field>(displayedAttributes.size()+hiddenAttributes.size());

@@ -360,7 +360,7 @@ public final class Model
 	{
 		File typeDirectory = null;
 
-		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
 		{
 			final Field attribute = (Field)i.next();
 			if((attribute instanceof DataField) && !((DataField)attribute).impl.blob)
@@ -381,7 +381,7 @@ public final class Model
 	{
 		File typeDirectory = null;
 
-		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
 		{
 			final Field attribute = (Field)i.next();
 			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
@@ -415,7 +415,7 @@ public final class Model
 	{
 		File typeDirectory = null;
 
-		for(Iterator i = type.getAttributes().iterator(); i.hasNext(); )
+		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
 		{
 			final Field attribute = (Field)i.next();
 			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
