@@ -29,7 +29,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DEnumValue extends Item
 {
-	public static final ItemField<DAttribute> parent = newItemAttribute(FINAL, DAttribute.class, CASCADE);
+	public static final ItemField<DAttribute> parent = newItemField(FINAL, DAttribute.class, CASCADE);
 
 	public static final IntegerField position = new IntegerField(FINAL);
 	public static final UniqueConstraint uniquePosition = new UniqueConstraint(parent, position);

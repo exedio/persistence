@@ -30,7 +30,7 @@ public class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 		new StringField(UNIQUE_OPTIONAL);
 
 	public static final ItemField<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		newItemAttribute(OPTIONAL, NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);
+		newItemField(OPTIONAL, NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);
 	
 /**
 

@@ -29,9 +29,9 @@ public class AttributeMapItem extends Item
 		DE, EN, PL;
 	}
 	
-	public static final AttributeMap<Language, String> name = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new StringField());
+	public static final AttributeMap<Language, String> name = AttributeMap.newMap(newEnumField(FINAL, Language.class), new StringField());
 	
-	public static final AttributeMap<Language, Integer> nameLength = AttributeMap.newMap(newEnumAttribute(FINAL, Language.class), new IntegerField());
+	public static final AttributeMap<Language, Integer> nameLength = AttributeMap.newMap(newEnumField(FINAL, Language.class), new IntegerField());
 	
 	public static final AttributeMap<String, String> string = AttributeMap.newMap(new StringField(FINAL).lengthRange(4, 8), new StringField());
 	

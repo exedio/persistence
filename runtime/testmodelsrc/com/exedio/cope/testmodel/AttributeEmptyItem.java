@@ -30,9 +30,9 @@ import com.exedio.cope.pattern.Qualifier;
  */
 public class AttributeEmptyItem extends Item
 {
-	public static final ItemField<AttributeItem> parent = newItemAttribute(OPTIONAL, AttributeItem.class, CASCADE);
+	public static final ItemField<AttributeItem> parent = newItemField(OPTIONAL, AttributeItem.class, CASCADE);
 
-	public static final ItemField<EmptyItem> key = newItemAttribute(OPTIONAL, EmptyItem.class);
+	public static final ItemField<EmptyItem> key = newItemField(OPTIONAL, EmptyItem.class);
 	
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 	public static final Qualifier emptyItem = new Qualifier(parentKey);

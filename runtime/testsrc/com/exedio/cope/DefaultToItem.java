@@ -45,9 +45,9 @@ public class DefaultToItem extends Item
 		ONE, TWO, THREE;
 	}
 	
-	public static final EnumField<DefaultToEnum> enumOne = newEnumAttribute(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
-	public static final EnumField<DefaultToEnum> enumTwo = newEnumAttribute(OPTIONAL, DefaultToEnum.class).defaultTo(DefaultToEnum.TWO);
-	public static final EnumField<DefaultToEnum> enumNone = newEnumAttribute(OPTIONAL, DefaultToEnum.class);
+	public static final EnumField<DefaultToEnum> enumOne = newEnumField(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
+	public static final EnumField<DefaultToEnum> enumTwo = newEnumField(OPTIONAL, DefaultToEnum.class).defaultTo(DefaultToEnum.TWO);
+	public static final EnumField<DefaultToEnum> enumNone = newEnumField(OPTIONAL, DefaultToEnum.class);
 
 	/**
 

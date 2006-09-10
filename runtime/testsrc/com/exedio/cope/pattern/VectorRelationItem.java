@@ -26,8 +26,8 @@ import com.exedio.cope.ItemField;
  */
 public class VectorRelationItem extends Item
 {
-	public static final ItemField<RelationSourceItem> vectorSource = newItemAttribute(RelationSourceItem.class, CASCADE);
-	public static final ItemField<RelationTargetItem> vectorTarget = newItemAttribute(RelationTargetItem.class, CASCADE);
+	public static final ItemField<RelationSourceItem> vectorSource = newItemField(RelationSourceItem.class, CASCADE);
+	public static final ItemField<RelationTargetItem> vectorTarget = newItemField(RelationTargetItem.class, CASCADE);
 	
 	public static final VectorRelation<RelationSourceItem, RelationTargetItem> relation = VectorRelation.newRelation(vectorSource, vectorTarget);
 

@@ -64,8 +64,8 @@ public class Standard extends Item
 	private static final DateField privateDate = new DateField(OPTIONAL);
 	public static final DateField nowDate = new DateField().defaultToNow();
 
-	public static final EnumField<Enum1> mandatoryEnum = newEnumAttribute(Enum1.class);
-	protected static final EnumField<Enum2> protectedEnum = newEnumAttribute(OPTIONAL, Enum2.class);
+	public static final EnumField<Enum1> mandatoryEnum = newEnumField(Enum1.class);
+	protected static final EnumField<Enum2> protectedEnum = newEnumField(OPTIONAL, Enum2.class);
 	
 	public enum Enum1
 	{

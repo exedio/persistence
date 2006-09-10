@@ -29,7 +29,7 @@ import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 public class DoubleUnique extends Item
 {
 	public static final StringField string = new StringField(FINAL);
-	public static final ItemField<SubTarget> item = newItemAttribute(FINAL, SubTarget.class, CASCADE);
+	public static final ItemField<SubTarget> item = newItemField(FINAL, SubTarget.class, CASCADE);
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
 	
 

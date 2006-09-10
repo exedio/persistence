@@ -477,33 +477,87 @@ public abstract class Item extends Cope
 	{
 		return new Type<C>(javaClass, id);
 	}
-	
+
+	/**
+	 * @deprecated Renamed to {@link #newEnumField(Class)}.
+	 */
+	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Class<E> valueClass)
+	{
+		return newEnumField(valueClass);
+	}
+	
+	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
 		return new EnumField<E>(valueClass);
 	}
 	
+	/**
+	 * @deprecated Renamed to {@link #newEnumField(Option, Class)}.
+	 */
+	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Option option, final Class<E> valueClass)
+	{
+		return newEnumField(option, valueClass);
+	}
+	
+	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Option option, final Class<E> valueClass)
 	{
 		return new EnumField<E>(option, valueClass);
 	}
 	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(Class)}.
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass)
+	{
+		return newItemField(valueClass);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return new ItemField<E>(valueClass);
 	}
 	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(Option, Class)}.
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass)
+	{
+		return newItemField(option, valueClass);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass)
 	{
 		return new ItemField<E>(option, valueClass);
 	}
 	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(Class, DeletePolicy)}.
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return newItemField(valueClass, policy);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<E>(valueClass, policy);
 	}
 	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(Option, Class, DeletePolicy)}.
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return newItemField(option, valueClass, policy);
+	}
+	
+	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<E>(option, valueClass, policy);
 	}

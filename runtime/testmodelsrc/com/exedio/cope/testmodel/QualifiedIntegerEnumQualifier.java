@@ -31,10 +31,10 @@ import com.exedio.cope.pattern.Qualifier;
  */
 public class QualifiedIntegerEnumQualifier extends Item
 {
-	public static final ItemField<QualifiedItem> up = newItemAttribute(FINAL, QualifiedItem.class, CASCADE);
+	public static final ItemField<QualifiedItem> up = newItemField(FINAL, QualifiedItem.class, CASCADE);
 	
 	public static final IntegerField keyX = new IntegerField(FINAL);
-	public static final EnumField<KeyEnum> keyY = newEnumAttribute(FINAL, KeyEnum.class);
+	public static final EnumField<KeyEnum> keyY = newEnumField(FINAL, KeyEnum.class);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(up, keyX, keyY);
 	public static final Qualifier intEnumQualifier = new Qualifier(qualifyUnique);

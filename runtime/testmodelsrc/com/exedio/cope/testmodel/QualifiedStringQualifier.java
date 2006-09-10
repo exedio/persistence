@@ -30,7 +30,7 @@ import com.exedio.cope.pattern.Qualifier;
  */
 public class QualifiedStringQualifier extends Item
 {
-	public static final ItemField<QualifiedItem> parent = newItemAttribute(FINAL, QualifiedItem.class);
+	public static final ItemField<QualifiedItem> parent = newItemField(FINAL, QualifiedItem.class);
 	
 	public static final StringField key = new StringField(FINAL);
 	

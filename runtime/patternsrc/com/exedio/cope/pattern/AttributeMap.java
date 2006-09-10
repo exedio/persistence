@@ -63,7 +63,7 @@ public final class AttributeMap<K,V> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = Item.newItemAttribute(Field.Option.FINAL, type.getJavaClass(), ItemField.DeletePolicy.CASCADE);
+		parent = Item.newItemField(Field.Option.FINAL, type.getJavaClass(), ItemField.DeletePolicy.CASCADE);
 		uniqueConstraint = new UniqueConstraint(parent, key);
 		final LinkedHashMap<String, Feature> relationTypeFeatures = new LinkedHashMap<String, Feature>();
 		relationTypeFeatures.put("parent", parent);

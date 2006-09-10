@@ -24,18 +24,18 @@ package com.exedio.cope;
 public class DeleteItem extends Item
 {
 
-	public static final ItemField<DeleteItem> selfForbid = newItemAttribute(OPTIONAL, DeleteItem.class);
+	public static final ItemField<DeleteItem> selfForbid = newItemField(OPTIONAL, DeleteItem.class);
 
-	public static final ItemField<DeleteItem> selfNullify = newItemAttribute(OPTIONAL, DeleteItem.class, NULLIFY);
+	public static final ItemField<DeleteItem> selfNullify = newItemField(OPTIONAL, DeleteItem.class, NULLIFY);
 
-	public static final ItemField<DeleteItem> selfCascade = newItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
-	public static final ItemField<DeleteItem> selfCascade2 = newItemAttribute(OPTIONAL, DeleteItem.class, CASCADE);
+	public static final ItemField<DeleteItem> selfCascade = newItemField(OPTIONAL, DeleteItem.class, CASCADE);
+	public static final ItemField<DeleteItem> selfCascade2 = newItemField(OPTIONAL, DeleteItem.class, CASCADE);
 	
-	public static final ItemField<DeleteOtherItem> otherForbid = newItemAttribute(OPTIONAL, DeleteOtherItem.class);
+	public static final ItemField<DeleteOtherItem> otherForbid = newItemField(OPTIONAL, DeleteOtherItem.class);
 
-	public static final ItemField<DeleteOtherItem> otherNullify = newItemAttribute(OPTIONAL, DeleteOtherItem.class, NULLIFY);
+	public static final ItemField<DeleteOtherItem> otherNullify = newItemField(OPTIONAL, DeleteOtherItem.class, NULLIFY);
 
-	public static final ItemField<DeleteOtherItem> otherCascade = newItemAttribute(OPTIONAL, DeleteOtherItem.class, CASCADE);
+	public static final ItemField<DeleteOtherItem> otherCascade = newItemField(OPTIONAL, DeleteOtherItem.class, CASCADE);
 	
 
 	public String name = null;

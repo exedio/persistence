@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class DeleteHierarchySource extends Item
 {
-	static final ItemField<DeleteHierarchyTargetSuper> target = newItemAttribute(DeleteHierarchyTargetSuper.class, CASCADE);
+	static final ItemField<DeleteHierarchyTargetSuper> target = newItemField(DeleteHierarchyTargetSuper.class, CASCADE);
 
 /**
 

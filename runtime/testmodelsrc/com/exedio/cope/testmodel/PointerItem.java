@@ -30,13 +30,13 @@ public class PointerItem extends Item
 
 	public static final StringField code = new StringField();
 	
-	public static final ItemField<PointerTargetItem> pointer = newItemAttribute(PointerTargetItem.class);
+	public static final ItemField<PointerTargetItem> pointer = newItemField(PointerTargetItem.class);
 
-	public static final ItemField<PointerTargetItem> pointer2 = newItemAttribute(OPTIONAL, PointerTargetItem.class);
+	public static final ItemField<PointerTargetItem> pointer2 = newItemField(OPTIONAL, PointerTargetItem.class);
 
-	public static final ItemField<PointerItem> self = newItemAttribute(OPTIONAL, PointerItem.class);
+	public static final ItemField<PointerItem> self = newItemField(OPTIONAL, PointerItem.class);
 
-	public static final ItemField<EmptyItem2> empty2 = newItemAttribute(OPTIONAL, EmptyItem2.class);
+	public static final ItemField<EmptyItem2> empty2 = newItemField(OPTIONAL, EmptyItem2.class);
 
 /**
 

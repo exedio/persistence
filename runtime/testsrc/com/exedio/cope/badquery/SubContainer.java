@@ -23,7 +23,7 @@ import com.exedio.cope.ItemField;
 
 public class SubContainer extends SuperContainer
 {
-	public static final ItemField<SuperContainer> superContainer = newItemAttribute(FINAL, SuperContainer.class);
+	public static final ItemField<SuperContainer> superContainer = newItemField(FINAL, SuperContainer.class);
 	public static final BooleanField subflag = new BooleanField(OPTIONAL).defaultTo(Boolean.FALSE);
 	
 	/**

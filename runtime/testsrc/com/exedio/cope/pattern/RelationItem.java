@@ -26,8 +26,8 @@ import com.exedio.cope.ItemField;
  */
 public class RelationItem extends Item
 {
-	public static final ItemField<RelationSourceItem> source = newItemAttribute(RelationSourceItem.class, CASCADE);
-	public static final ItemField<RelationTargetItem> target = newItemAttribute(RelationTargetItem.class, CASCADE);
+	public static final ItemField<RelationSourceItem> source = newItemField(RelationSourceItem.class, CASCADE);
+	public static final ItemField<RelationTargetItem> target = newItemField(RelationTargetItem.class, CASCADE);
 	
 	public static final Relation<RelationSourceItem, RelationTargetItem> relation = Relation.newRelation(source, target);
 
