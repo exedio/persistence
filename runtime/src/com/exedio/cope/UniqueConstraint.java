@@ -28,42 +28,42 @@ import com.exedio.dsmf.Table;
 public final class UniqueConstraint extends Feature
 {
 	
-	private final FunctionAttribute<?>[] attributes;
-	private final List<FunctionAttribute<?>> attributeList;
+	private final FunctionField<?>[] attributes;
+	private final List<FunctionField<?>> attributeList;
 	private String databaseID;
 
-	private UniqueConstraint(final FunctionAttribute<?>[] attributes)
+	private UniqueConstraint(final FunctionField<?>[] attributes)
 	{
 		this.attributes = attributes;
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
-		for(final FunctionAttribute attribute : attributes)
+		for(final FunctionField attribute : attributes)
 			attribute.registerUniqueConstraint(this);
 	}
 	
 	/**
 	 * Is not public, because one should use {@link Item#UNIQUE} etc.
 	 */
-	UniqueConstraint(final FunctionAttribute attribute)
+	UniqueConstraint(final FunctionField attribute)
 	{
-		this(new FunctionAttribute[]{attribute});
+		this(new FunctionField[]{attribute});
 	}
 	
-	public UniqueConstraint(final FunctionAttribute attribute1, final FunctionAttribute attribute2)
+	public UniqueConstraint(final FunctionField attribute1, final FunctionField attribute2)
 	{
-		this(new FunctionAttribute[]{attribute1, attribute2});
+		this(new FunctionField[]{attribute1, attribute2});
 	}
 	
-	public UniqueConstraint(final FunctionAttribute attribute1, final FunctionAttribute attribute2, final FunctionAttribute attribute3)
+	public UniqueConstraint(final FunctionField attribute1, final FunctionField attribute2, final FunctionField attribute3)
 	{
-		this(new FunctionAttribute[]{attribute1, attribute2, attribute3});
+		this(new FunctionField[]{attribute1, attribute2, attribute3});
 	}
 	
-	public UniqueConstraint(final FunctionAttribute attribute1, final FunctionAttribute attribute2, final FunctionAttribute attribute3, final FunctionAttribute attribute4)
+	public UniqueConstraint(final FunctionField attribute1, final FunctionField attribute2, final FunctionField attribute3, final FunctionField attribute4)
 	{
-		this(new FunctionAttribute[]{attribute1, attribute2, attribute3, attribute4});
+		this(new FunctionField[]{attribute1, attribute2, attribute3, attribute4});
 	}
 	
-	public final List<FunctionAttribute<?>> getUniqueAttributes()
+	public final List<FunctionField<?>> getUniqueAttributes()
 	{
 		return attributeList;
 	}
@@ -108,7 +108,7 @@ public final class UniqueConstraint extends Feature
 		{
 			if(i>0)
 				bf.append(',');
-			final FunctionAttribute<?> uniqueAttribute = attributes[i];
+			final FunctionField<?> uniqueAttribute = attributes[i];
 			bf.append(uniqueAttribute.getColumn().protectedID);
 		}
 		bf.append(')');
@@ -140,11 +140,11 @@ public final class UniqueConstraint extends Feature
 	public final Item searchUnique(final Object[] values)
 	{
 		// TODO: search nativly for unique constraints
-		final List<FunctionAttribute<?>> attributes = getUniqueAttributes();
+		final List<FunctionField<?>> attributes = getUniqueAttributes();
 		if(attributes.size()!=values.length)
 			throw new RuntimeException("-"+attributes.size()+'-'+values.length);
 
-		final Iterator<FunctionAttribute<?>> attributeIterator = attributes.iterator();
+		final Iterator<FunctionField<?>> attributeIterator = attributes.iterator();
 		final Condition[] conditions = new Condition[attributes.size()];
 		for(int j = 0; attributeIterator.hasNext(); j++)
 			conditions[j] = Cope.equalAndCast(attributeIterator.next(), values[j]);

@@ -29,7 +29,7 @@ import com.exedio.cope.function.UppercaseView;
  *
  * @author Ralf Wiebicke
  */
-public final class StringField extends FunctionAttribute<String> implements StringFunction
+public final class StringField extends FunctionField<String> implements StringFunction
 {
 	private final int minimumLength;
 	private final int maximumLength;

@@ -27,8 +27,8 @@ public final class NotEqualCondition<E> extends Condition
 	 * Creates a new NotEqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see FunctionAttribute#isNotNull()
-	 * @see FunctionAttribute#notEqual(Object)
+	 * @see FunctionField#isNotNull()
+	 * @see FunctionField#notEqual(Object)
 	 */
 	public NotEqualCondition(final Function<E> function, final E value)
 	{

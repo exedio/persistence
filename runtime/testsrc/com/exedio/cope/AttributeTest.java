@@ -41,12 +41,12 @@ public abstract class AttributeTest extends TestmodelTest
 		deleteOnTearDown(item2 = new AttributeItem("someString2", 6, 7l, 2.3, false, someItem2, AttributeItem.SomeEnum.enumValue2));
 	}
 	
-	protected static <R> List<? extends R> search(final FunctionAttribute<? extends R> selectAttribute)
+	protected static <R> List<? extends R> search(final FunctionField<? extends R> selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 	
-	protected static <R> List<? extends R> search(final FunctionAttribute<? extends R> selectAttribute, final Condition condition)
+	protected static <R> List<? extends R> search(final FunctionField<? extends R> selectAttribute, final Condition condition)
 	{
 		return new Query<R>(selectAttribute, condition).search();
 	}

@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class BooleanField extends FunctionAttribute<Boolean>
+public final class BooleanField extends FunctionField<Boolean>
 {
 	static final int[] ALLOWED_VALUES = {0, 1};
 

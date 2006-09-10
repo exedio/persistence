@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public final class LongField extends FunctionAttribute<Long>
+public final class LongField extends FunctionField<Long>
 {
 
 	private LongField(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)

@@ -81,7 +81,7 @@ public class AttributeIntegerTest extends AttributeTest
 	{
 		try
 		{
-			item.set((FunctionAttribute)item.someInteger, Long.valueOf(10l));
+			item.set((FunctionField)item.someInteger, Long.valueOf(10l));
 			fail();
 		}
 		catch(ClassCastException e)

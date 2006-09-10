@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public final class DoubleField extends FunctionAttribute<Double>
+public final class DoubleField extends FunctionField<Double>
 {
 
 	private DoubleField(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultConstant)

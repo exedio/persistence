@@ -27,8 +27,8 @@ public final class EqualCondition<E> extends Condition
 	 * Creates a new EqualCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see FunctionAttribute#isNull()
-	 * @see FunctionAttribute#equal(Object)
+	 * @see FunctionField#isNull()
+	 * @see FunctionField#equal(Object)
 	 */
 	public EqualCondition(final Function<E> function, final E value)
 	{

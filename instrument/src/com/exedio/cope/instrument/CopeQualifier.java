@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
 
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.pattern.Qualifier;
 
 final class CopeQualifier extends CopeFeature
@@ -37,7 +37,7 @@ final class CopeQualifier extends CopeFeature
 		final ArrayList<String> attributeList = new ArrayList<String>();
 		
 		final Qualifier instance = (Qualifier)getInstance();
-		for(final FunctionAttribute attributeInstance : instance.getUniqueConstraint().getUniqueAttributes())
+		for(final FunctionField attributeInstance : instance.getUniqueConstraint().getUniqueAttributes())
 			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
 		
 		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);

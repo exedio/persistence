@@ -95,7 +95,7 @@ public class AttributeDateTest extends AttributeTest
 	{
 		try
 		{
-			item.set((FunctionAttribute)item.someDate, Integer.valueOf(10));
+			item.set((FunctionField)item.someDate, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)

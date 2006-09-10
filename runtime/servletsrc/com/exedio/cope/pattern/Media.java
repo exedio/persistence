@@ -39,7 +39,7 @@ import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Attribute.Option;
@@ -139,7 +139,7 @@ public final class Media extends MediaPath
 		return lastModified;
 	}
 	
-	public FunctionAttribute getIsNull()
+	public FunctionField getIsNull()
 	{
 		return lastModified;
 	}

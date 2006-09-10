@@ -160,9 +160,9 @@ public abstract class Item extends Cope
 		Date now = null;
 		for(final Attribute attribute : type.getAttributes())
 		{
-			if(attribute instanceof FunctionAttribute && !attributeValues.containsKey(attribute))
+			if(attribute instanceof FunctionField && !attributeValues.containsKey(attribute))
 			{
-				final FunctionAttribute fa = (FunctionAttribute)attribute;
+				final FunctionField fa = (FunctionField)attribute;
 				Object defaultValue = fa.defaultConstant;
 				if(defaultValue==null && fa instanceof DateField && ((DateField)fa).defaultNow)
 				{
@@ -264,7 +264,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
-	public final <E> void set(final FunctionAttribute<E> attribute, final E value)
+	public final <E> void set(final FunctionField<E> attribute, final E value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,

@@ -46,13 +46,13 @@ final class PersistentState extends State implements Database.ResultSetHandler
 	}
 	
 	@Override
-	Object get(FunctionAttribute attribute)
+	Object get(FunctionField attribute)
 	{
 		return attribute.get(row);
 	}
 
 	@Override
-	<E> State put(final Transaction transaction, final FunctionAttribute<E> attribute, final E value)
+	<E> State put(final Transaction transaction, final FunctionField<E> attribute, final E value)
 	{
 		return new ModifiedState( transaction, this ).put(transaction, attribute, value);
 	}

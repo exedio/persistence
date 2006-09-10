@@ -22,7 +22,7 @@ package com.exedio.cope;
  * Signals, that an attempt to write a {@link StringField string attribute} has been failed,
  * because value to be written violated the length constraint on that attribute.
  *
- * This exception will be thrown by {@link FunctionAttribute#set(Item,Object)}
+ * This exception will be thrown by {@link FunctionField#set(Item,Object)}
  * and item constructors.
  *
  * @author Ralf Wiebicke

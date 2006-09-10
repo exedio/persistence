@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
 
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.UniqueConstraint;
 
 
@@ -42,7 +42,7 @@ final class CopeUniqueConstraint extends CopeFeature
 		final ArrayList<String> attributeList = new ArrayList<String>();
 		
 		final UniqueConstraint instance = (UniqueConstraint)getInstance();
-		for(final FunctionAttribute attributeInstance : instance.getUniqueAttributes())
+		for(final FunctionField attributeInstance : instance.getUniqueAttributes())
 			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
 		
 		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);

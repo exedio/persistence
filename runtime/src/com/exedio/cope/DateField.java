@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-public final class DateField extends FunctionAttribute<Date>
+public final class DateField extends FunctionField<Date>
 {
 	final boolean defaultNow;
 

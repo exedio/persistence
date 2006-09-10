@@ -67,7 +67,7 @@ public class AttributeItemTest extends AttributeTest
 	{
 		try
 		{
-			item.set((FunctionAttribute)item.someItem, Integer.valueOf(10));
+			item.set((FunctionField)item.someItem, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)
@@ -79,7 +79,7 @@ public class AttributeItemTest extends AttributeTest
 		deleteOnTearDown(wrongItem);
 		try
 		{
-			item.set((FunctionAttribute)item.someItem, wrongItem);
+			item.set((FunctionField)item.someItem, wrongItem);
 			fail();
 		}
 		catch(ClassCastException e)

@@ -27,7 +27,7 @@ import java.util.List;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
@@ -38,8 +38,8 @@ import com.exedio.cope.UniqueConstraint;
 public final class Qualifier extends Pattern
 {
 	private final ItemField<Item> parent;
-	private final FunctionAttribute<?>[] keys;
-	private final List<FunctionAttribute<?>> keyList;
+	private final FunctionField<?>[] keys;
+	private final List<FunctionField<?>> keyList;
 	private final UniqueConstraint uniqueConstraint;
 
 	public Qualifier(final UniqueConstraint uniqueConstraint)
@@ -49,18 +49,18 @@ public final class Qualifier extends Pattern
 				"argument of qualifier constructor is null, " +
 				"may happen due to bad class initialization order.");
 		
-		final List<FunctionAttribute<?>> uniqueAttributes = uniqueConstraint.getUniqueAttributes();
+		final List<FunctionField<?>> uniqueAttributes = uniqueConstraint.getUniqueAttributes();
 		if(uniqueAttributes.size()<2)
 			throw new RuntimeException(uniqueAttributes.toString());
 
 		this.parent = castItemAttribute(uniqueAttributes.get(0));
-		this.keys = new FunctionAttribute<?>[uniqueAttributes.size()-1];
+		this.keys = new FunctionField<?>[uniqueAttributes.size()-1];
 		for(int i = 0; i<this.keys.length; i++)
 			this.keys[i] = uniqueAttributes.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.uniqueConstraint = uniqueConstraint;
 
-		for(final FunctionAttribute uniqueAttribute : uniqueAttributes)
+		for(final FunctionField uniqueAttribute : uniqueAttributes)
 			registerSource(uniqueAttribute);
 	}
 
@@ -78,7 +78,7 @@ public final class Qualifier extends Pattern
 		return parent;
 	}
 
-	public List<FunctionAttribute<?>> getKeys()
+	public List<FunctionField<?>> getKeys()
 	{
 		return keyList;
 	}
@@ -135,7 +135,7 @@ public final class Qualifier extends Pattern
 		return uniqueConstraint.searchUnique(keys);
 	}
 	
-	public <X> X get(final FunctionAttribute<X> attribute, final Object... keys)
+	public <X> X get(final FunctionField<X> attribute, final Object... keys)
 	{
 		final Item item = uniqueConstraint.searchUnique(keys);
 		if(item!=null)
@@ -151,7 +151,7 @@ public final class Qualifier extends Pattern
 		{
 			final SetValue[] keySetValues = new SetValue[keys.length];
 			int j = 0;
-			for(final FunctionAttribute<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
+			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
 				keySetValues[j] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keySetValues);
@@ -159,7 +159,7 @@ public final class Qualifier extends Pattern
 		return item;
 	}
 	
-	public <X> void set(final FunctionAttribute<X> attribute, final X value, final Object... keys)
+	public <X> void set(final FunctionField<X> attribute, final X value, final Object... keys)
 	{
 		final Item item = getForSet(keys);
 		attribute.set(item, value);
@@ -175,7 +175,7 @@ public final class Qualifier extends Pattern
 			System.arraycopy(values, 0, keyValues, 0, values.length);
 			
 			int j = 0;
-			for(final FunctionAttribute<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
+			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
 				keyValues[j + values.length] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keyValues);

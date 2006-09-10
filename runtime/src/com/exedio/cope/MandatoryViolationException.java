@@ -22,7 +22,7 @@ package com.exedio.cope;
  * Signals, that an attempt to write an attribute has been failed,
  * because it cannot be written with a null value.
  *
- * This exception will be thrown by {@link Item#set(FunctionAttribute,Object) Item.set}
+ * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
  * and item constructors
  * if that attribute is {@link Attribute#isMandatory() mandatory}.
  * <p>

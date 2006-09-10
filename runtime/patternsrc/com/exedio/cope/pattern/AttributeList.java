@@ -25,7 +25,7 @@ import java.util.List;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -40,10 +40,10 @@ public final class AttributeList<E> extends Pattern
 	private ItemField<?> parent = null;
 	private final IntegerField order;
 	private UniqueConstraint uniqueConstraint = null;
-	private final FunctionAttribute<E> element;
+	private final FunctionField<E> element;
 	private Type<?> relationType = null;
 
-	private AttributeList(final FunctionAttribute<E> element)
+	private AttributeList(final FunctionField<E> element)
 	{
 		this.order = new IntegerField(Attribute.Option.FINAL);
 		this.element = element;
@@ -53,7 +53,7 @@ public final class AttributeList<E> extends Pattern
 			throw new NullPointerException("element must not be unique");
 	}
 	
-	public static final <E> AttributeList<E> newList(final FunctionAttribute<E> element)
+	public static final <E> AttributeList<E> newList(final FunctionField<E> element)
 	{
 		return new AttributeList<E>(element);
 	}
@@ -90,7 +90,7 @@ public final class AttributeList<E> extends Pattern
 		return uniqueConstraint;
 	}
 	
-	public FunctionAttribute<E> getElement()
+	public FunctionField<E> getElement()
 	{
 		return element;
 	}

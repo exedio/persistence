@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class ItemField<E extends Item> extends FunctionAttribute<E> implements ItemFunction<E>
+public final class ItemField<E extends Item> extends FunctionField<E> implements ItemFunction<E>
 {
 	private final DeletePolicy policy;
 

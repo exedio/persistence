@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.SortedSet;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -36,25 +36,25 @@ public abstract class CustomAttribute<E>
 	extends Pattern
 	implements Settable<E>
 {
-	private final FunctionAttribute<?>[] storages;
-	private final List<FunctionAttribute<?>> storageList;
+	private final FunctionField<?>[] storages;
+	private final List<FunctionField<?>> storageList;
 	private final boolean initial;
 	private final boolean isFinal;
 	private final Method getter;
 	private final Method setter;
 	private final Class<E> valueClass;
 	
-	public CustomAttribute(final FunctionAttribute<?> storage)
+	public CustomAttribute(final FunctionField<?> storage)
 	{
-		this(new FunctionAttribute[]{storage});
+		this(new FunctionField[]{storage});
 	}
 	
-	public CustomAttribute(final FunctionAttribute<?> storage1, final FunctionAttribute<?> storage2)
+	public CustomAttribute(final FunctionField<?> storage1, final FunctionField<?> storage2)
 	{
-		this(new FunctionAttribute[]{storage1, storage2});
+		this(new FunctionField[]{storage1, storage2});
 	}
 	
-	public CustomAttribute(final FunctionAttribute<?>[] storages)
+	public CustomAttribute(final FunctionField<?>[] storages)
 	{
 		this.storages = storages;
 		this.storageList = Collections.unmodifiableList(Arrays.asList(storages));
@@ -62,7 +62,7 @@ public abstract class CustomAttribute<E>
 		{
 			boolean initial = false;
 			boolean isFinal = false;
-			for(FunctionAttribute<?> storage : storages)
+			for(FunctionField<?> storage : storages)
 			{
 				registerSource(storage);
 				initial = initial || storage.isInitial();
@@ -118,7 +118,7 @@ public abstract class CustomAttribute<E>
 		return (Class<E>)c;
 	}
 	
-	public final List<FunctionAttribute<?>> getStorages()
+	public final List<FunctionField<?>> getStorages()
 	{
 		return storageList;
 	}

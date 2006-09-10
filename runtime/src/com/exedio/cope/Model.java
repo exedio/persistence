@@ -315,8 +315,8 @@ public final class Model
 	 * Returns, whether the database can store empty strings.
 	 * <p>
 	 * If true, an empty string can be stored into a {@link StringField}
-	 * like any other string via {@link FunctionAttribute#set(Item,Object)}.
-	 * A subsequent retrieval of that string via {@link FunctionAttribute#get(Item)}
+	 * like any other string via {@link FunctionField#set(Item,Object)}.
+	 * A subsequent retrieval of that string via {@link FunctionField#get(Item)}
 	 * returns an empty string.
 	 * If false, an empty string stored into a {@link StringField} is
 	 * converted to null, thus a subsequent retrieval of that string returns

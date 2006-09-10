@@ -26,7 +26,7 @@ import java.util.SortedSet;
 
 import com.exedio.cope.search.ExtremumAggregate;
 
-public abstract class FunctionAttribute<E extends Object>
+public abstract class FunctionField<E extends Object>
 	extends Attribute<E>
 	implements Function<E>
 {
@@ -34,7 +34,7 @@ public abstract class FunctionAttribute<E extends Object>
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
-	FunctionAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	FunctionField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
 		this.defaultConstant = defaultConstant;
@@ -100,14 +100,14 @@ public abstract class FunctionAttribute<E extends Object>
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
 	
-	public abstract FunctionAttribute<E> copyFunctionAttribute();
+	public abstract FunctionField<E> copyFunctionAttribute();
 
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 	
 	/**
 	 * Checks attribute values set by
-	 * {@link Item#set(FunctionAttribute,Object)} (for <tt>initial==false</tt>)
+	 * {@link Item#set(FunctionField,Object)} (for <tt>initial==false</tt>)
 	 * and {@link Item#Item(SetValue[])} (for <tt>initial==true</tt>)
 	 * and throws the exception specified there.
 	 */

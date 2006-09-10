@@ -132,7 +132,7 @@ public class AttributeEnumTest extends AttributeTest
 	{
 		try
 		{
-			item.set((FunctionAttribute)item.someEnum, Integer.valueOf(10));
+			item.set((FunctionField)item.someEnum, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)
@@ -142,7 +142,7 @@ public class AttributeEnumTest extends AttributeTest
 		
 		try
 		{
-			item.set((FunctionAttribute)item.someEnum, SomeEnum2.enumValue2);
+			item.set((FunctionField)item.someEnum, SomeEnum2.enumValue2);
 			fail();
 		}
 		catch(ClassCastException e)

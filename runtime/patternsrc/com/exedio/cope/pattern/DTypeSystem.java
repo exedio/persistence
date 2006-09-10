@@ -23,7 +23,7 @@ import java.util.List;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DoubleField;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -34,7 +34,7 @@ import com.exedio.cope.StringField;
 public final class DTypeSystem extends Pattern
 {
 	private final ItemField<DType> type;
-	private final FunctionAttribute<?>[] attributes;
+	private final FunctionField<?>[] attributes;
 
 	private final StringField[]  strings;
 	private final BooleanField[] booleans;
@@ -54,7 +54,7 @@ public final class DTypeSystem extends Pattern
 		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleField [doubleCapacity];
 		enums    = castEnumArray(new ItemField[enumCapacity]);
-		attributes = new FunctionAttribute[strings.length + booleans.length + integers.length + doubles.length + enums.length];
+		attributes = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		registerSource(type = new ItemField<DType>(Item.OPTIONAL, DType.class));
 		int n = 0;
@@ -76,7 +76,7 @@ public final class DTypeSystem extends Pattern
 		return (ItemField<DEnumValue>[])o;
 	}
 
-	private FunctionAttribute<?>[] array(final DAttribute.ValueType valueType)
+	private FunctionField<?>[] array(final DAttribute.ValueType valueType)
 	{
 		switch(valueType)
 		{
@@ -106,7 +106,7 @@ public final class DTypeSystem extends Pattern
 
 		for(final DAttribute.ValueType valueType : DAttribute.ValueType.values())
 		{
-			final FunctionAttribute<?>[] array = array(valueType);
+			final FunctionField<?>[] array = array(valueType);
 			final String postfix = valueType.postfix;
 			for(int i = 0; i<array.length; i++)
 				initialize(array[i], name + postfix + (i+1/*TODO: make this '1' customizable*/));
@@ -158,12 +158,12 @@ public final class DTypeSystem extends Pattern
 			throw new RuntimeException("dynamic type mismatch: attribute has type " + attributeType.getCode() + ", but item has " + (itemType!=null ? itemType.getCode() : "none"));
 	}
 	
-	private FunctionAttribute<?> getAttribute(final DAttribute attribute)
+	private FunctionField<?> getAttribute(final DAttribute attribute)
 	{
 		final DAttribute.ValueType valueType = attribute.getValueType();
 		final int pos = attribute.getPositionPerValueType();
 
-		final FunctionAttribute[] array = array(valueType);
+		final FunctionField[] array = array(valueType);
 		
 		// make a more verbose exception instead
 		// of the ArrayIndexOutOfBoundException

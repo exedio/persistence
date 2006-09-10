@@ -26,7 +26,7 @@ import java.util.Set;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
@@ -38,11 +38,11 @@ import com.exedio.cope.UniqueConstraint;
 public final class AttributeSet<E> extends Pattern
 {
 	private ItemField<?> parent = null;
-	private final FunctionAttribute<E> element;
+	private final FunctionField<E> element;
 	private UniqueConstraint uniqueConstraint = null;
 	private Type<?> relationType = null;
 
-	private AttributeSet(final FunctionAttribute<E> element)
+	private AttributeSet(final FunctionField<E> element)
 	{
 		this.element = element;
 		if(element==null)
@@ -51,7 +51,7 @@ public final class AttributeSet<E> extends Pattern
 			throw new NullPointerException("element must not be unique");
 	}
 	
-	public static final <E> AttributeSet<E> newSet(final FunctionAttribute<E> element)
+	public static final <E> AttributeSet<E> newSet(final FunctionField<E> element)
 	{
 		return new AttributeSet<E>(element);
 	}
@@ -76,7 +76,7 @@ public final class AttributeSet<E> extends Pattern
 		return parent;
 	}
 	
-	public FunctionAttribute<E> getElement()
+	public FunctionField<E> getElement()
 	{
 		return element;
 	}

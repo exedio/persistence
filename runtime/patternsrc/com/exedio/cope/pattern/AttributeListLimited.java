@@ -30,7 +30,7 @@ import com.exedio.cope.CompositeCondition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
@@ -42,17 +42,17 @@ import com.exedio.cope.UniqueViolationException;
 
 public final class AttributeListLimited<E> extends Pattern implements Settable<Collection<E>>
 {
-	private final FunctionAttribute<E>[] sources;
+	private final FunctionField<E>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;
 
-	public AttributeListLimited(final FunctionAttribute<E>[] sources)
+	public AttributeListLimited(final FunctionField<E>[] sources)
 	{
 		this.sources = sources;
 
 		boolean initial = false;
 		boolean isFinal = false;
-		for(FunctionAttribute<E> source : sources)
+		for(FunctionField<E> source : sources)
 		{
 			registerSource(source);
 			initial = initial || source.isInitial();
@@ -62,45 +62,45 @@ public final class AttributeListLimited<E> extends Pattern implements Settable<C
 		this.isFinal = isFinal;
 	}
 	
-	private AttributeListLimited(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2)
+	private AttributeListLimited(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(AttributeListLimited.<E>cast(new FunctionAttribute[]{source1, source2}));
+		this(AttributeListLimited.<E>cast(new FunctionField[]{source1, source2}));
 	}
 	
-	private AttributeListLimited(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2, final FunctionAttribute<E> source3)
+	private AttributeListLimited(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(AttributeListLimited.<E>cast(new FunctionAttribute[]{source1, source2, source3}));
+		this(AttributeListLimited.<E>cast(new FunctionField[]{source1, source2, source3}));
 	}
 	
-	private AttributeListLimited(final FunctionAttribute<E> template, final int maximumSize)
+	private AttributeListLimited(final FunctionField<E> template, final int maximumSize)
 	{
 		this(template2Sources(template, maximumSize));
 	}
 	
-	public static final <E> AttributeListLimited<E> newList(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2)
+	public static final <E> AttributeListLimited<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		return new AttributeListLimited<E>(source1, source2);
 	}
 	
-	public static final <E> AttributeListLimited<E> newList(final FunctionAttribute<E> source1, final FunctionAttribute<E> source2, final FunctionAttribute<E> source3)
+	public static final <E> AttributeListLimited<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		return new AttributeListLimited<E>(source1, source2, source3);
 	}
 	
-	public static final <E> AttributeListLimited<E> newList(final FunctionAttribute<E> template, final int maximumSize)
+	public static final <E> AttributeListLimited<E> newList(final FunctionField<E> template, final int maximumSize)
 	{
 		return new AttributeListLimited<E>(template, maximumSize);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
-	private final static <X> FunctionAttribute<X>[] cast(final FunctionAttribute[] o)
+	private final static <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
-		return (FunctionAttribute<X>[])o;
+		return (FunctionField<X>[])o;
 	}
 	
-	private final static <Y> FunctionAttribute<Y>[] template2Sources(final FunctionAttribute<Y> template, final int maximumSize)
+	private final static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
 	{
-		final FunctionAttribute<Y>[] result = cast(new FunctionAttribute[maximumSize]);
+		final FunctionField<Y>[] result = cast(new FunctionField[maximumSize]);
 		
 		for(int i = 0; i<maximumSize; i++)
 			result[i] = template.copyFunctionAttribute();
@@ -115,13 +115,13 @@ public final class AttributeListLimited<E> extends Pattern implements Settable<C
 		
 		for(int i = 0; i<sources.length; i++)
 		{
-			final FunctionAttribute<E> source = sources[i];
+			final FunctionField<E> source = sources[i];
 			if(!source.isInitialized())
 				initialize(source, name+(i+1/*TODO: make this '1' customizable*/));
 		}
 	}
 	
-	public List<FunctionAttribute<E>> getSources()
+	public List<FunctionField<E>> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}

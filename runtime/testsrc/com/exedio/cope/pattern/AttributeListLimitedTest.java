@@ -26,7 +26,7 @@ import java.util.List;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.Main;
 import com.exedio.cope.SetValue;
@@ -86,7 +86,7 @@ public class AttributeListLimitedTest extends AbstractLibTest
 
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
-		final List<FunctionAttribute<Date>> dateSources = item.dates.getSources();
+		final List<FunctionField<Date>> dateSources = item.dates.getSources();
 		assertEquals(2, dateSources.size());
 		assertUnmodifiable(dateSources);
 		final Iterator dateSourcesIterator = dateSources.iterator();
@@ -101,7 +101,7 @@ public class AttributeListLimitedTest extends AbstractLibTest
 
 		assertEquals(item.TYPE, item.strings.getType());
 		assertEquals("strings", item.strings.getName());
-		final List<FunctionAttribute<String>> stringSources = item.strings.getSources();
+		final List<FunctionField<String>> stringSources = item.strings.getSources();
 		assertEquals(4, stringSources.size());
 		assertUnmodifiable(stringSources);
 		final Iterator stringSourcesIterator = stringSources.iterator();

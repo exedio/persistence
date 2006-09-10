@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 
 abstract class CopeAttribute extends CopeFeature
 {
@@ -96,7 +96,7 @@ abstract class CopeAttribute extends CopeFeature
 	final boolean isImplicitlyUnique()
 	{
 		final Feature instance = getInstance();
-		return instance instanceof FunctionAttribute && ((FunctionAttribute)instance).getImplicitUniqueConstraint()!=null;
+		return instance instanceof FunctionField && ((FunctionField)instance).getImplicitUniqueConstraint()!=null;
 	}
 
 	final boolean hasIsGetter()

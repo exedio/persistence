@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
@@ -34,12 +34,12 @@ import com.exedio.cope.UniqueConstraint;
 public final class AttributeMap<K,V> extends Pattern
 {
 	private ItemField<? extends Item> parent = null;
-	private final FunctionAttribute<K> key;
+	private final FunctionField<K> key;
 	private UniqueConstraint uniqueConstraint = null;
-	private final FunctionAttribute<V> value;
+	private final FunctionField<V> value;
 	private Type<?> relationType = null;
 
-	private AttributeMap(final FunctionAttribute<K> key, final FunctionAttribute<V> value)
+	private AttributeMap(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		this.key = key;
 		this.value = value;
@@ -53,7 +53,7 @@ public final class AttributeMap<K,V> extends Pattern
 			throw new NullPointerException("value must not be unique");
 	}
 	
-	public static final <K,V> AttributeMap<K,V> newMap(final FunctionAttribute<K> key, final FunctionAttribute<V> value)
+	public static final <K,V> AttributeMap<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		return new AttributeMap<K,V>(key, value);
 	}
@@ -79,7 +79,7 @@ public final class AttributeMap<K,V> extends Pattern
 		return parent;
 	}
 	
-	public FunctionAttribute<K> getKey()
+	public FunctionField<K> getKey()
 	{
 		return key;
 	}
@@ -90,7 +90,7 @@ public final class AttributeMap<K,V> extends Pattern
 		return uniqueConstraint;
 	}
 	
-	public FunctionAttribute<V> getValue()
+	public FunctionField<V> getValue()
 	{
 		return value;
 	}

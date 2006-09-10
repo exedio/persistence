@@ -24,7 +24,7 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-public final class EnumField<E extends Enum<E>> extends FunctionAttribute<E>
+public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private final List<E> values;
 	private final IntKeyOpenHashMap numbersToValues;

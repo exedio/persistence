@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
 
-public final class DayField extends FunctionAttribute<Day>
+public final class DayField extends FunctionField<Day>
 {
 	
 	private DayField(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultConstant)

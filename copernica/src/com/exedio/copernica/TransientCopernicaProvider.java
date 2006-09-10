@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Attribute;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
@@ -200,7 +200,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			final StringBuffer result = new StringBuffer();
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)uniqueConstraints.iterator().next();
 			boolean first = true;
-			for(final FunctionAttribute<?> attribute : uniqueConstraint.getUniqueAttributes())
+			for(final FunctionField<?> attribute : uniqueConstraint.getUniqueAttributes())
 			{
 				if(first)
 					first = false;

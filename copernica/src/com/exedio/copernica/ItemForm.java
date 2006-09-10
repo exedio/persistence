@@ -36,7 +36,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
@@ -170,9 +170,9 @@ final class ItemForm extends Form
 			final Attribute anyAttribute = (Attribute)j.next();
 			if(!anyAttribute.isFinal())
 			{
-				if(anyAttribute instanceof FunctionAttribute)
+				if(anyAttribute instanceof FunctionField)
 				{
-					final Field field = createField((FunctionAttribute)anyAttribute, post, cop, model);
+					final Field field = createField((FunctionField)anyAttribute, post, cop, model);
 					toSave = true;
 					if(displayedAttributes.contains(anyAttribute))
 						visibleFields.add(field);
@@ -191,14 +191,14 @@ final class ItemForm extends Form
 	}
 	
 	private final Field createField(
-			final FunctionAttribute attribute,
+			final FunctionField attribute,
 			final boolean post, final ItemCop cop, final Model model)
 	{
 		return createField(attribute, this.item, attribute.getName(), post, cop, model);
 	}
 	
 	private final Field createField(
-			final FunctionAttribute attribute, final Item item, final String name,
+			final FunctionField attribute, final Item item, final String name,
 			final boolean post, final ItemCop cop, final Model model)
 	{
 		if(attribute.isFinal())
@@ -489,7 +489,7 @@ final class ItemForm extends Form
 			}
 			if(field.error==null)
 			{
-				final FunctionAttribute<?> attribute = (FunctionAttribute)field.key;
+				final FunctionField<?> attribute = (FunctionField)field.key;
 				setValues.add(Cope.mapAndCast(attribute, field.getContent()));
 			}
 		}

@@ -512,7 +512,7 @@ public class StringTest extends TestmodelTest
 	{
 		try
 		{
-			item.set((FunctionAttribute)item.any, Integer.valueOf(10));
+			item.set((FunctionField)item.any, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)
@@ -691,12 +691,12 @@ public class StringTest extends TestmodelTest
 		}
 	}
 	
-	protected static List<? extends Object> search(final FunctionAttribute<? extends Object> selectAttribute)
+	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 	
-	protected static List<? extends Object> search(final FunctionAttribute<? extends Object> selectAttribute, final Condition condition)
+	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute, final Condition condition)
 	{
 		return new Query<Object>(selectAttribute, condition).search();
 	}

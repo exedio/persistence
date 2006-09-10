@@ -20,29 +20,29 @@ package com.exedio.cope.pattern;
 
 import java.util.EnumMap;
 
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 
 public final class AttributeMapLimited<K extends Enum<K>,V> extends Pattern
 {
 	private final Class<K> keyClass;
-	private final EnumMap<K, FunctionAttribute<V>> attributes;
+	private final EnumMap<K, FunctionField<V>> attributes;
 
-	private AttributeMapLimited(final Class<K> keyClass, final FunctionAttribute<V> valueTemplate)
+	private AttributeMapLimited(final Class<K> keyClass, final FunctionField<V> valueTemplate)
 	{
 		this.keyClass = keyClass;
-		this.attributes = new EnumMap<K, FunctionAttribute<V>>(keyClass);
+		this.attributes = new EnumMap<K, FunctionField<V>>(keyClass);
 
 		for(K key : keyClass.getEnumConstants())
 		{
-			final FunctionAttribute<V> value = valueTemplate.copyFunctionAttribute();
+			final FunctionField<V> value = valueTemplate.copyFunctionAttribute();
 			registerSource(value);
 			attributes.put(key, value);
 		}
 	}
 	
-	public static final <K extends Enum<K>,V> AttributeMapLimited<K,V> newMap(final Class<K> keyClass, final FunctionAttribute<V> value)
+	public static final <K extends Enum<K>,V> AttributeMapLimited<K,V> newMap(final Class<K> keyClass, final FunctionField<V> value)
 	{
 		return new AttributeMapLimited<K,V>(keyClass, value);
 	}
@@ -54,7 +54,7 @@ public final class AttributeMapLimited<K extends Enum<K>,V> extends Pattern
 		
 		for(K key : keyClass.getEnumConstants())
 		{
-			final FunctionAttribute<V> value = attributes.get(key);
+			final FunctionField<V> value = attributes.get(key);
 			initialize(value, name+key.name());
 		}
 	}
@@ -64,7 +64,7 @@ public final class AttributeMapLimited<K extends Enum<K>,V> extends Pattern
 		return keyClass;
 	}
 
-	public FunctionAttribute<V> getAttribute(final K key)
+	public FunctionField<V> getAttribute(final K key)
 	{
 		return attributes.get(key);
 	}

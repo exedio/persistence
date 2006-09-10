@@ -378,9 +378,9 @@ abstract class Database
 					bf.append(select, null).defineColumn(select);
 					final Function selectSource = ((Aggregate)select).getSource();
 					
-					if(selectSource instanceof FunctionAttribute)
+					if(selectSource instanceof FunctionField)
 					{
-						selectColumn = ((FunctionAttribute)selectSource).getColumn();
+						selectColumn = ((FunctionField)selectSource).getColumn();
 					}
 					else if(selectSource instanceof Type.This)
 					{
@@ -404,9 +404,9 @@ abstract class Database
 						bf.append(view, (Join)null).defineColumn(view);
 					}
 				}
-				else if(select instanceof FunctionAttribute)
+				else if(select instanceof FunctionField)
 				{
-					selectColumn = ((FunctionAttribute)select).getColumn();
+					selectColumn = ((FunctionField)select).getColumn();
 					bf.append(select, (Join)null).defineColumn(select);
 					if(select instanceof ItemField)
 					{
@@ -577,10 +577,10 @@ abstract class Database
 							}
 							
 							final Object resultCell;
-							if(select instanceof FunctionAttribute)
+							if(select instanceof FunctionField)
 							{
 								selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
-								final FunctionAttribute selectAttribute = (FunctionAttribute)select;
+								final FunctionField selectAttribute = (FunctionField)select;
 								if(select instanceof ItemField)
 								{
 									final StringColumn typeColumn = ((ItemField)selectAttribute).getTypeColumn();

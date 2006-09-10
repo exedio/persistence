@@ -82,7 +82,7 @@ public class AttributeLongTest extends AttributeTest
 	{
 		try
 		{
-			item.set((FunctionAttribute)item.someLong, Integer.valueOf(10));
+			item.set((FunctionField)item.someLong, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)

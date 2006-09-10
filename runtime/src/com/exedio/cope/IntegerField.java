@@ -27,7 +27,7 @@ import com.exedio.cope.search.SumAggregate;
  *
  * @author Ralf Wiebicke
  */
-public final class IntegerField extends FunctionAttribute<Integer> implements IntegerFunction
+public final class IntegerField extends FunctionField<Integer> implements IntegerFunction
 {
 
 	private IntegerField(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultConstant)

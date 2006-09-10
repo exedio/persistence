@@ -27,7 +27,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.FunctionAttribute;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.Qualifier;
@@ -144,9 +144,9 @@ class ItemCop_Jspm
 							%>
 							<input type="file" name="<%=attributeName%>" size="20"><%
 						}
-						else if(attribute.isFinal() && attribute instanceof FunctionAttribute)
+						else if(attribute.isFinal() && attribute instanceof FunctionField)
 						{
-							%><b><%=item.get((FunctionAttribute<? extends Object>)attribute)%></b><%
+							%><b><%=item.get((FunctionField<? extends Object>)attribute)%></b><%
 						}
 						else if(field instanceof RadioField
 									|| field instanceof CheckboxField
@@ -173,9 +173,9 @@ class ItemCop_Jspm
 						{
 							for(final Item value : values)
 							{
-								if(anyAttribute instanceof FunctionAttribute)
+								if(anyAttribute instanceof FunctionField)
 								{
-									final FunctionAttribute<? extends Object> attribute = (FunctionAttribute<? extends Object>)anyAttribute;
+									final FunctionField<? extends Object> attribute = (FunctionField<? extends Object>)anyAttribute;
 									final Object qualifiedValue = value.get(attribute);
 									if(qualifiedValue!=null)
 									{

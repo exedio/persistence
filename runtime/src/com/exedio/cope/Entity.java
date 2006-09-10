@@ -31,12 +31,12 @@ final class Entity
 		this.state = state;
 	}
 	
-	Object get(final FunctionAttribute attribute)
+	Object get(final FunctionField attribute)
 	{
 		return state.get( attribute );
 	}
 	
-	<E> void put(final FunctionAttribute<E> attribute, final E value)
+	<E> void put(final FunctionField<E> attribute, final E value)
 	{
 		state = state.put( transaction, attribute, value );
 	}
@@ -46,8 +46,8 @@ final class Entity
 	{
 		for(final Attribute attribute : attributeValues.keySet())
 		{
-			if(attribute instanceof FunctionAttribute)
-				put((FunctionAttribute)attribute, attributeValues.get(attribute));
+			if(attribute instanceof FunctionField)
+				put((FunctionField)attribute, attributeValues.get(attribute));
 			else
 				assert attribute instanceof DataField;
 		}	

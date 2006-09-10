@@ -121,7 +121,7 @@ public class DayAttributeTest extends AbstractLibTest
 	{
 		try
 		{
-			item.set((FunctionAttribute)item.day, Integer.valueOf(10));
+			item.set((FunctionField)item.day, Integer.valueOf(10));
 			fail();
 		}
 		catch(ClassCastException e)
