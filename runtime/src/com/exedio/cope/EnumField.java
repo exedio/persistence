@@ -24,13 +24,13 @@ import java.util.List;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 
-public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
+public final class EnumField<E extends Enum<E>> extends FunctionAttribute<E>
 {
 	private final List<E> values;
 	private final IntKeyOpenHashMap numbersToValues;
 	private final int[] valuesToNumbers;
 	
-	private EnumAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 		checkValueClass(Enum.class);
@@ -62,26 +62,26 @@ public final class EnumAttribute<E extends Enum<E>> extends FunctionAttribute<E>
 		checkDefaultValue();
 	}
 	
-	public EnumAttribute(final Class<E> valueClass)
+	public EnumField(final Class<E> valueClass)
 	{
 		this(Item.MANDATORY, valueClass);
 	}
 	
-	public EnumAttribute(final Option option, final Class<E> valueClass)
+	public EnumField(final Option option, final Class<E> valueClass)
 	{
 		this(option.isFinal, option.optional, option.unique, valueClass, null);
 	}
 	
 	@Override
-	public EnumAttribute<E> copyFunctionAttribute()
+	public EnumField<E> copyFunctionAttribute()
 	{
-		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
 	
-	public EnumAttribute<E> defaultTo(final E defaultConstant)
+	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert isValid(defaultConstant);
-		return new EnumAttribute<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
 	
 	public List<E> getValues()

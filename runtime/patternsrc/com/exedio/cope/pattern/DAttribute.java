@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.List;
 
-import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -58,7 +58,7 @@ public final class DAttribute extends Item
 			return valueClass;
 		}
 	}
-	public static final EnumAttribute<ValueType> valueType = newEnumAttribute(FINAL, ValueType.class);
+	public static final EnumField<ValueType> valueType = newEnumAttribute(FINAL, ValueType.class);
 	public static final IntegerField positionPerValueType = new IntegerField(FINAL);
 	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
 	

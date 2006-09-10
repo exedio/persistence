@@ -478,14 +478,14 @@ public abstract class Item extends Cope
 		return new Type<C>(javaClass, id);
 	}
 	
-	public static final <E extends Enum<E>> EnumAttribute<E> newEnumAttribute(final Class<E> valueClass)
+	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Class<E> valueClass)
 	{
-		return new EnumAttribute<E>(valueClass);
+		return new EnumField<E>(valueClass);
 	}
 	
-	public static final <E extends Enum<E>> EnumAttribute<E> newEnumAttribute(final Option option, final Class<E> valueClass)
+	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Option option, final Class<E> valueClass)
 	{
-		return new EnumAttribute<E>(option, valueClass);
+		return new EnumField<E>(option, valueClass);
 	}
 	
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass)

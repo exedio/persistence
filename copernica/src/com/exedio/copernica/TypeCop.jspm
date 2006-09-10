@@ -30,7 +30,7 @@ import java.util.List;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
-import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
@@ -225,9 +225,9 @@ final class TypeCop_Jspm
 								%><%=df.format(value)%><%
 							}
 						}
-						else if(feature instanceof EnumAttribute)
+						else if(feature instanceof EnumField)
 						{
-							final Enum value = ((EnumAttribute<? extends Enum>)feature).get(item);
+							final Enum value = ((EnumField<? extends Enum>)feature).get(item);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%

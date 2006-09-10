@@ -37,7 +37,6 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
-import com.exedio.cope.EnumAttribute;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegrityViolationException;
@@ -208,9 +207,9 @@ final class ItemForm extends Form
 		if(attribute.isFinal())
 			throw new RuntimeException(attribute.toString());
 		
-		if(attribute instanceof EnumAttribute)
+		if(attribute instanceof com.exedio.cope.EnumField)
 		{
-			final EnumAttribute<? extends Enum> enumAttribute = (EnumAttribute<? extends Enum>)attribute;
+			final com.exedio.cope.EnumField<? extends Enum> enumAttribute = (com.exedio.cope.EnumField<? extends Enum>)attribute;
 			if(post)
 				return new EnumField(enumAttribute, cop);
 			else
@@ -346,13 +345,13 @@ final class ItemForm extends Form
 	{
 		private static final String VALUE_NULL = "null";
 
-		final EnumAttribute<? extends Enum> attribute;
+		final com.exedio.cope.EnumField<? extends Enum> attribute;
 		final Enum content;
 
 		/**
 		 * Constructs a form field with an initial value.
 		 */
-		EnumField(final EnumAttribute<? extends Enum> attribute, final Enum value, final ItemCop cop)
+		EnumField(final com.exedio.cope.EnumField<? extends Enum> attribute, final Enum value, final ItemCop cop)
 		{
 			super(ItemForm.this, attribute, attribute.getName(), (value==null) ? VALUE_NULL : value.name());
 			
@@ -364,7 +363,7 @@ final class ItemForm extends Form
 		/**
 		 * Constructs a form field with a value obtained from the submitted form.
 		 */
-		EnumField(final EnumAttribute<? extends Enum> attribute, final ItemCop cop)
+		EnumField(final com.exedio.cope.EnumField<? extends Enum> attribute, final ItemCop cop)
 		{
 			super(ItemForm.this, attribute, attribute.getName());
 			

@@ -22,7 +22,7 @@ import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
-import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -120,12 +120,12 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumAttribute<SomeEnum> someEnum = newEnumAttribute(OPTIONAL, SomeEnum.class);
+	public static final EnumField<SomeEnum> someEnum = newEnumAttribute(OPTIONAL, SomeEnum.class);
 
 	/**
 	 * A mandatory enumeration attribute
 	 */
-	public static final EnumAttribute<SomeEnum> someNotNullEnum = newEnumAttribute(SomeEnum.class);
+	public static final EnumField<SomeEnum> someNotNullEnum = newEnumAttribute(SomeEnum.class);
 
 	/**
 	 * A data attribute.

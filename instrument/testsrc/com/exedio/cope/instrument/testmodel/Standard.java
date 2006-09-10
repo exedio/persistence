@@ -21,7 +21,7 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.BooleanAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DoubleAttribute;
-import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongAttribute;
@@ -64,8 +64,8 @@ public class Standard extends Item
 	private static final DateAttribute privateDate = new DateAttribute(OPTIONAL);
 	public static final DateAttribute nowDate = new DateAttribute().defaultToNow();
 
-	public static final EnumAttribute<Enum1> mandatoryEnum = newEnumAttribute(Enum1.class);
-	protected static final EnumAttribute<Enum2> protectedEnum = newEnumAttribute(OPTIONAL, Enum2.class);
+	public static final EnumField<Enum1> mandatoryEnum = newEnumAttribute(Enum1.class);
+	protected static final EnumField<Enum2> protectedEnum = newEnumAttribute(OPTIONAL, Enum2.class);
 	
 	public enum Enum1
 	{

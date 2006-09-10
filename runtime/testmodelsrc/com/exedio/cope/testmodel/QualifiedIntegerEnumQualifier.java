@@ -18,7 +18,7 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -34,7 +34,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final ItemField<QualifiedItem> up = newItemAttribute(FINAL, QualifiedItem.class, CASCADE);
 	
 	public static final IntegerField keyX = new IntegerField(FINAL);
-	public static final EnumAttribute<KeyEnum> keyY = newEnumAttribute(FINAL, KeyEnum.class);
+	public static final EnumField<KeyEnum> keyY = newEnumAttribute(FINAL, KeyEnum.class);
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(up, keyX, keyY);
 	public static final Qualifier intEnumQualifier = new Qualifier(qualifyUnique);

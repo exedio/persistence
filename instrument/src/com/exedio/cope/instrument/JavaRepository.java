@@ -31,7 +31,7 @@ import com.exedio.cope.DataAttribute;
 import com.exedio.cope.DateAttribute;
 import com.exedio.cope.DayAttribute;
 import com.exedio.cope.DoubleAttribute;
-import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.Item;
@@ -119,7 +119,7 @@ final class JavaRepository
 									new CopeNativeAttribute(type, javaAttribute, typeClass);
 								}
 								else if(
-									EnumAttribute.class.equals(typeClass)||
+									EnumField.class.equals(typeClass)||
 									ItemField.class.equals(typeClass))
 								{
 									new CopeObjectAttribute(type, javaAttribute, typeClass);

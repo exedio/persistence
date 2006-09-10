@@ -30,7 +30,7 @@ public class EnumItem2 extends Item
 		state2;
 	}
 	
-	public static final EnumAttribute<Status> status = newEnumAttribute(Status.class);
+	public static final EnumField<Status> status = newEnumAttribute(Status.class);
 
 	
 /**

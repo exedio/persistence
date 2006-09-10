@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.EnumAttribute;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.Main;
 import com.exedio.cope.ItemField.DeletePolicy;
 
@@ -56,7 +56,7 @@ public class AttributeMapTest extends AbstractLibTest
 		assertSame(item.name.getRelationType(), item.name.getParent().getType());
 		assertEqualsUnmodifiable(list(), item.name.getParent().getPatterns());
 
-		assertEquals(AttributeMapItem.Language.class, ((EnumAttribute)item.name.getKey()).getValueClass());
+		assertEquals(AttributeMapItem.Language.class, ((EnumField)item.name.getKey()).getValueClass());
 		assertEquals("key", item.name.getKey().getName());
 		assertSame(item.name.getRelationType(), item.name.getKey().getType());
 		assertEqualsUnmodifiable(list(), item.name.getKey().getPatterns());
