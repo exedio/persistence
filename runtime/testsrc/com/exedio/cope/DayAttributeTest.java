@@ -130,12 +130,12 @@ public class DayAttributeTest extends AbstractLibTest
 		}
 	}
 	
-	protected static List<? extends Day> search(final DayAttribute selectAttribute)
+	protected static List<? extends Day> search(final DayField selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 	
-	protected static List<? extends Day> search(final DayAttribute selectAttribute, final Condition condition)
+	protected static List<? extends Day> search(final DayField selectAttribute, final Condition condition)
 	{
 		return new Query<Day>(selectAttribute, condition).search();
 	}

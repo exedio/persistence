@@ -29,7 +29,7 @@ import com.exedio.cope.Attribute;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
-import com.exedio.cope.DayAttribute;
+import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Function;
@@ -113,7 +113,7 @@ final class JavaRepository
 									DoubleField.class.equals(typeClass) ||
 									BooleanField.class.equals(typeClass) ||
 									DateField.class.equals(typeClass) ||
-									DayAttribute.class.equals(typeClass) ||
+									DayField.class.equals(typeClass) ||
 									StringFunction.class.isAssignableFrom(typeClass))
 								{
 									new CopeNativeAttribute(type, javaAttribute, typeClass);

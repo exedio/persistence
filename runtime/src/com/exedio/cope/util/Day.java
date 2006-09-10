@@ -29,7 +29,7 @@ import java.util.GregorianCalendar;
  * so you cannot change the value of an instance of this class.
  * <p>
  * This class is used within cope as a value class for
- * {@link com.exedio.cope.DayAttribute}.
+ * {@link com.exedio.cope.DayField}.
  *
  * @author Ralf Wiebicke
  */

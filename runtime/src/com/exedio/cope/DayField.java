@@ -20,34 +20,34 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
 
-public final class DayAttribute extends FunctionAttribute<Day>
+public final class DayField extends FunctionAttribute<Day>
 {
 	
-	private DayAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultConstant)
+	private DayField(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultConstant)
 	{
 		super(isfinal, optional, unique, Day.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
-	public DayAttribute()
+	public DayField()
 	{
 		this(Item.MANDATORY);
 	}
 	
-	public DayAttribute(final Option option)
+	public DayField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	@Override
-	public DayAttribute copyFunctionAttribute()
+	public DayField copyFunctionAttribute()
 	{
-		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DayField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
-	public DayAttribute defaultTo(final Day defaultConstant)
+	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DayField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	@Override

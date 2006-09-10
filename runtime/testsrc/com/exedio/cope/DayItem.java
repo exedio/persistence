@@ -24,8 +24,8 @@ package com.exedio.cope;
 public class DayItem extends Item
 {
 
-	public static final DayAttribute day = new DayAttribute();
-	public static final DayAttribute optionalDay = new DayAttribute(OPTIONAL);
+	public static final DayField day = new DayField();
+	public static final DayField optionalDay = new DayField(OPTIONAL);
 
 	
 /**
