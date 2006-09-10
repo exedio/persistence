@@ -26,7 +26,7 @@ import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.LongAttribute;
+import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
@@ -76,12 +76,12 @@ public class AttributeItem extends Item
 	/**
 	 * An integer attribute
 	 */
-	public static final LongAttribute someLong = new LongAttribute(OPTIONAL);
+	public static final LongField someLong = new LongField(OPTIONAL);
 
 	/**
 	 * A mandatory integer attribute
 	 */
-	public static final LongAttribute someNotNullLong = new LongAttribute();
+	public static final LongField someNotNullLong = new LongField();
 
 	/**
 	 * A double attribute

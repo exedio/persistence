@@ -24,7 +24,7 @@ import com.exedio.cope.DoubleAttribute;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.LongAttribute;
+import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
@@ -51,8 +51,8 @@ public class Standard extends Item
 	public static final IntegerField defaultInteger = new IntegerField(OPTIONAL);
 	public static final IntegerField nativeInteger = new IntegerField();
 
-	public static final LongAttribute defaultLong = new LongAttribute(OPTIONAL);
-	public static final LongAttribute nativeLong = new LongAttribute();
+	public static final LongField defaultLong = new LongField(OPTIONAL);
+	public static final LongField nativeLong = new LongField();
 
 	public static final DoubleAttribute defaultDouble = new DoubleAttribute(OPTIONAL);
 	public static final DoubleAttribute nativeDouble = new DoubleAttribute();

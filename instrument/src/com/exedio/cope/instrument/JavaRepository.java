@@ -36,7 +36,7 @@ import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.LongAttribute;
+import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
@@ -109,7 +109,7 @@ final class JavaRepository
 							{
 								if(
 									IntegerFunction.class.isAssignableFrom(typeClass) ||
-									LongAttribute.class.equals(typeClass) ||
+									LongField.class.equals(typeClass) ||
 									DoubleAttribute.class.equals(typeClass) ||
 									BooleanAttribute.class.equals(typeClass) ||
 									DateField.class.equals(typeClass) ||

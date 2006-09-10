@@ -20,34 +20,34 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public final class LongAttribute extends FunctionAttribute<Long>
+public final class LongField extends FunctionAttribute<Long>
 {
 
-	private LongAttribute(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
+	private LongField(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
 	{
 		super(isfinal, optional, unique, Long.class, defaultConstant);
 		checkDefaultValue();
 	}
 	
-	public LongAttribute()
+	public LongField()
 	{
 		this(Item.MANDATORY);
 	}
 	
-	public LongAttribute(final Option option)
+	public LongField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	@Override
-	public LongAttribute copyFunctionAttribute()
+	public LongField copyFunctionAttribute()
 	{
-		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new LongField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
-	public LongAttribute defaultTo(final Long defaultConstant)
+	public LongField defaultTo(final Long defaultConstant)
 	{
-		return new LongAttribute(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new LongField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	@Override

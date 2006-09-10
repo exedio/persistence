@@ -41,7 +41,6 @@ import com.exedio.cope.FunctionAttribute;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.LongAttribute;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -239,12 +238,12 @@ final class ItemForm extends Form
 			else
 				return new IntegerField(this, attribute, name, ((com.exedio.cope.IntegerField)attribute).get(item));
 		}
-		else if(attribute instanceof LongAttribute)
+		else if(attribute instanceof com.exedio.cope.LongField)
 		{
 			if(post)
 				return new LongField(this, attribute, name);
 			else
-				return new LongField(this, attribute, name, ((LongAttribute)attribute).get(item));
+				return new LongField(this, attribute, name, ((com.exedio.cope.LongField)attribute).get(item));
 		}
 		else if(attribute instanceof DoubleAttribute)
 		{
