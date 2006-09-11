@@ -42,7 +42,7 @@ final class CopeUniqueConstraint extends CopeFeature
 		final ArrayList<String> attributeList = new ArrayList<String>();
 		
 		final UniqueConstraint instance = (UniqueConstraint)getInstance();
-		for(final FunctionField attributeInstance : instance.getUniqueAttributes())
+		for(final FunctionField attributeInstance : instance.getFields())
 			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
 		
 		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);

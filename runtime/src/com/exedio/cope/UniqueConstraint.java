@@ -63,7 +63,16 @@ public final class UniqueConstraint extends Feature
 		this(new FunctionField[]{attribute1, attribute2, attribute3, attribute4});
 	}
 	
+	/**
+	 * @deprecated Renamed to {@link #getFields()}.
+	 */
+	@Deprecated
 	public final List<FunctionField<?>> getUniqueAttributes()
+	{
+		return getFields();
+	}
+	
+	public final List<FunctionField<?>> getFields()
 	{
 		return attributeList;
 	}
@@ -140,7 +149,7 @@ public final class UniqueConstraint extends Feature
 	public final Item searchUnique(final Object[] values)
 	{
 		// TODO: search nativly for unique constraints
-		final List<FunctionField<?>> attributes = getUniqueAttributes();
+		final List<FunctionField<?>> attributes = getFields();
 		if(attributes.size()!=values.length)
 			throw new RuntimeException("-"+attributes.size()+'-'+values.length);
 

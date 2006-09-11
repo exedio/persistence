@@ -104,8 +104,8 @@ public class AttributeSetTest extends AbstractLibTest
 		assertEquals("element", item.dates.getElement().getName());
 		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
 
-		assertEquals(list(item.strings.getParent(), item.strings.getElement()), item.strings.getUniqueConstraint().getUniqueAttributes());
-		assertEquals(list(item.dates.getParent(), item.dates.getElement()), item.dates.getUniqueConstraint().getUniqueAttributes());
+		assertEquals(list(item.strings.getParent(), item.strings.getElement()), item.strings.getUniqueConstraint().getFields());
+		assertEquals(list(item.dates.getParent(), item.dates.getElement()), item.dates.getUniqueConstraint().getFields());
 
 		assertTrue(item.strings.getRelationType().isAssignableFrom(item.strings.getRelationType()));
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.dates.getRelationType()));

@@ -37,7 +37,7 @@ final class CopeQualifier extends CopeFeature
 		final ArrayList<String> attributeList = new ArrayList<String>();
 		
 		final Qualifier instance = (Qualifier)getInstance();
-		for(final FunctionField attributeInstance : instance.getUniqueConstraint().getUniqueAttributes())
+		for(final FunctionField attributeInstance : instance.getUniqueConstraint().getFields())
 			attributeList.add(javaAttribute.parent.getAttributeByInstance(attributeInstance).name);
 		
 		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);

@@ -506,7 +506,7 @@ final class ItemForm extends Form
 		}
 		catch(UniqueViolationException e)
 		{
-			final Field field = getFieldByKey(e.getFeature().getUniqueAttributes().iterator().next());
+			final Field field = getFieldByKey(e.getFeature().getFields().iterator().next());
 			field.error = e.getClass().getName();
 		}
 		catch(LengthViolationException e)

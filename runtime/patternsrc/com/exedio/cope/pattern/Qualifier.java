@@ -49,7 +49,7 @@ public final class Qualifier extends Pattern
 				"argument of qualifier constructor is null, " +
 				"may happen due to bad class initialization order.");
 		
-		final List<FunctionField<?>> uniqueAttributes = uniqueConstraint.getUniqueAttributes();
+		final List<FunctionField<?>> uniqueAttributes = uniqueConstraint.getFields();
 		if(uniqueAttributes.size()<2)
 			throw new RuntimeException(uniqueAttributes.toString());
 
@@ -151,7 +151,7 @@ public final class Qualifier extends Pattern
 		{
 			final SetValue[] keySetValues = new SetValue[keys.length];
 			int j = 0;
-			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
+			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getFields())
 				keySetValues[j] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keySetValues);
@@ -175,7 +175,7 @@ public final class Qualifier extends Pattern
 			System.arraycopy(values, 0, keyValues, 0, values.length);
 			
 			int j = 0;
-			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getUniqueAttributes())
+			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getFields())
 				keyValues[j + values.length] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keyValues);
