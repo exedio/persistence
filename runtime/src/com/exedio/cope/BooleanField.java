@@ -40,7 +40,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 	
 	@Override
-	public BooleanField copyFunctionAttribute()
+	public BooleanField copyFunctionField()
 	{
 		return new BooleanField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

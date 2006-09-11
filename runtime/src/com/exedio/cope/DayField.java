@@ -40,7 +40,7 @@ public final class DayField extends FunctionField<Day>
 	}
 	
 	@Override
-	public DayField copyFunctionAttribute()
+	public DayField copyFunctionField()
 	{
 		return new DayField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

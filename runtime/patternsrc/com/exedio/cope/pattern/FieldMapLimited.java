@@ -36,7 +36,7 @@ public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 
 		for(K key : keyClass.getEnumConstants())
 		{
-			final FunctionField<V> value = valueTemplate.copyFunctionAttribute();
+			final FunctionField<V> value = valueTemplate.copyFunctionField();
 			registerSource(value);
 			attributes.put(key, value);
 		}

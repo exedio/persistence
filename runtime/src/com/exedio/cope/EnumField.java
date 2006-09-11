@@ -73,7 +73,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 	
 	@Override
-	public EnumField<E> copyFunctionAttribute()
+	public EnumField<E> copyFunctionField()
 	{
 		return new EnumField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}

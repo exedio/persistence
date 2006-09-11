@@ -103,7 +103,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		final FunctionField<Y>[] result = cast(new FunctionField[maximumSize]);
 		
 		for(int i = 0; i<maximumSize; i++)
-			result[i] = template.copyFunctionAttribute();
+			result[i] = template.copyFunctionField();
 
 		return result;
 	}

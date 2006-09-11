@@ -50,7 +50,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	@Override
-	public IntegerField copyFunctionAttribute()
+	public IntegerField copyFunctionField()
 	{
 		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

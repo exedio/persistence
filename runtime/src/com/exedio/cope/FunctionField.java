@@ -100,7 +100,7 @@ public abstract class FunctionField<E extends Object>
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
 	
-	public abstract FunctionField<E> copyFunctionAttribute();
+	public abstract FunctionField<E> copyFunctionField();
 
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
