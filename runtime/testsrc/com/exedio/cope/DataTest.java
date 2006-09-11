@@ -251,7 +251,7 @@ public class DataTest extends AbstractLibTest
 		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
@@ -266,7 +266,7 @@ public class DataTest extends AbstractLibTest
 		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(false, e.isLengthExact());
@@ -283,7 +283,7 @@ public class DataTest extends AbstractLibTest
 		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
@@ -335,7 +335,7 @@ public class DataTest extends AbstractLibTest
 		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
@@ -350,7 +350,7 @@ public class DataTest extends AbstractLibTest
 		catch(DataLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.data10, e.getDataAttribute());
+			assertEquals(item.data10, e.getFeature());
 			assertEquals(item.data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());

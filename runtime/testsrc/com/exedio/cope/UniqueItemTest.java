@@ -88,7 +88,7 @@ public class UniqueItemTest extends TestmodelTest
 			}
 			catch(UniqueViolationException e)
 			{
-				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getConstraint());
+				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 				assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			}
@@ -192,7 +192,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(UniqueViolationException e)
 		{
-			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getConstraint());
+			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
@@ -214,7 +214,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(FinalViolationException e)
 		{
-			assertEquals(item.uniqueFinalString, e.getFinalAttribute());
+			assertEquals(item.uniqueFinalString, e.getFeature());
 			assertEquals(item.uniqueFinalString, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("final violation on " + item + " for " + item.uniqueFinalString, e.getMessage());
@@ -247,7 +247,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
+			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("mandatory violation on " + item + " for " + item.uniqueNotNullString, e.getMessage());
 		}
@@ -263,7 +263,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
+			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("mandatory violation on a newly created item for " + item.uniqueNotNullString, e.getMessage());
 		}
@@ -275,7 +275,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.uniqueNotNullString, e.getMandatoryAttribute());
+			assertEquals(item.uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("mandatory violation on a newly created item for " + item.uniqueNotNullString, e.getMessage());
 		}
@@ -336,7 +336,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(UniqueViolationException e)
 		{
-			assertEquals(a1.doubleUnique, e.getConstraint());
+			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
@@ -352,7 +352,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(UniqueViolationException e)
 		{
-			assertEquals(a1.doubleUnique, e.getConstraint());
+			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());

@@ -191,7 +191,7 @@ public class MediaTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileBody, e.getDataAttribute());
+				assertSame(fileBody, e.getFeature());
 				assertSame(fileBody, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
@@ -206,7 +206,7 @@ public class MediaTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileBody, e.getDataAttribute());
+				assertSame(fileBody, e.getFeature());
 				assertSame(fileBody, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
@@ -221,7 +221,7 @@ public class MediaTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileBody, e.getDataAttribute());
+				assertSame(fileBody, e.getFeature());
 				assertSame(fileBody, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());

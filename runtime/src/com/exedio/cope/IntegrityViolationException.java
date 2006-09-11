@@ -22,7 +22,7 @@ package com.exedio.cope;
 /**
  * Signals, that an attempt to delete an item has been failed,
  * because some other item point to that item with some
- * {@link ItemField item attribute}.
+ * {@link ItemField item field}.
  * <p>
  * Also knows as foreign key constraint violation.
  * <p>
@@ -34,37 +34,46 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 {
 	private static final long serialVersionUID = 217658164836512l;
 	
-	private final ItemField attribute;
+	private final ItemField feature;
 
 	/**
-	 * Creates a new UniqueViolationException with the neccessary information about the violation.
+	 * Creates a new IntegrityViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param attribute initializes, what is returned by {@link #getAttribute()}.
-	 * @throws NullPointerException if <tt>item</tt> or <tt>attribute</tt> is null.
+	 * @param feature initializes, what is returned by {@link #getFeature()}.
+	 * @throws NullPointerException if <tt>item</tt> or <tt>feature</tt> is null.
 	 */
-	IntegrityViolationException(final ItemField attribute, final Item item)
+	IntegrityViolationException(final ItemField feature, final Item item)
 	{
-		super(attribute, item, null);
+		super(item, null);
 		
 		if(item==null)
 			throw new NullPointerException();
 		
-		this.attribute = attribute;
+		this.feature = feature;
 	}
 
 	/**
-	 * Returns the item attribute, for which the integrity (foreign key) constraint has been violated.
+	 * Returns the item field, for which the integrity (foreign key) constraint has been violated.
 	 * Returns null, if the violated constraint is unknown.
 	 */
+	public ItemField getFeature()
+	{
+		return feature;
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
 	public ItemField getAttribute()
 	{
-		return attribute;
+		return feature;
 	}
 	
 	@Override
 	public String getMessage()
 	{
-		return "integrity violation on deletion of " + getItemID() + " because of " + attribute;
+		return "integrity violation on deletion of " + getItemID() + " because of " + feature;
 	}
 	
 	@Override

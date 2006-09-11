@@ -140,7 +140,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		}
 		catch(UniqueViolationException e)
 		{
-			assert uniqueConstraint==e.getConstraint();
+			assert uniqueConstraint==e.getFeature();
 			return false;
 		}
 	}

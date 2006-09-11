@@ -176,7 +176,7 @@ public class AttributeEnumTest extends AttributeTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
+			assertEquals(item.someNotNullEnum, e.getFeature());
 			assertEquals(item.someNotNullEnum, e.getFeature());
 			assertEquals("mandatory violation on " + item + " for "+ item.someNotNullEnum, e.getMessage());
 		}
@@ -192,7 +192,7 @@ public class AttributeEnumTest extends AttributeTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullEnum, e.getMandatoryAttribute());
+			assertEquals(item.someNotNullEnum, e.getFeature());
 			assertEquals(item.someNotNullEnum, e.getFeature());
 			assertEquals("mandatory violation on a newly created item for " + item.someNotNullEnum, e.getMessage());
 		}

@@ -31,7 +31,7 @@ public final class LengthViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 21864323501623l;
 	
-	private final StringField stringAttribute;
+	private final StringField feature;
 	private final String value;
 	private final boolean isTooShort;
 	private final int border;
@@ -39,24 +39,33 @@ public final class LengthViolationException extends ConstraintViolationException
 	/**
 	 * Creates a new LengthViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param stringAttribute initializes, what is returned by {@link #getStringAttribute()}.
+	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationException(final StringField stringAttribute, final Item item, final String value, final boolean isTooShort, final int border)
+	public LengthViolationException(final StringField feature, final Item item, final String value, final boolean isTooShort, final int border)
 	{
-		super(stringAttribute, item, null);
-		this.stringAttribute = stringAttribute;
+		super(item, null);
+		this.feature = feature;
 		this.value = value;
 		this.isTooShort = isTooShort;
 		this.border = border;
 	}
 	
 	/**
-	 * Returns the attribute, that was attempted to be written.
+	 * Returns the field, that was attempted to be written.
 	 */
+	public StringField getFeature()
+	{
+		return feature;
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
 	public StringField getStringAttribute()
 	{
-		return stringAttribute;
+		return feature;
 	}
 
 	/**
@@ -79,7 +88,7 @@ public final class LengthViolationException extends ConstraintViolationException
 			"length violation on " + getItemID() +
 			", '" + value + "' is too " +
 			(isTooShort?"short":"long") +
-			" for "+ stringAttribute +
+			" for "+ feature +
 			", must be at " + (isTooShort?"least":"most") +
 			' ' + border + " characters.";
 	}

@@ -187,7 +187,7 @@ public class StringTest extends TestmodelTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
 		}
@@ -202,7 +202,7 @@ public class StringTest extends TestmodelTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
 		}
@@ -217,7 +217,7 @@ public class StringTest extends TestmodelTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
 		}
@@ -235,7 +235,7 @@ public class StringTest extends TestmodelTest
 		catch(MandatoryViolationException e)
 		{
 			assertTrue(!supports);
-			assertEquals(item.mandatory, e.getMandatoryAttribute());
+			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item.mandatory, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
@@ -257,7 +257,7 @@ public class StringTest extends TestmodelTest
 		catch(MandatoryViolationException e)
 		{
 			assertTrue(!supports);
-			assertEquals(item3.mandatory, e.getMandatoryAttribute());
+			assertEquals(item3.mandatory, e.getFeature());
 			assertEquals(item3.mandatory, e.getFeature());
 			assertEquals(item3, e.getItem());
 			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
@@ -273,7 +273,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4, e.getStringAttribute());
+			assertEquals(item.min4, e.getFeature());
 			assertEquals(item.min4, e.getFeature());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
@@ -301,7 +301,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.max4, e.getStringAttribute());
+			assertEquals(item.max4, e.getFeature());
 			assertEquals(item.max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(false, e.isTooShort());
@@ -324,7 +324,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getStringAttribute());
+			assertEquals(item.max4, e.getFeature());
 			assertEquals(item.max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
@@ -345,7 +345,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getStringAttribute());
+			assertEquals(item.max4, e.getFeature());
 			assertEquals(item.max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
@@ -365,7 +365,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getStringAttribute());
+			assertEquals(item.min4Max8, e.getFeature());
 			assertEquals(item.min4Max8, e.getFeature());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
@@ -396,7 +396,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getStringAttribute());
+			assertEquals(item.min4Max8, e.getFeature());
 			assertEquals(item.min4Max8, e.getFeature());
 			assertEquals("123456789", e.getValue());
 			assertEquals(false, e.isTooShort());
@@ -419,7 +419,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals(item.exact6, e.getFeature());
 			assertEquals(item.exact6, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(true, e.isTooShort());
@@ -447,7 +447,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals(item.exact6, e.getFeature());
 			assertEquals(item.exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
@@ -470,7 +470,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals(item.exact6, e.getFeature());
 			assertEquals(item.exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
@@ -492,7 +492,7 @@ public class StringTest extends TestmodelTest
 		catch(LengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.exact6, e.getStringAttribute());
+			assertEquals(item.exact6, e.getFeature());
 			assertEquals(item.exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());

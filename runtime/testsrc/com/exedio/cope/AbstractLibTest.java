@@ -211,10 +211,10 @@ public abstract class AbstractLibTest extends CopeTest
 		}
 		catch(IntegrityViolationException e)
 		{
-			assertEquals(attribute, e.getAttribute());
+			assertEquals(attribute, e.getFeature());
 			assertEquals(attribute, e.getFeature());
 			assertEquals(itemToBeDeleted, e.getItem());
-			assertEquals("integrity violation on deletion of " + itemToBeDeleted.getCopeID() + " because of " + e.getAttribute(), e.getMessage());
+			assertEquals("integrity violation on deletion of " + itemToBeDeleted.getCopeID() + " because of " + e.getFeature(), e.getMessage());
 		}
 		assertTrue(item.existsCopeItem());
 	}

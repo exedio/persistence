@@ -111,7 +111,7 @@ public class AttributeItemTest extends AttributeTest
 		catch (MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
+			assertEquals(item.someNotNullItem, e.getFeature());
 			assertEquals(item.someNotNullItem, e.getFeature());
 			assertEquals("mandatory violation on " + item + " for " + item.someNotNullItem, e.getMessage());
 		}
@@ -126,7 +126,7 @@ public class AttributeItemTest extends AttributeTest
 		catch(MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullItem, e.getMandatoryAttribute());
+			assertEquals(item.someNotNullItem, e.getFeature());
 			assertEquals(item.someNotNullItem, e.getFeature());
 			assertEquals("mandatory violation on a newly created item for " + item.someNotNullItem, e.getMessage());
 		}

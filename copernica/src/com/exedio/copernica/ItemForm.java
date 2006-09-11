@@ -497,8 +497,8 @@ final class ItemForm extends Form
 		}
 		catch(MandatoryViolationException e)
 		{
-			final Field field = getFieldByKey(e.getMandatoryAttribute());
-			field.error = "error.notnull:"+e.getMandatoryAttribute().toString();
+			final Field field = getFieldByKey(e.getFeature());
+			field.error = "error.notnull:"+e.getFeature().toString();
 		}
 		catch(FinalViolationException e)
 		{
@@ -506,17 +506,17 @@ final class ItemForm extends Form
 		}
 		catch(UniqueViolationException e)
 		{
-			final Field field = getFieldByKey(e.getConstraint().getUniqueAttributes().iterator().next());
+			final Field field = getFieldByKey(e.getFeature().getUniqueAttributes().iterator().next());
 			field.error = e.getClass().getName();
 		}
 		catch(LengthViolationException e)
 		{
-			final Field field = getFieldByKey(e.getStringAttribute());
+			final Field field = getFieldByKey(e.getFeature());
 			field.error = e.getClass().getName();
 		}
 		catch(CustomAttributeException e)
 		{
-			final Field field = getFieldByKey(e.getAttribute());
+			final Field field = getFieldByKey(e.getFeature());
 			field.error = e.getClass().getName();
 		}
 	}

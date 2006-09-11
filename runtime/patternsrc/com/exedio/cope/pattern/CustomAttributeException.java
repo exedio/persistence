@@ -26,17 +26,26 @@ public final class CustomAttributeException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 182648164823110l;
 	
-	final CustomAttribute attribute;
+	final CustomAttribute feature;
 	
-	public CustomAttributeException(final CustomAttribute attribute, final Item item, final Throwable cause)
+	public CustomAttributeException(final CustomAttribute feature, final Item item, final Throwable cause)
 	{
-		super(attribute, item, cause);
-		this.attribute = attribute;
+		super(item, cause);
+		this.feature = feature;
 	}
 	
+	public CustomAttribute getFeature()
+	{
+		return feature;
+	}
+
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
 	public CustomAttribute getAttribute()
 	{
-		return attribute;
+		return feature;
 	}
 	
 }

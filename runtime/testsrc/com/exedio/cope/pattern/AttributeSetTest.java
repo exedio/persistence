@@ -148,7 +148,7 @@ public class AttributeSetTest extends AbstractLibTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(item.dates.getElement(), e.getMandatoryAttribute());
+			assertEquals(item.dates.getElement(), e.getFeature());
 		}
 		assertContains(date1, item.getDates()); // TODO should be list(date1, date2)
 		assertEquals(1, item.dates.getRelationType().newQuery(null).search().size());

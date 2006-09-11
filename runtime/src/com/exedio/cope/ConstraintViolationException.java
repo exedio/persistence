@@ -26,24 +26,15 @@ package com.exedio.cope;
  */
 public abstract class ConstraintViolationException extends RuntimeException
 {
-	private final Feature feature;
 	private final Item item;
 
-	public ConstraintViolationException(final Feature feature, final Item item, final Throwable cause)
+	public ConstraintViolationException(final Item item, final Throwable cause)
 	{
 		super(cause);
-		
-		if(feature==null)
-			throw new NullPointerException();
-
-		this.feature = feature;
 		this.item = item;
 	}
 	
-	public final Feature getFeature()
-	{
-		return feature;
-	}
+	public abstract Feature getFeature();
 	
 	/**
 	 * Returns the item that was attempted to be modified.

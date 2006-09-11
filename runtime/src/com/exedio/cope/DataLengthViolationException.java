@@ -31,25 +31,25 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 {
 	private static final long serialVersionUID = 1982536426881212456l;
 	
-	private final DataField dataAttribute;
+	private final DataField feature;
 	private final long length;
 	private final boolean lengthExact;
 	
 	/**
 	 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param dataAttribute initializes, what is returned by {@link #getDataAttribute()}.
+	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param length initializes, what is returned by {@link #getLength()}.
 	 * @param lengthExact initializes, what is returned by {@link #isLengthExact()}.
 	 */
-	public DataLengthViolationException(final DataField dataAttribute, final Item item, final long length, final boolean lengthExact)
+	public DataLengthViolationException(final DataField feature, final Item item, final long length, final boolean lengthExact)
 	{
-		super(dataAttribute, item, null);
+		super(item, null);
 		
-		if(length<dataAttribute.getMaximumLength())
-			throw new RuntimeException(dataAttribute.toString()+'/'+length+'/'+dataAttribute.getMaximumLength());
+		if(length<feature.getMaximumLength())
+			throw new RuntimeException(feature.toString()+'/'+length+'/'+feature.getMaximumLength());
 		
-		this.dataAttribute = dataAttribute;
+		this.feature = feature;
 		this.length = length;
 		this.lengthExact = lengthExact;
 	}
@@ -57,9 +57,18 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
+	public DataField getFeature()
+	{
+		return feature;
+	}
+
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
 	public DataField getDataAttribute()
 	{
-		return dataAttribute;
+		return feature;
 	}
 
 	/**
@@ -89,7 +98,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 			"length violation on " + getItemID() +
 			", " + length + " bytes " +
 			(lengthExact ? "" : "or more ") +
-			"is too long for " + dataAttribute;
+			"is too long for " + feature;
 	}
 	
 	@Override

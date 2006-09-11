@@ -108,7 +108,7 @@ public class CustomTest extends AbstractLibTest
 		}
 		catch(CustomAttributeException e)
 		{
-			assertSame(item.number, e.getAttribute());
+			assertSame(item.number, e.getFeature());
 			assertSame(item.number, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("test exception:-2", e.getCause().getMessage());
@@ -124,7 +124,7 @@ public class CustomTest extends AbstractLibTest
 		}
 		catch(CustomAttributeException e)
 		{
-			assertSame(item.number, e.getAttribute());
+			assertSame(item.number, e.getFeature());
 			assertSame(item.number, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("java.io.IOException: test exception:-2", e.getMessage());
@@ -139,7 +139,7 @@ public class CustomTest extends AbstractLibTest
 		}
 		catch(CustomAttributeException e)
 		{
-			assertSame(item.number, e.getAttribute());
+			assertSame(item.number, e.getFeature());
 			assertSame(item.number, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("test exception:-2", e.getCause().getMessage());

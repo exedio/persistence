@@ -21,12 +21,12 @@ package com.exedio.cope;
 import java.sql.SQLException;
 
 /**
- * Signals, that an attempt to write an attribute has been failed,
+ * Signals, that an attempt to write an field has been failed,
  * and the value to be set violated a unique constraint.
  *
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
  * and item constructors
- * if that attribute is covered by a {@link UniqueConstraint unique constraint}
+ * if that field is covered by a {@link UniqueConstraint unique constraint}
  * and the value to be set violated the uniqueness.
  *
  * @author Ralf Wiebicke
@@ -35,36 +35,45 @@ public final class UniqueViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 2834521945195l;
 	
-	private final UniqueConstraint constraint;
+	private final UniqueConstraint feature;
 	
 	/**
 	 * Creates a new UniqueViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param constraint initializes, what is returned by {@link #getConstraint()}.
+	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>constraint</tt> is null.
 	 */
-	UniqueViolationException(final UniqueConstraint constraint, final Item item, final SQLException cause)
+	UniqueViolationException(final UniqueConstraint feature, final Item item, final SQLException cause)
 	{
-		super(constraint, item, cause);
+		super(item, cause);
 		
 		if(cause==null)
 			throw new NullPointerException();
 		
-		this.constraint = constraint;
+		this.feature = feature;
 	}
 	
 	/**
 	 * Returns the violated constraint.
 	 */
+	public UniqueConstraint getFeature()
+	{
+		return feature;
+	}
+
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
 	public UniqueConstraint getConstraint()
 	{
-		return constraint;
+		return feature;
 	}
 	
 	@Override
 	public String getMessage()
 	{
-		return "unique violation for " + constraint;
+		return "unique violation for " + feature;
 	}
 	
 	@Override

@@ -35,31 +35,40 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 {
 	private static final long serialVersionUID = 37264512124982l;
 	
-	private final Field mandatoryAttribute;
+	private final Field feature;
 	
 	/**
 	 * Creates a new MandatoryViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param mandatoryAttribute initializes, what is returned by {@link #getMandatoryAttribute()}.
+	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	MandatoryViolationException(final Field mandatoryAttribute, final Item item)
+	MandatoryViolationException(final Field feature, final Item item)
 	{
-		super(mandatoryAttribute, item, null);
-		this.mandatoryAttribute = mandatoryAttribute;
+		super(item, null);
+		this.feature = feature;
 	}
 	
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
+	public Field getFeature()
+	{
+		return feature;
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
 	public Field getMandatoryAttribute()
 	{
-		return mandatoryAttribute;
+		return feature;
 	}
 
 	@Override
 	public String getMessage()
 	{
-		return "mandatory violation on " + getItemID() + " for " + mandatoryAttribute;
+		return "mandatory violation on " + getItemID() + " for " + feature;
 	}
 	
 	@Override

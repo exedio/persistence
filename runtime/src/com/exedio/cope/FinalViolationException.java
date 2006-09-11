@@ -31,35 +31,44 @@ public final class FinalViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 19862582163486l;
 	
-	private final Field finalAttribute;
+	private final Field feature;
 	
 	/**
 	 * Creates a new FinalViolationException with the neccessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param finalAttribute initializes, what is returned by {@link #getFinalAttribute()}.
+	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	public FinalViolationException(final Field finalAttribute, final Item item)
+	public FinalViolationException(final Field feature, final Item item)
 	{
-		super(finalAttribute, item, null);
+		super(item, null);
 		
 		if(item==null)
 			throw new NullPointerException();
 		
-		this.finalAttribute = finalAttribute;
+		this.feature = feature;
 	}
 	
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
-	public Field getFinalAttribute()
+	public Field getFeature()
 	{
-		return finalAttribute;
+		return feature;
 	}
 
+	/**
+	 * @deprecated Renamed to {@link #getFeature()}.
+	 */
+	@Deprecated
+	public Field getFinalAttribute()
+	{
+		return feature;
+	}
+	
 	@Override
 	public String getMessage()
 	{
-		return "final violation on " + getItemID() + " for " + finalAttribute;
+		return "final violation on " + getItemID() + " for " + feature;
 	}
 	
 	@Override
