@@ -10,12 +10,11 @@ public class Customer extends Item
    /**
     * The unique email address of the customer.
     */
-   public static final StringField email =
-       new StringField(UNIQUE);
+   static final StringField email = new StringField(UNIQUE);
 
    /**
     * The password of the customer, transparently
     * md5-encoded.
     */
-   public static final MD5Hash password = new MD5Hash();
+   static final MD5Hash password = new MD5Hash();
 }
