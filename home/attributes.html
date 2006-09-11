@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>COPE - Attribute Trail</title>
+		<title>COPE - Field Trail</title>
 		<meta name="keywords" content="Persistence, Java">
 		<meta name="description" content="COPE - a persistence framework for Java">
 		<link rel="stylesheet" href="cope.css">
@@ -12,7 +12,7 @@
 		<h1><a href="index.html">COPE</a></h1>
 		<div>Cope with Object Persistence</div>
 		
-		<h2>Attribute Trail</h2>
+		<h2>Field Trail</h2>
 		<a href="http://sourceforge.net/">
 			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
 				class="sf" alt="SourceForge.net Logo" />
@@ -28,9 +28,9 @@
 			<li><a href="#common">Common Primitives</a></li>
 			<li><a href="#null">Allowing Null</a></li>
 			<li><a href="#defaults">Default Values</a></li>
-			<li><a href="#unique">Unique Attributes</a></li>
-			<li><a href="#enum">Enum Attributes</a></li>
-			<li><a href="#item">Item Attributes</a></li>
+			<li><a href="#unique">Unique Fields</a></li>
+			<li><a href="#enum">Enum Fields</a></li>
+			<li><a href="#item">Item Fields</a></li>
 			<li><a href="#further">Further Reading</a></li>
 		</ul>
 		<h3><a name="common">Common Primitives</a></h3>
@@ -42,16 +42,16 @@
 <pre>
 class Customer extends Item
 {
-   static final StringAttribute email =
-       new StringAttribute();
-   static final DateAttribute registrationDate =
-       new DateAttribute();
-   static final LongAttribute loginCounter =
-       new LongAttribute();
-   static final IntegerAttribute subsequentLoginFailures =
-       new IntegerAttribute();
-   static final DoubleAttribute priceCoefficient =
-       new DoubleAttribute();
+   static final StringField email =
+       new StringField();
+   static final DateField registrationDate =
+       new DateField();
+   static final LongField loginCounter =
+       new LongField();
+   static final IntegerField subsequentLoginFailures =
+       new IntegerField();
+   static final DoubleField priceCoefficient =
+       new DoubleField();
 }
 </pre>
 		<div>
@@ -68,8 +68,8 @@ class Customer extends Item
 			You can easily change this to <i>optional</i>.
 		</div>
 <pre>
-static final LongAttribute loginCounter =
-    new LongAttribute(<b>OPTIONAL</b>);
+static final LongField loginCounter =
+    new LongField(<b>OPTIONAL</b>);
 </pre>
 		<div>
 			When you run the instrumentor, you may notice
@@ -87,8 +87,8 @@ static final LongAttribute loginCounter =
 /**
  * <b>@cope.initial</b>
  */
-static final LongAttribute loginCounter =
-    new LongAttribute(OPTIONAL);
+static final LongField loginCounter =
+    new LongField(OPTIONAL);
 </pre>
 				</li>
 				<li>
@@ -117,8 +117,8 @@ void setLoginCounter(<b>Long</b> loginCounter) { ... }
 			This can be specified by:
 		</div>
 <pre>
-static final LongAttribute loginCounter =
-    new LongAttribute()<b>.defaultTo(0l)</b>;
+static final LongField loginCounter =
+    new LongField()<b>.defaultTo(0l)</b>;
 </pre>
 		<div>
 			In the instrumented code the type for setter/getter
@@ -133,18 +133,18 @@ static final LongAttribute loginCounter =
 			Use instead:
 		</div>
 <pre>
-static final DateAttribute registrationDate =
-    new DateAttribute()<b>.defaultToNow()</b>;
+static final DateField registrationDate =
+    new DateField()<b>.defaultToNow()</b>;
 </pre>
-		<h3><a name="unique">Unique Attributes</a></h3>
+		<h3><a name="unique">Unique Fields</a></h3>
 		<div>
 			Probably you wouldn't want to have more than one customer
 			for any given email address.
 			Peace of cake:
 		</div>
 <pre>
-static final StringAttribute email =
-    new StringAttribute(<b>UNIQUE</b>);
+static final StringField email =
+    new StringField(<b>UNIQUE</b>);
 </pre>
 		<div>
 			If you violate this unique constraint either via a
@@ -167,15 +167,15 @@ static final Customer findByEmail(String email);
 <pre>
 class MatrixElement extends Item
 {
-   static final IntegerAttribute x =
-       new IntegerAttribute();
-   static final IntegerAttribute y =
-       new IntegerAttribute();
+   static final IntegerField x =
+       new IntegerField();
+   static final IntegerField y =
+       new IntegerField();
    static final UniqueConstraint xy =
        new UniqueConstraint(x, y);
 }
 </pre>
-		<h3><a name="enum">Enum Attributes</a></h3>
+		<h3><a name="enum">Enum Fields</a></h3>
 		<div>
 			A common pattern in persistent models are attributes,
 			the can have a value out of a predefined set of values.
@@ -193,11 +193,11 @@ class Customer extends Item
       PLATINUM,
    }
 
-   static final EnumAttribute&lt;Status&gt; status =
-       newEnumAttribute(Status.class);
+   static final EnumField&lt;Status&gt; status =
+       newEnumField(Status.class);
 }
 </pre>
-		<h3><a name="item">Item Attributes</a></h3>
+		<h3><a name="item">Item Fields</a></h3>
 		<div>
 			An item attributes stores a reference to another persistent item.
 			It's the object oriented counter part of
@@ -209,15 +209,15 @@ class Customer extends Item
 <pre>
 class ProductGroup extends Item
 {
-   static final StringAttribute name =
-       new StringAttribute();
+   static final StringField name =
+       new StringField();
 }
 </pre>
 <pre>
 class Product extends Item
 {
-   static final ItemAttribute&lt;ProductGroup&gt; productGroup =
-       newItemAttribute(ProductGroup.class);
+   static final ItemField&lt;ProductGroup&gt; productGroup =
+       newItemField(ProductGroup.class);
 }
 </pre>
 		<div>
@@ -230,8 +230,8 @@ class Product extends Item
 			To achive this, change the <i>delete policy</i> to <i>cascade</i>.
 		</div>
 <pre>
-static final ItemAttribute&lt;ProductGroup&gt; productGroup =
-    newItemAttribute(ProductGroup.class, <b>CASCADE</b>);
+static final ItemField&lt;ProductGroup&gt; productGroup =
+    newItemField(ProductGroup.class, <b>CASCADE</b>);
 </pre>
 		<div>
 			Yet another alternative is to set the item attribute to null
@@ -239,8 +239,8 @@ static final ItemAttribute&lt;ProductGroup&gt; productGroup =
 			This is done by:
 		</div>
 <pre>
-static final ItemAttribute&lt;ProductGroup&gt; productGroup =
-    newItemAttribute(<b>OPTIONAL</b>, ProductGroup.class, <b>NULLIFY</b>);
+static final ItemField&lt;ProductGroup&gt; productGroup =
+    newItemField(<b>OPTIONAL</b>, ProductGroup.class, <b>NULLIFY</b>);
 </pre>
 		<div>
 			Of course <i>nullify</i> makes no sense for a <i>mandatory</i> attribute,
@@ -260,7 +260,7 @@ static final ItemAttribute&lt;ProductGroup&gt; productGroup =
 					gives you an introduction into the searching capabilities of cope.
 				</li>
 				<li>
-					<a href="attributes2.html">Attribute Reloaded Trail</a>
+					<a href="attributes2.html">Field Reloaded Trail</a>
 					covers all the more specific possibilities to store data with cope.
 				</li>
 				<li>

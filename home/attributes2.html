@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>COPE - Attribute Reloaded Trail</title>
+		<title>COPE - Field Reloaded Trail</title>
 		<meta name="keywords" content="Persistence, Java">
 		<meta name="description" content="COPE - a persistence framework for Java">
 		<link rel="stylesheet" href="cope.css">
@@ -12,25 +12,25 @@
 		<h1><a href="index.html">COPE</a></h1>
 		<div>Cope with Object Persistence</div>
 		
-		<h2>Attribute Reloaded Trail</h2>
+		<h2>Field Reloaded Trail</h2>
 		<a href="http://sourceforge.net/">
 			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
 				class="sf" alt="SourceForge.net Logo" />
 		</a>
 		<div>
-			While the <a href="attributes.html">Attribute Trail</a>
+			While the <a href="attributes.html">Field Trail</a>
 			covered the most fundamental attributes only,
 			this trails shows you some more special ways to store data with COPE.
 			Although most of the features below are not attributes in a formal sense
-			(means subclasses of class <a href="api/com/exedio/cope/Attribute.html">Attribute</a>)
+			(means subclasses of class <a href="api/com/exedio/cope/Field.html">Field</a>)
 			you don't have to care about this until you want to develop such features yourself.
 		</div>
 		<h3><a name="contents">Contents</a></h3>
 		<ul>
 			<li><a href="#hashes">Hashes</a></li>
-			<li><a href="#attributelists">Attribute Lists</a></li>
-			<li><a href="#attributemaps">Attribute Maps</a></li>
-			<li><a href="#dayattributes">Day Attributes</a></li>
+			<li><a href="#attributelists">Field Lists</a></li>
+			<li><a href="#attributemaps">Field Maps</a></li>
+			<li><a href="#dayattributes">Day Fields</a></li>
 			<li><a href="#further">Further Reading</a></li>
 		</ul>
 		<h3><a name="hashes">Hashes</a></h3>
@@ -57,15 +57,15 @@ boolean checkPassword(String password)
 			you can choose any hash algorithm provided by the java.security package
 			or even implement a custom algorithm.
 		</div>
-		<h3><a name="attributelists">Attribute Lists</a></h3>
+		<h3><a name="attributelists">Field Lists</a></h3>
 		<div>
 			Sometimes you may want to store multiple values for an attribute,
 			such as multiple email addresses for the customer.
 			This can be achieved with <i>attribute lists</i>:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/pattern/AttributeList.html">AttributeList</a>&lt;String&gt; emails =
-    <a href="api/com/exedio/cope/pattern/AttributeList.html">AttributeList</a>.<a href="api/com/exedio/cope/pattern/AttributeList.html#newList(com.exedio.cope.FunctionAttribute)">newList</a>(new StringAttribute());
+static final <a href="api/com/exedio/cope/pattern/FieldList.html">FieldList</a>&lt;String&gt; emails =
+    <a href="api/com/exedio/cope/pattern/FieldList.html">FieldList</a>.<a href="api/com/exedio/cope/pattern/FieldList.html#newList(com.exedio.cope.FunctionField)">newList</a>(new StringField());
 </pre>
 		<div>
 			Internally this is implemented by an extra table in the database,
@@ -74,24 +74,24 @@ static final <a href="api/com/exedio/cope/pattern/AttributeList.html">AttributeL
 			you may decide to use a <i>limited attribute list</i>:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/pattern/AttributeListLimited.html">AttributeListLimited</a>&lt;String&gt; emails =
-    <a href="api/com/exedio/cope/pattern/AttributeListLimited.html">AttributeListLimited</a>.<a href="api/com/exedio/cope/pattern/AttributeListLimited.html#newList(com.exedio.cope.FunctionAttribute, int)">newList</a>(new StringAttribute(OPTIONAL), 4);
+static final <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>&lt;String&gt; emails =
+    <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>.<a href="api/com/exedio/cope/pattern/FieldListLimited.html#newList(com.exedio.cope.FunctionField, int)">newList</a>(new StringField(OPTIONAL), 4);
 </pre>
 		<div>
 			Internally there are 4 string attributes used for storing the elements of the list.
 			If someone tries to store a list of more than 4 elements,
 			an exception is thrown.
 		</div>
-		<h3><a name="attributemaps">Attribute Maps</a></h3>
+		<h3><a name="attributemaps">Field Maps</a></h3>
 		<div>
 			Especially in international applications you may want to store multiple attribute values,
 			such as one price of a product for each country or one description for each language.
 			The following example specifies the latter:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newItemAttribute(Language.class),
-                        new StringAttribute());
+static final <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>.<a href="api/com/exedio/cope/pattern/FieldMap.html#newMap(com.exedio.cope.FunctionField, com.exedio.cope.FunctionField)">newMap</a>(newItemField(Language.class),
+                        new StringField());
 </pre>
 		<div>
 			The instrumentor will create appropriate methods for accessing the <i>attribute map</i>:
@@ -115,9 +115,9 @@ void setDescription(Language k, String description)
 <pre>
 static enum Language { DE, EN, PL; }
 
-static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMap</a>.<a href="api/com/exedio/cope/pattern/AttributeMap.html#newMap(com.exedio.cope.FunctionAttribute, com.exedio.cope.FunctionAttribute)">newMap</a>(newEnumAttribute(Language.class),
-                        new StringAttribute());
+static final <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>.<a href="api/com/exedio/cope/pattern/FieldMap.html#newMap(com.exedio.cope.FunctionField, com.exedio.cope.FunctionField)">newMap</a>(newEnumField(Language.class),
+                        new StringField());
 </pre>
 		<div>
 			As with <i>attribute lists</i> this is implemented by an extra table in the database,
@@ -128,18 +128,18 @@ static final <a href="api/com/exedio/cope/pattern/AttributeMap.html">AttributeMa
 <pre>
 static enum Language { DE, EN, PL; }
 
-static final <a href="api/com/exedio/cope/pattern/AttributeMapLimited.html">AttributeMapLimited</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/AttributeMapLimited.html">AttributeMapLimited</a>.<a href="api/com/exedio/cope/pattern/AttributeMapLimited.html#newMap(java.lang.Class, com.exedio.cope.FunctionAttribute)">newMap</a>(Language.class,
-                        new StringAttribute(OPTIONAL));
+static final <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMapLimited</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMapLimited</a>.<a href="api/com/exedio/cope/pattern/FieldMapLimited.html#newMap(java.lang.Class, com.exedio.cope.FunctionField)">newMap</a>(Language.class,
+                        new StringField(OPTIONAL));
 </pre>
 		<div>
 			Internally three string attributes
 			<tt>nameDE</tt>, <tt>nameEN</tt>, <tt>namePL</tt>
 			are used for storing the values of the map.
 		</div>
-		<h3><a name="dayattributes">Day Attributes</a></h3>
+		<h3><a name="dayattributes">Day Fields</a></h3>
 		<div>
-			Class <a href="api/com/exedio/cope/DateAttribute.html">DateAttribute</a>
+			Class <a href="api/com/exedio/cope/DateField.html">DateField</a>
 			already stores time stamps with millisecond precision.
 			However, sometimes you just want to store a day.
 			Millisecond precision is then just an additional source for mistakes.
@@ -148,7 +148,7 @@ static final <a href="api/com/exedio/cope/pattern/AttributeMapLimited.html">Attr
 			To define a <i>day attribute</i> within a type write:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/DayAttribute.html">DayAttribute</a> dateOfBirth = new <a href="api/com/exedio/cope/DayAttribute.html#DayAttribute()">DayAttribute</a>();
+static final <a href="api/com/exedio/cope/DayField.html">DayField</a> dateOfBirth = new <a href="api/com/exedio/cope/DayField.html#DayField()">DayField</a>();
 </pre>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>

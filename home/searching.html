@@ -45,10 +45,10 @@
 <pre>
 class Customer extends <a href="api/com/exedio/cope/Item.html">Item</a>
 {
-   static final <a href="api/com/exedio/cope/StringAttribute.html">StringAttribute</a> email =
-       new <a href="api/com/exedio/cope/StringAttribute.html#StringAttribute()">StringAttribute</a>();
-   static final <a href="api/com/exedio/cope/IntegerAttribute.html">IntegerAttribute</a> loginCounter =
-       new <a href="api/com/exedio/cope/IntegerAttribute.html#IntegerAttribute()">IntegerAttribute</a>();
+   static final <a href="api/com/exedio/cope/StringField.html">StringField</a> email =
+       new <a href="api/com/exedio/cope/StringField.html#StringField()">StringField</a>();
+   static final <a href="api/com/exedio/cope/IntegerField.html">IntegerField</a> loginCounter =
+       new <a href="api/com/exedio/cope/IntegerField.html#IntegerField()">IntegerField</a>();
 }
 </pre>
 		<div>
@@ -256,10 +256,10 @@ Integer maximumLoginCounter = q.searchSingleton();
 <pre>
 class Order extends <a href="api/com/exedio/cope/Item.html">Item</a>
 {
-   static final <a href="api/com/exedio/cope/ItemAttribute.html">ItemAttribute</a>&lt;Customer&gt; buyer =
-       <a href="api/com/exedio/cope/Item.html#newItemAttribute(java.lang.Class)">newItemAttribute</a>(Customer.class);
-   static final <a href="api/com/exedio/cope/DoubleAttribute.html">DoubleAttribute</a> total =
-       new <a href="api/com/exedio/cope/DoubleAttribute.html#DoubleAttribute()">DoubleAttribute</a>();
+   static final <a href="api/com/exedio/cope/ItemField.html">ItemField</a>&lt;Customer&gt; buyer =
+       <a href="api/com/exedio/cope/Item.html#newItemField(java.lang.Class)">newItemField</a>(Customer.class);
+   static final <a href="api/com/exedio/cope/DoubleField.html">DoubleField</a> total =
+       new <a href="api/com/exedio/cope/DoubleField.html#DoubleField()">DoubleField</a>();
 }
 </pre>
 		<div>
@@ -291,7 +291,7 @@ q.join(Order.TYPE, Order.buyer.<b>equalTarget()</b>);
 					tells you how to use transactions in cope.
 				</li>
 				<li>
-					<a href="attributes2.html">Attribute Reloaded Trail</a>
+					<a href="attributes2.html">Field Reloaded Trail</a>
 					covers all the more specific possibilities to store data with cope.
 				</li>
 				<li>
