@@ -11,14 +11,14 @@
 					classname="com.exedio.jspm.AntTask"
 					classpath="lib/exedio-jspm.jar" />
 	</target>
-
+	
 	<path id="emma.lib">
 		<pathelement location="lib/emma.jar" />
 		<pathelement location="lib/emma_ant.jar" />
 	</path>
-
+	
 	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
-
+	
 	<macrodef name="ljavac">
 		<attribute name="srcdir" />
 		<attribute name="destdir" />
@@ -39,7 +39,7 @@
 			</javac>
 		</sequential>
 	</macrodef>
-
+	
 	<macrodef name="ljar">
 		<attribute name="jarfile" />
 		<attribute name="name" />
@@ -61,7 +61,7 @@
 			</jar>
 		</sequential>
 	</macrodef>
-
+	
 	<macrodef name="foreachdb">
 		<attribute name="skipSwitch" />
 		<element name="body" optional="false" />
@@ -98,22 +98,22 @@
 			</for>
 		</sequential>
 	</macrodef>
-
+	
 	<target name="local.properties">
 		<property file="local.properties" />
 	</target>
-
+	
 	<target name="catalina.home" depends="local.properties">
 		<property name="catalina.home" value="../tomcat" />
 		<echo message="assuming tomcat in directory ${catalina.home}" />
 	</target>
-
+	
 	<!-- dsmf -->
-
+	
 	<target name="dsmf.compile">
 		<ljavac srcdir="dsmf/src" destdir="build/runtime/classes" />
 	</target>
-
+	
 	<target name="dsmf.test.compile" depends="dsmf.compile, runtime.compile">
 		<ljavac srcdir="dsmf/testsrc" destdir="build/dsmf/testclasses">
 			<classpath>
@@ -122,7 +122,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="dsmf.test" depends="dsmf.test.compile">
 		<mkdir dir="build/testresults" />
 		<foreachdb skipSwitch="dsmf.test">
@@ -144,13 +144,13 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="dsmf.clean">
 		<delete dir="build/dsmf" />
 	</target>
-
+	
 	<!-- runtime -->
-
+	
 	<target name="runtime.core.compile" depends="dsmf.compile">
 		<ljavac srcdir="runtime/src" destdir="build/runtime/classes">
 			<classpath>
@@ -158,7 +158,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="runtime.driver.compile" depends="runtime.core.compile">
 		<for param="driver.file">
 			<path>
@@ -182,7 +182,7 @@
 	<target name="runtime.pattern.compile" depends="runtime.core.compile">
 		<ljavac srcdir="runtime/patternsrc" destdir="build/runtime/classes" />
 	</target>
-
+	
 	<target name="runtime.servlet.compile" depends="runtime.core.compile">
 		<ljavac srcdir="runtime/servletsrc" destdir="build/runtime/classes">
 			<classpath>
@@ -190,7 +190,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="runtime.junit.compile" depends="runtime.core.compile">
 		<ljavac srcdir="runtime/junitsrc" destdir="build/runtime/classes">
 			<classpath>
@@ -198,14 +198,14 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="runtime.compile"
 				depends="runtime.core.compile,
 							runtime.driver.compile,
 							runtime.pattern.compile,
 							runtime.servlet.compile,
 							runtime.junit.compile" />
-
+	
 	<target name="runtime.jar" depends="runtime.compile">
 		<copy file="build/runtime/testprotocol.properties"
 				todir="build/runtime/classes/com/exedio/cope"
@@ -214,7 +214,7 @@
 			<fileset dir="build/runtime/classes" />
 		</ljar>
 	</target>
-
+	
 	<target name="runtime.testmodel.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
 			<fileset dir="runtime/testmodelsrc/com/exedio/cope/testmodel">
@@ -230,7 +230,7 @@
 			</fileset>
 		</instrument>
 	</target>
-
+	
 	<target name="runtime.testmodel.compile" depends="runtime.testmodel.instrument">
 		<ljavac srcdir="runtime/testmodelsrc" destdir="build/runtime/testmodelclasses">
 			<classpath>
@@ -239,7 +239,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="runtime.test.compile"
 			depends="runtime.testmodel.compile, runtime.junit.compile">
 		<ljavac srcdir="runtime/testsrc" destdir="build/runtime/testclasses">
@@ -251,7 +251,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.compile">
 		<ljar name="cope test" jarfile="build/exedio-cope-test.jar" classpath="exedio-cope.jar junit.jar">
 			<fileset dir="build/dsmf/testclasses" />
@@ -259,7 +259,7 @@
 			<fileset dir="build/runtime/testmodelclasses" />
 		</ljar>
 	</target>
-
+	
 	<target name="runtime.test" depends="runtime.test.compile">
 		<delete file="build/runtime/testprotocol.properties" />
 		<mkdir dir="build/testresults" />
@@ -309,7 +309,7 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
 		<foreachdb skipSwitch="runtime.teardown">
 			<body>
@@ -341,7 +341,7 @@
 
 	<target name="runtime.emma" depends="runtime.test.compile">
 		<!-- TODO does not yet work -->
-
+		
 		<delete file="metadata.emma" />
 		<emma>
 			<instr destdir="build/runtime/classes.emma" metadatafile="metadata.emma" merge="no">
@@ -350,7 +350,7 @@
 				</instrpath>
 			</instr>
 		</emma>
-
+		
 		<foreachdb skipSwitch="runtime.test">
 			<body>
 				<mkdir dir="build/runtime/emma.@{db}/data" />
@@ -388,7 +388,7 @@
 		<foreachdb skipSwitch="runtime.testwebapp">
 			<body>
 				<mkdir dir="build/runtime/testwebapp-@{db}" />
-
+				
 				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testclasses" />
@@ -396,18 +396,18 @@
 					<fileset dir="build/console/classes" />
 					<fileset dir="build/copernica/classes" />
 				</copy>
-
+				
 				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="lib/pcj.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{db.driver}" />
 				</copy>
-
+				
 				<path id="runtime.webdatadir.@{db.file}.path">
 					<pathelement location="build/runtime/testwebapp-@{db}-data" />
 				</path>
 				<pathconvert targetos="unix" property="runtime.webdatadir.@{db.file}" refid="runtime.webdatadir.@{db.file}.path" />
-
+				
 				<copy tofile="build/runtime/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
 					<filterset>
@@ -421,7 +421,7 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="runtime.tomcat" depends="runtime.testwebapp, catalina.home">
 		<foreachdb skipSwitch="runtime.tomcat">
 			<body>
@@ -434,7 +434,7 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="runtime.clean" depends="catalina.home">
 		<delete dir="build/runtime" />
 		<delete>
@@ -443,9 +443,9 @@
 			</fileset>
 		</delete>
 	</target>
-
+	
 	<!-- instrument -->
-
+	
 	<target name="instrument.core.compile" depends="runtime.compile">
 		<ljavac srcdir="instrument/src" destdir="build/instrument/classes">
 			<classpath>
@@ -454,7 +454,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="instrument.ant.compile" depends="runtime.compile, instrument.core.compile">
 		<ljavac srcdir="instrument/antsrc" destdir="build/instrument/classes" includeAntRuntime="true">
 			<classpath>
@@ -463,7 +463,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />
 
 	<target name="instrument.jar" depends="instrument.compile">
@@ -471,7 +471,7 @@
 			<fileset dir="build/instrument/classes" />
 		</ljar>
 	</target>
-
+	
 	<target name="instrument.taskdef" depends="runtime.compile, instrument.compile">
 		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
 			<classpath>
@@ -483,7 +483,7 @@
 			</classpath>
 		</taskdef>
 	</target>
-
+	
 	<target name="instrument.test.instrument" depends="instrument.taskdef">
 		<instrument verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
@@ -491,7 +491,7 @@
 			</fileset>
 		</instrument>
 	</target>
-
+	
 	<target name="instrument.test.compile" depends="instrument.test.instrument, runtime.compile, instrument.compile">
 		<ljavac srcdir="instrument/testsrc" destdir="build/instrument/testclasses">
 			<classpath>
@@ -506,7 +506,7 @@
 			</fileset>
 		</copy>
 	</target>
-
+	
 	<target name="instrument.test"
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
 		<mkdir dir="build/testresults" />
@@ -527,19 +527,19 @@
 			<assertions><enable/></assertions>
 		</junit>
 	</target>
-
+	
 	<target name="instrument.clean">
 		<delete dir="build/instrument" />
 	</target>
-
+	
 	<!-- console -->
-
+	
 	<target name="console.jspm" depends="jspm.taskdef">
 		<jspm>
 			<fileset dir="console/src" includes="**/*.jspm" />
 		</jspm>
 	</target>
-
+	
 	<target name="console.compile" depends="runtime.compile, console.jspm">
 		<ljavac srcdir="console/src" destdir="build/console/classes">
 			<classpath>
@@ -556,13 +556,13 @@
 			</fileset>
 		</copy>
 	</target>
-
+	
 	<target name="console.jar" depends="console.compile">
 		<ljar name="cope console" jarfile="build/exedio-cope-console.jar" classpath="exedio-cope.jar exedio-cops.jar">
 			<fileset dir="build/console/classes" />
 		</ljar>
 	</target>
-
+	
 	<target name="console.clean" depends="catalina.home">
 		<delete dir="build/console" />
 		<delete>
@@ -571,15 +571,15 @@
 			</fileset>
 		</delete>
 	</target>
-
+	
 	<!-- copernica -->
-
+	
 	<target name="copernica.jspm" depends="jspm.taskdef">
 		<jspm>
 			<fileset dir="copernica/src" includes="**/*.jspm" />
 		</jspm>
 	</target>
-
+	
 	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
 		<ljavac srcdir="copernica/src" destdir="build/copernica/classes">
 			<classpath>
@@ -597,19 +597,19 @@
 			</fileset>
 		</copy>
 	</target>
-
+	
 	<target name="copernica.jar" depends="copernica.compile">
 		<ljar name="copernica" jarfile="build/exedio-copernica.jar" classpath="exedio-cope.jar exedio-cops.jar">
 			<fileset dir="build/copernica/classes" />
 		</ljar>
 	</target>
-
+	
 	<target name="copernica.test.jspm" depends="jspm.taskdef">
 		<jspm>
 			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
 		</jspm>
 	</target>
-
+	
 	<target name="copernica.test.compile"
 				depends="runtime.compile, runtime.test.compile, copernica.compile, copernica.test.jspm">
 		<ljavac srcdir="copernica/testsrc" destdir="build/copernica/testclasses">
@@ -626,12 +626,12 @@
 			<fileset dir="copernica/testresources" />
 		</copy>
 	</target>
-
+	
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
 		<foreachdb skipSwitch="copernica.testwebapp">
 			<body>
 				<mkdir dir="build/copernica/testwebapp-@{db}" />
-
+				
 				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testmodelclasses" />
@@ -639,7 +639,7 @@
 					<fileset dir="build/copernica/classes" />
 					<fileset dir="build/copernica/testclasses" />
 				</copy>
-
+				
 				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="lib/pcj.jar" />
 					<fileset file="lib/commons-fileupload-1.1.jar" />
@@ -647,12 +647,12 @@
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{db.driver}" />
 				</copy>
-
+				
 				<path id="copernica.webdatadir.@{db.file}.path">
 					<pathelement location="build/copernica/testwebapp-@{db}-data" />
 				</path>
 				<pathconvert targetos="unix" property="copernica.webdatadir.@{db.file}" refid="copernica.webdatadir.@{db.file}.path" />
-
+				
 				<copy tofile="build/copernica/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
 					<filterset>
@@ -666,7 +666,7 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="copernica.tomcat" depends="copernica.testwebapp, catalina.home">
 		<foreachdb skipSwitch="copernica.tomcat">
 			<body>
@@ -679,7 +679,7 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="copernica.webtest.compile">
 		<ljavac srcdir="copernica/webtestsrc" destdir="build/copernica/webtestclasses">
 			<classpath>
@@ -689,7 +689,7 @@
 			</classpath>
 		</ljavac>
 	</target>
-
+	
 	<target name="copernica.webtest" depends="copernica.webtest.compile">
 		<mkdir dir="build/testresults" />
 		<junit fork="yes"
@@ -721,7 +721,7 @@
 			</body>
 		</foreachdb>
 	</target>
-
+	
 	<target name="copernica.clean" depends="catalina.home">
 		<delete dir="build/copernica" />
 		<delete>
@@ -736,40 +736,40 @@
 			</fileset>
 		</delete>
 	</target>
-
+	
 	<target name="copernica" depends="copernica.compile" />
-
+	
 	<!-- common -->
-
+	
 	<target name="jspm" depends="console.jspm, copernica.jspm, copernica.test.jspm" />
-
+	
 	<target name="instrument" depends="instrument.test.instrument, runtime.testmodel.instrument" />
-
+	
 	<target name="compile"
 			  depends="runtime.compile,
 			  instrument.compile,
 			  console.compile,
 			  copernica.compile, copernica.test.compile" />
-
+	
 	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
-
+	
 	<target name="teardown" depends="runtime.test.teardown" />
-
+	
 	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
-
+	
 	<target name="testwebapp" depends="runtime.testwebapp, copernica.testwebapp" />
-
+	
 	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
-
+	
 	<target name="webtest" depends="copernica.webtest" />
-
+	
 	<target name="index" depends="copernica.index" />
-
+	
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
 		<delete dir="build" />
 		<delete dir="home/lib" />
 	</target>
-
+	
 	<target name="api" depends="local.properties">
 
 		<property name="api.private" value="off" />
@@ -803,6 +803,7 @@
 			<doctitle><![CDATA[Cope with Object Persistence<br>API Specification]]></doctitle>
 			<header><![CDATA[<a href="http://cope.sourceforge.net/" target="_top">exedio cope</a>]]></header>
 			<footer><![CDATA[Cope with<br>Object<br>Persistence]]></footer>
+			<bottom><![CDATA[<a href="http://sourceforge.net/" target="_top"><img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1" width="88" height="31" border="0" align="right" alt="SourceForge.net Logo" /></a><small>Copyright &copy; 2004-2006 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
 			<link href="${api.link.jdk}"   packagelistLoc="package-list/jdk"   offline="true" />
 			<link href="${api.link.j2ee}"  packagelistLoc="package-list/j2ee"  offline="true" />
 			<link href="${api.link.junit}" packagelistLoc="package-list/junit" offline="true" />
@@ -832,7 +833,7 @@
 			<group title="Database Schema Management Facility" packages="com.exedio.dsmf" />
 		</javadoc>
 	</target>
-
+	
 	<target name="home.lib" depends="runtime.jar, instrument.jar">
 		<copy todir="home/lib">
 			<fileset dir="build">
@@ -853,12 +854,12 @@
 			<tarfileset dir="${basedir}/home" />
 		</tar>
 	</target>
-
+	
 	<target name="build"
 			depends="compile, test, jar, api,
 						tomcat,
 						copernica.webtest.compile" />
-
+	
 	<target name="dist.tar">
 		<mkdir dir="build/runtime" />
 		<echo file="build/runtime/build.number" message="${build.tag}" />
@@ -871,11 +872,11 @@
 				<exclude name="home/lib/**" />
 				<exclude name="cruise/**" />
 				<exclude name="**/*_Jspm.java" />
-
+				
 				<exclude name="*.driver.properties" />
-
+				
 				<exclude name="*.test.cope.properties" />
-
+				
 				<exclude name="lib/mysql-connector-java*.jar" />
 				<exclude name="lib/classes12.jar" />
 				<exclude name="lib/ojdbc14*.jar" />
@@ -888,7 +889,7 @@
 			</tarfileset>
 		</tar>
 	</target>
-
+	
 	<target name="dist.test" depends="dist.tar">
 		<delete dir="build/dist-test" />
 		<mkdir dir="build/dist-test" />
@@ -897,9 +898,9 @@
 				 compression="gzip" />
 		<ant dir="build/dist-test" target="build" />
 	</target>
-
+	
 	<target name="dist" depends="dist.tar, dist.test" />
-
+	
 	<target name="all" depends="build, home.zip, dist" />
 
 	<target name="cruise" depends="all">
@@ -915,5 +916,5 @@
 			<fileset file="${basedir}/build/exedio-cope-home.tar.bz2" />
 		</copy>
 	</target>
-
+	
 </project>
