@@ -135,4 +135,9 @@ public final class FieldMap<K,V> extends Pattern
 	{
 		return get(item, Cope.verboseCast(this.key.getValueClass(), key));
 	}
+
+	public void setAndCast(final Item item, final Object key, final Object value)
+	{
+		set(item, Cope.verboseCast(this.key.getValueClass(), key), Cope.verboseCast(this.value.getValueClass(), value));
+	}
 }
