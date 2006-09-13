@@ -54,6 +54,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
+	@Override
 	public StringField getFeature()
 	{
 		return feature;

@@ -56,6 +56,7 @@ public final class UniqueViolationException extends ConstraintViolationException
 	/**
 	 * Returns the violated constraint.
 	 */
+	@Override
 	public UniqueConstraint getFeature()
 	{
 		return feature;

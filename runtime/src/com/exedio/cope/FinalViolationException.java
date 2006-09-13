@@ -51,6 +51,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	/**
 	 * Returns the attribute, that was attempted to be written.
 	 */
+	@Override
 	public Field getFeature()
 	{
 		return feature;

@@ -56,6 +56,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * Returns the item field, for which the integrity (foreign key) constraint has been violated.
 	 * Returns null, if the violated constraint is unknown.
 	 */
+	@Override
 	public ItemField getFeature()
 	{
 		return feature;

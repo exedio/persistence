@@ -34,6 +34,7 @@ public final class CustomAttributeException extends ConstraintViolationException
 		this.feature = feature;
 	}
 	
+	@Override
 	public CustomAttribute getFeature()
 	{
 		return feature;
