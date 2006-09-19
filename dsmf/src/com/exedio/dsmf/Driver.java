@@ -127,9 +127,14 @@ public abstract class Driver
 		return bf.toString();
 	}
 	
-	boolean canDropUniqueConstraints()
+	String getDropUniqueConstraintStatement(final String tableName, final String constraintName)
 	{
-		return true;
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(tableName)).
+			append(" drop constraint ").
+			append(protectName(constraintName));
+		return bf.toString();
 	}
 
 	boolean canDropPrimaryKeyConstraints()

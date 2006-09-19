@@ -308,11 +308,16 @@ public final class MysqlDriver extends Driver
 	}
 	
 	@Override
-	boolean canDropUniqueConstraints()
+	String getDropUniqueConstraintStatement(final String tableName, final String constraintName)
 	{
-		return false;
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(tableName)).
+			append(" drop index ").
+			append(protectName(constraintName));
+		return bf.toString();
 	}
-	
+
 	@Override
 	boolean canDropPrimaryKeyConstraints()
 	{

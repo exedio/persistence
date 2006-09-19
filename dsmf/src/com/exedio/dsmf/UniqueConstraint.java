@@ -55,9 +55,6 @@ public class UniqueConstraint extends Constraint
 	@Override
 	public final void create()
 	{
-		if(!driver.canDropUniqueConstraints())
-			return;
-		
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(protectName(table.name)).
@@ -72,16 +69,7 @@ public class UniqueConstraint extends Constraint
 	@Override
 	public final void drop()
 	{
-		if(!driver.canDropUniqueConstraints())
-			return;
-		
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(protectName(table.name)).
-			append(" drop constraint ").
-			append(protectName(name));
-		
-		executeSQL(bf.toString());
+		executeSQL(driver.getDropUniqueConstraintStatement(table.name, name));
 	}
 
 }
