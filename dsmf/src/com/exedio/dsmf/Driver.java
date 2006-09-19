@@ -117,17 +117,7 @@ public abstract class Driver
 	abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
 	abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
 
-	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(tableName).
-			append(" drop constraint ").
-			append(constraintName);
-		return bf.toString();
-	}
-	
-	String getDropUniqueConstraintStatement(final String tableName, final String constraintName)
+	private final String getDropConstraintStatement(final String tableName, final String constraintName)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -135,6 +125,16 @@ public abstract class Driver
 			append(" drop constraint ").
 			append(protectName(constraintName));
 		return bf.toString();
+	}
+	
+	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
+	{
+		return getDropConstraintStatement(tableName, constraintName);
+	}
+	
+	String getDropUniqueConstraintStatement(final String tableName, final String constraintName)
+	{
+		return getDropConstraintStatement(tableName, constraintName);
 	}
 
 	boolean canDropPrimaryKeyConstraints()
