@@ -56,9 +56,6 @@ public class PrimaryKeyConstraint extends Constraint
 	@Override
 	public final void create()
 	{
-		if(!driver.canDropPrimaryKeyConstraints())
-			return;
-		
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(protectName(table.name)).
@@ -74,16 +71,7 @@ public class PrimaryKeyConstraint extends Constraint
 	@Override
 	public final void drop()
 	{
-		if(!driver.canDropPrimaryKeyConstraints())
-			return;
-		
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(protectName(table.name)).
-			append(" drop constraint ").
-			append(protectName(name));
-		
-		executeSQL(bf.toString());
+		executeSQL(driver.getDropPrimaryKeyConstraintStatement(table.name, name));
 	}
 
 }

@@ -163,12 +163,4 @@ public final class HsqldbDriver extends Driver
 	{
 		throw new RuntimeException("not implemented");
 	}
-
-	@Override
-	boolean canDropPrimaryKeyConstraints()
-	{
-		// TODO: check this again with hsqldb 1.8
-		return false;
-	}
-	
 }

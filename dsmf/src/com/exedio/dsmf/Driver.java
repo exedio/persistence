@@ -127,6 +127,11 @@ public abstract class Driver
 		return bf.toString();
 	}
 	
+	String getDropPrimaryKeyConstraintStatement(final String tableName, final String constraintName)
+	{
+		return getDropConstraintStatement(tableName, constraintName);
+	}
+	
 	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
 	{
 		return getDropConstraintStatement(tableName, constraintName);
@@ -137,11 +142,6 @@ public abstract class Driver
 		return getDropConstraintStatement(tableName, constraintName);
 	}
 
-	boolean canDropPrimaryKeyConstraints()
-	{
-		return true;
-	}
-	
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */

@@ -297,6 +297,16 @@ public final class MysqlDriver extends Driver
 	}
 
 	@Override
+	String getDropPrimaryKeyConstraintStatement(final String tableName, final String constraintName)
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(protectName(tableName)).
+			append(" drop primary key");
+		return bf.toString();
+	}
+	
+	@Override
 	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
 	{
 		final StringBuffer bf = new StringBuffer();
@@ -317,11 +327,4 @@ public final class MysqlDriver extends Driver
 			append(protectName(constraintName));
 		return bf.toString();
 	}
-
-	@Override
-	boolean canDropPrimaryKeyConstraints()
-	{
-		return false;
-	}
-	
 }
