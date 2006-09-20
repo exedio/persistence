@@ -311,9 +311,9 @@ public final class MysqlDriver extends Driver
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
-			append(tableName).
+			append(protectName(tableName)).
 			append(" drop foreign key ").
-			append(constraintName);
+			append(protectName(constraintName));
 		return bf.toString();
 	}
 	
