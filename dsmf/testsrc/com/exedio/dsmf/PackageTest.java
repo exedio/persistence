@@ -34,6 +34,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ColumnTest.class);
 		suite.addTestSuite(ConstraintTest.class);
 		suite.addTestSuite(CircleTest.class);
+		suite.addTestSuite(ProtectionTest.class);
 
 		suite.addTestSuite(SQLInjectionTest.class);
 		

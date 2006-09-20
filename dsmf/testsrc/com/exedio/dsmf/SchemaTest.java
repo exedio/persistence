@@ -70,7 +70,7 @@ public abstract class SchemaTest extends TestCase
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			driver = new MysqlDriver("this", Boolean.valueOf(config.getProperty("database.mysql.tolowercase")).booleanValue());
-			stringType = "varchar(8) binary";
+			stringType = "varchar(8) character set utf8 binary";
 			intType = "integer";
 			intType2 = "bigint";
 			supportsCheckConstraints = false;
