@@ -28,6 +28,9 @@ import com.exedio.cope.junit.CopeAssert;
 public class AttributeListTest extends AbstractLibTest
 {
 	
+	static final Date date1 = new Date(918756915152l);
+	static final Date date2 = new Date(918756915153l);
+	
 	public AttributeListTest()
 	{
 		super(Main.attributeListModel);
@@ -120,31 +123,60 @@ public class AttributeListTest extends AbstractLibTest
 
 		// test persistence
 		assertEquals(list(), item.getStrings());
+		assertContains(item.getDistinctParentsOfStrings(null));
+		assertContains(item.getDistinctParentsOfStrings("hallo"));
+		assertContains(item.getDistinctParentsOfStrings("bello"));
 		assertEquals(0, item.strings.getRelationType().newQuery(null).search().size());
 
 		item.setStrings(listg("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());
+		assertContains(item.getDistinctParentsOfStrings(null));
+		assertContains(item, item.getDistinctParentsOfStrings("hallo"));
+		assertContains(item, item.getDistinctParentsOfStrings("bello"));
+		assertContains(item.getDistinctParentsOfStrings("zack1"));
 		assertEquals(2, item.strings.getRelationType().newQuery(null).search().size());
 
 		item.setStrings(listg("zack1", "zack2", "zack3"));
 		assertEquals(list("zack1", "zack2", "zack3"), item.getStrings());
+		assertContains(item.getDistinctParentsOfStrings(null));
+		assertContains(item, item.getDistinctParentsOfStrings("zack1"));
+		assertContains(item, item.getDistinctParentsOfStrings("zack2"));
+		assertContains(item, item.getDistinctParentsOfStrings("zack3"));
+		assertContains(item.getDistinctParentsOfStrings("zackx"));
 		assertEquals(3, item.strings.getRelationType().newQuery(null).search().size());
 
 		item.setStrings(listg("null1", null, "null3", "null4"));
 		assertEquals(list("null1", null, "null3", "null4"), item.getStrings());
+		assertContains(item, item.getDistinctParentsOfStrings(null));
+		assertContains(item, item.getDistinctParentsOfStrings("null1"));
+		assertContains(      item.getDistinctParentsOfStrings("null2"));
+		assertContains(item, item.getDistinctParentsOfStrings("null3"));
+		assertContains(item, item.getDistinctParentsOfStrings("null4"));
 		assertEquals(4, item.strings.getRelationType().newQuery(null).search().size());
+
+		item.setStrings(listg("dup1", "dup2", "dup1"));
+		assertEquals(list("dup1", "dup2", "dup1"), item.getStrings());
+		assertContains(item.getDistinctParentsOfStrings(null));
+		assertContains(item, item.getDistinctParentsOfStrings("dup1"));
+		assertContains(item, item.getDistinctParentsOfStrings("dup2"));
+		assertContains(      item.getDistinctParentsOfStrings("dup3"));
+		assertEquals(3, item.strings.getRelationType().newQuery(null).search().size());
 
 		item.setStrings(CopeAssert.<String>listg());
 		assertEquals(list(), item.getStrings());
+		assertContains(item.getDistinctParentsOfStrings(null));
+		assertContains(item.getDistinctParentsOfStrings("null1"));
 		assertEquals(0, item.strings.getRelationType().newQuery(null).search().size());
 
 		assertEquals(list(), item.getDates());
+		assertContains(item.getDistinctParentsOfDates(date1));
+		assertContains(item.getDistinctParentsOfDates(date2));
 		assertEquals(0, item.dates.getRelationType().newQuery(null).search().size());
 
-		final Date date1 = new Date(918756915152l);
-		final Date date2 = new Date(918756915153l);
 		item.setDates(listg(date1, date2));
 		assertEquals(list(date1, date2), item.getDates());
+		assertContains(item, item.getDistinctParentsOfDates(date1));
+		assertContains(item, item.getDistinctParentsOfDates(date2));
 		assertEquals(2, item.dates.getRelationType().newQuery(null).search().size());
 
 		try
@@ -157,6 +189,8 @@ public class AttributeListTest extends AbstractLibTest
 			assertEquals(item.dates.getElement(), e.getFeature());
 		}
 		assertEquals(list(date1), item.getDates()); // TODO should be list(date1, date2)
+		assertContains(item, item.getDistinctParentsOfDates(date1));
+		assertContains(item.getDistinctParentsOfDates(date2)); // TODO should contain item
 		assertEquals(1, item.dates.getRelationType().newQuery(null).search().size());
 	}
 	

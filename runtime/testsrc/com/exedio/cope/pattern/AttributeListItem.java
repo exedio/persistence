@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
@@ -29,6 +30,16 @@ public class AttributeListItem extends Item
 
 	public static final FieldList<String> strings = FieldList.newList(new StringField(OPTIONAL).lengthRange(4, 8));
 	public static final FieldList<Date> dates = FieldList.newList(new DateField());
+	
+	public static final List<? extends Item> getDistinctParentsOfStrings(final String element)
+	{
+		return AttributeListItem.strings.getDistinctParents(element);
+	}
+	
+	public static final List<? extends Item> getDistinctParentsOfDates(final Date element)
+	{
+		return AttributeListItem.dates.getDistinctParents(element);
+	}
 	
 	/**
 

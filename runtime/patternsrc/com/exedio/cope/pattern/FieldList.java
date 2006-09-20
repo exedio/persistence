@@ -22,9 +22,9 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -105,6 +105,19 @@ public final class FieldList<E> extends Pattern
 	{
 		final Query<E> q = new Query<E>(element, Cope.equalAndCast(this.parent, item));
 		q.setOrderBy(order, true);
+		return q.search();
+	}
+
+	/**
+	 * Returns the items, for which this field list contains the given element.
+	 * The result does not contain any duplicates,
+	 * even if the element is contained in this field list for an item more than once.
+	 * The order of the result is unspecified.
+	 */
+	public List<? extends Item> getDistinctParents(final E element)
+	{
+		final Query<? extends Item> q = new Query<Item>(this.parent, Cope.equalAndCast(this.element, element));
+		q.setDistinct(true);
 		return q.search();
 	}
 
