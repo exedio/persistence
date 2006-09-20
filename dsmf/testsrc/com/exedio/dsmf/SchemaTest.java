@@ -36,7 +36,7 @@ public abstract class SchemaTest extends TestCase
 	String stringType;
 	String intType;
 	String intType2;
-	boolean supportsCheckConstraints = true;
+	boolean supportsCheckConstraints;
 	private SimpleConnectionProvider provider;
 	Connection connection1; // visible for BatchTest
 	private Connection connection2;
@@ -73,7 +73,6 @@ public abstract class SchemaTest extends TestCase
 			stringType = "varchar(8) character set utf8 binary";
 			intType = "integer";
 			intType2 = "bigint";
-			supportsCheckConstraints = false;
 		}
 		else if("oracle".equals(database))
 		{
@@ -94,6 +93,7 @@ public abstract class SchemaTest extends TestCase
 		else
 			throw new RuntimeException(database);
 		
+		supportsCheckConstraints = driver.supportsCheckConstraints();
 		connection1 = DriverManager.getConnection(url, user, password);
 		connection2 = DriverManager.getConnection(url, user, password);
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
