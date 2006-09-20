@@ -38,6 +38,8 @@ public final class PostgresqlDriver extends Driver
 		{
 			case Types.INTEGER:
 				return "INTEGER";
+			case Types.VARCHAR:
+				return "VARCHAR(8)"; // TODO extract real length of varchar
 			default:
 				return null;
 		}

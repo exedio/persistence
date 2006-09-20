@@ -37,6 +37,7 @@ public abstract class SchemaTest extends TestCase
 	String intType;
 	String intType2;
 	boolean supportsCheckConstraints;
+	boolean postgres = false; // TODO remove
 	private SimpleConnectionProvider provider;
 	Connection connection1; // visible for BatchTest
 	private Connection connection2;
@@ -89,6 +90,7 @@ public abstract class SchemaTest extends TestCase
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
 			intType2 = null;
+			postgres = true;
 		}
 		else
 			throw new RuntimeException(database);
