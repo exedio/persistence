@@ -26,7 +26,7 @@ public class ProtectionTest extends SchemaReadyTest
 {
 	private static final String TABLE = "select";
 	private static final String PK_COLUMN = "from";
-	private static final String PK_NAME = "from_Pk";
+	private static final String PK_NAME = "from_Pk"; // mysql does not store the name of pk constraint, so it created by convention
 	private static final String FK_COLUMN = "order";
 	private static final String FK_NAME = "desc";
 	private static final String UNQ_NAME = "asc";
