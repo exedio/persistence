@@ -1,0 +1,150 @@
+<html>
+	<head>
+		<title>COPE - Schema Trail</title>
+		<meta name="keywords" content="Persistence, Java">
+		<meta name="description" content="COPE - a persistence framework for Java">
+		<link rel="stylesheet" href="cope.css">
+		<style>
+			img.console
+			{
+				border:0;
+				margin:12pt;
+				width:581px;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="http://www.exedio.com/">
+			<img src="exedio.png" class="exedio">
+		</a>
+		<h1><a href="index.html">COPE</a></h1>
+		<div>Cope with Object Persistence</div>
+		
+		<h2>Schema Trail</h2>
+		<a href="http://sourceforge.net/">
+			<img src="http://sourceforge.net/sflogo.php?group_id=152867&amp;type=1"
+				class="sf" alt="SourceForge.net Logo" />
+		</a>
+		<div>
+			This trail introduces into the schema editing capabilities of the
+			<a href="webapplications.html#console">COPE Console</a>.
+			It assumes that you have already deployed the Console into your
+			web application.
+		</div>
+		<h3>Inspection</h3>
+		<div>
+			You may want to know first,
+			which database schema is created by COPE.
+			Open up the Console in your browser,
+			select the Tabulator <i>Schema</i>,
+			and you will see something like this:
+		</div>
+		<img src="schema1.png" class="console" />
+		<div>
+			The example model used to create this screenshot
+			contains to types <tt>Customer</tt> and <tt>Order</tt>.
+			Lets say, the type <tt>Customer</tt> looks like this:
+		</div>
+<pre>
+public class Customer extends Item
+{
+   static final StringField email = new StringField(UNIQUE);
+}
+</pre>
+		<div>
+			Now click on the table <i>Customer</i>
+			to see the table details:
+		</div>
+		<img src="schema2.png" class="console" />
+		<div>
+			This shows you two columns:
+			<ul>
+				<li>
+					An integer column <tt>this</tt>
+					holding the primary key for implementing object identity.
+				</li>
+				<li>
+					A String column <tt>email</tt> holding the value of the
+					the field <tt>email</tt>.
+			</ul>
+			Following the columns there are the details of database constraints
+			set up by COPE,
+			but these are ignored for now.
+			
+		</div>
+		<h3>Modification</h3>
+		<div>
+			Let's say you want to add a new field to your type:
+		</div>
+<pre>
+public class Customer extends Item
+{
+   static final StringField email = new StringField(UNIQUE);
+   <b>static final BooleanField blocked = new BooleanField();</b>
+}
+</pre>
+		<div>
+			If you want to adjust the database schema
+			without loosing all your data,
+			you have to issue some SQL like
+			<tt>alter table Customer add column blocked integer</tt>.
+			COPE can do that for you,
+			but much more comfortable.
+		</div>
+		<div>
+			If you start up the new application containing the new field,
+			the <i>Schema</i> looks like this:
+		</div>
+		<img src="schema3.png" class="console" />
+		<div>
+			The red color tells you,
+			something is wrong with table <i>Customer</i>.
+			Click on it for further details:
+		</div>
+		<img src="schema4.png" class="console" />
+		<div>
+			Again, the red color tells you,
+			that something is wrong with column <i>blocked</i>.
+			In fact it is just missing, as expected.
+			At the end of the line there is a checkbox named <i>create</i>.
+			Select it (already done in this screenshot)
+			and push the button <i>Apply</i> further up the page.
+			The next screen looks like this:
+		</div>
+		<img src="schema5.png" class="console" />
+		<div>
+			The only difference is,
+			that column <i>blocked</i> does exists now,
+			and therefore the red background turned to green.
+			On the same page there is a log about COPE's activities:
+		</div>
+		<img src="schema5a.png" class="console" />
+		<div>
+			This shows you, that column <i>blocked</i> of table
+			<i>Customer</i> just has been created.
+			At the same time this log is valid java source code,
+			which can be used to achive the same effect programatically
+			whithin your application.
+		</div>
+		<h3>Further Reading</h3>
+		<div>
+			After having a look at the COPE Console,
+			you may want to back to COPE itself.
+			<ul>
+				<li>
+					<a href="searching.html">Searching Trail</a>
+					gives you an introduction into the searching capabilities of cope.
+				</li>
+				<li>
+					<a href="attributes2.html">Field Reloaded Trail</a>
+					covers all the more specific possibilities to store data with cope.
+				</li>
+			</ul>
+		</div>
+		<address>
+			Copyright &copy; 2004-2006
+			<a href="http://www.exedio.com/" target="_top">exedio</a>
+			Gesellschaft f&uuml;r Softwareentwicklung mbH.
+		</address>
+	</body>
+</html>
