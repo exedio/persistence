@@ -26,7 +26,7 @@ public class ProtectionTest extends SchemaReadyTest
 {
 	private static final String TABLE = "select";
 	private static final String PK_COLUMN = "from";
-	private static final String PK_NAME = "where";
+	private static final String PK_NAME = "from_Pk";
 	private static final String FK_COLUMN = "order";
 	private static final String FK_NAME = "desc";
 	private static final String UNQ_NAME = "asc";
@@ -70,7 +70,7 @@ public class ProtectionTest extends SchemaReadyTest
 		assertSame(table, pkc.getTable());
 		assertEquals(PK_NAME, pkc.getName());
 		assertEquals(PK_COLUMN, pkc.getPrimaryKeyColumn());
-		//assertEquals(null, pkc.getError()); TODO
+		assertEquals(null, pkc.getError());
 
 		final Column fk = table.getColumn(FK_COLUMN);
 		assertNotNull(fk);
