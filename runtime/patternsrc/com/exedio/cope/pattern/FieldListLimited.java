@@ -46,7 +46,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	private final boolean initial;
 	private final boolean isFinal;
 
-	public FieldListLimited(final FunctionField<E>[] sources)
+	private FieldListLimited(final FunctionField<E>[] sources)
 	{
 		this.sources = sources;
 

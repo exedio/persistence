@@ -57,7 +57,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	private final Class<E> valueClass;
 	private final DataField source;
 
-	public Serializer(final Class<E> valueClass, final DataField source)
+	private Serializer(final Class<E> valueClass, final DataField source)
 	{
 		if(valueClass==null)
 			throw new NullPointerException("valueClass must not be null");
@@ -68,7 +68,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		registerSource(source);
 	}
 	
-	public Serializer(final Class<E> valueClass, final Field.Option option)
+	private Serializer(final Class<E> valueClass, final Field.Option option)
 	{
 		this(valueClass, new DataField(option));
 	}
