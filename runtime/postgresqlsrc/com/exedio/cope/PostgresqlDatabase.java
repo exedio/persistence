@@ -51,7 +51,7 @@ final class PostgresqlDatabase extends Database
 	@Override
 	public String getIntegerType(final long minimum, final long maximum)
 	{
-		return "INTEGER";
+		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "INTEGER" : "BIGINT"; // TODO: smallint
 	}
 
 	@Override
@@ -63,7 +63,7 @@ final class PostgresqlDatabase extends Database
 	@Override
 	public String getStringType(final int maxLength)
 	{
-		return "VARCHAR("+maxLength+')';
+		return (maxLength>10485760) ? "TEXT" : "VARCHAR("+maxLength+')'; // in postgres varchar cannot be longer
 	}
 	
 	@Override
@@ -119,10 +119,7 @@ final class PostgresqlDatabase extends Database
 		
 		final String m = e.getMessage();
 		if(m.startsWith(start) && m.endsWith(end))
-		{
-			final int pos = m.indexOf('.', start.length());
-			return m.substring(pos+1, m.length()-end.length());
-		}
+			return m.substring(start.length(), m.length()-end.length());
 		else
 			return null;
 	}
@@ -130,7 +127,7 @@ final class PostgresqlDatabase extends Database
 	@Override
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, 1, "ORA-00001: unique constraint (", ") violated\n");
+		return extractConstraintName(e, 0, "FEHLER: duplizierter Schl\u00fcssel verletzt Unique-Constraint »", "«\n"); // TODO checks against localized error message
 	}
 
 }
