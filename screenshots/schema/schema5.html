@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>COPE Console - schema</title>
+		<link rel="STYLESHEET" type="text/css" href="console/admin.css">
+		<script src="/cope-demoshop/console/admin-report.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<a href="http://www.exedio.com/" target="_blank" border="0"><img src="console/logo.png" border="0" width="200" height="66" align="right"></a>
+		<h1>COPE Console</h3>
+		<p>
+			| <a href="?">properties</a>
+			| <b>schema</b>
+			| <a href="?t=tc">type columns</a>
+			| <a href="?t=cp">connection pool</a>
+			| <a href="?t=ca">cache</a>
+			| <a href="?t=qca">query cache</a>
+			| <a href="?t=pk">pk</a>
+			| <a href="?t=m">media</a>
+			| <a href="?t=vm">vm</a>
+			| <a href="?t=db">db</a>
+		</p>
+		<hr>
+		<form action="?schema=Customer" method="POST">
+			<h4>Schema</h4>
+			<input type="submit" name="CREATE" value="create" />
+			<input type="submit" name="TEARDOWN" value="tear down"/>
+			<input type="submit" name="DROP" value="drop"/>
+			<hr>
+			<h4>Constraints</h4>
+			<input type="checkbox" name="CONSTRAINT_MASK" value="1" checked="true" />pk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="2" checked="true" />fk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="4" checked="true" />unique
+			<input type="checkbox" name="CONSTRAINT_MASK" value="8" checked="true" />check
+			<br>
+			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
+			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
+			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
+			<input type="submit" name="CHECK_UNSUPPORTED_CONSTRAINTS" value="check unsupported"/>
+			<hr>
+			<h4>Details</h4>
+			<hr>
+					<a href="?schema=Customer">flush log</a>
+	<ol>
+		<li>schema.getTable(&quot;<b>Customer</b>&quot;).getColumn(&quot;<b>blocked</b>&quot;).create();</li><li class="timelog">ok, 17ms.</li>
+	</ol>
+					<a href="?schema=Customer">flush log</a>
+					<hr>
+drop boxes: <a href="?schema=Customer&show=drop">show</a><br>
+rename fields: <a href="?schema=Customer&show=rename">show</a><br>
+check all:
+<input type="button" value="analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
+<input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
+<input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
+<br>
+<span class="ok"><a href="?schema=">Schema</a></span>
+<input type="submit" name="APPLY" value="apply"/>
+<br>
+supports check constraints: <i>no</i>
+<br>
+supports empty strings: <i>yes</i>
+<br>
+supports right outer joins: <i>yes</i>
+<ul class="ok">
+	<li class="ok"><small>tab1</small> Customer
+		<ul>
+			<li class="ok">
+				<small>col1</small> this
+				<small>integer</small>
+			</li>
+			<li class="ok">
+				<small>col2</small> email
+				<small>varchar(100) character set utf8 binary</small>
+			</li>
+			<li class="ok">
+				<small>col3</small> blocked
+				<small>integer</small>
+			</li>
+			<li class="ok">
+				<small>pk1</small> Customer_Pk
+			</li>
+			<li class="ok">
+				<small>check2</small> Customer_this_CkPk <small>(`this`>=-2147483647) AND (`this`<=2147483647)</small>
+				<span class="ok">not supported</span>
+			</li>
+			<li class="ok">
+				<small>check3</small> Customer_email_Ck <small>(`email` IS NOT NULL) AND (LENGTH(`email`)<=100)</small>
+				<span class="ok">not supported</span>
+			</li>
+			<li class="ok">
+				<small>check4</small> Customer_blocked_Ck <small>(`blocked` IS NOT NULL) AND (`blocked` IN (0,1))</small>
+				<span class="ok">not supported</span>
+			</li>
+			<li class="ok">
+				<small>unique5</small> Customer_email_Unq <small>(`email`)</small>
+			</li>
+		</ul>
+	</li>
+</ul>
+		</form>
+		<hr>
+		<small>request: 20.09.2006 16:35:22.332 - 20.09.2006 16:35:22.418 (86ms)</small>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+/*
+This is the default style sheet for the
+cope admin application
+*/
+
+div.message
+{
+	color: #000;
+	background-color: #FCC;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 5px;
+	border-width: 3px;
+	border-color: #800;
+	border-style: solid;
+}
+
+table.properties th
+{
+	text-align:left;
+	vertical-align:top;
+	background:#CCC;
+	border:solid 1px #CCC;
+	padding:1px 3px;
+	font-weight:normal;
+}
+
+table.properties td
+{
+	text-align:left;
+	vertical-align:top;
+	border:solid 1px #CCC;
+	padding:1px 3px;
+}
+
+span.ok      { background-color:#cfc; }
+span.warning { background-color:#ffc; }
+span.error   { background-color:#fcc; }
+li.ok        { background-color:#cfc; }
+li.warning   { background-color:#ffc; }
+li.error     { background-color:#fcc; }
+ul.ok        { background-color:#cfc; }
+ul.warning   { background-color:#ffc; }
+ul.error     { background-color:#fcc; }
+
+li.timelog { color:#ccc; }
+
+table.statistics th
+{
+	padding:1px 0px;
+}
+
+table.statistics td
+{
+	text-align:right;
+	background:#CCC;
+	padding:1px 3px;
+}
+
+table.statistics tr.inconsistent td
+{
+	background:#C00;
+}
+
+table.properties tr.unspecified th
+{
+	background:#CCB;
+}
+
+table.properties tr.unspecified td
+{
+	background:#FFE;
+}
+
+table.statistics th.colored1 { background:#fcf; text-align:left; padding-left:0.3em; }
+table.statistics th.colored2 { background:#cff; text-align:left; padding-left:0.3em; }
+table.statistics th.colored3 { background:#fcc; text-align:left; padding-left:0.3em; }
+table.statistics th.colored4 { background:#cfc; text-align:left; padding-left:0.3em; }
+table.statistics th.colored5 { background:#ccf; text-align:left; padding-left:0.3em; }
+table.statistics th.colored6 { background:#ffc; text-align:left; padding-left:0.3em; }
+table.statistics th.colored7 { background:#fcf; text-align:left; padding-left:0.3em; }
+table.statistics th.colored8 { background:#cff; text-align:left; padding-left:0.3em; }
+table.statistics th.colored9 { background:#fcc; text-align:left; padding-left:0.3em; }
+table.statistics th.colored10{ background:#cfc; text-align:left; padding-left:0.3em; }
+table.statistics th.colored11{ background:#ccf; text-align:left; padding-left:0.3em; }
+table.statistics th.colored12{ background:#ffc; text-align:left; padding-left:0.3em; }
+
+table.statistics td.colored1 { background:#fcf; }
+table.statistics td.colored2 { background:#cff; }
+table.statistics td.colored3 { background:#fcc; }
+table.statistics td.colored4 { background:#cfc; }
+table.statistics td.colored5 { background:#ccf; }
+table.statistics td.colored6 { background:#ffc; }
+table.statistics td.colored7 { background:#fcf; }
+table.statistics td.colored8 { background:#cff; }
+table.statistics td.colored9 { background:#fcc; }
+table.statistics td.colored10{ background:#cfc; }
+table.statistics td.colored11{ background:#ccf; }
+table.statistics td.colored12{ background:#ffc; }
