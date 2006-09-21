@@ -112,8 +112,10 @@ final class PostgresqlDatabase extends Database
 		appendMatchClauseByLike(bf, function, value);
 	}
 	
-	private String extractConstraintName(final SQLException e, final int vendorCode, final String start, final String end)
+	private String extractConstraintName(final SQLException e, final String sqlState, final int vendorCode, final String start, final String end)
 	{
+		if(!sqlState.equals(e.getSQLState()))
+			return null;
 		if(e.getErrorCode()!=vendorCode)
 			return null;
 		
@@ -127,7 +129,7 @@ final class PostgresqlDatabase extends Database
 	@Override
 	protected String extractUniqueConstraintName(final SQLException e)
 	{
-		return extractConstraintName(e, 0, "FEHLER: duplizierter Schl\u00fcssel verletzt Unique-Constraint »", "«\n"); // TODO checks against localized error message
+		return extractConstraintName(e, "23505", 0, "FEHLER: duplizierter Schl\u00fcssel verletzt Unique-Constraint »", "«\n"); // TODO checks against localized error message
 	}
 
 }
