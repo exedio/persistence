@@ -84,7 +84,7 @@ public class DeleteTest extends AbstractLibTest
 
 		try
 		{
-			new ItemField<DeleteItem>(DeleteItem.class, Item.NULLIFY);
+			Item.newItemField(DeleteItem.class, Item.NULLIFY);
 		}
 		catch(RuntimeException e)
 		{
@@ -93,7 +93,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		try
 		{
-			new ItemField<DeleteItem>(Item.FINAL_OPTIONAL, DeleteItem.class, Item.NULLIFY);
+			Item.newItemField(Item.FINAL_OPTIONAL, DeleteItem.class, Item.NULLIFY);
 		}
 		catch(RuntimeException e)
 		{

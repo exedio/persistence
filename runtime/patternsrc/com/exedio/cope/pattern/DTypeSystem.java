@@ -56,7 +56,7 @@ public final class DTypeSystem extends Pattern
 		enums    = castEnumArray(new ItemField[enumCapacity]);
 		attributes = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
-		registerSource(type = new ItemField<DType>(Item.OPTIONAL, DType.class));
+		registerSource(type = Item.newItemField(Item.OPTIONAL, DType.class));
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
 			registerSource(attributes[n++] = strings [i] = new StringField(Item.OPTIONAL));
@@ -67,7 +67,7 @@ public final class DTypeSystem extends Pattern
 		for(int i = 0; i<doubles.length; i++)
 			registerSource(attributes[n++] = doubles [i] = new DoubleField(Item.OPTIONAL));
 		for(int i = 0; i<enums.length; i++)
-			registerSource(attributes[n++] = enums   [i] = new ItemField<DEnumValue>(Item.OPTIONAL, DEnumValue.class));
+			registerSource(attributes[n++] = enums   [i] = Item.newItemField(Item.OPTIONAL, DEnumValue.class));
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
