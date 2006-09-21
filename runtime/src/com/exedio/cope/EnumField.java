@@ -62,11 +62,27 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		checkDefaultValue();
 	}
 	
+	/**
+	 * @deprecated
+	 * use {@link Item#newEnumField(Class)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new EnumField&lt;Target&gt;(Target.class)</tt>
+	 * one can write <tt>newEnumField(Target.class)</tt>
+	 */
+	@Deprecated
 	public EnumField(final Class<E> valueClass)
 	{
 		this(Item.MANDATORY, valueClass);
 	}
 	
+	/**
+	 * @deprecated
+	 * use {@link Item#newEnumField(com.exedio.cope.Field.Option, Class)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new EnumField&lt;Target&gt;(OPTIONAL, Target.class)</tt>
+	 * one can write <tt>newEnumField(OPTIONAL, Target.class)</tt>
+	 */
+	@Deprecated
 	public EnumField(final Option option, final Class<E> valueClass)
 	{
 		this(option.isFinal, option.optional, option.unique, valueClass, null);

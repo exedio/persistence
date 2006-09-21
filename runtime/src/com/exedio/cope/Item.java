@@ -487,6 +487,7 @@ public abstract class Item extends Cope
 		return newEnumField(valueClass);
 	}
 	
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
 		return new EnumField<E>(valueClass);
@@ -501,6 +502,7 @@ public abstract class Item extends Cope
 		return newEnumField(option, valueClass);
 	}
 	
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Option option, final Class<E> valueClass)
 	{
 		return new EnumField<E>(option, valueClass);
