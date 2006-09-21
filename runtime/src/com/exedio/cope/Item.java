@@ -515,6 +515,7 @@ public abstract class Item extends Cope
 		return newItemField(valueClass);
 	}
 	
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return new ItemField<E>(valueClass);
@@ -529,6 +530,7 @@ public abstract class Item extends Cope
 		return newItemField(option, valueClass);
 	}
 	
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass)
 	{
 		return new ItemField<E>(option, valueClass);
@@ -543,6 +545,7 @@ public abstract class Item extends Cope
 		return newItemField(valueClass, policy);
 	}
 	
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<E>(valueClass, policy);
@@ -557,6 +560,7 @@ public abstract class Item extends Cope
 		return newItemField(option, valueClass, policy);
 	}
 	
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<E>(option, valueClass, policy);

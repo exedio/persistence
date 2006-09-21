@@ -40,21 +40,53 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		checkDefaultValue();
 	}
 	
+	/**
+	 * @deprecated
+	 * use {@link Item#newItemField(Class)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new ItemField&lt;Target&gt;(Target.class)</tt>
+	 * one can write <tt>newItemField(Target.class)</tt>
+	 */
+	@Deprecated
 	public ItemField(final Class<E> valueClass)
 	{
 		this(Item.MANDATORY, valueClass, Item.FORBID);
 	}
 	
+	/**
+	 * @deprecated
+	 * use {@link Item#newItemField(com.exedio.cope.Field.Option, Class)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new ItemField&lt;Target&gt;(OPTIONAL, Target.class)</tt>
+	 * one can write <tt>newItemField(OPTIONAL, Target.class)</tt>
+	 */
+	@Deprecated
 	public ItemField(final Option option, final Class<E> valueClass)
 	{
 		this(option, valueClass, Item.FORBID);
 	}
 	
+	/**
+	 * @deprecated
+	 * use {@link Item#newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new ItemField&lt;Target&gt;(Target.class, CASCADE)</tt>
+	 * one can write <tt>newItemField(Target.class, CASCADE)</tt>
+	 */
+	@Deprecated
 	public ItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		this(Item.MANDATORY, valueClass, policy);
 	}
 
+	/**
+	 * @deprecated
+	 * use {@link Item#newItemField(com.exedio.cope.Field.Option, Class, com.exedio.cope.ItemField.DeletePolicy)} instead,
+	 * which allows ommitting the generics:
+	 * instead of <tt>new ItemField&lt;Target&gt;(OPTIONAL, Target.class, CASCADE)</tt>
+	 * one can write <tt>newItemField(OPTIONAL, Target.class, CASCADE)</tt>
+	 */
+	@Deprecated
 	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
 		this(option.isFinal, option.optional, option.unique, valueClass, policy);
