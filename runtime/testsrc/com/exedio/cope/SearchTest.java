@@ -161,14 +161,16 @@ public class SearchTest extends TestmodelTest
 		// test Query#searchSingleton
 		assertEquals(null, item.TYPE.searchSingleton(item.someNotNullString.equal("someStringx")));
 		assertEquals(item, item.TYPE.searchSingleton(item.someNotNullString.equal("someString")));
+		final Query q = item.TYPE.newQuery();
+		q.setOrderBy(item.TYPE.getThis(), true);
 		try
 		{
-			item.TYPE.searchSingleton(null);
+			q.searchSingleton();
 			fail();
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select " + item.TYPE.getThis() + " from AttributeItem", e.getMessage());
+			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select " + item.TYPE.getThis() + " from AttributeItem order by " + item.TYPE.getThis(), e.getMessage());
 		}
 		
 		assertDelete(item);
