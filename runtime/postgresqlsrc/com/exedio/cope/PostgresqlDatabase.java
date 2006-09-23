@@ -123,7 +123,7 @@ final class PostgresqlDatabase extends Database
 		final int end = m.lastIndexOf('\u00ab'); // left pointing double angle quotation mark
 		if(end<0)
 			return null;
-		final int start = m.lastIndexOf('\u00bb'); // right pointing double angle quotation mark
+		final int start = m.lastIndexOf('\u00bb', end); // right pointing double angle quotation mark
 		if(start<0)
 			return null;
 
