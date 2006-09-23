@@ -120,10 +120,10 @@ final class PostgresqlDatabase extends Database
 			return null;
 		
 		final String m = e.getMessage();
-		final int end = m.lastIndexOf('«');
+		final int end = m.lastIndexOf('\u00ab'); // left pointing double angle quotation mark
 		if(end<0)
 			return null;
-		final int start = m.lastIndexOf('»');
+		final int start = m.lastIndexOf('\u00bb'); // right pointing double angle quotation mark
 		if(start<0)
 			return null;
 
