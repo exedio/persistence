@@ -995,7 +995,8 @@ public final class Type<C extends Item>
 		
 		public Class<E> getValueClass()
 		{
-			return type.getJavaClass();
+			final Class <E> typeClass = type.getJavaClass();
+			return typeClass!=null ? typeClass : (Class<E>)Item.class;
 		}
 		
 		public void append(final Statement bf, final Join join)

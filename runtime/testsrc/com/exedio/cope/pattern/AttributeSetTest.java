@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Date;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.Item;
 import com.exedio.cope.Main;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.junit.CopeAssert;
@@ -79,7 +80,7 @@ public class AttributeSetTest extends AbstractLibTest
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
 		assertEquals(false, item.strings.getRelationType().isAbstract());
-		assertEquals(null, item.strings.getRelationType().getThis().getValueClass());
+		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass());
 		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
 
 		assertEquals("AttributeSetItem.dates", item.dates.getRelationType().getID());
@@ -87,7 +88,7 @@ public class AttributeSetTest extends AbstractLibTest
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
 		assertEquals(false, item.dates.getRelationType().isAbstract());
-		assertEquals(null, item.dates.getRelationType().getThis().getValueClass());
+		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass());
 		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
 
 		assertEquals(item.strings.getRelationType(), item.strings.getParent().getType());
