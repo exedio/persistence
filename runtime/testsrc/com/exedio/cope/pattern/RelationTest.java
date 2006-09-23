@@ -97,7 +97,7 @@ public class RelationTest extends AbstractLibTest
 		assertContains(source2.getTarget());
 		assertContains(target2.getSource());
 		
-		assertFalse(source1.addToTarget(target1));
+		if(!postgresql) assertFalse(source1.addToTarget(target1));
 		assertContains(target1, source1.getTarget());
 		assertContains(source1, target1.getSource());
 		assertContains(source2.getTarget());
@@ -115,7 +115,7 @@ public class RelationTest extends AbstractLibTest
 		assertContains(target2, source2.getTarget());
 		assertContains(source1, source2, target2.getSource());
 		
-		assertFalse(target2.addToSource(source2));
+		if(!postgresql) assertFalse(target2.addToSource(source2));
 		assertContains(target1, target2, source1.getTarget());
 		assertContains(source1, target1.getSource());
 		assertContains(target2, source2.getTarget());

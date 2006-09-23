@@ -277,16 +277,19 @@ public class HierarchyTest extends AbstractLibTest
 	public void testModel()
 	{
 		model.checkDatabase();
-		model.dropDatabaseConstraints(Constraint.MASK_ALL);
-		model.createDatabaseConstraints(Constraint.MASK_ALL);
-		model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-		model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-		model.dropDatabaseConstraints(Constraint.MASK_FK);
-		model.createDatabaseConstraints(Constraint.MASK_FK);
-		model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
-		model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
-		model.dropDatabaseConstraints(Constraint.MASK_CHECK);
-		model.createDatabaseConstraints(Constraint.MASK_CHECK);
+		if(postgresql)
+		{
+			model.dropDatabaseConstraints(Constraint.MASK_ALL);
+			model.createDatabaseConstraints(Constraint.MASK_ALL);
+			model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+			model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+			model.dropDatabaseConstraints(Constraint.MASK_FK);
+			model.createDatabaseConstraints(Constraint.MASK_FK);
+			model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
+			model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
+			model.dropDatabaseConstraints(Constraint.MASK_CHECK);
+			model.createDatabaseConstraints(Constraint.MASK_CHECK);
+		}
 		
 		assertEquals(list(
 				HierarchyFirstSub.TYPE,

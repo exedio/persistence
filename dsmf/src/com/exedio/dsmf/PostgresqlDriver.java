@@ -85,7 +85,7 @@ public final class PostgresqlDriver extends Driver
 						else if("f".equals(constraintType))
 							table.notifyExistentForeignKeyConstraint(constraintName);
 						else if("u".equals(constraintType))
-							table.notifyExistentUniqueConstraint(constraintName, null);
+							table.notifyExistentUniqueConstraint(constraintName, "postgresql unique constraint dummy clause"); // TODO, still don't know where to get this information
 						else
 							throw new RuntimeException(constraintType+'-'+constraintName);
 

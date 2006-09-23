@@ -98,6 +98,15 @@ public class StatementInfoTest extends TestmodelTest
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
+		else if(database.endsWith("PostgresqlDatabase"))
+		{
+			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
+			{
+				final StatementInfo time = rootChilds.next();
+				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
+			}
+			assertTrue(!rootChilds.hasNext());
+		}
 		else
 			fail(database);
 		

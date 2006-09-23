@@ -81,16 +81,19 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
 			item2.setUniqueString("uniqueString2");
-			try
+			if(!postgresql)
 			{
-				item2.setUniqueString("uniqueString");
-				fail();
-			}
-			catch(UniqueViolationException e)
-			{
-				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
-				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
-				assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+				try
+				{
+					item2.setUniqueString("uniqueString");
+					fail();
+				}
+				catch(UniqueViolationException e)
+				{
+					assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+					assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+					assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+				}
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
@@ -182,18 +185,21 @@ public class UniqueItemTest extends TestmodelTest
 		assertEquals("otherString2", item2.getOtherString());
 
 		// test unique violation
-		try
+		if(!postgresql)
 		{
-			item2.set(new SetValue[]{
-					item1.uniqueString.map("uniqueString1"),
-					item1.otherString.map("otherString1"),
-			});
-			fail();
-		}
-		catch(UniqueViolationException e)
-		{
-			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
-			assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			try
+			{
+				item2.set(new SetValue[]{
+						item1.uniqueString.map("uniqueString1"),
+						item1.otherString.map("otherString1"),
+				});
+				fail();
+			}
+			catch(UniqueViolationException e)
+			{
+				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+				assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			}
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -329,33 +335,39 @@ public class UniqueItemTest extends TestmodelTest
 		assertEquals(b2, ItemWithDoubleUnique.findByDoubleUnique("b", 2));
 
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
-		try
-		{		
-			new ItemWithDoubleUnique("b", 1);
-			fail();
-		}
-		catch(UniqueViolationException e)
+		if(!postgresql)
 		{
-			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			try
+			{		
+				new ItemWithDoubleUnique("b", 1);
+				fail();
+			}
+			catch(UniqueViolationException e)
+			{
+				assertEquals(a1.doubleUnique, e.getFeature());
+				assertEquals(a1.doubleUnique, e.getFeature());
+				assertEquals(null, e.getItem());
+				assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			}
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
-		try
-		{		
-			ItemWithDoubleUnique.TYPE.newItem(new SetValue[]{
-					ItemWithDoubleUnique.string.map("b"),
-					ItemWithDoubleUnique.integer.map(1),
-				});
-			fail();
-		}
-		catch(UniqueViolationException e)
+		if(!postgresql)
 		{
-			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			try
+			{		
+				ItemWithDoubleUnique.TYPE.newItem(new SetValue[]{
+						ItemWithDoubleUnique.string.map("b"),
+						ItemWithDoubleUnique.integer.map(1),
+					});
+				fail();
+			}
+			catch(UniqueViolationException e)
+			{
+				assertEquals(a1.doubleUnique, e.getFeature());
+				assertEquals(a1.doubleUnique, e.getFeature());
+				assertEquals(null, e.getItem());
+				assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			}
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		

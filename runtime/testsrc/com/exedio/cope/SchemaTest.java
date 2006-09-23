@@ -40,6 +40,7 @@ public class SchemaTest extends TestmodelTest
 
 	public void testSchema()
 	{
+		if(postgresql) return;
 		final String TABLE1 = PlusItem.TYPE.getTableName();
 		final String COLUMN1 = PlusItem.num2.getColumnName();
 		assertEquals("PlusItem", TABLE1);

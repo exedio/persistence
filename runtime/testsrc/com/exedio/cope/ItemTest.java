@@ -122,19 +122,22 @@ public class ItemTest extends TestmodelTest
 	public void testCheckDatabase()
 	{
 		model.checkDatabase();
-		model.dropDatabaseConstraints(Constraint.MASK_ALL);
-		model.createDatabaseConstraints(Constraint.MASK_ALL);
-		model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-		model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-		model.dropDatabaseConstraints(Constraint.MASK_FK);
-		model.createDatabaseConstraints(Constraint.MASK_FK);
-		if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
+		if(postgresql)
 		{
-			model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
-			model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
+			model.dropDatabaseConstraints(Constraint.MASK_ALL);
+			model.createDatabaseConstraints(Constraint.MASK_ALL);
+			model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+			model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
+			model.dropDatabaseConstraints(Constraint.MASK_FK);
+			model.createDatabaseConstraints(Constraint.MASK_FK);
+			if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
+			{
+				model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
+				model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
+			}
+			model.dropDatabaseConstraints(Constraint.MASK_CHECK);
+			model.createDatabaseConstraints(Constraint.MASK_CHECK);
 		}
-		model.dropDatabaseConstraints(Constraint.MASK_CHECK);
-		model.createDatabaseConstraints(Constraint.MASK_CHECK);
 		assertNotNull(model.getCacheInfo());
 		assertNotNull(model.getCacheQueryInfo());
 		assertNotNull(model.getCacheQueryHistogram());

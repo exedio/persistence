@@ -40,6 +40,7 @@ public class CacheIsolationTest extends AbstractLibTest
 	
 	public void test() throws MandatoryViolationException
 	{
+		if(postgresql) return;
 		model.commit();
 		final Transaction txChangeItem = model.startTransaction( "change item" );
 		if ( ! model.supportsReadCommitted() )
