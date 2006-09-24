@@ -27,7 +27,11 @@ import com.exedio.dsmf.PostgresqlDriver;
 
 
 /**
- * Still does not work.
+ * Although the junit test succeeds for postgresql,
+ * it cannot considered to be supported by COPE.
+ * There are still far too many postgresql-specific test exceptions.
+ * See AbstractLibTest#postgresql and it's usages in the test code.
+ * The worst anomaly is in UniqueItemTest.
  */
 final class PostgresqlDatabase extends Database
 {
