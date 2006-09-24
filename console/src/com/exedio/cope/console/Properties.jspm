@@ -184,7 +184,26 @@ final class Properties_Jspm
 				}
 				%>
 			</tr><%
+			writeTestInfoBody(out, current, properties);
+		}
+		else
+		{
+			%>
+			<tr>
+				<td colspan="<%=TEST_INFO_KEYS.length%>">
+					No such file available from class loader.
+					<br>
+					This should not happen with any officially distributed jar files for cope.
+				</td>
+			</tr><%
+		}
+		%>
+		</table><%
+	}
 
+	final static void writeTestInfoBody(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
+		throws IOException
+	{
 			for(int i = 0; i<properties.length; i++)
 			{
 				final HashMap db = properties[i];
@@ -235,22 +254,8 @@ final class Properties_Jspm
 				%>
 			</tr><%
 			}
-		}
-		else
-		{
-			%>
-			<tr>
-				<td colspan="<%=TEST_INFO_KEYS.length%>">
-					No such file available from class loader.
-					<br>
-					This should not happen with any officially distributed jar files for cope.
-				</td>
-			</tr><%
-		}
-		%>
-		</table><%
 	}
-
+	
 	final static void write(final PrintStream out, final String key, String value)
 		throws IOException
 	{

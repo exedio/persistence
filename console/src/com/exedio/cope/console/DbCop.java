@@ -143,7 +143,7 @@ final class DbCop extends ConsoleCop
 		try
 		{
 			out = new FileOutputStream(args[0]);
-			Properties_Jspm.writeTestInfo(
+			Properties_Jspm.writeTestInfoBody(
 					new PrintStream(out, false, ConsoleServlet.ENCODING),
 					new java.util.Properties(),
 					makeTestedDatabases());
