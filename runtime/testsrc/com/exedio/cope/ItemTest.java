@@ -122,7 +122,7 @@ public class ItemTest extends TestmodelTest
 	public void testCheckDatabase()
 	{
 		model.checkDatabase();
-		if(postgresql)
+		if(!postgresql)
 		{
 			model.dropDatabaseConstraints(Constraint.MASK_ALL);
 			model.createDatabaseConstraints(Constraint.MASK_ALL);

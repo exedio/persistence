@@ -133,7 +133,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 	public void testModel()
 	{
 		model.checkDatabase();
-		if(postgresql)
+		if(!postgresql)
 		{
 			model.dropDatabaseConstraints(Constraint.MASK_ALL);
 			model.createDatabaseConstraints(Constraint.MASK_ALL);
