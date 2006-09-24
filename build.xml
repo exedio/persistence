@@ -2,6 +2,8 @@
 
 <project name="cope.persistence" default="build" basedir=".">
 
+	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
+
 	<taskdef
 			resource="net/sf/antcontrib/antcontrib.properties"
 			classpath="lib/ant-contrib.jar" />
@@ -768,6 +770,7 @@
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
 		<delete dir="build" />
 		<delete dir="home/lib" />
+		<delete dir="home/testprotocol.html" />
 	</target>
 	
 	<target name="api" depends="local.properties">
@@ -847,7 +850,33 @@
 		</copy>
 	</target>
 
-	<target name="home.zip" depends="api, home.lib">
+	<target name="home.testprotocol" depends="runtime.test, console.compile">
+		<copy file="build/runtime/testprotocol.properties"
+				todir="build/runtime/classes/com/exedio/cope"
+				failonerror="false" />
+		<java classname="com.exedio.cope.console.DbCop" taskname="testprotocol"
+				fork="yes" failonerror="yes">
+			<classpath>
+				<pathelement location="build/runtime/classes" />
+				<pathelement location="build/console/classes" />
+				<pathelement location="lib/pcj.jar" />
+				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+			</classpath>
+			<arg value="build/runtime/testprotocol.html"/>
+			<assertions><enable/></assertions>
+		</java>
+		<LoadFile srcFile="build/runtime/testprotocol.html" property="testprotocol.html" />
+		<copy file="home/testprotocol-template.html"
+				tofile="home/testprotocol.html">
+			<filterset>
+				<filter token="BUILD_TAG" value="${build.tag}" />
+				<filter token="TABLE" value="${testprotocol.html}" />
+			</filterset>
+		</copy>
+	</target>
+	
+	<target name="home.zip" depends="api, home.lib, home.testprotocol">
 		<mkdir dir="build/runtime" />
 		<tar destfile="build/exedio-cope-home.tar.bz2"
 			  compression="bzip2">

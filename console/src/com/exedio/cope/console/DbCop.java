@@ -18,6 +18,7 @@
 
 package com.exedio.cope.console;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -60,7 +61,7 @@ final class DbCop extends ConsoleCop
 		Properties_Jspm.writeTestInfo(out, current, makeTestedDatabases());
 	}
 	
-	private final HashMap[] makeTestedDatabases()
+	private static final HashMap[] makeTestedDatabases()
 	{
 		final Properties p = new Properties();
 		InputStream in = null;
@@ -136,5 +137,20 @@ final class DbCop extends ConsoleCop
 		return (TreeMap<String, String>)o;
 	}
 	
-	
+	public static final void main(final String[] args)
+	{
+		FileOutputStream out = null;
+		try
+		{
+			out = new FileOutputStream(args[0]);
+			Properties_Jspm.writeTestInfo(
+					new PrintStream(out, false, ConsoleServlet.ENCODING),
+					new java.util.Properties(),
+					makeTestedDatabases());
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
 }
