@@ -241,8 +241,7 @@ public final class Transaction
 		connectionPool = database.getConnectionPool();
 		try
 		{
-			connection = connectionPool.getConnection();
-			connection.setAutoCommit(false);
+			connection = connectionPool.getConnection(false);
 		}
 		catch(SQLException e)
 		{
