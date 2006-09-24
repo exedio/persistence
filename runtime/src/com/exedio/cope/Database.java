@@ -100,7 +100,7 @@ abstract class Database
 		String probeError = "unknown";
 		try
 		{
-			probeConnection = connectionPool.getConnection();
+			probeConnection = connectionPool.getConnection(true);
 			
 			probeError = "getMetaData()";
 			final DatabaseMetaData dmd = probeConnection.getMetaData();

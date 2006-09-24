@@ -92,8 +92,7 @@ public abstract class Node
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			connection = connectionProvider.getConnection();
-			connection.setAutoCommit(true);
+			connection = connectionProvider.getConnection(true);
 			//System.err.println(statement);
 
 			if(GET_TABLES==statement)
@@ -160,8 +159,7 @@ public abstract class Node
 		final boolean logAllStatements = false;
 		try
 		{
-			connection = connectionProvider.getConnection();
-			connection.setAutoCommit(true);
+			connection = connectionProvider.getConnection(true);
 			if ( logAllStatements ) System.out.println(statement);
 			sqlStatement = connection.createStatement();
 			final int rows = sqlStatement.executeUpdate(statement);

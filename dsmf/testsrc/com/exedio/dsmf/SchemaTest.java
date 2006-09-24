@@ -116,12 +116,14 @@ public abstract class SchemaTest extends TestCase
 	{
 		final ArrayList<Connection> connections;
 		
-		SimpleConnectionProvider(final List<Connection> connections)
+		SimpleConnectionProvider(final List<Connection> connections) throws SQLException
 		{
 			this.connections = new ArrayList<Connection>(connections);
+			for(Connection c : connections)
+				c.setAutoCommit(true);
 		}
 
-		public Connection getConnection() throws SQLException
+		public Connection getConnection(final boolean autoCommit) throws SQLException
 		{
 			final Connection result = connections.remove(connections.size()-1);
 			return result;
@@ -129,6 +131,7 @@ public abstract class SchemaTest extends TestCase
 
 		public void putConnection(final Connection connection) throws SQLException
 		{
+			assert connection.getAutoCommit()==true;
 			connections.add(connection);
 		}
 	}

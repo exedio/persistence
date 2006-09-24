@@ -87,9 +87,11 @@ final class ConnectionPool implements ConnectionProvider
 		}
 	}
 
-	public Connection getConnection() throws SQLException
+	public Connection getConnection(final boolean autoCommit) throws SQLException
 	{
 		counter.get();
+
+		Connection result = null;
 
 		synchronized(lock)
 		{
@@ -101,15 +103,17 @@ final class ConnectionPool implements ConnectionProvider
 			if(idle!=null && idleCount>0)
 			{
 				//System.out.println("connection pool: fetch "+(size-1));
-				final Connection result = idle[--idleCount];
+				result = idle[--idleCount];
 				idle[idleCount] = null; // do not reference active connections
-				return result;
 			}
 		}
 		//System.out.println("connection pool: CREATE");
 
 		// Important to do this outside the synchronized block!
-		return createConnection();
+		if(result==null)
+			result = createConnection();
+		result.setAutoCommit(autoCommit);
+		return result;
 	}
 	
 	private Connection createConnection() throws SQLException
