@@ -78,7 +78,7 @@ final class ConnectionPool implements ConnectionProvider
 			try
 			{
 				for(int i = 0; i<idleInitial; i++)
-					idle[i] = DriverManager.getConnection(url, user, password);
+					idle[i] = createConnection();
 			}
 			catch(SQLException e)
 			{
@@ -87,7 +87,7 @@ final class ConnectionPool implements ConnectionProvider
 		}
 	}
 
-	public final Connection getConnection() throws SQLException
+	public Connection getConnection() throws SQLException
 	{
 		counter.get();
 
@@ -109,7 +109,12 @@ final class ConnectionPool implements ConnectionProvider
 		//System.out.println("connection pool: CREATE");
 
 		// Important to do this outside the synchronized block!
-		return  DriverManager.getConnection(url, user, password);
+		return createConnection();
+	}
+	
+	private Connection createConnection() throws SQLException
+	{
+		return DriverManager.getConnection(url, user, password);
 	}
 
 	/**
@@ -117,7 +122,7 @@ final class ConnectionPool implements ConnectionProvider
 	 * somewhere in the future, it's important, that client return connections
 	 * to exactly the same instance of ConnectionPool.
 	 */
-	public final void putConnection(final Connection connection) throws SQLException
+	public void putConnection(final Connection connection) throws SQLException
 	{
 		if(connection==null)
 			throw new NullPointerException();
@@ -147,7 +152,7 @@ final class ConnectionPool implements ConnectionProvider
 		connection.close();
 	}
 	
-	final void flush()
+	void flush()
 	{
 		if(idle!=null)
 		{
@@ -184,7 +189,7 @@ final class ConnectionPool implements ConnectionProvider
 			throw new RuntimeException("still "+activeCount+" connections active");
 	}
 	
-	final ConnectionPoolInfo getInfo()
+	ConnectionPoolInfo getInfo()
 	{
 		return new ConnectionPoolInfo(idleCount, activeCount, new PoolCounter(counter));
 	}
