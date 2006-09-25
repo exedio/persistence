@@ -87,11 +87,10 @@ final class PostgresqlDatabase extends Database
 		return "DATE";
 	}
 	
-	// TODO check if there is a suitable column type
 	@Override
 	public String getDateTimestampType()
 	{
-		return null;
+		return "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field
 	}
 
 	@Override

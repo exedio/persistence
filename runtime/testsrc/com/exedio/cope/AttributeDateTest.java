@@ -214,7 +214,7 @@ public class AttributeDateTest extends AttributeTest
 		else if(databaseClassName.endsWith("HsqldbDatabase"))
 			expectedColumnType = "timestamp";
 		else if(databaseClassName.endsWith("PostgresqlDatabase"))
-			expectedColumnType = null;
+			expectedColumnType = "timestamp (3) without time zone";
 		else
 			throw new RuntimeException(databaseClassName);
 		
