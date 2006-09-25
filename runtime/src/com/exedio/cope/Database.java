@@ -732,7 +732,7 @@ abstract class Database
 			final State state,
 			final boolean present,
 			final Map<BlobColumn, byte[]> blobs,
-			final Type type)
+			final Type<?> type)
 	{
 		buildStage = false;
 
@@ -842,8 +842,7 @@ abstract class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		final List uqs = type.declaredUniqueConstraints;
-		executeSQLUpdate(connection, bf, 1, uqs.size()==1?(UniqueConstraint)uqs.iterator().next():null);
+		executeSQLUpdate(connection, bf, 1, type.declaredUniqueConstraints);
 	}
 
 	public void delete(final Connection connection, final Item item)
@@ -1221,7 +1220,7 @@ abstract class Database
 	private final void executeSQLUpdate(
 			final Connection connection,
 			final Statement statement, final int expectedRows,
-			final UniqueConstraint onlyThreatenedUniqueConstraint)
+			final List<UniqueConstraint> threatenedUniqueConstraints)
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
@@ -1232,7 +1231,7 @@ abstract class Database
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final int rows;
 			
-			if(needsSavepoint()) // TODO should be done only if there are unique constraint threatened
+			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint())
 				sp = connection.setSavepoint();
 			
 			if(!prepare)
@@ -1261,7 +1260,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			final UniqueViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint);
+			final UniqueViolationException wrappedException = wrapException(e, threatenedUniqueConstraints);
 			if(wrappedException!=null)
 			{
 				if(sp!=null)
@@ -1322,14 +1321,14 @@ abstract class Database
 
 	private final UniqueViolationException wrapException(
 			final SQLException e,
-			final UniqueConstraint onlyThreatenedUniqueConstraint)
+			final List<UniqueConstraint> threatenedUniqueConstraints)
 	{
 		final String uniqueConstraintID = extractUniqueConstraintName(e);
 		if(uniqueConstraintID!=null)
 		{
 			final UniqueConstraint constraint;
 			if(ANY_CONSTRAINT.equals(uniqueConstraintID))
-				constraint = onlyThreatenedUniqueConstraint;
+				constraint = (threatenedUniqueConstraints.size()==1) ? threatenedUniqueConstraints.get(0) : null;
 			else
 			{
 				constraint = uniqueConstraintsByID.get(uniqueConstraintID);
