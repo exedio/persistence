@@ -104,14 +104,21 @@ final class PostgresqlDatabase extends Database
 	@Override
 	LimitSupport getLimitSupport()
 	{
-		// TODO support limit clause
-		return LimitSupport.NONE;
+		return LimitSupport.CLAUSE_AFTER_WHERE;
 	}
 
 	@Override
 	void appendLimitClause(final Statement bf, final int start, final int count)
 	{
-		throw new RuntimeException();
+		assert start>=0;
+		assert count>0 || count==Query.UNLIMITED_COUNT;
+		assert start>0 || count>0;
+		
+		if(count!=Query.UNLIMITED_COUNT)
+			bf.append(" limit ").appendParameter(count);
+
+		if(start>0)
+			bf.append(" offset ").appendParameter(start);
 	}
 	
 	@Override
