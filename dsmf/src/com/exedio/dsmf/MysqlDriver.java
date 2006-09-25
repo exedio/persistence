@@ -88,13 +88,13 @@ public final class MysqlDriver extends Driver
 					case 65535:      return "text character set utf8 binary";
 					case 16277215:   return "mediumtext character set utf8 binary";
 					case 2147483647: return "longtext character set utf8 binary";
-					default:         return "LONGVARCHAR("+columnSize+")";
+					default:         return "LONGVARCHAR("+columnSize+')';
 				}
 			case Types.BINARY:
 				switch(columnSize)
 				{
 					case 255:        return "TINYBLOB";
-					default:         return "BINARY("+columnSize+")";
+					default:         return "BINARY("+columnSize+')';
 				}
 			case Types.LONGVARBINARY:
 				switch(columnSize)
@@ -102,7 +102,7 @@ public final class MysqlDriver extends Driver
 					case 65535:      return "BLOB";
 					case 16277215:   return "MEDIUMBLOB";
 					case 2147483647: return "LONGBLOB";
-					default:         return "LONGVARBINARY("+columnSize+")";
+					default:         return "LONGVARBINARY("+columnSize+')';
 				}
 			default:
 				return null;
