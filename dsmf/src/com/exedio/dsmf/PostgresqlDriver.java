@@ -34,12 +34,13 @@ public final class PostgresqlDriver extends Driver
 	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
+		final int columnSize = resultSet.getInt("COLUMN_SIZE");
 		switch(dataType)
 		{
 			case Types.INTEGER:
 				return "INTEGER";
 			case Types.VARCHAR:
-				return "VARCHAR(8)"; // TODO extract real length of varchar
+				return "VARCHAR("+columnSize+')';
 			case Types.DATE:
 				return "DATE";
 			default:
