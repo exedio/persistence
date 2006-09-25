@@ -964,15 +964,44 @@ abstract class Database
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
-
-				final Blob blob = resultSet.getBlob(1);
-				if(blob!=null)
+				
+				if(supportsBlobInResultSet())
+				{
+					final Blob blob = resultSet.getBlob(1);
+					if(blob!=null)
+					{
+						InputStream source = null;
+						try
+						{
+							source = blob.getBinaryStream();
+							attribute.copy(source, data, blob.length(), item);
+						}
+						catch(IOException e)
+						{
+							throw new RuntimeException(e);
+						}
+						finally
+						{
+							if(source!=null)
+							{
+								try
+								{
+									source.close();
+								}
+								catch(IOException e)
+								{/*IGNORE*/}
+							}
+						}
+					}
+				}
+				else
 				{
 					InputStream source = null;
 					try
 					{
-						source = blob.getBinaryStream();
-						attribute.copy(source, data, blob.length(), item);
+						source = resultSet.getBinaryStream(1);
+						if(source!=null)
+							attribute.copy(source, data, item);
 					}
 					catch(IOException e)
 					{
@@ -1440,6 +1469,11 @@ abstract class Database
 	}
 
 	public boolean supportsGetBytes()
+	{
+		return true;
+	}
+
+	public boolean supportsBlobInResultSet()
 	{
 		return true;
 	}

@@ -93,14 +93,19 @@ final class PostgresqlDatabase extends Database
 	{
 		return null;
 	}
-	
-	// TODO check if there is a suitable column type
+
 	@Override
 	public String getBlobType(final long maximumLength)
 	{
-		return null;
+		return (maximumLength<Integer.MAX_VALUE) ? "bytea" : null;
 	}
 	
+	@Override
+	public boolean supportsBlobInResultSet()
+	{
+		return false;
+	}
+
 	@Override
 	LimitSupport getLimitSupport()
 	{
