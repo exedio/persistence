@@ -29,9 +29,8 @@ import com.exedio.dsmf.PostgresqlDriver;
 /**
  * Although the junit test succeeds for postgresql,
  * it cannot considered to be supported by COPE.
- * There are still far too many postgresql-specific test exceptions.
+ * There are still too many postgresql-specific test exceptions.
  * See AbstractLibTest#postgresql and it's usages in the test code.
- * The worst anomaly is in UniqueItemTest.
  */
 final class PostgresqlDatabase extends Database
 {
@@ -50,8 +49,20 @@ final class PostgresqlDatabase extends Database
 	protected PostgresqlDatabase(final Properties properties)
 	{
 		super(new PostgresqlDriver(), properties);
+		
+		// version 8 needed for savepoints
+		if(databaseMajorVersion<8)
+			throw new RuntimeException("postgresql support need at least database version 8, but was: " + databaseProductVersion + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')');
+		if(driverMajorVersion<8)
+			throw new RuntimeException("postgresql support need at least jdbc driver version 8, but was: " + driverVersion + '(' + driverMajorVersion + '.' + driverMinorVersion + ')');
 	}
 	
+	@Override
+	boolean needsSavepoint()
+	{
+		return true;
+	}
+
 	@Override
 	public String getIntegerType(final long minimum, final long maximum)
 	{

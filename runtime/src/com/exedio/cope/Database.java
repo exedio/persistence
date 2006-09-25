@@ -28,6 +28,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1224,11 +1225,16 @@ abstract class Database
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
+		Savepoint sp = null;
 		try
 		{
 			final String sqlText = statement.getText();
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final int rows;
+			
+			if(needsSavepoint()) // TODO should be done only if there are unique constraint threatened
+				sp = connection.setSavepoint();
+			
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
@@ -1257,7 +1263,21 @@ abstract class Database
 		{
 			final UniqueViolationException wrappedException = wrapException(e, onlyThreatenedUniqueConstraint);
 			if(wrappedException!=null)
+			{
+				if(sp!=null)
+				{
+					try
+					{
+						connection.rollback(sp);
+						sp = null;
+					}
+					catch(SQLException ex)
+					{
+						throw new SQLRuntimeException(e, ex.getMessage() + " on rollback of: " + statement.toString());
+					}
+				}
 				throw wrappedException;
+			}
 			else
 				throw new SQLRuntimeException(e, statement.toString());
 		}
@@ -1443,6 +1463,18 @@ abstract class Database
 	public int getBlobLengthFactor()
 	{
 		return 1;
+	}
+
+	/**
+	 * By overriding this method subclasses can enable the use of save points.
+	 * Some databases cannot recover from constraint violations in
+	 * the same transaction without a little help,
+	 * the need a save point set before the modification, that can be
+	 * recovered manually.
+	 */
+	boolean needsSavepoint()
+	{
+		return false;
 	}
 
 	public abstract String getIntegerType(long minimum, long maximum);
