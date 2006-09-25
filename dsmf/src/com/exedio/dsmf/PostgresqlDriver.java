@@ -51,6 +51,10 @@ public final class PostgresqlDriver extends Driver
 				}
 			case Types.DATE:
 				return "DATE";
+			case Types.TIMESTAMP:
+				return "timestamp (3) without time zone"; // TODO fetch precision and time zone
+			case Types.BINARY:
+				return "bytea";
 			default:
 				return null;
 		}
