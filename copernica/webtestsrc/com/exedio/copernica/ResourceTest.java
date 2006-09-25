@@ -83,7 +83,7 @@ public class ResourceTest extends AbstractWebTest
 		{
 			assertEquals("/*", is.readLine());
 			assertEquals("This is the default style sheet for the", is.readLine());
-			assertEquals("cope admin application", is.readLine());
+			assertEquals("cope console", is.readLine());
 			assertEquals("*/", is.readLine());
 			assertEquals("", is.readLine());
 		}
