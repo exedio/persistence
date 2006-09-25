@@ -44,7 +44,11 @@ public final class PostgresqlDriver extends Driver
 			case Types.DOUBLE:
 				return "DOUBLE PRECISION";
 			case Types.VARCHAR:
-				return "VARCHAR("+columnSize+')';
+				switch(columnSize)
+				{
+					case -1: return "TEXT";
+					default: return "VARCHAR("+columnSize+')';
+				}
 			case Types.DATE:
 				return "DATE";
 			default:
