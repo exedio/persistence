@@ -39,6 +39,10 @@ public final class PostgresqlDriver extends Driver
 		{
 			case Types.INTEGER:
 				return "INTEGER";
+			case Types.BIGINT:
+				return "BIGINT";
+			case Types.DOUBLE:
+				return "DOUBLE PRECISION";
 			case Types.VARCHAR:
 				return "VARCHAR("+columnSize+')';
 			case Types.DATE:
