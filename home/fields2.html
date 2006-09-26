@@ -19,18 +19,18 @@
 		</a>
 		<div>
 			While the <a href="fields.html">Field Trail</a>
-			covered the most fundamental attributes only,
+			covered the most fundamental fields only,
 			this trails shows you some more special ways to store data with COPE.
-			Although most of the features below are not attributes in a formal sense
+			Although most of the features below are not fields in a formal sense
 			(means subclasses of class <a href="api/com/exedio/cope/Field.html">Field</a>)
 			you don't have to care about this until you want to develop such features yourself.
 		</div>
 		<h3><a name="contents">Contents</a></h3>
 		<ul>
 			<li><a href="#hashes">Hashes</a></li>
-			<li><a href="#attributelists">Field Lists</a></li>
-			<li><a href="#attributemaps">Field Maps</a></li>
-			<li><a href="#dayattributes">Day Fields</a></li>
+			<li><a href="#fieldlists">Field Lists</a></li>
+			<li><a href="#fieldmaps">Field Maps</a></li>
+			<li><a href="#dayfields">Day Fields</a></li>
 			<li><a href="#further">Further Reading</a></li>
 		</ul>
 		<h3><a name="hashes">Hashes</a></h3>
@@ -57,11 +57,11 @@ boolean checkPassword(String password)
 			you can choose any hash algorithm provided by the java.security package
 			or even implement a custom algorithm.
 		</div>
-		<h3><a name="attributelists">Field Lists</a></h3>
+		<h3><a name="fieldlists">Field Lists</a></h3>
 		<div>
-			Sometimes you may want to store multiple values for an attribute,
+			Sometimes you may want to store multiple values for an field,
 			such as multiple email addresses for the customer.
-			This can be achieved with <i>attribute lists</i>:
+			This can be achieved with <i>field lists</i>:
 		</div>
 <pre>
 static final <a href="api/com/exedio/cope/pattern/FieldList.html">FieldList</a>&lt;String&gt; emails =
@@ -71,20 +71,20 @@ static final <a href="api/com/exedio/cope/pattern/FieldList.html">FieldList</a>&
 			Internally this is implemented by an extra table in the database,
 			so you can store lists of any size.
 			If you are sure, that the list cannot a exceed a certain size,
-			you may decide to use a <i>limited attribute list</i>:
+			you may decide to use a <i>limited field list</i>:
 		</div>
 <pre>
 static final <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>&lt;String&gt; emails =
     <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>.<a href="api/com/exedio/cope/pattern/FieldListLimited.html#newList(com.exedio.cope.FunctionField, int)">newList</a>(new StringField(OPTIONAL), 4);
 </pre>
 		<div>
-			Internally there are 4 string attributes used for storing the elements of the list.
+			Internally there are 4 string fields used for storing the elements of the list.
 			If someone tries to store a list of more than 4 elements,
 			an exception is thrown.
 		</div>
-		<h3><a name="attributemaps">Field Maps</a></h3>
+		<h3><a name="fieldmaps">Field Maps</a></h3>
 		<div>
-			Especially in international applications you may want to store multiple attribute values,
+			Especially in international applications you may want to store multiple field values,
 			such as one price of a product for each country or one description for each language.
 			The following example specifies the latter:
 		</div>
@@ -94,7 +94,7 @@ static final <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>&lt
                         new StringField());
 </pre>
 		<div>
-			The instrumentor will create appropriate methods for accessing the <i>attribute map</i>:
+			The instrumentor will create appropriate methods for accessing the <i>field map</i>:
 		</div>
 <pre>
 String getDescription(Language k)
@@ -120,10 +120,10 @@ static final <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>&lt
                         new StringField());
 </pre>
 		<div>
-			As with <i>attribute lists</i> this is implemented by an extra table in the database,
+			As with <i>field lists</i> this is implemented by an extra table in the database,
 			so you can store maps of any size.
 			If the key space of the map is limited to an enum,
-			you may decide to use a <i>limited attribute map</i> instead:
+			you may decide to use a <i>limited field map</i> instead:
 		</div>
 <pre>
 static enum Language { DE, EN, PL; }
@@ -133,11 +133,11 @@ static final <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMap
                         new StringField(OPTIONAL));
 </pre>
 		<div>
-			Internally three string attributes
+			Internally three string fields
 			<tt>nameDE</tt>, <tt>nameEN</tt>, <tt>namePL</tt>
 			are used for storing the values of the map.
 		</div>
-		<h3><a name="dayattributes">Day Fields</a></h3>
+		<h3><a name="dayfields">Day Fields</a></h3>
 		<div>
 			Class <a href="api/com/exedio/cope/DateField.html">DateField</a>
 			already stores time stamps with millisecond precision.
@@ -145,14 +145,14 @@ static final <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMap
 			Millisecond precision is then just an additional source for mistakes.
 			Since the java runtime library does not provide a value class for this,
 			COPE has to introduce it's own <a href="api/com/exedio/cope/util/Day.html">Day</a>.
-			To define a <i>day attribute</i> within a type write:
+			To define a <i>day field</i> within a type write:
 		</div>
 <pre>
 static final <a href="api/com/exedio/cope/DayField.html">DayField</a> dateOfBirth = new <a href="api/com/exedio/cope/DayField.html#DayField()">DayField</a>();
 </pre>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>
-			This was the advanced attribute trail of the cope tour.
+			This was the advanced field trail of the cope tour.
 			You may now proceed to trails:
 			<ul>
 				<li>

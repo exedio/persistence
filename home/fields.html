@@ -19,9 +19,9 @@
 		</a>
 		<div>
 			While the <a href="intro.html">Introduction Trail</a>
-			covered string attributes only,
-			this trails visits all kinds of other attributes
-			as well as the more special features of string attributes.
+			covered string fields only,
+			this trails visits all kinds of other fields
+			as well as the more special features of string fields.
 		</div>
 		<h3><a name="contents">Contents</a></h3>
 		<ul>
@@ -35,7 +35,7 @@
 		</ul>
 		<h3><a name="common">Common Primitives</a></h3>
 		<div>
-			COPE provides attributes for all commonly used java primitives
+			COPE provides fields for all commonly used java primitives
 			as well as for <tt>String</tt> and <tt>java.util.Date</tt>.
 			This looks like this.
 		</div>
@@ -56,15 +56,15 @@ class Customer extends Item
 </pre>
 		<div>
 			Run the instrumentor, and you get setters/getters for all
-			the new attributes.
+			the new fields.
 			Also the <i>default creation constructor</i>
-			will have parameters for the initial values of these attributes.
+			will have parameters for the initial values of these fields.
 		</div>
 		<h3><a name="null">Allowing Null</a></h3>
 		<div>
 			You may have noticed, that you cannot store null
-			into any of the attributes.
-			This is because attributes are <i>mandatory</i> by default.
+			into any of the fields.
+			This is because fields are <i>mandatory</i> by default.
 			You can easily change this to <i>optional</i>.
 		</div>
 <pre>
@@ -82,7 +82,7 @@ static final LongField loginCounter =
 					for constructing an instance of Customer anymore.
 					If you still want to have <tt>loginCounter</tt> included into
 					the <i>default creation constructor</i> add a
-					<tt>@cope.initial</tt> tag to the attribute:
+					<tt>@cope.initial</tt> tag to the field:
 <pre>
 /**
  * <b>@cope.initial</b>
@@ -128,7 +128,7 @@ static final LongField loginCounter =
 		</div>
 		<div>
 			If you want to make the current date the default value
-			of any date attribute,
+			of any date field,
 			then of course <tt>defaultTo(new Date())</tt> won't work.
 			Use instead:
 		</div>
@@ -161,7 +161,7 @@ static final Customer findByEmail(String email);
 			which does, what it's name suggests.
 		</div>
 		<div>
-			For unique constraints across multiple attributes
+			For unique constraints across multiple fields
 			the notation is slightly different:
 		</div>
 <pre>
@@ -177,10 +177,10 @@ class MatrixElement extends Item
 </pre>
 		<h3><a name="enum">Enum Fields</a></h3>
 		<div>
-			A common pattern in persistent models are attributes,
+			A common pattern in persistent models are fields,
 			the can have a value out of a predefined set of values.
 			For that purpose java provides enums since JDK 1.5.
-			COPE allows you to store such enums in attributes
+			COPE allows you to store such enums in fields
 			just like any other primitive:
 		</div>
 <pre>
@@ -199,7 +199,7 @@ class Customer extends Item
 </pre>
 		<h3><a name="item">Item Fields</a></h3>
 		<div>
-			An item attributes stores a reference to another persistent item.
+			An item fields stores a reference to another persistent item.
 			It's the object oriented counter part of
 			a foreign key constraint in relational databases.
 		</div>
@@ -224,7 +224,7 @@ class Product extends Item
 			As specified above, a product group cannot be deleted,
 			if there are still products referencing this product group.
 			This is because the default <i>delete policy</i>
-			of an item attribute is <i>forbid</i>.
+			of an item field is <i>forbid</i>.
 			Alternativly you may want to have all products of a product group to be deleted,
 			if that product group is deleted.
 			To achive this, change the <i>delete policy</i> to <i>cascade</i>.
@@ -234,7 +234,7 @@ static final ItemField&lt;ProductGroup&gt; productGroup =
     newItemField(ProductGroup.class, <b>CASCADE</b>);
 </pre>
 		<div>
-			Yet another alternative is to set the item attribute to null
+			Yet another alternative is to set the item field to null
 			on all products referencing the product group to be deleted.
 			This is done by:
 		</div>
@@ -243,12 +243,12 @@ static final ItemField&lt;ProductGroup&gt; productGroup =
     newItemField(<b>OPTIONAL</b>, ProductGroup.class, <b>NULLIFY</b>);
 </pre>
 		<div>
-			Of course <i>nullify</i> makes no sense for a <i>mandatory</i> attribute,
+			Of course <i>nullify</i> makes no sense for a <i>mandatory</i> field,
 			so I changed it to <i>optional</i>.
 		</div>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>
-			This was the attribute trail of the cope tour.
+			This was the field trail of the cope tour.
 			You may now proceed to trails:
 			<ul>
 				<li>

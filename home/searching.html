@@ -98,7 +98,7 @@ TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">s
 TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(email.<a href="api/com/exedio/cope/StringFunction.html#startsWith(java.lang.String)"><b>startsWith</b></a>("cope@exedio."));
 </pre>
 		<div>
-			Of course searching works for integer attributes as well.
+			Of course searching works for integer fields as well.
 			Here a query, that searches for customers,
 			that have logged in at least 8 times:
 		</div>
@@ -115,9 +115,9 @@ TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">s
 TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(loginCounter.like("cope@exedio.%"));
 </pre>
 		<div>
-			The first one tries to compare a string attribute to an integer literal.
-			The second query compares an integer attribute to a string attribute.
-			The third uses the operator "like" on an integer attribute instead of a string attribute.
+			The first one tries to compare a string field to an integer literal.
+			The second query compares an integer field to a string field.
+			The third uses the operator "like" on an integer field instead of a string field.
 		</div>
 		<h3><a name="sorting">Sorting</a></h3>
 		<div>
@@ -134,7 +134,7 @@ TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition, co
 			Use <tt>false</tt> to order descendingly.
 		</div>
 		<div>
-			If you want to order by multiple attributes,
+			If you want to order by multiple fields,
 			you have to use an explicit query for the first time.
 			This looks like this:
 		</div>
@@ -206,12 +206,12 @@ return q.<a href="api/com/exedio/cope/Query.html#searchSingleton()">searchSingle
 			that the result set can have at most one element.
 			This happens if
 			you use limits as above or
-			you restrict your query to match a <i>unique</i> attribute or
+			you restrict your query to match a <i>unique</i> field or
 			when using <i>aggregators</i> as explained below.
 		</div>
 		<h3><a name="selecting">Selecting and Aggregating</a></h3>
 		<div>
-			Sometimes you just want to deal with values of attributes, not items.
+			Sometimes you just want to deal with values of fields, not items.
 			For instance you might want to have a list of the email addresses of
 			all customers:
 		</div>
@@ -274,7 +274,7 @@ List&lt;Order&gt; orders = q.search();
 </pre>
 		<div>
 			Note the join condition in the second line,
-			it specifies a <i>natural join</i> on the item attribute <tt>buyer</tt>.
+			it specifies a <i>natural join</i> on the item field <tt>buyer</tt>.
 			The join condition can also be specified in a short form,
 			using a convenience method:
 		</div>
