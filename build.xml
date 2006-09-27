@@ -862,7 +862,8 @@
 		</java>
 		<LoadFile srcFile="build/runtime/testprotocol.html" property="testprotocol.html" />
 		<copy file="home/testprotocol-template.html"
-				tofile="home/testprotocol.html">
+				tofile="home/testprotocol.html"
+				overwrite="true">
 			<filterset>
 				<filter token="BUILD_TAG" value="${build.tag}" />
 				<filter token="TABLE" value="${testprotocol.html}" />
