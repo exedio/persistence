@@ -156,7 +156,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			: Collections.unmodifiableList(Arrays.asList(patterns.toArray(new Pattern[patterns.size()])));
 	}
 	
-	final void materialize(final Table table)
+	final void connect(final Table table)
 	{
 		if(table==null)
 			throw new NullPointerException();

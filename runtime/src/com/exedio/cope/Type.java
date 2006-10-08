@@ -461,7 +461,7 @@ public final class Type<C extends Item>
 			pkSource = database.makePkSource(table);
 		
 		for(final Field a : declaredAttributes)
-			a.materialize(table);
+			a.connect(table);
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.materialize(database);
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
