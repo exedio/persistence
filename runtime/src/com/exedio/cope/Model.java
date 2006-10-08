@@ -241,7 +241,7 @@ public final class Model
 				this.databaseIfConnected = null;
 				
 				for(final Type type : typesSorted)
-					type.dematerialize();
+					type.disconnect();
 				
 				this.cacheIfConnected = null;
 				

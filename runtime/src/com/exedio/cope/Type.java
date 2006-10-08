@@ -468,7 +468,7 @@ public final class Type<C extends Item>
 		this.table.finish();
 	}
 	
-	void dematerialize()
+	void disconnect()
 	{
 		if(this.model==null)
 			throw new RuntimeException();
