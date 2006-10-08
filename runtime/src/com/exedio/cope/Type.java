@@ -441,7 +441,7 @@ public final class Type<C extends Item>
 		return (List<ItemField>)l;
 	}
 	
-	void materialize(final Database database)
+	void connect(final Database database)
 	{
 		if(database==null)
 			throw new RuntimeException();

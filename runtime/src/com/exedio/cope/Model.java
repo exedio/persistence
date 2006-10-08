@@ -199,7 +199,7 @@ public final class Model
 				this.databaseIfConnected = properties.createDatabase();
 				
 				for(final Type type : typesSorted)
-					type.materialize(databaseIfConnected);
+					type.connect(databaseIfConnected);
 				
 				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
