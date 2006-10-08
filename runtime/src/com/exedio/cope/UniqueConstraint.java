@@ -93,7 +93,7 @@ public final class UniqueConstraint extends Feature
 		database.addUniqueConstraint(databaseID, this);
 	}
 
-	final void dematerialize()
+	final void disconnect()
 	{
 		if(this.databaseID==null)
 			throw new RuntimeException();

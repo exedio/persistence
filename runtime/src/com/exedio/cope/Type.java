@@ -483,7 +483,7 @@ public final class Type<C extends Item>
 		for(final Field a : declaredAttributes)
 			a.disconnect();
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
-			uc.dematerialize();
+			uc.disconnect();
 	}
 	
 	public Class<C> getJavaClass()
