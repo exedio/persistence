@@ -289,7 +289,7 @@ public class ModelTest extends TestmodelTest
 		model.commit();
 		final Properties p = model.getProperties();
 		assertNotNull(p);
-		model.unsetProperties();
+		model.disconnect();
 		try
 		{
 			assertSame(null, model.getProperties());

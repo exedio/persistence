@@ -225,7 +225,7 @@ public final class Model
 		connect(properties);
 	}
 	
-	public void unsetProperties()
+	public void disconnect()
 	{
 		synchronized(propertiesLock)
 		{
