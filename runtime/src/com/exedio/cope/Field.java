@@ -166,7 +166,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		this.column = createColumn(table, getName(), optional);
 	}
 	
-	void dematerialize()
+	void disconnect()
 	{
 		this.column = null;
 	}

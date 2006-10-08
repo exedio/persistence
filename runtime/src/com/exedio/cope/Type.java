@@ -481,7 +481,7 @@ public final class Type<C extends Item>
 		pkSource = null;
 		
 		for(final Field a : declaredAttributes)
-			a.dematerialize();
+			a.disconnect();
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.dematerialize();
 	}

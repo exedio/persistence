@@ -152,12 +152,12 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 
 	@Override
-	void dematerialize()
+	void disconnect()
 	{
 		if(this.onlyPossibleValueType==null && this.typeColumn==null)
 			throw new RuntimeException();
 
-		super.dematerialize();
+		super.disconnect();
 		this.onlyPossibleValueType = null;
 		this.typeColumn = null;
 	}
