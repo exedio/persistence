@@ -463,7 +463,7 @@ public final class Type<C extends Item>
 		for(final Field a : declaredAttributes)
 			a.connect(table);
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
-			uc.materialize(database);
+			uc.connect(database);
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
 		this.table.finish();
 	}
