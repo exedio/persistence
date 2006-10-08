@@ -108,7 +108,7 @@ public class Main
 		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
 		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_pointerLoooooooooooooName_Ck", "NmeLngIm_pointrLngNme_Ck");
 		
-		model.setPropertiesInitially(new Properties(dp, dpf.getAbsolutePath()+" plus teardown forced names"));
+		model.connect(new Properties(dp, dpf.getAbsolutePath()+" plus teardown forced names"));
 		model.tearDownDatabase();
 	}
 	

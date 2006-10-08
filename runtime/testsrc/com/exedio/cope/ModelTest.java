@@ -65,11 +65,11 @@ public class ModelTest extends TestmodelTest
 		assertEquals("-----"+expected+"-----"+actual+"-----", expected, actual);
 	}
 	
-	public void testSetPropertiesInitially()
+	public void testConnect()
 	{
 		final Properties defaultProps = getProperties();
-		// test duplicate call of setPropertiesInitially
-		model.setPropertiesInitially(defaultProps);
+		// test duplicate call of connect
+		model.connect(defaultProps);
 	}
 	
 	public void testType() throws IOException
@@ -293,12 +293,13 @@ public class ModelTest extends TestmodelTest
 		try
 		{
 			assertSame(null, model.getProperties());
+			fail();
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("model not yet initialized, use setPropertiesInitially", e.getMessage());
+			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
 		}
-		model.setPropertiesInitially(p);
+		model.connect(p);
 		assertSame(p, model.getProperties());
 		model.startTransaction("ModelTest.testUnsetProperties");
 	}

@@ -25,13 +25,13 @@
 		</div>
 		<h3><a name="contents">Contents</a></h3>
 		<ul>
-			<li><a href="#initialize">Initialization</a></li>
+			<li><a href="#connect">Connecting</a></li>
 			<li><a href="#transactions">Transactions</a></li>
 			<li><a href="#console">COPE Console</a></li>
 			<li><a href="#copernica">Copernica</a></li>
 			<li><a href="#further">Further Reading</a></li>
 		</ul>
-		<h3><a name="initialize">Initialization</a></h3>
+		<h3><a name="connect">Connecting</a></h3>
 		<div>
 			COPE must be told, where to connect to the database.
 			Within a servlet you probably
@@ -43,8 +43,8 @@
 <pre>
 public void init() throws ServletException
 {
-   Main.model.setPropertiesInitially(
-      new com.exedio.cope.Properties(
+   Main.model.<a href="api/com/exedio/cope/Model.html#connect(com.exedio.cope.Properties)">connect</a>(
+      new <a href="api/com/exedio/cope/Properties.html#Properties(java.io.File)">Properties</a>(
          new File(getServletContext().
            getRealPath("WEB-INF/cope.properties"))));
 }
@@ -62,7 +62,7 @@ public void init() throws ServletException
 		<div>
 			Even this can be ommitted, if you use the <i>TransactionFilter</i>
 			explained below.
-			Please note, that <tt>setPropertiesInitially</tt> is idempotent,
+			Please note, that <tt><a href="api/com/exedio/cope/Model.html#connect(com.exedio.cope.Properties)">connect</a></tt> is idempotent,
 			it doesn't hurt to call it more than once,
 			for example if you have more than one servlet.
 		</div>

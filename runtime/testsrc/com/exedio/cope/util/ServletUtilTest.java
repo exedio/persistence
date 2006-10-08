@@ -44,15 +44,15 @@ public class ServletUtilTest extends CopeAssert
 
 	public void testIt()
 	{
-		assertModelNotInitialized(modelOk);
+		assertModelNotConnected(modelOk);
 		assertSame(modelOk, ServletUtil.getModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
 		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
 
-		assertModelNotInitialized(modelOk2);
+		assertModelNotConnected(modelOk2);
 		assertSame(modelOk2, ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
 
-		assertModelNotInitialized(modelContext);
+		assertModelNotConnected(modelContext);
 		assertSame(modelContext, ServletUtil.getModel(new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
 		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
@@ -107,7 +107,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 	}
 	
-	private static final void assertModelNotInitialized(final Model model)
+	private static final void assertModelNotConnected(final Model model)
 	{
 		try
 		{
@@ -116,7 +116,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("model not yet initialized, use setPropertiesInitially", e.getMessage());
+			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
 		}
 	}
 	

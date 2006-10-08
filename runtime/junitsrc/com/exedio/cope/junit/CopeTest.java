@@ -146,7 +146,7 @@ public abstract class CopeTest extends CopeAssert
 	@Override
 	protected void setUp() throws Exception
 	{
-		model.setPropertiesInitially(getProperties());
+		model.connect(getProperties());
 
 		super.setUp();
 		deleteOnTearDown = new ArrayList<Item>();

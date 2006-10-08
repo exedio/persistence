@@ -97,7 +97,7 @@ public class ServletUtil
 	
 	public static final void initialize(final Model model, final ServletContext context)
 	{
-		model.setPropertiesInitially(
+		model.connect(
 			new com.exedio.cope.Properties(
 				new File(context.getRealPath("WEB-INF/cope.properties"))));
 	}

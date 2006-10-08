@@ -260,8 +260,8 @@ database.password=<i>password</i>
 <pre>
 public static void main(String[] args)
 {
-   model.setPropertiesInitially(
-      new Properties(new File("cope.properties")));
+   model.<a href="api/com/exedio/cope/Model.html#connect(com.exedio.cope.Properties)">connect</a>(
+      new <a href="api/com/exedio/cope/Properties.html#Properties(java.io.File)">Properties</a>(new File("cope.properties")));
    model.createDatabase();
    model.startTransaction();
    Customer c = new Customer("copetest@exedio.com");

@@ -48,11 +48,11 @@ public final class Model
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 	final List<ModificationListener> modificationListeners = Collections.synchronizedList(new ArrayList<ModificationListener>());
 
-	// set by setPropertiesInitially
-	private Properties propertiesIfSet;
+	// set by connect
+	private Properties propertiesIfConnected;
 	private Object propertiesLock = new Object();
-	private Database databaseIfPropertiesSet;
-	private Cache cacheIfPropertiesSet;
+	private Database databaseIfConnected;
+	private Cache cacheIfConnected;
 	private boolean logTransactions = false;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
@@ -169,43 +169,43 @@ public final class Model
 	}
 	
 	/**
-	 * Initially sets the properties for this model.
+	 * Initially connects this model to the database described in the properties.
 	 * Can be called multiple times, but only the first time
 	 * takes effect.
 	 * Any subsequent calls must give properties equal to properties given
 	 * on the first call, otherwise a RuntimeException is thrown.
 	 * <p>
-	 * Usually you may want to use this method, if you want to initialize model
+	 * Usually you may want to use this method, if you want to connect this model
 	 * from different servlets with equal properties in an undefined order.
 	 *
 	 * @throws RuntimeException if a subsequent call provides properties different
 	 * 									to the first call.
 	 */
-	public void setPropertiesInitially(final Properties properties)
+	public void connect(final Properties properties)
 	{
 		if(properties==null)
 			throw new NullPointerException();
 
 		synchronized(propertiesLock)
 		{
-			if(this.propertiesIfSet==null)
+			if(this.propertiesIfConnected==null)
 			{
-				if(this.databaseIfPropertiesSet!=null)
+				if(this.databaseIfConnected!=null)
 					throw new RuntimeException();
-				if(this.cacheIfPropertiesSet!=null)
+				if(this.cacheIfConnected!=null)
 					throw new RuntimeException();
 		
-				this.propertiesIfSet = properties;
-				this.databaseIfPropertiesSet = properties.createDatabase();
+				this.propertiesIfConnected = properties;
+				this.databaseIfConnected = properties.createDatabase();
 				
 				for(final Type type : typesSorted)
-					type.materialize(databaseIfPropertiesSet);
+					type.materialize(databaseIfConnected);
 				
 				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = properties;
-				this.cacheIfPropertiesSet = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryHistogram());
+				this.cacheIfConnected = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
 				return;
@@ -213,28 +213,37 @@ public final class Model
 		}
 		
 		// can be done outside the synchronized block
-		this.propertiesIfSet.ensureEquality(properties);
+		this.propertiesIfConnected.ensureEquality(properties);
 	}
 
+	/**
+	 * @deprecated renamed to {@link #connect(Properties)}.
+	 */
+	@Deprecated
+	public void setPropertiesInitially(final Properties properties)
+	{
+		connect(properties);
+	}
+	
 	public void unsetProperties()
 	{
 		synchronized(propertiesLock)
 		{
-			if(this.propertiesIfSet!=null)
+			if(this.propertiesIfConnected!=null)
 			{
-				if(this.databaseIfPropertiesSet==null)
+				if(this.databaseIfConnected==null)
 					throw new RuntimeException();
-				if(this.cacheIfPropertiesSet==null)
+				if(this.cacheIfConnected==null)
 					throw new RuntimeException();
 		
-				this.propertiesIfSet = null;
-				final Database db = this.databaseIfPropertiesSet;
-				this.databaseIfPropertiesSet = null;
+				this.propertiesIfConnected = null;
+				final Database db = this.databaseIfConnected;
+				this.databaseIfConnected = null;
 				
 				for(final Type type : typesSorted)
 					type.dematerialize();
 				
-				this.cacheIfPropertiesSet = null;
+				this.cacheIfConnected = null;
 				
 				db.close();
 
@@ -245,26 +254,26 @@ public final class Model
 
 	public Properties getProperties()
 	{
-		if(propertiesIfSet==null)
-			throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
+		if(propertiesIfConnected==null)
+			throw new RuntimeException("model not yet connected, use connect(Properties)");
 
-		return propertiesIfSet;
+		return propertiesIfConnected;
 	}
 	
 	Database getDatabase()
 	{
-		if(databaseIfPropertiesSet==null)
-			throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
+		if(databaseIfConnected==null)
+			throw new RuntimeException("model not yet connected, use connect(Properties)");
 
-		return databaseIfPropertiesSet;
+		return databaseIfConnected;
 	}
 	
 	Cache getCache()
 	{
-		if(cacheIfPropertiesSet==null)
-			throw new RuntimeException("model not yet initialized, use setPropertiesInitially");
+		if(cacheIfConnected==null)
+			throw new RuntimeException("model not yet connected, use connect(Properties)");
 
-		return cacheIfPropertiesSet;
+		return cacheIfConnected;
 	}
 	
 	public List<Type<?>> getTypes()
