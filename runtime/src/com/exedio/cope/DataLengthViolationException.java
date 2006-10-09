@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 /**
- * Signals, that an attempt to write a {@link DataField data attribute} has been failed,
- * because value to be written violated the length constraint on that attribute.
+ * Signals, that an attempt to write a {@link DataField data field} has been failed,
+ * because value to be written violated the length constraint on that field.
  *
  * This exception will be thrown by {@link DataField#set(Item,byte[])} etc.
  * and item constructors.
@@ -55,7 +55,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	}
 	
 	/**
-	 * Returns the attribute, that was attempted to be written.
+	 * Returns the field, that was attempted to be written.
 	 */
 	@Override
 	public DataField getFeature()
