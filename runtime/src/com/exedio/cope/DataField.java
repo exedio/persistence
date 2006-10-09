@@ -84,8 +84,8 @@ public final class DataField extends Field<byte[]>
 		if(properties.hasDatadirPath())
 		{
 			final File typeDir = new File(properties.getDatadirPath(), type.id);
-			final File attributeDir = new File(typeDir, name);
-			impl = new FileImpl(attributeDir);
+			final File fieldDir = new File(typeDir, name);
+			impl = new FileImpl(fieldDir);
 		}
 		else
 		{
