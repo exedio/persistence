@@ -111,11 +111,11 @@ public final class Qualifier extends Pattern
 		return features;
 	}
 
-	private List<Field> attributes;
+	private List<Field> fields;
 
 	public List<Field> getAttributes()
 	{
-		if(this.attributes==null)
+		if(this.fields==null)
 		{
 			final List<Feature> features = getFeatures();
 			final ArrayList<Field> result = new ArrayList<Field>(features.size());
@@ -125,9 +125,9 @@ public final class Qualifier extends Pattern
 					result.add((Field)f);
 			}
 			result.trimToSize();
-			this.attributes = Collections.unmodifiableList(result);
+			this.fields = Collections.unmodifiableList(result);
 		}
-		return attributes;
+		return fields;
 	}
 
 	public Item getQualifier(final Object... keys)
