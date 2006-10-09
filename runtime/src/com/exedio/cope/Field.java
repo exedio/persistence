@@ -29,10 +29,10 @@ import java.util.TreeSet;
 import com.exedio.cope.util.ClassComparator;
 
 /**
- * An <tt>attribute</tt> represents a persistently
- * stored attribute of a {@link Type}.
+ * An <tt>field</tt> represents a persistently
+ * stored field of a {@link Type}.
  * Subclasses specify the type of information to be stored
- * in an attribute.
+ * in the field.
  * <p>
  * For an overview here is a
  * <a href="attributes.png">UML diagram</a>.
@@ -63,7 +63,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 	
 	/**
-	 * Returns true, if a value for the attribute should be specified
+	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This default implementation returns
 	 * <tt>{@link #isFinal()} || {@link #isMandatory()}</tt>.
@@ -119,7 +119,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	void registerPattern(final Pattern pattern)
 	{
 		if(isInitialized())
-			throw new RuntimeException("registerPattern cannot be called after initialization of the attribute.");
+			throw new RuntimeException("registerPattern cannot be called after initialization of the field.");
 		if(pattern==null)
 			throw new NullPointerException();
 		
@@ -132,7 +132,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	public List<Pattern> getPatterns()
 	{
 		if(!isInitialized())
-			throw new RuntimeException("getPatterns cannot be called before initialization of the attribute.");
+			throw new RuntimeException("getPatterns cannot be called before initialization of the field.");
 		if(patterns==null)
 			throw new RuntimeException();
 
@@ -180,7 +180,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 	
 	/**
-	 * Returns the name of database column for this attribute
+	 * Returns the name of database column for this field
 	 * - <b>use with care!</b>
 	 * <p>
 	 * This information is needed only, if you want to access
