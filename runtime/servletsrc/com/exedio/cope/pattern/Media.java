@@ -292,7 +292,7 @@ public final class Media extends CachedMedia
 	 * Sets the contents of this media.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if body is null and attribute is {@link Field#isMandatory() mandatory}.
+	 *         if body is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
@@ -326,7 +326,7 @@ public final class Media extends CachedMedia
 	 * Closes <tt>body</tt> after reading the contents of the stream.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if <tt>body</tt> is null and attribute is {@link Field#isMandatory() mandatory}.
+	 *         if <tt>body</tt> is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
@@ -361,7 +361,7 @@ public final class Media extends CachedMedia
 	 * Sets the contents of this media.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if <tt>body</tt> is null and attribute is {@link Field#isMandatory() mandatory}.
+	 *         if <tt>body</tt> is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
