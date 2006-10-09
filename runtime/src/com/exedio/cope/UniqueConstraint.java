@@ -153,10 +153,10 @@ public final class UniqueConstraint extends Feature
 		if(fields.size()!=values.length)
 			throw new RuntimeException("-"+fields.size()+'-'+values.length);
 
-		final Iterator<FunctionField<?>> attributeIterator = fields.iterator();
+		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
-		for(int j = 0; attributeIterator.hasNext(); j++)
-			conditions[j] = Cope.equalAndCast(attributeIterator.next(), values[j]);
+		for(int j = 0; fieldIter.hasNext(); j++)
+			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
 
 		return getType().searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
 	}
