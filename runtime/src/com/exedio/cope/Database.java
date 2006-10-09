@@ -1671,12 +1671,12 @@ abstract class Database
 		return handler.result;
 	}
 	
-	final int checkTypeColumn(final Connection connection, final ItemField attribute)
+	final int checkTypeColumn(final Connection connection, final ItemField field)
 	{
 		buildStage = false;
 		
-		final Table table = attribute.getType().getTable();
-		final Table valueTable = attribute.getValueType().getTable();
+		final Table table = field.getType().getTable();
+		final Table valueTable = field.getValueType().getTable();
 		final String alias1 = driver.protectName(Table.SQL_ALIAS_1);
 		final String alias2 = driver.protectName(Table.SQL_ALIAS_2);
 		
@@ -1686,11 +1686,11 @@ abstract class Database
 			append(',').
 			append(valueTable).append(' ').append(alias2).
 			append(" where ").
-			append(alias1).append('.').append(attribute.getColumn()).
+			append(alias1).append('.').append(field.getColumn()).
 			append('=').
 			append(alias2).append('.').append(valueTable.primaryKey).
 			append(" and ").
-			append(alias1).append('.').append(attribute.getTypeColumn()).
+			append(alias1).append('.').append(field.getTypeColumn()).
 			append("<>").
 			append(alias2).append('.').append(valueTable.typeColumn);
 		
