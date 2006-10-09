@@ -44,7 +44,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
 
-public final class Media extends MediaPath
+public final class Media extends CachedMedia
 {
 	private final Option option;
 	final boolean optional;
@@ -255,6 +255,7 @@ public final class Media extends MediaPath
 	 * of this media.
 	 * Returns -1, if this media is null.
 	 */
+	@Override
 	public long getLastModified(final Item item)
 	{
 		if(isNull(item))
@@ -447,13 +448,8 @@ public final class Media extends MediaPath
 
 	// /logs -------------------------
 
-	
-	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
-	private static final String RESPONSE_EXPIRES = "Expires";
-	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
-	
 	@Override
-	public Media.Log doGet(
+	public Media.Log doGetIfModified(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
 		throws ServletException, IOException
@@ -465,54 +461,24 @@ public final class Media extends MediaPath
 
 		response.setContentType(contentType);
 
-		// NOTE:
-		// Last Modification Date must be rounded to full seconds,
-		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
-		final long lastModified = (getLastModified(item) / 1000) * 1000;
-		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
-		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
+		final int contentLength = (int)getLength(item);
+		//System.out.println("contentLength="+String.valueOf(contentLength));
+		response.setContentLength(contentLength);
+		//response.setHeader("Cache-Control", "public");
 
-		final int mediaOffsetExpires = getType().getModel().getProperties().getMediaOffsetExpires();
-		if(mediaOffsetExpires>0)
+		//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
+
+		ServletOutputStream out = null;
+		try
 		{
-			final long now = System.currentTimeMillis();
-			response.setDateHeader(RESPONSE_EXPIRES, now+mediaOffsetExpires);
+			out = response.getOutputStream();
+			getBody(item, out);
+			return delivered;
 		}
-		
-		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
-		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
-		//System.out.println("ifModifiedSince="+ifModifiedSince);
-		
-		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
+		finally
 		{
-			//System.out.println("not modified");
-			response.setStatus(response.SC_NOT_MODIFIED);
-			
-			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
-			
-			return notModified;
-		}
-		else
-		{
-			final int contentLength = (int)getLength(item);
-			//System.out.println("contentLength="+String.valueOf(contentLength));
-			response.setContentLength(contentLength);
-			//response.setHeader("Cache-Control", "public");
-
-			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
-
-			ServletOutputStream out = null;
-			try
-			{
-				out = response.getOutputStream();
-				getBody(item, out);
-				return delivered;
-			}
-			finally
-			{
-				if(out!=null)
-					out.close();
-			}
+			if(out!=null)
+				out.close();
 		}
 	}
 	
