@@ -56,8 +56,8 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public static final String CACHE_QUERY_HISTOGRAM = "cache.queryHistogram";
 	private final BooleanField cacheQueryHistogram = new BooleanField(CACHE_QUERY_HISTOGRAM, false);
 
-	final IntField dataAttributeBufferSizeDefault = new IntField("dataAttribute.bufferSizeDefault", 20*1024, 1);
-	final IntField dataAttributeBufferSizeLimit = new IntField("dataAttribute.bufferSizeLimit", 1024*1024, 1);
+	final IntField dataFieldBufferSizeDefault = new IntField("dataAttribute.bufferSizeDefault", 20*1024, 1);
+	final IntField dataFieldBufferSizeLimit = new IntField("dataAttribute.bufferSizeLimit", 1024*1024, 1);
 	
 	private final FileField datadirPath = new FileField("datadir.path");
 	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");

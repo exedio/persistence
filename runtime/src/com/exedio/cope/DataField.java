@@ -93,8 +93,8 @@ public final class DataField extends Field<byte[]>
 		}
 		
 		final int maximumLengthInt = toInt(maximumLength);
-		bufferSizeDefault = Math.min(properties.dataAttributeBufferSizeDefault.getIntValue(), maximumLengthInt);
-		bufferSizeLimit = Math.min(properties.dataAttributeBufferSizeLimit.getIntValue(), maximumLengthInt);
+		bufferSizeDefault = Math.min(properties.dataFieldBufferSizeDefault.getIntValue(), maximumLengthInt);
+		bufferSizeLimit = Math.min(properties.dataFieldBufferSizeLimit.getIntValue(), maximumLengthInt);
 		
 		return impl.getColumn();
 	}
