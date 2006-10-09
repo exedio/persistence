@@ -135,10 +135,10 @@ public abstract class Item extends Cope
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if <tt>value</tt> is null and <tt>attribute</tt>
+	 *         if <tt>value</tt> is null and <tt>field</tt>
 	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws ClassCastException
-	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
+	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
 	protected Item(final SetValue[] setValues)
 	{
