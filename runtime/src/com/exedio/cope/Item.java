@@ -302,8 +302,8 @@ public abstract class Item extends Cope
 			FinalViolationException,
 			ClassCastException
 	{
-		final Map<Field, Object> attributeValues = executeSetValues(setValues, this);
-		for(final Field attribute : attributeValues.keySet())
+		final Map<Field, Object> fieldValues = executeSetValues(setValues, this);
+		for(final Field attribute : fieldValues.keySet())
 		{
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("field " + attribute + " does not belong to type " + type.toString());
@@ -311,12 +311,12 @@ public abstract class Item extends Cope
 			if(attribute.isfinal)
 				throw new FinalViolationException(attribute, this);
 
-			attribute.checkValue(attributeValues.get(attribute), this);
+			attribute.checkValue(fieldValues.get(attribute), this);
 		}
 
 		final Entity entity = getEntity();
-		entity.put(attributeValues);
-		entity.write(toBlobs(attributeValues));
+		entity.put(fieldValues);
+		entity.write(toBlobs(fieldValues));
 	}
 
 	public final void deleteCopeItem()
