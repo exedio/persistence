@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -365,13 +364,12 @@ public final class Model
 		getDatabase().createDatabaseConstraints(mask);
 	}
 
-	private void createDataDirectories(final Type type)
+	private void createDataDirectories(final Type<?> type)
 	{
 		File typeDirectory = null;
 
-		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
+		for(final Field field : type.getFields())
 		{
-			final Field field = (Field)i.next();
 			if((field instanceof DataField) && !((DataField)field).impl.blob)
 			{
 				if(typeDirectory==null)
@@ -386,13 +384,12 @@ public final class Model
 		}
 	}
 
-	private void dropDataDirectories(final Type type)
+	private void dropDataDirectories(final Type<?> type)
 	{
 		File typeDirectory = null;
 
-		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
+		for(final Field field : type.getFields())
 		{
-			final Field field = (Field)i.next();
 			if(field instanceof DataField && !((DataField)field).impl.blob)
 			{
 				if(typeDirectory==null)
@@ -420,13 +417,12 @@ public final class Model
 		}
 	}
 
-	private void tearDownDataDirectories(final Type type)
+	private void tearDownDataDirectories(final Type<?> type)
 	{
 		File typeDirectory = null;
 
-		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
+		for(final Field field : type.getFields())
 		{
-			final Field field = (Field)i.next();
 			if(field instanceof DataField && !((DataField)field).impl.blob)
 			{
 				if(typeDirectory==null)
