@@ -74,7 +74,7 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	/**
-	 * Returns true, if a value for the attribute should be specified
+	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This implementation returns
 	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant()}==null)</tt>.
@@ -106,7 +106,7 @@ public abstract class FunctionField<E extends Object>
 	abstract void set(final Row row, final E surface);
 	
 	/**
-	 * Checks attribute values set by
+	 * Checks field values set by
 	 * {@link Item#set(FunctionField,Object)} (for <tt>initial==false</tt>)
 	 * and {@link Item#Item(SetValue[])} (for <tt>initial==true</tt>)
 	 * and throws the exception specified there.
@@ -129,7 +129,7 @@ public abstract class FunctionField<E extends Object>
 	}
 
 	/**
-	 * Further checks non-null attribute values already checked by
+	 * Further checks non-null field values already checked by
 	 * {@link #checkValue(Object, Item)}.
 	 * To be overidden by subclasses,
 	 * the default implementation does nothing.
@@ -185,8 +185,8 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	/**
-	 * Returns the unique constraint of this attribute,
-	 * that has been created implicitly when creating this attribute.
+	 * Returns the unique constraint of this field,
+	 * that has been created implicitly when creating this field.
 	 * Does return null, if there is no such unique constraint.
 	 * @see #getUniqueConstraints()
 	 */
@@ -196,10 +196,10 @@ public abstract class FunctionField<E extends Object>
 	}
 
 	/**
-	 * Returns a list of unique constraints this attribute is part of.
+	 * Returns a list of unique constraints this field is part of.
 	 * This includes an
 	 * {@link #getImplicitUniqueConstraint() implicit unique constraint},
-	 * if there is one for this attribute.
+	 * if there is one for this field.
 	 */
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
@@ -234,7 +234,7 @@ public abstract class FunctionField<E extends Object>
 	}
 
 	/**
-	 * Finds an item by it's unique attributes.
+	 * Finds an item by it's unique fields.
 	 * @return null if there is no matching item.
 	 */
 	public final Item searchUnique(final E value)
