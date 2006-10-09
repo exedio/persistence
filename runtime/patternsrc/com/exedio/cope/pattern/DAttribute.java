@@ -116,9 +116,9 @@ public final class DAttribute extends Item
 		});
 	}
 	
-	private DAttribute(final SetValue[] initialAttributes)
+	private DAttribute(final SetValue[] setValues)
 	{
-		super(initialAttributes);
+		super(setValues);
 	}
 	
 	private DAttribute(final ReactivationConstructorDummy d, final int pk)
