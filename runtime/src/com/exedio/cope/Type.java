@@ -48,7 +48,7 @@ public final class Type<C extends Item>
 	private final HashMap<String, Feature> declaredFeaturesByName;
 	private final HashMap<String, Feature> featuresByName;
 
-	private final List<Field> declaredAttributes;
+	private final List<Field> declaredFields;
 	private final List<Field> fields;
 	final List<UniqueConstraint> declaredUniqueConstraints;
 	private final List<UniqueConstraint> uniqueConstraints;
@@ -205,7 +205,7 @@ public final class Type<C extends Item>
 			}
 			declaredAttributes.trimToSize();
 			declaredUniqueConstraints.trimToSize();
-			this.declaredAttributes = Collections.unmodifiableList(declaredAttributes);
+			this.declaredFields = Collections.unmodifiableList(declaredAttributes);
 			this.declaredUniqueConstraints = Collections.unmodifiableList(declaredUniqueConstraints);
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
@@ -215,7 +215,7 @@ public final class Type<C extends Item>
 		{
 			this.features = this.declaredFeatures;
 			this.featuresByName = this.declaredFeaturesByName;
-			this.fields = this.declaredAttributes;
+			this.fields = this.declaredFields;
 			this.uniqueConstraints = this.declaredUniqueConstraints;
 		}
 		else
@@ -240,7 +240,7 @@ public final class Type<C extends Item>
 				}
 				this.featuresByName = result;
 			}
-			this.fields = inherit(supertype.getFields(), this.declaredAttributes);
+			this.fields = inherit(supertype.getFields(), this.declaredFields);
 			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
 		}
 
@@ -373,7 +373,7 @@ public final class Type<C extends Item>
 		this.subTypesTransitively = castTypeInstanceArrayList(subTypesTransitively);
 		this.typesOfInstances = castTypeInstanceArrayList(typesOfInstances);
 
-		for(final Field a : declaredAttributes)
+		for(final Field a : declaredFields)
 			if(a instanceof ItemField)
 				((ItemField)a).postInitialize();
 	}
@@ -460,7 +460,7 @@ public final class Type<C extends Item>
 		else
 			pkSource = database.makePkSource(table);
 		
-		for(final Field a : declaredAttributes)
+		for(final Field a : declaredFields)
 			a.connect(table);
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.connect(database);
@@ -480,7 +480,7 @@ public final class Type<C extends Item>
 		table = null;
 		pkSource = null;
 		
-		for(final Field a : declaredAttributes)
+		for(final Field a : declaredFields)
 			a.disconnect();
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
 			uc.disconnect();
@@ -723,7 +723,7 @@ public final class Type<C extends Item>
 	 */
 	public List<Field> getDeclaredFields()
 	{
-		return declaredAttributes;
+		return declaredFields;
 	}
 	
 	/**
@@ -732,7 +732,7 @@ public final class Type<C extends Item>
 	@Deprecated
 	public List<Field> getDeclaredAttributes()
 	{
-		return declaredAttributes;
+		return declaredFields;
 	}
 	
 	/**
