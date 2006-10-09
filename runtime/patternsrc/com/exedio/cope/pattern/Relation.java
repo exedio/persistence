@@ -177,19 +177,19 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	}
 
 	private <L extends Item, R extends Item> void set(
-			final ItemField<L> leftAttribute,
-			final ItemField<R> rightAttribute,
+			final ItemField<L> leftField,
+			final ItemField<R> rightField,
 			final L leftItem,
 			final Collection<? extends R> rightItems)
 	{
 		final Type<? extends Item> type = getType();
 
 		//System.out.println("---------start");
-		// TODO for better performance one could modify tuples, if rightAttribute is not FINAL
+		// TODO for better performance one could modify tuples, if rightField is not FINAL
 		final HashSet<R> keptRightItems = new HashSet<R>();
-		for(final Item tupel : type.search(leftAttribute.equal(leftItem)))
+		for(final Item tupel : type.search(leftField.equal(leftItem)))
 		{
-			final R rightItem = rightAttribute.get(tupel);
+			final R rightItem = rightField.get(tupel);
 			if(rightItems.contains(rightItem))
 			{
 				if(!keptRightItems.add(rightItem))
@@ -208,8 +208,8 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 			{
 				//System.out.println("---------create--"+leftItem+'-'+rightItem);
 				type.newItem(new SetValue[]{
-						leftAttribute.map(leftItem),
-						rightAttribute.map(rightItem),
+						leftField.map(leftItem),
+						rightField.map(rightItem),
 				});
 			}
 		}
