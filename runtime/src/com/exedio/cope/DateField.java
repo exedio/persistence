@@ -67,7 +67,7 @@ public final class DateField extends FunctionField<Date>
 	}
 	
 	/**
-	 * Returns true, if a value for the attribute should be specified
+	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This implementation returns
 	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()})</tt>.
@@ -107,7 +107,7 @@ public final class DateField extends FunctionField<Date>
 	
 	/**
 	 * @throws FinalViolationException
-	 *         if this attribute is {@link #isFinal() final}.
+	 *         if this field is {@link #isFinal() final}.
 	 */
 	public final void touch(final Item item)
 		throws
