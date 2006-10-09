@@ -581,14 +581,14 @@ abstract class Database
 							if(select instanceof FunctionField)
 							{
 								selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
-								final FunctionField selectAttribute = (FunctionField)select;
+								final FunctionField selectField = (FunctionField)select;
 								if(select instanceof ItemField)
 								{
-									final StringColumn typeColumn = ((ItemField)selectAttribute).getTypeColumn();
+									final StringColumn typeColumn = ((ItemField)selectField).getTypeColumn();
 									if(typeColumn!=null)
 										typeColumn.load(resultSet, columnIndex++, dummyRow);
 								}
-								resultCell = selectAttribute.get(dummyRow);
+								resultCell = selectField.get(dummyRow);
 							}
 							else if(select instanceof View)
 							{
