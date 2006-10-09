@@ -618,13 +618,13 @@ public abstract class Item extends Cope
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
-		for(final Field attribute : fieldValues.keySet())
+		for(final Field field : fieldValues.keySet())
 		{
-			if(!(attribute instanceof DataField))
+			if(!(field instanceof DataField))
 				continue;
 			
-			final DataField da = (DataField)attribute;
-			da.impl.fillBlob((byte[])fieldValues.get(attribute), result, this);
+			final DataField da = (DataField)field;
+			da.impl.fillBlob((byte[])fieldValues.get(field), result, this);
 		}
 		return result;
 	}
