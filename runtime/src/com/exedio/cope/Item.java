@@ -366,23 +366,23 @@ public abstract class Item extends Cope
 		//final String tostring = toString();
 		//System.out.println("------------delete:"+tostring);
 		// TODO make sure, no item is deleted twice
-		for(final ItemField<Item> attribute : castReferences(type.getReferences()))
+		for(final ItemField<Item> field : castReferences(type.getReferences()))
 		{
-			switch(attribute.getDeletePolicy())
+			switch(field.getDeletePolicy())
 			{
 				case NULLIFY:
 				{
-					final Query<? extends Item> q = attribute.getType().newQuery(attribute.equal(this));
+					final Query<? extends Item> q = field.getType().newQuery(field.equal(this));
 					for(final Item item : q.search())
 					{
 						//System.out.println("------------nullify:"+item.toString());
-						item.set(attribute, null);
+						item.set(field, null);
 					}
 					break;
 				}
 				case CASCADE:
 				{
-					final Query<?> q = attribute.getType().newQuery(attribute.equal(this));
+					final Query<?> q = field.getType().newQuery(field.equal(this));
 					for(Iterator j = q.search().iterator(); j.hasNext(); )
 					{
 						final Item item = (Item)j.next();
