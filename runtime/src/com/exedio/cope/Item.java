@@ -592,21 +592,21 @@ public abstract class Item extends Cope
 		{
 			if(source.settable instanceof Field)
 			{
-				putAttribute(result, source);
+				putField(result, source);
 			}
 			else
 			{
 				for(final SetValue part : execute(source, exceptionItem))
-					putAttribute(result, part);
+					putField(result, part);
 			}
 		}
 		return result;
 	}
 	
-	private static final void putAttribute(final HashMap<Field, Object> result, final SetValue<?> setValue)
+	private static final void putField(final HashMap<Field, Object> result, final SetValue<?> setValue)
 	{
 		if(result.put((Field)setValue.settable, setValue.value)!=null)
-			throw new RuntimeException("duplicate function attribute " + setValue.settable.toString());
+			throw new RuntimeException("duplicate field " + setValue.settable.toString());
 	}
 	
 	private static final <X extends Object> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
