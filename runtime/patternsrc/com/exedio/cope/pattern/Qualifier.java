@@ -135,11 +135,11 @@ public final class Qualifier extends Pattern
 		return uniqueConstraint.searchUnique(keys);
 	}
 	
-	public <X> X get(final FunctionField<X> attribute, final Object... keys)
+	public <X> X get(final FunctionField<X> field, final Object... keys)
 	{
 		final Item item = uniqueConstraint.searchUnique(keys);
 		if(item!=null)
-			return attribute.get(item);
+			return field.get(item);
 		else
 			return null;
 	}
@@ -151,8 +151,8 @@ public final class Qualifier extends Pattern
 		{
 			final SetValue[] keySetValues = new SetValue[keys.length];
 			int j = 0;
-			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getFields())
-				keySetValues[j] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
+			for(final FunctionField<?> field : uniqueConstraint.getFields())
+				keySetValues[j] = Cope.mapAndCast(field, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keySetValues);
 		}
