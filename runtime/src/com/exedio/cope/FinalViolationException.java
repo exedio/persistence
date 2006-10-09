@@ -19,11 +19,11 @@
 package com.exedio.cope;
 
 /**
- * Signals, that an attempt to write an attribute has been failed,
+ * Signals, that an attempt to write an field has been failed,
  * because it cannot be written with any value.
  *
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
- * if that attribute is {@link Field#isFinal() final}.
+ * if that field is {@link Field#isFinal() final}.
  *
  * @author Ralf Wiebicke
  */
@@ -49,7 +49,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	}
 	
 	/**
-	 * Returns the attribute, that was attempted to be written.
+	 * Returns the field, that was attempted to be written.
 	 */
 	@Override
 	public Field getFeature()
