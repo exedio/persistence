@@ -140,7 +140,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(typeColumn!=null)
 			throw new RuntimeException();
 		
-		final ItemColumn result = new ItemColumn(table, name, optional, valueClass, this);
+		final ItemColumn result = new ItemColumn(table, name, optional, valueClass);
 		
 		final String[] typeColumnValues = valueType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)

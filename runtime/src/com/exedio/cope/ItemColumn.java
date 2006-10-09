@@ -24,18 +24,16 @@ final class ItemColumn extends IntegerColumn
 {
 	final Class<? extends Item> targetTypeClass;
 	final String integrityConstraintName;
-	final ItemField attribute;
 
 	ItemColumn(final Table table, final String id,
 					  final boolean optional,
-					  final Class<? extends Item> targetTypeClass, final ItemField attribute)
+					  final Class<? extends Item> targetTypeClass)
 	{
 		super(table, id, optional, Type.MIN_PK, Type.MAX_PK, false);
 		if(targetTypeClass==null)
 			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;
 		this.integrityConstraintName = table.database.makeName( table.id + '_' + this.id/* not equal to "id"! */ + "_Fk" ).intern();
-		this.attribute = attribute;
 	}
 
 	/**
@@ -48,7 +46,6 @@ final class ItemColumn extends IntegerColumn
 			throw new RuntimeException();
 		this.targetTypeClass = targetTypeClass;
 		this.integrityConstraintName = table.id+"_Sup";
-		this.attribute = null;
 	}
 
 	@Override
