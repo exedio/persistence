@@ -159,10 +159,10 @@ public final class Qualifier extends Pattern
 		return item;
 	}
 	
-	public <X> void set(final FunctionField<X> attribute, final X value, final Object... keys)
+	public <X> void set(final FunctionField<X> field, final X value, final Object... keys)
 	{
 		final Item item = getForSet(keys);
-		attribute.set(item, value);
+		field.set(item, value);
 	}
 
 	public Item set(final Object[] keys, final SetValue[] values)
