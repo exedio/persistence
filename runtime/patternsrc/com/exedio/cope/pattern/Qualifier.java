@@ -175,8 +175,8 @@ public final class Qualifier extends Pattern
 			System.arraycopy(values, 0, keyValues, 0, values.length);
 			
 			int j = 0;
-			for(final FunctionField<?> uniqueAttribute : uniqueConstraint.getFields())
-				keyValues[j + values.length] = Cope.mapAndCast(uniqueAttribute, keys[j++]);
+			for(final FunctionField<?> field : uniqueConstraint.getFields())
+				keyValues[j + values.length] = Cope.mapAndCast(field, keys[j++]);
 			
 			item = uniqueConstraint.getType().newItem(keyValues);
 		}
