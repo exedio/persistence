@@ -174,14 +174,14 @@ public abstract class Item extends Cope
 					fieldValues.put(field, defaultValue);
 			}
 		}
-		for(final Field attribute : fieldValues.keySet())
+		for(final Field field : fieldValues.keySet())
 		{
-			if(!attribute.getType().isAssignableFrom(type))
-				throw new RuntimeException("field " + attribute + " does not belong to type " + type.toString());
+			if(!field.getType().isAssignableFrom(type))
+				throw new RuntimeException("field " + field + " does not belong to type " + type.toString());
 		}
-		for(final Field attribute : type.getFields())
+		for(final Field field : type.getFields())
 		{
-			attribute.checkValue(fieldValues.get(attribute), null);
+			field.checkValue(fieldValues.get(field), null);
 		}
 
 		final Entity entity = getEntity(false);
