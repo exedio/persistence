@@ -30,7 +30,7 @@ import com.exedio.cope.search.ExtremumAggregate;
 
 /**
  * A <tt>view</tt> represents a value computed from the
- * attributes of a {@link Type}.
+ * fields of a {@link Type}.
  * The computation is available both in Java and SQL,
  * so you can use views in search conditions.
  * <p>
