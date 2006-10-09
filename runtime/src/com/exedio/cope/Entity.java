@@ -31,14 +31,14 @@ final class Entity
 		this.state = state;
 	}
 	
-	Object get(final FunctionField attribute)
+	Object get(final FunctionField field)
 	{
-		return state.get( attribute );
+		return state.get(field);
 	}
 	
-	<E> void put(final FunctionField<E> attribute, final E value)
+	<E> void put(final FunctionField<E> field, final E value)
 	{
-		state = state.put( transaction, attribute, value );
+		state = state.put(transaction, field, value);
 	}
 	
 	@SuppressWarnings("unchecked") // TODO dont know how
