@@ -29,13 +29,13 @@ final class DeletedState extends State
 	}
 	
 	@Override
-	Object get(final FunctionField attribute)
+	Object get(final FunctionField field)
 	{
 		throw new NoSuchItemException(item);		
 	}
 
 	@Override
-	State put(Transaction transaction, FunctionField attribute, Object value)
+	State put(Transaction transaction, FunctionField field, Object value)
 	{
 		throw new NoSuchItemException(item);
 	}
