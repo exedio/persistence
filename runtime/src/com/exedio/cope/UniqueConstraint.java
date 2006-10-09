@@ -43,24 +43,24 @@ public final class UniqueConstraint extends Feature
 	/**
 	 * Is not public, because one should use {@link Item#UNIQUE} etc.
 	 */
-	UniqueConstraint(final FunctionField attribute)
+	UniqueConstraint(final FunctionField field)
 	{
-		this(new FunctionField[]{attribute});
+		this(new FunctionField[]{field});
 	}
 	
-	public UniqueConstraint(final FunctionField attribute1, final FunctionField attribute2)
+	public UniqueConstraint(final FunctionField field1, final FunctionField field2)
 	{
-		this(new FunctionField[]{attribute1, attribute2});
+		this(new FunctionField[]{field1, field2});
 	}
 	
-	public UniqueConstraint(final FunctionField attribute1, final FunctionField attribute2, final FunctionField attribute3)
+	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3)
 	{
-		this(new FunctionField[]{attribute1, attribute2, attribute3});
+		this(new FunctionField[]{field1, field2, field3});
 	}
 	
-	public UniqueConstraint(final FunctionField attribute1, final FunctionField attribute2, final FunctionField attribute3, final FunctionField attribute4)
+	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4)
 	{
-		this(new FunctionField[]{attribute1, attribute2, attribute3, attribute4});
+		this(new FunctionField[]{field1, field2, field3, field4});
 	}
 	
 	/**
