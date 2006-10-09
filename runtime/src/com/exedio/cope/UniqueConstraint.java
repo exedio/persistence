@@ -29,13 +29,13 @@ public final class UniqueConstraint extends Feature
 {
 	
 	private final FunctionField<?>[] fields;
-	private final List<FunctionField<?>> attributeList;
+	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 
 	private UniqueConstraint(final FunctionField<?>[] attributes)
 	{
 		this.fields = attributes;
-		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
+		this.fieldList = Collections.unmodifiableList(Arrays.asList(attributes));
 		for(final FunctionField attribute : attributes)
 			attribute.registerUniqueConstraint(this);
 	}
@@ -74,7 +74,7 @@ public final class UniqueConstraint extends Feature
 	
 	public final List<FunctionField<?>> getFields()
 	{
-		return attributeList;
+		return fieldList;
 	}
 	
 	static final String IMPLICIT_UNIQUE_SUFFIX = "ImplicitUnique";
