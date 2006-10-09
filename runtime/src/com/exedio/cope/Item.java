@@ -303,15 +303,15 @@ public abstract class Item extends Cope
 			ClassCastException
 	{
 		final Map<Field, Object> fieldValues = executeSetValues(setValues, this);
-		for(final Field attribute : fieldValues.keySet())
+		for(final Field field : fieldValues.keySet())
 		{
-			if(!attribute.getType().isAssignableFrom(type))
-				throw new RuntimeException("field " + attribute + " does not belong to type " + type.toString());
+			if(!field.getType().isAssignableFrom(type))
+				throw new RuntimeException("field " + field + " does not belong to type " + type.toString());
 			
-			if(attribute.isfinal)
-				throw new FinalViolationException(attribute, this);
+			if(field.isfinal)
+				throw new FinalViolationException(field, this);
 
-			attribute.checkValue(fieldValues.get(attribute), this);
+			field.checkValue(fieldValues.get(field), this);
 		}
 
 		final Entity entity = getEntity();
