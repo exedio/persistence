@@ -158,11 +158,11 @@ public abstract class Item extends Cope
 		
 		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
 		Date now = null;
-		for(final Field attribute : type.getFields())
+		for(final Field field : type.getFields())
 		{
-			if(attribute instanceof FunctionField && !fieldValues.containsKey(attribute))
+			if(field instanceof FunctionField && !fieldValues.containsKey(field))
 			{
-				final FunctionField fa = (FunctionField)attribute;
+				final FunctionField fa = (FunctionField)field;
 				Object defaultValue = fa.defaultConstant;
 				if(defaultValue==null && fa instanceof DateField && ((DateField)fa).defaultNow)
 				{
@@ -171,7 +171,7 @@ public abstract class Item extends Cope
 					defaultValue = now;
 				}
 				if(defaultValue!=null)
-					fieldValues.put(attribute, defaultValue);
+					fieldValues.put(field, defaultValue);
 			}
 		}
 		for(final Field attribute : fieldValues.keySet())
