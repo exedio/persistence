@@ -422,18 +422,18 @@ public final class Media extends CachedMedia
 			this.body.set(item, (File)body);
 	}
 	
-	public final static Media get(final DataField attribute)
+	public final static Media get(final DataField field)
 	{
-		for(final Pattern pattern : attribute.getPatterns())
+		for(final Pattern pattern : field.getPatterns())
 		{
 			if(pattern instanceof Media)
 			{
 				final Media media = (Media)pattern;
-				if(media.getBody()==attribute)
+				if(media.getBody()==field)
 					return media;
 			}
 		}
-		throw new NullPointerException(attribute.toString());
+		throw new NullPointerException(field.toString());
 	}
 	
 	// logs --------------------------
