@@ -50,7 +50,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			values.add(enumConstant);
 
 			if(numbersToValues.put(number, enumConstant)!=null)
-				throw new RuntimeException("duplicate number " + number + " for enum attribute on " + valueClass);
+				throw new RuntimeException("duplicate number " + number + " for enum field on " + valueClass);
 			valuesToNumbers[enumConstant.ordinal()] = number;
 		}
 		values.trimToSize();
