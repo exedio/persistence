@@ -88,7 +88,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("mandatory attribute "+ItemField.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().startsWith("mandatory field "+ItemField.class.getName()+'@'));
 			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
 		}
 		try
@@ -97,7 +97,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("final attribute "+ItemField.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().startsWith("final field "+ItemField.class.getName()+'@'));
 			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
 		}
 
