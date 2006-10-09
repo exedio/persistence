@@ -614,17 +614,17 @@ public abstract class Item extends Cope
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 	
-	private final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> attributeValues)
+	private final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> fieldValues)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
-		for(final Field attribute : attributeValues.keySet())
+		for(final Field attribute : fieldValues.keySet())
 		{
 			if(!(attribute instanceof DataField))
 				continue;
 			
 			final DataField da = (DataField)attribute;
-			da.impl.fillBlob((byte[])attributeValues.get(attribute), result, this);
+			da.impl.fillBlob((byte[])fieldValues.get(attribute), result, this);
 		}
 		return result;
 	}
