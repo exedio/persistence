@@ -64,9 +64,18 @@ public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 		return keyClass;
 	}
 
-	public FunctionField<V> getAttribute(final K key)
+	public FunctionField<V> getField(final K key)
 	{
 		return fields.get(key);
+	}
+
+	/**
+	 * @deprecated renamed to {@link #getField(Enum)}.
+	 */
+	@Deprecated
+	public FunctionField<V> getAttribute(final K key)
+	{
+		return getField(key);
 	}
 
 	public V get(final Item item, final K key)

@@ -50,21 +50,21 @@ public class AttributeMapLimitedTest extends AbstractLibTest
 
 		assertEquals(AttributeMapLimitedItem.Language.class, item.name.getKeyClass());
 
-		assertEquals(String.class, item.name.getAttribute(DE).getValueClass());
-		assertEquals("nameDE", item.name.getAttribute(DE).getName());
-		assertSame(item.TYPE, item.name.getAttribute(DE).getType());
-		assertEqualsUnmodifiable(list(item.name), item.name.getAttribute(DE).getPatterns());
+		assertEquals(String.class, item.name.getField(DE).getValueClass());
+		assertEquals("nameDE", item.name.getField(DE).getName());
+		assertSame(item.TYPE, item.name.getField(DE).getType());
+		assertEqualsUnmodifiable(list(item.name), item.name.getField(DE).getPatterns());
 
 		assertEqualsUnmodifiable(
 				list(
 						item.TYPE.getThis(),
-						item.name, item.name.getAttribute(DE), item.name.getAttribute(EN), item.name.getAttribute(PL),
-						item.nameLength, item.nameLength.getAttribute(DE), item.nameLength.getAttribute(EN), item.nameLength.getAttribute(PL)),
+						item.name, item.name.getField(DE), item.name.getField(EN), item.name.getField(PL),
+						item.nameLength, item.nameLength.getField(DE), item.nameLength.getField(EN), item.nameLength.getField(PL)),
 				item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 				list(
-						item.name.getAttribute(DE), item.name.getAttribute(EN), item.name.getAttribute(PL),
-						item.nameLength.getAttribute(DE), item.nameLength.getAttribute(EN), item.nameLength.getAttribute(PL)),
+						item.name.getField(DE), item.name.getField(EN), item.name.getField(PL),
+						item.nameLength.getField(DE), item.nameLength.getField(EN), item.nameLength.getField(PL)),
 				item.TYPE.getFields());
 
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
