@@ -1087,7 +1087,7 @@ abstract class Database
 	
 	public final void store(
 			final Connection connection, final BlobColumn column, final Item item,
-			final InputStream data, final DataField attribute)
+			final InputStream data, final DataField field)
 		throws IOException
 	{
 		buildStage = false;
@@ -1101,7 +1101,7 @@ abstract class Database
 			append('=');
 		
 		if(data!=null)
-			bf.appendParameterBlob(column, data, attribute, item);
+			bf.appendParameterBlob(column, data, field, item);
 		else
 			bf.append("NULL");
 		
