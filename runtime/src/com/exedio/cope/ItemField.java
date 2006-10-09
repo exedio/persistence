@@ -25,17 +25,17 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 
 	private ItemField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, valueClass, null/* defaultConstant makes no sense for ItemAttribute */);
+		super(isfinal, optional, unique, valueClass, null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		this.policy = policy;
 		if(policy==null)
-			throw new RuntimeException("delete policy for attribute "+this+" must not be null");
+			throw new RuntimeException("delete policy for field " + this + " must not be null");
 		if(policy==DeletePolicy.NULLIFY)
 		{
 			if(!optional)
-				throw new RuntimeException("mandatory attribute "+this+" cannot have delete policy nullify");
+				throw new RuntimeException("mandatory field " + this + " cannot have delete policy nullify");
 			if(isfinal)
-				throw new RuntimeException("final attribute "+this+" cannot have delete policy nullify");
+				throw new RuntimeException("final field " + this + " cannot have delete policy nullify");
 		}
 		checkDefaultValue();
 	}
@@ -103,7 +103,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	private StringColumn typeColumn = null;
 	
 	/**
-	 * Returns the type of items, this attribute accepts instances of.
+	 * Returns the type of items, this field accepts instances of.
 	 */
 	public Type<E> getValueType()
 	{
@@ -114,7 +114,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	/**
-	 * Returns the delete policy of this attribute.
+	 * Returns the delete policy of this field.
 	 */
 	public DeletePolicy getDeletePolicy()
 	{
@@ -163,7 +163,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	/**
-	 * Returns the name of type column in the database for this attribute
+	 * Returns the name of type column in the database for this field
 	 * - <b>use with care!</b>
 	 * <p>
 	 * This information is needed only, if you want to access
@@ -175,7 +175,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	 * if a cope model is configured for different databases.
 	 *
 	 * @throws RuntimeException
-	 *         if there is no type column for this ItemAttribute,
+	 *         if there is no type column for this ItemField,
 	 *         because <code>{@link #getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 * @see Type#getTableName()
