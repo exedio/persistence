@@ -50,7 +50,7 @@ public class AttributeLongTest extends AttributeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+item.someLong+" is not mandatory", e.getMessage());
+			assertEquals("field "+item.someLong+" is not mandatory", e.getMessage());
 		}
 
 		restartTransaction();

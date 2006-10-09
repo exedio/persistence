@@ -56,7 +56,7 @@ public abstract class FunctionField<E extends Object>
 			{
 				// BEWARE
 				// Must not make exception e available to public,
-				// since it contains a reference to this function attribute,
+				// since it contains a reference to this function field,
 				// which has not been constructed successfully.
 				throw new RuntimeException(
 						"The default constant of the attribute " +

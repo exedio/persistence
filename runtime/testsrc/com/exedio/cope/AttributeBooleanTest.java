@@ -48,7 +48,7 @@ public class AttributeBooleanTest extends AttributeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+item.someBoolean+" is not mandatory", e.getMessage());
+			assertEquals("field "+item.someBoolean+" is not mandatory", e.getMessage());
 		}
 		assertContains(item, item.TYPE.search(item.someBoolean.equal(true)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));

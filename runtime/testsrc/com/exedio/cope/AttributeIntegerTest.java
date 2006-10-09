@@ -50,7 +50,7 @@ public class AttributeIntegerTest extends AttributeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+item.someInteger+" is not mandatory", e.getMessage());
+			assertEquals("field "+item.someInteger+" is not mandatory", e.getMessage());
 		}
 
 		restartTransaction();

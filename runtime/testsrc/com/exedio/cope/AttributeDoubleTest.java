@@ -52,7 +52,7 @@ public class AttributeDoubleTest extends AttributeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+item.someDouble+" is not mandatory", e.getMessage());
+			assertEquals("field "+item.someDouble+" is not mandatory", e.getMessage());
 		}
 
 		restartTransaction();
