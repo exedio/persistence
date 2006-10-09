@@ -191,21 +191,21 @@ public final class Type<C extends Item>
 
 		// declared fields / unique constraints
 		{
-			final ArrayList<Field> declaredAttributes = new ArrayList<Field>(declaredFeatures.size());
+			final ArrayList<Field> declaredFields = new ArrayList<Field>(declaredFeatures.size());
 			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
 			for(final Feature feature : declaredFeatures)
 			{
 				if(feature instanceof Field)
-					declaredAttributes.add((Field)feature);
+					declaredFields.add((Field)feature);
 				if(feature instanceof UniqueConstraint)
 					declaredUniqueConstraints.add((UniqueConstraint)feature);
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 			}
-			declaredAttributes.trimToSize();
+			declaredFields.trimToSize();
 			declaredUniqueConstraints.trimToSize();
-			this.declaredFields = Collections.unmodifiableList(declaredAttributes);
+			this.declaredFields = Collections.unmodifiableList(declaredFields);
 			this.declaredUniqueConstraints = Collections.unmodifiableList(declaredUniqueConstraints);
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
