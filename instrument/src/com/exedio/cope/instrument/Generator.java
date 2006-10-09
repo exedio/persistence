@@ -57,27 +57,27 @@ final class Generator
 	private static final String THROWS_NULL   = "if {0} is null.";
 	private static final String THROWS_UNIQUE = "if {0} is not unique.";
 	private static final String THROWS_LENGTH = "if {0} violates its length constraint.";
-	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the attributes initially needed.";
-	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for attribute {0}.";
+	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
+	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
 	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE = "It can be customized with the tags " +
 																					"<tt>@" + CopeType.TAG_INITIAL_CONSTRUCTOR + " public|package|protected|private|none</tt> " +
 																					"in the class comment and " +
-																					"<tt>@" + CopeFeature.TAG_INITIAL + "</tt> in the comment of attributes.";
-	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given attributes initially.";
+																					"<tt>@" + CopeFeature.TAG_INITIAL + "</tt> in the comment of fields.";
+	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given fields initially.";
 	private static final String CONSTRUCTOR_GENERIC_CALLED = "This constructor is called by {0}.";
 	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE = "It can be customized with the tag " +
 																					"<tt>@" + CopeType.TAG_GENERIC_CONSTRUCTOR + " public|package|protected|private|none</tt> " +
 																					"in the class comment.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
-	private static final String GETTER = "Returns the value of the persistent attribute {0}.";
+	private static final String GETTER = "Returns the value of the persistent field {0}.";
 	private static final String GETTER_CUSTOMIZE = "It can be customized with the tag " +
 																  "<tt>@" + CopeFeature.TAG_GETTER + " public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-																  "in the comment of the attribute.";
+																  "in the comment of the field.";
 	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
-	private static final String SETTER = "Sets a new value for the persistent attribute {0}.";
+	private static final String SETTER = "Sets a new value for the persistent field {0}.";
 	private static final String SETTER_CUSTOMIZE = "It can be customized with the tag " +
 																  "<tt>@" + CopeFeature.TAG_SETTER + " public|package|protected|private|none|non-final</tt> " +
-																  "in the comment of the attribute.";
+																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
 	private static final String GETTER_MEDIA_IS_NULL      = "Returns whether media {0} is null.";
@@ -90,19 +90,19 @@ final class Generator
 	private static final String GETTER_MEDIA_BODY_FILE    = "Writes the body of media {0} into the given file.";
 	private static final String GETTER_MEDIA_BODY_EXTRA = "Does nothing, if the media is null.";
 	private static final String GETTER_STREAM_WARNING  = "<b>You are responsible for closing the stream, when you are finished!</b>";
-	private static final String TOUCHER = "Sets the current date for the date attribute {0}.";
-	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique attributes.";
-	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to attribute {0}.";
+	private static final String TOUCHER = "Sets the current date for the date field {0}.";
+	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
+	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
 	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
 	private static final String QUALIFIER = "Returns the qualifier.";
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
-	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the attribute list {0}.";
-	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the attribute list {0}.";
-	private static final String ATTIBUTE_SET_GETTER = "Returns the contents of the attribute set {0}.";
-	private static final String ATTIBUTE_SET_SETTER = "Sets the contents of the attribute set {0}.";
-	private static final String ATTIBUTE_MAP_GETTER = "Returns the value mapped to <tt>" + ATTRIBUTE_MAP_KEY + "</tt> by the attribute map {0}.";
-	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the attribute map {0}.";
+	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the field list {0}.";
+	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the field list {0}.";
+	private static final String ATTIBUTE_SET_GETTER = "Returns the contents of the field set {0}.";
+	private static final String ATTIBUTE_SET_SETTER = "Sets the contents of the field set {0}.";
+	private static final String ATTIBUTE_MAP_GETTER = "Returns the value mapped to <tt>" + ATTRIBUTE_MAP_KEY + "</tt> by the field map {0}.";
+	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the field map {0}.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
