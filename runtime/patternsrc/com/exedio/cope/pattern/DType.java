@@ -97,9 +97,9 @@ public final class DType extends Item
 		});
 	}
 	
-	private DType(final SetValue[] initialAttributes)
+	private DType(final SetValue[] setValues)
 	{
-		super(initialAttributes);
+		super(setValues);
 	}
 	
 	private DType(final ReactivationConstructorDummy d, final int pk)
