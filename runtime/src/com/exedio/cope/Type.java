@@ -189,7 +189,7 @@ public final class Type<C extends Item>
 		// make sure, method registerInitialization fails from now on
 		this.featuresWhileConstruction = null;
 
-		// declared attributes / unique constraints
+		// declared fields / unique constraints
 		{
 			final ArrayList<Field> declaredAttributes = new ArrayList<Field>(declaredFeatures.size());
 			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
@@ -210,7 +210,7 @@ public final class Type<C extends Item>
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
 
-		// inherit features / attributes
+		// inherit features / fields
 		if(supertype==null)
 		{
 			this.features = this.declaredFeatures;
@@ -709,13 +709,13 @@ public final class Type<C extends Item>
 	}
 
 	/**
-	 * Returns the list of persistent attributes declared by the this type.
-	 * This excludes inherited attributes.
+	 * Returns the list of persistent fields declared by the this type.
+	 * This excludes inherited fields.
 	 * The elements in the list returned are ordered by their occurance in the source code.
-	 * This method returns an empty list if the type declares no attributes.
+	 * This method returns an empty list if the type declares no fields.
 	 * <p>
-	 * If you want to get all persistent attributes of this type,
-	 * including attributes inherited from super types,
+	 * If you want to get all persistent fields of this type,
+	 * including fields inherited from super types,
 	 * use {@link #getFields()}.
 	 * <p>
 	 * Naming of this method is inspired by Java Reflection API
@@ -736,15 +736,15 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * Returns the list of accessible persistent attributes of this type.
-	 * This includes inherited attributes.
+	 * Returns the list of accessible persistent fields of this type.
+	 * This includes inherited fields.
 	 * The elements in the list returned are ordered by their type,
 	 * with types higher in type hierarchy coming first,
 	 * and within each type by their occurance in the source code.
-	 * This method returns an empty list if the type has no accessible attributes.
+	 * This method returns an empty list if the type has no accessible fields.
 	 * <p>
-	 * If you want to get persistent attributes declared by this type only,
-	 * excluding attributes inherited from super types,
+	 * If you want to get persistent fields declared by this type only,
+	 * excluding fields inherited from super types,
 	 * use {@link #getDeclaredFields()}.
 	 */
 	public List<Field> getFields()
