@@ -19,12 +19,12 @@
 package com.exedio.cope;
 
 /**
- * Signals, that an attempt to write an attribute has been failed,
+ * Signals, that an attempt to write an field has been failed,
  * because it cannot be written with a null value.
  *
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
  * and item constructors
- * if that attribute is {@link Field#isMandatory() mandatory}.
+ * if that field is {@link Field#isMandatory() mandatory}.
  * <p>
  * This exception is also thrown for empty strings if
  * {@link Model#supportsEmptyStrings()} is false.
@@ -49,7 +49,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	}
 	
 	/**
-	 * Returns the attribute, that was attempted to be written.
+	 * Returns the field, that was attempted to be written.
 	 */
 	@Override
 	public Field getFeature()
