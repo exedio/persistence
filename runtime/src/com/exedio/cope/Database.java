@@ -930,7 +930,7 @@ abstract class Database
 		}
 	}
 	
-	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField attribute)
+	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField field)
 	{
 		buildStage = false;
 
@@ -974,7 +974,7 @@ abstract class Database
 						try
 						{
 							source = blob.getBinaryStream();
-							attribute.copy(source, data, blob.length(), item);
+							field.copy(source, data, blob.length(), item);
 						}
 						catch(IOException e)
 						{
@@ -1001,7 +1001,7 @@ abstract class Database
 					{
 						source = resultSet.getBinaryStream(1);
 						if(source!=null)
-							attribute.copy(source, data, item);
+							field.copy(source, data, item);
 					}
 					catch(IOException e)
 					{
