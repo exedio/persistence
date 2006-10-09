@@ -264,7 +264,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>attribute</tt>.
 	 */
-	public final <E> void set(final FunctionField<E> attribute, final E value)
+	public final <E> void set(final FunctionField<E> field, final E value)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -272,16 +272,16 @@ public abstract class Item extends Cope
 			FinalViolationException,
 			ClassCastException
 	{
-		if(!attribute.getType().isAssignableFrom(type))
-			throw new RuntimeException("field " + attribute + " does not belong to type " + type.toString());
+		if(!field.getType().isAssignableFrom(type))
+			throw new RuntimeException("field " + field + " does not belong to type " + type.toString());
 		
-		if(attribute.isfinal)
-			throw new FinalViolationException(attribute, this);
+		if(field.isfinal)
+			throw new FinalViolationException(field, this);
 
-		attribute.checkValue(value, this);
+		field.checkValue(value, this);
 
 		final Entity entity = getEntity();
-		entity.put(attribute, value);
+		entity.put(field, value);
 		entity.write(Collections.<BlobColumn, byte[]>emptyMap());
 	}
 
