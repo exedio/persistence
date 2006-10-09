@@ -380,8 +380,8 @@ public final class Model
 					typeDirectory = new File(directory, type.id);
 					typeDirectory.mkdir();
 				}
-				final File attributeDirectory = new File(typeDirectory, attribute.getName());
-				attributeDirectory.mkdir();
+				final File fieldDirectory = new File(typeDirectory, attribute.getName());
+				fieldDirectory.mkdir();
 			}
 		}
 	}
@@ -400,16 +400,16 @@ public final class Model
 					final File directory = getProperties().getDatadirPath();
 					typeDirectory = new File(directory, type.id);
 				}
-				final File attributeDirectory = new File(typeDirectory, attribute.getName());
-				final File[] files = attributeDirectory.listFiles();
+				final File fieldDirectory = new File(typeDirectory, attribute.getName());
+				final File[] files = fieldDirectory.listFiles();
 				for(int j = 0; j<files.length; j++)
 				{
 					final File file = files[j];
 					if(!file.delete())
 						throw new RuntimeException("delete failed: "+file.getAbsolutePath());
 				}
-				if(!attributeDirectory.delete())
-					throw new RuntimeException("delete failed: "+attributeDirectory.getAbsolutePath());
+				if(!fieldDirectory.delete())
+					throw new RuntimeException("delete failed: "+fieldDirectory.getAbsolutePath());
 			}
 		}
 
@@ -434,14 +434,14 @@ public final class Model
 					final File directory = getProperties().getDatadirPath();
 					typeDirectory = new File(directory, type.id);
 				}
-				final File attributeDirectory = new File(typeDirectory, attribute.getName());
-				if(attributeDirectory.exists())
+				final File fieldDirectory = new File(typeDirectory, attribute.getName());
+				if(fieldDirectory.exists())
 				{
-					final File[] files = attributeDirectory.listFiles();
+					final File[] files = fieldDirectory.listFiles();
 					for(int j = 0; j<files.length; j++)
 						files[j].delete();
 	
-					attributeDirectory.delete();
+					fieldDirectory.delete();
 				}
 			}
 		}
@@ -463,7 +463,7 @@ public final class Model
 	 */
 	public void checkDatabase()
 	{
-		// TODO: check for data attribute directories
+		// TODO: check for data directories
 		getDatabase().checkDatabase(getCurrentTransaction().getConnection());
 	}
 
