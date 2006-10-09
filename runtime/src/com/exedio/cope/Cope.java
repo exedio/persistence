@@ -128,9 +128,9 @@ public abstract class Cope
 	 * {@link Field#set(Item, Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	public static final <X> void setAndCast(final Field<X> attribute, final Item item, final Object value)
+	public static final <X> void setAndCast(final Field<X> field, final Item item, final Object value)
 	{
-		attribute.set(item, verboseCast(attribute.getValueClass(), value));
+		field.set(item, verboseCast(field.getValueClass(), value));
 	}
 
 	/**
