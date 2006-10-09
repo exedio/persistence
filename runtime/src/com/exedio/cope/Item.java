@@ -156,11 +156,11 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 		//System.out.println("create item "+type+" "+pk);
 		
-		final Map<Field, Object> attributeValues = executeSetValues(setValues, null);
+		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
 		Date now = null;
 		for(final Field attribute : type.getFields())
 		{
-			if(attribute instanceof FunctionField && !attributeValues.containsKey(attribute))
+			if(attribute instanceof FunctionField && !fieldValues.containsKey(attribute))
 			{
 				final FunctionField fa = (FunctionField)attribute;
 				Object defaultValue = fa.defaultConstant;
@@ -171,22 +171,22 @@ public abstract class Item extends Cope
 					defaultValue = now;
 				}
 				if(defaultValue!=null)
-					attributeValues.put(attribute, defaultValue);
+					fieldValues.put(attribute, defaultValue);
 			}
 		}
-		for(final Field attribute : attributeValues.keySet())
+		for(final Field attribute : fieldValues.keySet())
 		{
 			if(!attribute.getType().isAssignableFrom(type))
 				throw new RuntimeException("field " + attribute + " does not belong to type " + type.toString());
 		}
 		for(final Field attribute : type.getFields())
 		{
-			attribute.checkValue(attributeValues.get(attribute), null);
+			attribute.checkValue(fieldValues.get(attribute), null);
 		}
 
 		final Entity entity = getEntity(false);
-		entity.put(attributeValues);
-		entity.write(toBlobs(attributeValues));
+		entity.put(fieldValues);
+		entity.write(toBlobs(fieldValues));
 		
 		postCreate();
 	}
