@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 /**
- * Signals, that an attempt to write a {@link StringField string attribute} has been failed,
- * because value to be written violated the length constraint on that attribute.
+ * Signals, that an attempt to write a {@link StringField string field} has been failed,
+ * because value to be written violated the length constraint on that field.
  *
  * This exception will be thrown by {@link FunctionField#set(Item,Object)}
  * and item constructors.
