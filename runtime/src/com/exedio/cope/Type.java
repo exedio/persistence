@@ -49,7 +49,7 @@ public final class Type<C extends Item>
 	private final HashMap<String, Feature> featuresByName;
 
 	private final List<Field> declaredAttributes;
-	private final List<Field> attributes;
+	private final List<Field> fields;
 	final List<UniqueConstraint> declaredUniqueConstraints;
 	private final List<UniqueConstraint> uniqueConstraints;
 
@@ -215,7 +215,7 @@ public final class Type<C extends Item>
 		{
 			this.features = this.declaredFeatures;
 			this.featuresByName = this.declaredFeaturesByName;
-			this.attributes = this.declaredAttributes;
+			this.fields = this.declaredAttributes;
 			this.uniqueConstraints = this.declaredUniqueConstraints;
 		}
 		else
@@ -240,7 +240,7 @@ public final class Type<C extends Item>
 				}
 				this.featuresByName = result;
 			}
-			this.attributes = inherit(supertype.getFields(), this.declaredAttributes);
+			this.fields = inherit(supertype.getFields(), this.declaredAttributes);
 			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
 		}
 
@@ -749,7 +749,7 @@ public final class Type<C extends Item>
 	 */
 	public List<Field> getFields()
 	{
-		return attributes;
+		return fields;
 	}
 	
 	/**
