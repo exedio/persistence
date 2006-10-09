@@ -32,11 +32,11 @@ public final class UniqueConstraint extends Feature
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 
-	private UniqueConstraint(final FunctionField<?>[] attributes)
+	private UniqueConstraint(final FunctionField<?>[] fields)
 	{
-		this.fields = attributes;
-		this.fieldList = Collections.unmodifiableList(Arrays.asList(attributes));
-		for(final FunctionField attribute : attributes)
+		this.fields = fields;
+		this.fieldList = Collections.unmodifiableList(Arrays.asList(fields));
+		for(final FunctionField attribute : fields)
 			attribute.registerUniqueConstraint(this);
 	}
 	
