@@ -75,7 +75,7 @@ public class QualifierTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
 				QualifiedEmptyQualifier.qualifier.getFeatures());
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
-				QualifiedEmptyQualifier.qualifier.getAttributes());
+				QualifiedEmptyQualifier.qualifier.getFields());
 		
 		assertEqualsUnmodifiable(list(
 				QualifiedEmptyQualifier.qualifier,

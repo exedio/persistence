@@ -113,7 +113,7 @@ public final class Qualifier extends Pattern
 
 	private List<Field> fields;
 
-	public List<Field> getAttributes()
+	public List<Field> getFields()
 	{
 		if(this.fields==null)
 		{
@@ -130,6 +130,15 @@ public final class Qualifier extends Pattern
 		return fields;
 	}
 
+	/**
+	 * @deprecated renamed to {@link #getFields()}.
+	 */
+	@Deprecated
+	public List<Field> getAttributes()
+	{
+		return getFields();
+	}
+	
 	public Item getQualifier(final Object... keys)
 	{
 		return uniqueConstraint.searchUnique(keys);

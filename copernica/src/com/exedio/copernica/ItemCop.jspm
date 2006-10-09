@@ -168,7 +168,7 @@ class ItemCop_Jspm
 						final Qualifier qualifier = (Qualifier)feature;
 						final Collection<? extends Item> values =
 							qualifier.getUniqueConstraint().getType().search(qualifier.getParent().equal(item));
-						for(final com.exedio.cope.Field anyAttribute : qualifier.getAttributes())
+						for(final com.exedio.cope.Field anyAttribute : qualifier.getFields())
 						{
 							for(final Item value : values)
 							{
