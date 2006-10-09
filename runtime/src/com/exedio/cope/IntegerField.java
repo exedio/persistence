@@ -22,7 +22,7 @@ import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
 /**
- * Represents an attribute within a {@link Type type},
+ * Represents a field within a {@link Type type},
  * that enables instances of that type to store a integer.
  *
  * @author Ralf Wiebicke
@@ -37,7 +37,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	/**
-	 * Creates a new mandatory <tt>IntegerAttribute</tt>.
+	 * Creates a new mandatory <tt>IntegerField</tt>.
 	 */
 	public IntegerField()
 	{
