@@ -72,10 +72,10 @@ public abstract class Pattern extends Feature
 		}
 	}
 	
-	protected final void registerSource(final Field attribute)
+	protected final void registerSource(final Field field)
 	{
-		attribute.registerPattern(this);
-		sources.add(attribute);
+		field.registerPattern(this);
+		sources.add(field);
 	}
 
 	/**
@@ -88,9 +88,9 @@ public abstract class Pattern extends Feature
 		// empty default implementation
 	}
 	
-	protected final void initialize(final Field<? extends Object> attribute, final String name)
+	protected final void initialize(final Field<?> field, final String name)
 	{
-		attribute.initialize(getType(), name);
+		field.initialize(getType(), name);
 	}
 	
 	protected final void initialize(final UniqueConstraint uniqueConstraint, final String name)
