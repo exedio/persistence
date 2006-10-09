@@ -46,7 +46,7 @@ import com.exedio.cope.UniqueViolationException;
  * {@link DataField}.
  * BEWARE:
  * Generally this is not a good idea.
- * In contrast to normal attributes, such as
+ * In contrast to normal fields, such as
  * {@link StringField}, {@link DateField},
  * etc. there is no searching, order by or caching.
  * The main purpose is to maintain database compatibility
@@ -83,7 +83,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new Serializer<E>(valueClass, option);
 	}
 	
-	// TODO allow setting of length of DataAttribute
+	// TODO allow setting of length of DataField
 	
 	@Override
 	public void initialize()
