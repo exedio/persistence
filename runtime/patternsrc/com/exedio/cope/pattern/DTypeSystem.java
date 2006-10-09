@@ -34,7 +34,7 @@ import com.exedio.cope.StringField;
 public final class DTypeSystem extends Pattern
 {
 	private final ItemField<DType> type;
-	private final FunctionField<?>[] attributes;
+	private final FunctionField<?>[] fields;
 
 	private final StringField[]  strings;
 	private final BooleanField[] booleans;
@@ -54,20 +54,20 @@ public final class DTypeSystem extends Pattern
 		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleField [doubleCapacity];
 		enums    = castEnumArray(new ItemField[enumCapacity]);
-		attributes = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
+		fields   = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		registerSource(type = Item.newItemField(Item.OPTIONAL, DType.class));
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(attributes[n++] = strings [i] = new StringField(Item.OPTIONAL));
+			registerSource(fields[n++] = strings [i] = new StringField(Item.OPTIONAL));
 		for(int i = 0; i<booleans.length; i++)
-			registerSource(attributes[n++] = booleans[i] = new BooleanField(Item.OPTIONAL));
+			registerSource(fields[n++] = booleans[i] = new BooleanField(Item.OPTIONAL));
 		for(int i = 0; i<integers.length; i++)
-			registerSource(attributes[n++] = integers[i] = new IntegerField(Item.OPTIONAL));
+			registerSource(fields[n++] = integers[i] = new IntegerField(Item.OPTIONAL));
 		for(int i = 0; i<doubles.length; i++)
-			registerSource(attributes[n++] = doubles [i] = new DoubleField(Item.OPTIONAL));
+			registerSource(fields[n++] = doubles [i] = new DoubleField(Item.OPTIONAL));
 		for(int i = 0; i<enums.length; i++)
-			registerSource(attributes[n++] = enums   [i] = Item.newItemField(Item.OPTIONAL, DEnumValue.class));
+			registerSource(fields[n++] = enums   [i] = Item.newItemField(Item.OPTIONAL, DEnumValue.class));
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -143,10 +143,10 @@ public final class DTypeSystem extends Pattern
 		if(type!=null && !this.equals(type.getDtypeSystem()))
 			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getDtypeSystem() + ", but must be " + toString());
 		
-		final SetValue[] values = new SetValue[1+attributes.length];
+		final SetValue[] values = new SetValue[1+fields.length];
 		values[0] = this.type.map(type);
-		for(int i = 0; i<attributes.length; i++)
-			values[1+i] = attributes[i].map(null);
+		for(int i = 0; i<fields.length; i++)
+			values[1+i] = fields[i].map(null);
 		item.set(values);
 	}
 	
