@@ -67,18 +67,18 @@ public class ServletUtil
 			if(pos<=0)
 				throw new RuntimeException(kind + ' ' + name + ": " + modelNameSource + " '"+PARAMETER_MODEL+"' does not contain '"+DIVIDER+"', but was "+modelName);
 			final String modelClassName = modelName.substring(0, pos);
-			final String modelAttributeName = modelName.substring(pos+1);
+			final String modelFieldName = modelName.substring(pos+1);
 
 			final Class modelClass = Class.forName(modelClassName);
 
 			final Field modelField;
 			try
 			{
-				modelField = modelClass.getField(modelAttributeName);
+				modelField = modelClass.getField(modelFieldName);
 			}
 			catch(NoSuchFieldException e)
 			{
-				throw new RuntimeException(kind + ' ' + name + ": field " + modelAttributeName + " in " + modelClass.toString() + " does not exist or is not public.", e);
+				throw new RuntimeException(kind + ' ' + name + ": field " + modelFieldName + " in " + modelClass.toString() + " does not exist or is not public.", e);
 			}
 			
 			final Model result = (Model)modelField.get(null);
