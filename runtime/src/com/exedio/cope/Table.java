@@ -54,27 +54,27 @@ final class Table
 	/**
 	 * The column name for the primary key.
 	 * The value "this" prevents name collisions
-	 * with columns for cope attributes,
+	 * with columns for cope fields,
 	 * since "this" is a reserved java keyword,
-	 * which cannot be used for java attributes.
+	 * which cannot be used for java fields.
 	 */
 	static final String PK_COLUMN_NAME = "this";
 
 	/**
 	 * The column name for the type information.
 	 * The value "class" prevents name collisions
-	 * with columns for cope attributes,
+	 * with columns for cope fields,
 	 * since "class" is a reserved java keyword,
-	 * which cannot be used for java attributes.
+	 * which cannot be used for java fields.
 	 */
 	private static final String TYPE_COLUMN_NAME = "class";
 
 	/**
 	 * A name for aliases is sql statements.
 	 * The value prevents name collisions
-	 * with columns for cope attributes / types,
+	 * with columns for cope fields / types,
 	 * since is is a reserved java keyword,
-	 * which cannot be used for java attributes / classes.
+	 * which cannot be used for java fields / classes.
 	 */
 	static final String SQL_ALIAS_1 = "return", SQL_ALIAS_2 = "break";
 
