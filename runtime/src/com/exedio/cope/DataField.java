@@ -44,18 +44,18 @@ public final class DataField extends Field<byte[]>
 			throw new RuntimeException("maximum length must be greater zero, but was " + maximumLength + '.');
 	}
 	
-	// TODO, empty constructor missing, since DataAttribute cannot be MANDATORY
+	// TODO, empty constructor missing, since DataField cannot be MANDATORY
 	
 	public DataField(final Option option)
 	{
 		this(option.isFinal, option.optional, DEFAULT_LENGTH);
 
 		if(option.unique)
-			throw new RuntimeException("DataAttribute cannot be unique");
+			throw new RuntimeException("DataField cannot be unique");
 		if(!option.optional)
-			throw new RuntimeException("DataAttribute cannot be mandatory"); // TODO
+			throw new RuntimeException("DataField cannot be mandatory"); // TODO
 		if(option.isFinal)
-			throw new RuntimeException("DataAttribute cannot be final"); // TODO
+			throw new RuntimeException("DataField cannot be final"); // TODO
 	}
 	
 	public DataField lengthMax(final long maximumLength)
@@ -107,7 +107,7 @@ public final class DataField extends Field<byte[]>
 	// public methods ---------------------------------------------------------------
 	
 	/**
-	 * Returns, whether there is no data for this attribute.
+	 * Returns, whether there is no data for this field.
 	 */
 	public boolean isNull(final Item item)
 	{
@@ -115,8 +115,8 @@ public final class DataField extends Field<byte[]>
 	}
 
 	/**
-	 * Returns the length of the data of this persistent data attribute.
-	 * Returns -1, if there is no data for this attribute.
+	 * Returns the length of the data of this persistent data field.
+	 * Returns -1, if there is no data for this field.
 	 */
 	public long getLength(final Item item)
 	{
@@ -124,8 +124,8 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * Returns the data of this persistent data attribute.
-	 * Returns null, if there is no data for this attribute.
+	 * Returns the data of this persistent data field.
+	 * Returns null, if there is no data for this field.
 	 */
 	@Override
 	public byte[] get(final Item item)
@@ -134,10 +134,10 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * Provides data for this persistent data attribute.
+	 * Provides data for this persistent data field.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Field#isMandatory() mandatory}.
+	 *         if data is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 */
@@ -151,9 +151,9 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * Reads data for this persistent data attribute
+	 * Reads data for this persistent data field
 	 * and writes it into the given steam.
-	 * Does nothing, if there is no data for this attribute.
+	 * Does nothing, if there is no data for this field.
 	 * @throws NullPointerException
 	 *         if data is null.
 	 * @throws IOException if writing data throws an IOException.
@@ -167,11 +167,11 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * Provides data for this persistent data attribute.
+	 * Provides data for this persistent data field.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Field#isMandatory() mandatory}.
+	 *         if data is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
@@ -183,9 +183,9 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * Reads data for this persistent data attribute
+	 * Reads data for this persistent data field
 	 * and writes it into the given file.
-	 * Does nothing, if there is no data for this attribute.
+	 * Does nothing, if there is no data for this field.
 	 * @throws NullPointerException
 	 *         if data is null.
 	 * @throws IOException if writing data throws an IOException.
@@ -199,10 +199,10 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * Provides data for this persistent data attribute.
+	 * Provides data for this persistent data field.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
-	 *         if data is null and attribute is {@link Field#isMandatory() mandatory}.
+	 *         if data is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
