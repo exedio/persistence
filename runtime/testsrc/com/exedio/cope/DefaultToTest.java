@@ -162,7 +162,7 @@ public class DefaultToTest extends AbstractLibTest
 		{
 			//e.printStackTrace();
 			assertEquals(
-					"The default constant of the attribute does not comply to one of it's own constraints, " +
+					"The default constant of the field does not comply to one of it's own constraints, " +
 					"caused a LengthViolationException: " +
 					"length violation on a newly created item, '1234' is too long, " +
 					"must be at most 3 characters. " +

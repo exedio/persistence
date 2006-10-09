@@ -59,7 +59,7 @@ public abstract class FunctionField<E extends Object>
 				// since it contains a reference to this function field,
 				// which has not been constructed successfully.
 				throw new RuntimeException(
-						"The default constant of the attribute " +
+						"The default constant of the field " +
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
 						": " + e.getMessageWithoutFeature() +
