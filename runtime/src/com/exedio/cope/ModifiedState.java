@@ -40,9 +40,9 @@ final class ModifiedState extends State
 	}
 
 	@Override
-	<E> State put(final Transaction transaction, final FunctionField<E> attribute, final E value)
+	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
-		attribute.set(row, value);
+		field.set(row, value);
 		return this;
 	}
 
