@@ -409,7 +409,7 @@ public final class Media extends CachedMedia
 		}
 		catch(CustomAttributeException e)
 		{
-			// cannot happen, since FunctionAttribute only are allowed for source
+			// cannot happen, since FunctionField only are allowed for source
 			throw new RuntimeException(e);
 		}
 		
