@@ -623,8 +623,8 @@ public abstract class Item extends Cope
 			if(!(field instanceof DataField))
 				continue;
 			
-			final DataField da = (DataField)field;
-			da.impl.fillBlob((byte[])fieldValues.get(field), result, this);
+			final DataField df = (DataField)field;
+			df.impl.fillBlob((byte[])fieldValues.get(field), result, this);
 		}
 		return result;
 	}
