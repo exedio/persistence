@@ -63,10 +63,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
-	// NOTE:
-	// If you another attributes here,
-	// you probably have to add another
-	// test to ensureEquality as well.
 	private final Constructor<? extends Database> database;
 
 	public Properties()
