@@ -36,8 +36,8 @@ public final class UniqueConstraint extends Feature
 	{
 		this.fields = fields;
 		this.fieldList = Collections.unmodifiableList(Arrays.asList(fields));
-		for(final FunctionField attribute : fields)
-			attribute.registerUniqueConstraint(this);
+		for(final FunctionField f : fields)
+			f.registerUniqueConstraint(this);
 	}
 	
 	/**
