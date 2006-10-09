@@ -162,9 +162,9 @@ public abstract class Item extends Cope
 		{
 			if(field instanceof FunctionField && !fieldValues.containsKey(field))
 			{
-				final FunctionField fa = (FunctionField)field;
-				Object defaultValue = fa.defaultConstant;
-				if(defaultValue==null && fa instanceof DateField && ((DateField)fa).defaultNow)
+				final FunctionField ff = (FunctionField)field;
+				Object defaultValue = ff.defaultConstant;
+				if(defaultValue==null && ff instanceof DateField && ((DateField)ff).defaultNow)
 				{
 					if(now==null)
 						now = new Date();
