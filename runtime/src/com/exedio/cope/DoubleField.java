@@ -69,12 +69,12 @@ public final class DoubleField extends FunctionField<Double>
 	}
 	
 	/**
-	 * @throws RuntimeException if this attribute is not {@link #isMandatory() mandatory}.
+	 * @throws RuntimeException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	public final double getMandatory(final Item item)
 	{
 		if(optional)
-			throw new RuntimeException("attribute " + toString() + " is not mandatory");
+			throw new RuntimeException("field " + toString() + " is not mandatory");
 		
 		return get(item).doubleValue();
 	}
