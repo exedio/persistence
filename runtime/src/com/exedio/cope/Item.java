@@ -331,20 +331,20 @@ public abstract class Item extends Cope
 	{
 		toDelete.add(this);
 		
-		for(final ItemField<Item> attribute : castReferences(type.getReferences()))
+		for(final ItemField<Item> field : castReferences(type.getReferences()))
 		{
-			switch(attribute.getDeletePolicy())
+			switch(field.getDeletePolicy())
 			{
 				case FORBID:
 				{
-					final Collection s = attribute.getType().search(attribute.equal(this));
+					final Collection s = field.getType().search(field.equal(this));
 					if(!s.isEmpty())
-						throw new IntegrityViolationException(attribute, this);
+						throw new IntegrityViolationException(field, this);
 					break;
 				}
 				case CASCADE:
 				{
-					for(final Item item : attribute.getType().search(attribute.equal(this)))
+					for(final Item item : field.getType().search(field.equal(this)))
 					{
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
