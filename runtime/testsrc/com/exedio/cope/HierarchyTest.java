@@ -219,7 +219,7 @@ public class HierarchyTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
 		try
 		{
@@ -228,7 +228,7 @@ public class HierarchyTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
 		try
 		{
@@ -237,7 +237,7 @@ public class HierarchyTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
 		try
 		{
@@ -246,7 +246,7 @@ public class HierarchyTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
 		try
 		{
@@ -255,7 +255,7 @@ public class HierarchyTest extends AbstractLibTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("attribute "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
+			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
 	}
 	

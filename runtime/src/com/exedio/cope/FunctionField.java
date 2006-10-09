@@ -155,7 +155,7 @@ public abstract class FunctionField<E extends Object>
 	public final E get(final Item item)
 	{
 		if(!getType().isAssignableFrom(item.type))
-			throw new RuntimeException("attribute "+toString()+" does not belong to type "+item.type.toString());
+			throw new RuntimeException("field " + toString() + " does not belong to type " + item.type.toString());
 		
 		return Cope.verboseCast(valueClass, getEntity(item).get(this));
 	}
