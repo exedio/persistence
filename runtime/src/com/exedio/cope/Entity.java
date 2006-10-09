@@ -42,12 +42,12 @@ final class Entity
 	}
 	
 	@SuppressWarnings("unchecked") // TODO dont know how
-	void put(final Map<Field, Object> attributeValues)
+	void put(final Map<Field, Object> fieldValues)
 	{
-		for(final Field f : attributeValues.keySet())
+		for(final Field f : fieldValues.keySet())
 		{
 			if(f instanceof FunctionField)
-				put((FunctionField)f, attributeValues.get(f));
+				put((FunctionField)f, fieldValues.get(f));
 			else
 				assert f instanceof DataField;
 		}	
