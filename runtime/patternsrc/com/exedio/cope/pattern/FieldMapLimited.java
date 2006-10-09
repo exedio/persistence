@@ -27,18 +27,18 @@ import com.exedio.cope.Pattern;
 public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 {
 	private final Class<K> keyClass;
-	private final EnumMap<K, FunctionField<V>> attributes;
+	private final EnumMap<K, FunctionField<V>> fields;
 
 	private FieldMapLimited(final Class<K> keyClass, final FunctionField<V> valueTemplate)
 	{
 		this.keyClass = keyClass;
-		this.attributes = new EnumMap<K, FunctionField<V>>(keyClass);
+		this.fields = new EnumMap<K, FunctionField<V>>(keyClass);
 
 		for(K key : keyClass.getEnumConstants())
 		{
 			final FunctionField<V> value = valueTemplate.copyFunctionField();
 			registerSource(value);
-			attributes.put(key, value);
+			fields.put(key, value);
 		}
 	}
 	
@@ -54,7 +54,7 @@ public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 		
 		for(K key : keyClass.getEnumConstants())
 		{
-			final FunctionField<V> value = attributes.get(key);
+			final FunctionField<V> value = fields.get(key);
 			initialize(value, name+key.name());
 		}
 	}
@@ -66,16 +66,16 @@ public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 
 	public FunctionField<V> getAttribute(final K key)
 	{
-		return attributes.get(key);
+		return fields.get(key);
 	}
 
 	public V get(final Item item, final K key)
 	{
-		return attributes.get(key).get(item);
+		return fields.get(key).get(item);
 	}
 	
 	public void set(final Item item, final K key, final V value)
 	{
-		attributes.get(key).set(item, value);
+		fields.get(key).set(item, value);
 	}
 }
