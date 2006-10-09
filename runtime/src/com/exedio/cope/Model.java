@@ -371,8 +371,8 @@ public final class Model
 
 		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
 		{
-			final Field attribute = (Field)i.next();
-			if((attribute instanceof DataField) && !((DataField)attribute).impl.blob)
+			final Field field = (Field)i.next();
+			if((field instanceof DataField) && !((DataField)field).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
@@ -380,7 +380,7 @@ public final class Model
 					typeDirectory = new File(directory, type.id);
 					typeDirectory.mkdir();
 				}
-				final File fieldDirectory = new File(typeDirectory, attribute.getName());
+				final File fieldDirectory = new File(typeDirectory, field.getName());
 				fieldDirectory.mkdir();
 			}
 		}
@@ -392,15 +392,15 @@ public final class Model
 
 		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
 		{
-			final Field attribute = (Field)i.next();
-			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
+			final Field field = (Field)i.next();
+			if(field instanceof DataField && !((DataField)field).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
 					final File directory = getProperties().getDatadirPath();
 					typeDirectory = new File(directory, type.id);
 				}
-				final File fieldDirectory = new File(typeDirectory, attribute.getName());
+				final File fieldDirectory = new File(typeDirectory, field.getName());
 				final File[] files = fieldDirectory.listFiles();
 				for(int j = 0; j<files.length; j++)
 				{
@@ -426,15 +426,15 @@ public final class Model
 
 		for(Iterator i = type.getFields().iterator(); i.hasNext(); )
 		{
-			final Field attribute = (Field)i.next();
-			if(attribute instanceof DataField && !((DataField)attribute).impl.blob)
+			final Field field = (Field)i.next();
+			if(field instanceof DataField && !((DataField)field).impl.blob)
 			{
 				if(typeDirectory==null)
 				{
 					final File directory = getProperties().getDatadirPath();
 					typeDirectory = new File(directory, type.id);
 				}
-				final File fieldDirectory = new File(typeDirectory, attribute.getName());
+				final File fieldDirectory = new File(typeDirectory, field.getName());
 				if(fieldDirectory.exists())
 				{
 					final File[] files = fieldDirectory.listFiles();
