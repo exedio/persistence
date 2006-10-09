@@ -158,7 +158,7 @@ public final class DTypeSystem extends Pattern
 			throw new RuntimeException("dynamic type mismatch: attribute has type " + attributeType.getCode() + ", but item has " + (itemType!=null ? itemType.getCode() : "none"));
 	}
 	
-	private FunctionField<?> getAttribute(final DAttribute attribute)
+	private FunctionField<?> getField(final DAttribute attribute)
 	{
 		final DAttribute.ValueType valueType = attribute.getValueType();
 		final int pos = attribute.getPositionPerValueType();
@@ -178,7 +178,7 @@ public final class DTypeSystem extends Pattern
 	public Object get(final DAttribute attribute, final Item item)
 	{
 		assertType(attribute, item);
-		return getAttribute(attribute).get(item);
+		return getField(attribute).get(item);
 	}
 	
 	public void set(final DAttribute attribute, final Item item, final Object value)
@@ -195,7 +195,7 @@ public final class DTypeSystem extends Pattern
 				throw new RuntimeException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + attribute);
 		}
 		
-		Cope.setAndCast(getAttribute(attribute), item, value);
+		Cope.setAndCast(getField(attribute), item, value);
 	}
 	
 }
