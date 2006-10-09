@@ -24,7 +24,7 @@ import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 
 /**
- * Represents an attribute within a {@link Type type},
+ * Represents a field within a {@link Type type},
  * that enables instances of that type to store a string.
  *
  * @author Ralf Wiebicke
@@ -55,7 +55,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	/**
-	 * Creates a new mandatory <tt>StringAttribute</tt>.
+	 * Creates a new mandatory <tt>StringField</tt>.
 	 */
 	public StringField()
 	{
