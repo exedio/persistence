@@ -28,13 +28,13 @@ import com.exedio.dsmf.Table;
 public final class UniqueConstraint extends Feature
 {
 	
-	private final FunctionField<?>[] attributes;
+	private final FunctionField<?>[] fields;
 	private final List<FunctionField<?>> attributeList;
 	private String databaseID;
 
 	private UniqueConstraint(final FunctionField<?>[] attributes)
 	{
-		this.attributes = attributes;
+		this.fields = attributes;
 		this.attributeList = Collections.unmodifiableList(Arrays.asList(attributes));
 		for(final FunctionField attribute : attributes)
 			attribute.registerUniqueConstraint(this);
@@ -113,11 +113,11 @@ public final class UniqueConstraint extends Feature
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');
-		for(int i = 0; i<attributes.length; i++)
+		for(int i = 0; i<fields.length; i++)
 		{
 			if(i>0)
 				bf.append(',');
-			final FunctionField<?> uniqueAttribute = attributes[i];
+			final FunctionField<?> uniqueAttribute = fields[i];
 			bf.append(uniqueAttribute.getColumn().protectedID);
 		}
 		bf.append(')');
@@ -131,11 +131,11 @@ public final class UniqueConstraint extends Feature
 		final StringBuffer buf = new StringBuffer();
 		
 		buf.append("unique(");
-		buf.append(attributes[0].toString());
-		for(int i = 1; i<attributes.length; i++)
+		buf.append(fields[0].toString());
+		for(int i = 1; i<fields.length; i++)
 		{
 			buf.append(',');
-			buf.append(attributes[i].toString());
+			buf.append(fields[i].toString());
 		}
 		buf.append(')');
 		
