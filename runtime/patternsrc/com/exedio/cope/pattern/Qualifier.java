@@ -60,8 +60,8 @@ public final class Qualifier extends Pattern
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.uniqueConstraint = uniqueConstraint;
 
-		for(final FunctionField uniqueAttribute : uniqueFields)
-			registerSource(uniqueAttribute);
+		for(final FunctionField field : uniqueFields)
+			registerSource(field);
 	}
 
 	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
