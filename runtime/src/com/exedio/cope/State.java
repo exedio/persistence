@@ -38,9 +38,9 @@ abstract class State
 			throw new RuntimeException();
 	}
 	
-	abstract Object get(FunctionField attribute);
+	abstract Object get(FunctionField field);
 	
-	abstract <E> State put(Transaction transaction, FunctionField<E> attribute, E value);
+	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
 	
 	abstract State write(Transaction transaction, Map<BlobColumn, byte[]> blobs);
 	
