@@ -49,29 +49,29 @@ public final class Qualifier extends Pattern
 				"argument of qualifier constructor is null, " +
 				"may happen due to bad class initialization order.");
 		
-		final List<FunctionField<?>> uniqueAttributes = uniqueConstraint.getFields();
-		if(uniqueAttributes.size()<2)
-			throw new RuntimeException(uniqueAttributes.toString());
+		final List<FunctionField<?>> uniqueFields = uniqueConstraint.getFields();
+		if(uniqueFields.size()<2)
+			throw new RuntimeException(uniqueFields.toString());
 
-		this.parent = castItemAttribute(uniqueAttributes.get(0));
-		this.keys = new FunctionField<?>[uniqueAttributes.size()-1];
+		this.parent = castItemField(uniqueFields.get(0));
+		this.keys = new FunctionField<?>[uniqueFields.size()-1];
 		for(int i = 0; i<this.keys.length; i++)
-			this.keys[i] = uniqueAttributes.get(i+1);
+			this.keys[i] = uniqueFields.get(i+1);
 		this.keyList = Collections.unmodifiableList(Arrays.asList(this.keys));
 		this.uniqueConstraint = uniqueConstraint;
 
-		for(final FunctionField uniqueAttribute : uniqueAttributes)
+		for(final FunctionField uniqueAttribute : uniqueFields)
 			registerSource(uniqueAttribute);
 	}
 
 	@SuppressWarnings("unchecked") // OK: UniqueConstraint looses type information
-	private static final ItemField<Item> castItemAttribute(final Field a)
+	private static final ItemField<Item> castItemField(final Field f)
 	{
-		return (ItemField<Item>)a;
+		return (ItemField<Item>)f;
 	}
 	
 	// TODO implicit external source: new Qualifier(QualifiedStringQualifier.key))
-	// TODO internal source: new Qualifier(stringAttribute(OPTIONAL))
+	// TODO internal source: new Qualifier(new StringField(OPTIONAL))
 
 	public ItemField<Item> getParent()
 	{
