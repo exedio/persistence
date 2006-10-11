@@ -38,8 +38,8 @@ final class DbCop extends ConsoleCop
 
 	DbCop()
 	{
-		super("db");
-		addParameter(TAB, TAB_DB);
+		super("environment");
+		addParameter(TAB, TAB_ENVIRONMENT);
 	}
 	
 	private static final String replaceLineBreaks(final String s)

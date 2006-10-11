@@ -134,7 +134,7 @@ final class Properties_Jspm
 		%>
 		<table class="properties">
 			<tr>
-				<th colspan="2">Connection.getMetaData()</th>
+				<th colspan="2">environment</th>
 			</tr><%
 
 			for(final String name : new TreeSet<String>(castTreeSet(properties.keySet())))
@@ -171,7 +171,7 @@ final class Properties_Jspm
 		<hr>
 		<table class="properties">
 			<tr>
-				<th colspan="<%=TEST_INFO_KEYS.length%>">testprotocol.properties</th>
+				<th colspan="<%=TEST_INFO_KEYS.length%>">test environments (<a href="http://cope.sourceforge.net/testprotocol.html" target="_blank">more...</a>)</th>
 			</tr><%
 		if(properties!=null)
 		{

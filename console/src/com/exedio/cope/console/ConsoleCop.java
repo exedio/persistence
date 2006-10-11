@@ -115,7 +115,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_PRIMARY_KEY = "pk";
 	static final String TAB_MEDIA_STATS = "m";
 	static final String TAB_VM = "vm";
-	static final String TAB_DB = "db";
+	static final String TAB_ENVIRONMENT = "env";
 	
 	static final ConsoleCop getCop(final Model model, final HttpServletRequest request)
 	{
@@ -134,7 +134,7 @@ abstract class ConsoleCop extends Cop
 			return new MediaStatsCop();
 		if(TAB_VM.equals(tab))
 			return VmCop.getVmCop(request);
-		if(TAB_DB.equals(tab))
+		if(TAB_ENVIRONMENT.equals(tab))
 			return new DbCop();
 
 		final SchemaCop schemaCop = SchemaCop.getSchemaCop(request);
