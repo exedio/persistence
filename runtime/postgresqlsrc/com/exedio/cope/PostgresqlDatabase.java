@@ -159,10 +159,10 @@ final class PostgresqlDatabase extends Database
 	
 	private static final String extractConstraintName(final String m, final char startChar, final char endChar)
 	{
-		final int end = m.lastIndexOf(startChar);
+		final int end = m.lastIndexOf(endChar);
 		if(end<=0)
 			return null;
-		final int start = m.lastIndexOf(endChar, end-1);
+		final int start = m.lastIndexOf(startChar, end-1);
 		if(start<0)
 			return null;
 		
