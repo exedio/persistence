@@ -140,6 +140,10 @@ final class PostgresqlDatabase extends Database
 	
 	private String extractConstraintName(final SQLException e, final String sqlState, final int vendorCode)
 	{
+		//final PSQLException pe = (PSQLException)e;
+		//final ServerErrorMessage sem = pe.getServerErrorMessage();
+		//System.out.println("..........."+sem.getDetail()+"..."+sem.getFile()+"..."+sem.getHint()+"..."+sem.getInternalPosition()+"..."+sem.getInternalQuery()+"..."+sem.getLine()+"..."+sem.getMessage()+"..."+sem.getPosition()+"..."+sem.getRoutine()+"..."+sem.getSeverity()+"..."+sem.getSQLState()+"..."+sem.getWhere()+"...");
+		
 		if(!sqlState.equals(e.getSQLState()))
 			return null;
 		if(e.getErrorCode()!=vendorCode)
