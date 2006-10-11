@@ -770,7 +770,9 @@
 		<delete dir="home/testprotocol.html" />
 	</target>
 	
-	<target name="api" depends="local.properties">
+	<!-- home -->
+	
+	<target name="home.api" depends="local.properties">
 
 		<property name="api.private" value="off" />
 		<property name="api.link.cops"  value="http://download.exedio.com/api/cops" />
@@ -834,6 +836,8 @@
 		</javadoc>
 	</target>
 	
+	<target name="api" depends="home.api" />
+	
 	<target name="home.lib" depends="runtime.jar, instrument.jar">
 		<copy todir="home/lib">
 			<fileset dir="build">
@@ -871,7 +875,7 @@
 		</copy>
 	</target>
 	
-	<target name="home.zip" depends="api, home.lib, home.testprotocol">
+	<target name="home.zip" depends="home.api, home.lib, home.testprotocol">
 		<mkdir dir="build/runtime" />
 		<tar destfile="build/exedio-cope-home.tar.bz2"
 			  compression="bzip2">
@@ -879,8 +883,10 @@
 		</tar>
 	</target>
 	
+	<target name="home" depends="home.zip" />
+	
 	<target name="build"
-			depends="compile, test, jar, api,
+			depends="compile, test, jar, home,
 						tomcat,
 						copernica.webtest.compile" />
 	
@@ -925,7 +931,7 @@
 	
 	<target name="dist" depends="dist.tar, dist.test" />
 	
-	<target name="all" depends="build, home.zip, dist" />
+	<target name="all" depends="build, dist" />
 
 	<target name="cruise" depends="all">
 		<delete dir="cruise" />
