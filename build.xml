@@ -852,7 +852,7 @@
 	</target>
 
 	<target name="home.testprotocol" depends="runtime.test, console.compile">
-		<java classname="com.exedio.cope.console.DbCop" taskname="testprotocol"
+		<java classname="com.exedio.cope.console.EnvironmentCop" taskname="testprotocol"
 				fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />

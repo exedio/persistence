@@ -59,7 +59,7 @@ abstract class ConsoleCop extends Cop
 				new PrimaryKeysCop(),
 				new MediaStatsCop(),
 				new VmCop(false),
-				new DbCop(),
+				new EnvironmentCop(),
 			};
 	}
 	
@@ -135,7 +135,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_VM.equals(tab))
 			return VmCop.getVmCop(request);
 		if(TAB_ENVIRONMENT.equals(tab))
-			return new DbCop();
+			return new EnvironmentCop();
 
 		final SchemaCop schemaCop = SchemaCop.getSchemaCop(request);
 		if(schemaCop!=null)

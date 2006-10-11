@@ -33,10 +33,10 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
 
-final class DbCop extends ConsoleCop
+final class EnvironmentCop extends ConsoleCop
 {
 
-	DbCop()
+	EnvironmentCop()
 	{
 		super("environment");
 		addParameter(TAB, TAB_ENVIRONMENT);
