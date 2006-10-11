@@ -52,9 +52,9 @@ final class PostgresqlDatabase extends Database
 		
 		// version 8 needed for savepoints
 		if(databaseMajorVersion<8)
-			throw new RuntimeException("postgresql support need at least database version 8, but was: " + databaseProductVersion + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')');
+			throw new RuntimeException("postgresql support needs at least database version 8, but was: " + databaseProductVersion + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')');
 		if(driverMajorVersion<8)
-			throw new RuntimeException("postgresql support need at least jdbc driver version 8, but was: " + driverVersion + '(' + driverMajorVersion + '.' + driverMinorVersion + ')');
+			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + driverVersion + '(' + driverMajorVersion + '.' + driverMinorVersion + ')');
 	}
 	
 	@Override
@@ -146,13 +146,28 @@ final class PostgresqlDatabase extends Database
 			return null;
 		
 		final String m = e.getMessage();
-		final int end = m.lastIndexOf('\u00ab'); // left pointing double angle quotation mark
-		if(end<0)
+		
+		// TODO make name extraction independent of server language
+		final String english = extractConstraintName(m, '"', '"');
+		if(english!=null)
+			return english;
+		
+		final String german = extractConstraintName(m, '\u00bb', '\u00ab'); // right and left pointing double angle quotation mark
+		if(german!=null)
+			return german;
+		
+		return null;
+	}
+	
+	private static final String extractConstraintName(final String m, final char startChar, final char endChar)
+	{
+		final int end = m.lastIndexOf(startChar);
+		if(end<=0)
 			return null;
-		final int start = m.lastIndexOf('\u00bb', end); // right pointing double angle quotation mark
+		final int start = m.lastIndexOf(endChar, end-1);
 		if(start<0)
 			return null;
-
+		
 		return m.substring(start+1, end);
 	}
 	
