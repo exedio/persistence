@@ -58,11 +58,21 @@ public final class TransactionFilter implements Filter
 	private Model model;
 	private String transactionName = null;
 	
-	public void init(FilterConfig config) throws ServletException
+	public void init(final FilterConfig config) throws ServletException
 	{
-		model = ServletUtil.getModel(config);
-		final String transactionNameParameter = config.getInitParameter("transactionName");
-		transactionName = (transactionNameParameter!=null) ? transactionNameParameter : getClass().getName();
+		try
+		{
+			model = ServletUtil.getModel(config);
+			final String transactionNameParameter = config.getInitParameter("transactionName");
+			transactionName = (transactionNameParameter!=null) ? transactionNameParameter : getClass().getName();
+		}
+		catch(RuntimeException e)
+		{
+			// tomcat does not print stack trace or exception message, so we do
+			System.err.println("exception in TransactionFilter.init");
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	public void doFilter(
