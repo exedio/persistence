@@ -32,6 +32,7 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		
 		suite.addTestSuite( TrimTest.class );
+		suite.addTestSuite( TypeCollisionTest.class );
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
 		suite.addTestSuite( PkSourceSequentialTest.class );
