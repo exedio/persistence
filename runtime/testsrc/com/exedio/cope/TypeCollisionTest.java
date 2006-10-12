@@ -32,7 +32,10 @@ public class TypeCollisionTest extends CopeAssert
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("TypeCollisionItem", e.getMessage());
+			assertEquals(
+					"duplicate type id \"TypeCollisionItem\" for classes com.exedio.cope.TypeCollisionItem" +
+					" and com.exedio.cope.typecollision.TypeCollisionItem",
+					e.getMessage());
 		}
 	}
 

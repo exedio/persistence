@@ -76,8 +76,9 @@ public final class Model
 
 		for(final Type<?> type : explicitTypes)
 		{
-			if(typesByID.put(type.id, type)!=null)
-				throw new RuntimeException(type.id);
+			final Type collisionType = typesByID.put(type.id, type);
+			if(collisionType!=null)
+				throw new RuntimeException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
 			typesL.add(type);
 			if(!type.isAbstract)
 				concreteTypes.add(type);
