@@ -838,10 +838,11 @@
 	
 	<target name="api" depends="home.api" />
 	
-	<target name="home.lib" depends="runtime.jar, instrument.jar">
+	<target name="home.lib" depends="runtime.jar, runtime.test.jar, instrument.jar">
 		<copy todir="home/lib">
 			<fileset dir="build">
 				<include name="exedio-cope.jar" />
+				<include name="exedio-cope-test.jar" />
 				<include name="exedio-cope-instrument.jar" />
 			</fileset>
 			<fileset dir="lib">
