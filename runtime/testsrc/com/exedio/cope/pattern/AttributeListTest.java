@@ -123,6 +123,7 @@ public class AttributeListTest extends AbstractLibTest
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.TYPE));
 
 		// test persistence
+		// strings
 		assertEquals(list(), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item.getDistinctParentsOfStrings("hallo"));
@@ -169,6 +170,7 @@ public class AttributeListTest extends AbstractLibTest
 		assertContains(item.getDistinctParentsOfStrings("null1"));
 		assertEquals(0, item.strings.getRelationType().newQuery(null).search().size());
 
+		// dates
 		assertEquals(list(), item.getDates());
 		assertContains(item.getDistinctParentsOfDates(date1));
 		assertContains(item.getDistinctParentsOfDates(date2));
