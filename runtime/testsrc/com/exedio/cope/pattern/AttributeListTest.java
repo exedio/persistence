@@ -52,16 +52,14 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(list(
 				item.TYPE,
 				item.strings.getRelationType(),
-				item.mandatoryStrings.getRelationType(),
 				item.dates.getRelationType()
 			), model.getTypes());
 
 		assertEquals(list(
 				item.TYPE.getThis(),
 				item.strings,
-				item.mandatoryStrings, 
 				item.dates
-			),	item.TYPE.getFeatures());
+			), item.TYPE.getFeatures());
 		assertEquals(list(
 				item.strings.getRelationType().getThis(),
 				item.strings.getParent(),
