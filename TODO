@@ -30,6 +30,7 @@
 	- Media:
 		* allow Content-Type specified by EnumAttribute
 		* maintain charset in Content-Type for texts
+		* optionally maintain filename param in Content-Disposition header
 		* implement MediaAlias
 		* implement redundant (computed) medias, such as thumbnails
 		* redundantly maintain width/height for images
