@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.List;
 
 import com.exedio.cope.EnumField;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -149,6 +150,11 @@ public final class DAttribute extends Item
 	public String getCode()
 	{
 		return code.get(this);
+	}
+	
+	public FunctionField getField()
+	{
+		return getParent().getDtypeSystem().getField(this);
 	}
 	
 	public static final Type<DAttribute> TYPE = newType(DAttribute.class);

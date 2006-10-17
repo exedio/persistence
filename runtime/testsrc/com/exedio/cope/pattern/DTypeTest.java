@@ -70,6 +70,9 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(DAttribute.ValueType.INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
+		assertSame(item.TYPE, akkuTime.getField().getType());
+		assertEquals("featuresInt1", akkuTime.getField().getName());
+		assertEquals(Integer.class, akkuTime.getField().getValueClass());
 		assertEquals(list(akkuTime), cellPhone.getAttributes());
 		assertEquals(akkuTime, cellPhone.getAttribute("akkuTime"));
 		assertEquals(null, cellPhone.getAttribute("akkuTimeX"));
@@ -78,6 +81,9 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(DAttribute.ValueType.STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
+		assertSame(item.TYPE, memory.getField().getType());
+		assertEquals("featuresString1", memory.getField().getName());
+		assertEquals(String.class, memory.getField().getValueClass());
 		assertEquals(list(akkuTime, memory), cellPhone.getAttributes());
 		
 		assertEquals(null, item.getFeaturesType());
@@ -116,8 +122,9 @@ public class DTypeTest extends AbstractLibTest
 
 		final DAttribute weight = organizer.addIntegerAttribute("weight");
 		assertEquals(DAttribute.ValueType.INTEGER, weight.getValueType());
-		assertEquals(0, akkuTime.getPosition());
+		assertEquals(0, weight.getPosition());
 		assertEquals("weight", weight.getCode());
+		assertSame(akkuTime.getField(), weight.getField());
 		assertEquals(list(weight), organizer.getAttributes());
 		
 		item2.setFeaturesType(organizer);
@@ -131,12 +138,18 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(DAttribute.ValueType.BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
+		assertSame(item.TYPE, bluetooth.getField().getType());
+		assertEquals("featuresBool1", bluetooth.getField().getName());
+		assertEquals(Boolean.class, bluetooth.getField().getValueClass());
 		assertEquals(list(weight, bluetooth), organizer.getAttributes());
 		
 		final DAttribute length = organizer.addDoubleAttribute("length");
 		assertEquals(DAttribute.ValueType.DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
+		assertSame(item.TYPE, length.getField().getType());
+		assertEquals("featuresDouble1", length.getField().getName());
+		assertEquals(Double.class, length.getField().getValueClass());
 		assertEquals(list(weight, bluetooth, length), organizer.getAttributes());
 		
 		assertEquals(null, item2.getFeatures(bluetooth));
@@ -150,6 +163,9 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(DAttribute.ValueType.ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
+		assertSame(item.TYPE, color.getField().getType());
+		assertEquals("featuresEnum1", color.getField().getName());
+		assertEquals(DEnumValue.class, color.getField().getValueClass());
 		assertEquals(list(weight, bluetooth, length, color), organizer.getAttributes());
 		assertContains(color.getEnumValues());
 		assertEquals(null, item2.getFeatures(color));
@@ -175,6 +191,9 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(DAttribute.ValueType.ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
+		assertSame(item.TYPE, manufacturer.getField().getType());
+		assertEquals("featuresEnum2", manufacturer.getField().getName());
+		assertEquals(DEnumValue.class, manufacturer.getField().getValueClass());
 		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getAttributes());
 		assertContains(manufacturer.getEnumValues());
 		assertEquals(null, item2.getFeatures(manufacturer));

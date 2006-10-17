@@ -163,7 +163,7 @@ public final class DTypeSystem extends Pattern
 			throw new RuntimeException("dynamic type mismatch: attribute has type " + attributeType.getCode() + ", but item has " + (itemType!=null ? itemType.getCode() : "none"));
 	}
 	
-	private FunctionField<?> getField(final DAttribute attribute)
+	FunctionField<?> getField(final DAttribute attribute)
 	{
 		final DAttribute.ValueType valueType = attribute.getValueType();
 		final int pos = attribute.getPositionPerValueType();
