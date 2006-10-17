@@ -152,7 +152,7 @@ public final class DAttribute extends Item
 		return code.get(this);
 	}
 	
-	public FunctionField getField()
+	public FunctionField<?> getField()
 	{
 		return getParent().getDtypeSystem().getField(this);
 	}
