@@ -138,6 +138,11 @@ public final class DTypeSystem extends Pattern
 		return this.type.get(item);
 	}
 	
+	public ItemField<DType> getTypeField()
+	{
+		return type;
+	}
+	
 	public void setType(final Item item, final DType type)
 	{
 		if(type!=null && !this.equals(type.getDtypeSystem()))

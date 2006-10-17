@@ -40,6 +40,7 @@ public class DTypeTest extends AbstractLibTest
 	
 	public void testIt()
 	{
+		// test model
 		assertEquals(String.class,     DAttribute.ValueType.STRING.getValueClass());
 		assertEquals(Boolean.class,    DAttribute.ValueType.BOOLEAN.getValueClass());
 		assertEquals(Integer.class,    DAttribute.ValueType.INTEGER.getValueClass());
@@ -49,6 +50,10 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.features.getType());
 		assertEquals("features", item.features.getName());
 		
+		assertSame(DType.TYPE, item.features.getTypeField().getValueType());
+		assertEquals("featuresType", item.features.getTypeField().getName());
+		
+		// test persistence
 		assertContains(item.features.getTypes());
 		
 		final DType cellPhone = item.features.createType("cellPhone");
