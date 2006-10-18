@@ -91,7 +91,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		if(seq)
 			assertContains(item1, item2, item1.TYPE.search(item1.leftItem.less(item1.rightItem)));
 
-		// less or equal
+		// lessOrEqual
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftString.lessOrEqual(item1.rightString)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftInt.lessOrEqual(item1.rightInt)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftLong.lessOrEqual(item1.rightLong)));
@@ -111,7 +111,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		if(seq)
 			assertContains(item4, item5, item1.TYPE.search(item1.leftItem.greater(item1.rightItem)));
 
-		// greater or equal
+		// greaterOrEqual
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftString.greaterOrEqual(item1.rightString)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftInt.greaterOrEqual(item1.rightInt)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftLong.greaterOrEqual(item1.rightLong)));

@@ -75,7 +75,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item3, item1.TYPE.search(item1.date.equal(date)));
 		assertContains(item3, item1.TYPE.search(item1.enumx.equal(YEnum.V3)));
 
-		// not equal
+		// notEqual
 		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.string.notEqual("string3")));
 		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.intx.notEqual(3)));
 		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.longx.notEqual(13l)));
@@ -91,7 +91,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item1.TYPE.search(item1.date.less(date)));
 		assertContains(item1, item2, item1.TYPE.search(item1.enumx.less(YEnum.V3)));
 
-		// less or equal
+		// lessOrEqual
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.string.lessOrEqual("string3")));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.intx.lessOrEqual(3)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.longx.lessOrEqual(13l)));
@@ -107,7 +107,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item4, item5, item1.TYPE.search(item1.date.greater(date)));
 		assertContains(item4, item5, item1.TYPE.search(item1.enumx.greater(YEnum.V3)));
 
-		// greater or equal
+		// greaterOrEqual
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.string.greaterOrEqual("string3")));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.intx.greaterOrEqual(3)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.longx.greaterOrEqual(13l)));
