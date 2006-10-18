@@ -51,11 +51,11 @@ public class CompareConditionTest extends AbstractLibTest
 	{
 		super.setUp();
 		// zack
-		deleteOnTearDown(item1 = new CompareConditionItem("string1", 1, 11l, 2.1, true, XSomeEnum.enumValue1));
-		deleteOnTearDown(item2 = new CompareConditionItem("string2", 2, 12l, 2.2, true, XSomeEnum.enumValue1));
-		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, true, XSomeEnum.enumValue2));
-		deleteOnTearDown(item4 = new CompareConditionItem("string4", 4, 14l, 2.4, true, XSomeEnum.enumValue3));
-		deleteOnTearDown(item5 = new CompareConditionItem("string5", 5, 15l, 2.5, true, XSomeEnum.enumValue3));
+		deleteOnTearDown(item1 = new CompareConditionItem("string1", 1, 11l, 2.1, XSomeEnum.enumValue1));
+		deleteOnTearDown(item2 = new CompareConditionItem("string2", 2, 12l, 2.2, XSomeEnum.enumValue1));
+		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, XSomeEnum.enumValue2));
+		deleteOnTearDown(item4 = new CompareConditionItem("string4", 4, 14l, 2.4, XSomeEnum.enumValue3));
+		deleteOnTearDown(item5 = new CompareConditionItem("string5", 5, 15l, 2.5, XSomeEnum.enumValue3));
 		date = new Date(1087365298214l);
 		setDate(item1, offset(date, -2));
 		setDate(item2, offset(date, -1));
