@@ -62,6 +62,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertNotEquals(item1.leftString.less(item1.rightString), item1.leftString.less(item1.leftString));
 		assertNotEquals(item1.leftString.less(item1.rightString), item1.rightString.less(item1.rightString));
 		assertNotEquals(item1.leftString.less(item1.rightString), item1.leftString.lessOrEqual(item1.rightString));
+		assertNotEquals(item1.leftString.less(item1.rightString), item1.leftString.equal(item1.rightString));
 		
 		
 		// equal
