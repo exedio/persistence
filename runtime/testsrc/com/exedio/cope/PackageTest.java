@@ -72,6 +72,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DistinctTest.class );
 		suite.addTestSuite( FunctionTest.class );
 		suite.addTestSuite( CompareConditionTest.class );
+		suite.addTestSuite( CompareFunctionConditionTest.class );
 		suite.addTestSuite( TypeInConditionTest.class );
 		suite.addTestSuite( JoinTest.class );
 		suite.addTestSuite( JoinOuterTest.class );

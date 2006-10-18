@@ -1084,6 +1084,26 @@ public final class Type<C extends Item>
 			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 		}
 		
+		public final CompareFunctionCondition<E> less(final Function<E> right)
+		{
+			return new CompareFunctionCondition<E>(CompareCondition.Operator.Less, this, right);
+		}
+		
+		public final CompareFunctionCondition<E> lessOrEqual(final Function<E> right)
+		{
+			return new CompareFunctionCondition<E>(CompareCondition.Operator.LessEqual, this, right);
+		}
+		
+		public final CompareFunctionCondition<E> greater(final Function<E> right)
+		{
+			return new CompareFunctionCondition<E>(CompareCondition.Operator.Greater, this, right);
+		}
+		
+		public final CompareFunctionCondition<E> greaterOrEqual(final Function<E> right)
+		{
+			return new CompareFunctionCondition<E>(CompareCondition.Operator.GreaterEqual, this, right);
+		}
+
 		public ExtremumAggregate<E> min()
 		{
 			return new ExtremumAggregate<E>(this, true);

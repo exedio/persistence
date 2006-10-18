@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class EqualCondition<E> extends Condition
+public final class EqualCondition<E> extends Condition // TODO remove, integrate into CompareCondition
 {
 	public final Function<E> function;
 	public final E value;

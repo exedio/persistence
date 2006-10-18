@@ -18,86 +18,73 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.CompareCondition.Operator;
 
-public final class CompareCondition<E> extends Condition
+
+public final class CompareFunctionCondition<E> extends Condition
 {
 	private final Operator operator;
-	private final Function<E> function;
-	private final E value;
+	private final Function<E> left;
+	private final Function<E> right;
 
 	/**
-	 * Creates a new CompareCondition.
+	 * Creates a new CompareFunctionCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see com.exedio.cope.Function#less(Object)
-	 * @see com.exedio.cope.Function#lessOrEqual(Object)
-	 * @see com.exedio.cope.Function#greater(Object)
-	 * @see com.exedio.cope.Function#greaterOrEqual(Object)
+	 * @see com.exedio.cope.Function#less(Function)
+	 * @see com.exedio.cope.Function#lessOrEqual(Function)
+	 * @see com.exedio.cope.Function#greater(Function)
+	 * @see com.exedio.cope.Function#greaterOrEqual(Function)
 	 */
-	public CompareCondition(final Operator operator, final Function<E> function, final E value)
+	public CompareFunctionCondition(final Operator operator, final Function<E> left, final Function<E> right)
 	{
-		this.operator = operator;
-		this.function = function;
-		this.value = value;
-
 		if(operator==null)
 			throw new NullPointerException();
-		if(function==null)
-			throw new NullPointerException();
-		if(value==null)
-			throw new NullPointerException();
+		if(left==null)
+			throw new NullPointerException("left function must not be null");
+		if(right==null)
+			throw new NullPointerException("right function must not be null");
+
+		this.operator = operator;
+		this.left = left;
+		this.right = right;
 	}
 	
 	@Override
 	void append(final Statement bf)
 	{
-		bf.append(function, (Join)null).
+		bf.append(left, (Join)null).
 			append(operator.sql).
-			appendParameter(function, value);
+			append(right, (Join)null);
 	}
 
 	@Override
 	void check(final Query query)
 	{
-		check(function, query);
+		check(left, query);
+		check(right, query);
 	}
 
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CompareCondition))
+		if(!(other instanceof CompareFunctionCondition))
 			return false;
 		
-		final CompareCondition o = (CompareCondition)other;
+		final CompareFunctionCondition o = (CompareFunctionCondition)other;
 		
-		return operator.equals(o.operator) && function.equals(o.function) && value.equals(o.value);
+		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return operator.hashCode() ^ function.hashCode() ^ value.hashCode() ^ 918276;
+		return operator.hashCode() ^ left.hashCode() ^ right.hashCode() ^ 286438162;
 	}
 
 	@Override
 	public String toString()
 	{
-		return function.toString() + operator.sql + '\'' + value + '\'';
+		return left.toString() + operator.sql + right.toString();
 	}
-
-	public static enum Operator
-	{
-		Less("<"),
-		LessEqual("<="),
-		Greater(">"),
-		GreaterEqual(">=");
-		
-		final String sql;
-		
-		Operator(final String sql)
-		{
-			this.sql = sql;
-		}
-	}
-
 }
