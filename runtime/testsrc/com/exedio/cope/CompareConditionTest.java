@@ -30,7 +30,7 @@ public class CompareConditionTest extends AbstractLibTest
 	}
 	
 	CompareConditionItem item1, item2, item3, item4, item5;
-	Date date;
+	static final Date date = new Date(1087365298214l);
 	boolean seq;
 	
 	private Date offset(final Date date, final long offset)
@@ -43,7 +43,6 @@ public class CompareConditionTest extends AbstractLibTest
 	{
 		super.setUp();
 		seq = !model.getProperties().getPkSourceButterfly();
-		date = new Date(1087365298214l);
 		deleteOnTearDown(item1 = new CompareConditionItem("string1", 1, 11l, 2.1, offset(date, -2), YEnum.V1));
 		deleteOnTearDown(item2 = new CompareConditionItem("string2", 2, 12l, 2.2, offset(date, -1), YEnum.V2));
 		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, offset(date,  0), YEnum.V3));
