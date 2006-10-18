@@ -67,6 +67,14 @@ public class CompareConditionTest extends AbstractLibTest
 		assertNotEquals(item1.someString.less("a"), item1.someString.lessOrEqual("a"));
 		
 		
+		// equal
+		assertContains(item3, item1.TYPE.search(item1.string.equal("string3")));
+		assertContains(item3, item1.TYPE.search(item1.intx.equal(3)));
+		assertContains(item3, item1.TYPE.search(item1.longx.equal(13l)));
+		assertContains(item3, item1.TYPE.search(item1.doublex.equal(2.3)));
+		assertContains(item3, item1.TYPE.search(item1.date.equal(date)));
+		assertContains(item3, item1.TYPE.search(item1.enumx.equal(YEnum.V3)));
+
 		// less
 		assertContains(item1, item2, item1.TYPE.search(item1.string.less("string3")));
 		assertContains(item1, item2, item1.TYPE.search(item1.intx.less(3)));
@@ -105,7 +113,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item3, item1.TYPE.search(item1.longx.in(listg(11l, 13l, 255l))));
 		assertContains(item1, item3, item1.TYPE.search(item1.doublex.in(listg(2.1, 2.3, 25.2))));
 		assertContains(item1, item3, item1.TYPE.search(item1.date.in(listg(offset(date, -2), date, offset(date, +25)))));
-		assertContains(item1, item2, item1.TYPE.search(item1.enumx.in(listg(YEnum.V1, YEnum.V2, YEnum.VX))));
+		assertContains(item1, item3, item1.TYPE.search(item1.enumx.in(listg(YEnum.V1, YEnum.V3, YEnum.VX))));
 		
 		// min
 		assertEquals("string1", new Query<String>(item1.string.min()).searchSingleton());
