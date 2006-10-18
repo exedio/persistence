@@ -61,10 +61,10 @@ public class CompareConditionTest extends AbstractLibTest
 	public void testCompareConditions()
 	{
 		// test equals/hashCode
-		assertEquals(item1.someString.less("a"), item1.someString.less("a"));
-		assertNotEquals(item1.someString.less("a"), item1.someString.less("b"));
-		assertNotEquals(item1.someString.less("a"), item1.string.less("a"));
-		assertNotEquals(item1.someString.less("a"), item1.someString.lessOrEqual("a"));
+		assertEquals(item1.string.less("a"), item1.string.less("a"));
+		assertNotEquals(item1.string.less("a"), item1.string.less("b"));
+		assertNotEquals(item1.string.less("a"), item1.otherString.less("a"));
+		assertNotEquals(item1.string.less("a"), item1.string.lessOrEqual("a"));
 
 		// test toString
 		assertEquals("CompareConditionItem.string='string3'",  item1.string.equal("string3").toString());
