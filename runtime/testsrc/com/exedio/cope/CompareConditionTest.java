@@ -61,7 +61,7 @@ public class CompareConditionTest extends TestmodelTest
 		setDate(item5, offset(date, 2));
 	}
 	
-	public void testLiteralConditions()
+	public void testCompareConditions()
 	{
 		// test equals/hashCode
 		assertEquals(item1.someString.less("a"), item1.someString.less("a"));
@@ -71,74 +71,44 @@ public class CompareConditionTest extends TestmodelTest
 		
 		
 		// less
-		assertContains(item1, item2,
-			item1.TYPE.search(item1.someNotNullString.less("string3")));
-		assertContains(item1, item2,
-			item1.TYPE.search(item1.someNotNullInteger.less(3)));
-		assertContains(item1, item2,
-			item1.TYPE.search(item1.someNotNullLong.less(13l)));
-		assertContains(item1, item2,
-			item1.TYPE.search(item1.someNotNullDouble.less(2.3)));
-		assertContains(item1, item2,
-			item1.TYPE.search(item1.someDate.less(date)));
-		assertContains(item1, item2,
-			item1.TYPE.search(item1.someNotNullEnum.less(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullString.less("string3")));
+		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullInteger.less(3)));
+		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullLong.less(13l)));
+		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullDouble.less(2.3)));
+		assertContains(item1, item2, item1.TYPE.search(item1.someDate.less(date)));
+		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullEnum.less(AttributeItem.SomeEnum.enumValue2)));
 
 		// less or equal
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someNotNullString.lessOrEqual("string3")));
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someNotNullInteger.lessOrEqual(3)));
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someNotNullLong.lessOrEqual(13l)));
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someNotNullDouble.lessOrEqual(2.3)));
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someDate.lessOrEqual(date)));
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullString.lessOrEqual("string3")));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullInteger.lessOrEqual(3)));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullLong.lessOrEqual(13l)));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullDouble.lessOrEqual(2.3)));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someDate.lessOrEqual(date)));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(AttributeItem.SomeEnum.enumValue2)));
 
 		// greater
-		assertContains(item4, item5,
-			item1.TYPE.search(item1.someNotNullString.greater("string3")));
-		assertContains(item4, item5,
-			item1.TYPE.search(item1.someNotNullInteger.greater(3)));
-		assertContains(item4, item5,
-			item1.TYPE.search(item1.someNotNullLong.greater(13l)));
-		assertContains(item4, item5,
-			item1.TYPE.search(item1.someNotNullDouble.greater(2.3)));
-		assertContains(item4, item5,
-			item1.TYPE.search(item1.someDate.greater(date)));
-		assertContains(item4, item5,
-			item1.TYPE.search(item1.someNotNullEnum.greater(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullString.greater("string3")));
+		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullInteger.greater(3)));
+		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullLong.greater(13l)));
+		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullDouble.greater(2.3)));
+		assertContains(item4, item5, item1.TYPE.search(item1.someDate.greater(date)));
+		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullEnum.greater(AttributeItem.SomeEnum.enumValue2)));
 
 		// greater or equal
-		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someNotNullString.greaterOrEqual("string3")));
-		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someNotNullInteger.greaterOrEqual(3)));
-		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someNotNullLong.greaterOrEqual(13l)));
-		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someNotNullDouble.greaterOrEqual(2.3)));
-		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someDate.greaterOrEqual(date)));
-		assertContains(item3, item4, item5,
-			item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullString.greaterOrEqual("string3")));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullInteger.greaterOrEqual(3)));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullLong.greaterOrEqual(13l)));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullDouble.greaterOrEqual(2.3)));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.someDate.greaterOrEqual(date)));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(AttributeItem.SomeEnum.enumValue2)));
 		
 		// in
-		assertContains(item1, item3,
-			item1.TYPE.search(item1.someNotNullString.in(listg("string1", "string3", "stringNone"))));
-		assertContains(item1, item3,
-			item1.TYPE.search(item1.someNotNullInteger.in(listg(1, 3, 25))));
-		assertContains(item1, item3,
-			item1.TYPE.search(item1.someNotNullLong.in(listg(11l, 13l, 255l))));
-		assertContains(item1, item3,
-			item1.TYPE.search(item1.someNotNullDouble.in(listg(2.1, 2.3, 25.2))));
-		assertContains(item1, item3,
-			item1.TYPE.search(item1.someDate.in(listg(offset(date, -2), date, offset(date, +25)))));
-		assertContains(item1, item2, item3,
-			item1.TYPE.search(item1.someNotNullEnum.in(listg(AttributeItem.SomeEnum.enumValue1, AttributeItem.SomeEnum.enumValue2))));
+		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullString.in(listg("string1", "string3", "stringNone"))));
+		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullInteger.in(listg(1, 3, 25))));
+		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullLong.in(listg(11l, 13l, 255l))));
+		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullDouble.in(listg(2.1, 2.3, 25.2))));
+		assertContains(item1, item3, item1.TYPE.search(item1.someDate.in(listg(offset(date, -2), date, offset(date, +25)))));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.in(listg(AttributeItem.SomeEnum.enumValue1, AttributeItem.SomeEnum.enumValue2))));
 		
 		// min
 		assertEquals("string1", new Query<String>(item1.someNotNullString.min()).searchSingleton());
