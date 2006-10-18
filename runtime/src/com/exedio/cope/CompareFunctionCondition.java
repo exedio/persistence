@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.CompareCondition.Operator;
-
 
 public final class CompareFunctionCondition<E> extends Condition
 {
@@ -31,6 +29,7 @@ public final class CompareFunctionCondition<E> extends Condition
 	 * Creates a new CompareFunctionCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
+	 * @see com.exedio.cope.Function#equal(Function)
 	 * @see com.exedio.cope.Function#less(Function)
 	 * @see com.exedio.cope.Function#lessOrEqual(Function)
 	 * @see com.exedio.cope.Function#greater(Function)
@@ -86,5 +85,21 @@ public final class CompareFunctionCondition<E> extends Condition
 	public String toString()
 	{
 		return left.toString() + operator.sql + right.toString();
+	}
+
+	public static enum Operator
+	{
+		Equal("="),
+		Less("<"),
+		LessEqual("<="),
+		Greater(">"),
+		GreaterEqual(">=");
+		
+		final String sql;
+		
+		Operator(final String sql)
+		{
+			this.sql = sql;
+		}
 	}
 }

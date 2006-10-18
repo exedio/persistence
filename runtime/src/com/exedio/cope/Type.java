@@ -1059,9 +1059,9 @@ public final class Type<C extends Item>
 			return new NotEqualCondition<E>(this, value);
 		}
 		
-		public EqualFunctionCondition<E> equal(final Function<E> right)
+		public CompareFunctionCondition<E> equal(final Function<E> right)
 		{
-			return new EqualFunctionCondition<E>(this, right);
+			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Equal, this, right);
 		}
 
 		public CompareCondition<E> less(final E value)
@@ -1086,22 +1086,22 @@ public final class Type<C extends Item>
 		
 		public final CompareFunctionCondition<E> less(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.Less, this, right);
+			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Less, this, right);
 		}
 		
 		public final CompareFunctionCondition<E> lessOrEqual(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.LessEqual, this, right);
+			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.LessEqual, this, right);
 		}
 		
 		public final CompareFunctionCondition<E> greater(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.Greater, this, right);
+			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Greater, this, right);
 		}
 		
 		public final CompareFunctionCondition<E> greaterOrEqual(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.GreaterEqual, this, right);
+			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.GreaterEqual, this, right);
 		}
 
 		public ExtremumAggregate<E> min()
@@ -1119,12 +1119,12 @@ public final class Type<C extends Item>
 			return new BindItemFunction<E>(this, join);
 		}
 		
-		public EqualFunctionCondition equalTarget()
+		public CompareFunctionCondition equalTarget()
 		{
 			return equal(getValueType().thisFunction);
 		}
 		
-		public EqualFunctionCondition equalTarget(final Join targetJoin)
+		public CompareFunctionCondition equalTarget(final Join targetJoin)
 		{
 			return equal(getValueType().thisFunction.bind(targetJoin));
 		}

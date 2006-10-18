@@ -41,8 +41,8 @@ public interface ItemFunction<E extends Item> extends Function<E>
 
 	BindItemFunction<E> bind(Join join);
 	
-	EqualFunctionCondition equalTarget();
-	EqualFunctionCondition equalTarget(Join targetJoin);
+	CompareFunctionCondition equalTarget();
+	CompareFunctionCondition equalTarget(Join targetJoin);
 	
 	TypeInCondition<E> typeIn(final Type<? extends E> type1);
 	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2);

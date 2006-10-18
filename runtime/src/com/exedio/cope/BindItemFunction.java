@@ -56,12 +56,12 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E> impl
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public EqualFunctionCondition equalTarget()
+	public CompareFunctionCondition equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 	
-	public EqualFunctionCondition equalTarget(final Join targetJoin)
+	public CompareFunctionCondition equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
