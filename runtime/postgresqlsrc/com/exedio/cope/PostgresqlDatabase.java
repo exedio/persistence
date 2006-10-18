@@ -146,13 +146,13 @@ final class PostgresqlDatabase extends Database
 		final String m = e.getMessage();
 		
 		// TODO make name extraction independent of server language
-		final String english = extractConstraintName(m, '"', '"');
-		if(english!=null)
-			return english;
+		final String en = extractConstraintName(m, '"', '"');
+		if(en!=null)
+			return en;
 		
-		final String german = extractConstraintName(m, '\u00bb', '\u00ab'); // right and left pointing double angle quotation mark
-		if(german!=null)
-			return german;
+		final String de = extractConstraintName(m, '\u00bb', '\u00ab'); // right and left pointing double angle quotation mark
+		if(de!=null)
+			return de;
 		
 		return null;
 	}
