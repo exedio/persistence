@@ -50,18 +50,12 @@ public class CompareConditionTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		// zack
-		deleteOnTearDown(item1 = new CompareConditionItem("string1", 1, 11l, 2.1, YEnum.enumValue1));
-		deleteOnTearDown(item2 = new CompareConditionItem("string2", 2, 12l, 2.2, YEnum.enumValue1));
-		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, YEnum.enumValue2));
-		deleteOnTearDown(item4 = new CompareConditionItem("string4", 4, 14l, 2.4, YEnum.enumValue3));
-		deleteOnTearDown(item5 = new CompareConditionItem("string5", 5, 15l, 2.5, YEnum.enumValue3));
 		date = new Date(1087365298214l);
-		setDate(item1, offset(date, -2));
-		setDate(item2, offset(date, -1));
-		setDate(item3, date);
-		setDate(item4, offset(date, 1));
-		setDate(item5, offset(date, 2));
+		deleteOnTearDown(item1 = new CompareConditionItem("string1", 1, 11l, 2.1, offset(date, -2), YEnum.enumValue1));
+		deleteOnTearDown(item2 = new CompareConditionItem("string2", 2, 12l, 2.2, offset(date, -1), YEnum.enumValue1));
+		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, offset(date,  0), YEnum.enumValue2));
+		deleteOnTearDown(item4 = new CompareConditionItem("string4", 4, 14l, 2.4, offset(date, +1), YEnum.enumValue3));
+		deleteOnTearDown(item5 = new CompareConditionItem("string5", 5, 15l, 2.5, offset(date, +2), YEnum.enumValue3));
 	}
 	
 	public void testCompareConditions()
