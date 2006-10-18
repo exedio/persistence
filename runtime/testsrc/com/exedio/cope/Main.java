@@ -62,6 +62,7 @@ public class Main
 	public static final Model serializerModel = new Model(SerializerItem.TYPE);
 	public static final Model customModel = new Model(CustomItem.TYPE, JavaViewItem.TYPE);
 	public static final Model cacheIsolationModel = new Model(CacheIsolationItem.TYPE);
+	public static final Model compareConditionModel = new Model(CompareConditionItem.TYPE);
 	public static final Model compareFunctionConditionModel = new Model(CompareFunctionConditionItem.TYPE);
 	public static final Model typeInConditionModel = new Model(TypeInConditionAItem.TYPE, TypeInConditionB1Item.TYPE, TypeInConditionB2Item.TYPE, TypeInConditionC1Item.TYPE, TypeInConditionRefItem.TYPE);
 	public static final Model relationModel = new Model(RelationItem.TYPE, RelationSelfItem.TYPE, VectorRelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE);
@@ -134,6 +135,7 @@ public class Main
 		tearDown(relationModel);
 		tearDown(customModel);
 		tearDown(cacheIsolationModel);
+		tearDown(compareConditionModel);
 		tearDown(compareFunctionConditionModel);
 		tearDown(typeInConditionModel);
 		tearDown(nameModel);

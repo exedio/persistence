@@ -20,20 +20,23 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.EmptyItem;
+import com.exedio.cope.CompareConditionItem.XSomeEnum;
 
-public class CompareConditionTest extends TestmodelTest
+public class CompareConditionTest extends AbstractLibTest
 {
-	EmptyItem someItem;
-	AttributeItem item1;
-	AttributeItem item2;
-	AttributeItem item3;
-	AttributeItem item4;
-	AttributeItem item5;
+	public CompareConditionTest()
+	{
+		super(Main.compareConditionModel);
+	}
+	
+	CompareConditionItem item1;
+	CompareConditionItem item2;
+	CompareConditionItem item3;
+	CompareConditionItem item4;
+	CompareConditionItem item5;
 	Date date;
 	
-	private void setDate(final AttributeItem item, final Date date)
+	private void setDate(final CompareConditionItem item, final Date date)
 	{
 		item.setSomeDate(date);
 	}
@@ -47,12 +50,12 @@ public class CompareConditionTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(someItem = new EmptyItem());
-		deleteOnTearDown(item1 = new AttributeItem("string1", 1, 11l, 2.1, true, someItem, AttributeItem.SomeEnum.enumValue1));
-		deleteOnTearDown(item2 = new AttributeItem("string2", 2, 12l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
-		deleteOnTearDown(item3 = new AttributeItem("string3", 3, 13l, 2.3, true, someItem, AttributeItem.SomeEnum.enumValue2));
-		deleteOnTearDown(item4 = new AttributeItem("string4", 4, 14l, 2.4, true, someItem, AttributeItem.SomeEnum.enumValue3));
-		deleteOnTearDown(item5 = new AttributeItem("string5", 5, 15l, 2.5, true, someItem, AttributeItem.SomeEnum.enumValue3));
+		// zack
+		deleteOnTearDown(item1 = new CompareConditionItem("string1", 1, 11l, 2.1, true, XSomeEnum.enumValue1));
+		deleteOnTearDown(item2 = new CompareConditionItem("string2", 2, 12l, 2.2, true, XSomeEnum.enumValue1));
+		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, true, XSomeEnum.enumValue2));
+		deleteOnTearDown(item4 = new CompareConditionItem("string4", 4, 14l, 2.4, true, XSomeEnum.enumValue3));
+		deleteOnTearDown(item5 = new CompareConditionItem("string5", 5, 15l, 2.5, true, XSomeEnum.enumValue3));
 		date = new Date(1087365298214l);
 		setDate(item1, offset(date, -2));
 		setDate(item2, offset(date, -1));
@@ -76,7 +79,7 @@ public class CompareConditionTest extends TestmodelTest
 		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullLong.less(13l)));
 		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullDouble.less(2.3)));
 		assertContains(item1, item2, item1.TYPE.search(item1.someDate.less(date)));
-		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullEnum.less(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullEnum.less(XSomeEnum.enumValue2)));
 
 		// less or equal
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullString.lessOrEqual("string3")));
@@ -84,7 +87,7 @@ public class CompareConditionTest extends TestmodelTest
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullLong.lessOrEqual(13l)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullDouble.lessOrEqual(2.3)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someDate.lessOrEqual(date)));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(XSomeEnum.enumValue2)));
 
 		// greater
 		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullString.greater("string3")));
@@ -92,7 +95,7 @@ public class CompareConditionTest extends TestmodelTest
 		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullLong.greater(13l)));
 		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullDouble.greater(2.3)));
 		assertContains(item4, item5, item1.TYPE.search(item1.someDate.greater(date)));
-		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullEnum.greater(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullEnum.greater(XSomeEnum.enumValue2)));
 
 		// greater or equal
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullString.greaterOrEqual("string3")));
@@ -100,7 +103,7 @@ public class CompareConditionTest extends TestmodelTest
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullLong.greaterOrEqual(13l)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullDouble.greaterOrEqual(2.3)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someDate.greaterOrEqual(date)));
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(XSomeEnum.enumValue2)));
 		
 		// in
 		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullString.in(listg("string1", "string3", "stringNone"))));
@@ -108,7 +111,7 @@ public class CompareConditionTest extends TestmodelTest
 		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullLong.in(listg(11l, 13l, 255l))));
 		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullDouble.in(listg(2.1, 2.3, 25.2))));
 		assertContains(item1, item3, item1.TYPE.search(item1.someDate.in(listg(offset(date, -2), date, offset(date, +25)))));
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.in(listg(AttributeItem.SomeEnum.enumValue1, AttributeItem.SomeEnum.enumValue2))));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.in(listg(XSomeEnum.enumValue1, XSomeEnum.enumValue2))));
 		
 		// min
 		assertEquals("string1", new Query<String>(item1.someNotNullString.min()).searchSingleton());
@@ -116,7 +119,7 @@ public class CompareConditionTest extends TestmodelTest
 		assertEquals(new Long(11l), new Query<Long>(item1.someNotNullLong.min()).searchSingleton());
 		assertEquals(new Double(2.1), new Query<Double>(item1.someNotNullDouble.min()).searchSingleton());
 		assertEquals(offset(date, -2), new Query<Date>(item1.someDate.min()).searchSingleton());
-		assertEquals(AttributeItem.SomeEnum.enumValue1, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.min()).searchSingleton());
+		assertEquals(XSomeEnum.enumValue1, new Query<XSomeEnum>(item1.someNotNullEnum.min()).searchSingleton());
 
 		// max
 		assertEquals("string5", new Query<String>(item1.someNotNullString.max()).searchSingleton());
@@ -124,7 +127,7 @@ public class CompareConditionTest extends TestmodelTest
 		assertEquals(new Long(15l), new Query<Long>(item1.someNotNullLong.max()).searchSingleton());
 		assertEquals(new Double(2.5), new Query<Double>(item1.someNotNullDouble.max()).searchSingleton());
 		assertEquals(offset(date, +2), new Query<Date>(item1.someDate.max()).searchSingleton());
-		assertEquals(AttributeItem.SomeEnum.enumValue3, new Query<AttributeItem.SomeEnum>(item1.someNotNullEnum.max()).searchSingleton());
+		assertEquals(XSomeEnum.enumValue3, new Query<XSomeEnum>(item1.someNotNullEnum.max()).searchSingleton());
 
 		// test extremum aggregate
 		assertEquals(true,  item1.someNotNullString.min().isMinimum());
