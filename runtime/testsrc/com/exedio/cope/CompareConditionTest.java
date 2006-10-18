@@ -29,11 +29,7 @@ public class CompareConditionTest extends AbstractLibTest
 		super(Main.compareConditionModel);
 	}
 	
-	CompareConditionItem item1;
-	CompareConditionItem item2;
-	CompareConditionItem item3;
-	CompareConditionItem item4;
-	CompareConditionItem item5;
+	CompareConditionItem item1, item2, item3, item4, item5;
 	Date date;
 	boolean seq;
 	
