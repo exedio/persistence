@@ -75,6 +75,14 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item3, item1.TYPE.search(item1.date.equal(date)));
 		assertContains(item3, item1.TYPE.search(item1.enumx.equal(YEnum.V3)));
 
+		// not equal
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.string.notEqual("string3")));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.intx.notEqual(3)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.longx.notEqual(13l)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.doublex.notEqual(2.3)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.date.notEqual(date)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.enumx.notEqual(YEnum.V3)));
+
 		// less
 		assertContains(item1, item2, item1.TYPE.search(item1.string.less("string3")));
 		assertContains(item1, item2, item1.TYPE.search(item1.intx.less(3)));
