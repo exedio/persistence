@@ -69,12 +69,12 @@ public class CompareConditionTest extends AbstractLibTest
 		// test equals/hashCode
 		assertEquals(item1.someString.less("a"), item1.someString.less("a"));
 		assertNotEquals(item1.someString.less("a"), item1.someString.less("b"));
-		assertNotEquals(item1.someString.less("a"), item1.someNotNullString.less("a"));
+		assertNotEquals(item1.someString.less("a"), item1.string.less("a"));
 		assertNotEquals(item1.someString.less("a"), item1.someString.lessOrEqual("a"));
 		
 		
 		// less
-		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullString.less("string3")));
+		assertContains(item1, item2, item1.TYPE.search(item1.string.less("string3")));
 		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullInteger.less(3)));
 		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullLong.less(13l)));
 		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullDouble.less(2.3)));
@@ -82,7 +82,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item1.TYPE.search(item1.someNotNullEnum.less(XSomeEnum.enumValue2)));
 
 		// less or equal
-		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullString.lessOrEqual("string3")));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.string.lessOrEqual("string3")));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullInteger.lessOrEqual(3)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullLong.lessOrEqual(13l)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullDouble.lessOrEqual(2.3)));
@@ -90,7 +90,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.lessOrEqual(XSomeEnum.enumValue2)));
 
 		// greater
-		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullString.greater("string3")));
+		assertContains(item4, item5, item1.TYPE.search(item1.string.greater("string3")));
 		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullInteger.greater(3)));
 		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullLong.greater(13l)));
 		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullDouble.greater(2.3)));
@@ -98,7 +98,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item4, item5, item1.TYPE.search(item1.someNotNullEnum.greater(XSomeEnum.enumValue2)));
 
 		// greater or equal
-		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullString.greaterOrEqual("string3")));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.string.greaterOrEqual("string3")));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullInteger.greaterOrEqual(3)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullLong.greaterOrEqual(13l)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullDouble.greaterOrEqual(2.3)));
@@ -106,7 +106,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.someNotNullEnum.greaterOrEqual(XSomeEnum.enumValue2)));
 		
 		// in
-		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullString.in(listg("string1", "string3", "stringNone"))));
+		assertContains(item1, item3, item1.TYPE.search(item1.string.in(listg("string1", "string3", "stringNone"))));
 		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullInteger.in(listg(1, 3, 25))));
 		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullLong.in(listg(11l, 13l, 255l))));
 		assertContains(item1, item3, item1.TYPE.search(item1.someNotNullDouble.in(listg(2.1, 2.3, 25.2))));
@@ -114,7 +114,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.someNotNullEnum.in(listg(XSomeEnum.enumValue1, XSomeEnum.enumValue2))));
 		
 		// min
-		assertEquals("string1", new Query<String>(item1.someNotNullString.min()).searchSingleton());
+		assertEquals("string1", new Query<String>(item1.string.min()).searchSingleton());
 		assertEquals(new Integer(1), new Query<Integer>(item1.someNotNullInteger.min()).searchSingleton());
 		assertEquals(new Long(11l), new Query<Long>(item1.someNotNullLong.min()).searchSingleton());
 		assertEquals(new Double(2.1), new Query<Double>(item1.someNotNullDouble.min()).searchSingleton());
@@ -122,7 +122,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertEquals(XSomeEnum.enumValue1, new Query<XSomeEnum>(item1.someNotNullEnum.min()).searchSingleton());
 
 		// max
-		assertEquals("string5", new Query<String>(item1.someNotNullString.max()).searchSingleton());
+		assertEquals("string5", new Query<String>(item1.string.max()).searchSingleton());
 		assertEquals(new Integer(5), new Query<Integer>(item1.someNotNullInteger.max()).searchSingleton());
 		assertEquals(new Long(15l), new Query<Long>(item1.someNotNullLong.max()).searchSingleton());
 		assertEquals(new Double(2.5), new Query<Double>(item1.someNotNullDouble.max()).searchSingleton());
@@ -130,10 +130,10 @@ public class CompareConditionTest extends AbstractLibTest
 		assertEquals(XSomeEnum.enumValue3, new Query<XSomeEnum>(item1.someNotNullEnum.max()).searchSingleton());
 
 		// test extremum aggregate
-		assertEquals(true,  item1.someNotNullString.min().isMinimum());
-		assertEquals(false, item1.someNotNullString.min().isMaximum());
-		assertEquals(false, item1.someNotNullString.max().isMinimum());
-		assertEquals(true,  item1.someNotNullString.max().isMaximum());
+		assertEquals(true,  item1.string.min().isMinimum());
+		assertEquals(false, item1.string.min().isMaximum());
+		assertEquals(false, item1.string.max().isMinimum());
+		assertEquals(true,  item1.string.max().isMaximum());
 
 		// sum
 		{
