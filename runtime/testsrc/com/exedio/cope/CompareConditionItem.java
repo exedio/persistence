@@ -31,9 +31,7 @@ public class CompareConditionItem extends Item
 
 	public static enum YEnum
 	{
-		enumValue1,
-		enumValue2,
-		enumValue3;
+		V1, V2, V3, V4, V5, VX;
 	}
 	
 	/**
