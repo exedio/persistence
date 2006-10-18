@@ -95,6 +95,10 @@ public class DayTest extends CopeAssert
 		
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000")));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999")));
+
+		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
+		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
+		assertEquals(new Day(2006, 1,  1), new Day(2005, 12, 31).add(1));
 	}
 	
 	static final void assertEquals(final Day expected, final Day actual)

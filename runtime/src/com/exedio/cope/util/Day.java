@@ -101,6 +101,13 @@ public final class Day // TODO implement Comparable
 		return new GregorianCalendar(year, month-1, day).getTimeInMillis();
 	}
 	
+	public Day add(final int days)
+	{
+		final GregorianCalendar cal = new GregorianCalendar(year, month-1, day);
+		cal.add(cal.DATE, days);
+		return new Day(cal);
+	}
+	
 	@Override
 	public boolean equals(final Object o)
 	{
