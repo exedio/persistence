@@ -35,11 +35,7 @@ public class CompareConditionTest extends AbstractLibTest
 	CompareConditionItem item4;
 	CompareConditionItem item5;
 	Date date;
-	
-	private void setDate(final CompareConditionItem item, final Date date)
-	{
-		item.setDate(date);
-	}
+	boolean seq;
 	
 	private Date offset(final Date date, final long offset)
 	{
@@ -50,12 +46,18 @@ public class CompareConditionTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
+		seq = !model.getProperties().getPkSourceButterfly();
 		date = new Date(1087365298214l);
 		deleteOnTearDown(item1 = new CompareConditionItem("string1", 1, 11l, 2.1, offset(date, -2), YEnum.V1));
 		deleteOnTearDown(item2 = new CompareConditionItem("string2", 2, 12l, 2.2, offset(date, -1), YEnum.V2));
 		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, offset(date,  0), YEnum.V3));
 		deleteOnTearDown(item4 = new CompareConditionItem("string4", 4, 14l, 2.4, offset(date, +1), YEnum.V4));
 		deleteOnTearDown(item5 = new CompareConditionItem("string5", 5, 15l, 2.5, offset(date, +2), YEnum.V5));
+		item1.setItem(item1);
+		item2.setItem(item2);
+		item3.setItem(item3);
+		item4.setItem(item4);
+		item5.setItem(item5);
 	}
 	
 	public void testCompareConditions()
@@ -82,6 +84,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item3, item1.TYPE.search(item1.doublex.equal(2.3)));
 		assertContains(item3, item1.TYPE.search(item1.date.equal(date)));
 		assertContains(item3, item1.TYPE.search(item1.enumx.equal(YEnum.V3)));
+		assertContains(item3, item1.TYPE.search(item1.item.equal(item3)));
 
 		// notEqual
 		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.string.notEqual("string3")));
@@ -90,6 +93,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.doublex.notEqual(2.3)));
 		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.date.notEqual(date)));
 		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.enumx.notEqual(YEnum.V3)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.item.notEqual(item3)));
 
 		// less
 		assertContains(item1, item2, item1.TYPE.search(item1.string.less("string3")));
@@ -98,6 +102,8 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item1.TYPE.search(item1.doublex.less(2.3)));
 		assertContains(item1, item2, item1.TYPE.search(item1.date.less(date)));
 		assertContains(item1, item2, item1.TYPE.search(item1.enumx.less(YEnum.V3)));
+		if(seq)
+			assertContains(item1, item2, item1.TYPE.search(item1.item.less(item3)));
 
 		// lessOrEqual
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.string.lessOrEqual("string3")));
@@ -106,6 +112,8 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.doublex.lessOrEqual(2.3)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.date.lessOrEqual(date)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.enumx.lessOrEqual(YEnum.V3)));
+		if(seq)
+			assertContains(item1, item2, item3, item1.TYPE.search(item1.item.lessOrEqual(item3)));
 
 		// greater
 		assertContains(item4, item5, item1.TYPE.search(item1.string.greater("string3")));
@@ -114,6 +122,8 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item4, item5, item1.TYPE.search(item1.doublex.greater(2.3)));
 		assertContains(item4, item5, item1.TYPE.search(item1.date.greater(date)));
 		assertContains(item4, item5, item1.TYPE.search(item1.enumx.greater(YEnum.V3)));
+		if(seq)
+			assertContains(item4, item5, item1.TYPE.search(item1.item.greater(item3)));
 
 		// greaterOrEqual
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.string.greaterOrEqual("string3")));
@@ -122,6 +132,8 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.doublex.greaterOrEqual(2.3)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.date.greaterOrEqual(date)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.enumx.greaterOrEqual(YEnum.V3)));
+		if(seq)
+			assertContains(item3, item4, item5, item1.TYPE.search(item1.item.greaterOrEqual(item3)));
 		
 		// in
 		assertContains(item1, item3, item1.TYPE.search(item1.string.in(listg("string1", "string3", "stringNone"))));
@@ -130,6 +142,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item3, item1.TYPE.search(item1.doublex.in(listg(2.1, 2.3, 25.2))));
 		assertContains(item1, item3, item1.TYPE.search(item1.date.in(listg(offset(date, -2), date, offset(date, +25)))));
 		assertContains(item1, item3, item1.TYPE.search(item1.enumx.in(listg(YEnum.V1, YEnum.V3, YEnum.VX))));
+		assertContains(item1, item3, item1.TYPE.search(item1.item.in(listg(item1, item3))));
 		
 		// min
 		assertEquals("string1", new Query<String>(item1.string.min()).searchSingleton());
@@ -138,6 +151,8 @@ public class CompareConditionTest extends AbstractLibTest
 		assertEquals(new Double(2.1), new Query<Double>(item1.doublex.min()).searchSingleton());
 		assertEquals(offset(date, -2), new Query<Date>(item1.date.min()).searchSingleton());
 		assertEquals(YEnum.V1, new Query<YEnum>(item1.enumx.min()).searchSingleton());
+		if(seq)
+			assertEquals(item1, new Query<CompareConditionItem>(item1.item.min()).searchSingleton());
 
 		// max
 		assertEquals("string5", new Query<String>(item1.string.max()).searchSingleton());
@@ -146,6 +161,8 @@ public class CompareConditionTest extends AbstractLibTest
 		assertEquals(new Double(2.5), new Query<Double>(item1.doublex.max()).searchSingleton());
 		assertEquals(offset(date, +2), new Query<Date>(item1.date.max()).searchSingleton());
 		assertEquals(YEnum.V5, new Query<YEnum>(item1.enumx.max()).searchSingleton());
+		if(seq)
+			assertEquals(item5, new Query<CompareConditionItem>(item1.item.max()).searchSingleton());
 
 		// test extremum aggregate
 		assertEquals(true,  item1.string.min().isMinimum());
