@@ -31,6 +31,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 	
 	CompareFunctionConditionItem item1, item2, item3, item4, item5;
 	final Date date = CompareFunctionConditionItem.date;
+	boolean seq;
 	
 	private Date offset(final long offset)
 	{
@@ -41,11 +42,17 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
+		seq = !model.getProperties().getPkSourceButterfly();
 		deleteOnTearDown(item1 = new CompareFunctionConditionItem("string1", 1, 11l, 2.1, offset(-2), XEnum.V1));
 		deleteOnTearDown(item2 = new CompareFunctionConditionItem("string2", 2, 12l, 2.2, offset(-1), XEnum.V2));
 		deleteOnTearDown(item3 = new CompareFunctionConditionItem("string3", 3, 13l, 2.3, offset( 0), XEnum.V3));
 		deleteOnTearDown(item4 = new CompareFunctionConditionItem("string4", 4, 14l, 2.4, offset(+1), XEnum.V4));
 		deleteOnTearDown(item5 = new CompareFunctionConditionItem("string5", 5, 15l, 2.5, offset(+2), XEnum.V5));
+		item1.setRightItem(item3);
+		item2.setRightItem(item3);
+		item3.setRightItem(item3);
+		item4.setRightItem(item3);
+		item5.setRightItem(item3);
 	}
 	
 	public void testCompareConditions()
@@ -64,6 +71,8 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item1.TYPE.search(item1.leftDouble.less(item1.rightDouble)));
 		assertContains(item1, item2, item1.TYPE.search(item1.leftDate.less(item1.rightDate)));
 		assertContains(item1, item2, item1.TYPE.search(item1.leftEnum.less(item1.rightEnum)));
+		if(seq)
+			assertContains(item1, item2, item1.TYPE.search(item1.leftItem.less(item1.rightItem)));
 
 		// less or equal
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftString.lessOrEqual(item1.rightString)));
@@ -72,6 +81,8 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftDouble.lessOrEqual(item1.rightDouble)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftDate.lessOrEqual(item1.rightDate)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftEnum.lessOrEqual(item1.rightEnum)));
+		if(seq)
+			assertContains(item1, item2, item3, item1.TYPE.search(item1.leftItem.lessOrEqual(item1.rightItem)));
 
 		// greater
 		assertContains(item4, item5, item1.TYPE.search(item1.leftString.greater(item1.rightString)));
@@ -80,6 +91,8 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item4, item5, item1.TYPE.search(item1.leftDouble.greater(item1.rightDouble)));
 		assertContains(item4, item5, item1.TYPE.search(item1.leftDate.greater(item1.rightDate)));
 		assertContains(item4, item5, item1.TYPE.search(item1.leftEnum.greater(item1.rightEnum)));
+		if(seq)
+			assertContains(item4, item5, item1.TYPE.search(item1.leftItem.greater(item1.rightItem)));
 
 		// greater or equal
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftString.greaterOrEqual(item1.rightString)));
@@ -88,5 +101,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftDouble.greaterOrEqual(item1.rightDouble)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftDate.greaterOrEqual(item1.rightDate)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftEnum.greaterOrEqual(item1.rightEnum)));
+		if(seq)
+			assertContains(item3, item4, item5, item1.TYPE.search(item1.leftItem.greaterOrEqual(item1.rightItem)));
 	}
 }
