@@ -99,5 +99,4 @@ public final class CompareCondition<E> extends Condition
 			this.sql = sql;
 		}
 	}
-
 }
