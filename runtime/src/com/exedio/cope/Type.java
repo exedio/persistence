@@ -1059,11 +1059,6 @@ public final class Type<C extends Item>
 			return new NotEqualCondition<E>(this, value);
 		}
 		
-		public CompareFunctionCondition<E> equal(final Function<E> right)
-		{
-			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Equal, this, right);
-		}
-
 		public CompareCondition<E> less(final E value)
 		{
 			return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
@@ -1084,6 +1079,11 @@ public final class Type<C extends Item>
 			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 		}
 		
+		public CompareFunctionCondition<E> equal(final Function<E> right)
+		{
+			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Equal, this, right);
+		}
+
 		public final CompareFunctionCondition<E> less(final Function<E> right)
 		{
 			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Less, this, right);

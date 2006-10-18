@@ -117,11 +117,6 @@ public class BindFunction<E> implements Function<E>
 		return new NotEqualCondition<E>(this, value);
 	}
 	
-	public final CompareFunctionCondition<E> equal(final Function<E> right)
-	{
-		return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Equal, this, right);
-	}
-	
 	public final CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
@@ -140,6 +135,11 @@ public class BindFunction<E> implements Function<E>
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
+	}
+	
+	public final CompareFunctionCondition<E> equal(final Function<E> right)
+	{
+		return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Equal, this, right);
 	}
 	
 	public final CompareFunctionCondition<E> less(final Function<E> right)

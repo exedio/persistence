@@ -50,7 +50,6 @@ public interface Function<E> extends Selectable<E>
 	EqualCondition<E> equal(Join join, E value);
 	CompositeCondition in(Collection<E> value);
 	NotEqualCondition<E> notEqual(E value);
-	CompareFunctionCondition<E> equal(Function<E> right);
 
 	/**
 	 * Returns a condition, that is true for all items,
@@ -79,6 +78,13 @@ public interface Function<E> extends Selectable<E>
 	 * is not less than the given parameter.
 	 */
 	CompareCondition<E> greaterOrEqual(E value);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is equal to the value of the <tt>right</tt> function.
+	 */
+	CompareFunctionCondition<E> equal(Function<E> right);
 
 	/**
 	 * Returns a condition, that is true for all items,
