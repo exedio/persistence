@@ -65,10 +65,10 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertNotEquals(item1.leftString.less(item1.rightString), item1.leftString.equal(item1.rightString));
 
 		// test toString
-		assertEquals("CompareFunctionConditionItem.leftString=CompareFunctionConditionItem.rightString", item1.leftString.equal(item1.rightString).toString());
-		assertEquals("CompareFunctionConditionItem.leftString<CompareFunctionConditionItem.rightString", item1.leftString.less(item1.rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString=CompareFunctionConditionItem.rightString",  item1.leftString.equal(item1.rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString<CompareFunctionConditionItem.rightString",  item1.leftString.less(item1.rightString).toString());
 		assertEquals("CompareFunctionConditionItem.leftString<=CompareFunctionConditionItem.rightString", item1.leftString.lessOrEqual(item1.rightString).toString());
-		assertEquals("CompareFunctionConditionItem.leftString>CompareFunctionConditionItem.rightString", item1.leftString.greater(item1.rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString>CompareFunctionConditionItem.rightString",  item1.leftString.greater(item1.rightString).toString());
 		assertEquals("CompareFunctionConditionItem.leftString>=CompareFunctionConditionItem.rightString", item1.leftString.greaterOrEqual(item1.rightString).toString());
 		
 		
