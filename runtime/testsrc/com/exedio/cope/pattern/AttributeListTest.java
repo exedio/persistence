@@ -24,6 +24,7 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Main;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;
 
 public class AttributeListTest extends AbstractLibTest
@@ -123,6 +124,31 @@ public class AttributeListTest extends AbstractLibTest
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.TYPE));
 
 		// test persistence
+		// test searching
+		final Query<AttributeListItem> q = item.TYPE.newQuery();
+		q.join(item.strings.getRelationType(), item.strings.getParent().equalTarget());
+		assertEquals(list(), q.search());
+		
+		q.setCondition(item.strings.getElement().equal("zack"));
+		assertEquals(list(), q.search());
+		
+		q.setCondition(item.dates.getElement().equal(new Date()));
+		try
+		{
+			q.search();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals(
+					"function AttributeListItem.dates.element " +
+					"belongs to type AttributeListItem.dates, " +
+					"which is not a type of the query: " +
+					"AttributeListItem, " +
+					"[inner join AttributeListItem.strings on AttributeListItem.strings.parent=AttributeListItem.this]",
+					e.getMessage());
+		}
+
 		// strings
 		assertEquals(list(), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
