@@ -206,17 +206,17 @@ public abstract class Cope
 		final int pos = modelName.indexOf(DIVIDER);
 		if(pos<=0)
 			throw new IllegalArgumentException("does not contain '" + DIVIDER + "', but was " + modelName);
-		final String modelClassName = modelName.substring(0, pos);
+		final String className = modelName.substring(0, pos);
 		final String fieldName = modelName.substring(pos+1);
 
 		final Class clazz;
 		try
 		{
-			clazz = Class.forName(modelClassName);
+			clazz = Class.forName(className);
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new IllegalArgumentException("class " + modelClassName + " does not exist.", e);
+			throw new IllegalArgumentException("class " + className + " does not exist.", e);
 		}
 
 		final java.lang.reflect.Field field;
