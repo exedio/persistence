@@ -219,10 +219,10 @@ public abstract class Cope
 			throw new IllegalArgumentException("class " + modelClassName + " does not exist.", e);
 		}
 
-		final java.lang.reflect.Field modelField;
+		final java.lang.reflect.Field field;
 		try
 		{
-			modelField = modelClass.getField(modelFieldName);
+			field = modelClass.getField(modelFieldName);
 		}
 		catch(NoSuchFieldException e)
 		{
@@ -232,15 +232,15 @@ public abstract class Cope
 		final Model result;
 		try
 		{
-			result = (Model)modelField.get(null);
+			result = (Model)field.get(null);
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new IllegalArgumentException("accessing " + modelField.toString(), e);
+			throw new IllegalArgumentException("accessing " + field.toString(), e);
 		}
 		
 		if(result==null)
-			throw new IllegalArgumentException("field " + modelClass.getName() + '#' + modelField.getName() + " is null.");
+			throw new IllegalArgumentException("field " + modelClass.getName() + '#' + field.getName() + " is null.");
 		
 		return result;
 	}
