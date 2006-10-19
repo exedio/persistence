@@ -216,7 +216,7 @@ public abstract class Cope
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new IllegalArgumentException(e);
+			throw new IllegalArgumentException("class " + modelClassName + " does not exist.", e);
 		}
 
 		final java.lang.reflect.Field modelField;

@@ -43,6 +43,16 @@ public class GetModelTest extends CopeAssert
 
 		try
 		{
+			Cope.getModel("com.exedio.cope.GetModelTestX#modelNotExists");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("class com.exedio.cope.GetModelTestX does not exist.", e.getMessage());
+		}
+
+		try
+		{
 			Cope.getModel("com.exedio.cope.GetModelTest#modelNotExists");
 			fail();
 		}
