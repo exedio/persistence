@@ -244,4 +244,22 @@ public abstract class Cope
 		
 		return result;
 	}
+	
+	public static final void main(final String[] args)
+	{
+		if(args.length!=2)
+			throw new RuntimeException("must have two arguments, model and action");
+		
+		final Model model = getModel(args[0]);
+		model.connect(new Properties());
+		final String action = args[1];
+		if("create".equals(action))
+			model.createDatabase();
+		else if("drop".equals(action))
+			model.dropDatabase();
+		else if("tearDown".equals(action))
+			model.tearDownDatabase();
+		else
+			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
+	}
 }
