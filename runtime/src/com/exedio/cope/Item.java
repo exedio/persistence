@@ -242,7 +242,7 @@ public abstract class Item extends Cope
 	 * Serialization of instances of <tt>Item</tt>
 	 * is guaranteed to be light-weight -
 	 * there are no non-static, non-transient object reference
-	 * fields in this class or its supertypes.
+	 * fields in this class or its superclasses.
 	 */
 	protected Item()
 	{
