@@ -234,10 +234,7 @@ public final class Type<C extends Item>
 				final HashMap<String, Feature> declared = this.declaredFeaturesByName;
 				final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
 				for(final Feature f : declared.values())
-				{
-					if(result.put(f.getName(), f)!=null && !(f instanceof This))
-						System.out.println("hiding inherited feature " + f.getName() + " in type " + id);
-				}
+					result.put(f.getName(), f);
 				this.featuresByName = result;
 			}
 			this.fields = inherit(supertype.getFields(), this.declaredFields);

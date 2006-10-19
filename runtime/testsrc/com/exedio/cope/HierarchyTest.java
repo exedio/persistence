@@ -116,6 +116,9 @@ public class HierarchyTest extends AbstractLibTest
 		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
+		assertEquals(map(), model.getHiddenFeatures());
+
+		// test persistence
 		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
 		deleteOnTearDown(firstItem);
 		assertID(0, firstItem);

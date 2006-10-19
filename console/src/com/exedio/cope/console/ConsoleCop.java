@@ -60,6 +60,7 @@ abstract class ConsoleCop extends Cop
 				new MediaStatsCop(),
 				new VmCop(false),
 				new EnvironmentCop(),
+				new HiddenCop(),
 			};
 	}
 	
@@ -116,6 +117,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_MEDIA_STATS = "m";
 	static final String TAB_VM = "vm";
 	static final String TAB_ENVIRONMENT = "env";
+	static final String TAB_HIDDEN = "hidden";
 	
 	static final ConsoleCop getCop(final Model model, final HttpServletRequest request)
 	{
@@ -136,6 +138,8 @@ abstract class ConsoleCop extends Cop
 			return VmCop.getVmCop(request);
 		if(TAB_ENVIRONMENT.equals(tab))
 			return new EnvironmentCop();
+		if(TAB_HIDDEN.equals(tab))
+			return new HiddenCop();
 
 		final SchemaCop schemaCop = SchemaCop.getSchemaCop(request);
 		if(schemaCop!=null)

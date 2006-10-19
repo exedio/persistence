@@ -105,6 +105,12 @@ public class HiddenFeatureTest extends AbstractLibTest
 		assertSame(null, model.findFeatureByID("HiddenFeatureSuperItem.nonHiddenSub"));
 		assertSame(null, model.findFeatureByID("HiddenFeatureSubItem.nonHiddenSuper"));
 
+		assertEquals(map(
+				HiddenFeatureSubItem.hiddenOther, HiddenFeatureSuperItem.hiddenOther,
+				HiddenFeatureSubItem.hiddenSame, HiddenFeatureSuperItem.hiddenSame),
+				model.getHiddenFeatures());
+
+		// test persistence
 		deleteOnTearDown(sp = new HiddenFeatureSuperItem());
 		sp.setHiddenSame("hiddenSameSuperSuper");
 		sp.setHiddenOther("hiddenOtherSuperSuper");

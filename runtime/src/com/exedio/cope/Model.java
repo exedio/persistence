@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Set;
 
 import com.exedio.cope.util.CacheInfo;
@@ -166,6 +167,31 @@ public final class Model
 		
 		//System.out.println("<--------------------"+result);
 		return result.toArray(new Type[]{});
+	}
+	
+	public Map<Feature, Feature> getHiddenFeatures()
+	{
+		final HashMap<Feature, Feature> result = new HashMap<Feature, Feature>();
+		for(final Type<?> t : types)
+		{
+			final Type st = t.getSupertype();
+			if(st==null)
+				continue;
+			
+			for(final Feature f : t.getDeclaredFeatures())
+			{
+				if(f instanceof Type.This)
+					continue;
+				
+				final Feature hidden = st.getFeature(f.getName());
+				if(hidden!=null)
+				{
+					final Feature previous = result.put(f, hidden);
+					assert previous==null;
+				}
+			}
+		}
+		return result;
 	}
 	
 	/**

@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Properties;
 
 final class Properties_Jspm
@@ -321,6 +322,34 @@ final class Properties_Jspm
 
 			for(final TreeSet<Package> jar : jars)
 				write(out, jar);
+			%>
+		</table><%
+	}
+	
+	final static void writeHidden(final PrintStream out, final Map<Feature, Feature> hiddenFeatures)
+		throws IOException
+	{
+		%>
+		<table class="properties">
+			<tr>
+				<th colspan="3">Hidden Features</th>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Super Type</th>
+			</tr><%
+			for(final Map.Entry<Feature, Feature> entry : hiddenFeatures.entrySet())
+			{
+				final Feature key = entry.getKey();
+				final Feature value = entry.getValue();
+			%>
+			<tr>
+				<td><%=key.getName()%></td>
+				<td><%=key.getType().getID()%></td>
+				<td><%=value.getType().getID()%></td>
+			</tr><%
+			}
 			%>
 		</table><%
 	}
