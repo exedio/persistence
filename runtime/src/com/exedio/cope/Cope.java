@@ -205,7 +205,7 @@ public abstract class Cope
 	{
 		final int pos = modelName.indexOf(DIVIDER);
 		if(pos<=0)
-			throw new RuntimeException("does not contain '"+DIVIDER+"', but was "+modelName);
+			throw new IllegalArgumentException("does not contain '" + DIVIDER + "', but was " + modelName);
 		final String modelClassName = modelName.substring(0, pos);
 		final String modelFieldName = modelName.substring(pos+1);
 
@@ -216,7 +216,7 @@ public abstract class Cope
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new RuntimeException(e);
+			throw new IllegalArgumentException(e);
 		}
 
 		final java.lang.reflect.Field modelField;
@@ -226,7 +226,7 @@ public abstract class Cope
 		}
 		catch(NoSuchFieldException e)
 		{
-			throw new RuntimeException("field " + modelFieldName + " in " + modelClass.toString() + " does not exist or is not public.", e);
+			throw new IllegalArgumentException("field " + modelFieldName + " in " + modelClass.toString() + " does not exist or is not public.", e);
 		}
 		
 		final Model result;
@@ -236,11 +236,11 @@ public abstract class Cope
 		}
 		catch(IllegalAccessException e)
 		{
-			throw new RuntimeException("accessing " + modelField.toString());
+			throw new IllegalArgumentException("accessing " + modelField.toString(), e);
 		}
 		
 		if(result==null)
-			throw new RuntimeException("field " + modelClass.getName() + '#' + modelField.getName() + " is null.");
+			throw new IllegalArgumentException("field " + modelClass.getName() + '#' + modelField.getName() + " is null.");
 		
 		return result;
 	}

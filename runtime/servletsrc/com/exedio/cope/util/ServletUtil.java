@@ -65,7 +65,7 @@ public class ServletUtil
 		{
 			result = Cope.getModel(modelName);
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			throw new RuntimeException(kind + ' ' + name + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
