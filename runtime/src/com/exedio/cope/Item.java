@@ -101,6 +101,10 @@ public abstract class Item extends Cope
 		return type.hashCode() ^ pk;
 	}
 	
+	/**
+	 * Returns {@link #getCopeID()} as a default implementation
+	 * for all persistent classes.
+	 */
 	@Override
 	public String toString()
 	{
