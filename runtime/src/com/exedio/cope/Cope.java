@@ -207,7 +207,7 @@ public abstract class Cope
 		if(pos<=0)
 			throw new IllegalArgumentException("does not contain '" + DIVIDER + "', but was " + modelName);
 		final String modelClassName = modelName.substring(0, pos);
-		final String modelFieldName = modelName.substring(pos+1);
+		final String fieldName = modelName.substring(pos+1);
 
 		final Class clazz;
 		try
@@ -222,11 +222,11 @@ public abstract class Cope
 		final java.lang.reflect.Field field;
 		try
 		{
-			field = clazz.getField(modelFieldName);
+			field = clazz.getField(fieldName);
 		}
 		catch(NoSuchFieldException e)
 		{
-			throw new IllegalArgumentException("field " + modelFieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
+			throw new IllegalArgumentException("field " + fieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
 		}
 		
 		final Model result;
