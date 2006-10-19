@@ -198,5 +198,50 @@ public abstract class Cope
 	{
 		return function.greaterOrEqual(verboseCast(function.getValueClass(), value));
 	}
+	
+	private static final char DIVIDER = '#';
+	
+	public static Model getModel(final String modelName)
+	{
+		final int pos = modelName.indexOf(DIVIDER);
+		if(pos<=0)
+			throw new RuntimeException("does not contain '"+DIVIDER+"', but was "+modelName);
+		final String modelClassName = modelName.substring(0, pos);
+		final String modelFieldName = modelName.substring(pos+1);
 
+		final Class modelClass;
+		try
+		{
+			modelClass = Class.forName(modelClassName);
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		final java.lang.reflect.Field modelField;
+		try
+		{
+			modelField = modelClass.getField(modelFieldName);
+		}
+		catch(NoSuchFieldException e)
+		{
+			throw new RuntimeException("field " + modelFieldName + " in " + modelClass.toString() + " does not exist or is not public.", e);
+		}
+		
+		final Model result;
+		try
+		{
+			result = (Model)modelField.get(null);
+		}
+		catch(IllegalAccessException e)
+		{
+			throw new RuntimeException("accessing " + modelField.toString());
+		}
+		
+		if(result==null)
+			throw new RuntimeException("field " + modelClass.getName() + '#' + modelField.getName() + " is null.");
+		
+		return result;
+	}
 }

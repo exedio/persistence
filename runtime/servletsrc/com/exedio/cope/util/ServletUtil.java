@@ -19,18 +19,17 @@
 package com.exedio.cope.util;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
 public class ServletUtil
 {
 	private static final String PARAMETER_MODEL = "model";
-	private static final char DIVIDER = '#';
 
 	public static final Model getModel(final ServletConfig config)
 	{
@@ -61,38 +60,17 @@ public class ServletUtil
 			modelNameSource = "init-param";
 		}
 		
+		final Model result;
 		try
 		{
-			final int pos = modelName.indexOf(DIVIDER);
-			if(pos<=0)
-				throw new RuntimeException(kind + ' ' + name + ": " + modelNameSource + " '"+PARAMETER_MODEL+"' does not contain '"+DIVIDER+"', but was "+modelName);
-			final String modelClassName = modelName.substring(0, pos);
-			final String modelFieldName = modelName.substring(pos+1);
-
-			final Class modelClass = Class.forName(modelClassName);
-
-			final Field modelField;
-			try
-			{
-				modelField = modelClass.getField(modelFieldName);
-			}
-			catch(NoSuchFieldException e)
-			{
-				throw new RuntimeException(kind + ' ' + name + ": field " + modelFieldName + " in " + modelClass.toString() + " does not exist or is not public.", e);
-			}
-			
-			final Model result = (Model)modelField.get(null);
-			connect(result, context);
-			return result;
+			result = Cope.getModel(modelName);
 		}
-		catch(ClassNotFoundException e)
+		catch(RuntimeException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(kind + ' ' + name + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
+		connect(result, context);
+		return result;
 	}
 	
 	/**
