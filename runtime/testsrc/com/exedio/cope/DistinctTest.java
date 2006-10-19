@@ -65,7 +65,7 @@ public class DistinctTest extends TestmodelTest
 					list(1, 4),
 					list(2, 4),
 				q.search());
-			if(!postgresql) // make transaction invalid (see Database#needsSavepoint)
+			if(!postgresql) // makes transaction invalid (see Database#needsSavepoint)
 			{
 				try
 				{
