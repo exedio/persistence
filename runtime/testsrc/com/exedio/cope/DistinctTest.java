@@ -45,12 +45,14 @@ public class DistinctTest extends TestmodelTest
 				list(1, 4),
 				list(1, 4),
 			q.search());
+		assertEquals(4, q.countWithoutLimit());
 		q.setDistinct(true);
 		assertContains(
 				list(1, 2),
 				list(1, 3),
 				list(1, 4),
 			q.search());
+		assertEquals(4/*TODO should be 3*/, q.countWithoutLimit());
 	}
 	
 }
