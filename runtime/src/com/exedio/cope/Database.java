@@ -336,6 +336,7 @@ abstract class Database
 		final int limitStart = query.limitStart;
 		final int limitCount = query.limitCount;
 		final boolean limitActive = limitStart>0 || limitCount!=Query.UNLIMITED_COUNT;
+		final boolean distinct = query.distinct;
 
 		final ArrayList<Join> queryJoins = query.joins;
 		final Statement bf = createStatement(query);
@@ -350,19 +351,21 @@ abstract class Database
 		
 		bf.append(' ');
 		
-		if(query.distinct)
-			bf.append("distinct ");
-
 		final Selectable[] selects = query.selects;
 		final Column[] selectColumns = new Column[selects.length];
 		final Type[] selectTypes = new Type[selects.length];
 
-		if(doCountOnly)
+		if(!distinct&&doCountOnly)
 		{
 			bf.append("count(*)");
 		}
 		else
 		{
+			if(doCountOnly)
+				bf.append("count(");
+			if(distinct)
+				bf.append("distinct ");
+
 			for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 			{
 				final Selectable select = selects[selectIndex];
@@ -447,6 +450,9 @@ abstract class Database
 	
 				selectColumns[selectIndex] = selectColumn;
 			}
+			
+			if(doCountOnly)
+				bf.append(')');
 		}
 
 		bf.append(" from ").

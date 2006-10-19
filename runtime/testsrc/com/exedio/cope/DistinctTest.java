@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.List;
 
 import com.exedio.cope.testmodel.PlusItem;
+import com.exedio.dsmf.SQLRuntimeException;
 
 public class DistinctTest extends TestmodelTest
 {
@@ -38,6 +39,15 @@ public class DistinctTest extends TestmodelTest
 	
 	public void testDistinct()
 	{
+		{
+			final Query<List> q = new Query<List>(new Function[]{item1.num2}, item1.TYPE, null);
+			assertContains(2, 3, 4, 4, q.search());
+			assertEquals(4, q.countWithoutLimit());
+			q.setDistinct(true);
+			assertContains(2, 3, 4, q.search());
+			assertEquals(3, q.countWithoutLimit());
+		}
+
 		final Query<List> q = new Query<List>(new Function[]{item1.num1, item1.num2}, item1.TYPE, null);
 		assertContains(
 				list(1, 2),
@@ -52,7 +62,19 @@ public class DistinctTest extends TestmodelTest
 				list(1, 3),
 				list(1, 4),
 			q.search());
-		assertEquals(4/*TODO should be 3*/, q.countWithoutLimit());
+		if(!postgresql) // make transaction invalid (see Database#needsSavepoint)
+		{
+			try
+			{
+				assertEquals(3, q.countWithoutLimit());
+				assertTrue("statement above fails on all databases but mysql", mysql);
+			}
+			catch(SQLRuntimeException e)
+			{
+				assertFalse("statement above fails on all databases but mysql", mysql);
+				//e.printStackTrace();
+			}
+		}
 	}
 	
 }
