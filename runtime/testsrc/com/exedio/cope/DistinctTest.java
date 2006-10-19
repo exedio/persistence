@@ -35,14 +35,15 @@ public class DistinctTest extends TestmodelTest
 		deleteOnTearDown(item2 = new PlusItem(1, 3, 0));
 		deleteOnTearDown(item3 = new PlusItem(1, 4, 0));
 		deleteOnTearDown(item4 = new PlusItem(1, 4, 0));
+		deleteOnTearDown(item4 = new PlusItem(2, 4, 0));
 	}
 	
 	public void testDistinct()
 	{
 		{
 			final Query<List> q = new Query<List>(new Function[]{item1.num2}, item1.TYPE, null);
-			assertContains(2, 3, 4, 4, q.search());
-			assertEquals(4, q.countWithoutLimit());
+			assertContains(2, 3, 4, 4, 4, q.search());
+			assertEquals(5, q.countWithoutLimit());
 			q.setDistinct(true);
 			assertContains(2, 3, 4, q.search());
 			assertEquals(3, q.countWithoutLimit());
@@ -54,19 +55,21 @@ public class DistinctTest extends TestmodelTest
 					list(1, 3),
 					list(1, 4),
 					list(1, 4),
+					list(2, 4),
 				q.search());
-			assertEquals(4, q.countWithoutLimit());
+			assertEquals(5, q.countWithoutLimit());
 			q.setDistinct(true);
 			assertContains(
 					list(1, 2),
 					list(1, 3),
 					list(1, 4),
+					list(2, 4),
 				q.search());
 			if(!postgresql) // make transaction invalid (see Database#needsSavepoint)
 			{
 				try
 				{
-					assertEquals(3, q.countWithoutLimit());
+					assertEquals(4, q.countWithoutLimit());
 					assertTrue("statement above fails on all databases but mysql", mysql);
 				}
 				catch(SQLRuntimeException e)
