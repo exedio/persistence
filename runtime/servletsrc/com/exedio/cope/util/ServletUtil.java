@@ -23,6 +23,7 @@ import java.io.File;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
@@ -32,16 +33,19 @@ public class ServletUtil
 	private static final String PARAMETER_MODEL = "model";
 
 	public static final Model getModel(final ServletConfig config)
+	throws ServletException
 	{
 		return getModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
 	}
 	
 	public static final Model getModel(final FilterConfig config)
+	throws ServletException
 	{
 		return getModel(config.getInitParameter(PARAMETER_MODEL), "filter", config.getFilterName(), config.getServletContext());
 	}
 	
 	private static final Model getModel(final String initParam, final String kind, final String name, final ServletContext context)
+	throws ServletException
 	{
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
 		final String modelName;
@@ -50,7 +54,7 @@ public class ServletUtil
 		{
 			final String contextParam = context.getInitParameter(PARAMETER_MODEL);
 			if(contextParam==null)
-				throw new NullPointerException(kind + ' ' + name + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
+				throw new ServletException(kind + ' ' + name + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
 			modelName = contextParam;
 			modelNameSource = "context-param";
 		}
@@ -67,7 +71,7 @@ public class ServletUtil
 		}
 		catch(IllegalArgumentException e)
 		{
-			throw new RuntimeException(kind + ' ' + name + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
+			throw new ServletException(kind + ' ' + name + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
 		connect(result, context);
 		return result;

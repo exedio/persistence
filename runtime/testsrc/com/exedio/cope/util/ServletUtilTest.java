@@ -42,7 +42,7 @@ public class ServletUtilTest extends CopeAssert
 	public static final Model modelContext = new Model(ModelContext.TYPE);
 	public static final Model modelNull = null;
 
-	public void testIt()
+	public void testIt() throws ServletException
 	{
 		assertModelNotConnected(modelOk);
 		assertSame(modelOk, ServletUtil.getModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
@@ -61,7 +61,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getModel(new MockFilterConfig(null, "nameNull"));
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(ServletException e)
 		{
 			assertEquals("filter nameNull: neither init-param nor context-param 'model' set", e.getMessage());
 		}
@@ -71,7 +71,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getModel(new MockServletConfig("zick", "nameZick"));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(ServletException e)
 		{
 			assertEquals("servlet nameZick, init-param model: does not contain '#', but was zick", e.getMessage());
 		}
@@ -81,7 +81,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getModel(new MockFilterConfig("zack", "nameZack"));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(ServletException e)
 		{
 			assertEquals("filter nameZack, init-param model: does not contain '#', but was zack", e.getMessage());
 		}
@@ -91,7 +91,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(ServletException e)
 		{
 			assertEquals("filter nameNotExists, init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
 		}
@@ -101,7 +101,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(ServletException e)
 		{
 			assertEquals("filter nameNull, init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
 		}
