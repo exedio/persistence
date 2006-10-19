@@ -18,7 +18,6 @@
 
 package com.exedio.cope.junit;
 
-import com.exedio.cope.IntegrityViolationException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -185,25 +184,25 @@ public abstract class CopeTest extends CopeAssert
 			{
 				if(!deleteOnTearDown.isEmpty())
 				{
-					IntegrityViolationException ive = null;
+					RuntimeException deleteException = null;
 					for(ListIterator<Item> i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
 					{
 						try
 						{
 							i.previous().deleteCopeItem();
 						}
-						catch ( IntegrityViolationException e )
+						catch(RuntimeException e)
 						{
-							if ( ive==null && testMethodFinished )
+							if(deleteException==null && testMethodFinished)
 							{
-								ive = e;
+								deleteException = e;
 							}
 						}
 					}
 					deleteOnTearDown.clear();
-					if ( ive!=null )
+					if(deleteException!=null)
 					{
-						throw new RuntimeException("test completed successfully but failed to delete a 'deleteOnTearDown' item", ive);
+						throw new RuntimeException("test completed successfully but failed to delete a 'deleteOnTearDown' item", deleteException);
 					}
 				}
 				deleteOnTearDown = null;
