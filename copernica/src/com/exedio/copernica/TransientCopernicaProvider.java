@@ -42,7 +42,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	public void initialize(final ServletConfig config)
 	{
-		ServletUtil.initialize(getModel(), config.getServletContext());
+		ServletUtil.connect(getModel(), config.getServletContext());
 	}
 	
 	// Transient Languages

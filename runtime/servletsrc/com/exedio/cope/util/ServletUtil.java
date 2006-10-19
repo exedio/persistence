@@ -82,7 +82,7 @@ public class ServletUtil
 			}
 			
 			final Model result = (Model)modelField.get(null);
-			initialize(result, context);
+			connect(result, context);
 			return result;
 		}
 		catch(ClassNotFoundException e)
@@ -95,11 +95,26 @@ public class ServletUtil
 		}
 	}
 	
-	public static final void initialize(final Model model, final ServletContext context)
+	/**
+	 * Connects the model using the properties from
+	 * the file <tt>cope.properties</tt>
+	 * in the directory <tt>WEB-INF</tt>
+	 * of the web application.
+	 * @see Model#connect(com.exedio.cope.Properties)
+	 */
+	public static final void connect(final Model model, final ServletContext context)
 	{
 		model.connect(
 			new com.exedio.cope.Properties(
 				new File(context.getRealPath("WEB-INF/cope.properties"))));
 	}
 
+	/**
+	 * @deprecated Renamed to {@link #connect(Model, ServletContext)}.
+	 */
+	@Deprecated
+	public static final void initialize(final Model model, final ServletContext context)
+	{
+		connect(model, context);
+	}
 }

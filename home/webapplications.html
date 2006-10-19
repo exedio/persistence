@@ -56,7 +56,7 @@ public void init() throws ServletException
 <pre>
 public void init() throws ServletException
 {
-   ServletUtil.initialize(Main.model, getServletContext());
+   ServletUtil.<a href="api/com/exedio/cope/util/ServletUtil.html#connect(com.exedio.cope.Model, javax.servlet.ServletContext)">connect</a>(Main.model, getServletContext());
 }
 </pre>
 		<div>
@@ -129,7 +129,7 @@ protected void doGet(
 			please adapt this to your package.
 		</div>
 		<div>
-			As a side effect, the <i>TransactionFilter</i> initializes the
+			As a side effect, the <i>TransactionFilter</i> connects the
 			model in its own <tt>init()</tt>,
 			so you don't have to care about it anymore.
 		</div>
