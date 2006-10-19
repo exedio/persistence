@@ -47,32 +47,33 @@ public class DistinctTest extends TestmodelTest
 			assertContains(2, 3, 4, q.search());
 			assertEquals(3, q.countWithoutLimit());
 		}
-
-		final Query<List> q = new Query<List>(new Function[]{item1.num1, item1.num2}, item1.TYPE, null);
-		assertContains(
-				list(1, 2),
-				list(1, 3),
-				list(1, 4),
-				list(1, 4),
-			q.search());
-		assertEquals(4, q.countWithoutLimit());
-		q.setDistinct(true);
-		assertContains(
-				list(1, 2),
-				list(1, 3),
-				list(1, 4),
-			q.search());
-		if(!postgresql) // make transaction invalid (see Database#needsSavepoint)
 		{
-			try
+			final Query<List> q = new Query<List>(new Function[]{item1.num1, item1.num2}, item1.TYPE, null);
+			assertContains(
+					list(1, 2),
+					list(1, 3),
+					list(1, 4),
+					list(1, 4),
+				q.search());
+			assertEquals(4, q.countWithoutLimit());
+			q.setDistinct(true);
+			assertContains(
+					list(1, 2),
+					list(1, 3),
+					list(1, 4),
+				q.search());
+			if(!postgresql) // make transaction invalid (see Database#needsSavepoint)
 			{
-				assertEquals(3, q.countWithoutLimit());
-				assertTrue("statement above fails on all databases but mysql", mysql);
-			}
-			catch(SQLRuntimeException e)
-			{
-				assertFalse("statement above fails on all databases but mysql", mysql);
-				//e.printStackTrace();
+				try
+				{
+					assertEquals(3, q.countWithoutLimit());
+					assertTrue("statement above fails on all databases but mysql", mysql);
+				}
+				catch(SQLRuntimeException e)
+				{
+					assertFalse("statement above fails on all databases but mysql", mysql);
+					//e.printStackTrace();
+				}
 			}
 		}
 	}
