@@ -201,13 +201,13 @@ public abstract class Cope
 	
 	private static final char DIVIDER = '#';
 	
-	public static Model getModel(final String modelName)
+	public static Model getModel(final String name)
 	{
-		final int pos = modelName.indexOf(DIVIDER);
+		final int pos = name.indexOf(DIVIDER);
 		if(pos<=0)
-			throw new IllegalArgumentException("does not contain '" + DIVIDER + "', but was " + modelName);
-		final String className = modelName.substring(0, pos);
-		final String fieldName = modelName.substring(pos+1);
+			throw new IllegalArgumentException("does not contain '" + DIVIDER + "', but was " + name);
+		final String className = name.substring(0, pos);
+		final String fieldName = name.substring(pos+1);
 
 		final Class clazz;
 		try
