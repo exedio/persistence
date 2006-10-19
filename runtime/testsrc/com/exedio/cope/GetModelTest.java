@@ -25,6 +25,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class GetModelTest extends CopeAssert
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
+	private static final Model modelPrivate = modelOk;
 	public static final Model modelNull = null;
 
 	public void testIt() throws ServletException
@@ -59,6 +60,16 @@ public class GetModelTest extends CopeAssert
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("field modelNotExists in class com.exedio.cope.GetModelTest does not exist or is not public.", e.getMessage());
+		}
+
+		try
+		{
+			Cope.getModel("com.exedio.cope.GetModelTest#modelPrivate");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("field modelPrivate in class com.exedio.cope.GetModelTest does not exist or is not public.", e.getMessage());
 		}
 
 		try
