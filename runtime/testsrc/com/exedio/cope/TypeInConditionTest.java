@@ -77,7 +77,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		
 		model.checkTypeColumns();
 		
-		System.out.println("------------------------"+model.getDatabaseInfo().get("database.version"));
+		//System.out.println("------------------------"+model.getDatabaseInfo().get("database.version"));
 		// test self joins and inheritance
 		{
 			itemc1.setTextc1("textC1");
