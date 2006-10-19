@@ -43,22 +43,22 @@ public class GetModelTest extends CopeAssert
 
 		try
 		{
-			Cope.getModel("com.exedio.cope.util.ServletUtilTest#modelNotExists");
+			Cope.getModel("com.exedio.cope.GetModelTest#modelNotExists");
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
+			assertEquals("field modelNotExists in class com.exedio.cope.GetModelTest does not exist or is not public.", e.getMessage());
 		}
 
 		try
 		{
-			Cope.getModel("com.exedio.cope.util.ServletUtilTest#modelNull");
+			Cope.getModel("com.exedio.cope.GetModelTest#modelNull");
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
+			assertEquals("field com.exedio.cope.GetModelTest#modelNull is null.", e.getMessage());
 		}
 	}
 	
