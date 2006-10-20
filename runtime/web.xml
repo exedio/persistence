@@ -71,29 +71,29 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>attributeListConsole</servlet-name>
+		<servlet-name>fieldListConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#attributeListModel</param-value>
+			<param-value>com.exedio.cope.Main#fieldListModel</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>attributeListConsole</servlet-name>
-		<url-pattern>/attributeList/console/*</url-pattern>
+		<servlet-name>fieldListConsole</servlet-name>
+		<url-pattern>/fieldList/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>attributeListLimitedConsole</servlet-name>
+		<servlet-name>fieldListLimitedConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#attributeListLimitedModel</param-value>
+			<param-value>com.exedio.cope.Main#fieldListLimitedModel</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>attributeListLimitedConsole</servlet-name>
-		<url-pattern>/attributeListLimited/console/*</url-pattern>
+		<servlet-name>fieldListLimitedConsole</servlet-name>
+		<url-pattern>/fieldListLimited/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

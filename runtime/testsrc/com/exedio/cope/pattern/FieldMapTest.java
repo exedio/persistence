@@ -31,7 +31,7 @@ public class FieldMapTest extends AbstractLibTest
 	
 	public FieldMapTest()
 	{
-		super(Main.attributeMapModel);
+		super(Main.fieldMapModel);
 	}
 	
 	FieldMapItem item, itemX;

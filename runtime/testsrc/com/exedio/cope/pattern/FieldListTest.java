@@ -35,7 +35,7 @@ public class FieldListTest extends AbstractLibTest
 	
 	public FieldListTest()
 	{
-		super(Main.attributeListModel);
+		super(Main.fieldListModel);
 	}
 
 	FieldListItem item;

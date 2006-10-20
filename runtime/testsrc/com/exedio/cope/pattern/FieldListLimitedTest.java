@@ -37,7 +37,7 @@ public class FieldListLimitedTest extends AbstractLibTest
 	
 	public FieldListLimitedTest()
 	{
-		super(Main.attributeListLimitedModel);
+		super(Main.fieldListLimitedModel);
 	}
 
 	FieldListLimitedItem item;

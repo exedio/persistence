@@ -29,7 +29,7 @@ public class FieldMapLimitedTest extends AbstractLibTest
 	
 	public FieldMapLimitedTest()
 	{
-		super(Main.attributeMapLimitedModel);
+		super(Main.fieldMapLimitedModel);
 	}
 	
 	FieldMapLimitedItem item, itemX;

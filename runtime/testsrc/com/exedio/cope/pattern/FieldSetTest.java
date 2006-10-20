@@ -31,7 +31,7 @@ public class FieldSetTest extends AbstractLibTest
 	
 	public FieldSetTest()
 	{
-		super(Main.attributeSetModel);
+		super(Main.fieldSetModel);
 	}
 
 	FieldSetItem item;
