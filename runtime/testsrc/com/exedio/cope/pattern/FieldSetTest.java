@@ -26,10 +26,10 @@ import com.exedio.cope.Main;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.junit.CopeAssert;
 
-public class AttributeSetTest extends AbstractLibTest
+public class FieldSetTest extends AbstractLibTest
 {
 	
-	public AttributeSetTest()
+	public FieldSetTest()
 	{
 		super(Main.attributeSetModel);
 	}

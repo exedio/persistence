@@ -32,7 +32,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MD5Test.class);
 		suite.addTestSuite(FieldListLimitedTest.class);
 		suite.addTestSuite(FieldListTest.class);
-		suite.addTestSuite(AttributeSetTest.class);
+		suite.addTestSuite(FieldSetTest.class);
 		suite.addTestSuite(FieldMapLimitedTest.class);
 		suite.addTestSuite(FieldMapTest.class);
 		suite.addTestSuite(CustomTest.class);
