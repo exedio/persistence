@@ -23,23 +23,23 @@ import com.exedio.cope.Main;
 
 public class AttributeMapLimitedTest extends AbstractLibTest
 {
-	private static final AttributeMapLimitedItem.Language DE = AttributeMapLimitedItem.Language.DE;
-	private static final AttributeMapLimitedItem.Language EN = AttributeMapLimitedItem.Language.EN;
-	private static final AttributeMapLimitedItem.Language PL = AttributeMapLimitedItem.Language.PL;
+	private static final FieldMapLimitedItem.Language DE = FieldMapLimitedItem.Language.DE;
+	private static final FieldMapLimitedItem.Language EN = FieldMapLimitedItem.Language.EN;
+	private static final FieldMapLimitedItem.Language PL = FieldMapLimitedItem.Language.PL;
 	
 	public AttributeMapLimitedTest()
 	{
 		super(Main.attributeMapLimitedModel);
 	}
 	
-	AttributeMapLimitedItem item, itemX;
+	FieldMapLimitedItem item, itemX;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new AttributeMapLimitedItem());
-		deleteOnTearDown(itemX = new AttributeMapLimitedItem());
+		deleteOnTearDown(item = new FieldMapLimitedItem());
+		deleteOnTearDown(itemX = new FieldMapLimitedItem());
 	}
 	
 	public void testIt()
@@ -48,7 +48,7 @@ public class AttributeMapLimitedTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.name.getType());
 		assertEquals("name", item.name.getName());
 
-		assertEquals(AttributeMapLimitedItem.Language.class, item.name.getKeyClass());
+		assertEquals(FieldMapLimitedItem.Language.class, item.name.getKeyClass());
 
 		assertEquals(String.class, item.name.getField(DE).getValueClass());
 		assertEquals("nameDE", item.name.getField(DE).getName());
