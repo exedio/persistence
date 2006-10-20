@@ -225,7 +225,6 @@
 				<include name="**/*.java" />
 				<exclude name="ModelTest.java" /><!-- TODO remove -->
 				<exclude name="AttributeTest.java" /><!-- TODO remove -->
-				<exclude name="TypeNotInConditionTest.java" /><!-- TODO remove -->
 			</fileset>
 		</instrument>
 	</target>
