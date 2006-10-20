@@ -21,13 +21,13 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Main;
 
-public class AttributeMapLimitedTest extends AbstractLibTest
+public class FieldMapLimitedTest extends AbstractLibTest
 {
 	private static final FieldMapLimitedItem.Language DE = FieldMapLimitedItem.Language.DE;
 	private static final FieldMapLimitedItem.Language EN = FieldMapLimitedItem.Language.EN;
 	private static final FieldMapLimitedItem.Language PL = FieldMapLimitedItem.Language.PL;
 	
-	public AttributeMapLimitedTest()
+	public FieldMapLimitedTest()
 	{
 		super(Main.attributeMapLimitedModel);
 	}

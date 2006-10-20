@@ -33,7 +33,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(FieldListLimitedTest.class);
 		suite.addTestSuite(FieldListTest.class);
 		suite.addTestSuite(AttributeSetTest.class);
-		suite.addTestSuite(AttributeMapLimitedTest.class);
+		suite.addTestSuite(FieldMapLimitedTest.class);
 		suite.addTestSuite(AttributeMapTest.class);
 		suite.addTestSuite(CustomTest.class);
 		suite.addTestSuite(JavaViewTest.class);
