@@ -38,13 +38,13 @@ public class AttributeListTest extends AbstractLibTest
 		super(Main.attributeListModel);
 	}
 
-	AttributeListItem item;
+	FieldListItem item;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new AttributeListItem());
+		deleteOnTearDown(item = new FieldListItem());
 	}
 	
 	public void testIt()
@@ -92,7 +92,7 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.items.getType());
 		assertEquals("items", item.items.getName());
 
-		assertEquals("AttributeListItem.strings", item.strings.getRelationType().getID());
+		assertEquals("FieldListItem.strings", item.strings.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
@@ -100,7 +100,7 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass());
 		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
 
-		assertEquals("AttributeListItem.dates", item.dates.getRelationType().getID());
+		assertEquals("FieldListItem.dates", item.dates.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
@@ -108,7 +108,7 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass());
 		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
 
-		assertEquals("AttributeListItem.items", item.items.getRelationType().getID());
+		assertEquals("FieldListItem.items", item.items.getRelationType().getID());
 		assertEquals(null, item.items.getRelationType().getJavaClass());
 		assertEquals(null, item.items.getRelationType().getSupertype());
 		assertEquals(list(), item.items.getRelationType().getSubTypes());
@@ -153,7 +153,7 @@ public class AttributeListTest extends AbstractLibTest
 
 		// test persistence
 		// test searching
-		final Query<AttributeListItem> q = item.TYPE.newQuery();
+		final Query<FieldListItem> q = item.TYPE.newQuery();
 		q.join(item.strings.getRelationType(), item.strings.getParent().equalTarget());
 		assertEquals(list(), q.search());
 		
@@ -169,11 +169,11 @@ public class AttributeListTest extends AbstractLibTest
 		catch(RuntimeException e)
 		{
 			assertEquals(
-					"function AttributeListItem.dates.element " +
-					"belongs to type AttributeListItem.dates, " +
+					"function FieldListItem.dates.element " +
+					"belongs to type FieldListItem.dates, " +
 					"which is not a type of the query: " +
-					"AttributeListItem, " +
-					"[inner join AttributeListItem.strings on AttributeListItem.strings.parent=AttributeListItem.this]",
+					"FieldListItem, " +
+					"[inner join FieldListItem.strings on FieldListItem.strings.parent=FieldListItem.this]",
 					e.getMessage());
 		}
 

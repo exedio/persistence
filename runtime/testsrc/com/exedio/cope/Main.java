@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.io.File;
 
-import com.exedio.cope.pattern.AttributeListItem;
+import com.exedio.cope.pattern.FieldListItem;
 import com.exedio.cope.pattern.AttributeListLimitedItem;
 import com.exedio.cope.pattern.AttributeMapItem;
 import com.exedio.cope.pattern.AttributeMapLimitedItem;
@@ -55,7 +55,7 @@ public class Main
 	public static final Model hashModel = new Model(HashItem.TYPE);
 	public static final Model md5Model = new Model(MD5Item.TYPE);
 	public static final Model attributeListLimitedModel = new Model(AttributeListLimitedItem.TYPE);
-	public static final Model attributeListModel = new Model(AttributeListItem.TYPE);
+	public static final Model attributeListModel = new Model(FieldListItem.TYPE);
 	public static final Model attributeSetModel = new Model(AttributeSetItem.TYPE);
 	public static final Model attributeMapLimitedModel = new Model(AttributeMapLimitedItem.TYPE);
 	public static final Model attributeMapModel = new Model(AttributeMapItem.TYPE);
