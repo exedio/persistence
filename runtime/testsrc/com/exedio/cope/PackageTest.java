@@ -43,7 +43,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( ItemTest.class );
 		suite.addTestSuite( ItemSerializationTest.class );
 		
-		suite.addTestSuite( AttributeIntegerTest.class );
+		suite.addTestSuite( FieldIntegerTest.class );
 		suite.addTestSuite( AttributeLongTest.class );
 		suite.addTestSuite( FieldDoubleTest.class );
 		suite.addTestSuite( FieldBooleanTest.class );
