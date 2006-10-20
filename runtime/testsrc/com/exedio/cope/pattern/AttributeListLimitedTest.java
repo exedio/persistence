@@ -40,13 +40,13 @@ public class AttributeListLimitedTest extends AbstractLibTest
 		super(Main.attributeListLimitedModel);
 	}
 
-	AttributeListLimitedItem item;
+	FieldListLimitedItem item;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new AttributeListLimitedItem(1, 2, 3));
+		deleteOnTearDown(item = new FieldListLimitedItem(1, 2, 3));
 	}
 	
 	public void testIt()
@@ -229,7 +229,7 @@ public class AttributeListLimitedTest extends AbstractLibTest
 		assertEquals("zocko", item.get(string3));
 		assertEquals(null, item.get(string4));
 		
-		final AttributeListLimitedItem item2 = new AttributeListLimitedItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))});
+		final FieldListLimitedItem item2 = new FieldListLimitedItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))});
 		deleteOnTearDown(item2);
 		assertEquals(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.get(string1));
@@ -237,7 +237,7 @@ public class AttributeListLimitedTest extends AbstractLibTest
 		assertEquals("lets3", item2.get(string3));
 		assertEquals("lets4", item2.get(string4));
 		
-		final AttributeListLimitedItem item3 = AttributeListLimitedItem.TYPE.newItem(new SetValue[]{item.strings.map(listg("fetz1", null, null, null))});
+		final FieldListLimitedItem item3 = FieldListLimitedItem.TYPE.newItem(new SetValue[]{item.strings.map(listg("fetz1", null, null, null))});
 		deleteOnTearDown(item3);
 		assertEquals(list("fetz1"), item3.getStrings());
 		assertEquals("fetz1", item3.get(string1));
