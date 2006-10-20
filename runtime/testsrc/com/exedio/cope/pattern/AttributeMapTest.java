@@ -25,23 +25,23 @@ import com.exedio.cope.ItemField.DeletePolicy;
 
 public class AttributeMapTest extends AbstractLibTest
 {
-	private static final AttributeMapItem.Language DE = AttributeMapItem.Language.DE;
-	private static final AttributeMapItem.Language EN = AttributeMapItem.Language.EN;
-	private static final AttributeMapItem.Language PL = AttributeMapItem.Language.PL;
+	private static final FieldMapItem.Language DE = FieldMapItem.Language.DE;
+	private static final FieldMapItem.Language EN = FieldMapItem.Language.EN;
+	private static final FieldMapItem.Language PL = FieldMapItem.Language.PL;
 	
 	public AttributeMapTest()
 	{
 		super(Main.attributeMapModel);
 	}
 	
-	AttributeMapItem item, itemX;
+	FieldMapItem item, itemX;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new AttributeMapItem());
-		deleteOnTearDown(itemX = new AttributeMapItem());
+		deleteOnTearDown(item = new FieldMapItem());
+		deleteOnTearDown(itemX = new FieldMapItem());
 	}
 	
 	public void testIt()
@@ -56,7 +56,7 @@ public class AttributeMapTest extends AbstractLibTest
 		assertSame(item.name.getRelationType(), item.name.getParent().getType());
 		assertEqualsUnmodifiable(list(), item.name.getParent().getPatterns());
 
-		assertEquals(AttributeMapItem.Language.class, ((EnumField)item.name.getKey()).getValueClass());
+		assertEquals(FieldMapItem.Language.class, ((EnumField)item.name.getKey()).getValueClass());
 		assertEquals("key", item.name.getKey().getName());
 		assertSame(item.name.getRelationType(), item.name.getKey().getType());
 		assertEqualsUnmodifiable(list(), item.name.getKey().getPatterns());
@@ -71,7 +71,7 @@ public class AttributeMapTest extends AbstractLibTest
 		assertSame(item.name.getRelationType(), item.name.getValue().getType());
 		assertEqualsUnmodifiable(list(), item.name.getValue().getPatterns());
 
-		assertEquals("AttributeMapItem.name", item.name.getRelationType().getID());
+		assertEquals("FieldMapItem.name", item.name.getRelationType().getID());
 		assertEquals(null, item.name.getRelationType().getJavaClass());
 		assertEquals(null, item.name.getRelationType().getSupertype());
 		assertEquals(list(), item.name.getRelationType().getSubTypes());

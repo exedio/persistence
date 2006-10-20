@@ -22,7 +22,7 @@ import java.io.File;
 
 import com.exedio.cope.pattern.FieldListItem;
 import com.exedio.cope.pattern.FieldListLimitedItem;
-import com.exedio.cope.pattern.AttributeMapItem;
+import com.exedio.cope.pattern.FieldMapItem;
 import com.exedio.cope.pattern.AttributeMapLimitedItem;
 import com.exedio.cope.pattern.AttributeSetItem;
 import com.exedio.cope.pattern.CustomItem;
@@ -58,7 +58,7 @@ public class Main
 	public static final Model attributeListModel = new Model(FieldListItem.TYPE);
 	public static final Model attributeSetModel = new Model(AttributeSetItem.TYPE);
 	public static final Model attributeMapLimitedModel = new Model(AttributeMapLimitedItem.TYPE);
-	public static final Model attributeMapModel = new Model(AttributeMapItem.TYPE);
+	public static final Model attributeMapModel = new Model(FieldMapItem.TYPE);
 	public static final Model serializerModel = new Model(SerializerItem.TYPE);
 	public static final Model customModel = new Model(CustomItem.TYPE, JavaViewItem.TYPE);
 	public static final Model cacheIsolationModel = new Model(CacheIsolationItem.TYPE);
