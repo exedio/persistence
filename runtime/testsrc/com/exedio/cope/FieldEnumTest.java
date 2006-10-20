@@ -22,7 +22,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 
 
-public class AttributeEnumTest extends FieldTest
+public class FieldEnumTest extends FieldTest
 {
 	public static enum SomeEnum2
 	{
