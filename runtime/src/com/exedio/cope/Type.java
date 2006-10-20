@@ -1038,7 +1038,7 @@ public final class Type<C extends Item>
 
 		public EqualCondition<E> equal(final E value)
 		{
-			return new EqualCondition<E>(this, value);
+			return new EqualCondition<E>(this, false, value);
 		}
 		
 		public EqualCondition<E> equal(final Join join, final E value)
@@ -1051,9 +1051,9 @@ public final class Type<C extends Item>
 			return CompositeCondition.in(this, values);
 		}
 		
-		public NotEqualCondition<E> notEqual(final E value)
+		public EqualCondition<E> notEqual(final E value)
 		{
-			return new NotEqualCondition<E>(this, value);
+			return new EqualCondition<E>(this, true, value);
 		}
 		
 		public CompareCondition<E> less(final E value)

@@ -26,7 +26,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -120,7 +119,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage.bind(join).equal(hash(value));
 	}
 
-	public final NotEqualCondition<String> notEqual(final String value)
+	public final EqualCondition<String> notEqual(final String value)
 	{
 		return storage.notEqual(hash(value));
 	}

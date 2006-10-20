@@ -49,7 +49,7 @@ public interface Function<E> extends Selectable<E>
 	
 	EqualCondition<E> equal(Join join, E value);
 	CompositeCondition in(Collection<E> value);
-	NotEqualCondition<E> notEqual(E value);
+	EqualCondition<E> notEqual(E value);
 
 	/**
 	 * Returns a condition, that is true for all items,

@@ -99,7 +99,7 @@ public class BindFunction<E> implements Function<E>
 
 	public final EqualCondition<E> equal(final E value)
 	{
-		return new EqualCondition<E>(this, value);
+		return new EqualCondition<E>(this, false, value);
 	}
 	
 	public final EqualCondition<E> equal(final Join join, final E value)
@@ -112,9 +112,9 @@ public class BindFunction<E> implements Function<E>
 		return CompositeCondition.in(this, values);
 	}
 	
-	public final NotEqualCondition<E> notEqual(final E value)
+	public final EqualCondition<E> notEqual(final E value)
 	{
-		return new NotEqualCondition<E>(this, value);
+		return new EqualCondition<E>(this, true, value);
 	}
 	
 	public final CompareCondition<E> less(final E value)

@@ -34,7 +34,6 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.NotEqualCondition;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -229,7 +228,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	public CompositeCondition notEqual(final Collection<E> value)
 	{
 		int i = 0;
-		final NotEqualCondition[] conditions = new NotEqualCondition[sources.length];
+		final EqualCondition[] conditions = new EqualCondition[sources.length];
 		
 		for(Iterator<E> it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = sources[i].notEqual(it.next());

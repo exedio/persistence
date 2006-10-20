@@ -150,7 +150,7 @@ public abstract class Cope
 	 * {@link Function#notEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	public static final <X> NotEqualCondition<X> notEqualAndCast(final Function<X> function, final Object value)
+	public static final <X> EqualCondition<X> notEqualAndCast(final Function<X> function, final Object value)
 	{
 		return function.notEqual(verboseCast(function.getValueClass(), value));
 	}

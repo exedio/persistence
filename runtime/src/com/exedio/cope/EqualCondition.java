@@ -21,6 +21,7 @@ package com.exedio.cope;
 public final class EqualCondition<E> extends Condition // TODO remove, integrate into CompareCondition
 {
 	public final Function<E> function;
+	private final boolean not;
 	public final E value;
 
 	/**
@@ -29,25 +30,50 @@ public final class EqualCondition<E> extends Condition // TODO remove, integrate
 	 * you may want to use the more type-safe wrapper methods.
 	 * @see FunctionField#isNull()
 	 * @see FunctionField#equal(Object)
+	 * @see FunctionField#isNotNull()
+	 * @see FunctionField#notEqual(Object)
 	 */
-	public EqualCondition(final Function<E> function, final E value)
+	public EqualCondition(final Function<E> function, final boolean not, final E value)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
 
 		this.function = function;
+		this.not = not;
 		this.value = value;
 	}
 	
 	@Override
 	void append(final Statement bf)
 	{
-		function.append(bf, null);
-		if(value!=null)
-			bf.append('=').
-				appendParameter(function, value);
+		if(!not)
+		{
+			function.append(bf, null);
+			if(value!=null)
+				bf.append('=').
+					appendParameter(function, value);
+			else
+				bf.append(" is null");
+		}
 		else
-			bf.append(" is null");
+		{
+			if(value!=null)
+			{
+				// IMPLEMENTATION NOTE
+				// the "or is null" is needed since without this oracle
+				// does not find results with null.
+				bf.append("(").
+					append(function, (Join)null).
+					append("<>").
+					appendParameter(function, value).
+					append(" or ").
+					append(function, (Join)null).
+					append(" is null)");
+			}
+			else
+				bf.append(function, (Join)null).
+					append(" is not null");
+		}
 	}
 
 	@Override
@@ -64,24 +90,24 @@ public final class EqualCondition<E> extends Condition // TODO remove, integrate
 		
 		final EqualCondition o = (EqualCondition)other;
 		
-		return function.equals(o.function) && equals(value, o.value);
+		return function.equals(o.function) && not==o.not && equals(value, o.value);
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return function.hashCode() ^ hashCode(value);
+		return function.hashCode() ^ (not ? 823658266 : 328451237) ^ hashCode(value);
 	}
 
 	@Override
 	public String toString()
 	{
-		return function.toString() + "='" + value + '\'';
+		return function.toString() + (not ? "!='" : "='") + value + '\'';
 	}
 	
 	@Override
 	String toStringForQueryKey()
 	{
-		return function.toString() + "='" + toStringForQueryKey(value) + '\'';
+		return function.toString() + (not ? "!='" : "='") + toStringForQueryKey(value) + '\'';
 	}
 }
