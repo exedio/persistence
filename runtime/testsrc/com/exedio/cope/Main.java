@@ -24,7 +24,7 @@ import com.exedio.cope.pattern.FieldListItem;
 import com.exedio.cope.pattern.FieldListLimitedItem;
 import com.exedio.cope.pattern.FieldMapItem;
 import com.exedio.cope.pattern.FieldMapLimitedItem;
-import com.exedio.cope.pattern.AttributeSetItem;
+import com.exedio.cope.pattern.FieldSetItem;
 import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.DAttribute;
 import com.exedio.cope.pattern.DEnumValue;
@@ -56,7 +56,7 @@ public class Main
 	public static final Model md5Model = new Model(MD5Item.TYPE);
 	public static final Model attributeListLimitedModel = new Model(FieldListLimitedItem.TYPE);
 	public static final Model attributeListModel = new Model(FieldListItem.TYPE);
-	public static final Model attributeSetModel = new Model(AttributeSetItem.TYPE);
+	public static final Model attributeSetModel = new Model(FieldSetItem.TYPE);
 	public static final Model attributeMapLimitedModel = new Model(FieldMapLimitedItem.TYPE);
 	public static final Model attributeMapModel = new Model(FieldMapItem.TYPE);
 	public static final Model serializerModel = new Model(SerializerItem.TYPE);

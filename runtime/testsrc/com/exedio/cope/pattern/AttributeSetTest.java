@@ -34,13 +34,13 @@ public class AttributeSetTest extends AbstractLibTest
 		super(Main.attributeSetModel);
 	}
 
-	AttributeSetItem item;
+	FieldSetItem item;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new AttributeSetItem());
+		deleteOnTearDown(item = new FieldSetItem());
 	}
 	
 	public void testIt()
