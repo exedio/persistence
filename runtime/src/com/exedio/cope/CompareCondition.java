@@ -85,6 +85,12 @@ public final class CompareCondition<E> extends Condition
 		return function.toString() + operator.sql + '\'' + value + '\'';
 	}
 
+	@Override
+	String toStringForQueryKey()
+	{
+		return function.toString() + operator.sql + '\'' + toStringForQueryKey(value) + '\'';
+	}
+
 	public static enum Operator
 	{
 		Less("<"),

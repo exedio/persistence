@@ -144,4 +144,9 @@ public final class TypeInCondition<E extends Item> extends Condition
 		return function.toString() + (not?" not":"") + " in (" + types + ')';
 	}
 	
+	@Override
+	String toStringForQueryKey()
+	{
+		return toString();
+	}
 }

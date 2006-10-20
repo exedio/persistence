@@ -101,7 +101,7 @@ public abstract class Condition
 	public abstract boolean equals(Object o);
 	@Override
 	public abstract int hashCode();
-	
+
 	static final boolean equals(final Object o1, final Object o2)
 	{
 		return o1==null ? o2==null : o1.equals(o2);
@@ -110,5 +110,28 @@ public abstract class Condition
 	static final int hashCode(final Object o)
 	{
 		return o==null ? 0 : o.hashCode();
+	}
+
+	/**
+	 * Does the same as {@link #toString()} with one exception:
+	 * it calls {@link #toStringForQueryKey(Object)}
+	 * instead of {@link Object#toString()} for
+	 * literal values in conditions.
+	 * This avoids errors, if {@link Object#toString()} of
+	 * items is implemented in a way, that fails without
+	 * an active transaction bound to the current thread.
+	 * Such errors would occur in the query cache statistics tab
+	 * of the COPE Console.
+	 */
+	abstract String toStringForQueryKey();
+	
+	static final String toStringForQueryKey(final Object o)
+	{
+		if(o==null)
+			return "NULL";
+		else if(o instanceof Item)
+			return ((Item)o).getCopeID();
+		else
+			return o.toString();
 	}
 }

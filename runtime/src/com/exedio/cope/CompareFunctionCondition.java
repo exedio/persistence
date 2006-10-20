@@ -87,6 +87,12 @@ public final class CompareFunctionCondition<E> extends Condition
 		return left.toString() + operator.sql + right.toString();
 	}
 
+	@Override
+	String toStringForQueryKey()
+	{
+		return toString();
+	}
+
 	public static enum Operator
 	{
 		Equal("="),

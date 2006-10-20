@@ -79,4 +79,9 @@ public final class EqualCondition<E> extends Condition // TODO remove, integrate
 		return function.toString() + "='" + value + '\'';
 	}
 	
+	@Override
+	String toStringForQueryKey()
+	{
+		return function.toString() + "='" + toStringForQueryKey(value) + '\'';
+	}
 }

@@ -84,9 +84,14 @@ public final class NotEqualCondition<E> extends Condition
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return function.toString() + "!='" + value + '\'';
 	}
 	
+	@Override
+	String toStringForQueryKey()
+	{
+		return function.toString() + "!='" + toStringForQueryKey(value) + '\'';
+	}
 }

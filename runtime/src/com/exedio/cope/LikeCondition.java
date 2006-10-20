@@ -76,9 +76,15 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return function.toString() + " like '" + value + '\'';
+	}
+	
+	@Override
+	String toStringForQueryKey()
+	{
+		return function.toString() + " like '" + toStringForQueryKey(value) + '\'';
 	}
 	
 	public static final char WILDCARD = '%';
@@ -97,5 +103,4 @@ public final class LikeCondition extends Condition
 	{
 		return new LikeCondition(function, WILDCARD + value + WILDCARD);
 	}
-	
 }

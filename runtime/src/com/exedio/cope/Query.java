@@ -500,7 +500,7 @@ public final class Query<R>
 		// BEWARE
 		// this method duplicates Query.Key#toString(),
 		// so if you change something here,
-		// you will probably want to change it there as well
+		// you will probably want to change it there as well.
 		
 		bf.append("select ");
 		
@@ -650,16 +650,17 @@ public final class Query<R>
 		{
 			return b ? 1 : 0;
 		}
-		
+
+		/**
+		 * BEWARE
+		 * this method nearly duplicates {@link Query#toString()},
+		 * so if you change something here,
+		 * you will probably want to change it there as well.
+		 */
 		@Override
 		public String toString()
 		{
 			final StringBuffer bf = new StringBuffer();
-			
-			// BEWARE
-			// this method duplicates Query#toString(),
-			// so if you change something here,
-			// you will probably want to change it there as well
 			
 			bf.append("select ");
 			
@@ -690,7 +691,7 @@ public final class Query<R>
 					if(joinCondition!=null)
 					{
 						bf.append(" on ").
-							append(joinCondition);
+							append(joinCondition.toStringForQueryKey());
 					}
 				}
 			}
@@ -698,7 +699,7 @@ public final class Query<R>
 			if(condition!=null)
 			{
 				bf.append(" where ").
-					append(condition);
+					append(condition.toStringForQueryKey());
 			}
 
 			if(orderBy!=null)
