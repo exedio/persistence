@@ -224,7 +224,7 @@
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
 				<exclude name="ModelTest.java" /><!-- TODO remove -->
-				<exclude name="AttributeTest.java" /><!-- TODO remove -->
+				<exclude name="FieldTest.java" /><!-- TODO remove -->
 			</fileset>
 		</instrument>
 	</target>

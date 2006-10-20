@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class AttributeIntegerTest extends AttributeTest
+public class AttributeIntegerTest extends FieldTest
 {
 	static final Integer CONST = 1;
 	

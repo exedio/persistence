@@ -21,7 +21,7 @@ import com.exedio.cope.testmodel.AttributeEmptyItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
 
-public class AttributeQualifiedTest extends AttributeTest
+public class AttributeQualifiedTest extends FieldTest
 {
 	public void testSomeQualifiedAttribute()
 			throws IntegrityViolationException, MandatoryViolationException, LengthViolationException, FinalViolationException

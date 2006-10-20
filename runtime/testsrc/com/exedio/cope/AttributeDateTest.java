@@ -26,7 +26,7 @@ import java.util.Date;
 import com.exedio.cope.testmodel.AttributeItem;
 
 
-public class AttributeDateTest extends AttributeTest
+public class AttributeDateTest extends FieldTest
 {
 
 	public void testSomeDate()

@@ -24,7 +24,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
 
-public abstract class AttributeTest extends TestmodelTest
+public abstract class FieldTest extends TestmodelTest
 {
 
 	protected EmptyItem someItem, someItem2;

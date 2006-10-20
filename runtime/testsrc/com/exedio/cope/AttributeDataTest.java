@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class AttributeDataTest extends AttributeTest
+public class AttributeDataTest extends FieldTest
 {
 	public void testSomeData() throws IOException
 	{

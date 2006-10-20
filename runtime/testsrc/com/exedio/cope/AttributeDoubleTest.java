@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.util.Date;
 
 
-public class AttributeDoubleTest extends AttributeTest
+public class AttributeDoubleTest extends FieldTest
 {
 	static final Double CONST = 1.1;
 

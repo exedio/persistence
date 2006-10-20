@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class AttributeLongTest extends AttributeTest
+public class AttributeLongTest extends FieldTest
 {
 	static final Long CONST = 1l;
 	
