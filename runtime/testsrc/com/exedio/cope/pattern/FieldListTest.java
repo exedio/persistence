@@ -27,13 +27,13 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;
 
-public class AttributeListTest extends AbstractLibTest
+public class FieldListTest extends AbstractLibTest
 {
 	
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);
 	
-	public AttributeListTest()
+	public FieldListTest()
 	{
 		super(Main.attributeListModel);
 	}

@@ -31,7 +31,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(HashTest.class);
 		suite.addTestSuite(MD5Test.class);
 		suite.addTestSuite(FieldListLimitedTest.class);
-		suite.addTestSuite(AttributeListTest.class);
+		suite.addTestSuite(FieldListTest.class);
 		suite.addTestSuite(AttributeSetTest.class);
 		suite.addTestSuite(AttributeMapLimitedTest.class);
 		suite.addTestSuite(AttributeMapTest.class);
