@@ -51,7 +51,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DayAttributeTest.class );
 		suite.addTestSuite( AttributeItemTest.class );
 		suite.addTestSuite( AttributeEnumTest.class );
-		suite.addTestSuite( AttributeDataTest.class );
+		suite.addTestSuite( FieldMediaTest.class );
 		suite.addTestSuite( AttributeQualifiedTest.class );
 		
 		suite.addTestSuite( DeleteTest.class );
