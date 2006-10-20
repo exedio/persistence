@@ -53,13 +53,15 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(list(
 				item.TYPE,
 				item.strings.getRelationType(),
-				item.dates.getRelationType()
+				item.dates.getRelationType(),
+				item.items.getRelationType()
 			), model.getTypes());
 
 		assertEquals(list(
 				item.TYPE.getThis(),
 				item.strings,
-				item.dates
+				item.dates,
+				item.items
 			), item.TYPE.getFeatures());
 		assertEquals(list(
 				item.strings.getRelationType().getThis(),
@@ -75,11 +77,20 @@ public class AttributeListTest extends AbstractLibTest
 				item.dates.getUniqueConstraint(),
 				item.dates.getElement()
 			), item.dates.getRelationType().getFeatures());
+		assertEquals(list(
+				item.items.getRelationType().getThis(),
+				item.items.getParent(),
+				item.items.getOrder(),
+				item.items.getUniqueConstraint(),
+				item.items.getElement()
+			), item.items.getRelationType().getFeatures());
 
 		assertEquals(item.TYPE, item.strings.getType());
 		assertEquals("strings", item.strings.getName());
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
+		assertEquals(item.TYPE, item.items.getType());
+		assertEquals("items", item.items.getName());
 
 		assertEquals("AttributeListItem.strings", item.strings.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
@@ -97,6 +108,14 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass());
 		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
 
+		assertEquals("AttributeListItem.items", item.items.getRelationType().getID());
+		assertEquals(null, item.items.getRelationType().getJavaClass());
+		assertEquals(null, item.items.getRelationType().getSupertype());
+		assertEquals(list(), item.items.getRelationType().getSubTypes());
+		assertEquals(false, item.items.getRelationType().isAbstract());
+		assertEquals(Item.class, item.items.getRelationType().getThis().getValueClass());
+		assertEquals(item.items.getRelationType(), item.items.getRelationType().getThis().getValueType());
+
 		assertEquals(item.strings.getRelationType(), item.strings.getParent().getType());
 		assertEquals(item.strings.getRelationType(), item.strings.getOrder().getType());
 		assertEquals(item.strings.getRelationType(), item.strings.getUniqueConstraint().getType());
@@ -105,6 +124,10 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(item.dates.getRelationType(), item.dates.getOrder().getType());
 		assertEquals(item.dates.getRelationType(), item.dates.getUniqueConstraint().getType());
 		assertEquals(item.dates.getRelationType(), item.dates.getElement().getType());
+		assertEquals(item.items.getRelationType(), item.items.getParent().getType());
+		assertEquals(item.items.getRelationType(), item.items.getOrder().getType());
+		assertEquals(item.items.getRelationType(), item.items.getUniqueConstraint().getType());
+		assertEquals(item.items.getRelationType(), item.items.getElement().getType());
 
 		assertEquals("parent", item.strings.getParent().getName());
 		assertEquals("order", item.strings.getOrder().getName());
@@ -114,9 +137,14 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals("order", item.dates.getOrder().getName());
 		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
 		assertEquals("element", item.dates.getElement().getName());
+		assertEquals("parent", item.items.getParent().getName());
+		assertEquals("order", item.items.getOrder().getName());
+		assertEquals("uniqueConstraint", item.items.getUniqueConstraint().getName());
+		assertEquals("element", item.items.getElement().getName());
 
 		assertEquals(list(item.strings.getParent(), item.strings.getOrder()), item.strings.getUniqueConstraint().getFields());
 		assertEquals(list(item.dates.getParent(), item.dates.getOrder()), item.dates.getUniqueConstraint().getFields());
+		assertEquals(list(item.items.getParent(), item.items.getOrder()), item.items.getUniqueConstraint().getFields());
 
 		assertTrue(item.strings.getRelationType().isAssignableFrom(item.strings.getRelationType()));
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.dates.getRelationType()));
@@ -220,6 +248,18 @@ public class AttributeListTest extends AbstractLibTest
 		assertEquals(list(date1), item.getDates()); // TODO should be list(date1, date2)
 		assertContains(item, item.getDistinctParentsOfDates(date1));
 		assertContains(item.getDistinctParentsOfDates(date2)); // TODO should contain item
+		assertEquals(1, item.dates.getRelationType().newQuery(null).search().size());
+		
+		// items
+		assertEquals(list(), item.getItems());
+		assertContains(item.getDistinctParentsOfItems(null));
+		assertContains(item.getDistinctParentsOfItems(item));
+		assertEquals(0, item.items.getRelationType().newQuery(null).search().size());
+
+		item.setItems(listg(item));
+		assertEquals(list(item), item.getItems());
+		assertContains(item.getDistinctParentsOfItems(null));
+		assertContains(item, item.getDistinctParentsOfItems(item));
 		assertEquals(1, item.dates.getRelationType().newQuery(null).search().size());
 	}
 	
