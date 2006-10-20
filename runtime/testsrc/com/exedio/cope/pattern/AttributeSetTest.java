@@ -75,7 +75,7 @@ public class AttributeSetTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
 
-		assertEquals("AttributeSetItem.strings", item.strings.getRelationType().getID());
+		assertEquals("FieldSetItem.strings", item.strings.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
@@ -83,7 +83,7 @@ public class AttributeSetTest extends AbstractLibTest
 		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass());
 		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
 
-		assertEquals("AttributeSetItem.dates", item.dates.getRelationType().getID());
+		assertEquals("FieldSetItem.dates", item.dates.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
