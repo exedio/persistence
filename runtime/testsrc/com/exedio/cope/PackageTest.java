@@ -49,7 +49,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FieldBooleanTest.class );
 		suite.addTestSuite( FieldDateTest.class );
 		suite.addTestSuite( DayAttributeTest.class );
-		suite.addTestSuite( AttributeItemTest.class );
+		suite.addTestSuite( FieldItemTest.class );
 		suite.addTestSuite( FieldEnumTest.class );
 		suite.addTestSuite( FieldMediaTest.class );
 		suite.addTestSuite( AttributeQualifiedTest.class );

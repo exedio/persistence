@@ -27,7 +27,7 @@ import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.PlusItem;
 
 
-public class AttributeItemTest extends FieldTest
+public class FieldItemTest extends FieldTest
 {
 	public void testSomeItem()
 	{
