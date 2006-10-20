@@ -45,7 +45,7 @@ public class PackageTest extends TestCase
 		
 		suite.addTestSuite( AttributeIntegerTest.class );
 		suite.addTestSuite( AttributeLongTest.class );
-		suite.addTestSuite( AttributeDoubleTest.class );
+		suite.addTestSuite( FieldDoubleTest.class );
 		suite.addTestSuite( FieldBooleanTest.class );
 		suite.addTestSuite( FieldDateTest.class );
 		suite.addTestSuite( DayAttributeTest.class );
