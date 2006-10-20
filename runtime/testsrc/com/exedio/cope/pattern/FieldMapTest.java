@@ -23,13 +23,13 @@ import com.exedio.cope.EnumField;
 import com.exedio.cope.Main;
 import com.exedio.cope.ItemField.DeletePolicy;
 
-public class AttributeMapTest extends AbstractLibTest
+public class FieldMapTest extends AbstractLibTest
 {
 	private static final FieldMapItem.Language DE = FieldMapItem.Language.DE;
 	private static final FieldMapItem.Language EN = FieldMapItem.Language.EN;
 	private static final FieldMapItem.Language PL = FieldMapItem.Language.PL;
 	
-	public AttributeMapTest()
+	public FieldMapTest()
 	{
 		super(Main.attributeMapModel);
 	}
