@@ -23,13 +23,13 @@ import java.util.List;
 import com.exedio.cope.util.Day;
 
 
-public class DayAttributeTest extends AbstractLibTest
+public class DayFieldTest extends AbstractLibTest
 {
 	DayItem item, item2;
 	static final Day DEFAULT = new Day(2005, 8, 14);
 	static final Day DEFAULT2 = new Day(2005, 8, 15);
 	
-	public DayAttributeTest()
+	public DayFieldTest()
 	{
 		super(Main.dayModel);
 	}

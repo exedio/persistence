@@ -48,7 +48,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FieldDoubleTest.class );
 		suite.addTestSuite( FieldBooleanTest.class );
 		suite.addTestSuite( FieldDateTest.class );
-		suite.addTestSuite( DayAttributeTest.class );
+		suite.addTestSuite( DayFieldTest.class );
 		suite.addTestSuite( FieldItemTest.class );
 		suite.addTestSuite( FieldEnumTest.class );
 		suite.addTestSuite( FieldMediaTest.class );
