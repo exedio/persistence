@@ -36,54 +36,54 @@ public class MediaServletTest extends AbstractWebTest
 	{
 		final String prefix = "http://localhost:8080/copetest-hsqldb/media/MediaServletItem/";
 
-		final long textLastModified = assertURL(new URL(prefix + "file/MediaServletItem.0.txt"));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "file/MediaServletItem.0.zick")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "file/MediaServletItem.0.")));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "file/MediaServletItem.0")));
-		assertNotFound(new URL(prefix + "kile/MediaServletItem.0.txt"), NO_SUCH_PATH);
-		assertNotFound(new URL(prefix + "file/MediaServletItem.15.txt"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "file/MediaServletItem.15.zick"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "file/MediaServletItem.15."), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "file/MediaServletItem.15"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "file/MediaServletItem."), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "file/MediaServletItem"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "file/MediaZack"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "file/"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "file"), NO_SUCH_PATH);
-		assertNotFound(new URL(prefix + "file/zapp"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "photo/MediaServletItem.1.jpg"), IS_NULL);
-		assertNotFound(new URL(prefix + "photo/MediaServletItem.1."), IS_NULL);
-		assertNotFound(new URL(prefix + "photo/MediaServletItem.1"), IS_NULL);
-		assertNotFound(new URL(prefix + "photo/MediaServletItem.1.zick"), IS_NULL);
+		final long textLastModified = assertURL(new URL(prefix + "content/MediaServletItem.0.txt"));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.zick")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.")));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0")));
+		assertNotFound(new URL(prefix + "kontent/MediaServletItem.0.txt"), NO_SUCH_PATH);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.150.txt"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.150.zick"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.150."), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.150"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem."), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaZack"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content"), NO_SUCH_PATH);
+		assertNotFound(new URL(prefix + "content/zapp"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1.jpg"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1."), IS_NULL);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1.zick"), IS_NULL);
 		
-		assertEquals(textLastModified, assertURL(new URL(prefix + "file/MediaServletItem.0"), textLastModified-1, false));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "file/MediaServletItem.0"), textLastModified, true));
-		assertEquals(textLastModified, assertURL(new URL(prefix + "file/MediaServletItem.0"), textLastModified+5000, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified-1, false));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified, true));
+		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified+5000, true));
 
-		assertURL(new URL(prefix + "file/MediaServletItem.2.unknownma.unknownmi"), "unknownma/unknownmi");
+		assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi");
 
-		assertURLRedirect(new URL(prefix + "foto/MediaServletItem.0.jpg"), prefix + "photo/MediaServletItem.0.jpg");
-		assertURLRedirect(new URL(prefix + "foto/MediaServletItem.0."), prefix + "photo/MediaServletItem.0.jpg");
-		assertURLRedirect(new URL(prefix + "foto/MediaServletItem.0"), prefix + "photo/MediaServletItem.0.jpg");
-		assertNotFound(new URL(prefix + "foto/schnickschnack"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem.20.jpg"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem.20."), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem.20"), NO_SUCH_ITEM);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem."), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "foto/"), NOT_AN_ITEM);
-		assertNotFound(new URL(prefix + "foto"), NO_SUCH_PATH);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem.1.jpg"), IS_NULL);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem.1."), IS_NULL);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem.1"), IS_NULL);
-		assertNotFound(new URL(prefix + "foto/MediaServletItem.1.zick"), IS_NULL);
+		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3.jpg"), prefix + "content/MediaServletItem.3.jpg");
+		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3."), prefix + "content/MediaServletItem.3.jpg");
+		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3"), prefix + "content/MediaServletItem.3.jpg");
+		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.20.jpg"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.20."), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.20"), NO_SUCH_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem."), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/MediaServletItem"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content/"), NOT_AN_ITEM);
+		assertNotFound(new URL(prefix + "content"), NO_SUCH_PATH);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1.jpg"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1."), IS_NULL);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1"), IS_NULL);
+		assertNotFound(new URL(prefix + "content/MediaServletItem.1.zick"), IS_NULL);
 
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.0.txt"));
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.0."));
-		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.0"));
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.1.txt"), IS_NULL);
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.1."), IS_NULL);
-		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.1"), IS_NULL);
+		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5.txt"));
+		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5."));
+		assertNameURL(new URL(prefix + "nameServer/MediaServletItem.5"));
+		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6.txt"), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6."), IS_NULL);
+		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.6"), IS_NULL);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.20.txt"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.20."), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "nameServer/MediaServletItem.20"), NO_SUCH_ITEM);
@@ -92,9 +92,9 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "nameServer/"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "nameServer"), NO_SUCH_PATH);
 
-		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.2.txt"));
-		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.2."));
-		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.2"));
+		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.7.txt"));
+		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.7."));
+		assertInternalError(new URL(prefix + "nameServer/MediaServletItem.7"));
 	}
 	
 	private long assertURL(final URL url) throws IOException

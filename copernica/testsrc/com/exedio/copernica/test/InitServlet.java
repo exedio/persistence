@@ -142,17 +142,31 @@ public class InitServlet extends CopsServlet
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			
-			final MediaServletItem dataItem1 = new MediaServletItem("media item 1");
-			dataItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
-			dataItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "image/png");
-			dataItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
+			final MediaServletItem text = new MediaServletItem();
+			assertID("MediaServletItem.0", text);
+			text.setContent(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
+				
+			final MediaServletItem empty = new MediaServletItem();
+			assertID("MediaServletItem.1", empty);
 
-			final MediaServletItem dataItem2 = new MediaServletItem(null);
-			dataItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image/png");
-			dataItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
+			final MediaServletItem png = new MediaServletItem();
+			assertID("MediaServletItem.2", png);
+			png.setContent(thisClass.getResourceAsStream("osorno.png"), "image/png");
 
-			final MediaServletItem dataItem3 = new MediaServletItem("media item 3 error");
-			dataItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma/unknownmi");
+			final MediaServletItem jpeg = new MediaServletItem();
+			assertID("MediaServletItem.3", jpeg);
+			jpeg.setContent(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
+
+			final MediaServletItem unknown = new MediaServletItem();
+			assertID("MediaServletItem.4", unknown);
+			unknown.setContent(thisClass.getResourceAsStream("dummy.txt"), "unknownma/unknownmi");
+			
+			final MediaServletItem nameOk = new MediaServletItem("media item 1");
+			assertID("MediaServletItem.5", nameOk);
+			final MediaServletItem nameNull = new MediaServletItem(null);
+			assertID("MediaServletItem.6", nameNull);
+			final MediaServletItem nameError = new MediaServletItem("media item 3 error");
+			assertID("MediaServletItem.7", nameError);
 			
 			new PlusItem(1, 2, 3);
 			new PlusItem(4, 5, 4);
@@ -206,5 +220,11 @@ public class InitServlet extends CopsServlet
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private static final void assertID(final String id, final MediaServletItem item)
+	{
+		if(!id.equals(item.getCopeID()))
+			throw new RuntimeException(item.getCopeID());
 	}
 }
