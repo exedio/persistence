@@ -18,24 +18,24 @@
 		* Item#touch
 		* timestamp of data files
 		* list of open transactions in console
-	- EnumAttribute:
+	- EnumField:
 		* allow modification of integers in DB via cope.properties
 		* optionally put strings in DB
-	- DataAttribute:
+	- DataField:
 		* write tests for up/downloading data in copernica
 		* file tree implementation:
 			* make data transaction aware, allow rollback
 			* protect data against error when reading the stream
 			* as in dsmf: check data directories
 	- Media:
-		* allow Content-Type specified by EnumAttribute
+		* allow Content-Type specified by EnumField
 		* maintain charset in Content-Type for texts
 		* optionally maintain filename param in Content-Disposition header
 		* implement MediaAlias
 		* implement redundant (computed) medias, such as thumbnails
 		* redundantly maintain width/height for images
 	- move Item#touch into separate pattern Timestamp
-	- AtributeListLimited: allow length terminated instead of null terminated as well
+	- FieldListLimited: allow length terminated instead of null terminated as well
 	- Cache: store values in three arrays int[], double[], String[] instead of a Map,
 		saves lots of objects going through full GC.
 	- pcj.sourceforge.net:
@@ -59,7 +59,7 @@
 	- allow changing the database connection parameters
 * Copernica
 	- query designer
-	- improve presentation of qualified attributes / relation / dynamic type system
+	- improve presentation of qualified fields / relation / dynamic type system
 	- restrictions
 	- save medias on "Save", not on upload
 	- use <link rel="prev/next/copyright/home"
