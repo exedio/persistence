@@ -34,7 +34,7 @@ public class Main
 		AttributeItem.TYPE,
 		AttributeEmptyItem.TYPE,
 		StringItem.TYPE,
-		MediaItem.TYPE,
+		MediaServletItem.TYPE,
 		PlusItem.TYPE,
 		QualifiedItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,

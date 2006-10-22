@@ -37,7 +37,7 @@ import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.UniqueFinal;
 import com.exedio.cope.testmodel.Main;
-import com.exedio.cope.testmodel.MediaItem;
+import com.exedio.cope.testmodel.MediaServletItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
@@ -142,16 +142,16 @@ public class InitServlet extends CopsServlet
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			
-			final MediaItem dataItem1 = new MediaItem("media item 1");
+			final MediaServletItem dataItem1 = new MediaServletItem("media item 1");
 			dataItem1.setFile(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
 			dataItem1.setImage(thisClass.getResourceAsStream("osorno.png"), "image/png");
 			dataItem1.setPhoto(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
 
-			final MediaItem dataItem2 = new MediaItem(null);
+			final MediaServletItem dataItem2 = new MediaServletItem(null);
 			dataItem2.setFile(thisClass.getResourceAsStream("osorno.png"), "image/png");
 			dataItem2.setImage(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
 
-			final MediaItem dataItem3 = new MediaItem("media item 3 error");
+			final MediaServletItem dataItem3 = new MediaServletItem("media item 3 error");
 			dataItem3.setFile(thisClass.getResourceAsStream("dummy.txt"), "unknownma/unknownmi");
 			
 			new PlusItem(1, 2, 3);
