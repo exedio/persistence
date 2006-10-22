@@ -71,7 +71,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 			throw new RuntimeException(e);
 		}
 		final String prefix = model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
-		final String expectedURL = prefix + item.getCopeID() + '.' + url;
+		final String expectedURL = prefix + item.getCopeID() + (url!=null ? ('.' + url) : "");
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());

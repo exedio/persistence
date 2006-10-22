@@ -43,7 +43,7 @@ public class FieldMediaTest extends FieldTest
 		final String prefix =
 			model.getProperties().getMediaRootUrl() + "AttributeItem/someData/";
 		final String expectedURL =
-			prefix + item.getCopeID() + ".someMimeMajor.someMimeMinor";
+			prefix + item.getCopeID();
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
 		assertEquals(expectedURL, item.getSomeDataURL());
@@ -59,7 +59,7 @@ public class FieldMediaTest extends FieldTest
 		assertDataMime(item, "image/pjpeg", bytes, "jpg");
 		assertDataMime(item, "image/gif", bytes, "gif");
 		assertDataMime(item, "image/png", bytes, "png");
-		assertDataMime(item, "image/someMinor", bytes, "image.someMinor");
+		assertDataMime(item, "image/someMinor", bytes, null);
 
 		final byte[] manyBytes = new byte[49467];
 		for(int i = 0; i<manyBytes.length; i++)

@@ -193,12 +193,7 @@ public final class Media extends CachedMedia
 			append(item.getCopeID());
 
 		final String compactExtension = compactExtensions.get(contentType);
-		if(compactExtension==null)
-		{
-			bf.append('.').
-				append(contentType.replace('/', '.'));
-		}
-		else
+		if(compactExtension!=null)
 			bf.append(compactExtension);
 		
 		return bf.toString();
