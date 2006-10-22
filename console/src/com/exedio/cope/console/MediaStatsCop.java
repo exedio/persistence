@@ -42,12 +42,12 @@ final class MediaStatsCop extends ConsoleCop
 	
 	MediaCop toMedia(final Media media)
 	{
-		return new MediaCop(media);
+		return new MediaCop(media, false);
 	}
 	
 	MediaCop toThumbnail(final MediaThumbnail thumbnail)
 	{
-		return new MediaCop(thumbnail);
+		return new MediaCop(thumbnail, false);
 	}
 	
 	@Override

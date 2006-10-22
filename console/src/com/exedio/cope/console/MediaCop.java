@@ -35,11 +35,13 @@ final class MediaCop extends ConsoleCop
 {
 
 	private static final String MEDIA = "m";
+	private static final String INLINE = "il";
 	
 	final Media media;
 	final MediaThumbnail thumbnail;
+	final boolean inline;
 
-	MediaCop(final MediaPath mediaOrThumbnail)
+	MediaCop(final MediaPath mediaOrThumbnail, final boolean inline)
 	{
 		super("media - " + mediaOrThumbnail.getID());
 		
@@ -55,14 +57,28 @@ final class MediaCop extends ConsoleCop
 		}
 		else
 			throw new RuntimeException(mediaOrThumbnail.toString());
-		
+
+		this.inline = inline;
+
 		addParameter(MEDIA, mediaOrThumbnail.getID());
+		if(inline)
+			addParameter(INLINE, "t");
+	}
+	
+	private MediaCop(final Media media, final MediaThumbnail thumbnail, final boolean inline)
+	{
+		this(thumbnail!=null ? thumbnail : media, inline);
 	}
 	
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
 	{
 		final String mediaID = request.getParameter(MEDIA);
-		return (mediaID==null) ? null : new MediaCop((MediaPath)model.findFeatureByID(mediaID));
+		return (mediaID==null) ? null : new MediaCop((MediaPath)model.findFeatureByID(mediaID), request.getParameter(INLINE)!=null);
+	}
+	
+	MediaCop toggleInline()
+	{
+		return new MediaCop(media, thumbnail, !inline);
 	}
 
 	@Override
