@@ -361,6 +361,8 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.photo80.getType());
 		assertEquals("photo80", item.photo80.getName());
 		assertSame(item.photo, item.photo80.getMedia());
+		assertEquals(80, item.photo80.getBoundX());
+		assertEquals(60, item.photo80.getBoundY());
 		assertBB(160, 120, 80, 60);
 		assertBB(160, 100, 80, 50);
 		assertBB(140, 120, 70, 60);

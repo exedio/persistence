@@ -431,11 +431,6 @@ final class Console_Jspm
 				{
 					%></a><%
 				}
-				if(path instanceof MediaRedirect)
-				{
-					final MediaRedirect redirect = (MediaRedirect)path;
-					%> --&gt; <%=redirect.getTarget().getName()%><%
-				}
 				%></td><%
 				writeColouredData(out, data);
 				%>
@@ -451,6 +446,16 @@ final class Console_Jspm
 					else
 					{
 						%><%=className%><%
+					}
+					if(path instanceof MediaRedirect)
+					{
+						final MediaRedirect redirect = (MediaRedirect)path;
+						%>(<%=redirect.getTarget().getName()%>)<%
+					}
+					else if(path instanceof MediaThumbnail)
+					{
+						final MediaThumbnail thumbnail = (MediaThumbnail)path;
+						%>(<%=thumbnail.getMedia().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
 					}
 				%></td>
 			</tr><%

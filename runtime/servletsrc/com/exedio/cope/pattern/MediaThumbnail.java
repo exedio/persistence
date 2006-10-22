@@ -62,6 +62,16 @@ public final class MediaThumbnail extends CachedMedia
 		return media;
 	}
 	
+	public int getBoundX()
+	{
+		return boundX;
+	}
+	
+	public int getBoundY()
+	{
+		return boundY;
+	}
+	
 	/**
 	 * Returns a URL the content of this thumbnail is available under,
 	 * if a {@link MediaServlet} is properly installed.
