@@ -38,6 +38,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
+import com.exedio.cope.pattern.MediaThumbnail;
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
@@ -421,8 +422,12 @@ final class Console_Jspm
 				{
 					%><a href="<%=cop.toMedia((Media)path)%>"><%
 				}
+				else if(path instanceof MediaThumbnail)
+				{
+					%><a href="<%=cop.toThumbnail((MediaThumbnail)path)%>"><%
+				}
 				%><%=name%><%
-				if(path instanceof Media)
+				if(path instanceof Media || path instanceof MediaThumbnail)
 				{
 					%></a><%
 				}
@@ -449,11 +454,17 @@ final class Console_Jspm
 		throws IOException
 	{
 		final Media media = cop.media;
+		final MediaThumbnail thumbnail = cop.thumbnail;
 		%>
 		<table class="properties">
-			<tr><th colspan="4"><%=media.getType().getID()%>.<%=media.getName()%> (first 50)</th></tr>
+			<tr><th colspan="<%if(thumbnail==null){%>4<%}else{%>5<%}%>"><%=media.getType().getID()%>.<%=media.getName()%> (first 50)</th></tr>
 			<tr>
-				<th>Item</th><th>Content Type</th><th>Length</th><th>Last Modified</th></tr><%
+				<th>Item</th><th>Content Type</th><th>Length</th><th>Last Modified</th><%
+				if(thumbnail!=null)
+				{
+					%><th><%=thumbnail.getName()%></th><%
+				}
+				%></tr><%
 	
 			for(final Item item : items)
 			{
@@ -462,7 +473,13 @@ final class Console_Jspm
 				<td><a href="<%=media.getURL(item)%>"><%=item.getCopeID()%></a></td>
 				<td><%=media.getContentType(item)%></td>
 				<td><%=media.getLength(item)%></td>
-				<td><%=cop.format(media.getLastModified(item))%></td>
+				<td><%=cop.format(media.getLastModified(item))%></td><%
+				if(thumbnail!=null)
+				{
+				%>
+				<td><a href="<%=thumbnail.getURL(item)%>">X</a></td><%
+				}
+				%>
 			</tr><%
 			}
 		%>

@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaRedirect;
+import com.exedio.cope.pattern.MediaThumbnail;
 
 public class MediaServletItem extends Item
 {
@@ -33,6 +34,8 @@ public class MediaServletItem extends Item
 	public static final Media content = new Media(OPTIONAL);
 
 	public static final MediaRedirect redirect = new MediaRedirect(content);
+
+	public static final MediaThumbnail thumbnail = new MediaThumbnail(content, 150, 150);
 	
 	public static final MediaNameServer nameServer = new MediaNameServer(name);
 	

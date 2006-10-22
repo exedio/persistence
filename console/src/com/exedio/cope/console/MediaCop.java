@@ -28,6 +28,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.pattern.MediaThumbnail;
 
 final class MediaCop extends ConsoleCop
 {
@@ -35,18 +37,32 @@ final class MediaCop extends ConsoleCop
 	private static final String MEDIA = "m";
 	
 	final Media media;
+	final MediaThumbnail thumbnail;
 
-	MediaCop(final Media media)
+	MediaCop(final MediaPath mediaOrThumbnail)
 	{
-		super("media - " + media.getID());
-		this.media = media;
-		addParameter(MEDIA, media.getID());
+		super("media - " + mediaOrThumbnail.getID());
+		
+		if(mediaOrThumbnail instanceof Media)
+		{
+			this.media = (Media)mediaOrThumbnail;
+			this.thumbnail = null;
+		}
+		else if(mediaOrThumbnail instanceof MediaThumbnail)
+		{
+			this.media = ((MediaThumbnail)mediaOrThumbnail).getMedia();
+			this.thumbnail = (MediaThumbnail)mediaOrThumbnail;
+		}
+		else
+			throw new RuntimeException(mediaOrThumbnail.toString());
+		
+		addParameter(MEDIA, mediaOrThumbnail.getID());
 	}
 	
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
 	{
 		final String mediaID = request.getParameter(MEDIA);
-		return (mediaID==null) ? null : new MediaCop((Media)model.findFeatureByID(mediaID));
+		return (mediaID==null) ? null : new MediaCop((MediaPath)model.findFeatureByID(mediaID));
 	}
 
 	@Override

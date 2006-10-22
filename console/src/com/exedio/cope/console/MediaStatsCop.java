@@ -29,6 +29,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.pattern.MediaThumbnail;
 
 final class MediaStatsCop extends ConsoleCop
 {
@@ -42,6 +43,11 @@ final class MediaStatsCop extends ConsoleCop
 	MediaCop toMedia(final Media media)
 	{
 		return new MediaCop(media);
+	}
+	
+	MediaCop toThumbnail(final MediaThumbnail thumbnail)
+	{
+		return new MediaCop(thumbnail);
 	}
 	
 	@Override

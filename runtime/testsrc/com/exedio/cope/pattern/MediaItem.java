@@ -35,6 +35,8 @@ public class MediaItem extends Item
 	public static final Media photo = new Media(OPTIONAL, "image", "jpeg").lengthMax(2000);
 
 	public static final MediaRedirect foto = new MediaRedirect(photo);
+
+	public static final MediaThumbnail photo80 = new MediaThumbnail(photo, 80, 60);
 	
 	public static final MediaNameServer nameServer = new MediaNameServer(name);
 	

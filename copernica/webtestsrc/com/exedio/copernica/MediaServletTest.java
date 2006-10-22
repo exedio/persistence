@@ -37,6 +37,10 @@ public class MediaServletTest extends AbstractWebTest
 		final String prefix = "http://localhost:8080/copetest-hsqldb/media/MediaServletItem/";
 
 		final long textLastModified = assertURL(new URL(prefix + "content/MediaServletItem.0.txt"));
+		final long pngLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.2.txt"), "image/png");
+		final long jpegLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.3.txt"), "image/jpeg");
+		final long unknownLastModified = assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi");
+		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.zick")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.")));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0")));
@@ -60,11 +64,17 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified, true));
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0"), textLastModified+5000, true));
 
-		assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi");
+		assertEquals(unknownLastModified, assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi"));
 
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3.jpg"), prefix + "content/MediaServletItem.3.jpg");
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3."), prefix + "content/MediaServletItem.3.jpg");
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3"), prefix + "content/MediaServletItem.3.jpg");
+		
+		assertEquals(textLastModified, assertURL(new URL(prefix + "thumbnail/MediaServletItem.0")));
+		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
+		assertEquals(pngLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.2"), "image/png"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.3"), "image/jpeg"));
+		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20.jpg"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20."), NO_SUCH_ITEM);
@@ -191,6 +201,28 @@ public class MediaServletTest extends AbstractWebTest
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
+	}
+
+	private long assertBinary(final URL url, final String contentType) throws IOException
+	{
+		final Date before = new Date();
+		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		conn.setFollowRedirects(false);
+		conn.connect();
+		assertEquals(conn.HTTP_OK, conn.getResponseCode());
+		assertEquals("OK", conn.getResponseMessage());
+		final long date = conn.getDate();
+		final Date after = new Date();
+		//System.out.println("Date: "+new Date(date));
+		assertWithinHttpDate(before, after, new Date(date));
+		final long lastModified = conn.getLastModified();
+		//System.out.println("LastModified: "+new Date(lastModified));
+		assertTrue((date+1000)>=lastModified);
+		assertEquals(contentType, conn.getContentType());
+		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
+		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
+		
+		return lastModified;
 	}
 
 	private void assertInternalError(final URL url) throws IOException
