@@ -114,8 +114,15 @@ public abstract class MediaPath extends Pattern
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
 		throws ServletException, IOException;
 
-	public abstract Date getStart();
-
+	// logs --------------------------
+	
+	private final long start = System.currentTimeMillis();
+	
+	public final Date getStart()
+	{
+		return new Date(start);
+	}
+	
 	public final static class Log
 	{
 		private int counter = 0;
@@ -158,5 +165,4 @@ public abstract class MediaPath extends Pattern
 		}
 
 	}
-
 }

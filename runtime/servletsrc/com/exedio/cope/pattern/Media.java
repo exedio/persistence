@@ -436,18 +436,6 @@ public final class Media extends CachedMedia
 		throw new NullPointerException(field.toString());
 	}
 	
-	// logs --------------------------
-	
-	private long start = System.currentTimeMillis();
-	
-	@Override
-	public Date getStart()
-	{
-		return new Date(start);
-	}
-
-	// /logs -------------------------
-
 	@Override
 	public Media.Log doGetIfModified(
 			final HttpServletRequest request, final HttpServletResponse response,

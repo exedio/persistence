@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -68,20 +67,6 @@ public final class MediaRedirect extends MediaPath
 		return target;
 	}
 	
-	private long start = System.currentTimeMillis();
-	private final Object startLock = new Object();
-	
-	@Override
-	public final Date getStart()
-	{
-		final long startLocal;
-		synchronized(startLock)
-		{
-			startLocal = this.start;
-		}
-		return new Date(startLocal);
-	}
-
 	private static final String RESPONSE_LOCATION = "Location";
 	
 	@Override
