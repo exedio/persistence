@@ -23,8 +23,12 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Locale;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriter;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +36,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public final class MediaThumbnail extends CachedMedia
 {
@@ -120,16 +122,21 @@ public final class MediaThumbnail extends CachedMedia
 		final AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(scaleX, scaleY), AffineTransformOp.TYPE_BILINEAR);
 		final BufferedImage scaledBuf = new BufferedImage(tgtX, tgtY, BufferedImage.TYPE_INT_RGB);
 		op.filter(srcBuf, scaledBuf);
+		
+      final ImageWriter imageWriter = ImageIO.getImageWritersBySuffix("jpeg").next();
+      final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
+      imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
+      imageWriteParam.setCompressionQuality(0.75f);
+      final IIOImage iioImage = new IIOImage(scaledBuf, null, null);
 
 		response.setContentType("image/jpeg");
 		ServletOutputStream out = null;
 		try
 		{
 			out = response.getOutputStream();
-			final JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-			final JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(scaledBuf);
-			param.setQuality(0.75f, false);
-			encoder.encode(scaledBuf);
+	      imageWriter.setOutput(ImageIO.createImageOutputStream(out));
+	      imageWriter.write(null, iioImage, imageWriteParam);
+			
 			return delivered;
 		}
 		finally
