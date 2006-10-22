@@ -440,7 +440,19 @@ final class Console_Jspm
 				writeColouredData(out, data);
 				%>
 				<td><%=cop.format(path.getStart())%></td>
-				<td><%=path.getClass().getName()%></td>
+				<td><%
+					final String className = path.getClass().getName();
+					if(className.startsWith("com.exedio.cope.pattern."))
+					{
+						%><a href="http://cope.sourceforge.net/api/<%=
+							className.replace('.', '/')%>.html" target="_blank"><%=
+							path.getClass().getSimpleName()%></a><%
+					}
+					else
+					{
+						%><%=className%><%
+					}
+				%></td>
 			</tr><%
 			}
 		%>
