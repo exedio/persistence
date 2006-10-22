@@ -39,6 +39,7 @@ public class MediaServletTest extends AbstractWebTest
 		final long textLastModified = assertURL(new URL(prefix + "content/MediaServletItem.0.txt"));
 		final long pngLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.2.txt"), "image/png");
 		final long jpegLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.3.txt"), "image/jpeg");
+		final long gifLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.8.txt"), "image/gif");
 		final long unknownLastModified = assertURL(new URL(prefix + "content/MediaServletItem.4.unknownma.unknownmi"), "unknownma/unknownmi");
 		
 		assertEquals(textLastModified, assertURL(new URL(prefix + "content/MediaServletItem.0.zick")));
@@ -74,6 +75,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.2"), "image/jpeg"));
 		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.3"), "image/jpeg"));
+		assertEquals(gifLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.8"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20.jpg"), NO_SUCH_ITEM);

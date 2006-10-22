@@ -96,7 +96,7 @@ public final class MediaThumbnail extends CachedMedia
 	throws ServletException, IOException
 	{
 		final String contentType = media.getContentType(item);
-		if(!("image/jpeg".equals(contentType) || "image/png".equals(contentType)))
+		if(!("image/jpeg".equals(contentType) || "image/png".equals(contentType) || "image/gif".equals(contentType)))
 			return media.doGetIfModified(request, response, item, extension);
 		
 		final byte[] srcBytes = media.getBody().get(item);

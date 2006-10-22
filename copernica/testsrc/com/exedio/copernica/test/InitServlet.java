@@ -168,6 +168,10 @@ public class InitServlet extends CopsServlet
 			final MediaServletItem nameError = new MediaServletItem("media item 3 error");
 			assertID("MediaServletItem.7", nameError);
 			
+			final MediaServletItem gif = new MediaServletItem();
+			assertID("MediaServletItem.8", gif);
+			gif.setContent(thisClass.getResourceAsStream("gif.gif"), "image/gif");
+
 			new PlusItem(1, 2, 3);
 			new PlusItem(4, 5, 4);
 			new PlusItem(9, 2, 6);
