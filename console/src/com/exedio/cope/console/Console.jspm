@@ -187,7 +187,7 @@ final class Console_Jspm
 				<th colspan="7">Connection Pool Statistics</th>
 			</tr>
 			<tr>
-				<th>From</th>
+				<th>Since</th>
 				<td colspan="6"><%=cop.format(poolCounter.getStart())%></td>
 			</tr>
 			<tr>
@@ -393,12 +393,12 @@ final class Console_Jspm
 			writeColouredHeader(out, names, 2);
 			%>
 			<tr>
-				<th>type</th>
-				<th>media</th><%
+				<th>Type</th>
+				<th>Media</th><%
 				writeColouredHeaderSchnips(out, names);
 				%>
-				<th>From</th>
-				<th>class</th>
+				<th>Since</th>
+				<th>Class</th>
 			</tr><%
 	
 			for(final MediaPath path : media)
