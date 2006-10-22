@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -95,11 +96,15 @@ public final class MediaThumbnail extends CachedMedia
 	throws ServletException, IOException
 	{
 		final String contentType = media.getContentType(item);
-		if(!"image/jpeg".equals(contentType))
+		if(!("image/jpeg".equals(contentType) || "image/png".equals(contentType)))
 			return media.doGetIfModified(request, response, item, extension);
 		
 		final byte[] srcBytes = media.getBody().get(item);
-		final BufferedImage srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
+		final BufferedImage srcBuf;
+		if("image/jpeg".equals(contentType)) // TODO don't know why this is needed
+			srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
+		else
+			srcBuf = ImageIO.read(new ByteArrayInputStream(srcBytes));
 		
 		final int srcX = srcBuf.getWidth();
 		final int srcY = srcBuf.getHeight();
