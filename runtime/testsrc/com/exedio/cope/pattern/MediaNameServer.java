@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -28,8 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaPath;
 
 /**
  * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.
@@ -59,14 +56,6 @@ public final class MediaNameServer extends MediaPath
 			initialize(source, name+"Source");
 	}
 	
-	private long start = System.currentTimeMillis();
-	
-	@Override
-	public final Date getStart()
-	{
-		return new Date(start);
-	}
-
 	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
 	
 	private static final String RESPONSE_EXPIRES = "Expires";
