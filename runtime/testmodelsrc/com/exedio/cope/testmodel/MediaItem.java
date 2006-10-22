@@ -23,9 +23,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaRedirect;
 
-/**
- * @author Ralf Wiebicke
- */
 public class MediaItem extends Item
 {
 	
@@ -49,7 +46,7 @@ public class MediaItem extends Item
 		});
 	}
 	
-/**
+	/**
 
 	 **
 	 * Creates a new MediaItem with all the fields initially needed.
