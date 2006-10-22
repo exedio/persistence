@@ -104,3 +104,8 @@ table.statistics td.colored9 { background:#fcc; }
 table.statistics td.colored10{ background:#cfc; }
 table.statistics td.colored11{ background:#ccf; }
 table.statistics td.colored12{ background:#ffc; }
+
+img
+{
+	border:0;
+}
