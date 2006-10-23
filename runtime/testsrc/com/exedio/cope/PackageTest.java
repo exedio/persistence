@@ -79,6 +79,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( JoinOuterTest.class );
 		suite.addTestSuite( JoinMultipleTest.class );
 		suite.addTestSuite( JoinFunctionTest.class );
+		suite.addTestSuite( HardJoinTest.class );
 		suite.addTestSuite( SchemaTest.class );
 		suite.addTestSuite( StatementInfoTest.class );
 		suite.addTestSuite( TransactionTest.class );

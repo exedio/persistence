@@ -80,6 +80,7 @@ public class Main
 		);
 	public static final Model hierarchyEmptyModel = new Model(HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE);
 	public static final Model joinFunctionModel = new Model(JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE);
+	public static final Model hardJoinModel = new Model(HardJoinA1Item.TYPE, HardJoinA2Item.TYPE, HardJoinA3Item.TYPE, HardJoinB1Item.TYPE, HardJoinB2Item.TYPE, HardJoinB3Item.TYPE);
 	public static final Model dtypeModel = new Model(DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE);
 	public static final Model hiddenFeatureModel = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
 
@@ -143,6 +144,7 @@ public class Main
 		tearDown(hierarchyModel);
 		tearDown(hierarchyEmptyModel);
 		tearDown(joinFunctionModel);
+		tearDown(hardJoinModel);
 		tearDown(dtypeModel);
 		tearDown(hiddenFeatureModel);
 	}
