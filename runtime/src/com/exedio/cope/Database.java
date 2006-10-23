@@ -702,24 +702,10 @@ abstract class Database
 
 			bf.appendPK(type, (Join)null).
 				append('=').
-				appendParameter(state.pk);
-			
-			// Additionally check correctness of type column
-			// If type column is inconsistent, the database
-			// will return no rows and the result set handler
-			// will fail
-			// Here this also checks for Model#findByID,
-			// that the item has the type given in the ID.
-			final StringColumn typeColumn = type.getTable().typeColumn;
-			if(typeColumn!=null)
-			{
-				bf.append(" and ").
-					append(typeColumn).
-					append('=').
-					appendParameter(state.type.id);
-			}
+				appendParameter(state.pk).
+				appendTypeCheck(type.getTable(), state.type); // Here this also checks additionally for Model#findByID, that the item has the type given in the ID.
 		}
-
+			
 		//System.out.println(bf.toString());
 		executeSQLQuery(connection, bf, state, false);
 	}
@@ -783,19 +769,8 @@ abstract class Database
 			bf.append(" where ").
 				append(table.primaryKey.protectedID).
 				append('=').
-				appendParameter(state.pk);
-			
-			// Additionally check correctness of type column
-			// If type column is inconsistent, the database
-			// will return "0 rows affected" and executeSQLUpdate
-			// will fail
-			if(typeColumn!=null)
-			{
-				bf.append(" and ").
-					append(typeColumn.protectedID).
-					append('=').
-					appendParameter(state.type.id);
-			}
+				appendParameter(state.pk).
+				appendTypeCheck(table, state.type);
 		}
 		else
 		{
@@ -888,21 +863,9 @@ abstract class Database
 			append(" where ").
 			append(table.primaryKey.protectedID).
 			append('=').
-			appendParameter(item.pk);
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
 			
-		// Additionally check correctness of type column
-		// If type column is inconsistent, the database
-		// will return no rows and the result set handler
-		// will fail
-		final StringColumn typeColumn = table.typeColumn;
-		if(typeColumn!=null)
-		{
-			bf.append(" and ").
-				append(typeColumn.protectedID).
-				append('=').
-				appendParameter(item.type.id);
-		}
-		
 		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(supportsGetBytes());
 		executeSQLQuery(connection, bf, handler, false);
 		return handler.result;
@@ -949,20 +912,8 @@ abstract class Database
 			append(" where ").
 			append(table.primaryKey.protectedID).
 			append('=').
-			appendParameter(item.pk);
-			
-		// Additionally check correctness of type column
-		// If type column is inconsistent, the database
-		// will return no rows and the result set handler
-		// will fail
-		final StringColumn typeColumn = table.typeColumn;
-		if(typeColumn!=null)
-		{
-			bf.append(" and ").
-				append(typeColumn.protectedID).
-				append('=').
-				appendParameter(item.type.id);
-		}
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
 		
 		executeSQLQuery(connection, bf, new ResultSetHandler(){
 			
@@ -1044,21 +995,9 @@ abstract class Database
 			append(" where ").
 			append(table.primaryKey.protectedID).
 			append('=').
-			appendParameter(item.pk);
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
 			
-		// Additionally check correctness of type column
-		// If type column is inconsistent, the database
-		// will return no rows and the result set handler
-		// will fail
-		final StringColumn typeColumn = table.typeColumn;
-		if(typeColumn!=null)
-		{
-			bf.append(" and ").
-				append(typeColumn.protectedID).
-				append('=').
-				appendParameter(item.type.id);
-		}
-		
 		final LoadBlobLengthResultSetHandler handler = new LoadBlobLengthResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false);
 		return handler.result;
@@ -1114,21 +1053,9 @@ abstract class Database
 		bf.append(" where ").
 			append(table.primaryKey.protectedID).
 			append('=').
-			appendParameter(item.pk);
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
 		
-		// Additionally check correctness of type column
-		// If type column is inconsistent, the database
-		// will return "0 rows affected" and executeSQLUpdate
-		// will fail
-		final StringColumn typeColumn = table.typeColumn;
-		if(typeColumn!=null)
-		{
-			bf.append(" and ").
-				append(typeColumn.protectedID).
-				append('=').
-				appendParameter(item.type.id);
-		}
-
 		//System.out.println("storing "+bf.toString());
 		executeSQLUpdate(connection, bf, 1);
 	}

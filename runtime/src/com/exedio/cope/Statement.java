@@ -163,6 +163,30 @@ final class Statement
 		return this;
 	}
 		
+	/**
+	 * Check correctness of type column
+	 * If type column is inconsistent,
+	 * the database will query will affect no rows.
+	 * Within a SELECT query the result set handler will fail,
+	 * because the result is empty.
+	 * Within a UPDATE, INSERT or DELETE
+	 * the command will return "0 rows affected"
+	 * and executeSQLUpdate will fail.
+	 */
+	Statement appendTypeCheck(final Table table, final Type type)
+	{
+		final StringColumn column = table.typeColumn;
+		if(column!=null)
+		{
+			append(" and ").
+			append(column.protectedID).
+			append('=').
+			appendParameter(type.id);
+		}
+			
+		return this;
+	}
+		
 	Statement append(final Column column)
 	{
 		return append(column, (Join)null);
