@@ -179,7 +179,7 @@ final class Statement
 		if(column!=null)
 		{
 			append(" and ").
-			append(column.protectedID).
+			append(column).
 			append('=').
 			appendParameter(type.id);
 		}
