@@ -23,9 +23,9 @@ public final class Join
 {
 	static enum Kind
 	{
-		INNER("inner"),
-		OUTER_LEFT("left outer"),
-		OUTER_RIGHT("right outer");
+		INNER("join "),
+		OUTER_LEFT("left join "),
+		OUTER_RIGHT("right join ");
 		
 		final String sql;
 		
@@ -88,7 +88,7 @@ public final class Join
 	@Override
 	public final String toString()
 	{
-		return kind.sql + " join " + type + (condition!=null ? (" on "+condition) : "");
+		return kind.sql + type + (condition!=null ? (" on "+condition) : "");
 	}
 
 }

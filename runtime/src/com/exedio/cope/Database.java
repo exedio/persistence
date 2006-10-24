@@ -464,7 +464,6 @@ abstract class Database
 			{
 				bf.append(' ').
 					append(join.kind.sql).
-					append(" join ").
 					appendTypeDefinition(join, join.type);
 				
 				final Condition joinCondition = join.condition;

@@ -524,7 +524,6 @@ public final class Query<R>
 			{
 				bf.append(' ').
 					append(join.kind.sql).
-					append(" join ").
 					append(join.type);
 
 				final Condition joinCondition = join.condition;
@@ -684,7 +683,6 @@ public final class Query<R>
 				{
 					bf.append(' ').
 						append(join.kind.sql).
-						append(" join ").
 						append(join.type);
 
 					final Condition joinCondition = join.condition;

@@ -181,7 +181,7 @@ public class FieldListTest extends AbstractLibTest
 					"belongs to type FieldListItem.dates, " +
 					"which is not a type of the query: " +
 					"FieldListItem, " +
-					"[inner join FieldListItem.strings on FieldListItem.strings.parent=FieldListItem.this]",
+					"[join FieldListItem.strings on FieldListItem.strings.parent=FieldListItem.this]",
 					e.getMessage());
 		}
 
