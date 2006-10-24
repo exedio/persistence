@@ -29,7 +29,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		super(isfinal, optional, unique, initialValueType==null?valueClass:initialValueType.getJavaClass(), null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		assert (valueClass==null) != (initialValueType==null);
-		this.initialValueType = valueType;
+		this.initialValueType = initialValueType;
 		this.policy = policy;
 		if(policy==null)
 			throw new RuntimeException("delete policy for field " + this + " must not be null");
