@@ -165,4 +165,52 @@ public class HardJoinTest extends AbstractLibTest
 		b.setB3(12);
 		assertEquals(list(a), q.search());
 	}
+	
+	public void test12x1()
+	{
+		if(hsqldb||mysql5||oracle||postgresql) // TODO
+			return;
+		
+		//System.out.println("------------------------test12x1---------------------");
+						
+		final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+		q.join(b.TYPE, a.a1.equal(b.b1).and(a.a2.equal(b.b1)));
+		assertEquals(list(), q.search());
+		a.setA1(20);
+		assertEquals(list(), q.search());
+		a.setA2(20);
+		assertEquals(list(a), q.search());
+	}
+	
+	public void test13x1()
+	{
+		if(hsqldb||mysql5||oracle||postgresql) // TODO
+			return;
+		
+		//System.out.println("------------------------test13x1---------------------");
+						
+		final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+		q.join(b.TYPE, a.a1.equal(b.b1).and(a.a3.equal(b.b1)));
+		assertEquals(list(), q.search());
+		a.setA1(20);
+		assertEquals(list(), q.search());
+		a.setA3(20);
+		assertEquals(list(a), q.search());
+	}
+	
+	public void test23x1()
+	{
+		if(hsqldb||mysql5||oracle||postgresql) // TODO
+			return;
+		
+		//System.out.println("------------------------test23x1---------------------");
+						
+		final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+		q.join(b.TYPE, a.a2.equal(b.b1).and(a.a3.equal(b.b1)));
+		assertEquals(list(), q.search());
+		a.setA2(20);
+		assertEquals(list(), q.search());
+		a.setA3(20);
+		assertEquals(list(a), q.search());
+	}
 }
