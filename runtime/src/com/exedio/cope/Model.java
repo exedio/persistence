@@ -76,46 +76,24 @@ public final class Model
 		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
 
 		for(final Type<?> type : explicitTypes)
+			addTypeIncludingGenerated(type, typesL, 10);
+		for(final Type<?> type : explicitTypesSorted)
+			addTypeIncludingGenerated(type, typesSorted, 10);
+		
+		for(final Type<?> type : typesL)
 		{
 			final Type collisionType = typesByID.put(type.id, type);
 			if(collisionType!=null)
 				throw new RuntimeException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
-			typesL.add(type);
 			if(!type.isAbstract)
 				concreteTypes.add(type);
-			for(final Feature f : type.getDeclaredFeatures())
-				if(f instanceof Pattern)
-					for(final Type<ItemWithoutJavaClass> gt : ((Pattern)f).generatedTypes)
-					{
-						if(typesByID.put(gt.id, gt)!=null)
-							throw new RuntimeException(gt.id);
-						typesL.add(gt);
-						if(!gt.isAbstract)
-							concreteTypes.add(gt);
-					}
 		}
 		
-		for(final Type<?> type : explicitTypesSorted)
-		{
+		for(final Type<?> type : typesSorted)
 			type.initialize(this, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
-			typesSorted.add(type);
-			for(final Feature f : type.getDeclaredFeatures())
-				if(f instanceof Pattern)
-					for(final Type gt : ((Pattern)f).generatedTypes)
-					{
-						gt.initialize(this, gt.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
-						typesSorted.add(gt);
-					}
-		}
 		
-		for(final Type<?> type : explicitTypesSorted)
-		{
+		for(final Type<?> type : typesSorted)
 			type.postInitialize();
-			for(final Feature f : type.getDeclaredFeatures())
-				if(f instanceof Pattern)
-					for(final Type gt : ((Pattern)f).generatedTypes)
-						gt.postInitialize();
-		}
 		
 		this.types = typesL.toArray(new Type[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
@@ -167,6 +145,19 @@ public final class Model
 		
 		//System.out.println("<--------------------"+result);
 		return result.toArray(new Type[]{});
+	}
+	
+	private static final void addTypeIncludingGenerated(final Type<?> type, final ArrayList<Type<?>> result, int hopCount)
+	{
+		hopCount--;
+		if(hopCount<0)
+			throw new RuntimeException();
+		
+		result.add(type);
+		for(final Feature f : type.getDeclaredFeatures())
+			if(f instanceof Pattern)
+				for(final Type<ItemWithoutJavaClass> generatedType : ((Pattern)f).generatedTypes)
+					addTypeIncludingGenerated(generatedType, result, hopCount);
 	}
 	
 	public Map<Feature, Feature> getHiddenFeatures()
