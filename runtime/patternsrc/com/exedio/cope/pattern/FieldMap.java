@@ -63,7 +63,7 @@ public final class FieldMap<K,V> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = new ItemField(Field.Option.FINAL, type, ItemField.DeletePolicy.CASCADE);
+		parent = new ItemField<Item>(Field.Option.FINAL, type, ItemField.DeletePolicy.CASCADE);
 		uniqueConstraint = new UniqueConstraint(parent, key);
 		final LinkedHashMap<String, Feature> relationTypeFeatures = new LinkedHashMap<String, Feature>();
 		relationTypeFeatures.put("parent", parent);

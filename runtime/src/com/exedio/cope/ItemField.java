@@ -95,9 +95,9 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		this(option.isFinal, option.optional, option.unique, valueClass, null, policy);
 	}
 
-	public ItemField(final Option option, final Type<E> valueType, final DeletePolicy policy)
+	public ItemField(final Option option, final Type<?>/*TODO*/ valueType, final DeletePolicy policy)
 	{
-		this(option.isFinal, option.optional, option.unique, null, valueType, policy);
+		this(option.isFinal, option.optional, option.unique, null, (Type<E>)valueType, policy);
 	}
 	
 	@Override
