@@ -81,6 +81,7 @@ public class FieldMapTest extends AbstractLibTest
 						item.name.getParent(), item.name.getKey(), item.name.getUniqueConstraint(),
 						item.name.getValue()),
 				item.name.getRelationType().getFeatures());
+		assertEquals(model, item.name.getRelationType().getModel());
 
 		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.name, item.nameLength, item.string, item.integer), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());

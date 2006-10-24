@@ -99,6 +99,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(false, item.strings.getRelationType().isAbstract());
 		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass());
 		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
+		assertEquals(model, item.strings.getRelationType().getModel());
 
 		assertEquals("FieldListItem.dates", item.dates.getRelationType().getID());
 		assertEquals(null, item.dates.getRelationType().getJavaClass());
@@ -107,6 +108,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(false, item.dates.getRelationType().isAbstract());
 		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass());
 		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
+		assertEquals(model, item.dates.getRelationType().getModel());
 
 		assertEquals("FieldListItem.items", item.items.getRelationType().getID());
 		assertEquals(null, item.items.getRelationType().getJavaClass());
@@ -115,6 +117,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(false, item.items.getRelationType().isAbstract());
 		assertEquals(Item.class, item.items.getRelationType().getThis().getValueClass());
 		assertEquals(item.items.getRelationType(), item.items.getRelationType().getThis().getValueType());
+		assertEquals(model, item.items.getRelationType().getModel());
 
 		assertEquals(item.strings.getRelationType(), item.strings.getParent().getType());
 		assertEquals(item.strings.getRelationType(), item.strings.getOrder().getType());
