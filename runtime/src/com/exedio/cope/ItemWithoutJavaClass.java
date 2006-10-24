@@ -21,13 +21,13 @@ package com.exedio.cope;
 
 final class ItemWithoutJavaClass extends Item
 {
-	protected ItemWithoutJavaClass(final SetValue[] setValues, final Type<? extends Item> type)
+	ItemWithoutJavaClass(final SetValue[] setValues, final Type<? extends Item> type)
 	{
 		super(setValues, type);
 		assert type!=null;
 	}
 
-	protected ItemWithoutJavaClass(final int pk, final Type<? extends Item> type)
+	ItemWithoutJavaClass(final int pk, final Type<? extends Item> type)
 	{
 		super(pk, type);
 	}
