@@ -22,29 +22,29 @@ import com.exedio.dsmf.ForeignKeyConstraint;
 
 final class ItemColumn extends IntegerColumn
 {
-	final Class<? extends Item> targetTypeClass;
+	final Type<?> targetType;
 	final String integrityConstraintName;
 
 	ItemColumn(final Table table, final String id,
 					  final boolean optional,
-					  final Class<? extends Item> targetTypeClass)
+					  final Type<?> targetType)
 	{
 		super(table, id, optional, Type.MIN_PK, Type.MAX_PK, false);
-		if(targetTypeClass==null)
+		if(targetType==null)
 			throw new RuntimeException();
-		this.targetTypeClass = targetTypeClass;
+		this.targetType = targetType;
 		this.integrityConstraintName = table.database.makeName( table.id + '_' + this.id/* not equal to "id"! */ + "_Fk" ).intern();
 	}
 
 	/**
 	 * Creates a primary key column with a foreign key contraint.
 	 */
-	ItemColumn(final Table table, final Class<? extends Item> targetTypeClass)
+	ItemColumn(final Table table, final Type<? extends Item> targetType)
 	{
 		super(table);
-		if(targetTypeClass==null)
+		if(targetType==null)
 			throw new RuntimeException();
-		this.targetTypeClass = targetTypeClass;
+		this.targetType = targetType;
 		this.integrityConstraintName = table.id+"_Sup";
 	}
 
@@ -52,7 +52,7 @@ final class ItemColumn extends IntegerColumn
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
 		super.makeSchema(dsmfTable);
-		final Table targetTable = Type.findByJavaClass(targetTypeClass).getTable();
+		final Table targetTable = targetType.getTable();
 		new ForeignKeyConstraint(dsmfTable, integrityConstraintName, id, targetTable.id, targetTable.primaryKey.id);
 	}
 		

@@ -38,7 +38,7 @@ final class Table
 		this.database = database;
 		this.id = database.makeName(id).intern();
 		this.protectedID = database.getDriver().protectName(this.id).intern();
-		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype.getJavaClass()) : new IntegerColumn(this);
+		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype) : new IntegerColumn(this);
 		this.typeColumn = (typesOfInstancesColumnValues!=null) ? new StringColumn(this, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues) : null;
 		database.addTable(this);
 	}
