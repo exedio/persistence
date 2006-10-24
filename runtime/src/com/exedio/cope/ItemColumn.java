@@ -25,13 +25,10 @@ final class ItemColumn extends IntegerColumn
 	final Type<?> targetType;
 	final String integrityConstraintName;
 
-	ItemColumn(final Table table, final String id,
-					  final boolean optional,
-					  final Type<?> targetType)
+	ItemColumn(final Table table, final String id, final boolean optional, final Type<?> targetType)
 	{
 		super(table, id, optional, Type.MIN_PK, Type.MAX_PK, false);
-		if(targetType==null)
-			throw new RuntimeException();
+		assert targetType!=null;
 		this.targetType = targetType;
 		this.integrityConstraintName = table.database.makeName( table.id + '_' + this.id/* not equal to "id"! */ + "_Fk" ).intern();
 	}
@@ -42,8 +39,7 @@ final class ItemColumn extends IntegerColumn
 	ItemColumn(final Table table, final Type<? extends Item> targetType)
 	{
 		super(table);
-		if(targetType==null)
-			throw new RuntimeException();
+		assert targetType!=null;
 		this.targetType = targetType;
 		this.integrityConstraintName = table.id+"_Sup";
 	}
