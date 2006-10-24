@@ -57,7 +57,7 @@ public class FieldListTest extends AbstractLibTest
 				item.items.getRelationType()
 			), model.getTypes());
 		assertEquals(FieldListItem.class, item.TYPE.getJavaClass());
-		assertEquals(false, item.TYPE.isGenerated());
+		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 
 		assertEquals(list(
 				item.TYPE.getThis(),
@@ -96,7 +96,7 @@ public class FieldListTest extends AbstractLibTest
 
 		assertEquals("FieldListItem.strings", item.strings.getRelationType().getID());
 		assertEquals(Item.class, item.strings.getRelationType().getJavaClass().getSuperclass());
-		assertEquals(true, item.strings.getRelationType().isGenerated());
+		assertEquals(false, item.strings.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
 		assertEquals(false, item.strings.getRelationType().isAbstract());
@@ -106,7 +106,7 @@ public class FieldListTest extends AbstractLibTest
 
 		assertEquals("FieldListItem.dates", item.dates.getRelationType().getID());
 		assertEquals(Item.class, item.dates.getRelationType().getJavaClass().getSuperclass());
-		assertEquals(true, item.dates.getRelationType().isGenerated());
+		assertEquals(false, item.dates.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
 		assertEquals(false, item.dates.getRelationType().isAbstract());
@@ -116,7 +116,7 @@ public class FieldListTest extends AbstractLibTest
 
 		assertEquals("FieldListItem.items", item.items.getRelationType().getID());
 		assertEquals(Item.class, item.items.getRelationType().getJavaClass().getSuperclass());
-		assertEquals(true, item.items.getRelationType().isGenerated());
+		assertEquals(false, item.items.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.items.getRelationType().getSupertype());
 		assertEquals(list(), item.items.getRelationType().getSubTypes());
 		assertEquals(false, item.items.getRelationType().isAbstract());

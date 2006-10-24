@@ -102,7 +102,7 @@ public class ModelTest extends TestmodelTest
 		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.optional);
 
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
-		assertEquals(false, item.TYPE.isGenerated());
+		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));
 		try
 		{

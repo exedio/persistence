@@ -85,6 +85,7 @@ public final class Type<C extends Item>
 	
 	/**
 	 * @throws RuntimeException if there is no type for the given java class.
+	 * @see #hasUniqueJavaClass()
 	 */
 	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
 	{
@@ -102,6 +103,7 @@ public final class Type<C extends Item>
 	
 	/**
 	 * @throws RuntimeException if there is no type for the given java class.
+	 * @see #hasUniqueJavaClass()
 	 */
 	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
 	{
@@ -488,9 +490,16 @@ public final class Type<C extends Item>
 		return javaClass;
 	}
 	
-	public boolean isGenerated()
+	/**
+	 * Returns, whether this type has a java class
+	 * uniquely for this type.
+	 * Only such types can be found by
+	 * {@link #findByJavaClass(Class)} and
+	 * {@link #findByJavaClassUnchecked(Class)}.
+	 */
+	public boolean hasUniqueJavaClass()
 	{
-		return withoutJavaClass;
+		return !withoutJavaClass;
 	}
 	
 	/**

@@ -51,7 +51,7 @@ public class FieldMapTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.name.getType());
 		assertEquals("name", item.name.getName());
 		assertEquals(FieldMapItem.class, item.TYPE.getJavaClass());
-		assertEquals(false, item.TYPE.isGenerated());
+		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 
 		assertEquals(item.TYPE, item.name.getParent().getValueType());
 		assertEquals("parent", item.name.getParent().getName());
@@ -76,7 +76,7 @@ public class FieldMapTest extends AbstractLibTest
 
 		assertEquals("FieldMapItem.name", item.name.getRelationType().getID());
 		assertEquals(Item.class, item.name.getRelationType().getJavaClass().getSuperclass());
-		assertEquals(true, item.name.getRelationType().isGenerated());
+		assertEquals(false, item.name.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.name.getRelationType().getSupertype());
 		assertEquals(list(), item.name.getRelationType().getSubTypes());
 		assertEqualsUnmodifiable(
