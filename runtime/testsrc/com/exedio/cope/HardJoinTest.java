@@ -40,6 +40,16 @@ public class HardJoinTest extends AbstractLibTest
 		mysql5 = mysql && ((String)model.getDatabaseInfo().get("database.version")).endsWith("(5.0)");
 	}
 	
+	private void reset()
+	{
+		a.setA1(10);
+		a.setA2(11);
+		a.setA3(12);
+		b.setB1(20);
+		b.setB2(21);
+		b.setB3(22);
+	}
+	
 	public void test11()
 	{
 		if(hsqldb||mysql5||oracle||postgresql) // TODO
@@ -168,9 +178,7 @@ public class HardJoinTest extends AbstractLibTest
 	
 	private void assert2x1(final IntegerField a1, final IntegerField a2, final IntegerField bx, final int bv)
 	{
-		a.setA1(10);
-		a.setA2(11);
-		a.setA3(12);
+		reset();
 		final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 		q.join(b.TYPE, a1.equal(bx).and(a2.equal(bx)));
 		assertEquals(list(), q.search());
