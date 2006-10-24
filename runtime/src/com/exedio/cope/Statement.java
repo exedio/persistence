@@ -407,15 +407,27 @@ final class Statement
 	
 	void appendTypeDefinition(final Join join, final Type type)
 	{
-		for(Type currentType = type.supertype; currentType!=null; currentType=currentType.supertype)
+		final Type supertype = type.supertype;
+		final Table table = type.getTable();
+			
+		if(supertype!=null)
+			append('(');
+
+		appendTableDefinition(join, table);
+
+		if(supertype!=null)
 		{
-			final Table table = currentType.getTable();
-			append(" inner join ");
-			appendTableDefinition(join, table);
-			append(" on ");
-			append(table.primaryKey, join);
-			append('=');
-			append(type.getTable().primaryKey, join);
+			for(Type iType = supertype; iType!=null; iType=iType.supertype)
+			{
+				final Table iTable = iType.getTable();
+				append(" inner join ");
+				appendTableDefinition(join, iTable);
+				append(" on ");
+				append(iTable.primaryKey, join);
+				append('=');
+				append(table.primaryKey, join);
+			}
+			append(')');
 		}
 	}
 	

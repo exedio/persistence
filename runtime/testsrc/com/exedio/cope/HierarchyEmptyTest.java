@@ -91,6 +91,9 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEquals(null, HierarchyEmptySub.TYPE.getFeature("zack"));
 		assertFalse(HierarchyEmptySub.TYPE.isAbstract());
 
+		if(noJoinParentheses) return;
+
+		// test persistence
 		final HierarchyEmptySub subItem = new HierarchyEmptySub(0);
 		deleteOnTearDown(subItem);
 		assertID(0, subItem);

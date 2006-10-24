@@ -77,6 +77,8 @@ public class TypeInConditionTest extends AbstractLibTest
 		
 		model.checkTypeColumns();
 		
+		if(noJoinParentheses) return;
+		
 		//System.out.println("------------------------"+model.getDatabaseInfo().get("database.version"));
 		// test self joins and inheritance
 		{
@@ -86,14 +88,13 @@ public class TypeInConditionTest extends AbstractLibTest
 			j.setCondition(itemc1.textc1.bind(j).equal(itemc1.textc1));
 			assertContains(itemc1, q.search());
 		}
-		if(!hsqldb&&!oracle&&!postgresql&&!((String)model.getDatabaseInfo().get("database.version")).endsWith("(5.0)")) // TODO dont know why
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itemc1.code.bind(j).equal(itemb2.code));
 			assertContains(q.search());
 		}
-		if(!hsqldb&&!oracle&&!postgresql) // TODO dont know why
+		if(!oracle&&!postgresql) // TODO support cross joins
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
@@ -105,7 +106,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			j.setCondition(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE));
 			assertContains(q.search());
 		}
-		if(!hsqldb&&!oracle&&!postgresql) // TODO dont know why
+		if(!oracle&&!postgresql) // TODO support cross joins
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
@@ -117,7 +118,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			j.setCondition(itema.TYPE.getThis().typeNotIn(itemc1.TYPE));
 			assertContains(q.search());
 		}
-		if(!hsqldb&&!oracle&&!postgresql) // TODO dont know why
+		if(!oracle&&!postgresql) // TODO support cross joins
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
 			q.join(itemb1.TYPE);

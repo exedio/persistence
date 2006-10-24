@@ -41,6 +41,8 @@ public class BadQueryTest extends AbstractLibTest
 	{
 		super.setUp();
 		
+		if(noJoinParentheses) return;
+		
 		deleteOnTearDown(leftX = new QueryItem("leftX"));
 		deleteOnTearDown(left1 = new QueryItem("left1"));
 		deleteOnTearDown(left2 = new QueryItem("left2"));
@@ -53,6 +55,8 @@ public class BadQueryTest extends AbstractLibTest
 	
 	public void testIt()
 	{
+		if(noJoinParentheses) return;
+		
 		{
 			// with specifying join
 			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);

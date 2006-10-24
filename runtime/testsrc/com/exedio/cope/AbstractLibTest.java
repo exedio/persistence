@@ -56,6 +56,7 @@ public abstract class AbstractLibTest extends CopeTest
 	protected boolean oracle;
 	protected boolean postgresql;
 	protected boolean cache;
+	protected boolean noJoinParentheses;
 	
 	private final ArrayList<File> files = new ArrayList<File>();
 	private TestByteArrayInputStream testStream;
@@ -70,6 +71,7 @@ public abstract class AbstractLibTest extends CopeTest
 		oracle = "com.exedio.cope.OracleDatabase".equals(database);
 		postgresql = "com.exedio.cope.PostgresqlDatabase".equals(database);
 		cache = model.getProperties().getCacheLimit()>0;
+		noJoinParentheses = hsqldb;
 		files.clear();
 	}
 	

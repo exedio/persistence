@@ -28,7 +28,6 @@ public class HardJoinTest extends AbstractLibTest
 	
 	private HardJoinA3Item a;
 	private HardJoinB3Item b;
-	boolean mysql5;
 
 	@Override
 	public void setUp() throws Exception
@@ -37,7 +36,6 @@ public class HardJoinTest extends AbstractLibTest
 		
 		deleteOnTearDown(a = new HardJoinA3Item("a", 10, 11, 12));
 		deleteOnTearDown(b = new HardJoinB3Item("b", 20, 21, 22));
-		mysql5 = mysql && ((String)model.getDatabaseInfo().get("database.version")).endsWith("(5.0)");
 	}
 	
 	private void reset()
@@ -62,11 +60,8 @@ public class HardJoinTest extends AbstractLibTest
 	
 	public void test11()
 	{
-		if(hsqldb||mysql5||oracle||postgresql) // TODO
-			return;
+		if(noJoinParentheses) return;
 		
-		//System.out.println("------------------------test11---------------------");
-
 		assert1x1(a.a1, b.b1, 10);
 		assert1x1(a.a1, b.b2, 10);
 		assert1x1(a.a1, b.b3, 10);
@@ -92,10 +87,7 @@ public class HardJoinTest extends AbstractLibTest
 	
 	public void test2x1()
 	{
-		if(hsqldb||mysql5||oracle||postgresql) // TODO
-			return;
-		
-		//System.out.println("------------------------test2x1---------------------");
+		if(noJoinParentheses) return;
 		
 		assert2x1(a.a1, a.a2, b.b1, 20);
 		assert2x1(a.a1, a.a3, b.b1, 20);
@@ -122,10 +114,7 @@ public class HardJoinTest extends AbstractLibTest
 	
 	public void test1x2()
 	{
-		if(hsqldb||mysql5||oracle||postgresql) // TODO
-			return;
-		
-		//System.out.println("------------------------test1x2---------------------");
+		if(noJoinParentheses) return;
 		
 		assert1x2(a.a1, b.b1, b.b2, 10);
 		assert1x2(a.a1, b.b1, b.b3, 10);
@@ -140,30 +129,26 @@ public class HardJoinTest extends AbstractLibTest
 	
 	public void testOuter()
 	{
+		if(noJoinParentheses) return;
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			q.joinOuterLeft(b.TYPE, a.a1.equal(b.b3));
-			assertEquals(list(/* TODO a*/), q.search());
+			assertEquals(list(a), q.search());
 		}
-		
-		if(hsqldb||mysql5||oracle||postgresql) // TODO
-			return;
-		
-		//System.out.println("------------------------testOuter---------------------");
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			q.joinOuterLeft(b.TYPE, a.a1.equal(b.b1));
-			assertEquals(list(/* TODO a*/), q.search());
+			assertEquals(list(a), q.search());
 		}
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			q.joinOuterLeft(b.TYPE, a.a2.equal(b.b2));
-			assertEquals(list(/* TODO a*/), q.search());
+			assertEquals(list(a), q.search());
 		}
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			q.joinOuterLeft(b.TYPE, a.a3.equal(b.b3));
-			assertEquals(list(/* TODO a*/), q.search());
+			assertEquals(list(a), q.search());
 		}
 	}
 }

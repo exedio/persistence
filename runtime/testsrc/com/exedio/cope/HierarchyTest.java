@@ -118,6 +118,8 @@ public class HierarchyTest extends AbstractLibTest
 
 		assertEquals(map(), model.getHiddenFeatures());
 
+		if(noJoinParentheses) return;
+		
 		// test persistence
 		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
 		deleteOnTearDown(firstItem);
@@ -264,6 +266,8 @@ public class HierarchyTest extends AbstractLibTest
 	
 	public void testPolymorphicQueryInvalidation() throws UniqueViolationException
 	{
+		if(noJoinParentheses) return;
+		
 		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 		deleteOnTearDown(item);
 		

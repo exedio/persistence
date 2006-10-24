@@ -456,7 +456,6 @@ abstract class Database
 		}
 
 		bf.append(" from ").
-			appendTableDefinition((Join)null, query.type.getTable()).
 			appendTypeDefinition((Join)null, query.type);
 
 		if(queryJoins!=null)
@@ -466,7 +465,7 @@ abstract class Database
 				bf.append(' ').
 					append(join.kind.sql).
 					append(" join ").
-					appendTableDefinition(join, join.type.getTable());
+					appendTypeDefinition(join, join.type);
 				
 				final Condition joinCondition = join.condition;
 				if(joinCondition!=null)
@@ -474,8 +473,6 @@ abstract class Database
 					bf.append(" on ");
 					joinCondition.append(bf);
 				}
-				
-				bf.appendTypeDefinition(join, join.type);
 			}
 		}
 
