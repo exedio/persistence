@@ -32,5 +32,5 @@ final class ItemWithoutJavaClass extends Item
 		super(pk, type);
 	}
 	
-	// TODO make an empty deserialization constructor
+	// TODO make serializable and add an empty deserialization constructor
 }
