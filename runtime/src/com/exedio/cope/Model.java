@@ -69,17 +69,11 @@ public final class Model
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
 		assert types.length==explicitTypesSorted.length;
 
-		int concreteTypeCount = 0;
-		int abstractTypeCount = -1;
 		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
-		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
-		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
-
 		for(final Type<?> type : explicitTypes)
 			addTypeIncludingGenerated(type, typesL, 10);
-		for(final Type<?> type : explicitTypesSorted)
-			addTypeIncludingGenerated(type, typesSorted, 10);
 		
+		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
 		for(final Type<?> type : typesL)
 		{
 			final Type collisionType = typesByID.put(type.id, type);
@@ -89,6 +83,12 @@ public final class Model
 				concreteTypes.add(type);
 		}
 		
+		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
+		for(final Type<?> type : explicitTypesSorted)
+			addTypeIncludingGenerated(type, typesSorted, 10);
+
+		int concreteTypeCount = 0;
+		int abstractTypeCount = -1;
 		for(final Type<?> type : typesSorted)
 			type.initialize(this, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++);
 		
