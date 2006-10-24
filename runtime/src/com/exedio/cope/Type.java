@@ -485,7 +485,12 @@ public final class Type<C extends Item>
 	
 	public Class<C> getJavaClass()
 	{
-		return withoutJavaClass ? null : javaClass;
+		return javaClass;
+	}
+	
+	public boolean isGenerated()
+	{
+		return withoutJavaClass;
 	}
 	
 	/**
@@ -992,8 +997,7 @@ public final class Type<C extends Item>
 		
 		public Class<E> getValueClass()
 		{
-			final Class <E> typeClass = type.getJavaClass();
-			return typeClass!=null ? typeClass : (Class<E>)Item.class;
+			return type.getJavaClass();
 		}
 		
 		public void append(final Statement bf, final Join join)

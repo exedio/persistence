@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.EnumField;
+import com.exedio.cope.Item;
 import com.exedio.cope.Main;
 import com.exedio.cope.ItemField.DeletePolicy;
 
@@ -49,6 +50,8 @@ public class FieldMapTest extends AbstractLibTest
 		// test model
 		assertEquals(item.TYPE, item.name.getType());
 		assertEquals("name", item.name.getName());
+		assertEquals(FieldMapItem.class, item.TYPE.getJavaClass());
+		assertEquals(false, item.TYPE.isGenerated());
 
 		assertEquals(item.TYPE, item.name.getParent().getValueType());
 		assertEquals("parent", item.name.getParent().getName());
@@ -72,7 +75,8 @@ public class FieldMapTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(), item.name.getValue().getPatterns());
 
 		assertEquals("FieldMapItem.name", item.name.getRelationType().getID());
-		assertEquals(null, item.name.getRelationType().getJavaClass());
+		assertEquals(Item.class, item.name.getRelationType().getJavaClass().getSuperclass());
+		assertEquals(true, item.name.getRelationType().isGenerated());
 		assertEquals(null, item.name.getRelationType().getSupertype());
 		assertEquals(list(), item.name.getRelationType().getSubTypes());
 		assertEqualsUnmodifiable(

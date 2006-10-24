@@ -26,7 +26,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 
 	private ItemField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final Type<E> initialValueType, final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, initialValueType==null?valueClass:(initialValueType.getJavaClass()==null?(Class)ItemWithoutJavaClass.class:initialValueType.getJavaClass()/*TODO*/), null/* defaultConstant makes no sense for ItemField */);
+		super(isfinal, optional, unique, initialValueType==null?valueClass:initialValueType.getJavaClass(), null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		assert (valueClass==null) != (initialValueType==null);
 		this.initialValueType = valueType;

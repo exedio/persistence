@@ -51,6 +51,8 @@ public class FieldSetTest extends AbstractLibTest
 				item.strings.getRelationType(),
 				item.dates.getRelationType()
 			), model.getTypes());
+		assertEquals(FieldSetItem.class, item.TYPE.getJavaClass());
+		assertEquals(false, item.TYPE.isGenerated());
 
 		assertEquals(list(
 				item.TYPE.getThis(),
@@ -76,20 +78,22 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("dates", item.dates.getName());
 
 		assertEquals("FieldSetItem.strings", item.strings.getRelationType().getID());
-		assertEquals(null, item.dates.getRelationType().getJavaClass());
+		assertEquals(Item.class, item.strings.getRelationType().getJavaClass().getSuperclass());
+		assertEquals(true, item.strings.getRelationType().isGenerated());
 		assertEquals(null, item.strings.getRelationType().getSupertype());
 		assertEquals(list(), item.strings.getRelationType().getSubTypes());
 		assertEquals(false, item.strings.getRelationType().isAbstract());
-		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass());
+		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass().getSuperclass());
 		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
 		assertEquals(model, item.strings.getRelationType().getModel());
 
 		assertEquals("FieldSetItem.dates", item.dates.getRelationType().getID());
-		assertEquals(null, item.dates.getRelationType().getJavaClass());
+		assertEquals(Item.class, item.dates.getRelationType().getJavaClass().getSuperclass());
+		assertEquals(true, item.dates.getRelationType().isGenerated());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
 		assertEquals(list(), item.dates.getRelationType().getSubTypes());
 		assertEquals(false, item.dates.getRelationType().isAbstract());
-		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass());
+		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass().getSuperclass());
 		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
 		assertEquals(model, item.dates.getRelationType().getModel());
 
