@@ -156,8 +156,7 @@ public abstract class Item extends Cope
 	{
 		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
 		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
-		if(pk==Type.NOT_A_PK)
-			throw new RuntimeException();
+		assert pk!=Type.NOT_A_PK;
 		//System.out.println("create item "+type+" "+pk);
 		
 		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
