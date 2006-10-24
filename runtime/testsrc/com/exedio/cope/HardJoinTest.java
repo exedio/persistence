@@ -137,4 +137,33 @@ public class HardJoinTest extends AbstractLibTest
 		assert1x2(a.a3, b.b1, b.b3, 12);
 		assert1x2(a.a3, b.b2, b.b3, 12);
 	}
+	
+	public void testOuter()
+	{
+		{
+			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+			q.joinOuterLeft(b.TYPE, a.a1.equal(b.b3));
+			assertEquals(list(/* TODO a*/), q.search());
+		}
+		
+		if(hsqldb||mysql5||oracle||postgresql) // TODO
+			return;
+		
+		//System.out.println("------------------------testOuter---------------------");
+		{
+			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+			q.joinOuterLeft(b.TYPE, a.a1.equal(b.b1));
+			assertEquals(list(/* TODO a*/), q.search());
+		}
+		{
+			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+			q.joinOuterLeft(b.TYPE, a.a2.equal(b.b2));
+			assertEquals(list(/* TODO a*/), q.search());
+		}
+		{
+			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+			q.joinOuterLeft(b.TYPE, a.a3.equal(b.b3));
+			assertEquals(list(/* TODO a*/), q.search());
+		}
+	}
 }
