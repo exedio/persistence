@@ -37,7 +37,7 @@ public final class Type<C extends Item>
 	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
 
 	private final Class<C> javaClass;
-	private final boolean withoutJavaClass;
+	private final boolean uniqueJavaClass;
 	final String id;
 	final boolean isAbstract;
 	final Type<? super C> supertype;
@@ -158,7 +158,7 @@ public final class Type<C extends Item>
 	Type(final Class<C> javaClass, final String id, final LinkedHashMap<String, Feature> featureMap)
 	{
 		this.javaClass = javaClass;
-		this.withoutJavaClass = (javaClass==ItemWithoutJavaClass.class);
+		this.uniqueJavaClass = (javaClass!=ItemWithoutJavaClass.class);
 		this.id = id;
 		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
@@ -167,7 +167,7 @@ public final class Type<C extends Item>
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
 		
-		if(!withoutJavaClass)
+		if(uniqueJavaClass)
 			typesByClass.put(javaClass, this);
 
 		// supertype
@@ -276,7 +276,7 @@ public final class Type<C extends Item>
 	
 	private Constructor<C> getConstructor(final Class[] params, final String name)
 	{
-		if(withoutJavaClass)
+		if(!uniqueJavaClass)
 			return null;
 		
 		try
@@ -499,7 +499,7 @@ public final class Type<C extends Item>
 	 */
 	public boolean hasUniqueJavaClass()
 	{
-		return !withoutJavaClass;
+		return uniqueJavaClass;
 	}
 	
 	/**
@@ -681,7 +681,7 @@ public final class Type<C extends Item>
 	public boolean isAssignableFrom(final Type type)
 	{
 		return 
-			(withoutJavaClass||type.withoutJavaClass)
+			(!(uniqueJavaClass&&type.uniqueJavaClass))
 			? (this==type)
 			: javaClass.isAssignableFrom(type.javaClass);
 	}
@@ -807,7 +807,7 @@ public final class Type<C extends Item>
 	public C newItem(final SetValue[] setValues)
 		throws ConstraintViolationException
 	{
-		if(withoutJavaClass)
+		if(!uniqueJavaClass)
 			return cast(new ItemWithoutJavaClass(setValues, this));
 
 		try
@@ -954,7 +954,7 @@ public final class Type<C extends Item>
 	
 	C createItemObject(final int pk)
 	{
-		if(withoutJavaClass)
+		if(!uniqueJavaClass)
 			return cast(new ItemWithoutJavaClass(pk, this));
 
 		try
