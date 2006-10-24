@@ -420,7 +420,7 @@ final class Statement
 			for(Type iType = supertype; iType!=null; iType=iType.supertype)
 			{
 				final Table iTable = iType.getTable();
-				append(" inner join ");
+				append(" join ");
 				appendTableDefinition(join, iTable);
 				append(" on ");
 				append(iTable.primaryKey, join);
