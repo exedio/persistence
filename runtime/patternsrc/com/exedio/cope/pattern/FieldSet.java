@@ -61,7 +61,7 @@ public final class FieldSet<E> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = Item.newItemField(Field.Option.FINAL, type.getJavaClass(), ItemField.DeletePolicy.CASCADE);
+		parent = new ItemField(Field.Option.FINAL, type, ItemField.DeletePolicy.CASCADE);
 		uniqueConstraint = new UniqueConstraint(parent, element);
 		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
 		features.put("parent", parent);

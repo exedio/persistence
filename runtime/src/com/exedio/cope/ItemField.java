@@ -21,12 +21,15 @@ package com.exedio.cope;
 
 public final class ItemField<E extends Item> extends FunctionField<E> implements ItemFunction<E>
 {
+	private final Type<E> initialValueType;
 	private final DeletePolicy policy;
 
-	private ItemField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final DeletePolicy policy)
+	private ItemField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final Type<E> initialValueType, final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, valueClass, null/* defaultConstant makes no sense for ItemField */);
+		super(isfinal, optional, unique, initialValueType==null?valueClass:(initialValueType.getJavaClass()==null?(Class)ItemWithoutJavaClass.class:initialValueType.getJavaClass()/*TODO*/), null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
+		assert (valueClass==null) != (initialValueType==null);
+		this.initialValueType = valueType;
 		this.policy = policy;
 		if(policy==null)
 			throw new RuntimeException("delete policy for field " + this + " must not be null");
@@ -89,13 +92,21 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	@Deprecated
 	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{
-		this(option.isFinal, option.optional, option.unique, valueClass, policy);
+		this(option.isFinal, option.optional, option.unique, valueClass, null, policy);
 	}
 
+	public ItemField(final Option option, final Type<E> valueType, final DeletePolicy policy)
+	{
+		this(option.isFinal, option.optional, option.unique, null, valueType, policy);
+	}
+	
 	@Override
 	public ItemField<E> copyFunctionField()
 	{
-		return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, policy);
+		if(initialValueType==null)
+			return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, null, policy);
+		else
+			return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, null, initialValueType, policy);
 	}
 	
 	private Type<E> valueType = null;
@@ -126,7 +137,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(valueType!=null)
 			throw new RuntimeException();
 		
-		valueType = Type.findByJavaClass(valueClass);
+		valueType = initialValueType!=null ? initialValueType : Type.findByJavaClass(valueClass);
 		valueType.registerReference(this);
 	}
 	
