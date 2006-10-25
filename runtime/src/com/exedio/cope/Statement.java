@@ -63,15 +63,15 @@ final class Statement
 		// TODO: implementation is far from optimal
 		// TODO: all tables for each type are joined, also tables with no columns used
 		
-		final ArrayList<JoinType> types = new ArrayList<JoinType>();
+		final ArrayList<JoinType> joinTypes = new ArrayList<JoinType>();
 		
-		types.add(new JoinType(null, query.type));
+		joinTypes.add(new JoinType(null, query.type));
 		for(final Join join : query.getJoins())
-			types.add(new JoinType(join, join.type));
+			joinTypes.add(new JoinType(join, join.type));
 
 		final HashMap<Table, Object> tableToJoinTables = new HashMap<Table, Object>();
 		this.joinTables = new HashMap<JoinTable, JoinTable>();
-		for(Iterator i = types.iterator(); i.hasNext(); )
+		for(Iterator i = joinTypes.iterator(); i.hasNext(); )
 		{
 			final JoinType joinType = (JoinType)i.next();
 			for(Type type = joinType.type; type!=null; type=type.supertype)
