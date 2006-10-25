@@ -462,11 +462,23 @@ abstract class Database
 		{
 			for(final Join join : queryJoins)
 			{
-				bf.append(' ').
-					append(join.kind.sql).
-					appendTypeDefinition(join, join.type);
-				
 				final Condition joinCondition = join.condition;
+				
+				if(joinCondition==null)
+				{
+					if(join.kind!=Join.Kind.INNER)
+						throw new RuntimeException("outer join must have join condition");
+					
+					bf.append(" cross join ");
+				}
+				else
+				{
+					bf.append(' ').
+						append(join.kind.sql);
+				}
+				
+				bf.appendTypeDefinition(join, join.type);
+				
 				if(joinCondition!=null)
 				{
 					bf.append(" on ");
