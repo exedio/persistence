@@ -1431,7 +1431,7 @@ abstract class Database
 	 * By overriding this method subclasses can enable the use of save points.
 	 * Some databases cannot recover from constraint violations in
 	 * the same transaction without a little help,
-	 * the need a save point set before the modification, that can be
+	 * they need a save point set before the modification, that can be
 	 * recovered manually.
 	 */
 	boolean needsSavepoint()
