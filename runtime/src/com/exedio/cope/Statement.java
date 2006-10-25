@@ -80,13 +80,12 @@ final class Statement
 				final Object previous = joinTypeTableByTable.get(table);
 				final JoinTable current = new JoinTable(joinType.join, table);
 				if(joinTables.put(current, current)!=null)
-					throw new RuntimeException();
+					assert false;
 				if(previous==null)
 					joinTypeTableByTable.put(table, current);
 				else if(previous instanceof JoinTable)
 				{
-					if(table!=((JoinTable)previous).table)
-						throw new RuntimeException();
+					assert table==((JoinTable)previous).table;
 
 					final ArrayList<JoinTable> list = new ArrayList<JoinTable>(2);
 					list.add((JoinTable)previous);
@@ -450,7 +449,7 @@ final class Statement
 		else
 		{
 			if(ambiguousTables!=null && ambiguousTables.contains(table))
-				throw new RuntimeException("feature " + exceptionColumn + " is ambiguous, use JoinedFunction");
+				throw new RuntimeException("feature " + exceptionColumn + " is ambiguous, use Function#bind");
 			return table.protectedID;
 		}
 	}
@@ -462,5 +461,4 @@ final class Statement
 		else
 			return tc;
 	}
-
 }

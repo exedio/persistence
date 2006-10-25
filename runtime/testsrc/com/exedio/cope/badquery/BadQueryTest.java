@@ -89,7 +89,7 @@ public class BadQueryTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("feature SuperContainer#class is ambiguous, use JoinedFunction", e.getMessage());
+				assertEquals("feature SuperContainer#class is ambiguous, use Function#bind", e.getMessage());
 			}
 		}
 	}
