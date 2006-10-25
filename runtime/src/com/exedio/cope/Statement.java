@@ -71,9 +71,8 @@ final class Statement
 
 		final HashMap<Table, Object> tableToJoinTables = new HashMap<Table, Object>();
 		this.joinTables = new HashMap<JoinTable, JoinTable>();
-		for(Iterator i = joinTypes.iterator(); i.hasNext(); )
+		for(final JoinType joinType : joinTypes)
 		{
-			final JoinType joinType = (JoinType)i.next();
 			for(Type type = joinType.type; type!=null; type=type.supertype)
 			{
 				final Table table = type.getTable();
