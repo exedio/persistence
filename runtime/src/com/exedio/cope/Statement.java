@@ -69,7 +69,7 @@ final class Statement
 		for(final Join join : query.getJoins())
 			types.add(new JoinType(join, join.type));
 
-		final HashMap<Table, Object> joinTypeTableByTable = new HashMap<Table, Object>();
+		final HashMap<Table, Object> tableToJoinTables = new HashMap<Table, Object>();
 		this.joinTables = new HashMap<JoinTable, JoinTable>();
 		for(Iterator i = types.iterator(); i.hasNext(); )
 		{
@@ -77,12 +77,12 @@ final class Statement
 			for(Type type = joinType.type; type!=null; type=type.supertype)
 			{
 				final Table table = type.getTable();
-				final Object previous = joinTypeTableByTable.get(table);
+				final Object previous = tableToJoinTables.get(table);
 				final JoinTable current = new JoinTable(joinType.join, table);
 				if(joinTables.put(current, current)!=null)
 					assert false;
 				if(previous==null)
-					joinTypeTableByTable.put(table, current);
+					tableToJoinTables.put(table, current);
 				else if(previous instanceof JoinTable)
 				{
 					assert table==((JoinTable)previous).table;
@@ -90,7 +90,7 @@ final class Statement
 					final ArrayList<JoinTable> list = new ArrayList<JoinTable>(2);
 					list.add((JoinTable)previous);
 					list.add(current);
-					joinTypeTableByTable.put(table, list);
+					tableToJoinTables.put(table, list);
 				}
 				else
 				{
@@ -101,7 +101,7 @@ final class Statement
 		
 		HashSet<Table> ambiguousTables = null;
 		
-		for(final Map.Entry<Table, Object> entry : joinTypeTableByTable.entrySet())
+		for(final Map.Entry<Table, Object> entry : tableToJoinTables.entrySet())
 		{
 			final Table table = entry.getKey();
 			final Object value = entry.getValue();
