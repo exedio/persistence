@@ -103,12 +103,6 @@ final class SequentialPkSource extends PkSource
 	}
 	
 	@Override
-	void appendDeterministicOrderByExpression(final Statement bf, final Type orderBy)
-	{
-		bf.appendPK(orderBy, (Join)null);
-	}
-
-	@Override
 	void appendOrderByExpression(final Statement bf, final Function orderBy)
 	{
 		bf.append(orderBy, (Join)null);

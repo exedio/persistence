@@ -34,13 +34,6 @@ abstract class PkSource
 	abstract long pk2id(int pk);
 	abstract int id2pk(long id, String idString) throws NoSuchIDException;
 
-	/**
-	 * There may be one PkSource for many tables (in a inheritance tree),
-	 * so we have to specify the orderByType here,
-	 * since orderByType.getTable() may not be equal to this.table.
-	 */
-	abstract void appendDeterministicOrderByExpression(Statement bf, Type orderBy);
-	
 	abstract void appendOrderByExpression(Statement bf, Function orderBy);
 
 	abstract int[] getPrimaryKeyInfo();
