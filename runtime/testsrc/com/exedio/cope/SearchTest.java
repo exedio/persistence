@@ -52,9 +52,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals(
-				"AttributeItem.someInteger does not belong to a type of the query: select EmptyItem.this from EmptyItem where AttributeItem.someInteger='0'",
-				e.getMessage());
+			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
 		}
 		try
 		{
