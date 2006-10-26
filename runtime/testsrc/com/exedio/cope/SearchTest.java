@@ -44,16 +44,26 @@ public class SearchTest extends TestmodelTest
 				Cope.and(x.someNotNullString.equal("b"),x.someString.equal("a")));
 
 		// test illegal searches
+		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(x.someInteger.equal(0));
 		try
 		{
-			EmptyItem.TYPE.search(AttributeItem.someInteger.equal(0));
-			fail("should have thrown RuntimeException");
+			illegalQuery.search();
+			fail();
 		}
 		catch(RuntimeException e)
 		{
 			assertEquals(
 				"AttributeItem.someInteger does not belong to a type of the query: select EmptyItem.this from EmptyItem where AttributeItem.someInteger='0'",
 				e.getMessage());
+		}
+		try
+		{
+			illegalQuery.countWithoutLimit();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
 		}
 		
 		try
