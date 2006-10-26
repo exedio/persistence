@@ -584,9 +584,10 @@ public final class Query<R>
 		if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
 		{
 			bf.append(" limit ").
-				append(limitStart).
-				append(' ').
-				append(limitCount);
+				append(limitStart);
+
+			if(limitCount!=UNLIMITED_COUNT)
+				bf.append(' ').append(limitCount);
 		}
 		
 		return bf.toString();
@@ -743,9 +744,10 @@ public final class Query<R>
 			if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
 			{
 				bf.append(" limit ").
-					append(limitStart).
-					append(' ').
-					append(limitCount);
+					append(limitStart);
+
+				if(limitCount!=UNLIMITED_COUNT)
+					bf.append(' ').append(limitCount);
 			}
 			
 			return bf.toString();
