@@ -1194,7 +1194,7 @@ abstract class Database
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
-		Savepoint sp = null;
+		Savepoint savepoint = null;
 		try
 		{
 			final String sqlText = statement.getText();
@@ -1202,7 +1202,7 @@ abstract class Database
 			final int rows;
 			
 			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint())
-				sp = connection.setSavepoint();
+				savepoint = connection.setSavepoint();
 			
 			if(!prepare)
 			{
@@ -1233,12 +1233,12 @@ abstract class Database
 			final UniqueViolationException wrappedException = wrapException(e, threatenedUniqueConstraints);
 			if(wrappedException!=null)
 			{
-				if(sp!=null)
+				if(savepoint!=null)
 				{
 					try
 					{
-						connection.rollback(sp);
-						sp = null;
+						connection.rollback(savepoint);
+						savepoint = null;
 					}
 					catch(SQLException ex)
 					{
