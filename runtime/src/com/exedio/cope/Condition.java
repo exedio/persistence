@@ -57,31 +57,6 @@ public abstract class Condition
 				+ queryJoins);
 	}
 
-	final void check(final Type type, final Query query)
-	{
-		final Type queryType = query.getType();
-		if(type==queryType)
-			return;
-
-		final List queryJoins = query.getJoins();
-		if(queryJoins!=null)
-		{
-			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
-			{
-				final Join join = (Join)i.next();
-				if(type==join.getType())
-					return;
-			}
-		}
-
-		throw new RuntimeException(
-				type.toString()
-				+ " is not a type of the query: "
-				+ queryType
-				+ ", "
-				+ queryJoins);
-	}
-
 	public final NotCondition not()
 	{
 		return new NotCondition(this);
