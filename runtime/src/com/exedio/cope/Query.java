@@ -398,9 +398,9 @@ public final class Query<R>
 				check(ob);
 	}
 	
-	void check(final Selectable function)
+	void check(final Selectable select)
 	{
-		final Type functionType = function.getType();
+		final Type functionType = select.getType();
 
 		if(functionType.isAssignableFrom(type))
 			return;
@@ -418,7 +418,7 @@ public final class Query<R>
 
 		throw new RuntimeException(
 			"function "
-				+ function
+				+ select
 				+ " does not belong to a type of the query: "
 				+ toString());
 	}
