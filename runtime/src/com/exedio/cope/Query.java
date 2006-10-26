@@ -377,7 +377,9 @@ public final class Query<R>
 
 	private void check()
 	{
-		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
+		for(final Selectable select : selects)
+			check(select);
+		
 		if(condition!=null)
 			condition.check(this);
 
@@ -390,9 +392,13 @@ public final class Query<R>
 					c.check(this);
 			}
 		}
+		
+		if(orderBy!=null)
+			for(Function ob : orderBy)
+				check(ob);
 	}
 	
-	void check(final Function function)
+	void check(final Selectable function)
 	{
 		final Type functionType = function.getType();
 
