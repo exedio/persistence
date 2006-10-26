@@ -18,40 +18,12 @@
 
 package com.exedio.cope;
 
-import java.util.Iterator;
-import java.util.List;
 
 public abstract class Condition
 {
 	abstract void append(Statement statment);
 	
 	abstract void check(Query query);
-
-	final void check(final Function function, final Query query)
-	{
-		final Type functionType = function.getType();
-
-		final Type queryType = query.getType();
-		if(functionType.isAssignableFrom(queryType))
-			return;
-
-		final List queryJoins = query.getJoins();
-		if(queryJoins!=null)
-		{
-			for(Iterator i = queryJoins.iterator(); i.hasNext(); )
-			{
-				final Join join = (Join)i.next();
-				if(functionType.isAssignableFrom(join.getType()))
-					return;
-			}
-		}
-
-		throw new RuntimeException(
-			"function "
-				+ function
-				+ " does not belong to a type of the query: "
-				+ query.toString());
-	}
 
 	public final NotCondition not()
 	{

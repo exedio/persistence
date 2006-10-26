@@ -392,6 +392,31 @@ public final class Query<R>
 		}
 	}
 	
+	void check(final Function function)
+	{
+		final Type functionType = function.getType();
+
+		if(functionType.isAssignableFrom(type))
+			return;
+
+		final List joins = this.joins;
+		if(joins!=null)
+		{
+			for(Iterator i = joins.iterator(); i.hasNext(); )
+			{
+				final Join join = (Join)i.next();
+				if(functionType.isAssignableFrom(join.getType()))
+					return;
+			}
+		}
+
+		throw new RuntimeException(
+			"function "
+				+ function
+				+ " does not belong to a type of the query: "
+				+ toString());
+	}
+
 	/**
 	 * Searches for items matching this query.
 	 * <p>

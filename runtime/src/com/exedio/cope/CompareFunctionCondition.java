@@ -60,8 +60,8 @@ public final class CompareFunctionCondition<E> extends Condition
 	@Override
 	void check(final Query query)
 	{
-		check(left, query);
-		check(right, query);
+		query.check(left);
+		query.check(right);
 	}
 
 	@Override

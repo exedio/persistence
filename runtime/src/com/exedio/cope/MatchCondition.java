@@ -59,7 +59,7 @@ public final class MatchCondition extends Condition
 	@Override
 	void check(final Query query)
 	{
-		check(function, query);
+		query.check(function);
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	void check(final Query query)
 	{
-		check(function, query);
+		query.check(function);
 	}
 
 	@Override

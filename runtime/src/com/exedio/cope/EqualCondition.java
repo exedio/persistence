@@ -79,7 +79,7 @@ public final class EqualCondition<E> extends Condition // TODO remove, integrate
 	@Override
 	void check(final Query query)
 	{
-		check(function, query);
+		query.check(function);
 	}
 
 	@Override
