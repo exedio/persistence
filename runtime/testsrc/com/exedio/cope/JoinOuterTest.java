@@ -73,22 +73,7 @@ public class JoinOuterTest extends TestmodelTest
 			assertEqualsUnmodifiable(list(), query.getJoins());
 			final Join join = query.joinOuterRight(PointerTargetItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
 			assertEqualsUnmodifiable(list(join), query.getJoins());
-			if(hsqldb)
-			{
-				try
-				{
-					query.search();
-					fail("should have thrown RuntimeException");
-				}
-				catch(RuntimeException e)
-				{
-					assertEquals("right outer joins not supported, see Model#supportsRightOuterJoins", e.getMessage());
-				}
-			}
-			else
-			{
-				assertContains(leftJoined, null, query.search());
-			}
+			assertContains(leftJoined, null, query.search());
 		}
 	}
 

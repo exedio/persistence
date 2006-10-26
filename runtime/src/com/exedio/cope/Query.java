@@ -380,16 +380,6 @@ public final class Query<R>
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		if(condition!=null)
 			condition.check(this);
-
-		if(joins!=null && !model.supportsRightOuterJoins())
-		{
-			for(Iterator i = joins.iterator(); i.hasNext(); )
-			{
-				final Join join = (Join)i.next();
-				if(join.getKind()==Join.Kind.OUTER_RIGHT)
-					throw new RuntimeException("right outer joins not supported, see Model#supportsRightOuterJoins");
-			}
-		}
 	}
 	
 	/**

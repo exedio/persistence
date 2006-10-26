@@ -355,11 +355,6 @@ public final class Model
 		return !getProperties().getDatabaseDontSupportEmptyStrings() && getDatabase().supportsEmptyStrings();
 	}
 
-	public boolean supportsRightOuterJoins()
-	{
-		return getDatabase().supportsRightOuterJoins();
-	}
-
 	/**
 	 * @return the listener previously registered for this model
 	 */

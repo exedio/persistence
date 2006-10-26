@@ -1424,11 +1424,6 @@ abstract class Database
 		return true;
 	}
 
-	public boolean supportsRightOuterJoins()
-	{
-		return true;
-	}
-	
 	public boolean fakesSupportReadCommitted()
 	{
 		return false;

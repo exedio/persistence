@@ -170,8 +170,6 @@ if(narrow)
 supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
 <br>
 supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
-<br>
-supports right outer joins: <i><%if(model.supportsRightOuterJoins()){%>yes<%}else{%>no<%}%></i>
 <ul class="<%=schemaColor%>"><%
 
 int tableCount = 1;

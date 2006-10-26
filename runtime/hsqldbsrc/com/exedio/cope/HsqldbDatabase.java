@@ -117,12 +117,6 @@ final class HsqldbDatabase extends Database
 	}
 	
 	@Override
-	public boolean supportsRightOuterJoins()
-	{
-		return false;
-	}
-
-	@Override
 	public boolean fakesSupportReadCommitted()
 	{
 		return true;
