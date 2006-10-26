@@ -181,12 +181,12 @@ abstract class Database
 	
 	protected final Statement createStatement(final boolean qualifyTable)
 	{
-		return new Statement(this, qualifyTable, isDefiningColumnTypes());
+		return new Statement(this, qualifyTable);
 	}
 	
 	protected final Statement createStatement(final Query<? extends Object> query)
 	{
-		return new Statement(this, query, isDefiningColumnTypes());
+		return new Statement(this, query);
 	}
 	
 	public void createDatabase()

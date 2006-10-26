@@ -39,7 +39,7 @@ final class Statement
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
 	
-	Statement(final Database database, final boolean qualifyTable, final boolean defineColumnTypes)
+	Statement(final Database database, final boolean qualifyTable)
 	{
 		if(database==null)
 			throw new NullPointerException();
@@ -49,10 +49,10 @@ final class Statement
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
-		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
+		this.columnTypes = database.isDefiningColumnTypes() ? new IntArrayList() : null;
 	}
 
-	Statement(final Database database, final Query<? extends Object> query, final boolean defineColumnTypes)
+	Statement(final Database database, final Query<? extends Object> query)
 	{
 		if(database==null)
 			throw new NullPointerException();
@@ -121,7 +121,7 @@ final class Statement
 		//System.out.println("-------"+joinTables.keySet().toString());
 		
 		this.qualifyTable = joinTables.size()>1;
-		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
+		this.columnTypes = database.isDefiningColumnTypes() ? new IntArrayList() : null;
 		this.ambiguousTables = ambiguousTables;
 	}
 	
