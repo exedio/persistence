@@ -49,12 +49,8 @@ public abstract class Condition
 		throw new RuntimeException(
 			"function "
 				+ function
-				+ " belongs to type "
-				+ functionType
-				+ ", which is not a type of the query: "
-				+ queryType
-				+ ", "
-				+ queryJoins);
+				+ " does not belong to a type of the query: "
+				+ query.toString());
 	}
 
 	public final NotCondition not()

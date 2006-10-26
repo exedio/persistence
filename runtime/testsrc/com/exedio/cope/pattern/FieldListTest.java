@@ -178,10 +178,8 @@ public class FieldListTest extends AbstractLibTest
 		{
 			assertEquals(
 					"function FieldListItem.dates.element " +
-					"belongs to type FieldListItem.dates, " +
-					"which is not a type of the query: " +
-					"FieldListItem, " +
-					"[join FieldListItem.strings on FieldListItem.strings.parent=FieldListItem.this]",
+					"does not belong to a type of the query: " +
+					q.toString(),
 					e.getMessage());
 		}
 
