@@ -415,11 +415,7 @@ public final class Query<R>
 			}
 		}
 
-		throw new RuntimeException(
-			"function "
-				+ select
-				+ " does not belong to a type of the query: "
-				+ toString());
+		throw new RuntimeException(select.toString() + " does not belong to a type of the query: " + toString());
 	}
 
 	/**

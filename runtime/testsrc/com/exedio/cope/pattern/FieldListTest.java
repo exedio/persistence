@@ -177,7 +177,7 @@ public class FieldListTest extends AbstractLibTest
 		catch(RuntimeException e)
 		{
 			assertEquals(
-					"function FieldListItem.dates.element " +
+					"FieldListItem.dates.element " +
 					"does not belong to a type of the query: " +
 					q.toString(),
 					e.getMessage());
