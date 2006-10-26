@@ -178,6 +178,25 @@ public class CompareConditionTest extends AbstractLibTest
 		assertEquals(YEnum.V1, new Query<YEnum>(item1.enumx.min()).searchSingleton());
 		if(seq)
 		{
+			// The following line causes MySQL 4 to write a warning to the syslog,
+			// that looks like this:
+			//
+			// -------------------------------------------------------------------
+			// InnoDB: Warning: using a partial-field key prefix in search.
+			// InnoDB: index `CompareConditItem_item_Fk` of table `xyz/CompareConditionItem`. Last data field length 5 bytes,
+			// InnoDB: key ptr now exceeds key end by 4 bytes.
+			// InnoDB: Key value in the MySQL format:
+			//  len 1; hex 01; asc  ;
+			// -------------------------------------------------------------------
+			//
+			// This is very probably caused by a bug in MySQL 4, which has been
+			// fixed in MySQL 5:
+			//
+			// http://bugs.mysql.com/bug.php?id=11039
+			//
+			// This bug occurs for columns with an index only (that is created by
+			// the foreign key constraint here) and only when using the min()
+			// aggregate.
 			assertEquals(item1, new Query<CompareConditionItem>(item1.item.min()).searchSingleton());
 			assertEquals(item1, new Query<CompareConditionItem>(item1.TYPE.getThis().min()).searchSingleton());
 		}
