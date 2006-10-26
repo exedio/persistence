@@ -125,7 +125,7 @@ final class Statement
 		this.ambiguousTables = ambiguousTables;
 	}
 	
-	@SuppressWarnings("unchecked") // OK: joinTypeTableByTable contains both JoinTable and List<JoinTable>
+	@SuppressWarnings("unchecked") // OK: tableToJoinTables contains both JoinTable and List<JoinTable>
 	private static final ArrayList<JoinTable> castJoinTable(final Object o)
 	{
 		return (ArrayList<JoinTable>)o;
