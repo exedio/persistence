@@ -405,12 +405,11 @@ public final class Query<R>
 		if(selectType.isAssignableFrom(type))
 			return;
 
-		final List joins = this.joins;
+		final List<Join> joins = this.joins;
 		if(joins!=null)
 		{
-			for(Iterator i = joins.iterator(); i.hasNext(); )
+			for(final Join join : joins)
 			{
-				final Join join = (Join)i.next();
 				if(selectType.isAssignableFrom(join.getType()))
 					return;
 			}
