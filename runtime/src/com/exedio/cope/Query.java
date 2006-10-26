@@ -400,9 +400,9 @@ public final class Query<R>
 	
 	void check(final Selectable select)
 	{
-		final Type functionType = select.getType();
+		final Type selectType = select.getType();
 
-		if(functionType.isAssignableFrom(type))
+		if(selectType.isAssignableFrom(type))
 			return;
 
 		final List joins = this.joins;
@@ -411,7 +411,7 @@ public final class Query<R>
 			for(Iterator i = joins.iterator(); i.hasNext(); )
 			{
 				final Join join = (Join)i.next();
-				if(functionType.isAssignableFrom(join.getType()))
+				if(selectType.isAssignableFrom(join.getType()))
 					return;
 			}
 		}
