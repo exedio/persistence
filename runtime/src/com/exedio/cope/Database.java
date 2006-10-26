@@ -57,7 +57,7 @@ abstract class Database
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private boolean buildStage = true;
 	final Driver driver;
-	private final boolean prepare;
+	final boolean prepare;
 	private final boolean log;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
@@ -181,12 +181,12 @@ abstract class Database
 	
 	protected final Statement createStatement(final boolean qualifyTable)
 	{
-		return new Statement(this, prepare, qualifyTable, isDefiningColumnTypes());
+		return new Statement(this, qualifyTable, isDefiningColumnTypes());
 	}
 	
 	protected final Statement createStatement(final Query<? extends Object> query)
 	{
-		return new Statement(this, prepare, query, isDefiningColumnTypes());
+		return new Statement(this, query, isDefiningColumnTypes());
 	}
 	
 	public void createDatabase()

@@ -39,26 +39,26 @@ final class Statement
 	private final boolean qualifyTable;
 	final IntArrayList columnTypes;
 	
-	Statement(final Database database, final boolean prepare, final boolean qualifyTable, final boolean defineColumnTypes)
+	Statement(final Database database, final boolean qualifyTable, final boolean defineColumnTypes)
 	{
 		if(database==null)
 			throw new NullPointerException();
 
 		this.database = database;
-		this.parameters = prepare ? new ArrayList<Object>() : null;
+		this.parameters = database.prepare ? new ArrayList<Object>() : null;
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
 		this.columnTypes = defineColumnTypes ? new IntArrayList() : null;
 	}
 
-	Statement(final Database database, final boolean prepare, final Query<? extends Object> query, final boolean defineColumnTypes)
+	Statement(final Database database, final Query<? extends Object> query, final boolean defineColumnTypes)
 	{
 		if(database==null)
 			throw new NullPointerException();
 
 		this.database = database;
-		this.parameters = prepare ? new ArrayList<Object>() : null;
+		this.parameters = database.prepare ? new ArrayList<Object>() : null;
 		
 		// TODO: implementation is far from optimal
 		// TODO: all tables for each type are joined, also tables with no columns used
