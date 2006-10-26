@@ -220,7 +220,7 @@ public final class MysqlDatabase extends Database
 				appendParameters(statement);
 
 			executeSQLQuery(connection, bf, new ResultSetHandler(){
-				public void run(final ResultSet resultSet) throws SQLException
+				public void handle(final ResultSet resultSet) throws SQLException
 				{
 					final ResultSetMetaData metaData = resultSet.getMetaData();
 					final int columnCount = metaData.getColumnCount();

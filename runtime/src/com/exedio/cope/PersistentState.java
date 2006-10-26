@@ -93,7 +93,7 @@ final class PersistentState extends State implements Database.ResultSetHandler
 	}
 	
 	// implementation of ResultSetHandler
-	public void run(final ResultSet resultSet) throws SQLException
+	public void handle(final ResultSet resultSet) throws SQLException
 	{
 		if(!resultSet.next())
 			throw new NoSuchItemException(item);

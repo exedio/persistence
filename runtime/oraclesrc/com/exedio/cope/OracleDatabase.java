@@ -345,7 +345,7 @@ final class OracleDatabase extends Database
 	{
 		StatementInfo root;
 
-		public void run(final ResultSet resultSet) throws SQLException
+		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
 

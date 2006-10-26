@@ -272,7 +272,7 @@ abstract class Database
 			executeSQLQuery(connection, bf,
 				new ResultSetHandler()
 				{
-					public void run(final ResultSet resultSet) throws SQLException
+					public void handle(final ResultSet resultSet) throws SQLException
 					{
 						if(!resultSet.next())
 							throw new SQLException(NO_SUCH_ROW);
@@ -549,7 +549,7 @@ abstract class Database
 
 		query.addStatementInfo(executeSQLQuery(connection, bf, new ResultSetHandler()
 			{
-				public void run(final ResultSet resultSet) throws SQLException
+				public void handle(final ResultSet resultSet) throws SQLException
 				{
 					if(doCountOnly)
 					{
@@ -890,7 +890,7 @@ abstract class Database
 		
 		byte[] result;
 
-		public void run(final ResultSet resultSet) throws SQLException
+		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
@@ -925,7 +925,7 @@ abstract class Database
 		
 		executeSQLQuery(connection, bf, new ResultSetHandler(){
 			
-			public void run(final ResultSet resultSet) throws SQLException
+			public void handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -1015,7 +1015,7 @@ abstract class Database
 	{
 		long result;
 
-		public void run(final ResultSet resultSet) throws SQLException
+		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
@@ -1070,7 +1070,7 @@ abstract class Database
 	
 	static interface ResultSetHandler
 	{
-		public void run(ResultSet resultSet) throws SQLException;
+		public void handle(ResultSet resultSet) throws SQLException;
 	}
 
 	private final static int convertSQLResult(final Object sqlInteger)
@@ -1110,7 +1110,7 @@ abstract class Database
 				logPrepared = log ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
 				logExecuted = log ? System.currentTimeMillis() : 0;
-				resultSetHandler.run(resultSet);
+				resultSetHandler.handle(resultSet);
 			}
 			else
 			{
@@ -1125,7 +1125,7 @@ abstract class Database
 				logPrepared = log ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
 				logExecuted = log ? System.currentTimeMillis() : 0;
-				resultSetHandler.run(resultSet);
+				resultSetHandler.handle(resultSet);
 			}
 			final long logResultRead = log ? System.currentTimeMillis() : 0;
 			
@@ -1526,7 +1526,7 @@ abstract class Database
 	{
 		int result;
 
-		public void run(final ResultSet resultSet) throws SQLException
+		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
@@ -1563,7 +1563,7 @@ abstract class Database
 	{
 		int[] result;
 
-		public void run(final ResultSet resultSet) throws SQLException
+		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
@@ -1641,7 +1641,7 @@ abstract class Database
 	{
 		int result = Integer.MIN_VALUE;
 
-		public void run(final ResultSet resultSet) throws SQLException
+		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
@@ -1703,7 +1703,7 @@ abstract class Database
 	@Deprecated
 	static final ResultSetHandler logHandler = new ResultSetHandler()
 	{
-		public void run(final ResultSet resultSet) throws SQLException
+		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			final int columnCount = resultSet.getMetaData().getColumnCount();
 			System.out.println("columnCount:"+columnCount);
