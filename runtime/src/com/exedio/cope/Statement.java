@@ -60,6 +60,8 @@ final class Statement
 		this.database = database;
 		this.parameters = database.prepare ? new ArrayList<Object>() : null;
 		
+		query.check();
+		
 		// TODO: implementation is far from optimal
 		// TODO: all tables for each type are joined, also tables with no columns used
 		

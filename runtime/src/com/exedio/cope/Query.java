@@ -335,8 +335,6 @@ public final class Query<R>
 	 */
 	public List<R> search()
 	{
-		check();
-		
 		if(limitCount==0)
 		{
 			if(makeStatementInfo)
@@ -344,9 +342,7 @@ public final class Query<R>
 			return Collections.<R>emptyList();
 		}
 		
-		return model.getCurrentTransaction().search(
-			this
-		);
+		return model.getCurrentTransaction().search(this);
 	}
 	
 	List<R> searchUncached()
@@ -370,12 +366,11 @@ public final class Query<R>
 	 */
 	public int countWithoutLimit()
 	{
-		check();
 		final Collection result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
 		return ((Integer)result.iterator().next()).intValue();
 	}
 
-	private void check()
+	void check()
 	{
 		for(final Selectable select : selects)
 			check(select);
