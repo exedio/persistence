@@ -380,6 +380,16 @@ public final class Query<R>
 		//System.out.println("select " + type.getJavaClass().getName() + " where " + condition);
 		if(condition!=null)
 			condition.check(this);
+
+		if(joins!=null)
+		{
+			for(final Join j : joins)
+			{
+				final Condition c = j.condition;
+				if(c!=null)
+					c.check(this);
+			}
+		}
 	}
 	
 	/**
