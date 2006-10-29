@@ -91,7 +91,6 @@ public class MediaTest extends AbstractLibTest
 				item.photo.getBody(),
 				item.photo.getLastModified(),
 				item.foto,
-				item.photo80,
 				item.nameServer,
 			}), item.TYPE.getFeatures());
 
@@ -357,19 +356,6 @@ public class MediaTest extends AbstractLibTest
 		assertSame(item.photo, item.foto.getTarget());
 		
 		
-		// photo80
-		assertEquals(item.TYPE, item.photo80.getType());
-		assertEquals("photo80", item.photo80.getName());
-		assertSame(item.photo, item.photo80.getMedia());
-		assertEquals(80, item.photo80.getBoundX());
-		assertEquals(60, item.photo80.getBoundY());
-		assertBB(160, 120, 80, 60);
-		assertBB(160, 100, 80, 50);
-		assertBB(140, 120, 70, 60);
-		assertBBNone(80, 60);
-		assertBBNone(10, 10);
-		
-		
 		// nameServer
 		assertEquals(item.TYPE, item.nameServer.getType());
 		assertEquals("nameServer", item.nameServer.getName());
@@ -474,18 +460,5 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(expectedData.length, item.getPhotoLength());
 		assertEquals("image/jpeg", item.getPhotoContentType());
 		assertTrue(item.getPhotoURL().endsWith(item.getCopeID() + ".jpg"));
-	}
-
-	private void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
-	{
-		final int[] bb = item.photo80.boundingBox(srcX, srcY);
-		assertEquals("width", tgtX, bb[0]);
-		assertEquals("height", tgtY, bb[1]);
-	}
-
-	private void assertBBNone(final int srcX, final int srcY)
-	{
-		final int[] bb = item.photo80.boundingBox(srcX, srcY);
-		assertNull(bb);
 	}
 }

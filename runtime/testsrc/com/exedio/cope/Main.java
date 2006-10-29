@@ -20,16 +20,16 @@ package com.exedio.cope;
 
 import java.io.File;
 
-import com.exedio.cope.pattern.FieldListItem;
-import com.exedio.cope.pattern.FieldListLimitedItem;
-import com.exedio.cope.pattern.FieldMapItem;
-import com.exedio.cope.pattern.FieldMapLimitedItem;
-import com.exedio.cope.pattern.FieldSetItem;
 import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.DAttribute;
 import com.exedio.cope.pattern.DEnumValue;
 import com.exedio.cope.pattern.DType;
 import com.exedio.cope.pattern.DTypeItem;
+import com.exedio.cope.pattern.FieldListItem;
+import com.exedio.cope.pattern.FieldListLimitedItem;
+import com.exedio.cope.pattern.FieldMapItem;
+import com.exedio.cope.pattern.FieldMapLimitedItem;
+import com.exedio.cope.pattern.FieldSetItem;
 import com.exedio.cope.pattern.HashItem;
 import com.exedio.cope.pattern.JavaViewItem;
 import com.exedio.cope.pattern.MD5Item;
@@ -39,6 +39,7 @@ import com.exedio.cope.pattern.RelationSelfItem;
 import com.exedio.cope.pattern.RelationSourceItem;
 import com.exedio.cope.pattern.RelationTargetItem;
 import com.exedio.cope.pattern.SerializerItem;
+import com.exedio.cope.pattern.ThumbnailItem;
 import com.exedio.cope.pattern.VectorRelationItem;
 
 
@@ -52,6 +53,7 @@ public class Main
 	public static final Model dayModel = new Model(DayItem.TYPE);
 	public static final Model dataModel = new Model(DataItem.TYPE, DataSubItem.TYPE);
 	public static final Model mediaModel = new Model(MediaItem.TYPE);
+	public static final Model thumbnailModel = new Model(ThumbnailItem.TYPE);
 	public static final Model hashModel = new Model(HashItem.TYPE);
 	public static final Model md5Model = new Model(MD5Item.TYPE);
 	public static final Model fieldListLimitedModel = new Model(FieldListLimitedItem.TYPE);
@@ -125,6 +127,8 @@ public class Main
 		tearDown(enumModel);
 		tearDown(dayModel);
 		tearDown(dataModel);
+		tearDown(mediaModel);
+		tearDown(thumbnailModel);
 		tearDown(hashModel);
 		tearDown(md5Model);
 		tearDown(fieldListLimitedModel);
