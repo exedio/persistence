@@ -36,12 +36,15 @@ final class MediaCop extends ConsoleCop
 
 	private static final String MEDIA = "m";
 	private static final String INLINE = "il";
+	private static final String INLINE_MEDIA = "m";
+	private static final String INLINE_THUMBNAIL = "t";
 	
 	final Media media;
 	final MediaThumbnail thumbnail;
-	final boolean inline;
+	final boolean inlineMedia;
+	final boolean inlineThumbnail;
 
-	MediaCop(final MediaPath mediaOrThumbnail, final boolean inline)
+	MediaCop(final MediaPath mediaOrThumbnail, final boolean inlineMedia, final boolean inlineThumbnail)
 	{
 		super("media - " + mediaOrThumbnail.getID());
 		
@@ -58,27 +61,54 @@ final class MediaCop extends ConsoleCop
 		else
 			throw new RuntimeException(mediaOrThumbnail.toString());
 
-		this.inline = inline;
+		this.inlineMedia = inlineMedia;
+		this.inlineThumbnail = inlineThumbnail;
+		
+		assert inlineThumbnail==false || thumbnail==null;
 
 		addParameter(MEDIA, mediaOrThumbnail.getID());
-		if(inline)
-			addParameter(INLINE, "t");
+		if(inlineMedia)
+			addParameter(INLINE, INLINE_MEDIA);
+		if(inlineThumbnail)
+			addParameter(INLINE, INLINE_THUMBNAIL);
 	}
 	
-	private MediaCop(final Media media, final MediaThumbnail thumbnail, final boolean inline)
+	private MediaCop(final Media media, final MediaThumbnail thumbnail, final boolean inlineMedia, final boolean inlineThumbnail)
 	{
-		this(thumbnail!=null ? thumbnail : media, inline);
+		this(thumbnail!=null ? thumbnail : media, inlineMedia, inlineThumbnail);
 	}
 	
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
 	{
 		final String mediaID = request.getParameter(MEDIA);
-		return (mediaID==null) ? null : new MediaCop((MediaPath)model.findFeatureByID(mediaID), request.getParameter(INLINE)!=null);
+		if(mediaID==null)
+			return null;
+
+		boolean inlineMedia = false;
+		boolean inlineThumbnail = false;
+		final String[] inlineParameters = request.getParameterValues(INLINE);
+		if(inlineParameters!=null)
+		{
+			for(final String p : inlineParameters)
+			{
+				if(INLINE_MEDIA.equals(p))
+					inlineMedia = true;
+				else if(INLINE_THUMBNAIL.equals(p))
+					inlineThumbnail = true;
+			}
+		}
+		
+		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), inlineMedia, inlineThumbnail);
 	}
 	
-	MediaCop toggleInline()
+	MediaCop toggleInlineMedia()
 	{
-		return new MediaCop(media, thumbnail, !inline);
+		return new MediaCop(media, thumbnail, !inlineMedia, inlineThumbnail);
+	}
+
+	MediaCop toggleInlineThumbnail()
+	{
+		return new MediaCop(media, thumbnail, inlineMedia, !inlineThumbnail);
 	}
 
 	@Override

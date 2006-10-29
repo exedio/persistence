@@ -472,15 +472,16 @@ final class Console_Jspm
 	{
 		final Media media = cop.media;
 		final MediaThumbnail thumbnail = cop.thumbnail;
-		final boolean inline = cop.inline;
+		final boolean inlineMedia = cop.inlineMedia;
+		final boolean inlineThumbnail = cop.inlineThumbnail;
 		%>
 		<table class="properties">
-			<tr><th colspan="<%if(thumbnail==null){%>4<%}else{%>5<%}%>"><%=media.getType().getID()%>.<%=media.getName()%> (first 50) <a href="<%=cop.toggleInline()%>">inline</a></th></tr>
+			<tr><th colspan="<%if(thumbnail==null){%>4<%}else{%>5<%}%>"><%=media.getType().getID()%>.<%=media.getName()%> (first 50)</th></tr>
 			<tr>
-				<th>Item</th><th>Content Type</th><th>Length</th><th>Last Modified</th><%
+				<th>Item <a href="<%=cop.toggleInlineMedia()%>">IN</a></th><th>Content Type</th><th>Length</th><th>Last Modified</th><%
 				if(thumbnail!=null)
 				{
-					%><th><%=thumbnail.getName()%></th><%
+					%><th><%=thumbnail.getName()%> <a href="<%=cop.toggleInlineThumbnail()%>">IN</a></th><%
 				}
 				%></tr><%
 	
@@ -488,11 +489,12 @@ final class Console_Jspm
 			{
 				final String contentType = media.getContentType(item);
 				final String url = media.getURL(item);
-				final boolean in = inline && contentType.startsWith("image/");
+				final boolean inM = inlineMedia && contentType.startsWith("image/");
+				final boolean inT = inlineThumbnail && contentType.startsWith("image/");
 				final String turl = thumbnail!=null ? thumbnail.getURL(item) : null;
 				%>
 			<tr>
-				<td><a href="<%=url%>"><%if(in){%><img src="<%=url%>"><%}else{%><%=item.getCopeID()%><%}%></a></td>
+				<td><a href="<%=url%>"><%if(inM){%><img src="<%=url%>"><%}else{%><%=item.getCopeID()%><%}%></a></td>
 				<td><%=contentType%></td>
 				<td><%=media.getLength(item)%></td>
 				<td><%=cop.format(media.getLastModified(item))%></td><%
@@ -502,7 +504,7 @@ final class Console_Jspm
 				<td><%
 					if(turl!=null)
 					{
-						%><a href="<%=turl%>"><%if(in){%><img src="<%=turl%>"><%}else{%>X<%}%></a><%
+						%><a href="<%=turl%>"><%if(inT){%><img src="<%=turl%>"><%}else{%>X<%}%></a><%
 					}
 				%></td><%
 				}
