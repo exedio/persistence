@@ -74,6 +74,13 @@ public class ThumbnailTest extends AbstractLibTest
 		assertBB(30, 60, 15, 30);
 		assertBBNone(20, 30);
 		assertBBNone(10, 10);
+		
+		// test urls
+		assertEquals("media/ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURL());
+		assertEquals("media/ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
+		assertEquals("media/ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
+		assertEquals("media/ThumbnailItem/thumb/" + text.getCopeID() + ".jpg", text.getThumbURL());
+		assertEquals(null, empty.getThumbURL());
 	}
 	
 	private void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
