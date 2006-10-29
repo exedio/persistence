@@ -23,6 +23,8 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
 
 import javax.imageio.IIOImage;
@@ -44,6 +46,7 @@ public final class MediaThumbnail extends CachedMedia
 	private final int boundY;
 	
 	private static final int MIN_BOUND = 5;
+	private static final HashSet<String> supportedContentTypes = new HashSet(Arrays.asList("image/jpeg", "image/png", "image/gif"));
 	
 	public MediaThumbnail(final Media media, final int boundX, final int boundY)
 	{
@@ -110,7 +113,7 @@ public final class MediaThumbnail extends CachedMedia
 	throws ServletException, IOException
 	{
 		final String contentType = media.getContentType(item);
-		if(!("image/jpeg".equals(contentType) || "image/png".equals(contentType) || "image/gif".equals(contentType)))
+		if(!supportedContentTypes.contains(contentType))
 			return media.doGetIfModified(request, response, item, extension);
 		
 		final byte[] srcBytes = media.getBody().get(item);
