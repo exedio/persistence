@@ -478,20 +478,27 @@ final class Console_Jspm
 		<table class="properties">
 			<tr><th colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
 			<tr>
-				<th>Item <a href="<%=cop.toggleInlineMedia()%>">IN</a></th><th>Content Type</th><%
+				<th>Item <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>
+				<th>Content Type</th><%
 				if(mediaLength!=null)
 				{
-					%><th>Length</th><%
+				%>
+				<th>Length</th><%
 				}
 				if(mediaLastModified!=null)
 				{
-					%><th>Last Modified</th><%
+				%>
+				<th>Last Modified</th><%
 				}
 				if(other!=null)
 				{
-					%><th><a href="<%=new MediaCop(other, inlineOther, false)%>"><%=other.getName()%></a> <a href="<%=cop.toggleInlineOther()%>">IN</a></th><%
+				%>
+				<th><a href="<%=
+					new MediaCop(other, inlineOther, false)%>"><%=other.getName()%></a> <a href="<%=
+					cop.toggleInlineOther()%>">IN</a></th><%
 				}
-				%></tr><%
+			%>
+			</tr><%
 	
 			for(final Item item : items)
 			{
