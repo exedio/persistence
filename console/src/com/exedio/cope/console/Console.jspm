@@ -481,15 +481,15 @@ final class Console_Jspm
 				<th>Item</th>
 				<th>URL <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>
 				<th>Content Type</th><%
-				if(mediaLength!=null)
-				{
-				%>
-				<th>Length</th><%
-				}
 				if(mediaLastModified!=null)
 				{
 				%>
 				<th>Last Modified</th><%
+				}
+				if(mediaLength!=null)
+				{
+				%>
+				<th>Length</th><%
 				}
 				if(other!=null)
 				{
@@ -509,15 +509,15 @@ final class Console_Jspm
 				<td><%=item.getCopeID()%></td>
 				<td><% writeURL(out, media.getURL(item), contentType, inlineMedia); %></td>
 				<td><%if(contentType!=null){%><%=contentType%><%}%></td><%
-				if(mediaLength!=null)
-				{
-				%>
-				<td><%=mediaLength.getLength(item)%></td><%
-				}
 				if(mediaLastModified!=null)
 				{
 				%>
 				<td><%=cop.format(mediaLastModified.getLastModified(item))%></td><%
+				}
+				if(mediaLength!=null)
+				{
+				%>
+				<td><%=mediaLength.getLength(item)%></td><%
 				}
 				if(other!=null)
 				{
