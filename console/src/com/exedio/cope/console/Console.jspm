@@ -505,11 +505,10 @@ final class Console_Jspm
 			{
 				final String contentType = media.getContentType(item);
 				final String url = media.getURL(item);
-				final boolean inM = inlineMedia && contentType!=null && contentType.startsWith("image/");
 				%>
 			<tr>
 				<td><%=item.getCopeID()%></td>
-				<td><%if(url!=null){%><a href="<%=url%>"><%if(inM){%><img src="<%=url%>"><%}else{%><%=MediaCop.fn(url)%><%}%></a><%}%></td>
+				<td><% writeURL(out, url, contentType, inlineMedia); %></td>
 				<td><%if(contentType!=null){%><%=contentType%><%}%></td><%
 				if(mediaLength!=null)
 				{
@@ -524,21 +523,30 @@ final class Console_Jspm
 				if(other!=null)
 				{
 				%>
-				<td><%
-					final String otherContentType = other.getContentType(item);
-					final String otherUrl = other.getURL(item);
-					final boolean inO = inlineOther && otherContentType!=null && otherContentType.startsWith("image/");
-					if(otherUrl!=null)
-					{
-						%><a href="<%=otherUrl%>"><%if(inO){%><img src="<%=otherUrl%>"><%}else{%>X<%}%></a><%
-					}
-				%></td><%
+				<td><% writeURL(out, other.getURL(item), other.getContentType(item), inlineOther); %></td><%
 				}
 				%>
 			</tr><%
 			}
 		%>
 		</table><%
+	}
+	
+	private static final void writeURL(final PrintStream out, final String url, final String contentType, final boolean inline)
+	{
+		if(url!=null)
+		{
+			%><a href="<%=url%>"><%
+			if(inline && contentType!=null && contentType.startsWith("image/"))
+			{
+				%><img src="<%=url%>"><%
+			}
+			else
+			{
+				%><%=MediaCop.fn(url)%><%
+			}
+			%></a><%
+		}
 	}
 	
 	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns)
