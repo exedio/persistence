@@ -47,6 +47,7 @@ public final class MediaThumbnail extends CachedMedia
 	
 	private static final int MIN_BOUND = 5;
 	private static final HashSet<String> supportedContentTypes = new HashSet<String>(Arrays.asList("image/jpeg", "image/png", "image/gif"));
+	private static final String outputContentType = "image/jpeg";
 	
 	public MediaThumbnail(final Media media, final int boundX, final int boundY)
 	{
@@ -82,7 +83,7 @@ public final class MediaThumbnail extends CachedMedia
 	{
 		final String contentType = media.getContentType(item);
 
-		return (contentType!=null && supportedContentTypes.contains(contentType)) ? "image/jpeg" : null;
+		return (contentType!=null && supportedContentTypes.contains(contentType)) ? outputContentType : null;
 	}
 
 	@Override
@@ -130,14 +131,13 @@ public final class MediaThumbnail extends CachedMedia
       imageWriteParam.setCompressionQuality(0.75f);
       final IIOImage iioImage = new IIOImage(scaledBuf, null, null);
 
-		response.setContentType("image/jpeg");
+		response.setContentType(outputContentType);
 		ServletOutputStream out = null;
 		try
 		{
 			out = response.getOutputStream();
 	      imageWriter.setOutput(ImageIO.createImageOutputStream(out));
 	      imageWriter.write(null, iioImage, imageWriteParam);
-			
 			return delivered;
 		}
 		finally
