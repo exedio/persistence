@@ -152,4 +152,9 @@ final class MediaCop extends ConsoleCop
 		}
 	}
 	
+	static final String fn(final String url)
+	{
+		final int pos = url.lastIndexOf('/');
+		return (pos>0) ? url.substring(pos+1) : url;
+	}
 }
