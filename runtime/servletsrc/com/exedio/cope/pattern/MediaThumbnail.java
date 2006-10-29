@@ -133,6 +133,7 @@ public final class MediaThumbnail extends CachedMedia
 		final BufferedImage scaledBuf = new BufferedImage(tgtX, tgtY, BufferedImage.TYPE_INT_RGB);
 		op.filter(srcBuf, scaledBuf);
 		
+		ImageIO.setUseCache(false); // otherwise many small files are created and not deleted in tomcat/temp
       final ImageWriter imageWriter = ImageIO.getImageWritersBySuffix("jpeg").next();
       final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
       imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
