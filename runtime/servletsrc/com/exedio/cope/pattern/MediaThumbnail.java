@@ -46,7 +46,7 @@ public final class MediaThumbnail extends CachedMedia
 	private final int boundY;
 	
 	private static final int MIN_BOUND = 5;
-	private static final HashSet<String> supportedContentTypes = new HashSet<String>(Arrays.asList("image/jpeg", "image/png", "image/gif"));
+	private static final HashSet<String> inputContentTypes = new HashSet<String>(Arrays.asList("image/jpeg", "image/png", "image/gif"));
 	private static final String outputContentType = "image/jpeg";
 	
 	public MediaThumbnail(final Media media, final int boundX, final int boundY)
@@ -83,7 +83,7 @@ public final class MediaThumbnail extends CachedMedia
 	{
 		final String contentType = media.getContentType(item);
 
-		return (contentType!=null && supportedContentTypes.contains(contentType)) ? outputContentType : null;
+		return (contentType!=null && inputContentTypes.contains(contentType)) ? outputContentType : null;
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public final class MediaThumbnail extends CachedMedia
 	throws ServletException, IOException
 	{
 		final String contentType = media.getContentType(item);
-		if(!supportedContentTypes.contains(contentType))
+		if(!inputContentTypes.contains(contentType))
 			return notComputable;
 		
 		final byte[] srcBytes = media.getBody().get(item);
