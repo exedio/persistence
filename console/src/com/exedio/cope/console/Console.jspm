@@ -499,7 +499,12 @@ final class Console_Jspm
 				if(thumbnail!=null)
 				{
 				%>
-				<td><a href="<%=turl%>"><%if(in){%><img src="<%=turl%>"><%}else{%>X<%}%></a></td><%
+				<td><%
+					if(turl!=null)
+					{
+						%><a href="<%=turl%>"><%if(in){%><img src="<%=turl%>"><%}else{%>X<%}%></a><%
+					}
+				%></td><%
 				}
 				%>
 			</tr><%

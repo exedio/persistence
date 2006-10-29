@@ -64,6 +64,7 @@ public abstract class MediaPath extends Pattern
 	public final Log notAnItem = new Log("not an item", HttpServletResponse.SC_NOT_FOUND);
 	public final Log noSuchItem = new Log("no such item", HttpServletResponse.SC_NOT_FOUND);
 	public final Log isNull = new Log("is null", HttpServletResponse.SC_NOT_FOUND);
+	public final Log notComputable = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
 	public final Log notModified = new Log("not modified", HttpServletResponse.SC_OK);
 	public final Log delivered = new Log("delivered", HttpServletResponse.SC_OK);
 

@@ -79,7 +79,7 @@ public class ThumbnailTest extends AbstractLibTest
 		assertEquals("media/ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURL());
 		assertEquals("media/ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
 		assertEquals("media/ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
-		assertEquals("media/ThumbnailItem/thumb/" + text.getCopeID() + ".jpg", text.getThumbURL());
+		assertEquals(null, text.getThumbURL());
 		assertEquals(null, empty.getThumbURL());
 	}
 	

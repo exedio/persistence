@@ -46,7 +46,7 @@ public final class MediaThumbnail extends CachedMedia
 	private final int boundY;
 	
 	private static final int MIN_BOUND = 5;
-	private static final HashSet<String> supportedContentTypes = new HashSet(Arrays.asList("image/jpeg", "image/png", "image/gif"));
+	private static final HashSet<String> supportedContentTypes = new HashSet<String>(Arrays.asList("image/jpeg", "image/png", "image/gif"));
 	
 	public MediaThumbnail(final Media media, final int boundX, final int boundY)
 	{
@@ -80,13 +80,13 @@ public final class MediaThumbnail extends CachedMedia
 	/**
 	 * Returns a URL the content of this thumbnail is available under,
 	 * if a {@link MediaServlet} is properly installed.
-	 * Returns null, if this thumbnail is null.
+	 * Returns null, if a thumbnail cannot be computed.
 	 */
 	public String getURL(final Item item)
 	{
 		final String contentType = media.getContentType(item);
 
-		if(contentType==null)
+		if(contentType==null || !supportedContentTypes.contains(contentType))
 			return null;
 
 		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
@@ -114,7 +114,7 @@ public final class MediaThumbnail extends CachedMedia
 	{
 		final String contentType = media.getContentType(item);
 		if(!supportedContentTypes.contains(contentType))
-			return media.doGetIfModified(request, response, item, extension);
+			return notComputable;
 		
 		final byte[] srcBytes = media.getBody().get(item);
 		final BufferedImage srcBuf;

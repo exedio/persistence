@@ -31,6 +31,7 @@ public class MediaServletTest extends AbstractWebTest
 	private static final String NOT_AN_ITEM = "not an item";
 	private static final String NO_SUCH_ITEM = "no such item";
 	private static final String IS_NULL = "is null";
+	private static final String NOT_COMPUTABLE = "not computable";
 
 	public void testError() throws Exception
 	{
@@ -71,7 +72,7 @@ public class MediaServletTest extends AbstractWebTest
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3."), prefix + "content/MediaServletItem.3.jpg");
 		assertURLRedirect(new URL(prefix + "redirect/MediaServletItem.3"), prefix + "content/MediaServletItem.3.jpg");
 		
-		assertEquals(textLastModified, assertURL(new URL(prefix + "thumbnail/MediaServletItem.0")));
+		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.0"), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnail/MediaServletItem.1"), IS_NULL);
 		assertEquals(pngLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.2"), "image/jpeg"));
 		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.3"), "image/jpeg"));

@@ -38,10 +38,15 @@ public abstract class CachedMedia extends MediaPath
 			final Item item, final String extension)
 		throws ServletException, IOException
 	{
+		final long lastModifiedRaw = getLastModified(item);
+		// if Last Modification Date is not set, then the media is null for this item
+		if(lastModifiedRaw<=0)
+			return isNull;
+		
 		// NOTE:
 		// Last Modification Date must be rounded to full seconds,
 		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
-		final long lastModified = (getLastModified(item) / 1000l) * 1000l;
+		final long lastModified = (lastModifiedRaw / 1000l) * 1000l;
 		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
