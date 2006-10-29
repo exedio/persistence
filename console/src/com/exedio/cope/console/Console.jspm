@@ -504,11 +504,10 @@ final class Console_Jspm
 			for(final Item item : items)
 			{
 				final String contentType = media.getContentType(item);
-				final String url = media.getURL(item);
 				%>
 			<tr>
 				<td><%=item.getCopeID()%></td>
-				<td><% writeURL(out, url, contentType, inlineMedia); %></td>
+				<td><% writeURL(out, media.getURL(item), contentType, inlineMedia); %></td>
 				<td><%if(contentType!=null){%><%=contentType%><%}%></td><%
 				if(mediaLength!=null)
 				{
