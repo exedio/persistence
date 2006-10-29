@@ -489,7 +489,7 @@ final class Console_Jspm
 				}
 				if(other!=null)
 				{
-					%><th><%=other.getName()%> <a href="<%=cop.toggleInlineOther()%>">IN</a></th><%
+					%><th><a href="<%=new MediaCop(other, inlineOther, false)%>"><%=other.getName()%></a> <a href="<%=cop.toggleInlineOther()%>">IN</a></th><%
 				}
 				%></tr><%
 	
