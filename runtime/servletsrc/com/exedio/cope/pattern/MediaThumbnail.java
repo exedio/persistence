@@ -96,7 +96,8 @@ public final class MediaThumbnail extends CachedMedia
 	public Media.Log doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
-			final Item item)
+			final Item item,
+			final String extension)
 	throws ServletException, IOException
 	{
 		final String contentType = media.getContentType(item);

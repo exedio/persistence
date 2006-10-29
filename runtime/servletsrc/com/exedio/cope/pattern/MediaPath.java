@@ -103,13 +103,10 @@ public abstract class MediaPath extends Pattern
 	public final Log notAnItem = new Log("not an item", HttpServletResponse.SC_NOT_FOUND);
 	public final Log noSuchItem = new Log("no such item", HttpServletResponse.SC_NOT_FOUND);
 	public final Log isNull = new Log("is null", HttpServletResponse.SC_NOT_FOUND);
-	public final Log extensionMismatch = new Log("extension mismatch", HttpServletResponse.SC_OK);
 	public final Log notComputable = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
 	public final Log notModified = new Log("not modified", HttpServletResponse.SC_OK);
 	public final Log delivered = new Log("delivered", HttpServletResponse.SC_OK);
 
-	private static final String RESPONSE_LOCATION = "Location";
-	
 	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String subPath)
@@ -120,16 +117,16 @@ public abstract class MediaPath extends Pattern
 		//System.out.println("trailingDot="+trailingDot);
 
 		final String id;
-		final String expectedExt;
+		final String extension;
 		if(dot>=0)
 		{
 			id = subPath.substring(0, dot);
-			expectedExt = subPath.substring(dot);
+			extension = subPath.substring(dot);
 		}
 		else
 		{
 			id = subPath;
-			expectedExt = null;
+			extension = "";
 		}
 		
 		//System.out.println("ID="+id);
@@ -139,31 +136,8 @@ public abstract class MediaPath extends Pattern
 			model.startTransaction("MediaServlet");
 			final Item item = model.findByID(id);
 			//System.out.println("item="+item);
-			final String contentType = getContentType(item);
-			if(contentType==null)
-				return isNull;
-			final String actualExt = contentTypeToExtension.get(contentType);
 			
-			final Media.Log result;
-			if((expectedExt==null&&actualExt==null)||(expectedExt!=null&&expectedExt.equals(actualExt)))
-			{
-				result = doGet(request, response, item);
-			}
-			else
-			{
-				final String location =
-					request.getScheme() + "://" +
-					request.getHeader("Host") +
-					request.getContextPath() + '/' +
-					getMediaRootUrl() + getUrlPath() +
-					id + (actualExt!=null ? actualExt : "");
-				//System.out.println("location="+location);
-				
-				response.setStatus(response.SC_MOVED_PERMANENTLY);
-				response.setHeader(RESPONSE_LOCATION, location);
-				
-				result = extensionMismatch;
-			}
+			final Media.Log result = doGet(request, response, item, extension);
 			model.commit();
 			return result;
 		}
@@ -179,7 +153,7 @@ public abstract class MediaPath extends Pattern
 
 	public abstract String getContentType(Item item);
 	
-	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
+	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
 		throws ServletException, IOException;
 
 	// logs --------------------------

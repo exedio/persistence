@@ -70,7 +70,7 @@ public final class MediaNameServer extends MediaPath
 	@Override
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final Item item)
+			final Item item, final String extension)
 		throws ServletException, IOException
 	{
 		final String content = source.get(item);

@@ -35,7 +35,7 @@ public abstract class CachedMedia extends MediaPath
 	@Override
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final Item item)
+			final Item item, final String extension)
 		throws ServletException, IOException
 	{
 		final long lastModifiedRaw = getLastModified(item);
@@ -72,11 +72,11 @@ public abstract class CachedMedia extends MediaPath
 		}
 		else
 		{
-			return doGetIfModified(request, response, item);
+			return doGetIfModified(request, response, item, extension);
 		}
 	}
 	
 	public abstract long getLastModified(Item item);
-	public abstract Media.Log doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item) throws ServletException, IOException;
+	public abstract Media.Log doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item, String extension) throws ServletException, IOException;
 
 }
