@@ -72,8 +72,8 @@ public class ThumbnailTest extends AbstractLibTest
 		assertBB(40, 60, 20, 30);
 		assertBB(40, 50, 20, 25);
 		assertBB(30, 60, 15, 30);
-		assertBBNone(20, 30);
-		assertBBNone(10, 10);
+		assertBB(20, 30, 20, 30);
+		assertBB(10, 10, 20, 20);
 		
 		// test urls
 		assertEquals("media/ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURL());
@@ -88,11 +88,5 @@ public class ThumbnailTest extends AbstractLibTest
 		final int[] bb = item.thumb.boundingBox(srcX, srcY);
 		assertEquals("width", tgtX, bb[0]);
 		assertEquals("height", tgtY, bb[1]);
-	}
-
-	private void assertBBNone(final int srcX, final int srcY)
-	{
-		final int[] bb = item.thumb.boundingBox(srcX, srcY);
-		assertNull(bb);
 	}
 }

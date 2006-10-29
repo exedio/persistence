@@ -172,6 +172,10 @@ public class InitServlet extends CopsServlet
 			assertID("MediaServletItem.8", gif);
 			gif.setContent(thisClass.getResourceAsStream("gif.gif"), "image/gif");
 
+			final MediaServletItem small = new MediaServletItem();
+			assertID("MediaServletItem.9", small);
+			small.setContent(thisClass.getResourceAsStream("small.jpg"), "image/jpeg");
+
 			new PlusItem(1, 2, 3);
 			new PlusItem(4, 5, 4);
 			new PlusItem(9, 2, 6);

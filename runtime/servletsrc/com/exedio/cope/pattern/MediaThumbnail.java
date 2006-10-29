@@ -126,8 +126,6 @@ public final class MediaThumbnail extends CachedMedia
 		final int srcX = srcBuf.getWidth();
 		final int srcY = srcBuf.getHeight();
 		final int[] tgtDim = boundingBox(srcX, srcY);
-		if(tgtDim==null)
-			return media.doGetIfModified(request, response, item, extension);
 
 		final int tgtX = tgtDim[0];
 		final int tgtY = tgtDim[1];
@@ -164,8 +162,8 @@ public final class MediaThumbnail extends CachedMedia
 	
 	int[] boundingBox(final int x, final int y)
 	{
-		if(x<=boundX && y<=boundY)
-			return null;
+		final int boundX = this.boundX;
+		final int boundY = this.boundY;
 		
 		final int tgtHeight = (boundX * y) / x;
 		if(tgtHeight<=boundY)
