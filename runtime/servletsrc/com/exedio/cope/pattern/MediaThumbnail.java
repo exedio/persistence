@@ -43,6 +43,8 @@ public final class MediaThumbnail extends CachedMedia
 	private final int boundX;
 	private final int boundY;
 	
+	private static final int MIN_BOUND = 5;
+	
 	public MediaThumbnail(final Media media, final int boundX, final int boundY)
 	{
 		this.media = media;
@@ -51,10 +53,10 @@ public final class MediaThumbnail extends CachedMedia
 		
 		if(media==null)
 			throw new NullPointerException("media must not be null");
-		if(boundX<5)
-			throw new IllegalArgumentException("boundX must be 5 or greater, but was " + boundX);
-		if(boundY<5)
-			throw new IllegalArgumentException("boundX must be 5 or greater, but was " + boundY);
+		if(boundX<MIN_BOUND)
+			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
+		if(boundY<MIN_BOUND)
+			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundY);
 	}
 	
 	public Media getMedia()
