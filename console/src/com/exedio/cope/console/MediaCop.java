@@ -24,11 +24,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
 
 final class MediaCop extends ConsoleCop
@@ -37,40 +39,36 @@ final class MediaCop extends ConsoleCop
 	private static final String MEDIA = "m";
 	private static final String INLINE = "il";
 	private static final String INLINE_MEDIA = "m";
-	private static final String INLINE_THUMBNAIL = "t";
+	private static final String INLINE_OTHER = "o";
 	
-	final Media media;
-	final MediaThumbnail thumbnail;
+	final MediaPath media;
+	final Media other;
 	final boolean inlineMedia;
-	final boolean inlineThumbnail;
+	final boolean inlineOther;
 
-	MediaCop(final MediaPath mediaOrThumbnail, final boolean inlineMedia, final boolean inlineThumbnail)
+	MediaCop(final MediaPath media, final boolean inlineMedia, final boolean inlineOther)
 	{
-		super("media - " + mediaOrThumbnail.getID());
+		super("media - " + media.getID());
 		
-		if(mediaOrThumbnail instanceof Media)
-		{
-			this.media = (Media)mediaOrThumbnail;
-			this.thumbnail = null;
-		}
-		else if(mediaOrThumbnail instanceof MediaThumbnail)
-		{
-			this.media = ((MediaThumbnail)mediaOrThumbnail).getMedia();
-			this.thumbnail = (MediaThumbnail)mediaOrThumbnail;
-		}
+		this.media = media;
+		
+		if(media instanceof Media)
+			other = null;
+		else if(media instanceof MediaThumbnail)
+			other = ((MediaThumbnail)media).getMedia();
+		else if(media instanceof MediaRedirect)
+			other = ((MediaRedirect)media).getTarget();
 		else
-			throw new RuntimeException(mediaOrThumbnail.toString());
+			other = null;
 
 		this.inlineMedia = inlineMedia;
-		this.inlineThumbnail = inlineThumbnail;
+		this.inlineOther = inlineOther;
 		
-		assert inlineThumbnail==false || thumbnail==null;
-
-		addParameter(MEDIA, mediaOrThumbnail.getID());
+		addParameter(MEDIA, media.getID());
 		if(inlineMedia)
 			addParameter(INLINE, INLINE_MEDIA);
-		if(inlineThumbnail)
-			addParameter(INLINE, INLINE_THUMBNAIL);
+		if(inlineOther)
+			addParameter(INLINE, INLINE_OTHER);
 	}
 	
 	private MediaCop(final Media media, final MediaThumbnail thumbnail, final boolean inlineMedia, final boolean inlineThumbnail)
@@ -85,7 +83,7 @@ final class MediaCop extends ConsoleCop
 			return null;
 
 		boolean inlineMedia = false;
-		boolean inlineThumbnail = false;
+		boolean inlineOther = false;
 		final String[] inlineParameters = request.getParameterValues(INLINE);
 		if(inlineParameters!=null)
 		{
@@ -93,22 +91,22 @@ final class MediaCop extends ConsoleCop
 			{
 				if(INLINE_MEDIA.equals(p))
 					inlineMedia = true;
-				else if(INLINE_THUMBNAIL.equals(p))
-					inlineThumbnail = true;
+				else if(INLINE_OTHER.equals(p))
+					inlineOther = true;
 			}
 		}
 		
-		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), inlineMedia, inlineThumbnail);
+		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), inlineMedia, inlineOther);
 	}
 	
 	MediaCop toggleInlineMedia()
 	{
-		return new MediaCop(media, thumbnail, !inlineMedia, inlineThumbnail);
+		return new MediaCop(media, !inlineMedia, inlineOther);
 	}
 
-	MediaCop toggleInlineThumbnail()
+	MediaCop toggleInlineOther()
 	{
-		return new MediaCop(media, thumbnail, inlineMedia, !inlineThumbnail);
+		return new MediaCop(media, inlineMedia, !inlineOther);
 	}
 
 	@Override
@@ -117,10 +115,35 @@ final class MediaCop extends ConsoleCop
 		try
 		{
 			model.startTransaction(getClass().getName());
-			final Query<? extends Item> q = media.getType().newQuery(media.getIsNull().isNotNull());
+			
+			final Media other;
+			final Condition c;
+			
+			if(media instanceof Media)
+			{
+				other = null;
+				c = ((Media)media).getIsNull().isNotNull();
+			}
+			else if(media instanceof MediaThumbnail)
+			{
+				other = ((MediaThumbnail)media).getMedia();
+				c = other.getIsNull().isNotNull();
+			}
+			else if(media instanceof MediaRedirect)
+			{
+				other = ((MediaRedirect)media).getTarget();
+				c = other.getIsNull().isNotNull();
+			}
+			else
+			{
+				other = null;
+				c = null;
+			}
+			
+			final Query<? extends Item> q = media.getType().newQuery(c);
 			q.setLimit(0, 50);
 			final List<? extends Item> items = q.search();
-			Console_Jspm.writeBody(this, out, items);
+			Console_Jspm.writeBody(this, out, items, other);
 			model.commit();
 		}
 		finally

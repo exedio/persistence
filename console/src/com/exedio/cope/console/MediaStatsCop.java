@@ -27,9 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
-import com.exedio.cope.pattern.MediaThumbnail;
 
 final class MediaStatsCop extends ConsoleCop
 {
@@ -40,14 +38,9 @@ final class MediaStatsCop extends ConsoleCop
 		addParameter(TAB, TAB_MEDIA_STATS);
 	}
 	
-	MediaCop toMedia(final Media media)
+	MediaCop toMedia(final MediaPath media)
 	{
 		return new MediaCop(media, false, false);
-	}
-	
-	MediaCop toThumbnail(final MediaThumbnail thumbnail)
-	{
-		return new MediaCop(thumbnail, false, false);
 	}
 	
 	@Override

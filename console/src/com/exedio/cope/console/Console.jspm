@@ -35,6 +35,7 @@ import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
 import com.exedio.cope.Type;
+import com.exedio.cope.pattern.CachedMedia;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
@@ -419,21 +420,7 @@ final class Console_Jspm
 				%>
 			<tr>
 				<td><%=type%></td>
-				<td><%
-				if(path instanceof Media)
-				{
-					%><a href="<%=cop.toMedia((Media)path)%>"><%
-				}
-				else if(path instanceof MediaThumbnail)
-				{
-					%><a href="<%=cop.toThumbnail((MediaThumbnail)path)%>"><%
-				}
-				%><%=name%><%
-				if(path instanceof Media || path instanceof MediaThumbnail)
-				{
-					%></a><%
-				}
-				%></td><%
+				<td><a href="<%=cop.toMedia(path)%>"><%=name%></a></td><%
 				writeColouredData(out, data);
 				%>
 				<td><%=cop.format(path.getStart())%></td>
@@ -469,44 +456,73 @@ final class Console_Jspm
 	final static void writeBody(
 				final MediaCop cop,
 				final PrintStream out,
-				final List<? extends Item> items)
+				final List<? extends Item> items,
+				final Media other)
 		throws IOException
 	{
-		final Media media = cop.media;
-		final MediaThumbnail thumbnail = cop.thumbnail;
+		final MediaPath media = cop.media;
+		final CachedMedia mediaLastModified = media instanceof CachedMedia ? (CachedMedia)media : null;
+		final Media mediaLength = media instanceof Media ? (Media)media : null;
 		final boolean inlineMedia = cop.inlineMedia;
-		final boolean inlineThumbnail = cop.inlineThumbnail;
+		final boolean inlineOther = cop.inlineOther;
+		
+		int columns = 2;
+		if(mediaLastModified!=null)
+			columns++;
+		if(mediaLength!=null)
+			columns++;
+		if(other!=null)
+			columns++;
+		
 		%>
 		<table class="properties">
-			<tr><th colspan="<%if(thumbnail==null){%>4<%}else{%>5<%}%>"><%=media.getType().getID()%>.<%=media.getName()%> (first 50)</th></tr>
+			<tr><th colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
 			<tr>
-				<th>Item <a href="<%=cop.toggleInlineMedia()%>">IN</a></th><th>Content Type</th><th>Length</th><th>Last Modified</th><%
-				if(thumbnail!=null)
+				<th>Item <a href="<%=cop.toggleInlineMedia()%>">IN</a></th><th>Content Type</th><%
+				if(mediaLength!=null)
 				{
-					%><th><%=thumbnail.getName()%> <a href="<%=cop.toggleInlineThumbnail()%>">IN</a></th><%
+					%><th>Length</th><%
+				}
+				if(mediaLastModified!=null)
+				{
+					%><th>Last Modified</th><%
+				}
+				if(other!=null)
+				{
+					%><th><%=other.getName()%> <a href="<%=cop.toggleInlineOther()%>">IN</a></th><%
 				}
 				%></tr><%
 	
 			for(final Item item : items)
 			{
+				final String id = item.getCopeID();
 				final String contentType = media.getContentType(item);
 				final String url = media.getURL(item);
-				final boolean inM = inlineMedia && contentType.startsWith("image/");
-				final boolean inT = inlineThumbnail && contentType.startsWith("image/");
-				final String turl = thumbnail!=null ? thumbnail.getURL(item) : null;
+				final boolean inM = inlineMedia && contentType!=null && contentType.startsWith("image/");
 				%>
 			<tr>
-				<td><a href="<%=url%>"><%if(inM){%><img src="<%=url%>"><%}else{%><%=item.getCopeID()%><%}%></a></td>
-				<td><%=contentType%></td>
-				<td><%=media.getLength(item)%></td>
-				<td><%=cop.format(media.getLastModified(item))%></td><%
-				if(thumbnail!=null)
+				<td><%if(url!=null){%><a href="<%=url%>"><%if(inM){%><img src="<%=url%>"><%}else{%><%=id%><%}%></a><%}else{%><%=id%><%}%></td>
+				<td><%if(contentType!=null){%><%=contentType%><%}%></td><%
+				if(mediaLength!=null)
+				{
+				%>
+				<td><%=mediaLength.getLength(item)%></td><%
+				}
+				if(mediaLastModified!=null)
+				{
+				%>
+				<td><%=cop.format(mediaLastModified.getLastModified(item))%></td><%
+				}
+				if(other!=null)
 				{
 				%>
 				<td><%
-					if(turl!=null)
+					final String otherContentType = other.getContentType(item);
+					final String otherUrl = other.getURL(item);
+					final boolean inO = inlineOther && otherContentType!=null && otherContentType.startsWith("image/");
+					if(otherUrl!=null)
 					{
-						%><a href="<%=turl%>"><%if(inT){%><img src="<%=turl%>"><%}else{%>X<%}%></a><%
+						%><a href="<%=otherUrl%>"><%if(inO){%><img src="<%=otherUrl%>"><%}else{%>X<%}%></a><%
 					}
 				%></td><%
 				}
