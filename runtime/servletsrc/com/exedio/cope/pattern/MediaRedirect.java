@@ -78,7 +78,7 @@ public final class MediaRedirect extends MediaPath
 	@Override
 	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final Item item, final String extension)
+			final Item item)
 		throws ServletException, IOException
 	{
 		final String url = target.getURL(item);

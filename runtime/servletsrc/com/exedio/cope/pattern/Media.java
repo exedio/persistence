@@ -396,7 +396,7 @@ public final class Media extends CachedMedia
 	@Override
 	public Media.Log doGetIfModified(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final Item item, final String extension)
+			final Item item)
 		throws ServletException, IOException
 	{
 		final String contentType = getContentType(item);
