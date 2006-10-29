@@ -39,9 +39,9 @@ public abstract class CachedMedia extends MediaPath
 		throws ServletException, IOException
 	{
 		final long lastModifiedRaw = getLastModified(item);
-		// if Last Modification Date is not set, then the media is null for this item
+		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw<=0)
-			return isNull;
+			return doGetIfModified(request, response, item, extension);
 		
 		// NOTE:
 		// Last Modification Date must be rounded to full seconds,
