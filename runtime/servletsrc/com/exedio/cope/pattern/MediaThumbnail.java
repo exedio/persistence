@@ -152,11 +152,11 @@ public final class MediaThumbnail extends CachedMedia
 		final int boundX = this.boundX;
 		final int boundY = this.boundY;
 		
-		final int tgtHeight = (boundX * y) / x;
-		if(tgtHeight<=boundY)
-			return new int[]{boundX, tgtHeight};
+		final int resultY = (boundX * y) / x;
+		if(resultY<=boundY)
+			return new int[]{boundX, resultY};
 
-		final int tgtWidth = (boundY * x) / y;
-		return new int[]{tgtWidth, boundY};
+		final int resultX = (boundY * x) / y;
+		return new int[]{resultX, boundY};
 	}
 }
