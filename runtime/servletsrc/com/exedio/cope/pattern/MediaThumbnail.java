@@ -157,6 +157,7 @@ public final class MediaThumbnail extends CachedMedia
 			return new int[]{boundX, resultY};
 
 		final int resultX = (boundY * x) / y;
+		assert resultX<=boundX;
 		return new int[]{resultX, boundY};
 	}
 }
