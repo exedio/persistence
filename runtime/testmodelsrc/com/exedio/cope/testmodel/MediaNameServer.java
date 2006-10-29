@@ -58,6 +58,12 @@ public final class MediaNameServer extends MediaPath
 			initialize(source, name+"Source");
 	}
 	
+	@Override
+	public String getContentType(final Item item)
+	{
+		return source.get(item)!=null ? "text/plain" : null;
+	}
+
 	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
 	
 	private static final String RESPONSE_EXPIRES = "Expires";

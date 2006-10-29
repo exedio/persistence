@@ -25,22 +25,21 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.Field;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
+import com.exedio.cope.Field;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.FunctionField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
 
@@ -161,44 +160,6 @@ public final class Media extends CachedMedia
 		return optional ? (lastModified.get(item)==null) : false;
 	}
 
-	private static final HashMap<String, String> compactExtensions = new HashMap<String, String>();
-	
-	static
-	{
-		compactExtensions.put("image/jpeg", ".jpg");
-		compactExtensions.put("image/pjpeg", ".jpg");
-		compactExtensions.put("image/gif", ".gif");
-		compactExtensions.put("image/png", ".png");
-		compactExtensions.put("text/html", ".html");
-		compactExtensions.put("text/plain", ".txt");
-		compactExtensions.put("text/css", ".css");
-		compactExtensions.put("application/java-archive", ".jar");
-	}
-
-	/**
-	 * Returns a URL the content of this media is available under,
-	 * if a {@link MediaServlet} is properly installed.
-	 * Returns null, if this media is null.
-	 */
-	public String getURL(final Item item)
-	{
-		final String contentType = getContentType(item);
-
-		if(contentType==null)
-			return null;
-
-		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
-
-		bf.append(getUrlPath()).
-			append(item.getCopeID());
-
-		final String compactExtension = compactExtensions.get(contentType);
-		if(compactExtension!=null)
-			bf.append(compactExtension);
-		
-		return bf.toString();
-	}
-
 	/**
 	 * Returns the major mime type for the given content type.
 	 * Returns null, if content type is null.
@@ -237,6 +198,7 @@ public final class Media extends CachedMedia
 	 * Returns the content type of this media.
 	 * Returns null, if this media is null.
 	 */
+	@Override
 	public String getContentType(final Item item)
 	{
 		if(isNull(item))

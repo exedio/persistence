@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,7 @@ public abstract class MediaPath extends Pattern
 		return urlPath;
 	}
 	
-	final String getMediaRootUrl()
+	private final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
 			mediaRootUrl = getType().getModel().getProperties().getMediaRootUrl();
@@ -59,6 +60,44 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 	
+	private static final HashMap<String, String> contentTypeToExtension = new HashMap<String, String>();
+	
+	static
+	{
+		contentTypeToExtension.put("image/jpeg", ".jpg");
+		contentTypeToExtension.put("image/pjpeg", ".jpg");
+		contentTypeToExtension.put("image/gif", ".gif");
+		contentTypeToExtension.put("image/png", ".png");
+		contentTypeToExtension.put("text/html", ".html");
+		contentTypeToExtension.put("text/plain", ".txt");
+		contentTypeToExtension.put("text/css", ".css");
+		contentTypeToExtension.put("application/java-archive", ".jar");
+	}
+
+	/**
+	 * Returns a URL the content of this media path is available under,
+	 * if a {@link MediaServlet} is properly installed.
+	 * Returns null, if there is no such content.
+	 */
+	public final String getURL(final Item item)
+	{
+		final String contentType = getContentType(item);
+
+		if(contentType==null)
+			return null;
+
+		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
+
+		bf.append(getUrlPath()).
+			append(item.getCopeID());
+
+		final String extension = contentTypeToExtension.get(contentType);
+		if(extension!=null)
+			bf.append(extension);
+		
+		return bf.toString();
+	}
+
 	public static final Log noSuchPath = new Log("no such path", HttpServletResponse.SC_NOT_FOUND);
 	public final Log exception = new Log("exception", HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	public final Log notAnItem = new Log("not an item", HttpServletResponse.SC_NOT_FOUND);
@@ -112,6 +151,8 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	public abstract String getContentType(Item item);
+	
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
 		throws ServletException, IOException;
 

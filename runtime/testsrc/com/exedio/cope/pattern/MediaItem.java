@@ -46,6 +46,30 @@ public class MediaItem extends Item
 		});
 	}
 	
+	// TODO generate by instrumentor
+	public final String getFotoContentType()
+	{
+		return foto.getContentType(this);
+	}
+	
+	// TODO generate by instrumentor
+	public final String getFotoURL()
+	{
+		return foto.getURL(this);
+	}
+	
+	// TODO generate by instrumentor
+	public final String getNameServerContentType()
+	{
+		return nameServer.getContentType(this);
+	}
+	
+	// TODO generate by instrumentor
+	public final String getNameServerURL()
+	{
+		return nameServer.getURL(this);
+	}
+	
 	/**
 
 	 **

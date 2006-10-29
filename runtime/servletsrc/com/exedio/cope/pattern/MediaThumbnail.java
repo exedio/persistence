@@ -76,26 +76,13 @@ public final class MediaThumbnail extends CachedMedia
 	{
 		return boundY;
 	}
-	
-	/**
-	 * Returns a URL the content of this thumbnail is available under,
-	 * if a {@link MediaServlet} is properly installed.
-	 * Returns null, if a thumbnail cannot be computed.
-	 */
-	public String getURL(final Item item)
+
+	@Override
+	public String getContentType(final Item item)
 	{
 		final String contentType = media.getContentType(item);
 
-		if(contentType==null || !supportedContentTypes.contains(contentType))
-			return null;
-
-		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
-
-		bf.append(getUrlPath()).
-			append(item.getCopeID()).
-			append(".jpg");
-
-		return bf.toString();
+		return (contentType!=null && supportedContentTypes.contains(contentType)) ? "image/jpeg" : null;
 	}
 
 	@Override

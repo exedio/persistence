@@ -28,6 +28,12 @@ public class ThumbnailItem extends Item
 	public static final MediaThumbnail thumb = new MediaThumbnail(file, 20, 30);
 	
 	// TODO generate by instrumentor
+	public final String getThumbContentType()
+	{
+		return thumb.getContentType(this);
+	}
+	
+	// TODO generate by instrumentor
 	public final String getThumbURL()
 	{
 		return thumb.getURL(this);
