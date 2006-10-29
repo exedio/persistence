@@ -503,13 +503,12 @@ final class Console_Jspm
 	
 			for(final Item item : items)
 			{
-				final String id = item.getCopeID();
 				final String contentType = media.getContentType(item);
 				final String url = media.getURL(item);
 				final boolean inM = inlineMedia && contentType!=null && contentType.startsWith("image/");
 				%>
 			<tr>
-				<td><%=id%></td>
+				<td><%=item.getCopeID()%></td>
 				<td><%if(url!=null){%><a href="<%=url%>"><%if(inM){%><img src="<%=url%>"><%}else{%><%=MediaCop.fn(url)%><%}%></a><%}%></td>
 				<td><%if(contentType!=null){%><%=contentType%><%}%></td><%
 				if(mediaLength!=null)
