@@ -234,7 +234,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 			conditions[i] = sources[i].notEqual(it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = sources[i].notEqual(null);
+			conditions[i] = sources[i].isNotNull();
 
 		return Cope.or(conditions);
 	}

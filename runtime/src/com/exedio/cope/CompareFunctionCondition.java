@@ -96,6 +96,7 @@ public final class CompareFunctionCondition<E> extends Condition
 	public static enum Operator
 	{
 		Equal("="),
+		NotEqual("<>"),
 		Less("<"),
 		LessEqual("<="),
 		Greater(">"),

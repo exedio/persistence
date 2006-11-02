@@ -103,6 +103,13 @@ public interface Function<E> extends Selectable<E>
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
+	 * is not equal to the value of the <tt>right</tt> function.
+	 */
+	CompareFunctionCondition<E> notEqual(Function<E> right);
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
 	 * is less than the value of the <tt>right</tt> function.
 	 */
 	CompareFunctionCondition<E> less(Function<E> right);

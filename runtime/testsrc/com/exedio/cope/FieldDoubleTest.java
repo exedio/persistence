@@ -33,7 +33,7 @@ public class FieldDoubleTest extends FieldTest
 		assertEquals(null, item.getSomeDouble());
 		assertContains(item, item2, item.TYPE.search(item.someDouble.equal((Double)null)));
 		assertContains(item, item2, item.TYPE.search(item.someDouble.isNull()));
-		assertContains(item.TYPE.search(item.someDouble.notEqual(null)));
+		assertContains(item.TYPE.search(item.someDouble.notEqual((Double)null)));
 		assertContains(item.TYPE.search(item.someDouble.isNotNull()));
 
 		item.someDouble.set(item, new Double(44.44));
@@ -65,7 +65,7 @@ public class FieldDoubleTest extends FieldTest
 			item.TYPE.search(item.someDouble.notEqual(22.22)));
 		assertEquals(list(item2), item.TYPE.search(item.someDouble.equal((Double)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someDouble.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someDouble.notEqual(null)));
+		assertEquals(list(item), item.TYPE.search(item.someDouble.notEqual((Double)null)));
 		assertEquals(list(item), item.TYPE.search(item.someDouble.isNotNull()));
 
 		assertContains(new Double(22.22), null, search(item.someDouble));

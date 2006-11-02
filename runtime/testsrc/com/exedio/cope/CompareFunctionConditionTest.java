@@ -91,6 +91,17 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item3, item1.TYPE.search(item1.leftItem.equal(item1.rightItem)));
 		assertContains(item3, item1.TYPE.search(item1.TYPE.getThis().equal(item1.rightItem)));
 
+		// notEqual
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftString.notEqual(item1.rightString)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftInt.notEqual(item1.rightInt)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftLong.notEqual(item1.rightLong)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftDouble.notEqual(item1.rightDouble)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftDate.notEqual(item1.rightDate)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftDay.notEqual(item1.rightDay)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftEnum.notEqual(item1.rightEnum)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.leftItem.notEqual(item1.rightItem)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.TYPE.getThis().notEqual(item1.rightItem)));
+
 		// less
 		assertContains(item1, item2, item1.TYPE.search(item1.leftString.less(item1.rightString)));
 		assertContains(item1, item2, item1.TYPE.search(item1.leftInt.less(item1.rightInt)));

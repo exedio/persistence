@@ -1062,7 +1062,7 @@ public final class Type<C extends Item>
 		 */
 		public EqualCondition<E> isNotNull()
 		{
-			return notEqual(null);
+			return notEqual((E)null);
 		}
 		
 		public EqualCondition<E> equal(final E value)
@@ -1108,6 +1108,11 @@ public final class Type<C extends Item>
 		public CompareFunctionCondition<E> equal(final Function<E> right)
 		{
 			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Equal, this, right);
+		}
+
+		public CompareFunctionCondition<E> notEqual(final Function<E> right)
+		{
+			return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.NotEqual, this, right);
 		}
 
 		public final CompareFunctionCondition<E> less(final Function<E> right)

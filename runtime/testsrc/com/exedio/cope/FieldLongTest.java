@@ -31,7 +31,7 @@ public class FieldLongTest extends FieldTest
 		assertEquals(null, item.getSomeLong());
 		assertContains(item, item2, item.TYPE.search(item.someLong.equal((Long)null)));
 		assertContains(item, item2, item.TYPE.search(item.someLong.isNull()));
-		assertContains(item.TYPE.search(item.someLong.notEqual(null)));
+		assertContains(item.TYPE.search(item.someLong.notEqual((Long)null)));
 		assertContains(item.TYPE.search(item.someLong.isNotNull()));
 
 		item.someLong.set(item, Long.valueOf(22));
@@ -64,7 +64,7 @@ public class FieldLongTest extends FieldTest
 
 		assertEquals(list(item2), item.TYPE.search(item.someLong.equal((Long)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someLong.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someLong.notEqual(null)));
+		assertEquals(list(item), item.TYPE.search(item.someLong.notEqual((Long)null)));
 		assertEquals(list(item), item.TYPE.search(item.someLong.isNotNull()));
 
 		assertContains(Long.valueOf(11), null, search(item.someLong));

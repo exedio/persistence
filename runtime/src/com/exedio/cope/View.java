@@ -184,7 +184,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	public final EqualCondition<E> isNotNull()
 	{
-		return notEqual(null);
+		return notEqual((E)null);
 	}
 	
 	public final EqualCondition<E> equal(final E value)
@@ -230,6 +230,11 @@ public abstract class View<E> extends Feature implements Function<E>
 	public final CompareFunctionCondition<E> equal(final Function<E> right)
 	{
 		return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.Equal, this, right);
+	}
+	
+	public final CompareFunctionCondition<E> notEqual(final Function<E> right)
+	{
+		return new CompareFunctionCondition<E>(CompareFunctionCondition.Operator.NotEqual, this, right);
 	}
 	
 	public final CompareFunctionCondition<E> less(final Function<E> right)

@@ -114,7 +114,7 @@ public class FieldEnumTest extends FieldTest
 		assertContains(item2,
 				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item,
-				item.TYPE.search(item.someEnum.notEqual(null)));
+				item.TYPE.search(item.someEnum.notEqual((SomeEnum)null)));
 
 		assertContains(AttributeItem.SomeEnum.enumValue2, null, search(item.someEnum));
 		assertContains(AttributeItem.SomeEnum.enumValue2, search(item.someEnum, item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));

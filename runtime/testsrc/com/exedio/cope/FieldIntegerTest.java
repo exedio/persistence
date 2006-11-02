@@ -31,7 +31,7 @@ public class FieldIntegerTest extends FieldTest
 		assertEquals(null, item.getSomeInteger());
 		assertContains(item, item2, item.TYPE.search(item.someInteger.equal((Integer)null)));
 		assertContains(item, item2, item.TYPE.search(item.someInteger.isNull()));
-		assertContains(item.TYPE.search(item.someInteger.notEqual(null)));
+		assertContains(item.TYPE.search(item.someInteger.notEqual((Integer)null)));
 		assertContains(item.TYPE.search(item.someInteger.isNotNull()));
 
 		item.someInteger.set(item, Integer.valueOf(14));
@@ -63,7 +63,7 @@ public class FieldIntegerTest extends FieldTest
 			item.TYPE.search(item.someInteger.notEqual(10)));
 		assertEquals(list(item2), item.TYPE.search(item.someInteger.equal((Integer)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someInteger.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someInteger.notEqual(null)));
+		assertEquals(list(item), item.TYPE.search(item.someInteger.notEqual((Integer)null)));
 		assertEquals(list(item), item.TYPE.search(item.someInteger.isNotNull()));
 
 		assertContains(Integer.valueOf(10), null, search(item.someInteger));
