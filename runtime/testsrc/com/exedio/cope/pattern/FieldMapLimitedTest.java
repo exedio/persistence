@@ -19,17 +19,19 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 
 public class FieldMapLimitedTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(FieldMapLimitedItem.TYPE);
+
 	private static final FieldMapLimitedItem.Language DE = FieldMapLimitedItem.Language.DE;
 	private static final FieldMapLimitedItem.Language EN = FieldMapLimitedItem.Language.EN;
 	private static final FieldMapLimitedItem.Language PL = FieldMapLimitedItem.Language.PL;
 	
 	public FieldMapLimitedTest()
 	{
-		super(Main.fieldMapLimitedModel);
+		super(MODEL);
 	}
 	
 	FieldMapLimitedItem item, itemX;

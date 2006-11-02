@@ -5,7 +5,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 	
 	public TransactionOnlyTest()
 	{
-		super( Main.cacheIsolationModel );
+		super(CacheIsolationTest.MODEL);
 	}
 	
 	public void testNesting()

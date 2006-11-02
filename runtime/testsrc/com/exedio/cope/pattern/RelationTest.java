@@ -22,14 +22,20 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 
 public class RelationTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(
+			RelationItem.TYPE,
+			RelationSelfItem.TYPE,
+			VectorRelationItem.TYPE,
+			RelationSourceItem.TYPE,
+			RelationTargetItem.TYPE);
 	
 	public RelationTest()
 	{
-		super(Main.relationModel);
+		super(MODEL);
 	}
 
 	RelationSourceItem source1, source2;

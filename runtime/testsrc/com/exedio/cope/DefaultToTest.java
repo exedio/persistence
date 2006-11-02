@@ -26,9 +26,11 @@ import com.exedio.cope.DefaultToItem.DefaultToEnum;
 
 public class DefaultToTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(DefaultToItem.TYPE);
+
 	public DefaultToTest()
 	{
-		super(Main.defaultToModel);
+		super(MODEL);
 	}
 	
 	@Override

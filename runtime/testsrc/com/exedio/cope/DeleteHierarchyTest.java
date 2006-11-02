@@ -21,9 +21,11 @@ package com.exedio.cope;
 
 public class DeleteHierarchyTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(DeleteHierarchySource.TYPE, DeleteHierarchyTargetSuper.TYPE, DeleteHierarchyTargetSub.TYPE);
+
 	public DeleteHierarchyTest()
 	{
-		super(Main.deleteHierarchyModel);
+		super(MODEL);
 	}
 	
 	public void testIt()

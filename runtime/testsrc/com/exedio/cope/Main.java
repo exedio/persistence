@@ -25,71 +25,8 @@ import java.util.HashSet;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import com.exedio.cope.pattern.CustomItem;
-import com.exedio.cope.pattern.DAttribute;
-import com.exedio.cope.pattern.DEnumValue;
-import com.exedio.cope.pattern.DType;
-import com.exedio.cope.pattern.DTypeItem;
-import com.exedio.cope.pattern.FieldListItem;
-import com.exedio.cope.pattern.FieldListLimitedItem;
-import com.exedio.cope.pattern.FieldMapItem;
-import com.exedio.cope.pattern.FieldMapLimitedItem;
-import com.exedio.cope.pattern.FieldSetItem;
-import com.exedio.cope.pattern.HashItem;
-import com.exedio.cope.pattern.JavaViewItem;
-import com.exedio.cope.pattern.MD5Item;
-import com.exedio.cope.pattern.MediaItem;
-import com.exedio.cope.pattern.RelationItem;
-import com.exedio.cope.pattern.RelationSelfItem;
-import com.exedio.cope.pattern.RelationSourceItem;
-import com.exedio.cope.pattern.RelationTargetItem;
-import com.exedio.cope.pattern.SerializerItem;
-import com.exedio.cope.pattern.ThumbnailItem;
-import com.exedio.cope.pattern.VectorRelationItem;
-
-
 public class Main
 {
-	public static final Model itemSerializationModel = new Model(ItemSerializationItem.TYPE);
-	public static final Model deleteModel = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
-	public static final Model deleteHierarchyModel = new Model(DeleteHierarchySource.TYPE, DeleteHierarchyTargetSuper.TYPE, DeleteHierarchyTargetSub.TYPE);
-	public static final Model defaultToModel = new Model(DefaultToItem.TYPE);
-	public static final Model enumModel = new Model(EnumItem.TYPE, EnumItem2.TYPE);
-	public static final Model dayModel = new Model(DayItem.TYPE);
-	public static final Model dataModel = new Model(DataItem.TYPE, DataSubItem.TYPE);
-	public static final Model mediaModel = new Model(MediaItem.TYPE);
-	public static final Model thumbnailModel = new Model(ThumbnailItem.TYPE);
-	public static final Model hashModel = new Model(HashItem.TYPE);
-	public static final Model md5Model = new Model(MD5Item.TYPE);
-	public static final Model fieldListLimitedModel = new Model(FieldListLimitedItem.TYPE);
-	public static final Model fieldListModel = new Model(FieldListItem.TYPE);
-	public static final Model fieldSetModel = new Model(FieldSetItem.TYPE);
-	public static final Model fieldMapLimitedModel = new Model(FieldMapLimitedItem.TYPE);
-	public static final Model fieldMapModel = new Model(FieldMapItem.TYPE);
-	public static final Model serializerModel = new Model(SerializerItem.TYPE);
-	public static final Model customModel = new Model(CustomItem.TYPE, JavaViewItem.TYPE);
-	public static final Model cacheIsolationModel = new Model(CacheIsolationItem.TYPE);
-	public static final Model compareConditionModel = new Model(CompareConditionItem.TYPE);
-	public static final Model compareFunctionConditionModel = new Model(CompareFunctionConditionItem.TYPE);
-	public static final Model typeInConditionModel = new Model(TypeInConditionAItem.TYPE, TypeInConditionB1Item.TYPE, TypeInConditionB2Item.TYPE, TypeInConditionC1Item.TYPE, TypeInConditionRefItem.TYPE);
-	public static final Model relationModel = new Model(RelationItem.TYPE, RelationSelfItem.TYPE, VectorRelationItem.TYPE, RelationSourceItem.TYPE, RelationTargetItem.TYPE);
-	public static final Model nameModel = new Model(
-			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE);
-	public static final Model matchModel = new Model(MatchItem.TYPE);
-	public static final Model hierarchyModel = new Model(
-			HierarchyFirstSub.TYPE,
-			HierarchySecondSub.TYPE,
-			HierarchySuper.TYPE, // deliberately put this type below it's sub types to test correct functionality
-			HierarchySingleSuper.TYPE,
-			HierarchySingleSub.TYPE
-		);
-	public static final Model hierarchyEmptyModel = new Model(HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE);
-	public static final Model joinFunctionModel = new Model(JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE);
-	public static final Model hardJoinModel = new Model(HardJoinA1Item.TYPE, HardJoinA2Item.TYPE, HardJoinA3Item.TYPE, HardJoinB1Item.TYPE, HardJoinB2Item.TYPE, HardJoinB3Item.TYPE);
-	public static final Model dtypeModel = new Model(DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE);
-	public static final Model hiddenFeatureModel = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
 
 	private static final void tearDown(final Model model)
 	{

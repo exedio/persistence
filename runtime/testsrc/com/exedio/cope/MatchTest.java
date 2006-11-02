@@ -22,9 +22,11 @@ package com.exedio.cope;
 
 public class MatchTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(MatchItem.TYPE);
+
 	public MatchTest()
 	{
-		super(Main.matchModel);
+		super(MODEL);
 	}
 	
 	MatchItem item;

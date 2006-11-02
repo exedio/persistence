@@ -23,15 +23,16 @@ import java.util.HashMap;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 
 public class SerializerTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(SerializerItem.TYPE);
 	
 	public SerializerTest()
 	{
-		super(Main.serializerModel);
+		super(MODEL);
 	}
 
 	SerializerItem item;

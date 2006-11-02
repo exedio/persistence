@@ -26,9 +26,11 @@ import java.io.ObjectOutputStream;
 
 public class ItemSerializationTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(ItemSerializationItem.TYPE);
+
 	public ItemSerializationTest()
 	{
-		super(Main.itemSerializationModel);
+		super(MODEL);
 	}
 	
 	private ItemSerializationItem item;

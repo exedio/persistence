@@ -23,13 +23,15 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 
 public class ThumbnailTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(ThumbnailItem.TYPE);
+
 	public ThumbnailTest()
 	{
-		super(Main.thumbnailModel);
+		super(MODEL);
 	}
 	
 	private ThumbnailItem item, jpeg, png, gif, text, empty;

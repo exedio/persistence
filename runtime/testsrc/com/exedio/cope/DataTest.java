@@ -26,9 +26,11 @@ import java.io.OutputStream;
 
 public class DataTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(DataItem.TYPE, DataSubItem.TYPE);
+
 	public DataTest()
 	{
-		super(Main.dataModel);
+		super(MODEL);
 	}
 	
 	private DataItem item;

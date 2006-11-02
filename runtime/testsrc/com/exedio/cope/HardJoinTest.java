@@ -21,9 +21,17 @@ package com.exedio.cope;
 
 public class HardJoinTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(
+			HardJoinA1Item.TYPE,
+			HardJoinA2Item.TYPE,
+			HardJoinA3Item.TYPE,
+			HardJoinB1Item.TYPE,
+			HardJoinB2Item.TYPE,
+			HardJoinB3Item.TYPE);
+
 	public HardJoinTest()
 	{
-		super(Main.hardJoinModel);
+		super(MODEL);
 	}
 	
 	private HardJoinA3Item a;

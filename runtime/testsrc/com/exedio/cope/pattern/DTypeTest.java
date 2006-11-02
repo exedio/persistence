@@ -19,13 +19,15 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 
 public class DTypeTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE);
+
 	public DTypeTest()
 	{
-		super(Main.dtypeModel);
+		super(MODEL);
 	}
 	
 	DTypeItem item, item2;

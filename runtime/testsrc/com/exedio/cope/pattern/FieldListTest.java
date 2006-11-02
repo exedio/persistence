@@ -22,20 +22,21 @@ import java.util.Date;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
-import com.exedio.cope.Main;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;
 
 public class FieldListTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(FieldListItem.TYPE);
 	
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);
 	
 	public FieldListTest()
 	{
-		super(Main.fieldListModel);
+		super(MODEL);
 	}
 
 	FieldListItem item;

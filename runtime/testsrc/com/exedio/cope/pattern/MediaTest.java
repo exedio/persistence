@@ -29,14 +29,16 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 
 public class MediaTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(MediaItem.TYPE);
+
 	public MediaTest()
 	{
-		super(Main.mediaModel);
+		super(MODEL);
 	}
 	
 	// TODO test various combinations of internal, external implicit, and external explicit source

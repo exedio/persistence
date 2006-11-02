@@ -23,10 +23,14 @@ import java.io.File;
 
 public class NameTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(
+			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
+			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE);
 	
 	public NameTest()
 	{
-		super(Main.nameModel);
+		super(MODEL);
 	}
 
 	@Override

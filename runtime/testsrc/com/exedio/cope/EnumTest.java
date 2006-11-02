@@ -22,6 +22,8 @@ package com.exedio.cope;
 
 public class EnumTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);
+
 	EnumItem item;
 	EnumItem2 item2;
 	
@@ -30,7 +32,7 @@ public class EnumTest extends AbstractLibTest
 	
 	public EnumTest()
 	{
-		super(Main.enumModel);
+		super(MODEL);
 	}
 	
 	@Override

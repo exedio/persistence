@@ -25,9 +25,11 @@ import java.util.List;
 
 public class DeleteTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
+
 	public DeleteTest()
 	{
-		super(Main.deleteModel);
+		super(MODEL);
 	}
 	
 	private DeleteItem item;

@@ -25,13 +25,15 @@ import com.exedio.cope.util.Day;
 
 public class DayFieldTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(DayItem.TYPE);
+
 	DayItem item, item2;
 	static final Day DEFAULT = new Day(2005, 8, 14);
 	static final Day DEFAULT2 = new Day(2005, 8, 15);
 	
 	public DayFieldTest()
 	{
-		super(Main.dayModel);
+		super(MODEL);
 	}
 	
 	@Override

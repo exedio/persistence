@@ -21,9 +21,11 @@ package com.exedio.cope;
 
 public class HiddenFeatureTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
+
 	public HiddenFeatureTest()
 	{
-		super(Main.hiddenFeatureModel);
+		super(MODEL);
 	}
 	
 	public void testHierarchy()

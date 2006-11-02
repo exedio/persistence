@@ -22,16 +22,17 @@ import java.util.Date;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
-import com.exedio.cope.Main;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 
 public class FieldSetTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(FieldSetItem.TYPE);
 	
 	public FieldSetTest()
 	{
-		super(Main.fieldSetModel);
+		super(MODEL);
 	}
 
 	FieldSetItem item;

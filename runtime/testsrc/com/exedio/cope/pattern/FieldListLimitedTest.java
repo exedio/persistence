@@ -28,16 +28,17 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
 public class FieldListLimitedTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(FieldListLimitedItem.TYPE);
 	
 	public FieldListLimitedTest()
 	{
-		super(Main.fieldListLimitedModel);
+		super(MODEL);
 	}
 
 	FieldListLimitedItem item;

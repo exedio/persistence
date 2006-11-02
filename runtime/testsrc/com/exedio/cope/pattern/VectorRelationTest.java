@@ -25,7 +25,6 @@ import java.util.List;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
-import com.exedio.cope.Main;
 import com.exedio.cope.Query;
 
 public class VectorRelationTest extends AbstractLibTest
@@ -33,7 +32,7 @@ public class VectorRelationTest extends AbstractLibTest
 	
 	public VectorRelationTest()
 	{
-		super(Main.relationModel);
+		super(RelationTest.MODEL);
 	}
 
 	RelationSourceItem source1, source2;

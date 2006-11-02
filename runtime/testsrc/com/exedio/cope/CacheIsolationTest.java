@@ -20,11 +20,13 @@ package com.exedio.cope;
 
 public class CacheIsolationTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(CacheIsolationItem.TYPE);
+
 	CacheIsolationItem item, collisionItem;
 	
 	public CacheIsolationTest()
 	{
-		super( Main.cacheIsolationModel );
+		super(MODEL);
 	}
 	
 	@Override

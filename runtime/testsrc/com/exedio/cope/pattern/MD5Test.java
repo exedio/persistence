@@ -24,14 +24,16 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
+import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 
 public class MD5Test extends AbstractLibTest
 {
+	static final Model MODEL = new Model(MD5Item.TYPE);
+
 	public MD5Test()
 	{
-		super(Main.md5Model);
+		super(MODEL);
 	}
 	
 	MD5Item item;

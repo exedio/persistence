@@ -22,16 +22,18 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 
 public class CustomTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(CustomItem.TYPE, JavaViewItem.TYPE);
+
 	public CustomTest()
 	{
-		super(Main.customModel);
+		super(MODEL);
 	}
 	
 	CustomItem item;

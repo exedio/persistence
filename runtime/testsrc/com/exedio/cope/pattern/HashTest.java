@@ -21,16 +21,18 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 
 public class HashTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(HashItem.TYPE);
+
 	public HashTest()
 	{
-		super(Main.hashModel);
+		super(MODEL);
 	}
 	
 	HashItem item;

@@ -25,9 +25,11 @@ import com.exedio.cope.util.Day;
 
 public class CompareConditionTest extends AbstractLibTest
 {
+	static final Model MODEL = new Model(CompareConditionItem.TYPE);
+
 	public CompareConditionTest()
 	{
-		super(Main.compareConditionModel);
+		super(MODEL);
 	}
 	
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;

@@ -22,7 +22,6 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Main;
 
 public class JavaViewTest extends AbstractLibTest
 {
@@ -30,7 +29,7 @@ public class JavaViewTest extends AbstractLibTest
 	
 	public JavaViewTest()
 	{
-		super(Main.customModel);
+		super(CustomTest.MODEL);
 	}
 	
 	JavaViewItem item;

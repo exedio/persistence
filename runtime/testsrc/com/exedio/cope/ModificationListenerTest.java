@@ -27,7 +27,7 @@ public class ModificationListenerTest extends AbstractLibTest
 {
 	public ModificationListenerTest()
 	{
-		super(Main.matchModel);
+		super(MatchTest.MODEL);
 	}
 	
 	final TestListener l = new TestListener();
