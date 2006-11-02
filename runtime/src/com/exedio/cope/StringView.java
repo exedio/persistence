@@ -92,7 +92,7 @@ public abstract class StringView
 		return new UppercaseView(this);
 	}
 	
-	public final EqualCondition equalIgnoreCase(final String value)
+	public final Condition equalIgnoreCase(final String value)
 	{
 		return toUpperCase().equal(value.toUpperCase());
 	}

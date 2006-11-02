@@ -18,55 +18,37 @@
 
 package com.exedio.cope;
 
-public final class EqualCondition<E> extends Condition // TODO remove, integrate into CompareCondition
+public final class IsNullCondition<E> extends Condition
 {
-	public final Function<E> function;
+	private final Function<E> function;
 	private final boolean not;
-	public final E value;
 
 	/**
-	 * Creates a new EqualCondition.
+	 * Creates a new IsNullCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
-	 * @see FunctionField#isNull()
-	 * @see FunctionField#equal(Object)
-	 * @see FunctionField#isNotNull()
-	 * @see FunctionField#notEqual(Object)
+	 * @see com.exedio.cope.Function#isNull()
+	 * @see com.exedio.cope.Function#isNotNull()
 	 */
-	public EqualCondition(final Function<E> function, final boolean not, final E value)
+	public IsNullCondition(final Function<E> function, final boolean not)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
 
 		this.function = function;
 		this.not = not;
-		this.value = value;
+	}
+	
+	private final String sql()
+	{
+		return not ? " is not null" : " is null";
 	}
 	
 	@Override
 	void append(final Statement bf)
 	{
-		if(!not)
-		{
-			function.append(bf, null);
-			if(value!=null)
-				bf.append('=').
-					appendParameter(function, value);
-			else
-				bf.append(" is null");
-		}
-		else
-		{
-			if(value!=null)
-			{
-				bf.append(function, (Join)null).
-					append("<>").
-					appendParameter(function, value);
-			}
-			else
-				bf.append(function, (Join)null).
-					append(" is not null");
-		}
+		bf.append(function, null).
+			append(sql());
 	}
 
 	@Override
@@ -78,29 +60,29 @@ public final class EqualCondition<E> extends Condition // TODO remove, integrate
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof EqualCondition))
+		if(!(other instanceof IsNullCondition))
 			return false;
 		
-		final EqualCondition o = (EqualCondition)other;
+		final IsNullCondition o = (IsNullCondition)other;
 		
-		return function.equals(o.function) && not==o.not && equals(value, o.value);
+		return function.equals(o.function) && not==o.not;
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return function.hashCode() ^ (not ? 823658266 : 328451237) ^ hashCode(value);
+		return function.hashCode() ^ (not ? 934658732 : 546637842);
 	}
 
 	@Override
 	public String toString()
 	{
-		return function.toString() + (not ? "!='" : "='") + value + '\'';
+		return function.toString() + sql();
 	}
 	
 	@Override
 	String toStringForQueryKey()
 	{
-		return function.toString() + (not ? "!='" : "='") + toStringForQueryKey(value) + '\'';
+		return toString();
 	}
 }

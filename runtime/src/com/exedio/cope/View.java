@@ -177,22 +177,22 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 
-	public final EqualCondition<E> isNull()
+	public final IsNullCondition<E> isNull()
 	{
-		return equal((E)null);
+		return new IsNullCondition<E>(this, false);
 	}
 	
-	public final EqualCondition<E> isNotNull()
+	public final IsNullCondition<E> isNotNull()
 	{
-		return notEqual((E)null);
+		return new IsNullCondition<E>(this, true);
 	}
 	
-	public final EqualCondition<E> equal(final E value)
+	public final Condition equal(final E value)
 	{
-		return new EqualCondition<E>(this, false, value);
+		return Cope.equal(this, value);
 	}
 	
-	public final EqualCondition<E> equal(final Join join, final E value)
+	public final Condition equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
 	}
@@ -202,9 +202,9 @@ public abstract class View<E> extends Feature implements Function<E>
 		return CompositeCondition.in(this, values);
 	}
 	
-	public final EqualCondition<E> notEqual(final E value)
+	public final Condition notEqual(final E value)
 	{
-		return new EqualCondition<E>(this, true, value);
+		return Cope.notEqual(this, value);
 	}
 	
 	public final CompareCondition<E> less(final E value)

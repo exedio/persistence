@@ -45,25 +45,25 @@ public interface Function<E> extends Selectable<E>
 	 * if and only if the value of this function for that item
 	 * is null.
 	 */
-	EqualCondition<E> isNull();
+	IsNullCondition<E> isNull();
 	
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is not null.
 	 */
-	EqualCondition<E> isNotNull();
+	IsNullCondition<E> isNotNull();
 	
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is equal to the given parameter.
 	 */
-	EqualCondition<E> equal(E value);
+	Condition equal(E value);
 	
-	EqualCondition<E> equal(Join join, E value);
+	Condition equal(Join join, E value);
 	CompositeCondition in(Collection<E> value);
-	EqualCondition<E> notEqual(E value);
+	Condition notEqual(E value);
 
 	/**
 	 * Returns a condition, that is true for all items,

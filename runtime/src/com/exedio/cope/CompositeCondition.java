@@ -147,7 +147,7 @@ public final class CompositeCondition extends Condition
 
 	public static final <E> CompositeCondition in(final Function<E> function, final Collection<E> values)
 	{
-		final EqualCondition[] result = new EqualCondition[values.size()];
+		final Condition[] result = new Condition[values.size()];
 
 		int i = 0;
 		for(E value : values)

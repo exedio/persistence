@@ -56,7 +56,7 @@ public interface StringFunction extends Function<String>
 	
 	LengthView length();
 	UppercaseView toUpperCase();
-	EqualCondition equalIgnoreCase(String value);
+	Condition equalIgnoreCase(String value);
 	LikeCondition likeIgnoreCase(String value);
 	LikeCondition startsWithIgnoreCase(String value);
 	LikeCondition endsWithIgnoreCase(String value);

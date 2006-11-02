@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.SortedSet;
 
-import com.exedio.cope.EqualCondition;
+import com.exedio.cope.Condition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
@@ -109,17 +109,17 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return new SetValue[]{ storage.map(hash(value)) };
 	}
 	
-	public final EqualCondition<String> equal(final String value)
+	public final Condition equal(final String value)
 	{
 		return storage.equal(hash(value));
 	}
 	
-	public final EqualCondition<String> equal(final Join join, final String value)
+	public final Condition equal(final Join join, final String value)
 	{
 		return storage.bind(join).equal(hash(value));
 	}
 
-	public final EqualCondition<String> notEqual(final String value)
+	public final Condition notEqual(final String value)
 	{
 		return storage.notEqual(hash(value));
 	}

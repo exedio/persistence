@@ -29,6 +29,8 @@ public final class CompareCondition<E> extends Condition
 	 * Creates a new CompareCondition.
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
+	 * @see com.exedio.cope.Function#equal(Object)
+	 * @see com.exedio.cope.Function#notEqual(Object)
 	 * @see com.exedio.cope.Function#less(Object)
 	 * @see com.exedio.cope.Function#lessOrEqual(Object)
 	 * @see com.exedio.cope.Function#greater(Object)
@@ -93,6 +95,8 @@ public final class CompareCondition<E> extends Condition
 
 	public static enum Operator
 	{
+		Equal("="),
+		NotEqual("<>"),
 		Less("<"),
 		LessEqual("<="),
 		Greater(">"),

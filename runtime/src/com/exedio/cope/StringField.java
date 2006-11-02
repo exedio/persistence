@@ -230,7 +230,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 		return toUpperCase();
 	}
 	
-	public final EqualCondition equalIgnoreCase(final String value)
+	public final Condition equalIgnoreCase(final String value)
 	{
 		return toUpperCase().equal(value.toUpperCase());
 	}

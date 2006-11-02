@@ -33,6 +33,16 @@ public abstract class Cope
 	Cope()
 	{/* do not allow class to be subclassed by public */}
 
+	public static final <E> Condition equal(final Function<E> function, final E value)
+	{
+		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.Equal, function, value) : new IsNullCondition(function, false);
+	}
+	
+	public static final <E> Condition notEqual(final Function<E> function, final E value)
+	{
+		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.NotEqual, function, value) : new IsNullCondition(function, true);
+	}
+	
 	public static final CompositeCondition and(final Condition condition1, final Condition condition2)
 	{
 		return new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2});
@@ -139,7 +149,7 @@ public abstract class Cope
 	 * {@link Function#equal(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	public static final <X> EqualCondition<X> equalAndCast(final Function<X> function, final Object value)
+	public static final <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
 		return function.equal(verboseCast(function.getValueClass(), value));
 	}
@@ -150,7 +160,7 @@ public abstract class Cope
 	 * {@link Function#notEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
 	 */
-	public static final <X> EqualCondition<X> notEqualAndCast(final Function<X> function, final Object value)
+	public static final <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
 		return function.notEqual(verboseCast(function.getValueClass(), value));
 	}

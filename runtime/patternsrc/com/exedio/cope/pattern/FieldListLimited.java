@@ -29,7 +29,6 @@ import java.util.SortedSet;
 import com.exedio.cope.CompositeCondition;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
-import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -215,7 +214,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	public CompositeCondition equal(final Collection<E> value)
 	{
 		int i = 0;
-		final EqualCondition[] conditions = new EqualCondition[sources.length];
+		final Condition[] conditions = new Condition[sources.length];
 		
 		for(Iterator<E> it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = sources[i].equal(it.next());
@@ -245,7 +244,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 
 	public CompositeCondition contains(final E value)
 	{
-		final EqualCondition[] conditions = new EqualCondition[sources.length];
+		final Condition[] conditions = new Condition[sources.length];
 		
 		for(int i = 0; i<sources.length; i++)
 			conditions[i] = sources[i].equal(value);

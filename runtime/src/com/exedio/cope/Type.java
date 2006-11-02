@@ -1052,25 +1052,25 @@ public final class Type<C extends Item>
 		/**
 		 * Note: a primary key can become null in queries using outer joins.
 		 */
-		public EqualCondition<E> isNull()
+		public IsNullCondition<E> isNull()
 		{
-			return equal((E)null);
+			return new IsNullCondition<E>(this, false);
 		}
 		
 		/**
 		 * Note: a primary key can become null in queries using outer joins.
 		 */
-		public EqualCondition<E> isNotNull()
+		public IsNullCondition<E> isNotNull()
 		{
-			return notEqual((E)null);
+			return new IsNullCondition<E>(this, true);
 		}
 		
-		public EqualCondition<E> equal(final E value)
+		public Condition equal(final E value)
 		{
-			return new EqualCondition<E>(this, false, value);
+			return Cope.equal(this, value);
 		}
 		
-		public EqualCondition<E> equal(final Join join, final E value)
+		public Condition equal(final Join join, final E value)
 		{
 			return this.bind(join).equal(value);
 		}
@@ -1080,9 +1080,9 @@ public final class Type<C extends Item>
 			return CompositeCondition.in(this, values);
 		}
 		
-		public EqualCondition<E> notEqual(final E value)
+		public Condition notEqual(final E value)
 		{
-			return new EqualCondition<E>(this, true, value);
+			return Cope.notEqual(this, value);
 		}
 		
 		public CompareCondition<E> less(final E value)

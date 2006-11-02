@@ -73,7 +73,7 @@ public class CompareConditionTest extends AbstractLibTest
 
 		// test toString
 		assertEquals("CompareConditionItem.string='string3'",  item1.string.equal("string3").toString());
-		assertEquals("CompareConditionItem.string!='string3'", item1.string.notEqual("string3").toString());
+		assertEquals("CompareConditionItem.string<>'string3'", item1.string.notEqual("string3").toString());
 		assertEquals("CompareConditionItem.string<'string3'",  item1.string.less("string3").toString());
 		assertEquals("CompareConditionItem.string<='string3'", item1.string.lessOrEqual("string3").toString());
 		assertEquals("CompareConditionItem.string>'string3'",  item1.string.greater("string3").toString());
