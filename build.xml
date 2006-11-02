@@ -327,6 +327,7 @@
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/pcj.jar" />
 						<pathelement location="lib/servlet-api.jar" />
+						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties"

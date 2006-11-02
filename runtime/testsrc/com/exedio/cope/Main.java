@@ -19,6 +19,11 @@
 package com.exedio.cope;
 
 import java.io.File;
+import java.util.Enumeration;
+import java.util.HashSet;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import com.exedio.cope.pattern.CustomItem;
 import com.exedio.cope.pattern.DAttribute;
@@ -88,6 +93,7 @@ public class Main
 
 	private static final void tearDown(final Model model)
 	{
+		//System.out.println("teardown " + model.getTypes());
 		final File dpf = Properties.getDefaultPropertyFile();
 		final java.util.Properties dp = Properties.loadProperties(dpf);
 		
@@ -117,40 +123,24 @@ public class Main
 		model.tearDownDatabase();
 	}
 	
+	private static final void collectModels(final TestSuite suite, final HashSet<Model> models)
+	{
+		for(Enumeration e = suite.tests(); e.hasMoreElements(); )
+		{
+			final Test test = (Test)e.nextElement();
+
+			if(test instanceof AbstractLibTest)
+				models.add(((AbstractLibTest)test).model);
+			else if(test instanceof TestSuite)
+				collectModels((TestSuite)test, models);
+		}
+	}
+	
 	public static void main(String[] args)
 	{
-		tearDown(com.exedio.cope.testmodel.Main.model);
-		tearDown(itemSerializationModel);
-		tearDown(deleteModel);
-		tearDown(deleteHierarchyModel);
-		tearDown(defaultToModel);
-		tearDown(enumModel);
-		tearDown(dayModel);
-		tearDown(dataModel);
-		tearDown(mediaModel);
-		tearDown(thumbnailModel);
-		tearDown(hashModel);
-		tearDown(md5Model);
-		tearDown(fieldListLimitedModel);
-		tearDown(fieldListModel);
-		tearDown(fieldSetModel);
-		tearDown(fieldMapLimitedModel);
-		tearDown(fieldMapModel);
-		tearDown(serializerModel);
-		tearDown(relationModel);
-		tearDown(customModel);
-		tearDown(cacheIsolationModel);
-		tearDown(compareConditionModel);
-		tearDown(compareFunctionConditionModel);
-		tearDown(typeInConditionModel);
-		tearDown(nameModel);
-		tearDown(matchModel);
-		tearDown(hierarchyModel);
-		tearDown(hierarchyEmptyModel);
-		tearDown(joinFunctionModel);
-		tearDown(hardJoinModel);
-		tearDown(dtypeModel);
-		tearDown(hiddenFeatureModel);
+		final HashSet<Model> models = new HashSet<Model>();
+		collectModels(PackageTest.suite(), models);
+		for(final Model m : models)
+			tearDown(m);
 	}
-
 }

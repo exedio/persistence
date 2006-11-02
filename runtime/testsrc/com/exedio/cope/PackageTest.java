@@ -18,16 +18,15 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.badquery.BadQueryTest;
-
-import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import com.exedio.cope.badquery.BadQueryTest;
 
 public class PackageTest extends TestCase
 {
 
-	public static Test suite()
+	public static TestSuite suite()
 	{
 		final TestSuite suite = new TestSuite();
 		
