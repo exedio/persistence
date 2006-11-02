@@ -35,12 +35,12 @@ public abstract class Cope
 
 	public static final <E> Condition equal(final Function<E> function, final E value)
 	{
-		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.Equal, function, value) : new IsNullCondition(function, false);
+		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
 	}
 	
 	public static final <E> Condition notEqual(final Function<E> function, final E value)
 	{
-		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.NotEqual, function, value) : new IsNullCondition(function, true);
+		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.NotEqual, function, value) : new IsNullCondition<E>(function, true);
 	}
 	
 	public static final CompositeCondition and(final Condition condition1, final Condition condition2)
