@@ -1049,6 +1049,22 @@ public final class Type<C extends Item>
 		
 		// convenience methods for conditions and views ---------------------------------
 
+		/**
+		 * Note: a primary key can become null in queries using outer joins.
+		 */
+		public EqualCondition<E> isNull()
+		{
+			return equal((E)null);
+		}
+		
+		/**
+		 * Note: a primary key can become null in queries using outer joins.
+		 */
+		public EqualCondition<E> isNotNull()
+		{
+			return notEqual(null);
+		}
+		
 		public EqualCondition<E> equal(final E value)
 		{
 			return new EqualCondition<E>(this, false, value);

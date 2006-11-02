@@ -177,6 +177,16 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	public final EqualCondition<E> isNull()
+	{
+		return equal((E)null);
+	}
+	
+	public final EqualCondition<E> isNotNull()
+	{
+		return notEqual(null);
+	}
+	
 	public final EqualCondition<E> equal(final E value)
 	{
 		return new EqualCondition<E>(this, false, value);

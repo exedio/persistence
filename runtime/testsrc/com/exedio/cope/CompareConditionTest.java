@@ -30,7 +30,7 @@ public class CompareConditionTest extends AbstractLibTest
 		super(Main.compareConditionModel);
 	}
 	
-	CompareConditionItem item1, item2, item3, item4, item5;
+	CompareConditionItem item1, item2, item3, item4, item5, itemX;
 	static final Date date = new Date(1087365298214l);
 	static final Day day = new Day(2007, 4, 28);
 	boolean seq;
@@ -55,6 +55,7 @@ public class CompareConditionTest extends AbstractLibTest
 		deleteOnTearDown(item3 = new CompareConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), YEnum.V3));
 		deleteOnTearDown(item4 = new CompareConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), YEnum.V4));
 		deleteOnTearDown(item5 = new CompareConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), YEnum.V5));
+		deleteOnTearDown(itemX = new CompareConditionItem(null, null, null, null, null, null, null));
 		item1.setItem(item1);
 		item2.setItem(item2);
 		item3.setItem(item3);
@@ -79,6 +80,28 @@ public class CompareConditionTest extends AbstractLibTest
 		assertEquals("CompareConditionItem.string>='string3'", item1.string.greaterOrEqual("string3").toString());
 		
 		
+		// isNull
+		assertContains(itemX, item1.TYPE.search(item1.string.isNull()));
+		assertContains(itemX, item1.TYPE.search(item1.intx.isNull()));
+		assertContains(itemX, item1.TYPE.search(item1.longx.isNull()));
+		assertContains(itemX, item1.TYPE.search(item1.doublex.isNull()));
+		assertContains(itemX, item1.TYPE.search(item1.date.isNull()));
+		assertContains(itemX, item1.TYPE.search(item1.day.isNull()));
+		assertContains(itemX, item1.TYPE.search(item1.enumx.isNull()));
+		assertContains(itemX, item1.TYPE.search(item1.item.isNull()));
+		assertContains(item1.TYPE.search(item1.TYPE.getThis().isNull()));
+
+		// isNotNull
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.string.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.intx.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.longx.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.doublex.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.date.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.day.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.enumx.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, item1.TYPE.search(item1.item.isNotNull()));
+		assertContains(item1, item2, item3, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().isNotNull()));
+
 		// equal
 		assertContains(item3, item1.TYPE.search(item1.string.equal("string3")));
 		assertContains(item3, item1.TYPE.search(item1.intx.equal(3)));
@@ -91,15 +114,15 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item3, item1.TYPE.search(item1.TYPE.getThis().equal(item3)));
 
 		// notEqual
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.string.notEqual("string3")));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.intx.notEqual(3)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.longx.notEqual(13l)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.doublex.notEqual(2.3)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.date.notEqual(date)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.day.notEqual(day)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.enumx.notEqual(YEnum.V3)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.item.notEqual(item3)));
-		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.TYPE.getThis().notEqual(item3)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.string.notEqual("string3")));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.intx.notEqual(3)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.longx.notEqual(13l)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.doublex.notEqual(2.3)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.date.notEqual(date)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.day.notEqual(day)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.enumx.notEqual(YEnum.V3)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.item.notEqual(item3)));
+		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.TYPE.getThis().notEqual(item3)));
 
 		// less
 		assertContains(item1, item2, item1.TYPE.search(item1.string.less("string3")));
@@ -140,7 +163,7 @@ public class CompareConditionTest extends AbstractLibTest
 		if(seq)
 		{
 			assertContains(item4, item5, item1.TYPE.search(item1.item.greater(item3)));
-			assertContains(item4, item5, item1.TYPE.search(item1.TYPE.getThis().greater(item3)));
+			assertContains(item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().greater(item3)));
 		}
 
 		// greaterOrEqual
@@ -154,7 +177,7 @@ public class CompareConditionTest extends AbstractLibTest
 		if(seq)
 		{
 			assertContains(item3, item4, item5, item1.TYPE.search(item1.item.greaterOrEqual(item3)));
-			assertContains(item3, item4, item5, item1.TYPE.search(item1.TYPE.getThis().greaterOrEqual(item3)));
+			assertContains(item3, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().greaterOrEqual(item3)));
 		}
 		
 		// in
@@ -212,7 +235,7 @@ public class CompareConditionTest extends AbstractLibTest
 		if(seq)
 		{
 			assertEquals(item5, new Query<CompareConditionItem>(item1.item.max()).searchSingleton());
-			assertEquals(item5, new Query<CompareConditionItem>(item1.TYPE.getThis().max()).searchSingleton());
+			assertEquals(itemX, new Query<CompareConditionItem>(item1.TYPE.getThis().max()).searchSingleton());
 		}
 
 		// test extremum aggregate
