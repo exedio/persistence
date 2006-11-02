@@ -59,16 +59,9 @@ public final class EqualCondition<E> extends Condition // TODO remove, integrate
 		{
 			if(value!=null)
 			{
-				// IMPLEMENTATION NOTE
-				// the "or is null" is needed since without this oracle
-				// does not find results with null.
-				bf.append("(").
-					append(function, (Join)null).
+				bf.append(function, (Join)null).
 					append("<>").
-					appendParameter(function, value).
-					append(" or ").
-					append(function, (Join)null).
-					append(" is null)");
+					appendParameter(function, value);
 			}
 			else
 				bf.append(function, (Join)null).

@@ -52,14 +52,14 @@ public class FieldBooleanTest extends FieldTest
 		}
 		assertContains(item, item.TYPE.search(item.someBoolean.equal(true)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item2, item.TYPE.search(item.someBoolean.notEqual(true)));
+		assertContains(item.TYPE.search(item.someBoolean.notEqual(true)));
 		assertContains(item, item.TYPE.search(item.someBoolean.isNotNull()));
 
 		item.setSomeBoolean(Boolean.FALSE);
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
 		assertContains(item, item.TYPE.search(item.someBoolean.equal(false)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item2, item.TYPE.search(item.someBoolean.notEqual(false)));
+		assertContains(item.TYPE.search(item.someBoolean.notEqual(false)));
 		assertContains(item, item.TYPE.search(item.someBoolean.isNotNull()));
 		
 		assertContains(Boolean.FALSE, null, search(item.someBoolean));
@@ -69,7 +69,7 @@ public class FieldBooleanTest extends FieldTest
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
 		assertContains(item, item.TYPE.search(item.someBoolean.equal(false)));
 		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item2, item.TYPE.search(item.someBoolean.notEqual(false)));
+		assertContains(item.TYPE.search(item.someBoolean.notEqual(false)));
 		assertContains(item, item.TYPE.search(item.someBoolean.isNotNull()));
 
 		item.setSomeBoolean(null);

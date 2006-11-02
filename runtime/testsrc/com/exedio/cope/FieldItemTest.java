@@ -48,7 +48,7 @@ public class FieldItemTest extends FieldTest
 				item.TYPE.search(item.someItem.equal(someItem)));
 		assertContains(item2,
 				item.TYPE.search(item.someItem.equal((EmptyItem)null)));
-		assertContains(item2,
+		assertContains(
 				item.TYPE.search(item.someItem.notEqual(someItem)));
 		assertContains(item,
 				item.TYPE.search(item.someItem.notEqual((EmptyItem)null)));

@@ -114,15 +114,15 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item3, item1.TYPE.search(item1.TYPE.getThis().equal(item3)));
 
 		// notEqual
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.string.notEqual("string3")));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.intx.notEqual(3)));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.longx.notEqual(13l)));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.doublex.notEqual(2.3)));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.date.notEqual(date)));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.day.notEqual(day)));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.enumx.notEqual(YEnum.V3)));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.item.notEqual(item3)));
-		assertContains(item1, item2, item4, item5, itemX/*TODO remove*/, item1.TYPE.search(item1.TYPE.getThis().notEqual(item3)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.string.notEqual("string3")));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.intx.notEqual(3)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.longx.notEqual(13l)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.doublex.notEqual(2.3)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.date.notEqual(date)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.day.notEqual(day)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.enumx.notEqual(YEnum.V3)));
+		assertContains(item1, item2, item4, item5, item1.TYPE.search(item1.item.notEqual(item3)));
+		assertContains(item1, item2, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().notEqual(item3)));
 
 		// less
 		assertContains(item1, item2, item1.TYPE.search(item1.string.less("string3")));

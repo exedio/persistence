@@ -61,7 +61,7 @@ public class FieldDoubleTest extends FieldTest
 			list(item),
 			item.TYPE.search(item.someDouble.equal(22.22)));
 		assertEquals(
-			list(item2),
+			list(),
 			item.TYPE.search(item.someDouble.notEqual(22.22)));
 		assertEquals(list(item2), item.TYPE.search(item.someDouble.equal((Double)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someDouble.isNull()));

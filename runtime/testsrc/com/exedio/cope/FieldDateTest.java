@@ -54,7 +54,7 @@ public class FieldDateTest extends FieldTest
 		assertEquals(date, item.getSomeDate());
 		assertEquals(list(item), item.TYPE.search(item.someDate.equal(date)));
 		assertEquals(list(item), item.TYPE.search(item.someDate.greaterOrEqual(date).and(item.someDate.lessOrEqual(date))));
-		assertEquals(list(item2), item.TYPE.search(item.someDate.notEqual(date)));
+		assertEquals(list(), item.TYPE.search(item.someDate.notEqual(date)));
 		assertEquals(list(item2), item.TYPE.search(item.someDate.equal((Date)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someDate.isNull()));
 		assertEquals(list(item), item.TYPE.search(item.someDate.notEqual((Date)null)));

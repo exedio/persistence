@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.SortedSet;
 
 import com.exedio.cope.CompositeCondition;
+import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.EqualCondition;
 import com.exedio.cope.FinalViolationException;
@@ -228,10 +229,10 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	public CompositeCondition notEqual(final Collection<E> value)
 	{
 		int i = 0;
-		final EqualCondition[] conditions = new EqualCondition[sources.length];
+		final Condition[] conditions = new Condition[sources.length];
 		
-		for(Iterator<E> it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = sources[i].notEqual(it.next());
+		for(Iterator<E> it = value.iterator(); it.hasNext(); i++) // TODO use for-each
+			conditions[i] = sources[i].notEqual(it.next()).or(sources[i].isNull());
 
 		for(; i<sources.length; i++)
 			conditions[i] = sources[i].isNotNull();

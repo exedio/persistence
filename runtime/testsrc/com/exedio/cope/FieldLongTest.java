@@ -59,7 +59,7 @@ public class FieldLongTest extends FieldTest
 			list(item),
 			item.TYPE.search(item.someLong.equal(11l)));
 		assertEquals(
-			list(item2),
+			list(),
 			item.TYPE.search(item.someLong.notEqual(11l)));
 
 		assertEquals(list(item2), item.TYPE.search(item.someLong.equal((Long)null)));

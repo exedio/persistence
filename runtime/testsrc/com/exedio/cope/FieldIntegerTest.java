@@ -59,7 +59,7 @@ public class FieldIntegerTest extends FieldTest
 			list(item),
 			item.TYPE.search(item.someInteger.equal(10)));
 		assertEquals(
-			list(item2),
+			list(),
 			item.TYPE.search(item.someInteger.notEqual(10)));
 		assertEquals(list(item2), item.TYPE.search(item.someInteger.equal((Integer)null)));
 		assertEquals(list(item2), item.TYPE.search(item.someInteger.isNull()));

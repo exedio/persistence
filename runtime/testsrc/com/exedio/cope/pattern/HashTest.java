@@ -68,7 +68,7 @@ public class HashTest extends AbstractLibTest
 		assertContains(item, item.TYPE.search(item.explicitExternal.equal(null)));
 		assertContains(item.TYPE.search(item.explicitExternal.equal("bing")));
 		assertContains(item.TYPE.search(item.explicitExternal.notEqual(null)));
-		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual("bing")));
+		assertContains(item.TYPE.search(item.explicitExternal.notEqual("bing")));
 		
 		item.setExplicitExternalWrap("bello");
 		assertEquals("bello", item.getExplicitExternalWrap());
