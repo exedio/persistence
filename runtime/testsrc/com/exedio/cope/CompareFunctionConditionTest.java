@@ -30,7 +30,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		super(Main.compareFunctionConditionModel);
 	}
 	
-	CompareFunctionConditionItem item1, item2, item3, item4, item5;
+	CompareFunctionConditionItem item1, item2, item3, item4, item5, itemX;
 	final Date date = CompareFunctionConditionItem.date;
 	final Day day = CompareFunctionConditionItem.day;
 	boolean seq;
@@ -55,6 +55,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		deleteOnTearDown(item3 = new CompareFunctionConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), XEnum.V3));
 		deleteOnTearDown(item4 = new CompareFunctionConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), XEnum.V4));
 		deleteOnTearDown(item5 = new CompareFunctionConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), XEnum.V5));
+		deleteOnTearDown(itemX = new CompareFunctionConditionItem(null, null, null, null, null, null, null));
 		item1.setRightItem(item3);
 		item2.setRightItem(item3);
 		item3.setRightItem(item3);
