@@ -231,8 +231,11 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 		
-		for(Iterator<E> it = value.iterator(); it.hasNext(); i++) // TODO use for-each
-			conditions[i] = sources[i].notEqual(it.next()).or(sources[i].isNull());
+		for(E v : value)
+		{
+			conditions[i] = sources[i].notEqual(v).or(sources[i].isNull());
+			i++;
+		}
 
 		for(; i<sources.length; i++)
 			conditions[i] = sources[i].isNotNull();
