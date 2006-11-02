@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-/**
- * @author Ralf Wiebicke
- */
 class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 {
 

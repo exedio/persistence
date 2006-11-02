@@ -18,15 +18,13 @@
 
 package com.exedio.cope;
 
-/**
- */
 class CacheIsolationItem extends Item
 {
 	static final StringField uniqueString = new StringField( UNIQUE_OPTIONAL );
 	
 	static final StringField name = new StringField();
 	
-/**
+	/**
 
 	 **
 	 * Creates a new CacheIsolationItem with all the fields initially needed.

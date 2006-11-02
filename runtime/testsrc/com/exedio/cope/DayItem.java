@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-/**
- * @author Ralf Wiebicke
- */
 class DayItem extends Item
 {
 

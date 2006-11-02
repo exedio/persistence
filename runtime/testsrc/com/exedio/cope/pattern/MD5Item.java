@@ -22,9 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.MD5Hash;
 
-/**
- * @author Ralf Wiebicke
- */
 public class MD5Item extends Item
 {
 	static final MD5Hash password = new MD5Hash(OPTIONAL);

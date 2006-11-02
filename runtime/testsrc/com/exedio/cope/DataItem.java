@@ -23,9 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * @author Ralf Wiebicke
- */
 class DataItem extends Item
 {
 
