@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+
+import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -94,4 +98,36 @@ public class PackageTest extends TestCase
 		return suite;
 	}
 
+	private static final void tearDown(final Model model, final Properties properties)
+	{
+		//System.out.println("teardown " + model.getTypes());
+		model.connect(properties);
+		model.tearDownDatabase();
+	}
+	
+	private static final void collectModels(final TestSuite suite, final HashMap<Model, Properties> models)
+	{
+		for(Enumeration e = suite.tests(); e.hasMoreElements(); )
+		{
+			final Test test = (Test)e.nextElement();
+
+			if(test instanceof com.exedio.cope.junit.CopeTest)
+			{
+				final com.exedio.cope.junit.CopeTest copeTest = (com.exedio.cope.junit.CopeTest)test;
+				final Model model = copeTest.model;
+				if(!models.containsKey(model))
+					models.put(model, copeTest.getProperties());
+			}
+			else if(test instanceof TestSuite)
+				collectModels((TestSuite)test, models);
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		final HashMap<Model, Properties> models = new HashMap<Model, Properties>();
+		collectModels(PackageTest.suite(), models);
+		for(final Model m : models.keySet())
+			tearDown(m, models.get(m));
+	}
 }

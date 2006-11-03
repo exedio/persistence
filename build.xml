@@ -319,7 +319,7 @@
 								value="build/runtime/teardown.@{db}/data" />
 					</filterset>
 				</copy>
-				<java classname="com.exedio.cope.Main" taskname="tear down @{db}"
+				<java classname="com.exedio.cope.PackageTest" taskname="tear down @{db}"
 						fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="build/runtime/classes" />
