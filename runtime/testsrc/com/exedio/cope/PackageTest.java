@@ -98,13 +98,6 @@ public class PackageTest extends TestCase
 		return suite;
 	}
 
-	private static final void tearDown(final Model model, final Properties properties)
-	{
-		//System.out.println("teardown " + model.getTypes());
-		model.connect(properties);
-		model.tearDownDatabase();
-	}
-	
 	private static final void collectModels(final TestSuite suite, final HashMap<Model, Properties> models)
 	{
 		for(Enumeration e = suite.tests(); e.hasMoreElements(); )
@@ -128,6 +121,10 @@ public class PackageTest extends TestCase
 		final HashMap<Model, Properties> models = new HashMap<Model, Properties>();
 		collectModels(PackageTest.suite(), models);
 		for(final Model m : models.keySet())
-			tearDown(m, models.get(m));
+		{
+			//System.out.println("teardown " + m.getTypes());
+			m.connect(models.get(m));
+			m.tearDownDatabase();
+		}
 	}
 }
