@@ -34,7 +34,7 @@ public class NameTest extends AbstractLibTest
 	}
 
 	@Override
-	protected Properties getProperties()
+	public Properties getProperties()
 	{
 		final File dpf = Properties.getDefaultPropertyFile();
 		final java.util.Properties dp = Properties.loadProperties(dpf);

@@ -137,7 +137,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 	
-	protected Properties getProperties()
+	public Properties getProperties()
 	{
 		return new Properties();
 	}

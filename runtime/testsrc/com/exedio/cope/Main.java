@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.io.File;
 import java.util.Enumeration;
-import java.util.HashSet;
+import java.util.HashMap;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -28,46 +27,26 @@ import junit.framework.TestSuite;
 public class Main
 {
 
-	private static final void tearDown(final Model model)
+	private static final void tearDown(final Model model, final Properties properties)
 	{
 		//System.out.println("teardown " + model.getTypes());
-		final File dpf = Properties.getDefaultPropertyFile();
-		final java.util.Properties dp = Properties.loadProperties(dpf);
-		
-		dp.setProperty("database.forcename.StringItem", "STRINGITEMS");
-		dp.setProperty("database.forcename.STRINGITEMS.this", "STRINGITEM_ID");
-		dp.setProperty("database.forcename.STRINGITEMS.any", "ANY");
-		dp.setProperty("database.forcename.STRINGITEMS.mandatory", "MANDATORY");
-		dp.setProperty("database.forcename.STRINGITEMS.min4", "MIN_4");
-		dp.setProperty("database.forcename.STRINGITEMS.max4", "MAX_4");
-		dp.setProperty("database.forcename.STRINGITEMS.min4Max8", "MIN4_MAX8");
-		dp.setProperty("database.forcename.STRINGITEMS.exact6", "EXACT_6");
-		dp.setProperty("database.forcename.ItemWithSingleUnique", "UNIQUE_ITEMS");
-		dp.setProperty("database.forcename.UNIQUE_ITEMS.this", "UNIQUE_ITEM_ID");
-		dp.setProperty("database.forcename.UNIQUE_ITEMS.uniqueString", "UNIQUE_STRING");
-		dp.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
-		dp.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
-		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", "NameCollisionlongAItem_F");
-		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
-		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
-		dp.setProperty("database.forcename.DefaultToItem_dateEighty_Ck", "DefltToItm_dateEighty_Ck");
-		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", "NameCollisionlongAItem_F");
-		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
-		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
-		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_pointerLoooooooooooooName_Ck", "NmeLngIm_pointrLngNme_Ck");
-		
-		model.connect(new Properties(dp, dpf.getAbsolutePath()+" plus teardown forced names"));
+		model.connect(properties);
 		model.tearDownDatabase();
 	}
 	
-	private static final void collectModels(final TestSuite suite, final HashSet<Model> models)
+	private static final void collectModels(final TestSuite suite, final HashMap<Model, Properties> models)
 	{
 		for(Enumeration e = suite.tests(); e.hasMoreElements(); )
 		{
 			final Test test = (Test)e.nextElement();
 
 			if(test instanceof com.exedio.cope.junit.CopeTest)
-				models.add(((com.exedio.cope.junit.CopeTest)test).model);
+			{
+				final com.exedio.cope.junit.CopeTest copeTest = (com.exedio.cope.junit.CopeTest)test;
+				final Model model = copeTest.model;
+				if(!models.containsKey(model))
+					models.put(model, copeTest.getProperties());
+			}
 			else if(test instanceof TestSuite)
 				collectModels((TestSuite)test, models);
 		}
@@ -75,9 +54,9 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		final HashSet<Model> models = new HashSet<Model>();
+		final HashMap<Model, Properties> models = new HashMap<Model, Properties>();
 		collectModels(PackageTest.suite(), models);
-		for(final Model m : models)
-			tearDown(m);
+		for(final Model m : models.keySet())
+			tearDown(m, models.get(m));
 	}
 }
