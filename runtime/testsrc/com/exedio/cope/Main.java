@@ -67,7 +67,7 @@ public class Main
 			final Test test = (Test)e.nextElement();
 
 			if(test instanceof AbstractLibTest)
-				models.add(((AbstractLibTest)test).model);
+				models.add(((com.exedio.cope.junit.CopeTest)test).model);
 			else if(test instanceof TestSuite)
 				collectModels((TestSuite)test, models);
 		}
