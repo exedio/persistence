@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.Field.Option;
@@ -334,20 +333,20 @@ public abstract class Item extends Cope
 	{
 		toDelete.add(this);
 		
-		for(final ItemField<Item> field : castReferences(type.getReferences()))
+		for(final ItemField<?> field : type.getReferences())
 		{
 			switch(field.getDeletePolicy())
 			{
 				case FORBID:
 				{
-					final Collection s = field.getType().search(field.equal(this));
+					final Collection s = field.getType().search(Cope.equalAndCast(field, this));
 					if(!s.isEmpty())
 						throw new IntegrityViolationException(field, this);
 					break;
 				}
 				case CASCADE:
 				{
-					for(final Item item : field.getType().search(field.equal(this)))
+					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
 					{
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
@@ -369,13 +368,13 @@ public abstract class Item extends Cope
 		//final String tostring = toString();
 		//System.out.println("------------delete:"+tostring);
 		// TODO make sure, no item is deleted twice
-		for(final ItemField<Item> field : castReferences(type.getReferences()))
+		for(final ItemField<?> field : type.getReferences())
 		{
 			switch(field.getDeletePolicy())
 			{
 				case NULLIFY:
 				{
-					for(final Item item : field.getType().search(field.equal(this)))
+					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
 					{
 						//System.out.println("------------nullify:"+item.toString());
 						item.set(field, null);
@@ -384,7 +383,7 @@ public abstract class Item extends Cope
 				}
 				case CASCADE:
 				{
-					for(final Item item : field.getType().search(field.equal(this)))
+					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
 					{
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
@@ -400,12 +399,6 @@ public abstract class Item extends Cope
 		Entity entity = getEntity();
 		entity.delete();
 		entity.write(null);
-	}
-	
-	@SuppressWarnings("unchecked")
-	private final List<ItemField<Item>> castReferences(final List l)
-	{
-		return (List<ItemField<Item>>)l;
 	}
 	
 	/**
