@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -386,10 +385,9 @@ public abstract class Item extends Cope
 				}
 				case CASCADE:
 				{
-					final Query<?> q = field.getType().newQuery(field.equal(this));
-					for(Iterator j = q.search().iterator(); j.hasNext(); )
+					final Query<? extends Item> q = field.getType().newQuery(field.equal(this));
+					for(final Item item : q.search())
 					{
-						final Item item = (Item)j.next();
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
 							item.deleteCopeItem(toDelete);
