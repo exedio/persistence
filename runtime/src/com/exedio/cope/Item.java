@@ -375,8 +375,7 @@ public abstract class Item extends Cope
 			{
 				case NULLIFY:
 				{
-					final Query<? extends Item> q = field.getType().newQuery(field.equal(this));
-					for(final Item item : q.search())
+					for(final Item item : field.getType().search(field.equal(this)))
 					{
 						//System.out.println("------------nullify:"+item.toString());
 						item.set(field, null);
@@ -385,8 +384,7 @@ public abstract class Item extends Cope
 				}
 				case CASCADE:
 				{
-					final Query<? extends Item> q = field.getType().newQuery(field.equal(this));
-					for(final Item item : q.search())
+					for(final Item item : field.getType().search(field.equal(this)))
 					{
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
