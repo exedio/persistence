@@ -680,7 +680,7 @@ public final class Type<C extends Item>
 	
 	public boolean isAssignableFrom(final Type type)
 	{
-		return 
+		return
 			(uniqueJavaClass&&type.uniqueJavaClass)
 			? javaClass.isAssignableFrom(type.javaClass)
 			: (this==type);
@@ -862,7 +862,7 @@ public final class Type<C extends Item>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <tt>UnsupportedOperationException</tt>.
-	 * 
+	 *
 	 * @param condition the condition the searched items must match.
 	 */
 	public List<C> search(final Condition condition)
@@ -877,7 +877,7 @@ public final class Type<C extends Item>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an <tt>UnsupportedOperationException</tt>.
-	 * 
+	 *
 	 * @param condition the condition the searched items must match.
 	 * @param ascending whether the result is sorted ascendingly (<tt>true</tt>) or descendingly (<tt>false</tt>).
 	 */
