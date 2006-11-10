@@ -130,7 +130,7 @@ public class CacheIsolationTest extends AbstractLibTest
 		Transaction txChange = model.startTransaction("change");
 		item.setName("notblub");
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
-		assertNull(model.setDatabaseListener(listener));		
+		assertNull(model.setDatabaseListener(listener));
 		listener.expectSearch( txChange, CacheIsolationItem.TYPE );
 		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		listener.verifyExpectations();

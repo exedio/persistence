@@ -76,7 +76,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	 * Returns the length of the data, that was attempted to be written.
 	 * Returns -1, if that length is unknown.
 	 * @see #isLengthExact()
-	 */	
+	 */
 	public long getLength()
 	{
 		return length;

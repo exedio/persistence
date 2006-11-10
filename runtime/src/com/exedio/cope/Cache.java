@@ -162,7 +162,7 @@ final class Cache
 			result = query.searchUncached();
 			synchronized(queries)
 			{
-				queries.put(key, result);				
+				queries.put(key, result);
 			}
 			queryMisses++;
 		}
@@ -184,7 +184,7 @@ final class Cache
 			queryHits++;
 		}
 		
-		return result;		
+		return result;
 	}
 	
 	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
@@ -235,7 +235,7 @@ final class Cache
 								break;
 							}
 						}
-					}					
+					}
 				}
 			}
 		}

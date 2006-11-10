@@ -150,7 +150,7 @@ public final class Transaction
 		if(entityMap!=null)
 		{
 			entityMap.remove( item.pk );
-		}		
+		}
 	}
 	
 	<R> List<R> search(final Query<R> query)
@@ -255,7 +255,7 @@ public final class Transaction
 	{
 		if(closed)
 			throw new RuntimeException("transaction "+name+" has already been closed");
-	}	
+	}
 	
 	/**
 	 * calling this method directly breaks model.openTransactions

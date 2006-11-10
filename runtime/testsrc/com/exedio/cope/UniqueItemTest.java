@@ -330,7 +330,7 @@ public class UniqueItemTest extends TestmodelTest
 
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		try
-		{		
+		{
 			new ItemWithDoubleUnique("b", 1);
 			fail();
 		}
@@ -343,7 +343,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		try
-		{		
+		{
 			ItemWithDoubleUnique.TYPE.newItem(new SetValue[]{
 					ItemWithDoubleUnique.string.map("b"),
 					ItemWithDoubleUnique.integer.map(1),

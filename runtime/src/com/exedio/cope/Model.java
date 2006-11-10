@@ -658,7 +658,7 @@ public final class Model
 	{
 		if ( hasCurrentTransaction() )
 			throw new RuntimeException("there is already a transaction bound to current thread");
-		setTransaction(tx);		
+		setTransaction(tx);
 	}
 	
 	public boolean hasCurrentTransaction()

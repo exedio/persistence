@@ -61,7 +61,7 @@ public class TrimTest extends TestCase
 		assertTrim("ShorVerySho", "ShortVeryverylongShort",11);
 
 		try
-		{		
+		{
 			Database.trimString("hallo", 0);
 		}
 		catch(RuntimeException e)
@@ -69,7 +69,7 @@ public class TrimTest extends TestCase
 			assertEquals("maxLength must be greater zero", e.getMessage());
 		}
 		try
-		{		
+		{
 			Database.trimString("", 20);
 		}
 		catch(RuntimeException e)

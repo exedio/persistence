@@ -88,7 +88,7 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	}
 	
 	static final CopernicaCop getCop(final CopernicaProvider provider, final HttpServletRequest request)
-	{	
+	{
 		final String typeID = request.getParameter(TYPE);
 		final String itemID = request.getParameter(ITEM);
 		final String langID = request.getParameter(LANGUAGE);

@@ -46,7 +46,7 @@ public abstract class InjectorTest extends InstrumentorTest
 
 	public void testInjection()
 		throws IOException, InjectorParseException
-	{	
+	{
 		final File inputFile = new File(InjectorTest.class.getResource(resourceName).getFile());
 
 		injectionEvents = new LinkedList<InjectionEvent>();

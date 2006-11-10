@@ -50,7 +50,7 @@ final class Entity
 				put((FunctionField)f, fieldValues.get(f));
 			else
 				assert f instanceof DataField;
-		}	
+		}
 	}
 	
 	void write(final Map<BlobColumn, byte[]> blobs) throws UniqueViolationException

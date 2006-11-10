@@ -281,7 +281,7 @@ abstract class Database
 				false
 			);
 		}
-	}	
+	}
 
 	public void dropDatabase()
 	{

@@ -258,7 +258,7 @@ public final class Query<R>
 	 * @param count the maximum number of items to be found.
 	 * @throws RuntimeException if start is a negative value
 	 * @throws RuntimeException if count is a negative value
-	 */	
+	 */
 	public void setLimit(final int start, final int count)
 	{
 		if(start<0)
@@ -273,7 +273,7 @@ public final class Query<R>
 	/**
 	 * @see #setLimit(int, int)
 	 * @throws RuntimeException if start is a negative value
-	 */	
+	 */
 	public void setLimit(final int start)
 	{
 		if(start<0)

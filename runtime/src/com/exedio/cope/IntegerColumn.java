@@ -85,7 +85,7 @@ class IntegerColumn extends Column
 	
 	/**
 	 * Creates a primary key column.
-	 */	
+	 */
 	IntegerColumn(final Table table)
 	{
 		// IMPLEMENTATION NOTE

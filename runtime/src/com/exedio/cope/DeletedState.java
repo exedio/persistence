@@ -31,7 +31,7 @@ final class DeletedState extends State
 	@Override
 	Object get(final FunctionField field)
 	{
-		throw new NoSuchItemException(item);		
+		throw new NoSuchItemException(item);
 	}
 
 	@Override

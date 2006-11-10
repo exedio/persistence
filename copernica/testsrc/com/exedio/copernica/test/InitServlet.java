@@ -124,7 +124,7 @@ public class InitServlet extends CopsServlet
 				final AttributeItem attributeItem = new AttributeItem("running"+i, 7+i, 8l+i, 2.4+i, (i%2)==0, emptyItem2, AttributeItem.SomeEnum.enumValue2);
 				attributeItem.setSomeDate(date);
 			}
-			{			
+			{
 				final StringItem item1 = new StringItem("Test Provider 1");
 				final StringItem item2 = new StringItem("Test Provider 2");
 				final StringItem item3 = new StringItem("Test Provider 3");

@@ -78,7 +78,7 @@ final class ItemCop extends CopernicaCop
 	static final ItemCop getCop(
 			final CopernicaProvider provider, final CopernicaLanguage language,
 			final String itemID)
-	{	
+	{
 		try
 		{
 			final Item item = provider.getModel().findByID(itemID);

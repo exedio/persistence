@@ -71,7 +71,7 @@ public final class LengthViolationException extends ConstraintViolationException
 
 	/**
 	 * Returns the value, that was attempted to be written.
-	 */	
+	 */
 	public String getValue()
 	{
 		return value;
