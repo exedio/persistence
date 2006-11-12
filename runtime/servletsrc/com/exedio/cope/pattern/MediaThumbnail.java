@@ -137,11 +137,20 @@ public final class MediaThumbnail extends CachedMedia
 			srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
 		else
 		{
-			final ImageReader reader = spi.createReaderInstance();
-			final ImageReadParam param = reader.getDefaultReadParam();
-			reader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
-			srcBuf = reader.read(0, param);
-			reader.dispose();
+			ImageReader reader = null;
+			try
+			{
+				reader = spi.createReaderInstance();
+				final ImageReadParam param = reader.getDefaultReadParam();
+				reader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
+				srcBuf = reader.read(0, param);
+				reader.dispose();
+			}
+			finally
+			{
+				if(reader!=null)
+					reader.dispose();
+			}
 		}
 		
 		final int srcX = srcBuf.getWidth();
@@ -171,6 +180,7 @@ public final class MediaThumbnail extends CachedMedia
 			out = response.getOutputStream();
 	      imageWriter.setOutput(ImageIO.createImageOutputStream(out));
 	      imageWriter.write(null, iioImage, imageWriteParam);
+	      imageWriter.dispose(); // TODO ensure this even if exception is thrown before
 			return delivered;
 		}
 		finally
