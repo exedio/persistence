@@ -30,7 +30,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
@@ -39,6 +38,7 @@ import javax.imageio.spi.IIORegistry;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.stream.MemoryCacheImageInputStream;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -188,7 +188,6 @@ public final class MediaThumbnail extends CachedMedia
 		final BufferedImage scaledBuf = new BufferedImage(tgtX, tgtY, BufferedImage.TYPE_INT_RGB);
 		op.filter(srcBuf, scaledBuf);
 		
-		ImageIO.setUseCache(false); // otherwise many small files are created and not deleted in tomcat/temp
 		final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
 		imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
 		imageWriteParam.setCompressionQuality(0.75f);
@@ -201,7 +200,7 @@ public final class MediaThumbnail extends CachedMedia
 		{
 			imageWriter = imageWriterSpi.createWriterInstance();
 			out = response.getOutputStream();
-			imageWriter.setOutput(ImageIO.createImageOutputStream(out));
+			imageWriter.setOutput(new MemoryCacheImageOutputStream(out));
 			imageWriter.write(null, iioImage, imageWriteParam);
 			return delivered;
 		}
