@@ -54,17 +54,17 @@ public final class MediaThumbnail extends MediaImageFilter
 	@Override
 	public BufferedImage filter(final BufferedImage in)
 	{
-		final int srcX = in.getWidth();
-		final int srcY = in.getHeight();
-		final int[] tgtDim = boundingBox(srcX, srcY);
+		final int inX = in.getWidth();
+		final int inY = in.getHeight();
+		final int[] resultDim = boundingBox(inX, inY);
 
-		final int tgtX = tgtDim[0];
-		final int tgtY = tgtDim[1];
-		final double scaleX = ((double)tgtX) / ((double)srcX);
-		final double scaleY = ((double)tgtY) / ((double)srcY);
+		final int resultX = resultDim[0];
+		final int resultY = resultDim[1];
+		final double scaleX = ((double)resultX) / ((double)inX);
+		final double scaleY = ((double)resultY) / ((double)inY);
 		
 		final AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(scaleX, scaleY), AffineTransformOp.TYPE_BILINEAR);
-		final BufferedImage result = new BufferedImage(tgtX, tgtY, BufferedImage.TYPE_INT_RGB);
+		final BufferedImage result = new BufferedImage(resultX, resultY, BufferedImage.TYPE_INT_RGB);
 		op.filter(in, result);
 		
 		return result;
