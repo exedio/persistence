@@ -1429,6 +1429,10 @@ abstract class Database
 		return false;
 	}
 
+	/**
+	 * Specifies the factor,
+	 * the length function of blob columns is wrong.
+	 */
 	public int getBlobLengthFactor()
 	{
 		return 1;
