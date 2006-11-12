@@ -448,6 +448,12 @@ final class Console_Jspm
 						final MediaThumbnail thumbnail = (MediaThumbnail)path;
 						%>(<%=thumbnail.getMedia().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
 					}
+					if(path instanceof MediaImageFilter)
+					{
+						final MediaImageFilter filter = (MediaImageFilter)path;
+						final TreeSet contentTypes = new TreeSet<String>(filter.getSupportedMediaContentTypes());
+						%><br>supports <%=contentTypes%><%
+					}
 				%></td>
 			</tr><%
 			}
@@ -478,18 +484,7 @@ final class Console_Jspm
 		
 		%>
 		<table class="properties">
-			<tr><th colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr><%
-			if(media instanceof MediaImageFilter)
-			{
-				final MediaImageFilter filter = (MediaImageFilter)media;
-				final TreeSet contentTypes = new TreeSet<String>(filter.getSupportedMediaContentTypes());
-			%>
-			<tr>
-				<th>supports</th>
-				<td colspan="<%=(columns-1)%>"><%=contentTypes%></td>
-			</tr><%
-			}
-			%>
+			<tr><th colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
 			<tr>
 				<th>Item</th>
 				<th>URL <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>
