@@ -31,6 +31,7 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -111,7 +112,7 @@ public final class MediaThumbnail extends CachedMedia
 		if("image/jpeg".equals(contentType)) // TODO don't know why this is needed
 			srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
 		else
-			srcBuf = ImageIO.read(new ByteArrayInputStream(srcBytes));
+			srcBuf = ImageIO.read(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)));
 		
 		final int srcX = srcBuf.getWidth();
 		final int srcY = srcBuf.getHeight();
