@@ -189,24 +189,26 @@ public final class MediaThumbnail extends CachedMedia
 		op.filter(srcBuf, scaledBuf);
 		
 		ImageIO.setUseCache(false); // otherwise many small files are created and not deleted in tomcat/temp
-		final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
 		final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
 		imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
 		imageWriteParam.setCompressionQuality(0.75f);
 		final IIOImage iioImage = new IIOImage(scaledBuf, null, null);
 		
 		response.setContentType(outputContentType);
+		ImageWriter imageWriter = null;
 		ServletOutputStream out = null;
 		try
 		{
+			imageWriter = imageWriterSpi.createWriterInstance();
 			out = response.getOutputStream();
 			imageWriter.setOutput(ImageIO.createImageOutputStream(out));
 			imageWriter.write(null, iioImage, imageWriteParam);
-			imageWriter.dispose(); // TODO ensure this even if exception is thrown before
 			return delivered;
 		}
 		finally
 		{
+			if(imageWriter!=null)
+				imageWriter.dispose();
 			if(out!=null)
 				out.close();
 		}
