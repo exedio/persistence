@@ -37,6 +37,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.spi.IIORegistry;
 import javax.imageio.spi.ImageReaderSpi;
+import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -52,6 +53,7 @@ public final class MediaThumbnail extends CachedMedia
 	private final int boundX;
 	private final int boundY;
 	private final HashMap<String, ImageReaderSpi> imageReaderSpi;
+	private final ImageWriterSpi imageWriterSpi;
 	
 	private static final int MIN_BOUND = 5;
 	private static final String outputContentType = "image/jpeg";
@@ -69,8 +71,9 @@ public final class MediaThumbnail extends CachedMedia
 		if(boundY<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundY);
 
+		final IIORegistry registry = IIORegistry.getDefaultInstance();
 		final HashMap<String, ImageReaderSpi> imageReaderSpi = new HashMap<String, ImageReaderSpi>();
-		for(final Iterator<ImageReaderSpi> spiIt = IIORegistry.getDefaultInstance().getServiceProviders(ImageReaderSpi.class, true); spiIt.hasNext(); )
+		for(final Iterator<ImageReaderSpi> spiIt = registry.getServiceProviders(ImageReaderSpi.class, true); spiIt.hasNext(); )
 		{
       	final ImageReaderSpi spi = spiIt.next();
       	for(final String spiMimeType : spi.getMIMETypes())
@@ -80,6 +83,25 @@ public final class MediaThumbnail extends CachedMedia
       	}
 		}
 		this.imageReaderSpi = imageReaderSpi;
+
+		ImageWriterSpi imageWriterSpi = null;
+		spiLoop:
+		for(final Iterator<ImageWriterSpi> spiIt = registry.getServiceProviders(ImageWriterSpi.class, true); spiIt.hasNext(); )
+		{
+      	final ImageWriterSpi spi = spiIt.next();
+      	for(final String spiMimeType : spi.getMIMETypes())
+      	{
+      		if(outputContentType.equals(spiMimeType)) // first wins
+      		{
+      			imageWriterSpi = spi;
+      			break spiLoop;
+      		}
+      	}
+		}
+		if(imageWriterSpi==null)
+			throw new RuntimeException("no jpeg encoder found");
+		
+		this.imageWriterSpi = imageWriterSpi;
 	}
 	
 	public Media getMedia()
@@ -167,7 +189,7 @@ public final class MediaThumbnail extends CachedMedia
 		op.filter(srcBuf, scaledBuf);
 		
 		ImageIO.setUseCache(false); // otherwise many small files are created and not deleted in tomcat/temp
-      final ImageWriter imageWriter = ImageIO.getImageWritersBySuffix("jpeg").next();
+      final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
       final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
       imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
       imageWriteParam.setCompressionQuality(0.75f);
