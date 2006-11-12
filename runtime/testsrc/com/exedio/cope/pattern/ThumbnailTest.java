@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Set;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
@@ -69,6 +70,11 @@ public class ThumbnailTest extends AbstractLibTest
 		assertSame(item.file, item.thumb.getMedia());
 		assertEquals(20, item.thumb.getBoundX());
 		assertEquals(30, item.thumb.getBoundY());
+		final Set<String> sct = item.thumb.getSupportedMediaContentTypes();
+		assertTrue(sct.toString(), sct.contains("image/jpeg"));
+		assertTrue(sct.toString(), sct.contains("image/png"));
+		assertTrue(sct.toString(), sct.contains("image/gif"));
+		assertUnmodifiable(sct);
 		
 		// test sizing algorithm
 		assertBB(40, 60, 20, 30);

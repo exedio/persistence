@@ -23,14 +23,20 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.imageio.spi.IIORegistry;
+import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -45,9 +51,9 @@ public final class MediaThumbnail extends CachedMedia
 	private final Media media;
 	private final int boundX;
 	private final int boundY;
+	private final HashMap<String, ImageReaderSpi> inputImageReaderSpi;
 	
 	private static final int MIN_BOUND = 5;
-	private static final HashSet<String> inputContentTypes = new HashSet<String>(Arrays.asList("image/jpeg", "image/png", "image/gif"));
 	private static final String outputContentType = "image/jpeg";
 	
 	public MediaThumbnail(final Media media, final int boundX, final int boundY)
@@ -62,6 +68,18 @@ public final class MediaThumbnail extends CachedMedia
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundY);
+
+		final HashMap<String, ImageReaderSpi> inputImageReaderSpi = new HashMap<String, ImageReaderSpi>();
+		for(final Iterator<ImageReaderSpi> spiIt = IIORegistry.getDefaultInstance().getServiceProviders(ImageReaderSpi.class, true); spiIt.hasNext(); )
+		{
+      	final ImageReaderSpi spi = spiIt.next();
+      	for(final String spiMimeType : spi.getMIMETypes())
+      	{
+      		if(!inputImageReaderSpi.containsKey(spiMimeType)) // first wins
+      			inputImageReaderSpi.put(spiMimeType, spi);
+      	}
+		}
+		this.inputImageReaderSpi = inputImageReaderSpi;
 	}
 	
 	public Media getMedia()
@@ -78,13 +96,18 @@ public final class MediaThumbnail extends CachedMedia
 	{
 		return boundY;
 	}
+	
+	public Set<String> getSupportedMediaContentTypes()
+	{
+		return Collections.unmodifiableSet(inputImageReaderSpi.keySet());
+	}
 
 	@Override
 	public String getContentType(final Item item)
 	{
 		final String contentType = media.getContentType(item);
 
-		return (contentType!=null && inputContentTypes.contains(contentType)) ? outputContentType : null;
+		return (contentType!=null && inputImageReaderSpi.containsKey(contentType)) ? outputContentType : null;
 	}
 
 	@Override
@@ -104,15 +127,22 @@ public final class MediaThumbnail extends CachedMedia
 		final String contentType = media.getContentType(item);
 		if(contentType==null)
 			return isNull;
-		else if(!inputContentTypes.contains(contentType))
+		final ImageReaderSpi spi = inputImageReaderSpi.get(contentType);
+		if(spi==null)
 			return notComputable;
 		
 		final byte[] srcBytes = media.getBody().get(item);
 		final BufferedImage srcBuf;
-		if("image/jpeg".equals(contentType)) // TODO don't know why this is needed
+		if("image/jpeg".equals(contentType)) // TODO don't know why else branch does not work for jpeg
 			srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
 		else
-			srcBuf = ImageIO.read(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)));
+		{
+			final ImageReader reader = spi.createReaderInstance();
+			final ImageReadParam param = reader.getDefaultReadParam();
+			reader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
+			srcBuf = reader.read(0, param);
+			reader.dispose();
+		}
 		
 		final int srcX = srcBuf.getWidth();
 		final int srcY = srcBuf.getHeight();
