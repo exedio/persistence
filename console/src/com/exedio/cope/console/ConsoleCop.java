@@ -44,7 +44,7 @@ abstract class ConsoleCop extends Cop
 	final void initialize()
 	{
 		start = System.currentTimeMillis();
-		df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+		df = new SimpleDateFormat("dd.MM.yyyy'&nbsp;'HH:mm:ss.SSS");
 	}
 	
 	final ConsoleCop[] getTabs()
