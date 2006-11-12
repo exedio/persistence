@@ -116,7 +116,7 @@ public abstract class MediaImageFilter extends CachedMedia
 		return media.getLastModified(item);
 	}
 	
-	public abstract BufferedImage filter(BufferedImage srcBuf);
+	public abstract BufferedImage filter(BufferedImage in);
 	
 	@Override
 	public final Media.Log doGetIfModified(
@@ -155,12 +155,12 @@ public abstract class MediaImageFilter extends CachedMedia
 			}
 		}
 		
-		final BufferedImage scaledBuf = filter(srcBuf);
+		final BufferedImage filteredBuf = filter(srcBuf);
 		
 		final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
 		imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
 		imageWriteParam.setCompressionQuality(0.75f);
-		final IIOImage iioImage = new IIOImage(scaledBuf, null, null);
+		final IIOImage iioImage = new IIOImage(filteredBuf, null, null);
 		
 		response.setContentType(outputContentType);
 		ImageWriter imageWriter = null;
