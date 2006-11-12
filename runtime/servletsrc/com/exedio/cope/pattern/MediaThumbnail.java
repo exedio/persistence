@@ -51,7 +51,7 @@ public final class MediaThumbnail extends CachedMedia
 	private final Media media;
 	private final int boundX;
 	private final int boundY;
-	private final HashMap<String, ImageReaderSpi> inputImageReaderSpi;
+	private final HashMap<String, ImageReaderSpi> imageReaderSpi;
 	
 	private static final int MIN_BOUND = 5;
 	private static final String outputContentType = "image/jpeg";
@@ -69,17 +69,17 @@ public final class MediaThumbnail extends CachedMedia
 		if(boundY<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundY);
 
-		final HashMap<String, ImageReaderSpi> inputImageReaderSpi = new HashMap<String, ImageReaderSpi>();
+		final HashMap<String, ImageReaderSpi> imageReaderSpi = new HashMap<String, ImageReaderSpi>();
 		for(final Iterator<ImageReaderSpi> spiIt = IIORegistry.getDefaultInstance().getServiceProviders(ImageReaderSpi.class, true); spiIt.hasNext(); )
 		{
       	final ImageReaderSpi spi = spiIt.next();
       	for(final String spiMimeType : spi.getMIMETypes())
       	{
-      		if(!inputImageReaderSpi.containsKey(spiMimeType)) // first wins
-      			inputImageReaderSpi.put(spiMimeType, spi);
+      		if(!imageReaderSpi.containsKey(spiMimeType)) // first wins
+      			imageReaderSpi.put(spiMimeType, spi);
       	}
 		}
-		this.inputImageReaderSpi = inputImageReaderSpi;
+		this.imageReaderSpi = imageReaderSpi;
 	}
 	
 	public Media getMedia()
@@ -99,7 +99,7 @@ public final class MediaThumbnail extends CachedMedia
 	
 	public Set<String> getSupportedMediaContentTypes()
 	{
-		return Collections.unmodifiableSet(inputImageReaderSpi.keySet());
+		return Collections.unmodifiableSet(imageReaderSpi.keySet());
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public final class MediaThumbnail extends CachedMedia
 	{
 		final String contentType = media.getContentType(item);
 
-		return (contentType!=null && inputImageReaderSpi.containsKey(contentType)) ? outputContentType : null;
+		return (contentType!=null && imageReaderSpi.containsKey(contentType)) ? outputContentType : null;
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public final class MediaThumbnail extends CachedMedia
 		final String contentType = media.getContentType(item);
 		if(contentType==null)
 			return isNull;
-		final ImageReaderSpi spi = inputImageReaderSpi.get(contentType);
+		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
 			return notComputable;
 		
