@@ -22,14 +22,16 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Model;
 
 public class JavaViewTest extends AbstractLibTest
 {
+	private static final Model MODEL = new Model(JavaViewItem.TYPE);
 	private static final Double d2 = new Double(2.25d);
 	
 	public JavaViewTest()
 	{
-		super(CustomTest.MODEL);
+		super(MODEL);
 	}
 	
 	JavaViewItem item;

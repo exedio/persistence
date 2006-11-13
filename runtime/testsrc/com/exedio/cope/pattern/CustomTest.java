@@ -29,7 +29,7 @@ import com.exedio.cope.SetValue;
 
 public class CustomTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(CustomItem.TYPE, JavaViewItem.TYPE);
+	private static final Model MODEL = new Model(CustomItem.TYPE);
 
 	public CustomTest()
 	{
