@@ -116,6 +116,12 @@ public abstract class MediaImageFilter extends CachedMedia
 		return media.getLastModified(item);
 	}
 	
+	public final String getURLWithFallbackToMedia(final Item item)
+	{
+		final String myURL = getURL(item);
+		return (myURL!=null) ? myURL : media.getURL(item);
+	}
+	
 	public abstract BufferedImage filter(BufferedImage in);
 	
 	@Override

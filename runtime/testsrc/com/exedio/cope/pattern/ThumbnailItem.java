@@ -39,6 +39,12 @@ public class ThumbnailItem extends Item
 		return thumb.getURL(this);
 	}
 	
+	// TODO generate by instrumentor
+	final String getThumbURLWithFallbackToMedia()
+	{
+		return thumb.getURLWithFallbackToMedia(this);
+	}
+	
 	/**
 
 	 **
