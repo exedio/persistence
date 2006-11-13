@@ -139,19 +139,19 @@ public abstract class MediaImageFilter extends CachedMedia
 			srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
 		else
 		{
-			ImageReader reader = null;
+			ImageReader imageReader = null;
 			try
 			{
-				reader = spi.createReaderInstance();
-				final ImageReadParam param = reader.getDefaultReadParam();
-				reader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
-				srcBuf = reader.read(0, param);
-				reader.dispose();
+				imageReader = spi.createReaderInstance();
+				final ImageReadParam param = imageReader.getDefaultReadParam();
+				imageReader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
+				srcBuf = imageReader.read(0, param);
+				imageReader.dispose();
 			}
 			finally
 			{
-				if(reader!=null)
-					reader.dispose();
+				if(imageReader!=null)
+					imageReader.dispose();
 			}
 		}
 		
