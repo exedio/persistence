@@ -19,8 +19,12 @@
 package com.exedio.copernica;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
@@ -182,6 +186,8 @@ public class MediaServletTest extends AbstractWebTest
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();
+		if(conn.HTTP_NOT_FOUND!=conn.getResponseCode())
+			print(conn, url);
 		assertEquals(conn.HTTP_NOT_FOUND, conn.getResponseCode());
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
@@ -221,6 +227,8 @@ public class MediaServletTest extends AbstractWebTest
 		final long lastModified = conn.getLastModified();
 		//System.out.println("LastModified: "+new Date(lastModified));
 		assertTrue((date+1000)>=lastModified);
+		if(!contentType.equals(conn.getContentType()))
+			print(conn, url);
 		assertEquals(contentType, conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
@@ -234,6 +242,8 @@ public class MediaServletTest extends AbstractWebTest
 		final HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();
+		if(conn.HTTP_INTERNAL_ERROR!=conn.getResponseCode())
+			print(conn, url);
 		assertEquals(conn.HTTP_INTERNAL_ERROR, conn.getResponseCode());
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
@@ -273,4 +283,39 @@ public class MediaServletTest extends AbstractWebTest
 		is.close();
 	}
 
+	private void print(final HttpURLConnection conn, final URL url) throws IOException
+	{
+		System.out.println("--------------------------------");
+		System.out.println("url="+url);
+		System.out.println("responseCode="+conn.getResponseCode());
+		System.out.println("responseMessage="+conn.getResponseMessage());
+		System.out.println("contentType="+conn.getContentType());
+		System.out.println("contentLength="+conn.getContentLength());
+		System.out.println("content");
+		print(conn.getInputStream());
+		System.out.println("error");
+		print(conn.getErrorStream());
+		System.out.println("--------------------------------");
+	}
+
+	private void print(final InputStream in) throws IOException
+	{
+		if(in==null)
+		{
+			System.out.println("-----------leer---------------");
+			return;
+		}
+		else
+		{
+			final byte[] b = new byte[20000];
+			final File f = File.createTempFile("MediaServletTest-", ".tmp");
+			System.out.println("----------- " + f.getAbsolutePath() + " ---------------");
+			final OutputStream out = new FileOutputStream(f);
+			for(int len = in.read(b); len>=0; len = in.read(b))
+				out.write(b, 0, len);
+	
+			out.close();
+			in.close();
+		}
+	}
 }
