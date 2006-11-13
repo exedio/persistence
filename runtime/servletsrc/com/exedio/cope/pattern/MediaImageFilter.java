@@ -175,10 +175,12 @@ public abstract class MediaImageFilter extends CachedMedia
 		}
 		finally
 		{
-			if(imageWriter!=null)
-				imageWriter.dispose();
+			// important to close "out" before disposing ImageWriter,
+			// seems to make heisenbug in MediaServletTest less likely.
 			if(out!=null)
 				out.close();
+			if(imageWriter!=null)
+				imageWriter.dispose();
 		}
 	}
 }
