@@ -155,6 +155,41 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 	}
 
+	public void testSchemaNames()
+	{
+		// with sub types
+		assertEquals("TypeInConditionAItem", TypeInConditionAItem.TYPE.getTableName());
+		assertEquals("this", TypeInConditionAItem.TYPE.getPrimaryKeyColumnName());
+		assertEquals("class", TypeInConditionAItem.TYPE.getTypeColumnName());
+		assertEquals("code", TypeInConditionAItem.code.getColumnName());
+		assertEquals("ref", TypeInConditionRefItem.ref.getColumnName());
+		assertEquals("refType", TypeInConditionRefItem.ref.getTypeColumnName());
+
+		// without sub types
+		assertEquals("TypeInConditionB2Item", TypeInConditionB2Item.TYPE.getTableName());
+		assertEquals("this", TypeInConditionB2Item.TYPE.getPrimaryKeyColumnName());
+		try
+		{
+			TypeInConditionB2Item.TYPE.getTypeColumnName();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("no type column for TypeInConditionB2Item", e.getMessage());
+		}
+		assertEquals("textb2", TypeInConditionB2Item.textb2.getColumnName());
+		assertEquals("refb2", TypeInConditionRefItem.refb2.getColumnName());
+		try
+		{
+			TypeInConditionRefItem.refb2.getTypeColumnName();
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("no type column for TypeInConditionRefItem.refb2", e.getMessage());
+		}
+	}
+
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	public void testUnchecked()
 	{
