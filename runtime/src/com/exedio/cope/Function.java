@@ -32,12 +32,6 @@ public interface Function<E> extends Selectable<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated
-	void append(Statement bf, Join join);
-	
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated
 	void appendParameter(Statement bf, E value);
 	
 	// convenience methods for conditions and views ---------------------------------
