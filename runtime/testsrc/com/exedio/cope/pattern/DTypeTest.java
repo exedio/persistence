@@ -23,7 +23,7 @@ import com.exedio.cope.Model;
 
 public class DTypeTest extends AbstractLibTest
 {
-	public static final Model MODEL = new Model(DType.TYPE, DAttribute.TYPE, DTypeItem.TYPE, DEnumValue.TYPE);
+	public static final Model MODEL = new Model(DType.TYPE, DAttribute.TYPE, DEnumValue.TYPE, DTypeItem.TYPE);
 
 	public DTypeTest()
 	{
