@@ -30,7 +30,7 @@ import com.exedio.cope.badquery.BadQueryTest;
 public class PackageTest extends TestCase
 {
 
-	public static TestSuite suite()
+	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
 		
@@ -98,21 +98,21 @@ public class PackageTest extends TestCase
 		return suite;
 	}
 
-	private static final void collectModels(final TestSuite suite, final HashMap<Model, Properties> models)
+	private static final void collectModels(final Test test, final HashMap<Model, Properties> models)
 	{
-		for(Enumeration e = suite.tests(); e.hasMoreElements(); )
+		if(test instanceof com.exedio.cope.junit.CopeTest)
 		{
-			final Test test = (Test)e.nextElement();
-
-			if(test instanceof com.exedio.cope.junit.CopeTest)
+			final com.exedio.cope.junit.CopeTest copeTest = (com.exedio.cope.junit.CopeTest)test;
+			final Model model = copeTest.model;
+			if(!models.containsKey(model))
+				models.put(model, copeTest.getProperties());
+		}
+		else if(test instanceof TestSuite)
+		{
+			for(Enumeration e = ((TestSuite)test).tests(); e.hasMoreElements(); )
 			{
-				final com.exedio.cope.junit.CopeTest copeTest = (com.exedio.cope.junit.CopeTest)test;
-				final Model model = copeTest.model;
-				if(!models.containsKey(model))
-					models.put(model, copeTest.getProperties());
+				collectModels((Test)e.nextElement(), models);
 			}
-			else if(test instanceof TestSuite)
-				collectModels((TestSuite)test, models);
 		}
 	}
 	
