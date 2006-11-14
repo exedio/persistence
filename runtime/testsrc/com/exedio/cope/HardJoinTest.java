@@ -190,6 +190,33 @@ public class HardJoinTest extends AbstractLibTest
 			
 			j2.setCondition(b.b3.bind(j2).equal(a.a3));
 			assertEquals(list(), q.search());
+
+			// test with super fields
+			j1.setCondition(b.b1.equal(a.a3));
+			j2.setCondition(b.b1.equal(a.a3));
+			try
+			{
+				q.search();
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("feature HardJoinB1Item#b1 is ambiguous, use Function#bind", e.getMessage());
+			}
+
+			j1.setCondition(b.b1.bind(j1).equal(a.a3));
+			try
+			{
+				q.search();
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("feature HardJoinB1Item#b1 is ambiguous, use Function#bind", e.getMessage());
+			}
+
+			j2.setCondition(b.b1.bind(j2).equal(a.a3));
+			assertEquals(list(), q.search());
 		}
 	}
 }
