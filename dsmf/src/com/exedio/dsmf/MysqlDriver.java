@@ -47,7 +47,7 @@ public final class MysqlDriver extends Driver
 	public String protectName(final String name)
 	{
 		if(name.indexOf(PROTECTOR)>=0)
-			throw new RuntimeException("database name contains forbidden characters: "+name);
+			throw new IllegalArgumentException("database name contains forbidden characters: "+name);
 
 		return PROTECTOR + name + PROTECTOR;
 	}
