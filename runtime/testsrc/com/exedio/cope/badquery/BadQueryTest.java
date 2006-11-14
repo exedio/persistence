@@ -25,11 +25,11 @@ import com.exedio.cope.Query;
 
 public class BadQueryTest extends AbstractLibTest
 {
-	static final Model model = new Model(SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE);
+	public static final Model MODEL = new Model(SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE);
 	
 	public BadQueryTest()
 	{
-		super(model);
+		super(MODEL);
 	}
 	
 	QueryItem left1, left2, leftX;

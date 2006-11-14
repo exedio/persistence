@@ -36,6 +36,7 @@ public class PackageTest extends TestCase
 		
 		suite.addTestSuite( TrimTest.class );
 		suite.addTestSuite( GetModelTest.class );
+		suite.addTestSuite( TestGetModelTest.class );
 		suite.addTestSuite( TypeCollisionTest.class );
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
@@ -116,10 +117,16 @@ public class PackageTest extends TestCase
 		}
 	}
 	
-	public static void main(String[] args)
+	static HashMap<Model, Properties> getModels(final Test test)
 	{
 		final HashMap<Model, Properties> models = new HashMap<Model, Properties>();
-		collectModels(PackageTest.suite(), models);
+		collectModels(test, models);
+		return models;
+	}
+	
+	public static void main(String[] args)
+	{
+		final HashMap<Model, Properties> models = getModels(PackageTest.suite());
 		for(final Model m : models.keySet())
 		{
 			//System.out.println("teardown " + m.getTypes());
