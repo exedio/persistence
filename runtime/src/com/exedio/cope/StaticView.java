@@ -38,6 +38,10 @@ abstract class StaticView<E> extends View<E>
 			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 	}
 						
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
 		for(int i = 0; i<sources.length; i++)

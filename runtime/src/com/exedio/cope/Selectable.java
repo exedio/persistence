@@ -23,12 +23,14 @@ public interface Selectable<E extends Object>
 	Type<? extends Item> getType();
 
 	/**
-	 * For internal use within COPE only.
+	 * @deprecated For internal use within COPE only.
 	 */
+	@Deprecated
 	void append(Statement bf, Join join);
 	
 	/**
-	 * For internal use within COPE only.
+	 * @deprecated For internal use within COPE only.
 	 */
+	@Deprecated
 	int getTypeForDefiningColumn();
 }

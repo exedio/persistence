@@ -23,8 +23,9 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	Type<E> getValueType();
 
 	/**
-	 * For internal use within COPE only.
+	 * @deprecated For internal use within COPE only.
 	 */
+	@Deprecated
 	void appendType(Statement bf, Join join);
 	
 	/**

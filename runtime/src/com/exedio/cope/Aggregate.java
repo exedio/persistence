@@ -59,6 +59,10 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return source.getType();
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
@@ -66,6 +70,10 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append(')');
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final int getTypeForDefiningColumn()
 	{
 		return source.getTypeForDefiningColumn();

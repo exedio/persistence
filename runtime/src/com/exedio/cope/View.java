@@ -97,11 +97,19 @@ public abstract class View<E> extends Feature implements Function<E>
 		return valueClass;
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final int getTypeForDefiningColumn()
 	{
 		return typeForDefiningColumn;
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		if(bf.parameters==null)

@@ -80,11 +80,17 @@ public final class TypeInCondition<E extends Item> extends Condition
 		this(function, not, new Type[]{type1, type2, type3, type4});
 	}
 	
+	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
+	private void appendType(final Statement bf)
+	{
+		function.appendType(bf, null);
+	}
+	
 	@Override
 	void append(final Statement bf)
 	{
 		final Type type = function.getValueType();
-		function.appendType(bf, null);
+		appendType(bf);
 		if(not)
 			bf.append(" not");
 		bf.append(" in(");

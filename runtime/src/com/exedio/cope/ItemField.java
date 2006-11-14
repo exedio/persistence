@@ -209,6 +209,10 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return typeColumn;
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public void appendType(final Statement bf, final Join join)
 	{
 		bf.append(Statement.assertTypeColumn(typeColumn, getValueType()), join);

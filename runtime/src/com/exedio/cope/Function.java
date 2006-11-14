@@ -29,13 +29,15 @@ public interface Function<E> extends Selectable<E>
 	Class<E> getValueClass();
 	
 	/**
-	 * For internal use within COPE only.
+	 * @deprecated For internal use within COPE only.
 	 */
+	@Deprecated
 	void append(Statement bf, Join join);
 	
 	/**
-	 * For internal use within COPE only.
+	 * @deprecated For internal use within COPE only.
 	 */
+	@Deprecated
 	void appendParameter(Statement bf, E value);
 	
 	// convenience methods for conditions and views ---------------------------------

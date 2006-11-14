@@ -166,16 +166,28 @@ public abstract class FunctionField<E extends Object>
 		item.set(this, value);
 	}
 
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(getColumn(), join);
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final int getTypeForDefiningColumn()
 	{
 		return getColumn().typeForDefiningColumn;
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		final Row dummyRow = new Row();

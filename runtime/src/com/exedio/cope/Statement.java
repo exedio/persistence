@@ -145,6 +145,7 @@ final class Statement
 		return this;
 	}
 	
+	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	Statement append(final Selectable function, final Join join)
 	{
 		function.append(this, join);
@@ -206,6 +207,7 @@ final class Statement
 		return this;
 	}
 		
+	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	<E> Statement appendParameter(final Function<E> function, final E value)
 	{
 		function.appendParameter(this, value);
@@ -290,7 +292,8 @@ final class Statement
 	{
 		database.appendMatchClause(this, function, value);
 	}
-	
+
+	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	Statement defineColumn(final Selectable selectable)
 	{
 		if(columnTypes!=null)

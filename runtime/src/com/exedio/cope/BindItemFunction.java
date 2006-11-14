@@ -39,6 +39,10 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E> impl
 		return itemFunction.getValueType();
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public void appendType(final Statement bf, final Join join)
 	{
 		itemFunction.appendType(bf, this.join);

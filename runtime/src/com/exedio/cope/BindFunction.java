@@ -52,16 +52,28 @@ public class BindFunction<E> implements Function<E>
 		return function.getValueClass();
 	}
 
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
 		function.append(bf, this.join);
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final int getTypeForDefiningColumn()
 	{
 		return function.getTypeForDefiningColumn();
 	}
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		bf.appendParameter(function, value);
