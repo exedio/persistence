@@ -90,7 +90,7 @@ public class BadQueryTest extends AbstractLibTest
 			// TODO
 			// should not happen, since SuperContainer.this is not ambiguous
 			// because feature "this" is not inherited.
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals("feature SuperContainer#class is ambiguous, use Function#bind (deprecated)", e.getMessage());
 			}

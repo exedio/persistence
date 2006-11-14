@@ -63,16 +63,18 @@ public class TrimTest extends TestCase
 		try
 		{
 			Database.trimString("hallo", 0);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("maxLength must be greater zero", e.getMessage());
 		}
 		try
 		{
 			Database.trimString("", 20);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("longString must not be empty", e.getMessage());
 		}

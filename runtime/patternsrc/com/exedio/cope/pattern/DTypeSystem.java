@@ -94,7 +94,7 @@ public final class DTypeSystem extends Pattern
 	{
 		final int capacity = array(valueType).length;
 		if(capacity<=positionPerValuetype)
-			throw new RuntimeException("capacity for " + valueType + " exceeded, " + capacity + " available, but tried to allocate " + (positionPerValuetype+1));
+			throw new IllegalArgumentException("capacity for " + valueType + " exceeded, " + capacity + " available, but tried to allocate " + (positionPerValuetype+1));
 	}
 	
 	@Override
@@ -160,7 +160,7 @@ public final class DTypeSystem extends Pattern
 		final DType attributeType = attribute.getParent();
 		final DType itemType = type.get(item);
 		if(!attributeType.equals(itemType))
-			throw new RuntimeException("dynamic type mismatch: attribute has type " + attributeType.getCode() + ", but item has " + (itemType!=null ? itemType.getCode() : "none"));
+			throw new IllegalArgumentException("dynamic type mismatch: attribute has type " + attributeType.getCode() + ", but item has " + (itemType!=null ? itemType.getCode() : "none"));
 	}
 	
 	FunctionField<?> getField(final DAttribute attribute)
@@ -197,7 +197,7 @@ public final class DTypeSystem extends Pattern
 			final DEnumValue enumValue = (DEnumValue)value;
 			final DAttribute enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(attribute))
-				throw new RuntimeException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + attribute);
+				throw new IllegalArgumentException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + attribute);
 		}
 		
 		Cope.setAndCast(getField(attribute), item, value);

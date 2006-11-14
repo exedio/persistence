@@ -41,7 +41,7 @@ public abstract class PkSourceAbstractTest extends TestCase
 		try
 		{
 			i.id2pk(id, "idString"+id);
-			fail("should have thrown NoSuchIDException");
+			fail();
 		}
 		catch(NoSuchIDException e)
 		{
@@ -54,12 +54,11 @@ public abstract class PkSourceAbstractTest extends TestCase
 		try
 		{
 			i.pk2id(Type.NOT_A_PK);
-			fail("should have thrown RuntimeException");
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("not a pk", e.getMessage());
 		}
 	}
-
 }

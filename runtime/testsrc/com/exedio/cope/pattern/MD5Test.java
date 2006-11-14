@@ -87,9 +87,9 @@ public class MD5Test extends AbstractLibTest
 		try
 		{
 			new MD5Hash(new StringField(item.OPTIONAL), "nixus");
-			fail("should have thrown UnsupportedEncodingException");
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
 			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
@@ -97,9 +97,9 @@ public class MD5Test extends AbstractLibTest
 		try
 		{
 			new JavaSecurityHash(new StringField(item.OPTIONAL), "NIXUS");
-			fail("should have thrown NoSuchAlgorithmException");
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(NoSuchAlgorithmException.class.getName()+": NIXUS MessageDigest not available", e.getMessage());
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());

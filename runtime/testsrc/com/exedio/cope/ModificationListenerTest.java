@@ -122,7 +122,7 @@ public class ModificationListenerTest extends AbstractLibTest
 				model.getCurrentTransaction();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalStateException e)
 			{
 				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
 			}

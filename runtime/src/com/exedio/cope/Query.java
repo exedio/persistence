@@ -198,12 +198,12 @@ public final class Query<R>
 	}
 	
 	/**
-	 * @throws RuntimeException if <tt>orderBy.length!=ascending.length</tt>
+	 * @throws IllegalArgumentException if <tt>orderBy.length!=ascending.length</tt>
 	 */
 	public void setOrderBy(final Function[] orderBy, final boolean[] ascending)
 	{
 		if(orderBy.length!=ascending.length)
-			throw new RuntimeException("orderBy and ascending must have same length, but was "+orderBy.length+" and "+ascending.length);
+			throw new IllegalArgumentException("orderBy and ascending must have same length, but was "+orderBy.length+" and "+ascending.length);
 		for(int i = 0; i<orderBy.length; i++)
 			if(orderBy[i]==null)
 				throw new NullPointerException("orderBy contains null at index "+i);
@@ -256,15 +256,15 @@ public final class Query<R>
 	/**
 	 * @see #setLimit(int)
 	 * @param count the maximum number of items to be found.
-	 * @throws RuntimeException if start is a negative value
-	 * @throws RuntimeException if count is a negative value
+	 * @throws IllegalArgumentException if start is a negative value
+	 * @throws IllegalArgumentException if count is a negative value
 	 */
 	public void setLimit(final int start, final int count)
 	{
 		if(start<0)
-			throw new RuntimeException("start must not be negative, but was " + start);
+			throw new IllegalArgumentException("start must not be negative, but was " + start);
 		if(count<0)
-			throw new RuntimeException("count must not be negative, but was " + count);
+			throw new IllegalArgumentException("count must not be negative, but was " + count);
 
 		this.limitStart = start;
 		this.limitCount = count;
@@ -272,12 +272,12 @@ public final class Query<R>
 	
 	/**
 	 * @see #setLimit(int, int)
-	 * @throws RuntimeException if start is a negative value
+	 * @throws IllegalArgumentException if start is a negative value
 	 */
 	public void setLimit(final int start)
 	{
 		if(start<0)
-			throw new RuntimeException("start must not be negative, but was " + start);
+			throw new IllegalArgumentException("start must not be negative, but was " + start);
 
 		this.limitStart = start;
 		this.limitCount = UNLIMITED_COUNT;
@@ -468,7 +468,7 @@ public final class Query<R>
 	 * <p>
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
-	 * @throws RuntimeException if the search result size is greater than one.
+	 * @throws IllegalArgumentException if the search result size is greater than one.
 	 * @see Type#searchSingleton(Condition)
 	 */
 	public R searchSingleton()
@@ -479,7 +479,7 @@ public final class Query<R>
 		{
 			final R result = searchResult.next();
 			if(searchResult.hasNext())
-				throw new RuntimeException("expected result of size one or less, but was " + searchResultCollection + " for query: " + toString());
+				throw new IllegalArgumentException("expected result of size one or less, but was " + searchResultCollection + " for query: " + toString());
 			else
 				return result;
 		}

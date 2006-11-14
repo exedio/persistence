@@ -159,7 +159,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	private void assertValue(final Collection<?> value)
 	{
 		if(value.size()>sources.length)
-			throw new RuntimeException("value exceeds limit " + sources.length + " for " + toString() + ": " + value);
+			throw new IllegalArgumentException("value exceeds limit " + sources.length + " for " + toString() + ": " + value);
 	}
 	
 	public void set(final Item item, final Collection<? extends E> value)

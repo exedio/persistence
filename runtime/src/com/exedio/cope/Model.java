@@ -63,7 +63,7 @@ public final class Model
 		if(types==null)
 			throw new NullPointerException("types must not be null");
 		if(types.length==0)
-			throw new RuntimeException("types must not be empty");
+			throw new IllegalArgumentException("types must not be empty");
 		
 		final Type<?>[] explicitTypes = types;
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
@@ -78,7 +78,7 @@ public final class Model
 		{
 			final Type collisionType = typesByID.put(type.id, type);
 			if(collisionType!=null)
-				throw new RuntimeException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
+				throw new IllegalArgumentException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
 			if(!type.isAbstract)
 				concreteTypes.add(type);
 		}
@@ -195,7 +195,7 @@ public final class Model
 	 * Usually you may want to use this method, if you want to connect this model
 	 * from different servlets with equal properties in an undefined order.
 	 *
-	 * @throws RuntimeException if a subsequent call provides properties different
+	 * @throws IllegalArgumentException if a subsequent call provides properties different
 	 * 									to the first call.
 	 */
 	public void connect(final Properties properties)
@@ -272,7 +272,7 @@ public final class Model
 	public Properties getProperties()
 	{
 		if(propertiesIfConnected==null)
-			throw new RuntimeException("model not yet connected, use connect(Properties)");
+			throw new IllegalStateException("model not yet connected, use connect(Properties)");
 
 		return propertiesIfConnected;
 	}
@@ -280,7 +280,7 @@ public final class Model
 	Database getDatabase()
 	{
 		if(databaseIfConnected==null)
-			throw new RuntimeException("model not yet connected, use connect(Properties)");
+			throw new IllegalStateException("model not yet connected, use connect(Properties)");
 
 		return databaseIfConnected;
 	}
@@ -288,7 +288,7 @@ public final class Model
 	Cache getCache()
 	{
 		if(cacheIfConnected==null)
-			throw new RuntimeException("model not yet connected, use connect(Properties)");
+			throw new IllegalStateException("model not yet connected, use connect(Properties)");
 
 		return cacheIfConnected;
 	}
@@ -627,7 +627,7 @@ public final class Model
 	 * @param name
 	 * 	a name for the transaction, useful for debugging.
 	 * 	This name is used in {@link Transaction#toString()}.
-	 * @throws RuntimeException
+	 * @throws IllegalStateException
 	 *    if there is already a transaction bound
 	 *    to the current thread for this model
 	 */
@@ -639,7 +639,7 @@ public final class Model
 			System.out.println("transaction start " + name);
 
 		if( hasCurrentTransaction() )
-			throw new RuntimeException("there is already a transaction bound to current thread");
+			throw new IllegalStateException("there is already a transaction bound to current thread");
 		final Transaction result = new Transaction(this, name);
 		setTransaction( result );
 		openTransactions.add( result );
@@ -669,6 +669,7 @@ public final class Model
 	/**
 	 * Returns the transaction for this model,
 	 * that is bound to the currently running thread.
+	 * @throws IllegalStateException if there is no cope transaction bound to current thread
 	 * @see Thread#currentThread()
 	 */
 	public Transaction getCurrentTransaction()
@@ -676,7 +677,7 @@ public final class Model
 		final Transaction result = getCurrentTransactionIfAvailable();
 		if(result==null)
 		{
-			throw new RuntimeException("there is no cope transaction bound to this thread, see Model#startTransaction");
+			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
 		}
 		assert result.assertBoundToCurrentThread();
 		return result;

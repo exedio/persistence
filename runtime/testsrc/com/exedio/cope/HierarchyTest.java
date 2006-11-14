@@ -230,7 +230,7 @@ public class HierarchyTest extends AbstractLibTest
 			firstItem.get(secondItem.firstSubString);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -239,7 +239,7 @@ public class HierarchyTest extends AbstractLibTest
 			secondItem.firstSubString.get(firstItem);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -248,7 +248,7 @@ public class HierarchyTest extends AbstractLibTest
 			firstItem.set(secondItem.firstSubString, "zack");
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -257,7 +257,7 @@ public class HierarchyTest extends AbstractLibTest
 			firstItem.set(new SetValue[]{secondItem.firstSubString.map("zack")});
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}
@@ -266,7 +266,7 @@ public class HierarchyTest extends AbstractLibTest
 			firstItem.TYPE.newItem(new SetValue[]{secondItem.firstSubString.map("zack")});
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+secondItem.firstSubString+" does not belong to type "+firstItem.TYPE, e.getMessage());
 		}

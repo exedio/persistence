@@ -84,7 +84,7 @@ public final class Type<C extends Item>
 	private PkSource pkSource;
 	
 	/**
-	 * @throws RuntimeException if there is no type for the given java class.
+	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #hasUniqueJavaClass()
 	 */
 	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
@@ -102,14 +102,14 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @throws RuntimeException if there is no type for the given java class.
+	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #hasUniqueJavaClass()
 	 */
 	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
 	{
 		final Type<? extends Item> result = typesByClass.get(javaClass);
 		if(result==null)
-			throw new RuntimeException("there is no type for " + javaClass);
+			throw new IllegalArgumentException("there is no type for " + javaClass);
 		return result;
 	}
 	
@@ -287,7 +287,7 @@ public final class Type<C extends Item>
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new RuntimeException(javaClass.getName() + " does not have a " + name + " constructor", e);
+			throw new IllegalArgumentException(javaClass.getName() + " does not have a " + name + " constructor", e);
 		}
 	}
 	
@@ -894,7 +894,7 @@ public final class Type<C extends Item>
 	 * <p>
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
 	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
-	 * @throws RuntimeException if the search result size is greater than one.
+	 * @throws IllegalArgumentException if the search result size is greater than one.
 	 * @see Query#searchSingleton()
 	 */
 	public C searchSingleton(final Condition condition)

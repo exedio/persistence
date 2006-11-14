@@ -50,7 +50,7 @@ public class SearchTest extends TestmodelTest
 			illegalQuery.search();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
 		}
@@ -59,7 +59,7 @@ public class SearchTest extends TestmodelTest
 			illegalQuery.countWithoutLimit();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
 		}
@@ -105,7 +105,7 @@ public class SearchTest extends TestmodelTest
 			Cope.and(new Condition[0]);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
@@ -114,7 +114,7 @@ public class SearchTest extends TestmodelTest
 			Cope.and(Collections.<Condition>emptyList());
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
@@ -123,7 +123,7 @@ public class SearchTest extends TestmodelTest
 			Cope.or(new Condition[0]);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
@@ -132,7 +132,7 @@ public class SearchTest extends TestmodelTest
 			Cope.or(Collections.<Condition>emptyList());
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
@@ -176,7 +176,7 @@ public class SearchTest extends TestmodelTest
 			q.searchSingleton();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select " + item.TYPE.getThis() + " from AttributeItem order by " + item.TYPE.getThis(), e.getMessage());
 		}

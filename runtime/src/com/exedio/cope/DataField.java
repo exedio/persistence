@@ -41,7 +41,7 @@ public final class DataField extends Field<byte[]>
 		this.maximumLength = maximumLength;
 		
 		if(maximumLength<=0)
-			throw new RuntimeException("maximum length must be greater zero, but was " + maximumLength + '.');
+			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
 	}
 	
 	// TODO, empty constructor missing, since DataField cannot be MANDATORY

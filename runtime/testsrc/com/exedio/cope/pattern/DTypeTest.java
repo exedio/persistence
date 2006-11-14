@@ -213,7 +213,7 @@ public class DTypeTest extends AbstractLibTest
 			item2.setFeatures(manufacturer, colorBlue);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("dynamic type system mismatch: enum value " + colorBlue + " has type " + color + ", but must be " + manufacturer, e.getMessage());
 		}
@@ -238,7 +238,7 @@ public class DTypeTest extends AbstractLibTest
 			item.getFeatures(weight);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
 		}
@@ -247,7 +247,7 @@ public class DTypeTest extends AbstractLibTest
 			item.setFeatures(weight, 510);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
 		}
@@ -259,7 +259,7 @@ public class DTypeTest extends AbstractLibTest
 			cellPhone.addStringAttribute("tooMuch");
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("capacity for STRING exceeded, 1 available, but tried to allocate 2", e.getMessage());
 		}
@@ -282,7 +282,7 @@ public class DTypeTest extends AbstractLibTest
 			akkuTime.getEnumValues();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
 		}
@@ -291,7 +291,7 @@ public class DTypeTest extends AbstractLibTest
 			akkuTime.getEnumValue(null);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
 		}
@@ -300,7 +300,7 @@ public class DTypeTest extends AbstractLibTest
 			akkuTime.addEnumValue(null);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
 		}

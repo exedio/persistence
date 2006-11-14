@@ -48,7 +48,7 @@ public class FieldLongTest extends FieldTest
 			item.someLong.getMandatory(item);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+item.someLong+" is not mandatory", e.getMessage());
 		}

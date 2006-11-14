@@ -105,13 +105,13 @@ final class TC
 		if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
 		{
 			if(join==null)
-				throw new RuntimeException(
+				throw new IllegalArgumentException(
 						select.toString() + " is ambiguous, use Function#bind in query: " + query.toString()
 						/*+ "---" + distinctTypes + "---" + ambiguousTypes*/);
 			else
 				return;
 		}
 
-		throw new RuntimeException(select.toString() + " does not belong to a type of the query: " + query.toString());
+		throw new IllegalArgumentException(select.toString() + " does not belong to a type of the query: " + query.toString());
 	}
 }

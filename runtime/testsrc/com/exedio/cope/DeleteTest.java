@@ -86,9 +86,20 @@ public class DeleteTest extends AbstractLibTest
 
 		try
 		{
-			Item.newItemField(DeleteItem.class, Item.NULLIFY);
+			Item.newItemField(DeleteItem.class, null);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(NullPointerException e)
+		{
+			assertTrue(e.getMessage(), e.getMessage().startsWith("delete policy for field "+ItemField.class.getName()+'@'));
+			assertTrue(e.getMessage(), e.getMessage().endsWith(" must not be null"));
+		}
+		try
+		{
+			Item.newItemField(DeleteItem.class, Item.NULLIFY);
+			fail();
+		}
+		catch(IllegalArgumentException e)
 		{
 			assertTrue(e.getMessage(), e.getMessage().startsWith("mandatory field "+ItemField.class.getName()+'@'));
 			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
@@ -96,8 +107,9 @@ public class DeleteTest extends AbstractLibTest
 		try
 		{
 			Item.newItemField(Item.FINAL_OPTIONAL, DeleteItem.class, Item.NULLIFY);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertTrue(e.getMessage(), e.getMessage().startsWith("final field "+ItemField.class.getName()+'@'));
 			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));

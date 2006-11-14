@@ -453,7 +453,7 @@ final class Statement
 		else
 		{
 			if(ambiguousTables!=null && ambiguousTables.contains(table))
-				throw new RuntimeException("feature " + exceptionColumn + " is ambiguous, use Function#bind (deprecated)"); // TODO replace by assertion, once BadQueryTest works
+				throw new IllegalArgumentException("feature " + exceptionColumn + " is ambiguous, use Function#bind (deprecated)"); // TODO replace by assertion, once BadQueryTest works
 			return table.protectedID;
 		}
 	}
@@ -461,7 +461,7 @@ final class Statement
 	static final StringColumn assertTypeColumn(final StringColumn tc, final Type t)
 	{
 		if(tc==null)
-			throw new RuntimeException("type " + t + " has no subtypes, therefore a TypeInCondition makes no sense");
+			throw new IllegalArgumentException("type " + t + " has no subtypes, therefore a TypeInCondition makes no sense");
 		else
 			return tc;
 	}

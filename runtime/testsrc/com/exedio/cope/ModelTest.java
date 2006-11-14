@@ -109,7 +109,7 @@ public class ModelTest extends TestmodelTest
 			Type.findByJavaClass(Item.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
@@ -191,7 +191,7 @@ public class ModelTest extends TestmodelTest
 			new Type<Item>(Item.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("Cannot make a type for " + Item.class + " itself, but only for subclasses.", e.getMessage());
 		}
@@ -200,7 +200,7 @@ public class ModelTest extends TestmodelTest
 			new Type<Item>(castItemClass(NoItem.class));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(NoItem.class.toString() + " is not a subclass of Item", e.getMessage());
 		}
@@ -209,7 +209,7 @@ public class ModelTest extends TestmodelTest
 			new Type<NoCreationConstructor>(NoCreationConstructor.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(
 					NoCreationConstructor.class.getName() +
@@ -221,12 +221,30 @@ public class ModelTest extends TestmodelTest
 			new Type<NoReactivationConstructor>(NoReactivationConstructor.class);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(e.getMessage(),
 					NoReactivationConstructor.class.getName() +
 					" does not have a reactivation constructor", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+		}
+		try
+		{
+			new Model((Type[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("types must not be null", e.getMessage());
+		}
+		try
+		{
+			new Model(new Type[]{});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("types must not be empty", e.getMessage());
 		}
 
 		{
@@ -298,7 +316,7 @@ public class ModelTest extends TestmodelTest
 			assertSame(null, model.getProperties());
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
 		}

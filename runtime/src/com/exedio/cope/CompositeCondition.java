@@ -28,7 +28,7 @@ public final class CompositeCondition extends Condition
 
 	/**
 	 * @throws NullPointerException if <tt>conditions==null</tt>
-	 * @throws RuntimeException if <tt>conditions.size()==0</tt>
+	 * @throws IllegalArgumentException if <tt>conditions.size()==0</tt>
 	 */
 	public CompositeCondition(final Operator operator, final List<? extends Condition> conditions)
 	{
@@ -37,7 +37,7 @@ public final class CompositeCondition extends Condition
 	
 	/**
 	 * @throws NullPointerException if <tt>conditions==null</tt>
-	 * @throws RuntimeException if <tt>conditions.length==0</tt>
+	 * @throws IllegalArgumentException if <tt>conditions.length==0</tt>
 	 */
 	public CompositeCondition(final Operator operator, final Condition[] conditions)
 	{
@@ -46,7 +46,7 @@ public final class CompositeCondition extends Condition
 		if(conditions==null)
 			throw new NullPointerException("conditions must not be null");
 		if(conditions.length==0)
-			throw new RuntimeException("composite condition must have at least one subcondition");
+			throw new IllegalArgumentException("composite condition must have at least one subcondition");
 		for(int i = 0; i<conditions.length; i++)
 			if(conditions[i]==null)
 				throw new NullPointerException("condition " + i + " must not be null");

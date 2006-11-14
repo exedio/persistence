@@ -79,12 +79,12 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	/**
-	 * @throws RuntimeException if this field is not {@link #isMandatory() mandatory}.
+	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	public final int getMandatory(final Item item)
 	{
 		if(optional)
-			throw new RuntimeException("field " + toString() + " is not mandatory");
+			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
 		
 		return get(item).intValue();
 	}

@@ -45,11 +45,11 @@ public final class StringField extends FunctionField<String> implements StringFu
 		this.maximumLength = maximumLength;
 
 		if(minimumLength<0)
-			throw new RuntimeException("mimimum length must be positive, but was " + minimumLength + '.');
+			throw new IllegalArgumentException("mimimum length must be positive, but was " + minimumLength + '.');
 		if(maximumLength<=0)
-			throw new RuntimeException("maximum length must be greater zero, but was " + maximumLength + '.');
+			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
 		if(minimumLength>maximumLength)
-			throw new RuntimeException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
+			throw new IllegalArgumentException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
 		
 		checkDefaultValue();
 	}

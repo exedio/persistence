@@ -32,13 +32,13 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		this.initialValueType = initialValueType;
 		this.policy = policy;
 		if(policy==null)
-			throw new RuntimeException("delete policy for field " + this + " must not be null");
+			throw new NullPointerException("delete policy for field " + this + " must not be null");
 		if(policy==DeletePolicy.NULLIFY)
 		{
 			if(!optional)
-				throw new RuntimeException("mandatory field " + this + " cannot have delete policy nullify");
+				throw new IllegalArgumentException("mandatory field " + this + " cannot have delete policy nullify");
 			if(isfinal)
-				throw new RuntimeException("final field " + this + " cannot have delete policy nullify");
+				throw new IllegalArgumentException("final field " + this + " cannot have delete policy nullify");
 		}
 		checkDefaultValue();
 	}

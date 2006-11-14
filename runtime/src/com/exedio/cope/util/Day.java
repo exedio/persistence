@@ -70,11 +70,11 @@ public final class Day // TODO implement Comparable
 		// mysql supports 1000/01/01 to 9999/12/31
 		// oracle supports 4712/01/01 BC to 9999/12/31
 		if(year<1000 || year>9999)
-			throw new RuntimeException("year must be in range 1000..9999, but was: " + year);
+			throw new IllegalArgumentException("year must be in range 1000..9999, but was: " + year);
 		if(month<1 || month>12)
-			throw new RuntimeException("month must be in range 1..12, but was: " + month);
+			throw new IllegalArgumentException("month must be in range 1..12, but was: " + month);
 		if(day<1 || day>31)
-			throw new RuntimeException("day must be in range 1..31, but was: " + day);
+			throw new IllegalArgumentException("day must be in range 1..31, but was: " + day);
 
 		this.year = year;
 		this.month = month;

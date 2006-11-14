@@ -30,7 +30,7 @@ public class TypeCollisionTest extends CopeAssert
 			new Model(TypeCollisionItem.TYPE, com.exedio.cope.typecollision.TypeCollisionItem.TYPE);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(
 					"duplicate type id \"TypeCollisionItem\" for classes com.exedio.cope.TypeCollisionItem" +

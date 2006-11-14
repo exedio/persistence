@@ -46,7 +46,7 @@ public class FieldBooleanTest extends FieldTest
 			item.someBoolean.getMandatory(item);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+item.someBoolean+" is not mandatory", e.getMessage());
 		}

@@ -207,7 +207,7 @@ public class PropertiesTest extends CopeAssert
 				tp.ensureValidity();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals("property wrongKey.zack in wrongkey is not allowed, but only one of [boolTrue, int10, boolFalse, file, stringOptional, stringMandatory, stringHidden] or one starting with [map.].", e.getMessage());
 			}
@@ -335,7 +335,7 @@ public class PropertiesTest extends CopeAssert
 			new TestProperties(wrongProps, source);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(message, e.getMessage());
 		}
@@ -359,7 +359,7 @@ public class PropertiesTest extends CopeAssert
 			templateProps.ensureEquality(inconsistentProps);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(message1, 	e.getMessage());
 		}
@@ -368,7 +368,7 @@ public class PropertiesTest extends CopeAssert
 			inconsistentProps.ensureEquality(templateProps);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(message2, 	e.getMessage());
 		}

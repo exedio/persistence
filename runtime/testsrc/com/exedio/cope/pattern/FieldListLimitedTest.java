@@ -153,7 +153,7 @@ public class FieldListLimitedTest extends AbstractLibTest
 			item.setNums(listg(i2, i1, i3, i1));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("value exceeds limit 3 for " + item.nums + ": " + listg(i2, i1, i3, i1), e.getMessage());
 		}

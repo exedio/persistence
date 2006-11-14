@@ -17,7 +17,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 			model.startTransaction("nested");
 			fail();
 		}
-		catch ( RuntimeException e )
+		catch(IllegalStateException e)
 		{
 			assertEquals( "there is already a transaction bound to current thread", e.getMessage() );
 		}
@@ -31,8 +31,9 @@ public class TransactionOnlyTest extends AbstractLibTest
 		try
 		{
 			model.joinTransaction( tx );
+			fail();
 		}
-		catch ( RuntimeException e )
+		catch(IllegalStateException e)
 		{
 			assertEquals( "cannot bind to closed transaction", e.getMessage() );
 		}
@@ -103,7 +104,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 				model.getCurrentTransaction();
 				fail();
 			}
-			catch ( RuntimeException e )
+			catch(IllegalStateException e)
 			{
 				assertEquals( "there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage() );
 			}

@@ -109,7 +109,7 @@ public class Properties
 				else if(s.equals("false"))
 					this.value = false;
 				else
-					throw new RuntimeException("property "+key+" in "+source+" has invalid value, expected >true< or >false<, but got >"+s+"<.");
+					throw new IllegalArgumentException("property " + key + " in "+source+" has invalid value, expected >true< or >false<, but got >" + s + "<.");
 			}
 		}
 		
@@ -155,13 +155,13 @@ public class Properties
 				}
 				catch(NumberFormatException e)
 				{
-					throw new RuntimeException(
+					throw new IllegalArgumentException(
 							"property " + key + " in " + source + " has invalid value, " +
 							"expected an integer greater or equal " + minimumValue + ", but got >" + s + "<.", e);
 				}
 
 				if(value<minimumValue)
-					throw new RuntimeException(
+					throw new IllegalArgumentException(
 							"property " + key + " in " + source + " has invalid value, " +
 							"expected an integer greater or equal " + minimumValue + ", but got " + value + '.');
 			}
@@ -227,7 +227,7 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new RuntimeException("property " + key + " in " + source + " not set and not default value specified.");
+					throw new IllegalArgumentException("property " + key + " in " + source + " not set and not default value specified.");
 				else
 					this.value = defaultValue;
 			}
@@ -375,7 +375,7 @@ public class Properties
 					}
 				}
 				if(error)
-					throw new RuntimeException("property " + key + " in " + source + " is not allowed, but only one of " + allowedValues + " or one starting with " + allowedPrefixes + '.');
+					throw new IllegalArgumentException("property " + key + " in " + source + " is not allowed, but only one of " + allowedValues + " or one starting with " + allowedPrefixes + '.');
 			}
 		}
 	}
@@ -400,7 +400,7 @@ public class Properties
 			
 			if((thisValue!=null && !thisValue.equals(otherValue)) ||
 				(thisValue==null && otherValue!=null))
-				throw new RuntimeException(
+				throw new IllegalArgumentException(
 						"inconsistent initialization for " + thisField.key +
 						" between " + source + " and " + other.source +
 						(thisHideValue ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));

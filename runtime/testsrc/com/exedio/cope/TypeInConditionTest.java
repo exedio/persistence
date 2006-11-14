@@ -134,6 +134,25 @@ public class TypeInConditionTest extends AbstractLibTest
 			j.setCondition(itema.TYPE.getThis().typeNotIn(itemc1.TYPE));
 			assertContains(q.search());
 		}
+		
+		try
+		{
+			itema.TYPE.getThis().typeIn((Type[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("types must not be null", e.getMessage());
+		}
+		try
+		{
+			itema.TYPE.getThis().typeIn(new Type[]{});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("types must not be empty", e.getMessage());
+		}
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage
@@ -144,7 +163,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			itemb2.TYPE.search(itemb2.TYPE.getThis().typeNotIn((Type)itemb1.TYPE));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("type TypeInConditionB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
 		}
@@ -153,7 +172,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			reffa.TYPE.search(reffa.refb2.typeNotIn((Type)itemb1.TYPE));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("type TypeInConditionB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
 		}
@@ -162,7 +181,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			itemb1.TYPE.search(itemb1.TYPE.getThis().typeNotIn((Type)itema.TYPE));
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("type TypeInConditionB1Item is not assignable from type TypeInConditionAItem", e.getMessage());
 		}

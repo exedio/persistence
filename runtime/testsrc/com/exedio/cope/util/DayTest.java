@@ -31,48 +31,54 @@ public class DayTest extends CopeAssert
 		try
 		{
 			new Day(999, 31, 12);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("year must be in range 1000..9999, but was: 999", e.getMessage());
 		}
 		try
 		{
 			new Day(10000, 31, 12);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("year must be in range 1000..9999, but was: 10000", e.getMessage());
 		}
 		try
 		{
 			new Day(2005, 0, 12);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("month must be in range 1..12, but was: 0", e.getMessage());
 		}
 		try
 		{
 			new Day(2005, 32, 12);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("month must be in range 1..12, but was: 32", e.getMessage());
 		}
 		try
 		{
 			new Day(2005, 9, 0);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("day must be in range 1..31, but was: 0", e.getMessage());
 		}
 		try
 		{
 			new Day(2005, 9, 32);
+			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("day must be in range 1..31, but was: 32", e.getMessage());
 		}

@@ -87,7 +87,7 @@ final class ButterflyPkSource extends PkSource
 		// does not use any member variables.
 
 		if(pk==Type.NOT_A_PK)
-			throw new RuntimeException("not a pk");
+			throw new IllegalArgumentException("not a pk");
 
 		final long longPk = pk;
 		return

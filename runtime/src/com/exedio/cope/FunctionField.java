@@ -58,7 +58,7 @@ public abstract class FunctionField<E extends Object>
 				// Must not make exception e available to public,
 				// since it contains a reference to this function field,
 				// which has not been constructed successfully.
-				throw new RuntimeException(
+				throw new IllegalArgumentException(
 						"The default constant of the field " +
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
@@ -155,7 +155,7 @@ public abstract class FunctionField<E extends Object>
 	public final E get(final Item item)
 	{
 		if(!getType().isAssignableFrom(item.type))
-			throw new RuntimeException("field " + toString() + " does not belong to type " + item.type.toString());
+			throw new IllegalArgumentException("field " + toString() + " does not belong to type " + item.type.toString());
 		
 		return Cope.verboseCast(valueClass, getEntity(item).get(this));
 	}

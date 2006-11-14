@@ -47,7 +47,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 		if(types==null)
 			throw new NullPointerException("types must not be null");
 		if(types.length==0)
-			throw new RuntimeException("types must not be empty");
+			throw new IllegalArgumentException("types must not be empty");
 
 		this.function = function;
 		this.not = not;
@@ -99,7 +99,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 		for(final Type<E> t : types)
 		{
 			if(!type.isAssignableFrom(t))
-				throw new RuntimeException("type " + type + " is not assignable from type " + t);
+				throw new IllegalArgumentException("type " + type + " is not assignable from type " + t);
 			
 			for(final Type ti : t.getTypesOfInstances())
 				typeIds.add(ti.id);

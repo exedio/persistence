@@ -141,7 +141,7 @@ public class DataTest extends AbstractLibTest
 			new DataField(Item.OPTIONAL).lengthMax(0);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("maximum length must be greater zero, but was 0.", e.getMessage());
 		}
@@ -150,7 +150,7 @@ public class DataTest extends AbstractLibTest
 			new DataField(Item.OPTIONAL).lengthMax(-10);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
 		}

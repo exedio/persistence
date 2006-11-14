@@ -69,12 +69,12 @@ public final class LongField extends FunctionField<Long>
 	}
 	
 	/**
-	 * @throws RuntimeException if this field is not {@link #isMandatory() mandatory}.
+	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	public final long getMandatory(final Item item)
 	{
 		if(optional)
-			throw new RuntimeException("field " + toString() + " is not mandatory");
+			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
 		
 		return get(item).longValue();
 	}

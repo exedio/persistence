@@ -48,7 +48,7 @@ public class FieldIntegerTest extends FieldTest
 			item.someInteger.getMandatory(item);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+item.someInteger+" is not mandatory", e.getMessage());
 		}

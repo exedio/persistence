@@ -114,7 +114,7 @@ public class ServletUtilTest extends CopeAssert
 			model.findTypeByID("zack");
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
 		}

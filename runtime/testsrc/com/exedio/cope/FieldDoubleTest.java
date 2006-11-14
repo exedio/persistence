@@ -50,7 +50,7 @@ public class FieldDoubleTest extends FieldTest
 			item.someDouble.getMandatory(item);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("field "+item.someDouble+" is not mandatory", e.getMessage());
 		}

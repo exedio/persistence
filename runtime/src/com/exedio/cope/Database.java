@@ -1318,9 +1318,9 @@ abstract class Database
 	protected static final String trimString(final String longString, final int maxLength)
 	{
 		if(maxLength<=0)
-			throw new RuntimeException("maxLength must be greater zero");
+			throw new IllegalArgumentException("maxLength must be greater zero");
 		if(longString.length()==0)
-			throw new RuntimeException("longString must not be empty");
+			throw new IllegalArgumentException("longString must not be empty");
 
 		if(longString.length()<=maxLength)
 			return (longString.indexOf('.')<=0) ? longString : longString.replace('.', '_');

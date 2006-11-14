@@ -178,7 +178,7 @@ public abstract class Item extends Cope
 		for(final Field field : fieldValues.keySet())
 		{
 			if(!field.getType().isAssignableFrom(type))
-				throw new RuntimeException("field " + field + " does not belong to type " + type.toString());
+				throw new IllegalArgumentException("field " + field + " does not belong to type " + type.toString());
 		}
 		for(final Field field : type.getFields())
 		{
@@ -275,7 +275,7 @@ public abstract class Item extends Cope
 			ClassCastException
 	{
 		if(!field.getType().isAssignableFrom(type))
-			throw new RuntimeException("field " + field + " does not belong to type " + type.toString());
+			throw new IllegalArgumentException("field " + field + " does not belong to type " + type.toString());
 		
 		if(field.isfinal)
 			throw new FinalViolationException(field, this);
@@ -308,7 +308,7 @@ public abstract class Item extends Cope
 		for(final Field field : fieldValues.keySet())
 		{
 			if(!field.getType().isAssignableFrom(type))
-				throw new RuntimeException("field " + field + " does not belong to type " + type.toString());
+				throw new IllegalArgumentException("field " + field + " does not belong to type " + type.toString());
 			
 			if(field.isfinal)
 				throw new FinalViolationException(field, this);

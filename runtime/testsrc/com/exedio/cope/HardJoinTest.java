@@ -172,7 +172,7 @@ public class HardJoinTest extends AbstractLibTest
 				q.search();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -183,7 +183,7 @@ public class HardJoinTest extends AbstractLibTest
 				q.search();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -199,7 +199,7 @@ public class HardJoinTest extends AbstractLibTest
 				q.search();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals(b.b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -210,7 +210,7 @@ public class HardJoinTest extends AbstractLibTest
 				q.search();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals(b.b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -229,7 +229,7 @@ public class HardJoinTest extends AbstractLibTest
 				q.search();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
@@ -240,7 +240,7 @@ public class HardJoinTest extends AbstractLibTest
 				q.search();
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}

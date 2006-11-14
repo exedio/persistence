@@ -45,7 +45,7 @@ public class SQLInjectionTest extends SchemaTest
 			badTable.create();
 			failIfNotDebugging();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(MESSAGE_PREFIX + BAD_TABLE, e.getMessage());
 		}
@@ -64,7 +64,7 @@ public class SQLInjectionTest extends SchemaTest
 			table.create();
 			failIfNotDebugging();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(MESSAGE_PREFIX + BAD_COLUMN, e.getMessage());
 		}

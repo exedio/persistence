@@ -80,7 +80,7 @@ public final class DAttribute extends Item
 	{
 		final ValueType vt = getValueType();
 		if(vt!=ValueType.ENUM)
-			throw new RuntimeException("operation allowed for getValueType()==ENUM attributes only, but was " + vt);
+			throw new IllegalArgumentException("operation allowed for getValueType()==ENUM attributes only, but was " + vt);
 	}
 	
 	public List<DEnumValue> getEnumValues()

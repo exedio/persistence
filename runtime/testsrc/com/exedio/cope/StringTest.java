@@ -528,7 +528,7 @@ public class StringTest extends TestmodelTest
 			new StringField(Item.OPTIONAL).lengthRange(minimumLength, maximumLength);
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals(message, e.getMessage());
 		}

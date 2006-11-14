@@ -50,11 +50,11 @@ public class JavaSecurityHash extends Hash
 		}
 		catch(NoSuchAlgorithmException e)
 		{
-			throw new RuntimeException(e);
+			throw new IllegalArgumentException(e);
 		}
 		catch(UnsupportedEncodingException e)
 		{
-			throw new RuntimeException(e);
+			throw new IllegalArgumentException(e);
 		}
 	}
 

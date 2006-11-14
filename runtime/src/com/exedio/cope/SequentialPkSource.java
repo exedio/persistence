@@ -82,7 +82,7 @@ final class SequentialPkSource extends PkSource
 		// does not use any member variables.
 
 		if(pk==Type.NOT_A_PK)
-			throw new RuntimeException("not a pk");
+			throw new IllegalArgumentException("not a pk");
 
 		return pk;
 	}

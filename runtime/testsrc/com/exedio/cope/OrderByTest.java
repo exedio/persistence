@@ -139,7 +139,7 @@ public class OrderByTest extends TestmodelTest
 				query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true});
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals("orderBy and ascending must have same length, but was 2 and 1", e.getMessage());
 			}
@@ -171,7 +171,7 @@ public class OrderByTest extends TestmodelTest
 				q.setLimit(-1, 10);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals("start must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.limitStart);
@@ -182,7 +182,7 @@ public class OrderByTest extends TestmodelTest
 				q.setLimit(-1);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals("start must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.limitStart);
@@ -193,7 +193,7 @@ public class OrderByTest extends TestmodelTest
 				q.setLimit(0, -1);
 				fail();
 			}
-			catch(RuntimeException e)
+			catch(IllegalArgumentException e)
 			{
 				assertEquals("count must not be negative, but was -1", e.getMessage());
 				assertEquals(0, q.limitStart);
