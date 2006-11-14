@@ -214,7 +214,7 @@
 		</ljar>
 	</target>
 	
-	<target name="runtime.testmodel.instrument" depends="instrument.taskdef">
+	<target name="runtime.testmodel.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument verbose="false">
 			<fileset dir="runtime/testmodelsrc/com/exedio/cope/testmodel">
 				<include name="**/*.java" />
@@ -483,7 +483,7 @@
 		</taskdef>
 	</target>
 	
-	<target name="instrument.test.instrument" depends="instrument.taskdef">
+	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="**/*.java" />
