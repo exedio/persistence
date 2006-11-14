@@ -52,6 +52,7 @@ public class ItemTest extends TestmodelTest
 		try
 		{
 			item1.TYPE.cast(item3);
+			fail();
 		}
 		catch(ClassCastException e)
 		{
@@ -62,6 +63,7 @@ public class ItemTest extends TestmodelTest
 		try
 		{
 			item1.TYPE.castType(EmptyItem2.class);
+			fail();
 		}
 		catch(ClassCastException e)
 		{

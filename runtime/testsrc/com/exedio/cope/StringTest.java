@@ -268,7 +268,7 @@ public class StringTest extends TestmodelTest
 		try
 		{
 			item.setMin4("123");
-			fail("should have thrown LengthViolationException");
+			fail();
 		}
 		catch(LengthViolationException e)
 		{
@@ -296,7 +296,7 @@ public class StringTest extends TestmodelTest
 		try
 		{
 			item.setMax4("12345");
-			fail("should have thrown LengthViolationException");
+			fail();
 		}
 		catch(LengthViolationException e)
 		{
@@ -360,7 +360,7 @@ public class StringTest extends TestmodelTest
 		try
 		{
 			item.setMin4Max8("123");
-			fail("should have thrown LengthViolationException");
+			fail();
 		}
 		catch(LengthViolationException e)
 		{
@@ -391,7 +391,7 @@ public class StringTest extends TestmodelTest
 		try
 		{
 			item.setMin4Max8("123456789");
-			fail("should have thrown LengthViolationException");
+			fail();
 		}
 		catch(LengthViolationException e)
 		{
@@ -414,7 +414,7 @@ public class StringTest extends TestmodelTest
 		try
 		{
 			item.setExact6("12345");
-			fail("should have thrown LengthViolationException");
+			fail();
 		}
 		catch(LengthViolationException e)
 		{
@@ -442,7 +442,7 @@ public class StringTest extends TestmodelTest
 		try
 		{
 			item.setExact6("1234567");
-			fail("should have thrown LengthViolationException");
+			fail();
 		}
 		catch(LengthViolationException e)
 		{

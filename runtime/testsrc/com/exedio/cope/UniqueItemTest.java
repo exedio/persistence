@@ -210,7 +210,7 @@ public class UniqueItemTest extends TestmodelTest
 		try
 		{
 			item.set(item.uniqueFinalString, "zapp");
-			fail("should have thrown FinalViolationException");
+			fail();
 		}
 		catch(FinalViolationException e)
 		{

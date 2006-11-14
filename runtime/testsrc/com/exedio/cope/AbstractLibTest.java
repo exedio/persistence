@@ -211,7 +211,7 @@ public abstract class AbstractLibTest extends CopeTest
 		try
 		{
 			item.deleteCopeItem();
-			fail("should have thrown IntegrityViolationException");
+			fail();
 		}
 		catch(IntegrityViolationException e)
 		{
@@ -233,7 +233,7 @@ public abstract class AbstractLibTest extends CopeTest
 		try
 		{
 			model.findByID(id);
-			fail("should have thrown NoSuchIDException");
+			fail();
 		}
 		catch(NoSuchIDException e)
 		{

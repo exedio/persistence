@@ -138,17 +138,8 @@ public class SearchTest extends TestmodelTest
 		}
 
 		final EmptyItem someItem = new EmptyItem();
-		final AttributeItem item;
-		final AttributeItem item2;
-		try
-		{
-			item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
-			item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
+		final AttributeItem item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
+		final AttributeItem item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
 		item.setSomeNotNullInteger(0);
 		assertContainsUnmodifiable(item, item.TYPE.search(item.someNotNullInteger.equal(0)));
 		assertContainsUnmodifiable(item2, item.TYPE.search(item.someNotNullInteger.equal(0).not()));

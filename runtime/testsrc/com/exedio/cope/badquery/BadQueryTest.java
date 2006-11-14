@@ -87,11 +87,11 @@ public class BadQueryTest extends AbstractLibTest
 				query.search();
 				fail();
 			}
-			// TODO
-			// should not happen, since SuperContainer.this is not ambiguous
-			// because feature "this" is not inherited.
 			catch(IllegalArgumentException e)
 			{
+				// TODO
+				// should not happen, since SuperContainer.this is not ambiguous
+				// because feature "this" is not inherited.
 				assertEquals("feature SuperContainer#class is ambiguous, use Function#bind (deprecated)", e.getMessage());
 			}
 		}

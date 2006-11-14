@@ -333,6 +333,7 @@ public class DataTest extends AbstractLibTest
 		try
 		{
 			item.set(new SetValue[]{DataItem.data10.map(data11)});
+			fail();
 		}
 		catch(DataLengthViolationException e)
 		{
@@ -348,6 +349,7 @@ public class DataTest extends AbstractLibTest
 		try
 		{
 			DataItem.TYPE.newItem(new SetValue[]{DataItem.data10.map(data11)});
+			fail();
 		}
 		catch(DataLengthViolationException e)
 		{
@@ -370,6 +372,7 @@ public class DataTest extends AbstractLibTest
 			item.set(new SetValue[]{
 					new SetValue(DataItem.data, "zack"),
 			});
+			fail();
 		}
 		catch(ClassCastException e)
 		{
@@ -382,6 +385,7 @@ public class DataTest extends AbstractLibTest
 			DataItem.TYPE.newItem(new SetValue[]{
 					new SetValue(DataItem.data, new Integer(1)),
 			});
+			fail();
 		}
 		catch(ClassCastException e)
 		{
