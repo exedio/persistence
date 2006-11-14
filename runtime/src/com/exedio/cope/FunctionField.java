@@ -154,8 +154,7 @@ public abstract class FunctionField<E extends Object>
 	@Override
 	public final E get(final Item item)
 	{
-		if(!getType().isAssignableFrom(item.type))
-			throw new IllegalArgumentException("field " + toString() + " does not belong to type " + item.type.toString());
+		item.type.assertBelongs(this);
 		
 		return Cope.verboseCast(valueClass, getEntity(item).get(this));
 	}

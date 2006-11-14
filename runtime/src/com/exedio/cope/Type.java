@@ -686,6 +686,12 @@ public final class Type<C extends Item>
 			: (this==type);
 	}
 	
+	void assertBelongs(final Field f)
+	{
+		if(!f.getType().isAssignableFrom(this))
+			throw new IllegalArgumentException("field " + f + " does not belong to type " + this.toString());
+	}
+	
 	public boolean isAbstract()
 	{
 		return isAbstract;
