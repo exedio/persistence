@@ -174,7 +174,7 @@ public class HardJoinTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("feature HardJoinB3Item#b3 is ambiguous, use Function#bind", e.getMessage());
+				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 			
 			j1.setCondition(b.b3.bind(j1).equal(a.a3));
@@ -185,7 +185,7 @@ public class HardJoinTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("feature HardJoinB3Item#b3 is ambiguous, use Function#bind", e.getMessage());
+				assertEquals(b.b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 			
 			j2.setCondition(b.b3.bind(j2).equal(a.a3));
@@ -201,7 +201,7 @@ public class HardJoinTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("feature HardJoinB1Item#b1 is ambiguous, use Function#bind", e.getMessage());
+				assertEquals(b.b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
 			j1.setCondition(b.b1.bind(j1).equal(a.a3));
@@ -212,7 +212,7 @@ public class HardJoinTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("feature HardJoinB1Item#b1 is ambiguous, use Function#bind", e.getMessage());
+				assertEquals(b.b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
 			j2.setCondition(b.b1.bind(j2).equal(a.a3));
@@ -231,7 +231,7 @@ public class HardJoinTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("feature HardJoinB2Item#class is ambiguous, use Function#bind", e.getMessage());
+				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
 			j1.setCondition(HardJoinB2Item.TYPE.getThis().bind(j1).typeNotIn(b.TYPE));
@@ -242,7 +242,7 @@ public class HardJoinTest extends AbstractLibTest
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("feature HardJoinB2Item#class is ambiguous, use Function#bind", e.getMessage());
+				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
 			j2.setCondition(HardJoinB2Item.TYPE.getThis().bind(j2).typeNotIn(b.TYPE));

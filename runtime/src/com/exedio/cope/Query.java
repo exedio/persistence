@@ -370,13 +370,16 @@ public final class Query<R>
 		return ((Integer)result.iterator().next()).intValue();
 	}
 
+	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	void check()
 	{
+		final TC tc = new TC(this);
+		
 		for(final Selectable select : selects)
-			check(select);
+			select.check(tc, null);
 		
 		if(condition!=null)
-			condition.check(this);
+			condition.check(tc);
 
 		if(joins!=null)
 		{
@@ -384,33 +387,13 @@ public final class Query<R>
 			{
 				final Condition c = j.condition;
 				if(c!=null)
-					c.check(this);
+					c.check(tc);
 			}
 		}
 		
 		if(orderBy!=null)
 			for(Function ob : orderBy)
-				check(ob);
-	}
-	
-	void check(final Selectable select)
-	{
-		final Type selectType = select.getType();
-
-		if(selectType.isAssignableFrom(type))
-			return;
-
-		final List<Join> joins = this.joins;
-		if(joins!=null)
-		{
-			for(final Join join : joins)
-			{
-				if(selectType.isAssignableFrom(join.getType()))
-					return;
-			}
-		}
-
-		throw new RuntimeException(select.toString() + " does not belong to a type of the query: " + toString());
+				ob.check(tc, null);
 	}
 
 	/**

@@ -23,7 +23,7 @@ public abstract class Condition
 {
 	abstract void append(Statement statment);
 	
-	abstract void check(Query query);
+	abstract void check(TC tc);
 
 	public final NotCondition not()
 	{

@@ -42,6 +42,16 @@ abstract class StaticView<E> extends View<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated
+	public final void check(final TC tc, final Join join)
+	{
+		for(int i = 0; i<sources.length; i++)
+			sources[i].check(tc, join);
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
 		for(int i = 0; i<sources.length; i++)
@@ -51,5 +61,4 @@ abstract class StaticView<E> extends View<E>
 		}
 		bf.append(sqlFragments[sqlFragments.length-1]);
 	}
-
 }

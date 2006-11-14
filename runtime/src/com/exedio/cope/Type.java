@@ -1013,6 +1013,15 @@ public final class Type<C extends Item>
 		 * @deprecated For internal use within COPE only.
 		 */
 		@Deprecated
+		public void check(final TC tc, final Join join)
+		{
+			tc.check(this, join);
+		}
+		
+		/**
+		 * @deprecated For internal use within COPE only.
+		 */
+		@Deprecated
 		public void append(final Statement bf, final Join join)
 		{
 			bf.appendPK(type, join);

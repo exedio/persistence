@@ -170,6 +170,15 @@ public abstract class FunctionField<E extends Object>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated
+	public final void check(final TC tc, final Join join)
+	{
+		tc.check(this, join);
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(getColumn(), join);

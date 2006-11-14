@@ -51,10 +51,11 @@ public final class IsNullCondition<E> extends Condition
 			append(sql());
 	}
 
+	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	@Override
-	void check(final Query query)
+	void check(final TC tc)
 	{
-		query.check(function);
+		function.check(tc, null);
 	}
 
 	@Override

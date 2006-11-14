@@ -453,7 +453,7 @@ final class Statement
 		else
 		{
 			if(ambiguousTables!=null && ambiguousTables.contains(table))
-				throw new RuntimeException("feature " + exceptionColumn + " is ambiguous, use Function#bind");
+				throw new RuntimeException("feature " + exceptionColumn + " is ambiguous, use Function#bind (deprecated)"); // TODO replace by assertion, once BadQueryTest works
 			return table.protectedID;
 		}
 	}

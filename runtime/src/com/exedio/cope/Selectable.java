@@ -26,6 +26,12 @@ public interface Selectable<E extends Object>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated
+	void check(TC tc, Join join);
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	void append(Statement bf, Join join);
 	
 	/**

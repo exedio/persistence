@@ -47,9 +47,9 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	void check(final Query query)
+	void check(final TC tc)
 	{
-		argument.check(query);
+		argument.check(tc);
 	}
 
 	@Override

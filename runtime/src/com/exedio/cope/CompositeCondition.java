@@ -70,10 +70,10 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	void check(final Query query)
+	void check(final TC tc)
 	{
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i].check(query);
+			conditions[i].check(tc);
 	}
 	
 	@Override

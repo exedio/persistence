@@ -63,6 +63,15 @@ public abstract class Aggregate<E> implements Selectable<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated
+	public final void check(final TC tc, final Join join)
+	{
+		source.check(tc, join);
+	}
+
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
