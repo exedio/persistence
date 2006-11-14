@@ -630,7 +630,7 @@ public final class Type<C extends Item>
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
 	 *
-	 * @throws RuntimeException
+	 * @throws IllegalArgumentException
 	 *         if there is no type column for this type,
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
 	 *         contains one type only.
@@ -642,7 +642,7 @@ public final class Type<C extends Item>
 	public String getTypeColumnName()
 	{
 		if(table.typeColumn==null)
-			throw new RuntimeException("no type column for " + this);
+			throw new IllegalArgumentException("no type column for " + this);
 
 		return table.typeColumn.id;
 	}

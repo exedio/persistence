@@ -185,7 +185,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	 * Please note, that this string may vary,
 	 * if a cope model is configured for different databases.
 	 *
-	 * @throws RuntimeException
+	 * @throws IllegalArgumentException
 	 *         if there is no type column for this ItemField,
 	 *         because <code>{@link #getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
 	 *         contains one type only.
@@ -196,7 +196,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	public String getTypeColumnName()
 	{
 		if(typeColumn==null)
-			throw new RuntimeException("no type column for " + this);
+			throw new IllegalArgumentException("no type column for " + this);
 
 		return typeColumn.id;
 	}

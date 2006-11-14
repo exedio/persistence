@@ -173,7 +173,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			TypeInConditionB2Item.TYPE.getTypeColumnName();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("no type column for TypeInConditionB2Item", e.getMessage());
 		}
@@ -184,7 +184,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			TypeInConditionRefItem.refb2.getTypeColumnName();
 			fail();
 		}
-		catch(RuntimeException e)
+		catch(IllegalArgumentException e)
 		{
 			assertEquals("no type column for TypeInConditionRefItem.refb2", e.getMessage());
 		}
