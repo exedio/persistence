@@ -159,4 +159,37 @@ public class HardJoinTest extends AbstractLibTest
 			assertEquals(list(a), q.search());
 		}
 	}
+	
+	public void testValid()
+	{
+		if(noJoinParentheses) return;
+		{
+			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
+			final Join j1 = q.join(b.TYPE, b.b3.equal(a.a3));
+			final Join j2 = q.join(b.TYPE, b.b3.equal(a.a3));
+			try
+			{
+				q.search();
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("feature HardJoinB3Item#b3 is ambiguous, use Function#bind", e.getMessage());
+			}
+			
+			j1.setCondition(b.b3.bind(j1).equal(a.a3));
+			try
+			{
+				q.search();
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("feature HardJoinB3Item#b3 is ambiguous, use Function#bind", e.getMessage());
+			}
+			
+			j2.setCondition(b.b3.bind(j2).equal(a.a3));
+			assertEquals(list(), q.search());
+		}
+	}
 }
