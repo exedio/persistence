@@ -57,7 +57,7 @@ public class JoinMultipleTest extends TestmodelTest
 			assertEqualsUnmodifiable(list(source), query.search());
 		}
 		{
-			// test using JoinedItemFunction
+			// test using BindItemFunction
 			final Query query = source.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());
 
