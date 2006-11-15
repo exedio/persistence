@@ -191,6 +191,43 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
+	public void testFlush() throws SQLException
+	{
+		final Conn c1 = new Conn();
+		final Conn c2 = new Conn();
+		final Factory f = new Factory(listg(c1, c2));
+		f.assertV(0);
+
+		final ConnectionPool cp = new ConnectionPool(f, 1/*important to test, that flush decrements activeCount*/, 1, 0);
+		c1.assertV(false, 0, 0, 0);
+		c2.assertV(false, 0, 0, 0);
+		f.assertV(0);
+		
+		// get and create
+		assertSame(c1, cp.getConnection(true));
+		c1.assertV(true,  1, 0, 0);
+		c2.assertV(false, 0, 0, 0);
+		f.assertV(1);
+		
+		// put into idle
+		cp.putConnection(c1);
+		c1.assertV(true,  1, 1, 0);
+		c2.assertV(false, 0, 0, 0);
+		f.assertV(1);
+
+		// flush closes c1
+		cp.flush();
+		c1.assertV(true,  1, 1, 1);
+		c2.assertV(false, 0, 0, 0);
+		f.assertV(1);
+
+		// create new because flushed
+		assertSame(c2, cp.getConnection(true));
+		c1.assertV(true, 1, 1, 1);
+		c2.assertV(true, 1, 0, 0);
+		f.assertV(2);
+	}
+	
 	static class Factory implements ConnectionPool.Factory
 	{
 		final Iterator<Conn> connections;
