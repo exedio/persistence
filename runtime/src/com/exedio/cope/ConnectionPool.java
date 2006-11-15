@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -30,6 +29,11 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionPool implements ConnectionProvider
 {
+	interface Factory
+	{
+		Connection createConnection() throws SQLException;
+	}
+
 	// TODO: allow changing pool size
 	// TODO: gather pool effectivity statistics
 	// TODO: use a ring buffer instead of a stack
@@ -45,32 +49,30 @@ final class ConnectionPool implements ConnectionProvider
 	//       jdbc driver or the database itself.
 	//       maybe then no ring buffer is needed.
 	
-	private final String url;
-	private final String user;
-	private final String password;
+	private final Factory factory;
 	private final int activeLimit;
-	
 	private final PoolCounter counter;
 
 	private final Connection[] idle;
 	private int idleCount;
 	private int activeCount = 0;
 	private final Object lock = new Object();
-
-	ConnectionPool(final Properties properties)
+	
+	ConnectionPool(final Factory factory, final int activeLimit, final int idleLimit, final int idleInitial)
 	{
-		this.url = properties.getDatabaseUrl();
-		this.user = properties.getDatabaseUser();
-		this.password = properties.getDatabasePassword();
-		this.activeLimit = properties.getConnectionPoolActiveLimit();
+		assert factory!=null;
+		assert activeLimit>0;
+		assert idleLimit>=0;
+		assert idleInitial>=0;
+		
+		this.factory = factory;
+		this.activeLimit = activeLimit;
 		
 		// TODO: make this customizable and disableable
 		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});
 
-		final int idleLimit = properties.getConnectionPoolIdleLimit();
 		this.idle = idleLimit>0 ? new Connection[idleLimit] : null;
 		
-		final int idleInitial = properties.getConnectionPoolIdleInitial();
 		assert idleInitial<=idleLimit;
 		this.idleCount = idleInitial;
 		if(idleInitial>0)
@@ -78,7 +80,7 @@ final class ConnectionPool implements ConnectionProvider
 			try
 			{
 				for(int i = 0; i<idleInitial; i++)
-					idle[i] = createConnection();
+					idle[i] = factory.createConnection();
 			}
 			catch(SQLException e)
 			{
@@ -111,16 +113,11 @@ final class ConnectionPool implements ConnectionProvider
 
 		// Important to do this outside the synchronized block!
 		if(result==null)
-			result = createConnection();
+			result = factory.createConnection();
 		result.setAutoCommit(autoCommit);
 		return result;
 	}
 	
-	private Connection createConnection() throws SQLException
-	{
-		return DriverManager.getConnection(url, user, password);
-	}
-
 	/**
 	 * TODO: If we want to implement changing connection parameters on-the-fly
 	 * somewhere in the future, it's important, that client return connections
@@ -197,5 +194,4 @@ final class ConnectionPool implements ConnectionProvider
 	{
 		return new ConnectionPoolInfo(idleCount, activeCount, new PoolCounter(counter));
 	}
-
 }
