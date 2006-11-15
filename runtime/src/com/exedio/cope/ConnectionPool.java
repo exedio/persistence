@@ -133,7 +133,13 @@ final class ConnectionPool implements ConnectionProvider
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
 		if(connection.isClosed())
-			throw new RuntimeException("unexpected closed connection");
+		{
+			synchronized(lock)
+			{
+				activeCount--;
+			}
+			throw new IllegalArgumentException("unexpected closed connection");
+		}
 			
 		synchronized(lock)
 		{
