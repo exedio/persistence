@@ -198,7 +198,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 1/*important to test, that flush decrements activeCount*/, 1, 0);
+		final ConnectionPool cp = new ConnectionPool(f, 1, 1, 0);
 		c1.assertV(false, 0, 0, 0);
 		c2.assertV(false, 0, 0, 0);
 		f.assertV(0);
