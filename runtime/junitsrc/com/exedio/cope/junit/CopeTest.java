@@ -263,5 +263,12 @@ public abstract class CopeTest extends CopeAssert
 		model.commit();
 		model.startTransaction( oldName+"-restart" );
 	}
-	
+
+	public final void deleteToBeDeletedOnTearDown()
+	{
+		for(ListIterator<Item> i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
+			i.previous().deleteCopeItem();
+
+		deleteOnTearDown = null;
+	}
 }
