@@ -141,7 +141,7 @@ final class ConnectionPool implements ConnectionProvider
 			
 			if(idle!=null && idleCount<idle.length)
 			{
-				//System.out.println("connection pool: store "+size);
+				//System.out.println("connection pool: store "+idleCount);
 				idle[idleCount++] = connection;
 				return;
 			}
