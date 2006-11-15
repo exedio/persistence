@@ -39,8 +39,9 @@ public class ConnectionPoolTest extends CopeAssert
 	{
 		final Conn c1 = new Conn();
 		final Factory f = new Factory(listg(c1));
+		f.assertV(0);
+
 		final ConnectionPool cp = new ConnectionPool(f, 1, 1, 0);
-		
 		c1.assertV(false, 0, 0, 0);
 		f.assertV(0);
 		
@@ -75,8 +76,9 @@ public class ConnectionPoolTest extends CopeAssert
 		final Conn c1 = new Conn();
 		final Conn c2 = new Conn();
 		final Factory f = new Factory(listg(c1, c2));
-		final ConnectionPool cp = new ConnectionPool(f, 2, 1, 0);
+		f.assertV(0);
 
+		final ConnectionPool cp = new ConnectionPool(f, 2, 1, 0);
 		c1.assertV(false, 0, 0, 0);
 		c2.assertV(false, 0, 0, 0);
 		f.assertV(0);
@@ -104,6 +106,22 @@ public class ConnectionPoolTest extends CopeAssert
 		c1.assertV(true, 1, 1, 0);
 		c2.assertV(true, 1, 1, 1);
 		f.assertV(2);
+	}
+	
+	public void testIdleInitial() throws SQLException
+	{
+		final Conn c1 = new Conn();
+		final Factory f = new Factory(listg(c1));
+		f.assertV(0);
+
+		final ConnectionPool cp = new ConnectionPool(f, 1, 1, 1);
+		c1.assertV(false, 0, 0, 0);
+		f.assertV(1); // already created
+		
+		// get and create
+		assertSame(c1, cp.getConnection(true));
+		c1.assertV(true, 1, 0, 0);
+		f.assertV(1);
 	}
 	
 	static class Factory implements ConnectionPool.Factory
