@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -95,20 +96,46 @@ final class ConnectionPool implements ConnectionProvider
 
 		Connection result = null;
 
-		synchronized(lock)
+		do
 		{
-			if(activeCount>=activeLimit && idleCount==0)
-				throw new IllegalStateException("activeLimit " + activeLimit + " reached: " + activeCount);
-
-			activeCount++;
-
-			if(idle!=null && idleCount>0)
+			synchronized(lock)
 			{
-				//System.out.println("connection pool: fetch "+(size-1));
-				result = idle[--idleCount];
-				idle[idleCount] = null; // do not reference active connections
+				if(activeCount>=activeLimit && idleCount==0)
+					throw new IllegalStateException("activeLimit " + activeLimit + " reached: " + activeCount);
+	
+				activeCount++;
+	
+				if(idle!=null && idleCount>0)
+				{
+					//System.out.println("connection pool: fetch "+(size-1));
+					result = idle[--idleCount];
+					idle[idleCount] = null; // do not reference active connections
+				}
+			}
+
+			if(result==null)
+				break;
+			
+			// Important to do this outside the synchronized block!
+			try
+			{
+				// probably not the best idea
+				final ResultSet rs = result.getMetaData().getTables(null, null, "zack", null);
+				rs.next();
+				rs.close();
+				break;
+			}
+			catch(SQLException e)
+			{
+				result = null;
+				synchronized(lock)
+				{
+					activeCount--;
+				}
+				System.out.println("warning: pooled connection invalid: " + e.getMessage());
 			}
 		}
+		while(true);
 		//System.out.println("connection pool: CREATE");
 
 		// Important to do this outside the synchronized block!
