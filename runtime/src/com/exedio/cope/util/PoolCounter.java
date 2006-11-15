@@ -59,7 +59,7 @@ public final class PoolCounter
 		this.putCounter = source.putCounter;
 	}
 
-	public final void get()
+	public final void incrementGet()
 	{
 		synchronized(lock)
 		{
@@ -69,7 +69,7 @@ public final class PoolCounter
 		}
 	}
 
-	public final void put()
+	public final void incrementPut()
 	{
 		synchronized(lock)
 		{

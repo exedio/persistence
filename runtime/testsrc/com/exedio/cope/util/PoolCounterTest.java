@@ -41,22 +41,22 @@ public class PoolCounterTest extends CopeAssert
 		assertIt(p0, 0, 0, 0, 0, 0, 0);
 		assertIt(p2, 2, 0, 0, 0, 0, 0);
 		
-		c.get();
+		c.incrementGet();
 		assertIt(c, 1, 0); assertIt(p0,0, 0, 0, 1, 0,  0); assertIt(p2,2, 0, 0, 1, 0, 0);
 		
-		c.get();
+		c.incrementGet();
 		assertIt(c, 2, 0); assertIt(p0,0, 0, 0, 2, 0,  0); assertIt(p2,2, 0, 0, 2, 0, 0);
 		
-		c.put();
+		c.incrementPut();
 		assertIt(c, 2, 1); assertIt(p0,0, 0, 0, 2, 1, 50); assertIt(p2,2, 1, 1, 2, 0, 0);
 		
-		c.put();
+		c.incrementPut();
 		assertIt(c, 2, 2); assertIt(p0,0, 0, 0, 2, 2,100); assertIt(p2,2, 2, 2, 2, 0, 0);
 		
-		c.put();
+		c.incrementPut();
 		assertIt(c, 2, 3); assertIt(p0,0, 0, 0, 2, 3,150); assertIt(p2,2, 2, 2, 2, 1,50);
 		
-		c.get();
+		c.incrementGet();
 		assertIt(c, 3, 3); assertIt(p0,0, 0, 0, 3, 3,100); assertIt(p2,2, 1, 2, 2, 1,33);
 		
 		final PoolCounter c2 = new PoolCounter(c);

@@ -89,7 +89,7 @@ final class ConnectionPool implements ConnectionProvider
 
 	public Connection getConnection(final boolean autoCommit) throws SQLException
 	{
-		counter.get();
+		counter.incrementGet();
 
 		Connection result = null;
 
@@ -131,7 +131,7 @@ final class ConnectionPool implements ConnectionProvider
 		if(connection==null)
 			throw new NullPointerException();
 		
-		counter.put();
+		counter.incrementPut();
 
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
