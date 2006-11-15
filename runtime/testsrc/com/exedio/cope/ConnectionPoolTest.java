@@ -147,7 +147,7 @@ public class ConnectionPoolTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("connectionPool.activeLimit reached: 1", e.getMessage());
+			assertEquals("activeLimit 1 reached: 1", e.getMessage());
 		}
 	}
 	

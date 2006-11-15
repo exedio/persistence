@@ -98,7 +98,7 @@ final class ConnectionPool implements ConnectionProvider
 		synchronized(lock)
 		{
 			if(activeCount>=activeLimit && idleCount==0)
-				throw new IllegalStateException(Properties.CONNECTION_POOL_ACTIVE_LIMIT + " reached: " + activeCount);
+				throw new IllegalStateException("activeLimit " + activeLimit + " reached: " + activeCount);
 
 			activeCount++;
 
