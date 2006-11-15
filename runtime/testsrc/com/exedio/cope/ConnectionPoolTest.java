@@ -124,6 +124,33 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(1);
 	}
 	
+	public void testActiveLimit() throws SQLException
+	{
+		final Conn c1 = new Conn();
+		final Factory f = new Factory(listg(c1));
+		f.assertV(0);
+
+		final ConnectionPool cp = new ConnectionPool(f, 1, 1, 0);
+		c1.assertV(false, 0, 0, 0);
+		f.assertV(0);
+		
+		// get and create
+		assertSame(c1, cp.getConnection(true));
+		c1.assertV(true, 1, 0, 0);
+		f.assertV(1);
+		
+		// get and run into limit
+		try
+		{
+			cp.getConnection(true);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("connectionPool.activeLimit reached: 1", e.getMessage());
+		}
+	}
+	
 	static class Factory implements ConnectionPool.Factory
 	{
 		final Iterator<Conn> connections;
