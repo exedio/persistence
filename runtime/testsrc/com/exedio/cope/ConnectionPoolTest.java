@@ -41,45 +41,33 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1));
 		final ConnectionPool cp = new ConnectionPool(f, 1, 1, 0);
 		
-		assertEquals(false, c1.autoCommit);
-		assertEquals(0, c1.autoCommitCount);
-		assertEquals(0, c1.isClosedCount);
-		assertEquals(0, f.createCount);
+		c1.assertV(false, 0, 0, 0);
+		f.assertV(0);
 		
 		// get and create
 		assertSame(c1, cp.getConnection(true));
-		assertEquals(true, c1.autoCommit);
-		assertEquals(1, c1.autoCommitCount);
-		assertEquals(0, c1.isClosedCount);
-		assertEquals(1, f.createCount);
+		c1.assertV(true, 1, 0, 0);
+		f.assertV(1);
 		
 		// put into idle
 		cp.putConnection(c1);
-		assertEquals(true, c1.autoCommit);
-		assertEquals(1, c1.autoCommitCount);
-		assertEquals(1, c1.isClosedCount);
-		assertEquals(1, f.createCount);
+		c1.assertV(true, 1, 1, 0);
+		f.assertV(1);
 
 		// get from idle
 		assertSame(c1, cp.getConnection(true));
-		assertEquals(true, c1.autoCommit);
-		assertEquals(2, c1.autoCommitCount);
-		assertEquals(1, c1.isClosedCount);
-		assertEquals(1, f.createCount);
+		c1.assertV(true, 2, 1, 0);
+		f.assertV(1);
 		
 		// put into idle
 		cp.putConnection(c1);
-		assertEquals(true, c1.autoCommit);
-		assertEquals(2, c1.autoCommitCount);
-		assertEquals(2, c1.isClosedCount);
-		assertEquals(1, f.createCount);
+		c1.assertV(true, 2, 2, 0);
+		f.assertV(1);
 
 		// get from idle with other autoCommit
 		assertSame(c1, cp.getConnection(false));
-		assertEquals(false, c1.autoCommit);
-		assertEquals(3, c1.autoCommitCount);
-		assertEquals(2, c1.isClosedCount);
-		assertEquals(1, f.createCount);
+		c1.assertV(false, 3, 2, 0);
+		f.assertV(1);
 	}
 	
 	public void testOverflow() throws SQLException
@@ -89,63 +77,33 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		final ConnectionPool cp = new ConnectionPool(f, 2, 1, 0);
 
-		assertEquals(false, c1.autoCommit);
-		assertEquals(0, c1.autoCommitCount);
-		assertEquals(0, c1.isClosedCount);
-		assertEquals(0, c1.closedCount);
-		assertEquals(false, c2.autoCommit);
-		assertEquals(0, c2.autoCommitCount);
-		assertEquals(0, c2.isClosedCount);
-		assertEquals(0, c2.closedCount);
-		assertEquals(0, f.createCount);
+		c1.assertV(false, 0, 0, 0);
+		c2.assertV(false, 0, 0, 0);
+		f.assertV(0);
 		
 		// get and create
 		assertSame(c1, cp.getConnection(true));
-		assertEquals(true, c1.autoCommit);
-		assertEquals(1, c1.autoCommitCount);
-		assertEquals(0, c1.isClosedCount);
-		assertEquals(0, c1.closedCount);
-		assertEquals(false, c2.autoCommit);
-		assertEquals(0, c2.autoCommitCount);
-		assertEquals(0, c2.isClosedCount);
-		assertEquals(0, c2.closedCount);
-		assertEquals(1, f.createCount);
+		c1.assertV(true,  1, 0, 0);
+		c2.assertV(false, 0, 0, 0);
+		f.assertV(1);
 		
 		// get and create (2)
 		assertSame(c2, cp.getConnection(true));
-		assertEquals(true, c1.autoCommit);
-		assertEquals(1, c1.autoCommitCount);
-		assertEquals(0, c1.isClosedCount);
-		assertEquals(0, c1.closedCount);
-		assertEquals(true, c2.autoCommit);
-		assertEquals(1, c2.autoCommitCount);
-		assertEquals(0, c2.isClosedCount);
-		assertEquals(0, c2.closedCount);
-		assertEquals(2, f.createCount);
+		c1.assertV(true, 1, 0, 0);
+		c2.assertV(true, 1, 0, 0);
+		f.assertV(2);
 		
 		// put into idle
 		cp.putConnection(c1);
-		assertEquals(true, c1.autoCommit);
-		assertEquals(1, c1.autoCommitCount);
-		assertEquals(1, c1.isClosedCount);
-		assertEquals(0, c1.closedCount);
-		assertEquals(true, c2.autoCommit);
-		assertEquals(1, c2.autoCommitCount);
-		assertEquals(0, c2.isClosedCount);
-		assertEquals(0, c2.closedCount);
-		assertEquals(2, f.createCount);
+		c1.assertV(true, 1, 1, 0);
+		c2.assertV(true, 1, 0, 0);
+		f.assertV(2);
 		
 		// put and close
 		cp.putConnection(c2);
-		assertEquals(true, c1.autoCommit);
-		assertEquals(1, c1.autoCommitCount);
-		assertEquals(1, c1.isClosedCount);
-		assertEquals(0, c1.closedCount);
-		assertEquals(true, c2.autoCommit);
-		assertEquals(1, c2.autoCommitCount);
-		assertEquals(1, c2.isClosedCount);
-		assertEquals(1, c2.closedCount);
-		assertEquals(2, f.createCount);
+		c1.assertV(true, 1, 1, 0);
+		c2.assertV(true, 1, 1, 1);
+		f.assertV(2);
 	}
 	
 	static class Factory implements ConnectionPool.Factory
@@ -158,6 +116,11 @@ public class ConnectionPoolTest extends CopeAssert
 			this.connections = connections.iterator();
 		}
 
+		void assertV(final int createCount)
+		{
+			assertEquals(createCount, this.createCount);
+		}
+		
 		public java.sql.Connection createConnection() throws SQLException
 		{
 			createCount++;
@@ -172,6 +135,14 @@ public class ConnectionPoolTest extends CopeAssert
 		boolean isClosed = false;
 		int isClosedCount = 0;
 		int closedCount = 0;
+		
+		void assertV(final boolean autoCommit, final int autoCommitCount, final int isClosedCount, final int closedCount)
+		{
+			assertEquals(autoCommit, this.autoCommit);
+			assertEquals(autoCommitCount, this.autoCommitCount);
+			assertEquals(isClosedCount, this.isClosedCount);
+			assertEquals(closedCount, this.closedCount);
+		}
 		
 		public void setAutoCommit(final boolean autoCommit) throws SQLException
 		{
