@@ -98,20 +98,16 @@ abstract class Database
 		assert limitSupport!=null;
 		
 		Connection probeConnection = null;
-		String probeError = "unknown";
 		try
 		{
 			probeConnection = connectionPool.getConnection(true);
 			
-			probeError = "getMetaData()";
 			final DatabaseMetaData dmd = probeConnection.getMetaData();
 			
-			probeError = "supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED)";
 			supportsReadCommitted =
 				!fakesSupportReadCommitted() &&
 				dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
 
-			probeError = "getInfo";
 			databaseProductName = dmd.getDatabaseProductName();
 			databaseProductVersion = dmd.getDatabaseProductVersion();
 			databaseMajorVersion = dmd.getDatabaseMajorVersion();
@@ -123,7 +119,7 @@ abstract class Database
 		}
 		catch(SQLException e)
 		{
-			throw new SQLRuntimeException(e, probeError);
+			throw new SQLRuntimeException(e, "getMetaData");
 		}
 		finally
 		{
