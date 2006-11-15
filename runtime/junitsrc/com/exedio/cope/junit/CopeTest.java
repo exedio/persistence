@@ -42,6 +42,7 @@ public abstract class CopeTest extends CopeAssert
 	public final Model model;
 	public final boolean exclusive;
 	
+	private boolean manageTransactions = true;
 	private boolean testMethodFinished = false;
 	private ArrayList<Item> deleteOnTearDown = null;
 	
@@ -61,6 +62,11 @@ public abstract class CopeTest extends CopeAssert
 	{
 		this.model = model;
 		this.exclusive = exclusive;
+	}
+	
+	protected final void skipTransactionManagement()
+	{
+		manageTransactions = false;
 	}
 	
 	protected final void deleteOnTearDown(final Item item)
@@ -151,89 +157,95 @@ public abstract class CopeTest extends CopeAssert
 		deleteOnTearDown = new ArrayList<Item>();
 		createDatabase();
 
-		model.startTransaction("CopeTest");
-		model.checkEmptyDatabase();
+		if(manageTransactions)
+		{
+			model.startTransaction("CopeTest");
+			model.checkEmptyDatabase();
+		}
 	}
 	
 	@Override
 	protected void tearDown() throws Exception
 	{
-		final boolean hadTransaction = model.hasCurrentTransaction();
-		if ( ! hadTransaction )
+		if(manageTransactions)
 		{
-			model.startTransaction( "started by tearDown" );
-		}
-		Transaction current = model.getCurrentTransaction();
-		ArrayList<Transaction> openTransactions = null;
-		for(Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
-		{
-			if ( ! nextTransaction.equals(current) )
+			final boolean hadTransaction = model.hasCurrentTransaction();
+			if ( ! hadTransaction )
 			{
-				if(openTransactions==null)
-					openTransactions = new ArrayList<Transaction>();
-				openTransactions.add( nextTransaction );
-				model.leaveTransaction();
-				model.joinTransaction( nextTransaction );
-				model.rollback();
-				model.joinTransaction( current );
+				model.startTransaction( "started by tearDown" );
 			}
-		}
-		if( !exclusive )
-		{
-			try
+			Transaction current = model.getCurrentTransaction();
+			ArrayList<Transaction> openTransactions = null;
+			for(Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
 			{
-				if(!deleteOnTearDown.isEmpty())
+				if ( ! nextTransaction.equals(current) )
 				{
-					RuntimeException deleteException = null;
-					for(ListIterator<Item> i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
+					if(openTransactions==null)
+						openTransactions = new ArrayList<Transaction>();
+					openTransactions.add( nextTransaction );
+					model.leaveTransaction();
+					model.joinTransaction( nextTransaction );
+					model.rollback();
+					model.joinTransaction( current );
+				}
+			}
+			if( !exclusive )
+			{
+				try
+				{
+					if(!deleteOnTearDown.isEmpty())
 					{
-						try
+						RuntimeException deleteException = null;
+						for(ListIterator<Item> i = deleteOnTearDown.listIterator(deleteOnTearDown.size()); i.hasPrevious(); )
 						{
-							i.previous().deleteCopeItem();
-						}
-						catch(RuntimeException e)
-						{
-							if(deleteException==null && testMethodFinished)
+							try
 							{
-								deleteException = e;
+								i.previous().deleteCopeItem();
+							}
+							catch(RuntimeException e)
+							{
+								if(deleteException==null && testMethodFinished)
+								{
+									deleteException = e;
+								}
 							}
 						}
+						deleteOnTearDown.clear();
+						if(deleteException!=null)
+						{
+							throw new RuntimeException("test completed successfully but failed to delete a 'deleteOnTearDown' item", deleteException);
+						}
 					}
-					deleteOnTearDown.clear();
-					if(deleteException!=null)
+					deleteOnTearDown = null;
+					model.checkEmptyDatabase();
+				}
+				catch ( RuntimeException e )
+				{
+					if ( testMethodFinished )
 					{
-						throw new RuntimeException("test completed successfully but failed to delete a 'deleteOnTearDown' item", deleteException);
+						throw new RuntimeException("test completed successfully but didn't clean up database", e);
+					}
+					else
+					{
+						model.rollbackIfNotCommitted();
+						model.tearDownDatabase();
+						model.createDatabase();
+						model.startTransaction();
 					}
 				}
-				deleteOnTearDown = null;
-				model.checkEmptyDatabase();
 			}
-			catch ( RuntimeException e )
+			if ( testMethodFinished || model.hasCurrentTransaction() )
 			{
-				if ( testMethodFinished )
-				{
-					throw new RuntimeException("test completed successfully but didn't clean up database", e);
-				}
-				else
-				{
-					model.rollbackIfNotCommitted();
-					model.tearDownDatabase();
-					model.createDatabase();
-					model.startTransaction();
-				}
+				model.commit();
 			}
-		}
-		if ( testMethodFinished || model.hasCurrentTransaction() )
-		{
-			model.commit();
-		}
-		if ( testMethodFinished && !hadTransaction )
-		{
-			fail( "test completed successfully but didn't have current transaction in tearDown" );
-		}
-		if ( testMethodFinished && openTransactions!=null )
-		{
-			fail( "test completed successfully but left open transactions: "+openTransactions );
+			if ( testMethodFinished && !hadTransaction )
+			{
+				fail( "test completed successfully but didn't have current transaction in tearDown" );
+			}
+			if ( testMethodFinished && openTransactions!=null )
+			{
+				fail( "test completed successfully but left open transactions: "+openTransactions );
+			}
 		}
 
 		dropDatabase();
