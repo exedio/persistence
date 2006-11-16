@@ -37,6 +37,13 @@ public final class Transaction
 	final Model model;
 	final Database database;
 	final String name;
+	/**
+	 *	index in array is {@link Type#transientNumber transient type number};
+	 * value in array is a map, where the keys are {@link Item#pk item pks}
+	 * and the values are {@link Entity}s
+	 */
+	final IntKeyOpenHashMap[] entityMaps;
+	final IntOpenHashSet[] invalidations;
 	private Thread boundThread = null;
 	
 	Transaction(final Model model, final String name)
@@ -44,8 +51,8 @@ public final class Transaction
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
-		entityMaps = new IntKeyOpenHashMap[model.concreteTypeCount];
-		invalidations = new IntOpenHashSet[model.concreteTypeCount];
+		this.entityMaps = new IntKeyOpenHashMap[model.concreteTypeCount];
+		this.invalidations = new IntOpenHashSet[model.concreteTypeCount];
 	}
 	
 	/**
@@ -81,16 +88,9 @@ public final class Transaction
 		boundThread = null;
 	}
 	
-	/**
-	 *	index in array is {@link Type#transientNumber transient type number};
-	 * value in array is a map, where the keys are {@link Item#pk item pks}
-	 * and the values are {@link Entity}s
-	 */
-	final IntKeyOpenHashMap[] entityMaps;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private boolean closed = false;
-	final IntOpenHashSet[] invalidations;
 	
 	public boolean isClosed()
 	{
