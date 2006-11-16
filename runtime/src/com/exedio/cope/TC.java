@@ -153,6 +153,7 @@ final class TC
 		tables.get(join).add(table);
 	}
 	
+	// TODO: lowest table for type is always joined, also if no columns of that table are used
 	boolean containsTable(final Join join, final Table table)
 	{
 		return tables.get(join).contains(table);

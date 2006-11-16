@@ -65,7 +65,6 @@ final class Statement
 		this.tc = query.check();
 		
 		// TODO: implementation is far from optimal
-		// TODO: all tables for each type are joined, also tables with no columns used
 		// TODO: do all the rest in this constructor with TC
 		
 		final ArrayList<JoinType> joinTypes = new ArrayList<JoinType>();
