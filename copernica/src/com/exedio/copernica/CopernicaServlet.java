@@ -119,16 +119,17 @@ public final class CopernicaServlet extends CopsServlet
 			request.setCharacterEncoding(ENCODING);
 			response.setContentType("text/html; charset="+ENCODING);
 
+			final Model model = provider.getModel();
+
 			if(!checked)
 			{
-				final Model model = provider.getModel();
 				model.startTransaction("copernica.checkDatabase");
 				model.checkDatabase();
 				checked = true;
-				provider.getModel().commit();
+				model.commit();
 			}
 
-			provider.getModel().startTransaction("copernica");
+			model.startTransaction("copernica");
 
 			final CopernicaUser user = checkAccess(request);
 			final CopernicaCop cop = CopernicaCop.getCop(provider, request);
@@ -138,7 +139,7 @@ public final class CopernicaServlet extends CopsServlet
 			Copernica_Jspm.write(out, request, user, cop);
 			out.close();
 			
-			provider.getModel().commit();
+			model.commit();
 		}
 		catch(CopernicaAuthorizationFailedException e)
 		{
