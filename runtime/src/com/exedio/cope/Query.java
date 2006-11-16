@@ -370,13 +370,12 @@ public final class Query<R>
 		return ((Integer)result.iterator().next()).intValue();
 	}
 
-	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	void check()
 	{
 		final TC tc = new TC(this);
 		
 		for(final Selectable select : selects)
-			select.check(tc, null);
+			Cope.check(select, tc, null);
 		
 		if(condition!=null)
 			condition.check(tc);
@@ -393,7 +392,7 @@ public final class Query<R>
 		
 		if(orderBy!=null)
 			for(Function ob : orderBy)
-				ob.check(tc, null);
+				Cope.check(ob, tc, null);
 	}
 
 	/**

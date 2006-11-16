@@ -57,12 +57,11 @@ public final class CompareFunctionCondition<E> extends Condition
 			append(right, (Join)null);
 	}
 
-	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	@Override
 	void check(final TC tc)
 	{
-		left.check(tc, null);
-		right.check(tc, null);
+		Cope.check(left,  tc, null);
+		Cope.check(right, tc, null);
 	}
 
 	@Override

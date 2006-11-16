@@ -145,10 +145,10 @@ final class Statement
 		return this;
 	}
 	
-	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
-	Statement append(final Selectable function, final Join join)
+	@SuppressWarnings("deprecation") // OK: Selectable.append is for internal use within COPE only
+	Statement append(final Selectable select, final Join join)
 	{
-		function.append(this, join);
+		select.append(this, join);
 		return this;
 	}
 
@@ -207,7 +207,7 @@ final class Statement
 		return this;
 	}
 		
-	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
+	@SuppressWarnings("deprecation") // OK: Function.appendParameter is for internal use within COPE only
 	<E> Statement appendParameter(final Function<E> function, final E value)
 	{
 		function.appendParameter(this, value);
@@ -293,11 +293,11 @@ final class Statement
 		database.appendMatchClause(this, function, value);
 	}
 
-	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
-	Statement defineColumn(final Selectable selectable)
+	@SuppressWarnings("deprecation") // OK: Selectable.getTypeForDefiningColumn is for internal use within COPE only
+	Statement defineColumn(final Selectable select)
 	{
 		if(columnTypes!=null)
-			columnTypes.add(selectable.getTypeForDefiningColumn());
+			columnTypes.add(select.getTypeForDefiningColumn());
 		return this;
 	}
 		

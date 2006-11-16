@@ -209,6 +209,12 @@ public abstract class Cope
 		return function.greaterOrEqual(verboseCast(function.getValueClass(), value));
 	}
 	
+	@SuppressWarnings("deprecation") // OK: Selectable.check is for internal use within COPE only
+	static void check(final Selectable select, final TC tc, final Join join)
+	{
+		select.check(tc, join);
+	}
+	
 	private static final char DIVIDER = '#';
 	
 	public static Model getModel(final String name)

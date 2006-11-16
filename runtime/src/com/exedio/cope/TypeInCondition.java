@@ -121,11 +121,10 @@ public final class TypeInCondition<E extends Item> extends Condition
 		bf.append(')');
 	}
 
-	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
 	@Override
 	void check(final TC tc)
 	{
-		function.check(tc, null);
+		Cope.check(function, tc, null);
 	}
 
 	@Override
