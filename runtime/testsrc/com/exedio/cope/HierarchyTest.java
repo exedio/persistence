@@ -126,8 +126,6 @@ public class HierarchyTest extends AbstractLibTest
 
 		assertEquals(map(), model.getHiddenFeatures());
 
-		if(noJoinParentheses) return;
-		
 		// test persistence
 		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
 		deleteOnTearDown(firstItem);
@@ -186,43 +184,43 @@ public class HierarchyTest extends AbstractLibTest
 		deleteOnTearDown(singleSub1b);
 		final HierarchySingleSub singleSub2a = new HierarchySingleSub(2, "a");
 		deleteOnTearDown(singleSub2a);
-		assertContains(singleSub1a, singleSub1b, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
+		if(!noJoinParentheses) assertContains(singleSub1a, singleSub1b, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub1b, HierarchySingleSuper.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub2a, singleSub1a.TYPE.search(singleSub1a.subString.equal("a")));
-		assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
+		if(!noJoinParentheses) assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
 		
 		restartTransaction();
-		assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
+		if(!noJoinParentheses) assertContains(singleSub1a, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(singleSub1a.subString.equal("a"))));
 		assertEquals("a", singleSub2a.getSubString());
 		assertEquals(Integer.valueOf(1), singleSub1b.getSuperInt());
 		
 		// test polymorphic pointers
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		if(!noJoinParentheses) assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		singleSub1a.setHierarchySuper( firstItem );
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
-		assertEquals(list(firstItem), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		if(!noJoinParentheses) assertEquals(list(firstItem), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(firstItem)));
 		restartTransaction();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
-		assertEquals(list(firstItem), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		if(!noJoinParentheses) assertEquals(list(firstItem), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(firstItem)));
 
 		singleSub1a.setHierarchySuper(secondItem2);
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
-		assertEquals(list(secondItem2), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		if(!noJoinParentheses) assertEquals(list(secondItem2), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(secondItem2)));
 		restartTransaction();
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
-		assertEquals(list(secondItem2), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		if(!noJoinParentheses) assertEquals(list(secondItem2), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), singleSub1a.TYPE.search(singleSub1a.hierarchySuper.equal(secondItem2)));
 
 		singleSub1a.setHierarchySuper(null);
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		if(!noJoinParentheses) assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		restartTransaction();
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
+		if(!noJoinParentheses) assertEquals(list((Object)null), new Query<HierarchySuper>(singleSub1a.hierarchySuper, singleSub1a.TYPE, singleSub1a.superInt.equal(1).and(singleSub1a.subString.equal("a"))).search());
 		
 		// test wrong attributes
 		try
@@ -274,8 +272,6 @@ public class HierarchyTest extends AbstractLibTest
 	
 	public void testPolymorphicQueryInvalidation() throws UniqueViolationException
 	{
-		if(noJoinParentheses) return;
-		
 		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 		deleteOnTearDown(item);
 		

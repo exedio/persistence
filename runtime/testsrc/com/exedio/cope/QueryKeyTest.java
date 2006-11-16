@@ -27,8 +27,6 @@ public class QueryKeyTest extends AbstractLibTest
 	
 	public void testIt()
 	{
-		if(noJoinParentheses) return;
-		
 		final Query<TypeInConditionAItem> q = TypeInConditionAItem.TYPE.newQuery(null);
 		q.join(TypeInConditionB1Item.TYPE, TypeInConditionB1Item.code.isNull());
 		// test Query.Key#hashCode

@@ -19,17 +19,19 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 final class TC
 {
 	private final Query query;
 	private final HashSet<Type> queryTypes = new HashSet<Type>();
-	private final HashSet<Type> distinctThisTypes = new HashSet<Type>();
+	private final HashMap<Type, Join> distinctThisTypes = new HashMap<Type, Join>();
 	private HashSet<Type> ambiguousThisTypes = null;
-	private final HashSet<Type> distinctAllTypes = new HashSet<Type>();
+	private final HashMap<Type, Join> distinctAllTypes = new HashMap<Type, Join>();
 	private HashSet<Type> ambiguousAllTypes = null;
 	private boolean frozen = false;
+	private final HashMap<Join, HashSet<Table>> tables = new HashMap<Join, HashSet<Table>>();
 	
 	TC(final Query<?> query)
 	{
@@ -38,45 +40,50 @@ final class TC
 		for(Type t = query.type; t!=null; t=t.supertype)
 			queryTypes.add(t);
 
-		putType(query.type);
+		putType(query.type, null);
 
 		final ArrayList<Join> joins = query.joins;
 		if(joins!=null)
 			for(final Join join : joins)
-				putType(join.type);
+				putType(join.type, join);
 		
 		frozen = true;
 	}
 	
-	private void putType(final Type type)
+	private void putType(final Type type, final Join join)
 	{
 		assert !frozen;
 
 		boolean isThis = true;
 		for(Type t = type; t!=null; t=t.supertype)
 		{
-			ambiguousAllTypes = putType(t, distinctAllTypes, ambiguousAllTypes);
+			ambiguousAllTypes = putType(t, join, distinctAllTypes, ambiguousAllTypes);
 			
 			if(isThis)
 			{
-				ambiguousThisTypes = putType(t, distinctThisTypes, ambiguousThisTypes);
+				ambiguousThisTypes = putType(t, join, distinctThisTypes, ambiguousThisTypes);
 				isThis = false;
 			}
 		}
+		
+		tables.put(join, new HashSet<Table>());
 	}
 
-	private static HashSet<Type> putType(final Type type, final HashSet<Type> distinctTypes, HashSet<Type> ambiguousTypes)
+	private static HashSet<Type> putType(final Type type, final Join join, final HashMap<Type, Join> distinctTypes, HashSet<Type> ambiguousTypes)
 	{
 		if(ambiguousTypes!=null && ambiguousTypes.contains(type))
 			return ambiguousTypes;
 		
-		if(!distinctTypes.add(type))
+		if(distinctTypes.containsKey(type))
 		{
 			distinctTypes.remove(type);
 			if(ambiguousTypes==null)
 				ambiguousTypes = new HashSet<Type>();
 			ambiguousTypes.add(type);
 		}
+		else
+			distinctTypes.put(type, join);
+		
 		return ambiguousTypes;
 	}
 	
@@ -90,7 +97,7 @@ final class TC
 		check(select, join, distinctThisTypes, ambiguousThisTypes);
 	}
 
-	private void check(final Selectable select, final Join join, final HashSet<Type> distinctTypes, final HashSet<Type> ambiguousTypes)
+	private void check(final Selectable select, final Join join, final HashMap<Type, Join> distinctTypes, final HashSet<Type> ambiguousTypes)
 	{
 		assert frozen;
 		
@@ -99,10 +106,16 @@ final class TC
 		if(join==null)
 		{
 			if(queryTypes.contains(selectType))
+			{
+				register(select, null);
 				return;
+			}
 			
-			if(distinctTypes.contains(selectType))
+			if(distinctTypes.containsKey(selectType))
+			{
+				register(select, distinctTypes.get(selectType));
 				return;
+			}
 	
 			if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
 				throw new IllegalArgumentException(
@@ -111,13 +124,37 @@ final class TC
 		}
 		else
 		{
-			if(distinctTypes.contains(selectType))
+			if(distinctTypes.containsKey(selectType))
+			{
+				register(select, join);
 				return;
+			}
 	
 			if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
+			{
+				register(select, join);
 				return;
+			}
 		}
 
 		throw new IllegalArgumentException(select.toString() + " does not belong to a type of the query: " + query.toString());
+	}
+
+	private void register(final Selectable select, final Join join)
+	{
+		final Table table;
+		if(select instanceof FunctionField)
+			table = ((FunctionField)select).getColumn().table;
+		else if(select instanceof Type.This)
+			table = ((Type.This)select).getType().getTable();
+		else
+			throw new RuntimeException(select.toString());
+
+		tables.get(join).add(table);
+	}
+	
+	boolean containsTable(final Join join, final Table table)
+	{
+		return tables.get(join).contains(table);
 	}
 }

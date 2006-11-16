@@ -93,8 +93,6 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEquals(null, HierarchyEmptySub.TYPE.getFeature("zack"));
 		assertFalse(HierarchyEmptySub.TYPE.isAbstract());
 
-		if(noJoinParentheses) return;
-
 		// test persistence
 		final HierarchyEmptySub subItem = new HierarchyEmptySub(0);
 		deleteOnTearDown(subItem);
@@ -104,9 +102,9 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		subItem.setSuperInt(2);
 		assertEquals(2, subItem.getSuperInt());
 		
-		assertEquals(list(subItem), subItem.TYPE.search(subItem.superInt.equal(2)));
+		if(!noJoinParentheses) assertEquals(list(subItem), subItem.TYPE.search(subItem.superInt.equal(2)));
 		assertEquals(list(subItem), subItem.TYPE.search(null));
-		assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
+		if(!noJoinParentheses) assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
 		
 		final HierarchyEmptySuper superItem = new HierarchyEmptySuper(3);
 		deleteOnTearDown(superItem);

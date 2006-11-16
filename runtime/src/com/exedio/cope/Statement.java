@@ -34,6 +34,7 @@ final class Statement
 	private final Database database;
 	final StringBuffer text = new StringBuffer();
 	final ArrayList<Object> parameters;
+	final TC tc;
 	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
@@ -46,6 +47,7 @@ final class Statement
 
 		this.database = database;
 		this.parameters = database.prepare ? new ArrayList<Object>() : null;
+		this.tc = null;
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
@@ -60,10 +62,11 @@ final class Statement
 		this.database = database;
 		this.parameters = database.prepare ? new ArrayList<Object>() : null;
 		
-		query.check();
+		this.tc = query.check();
 		
 		// TODO: implementation is far from optimal
 		// TODO: all tables for each type are joined, also tables with no columns used
+		// TODO: do all the rest in this constructor with TC
 		
 		final ArrayList<JoinType> joinTypes = new ArrayList<JoinType>();
 		
@@ -412,17 +415,32 @@ final class Statement
 	{
 		final Type supertype = type.supertype;
 		final Table table = type.getTable();
-			
-		if(supertype!=null)
-			append('(');
 
-		appendTableDefinition(join, table);
-
+		ArrayList<Table> superTables = null;
 		if(supertype!=null)
 		{
 			for(Type iType = supertype; iType!=null; iType=iType.supertype)
 			{
 				final Table iTable = iType.getTable();
+				if(tc.containsTable(join, iTable))
+				{
+					if(superTables==null)
+						superTables = new ArrayList<Table>();
+					
+					superTables.add(iTable);
+				}
+			}
+		}
+
+		if(superTables!=null)
+			append('(');
+
+		appendTableDefinition(join, table);
+
+		if(superTables!=null)
+		{
+			for(final Table iTable : superTables)
+			{
 				append(" join ");
 				appendTableDefinition(join, iTable);
 				append(" on ");

@@ -84,55 +84,52 @@ public class TypeInConditionTest extends AbstractLibTest
 		
 		model.checkTypeColumns();
 		
-		if(noJoinParentheses) return;
-		
-		//System.out.println("------------------------"+model.getDatabaseInfo().get("database.version"));
 		// test self joins and inheritance
 		{
 			itemc1.setTextc1("textC1");
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemc1.TYPE);
 			j.setCondition(itemc1.textc1.bind(j).equal(itemc1.textc1));
-			assertContains(itemc1, q.search());
+			if(!noJoinParentheses) assertContains(itemc1, q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itemc1.code.bind(j).equal(itemb2.code));
-			assertContains(q.search());
+			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
-			assertContains(q.search());
+			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE));
-			assertContains(q.search());
+			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
-			assertContains(q.search());
+			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
 			j.setCondition(itema.TYPE.getThis().typeNotIn(itemc1.TYPE));
-			assertContains(q.search());
+			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
 			q.join(itemb1.TYPE);
-			assertContains(q.search());
+			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb1.TYPE);
 			j.setCondition(itema.TYPE.getThis().typeNotIn(itemc1.TYPE));
-			assertContains(q.search());
+			if(!noJoinParentheses) assertContains(q.search());
 		}
 		
 		try

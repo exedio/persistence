@@ -68,16 +68,17 @@ public class HardJoinTest extends AbstractLibTest
 	
 	public void test11()
 	{
-		if(noJoinParentheses) return;
-		
-		assert1x1(a.a1, b.b1, 10);
-		assert1x1(a.a1, b.b2, 10);
-		assert1x1(a.a1, b.b3, 10);
-		assert1x1(a.a2, b.b1, 11);
-		assert1x1(a.a2, b.b2, 11);
-		assert1x1(a.a2, b.b3, 11);
-		assert1x1(a.a3, b.b1, 12);
-		assert1x1(a.a3, b.b2, 12);
+		if(!noJoinParentheses)
+		{
+			assert1x1(a.a1, b.b1, 10);
+			assert1x1(a.a1, b.b2, 10);
+			assert1x1(a.a1, b.b3, 10);
+			assert1x1(a.a2, b.b1, 11);
+			assert1x1(a.a2, b.b2, 11);
+			assert1x1(a.a2, b.b3, 11);
+			assert1x1(a.a3, b.b1, 12);
+			assert1x1(a.a3, b.b2, 12);
+		}
 		assert1x1(a.a3, b.b3, 12);
 	}
 	
@@ -137,17 +138,19 @@ public class HardJoinTest extends AbstractLibTest
 	
 	public void testOuter()
 	{
-		if(noJoinParentheses) return;
+		if(!noJoinParentheses)
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			q.joinOuterLeft(b.TYPE, a.a1.equal(b.b3));
 			assertEquals(list(a), q.search());
 		}
+		if(!noJoinParentheses)
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			q.joinOuterLeft(b.TYPE, a.a1.equal(b.b1));
 			assertEquals(list(a), q.search());
 		}
+		if(!noJoinParentheses)
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			q.joinOuterLeft(b.TYPE, a.a2.equal(b.b2));
@@ -162,7 +165,6 @@ public class HardJoinTest extends AbstractLibTest
 	
 	public void testValid()
 	{
-		if(noJoinParentheses) return;
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
 			final Join j1 = q.join(b.TYPE, b.b3.equal(a.a3));
@@ -216,7 +218,7 @@ public class HardJoinTest extends AbstractLibTest
 			}
 
 			j2.setCondition(b.b1.bind(j2).equal(a.a3));
-			assertEquals(list(), q.search());
+			if(!noJoinParentheses) assertEquals(list(), q.search());
 		}
 		// test with typeIn
 		{

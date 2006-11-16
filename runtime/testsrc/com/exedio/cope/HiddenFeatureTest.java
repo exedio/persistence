@@ -135,12 +135,13 @@ public class HiddenFeatureTest extends AbstractLibTest
 		assertContains(sb, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
 		assertContains(sb, sp.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSub")));
 
-		if(noJoinParentheses) return;
-		
-		assertContains(sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
-		assertContains(sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));
-		assertContains(sb, sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
-		assertContains(sb, sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSub")));
+		if(!noJoinParentheses)
+		{
+			assertContains(sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
+			assertContains(sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));
+			assertContains(sb, sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
+			assertContains(sb, sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSub")));
+		}
 
 		assertContains(sb, sb.TYPE.search(sb.hiddenSame.equal("hiddenSameSub")));
 		assertContains(sb, sb.TYPE.search(sb.hiddenOther.equal(55)));

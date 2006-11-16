@@ -370,7 +370,7 @@ public final class Query<R>
 		return ((Integer)result.iterator().next()).intValue();
 	}
 
-	void check()
+	TC check()
 	{
 		final TC tc = new TC(this);
 		
@@ -393,6 +393,8 @@ public final class Query<R>
 		if(orderBy!=null)
 			for(Function ob : orderBy)
 				Cope.check(ob, tc, null);
+		
+		return tc;
 	}
 
 	/**
