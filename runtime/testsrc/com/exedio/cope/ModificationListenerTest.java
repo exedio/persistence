@@ -106,15 +106,15 @@ public class ModificationListenerTest extends AbstractLibTest
 	
 	class TestListener implements ModificationListener
 	{
-		Collection<Item> items = null;
+		Collection<Item> modifiedItems = null;
 		
-		public void onModifyingCommit(final Collection<Item> items)
+		public void onModifyingCommit(final Collection<Item> modifiedItems)
 		{
-			assertTrue(items!=null);
-			assertTrue(!items.isEmpty());
-			assertUnmodifiable(items);
+			assertTrue(modifiedItems!=null);
+			assertTrue(!modifiedItems.isEmpty());
+			assertUnmodifiable(modifiedItems);
 			
-			assertTrue(this.items==null);
+			assertTrue(this.modifiedItems==null);
 			
 			assertContains(model.getOpenTransactions());
 			try
@@ -127,13 +127,13 @@ public class ModificationListenerTest extends AbstractLibTest
 				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
 			}
 			
-			this.items = items;
+			this.modifiedItems = modifiedItems;
 		}
 		
 		void assertIt(final List<? extends Object> expectedItems)
 		{
-			assertContainsList(expectedItems, items);
-			items = null;
+			assertContainsList(expectedItems, modifiedItems);
+			modifiedItems = null;
 		}
 	}
 

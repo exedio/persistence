@@ -24,5 +24,5 @@ import com.exedio.cope.Item;
 
 public interface ModificationListener
 {
-	void onModifyingCommit(Collection<Item> items);
+	void onModifyingCommit(Collection<Item> modifiedItems);
 }
