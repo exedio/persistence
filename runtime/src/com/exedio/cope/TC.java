@@ -96,19 +96,25 @@ final class TC
 		
 		final Type selectType = select.getType();
 		
-		if(queryTypes.contains(selectType))
-			return;
-		
-		if(distinctTypes.contains(selectType))
-			return;
-
-		if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
+		if(join==null)
 		{
-			if(join==null)
+			if(queryTypes.contains(selectType))
+				return;
+			
+			if(distinctTypes.contains(selectType))
+				return;
+	
+			if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
 				throw new IllegalArgumentException(
 						select.toString() + " is ambiguous, use Function#bind in query: " + query.toString()
 						/*+ "---" + distinctTypes + "---" + ambiguousTypes*/);
-			else
+		}
+		else
+		{
+			if(distinctTypes.contains(selectType))
+				return;
+	
+			if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
 				return;
 		}
 
