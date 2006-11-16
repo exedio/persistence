@@ -51,23 +51,19 @@ final class ConnectionPool implements ConnectionProvider
 	//       maybe then no ring buffer is needed.
 	
 	private final Factory factory;
-	private final int activeLimit;
 	private final PoolCounter counter;
 
 	private final Connection[] idle;
 	private int idleCount;
-	private int activeCount = 0;
 	private final Object lock = new Object();
 	
-	ConnectionPool(final Factory factory, final int activeLimit, final int idleLimit, final int idleInitial)
+	ConnectionPool(final Factory factory, final int idleLimit, final int idleInitial)
 	{
 		assert factory!=null;
-		assert activeLimit>0;
 		assert idleLimit>=0;
 		assert idleInitial>=0;
 		
 		this.factory = factory;
-		this.activeLimit = activeLimit;
 		
 		// TODO: make this customizable and disableable
 		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});
@@ -103,11 +99,6 @@ final class ConnectionPool implements ConnectionProvider
 		{
 			synchronized(lock)
 			{
-				if(activeCount>=activeLimit && idleCount==0)
-					throw new IllegalStateException("activeLimit " + activeLimit + " reached: " + activeCount);
-	
-				activeCount++;
-	
 				if(idle!=null && idleCount>0)
 				{
 					//System.out.println("connection pool: fetch "+(size-1));
@@ -135,10 +126,6 @@ final class ConnectionPool implements ConnectionProvider
 			catch(SQLException e)
 			{
 				result = null;
-				synchronized(lock)
-				{
-					activeCount--;
-				}
 				System.out.println("warning: pooled connection invalid: " + e.getMessage());
 			}
 		}
@@ -167,18 +154,10 @@ final class ConnectionPool implements ConnectionProvider
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
 		if(connection.isClosed())
-		{
-			synchronized(lock)
-			{
-				activeCount--;
-			}
 			throw new IllegalArgumentException("unexpected closed connection");
-		}
 			
 		synchronized(lock)
 		{
-			activeCount--;
-			
 			if(idle!=null && idleCount<idle.length)
 			{
 				//System.out.println("connection pool: store "+idleCount);
@@ -225,13 +204,10 @@ final class ConnectionPool implements ConnectionProvider
 				throw new SQLRuntimeException(e, "close()");
 			}
 		}
-
-		if(activeCount!=0)
-			throw new RuntimeException("still "+activeCount+" connections active");
 	}
 	
 	ConnectionPoolInfo getInfo()
 	{
-		return new ConnectionPoolInfo(idleCount, activeCount, new PoolCounter(counter));
+		return new ConnectionPoolInfo(idleCount, new PoolCounter(counter));
 	}
 }

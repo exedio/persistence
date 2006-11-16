@@ -22,18 +22,16 @@ package com.exedio.cope.util;
 public final class ConnectionPoolInfo
 {
 	private final int idleCount;
-	private final int activeCount;
 	private final PoolCounter counter;
 	
 	public ConnectionPoolInfo(
-			final int idleCount, final int activeCount,
+			final int idleCount,
 			final PoolCounter counter)
 	{
 		if(counter==null)
 			throw new NullPointerException();
 		
 		this.idleCount = idleCount;
-		this.activeCount = activeCount;
 		this.counter = counter;
 	}
 	
@@ -42,14 +40,8 @@ public final class ConnectionPoolInfo
 		return idleCount;
 	}
 	
-	public int getActiveCounter()
-	{
-		return activeCount;
-	}
-	
 	public PoolCounter getCounter()
 	{
 		return counter;
 	}
-
 }

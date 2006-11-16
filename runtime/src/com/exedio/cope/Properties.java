@@ -44,8 +44,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final BooleanField pksourceButterfly = new BooleanField(PKSOURCE_BUTTERFLY, false);
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
-	static final String CONNECTION_POOL_ACTIVE_LIMIT = "connectionPool.activeLimit";
-	private final IntField connectionPoolActiveLimit = new IntField(CONNECTION_POOL_ACTIVE_LIMIT, 100, 1);
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 10, 0);
 	
@@ -242,11 +240,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public boolean getFulltextIndex()
 	{
 		return fulltextIndex.getBooleanValue();
-	}
-	
-	public int getConnectionPoolActiveLimit()
-	{
-		return connectionPoolActiveLimit.getIntValue();
 	}
 	
 	public int getConnectionPoolIdleInitial()

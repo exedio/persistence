@@ -198,10 +198,6 @@ final class Console_Jspm
 				<td colspan="6"><%=info.getIdleCounter()%></td>
 			</tr>
 			<tr>
-				<th>Active</th>
-				<td colspan="6"><%=info.getActiveCounter()%></td>
-			</tr>
-			<tr>
 				<th>Get</th>
 				<td colspan="6"><%=poolCounter.getGetCounter()%></td>
 			</tr>
