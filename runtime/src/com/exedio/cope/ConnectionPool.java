@@ -89,6 +89,9 @@ final class ConnectionPool implements ConnectionProvider
 			}
 		}
 	}
+	
+	//private static long timeInChecks = 0;
+	//private static long numberOfChecks = 0;
 
 	public Connection getConnection(final boolean autoCommit) throws SQLException
 	{
@@ -119,10 +122,14 @@ final class ConnectionPool implements ConnectionProvider
 			// Important to do this outside the synchronized block!
 			try
 			{
+				//final long start = System.currentTimeMillis();
 				// probably not the best idea
 				final ResultSet rs = result.getMetaData().getTables(null, null, "zack", null);
 				rs.next();
 				rs.close();
+				//timeInChecks += (System.currentTimeMillis()-start);
+				//numberOfChecks++;
+				//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
 				break;
 			}
 			catch(SQLException e)
