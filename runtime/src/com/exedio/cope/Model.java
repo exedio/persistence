@@ -618,6 +618,12 @@ public final class Model
 
 	// ----------------------- transaction
 	
+	/**
+	 * @throws IllegalStateException
+	 *    if there is already a transaction bound
+	 *    to the current thread for this model
+	 * @see #startTransaction(String)
+	 */
 	public Transaction startTransaction()
 	{
 		return startTransaction(null);
@@ -630,6 +636,7 @@ public final class Model
 	 * @throws IllegalStateException
 	 *    if there is already a transaction bound
 	 *    to the current thread for this model
+	 * @see #startTransaction()
 	 */
 	public Transaction startTransaction(final String name)
 	{
