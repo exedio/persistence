@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.DirectColorModel;
 
 public final class MediaThumbnail extends MediaImageFilter
 {
@@ -52,8 +53,21 @@ public final class MediaThumbnail extends MediaImageFilter
 	}
 	
 	@Override
-	public BufferedImage filter(final BufferedImage in)
+	public BufferedImage filter(BufferedImage in)
 	{
+		// dont know why this is needed,
+		// without jpeg cannot be scaled below
+		// and palette images get a nasty black bar
+		// on the right side
+		if(!(in.getColorModel() instanceof DirectColorModel))
+		{
+			final AffineTransformOp rgbOp = new AffineTransformOp(new AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+			final BufferedImage inDirect = new BufferedImage(in.getWidth(), in.getHeight(), BufferedImage.TYPE_INT_ARGB);
+			rgbOp.filter(in, inDirect);
+			in = inDirect;
+			assert in.getColorModel() instanceof DirectColorModel;
+		}
+
 		final int inX = in.getWidth();
 		final int inY = in.getHeight();
 		final int[] resultDim = boundingBox(inX, inY);

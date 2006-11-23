@@ -43,7 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
-import com.sun.image.codec.jpeg.JPEGCodec;
 
 public abstract class MediaImageFilter extends CachedMedia
 {
@@ -141,9 +140,6 @@ public abstract class MediaImageFilter extends CachedMedia
 		
 		final byte[] srcBytes = media.getBody().get(item);
 		final BufferedImage srcBuf;
-		if("image/jpeg".equals(contentType)) // TODO don't know why else branch does not work for jpeg
-			srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
-		else
 		{
 			ImageReader imageReader = null;
 			try
@@ -160,12 +156,13 @@ public abstract class MediaImageFilter extends CachedMedia
 					imageReader.dispose();
 			}
 		}
+		//System.out.println("----------"+item+'/'+srcBuf.getWidth()+'/'+srcBuf.getHeight()+"-----"+srcBuf.getColorModel());
 		
 		final BufferedImage filteredBuf = filter(srcBuf);
 		
 		final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
 		imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
-		imageWriteParam.setCompressionQuality(0.75f);
+		imageWriteParam.setCompressionQuality(0.85f);
 		final IIOImage iioImage = new IIOImage(filteredBuf, null, null);
 		
 		response.setContentType(outputContentType);
