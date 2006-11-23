@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -166,24 +167,32 @@ public abstract class MediaImageFilter extends CachedMedia
 		final IIOImage iioImage = new IIOImage(filteredBuf, null, null);
 		
 		response.setContentType(outputContentType);
-		ImageWriter imageWriter = null;
-		ServletOutputStream out = null;
+
+		final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
+		// Dont let ImageWriter write directly to ServletOutputStream,
+		// causes spurious hanging requests.
+		final ByteArrayOutputStream body = new ByteArrayOutputStream();
 		try
 		{
-			imageWriter = imageWriterSpi.createWriterInstance();
-			out = response.getOutputStream();
-			imageWriter.setOutput(new MemoryCacheImageOutputStream(out));
+			imageWriter.setOutput(new MemoryCacheImageOutputStream(body));
 			imageWriter.write(null, iioImage, imageWriteParam);
+		}
+		finally
+		{
+			imageWriter.dispose();
+		}
+		
+		response.setContentLength(body.size());
+
+		final ServletOutputStream out = response.getOutputStream();
+		try
+		{
+			body.writeTo(out);
 			return delivered;
 		}
 		finally
 		{
-			// important to close "out" before disposing ImageWriter,
-			// seems to make heisenbug in MediaServletTest less likely.
-			if(out!=null)
-				out.close();
-			if(imageWriter!=null)
-				imageWriter.dispose();
+			out.close();
 		}
 	}
 }
