@@ -142,10 +142,9 @@ public abstract class MediaImageFilter extends CachedMedia
 		final byte[] srcBytes = media.getBody().get(item);
 		final BufferedImage srcBuf;
 		{
-			ImageReader imageReader = null;
+			final ImageReader imageReader = spi.createReaderInstance();
 			try
 			{
-				imageReader = spi.createReaderInstance();
 				final ImageReadParam param = imageReader.getDefaultReadParam();
 				imageReader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
 				srcBuf = imageReader.read(0, param);
@@ -153,8 +152,7 @@ public abstract class MediaImageFilter extends CachedMedia
 			}
 			finally
 			{
-				if(imageReader!=null)
-					imageReader.dispose();
+				imageReader.dispose();
 			}
 		}
 		//System.out.println("----------"+item+'/'+srcBuf.getWidth()+'/'+srcBuf.getHeight()+"-----"+srcBuf.getColorModel());
