@@ -159,9 +159,7 @@ public abstract class MediaImageFilter extends CachedMedia
 		
 		final BufferedImage filteredBuf = filter(srcBuf);
 		
-		final JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.getDefault());
-		imageWriteParam.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
-		imageWriteParam.setCompressionQuality(0.85f);
+		final JPEGImageWriteParam imageWriteParam = getImageWriteParam();
 		final IIOImage iioImage = new IIOImage(filteredBuf, null, null);
 		
 		response.setContentType(outputContentType);
@@ -194,5 +192,13 @@ public abstract class MediaImageFilter extends CachedMedia
 		{
 			out.close();
 		}
+	}
+	
+	public JPEGImageWriteParam getImageWriteParam()
+	{
+		final JPEGImageWriteParam result = new JPEGImageWriteParam(Locale.getDefault());
+		result.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
+		result.setCompressionQuality(0.85f);
+		return result;
 	}
 }
