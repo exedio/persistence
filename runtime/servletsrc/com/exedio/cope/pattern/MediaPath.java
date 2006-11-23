@@ -112,6 +112,8 @@ public abstract class MediaPath extends Pattern
 			final String subPath)
 		throws ServletException, IOException
 	{
+		//final long start = System.currentTimeMillis();
+		
 		final int firstDot = subPath.indexOf('.');
 		final int dot = (firstDot>=0) ? subPath.indexOf('.', firstDot+1) : firstDot;
 		//System.out.println("trailingDot="+trailingDot);
@@ -139,6 +141,8 @@ public abstract class MediaPath extends Pattern
 			
 			final Media.Log result = doGet(request, response, item, extension);
 			model.commit();
+			
+			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms.");
 			return result;
 		}
 		catch(NoSuchIDException e)
