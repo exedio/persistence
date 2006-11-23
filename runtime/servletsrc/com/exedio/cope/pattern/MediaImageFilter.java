@@ -166,18 +166,20 @@ public abstract class MediaImageFilter extends CachedMedia
 		
 		response.setContentType(outputContentType);
 
-		final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
 		// Dont let ImageWriter write directly to ServletOutputStream,
 		// causes spurious hanging requests.
 		final ByteArrayOutputStream body = new ByteArrayOutputStream();
-		try
 		{
-			imageWriter.setOutput(new MemoryCacheImageOutputStream(body));
-			imageWriter.write(null, iioImage, imageWriteParam);
-		}
-		finally
-		{
-			imageWriter.dispose();
+			final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
+			try
+			{
+				imageWriter.setOutput(new MemoryCacheImageOutputStream(body));
+				imageWriter.write(null, iioImage, imageWriteParam);
+			}
+			finally
+			{
+				imageWriter.dispose();
+			}
 		}
 		
 		response.setContentLength(body.size());
