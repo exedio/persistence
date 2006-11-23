@@ -180,6 +180,10 @@ public class InitServlet extends CopsServlet
 			assertID("MediaServletItem.10", antialias);
 			antialias.setContent(thisClass.getResourceAsStream("antialias.png"), "image/png");
 
+			final MediaServletItem antialiasJpeg = new MediaServletItem();
+			assertID("MediaServletItem.11", antialiasJpeg);
+			antialiasJpeg.setContent(thisClass.getResourceAsStream("antialias.jpg"), "image/jpeg");
+
 			new PlusItem(1, 2, 3);
 			new PlusItem(4, 5, 4);
 			new PlusItem(9, 2, 6);
