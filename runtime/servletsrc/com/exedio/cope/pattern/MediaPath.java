@@ -142,7 +142,7 @@ public abstract class MediaPath extends Pattern
 			final Media.Log result = doGet(request, response, item, extension);
 			model.commit();
 			
-			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms.");
+			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + result.name + ", " + id);
 			return result;
 		}
 		catch(NoSuchIDException e)
