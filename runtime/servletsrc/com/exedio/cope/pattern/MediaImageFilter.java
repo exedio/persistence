@@ -44,6 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
+import com.sun.image.codec.jpeg.JPEGCodec;
 
 public abstract class MediaImageFilter extends CachedMedia
 {
@@ -141,6 +142,14 @@ public abstract class MediaImageFilter extends CachedMedia
 		
 		final byte[] srcBytes = media.getBody().get(item);
 		final BufferedImage srcBuf;
+		
+		// Special handling of jpeg
+		// avoids spurious black side bars at least for jpeg and
+		// avoids conversion to DirectColorModel in MediaThumbnail.
+		// Don't know why.
+		if("image/jpeg".equals(contentType))
+			srcBuf = JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
+		else
 		{
 			final ImageReader imageReader = spi.createReaderInstance();
 			try
