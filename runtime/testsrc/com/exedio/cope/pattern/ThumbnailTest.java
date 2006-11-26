@@ -76,6 +76,34 @@ public class ThumbnailTest extends AbstractLibTest
 		assertTrue(sct.toString(), sct.contains("image/gif"));
 		assertUnmodifiable(sct);
 		
+		try
+		{
+			new MediaThumbnail(null, 80, 80);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("source must not be null", e.getMessage());
+		}
+		try
+		{
+			new MediaThumbnail(item.file, 4, 80);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("boundX must be 5 or greater, but was 4", e.getMessage());
+		}
+		try
+		{
+			new MediaThumbnail(item.file, 80, 4);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("boundY must be 5 or greater, but was 4", e.getMessage());
+		}
+		
 		// test sizing algorithm
 		assertBB(40, 60, 20, 30);
 		assertBB(40, 50, 20, 25);

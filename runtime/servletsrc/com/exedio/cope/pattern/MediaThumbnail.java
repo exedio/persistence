@@ -39,7 +39,7 @@ public final class MediaThumbnail extends MediaImageioFilter
 		if(boundX<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
-			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundY);
+			throw new IllegalArgumentException("boundY must be " + MIN_BOUND + " or greater, but was " + boundY);
 	}
 	
 	public int getBoundX()
