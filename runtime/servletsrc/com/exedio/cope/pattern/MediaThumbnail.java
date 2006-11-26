@@ -23,7 +23,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
 
-public final class MediaThumbnail extends MediaImageFilter
+public final class MediaThumbnail extends MediaImageioFilter
 {
 	private final int boundX;
 	private final int boundY;
