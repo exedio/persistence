@@ -357,6 +357,16 @@ public class MediaTest extends AbstractLibTest
 		assertEquals("foto", item.foto.getName());
 		assertSame(item.photo, item.foto.getTarget());
 		
+		try
+		{
+			new MediaRedirect(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("target must not be null", e.getMessage());
+		}
+		
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
 
