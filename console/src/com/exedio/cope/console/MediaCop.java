@@ -29,7 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaImageFilter;
+import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
@@ -55,8 +55,8 @@ final class MediaCop extends ConsoleCop
 		
 		if(media instanceof Media)
 			other = null;
-		else if(media instanceof MediaImageFilter)
-			other = ((MediaImageFilter)media).getMedia();
+		else if(media instanceof MediaFilter)
+			other = ((MediaFilter)media).getMedia();
 		else if(media instanceof MediaRedirect)
 			other = ((MediaRedirect)media).getTarget();
 		else
@@ -125,9 +125,9 @@ final class MediaCop extends ConsoleCop
 				other = null;
 				c = ((Media)media).getIsNull().isNotNull();
 			}
-			else if(media instanceof MediaImageFilter)
+			else if(media instanceof MediaFilter)
 			{
-				other = ((MediaImageFilter)media).getMedia();
+				other = ((MediaFilter)media).getMedia();
 				c = other.getIsNull().isNotNull();
 			}
 			else if(media instanceof MediaRedirect)

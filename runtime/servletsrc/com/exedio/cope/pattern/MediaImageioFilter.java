@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Item;
 import com.sun.image.codec.jpeg.JPEGCodec;
 
-public abstract class MediaImageioFilter extends MediaImageFilter
+public abstract class MediaImageioFilter extends MediaFilter
 {
 	private final Media media;
 	private final HashMap<String, ImageReaderSpi> imageReaderSpi;

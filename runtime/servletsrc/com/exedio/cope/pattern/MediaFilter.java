@@ -22,11 +22,11 @@ import java.util.Set;
 
 import com.exedio.cope.Item;
 
-public abstract class MediaImageFilter extends CachedMedia // TODO rename to MediaFilter
+public abstract class MediaFilter extends CachedMedia
 {
 	private final Media media;
 
-	public MediaImageFilter(final Media media)
+	public MediaFilter(final Media media)
 	{
 		this.media = media;
 		if(media==null)

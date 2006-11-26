@@ -38,7 +38,7 @@ import com.exedio.cope.Properties;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.CachedMedia;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaImageFilter;
+import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
@@ -444,9 +444,9 @@ final class Console_Jspm
 						final MediaThumbnail thumbnail = (MediaThumbnail)path;
 						%>(<%=thumbnail.getMedia().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
 					}
-					if(path instanceof MediaImageFilter)
+					if(path instanceof MediaFilter)
 					{
-						final MediaImageFilter filter = (MediaImageFilter)path;
+						final MediaFilter filter = (MediaFilter)path;
 						final TreeSet contentTypes = new TreeSet<String>(filter.getSupportedMediaContentTypes());
 						%><br>supports <%=contentTypes%><%
 					}

@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 
-public final class MediaPnmThumbnail extends MediaImageFilter
+public final class MediaPnmThumbnail extends MediaFilter
 {
 	private final Media media;
 	private final int boundX;
