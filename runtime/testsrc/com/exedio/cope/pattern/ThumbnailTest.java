@@ -67,7 +67,7 @@ public class ThumbnailTest extends AbstractLibTest
 			}), item.TYPE.getFeatures());
 		assertEquals(item.TYPE, item.thumb.getType());
 		assertEquals("thumb", item.thumb.getName());
-		assertSame(item.file, item.thumb.getMedia());
+		assertSame(item.file, item.thumb.getSource());
 		assertEquals(20, item.thumb.getBoundX());
 		assertEquals(30, item.thumb.getBoundY());
 		final Set<String> sct = item.thumb.getSupportedMediaContentTypes();

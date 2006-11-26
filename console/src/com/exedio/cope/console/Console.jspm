@@ -442,7 +442,7 @@ final class Console_Jspm
 					else if(path instanceof MediaThumbnail)
 					{
 						final MediaThumbnail thumbnail = (MediaThumbnail)path;
-						%>(<%=thumbnail.getMedia().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
+						%>(<%=thumbnail.getSource().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
 					}
 					if(path instanceof MediaFilter)
 					{

@@ -33,7 +33,7 @@ public abstract class MediaFilter extends CachedMedia
 			throw new NullPointerException("media must not be null");
 	}
 
-	public final Media getMedia()
+	public final Media getSource()
 	{
 		return media;
 	}

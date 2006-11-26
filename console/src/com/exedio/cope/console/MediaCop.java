@@ -56,7 +56,7 @@ final class MediaCop extends ConsoleCop
 		if(media instanceof Media)
 			other = null;
 		else if(media instanceof MediaFilter)
-			other = ((MediaFilter)media).getMedia();
+			other = ((MediaFilter)media).getSource();
 		else if(media instanceof MediaRedirect)
 			other = ((MediaRedirect)media).getTarget();
 		else
@@ -127,7 +127,7 @@ final class MediaCop extends ConsoleCop
 			}
 			else if(media instanceof MediaFilter)
 			{
-				other = ((MediaFilter)media).getMedia();
+				other = ((MediaFilter)media).getSource();
 				c = other.getIsNull().isNotNull();
 			}
 			else if(media instanceof MediaRedirect)
