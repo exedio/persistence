@@ -70,7 +70,7 @@ public class ThumbnailTest extends AbstractLibTest
 		assertSame(item.file, item.thumb.getSource());
 		assertEquals(20, item.thumb.getBoundX());
 		assertEquals(30, item.thumb.getBoundY());
-		final Set<String> sct = item.thumb.getSupportedMediaContentTypes();
+		final Set<String> sct = item.thumb.getSupportedSourceContentTypes();
 		assertTrue(sct.toString(), sct.contains("image/jpeg"));
 		assertTrue(sct.toString(), sct.contains("image/png"));
 		assertTrue(sct.toString(), sct.contains("image/gif"));

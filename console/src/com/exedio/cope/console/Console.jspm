@@ -447,7 +447,7 @@ final class Console_Jspm
 					if(path instanceof MediaFilter)
 					{
 						final MediaFilter filter = (MediaFilter)path;
-						final TreeSet contentTypes = new TreeSet<String>(filter.getSupportedMediaContentTypes());
+						final TreeSet contentTypes = new TreeSet<String>(filter.getSupportedSourceContentTypes());
 						%><br>supports <%=contentTypes%><%
 					}
 				%></td>

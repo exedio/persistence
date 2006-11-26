@@ -93,7 +93,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	}
 
 	@Override
-	public final Set<String> getSupportedMediaContentTypes()
+	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.unmodifiableSet(imageReaderSpi.keySet());
 	}

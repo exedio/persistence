@@ -38,7 +38,7 @@ public abstract class MediaFilter extends CachedMedia
 		return source;
 	}
 
-	public abstract Set<String> getSupportedMediaContentTypes();
+	public abstract Set<String> getSupportedSourceContentTypes();
 
 	@Override
 	public final long getLastModified(final Item item)

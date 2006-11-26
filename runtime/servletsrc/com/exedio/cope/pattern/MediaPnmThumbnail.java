@@ -74,7 +74,7 @@ public final class MediaPnmThumbnail extends MediaFilter
 	}
 	
 	@Override
-	public final Set<String> getSupportedMediaContentTypes()
+	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.unmodifiableSet(decodeBuilders.keySet());
 	}
