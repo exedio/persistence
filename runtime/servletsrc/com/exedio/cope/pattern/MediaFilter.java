@@ -24,18 +24,18 @@ import com.exedio.cope.Item;
 
 public abstract class MediaFilter extends CachedMedia
 {
-	private final Media media;
+	private final Media source;
 
-	public MediaFilter(final Media media)
+	public MediaFilter(final Media source)
 	{
-		this.media = media;
-		if(media==null)
-			throw new NullPointerException("media must not be null");
+		this.source = source;
+		if(source==null)
+			throw new NullPointerException("source must not be null");
 	}
 
 	public final Media getSource()
 	{
-		return media;
+		return source;
 	}
 
 	public abstract Set<String> getSupportedMediaContentTypes();
@@ -43,12 +43,12 @@ public abstract class MediaFilter extends CachedMedia
 	@Override
 	public final long getLastModified(final Item item)
 	{
-		return media.getLastModified(item);
+		return source.getLastModified(item);
 	}
 	
 	public final String getURLWithFallbackToMedia(final Item item)
 	{
 		final String myURL = getURL(item);
-		return (myURL!=null) ? myURL : media.getURL(item);
+		return (myURL!=null) ? myURL : source.getURL(item);
 	}
 }

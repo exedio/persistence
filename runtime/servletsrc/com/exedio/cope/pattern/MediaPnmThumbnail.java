@@ -35,7 +35,7 @@ import com.exedio.cope.Item;
 
 public final class MediaPnmThumbnail extends MediaFilter
 {
-	private final Media media;
+	private final Media source;
 	private final int boundX;
 	private final int boundY;
 	private final ProcessBuilder scaleBuilder;
@@ -58,10 +58,10 @@ public final class MediaPnmThumbnail extends MediaFilter
 		decodeBuilders.put("image/gif", gif);
 	}
 	
-	public MediaPnmThumbnail(final Media media, final int boundX, final int boundY)
+	public MediaPnmThumbnail(final Media source, final int boundX, final int boundY)
 	{
-		super(media);
-		this.media = media;
+		super(source);
+		this.source = source;
 		this.boundX = boundX;
 		this.boundY = boundY;
 		
@@ -92,7 +92,7 @@ public final class MediaPnmThumbnail extends MediaFilter
 	@Override
 	public final String getContentType(final Item item)
 	{
-		final String contentType = media.getContentType(item);
+		final String contentType = source.getContentType(item);
 
 		return (contentType!=null&&decodeBuilders.containsKey(contentType)) ? outputContentType : null;
 	}
@@ -105,7 +105,7 @@ public final class MediaPnmThumbnail extends MediaFilter
 			final String extension)
 	throws ServletException, IOException
 	{
-		final String contentType = media.getContentType(item);
+		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return isNull;
 		
@@ -127,7 +127,7 @@ public final class MediaPnmThumbnail extends MediaFilter
 			final Thread encode2out = transfer("3:encode2out", 2000, encode.getInputStream(), body);
 			
 			final OutputStream decodeOut = decode.getOutputStream();
-			media.getBody(item, decodeOut);
+			source.getBody(item, decodeOut);
 			decodeOut.close();
 			
 			waitFor(encode);

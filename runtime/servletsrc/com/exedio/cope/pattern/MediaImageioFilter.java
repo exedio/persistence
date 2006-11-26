@@ -48,16 +48,16 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 
 public abstract class MediaImageioFilter extends MediaFilter
 {
-	private final Media media;
+	private final Media source;
 	private final HashMap<String, ImageReaderSpi> imageReaderSpi;
 	private final ImageWriterSpi imageWriterSpi;
 
 	private static final String outputContentType = "image/jpeg";
 
-	public MediaImageioFilter(final Media media)
+	public MediaImageioFilter(final Media source)
 	{
-		super(media);
-		this.media = media;
+		super(source);
+		this.source = source;
 		
 		final IIORegistry registry = IIORegistry.getDefaultInstance();
 		final HashMap<String, ImageReaderSpi> imageReaderSpi = new HashMap<String, ImageReaderSpi>();
@@ -101,7 +101,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	@Override
 	public final String getContentType(final Item item)
 	{
-		final String contentType = media.getContentType(item);
+		final String contentType = source.getContentType(item);
 
 		return (contentType!=null && imageReaderSpi.containsKey(contentType)) ? outputContentType : null;
 	}
@@ -116,14 +116,14 @@ public abstract class MediaImageioFilter extends MediaFilter
 			final String extension)
 	throws ServletException, IOException
 	{
-		final String contentType = media.getContentType(item);
+		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return isNull;
 		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
 			return notComputable;
 		
-		final byte[] srcBytes = media.getBody().get(item);
+		final byte[] srcBytes = source.getBody().get(item);
 		final BufferedImage srcBuf;
 		
 		// Special handling of jpeg

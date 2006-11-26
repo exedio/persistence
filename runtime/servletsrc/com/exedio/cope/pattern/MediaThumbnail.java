@@ -30,9 +30,9 @@ public final class MediaThumbnail extends MediaImageioFilter
 	
 	private static final int MIN_BOUND = 5;
 	
-	public MediaThumbnail(final Media media, final int boundX, final int boundY)
+	public MediaThumbnail(final Media source, final int boundX, final int boundY)
 	{
-		super(media);
+		super(source);
 		this.boundX = boundX;
 		this.boundY = boundY;
 		
