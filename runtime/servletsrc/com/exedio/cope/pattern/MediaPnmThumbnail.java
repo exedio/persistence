@@ -22,7 +22,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -31,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 
-public final class MediaPnmThumbnail extends CachedMedia
+public final class MediaPnmThumbnail extends MediaImageFilter
 {
 	private final Media media;
 	private final int boundX;
@@ -58,12 +60,11 @@ public final class MediaPnmThumbnail extends CachedMedia
 	
 	public MediaPnmThumbnail(final Media media, final int boundX, final int boundY)
 	{
+		super(media);
 		this.media = media;
 		this.boundX = boundX;
 		this.boundY = boundY;
 		
-		if(media==null)
-			throw new NullPointerException("media must not be null");
 		if(boundX<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
@@ -72,9 +73,10 @@ public final class MediaPnmThumbnail extends CachedMedia
 		this.scaleBuilder = new ProcessBuilder("pnmscale", "-xysize", String.valueOf(boundX), String.valueOf(boundY));
 	}
 	
-	public final Media getMedia()
+	@Override
+	public final Set<String> getSupportedMediaContentTypes()
 	{
-		return media;
+		return Collections.unmodifiableSet(decodeBuilders.keySet());
 	}
 
 	public int getBoundX()
@@ -95,12 +97,6 @@ public final class MediaPnmThumbnail extends CachedMedia
 		return (contentType!=null&&decodeBuilders.containsKey(contentType)) ? outputContentType : null;
 	}
 
-	@Override
-	public final long getLastModified(final Item item)
-	{
-		return media.getLastModified(item);
-	}
-	
 	@Override
 	public final Media.Log doGetIfModified(
 			final HttpServletRequest request,
