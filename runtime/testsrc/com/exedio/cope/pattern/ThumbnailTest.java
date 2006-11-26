@@ -72,6 +72,7 @@ public class ThumbnailTest extends AbstractLibTest
 		assertEquals(30, item.thumb.getBoundY());
 		final Set<String> sct = item.thumb.getSupportedSourceContentTypes();
 		assertTrue(sct.toString(), sct.contains("image/jpeg"));
+		assertTrue(sct.toString(), sct.contains("image/pjpeg"));
 		assertTrue(sct.toString(), sct.contains("image/png"));
 		assertTrue(sct.toString(), sct.contains("image/gif"));
 		assertUnmodifiable(sct);

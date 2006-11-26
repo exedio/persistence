@@ -70,6 +70,12 @@ public abstract class MediaImageioFilter extends MediaFilter
       			imageReaderSpi.put(spiMimeType, spi);
       	}
 		}
+		
+		// fix for MSIE behaviour
+		final ImageReaderSpi jpegSpi = imageReaderSpi.get("image/jpeg");
+		if(jpegSpi!=null && !imageReaderSpi.containsKey("image/pjpeg"))
+			imageReaderSpi.put("image/pjpeg", jpegSpi);
+			
 		this.imageReaderSpi = imageReaderSpi;
 
 		ImageWriterSpi imageWriterSpi = null;
