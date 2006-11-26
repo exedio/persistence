@@ -21,6 +21,7 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaImageMagickThumbnail;
 import com.exedio.cope.pattern.MediaPnmThumbnail;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
@@ -37,6 +38,8 @@ public class MediaServletItem extends Item
 	public static final MediaRedirect redirect = new MediaRedirect(content);
 
 	public static final MediaThumbnail thumbnail = new MediaThumbnail(content, 150, 150);
+
+	public static final MediaImageMagickThumbnail thumbnailMagick = new MediaImageMagickThumbnail(content, 150, 150);
 
 	public static final MediaPnmThumbnail thumbnailPnm = new MediaPnmThumbnail(content, 150, 150);
 	
