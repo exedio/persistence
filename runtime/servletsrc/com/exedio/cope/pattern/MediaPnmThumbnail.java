@@ -50,6 +50,7 @@ public final class MediaPnmThumbnail extends MediaFilter
 	{
 		final ProcessBuilder jpeg = new ProcessBuilder("jpegtopnm");
 		decodeBuilders.put("image/jpeg", jpeg);
+		// fix for MSIE behaviour
 		decodeBuilders.put("image/pjpeg", jpeg);
 		final ProcessBuilder png = new ProcessBuilder("pngtopnm");
 		decodeBuilders.put("image/png", png);
