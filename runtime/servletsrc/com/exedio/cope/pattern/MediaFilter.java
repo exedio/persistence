@@ -46,7 +46,7 @@ public abstract class MediaFilter extends CachedMedia
 		return source.getLastModified(item);
 	}
 	
-	public final String getURLWithFallbackToMedia(final Item item)
+	public final String getURLWithFallbackToSource(final Item item)
 	{
 		final String myURL = getURL(item);
 		return (myURL!=null) ? myURL : source.getURL(item);
