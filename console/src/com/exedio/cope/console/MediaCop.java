@@ -32,7 +32,6 @@ import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
-import com.exedio.cope.pattern.MediaThumbnail;
 
 final class MediaCop extends ConsoleCop
 {
@@ -70,11 +69,6 @@ final class MediaCop extends ConsoleCop
 			addParameter(INLINE, INLINE_MEDIA);
 		if(inlineOther)
 			addParameter(INLINE, INLINE_OTHER);
-	}
-	
-	private MediaCop(final Media media, final MediaThumbnail thumbnail, final boolean inlineMedia, final boolean inlineThumbnail)
-	{
-		this(thumbnail!=null ? thumbnail : media, inlineMedia, inlineThumbnail);
 	}
 	
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
