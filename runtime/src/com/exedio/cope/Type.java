@@ -166,9 +166,6 @@ public final class Type<C extends Item>
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
-		
-		if(uniqueJavaClass)
-			typesByClass.put(javaClass, this);
 
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
@@ -249,6 +246,12 @@ public final class Type<C extends Item>
 		// only.
 		this.creationConstructor = getConstructor(new Class[]{SetValue[].class}, "creation");
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
+
+		// register type at the end of the constructor, so the
+		// type is not registered, if the constructor throws
+		// an exception
+		if(uniqueJavaClass)
+			typesByClass.put(javaClass, this);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
