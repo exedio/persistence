@@ -61,41 +61,37 @@ public class StatementInfoTest extends TestmodelTest
 			;
 		else if(database.endsWith("MysqlDatabase"))
 		{
-			{
-				final StatementInfo plan = rootChilds.next();
-				assertEquals("explain plan", plan.getText());
-			}
+			final StatementInfo plan = rootChilds.next();
+			assertEquals("explain plan", plan.getText());
 		}
 		else if(database.endsWith("OracleDatabase"))
 		{
+			final StatementInfo planId = rootChilds.next();
+			assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
 			{
-				final StatementInfo planId = rootChilds.next();
-				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
+				final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
 				{
-					final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
+					final StatementInfo planSelect = planIdChilds.next();
+					assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
 					{
-						final StatementInfo planSelect = planIdChilds.next();
-						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
+						final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
 						{
-							final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
+							final StatementInfo planTableAccess = planSelectChilds.next();
+							assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]"));
 							{
-								final StatementInfo planTableAccess = planSelectChilds.next();
-								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]"));
+								final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 								{
-									final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
-									{
-										final StatementInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US"));
-										assertEquals(list(), planUnique.getChilds());
-									}
-									assertTrue(!planTableAccessChilds.hasNext());
+									final StatementInfo planUnique = planTableAccessChilds.next();
+									assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US"));
+									assertEquals(list(), planUnique.getChilds());
 								}
+								assertTrue(!planTableAccessChilds.hasNext());
 							}
-							assertTrue(!planSelectChilds.hasNext());
 						}
+						assertTrue(!planSelectChilds.hasNext());
 					}
-					assertTrue(!planIdChilds.hasNext());
 				}
+				assertTrue(!planIdChilds.hasNext());
 			}
 		}
 		else if(database.endsWith("PostgresqlDatabase"))
