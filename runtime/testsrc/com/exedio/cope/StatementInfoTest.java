@@ -38,72 +38,37 @@ public class StatementInfoTest extends TestmodelTest
 		final String firstStatementText = root.getText();
 		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
-		final String database = model.getDatabase().getClass().getName();
-		final String timePrefix = "timing ";
-		if(database.endsWith("HsqldbDatabase"))
+		final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 		{
-			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
-			{
-				final StatementInfo time = rootChilds.next();
-				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
-			}
-			if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
-			{
-				final StatementInfo parameters = rootChilds.next();
-				assertEquals("parameters", parameters.getText());
-				final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
-				{
-					final StatementInfo parameter = parametersChilds.next();
-					assertEquals("1:zack", parameter.getText());
-					assertContains(parameter.getChilds());
-				}
-				assertTrue(!parametersChilds.hasNext());
-			}
-			assertTrue(!rootChilds.hasNext());
+			final StatementInfo time = rootChilds.next();
+			assertTrue(time.getText(), time.getText().startsWith("timing "));
 		}
+		if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
+		{
+			final StatementInfo parameters = rootChilds.next();
+			assertEquals("parameters", parameters.getText());
+			final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
+			{
+				final StatementInfo parameter = parametersChilds.next();
+				assertEquals("1:zack", parameter.getText());
+				assertContains(parameter.getChilds());
+			}
+			assertTrue(!parametersChilds.hasNext());
+		}
+
+		final String database = model.getDatabase().getClass().getName();
+		if(database.endsWith("HsqldbDatabase"))
+			;
 		else if(database.endsWith("MysqlDatabase"))
 		{
-			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
-			{
-				final StatementInfo time = rootChilds.next();
-				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
-			}
-			if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
-			{
-				final StatementInfo parameters = rootChilds.next();
-				assertEquals("parameters", parameters.getText());
-				final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
-				{
-					final StatementInfo parameter = parametersChilds.next();
-					assertEquals("1:zack", parameter.getText());
-					assertContains(parameter.getChilds());
-				}
-				assertTrue(!parametersChilds.hasNext());
-			}
 			{
 				final StatementInfo plan = rootChilds.next();
 				assertEquals("explain plan", plan.getText());
 			}
-			assertTrue(!rootChilds.hasNext());
 		}
 		else if(database.endsWith("OracleDatabase"))
 		{
-			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
 			{
-				final StatementInfo time = rootChilds.next();
-				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
-				if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
-				{
-					final StatementInfo parameters = rootChilds.next();
-					assertEquals("parameters", parameters.getText());
-					final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
-					{
-						final StatementInfo parameter = parametersChilds.next();
-						assertEquals("1:zack", parameter.getText());
-						assertContains(parameter.getChilds());
-					}
-					assertTrue(!parametersChilds.hasNext());
-				}
 				final StatementInfo planId = rootChilds.next();
 				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
 				{
@@ -132,32 +97,13 @@ public class StatementInfoTest extends TestmodelTest
 					assertTrue(!planIdChilds.hasNext());
 				}
 			}
-			assertTrue(!rootChilds.hasNext());
 		}
 		else if(database.endsWith("PostgresqlDatabase"))
-		{
-			final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
-			{
-				final StatementInfo time = rootChilds.next();
-				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
-				if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
-				{
-					final StatementInfo parameters = rootChilds.next();
-					assertEquals("parameters", parameters.getText());
-					final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
-					{
-						final StatementInfo parameter = parametersChilds.next();
-						assertEquals("1:zack", parameter.getText());
-						assertContains(parameter.getChilds());
-					}
-					assertTrue(!parametersChilds.hasNext());
-				}
-			}
-			assertTrue(!rootChilds.hasNext());
-		}
+			;
 		else
 			fail(database);
 		
+		assertTrue(!rootChilds.hasNext());
 
 		// test multiple queries
 		query.setOrderBy(ItemWithSingleUnique.uniqueString, true);
