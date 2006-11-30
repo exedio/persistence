@@ -47,6 +47,18 @@ public class StatementInfoTest extends TestmodelTest
 				final StatementInfo time = rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
 			}
+			if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
+			{
+				final StatementInfo parameters = rootChilds.next();
+				assertEquals("parameters", parameters.getText());
+				final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
+				{
+					final StatementInfo parameter = parametersChilds.next();
+					assertEquals("1:zack", parameter.getText());
+					assertContains(parameter.getChilds());
+				}
+				assertTrue(!parametersChilds.hasNext());
+			}
 			assertTrue(!rootChilds.hasNext());
 		}
 		else if(database.endsWith("MysqlDatabase"))
@@ -55,6 +67,18 @@ public class StatementInfoTest extends TestmodelTest
 			{
 				final StatementInfo time = rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
+			}
+			if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
+			{
+				final StatementInfo parameters = rootChilds.next();
+				assertEquals("parameters", parameters.getText());
+				final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
+				{
+					final StatementInfo parameter = parametersChilds.next();
+					assertEquals("1:zack", parameter.getText());
+					assertContains(parameter.getChilds());
+				}
+				assertTrue(!parametersChilds.hasNext());
 			}
 			{
 				final StatementInfo plan = rootChilds.next();
@@ -68,6 +92,18 @@ public class StatementInfoTest extends TestmodelTest
 			{
 				final StatementInfo time = rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
+				if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
+				{
+					final StatementInfo parameters = rootChilds.next();
+					assertEquals("parameters", parameters.getText());
+					final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
+					{
+						final StatementInfo parameter = parametersChilds.next();
+						assertEquals("1:zack", parameter.getText());
+						assertContains(parameter.getChilds());
+					}
+					assertTrue(!parametersChilds.hasNext());
+				}
 				final StatementInfo planId = rootChilds.next();
 				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
 				{
@@ -104,6 +140,18 @@ public class StatementInfoTest extends TestmodelTest
 			{
 				final StatementInfo time = rootChilds.next();
 				assertTrue(time.getText(), time.getText().startsWith(timePrefix));
+				if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
+				{
+					final StatementInfo parameters = rootChilds.next();
+					assertEquals("parameters", parameters.getText());
+					final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
+					{
+						final StatementInfo parameter = parametersChilds.next();
+						assertEquals("1:zack", parameter.getText());
+						assertContains(parameter.getChilds());
+					}
+					assertTrue(!parametersChilds.hasNext());
+				}
 			}
 			assertTrue(!rootChilds.hasNext());
 		}
