@@ -246,7 +246,7 @@ public final class MysqlDatabase extends Database
 					}
 				}
 				
-			}, false);
+			}, false, true);
 		}
 		
 		return root;

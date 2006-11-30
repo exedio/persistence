@@ -276,7 +276,7 @@ abstract class Database
 							throw new SQLException(NO_SUCH_ROW);
 					}
 				},
-				false
+				false, false
 			);
 		}
 	}
@@ -642,7 +642,7 @@ abstract class Database
 							result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
 					}
 				}
-			}, query.makeStatementInfo));
+			}, query.makeStatementInfo, false));
 
 		return result;
 	}
@@ -713,7 +713,7 @@ abstract class Database
 		}
 			
 		//System.out.println(bf.toString());
-		executeSQLQuery(connection, bf, state, false);
+		executeSQLQuery(connection, bf, state, false, false);
 	}
 
 	public void store(
@@ -873,7 +873,7 @@ abstract class Database
 			appendTypeCheck(table, item.type);
 			
 		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(supportsGetBytes());
-		executeSQLQuery(connection, bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
 	
@@ -985,7 +985,7 @@ abstract class Database
 				}
 			}
 			
-		}, false);
+		}, false, false);
 	}
 	
 	public final long loadLength(final Connection connection, final BlobColumn column, final Item item)
@@ -1005,7 +1005,7 @@ abstract class Database
 			appendTypeCheck(table, item.type);
 			
 		final LoadBlobLengthResultSetHandler handler = new LoadBlobLengthResultSetHandler();
-		executeSQLQuery(connection, bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
 	
@@ -1087,13 +1087,14 @@ abstract class Database
 		final Connection connection,
 		final Statement statement,
 		final ResultSetHandler resultSetHandler,
-		final boolean makeStatementInfo)
+		final boolean makeStatementInfo,
+		final boolean explain)
 	{
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
 		try
 		{
-			final boolean log = this.log || this.logStatementInfo || makeStatementInfo;
+			final boolean log = !explain && (this.log || this.logStatementInfo || makeStatementInfo);
 			final String sqlText = statement.getText();
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final long logPrepared;
@@ -1140,15 +1141,15 @@ abstract class Database
 
 			final long logEnd = log ? System.currentTimeMillis() : 0;
 			
-			if(this.log)
+			if(!explain && this.log)
 				log(logStart, logEnd, statement);
 			
 			final StatementInfo statementInfo =
-				(this.logStatementInfo || makeStatementInfo)
+				(!explain && (this.logStatementInfo || makeStatementInfo))
 				? makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logResultRead, logEnd)
 				: null;
 			
-			if(this.logStatementInfo)
+			if(!explain && this.logStatementInfo)
 				statementInfo.print(System.out);
 			
 			return makeStatementInfo ? statementInfo : null;
@@ -1537,7 +1538,7 @@ abstract class Database
 			append(table.protectedID);
 
 		final CountResultSetHandler handler = new CountResultSetHandler();
-		executeSQLQuery(connection, bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
 	
@@ -1574,7 +1575,7 @@ abstract class Database
 			append(table.protectedID);
 			
 		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-		executeSQLQuery(connection, bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
 	
@@ -1622,7 +1623,7 @@ abstract class Database
 		//System.out.println("CHECKT:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		executeSQLQuery(connection, bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
 	
@@ -1652,7 +1653,7 @@ abstract class Database
 		//System.out.println("CHECKA:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		executeSQLQuery(connection, bf, handler, false);
+		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
 	

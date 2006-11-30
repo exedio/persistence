@@ -325,7 +325,7 @@ final class OracleDatabase extends Database
 				append(" order by "+ID);
 
 			final PlanResultSetHandler handler = new PlanResultSetHandler();
-			executeSQLQuery(connection, bf, handler, false);
+			executeSQLQuery(connection, bf, handler, false, true);
 			root = handler.root;
 		}
 		if(root==null)
