@@ -1151,10 +1151,7 @@ abstract class Database
 			if(this.logStatementInfo)
 				statementInfo.print(System.out);
 			
-			if(makeStatementInfo)
-				return statementInfo;
-			else
-				return null;
+			return makeStatementInfo ? statementInfo : null;
 		}
 		catch(SQLException e)
 		{
