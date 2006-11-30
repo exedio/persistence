@@ -30,6 +30,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final StringField databaseUser =  new StringField("database.user");
 	private final StringField databasePassword =  new StringField("database.password", true);
 	private final BooleanField databaseLog = new BooleanField("database.log", false);
+	private final BooleanField databaseLogStatementInfo = new BooleanField("database.logStatementInfo", false);
 	
 	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
 	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
@@ -195,6 +196,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public boolean getDatabaseLog()
 	{
 		return databaseLog.getBooleanValue();
+	}
+	
+	public boolean getDatabaseLogStatementInfo()
+	{
+		return databaseLogStatementInfo.getBooleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportPreparedStatements()

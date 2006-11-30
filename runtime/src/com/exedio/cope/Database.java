@@ -59,6 +59,7 @@ abstract class Database
 	final Driver driver;
 	final boolean prepare;
 	private final boolean log;
+	private final boolean logStatementInfo;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
 	final ConnectionPool connectionPool;
@@ -85,6 +86,7 @@ abstract class Database
 		this.driver = driver;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog();
+		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = new ConnectionPool(new CopeConnectionFactory(properties), properties.getConnectionPoolIdleLimit(), properties.getConnectionPoolIdleInitial());
@@ -1091,7 +1093,7 @@ abstract class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final boolean log = this.log || makeStatementInfo;
+			final boolean log = this.log || this.logStatementInfo || makeStatementInfo;
 			final String sqlText = statement.getText();
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final long logPrepared;
@@ -1141,8 +1143,16 @@ abstract class Database
 			if(this.log)
 				log(logStart, logEnd, statement);
 			
+			final StatementInfo statementInfo =
+				(this.logStatementInfo || makeStatementInfo)
+				? makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logResultRead, logEnd)
+				: null;
+			
+			if(this.logStatementInfo)
+				statementInfo.print(System.out);
+			
 			if(makeStatementInfo)
-				return makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logResultRead, logEnd);
+				return statementInfo;
 			else
 				return null;
 		}
