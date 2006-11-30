@@ -42,6 +42,7 @@ public class StatementInfoTest extends TestmodelTest
 		{
 			final StatementInfo time = rootChilds.next();
 			assertTrue(time.getText(), time.getText().startsWith("timing "));
+			assertContains(time.getChilds());
 		}
 		if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
 		{
