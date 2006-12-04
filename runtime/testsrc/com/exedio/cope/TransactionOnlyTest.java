@@ -42,15 +42,15 @@ public class TransactionOnlyTest extends AbstractLibTest
 		assertEquals( "just for tearDown", model.getCurrentTransaction().getName() );
 	}
 	
-	static class RuntimeExceptionReference
+	static class IllegalStateExceptionReference
 	{
-		RuntimeException e = null;
+		IllegalStateException e = null;
 	}
 	
 	public void testJoinMultiple() throws InterruptedException
 	{
 		final Transaction tx = model.getCurrentTransaction();
-		final RuntimeExceptionReference rer = new RuntimeExceptionReference();
+		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
 		
 		final Thread t2 = new Thread(new Runnable(){
 			public void run()
@@ -59,7 +59,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 				{
 					model.joinTransaction(tx);
 				}
-				catch(RuntimeException e)
+				catch(IllegalStateException e)
 				{
 					rer.e = e;
 				}
