@@ -66,7 +66,7 @@ public final class Transaction
 		}
 		if ( boundThread!=null && !boundThread.equals(Thread.currentThread()) )
 		{
-			throw new IllegalStateException("transaction already bound to other thread");
+			throw new IllegalStateException("transaction already bound to other thread: " + boundThread.getId());
 		}
 		boundThread = Thread.currentThread();
 	}

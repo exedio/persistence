@@ -68,7 +68,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 		t2.start();
 		t2.join();
 		assertNotNull(rer.e);
-		assertEquals("transaction already bound to other thread", rer.e.getMessage());
+		assertEquals("transaction already bound to other thread: " + Thread.currentThread().getId(), rer.e.getMessage());
 	}
 	
 	public void testTransactionLifecycle()
