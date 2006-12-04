@@ -42,6 +42,35 @@ public class TransactionOnlyTest extends AbstractLibTest
 		assertEquals( "just for tearDown", model.getCurrentTransaction().getName() );
 	}
 	
+	static class RuntimeExceptionReference
+	{
+		RuntimeException e = null;
+	}
+	
+	public void testJoinMultiple() throws InterruptedException
+	{
+		final Transaction tx = model.getCurrentTransaction();
+		final RuntimeExceptionReference rer = new RuntimeExceptionReference();
+		
+		final Thread t2 = new Thread(new Runnable(){
+			public void run()
+			{
+				try
+				{
+					model.joinTransaction(tx);
+				}
+				catch(RuntimeException e)
+				{
+					rer.e = e;
+				}
+			}
+		});
+		t2.start();
+		t2.join();
+		assertNotNull(rer.e);
+		assertEquals("transaction already bound to other thread", rer.e.getMessage());
+	}
+	
 	public void testTransactionLifecycle()
 	{
 		final Transaction copeTest = model.getCurrentTransaction();
