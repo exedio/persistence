@@ -702,8 +702,10 @@ public final class Model
 		if(transaction!=null)
 		{
 			transaction.bindToCurrentThread();
+			transactionThreads.set(transaction);
 		}
-		transactionThreads.set(transaction);
+		else
+			transactionThreads.remove();
 	}
 	
 	public void rollback()
