@@ -99,7 +99,7 @@ public final class Transaction
 	
 	Entity getEntity(final Item item, final boolean present)
 	{
-		assertNotClosed();
+		assert !closed : name;
 		
 		final Type type = item.type;
 		final int pk = item.pk;
@@ -220,7 +220,7 @@ public final class Transaction
 
 	Entity getEntityIfActive(final Type type, final int pk)
 	{
-		assertNotClosed();
+		assert !closed : name;
 
 		final IntKeyOpenHashMap entityMap = entityMaps[type.transientNumber];
 		if(entityMap==null)
@@ -230,7 +230,7 @@ public final class Transaction
 	
 	Connection getConnection()
 	{
-		assertNotClosed();
+		assert !closed : name;
 
 		if(connection!=null)
 			return connection;
@@ -251,18 +251,12 @@ public final class Transaction
 		return connection;
 	}
 	
-	private void assertNotClosed()
-	{
-		if(closed)
-			throw new RuntimeException("transaction "+name+" has already been closed");
-	}
-	
 	/**
 	 * calling this method directly breaks model.openTransactions
 	 */
 	void commitOrRollback(final boolean rollback)
 	{
-		assertNotClosed();
+		assert !closed : name;
 
 		// notify database
 		try
