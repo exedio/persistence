@@ -411,23 +411,23 @@ public final class Query<R>
 	 * This method does it's best to avoid issuing two queries
 	 * for searching and counting.
 	 */
-	public Result searchAndCountWithoutLimit()
+	public Result<R> searchAndCountWithoutLimit()
 	{
-		final Collection data = search();
+		final Collection<R> data = search();
 		final int dataSize = data.size();
 
-		return new Result(data,
+		return new Result<R>(data,
 				(((dataSize>0) || (limitStart==0))  &&  ((dataSize<limitCount) || (limitCount==UNLIMITED_COUNT)))
 				? (limitStart+dataSize)
 				: countWithoutLimit());
 	}
 	
-	public static final class Result
+	public static final class Result<R>
 	{
-		final Collection data;
+		final Collection<R> data;
 		final int countWithoutLimit;
 		
-		private Result(final Collection data, final int countWithoutLimit)
+		private Result(final Collection<R> data, final int countWithoutLimit)
 		{
 			if(data==null)
 				throw new RuntimeException();
@@ -438,7 +438,7 @@ public final class Query<R>
 			this.countWithoutLimit = countWithoutLimit;
 		}
 		
-		public Collection getData()
+		public Collection<R> getData()
 		{
 			return data;
 		}
