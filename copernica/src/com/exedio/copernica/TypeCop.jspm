@@ -69,7 +69,7 @@ final class TypeCop_Jspm
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
 		final Type type = cop.type;
-		final Collection items = cop.getItems();
+		final List items = cop.getItems();
 			
 			%>
 			<h1>

@@ -413,7 +413,7 @@ public final class Query<R>
 	 */
 	public Result<R> searchAndCountWithoutLimit()
 	{
-		final Collection<R> data = search();
+		final List<R> data = search();
 		final int dataSize = data.size();
 
 		return new Result<R>(data,
@@ -424,10 +424,10 @@ public final class Query<R>
 	
 	public static final class Result<R>
 	{
-		final Collection<R> data;
+		final List<R> data;
 		final int countWithoutLimit;
 		
-		private Result(final Collection<R> data, final int countWithoutLimit)
+		private Result(final List<R> data, final int countWithoutLimit)
 		{
 			if(data==null)
 				throw new RuntimeException();
@@ -438,7 +438,7 @@ public final class Query<R>
 			this.countWithoutLimit = countWithoutLimit;
 		}
 		
-		public Collection<R> getData()
+		public List<R> getData()
 		{
 			return data;
 		}

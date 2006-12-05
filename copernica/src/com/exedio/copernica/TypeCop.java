@@ -20,7 +20,7 @@ package com.exedio.copernica;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -149,7 +149,7 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(provider, language, type, newOrderBy, ascending, limitStart, limitCount);
 	}
 	
-	final Collection getItems()
+	final List getItems()
 	{
 		computeItems();
 		return queryResult.getData();
