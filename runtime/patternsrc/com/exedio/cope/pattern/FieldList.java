@@ -63,7 +63,7 @@ public final class FieldList<E> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = new ItemField<Item>(Field.Option.FINAL, type, ItemField.DeletePolicy.CASCADE);
+		parent = type.newItemField(Field.Option.FINAL, ItemField.DeletePolicy.CASCADE);
 		uniqueConstraint = new UniqueConstraint(parent, order);
 		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
 		features.put("parent", parent);

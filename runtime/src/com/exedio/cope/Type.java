@@ -29,6 +29,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.Field.Option;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -809,6 +811,11 @@ public final class Type<C extends Item>
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints;
+	}
+	
+	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)
+	{
+		return new ItemField<C>(option, this, policy);
 	}
 	
 	private static final SetValue[] EMPTY_SET_VALUES = {};
