@@ -390,7 +390,7 @@ final class Cache
 			
 			try
 			{
-				Map.Entry e = (Map.Entry)getEntry.invoke(this, key);
+				final Map.Entry e = (Map.Entry)getEntry.invoke(this, key);
 				return (K)e.getKey();
 			}
 			catch(InvocationTargetException e)
