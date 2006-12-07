@@ -429,10 +429,8 @@ public final class Query<R>
 		
 		private Result(final List<R> data, final int countWithoutLimit)
 		{
-			if(data==null)
-				throw new RuntimeException();
-			if(countWithoutLimit<0)
-				throw new RuntimeException(String.valueOf(countWithoutLimit));
+			assert data!=null;
+			assert countWithoutLimit>=0 : countWithoutLimit;
 			
 			this.data = data;
 			this.countWithoutLimit = countWithoutLimit;
