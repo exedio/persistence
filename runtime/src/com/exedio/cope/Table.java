@@ -70,6 +70,15 @@ final class Table
 	private static final String TYPE_COLUMN_NAME = "class";
 
 	/**
+	 * The table name for the migration information.
+	 * The value "while" prevents name collisions
+	 * with other tables,
+	 * since "while" is a reserved java keyword,
+	 * which cannot be used for java classes.
+	 */
+	static final String MIGRATION_TABLE_NAME = "while";
+
+	/**
 	 * A name for aliases is sql statements.
 	 * The value prevents name collisions
 	 * with columns for cope fields / types,

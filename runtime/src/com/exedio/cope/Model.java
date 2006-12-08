@@ -39,6 +39,9 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
+	private final boolean migration;
+	private final int migrationVersion;
+	
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
 	private final Type<?>[] typesSorted;
@@ -60,6 +63,19 @@ public final class Model
 	
 	public Model(final Type... types)
 	{
+		this(false, -1, types);
+	}
+	
+	Model(final int migrationVersion, final Type... types) // TODO make public when migration has matured
+	{
+		this(true, migrationVersion, types);
+	}
+	
+	private Model(final boolean migration, final int migrationVersion, final Type... types)
+	{
+		this.migration = migration;
+		this.migrationVersion = migrationVersion;
+		
 		if(types==null)
 			throw new NullPointerException("types must not be null");
 		if(types.length==0)
@@ -213,7 +229,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				this.propertiesIfConnected = properties;
-				this.databaseIfConnected = properties.createDatabase();
+				this.databaseIfConnected = properties.createDatabase(migration);
 				
 				for(final Type type : typesSorted)
 					type.connect(databaseIfConnected);

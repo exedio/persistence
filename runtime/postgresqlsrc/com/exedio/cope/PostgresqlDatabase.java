@@ -40,9 +40,9 @@ final class PostgresqlDatabase extends Database
 		}
 	}
 	
-	protected PostgresqlDatabase(final Properties properties)
+	protected PostgresqlDatabase(final Properties properties, final boolean migration)
 	{
-		super(new PostgresqlDriver(), properties);
+		super(new PostgresqlDriver(), properties, migration);
 		
 		// version 8 needed for savepoints
 		if(databaseMajorVersion<8)

@@ -39,6 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import bak.pcj.list.IntArrayList;
 import bak.pcj.list.IntList;
 
 import com.exedio.dsmf.Driver;
@@ -57,6 +58,7 @@ abstract class Database
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private boolean buildStage = true;
 	final Driver driver;
+	private final boolean migration;
 	final boolean prepare;
 	private final boolean log;
 	private final boolean logStatementInfo;
@@ -81,9 +83,10 @@ abstract class Database
 	
 	final boolean oracle; // TODO remove
 	
-	protected Database(final Driver driver, final Properties properties)
+	protected Database(final Driver driver, final Properties properties, final boolean migration)
 	{
 		this.driver = driver;
+		this.migration = migration;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog();
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
@@ -1670,11 +1673,23 @@ abstract class Database
 		}
 	}
 	
+	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
+	private static final String MIGRATION_COLUMN_COMMENT_NAME = "c";
+	
 	public final Schema makeSchema()
 	{
 		final Schema result = new Schema(driver, connectionPool);
 		for(final Table t : tables)
 			t.makeSchema(result);
+		
+		if(migration)
+		{
+			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, getIntegerType(0, Integer.MAX_VALUE));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_COMMENT_NAME, getStringType(100));
+			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_TABLE_NAME, '(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ')');
+		}
+		
 		completeSchema(result);
 		return result;
 	}
@@ -1689,6 +1704,104 @@ abstract class Database
 		final Schema result = makeSchema();
 		result.verify();
 		return result;
+	}
+	
+	final void migrate(final int expectedVersion, final MigrationStep[] steps)
+	{
+		assert expectedVersion>=0 : expectedVersion;
+		if(!migration)
+			throw new IllegalArgumentException("not in migration mode");
+
+		final ConnectionPool connectionPool = this.connectionPool;
+		Connection con = null;
+		java.sql.Statement stmt = null;
+		ResultSet rs = null;
+		try
+		{
+			con = connectionPool.getConnection(true);
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(
+					"select max("+driver.protectName(MIGRATION_COLUMN_VERSION_NAME)+") " +
+					"from "+driver.protectName(Table.MIGRATION_TABLE_NAME));
+			rs.next();
+			final int actualVersion = rs.getInt(1);
+			rs.close();
+			rs = null;
+			
+			if(actualVersion>expectedVersion)
+			{
+				throw new IllegalArgumentException("cannot migrate backwards, expected " + expectedVersion + ", but was " + actualVersion);
+			}
+			else if(actualVersion<expectedVersion)
+			{
+				final MigrationStep[] relevantSteps = new MigrationStep[expectedVersion-actualVersion];
+				for(final MigrationStep step : steps)
+				{
+					final int version = step.version;
+					if(version<=actualVersion || version>expectedVersion)
+						continue; // irrelevant
+					final int relevantIndex = version - actualVersion - 1;
+					if(relevantSteps[relevantIndex]!=null)
+						throw new IllegalArgumentException("there is more that one migration step for version " + version + ": " + relevantSteps[relevantIndex].comment + " and " + step.comment);
+					relevantSteps[relevantIndex] = step;
+				}
+				
+				IntArrayList missingSteps = null;
+				for(int i = 0; i<relevantSteps.length; i++)
+				{
+					if(relevantSteps[i]==null)
+					{
+						if(missingSteps==null)
+							missingSteps = new IntArrayList();
+						
+						missingSteps.add(i - actualVersion + 1);
+					}
+				}
+				if(missingSteps!=null)
+					throw new IllegalArgumentException(
+							"no migration step for versions " + missingSteps.toString() +
+							" on migration from " + actualVersion + " to " + expectedVersion);
+			}
+		}
+		catch(SQLException e)
+		{
+			if(rs!=null)
+			{
+				try
+				{
+					rs.close();
+					rs = null;
+				}
+				catch(SQLException ex)
+				{
+					throw new SQLRuntimeException(ex, "close");
+				}
+			}
+			if(stmt!=null)
+			{
+				try
+				{
+					stmt.close();
+					stmt = null;
+				}
+				catch(SQLException ex)
+				{
+					throw new SQLRuntimeException(ex, "close");
+				}
+			}
+			if(con!=null)
+			{
+				try
+				{
+					connectionPool.putConnection(con);
+					con = null;
+				}
+				catch(SQLException ex)
+				{
+					throw new SQLRuntimeException(ex, "close");
+				}
+			}
+		}
 	}
 
 	

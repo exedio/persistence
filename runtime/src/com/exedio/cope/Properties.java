@@ -140,11 +140,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 		final Class<? extends Database> databaseClass = databaseClassRaw.asSubclass(Database.class);
 		try
 		{
-			return databaseClass.getDeclaredConstructor(new Class[]{Properties.class});
+			return databaseClass.getDeclaredConstructor(new Class[]{Properties.class, Boolean.TYPE});
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new RuntimeException("class "+databaseName+" from "+source+" has no constructor with a single Properties argument.");
+			throw new RuntimeException("class "+databaseName+" from "+source+" does not have the required constructor.");
 		}
 	}
 	
@@ -153,11 +153,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new RuntimeException("property " + key + " in " + getSource() + " not set.");
 	}
 	
-	Database createDatabase()
+	Database createDatabase(final boolean migration)
 	{
 		try
 		{
-			return database.newInstance(new Object[]{this});
+			return database.newInstance(new Object[]{this, migration});
 		}
 		catch(InstantiationException e)
 		{
