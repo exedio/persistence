@@ -585,7 +585,7 @@
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/commons-fileupload-1.1.jar" />
+				<pathelement location="lib/commons-fileupload.jar" />
 			</classpath>
 		</ljavac>
 		<copy todir="build/copernica/classes">
@@ -641,8 +641,8 @@
 				
 				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/lib">
 					<fileset file="lib/pcj.jar" />
-					<fileset file="lib/commons-fileupload-1.1.jar" />
-					<fileset file="lib/commons-io-1.2.jar" />
+					<fileset file="lib/commons-fileupload.jar" />
+					<fileset file="lib/commons-io.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{db.driver}" />
 				</copy>
@@ -827,7 +827,7 @@
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/commons-fileupload-1.1.jar" />
+				<pathelement location="lib/commons-fileupload.jar" />
 			</classpath>
 			<group title="Cope Runtime Library" packages="com.exedio.cope:com.exedio.cope.*" />
 			<group title="Copernica - Generic Backoffice" packages="com.exedio.copernica*" />
