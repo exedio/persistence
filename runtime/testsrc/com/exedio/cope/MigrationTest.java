@@ -34,7 +34,7 @@ public class MigrationTest extends CopeAssert
 			@Override
 			public void execute()
 			{
-				createColumn("MigrationItem", "field2", "varchar(100)");
+				createColumn("MigrationItem", "field2", stringType(100));
 			}
 		})
 	};
@@ -75,8 +75,6 @@ public class MigrationTest extends CopeAssert
 		final Properties props = new Properties();
 		
 		model1.connect(props);
-		if(!"HsqldbDatabase".equals(model1.getDatabase().getClass().getSimpleName())) // TODO remove
-			return;
 		model1.createDatabase();
 
 		assertSchema(model1.getVerifiedSchema(), false, false);

@@ -48,20 +48,24 @@ final class MigrationStep // TODO make public when migration has matured
 	{
 		private final Object lock = new Object();
 		private Driver driver;
+		private Database database;
 		private ArrayList<String> result;
 		
-		final List<String> getPatch(final Driver driver)
+		final List<String> getPatch(final Driver driver, final Database database)
 		{
 			assert driver!=null;
+			assert database!=null;
 			
 			synchronized(lock)
 			{
 				assert this.driver==null;
+				assert this.database==null;
 				assert this.result==null;
 				
 				try
 				{
 					this.driver = driver;
+					this.database = database;
 					this.result = new ArrayList<String>();
 					execute();
 					return Collections.unmodifiableList(result);
@@ -69,6 +73,7 @@ final class MigrationStep // TODO make public when migration has matured
 				finally
 				{
 					this.driver = null;
+					this.database = null;
 					this.result = null;
 				}
 			}
@@ -77,6 +82,36 @@ final class MigrationStep // TODO make public when migration has matured
 		public final String protect(final String name)
 		{
 			return driver.protectName(name);
+		}
+		
+		public final String integerType(final long minimum, final long maximum)
+		{
+			return database.getIntegerType(minimum, maximum);
+		}
+		
+		public final String doubleType()
+		{
+			return database.getDoubleType();
+		}
+		
+		public final String stringType(final int maxLength)
+		{
+			return database.getStringType(maxLength);
+		}
+		
+		public final String dayType()
+		{
+			return database.getDayType();
+		}
+		
+		public final String dateType()
+		{
+			return database.getDateTimestampType();
+		}
+		
+		public final String dataType(final long maximumLength)
+		{
+			return database.getBlobType(maximumLength);
 		}
 		
 		public final void sql(final String sql)
