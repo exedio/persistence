@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.exedio.dsmf.Driver;
 
 final class MigrationStep // TODO make public when migration has matured
@@ -44,23 +48,28 @@ final class MigrationStep // TODO make public when migration has matured
 	{
 		private final Object lock = new Object();
 		private Driver driver;
+		private ArrayList<String> result;
 		
-		final String[] getPatch(final Driver driver)
+		final List<String> getPatch(final Driver driver)
 		{
 			assert driver!=null;
 			
 			synchronized(lock)
 			{
 				assert this.driver==null;
+				assert this.result==null;
 				
 				try
 				{
 					this.driver = driver;
-					return execute();
+					this.result = new ArrayList<String>();
+					execute();
+					return Collections.unmodifiableList(result);
 				}
 				finally
 				{
 					this.driver = null;
+					this.result = null;
 				}
 			}
 		}
@@ -70,37 +79,45 @@ final class MigrationStep // TODO make public when migration has matured
 			return driver.protectName(name);
 		}
 		
-		public final String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+		public final void sql(final String sql)
 		{
-			return driver.renameColumn(tableName, oldColumnName, newColumnName, columnType);
+			if(sql==null)
+				throw new NullPointerException("sql must not be null");
+			
+			result.add(sql);
 		}
 		
-		public final String createColumn(final String tableName, final String columnName, final String columnType)
+		public final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 		{
-			return driver.createColumn(tableName, columnName, columnType);
+			sql(driver.renameColumn(tableName, oldColumnName, newColumnName, columnType));
 		}
 		
-		public final String modifyColumn(final String tableName, final String columnName, final String newColumnType)
+		public final void createColumn(final String tableName, final String columnName, final String columnType)
 		{
-			return driver.modifyColumn(tableName, columnName, newColumnType);
+			sql(driver.createColumn(tableName, columnName, columnType));
+		}
+		
+		public final void modifyColumn(final String tableName, final String columnName, final String newColumnType)
+		{
+			sql(driver.modifyColumn(tableName, columnName, newColumnType));
 		}
 
-		public final String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
+		public final void dropPrimaryKeyConstraint(final String tableName, final String constraintName)
 		{
-			return driver.dropPrimaryKeyConstraint(tableName, constraintName);
+			sql(driver.dropPrimaryKeyConstraint(tableName, constraintName));
 		}
 		
-		public final String dropForeignKeyConstraint(final String tableName, final String constraintName)
+		public final void dropForeignKeyConstraint(final String tableName, final String constraintName)
 		{
-			return driver.dropForeignKeyConstraint(tableName, constraintName);
+			sql(driver.dropForeignKeyConstraint(tableName, constraintName));
 		}
 		
-		public final String dropUniqueConstraint(final String tableName, final String constraintName)
+		public final void dropUniqueConstraint(final String tableName, final String constraintName)
 		{
-			return driver.dropUniqueConstraint(tableName, constraintName);
+			sql(driver.dropUniqueConstraint(tableName, constraintName));
 		}
 		
-		public abstract String[] execute();
+		public abstract void execute();
 	}
 	
 	@Override

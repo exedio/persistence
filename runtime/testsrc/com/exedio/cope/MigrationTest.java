@@ -32,11 +32,9 @@ public class MigrationTest extends CopeAssert
 	static final MigrationStep[] steps2 = new MigrationStep[]{
 		new MigrationStep(1, "add column field2", new MigrationStep.Body(){
 			@Override
-			public String[] execute()
+			public void execute()
 			{
-				return new String[]{
-						createColumn(protectName("MigrationItem"), protectName("field2"), "varchar(100)")
-				};				
+				createColumn(protectName("MigrationItem"), protectName("field2"), "varchar(100)");
 			}
 		})
 	};
