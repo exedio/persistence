@@ -79,6 +79,16 @@ final class Table
 	static final String MIGRATION_TABLE_NAME = "while";
 
 	/**
+	 * The name of the unique contraint
+	 * on the table for the migration information.
+	 * The value "protected" prevents name collisions
+	 * with other tables,
+	 * since "protected" is a reserved java keyword,
+	 * which cannot be used for java classes.
+	 */
+	static final String MIGRATION_UNIQUE_CONSTRAINT_NAME = "protected";
+
+	/**
 	 * A name for aliases is sql statements.
 	 * The value prevents name collisions
 	 * with columns for cope fields / types,

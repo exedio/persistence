@@ -1687,7 +1687,7 @@ abstract class Database
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, getIntegerType(0, Integer.MAX_VALUE));
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_COMMENT_NAME, getStringType(100));
-			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_TABLE_NAME, '(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ')');
+			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ')');
 		}
 		
 		completeSchema(result);
