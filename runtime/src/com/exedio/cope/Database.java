@@ -1780,13 +1780,28 @@ abstract class Database
 							"no migration step for versions " + missingSteps.toString() +
 							" on migration from " + actualVersion + " to " + expectedVersion);
 				
+				final String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date());
 				stmt = con.createStatement();
 				for(final MigrationStep step : relevantSteps)
 				{
 					final IntArrayList rowCounts = new IntArrayList(step.sql.length);
 					for(final String sql : step.sql)
 						rowCounts.add(stmt.executeUpdate(sql));
-					System.out.println(step.comment + " affected " + rowCounts + " rows.");// TODO insert into version table
+					
+					final Statement bf = createStatement();
+					bf.append("insert into ").
+						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+						append('(').
+						append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
+						append(',').
+						append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).
+						append(")values(").
+						appendParameter(step.version).
+						append(',').
+						appendParameter(date + ':' + step.comment + ' ' + rowCounts).
+						append(')');
+					
+					executeSQLUpdate(con, bf, 1);
 				}
 				stmt.close();
 				stmt = null;

@@ -55,6 +55,11 @@ public class MigrationTest extends CopeAssert
 		model2.migrate();
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
+		// test, that MigrationStep is not executed again,
+		// causing a SQLException because column does already exist
+		model2.migrate();
+		assertSchema(model2.getVerifiedSchema(), true, true);
+		
 		model2.tearDownDatabase();
 	}
 	
