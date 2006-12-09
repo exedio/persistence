@@ -34,7 +34,7 @@ public class MigrationTest extends CopeAssert
 			@Override
 			public void execute()
 			{
-				createColumn(protectName("MigrationItem"), protectName("field2"), "varchar(100)");
+				createColumn("MigrationItem", "field2", "varchar(100)");
 			}
 		})
 	};
