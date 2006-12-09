@@ -1531,7 +1531,7 @@ abstract class Database
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
-			appendParameter(function, '%'+value+'%');
+			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 	
 	private int countTable(final Connection connection, final Table table)
