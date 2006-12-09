@@ -1743,7 +1743,6 @@ abstract class Database
 		try
 		{
 			con = connectionPool.getConnection(true);
-			stmt = con.createStatement();
 			
 			final int actualVersion = getActualMigrationVersion(con);
 			
@@ -1781,6 +1780,7 @@ abstract class Database
 							"no migration step for versions " + missingSteps.toString() +
 							" on migration from " + actualVersion + " to " + expectedVersion);
 				
+				stmt = con.createStatement();
 				for(final MigrationStep step : relevantSteps)
 				{
 					final IntArrayList rowCounts = new IntArrayList(step.sql.length);
@@ -1788,6 +1788,8 @@ abstract class Database
 						rowCounts.add(stmt.executeUpdate(sql));
 					System.out.println(step.comment + " affected " + rowCounts + " rows.");// TODO insert into version table
 				}
+				stmt.close();
+				stmt = null;
 			}
 		}
 		catch(SQLException e)
