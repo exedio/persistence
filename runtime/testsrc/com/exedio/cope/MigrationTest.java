@@ -27,8 +27,18 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Model model1 = new Model(MigrationItem1.TYPE);
-	private static final Model model2 = new Model(MigrationItem2.TYPE);
+	private static final Model model1 = new Model(0, null, MigrationItem1.TYPE);
+	
+	static final MigrationStep[] steps2 = new MigrationStep[]{
+		new MigrationStep(1, "add column field2", new Runnable(){
+			public void run()
+			{
+				
+			}
+		})
+	};
+	
+	private static final Model model2 = new Model(1, steps2, MigrationItem2.TYPE);
 	
 	public void test()
 	{
@@ -37,16 +47,19 @@ public class MigrationTest extends CopeAssert
 		model1.connect(props);
 		model1.createDatabase();
 
-		assertSchema(model1.getVerifiedSchema(), false);
+		assertSchema(model1.getVerifiedSchema(), false, false);
 		model1.disconnect();
 		
 		model2.connect(props);
-		assertSchema(model2.getVerifiedSchema(), true);
+		assertSchema(model2.getVerifiedSchema(), true, false);
+		
+		model2.migrate();
+		assertSchema(model2.getVerifiedSchema(), true, true);
 		
 		model2.tearDownDatabase();
 	}
 	
-	private void assertSchema(final Schema schema, final boolean model2)
+	private void assertSchema(final Schema schema, final boolean model2, final boolean migrated)
 	{
 		final Iterator<Table> tables = schema.getTables().iterator();
 		
@@ -54,7 +67,6 @@ public class MigrationTest extends CopeAssert
 		assertEquals("MigrationItem", table.getName());
 		assertEquals(true, table.required());
 		assertEquals(true, table.exists());
-		assertFalse(tables.hasNext());
 		final Iterator<Column> columns = table.getColumns().iterator();
 
 		final Column columnThis = columns.next();
@@ -74,10 +86,17 @@ public class MigrationTest extends CopeAssert
 			final Column column2 = columns.next();
 			assertEquals("field2", column2.getName());
 			assertEquals(true, column2.required());
-			assertEquals(false, column2.exists());
+			assertEquals(false/*TODO migrated*/, column2.exists());
 			assertNotNull(column2.getType());
 		}
 		
 		assertFalse(columns.hasNext());
+		
+		final Table migrationTable = tables.next();
+		assertEquals("while", migrationTable.getName());
+		assertEquals(true, migrationTable.required());
+		assertEquals(true, migrationTable.exists());
+		
+		assertFalse(tables.hasNext());
 	}
 }

@@ -1709,8 +1709,7 @@ abstract class Database
 	final void migrate(final int expectedVersion, final MigrationStep[] steps)
 	{
 		assert expectedVersion>=0 : expectedVersion;
-		if(!migration)
-			throw new IllegalArgumentException("not in migration mode");
+		assert migration;
 
 		final ConnectionPool connectionPool = this.connectionPool;
 		Connection con = null;

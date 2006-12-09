@@ -41,6 +41,7 @@ public final class Model
 {
 	private final boolean migration;
 	private final int migrationVersion;
+	private final MigrationStep[] migrationSteps;
 	
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
@@ -63,18 +64,19 @@ public final class Model
 	
 	public Model(final Type... types)
 	{
-		this(false, -1, types);
+		this(false, -1, null, types);
 	}
 	
-	Model(final int migrationVersion, final Type... types) // TODO make public when migration has matured
+	Model(final int migrationVersion, final MigrationStep[] migrationSteps, final Type... types) // TODO make public when migration has matured
 	{
-		this(true, migrationVersion, types);
+		this(true, migrationVersion, migrationSteps, types);
 	}
 	
-	private Model(final boolean migration, final int migrationVersion, final Type... types)
+	private Model(final boolean migration, final int migrationVersion, final MigrationStep[] migrationSteps, final Type... types)
 	{
 		this.migration = migration;
 		this.migrationVersion = migrationVersion;
+		this.migrationSteps = migrationSteps;
 		
 		if(types==null)
 			throw new NullPointerException("types must not be null");
@@ -283,6 +285,14 @@ public final class Model
 				return;
 			}
 		}
+	}
+	
+	void migrate()
+	{
+		if(!migration)
+			throw new IllegalArgumentException("not in migration mode");
+		
+		getDatabase().migrate(migrationVersion, migrationSteps);
 	}
 
 	public Properties getProperties()
