@@ -138,7 +138,7 @@ public final class Column extends Node
 	{
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
-			driver.getCreateColumnStatement(
+			driver.createColumn(
 				protectName(table.name),
 				protectName(name),
 				getType()));
@@ -148,7 +148,7 @@ public final class Column extends Node
 	{
 		//System.err.println("renameColumn:"+bf);
 		executeSQL(
-			driver.getRenameColumnStatement(
+			driver.renameColumn(
 				protectName(table.name),
 				protectName(name),
 				protectName(newName),
@@ -158,7 +158,7 @@ public final class Column extends Node
 	public final void modify(final String newType)
 	{
 		executeSQL(
-			driver.getModifyColumnStatement(
+			driver.modifyColumn(
 				protectName(table.name),
 				protectName(name),
 				newType));

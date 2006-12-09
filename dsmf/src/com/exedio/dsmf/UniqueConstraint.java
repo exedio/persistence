@@ -69,7 +69,7 @@ public class UniqueConstraint extends Constraint
 	@Override
 	public final void drop()
 	{
-		executeSQL(driver.getDropUniqueConstraintStatement(table.name, name));
+		executeSQL(driver.dropUniqueConstraint(table.name, name));
 	}
 
 }

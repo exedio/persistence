@@ -113,11 +113,11 @@ public abstract class Driver
 		return false;
 	}
 	
-	public abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
-	public abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
-	public abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
+	public abstract String renameColumn(String tableName, String oldColumnName, String newColumnName, String columnType);
+	public abstract String createColumn(String tableName, String columnName, String columnType);
+	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
-	private final String getDropConstraintStatement(final String tableName, final String constraintName)
+	private final String dropConstraint(final String tableName, final String constraintName)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -127,19 +127,19 @@ public abstract class Driver
 		return bf.toString();
 	}
 	
-	public String getDropPrimaryKeyConstraintStatement(final String tableName, final String constraintName)
+	public String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
 	{
-		return getDropConstraintStatement(tableName, constraintName);
+		return dropConstraint(tableName, constraintName);
 	}
 	
-	public String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
+	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
 	{
-		return getDropConstraintStatement(tableName, constraintName);
+		return dropConstraint(tableName, constraintName);
 	}
 	
-	public String getDropUniqueConstraintStatement(final String tableName, final String constraintName)
+	public String dropUniqueConstraint(final String tableName, final String constraintName)
 	{
-		return getDropConstraintStatement(tableName, constraintName);
+		return dropConstraint(tableName, constraintName);
 	}
 
 	/**

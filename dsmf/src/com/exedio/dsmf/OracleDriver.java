@@ -191,7 +191,7 @@ public final class OracleDriver extends Driver
 	}
 
 	@Override
-	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -204,7 +204,7 @@ public final class OracleDriver extends Driver
 	}
 
 	@Override
-	public String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -218,7 +218,7 @@ public final class OracleDriver extends Driver
 	}
 
 	@Override
-	public String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
