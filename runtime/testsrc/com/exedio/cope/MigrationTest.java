@@ -75,6 +75,7 @@ public class MigrationTest extends CopeAssert
 		final Properties props = new Properties();
 		
 		model1.connect(props);
+		model1.tearDownDatabase();
 		model1.createDatabase();
 
 		assertSchema(model1.getVerifiedSchema(), false, false);
