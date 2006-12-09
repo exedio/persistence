@@ -38,6 +38,33 @@ public class MigrationTest extends CopeAssert
 	public void test()
 	{
 		assertEquals("MS1:add column field2", steps2[0].toString());
+		try
+		{
+			new MigrationStep(-1, null, (String[])null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("version must not be negative", e.getMessage());
+		}
+		try
+		{
+			new MigrationStep(0, null, (String[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("comment must not be null", e.getMessage());
+		}
+		try
+		{
+			new MigrationStep(0, "some comment", (String[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("sql must not be null", e.getMessage());
+		}
 		
 		final Properties props = new Properties();
 		
