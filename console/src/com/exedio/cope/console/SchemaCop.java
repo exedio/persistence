@@ -189,7 +189,9 @@ final class SchemaCop extends ConsoleCop
 				final long time = System.currentTimeMillis()-beforeExecuteTime;
 				out.print("\n\t\t<li class=\"timelog\">");
 				out.print(time);
-				out.print("ms</li>");
+				out.print("ms, ");
+				out.print(rows);
+				out.print(" rows</li>");
 			}
 		};
 		{
