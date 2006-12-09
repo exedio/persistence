@@ -1741,7 +1741,7 @@ abstract class Database
 						continue; // irrelevant
 					final int relevantIndex = version - actualVersion - 1;
 					if(relevantSteps[relevantIndex]!=null)
-						throw new IllegalArgumentException("there is more that one migration step for version " + version + ": " + relevantSteps[relevantIndex].comment + " and " + step.comment);
+						throw new IllegalArgumentException("there is more than one migration step for version " + version + ": " + relevantSteps[relevantIndex].comment + " and " + step.comment);
 					relevantSteps[relevantIndex] = step;
 				}
 				
@@ -1760,6 +1760,14 @@ abstract class Database
 					throw new IllegalArgumentException(
 							"no migration step for versions " + missingSteps.toString() +
 							" on migration from " + actualVersion + " to " + expectedVersion);
+				
+				for(final MigrationStep step : relevantSteps)
+				{
+					final IntArrayList rowCounts = new IntArrayList(step.sql.length);
+					for(String sql : step.sql)
+						rowCounts.add(stmt.executeUpdate(sql));
+					System.out.println(step.comment + " affected " + rowCounts + " rows.");// TODO insert into version table
+				}
 			}
 		}
 		catch(SQLException e)

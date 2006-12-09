@@ -22,19 +22,19 @@ final class MigrationStep // TODO make public when migration has matured
 {
 	final int version;
 	final String comment;
-	final Runnable runnable;
+	final String[] sql;
 	
-	MigrationStep(final int version, final String comment, final Runnable runnable) // TODO make public when migration has matured
+	MigrationStep(final int version, final String comment, final String... sql) // TODO make public when migration has matured
 	{
 		this.version = version;
 		this.comment = comment;
-		this.runnable = runnable;
+		this.sql = sql;
 		
 		if(version<0)
 			throw new IllegalArgumentException("version must not be negative");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
-		if(runnable==null)
-			throw new NullPointerException("runnable must not be null");
+		if(sql==null)
+			throw new NullPointerException("sql must not be null");
 	}
 }
