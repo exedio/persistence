@@ -74,7 +74,7 @@ final class MigrationStep // TODO make public when migration has matured
 			}
 		}
 		
-		public final String protectName(final String name)
+		public final String protect(final String name)
 		{
 			return driver.protectName(name);
 		}
@@ -89,32 +89,32 @@ final class MigrationStep // TODO make public when migration has matured
 		
 		public final void renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 		{
-			sql(driver.renameColumn(protectName(tableName), protectName(oldColumnName), protectName(newColumnName), columnType));
+			sql(driver.renameColumn(protect(tableName), protect(oldColumnName), protect(newColumnName), columnType));
 		}
 		
 		public final void createColumn(final String tableName, final String columnName, final String columnType)
 		{
-			sql(driver.createColumn(protectName(tableName), protectName(columnName), columnType));
+			sql(driver.createColumn(protect(tableName), protect(columnName), columnType));
 		}
 		
 		public final void modifyColumn(final String tableName, final String columnName, final String newColumnType)
 		{
-			sql(driver.modifyColumn(protectName(tableName), protectName(columnName), newColumnType));
+			sql(driver.modifyColumn(protect(tableName), protect(columnName), newColumnType));
 		}
 
 		public final void dropPrimaryKeyConstraint(final String tableName, final String constraintName)
 		{
-			sql(driver.dropPrimaryKeyConstraint(protectName(tableName), protectName(constraintName)));
+			sql(driver.dropPrimaryKeyConstraint(protect(tableName), protect(constraintName)));
 		}
 		
 		public final void dropForeignKeyConstraint(final String tableName, final String constraintName)
 		{
-			sql(driver.dropForeignKeyConstraint(protectName(tableName), protectName(constraintName)));
+			sql(driver.dropForeignKeyConstraint(protect(tableName), protect(constraintName)));
 		}
 		
 		public final void dropUniqueConstraint(final String tableName, final String constraintName)
 		{
-			sql(driver.dropUniqueConstraint(protectName(tableName), protectName(constraintName)));
+			sql(driver.dropUniqueConstraint(protect(tableName), protect(constraintName)));
 		}
 		
 		public abstract void execute();
