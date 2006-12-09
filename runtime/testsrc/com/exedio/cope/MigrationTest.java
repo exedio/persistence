@@ -35,7 +35,7 @@ public class MigrationTest extends CopeAssert
 			public String[] execute()
 			{
 				return new String[]{
-						driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), "varchar(100)")
+						createColumn(protectName("MigrationItem"), protectName("field2"), "varchar(100)")
 				};				
 			}
 		})

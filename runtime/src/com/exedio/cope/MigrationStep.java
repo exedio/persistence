@@ -43,7 +43,7 @@ final class MigrationStep // TODO make public when migration has matured
 	static abstract class Body // TODO make public when migration has matured
 	{
 		private final Object lock = new Object();
-		protected Driver driver;
+		private Driver driver;
 		
 		final String[] getPatch(final Driver driver)
 		{
@@ -63,6 +63,41 @@ final class MigrationStep // TODO make public when migration has matured
 					this.driver = null;
 				}
 			}
+		}
+		
+		public final String protectName(final String name)
+		{
+			return driver.protectName(name);
+		}
+		
+		public final String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+		{
+			return driver.renameColumn(tableName, oldColumnName, newColumnName, columnType);
+		}
+		
+		public final String createColumn(final String tableName, final String columnName, final String columnType)
+		{
+			return driver.createColumn(tableName, columnName, columnType);
+		}
+		
+		public final String modifyColumn(final String tableName, final String columnName, final String newColumnType)
+		{
+			return driver.modifyColumn(tableName, columnName, newColumnType);
+		}
+
+		public final String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
+		{
+			return driver.dropPrimaryKeyConstraint(tableName, constraintName);
+		}
+		
+		public final String dropForeignKeyConstraint(final String tableName, final String constraintName)
+		{
+			return driver.dropForeignKeyConstraint(tableName, constraintName);
+		}
+		
+		public final String dropUniqueConstraint(final String tableName, final String constraintName)
+		{
+			return driver.dropUniqueConstraint(tableName, constraintName);
 		}
 		
 		public abstract String[] execute();
