@@ -1706,6 +1706,32 @@ abstract class Database
 		return result;
 	}
 	
+	final int getActualMigrationVersion(final Connection connection)
+	{
+		buildStage = false;
+
+		final Statement bf = createStatement();
+		bf.append("select max(").
+			append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).defineColumnInteger().
+			append(") from ").
+			append(driver.protectName(Table.MIGRATION_TABLE_NAME));
+			
+		final ActualMigrationVersionResultSetHandler handler = new ActualMigrationVersionResultSetHandler();
+		executeSQLQuery(connection, bf, handler, false, false);
+		return handler.result;
+	}
+	
+	private static class ActualMigrationVersionResultSetHandler implements ResultSetHandler
+	{
+		int result = -1;
+
+		public void handle(final ResultSet resultSet) throws SQLException
+		{
+			resultSet.next();
+			result = resultSet.getInt(1);
+		}
+	}
+	
 	final void migrate(final int expectedVersion, final MigrationStep[] steps)
 	{
 		assert expectedVersion>=0 : expectedVersion;
@@ -1714,18 +1740,12 @@ abstract class Database
 		final ConnectionPool connectionPool = this.connectionPool;
 		Connection con = null;
 		java.sql.Statement stmt = null;
-		ResultSet rs = null;
 		try
 		{
 			con = connectionPool.getConnection(true);
 			stmt = con.createStatement();
-			rs = stmt.executeQuery(
-					"select max("+driver.protectName(MIGRATION_COLUMN_VERSION_NAME)+") " +
-					"from "+driver.protectName(Table.MIGRATION_TABLE_NAME));
-			rs.next();
-			final int actualVersion = rs.getInt(1);
-			rs.close();
-			rs = null;
+			
+			final int actualVersion = getActualMigrationVersion(con);
 			
 			if(actualVersion>expectedVersion)
 			{
@@ -1776,18 +1796,6 @@ abstract class Database
 		}
 		finally
 		{
-			if(rs!=null)
-			{
-				try
-				{
-					rs.close();
-					rs = null;
-				}
-				catch(SQLException ex)
-				{
-					throw new SQLRuntimeException(ex, "close");
-				}
-			}
 			if(stmt!=null)
 			{
 				try
