@@ -24,13 +24,13 @@ import java.util.List;
 
 import com.exedio.dsmf.Driver;
 
-final class MigrationStep // TODO make public when migration has matured
+final class Migration // TODO make public when migration has matured
 {
 	final int version;
 	final String comment;
 	final Body body;
 	
-	MigrationStep(final int version, final String comment, final Body body) // TODO make public when migration has matured
+	Migration(final int version, final String comment, final Body body) // TODO make public when migration has matured
 	{
 		this.version = version;
 		this.comment = comment;

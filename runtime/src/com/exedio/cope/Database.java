@@ -1732,7 +1732,7 @@ abstract class Database
 		}
 	}
 	
-	final void migrate(final int expectedVersion, final MigrationStep[] steps)
+	final void migrate(final int expectedVersion, final Migration[] migrations)
 	{
 		assert expectedVersion>=0 : expectedVersion;
 		assert migration;
@@ -1752,39 +1752,39 @@ abstract class Database
 			}
 			else if(actualVersion<expectedVersion)
 			{
-				final MigrationStep[] relevantSteps = new MigrationStep[expectedVersion-actualVersion];
-				for(final MigrationStep step : steps)
+				final Migration[] relevant = new Migration[expectedVersion-actualVersion];
+				for(final Migration migration : migrations)
 				{
-					final int version = step.version;
+					final int version = migration.version;
 					if(version<=actualVersion || version>expectedVersion)
 						continue; // irrelevant
 					final int relevantIndex = version - actualVersion - 1;
-					if(relevantSteps[relevantIndex]!=null)
-						throw new IllegalArgumentException("there is more than one migration step for version " + version + ": " + relevantSteps[relevantIndex].comment + " and " + step.comment);
-					relevantSteps[relevantIndex] = step;
+					if(relevant[relevantIndex]!=null)
+						throw new IllegalArgumentException("there is more than one migration for version " + version + ": " + relevant[relevantIndex].comment + " and " + migration.comment);
+					relevant[relevantIndex] = migration;
 				}
 				
-				IntArrayList missingSteps = null;
-				for(int i = 0; i<relevantSteps.length; i++)
+				IntArrayList missing = null;
+				for(int i = 0; i<relevant.length; i++)
 				{
-					if(relevantSteps[i]==null)
+					if(relevant[i]==null)
 					{
-						if(missingSteps==null)
-							missingSteps = new IntArrayList();
+						if(missing==null)
+							missing = new IntArrayList();
 						
-						missingSteps.add(i - actualVersion + 1);
+						missing.add(i - actualVersion + 1);
 					}
 				}
-				if(missingSteps!=null)
+				if(missing!=null)
 					throw new IllegalArgumentException(
-							"no migration step for versions " + missingSteps.toString() +
+							"no migration for versions " + missing.toString() +
 							" on migration from " + actualVersion + " to " + expectedVersion);
 				
 				final String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date());
 				stmt = con.createStatement();
-				for(final MigrationStep step : relevantSteps)
+				for(final Migration migration : relevant)
 				{
-					final List<String> sqls = step.body.getPatch(driver, this);
+					final List<String> sqls = migration.body.getPatch(driver, this);
 					final IntArrayList rowCounts = new IntArrayList(sqls.size());
 					for(final String sql : sqls)
 						rowCounts.add(stmt.executeUpdate(sql));
@@ -1797,9 +1797,9 @@ abstract class Database
 						append(',').
 						append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).
 						append(")values(").
-						appendParameter(step.version).
+						appendParameter(migration.version).
 						append(',').
-						appendParameter(date + ':' + step.comment + ' ' + rowCounts).
+						appendParameter(date + ':' + migration.comment + ' ' + rowCounts).
 						append(')');
 					
 					executeSQLUpdate(con, bf, 1);

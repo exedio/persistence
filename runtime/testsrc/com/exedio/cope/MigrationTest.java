@@ -29,8 +29,8 @@ public class MigrationTest extends CopeAssert
 {
 	private static final Model model1 = new Model(0, null, MigrationItem1.TYPE);
 	
-	static final MigrationStep[] steps2 = new MigrationStep[]{
-		new MigrationStep(1, "add column field2", new MigrationStep.Body(){
+	static final Migration[] migrations2 = new Migration[]{
+		new Migration(1, "add column field2", new Migration.Body(){
 			@Override
 			public void execute()
 			{
@@ -39,14 +39,14 @@ public class MigrationTest extends CopeAssert
 		})
 	};
 	
-	private static final Model model2 = new Model(1, steps2, MigrationItem2.TYPE);
+	private static final Model model2 = new Model(1, migrations2, MigrationItem2.TYPE);
 	
 	public void test()
 	{
-		assertEquals("MS1:add column field2", steps2[0].toString());
+		assertEquals("MS1:add column field2", migrations2[0].toString());
 		try
 		{
-			new MigrationStep(-1, null, null);
+			new Migration(-1, null, null);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -55,7 +55,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new MigrationStep(0, null, null);
+			new Migration(0, null, null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -64,7 +64,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new MigrationStep(0, "some comment", null);
+			new Migration(0, "some comment", null);
 			fail();
 		}
 		catch(NullPointerException e)
