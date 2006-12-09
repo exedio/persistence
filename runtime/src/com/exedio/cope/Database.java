@@ -1784,7 +1784,7 @@ abstract class Database
 				stmt = con.createStatement();
 				for(final MigrationStep step : relevantSteps)
 				{
-					final String[] sqls = step.body.execute(driver);
+					final String[] sqls = step.body.getPatch(driver);
 					final IntArrayList rowCounts = new IntArrayList(sqls.length);
 					for(final String sql : sqls)
 						rowCounts.add(stmt.executeUpdate(sql));

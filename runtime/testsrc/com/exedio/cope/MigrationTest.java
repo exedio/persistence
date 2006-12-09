@@ -22,7 +22,6 @@ import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
@@ -32,10 +31,11 @@ public class MigrationTest extends CopeAssert
 	
 	static final MigrationStep[] steps2 = new MigrationStep[]{
 		new MigrationStep(1, "add column field2", new MigrationStep.Body(){
-			public String[] execute(final Driver d)
+			@Override
+			public String[] execute()
 			{
 				return new String[]{
-						d.createColumn(d.protectName("MigrationItem"), d.protectName("field2"), "varchar(100)")
+						driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), "varchar(100)")
 				};				
 			}
 		})

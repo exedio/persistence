@@ -40,9 +40,32 @@ final class MigrationStep // TODO make public when migration has matured
 			throw new NullPointerException("body must not be null");
 	}
 	
-	static interface Body // TODO make public when migration has matured
+	static abstract class Body // TODO make public when migration has matured
 	{
-		String[] execute(Driver driver);
+		private final Object lock = new Object();
+		protected Driver driver;
+		
+		final String[] getPatch(final Driver driver)
+		{
+			assert driver!=null;
+			
+			synchronized(lock)
+			{
+				assert this.driver==null;
+				
+				try
+				{
+					this.driver = driver;
+					return execute();
+				}
+				finally
+				{
+					this.driver = null;
+				}
+			}
+		}
+		
+		public abstract String[] execute();
 	}
 	
 	@Override
