@@ -1764,13 +1764,17 @@ abstract class Database
 				for(final MigrationStep step : relevantSteps)
 				{
 					final IntArrayList rowCounts = new IntArrayList(step.sql.length);
-					for(String sql : step.sql)
+					for(final String sql : step.sql)
 						rowCounts.add(stmt.executeUpdate(sql));
 					System.out.println(step.comment + " affected " + rowCounts + " rows.");// TODO insert into version table
 				}
 			}
 		}
 		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "migrate");
+		}
+		finally
 		{
 			if(rs!=null)
 			{
