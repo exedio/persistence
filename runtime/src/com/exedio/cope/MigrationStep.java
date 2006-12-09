@@ -18,24 +18,31 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.Driver;
+
 final class MigrationStep // TODO make public when migration has matured
 {
 	final int version;
 	final String comment;
-	final String[] sql;
+	final Body body;
 	
-	MigrationStep(final int version, final String comment, final String... sql) // TODO make public when migration has matured
+	MigrationStep(final int version, final String comment, final Body body) // TODO make public when migration has matured
 	{
 		this.version = version;
 		this.comment = comment;
-		this.sql = sql;
+		this.body = body;
 		
 		if(version<0)
 			throw new IllegalArgumentException("version must not be negative");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
-		if(sql==null)
-			throw new NullPointerException("sql must not be null");
+		if(body==null)
+			throw new NullPointerException("body must not be null");
+	}
+	
+	static interface Body // TODO make public when migration has matured
+	{
+		String[] execute(Driver driver);
 	}
 	
 	@Override

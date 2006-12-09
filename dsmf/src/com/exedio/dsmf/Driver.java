@@ -113,9 +113,9 @@ public abstract class Driver
 		return false;
 	}
 	
-	abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
-	abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
-	abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
+	public abstract String getRenameColumnStatement(String tableName, String oldColumnName, String newColumnName, String columnType);
+	public abstract String getCreateColumnStatement(String tableName, String columnName, String columnType);
+	public abstract String getModifyColumnStatement(String tableName, String columnName, String newColumnType);
 
 	private final String getDropConstraintStatement(final String tableName, final String constraintName)
 	{
@@ -127,17 +127,17 @@ public abstract class Driver
 		return bf.toString();
 	}
 	
-	String getDropPrimaryKeyConstraintStatement(final String tableName, final String constraintName)
+	public String getDropPrimaryKeyConstraintStatement(final String tableName, final String constraintName)
 	{
 		return getDropConstraintStatement(tableName, constraintName);
 	}
 	
-	String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
+	public String getDropForeignKeyConstraintStatement(final String tableName, final String constraintName)
 	{
 		return getDropConstraintStatement(tableName, constraintName);
 	}
 	
-	String getDropUniqueConstraintStatement(final String tableName, final String constraintName)
+	public String getDropUniqueConstraintStatement(final String tableName, final String constraintName)
 	{
 		return getDropConstraintStatement(tableName, constraintName);
 	}
@@ -165,5 +165,4 @@ public abstract class Driver
 		for(int i = 1; i<=columnCount; i++)
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
-	
 }

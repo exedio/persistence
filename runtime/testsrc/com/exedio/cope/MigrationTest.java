@@ -22,6 +22,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
+import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
@@ -30,7 +31,14 @@ public class MigrationTest extends CopeAssert
 	private static final Model model1 = new Model(0, null, MigrationItem1.TYPE);
 	
 	static final MigrationStep[] steps2 = new MigrationStep[]{
-		new MigrationStep(1, "add column field2", "alter table \"MigrationItem\" add column \"field2\" varchar(100)"),
+		new MigrationStep(1, "add column field2", new MigrationStep.Body(){
+			public String[] execute(final Driver d)
+			{
+				return new String[]{
+						d.getCreateColumnStatement(d.protectName("MigrationItem"), d.protectName("field2"), "varchar(100)")
+				};				
+			}
+		})
 	};
 	
 	private static final Model model2 = new Model(1, steps2, MigrationItem2.TYPE);
@@ -40,7 +48,7 @@ public class MigrationTest extends CopeAssert
 		assertEquals("MS1:add column field2", steps2[0].toString());
 		try
 		{
-			new MigrationStep(-1, null, (String[])null);
+			new MigrationStep(-1, null, null);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -49,7 +57,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new MigrationStep(0, null, (String[])null);
+			new MigrationStep(0, null, null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -58,12 +66,12 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new MigrationStep(0, "some comment", (String[])null);
+			new MigrationStep(0, "some comment", null);
 			fail();
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("sql must not be null", e.getMessage());
+			assertEquals("body must not be null", e.getMessage());
 		}
 		
 		final Properties props = new Properties();

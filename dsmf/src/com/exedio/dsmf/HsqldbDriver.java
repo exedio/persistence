@@ -133,7 +133,7 @@ public final class HsqldbDriver extends Driver
 	}
 
 	@Override
-	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -146,7 +146,7 @@ public final class HsqldbDriver extends Driver
 	}
 
 	@Override
-	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	public String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -159,7 +159,7 @@ public final class HsqldbDriver extends Driver
 	}
 
 	@Override
-	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	public String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		throw new RuntimeException("not implemented");
 	}

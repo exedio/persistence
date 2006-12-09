@@ -144,7 +144,7 @@ public final class PostgresqlDriver extends Driver
 	
 	// same as oracle
 	@Override
-	String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	public String getRenameColumnStatement(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -158,7 +158,7 @@ public final class PostgresqlDriver extends Driver
 
 	// same as hsqldb
 	@Override
-	String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
+	public String getCreateColumnStatement(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -172,7 +172,7 @@ public final class PostgresqlDriver extends Driver
 
 	// same as oracle
 	@Override
-	String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
+	public String getModifyColumnStatement(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -183,5 +183,4 @@ public final class PostgresqlDriver extends Driver
 			append(newColumnType);
 		return bf.toString();
 	}
-	
 }
