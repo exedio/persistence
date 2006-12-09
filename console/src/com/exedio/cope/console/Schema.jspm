@@ -362,14 +362,6 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		<script src="<%=ConsoleServlet.reportScript.url(request)%>" type="text/javascript"></script><%
 	}
 	
-	final static void writeDone(final PrintStream out, final long startTime)
-		throws IOException
-	{
-		final long endTime = System.currentTimeMillis();
-		%><li class="timelog">ok, <%=endTime-startTime%>ms.</li><%
-		out.flush();
-	}
-	
 	final static void writeDoneCheck(final PrintStream out, final long startTime, final int count)
 		throws IOException
 	{
@@ -403,95 +395,6 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		out.flush();
 	}
 	
-	final static void writeDrop(final PrintStream out, final Constraint constraint)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
-			constraint.getName()%></b>&quot;).drop();</li><%
-	}
-
-	final static void writeDrop(final PrintStream out, final Column column)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
-			column.getName()%></b>&quot;).drop();</li><%
-	}
-
-	final static void writeDrop(final PrintStream out, final Table table)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			table.getName()%></b>&quot;).drop();</li><%
-	}
-
-	final static void writeRename(final PrintStream out, final Table table, final String targetName)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			table.getName()%></b>&quot;).renameTo(&quot;<%=
-			targetName%>&quot;);</li><%
-	}
-
-	final static void writeModify(final PrintStream out, final Column column, final String targetType)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
-			column.getName()%></b>&quot;).modify(&quot;<b><%=
-			targetType%></b>&quot;);</li><%
-	}
-
-	final static void writeRename(final PrintStream out, final Column column, final String targetName)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
-			column.getName()%></b>&quot;).renameTo(&quot;<b><%=
-			targetName%></b>&quot;);</li><%
-	}
-
-	final static void writeCreate(final PrintStream out, final Table table)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			table.getName()%></b>&quot;).create();</li><%
-	}
-
-	final static void writeAnalyze(final PrintStream out, final Table table)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			table.getName()%></b>&quot;).analyze();</li><%
-	}
-	
-	final static void writeCreate(final PrintStream out, final Column column)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			column.getTable().getName()%></b>&quot;).getColumn(&quot;<b><%=
-			column.getName()%></b>&quot;).create();</li><%
-	}
-
-	final static void writeCreate(final PrintStream out, final Constraint constraint)
-		throws IOException
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
-			constraint.getName()%></b>&quot;).create();</li><%
-	}
-
 	final static void writeCheck(final PrintStream out, final Constraint constraint)
 		throws IOException
 	{
@@ -501,6 +404,5 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			constraint.getName()%></b>&quot;).check(); // <%=
 			constraint.getRequiredCondition()%></li><%
 	}
-
 }
 %>

@@ -28,6 +28,7 @@ import com.exedio.cope.Model;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.StatementListener;
 import com.exedio.dsmf.Table;
 
 
@@ -170,6 +171,27 @@ final class SchemaCop extends ConsoleCop
 			throws IOException
 	{
 		final Schema schema = model.getVerifiedSchema();
+		final StatementListener listener = new StatementListener()
+		{
+			long beforeExecuteTime = Long.MIN_VALUE;
+			
+			public void beforeExecute(final String statement)
+			{
+				out.print("\n\t\t<li>");
+				out.print(statement);
+				out.print("</li>");
+				out.flush();
+				beforeExecuteTime = System.currentTimeMillis();
+			}
+			
+			public void afterExecute(final String statement, final int rows)
+			{
+				final long time = System.currentTimeMillis()-beforeExecuteTime;
+				out.print("\n\t\t<li class=\"timelog\">");
+				out.print(time);
+				out.print("ms</li>");
+			}
+		};
 		{
 			final String[] dropConstraints = (String[]) request.getParameterMap().get(DROP_CONSTRAINT);
 			if (dropConstraints != null)
@@ -178,11 +200,7 @@ final class SchemaCop extends ConsoleCop
 				{
 					final String dropConstraint = dropConstraints[i];
 					final Constraint constraint = getConstraint(schema, dropConstraint);
-					Schema_Jspm.writeDrop(out, constraint);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					constraint.drop();
-					Schema_Jspm.writeDone(out, startTime);
+					constraint.drop(listener);
 				}
 			}
 		}
@@ -195,11 +213,7 @@ final class SchemaCop extends ConsoleCop
 				{
 					final String dropColumn = dropColumns[i];
 					final Column column = getColumn(schema, dropColumn);
-					Schema_Jspm.writeDrop(out, column);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					column.drop();
-					Schema_Jspm.writeDone(out, startTime);
+					column.drop(listener);
 				}
 			}
 		}
@@ -214,11 +228,7 @@ final class SchemaCop extends ConsoleCop
 					final Table table = schema.getTable(dropTable);
 					if (table == null)
 						throw new RuntimeException(dropTable);
-					Schema_Jspm.writeDrop(out, table);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					table.drop();
-					Schema_Jspm.writeDone(out, startTime);
+					table.drop(listener);
 				}
 			}
 		}
@@ -240,11 +250,7 @@ final class SchemaCop extends ConsoleCop
 				if (table == null)
 					throw new RuntimeException(sourceName);
 
-				Schema_Jspm.writeRename(out, table, targetName);
-				out.flush();
-				final long startTime = System.currentTimeMillis();
-				table.renameTo(targetName);
-				Schema_Jspm.writeDone(out, startTime);
+				table.renameTo(targetName, listener);
 			}
 		}
 		{
@@ -266,11 +272,7 @@ final class SchemaCop extends ConsoleCop
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
-				Schema_Jspm.writeModify(out, column, targetType);
-				out.flush();
-				final long startTime = System.currentTimeMillis();
-				column.modify(targetType);
-				Schema_Jspm.writeDone(out, startTime);
+				column.modify(targetType, listener);
 			}
 		}
 		{
@@ -292,11 +294,7 @@ final class SchemaCop extends ConsoleCop
 				if (column == null)
 					throw new RuntimeException(sourceName);
 
-				Schema_Jspm.writeRename(out, column, targetName);
-				out.flush();
-				final long startTime = System.currentTimeMillis();
-				column.renameTo(targetName);
-				Schema_Jspm.writeDone(out, startTime);
+				column.renameTo(targetName, listener);
 			}
 		}
 		{
@@ -311,11 +309,7 @@ final class SchemaCop extends ConsoleCop
 					if (table == null)
 						throw new RuntimeException(createTable);
 
-					Schema_Jspm.writeCreate(out, table);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					table.create();
-					Schema_Jspm.writeDone(out, startTime);
+					table.create(listener);
 				}
 			}
 		}
@@ -330,11 +324,7 @@ final class SchemaCop extends ConsoleCop
 					final Table table = schema.getTable(analyzeTable);
 					if (table == null)
 						throw new RuntimeException(analyzeTable);
-					Schema_Jspm.writeAnalyze(out, table);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					table.analyze();
-					Schema_Jspm.writeDone(out, startTime);
+					table.analyze(listener);
 				}
 			}
 		}
@@ -347,11 +337,7 @@ final class SchemaCop extends ConsoleCop
 				{
 					final String createColumn = createColumns[i];
 					final Column column = getColumn(schema, createColumn);
-					Schema_Jspm.writeCreate(out, column);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					column.create();
-					Schema_Jspm.writeDone(out, startTime);
+					column.create(listener);
 				}
 			}
 		}
@@ -363,11 +349,7 @@ final class SchemaCop extends ConsoleCop
 				{
 					final String createConstraint = createConstraints[i];
 					final Constraint constraint = getConstraint(schema, createConstraint);
-					Schema_Jspm.writeCreate(out, constraint);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					constraint.create();
-					Schema_Jspm.writeDone(out, startTime);
+					constraint.create(listener);
 				}
 			}
 		}

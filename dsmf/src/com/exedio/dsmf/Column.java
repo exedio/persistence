@@ -136,15 +136,25 @@ public final class Column extends Node
 		
 	public final void create()
 	{
+		create(null);
+	}
+	
+	public final void create(final StatementListener listener)
+	{
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
 			driver.createColumn(
 				protectName(table.name),
 				protectName(name),
-				getType()));
+				getType()), listener);
 	}
 
 	public final void renameTo(final String newName)
+	{
+		renameTo(newName, null);
+	}
+	
+	public final void renameTo(final String newName, final StatementListener listener)
 	{
 		//System.err.println("renameColumn:"+bf);
 		executeSQL(
@@ -152,19 +162,29 @@ public final class Column extends Node
 				protectName(table.name),
 				protectName(name),
 				protectName(newName),
-				existingType));
+				existingType), listener);
 	}
 	
 	public final void modify(final String newType)
+	{
+		modify(newType, null);
+	}
+	
+	public final void modify(final String newType, final StatementListener listener)
 	{
 		executeSQL(
 			driver.modifyColumn(
 				protectName(table.name),
 				protectName(name),
-				newType));
+				newType), listener);
 	}
 
 	public final void drop()
+	{
+		drop(null);
+	}
+	
+	public final void drop(final StatementListener listener)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -173,7 +193,7 @@ public final class Column extends Node
 			append(protectName(name));
 
 		//System.out.println("dropColumn:"+bf);
-		executeSQL(bf.toString());
+		executeSQL(bf.toString(), listener);
 	}
 	
 	@Override

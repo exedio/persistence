@@ -253,6 +253,11 @@ public final class Table extends Node
 	
 	public final void create()
 	{
+		create(null);
+	}
+	
+	public final void create(final StatementListener listener)
+	{
 		final StringBuffer bf = new StringBuffer();
 
 		bf.append("create table ").
@@ -294,7 +299,7 @@ public final class Table extends Node
 		{
 			try
 			{
-				executeSQL(bf.toString());
+				executeSQL(bf.toString(), listener);
 			}
 			catch(SQLRuntimeException e)
 			{
@@ -302,11 +307,16 @@ public final class Table extends Node
 			}
 		}
 		else
-			executeSQL(bf.toString());
+			executeSQL(bf.toString(), listener);
 			
 	}
 	
 	public final void drop()
+	{
+		drop(null);
+	}
+	
+	public final void drop(final StatementListener listener)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("drop table ").
@@ -316,7 +326,7 @@ public final class Table extends Node
 		{
 			try
 			{
-				executeSQL(bf.toString());
+				executeSQL(bf.toString(), listener);
 			}
 			catch(SQLRuntimeException e)
 			{
@@ -324,29 +334,29 @@ public final class Table extends Node
 			}
 		}
 		else
-			executeSQL(bf.toString());
+			executeSQL(bf.toString(), listener);
 
 	}
 	
-	final void createConstraints(final int mask, final boolean secondPhase)
+	final void createConstraints(final int mask, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
 			if(constraint.isSupported() && constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
-				constraint.create();
+				constraint.create(listener);
 		}
 	}
 	
-	final void dropConstraints(final int mask, final boolean secondPhase)
+	final void dropConstraints(final int mask, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
 			if(constraint.isSupported() && constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
-				constraint.drop();
+				constraint.drop(listener);
 		}
 	}
 	
-	final void tearDownConstraints(final int mask, final boolean secondPhase)
+	final void tearDownConstraints(final int mask, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -354,7 +364,7 @@ public final class Table extends Node
 			{
 				try
 				{
-					constraint.drop();
+					constraint.drop(listener);
 				}
 				catch(SQLRuntimeException e2)
 				{
@@ -367,6 +377,11 @@ public final class Table extends Node
 	
 	public final void renameTo(final String newName)
 	{
+		renameTo(newName, null);
+	}
+	
+	public final void renameTo(final String newName, final StatementListener listener)
+	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
 			append(protectName(name)).
@@ -374,10 +389,10 @@ public final class Table extends Node
 			append(protectName(newName));
 
 		//System.out.println("renameTable:"+bf);
-		executeSQL(bf.toString());
+		executeSQL(bf.toString(), listener);
 	}
 
-	public final void analyze()
+	public final void analyze(final StatementListener listener)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("analyze table ").
@@ -385,7 +400,7 @@ public final class Table extends Node
 			append(" compute statistics");
 
 		//System.out.println("analyzeTable:"+bf);
-		executeSQL(bf.toString());
+		executeSQL(bf.toString(), listener);
 	}
 	
 	public final void checkUnsupportedConstraints()

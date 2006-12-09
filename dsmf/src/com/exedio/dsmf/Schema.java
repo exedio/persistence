@@ -93,12 +93,17 @@ public final class Schema extends Node
 	
 	public final void create()
 	{
+		create(null);
+	}
+	
+	public final void create(final StatementListener listener)
+	{
 		//final long time = System.currentTimeMillis();
 		for(final Table t : tableList)
-			t.create();
+			t.create(listener);
 	
 		for(final Table t : tableList)
-			t.createConstraints(Constraint.MASK_ALL, true);
+			t.createConstraints(Constraint.MASK_ALL, true, listener);
 	
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
@@ -107,12 +112,17 @@ public final class Schema extends Node
 
 	public final void drop()
 	{
+		drop(null);
+	}
+	
+	public final void drop(final StatementListener listener)
+	{
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(Constraint.MASK_ALL, true);
+			i.previous().dropConstraints(Constraint.MASK_ALL, true, listener);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().drop();
+			i.previous().drop(listener);
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
@@ -120,11 +130,16 @@ public final class Schema extends Node
 	
 	public final void tearDown()
 	{
+		tearDown(null);
+	}
+	
+	public final void tearDown(final StatementListener listener)
+	{
 		for(final Table table : tableList)
 		{
 			try
 			{
-				table.dropConstraints(Constraint.MASK_ALL, true);
+				table.dropConstraints(Constraint.MASK_ALL, true, listener);
 			}
 			catch(SQLRuntimeException e2)
 			{
@@ -147,7 +162,7 @@ public final class Schema extends Node
 				{
 					final Table table = i.next();
 					//System.err.print("DROPPING TABLE "+table+" ... ");
-					table.drop();
+					table.drop(listener);
 					//System.err.println("done.");
 					// remove the table, so it's not tried again
 					i.remove();
@@ -167,27 +182,42 @@ public final class Schema extends Node
 
 	public final void createConstraints(final int mask)
 	{
+		createConstraints(mask, null);
+	}
+	
+	public final void createConstraints(final int mask, final StatementListener listener)
+	{
 		for(final Table t : tableList)
-			t.createConstraints(mask, false);
+			t.createConstraints(mask, false, listener);
 		for(final Table t : tableList)
-			t.createConstraints(mask, true);
+			t.createConstraints(mask, true, listener);
 	}
 
 	public final void dropConstraints(final int mask)
 	{
+		dropConstraints(mask, null);
+	}
+	
+	public final void dropConstraints(final int mask, final StatementListener listener)
+	{
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(mask, true);
+			i.previous().dropConstraints(mask, true, listener);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(mask, false);
+			i.previous().dropConstraints(mask, false, listener);
 	}
 	
 	public final void tearDownConstraints(final int mask)
 	{
+		tearDownConstraints(mask);
+	}
+	
+	public final void tearDownConstraints(final int mask, final StatementListener listener)
+	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(mask, true);
+			i.previous().tearDownConstraints(mask, true, listener);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(mask, false);
+			i.previous().tearDownConstraints(mask, false, listener);
 	}
 	
 	public final void checkUnsupportedConstraints()

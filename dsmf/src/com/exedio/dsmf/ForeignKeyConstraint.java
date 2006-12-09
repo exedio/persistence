@@ -62,7 +62,7 @@ public class ForeignKeyConstraint extends Constraint
 	}
 	
 	@Override
-	public final void create()
+	public final void create(final StatementListener listener)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -82,13 +82,13 @@ public class ForeignKeyConstraint extends Constraint
 		}
 
 		//System.out.println("createForeignKeyConstraints:"+bf);
-		executeSQL(bf.toString());
+		executeSQL(bf.toString(), listener);
 	}
 	
 	@Override
-	public final void drop()
+	public final void drop(final StatementListener listener)
 	{
-		executeSQL(driver.dropForeignKeyConstraint(table.name, name));
+		executeSQL(driver.dropForeignKeyConstraint(table.name, name), listener);
 	}
 
 	@Override

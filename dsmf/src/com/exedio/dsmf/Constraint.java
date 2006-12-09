@@ -192,8 +192,18 @@ public abstract class Constraint extends Node
 		throw new RuntimeException("no yet implemented"); // TODO
 	}
 	
+	public final void create()
+	{
+		create(null);
+	}
+	
+	public final void drop()
+	{
+		drop(null);
+	}
+	
 	abstract void createInTable(StringBuffer bf);
-	public abstract void create();
-	public abstract void drop();
+	public abstract void create(StatementListener listener);
+	public abstract void drop(StatementListener listener);
 
 }

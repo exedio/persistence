@@ -85,7 +85,7 @@ public class CheckConstraint extends Constraint
 	}
 	
 	@Override
-	public final void create()
+	public final void create(final StatementListener listener)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -96,11 +96,11 @@ public class CheckConstraint extends Constraint
 			append(requiredCondition).
 			append(')');
 
-		executeSQL(bf.toString());
+		executeSQL(bf.toString(), listener);
 	}
 	
 	@Override
-	public final void drop()
+	public final void drop(final StatementListener listener)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
@@ -108,7 +108,7 @@ public class CheckConstraint extends Constraint
 			append(" drop constraint ").
 			append(protectName(name));
 
-		executeSQL(bf.toString());
+		executeSQL(bf.toString(), listener);
 	}
 	
 }
