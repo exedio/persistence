@@ -54,9 +54,10 @@ public final class Model
 
 	// set by connect
 	private Properties propertiesIfConnected;
-	private Object propertiesLock = new Object();
+	private final Object propertiesLock = new Object();
 	private Database databaseIfConnected;
 	private Cache cacheIfConnected;
+	private final Object migrationLock = new Object();
 	private boolean logTransactions = false;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
@@ -292,7 +293,10 @@ public final class Model
 		if(!migration)
 			throw new IllegalArgumentException("not in migration mode");
 		
-		getDatabase().migrate(migrationVersion, migrations);
+		synchronized(migrationLock)
+		{
+			getDatabase().migrate(migrationVersion, migrations);
+		}
 	}
 
 	public Properties getProperties()
