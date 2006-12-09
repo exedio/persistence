@@ -58,9 +58,7 @@ public class MigrationTest extends CopeAssert
 	
 	private void assertSchema(final Schema schema, final boolean model2, final boolean migrated)
 	{
-		final Iterator<Table> tables = schema.getTables().iterator();
-		
-		final Table table = tables.next();
+		final Table table = schema.getTable("MigrationItem");
 		assertEquals("MigrationItem", table.getName());
 		assertEquals(true, table.required());
 		assertEquals(true, table.exists());
@@ -89,11 +87,9 @@ public class MigrationTest extends CopeAssert
 		
 		assertFalse(columns.hasNext());
 		
-		final Table migrationTable = tables.next();
+		final Table migrationTable = schema.getTable("while");
 		assertEquals("while", migrationTable.getName());
 		assertEquals(true, migrationTable.required());
 		assertEquals(true, migrationTable.exists());
-		
-		assertFalse(tables.hasNext());
 	}
 }
