@@ -37,4 +37,10 @@ final class MigrationStep // TODO make public when migration has matured
 		if(sql==null)
 			throw new NullPointerException("sql must not be null");
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "MS" + version + ':' + comment;
+	}
 }

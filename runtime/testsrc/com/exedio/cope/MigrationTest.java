@@ -37,6 +37,8 @@ public class MigrationTest extends CopeAssert
 	
 	public void test()
 	{
+		assertEquals("MS1:add column field2", steps2[0].toString());
+		
 		final Properties props = new Properties();
 		
 		model1.connect(props);
