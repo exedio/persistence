@@ -85,7 +85,7 @@ public class MigrationTest extends CopeAssert
 				// Never do this in real projects,
 				// always use plain string literals
 				// containing the sql statement!
-				new Migration(1, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100)))
+				new Migration(1, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100))),
 			};
 		assertEquals("MS1:add column field2", migrations2[0].toString());
 		
