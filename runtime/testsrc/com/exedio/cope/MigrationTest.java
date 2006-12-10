@@ -22,6 +22,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
+import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
@@ -29,24 +30,13 @@ public class MigrationTest extends CopeAssert
 {
 	private static final Model model1 = new Model(0, MigrationItem1.TYPE);
 	
-	static final Migration[] migrations2 = new Migration[]{
-		new Migration(1, "add column field2", new Migration.Body(){
-			@Override
-			public void execute()
-			{
-				createColumn("MigrationItem", "field2", stringType(100));
-			}
-		})
-	};
-	
 	private static final Model model2 = new Model(1, MigrationItem2.TYPE);
 	
 	public void test()
 	{
-		assertEquals("MS1:add column field2", migrations2[0].toString());
 		try
 		{
-			new Migration(-1, null, null);
+			new Migration(-1, null, (String[])null);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -55,7 +45,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(0, null, null);
+			new Migration(0, null, (String[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -64,12 +54,21 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(0, "some comment", null);
+			new Migration(0, "some comment", (String[])null);
 			fail();
 		}
 		catch(NullPointerException e)
 		{
 			assertEquals("body must not be null", e.getMessage());
+		}
+		try
+		{
+			new Migration(0, "some comment", new String[0]);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("body must not be empty", e.getMessage());
 		}
 		
 		final Properties props = new Properties();
@@ -77,7 +76,19 @@ public class MigrationTest extends CopeAssert
 		model1.connect(props);
 		model1.tearDownDatabase();
 		model1.createDatabase();
+		
+		final Database database = model1.getDatabase();
+		final Driver driver = database.driver;
 
+		final Migration[] migrations2 = new Migration[]{
+				// BEWARE:
+				// Never do this in real projects,
+				// always use plain string literals
+				// containing the sql statement!
+				new Migration(1, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100)))
+			};
+		assertEquals("MS1:add column field2", migrations2[0].toString());
+		
 		assertSchema(model1.getVerifiedSchema(), false, false);
 		model1.disconnect();
 		
