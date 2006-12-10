@@ -396,7 +396,7 @@ public final class Model
 		for(int i = 0; i<types.length; i++)
 			createDataDirectories(types[i]);
 
-		getDatabase().createDatabase();
+		getDatabase().createDatabase(migrationVersion);
 		clearCache();
 	}
 

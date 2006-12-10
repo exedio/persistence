@@ -190,11 +190,54 @@ abstract class Database
 		return new Statement(this, query);
 	}
 	
-	public void createDatabase()
+	public void createDatabase(final int migrationVersion)
 	{
 		buildStage = false;
 		
 		makeSchema().create();
+		
+		if(migration)
+		{
+			final ConnectionPool connectionPool = this.connectionPool;
+			Connection con = null;
+			try
+			{
+				con = connectionPool.getConnection(true);
+				final Statement bf = createStatement();
+				bf.append("insert into ").
+					append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+					append('(').
+					append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
+					append(',').
+					append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).
+					append(")values(").
+					appendParameter(migrationVersion).
+					append(',').
+					appendParameter(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date()) + ":created schema").
+					append(')');
+				
+				executeSQLUpdate(con, bf, 1);
+			}
+			catch(SQLException e)
+			{
+				throw new SQLRuntimeException(e, "migrate");
+			}
+			finally
+			{
+				if(con!=null)
+				{
+					try
+					{
+						connectionPool.putConnection(con);
+						con = null;
+					}
+					catch(SQLException ex)
+					{
+						throw new SQLRuntimeException(ex, "close");
+					}
+				}
+			}
+		}
 	}
 
 	public void createDatabaseConstraints(final int mask)

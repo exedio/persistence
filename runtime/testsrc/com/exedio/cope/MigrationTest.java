@@ -28,9 +28,9 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Model model1 = new Model(0, MigrationItem1.TYPE);
+	private static final Model model1 = new Model(6, MigrationItem1.TYPE);
 	
-	private static final Model model2 = new Model(1, MigrationItem2.TYPE);
+	private static final Model model2 = new Model(7, MigrationItem2.TYPE);
 	
 	public void test()
 	{
@@ -81,13 +81,17 @@ public class MigrationTest extends CopeAssert
 		final Driver driver = database.driver;
 
 		final Migration[] migrations2 = new Migration[]{
+				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
+				new Migration(6, "nonsense", "nonsense statement causing a test failure if executed for version 6"),
 				// BEWARE:
 				// Never do this in real projects,
 				// always use plain string literals
 				// containing the sql statement!
-				new Migration(1, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100))),
+				new Migration(7, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100))),
+				new Migration(8, "nonsense", "nonsense statement causing a test failure if executed for version 8"),
+				new Migration(9, "nonsense", "nonsense statement causing a test failure if executed for version 9"),
 			};
-		assertEquals("MS1:add column field2", migrations2[0].toString());
+		assertEquals("MS7:add column field2", migrations2[2].toString());
 		
 		assertSchema(model1.getVerifiedSchema(), false, false);
 		model1.disconnect();
