@@ -27,7 +27,7 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Model model1 = new Model(0, null, MigrationItem1.TYPE);
+	private static final Model model1 = new Model(0, MigrationItem1.TYPE);
 	
 	static final Migration[] migrations2 = new Migration[]{
 		new Migration(1, "add column field2", new Migration.Body(){
@@ -39,7 +39,7 @@ public class MigrationTest extends CopeAssert
 		})
 	};
 	
-	private static final Model model2 = new Model(1, migrations2, MigrationItem2.TYPE);
+	private static final Model model2 = new Model(1, MigrationItem2.TYPE);
 	
 	public void test()
 	{
@@ -84,12 +84,12 @@ public class MigrationTest extends CopeAssert
 		model2.connect(props);
 		assertSchema(model2.getVerifiedSchema(), true, false);
 		
-		model2.migrate();
+		model2.migrate(migrations2);
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
 		// test, that MigrationStep is not executed again,
 		// causing a SQLException because column does already exist
-		model2.migrate();
+		model2.migrate(migrations2);
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
 		model2.tearDownDatabase();
