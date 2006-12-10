@@ -1822,7 +1822,7 @@ abstract class Database
 						if(missing==null)
 							missing = new IntArrayList();
 						
-						missing.add(i - actualVersion + 1);
+						missing.add(i + actualVersion + 1);
 					}
 				}
 				if(missing!=null)
@@ -1837,7 +1837,16 @@ abstract class Database
 					final String[] body = migration.body;
 					final IntArrayList rowCounts = new IntArrayList(body.length);
 					for(final String sql : body)
-						rowCounts.add(stmt.executeUpdate(sql));
+					{
+						try
+						{
+							rowCounts.add(stmt.executeUpdate(sql));
+						}
+						catch(SQLException e)
+						{
+							throw new SQLRuntimeException(e, sql);
+						}
+					}
 					
 					notifyMigration(con, migration.version, date, migration.comment + ' ' + rowCounts);
 				}

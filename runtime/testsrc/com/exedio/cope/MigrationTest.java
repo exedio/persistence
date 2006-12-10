@@ -98,6 +98,34 @@ public class MigrationTest extends CopeAssert
 		
 		model2.connect(props);
 		assertSchema(model2.getVerifiedSchema(), true, false);
+
+		try
+		{
+			model2.migrate(new Migration[]{
+					new Migration(6, "nonsense6", "nonsense statement causing a test failure if executed for version 6"),
+					new Migration(8, "nonsense8", "nonsense statement causing a test failure if executed for version 8"),
+				});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("no migration for versions [7] on migration from 6 to 7", e.getMessage());
+		}
+		assertSchema(model2.getVerifiedSchema(), true, false);
+		
+		try
+		{
+			model2.migrate(new Migration[]{
+					new Migration(7, "nonsense7a", "nonsense statement causing a test failure if executed for version 7a"),
+					new Migration(7, "nonsense7b", "nonsense statement causing a test failure if executed for version 7b"),
+				});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("there is more than one migration for version 7: nonsense7a and nonsense7b", e.getMessage());
+		}
+		assertSchema(model2.getVerifiedSchema(), true, false);
 		
 		model2.migrate(migrations2);
 		assertSchema(model2.getVerifiedSchema(), true, true);
