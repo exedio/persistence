@@ -68,19 +68,19 @@ final class OracleDatabase extends Database
 	}
 	
 	@Override
-	public String getIntegerType(final long minimum, final long maximum)
+	String getIntegerType(final long minimum, final long maximum)
 	{
 		return "NUMBER(" + ((minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? 10 : 20) + ')'; // TODO do this more precisely
 	}
 
 	@Override
-	public String getDoubleType()
+	String getDoubleType()
 	{
 		return "NUMBER(30,8)";
 	}
 
 	@Override
-	public String getStringType(final int maxLength)
+	String getStringType(final int maxLength)
 	{
 		if(maxLength<=varcharLength)
 			return (varchar?"VARCHAR2(":"NVARCHAR2(")+maxLength+")";
@@ -89,19 +89,19 @@ final class OracleDatabase extends Database
 	}
 	
 	@Override
-	public String getDayType()
+	String getDayType()
 	{
 		return "DATE";
 	}
 	
 	@Override
-	public String getDateTimestampType()
+	String getDateTimestampType()
 	{
 		return "TIMESTAMP(3)";
 	}
 	
 	@Override
-	public String getBlobType(final long maximumLength)
+	String getBlobType(final long maximumLength)
 	{
 		return "BLOB";
 	}
@@ -151,13 +151,13 @@ final class OracleDatabase extends Database
 	}
 	
 	@Override
-	public boolean supportsEmptyStrings()
+	boolean supportsEmptyStrings()
 	{
 		return false;
 	}
 
 	@Override
-	public boolean supportsGetBytes()
+	boolean supportsGetBytes()
 	{
 		return false;
 	}
@@ -184,13 +184,13 @@ final class OracleDatabase extends Database
 	}
 
 	@Override
-	public boolean isDefiningColumnTypes()
+	boolean isDefiningColumnTypes()
 	{
 		return true;
 	}
 	
 	@Override
-	public void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
+	void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
 			throws SQLException
 	{
 		//System.out.println("defineColumnTypes: "+columnTypes);
@@ -412,5 +412,4 @@ final class OracleDatabase extends Database
 		}
 		
 	}
-	
 }

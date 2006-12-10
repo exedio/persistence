@@ -44,44 +44,44 @@ final class HsqldbDatabase extends Database
 	}
 
 	@Override
-	public String getIntegerType(final long minimum, final long maximum)
+	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
 	}
 
 	@Override
-	public String getDoubleType()
+	String getDoubleType()
 	{
 		return "double";
 	}
 
 	@Override
-	public String getStringType(final int maxLength)
+	String getStringType(final int maxLength)
 	{
 		return "varchar("+maxLength+")";
 	}
 	
 	@Override
-	public String getDayType()
+	String getDayType()
 	{
 		return "date";
 	}
 	
 	@Override
-	public String getDateTimestampType()
+	String getDateTimestampType()
 	{
 		return "timestamp";
 	}
 
 	@Override
-	public String getBlobType(final long maximumLength)
+	String getBlobType(final long maximumLength)
 	{
 		return "binary";
 	}
 	
 	@Override
-	public int getBlobLengthFactor()
+	int getBlobLengthFactor()
 	{
 		return 2;
 	}
@@ -117,7 +117,7 @@ final class HsqldbDatabase extends Database
 	}
 	
 	@Override
-	public boolean fakesSupportReadCommitted()
+	boolean fakesSupportReadCommitted()
 	{
 		return true;
 	}
@@ -145,5 +145,4 @@ final class HsqldbDatabase extends Database
 	{
 		return extractConstraintName(e, -104, "Unique constraint violation: ");
 	}
-
 }

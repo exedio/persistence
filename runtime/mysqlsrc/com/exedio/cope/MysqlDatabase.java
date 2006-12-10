@@ -32,7 +32,7 @@ import com.mysql.jdbc.Driver;
  * since cope heavily depends on foreign key constraints.
  * @author Ralf Wiebicke
  */
-public final class MysqlDatabase extends Database
+final class MysqlDatabase extends Database
 {
 	static
 	{
@@ -61,20 +61,20 @@ public final class MysqlDatabase extends Database
 	}
 
 	@Override
-	public String getIntegerType(final long minimum, final long maximum)
+	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
 	}
 
 	@Override
-	public String getDoubleType()
+	String getDoubleType()
 	{
 		return "double";
 	}
 
 	@Override
-	public String getStringType(final int maxLength)
+	String getStringType(final int maxLength)
 	{
 		assert TWOPOW8==256;
 		assert TWOPOW16==65536;
@@ -97,13 +97,13 @@ public final class MysqlDatabase extends Database
 	}
 	
 	@Override
-	public String getDayType()
+	String getDayType()
 	{
 		return "DATE";
 	}
 	
 	@Override
-	public String getDateTimestampType()
+	String getDateTimestampType()
 	{
 		// TODO
 		// would require type "timestamp(14,3) null default null"
@@ -115,7 +115,7 @@ public final class MysqlDatabase extends Database
 	}
 	
 	@Override
-	public String getBlobType(final long maximumLength)
+	String getBlobType(final long maximumLength)
 	{
 		if(maximumLength<TWOPOW8)
 			return "TINYBLOB";
@@ -251,5 +251,4 @@ public final class MysqlDatabase extends Database
 		
 		return root;
 	}
-
 }

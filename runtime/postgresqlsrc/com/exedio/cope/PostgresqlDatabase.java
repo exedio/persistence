@@ -58,43 +58,43 @@ final class PostgresqlDatabase extends Database
 	}
 
 	@Override
-	public String getIntegerType(final long minimum, final long maximum)
+	String getIntegerType(final long minimum, final long maximum)
 	{
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "INTEGER" : "BIGINT"; // TODO: smallint
 	}
 
 	@Override
-	public String getDoubleType()
+	String getDoubleType()
 	{
 		return "DOUBLE PRECISION";
 	}
 
 	@Override
-	public String getStringType(final int maxLength)
+	String getStringType(final int maxLength)
 	{
 		return (maxLength>10485760) ? "TEXT" : "VARCHAR("+maxLength+')'; // in postgres varchar cannot be longer
 	}
 	
 	@Override
-	public String getDayType()
+	String getDayType()
 	{
 		return "DATE";
 	}
 	
 	@Override
-	public String getDateTimestampType()
+	String getDateTimestampType()
 	{
 		return "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field
 	}
 
 	@Override
-	public String getBlobType(final long maximumLength)
+	String getBlobType(final long maximumLength)
 	{
 		return (maximumLength<Integer.MAX_VALUE) ? "bytea" : null;
 	}
 	
 	@Override
-	public boolean supportsBlobInResultSet()
+	boolean supportsBlobInResultSet()
 	{
 		return false;
 	}
@@ -174,5 +174,4 @@ final class PostgresqlDatabase extends Database
 	{
 		return extractConstraintName(e, "23505", 0);
 	}
-
 }

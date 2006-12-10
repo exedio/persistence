@@ -143,29 +143,29 @@ abstract class Database
 		}
 	}
 	
-	public final Driver getDriver()
+	final Driver getDriver()
 	{
 		return driver;
 	}
 	
-	public final java.util.Properties getTableOptions()
+	final java.util.Properties getTableOptions()
 	{
 		return tableOptions;
 	}
 	
-	public final ConnectionPool getConnectionPool()
+	final ConnectionPool getConnectionPool()
 	{
 		return connectionPool;
 	}
 	
-	public final void addTable(final Table table)
+	final void addTable(final Table table)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
 		tables.add(table);
 	}
 	
-	public final void addUniqueConstraint(final String constraintID, final UniqueConstraint constraint)
+	final void addUniqueConstraint(final String constraintID, final UniqueConstraint constraint)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
@@ -190,7 +190,7 @@ abstract class Database
 		return new Statement(this, query);
 	}
 	
-	public void createDatabase(final int migrationVersion)
+	final void createDatabase(final int migrationVersion)
 	{
 		buildStage = false;
 		
@@ -240,7 +240,7 @@ abstract class Database
 		}
 	}
 
-	public void createDatabaseConstraints(final int mask)
+	final void createDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 		
@@ -249,7 +249,7 @@ abstract class Database
 
 	//private static int checkTableTime = 0;
 
-	public void checkDatabase(final Connection connection)
+	final void checkDatabase(final Connection connection)
 	{
 		buildStage = false;
 
@@ -327,35 +327,35 @@ abstract class Database
 		}
 	}
 
-	public void dropDatabase()
+	final void dropDatabase()
 	{
 		buildStage = false;
 
 		makeSchema().drop();
 	}
 	
-	public void dropDatabaseConstraints(final int mask)
+	final void dropDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 
 		makeSchema().dropConstraints(mask);
 	}
 	
-	public void tearDownDatabase()
+	final void tearDownDatabase()
 	{
 		buildStage = false;
 
 		makeSchema().tearDown();
 	}
 
-	public void tearDownDatabaseConstraints(final int mask)
+	final void tearDownDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 
 		makeSchema().tearDownConstraints(mask);
 	}
 	
-	public void checkEmptyDatabase(final Connection connection)
+	final void checkEmptyDatabase(final Connection connection)
 	{
 		buildStage = false;
 
@@ -371,7 +371,7 @@ abstract class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	public final ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly)
+	final ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly)
 	{
 		buildStage = false;
 
@@ -699,7 +699,7 @@ abstract class Database
 		System.out.println(df.format(new Date(start)) + "  " + (end-start) + "ms:  " + statement.getText()+"   "+statement.parameters);
 	}
 	
-	public void load(final Connection connection, final PersistentState state)
+	final void load(final Connection connection, final PersistentState state)
 	{
 		buildStage = false;
 
@@ -762,7 +762,7 @@ abstract class Database
 		executeSQLQuery(connection, bf, state, false, false);
 	}
 
-	public void store(
+	final void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
@@ -878,7 +878,7 @@ abstract class Database
 		executeSQLUpdate(connection, bf, 1, type.declaredUniqueConstraints);
 	}
 
-	public void delete(final Connection connection, final Item item)
+	final void delete(final Connection connection, final Item item)
 	{
 		buildStage = false;
 		final Type type = item.type;
@@ -901,7 +901,7 @@ abstract class Database
 		}
 	}
 
-	public final byte[] load(final Connection connection, final BlobColumn column, final Item item)
+	final byte[] load(final Connection connection, final BlobColumn column, final Item item)
 	{
 		// TODO reuse code in load blob methods
 		buildStage = false;
@@ -951,7 +951,7 @@ abstract class Database
 		}
 	}
 	
-	public final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField field)
+	final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField field)
 	{
 		buildStage = false;
 
@@ -1034,7 +1034,7 @@ abstract class Database
 		}, false, false);
 	}
 	
-	public final long loadLength(final Connection connection, final BlobColumn column, final Item item)
+	final long loadLength(final Connection connection, final BlobColumn column, final Item item)
 	{
 		buildStage = false;
 
@@ -1082,7 +1082,7 @@ abstract class Database
 		}
 	}
 	
-	public final void store(
+	final void store(
 			final Connection connection, final BlobColumn column, final Item item,
 			final InputStream data, final DataField field)
 		throws IOException
@@ -1455,12 +1455,12 @@ abstract class Database
 		return result.toString();
 	}
 	
-	public String makeName(final String longName)
+	final String makeName(final String longName)
 	{
 		return makeName(null, longName);
 	}
 
-	public String makeName(final String prefix, final String longName)
+	final String makeName(final String prefix, final String longName)
 	{
 		final String query = prefix==null ? longName : prefix+'.'+longName;
 		final String forcedName = forcedNames.getProperty(query);
@@ -1471,22 +1471,22 @@ abstract class Database
 		return trimString(longName, 25);
 	}
 
-	public boolean supportsGetBytes()
+	boolean supportsGetBytes()
 	{
 		return true;
 	}
 
-	public boolean supportsBlobInResultSet()
+	boolean supportsBlobInResultSet()
 	{
 		return true;
 	}
 
-	public boolean supportsEmptyStrings()
+	boolean supportsEmptyStrings()
 	{
 		return true;
 	}
 
-	public boolean fakesSupportReadCommitted()
+	boolean fakesSupportReadCommitted()
 	{
 		return false;
 	}
@@ -1495,7 +1495,7 @@ abstract class Database
 	 * Specifies the factor,
 	 * the length function of blob columns is wrong.
 	 */
-	public int getBlobLengthFactor()
+	int getBlobLengthFactor()
 	{
 		return 1;
 	}
@@ -1512,10 +1512,10 @@ abstract class Database
 		return false;
 	}
 
-	public abstract String getIntegerType(long minimum, long maximum);
-	public abstract String getDoubleType();
-	public abstract String getStringType(int maxLength);
-	public abstract String getDayType();
+	abstract String getIntegerType(long minimum, long maximum);
+	abstract String getDoubleType();
+	abstract String getStringType(int maxLength);
+	abstract String getDayType();
 	
 	/**
 	 * Returns a column type suitable for storing timestamps
@@ -1524,8 +1524,8 @@ abstract class Database
 	 * if the database does not support such a column type.
 	 * The framework will then fall back to store the number of milliseconds.
 	 */
-	public abstract String getDateTimestampType();
-	public abstract String getBlobType(long maximumLength);
+	abstract String getDateTimestampType();
+	abstract String getBlobType(long maximumLength);
 	
 	abstract LimitSupport getLimitSupport();
 	
@@ -1562,7 +1562,7 @@ abstract class Database
 	/**
 	 * Search full text.
 	 */
-	public final void appendMatchClause(final Statement bf, final StringFunction function, final String value)
+	final void appendMatchClause(final Statement bf, final StringFunction function, final String value)
 	{
 		if(fulltextIndex)
 			appendMatchClauseFullTextIndex(bf, function, value);
@@ -1602,12 +1602,12 @@ abstract class Database
 	}
 
 
-	public final PkSource makePkSource(final Table table)
+	final PkSource makePkSource(final Table table)
 	{
 		return butterflyPkSource ? (PkSource)new ButterflyPkSource(table) : new SequentialPkSource(table);
 	}
 	
-	public final int[] getMinMaxPK(final Connection connection, final Table table)
+	final int[] getMinMaxPK(final Connection connection, final Table table)
 	{
 		buildStage = false;
 
@@ -1719,7 +1719,7 @@ abstract class Database
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
 	private static final String MIGRATION_COLUMN_COMMENT_NAME = "c";
 	
-	public final Schema makeSchema()
+	final Schema makeSchema()
 	{
 		final Schema result = new Schema(driver, connectionPool);
 		for(final Table t : tables)
@@ -1742,7 +1742,7 @@ abstract class Database
 		// empty default implementation
 	}
 	
-	public final Schema makeVerifiedSchema()
+	final Schema makeVerifiedSchema()
 	{
 		final Schema result = makeSchema();
 		result.verify();
@@ -1935,12 +1935,12 @@ abstract class Database
 		}
 	};
 	
-	public boolean isDefiningColumnTypes()
+	boolean isDefiningColumnTypes()
 	{
 		return false;
 	}
 	
-	public void defineColumnTypes(IntList columnTypes, java.sql.Statement statement)
+	void defineColumnTypes(IntList columnTypes, java.sql.Statement statement)
 			throws SQLException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
@@ -1966,7 +1966,7 @@ abstract class Database
 	private DatabaseListener listener = noopListener;
 	private final Object listenerLock = new Object();
 	
-	public DatabaseListener setListener(DatabaseListener listener)
+	final DatabaseListener setListener(DatabaseListener listener)
 	{
 		if(listener==null)
 			listener = noopListener;
