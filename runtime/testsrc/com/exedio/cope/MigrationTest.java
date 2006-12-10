@@ -77,22 +77,6 @@ public class MigrationTest extends CopeAssert
 		model1.tearDownDatabase();
 		model1.createDatabase();
 		
-		final Database database = model1.getDatabase();
-		final Driver driver = database.driver;
-
-		final Migration[] migrations2 = new Migration[]{
-				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
-				new Migration(6, "nonsense", "nonsense statement causing a test failure if executed for version 6"),
-				// BEWARE:
-				// Never do this in real projects,
-				// always use plain string literals
-				// containing the sql statement!
-				new Migration(7, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100))),
-				new Migration(8, "nonsense", "nonsense statement causing a test failure if executed for version 8"),
-				new Migration(9, "nonsense", "nonsense statement causing a test failure if executed for version 9"),
-			};
-		assertEquals("MS7:add column field2", migrations2[2].toString());
-		
 		assertSchema(model1.getVerifiedSchema(), false, false);
 		model1.disconnect();
 		
@@ -126,6 +110,21 @@ public class MigrationTest extends CopeAssert
 			assertEquals("there is more than one migration for version 7: nonsense7a and nonsense7b", e.getMessage());
 		}
 		assertSchema(model2.getVerifiedSchema(), true, false);
+		
+		final Database database = model2.getDatabase();
+		final Driver driver = database.driver;
+		final Migration[] migrations2 = new Migration[]{
+				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
+				new Migration(6, "nonsense", "nonsense statement causing a test failure if executed for version 6"),
+				// BEWARE:
+				// Never do this in real projects,
+				// always use plain string literals
+				// containing the sql statement!
+				new Migration(7, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100))),
+				new Migration(8, "nonsense", "nonsense statement causing a test failure if executed for version 8"),
+				new Migration(9, "nonsense", "nonsense statement causing a test failure if executed for version 9"),
+			};
+		assertEquals("MS7:add column field2", migrations2[2].toString());
 		
 		model2.migrate(migrations2);
 		assertSchema(model2.getVerifiedSchema(), true, true);
