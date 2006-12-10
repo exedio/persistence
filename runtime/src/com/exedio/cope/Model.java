@@ -67,7 +67,7 @@ public final class Model
 		this(false, -1, types);
 	}
 	
-	Model(final int migrationVersion, final Type... types) // TODO make public when migration has matured
+	public Model(final int migrationVersion, final Type... types)
 	{
 		this(true, migrationVersion, types);
 	}
@@ -286,7 +286,7 @@ public final class Model
 		}
 	}
 	
-	void migrate(final Migration[] migrations) // TODO make public when migration has matured
+	public void migrate(final Migration[] migrations)
 	{
 		if(!migration)
 			throw new IllegalArgumentException("not in migration mode");
