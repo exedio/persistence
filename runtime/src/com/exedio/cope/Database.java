@@ -203,20 +203,7 @@ abstract class Database
 			try
 			{
 				con = connectionPool.getConnection(true);
-				final Statement bf = createStatement();
-				bf.append("insert into ").
-					append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
-					append('(').
-					append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
-					append(',').
-					append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).
-					append(")values(").
-					appendParameter(migrationVersion).
-					append(',').
-					appendParameter(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date()) + ":created schema").
-					append(')');
-				
-				executeSQLUpdate(con, bf, 1);
+				notifyMigration(con, migrationVersion, new Date(), "created schema");
 			}
 			catch(SQLException e)
 			{
@@ -1775,6 +1762,26 @@ abstract class Database
 		}
 	}
 	
+	private final void notifyMigration(final Connection connection, final int version, final Date date, final String comment)
+	{
+		assert migration;
+
+		final Statement bf = createStatement();
+		bf.append("insert into ").
+			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+			append('(').
+			append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
+			append(',').
+			append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).
+			append(")values(").
+			appendParameter(version).
+			append(',').
+			appendParameter(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':' + comment).
+			append(')');
+		
+		executeSQLUpdate(connection, bf, 1);
+	}
+	
 	final void migrate(final int expectedVersion, final Migration[] migrations)
 	{
 		assert expectedVersion>=0 : expectedVersion;
@@ -1823,7 +1830,7 @@ abstract class Database
 							"no migration for versions " + missing.toString() +
 							" on migration from " + actualVersion + " to " + expectedVersion);
 				
-				final String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date());
+				final Date date = new Date();
 				stmt = con.createStatement();
 				for(final Migration migration : relevant)
 				{
@@ -1832,20 +1839,7 @@ abstract class Database
 					for(final String sql : body)
 						rowCounts.add(stmt.executeUpdate(sql));
 					
-					final Statement bf = createStatement();
-					bf.append("insert into ").
-						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
-						append('(').
-						append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
-						append(',').
-						append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).
-						append(")values(").
-						appendParameter(migration.version).
-						append(',').
-						appendParameter(date + ':' + migration.comment + ' ' + rowCounts).
-						append(')');
-					
-					executeSQLUpdate(con, bf, 1);
+					notifyMigration(con, migration.version, date, migration.comment + ' ' + rowCounts);
 				}
 				stmt.close();
 				stmt = null;
