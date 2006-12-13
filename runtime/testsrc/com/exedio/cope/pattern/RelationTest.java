@@ -31,7 +31,9 @@ public class RelationTest extends AbstractLibTest
 			RelationSelfItem.TYPE,
 			VectorRelationItem.TYPE,
 			RelationSourceItem.TYPE,
-			RelationTargetItem.TYPE);
+			RelationSourceSubItem.TYPE,
+			RelationTargetItem.TYPE,
+			RelationTargetSubItem.TYPE);
 	
 	public RelationTest()
 	{
@@ -88,7 +90,9 @@ public class RelationTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(RelationItem.relation), RelationItem.target.getPatterns());
 		
 		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_SOURCE, RelationSelfItem.relation, Relation.IS_SOURCE|Relation.IS_TARGET), Relation.getRelations(RelationSourceItem.TYPE));
+		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_SOURCE, RelationSelfItem.relation, Relation.IS_SOURCE|Relation.IS_TARGET), Relation.getRelations(RelationSourceSubItem.TYPE));
 		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_TARGET), Relation.getRelations(RelationTargetItem.TYPE));
+		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_TARGET), Relation.getRelations(RelationTargetSubItem.TYPE));
 		assertEqualsUnmodifiable(map(), Relation.getRelations(RelationItem.TYPE));
 		
 		// test persistence

@@ -91,7 +91,9 @@ public class VectorRelationTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(VectorRelationItem.relation), VectorRelationItem.relation.getOrder().getPatterns());
 		
 		assertEqualsUnmodifiable(list(VectorRelationItem.relation), VectorRelation.getRelations(RelationSourceItem.TYPE));
+		assertEqualsUnmodifiable(list(VectorRelationItem.relation), VectorRelation.getRelations(RelationSourceSubItem.TYPE));
 		assertEqualsUnmodifiable(list(), VectorRelation.getRelations(RelationTargetItem.TYPE));
+		assertEqualsUnmodifiable(list(), VectorRelation.getRelations(RelationTargetSubItem.TYPE));
 		assertEqualsUnmodifiable(list(), VectorRelation.getRelations(VectorRelationItem.TYPE));
 		
 		// test persistence
