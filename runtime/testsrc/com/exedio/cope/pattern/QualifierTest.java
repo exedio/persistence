@@ -77,11 +77,7 @@ public class QualifierTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
 				QualifiedEmptyQualifier.qualifier.getFields());
 		
-		assertEqualsUnmodifiable(list(
-				QualifiedEmptyQualifier.qualifier,
-				QualifiedStringQualifier.stringQualifier,
-				QualifiedIntegerEnumQualifier.intEnumQualifier),
-			Qualifier.getQualifiers(QualifiedItem.TYPE));
+		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifier, QualifiedStringQualifier.stringQualifier, QualifiedIntegerEnumQualifier.intEnumQualifier), Qualifier.getQualifiers(QualifiedItem.TYPE));
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE));
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(EmptyItem.TYPE)); // make sure, that key types dont influence the result
 
