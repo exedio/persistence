@@ -89,6 +89,12 @@ public class RelationTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(RelationItem.relation), RelationItem.source.getPatterns());
 		assertEqualsUnmodifiable(list(RelationItem.relation), RelationItem.target.getPatterns());
 		
+		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_SOURCE, RelationSelfItem.relation, Relation.IS_SOURCE|Relation.IS_TARGET), Relation.getDeclaredRelations(RelationSourceItem.TYPE));
+		assertEqualsUnmodifiable(map(), Relation.getDeclaredRelations(RelationSourceSubItem.TYPE));
+		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_TARGET), Relation.getDeclaredRelations(RelationTargetItem.TYPE));
+		assertEqualsUnmodifiable(map(), Relation.getDeclaredRelations(RelationTargetSubItem.TYPE));
+		assertEqualsUnmodifiable(map(), Relation.getDeclaredRelations(RelationItem.TYPE));
+		
 		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_SOURCE, RelationSelfItem.relation, Relation.IS_SOURCE|Relation.IS_TARGET), Relation.getRelations(RelationSourceItem.TYPE));
 		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_SOURCE, RelationSelfItem.relation, Relation.IS_SOURCE|Relation.IS_TARGET), Relation.getRelations(RelationSourceSubItem.TYPE));
 		assertEqualsUnmodifiable(map(RelationItem.relation, Relation.IS_TARGET), Relation.getRelations(RelationTargetItem.TYPE));

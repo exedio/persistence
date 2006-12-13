@@ -239,31 +239,52 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	// static convenience methods ---------------------------------
 	
 	private static final HashMap<Type<?>, Map<Relation, Integer>> cacheForGetRelations = new HashMap<Type<?>, Map<Relation, Integer>>();
+	private static final HashMap<Type<?>, Map<Relation, Integer>> cacheForGetDeclaredRelations = new HashMap<Type<?>, Map<Relation, Integer>>();
 	
 	public static final int IS_SOURCE = 1;
 	public static final int IS_TARGET = 2;
+	
+	/**
+	 * Returns all relations where <tt>type</tt> or any of it's super types is either
+	 * the source type {@link #getSource()}.{@link ItemField#getValueType() getValueType()} or
+	 * the target type {@link #getTarget()}.{@link ItemField#getValueType() getValueType()}.
+	 *
+	 * @see #getDeclaredRelations(Type)
+	 * @see VectorRelation#getRelations(Type)
+	 * @see Qualifier#getQualifiers(Type)
+	 */
+	public static final Map<Relation, Integer> getRelations(final Type<?> type)
+	{
+		return getRelations(false, cacheForGetRelations, type);
+	}
 	
 	/**
 	 * Returns all relations where <tt>type</tt> is either
 	 * the source type {@link #getSource()}.{@link ItemField#getValueType() getValueType()} or
 	 * the target type {@link #getTarget()}.{@link ItemField#getValueType() getValueType()}.
 	 *
-	 * @see VectorRelation#getRelations(Type)
-	 * @see Qualifier#getQualifiers(Type)
+	 * @see #getRelations(Type)
+	 * @see VectorRelation#getDeclaredRelations(Type)
+	 * @see Qualifier#getDeclaredQualifiers(Type)
 	 */
-	public static final Map<Relation, Integer> getRelations(final Type<?> type)
+	public static final Map<Relation, Integer> getDeclaredRelations(final Type<?> type)
 	{
-		synchronized(cacheForGetRelations)
+		return getRelations(true, cacheForGetDeclaredRelations, type);
+	}
+	
+	private static final Map<Relation, Integer> getRelations(final boolean declared, final HashMap<Type<?>, Map<Relation, Integer>> cache, final Type<?> type)
+	{
+		synchronized(cache)
 		{
 			{
-				final Map<Relation, Integer> cachedResult = cacheForGetRelations.get(type);
+				final Map<Relation, Integer> cachedResult = cache.get(type);
 				if(cachedResult!=null)
 					return cachedResult;
 			}
 			
 			final LinkedHashMap<Relation, Integer> resultModifiable = new LinkedHashMap<Relation, Integer>();
 			
-			for(final ItemField<?> ia : type.getReferences())
+			for(final ItemField<?> ia : declared ? type.getDeclaredReferences() : type.getReferences())
 				for(final Pattern pattern : ia.getPatterns())
 				{
 					if(pattern instanceof Relation)
@@ -289,7 +310,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 				!resultModifiable.isEmpty()
 				? Collections.unmodifiableMap(resultModifiable)
 				: Collections.<Relation, Integer>emptyMap();
-			cacheForGetRelations.put(type, result);
+			cache.put(type, result);
 			return result;
 		}
 	}

@@ -78,12 +78,19 @@ public class QualifierTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifiedA, QualifiedEmptyQualifier.qualifiedB),
 				QualifiedEmptyQualifier.qualifier.getFields());
 		
+		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifier, QualifiedStringQualifier.stringQualifier, QualifiedIntegerEnumQualifier.intEnumQualifier), Qualifier.getDeclaredQualifiers(QualifiedItem.TYPE));
+		assertEqualsUnmodifiable(list(), Qualifier.getDeclaredQualifiers(QualifiedSubItem.TYPE));
+		assertEqualsUnmodifiable(list(), Qualifier.getDeclaredQualifiers(QualifiedEmptyQualifier.TYPE));
+		assertEqualsUnmodifiable(list(), Qualifier.getDeclaredQualifiers(EmptyItem.TYPE)); // make sure, that key types dont influence the result
+
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifier, QualifiedStringQualifier.stringQualifier, QualifiedIntegerEnumQualifier.intEnumQualifier), Qualifier.getQualifiers(QualifiedItem.TYPE));
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifier, QualifiedStringQualifier.stringQualifier, QualifiedIntegerEnumQualifier.intEnumQualifier), Qualifier.getQualifiers(QualifiedSubItem.TYPE));
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE));
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(EmptyItem.TYPE)); // make sure, that key types dont influence the result
 
 		// test caching
+		assertSame(Qualifier.getDeclaredQualifiers(QualifiedItem.TYPE), Qualifier.getDeclaredQualifiers(QualifiedItem.TYPE));
+		assertSame(Qualifier.getDeclaredQualifiers(QualifiedEmptyQualifier.TYPE), Qualifier.getDeclaredQualifiers(QualifiedEmptyQualifier.TYPE));
 		assertSame(Qualifier.getQualifiers(QualifiedItem.TYPE), Qualifier.getQualifiers(QualifiedItem.TYPE));
 		assertSame(Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE), Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE));
 		

@@ -164,27 +164,47 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	// static convenience methods ---------------------------------
 	
 	private static final HashMap<Type<?>, List<VectorRelation>> cacheForGetRelations = new HashMap<Type<?>, List<VectorRelation>>();
+	private static final HashMap<Type<?>, List<VectorRelation>> cacheForGetDeclaredRelations = new HashMap<Type<?>, List<VectorRelation>>();
 	
 	/**
-	 * Returns all relations where <tt>type</tt> is
+	 * Returns all relations where <tt>type</tt> or any of it's super types is
 	 * the source type {@link #getSource()}.{@link ItemField#getValueType() getValueType()}.
 	 *
+	 * @see #getDeclaredRelations(Type)
 	 * @see Relation#getRelations(Type)
 	 * @see Qualifier#getQualifiers(Type)
 	 */
 	public static final List<VectorRelation> getRelations(final Type<?> type)
 	{
-		synchronized(cacheForGetRelations)
+		return getRelations(false, cacheForGetRelations, type);
+	}
+	
+	/**
+	 * Returns all relations where <tt>type</tt> is
+	 * the source type {@link #getSource()}.{@link ItemField#getValueType() getValueType()}.
+	 *
+	 * @see #getRelations(Type)
+	 * @see Relation#getDeclaredRelations(Type)
+	 * @see Qualifier#getDeclaredQualifiers(Type)
+	 */
+	public static final List<VectorRelation> getDeclaredRelations(final Type<?> type)
+	{
+		return getRelations(true, cacheForGetDeclaredRelations, type);
+	}
+	
+	private static final List<VectorRelation> getRelations(final boolean declared, final HashMap<Type<?>, List<VectorRelation>> cache, final Type<?> type)
+	{
+		synchronized(cache)
 		{
 			{
-				final List<VectorRelation> cachedResult = cacheForGetRelations.get(type);
+				final List<VectorRelation> cachedResult = cache.get(type);
 				if(cachedResult!=null)
 					return cachedResult;
 			}
 			
 			final ArrayList<VectorRelation> resultModifiable = new ArrayList<VectorRelation>();
 			
-			for(final ItemField<?> ia : type.getReferences())
+			for(final ItemField<?> ia : declared ? type.getDeclaredReferences() : type.getReferences())
 				for(final Pattern pattern : ia.getPatterns())
 				{
 					if(pattern instanceof VectorRelation)
@@ -199,7 +219,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 				!resultModifiable.isEmpty()
 				? Collections.unmodifiableList(resultModifiable)
 				: Collections.<VectorRelation>emptyList();
-			cacheForGetRelations.put(type, result);
+			cache.put(type, result);
 			return result;
 		}
 	}

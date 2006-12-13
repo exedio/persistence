@@ -200,27 +200,47 @@ public final class Qualifier extends Pattern
 	// static convenience methods ---------------------------------
 
 	private static final HashMap<Type<?>, List<Qualifier>> cacheForGetQualifiers = new HashMap<Type<?>, List<Qualifier>>();
+	private static final HashMap<Type<?>, List<Qualifier>> cacheForGetDeclaredQualifiers = new HashMap<Type<?>, List<Qualifier>>();
 	
 	/**
-	 * Returns all qualifiers where <tt>type</tt> is
+	 * Returns all qualifiers where <tt>type</tt> or any of it's super types is
 	 * the parent type {@link #getParent()}.{@link ItemField#getValueType() getValueType()}.
 	 *
+	 * @see #getDeclaredQualifiers(Type)
 	 * @see Relation#getRelations(Type)
 	 * @see VectorRelation#getRelations(Type)
 	 */
 	public static final List<Qualifier> getQualifiers(final Type<?> type)
 	{
-		synchronized(cacheForGetQualifiers)
+		return getQualifiers(false, cacheForGetQualifiers, type);
+	}
+
+	/**
+	 * Returns all qualifiers where <tt>type</tt> is
+	 * the parent type {@link #getParent()}.{@link ItemField#getValueType() getValueType()}.
+	 *
+	 * @see #getQualifiers(Type)
+	 * @see Relation#getDeclaredRelations(Type)
+	 * @see VectorRelation#getDeclaredRelations(Type)
+	 */
+	public static final List<Qualifier> getDeclaredQualifiers(final Type<?> type)
+	{
+		return getQualifiers(true, cacheForGetDeclaredQualifiers, type);
+	}
+	
+	private static final List<Qualifier> getQualifiers(final boolean declared, final HashMap<Type<?>, List<Qualifier>> cache, final Type<?> type)
+	{
+		synchronized(cache)
 		{
 			{
-				final List<Qualifier> cachedResult = cacheForGetQualifiers.get(type);
+				final List<Qualifier> cachedResult = cache.get(type);
 				if(cachedResult!=null)
 					return cachedResult;
 			}
 			
 			final ArrayList<Qualifier> resultModifiable = new ArrayList<Qualifier>();
 			
-			for(final ItemField<?> ia : type.getReferences())
+			for(final ItemField<?> ia : declared ? type.getDeclaredReferences() : type.getReferences())
 				for(final Pattern pattern : ia.getPatterns())
 				{
 					if(pattern instanceof Qualifier)
@@ -236,7 +256,7 @@ public final class Qualifier extends Pattern
 				!resultModifiable.isEmpty()
 				? Collections.unmodifiableList(resultModifiable)
 				: Collections.<Qualifier>emptyList();
-			cacheForGetQualifiers.put(type, result);
+			cache.put(type, result);
 			return result;
 		}
 	}
