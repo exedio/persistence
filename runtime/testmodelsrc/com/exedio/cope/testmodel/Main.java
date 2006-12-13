@@ -37,6 +37,7 @@ public class Main
 		MediaServletItem.TYPE,
 		PlusItem.TYPE,
 		QualifiedItem.TYPE,
+		QualifiedSubItem.TYPE,
 		QualifiedEmptyQualifier.TYPE,
 		QualifiedStringQualifier.TYPE,
 		QualifiedIntegerEnumQualifier.TYPE,

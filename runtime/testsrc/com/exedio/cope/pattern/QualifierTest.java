@@ -20,12 +20,12 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestmodelTest;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -33,6 +33,7 @@ import com.exedio.cope.testmodel.QualifiedEmptyQualifier;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.QualifiedStringQualifier;
+import com.exedio.cope.testmodel.QualifiedSubItem;
 
 public class QualifierTest extends TestmodelTest
 {
@@ -78,6 +79,7 @@ public class QualifierTest extends TestmodelTest
 				QualifiedEmptyQualifier.qualifier.getFields());
 		
 		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifier, QualifiedStringQualifier.stringQualifier, QualifiedIntegerEnumQualifier.intEnumQualifier), Qualifier.getQualifiers(QualifiedItem.TYPE));
+		assertEqualsUnmodifiable(list(QualifiedEmptyQualifier.qualifier, QualifiedStringQualifier.stringQualifier, QualifiedIntegerEnumQualifier.intEnumQualifier), Qualifier.getQualifiers(QualifiedSubItem.TYPE));
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(QualifiedEmptyQualifier.TYPE));
 		assertEqualsUnmodifiable(list(), Qualifier.getQualifiers(EmptyItem.TYPE)); // make sure, that key types dont influence the result
 
