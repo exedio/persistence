@@ -47,7 +47,7 @@ public class FieldSetTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				item.TYPE,
 				item.strings.getRelationType(),
 				item.dates.getRelationType()
@@ -60,18 +60,18 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals(FieldSetItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
 				item.strings,
 				item.dates
 			), item.TYPE.getFeatures());
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				item.strings.getRelationType().getThis(),
 				item.strings.getParent(),
 				item.strings.getElement(),
 				item.strings.getUniqueConstraint()
 			), item.strings.getRelationType().getFeatures());
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				item.dates.getRelationType().getThis(),
 				item.dates.getParent(),
 				item.dates.getElement(),
@@ -87,7 +87,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals(Item.class, item.strings.getRelationType().getJavaClass().getSuperclass());
 		assertEquals(false, item.strings.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.strings.getRelationType().getSupertype());
-		assertEquals(list(), item.strings.getRelationType().getSubTypes());
+		assertEqualsUnmodifiable(list(), item.strings.getRelationType().getSubTypes());
 		assertEquals(false, item.strings.getRelationType().isAbstract());
 		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass().getSuperclass());
 		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
@@ -97,7 +97,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals(Item.class, item.dates.getRelationType().getJavaClass().getSuperclass());
 		assertEquals(false, item.dates.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.dates.getRelationType().getSupertype());
-		assertEquals(list(), item.dates.getRelationType().getSubTypes());
+		assertEqualsUnmodifiable(list(), item.dates.getRelationType().getSubTypes());
 		assertEquals(false, item.dates.getRelationType().isAbstract());
 		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass().getSuperclass());
 		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
@@ -117,8 +117,8 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("element", item.dates.getElement().getName());
 		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
 
-		assertEquals(list(item.strings.getParent(), item.strings.getElement()), item.strings.getUniqueConstraint().getFields());
-		assertEquals(list(item.dates.getParent(), item.dates.getElement()), item.dates.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.strings.getParent(), item.strings.getElement()), item.strings.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.dates.getParent(), item.dates.getElement()), item.dates.getUniqueConstraint().getFields());
 
 		assertTrue(item.strings.getRelationType().isAssignableFrom(item.strings.getRelationType()));
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.dates.getRelationType()));

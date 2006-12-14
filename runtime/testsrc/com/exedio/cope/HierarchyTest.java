@@ -302,7 +302,7 @@ public class HierarchyTest extends AbstractLibTest
 			model.createDatabaseConstraints(Constraint.MASK_CHECK);
 		}
 		
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				HierarchyFirstSub.TYPE,
 				HierarchySecondSub.TYPE,
 				HierarchySuper.TYPE,
@@ -316,7 +316,7 @@ public class HierarchyTest extends AbstractLibTest
 				HierarchySingleSuper.TYPE,
 				HierarchySingleSub.TYPE
 			), model.getTypesSortedByHierarchy());
-		assertEquals(list(
+		assertEqualsUnmodifiable(list(
 				HierarchyFirstSub.TYPE,
 				HierarchySecondSub.TYPE,
 				HierarchySingleSub.TYPE
