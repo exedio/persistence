@@ -154,6 +154,10 @@ public class HierarchyEmptyTest extends AbstractLibTest
 				HierarchyEmptySub.TYPE,
 				HierarchyEmptySuper.TYPE
 			), model.getTypes());
+		assertEqualsUnmodifiable(list(
+				HierarchyEmptySuper.TYPE,
+				HierarchyEmptySub.TYPE
+			), model.getTypesSortedByHierarchy());
 		assertEquals(list(
 				HierarchyEmptySub.TYPE,
 				HierarchyEmptySuper.TYPE

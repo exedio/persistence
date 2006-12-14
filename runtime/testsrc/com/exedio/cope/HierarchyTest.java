@@ -309,6 +309,13 @@ public class HierarchyTest extends AbstractLibTest
 				HierarchySingleSuper.TYPE,
 				HierarchySingleSub.TYPE
 			), model.getTypes());
+		assertEqualsUnmodifiable(list(
+				HierarchySuper.TYPE,
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySingleSuper.TYPE,
+				HierarchySingleSub.TYPE
+			), model.getTypesSortedByHierarchy());
 		assertEquals(list(
 				HierarchyFirstSub.TYPE,
 				HierarchySecondSub.TYPE,

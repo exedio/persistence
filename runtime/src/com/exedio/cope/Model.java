@@ -47,6 +47,7 @@ public final class Model
 	private final Type<?>[] typesSorted;
 	final int concreteTypeCount;
 	private final List<Type<?>> typeList;
+	private final List<Type<?>> typeListSorted;
 	private final List<Type<?>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 	final List<ModificationListener> modificationListeners = Collections.synchronizedList(new ArrayList<ModificationListener>());
@@ -118,6 +119,7 @@ public final class Model
 		this.concreteTypes = concreteTypes.toArray(new Type[concreteTypeCount]);
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		this.typesSorted = typesSorted.toArray(new Type[typesSorted.size()]);
+		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
 		
 		assert this.concreteTypeCount==this.concreteTypes.length;
 		assert this.concreteTypeCount==this.concreteTypeList.size();
@@ -324,6 +326,11 @@ public final class Model
 	public List<Type<?>> getTypes()
 	{
 		return typeList;
+	}
+	
+	public List<Type<?>> getTypesSortedByHierarchy()
+	{
+		return typeListSorted;
 	}
 	
 	public List<Type<?>> getConcreteTypes()

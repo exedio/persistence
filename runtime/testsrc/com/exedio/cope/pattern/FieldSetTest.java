@@ -52,6 +52,11 @@ public class FieldSetTest extends AbstractLibTest
 				item.strings.getRelationType(),
 				item.dates.getRelationType()
 			), model.getTypes());
+		assertEqualsUnmodifiable(list(
+				item.TYPE,
+				item.strings.getRelationType(),
+				item.dates.getRelationType()
+			), model.getTypesSortedByHierarchy());
 		assertEquals(FieldSetItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 

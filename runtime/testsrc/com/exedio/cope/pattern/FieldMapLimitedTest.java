@@ -70,6 +70,7 @@ public class FieldMapLimitedTest extends AbstractLibTest
 				item.TYPE.getFields());
 
 		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
+		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
 
 		// test persistence
 		assertEquals(null, item.getName(DE));
