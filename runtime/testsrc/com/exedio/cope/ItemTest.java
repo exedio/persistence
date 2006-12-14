@@ -36,7 +36,7 @@ public class ItemTest extends TestmodelTest
 	{
 		assertEquals(EmptyItem.TYPE, Type.findByJavaClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, Type.findByJavaClass(EmptyItem2.class));
-		assertEquals(Arrays.asList(modelTypes), model.getTypes());
+		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypes());
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypesSortedByHierarchy());
 		
 		assertNotNull(EmptyItem.TYPE.getPrimaryKeyInfo());
