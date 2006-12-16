@@ -294,4 +294,19 @@ public class DeleteTest extends AbstractLibTest
 		assertSame(item2, searchResult2.iterator().next());
 	}
 
+	/**
+	 * Tests migration on a model not supporting migrations.
+	 */
+	public void testMigrate()
+	{
+		try
+		{
+			model.migrate();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("not in migration mode", e.getMessage());
+		}
+	}
 }
