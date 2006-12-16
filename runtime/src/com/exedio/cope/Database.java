@@ -1765,6 +1765,9 @@ abstract class Database
 	private final void notifyMigration(final Connection connection, final int version, final Date date, final String comment)
 	{
 		assert migration;
+		
+		final String fullComment = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':' + comment;
+		System.out.println("Migrated to version " + version + ':' + fullComment);
 
 		final Statement bf = createStatement();
 		bf.append("insert into ").
@@ -1776,7 +1779,7 @@ abstract class Database
 			append(")values(").
 			appendParameter(version).
 			append(',').
-			appendParameter(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':' + comment).
+			appendParameter(fullComment).
 			append(')');
 		
 		executeSQLUpdate(connection, bf, 1);
