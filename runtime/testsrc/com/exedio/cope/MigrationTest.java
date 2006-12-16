@@ -92,7 +92,7 @@ public class MigrationTest extends CopeAssert
 			});
 		try
 		{
-			model2.migrate();
+			model2.migrateIfSupported();
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -107,7 +107,7 @@ public class MigrationTest extends CopeAssert
 			});
 		try
 		{
-			model2.migrate();
+			model2.migrateIfSupported();
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -132,7 +132,7 @@ public class MigrationTest extends CopeAssert
 		assertEquals("MS7:add column field2", migrations2[2].toString());
 		
 		model2.setMigrations(migrations2);
-		model2.migrate();
+		model2.migrateIfSupported();
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
 		// test, that MigrationStep is not executed again,

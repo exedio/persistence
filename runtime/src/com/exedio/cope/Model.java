@@ -308,6 +308,14 @@ public final class Model
 		}
 	}
 
+	public void migrateIfSupported()
+	{
+		if(!migration)
+			return;
+
+		migrate();
+	}
+	
 	public Properties getProperties()
 	{
 		if(propertiesIfConnected==null)

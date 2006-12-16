@@ -308,5 +308,6 @@ public class DeleteTest extends AbstractLibTest
 		{
 			assertEquals("not in migration mode", e.getMessage());
 		}
+		model.migrateIfSupported();
 	}
 }
