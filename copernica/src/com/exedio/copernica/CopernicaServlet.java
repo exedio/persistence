@@ -174,6 +174,7 @@ public final class CopernicaServlet extends CopsServlet
 			if(providerName==null)
 			{
 				final Model model = ServletUtil.getModel(config);
+				model.migrateIfSupported();
 				return new PureCopernicaProvider(model);
 			}
 			else

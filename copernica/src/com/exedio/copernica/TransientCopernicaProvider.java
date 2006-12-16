@@ -28,10 +28,11 @@ import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.util.ServletUtil;
@@ -42,7 +43,9 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	public void initialize(final ServletConfig config)
 	{
-		ServletUtil.connect(getModel(), config.getServletContext());
+		final Model model = getModel();
+		ServletUtil.connect(model, config.getServletContext());
+		model.migrateIfSupported();
 	}
 	
 	// Transient Languages

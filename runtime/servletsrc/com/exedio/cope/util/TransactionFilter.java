@@ -81,12 +81,25 @@ public final class TransactionFilter implements Filter
 			throw e;
 		}
 	}
+	
+	private volatile boolean migrated = false;
 
 	public void doFilter(
 			final ServletRequest request,
 			final ServletResponse response,
 			final FilterChain chain) throws IOException, ServletException
 	{
+		// This flag is just a small shortcut. No synchronization needed,
+		// because Model#migrate does care about synchronization.
+		if(!migrated)
+		{
+			// Cannot do this in init(), because filters are always initialized on startup.
+			// So the whole application would be useless, if the database schema is not yet created,
+			// including the COPE Console usually used to create the schema.
+			model.migrateIfSupported();
+			migrated = true;
+		}
+		
 		try
 		{
 			model.startTransaction(transactionName);
