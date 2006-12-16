@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-final class Migration // TODO make public when migration has matured
+public final class Migration
 {
 	final int version;
 	final String comment;
 	final String[] body;
 	
-	Migration(final int version, final String comment, final String... body) // TODO make public when migration has matured
+	public Migration(final int version, final String comment, final String... body)
 	{
 		this.version = version;
 		this.comment = comment;
