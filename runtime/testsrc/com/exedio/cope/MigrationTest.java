@@ -32,7 +32,7 @@ public class MigrationTest extends CopeAssert
 	
 	private static final Model model2 = new Model(7, null, MigrationItem2.TYPE);
 	
-	public void test()
+	public void testMigrations()
 	{
 		try
 		{
@@ -70,7 +70,10 @@ public class MigrationTest extends CopeAssert
 		{
 			assertEquals("body must not be empty", e.getMessage());
 		}
+	}
 		
+	public void testMigrate()
+	{
 		final Properties props = new Properties();
 		
 		model1.connect(props);
