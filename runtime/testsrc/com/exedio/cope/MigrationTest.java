@@ -28,9 +28,9 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Model model1 = new Model(6, MigrationItem1.TYPE);
+	private static final Model model1 = new Model(6, null, MigrationItem1.TYPE);
 	
-	private static final Model model2 = new Model(7, MigrationItem2.TYPE);
+	private static final Model model2 = new Model(7, null, MigrationItem2.TYPE);
 	
 	public void test()
 	{
@@ -83,12 +83,13 @@ public class MigrationTest extends CopeAssert
 		model2.connect(props);
 		assertSchema(model2.getVerifiedSchema(), true, false);
 
+		model2.setMigrations(new Migration[]{
+				new Migration(6, "nonsense6", "nonsense statement causing a test failure if executed for version 6"),
+				new Migration(8, "nonsense8", "nonsense statement causing a test failure if executed for version 8"),
+			});
 		try
 		{
-			model2.migrate(new Migration[]{
-					new Migration(6, "nonsense6", "nonsense statement causing a test failure if executed for version 6"),
-					new Migration(8, "nonsense8", "nonsense statement causing a test failure if executed for version 8"),
-				});
+			model2.migrate();
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -97,12 +98,13 @@ public class MigrationTest extends CopeAssert
 		}
 		assertSchema(model2.getVerifiedSchema(), true, false);
 		
+		model2.setMigrations(new Migration[]{
+				new Migration(7, "nonsense7a", "nonsense statement causing a test failure if executed for version 7a"),
+				new Migration(7, "nonsense7b", "nonsense statement causing a test failure if executed for version 7b"),
+			});
 		try
 		{
-			model2.migrate(new Migration[]{
-					new Migration(7, "nonsense7a", "nonsense statement causing a test failure if executed for version 7a"),
-					new Migration(7, "nonsense7b", "nonsense statement causing a test failure if executed for version 7b"),
-				});
+			model2.migrate();
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -126,12 +128,13 @@ public class MigrationTest extends CopeAssert
 			};
 		assertEquals("MS7:add column field2", migrations2[2].toString());
 		
-		model2.migrate(migrations2);
+		model2.setMigrations(migrations2);
+		model2.migrate();
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
 		// test, that MigrationStep is not executed again,
 		// causing a SQLException because column does already exist
-		model2.migrate(migrations2);
+		model2.migrate();
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
 		model2.tearDownDatabase();
