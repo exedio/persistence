@@ -153,11 +153,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new RuntimeException("property " + key + " in " + getSource() + " not set.");
 	}
 	
-	Database createDatabase(final boolean migration)
+	Database createDatabase(final boolean migrationSupported)
 	{
 		try
 		{
-			return database.newInstance(new Object[]{this, migration});
+			return database.newInstance(new Object[]{this, migrationSupported});
 		}
 		catch(InstantiationException e)
 		{

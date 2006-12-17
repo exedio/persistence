@@ -39,7 +39,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
-	private final boolean migration;
+	private final boolean migrationSupported;
 	private final int migrationVersion;
 	private Migration[] migrations;
 	
@@ -100,9 +100,9 @@ public final class Model
 		this(true, migrationVersion, checkMigrations(migrations), types);
 	}
 	
-	private Model(final boolean migration, final int migrationVersion, final Migration[] migrations, final Type... types)
+	private Model(final boolean migrationSupported, final int migrationVersion, final Migration[] migrations, final Type... types)
 	{
-		this.migration = migration;
+		this.migrationSupported = migrationSupported;
 		this.migrationVersion = migrationVersion;
 		this.migrations = migrations;
 		
@@ -260,7 +260,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				this.propertiesIfConnected = properties;
-				this.databaseIfConnected = properties.createDatabase(migration);
+				this.databaseIfConnected = properties.createDatabase(migrationSupported);
 				
 				for(final Type type : typesSorted)
 					type.connect(databaseIfConnected);
@@ -318,12 +318,12 @@ public final class Model
 	
 	public boolean isMigrationSupported()
 	{
-		return migration;
+		return migrationSupported;
 	}
 	
 	public int getMigrationVersion()
 	{
-		if(!migration)
+		if(!migrationSupported)
 			throw new IllegalArgumentException("not in migration mode");
 
 		return migrationVersion;
@@ -331,7 +331,7 @@ public final class Model
 	
 	public List<Migration> getMigrations()
 	{
-		if(!migration)
+		if(!migrationSupported)
 			throw new IllegalArgumentException("not in migration mode");
 		
 		return Collections.unmodifiableList(Arrays.asList(migrations));
@@ -339,14 +339,14 @@ public final class Model
 	
 	void setMigrations(final Migration[] migrations) // for test only, not for productive use !!!
 	{
-		if(!migration)
+		if(!migrationSupported)
 			throw new RuntimeException("not in migration mode");
 		this.migrations = migrations;
 	}
 	
 	public void migrate()
 	{
-		if(!migration)
+		if(!migrationSupported)
 			throw new IllegalArgumentException("not in migration mode");
 		
 		synchronized(migrationLock)
@@ -357,7 +357,7 @@ public final class Model
 
 	public void migrateIfSupported()
 	{
-		if(!migration)
+		if(!migrationSupported)
 			return;
 
 		migrate();

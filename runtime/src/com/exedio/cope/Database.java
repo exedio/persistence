@@ -58,7 +58,7 @@ abstract class Database
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private boolean buildStage = true;
 	final Driver driver;
-	private final boolean migration;
+	private final boolean migrationSupported;
 	final boolean prepare;
 	private final boolean log;
 	private final boolean logStatementInfo;
@@ -83,10 +83,10 @@ abstract class Database
 	
 	final boolean oracle; // TODO remove
 	
-	protected Database(final Driver driver, final Properties properties, final boolean migration)
+	protected Database(final Driver driver, final Properties properties, final boolean migrationSupported)
 	{
 		this.driver = driver;
-		this.migration = migration;
+		this.migrationSupported = migrationSupported;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog();
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
@@ -196,7 +196,7 @@ abstract class Database
 		
 		makeSchema().create();
 		
-		if(migration)
+		if(migrationSupported)
 		{
 			final ConnectionPool connectionPool = this.connectionPool;
 			Connection con = null;
@@ -1712,7 +1712,7 @@ abstract class Database
 		for(final Table t : tables)
 			t.makeSchema(result);
 		
-		if(migration)
+		if(migrationSupported)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, getIntegerType(0, Integer.MAX_VALUE));
@@ -1764,7 +1764,7 @@ abstract class Database
 	
 	private final void notifyMigration(final Connection connection, final int version, final Date date, final String comment)
 	{
-		assert migration;
+		assert migrationSupported;
 		
 		final String fullComment = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':' + comment;
 		System.out.println("Migrated to version " + version + ':' + fullComment);
@@ -1788,7 +1788,7 @@ abstract class Database
 	final void migrate(final int expectedVersion, final Migration[] migrations)
 	{
 		assert expectedVersion>=0 : expectedVersion;
-		assert migration;
+		assert migrationSupported;
 
 		final ConnectionPool connectionPool = this.connectionPool;
 		Connection con = null;

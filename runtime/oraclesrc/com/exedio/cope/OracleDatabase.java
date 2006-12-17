@@ -60,9 +60,9 @@ final class OracleDatabase extends Database
 
 	private final int varcharLength;
 
-	protected OracleDatabase(final Properties properties, final boolean migration)
+	protected OracleDatabase(final Properties properties, final boolean migrationSupported)
 	{
-		super(new OracleDriver(properties.getDatabaseUser().toUpperCase()), properties, migration);
+		super(new OracleDriver(properties.getDatabaseUser().toUpperCase()), properties, migrationSupported);
 		this.varchar = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(VARCHAR));
 		this.varcharLength = varchar ? 4000 : 2000;
 	}
