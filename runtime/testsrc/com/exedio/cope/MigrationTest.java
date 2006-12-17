@@ -105,55 +105,55 @@ public class MigrationTest extends CopeAssert
 		}
 	}
 	
-	private static final Migration[] migrations1 = new Migration[]{
+	private static final Migration[] migrations5 = new Migration[]{
 		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for version 5"),
 	};
 	
-	private static final Model model1 = new Model(migrations1, MigrationItem1.TYPE);
+	private static final Model model5 = new Model(migrations5, MigrationItem1.TYPE);
 	
 	
-	private static final Migration[] migrationsMissing = new Migration[]{
+	private static final Migration[] migrations7Missing = new Migration[]{
 			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
 		};
 	
-	private static final Model model2 = new Model(migrationsMissing, MigrationItem2.TYPE);
+	private static final Model model7 = new Model(migrations7Missing, MigrationItem2.TYPE);
 	
 	public void testMigrate()
 	{
 		final Properties props = new Properties();
 		
-		assertTrue(model1.isMigrationSupported());
-		assertEquals(5, model1.getMigrationVersion());
-		assertEqualsUnmodifiable(Arrays.asList(migrations1), model1.getMigrations());
+		assertTrue(model5.isMigrationSupported());
+		assertEquals(5, model5.getMigrationVersion());
+		assertEqualsUnmodifiable(Arrays.asList(migrations5), model5.getMigrations());
 		
-		model1.connect(props);
-		model1.tearDownDatabase();
-		model1.createDatabase();
+		model5.connect(props);
+		model5.tearDownDatabase();
+		model5.createDatabase();
 		
-		assertSchema(model1.getVerifiedSchema(), false, false);
-		model1.disconnect();
+		assertSchema(model5.getVerifiedSchema(), false, false);
+		model5.disconnect();
 		
-		assertTrue(model2.isMigrationSupported());
-		assertEquals(7, model2.getMigrationVersion());
-		assertEqualsUnmodifiable(list(migrationsMissing[0]), model2.getMigrations());
+		assertTrue(model7.isMigrationSupported());
+		assertEquals(7, model7.getMigrationVersion());
+		assertEqualsUnmodifiable(list(migrations7Missing[0]), model7.getMigrations());
 
-		model2.connect(props);
-		assertSchema(model2.getVerifiedSchema(), true, false);
+		model7.connect(props);
+		assertSchema(model7.getVerifiedSchema(), true, false);
 
 		try
 		{
-			model2.migrateIfSupported();
+			model7.migrateIfSupported();
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("no migration for versions [6] on migration from 5 to 7", e.getMessage());
 		}
-		assertSchema(model2.getVerifiedSchema(), true, false);
+		assertSchema(model7.getVerifiedSchema(), true, false);
 		
-		final Database database = model2.getDatabase();
+		final Database database = model7.getDatabase();
 		final Driver driver = database.driver;
-		final Migration[] migrations2 = new Migration[]{
+		final Migration[] migrations7 = new Migration[]{
 				// BEWARE:
 				// Never do this in real projects,
 				// always use plain string literals
@@ -163,20 +163,20 @@ public class MigrationTest extends CopeAssert
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};
-		model2.setMigrations(migrations2);
-		assertTrue(model2.isMigrationSupported());
-		assertEquals(7, model2.getMigrationVersion());
-		assertEqualsUnmodifiable(Arrays.asList(migrations2), model2.getMigrations());
+		model7.setMigrations(migrations7);
+		assertTrue(model7.isMigrationSupported());
+		assertEquals(7, model7.getMigrationVersion());
+		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getMigrations());
 
-		model2.migrateIfSupported();
-		assertSchema(model2.getVerifiedSchema(), true, true);
+		model7.migrateIfSupported();
+		assertSchema(model7.getVerifiedSchema(), true, true);
 		
 		// test, that MigrationStep is not executed again,
 		// causing a SQLException because column does already exist
-		model2.migrate();
-		assertSchema(model2.getVerifiedSchema(), true, true);
+		model7.migrate();
+		assertSchema(model7.getVerifiedSchema(), true, true);
 		
-		model2.tearDownDatabase();
+		model7.tearDownDatabase();
 	}
 	
 	private void assertSchema(final Schema schema, final boolean model2, final boolean migrated)
