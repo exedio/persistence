@@ -321,33 +321,33 @@ public final class Model
 		return migrationSupported;
 	}
 	
-	public int getMigrationVersion()
+	private final void assertMigrationSupported()
 	{
 		if(!migrationSupported)
 			throw new IllegalArgumentException("not in migration mode");
-
+	}
+	
+	public int getMigrationVersion()
+	{
+		assertMigrationSupported();
 		return migrationVersion;
 	}
 	
 	public List<Migration> getMigrations()
 	{
-		if(!migrationSupported)
-			throw new IllegalArgumentException("not in migration mode");
-		
+		assertMigrationSupported();
 		return Collections.unmodifiableList(Arrays.asList(migrations));
 	}
 	
 	void setMigrations(final Migration[] migrations) // for test only, not for productive use !!!
 	{
-		if(!migrationSupported)
-			throw new RuntimeException("not in migration mode");
+		assertMigrationSupported();
 		this.migrations = migrations;
 	}
 	
 	public void migrate()
 	{
-		if(!migrationSupported)
-			throw new IllegalArgumentException("not in migration mode");
+		assertMigrationSupported();
 		
 		synchronized(migrationLock)
 		{
@@ -359,7 +359,7 @@ public final class Model
 	{
 		if(!migrationSupported)
 			return;
-
+		
 		migrate();
 	}
 	
