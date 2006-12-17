@@ -43,6 +43,6 @@ public final class Migration
 	@Override
 	public String toString()
 	{
-		return "M" + version + ':' + comment;
+		return String.valueOf('M') + version + ':' + comment;
 	}
 }
