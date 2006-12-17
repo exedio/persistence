@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeAssert;
@@ -28,7 +29,7 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Model model1 = new Model(6, new Migration[0], MigrationItem1.TYPE);
+	private static final Model model1 = new Model(5, new Migration[0], MigrationItem1.TYPE);
 	
 	private static final Model model2 = new Model(7, new Migration[0], MigrationItem2.TYPE);
 	
@@ -111,7 +112,7 @@ public class MigrationTest extends CopeAssert
 		final Properties props = new Properties();
 		
 		assertTrue(model1.isMigrationSupported());
-		assertEquals(6, model1.getMigrationVersion());
+		assertEquals(5, model1.getMigrationVersion());
 		assertEqualsUnmodifiable(list(), model1.getMigrations());
 		
 		model1.connect(props);
@@ -143,29 +144,31 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("no migration for versions [7] on migration from 6 to 7", e.getMessage());
+			assertEquals("no migration for versions [7] on migration from 5 to 7", e.getMessage());
 		}
 		assertSchema(model2.getVerifiedSchema(), true, false);
 		
 		final Database database = model2.getDatabase();
 		final Driver driver = database.driver;
 		final Migration[] migrations2 = new Migration[]{
+				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
-				new Migration(6, "nonsense", "nonsense statement causing a test failure if executed for version 6"),
 				// BEWARE:
 				// Never do this in real projects,
 				// always use plain string literals
 				// containing the sql statement!
-				new Migration(7, "add column field2", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2"), database.getStringType(100))),
+				new Migration(6, "add column field2a", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2a"), database.getStringType(100))),
+				new Migration(7, "add column field2b", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2b"), database.getStringType(100))),
 				new Migration(8, "nonsense", "nonsense statement causing a test failure if executed for version 8"),
 				new Migration(9, "nonsense", "nonsense statement causing a test failure if executed for version 9"),
 			};
-		assertEquals("M7:add column field2", migrations2[2].toString());
+		assertEquals("M6:add column field2a", migrations2[2].toString());
+		assertEquals("M7:add column field2b", migrations2[3].toString());
 		
 		model2.setMigrations(migrations2);
 		assertTrue(model2.isMigrationSupported());
 		assertEquals(7, model2.getMigrationVersion());
-		assertEqualsUnmodifiable(list(migrations2[0], migrations2[1], migrations2[2], migrations2[3], migrations2[4]), model2.getMigrations());
+		assertEqualsUnmodifiable(Arrays.asList(migrations2), model2.getMigrations());
 		model2.migrateIfSupported();
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
@@ -199,11 +202,17 @@ public class MigrationTest extends CopeAssert
 		
 		if(model2)
 		{
-			final Column column2 = columns.next();
-			assertEquals("field2", column2.getName());
-			assertEquals(true, column2.required());
-			assertEquals(migrated, column2.exists());
-			assertNotNull(column2.getType());
+			final Column column2a = columns.next();
+			assertEquals("field2a", column2a.getName());
+			assertEquals(true, column2a.required());
+			assertEquals(migrated, column2a.exists());
+			assertNotNull(column2a.getType());
+
+			final Column column2b = columns.next();
+			assertEquals("field2b", column2b.getName());
+			assertEquals(true, column2b.required());
+			assertEquals(migrated, column2b.exists());
+			assertNotNull(column2b.getType());
 		}
 		
 		assertFalse(columns.hasNext());
