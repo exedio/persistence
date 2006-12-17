@@ -28,9 +28,9 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Model model1 = new Model(6, null, MigrationItem1.TYPE);
+	private static final Model model1 = new Model(6, new Migration[0], MigrationItem1.TYPE);
 	
-	private static final Model model2 = new Model(7, null, MigrationItem2.TYPE);
+	private static final Model model2 = new Model(7, new Migration[0], MigrationItem2.TYPE);
 	
 	public void testMigrations()
 	{
@@ -76,6 +76,10 @@ public class MigrationTest extends CopeAssert
 	{
 		final Properties props = new Properties();
 		
+		assertTrue(model1.isMigrationSupported());
+		assertEquals(6, model1.getMigrationVersion());
+		assertEqualsUnmodifiable(list(), model1.getMigrations());
+		
 		model1.connect(props);
 		model1.tearDownDatabase();
 		model1.createDatabase();
@@ -83,13 +87,22 @@ public class MigrationTest extends CopeAssert
 		assertSchema(model1.getVerifiedSchema(), false, false);
 		model1.disconnect();
 		
+		assertTrue(model2.isMigrationSupported());
+		assertEquals(7, model2.getMigrationVersion());
+		assertEqualsUnmodifiable(list(), model2.getMigrations());
+
 		model2.connect(props);
 		assertSchema(model2.getVerifiedSchema(), true, false);
 
-		model2.setMigrations(new Migration[]{
+		final Migration[] migrationsMissing = new Migration[]{
 				new Migration(6, "nonsense6", "nonsense statement causing a test failure if executed for version 6"),
 				new Migration(8, "nonsense8", "nonsense statement causing a test failure if executed for version 8"),
-			});
+			};
+		model2.setMigrations(migrationsMissing);
+		assertTrue(model2.isMigrationSupported());
+		assertEquals(7, model2.getMigrationVersion());
+		assertEqualsUnmodifiable(list(migrationsMissing[0], migrationsMissing[1]), model2.getMigrations());
+		
 		try
 		{
 			model2.migrateIfSupported();
@@ -101,10 +114,15 @@ public class MigrationTest extends CopeAssert
 		}
 		assertSchema(model2.getVerifiedSchema(), true, false);
 		
-		model2.setMigrations(new Migration[]{
+		final Migration[] migrationsDuplicate = new Migration[]{
 				new Migration(7, "nonsense7a", "nonsense statement causing a test failure if executed for version 7a"),
 				new Migration(7, "nonsense7b", "nonsense statement causing a test failure if executed for version 7b"),
-			});
+			};
+		model2.setMigrations(migrationsDuplicate);
+		assertTrue(model2.isMigrationSupported());
+		assertEquals(7, model2.getMigrationVersion());
+		assertEqualsUnmodifiable(list(migrationsDuplicate[0], migrationsDuplicate[1]), model2.getMigrations());
+		
 		try
 		{
 			model2.migrateIfSupported();
@@ -132,6 +150,9 @@ public class MigrationTest extends CopeAssert
 		assertEquals("MS7:add column field2", migrations2[2].toString());
 		
 		model2.setMigrations(migrations2);
+		assertTrue(model2.isMigrationSupported());
+		assertEquals(7, model2.getMigrationVersion());
+		assertEqualsUnmodifiable(list(migrations2[0], migrations2[1], migrations2[2], migrations2[3], migrations2[4]), model2.getMigrations());
 		model2.migrateIfSupported();
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		

@@ -290,6 +290,27 @@ public final class Model
 		}
 	}
 	
+	public boolean isMigrationSupported()
+	{
+		return migration;
+	}
+	
+	public int getMigrationVersion()
+	{
+		if(!migration)
+			throw new IllegalArgumentException("not in migration mode");
+
+		return migrationVersion;
+	}
+	
+	public List<Migration> getMigrations()
+	{
+		if(!migration)
+			throw new IllegalArgumentException("not in migration mode");
+		
+		return Collections.unmodifiableList(Arrays.asList(migrations));
+	}
+	
 	void setMigrations(final Migration[] migrations) // for test only, not for productive use !!!
 	{
 		if(!migration)
