@@ -74,10 +74,14 @@ public final class Model
 		if(migrations==null)
 			throw new NullPointerException("migrations must not be null");
 		
+		// make a copy to avoid modifications afterwards
+		final Migration[] result = new Migration[migrations.length];
+		System.arraycopy(migrations, 0, result, 0, migrations.length);
+		
 		int base = -1;
-		for(int i = 0; i<migrations.length; i++)
+		for(int i = 0; i<result.length; i++)
 		{
-			final Migration m = migrations[i];
+			final Migration m = result[i];
 			if(m==null)
 				throw new NullPointerException("migration must not be null, but was at index " + i);
 			if(i==0)
@@ -91,8 +95,7 @@ public final class Model
 				
 		}
 		
-		// TODO make a copy to avoid modifications
-		return migrations;
+		return result;
 	}
 	
 	private static final int migrationVersion(final Migration[] migrations)
