@@ -130,7 +130,7 @@ public class MigrationTest extends CopeAssert
 		assertSchema(model2.getVerifiedSchema(), true, false);
 
 		final Migration[] migrationsMissing = new Migration[]{
-				new Migration(6, "nonsense6", "nonsense statement causing a test failure if executed for version 6"),
+				new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
 			};
 		model2.setMigrations(migrationsMissing);
 		assertTrue(model2.isMigrationSupported());
@@ -144,7 +144,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("no migration for versions [7] on migration from 5 to 7", e.getMessage());
+			assertEquals("no migration for versions [6] on migration from 5 to 7", e.getMessage());
 		}
 		assertSchema(model2.getVerifiedSchema(), true, false);
 		
