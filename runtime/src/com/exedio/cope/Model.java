@@ -84,6 +84,7 @@ public final class Model
 			final Migration m = result[i];
 			if(m==null)
 				throw new NullPointerException("migration must not be null, but was at index " + i);
+			
 			if(i==0)
 				base = m.version;
 			else
@@ -92,7 +93,6 @@ public final class Model
 				if(m.version!=expectedversion)
 					throw new IllegalArgumentException("inconsistent migration version at index " + i + ", expected " + expectedversion + ", but was " + m.version);
 			}
-				
 		}
 		
 		return result;
