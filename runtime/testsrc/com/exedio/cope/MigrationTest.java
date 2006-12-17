@@ -158,8 +158,8 @@ public class MigrationTest extends CopeAssert
 				// Never do this in real projects,
 				// always use plain string literals
 				// containing the sql statement!
-				new Migration(7, "add column field2b", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2b"), database.getStringType(100))),
-				new Migration(6, "add column field2a", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2a"), database.getStringType(100))),
+				new Migration(7, "add column field7", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), database.getStringType(100))),
+				new Migration(6, "add column field6", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), database.getStringType(100))),
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};
@@ -194,7 +194,7 @@ public class MigrationTest extends CopeAssert
 		assertNotNull(columnThis.getType());
 		
 		final Column column1 = columns.next();
-		assertEquals("field1", column1.getName());
+		assertEquals("field5", column1.getName());
 		assertEquals(true, column1.required());
 		assertEquals(true, column1.exists());
 		assertNotNull(column1.getType());
@@ -202,13 +202,13 @@ public class MigrationTest extends CopeAssert
 		if(model2)
 		{
 			final Column column2a = columns.next();
-			assertEquals("field2a", column2a.getName());
+			assertEquals("field6", column2a.getName());
 			assertEquals(true, column2a.required());
 			assertEquals(migrated, column2a.exists());
 			assertNotNull(column2a.getType());
 
 			final Column column2b = columns.next();
-			assertEquals("field2b", column2b.getName());
+			assertEquals("field7", column2b.getName());
 			assertEquals(true, column2b.required());
 			assertEquals(migrated, column2b.exists());
 			assertNotNull(column2b.getType());
