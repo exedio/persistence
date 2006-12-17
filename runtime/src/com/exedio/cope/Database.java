@@ -1812,8 +1812,7 @@ abstract class Database
 					if(version<=actualVersion || version>expectedVersion)
 						continue; // irrelevant
 					final int relevantIndex = version - actualVersion - 1;
-					if(relevant[relevantIndex]!=null)
-						throw new IllegalArgumentException("there is more than one migration for version " + version + ": " + relevant[relevantIndex].comment + " and " + migration.comment);
+					assert relevant[relevantIndex]==null : "there is more than one migration for version " + version + ": " + relevant[relevantIndex].comment + " and " + migration.comment;
 					relevant[relevantIndex] = migration;
 				}
 				

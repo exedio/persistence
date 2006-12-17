@@ -344,7 +344,7 @@ public final class Model
 	void setMigrations(final Migration[] migrations) // for test only, not for productive use !!!
 	{
 		assertMigrationSupported();
-		this.migrations = migrations;
+		this.migrations = checkMigrations(migrations);
 	}
 	
 	public void migrate()
