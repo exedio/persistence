@@ -193,25 +193,25 @@ public class MigrationTest extends CopeAssert
 		assertEquals(true, columnThis.exists());
 		assertNotNull(columnThis.getType());
 		
-		final Column column1 = columns.next();
-		assertEquals("field5", column1.getName());
-		assertEquals(true, column1.required());
-		assertEquals(true, column1.exists());
-		assertNotNull(column1.getType());
+		final Column column5 = columns.next();
+		assertEquals("field5", column5.getName());
+		assertEquals(true, column5.required());
+		assertEquals(true, column5.exists());
+		assertNotNull(column5.getType());
 		
 		if(model2)
 		{
-			final Column column2a = columns.next();
-			assertEquals("field6", column2a.getName());
-			assertEquals(true, column2a.required());
-			assertEquals(migrated, column2a.exists());
-			assertNotNull(column2a.getType());
+			final Column column6 = columns.next();
+			assertEquals("field6", column6.getName());
+			assertEquals(true, column6.required());
+			assertEquals(migrated, column6.exists());
+			assertNotNull(column6.getType());
 
-			final Column column2b = columns.next();
-			assertEquals("field7", column2b.getName());
-			assertEquals(true, column2b.required());
-			assertEquals(migrated, column2b.exists());
-			assertNotNull(column2b.getType());
+			final Column column7 = columns.next();
+			assertEquals("field7", column7.getName());
+			assertEquals(true, column7.required());
+			assertEquals(migrated, column7.exists());
+			assertNotNull(column7.getType());
 		}
 		
 		assertFalse(columns.hasNext());
