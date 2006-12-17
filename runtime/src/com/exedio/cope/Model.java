@@ -66,7 +66,7 @@ public final class Model
 	
 	public Model(final Type... types)
 	{
-		this(false, -1, null, types);
+		this(0.0, -1, null, types);
 	}
 	
 	private static final Migration[] checkMigrations(final Migration[] migrations)
@@ -97,12 +97,14 @@ public final class Model
 	
 	public Model(final int migrationVersion, final Migration[] migrations, final Type... types)
 	{
-		this(true, migrationVersion, checkMigrations(migrations), types);
+		this(0.0, migrationVersion, checkMigrations(migrations), types);
 	}
 	
-	private Model(final boolean migrationSupported, final int migrationVersion, final Migration[] migrations, final Type... types)
+	private Model(final double dummy, final int migrationVersion, final Migration[] migrations, final Type... types)
 	{
-		this.migrationSupported = migrationSupported;
+		assert dummy==0.0;
+		
+		this.migrationSupported = (migrations!=null);
 		this.migrationVersion = migrationVersion;
 		this.migrations = migrations;
 		
