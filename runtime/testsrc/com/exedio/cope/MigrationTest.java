@@ -29,13 +29,18 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Model model1 = new Model(5, new Migration[0], MigrationItem1.TYPE);
+	private static final Migration[] migrations1 = new Migration[]{
+		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for version 5"),
+	};
+	
+	private static final Model model1 = new Model(migrations1, MigrationItem1.TYPE);
+	
 	
 	private static final Migration[] migrationsMissing = new Migration[]{
 			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
 		};
 	
-	private static final Model model2 = new Model(7, migrationsMissing, MigrationItem2.TYPE);
+	private static final Model model2 = new Model(migrationsMissing, MigrationItem2.TYPE);
 	
 	public void testMigrations()
 	{
@@ -81,7 +86,7 @@ public class MigrationTest extends CopeAssert
 	{
 		try
 		{
-			new Model(0, null, (Type[])null);
+			new Model(null, (Type[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -90,7 +95,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Model(0, new Migration[]{new Migration(1, "migration1", "nonsensesql1"), null}, (Type[])null);
+			new Model(new Migration[]{new Migration(1, "migration1", "nonsensesql1"), null}, (Type[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -99,7 +104,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Model(0, new Migration[]{
+			new Model(new Migration[]{
 					new Migration(6, "migration6", "nonsensesql6"), 
 					new Migration(8, "migration8", "nonsensesql8"), 
 					}, (Type[])null);
@@ -117,7 +122,7 @@ public class MigrationTest extends CopeAssert
 		
 		assertTrue(model1.isMigrationSupported());
 		assertEquals(5, model1.getMigrationVersion());
-		assertEqualsUnmodifiable(list(), model1.getMigrations());
+		assertEqualsUnmodifiable(Arrays.asList(migrations1), model1.getMigrations());
 		
 		model1.connect(props);
 		model1.tearDownDatabase();
@@ -155,8 +160,6 @@ public class MigrationTest extends CopeAssert
 				// containing the sql statement!
 				new Migration(6, "add column field2a", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2a"), database.getStringType(100))),
 				new Migration(7, "add column field2b", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2b"), database.getStringType(100))),
-				new Migration(8, "nonsense", "nonsense statement causing a test failure if executed for version 8"),
-				new Migration(9, "nonsense", "nonsense statement causing a test failure if executed for version 9"),
 			};
 		assertEquals("M6:add column field2a", migrations2[2].toString());
 		assertEquals("M7:add column field2b", migrations2[3].toString());

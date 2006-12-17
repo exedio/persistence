@@ -66,7 +66,7 @@ public final class Model
 	
 	public Model(final Type... types)
 	{
-		this(0.0, -1, null, types);
+		this(0.0, null, types);
 	}
 	
 	private static final Migration[] checkMigrations(final Migration[] migrations)
@@ -95,17 +95,27 @@ public final class Model
 		return migrations;
 	}
 	
-	public Model(final int migrationVersion, final Migration[] migrations, final Type... types)
+	private static final int migrationVersion(final Migration[] migrations)
 	{
-		this(0.0, migrationVersion, checkMigrations(migrations), types);
+		if(migrations==null)
+			return -1;
+		else if(migrations.length==0)
+			return 0;
+		else
+			return migrations[migrations.length-1].version;
 	}
 	
-	private Model(final double dummy, final int migrationVersion, final Migration[] migrations, final Type... types)
+	public Model(final Migration[] migrations, final Type... types)
+	{
+		this(0.0, checkMigrations(migrations), types);
+	}
+	
+	private Model(final double dummy, final Migration[] migrations, final Type... types)
 	{
 		assert dummy==0.0;
 		
 		this.migrationSupported = (migrations!=null);
-		this.migrationVersion = migrationVersion;
+		this.migrationVersion = migrationVersion(migrations);
 		this.migrations = migrations;
 		
 		if(types==null)
@@ -344,6 +354,8 @@ public final class Model
 	void setMigrations(final Migration[] migrations) // for test only, not for productive use !!!
 	{
 		assertMigrationSupported();
+		if(migrationVersion!=migrationVersion(migrations))
+			throw new RuntimeException();
 		this.migrations = checkMigrations(migrations);
 	}
 	
