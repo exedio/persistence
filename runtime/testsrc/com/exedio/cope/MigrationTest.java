@@ -31,7 +31,11 @@ public class MigrationTest extends CopeAssert
 {
 	private static final Model model1 = new Model(5, new Migration[0], MigrationItem1.TYPE);
 	
-	private static final Model model2 = new Model(7, new Migration[0], MigrationItem2.TYPE);
+	private static final Migration[] migrationsMissing = new Migration[]{
+			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
+		};
+	
+	private static final Model model2 = new Model(7, migrationsMissing, MigrationItem2.TYPE);
 	
 	public void testMigrations()
 	{
@@ -124,19 +128,11 @@ public class MigrationTest extends CopeAssert
 		
 		assertTrue(model2.isMigrationSupported());
 		assertEquals(7, model2.getMigrationVersion());
-		assertEqualsUnmodifiable(list(), model2.getMigrations());
+		assertEqualsUnmodifiable(list(migrationsMissing[0]), model2.getMigrations());
 
 		model2.connect(props);
 		assertSchema(model2.getVerifiedSchema(), true, false);
 
-		final Migration[] migrationsMissing = new Migration[]{
-				new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
-			};
-		model2.setMigrations(migrationsMissing);
-		assertTrue(model2.isMigrationSupported());
-		assertEquals(7, model2.getMigrationVersion());
-		assertEqualsUnmodifiable(list(migrationsMissing[0]), model2.getMigrations());
-		
 		try
 		{
 			model2.migrateIfSupported();
