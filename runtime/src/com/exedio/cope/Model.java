@@ -84,7 +84,7 @@ public final class Model
 				base = m.version;
 			else
 			{
-				final int expectedversion = base+i;
+				final int expectedversion = base-i;
 				if(m.version!=expectedversion)
 					throw new IllegalArgumentException("inconsistent migration version at index " + i + ", expected " + expectedversion + ", but was " + m.version);
 			}
@@ -102,7 +102,7 @@ public final class Model
 		else if(migrations.length==0)
 			return 0;
 		else
-			return migrations[migrations.length-1].version;
+			return migrations[0].version;
 	}
 	
 	public Model(final Migration[] migrations, final Type... types)

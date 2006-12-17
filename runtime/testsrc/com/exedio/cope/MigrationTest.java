@@ -92,14 +92,14 @@ public class MigrationTest extends CopeAssert
 		try
 		{
 			new Model(new Migration[]{
-					new Migration(6, "migration6", "nonsensesql6"), 
 					new Migration(8, "migration8", "nonsensesql8"), 
+					new Migration(6, "migration6", "nonsensesql6"), 
 					}, (Type[])null);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("inconsistent migration version at index 1, expected 7, but was 8", e.getMessage());
+			assertEquals("inconsistent migration version at index 1, expected 7, but was 6", e.getMessage());
 		}
 	}
 	
@@ -152,17 +152,17 @@ public class MigrationTest extends CopeAssert
 		final Database database = model2.getDatabase();
 		final Driver driver = database.driver;
 		final Migration[] migrations2 = new Migration[]{
-				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
-				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				// BEWARE:
 				// Never do this in real projects,
 				// always use plain string literals
 				// containing the sql statement!
-				new Migration(6, "add column field2a", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2a"), database.getStringType(100))),
 				new Migration(7, "add column field2b", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2b"), database.getStringType(100))),
+				new Migration(6, "add column field2a", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field2a"), database.getStringType(100))),
+				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
+				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};
-		assertEquals("M6:add column field2a", migrations2[2].toString());
-		assertEquals("M7:add column field2b", migrations2[3].toString());
+		assertEquals("M7:add column field2b", migrations2[0].toString());
+		assertEquals("M6:add column field2a", migrations2[1].toString());
 		
 		model2.setMigrations(migrations2);
 		assertTrue(model2.isMigrationSupported());
