@@ -29,7 +29,7 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	public void testMigrations()
+	public void testMigration()
 	{
 		try
 		{
@@ -67,6 +67,8 @@ public class MigrationTest extends CopeAssert
 		{
 			assertEquals("body must not be empty", e.getMessage());
 		}
+		
+		assertEquals("M123:test-comment", new Migration(123, "test-comment", "sql1", "sql2").toString());
 	}
 		
 	public void testModel()
@@ -161,13 +163,11 @@ public class MigrationTest extends CopeAssert
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};
-		assertEquals("M7:add column field2b", migrations2[0].toString());
-		assertEquals("M6:add column field2a", migrations2[1].toString());
-		
 		model2.setMigrations(migrations2);
 		assertTrue(model2.isMigrationSupported());
 		assertEquals(7, model2.getMigrationVersion());
 		assertEqualsUnmodifiable(Arrays.asList(migrations2), model2.getMigrations());
+
 		model2.migrateIfSupported();
 		assertSchema(model2.getVerifiedSchema(), true, true);
 		
