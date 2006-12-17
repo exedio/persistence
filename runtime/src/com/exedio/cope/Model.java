@@ -69,9 +69,35 @@ public final class Model
 		this(false, -1, null, types);
 	}
 	
+	private static final Migration[] checkMigrations(final Migration[] migrations)
+	{
+		if(migrations==null)
+			throw new NullPointerException("migrations must not be null");
+		
+		int base = -1;
+		for(int i = 0; i<migrations.length; i++)
+		{
+			final Migration m = migrations[i];
+			if(m==null)
+				throw new NullPointerException("migration must not be null, but was at index " + i);
+			if(i==0)
+				base = m.version;
+			else
+			{
+				final int expectedversion = base+i;
+				if(m.version!=expectedversion)
+					throw new IllegalArgumentException("inconsistent migration version at index " + i + ", expected " + expectedversion + ", but was " + m.version);
+			}
+				
+		}
+		
+		// TODO make a copy to avoid modifications
+		return migrations;
+	}
+	
 	public Model(final int migrationVersion, final Migration[] migrations, final Type... types)
 	{
-		this(true, migrationVersion, migrations, types);
+		this(true, migrationVersion, checkMigrations(migrations), types);
 	}
 	
 	private Model(final boolean migration, final int migrationVersion, final Migration[] migrations, final Type... types)

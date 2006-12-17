@@ -72,6 +72,40 @@ public class MigrationTest extends CopeAssert
 		}
 	}
 		
+	public void testModel()
+	{
+		try
+		{
+			new Model(0, null, (Type[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("migrations must not be null", e.getMessage());
+		}
+		try
+		{
+			new Model(0, new Migration[]{new Migration(1, "migration1", "nonsensesql1"), null}, (Type[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("migration must not be null, but was at index 1", e.getMessage());
+		}
+		try
+		{
+			new Model(0, new Migration[]{
+					new Migration(6, "migration6", "nonsensesql6"), 
+					new Migration(8, "migration8", "nonsensesql8"), 
+					}, (Type[])null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("inconsistent migration version at index 1, expected 7, but was 8", e.getMessage());
+		}
+	}
+	
 	public void testMigrate()
 	{
 		final Properties props = new Properties();
