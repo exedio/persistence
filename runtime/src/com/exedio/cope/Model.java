@@ -89,9 +89,9 @@ public final class Model
 				base = m.version;
 			else
 			{
-				final int expectedversion = base-i;
-				if(m.version!=expectedversion)
-					throw new IllegalArgumentException("inconsistent migration version at index " + i + ", expected " + expectedversion + ", but was " + m.version);
+				final int expectedVersion = base-i;
+				if(m.version!=expectedVersion)
+					throw new IllegalArgumentException("inconsistent migration version at index " + i + ", expected " + expectedVersion + ", but was " + m.version);
 			}
 		}
 		
