@@ -147,7 +147,7 @@ public class MigrationTest extends CopeAssert
 				new Migration(8, "nonsense", "nonsense statement causing a test failure if executed for version 8"),
 				new Migration(9, "nonsense", "nonsense statement causing a test failure if executed for version 9"),
 			};
-		assertEquals("MS7:add column field2", migrations2[2].toString());
+		assertEquals("M7:add column field2", migrations2[2].toString());
 		
 		model2.setMigrations(migrations2);
 		assertTrue(model2.isMigrationSupported());
