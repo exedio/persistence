@@ -29,19 +29,6 @@ import com.exedio.dsmf.Table;
 
 public class MigrationTest extends CopeAssert
 {
-	private static final Migration[] migrations1 = new Migration[]{
-		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for version 5"),
-	};
-	
-	private static final Model model1 = new Model(migrations1, MigrationItem1.TYPE);
-	
-	
-	private static final Migration[] migrationsMissing = new Migration[]{
-			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
-		};
-	
-	private static final Model model2 = new Model(migrationsMissing, MigrationItem2.TYPE);
-	
 	public void testMigrations()
 	{
 		try
@@ -115,6 +102,19 @@ public class MigrationTest extends CopeAssert
 			assertEquals("inconsistent migration version at index 1, expected 7, but was 8", e.getMessage());
 		}
 	}
+	
+	private static final Migration[] migrations1 = new Migration[]{
+		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for version 5"),
+	};
+	
+	private static final Model model1 = new Model(migrations1, MigrationItem1.TYPE);
+	
+	
+	private static final Migration[] migrationsMissing = new Migration[]{
+			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
+		};
+	
+	private static final Model model2 = new Model(migrationsMissing, MigrationItem2.TYPE);
 	
 	public void testMigrate()
 	{
