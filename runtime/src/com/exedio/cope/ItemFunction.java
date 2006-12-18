@@ -45,67 +45,67 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	CompareFunctionCondition equalTarget();
 	CompareFunctionCondition equalTarget(Join targetJoin);
 	
-	TypeInCondition<E> instanceOf(final Type<? extends E> type1);
-	TypeInCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
-	TypeInCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
-	TypeInCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
-	TypeInCondition<E> instanceOf(final Type[] types);
+	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1);
+	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
+	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
+	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	InstanceOfCondition<E> instanceOf(final Type[] types);
 	
-	TypeInCondition<E> notInstanceOf(final Type<? extends E> type1);
-	TypeInCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
-	TypeInCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
-	TypeInCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
-	TypeInCondition<E> notInstanceOf(final Type[] types);
+	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1);
+	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
+	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
+	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	InstanceOfCondition<E> notInstanceOf(final Type[] types);
 
 	/**
 	 * @deprecated Has been renamed to {@link #instanceOf(Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeIn(final Type<? extends E> type1);
+	InstanceOfCondition<E> typeIn(final Type<? extends E> type1);
 	/**
 	 * @deprecated Has been renamed to {@link #instanceOf(Type,Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2);
+	InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2);
 	/**
 	 * @deprecated Has been renamed to {@link #instanceOf(Type,Type,Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
+	InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
 	/**
 	 * @deprecated Has been renamed to {@link #instanceOf(Type,Type,Type,Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
 	/**
 	 * @deprecated Has been renamed to {@link #instanceOf(Type[])}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeIn(final Type[] types);
+	InstanceOfCondition<E> typeIn(final Type[] types);
 	
 	/**
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeNotIn(final Type<? extends E> type1);
+	InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1);
 	/**
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type,Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2);
+	InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2);
 	/**
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type,Type,Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
+	InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
 	/**
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type,Type,Type,Type)}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
 	/**
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type[])}.
 	 */
 	@Deprecated
-	TypeInCondition<E> typeNotIn(final Type[] types);
+	InstanceOfCondition<E> typeNotIn(final Type[] types);
 }

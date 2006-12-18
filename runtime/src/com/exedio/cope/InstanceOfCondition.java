@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.TreeSet;
 
-public final class TypeInCondition<E extends Item> extends Condition
+public final class InstanceOfCondition<E extends Item> extends Condition
 {
 	private final ItemFunction<E> function;
 	private final boolean not;
@@ -40,7 +40,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 	 * @see ItemFunction#notInstanceOf(Type, Type, Type, Type)
 	 * @see ItemFunction#notInstanceOf(Type[])
 	 */
-	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type[] types)
+	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type[] types)
 	{
 		if(function==null)
 			throw new NullPointerException("function must not be null");
@@ -51,7 +51,7 @@ public final class TypeInCondition<E extends Item> extends Condition
 
 		this.function = function;
 		this.not = not;
-		this.types = TypeInCondition.<E>cast(types);
+		this.types = InstanceOfCondition.<E>cast(types);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -60,22 +60,22 @@ public final class TypeInCondition<E extends Item> extends Condition
 		return (Type<X>[])o;
 	}
 	
-	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
+	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
 	{
 		this(function, not, new Type[]{type1});
 	}
 	
-	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
+	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		this(function, not, new Type[]{type1, type2});
 	}
 	
-	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
+	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		this(function, not, new Type[]{type1, type2, type3});
 	}
 	
-	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
+	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
 		this(function, not, new Type[]{type1, type2, type3, type4});
 	}
@@ -130,10 +130,10 @@ public final class TypeInCondition<E extends Item> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof TypeInCondition))
+		if(!(other instanceof InstanceOfCondition))
 			return false;
 		
-		final TypeInCondition o = (TypeInCondition)other;
+		final InstanceOfCondition o = (InstanceOfCondition)other;
 		
 		return function.equals(o.function) && not==o.not && equals(types, o.types);
 	}
