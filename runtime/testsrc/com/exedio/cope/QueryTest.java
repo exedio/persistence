@@ -52,36 +52,36 @@ public class QueryTest extends AbstractLibTest
 		final Condition c2 = DayItem.day.equal(d2);
 		final Condition c3 = DayItem.day.equal(d3);
 		
-		assertEquals(DayItem.day.equal(d1), DayItem.day.equal(d1));
-		assertFalse(DayItem.day.equal(d1).equals(DayItem.day.equal(d2)));
-		assertEquals(DayItem.day.equal(d1).and(DayItem.day.equal(d2)), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
-		assertFalse(DayItem.day.equal(d1).and(DayItem.day.equal(d2)).equals(DayItem.day.equal(d2).and(DayItem.day.equal(d1))));
+		assertEquals(c1, DayItem.day.equal(d1));
+		assertFalse(c1.equals(c2));
+		assertEquals(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
+		assertFalse(c1.and(c2).equals(c2.and(c1)));
 
 		// test folding of CompositeCondition
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{DayItem.day.equal(d1), DayItem.day.equal(d2)}), DayItem.day.equal(d3)}),
-				DayItem.day.equal(d1).and(DayItem.day.equal(d2)).and(DayItem.day.equal(d3)));
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2}), c3}),
+				c1.and(c2).and(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{DayItem.day.equal(d1), new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{DayItem.day.equal(d2), DayItem.day.equal(d3)})}),
-				DayItem.day.equal(d1).and(DayItem.day.equal(d2).and(DayItem.day.equal(d3))));
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c2, c3})}),
+				c1.and(c2.and(c3)));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{DayItem.day.equal(d1), DayItem.day.equal(d2)}), DayItem.day.equal(d3)}),
-				DayItem.day.equal(d1).or(DayItem.day.equal(d2)).or(DayItem.day.equal(d3)));
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2}), c3}),
+				c1.or(c2).or(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{DayItem.day.equal(d1), new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{DayItem.day.equal(d2), DayItem.day.equal(d3)})}),
-				DayItem.day.equal(d1).or(DayItem.day.equal(d2).or(DayItem.day.equal(d3))));
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c2, c3})}),
+				c1.or(c2.or(c3)));
 
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{DayItem.day.equal(d1), DayItem.day.equal(d2)}), DayItem.day.equal(d3)}),
-				DayItem.day.equal(d1).or(DayItem.day.equal(d2)).and(DayItem.day.equal(d3)));
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2}), c3}),
+				c1.or(c2).and(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{DayItem.day.equal(d1), new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{DayItem.day.equal(d2), DayItem.day.equal(d3)})}),
-				DayItem.day.equal(d1).and(DayItem.day.equal(d2).or(DayItem.day.equal(d3))));
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c2, c3})}),
+				c1.and(c2.or(c3)));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{DayItem.day.equal(d1), DayItem.day.equal(d2)}), DayItem.day.equal(d3)}),
-				DayItem.day.equal(d1).and(DayItem.day.equal(d2)).or(DayItem.day.equal(d3)));
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2}), c3}),
+				c1.and(c2).or(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{DayItem.day.equal(d1), new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{DayItem.day.equal(d2), DayItem.day.equal(d3)})}),
-				DayItem.day.equal(d1).or(DayItem.day.equal(d2).and(DayItem.day.equal(d3))));
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c2, c3})}),
+				c1.or(c2.and(c3)));
 	}
 }
