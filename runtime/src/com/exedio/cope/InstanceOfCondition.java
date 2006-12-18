@@ -148,7 +148,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	public String toString()
 	{
-		return function.toString() + (not?" not":"") + " in " + Arrays.toString(types);
+		return function.toString() + (not?" not":"") + " instanceOf " + Arrays.toString(types);
 	}
 	
 	@Override
