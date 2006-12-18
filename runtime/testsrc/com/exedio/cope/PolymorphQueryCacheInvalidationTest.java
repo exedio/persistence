@@ -23,7 +23,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractLibTest
 {
 	public PolymorphQueryCacheInvalidationTest()
 	{
-		super(TypeInConditionTest.MODEL);
+		super(InstanceOfTest.MODEL);
 	}
 	
 	TypeInConditionAItem itema;

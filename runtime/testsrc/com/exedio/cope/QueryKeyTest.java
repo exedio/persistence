@@ -22,7 +22,7 @@ public class QueryKeyTest extends AbstractLibTest
 {
 	public QueryKeyTest()
 	{
-		super(TypeInConditionTest.MODEL);
+		super(InstanceOfTest.MODEL);
 	}
 	
 	public void testIt()

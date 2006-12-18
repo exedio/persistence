@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class TypeInConditionTest extends AbstractLibTest
+public class InstanceOfTest extends AbstractLibTest
 {
 	static final Model MODEL = new Model(
 			TypeInConditionAItem.TYPE,
@@ -28,7 +28,7 @@ public class TypeInConditionTest extends AbstractLibTest
 			TypeInConditionC1Item.TYPE,
 			TypeInConditionRefItem.TYPE);
 
-	public TypeInConditionTest()
+	public InstanceOfTest()
 	{
 		super(MODEL);
 	}
