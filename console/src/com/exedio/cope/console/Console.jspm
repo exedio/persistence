@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemFunction;
+import com.exedio.cope.Migration;
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
 import com.exedio.cope.Type;
@@ -168,6 +169,36 @@ final class Console_Jspm
 		<form action="<%=cop%>" method="POST">
 			<input type="submit" name="<%=cop.TEST%>" value="test all" />
 		</form><%
+	}
+	
+	final static void writeBodyDisabled(
+			final MigrationCop cop,
+			final PrintStream out)
+		throws IOException
+	{
+		%>
+		Migrations are not enabled for this model.
+		<br>
+		Use <a
+			href="home/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[],com.exedio.cope.Type[])"
+			target="_top">migration constructor</a> to enable.<%
+	}
+	
+	final static void writeBody(
+			final MigrationCop cop,
+			final PrintStream out,
+			final int oldest, final int latest, final int current,
+			List<Migration> migrations,
+			Map<Integer, String> logs)
+		throws IOException
+	{
+		%>
+		<table class="statistics">
+			<tr>
+				<th colspan="7">Migrations</th>
+				<th>version</th><th>version</th><th>version</th><th>version</th>
+			</tr>
+		</table><%
 	}
 	
 	final static void writeBody(

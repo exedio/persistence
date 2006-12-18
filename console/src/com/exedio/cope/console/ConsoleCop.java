@@ -53,6 +53,7 @@ abstract class ConsoleCop extends Cop
 				new PropertiesCop(false),
 				new SchemaCop(null, false, false),
 				new TypeColumnCop(),
+				new MigrationCop(),
 				new ConnectionStatsCop(),
 				new CacheStatsCop(),
 				new QueryCacheStatsCop(),
@@ -110,6 +111,7 @@ abstract class ConsoleCop extends Cop
 	
 	static final String TAB = "t";
 	static final String TAB_TYPE_COLUMNS = "tc";
+	static final String TAB_MIGRATION = "mig";
 	static final String TAB_CONNECTION_STATS = "cp";
 	static final String TAB_CACHE_STATS = "ca";
 	static final String TAB_QUERY_CACHE_STATS = "qca";
@@ -124,6 +126,8 @@ abstract class ConsoleCop extends Cop
 		final String tab = request.getParameter(TAB);
 		if(TAB_TYPE_COLUMNS.equals(tab))
 			return new TypeColumnCop();
+		if(TAB_MIGRATION.equals(tab))
+			return new MigrationCop();
 		if(TAB_CONNECTION_STATS.equals(tab))
 			return new ConnectionStatsCop();
 		if(TAB_CACHE_STATS.equals(tab))
