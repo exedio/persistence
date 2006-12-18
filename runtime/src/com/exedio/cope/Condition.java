@@ -32,12 +32,17 @@ public abstract class Condition
 	
 	public final CompositeCondition and(final Condition other)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{this, other});
+		return composite(CompositeCondition.Operator.AND, other);
 	}
 	
 	public final CompositeCondition or(final Condition other)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{this, other});
+		return composite(CompositeCondition.Operator.OR, other);
+	}
+	
+	private final CompositeCondition composite(final CompositeCondition.Operator operator, final Condition other)
+	{
+		return new CompositeCondition(operator, new Condition[]{this, other});
 	}
 	
 	@Override
