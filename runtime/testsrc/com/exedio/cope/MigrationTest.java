@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
@@ -131,6 +132,12 @@ public class MigrationTest extends CopeAssert
 		model5.createDatabase();
 		
 		assertSchema(model5.getVerifiedSchema(), false, false);
+		{
+			final Map<Integer, String> logs = model5.getMigrationLogs();
+			assertNotNull(logs.toString(), logs.get(5));
+			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertEquals(1, logs.size());
+		}
 		model5.disconnect();
 		
 		assertTrue(model7.isMigrationSupported());
@@ -139,6 +146,12 @@ public class MigrationTest extends CopeAssert
 
 		model7.connect(props);
 		assertSchema(model7.getVerifiedSchema(), true, false);
+		{
+			final Map<Integer, String> logs = model7.getMigrationLogs();
+			assertNotNull(logs.toString(), logs.get(5));
+			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertEquals(1, logs.size());
+		}
 
 		try
 		{
@@ -150,6 +163,12 @@ public class MigrationTest extends CopeAssert
 			assertEquals("no migration for versions [6] on migration from 5 to 7", e.getMessage());
 		}
 		assertSchema(model7.getVerifiedSchema(), true, false);
+		{
+			final Map<Integer, String> logs = model7.getMigrationLogs();
+			assertNotNull(logs.toString(), logs.get(5));
+			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertEquals(1, logs.size());
+		}
 		
 		final Database database = model7.getDatabase();
 		final Driver driver = database.driver;
@@ -170,11 +189,31 @@ public class MigrationTest extends CopeAssert
 
 		model7.migrateIfSupported();
 		assertSchema(model7.getVerifiedSchema(), true, true);
+		{
+			final Map<Integer, String> logs = model7.getMigrationLogs();
+			assertNotNull(logs.toString(), logs.get(5));
+			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertNotNull(logs.toString(), logs.get(6));
+			assertTrue(logs.toString(), logs.get(6).endsWith(":add column field6 [0]"));
+			assertNotNull(logs.toString(), logs.get(7));
+			assertTrue(logs.toString(), logs.get(7).endsWith(":add column field7 [0]"));
+			assertEquals(3, logs.size());
+		}
 		
 		// test, that MigrationStep is not executed again,
 		// causing a SQLException because column does already exist
 		model7.migrate();
 		assertSchema(model7.getVerifiedSchema(), true, true);
+		{
+			final Map<Integer, String> logs = model7.getMigrationLogs();
+			assertNotNull(logs.toString(), logs.get(5));
+			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertNotNull(logs.toString(), logs.get(6));
+			assertTrue(logs.toString(), logs.get(6).endsWith(":add column field6 [0]"));
+			assertNotNull(logs.toString(), logs.get(7));
+			assertTrue(logs.toString(), logs.get(7).endsWith(":add column field7 [0]"));
+			assertEquals(3, logs.size());
+		}
 		
 		model7.tearDownDatabase();
 	}

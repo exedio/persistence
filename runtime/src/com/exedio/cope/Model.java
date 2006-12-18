@@ -380,6 +380,12 @@ public final class Model
 		migrate();
 	}
 	
+	public Map<Integer, String> getMigrationLogs()
+	{
+		assertMigrationSupported();
+		return getDatabase().getMigrationLogs();
+	}
+	
 	public Properties getProperties()
 	{
 		if(propertiesIfConnected==null)

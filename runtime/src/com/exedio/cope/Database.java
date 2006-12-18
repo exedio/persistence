@@ -1762,6 +1762,70 @@ abstract class Database
 		}
 	}
 	
+	final Map<Integer, String> getMigrationLogs()
+	{
+		final ConnectionPool connectionPool = this.connectionPool;
+		Connection con = null;
+		try
+		{
+			con = connectionPool.getConnection(true);
+			return getMigrationLogs(con);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getMigrationLogs");
+		}
+		finally
+		{
+			if(con!=null)
+			{
+				try
+				{
+					connectionPool.putConnection(con);
+					con = null;
+				}
+				catch(SQLException ex)
+				{
+					throw new SQLRuntimeException(ex, "close");
+				}
+			}
+		}
+	}
+	
+	private final Map<Integer, String> getMigrationLogs(final Connection connection)
+	{
+		buildStage = false;
+
+		final Statement bf = createStatement();
+		bf.append("select ").
+			append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).defineColumnInteger().
+			append(',').
+			append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).defineColumnString().
+			append(" from ").
+			append(driver.protectName(Table.MIGRATION_TABLE_NAME));
+			
+		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler();
+		executeSQLQuery(connection, bf, handler, false, false);
+		return Collections.unmodifiableMap(handler.result);
+	}
+	
+	private static class MigrationLogsResultSetHandler implements ResultSetHandler
+	{
+		final HashMap<Integer, String> result = new HashMap<Integer, String>();
+
+		public void handle(final ResultSet resultSet) throws SQLException
+		{
+			while(resultSet.next())
+			{
+				final int version = resultSet.getInt(1);
+				final String comment = resultSet.getString(2);
+				final String previous = result.put(version, comment);
+				if(previous!=null)
+					throw new RuntimeException("duplicate version " + version + ':' + previous + "/" + comment);
+			}
+		}
+	}
+	
 	private final void notifyMigration(final Connection connection, final int version, final Date date, final String comment)
 	{
 		assert migrationSupported;

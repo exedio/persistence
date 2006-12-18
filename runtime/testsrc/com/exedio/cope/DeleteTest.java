@@ -327,6 +327,15 @@ public class DeleteTest extends AbstractLibTest
 		{
 			assertEquals("not in migration mode", e.getMessage());
 		}
+		try
+		{
+			model.getMigrationLogs();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("not in migration mode", e.getMessage());
+		}
 		model.migrateIfSupported();
 	}
 }

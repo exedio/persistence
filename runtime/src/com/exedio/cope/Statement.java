@@ -317,6 +317,13 @@ final class Statement
 		return this;
 	}
 		
+	Statement defineColumnString()
+	{
+		if(columnTypes!=null)
+			columnTypes.add(StringColumn.JDBC_TYPE);
+		return this;
+	}
+		
 	String getText()
 	{
 		return text.toString();
