@@ -23,7 +23,7 @@ import java.util.List;
 
 public final class CompositeCondition extends Condition
 {
-	private final Operator operator;
+	public final Operator operator;
 	public final Condition[] conditions;
 
 	/**

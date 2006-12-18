@@ -42,7 +42,43 @@ public abstract class Condition
 	
 	private final CompositeCondition composite(final CompositeCondition.Operator operator, final Condition other)
 	{
-		return new CompositeCondition(operator, new Condition[]{this, other});
+		if(this instanceof CompositeCondition && ((CompositeCondition)this).operator==operator)
+		{
+			final CompositeCondition left = (CompositeCondition)this;
+			
+			if(other instanceof CompositeCondition && ((CompositeCondition)other).operator==operator)
+			{
+				final CompositeCondition right = (CompositeCondition)other;
+					
+				final Condition[] c = new Condition[left.conditions.length + right.conditions.length];
+				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
+				System.arraycopy(right.conditions, 0, c, left.conditions.length, right.conditions.length);
+				return new CompositeCondition(operator, c);
+			}
+			else
+			{
+				final Condition[] c = new Condition[left.conditions.length + 1];
+				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
+				c[left.conditions.length] = other;
+				return new CompositeCondition(operator, c);
+			}
+		}
+		else
+		{
+			if(other instanceof CompositeCondition && ((CompositeCondition)other).operator==operator)
+			{
+				final CompositeCondition right = (CompositeCondition)other;
+
+				final Condition[] c = new Condition[1 + right.conditions.length];
+				c[0] = this;
+				System.arraycopy(right.conditions, 0, c, 1, right.conditions.length);
+				return new CompositeCondition(operator, c);
+			}
+			else
+			{
+				return new CompositeCondition(operator, new Condition[]{this, other});
+			}
+		}
 	}
 	
 	@Override

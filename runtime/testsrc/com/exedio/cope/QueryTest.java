@@ -59,16 +59,16 @@ public class QueryTest extends AbstractLibTest
 
 		// test folding of CompositeCondition
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2}), c3}),
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2, c3}),
 				c1.and(c2).and(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c2, c3})}),
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2, c3}),
 				c1.and(c2.and(c3)));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2}), c3}),
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2, c3}),
 				c1.or(c2).or(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c2, c3})}),
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2, c3}),
 				c1.or(c2.or(c3)));
 
 		assertEquals(
