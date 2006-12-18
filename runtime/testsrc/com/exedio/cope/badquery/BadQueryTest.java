@@ -59,7 +59,7 @@ public class BadQueryTest extends AbstractLibTest
 			final Join superJoin = query.join(SuperContainer.TYPE);
 			superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
-			query.setCondition(SuperContainer.TYPE.getThis().bind(superJoin).typeNotIn(SubContainer.TYPE));
+			query.setCondition(SuperContainer.TYPE.getThis().bind(superJoin).notInstanceOf(SubContainer.TYPE));
 			assertContains(leftX, left1, query.search());
 		}
 		{
@@ -77,7 +77,7 @@ public class BadQueryTest extends AbstractLibTest
 			final Join superJoin = query.join(SuperContainer.TYPE);
 			superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
 			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
-			query.setCondition(SuperContainer.TYPE.getThis().typeNotIn(SubContainer.TYPE));
+			query.setCondition(SuperContainer.TYPE.getThis().notInstanceOf(SubContainer.TYPE));
 			try
 			{
 				query.search();

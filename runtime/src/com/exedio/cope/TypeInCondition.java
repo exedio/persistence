@@ -29,16 +29,16 @@ public final class TypeInCondition<E extends Item> extends Condition
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see ItemFunction#typeIn(Type)
-	 * @see ItemFunction#typeIn(Type, Type)
-	 * @see ItemFunction#typeIn(Type, Type, Type)
-	 * @see ItemFunction#typeIn(Type, Type, Type, Type)
-	 * @see ItemFunction#typeIn(Type[])
-	 * @see ItemFunction#typeNotIn(Type)
-	 * @see ItemFunction#typeNotIn(Type, Type)
-	 * @see ItemFunction#typeNotIn(Type, Type, Type)
-	 * @see ItemFunction#typeNotIn(Type, Type, Type, Type)
-	 * @see ItemFunction#typeNotIn(Type[])
+	 * @see ItemFunction#instanceOf(Type)
+	 * @see ItemFunction#instanceOf(Type, Type)
+	 * @see ItemFunction#instanceOf(Type, Type, Type)
+	 * @see ItemFunction#instanceOf(Type, Type, Type, Type)
+	 * @see ItemFunction#instanceOf(Type[])
+	 * @see ItemFunction#notInstanceOf(Type)
+	 * @see ItemFunction#notInstanceOf(Type, Type)
+	 * @see ItemFunction#notInstanceOf(Type, Type, Type)
+	 * @see ItemFunction#notInstanceOf(Type, Type, Type, Type)
+	 * @see ItemFunction#notInstanceOf(Type[])
 	 */
 	public TypeInCondition(final ItemFunction<E> function, final boolean not, final Type[] types)
 	{

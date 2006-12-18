@@ -1201,54 +1201,114 @@ public final class Type<C extends Item>
 			return equal(getValueType().thisFunction.bind(targetJoin));
 		}
 		
-		public TypeInCondition<E> typeIn(final Type<? extends E> type1)
+		public TypeInCondition<E> instanceOf(final Type<? extends E> type1)
 		{
 			return new TypeInCondition<E>(this, false, type1);
 		}
 
-		public TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2)
+		public TypeInCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 		{
 			return new TypeInCondition<E>(this, false, type1, type2);
 		}
 
-		public TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
+		public TypeInCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 		{
 			return new TypeInCondition<E>(this, false, type1, type2, type3);
 		}
 
-		public TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
+		public TypeInCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 		{
 			return new TypeInCondition<E>(this, false, type1, type2, type3, type4);
 		}
 
-		public TypeInCondition<E> typeIn(final Type[] types)
+		public TypeInCondition<E> instanceOf(final Type[] types)
 		{
 			return new TypeInCondition<E>(this, false, types);
 		}
 		
-		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1)
+		public TypeInCondition<E> notInstanceOf(final Type<? extends E> type1)
 		{
 			return new TypeInCondition<E>(this, true, type1);
 		}
 
-		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2)
+		public TypeInCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 		{
 			return new TypeInCondition<E>(this, true, type1, type2);
 		}
 
-		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
+		public TypeInCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 		{
 			return new TypeInCondition<E>(this, true, type1, type2, type3);
 		}
 
-		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
+		public TypeInCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 		{
 			return new TypeInCondition<E>(this, true, type1, type2, type3, type4);
 		}
 
-		public TypeInCondition<E> typeNotIn(final Type[] types)
+		public TypeInCondition<E> notInstanceOf(final Type[] types)
 		{
 			return new TypeInCondition<E>(this, true, types);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeIn(final Type<? extends E> type1)
+		{
+			return instanceOf(type1);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2)
+		{
+			return instanceOf(type1, type2);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
+		{
+			return instanceOf(type1, type2, type3);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
+		{
+			return instanceOf(type1, type2, type3, type4);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeIn(final Type[] types)
+		{
+			return instanceOf(types);
+		}
+		
+		@Deprecated
+		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1)
+		{
+			return notInstanceOf(type1);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2)
+		{
+			return notInstanceOf(type1, type2);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
+		{
+			return notInstanceOf(type1, type2, type3);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
+		{
+			return notInstanceOf(type1, type2, type3, type4);
+		}
+
+		@Deprecated
+		public TypeInCondition<E> typeNotIn(final Type[] types)
+		{
+			return notInstanceOf(types);
 		}
 	}
 }

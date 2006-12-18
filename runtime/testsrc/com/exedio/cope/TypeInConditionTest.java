@@ -64,23 +64,23 @@ public class TypeInConditionTest extends AbstractLibTest
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
 
-		assertContains(itema, itemb1, itemb2, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
-		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb1.TYPE)));
-		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb1.TYPE, itemc1.TYPE)));
-		assertContains(itema, itemb1, itemc1, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb2.TYPE)));
-		assertContains(itema, itemb1, itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itemb2.TYPE, itemc1.TYPE)));
-		assertContains(itema.TYPE.search(itema.TYPE.getThis().typeNotIn(itema.TYPE)));
-		assertContains(itema.TYPE.search(itema.TYPE.getThis().typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
-		assertContains(itemc1, itema.TYPE.search(itema.TYPE.getThis().typeIn(itemc1.TYPE)));
+		assertContains(itema, itemb1, itemb2, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
+		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb1.TYPE)));
+		assertContains(itema, itemb2, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb1.TYPE, itemc1.TYPE)));
+		assertContains(itema, itemb1, itemc1, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb2.TYPE)));
+		assertContains(itema, itemb1, itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itemb2.TYPE, itemc1.TYPE)));
+		assertContains(itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(itema.TYPE)));
+		assertContains(itema.TYPE.search(itema.TYPE.getThis().notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
+		assertContains(itemc1, itema.TYPE.search(itema.TYPE.getThis().instanceOf(itemc1.TYPE)));
 
-		assertContains(reffa, reffb1, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemc1.TYPE)));
-		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemb1.TYPE)));
-		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.typeNotIn(itemb1.TYPE, itemc1.TYPE)));
-		assertContains(reffa, reffb1, reffc1, reffa.TYPE.search(reffa.ref.typeNotIn(itemb2.TYPE)));
-		assertContains(reffa, reffb1, reffa.TYPE.search(reffa.ref.typeNotIn(itemb2.TYPE, itemc1.TYPE)));
-		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(itema.TYPE)));
-		assertContains(reffa.TYPE.search(reffa.ref.typeNotIn(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
-		assertContains(reffc1, reffa.TYPE.search(reffa.ref.typeIn(itemc1.TYPE)));
+		assertContains(reffa, reffb1, reffb2, reffa.TYPE.search(reffa.ref.notInstanceOf(itemc1.TYPE)));
+		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb1.TYPE)));
+		assertContains(reffa, reffb2, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb1.TYPE, itemc1.TYPE)));
+		assertContains(reffa, reffb1, reffc1, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb2.TYPE)));
+		assertContains(reffa, reffb1, reffa.TYPE.search(reffa.ref.notInstanceOf(itemb2.TYPE, itemc1.TYPE)));
+		assertContains(reffa.TYPE.search(reffa.ref.notInstanceOf(itema.TYPE)));
+		assertContains(reffa.TYPE.search(reffa.ref.notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE})));
+		assertContains(reffc1, reffa.TYPE.search(reffa.ref.instanceOf(itemc1.TYPE)));
 		
 		model.checkTypeColumns();
 		
@@ -99,42 +99,42 @@ public class TypeInConditionTest extends AbstractLibTest
 			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
-			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE)));
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
 			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
-			j.setCondition(itemb1.TYPE.getThis().typeNotIn(itemc1.TYPE));
+			j.setCondition(itemb1.TYPE.getThis().notInstanceOf(itemc1.TYPE));
 			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
-			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
 			q.join(itemb2.TYPE);
 			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb2.TYPE);
-			j.setCondition(itema.TYPE.getThis().typeNotIn(itemc1.TYPE));
+			j.setCondition(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
 			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
-			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().typeNotIn(itemc1.TYPE)));
+			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
 			q.join(itemb1.TYPE);
 			if(!noJoinParentheses) assertContains(q.search());
 		}
 		{
 			final Query<TypeInConditionC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
 			final Join j = q.join(itemb1.TYPE);
-			j.setCondition(itema.TYPE.getThis().typeNotIn(itemc1.TYPE));
+			j.setCondition(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
 			if(!noJoinParentheses) assertContains(q.search());
 		}
 		
 		try
 		{
-			itema.TYPE.getThis().typeIn((Type[])null);
+			itema.TYPE.getThis().instanceOf((Type[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -143,7 +143,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		try
 		{
-			itema.TYPE.getThis().typeIn(new Type[]{});
+			itema.TYPE.getThis().instanceOf(new Type[]{});
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -192,7 +192,7 @@ public class TypeInConditionTest extends AbstractLibTest
 	{
 		try
 		{
-			itemb2.TYPE.search(itemb2.TYPE.getThis().typeNotIn((Type)itemb1.TYPE));
+			itemb2.TYPE.search(itemb2.TYPE.getThis().notInstanceOf((Type)itemb1.TYPE));
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -201,7 +201,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		try
 		{
-			reffa.TYPE.search(reffa.refb2.typeNotIn((Type)itemb1.TYPE));
+			reffa.TYPE.search(reffa.refb2.notInstanceOf((Type)itemb1.TYPE));
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -210,7 +210,7 @@ public class TypeInConditionTest extends AbstractLibTest
 		}
 		try
 		{
-			itemb1.TYPE.search(itemb1.TYPE.getThis().typeNotIn((Type)itema.TYPE));
+			itemb1.TYPE.search(itemb1.TYPE.getThis().notInstanceOf((Type)itema.TYPE));
 			fail();
 		}
 		catch(IllegalArgumentException e)

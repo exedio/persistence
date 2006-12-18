@@ -223,8 +223,8 @@ public class HardJoinTest extends AbstractLibTest
 		// test with typeIn
 		{
 			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-			final Join j1 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().typeNotIn(b.TYPE));
-			final Join j2 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().typeNotIn(b.TYPE));
+			final Join j1 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().notInstanceOf(b.TYPE));
+			final Join j2 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().notInstanceOf(b.TYPE));
 
 			try
 			{
@@ -236,7 +236,7 @@ public class HardJoinTest extends AbstractLibTest
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j1.setCondition(HardJoinB2Item.TYPE.getThis().bind(j1).typeNotIn(b.TYPE));
+			j1.setCondition(HardJoinB2Item.TYPE.getThis().bind(j1).notInstanceOf(b.TYPE));
 			try
 			{
 				q.search();
@@ -247,7 +247,7 @@ public class HardJoinTest extends AbstractLibTest
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j2.setCondition(HardJoinB2Item.TYPE.getThis().bind(j2).typeNotIn(b.TYPE));
+			j2.setCondition(HardJoinB2Item.TYPE.getThis().bind(j2).notInstanceOf(b.TYPE));
 			assertEquals(list(), q.search());
 		}
 	}
