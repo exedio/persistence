@@ -69,6 +69,8 @@ public class MigrationTest extends CopeAssert
 			assertEquals("body must not be empty", e.getMessage());
 		}
 		
+		assertEquals(123, new Migration(123, "test-comment", "sql1", "sql2").getVersion());
+		assertEquals("test-comment", new Migration(123, "test-comment", "sql1", "sql2").getComment());
 		assertEquals("M123:test-comment", new Migration(123, "test-comment", "sql1", "sql2").toString());
 	}
 		

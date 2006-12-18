@@ -40,6 +40,16 @@ public final class Migration
 			throw new IllegalArgumentException("body must not be empty");
 	}
 	
+	public int getVersion()
+	{
+		return version;
+	}
+	
+	public String getComment()
+	{
+		return comment;
+	}
+	
 	@Override
 	public String toString()
 	{
