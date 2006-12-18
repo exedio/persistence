@@ -20,6 +20,7 @@ package com.exedio.cope.console;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,8 +55,12 @@ final class MigrationCop extends ConsoleCop
 		if(model.isMigrationSupported())
 		{
 			final List<Migration> migrations = model.getMigrations();
+			final HashMap<Integer, Migration> migrationMap = new HashMap<Integer, Migration>();
 			for(final Migration m : migrations)
+			{
 				register(m.getVersion());
+				migrationMap.put(m.getVersion(), m);
+			}
 			
 			final Map<Integer, String> logs = model.getMigrationLogs();
 			for(final Integer v : logs.keySet())
@@ -64,7 +69,7 @@ final class MigrationCop extends ConsoleCop
 			final int current = model.getMigrationVersion();
 			register(current);
 			
-			Console_Jspm.writeBody(this, out, oldest, latest, current, migrations, logs);
+			Console_Jspm.writeBody(this, out, oldest, latest, current, migrationMap, logs);
 		}
 		else
 			Console_Jspm.writeBodyDisabled(this, out);

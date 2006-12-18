@@ -188,16 +188,28 @@ final class Console_Jspm
 			final MigrationCop cop,
 			final PrintStream out,
 			final int oldest, final int latest, final int current,
-			List<Migration> migrations,
+			Map<Integer, Migration> migrations,
 			Map<Integer, String> logs)
 		throws IOException
 	{
 		%>
-		<table class="statistics">
-			<tr>
-				<th colspan="7">Migrations</th>
-				<th>version</th><th>version</th><th>version</th><th>version</th>
-			</tr>
+		<table class="properties">
+			<tr><th colspan="3">Migrations</th></tr>
+			<tr><th>version</th><th>declared</th><th>logged</th></tr><%
+			for(int v = latest; v>=oldest; v--)
+			{
+				final Migration migration = migrations.get(v);
+				final String log = logs.get(v);
+			%>
+			<tr><td><%=v%><%
+				if(v==current){%>X<%}
+				%></td><td><%
+				if(migration!=null){ %><%=migration.getComment()%><% } else { %>-<% }
+				%></td><td><%
+				if(log!=null){ %><%=log%><% } else { %>-<% }
+				%></td></tr><%
+			}
+			%>
 		</table><%
 	}
 	
