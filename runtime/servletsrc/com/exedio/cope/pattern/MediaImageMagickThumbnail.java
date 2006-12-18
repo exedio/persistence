@@ -119,7 +119,7 @@ public final class MediaImageMagickThumbnail extends MediaFilter
 		try { process.waitFor(); } catch(InterruptedException e) { throw new RuntimeException(e); }
 		final int exitValue = process.exitValue();
 		if(exitValue!=0)
-			throw new RuntimeException("process " + process + " exited with " + exitValue);
+			throw new RuntimeException("process " + process + " exited with " + exitValue + ", left " + inFile.getAbsolutePath() + " and " + outFile.getAbsolutePath());
 		
 		inFile.delete();
 		
