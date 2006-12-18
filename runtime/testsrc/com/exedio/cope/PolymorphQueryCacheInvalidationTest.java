@@ -26,13 +26,13 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractLibTest
 		super(InstanceOfTest.MODEL);
 	}
 	
-	TypeInConditionAItem itema;
+	InstanceOfAItem itema;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(itema = new TypeInConditionAItem("itema"));
+		deleteOnTearDown(itema = new InstanceOfAItem("itema"));
 	}
 	
 	public void testIt()
@@ -40,14 +40,14 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractLibTest
 		final Query q = itema.TYPE.newQuery(null);
 		assertContains(itema, q.search());
 		
-		final TypeInConditionB1Item itemb1a = new TypeInConditionB1Item("itemb1a");
+		final InstanceOfB1Item itemb1a = new InstanceOfB1Item("itemb1a");
 		deleteOnTearDown(itemb1a);
 
 		restartTransaction();
 		
 		assertContains(itema, itemb1a, q.search());
 		
-		final TypeInConditionB1Item itemb1b = new TypeInConditionB1Item("itemb1b");
+		final InstanceOfB1Item itemb1b = new InstanceOfB1Item("itemb1b");
 		deleteOnTearDown(itemb1b);
 
 		restartTransaction();
