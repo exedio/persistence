@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
 import java.util.TreeSet;
 
 public final class InstanceOfCondition<E extends Item> extends Condition
@@ -147,7 +148,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	public String toString()
 	{
-		return function.toString() + (not?" not":"") + " in (" + types + ')';
+		return function.toString() + (not?" not":"") + " in " + Arrays.toString(types);
 	}
 	
 	@Override

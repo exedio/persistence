@@ -131,7 +131,11 @@ public class InstanceOfTest extends AbstractLibTest
 			j.setCondition(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
 			if(!noJoinParentheses) assertContains(q.search());
 		}
-		
+
+		assertEquals("InstanceOfAItem.this in [InstanceOfC1Item]", itema.TYPE.getThis().instanceOf(itemc1.TYPE).toString());
+		assertEquals("InstanceOfAItem.this in [InstanceOfC1Item, InstanceOfB1Item]", itema.TYPE.getThis().instanceOf(itemc1.TYPE, itemb1.TYPE).toString());
+		assertEquals("InstanceOfAItem.this not in [InstanceOfC1Item]", itema.TYPE.getThis().notInstanceOf(itemc1.TYPE).toString());
+		assertEquals("InstanceOfAItem.this not in [InstanceOfC1Item, InstanceOfB1Item]", itema.TYPE.getThis().notInstanceOf(itemc1.TYPE, itemb1.TYPE).toString());
 		try
 		{
 			itema.TYPE.getThis().instanceOf((Type[])null);
