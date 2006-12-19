@@ -203,7 +203,7 @@ abstract class Database
 			try
 			{
 				con = connectionPool.getConnection(true);
-				notifyMigration(con, migrationVersion, new Date(), "created schema");
+				notifyMigration(con, migrationVersion, new Date(), "created schema", false);
 			}
 			catch(SQLException e)
 			{
@@ -1826,12 +1826,13 @@ abstract class Database
 		}
 	}
 	
-	private final void notifyMigration(final Connection connection, final int version, final Date date, final String comment)
+	private final void notifyMigration(final Connection connection, final int version, final Date date, final String comment, final boolean logToConsole)
 	{
 		assert migrationSupported;
 		
 		final String fullComment = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':' + comment;
-		System.out.println("Migrated to version " + version + ':' + fullComment);
+		if(logToConsole)
+			System.out.println("Migrated to version " + version + ':' + fullComment);
 
 		final Statement bf = createStatement();
 		bf.append("insert into ").
@@ -1914,7 +1915,7 @@ abstract class Database
 						}
 					}
 					
-					notifyMigration(con, migration.version, date, migration.comment + ' ' + rowCounts);
+					notifyMigration(con, migration.version, date, migration.comment + ' ' + rowCounts, true);
 				}
 				stmt.close();
 				stmt = null;
