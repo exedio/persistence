@@ -201,8 +201,7 @@ public final class Copernica_Jspm
 			%>><%=name%></a></li><%
 		}
 		%>
-		</ul>
-<%
+		</ul><%
 	}
 	
 	static final void writeEmptyBody(final HttpServletRequest request, final PrintStream out)
