@@ -76,22 +76,22 @@ public final class Copernica_Jspm
 		%>
 		<div id="langcontainer">
 			<ul id="langlist"><%
-			for(final CopernicaLanguage currentLanguage : displayLanguages)
+			for(final CopernicaLanguage l : displayLanguages)
 			{
-				final String name = currentLanguage.getCopernicaName(language);
-				final boolean active = currentLanguage.equals(language);
+				final String name = l.getCopernicaName(language);
+				final boolean active = l.equals(language);
 				%>
 				<li<%if(active){%> id="active"<%}%>>
-					<a href="<%=cop.switchLanguage(currentLanguage)%>"<%
+					<a href="<%=cop.switchLanguage(l)%>"<%
 						if(active){%> id="current"<%}%>><%=name%></a>
 				</li><%
 			}
 			if(user!=null)
 			{
-			%>
-			<li>
-				<%=user.getCopernicaName()%>
-			</li><%
+				%>
+				<li>
+					<%=user.getCopernicaName()%>
+				</li><%
 			}
 			%>
 			</ul>
