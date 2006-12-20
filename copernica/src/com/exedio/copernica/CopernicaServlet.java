@@ -202,6 +202,9 @@ public final class CopernicaServlet extends CopsServlet
 	private final CopernicaUser checkAccess(final HttpServletRequest request)
 		throws CopernicaAuthorizationFailedException
 	{
+		if(!provider.requiresAuthorization())
+			return null;
+		
 		final String[] authorization = Cop.authorizeBasic(request);
 		if(authorization==null)
 			throw new CopernicaAuthorizationFailedException("noauth");

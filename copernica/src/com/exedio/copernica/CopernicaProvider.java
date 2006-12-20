@@ -67,6 +67,8 @@ public interface CopernicaProvider
 
 	CopernicaLanguage findLanguageByID(String copernicaID);
 	
+	boolean requiresAuthorization();
+	
 	CopernicaUser findUserByID(String copernicaID);
 
 	CopernicaCategory findCategoryByID(String copernicaID);

@@ -93,4 +93,8 @@ public class CopernicaTestProvider extends TransientCopernicaProvider
 		return model;
 	}
 
+	public boolean requiresAuthorization()
+	{
+		return true;
+	}
 }

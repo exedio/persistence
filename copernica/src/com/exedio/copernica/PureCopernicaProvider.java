@@ -42,6 +42,11 @@ final class PureCopernicaProvider extends TransientCopernicaProvider
 		return model;
 	}
 
+	public boolean requiresAuthorization()
+	{
+		return false;
+	}
+	
 	@Override
 	public int getLimitCountCeiling(final Type type)
 	{

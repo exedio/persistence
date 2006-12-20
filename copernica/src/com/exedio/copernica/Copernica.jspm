@@ -22,6 +22,7 @@ package com.exedio.copernica;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
@@ -68,12 +69,15 @@ public final class Copernica_Jspm
 		%>
 		<link rel="STYLESHEET" type="text/css" href="<%=CopernicaServlet.stylesheet.url(request)%>">
 	</head>
-	<body>
+	<body><%
+		final Collection<? extends CopernicaLanguage> displayLanguages = provider.getDisplayLanguages();
+		if( (!displayLanguages.isEmpty()) || (user!=null) )
+		{
+		%>
 		<div id="langcontainer">
 			<ul id="langlist"><%
-			for(Iterator l = provider.getDisplayLanguages().iterator(); l.hasNext(); )
+			for(final CopernicaLanguage currentLanguage : displayLanguages)
 			{
-				final CopernicaLanguage currentLanguage = (CopernicaLanguage)l.next();
 				final String name = currentLanguage.getCopernicaName(language);
 				final boolean active = currentLanguage.equals(language);
 				%>
@@ -82,12 +86,17 @@ public final class Copernica_Jspm
 						if(active){%> id="current"<%}%>><%=name%></a>
 				</li><%
 			}
+			if(user!=null)
+			{
 			%>
 			<li>
 				<%=user.getCopernicaName()%>
-			</li>
+			</li><%
+			}
+			%>
 			</ul>
 		</div><%
+		}
 		Copernica_Jspm.writeTypeList(out, cop);
 		%>
 		<div id="main"><%
