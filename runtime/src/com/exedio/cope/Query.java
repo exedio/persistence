@@ -526,15 +526,7 @@ public final class Query<R>
 			for(final Join join : joins)
 			{
 				bf.append(' ').
-					append(join.kind.sql).
-					append(join.type);
-
-				final Condition joinCondition = join.condition;
-				if(joinCondition!=null)
-				{
-					bf.append(" on ").
-						append(joinCondition);
-				}
+					append(join.toString());
 			}
 		}
 
