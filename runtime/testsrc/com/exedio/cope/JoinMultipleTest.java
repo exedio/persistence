@@ -76,9 +76,9 @@ public class JoinMultipleTest extends TestmodelTest
 			
 			assertEquals(
 					"select PointerItem.this from PointerItem " +
-					"join PointerTargetItem on PointerItem.pointer=PointerTargetItem.this " +
-					"join PointerTargetItem on PointerItem.pointer2=PointerTargetItem.this " +
-					"where PointerTargetItem.code='target1'",
+					"join PointerTargetItem p1 on PointerItem.pointer=p1.PointerTargetItem.this " +
+					"join PointerTargetItem p2 on PointerItem.pointer2=p2.PointerTargetItem.this " +
+					"where p1.PointerTargetItem.code='target1'",
 					query.toString());
 			
 			// TODO test attributes with wrong join

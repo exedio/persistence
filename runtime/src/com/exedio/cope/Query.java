@@ -34,6 +34,7 @@ public final class Query<R>
 	final Selectable[] selects;
 	boolean distinct = false;
 	final Type type;
+	private int joinIndex = 0;
 	ArrayList<Join> joins = null;
 	Condition condition;
 
@@ -128,7 +129,7 @@ public final class Query<R>
 	 */
 	public Join join(final Type type)
 	{
-		return join(new Join(Join.Kind.INNER, type, null));
+		return join(new Join(joinIndex++, Join.Kind.INNER, type, null));
 	}
 	
 	/**
@@ -136,17 +137,17 @@ public final class Query<R>
 	 */
 	public Join join(final Type type, final Condition condition)
 	{
-		return join(new Join(Join.Kind.INNER, type, condition));
+		return join(new Join(joinIndex++, Join.Kind.INNER, type, condition));
 	}
 	
 	public Join joinOuterLeft(final Type type, final Condition condition)
 	{
-		return join(new Join(Join.Kind.OUTER_LEFT, type, condition));
+		return join(new Join(joinIndex++, Join.Kind.OUTER_LEFT, type, condition));
 	}
 	
 	public Join joinOuterRight(final Type type, final Condition condition)
 	{
-		return join(new Join(Join.Kind.OUTER_RIGHT, type, condition));
+		return join(new Join(joinIndex++, Join.Kind.OUTER_RIGHT, type, condition));
 	}
 	
 	public List<Join> getJoins()

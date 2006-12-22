@@ -35,12 +35,14 @@ public final class Join
 		}
 	}
 	
+	final int index;
 	final Kind kind;
 	final Type type;
 	Condition condition;
 	
-	Join(final Kind kind, final Type type, final Condition condition)
+	Join(final int index, final Kind kind, final Type type, final Condition condition)
 	{
+		this.index = index;
 		this.kind = kind;
 		this.type = type;
 		this.condition = condition;
@@ -56,12 +58,12 @@ public final class Join
 		this.condition = condition;
 	}
 	
-	public final Kind getKind()
+	public Kind getKind()
 	{
 		return kind;
 	}
 	
-	public final Type getType()
+	public Type getType()
 	{
 		return type;
 	}
@@ -86,9 +88,13 @@ public final class Join
 	}
 	
 	@Override
-	public final String toString()
+	public String toString()
 	{
-		return kind.sql + type + (condition!=null ? (" on "+condition) : "");
+		return kind.sql + type + ' ' + getToStringAlias() + (condition!=null ? (" on "+condition) : "");
 	}
 
+	String getToStringAlias()
+	{
+		return String.valueOf(Character.toLowerCase(type.id.charAt(0))) + (index+1);
+	}
 }
