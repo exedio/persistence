@@ -31,7 +31,7 @@ final class ConnectionStatsCop extends ConsoleCop
 
 	ConnectionStatsCop()
 	{
-		super("connection pool");
+		super("connections");
 		addParameter(TAB, TAB_CONNECTION_STATS);
 	}
 
