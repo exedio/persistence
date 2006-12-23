@@ -180,7 +180,7 @@ final class Console_Jspm
 		Migrations are not enabled for this model.
 		<br>
 		Use <a
-			href="home/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[],com.exedio.cope.Type[])"
+			href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)"
 			target="_top">migration constructor</a> to enable.<%
 	}
 	
