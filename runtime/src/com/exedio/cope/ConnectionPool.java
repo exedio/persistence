@@ -66,7 +66,7 @@ final class ConnectionPool implements ConnectionProvider
 		this.factory = factory;
 		
 		// TODO: make this customizable and disableable
-		this.counter = new PoolCounter(new int[]{0,1,2,3,4,5,6,7,8,9,10,12,15,16,18,20,25,30,35,40,45,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,500,600,700,800,900,1000});
+		this.counter = new PoolCounter(new int[]{0,1,2,4,6,8,10,15,20,25,30,40,50,60,70,80,90,100});
 
 		this.idle = idleLimit>0 ? new Connection[idleLimit] : null;
 		
