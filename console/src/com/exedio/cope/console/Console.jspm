@@ -181,7 +181,7 @@ final class Console_Jspm
 		<br>
 		Use <a
 			href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)"
-			target="_top">migration constructor</a> to enable.<%
+			target="_blank">migration constructor</a> to enable.<%
 	}
 	
 	final static void writeBody(
