@@ -680,7 +680,7 @@ abstract class Database
 		return result;
 	}
 	
-	private void log(final long start, final long end, final Statement statement)
+	private final void log(final long start, final long end, final Statement statement)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 		System.out.println(df.format(new Date(start)) + "  " + (end-start) + "ms:  " + statement.getText()+"   "+statement.parameters);
@@ -758,7 +758,7 @@ abstract class Database
 		store(connection, state, present, blobs, state.type);
 	}
 
-	private void store(
+	private final void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
@@ -1042,7 +1042,7 @@ abstract class Database
 		return handler.result;
 	}
 	
-	private class LoadBlobLengthResultSetHandler implements ResultSetHandler
+	private final class LoadBlobLengthResultSetHandler implements ResultSetHandler
 	{
 		long result;
 
@@ -1564,7 +1564,7 @@ abstract class Database
 			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 	
-	private int countTable(final Connection connection, final Table table)
+	private final int countTable(final Connection connection, final Table table)
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger().
@@ -2016,7 +2016,7 @@ abstract class Database
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 	
-	protected void close()
+	final void close()
 	{
 		getConnectionPool().flush();
 	}
