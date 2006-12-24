@@ -57,7 +57,7 @@ public class StatementInfoTest extends TestmodelTest
 			assertTrue(!parametersChilds.hasNext());
 		}
 
-		final String database = model.getDatabase().getClass().getName();
+		final String database = model.getProperties().getDatabase();
 		if(database.endsWith("HsqldbDatabase"))
 			;
 		else if(database.endsWith("MysqlDatabase"))

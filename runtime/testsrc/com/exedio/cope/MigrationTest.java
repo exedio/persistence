@@ -172,15 +172,15 @@ public class MigrationTest extends CopeAssert
 			assertEquals(1, logs.size());
 		}
 		
-		final Database database = model7.getDatabase();
-		final Driver driver = database.driver;
+		final Dialect dialect = model7.getDatabase().dialect;
+		final Driver driver = dialect.driver;
 		final Migration[] migrations7 = new Migration[]{
 				// BEWARE:
 				// Never do this in real projects,
 				// always use plain string literals
 				// containing the sql statement!
-				new Migration(7, "add column field7", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), database.getStringType(100))),
-				new Migration(6, "add column field6", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), database.getStringType(100))),
+				new Migration(7, "add column field7", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), dialect.getStringType(100))),
+				new Migration(6, "add column field6", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), dialect.getStringType(100))),
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};

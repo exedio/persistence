@@ -37,7 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-final class OracleDatabase extends Database
+final class OracleDatabase extends Dialect // TODO SOON rename to Dialect
 {
 	static
 	{
@@ -259,7 +259,7 @@ final class OracleDatabase extends Database
 		}));
 	
 	@Override
-	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection)
+	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -274,7 +274,7 @@ final class OracleDatabase extends Database
 		
 		final StatementInfo root;
 		{
-			final Statement bf = createStatement();
+			final Statement bf = database.createStatement();
 			bf.append("explain plan set "+STATEMENT_ID+"='").
 				append(statementID). // TODO use placeholders for prepared statements
 				append("' for ").
@@ -306,13 +306,13 @@ final class OracleDatabase extends Database
 			}
 		}
 		{
-			final Statement bf = createStatement();
+			final Statement bf = database.createStatement();
 			bf.append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
 				appendParameter(statementID).
 				append(" order by "+ID);
 
 			final PlanResultSetHandler handler = new PlanResultSetHandler();
-			executeSQLQuery(connection, bf, handler, false, true);
+			database.executeSQLQuery(connection, bf, handler, false, true);
 			root = handler.root;
 		}
 		if(root==null)
@@ -328,7 +328,7 @@ final class OracleDatabase extends Database
 		return result;
 	}
 
-	private static class PlanResultSetHandler implements ResultSetHandler
+	private static class PlanResultSetHandler implements Database.ResultSetHandler
 	{
 		StatementInfo root;
 

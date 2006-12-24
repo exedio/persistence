@@ -118,7 +118,7 @@ class IntegerColumn extends Column
 	@Override
 	final String getDatabaseType()
 	{
-		return table.database.getIntegerType(minimum, maximum);
+		return table.database.dialect.getIntegerType(minimum, maximum);
 	}
 
 	@Override

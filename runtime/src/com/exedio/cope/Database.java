@@ -23,7 +23,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -40,24 +39,21 @@ import java.util.List;
 import java.util.Map;
 
 import bak.pcj.list.IntArrayList;
-import bak.pcj.list.IntList;
 
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
-abstract class Database
+final class Database // TODO SOON make methods non-final
 {
-	protected static final int TWOPOW8 = 1<<8;
-	protected static final int TWOPOW16 = 1<<16;
-	protected static final int TWOPOW24 = 1<<24;
-	
 	private static final String NO_SUCH_ROW = "no such row";
 	
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private boolean buildStage = true;
 	final Driver driver;
+	final DialectParameters dialectParameters;
+	final Dialect dialect;
 	private final boolean migrationSupported;
 	final boolean prepare;
 	private final boolean log;
@@ -67,27 +63,19 @@ abstract class Database
 	final ConnectionPool connectionPool;
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
-	final LimitSupport limitSupport;
+	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
-	
-	// probed on the initial connection
 	final boolean supportsReadCommitted;
-	final String databaseProductName;
-	final String databaseProductVersion;
-	final int databaseMajorVersion;
-	final int databaseMinorVersion;
-	final String driverName;
-	final String driverVersion;
-	final int driverMajorVersion;
-	final int driverMinorVersion;
 	
 	final boolean oracle; // TODO remove
 	
-	protected Database(final Driver driver, final DialectParameters parameters)
+	Database(final Driver driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean migrationSupported)
 	{
-		final Properties properties = parameters.properties;
+		final Properties properties = dialectParameters.properties;
 		this.driver = driver;
-		this.migrationSupported = parameters.migrationSupported;
+		this.dialectParameters = dialectParameters;
+		this.dialect = dialect;
+		this.migrationSupported = migrationSupported;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog();
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
@@ -99,52 +87,16 @@ abstract class Database
 				properties.getConnectionPoolIdleInitial());
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
-		this.limitSupport = properties.getDatabaseDontSupportLimit() ? LimitSupport.NONE : getLimitSupport();
-		this.blobLengthFactor = getBlobLengthFactor();
+		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
+		this.blobLengthFactor = dialect.getBlobLengthFactor();
 		this.oracle = getClass().getName().equals("com.exedio.cope.OracleDatabase");
 		
 		//System.out.println("using database "+getClass());
 		assert limitSupport!=null;
 		
-		Connection probeConnection = null;
-		try
-		{
-			probeConnection = connectionPool.getConnection(true);
-			
-			final DatabaseMetaData dmd = probeConnection.getMetaData();
-			
-			supportsReadCommitted =
-				!fakesSupportReadCommitted() &&
-				dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
-
-			databaseProductName = dmd.getDatabaseProductName();
-			databaseProductVersion = dmd.getDatabaseProductVersion();
-			databaseMajorVersion = dmd.getDatabaseMajorVersion();
-			databaseMinorVersion = dmd.getDatabaseMinorVersion();
-			driverName = dmd.getDriverName();
-			driverVersion = dmd.getDriverVersion();
-			driverMajorVersion = dmd.getDriverMajorVersion();
-			driverMinorVersion = dmd.getDriverMinorVersion();
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, "getMetaData");
-		}
-		finally
-		{
-			if(probeConnection!=null)
-			{
-				try
-				{
-					connectionPool.putConnection(probeConnection);
-					probeConnection = null;
-				}
-				catch(SQLException e)
-				{
-					throw new SQLRuntimeException(e, "putConnection");
-				}
-			}
-		}
+		this.supportsReadCommitted =
+			!dialect.fakesSupportReadCommitted() &&
+			dialectParameters.supportsTransactionIsolationLevel;
 	}
 	
 	final Driver getDriver()
@@ -376,13 +328,13 @@ abstract class Database
 		final ArrayList<Join> queryJoins = query.joins;
 		final Statement bf = createStatement(query);
 		
-		if(!doCountOnly && limitActive && limitSupport==LimitSupport.CLAUSES_AROUND)
-			appendLimitClause(bf, limitStart, limitCount);
+		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
+			dialect.appendLimitClause(bf, limitStart, limitCount);
 		
 		bf.append("select");
 		
-		if(!doCountOnly && limitActive && limitSupport==LimitSupport.CLAUSE_AFTER_SELECT)
-			appendLimitClause(bf, limitStart, limitCount);
+		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
+			dialect.appendLimitClause(bf, limitStart, limitCount);
 		
 		bf.append(' ');
 		
@@ -562,12 +514,12 @@ abstract class Database
 				}
 			}
 			
-			if(limitActive && limitSupport==LimitSupport.CLAUSE_AFTER_WHERE)
-				appendLimitClause(bf, limitStart, limitCount);
+			if(limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_WHERE)
+				dialect.appendLimitClause(bf, limitStart, limitCount);
 		}
 
-		if(!doCountOnly && limitActive && limitSupport==LimitSupport.CLAUSES_AROUND)
-			appendLimitClause2(bf, limitStart, limitCount);
+		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
+			dialect.appendLimitClause2(bf, limitStart, limitCount);
 		
 		final Type[] types = selectTypes;
 		final Model model = query.model;
@@ -595,7 +547,7 @@ abstract class Database
 						return;
 					}
 					
-					if(limitStart>0 && limitSupport==LimitSupport.NONE)
+					if(limitStart>0 && limitSupport==Dialect.LimitSupport.NONE)
 					{
 						// TODO: ResultSet.relative
 						// Would like to use
@@ -606,7 +558,7 @@ abstract class Database
 							resultSet.next();
 					}
 						
-					int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=LimitSupport.NONE)) ? Integer.MAX_VALUE : limitCount );
+					int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limitCount );
 					if(i<=0)
 						throw new RuntimeException(String.valueOf(limitCount));
 					
@@ -909,7 +861,7 @@ abstract class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
-		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(supportsGetBytes());
+		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(dialect.supportsGetBytes());
 		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
@@ -965,7 +917,7 @@ abstract class Database
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 				
-				if(supportsBlobInResultSet())
+				if(dialect.supportsBlobInResultSet())
 				{
 					final Blob blob = resultSet.getBlob(1);
 					if(blob!=null)
@@ -1141,7 +1093,7 @@ abstract class Database
 			{
 				sqlStatement = connection.createStatement();
 
-				defineColumnTypes(statement.columnTypes, sqlStatement);
+				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				logPrepared = log ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
@@ -1156,7 +1108,7 @@ abstract class Database
 				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
 					setObject(sqlText, prepared, parameterIndex, i.next());
 
-				defineColumnTypes(statement.columnTypes, sqlStatement);
+				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				logPrepared = log ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
@@ -1242,7 +1194,7 @@ abstract class Database
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final int rows;
 			
-			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint())
+			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && dialect.needsSavepoint())
 				savepoint = connection.setSavepoint();
 			
 			if(!prepare)
@@ -1315,13 +1267,6 @@ abstract class Database
 		//}catch(SQLException e){ throw new SQLRuntimeException(e, "setObject("+parameterIndex+","+value+")"+s); }
 	}
 	
-	protected static final String EXPLAIN_PLAN = "explain plan";
-	
-	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection)
-	{
-		return null;
-	}
-	
 	final StatementInfo makeStatementInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
@@ -1340,26 +1285,22 @@ abstract class Database
 				parametersChild.addChild(new StatementInfo(String.valueOf(i++) + ':' + p));
 		}
 			
-		final StatementInfo planInfo = explainExecutionPlan(statement, connection);
+		final StatementInfo planInfo = dialect.explainExecutionPlan(statement, connection, this);
 		if(planInfo!=null)
 			result.addChild(planInfo);
 		
 		return result;
 	}
 	
-	protected abstract String extractUniqueConstraintName(SQLException e);
-	
-	protected final static String ANY_CONSTRAINT = "--ANY--";
-
 	private final UniqueViolationException wrapException(
 			final SQLException e,
 			final List<UniqueConstraint> threatenedUniqueConstraints)
 	{
-		final String uniqueConstraintID = extractUniqueConstraintName(e);
+		final String uniqueConstraintID = dialect.extractUniqueConstraintName(e);
 		if(uniqueConstraintID!=null)
 		{
 			final UniqueConstraint constraint;
-			if(ANY_CONSTRAINT.equals(uniqueConstraintID))
+			if(Dialect.ANY_CONSTRAINT.equals(uniqueConstraintID))
 				constraint = (threatenedUniqueConstraints.size()==1) ? threatenedUniqueConstraints.get(0) : null;
 			else
 			{
@@ -1471,110 +1412,15 @@ abstract class Database
 		return trimString(longName, 25);
 	}
 
-	boolean supportsGetBytes()
-	{
-		return true;
-	}
-
-	boolean supportsBlobInResultSet()
-	{
-		return true;
-	}
-
-	boolean supportsEmptyStrings()
-	{
-		return true;
-	}
-
-	boolean fakesSupportReadCommitted()
-	{
-		return false;
-	}
-
-	/**
-	 * Specifies the factor,
-	 * the length function of blob columns is wrong.
-	 */
-	int getBlobLengthFactor()
-	{
-		return 1;
-	}
-
-	/**
-	 * By overriding this method subclasses can enable the use of save points.
-	 * Some databases cannot recover from constraint violations in
-	 * the same transaction without a little help,
-	 * they need a save point set before the modification, that can be
-	 * recovered manually.
-	 */
-	boolean needsSavepoint()
-	{
-		return false;
-	}
-
-	abstract String getIntegerType(long minimum, long maximum);
-	abstract String getDoubleType();
-	abstract String getStringType(int maxLength);
-	abstract String getDayType();
-	
-	/**
-	 * Returns a column type suitable for storing timestamps
-	 * with milliseconds resolution.
-	 * This method may return null,
-	 * if the database does not support such a column type.
-	 * The framework will then fall back to store the number of milliseconds.
-	 */
-	abstract String getDateTimestampType();
-	abstract String getBlobType(long maximumLength);
-	
-	abstract LimitSupport getLimitSupport();
-	
-	static enum LimitSupport
-	{
-		NONE,
-		CLAUSE_AFTER_SELECT,
-		CLAUSE_AFTER_WHERE,
-		CLAUSES_AROUND;
-	}
-
-	/**
-	 * Appends a clause to the statement causing the database limiting the query result.
-	 * This method is never called for <tt>start==0 && count=={@link Query#UNLIMITED_COUNT}</tt>.
-	 * NOTE: Don't forget the space before the keyword 'limit'!
-	 * @param start the number of rows to be skipped
-	 *        or zero, if no rows to be skipped.
-	 *        Is never negative.
-	 * @param count the number of rows to be returned
-	 *        or {@link Query#UNLIMITED_COUNT} if all rows to be returned.
-	 *        Is always positive (greater zero).
-	 */
-	abstract void appendLimitClause(Statement bf, int start, int count);
-	
-	/**
-	 * Same as {@link #appendLimitClause(Statement, int, int)}.
-	 * Is used for {@link LimitSupport#CLAUSES_AROUND} only,
-	 * for the postfix.
-	 */
-	abstract void appendLimitClause2(Statement bf, int start, int count);
-
-	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
-	
 	/**
 	 * Search full text.
 	 */
 	final void appendMatchClause(final Statement bf, final StringFunction function, final String value)
 	{
 		if(fulltextIndex)
-			appendMatchClauseFullTextIndex(bf, function, value);
+			dialect.appendMatchClauseFullTextIndex(bf, function, value);
 		else
-			appendMatchClauseByLike(bf, function, value);
-	}
-	
-	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
-	{
-		bf.append(function, (Join)null).
-			append(" like ").
-			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
+			dialect.appendMatchClauseByLike(bf, function, value);
 	}
 	
 	private final int countTable(final Connection connection, final Table table)
@@ -1728,18 +1574,13 @@ abstract class Database
 		if(migrationSupported)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, getIntegerType(0, Integer.MAX_VALUE));
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_COMMENT_NAME, getStringType(100));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, dialect.getIntegerType(0, Integer.MAX_VALUE));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_COMMENT_NAME, dialect.getStringType(100));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ')');
 		}
 		
-		completeSchema(result);
+		dialect.completeSchema(result);
 		return result;
-	}
-	
-	protected void completeSchema(final Schema schema)
-	{
-		// empty default implementation
 	}
 	
 	final Schema makeVerifiedSchema()
@@ -2017,17 +1858,6 @@ abstract class Database
 			}
 		}
 	};
-	
-	boolean isDefiningColumnTypes()
-	{
-		return false;
-	}
-	
-	void defineColumnTypes(IntList columnTypes, java.sql.Statement statement)
-			throws SQLException
-	{
-		// default implementation does nothing, may be overwritten by subclasses
-	}
 	
 	final void close()
 	{

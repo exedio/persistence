@@ -51,7 +51,7 @@ final class Statement
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
-		this.columnTypes = database.isDefiningColumnTypes() ? new IntArrayList() : null;
+		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new IntArrayList() : null;
 	}
 
 	Statement(final Database database, final Query<? extends Object> query)
@@ -125,7 +125,7 @@ final class Statement
 		//System.out.println("-------"+joinTables.keySet().toString());
 		
 		this.qualifyTable = joinTables.size()>1;
-		this.columnTypes = database.isDefiningColumnTypes() ? new IntArrayList() : null;
+		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new IntArrayList() : null;
 		this.ambiguousTables = ambiguousTables;
 	}
 	

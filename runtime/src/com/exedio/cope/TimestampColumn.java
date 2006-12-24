@@ -31,13 +31,13 @@ final class TimestampColumn extends Column
 	TimestampColumn(final Table table, final String id, final boolean optional)
 	{
 		super(table, id, false, optional, JDBC_TYPE);
-		assert table.database.getDateTimestampType()!=null;
+		assert table.database.dialect.getDateTimestampType()!=null;
 	}
 	
 	@Override
 	final String getDatabaseType()
 	{
-		return table.database.getDateTimestampType();
+		return table.database.dialect.getDateTimestampType();
 	}
 
 	@Override

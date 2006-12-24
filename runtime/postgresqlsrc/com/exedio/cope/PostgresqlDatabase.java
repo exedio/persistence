@@ -26,7 +26,7 @@ import org.postgresql.Driver;
 import com.exedio.dsmf.PostgresqlDriver;
 
 
-final class PostgresqlDatabase extends Database
+final class PostgresqlDatabase extends Dialect // TODO SOON rename to Dialect
 {
 	static
 	{
@@ -45,10 +45,10 @@ final class PostgresqlDatabase extends Database
 		super(new PostgresqlDriver(), parameters);
 		
 		// version 8 needed for savepoints
-		if(databaseMajorVersion<8)
-			throw new RuntimeException("postgresql support needs at least database version 8, but was: " + databaseProductVersion + '(' + databaseMajorVersion + '.' + databaseMinorVersion + ')');
-		if(driverMajorVersion<8)
-			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + driverVersion + '(' + driverMajorVersion + '.' + driverMinorVersion + ')');
+		if(parameters.databaseMajorVersion<8)
+			throw new RuntimeException("postgresql support needs at least database version 8, but was: " + parameters.databaseProductVersion + '(' + parameters.databaseMajorVersion + '.' + parameters.databaseMinorVersion + ')');
+		if(parameters.driverMajorVersion<8)
+			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + parameters.driverVersion + '(' + parameters.driverMajorVersion + '.' + parameters.driverMinorVersion + ')');
 	}
 	
 	@Override

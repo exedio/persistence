@@ -203,22 +203,21 @@ public class FieldDateTest extends FieldTest
 	
 	public void testDateColumnType()
 	{
-		final Database database = model.getDatabase();
-		final String databaseClassName = database.getClass().getName();
+		final String database = model.getProperties().getDatabase();
 		final String expectedColumnType;
 
-		if(databaseClassName.endsWith("OracleDatabase"))
+		if(database.endsWith("OracleDatabase"))
 			expectedColumnType = "TIMESTAMP(3)";
-		else if(databaseClassName.endsWith("MysqlDatabase"))
+		else if(database.endsWith("MysqlDatabase"))
 			expectedColumnType = null;
-		else if(databaseClassName.endsWith("HsqldbDatabase"))
+		else if(database.endsWith("HsqldbDatabase"))
 			expectedColumnType = "timestamp";
-		else if(databaseClassName.endsWith("PostgresqlDatabase"))
+		else if(database.endsWith("PostgresqlDatabase"))
 			expectedColumnType = "timestamp (3) without time zone";
 		else
-			throw new RuntimeException(databaseClassName);
+			throw new RuntimeException(database);
 		
-		assertEquals(expectedColumnType, database.getDateTimestampType());
+		assertEquals(expectedColumnType, model.getDatabase().dialect.getDateTimestampType());
 	}
 	
 	public static String toString(final Date date)

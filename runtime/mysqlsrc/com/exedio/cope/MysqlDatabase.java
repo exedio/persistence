@@ -32,7 +32,7 @@ import com.mysql.jdbc.Driver;
  * since cope heavily depends on foreign key constraints.
  * @author Ralf Wiebicke
  */
-final class MysqlDatabase extends Database
+final class MysqlDatabase extends Dialect // TODO SOON rename to Dialect
 {
 	static
 	{
@@ -193,7 +193,7 @@ final class MysqlDatabase extends Database
 	}
 
 	@Override
-	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection)
+	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -201,12 +201,12 @@ final class MysqlDatabase extends Database
 		
 		final StatementInfo root = new StatementInfo(EXPLAIN_PLAN);
 		{
-			final Statement bf = createStatement();
+			final Statement bf = database.createStatement();
 			bf.append("explain ").
 				append(statementText).
 				appendParameters(statement);
 
-			executeSQLQuery(connection, bf, new ResultSetHandler(){
+			database.executeSQLQuery(connection, bf, new Database.ResultSetHandler(){
 				public void handle(final ResultSet resultSet) throws SQLException
 				{
 					final ResultSetMetaData metaData = resultSet.getMetaData();

@@ -76,7 +76,7 @@ final class StringColumn extends Column
 	@Override
 	final String getDatabaseType()
 	{
-		return table.database.getStringType(maximumLength);
+		return table.database.dialect.getStringType(maximumLength);
 	}
 
 	@Override

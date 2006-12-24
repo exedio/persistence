@@ -39,7 +39,7 @@ final class DayColumn extends Column
 	@Override
 	final String getDatabaseType()
 	{
-		return table.database.getDayType();
+		return table.database.dialect.getDayType();
 	}
 
 	@Override

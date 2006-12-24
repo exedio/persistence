@@ -24,7 +24,7 @@ import org.hsqldb.jdbcDriver;
 
 import com.exedio.dsmf.HsqldbDriver;
 
-final class HsqldbDatabase extends Database
+final class HsqldbDatabase extends Dialect // TODO SOON rename to Dialect
 {
 	static
 	{

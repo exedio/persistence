@@ -21,6 +21,10 @@ package com.exedio.cope;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Properties extends com.exedio.cope.util.Properties
 {
@@ -62,7 +66,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
-	private final Constructor<? extends Database> database;
+	private final Constructor<? extends Dialect> database; // TODO SOON rename to Dialect
 
 	public Properties()
 	{
@@ -112,7 +116,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		ensureValidity(new String[]{"x-build"});
 	}
 	
-	private static final Constructor<? extends Database> getDatabaseConstructor(final String databaseCode, final String source)
+	private static final Constructor<? extends Dialect> getDatabaseConstructor(final String databaseCode, final String source) // TODO SOON rename to Dialect
 	{
 		if(databaseCode.length()<=2)
 			throw new RuntimeException("database from " + source + " must have at least two characters, but was " + databaseCode);
@@ -133,11 +137,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 			throw new RuntimeException("class "+databaseName+" from "+source+" not found.");
 		}
 
-		if(!Database.class.isAssignableFrom(databaseClassRaw))
+		if(!Dialect.class.isAssignableFrom(databaseClassRaw))
 		{
-			throw new RuntimeException("class "+databaseName+" from "+source+" not a subclass of "+Database.class.getName()+".");
+			throw new RuntimeException(databaseClassRaw.toString() + " from " + source + " not a subclass of " + Dialect.class.getName() + '.');
 		}
-		final Class<? extends Database> databaseClass = databaseClassRaw.asSubclass(Database.class);
+		final Class<? extends Dialect> databaseClass = databaseClassRaw.asSubclass(Dialect.class);
 		try
 		{
 			return databaseClass.getDeclaredConstructor(new Class[]{DialectParameters.class});
@@ -153,11 +157,39 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new RuntimeException("property " + key + " in " + getSource() + " not set.");
 	}
 	
-	Database createDatabase(final DialectParameters parameters)
+	Database createDatabase(final boolean migrationSupported)
 	{
+		final DialectParameters parameters;
+		Connection probeConnection = null;
 		try
 		{
-			return database.newInstance(parameters);
+			probeConnection = new CopeConnectionFactory(this).createConnection();
+			parameters = new DialectParameters(this, probeConnection);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "create");
+		}
+		finally
+		{
+			if(probeConnection!=null)
+			{
+				try
+				{
+					probeConnection.close();
+					probeConnection = null;
+				}
+				catch(SQLException e)
+				{
+					throw new SQLRuntimeException(e, "close");
+				}
+			}
+		}
+
+		final Dialect dialect;
+		try
+		{
+			dialect = database.newInstance(parameters);
 		}
 		catch(InstantiationException e)
 		{
@@ -171,24 +203,26 @@ public final class Properties extends com.exedio.cope.util.Properties
 		{
 			throw new RuntimeException(e);
 		}
+		
+		return new Database(dialect.driver, parameters, dialect, migrationSupported);
 	}
 	
-	public String getDatabase()
+	public String getDatabase() // TODO SOON rename to Dialect
 	{
 		return database.getDeclaringClass().getName();
 	}
 
-	public String getDatabaseUrl()
+	public String getDatabaseUrl() // TODO SOON rename to JDBC
 	{
 		return databaseUrl.getStringValue();
 	}
 
-	public String getDatabaseUser()
+	public String getDatabaseUser() // TODO SOON rename to JDBC
 	{
 		return databaseUser.getStringValue();
 	}
 
-	public String getDatabasePassword()
+	public String getDatabasePassword() // TODO SOON rename to JDBC
 	{
 		return databasePassword.getStringValue();
 	}

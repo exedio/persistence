@@ -35,7 +35,7 @@ final class DoubleColumn extends Column
 	@Override
 	final String getDatabaseType()
 	{
-		return table.database.getDoubleType();
+		return table.database.dialect.getDoubleType();
 	}
 
 	@Override

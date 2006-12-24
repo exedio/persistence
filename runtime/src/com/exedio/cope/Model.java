@@ -275,7 +275,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				this.propertiesIfConnected = properties;
-				this.databaseIfConnected = properties.createDatabase(new DialectParameters(properties, migrationSupported));
+				this.databaseIfConnected = properties.createDatabase(migrationSupported);
 				
 				for(final Type type : typesSorted)
 					type.connect(databaseIfConnected);
@@ -474,7 +474,7 @@ public final class Model
 	 */
 	public boolean supportsEmptyStrings()
 	{
-		return !getProperties().getDatabaseDontSupportEmptyStrings() && getDatabase().supportsEmptyStrings();
+		return !getProperties().getDatabaseDontSupportEmptyStrings() && getDatabase().dialect.supportsEmptyStrings();
 	}
 
 	/**
@@ -729,7 +729,7 @@ public final class Model
 	
 	public java.util.Properties getDatabaseInfo()
 	{
-		final Database db = getDatabase();
+		final DialectParameters db = getDatabase().dialectParameters;
 		final java.util.Properties result = new java.util.Properties();
 		result.setProperty("database.name", db.databaseProductName);
 		result.setProperty("database.version", db.databaseProductVersion + ' ' + '(' + db.databaseMajorVersion + '.' + db.databaseMinorVersion + ')');

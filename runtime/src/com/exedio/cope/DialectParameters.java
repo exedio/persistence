@@ -18,14 +18,47 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+
+import com.exedio.dsmf.SQLRuntimeException;
+
 final class DialectParameters
 {
 	final Properties properties;
-	final boolean migrationSupported;
+
+	// probed on the initial connection
+	final boolean supportsTransactionIsolationLevel;
+	final String databaseProductName;
+	final String databaseProductVersion;
+	final int databaseMajorVersion;
+	final int databaseMinorVersion;
+	final String driverName;
+	final String driverVersion;
+	final int driverMajorVersion;
+	final int driverMinorVersion;
 	
-	DialectParameters(final Properties properties, final boolean migrationSupported)
+	DialectParameters(final Properties properties, final Connection connection)
 	{
 		this.properties = properties;
-		this.migrationSupported = migrationSupported;
+
+		try
+		{
+			final DatabaseMetaData dmd = connection.getMetaData();
+			supportsTransactionIsolationLevel = dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
+			databaseProductName = dmd.getDatabaseProductName();
+			databaseProductVersion = dmd.getDatabaseProductVersion();
+			databaseMajorVersion = dmd.getDatabaseMajorVersion();
+			databaseMinorVersion = dmd.getDatabaseMinorVersion();
+			driverName = dmd.getDriverName();
+			driverVersion = dmd.getDriverVersion();
+			driverMajorVersion = dmd.getDriverMajorVersion();
+			driverMinorVersion = dmd.getDriverMinorVersion();
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getMetaData");
+		}
 	}
 }
