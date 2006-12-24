@@ -54,10 +54,10 @@ final class MysqlDatabase extends Database
 	 */
 	private final boolean placeholdersInLimit;
 
-	protected MysqlDatabase(final Properties properties, final boolean migrationSupported)
+	protected MysqlDatabase(final DialectParameters parameters)
 	{
-		super(new MysqlDriver(Table.PK_COLUMN_NAME, Boolean.valueOf(properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()), properties, migrationSupported);
-		this.placeholdersInLimit = "true".equalsIgnoreCase(properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));
+		super(new MysqlDriver(Table.PK_COLUMN_NAME, Boolean.valueOf(parameters.properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()), parameters);
+		this.placeholdersInLimit = "true".equalsIgnoreCase(parameters.properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));
 	}
 
 	@Override

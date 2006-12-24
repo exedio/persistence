@@ -140,7 +140,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		final Class<? extends Database> databaseClass = databaseClassRaw.asSubclass(Database.class);
 		try
 		{
-			return databaseClass.getDeclaredConstructor(new Class[]{Properties.class, Boolean.TYPE});
+			return databaseClass.getDeclaredConstructor(new Class[]{DialectParameters.class});
 		}
 		catch(NoSuchMethodException e)
 		{
@@ -153,11 +153,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new RuntimeException("property " + key + " in " + getSource() + " not set.");
 	}
 	
-	Database createDatabase(final boolean migrationSupported)
+	Database createDatabase(final DialectParameters parameters)
 	{
 		try
 		{
-			return database.newInstance(new Object[]{this, migrationSupported});
+			return database.newInstance(parameters);
 		}
 		catch(InstantiationException e)
 		{

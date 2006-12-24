@@ -83,19 +83,19 @@ abstract class Database
 	
 	final boolean oracle; // TODO remove
 	
-	protected Database(final Driver driver, final Properties properties, final boolean migrationSupported)
+	protected Database(final Driver driver, final DialectParameters parameters)
 	{
 		this.driver = driver;
-		this.migrationSupported = migrationSupported;
-		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.log = properties.getDatabaseLog();
-		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
-		this.butterflyPkSource = properties.getPkSourceButterfly();
-		this.fulltextIndex = properties.getFulltextIndex();
-		this.connectionPool = new ConnectionPool(new CopeConnectionFactory(properties), properties.getConnectionPoolIdleLimit(), properties.getConnectionPoolIdleInitial());
-		this.forcedNames = properties.getDatabaseForcedNames();
-		this.tableOptions = properties.getDatabaseTableOptions();
-		this.limitSupport = properties.getDatabaseDontSupportLimit() ? LimitSupport.NONE : getLimitSupport();
+		this.migrationSupported = parameters.migrationSupported;
+		this.prepare = !parameters.properties.getDatabaseDontSupportPreparedStatements();
+		this.log = parameters.properties.getDatabaseLog();
+		this.logStatementInfo = parameters.properties.getDatabaseLogStatementInfo();
+		this.butterflyPkSource = parameters.properties.getPkSourceButterfly();
+		this.fulltextIndex = parameters.properties.getFulltextIndex();
+		this.connectionPool = new ConnectionPool(new CopeConnectionFactory(parameters.properties), parameters.properties.getConnectionPoolIdleLimit(), parameters.properties.getConnectionPoolIdleInitial());
+		this.forcedNames = parameters.properties.getDatabaseForcedNames();
+		this.tableOptions = parameters.properties.getDatabaseTableOptions();
+		this.limitSupport = parameters.properties.getDatabaseDontSupportLimit() ? LimitSupport.NONE : getLimitSupport();
 		this.blobLengthFactor = getBlobLengthFactor();
 		this.oracle = getClass().getName().equals("com.exedio.cope.OracleDatabase");
 		

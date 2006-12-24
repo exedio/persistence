@@ -38,9 +38,9 @@ final class HsqldbDatabase extends Database
 		}
 	}
 
-	protected HsqldbDatabase(final Properties properties, final boolean migrationSupported)
+	protected HsqldbDatabase(final DialectParameters parameters)
 	{
-		super(new HsqldbDriver(), properties, migrationSupported);
+		super(new HsqldbDriver(), parameters);
 	}
 
 	@Override

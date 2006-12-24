@@ -275,7 +275,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				this.propertiesIfConnected = properties;
-				this.databaseIfConnected = properties.createDatabase(migrationSupported);
+				this.databaseIfConnected = properties.createDatabase(new DialectParameters(properties, migrationSupported));
 				
 				for(final Type type : typesSorted)
 					type.connect(databaseIfConnected);
