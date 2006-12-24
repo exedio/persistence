@@ -66,6 +66,9 @@ final class Database // TODO SOON make methods non-final
 	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
+	final boolean supportsGetBytes;
+	final boolean supportsBlobInResultSet;
+	final boolean needsSavepoint;
 	
 	final boolean oracle; // TODO remove
 	
@@ -97,6 +100,9 @@ final class Database // TODO SOON make methods non-final
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
+		this.supportsGetBytes = dialect.supportsGetBytes();
+		this.supportsBlobInResultSet = dialect.supportsBlobInResultSet();
+		this.needsSavepoint = dialect.needsSavepoint();
 	}
 	
 	final Driver getDriver()
@@ -861,7 +867,7 @@ final class Database // TODO SOON make methods non-final
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
-		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(dialect.supportsGetBytes());
+		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(supportsGetBytes);
 		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
@@ -917,7 +923,7 @@ final class Database // TODO SOON make methods non-final
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 				
-				if(dialect.supportsBlobInResultSet())
+				if(supportsBlobInResultSet)
 				{
 					final Blob blob = resultSet.getBlob(1);
 					if(blob!=null)
@@ -1194,7 +1200,7 @@ final class Database // TODO SOON make methods non-final
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final int rows;
 			
-			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && dialect.needsSavepoint())
+			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint)
 				savepoint = connection.setSavepoint();
 			
 			if(!prepare)
