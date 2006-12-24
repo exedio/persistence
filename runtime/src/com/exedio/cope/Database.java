@@ -92,7 +92,10 @@ abstract class Database
 		this.logStatementInfo = parameters.properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = parameters.properties.getPkSourceButterfly();
 		this.fulltextIndex = parameters.properties.getFulltextIndex();
-		this.connectionPool = new ConnectionPool(new CopeConnectionFactory(parameters.properties), parameters.properties.getConnectionPoolIdleLimit(), parameters.properties.getConnectionPoolIdleInitial());
+		this.connectionPool = new ConnectionPool(
+				new CopeConnectionFactory(parameters.properties), 
+				parameters.properties.getConnectionPoolIdleLimit(), 
+				parameters.properties.getConnectionPoolIdleInitial());
 		this.forcedNames = parameters.properties.getDatabaseForcedNames();
 		this.tableOptions = parameters.properties.getDatabaseTableOptions();
 		this.limitSupport = parameters.properties.getDatabaseDontSupportLimit() ? LimitSupport.NONE : getLimitSupport();
