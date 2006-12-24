@@ -259,7 +259,7 @@ final class OracleDatabase extends Database
 		}));
 	
 	@Override
-	protected StatementInfo makePlanInfo(final Statement statement, final Connection connection)
+	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))

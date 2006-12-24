@@ -1313,7 +1313,7 @@ abstract class Database
 	
 	protected static final String EXPLAIN_PLAN = "explain plan";
 	
-	protected StatementInfo makePlanInfo(final Statement statement, final Connection connection)
+	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection)
 	{
 		return null;
 	}
@@ -1336,7 +1336,7 @@ abstract class Database
 				parametersChild.addChild(new StatementInfo(String.valueOf(i++) + ':' + p));
 		}
 			
-		final StatementInfo planInfo = makePlanInfo(statement, connection);
+		final StatementInfo planInfo = explainExecutionPlan(statement, connection);
 		if(planInfo!=null)
 			result.addChild(planInfo);
 		
