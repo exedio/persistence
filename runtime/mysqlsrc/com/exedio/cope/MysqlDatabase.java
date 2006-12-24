@@ -193,20 +193,7 @@ final class MysqlDatabase extends Database
 	}
 
 	@Override
-	protected StatementInfo makeStatementInfo(
-			final Statement statement, final Connection connection,
-			final long start, final long prepared, final long executed, final long resultRead, final long end)
-	{
-		final StatementInfo result = super.makeStatementInfo(statement, connection, start, prepared, executed, resultRead, end);
-
-		final StatementInfo planInfo = makePlanInfo(statement, connection);
-		if(planInfo!=null)
-			result.addChild(planInfo);
-		
-		return result;
-	}
-	
-	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
+	protected StatementInfo makePlanInfo(final Statement statement, final Connection connection)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))

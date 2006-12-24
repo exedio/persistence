@@ -230,20 +230,6 @@ final class OracleDatabase extends Database
 		new Column(planTable, "OTHER", "LONG");
 	}
 	
-	@Override
-	protected StatementInfo makeStatementInfo(
-			final Statement statement, final Connection connection,
-			final long start, final long prepared, final long executed, final long resultRead, final long end)
-	{
-		final StatementInfo result = super.makeStatementInfo(statement, connection, start, prepared, executed, resultRead, end);
-
-		final StatementInfo planInfo = makePlanInfo(statement, connection);
-		if(planInfo!=null)
-			result.addChild(planInfo);
-		
-		return result;
-	}
-	
 	private static final Random statementIDCounter = new Random();
 	
 	private static final String PLAN_TABLE = "PLAN_TABLE";
@@ -272,7 +258,8 @@ final class OracleDatabase extends Database
 			"POSITION",
 		}));
 	
-	private StatementInfo makePlanInfo(final Statement statement, final Connection connection)
+	@Override
+	protected StatementInfo makePlanInfo(final Statement statement, final Connection connection)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
