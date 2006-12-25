@@ -92,7 +92,7 @@ final class Database // TODO SOON make methods non-final
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
 		this.blobLengthFactor = dialect.getBlobLengthFactor();
-		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDatabase");
+		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 		
 		//System.out.println("using database "+getClass());
 		assert limitSupport!=null;
