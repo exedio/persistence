@@ -51,6 +51,24 @@ public abstract class AbstractLibTest extends CopeTest
 	protected final static Integer i8 = Integer.valueOf(8);
 	protected final static Integer i9 = Integer.valueOf(9);
 	
+	enum Dialect
+	{
+		HSQLDB("timestamp", false),
+		MYSQL(null, true),
+		ORACLE("TIMESTAMP(3)", true),
+		POSTGRESQL("timestamp (3) without time zone", true);
+		
+		final String dateTimestampType;
+		final boolean supportsReadCommitted;
+		
+		Dialect(final String dateTimestampType, final boolean supportsReadCommitted)
+		{
+			this.dateTimestampType = dateTimestampType;
+			this.supportsReadCommitted = supportsReadCommitted;
+		}
+	}
+	
+	protected Dialect dialect = null;
 	protected boolean hsqldb;
 	protected boolean mysql;
 	protected boolean oracle;
@@ -66,10 +84,23 @@ public abstract class AbstractLibTest extends CopeTest
 	{
 		super.setUp();
 		final String database = model.getProperties().getDatabase();
-		hsqldb = "com.exedio.cope.HsqldbDatabase".equals(database);
-		mysql  = "com.exedio.cope.MysqlDatabase".equals(database);
-		oracle = "com.exedio.cope.OracleDatabase".equals(database);
-		postgresql = "com.exedio.cope.PostgresqlDatabase".equals(database);
+		
+		if("com.exedio.cope.HsqldbDatabase".equals(database))
+			dialect = Dialect.HSQLDB;
+		else if("com.exedio.cope.MysqlDatabase".equals(database))
+			dialect = Dialect.MYSQL;
+		else if("com.exedio.cope.OracleDatabase".equals(database))
+			dialect = Dialect.ORACLE;
+		else if("com.exedio.cope.PostgresqlDatabase".equals(database))
+			dialect = Dialect.POSTGRESQL;
+		else
+			fail(database);
+
+		
+		hsqldb = dialect==Dialect.HSQLDB;
+		mysql  = dialect==Dialect.MYSQL;
+		oracle = dialect==Dialect.ORACLE;
+		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getProperties().getCacheLimit()>0;
 		noJoinParentheses = hsqldb;
 		files.clear();

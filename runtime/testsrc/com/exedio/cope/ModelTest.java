@@ -37,27 +37,7 @@ public class ModelTest extends TestmodelTest
 	public void testSupportsReadCommitted()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
-		final String database = model.getProperties().getDatabase();
-		if(database.equals("com.exedio.cope.HsqldbDatabase"))
-		{
-			assertEquals( false, model.supportsReadCommitted() );
-		}
-		else if(database.equals("com.exedio.cope.OracleDatabase"))
-		{
-			assertEquals( true, model.supportsReadCommitted() );
-		}
-		else if(database.equals("com.exedio.cope.MysqlDatabase"))
-		{
-			assertEquals( true, model.supportsReadCommitted() );
-		}
-		else if(database.equals("com.exedio.cope.PostgresqlDatabase"))
-		{
-			assertEquals( true, model.supportsReadCommitted() );
-		}
-		else
-		{
-			fail(database);
-		}
+		assertEquals(dialect.supportsReadCommitted, model.supportsReadCommitted());
 	}
 	
 	public static final void assertEquals(final String expected, final String actual)

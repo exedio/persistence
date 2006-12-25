@@ -57,15 +57,17 @@ public class StatementInfoTest extends TestmodelTest
 			assertTrue(!parametersChilds.hasNext());
 		}
 
-		final String database = model.getProperties().getDatabase();
-		if(database.endsWith("HsqldbDatabase"))
-			;
-		else if(database.endsWith("MysqlDatabase"))
+		switch(dialect)
+		{
+		case HSQLDB:
+			break;
+		case MYSQL:
 		{
 			final StatementInfo plan = rootChilds.next();
 			assertEquals("explain plan", plan.getText());
+			break;
 		}
-		else if(database.endsWith("OracleDatabase"))
+		case ORACLE:
 		{
 			final StatementInfo planId = rootChilds.next();
 			assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
@@ -94,11 +96,13 @@ public class StatementInfoTest extends TestmodelTest
 				}
 				assertTrue(!planIdChilds.hasNext());
 			}
+			break;
 		}
-		else if(database.endsWith("PostgresqlDatabase"))
-			;
-		else
-			fail(database);
+		case POSTGRESQL:
+			break;
+		default:
+			fail(dialect.toString());
+		}
 		
 		assertTrue(!rootChilds.hasNext());
 
