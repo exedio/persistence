@@ -179,8 +179,7 @@ final class MysqlDialect extends Dialect
 		// TODO: MySQL does not deliver constraint name in exception
 		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
 
-		if(e.getErrorCode()==vendorCode &&
-				e.getMessage().startsWith(start))
+		if(e.getErrorCode()==vendorCode && e.getMessage().startsWith(start))
 			return ANY_CONSTRAINT;
 		else
 			return null;
