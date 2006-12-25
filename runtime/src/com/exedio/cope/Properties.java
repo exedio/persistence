@@ -29,7 +29,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 public final class Properties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
-	private final StringField databaseCode = new StringField("database", DIALECT_FROM_URL);
+	private final StringField dialectCode = new StringField("database", DIALECT_FROM_URL);
 	private final StringField databaseUrl =  new StringField("database.url");
 	private final StringField databaseUser =  new StringField("database.user");
 	private final StringField databasePassword =  new StringField("database.password", true);
@@ -66,7 +66,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
-	private final Constructor<? extends Dialect> database; // TODO SOON rename to Dialect
+	private final Constructor<? extends Dialect> dialect;
 
 	public Properties()
 	{
@@ -91,10 +91,10 @@ public final class Properties extends com.exedio.cope.util.Properties
 	{
 		super(properties, source);
 
-		final String databaseCodeRaw = this.databaseCode.getStringValue();
+		final String dialectCodeRaw = this.dialectCode.getStringValue();
 		
-		final String databaseCode;
-		if(DIALECT_FROM_URL.equals(databaseCodeRaw))
+		final String dialectCode;
+		if(DIALECT_FROM_URL.equals(dialectCodeRaw))
 		{
 			final String url = databaseUrl.getStringValue();
 			final String prefix = "jdbc:";
@@ -103,14 +103,14 @@ public final class Properties extends com.exedio.cope.util.Properties
 			final int pos = url.indexOf(':', prefix.length());
 			if(pos<0)
 				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing second colon");
-			databaseCode = url.substring(prefix.length(), pos);
+			dialectCode = url.substring(prefix.length(), pos);
 		}
 		else
-			databaseCode = databaseCodeRaw;
+			dialectCode = dialectCodeRaw;
 			
-		database = getDatabaseConstructor( databaseCode, source );
+		dialect = getDialectConstructor(dialectCode, source);
 
-		databaseCustomProperties = new MapField("database." + databaseCode);
+		databaseCustomProperties = new MapField("database." + dialectCode);
 		
 		if(connectionPoolIdleInitial.getIntValue()>connectionPoolIdleLimit.getIntValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
@@ -132,39 +132,39 @@ public final class Properties extends com.exedio.cope.util.Properties
 		ensureValidity(new String[]{"x-build"});
 	}
 	
-	private static final Constructor<? extends Dialect> getDatabaseConstructor(final String databaseCode, final String source) // TODO SOON rename to Dialect
+	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String source)
 	{
-		if(databaseCode.length()<=2)
-			throw new RuntimeException("database from " + source + " must have at least two characters, but was " + databaseCode);
+		if(dialectCode.length()<=2)
+			throw new RuntimeException("dialect from " + source + " must have at least two characters, but was " + dialectCode);
 		
-		final String databaseName =
+		final String dialectName =
 			"com.exedio.cope." +
-			Character.toUpperCase(databaseCode.charAt(0)) +
-			databaseCode.substring(1) +
+			Character.toUpperCase(dialectCode.charAt(0)) +
+			dialectCode.substring(1) +
 			"Dialect";
 
-		final Class<?> databaseClassRaw;
+		final Class<?> dialectClassRaw;
 		try
 		{
-			databaseClassRaw = Class.forName(databaseName);
+			dialectClassRaw = Class.forName(dialectName);
 		}
 		catch(ClassNotFoundException e)
 		{
-			throw new RuntimeException("class "+databaseName+" from "+source+" not found.");
+			throw new RuntimeException("class " + dialectName + " from " + source + " not found.");
 		}
 
-		if(!Dialect.class.isAssignableFrom(databaseClassRaw))
+		if(!Dialect.class.isAssignableFrom(dialectClassRaw))
 		{
-			throw new RuntimeException(databaseClassRaw.toString() + " from " + source + " not a subclass of " + Dialect.class.getName() + '.');
+			throw new RuntimeException(dialectClassRaw.toString() + " from " + source + " not a subclass of " + Dialect.class.getName() + '.');
 		}
-		final Class<? extends Dialect> databaseClass = databaseClassRaw.asSubclass(Dialect.class);
+		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
 		try
 		{
-			return databaseClass.getDeclaredConstructor(new Class[]{DialectParameters.class});
+			return dialectClass.getDeclaredConstructor(new Class[]{DialectParameters.class});
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new RuntimeException("class "+databaseName+" from "+source+" does not have the required constructor.");
+			throw new RuntimeException("class " + dialectName + " from " + source + " does not have the required constructor.");
 		}
 	}
 	
@@ -205,7 +205,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		final Dialect dialect;
 		try
 		{
-			dialect = database.newInstance(parameters);
+			dialect = this.dialect.newInstance(parameters);
 		}
 		catch(InstantiationException e)
 		{
@@ -225,7 +225,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public String getDatabase() // TODO SOON rename to Dialect
 	{
-		return database.getDeclaringClass().getName();
+		return dialect.getDeclaringClass().getName();
 	}
 
 	public String getDatabaseUrl() // TODO SOON rename to JDBC
