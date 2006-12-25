@@ -141,7 +141,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 			"com.exedio.cope." +
 			Character.toUpperCase(databaseCode.charAt(0)) +
 			databaseCode.substring(1) +
-			"Database";
+			"Dialect";
 
 		final Class<?> databaseClassRaw;
 		try

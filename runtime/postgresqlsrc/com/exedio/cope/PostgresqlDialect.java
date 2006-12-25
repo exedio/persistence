@@ -26,7 +26,7 @@ import org.postgresql.Driver;
 import com.exedio.dsmf.PostgresqlDriver;
 
 
-final class PostgresqlDatabase extends Dialect // TODO SOON rename to Dialect
+final class PostgresqlDialect extends Dialect
 {
 	static
 	{
@@ -40,7 +40,7 @@ final class PostgresqlDatabase extends Dialect // TODO SOON rename to Dialect
 		}
 	}
 	
-	protected PostgresqlDatabase(final DialectParameters parameters)
+	protected PostgresqlDialect(final DialectParameters parameters)
 	{
 		super(new PostgresqlDriver(), parameters);
 		

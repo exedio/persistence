@@ -32,7 +32,7 @@ import com.mysql.jdbc.Driver;
  * since cope heavily depends on foreign key constraints.
  * @author Ralf Wiebicke
  */
-final class MysqlDatabase extends Dialect // TODO SOON rename to Dialect
+final class MysqlDialect extends Dialect
 {
 	static
 	{
@@ -54,7 +54,7 @@ final class MysqlDatabase extends Dialect // TODO SOON rename to Dialect
 	 */
 	private final boolean placeholdersInLimit;
 
-	protected MysqlDatabase(final DialectParameters parameters)
+	protected MysqlDialect(final DialectParameters parameters)
 	{
 		super(new MysqlDriver(Table.PK_COLUMN_NAME, Boolean.valueOf(parameters.properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()), parameters);
 		this.placeholdersInLimit = "true".equalsIgnoreCase(parameters.properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));

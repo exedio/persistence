@@ -24,7 +24,7 @@ import org.hsqldb.jdbcDriver;
 
 import com.exedio.dsmf.HsqldbDriver;
 
-final class HsqldbDatabase extends Dialect // TODO SOON rename to Dialect
+final class HsqldbDialect extends Dialect
 {
 	static
 	{
@@ -38,7 +38,7 @@ final class HsqldbDatabase extends Dialect // TODO SOON rename to Dialect
 		}
 	}
 
-	protected HsqldbDatabase(final DialectParameters parameters)
+	protected HsqldbDialect(final DialectParameters parameters)
 	{
 		super(new HsqldbDriver(), parameters);
 	}

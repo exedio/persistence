@@ -85,13 +85,13 @@ public abstract class AbstractLibTest extends CopeTest
 		super.setUp();
 		final String database = model.getProperties().getDatabase();
 		
-		if("com.exedio.cope.HsqldbDatabase".equals(database))
+		if("com.exedio.cope.HsqldbDialect".equals(database))
 			dialect = Dialect.HSQLDB;
-		else if("com.exedio.cope.MysqlDatabase".equals(database))
+		else if("com.exedio.cope.MysqlDialect".equals(database))
 			dialect = Dialect.MYSQL;
-		else if("com.exedio.cope.OracleDatabase".equals(database))
+		else if("com.exedio.cope.OracleDialect".equals(database))
 			dialect = Dialect.ORACLE;
-		else if("com.exedio.cope.PostgresqlDatabase".equals(database))
+		else if("com.exedio.cope.PostgresqlDialect".equals(database))
 			dialect = Dialect.POSTGRESQL;
 		else
 			fail(database);

@@ -37,7 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-final class OracleDatabase extends Dialect // TODO SOON rename to Dialect
+final class OracleDialect extends Dialect
 {
 	static
 	{
@@ -60,7 +60,7 @@ final class OracleDatabase extends Dialect // TODO SOON rename to Dialect
 
 	private final int varcharLength;
 
-	protected OracleDatabase(final DialectParameters parameters)
+	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(new OracleDriver(parameters.properties.getDatabaseUser().toUpperCase()), parameters);
 		this.varchar = "true".equalsIgnoreCase(parameters.properties.getDatabaseCustomProperty(VARCHAR));
