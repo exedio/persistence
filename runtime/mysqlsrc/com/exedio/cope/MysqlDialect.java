@@ -47,7 +47,6 @@ final class MysqlDialect extends Dialect
 	}
 	
 	private static final String TOLOWERCASE = "tolowercase";
-	private static final String PLACEHOLDERS_IN_LIMIT = "placeholdersInLimit";
 	
 	/**
 	 * mysql supports placeholders in version 5.0.7 and higher
@@ -57,7 +56,7 @@ final class MysqlDialect extends Dialect
 	protected MysqlDialect(final DialectParameters parameters)
 	{
 		super(new MysqlDriver(Table.PK_COLUMN_NAME, Boolean.valueOf(parameters.properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()), parameters);
-		this.placeholdersInLimit = "true".equalsIgnoreCase(parameters.properties.getDatabaseCustomProperty(PLACEHOLDERS_IN_LIMIT));
+		this.placeholdersInLimit = parameters.databaseMajorVersion>=5;
 	}
 
 	@Override
