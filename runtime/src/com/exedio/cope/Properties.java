@@ -223,9 +223,18 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new Database(dialect.driver, parameters, dialect, migrationSupported);
 	}
 	
-	public String getDatabase() // TODO SOON rename to Dialect
+	public String getDialect()
 	{
 		return dialect.getDeclaringClass().getName();
+	}
+	
+	/**
+	 * @deprecated Has been renamed to {@link #getDialect()}.
+	 */
+	@Deprecated
+	public String getDatabase()
+	{
+		return getDialect();
 	}
 
 	public String getDatabaseUrl() // TODO SOON rename to JDBC

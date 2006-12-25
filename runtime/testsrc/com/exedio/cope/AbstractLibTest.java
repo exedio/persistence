@@ -83,7 +83,7 @@ public abstract class AbstractLibTest extends CopeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final String database = model.getProperties().getDatabase();
+		final String database = model.getProperties().getDialect();
 		
 		if("com.exedio.cope.HsqldbDialect".equals(database))
 			dialect = Dialect.HSQLDB;
