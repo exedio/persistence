@@ -28,8 +28,8 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Properties extends com.exedio.cope.util.Properties
 {
-	private static final String FROM_URL = "from url";
-	private final StringField databaseCode = new StringField("database", FROM_URL);
+	private static final String DIALECT_FROM_URL = "from url";
+	private final StringField databaseCode = new StringField("database", DIALECT_FROM_URL);
 	private final StringField databaseUrl =  new StringField("database.url");
 	private final StringField databaseUser =  new StringField("database.user");
 	private final StringField databasePassword =  new StringField("database.password", true);
@@ -94,7 +94,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		final String databaseCodeRaw = this.databaseCode.getStringValue();
 		
 		final String databaseCode;
-		if(FROM_URL.equals(databaseCodeRaw))
+		if(DIALECT_FROM_URL.equals(databaseCodeRaw))
 		{
 			final String url = databaseUrl.getStringValue();
 			final String prefix = "jdbc:";
