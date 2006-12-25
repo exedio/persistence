@@ -44,7 +44,7 @@ import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 
-final class Database // TODO SOON make methods non-final
+final class Database
 {
 	private static final String NO_SUCH_ROW = "no such row";
 	
@@ -105,29 +105,29 @@ final class Database // TODO SOON make methods non-final
 		this.needsSavepoint = dialect.needsSavepoint();
 	}
 	
-	final Driver getDriver()
+	Driver getDriver()
 	{
 		return driver;
 	}
 	
-	final java.util.Properties getTableOptions()
+	java.util.Properties getTableOptions()
 	{
 		return tableOptions;
 	}
 	
-	final ConnectionPool getConnectionPool()
+	ConnectionPool getConnectionPool()
 	{
 		return connectionPool;
 	}
 	
-	final void addTable(final Table table)
+	void addTable(final Table table)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
 		tables.add(table);
 	}
 	
-	final void addUniqueConstraint(final String constraintID, final UniqueConstraint constraint)
+	void addUniqueConstraint(final String constraintID, final UniqueConstraint constraint)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
@@ -137,22 +137,22 @@ final class Database // TODO SOON make methods non-final
 			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
-	protected final Statement createStatement()
+	protected Statement createStatement()
 	{
 		return createStatement(true);
 	}
 	
-	protected final Statement createStatement(final boolean qualifyTable)
+	protected Statement createStatement(final boolean qualifyTable)
 	{
 		return new Statement(this, qualifyTable);
 	}
 	
-	protected final Statement createStatement(final Query<? extends Object> query)
+	protected Statement createStatement(final Query<? extends Object> query)
 	{
 		return new Statement(this, query);
 	}
 	
-	final void createDatabase(final int migrationVersion)
+	void createDatabase(final int migrationVersion)
 	{
 		buildStage = false;
 		
@@ -189,7 +189,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 
-	final void createDatabaseConstraints(final int mask)
+	void createDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 		
@@ -198,7 +198,7 @@ final class Database // TODO SOON make methods non-final
 
 	//private static int checkTableTime = 0;
 
-	final void checkDatabase(final Connection connection)
+	void checkDatabase(final Connection connection)
 	{
 		buildStage = false;
 
@@ -276,35 +276,35 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 
-	final void dropDatabase()
+	void dropDatabase()
 	{
 		buildStage = false;
 
 		makeSchema().drop();
 	}
 	
-	final void dropDatabaseConstraints(final int mask)
+	void dropDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 
 		makeSchema().dropConstraints(mask);
 	}
 	
-	final void tearDownDatabase()
+	void tearDownDatabase()
 	{
 		buildStage = false;
 
 		makeSchema().tearDown();
 	}
 
-	final void tearDownDatabaseConstraints(final int mask)
+	void tearDownDatabaseConstraints(final int mask)
 	{
 		buildStage = false;
 
 		makeSchema().tearDownConstraints(mask);
 	}
 	
-	final void checkEmptyDatabase(final Connection connection)
+	void checkEmptyDatabase(final Connection connection)
 	{
 		buildStage = false;
 
@@ -320,7 +320,7 @@ final class Database // TODO SOON make methods non-final
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	final ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly)
+	ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly)
 	{
 		buildStage = false;
 
@@ -642,13 +642,13 @@ final class Database // TODO SOON make methods non-final
 		return result;
 	}
 	
-	private final void log(final long start, final long end, final Statement statement)
+	private void log(final long start, final long end, final Statement statement)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
 		System.out.println(df.format(new Date(start)) + "  " + (end-start) + "ms:  " + statement.getText()+"   "+statement.parameters);
 	}
 	
-	final void load(final Connection connection, final PersistentState state)
+	void load(final Connection connection, final PersistentState state)
 	{
 		buildStage = false;
 
@@ -711,7 +711,7 @@ final class Database // TODO SOON make methods non-final
 		executeSQLQuery(connection, bf, state, false, false);
 	}
 
-	final void store(
+	void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
@@ -720,7 +720,7 @@ final class Database // TODO SOON make methods non-final
 		store(connection, state, present, blobs, state.type);
 	}
 
-	private final void store(
+	private void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
@@ -827,7 +827,7 @@ final class Database // TODO SOON make methods non-final
 		executeSQLUpdate(connection, bf, 1, type.declaredUniqueConstraints);
 	}
 
-	final void delete(final Connection connection, final Item item)
+	void delete(final Connection connection, final Item item)
 	{
 		buildStage = false;
 		final Type type = item.type;
@@ -850,7 +850,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 
-	final byte[] load(final Connection connection, final BlobColumn column, final Item item)
+	byte[] load(final Connection connection, final BlobColumn column, final Item item)
 	{
 		// TODO reuse code in load blob methods
 		buildStage = false;
@@ -872,7 +872,7 @@ final class Database // TODO SOON make methods non-final
 		return handler.result;
 	}
 	
-	private static class LoadBlobResultSetHandler implements ResultSetHandler
+	private static final class LoadBlobResultSetHandler implements ResultSetHandler
 	{
 		final boolean supportsGetBytes;
 		
@@ -900,7 +900,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	final void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField field)
+	void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField field)
 	{
 		buildStage = false;
 
@@ -983,7 +983,7 @@ final class Database // TODO SOON make methods non-final
 		}, false, false);
 	}
 	
-	final long loadLength(final Connection connection, final BlobColumn column, final Item item)
+	long loadLength(final Connection connection, final BlobColumn column, final Item item)
 	{
 		buildStage = false;
 
@@ -1031,7 +1031,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	final void store(
+	void store(
 			final Connection connection, final BlobColumn column, final Item item,
 			final InputStream data, final DataField field)
 		throws IOException
@@ -1066,7 +1066,7 @@ final class Database // TODO SOON make methods non-final
 		public void handle(ResultSet resultSet) throws SQLException;
 	}
 
-	private final static int convertSQLResult(final Object sqlInteger)
+	private static int convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE
 		// Whether the returned object is an Integer, a Long or a BigDecimal,
@@ -1078,7 +1078,7 @@ final class Database // TODO SOON make methods non-final
 
 	//private static int timeExecuteQuery = 0;
 
-	protected final StatementInfo executeSQLQuery(
+	protected StatementInfo executeSQLQuery(
 		final Connection connection,
 		final Statement statement,
 		final ResultSetHandler resultSetHandler,
@@ -1180,13 +1180,13 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	private final void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
+	private void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
 			throws UniqueViolationException
 	{
 		executeSQLUpdate(connection, statement, expectedRows, null);
 	}
 
-	private final void executeSQLUpdate(
+	private void executeSQLUpdate(
 			final Connection connection,
 			final Statement statement, final int expectedRows,
 			final List<UniqueConstraint> threatenedUniqueConstraints)
@@ -1265,7 +1265,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	private static final void setObject(String s, final PreparedStatement statement, final int parameterIndex, final Object value)
+	private static void setObject(String s, final PreparedStatement statement, final int parameterIndex, final Object value)
 		throws SQLException
 	{
 		//try{
@@ -1273,7 +1273,7 @@ final class Database // TODO SOON make methods non-final
 		//}catch(SQLException e){ throw new SQLRuntimeException(e, "setObject("+parameterIndex+","+value+")"+s); }
 	}
 	
-	final StatementInfo makeStatementInfo(
+	StatementInfo makeStatementInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
@@ -1298,7 +1298,7 @@ final class Database // TODO SOON make methods non-final
 		return result;
 	}
 	
-	private final UniqueViolationException wrapException(
+	private UniqueViolationException wrapException(
 			final SQLException e,
 			final List<UniqueConstraint> threatenedUniqueConstraints)
 	{
@@ -1324,7 +1324,7 @@ final class Database // TODO SOON make methods non-final
 	 * Trims a name to length for being a suitable qualifier for database entities,
 	 * such as tables, columns, indexes, constraints, partitions etc.
 	 */
-	protected static final String trimString(final String longString, final int maxLength)
+	protected static String trimString(final String longString, final int maxLength)
 	{
 		if(maxLength<=0)
 			throw new IllegalArgumentException("maxLength must be greater zero");
@@ -1402,12 +1402,12 @@ final class Database // TODO SOON make methods non-final
 		return result.toString();
 	}
 	
-	final String makeName(final String longName)
+	String makeName(final String longName)
 	{
 		return makeName(null, longName);
 	}
 
-	final String makeName(final String prefix, final String longName)
+	String makeName(final String prefix, final String longName)
 	{
 		final String query = prefix==null ? longName : prefix+'.'+longName;
 		final String forcedName = forcedNames.getProperty(query);
@@ -1421,7 +1421,7 @@ final class Database // TODO SOON make methods non-final
 	/**
 	 * Search full text.
 	 */
-	final void appendMatchClause(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClause(final Statement bf, final StringFunction function, final String value)
 	{
 		if(fulltextIndex)
 			dialect.appendMatchClauseFullTextIndex(bf, function, value);
@@ -1429,7 +1429,7 @@ final class Database // TODO SOON make methods non-final
 			dialect.appendMatchClauseByLike(bf, function, value);
 	}
 	
-	private final int countTable(final Connection connection, final Table table)
+	private int countTable(final Connection connection, final Table table)
 	{
 		final Statement bf = createStatement();
 		bf.append("select count(*) from ").defineColumnInteger().
@@ -1454,12 +1454,12 @@ final class Database // TODO SOON make methods non-final
 	}
 
 
-	final PkSource makePkSource(final Table table)
+	PkSource makePkSource(final Table table)
 	{
 		return butterflyPkSource ? (PkSource)new ButterflyPkSource(table) : new SequentialPkSource(table);
 	}
 	
-	final int[] getMinMaxPK(final Connection connection, final Table table)
+	int[] getMinMaxPK(final Connection connection, final Table table)
 	{
 		buildStage = false;
 
@@ -1497,7 +1497,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	final int checkTypeColumn(final Connection connection, final Type type)
+	int checkTypeColumn(final Connection connection, final Type type)
 	{
 		buildStage = false;
 		
@@ -1525,7 +1525,7 @@ final class Database // TODO SOON make methods non-final
 		return handler.result;
 	}
 	
-	final int checkTypeColumn(final Connection connection, final ItemField field)
+	int checkTypeColumn(final Connection connection, final ItemField field)
 	{
 		buildStage = false;
 		
@@ -1571,7 +1571,7 @@ final class Database // TODO SOON make methods non-final
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
 	private static final String MIGRATION_COLUMN_COMMENT_NAME = "c";
 	
-	final Schema makeSchema()
+	Schema makeSchema()
 	{
 		final Schema result = new Schema(driver, connectionPool);
 		for(final Table t : tables)
@@ -1589,14 +1589,14 @@ final class Database // TODO SOON make methods non-final
 		return result;
 	}
 	
-	final Schema makeVerifiedSchema()
+	Schema makeVerifiedSchema()
 	{
 		final Schema result = makeSchema();
 		result.verify();
 		return result;
 	}
 	
-	final int getActualMigrationVersion(final Connection connection)
+	int getActualMigrationVersion(final Connection connection)
 	{
 		buildStage = false;
 
@@ -1622,7 +1622,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	final Map<Integer, String> getMigrationLogs()
+	Map<Integer, String> getMigrationLogs()
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
 		Connection con = null;
@@ -1652,7 +1652,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	private final Map<Integer, String> getMigrationLogs(final Connection connection)
+	private Map<Integer, String> getMigrationLogs(final Connection connection)
 	{
 		buildStage = false;
 
@@ -1686,7 +1686,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	}
 	
-	private final void notifyMigration(final Connection connection, final int version, final Date date, final String comment, final boolean logToConsole)
+	private void notifyMigration(final Connection connection, final int version, final Date date, final String comment, final boolean logToConsole)
 	{
 		assert migrationSupported;
 		
@@ -1710,7 +1710,7 @@ final class Database // TODO SOON make methods non-final
 		executeSQLUpdate(connection, bf, 1);
 	}
 	
-	final void migrate(final int expectedVersion, final Migration[] migrations)
+	void migrate(final int expectedVersion, final Migration[] migrations)
 	{
 		assert expectedVersion>=0 : expectedVersion;
 		assert migrationSupported;
@@ -1820,7 +1820,7 @@ final class Database // TODO SOON make methods non-final
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated
-	protected static final void printMeta(final ResultSet resultSet) throws SQLException
+	protected static void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
 		final int columnCount = metaData.getColumnCount();
@@ -1832,7 +1832,7 @@ final class Database // TODO SOON make methods non-final
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated
-	protected static final void printRow(final ResultSet resultSet) throws SQLException
+	protected static void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
 		final int columnCount = metaData.getColumnCount();
@@ -1865,7 +1865,7 @@ final class Database // TODO SOON make methods non-final
 		}
 	};
 	
-	final void close()
+	void close()
 	{
 		getConnectionPool().flush();
 	}
@@ -1885,7 +1885,7 @@ final class Database // TODO SOON make methods non-final
 	private DatabaseListener listener = noopListener;
 	private final Object listenerLock = new Object();
 	
-	final DatabaseListener setListener(DatabaseListener listener)
+	DatabaseListener setListener(DatabaseListener listener)
 	{
 		if(listener==null)
 			listener = noopListener;
