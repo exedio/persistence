@@ -31,13 +31,12 @@ import junit.framework.TestCase;
 
 public abstract class SchemaTest extends TestCase
 {
-	String database; // non-local for BatchTest
 	private Driver driver;
 	String stringType;
 	String intType;
 	String intType2;
 	boolean supportsCheckConstraints;
-	boolean postgres = false; // TODO remove
+	boolean postgresql = false; // TODO remove
 	private SimpleConnectionProvider provider;
 	Connection connection1; // visible for BatchTest
 	private Connection connection2;
@@ -50,50 +49,48 @@ public abstract class SchemaTest extends TestCase
 		final Properties config = new Properties();
 		final String propertiesProperty = System.getProperty("com.exedio.cope.properties");
 		config.load(new FileInputStream(propertiesProperty!=null ? propertiesProperty : "cope.properties"));
-		database = config.getProperty("database");
-		if ( database.equals("log") )
-		{
-			database = config.getProperty("database.log.wrapped");
-		}
 		final String url = config.getProperty("database.url");
 		final String user = config.getProperty("database.user");
 		final String password = config.getProperty("database.password");
 		
-		if("hsqldb".equals(database))
+		if(url.startsWith("jdbc:hsqldb:"))
 		{
 			Class.forName("org.hsqldb.jdbcDriver");
 			driver = new HsqldbDriver();
 			stringType = "varchar(8)";
 			intType = "integer";
 			intType2 = null;
+			postgresql = false;
 		}
-		else if("mysql".equals(database))
+		else if(url.startsWith("jdbc:mysql:"))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			driver = new MysqlDriver("this", Boolean.valueOf(config.getProperty("database.mysql.tolowercase")).booleanValue());
 			stringType = "varchar(8) character set utf8 binary";
 			intType = "integer";
 			intType2 = "bigint";
+			postgresql = false;
 		}
-		else if("oracle".equals(database))
+		else if(url.startsWith("jdbc:oracle:"))
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			driver = new OracleDriver(user.toUpperCase());
 			stringType = "VARCHAR2(8)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
+			postgresql = false;
 		}
-		else if("postgresql".equals(database))
+		else if(url.startsWith("jdbc:postgresql:"))
 		{
 			Class.forName("org.postgresql.Driver");
 			driver = new PostgresqlDriver();
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
 			intType2 = null;
-			postgres = true;
+			postgresql = true;
 		}
 		else
-			throw new RuntimeException(database);
+			throw new RuntimeException(url);
 		
 		supportsCheckConstraints = driver.supportsCheckConstraints();
 		connection1 = DriverManager.getConnection(url, user, password);

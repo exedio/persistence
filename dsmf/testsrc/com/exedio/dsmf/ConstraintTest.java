@@ -87,7 +87,6 @@ public class ConstraintTest extends SchemaReadyTest
 	
 	public void testConstraints()
 	{
-		final boolean postgresql = "postgresql".equals(database);
 		final Schema schema = getVerifiedSchema();
 
 		final Table table = schema.getTable(TABLE);

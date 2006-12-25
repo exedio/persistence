@@ -26,10 +26,10 @@ public class BatchTest extends SchemaTest
 {
 	public void testTables() throws Exception
 	{
-		make(true, database+"-create.sql");
-		make(true, database+"-drop.sql");
-		make(false, database+"-create.sql");
-		make(false, database+"-drop.sql");
+		make(true, "create.sql");
+		make(true, "drop.sql");
+		make(false, "create.sql");
+		make(false, "drop.sql");
 	}
 	
 	public void make(final boolean single, final String filename) throws Exception
