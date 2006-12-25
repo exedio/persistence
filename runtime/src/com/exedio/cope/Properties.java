@@ -28,8 +28,8 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Properties extends com.exedio.cope.util.Properties
 {
-	
-	private final StringField databaseCode = new StringField("database");
+	private static final String FROM_URL = "from url";
+	private final StringField databaseCode = new StringField("database", FROM_URL);
 	private final StringField databaseUrl =  new StringField("database.url");
 	private final StringField databaseUser =  new StringField("database.user");
 	private final StringField databasePassword =  new StringField("database.password", true);
@@ -91,7 +91,23 @@ public final class Properties extends com.exedio.cope.util.Properties
 	{
 		super(properties, source);
 
-		final String databaseCode = this.databaseCode.getStringValue();
+		final String databaseCodeRaw = this.databaseCode.getStringValue();
+		
+		final String databaseCode;
+		if(FROM_URL.equals(databaseCodeRaw))
+		{
+			final String url = databaseUrl.getStringValue();
+			final String prefix = "jdbc:";
+			if(!url.startsWith(prefix))
+				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing prefix '" + prefix + '\'');
+			final int pos = url.indexOf(':', prefix.length());
+			if(pos<0)
+				throw new RuntimeException("cannot parse " + databaseUrl.getKey() + '=' + url + ", missing second colon");
+			databaseCode = url.substring(prefix.length(), pos);
+		}
+		else
+			databaseCode = databaseCodeRaw;
+			
 		database = getDatabaseConstructor( databaseCode, source );
 
 		databaseCustomProperties = new MapField("database." + databaseCode);
