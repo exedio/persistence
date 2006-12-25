@@ -75,7 +75,7 @@ public final class Join
 		return
 			kind==o.kind &&
 			type==o.type &&
-			condition==o.condition; // TODO SOON should use equals, but this causes infinite recursion
+			condition==null ? o.condition==null : condition.equals(o.condition);
 	}
 	
 	@Override
@@ -84,7 +84,7 @@ public final class Join
 		return
 			kind.hashCode() ^
 			type.hashCode() ^
-			(condition==null ? 0 : System.identityHashCode(condition)); // TODO SOON should use hashCode(), but this causes infinite recursion
+			(condition==null ? 0 : condition.hashCode());
 	}
 	
 	@Override

@@ -101,13 +101,13 @@ public class BindFunction<E> implements Function<E>
 		
 		final BindFunction o = (BindFunction)other;
 		
-		return function.equals(o.function) && join.equals(o.join);
+		return function.equals(o.function) && join.index==o.join.index; // using Join#equals(Object) causes infinite recursion
 	}
 	
 	@Override
 	public final int hashCode()
 	{
-		return function.hashCode() ^ join.hashCode();
+		return function.hashCode() ^ join.index; // using Join#hashCode() causes infinite recursion
 	}
 
 	@Override
