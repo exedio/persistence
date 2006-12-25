@@ -59,49 +59,49 @@ public class StatementInfoTest extends TestmodelTest
 
 		switch(dialect)
 		{
-		case HSQLDB:
-			break;
-		case MYSQL:
-		{
-			final StatementInfo plan = rootChilds.next();
-			assertEquals("explain plan", plan.getText());
-			break;
-		}
-		case ORACLE:
-		{
-			final StatementInfo planId = rootChilds.next();
-			assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
+			case HSQLDB:
+				break;
+			case MYSQL:
 			{
-				final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
-				{
-					final StatementInfo planSelect = planIdChilds.next();
-					assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
-					{
-						final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
-						{
-							final StatementInfo planTableAccess = planSelectChilds.next();
-							assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]"));
-							{
-								final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
-								{
-									final StatementInfo planUnique = planTableAccessChilds.next();
-									assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US"));
-									assertEquals(list(), planUnique.getChilds());
-								}
-								assertTrue(!planTableAccessChilds.hasNext());
-							}
-						}
-						assertTrue(!planSelectChilds.hasNext());
-					}
-				}
-				assertTrue(!planIdChilds.hasNext());
+				final StatementInfo plan = rootChilds.next();
+				assertEquals("explain plan", plan.getText());
+				break;
 			}
-			break;
-		}
-		case POSTGRESQL:
-			break;
-		default:
-			fail(dialect.toString());
+			case ORACLE:
+			{
+				final StatementInfo planId = rootChilds.next();
+				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
+				{
+					final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
+					{
+						final StatementInfo planSelect = planIdChilds.next();
+						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
+						{
+							final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
+							{
+								final StatementInfo planTableAccess = planSelectChilds.next();
+								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]"));
+								{
+									final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
+									{
+										final StatementInfo planUnique = planTableAccessChilds.next();
+										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US"));
+										assertEquals(list(), planUnique.getChilds());
+									}
+									assertTrue(!planTableAccessChilds.hasNext());
+								}
+							}
+							assertTrue(!planSelectChilds.hasNext());
+						}
+					}
+					assertTrue(!planIdChilds.hasNext());
+				}
+				break;
+			}
+			case POSTGRESQL:
+				break;
+			default:
+				fail(dialect.toString());
 		}
 		
 		assertTrue(!rootChilds.hasNext());
