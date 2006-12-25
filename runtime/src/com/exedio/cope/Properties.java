@@ -29,7 +29,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 public final class Properties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
-	private final StringField dialectCode = new StringField("database", DIALECT_FROM_URL);
+	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 	private final StringField databaseUrl =  new StringField("database.url");
 	private final StringField databaseUser =  new StringField("database.user");
 	private final StringField databasePassword =  new StringField("database.password", true);
