@@ -238,17 +238,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return getDialect();
 	}
 
-	public String getDatabaseUrl() // TODO SOON rename to JDBC
+	public String getDatabaseUrl()
 	{
 		return databaseUrl.getStringValue();
 	}
 
-	public String getDatabaseUser() // TODO SOON rename to JDBC
+	public String getDatabaseUser()
 	{
 		return databaseUser.getStringValue();
 	}
 
-	public String getDatabasePassword() // TODO SOON rename to JDBC
+	public String getDatabasePassword()
 	{
 		return databasePassword.getStringValue();
 	}
