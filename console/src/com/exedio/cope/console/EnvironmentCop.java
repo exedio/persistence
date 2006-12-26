@@ -51,6 +51,7 @@ final class EnvironmentCop extends ConsoleCop
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
 	{
 		final java.util.Properties current = model.getDatabaseInfo();
+		current.setProperty("dialect", model.getProperties().getDialect());
 		for(Iterator i = current.keySet().iterator(); i.hasNext(); )
 		{
 			final String name = (String)i.next();
