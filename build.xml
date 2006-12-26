@@ -64,7 +64,7 @@
 		</sequential>
 	</macrodef>
 	
-	<macrodef name="foreachdb">
+	<macrodef name="foreachEnvironment">
 		<attribute name="skipSwitch" />
 		<element name="body" optional="false" />
 		<sequential>
@@ -127,7 +127,7 @@
 	
 	<target name="dsmf.test" depends="dsmf.test.compile">
 		<mkdir dir="build/testresults" />
-		<foreachdb skipSwitch="dsmf.test">
+		<foreachEnvironment skipSwitch="dsmf.test">
 			<body>
 				<junit taskname="junit @{db}" fork="yes"
 						 haltonerror="true" haltonfailure="true"
@@ -144,7 +144,7 @@
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 	
 	<target name="dsmf.clean">
@@ -261,7 +261,7 @@
 	<target name="runtime.test" depends="runtime.compile, runtime.test.compile">
 		<delete file="build/runtime/classes/com/exedio/cope/testprotocol.properties" />
 		<mkdir dir="build/testresults" />
-		<foreachdb skipSwitch="runtime.test">
+		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
 				<mkdir dir="build/runtime/test.@{db}/data" />
 				<copy file="@{db.file}"
@@ -305,11 +305,11 @@
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 	
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
-		<foreachdb skipSwitch="runtime.teardown">
+		<foreachEnvironment skipSwitch="runtime.teardown">
 			<body>
 				<mkdir dir="build/runtime/teardown.@{db}/data" />
 				<copy file="@{db.file}"
@@ -335,7 +335,7 @@
 					<assertions><enable/></assertions>
 				</java>
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 
 	<target name="runtime.emma" depends="runtime.test.compile">
@@ -350,7 +350,7 @@
 			</instr>
 		</emma>
 		
-		<foreachdb skipSwitch="runtime.test">
+		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
 				<mkdir dir="build/runtime/emma.@{db}/data" />
 				<copy file="@{db.file}"
@@ -378,13 +378,13 @@
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 
 	<target name="runtime.testwebapp"
 			  depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile,
 							console.compile, copernica.compile">
-		<foreachdb skipSwitch="runtime.testwebapp">
+		<foreachEnvironment skipSwitch="runtime.testwebapp">
 			<body>
 				<mkdir dir="build/runtime/testwebapp-@{db}" />
 				
@@ -418,11 +418,11 @@
 				<mkdir dir="build/runtime/testwebapp-@{db}-data" />
 				<touch file="build/runtime/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 	
 	<target name="runtime.tomcat" depends="runtime.testwebapp, catalina.home">
-		<foreachdb skipSwitch="runtime.tomcat">
+		<foreachEnvironment skipSwitch="runtime.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{db}.xml"
 						file="runtime/testwebapp.xml">
@@ -431,7 +431,7 @@
 					</filterset>
 				</copy>
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 	
 	<target name="runtime.clean" depends="catalina.home">
@@ -627,7 +627,7 @@
 	</target>
 	
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
-		<foreachdb skipSwitch="copernica.testwebapp">
+		<foreachEnvironment skipSwitch="copernica.testwebapp">
 			<body>
 				<mkdir dir="build/copernica/testwebapp-@{db}" />
 				
@@ -663,11 +663,11 @@
 				<mkdir dir="build/copernica/testwebapp-@{db}-data" />
 				<touch file="build/copernica/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 	
 	<target name="copernica.tomcat" depends="copernica.testwebapp, catalina.home">
-		<foreachdb skipSwitch="copernica.tomcat">
+		<foreachEnvironment skipSwitch="copernica.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{db}.xml"
 						file="copernica/copetest.xml">
@@ -676,7 +676,7 @@
 					</filterset>
 				</copy>
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 	
 	<target name="copernica.webtest.compile">
@@ -708,7 +708,7 @@
 	</target>
 
 	<target name="copernica.index">
-		<foreachdb skipSwitch="copernica.db">
+		<foreachEnvironment skipSwitch="copernica.db">
 			<body>
 				<mkdir dir="build/copernica/index" />
 				<copy file="copernica/index.html" tofile="build/copernica/index/@{db}.html">
@@ -718,7 +718,7 @@
 					</filterset>
 				</copy>
 			</body>
-		</foreachdb>
+		</foreachEnvironment>
 	</target>
 	
 	<target name="copernica.clean" depends="catalina.home">
