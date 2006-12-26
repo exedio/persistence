@@ -25,22 +25,20 @@ import java.sql.SQLException;
 final class CopeConnectionFactory implements ConnectionPool.Factory
 {
 	private final String url;
-	private final String user;
-	private final String password;
+	private final java.util.Properties info;
 
-	CopeConnectionFactory(final Properties properties)
+	CopeConnectionFactory(final Properties properties, final Dialect dialect)
 	{
 		this.url = properties.getDatabaseUrl();
-		this.user = properties.getDatabaseUser();
-		this.password = properties.getDatabasePassword();
-		
-		assert url!=null;
-		assert user!=null;
-		assert password!=null;
+
+		info = new java.util.Properties();
+		info.setProperty("user", properties.getDatabaseUser());
+		info.setProperty("password", properties.getDatabasePassword());
+		dialect.completeConnectionInfo(info);
 	}
 
 	public Connection createConnection() throws SQLException
 	{
-		return DriverManager.getConnection(url, user, password);
+		return DriverManager.getConnection(url, info);
 	}
 }

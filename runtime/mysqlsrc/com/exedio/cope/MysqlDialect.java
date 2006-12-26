@@ -60,6 +60,14 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	protected void completeConnectionInfo(final java.util.Properties info)
+	{
+		info.setProperty("useUnicode", "true");
+		info.setProperty("characterEncoding", "utf8");
+		info.setProperty("characterSetResults", "utf8");
+	}
+	
+	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER

@@ -22,6 +22,7 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.exedio.dsmf.SQLRuntimeException;
@@ -179,7 +180,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		Connection probeConnection = null;
 		try
 		{
-			probeConnection = new CopeConnectionFactory(this).createConnection();
+			probeConnection = DriverManager.getConnection(getDatabaseUrl(), getDatabaseUser(), getDatabasePassword());
 			parameters = new DialectParameters(this, probeConnection);
 		}
 		catch(SQLException e)

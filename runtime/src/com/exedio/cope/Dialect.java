@@ -24,6 +24,11 @@ abstract class Dialect
 		this.driver = driver;
 	}
 	
+	protected void completeConnectionInfo(final java.util.Properties info)
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+	
 	protected static final String EXPLAIN_PLAN = "explain plan";
 	
 	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
