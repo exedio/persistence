@@ -587,11 +587,14 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(SETTER_MEDIA, link(media.name)));
 		o.write(lineSeparator);
-		o.write("\t * @throws ");
-		o.write(IOException.class.getName());
-		o.write(' ');
-		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>body</tt>"));
-		o.write(lineSeparator);
+		if(dataType!=byte.class)
+		{
+			o.write("\t * @throws ");
+			o.write(IOException.class.getName());
+			o.write(' ');
+			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>body</tt>"));
+			o.write(lineSeparator);
+		}
 		writeCommentFooter();
 		writeModifier(media.getGeneratedSetterModifier());
 		o.write("void set");
@@ -602,10 +605,13 @@ final class Generator
 			o.write("[]");
 		o.write(" body,final "+String.class.getName()+" contentType");
 		o.write(')');
-		final SortedSet<Class> setterExceptions = new TreeSet<Class>();
-		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
 		o.write(lineSeparator);
-		writeThrowsClause(setterExceptions);
+		if(dataType!=byte.class)
+		{
+			final SortedSet<Class> setterExceptions = new TreeSet<Class>();
+			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
+			writeThrowsClause(setterExceptions);
+		}
 		o.write("\t{");
 		o.write(lineSeparator);
 		
