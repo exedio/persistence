@@ -61,7 +61,7 @@ public class FieldMapTest extends AbstractLibTest
 		assertSame(item.name.getRelationType(), item.name.getParent().getType());
 		assertEqualsUnmodifiable(list(), item.name.getParent().getPatterns());
 
-		assertEquals(FieldMapItem.Language.class, ((EnumField<?>)item.name.getKey()).getValueClass());
+		assertEquals(FieldMapItem.Language.class, ((EnumField<FieldMapItem.Language>)item.name.getKey()).getValueClass());
 		assertEquals("key", item.name.getKey().getName());
 		assertSame(item.name.getRelationType(), item.name.getKey().getType());
 		assertEqualsUnmodifiable(list(), item.name.getKey().getPatterns());
