@@ -73,7 +73,7 @@ public final class DTypeSystem extends Pattern
 	@SuppressWarnings("unchecked") // OK: no generic array creation
 	private static final ItemField<DEnumValue>[] castEnumArray(final ItemField[] o)
 	{
-		return (ItemField<DEnumValue>[])o;
+		return o;
 	}
 
 	private FunctionField<?>[] array(final DAttribute.ValueType valueType)

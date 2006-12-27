@@ -190,7 +190,7 @@ final class Cache
 	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
 	private static final <R> List<R> castQL(final List l)
 	{
-		return (List<R>)l;
+		return l;
 	}
 	
 	void invalidate(final IntOpenHashSet[] invalidations)

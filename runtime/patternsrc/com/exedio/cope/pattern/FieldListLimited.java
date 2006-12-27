@@ -94,7 +94,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	@SuppressWarnings("unchecked") // OK: no generic array creation
 	private final static <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
-		return (FunctionField<X>[])o;
+		return o;
 	}
 	
 	private final static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)

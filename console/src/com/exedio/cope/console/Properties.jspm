@@ -156,7 +156,7 @@ final class Properties_Jspm
 	@SuppressWarnings("unchecked")
 	private static final Set<String> castTreeSet(final Set o)
 	{
-		return (Set<String>)o;
+		return o;
 	}
 
 	private static final String[] TEST_INFO_KEYS = new String[] {

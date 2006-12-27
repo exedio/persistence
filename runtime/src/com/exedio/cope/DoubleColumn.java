@@ -77,7 +77,8 @@ final class DoubleColumn extends Column
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return (Double)cache;
+		assert cache==null || cache instanceof Double;
+		return cache;
 	}
 	
 	@Override

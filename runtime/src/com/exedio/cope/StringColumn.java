@@ -166,7 +166,8 @@ final class StringColumn extends Column
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return (String)cache;
+		assert cache==null || cache instanceof String;
+		return cache;
 	}
 	
 	@Override

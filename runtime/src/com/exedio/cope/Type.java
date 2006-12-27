@@ -259,7 +259,7 @@ public final class Type<C extends Item>
 	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
 	private static final Class<Item> castSuperType(final Class o)
 	{
-		return (Class<Item>)o;
+		return o;
 	}
 
 	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
@@ -442,7 +442,7 @@ public final class Type<C extends Item>
 	@SuppressWarnings("unchecked")
 	private List<ItemField> castReferences(final List l)
 	{
-		return (List<ItemField>)l;
+		return l;
 	}
 	
 	void connect(final Database database)

@@ -50,7 +50,10 @@ public abstract class IntegerView
 			else if(loadedInteger instanceof Long)
 				return Integer.valueOf(((Long)loadedInteger).intValue());
 			else
-				return (Integer)loadedInteger;
+			{
+				assert loadedInteger==null || loadedInteger instanceof Integer;
+				return loadedInteger;
+			}
 		}
 		else
 			return null;

@@ -282,7 +282,7 @@ public class ModelTest extends TestmodelTest
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	private static final Class<Item> castItemClass(Class c)
 	{
-		return (Class<Item>)c;
+		return c;
 	}
 	
 	public void testUnsetProperties()
