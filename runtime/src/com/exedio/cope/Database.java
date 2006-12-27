@@ -34,7 +34,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -1111,8 +1110,8 @@ final class Database
 				final PreparedStatement prepared = connection.prepareStatement(sqlText);
 				sqlStatement = prepared;
 				int parameterIndex = 1;
-				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
-					setObject(prepared, parameterIndex, i.next());
+				for(final Object p : statement.parameters)
+					prepared.setObject(parameterIndex++, p);
 
 				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
@@ -1213,8 +1212,8 @@ final class Database
 				final PreparedStatement prepared = connection.prepareStatement(sqlText);
 				sqlStatement = prepared;
 				int parameterIndex = 1;
-				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
-					setObject(prepared, parameterIndex, i.next());
+				for(final Object p : statement.parameters)
+					prepared.setObject(parameterIndex++, p);
 				rows = prepared.executeUpdate();
 			}
 			
@@ -1263,12 +1262,6 @@ final class Database
 				}
 			}
 		}
-	}
-	
-	private static void setObject(final PreparedStatement statement, final int parameterIndex, final Object value)
-		throws SQLException
-	{
-		statement.setObject(parameterIndex, value);
 	}
 	
 	StatementInfo makeStatementInfo(
