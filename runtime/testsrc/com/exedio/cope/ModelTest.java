@@ -275,7 +275,7 @@ public class ModelTest extends TestmodelTest
 	{
 		NoReactivationConstructor(final SetValue[] initialAttributes)
 		{
-			super(null);
+			super(initialAttributes);
 		}
 	}
 	

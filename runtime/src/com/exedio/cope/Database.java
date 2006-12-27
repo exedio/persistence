@@ -758,7 +758,7 @@ final class Database
 						append('=');
 					
 					if(column instanceof BlobColumn)
-						bf.appendParameterBlob((BlobColumn)column, blobs.get(column));
+						bf.appendParameterBlob(blobs.get(column));
 					else
 						bf.appendParameter(column, state.store(column));
 				}
@@ -810,7 +810,7 @@ final class Database
 					if(blobs.containsKey(column))
 					{
 						bf.append(',').
-							appendParameterBlob((BlobColumn)column, blobs.get(column));
+							appendParameterBlob(blobs.get(column));
 					}
 				}
 				else
@@ -1046,7 +1046,7 @@ final class Database
 			append('=');
 		
 		if(data!=null)
-			bf.appendParameterBlob(column, data, field, item);
+			bf.appendParameterBlob(data, field, item);
 		else
 			bf.append("NULL");
 		

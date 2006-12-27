@@ -20,15 +20,13 @@ package com.exedio.cope;
 
 import java.util.HashMap;
 
-import javax.servlet.ServletException;
-
 import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.DTypeTest;
 
 public class TestGetModelTest extends CopeAssert
 {
-	public void testIt() throws ServletException
+	public void testIt()
 	{
 		final HashMap<Model, Properties> models = PackageTest.getModels(PackageTest.suite());
 		assertTrue(models.keySet().contains(NameTest.MODEL));

@@ -34,7 +34,6 @@ abstract class CopeAttribute extends CopeFeature
 	CopeAttribute(
 			final CopeType parent,
 			final JavaAttribute javaAttribute,
-			final Class typeClass,
 			final String persistentType)
 		throws InjectorParseException
 	{

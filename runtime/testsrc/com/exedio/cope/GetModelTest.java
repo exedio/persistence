@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import javax.servlet.ServletException;
-
 import com.exedio.cope.junit.CopeAssert;
 
 public class GetModelTest extends CopeAssert
@@ -28,7 +26,7 @@ public class GetModelTest extends CopeAssert
 	private static final Model modelPrivate = modelOk;
 	public static final Model modelNull = null;
 
-	public void testIt() throws ServletException
+	public void testIt()
 	{
 		assertSame(modelOk, Cope.getModel("com.exedio.cope.GetModelTest#modelOk"));
 		

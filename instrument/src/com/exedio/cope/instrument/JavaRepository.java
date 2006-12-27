@@ -122,11 +122,11 @@ final class JavaRepository
 									EnumField.class.equals(typeClass)||
 									ItemField.class.equals(typeClass))
 								{
-									new CopeObjectAttribute(type, javaAttribute, typeClass);
+									new CopeObjectAttribute(type, javaAttribute);
 								}
 								else if(DataField.class.equals(typeClass))
 								{
-									new CopeDataAttribute(type, javaAttribute, typeClass);
+									new CopeDataAttribute(type, javaAttribute);
 								}
 								else
 									throw new RuntimeException(typeClass.toString());

@@ -43,7 +43,7 @@ public class JavaViewTest extends AbstractLibTest
 		deleteOnTearDown(item = new JavaViewItem());
 	}
 	
-	public void testNumber() throws NoSuchMethodException
+	public void testNumber()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),

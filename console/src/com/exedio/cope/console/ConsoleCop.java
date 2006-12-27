@@ -102,7 +102,7 @@ abstract class ConsoleCop extends Cop
 		return df.format(new Date(date));
 	}
 	
-	void writeHead(HttpServletRequest request, PrintStream out) throws IOException
+	void writeHead(HttpServletRequest request, PrintStream out)
 	{
 		// default implementation does nothing
 	}

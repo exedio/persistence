@@ -226,14 +226,14 @@ final class Statement
 		return result;
 	}
 	
-	Statement appendParameterBlob(final BlobColumn function, final InputStream data, final DataField field, final Item item) throws IOException
+	Statement appendParameterBlob(final InputStream data, final DataField field, final Item item) throws IOException
 	{
 		this.text.append(QUESTION_MARK);
 		this.parameters.add(toArray(data, field, item)); // TODO
 		return this;
 	}
 	
-	Statement appendParameterBlob(final BlobColumn function, final byte[] data)
+	Statement appendParameterBlob(final byte[] data)
 	{
 		this.text.append(QUESTION_MARK);
 		this.parameters.add(data);

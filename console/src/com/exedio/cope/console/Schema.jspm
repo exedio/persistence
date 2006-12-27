@@ -19,7 +19,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,7 +58,6 @@ final class Schema_Jspm
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request)
-		throws IOException
 	{
 		%>
 		<form action="<%=cop%>" method="POST">
@@ -123,7 +121,7 @@ final class Schema_Jspm
 				{
 	%>
 	<ol><%
-					SchemaCop.writeCheckUnsupportedConstraints(out, request, model);
+					SchemaCop.writeCheckUnsupportedConstraints(out, model);
 	%>
 	</ol><%
 				}
@@ -356,14 +354,13 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		</form><%
 	}
 	
-	final static void writeHead(final HttpServletRequest request, final PrintStream out) throws IOException
+	final static void writeHead(final HttpServletRequest request, final PrintStream out)
 	{
 		%>
 		<script src="<%=ConsoleServlet.reportScript.url(request)%>" type="text/javascript"></script><%
 	}
 	
 	final static void writeDoneCheck(final PrintStream out, final long startTime, final int count)
-		throws IOException
 	{
 		final long endTime = System.currentTimeMillis();
 		%><li class="timelog"><%
@@ -380,7 +377,6 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 	}
 	
 	final static void writeDoneCheckSum(final PrintStream out, final int count)
-		throws IOException
 	{
 		%><li class="timelog">Overall: <%
 		if(count==0)
@@ -396,7 +392,6 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 	}
 	
 	final static void writeCheck(final PrintStream out, final Constraint constraint)
-		throws IOException
 	{
 		%>
 		<li>schema.getTable(&quot;<b><%=

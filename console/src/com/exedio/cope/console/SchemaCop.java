@@ -88,7 +88,7 @@ final class SchemaCop extends ConsoleCop
 	}
 	
 	@Override
-	void writeHead(final HttpServletRequest request, final PrintStream out) throws IOException
+	void writeHead(final HttpServletRequest request, final PrintStream out)
 	{
 		Schema_Jspm.writeHead(request, out);
 	}
@@ -168,7 +168,6 @@ final class SchemaCop extends ConsoleCop
 	
 	final static void writeApply(final PrintStream out,
 			final HttpServletRequest request, final Model model)
-			throws IOException
 	{
 		final Schema schema = model.getVerifiedSchema();
 		final StatementListener listener = new StatementListener()
@@ -358,8 +357,7 @@ final class SchemaCop extends ConsoleCop
 	}
 
 	final static void writeCheckUnsupportedConstraints(final PrintStream out,
-			final HttpServletRequest request, final Model model)
-			throws IOException
+			final Model model)
 	{
 		int sumCount = 0;
 		final Schema schema = model.getSchema();

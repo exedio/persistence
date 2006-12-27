@@ -130,7 +130,6 @@ final class Properties_Jspm
 	}
 
 	final static void writeDatabaseInfo(final PrintStream out, final String dialect, final java.util.Properties properties)
-		throws IOException
 	{
 		%>
 		<table class="properties">
@@ -169,7 +168,6 @@ final class Properties_Jspm
 		};
 
 	final static void writeTestInfo(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
-		throws IOException
 	{
 		%>
 		<hr>
@@ -206,7 +204,6 @@ final class Properties_Jspm
 	}
 
 	final static void writeTestInfoBody(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
-		throws IOException
 	{
 			for(int i = 0; i<properties.length; i++)
 			{
@@ -261,7 +258,6 @@ final class Properties_Jspm
 	}
 	
 	final static void write(final PrintStream out, final String key, String value)
-		throws IOException
 	{
 		if(value!=null)
 		{
@@ -274,7 +270,6 @@ final class Properties_Jspm
 	}
 
 	final static void write(final PrintStream out, final TreeSet<Package> jar)
-		throws IOException
 	{
 			%>
 			<tr>
@@ -301,7 +296,6 @@ final class Properties_Jspm
 	}
 
 	final static void writeVm(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
-		throws IOException
 	{
 		%>
 		<table class="properties">
@@ -330,7 +324,6 @@ final class Properties_Jspm
 	}
 	
 	final static void writeHidden(final PrintStream out, final Map<Feature, Feature> hiddenFeatures)
-		throws IOException
 	{
 		%>
 		<table class="properties">

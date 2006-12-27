@@ -24,11 +24,10 @@ final class CopeDataAttribute extends CopeAttribute
 
 	public CopeDataAttribute(
 			final CopeType parent,
-			final JavaAttribute javaAttribute,
-			final Class typeClass)
+			final JavaAttribute javaAttribute)
 		throws InjectorParseException
 	{
-		super(parent, javaAttribute, typeClass, "byte[]");
+		super(parent, javaAttribute, "byte[]");
 	}
 	
 }
