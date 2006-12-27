@@ -42,7 +42,7 @@ final class PostgresqlDialect extends Dialect
 	
 	protected PostgresqlDialect(final DialectParameters parameters)
 	{
-		super(new PostgresqlDriver(), parameters);
+		super(new PostgresqlDriver());
 		
 		// version 8 needed for savepoints
 		if(parameters.databaseMajorVersion<8)

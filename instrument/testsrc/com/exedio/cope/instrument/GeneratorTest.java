@@ -83,7 +83,7 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class INPUT_SUB = DefaultTextInput.class;
 	final static Class INPUT_SUB2 = FullQualifyInput.class;
 
-	public void testStandard() throws ClassNotFoundException
+	public void testStandard()
 	{
 		assertConstructor(STANDARD, new Class[]{
 				STRING, // notNullString
@@ -282,7 +282,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertField(TYPE_PRIVATE, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 
-	public void testDoubleUnique() throws ClassNotFoundException
+	public void testDoubleUnique()
 	{
 		assertConstructor(DOUBLE_UNIQUE, new Class[]{STRING, SUB_TARGET}, PUBLIC, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
@@ -290,7 +290,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(DOUBLE_UNIQUE, "findByUnique", new Class[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PUBLIC|STATIC|FINAL);
 	}
 	
-	public void testQualified() throws ClassNotFoundException
+	public void testQualified()
 	{
 		assertMethod(QUALIFIED, "getNameQualifier", new Class[]{STRING}, QUALIFIED_NAME, PUBLIC|FINAL);
 		assertMethod(QUALIFIED, "getNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
@@ -316,7 +316,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(QUALIFIED, "setInternalSetterNumber", new Class[]{STRING, Integer.class});
 	}
 	
-	public void testHierarchy() throws ClassNotFoundException
+	public void testHierarchy()
 	{
 		assertConstructor(SUPER, new Class[]{
 				STRING, // superMandatory

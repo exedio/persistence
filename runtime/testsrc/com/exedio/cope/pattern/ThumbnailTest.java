@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -53,7 +52,7 @@ public class ThumbnailTest extends AbstractLibTest
 		text.setFile(data, "text/plain");
 	}
 	
-	public void testThumbs() throws IOException
+	public void testThumbs()
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{

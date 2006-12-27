@@ -40,7 +40,7 @@ final class HsqldbDialect extends Dialect
 
 	protected HsqldbDialect(final DialectParameters parameters)
 	{
-		super(new HsqldbDriver(), parameters);
+		super(new HsqldbDriver());
 	}
 
 	@Override

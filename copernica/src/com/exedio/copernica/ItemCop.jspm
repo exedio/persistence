@@ -19,7 +19,6 @@
 
 package com.exedio.copernica;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 
@@ -42,7 +41,6 @@ class ItemCop_Jspm
 	static final String DELETE_BUTTON = ItemForm.DELETE_BUTTON;
 	
 	static void writeBody(final PrintStream out, final ItemCop cop)
-		throws IOException
 	{
 		final Item item = cop.item;
 		final Type<? extends Item> type = item.getCopeType();
@@ -207,7 +205,6 @@ class ItemCop_Jspm
 	}
 	
 	public static final void write(final PrintStream out, final ItemForm.ItemField field)
-		throws IOException
 	{
 		final Item item = field.content;
 		if(item!=null)

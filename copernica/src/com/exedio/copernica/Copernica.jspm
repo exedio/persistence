@@ -40,7 +40,7 @@ public final class Copernica_Jspm
 			final HttpServletRequest request,
 			final CopernicaUser user,
 			final CopernicaCop cop)
-		throws IOException, CopernicaAuthorizationFailedException
+		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
@@ -112,7 +112,6 @@ public final class Copernica_Jspm
 	static final void writeAuthenticationError(
 				final PrintStream out,
 				final CopernicaAuthorizationFailedException cafe)
-		throws IOException
 	{
 %><html>
 	<head>
@@ -141,7 +140,6 @@ public final class Copernica_Jspm
 				final CopsServlet servlet,
 				final Exception exception,
 				final boolean onPage)
-		throws IOException
 	{
 %><html>
 	<head>
@@ -176,7 +174,6 @@ public final class Copernica_Jspm
 	}
 	
 	static final void writeTypeList(final PrintStream out, final CopernicaCop cop)
-		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;
@@ -205,7 +202,6 @@ public final class Copernica_Jspm
 	}
 	
 	static final void writeEmptyBody(final HttpServletRequest request, final PrintStream out)
-		throws IOException
 	{
 			%>
 			<h1>Copernica</h1>
@@ -246,6 +242,5 @@ public final class Copernica_Jspm
 			%><br><%
 		}
 	}
-
 }
 %>

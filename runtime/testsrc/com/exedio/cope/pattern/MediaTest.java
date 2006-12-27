@@ -447,7 +447,7 @@ public class MediaTest extends AbstractLibTest
 		assertEqualContent(expectedData, tempFile);
 	}
 	
-	private void assertImageNull() throws IOException
+	private void assertImageNull()
 	{
 		assertTrue(item.isImageNull());
 		assertEquals(null, item.getImageBody());
@@ -459,7 +459,6 @@ public class MediaTest extends AbstractLibTest
 	private void assertImage(
 			final byte[] expectedData,
 			final String expectedContentType, final String expectedExtension)
-	throws IOException
 	{
 		assertTrue(!item.isImageNull());
 		assertData(expectedData, item.getImageBody());
@@ -468,7 +467,7 @@ public class MediaTest extends AbstractLibTest
 		assertEquals("media/MediaItem/image/" + item.getCopeID() + expectedExtension, item.getImageURL());
 	}
 	
-	private void assertPhotoNull() throws IOException
+	private void assertPhotoNull()
 	{
 		assertTrue(item.photo.isNull(item));
 		assertTrue(item.isPhotoNull());
@@ -479,7 +478,6 @@ public class MediaTest extends AbstractLibTest
 	}
 	
 	private void assertPhoto(final byte[] expectedData)
-	throws IOException
 	{
 		assertTrue(!item.isPhotoNull());
 		assertData(expectedData, item.getPhotoBody());

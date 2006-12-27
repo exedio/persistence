@@ -159,7 +159,7 @@ final class Injector
 		return s;
 	}
 
-	private void flushOutbuf() throws IOException
+	private void flushOutbuf()
 	{
 		if (outbufvalid)
 		{
@@ -177,7 +177,7 @@ final class Injector
 		}
 	}
 
-	private void write(String s) throws IOException
+	private void write(String s)
 	{
 		if (output != null)
 			output.append(s);

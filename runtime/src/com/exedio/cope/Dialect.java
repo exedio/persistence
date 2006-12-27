@@ -19,7 +19,7 @@ abstract class Dialect
 	
 	final Driver driver;
 	
-	protected Dialect(final Driver driver, final DialectParameters parameters)
+	protected Dialect(final Driver driver)
 	{
 		this.driver = driver;
 	}

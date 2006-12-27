@@ -19,7 +19,6 @@
 package com.exedio.cope.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 import com.exedio.cope.junit.CopeAssert;
@@ -105,7 +104,7 @@ public class PropertiesTest extends CopeAssert
 		super.tearDown();
 	}
 	
-	public void testIt() throws IOException
+	public void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");

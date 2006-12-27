@@ -19,7 +19,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,7 +55,6 @@ final class Console_Jspm
 				final HttpServletResponse response,
 				final Model model,
 				final ConsoleCop cop)
-		throws IOException
 	{
 		try
 		{
@@ -121,7 +119,6 @@ final class Console_Jspm
 			final PrintStream out,
 			final ArrayList<ItemFunction> functions,
 			final boolean test)
-		throws IOException
 	{
 		int sumCount = 0;
 		%>
@@ -174,7 +171,6 @@ final class Console_Jspm
 	final static void writeBodyDisabled(
 			final MigrationCop cop,
 			final PrintStream out)
-		throws IOException
 	{
 		%>
 		Migrations are not enabled for this model.
@@ -190,7 +186,6 @@ final class Console_Jspm
 			final int oldest, final int latest, final int current,
 			Map<Integer, Migration> migrations,
 			Map<Integer, String> logs)
-		throws IOException
 	{
 		%>
 		<table class="properties">
@@ -217,7 +212,6 @@ final class Console_Jspm
 			final ConnectionStatsCop cop,
 			final PrintStream out,
 			final ConnectionPoolInfo info)
-		throws IOException
 	{
 		final PoolCounter poolCounter = info.getCounter();
 		final String[] names = {
@@ -282,7 +276,6 @@ final class Console_Jspm
 			final CacheStatsCop cop,
 			final PrintStream out,
 			final CacheInfo[] infos)
-		throws IOException
 	{
 		final String[] names = {
 			"Max Number Of Items In Cache",
@@ -340,7 +333,6 @@ final class Console_Jspm
 			final int[] queryInfos,
 			final CacheQueryInfo[] queryHistogram,
 			final boolean queryHistogramAccurate)
-		throws IOException
 	{
 		final Runtime rt = Runtime.getRuntime();
 		%>
@@ -386,7 +378,6 @@ final class Console_Jspm
 			final PrimaryKeysCop cop,
 			final PrintStream out,
 			final Map<Type, int[]> primaryKeys)
-		throws IOException
 	{
 		%>
 		<table class="properties">
@@ -418,7 +409,6 @@ final class Console_Jspm
 			final MediaStatsCop cop,
 			final PrintStream out,
 			final Collection<MediaPath> media)
-		throws IOException
 	{
 		final String[] names = {
 			"Exception (500)",
@@ -505,7 +495,6 @@ final class Console_Jspm
 				final PrintStream out,
 				final List<? extends Item> items,
 				final Media other)
-		throws IOException
 	{
 		final MediaPath media = cop.media;
 		final CachedMedia mediaLastModified = media instanceof CachedMedia ? (CachedMedia)media : null;
@@ -640,5 +629,4 @@ final class Console_Jspm
 				%></td><%
 			}
 	}
-
 }%>

@@ -322,7 +322,7 @@ final class ItemForm extends Form
 		}
 
 		@Override
-		public void writeIt(final PrintStream out) throws IOException
+		public void writeIt(final PrintStream out)
 		{
 			super.writeIt(out);
 			ItemCop_Jspm.write(out, this);

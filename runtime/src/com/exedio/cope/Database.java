@@ -1112,7 +1112,7 @@ final class Database
 				sqlStatement = prepared;
 				int parameterIndex = 1;
 				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
-					setObject(sqlText, prepared, parameterIndex, i.next());
+					setObject(prepared, parameterIndex, i.next());
 
 				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
@@ -1214,7 +1214,7 @@ final class Database
 				sqlStatement = prepared;
 				int parameterIndex = 1;
 				for(Iterator i = statement.parameters.iterator(); i.hasNext(); parameterIndex++)
-					setObject(sqlText, prepared, parameterIndex, i.next());
+					setObject(prepared, parameterIndex, i.next());
 				rows = prepared.executeUpdate();
 			}
 			
@@ -1265,12 +1265,10 @@ final class Database
 		}
 	}
 	
-	private static void setObject(String s, final PreparedStatement statement, final int parameterIndex, final Object value)
+	private static void setObject(final PreparedStatement statement, final int parameterIndex, final Object value)
 		throws SQLException
 	{
-		//try{
 		statement.setObject(parameterIndex, value);
-		//}catch(SQLException e){ throw new SQLRuntimeException(e, "setObject("+parameterIndex+","+value+")"+s); }
 	}
 	
 	StatementInfo makeStatementInfo(

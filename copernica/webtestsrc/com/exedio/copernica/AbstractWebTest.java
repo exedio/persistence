@@ -18,7 +18,6 @@
 
 package com.exedio.copernica;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -63,7 +62,7 @@ public class AbstractWebTest extends WebTestCase
 		assertFormElementEquals(formElementName, expectedValue);
 	}
 	
-	protected final void submitWithValue(final String buttonValue) throws SAXException, IOException
+	protected final void submitWithValue(final String buttonValue) throws SAXException
 	{
 		final Button buttonWithValue = null;
 		final WebForm[] forms = getDialog().getResponse().getForms();
