@@ -106,28 +106,13 @@ final class ConnectionPool implements ConnectionProvider
 					idle[idleCount] = null; // do not reference active connections
 				}
 			}
-
 			if(result==null)
 				break;
 			
 			// Important to do this outside the synchronized block!
-			try
-			{
-				//final long start = System.currentTimeMillis();
-				// probably not the best idea
-				final ResultSet rs = result.getMetaData().getTables(null, null, "zack", null);
-				rs.next();
-				rs.close();
-				//timeInChecks += (System.currentTimeMillis()-start);
-				//numberOfChecks++;
-				//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
+			result = checkWhetherConnectionIsStillValid(result);
+			if(result!=null)
 				break;
-			}
-			catch(SQLException e)
-			{
-				result = null;
-				System.out.println("warning: pooled connection invalid: " + e.getMessage());
-			}
 		}
 		while(true);
 		//System.out.println("connection pool: CREATE");
@@ -137,6 +122,31 @@ final class ConnectionPool implements ConnectionProvider
 			result = factory.createConnection();
 		result.setAutoCommit(autoCommit);
 		return result;
+	}
+	
+	/**
+	 * One important reason to have this functionality in a dedicated method is to
+	 * put the name of the method into exception stacktraces.
+	 */
+	private static final Connection checkWhetherConnectionIsStillValid(final Connection result)
+	{
+		try
+		{
+			//final long start = System.currentTimeMillis();
+			// probably not the best idea
+			final ResultSet rs = result.getMetaData().getTables(null, null, "zack", null);
+			rs.next();
+			rs.close();
+			//timeInChecks += (System.currentTimeMillis()-start);
+			//numberOfChecks++;
+			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
+			return result;
+		}
+		catch(SQLException e)
+		{
+			System.out.println("warning: pooled connection invalid: " + e.getMessage());
+			return null;
+		}
 	}
 	
 	/**
