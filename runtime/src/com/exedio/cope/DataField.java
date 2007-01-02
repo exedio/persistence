@@ -175,7 +175,7 @@ public final class DataField extends Field<byte[]>
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
-		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, DataField.this);
+		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, this);
 	}
 	
 	/**
@@ -227,7 +227,7 @@ public final class DataField extends Field<byte[]>
 			{
 				final long length = data.length();
 				if(length>maximumLength)
-					throw new DataLengthViolationException(DataField.this, item, length, true);
+					throw new DataLengthViolationException(this, item, length, true);
 				
 				source =  new FileInputStream(data);
 			}
