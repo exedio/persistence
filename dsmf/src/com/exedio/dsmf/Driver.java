@@ -113,6 +113,17 @@ public abstract class Driver
 		return false;
 	}
 	
+	// derby needs a different syntax
+	public String renameTable(final String tableName, final String newTableName)
+	{
+		final StringBuffer bf = new StringBuffer();
+		bf.append("alter table ").
+			append(tableName).
+			append(" rename to ").
+			append(newTableName);
+		return bf.toString();
+	}
+	
 	public abstract String renameColumn(String tableName, String oldColumnName, String newColumnName, String columnType);
 	public abstract String createColumn(String tableName, String columnName, String columnType);
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);

@@ -382,14 +382,7 @@ public final class Table extends Node
 	
 	public final void renameTo(final String newName, final StatementListener listener)
 	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("alter table ").
-			append(protectName(name)).
-			append(" rename to ").
-			append(protectName(newName));
-
-		//System.out.println("renameTable:"+bf);
-		executeSQL(bf.toString(), listener);
+		executeSQL(driver.renameTable(protectName(name), protectName(newName)), listener);
 	}
 
 	public final void analyze(final StatementListener listener)
