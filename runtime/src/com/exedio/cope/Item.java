@@ -614,7 +614,7 @@ public abstract class Item extends Cope
 				continue;
 			
 			final DataField df = (DataField)field;
-			df.impl.fillBlob((byte[])fieldValues.get(field), result, this);
+			result.put((BlobColumn)df.getColumn(), (byte[])fieldValues.get(field));
 		}
 		return result;
 	}

@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -487,9 +486,6 @@ public final class Model
 	
 	public void createDatabase()
 	{
-		for(int i = 0; i<types.length; i++)
-			createDataDirectories(types[i]);
-
 		getDatabase().createDatabase(migrationVersion);
 		clearCache();
 	}
@@ -497,88 +493,6 @@ public final class Model
 	public void createDatabaseConstraints(final int mask)
 	{
 		getDatabase().createDatabaseConstraints(mask);
-	}
-
-	private void createDataDirectories(final Type<?> type)
-	{
-		File typeDirectory = null;
-
-		for(final Field field : type.getFields())
-		{
-			if((field instanceof DataField) && !((DataField)field).impl.blob)
-			{
-				if(typeDirectory==null)
-				{
-					final File directory = getProperties().getDatadirPath();
-					typeDirectory = new File(directory, type.id);
-					typeDirectory.mkdir();
-				}
-				final File fieldDirectory = new File(typeDirectory, field.getName());
-				fieldDirectory.mkdir();
-			}
-		}
-	}
-
-	private void dropDataDirectories(final Type<?> type)
-	{
-		File typeDirectory = null;
-
-		for(final Field field : type.getFields())
-		{
-			if(field instanceof DataField && !((DataField)field).impl.blob)
-			{
-				if(typeDirectory==null)
-				{
-					final File directory = getProperties().getDatadirPath();
-					typeDirectory = new File(directory, type.id);
-				}
-				final File fieldDirectory = new File(typeDirectory, field.getName());
-				final File[] files = fieldDirectory.listFiles();
-				for(int j = 0; j<files.length; j++)
-				{
-					final File file = files[j];
-					if(!file.delete())
-						throw new RuntimeException("delete failed: "+file.getAbsolutePath());
-				}
-				if(!fieldDirectory.delete())
-					throw new RuntimeException("delete failed: "+fieldDirectory.getAbsolutePath());
-			}
-		}
-
-		if(typeDirectory!=null)
-		{
-			if(!typeDirectory.delete())
-				throw new RuntimeException("delete failed: "+typeDirectory.getAbsolutePath());
-		}
-	}
-
-	private void tearDownDataDirectories(final Type<?> type)
-	{
-		File typeDirectory = null;
-
-		for(final Field field : type.getFields())
-		{
-			if(field instanceof DataField && !((DataField)field).impl.blob)
-			{
-				if(typeDirectory==null)
-				{
-					final File directory = getProperties().getDatadirPath();
-					typeDirectory = new File(directory, type.id);
-				}
-				final File fieldDirectory = new File(typeDirectory, field.getName());
-				if(fieldDirectory.exists())
-				{
-					final File[] files = fieldDirectory.listFiles();
-					for(int j = 0; j<files.length; j++)
-						files[j].delete();
-	
-					fieldDirectory.delete();
-				}
-			}
-		}
-
-		if(typeDirectory!=null)
-			typeDirectory.delete();
 	}
 
 	/**
@@ -594,7 +508,6 @@ public final class Model
 	 */
 	public void checkDatabase()
 	{
-		// TODO: check for data directories
 		getDatabase().checkDatabase(getCurrentTransaction().getConnection());
 	}
 
@@ -611,10 +524,6 @@ public final class Model
 			i.previous().onDropTable();
 
 		getDatabase().dropDatabase();
-
-		for(int i = 0; i<this.types.length; i++)
-			dropDataDirectories(this.types[i]);
-		
 		clearCache();
 	}
 
@@ -626,10 +535,6 @@ public final class Model
 	public void tearDownDatabase()
 	{
 		getDatabase().tearDownDatabase();
-
-		for(int i = 0; i<this.types.length; i++)
-			tearDownDataDirectories(this.types[i]);
-
 		clearCache();
 	}
 	

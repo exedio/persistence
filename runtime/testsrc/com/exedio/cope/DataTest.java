@@ -81,7 +81,7 @@ public class DataTest extends AbstractLibTest
 	private static final void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle, final Model model)
 		throws MandatoryViolationException, IOException
 	{
-		if(expectedData!=null && !(oracle && !model.getProperties().hasDatadirPath() && expectedData.length==0))
+		if(expectedData!=null && !(oracle && expectedData.length==0))
 		{
 			assertTrue(!item.isDataNull());
 			assertEquals(expectedData.length, item.getDataLength());
@@ -274,8 +274,6 @@ public class DataTest extends AbstractLibTest
 			assertEquals(false, e.isLengthExact());
 			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for " + item.data10, e.getMessage());
 		}
-		if(model.getProperties().hasDatadirPath()) // TODO should not be needed
-			item.setData10(data10);
 		assertData(data10, item.getData10());
 		try
 		{

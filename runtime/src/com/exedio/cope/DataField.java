@@ -21,13 +21,10 @@ package com.exedio.cope;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
-
 
 public final class DataField extends Field<byte[]>
 {
@@ -70,7 +67,7 @@ public final class DataField extends Field<byte[]>
 	
 	// second initialization phase ---------------------------------------------------
 	
-	Impl impl;
+	private Impl impl;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;
 
@@ -80,18 +77,7 @@ public final class DataField extends Field<byte[]>
 		final Type type = getType();
 		final Model model = type.getModel();
 		final Properties properties = model.getProperties();
-		
-		if(properties.hasDatadirPath())
-		{
-			final File typeDir = new File(properties.getDatadirPath(), type.id);
-			final File fieldDir = new File(typeDir, name);
-			impl = new FileImpl(fieldDir);
-		}
-		else
-		{
-			this.impl = new BlobImpl(model, table, name, optional);
-		}
-		
+		this.impl = new BlobImpl(model, table, name, optional);
 		final int maximumLengthInt = toInt(maximumLength);
 		bufferSizeDefault = Math.min(properties.dataFieldBufferSizeDefault.getIntValue(), maximumLengthInt);
 		bufferSizeLimit = Math.min(properties.dataFieldBufferSizeLimit.getIntValue(), maximumLengthInt);
@@ -255,7 +241,6 @@ public final class DataField extends Field<byte[]>
 		abstract void set(Item item, InputStream data) throws MandatoryViolationException, IOException;
 		abstract void get(Item item, File data) throws IOException;
 		abstract void set(Item item, File data) throws MandatoryViolationException, IOException;
-		abstract void fillBlob(byte[] value, HashMap<BlobColumn, byte[]> blobs, Item item);
 	}
 	
 	final class BlobImpl extends Impl
@@ -364,257 +349,6 @@ public final class DataField extends Field<byte[]>
 				if(source!=null)
 					source.close();
 			}
-		}
-		
-		@Override
-		void fillBlob(final byte[] value, final HashMap<BlobColumn, byte[]> blobs, final Item item)
-		{
-			blobs.put(column, value);
-		}
-	}
-	
-	final class FileImpl extends Impl
-	{
-		final File directory;
-		
-		FileImpl(final File directory)
-		{
-			super(false);
-			this.directory = directory;
-		}
-		
-		@Override
-		Column getColumn()
-		{
-			return null;
-		}
-		
-		private File getStorage(final Item item)
-		{
-			return new File(directory, String.valueOf(item.type.getPkSource().pk2id(item.pk)));
-		}
-		
-		@Override
-		boolean isNull(final Item item)
-		{
-			final File file = getStorage(item);
-			return !file.exists();
-		}
-		
-		@Override
-		long getLength(final Item item)
-		{
-			final File file = getStorage(item);
-
-			return file.exists() ? file.length() : -1l;
-		}
-
-		@Override
-		byte[] get(final Item item)
-		{
-			final File file = getStorage(item);
-			if(file.exists())
-			{
-				try
-				{
-					return DataField.copy(new FileInputStream(file), file.length());
-				}
-				catch(FileNotFoundException e)
-				{
-					throw new RuntimeException(file.getAbsolutePath(), e);
-				}
-			}
-			else
-				return null;
-		}
-		
-		@Override
-		void set(final Item item, final byte[] data)
-		{
-			OutputStream out = null;
-			try
-			{
-				final File file = getStorage(item);
-
-				if(data!=null)
-				{
-					out = new FileOutputStream(file);
-					out.write(data, 0, data.length);
-					out.close();
-				}
-				else
-				{
-					if(file.exists())
-					{
-						if(!file.delete())
-							throw new RuntimeException("deleting "+file+" failed.");
-					}
-				}
-			}
-			catch(IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-			finally
-			{
-				if(out!=null)
-				{
-					try
-					{
-						out.close();
-					}
-					catch(IOException e)
-					{
-						throw new RuntimeException(e);
-					}
-				}
-			}
-		}
-		
-		@Override
-		void get(final Item item, final OutputStream data) throws IOException
-		{
-			final File file = getStorage(item);
-			if(file.exists())
-			{
-				FileInputStream in = null;
-				try
-				{
-					if(data!=null)
-					{
-						in = new FileInputStream(file);
-						DataField.this.copy(in, data, file.length(), item);
-						in.close();
-						data.close();
-					}
-					else
-					{
-						if(file.exists())
-						{
-							if(!file.delete())
-								throw new RuntimeException("deleting "+file+" failed.");
-						}
-					}
-				}
-				finally
-				{
-					if(data!=null)
-						data.close();
-					if(in!=null)
-						in.close();
-				}
-			}
-		}
-
-		@Override
-		void set(final Item item, final InputStream data) throws MandatoryViolationException, IOException
-		{
-			OutputStream out = null;
-			try
-			{
-				final File file = getStorage(item);
-
-				if(data!=null)
-				{
-					out = new FileOutputStream(file);
-					DataField.this.copy(data, out, item);
-					out.close();
-					data.close();
-				}
-				else
-				{
-					if(file.exists())
-					{
-						if(!file.delete())
-							throw new RuntimeException("deleting "+file+" failed.");
-					}
-				}
-			}
-			finally
-			{
-				if(data!=null)
-					data.close();
-				if(out!=null)
-					out.close();
-			}
-		}
-		
-		private final void copy(final File source, final File target, final Item item) throws IOException
-		{
-			final long length = source.length();
-			if(length>0)
-			{
-				if(length>maximumLength)
-					throw new DataLengthViolationException(DataField.this, item, length, true);
-				
-				InputStream sourceS = null;
-				OutputStream targetS = null;
-				try
-				{
-					sourceS = new FileInputStream(source);
-					targetS = new FileOutputStream(target);
-					DataField.this.copy(sourceS, targetS, length, item);
-				}
-				finally
-				{
-					if(sourceS!=null)
-						sourceS.close();
-					if(targetS!=null)
-						targetS.close();
-				}
-			}
-			else if(length==0)
-			{
-				if(target.exists())
-				{
-					final long targetLength = target.length();
-					if(targetLength==0)
-						; // do nothing
-					else if(targetLength<0)
-						throw new RuntimeException(String.valueOf(targetLength));
-					else
-					{
-						target.delete();
-						target.createNewFile();
-					}
-				}
-				else
-					target.createNewFile();
-			}
-			else
-				throw new RuntimeException(String.valueOf(length));
-		}
-		
-		@Override
-		void get(final Item item, final File data) throws IOException
-		{
-			final File file = getStorage(item);
-			if(file.exists())
-				copy(file, data, item);
-			// TODO maybe file should be deleted when result is null?, same in blob mode
-		}
-		
-		@Override
-		void set(final Item item, final File data) throws MandatoryViolationException, IOException
-		{
-			final File file = getStorage(item);
-
-			if(data!=null)
-				copy(data, file, item);
-			else
-			{
-				if(file.exists())
-				{
-					if(!file.delete())
-						throw new RuntimeException("deleting "+file+" failed.");
-				}
-			}
-		}
-		
-		@Override
-		void fillBlob(final byte[] value, final HashMap<BlobColumn, byte[]> blobs, final Item item)
-		{
-			set(item, value);
 		}
 	}
 	

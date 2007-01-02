@@ -63,7 +63,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
 	
-	private final FileField datadirPath = new FileField("datadir.path");
 	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
@@ -115,20 +114,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 		
 		if(connectionPoolIdleInitial.getIntValue()>connectionPoolIdleLimit.getIntValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
-		
-		if(datadirPath.getFileValue()!=null)
-		{
-			final File value = datadirPath.getFileValue();
-
-			if(!value.exists())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " does not exist.");
-			if(!value.isDirectory())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " is not a directory.");
-			if(!value.canRead())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " is not readable.");
-			if(!value.canWrite())
-				throw new RuntimeException(datadirPath.getKey() + ' ' + value.getAbsolutePath() + " is not writable.");
-		}
 		
 		ensureValidity(new String[]{"x-build"});
 	}
@@ -336,21 +321,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public boolean getCacheQueryHistogram()
 	{
 		return cacheQueryHistogram.getBooleanValue();
-	}
-	
-	public boolean hasDatadirPath()
-	{
-		return datadirPath.getFileValue()!=null;
-	}
-	
-	public File getDatadirPath()
-	{
-		final File result = datadirPath.getFileValue();
-		
-		if(result==null)
-			throw newNotSetException(datadirPath.getKey());
-
-		return result;
 	}
 	
 	public String getMediaRootUrl()
