@@ -71,8 +71,8 @@ public final class DataField extends Field<byte[]>
 	// second initialization phase ---------------------------------------------------
 	
 	Impl impl;
-	int bufferSizeDefault = -1;
-	int bufferSizeLimit = -1;
+	private int bufferSizeDefault = -1;
+	private int bufferSizeLimit = -1;
 
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
@@ -618,12 +618,12 @@ public final class DataField extends Field<byte[]>
 		}
 	}
 	
-	final void copy(final InputStream in, final OutputStream out, final Item item) throws IOException
+	final void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
 	{
-		copy(in, out, bufferSizeDefault, item);
+		copy(in, out, bufferSizeDefault, exceptionItem);
 	}
 	
-	final void copy(final InputStream in, final OutputStream out, final long length, final Item item) throws IOException
+	final void copy(final InputStream in, final OutputStream out, final long length, final Item exceptionItem) throws IOException
 	{
 		if(length==0)
 			return;
@@ -639,7 +639,7 @@ public final class DataField extends Field<byte[]>
 		{
 			transferredLength += len;
 			if(transferredLength>maximumLength)
-				throw new DataLengthViolationException(this, item, transferredLength, false);
+				throw new DataLengthViolationException(this, exceptionItem, transferredLength, false);
 			
 			out.write(b, 0, len);
 		}
@@ -686,4 +686,33 @@ public final class DataField extends Field<byte[]>
 		}
 	}
 	
+	void copyAsHex(final InputStream in, final StringBuffer out, final Item exceptionItem) throws IOException
+	{
+		final long maximumLength = this.maximumLength;
+		final byte[] b = new byte[Math.max(bufferSizeLimit, toInt(maximumLength))];
+		//System.out.println("-------------- "+length+" ----- "+b.length);
+		
+		long transferredLength = 0;
+		for(int len = in.read(b); len>=0; len = in.read(b))
+		{
+			transferredLength += len;
+			if(transferredLength>maximumLength)
+				throw new DataLengthViolationException(this, exceptionItem, transferredLength, false);
+			
+			appendAsHex(b, len, out);
+		}
+		in.close();
+	}
+
+	private static final char[] mapping = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+	
+	static final void appendAsHex(final byte[] in, final int len, final StringBuffer out)
+	{
+		for(int i = 0; i<len; i++)
+		{
+			final byte bi = in[i];
+			out.append(mapping[(bi & 0xF0)>>4]);
+			out.append(mapping[bi & 0x0F]);
+		}
+	}
 }

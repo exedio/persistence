@@ -216,27 +216,45 @@ final class Statement
 		return this;
 	}
 	
-	private static final byte[] toArray(final InputStream source, final DataField field, final Item item) throws IOException
+	private static final byte[] toArray(final InputStream source, final DataField field, final Item exceptionItem) throws IOException
 	{
 		final ByteArrayOutputStream target = new ByteArrayOutputStream();
-		field.copy(source, target, item);
+		field.copy(source, target, exceptionItem);
 		source.close();
 		final byte[] result = target.toByteArray();
 		target.close();
 		return result;
 	}
 	
-	Statement appendParameterBlob(final InputStream data, final DataField field, final Item item) throws IOException
+	Statement appendParameterBlob(final InputStream data, final DataField field, final Item exceptionItem) throws IOException
 	{
-		this.text.append(QUESTION_MARK);
-		this.parameters.add(toArray(data, field, item)); // TODO
+		if(parameters==null)
+		{
+			this.text.append('\'');
+			field.copyAsHex(data, this.text, exceptionItem);
+			this.text.append('\'');
+		}
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.parameters.add(toArray(data, field, exceptionItem)); // TODO
+		}
 		return this;
 	}
 	
 	Statement appendParameterBlob(final byte[] data)
 	{
-		this.text.append(QUESTION_MARK);
-		this.parameters.add(data);
+		if(parameters==null)
+		{
+			this.text.append('\'');
+			DataField.appendAsHex(data, data.length, this.text);
+			this.text.append('\'');
+		}
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.parameters.add(data);
+		}
 		return this;
 	}
 	
