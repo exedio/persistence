@@ -263,12 +263,8 @@
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
-				<mkdir dir="build/runtime/test.@{db}/data" />
 				<copy file="@{db.file}"
 						tofile="build/runtime/test.@{db}/cope.properties">
-					<filterset>
-						<filter token="DATADIR_PATH" value="build/runtime/test.@{db}/data" />
-					</filterset>
 				</copy>
 				<!--nbjpdastart addressproperty="jpda.address" name="cope" transport="dt_socket">
 					<classpath>
@@ -311,13 +307,8 @@
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
 		<foreachEnvironment skipSwitch="runtime.teardown">
 			<body>
-				<mkdir dir="build/runtime/teardown.@{db}/data" />
 				<copy file="@{db.file}"
 						tofile="build/runtime/teardown.@{db}/cope.properties">
-					<filterset>
-						<filter token="DATADIR_PATH"
-								value="build/runtime/teardown.@{db}/data" />
-					</filterset>
 				</copy>
 				<java classname="com.exedio.cope.PackageTest" taskname="tear down @{db}"
 						fork="yes" failonerror="yes">
@@ -352,12 +343,8 @@
 		
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
-				<mkdir dir="build/runtime/emma.@{db}/data" />
 				<copy file="@{db.file}"
 						tofile="build/runtime/emma.@{db}/cope.properties">
-					<filterset>
-						<filter token="DATADIR_PATH" value="build/runtime/emma.@{db}/data" />
-					</filterset>
 				</copy>
 				<junit taskname="emma @{db}" fork="yes"
 						haltonerror="true" haltonfailure="true"
@@ -402,20 +389,11 @@
 					<fileset file="lib/@{db.driver}" />
 				</copy>
 				
-				<path id="runtime.webdatadir.@{db.file}.path">
-					<pathelement location="build/runtime/testwebapp-@{db}-data" />
-				</path>
-				<pathconvert targetos="unix" property="runtime.webdatadir.@{db.file}" refid="runtime.webdatadir.@{db.file}.path" />
-				
 				<copy tofile="build/runtime/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
-					<filterset>
-						<filter token="DATADIR_PATH" value="${runtime.webdatadir.@{db.file}}" />
-					</filterset>
 				</copy>
 				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/"
 						file="runtime/web.xml" />
-				<mkdir dir="build/runtime/testwebapp-@{db}-data" />
 				<touch file="build/runtime/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
 		</foreachEnvironment>
@@ -647,20 +625,11 @@
 					<fileset file="lib/@{db.driver}" />
 				</copy>
 				
-				<path id="copernica.webdatadir.@{db.file}.path">
-					<pathelement location="build/copernica/testwebapp-@{db}-data" />
-				</path>
-				<pathconvert targetos="unix" property="copernica.webdatadir.@{db.file}" refid="copernica.webdatadir.@{db.file}.path" />
-				
 				<copy tofile="build/copernica/testwebapp-@{db}/WEB-INF/cope.properties"
 						file="@{db.file}">
-					<filterset>
-						<filter token="DATADIR_PATH" value="${copernica.webdatadir.@{db.file}}" />
-					</filterset>
 				</copy>
 				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
-				<mkdir dir="build/copernica/testwebapp-@{db}-data" />
 				<touch file="build/copernica/testwebapp-@{db}/WEB-INF/web.xml" />
 			</body>
 		</foreachEnvironment>

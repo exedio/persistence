@@ -67,7 +67,8 @@ public final class DataField extends Field<byte[]>
 	
 	// second initialization phase ---------------------------------------------------
 	
-	private Impl impl;
+	private Model model;
+	private BlobColumn column;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;
 
@@ -75,14 +76,14 @@ public final class DataField extends Field<byte[]>
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final Type type = getType();
-		final Model model = type.getModel();
+		this.model = type.getModel();
 		final Properties properties = model.getProperties();
-		this.impl = new BlobImpl(model, table, name, optional);
 		final int maximumLengthInt = toInt(maximumLength);
+		column = new BlobColumn(table, name, optional, maximumLength);
 		bufferSizeDefault = Math.min(properties.dataFieldBufferSizeDefault.getIntValue(), maximumLengthInt);
 		bufferSizeLimit = Math.min(properties.dataFieldBufferSizeLimit.getIntValue(), maximumLengthInt);
 		
-		return impl.getColumn();
+		return column;
 	}
 	
 	private static final int toInt(final long l)
@@ -97,7 +98,8 @@ public final class DataField extends Field<byte[]>
 	 */
 	public boolean isNull(final Item item)
 	{
-		return impl.isNull(item);
+		// TODO make this more efficient !!!
+		return getLength(item)<0;
 	}
 
 	/**
@@ -106,7 +108,7 @@ public final class DataField extends Field<byte[]>
 	 */
 	public long getLength(final Item item)
 	{
-		return impl.getLength(item);
+		return column.table.database.loadLength(model.getCurrentTransaction().getConnection(), column, item);
 	}
 	
 	/**
@@ -116,7 +118,7 @@ public final class DataField extends Field<byte[]>
 	@Override
 	public byte[] get(final Item item)
 	{
-		return impl.get(item);
+		return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);
 	}
 	
 	/**
@@ -133,7 +135,15 @@ public final class DataField extends Field<byte[]>
 		if(data!=null && data.length>maximumLength)
 			throw new DataLengthViolationException(this, item, data.length, true);
 		
-		impl.set(item, data);
+		try
+		{
+			// TODO make more efficient implementation
+			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null, this);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 	
 	/**
@@ -149,7 +159,7 @@ public final class DataField extends Field<byte[]>
 		if(data==null)
 			throw new NullPointerException();
 		
-		impl.get(item, data);
+		column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, this);
 	}
 	
 	/**
@@ -165,7 +175,7 @@ public final class DataField extends Field<byte[]>
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
-		impl.set(item, data);
+		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, DataField.this);
 	}
 	
 	/**
@@ -181,7 +191,21 @@ public final class DataField extends Field<byte[]>
 		if(data==null)
 			throw new NullPointerException();
 		
-		impl.get(item, data);
+		if(!isNull(item))
+		{
+			FileOutputStream target = null;
+			try
+			{
+				target = new FileOutputStream(data);
+				get(item, target);
+			}
+			finally
+			{
+				if(target!=null)
+					target.close();
+			}
+		}
+		// TODO maybe file should be deleted when field is null?
 	}
 	
 	/**
@@ -196,7 +220,25 @@ public final class DataField extends Field<byte[]>
 	public void set(final Item item, final File data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
-		impl.set(item, data);
+		InputStream source = null;
+		try
+		{
+			if(data!=null)
+			{
+				final long length = data.length();
+				if(length>maximumLength)
+					throw new DataLengthViolationException(DataField.this, item, length, true);
+				
+				source =  new FileInputStream(data);
+			}
+			
+			set(item, source);
+		}
+		finally
+		{
+			if(source!=null)
+				source.close();
+		}
 	}
 	
 	@Override
@@ -222,127 +264,6 @@ public final class DataField extends Field<byte[]>
 		}
 	}
 
-	abstract class Impl
-	{
-		abstract Column getColumn();
-		abstract boolean isNull(Item item);
-		abstract long getLength(Item item);
-		abstract byte[] get(Item item);
-		abstract void set(Item item, byte[] data);
-		abstract void get(Item item, OutputStream data) throws IOException;
-		abstract void set(Item item, InputStream data) throws MandatoryViolationException, IOException;
-		abstract void get(Item item, File data) throws IOException;
-		abstract void set(Item item, File data) throws MandatoryViolationException, IOException;
-	}
-	
-	final class BlobImpl extends Impl
-	{
-		final Model model;
-		final BlobColumn column;
-		
-		BlobImpl(final Model model, final Table table, final String name, final boolean optional)
-		{
-			this.model = model;
-			this.column = new BlobColumn(table, name, optional, DataField.this.maximumLength);
-		}
-		
-		@Override
-		Column getColumn()
-		{
-			return column;
-		}
-		
-		@Override
-		boolean isNull(final Item item)
-		{
-			// TODO make this more efficient !!!
-			return getLength(item)<0;
-		}
-		
-		@Override
-		long getLength(final Item item)
-		{
-			return column.table.database.loadLength(model.getCurrentTransaction().getConnection(), column, item);
-		}
-		
-		@Override
-		byte[] get(final Item item)
-		{
-			return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);
-		}
-		
-		@Override
-		void set(final Item item, final byte[] data)
-		{
-			try
-			{
-				// TODO make more efficient implementation
-				column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null, DataField.this);
-			}
-			catch(IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		
-		@Override
-		void get(final Item item, final OutputStream data)
-		{
-			column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, DataField.this);
-		}
-		
-		@Override
-		void set(final Item item, final InputStream data)
-		throws MandatoryViolationException, IOException
-		{
-			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, DataField.this);
-		}
-		
-		@Override
-		void get(final Item item, final File data) throws IOException
-		{
-			if(!isNull(item))
-			{
-				FileOutputStream target = null;
-				try
-				{
-					target = new FileOutputStream(data);
-					get(item, target);
-				}
-				finally
-				{
-					if(target!=null)
-						target.close();
-				}
-			}
-			// TODO maybe file should be deleted when result is null?, same in file mode
-		}
-		
-		@Override
-		void set(final Item item, final File data) throws MandatoryViolationException, IOException
-		{
-			InputStream source = null;
-			try
-			{
-				if(data!=null)
-				{
-					final long length = data.length();
-					if(length>maximumLength)
-						throw new DataLengthViolationException(DataField.this, item, length, true);
-					
-					source =  new FileInputStream(data);
-				}
-				
-				set(item, source);
-			}
-			finally
-			{
-				if(source!=null)
-					source.close();
-			}
-		}
-	}
-	
 	final void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
 	{
 		copy(in, out, bufferSizeDefault, exceptionItem);
