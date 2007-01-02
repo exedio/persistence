@@ -224,14 +224,6 @@ public final class DataField extends Field<byte[]>
 
 	abstract class Impl
 	{
-		// TODO remove
-		final boolean blob;
-		
-		Impl(final boolean blob)
-		{
-			this.blob = blob;
-		}
-		
 		abstract Column getColumn();
 		abstract boolean isNull(Item item);
 		abstract long getLength(Item item);
@@ -250,7 +242,6 @@ public final class DataField extends Field<byte[]>
 		
 		BlobImpl(final Model model, final Table table, final String name, final boolean optional)
 		{
-			super(true);
 			this.model = model;
 			this.column = new BlobColumn(table, name, optional, DataField.this.maximumLength);
 		}
