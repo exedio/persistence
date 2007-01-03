@@ -1754,8 +1754,10 @@ final class Database
 				{
 					final String[] body = migration.body;
 					final IntArrayList rowCounts = new IntArrayList(body.length);
+					final ArrayList<Long> durations = new ArrayList<Long>(body.length);
 					for(final String sql : body)
 					{
+						final long start = System.currentTimeMillis();
 						try
 						{
 							rowCounts.add(stmt.executeUpdate(sql));
@@ -1764,9 +1766,10 @@ final class Database
 						{
 							throw new SQLRuntimeException(e, sql);
 						}
+						durations.add(System.currentTimeMillis()-start);
 					}
 					
-					notifyMigration(con, migration.version, date, migration.comment + ' ' + rowCounts, true);
+					notifyMigration(con, migration.version, date, migration.comment + ' ' + rowCounts + ' ' + durations, true);
 				}
 				stmt.close();
 				stmt = null;

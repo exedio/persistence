@@ -196,9 +196,9 @@ public class MigrationTest extends CopeAssert
 			assertNotNull(logs.toString(), logs.get(5));
 			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
 			assertNotNull(logs.toString(), logs.get(6));
-			assertTrue(logs.toString(), logs.get(6).endsWith(":add column field6 [0]"));
+			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
 			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).endsWith(":add column field7 [0]"));
+			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 [0] [")>=0);
 			assertEquals(3, logs.size());
 		}
 		
@@ -211,9 +211,9 @@ public class MigrationTest extends CopeAssert
 			assertNotNull(logs.toString(), logs.get(5));
 			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
 			assertNotNull(logs.toString(), logs.get(6));
-			assertTrue(logs.toString(), logs.get(6).endsWith(":add column field6 [0]"));
+			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
 			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).endsWith(":add column field7 [0]"));
+			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 [0] [")>=0);
 			assertEquals(3, logs.size());
 		}
 		
