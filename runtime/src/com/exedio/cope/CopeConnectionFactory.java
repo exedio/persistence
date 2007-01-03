@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 final class CopeConnectionFactory implements ConnectionPool.Factory
@@ -40,6 +41,27 @@ final class CopeConnectionFactory implements ConnectionPool.Factory
 	public Connection createConnection() throws SQLException
 	{
 		return DriverManager.getConnection(url, info);
+	}
+
+	public boolean isValid(final Connection e)
+	{
+		try
+		{
+			//final long start = System.currentTimeMillis();
+			// probably not the best idea
+			final ResultSet rs = e.getMetaData().getTables(null, null, "zack", null);
+			rs.next();
+			rs.close();
+			//timeInChecks += (System.currentTimeMillis()-start);
+			//numberOfChecks++;
+			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
+			return true;
+		}
+		catch(SQLException ex)
+		{
+			System.out.println("warning: pooled connection invalid: " + ex.getMessage());
+			return false;
+		}
 	}
 
 	public void dispose(final Connection e) throws SQLException

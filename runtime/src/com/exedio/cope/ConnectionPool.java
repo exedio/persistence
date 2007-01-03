@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -33,6 +32,7 @@ final class ConnectionPool implements ConnectionProvider
 	interface Factory
 	{
 		Connection createConnection() throws SQLException;
+		boolean isValid(Connection e);
 		void dispose(Connection e) throws SQLException;
 	}
 
@@ -129,25 +129,9 @@ final class ConnectionPool implements ConnectionProvider
 	 * One important reason to have this functionality in a dedicated method is to
 	 * put the name of the method into exception stacktraces.
 	 */
-	private static final Connection checkWhetherConnectionIsStillValid(final Connection result)
+	private Connection checkWhetherConnectionIsStillValid(final Connection result)
 	{
-		try
-		{
-			//final long start = System.currentTimeMillis();
-			// probably not the best idea
-			final ResultSet rs = result.getMetaData().getTables(null, null, "zack", null);
-			rs.next();
-			rs.close();
-			//timeInChecks += (System.currentTimeMillis()-start);
-			//numberOfChecks++;
-			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
-			return result;
-		}
-		catch(SQLException e)
-		{
-			System.out.println("warning: pooled connection invalid: " + e.getMessage());
-			return null;
-		}
+		return factory.isValid(result) ? result : null;
 	}
 	
 	/**
