@@ -263,9 +263,6 @@
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
-				<copy file="@{db.file}"
-						tofile="build/runtime/test.@{db}/cope.properties">
-				</copy>
 				<!--nbjpdastart addressproperty="jpda.address" name="cope" transport="dt_socket">
 					<classpath>
 						<pathelement location="build/runtime/classes" />
@@ -291,7 +288,7 @@
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{db}" />
-					<sysproperty key="com.exedio.cope.properties" file="build/runtime/test.@{db}/cope.properties" />
+					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/runtime/classes/com/exedio/cope/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{db}" />
 					<!--jvmarg value="-Xdebug"/>
@@ -307,9 +304,6 @@
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
 		<foreachEnvironment skipSwitch="runtime.teardown">
 			<body>
-				<copy file="@{db.file}"
-						tofile="build/runtime/teardown.@{db}/cope.properties">
-				</copy>
 				<java classname="com.exedio.cope.PackageTest" taskname="tear down @{db}"
 						fork="yes" failonerror="yes">
 					<classpath>
@@ -321,8 +315,7 @@
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
-					<sysproperty key="com.exedio.cope.properties"
-									file="build/runtime/teardown.@{db}/cope.properties" />
+					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
 					<assertions><enable/></assertions>
 				</java>
 			</body>
@@ -343,9 +336,6 @@
 		
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
-				<copy file="@{db.file}"
-						tofile="build/runtime/emma.@{db}/cope.properties">
-				</copy>
 				<junit taskname="emma @{db}" fork="yes"
 						haltonerror="true" haltonfailure="true"
 						dir="${basedir}"
@@ -361,7 +351,7 @@
 						<pathelement location="lib/servlet-api.jar" />
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="build/runtime/emma.@{db}/cope.properties" />
+					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
@@ -389,9 +379,7 @@
 					<fileset file="lib/@{db.driver}" />
 				</copy>
 				
-				<copy tofile="build/runtime/testwebapp-@{db}/WEB-INF/cope.properties"
-						file="@{db.file}">
-				</copy>
+				<copy tofile="build/runtime/testwebapp-@{db}/WEB-INF/cope.properties" file="@{db.file}" />
 				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/"
 						file="runtime/web.xml" />
 				<touch file="build/runtime/testwebapp-@{db}/WEB-INF/web.xml" />
@@ -625,9 +613,7 @@
 					<fileset file="lib/@{db.driver}" />
 				</copy>
 				
-				<copy tofile="build/copernica/testwebapp-@{db}/WEB-INF/cope.properties"
-						file="@{db.file}">
-				</copy>
+				<copy tofile="build/copernica/testwebapp-@{db}/WEB-INF/cope.properties" file="@{db.file}" />
 				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/"
 						file="copernica/web.xml" />
 				<touch file="build/copernica/testwebapp-@{db}/WEB-INF/web.xml" />
