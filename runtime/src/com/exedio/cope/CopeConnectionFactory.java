@@ -41,4 +41,9 @@ final class CopeConnectionFactory implements ConnectionPool.Factory
 	{
 		return DriverManager.getConnection(url, info);
 	}
+
+	public void dispose(final Connection e) throws SQLException
+	{
+		e.close();
+	}
 }

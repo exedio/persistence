@@ -33,6 +33,7 @@ final class ConnectionPool implements ConnectionProvider
 	interface Factory
 	{
 		Connection createConnection() throws SQLException;
+		void dispose(Connection e) throws SQLException;
 	}
 
 	// TODO: allow changing pool size
@@ -179,7 +180,7 @@ final class ConnectionPool implements ConnectionProvider
 		//System.out.println("connection pool: CLOSE ");
 
 		// Important to do this outside the synchronized block!
-		connection.close();
+		factory.dispose(connection);
 	}
 	
 	void flush()
@@ -207,7 +208,7 @@ final class ConnectionPool implements ConnectionProvider
 			try
 			{
 				for(final Connection c : copyOfIdle)
-					c.close();
+					factory.dispose(c);
 			}
 			catch(SQLException e)
 			{

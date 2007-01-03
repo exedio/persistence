@@ -298,6 +298,11 @@ public class ConnectionPoolTest extends CopeAssert
 			createCount++;
 			return connections.next();
 		}
+		
+		public void dispose(final Connection e) throws SQLException
+		{
+			((Conn)e).dispose();
+		}
 	}
 	
 	static class Conn implements Connection
@@ -329,9 +334,14 @@ public class ConnectionPoolTest extends CopeAssert
 			return isClosed;
 		}
 
-		public void close() throws SQLException
+		public void dispose() throws SQLException
 		{
 			closedCount++;
+		}
+
+		public void close() throws SQLException
+		{
+			throw new RuntimeException();
 		}
 
 		public DatabaseMetaData getMetaData() throws SQLException
