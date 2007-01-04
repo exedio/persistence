@@ -73,8 +73,15 @@ final class CopeConnectionFactory implements ConnectionPool.Factory
 		}
 	}
 
-	public void dispose(final Connection e) throws SQLException
+	public void dispose(final Connection e)
 	{
-		e.close();
+		try
+		{
+			e.close();
+		}
+		catch(SQLException ex)
+		{
+			throw new SQLRuntimeException(ex, "close");
+		}
 	}
 }

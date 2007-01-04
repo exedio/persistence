@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.PoolCounter;
-import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionPool
 {
@@ -32,7 +31,7 @@ final class ConnectionPool
 	{
 		Connection createConnection();
 		boolean isValid(Connection e);
-		void dispose(Connection e) throws SQLException;
+		void dispose(Connection e);
 	}
 
 	// TODO: allow changing pool size
@@ -168,15 +167,8 @@ final class ConnectionPool
 				idleCount = 0;
 			}
 			
-			try
-			{
-				for(final Connection c : copyOfIdle)
-					factory.dispose(c);
-			}
-			catch(SQLException e)
-			{
-				throw new SQLRuntimeException(e, "close()");
-			}
+			for(final Connection c : copyOfIdle)
+				factory.dispose(c);
 		}
 	}
 	

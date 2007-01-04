@@ -290,7 +290,7 @@ public class ConnectionPoolTest extends CopeAssert
 			return ((Conn)e).isValid();
 		}
 		
-		public void dispose(final Connection e) throws SQLException
+		public void dispose(final Connection e)
 		{
 			((Conn)e).dispose();
 		}
@@ -325,7 +325,7 @@ public class ConnectionPoolTest extends CopeAssert
 			return !timeout;
 		}
 
-		void dispose() throws SQLException
+		void dispose()
 		{
 			closedCount++;
 		}
