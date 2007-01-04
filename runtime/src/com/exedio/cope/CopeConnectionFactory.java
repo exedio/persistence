@@ -52,7 +52,7 @@ final class CopeConnectionFactory implements ConnectionPool.Factory<Connection>
 		}
 	}
 
-	public boolean isValid(final Connection e)
+	public boolean isValidOnGet(final Connection e)
 	{
 		try
 		{

@@ -28,7 +28,7 @@ final class ConnectionPool<E>
 	interface Factory<E>
 	{
 		E createConnection();
-		boolean isValid(E e);
+		boolean isValidOnGet(E e);
 		boolean isValidOnPut(E e);
 		void dispose(E e);
 	}
@@ -106,7 +106,7 @@ final class ConnectionPool<E>
 				break;
 			
 			// Important to do this outside the synchronized block!
-			if(factory.isValid(result))
+			if(factory.isValidOnGet(result))
 				break;
 			result = null;
 		}
