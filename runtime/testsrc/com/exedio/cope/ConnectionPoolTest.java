@@ -32,7 +32,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
+		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		f.assertV(0);
 		
@@ -69,7 +69,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
+		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -106,7 +106,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 2, 0);
+		final Pool<Conn> cp = new Pool<Conn>(f, 2, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -190,7 +190,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 1);
+		final Pool<Conn> cp = new Pool<Conn>(f, 1, 1);
 		c1.assertV(0, 0);
 		f.assertV(1); // already created
 		
@@ -207,7 +207,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
+		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -247,7 +247,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
+		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -284,7 +284,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 0, 0);
+		final Pool<Conn> cp = new Pool<Conn>(f, 0, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -315,7 +315,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
+		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -340,7 +340,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	static class Factory implements ConnectionPool.Factory<Conn>
+	static class Factory implements Pool.Factory<Conn>
 	{
 		final Iterator<Conn> connections;
 		int createCount = 0;

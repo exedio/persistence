@@ -89,7 +89,7 @@ public final class Transaction
 	}
 	
 	private Connection connection = null;
-	private ConnectionPool<Connection> connectionPool = null;
+	private Pool<Connection> connectionPool = null;
 	private boolean closed = false;
 	
 	public boolean isClosed()

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.PoolCounter;
 
-final class ConnectionPool<E>
+final class Pool<E>
 {
 	interface Factory<E>
 	{
@@ -50,7 +50,7 @@ final class ConnectionPool<E>
 	private int idleCount, idleFrom, idleTo;
 	private final Object lock = new Object();
 	
-	ConnectionPool(final Factory<E> factory, final int idleLimit, final int idleInitial)
+	Pool(final Factory<E> factory, final int idleLimit, final int idleInitial)
 	{
 		// TODO throw nice exceptions
 		assert factory!=null;
