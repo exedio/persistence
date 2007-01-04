@@ -282,14 +282,7 @@ public final class Transaction
 		{
 			if(connection!=null)
 			{
-				try
-				{
-					connectionPool.putConnection(connection);
-				}
-				catch(SQLException e)
-				{
-					throw new SQLRuntimeException(e, "putConnection");
-				}
+				connectionPool.putConnection(connection);
 				connection = null;
 				connectionPool = null;
 			}

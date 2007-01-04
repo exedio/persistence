@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.exedio.cope.util.ConnectionPoolInfo;
@@ -118,7 +117,7 @@ final class ConnectionPool
 	 * somewhere in the future, it's important, that client return connections
 	 * to exactly the same instance of ConnectionPool.
 	 */
-	public void putConnection(final Connection connection) throws SQLException
+	public void putConnection(final Connection connection)
 	{
 		if(connection==null)
 			throw new NullPointerException();

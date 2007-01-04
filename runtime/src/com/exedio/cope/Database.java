@@ -176,15 +176,8 @@ final class Database
 			{
 				if(con!=null)
 				{
-					try
-					{
-						connectionPool.putConnection(con);
-						con = null;
-					}
-					catch(SQLException ex)
-					{
-						throw new SQLRuntimeException(ex, "close");
-					}
+					connectionPool.putConnection(con);
+					con = null;
 				}
 			}
 		}
@@ -1646,15 +1639,8 @@ final class Database
 		{
 			if(con!=null)
 			{
-				try
-				{
-					connectionPool.putConnection(con);
-					con = null;
-				}
-				catch(SQLException ex)
-				{
-					throw new SQLRuntimeException(ex, "close");
-				}
+				connectionPool.putConnection(con);
+				con = null;
 			}
 		}
 	}
@@ -1812,15 +1798,8 @@ final class Database
 			}
 			if(con!=null)
 			{
-				try
-				{
-					connectionPool.putConnection(con);
-					con = null;
-				}
-				catch(SQLException ex)
-				{
-					throw new SQLRuntimeException(ex, "close");
-				}
+				connectionPool.putConnection(con);
+				con = null;
 			}
 		}
 	}
