@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,7 +26,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class ConnectionPoolTest extends CopeAssert
 {
 
-	public void testCp() throws SQLException
+	public void testCp()
 	{
 		final Conn c1 = new Conn();
 		final Factory f = new Factory(listg(c1));
@@ -63,7 +62,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(1);
 	}
 	
-	public void testOverflow() throws SQLException
+	public void testOverflow()
 	{
 		final Conn c1 = new Conn();
 		final Conn c2 = new Conn();
@@ -100,7 +99,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	public void testIdleInitial() throws SQLException
+	public void testIdleInitial()
 	{
 		final Conn c1 = new Conn();
 		final Factory f = new Factory(listg(c1));
@@ -116,7 +115,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(1);
 	}
 	
-	public void testIsClosed() throws SQLException
+	public void testIsClosed()
 	{
 		final Conn c1 = new Conn();
 		final Conn c2 = new Conn();
@@ -156,7 +155,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	public void testFlush() throws SQLException
+	public void testFlush()
 	{
 		final Conn c1 = new Conn();
 		final Conn c2 = new Conn();
@@ -193,7 +192,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	public void testNoPool() throws SQLException
+	public void testNoPool()
 	{
 		final Conn c1 = new Conn();
 		final Conn c2 = new Conn();
@@ -224,7 +223,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	public void testTimeout() throws SQLException
+	public void testTimeout()
 	{
 		final Conn c1 = new Conn();
 		final Conn c2 = new Conn();
