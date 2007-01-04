@@ -290,6 +290,11 @@ public class ConnectionPoolTest extends CopeAssert
 			return ((Conn)e).isValid();
 		}
 		
+		public boolean isValidOnPut(final Connection e)
+		{
+			return ((Conn)e).isValidOnPut();
+		}
+		
 		public void dispose(final Connection e)
 		{
 			((Conn)e).dispose();
@@ -316,13 +321,18 @@ public class ConnectionPoolTest extends CopeAssert
 
 		public boolean isClosed() throws SQLException
 		{
-			isClosedCount++;
-			return isClosed;
+			throw new RuntimeException();
 		}
 
 		boolean isValid()
 		{
 			return !timeout;
+		}
+
+		boolean isValidOnPut()
+		{
+			isClosedCount++;
+			return !isClosed;
 		}
 
 		void dispose()

@@ -73,6 +73,18 @@ final class CopeConnectionFactory implements ConnectionPool.Factory
 		}
 	}
 
+	public boolean isValidOnPut(final Connection e)
+	{
+		try
+		{
+			return !e.isClosed();
+		}
+		catch(SQLException ex)
+		{
+			throw new SQLRuntimeException(ex, "isClosed");
+		}
+	}
+
 	public void dispose(final Connection e)
 	{
 		try

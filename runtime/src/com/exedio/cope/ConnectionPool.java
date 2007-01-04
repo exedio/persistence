@@ -31,6 +31,7 @@ final class ConnectionPool
 	{
 		Connection createConnection();
 		boolean isValid(Connection e);
+		boolean isValidOnPut(Connection e);
 		void dispose(Connection e);
 	}
 
@@ -126,7 +127,7 @@ final class ConnectionPool
 
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
-		if(connection.isClosed())
+		if(!factory.isValidOnPut(connection))
 			throw new IllegalArgumentException("unexpected closed connection");
 			
 		synchronized(lock)
