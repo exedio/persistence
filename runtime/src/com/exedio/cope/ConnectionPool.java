@@ -35,11 +35,6 @@ final class ConnectionPool<E>
 
 	// TODO: allow changing pool size
 	// TODO: gather pool effectivity statistics
-	// TODO: use a ring buffer instead of a stack
-	//       to avoid connections at the bottom of the stack
-	//       staying idle for a very long time and possibly
-	//       running into some idle timeout implemented by the
-	//       jdbc driver or the database itself.
 	// TODO: implement idle timout
 	//       ensure, that idle connections in the pool do
 	//       not stay idle for a indefinite time,
@@ -52,7 +47,7 @@ final class ConnectionPool<E>
 	private final PoolCounter counter;
 
 	private final E[] idle;
-	private int idleCount;
+	private int idleCount, idleFrom, idleTo;
 	private final Object lock = new Object();
 	
 	ConnectionPool(final Factory<E> factory, final int idleLimit, final int idleInitial)
@@ -71,6 +66,8 @@ final class ConnectionPool<E>
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
 		this.idleCount = idleInitial;
+		this.idleFrom = 0;
+		this.idleTo = idleInitial;
 		for(int i = 0; i<idleInitial; i++)
 			idle[i] = factory.createConnection();
 	}
@@ -79,6 +76,12 @@ final class ConnectionPool<E>
 	private E[] cast(final Object[] o)
 	{
 		return (E[])o;
+	}
+	
+	private int inc(int pos)
+	{
+		pos++;
+		return (pos==idle.length) ? 0 : pos;
 	}
 	
 	//private static long timeInChecks = 0;
@@ -97,8 +100,10 @@ final class ConnectionPool<E>
 				if(idle!=null && idleCount>0)
 				{
 					//System.out.println("connection pool: fetch "+(size-1));
-					result = idle[--idleCount];
-					idle[idleCount] = null; // do not reference active connections
+					result = idle[idleFrom];
+					idle[idleFrom] = null; // do not reference active connections
+					idleCount--;
+					idleFrom = inc(idleFrom);
 				}
 			}
 			if(result==null)
@@ -140,7 +145,9 @@ final class ConnectionPool<E>
 			if(idle!=null && idleCount<idle.length)
 			{
 				//System.out.println("connection pool: store "+idleCount);
-				idle[idleCount++] = connection;
+				idle[idleTo] = connection;
+				idleCount++;
+				idleTo = inc(idleTo);
 				return;
 			}
 		}
@@ -165,12 +172,15 @@ final class ConnectionPool<E>
 					return;
 	
 				//System.out.println("connection pool: FLUSH "+size);
+				int f = idleFrom;
 				for(int i = 0; i<idleCount; i++)
 				{
-					copyOfIdle.add(idle[i]);
-					idle[i] = null; // do not reference closed connections
+					copyOfIdle.add(idle[f]);
+					idle[f] = null; // do not reference closed connections
+					f = inc(f);
 				}
 				idleCount = 0;
+				idleFrom = idleTo;
 			}
 			
 			for(final E c : copyOfIdle)

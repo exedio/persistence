@@ -136,13 +136,13 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 
 		// get from idle, fifo
-		assertSame(c2, cp.getConnection());
+		assertSame(c1, cp.getConnection());
 		c1.assertV(1, 0);
 		c2.assertV(1, 0);
 		f.assertV(2);
 
 		// get from idle, fifo
-		assertSame(c1, cp.getConnection());
+		assertSame(c2, cp.getConnection());
 		c1.assertV(1, 0);
 		c2.assertV(1, 0);
 		f.assertV(2);
