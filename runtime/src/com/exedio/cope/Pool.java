@@ -174,8 +174,8 @@ final class Pool<E>
 				idleFrom = idleTo;
 			}
 			
-			for(final E c : copyOfIdle)
-				factory.dispose(c);
+			for(final E e : copyOfIdle)
+				factory.dispose(e);
 		}
 	}
 	
