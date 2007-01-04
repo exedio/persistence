@@ -30,7 +30,7 @@ final class ConnectionPool
 {
 	interface Factory
 	{
-		Connection createConnection() throws SQLException;
+		Connection createConnection();
 		boolean isValid(Connection e);
 		void dispose(Connection e) throws SQLException;
 	}
@@ -72,18 +72,8 @@ final class ConnectionPool
 		
 		assert idleInitial<=idleLimit;
 		this.idleCount = idleInitial;
-		if(idleInitial>0)
-		{
-			try
-			{
-				for(int i = 0; i<idleInitial; i++)
-					idle[i] = factory.createConnection();
-			}
-			catch(SQLException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
+		for(int i = 0; i<idleInitial; i++)
+			idle[i] = factory.createConnection();
 	}
 	
 	//private static long timeInChecks = 0;

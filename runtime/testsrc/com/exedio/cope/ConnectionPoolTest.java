@@ -279,7 +279,7 @@ public class ConnectionPoolTest extends CopeAssert
 			assertEquals(createCount, this.createCount);
 		}
 		
-		public java.sql.Connection createConnection() throws SQLException
+		public java.sql.Connection createConnection()
 		{
 			createCount++;
 			return connections.next();

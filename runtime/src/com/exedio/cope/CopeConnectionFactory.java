@@ -23,6 +23,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.dsmf.SQLRuntimeException;
+
 final class CopeConnectionFactory implements ConnectionPool.Factory
 {
 	private final String url;
@@ -38,9 +40,16 @@ final class CopeConnectionFactory implements ConnectionPool.Factory
 		dialect.completeConnectionInfo(info);
 	}
 
-	public Connection createConnection() throws SQLException
+	public Connection createConnection()
 	{
-		return DriverManager.getConnection(url, info);
+		try
+		{
+			return DriverManager.getConnection(url, info);
+		}
+		catch(SQLException ex)
+		{
+			throw new SQLRuntimeException(ex, "create");
+		}
 	}
 
 	public boolean isValid(final Connection e)
