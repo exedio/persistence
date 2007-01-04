@@ -25,12 +25,12 @@ import java.sql.SQLException;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
-final class CopeConnectionFactory implements Pool.Factory<Connection>
+final class ConnectionFactory implements Pool.Factory<Connection>
 {
 	private final String url;
 	private final java.util.Properties info;
 
-	CopeConnectionFactory(final Properties properties, final Dialect dialect)
+	ConnectionFactory(final Properties properties, final Dialect dialect)
 	{
 		this.url = properties.getDatabaseUrl();
 

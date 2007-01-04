@@ -85,7 +85,7 @@ final class Database
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = new Pool<Connection>(
-				new CopeConnectionFactory(properties, dialect),
+				new ConnectionFactory(properties, dialect),
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial());
 		this.forcedNames = properties.getDatabaseForcedNames();
