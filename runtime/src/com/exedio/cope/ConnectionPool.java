@@ -84,7 +84,7 @@ final class ConnectionPool<E>
 		return (pos==idle.length) ? 0 : pos;
 	}
 	
-	public E getConnection()
+	public E get()
 	{
 		counter.incrementGet();
 
@@ -123,7 +123,7 @@ final class ConnectionPool<E>
 	 * somewhere in the future, it's important, that client return connections
 	 * to exactly the same instance of ConnectionPool.
 	 */
-	public void putConnection(final E e)
+	public void put(final E e)
 	{
 		if(e==null)
 			throw new NullPointerException();

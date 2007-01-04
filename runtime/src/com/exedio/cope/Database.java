@@ -164,7 +164,7 @@ final class Database
 			Connection con = null;
 			try
 			{
-				con = connectionPool.getConnection();
+				con = connectionPool.get();
 				con.setAutoCommit(true);
 				notifyMigration(con, migrationVersion, new Date(), "created schema", false);
 			}
@@ -176,7 +176,7 @@ final class Database
 			{
 				if(con!=null)
 				{
-					connectionPool.putConnection(con);
+					connectionPool.put(con);
 					con = null;
 				}
 			}
@@ -1563,14 +1563,14 @@ final class Database
 		{
 			public Connection getConnection() throws SQLException
 			{
-				final Connection result =  connectionPool.getConnection();
+				final Connection result =  connectionPool.get();
 				result.setAutoCommit(true);
 				return result;
 			}
 
 			public void putConnection(Connection connection) throws SQLException
 			{
-				connectionPool.putConnection(connection);
+				connectionPool.put(connection);
 			}
 		});
 		for(final Table t : tables)
@@ -1627,7 +1627,7 @@ final class Database
 		Connection con = null;
 		try
 		{
-			con = connectionPool.getConnection();
+			con = connectionPool.get();
 			con.setAutoCommit(true);
 			return getMigrationLogs(con);
 		}
@@ -1639,7 +1639,7 @@ final class Database
 		{
 			if(con!=null)
 			{
-				connectionPool.putConnection(con);
+				connectionPool.put(con);
 				con = null;
 			}
 		}
@@ -1713,7 +1713,7 @@ final class Database
 		java.sql.Statement stmt = null;
 		try
 		{
-			con = connectionPool.getConnection();
+			con = connectionPool.get();
 			con.setAutoCommit(true);
 			
 			final int actualVersion = getActualMigrationVersion(con);
@@ -1798,7 +1798,7 @@ final class Database
 			}
 			if(con!=null)
 			{
-				connectionPool.putConnection(con);
+				connectionPool.put(con);
 				con = null;
 			}
 		}

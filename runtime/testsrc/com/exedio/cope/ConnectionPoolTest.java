@@ -37,27 +37,27 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(0);
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		f.assertV(1);
 		
 		// put into idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(1, 0);
 		f.assertV(1);
 
 		// get from idle
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(1, 0);
 		f.assertV(1);
 		
 		// put into idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(2, 0);
 		f.assertV(1);
 
 		// get from idle with other autoCommit
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(2, 0);
 		f.assertV(1);
 	}
@@ -75,25 +75,25 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(0);
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
 		
 		// get and create (2)
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(2);
 		
 		// put into idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(1, 0);
 		c2.assertV(0, 0);
 		f.assertV(2);
 		
 		// put and close
-		cp.putConnection(c2);
+		cp.put(c2);
 		c1.assertV(1, 0);
 		c2.assertV(1, 1);
 		f.assertV(2);
@@ -112,73 +112,73 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(0);
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
 		
 		// get and create (2)
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(2);
 		
 		// put into idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(1, 0);
 		c2.assertV(0, 0);
 		f.assertV(2);
 		
 		// put into idle (2)
-		cp.putConnection(c2);
+		cp.put(c2);
 		c1.assertV(1, 0);
 		c2.assertV(1, 0);
 		f.assertV(2);
 
 		// get from idle, fifo
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(1, 0);
 		c2.assertV(1, 0);
 		f.assertV(2);
 
 		// get from idle, fifo
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(1, 0);
 		c2.assertV(1, 0);
 		f.assertV(2);
 
 		// put into idle
-		cp.putConnection(c2);
+		cp.put(c2);
 		c1.assertV(1, 0);
 		c2.assertV(2, 0);
 		f.assertV(2);
 
 		// get from idle
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(1, 0);
 		c2.assertV(2, 0);
 		f.assertV(2);
 
 		// put into idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(2, 0);
 		c2.assertV(2, 0);
 		f.assertV(2);
 
 		// get from idle
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(2, 0);
 		c2.assertV(2, 0);
 		f.assertV(2);
 
 		// put into idle
-		cp.putConnection(c2);
+		cp.put(c2);
 		c1.assertV(2, 0);
 		c2.assertV(3, 0);
 		f.assertV(2);
 
 		// get from idle
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(2, 0);
 		c2.assertV(3, 0);
 		f.assertV(2);
@@ -195,7 +195,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(1); // already created
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		f.assertV(1);
 	}
@@ -213,7 +213,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(0);
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
@@ -222,7 +222,7 @@ public class ConnectionPoolTest extends CopeAssert
 		c1.isClosed = true;
 		try
 		{
-			cp.putConnection(c1);
+			cp.put(c1);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -234,7 +234,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(1);
 
 		// create new because no idle available
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(1, 0);
 		c2.assertV(0, 0);
 		f.assertV(2);
@@ -253,13 +253,13 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(0);
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
 		
 		// put into idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(1, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
@@ -271,7 +271,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(1);
 
 		// create new because flushed
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(1, 1);
 		c2.assertV(0, 0);
 		f.assertV(2);
@@ -290,19 +290,19 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(0);
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
 		
 		// put and close because no idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(1, 1);
 		c2.assertV(0, 0);
 		f.assertV(1);
 
 		// create new because no idle
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(1, 1);
 		c2.assertV(0, 0);
 		f.assertV(2);
@@ -321,20 +321,20 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(0);
 		
 		// get and create
-		assertSame(c1, cp.getConnection());
+		assertSame(c1, cp.get());
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
 		
 		// put into idle
-		cp.putConnection(c1);
+		cp.put(c1);
 		c1.assertV(1, 0);
 		c2.assertV(0, 0);
 		f.assertV(1);
 
 		// create new because c1 timed out
 		c1.timeout = true;
-		assertSame(c2, cp.getConnection());
+		assertSame(c2, cp.get());
 		c1.assertV(1, 0);
 		c2.assertV(0, 0);
 		f.assertV(2);

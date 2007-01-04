@@ -239,7 +239,7 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = database.getConnectionPool();
-		final Connection connection = connectionPool.getConnection();
+		final Connection connection = connectionPool.get();
 		try
 		{
 			connection.setAutoCommit(false);
@@ -282,7 +282,7 @@ public final class Transaction
 		{
 			if(connection!=null)
 			{
-				connectionPool.putConnection(connection);
+				connectionPool.put(connection);
 				connection = null;
 				connectionPool = null;
 			}
