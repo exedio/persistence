@@ -39,6 +39,7 @@ import java.util.Map;
 
 import bak.pcj.list.IntArrayList;
 
+import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -1564,7 +1565,18 @@ final class Database
 	
 	Schema makeSchema()
 	{
-		final Schema result = new Schema(driver, connectionPool);
+		final Schema result = new Schema(driver, new ConnectionProvider()
+		{
+			public Connection getConnection() throws SQLException
+			{
+				return connectionPool.getConnection(true);
+			}
+
+			public void putConnection(Connection connection) throws SQLException
+			{
+				connectionPool.putConnection(connection);
+			}
+		});
 		for(final Table t : tables)
 			t.makeSchema(result);
 		

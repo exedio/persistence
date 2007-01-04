@@ -23,7 +23,6 @@ import java.sql.SQLException;
 
 public interface ConnectionProvider
 {
-	Connection getConnection(boolean autoCommit) throws SQLException;
+	Connection getConnection() throws SQLException;
 	void putConnection(Connection connection) throws SQLException;
-
 }

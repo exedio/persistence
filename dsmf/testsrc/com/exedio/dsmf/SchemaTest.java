@@ -120,7 +120,7 @@ public abstract class SchemaTest extends TestCase
 				c.setAutoCommit(true);
 		}
 
-		public Connection getConnection(final boolean autoCommit) throws SQLException
+		public Connection getConnection() throws SQLException
 		{
 			final Connection result = connections.remove(connections.size()-1);
 			return result;

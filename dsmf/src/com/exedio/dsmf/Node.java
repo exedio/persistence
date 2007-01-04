@@ -92,7 +92,7 @@ public abstract class Node
 		java.sql.Statement sqlStatement = null;
 		try
 		{
-			connection = connectionProvider.getConnection(true);
+			connection = connectionProvider.getConnection();
 			//System.err.println(statement);
 
 			if(GET_TABLES==statement)
@@ -159,7 +159,7 @@ public abstract class Node
 		final boolean logAllStatements = false;
 		try
 		{
-			connection = connectionProvider.getConnection(true);
+			connection = connectionProvider.getConnection();
 			if ( logAllStatements ) System.out.println(statement);
 			sqlStatement = connection.createStatement();
 			if(listener!=null)

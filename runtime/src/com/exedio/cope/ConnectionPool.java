@@ -24,10 +24,9 @@ import java.util.ArrayList;
 
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.PoolCounter;
-import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.SQLRuntimeException;
 
-final class ConnectionPool implements ConnectionProvider
+final class ConnectionPool
 {
 	interface Factory
 	{
