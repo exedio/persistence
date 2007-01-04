@@ -146,6 +146,42 @@ public class ConnectionPoolTest extends CopeAssert
 		c1.assertV(1, 0);
 		c2.assertV(1, 0);
 		f.assertV(2);
+
+		// put into idle
+		cp.putConnection(c2);
+		c1.assertV(1, 0);
+		c2.assertV(2, 0);
+		f.assertV(2);
+
+		// get from idle
+		assertSame(c2, cp.getConnection());
+		c1.assertV(1, 0);
+		c2.assertV(2, 0);
+		f.assertV(2);
+
+		// put into idle
+		cp.putConnection(c1);
+		c1.assertV(2, 0);
+		c2.assertV(2, 0);
+		f.assertV(2);
+
+		// get from idle
+		assertSame(c1, cp.getConnection());
+		c1.assertV(2, 0);
+		c2.assertV(2, 0);
+		f.assertV(2);
+
+		// put into idle
+		cp.putConnection(c2);
+		c1.assertV(2, 0);
+		c2.assertV(3, 0);
+		f.assertV(2);
+
+		// get from idle
+		assertSame(c2, cp.getConnection());
+		c1.assertV(2, 0);
+		c2.assertV(3, 0);
+		f.assertV(2);
 	}
 	
 	public void testIdleInitial()
