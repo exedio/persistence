@@ -239,14 +239,16 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = database.getConnectionPool();
+		final Connection connection = connectionPool.getConnection();
 		try
 		{
-			connection = connectionPool.getConnection(false);
+			connection.setAutoCommit(false);
 		}
 		catch(SQLException e)
 		{
-			throw new SQLRuntimeException(e, "create connection");
+			throw new SQLRuntimeException(e, "setAutoCommit");
 		}
+		this.connection = connection;
 		
 		return connection;
 	}

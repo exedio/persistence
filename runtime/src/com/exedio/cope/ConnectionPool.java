@@ -79,7 +79,7 @@ final class ConnectionPool
 	//private static long timeInChecks = 0;
 	//private static long numberOfChecks = 0;
 
-	public Connection getConnection(final boolean autoCommit) throws SQLException
+	public Connection getConnection()
 	{
 		counter.incrementGet();
 
@@ -110,7 +110,6 @@ final class ConnectionPool
 		// Important to do this outside the synchronized block!
 		if(result==null)
 			result = factory.createConnection();
-		result.setAutoCommit(autoCommit);
 		return result;
 	}
 	

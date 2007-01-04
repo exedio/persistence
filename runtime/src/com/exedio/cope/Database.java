@@ -164,7 +164,8 @@ final class Database
 			Connection con = null;
 			try
 			{
-				con = connectionPool.getConnection(true);
+				con = connectionPool.getConnection();
+				con.setAutoCommit(true);
 				notifyMigration(con, migrationVersion, new Date(), "created schema", false);
 			}
 			catch(SQLException e)
@@ -1569,7 +1570,9 @@ final class Database
 		{
 			public Connection getConnection() throws SQLException
 			{
-				return connectionPool.getConnection(true);
+				final Connection result =  connectionPool.getConnection();
+				result.setAutoCommit(true);
+				return result;
 			}
 
 			public void putConnection(Connection connection) throws SQLException
@@ -1631,7 +1634,8 @@ final class Database
 		Connection con = null;
 		try
 		{
-			con = connectionPool.getConnection(true);
+			con = connectionPool.getConnection();
+			con.setAutoCommit(true);
 			return getMigrationLogs(con);
 		}
 		catch(SQLException e)
@@ -1723,7 +1727,8 @@ final class Database
 		java.sql.Statement stmt = null;
 		try
 		{
-			con = connectionPool.getConnection(true);
+			con = connectionPool.getConnection();
+			con.setAutoCommit(true);
 			
 			final int actualVersion = getActualMigrationVersion(con);
 			
