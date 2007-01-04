@@ -84,9 +84,6 @@ final class ConnectionPool<E>
 		return (pos==idle.length) ? 0 : pos;
 	}
 	
-	//private static long timeInChecks = 0;
-	//private static long numberOfChecks = 0;
-
 	public E getConnection()
 	{
 		counter.incrementGet();
@@ -99,7 +96,6 @@ final class ConnectionPool<E>
 			{
 				if(idle!=null && idleCount>0)
 				{
-					//System.out.println("connection pool: fetch "+(size-1));
 					result = idle[idleFrom];
 					idle[idleFrom] = null; // do not reference active connections
 					idleCount--;
@@ -115,7 +111,6 @@ final class ConnectionPool<E>
 			result = null;
 		}
 		while(true);
-		//System.out.println("connection pool: CREATE");
 
 		// Important to do this outside the synchronized block!
 		if(result==null)
@@ -144,7 +139,6 @@ final class ConnectionPool<E>
 		{
 			if(idle!=null && idleCount<idle.length)
 			{
-				//System.out.println("connection pool: store "+idleCount);
 				idle[idleTo] = connection;
 				idleCount++;
 				idleTo = inc(idleTo);
@@ -152,8 +146,6 @@ final class ConnectionPool<E>
 			}
 		}
 		
-		//System.out.println("connection pool: CLOSE ");
-
 		// Important to do this outside the synchronized block!
 		factory.dispose(connection);
 	}
@@ -171,7 +163,6 @@ final class ConnectionPool<E>
 				if(idleCount==0)
 					return;
 	
-				//System.out.println("connection pool: FLUSH "+size);
 				int f = idleFrom;
 				for(int i = 0; i<idleCount; i++)
 				{
