@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.exedio.cope.util.ConnectionPoolInfo;
@@ -67,12 +66,18 @@ final class ConnectionPool<E>
 		// TODO: make this customizable and disableable
 		this.counter = new PoolCounter(new int[]{0,1,2,4,6,8,10,15,20,25,30,40,50,60,70,80,90,100});
 
-		this.idle = idleLimit>0 ? (E[])new Object[idleLimit] : null;
+		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
 		assert idleInitial<=idleLimit;
 		this.idleCount = idleInitial;
 		for(int i = 0; i<idleInitial; i++)
 			idle[i] = factory.createConnection();
+	}
+	
+	@SuppressWarnings("unchecked") // OK: no generic arrays
+	private E[] cast(final Object[] o)
+	{
+		return (E[])o;
 	}
 	
 	//private static long timeInChecks = 0;
