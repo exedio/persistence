@@ -27,7 +27,7 @@ final class ConnectionPool<E>
 {
 	interface Factory<E>
 	{
-		E createConnection();
+		E create();
 		boolean isValidOnGet(E e);
 		boolean isValidOnPut(E e);
 		void dispose(E e);
@@ -69,7 +69,7 @@ final class ConnectionPool<E>
 		this.idleFrom = 0;
 		this.idleTo = idleInitial;
 		for(int i = 0; i<idleInitial; i++)
-			idle[i] = factory.createConnection();
+			idle[i] = factory.create();
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic arrays
@@ -114,7 +114,7 @@ final class ConnectionPool<E>
 
 		// Important to do this outside the synchronized block!
 		if(result==null)
-			result = factory.createConnection();
+			result = factory.create();
 		return result;
 	}
 	

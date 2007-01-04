@@ -355,7 +355,7 @@ public class ConnectionPoolTest extends CopeAssert
 			assertEquals(createCount, this.createCount);
 		}
 		
-		public Conn createConnection()
+		public Conn create()
 		{
 			createCount++;
 			return connections.next();

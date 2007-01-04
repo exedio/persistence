@@ -40,7 +40,7 @@ final class CopeConnectionFactory implements ConnectionPool.Factory<Connection>
 		dialect.completeConnectionInfo(info);
 	}
 
-	public Connection createConnection()
+	public Connection create()
 	{
 		try
 		{
