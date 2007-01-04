@@ -57,9 +57,11 @@ final class ConnectionPool<E>
 	
 	ConnectionPool(final Factory<E> factory, final int idleLimit, final int idleInitial)
 	{
+		// TODO throw nice exceptions
 		assert factory!=null;
 		assert idleLimit>=0;
 		assert idleInitial>=0;
+		assert idleInitial<=idleLimit;
 		
 		this.factory = factory;
 		
@@ -68,7 +70,6 @@ final class ConnectionPool<E>
 
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
-		assert idleInitial<=idleLimit;
 		this.idleCount = idleInitial;
 		for(int i = 0; i<idleInitial; i++)
 			idle[i] = factory.createConnection();
