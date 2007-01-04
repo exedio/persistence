@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.PoolCounter;
 
-final class ConnectionPool
+final class ConnectionPool<E>
 {
-	interface Factory
+	interface Factory<E>
 	{
-		Connection createConnection();
-		boolean isValid(Connection e);
-		boolean isValidOnPut(Connection e);
-		void dispose(Connection e);
+		E createConnection();
+		boolean isValid(E e);
+		boolean isValidOnPut(E e);
+		void dispose(E e);
 	}
 
 	// TODO: allow changing pool size
@@ -49,14 +49,14 @@ final class ConnectionPool
 	//       jdbc driver or the database itself.
 	//       maybe then no ring buffer is needed.
 	
-	private final Factory factory;
+	private final Factory<E> factory;
 	private final PoolCounter counter;
 
-	private final Connection[] idle;
+	private final E[] idle;
 	private int idleCount;
 	private final Object lock = new Object();
 	
-	ConnectionPool(final Factory factory, final int idleLimit, final int idleInitial)
+	ConnectionPool(final Factory<E> factory, final int idleLimit, final int idleInitial)
 	{
 		assert factory!=null;
 		assert idleLimit>=0;
@@ -67,7 +67,7 @@ final class ConnectionPool
 		// TODO: make this customizable and disableable
 		this.counter = new PoolCounter(new int[]{0,1,2,4,6,8,10,15,20,25,30,40,50,60,70,80,90,100});
 
-		this.idle = idleLimit>0 ? new Connection[idleLimit] : null;
+		this.idle = idleLimit>0 ? (E[])new Object[idleLimit] : null;
 		
 		assert idleInitial<=idleLimit;
 		this.idleCount = idleInitial;
@@ -78,11 +78,11 @@ final class ConnectionPool
 	//private static long timeInChecks = 0;
 	//private static long numberOfChecks = 0;
 
-	public Connection getConnection()
+	public E getConnection()
 	{
 		counter.incrementGet();
 
-		Connection result = null;
+		E result = null;
 
 		do
 		{
@@ -117,7 +117,7 @@ final class ConnectionPool
 	 * somewhere in the future, it's important, that client return connections
 	 * to exactly the same instance of ConnectionPool.
 	 */
-	public void putConnection(final Connection connection)
+	public void putConnection(final E connection)
 	{
 		if(connection==null)
 			throw new NullPointerException();
@@ -151,7 +151,7 @@ final class ConnectionPool
 		{
 			// make a copy of idle to avoid closing idle connections
 			// inside the synchronized block
-			final ArrayList<Connection> copyOfIdle = new ArrayList<Connection>(idle.length);
+			final ArrayList<E> copyOfIdle = new ArrayList<E>(idle.length);
 	
 			synchronized(lock)
 			{
@@ -167,7 +167,7 @@ final class ConnectionPool
 				idleCount = 0;
 			}
 			
-			for(final Connection c : copyOfIdle)
+			for(final E c : copyOfIdle)
 				factory.dispose(c);
 		}
 	}

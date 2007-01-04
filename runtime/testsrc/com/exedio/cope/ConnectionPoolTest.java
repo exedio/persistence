@@ -18,17 +18,9 @@
 
 package com.exedio.cope;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.Savepoint;
-import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -41,7 +33,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 1, 0);
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		f.assertV(0);
 		
@@ -78,7 +70,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 1, 0);
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -114,7 +106,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 1, 1);
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 1);
 		c1.assertV(0, 0);
 		f.assertV(1); // already created
 		
@@ -131,7 +123,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 1, 0);
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -171,7 +163,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 1, 0);
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -208,7 +200,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 0, 0);
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 0, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -239,7 +231,7 @@ public class ConnectionPoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final ConnectionPool cp = new ConnectionPool(f, 1, 0);
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -264,7 +256,7 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	static class Factory implements ConnectionPool.Factory
+	static class Factory implements ConnectionPool.Factory<Conn>
 	{
 		final Iterator<Conn> connections;
 		int createCount = 0;
@@ -279,29 +271,29 @@ public class ConnectionPoolTest extends CopeAssert
 			assertEquals(createCount, this.createCount);
 		}
 		
-		public java.sql.Connection createConnection()
+		public Conn createConnection()
 		{
 			createCount++;
 			return connections.next();
 		}
 		
-		public boolean isValid(final Connection e)
+		public boolean isValid(final Conn e)
 		{
-			return ((Conn)e).isValid();
+			return e.isValid();
 		}
 		
-		public boolean isValidOnPut(final Connection e)
+		public boolean isValidOnPut(final Conn e)
 		{
-			return ((Conn)e).isValidOnPut();
+			return e.isValidOnPut();
 		}
 		
-		public void dispose(final Connection e)
+		public void dispose(final Conn e)
 		{
-			((Conn)e).dispose();
+			e.dispose();
 		}
 	}
 	
-	static class Conn implements Connection
+	static class Conn
 	{
 		boolean isClosed = false;
 		int isClosedCount = 0;
@@ -314,16 +306,6 @@ public class ConnectionPoolTest extends CopeAssert
 			assertEquals(closedCount, this.closedCount);
 		}
 		
-		public void setAutoCommit(final boolean autoCommit) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public boolean isClosed() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
 		boolean isValid()
 		{
 			return !timeout;
@@ -338,176 +320,6 @@ public class ConnectionPoolTest extends CopeAssert
 		void dispose()
 		{
 			closedCount++;
-		}
-
-		public void close() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public DatabaseMetaData getMetaData() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-		
-		public Statement createStatement() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public PreparedStatement prepareStatement(String sql) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public CallableStatement prepareCall(String sql) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public String nativeSQL(String sql) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public boolean getAutoCommit() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void commit() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void rollback() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void setReadOnly(boolean readOnly) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public boolean isReadOnly() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void setCatalog(String catalog) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public String getCatalog() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void setTransactionIsolation(int level) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public int getTransactionIsolation() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public SQLWarning getWarnings() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void clearWarnings() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public Map<String, Class<?>> getTypeMap() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void setTypeMap(Map<String, Class<?>> arg0) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void setHoldability(int holdability) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public int getHoldability() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public Savepoint setSavepoint() throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public Savepoint setSavepoint(String name) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void rollback(Savepoint savepoint) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public void releaseSavepoint(Savepoint savepoint) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public PreparedStatement prepareStatement(String sql, int[] columnIndexes) throws SQLException
-		{
-			throw new RuntimeException();
-		}
-
-		public PreparedStatement prepareStatement(String sql, String[] columnNames) throws SQLException
-		{
-			throw new RuntimeException();
 		}
 	}
 }

@@ -60,7 +60,7 @@ final class Database
 	private final boolean logStatementInfo;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
-	final ConnectionPool connectionPool;
+	final ConnectionPool<Connection> connectionPool;
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
 	final Dialect.LimitSupport limitSupport;
@@ -84,7 +84,7 @@ final class Database
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
-		this.connectionPool = new ConnectionPool(
+		this.connectionPool = new ConnectionPool<Connection>(
 				new CopeConnectionFactory(properties, dialect),
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial());
@@ -115,7 +115,7 @@ final class Database
 		return tableOptions;
 	}
 	
-	ConnectionPool getConnectionPool()
+	ConnectionPool<Connection> getConnectionPool()
 	{
 		return connectionPool;
 	}
@@ -160,7 +160,7 @@ final class Database
 		
 		if(migrationSupported)
 		{
-			final ConnectionPool connectionPool = this.connectionPool;
+			final ConnectionPool<Connection> connectionPool = this.connectionPool;
 			Connection con = null;
 			try
 			{
@@ -1623,7 +1623,7 @@ final class Database
 	
 	Map<Integer, String> getMigrationLogs()
 	{
-		final ConnectionPool connectionPool = this.connectionPool;
+		final ConnectionPool<Connection> connectionPool = this.connectionPool;
 		Connection con = null;
 		try
 		{
@@ -1708,7 +1708,7 @@ final class Database
 		assert expectedVersion>=0 : expectedVersion;
 		assert migrationSupported;
 
-		final ConnectionPool connectionPool = this.connectionPool;
+		final ConnectionPool<Connection> connectionPool = this.connectionPool;
 		Connection con = null;
 		java.sql.Statement stmt = null;
 		try

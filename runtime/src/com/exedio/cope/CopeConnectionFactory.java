@@ -25,7 +25,7 @@ import java.sql.SQLException;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
-final class CopeConnectionFactory implements ConnectionPool.Factory
+final class CopeConnectionFactory implements ConnectionPool.Factory<Connection>
 {
 	private final String url;
 	private final java.util.Properties info;
