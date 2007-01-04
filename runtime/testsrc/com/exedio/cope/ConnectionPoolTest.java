@@ -99,6 +99,55 @@ public class ConnectionPoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
+	public void testPrecendence()
+	{
+		final Conn c1 = new Conn();
+		final Conn c2 = new Conn();
+		final Factory f = new Factory(listg(c1, c2));
+		f.assertV(0);
+
+		final ConnectionPool<Conn> cp = new ConnectionPool<Conn>(f, 2, 0);
+		c1.assertV(0, 0);
+		c2.assertV(0, 0);
+		f.assertV(0);
+		
+		// get and create
+		assertSame(c1, cp.getConnection());
+		c1.assertV(0, 0);
+		c2.assertV(0, 0);
+		f.assertV(1);
+		
+		// get and create (2)
+		assertSame(c2, cp.getConnection());
+		c1.assertV(0, 0);
+		c2.assertV(0, 0);
+		f.assertV(2);
+		
+		// put into idle
+		cp.putConnection(c1);
+		c1.assertV(1, 0);
+		c2.assertV(0, 0);
+		f.assertV(2);
+		
+		// put into idle (2)
+		cp.putConnection(c2);
+		c1.assertV(1, 0);
+		c2.assertV(1, 0);
+		f.assertV(2);
+
+		// get from idle, fifo
+		assertSame(c2, cp.getConnection());
+		c1.assertV(1, 0);
+		c2.assertV(1, 0);
+		f.assertV(2);
+
+		// get from idle, fifo
+		assertSame(c1, cp.getConnection());
+		c1.assertV(1, 0);
+		c2.assertV(1, 0);
+		f.assertV(2);
+	}
+	
 	public void testIdleInitial()
 	{
 		final Conn c1 = new Conn();
