@@ -123,23 +123,23 @@ final class ConnectionPool<E>
 	 * somewhere in the future, it's important, that client return connections
 	 * to exactly the same instance of ConnectionPool.
 	 */
-	public void putConnection(final E connection)
+	public void putConnection(final E e)
 	{
-		if(connection==null)
+		if(e==null)
 			throw new NullPointerException();
 		
 		counter.incrementPut();
 
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
-		if(!factory.isValidOnPut(connection))
+		if(!factory.isValidOnPut(e))
 			throw new IllegalArgumentException("unexpected closed connection");
 			
 		synchronized(lock)
 		{
 			if(idle!=null && idleCount<idle.length)
 			{
-				idle[idleTo] = connection;
+				idle[idleTo] = e;
 				idleCount++;
 				idleTo = inc(idleTo);
 				return;
@@ -147,7 +147,7 @@ final class ConnectionPool<E>
 		}
 		
 		// Important to do this outside the synchronized block!
-		factory.dispose(connection);
+		factory.dispose(e);
 	}
 	
 	void flush()
