@@ -111,9 +111,9 @@ final class ConnectionPool implements ConnectionProvider
 				break;
 			
 			// Important to do this outside the synchronized block!
-			result = checkWhetherConnectionIsStillValid(result);
-			if(result!=null)
+			if(factory.isValid(result))
 				break;
+			result = null;
 		}
 		while(true);
 		//System.out.println("connection pool: CREATE");
@@ -123,15 +123,6 @@ final class ConnectionPool implements ConnectionProvider
 			result = factory.createConnection();
 		result.setAutoCommit(autoCommit);
 		return result;
-	}
-	
-	/**
-	 * One important reason to have this functionality in a dedicated method is to
-	 * put the name of the method into exception stacktraces.
-	 */
-	private Connection checkWhetherConnectionIsStillValid(final Connection result)
-	{
-		return factory.isValid(result) ? result : null;
 	}
 	
 	/**
