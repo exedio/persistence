@@ -1834,7 +1834,7 @@ final class Database
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated
-	static final ResultSetHandler logHandler = new ResultSetHandler()
+	private static final ResultSetHandler logHandler = new ResultSetHandler()
 	{
 		public void handle(final ResultSet resultSet) throws SQLException
 		{
