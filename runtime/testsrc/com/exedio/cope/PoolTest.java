@@ -26,7 +26,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class PoolTest extends CopeAssert
 {
 
-	public void testCp()
+	public void testSimple()
 	{
 		final Conn c1 = new Conn();
 		final Factory f = new Factory(listg(c1));
