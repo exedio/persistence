@@ -361,12 +361,12 @@ public class ConnectionPoolTest extends CopeAssert
 			return connections.next();
 		}
 		
-		public boolean isValidOnGet(final Conn e)
+		public boolean isValidFromIdle(final Conn e)
 		{
 			return e.isValid();
 		}
 		
-		public boolean isValidOnPut(final Conn e)
+		public boolean isValidIntoIdle(final Conn e)
 		{
 			return e.isValidOnPut();
 		}

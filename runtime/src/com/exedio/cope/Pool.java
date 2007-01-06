@@ -28,8 +28,8 @@ final class Pool<E>
 	interface Factory<E>
 	{
 		E create();
-		boolean isValidOnGet(E e);
-		boolean isValidOnPut(E e);
+		boolean isValidFromIdle(E e);
+		boolean isValidIntoIdle(E e);
 		void dispose(E e);
 	}
 
@@ -106,7 +106,7 @@ final class Pool<E>
 				break;
 			
 			// Important to do this outside the synchronized block!
-			if(factory.isValidOnGet(result))
+			if(factory.isValidFromIdle(result))
 				break;
 			result = null;
 		}
@@ -132,7 +132,7 @@ final class Pool<E>
 
 		// IMPORTANT:
 		// Do not let a closed connection be put back into the pool.
-		if(!factory.isValidOnPut(e))
+		if(!factory.isValidIntoIdle(e))
 			throw new IllegalArgumentException("unexpected closed connection");
 			
 		synchronized(lock)
