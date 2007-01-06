@@ -200,7 +200,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 	
-	public void testIsClosed()
+	public void testIsValidIntoIdle()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -219,7 +219,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 		
 		// dont put into idle, because its closed
-		c1.isClosed = true;
+		c1.isValidIntoIdle = false;
 		try
 		{
 			cp.put(c1);
@@ -379,14 +379,14 @@ public class PoolTest extends CopeAssert
 	
 	static class Pooled
 	{
-		boolean isClosed = false;
-		int isClosedCount = 0;
+		boolean isValidIntoIdle = true;
+		int isValidIntoIdleCount = 0;
 		int closedCount = 0;
 		boolean validFromIdle = true;
 		
-		void assertV(final int isClosedCount, final int closedCount)
+		void assertV(final int isValidIntoIdleCount, final int closedCount)
 		{
-			assertEquals(isClosedCount, this.isClosedCount);
+			assertEquals(isValidIntoIdleCount, this.isValidIntoIdleCount);
 			assertEquals(closedCount, this.closedCount);
 		}
 		
@@ -397,8 +397,8 @@ public class PoolTest extends CopeAssert
 
 		boolean isValidIntoIdle()
 		{
-			isClosedCount++;
-			return !isClosed;
+			isValidIntoIdleCount++;
+			return isValidIntoIdle;
 		}
 
 		void dispose()
