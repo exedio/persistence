@@ -88,7 +88,7 @@ public class ForeignKeyConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		executeSQL(driver.dropForeignKeyConstraint(table.name, name), listener);
+		executeSQL(driver.dropForeignKeyConstraint(protectName(table.name), protectName(name)), listener);
 	}
 
 	@Override

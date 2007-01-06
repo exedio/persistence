@@ -71,6 +71,6 @@ public class PrimaryKeyConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		executeSQL(driver.dropPrimaryKeyConstraint(table.name, name), listener);
+		executeSQL(driver.dropPrimaryKeyConstraint(protectName(table.name), protectName(name)), listener);
 	}
 }

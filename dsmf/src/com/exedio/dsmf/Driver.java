@@ -132,9 +132,9 @@ public abstract class Driver
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
-			append(protectName(tableName)).
+			append(tableName).
 			append(" drop constraint ").
-			append(protectName(constraintName));
+			append(constraintName);
 		return bf.toString();
 	}
 	

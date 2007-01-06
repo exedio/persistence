@@ -301,7 +301,7 @@ public final class MysqlDriver extends Driver
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
-			append(protectName(tableName)).
+			append(tableName).
 			append(" drop primary key");
 		return bf.toString();
 	}
@@ -311,9 +311,9 @@ public final class MysqlDriver extends Driver
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
-			append(protectName(tableName)).
+			append(tableName).
 			append(" drop foreign key ").
-			append(protectName(constraintName));
+			append(constraintName);
 		return bf.toString();
 	}
 	
@@ -322,9 +322,9 @@ public final class MysqlDriver extends Driver
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append("alter table ").
-			append(protectName(tableName)).
+			append(tableName).
 			append(" drop index ").
-			append(protectName(constraintName));
+			append(constraintName);
 		return bf.toString();
 	}
 }
