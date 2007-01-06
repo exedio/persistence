@@ -308,7 +308,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	public void testTimeout()
+	public void testValidFromIdle()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -333,7 +333,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 
 		// create new because c1 timed out
-		c1.timeout = true;
+		c1.validFromIdle = false;
 		assertSame(c2, cp.get());
 		c1.assertV(1, 0);
 		c2.assertV(0, 0);
@@ -382,7 +382,7 @@ public class PoolTest extends CopeAssert
 		boolean isClosed = false;
 		int isClosedCount = 0;
 		int closedCount = 0;
-		boolean timeout = false;
+		boolean validFromIdle = true;
 		
 		void assertV(final int isClosedCount, final int closedCount)
 		{
@@ -392,7 +392,7 @@ public class PoolTest extends CopeAssert
 		
 		boolean isValidFromIdle()
 		{
-			return !timeout;
+			return validFromIdle;
 		}
 
 		boolean isValidIntoIdle()
