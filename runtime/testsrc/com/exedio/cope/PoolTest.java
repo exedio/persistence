@@ -28,11 +28,11 @@ public class PoolTest extends CopeAssert
 
 	public void testSimple()
 	{
-		final Conn c1 = new Conn();
+		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0);
 		c1.assertV(0, 0);
 		f.assertV(0);
 		
@@ -64,12 +64,12 @@ public class PoolTest extends CopeAssert
 	
 	public void testOverflow()
 	{
-		final Conn c1 = new Conn();
-		final Conn c2 = new Conn();
+		final Pooled c1 = new Pooled();
+		final Pooled c2 = new Pooled();
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -101,12 +101,12 @@ public class PoolTest extends CopeAssert
 	
 	public void testPrecendence()
 	{
-		final Conn c1 = new Conn();
-		final Conn c2 = new Conn();
+		final Pooled c1 = new Pooled();
+		final Pooled c2 = new Pooled();
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 2, 0);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 2, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -186,11 +186,11 @@ public class PoolTest extends CopeAssert
 	
 	public void testIdleInitial()
 	{
-		final Conn c1 = new Conn();
+		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 1, 1);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 1);
 		c1.assertV(0, 0);
 		f.assertV(1); // already created
 		
@@ -202,12 +202,12 @@ public class PoolTest extends CopeAssert
 	
 	public void testIsClosed()
 	{
-		final Conn c1 = new Conn();
-		final Conn c2 = new Conn();
+		final Pooled c1 = new Pooled();
+		final Pooled c2 = new Pooled();
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -242,12 +242,12 @@ public class PoolTest extends CopeAssert
 	
 	public void testFlush()
 	{
-		final Conn c1 = new Conn();
-		final Conn c2 = new Conn();
+		final Pooled c1 = new Pooled();
+		final Pooled c2 = new Pooled();
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -279,12 +279,12 @@ public class PoolTest extends CopeAssert
 	
 	public void testNoPool()
 	{
-		final Conn c1 = new Conn();
-		final Conn c2 = new Conn();
+		final Pooled c1 = new Pooled();
+		final Pooled c2 = new Pooled();
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 0, 0);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 0, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -310,12 +310,12 @@ public class PoolTest extends CopeAssert
 	
 	public void testTimeout()
 	{
-		final Conn c1 = new Conn();
-		final Conn c2 = new Conn();
+		final Pooled c1 = new Pooled();
+		final Pooled c2 = new Pooled();
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
-		final Pool<Conn> cp = new Pool<Conn>(f, 1, 0);
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0);
 		c1.assertV(0, 0);
 		c2.assertV(0, 0);
 		f.assertV(0);
@@ -340,12 +340,12 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 	
-	static class Factory implements Pool.Factory<Conn>
+	static class Factory implements Pool.Factory<Pooled>
 	{
-		final Iterator<Conn> connections;
+		final Iterator<Pooled> connections;
 		int createCount = 0;
 		
-		Factory(final List<Conn> connections)
+		Factory(final List<Pooled> connections)
 		{
 			this.connections = connections.iterator();
 		}
@@ -355,29 +355,29 @@ public class PoolTest extends CopeAssert
 			assertEquals(createCount, this.createCount);
 		}
 		
-		public Conn create()
+		public Pooled create()
 		{
 			createCount++;
 			return connections.next();
 		}
 		
-		public boolean isValidFromIdle(final Conn e)
+		public boolean isValidFromIdle(final Pooled e)
 		{
 			return e.isValidFromIdle();
 		}
 		
-		public boolean isValidIntoIdle(final Conn e)
+		public boolean isValidIntoIdle(final Pooled e)
 		{
 			return e.isValidIntoIdle();
 		}
 		
-		public void dispose(final Conn e)
+		public void dispose(final Pooled e)
 		{
 			e.dispose();
 		}
 	}
 	
-	static class Conn
+	static class Pooled
 	{
 		boolean isClosed = false;
 		int isClosedCount = 0;
