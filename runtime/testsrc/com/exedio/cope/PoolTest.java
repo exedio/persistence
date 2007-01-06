@@ -379,10 +379,10 @@ public class PoolTest extends CopeAssert
 	
 	static class Pooled
 	{
+		boolean validFromIdle = true;
 		boolean isValidIntoIdle = true;
 		int isValidIntoIdleCount = 0;
 		int disposeCount = 0;
-		boolean validFromIdle = true;
 		
 		void assertV(final int isValidIntoIdleCount, final int disposeCount)
 		{
