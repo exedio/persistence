@@ -23,7 +23,7 @@ import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class ConnectionPoolTest extends CopeAssert
+public class PoolTest extends CopeAssert
 {
 
 	public void testCp()
