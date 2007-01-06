@@ -381,13 +381,13 @@ public class PoolTest extends CopeAssert
 	{
 		boolean isValidIntoIdle = true;
 		int isValidIntoIdleCount = 0;
-		int closedCount = 0;
+		int disposeCount = 0;
 		boolean validFromIdle = true;
 		
-		void assertV(final int isValidIntoIdleCount, final int closedCount)
+		void assertV(final int isValidIntoIdleCount, final int disposeCount)
 		{
 			assertEquals(isValidIntoIdleCount, this.isValidIntoIdleCount);
-			assertEquals(closedCount, this.closedCount);
+			assertEquals(disposeCount, this.disposeCount);
 		}
 		
 		boolean isValidFromIdle()
@@ -403,7 +403,7 @@ public class PoolTest extends CopeAssert
 
 		void dispose()
 		{
-			closedCount++;
+			disposeCount++;
 		}
 	}
 }
