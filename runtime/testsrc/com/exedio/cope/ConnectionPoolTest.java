@@ -368,7 +368,7 @@ public class ConnectionPoolTest extends CopeAssert
 		
 		public boolean isValidIntoIdle(final Conn e)
 		{
-			return e.isValidOnPut();
+			return e.isValidIntoIdle();
 		}
 		
 		public void dispose(final Conn e)
@@ -395,7 +395,7 @@ public class ConnectionPoolTest extends CopeAssert
 			return !timeout;
 		}
 
-		boolean isValidOnPut()
+		boolean isValidIntoIdle()
 		{
 			isClosedCount++;
 			return !isClosed;
