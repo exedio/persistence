@@ -55,11 +55,6 @@ public abstract class StringView
 		bf.appendParameter((String)value);
 	}
 	
-	public final String get(final Item item)
-	{
-		return (String)getObject(item);
-	}
-	
 	// convenience methods for conditions and views ---------------------------------
 
 	public final LikeCondition like(final String value)

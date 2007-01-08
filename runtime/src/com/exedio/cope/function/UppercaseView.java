@@ -40,11 +40,10 @@ public final class UppercaseView
 	}
 
 	@Override
-	public final Object mapJava(final Object[] sourceValues)
+	public final String mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
 		return sourceValue==null ? null : ((String)sourceValue).toUpperCase();
 	}
-	
 }

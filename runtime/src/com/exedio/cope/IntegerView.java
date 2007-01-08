@@ -74,11 +74,6 @@ public abstract class IntegerView
 		bf.appendParameter(((Integer)value).intValue());
 	}
 	
-	public final Integer get(final Item item)
-	{
-		return (Integer)getObject(item);
-	}
-	
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override

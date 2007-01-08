@@ -53,7 +53,7 @@ public final class PlusView
 	}
 
 	@Override
-	public final Object mapJava(final Object[] sourceValues)
+	public final Integer mapJava(final Object[] sourceValues)
 	{
 		int result = 0;
 		for(int i=0; i<sourceValues.length; i++)
@@ -64,5 +64,4 @@ public final class PlusView
 		}
 		return Integer.valueOf(result);
 	}
-
 }

@@ -73,7 +73,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		return sourceList;
 	}
 
-	protected abstract Object mapJava(Object[] sourceValues);
+	protected abstract E mapJava(Object[] sourceValues);
 	
 	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
 
@@ -81,7 +81,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	abstract void surface2DatabasePrepared(Statement bf, Object value);
 	
-	public final Object getObject(final Item item)
+	public final E get(final Item item)
 	{
 		final List sources = getSources();
 		final Object[] values = new Object[sources.size()];
@@ -90,6 +90,15 @@ public abstract class View<E> extends Feature implements Function<E>
 			values[pos++] = ((Function)i.next()).get(item);
 	
 		return mapJava(values);
+	}
+	
+	/**
+	 * @deprecated use {@link #get(Item)} instead.
+	 */
+	@Deprecated
+	public final Object getObject(final Item item)
+	{
+		return get(item);
 	}
 	
 	public final Class<E> getValueClass()

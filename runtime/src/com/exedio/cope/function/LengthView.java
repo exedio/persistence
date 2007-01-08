@@ -40,11 +40,10 @@ public class LengthView
 	}
 
 	@Override
-	public final Object mapJava(final Object[] sourceValues)
+	public final Integer mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
 		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
 	}
-
 }
