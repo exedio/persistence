@@ -81,6 +81,16 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	abstract void surface2DatabasePrepared(Statement bf, Object value);
 	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
+	public final void check(final TC tc, final Join join)
+	{
+		for(int i = 0; i<sources.length; i++)
+			sources[i].check(tc, join);
+	}
+	
 	public final E get(final Item item)
 	{
 		final List sources = getSources();

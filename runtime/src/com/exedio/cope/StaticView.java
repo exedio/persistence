@@ -37,16 +37,6 @@ abstract class StaticView<E> extends View<E>
 		if(sources.length+1!=sqlFragments.length)
 			throw new RuntimeException("length "+sources.length+" "+sqlFragments.length);
 	}
-						
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated
-	public final void check(final TC tc, final Join join)
-	{
-		for(int i = 0; i<sources.length; i++)
-			sources[i].check(tc, join);
-	}
 	
 	/**
 	 * @deprecated For internal use within COPE only.
