@@ -23,7 +23,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -94,22 +93,20 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	public final E get(final Item item)
 	{
-		final List sources = getSources();
-		final Object[] values = new Object[sources.size()];
+		final Object[] values = new Object[sources.length];
 		int pos = 0;
-		for(Iterator i = sources.iterator(); i.hasNext(); )
-			values[pos++] = ((Function)i.next()).get(item);
+		for(final Function<?> source : sources)
+			values[pos++] = source.get(item);
 	
 		return mapJava(values);
 	}
 	
 	public final E get(final Item item, final Map<FunctionField, Object> delta)
 	{
-		final List sources = getSources();
-		final Object[] values = new Object[sources.size()];
+		final Object[] values = new Object[sources.length];
 		int pos = 0;
-		for(Iterator i = sources.iterator(); i.hasNext(); )
-			values[pos++] = ((Function<?>)i.next()).get(item, delta);
+		for(final Function<?> source : sources)
+			values[pos++] = source.get(item, delta);
 	
 		return mapJava(values);
 	}
