@@ -318,8 +318,7 @@ public abstract class Item extends Cope
 		entity.write(toBlobs(fieldValues));
 	}
 
-	public final void deleteCopeItem()
-			throws IntegrityViolationException
+	public final void deleteCopeItem() throws IntegrityViolationException
 	{
 		checkDeleteCopeItem(new HashSet<Item>());
 		deleteCopeItem(new HashSet<Item>());
@@ -599,7 +598,7 @@ public abstract class Item extends Cope
 			throw new RuntimeException("duplicate field " + setValue.settable.toString());
 	}
 	
-	private static final <X extends Object> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
+	private static final <X> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
 	{
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
