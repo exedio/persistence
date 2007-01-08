@@ -18,15 +18,17 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.IntegerView;
 import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.IntegerView;
+import com.exedio.cope.Join;
+import com.exedio.cope.Statement;
 import com.exedio.cope.StringFunction;
 
 public class LengthView
 	extends IntegerView
 	implements IntegerFunction
 {
-	private static final String[] sqlFragments = {"LENGTH(", ")"};
+	private final StringFunction source;
 
 	/**
 	 * Creates a new LengthView.
@@ -36,7 +38,8 @@ public class LengthView
 	 */
 	public LengthView(final StringFunction source)
 	{
-		super(new StringFunction[]{source}, "length", sqlFragments);
+		super(new StringFunction[]{source}, "length");
+		this.source = source;
 	}
 
 	@Override
@@ -45,5 +48,16 @@ public class LengthView
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
 		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
+	}
+
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
+	public final void append(final Statement bf, final Join join)
+	{
+		bf.append("LENGTH(").
+			append(source, join).
+			append(')');
 	}
 }

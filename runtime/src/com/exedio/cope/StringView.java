@@ -25,15 +25,14 @@ import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 
 public abstract class StringView
-	extends StaticView<String>
+	extends View<String>
 	implements StringFunction
 {
 	public StringView(
 			final Function<?>[] sources,
-			final String name,
-			final String[] sqlFragments)
+			final String name)
 	{
-		super(sources, name, String.class, StringColumn.JDBC_TYPE, sqlFragments);
+		super(sources, name, String.class, StringColumn.JDBC_TYPE);
 	}
 
 	@Override

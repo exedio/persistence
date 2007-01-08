@@ -18,15 +18,17 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.StringView;
+import com.exedio.cope.Join;
+import com.exedio.cope.Statement;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
+import com.exedio.cope.StringView;
 
 public final class UppercaseView
 	extends StringView
 	implements StringFunction
 {
-	private static final String[] sqlFragments = {"UPPER(", ")"};
+	private final StringFunction source;
 
 	/**
 	 * Creates a new UppercaseView.
@@ -36,7 +38,8 @@ public final class UppercaseView
 	 */
 	public UppercaseView(final StringFunction source)
 	{
-		super(new StringFunction[]{source}, "upper", sqlFragments);
+		super(new StringFunction[]{source}, "upper");
+		this.source = source;
 	}
 
 	@Override
@@ -45,5 +48,16 @@ public final class UppercaseView
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
 		return sourceValue==null ? null : ((String)sourceValue).toUpperCase();
+	}
+
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
+	public final void append(final Statement bf, final Join join)
+	{
+		bf.append("UPPER(").
+			append(source, join).
+			append(')');
 	}
 }

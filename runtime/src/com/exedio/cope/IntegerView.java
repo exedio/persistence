@@ -26,15 +26,14 @@ import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
 public abstract class IntegerView
-	extends StaticView<Integer>
+	extends View<Integer>
 	implements IntegerFunction
 {
 	public IntegerView(
 			final Function<?>[] sources,
-			final String name,
-			final String[] sqlFragments)
+			final String name)
 	{
-		super(sources, name, Integer.class, IntegerColumn.JDBC_TYPE_INT, sqlFragments);
+		super(sources, name, Integer.class, IntegerColumn.JDBC_TYPE_INT);
 	}
 
 	@Override

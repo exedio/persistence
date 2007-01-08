@@ -18,14 +18,17 @@
 
 package com.exedio.cope.function;
 
-import com.exedio.cope.IntegerView;
 import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.IntegerView;
+import com.exedio.cope.Join;
+import com.exedio.cope.Statement;
 
 public final class PlusView
 	extends IntegerView
 	implements IntegerFunction
 {
+	private final IntegerFunction[] addends;
 
 	/**
 	 * Creates a new PlusView.
@@ -37,21 +40,10 @@ public final class PlusView
 	 */
 	public PlusView(final IntegerFunction[] addends)
 	{
-		super(addends, "plus", sqlFragments(addends.length));
+		super(addends, "plus");
+		this.addends = addends;
 	}
 	
-	private static final String[] sqlFragments(final int length)
-	{
-		final String[] result = new String[length+1];
-
-		result[0] = "(";
-		for(int i=length-1; i>0; i--)
-			result[i] = "+";
-		result[length] = ")";
-
-		return result;
-	}
-
 	@Override
 	public final Integer mapJava(final Object[] sourceValues)
 	{
@@ -63,5 +55,21 @@ public final class PlusView
 			result += ((Integer)sourceValues[i]).intValue();
 		}
 		return Integer.valueOf(result);
+	}
+
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated
+	public final void append(final Statement bf, final Join join)
+	{
+		bf.append('(');
+		for(int i = 0; i<addends.length; i++)
+		{
+			if(i>0)
+				bf.append('+');
+			bf.append(addends[i], join);
+		}
+		bf.append(')');
 	}
 }

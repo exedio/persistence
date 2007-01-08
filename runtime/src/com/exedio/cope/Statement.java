@@ -29,7 +29,7 @@ import java.util.Map;
 
 import bak.pcj.list.IntArrayList;
 
-final class Statement
+public final class Statement
 {
 	private final Database database;
 	final StringBuffer text = new StringBuffer();
@@ -135,20 +135,20 @@ final class Statement
 		return (ArrayList<JoinTable>)o;
 	}
 
-	Statement append(final String text)
+	public Statement append(final String text)
 	{
 		this.text.append(text);
 		return this;
 	}
 		
-	Statement append(final char text)
+	public Statement append(final char text)
 	{
 		this.text.append(text);
 		return this;
 	}
 	
 	@SuppressWarnings("deprecation") // OK: Selectable.append is for internal use within COPE only
-	Statement append(final Selectable select, final Join join)
+	public Statement append(final Selectable select, final Join join)
 	{
 		select.append(this, join);
 		return this;
