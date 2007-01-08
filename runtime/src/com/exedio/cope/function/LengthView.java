@@ -24,9 +24,7 @@ import com.exedio.cope.Join;
 import com.exedio.cope.Statement;
 import com.exedio.cope.StringFunction;
 
-public class LengthView
-	extends IntegerView
-	implements IntegerFunction
+public class LengthView extends IntegerView implements IntegerFunction
 {
 	private final StringFunction source;
 

@@ -24,13 +24,9 @@ import java.sql.SQLException;
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
 
-public abstract class StringView
-	extends View<String>
-	implements StringFunction
+public abstract class StringView extends View<String> implements StringFunction
 {
-	public StringView(
-			final Function<?>[] sources,
-			final String name)
+	public StringView(final Function<?>[] sources, final String name)
 	{
 		super(sources, name, String.class, StringColumn.JDBC_TYPE);
 	}

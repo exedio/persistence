@@ -24,9 +24,7 @@ import com.exedio.cope.IntegerView;
 import com.exedio.cope.Join;
 import com.exedio.cope.Statement;
 
-public final class PlusView
-	extends IntegerView
-	implements IntegerFunction
+public final class PlusView extends IntegerView implements IntegerFunction
 {
 	private final IntegerFunction[] addends;
 

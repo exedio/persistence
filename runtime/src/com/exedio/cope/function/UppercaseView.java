@@ -24,9 +24,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.StringView;
 
-public final class UppercaseView
-	extends StringView
-	implements StringFunction
+public final class UppercaseView extends StringView implements StringFunction
 {
 	private final StringFunction source;
 
