@@ -1020,6 +1020,11 @@ public final class Type<C extends Item>
 			return type.cast(item);
 		}
 		
+		public E get(final Item item, final Map<FunctionField, Object> delta)
+		{
+			return type.cast(item);
+		}
+		
 		public Class<E> getValueClass()
 		{
 			return type.getJavaClass();

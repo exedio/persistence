@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 
 import com.exedio.cope.search.ExtremumAggregate;
@@ -155,6 +156,16 @@ public abstract class FunctionField<E extends Object>
 	public final E get(final Item item)
 	{
 		item.type.assertBelongs(this);
+		
+		return Cope.verboseCast(valueClass, getEntity(item).get(this));
+	}
+	
+	public final E get(final Item item, final Map<FunctionField, Object> delta)
+	{
+		item.type.assertBelongs(this);
+		
+		if(delta.containsKey(this))
+			return Cope.verboseCast(valueClass, delta.get(this));
 		
 		return Cope.verboseCast(valueClass, getEntity(item).get(this));
 	}

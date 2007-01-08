@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.exedio.cope.search.ExtremumAggregate;
 
@@ -98,6 +99,17 @@ public abstract class View<E> extends Feature implements Function<E>
 		int pos = 0;
 		for(Iterator i = sources.iterator(); i.hasNext(); )
 			values[pos++] = ((Function)i.next()).get(item);
+	
+		return mapJava(values);
+	}
+	
+	public final E get(final Item item, final Map<FunctionField, Object> delta)
+	{
+		final List sources = getSources();
+		final Object[] values = new Object[sources.size()];
+		int pos = 0;
+		for(Iterator i = sources.iterator(); i.hasNext(); )
+			values[pos++] = ((Function<?>)i.next()).get(item, delta);
 	
 		return mapJava(values);
 	}
