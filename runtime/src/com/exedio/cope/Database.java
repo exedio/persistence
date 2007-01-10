@@ -636,30 +636,6 @@ final class Database
 		return result;
 	}
 	
-	private static void log(final Statement statement, final long... times)
-	{
-		final StringBuffer bf = new StringBuffer(
-				new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
-		
-		for(int i = 1; i<times.length; i++)
-		{
-			bf.append('|');
-			bf.append(times[i]-times[i-1]);
-		}
-		
-		bf.append('|');
-		bf.append(statement.getText());
-		
-		final ArrayList<Object> parameters = statement.parameters;
-		if(parameters!=null)
-		{
-			bf.append('|');
-			bf.append(statement.parameters);
-		}
-		
-		System.out.println(bf.toString());
-	}
-	
 	void load(final Connection connection, final PersistentState state)
 	{
 		buildStage = false;
@@ -1153,7 +1129,7 @@ final class Database
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(log)
-				log(statement, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
+				statement.log(timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
 			final StatementInfo statementInfo =
 				(this.logStatementInfo || makeStatementInfo)
@@ -1241,7 +1217,7 @@ final class Database
 			final long timeEnd = log ? System.currentTimeMillis() : 0;
 
 			if(log)
-				log(statement, timeStart, timePrepared, timeEnd);
+				statement.log(timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)

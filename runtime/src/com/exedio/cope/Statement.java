@@ -21,7 +21,9 @@ package com.exedio.cope;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -371,6 +373,30 @@ public final class Statement
 			
 			return result.toString();
 		}
+	}
+	
+	void log(final long... times)
+	{
+		final StringBuffer bf = new StringBuffer(
+				new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
+		
+		for(int i = 1; i<times.length; i++)
+		{
+			bf.append('|');
+			bf.append(times[i]-times[i-1]);
+		}
+		
+		bf.append('|');
+		bf.append(text.toString());
+		
+		final ArrayList<Object> parameters = this.parameters;
+		if(parameters!=null)
+		{
+			bf.append('|');
+			bf.append(parameters);
+		}
+		
+		System.out.println(bf.toString());
 	}
 	
 	// join aliases
