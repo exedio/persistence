@@ -51,4 +51,15 @@ public class EnumTest extends AbstractLibTest
 		assertEquals(state1, item2.getStatus());
 	}
 	
+	public void testDatabaseLog()
+	{
+		assertFalse(model.isDatabaseLog());
+		
+		model.setDatabaseLog(true);
+		assertTrue(model.isDatabaseLog());
+		item.TYPE.search();
+		
+		model.setDatabaseLog(false);
+		assertFalse(model.isDatabaseLog());
+	}
 }

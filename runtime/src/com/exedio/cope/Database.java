@@ -56,7 +56,7 @@ final class Database
 	final Dialect dialect;
 	private final boolean migrationSupported;
 	final boolean prepare;
-	private final boolean log;
+	private volatile boolean log;
 	private final boolean logStatementInfo;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
@@ -1862,6 +1862,15 @@ final class Database
 		getConnectionPool().flush();
 	}
 	
+	boolean isLog()
+	{
+		return this.log;
+	}
+
+	void setLog(final boolean enable)
+	{
+		this.log = enable;
+	}
 	
 	// listeners ------------------
 	

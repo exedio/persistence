@@ -476,6 +476,16 @@ public final class Model
 		return !getProperties().getDatabaseDontSupportEmptyStrings() && getDatabase().dialect.supportsEmptyStrings();
 	}
 
+	boolean isDatabaseLog()
+	{
+		return getDatabase().isLog();
+	}
+	
+	void setDatabaseLog(final boolean enable)
+	{
+		getDatabase().setLog(enable);
+	}
+	
 	/**
 	 * @return the listener previously registered for this model
 	 */
