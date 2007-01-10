@@ -636,19 +636,18 @@ final class Database
 		return result;
 	}
 	
-	private void log(final Statement statement, final long start, final long prepared, final long executed, final long resultRead, final long end)
+	private void log(final Statement statement, final long... times)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS");
 		final StringBuffer bf = new StringBuffer();
-		bf.append(df.format(new Date(start)));
-		bf.append('|');
-		bf.append(prepared-start);
-		bf.append('|');
-		bf.append(executed-prepared);
-		bf.append('|');
-		bf.append(resultRead-executed);
-		bf.append('|');
-		bf.append(end-resultRead);
+		bf.append(df.format(new Date(times[0])));
+		
+		for(int i = 1; i<times.length; i++)
+		{
+			bf.append('|');
+			bf.append(times[i]-times[i-1]);
+		}
+		
 		bf.append('|');
 		bf.append(statement.getText());
 		
@@ -1243,7 +1242,7 @@ final class Database
 			final long timeEnd = log ? System.currentTimeMillis() : 0;
 
 			if(log)
-				log(statement, timeStart, timePrepared, timeEnd, timeEnd, timeEnd);
+				log(statement, timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
