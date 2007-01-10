@@ -18,13 +18,11 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-
 
 final class ConnectionStatsCop extends ConsoleCop
 {
@@ -36,9 +34,8 @@ final class ConnectionStatsCop extends ConsoleCop
 	}
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		Console_Jspm.writeBody(this, out, model.getConnectionPoolInfo());
 	}
-	
 }

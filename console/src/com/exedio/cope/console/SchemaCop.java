@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Iterator;
 
@@ -94,7 +93,7 @@ final class SchemaCop extends ConsoleCop
 	}
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		Schema_Jspm.writeBody(this, out, model, request);
 	}

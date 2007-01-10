@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -108,7 +107,7 @@ abstract class ConsoleCop extends Cop
 		// default implementation does nothing
 	}
 	
-	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request) throws IOException;
+	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request);
 	
 	static final String TAB = "t";
 	static final String TAB_TYPE_COLUMNS = "tc";

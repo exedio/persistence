@@ -56,7 +56,7 @@ final class PropertiesCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final Properties props = model.getProperties();
 		final String source = props.getSource();
@@ -92,5 +92,4 @@ final class PropertiesCop extends ConsoleCop
 		
 		Properties_Jspm.write(out, this, props, sourceContent);
 	}
-	
 }

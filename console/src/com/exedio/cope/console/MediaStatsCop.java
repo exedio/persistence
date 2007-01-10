@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -44,7 +43,7 @@ final class MediaStatsCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 
@@ -59,5 +58,4 @@ final class MediaStatsCop extends ConsoleCop
 
 		Console_Jspm.writeBody(this, out, medias);
 	}
-	
 }

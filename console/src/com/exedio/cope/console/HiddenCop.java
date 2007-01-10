@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +34,7 @@ final class HiddenCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		Properties_Jspm.writeHidden(out, model.getHiddenFeatures());
 	}

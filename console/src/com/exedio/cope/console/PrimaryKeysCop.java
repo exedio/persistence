@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Comparator;
 import java.util.TreeMap;
@@ -46,7 +45,7 @@ final class PrimaryKeysCop extends ConsoleCop
 	};
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final TreeMap<Type, int[]> primaryKeys = new TreeMap<Type, int[]>(TYPE_COMPARATOR);
 		for(final Type t : model.getTypes())
@@ -56,5 +55,4 @@ final class PrimaryKeysCop extends ConsoleCop
 		}
 		Console_Jspm.writeBody(this, out, primaryKeys);
 	}
-	
 }

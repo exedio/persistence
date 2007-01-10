@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -41,7 +40,7 @@ final class TypeColumnCop extends ConsoleCop
 	}
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request) throws IOException
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final ArrayList<ItemFunction> functions = new ArrayList<ItemFunction>();
 		
@@ -76,5 +75,4 @@ final class TypeColumnCop extends ConsoleCop
 		else
 			Console_Jspm.writeBody(this, out, functions, false);
 	}
-	
 }
