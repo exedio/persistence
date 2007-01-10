@@ -639,7 +639,21 @@ final class Database
 	private void log(final long start, final long prepared, final long executed, final long resultRead, final long end, final Statement statement)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS");
-		System.out.println(df.format(new Date(start)) + '|' + (prepared-start) + '|' + (executed-prepared) + '|' + (resultRead-executed) + '|' + (end-resultRead) + '|' + statement.getText() + '|' + statement.parameters);
+		final StringBuffer bf = new StringBuffer();
+		bf.append(df.format(new Date(start)));
+		bf.append('|');
+		bf.append(prepared-start);
+		bf.append('|');
+		bf.append(executed-prepared);
+		bf.append('|');
+		bf.append(resultRead-executed);
+		bf.append('|');
+		bf.append(end-resultRead);
+		bf.append('|');
+		bf.append(statement.getText());
+		bf.append('|');
+		bf.append(statement.parameters);
+		System.out.println(bf.toString());
 	}
 	
 	void load(final Connection connection, final PersistentState state)
