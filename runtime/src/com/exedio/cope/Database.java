@@ -1129,17 +1129,20 @@ final class Database
 				sqlStatement = null;
 			}
 
+			if(explain)
+				return null;
+
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
-			if(!explain && log)
+			if(log)
 				log(timeStart, timeEnd, statement);
 			
 			final StatementInfo statementInfo =
-				(!explain && (this.logStatementInfo || makeStatementInfo))
+				(this.logStatementInfo || makeStatementInfo)
 				? makeStatementInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
 				: null;
 			
-			if(!explain && this.logStatementInfo)
+			if(this.logStatementInfo)
 				statementInfo.print(System.out);
 			
 			return makeStatementInfo ? statementInfo : null;
