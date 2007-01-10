@@ -1279,9 +1279,9 @@ final class Database
 				parametersChild.addChild(new StatementInfo(String.valueOf(i++) + ':' + p));
 		}
 			
-		final StatementInfo planInfo = dialect.explainExecutionPlan(statement, connection, this);
-		if(planInfo!=null)
-			result.addChild(planInfo);
+		final StatementInfo plan = dialect.explainExecutionPlan(statement, connection, this);
+		if(plan!=null)
+			result.addChild(plan);
 		
 		return result;
 	}
