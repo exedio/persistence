@@ -651,8 +651,14 @@ final class Database
 		bf.append(end-resultRead);
 		bf.append('|');
 		bf.append(statement.getText());
-		bf.append('|');
-		bf.append(statement.parameters);
+		
+		final ArrayList<Object> parameters = statement.parameters;
+		if(parameters!=null)
+		{
+			bf.append('|');
+			bf.append(statement.parameters);
+		}
+		
 		System.out.println(bf.toString());
 	}
 	
