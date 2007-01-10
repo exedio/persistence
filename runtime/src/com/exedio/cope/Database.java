@@ -636,7 +636,7 @@ final class Database
 		return result;
 	}
 	
-	private void log(final Statement statement, final long... times)
+	private static void log(final Statement statement, final long... times)
 	{
 		final StringBuffer bf = new StringBuffer(
 				new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
