@@ -1086,9 +1086,9 @@ final class Database
 			final boolean log = this.log;
 			final boolean takeTimes = !explain && (log || this.logStatementInfo || makeStatementInfo);
 			final String sqlText = statement.getText();
-			final long logStart = takeTimes ? System.currentTimeMillis() : 0;
-			final long logPrepared;
-			final long logExecuted;
+			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
+			final long timePrepared;
+			final long timeExecuted;
 			
 			if(!prepare)
 			{
@@ -1096,9 +1096,9 @@ final class Database
 
 				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
-				logPrepared = takeTimes ? System.currentTimeMillis() : 0;
+				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
-				logExecuted = takeTimes ? System.currentTimeMillis() : 0;
+				timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
 				resultSetHandler.handle(resultSet);
 			}
 			else
@@ -1111,12 +1111,12 @@ final class Database
 
 				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
-				logPrepared = takeTimes ? System.currentTimeMillis() : 0;
+				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
-				logExecuted = takeTimes ? System.currentTimeMillis() : 0;
+				timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
 				resultSetHandler.handle(resultSet);
 			}
-			final long logResultRead = takeTimes ? System.currentTimeMillis() : 0;
+			final long timeResultRead = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(resultSet!=null)
 			{
@@ -1129,14 +1129,14 @@ final class Database
 				sqlStatement = null;
 			}
 
-			final long logEnd = takeTimes ? System.currentTimeMillis() : 0;
+			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(!explain && log)
-				log(logStart, logEnd, statement);
+				log(timeStart, timeEnd, statement);
 			
 			final StatementInfo statementInfo =
 				(!explain && (this.logStatementInfo || makeStatementInfo))
-				? makeStatementInfo(statement, connection, logStart, logPrepared, logExecuted, logResultRead, logEnd)
+				? makeStatementInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
 				: null;
 			
 			if(!explain && this.logStatementInfo)
@@ -1193,7 +1193,7 @@ final class Database
 		{
 			final String sqlText = statement.getText();
 			final boolean log = this.log;
-			final long logStart = log ? System.currentTimeMillis() : 0;
+			final long timeStart = log ? System.currentTimeMillis() : 0;
 			final int rows;
 			
 			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint)
@@ -1214,10 +1214,10 @@ final class Database
 				rows = prepared.executeUpdate();
 			}
 			
-			final long logEnd = log ? System.currentTimeMillis() : 0;
+			final long timeEnd = log ? System.currentTimeMillis() : 0;
 
 			if(log)
-				log(logStart, logEnd, statement);
+				log(timeStart, timeEnd, statement);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
