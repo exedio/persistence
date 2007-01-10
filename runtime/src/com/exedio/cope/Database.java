@@ -636,7 +636,7 @@ final class Database
 		return result;
 	}
 	
-	private void log(final long start, final long prepared, final long executed, final long resultRead, final long end, final Statement statement)
+	private void log(final Statement statement, final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS");
 		final StringBuffer bf = new StringBuffer();
@@ -1155,7 +1155,7 @@ final class Database
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(log)
-				log(timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd, statement);
+				log(statement, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
 			final StatementInfo statementInfo =
 				(this.logStatementInfo || makeStatementInfo)
@@ -1243,7 +1243,7 @@ final class Database
 			final long timeEnd = log ? System.currentTimeMillis() : 0;
 
 			if(log)
-				log(timeStart, timePrepared, timeEnd, timeEnd, timeEnd, statement);
+				log(statement, timeStart, timePrepared, timeEnd, timeEnd, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
