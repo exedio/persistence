@@ -638,8 +638,8 @@ final class Database
 	
 	private void log(final long start, final long end, final Statement statement)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
-		System.out.println(df.format(new Date(start)) + "  " + (end-start) + "ms:  " + statement.getText()+"   "+statement.parameters);
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS");
+		System.out.println(df.format(new Date(start)) + '|' + (end-start) + '|' + statement.getText() + '|' + statement.parameters);
 	}
 	
 	void load(final Connection connection, final PersistentState state)
