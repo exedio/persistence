@@ -1083,9 +1083,9 @@ final class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final boolean log = !explain && (this.log || this.logStatementInfo || makeStatementInfo);
+			final boolean takeTimes = !explain && (this.log || this.logStatementInfo || makeStatementInfo);
 			final String sqlText = statement.getText();
-			final long logStart = log ? System.currentTimeMillis() : 0;
+			final long logStart = takeTimes ? System.currentTimeMillis() : 0;
 			final long logPrepared;
 			final long logExecuted;
 			
@@ -1095,9 +1095,9 @@ final class Database
 
 				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
-				logPrepared = log ? System.currentTimeMillis() : 0;
+				logPrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
-				logExecuted = log ? System.currentTimeMillis() : 0;
+				logExecuted = takeTimes ? System.currentTimeMillis() : 0;
 				resultSetHandler.handle(resultSet);
 			}
 			else
@@ -1110,12 +1110,12 @@ final class Database
 
 				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
-				logPrepared = log ? System.currentTimeMillis() : 0;
+				logPrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
-				logExecuted = log ? System.currentTimeMillis() : 0;
+				logExecuted = takeTimes ? System.currentTimeMillis() : 0;
 				resultSetHandler.handle(resultSet);
 			}
-			final long logResultRead = log ? System.currentTimeMillis() : 0;
+			final long logResultRead = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(resultSet!=null)
 			{
@@ -1128,7 +1128,7 @@ final class Database
 				sqlStatement = null;
 			}
 
-			final long logEnd = log ? System.currentTimeMillis() : 0;
+			final long logEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(!explain && this.log)
 				log(logStart, logEnd, statement);
@@ -1191,6 +1191,7 @@ final class Database
 		try
 		{
 			final String sqlText = statement.getText();
+			final boolean log = this.log;
 			final long logStart = log ? System.currentTimeMillis() : 0;
 			final int rows;
 			
