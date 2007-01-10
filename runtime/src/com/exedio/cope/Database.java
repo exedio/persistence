@@ -636,10 +636,10 @@ final class Database
 		return result;
 	}
 	
-	private void log(final long start, final long end, final Statement statement)
+	private void log(final long start, final long prepared, final long executed, final long resultRead, final long end, final Statement statement)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS");
-		System.out.println(df.format(new Date(start)) + '|' + (end-start) + '|' + statement.getText() + '|' + statement.parameters);
+		System.out.println(df.format(new Date(start)) + '|' + (prepared-start) + '|' + (executed-prepared) + '|' + (resultRead-executed) + '|' + (end-resultRead) + '|' + statement.getText() + '|' + statement.parameters);
 	}
 	
 	void load(final Connection connection, final PersistentState state)
@@ -1135,7 +1135,7 @@ final class Database
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(log)
-				log(timeStart, timeEnd, statement);
+				log(timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd, statement);
 			
 			final StatementInfo statementInfo =
 				(this.logStatementInfo || makeStatementInfo)
@@ -1202,9 +1202,11 @@ final class Database
 			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint)
 				savepoint = connection.setSavepoint();
 			
+			final long timePrepared;
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
+				timePrepared = log ? System.currentTimeMillis() : 0;
 				rows = sqlStatement.executeUpdate(sqlText);
 			}
 			else
@@ -1214,13 +1216,14 @@ final class Database
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
+				timePrepared = log ? System.currentTimeMillis() : 0;
 				rows = prepared.executeUpdate();
 			}
 			
 			final long timeEnd = log ? System.currentTimeMillis() : 0;
 
 			if(log)
-				log(timeStart, timeEnd, statement);
+				log(timeStart, timePrepared, timeEnd, timeEnd, timeEnd, statement);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)

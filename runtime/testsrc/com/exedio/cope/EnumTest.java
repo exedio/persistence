@@ -58,6 +58,7 @@ public class EnumTest extends AbstractLibTest
 		model.setDatabaseLog(true);
 		assertTrue(model.isDatabaseLogEnabled());
 		item.TYPE.search();
+		item.setStatus(EnumItem.Status.status3);
 		
 		model.setDatabaseLog(false);
 		assertFalse(model.isDatabaseLogEnabled());
