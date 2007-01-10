@@ -1083,7 +1083,8 @@ final class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final boolean takeTimes = !explain && (this.log || this.logStatementInfo || makeStatementInfo);
+			final boolean log = this.log;
+			final boolean takeTimes = !explain && (log || this.logStatementInfo || makeStatementInfo);
 			final String sqlText = statement.getText();
 			final long logStart = takeTimes ? System.currentTimeMillis() : 0;
 			final long logPrepared;
@@ -1130,7 +1131,7 @@ final class Database
 
 			final long logEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
-			if(!explain && this.log)
+			if(!explain && log)
 				log(logStart, logEnd, statement);
 			
 			final StatementInfo statementInfo =
