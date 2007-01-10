@@ -41,7 +41,7 @@ abstract class ConsoleCop extends Cop
 	long end = 0;
 	SimpleDateFormat df;
 	
-	final void initialize()
+	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
 		df = new SimpleDateFormat("dd.MM.yyyy'&nbsp;'HH:mm:ss.SSS");
@@ -54,6 +54,7 @@ abstract class ConsoleCop extends Cop
 				new SchemaCop(null, false, false),
 				new TypeColumnCop(),
 				new MigrationCop(),
+				new DatabaseLogCop(),
 				new ConnectionStatsCop(),
 				new CacheStatsCop(),
 				new QueryCacheStatsCop(),
@@ -113,6 +114,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_TYPE_COLUMNS = "tc";
 	static final String TAB_MIGRATION = "mig";
 	static final String TAB_CONNECTION_STATS = "cp";
+	static final String TAB_DATBASE_LOG = "dblog";
 	static final String TAB_CACHE_STATS = "ca";
 	static final String TAB_QUERY_CACHE_STATS = "qca";
 	static final String TAB_PRIMARY_KEY = "pk";
@@ -130,6 +132,8 @@ abstract class ConsoleCop extends Cop
 			return new MigrationCop();
 		if(TAB_CONNECTION_STATS.equals(tab))
 			return new ConnectionStatsCop();
+		if(TAB_DATBASE_LOG.equals(tab))
+			return new DatabaseLogCop();
 		if(TAB_CACHE_STATS.equals(tab))
 			return new CacheStatsCop();
 		if(TAB_QUERY_CACHE_STATS.equals(tab))

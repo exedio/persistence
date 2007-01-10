@@ -53,13 +53,13 @@ public class EnumTest extends AbstractLibTest
 	
 	public void testDatabaseLog()
 	{
-		assertFalse(model.isDatabaseLog());
+		assertFalse(model.isDatabaseLogEnabled());
 		
 		model.setDatabaseLog(true);
-		assertTrue(model.isDatabaseLog());
+		assertTrue(model.isDatabaseLogEnabled());
 		item.TYPE.search();
 		
 		model.setDatabaseLog(false);
-		assertFalse(model.isDatabaseLog());
+		assertFalse(model.isDatabaseLogEnabled());
 	}
 }

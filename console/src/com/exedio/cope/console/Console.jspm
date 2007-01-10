@@ -273,6 +273,19 @@ final class Console_Jspm
 	}
 
 	final static void writeBody(
+			final DatabaseLogCop cop,
+			final PrintStream out,
+			final boolean enable)
+	{
+		%>
+		<form action="<%=cop%>" method="POST">
+			<input type="checkbox" name="<%=cop.ENABLE%>"<%if(enable){%> checked="checked"<%}%>> enable
+			<br>
+			<input type="submit" name="submit" value="submit">
+		</form><%
+	}
+	
+	final static void writeBody(
 			final CacheStatsCop cop,
 			final PrintStream out,
 			final CacheInfo[] infos)

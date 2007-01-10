@@ -476,12 +476,12 @@ public final class Model
 		return !getProperties().getDatabaseDontSupportEmptyStrings() && getDatabase().dialect.supportsEmptyStrings();
 	}
 
-	boolean isDatabaseLog()
+	public boolean isDatabaseLogEnabled()
 	{
 		return getDatabase().isLog();
 	}
 	
-	void setDatabaseLog(final boolean enable)
+	public void setDatabaseLog(final boolean enable)
 	{
 		getDatabase().setLog(enable);
 	}
