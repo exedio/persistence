@@ -638,9 +638,8 @@ final class Database
 	
 	private void log(final Statement statement, final long... times)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS");
 		final StringBuffer bf = new StringBuffer();
-		bf.append(df.format(new Date(times[0])));
+		bf.append(new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
 		
 		for(int i = 1; i<times.length; i++)
 		{
