@@ -115,11 +115,6 @@ final class Database
 		return tableOptions;
 	}
 	
-	Pool<Connection> getConnectionPool()
-	{
-		return connectionPool;
-	}
-	
 	void addTable(final Table table)
 	{
 		if(!buildStage)
@@ -1859,7 +1854,7 @@ final class Database
 	
 	void close()
 	{
-		getConnectionPool().flush();
+		connectionPool.flush();
 	}
 	
 	boolean isLog()

@@ -238,7 +238,7 @@ public final class Transaction
 		if(connectionPool!=null)
 			throw new RuntimeException();
 
-		connectionPool = database.getConnectionPool();
+		connectionPool = database.connectionPool;
 		final Connection connection = connectionPool.get();
 		try
 		{

@@ -639,7 +639,7 @@ public final class Model
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()
 	{
-		return getDatabase().getConnectionPool().getInfo();
+		return getDatabase().connectionPool.getInfo();
 	}
 	
 	public java.util.Properties getDatabaseInfo()
