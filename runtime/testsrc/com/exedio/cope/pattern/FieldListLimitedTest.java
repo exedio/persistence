@@ -223,7 +223,7 @@ public class FieldListLimitedTest extends AbstractLibTest
 		assertContains(item, item.TYPE.search(item.strings.contains(null)));
 		assertContains(item.TYPE.search(item.strings.contains("zollo")));
 		
-		item.set(new SetValue[]{item.strings.map(listg("zicko", "zacko", "zocko"))});
+		item.set(item.strings.map(listg("zicko", "zacko", "zocko")));
 		assertEquals(list("zicko", "zacko", "zocko"), item.getStrings());
 		assertEquals("zicko", item.get(string1));
 		assertEquals("zacko", item.get(string2));

@@ -139,7 +139,7 @@ public class HashTest extends AbstractLibTest
 		assertFalse(item.checkInternal(""));
 		assertTrue(item.checkInternal("zack"));
 
-		item.set(new SetValue[]{item.internal.map("zosch")});
+		item.set(item.internal.map("zosch"));
 		assertEquals("[zosch]", item.get(item.internal.getStorage()));
 		assertFalse(item.checkInternal(null));
 		assertFalse(item.checkInternal(""));

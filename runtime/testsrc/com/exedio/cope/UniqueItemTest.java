@@ -167,27 +167,27 @@ public class UniqueItemTest extends TestmodelTest
 		final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
 		deleteOnTearDown(item2);
 
-		item1.set(new SetValue[]{
+		item1.set(
 				item1.uniqueString.map("uniqueString1"),
-				item1.otherString.map("otherString1"),
-		});
+				item1.otherString.map("otherString1")
+		);
 		assertEquals("uniqueString1", item1.getUniqueString());
 		assertEquals("otherString1", item1.getOtherString());
 
-		item2.set(new SetValue[]{
+		item2.set(
 				item1.uniqueString.map("uniqueString2"),
-				item1.otherString.map("otherString2"),
-		});
+				item1.otherString.map("otherString2")
+		);
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
 
 		// test unique violation
 		try
 		{
-			item2.set(new SetValue[]{
+			item2.set(
 					item1.uniqueString.map("uniqueString1"),
-					item1.otherString.map("otherString1"),
-			});
+					item1.otherString.map("otherString1")
+			);
 			fail();
 		}
 		catch(UniqueViolationException e)

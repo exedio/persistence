@@ -96,10 +96,10 @@ public class SerializerTest extends AbstractLibTest
 		assertEquals(map1, item.getMap());
 		assertNotSame(map1, item.getMap());
 		
-		item.set(new SetValue[]{
+		item.set(
 				item.integer.map(22),
-				item.map.map(map2),
-		});
+				item.map.map(map2)
+		);
 		assertEquals(new Integer(22), item.getInteger());
 		assertEquals(map2, item.getMap());
 		assertNotSame(map2, item.getMap());

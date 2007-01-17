@@ -294,7 +294,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
-	public final void set(final SetValue[] setValues)
+	public final void set(final SetValue... setValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,

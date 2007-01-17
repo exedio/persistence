@@ -294,19 +294,19 @@ public class DataTest extends AbstractLibTest
 
 		// implements Settable
 		assertNull(item.getName());
-		item.set(new SetValue[]{
+		item.set(
 				DataItem.data.map(data8),
 				DataItem.data10.map(data10),
-				DataItem.name.map("eins"),
-		});
+				DataItem.name.map("eins")
+		);
 		assertData(data8, item.getData());
 		assertData(data10, item.getData10());
 		assertEquals("eins", item.getName());
 
-		item.set(new SetValue[]{
+		item.set(
 				DataItem.data.map(data11),
-				DataItem.data10.map(data10),
-		});
+				DataItem.data10.map(data10)
+		);
 		assertData(data11, item.getData());
 		assertData(data10, item.getData10());
 		assertEquals("eins", item.getName());
@@ -330,7 +330,7 @@ public class DataTest extends AbstractLibTest
 		assertData(data10, item.getData10());
 		try
 		{
-			item.set(new SetValue[]{DataItem.data10.map(data11)});
+			item.set(DataItem.data10.map(data11));
 			fail();
 		}
 		catch(DataLengthViolationException e)
@@ -367,9 +367,9 @@ public class DataTest extends AbstractLibTest
 		assertData(data8, item.getData());
 		try
 		{
-			item.set(new SetValue[]{
-					new SetValue(DataItem.data, "zack"),
-			});
+			item.set(
+					new SetValue(DataItem.data, "zack")
+			);
 			fail();
 		}
 		catch(ClassCastException e)

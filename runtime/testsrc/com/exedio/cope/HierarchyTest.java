@@ -252,7 +252,7 @@ public class HierarchyTest extends AbstractLibTest
 		}
 		try
 		{
-			firstItem.set(new SetValue[]{secondItem.firstSubString.map("zack")});
+			firstItem.set(secondItem.firstSubString.map("zack"));
 			fail();
 		}
 		catch(IllegalArgumentException e)
