@@ -491,9 +491,15 @@ public final class Model
 		return log!=null ? log.threshold : 0;
 	}
 	
-	public void setDatabaseLog(final boolean enable, final int threshold, final PrintStream out)
+	public String getDatabaseLogSQL()
 	{
-		getDatabase().log = enable ? new DatabaseLogConfig(threshold, out) : null;
+		final DatabaseLogConfig log = getDatabase().log;
+		return log!=null ? log.sql : null;
+	}
+	
+	public void setDatabaseLog(final boolean enable, final int threshold, final String sql, final PrintStream out)
+	{
+		getDatabase().log = enable ? new DatabaseLogConfig(threshold, sql, out) : null;
 	}
 	
 	/**

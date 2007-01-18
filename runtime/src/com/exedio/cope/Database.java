@@ -80,7 +80,7 @@ final class Database
 		this.dialect = dialect;
 		this.migrationSupported = migrationSupported;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), System.out) : null;
+		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), null, System.out) : null;
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();

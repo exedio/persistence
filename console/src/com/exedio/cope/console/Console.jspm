@@ -276,13 +276,16 @@ final class Console_Jspm
 			final DatabaseLogCop cop,
 			final PrintStream out,
 			final boolean enable,
-			final int threshold)
+			final int threshold,
+			final String sql)
 	{
 		%>
 		<form action="<%=cop%>" method="POST">
 			<input type="checkbox" name="<%=cop.ENABLE%>"<%if(enable){%> checked="checked"<%}%>> enable
 			<br>
 			<input type="text" name="<%=cop.THRESHOLD%>" value="<%=threshold%>"> threshold
+			<br>
+			<input type="text" name="<%=cop.SQL%>" value="<%=sql!=null?sql:""%>"> sql
 			<br>
 			<input type="submit" name="submit" value="submit">
 		</form><%

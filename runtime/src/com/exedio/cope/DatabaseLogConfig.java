@@ -23,9 +23,10 @@ import java.io.PrintStream;
 final class DatabaseLogConfig
 {
 	final int threshold;
-	final PrintStream out;
+	final String sql;
+	private final PrintStream out;
 	
-	DatabaseLogConfig(final int threshold, final PrintStream out)
+	DatabaseLogConfig(final int threshold, final String sql, final PrintStream out)
 	{
 		if(threshold<0)
 			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
@@ -33,12 +34,13 @@ final class DatabaseLogConfig
 			throw new NullPointerException("out must not be null");
 		
 		this.threshold = threshold;
+		this.sql = sql;
 		this.out = out;
 	}
 
 	void log(final Statement statement, final long... times)
 	{
-		if((times[times.length-1]-times[0])>=threshold)
+		if((times[times.length-1]-times[0])>=threshold && (sql==null || statement.getText().indexOf(sql)>=0))
 			statement.log(out, times);
 	}
 }
