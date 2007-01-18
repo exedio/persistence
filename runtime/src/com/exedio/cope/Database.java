@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,6 +59,7 @@ final class Database
 	final boolean prepare;
 	private volatile boolean log;
 	private volatile int logThreshold;
+	private volatile PrintStream logOut;
 	private final boolean logStatementInfo;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
@@ -83,6 +85,7 @@ final class Database
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog();
 		this.logThreshold = properties.getDatabaseLogThreshold();
+		this.logOut = System.out;
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
@@ -1126,7 +1129,7 @@ final class Database
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(log && (timeEnd-timeStart)>=logThreshold)
-				statement.log(timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
+				statement.log(logOut, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
 			final StatementInfo statementInfo =
 				(this.logStatementInfo || makeStatementInfo)
@@ -1214,7 +1217,7 @@ final class Database
 			final long timeEnd = log ? System.currentTimeMillis() : 0;
 
 			if(log && (timeEnd-timeStart)>=logThreshold)
-				statement.log(timeStart, timePrepared, timeEnd);
+				statement.log(logOut, timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
@@ -1869,13 +1872,16 @@ final class Database
 		return this.logThreshold;
 	}
 
-	void setLog(final boolean enable, final int threshold)
+	void setLog(final boolean enable, final int threshold, final PrintStream out)
 	{
 		if(threshold<0)
 			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
+		if(out==null)
+			throw new NullPointerException("out must not be null");
 		
 		this.log = enable;
 		this.logThreshold = threshold;
+		this.logOut = out;
 	}
 	
 	// listeners ------------------

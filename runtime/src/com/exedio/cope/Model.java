@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -489,9 +490,9 @@ public final class Model
 		return getDatabase().getLogThreshold();
 	}
 	
-	public void setDatabaseLog(final boolean enable, final int threshold)
+	public void setDatabaseLog(final boolean enable, final int threshold, final PrintStream out)
 	{
-		getDatabase().setLog(enable, threshold);
+		getDatabase().setLog(enable, threshold, out);
 	}
 	
 	/**

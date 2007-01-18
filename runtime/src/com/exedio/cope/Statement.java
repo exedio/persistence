@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -375,7 +376,7 @@ public final class Statement
 		}
 	}
 	
-	void log(final long... times)
+	void log(final PrintStream out, final long... times)
 	{
 		final StringBuffer bf = new StringBuffer(
 				new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
@@ -396,7 +397,7 @@ public final class Statement
 			bf.append(parameters);
 		}
 		
-		System.out.println(bf.toString());
+		out.println(bf.toString());
 	}
 	
 	// join aliases

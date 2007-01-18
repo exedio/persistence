@@ -43,7 +43,7 @@ final class DatabaseLogCop extends ConsoleCop
 		{
 			final boolean enable = request.getParameter(ENABLE)!=null;
 			final int threshold = Integer.parseInt(request.getParameter(THRESHOLD));
-			model.setDatabaseLog(enable, threshold);
+			model.setDatabaseLog(enable, threshold, System.out);
 		}
 	}
 	
