@@ -43,7 +43,8 @@ final class DatabaseLogConfig
 
 	void log(final Statement statement, final long... times)
 	{
-		if((times[times.length-1]-times[0])>=threshold && (sql==null || statement.text.indexOf(sql)>=0))
+		if((times[times.length-1]-times[0])>=threshold &&
+			(sql==null || statement.text.indexOf(sql)>=0))
 		{
 			final StringBuffer bf = new StringBuffer(
 					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
