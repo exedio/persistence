@@ -481,9 +481,17 @@ public final class Model
 		return getDatabase().isLog();
 	}
 	
-	public void setDatabaseLog(final boolean enable)
+	/**
+	 * Threshold time in milliseconds.
+	 */
+	public int getDatabaseLogThreshold()
 	{
-		getDatabase().setLog(enable);
+		return getDatabase().getLogThreshold();
+	}
+	
+	public void setDatabaseLog(final boolean enable, final int threshold)
+	{
+		getDatabase().setLog(enable, threshold);
 	}
 	
 	/**

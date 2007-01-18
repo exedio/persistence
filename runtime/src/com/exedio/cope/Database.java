@@ -57,6 +57,7 @@ final class Database
 	private final boolean migrationSupported;
 	final boolean prepare;
 	private volatile boolean log;
+	private volatile int logThreshold;
 	private final boolean logStatementInfo;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
@@ -81,6 +82,7 @@ final class Database
 		this.migrationSupported = migrationSupported;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog();
+		this.logThreshold = properties.getDatabaseLogThreshold();
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
@@ -1123,7 +1125,7 @@ final class Database
 
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
-			if(log)
+			if(log && (timeEnd-timeStart)>=logThreshold)
 				statement.log(timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
 			final StatementInfo statementInfo =
@@ -1211,7 +1213,7 @@ final class Database
 			
 			final long timeEnd = log ? System.currentTimeMillis() : 0;
 
-			if(log)
+			if(log && (timeEnd-timeStart)>=logThreshold)
 				statement.log(timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
@@ -1861,10 +1863,19 @@ final class Database
 	{
 		return this.log;
 	}
-
-	void setLog(final boolean enable)
+	
+	int getLogThreshold()
 	{
+		return this.logThreshold;
+	}
+
+	void setLog(final boolean enable, final int threshold)
+	{
+		if(threshold<0)
+			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
+		
 		this.log = enable;
+		this.logThreshold = threshold;
 	}
 	
 	// listeners ------------------

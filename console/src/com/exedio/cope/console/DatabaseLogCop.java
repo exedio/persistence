@@ -27,6 +27,7 @@ import com.exedio.cope.Model;
 final class DatabaseLogCop extends ConsoleCop
 {
 	static final String ENABLE = "dblogenable";
+	static final String THRESHOLD = "dblogthreshold";
 	
 	DatabaseLogCop()
 	{
@@ -41,13 +42,14 @@ final class DatabaseLogCop extends ConsoleCop
 		if("POST".equals(request.getMethod()))
 		{
 			final boolean enable = request.getParameter(ENABLE)!=null;
-			model.setDatabaseLog(enable);
+			final int threshold = Integer.parseInt(request.getParameter(THRESHOLD));
+			model.setDatabaseLog(enable, threshold);
 		}
 	}
 	
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		Console_Jspm.writeBody(this, out, model.isDatabaseLogEnabled());
+		Console_Jspm.writeBody(this, out, model.isDatabaseLogEnabled(), model.getDatabaseLogThreshold());
 	}
 }

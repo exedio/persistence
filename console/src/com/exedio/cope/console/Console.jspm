@@ -275,11 +275,14 @@ final class Console_Jspm
 	final static void writeBody(
 			final DatabaseLogCop cop,
 			final PrintStream out,
-			final boolean enable)
+			final boolean enable,
+			final int threshold)
 	{
 		%>
 		<form action="<%=cop%>" method="POST">
 			<input type="checkbox" name="<%=cop.ENABLE%>"<%if(enable){%> checked="checked"<%}%>> enable
+			<br>
+			<input type="text" name="<%=cop.THRESHOLD%>" value="<%=threshold%>"> threshold
 			<br>
 			<input type="submit" name="submit" value="submit">
 		</form><%

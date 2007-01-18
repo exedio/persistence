@@ -54,13 +54,34 @@ public class EnumTest extends AbstractLibTest
 	public void testDatabaseLog()
 	{
 		assertFalse(model.isDatabaseLogEnabled());
+		assertEquals(0, model.getDatabaseLogThreshold());
 		
-		model.setDatabaseLog(true);
+		model.setDatabaseLog(true, 0);
 		assertTrue(model.isDatabaseLogEnabled());
+		assertEquals(0, model.getDatabaseLogThreshold());
 		item.TYPE.search();
 		item.setStatus(EnumItem.Status.status3);
 		
-		model.setDatabaseLog(false);
+		model.setDatabaseLog(true, 5000);
+		assertTrue(model.isDatabaseLogEnabled());
+		assertEquals(5000, model.getDatabaseLogThreshold());
+		item.TYPE.search();
+		item.setStatus(EnumItem.Status.status3);
+		
+		model.setDatabaseLog(false, 60);
 		assertFalse(model.isDatabaseLogEnabled());
+		assertEquals(60, model.getDatabaseLogThreshold());
+		
+		try
+		{
+			model.setDatabaseLog(true, -60);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("threshold must not be negative, but was -60", e.getMessage());
+		}
+		assertFalse(model.isDatabaseLogEnabled());
+		assertEquals(60, model.getDatabaseLogThreshold());
 	}
 }
