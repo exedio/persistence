@@ -479,7 +479,7 @@ public final class Model
 
 	public boolean isDatabaseLogEnabled()
 	{
-		return getDatabase().isLog();
+		return getDatabase().log.enable;
 	}
 	
 	/**
@@ -487,12 +487,12 @@ public final class Model
 	 */
 	public int getDatabaseLogThreshold()
 	{
-		return getDatabase().getLogThreshold();
+		return getDatabase().log.threshold;
 	}
 	
 	public void setDatabaseLog(final boolean enable, final int threshold, final PrintStream out)
 	{
-		getDatabase().setLog(enable, threshold, out);
+		getDatabase().log = new DatabaseLogConfig(enable, threshold, out);
 	}
 	
 	/**

@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,9 +56,7 @@ final class Database
 	final Dialect dialect;
 	private final boolean migrationSupported;
 	final boolean prepare;
-	private volatile boolean log;
-	private volatile int logThreshold;
-	private volatile PrintStream logOut;
+	volatile DatabaseLogConfig log;
 	private final boolean logStatementInfo;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
@@ -83,9 +80,7 @@ final class Database
 		this.dialect = dialect;
 		this.migrationSupported = migrationSupported;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.log = properties.getDatabaseLog();
-		this.logThreshold = properties.getDatabaseLogThreshold();
-		this.logOut = System.out;
+		this.log = new DatabaseLogConfig(properties);
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
@@ -1077,8 +1072,8 @@ final class Database
 		ResultSet resultSet = null;
 		try
 		{
-			final boolean log = this.log;
-			final boolean takeTimes = !explain && (log || this.logStatementInfo || makeStatementInfo);
+			final DatabaseLogConfig log = this.log;
+			final boolean takeTimes = !explain && (log.enable || this.logStatementInfo || makeStatementInfo);
 			final String sqlText = statement.getText();
 			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
 			final long timePrepared;
@@ -1128,8 +1123,8 @@ final class Database
 
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
-			if(log && (timeEnd-timeStart)>=logThreshold)
-				statement.log(logOut, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
+			if(log.enable && (timeEnd-timeStart)>=log.threshold)
+				statement.log(log.out, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
 			final StatementInfo statementInfo =
 				(this.logStatementInfo || makeStatementInfo)
@@ -1189,8 +1184,8 @@ final class Database
 		try
 		{
 			final String sqlText = statement.getText();
-			final boolean log = this.log;
-			final long timeStart = log ? System.currentTimeMillis() : 0;
+			final DatabaseLogConfig log = this.log;
+			final long timeStart = log.enable ? System.currentTimeMillis() : 0;
 			final int rows;
 			
 			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint)
@@ -1200,7 +1195,7 @@ final class Database
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-				timePrepared = log ? System.currentTimeMillis() : 0;
+				timePrepared = log.enable ? System.currentTimeMillis() : 0;
 				rows = sqlStatement.executeUpdate(sqlText);
 			}
 			else
@@ -1210,14 +1205,14 @@ final class Database
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-				timePrepared = log ? System.currentTimeMillis() : 0;
+				timePrepared = log.enable ? System.currentTimeMillis() : 0;
 				rows = prepared.executeUpdate();
 			}
 			
-			final long timeEnd = log ? System.currentTimeMillis() : 0;
+			final long timeEnd = log.enable ? System.currentTimeMillis() : 0;
 
-			if(log && (timeEnd-timeStart)>=logThreshold)
-				statement.log(logOut, timeStart, timePrepared, timeEnd);
+			if(log.enable && (timeEnd-timeStart)>=log.threshold)
+				statement.log(log.out, timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
@@ -1860,28 +1855,6 @@ final class Database
 	void close()
 	{
 		connectionPool.flush();
-	}
-	
-	boolean isLog()
-	{
-		return this.log;
-	}
-	
-	int getLogThreshold()
-	{
-		return this.logThreshold;
-	}
-
-	void setLog(final boolean enable, final int threshold, final PrintStream out)
-	{
-		if(threshold<0)
-			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
-		if(out==null)
-			throw new NullPointerException("out must not be null");
-		
-		this.log = enable;
-		this.logThreshold = threshold;
-		this.logOut = out;
 	}
 	
 	// listeners ------------------
