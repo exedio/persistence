@@ -80,7 +80,7 @@ public class EnumTest extends AbstractLibTest
 		final ByteArrayOutputStream o3 = new ByteArrayOutputStream();
 		model.setDatabaseLog(false, 60, new PrintStream(o3));
 		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(60, model.getDatabaseLogThreshold());
+		assertEquals(0, model.getDatabaseLogThreshold());
 		item.TYPE.search();
 		item.setStatus(EnumItem.Status.status1);
 		assertEquals(0, o2.size());
@@ -96,7 +96,7 @@ public class EnumTest extends AbstractLibTest
 			assertEquals("threshold must not be negative, but was -60", e.getMessage());
 		}
 		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(60, model.getDatabaseLogThreshold());
+		assertEquals(0, model.getDatabaseLogThreshold());
 		
 		try
 		{
@@ -108,7 +108,7 @@ public class EnumTest extends AbstractLibTest
 			assertEquals("out must not be null", e.getMessage());
 		}
 		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(60, model.getDatabaseLogThreshold());
+		assertEquals(0, model.getDatabaseLogThreshold());
 	}
 	
 	private static final String s(final ByteArrayOutputStream o)

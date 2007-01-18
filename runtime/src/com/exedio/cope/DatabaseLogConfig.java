@@ -22,24 +22,23 @@ import java.io.PrintStream;
 
 final class DatabaseLogConfig
 {
-	final boolean enable;
 	final int threshold;
 	final PrintStream out;
 	
-	DatabaseLogConfig(final boolean enable, final int threshold, final PrintStream out)
+	DatabaseLogConfig(final int threshold, final PrintStream out)
 	{
 		if(threshold<0)
 			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
 		if(out==null)
 			throw new NullPointerException("out must not be null");
 		
-		this.enable = enable;
 		this.threshold = threshold;
 		this.out = out;
 	}
 
-	DatabaseLogConfig(final Properties properties)
+	void log(final Statement statement, final long... times)
 	{
-		this(properties.getDatabaseLog(), properties.getDatabaseLogThreshold(), System.out);
+		if((times[times.length-1]-times[0])>=threshold)
+			statement.log(out, times);
 	}
 }

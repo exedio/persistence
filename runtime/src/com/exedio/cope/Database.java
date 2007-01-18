@@ -80,7 +80,7 @@ final class Database
 		this.dialect = dialect;
 		this.migrationSupported = migrationSupported;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
-		this.log = new DatabaseLogConfig(properties);
+		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), System.out) : null;
 		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
@@ -1073,7 +1073,7 @@ final class Database
 		try
 		{
 			final DatabaseLogConfig log = this.log;
-			final boolean takeTimes = !explain && (log.enable || this.logStatementInfo || makeStatementInfo);
+			final boolean takeTimes = !explain && (log!=null || this.logStatementInfo || makeStatementInfo);
 			final String sqlText = statement.getText();
 			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
 			final long timePrepared;
@@ -1123,8 +1123,8 @@ final class Database
 
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
-			if(log.enable && (timeEnd-timeStart)>=log.threshold)
-				statement.log(log.out, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
+			if(log!=null)
+				log.log(statement, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
 			final StatementInfo statementInfo =
 				(this.logStatementInfo || makeStatementInfo)
@@ -1185,7 +1185,7 @@ final class Database
 		{
 			final String sqlText = statement.getText();
 			final DatabaseLogConfig log = this.log;
-			final long timeStart = log.enable ? System.currentTimeMillis() : 0;
+			final long timeStart = log!=null ? System.currentTimeMillis() : 0;
 			final int rows;
 			
 			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint)
@@ -1195,7 +1195,7 @@ final class Database
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-				timePrepared = log.enable ? System.currentTimeMillis() : 0;
+				timePrepared = log!=null ? System.currentTimeMillis() : 0;
 				rows = sqlStatement.executeUpdate(sqlText);
 			}
 			else
@@ -1205,14 +1205,14 @@ final class Database
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-				timePrepared = log.enable ? System.currentTimeMillis() : 0;
+				timePrepared = log!=null ? System.currentTimeMillis() : 0;
 				rows = prepared.executeUpdate();
 			}
 			
-			final long timeEnd = log.enable ? System.currentTimeMillis() : 0;
+			final long timeEnd = log!=null ? System.currentTimeMillis() : 0;
 
-			if(log.enable && (timeEnd-timeStart)>=log.threshold)
-				statement.log(log.out, timeStart, timePrepared, timeEnd);
+			if(log!=null)
+				log.log(statement, timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
 			if(rows!=expectedRows)
