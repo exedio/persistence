@@ -376,30 +376,6 @@ public final class Statement
 		}
 	}
 	
-	void log(final PrintStream out, final long... times)
-	{
-		final StringBuffer bf = new StringBuffer(
-				new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
-		
-		for(int i = 1; i<times.length; i++)
-		{
-			bf.append('|');
-			bf.append(times[i]-times[i-1]);
-		}
-		
-		bf.append('|');
-		bf.append(text.toString());
-		
-		final ArrayList<Object> parameters = this.parameters;
-		if(parameters!=null)
-		{
-			bf.append('|');
-			bf.append(parameters);
-		}
-		
-		out.println(bf.toString());
-	}
-	
 	// join aliases
 	
 	private static class JoinTable
