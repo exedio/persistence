@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -39,14 +38,14 @@ final class Cache
 	private final int[] mapSizeLimits;
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
-	private final LRUMap<Query.Key, List<?>> queries;
+	private final LRUMap<Query.Key, ArrayList<Object>> queries;
 	private int queryHits=0, queryMisses=0;
 	private final boolean queryHistogram;
 	
 	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean queryHistogram)
 	{
 		this.mapSizeLimits = mapSizeLimits;
-		queries = queryCacheSizeLimit>0 ? new LRUMap<Query.Key, List<?>>(queryCacheSizeLimit) : null;
+		queries = queryCacheSizeLimit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(queryCacheSizeLimit) : null;
 		final int numberOfConcreteTypes = mapSizeLimits.length;
 		stateMaps = new IntKeyOpenHashMap[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
@@ -145,17 +144,17 @@ final class Cache
 		return queries!=null;
 	}
 	
-	<R> List<R> search(final Query<R> query)
+	ArrayList<Object> search(final Query<?> query)
 	{
 		if(queries==null)
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		Query.Key key = new Query.Key( query );
-		List<R> result;
+		ArrayList<Object> result;
 		synchronized(queries)
 		{
-			result = Cache.<R>castQL(queries.get(key));
+			result = queries.get(key);
 		}
 		if ( result==null )
 		{
@@ -185,12 +184,6 @@ final class Cache
 		}
 		
 		return result;
-	}
-	
-	@SuppressWarnings("unchecked") // OK: generic maps cannot ensure fit between key and value
-	private static final <R> List<R> castQL(final List l)
-	{
-		return l;
 	}
 	
 	void invalidate(final IntOpenHashSet[] invalidations)

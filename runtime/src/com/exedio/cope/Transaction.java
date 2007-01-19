@@ -153,7 +153,7 @@ public final class Transaction
 		}
 	}
 	
-	<R> List<R> search(final Query<R> query)
+	ArrayList<Object> search(final Query<?> query)
 	{
 		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
 		{

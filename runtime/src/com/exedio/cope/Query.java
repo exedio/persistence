@@ -343,12 +343,12 @@ public final class Query<R>
 			return Collections.<R>emptyList();
 		}
 		
-		return model.getCurrentTransaction().search(this);
+		return castQL(Collections.unmodifiableList(model.getCurrentTransaction().search(this)));
 	}
 	
-	List<R> searchUncached()
+	ArrayList<Object> searchUncached()
 	{
-		return castQL(Collections.unmodifiableList(model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false)));
+		return model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false);
 	}
 	
 	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
@@ -367,7 +367,7 @@ public final class Query<R>
 	 */
 	public int countWithoutLimit()
 	{
-		final Collection result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
+		final ArrayList<Object> result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
 		return ((Integer)result.iterator().next()).intValue();
 	}
 
