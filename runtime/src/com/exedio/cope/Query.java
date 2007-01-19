@@ -368,6 +368,7 @@ public final class Query<R>
 	public int countWithoutLimit()
 	{
 		final ArrayList<Object> result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
+		assert result.size()==1;
 		return ((Integer)result.iterator().next()).intValue();
 	}
 
