@@ -525,20 +525,7 @@ public final class Query<R>
 		if(joins!=null)
 		{
 			for(final Join join : joins)
-			{
-				bf.append(' ').
-					append(join.kind.sql).
-					append(join.type).
-					append(' ').
-					append(join.getToStringAlias());
-
-				final Condition joinCondition = join.condition;
-				if(joinCondition!=null)
-				{
-					bf.append(" on ").
-						append(key ? joinCondition.toStringForQueryKey() : joinCondition.toString());
-				}
-			}
+				join.toString(bf, key);
 		}
 
 		if(condition!=null)

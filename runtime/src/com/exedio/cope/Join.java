@@ -90,7 +90,24 @@ public final class Join
 	@Override
 	public String toString()
 	{
-		return kind.sql + type + ' ' + getToStringAlias() + (condition!=null ? (" on "+condition) : "");
+		final StringBuffer bf = new StringBuffer();
+		toString(bf, false);
+		return bf.toString();
+	}
+
+	void toString(final StringBuffer bf, final boolean key)
+	{
+		bf.append(' ').
+			append(kind.sql).
+			append(type).
+			append(' ').
+			append(getToStringAlias());
+	
+		if(condition!=null)
+		{
+			bf.append(" on ").
+				append(key ? condition.toStringForQueryKey() : condition.toString());
+		}
 	}
 
 	String getToStringAlias()
