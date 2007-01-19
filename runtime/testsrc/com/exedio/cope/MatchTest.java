@@ -18,11 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-
-
 public class MatchTest extends AbstractLibTest
 {
 	static final Model MODEL = new Model(MatchItem.TYPE);
@@ -48,87 +43,5 @@ public class MatchTest extends AbstractLibTest
 		assertEquals(list(item), item.TYPE.search(new MatchCondition(item.text, "bello")));
 		assertEquals(list(item), item.TYPE.search(new MatchCondition(item.text, "cnallo")));
 		assertEquals(list(), item.TYPE.search(new MatchCondition(item.text, "zack")));
-	}
-
-	public void testDatabaseLog()
-	{
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		
-		final ByteArrayOutputStream o1 = new ByteArrayOutputStream();
-		model.setDatabaseLog(true, 0, null, new PrintStream(o1));
-		assertTrue(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
-		assertEquals(0, o1.size());
-		item.TYPE.search(item.text.equal("string1"));
-		assertTrue(s(o1), s(o1).indexOf("select")>0);
-		item.setText("string1");
-		assertTrue(s(o1), s(o1).indexOf("update")>0);
-		assertTrue(s(o1), s(o1).indexOf("select")>0);
-		
-		final ByteArrayOutputStream o2 = new ByteArrayOutputStream();
-		model.setDatabaseLog(true, 5000, null, new PrintStream(o2));
-		assertTrue(model.isDatabaseLogEnabled());
-		assertEquals(5000, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
-		item.TYPE.search(item.text.equal("string2"));
-		item.setText("string2");
-		assertEquals(0, o2.size());
-		
-		final ByteArrayOutputStream o2a = new ByteArrayOutputStream();
-		model.setDatabaseLog(true, 0, "update", new PrintStream(o2a));
-		assertTrue(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals("update", model.getDatabaseLogSQL());
-		item.TYPE.search(item.text.equal("string2"));
-		item.setText("string2");
-		assertEquals(0, o2.size());
-		assertFalse(s(o2a), s(o2a).indexOf("select")>0);
-		assertTrue(s(o2a), s(o2a).indexOf("update")>0);
-		o2a.reset();
-		assertEquals(0, o2a.size());
-		
-		final ByteArrayOutputStream o3 = new ByteArrayOutputStream();
-		model.setDatabaseLog(false, 60, null, new PrintStream(o3));
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
-		item.TYPE.search(item.text.equal("string3"));
-		item.setText("string3");
-		assertEquals(0, o2.size());
-		assertEquals(0, o2a.size());
-		assertEquals(0, o3.size());
-		
-		try
-		{
-			model.setDatabaseLog(true, -60, "hallo", null);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("threshold must not be negative, but was -60", e.getMessage());
-		}
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
-		
-		try
-		{
-			model.setDatabaseLog(true, 120, "bello", null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("out must not be null", e.getMessage());
-		}
-		assertFalse(model.isDatabaseLogEnabled());
-		assertEquals(0, model.getDatabaseLogThreshold());
-		assertEquals(null, model.getDatabaseLogSQL());
-	}
-	
-	private static final String s(final ByteArrayOutputStream o)
-	{
-		return new String(o.toByteArray());
 	}
 }
