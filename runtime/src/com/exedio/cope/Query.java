@@ -343,12 +343,12 @@ public final class Query<R>
 			return Collections.<R>emptyList();
 		}
 		
-		return Collections.unmodifiableList(castQL(model.getCurrentTransaction().search(this)));
+		return Collections.unmodifiableList(castQL(model.getCurrentTransaction().search(this, false)));
 	}
 	
-	ArrayList<Object> searchUncached()
+	ArrayList<Object> searchUncached(final boolean doCountOnly)
 	{
-		return model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, false);
+		return model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, doCountOnly);
 	}
 	
 	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
@@ -367,7 +367,7 @@ public final class Query<R>
 	 */
 	public int countWithoutLimit()
 	{
-		final ArrayList<Object> result = model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, true);
+		final ArrayList<Object> result = model.getCurrentTransaction().search(this, true);
 		assert result.size()==1;
 		return ((Integer)result.iterator().next()).intValue();
 	}
@@ -500,10 +500,10 @@ public final class Query<R>
 	@Override
 	public String toString()
 	{
-		return toString(false);
+		return toString(false, false);
 	}
 	
-	private String toString(final boolean key)
+	private String toString(final boolean key, final boolean doCountOnly)
 	{
 		final StringBuffer bf = new StringBuffer();
 		
@@ -511,13 +511,20 @@ public final class Query<R>
 		
 		if(distinct)
 			bf.append("distinct ");
-		
-		for(int i = 0; i<selects.length; i++)
-		{
-			if(i>0)
-				bf.append(',');
 
-			bf.append(selects[i]);
+		if(doCountOnly)
+		{
+			bf.append("count(*)");
+		}
+		else
+		{
+			for(int i = 0; i<selects.length; i++)
+			{
+				if(i>0)
+					bf.append(',');
+	
+				bf.append(selects[i]);
+			}
 		}
 
 		bf.append(" from ").
@@ -535,27 +542,30 @@ public final class Query<R>
 			condition.toString(bf, key);
 		}
 
-		if(orderBy!=null)
+		if(!doCountOnly)
 		{
-			bf.append(" order by ");
-			for(int i = 0; i<orderBy.length; i++)
+			if(orderBy!=null)
 			{
-				if(i>0)
-					bf.append(", ");
-				
-				bf.append(orderBy[i]);
-				if(!orderAscending[i])
-					bf.append(" desc");
+				bf.append(" order by ");
+				for(int i = 0; i<orderBy.length; i++)
+				{
+					if(i>0)
+						bf.append(", ");
+					
+					bf.append(orderBy[i]);
+					if(!orderAscending[i])
+						bf.append(" desc");
+				}
 			}
-		}
-		
-		if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
-		{
-			bf.append(" limit ").
-				append(limitStart);
-
-			if(limitCount!=UNLIMITED_COUNT)
-				bf.append(' ').append(limitCount);
+			
+			if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
+			{
+				bf.append(" limit ").
+					append(limitStart);
+	
+				if(limitCount!=UNLIMITED_COUNT)
+					bf.append(' ').append(limitCount);
+			}
 		}
 		
 		return bf.toString();
@@ -565,11 +575,11 @@ public final class Query<R>
 	{
 		final String text;
 		final Type[] types;
-		int hits = 0;
+		volatile int hits = 0;
 		
-		Key(final Query<? extends Object> query)
+		Key(final Query<? extends Object> query, final boolean doCountOnly)
 		{
-			text = query.toString(true);
+			text = query.toString(true, doCountOnly);
 			// TODO compress
 
 			final ArrayList<Join> joins = query.joins;

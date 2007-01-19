@@ -42,7 +42,9 @@ public class QueryCacheTest extends AbstractLibTest
 	}
 	
 	private static final String Q1 = "select MatchItem.this from MatchItem where MatchItem.text='someString'";
+	private static final String C1 = "select count(*) from MatchItem where MatchItem.text='someString'";
 	private static final String Q2 = "select MatchItem.this from MatchItem where MatchItem.text='someString2'";
+	private static final String C2 = "select count(*) from MatchItem where MatchItem.text='someString2'";
 	
 	public void testQueryCache()
 	{
@@ -78,17 +80,17 @@ public class QueryCacheTest extends AbstractLibTest
 		q1.countWithoutLimit();
 		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0), cqi(C1, 0)) : list(), cqi());
 		
 		q1.countWithoutLimit();
-		assertEquals(list(sc(q1, true)), l.scs);
+		assertEquals(enabled ? list() : list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q1, 1), cqi(C1, 1), cqi(Q2, 0)) : list(), cqi());
 		
 		q2.countWithoutLimit();
 		assertEquals(list(sc(q2, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q1, 1), cqi(C1, 1), cqi(Q2, 0), cqi(C2, 0)) : list(), cqi());
 		
 		model.clearCache();
 		assertEquals(list(), cqi());

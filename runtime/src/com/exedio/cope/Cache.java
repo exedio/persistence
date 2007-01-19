@@ -39,7 +39,7 @@ final class Cache
 	private final IntKeyOpenHashMap[] stateMaps;
 	private final int[] hits, misses;
 	private final LRUMap<Query.Key, ArrayList<Object>> queries;
-	private int queryHits=0, queryMisses=0;
+	private volatile int queryHits = 0, queryMisses = 0;
 	private final boolean queryHistogram;
 	
 	Cache(final int[] mapSizeLimits, final int queryCacheSizeLimit, final boolean queryHistogram)
@@ -144,13 +144,13 @@ final class Cache
 		return queries!=null;
 	}
 	
-	ArrayList<Object> search(final Query<?> query)
+	ArrayList<Object> search(final Query<?> query, final boolean doCountOnly)
 	{
 		if(queries==null)
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
-		Query.Key key = new Query.Key( query );
+		final Query.Key key = new Query.Key(query, doCountOnly);
 		ArrayList<Object> result;
 		synchronized(queries)
 		{
@@ -158,7 +158,7 @@ final class Cache
 		}
 		if ( result==null )
 		{
-			result = query.searchUncached();
+			result = query.searchUncached(doCountOnly);
 			synchronized(queries)
 			{
 				queries.put(key, result);
