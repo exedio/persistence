@@ -73,6 +73,7 @@ public final class Join
 	{
 		final Join o = (Join)other;
 		return
+			index==o.index &&
 			kind==o.kind &&
 			type==o.type &&
 			condition==null ? o.condition==null : condition.equals(o.condition);
@@ -82,6 +83,7 @@ public final class Join
 	public int hashCode()
 	{
 		return
+			index ^
 			kind.hashCode() ^
 			type.hashCode() ^
 			(condition==null ? 0 : condition.hashCode());
