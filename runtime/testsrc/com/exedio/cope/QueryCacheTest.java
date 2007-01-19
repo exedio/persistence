@@ -55,18 +55,18 @@ public class QueryCacheTest extends AbstractLibTest
 		
 		final DBL l = new DBL();
 		model.setDatabaseListener(l);
-		final Query q = item.TYPE.newQuery(item.text.equal("someString"));
+		final Query q1 = item.TYPE.newQuery(item.text.equal("someString"));
 		final Query q2 = item.TYPE.newQuery(item.text.equal("someString2"));
-		q.enableMakeStatementInfo(); // otherwise hits are not counted
+		q1.enableMakeStatementInfo(); // otherwise hits are not counted
 		q2.enableMakeStatementInfo(); // otherwise hits are not counted
 		
-		q.search();
-		assertEquals(list(sc(q, false)), l.scs);
+		q1.search();
+		assertEquals(list(sc(q1, false)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 0)) : list(), cqi());
 		
-		q.search();
-		assertEquals(enabled ? list() : list(sc(q, false)), l.scs);
+		q1.search();
+		assertEquals(enabled ? list() : list(sc(q1, false)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 1)) : list(), cqi());
 		
@@ -75,13 +75,13 @@ public class QueryCacheTest extends AbstractLibTest
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
 		
-		q.countWithoutLimit();
-		assertEquals(list(sc(q, true)), l.scs);
+		q1.countWithoutLimit();
+		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
 		
-		q.countWithoutLimit();
-		assertEquals(list(sc(q, true)), l.scs);
+		q1.countWithoutLimit();
+		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
 		
