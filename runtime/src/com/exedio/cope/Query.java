@@ -589,7 +589,7 @@ public final class Query<R>
 			{
 				int i = 1;
 				for(final Join join : joins)
-					types[i] = join.type;
+					types[i++] = join.type;
 			}
 			this.types = types;
 		}
