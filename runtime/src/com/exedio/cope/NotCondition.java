@@ -70,14 +70,10 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	public String toString()
+	void toString(final StringBuffer bf, final boolean key)
 	{
-		return "!(" + argument + ')';
-	}
-
-	@Override
-	String toStringForQueryKey()
-	{
-		return "!(" + argument.toStringForQueryKey() + ')';
+		bf.append("!(");
+		argument.toString(bf, key);
+		bf.append(')');
 	}
 }

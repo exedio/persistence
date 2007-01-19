@@ -82,15 +82,13 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	public String toString()
+	void toString(final StringBuffer bf, final boolean key)
 	{
-		return function.toString() + operator.sql + '\'' + value + '\'';
-	}
-
-	@Override
-	String toStringForQueryKey()
-	{
-		return function.toString() + operator.sql + '\'' + toStringForQueryKey(value) + '\'';
+		bf.append(function.toString()).
+			append(operator.sql).
+			append('\'').
+			append(toStringForValue(value, key)).
+			append('\'');
 	}
 
 	public static enum Operator

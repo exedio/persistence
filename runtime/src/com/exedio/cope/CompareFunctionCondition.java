@@ -82,14 +82,10 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
-	public String toString()
+	void toString(final StringBuffer bf, final boolean key)
 	{
-		return left.toString() + operator.sql + right.toString();
-	}
-
-	@Override
-	String toStringForQueryKey()
-	{
-		return toString();
+		bf.append(left.toString()).
+			append(operator.sql).
+			append(right.toString());
 	}
 }

@@ -76,15 +76,12 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	public String toString()
+	void toString(final StringBuffer bf, final boolean key)
 	{
-		return function.toString() + " like '" + value + '\'';
-	}
-	
-	@Override
-	String toStringForQueryKey()
-	{
-		return function.toString() + " like '" + toStringForQueryKey(value) + '\'';
+		bf.append(function.toString()).
+			append(" like '").
+			append(toStringForValue(value, key)).
+			append('\'');
 	}
 	
 	public static final char WILDCARD = '%';

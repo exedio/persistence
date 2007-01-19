@@ -530,8 +530,8 @@ public final class Query<R>
 
 		if(condition!=null)
 		{
-			bf.append(" where ").
-				append(key ? condition.toStringForQueryKey() : condition.toString());
+			bf.append(" where ");
+			condition.toString(bf, key);
 		}
 
 		if(orderBy!=null)

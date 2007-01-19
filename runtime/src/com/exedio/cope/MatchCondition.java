@@ -80,14 +80,11 @@ public final class MatchCondition extends Condition
 	}
 
 	@Override
-	public String toString()
+	void toString(final StringBuffer bf, final boolean key)
 	{
-		return function.toString() + " matches '" + value + '\'';
-	}
-	
-	@Override
-	String toStringForQueryKey()
-	{
-		return function.toString() + " matches '" + toStringForQueryKey(value) + '\'';
+		bf.append(function.toString()).
+			append(" matches '").
+			append(toStringForValue(value, key)).
+			append('\'');
 	}
 }

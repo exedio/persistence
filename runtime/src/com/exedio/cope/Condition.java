@@ -99,25 +99,22 @@ public abstract class Condition
 		return o==null ? 0 : o.hashCode();
 	}
 
-	/**
-	 * Does the same as {@link #toString()} with one exception:
-	 * it calls {@link #toStringForQueryKey(Object)}
-	 * instead of {@link Object#toString()} for
-	 * literal values in conditions.
-	 * This avoids errors, if {@link Object#toString()} of
-	 * items is implemented in a way, that fails without
-	 * an active transaction bound to the current thread.
-	 * Such errors would occur in the query cache statistics tab
-	 * of the COPE Console.
-	 */
-	abstract String toStringForQueryKey();
+	@Override
+	public final String toString()
+	{
+		final StringBuffer bf = new StringBuffer();
+		toString(bf, false);
+		return bf.toString();
+	}
 	
-	static final String toStringForQueryKey(final Object o)
+	abstract void toString(final StringBuffer bf, final boolean key);
+
+	static final String toStringForValue(final Object o, final boolean key)
 	{
 		if(o==null)
 			return "NULL";
 		else if(o instanceof Item)
-			return ((Item)o).getCopeID();
+			return key ? ((Item)o).getCopeID() : o.toString();
 		else if(o instanceof Date)
 			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
 		else

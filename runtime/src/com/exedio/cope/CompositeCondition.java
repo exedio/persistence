@@ -108,41 +108,18 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	public String toString()
+	void toString(final StringBuffer bf, final boolean key)
 	{
-		final StringBuffer bf = new StringBuffer();
-		
 		bf.append('(');
-		bf.append(conditions[0].toString());
+		conditions[0].toString(bf, key);
 		for(int i = 1; i<conditions.length; i++)
 		{
 			bf.append(' ').
 				append(operator).
-				append(' ').
-				append(conditions[i].toString());
+				append(' ');
+			conditions[i].toString(bf, key);
 		}
 		bf.append(')');
-		
-		return bf.toString();
-	}
-
-	@Override
-	String toStringForQueryKey()
-	{
-		final StringBuffer bf = new StringBuffer();
-		
-		bf.append('(');
-		bf.append(conditions[0].toStringForQueryKey());
-		for(int i = 1; i<conditions.length; i++)
-		{
-			bf.append(' ').
-				append(operator).
-				append(' ').
-				append(conditions[i].toStringForQueryKey());
-		}
-		bf.append(')');
-		
-		return bf.toString();
 	}
 
 	public static final <E> CompositeCondition in(final Function<E> function, final Collection<E> values)

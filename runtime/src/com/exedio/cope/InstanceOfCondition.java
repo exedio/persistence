@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
 import java.util.TreeSet;
 
 public final class InstanceOfCondition<E extends Item> extends Condition
@@ -146,14 +145,28 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	public String toString()
+	void toString(final StringBuffer bf, final boolean key)
 	{
-		return function.toString() + (not?" not":"") + " instanceOf " + (types.length==1 ? types[0].toString() : Arrays.toString(types));
-	}
-	
-	@Override
-	String toStringForQueryKey()
-	{
-		return toString();
+		bf.append(function.toString());
+		
+		if(not)
+			bf.append(" not");
+		
+		bf.append(" instanceOf ");
+		
+		if(types.length==1)
+			bf.append(types[0].toString());
+		else
+		{
+			bf.append('[').
+				append(types[0].toString());
+			
+			for(int i = 1; i<types.length; i++)
+			{
+				bf.append(", ").
+					append(types[i].toString());
+			}
+			bf.append(']');
+		}
 	}
 }

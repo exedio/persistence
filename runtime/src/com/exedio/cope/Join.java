@@ -107,8 +107,8 @@ public final class Join
 	
 		if(condition!=null)
 		{
-			bf.append(" on ").
-				append(key ? condition.toStringForQueryKey() : condition.toString());
+			bf.append(" on ");
+			condition.toString(bf, key);
 		}
 	}
 
