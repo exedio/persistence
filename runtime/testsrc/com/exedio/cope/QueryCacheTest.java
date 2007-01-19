@@ -20,6 +20,10 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.exedio.cope.util.CacheQueryInfo;
 
 public class QueryCacheTest extends AbstractLibTest
 {
@@ -37,6 +41,8 @@ public class QueryCacheTest extends AbstractLibTest
 		deleteOnTearDown(item = new MatchItem());
 	}
 	
+	private static final String Q1 = "select MatchItem.this from MatchItem where MatchItem.text='someString'";
+	
 	public void testQueryCache()
 	{
 		// start new transaction, otherwise query cache will not work,
@@ -44,30 +50,46 @@ public class QueryCacheTest extends AbstractLibTest
 		model.commit();
 		model.startTransaction("QueryCacheTest");
 		final boolean enabled = model.getProperties().getCacheQueryLimit()>0;
+		assertEquals(list(), cqi());
 		
 		final DBL l = new DBL();
 		model.setDatabaseListener(l);
 		final Query q = item.TYPE.newQuery(item.text.equal("someString"));
+		q.enableMakeStatementInfo(); // otherwise hits are not counted
 		
 		q.search();
 		assertEquals(list(sc(q, false)), l.scs);
 		l.clear();
+		assertEquals(enabled ? list(cqi(Q1, 0)) : list(), cqi());
 		
 		q.search();
 		assertEquals(enabled ? list() : list(sc(q, false)), l.scs);
 		l.clear();
+		assertEquals(enabled ? list(cqi(Q1, 1)) : list(), cqi());
 		
 		q.countWithoutLimit();
 		assertEquals(list(sc(q, true)), l.scs);
 		l.clear();
+		assertEquals(enabled ? list(cqi(Q1, 1)) : list(), cqi());
 		
 		q.countWithoutLimit();
 		assertEquals(list(sc(q, true)), l.scs);
 		l.clear();
+		assertEquals(enabled ? list(cqi(Q1, 1)) : list(), cqi());
 		
 		model.setDatabaseListener(null);
 	}
 	
+	private CacheQueryInfo cqi(final String query, final int hits)
+	{
+		return new CacheQueryInfo(query, hits);
+	}
+
+	private List<CacheQueryInfo> cqi()
+	{
+		return Arrays.asList(model.getCacheQueryHistogram());
+	}
+
 	private SC sc(final Query query, final boolean doCountOnly)
 	{
 		return new SC(query, doCountOnly);

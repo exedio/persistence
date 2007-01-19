@@ -53,7 +53,7 @@ public final class CacheQueryInfo implements Comparable
 		
 		final CacheQueryInfo o = (CacheQueryInfo)other;
 		
-		return query.equals(o.query);
+		return query.equals(o.query) && hits==o.hits;
 	}
 	
 	@Override
