@@ -502,7 +502,7 @@ public final class Query<R>
 		final StringBuffer bf = new StringBuffer();
 		
 		// BEWARE
-		// this method duplicates Query.Key#toString(),
+		// this method duplicates Query.Key#toStringForQueryKey(),
 		// so if you change something here,
 		// you will probably want to change it there as well.
 		
@@ -565,162 +565,119 @@ public final class Query<R>
 	
 	static final class Key
 	{
-		// model left out, because it can be computed from type
-		final Selectable[] selects;
-		final boolean distinct;
-		final Type type;
-		final Join[] joins;
-		final Condition condition;
-		final Function[] orderBy;
-		final boolean[] orderAscending;
-
-		final int limitStart;
-		final int limitCount;
-
-		// makeStatementInfo and statementInfo are deliberatly left out
-		
-		private final int hashCode;
-		
+		final String text;
+		final Type[] types;
 		int hits = 0;
 		
 		Key(final Query<? extends Object> query)
 		{
-			selects = query.selects;
-			distinct = query.distinct;
-			type = query.type;
-			joins = query.joins==null ? null : query.joins.toArray(new Join[query.joins.size()]);
-			condition = query.condition;
-			orderBy = query.orderBy;
-			orderAscending = query.orderAscending;
-			limitStart = query.limitStart;
-			limitCount = query.limitCount;
-			
-			hashCode =
-				Arrays.hashCode(selects)
-				^ hashCode(distinct)
-				^ hashCode(type)
-				^ Arrays.hashCode(joins)
-				^ hashCode(condition)
-				^ Arrays.hashCode(orderBy)
-				^ Arrays.hashCode(orderAscending)
-				^ limitStart
-				^ limitCount;
+			text = query.toStringForQueryKey();
+			// TODO compress
+
+			final ArrayList<Join> joins = query.joins;
+			final Type[] types = new Type[1+ (joins!=null ? joins.size() : 0)];
+			types[0] = query.type;
+			if(joins!=null)
+			{
+				int i = 1;
+				for(final Join join : joins)
+					types[i] = join.type;
+			}
+			this.types = types;
 		}
 		
 		@Override
 		public boolean equals(final Object obj)
 		{
 			final Key other = (Key)obj;
-			return
-				Arrays.equals(selects, other.selects)
-				&& distinct == other.distinct
-				&& type==type
-				&& Arrays.equals(joins, other.joins)
-				&& equals(condition, other.condition)
-				&& Arrays.equals(orderBy, other.orderBy)
-				&& Arrays.equals(orderAscending, other.orderAscending)
-				&& limitStart == other.limitStart
-				&& limitCount == other.limitCount;
+			return text.equals(other.text);
 		}
 		
 		@Override
 		public int hashCode()
 		{
-			return hashCode;
+			return text.hashCode();
 		}
 		
-		private static boolean equals(final Object a, final Object b)
-		{
-			assert a==null || !a.getClass().isArray();
-			assert b==null || !b.getClass().isArray();
-			return a==null ? b==null : ( b!=null && a.equals(b) );
-		}
-		
-		private static int hashCode(final Object obj)
-		{
-			assert obj==null || !obj.getClass().isArray();
-			return obj==null ? 0 : obj.hashCode();
-		}
-		
-		private static int hashCode(final boolean b)
-		{
-			return b ? 1 : 0;
-		}
-
-		/**
-		 * BEWARE
-		 * this method nearly duplicates {@link Query#toString()},
-		 * so if you change something here,
-		 * you will probably want to change it there as well.
-		 */
 		@Override
 		public String toString()
 		{
-			final StringBuffer bf = new StringBuffer();
-			
-			bf.append("select ");
-			
-			if(distinct)
-				bf.append("distinct ");
-			
-			for(int i = 0; i<selects.length; i++)
+			return text;
+		}
+	}
+
+	/**
+	 * BEWARE
+	 * this method nearly duplicates {@link Query#toString()},
+	 * so if you change something here,
+	 * you will probably want to change it there as well.
+	 */
+	private String toStringForQueryKey()
+	{
+		final StringBuffer bf = new StringBuffer();
+		
+		bf.append("select ");
+		
+		if(distinct)
+			bf.append("distinct ");
+		
+		for(int i = 0; i<selects.length; i++)
+		{
+			if(i>0)
+				bf.append(',');
+
+			bf.append(selects[i]);
+		}
+
+		bf.append(" from ").
+			append(type);
+
+		if(joins!=null)
+		{
+			for(final Join join : joins)
+			{
+				bf.append(' ').
+					append(join.kind.sql).
+					append(join.type);
+
+				final Condition joinCondition = join.condition;
+				if(joinCondition!=null)
+				{
+					bf.append(" on ").
+						append(joinCondition.toStringForQueryKey());
+				}
+			}
+		}
+
+		if(condition!=null)
+		{
+			bf.append(" where ").
+				append(condition.toStringForQueryKey());
+		}
+
+		if(orderBy!=null)
+		{
+			bf.append(" order by ");
+			for(int i = 0; i<orderBy.length; i++)
 			{
 				if(i>0)
-					bf.append(',');
-
-				bf.append(selects[i]);
+					bf.append(", ");
+				
+				bf.append(orderBy[i]);
+				if(!orderAscending[i])
+					bf.append(" desc");
 			}
-
-			bf.append(" from ").
-				append(type);
-
-			if(joins!=null)
-			{
-				for(final Join join : joins)
-				{
-					bf.append(' ').
-						append(join.kind.sql).
-						append(join.type);
-
-					final Condition joinCondition = join.condition;
-					if(joinCondition!=null)
-					{
-						bf.append(" on ").
-							append(joinCondition.toStringForQueryKey());
-					}
-				}
-			}
-
-			if(condition!=null)
-			{
-				bf.append(" where ").
-					append(condition.toStringForQueryKey());
-			}
-
-			if(orderBy!=null)
-			{
-				bf.append(" order by ");
-				for(int i = 0; i<orderBy.length; i++)
-				{
-					if(i>0)
-						bf.append(", ");
-					
-					bf.append(orderBy[i]);
-					if(!orderAscending[i])
-						bf.append(" desc");
-				}
-			}
-			
-			if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
-			{
-				bf.append(" limit ").
-					append(limitStart);
-
-				if(limitCount!=UNLIMITED_COUNT)
-					bf.append(' ').append(limitCount);
-			}
-			
-			return bf.toString();
 		}
+		
+		if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
+		{
+			bf.append(" limit ").
+				append(limitStart);
+
+			if(limitCount!=UNLIMITED_COUNT)
+				bf.append(' ').append(limitCount);
+		}
+		
+		return bf.toString();
 	}
 }

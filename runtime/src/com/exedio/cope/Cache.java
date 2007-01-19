@@ -221,19 +221,12 @@ final class Cache
 				while ( keys.hasNext() )
 				{
 					final Query.Key key = keys.next();
-					if(matchesType(key.type, transientTypeNumber))
+					for(final Type t : key.types)
 					{
-						keys.remove();
-					}
-					else if ( key.joins!=null )
-					{
-						for(final Join nextJoin : key.joins)
+						if(matchesType(t, transientTypeNumber))
 						{
-							if(matchesType(nextJoin.type, transientTypeNumber))
-							{
-								keys.remove();
-								break;
-							}
+							keys.remove();
+							break;
 						}
 					}
 				}

@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public abstract class Condition
 {
@@ -115,6 +118,8 @@ public abstract class Condition
 			return "NULL";
 		else if(o instanceof Item)
 			return ((Item)o).getCopeID();
+		else if(o instanceof Date)
+			return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o);
 		else
 			return o.toString();
 	}
