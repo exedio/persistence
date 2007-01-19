@@ -343,7 +343,7 @@ public final class Query<R>
 			return Collections.<R>emptyList();
 		}
 		
-		return castQL(Collections.unmodifiableList(model.getCurrentTransaction().search(this)));
+		return Collections.unmodifiableList(castQL(model.getCurrentTransaction().search(this)));
 	}
 	
 	ArrayList<Object> searchUncached()
