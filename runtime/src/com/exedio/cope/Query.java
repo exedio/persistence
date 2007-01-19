@@ -346,11 +346,6 @@ public final class Query<R>
 		return Collections.unmodifiableList(castQL(model.getCurrentTransaction().search(this, false)));
 	}
 	
-	ArrayList<Object> searchUncached(final Transaction transaction, final boolean doCountOnly)
-	{
-		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly);
-	}
-	
 	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
 	private List<R> castQL(final List o)
 	{
@@ -569,6 +564,11 @@ public final class Query<R>
 		}
 		
 		return bf.toString();
+	}
+	
+	ArrayList<Object> searchUncached(final Transaction transaction, final boolean doCountOnly)
+	{
+		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly);
 	}
 	
 	static final class Key
