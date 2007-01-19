@@ -39,6 +39,9 @@ public class DatabaseLogTest extends AbstractLibTest
 	
 	public void testDatabaseLog()
 	{
+		final ExpectingDatabaseListener l = new ExpectingDatabaseListener();
+		model.setDatabaseListener(l);
+		
 		assertFalse(model.isDatabaseLogEnabled());
 		assertEquals(0, model.getDatabaseLogThreshold());
 		
@@ -48,7 +51,9 @@ public class DatabaseLogTest extends AbstractLibTest
 		assertEquals(0, model.getDatabaseLogThreshold());
 		assertEquals(null, model.getDatabaseLogSQL());
 		assertEquals(0, o1.size());
+		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string1"));
+		l.verifyExpectations();
 		assertTrue(s(o1), s(o1).indexOf("select")>0);
 		item.setText("string1");
 		assertTrue(s(o1), s(o1).indexOf("update")>0);
@@ -59,7 +64,9 @@ public class DatabaseLogTest extends AbstractLibTest
 		assertTrue(model.isDatabaseLogEnabled());
 		assertEquals(5000, model.getDatabaseLogThreshold());
 		assertEquals(null, model.getDatabaseLogSQL());
+		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string2"));
+		l.verifyExpectations();
 		item.setText("string2");
 		assertEquals(0, o2.size());
 		
@@ -68,7 +75,9 @@ public class DatabaseLogTest extends AbstractLibTest
 		assertTrue(model.isDatabaseLogEnabled());
 		assertEquals(0, model.getDatabaseLogThreshold());
 		assertEquals("update", model.getDatabaseLogSQL());
+		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string2"));
+		l.verifyExpectations();
 		item.setText("string2");
 		assertEquals(0, o2.size());
 		assertFalse(s(o2a), s(o2a).indexOf("select")>0);
@@ -81,11 +90,15 @@ public class DatabaseLogTest extends AbstractLibTest
 		assertFalse(model.isDatabaseLogEnabled());
 		assertEquals(0, model.getDatabaseLogThreshold());
 		assertEquals(null, model.getDatabaseLogSQL());
+		l.expectSearch(model.getCurrentTransaction(), item.TYPE);
 		item.TYPE.search(item.text.equal("string3"));
+		l.verifyExpectations();
 		item.setText("string3");
 		assertEquals(0, o2.size());
 		assertEquals(0, o2a.size());
 		assertEquals(0, o3.size());
+		
+		model.setDatabaseListener(null);
 		
 		try
 		{
