@@ -18,11 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-
-
 public class EnumTest extends AbstractLibTest
 {
 	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);
