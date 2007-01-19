@@ -123,11 +123,17 @@ public class StatementInfoTest extends TestmodelTest
 		query.clearStatementInfo();
 		assertNull(query.getStatementInfo());
 		
+		final String statement =
+			"select ItemWithSingleUnique.this " +
+			"from ItemWithSingleUnique " +
+			"where ItemWithSingleUnique.uniqueString='zack' " +
+			"order by ItemWithSingleUnique.uniqueString";
+		
 		query.search();
 		final StatementInfo cached1 = query.getStatementInfo();
 		if(model.getProperties().getCacheQueryLimit()>0)
 		{
-			assertEquals("query cache hit #1 for select ItemWithSingleUnique.this from ItemWithSingleUnique where ItemWithSingleUnique.uniqueString='zack' order by ItemWithSingleUnique.uniqueString", cached1.getText());
+			assertEquals("query cache hit #1 for " + statement, cached1.getText());
 			assertEqualsUnmodifiable(list(), cached1.getChilds());
 		}
 		else
@@ -142,7 +148,7 @@ public class StatementInfoTest extends TestmodelTest
 		final StatementInfo cached2 = query.getStatementInfo();
 		if(model.getProperties().getCacheQueryLimit()>0)
 		{
-			assertEquals("query cache hit #2 for select ItemWithSingleUnique.this from ItemWithSingleUnique where ItemWithSingleUnique.uniqueString='zack' order by ItemWithSingleUnique.uniqueString", cached2.getText());
+			assertEquals("query cache hit #2 for " + statement, cached2.getText());
 			assertEqualsUnmodifiable(list(), cached2.getChilds());
 		}
 		else
