@@ -144,7 +144,7 @@ final class Cache
 		return queries!=null;
 	}
 	
-	ArrayList<Object> search(final Query<?> query, final boolean doCountOnly)
+	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean doCountOnly)
 	{
 		if(queries==null)
 		{
@@ -158,7 +158,7 @@ final class Cache
 		}
 		if ( result==null )
 		{
-			result = query.searchUncached(doCountOnly);
+			result = query.searchUncached(transaction, doCountOnly);
 			synchronized(queries)
 			{
 				queries.put(key, result);

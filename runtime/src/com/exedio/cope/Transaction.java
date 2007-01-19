@@ -157,11 +157,11 @@ public final class Transaction
 	{
 		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
 		{
-			return query.searchUncached(doCountOnly);
+			return query.searchUncached(this, doCountOnly);
 		}
 		else
 		{
-			return model.getCache().search(query, doCountOnly);
+			return model.getCache().search(this, query, doCountOnly);
 		}
 	}
 	

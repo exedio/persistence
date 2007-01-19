@@ -346,9 +346,9 @@ public final class Query<R>
 		return Collections.unmodifiableList(castQL(model.getCurrentTransaction().search(this, false)));
 	}
 	
-	ArrayList<Object> searchUncached(final boolean doCountOnly)
+	ArrayList<Object> searchUncached(final Transaction transaction, final boolean doCountOnly)
 	{
-		return model.getDatabase().search(model.getCurrentTransaction().getConnection(), this, doCountOnly);
+		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly);
 	}
 	
 	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
