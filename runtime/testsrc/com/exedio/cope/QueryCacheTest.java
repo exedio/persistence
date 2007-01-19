@@ -85,6 +85,9 @@ public class QueryCacheTest extends AbstractLibTest
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
 		
+		model.clearCache();
+		assertEquals(list(), cqi());
+		
 		model.setDatabaseListener(null);
 	}
 	
