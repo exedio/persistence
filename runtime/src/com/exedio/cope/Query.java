@@ -499,12 +499,12 @@ public final class Query<R>
 	@Override
 	public String toString()
 	{
+		return toString(false);
+	}
+	
+	private String toString(final boolean key)
+	{
 		final StringBuffer bf = new StringBuffer();
-		
-		// BEWARE
-		// this method duplicates Query.Key#toStringForQueryKey(),
-		// so if you change something here,
-		// you will probably want to change it there as well.
 		
 		bf.append("select ");
 		
@@ -527,14 +527,24 @@ public final class Query<R>
 			for(final Join join : joins)
 			{
 				bf.append(' ').
-					append(join.toString());
+					append(join.kind.sql).
+					append(join.type).
+					append(' ').
+					append(join.getToStringAlias());
+
+				final Condition joinCondition = join.condition;
+				if(joinCondition!=null)
+				{
+					bf.append(" on ").
+						append(key ? joinCondition.toStringForQueryKey() : joinCondition.toString());
+				}
 			}
 		}
 
 		if(condition!=null)
 		{
 			bf.append(" where ").
-				append(condition);
+				append(key ? condition.toStringForQueryKey() : condition.toString());
 		}
 
 		if(orderBy!=null)
@@ -571,7 +581,7 @@ public final class Query<R>
 		
 		Key(final Query<? extends Object> query)
 		{
-			text = query.toStringForQueryKey();
+			text = query.toString(true);
 			// TODO compress
 
 			final ArrayList<Join> joins = query.joins;
@@ -604,80 +614,5 @@ public final class Query<R>
 		{
 			return text;
 		}
-	}
-
-	/**
-	 * BEWARE
-	 * this method nearly duplicates {@link Query#toString()},
-	 * so if you change something here,
-	 * you will probably want to change it there as well.
-	 */
-	private String toStringForQueryKey()
-	{
-		final StringBuffer bf = new StringBuffer();
-		
-		bf.append("select ");
-		
-		if(distinct)
-			bf.append("distinct ");
-		
-		for(int i = 0; i<selects.length; i++)
-		{
-			if(i>0)
-				bf.append(',');
-
-			bf.append(selects[i]);
-		}
-
-		bf.append(" from ").
-			append(type);
-
-		if(joins!=null)
-		{
-			for(final Join join : joins)
-			{
-				bf.append(' ').
-					append(join.kind.sql).
-					append(join.type);
-
-				final Condition joinCondition = join.condition;
-				if(joinCondition!=null)
-				{
-					bf.append(" on ").
-						append(joinCondition.toStringForQueryKey());
-				}
-			}
-		}
-
-		if(condition!=null)
-		{
-			bf.append(" where ").
-				append(condition.toStringForQueryKey());
-		}
-
-		if(orderBy!=null)
-		{
-			bf.append(" order by ");
-			for(int i = 0; i<orderBy.length; i++)
-			{
-				if(i>0)
-					bf.append(", ");
-				
-				bf.append(orderBy[i]);
-				if(!orderAscending[i])
-					bf.append(" desc");
-			}
-		}
-		
-		if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
-		{
-			bf.append(" limit ").
-				append(limitStart);
-
-			if(limitCount!=UNLIMITED_COUNT)
-				bf.append(' ').append(limitCount);
-		}
-		
-		return bf.toString();
 	}
 }
