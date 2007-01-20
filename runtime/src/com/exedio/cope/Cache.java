@@ -336,7 +336,8 @@ final class Cache
 			unsortedResult = new Query.Key[0];
 		}
 
-		final CacheQueryInfo[] result = new CacheQueryInfo[unsortedResult.length]; int i = result.length-1;
+		final CacheQueryInfo[] result = new CacheQueryInfo[unsortedResult.length];
+		int i = result.length-1;
 		for(final Query.Key key : unsortedResult)
 			result[i--] = new CacheQueryInfo(key.toString(), key.hits);
 		
