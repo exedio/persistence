@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -573,13 +574,22 @@ public final class Query<R>
 	
 	static final class Key
 	{
-		final String text;
+		private final byte[] text;
 		final Type[] types;
 		volatile int hits = 0;
 		
+		private static final String CHARSET = "utf8";
+		
 		Key(final Query<? extends Object> query, final boolean doCountOnly)
 		{
-			text = query.toString(true, doCountOnly);
+			try
+			{
+				text = query.toString(true, doCountOnly).getBytes(CHARSET);
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
 			// TODO compress
 
 			final ArrayList<Join> joins = query.joins;
@@ -598,19 +608,31 @@ public final class Query<R>
 		public boolean equals(final Object obj)
 		{
 			final Key other = (Key)obj;
-			return text.equals(other.text);
+			return Arrays.equals(text, other.text);
 		}
 		
 		@Override
 		public int hashCode()
 		{
-			return text.hashCode();
+			return Arrays.hashCode(text);
+		}
+		
+		String getText()
+		{
+			try
+			{
+				return new String(text, CHARSET);
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
 		}
 		
 		@Override
 		public String toString()
 		{
-			return text;
+			return getText();
 		}
 	}
 }

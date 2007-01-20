@@ -177,7 +177,7 @@ final class Cache
 					originalKey.hits++;
 				
 				if(query.makeStatementInfo)
-					query.addStatementInfo(new StatementInfo("query cache hit #" + originalKey.hits + " for " + originalKey.text));
+					query.addStatementInfo(new StatementInfo("query cache hit #" + originalKey.hits + " for " + originalKey.getText()));
 			}
 			queryHits++;
 		}
@@ -334,7 +334,7 @@ final class Cache
 		final CacheQueryInfo[] result = new CacheQueryInfo[unsortedResult.length];
 		int i = result.length-1;
 		for(final Query.Key key : unsortedResult)
-			result[i--] = new CacheQueryInfo(key.toString(), key.hits);
+			result[i--] = new CacheQueryInfo(key.getText(), key.hits);
 		
 		return result;
 	}
