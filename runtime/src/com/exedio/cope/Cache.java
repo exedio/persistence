@@ -319,21 +319,16 @@ final class Cache
 	
 	CacheQueryInfo[] getQueryHistogram()
 	{
-		final Query.Key[] unsortedResult;
+		if(queries==null)
+			return new CacheQueryInfo[0];
 		
-		if(queries!=null)
+		final Query.Key[] unsortedResult;
+		synchronized(queries)
 		{
-			synchronized(queries)
-			{
-				unsortedResult = queries.keySet().toArray(new Query.Key[queries.size()]);
-				// NOTE:
-				// It is important to keep Key.toString()
-				// out of the synchronized block.
-			}
-		}
-		else
-		{
-			unsortedResult = new Query.Key[0];
+			unsortedResult = queries.keySet().toArray(new Query.Key[queries.size()]);
+			// NOTE:
+			// It is important to keep Key.toString()
+			// out of the synchronized block.
 		}
 
 		final CacheQueryInfo[] result = new CacheQueryInfo[unsortedResult.length];
