@@ -37,6 +37,9 @@ final class QueryCacheStatsCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		Console_Jspm.writeBody(this, out, model.getCacheQueryInfo(), model.getCacheQueryHistogram(), model.getProperties().getCacheQueryHistogram());
+		Console_Jspm.writeBody(this, out,
+				model.getCacheQueryInfo(),
+				model.getCacheQueryHistogram(),
+				model.getProperties().getCacheQueryHistogram());
 	}
 }
