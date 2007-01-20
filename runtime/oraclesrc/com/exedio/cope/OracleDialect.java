@@ -195,8 +195,9 @@ final class OracleDialect extends Dialect
 	{
 		//System.out.println("defineColumnTypes: "+columnTypes);
 		final OracleStatement s = (OracleStatement)statement;
+		final int columnTypesSize = columnTypes.size();
 		int columnIndex = 1;
-		for(int i = 0; i<columnTypes.size(); i++, columnIndex++)
+		for(int i = 0; i<columnTypesSize; i++, columnIndex++)
 		{
 			final int columnType = columnTypes.get(i);
 			s.defineColumnType(columnIndex, columnType);
