@@ -351,6 +351,9 @@ final class Console_Jspm
 			final PrintStream out,
 			final int[] queryInfos,
 			final CacheQueryInfo[] queryHistogram,
+			final int sumLength,
+			final int maxLength,
+			final int minLength,
 			final boolean queryHistogramAccurate)
 	{
 		final Runtime rt = Runtime.getRuntime();
@@ -361,7 +364,15 @@ final class Console_Jspm
 			</tr>
 			<tr><th>Hits</th><td><%=queryInfos[0]%></td></tr>
 			<tr><th>Misses</th><td><%=queryInfos[1]%></td></tr>
-			<tr><th>Queries in Cache</th><td><%=queryInfos[2]%></td></tr>
+			<tr><th>Queries in Cache</th><td><%=queryInfos[2]%></td></tr><%
+			if(queryHistogram.length>0)
+			{
+			%>
+			<tr><th>Average Query Length</th><td><%=sumLength/queryHistogram.length%></td></tr>
+			<tr><th>Maximum Query Length</th><td><%=maxLength%></td></tr>
+			<tr><th>Mimimum Query Length</th><td><%=minLength%></td></tr><%
+			}
+			%>
 			<tr><th>Max Memory</th><td><%=rt.maxMemory()%></td></tr>
 			<tr><th>Total Memory</th><td><%=rt.totalMemory()%></td></tr>
 			<tr><th>Free Memory</th><td><%=rt.freeMemory()%></td></tr>

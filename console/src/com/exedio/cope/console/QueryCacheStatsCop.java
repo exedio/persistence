@@ -23,7 +23,7 @@ import java.io.PrintStream;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-
+import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCacheStatsCop extends ConsoleCop
 {
@@ -37,9 +37,24 @@ final class QueryCacheStatsCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
+		final CacheQueryInfo[] histogram = model.getCacheQueryHistogram();
+		int sumLength = 0;
+		int maxLength = 0;
+		int minLength = Integer.MAX_VALUE;
+		for(final CacheQueryInfo info : histogram)
+		{
+			final int length = info.getQuery().length();
+			sumLength += length;
+			if(length<minLength)
+				minLength = length;
+			if(length>maxLength)
+				maxLength = length;
+		}
+		
 		Console_Jspm.writeBody(this, out,
 				model.getCacheQueryInfo(),
-				model.getCacheQueryHistogram(),
+				histogram,
+				sumLength, maxLength, minLength,
 				model.getProperties().getCacheQueryHistogram());
 	}
 }
