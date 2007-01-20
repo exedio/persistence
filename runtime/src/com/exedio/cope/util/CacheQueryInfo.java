@@ -19,7 +19,7 @@
 package com.exedio.cope.util;
 
 
-public final class CacheQueryInfo implements Comparable
+public final class CacheQueryInfo
 {
 	private final String query;
 	private final int hits;
@@ -62,25 +62,9 @@ public final class CacheQueryInfo implements Comparable
 		return query.hashCode() ^ 298742165;
 	}
 	
-	public int compareTo(final Object other)
-	{
-		final CacheQueryInfo o = (CacheQueryInfo)other;
-		
-		if(hits<o.hits)
-			return 1;
-		else
-		{
-			if(hits==o.hits)
-				return query.compareTo(o.query);
-			else
-				return -1;
-		}
-	}
-	
 	@Override
 	public String toString()
 	{
 		return query + ':' + hits;
 	}
-
 }

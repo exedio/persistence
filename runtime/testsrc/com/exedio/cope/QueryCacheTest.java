@@ -75,22 +75,22 @@ public class QueryCacheTest extends AbstractLibTest
 		q2.search();
 		assertEquals(list(sc(q2, false)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
 		
 		q1.countWithoutLimit();
 		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1), cqi(Q2, 0), cqi(C1, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C1, 0), cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
 		
 		q1.countWithoutLimit();
 		assertEquals(enabled ? list() : list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1), cqi(C1, 1), cqi(Q2, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C1, 1), cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
 		
 		q2.countWithoutLimit();
 		assertEquals(list(sc(q2, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1), cqi(C1, 1), cqi(Q2, 0), cqi(C2, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C2, 0), cqi(C1, 1), cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
 		
 		model.clearCache();
 		assertEquals(list(), cqi());

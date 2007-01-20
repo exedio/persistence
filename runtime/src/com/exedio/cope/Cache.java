@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeSet;
 
 import bak.pcj.map.IntKeyOpenHashMap;
 import bak.pcj.set.IntOpenHashSet;
@@ -320,24 +319,28 @@ final class Cache
 	
 	CacheQueryInfo[] getQueryHistogram()
 	{
-		final ArrayList<Query.Key> unsortedResult = new ArrayList<Query.Key>();
+		final Query.Key[] unsortedResult;
 		
 		if(queries!=null)
 		{
 			synchronized(queries)
 			{
-				unsortedResult.addAll(queries.keySet());
+				unsortedResult = queries.keySet().toArray(new Query.Key[queries.size()]);
 				// NOTE:
 				// It is important to keep Key.toString()
 				// out of the synchronized block.
 			}
 		}
+		else
+		{
+			unsortedResult = new Query.Key[0];
+		}
 
-		final TreeSet<CacheQueryInfo> result = new TreeSet<CacheQueryInfo>();
+		final CacheQueryInfo[] result = new CacheQueryInfo[unsortedResult.length]; int i = result.length-1;
 		for(final Query.Key key : unsortedResult)
-			result.add(new CacheQueryInfo(key.toString(), key.hits));
+			result[i--] = new CacheQueryInfo(key.toString(), key.hits);
 		
-		return result.toArray(new CacheQueryInfo[result.size()]);
+		return result;
 	}
 	
 	private static final class LRUMap<K,V> extends LinkedHashMap<K,V>
