@@ -38,10 +38,9 @@
 	- FieldListLimited: allow length terminated instead of null terminated as well
 	- Cache: store values in three arrays int[], double[], String[] instead of a Map,
 		saves lots of objects going through full GC.
-	- pcj.sourceforge.net:
+	- trove:
 		* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
-		* implement ObjectKeyObjectOpenHashMap, would provide open hashing instead of chained hashing for Cache#queries
-		* provide generics, would allow IntKeyOpenHashMap<PersistentState> for Cache#stateMaps
+		* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
 	- allow (fulltext) indexes to be declared in java source code,
 		and generate useful finders for index.
 	- test model:

@@ -1,9 +1,9 @@
 package com.exedio.cope;
 
+import gnu.trove.TIntArrayList;
+
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import bak.pcj.list.IntList;
 
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
@@ -145,7 +145,7 @@ abstract class Dialect
 		return false;
 	}
 	
-	void defineColumnTypes(IntList columnTypes, java.sql.Statement statement)
+	void defineColumnTypes(TIntArrayList columnTypes, java.sql.Statement statement)
 			throws SQLException
 	{
 		// default implementation does nothing, may be overwritten by subclasses

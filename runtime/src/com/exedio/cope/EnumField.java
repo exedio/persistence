@@ -18,16 +18,16 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntObjectHashMap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import bak.pcj.map.IntKeyOpenHashMap;
-
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private final List<E> values;
-	private final IntKeyOpenHashMap numbersToValues;
+	private final TIntObjectHashMap<E> numbersToValues;
 	private final int[] valuesToNumbers;
 	
 	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
@@ -36,7 +36,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		checkValueClass(Enum.class);
 
 		final ArrayList<E> values = new ArrayList<E>();
-		final IntKeyOpenHashMap numbersToValues = new IntKeyOpenHashMap();
+		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
 		
 		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
@@ -108,7 +108,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	
 	private E getValue(final int number)
 	{
-		final E result = Cope.verboseCast(valueClass, numbersToValues.get(number)); // TODO remove cast when pcj.IntKeyOpenHashMap supports generics
+		final E result = numbersToValues.get(number);
 		assert result!=null : toString() + number;
 		return result;
 	}

@@ -156,7 +156,7 @@
 	<target name="runtime.core.compile" depends="dsmf.compile">
 		<ljavac srcdir="runtime/src" destdir="build/runtime/classes">
 			<classpath>
-				<pathelement location="lib/pcj.jar" />
+				<pathelement location="lib/trove.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -173,7 +173,7 @@
 				<!--echo message="file=@{driver.file},driver=${@{driver.file}.name},jar=${@{driver.file}.jar}." /-->
 				<ljavac srcdir="runtime/${@{driver.file}.name}src" destdir="build/runtime/classes">
 					<classpath>
-						<pathelement location="lib/pcj.jar" />
+						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/${@{driver.file}.jar}" />
 					</classpath>
 				</ljavac>
@@ -209,7 +209,7 @@
 							runtime.junit.compile" />
 	
 	<target name="runtime.jar" depends="runtime.compile">
-		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="pcj.jar">
+		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove.jar">
 			<fileset dir="build/runtime/classes" />
 		</ljar>
 	</target>
@@ -269,7 +269,7 @@
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/pcj.jar" />
+						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
 				</nbjpdastart-->
@@ -283,7 +283,7 @@
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
-						<pathelement location="lib/pcj.jar" />
+						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 					</classpath>
@@ -310,7 +310,7 @@
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
-						<pathelement location="lib/pcj.jar" />
+						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/@{db.driver}" />
@@ -345,7 +345,7 @@
 						<pathelement location="build/runtime/classes.emma" />
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
-						<pathelement location="lib/pcj.jar" />
+						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{db.driver}" />
 						<pathelement location="lib/servlet-api.jar" />
@@ -374,7 +374,7 @@
 				</copy>
 				
 				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/lib">
-					<fileset file="lib/pcj.jar" />
+					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{db.driver}" />
 				</copy>
@@ -440,7 +440,7 @@
 	<target name="instrument.taskdef" depends="runtime.compile, instrument.compile">
 		<taskdef name="instrument" classname="com.exedio.cope.instrument.AntTask">
 			<classpath>
-				<pathelement location="lib/pcj.jar" />
+				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="build/runtime/classes" />
@@ -484,7 +484,7 @@
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/instrument/classes" />
 				<pathelement location="build/instrument/testclasses" />
-				<pathelement location="lib/pcj.jar" />
+				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 			</classpath>
@@ -606,7 +606,7 @@
 				</copy>
 				
 				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/lib">
-					<fileset file="lib/pcj.jar" />
+					<fileset file="lib/trove.jar" />
 					<fileset file="lib/commons-fileupload.jar" />
 					<fileset file="lib/commons-io.jar" />
 					<fileset file="lib/exedio-cops.jar" />
@@ -776,7 +776,7 @@
 			<fileset file="console/src/com" includes="**/*.java" />
 			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
-				<pathelement location="lib/pcj.jar" />
+				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="${ant.jar}" />
 				<pathelement location="lib/bsh-core.jar" />
@@ -801,7 +801,7 @@
 				<include name="exedio-cope-instrument.jar" />
 			</fileset>
 			<fileset dir="lib">
-				<include name="pcj.jar" />
+				<include name="trove.jar" />
 				<include name="bsh-core.jar" />
 			</fileset>
 		</copy>
@@ -813,7 +813,7 @@
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/console/classes" />
-				<pathelement location="lib/pcj.jar" />
+				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>

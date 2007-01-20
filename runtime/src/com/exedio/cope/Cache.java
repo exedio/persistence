@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+import gnu.trove.TIntIterator;
+import gnu.trove.TIntObjectHashMap;
+import gnu.trove.TIntObjectIterator;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -26,16 +31,13 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import bak.pcj.map.IntKeyOpenHashMap;
-import bak.pcj.set.IntOpenHashSet;
-
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
 
 final class Cache
 {
 	private final int[] mapSizeLimits;
-	private final IntKeyOpenHashMap[] stateMaps;
+	private final TIntObjectHashMap<PersistentState>[] stateMaps;
 	private final int[] hits, misses;
 	private final LRUMap<Query.Key, ArrayList<Object>> queries;
 	private volatile int queryHits = 0, queryMisses = 0;
@@ -46,17 +48,17 @@ final class Cache
 		this.mapSizeLimits = mapSizeLimits;
 		queries = queryCacheSizeLimit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(queryCacheSizeLimit) : null;
 		final int numberOfConcreteTypes = mapSizeLimits.length;
-		stateMaps = new IntKeyOpenHashMap[numberOfConcreteTypes];
+		stateMaps = Transaction.cast(new TIntObjectHashMap[numberOfConcreteTypes]);
 		for(int i=0; i<numberOfConcreteTypes; i++)
 		{
-			stateMaps[i] = (mapSizeLimits[i]>0) ? new IntKeyOpenHashMap() : null;
+			stateMaps[i] = (mapSizeLimits[i]>0) ? new TIntObjectHashMap<PersistentState>() : null;
 		}
 		hits = new int[numberOfConcreteTypes];
 		misses = new int[numberOfConcreteTypes];
 		this.queryHistogram = queryHistogram;
 	}
 	
-	private IntKeyOpenHashMap getStateMap( Type type )
+	private TIntObjectHashMap<PersistentState> getStateMap(final Type type)
 	{
 		return stateMaps[type.transientNumber];
 	}
@@ -64,12 +66,12 @@ final class Cache
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
 	{
 		PersistentState state;
-		final IntKeyOpenHashMap stateMap = getStateMap( item.type );
+		final TIntObjectHashMap<PersistentState> stateMap = getStateMap(item.type);
 		if(stateMap!=null)
 		{
 			synchronized (stateMap)
 			{
-				state = (PersistentState)stateMap.get( item.pk );
+				state = stateMap.get(item.pk);
 			}
 
 			if(state!=null)
@@ -99,18 +101,18 @@ final class Cache
 					{
 						final long now = System.currentTimeMillis();
 						long ageSum = 0;
-						for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
+						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); i.advance())
 						{
-							final PersistentState currentState = (PersistentState)i.next();
+							final PersistentState currentState = i.value();
 							final long currentLastUsage = currentState.getLastUsageMillis();
 							ageSum+=(now-currentLastUsage);
 						}
 						final long age = ageSum / mapSize;
 						final long ageLimit = (mapSizeLimit * age) / mapSize;
 						final long timeLimit = now-ageLimit;
-						for(Iterator i = stateMap.values().iterator(); i.hasNext(); )
+						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); i.advance())
 						{
-							final PersistentState currentState = (PersistentState)i.next();
+							final PersistentState currentState = i.value();
 							final long currentLastUsage = currentState.getLastUsageMillis();
 							if(timeLimit>currentLastUsage)
 								i.remove();
@@ -185,24 +187,25 @@ final class Cache
 		return result;
 	}
 	
-	void invalidate(final IntOpenHashSet[] invalidations)
+	void invalidate(final TIntHashSet[] invalidations)
 	{
 		for(int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++)
 		{
-			final IntOpenHashSet invalidatedPKs = invalidations[transientTypeNumber];
+			final TIntHashSet invalidatedPKs = invalidations[transientTypeNumber];
 			if(invalidatedPKs!=null)
 				invalidate(transientTypeNumber, invalidatedPKs);
 		}
 	}
 	
-	private void invalidate(final int transientTypeNumber, final IntOpenHashSet invalidatedPKs)
+	private void invalidate(final int transientTypeNumber, final TIntHashSet invalidatedPKs)
 	{
-		final IntKeyOpenHashMap stateMap = stateMaps[transientTypeNumber];
+		final TIntObjectHashMap<PersistentState> stateMap = stateMaps[transientTypeNumber];
 		if(stateMap!=null)
 		{
 			synchronized ( stateMap )
 			{
-				stateMap.keySet().removeAll( invalidatedPKs );
+				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
+					stateMap.remove(i.next());
 			}
 		}
 		if(queries!=null)
@@ -236,7 +239,7 @@ final class Cache
 
 	void clear()
 	{
-		for(final IntKeyOpenHashMap stateMap : stateMaps)
+		for(final TIntObjectHashMap<PersistentState> stateMap : stateMaps)
 		{
 			if(stateMap!=null)
 			{
@@ -269,15 +272,15 @@ final class Cache
 			long ageMin = Integer.MAX_VALUE;
 			long ageMax = 0;
 
-			final IntKeyOpenHashMap stateMap = stateMaps[i];
+			final TIntObjectHashMap<PersistentState> stateMap = stateMaps[i];
 			if(stateMap!=null)
 			{
 				synchronized(stateMap)
 				{
 					numberOfItemsInCache = stateMap.size();
-					for(Iterator stateMapI = stateMap.values().iterator(); stateMapI.hasNext(); )
+					for(TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); stateMapI.advance())
 					{
-						final PersistentState currentState = (PersistentState)stateMapI.next();
+						final PersistentState currentState = stateMapI.value();
 						final long currentLastUsage = currentState.getLastUsageMillis();
 						final long age = now-currentLastUsage;
 						ageSum += age;

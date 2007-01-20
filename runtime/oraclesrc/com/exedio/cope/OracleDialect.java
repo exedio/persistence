@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntArrayList;
+import gnu.trove.TIntObjectHashMap;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -27,9 +30,6 @@ import java.util.HashSet;
 import java.util.Random;
 
 import oracle.jdbc.OracleStatement;
-import bak.pcj.IntIterator;
-import bak.pcj.list.IntList;
-import bak.pcj.map.IntKeyChainedHashMap;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.OracleDriver;
@@ -190,15 +190,15 @@ final class OracleDialect extends Dialect
 	}
 	
 	@Override
-	void defineColumnTypes(final IntList columnTypes, final java.sql.Statement statement)
+	void defineColumnTypes(final TIntArrayList columnTypes, final java.sql.Statement statement)
 			throws SQLException
 	{
 		//System.out.println("defineColumnTypes: "+columnTypes);
 		final OracleStatement s = (OracleStatement)statement;
 		int columnIndex = 1;
-		for(IntIterator i = columnTypes.iterator(); i.hasNext(); columnIndex++)
+		for(int i = 0; i<columnTypes.size(); i++, columnIndex++)
 		{
-			final int columnType = i.next();
+			final int columnType = columnTypes.get(i);
 			s.defineColumnType(columnIndex, columnType);
 		}
 	}
@@ -334,7 +334,7 @@ final class OracleDialect extends Dialect
 
 		public void handle(final ResultSet resultSet) throws SQLException
 		{
-			final IntKeyChainedHashMap infos = new IntKeyChainedHashMap();
+			final TIntObjectHashMap<StatementInfo> infos = new TIntObjectHashMap<StatementInfo>();
 
 			final ResultSetMetaData metaData = resultSet.getMetaData();
 			final int columnCount = metaData.getColumnCount();
@@ -389,7 +389,7 @@ final class OracleDialect extends Dialect
 				}
 				else
 				{
-					final StatementInfo parent = (StatementInfo)infos.get(parentID.intValue());
+					final StatementInfo parent = infos.get(parentID.intValue());
 					if(parent==null)
 						throw new RuntimeException();
 					parent.addChild(info);

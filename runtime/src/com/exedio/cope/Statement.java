@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntArrayList;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,8 +28,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-
-import bak.pcj.list.IntArrayList;
 
 public final class Statement
 {
@@ -38,7 +38,7 @@ public final class Statement
 	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
-	final IntArrayList columnTypes;
+	final TIntArrayList columnTypes;
 	
 	Statement(final Database database, final boolean qualifyTable)
 	{
@@ -51,7 +51,7 @@ public final class Statement
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
-		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new IntArrayList() : null;
+		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new TIntArrayList() : null;
 	}
 
 	Statement(final Database database, final Query<? extends Object> query)
@@ -125,7 +125,7 @@ public final class Statement
 		//System.out.println("-------"+joinTables.keySet().toString());
 		
 		this.qualifyTable = joinTables.size()>1;
-		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new IntArrayList() : null;
+		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new TIntArrayList() : null;
 		this.ambiguousTables = ambiguousTables;
 	}
 	

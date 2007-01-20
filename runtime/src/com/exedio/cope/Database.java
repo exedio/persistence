@@ -37,8 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bak.pcj.list.IntArrayList;
-
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -1732,13 +1730,13 @@ final class Database
 					relevant[relevantIndex] = migration;
 				}
 				
-				IntArrayList missing = null;
+				ArrayList<Integer> missing = null;
 				for(int i = 0; i<relevant.length; i++)
 				{
 					if(relevant[i]==null)
 					{
 						if(missing==null)
-							missing = new IntArrayList();
+							missing = new ArrayList<Integer>();
 						
 						missing.add(i + actualVersion + 1);
 					}
@@ -1753,7 +1751,7 @@ final class Database
 				for(final Migration migration : relevant)
 				{
 					final String[] body = migration.body;
-					final IntArrayList rowCounts = new IntArrayList(body.length);
+					final ArrayList<Integer> rowCounts = new ArrayList<Integer>(body.length);
 					final ArrayList<Long> durations = new ArrayList<Long>(body.length);
 					for(final String sql : body)
 					{

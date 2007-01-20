@@ -18,15 +18,15 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+import gnu.trove.TIntIterator;
+import gnu.trove.TIntObjectHashMap;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import bak.pcj.IntIterator;
-import bak.pcj.map.IntKeyOpenHashMap;
-import bak.pcj.set.IntOpenHashSet;
 
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -42,8 +42,8 @@ public final class Transaction
 	 * value in array is a map, where the keys are {@link Item#pk item pks}
 	 * and the values are {@link Entity}s
 	 */
-	final IntKeyOpenHashMap[] entityMaps;
-	final IntOpenHashSet[] invalidations;
+	final TIntObjectHashMap<Entity>[] entityMaps;
+	final TIntHashSet[] invalidations;
 	private Thread boundThread = null;
 	
 	Transaction(final Model model, final String name)
@@ -51,8 +51,14 @@ public final class Transaction
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
-		this.entityMaps = new IntKeyOpenHashMap[model.concreteTypeCount];
-		this.invalidations = new IntOpenHashSet[model.concreteTypeCount];
+		this.entityMaps = cast(new TIntObjectHashMap[model.concreteTypeCount]);
+		this.invalidations = new TIntHashSet[model.concreteTypeCount];
+	}
+	
+	@SuppressWarnings("unchecked") // OK: no generic array creation
+	static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
+	{
+		return o;
 	}
 	
 	/**
@@ -104,14 +110,14 @@ public final class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		IntKeyOpenHashMap entityMap = entityMaps[type.transientNumber];
+		TIntObjectHashMap<Entity> entityMap = entityMaps[type.transientNumber];
 		if(entityMap==null)
 		{
-			entityMap = new IntKeyOpenHashMap();
+			entityMap = new TIntObjectHashMap<Entity>();
 			entityMaps[type.transientNumber] = entityMap;
 		}
 
-		Entity result = (Entity)entityMap.get(pk);
+		Entity result = entityMap.get(pk);
 		if(result==null)
 		{
 			final State state;
@@ -146,7 +152,7 @@ public final class Transaction
 	
 	void removeEntity(final Item item)
 	{
-		final IntKeyOpenHashMap entityMap = entityMaps[item.type.transientNumber];
+		final TIntObjectHashMap<Entity> entityMap = entityMaps[item.type.transientNumber];
 		if(entityMap!=null)
 		{
 			entityMap.remove( item.pk );
@@ -192,7 +198,7 @@ public final class Transaction
 		
 		for(final Type<?> instanceType : type.getTypesOfInstances())
 		{
-			final IntOpenHashSet invalidationsForType = invalidations[instanceType.transientNumber];
+			final TIntHashSet invalidationsForType = invalidations[instanceType.transientNumber];
 			if(invalidationsForType!=null && !invalidationsForType.isEmpty())
 				return true;
 		}
@@ -202,17 +208,17 @@ public final class Transaction
 	
 	private boolean isInvalidated( final Item item )
 	{
-		final IntOpenHashSet invalidationsForType = invalidations[ item.type.transientNumber ];
+		final TIntHashSet invalidationsForType = invalidations[item.type.transientNumber];
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
 	
 	void addInvalidation(final Item item)
 	{
 		final int typeTransientNumber = item.type.transientNumber;
-		IntOpenHashSet invalidationsForType = invalidations[typeTransientNumber];
+		TIntHashSet invalidationsForType = invalidations[typeTransientNumber];
 		if ( invalidationsForType==null )
 		{
-			invalidationsForType = new IntOpenHashSet();
+			invalidationsForType = new TIntHashSet();
 			invalidations[typeTransientNumber] = invalidationsForType;
 		}
 		invalidationsForType.add(item.pk);
@@ -222,10 +228,10 @@ public final class Transaction
 	{
 		assert !closed : name;
 
-		final IntKeyOpenHashMap entityMap = entityMaps[type.transientNumber];
+		final TIntObjectHashMap<Entity> entityMap = entityMaps[type.transientNumber];
 		if(entityMap==null)
 			return null;
-		return (Entity)entityMap.get(pk);
+		return entityMap.get(pk);
 	}
 	
 	Connection getConnection()
@@ -287,7 +293,7 @@ public final class Transaction
 				connectionPool = null;
 			}
 			
-			for(final IntKeyOpenHashMap entityMap : entityMaps)
+			for(final TIntObjectHashMap<Entity> entityMap : entityMaps)
 				if(entityMap!=null)
 					entityMap.clear();
 			
@@ -310,13 +316,13 @@ public final class Transaction
 				
 				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
 				{
-					final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
+					final TIntHashSet invalidationSet = invalidations[transientTypeNumber];
 					if(invalidationSet!=null)
 					{
 						if(modifiedItems==null)
 							modifiedItems = new ArrayList<Item>();
 						
-						for(IntIterator i = invalidationSet.iterator(); i.hasNext(); )
+						for(TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
 							modifiedItems.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
 					}
 				}
@@ -334,7 +340,7 @@ public final class Transaction
 		// cleanup
 		for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
 		{
-			final IntOpenHashSet invalidationSet = invalidations[transientTypeNumber];
+			final TIntHashSet invalidationSet = invalidations[transientTypeNumber];
 			if(invalidationSet!=null)
 			{
 				invalidationSet.clear();
