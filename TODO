@@ -23,10 +23,6 @@
 		* optionally put strings in DB
 	- DataField:
 		* write tests for up/downloading data in copernica
-		* file tree implementation:
-			* make data transaction aware, allow rollback
-			* protect data against error when reading the stream
-			* as in dsmf: check data directories
 	- Media:
 		* allow Content-Type specified by EnumField
 		* maintain charset in Content-Type for texts
