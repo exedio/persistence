@@ -325,18 +325,18 @@ final class Cache
 		if(queries==null)
 			return new CacheQueryInfo[0];
 		
-		final Query.Key[] unsortedResult;
+		final Query.Key[] keys;
 		synchronized(queries)
 		{
-			unsortedResult = queries.keySet().toArray(new Query.Key[queries.size()]);
+			keys = queries.keySet().toArray(new Query.Key[queries.size()]);
 			// NOTE:
 			// It is important to keep Key.toString()
 			// out of the synchronized block.
 		}
 
-		final CacheQueryInfo[] result = new CacheQueryInfo[unsortedResult.length];
+		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
 		int i = result.length-1;
-		for(final Query.Key key : unsortedResult)
+		for(final Query.Key key : keys)
 			result[i--] = new CacheQueryInfo(key.getText(), key.hits);
 		
 		return result;
