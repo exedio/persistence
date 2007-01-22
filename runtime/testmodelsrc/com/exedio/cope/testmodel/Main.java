@@ -48,6 +48,10 @@ public class Main
 		CollisionItem2.TYPE,
 	};
 
-	public static final Model model = new Model(modelTypes);
-
+	public static final Model model = new Model(
+		/*new Migration[]{
+			new Migration(2, "comment2 a bit longer", "sql"),
+			new Migration(1, "comment1", "sql"),
+		},*/
+		modelTypes);
 }
