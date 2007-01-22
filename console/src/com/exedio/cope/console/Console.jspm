@@ -669,11 +669,11 @@ final class Console_Jspm
 
 	private static final void writeColouredData(final PrintStream out, final int[] data)
 	{
-			for(int j = 0; j<data.length; j++)
+			for(int i = 0; i<data.length; i++)
 			{
 			%>
-				<td class="color<%= j%COLORS %>"><%
-				switch(data[j])
+				<td class="color<%= i%COLORS %>"><%
+				switch(data[i])
 				{
 				case 0:
 					%>&nbsp;<%
@@ -682,7 +682,7 @@ final class Console_Jspm
 					%>-<%
 					break;
 				default:
-					%><%=data[j]%><%
+					%><%=data[i]%><%
 					break;
 				}
 				%></td><%
