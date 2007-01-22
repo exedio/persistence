@@ -351,9 +351,9 @@ final class Console_Jspm
 			final PrintStream out,
 			final int[] queryInfos,
 			final CacheQueryInfo[] queryHistogram,
-			final int sumLength,
-			final int maxLength,
-			final int minLength,
+			final int sumKeyLength,
+			final int maxKeyLength,
+			final int minKeyLength,
 			final int sumResultSize,
 			final int maxResultSize,
 			final int minResultSize,
@@ -370,9 +370,9 @@ final class Console_Jspm
 			if(queryHistogram.length>0)
 			{
 			%>
-			<tr><th rowspan="3">Query Length</th><th>Average</th><td><%=sumLength/queryHistogram.length%></td></tr>
-			<tr><th>Maximum</th><td><%=maxLength%></td></tr>
-			<tr><th>Minimum</th><td><%=minLength%></td></tr>
+			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=sumKeyLength/queryHistogram.length%></td></tr>
+			<tr><th>Maximum</th><td><%=maxKeyLength%></td></tr>
+			<tr><th>Minimum</th><td><%=minKeyLength%></td></tr>
 			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size (RS)</th><th>Average</th><td><%=sumResultSize/queryHistogram.length%></td></tr>
 			<tr><th>Maximum</th><td><%=maxResultSize%></td></tr>
 			<tr><th>Minimum</th><td><%=minResultSize%></td></tr><%

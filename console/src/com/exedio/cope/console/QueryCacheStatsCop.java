@@ -39,9 +39,9 @@ final class QueryCacheStatsCop extends ConsoleCop
 	{
 		final CacheQueryInfo[] histogram = model.getCacheQueryHistogram();
 		
-		int sumLength = 0;
-		int maxLength = 0;
-		int minLength = Integer.MAX_VALUE;
+		int sumKeyLength = 0;
+		int maxKeyLength = 0;
+		int minKeyLength = Integer.MAX_VALUE;
 		
 		int sumResultSize = 0;
 		int maxResultSize = 0;
@@ -50,12 +50,12 @@ final class QueryCacheStatsCop extends ConsoleCop
 		
 		for(final CacheQueryInfo info : histogram)
 		{
-			final int length = info.getQuery().length();
-			sumLength += length;
-			if(length<minLength)
-				minLength = length;
-			if(length>maxLength)
-				maxLength = length;
+			final int keyLength = info.getQuery().length();
+			sumKeyLength += keyLength;
+			if(keyLength<minKeyLength)
+				minKeyLength = keyLength;
+			if(keyLength>maxKeyLength)
+				maxKeyLength = keyLength;
 
 			final int resultSize = info.getResultSize();
 			sumResultSize += resultSize;
@@ -70,7 +70,7 @@ final class QueryCacheStatsCop extends ConsoleCop
 		Console_Jspm.writeBody(this, out,
 				model.getCacheQueryInfo(),
 				histogram,
-				sumLength, maxLength, minLength,
+				sumKeyLength, maxKeyLength, minKeyLength,
 				sumResultSize, maxResultSize, minResultSize, resultSizes,
 				model.getProperties().getCacheQueryHistogram());
 	}
