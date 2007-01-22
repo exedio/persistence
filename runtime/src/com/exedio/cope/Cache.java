@@ -101,8 +101,9 @@ final class Cache
 					{
 						final long now = System.currentTimeMillis();
 						long ageSum = 0;
-						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); i.advance())
+						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
 						{
+							i.advance();
 							final PersistentState currentState = i.value();
 							final long currentLastUsage = currentState.getLastUsageMillis();
 							ageSum+=(now-currentLastUsage);
@@ -110,8 +111,9 @@ final class Cache
 						final long age = ageSum / mapSize;
 						final long ageLimit = (mapSizeLimit * age) / mapSize;
 						final long timeLimit = now-ageLimit;
-						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); i.advance())
+						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
 						{
+							i.advance();
 							final PersistentState currentState = i.value();
 							final long currentLastUsage = currentState.getLastUsageMillis();
 							if(timeLimit>currentLastUsage)
@@ -278,8 +280,9 @@ final class Cache
 				synchronized(stateMap)
 				{
 					numberOfItemsInCache = stateMap.size();
-					for(final TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); stateMapI.advance())
+					for(final TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); )
 					{
+						stateMapI.advance();
 						final PersistentState currentState = stateMapI.value();
 						final long currentLastUsage = currentState.getLastUsageMillis();
 						final long age = now-currentLastUsage;
