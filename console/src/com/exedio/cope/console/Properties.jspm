@@ -60,7 +60,10 @@ final class Properties_Jspm
 		%>
 		<table>
 			<tr>
-				<th colspan="2"><a href="<%=cop.toToggleUnspecified()%>"><%if(showUnspecified){%>hide<%}else{%>show<%}%> unspecified properties</a></th>
+				<th class="caption" colspan="2">Properties</th>
+			</tr>
+			<tr>
+				<th colspan="2"><a href="<%=cop.toToggleUnspecified()%>"><%if(showUnspecified){%>hide<%}else{%>show<%}%> unspecified</a></th>
 			</tr>
 			<tr>
 				<th colspan="2"><%=properties.getSource()%></th>
@@ -141,7 +144,7 @@ final class Properties_Jspm
 		%>
 		<table>
 			<tr>
-				<th colspan="2">environment</th>
+				<th class="caption" colspan="2">Environment</th>
 			</tr><%
 			for(final String name : new TreeSet<String>(castTreeSet(properties.keySet())))
 			{
@@ -180,7 +183,7 @@ final class Properties_Jspm
 		<hr>
 		<table>
 			<tr>
-				<th colspan="<%=TEST_INFO_KEYS.length%>">test environments (<a href="http://cope.sourceforge.net/testprotocol.html" target="_blank">more...</a>)</th>
+				<th class="caption" colspan="<%=TEST_INFO_KEYS.length%>">Test Environments (<a href="http://cope.sourceforge.net/testprotocol.html" target="_blank">more...</a>)</th>
 			</tr><%
 		if(properties!=null)
 		{
@@ -335,7 +338,7 @@ final class Properties_Jspm
 		%>
 		<table>
 			<tr>
-				<th colspan="3">Hidden Features</th>
+				<th class="caption" colspan="3">Hidden Features</th>
 			</tr>
 			<tr>
 				<th>Name</th>

@@ -192,7 +192,7 @@ final class Console_Jspm
 	{
 		%>
 		<table>
-			<tr><th colspan="3">Migrations</th></tr>
+			<tr><th class="caption" colspan="3">Migrations</th></tr>
 			<tr><th>version</th><th>declared</th><th>logged</th></tr><%
 			for(int v = latest; v>=oldest; v--)
 			{
@@ -227,7 +227,7 @@ final class Console_Jspm
 		%>
 		<table>
 			<tr>
-				<th colspan="2">Connection Pool Statistics</th>
+				<th class="caption" colspan="2">Connection Pool Statistics</th>
 			</tr>
 			<tr>
 				<th>Since</th>
@@ -249,7 +249,7 @@ final class Console_Jspm
 		<hr>
 		<table>
 			<tr>
-				<th colspan="6">Hypothetical</th>
+				<th class="caption" colspan="6">Hypothetical</th>
 			</tr><%
 			writeColouredHeader(out, names, 0, 1);
 			%>
@@ -327,7 +327,7 @@ final class Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th colspan="<%=names.length+1%>">Cache Statistics</th></tr><%
+			<tr><th class="caption" colspan="<%=names.length+1%>">Cache Statistics</th></tr><%
 			writeColouredHeader(out, names, 0, 1);
 			%>
 			<tr><%
@@ -388,7 +388,7 @@ final class Console_Jspm
 	{
 		%>
 		<table>
-			<tr><th colspan="3">Query Cache Statistics</th></tr>
+			<tr><th class="caption" colspan="3">Query Cache Statistics</th></tr>
 			<tr><th colspan="2">Hits</th><td><%=queryInfos[0]%></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=queryInfos[1]%></td></tr>
 			<tr><th colspan="2">Queries in Cache</th><td><%=queryInfos[2]%></td></tr><%
@@ -427,7 +427,7 @@ final class Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th colspan="4">Query Cache Histogram</th></tr><%
+			<tr><th class="caption" colspan="4">Query Cache Histogram</th></tr><%
 			writeColouredHeader(out, names, 0, 1);
 			%>
 			<tr><%
@@ -459,7 +459,7 @@ final class Console_Jspm
 		%>
 		<table>
 			<tr>
-				<th colspan="2">Primary Keys</th>
+				<th class="caption" colspan="2">Primary Keys</th>
 			</tr>
 			<tr><th>Type</th><th>Info</th></tr><%
 			for(final Type type : primaryKeys.keySet())
@@ -498,7 +498,7 @@ final class Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th colspan="<%=names.length+2%>">Media Statistics</th></tr>
+			<tr><th class="caption" colspan="<%=names.length+2%>">Media Statistics</th></tr>
 			<tr><th colspan="<%=names.length+1%>">No Such Path (404)</th><td><%=MediaPath.noSuchPath.get()%></td></tr><%
 			writeColouredHeader(out, names, 0, 2);
 			%>
@@ -589,7 +589,7 @@ final class Console_Jspm
 		
 		%>
 		<table>
-			<tr><th colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
+			<tr><th class="caption" colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
 			<tr>
 				<th>Item</th>
 				<th>URL <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>

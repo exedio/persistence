@@ -10,8 +10,8 @@ table th
 {
 	text-align:left;
 	vertical-align:top;
-	background:#CCC;
-	border:solid 1px #CCC;
+	background:#ccc;
+	border:solid 1px #ccc;
 	padding:1px 3px;
 	font-weight:normal;
 }
@@ -20,8 +20,13 @@ table td
 {
 	text-align:right;
 	vertical-align:top;
-	border:solid 1px #CCC;
+	border:solid 1px #ccc;
 	padding:1px 3px;
+}
+
+table th.caption
+{
+	font-style:italic;
 }
 
 table td.text
