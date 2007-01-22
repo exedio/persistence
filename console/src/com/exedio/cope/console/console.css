@@ -6,18 +6,6 @@ h1 a:visited { color:#000; }
 h1 a:active  { color:#000; }
 h1 a:hover   { color:#000; background-color:#fff; }
 
-div.message
-{
-	color: #000;
-	background-color: #FCC;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	padding: 5px;
-	border-width: 3px;
-	border-color: #800;
-	border-style: solid;
-}
-
 table th
 {
 	text-align:left;
@@ -40,18 +28,6 @@ table td.text
 {
 	text-align:left;
 }
-
-span.ok      { background-color:#cfc; }
-span.warning { background-color:#ffc; }
-span.error   { background-color:#fcc; }
-li.ok        { background-color:#cfc; }
-li.warning   { background-color:#ffc; }
-li.error     { background-color:#fcc; }
-ul.ok        { background-color:#cfc; }
-ul.warning   { background-color:#ffc; }
-ul.error     { background-color:#fcc; }
-
-li.timelog { color:#ccc; }
 
 table tr.inconsistent td
 {
@@ -94,7 +70,31 @@ table td.colored10{ background:#cfc; border-color:#cfc; }
 table td.colored11{ background:#ccf; border-color:#ccf; }
 table td.colored12{ background:#ffc; border-color:#ffc; }
 
+div.message
+{
+	color: #000;
+	background-color: #FCC;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 5px;
+	border-width: 3px;
+	border-color: #800;
+	border-style: solid;
+}
+
 img
 {
 	border:0;
 }
+
+span.ok      { background-color:#cfc; }
+span.warning { background-color:#ffc; }
+span.error   { background-color:#fcc; }
+li.ok        { background-color:#cfc; }
+li.warning   { background-color:#ffc; }
+li.error     { background-color:#fcc; }
+ul.ok        { background-color:#cfc; }
+ul.warning   { background-color:#ffc; }
+ul.error     { background-color:#fcc; }
+
+li.timelog { color:#ccc; }
