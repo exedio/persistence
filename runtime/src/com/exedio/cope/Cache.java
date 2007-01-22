@@ -331,9 +331,6 @@ final class Cache
 		{
 			keys = queries.keySet().toArray(new Query.Key[queries.size()]);
 			values = queries.values().toArray(new ArrayList[queries.size()]);
-			// NOTE:
-			// It is important to keep Key.toString()
-			// out of the synchronized block.
 		}
 
 		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
