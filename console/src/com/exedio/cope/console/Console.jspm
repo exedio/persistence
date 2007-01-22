@@ -246,7 +246,7 @@ final class Console_Jspm
 		<hr>
 		<table>
 			<tr>
-				<th colspan="7">Hypothetical</th>
+				<th colspan="6">Hypothetical</th>
 			</tr><%
 			writeColouredHeader(out, names, 0);
 			%>
