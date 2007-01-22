@@ -44,7 +44,7 @@ table tr.unspecified td
 	background:#FFE;
 }
 
-table th.color0 { margin:0px; background:#ddf; border-color:#ddf; text-align:left; padding-left:0.3em; }
+table th.color0 { margin:0px; background:#ccc; border-color:#ccc; text-align:left; padding-left:0.3em; }
 table th.color1 { margin:0px; background:#fff; border-color:#fff; text-align:left; padding-left:0.3em; }
 
 table td.color0 { margin:0px; background:#ddf; border-color:#ddf; }
