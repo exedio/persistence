@@ -307,9 +307,7 @@ final class Console_Jspm
 		};
 		%>
 		<table class="statistics">
-			<tr>
-				<th colspan="<%=names.length+2%>">Cache Statistics</th>
-			</tr><%
+			<tr><th colspan="<%=names.length+2%>">Cache Statistics</th></tr><%
 			writeColouredHeader(out, names, 1);
 			%>
 			<tr>
