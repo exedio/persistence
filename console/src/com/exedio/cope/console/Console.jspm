@@ -648,15 +648,15 @@ final class Console_Jspm
 				<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th><%
 				}
 				%>
-				<th colspan="<%=names.length + 1%>" class="colored1"><%=names[0]%></th>
+				<th colspan="<%=names.length + 1%>" class="color0"><%=names[0]%></th>
 			</tr><%
 	
 			for(int i = 1; i<names.length; i++)
 			{
 			%>
 			<tr>
-				<th rowspan="<%=names.length-i+1%>" class="colored<%=((i-1)%COLORS)+1%>"></th>
-				<th colspan="<%=names.length-i+1%>" class="colored<%=(i%COLORS)+1%>"><%=names[i]%></th>
+				<th rowspan="<%=names.length-i+1%>" class="color<%= (i-1)%COLORS %>"></th>
+				<th colspan="<%=names.length-i+1%>" class="color<%= i%COLORS %>"><%=names[i]%></th>
 			</tr><%
 			}
 	}
@@ -664,7 +664,7 @@ final class Console_Jspm
 	private static final void writeColouredHeaderSchnips(final PrintStream out, final String[] names)
 	{
 				%>
-				<th class="colored<%=((names.length-1)%COLORS)+1%>"></th><%
+				<th class="color<%= (names.length-1)%COLORS %>"></th><%
 	}
 
 	private static final void writeColouredData(final PrintStream out, final int[] data)
@@ -672,7 +672,7 @@ final class Console_Jspm
 			for(int j = 0; j<data.length; j++)
 			{
 			%>
-				<td class="colored<%=(j%COLORS)+1%>"><%
+				<td class="color<%= j%COLORS %>"><%
 				switch(data[j])
 				{
 				case 0:
