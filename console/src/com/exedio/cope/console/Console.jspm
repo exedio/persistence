@@ -636,6 +636,8 @@ final class Console_Jspm
 		}
 	}
 	
+	private static final int COLORS = 2;
+	
 	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns)
 	{
 			%>
@@ -653,8 +655,8 @@ final class Console_Jspm
 			{
 			%>
 			<tr>
-				<th rowspan="<%=names.length-i+1%>" class="colored<%=i%>"></th>
-				<th colspan="<%=names.length-i+1%>" class="colored<%=i+1%>"><%=names[i]%></th>
+				<th rowspan="<%=names.length-i+1%>" class="colored<%=((i-1)%COLORS)+1%>"></th>
+				<th colspan="<%=names.length-i+1%>" class="colored<%=(i%COLORS)+1%>"><%=names[i]%></th>
 			</tr><%
 			}
 	}
@@ -662,7 +664,7 @@ final class Console_Jspm
 	private static final void writeColouredHeaderSchnips(final PrintStream out, final String[] names)
 	{
 				%>
-				<th class="colored<%=names.length%>"></th><%
+				<th class="colored<%=((names.length-1)%COLORS)+1%>"></th><%
 	}
 
 	private static final void writeColouredData(final PrintStream out, final int[] data)
@@ -670,7 +672,7 @@ final class Console_Jspm
 			for(int j = 0; j<data.length; j++)
 			{
 			%>
-				<td class="colored<%=j+1%>"><%
+				<td class="colored<%=(j%COLORS)+1%>"><%
 				switch(data[j])
 				{
 				case 0:
