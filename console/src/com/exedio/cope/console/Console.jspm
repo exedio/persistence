@@ -188,7 +188,7 @@ final class Console_Jspm
 			Map<Integer, String> logs)
 	{
 		%>
-		<table class="properties">
+		<table>
 			<tr><th colspan="3">Migrations</th></tr>
 			<tr><th>version</th><th>declared</th><th>logged</th></tr><%
 			for(int v = latest; v>=oldest; v--)
@@ -196,11 +196,11 @@ final class Console_Jspm
 				final Migration migration = migrations.get(v);
 				final String log = logs.get(v);
 			%>
-			<tr><td><%=v%><%
+			<tr><td class="text"><%=v%><%
 				if(v==current){%>X<%}
-				%></td><td><%
+				%></td><td class="text"><%
 				if(migration!=null){ %><%=migration.getComment()%><% } else { %>-<% }
-				%></td><td><%
+				%></td><td class="text"><%
 				if(log!=null){ %><%=log%><% } else { %>-<% }
 				%></td></tr><%
 			}
@@ -222,7 +222,7 @@ final class Console_Jspm
 			"Destroy",
 		};
 		%>
-		<table class="statistics">
+		<table>
 			<tr>
 				<th colspan="7">Connection Pool Statistics</th>
 			</tr>
@@ -313,18 +313,14 @@ final class Console_Jspm
 			"Age Max (s)",
 		};
 		%>
-		<table class="statistics">
-			<tr><th colspan="<%=names.length+2%>">Cache Statistics</th></tr><%
-			writeColouredHeader(out, names, 1);
+		<table>
+			<tr><th colspan="<%=names.length+1%>">Cache Statistics</th></tr><%
+			writeColouredHeader(out, names, 0);
+			writeColouredHeaderSchnips(out, names);
 			%>
-			<tr>
-				<th>Type</th><%
-				writeColouredHeaderSchnips(out, names);
-				%>
-				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				<th>Type</th>
 			</tr>
-			<tr>
-				<td>(all)</td><%
+			<tr><%
 				final int[] allData = {
 						allMapSizeLimit,
 						allNumberOfItemsInCache,
@@ -336,7 +332,7 @@ final class Console_Jspm
 					};
 				writeColouredData(out, allData);
 				%>
-				<td></td>
+				<td class="text">(all)</td>
 			</tr><%
 			for(int i = 0; i<infos.length; i++)
 			{
@@ -351,11 +347,10 @@ final class Console_Jspm
 						(int)(info.getAgeMaxMillis()/1000l),
 					};
 			%>
-			<tr>
-				<td><%=info.getType().getID()%></td><%
+			<tr><%
 				writeColouredData(out, data);
 				%>
-				<td></td>
+				<td class="text"><%=info.getType().getID()%></td>
 			</tr><%
 			}
 		%>
@@ -377,7 +372,7 @@ final class Console_Jspm
 			final boolean queryHistogramAccurate)
 	{
 		%>
-		<table class="statistics">
+		<table>
 			<tr><th colspan="3">Query Cache Statistics</th></tr>
 			<tr><th colspan="2">Hits</th><td><%=queryInfos[0]%></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=queryInfos[1]%></td></tr>
@@ -412,7 +407,7 @@ final class Console_Jspm
 		}
 
 		%>
-		<table class="statistics">
+		<table>
 			<tr><th colspan="4">Query Cache Histogram</th></tr>
 			<tr><th>#</th><th>RS</th><th>Hits</th><th>Query</th></tr><%
 
@@ -420,7 +415,7 @@ final class Console_Jspm
 		{
 			final CacheQueryInfo info = queryHistogram[i];
 			%>
-			<tr><td><%=i%></td><td><%=info.getResultSize()%></td><td><%=info.getHits()%></td><td><%=info.getQuery()%></td></tr><%
+			<tr><td><%=i%></td><td><%=info.getResultSize()%></td><td><%=info.getHits()%></td><td class="text"><%=info.getQuery()%></td></tr><%
 		}
 		%>
 		</table><%
@@ -432,7 +427,7 @@ final class Console_Jspm
 			final Map<Type, int[]> primaryKeys)
 	{
 		%>
-		<table class="properties">
+		<table>
 			<tr>
 				<th colspan="2">Primary Keys</th>
 			</tr>
@@ -440,7 +435,7 @@ final class Console_Jspm
 			for(final Type type : primaryKeys.keySet())
 			{
 			%>
-			<tr><td><%=type.getID()%></td><td><%
+			<tr><td class="text"><%=type.getID()%></td><td><%
 				final int[] info = primaryKeys.get(type);
 				for(int i : info)
 				{
@@ -472,7 +467,7 @@ final class Console_Jspm
 			"Delivered (200/301)",
 		};
 		%>
-		<table class="statistics">
+		<table>
 			<tr><th colspan="<%=names.length+3%>">Media Statistics</th></tr>
 			<tr><th>No Such Path (404)</th><td colspan="<%=names.length+2%>"><%=MediaPath.noSuchPath.get()%></td></tr><%
 			writeColouredHeader(out, names, 2);
@@ -502,12 +497,12 @@ final class Console_Jspm
 	
 				%>
 			<tr>
-				<td><%=type%></td>
-				<td><a href="<%=cop.toMedia(path)%>"><%=name%></a></td><%
+				<td class="text"><%=type%></td>
+				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td><%
 				writeColouredData(out, data);
 				%>
-				<td><%=cop.format(path.getStart())%></td>
-				<td><%
+				<td class="text"><%=cop.format(path.getStart())%></td>
+				<td class="text"><%
 					final String className = path.getClass().getName();
 					if(className.startsWith("com.exedio.cope.pattern."))
 					{
@@ -563,7 +558,7 @@ final class Console_Jspm
 			columns++;
 		
 		%>
-		<table class="properties">
+		<table>
 			<tr><th colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
 			<tr>
 				<th>Item</th>
@@ -594,9 +589,9 @@ final class Console_Jspm
 				final String contentType = media.getContentType(item);
 				%>
 			<tr>
-				<td><%=item.getCopeID()%></td>
-				<td><% writeURL(out, media.getURL(item), contentType, inlineMedia); %></td>
-				<td><%if(contentType!=null){%><%=contentType%><%}%></td><%
+				<td class="text"><%=item.getCopeID()%></td>
+				<td class="text"><% writeURL(out, media.getURL(item), contentType, inlineMedia); %></td>
+				<td class="text"><%if(contentType!=null){%><%=contentType%><%}%></td><%
 				if(mediaLastModified!=null)
 				{
 				%>
@@ -610,7 +605,7 @@ final class Console_Jspm
 				if(other!=null)
 				{
 				%>
-				<td><% writeURL(out, other.getURL(item), other.getContentType(item), inlineOther); %></td><%
+				<td class="text"><% writeURL(out, other.getURL(item), other.getContentType(item), inlineOther); %></td><%
 				}
 				%>
 			</tr><%
@@ -639,8 +634,13 @@ final class Console_Jspm
 	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns)
 	{
 			%>
-			<tr>
-				<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th>
+			<tr><%
+				if(preColumns>0)
+				{
+				%>
+				<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th><%
+				}
+				%>
 				<th colspan="<%=names.length + 1%>" class="colored1"><%=names[0]%></th>
 			</tr><%
 	

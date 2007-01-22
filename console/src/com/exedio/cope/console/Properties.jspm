@@ -58,7 +58,7 @@ final class Properties_Jspm
 	{
 		final boolean showUnspecified = cop.showUnspecified;
 		%>
-		<table class="properties">
+		<table>
 			<tr>
 				<th colspan="2"><a href="<%=cop.toToggleUnspecified()%>"><%if(showUnspecified){%>hide<%}else{%>show<%}%> unspecified properties</a></th>
 			</tr>
@@ -78,7 +78,7 @@ final class Properties_Jspm
 				}
 				%>>
 				<th><%=field.getKey()%></th>
-				<td><%
+				<td class="text"><%
 					final Object defaultValue = field.getDefaultValue();
 					if(defaultValue!=null && fieldSpecified)
 					{
@@ -125,7 +125,7 @@ final class Properties_Jspm
 			{
 			%>
 			<tr>
-				<td colspan="2">
+				<td class="text" colspan="2">
 					<pre>
 <%=sourceContent%>
 					</pre>
@@ -139,7 +139,7 @@ final class Properties_Jspm
 	final static void writeDatabaseInfo(final PrintStream out, final String dialect, final java.util.Properties properties)
 	{
 		%>
-		<table class="properties">
+		<table>
 			<tr>
 				<th colspan="2">environment</th>
 			</tr><%
@@ -148,13 +148,13 @@ final class Properties_Jspm
 			%>
 			<tr>
 				<th><%=name%></th>
-				<td><%=properties.getProperty(name)%></td>
+				<td class="text"><%=properties.getProperty(name)%></td>
 			</tr><%
 			}
 			%>
 			<tr>
 				<th>dialect</th>
-				<td><%=dialect%></td>
+				<td class="text"><%=dialect%></td>
 			</tr>
 		</table><%
 	}
@@ -178,7 +178,7 @@ final class Properties_Jspm
 	{
 		%>
 		<hr>
-		<table class="properties">
+		<table>
 			<tr>
 				<th colspan="<%=TEST_INFO_KEYS.length%>">test environments (<a href="http://cope.sourceforge.net/testprotocol.html" target="_blank">more...</a>)</th>
 			</tr><%
@@ -199,7 +199,7 @@ final class Properties_Jspm
 		{
 			%>
 			<tr>
-				<td colspan="<%=TEST_INFO_KEYS.length%>">
+				<td class="text" colspan="<%=TEST_INFO_KEYS.length%>">
 					No such file available from class loader.
 					<br>
 					This should not happen with any officially distributed jar files for cope.
@@ -238,7 +238,7 @@ final class Properties_Jspm
 					if(i==0 || !value.equals(properties[i-1].get(key)))
 					{
 				%>
-				<td<%
+				<td class="text"<%
 					if(rowspan!=1){ %> rowspan="<%=rowspan%>"<% }
 					if(value.equals(current.get(key))){ %> bgcolor="#cff"<% }
 					%>><%
@@ -271,7 +271,7 @@ final class Properties_Jspm
 			%>
 			<tr>
 				<th><%=key%></th>
-				<td><%=value%></td>
+				<td class="text"><%=value%></td>
 			</tr><%
 		}
 	}
@@ -305,7 +305,7 @@ final class Properties_Jspm
 	final static void writeVm(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
 	{
 		%>
-		<table class="properties">
+		<table>
 			<tr>
 				<th colspan="2">System.getProperty()</th>
 			</tr><%
@@ -316,7 +316,7 @@ final class Properties_Jspm
 			%>
 			<tr>
 				<th><%=name%></th>
-				<td><%=System.getProperty(name)%></td>
+				<td class="text"><%=System.getProperty(name)%></td>
 			</tr><%
 			}
 			%>
@@ -333,7 +333,7 @@ final class Properties_Jspm
 	final static void writeHidden(final PrintStream out, final Map<Feature, Feature> hiddenFeatures)
 	{
 		%>
-		<table class="properties">
+		<table>
 			<tr>
 				<th colspan="3">Hidden Features</th>
 			</tr>
@@ -348,9 +348,9 @@ final class Properties_Jspm
 				final Feature value = entry.getValue();
 			%>
 			<tr>
-				<td><%=key.getName()%></td>
-				<td><%=key.getType().getID()%></td>
-				<td><%=value.getType().getID()%></td>
+				<td class="text"><%=key.getName()%></td>
+				<td class="text"><%=key.getType().getID()%></td>
+				<td class="text"><%=value.getType().getID()%></td>
 			</tr><%
 			}
 			%>
