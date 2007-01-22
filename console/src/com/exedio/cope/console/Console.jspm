@@ -224,23 +224,28 @@ final class Console_Jspm
 		%>
 		<table>
 			<tr>
-				<th colspan="7">Connection Pool Statistics</th>
+				<th colspan="2">Connection Pool Statistics</th>
 			</tr>
 			<tr>
 				<th>Since</th>
-				<td colspan="6"><%=cop.format(poolCounter.getStart())%></td>
+				<td><%=cop.format(poolCounter.getStart())%></td>
 			</tr>
 			<tr>
 				<th>Idle</th>
-				<td colspan="6"><%=info.getIdleCounter()%></td>
+				<td><%=info.getIdleCounter()%></td>
 			</tr>
 			<tr>
 				<th>Get</th>
-				<td colspan="6"><%=poolCounter.getGetCounter()%></td>
+				<td><%=poolCounter.getGetCounter()%></td>
 			</tr>
 			<tr>
 				<th>Put</th>
-				<td colspan="6"><%=poolCounter.getPutCounter()%></td>
+				<td><%=poolCounter.getPutCounter()%></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan="7">Hypothetical</th>
 			</tr><%
 			writeColouredHeader(out, names, 1);
 			%>
