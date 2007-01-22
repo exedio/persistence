@@ -243,17 +243,17 @@ final class Console_Jspm
 				<td><%=poolCounter.getPutCounter()%></td>
 			</tr>
 		</table>
+		<hr>
 		<table>
 			<tr>
 				<th colspan="7">Hypothetical</th>
 			</tr><%
-			writeColouredHeader(out, names, 1);
+			writeColouredHeader(out, names, 0);
 			%>
-			<tr>
-				<th>maxIdle</th><%
+			<tr><%
 				writeColouredHeaderSchnips(out, names);
 				%>
-				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				<th>maxIdle</th>
 			</tr><%
 			for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
 			{
@@ -267,10 +267,10 @@ final class Console_Jspm
 						pool.getDestroyCounter(),
 					};
 			%>
-			<tr<%if(inconsistent){%> class="inconsistent"<%}%>>
-				<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td><%
+			<tr<%if(inconsistent){%> class="inconsistent"<%}%>><%
 				writeColouredData(out, data);
 				%>
+				<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td>
 			</tr><%
 			}
 		%>
