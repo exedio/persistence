@@ -65,8 +65,8 @@ public final class ConsoleServlet extends CopsServlet
 	Model model = null;
 	
 	private static final ResourceSet resources = new ResourceSet(ConsoleServlet.class);
-	static final Resource stylesheet = new Resource(resources, "admin.css");
-	static final Resource reportScript = new Resource(resources, "admin-report.js");
+	static final Resource stylesheet = new Resource(resources, "console.css");
+	static final Resource reportScript = new Resource(resources, "console-report.js");
 	static final Resource logo = new Resource(resources, "logo.png");
 	
 	@Override
