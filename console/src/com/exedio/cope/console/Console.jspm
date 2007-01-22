@@ -259,12 +259,17 @@ final class Console_Jspm
 			{
 				final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 				final boolean inconsistent = !pool.isConsistent();
+				final int destroyCounter = pool.getDestroyCounter();
+				
+				if(!inconsistent && (destroyCounter==0))
+					continue;
+				
 				final int[] data = {
 						pool.getLoss(),
 						pool.getIdleCount(),
 						pool.getIdleCountMax(),
 						pool.getCreateCounter(),
-						pool.getDestroyCounter(),
+						destroyCounter,
 					};
 			%>
 			<tr<%if(inconsistent){%> class="inconsistent"<%}%>><%
@@ -327,13 +332,13 @@ final class Console_Jspm
 			</tr>
 			<tr><%
 				final int[] allData = {
-						allMapSizeLimit,
-						allNumberOfItemsInCache,
-						allHits,
-						allMisses,
-						(int)(allAgeMinMillis/1000l),
-						(int)(allAgeAverageMillis/1000l),
-						(int)(allAgeMaxMillis/1000l),
+						hide(0, allMapSizeLimit),
+						hide(0, allNumberOfItemsInCache),
+						hide(0, allHits),
+						hide(0, allMisses),
+						hide(0, (int)(allAgeMinMillis/1000l)),
+						hide(0, (int)(allAgeAverageMillis/1000l)),
+						hide(0, (int)(allAgeMaxMillis/1000l)),
 					};
 				writeColouredData(out, allData);
 				%>
@@ -343,13 +348,13 @@ final class Console_Jspm
 			{
 				final CacheInfo info = infos[i];
 				final int[] data = {
-						info.getMapSizeLimit(),
-						info.getNumberOfItemsInCache(),
-						info.getHits(),
-						info.getMisses(),
-						info.getAgeMinMillis()!=Long.MAX_VALUE ? ((int)(info.getAgeMinMillis()/1000l)) : 0,
-						(int)(info.getAgeAverageMillis()/1000l),
-						(int)(info.getAgeMaxMillis()/1000l),
+						hide(0, info.getMapSizeLimit()),
+						hide(0, info.getNumberOfItemsInCache()),
+						hide(0, info.getHits()),
+						hide(0, info.getMisses()),
+						hide(0, info.getAgeMinMillis()!=Long.MAX_VALUE ? ((int)(info.getAgeMinMillis()/1000l)) : 0),
+						hide(0, (int)(info.getAgeAverageMillis()/1000l)),
+						hide(0, (int)(info.getAgeMaxMillis()/1000l)),
 					};
 			%>
 			<tr><%
@@ -491,13 +496,13 @@ final class Console_Jspm
 				final String type = path.getType().getID();
 				final String name = path.getName();
 				final int[] data = {
-					path.exception.get(),
-					path.notAnItem.get(),
-					path.noSuchItem.get(),
-					path.isNull.get(),
-					path.notComputable.get(),
-					path.notModified.get(),
-					path.delivered.get(),
+					hide(0, path.exception.get()),
+					hide(0, path.notAnItem.get()),
+					hide(0, path.noSuchItem.get()),
+					hide(0, path.isNull.get()),
+					hide(0, path.notComputable.get()),
+					hide(0, path.notModified.get()),
+					hide(0, path.delivered.get()),
 				};
 	
 				%>
@@ -666,7 +671,14 @@ final class Console_Jspm
 				%>
 				<th class="color<%= (names.length-1)%COLORS %>"></th><%
 	}
-
+	
+	private static final int EMPTY = -91872356;
+	
+	private static final int hide(final int emptyNumber, final int number)
+	{
+		return (number==emptyNumber) ? EMPTY : number;
+	}
+	
 	private static final void writeColouredData(final PrintStream out, final int[] data)
 	{
 			for(int i = 0; i<data.length; i++)
@@ -675,11 +687,8 @@ final class Console_Jspm
 				<td class="color<%= i%COLORS %>"><%
 				switch(data[i])
 				{
-				case 0:
+				case EMPTY:
 					%>&nbsp;<%
-					break;
-				case Integer.MIN_VALUE:
-					%>-<%
 					break;
 				default:
 					%><%=data[i]%><%
