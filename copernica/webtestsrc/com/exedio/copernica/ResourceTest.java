@@ -30,8 +30,8 @@ public class ResourceTest extends AbstractWebTest
 
 	public void testError() throws Exception
 	{
-		final String prefix = "http://localhost:8080/copetest-hsqldb/console/";
-		final URL stylesheet = new URL(prefix + "admin.css");
+		final String prefix = "http://localhost:8080/copetest-hsqldb/init.jsp/";
+		final URL stylesheet = new URL(prefix + "resource-test.txt");
 
 		final long stylesheetLastModified = assertURL(stylesheet);
 		assertEquals(stylesheetLastModified, assertURL(stylesheet));
@@ -53,7 +53,7 @@ public class ResourceTest extends AbstractWebTest
 	
 	private long assertURL(final URL url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
-		return assertURL(url, "text/css", ifModifiedSince, expectNotModified);
+		return assertURL(url, "text/plain", ifModifiedSince, expectNotModified);
 	}
 
 	private long assertURL(final URL url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
@@ -76,16 +76,14 @@ public class ResourceTest extends AbstractWebTest
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType()); // TODO: content type should be set on 304
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+(4*60*1000)), new Date(date+(6*60*1000)), new Date(conn.getExpiration()));
-		assertEquals(expectNotModified ? -1 : 3038, conn.getContentLength());
+		assertEquals(expectNotModified ? -1 : 43, conn.getContentLength());
 		
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		if(!expectNotModified)
 		{
-			assertEquals("/*", is.readLine());
-			assertEquals("This is the default style sheet for the", is.readLine());
-			assertEquals("cope console", is.readLine());
-			assertEquals("*/", is.readLine());
-			assertEquals("", is.readLine());
+			assertEquals("This is the test file", is.readLine());
+			assertEquals("for the ResourceTest", is.readLine());
+			assertEquals(null, is.readLine());
 		}
 		is.close();
 		

@@ -35,18 +35,19 @@ import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
-import com.exedio.cope.testmodel.UniqueFinal;
 import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.MediaServletItem;
+import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
 import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.StringItem;
-import com.exedio.cope.testmodel.PlusItem;
+import com.exedio.cope.testmodel.UniqueFinal;
 import com.exedio.copernica.CopernicaProvider;
 import com.exedio.cops.CopsServlet;
-
+import com.exedio.cops.Resource;
+import com.exedio.cops.ResourceSet;
 
 public class InitServlet extends CopsServlet
 {
@@ -54,12 +55,45 @@ public class InitServlet extends CopsServlet
 	
 	final static String ENCODING = "utf-8";
 
+	// For ResourceTest.
+	private static final ResourceSet resources = new ResourceSet(CopernicaProvider.class);
+	static final Resource stylesheet = new Resource(resources, "resource-test.txt");
+	
+	@Override
+	public final void init() throws ServletException
+	{
+		super.init();
+
+		try
+		{
+			resources.init();
+		}
+		catch(RuntimeException e)
+		{
+			e.printStackTrace();
+			throw e;
+		}
+		catch(Error e)
+		{
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
+		// resource handling
+		if("GET".equals(request.getMethod()))
+		{
+			if(resources.doGet(request, response))
+				return;
+		}
+		// /resource handling
+		
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 

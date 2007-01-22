@@ -71,7 +71,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>init</servlet-name>
-		<url-pattern>/init.jsp</url-pattern>
+		<url-pattern>/init.jsp/*</url-pattern>
 	</servlet-mapping>
 
 	<description>
