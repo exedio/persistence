@@ -65,32 +65,32 @@ public class QueryCacheTest extends AbstractLibTest
 		q1.search();
 		assertEquals(list(sc(q1, false)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q1, 0, 0)) : list(), cqi());
 		
 		q1.search();
 		assertEquals(enabled ? list() : list(sc(q1, false)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q1, 0, 1)) : list(), cqi());
 		
 		q2.search();
 		assertEquals(list(sc(q2, false)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
 		
 		q1.countWithoutLimit();
 		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(C1, 0), cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C1, 1, 0), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
 		
 		q1.countWithoutLimit();
 		assertEquals(enabled ? list() : list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(C1, 1), cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
 		
 		q2.countWithoutLimit();
 		assertEquals(list(sc(q2, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(C2, 0), cqi(C1, 1), cqi(Q2, 0), cqi(Q1, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
 		
 		model.clearCache();
 		assertEquals(list(), cqi());
@@ -98,9 +98,9 @@ public class QueryCacheTest extends AbstractLibTest
 		model.setDatabaseListener(null);
 	}
 	
-	private CacheQueryInfo cqi(final String query, final int hits)
+	private CacheQueryInfo cqi(final String query, final int resultSize, final int hits)
 	{
-		return new CacheQueryInfo(query, hits);
+		return new CacheQueryInfo(query, resultSize, hits);
 	}
 
 	private List<CacheQueryInfo> cqi()

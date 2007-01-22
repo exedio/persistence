@@ -354,14 +354,16 @@ final class Console_Jspm
 			final int sumLength,
 			final int maxLength,
 			final int minLength,
+			final int sumResultSize,
+			final int maxResultSize,
+			final int minResultSize,
+			final int[] resultSizes,
 			final boolean queryHistogramAccurate)
 	{
 		final Runtime rt = Runtime.getRuntime();
 		%>
 		<table class="statistics">
-			<tr>
-				<th colspan="3">Query Cache Statistics</th>
-			</tr>
+			<tr><th colspan="3">Query Cache Statistics</th></tr>
 			<tr><th colspan="2">Hits</th><td><%=queryInfos[0]%></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=queryInfos[1]%></td></tr>
 			<tr><th colspan="2">Queries in Cache</th><td><%=queryInfos[2]%></td></tr><%
@@ -370,7 +372,15 @@ final class Console_Jspm
 			%>
 			<tr><th rowspan="3">Query Length</th><th>Average</th><td><%=sumLength/queryHistogram.length%></td></tr>
 			<tr><th>Maximum</th><td><%=maxLength%></td></tr>
-			<tr><th>Mimimum</th><td><%=minLength%></td></tr><%
+			<tr><th>Minimum</th><td><%=minLength%></td></tr>
+			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size (RS)</th><th>Average</th><td><%=sumResultSize/queryHistogram.length%></td></tr>
+			<tr><th>Maximum</th><td><%=maxResultSize%></td></tr>
+			<tr><th>Minimum</th><td><%=minResultSize%></td></tr><%
+				for(int i = 0; i<resultSizes.length; i++)
+				{
+			%>
+			<tr><th>Size <%=i%></th><td><%=resultSizes[i]%></td></tr><%
+				}
 			}
 			%>
 			<tr><th rowspan="3">Memory</th><th>Max</th><td><%=rt.maxMemory()%></td></tr>
@@ -391,14 +401,14 @@ final class Console_Jspm
 
 		%>
 		<table class="statistics">
-			<tr><th colspan="2">Query Cache Histogram</th></tr>
-			<tr><th>Hits</th><th>Query</th></tr><%
+			<tr><th colspan="4">Query Cache Histogram</th></tr>
+			<tr><th>#</th><th>RS</th><th>Hits</th><th>Query</th></tr><%
 
 		for(int i = 0; i<queryHistogram.length; i++)
 		{
 			final CacheQueryInfo info = queryHistogram[i];
 			%>
-			<tr><th><%=info.getHits()%></th><td><%=info.getQuery()%></td></tr><%
+			<tr><td><%=i%></td><td><%=info.getResultSize()%></td><td><%=info.getHits()%></td><td><%=info.getQuery()%></td></tr><%
 		}
 		%>
 		</table><%

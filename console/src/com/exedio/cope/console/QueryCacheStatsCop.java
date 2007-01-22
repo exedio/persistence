@@ -38,9 +38,16 @@ final class QueryCacheStatsCop extends ConsoleCop
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final CacheQueryInfo[] histogram = model.getCacheQueryHistogram();
+		
 		int sumLength = 0;
 		int maxLength = 0;
 		int minLength = Integer.MAX_VALUE;
+		
+		int sumResultSize = 0;
+		int maxResultSize = 0;
+		int minResultSize = Integer.MAX_VALUE;
+		int[] resultSizes = new int[5];
+		
 		for(final CacheQueryInfo info : histogram)
 		{
 			final int length = info.getQuery().length();
@@ -49,12 +56,22 @@ final class QueryCacheStatsCop extends ConsoleCop
 				minLength = length;
 			if(length>maxLength)
 				maxLength = length;
+
+			final int resultSize = info.getResultSize();
+			sumResultSize += resultSize;
+			if(resultSize<minResultSize)
+				minResultSize = resultSize;
+			if(resultSize>maxResultSize)
+				maxResultSize = resultSize;
+			if(resultSize<resultSizes.length)
+				resultSizes[resultSize]++;
 		}
 		
 		Console_Jspm.writeBody(this, out,
 				model.getCacheQueryInfo(),
 				histogram,
 				sumLength, maxLength, minLength,
+				sumResultSize, maxResultSize, minResultSize, resultSizes,
 				model.getProperties().getCacheQueryHistogram());
 	}
 }

@@ -278,7 +278,7 @@ final class Cache
 				synchronized(stateMap)
 				{
 					numberOfItemsInCache = stateMap.size();
-					for(TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); stateMapI.advance())
+					for(final TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); stateMapI.advance())
 					{
 						final PersistentState currentState = stateMapI.value();
 						final long currentLastUsage = currentState.getLastUsageMillis();
@@ -326,9 +326,11 @@ final class Cache
 			return new CacheQueryInfo[0];
 		
 		final Query.Key[] keys;
+		final ArrayList[] values;
 		synchronized(queries)
 		{
 			keys = queries.keySet().toArray(new Query.Key[queries.size()]);
+			values = queries.values().toArray(new ArrayList[queries.size()]);
 			// NOTE:
 			// It is important to keep Key.toString()
 			// out of the synchronized block.
@@ -336,8 +338,9 @@ final class Cache
 
 		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
 		int i = result.length-1;
+		int j = 0;
 		for(final Query.Key key : keys)
-			result[i--] = new CacheQueryInfo(key.getText(), key.hits);
+			result[i--] = new CacheQueryInfo(key.getText(), values[j++].size(), key.hits);
 		
 		return result;
 	}

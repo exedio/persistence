@@ -22,22 +22,30 @@ package com.exedio.cope.util;
 public final class CacheQueryInfo
 {
 	private final String query;
+	private final int resultSize;
 	private final int hits;
 	
 	public CacheQueryInfo(
 			final String query,
+			final int resultSize,
 			final int hits)
 	{
 		if(query==null)
 			throw new NullPointerException();
 		
 		this.query = query;
+		this.resultSize = resultSize;
 		this.hits = hits;
 	}
 	
 	public String getQuery()
 	{
 		return query;
+	}
+
+	public int getResultSize()
+	{
+		return resultSize;
 	}
 
 	public int getHits()
@@ -53,18 +61,18 @@ public final class CacheQueryInfo
 		
 		final CacheQueryInfo o = (CacheQueryInfo)other;
 		
-		return query.equals(o.query) && hits==o.hits;
+		return query.equals(o.query) && resultSize==o.resultSize && hits==o.hits;
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return query.hashCode() ^ 298742165;
+		return query.hashCode() ^ resultSize ^ hits ^ 298742165;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return query + ':' + hits;
+		return query + ':' + resultSize + ':' + hits;
 	}
 }
