@@ -248,7 +248,7 @@ final class Console_Jspm
 			<tr>
 				<th colspan="6">Hypothetical</th>
 			</tr><%
-			writeColouredHeader(out, names, 0);
+			writeColouredHeader(out, names, 0, 1);
 			%>
 			<tr><%
 				writeColouredHeaderSchnips(out, names);
@@ -320,7 +320,7 @@ final class Console_Jspm
 		%>
 		<table>
 			<tr><th colspan="<%=names.length+1%>">Cache Statistics</th></tr><%
-			writeColouredHeader(out, names, 0);
+			writeColouredHeader(out, names, 0, 1);
 			writeColouredHeaderSchnips(out, names);
 			%>
 				<th>Type</th>
@@ -475,7 +475,7 @@ final class Console_Jspm
 		<table>
 			<tr><th colspan="<%=names.length+2%>">Media Statistics</th></tr>
 			<tr><th colspan="<%=names.length+1%>">No Such Path (404)</th><td><%=MediaPath.noSuchPath.get()%></td></tr><%
-			writeColouredHeader(out, names, 0);
+			writeColouredHeader(out, names, 0, 2);
 			%>
 			<tr><%
 				writeColouredHeaderSchnips(out, names);
@@ -638,7 +638,7 @@ final class Console_Jspm
 	
 	private static final int COLORS = 2;
 	
-	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns)
+	private static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns, final int postColumns)
 	{
 			%>
 			<tr><%
@@ -648,15 +648,15 @@ final class Console_Jspm
 				<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th><%
 				}
 				%>
-				<th colspan="<%=names.length + 1%>" class="color0"><%=names[0]%></th>
+				<th colspan="<%= names.length + postColumns %>" class="color0"><%=names[0]%></th>
 			</tr><%
 	
 			for(int i = 1; i<names.length; i++)
 			{
 			%>
 			<tr>
-				<th rowspan="<%=names.length-i+1%>" class="color<%= (i-1)%COLORS %>"></th>
-				<th colspan="<%=names.length-i+1%>" class="color<%= i%COLORS %>"><%=names[i]%></th>
+				<th rowspan="<%= names.length - i + 1 %>" class="color<%= (i-1)%COLORS %>"></th>
+				<th colspan="<%= names.length - i + postColumns %>" class="color<%= i%COLORS %>"><%=names[i]%></th>
 			</tr><%
 			}
 	}
