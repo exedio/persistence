@@ -23,6 +23,7 @@ import java.io.PrintStream;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.util.CacheInfo;
 
 final class CacheStatsCop extends ConsoleCop
 {
@@ -36,6 +37,46 @@ final class CacheStatsCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		Console_Jspm.writeBody(this, out, model.getCacheInfo());
+		final CacheInfo[] infos = model.getCacheInfo();
+		
+		int allMapSizeLimit = 0;
+		int allNumberOfItemsInCache = 0;
+		int allHits = 0;
+		int allMisses = 0;
+		long allNum = 0;
+		long allAgeMinMillis = Long.MAX_VALUE;
+		long allSumAgeAverageMillis = 0l;
+		long allAgeMaxMillis = 0l;
+		
+		for(final CacheInfo info : infos)
+		{
+			allMapSizeLimit += info.getMapSizeLimit();
+			allNumberOfItemsInCache += info.getNumberOfItemsInCache();
+			allHits += info.getHits();
+			allMisses += info.getMisses();
+
+			if(info.getNumberOfItemsInCache()>0)
+			{
+				allNum++;
+
+				final long minAge = info.getAgeMinMillis();
+				if(allAgeMinMillis>minAge)
+					allAgeMinMillis = minAge;
+				
+				allSumAgeAverageMillis += info.getAgeAverageMillis();
+	
+				final long maxAge = info.getAgeMaxMillis();
+				if(allAgeMaxMillis<maxAge)
+					allAgeMaxMillis = maxAge;
+			}
+		}
+		
+		Console_Jspm.writeBody(this, out,
+				allMapSizeLimit, allNumberOfItemsInCache,
+				allHits, allMisses,
+				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,
+				allNum>0 ? allSumAgeAverageMillis/allNum : 0,
+				allAgeMaxMillis,
+				infos);
 	}
 }

@@ -271,7 +271,7 @@ final class Cache
 			final long now = System.currentTimeMillis();
 			final int numberOfItemsInCache;
 			long ageSum = 0;
-			long ageMin = Integer.MAX_VALUE;
+			long ageMin = Long.MAX_VALUE;
 			long ageMax = 0;
 
 			final TIntObjectHashMap<PersistentState> stateMap = stateMaps[i];

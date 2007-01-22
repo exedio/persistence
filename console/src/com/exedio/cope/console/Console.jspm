@@ -294,6 +294,13 @@ final class Console_Jspm
 	final static void writeBody(
 			final CacheStatsCop cop,
 			final PrintStream out,
+			final int allMapSizeLimit,
+			final int allNumberOfItemsInCache,
+			final int allHits,
+			final int allMisses,
+			final long allAgeMinMillis,
+			final long allAgeAverageMillis,
+			final long allAgeMaxMillis,
 			final CacheInfo[] infos)
 	{
 		final String[] names = {
@@ -315,6 +322,21 @@ final class Console_Jspm
 				writeColouredHeaderSchnips(out, names);
 				%>
 				<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+			</tr>
+			<tr>
+				<td>(all)</td><%
+				final int[] allData = {
+						allMapSizeLimit,
+						allNumberOfItemsInCache,
+						allHits,
+						allMisses,
+						(int)(allAgeMinMillis/1000l),
+						(int)(allAgeAverageMillis/1000l),
+						(int)(allAgeMaxMillis/1000l),
+					};
+				writeColouredData(out, allData);
+				%>
+				<td></td>
 			</tr><%
 			for(int i = 0; i<infos.length; i++)
 			{
@@ -324,7 +346,7 @@ final class Console_Jspm
 						info.getNumberOfItemsInCache(),
 						info.getHits(),
 						info.getMisses(),
-						(int)(info.getAgeMinMillis()/1000l),
+						info.getAgeMinMillis()!=Long.MAX_VALUE ? ((int)(info.getAgeMinMillis()/1000l)) : 0,
 						(int)(info.getAgeAverageMillis()/1000l),
 						(int)(info.getAgeMaxMillis()/1000l),
 					};
