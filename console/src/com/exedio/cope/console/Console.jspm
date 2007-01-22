@@ -122,6 +122,9 @@ final class Console_Jspm
 	{
 		int sumCount = 0;
 		%>
+		<form action="<%=cop%>#overall" method="POST">
+			<input type="submit" name="<%=cop.TEST%>" value="test all" />
+		</form>
 		<ol><%
 		for(final ItemFunction function : functions)
 		{
@@ -151,7 +154,7 @@ final class Console_Jspm
 		if(test)
 		{
 		%>
-		<p>Overall: <%
+		<p>Overall: <a name="overall"><%
 			if(sumCount!=0)
 			{
 				%><b>bad tupels: <%=sumCount%>.</b><%
@@ -160,10 +163,10 @@ final class Console_Jspm
 			{
 				%>ok.<%
 			}
-			%></p><%
+			%></a></p><%
 		}
 		%>
-		<form action="<%=cop%>" method="POST">
+		<form action="<%=cop%>#overall" method="POST">
 			<input type="submit" name="<%=cop.TEST%>" value="test all" />
 		</form><%
 	}
