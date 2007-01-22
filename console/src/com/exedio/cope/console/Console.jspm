@@ -468,15 +468,15 @@ final class Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th colspan="<%=names.length+3%>">Media Statistics</th></tr>
-			<tr><th>No Such Path (404)</th><td colspan="<%=names.length+2%>"><%=MediaPath.noSuchPath.get()%></td></tr><%
-			writeColouredHeader(out, names, 2);
+			<tr><th colspan="<%=names.length+2%>">Media Statistics</th></tr>
+			<tr><th colspan="<%=names.length+1%>">No Such Path (404)</th><td><%=MediaPath.noSuchPath.get()%></td></tr><%
+			writeColouredHeader(out, names, 0);
 			%>
-			<tr>
-				<th>Type</th>
-				<th>Media</th><%
+			<tr><%
 				writeColouredHeaderSchnips(out, names);
 				%>
+				<th>Type</th>
+				<th>Media</th>
 				<th>Since</th>
 				<th>Class</th>
 			</tr><%
@@ -496,11 +496,11 @@ final class Console_Jspm
 				};
 	
 				%>
-			<tr>
-				<td class="text"><%=type%></td>
-				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td><%
+			<tr><%
 				writeColouredData(out, data);
 				%>
+				<td class="text"><%=type%></td>
+				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td>
 				<td class="text"><%=cop.format(path.getStart())%></td>
 				<td class="text"><%
 					final String className = path.getClass().getName();
