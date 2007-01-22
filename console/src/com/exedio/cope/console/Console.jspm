@@ -326,8 +326,10 @@ final class Console_Jspm
 		<table>
 			<tr><th colspan="<%=names.length+1%>">Cache Statistics</th></tr><%
 			writeColouredHeader(out, names, 0, 1);
-			writeColouredHeaderSchnips(out, names);
 			%>
+			<tr><%
+				writeColouredHeaderSchnips(out, names);
+				%>
 				<th>Type</th>
 			</tr>
 			<tr><%
@@ -393,7 +395,7 @@ final class Console_Jspm
 			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=sumKeyLength/queryHistogram.length%></td></tr>
 			<tr><th>Maximum</th><td><%=maxKeyLength%></td></tr>
 			<tr><th>Minimum</th><td><%=minKeyLength%></td></tr>
-			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size (RS)</th><th>Average</th><td><%=sumResultSize/queryHistogram.length%></td></tr>
+			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=sumResultSize/queryHistogram.length%></td></tr>
 			<tr><th>Maximum</th><td><%=maxResultSize%></td></tr>
 			<tr><th>Minimum</th><td><%=minResultSize%></td></tr><%
 				for(int i = 0; i<resultSizes.length; i++)
@@ -415,17 +417,32 @@ final class Console_Jspm
 			for which <tt>Query#enableMakeStatementInfo()</tt> has been set.
 		</div><%
 		}
-
+		final String[] names = {
+			"Recent Usage (LRU)",
+			"Result Size",
+			"Cache Hits",
+		};
 		%>
 		<table>
-			<tr><th colspan="4">Query Cache Histogram</th></tr>
-			<tr><th>#</th><th>RS</th><th>Hits</th><th>Query</th></tr><%
+			<tr><th colspan="4">Query Cache Histogram</th></tr><%
+			writeColouredHeader(out, names, 0, 1);
+			%>
+			<tr><%
+				writeColouredHeaderSchnips(out, names);
+				%>
+				<th>Query</th>
+			</tr><%
 
 		for(int i = 0; i<queryHistogram.length; i++)
 		{
 			final CacheQueryInfo info = queryHistogram[i];
+			final int[] data = {
+					i,
+					info.getResultSize(),
+					hide(0, info.getHits()),
+				};
 			%>
-			<tr><td><%=i%></td><td><%=info.getResultSize()%></td><td><%=info.getHits()%></td><td class="text"><%=info.getQuery()%></td></tr><%
+			<tr><% writeColouredData(out, data); %><td class="text"><%=info.getQuery()%></td></tr><%
 		}
 		%>
 		</table><%
