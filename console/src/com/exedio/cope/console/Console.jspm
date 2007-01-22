@@ -305,15 +305,11 @@ final class Console_Jspm
 			"Age Average (s)",
 			"Age Max (s)",
 		};
-		final Runtime rt = Runtime.getRuntime();
 		%>
 		<table class="statistics">
 			<tr>
 				<th colspan="<%=names.length+2%>">Cache Statistics</th>
-			</tr>
-			<tr><th>Max Memory</th><td colspan="<%=names.length+1%>"><%=rt.maxMemory()%></td></tr>
-			<tr><th>Total Memory</th><td colspan="<%=names.length+1%>"><%=rt.totalMemory()%></td></tr>
-			<tr><th>Free Memory</th><td colspan="<%=names.length+1%>"><%=rt.freeMemory()%></td></tr><%
+			</tr><%
 			writeColouredHeader(out, names, 1);
 			%>
 			<tr>
@@ -360,7 +356,6 @@ final class Console_Jspm
 			final int[] resultSizes,
 			final boolean queryHistogramAccurate)
 	{
-		final Runtime rt = Runtime.getRuntime();
 		%>
 		<table class="statistics">
 			<tr><th colspan="3">Query Cache Statistics</th></tr>
@@ -383,9 +378,6 @@ final class Console_Jspm
 				}
 			}
 			%>
-			<tr><th rowspan="3">Memory</th><th>Max</th><td><%=rt.maxMemory()%></td></tr>
-			<tr><th>Total</th><td><%=rt.totalMemory()%></td></tr>
-			<tr><th>Free</th><td><%=rt.freeMemory()%></td></tr>
 		</table><%
 
 		if(!queryHistogramAccurate)
