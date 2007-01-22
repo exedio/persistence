@@ -31,13 +31,13 @@ public class ResourceTest extends AbstractWebTest
 	public void testError() throws Exception
 	{
 		final String prefix = "http://localhost:8080/copetest-hsqldb/init.jsp/";
-		final URL stylesheet = new URL(prefix + "resource-test.txt");
+		final URL text = new URL(prefix + "resource-test.txt");
 
-		final long stylesheetLastModified = assertURL(stylesheet);
-		assertEquals(stylesheetLastModified, assertURL(stylesheet));
-		assertEquals(stylesheetLastModified, assertURL(stylesheet, stylesheetLastModified-1, false));
-		assertEquals(stylesheetLastModified, assertURL(stylesheet, stylesheetLastModified, true));
-		assertEquals(stylesheetLastModified, assertURL(stylesheet, stylesheetLastModified+5000, true));
+		final long textLastModified = assertURL(text);
+		assertEquals(textLastModified, assertURL(text));
+		assertEquals(textLastModified, assertURL(text, textLastModified-1, false));
+		assertEquals(textLastModified, assertURL(text, textLastModified, true));
+		assertEquals(textLastModified, assertURL(text, textLastModified+5000, true));
 
 	}
 	
