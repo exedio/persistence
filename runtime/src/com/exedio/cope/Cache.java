@@ -221,7 +221,7 @@ final class Cache
 					final Query.Key key = keys.next();
 					for(final Type t : key.types)
 					{
-						if(matchesType(t, transientTypeNumber))
+						if(t.transientNumber==transientTypeNumber)
 						{
 							keys.remove();
 							break;
@@ -232,14 +232,6 @@ final class Cache
 		}
 	}
 	
-	private static final boolean matchesType(final Type<?> queryType, final int invalidatedTypeNumber)
-	{
-		for(final Type t : queryType.getTypesOfInstances())
-			if(t.transientNumber == invalidatedTypeNumber)
-				return true;
-		return false;
-	}
-
 	void clear()
 	{
 		for(final TIntObjectHashMap<PersistentState> stateMap : stateMaps)

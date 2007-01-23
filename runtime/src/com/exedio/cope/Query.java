@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -601,15 +602,14 @@ public final class Query<R>
 			assert this.types==null;
 			
 			final ArrayList<Join> joins = query.joins;
-			final Type[] types = new Type[1+ (joins!=null ? joins.size() : 0)];
-			types[0] = query.type;
+			final HashSet<Type<?>> typeSet = new HashSet<Type<?>>();
+			typeSet.addAll(query.type.getTypesOfInstances());
 			if(joins!=null)
 			{
-				int i = 1;
 				for(final Join join : joins)
-					types[i++] = join.type;
+					typeSet.addAll(join.type.getTypesOfInstances());
 			}
-			this.types = types;
+			this.types = typeSet.toArray(new Type[typeSet.size()]);
 		}
 		
 		@Override
