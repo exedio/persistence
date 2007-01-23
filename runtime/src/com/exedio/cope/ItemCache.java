@@ -67,14 +67,7 @@ final class ItemCache
 			{
 				final Cachlet cachlet = cachlets[typeTransiently];
 				if(cachlet!=null)
-				{
-					final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
-					synchronized(stateMap)
-					{
-						for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
-							stateMap.remove(i.next());
-					}
-				}
+					cachlet.invalidate(invalidatedPKs);
 			}
 		}
 	}
@@ -214,6 +207,16 @@ final class ItemCache
 			
 			if(oldValue!=null)
 				System.out.println("warning: duplicate computation of state "+item.getCopeID());
+		}
+		
+		void invalidate(final TIntHashSet invalidatedPKs)
+		{
+			synchronized(stateMap)
+			{
+				// TODO implement and use a removeAll
+				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
+					stateMap.remove(i.next());
+			}
 		}
 	}
 }
