@@ -91,37 +91,7 @@ final class ItemCache
 		{
 			final Cachlet cachlet = cachlets[i];
 			if(cachlet!=null)
-			{
-				final long now = System.currentTimeMillis();
-				final int numberOfItemsInCache;
-				long ageSum = 0;
-				long ageMin = Long.MAX_VALUE;
-				long ageMax = 0;
-
-				final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
-				synchronized(stateMap)
-				{
-					numberOfItemsInCache = stateMap.size();
-					for(final TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); )
-					{
-						stateMapI.advance();
-						final PersistentState currentState = stateMapI.value();
-						final long currentLastUsage = currentState.getLastUsageMillis();
-						final long age = now-currentLastUsage;
-						ageSum += age;
-						if(ageMin>age)
-							ageMin = age;
-						if(ageMax<age)
-							ageMax = age;
-					}
-				}
-				
-				if(ageMin==Integer.MAX_VALUE)
-					ageMin = 0;
-
-				result.add(new CacheInfo(concreteTypes[i], cachlet.mapSizeLimit, numberOfItemsInCache, cachlet.hits, cachlet.misses, ageSum, ageMin, ageMax));
-			}
-			
+				result.add(cachlet.getInfo(concreteTypes[i]));
 		}
 		
 		return result.toArray(new CacheInfo[result.size()]);
@@ -220,6 +190,37 @@ final class ItemCache
 			{
 				stateMap.clear();
 			}
+		}
+		
+		CacheInfo getInfo(final Type type)
+		{
+			final long now = System.currentTimeMillis();
+			final int numberOfItemsInCache;
+			long ageSum = 0;
+			long ageMin = Long.MAX_VALUE;
+			long ageMax = 0;
+
+			synchronized(stateMap)
+			{
+				numberOfItemsInCache = stateMap.size();
+				for(final TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); )
+				{
+					stateMapI.advance();
+					final PersistentState currentState = stateMapI.value();
+					final long currentLastUsage = currentState.getLastUsageMillis();
+					final long age = now-currentLastUsage;
+					ageSum += age;
+					if(ageMin>age)
+						ageMin = age;
+					if(ageMax<age)
+						ageMax = age;
+				}
+			}
+			
+			if(ageMin==Integer.MAX_VALUE)
+				ageMin = 0;
+
+			return new CacheInfo(type, mapSizeLimit, numberOfItemsInCache, hits, misses, ageSum, ageMin, ageMax);
 		}
 	}
 }
