@@ -46,16 +46,7 @@ final class ItemCache
 		PersistentState state;
 		final Cachlet cachlet = cachlets[item.type.idTransiently];
 		if(cachlet!=null)
-		{
-			final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
-			synchronized (stateMap)
-			{
-				state = stateMap.get(item.pk);
-			}
-
-			if(state!=null)
-				state.notifyUsed();
-		}
+			state = cachlet.get(item.pk);
 		else
 			state = null;
 		
@@ -219,6 +210,20 @@ final class ItemCache
 		{
 			this.mapSizeLimit = mapSizeLimit;
 			this.stateMap = new TIntObjectHashMap<PersistentState>();
+		}
+		
+		PersistentState get(final int pk)
+		{
+			final PersistentState result;
+			synchronized(stateMap)
+			{
+				result = stateMap.get(pk);
+			}
+
+			if(result!=null)
+				result.notifyUsed();
+
+			return result;
 		}
 	}
 }
