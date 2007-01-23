@@ -57,7 +57,7 @@ public final class Model
 	private Properties propertiesIfConnected;
 	private final Object propertiesLock = new Object();
 	private Database databaseIfConnected;
-	private Cache cacheIfConnected;
+	private ItemCache cacheIfConnected;
 	private QueryCache queryCacheIfConnected;
 	private final Object migrationLock = new Object();
 	private boolean logTransactions = false;
@@ -285,7 +285,7 @@ public final class Model
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = properties;
-				this.cacheIfConnected = new Cache(cacheMapSizeLimits);
+				this.cacheIfConnected = new ItemCache(cacheMapSizeLimits);
 				this.queryCacheIfConnected = new QueryCache(p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
@@ -404,7 +404,7 @@ public final class Model
 		return databaseIfConnected;
 	}
 	
-	Cache getCache()
+	ItemCache getCache()
 	{
 		if(cacheIfConnected==null)
 			throw new IllegalStateException("model not yet connected, use connect(Properties)");

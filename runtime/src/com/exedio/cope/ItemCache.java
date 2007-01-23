@@ -25,13 +25,13 @@ import gnu.trove.TIntObjectIterator;
 
 import com.exedio.cope.util.CacheInfo;
 
-final class Cache
+final class ItemCache
 {
 	private final int[] mapSizeLimits;
 	private final TIntObjectHashMap<PersistentState>[] stateMaps;
 	private final int[] hits, misses;
 	
-	Cache(final int[] mapSizeLimits)
+	ItemCache(final int[] mapSizeLimits)
 	{
 		this.mapSizeLimits = mapSizeLimits;
 		final int numberOfConcreteTypes = mapSizeLimits.length;
