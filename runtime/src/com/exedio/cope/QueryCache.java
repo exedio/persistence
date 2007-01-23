@@ -34,7 +34,7 @@ import com.exedio.cope.util.CacheQueryInfo;
 final class QueryCache
 {
 	private final LRUMap<Query.Key, ArrayList<Object>> queries;
-	private volatile int hits = 0, queryMisses = 0;
+	private volatile int hits = 0, misses = 0;
 	private final boolean histogram;
 
 	QueryCache(final int limit, final boolean histogram)
@@ -63,7 +63,7 @@ final class QueryCache
 			{
 				queries.put(key, result);
 			}
-			queryMisses++;
+			misses++;
 		}
 		else
 		{
@@ -148,7 +148,7 @@ final class QueryCache
 		else
 			queriesInCache = 0;
 		
-		return new int[]{hits, queryMisses, queriesInCache};
+		return new int[]{hits, misses, queriesInCache};
 	}
 	
 	CacheQueryInfo[] getQueryHistogram()
