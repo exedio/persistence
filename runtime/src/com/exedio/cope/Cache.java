@@ -192,17 +192,17 @@ final class Cache
 	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
-		for(int transientTypeNumber=0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
-			final TIntHashSet invalidatedPKs = invalidations[transientTypeNumber];
+			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];
 			if(invalidatedPKs!=null)
-				invalidate(transientTypeNumber, invalidatedPKs);
+				invalidate(typeTransiently, invalidatedPKs);
 		}
 	}
 	
-	private void invalidate(final int transientTypeNumber, final TIntHashSet invalidatedPKs)
+	private void invalidate(final int typeTransiently, final TIntHashSet invalidatedPKs)
 	{
-		final TIntObjectHashMap<PersistentState> stateMap = stateMaps[transientTypeNumber];
+		final TIntObjectHashMap<PersistentState> stateMap = stateMaps[typeTransiently];
 		if(stateMap!=null)
 		{
 			synchronized ( stateMap )
@@ -221,7 +221,7 @@ final class Cache
 					final Query.Key key = keys.next();
 					for(final int t : key.invalidationTypesTransiently)
 					{
-						if(t==transientTypeNumber)
+						if(t==typeTransiently)
 						{
 							keys.remove();
 							break;
