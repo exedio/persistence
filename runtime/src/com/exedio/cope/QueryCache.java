@@ -33,35 +33,35 @@ import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCache
 {
-	private final LRUMap<Query.Key, ArrayList<Object>> content;
+	private final LRUMap<Query.Key, ArrayList<Object>> map;
 	private volatile int hits = 0, misses = 0;
 	private final boolean histogram;
 
 	QueryCache(final int limit, final boolean histogram)
 	{
-		this.content = limit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(limit) : null;
+		this.map = limit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(limit) : null;
 		this.histogram = histogram;
 	}
 	
 	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean doCountOnly)
 	{
-		if(content==null)
+		if(map==null)
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		final Query.Key key = new Query.Key(query, doCountOnly);
 		ArrayList<Object> result;
-		synchronized(content)
+		synchronized(map)
 		{
-			result = content.get(key);
+			result = map.get(key);
 		}
 		if ( result==null )
 		{
 			result = query.searchUncached(transaction, doCountOnly);
 			key.prepareForPut(query);
-			synchronized(content)
+			synchronized(map)
 			{
-				content.put(key, result);
+				map.put(key, result);
 			}
 			misses++;
 		}
@@ -70,9 +70,9 @@ final class QueryCache
 			if(histogram || query.makeStatementInfo)
 			{
 				final Query.Key originalKey;
-				synchronized(content)
+				synchronized(map)
 				{
-					originalKey = content.getKeyIfHackSucceeded(key);
+					originalKey = map.getKeyIfHackSucceeded(key);
 				}
 				if(originalKey!=null)
 					originalKey.hits++;
@@ -88,7 +88,7 @@ final class QueryCache
 	
 	boolean supportsQueryCaching()
 	{
-		return content!=null;
+		return map!=null;
 	}
 	
 	void invalidate(final TIntHashSet[] invalidations)
@@ -99,13 +99,13 @@ final class QueryCache
 			if(invalidations[typeTransiently]!=null)
 				invalidatedTypesTransientlyList.add(typeTransiently);
 		
-		if(content!=null && !invalidatedTypesTransientlyList.isEmpty())
+		if(map!=null && !invalidatedTypesTransientlyList.isEmpty())
 		{
 			final int[] invalidatedTypesTransiently = invalidatedTypesTransientlyList.toNativeArray();
 			
-			synchronized(content)
+			synchronized(map)
 			{
-				final Iterator<Query.Key> keys = content.keySet().iterator();
+				final Iterator<Query.Key> keys = map.keySet().iterator();
 				while(keys.hasNext())
 				{
 					final Query.Key key = keys.next();
@@ -125,11 +125,11 @@ final class QueryCache
 	
 	void clear()
 	{
-		if(content!=null)
+		if(map!=null)
 		{
-			synchronized(content)
+			synchronized(map)
 			{
-				content.clear();
+				map.clear();
 			}
 		}
 	}
@@ -138,11 +138,11 @@ final class QueryCache
 	{
 		final int queriesInCache;
 		
-		if(content!=null)
+		if(map!=null)
 		{
-			synchronized(content)
+			synchronized(map)
 			{
-				queriesInCache = content.size();
+				queriesInCache = map.size();
 			}
 		}
 		else
@@ -153,15 +153,15 @@ final class QueryCache
 	
 	CacheQueryInfo[] getQueryHistogram()
 	{
-		if(content==null)
+		if(map==null)
 			return new CacheQueryInfo[0];
 		
 		final Query.Key[] keys;
 		final ArrayList[] values;
-		synchronized(content)
+		synchronized(map)
 		{
-			keys = content.keySet().toArray(new Query.Key[content.size()]);
-			values = content.values().toArray(new ArrayList[content.size()]);
+			keys = map.keySet().toArray(new Query.Key[map.size()]);
+			values = map.values().toArray(new ArrayList[map.size()]);
 		}
 
 		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
