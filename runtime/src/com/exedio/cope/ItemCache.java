@@ -49,25 +49,12 @@ final class ItemCache
 		if(cachlet!=null)
 			state = cachlet.get(item.pk);
 		
-		boolean hit = true;
-		
 		if ( state==null )
 		{
 			state = new PersistentState( connectionSource.getConnection(), item );
 
 			if(cachlet!=null)
-			{
 				cachlet.put(state, item);
-			}
-			hit = false;
-		}
-		
-		if(cachlet!=null)
-		{
-			if(hit)
-				cachlet.hits++;
-			else
-				cachlet.misses++;
 		}
 		
 		return state;
@@ -175,7 +162,12 @@ final class ItemCache
 			}
 
 			if(result!=null)
+			{
 				result.notifyUsed();
+				hits++;
+			}
+			else
+				misses++;
 
 			return result;
 		}
