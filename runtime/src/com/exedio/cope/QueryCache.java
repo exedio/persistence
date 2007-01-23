@@ -35,12 +35,12 @@ final class QueryCache
 {
 	private final LRUMap<Query.Key, ArrayList<Object>> queries;
 	private volatile int queryHits = 0, queryMisses = 0;
-	private final boolean queryHistogram;
+	private final boolean histogram;
 
-	QueryCache(final int limit, final boolean queryHistogram)
+	QueryCache(final int limit, final boolean histogram)
 	{
 		this.queries = limit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(limit) : null;
-		this.queryHistogram = queryHistogram;
+		this.histogram = histogram;
 	}
 	
 	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean doCountOnly)
@@ -67,7 +67,7 @@ final class QueryCache
 		}
 		else
 		{
-			if(queryHistogram || query.makeStatementInfo)
+			if(histogram || query.makeStatementInfo)
 			{
 				final Query.Key originalKey;
 				synchronized(queries)
