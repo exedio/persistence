@@ -56,7 +56,7 @@ abstract class ConsoleCop extends Cop
 				new DatabaseLogCop(),
 				new ConnectionStatsCop(),
 				new ItemCacheCop(),
-				new QueryCacheStatsCop(),
+				new QueryCacheCop(),
 				new PrimaryKeysCop(),
 				new MediaStatsCop(),
 				new VmCop(false),
@@ -136,7 +136,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_CACHE_STATS.equals(tab))
 			return new ItemCacheCop();
 		if(TAB_QUERY_CACHE_STATS.equals(tab))
-			return new QueryCacheStatsCop();
+			return new QueryCacheCop();
 		if(TAB_PRIMARY_KEY.equals(tab))
 			return new PrimaryKeysCop();
 		if(TAB_MEDIA_STATS.equals(tab))

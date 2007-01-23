@@ -373,7 +373,7 @@ final class Console_Jspm
 	}
 
 	final static void writeBody(
-			final QueryCacheStatsCop cop,
+			final QueryCacheCop cop,
 			final PrintStream out,
 			final int[] queryInfos,
 			final CacheQueryInfo[] queryHistogram,

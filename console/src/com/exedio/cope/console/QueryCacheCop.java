@@ -25,10 +25,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.CacheQueryInfo;
 
-final class QueryCacheStatsCop extends ConsoleCop
+final class QueryCacheCop extends ConsoleCop
 {
 
-	QueryCacheStatsCop()
+	QueryCacheCop()
 	{
 		super("query cache");
 		addParameter(TAB, TAB_QUERY_CACHE_STATS);
