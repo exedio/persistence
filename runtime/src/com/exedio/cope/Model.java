@@ -287,7 +287,7 @@ public final class Model
 				final int itemCacheLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(itemCacheLimits, itemCacheLimit);
 				final Properties p = properties;
-				this.itemCacheIfConnected = new ItemCache(itemCacheLimits);
+				this.itemCacheIfConnected = new ItemCache(concreteTypes, itemCacheLimits);
 				this.queryCacheIfConnected = new QueryCache(p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
@@ -655,7 +655,7 @@ public final class Model
 	
 	public CacheInfo[] getCacheInfo()
 	{
-		return getItemCache().getInfo(concreteTypes);
+		return getItemCache().getInfo();
 	}
 	
 	public int[] getCacheQueryInfo()

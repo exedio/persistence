@@ -31,12 +31,14 @@ final class ItemCache
 {
 	private final Cachlet[] cachlets;
 	
-	ItemCache(final int[] limits)
+	ItemCache(final Type[] types, final int[] limits)
 	{
+		assert types.length==limits.length;
+		
 		final int numberOfConcreteTypes = limits.length;
 		cachlets = new Cachlet[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
-			cachlets[i] = (limits[i]>0) ? new Cachlet(limits[i]) : null;
+			cachlets[i] = (limits[i]>0) ? new Cachlet(types[i], limits[i]) : null;
 	}
 	
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
@@ -52,7 +54,7 @@ final class ItemCache
 			state = new PersistentState( connectionSource.getConnection(), item );
 
 			if(cachlet!=null)
-				cachlet.put(state, item);
+				cachlet.put(state);
 		}
 		
 		return state;
@@ -81,17 +83,15 @@ final class ItemCache
 		}
 	}
 
-	CacheInfo[] getInfo(final Type[] concreteTypes)
+	CacheInfo[] getInfo()
 	{
-		assert concreteTypes.length==cachlets.length;
-		
 		final ArrayList<CacheInfo> result = new ArrayList<CacheInfo>(cachlets.length);
 		
 		for(int i = 0; i<cachlets.length; i++)
 		{
 			final Cachlet cachlet = cachlets[i];
 			if(cachlet!=null)
-				result.add(cachlet.getInfo(concreteTypes[i]));
+				result.add(cachlet.getInfo());
 		}
 		
 		return result.toArray(new CacheInfo[result.size()]);
@@ -99,12 +99,16 @@ final class ItemCache
 	
 	private static final class Cachlet
 	{
+		private final Type type;
 		private final int limit;
 		private final TIntObjectHashMap<PersistentState> map;
 		private volatile int hits = 0, misses = 0;
 
-		Cachlet(final int limit)
+		Cachlet(final Type type, final int limit)
 		{
+			assert !type.isAbstract;
+			
+			this.type = type;
 			this.limit = limit;
 			this.map = new TIntObjectHashMap<PersistentState>();
 		}
@@ -128,13 +132,13 @@ final class ItemCache
 			return result;
 		}
 		
-		void put(final PersistentState state, final Item item)
+		void put(final PersistentState state)
 		{
 			final Object oldValue;
 			final int mapSize, newMapSize;
 			synchronized(map)
 			{
-				oldValue = map.put(item.pk, state);
+				oldValue = map.put(state.pk, state);
 
 				// TODO use a LRU map instead
 				mapSize = map.size();
@@ -168,10 +172,10 @@ final class ItemCache
 			
 			// logging must be outside synchronized block
 			if(newMapSize>=0)
-				System.out.println("cope cache cleanup "+item.type.id+": "+mapSize+"->"+newMapSize);
+				System.out.println("cope cache cleanup " + type + ": " + mapSize + "->" + newMapSize);
 			
 			if(oldValue!=null)
-				System.out.println("warning: duplicate computation of state "+item.getCopeID());
+				System.out.println("warning: duplicate computation of state " + type + '.' + state.pk);
 		}
 		
 		void invalidate(final TIntHashSet invalidatedPKs)
@@ -192,7 +196,7 @@ final class ItemCache
 			}
 		}
 		
-		CacheInfo getInfo(final Type type)
+		CacheInfo getInfo()
 		{
 			final long now = System.currentTimeMillis();
 			final int numberOfItemsInCache;
