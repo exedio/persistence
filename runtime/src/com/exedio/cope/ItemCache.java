@@ -31,12 +31,12 @@ final class ItemCache
 {
 	private final Cachlet[] cachlets;
 	
-	ItemCache(final int[] mapSizeLimits)
+	ItemCache(final int[] limits)
 	{
-		final int numberOfConcreteTypes = mapSizeLimits.length;
+		final int numberOfConcreteTypes = limits.length;
 		cachlets = new Cachlet[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
-			cachlets[i] = (mapSizeLimits[i]>0) ? new Cachlet(mapSizeLimits[i]) : null;
+			cachlets[i] = (limits[i]>0) ? new Cachlet(limits[i]) : null;
 	}
 	
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
@@ -99,13 +99,13 @@ final class ItemCache
 	
 	private static final class Cachlet
 	{
-		private final int mapSizeLimit;
+		private final int limit;
 		private final TIntObjectHashMap<PersistentState> stateMap;
 		private volatile int hits = 0, misses = 0;
 
-		Cachlet(final int mapSizeLimit)
+		Cachlet(final int limit)
 		{
-			this.mapSizeLimit = mapSizeLimit;
+			this.limit = limit;
 			this.stateMap = new TIntObjectHashMap<PersistentState>();
 		}
 		
@@ -138,7 +138,7 @@ final class ItemCache
 
 				// TODO use a LRU map instead
 				mapSize = stateMap.size();
-				if(mapSize>=mapSizeLimit)
+				if(mapSize>=limit)
 				{
 					final long now = System.currentTimeMillis();
 					long ageSum = 0;
@@ -150,7 +150,7 @@ final class ItemCache
 						ageSum+=(now-currentLastUsage);
 					}
 					final long age = ageSum / mapSize;
-					final long ageLimit = (mapSizeLimit * age) / mapSize;
+					final long ageLimit = (limit * age) / mapSize;
 					final long timeLimit = now-ageLimit;
 					for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
 					{
@@ -220,7 +220,7 @@ final class ItemCache
 			if(ageMin==Integer.MAX_VALUE)
 				ageMin = 0;
 
-			return new CacheInfo(type, mapSizeLimit, numberOfItemsInCache, hits, misses, ageSum, ageMin, ageMax);
+			return new CacheInfo(type, limit, numberOfItemsInCache, hits, misses, ageSum, ageMin, ageMax);
 		}
 	}
 }

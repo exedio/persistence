@@ -283,11 +283,11 @@ public final class Model
 				for(final Type type : typesSorted)
 					type.connect(databaseIfConnected);
 				
-				final int[] cacheMapSizeLimits = new int[concreteTypeCount];
-				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
-				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
+				final int[] itemCacheLimits = new int[concreteTypeCount];
+				final int itemCacheLimit = properties.getCacheLimit() / concreteTypeCount;
+				Arrays.fill(itemCacheLimits, itemCacheLimit);
 				final Properties p = properties;
-				this.itemCacheIfConnected = new ItemCache(cacheMapSizeLimits);
+				this.itemCacheIfConnected = new ItemCache(itemCacheLimits);
 				this.queryCacheIfConnected = new QueryCache(p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
