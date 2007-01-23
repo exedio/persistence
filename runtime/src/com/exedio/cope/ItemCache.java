@@ -100,21 +100,21 @@ final class ItemCache
 	private static final class Cachlet
 	{
 		private final int limit;
-		private final TIntObjectHashMap<PersistentState> stateMap;
+		private final TIntObjectHashMap<PersistentState> map;
 		private volatile int hits = 0, misses = 0;
 
 		Cachlet(final int limit)
 		{
 			this.limit = limit;
-			this.stateMap = new TIntObjectHashMap<PersistentState>();
+			this.map = new TIntObjectHashMap<PersistentState>();
 		}
 		
 		PersistentState get(final int pk)
 		{
 			final PersistentState result;
-			synchronized(stateMap)
+			synchronized(map)
 			{
-				result = stateMap.get(pk);
+				result = map.get(pk);
 			}
 
 			if(result!=null)
@@ -132,17 +132,17 @@ final class ItemCache
 		{
 			final Object oldValue;
 			final int mapSize, newMapSize;
-			synchronized(stateMap)
+			synchronized(map)
 			{
-				oldValue = stateMap.put(item.pk, state);
+				oldValue = map.put(item.pk, state);
 
 				// TODO use a LRU map instead
-				mapSize = stateMap.size();
+				mapSize = map.size();
 				if(mapSize>=limit)
 				{
 					final long now = System.currentTimeMillis();
 					long ageSum = 0;
-					for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
+					for(TIntObjectIterator<PersistentState> i = map.iterator(); i.hasNext(); )
 					{
 						i.advance();
 						final PersistentState currentState = i.value();
@@ -152,7 +152,7 @@ final class ItemCache
 					final long age = ageSum / mapSize;
 					final long ageLimit = (limit * age) / mapSize;
 					final long timeLimit = now-ageLimit;
-					for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
+					for(TIntObjectIterator<PersistentState> i = map.iterator(); i.hasNext(); )
 					{
 						i.advance();
 						final PersistentState currentState = i.value();
@@ -160,7 +160,7 @@ final class ItemCache
 						if(timeLimit>currentLastUsage)
 							i.remove();
 					}
-					newMapSize = stateMap.size();
+					newMapSize = map.size();
 				}
 				else
 					newMapSize = -1;
@@ -176,19 +176,19 @@ final class ItemCache
 		
 		void invalidate(final TIntHashSet invalidatedPKs)
 		{
-			synchronized(stateMap)
+			synchronized(map)
 			{
 				// TODO implement and use a removeAll
 				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
-					stateMap.remove(i.next());
+					map.remove(i.next());
 			}
 		}
 		
 		void clear()
 		{
-			synchronized(stateMap)
+			synchronized(map)
 			{
-				stateMap.clear();
+				map.clear();
 			}
 		}
 		
@@ -200,10 +200,10 @@ final class ItemCache
 			long ageMin = Long.MAX_VALUE;
 			long ageMax = 0;
 
-			synchronized(stateMap)
+			synchronized(map)
 			{
-				numberOfItemsInCache = stateMap.size();
-				for(final TIntObjectIterator<PersistentState> stateMapI = stateMap.iterator(); stateMapI.hasNext(); )
+				numberOfItemsInCache = map.size();
+				for(final TIntObjectIterator<PersistentState> stateMapI = map.iterator(); stateMapI.hasNext(); )
 				{
 					stateMapI.advance();
 					final PersistentState currentState = stateMapI.value();
