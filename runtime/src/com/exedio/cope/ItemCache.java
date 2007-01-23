@@ -199,14 +199,14 @@ final class ItemCache
 		CacheInfo getInfo()
 		{
 			final long now = System.currentTimeMillis();
-			final int numberOfItemsInCache;
+			final int level;
 			long ageSum = 0;
 			long ageMin = Long.MAX_VALUE;
 			long ageMax = 0;
 
 			synchronized(map)
 			{
-				numberOfItemsInCache = map.size();
+				level = map.size();
 				for(final TIntObjectIterator<PersistentState> stateMapI = map.iterator(); stateMapI.hasNext(); )
 				{
 					stateMapI.advance();
@@ -224,7 +224,7 @@ final class ItemCache
 			if(ageMin==Integer.MAX_VALUE)
 				ageMin = 0;
 
-			return new CacheInfo(type, limit, numberOfItemsInCache, hits, misses, ageSum, ageMin, ageMax);
+			return new CacheInfo(type, limit, level, hits, misses, ageSum, ageMin, ageMax);
 		}
 	}
 }

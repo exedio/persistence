@@ -39,8 +39,8 @@ final class ItemCacheCop extends ConsoleCop
 	{
 		final CacheInfo[] infos = model.getItemCacheInfo();
 		
-		int allMapSizeLimit = 0;
-		int allNumberOfItemsInCache = 0;
+		int allLimit = 0;
+		int allLevel = 0;
 		int allHits = 0;
 		int allMisses = 0;
 		long allNum = 0;
@@ -50,12 +50,12 @@ final class ItemCacheCop extends ConsoleCop
 		
 		for(final CacheInfo info : infos)
 		{
-			allMapSizeLimit += info.getMapSizeLimit();
-			allNumberOfItemsInCache += info.getNumberOfItemsInCache();
+			allLimit += info.getLimit();
+			allLevel += info.getLevel();
 			allHits += info.getHits();
 			allMisses += info.getMisses();
 
-			if(info.getNumberOfItemsInCache()>0)
+			if(info.getLevel()>0)
 			{
 				allNum++;
 
@@ -72,7 +72,7 @@ final class ItemCacheCop extends ConsoleCop
 		}
 		
 		Console_Jspm.writeBody(this, out,
-				allMapSizeLimit, allNumberOfItemsInCache,
+				allLimit, allLevel,
 				allHits, allMisses,
 				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,
 				allNum>0 ? allSumAgeAverageMillis/allNum : 0,

@@ -307,8 +307,8 @@ final class Console_Jspm
 	final static void writeBody(
 			final ItemCacheCop cop,
 			final PrintStream out,
-			final int allMapSizeLimit,
-			final int allNumberOfItemsInCache,
+			final int allLimit,
+			final int allLevel,
 			final int allHits,
 			final int allMisses,
 			final long allAgeMinMillis,
@@ -317,8 +317,8 @@ final class Console_Jspm
 			final CacheInfo[] infos)
 	{
 		final String[] names = {
-			"Max Number Of Items In Cache",
-			"Number Of Items In Cache",
+			"Limit",
+			"Level",
 			"Hits",
 			"Misses",
 			"Age Min (s)",
@@ -337,8 +337,8 @@ final class Console_Jspm
 			</tr>
 			<tr><%
 				final int[] allData = {
-						hide(0, allMapSizeLimit),
-						hide(0, allNumberOfItemsInCache),
+						hide(0, allLimit),
+						hide(0, allLevel),
 						hide(0, allHits),
 						hide(0, allMisses),
 						hide(0, (int)(allAgeMinMillis/1000l)),
@@ -353,8 +353,8 @@ final class Console_Jspm
 			{
 				final CacheInfo info = infos[i];
 				final int[] data = {
-						hide(0, info.getMapSizeLimit()),
-						hide(0, info.getNumberOfItemsInCache()),
+						hide(0, info.getLimit()),
+						hide(0, info.getLevel()),
 						hide(0, info.getHits()),
 						hide(0, info.getMisses()),
 						hide(0, info.getAgeMinMillis()!=Long.MAX_VALUE ? ((int)(info.getAgeMinMillis()/1000l)) : 0),
@@ -391,7 +391,7 @@ final class Console_Jspm
 			<tr><th class="caption" colspan="3">Query Cache Statistics</th></tr>
 			<tr><th colspan="2">Hits</th><td><%=queryInfos[0]%></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=queryInfos[1]%></td></tr>
-			<tr><th colspan="2">Queries in Cache</th><td><%=queryInfos[2]%></td></tr><%
+			<tr><th colspan="2">Level</th><td><%=queryInfos[2]%></td></tr><%
 			if(queryHistogram.length>0)
 			{
 			%>

@@ -23,8 +23,8 @@ import com.exedio.cope.Type;
 public final class CacheInfo
 {
 	private final Type type;
-	private final int mapSizeLimit;
-	private final int numberOfItemsInCache;
+	private final int limit;
+	private final int level;
 	private final int hits;
 	private final int misses;
 	private final long ageSum;
@@ -33,14 +33,14 @@ public final class CacheInfo
 	
 	public CacheInfo(
 			final Type type,
-			final int mapSizeLimit,
-			final int numberOfItemsInCache,
+			final int limit,
+			final int level,
 			final int hits, final int misses,
 			final long ageSum, final long ageMin, final long ageMax)
 	{
 		this.type = type;
-		this.mapSizeLimit = mapSizeLimit;
-		this.numberOfItemsInCache = numberOfItemsInCache;
+		this.limit = limit;
+		this.level = level;
 		this.hits = hits;
 		this.misses = misses;
 		this.ageSum = ageSum;
@@ -53,14 +53,14 @@ public final class CacheInfo
 		return type;
 	}
 
-	public int getMapSizeLimit()
+	public int getLimit()
 	{
-		return mapSizeLimit;
+		return limit;
 	}
 
-	public int getNumberOfItemsInCache()
+	public int getLevel()
 	{
-		return numberOfItemsInCache;
+		return level;
 	}
 
 	public int getHits()
@@ -75,7 +75,7 @@ public final class CacheInfo
 	
 	public long getAgeAverageMillis()
 	{
-		return (numberOfItemsInCache!=0) ? (ageSum / numberOfItemsInCache) : 0l;
+		return (level!=0) ? (ageSum / level) : 0l;
 	}
 	
 	public long getAgeMinMillis()
