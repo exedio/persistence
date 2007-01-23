@@ -219,7 +219,7 @@ final class Cache
 				while ( keys.hasNext() )
 				{
 					final Query.Key key = keys.next();
-					for(final Type t : key.types)
+					for(final Type t : key.invalidationTypes)
 					{
 						if(t.transientNumber==transientTypeNumber)
 						{

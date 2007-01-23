@@ -576,7 +576,7 @@ public final class Query<R>
 	static final class Key
 	{
 		private final byte[] text;
-		Type[] types = null;
+		Type[] invalidationTypes = null;
 		volatile int hits = 0;
 		
 		private static final String CHARSET = "utf8";
@@ -599,7 +599,7 @@ public final class Query<R>
 		 */
 		void prepareForPut(final Query<? extends Object> query)
 		{
-			assert this.types==null;
+			assert this.invalidationTypes==null;
 			
 			final ArrayList<Join> joins = query.joins;
 			final HashSet<Type<?>> typeSet = new HashSet<Type<?>>();
@@ -609,7 +609,7 @@ public final class Query<R>
 				for(final Join join : joins)
 					typeSet.addAll(join.type.getTypesOfInstances());
 			}
-			this.types = typeSet.toArray(new Type[typeSet.size()]);
+			this.invalidationTypes = typeSet.toArray(new Type[typeSet.size()]);
 		}
 		
 		@Override
