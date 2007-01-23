@@ -681,9 +681,18 @@ public final class Model
 		return getQueryCacheInfo();
 	}
 	
-	public CacheQueryInfo[] getCacheQueryHistogram()
+	public CacheQueryInfo[] getQueryCacheHistogram()
 	{
 		return getQueryCache().getHistogram();
+	}
+
+	/**
+	 * @deprecated renamed to {@link #getQueryCacheHistogram()}.
+	 */
+	@Deprecated
+	public CacheQueryInfo[] getCacheQueryHistogram()
+	{
+		return getQueryCacheHistogram();
 	}
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()

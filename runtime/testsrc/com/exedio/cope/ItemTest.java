@@ -143,7 +143,7 @@ public class ItemTest extends TestmodelTest
 		}
 		assertNotNull(model.getItemCacheInfo());
 		assertNotNull(model.getQueryCacheInfo());
-		assertNotNull(model.getCacheQueryHistogram());
+		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 	}

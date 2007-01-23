@@ -105,7 +105,7 @@ public class QueryCacheTest extends AbstractLibTest
 
 	private List<CacheQueryInfo> cqi()
 	{
-		return Arrays.asList(model.getCacheQueryHistogram());
+		return Arrays.asList(model.getQueryCacheHistogram());
 	}
 
 	private SC sc(final Query query, final boolean doCountOnly)

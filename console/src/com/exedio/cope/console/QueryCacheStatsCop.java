@@ -37,7 +37,7 @@ final class QueryCacheStatsCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		final CacheQueryInfo[] histogram = model.getCacheQueryHistogram();
+		final CacheQueryInfo[] histogram = model.getQueryCacheHistogram();
 		
 		int sumKeyLength = 0;
 		int maxKeyLength = 0;
