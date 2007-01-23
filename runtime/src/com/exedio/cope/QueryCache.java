@@ -37,9 +37,9 @@ final class QueryCache
 	private volatile int queryHits = 0, queryMisses = 0;
 	private final boolean queryHistogram;
 
-	QueryCache(final int queryCacheSizeLimit, final boolean queryHistogram)
+	QueryCache(final int limit, final boolean queryHistogram)
 	{
-		this.queries = queryCacheSizeLimit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(queryCacheSizeLimit) : null;
+		this.queries = limit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(limit) : null;
 		this.queryHistogram = queryHistogram;
 	}
 	
