@@ -53,11 +53,17 @@ public final class CacheInfo
 		return type;
 	}
 
+	/**
+	 * Returns the maximum number of items in the cache.
+	 */
 	public int getLimit()
 	{
 		return limit;
 	}
 
+	/**
+	 * Returns the current number of items in the cache.
+	 */
 	public int getLevel()
 	{
 		return level;
