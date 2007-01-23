@@ -25,10 +25,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.CacheInfo;
 
-final class CacheStatsCop extends ConsoleCop
+final class ItemCacheCop extends ConsoleCop
 {
 
-	CacheStatsCop()
+	ItemCacheCop()
 	{
 		super("cache");
 		addParameter(TAB, TAB_CACHE_STATS);
