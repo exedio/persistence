@@ -60,7 +60,7 @@ final class Cache
 	
 	private TIntObjectHashMap<PersistentState> getStateMap(final Type type)
 	{
-		return stateMaps[type.transientNumber];
+		return stateMaps[type.idTransiently];
 	}
 	
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
@@ -88,7 +88,7 @@ final class Cache
 
 			if(stateMap!=null)
 			{
-				final int mapSizeLimit = mapSizeLimits[item.type.transientNumber];
+				final int mapSizeLimit = mapSizeLimits[item.type.idTransiently];
 				final Object oldValue;
 				final int mapSize, newMapSize;
 				synchronized (stateMap)
@@ -137,7 +137,7 @@ final class Cache
 			hit = false;
 		}
 		
-		(hit ? hits : misses)[item.type.transientNumber]++;
+		(hit ? hits : misses)[item.type.idTransiently]++;
 		
 		return state;
 	}

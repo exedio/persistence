@@ -37,8 +37,9 @@ public final class Transaction
 	final Model model;
 	final Database database;
 	final String name;
+	
 	/**
-	 *	index in array is {@link Type#transientNumber transient type number};
+	 * index in array is {@link Type#idTransiently};
 	 * value in array is a map, where the keys are {@link Item#pk item pks}
 	 * and the values are {@link Entity}s
 	 */
@@ -110,11 +111,11 @@ public final class Transaction
 		final Type type = item.type;
 		final int pk = item.pk;
 
-		TIntObjectHashMap<Entity> entityMap = entityMaps[type.transientNumber];
+		TIntObjectHashMap<Entity> entityMap = entityMaps[type.idTransiently];
 		if(entityMap==null)
 		{
 			entityMap = new TIntObjectHashMap<Entity>();
-			entityMaps[type.transientNumber] = entityMap;
+			entityMaps[type.idTransiently] = entityMap;
 		}
 
 		Entity result = entityMap.get(pk);
@@ -152,7 +153,7 @@ public final class Transaction
 	
 	void removeEntity(final Item item)
 	{
-		final TIntObjectHashMap<Entity> entityMap = entityMaps[item.type.transientNumber];
+		final TIntObjectHashMap<Entity> entityMap = entityMaps[item.type.idTransiently];
 		if(entityMap!=null)
 		{
 			entityMap.remove( item.pk );
@@ -198,7 +199,7 @@ public final class Transaction
 		
 		for(final Type<?> instanceType : type.getTypesOfInstances())
 		{
-			final TIntHashSet invalidationsForType = invalidations[instanceType.transientNumber];
+			final TIntHashSet invalidationsForType = invalidations[instanceType.idTransiently];
 			if(invalidationsForType!=null && !invalidationsForType.isEmpty())
 				return true;
 		}
@@ -208,13 +209,13 @@ public final class Transaction
 	
 	private boolean isInvalidated( final Item item )
 	{
-		final TIntHashSet invalidationsForType = invalidations[item.type.transientNumber];
+		final TIntHashSet invalidationsForType = invalidations[item.type.idTransiently];
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
 	
 	void addInvalidation(final Item item)
 	{
-		final int typeTransientNumber = item.type.transientNumber;
+		final int typeTransientNumber = item.type.idTransiently;
 		TIntHashSet invalidationsForType = invalidations[typeTransientNumber];
 		if ( invalidationsForType==null )
 		{
@@ -228,7 +229,7 @@ public final class Transaction
 	{
 		assert !closed : name;
 
-		final TIntObjectHashMap<Entity> entityMap = entityMaps[type.transientNumber];
+		final TIntObjectHashMap<Entity> entityMap = entityMaps[type.idTransiently];
 		if(entityMap==null)
 			return null;
 		return entityMap.get(pk);

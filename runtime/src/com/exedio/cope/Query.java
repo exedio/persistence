@@ -606,12 +606,12 @@ public final class Query<R>
 			final ArrayList<Join> joins = query.joins;
 			final TIntHashSet typeSet = new TIntHashSet();
 			for(final Type<?> t : query.type.getTypesOfInstances())
-				typeSet.add(t.transientNumber);
+				typeSet.add(t.idTransiently);
 			if(joins!=null)
 			{
 				for(final Join join : joins)
 					for(final Type t : join.type.getTypesOfInstances())
-						typeSet.add(t.transientNumber);
+						typeSet.add(t.idTransiently);
 			}
 			this.invalidationTypesTransiently = typeSet.toArray();
 		}

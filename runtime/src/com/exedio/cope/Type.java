@@ -72,15 +72,15 @@ public final class Type<C extends Item>
 	private String[] typesOfInstancesColumnValues;
 	
 	/**
-	 * This number uniquely identifies a type within its model.
-	 * However, this number is not stable across JVM restarts.
-	 * So never put this number into any persistent storage,
-	 * nor otherwise make this number accessible outside the library.
+	 * This id uniquely identifies a type within its model.
+	 * However, this id is not stable across JVM restarts.
+	 * So never put this id into any persistent storage,
+	 * nor otherwise make this id accessible outside the library.
 	 * <p>
-	 * This number is negative for abstract types and positive
+	 * This id is negative for abstract types and positive
 	 * (including zero) for non-abstract types.
 	 */
-	int transientNumber = -1;
+	int idTransiently = -1;
 
 	private Table table;
 	private PkSource pkSource;
@@ -323,11 +323,11 @@ public final class Type<C extends Item>
 		referencesWhileInitialization.add(reference);
 	}
 	
-	void initialize(final Model model, final int transientNumber)
+	void initialize(final Model model, final int idTransiently)
 	{
 		if(model==null)
 			throw new RuntimeException();
-		assert (transientNumber<0) == isAbstract;
+		assert (idTransiently<0) == isAbstract;
 
 		if(this.model!=null)
 			throw new RuntimeException();
@@ -345,11 +345,11 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		if(this.pkSource!=null)
 			throw new RuntimeException();
-		if(this.transientNumber>=0)
+		if(this.idTransiently>=0)
 			throw new RuntimeException();
 		
 		this.model = model;
-		this.transientNumber = transientNumber;
+		this.idTransiently = idTransiently;
 		
 		final ArrayList<Type> subTypesTransitively = new ArrayList<Type>();
 		final ArrayList<Type> typesOfInstances = new ArrayList<Type>();
