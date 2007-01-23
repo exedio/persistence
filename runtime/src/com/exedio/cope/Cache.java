@@ -219,9 +219,9 @@ final class Cache
 				while ( keys.hasNext() )
 				{
 					final Query.Key key = keys.next();
-					for(final Type t : key.invalidationTypes)
+					for(final int t : key.invalidationTypesTransiently)
 					{
-						if(t.transientNumber==transientTypeNumber)
+						if(t==transientTypeNumber)
 						{
 							keys.remove();
 							break;

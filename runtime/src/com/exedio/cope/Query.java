@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntHashSet;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +37,7 @@ public final class Query<R>
 	final Model model;
 	final Selectable[] selects;
 	boolean distinct = false;
-	final Type type;
+	final Type<?> type;
 	private int joinIndex = 0;
 	ArrayList<Join> joins = null;
 	Condition condition;
@@ -576,7 +578,7 @@ public final class Query<R>
 	static final class Key
 	{
 		private final byte[] text;
-		Type[] invalidationTypes = null;
+		int[] invalidationTypesTransiently = null;
 		volatile int hits = 0;
 		
 		private static final String CHARSET = "utf8";
@@ -599,17 +601,19 @@ public final class Query<R>
 		 */
 		void prepareForPut(final Query<? extends Object> query)
 		{
-			assert this.invalidationTypes==null;
+			assert this.invalidationTypesTransiently==null;
 			
 			final ArrayList<Join> joins = query.joins;
-			final HashSet<Type<?>> typeSet = new HashSet<Type<?>>();
-			typeSet.addAll(query.type.getTypesOfInstances());
+			final TIntHashSet typeSet = new TIntHashSet();
+			for(final Type<?> t : query.type.getTypesOfInstances())
+				typeSet.add(t.transientNumber);
 			if(joins!=null)
 			{
 				for(final Join join : joins)
-					typeSet.addAll(join.type.getTypesOfInstances());
+					for(final Type t : join.type.getTypesOfInstances())
+						typeSet.add(t.transientNumber);
 			}
-			this.invalidationTypes = typeSet.toArray(new Type[typeSet.size()]);
+			this.invalidationTypesTransiently = typeSet.toArray();
 		}
 		
 		@Override

@@ -37,7 +37,7 @@ public final class Join
 	
 	final int index;
 	final Kind kind;
-	final Type type;
+	final Type<?> type;
 	Condition condition;
 	
 	Join(final int index, final Kind kind, final Type type, final Condition condition)
