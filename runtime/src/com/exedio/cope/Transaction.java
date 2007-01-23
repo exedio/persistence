@@ -315,16 +315,16 @@ public final class Transaction
 			{
 				ArrayList<Item> modifiedItems = null;
 				
-				for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+				for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
 				{
-					final TIntHashSet invalidationSet = invalidations[transientTypeNumber];
+					final TIntHashSet invalidationSet = invalidations[typeTransiently];
 					if(invalidationSet!=null)
 					{
 						if(modifiedItems==null)
 							modifiedItems = new ArrayList<Item>();
 						
 						for(TIntIterator i = invalidationSet.iterator(); i.hasNext(); )
-							modifiedItems.add(model.getConcreteType(transientTypeNumber).createItemObject(i.next()));
+							modifiedItems.add(model.getConcreteType(typeTransiently).createItemObject(i.next()));
 					}
 				}
 				
@@ -339,13 +339,13 @@ public final class Transaction
 		}
 
 		// cleanup
-		for(int transientTypeNumber = 0; transientTypeNumber<invalidations.length; transientTypeNumber++)
+		for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
 		{
-			final TIntHashSet invalidationSet = invalidations[transientTypeNumber];
+			final TIntHashSet invalidationSet = invalidations[typeTransiently];
 			if(invalidationSet!=null)
 			{
 				invalidationSet.clear();
-				invalidations[transientTypeNumber] = null;
+				invalidations[typeTransiently] = null;
 			}
 		}
 	}
