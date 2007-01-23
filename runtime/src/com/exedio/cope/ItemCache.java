@@ -77,12 +77,7 @@ final class ItemCache
 		for(final Cachlet cachlet : cachlets)
 		{
 			if(cachlet!=null)
-			{
-				synchronized(cachlet.stateMap)
-				{
-					cachlet.stateMap.clear();
-				}
-			}
+				cachlet.clear();
 		}
 	}
 
@@ -216,6 +211,14 @@ final class ItemCache
 				// TODO implement and use a removeAll
 				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
 					stateMap.remove(i.next());
+			}
+		}
+		
+		void clear()
+		{
+			synchronized(stateMap)
+			{
+				stateMap.clear();
 			}
 		}
 	}
