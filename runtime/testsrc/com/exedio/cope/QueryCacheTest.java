@@ -49,9 +49,9 @@ public class QueryCacheTest extends AbstractLibTest
 	public void testQueryCache()
 	{
 		// start new transaction, otherwise query cache will not work,
-		// because type is invalidated. 
-		model.commit();
-		model.startTransaction("QueryCacheTest");
+		// because type is invalidated.
+		restartTransaction();
+		
 		final boolean enabled = model.getProperties().getCacheQueryLimit()>0;
 		assertEquals(list(), cqi());
 		
