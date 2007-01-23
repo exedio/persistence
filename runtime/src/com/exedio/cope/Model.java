@@ -653,9 +653,18 @@ public final class Model
 		modificationListeners.remove(listener);
 	}
 	
-	public CacheInfo[] getCacheInfo()
+	public CacheInfo[] getItemCacheInfo()
 	{
 		return getItemCache().getInfo();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getItemCacheInfo()}.
+	 */
+	@Deprecated
+	public CacheInfo[] getCacheInfo()
+	{
+		return getItemCacheInfo();
 	}
 	
 	public int[] getCacheQueryInfo()

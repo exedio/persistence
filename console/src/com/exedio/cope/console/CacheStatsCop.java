@@ -37,7 +37,7 @@ final class CacheStatsCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		final CacheInfo[] infos = model.getCacheInfo();
+		final CacheInfo[] infos = model.getItemCacheInfo();
 		
 		int allMapSizeLimit = 0;
 		int allNumberOfItemsInCache = 0;
