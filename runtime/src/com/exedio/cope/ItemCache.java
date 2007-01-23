@@ -23,38 +23,31 @@ import gnu.trove.TIntIterator;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TIntObjectIterator;
 
+import java.util.ArrayList;
+
 import com.exedio.cope.util.CacheInfo;
 
 final class ItemCache
 {
-	private final int[] mapSizeLimits;
-	private final TIntObjectHashMap<PersistentState>[] stateMaps;
-	private final int[] hits, misses;
+	private final Cachlet[] cachlets;
 	
 	ItemCache(final int[] mapSizeLimits)
 	{
-		this.mapSizeLimits = mapSizeLimits;
 		final int numberOfConcreteTypes = mapSizeLimits.length;
-		stateMaps = Transaction.cast(new TIntObjectHashMap[numberOfConcreteTypes]);
+		cachlets = new Cachlet[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
 		{
-			stateMaps[i] = (mapSizeLimits[i]>0) ? new TIntObjectHashMap<PersistentState>() : null;
+			cachlets[i] = (mapSizeLimits[i]>0) ? new Cachlet(mapSizeLimits[i]) : null;
 		}
-		hits = new int[numberOfConcreteTypes];
-		misses = new int[numberOfConcreteTypes];
-	}
-	
-	private TIntObjectHashMap<PersistentState> getStateMap(final Type type)
-	{
-		return stateMaps[type.idTransiently];
 	}
 	
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
 	{
 		PersistentState state;
-		final TIntObjectHashMap<PersistentState> stateMap = getStateMap(item.type);
-		if(stateMap!=null)
+		final Cachlet cachlet = cachlets[item.type.idTransiently];
+		if(cachlet!=null)
 		{
+			final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
 			synchronized (stateMap)
 			{
 				state = stateMap.get(item.pk);
@@ -72,9 +65,10 @@ final class ItemCache
 		{
 			state = new PersistentState( connectionSource.getConnection(), item );
 
-			if(stateMap!=null)
+			if(cachlet!=null)
 			{
-				final int mapSizeLimit = mapSizeLimits[item.type.idTransiently];
+				final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
+				final int mapSizeLimit = cachlets[item.type.idTransiently].mapSizeLimit;
 				final Object oldValue;
 				final int mapSize, newMapSize;
 				synchronized (stateMap)
@@ -123,7 +117,13 @@ final class ItemCache
 			hit = false;
 		}
 		
-		(hit ? hits : misses)[item.type.idTransiently]++;
+		if(cachlet!=null)
+		{
+			if(hit)
+				cachlet.hits++;
+			else
+				cachlet.misses++;
+		}
 		
 		return state;
 	}
@@ -135,9 +135,10 @@ final class ItemCache
 			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];
 			if(invalidatedPKs!=null)
 			{
-				final TIntObjectHashMap<PersistentState> stateMap = stateMaps[typeTransiently];
-				if(stateMap!=null)
+				final Cachlet cachlet = cachlets[typeTransiently];
+				if(cachlet!=null)
 				{
+					final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
 					synchronized(stateMap)
 					{
 						for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
@@ -150,13 +151,13 @@ final class ItemCache
 	
 	void clear()
 	{
-		for(final TIntObjectHashMap<PersistentState> stateMap : stateMaps)
+		for(final Cachlet cachlet : cachlets)
 		{
-			if(stateMap!=null)
+			if(cachlet!=null)
 			{
-				synchronized ( stateMap )
+				synchronized(cachlet.stateMap)
 				{
-					stateMap.clear();
+					cachlet.stateMap.clear();
 				}
 			}
 		}
@@ -164,21 +165,22 @@ final class ItemCache
 
 	CacheInfo[] getInfo(final Type[] concreteTypes)
 	{
-		assert concreteTypes.length==stateMaps.length;
+		assert concreteTypes.length==cachlets.length;
 		
-		final CacheInfo[] result = new CacheInfo[stateMaps.length];
+		final ArrayList<CacheInfo> result = new ArrayList<CacheInfo>(cachlets.length);
 		
-		for(int i=0; i<stateMaps.length; i++)
+		for(int i = 0; i<cachlets.length; i++)
 		{
-			final long now = System.currentTimeMillis();
-			final int numberOfItemsInCache;
-			long ageSum = 0;
-			long ageMin = Long.MAX_VALUE;
-			long ageMax = 0;
-
-			final TIntObjectHashMap<PersistentState> stateMap = stateMaps[i];
-			if(stateMap!=null)
+			final Cachlet cachlet = cachlets[i];
+			if(cachlet!=null)
 			{
+				final long now = System.currentTimeMillis();
+				final int numberOfItemsInCache;
+				long ageSum = 0;
+				long ageMin = Long.MAX_VALUE;
+				long ageMax = 0;
+
+				final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
 				synchronized(stateMap)
 				{
 					numberOfItemsInCache = stateMap.size();
@@ -195,16 +197,28 @@ final class ItemCache
 							ageMax = age;
 					}
 				}
+				
+				if(ageMin==Integer.MAX_VALUE)
+					ageMin = 0;
+
+				result.add(new CacheInfo(concreteTypes[i], cachlet.mapSizeLimit, numberOfItemsInCache, cachlet.hits, cachlet.misses, ageSum, ageMin, ageMax));
 			}
-			else
-				numberOfItemsInCache = 0;
 			
-			if(ageMin==Integer.MAX_VALUE)
-				ageMin = 0;
-			
-			result[i] = new CacheInfo(concreteTypes[i], mapSizeLimits[i], numberOfItemsInCache, hits[i], misses[i], ageSum, ageMin, ageMax);
 		}
 		
-		return result;
+		return result.toArray(new CacheInfo[result.size()]);
+	}
+	
+	private static final class Cachlet
+	{
+		private final int mapSizeLimit;
+		private final TIntObjectHashMap<PersistentState> stateMap;
+		private volatile int hits = 0, misses = 0;
+
+		Cachlet(final int mapSizeLimit)
+		{
+			this.mapSizeLimit = mapSizeLimit;
+			this.stateMap = new TIntObjectHashMap<PersistentState>();
+		}
 	}
 }

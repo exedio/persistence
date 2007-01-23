@@ -57,7 +57,7 @@ public final class Transaction
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
-	static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
+	private static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
 	{
 		return o;
 	}
