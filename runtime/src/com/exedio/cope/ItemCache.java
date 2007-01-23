@@ -35,9 +35,9 @@ final class ItemCache
 	{
 		assert types.length==limits.length;
 		
-		final int numberOfConcreteTypes = limits.length;
-		cachlets = new Cachlet[numberOfConcreteTypes];
-		for(int i=0; i<numberOfConcreteTypes; i++)
+		final int l = limits.length;
+		cachlets = new Cachlet[l];
+		for(int i=0; i<l; i++)
 			cachlets[i] = (limits[i]>0) ? new Cachlet(types[i], limits[i]) : null;
 	}
 	
