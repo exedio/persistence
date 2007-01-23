@@ -375,6 +375,7 @@ final class Console_Jspm
 	final static void writeBody(
 			final QueryCacheCop cop,
 			final PrintStream out,
+			final int limit,
 			final int[] queryInfos,
 			final CacheQueryInfo[] queryHistogram,
 			final int sumKeyLength,
@@ -389,6 +390,7 @@ final class Console_Jspm
 		%>
 		<table>
 			<tr><th class="caption" colspan="3">Query Cache Statistics</th></tr>
+			<tr><th colspan="2">Limit</th><td><%=limit%></td></tr>
 			<tr><th colspan="2">Level</th><td><%=queryInfos[2]%></td></tr>
 			<tr><th colspan="2">Hits</th><td><%=queryInfos[0]%></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=queryInfos[1]%></td></tr><%

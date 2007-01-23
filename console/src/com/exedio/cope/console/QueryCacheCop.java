@@ -68,6 +68,7 @@ final class QueryCacheCop extends ConsoleCop
 		}
 		
 		Console_Jspm.writeBody(this, out,
+				model.getProperties().getCacheQueryLimit(),
 				model.getQueryCacheInfo(),
 				histogram,
 				sumKeyLength, maxKeyLength, minKeyLength,
