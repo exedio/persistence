@@ -58,52 +58,7 @@ final class ItemCache
 
 			if(cachlet!=null)
 			{
-				final TIntObjectHashMap<PersistentState> stateMap = cachlet.stateMap;
-				final int mapSizeLimit = cachlets[item.type.idTransiently].mapSizeLimit;
-				final Object oldValue;
-				final int mapSize, newMapSize;
-				synchronized (stateMap)
-				{
-					oldValue = stateMap.put( item.pk, state );
-
-					// TODO use a LRU map instead
-					mapSize = stateMap.size();
-					if(mapSize>=mapSizeLimit)
-					{
-						final long now = System.currentTimeMillis();
-						long ageSum = 0;
-						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
-						{
-							i.advance();
-							final PersistentState currentState = i.value();
-							final long currentLastUsage = currentState.getLastUsageMillis();
-							ageSum+=(now-currentLastUsage);
-						}
-						final long age = ageSum / mapSize;
-						final long ageLimit = (mapSizeLimit * age) / mapSize;
-						final long timeLimit = now-ageLimit;
-						for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
-						{
-							i.advance();
-							final PersistentState currentState = i.value();
-							final long currentLastUsage = currentState.getLastUsageMillis();
-							if(timeLimit>currentLastUsage)
-								i.remove();
-						}
-						newMapSize = stateMap.size();
-					}
-					else
-						newMapSize = -1;
-				}
-				
-				// logging must be outside synchronized block
-				if(newMapSize>=0)
-					System.out.println("cope cache cleanup "+item.type.id+": "+mapSize+"->"+newMapSize);
-				
-				if ( oldValue!=null )
-				{
-					System.out.println("warning: duplicate computation of state "+item.getCopeID());
-				}
+				cachlet.put(state, item);
 			}
 			hit = false;
 		}
@@ -224,6 +179,52 @@ final class ItemCache
 				result.notifyUsed();
 
 			return result;
+		}
+		
+		void put(final PersistentState state, final Item item)
+		{
+			final Object oldValue;
+			final int mapSize, newMapSize;
+			synchronized(stateMap)
+			{
+				oldValue = stateMap.put(item.pk, state);
+
+				// TODO use a LRU map instead
+				mapSize = stateMap.size();
+				if(mapSize>=mapSizeLimit)
+				{
+					final long now = System.currentTimeMillis();
+					long ageSum = 0;
+					for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
+					{
+						i.advance();
+						final PersistentState currentState = i.value();
+						final long currentLastUsage = currentState.getLastUsageMillis();
+						ageSum+=(now-currentLastUsage);
+					}
+					final long age = ageSum / mapSize;
+					final long ageLimit = (mapSizeLimit * age) / mapSize;
+					final long timeLimit = now-ageLimit;
+					for(TIntObjectIterator<PersistentState> i = stateMap.iterator(); i.hasNext(); )
+					{
+						i.advance();
+						final PersistentState currentState = i.value();
+						final long currentLastUsage = currentState.getLastUsageMillis();
+						if(timeLimit>currentLastUsage)
+							i.remove();
+					}
+					newMapSize = stateMap.size();
+				}
+				else
+					newMapSize = -1;
+			}
+			
+			// logging must be outside synchronized block
+			if(newMapSize>=0)
+				System.out.println("cope cache cleanup "+item.type.id+": "+mapSize+"->"+newMapSize);
+			
+			if(oldValue!=null)
+				System.out.println("warning: duplicate computation of state "+item.getCopeID());
 		}
 	}
 }
