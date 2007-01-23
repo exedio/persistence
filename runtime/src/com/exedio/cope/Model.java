@@ -665,7 +665,7 @@ public final class Model
 	
 	public CacheQueryInfo[] getCacheQueryHistogram()
 	{
-		return getQueryCache().getQueryHistogram();
+		return getQueryCache().getHistogram();
 	}
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()

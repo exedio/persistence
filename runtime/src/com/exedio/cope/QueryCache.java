@@ -151,7 +151,7 @@ final class QueryCache
 		return new int[]{hits, misses, size};
 	}
 	
-	CacheQueryInfo[] getQueryHistogram()
+	CacheQueryInfo[] getHistogram()
 	{
 		if(map==null)
 			return new CacheQueryInfo[0];
