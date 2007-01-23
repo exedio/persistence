@@ -130,7 +130,7 @@ public final class Transaction
 				}
 				else
 				{
-					state = model.getCache().getPersistentState( this, item );
+					state = model.getItemCache().getPersistentState(this, item);
 				}
 			}
 			else
@@ -304,7 +304,7 @@ public final class Transaction
 		// notify global cache
 		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
 		{
-			model.getCache().invalidate(invalidations);
+			model.getItemCache().invalidate(invalidations);
 			model.getQueryCache().invalidate(invalidations);
 		}
 

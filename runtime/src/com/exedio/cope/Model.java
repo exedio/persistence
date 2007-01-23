@@ -409,7 +409,7 @@ public final class Model
 		return databaseIfConnected;
 	}
 	
-	ItemCache getCache()
+	ItemCache getItemCache()
 	{
 		if(itemCacheIfConnected==null)
 			throw new IllegalStateException("model not yet connected, use connect(Properties)");
@@ -655,7 +655,7 @@ public final class Model
 	
 	public CacheInfo[] getCacheInfo()
 	{
-		return getCache().getInfo(concreteTypes);
+		return getItemCache().getInfo(concreteTypes);
 	}
 	
 	public int[] getCacheQueryInfo()
@@ -833,7 +833,7 @@ public final class Model
 	
 	public void clearCache()
 	{
-		getCache().clear();
+		getItemCache().clear();
 		getQueryCache().clear();
 	}
 	
