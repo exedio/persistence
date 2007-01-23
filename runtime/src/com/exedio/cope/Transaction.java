@@ -162,7 +162,7 @@ public final class Transaction
 	
 	ArrayList<Object> search(final Query<?> query, final boolean doCountOnly)
 	{
-		if(!model.getQueryCache().supportsQueryCaching() || isInvalidated(query))
+		if(!model.getQueryCache().isEnabled() || isInvalidated(query))
 		{
 			return query.searchUncached(this, doCountOnly);
 		}

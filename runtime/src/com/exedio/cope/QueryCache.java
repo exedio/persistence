@@ -86,7 +86,7 @@ final class QueryCache
 		return result;
 	}
 	
-	boolean supportsQueryCaching()
+	boolean isEnabled()
 	{
 		return map!=null;
 	}
