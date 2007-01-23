@@ -136,19 +136,19 @@ final class QueryCache
 	
 	int[] getQueryInfo()
 	{
-		final int queriesInCache;
+		final int size;
 		
 		if(map!=null)
 		{
 			synchronized(map)
 			{
-				queriesInCache = map.size();
+				size = map.size();
 			}
 		}
 		else
-			queriesInCache = 0;
+			size = 0;
 		
-		return new int[]{hits, misses, queriesInCache};
+		return new int[]{hits, misses, size};
 	}
 	
 	CacheQueryInfo[] getQueryHistogram()
