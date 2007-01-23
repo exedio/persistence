@@ -332,7 +332,7 @@ public class HierarchyTest extends AbstractLibTest
 		else
 			assertEquals(0, itemCacheInfo.length);
 		
-		assertNotNull(model.getCacheQueryInfo());
+		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getCacheQueryHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());

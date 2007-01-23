@@ -142,7 +142,7 @@ public class ItemTest extends TestmodelTest
 			model.createDatabaseConstraints(Constraint.MASK_CHECK);
 		}
 		assertNotNull(model.getItemCacheInfo());
-		assertNotNull(model.getCacheQueryInfo());
+		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getCacheQueryHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());

@@ -667,9 +667,18 @@ public final class Model
 		return getItemCacheInfo();
 	}
 	
-	public int[] getCacheQueryInfo()
+	public int[] getQueryCacheInfo()
 	{
 		return getQueryCache().getQueryInfo();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getQueryCacheInfo()}.
+	 */
+	@Deprecated
+	public int[] getCacheQueryInfo()
+	{
+		return getQueryCacheInfo();
 	}
 	
 	public CacheQueryInfo[] getCacheQueryHistogram()
