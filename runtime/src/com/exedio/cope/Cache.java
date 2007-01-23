@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TIntObjectHashMap;
@@ -192,6 +193,8 @@ final class Cache
 	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
+		final TIntArrayList invalidatedTypesTransientlyList = new TIntArrayList();
+
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
 			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];
@@ -206,22 +209,27 @@ final class Cache
 							stateMap.remove(i.next());
 					}
 				}
-				if(queries!=null)
+				invalidatedTypesTransientlyList.add(typeTransiently);
+			}
+		}
+		
+		if(queries!=null && !invalidatedTypesTransientlyList.isEmpty())
+		{
+			final int[] invalidatedTypesTransiently = invalidatedTypesTransientlyList.toNativeArray();
+			
+			synchronized(queries)
+			{
+				final Iterator<Query.Key> keys = queries.keySet().iterator();
+				while(keys.hasNext())
 				{
-					synchronized(queries)
+					final Query.Key key = keys.next();
+					query: for(final int queryTypeTransiently : key.invalidationTypesTransiently)
 					{
-						final Iterator<Query.Key> keys = queries.keySet().iterator();
-						while(keys.hasNext())
+						for(final int invalidatedTypeTransiently : invalidatedTypesTransiently)
+						if(queryTypeTransiently==invalidatedTypeTransiently)
 						{
-							final Query.Key key = keys.next();
-							for(final int t : key.invalidationTypesTransiently)
-							{
-								if(t==typeTransiently)
-								{
-									keys.remove();
-									break;
-								}
-							}
+							keys.remove();
+							break query;
 						}
 					}
 				}
