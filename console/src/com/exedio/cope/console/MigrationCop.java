@@ -71,6 +71,6 @@ final class MigrationCop extends ConsoleCop
 			Console_Jspm.writeBody(this, out, oldest, latest, current, migrationMap, logs);
 		}
 		else
-			Console_Jspm.writeBodyDisabled(this, out);
+			Console_Jspm.writeBody(this, out, 0, 0, 0, null, null);
 	}
 }

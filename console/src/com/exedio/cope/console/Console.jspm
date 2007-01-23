@@ -171,18 +171,6 @@ final class Console_Jspm
 		</form><%
 	}
 	
-	final static void writeBodyDisabled(
-			final MigrationCop cop,
-			final PrintStream out)
-	{
-		%>
-		Migrations are not enabled for this model.
-		<br>
-		Use <a
-			href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)"
-			target="_blank">migration constructor</a> to enable.<%
-	}
-	
 	final static void writeBody(
 			final MigrationCop cop,
 			final PrintStream out,
@@ -194,6 +182,8 @@ final class Console_Jspm
 		<table>
 			<tr><th class="caption" colspan="3">Migrations</th></tr>
 			<tr><th>version</th><th>declared</th><th>logged</th></tr><%
+			if(migrations!=null)
+			{
 			for(int v = latest; v>=oldest; v--)
 			{
 				final Migration migration = migrations.get(v);
@@ -206,6 +196,20 @@ final class Console_Jspm
 				%></td><td class="text"><%
 				if(log!=null){ %><%=log%><% } else { %>-<% }
 				%></td></tr><%
+			}
+			}
+			else
+			{
+			%>
+			<tr>
+				<td class="text" colspan="3">
+					Migrations are not enabled for this model.
+					<br>
+					Use <a
+						href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)"
+						target="_blank">migration constructor</a> to enable.
+				</td>
+			</td><%
 			}
 			%>
 		</table><%
