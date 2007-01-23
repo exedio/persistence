@@ -196,35 +196,32 @@ final class Cache
 		{
 			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];
 			if(invalidatedPKs!=null)
-				invalidate(typeTransiently, invalidatedPKs);
-		}
-	}
-	
-	private void invalidate(final int typeTransiently, final TIntHashSet invalidatedPKs)
-	{
-		final TIntObjectHashMap<PersistentState> stateMap = stateMaps[typeTransiently];
-		if(stateMap!=null)
-		{
-			synchronized ( stateMap )
 			{
-				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
-					stateMap.remove(i.next());
-			}
-		}
-		if(queries!=null)
-		{
-			synchronized(queries)
-			{
-				final Iterator<Query.Key> keys = queries.keySet().iterator();
-				while ( keys.hasNext() )
+				final TIntObjectHashMap<PersistentState> stateMap = stateMaps[typeTransiently];
+				if(stateMap!=null)
 				{
-					final Query.Key key = keys.next();
-					for(final int t : key.invalidationTypesTransiently)
+					synchronized(stateMap)
 					{
-						if(t==typeTransiently)
+						for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
+							stateMap.remove(i.next());
+					}
+				}
+				if(queries!=null)
+				{
+					synchronized(queries)
+					{
+						final Iterator<Query.Key> keys = queries.keySet().iterator();
+						while(keys.hasNext())
 						{
-							keys.remove();
-							break;
+							final Query.Key key = keys.next();
+							for(final int t : key.invalidationTypesTransiently)
+							{
+								if(t==typeTransiently)
+								{
+									keys.remove();
+									break;
+								}
+							}
 						}
 					}
 				}
