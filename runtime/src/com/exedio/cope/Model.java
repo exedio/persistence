@@ -57,7 +57,7 @@ public final class Model
 	private Properties propertiesIfConnected;
 	private final Object propertiesLock = new Object();
 	private Database databaseIfConnected;
-	private ItemCache cacheIfConnected;
+	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
 	private final Object migrationLock = new Object();
 	private boolean logTransactions = false;
@@ -272,7 +272,7 @@ public final class Model
 			{
 				if(this.databaseIfConnected!=null)
 					throw new RuntimeException();
-				if(this.cacheIfConnected!=null)
+				if(this.itemCacheIfConnected!=null)
 					throw new RuntimeException();
 		
 				this.propertiesIfConnected = properties;
@@ -285,7 +285,7 @@ public final class Model
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = properties;
-				this.cacheIfConnected = new ItemCache(cacheMapSizeLimits);
+				this.itemCacheIfConnected = new ItemCache(cacheMapSizeLimits);
 				this.queryCacheIfConnected = new QueryCache(p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
@@ -314,7 +314,7 @@ public final class Model
 			{
 				if(this.databaseIfConnected==null)
 					throw new RuntimeException();
-				if(this.cacheIfConnected==null)
+				if(this.itemCacheIfConnected==null)
 					throw new RuntimeException();
 		
 				this.propertiesIfConnected = null;
@@ -324,7 +324,7 @@ public final class Model
 				for(final Type type : typesSorted)
 					type.disconnect();
 				
-				this.cacheIfConnected = null;
+				this.itemCacheIfConnected = null;
 				
 				db.close();
 
@@ -406,10 +406,10 @@ public final class Model
 	
 	ItemCache getCache()
 	{
-		if(cacheIfConnected==null)
+		if(itemCacheIfConnected==null)
 			throw new IllegalStateException("model not yet connected, use connect(Properties)");
 
-		return cacheIfConnected;
+		return itemCacheIfConnected;
 	}
 	
 	QueryCache getQueryCache()
