@@ -30,7 +30,7 @@ final class ItemCacheCop extends ConsoleCop
 
 	ItemCacheCop()
 	{
-		super("cache");
+		super("item cache");
 		addParameter(TAB, TAB_ITEM_CACHE);
 	}
 
