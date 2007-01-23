@@ -31,7 +31,7 @@ final class QueryCacheCop extends ConsoleCop
 	QueryCacheCop()
 	{
 		super("query cache");
-		addParameter(TAB, TAB_QUERY_CACHE_STATS);
+		addParameter(TAB, TAB_QUERY_CACHE);
 	}
 
 	@Override

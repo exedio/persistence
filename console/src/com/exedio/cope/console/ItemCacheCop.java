@@ -31,7 +31,7 @@ final class ItemCacheCop extends ConsoleCop
 	ItemCacheCop()
 	{
 		super("cache");
-		addParameter(TAB, TAB_CACHE_STATS);
+		addParameter(TAB, TAB_ITEM_CACHE);
 	}
 
 	@Override

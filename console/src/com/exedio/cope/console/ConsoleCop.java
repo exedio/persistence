@@ -114,8 +114,8 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_MIGRATION = "mig";
 	static final String TAB_CONNECTION_STATS = "cp";
 	static final String TAB_DATBASE_LOG = "dblog";
-	static final String TAB_CACHE_STATS = "ca";
-	static final String TAB_QUERY_CACHE_STATS = "qca";
+	static final String TAB_ITEM_CACHE = "ca";
+	static final String TAB_QUERY_CACHE = "qca";
 	static final String TAB_PRIMARY_KEY = "pk";
 	static final String TAB_MEDIA_STATS = "m";
 	static final String TAB_VM = "vm";
@@ -133,9 +133,9 @@ abstract class ConsoleCop extends Cop
 			return new ConnectionStatsCop();
 		if(TAB_DATBASE_LOG.equals(tab))
 			return new DatabaseLogCop();
-		if(TAB_CACHE_STATS.equals(tab))
+		if(TAB_ITEM_CACHE.equals(tab))
 			return new ItemCacheCop();
-		if(TAB_QUERY_CACHE_STATS.equals(tab))
+		if(TAB_QUERY_CACHE.equals(tab))
 			return new QueryCacheCop();
 		if(TAB_PRIMARY_KEY.equals(tab))
 			return new PrimaryKeysCop();
