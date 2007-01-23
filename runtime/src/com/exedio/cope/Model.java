@@ -58,6 +58,7 @@ public final class Model
 	private final Object propertiesLock = new Object();
 	private Database databaseIfConnected;
 	private Cache cacheIfConnected;
+	private QueryCache queryCacheIfConnected;
 	private final Object migrationLock = new Object();
 	private boolean logTransactions = false;
 
@@ -284,7 +285,8 @@ public final class Model
 				final int cacheMapSizeLimit = properties.getCacheLimit() / concreteTypeCount;
 				Arrays.fill(cacheMapSizeLimits, cacheMapSizeLimit);
 				final Properties p = properties;
-				this.cacheIfConnected = new Cache(cacheMapSizeLimits, p.getCacheQueryLimit(), p.getCacheQueryHistogram());
+				this.cacheIfConnected = new Cache(cacheMapSizeLimits);
+				this.queryCacheIfConnected = new QueryCache(p.getCacheQueryLimit(), p.getCacheQueryHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
 				return;
@@ -408,6 +410,14 @@ public final class Model
 			throw new IllegalStateException("model not yet connected, use connect(Properties)");
 
 		return cacheIfConnected;
+	}
+	
+	QueryCache getQueryCache()
+	{
+		if(queryCacheIfConnected==null)
+			throw new IllegalStateException("model not yet connected, use connect(Properties)");
+
+		return queryCacheIfConnected;
 	}
 	
 	public List<Type<?>> getTypes()
@@ -645,12 +655,12 @@ public final class Model
 	
 	public int[] getCacheQueryInfo()
 	{
-		return getCache().getQueryInfo();
+		return getQueryCache().getQueryInfo();
 	}
 	
 	public CacheQueryInfo[] getCacheQueryHistogram()
 	{
-		return getCache().getQueryHistogram();
+		return getQueryCache().getQueryHistogram();
 	}
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()
@@ -819,6 +829,7 @@ public final class Model
 	public void clearCache()
 	{
 		getCache().clear();
+		getQueryCache().clear();
 	}
 	
 	/**

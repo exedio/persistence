@@ -162,13 +162,13 @@ public final class Transaction
 	
 	ArrayList<Object> search(final Query<?> query, final boolean doCountOnly)
 	{
-		if ( !model.getCache().supportsQueryCaching() || isInvalidated(query) )
+		if(!model.getQueryCache().supportsQueryCaching() || isInvalidated(query))
 		{
 			return query.searchUncached(this, doCountOnly);
 		}
 		else
 		{
-			return model.getCache().search(this, query, doCountOnly);
+			return model.getQueryCache().search(this, query, doCountOnly);
 		}
 	}
 	
@@ -305,6 +305,7 @@ public final class Transaction
 		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
 		{
 			model.getCache().invalidate(invalidations);
+			model.getQueryCache().invalidate(invalidations);
 		}
 
 		// notify ModificationListeners
