@@ -162,6 +162,7 @@ final class Cache
 		if ( result==null )
 		{
 			result = query.searchUncached(transaction, doCountOnly);
+			key.prepareForPut(query);
 			synchronized(queries)
 			{
 				queries.put(key, result);

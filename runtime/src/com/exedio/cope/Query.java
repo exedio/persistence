@@ -575,7 +575,7 @@ public final class Query<R>
 	static final class Key
 	{
 		private final byte[] text;
-		final Type[] types;
+		Type[] types = null;
 		volatile int hits = 0;
 		
 		private static final String CHARSET = "utf8";
@@ -591,7 +591,15 @@ public final class Query<R>
 				throw new RuntimeException(e);
 			}
 			// TODO compress
-
+		}
+		
+		/**
+		 * @param query must be the same as in the constructor!
+		 */
+		void prepareForPut(final Query<? extends Object> query)
+		{
+			assert this.types==null;
+			
 			final ArrayList<Join> joins = query.joins;
 			final Type[] types = new Type[1+ (joins!=null ? joins.size() : 0)];
 			types[0] = query.type;
