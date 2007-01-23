@@ -43,12 +43,10 @@ final class ItemCache
 	
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
 	{
-		PersistentState state;
+		PersistentState state = null;
 		final Cachlet cachlet = cachlets[item.type.idTransiently];
 		if(cachlet!=null)
 			state = cachlet.get(item.pk);
-		else
-			state = null;
 		
 		boolean hit = true;
 		
