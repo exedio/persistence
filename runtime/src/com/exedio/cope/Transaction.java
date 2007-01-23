@@ -215,12 +215,12 @@ public final class Transaction
 	
 	void addInvalidation(final Item item)
 	{
-		final int typeTransientNumber = item.type.idTransiently;
-		TIntHashSet invalidationsForType = invalidations[typeTransientNumber];
+		final int typeTransiently = item.type.idTransiently;
+		TIntHashSet invalidationsForType = invalidations[typeTransiently];
 		if ( invalidationsForType==null )
 		{
 			invalidationsForType = new TIntHashSet();
-			invalidations[typeTransientNumber] = invalidationsForType;
+			invalidations[typeTransiently] = invalidationsForType;
 		}
 		invalidationsForType.add(item.pk);
 	}
