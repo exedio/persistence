@@ -274,6 +274,8 @@ public final class Model
 					throw new RuntimeException();
 				if(this.itemCacheIfConnected!=null)
 					throw new RuntimeException();
+				if(this.queryCacheIfConnected!=null)
+					throw new RuntimeException();
 		
 				this.propertiesIfConnected = properties;
 				this.databaseIfConnected = properties.createDatabase(migrationSupported);
@@ -316,6 +318,8 @@ public final class Model
 					throw new RuntimeException();
 				if(this.itemCacheIfConnected==null)
 					throw new RuntimeException();
+				if(this.queryCacheIfConnected==null)
+					throw new RuntimeException();
 		
 				this.propertiesIfConnected = null;
 				final Database db = this.databaseIfConnected;
@@ -325,6 +329,7 @@ public final class Model
 					type.disconnect();
 				
 				this.itemCacheIfConnected = null;
+				this.queryCacheIfConnected = null;
 				
 				db.close();
 
