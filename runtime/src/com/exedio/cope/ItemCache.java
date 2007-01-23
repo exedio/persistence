@@ -36,9 +36,7 @@ final class ItemCache
 		final int numberOfConcreteTypes = mapSizeLimits.length;
 		cachlets = new Cachlet[numberOfConcreteTypes];
 		for(int i=0; i<numberOfConcreteTypes; i++)
-		{
 			cachlets[i] = (mapSizeLimits[i]>0) ? new Cachlet(mapSizeLimits[i]) : null;
-		}
 	}
 	
 	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
