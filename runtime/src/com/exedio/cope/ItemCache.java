@@ -41,7 +41,7 @@ final class ItemCache
 			cachlets[i] = (limits[i]>0) ? new Cachlet(types[i], limits[i]) : null;
 	}
 	
-	PersistentState getPersistentState( final Transaction connectionSource, final Item item )
+	PersistentState getState(final Transaction connectionSource, final Item item)
 	{
 		final Cachlet cachlet = cachlets[item.type.idTransiently];
 

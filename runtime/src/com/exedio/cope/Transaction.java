@@ -130,7 +130,7 @@ public final class Transaction
 				}
 				else
 				{
-					state = model.getItemCache().getPersistentState(this, item);
+					state = model.getItemCache().getState(this, item);
 				}
 			}
 			else
