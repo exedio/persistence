@@ -34,6 +34,16 @@ public class ModificationListenerTest extends AbstractLibTest
 	
 	public void testCommitListener()
 	{
+		try
+		{
+			model.addModificationListener(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("listener must not be null", e.getMessage());
+		}
+		
 		final MatchItem item1 = new MatchItem("item1");
 		deleteOnTearDown(item1);
 		l.assertIt(null);

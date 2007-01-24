@@ -644,6 +644,9 @@ public final class Model
 	
 	public void addModificationListener(final ModificationListener listener)
 	{
+		if(listener==null)
+			throw new NullPointerException("listener must not be null");
+		
 		// TODO do not hard link to allow GC remove listeners
 		modificationListeners.add(listener);
 	}
