@@ -286,7 +286,7 @@ final class Console_Jspm
 			<tr<%if(inconsistent){%> class="inconsistent"<%}%>><%
 				writeColouredData(out, data);
 				%>
-				<td><%=pool.getSize()%><%if(inconsistent){%>!<%}%></td>
+				<td><%if(inconsistent){%>inconsistent <%}%><%=pool.getSize()%></td>
 			</tr><%
 			}
 		%>
