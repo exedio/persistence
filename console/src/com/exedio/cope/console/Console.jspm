@@ -70,27 +70,14 @@ final class Console_Jspm
 	<body>
 		<a href="http://www.exedio.com/" target="_blank"><img src="<%=ConsoleServlet.logo.url(request)%>" width="200" height="66" align="right"></a>
 		<h1><a href="http://cope.sourceforge.net/" target="_blank">COPE</a> Console</h1>
-		<p><%
-		
-		final ConsoleCop[] tabs = cop.getTabs();
-		for(int i = 0; i<tabs.length; i++)
-		{
-			final ConsoleCop tab = tabs[i];
-			if(cop.name.equals(tab.name))
-			{
-			%>
-			| <b><%=tab.name%></b><%
-			}
-			else
-			{
-			%>
-			| <a href="<%=tab%>"><%=tab.name%></a><%
-			}
-		}
+		<br clear="right"><%
+		writeMenu(out, cop);
 		%>
-		</p>
 		<hr><%
 		cop.writeBody(out, model, request);
+		%>
+		<hr><%
+		writeMenu(out, cop);
 		%>
 		<hr>
 		<small>request: <%=cop.getStart()%> - <%=cop.getEnd()%> (<%=cop.getDuration()%>ms)</small>
@@ -114,6 +101,32 @@ final class Console_Jspm
 		
 	}
 
+	private final static void writeMenu(
+			final PrintStream out,
+			final ConsoleCop cop)
+	{
+		%>
+		<p><%
+		
+		final ConsoleCop[] tabs = cop.getTabs();
+		for(int i = 0; i<tabs.length; i++)
+		{
+			final ConsoleCop tab = tabs[i];
+			if(cop.name.equals(tab.name))
+			{
+			%>
+			| <b><%=tab.name%></b><%
+			}
+			else
+			{
+			%>
+			| <a href="<%=tab%>"><%=tab.name%></a><%
+			}
+		}
+		%>
+		</p><%
+	}
+	
 	final static void writeBody(
 			final TypeColumnCop cop,
 			final PrintStream out,
