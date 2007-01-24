@@ -221,9 +221,6 @@ final class ItemCache
 				}
 			}
 			
-			if(ageMin==Integer.MAX_VALUE)
-				ageMin = 0;
-
 			return new CacheInfo(type, limit, level, hits, misses, ageSum, ageMin, ageMax);
 		}
 	}
