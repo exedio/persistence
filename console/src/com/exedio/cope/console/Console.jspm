@@ -262,6 +262,7 @@ final class Console_Jspm
 				%>
 				<th>maxIdle</th>
 			</tr><%
+			boolean firstSkipped = true;
 			for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
 			{
 				final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
@@ -269,7 +270,12 @@ final class Console_Jspm
 				final int destroyCounter = pool.getDestroyCounter();
 				
 				if(!inconsistent && (destroyCounter==0))
-					continue;
+				{
+					if(firstSkipped)
+						firstSkipped = false;
+					else
+						continue;
+				}
 				
 				final int[] data = {
 						pool.getLoss(),
