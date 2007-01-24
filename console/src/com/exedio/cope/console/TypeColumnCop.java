@@ -64,7 +64,7 @@ final class TypeColumnCop extends ConsoleCop
 			try
 			{
 				model.startTransaction();
-				Console_Jspm.writeBody(this, out, functions, true);
+				TypeColumn_Jspm.writeBody(this, out, functions, true);
 				model.commit();
 			}
 			finally
@@ -73,6 +73,6 @@ final class TypeColumnCop extends ConsoleCop
 			}
 		}
 		else
-			Console_Jspm.writeBody(this, out, functions, false);
+			TypeColumn_Jspm.writeBody(this, out, functions, false);
 	}
 }

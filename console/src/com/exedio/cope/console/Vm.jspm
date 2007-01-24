@@ -1,0 +1,109 @@
+<%
+/*
+ * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.console;
+
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.TreeSet;
+
+final class Vm_Jspm
+{
+	private static final String[] systemProperties = {
+			"java.runtime.version",
+			"java.class.path",
+			"java.version",
+			"java.vm.name",
+			"java.vm.info",
+			"java.vm.version",
+			"user.name",
+			"user.dir",
+			"user.home",
+			"user.language",
+			"os.name",
+			"os.arch",
+			"os.version",
+		};
+	
+	private final static void write(final PrintStream out, final String key, String value)
+	{
+		if(value!=null)
+		{
+			%>
+			<tr>
+				<th><%=key%></th>
+				<td class="text"><%=value%></td>
+			</tr><%
+		}
+	}
+
+	private final static void write(final PrintStream out, final TreeSet<Package> jar)
+	{
+			%>
+			<tr>
+				<th colspan="2"><%
+				boolean first = true;
+				for(final Package pack : jar)
+				{
+					if(first)
+						first = false;
+					else
+						{%>, <%}
+						
+					%><%=pack.getName()%><%
+				}
+				%></th>
+			</tr><%
+			final Package thePackage = jar.iterator().next();
+			write(out, "specification.title",    thePackage.getSpecificationTitle());
+			write(out, "specification.version",  thePackage.getSpecificationVersion());
+			write(out, "specification.vendor",   thePackage.getSpecificationVendor());
+			write(out, "implementation.title",   thePackage.getImplementationTitle());
+			write(out, "implementation.version", thePackage.getImplementationVersion());
+			write(out, "implementation.vendor",  thePackage.getImplementationVendor());
+	}
+
+	final static void writeVm(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
+	{
+		%>
+		<table>
+			<tr>
+				<th colspan="2">System.getProperty()</th>
+			</tr><%
+
+			for(int i = 0; i<systemProperties.length; i++)
+			{
+				final String name = systemProperties[i];
+			%>
+			<tr>
+				<th><%=name%></th>
+				<td class="text"><%=System.getProperty(name)%></td>
+			</tr><%
+			}
+			%>
+			<tr>
+				<th colspan="2"><a href="<%=cop.toToggleAllPackages()%>"><%if(cop.allPackages){%>hide<%}else{%>show<%}%> none-cope</a></th>
+			</tr><%
+
+			for(final TreeSet<Package> jar : jars)
+				write(out, jar);
+			%>
+		</table><%
+	}
+}%>

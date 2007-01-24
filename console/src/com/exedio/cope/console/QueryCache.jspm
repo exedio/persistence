@@ -1,0 +1,109 @@
+<%
+/*
+ * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.console;
+
+import java.io.PrintStream;
+
+import com.exedio.cope.Properties;
+import com.exedio.cope.util.CacheQueryInfo;
+
+final class QueryCache_Jspm extends Console_Jspm
+{
+	final static void writeBody(
+			final QueryCacheCop cop,
+			final PrintStream out,
+			final int limit,
+			final int[] queryInfos,
+			final CacheQueryInfo[] queryHistogram,
+			final int sumKeyLength,
+			final int maxKeyLength,
+			final int minKeyLength,
+			final int sumResultSize,
+			final int maxResultSize,
+			final int minResultSize,
+			final int[] resultSizes,
+			final boolean queryHistogramAccurate)
+	{
+		%>
+		<table>
+			<tr><th class="caption" colspan="3">Query Cache Statistics</th></tr>
+			<tr><th colspan="2">Limit</th><td><%=limit%></td></tr>
+			<tr><th colspan="2">Level</th><td><%=queryInfos[2]%></td></tr>
+			<tr><th colspan="2">Hits</th><td><%=queryInfos[0]%></td></tr>
+			<tr><th colspan="2">Misses</th><td><%=queryInfos[1]%></td></tr><%
+			if(queryHistogram.length>0)
+			{
+			%>
+			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=sumKeyLength/queryHistogram.length%></td></tr>
+			<tr><th>Maximum</th><td><%=maxKeyLength%></td></tr>
+			<tr><th>Minimum</th><td><%=minKeyLength%></td></tr>
+			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=sumResultSize/queryHistogram.length%></td></tr>
+			<tr><th>Maximum</th><td><%=maxResultSize%></td></tr>
+			<tr><th>Minimum</th><td><%=minResultSize%></td></tr><%
+				for(int i = 0; i<resultSizes.length; i++)
+				{
+			%>
+			<tr><th>Size <%=i%></th><td><%=resultSizes[i]%></td></tr><%
+				}
+			}
+			%>
+		</table><%
+
+		if(!queryHistogramAccurate)
+		{
+		%>
+		<div class="message">
+			<b>Values not accurate:</b>
+			Property <tt><%=Properties.CACHE_QUERY_HISTOGRAM%></tt> is not enabled.
+			Therefore the column <b>Hits</b> counts queries only,
+			for which <tt>Query#enableMakeStatementInfo()</tt> has been set.
+		</div><%
+		}
+		final String[] names = {
+			"Recent Usage (LRU)",
+			"Result Size",
+			"Cache Hits",
+		};
+		%>
+		<table>
+			<tr><th class="caption" colspan="4">Query Cache Histogram</th></tr><%
+			writeColouredHeader(out, names, 0, 1);
+			%>
+			<tr><%
+				writeColouredHeaderSchnips(out, names);
+				%>
+				<th>Query</th>
+			</tr><%
+
+		for(int i = 0; i<queryHistogram.length; i++)
+		{
+			final CacheQueryInfo info = queryHistogram[i];
+			final int[] data = {
+					i,
+					info.getResultSize(),
+					hide(0, info.getHits()),
+				};
+			%>
+			<tr><% writeColouredData(out, data); %><td class="text"><%=info.getQuery()%></td></tr><%
+		}
+		%>
+		</table><%
+	}
+}%>

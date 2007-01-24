@@ -1,3 +1,4 @@
+<%
 /*
  * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
  *
@@ -19,23 +20,40 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import com.exedio.cope.Type;
 
-import com.exedio.cope.Model;
-
-final class HiddenCop extends ConsoleCop
+final class PrimaryKeys_Jspm
 {
-
-	HiddenCop()
+	final static void writeBody(
+			final PrimaryKeysCop cop,
+			final PrintStream out,
+			final Map<Type, int[]> primaryKeys)
 	{
-		super("hidden");
-		addParameter(TAB, TAB_HIDDEN);
+		%>
+		<table>
+			<tr>
+				<th class="caption" colspan="2">Primary Keys</th>
+			</tr>
+			<tr><th>Type</th><th>Info</th></tr><%
+			for(final Type type : primaryKeys.keySet())
+			{
+			%>
+			<tr><td class="text"><%=type.getID()%></td><td><%
+				final int[] info = primaryKeys.get(type);
+				for(int i : info)
+				{
+					switch(i)
+					{
+						case Integer.MIN_VALUE: %>MIN <% break;
+						case Integer.MAX_VALUE: %>MAX <% break;
+						default:%><%=i%> <%
+					}
+				}
+				%></td></tr><%
+			}
+		%>
+		</table><%
 	}
-	
-	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
-	{
-		Hidden_Jspm.writeHidden(out, model.getHiddenFeatures());
-	}
-}
+}%>

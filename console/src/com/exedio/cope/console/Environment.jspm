@@ -1,0 +1,158 @@
+<%
+/*
+ * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.console;
+
+import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+final class Environment_Jspm
+{
+	final static void writeDatabaseInfo(final PrintStream out, final String dialect, final java.util.Properties properties)
+	{
+		%>
+		<table>
+			<tr>
+				<th class="caption" colspan="2">Environment</th>
+			</tr><%
+			for(final String name : new TreeSet<String>(castTreeSet(properties.keySet())))
+			{
+			%>
+			<tr>
+				<th><%=name%></th>
+				<td class="text"><%=properties.getProperty(name)%></td>
+			</tr><%
+			}
+			%>
+			<tr>
+				<th>dialect</th>
+				<td class="text"><%=dialect%></td>
+			</tr>
+		</table><%
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static final Set<String> castTreeSet(final Set o)
+	{
+		return o;
+	}
+
+	private static final String[] TEST_INFO_KEYS = new String[] {
+			"name",
+			"database.name",
+			"database.version",
+			"driver.name",
+			"driver.version",
+			"cope.properties",
+		};
+
+	final static void writeTestInfo(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
+	{
+		%>
+		<hr>
+		<table>
+			<tr>
+				<th class="caption" colspan="<%=TEST_INFO_KEYS.length%>">Test Environments (<a href="http://cope.sourceforge.net/testprotocol.html" target="_blank">more...</a>)</th>
+			</tr><%
+		if(properties!=null)
+		{
+			%>
+			<tr><%
+				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
+				{
+				%>
+				<th><%=TEST_INFO_KEYS[j]%></th><%
+				}
+				%>
+			</tr><%
+			writeTestInfoBody(out, current, properties);
+		}
+		else
+		{
+			%>
+			<tr>
+				<td class="text" colspan="<%=TEST_INFO_KEYS.length%>">
+					No such file available from class loader.
+					<br>
+					This should not happen with any officially distributed jar files for cope.
+				</td>
+			</tr><%
+		}
+		%>
+		</table><%
+	}
+
+	final static void writeTestInfoBody(final PrintStream out, final java.util.Properties current, final HashMap[] properties)
+	{
+			for(int i = 0; i<properties.length; i++)
+			{
+				final HashMap db = properties[i];
+			%>
+			<tr><%
+				for(int j = 0; j<TEST_INFO_KEYS.length; j++)
+				{
+					final String key = TEST_INFO_KEYS[j];
+					Object value = db.get(key);
+					if(value==null)
+						value = "";
+					int rowspan = properties.length - i;
+					for(int k = i+1; k<properties.length; k++)
+					{
+						if(!value.equals(properties[k].get(key)))
+						{
+							rowspan = k - i;
+							break;
+						}
+					}
+					if(rowspan<=0)
+						throw new RuntimeException();
+
+					if(i==0 || !value.equals(properties[i-1].get(key)))
+					{
+				%>
+				<td class="text"<%
+					if(rowspan!=1){ %> rowspan="<%=rowspan%>"<% }
+					if(value.equals(current.get(key))){ %> bgcolor="#cff"<% }
+					%>><%
+					if(value instanceof Map)
+					{
+						final Map valueMap = (Map)value;
+						for(Iterator k = valueMap.keySet().iterator(); k.hasNext(); )
+						{
+							final Object mapKey = k.next();
+							final Object mapValue = valueMap.get(mapKey);
+							%><%=mapKey%>=<%=mapValue%><br><%
+						}
+					}
+					else
+					{
+						%><%=value%><%
+					}
+					%></td><%
+					}
+				}
+				%>
+			</tr><%
+			}
+	}
+}%>

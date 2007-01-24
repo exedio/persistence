@@ -67,7 +67,7 @@ final class QueryCacheCop extends ConsoleCop
 				resultSizes[resultSize]++;
 		}
 		
-		Console_Jspm.writeBody(this, out,
+		QueryCache_Jspm.writeBody(this, out,
 				model.getProperties().getCacheQueryLimit(),
 				model.getQueryCacheInfo(),
 				histogram,

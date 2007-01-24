@@ -71,7 +71,7 @@ final class ItemCacheCop extends ConsoleCop
 			}
 		}
 		
-		Console_Jspm.writeBody(this, out,
+		ItemCache_Jspm.writeBody(this, out,
 				allLimit, allLevel,
 				allHits, allMisses,
 				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,

@@ -1,3 +1,4 @@
+<%
 /*
  * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
  *
@@ -19,23 +20,44 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import com.exedio.cope.util.ModificationListener;
 
-import com.exedio.cope.Model;
-
-final class HiddenCop extends ConsoleCop
+final class ModificationListener_Jspm
 {
-
-	HiddenCop()
+	final static void writeModificationListener(final PrintStream out, final List<ModificationListener> listeners)
 	{
-		super("hidden");
-		addParameter(TAB, TAB_HIDDEN);
+		%>
+		<table>
+			<tr>
+				<th class="caption" colspan="3">Modifying Commit Listeners</th>
+			</tr>
+			<tr>
+				<th>#</th>
+				<th>getClass</th>
+				<th>toString</th>
+			</tr><%
+			int number = 0;
+			for(final ModificationListener listener : listeners)
+			{
+			%>
+			<tr>
+				<td><%=number++%></td>
+				<td class="text"><%=listener.getClass().getName()%></td>
+				<td class="text"><%
+				try
+				{
+					%><%=listener.toString()%><%
+				}
+				catch(RuntimeException e)
+				{
+					e.printStackTrace(out);
+				}
+				%></td>
+			</tr><%
+			}
+			%>
+		</table><%
 	}
-	
-	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
-	{
-		Hidden_Jspm.writeHidden(out, model.getHiddenFeatures());
-	}
-}
+}%>

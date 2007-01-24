@@ -1,0 +1,215 @@
+<%
+/*
+ * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.console;
+
+import java.io.PrintStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.TreeSet;
+
+import com.exedio.cope.Item;
+import com.exedio.cope.pattern.CachedMedia;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaFilter;
+import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.pattern.MediaRedirect;
+import com.exedio.cope.pattern.MediaThumbnail;
+
+final class Media_Jspm extends Console_Jspm
+{
+	final static void writeBody(
+			final MediaStatsCop cop,
+			final PrintStream out,
+			final Collection<MediaPath> media)
+	{
+		final String[] names = {
+			"Exception (500)",
+			"Not An Item (404)",
+			"No Such Item (404)",
+			"Is Null (404)",
+			"Not Computable (404)",
+			"Not Modified (304)",
+			"Delivered (200/301)",
+		};
+		%>
+		<table>
+			<tr><th class="caption" colspan="<%=names.length+2%>">Media Statistics</th></tr>
+			<tr><th colspan="<%=names.length+1%>">No Such Path (404)</th><td><%=MediaPath.noSuchPath.get()%></td></tr><%
+			writeColouredHeader(out, names, 0, 2);
+			%>
+			<tr><%
+				writeColouredHeaderSchnips(out, names);
+				%>
+				<th>Type</th>
+				<th>Media</th>
+				<th>Since</th>
+				<th>Class</th>
+			</tr><%
+	
+			for(final MediaPath path : media)
+			{
+				final String type = path.getType().getID();
+				final String name = path.getName();
+				final int[] data = {
+					hide(0, path.exception.get()),
+					hide(0, path.notAnItem.get()),
+					hide(0, path.noSuchItem.get()),
+					hide(0, path.isNull.get()),
+					hide(0, path.notComputable.get()),
+					hide(0, path.notModified.get()),
+					hide(0, path.delivered.get()),
+				};
+	
+				%>
+			<tr><%
+				writeColouredData(out, data);
+				%>
+				<td class="text"><%=type%></td>
+				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td>
+				<td class="text"><%=cop.format(path.getStart())%></td>
+				<td class="text"><%
+					final String className = path.getClass().getName();
+					if(className.startsWith("com.exedio.cope.pattern."))
+					{
+						%><a href="http://cope.sourceforge.net/api/<%=
+							className.replace('.', '/')%>.html" target="_blank"><%=
+							path.getClass().getSimpleName()%></a><%
+					}
+					else
+					{
+						%><%=className%><%
+					}
+					if(path instanceof MediaRedirect)
+					{
+						final MediaRedirect redirect = (MediaRedirect)path;
+						%>(<%=redirect.getTarget().getName()%>)<%
+					}
+					else if(path instanceof MediaThumbnail)
+					{
+						final MediaThumbnail thumbnail = (MediaThumbnail)path;
+						%>(<%=thumbnail.getSource().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
+					}
+					if(path instanceof MediaFilter)
+					{
+						final MediaFilter filter = (MediaFilter)path;
+						final TreeSet contentTypes = new TreeSet<String>(filter.getSupportedSourceContentTypes());
+						%><br>supports <%=contentTypes%><%
+					}
+				%></td>
+			</tr><%
+			}
+		%>
+		</table><%
+	}
+
+	final static void writeBody(
+				final MediaCop cop,
+				final PrintStream out,
+				final List<? extends Item> items,
+				final Media other)
+	{
+		final MediaPath media = cop.media;
+		final CachedMedia mediaLastModified = media instanceof CachedMedia ? (CachedMedia)media : null;
+		final Media mediaLength = media instanceof Media ? (Media)media : null;
+		final boolean inlineMedia = cop.inlineMedia;
+		final boolean inlineOther = cop.inlineOther;
+		
+		int columns = 3;
+		if(mediaLastModified!=null)
+			columns++;
+		if(mediaLength!=null)
+			columns++;
+		if(other!=null)
+			columns++;
+		
+		%>
+		<table>
+			<tr><th class="caption" colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
+			<tr>
+				<th>Item</th>
+				<th>URL <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>
+				<th>Content Type</th><%
+				if(mediaLastModified!=null)
+				{
+				%>
+				<th>Last Modified</th><%
+				}
+				if(mediaLength!=null)
+				{
+				%>
+				<th>Length</th><%
+				}
+				if(other!=null)
+				{
+				%>
+				<th><a href="<%=
+					new MediaCop(other, inlineOther, false)%>"><%=other.getName()%></a> <a href="<%=
+					cop.toggleInlineOther()%>">IN</a></th><%
+				}
+			%>
+			</tr><%
+	
+			for(final Item item : items)
+			{
+				final String contentType = media.getContentType(item);
+				%>
+			<tr>
+				<td class="text"><%=item.getCopeID()%></td>
+				<td class="text"><% writeURL(out, media.getURL(item), contentType, inlineMedia); %></td>
+				<td class="text"><%if(contentType!=null){%><%=contentType%><%}%></td><%
+				if(mediaLastModified!=null)
+				{
+				%>
+				<td><%=cop.format(mediaLastModified.getLastModified(item))%></td><%
+				}
+				if(mediaLength!=null)
+				{
+				%>
+				<td><%=mediaLength.getLength(item)%></td><%
+				}
+				if(other!=null)
+				{
+				%>
+				<td class="text"><% writeURL(out, other.getURL(item), other.getContentType(item), inlineOther); %></td><%
+				}
+				%>
+			</tr><%
+			}
+		%>
+		</table><%
+	}
+	
+	private static final void writeURL(final PrintStream out, final String url, final String contentType, final boolean inline)
+	{
+		if(url!=null)
+		{
+			%><a href="<%=url%>"><%
+			if(inline && contentType!=null && contentType.startsWith("image/"))
+			{
+				%><img src="<%=url%>"><%
+			}
+			else
+			{
+				%><%=MediaCop.fn(url)%><%
+			}
+			%></a><%
+		}
+	}
+}%>

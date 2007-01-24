@@ -1,3 +1,4 @@
+<%
 /*
  * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
  *
@@ -20,22 +21,24 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.exedio.cope.Model;
-
-final class HiddenCop extends ConsoleCop
+final class DatabaseLog_Jspm
 {
-
-	HiddenCop()
+	final static void writeBody(
+			final DatabaseLogCop cop,
+			final PrintStream out,
+			final boolean enable,
+			final int threshold,
+			final String sql)
 	{
-		super("hidden");
-		addParameter(TAB, TAB_HIDDEN);
+		%>
+		<form action="<%=cop%>" method="POST">
+			<input type="checkbox" name="<%=cop.ENABLE%>"<%if(enable){%> checked="checked"<%}%>> enable
+			<br>
+			<input type="text" name="<%=cop.THRESHOLD%>" value="<%=threshold%>"> threshold
+			<br>
+			<input type="text" name="<%=cop.SQL%>" value="<%=sql!=null?sql:""%>"> sql
+			<br>
+			<input type="submit" name="submit" value="submit">
+		</form><%
 	}
-	
-	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
-	{
-		Hidden_Jspm.writeHidden(out, model.getHiddenFeatures());
-	}
-}
+}%>

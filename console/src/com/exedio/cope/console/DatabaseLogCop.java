@@ -56,7 +56,7 @@ final class DatabaseLogCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		Console_Jspm.writeBody(this, out,
+		DatabaseLog_Jspm.writeBody(this, out,
 				model.isDatabaseLogEnabled(),
 				model.getDatabaseLogThreshold(),
 				model.getDatabaseLogSQL());

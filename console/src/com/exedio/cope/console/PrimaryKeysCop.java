@@ -53,6 +53,6 @@ final class PrimaryKeysCop extends ConsoleCop
 			if(t.getSupertype()==null)
 				primaryKeys.put(t, t.getPrimaryKeyInfo());
 		}
-		Console_Jspm.writeBody(this, out, primaryKeys);
+		PrimaryKeys_Jspm.writeBody(this, out, primaryKeys);
 	}
 }
