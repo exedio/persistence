@@ -46,7 +46,7 @@ public final class Model
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
 	private final Type<?>[] typesSorted;
-	final int concreteTypeCount;
+	private final int concreteTypeCount;
 	private final List<Type<?>> typeList;
 	private final List<Type<?>> typeListSorted;
 	private final List<Type<?>> concreteTypeList;
@@ -742,7 +742,7 @@ public final class Model
 
 		if( hasCurrentTransaction() )
 			throw new IllegalStateException("there is already a transaction bound to current thread");
-		final Transaction result = new Transaction(this, name);
+		final Transaction result = new Transaction(this, concreteTypeCount, name);
 		setTransaction( result );
 		openTransactions.add( result );
 		return result;

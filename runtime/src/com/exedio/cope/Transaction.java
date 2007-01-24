@@ -47,13 +47,13 @@ public final class Transaction
 	final TIntHashSet[] invalidations;
 	private Thread boundThread = null;
 	
-	Transaction(final Model model, final String name)
+	Transaction(final Model model, final int concreteTypeCount, final String name)
 	{
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
-		this.entityMaps = cast(new TIntObjectHashMap[model.concreteTypeCount]);
-		this.invalidations = new TIntHashSet[model.concreteTypeCount];
+		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
+		this.invalidations = new TIntHashSet[concreteTypeCount];
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation
