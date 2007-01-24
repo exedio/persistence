@@ -21,16 +21,18 @@ package com.exedio.cope.console;
 
 import java.io.File;
 import java.io.PrintStream;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.net.MalformedURLException;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Properties;
+import com.exedio.cope.util.ModificationListener;
 
 final class Properties_Jspm
 {
@@ -354,6 +356,41 @@ final class Properties_Jspm
 				<td class="text"><%=key.getName()%></td>
 				<td class="text"><%=key.getType().getID()%></td>
 				<td class="text"><%=value.getType().getID()%></td>
+			</tr><%
+			}
+			%>
+		</table><%
+	}
+	
+	final static void writeModificationListener(final PrintStream out, final List<ModificationListener> listeners)
+	{
+		%>
+		<table>
+			<tr>
+				<th class="caption" colspan="3">Modifying Commit Listeners</th>
+			</tr>
+			<tr>
+				<th>#</th>
+				<th>getClass</th>
+				<th>toString</th>
+			</tr><%
+			int number = 0;
+			for(final ModificationListener listener : listeners)
+			{
+			%>
+			<tr>
+				<td><%=number++%></td>
+				<td class="text"><%=listener.getClass().getName()%></td>
+				<td class="text"><%
+				try
+				{
+					%><%=listener.toString()%><%
+				}
+				catch(RuntimeException e)
+				{
+					e.printStackTrace(out);
+				}
+				%></td>
 			</tr><%
 			}
 			%>

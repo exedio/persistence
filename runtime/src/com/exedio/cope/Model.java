@@ -642,7 +642,7 @@ public final class Model
 		return result;
 	}
 	
-	List<ModificationListener> getModificationListeners()
+	public List<ModificationListener> getModificationListeners()
 	{
 		synchronized(modificationListeners)
 		{
