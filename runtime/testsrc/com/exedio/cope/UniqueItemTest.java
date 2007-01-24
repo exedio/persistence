@@ -89,7 +89,7 @@ public class UniqueItemTest extends TestmodelTest
 			catch(UniqueViolationException e)
 			{
 				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
-				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+				assertEquals(null/*TODO item2*/, e.getItem());
 				assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
@@ -193,6 +193,7 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(null/*TODO item2*/, e.getItem());
 			assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
@@ -337,7 +338,6 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
 		}
@@ -353,12 +353,37 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		
+		try
+		{
+			b2.setInteger(1);
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(a1.doubleUnique, e.getFeature());
+			assertEquals(null/*TODO b2*/, e.getItem());
+			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+		}
+		assertEquals(2, b2.getInteger());
+
+		try
+		{
+			b2.set(b2.integer.map(1));
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(a1.doubleUnique, e.getFeature());
+			assertEquals(null/*TODO b2*/, e.getItem());
+			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+		}
+		assertEquals(2, b2.getInteger());
+
 		assertDelete(b2);
 		assertDelete(b1);
 

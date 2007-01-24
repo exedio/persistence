@@ -50,6 +50,7 @@ public class UniqueHierarchyTest extends AbstractLibTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(null, e.getItem());
 		}
 		assertEquals(2/* TODO sould be 1 */, UniqueHierarchySuperItem.TYPE.search().size());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
