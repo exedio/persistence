@@ -112,7 +112,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB = "t";
 	static final String TAB_TYPE_COLUMNS = "tc";
 	static final String TAB_MIGRATION = "mig";
-	static final String TAB_CONNECTION_STATS = "cp";
+	static final String TAB_CONNECTION_POOL = "cp";
 	static final String TAB_DATBASE_LOG = "dblog";
 	static final String TAB_ITEM_CACHE = "ca";
 	static final String TAB_QUERY_CACHE = "qca";
@@ -129,7 +129,7 @@ abstract class ConsoleCop extends Cop
 			return new TypeColumnCop();
 		if(TAB_MIGRATION.equals(tab))
 			return new MigrationCop();
-		if(TAB_CONNECTION_STATS.equals(tab))
+		if(TAB_CONNECTION_POOL.equals(tab))
 			return new ConnectionPoolCop();
 		if(TAB_DATBASE_LOG.equals(tab))
 			return new DatabaseLogCop();

@@ -30,7 +30,7 @@ final class ConnectionPoolCop extends ConsoleCop
 	ConnectionPoolCop()
 	{
 		super("connections");
-		addParameter(TAB, TAB_CONNECTION_STATS);
+		addParameter(TAB, TAB_CONNECTION_POOL);
 	}
 
 	@Override
