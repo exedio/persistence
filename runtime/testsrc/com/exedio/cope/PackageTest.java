@@ -95,6 +95,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( MigrationTest.class );
 		suite.addTestSuite( DatabaseLogTest.class );
 		suite.addTestSuite( QueryCacheTest.class );
+		suite.addTestSuite( UniqueHierarchyTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
