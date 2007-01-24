@@ -46,7 +46,7 @@ final class TypeColumnCop extends ConsoleCop
 		
 		for(final Type<?> t : model.getTypes())
 		{
-			final ItemFunction<?> tt = t.getThis();
+			final Type.This<?> tt = t.getThis();
 			if(tt.needsCheckTypeColumn())
 				functions.add(tt);
 			
