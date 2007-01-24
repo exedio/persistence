@@ -24,10 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 
-final class ConnectionStatsCop extends ConsoleCop
+final class ConnectionPoolCop extends ConsoleCop
 {
 
-	ConnectionStatsCop()
+	ConnectionPoolCop()
 	{
 		super("connections");
 		addParameter(TAB, TAB_CONNECTION_STATS);

@@ -216,7 +216,7 @@ final class Console_Jspm
 	}
 	
 	final static void writeBody(
-			final ConnectionStatsCop cop,
+			final ConnectionPoolCop cop,
 			final PrintStream out,
 			final ConnectionPoolInfo info)
 	{
