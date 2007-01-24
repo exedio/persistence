@@ -24,8 +24,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 
-/**
- */
 public class DoubleUnique extends Item
 {
 	public static final StringField string = new StringField(FINAL);
