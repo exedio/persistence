@@ -311,7 +311,7 @@ public final class Transaction
 		// notify ModificationListeners
 		if(!rollback)
 		{
-			final List<ModificationListener> commitListeners = model.modificationListeners;
+			final List<ModificationListener> commitListeners = model.getModificationListeners();
 			if(!commitListeners.isEmpty())
 			{
 				ArrayList<Item> modifiedItems = null;
@@ -332,8 +332,7 @@ public final class Transaction
 				if(modifiedItems!=null && !modifiedItems.isEmpty())
 				{
 					final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
-					// make a copy of commitListeners to avoid ConcurrentModificationViolations
-					for(final ModificationListener listener : new ArrayList<ModificationListener>(commitListeners))
+					for(final ModificationListener listener : commitListeners)
 						listener.onModifyingCommit(modifiedItemsUnmodifiable);
 				}
 			}

@@ -51,7 +51,7 @@ public final class Model
 	private final List<Type<?>> typeListSorted;
 	private final List<Type<?>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
-	final List<ModificationListener> modificationListeners = Collections.synchronizedList(new ArrayList<ModificationListener>());
+	private final ArrayList<ModificationListener> modificationListeners = new ArrayList<ModificationListener>();
 
 	// set by connect
 	private Properties propertiesIfConnected;
@@ -642,18 +642,36 @@ public final class Model
 		return result;
 	}
 	
+	List<ModificationListener> getModificationListeners()
+	{
+		synchronized(modificationListeners)
+		{
+			// make a copy to avoid ConcurrentModificationViolations
+			return
+				modificationListeners.isEmpty()
+				? Collections.<ModificationListener>emptyList()
+				: Collections.unmodifiableList(new ArrayList<ModificationListener>(modificationListeners));
+		}
+	}
+	
 	public void addModificationListener(final ModificationListener listener)
 	{
 		if(listener==null)
 			throw new NullPointerException("listener must not be null");
 		
 		// TODO do not hard link to allow GC remove listeners
-		modificationListeners.add(listener);
+		synchronized(modificationListeners)
+		{
+			modificationListeners.add(listener);
+		}
 	}
 	
 	public void removeModificationListener(final ModificationListener listener)
 	{
-		modificationListeners.remove(listener);
+		synchronized(modificationListeners)
+		{
+			modificationListeners.remove(listener);
+		}
 	}
 	
 	public CacheInfo[] getItemCacheInfo()

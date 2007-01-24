@@ -104,7 +104,9 @@ public class ModificationListenerTest extends AbstractLibTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		assertEqualsUnmodifiable(list(), model.getModificationListeners());
 		model.addModificationListener(l);
+		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
 	}
 	
 	@Override
