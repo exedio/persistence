@@ -162,27 +162,6 @@ final class OracleDialect extends Dialect
 		return false;
 	}
 
-	private String extractConstraintName(final SQLException e, final int vendorCode, final String start, final String end)
-	{
-		if(e.getErrorCode()!=vendorCode)
-			return null;
-		
-		final String m = e.getMessage();
-		if(m.startsWith(start) && m.endsWith(end))
-		{
-			final int pos = m.indexOf('.', start.length());
-			return m.substring(pos+1, m.length()-end.length());
-		}
-		else
-			return null;
-	}
-	
-	@Override
-	protected String extractUniqueConstraintName(final SQLException e)
-	{
-		return extractConstraintName(e, 1, "ORA-00001: unique constraint (", ") violated\n");
-	}
-
 	@Override
 	boolean isDefiningColumnTypes()
 	{

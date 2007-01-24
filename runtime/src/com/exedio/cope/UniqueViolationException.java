@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
-
 /**
  * Signals, that an attempt to write an field has been failed,
  * and the value to be set violated a unique constraint.
@@ -43,13 +41,9 @@ public final class UniqueViolationException extends ConstraintViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>constraint</tt> is null.
 	 */
-	UniqueViolationException(final UniqueConstraint feature, final Item item, final SQLException cause)
+	UniqueViolationException(final UniqueConstraint feature, final Item item)
 	{
-		super(item, cause);
-		
-		if(cause==null)
-			throw new NullPointerException();
-		
+		super(item, null);
 		this.feature = feature;
 	}
 	
@@ -74,12 +68,12 @@ public final class UniqueViolationException extends ConstraintViolationException
 	@Override
 	public String getMessage()
 	{
-		return "unique violation for " + feature;
+		return "unique violation on " + getItemID() + " for " + feature;
 	}
 	
 	@Override
 	public String getMessageWithoutFeature()
 	{
-		return "unique violation";
+		return "unique violation on " + getItemID();
 	}
 }

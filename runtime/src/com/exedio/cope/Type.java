@@ -52,8 +52,8 @@ public final class Type<C extends Item>
 
 	private final List<Field> declaredFields;
 	private final List<Field> fields;
-	final List<UniqueConstraint> declaredUniqueConstraints;
-	private final List<UniqueConstraint> uniqueConstraints;
+	private final List<UniqueConstraint> declaredUniqueConstraints;
+	final List<UniqueConstraint> uniqueConstraints;
 
 	private final Constructor<C> creationConstructor;
 	private final Constructor<C> reactivationConstructor;

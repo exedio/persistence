@@ -182,23 +182,6 @@ final class MysqlDialect extends Dialect
 			append("))");
 	}
 	
-	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
-	{
-		// TODO: MySQL does not deliver constraint name in exception
-		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-
-		if(e.getErrorCode()==vendorCode && e.getMessage().startsWith(start))
-			return ANY_CONSTRAINT;
-		else
-			return null;
-	}
-
-	@Override
-	protected String extractUniqueConstraintName(final SQLException e)
-	{
-		return extractConstraintName(e, 1062, "Duplicate entry ");
-	}
-
 	@Override
 	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
 	{

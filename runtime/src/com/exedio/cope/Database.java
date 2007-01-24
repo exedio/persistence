@@ -27,7 +27,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Savepoint;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +65,6 @@ final class Database
 	final boolean supportsReadCommitted;
 	final boolean supportsGetBytes;
 	final boolean supportsBlobInResultSet;
-	final boolean needsSavepoint;
 	
 	final boolean oracle; // TODO remove
 	
@@ -100,7 +98,6 @@ final class Database
 			dialectParameters.supportsTransactionIsolationLevel;
 		this.supportsGetBytes = dialect.supportsGetBytes();
 		this.supportsBlobInResultSet = dialect.supportsBlobInResultSet();
-		this.needsSavepoint = dialect.needsSavepoint();
 	}
 	
 	Driver getDriver()
@@ -805,7 +802,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executeSQLUpdate(connection, bf, 1, type.declaredUniqueConstraints);
+		executeSQLUpdate(connection, bf, 1);
 	}
 
 	void delete(final Connection connection, final Item item)
@@ -1165,29 +1162,18 @@ final class Database
 		}
 	}
 	
-	private void executeSQLUpdate(final Connection connection, final Statement statement, final int expectedRows)
-			throws UniqueViolationException
-	{
-		executeSQLUpdate(connection, statement, expectedRows, null);
-	}
-
 	private void executeSQLUpdate(
 			final Connection connection,
-			final Statement statement, final int expectedRows,
-			final List<UniqueConstraint> threatenedUniqueConstraints)
+			final Statement statement, final int expectedRows)
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
-		Savepoint savepoint = null;
 		try
 		{
 			final String sqlText = statement.getText();
 			final DatabaseLogConfig log = this.log;
 			final long timeStart = log!=null ? System.currentTimeMillis() : 0;
 			final int rows;
-			
-			if(threatenedUniqueConstraints!=null && threatenedUniqueConstraints.size()>0 && needsSavepoint)
-				savepoint = connection.setSavepoint();
 			
 			final long timePrepared;
 			if(!prepare)
@@ -1218,25 +1204,7 @@ final class Database
 		}
 		catch(SQLException e)
 		{
-			final UniqueViolationException wrappedException = wrapException(e, threatenedUniqueConstraints);
-			if(wrappedException!=null)
-			{
-				if(savepoint!=null)
-				{
-					try
-					{
-						connection.rollback(savepoint);
-						savepoint = null;
-					}
-					catch(SQLException ex)
-					{
-						throw new SQLRuntimeException(e, ex.getMessage() + " on rollback of: " + statement.toString());
-					}
-				}
-				throw wrappedException;
-			}
-			else
-				throw new SQLRuntimeException(e, statement.toString());
+			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
 		{
@@ -1277,28 +1245,6 @@ final class Database
 			result.addChild(plan);
 		
 		return result;
-	}
-	
-	private UniqueViolationException wrapException(
-			final SQLException e,
-			final List<UniqueConstraint> threatenedUniqueConstraints)
-	{
-		final String uniqueConstraintID = dialect.extractUniqueConstraintName(e);
-		if(uniqueConstraintID!=null)
-		{
-			final UniqueConstraint constraint;
-			if(Dialect.ANY_CONSTRAINT.equals(uniqueConstraintID))
-				constraint = (threatenedUniqueConstraints.size()==1) ? threatenedUniqueConstraints.get(0) : null;
-			else
-			{
-				constraint = uniqueConstraintsByID.get(uniqueConstraintID);
-				if(constraint==null)
-					throw new SQLRuntimeException(e, "no unique constraint found for >"+uniqueConstraintID
-																			+"<, has only "+uniqueConstraintsByID.keySet());
-			}
-			return new UniqueViolationException(constraint, null, e);
-		}
-		return null;
 	}
 	
 	/**

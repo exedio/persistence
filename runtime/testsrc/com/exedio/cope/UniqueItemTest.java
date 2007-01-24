@@ -89,8 +89,8 @@ public class UniqueItemTest extends TestmodelTest
 			catch(UniqueViolationException e)
 			{
 				assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
-				assertEquals(null/*TODO item2*/, e.getItem());
-				assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+				assertEquals(item2, e.getItem());
+				assertEquals("unique violation on " + item2 + " for " + item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
 			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
@@ -193,8 +193,8 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
-			assertEquals(null/*TODO item2*/, e.getItem());
-			assertEquals("unique violation for "+item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals(item2, e.getItem());
+			assertEquals("unique violation on " + item2 + " for " + item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -339,7 +339,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			assertEquals("unique violation on a newly created item for " + a1.doubleUnique, e.getMessage());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		try
@@ -354,7 +354,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			assertEquals("unique violation on a newly created item for " + a1.doubleUnique, e.getMessage());
 		}
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		
@@ -366,8 +366,8 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(null/*TODO b2*/, e.getItem());
-			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			assertEquals(b2, e.getItem());
+			assertEquals("unique violation on " + b2 + " for " + a1.doubleUnique, e.getMessage());
 		}
 		assertEquals(2, b2.getInteger());
 
@@ -379,8 +379,8 @@ public class UniqueItemTest extends TestmodelTest
 		catch(UniqueViolationException e)
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
-			assertEquals(null/*TODO b2*/, e.getItem());
-			assertEquals("unique violation for " + a1.doubleUnique, e.getMessage());
+			assertEquals(b2, e.getItem());
+			assertEquals("unique violation on " + b2 + " for " + a1.doubleUnique, e.getMessage());
 		}
 		assertEquals(2, b2.getInteger());
 

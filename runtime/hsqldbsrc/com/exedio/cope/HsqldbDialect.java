@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
-
 import org.hsqldb.jdbcDriver;
 
 import com.exedio.dsmf.HsqldbDriver;
@@ -120,29 +118,5 @@ final class HsqldbDialect extends Dialect
 	boolean fakesSupportReadCommitted()
 	{
 		return true;
-	}
-
-	private final String extractConstraintName(final SQLException e, final int vendorCode, final String start)
-	{
-		//System.out.println("-u-"+e.getClass()+" "+e.getCause()+" "+e.getErrorCode()+" "+e.getLocalizedMessage()+" "+e.getSQLState()+" "+e.getNextException());
-
-		if(e.getErrorCode()!=vendorCode)
-			return null;
-
-		final String m = e.getMessage();
-		if(m.startsWith(start))
-		{
-			final int startLength = start.length();
-			final int pos = m.indexOf(' ', startLength);
-			return (pos<0) ? m.substring(startLength) : m.substring(startLength, pos);
-		}
-		else
-			return null;
-	}
-	
-	@Override
-	protected String extractUniqueConstraintName(final SQLException e)
-	{
-		return extractConstraintName(e, -104, "Unique constraint violation: ");
 	}
 }

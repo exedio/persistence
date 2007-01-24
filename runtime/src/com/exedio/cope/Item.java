@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.Field.Option;
@@ -183,6 +184,8 @@ public abstract class Item extends Cope
 		{
 			field.checkValue(fieldValues.get(field), null);
 		}
+		
+		checkUniqueConstraints(type, null, fieldValues);
 
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
@@ -280,6 +283,8 @@ public abstract class Item extends Cope
 
 		field.checkValue(value, this);
 
+		checkUniqueConstraints(type, this, Collections.singletonMap(field, value));
+		
 		final Entity entity = getEntity();
 		entity.put(field, value);
 		entity.write(Collections.<BlobColumn, byte[]>emptyMap());
@@ -312,10 +317,36 @@ public abstract class Item extends Cope
 
 			field.checkValue(fieldValues.get(field), this);
 		}
+		checkUniqueConstraints(type, this, fieldValues);
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
 		entity.write(toBlobs(fieldValues));
+	}
+	
+	private static final void checkUniqueConstraints(final Type<?> type, final Item item, final Map<? extends Field, ?> fieldValues)
+	{
+		for(final UniqueConstraint uc : type.uniqueConstraints)
+		{
+			final List<FunctionField<?>> fields = uc.getFields();
+			field:
+			for(FunctionField testField : fields)
+			{
+				if(fieldValues.containsKey(testField))
+				{
+					final Object[] values = new Object[fields.size()];
+					int i = 0;
+					
+					for(FunctionField<?> f : fields)
+						values[i++] = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
+					
+					if(uc.searchUnique(values)!=null)
+						throw new UniqueViolationException(uc, item);
+					
+					break field;
+				}
+			}
+		}
 	}
 
 	public final void deleteCopeItem() throws IntegrityViolationException

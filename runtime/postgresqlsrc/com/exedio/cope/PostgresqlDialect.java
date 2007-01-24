@@ -18,13 +18,9 @@
 
 package com.exedio.cope;
 
-
-import java.sql.SQLException;
-
 import org.postgresql.Driver;
 
 import com.exedio.dsmf.PostgresqlDriver;
-
 
 final class PostgresqlDialect extends Dialect
 {
@@ -51,12 +47,6 @@ final class PostgresqlDialect extends Dialect
 			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + parameters.driverVersion + '(' + parameters.driverMajorVersion + '.' + parameters.driverMinorVersion + ')');
 	}
 	
-	@Override
-	boolean needsSavepoint()
-	{
-		return true;
-	}
-
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
@@ -130,48 +120,5 @@ final class PostgresqlDialect extends Dialect
 	{
 		// TODO check for full text indexes
 		appendMatchClauseByLike(bf, function, value);
-	}
-	
-	private String extractConstraintName(final SQLException e, final String sqlState, final int vendorCode)
-	{
-		//final PSQLException pe = (PSQLException)e;
-		//final ServerErrorMessage sem = pe.getServerErrorMessage();
-		//System.out.println("..........."+sem.getDetail()+"..."+sem.getFile()+"..."+sem.getHint()+"..."+sem.getInternalPosition()+"..."+sem.getInternalQuery()+"..."+sem.getLine()+"..."+sem.getMessage()+"..."+sem.getPosition()+"..."+sem.getRoutine()+"..."+sem.getSeverity()+"..."+sem.getSQLState()+"..."+sem.getWhere()+"...");
-		
-		if(!sqlState.equals(e.getSQLState()))
-			return null;
-		if(e.getErrorCode()!=vendorCode)
-			return null;
-		
-		final String m = e.getMessage();
-		
-		// TODO make name extraction independent of server language
-		final String en = extractConstraintName(m, '"', '"');
-		if(en!=null)
-			return en;
-		
-		final String de = extractConstraintName(m, '\u00bb', '\u00ab'); // right and left pointing double angle quotation mark
-		if(de!=null)
-			return de;
-		
-		return null;
-	}
-	
-	private static final String extractConstraintName(final String m, final char startChar, final char endChar)
-	{
-		final int end = m.lastIndexOf(endChar);
-		if(end<=0)
-			return null;
-		final int start = m.lastIndexOf(startChar, end-1);
-		if(start<0)
-			return null;
-		
-		return m.substring(start+1, end);
-	}
-	
-	@Override
-	protected String extractUniqueConstraintName(final SQLException e)
-	{
-		return extractConstraintName(e, "23505", 0);
 	}
 }

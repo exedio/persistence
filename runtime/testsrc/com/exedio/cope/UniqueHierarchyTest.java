@@ -38,7 +38,7 @@ public class UniqueHierarchyTest extends AbstractLibTest
 		assertEquals(list(), UniqueHierarchySubItem.TYPE.search());
 		
 		final UniqueHierarchySubItem item = new UniqueHierarchySubItem("super1", "sub1");
-		//deleteOnTearDown(item);
+		deleteOnTearDown(item);
 		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
 
@@ -52,13 +52,7 @@ public class UniqueHierarchyTest extends AbstractLibTest
 			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
 		}
-		assertEquals(2/* TODO sould be 1 */, UniqueHierarchySuperItem.TYPE.search().size());
+		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
-
-		// no other way to clean up database after this bug
-		model.commit();
-		model.dropDatabase();
-		model.createDatabase();
-		model.startTransaction(getClass().getName());
 	}
 }

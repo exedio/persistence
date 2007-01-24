@@ -36,10 +36,6 @@ abstract class Dialect
 		return null;
 	}
 	
-	protected abstract String extractUniqueConstraintName(SQLException e);
-	
-	protected final static String ANY_CONSTRAINT = "--ANY--";
-
 	boolean supportsGetBytes()
 	{
 		return true;
@@ -67,18 +63,6 @@ abstract class Dialect
 	int getBlobLengthFactor()
 	{
 		return 1;
-	}
-
-	/**
-	 * By overriding this method subclasses can enable the use of save points.
-	 * Some databases cannot recover from constraint violations in
-	 * the same transaction without a little help,
-	 * they need a save point set before the modification, that can be
-	 * recovered manually.
-	 */
-	boolean needsSavepoint()
-	{
-		return false;
 	}
 
 	abstract String getIntegerType(long minimum, long maximum);
