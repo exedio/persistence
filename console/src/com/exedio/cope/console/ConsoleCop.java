@@ -112,8 +112,8 @@ abstract class ConsoleCop extends Cop
 	static final String TAB = "t";
 	static final String TAB_TYPE_COLUMNS = "tc";
 	static final String TAB_MIGRATION = "mig";
-	static final String TAB_CONNECTION_POOL = "cp";
 	static final String TAB_DATBASE_LOG = "dblog";
+	static final String TAB_CONNECTION_POOL = "cp";
 	static final String TAB_ITEM_CACHE = "ca";
 	static final String TAB_QUERY_CACHE = "qca";
 	static final String TAB_PRIMARY_KEY = "pk";
