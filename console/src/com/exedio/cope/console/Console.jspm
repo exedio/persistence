@@ -189,13 +189,11 @@ final class Console_Jspm
 				final Migration migration = migrations.get(v);
 				final String log = logs.get(v);
 			%>
-			<tr><td><%
-				if(v==current){%>--&gt; <%}
-				%><%=v%></td><td class="text"><%
-				if(migration!=null){ %><%=migration.getComment()%><% } else { %>-<% }
-				%></td><td class="text"><%
-				if(log!=null){ %><%=log%><% } else { %>-<% }
-				%></td></tr><%
+			<tr>
+				<td><% if(v==current){ %>--&gt; <% }%><%=v%></td>
+				<td class="text"><% if(migration!=null){ %><%=migration.getComment()%><% } else { %>-<% } %></td>
+				<td class="text"><% if(log!=null){ %><%=log%><% } else { %>-<% } %></td>
+			</tr><%
 			}
 			}
 			else
