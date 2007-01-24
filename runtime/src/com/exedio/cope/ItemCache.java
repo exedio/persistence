@@ -29,6 +29,9 @@ import com.exedio.cope.util.CacheInfo;
 
 final class ItemCache
 {
+	/**
+	 * Index of array is {@link Type#idTransiently}.
+	 */
 	private final Cachlet[] cachlets;
 	
 	ItemCache(final Type[] types, final int[] limits)
