@@ -34,6 +34,11 @@ public class ModificationListenerTest extends AbstractLibTest
 	
 	public void testCommitListener()
 	{
+		assertEqualsUnmodifiable(list(), model.getModificationListeners());
+
+		model.addModificationListener(l);
+		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
+
 		try
 		{
 			model.addModificationListener(null);
@@ -43,6 +48,7 @@ public class ModificationListenerTest extends AbstractLibTest
 		{
 			assertEquals("listener must not be null", e.getMessage());
 		}
+		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
 		
 		final MatchItem item1 = new MatchItem("item1");
 		deleteOnTearDown(item1);
@@ -97,23 +103,10 @@ public class ModificationListenerTest extends AbstractLibTest
 		model.commit();
 		l.assertIt(list(item3));
 
-		model.startTransaction("CommitListenerTestX");
-	}
-	
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		assertEqualsUnmodifiable(list(), model.getModificationListeners());
-		model.addModificationListener(l);
-		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
-	}
-	
-	@Override
-	protected void tearDown() throws Exception
-	{
 		model.removeModificationListener(l);
-		super.tearDown();
+		assertEqualsUnmodifiable(list(), model.getModificationListeners());
+
+		model.startTransaction("CommitListenerTestX");
 	}
 	
 	class TestListener implements ModificationListener
