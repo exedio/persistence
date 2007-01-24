@@ -79,7 +79,7 @@ final class Vm_Jspm
 			write(out, "implementation.vendor",  thePackage.getImplementationVendor());
 	}
 
-	final static void writeVm(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
+	final static void writeBody(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
 	{
 		%>
 		<table>

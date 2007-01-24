@@ -36,7 +36,7 @@ final class ModificationListenerCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		ModificationListener_Jspm.writeModificationListener(out, model.getModificationListeners());
+		ModificationListener_Jspm.writeBody(out, model.getModificationListeners());
 
 		/*model.addModificationListener(new ModificationListener()
 		{

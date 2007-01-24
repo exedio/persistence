@@ -57,8 +57,8 @@ final class EnvironmentCop extends ConsoleCop
 			current.setProperty(name, replaceLineBreaks(current.getProperty(name)));
 		}
 
-		Environment_Jspm.writeDatabaseInfo(out, model.getProperties().getDialect(), current);
-		Environment_Jspm.writeTestInfo(out, current, makeTestedDatabases());
+		Environment_Jspm.writeCurrent(out, model.getProperties().getDialect(), current);
+		Environment_Jspm.writeTest(out, current, makeTestedDatabases());
 	}
 	
 	private static final HashMap[] makeTestedDatabases()
@@ -143,7 +143,7 @@ final class EnvironmentCop extends ConsoleCop
 		try
 		{
 			out = new FileOutputStream(args[0]);
-			Environment_Jspm.writeTestInfoBody(
+			Environment_Jspm.writeTestBody(
 					new PrintStream(out, false, ConsoleServlet.ENCODING),
 					new java.util.Properties(),
 					makeTestedDatabases());

@@ -26,7 +26,7 @@ import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListener_Jspm
 {
-	final static void writeModificationListener(final PrintStream out, final List<ModificationListener> listeners)
+	final static void writeBody(final PrintStream out, final List<ModificationListener> listeners)
 	{
 		%>
 		<table>
