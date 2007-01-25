@@ -59,8 +59,6 @@ public class QueryCacheTest extends AbstractLibTest
 		model.setDatabaseListener(l);
 		final Query q1 = item.TYPE.newQuery(item.text.equal("someString"));
 		final Query q2 = item.TYPE.newQuery(item.text.equal("someString2"));
-		q1.enableMakeStatementInfo(); // otherwise hits are not counted
-		q2.enableMakeStatementInfo(); // otherwise hits are not counted
 		
 		q1.search();
 		assertEquals(list(sc(q1, false)), l.scs);
@@ -100,7 +98,7 @@ public class QueryCacheTest extends AbstractLibTest
 	
 	private CacheQueryInfo cqi(final String query, final int resultSize, final int hits)
 	{
-		return new CacheQueryInfo(query, resultSize, hits);
+		return new CacheQueryInfo(query, resultSize, model.getProperties().getCacheQueryHistogram() ? hits : 0);
 	}
 
 	private List<CacheQueryInfo> cqi()
