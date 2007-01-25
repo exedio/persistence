@@ -198,6 +198,23 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
+
+		try
+		{
+			item2.set(
+					item1.uniqueString.map("uniqueString2"),
+					item1.otherString.map("otherString1")
+			);
+			fail();
+		}
+		catch(UniqueViolationException e) // TODO this is a bug
+		{
+			assertEquals(item2.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(item2, e.getItem());
+			assertEquals("unique violation on " + item2 + " for " + item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+		}
+		assertEquals("uniqueString2", item2.getUniqueString());
+		assertEquals("otherString2", item2.getOtherString());
 	}
 
 	public void testUniqueFinal()
@@ -377,6 +394,19 @@ public class UniqueItemTest extends TestmodelTest
 			fail();
 		}
 		catch(UniqueViolationException e)
+		{
+			assertEquals(a1.doubleUnique, e.getFeature());
+			assertEquals(b2, e.getItem());
+			assertEquals("unique violation on " + b2 + " for " + a1.doubleUnique, e.getMessage());
+		}
+		assertEquals(2, b2.getInteger());
+
+		try
+		{
+			b2.setInteger(2);
+			fail();
+		}
+		catch(UniqueViolationException e) // TODO this is a bug
 		{
 			assertEquals(a1.doubleUnique, e.getFeature());
 			assertEquals(b2, e.getItem());

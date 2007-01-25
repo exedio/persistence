@@ -71,5 +71,17 @@ public class UniqueHierarchyTest extends AbstractLibTest
 			assertEquals(item2, e.getItem());
 		}
 		assertEquals("sub2", item2.getSubField());
+		
+		try
+		{
+			item.setSubField("sub1");
+			fail();
+		}
+		catch(UniqueViolationException e) // TODO this is a bug
+		{
+			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(item, e.getItem());
+		}
+		assertEquals("sub1", item.getSubField());
 	}
 }
