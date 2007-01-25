@@ -54,5 +54,22 @@ public class UniqueHierarchyTest extends AbstractLibTest
 		}
 		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
+
+		final UniqueHierarchySubItem item2 = new UniqueHierarchySubItem("super2", "sub2");
+		deleteOnTearDown(item2);
+		assertEquals(list(item, item2), UniqueHierarchySuperItem.TYPE.search(null, UniqueHierarchySuperItem.TYPE.getThis(), true));
+		assertEquals(list(item, item2), UniqueHierarchySubItem.TYPE.search(null, item.TYPE.getThis(), true));
+		
+		try
+		{
+			item2.setSubField("sub1");
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(item2, e.getItem());
+		}
+		assertEquals("sub2", item2.getSubField());
 	}
 }
