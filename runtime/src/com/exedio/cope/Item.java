@@ -340,7 +340,8 @@ public abstract class Item extends Cope
 					for(FunctionField<?> f : fields)
 						values[i++] = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
 					
-					if(uc.searchUnique(values)!=null)
+					final Item collision = uc.searchUnique(values);
+					if(collision!=null && (item==null || !item.equals(collision)))
 						throw new UniqueViolationException(uc, item);
 					
 					break field;
