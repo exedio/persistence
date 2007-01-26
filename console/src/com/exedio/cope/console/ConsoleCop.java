@@ -138,7 +138,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_ITEM_CACHE.equals(tab))
 			return new ItemCacheCop();
 		if(TAB_QUERY_CACHE.equals(tab))
-			return new QueryCacheCop();
+			return QueryCacheCop.getQueryCacheCop(request);
 		if(TAB_PRIMARY_KEY.equals(tab))
 			return new PrimaryKeysCop();
 		if(TAB_MEDIA_STATS.equals(tab))

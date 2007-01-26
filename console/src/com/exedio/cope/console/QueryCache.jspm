@@ -83,7 +83,7 @@ final class QueryCache_Jspm extends Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th class="caption" colspan="4">Query Cache Histogram</th></tr><%
+			<tr><th class="caption" colspan="<%=names.length+1%>">Query Cache Histogram</th></tr><%
 			writeColouredHeader(out, names, 0, 1);
 			%>
 			<tr><%
@@ -91,9 +91,27 @@ final class QueryCache_Jspm extends Console_Jspm
 				%>
 				<th>Query</th>
 			</tr><%
-
+		
+		final int histogramLimit = cop.histogramLimit;
+		
 		for(int i = 0; i<queryHistogram.length; i++)
 		{
+			if(i>=histogramLimit)
+			{
+			%>
+			<tr>
+				<td class="text" colspan="<%=names.length+1%>">
+					Skipped display of <%=queryHistogram.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
+					<form action="<%=cop%>" method="GET">
+						New limit:
+						<input type="hidden" name="<%=cop.TAB%>" value="<%=cop.TAB_QUERY_CACHE%>">
+						<input type="text" name="<%=cop.HISTOGRAM_LIMIT%>" value="<%=histogramLimit%>">
+						<input type="submit" name="set" value="set">
+					</form>
+				</td>
+			</tr><%
+				break;
+			}
 			final CacheQueryInfo info = queryHistogram[i];
 			final int[] data = {
 					i,

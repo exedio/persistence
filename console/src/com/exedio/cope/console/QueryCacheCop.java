@@ -27,13 +27,32 @@ import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCacheCop extends ConsoleCop
 {
+	static final String HISTOGRAM_LIMIT = "hl";
+	private static final int HISTOGRAM_LIMIT_DEFAULT = 100;
+	
+	final int histogramLimit;
 
 	QueryCacheCop()
 	{
+		this(HISTOGRAM_LIMIT_DEFAULT);
+	}
+	
+	private QueryCacheCop(final int maximumSize)
+	{
 		super("query cache");
 		addParameter(TAB, TAB_QUERY_CACHE);
+		if(maximumSize!=HISTOGRAM_LIMIT_DEFAULT)
+			addParameter(HISTOGRAM_LIMIT, String.valueOf(maximumSize));
+		
+		this.histogramLimit = maximumSize;
 	}
 
+	static QueryCacheCop getQueryCacheCop(final HttpServletRequest request)
+	{
+		final String hl = request.getParameter(HISTOGRAM_LIMIT);
+		return new QueryCacheCop(hl!=null ? Integer.valueOf(hl) : HISTOGRAM_LIMIT_DEFAULT);
+	}
+	
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
