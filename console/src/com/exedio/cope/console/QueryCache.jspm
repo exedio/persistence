@@ -76,6 +76,12 @@ final class QueryCache_Jspm extends Console_Jspm
 			for which <tt>Query#enableMakeStatementInfo()</tt> has been set.
 		</div><%
 		}
+		else
+		{
+		%>
+		<hr><%
+		}
+		
 		final String[] names = {
 			"Recent Usage (LRU)",
 			"Result Size",
