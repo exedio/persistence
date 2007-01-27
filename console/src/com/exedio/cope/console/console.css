@@ -80,6 +80,11 @@ div.message
 	border-style: solid;
 }
 
+div.footer
+{
+	font-size:70%;
+}
+
 img
 {
 	border:0;

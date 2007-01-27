@@ -59,7 +59,7 @@ abstract class Console_Jspm
 		writeMenu(out, cop);
 		%>
 		<hr>
-		<small>request: <%=cop.getStart()%> - <%=cop.getEnd()%> (<%=cop.getDuration()%>ms)</small>
+		<div class="footer">request: <%=cop.getStart()%> - <%=cop.getEnd()%> (<%=cop.getDuration()%>ms)</div>
 	</body>
 </html>
 <%
