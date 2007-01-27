@@ -11,6 +11,14 @@ div.menu
 	font-size:90%;
 }
 
+hr
+{
+	height:0px;
+	margin:1em 0px;
+	border-width:0px;
+	border-top:1px solid #999;
+}
+
 table th
 {
 	text-align:left;
