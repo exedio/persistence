@@ -133,6 +133,14 @@ public class FieldSetTest extends AbstractLibTest
 		assertContains("hallo", "bello", item.getStrings());
 		assertEquals(2, item.strings.getRelationType().newQuery(null).search().size());
 
+		item.setStrings(listg("bello", "knollo"));
+		assertContains("bello", "knollo", item.getStrings());
+		assertEquals(2, item.strings.getRelationType().newQuery(null).search().size());
+
+		item.setStrings(listg("knollo"));
+		assertContains("knollo", item.getStrings());
+		assertEquals(1, item.strings.getRelationType().newQuery(null).search().size());
+
 		item.setStrings(listg("zack1", "zack2", "zack3"));
 		assertContains("zack1", "zack2", "zack3", item.getStrings());
 		assertEquals(3, item.strings.getRelationType().newQuery(null).search().size());
