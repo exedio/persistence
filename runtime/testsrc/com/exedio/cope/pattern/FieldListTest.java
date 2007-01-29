@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
@@ -56,6 +58,8 @@ public class FieldListTest extends AbstractLibTest
 		final Type<?> stringsType = item.strings.getRelationType();
 		final Type<?> datesType = item.dates.getRelationType();
 		final Type<?> itemsType = item.items.getRelationType();
+		final IntegerField stringsOrder = item.strings.getOrder();
+		final FunctionField<String> stringsElement = item.strings.getElement();
 		
 		// test model
 		assertEqualsUnmodifiable(list(
@@ -82,9 +86,9 @@ public class FieldListTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(
 				stringsType.getThis(),
 				item.strings.getParent(),
-				item.strings.getOrder(),
+				stringsOrder,
 				item.strings.getUniqueConstraint(),
-				item.strings.getElement()
+				stringsElement
 			), stringsType.getFeatures());
 		assertEqualsUnmodifiable(list(
 				datesType.getThis(),
@@ -139,9 +143,9 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(model, itemsType.getModel());
 
 		assertEquals(stringsType, item.strings.getParent().getType());
-		assertEquals(stringsType, item.strings.getOrder().getType());
+		assertEquals(stringsType, stringsOrder.getType());
 		assertEquals(stringsType, item.strings.getUniqueConstraint().getType());
-		assertEquals(stringsType, item.strings.getElement().getType());
+		assertEquals(stringsType, stringsElement.getType());
 		assertEquals(datesType, item.dates.getParent().getType());
 		assertEquals(datesType, item.dates.getOrder().getType());
 		assertEquals(datesType, item.dates.getUniqueConstraint().getType());
@@ -152,9 +156,9 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(itemsType, item.items.getElement().getType());
 
 		assertEquals("parent", item.strings.getParent().getName());
-		assertEquals("order", item.strings.getOrder().getName());
+		assertEquals("order", stringsOrder.getName());
 		assertEquals("uniqueConstraint", item.strings.getUniqueConstraint().getName());
-		assertEquals("element", item.strings.getElement().getName());
+		assertEquals("element", stringsElement.getName());
 		assertEquals("parent", item.dates.getParent().getName());
 		assertEquals("order", item.dates.getOrder().getName());
 		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
@@ -164,7 +168,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals("uniqueConstraint", item.items.getUniqueConstraint().getName());
 		assertEquals("element", item.items.getElement().getName());
 
-		assertEqualsUnmodifiable(list(item.strings.getParent(), item.strings.getOrder()), item.strings.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.strings.getParent(), stringsOrder), item.strings.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(item.dates.getParent(), item.dates.getOrder()), item.dates.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(item.items.getParent(), item.items.getOrder()), item.items.getUniqueConstraint().getFields());
 
@@ -207,7 +211,7 @@ public class FieldListTest extends AbstractLibTest
 		q.join(stringsType, item.strings.getParent().equalTarget());
 		assertEquals(list(), q.search());
 		
-		q.setCondition(item.strings.getElement().equal("zack"));
+		q.setCondition(stringsElement.equal("zack"));
 		assertEquals(list(), q.search());
 		
 		q.setCondition(item.dates.getElement().equal(new Date()));
@@ -246,15 +250,15 @@ public class FieldListTest extends AbstractLibTest
 		final Item r0;
 		final Item r1;
 		{
-			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, stringsOrder, true).iterator();
 			r0 = i.next();
 			r1 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("hallo", r0.get(item.strings.getElement()));
-		assertEquals("bello", r1.get(item.strings.getElement()));
-		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
-		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
+		assertEquals("hallo", r0.get(stringsElement));
+		assertEquals("bello", r1.get(stringsElement));
+		assertEquals(0, r0.get(stringsOrder).intValue());
+		assertEquals(1, r1.get(stringsOrder).intValue());
 
 		item.setStrings(listg("zack1", "zack2", "zack3"));
 		assertEquals(list("zack1", "zack2", "zack3"), item.getStrings());
@@ -265,18 +269,18 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item.getDistinctParentsOfStrings("zackx"));
 		final Item r2;
 		{
-			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, stringsOrder, true).iterator();
 			assertSame(r0, i.next());
 			assertSame(r1, i.next());
 			r2 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("zack1", r0.get(item.strings.getElement()));
-		assertEquals("zack2", r1.get(item.strings.getElement()));
-		assertEquals("zack3", r2.get(item.strings.getElement()));
-		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
-		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
-		assertEquals(2, r2.get(item.strings.getOrder()).intValue());
+		assertEquals("zack1", r0.get(stringsElement));
+		assertEquals("zack2", r1.get(stringsElement));
+		assertEquals("zack3", r2.get(stringsElement));
+		assertEquals(0, r0.get(stringsOrder).intValue());
+		assertEquals(1, r1.get(stringsOrder).intValue());
+		assertEquals(2, r2.get(stringsOrder).intValue());
 
 		item.setStrings(listg("null1", null, "null3", "null4"));
 		assertEquals(list("null1", null, "null3", "null4"), item.getStrings());
@@ -287,21 +291,21 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfStrings("null4"));
 		final Item r3;
 		{
-			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, stringsOrder, true).iterator();
 			assertSame(r0, i.next());
 			assertSame(r1, i.next());
 			assertSame(r2, i.next());
 			r3 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("null1", r0.get(item.strings.getElement()));
-		assertEquals(null, r1.get(item.strings.getElement()));
-		assertEquals("null3", r2.get(item.strings.getElement()));
-		assertEquals("null4", r3.get(item.strings.getElement()));
-		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
-		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
-		assertEquals(2, r2.get(item.strings.getOrder()).intValue());
-		assertEquals(3, r3.get(item.strings.getOrder()).intValue());
+		assertEquals("null1", r0.get(stringsElement));
+		assertEquals(null, r1.get(stringsElement));
+		assertEquals("null3", r2.get(stringsElement));
+		assertEquals("null4", r3.get(stringsElement));
+		assertEquals(0, r0.get(stringsOrder).intValue());
+		assertEquals(1, r1.get(stringsOrder).intValue());
+		assertEquals(2, r2.get(stringsOrder).intValue());
+		assertEquals(3, r3.get(stringsOrder).intValue());
 
 		item.setStrings(listg("dup1", "dup2", "dup1"));
 		assertEquals(list("dup1", "dup2", "dup1"), item.getStrings());
@@ -310,18 +314,18 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfStrings("dup2"));
 		assertContains(      item.getDistinctParentsOfStrings("dup3"));
 		{
-			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, stringsOrder, true).iterator();
 			assertSame(r0, i.next());
 			assertSame(r1, i.next());
 			assertSame(r2, i.next());
 			assertFalse(i.hasNext());
 		}
-		assertEquals("dup1", r0.get(item.strings.getElement()));
-		assertEquals("dup2", r1.get(item.strings.getElement()));
-		assertEquals("dup1", r2.get(item.strings.getElement()));
-		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
-		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
-		assertEquals(2, r2.get(item.strings.getOrder()).intValue());
+		assertEquals("dup1", r0.get(stringsElement));
+		assertEquals("dup2", r1.get(stringsElement));
+		assertEquals("dup1", r2.get(stringsElement));
+		assertEquals(0, r0.get(stringsOrder).intValue());
+		assertEquals(1, r1.get(stringsOrder).intValue());
+		assertEquals(2, r2.get(stringsOrder).intValue());
 		assertFalse(r3.existsCopeItem());
 
 		item.setStrings(CopeAssert.<String>listg());
