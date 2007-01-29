@@ -820,7 +820,7 @@ public final class Type<C extends Item>
 	
 	private static final SetValue[] EMPTY_SET_VALUES = {};
 	
-	public C newItem(final SetValue[] setValues)
+	public C newItem(final SetValue... setValues)
 		throws ConstraintViolationException
 	{
 		if(!uniqueJavaClass)

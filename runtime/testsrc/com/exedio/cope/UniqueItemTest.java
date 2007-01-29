@@ -279,7 +279,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(null));
 		try
 		{
-			ItemWithSingleUniqueNotNull.TYPE.newItem(new SetValue[]{item.uniqueNotNullString.map(null)});
+			ItemWithSingleUniqueNotNull.TYPE.newItem(item.uniqueNotNullString.map(null));
 			fail();
 		}
 		catch(MandatoryViolationException e)
@@ -352,10 +352,10 @@ public class UniqueItemTest extends TestmodelTest
 		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
 		try
 		{
-			ItemWithDoubleUnique.TYPE.newItem(new SetValue[]{
+			ItemWithDoubleUnique.TYPE.newItem(
 					ItemWithDoubleUnique.string.map("b"),
-					ItemWithDoubleUnique.integer.map(1),
-				});
+					ItemWithDoubleUnique.integer.map(1)
+				);
 			fail();
 		}
 		catch(UniqueViolationException e)

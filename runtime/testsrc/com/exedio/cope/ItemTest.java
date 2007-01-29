@@ -150,15 +150,15 @@ public class ItemTest extends TestmodelTest
 	
 	public void testItemCreation()
 	{
-		final EmptyItem item1 = EmptyItem.TYPE.newItem(null);
-		final AttributeItem item2 = AttributeItem.TYPE.newItem(new SetValue[]{
+		final EmptyItem item1 = EmptyItem.TYPE.newItem();
+		final AttributeItem item2 = AttributeItem.TYPE.newItem(
 			AttributeItem.someNotNullString.map("someGenericString"),
 			AttributeItem.someNotNullInteger.map(50),
 			AttributeItem.someNotNullLong.map(60l),
 			AttributeItem.someNotNullDouble.map(20.2),
 			AttributeItem.someNotNullBoolean.map(false),
 			AttributeItem.someNotNullItem.map(item1),
-			AttributeItem.someNotNullEnum.map(AttributeItem.SomeEnum.enumValue3)});
+			AttributeItem.someNotNullEnum.map(AttributeItem.SomeEnum.enumValue3));
 		
 		assertEquals("someGenericString", item2.getSomeNotNullString());
 		assertEquals(50, item2.getSomeNotNullInteger());
@@ -174,7 +174,7 @@ public class ItemTest extends TestmodelTest
 	
 	public void testItemPostCreate()
 	{
-		final EmptyItem item = EmptyItem.TYPE.newItem(null);
+		final EmptyItem item = EmptyItem.TYPE.newItem();
 		assertEquals(5, item.getPostCreateValue());
 		
 		assertDelete(item);

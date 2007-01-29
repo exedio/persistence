@@ -336,10 +336,10 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(new SetValue[]{
+			StringItem.TYPE.newItem(
 					item.mandatory.map("defaultByMax4"),
 					item.max4.map("12345")
-			});
+			);
 			fail();
 		}
 		catch(LengthViolationException e)
@@ -483,10 +483,10 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(new SetValue[]{
+			StringItem.TYPE.newItem(
 					item.mandatory.map("defaultByExact6"),
 					item.exact6.map("1234567")
-			});
+			);
 			fail();
 		}
 		catch(LengthViolationException e)

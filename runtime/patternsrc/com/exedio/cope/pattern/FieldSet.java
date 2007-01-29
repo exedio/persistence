@@ -34,7 +34,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
@@ -126,10 +125,10 @@ public final class FieldSet<E> extends Pattern
 			{
 				while(toCreate.hasNext())
 				{
-					this.relationType.newItem(new SetValue[]{
+					this.relationType.newItem(
 							Cope.mapAndCast(this.parent, item),
-							this.element.map(toCreate.next()),
-					});
+							this.element.map(toCreate.next())
+					);
 				}
 				return;
 			}

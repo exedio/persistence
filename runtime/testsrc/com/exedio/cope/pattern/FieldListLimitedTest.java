@@ -238,7 +238,7 @@ public class FieldListLimitedTest extends AbstractLibTest
 		assertEquals("lets3", item2.get(string3));
 		assertEquals("lets4", item2.get(string4));
 		
-		final FieldListLimitedItem item3 = FieldListLimitedItem.TYPE.newItem(new SetValue[]{item.strings.map(listg("fetz1", null, null, null))});
+		final FieldListLimitedItem item3 = FieldListLimitedItem.TYPE.newItem(item.strings.map(listg("fetz1", null, null, null)));
 		deleteOnTearDown(item3);
 		assertEquals(list("fetz1"), item3.getStrings());
 		assertEquals("fetz1", item3.get(string1));

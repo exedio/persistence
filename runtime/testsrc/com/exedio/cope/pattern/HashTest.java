@@ -153,7 +153,7 @@ public class HashTest extends AbstractLibTest
 		assertFalse(item2.checkInternal(""));
 		assertTrue(item2.checkInternal("lets"));
 		
-		final HashItem item3 = HashItem.TYPE.newItem(new SetValue[]{item.internal.map("fetz")});
+		final HashItem item3 = HashItem.TYPE.newItem(item.internal.map("fetz"));
 		deleteOnTearDown(item3);
 		assertEquals("[fetz]", item3.get(item3.internal.getStorage()));
 		assertFalse(item3.checkInternal(null));

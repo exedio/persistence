@@ -318,10 +318,10 @@ public class DataTest extends AbstractLibTest
 			assertData(data10, item2.getData10());
 		}
 		{
-			final DataItem item3 = DataItem.TYPE.newItem(new SetValue[]{
+			final DataItem item3 = DataItem.TYPE.newItem(
 					DataItem.data.map(data6),
-					DataItem.data10.map(data10),
-			});
+					DataItem.data10.map(data10)
+			);
 			deleteOnTearDown(item3);
 			assertData(data6, item3.getData());
 			assertData(data10, item3.getData10());
@@ -346,7 +346,7 @@ public class DataTest extends AbstractLibTest
 
 		try
 		{
-			DataItem.TYPE.newItem(new SetValue[]{DataItem.data10.map(data11)});
+			DataItem.TYPE.newItem(DataItem.data10.map(data11));
 			fail();
 		}
 		catch(DataLengthViolationException e)
@@ -380,9 +380,9 @@ public class DataTest extends AbstractLibTest
 		
 		try
 		{
-			DataItem.TYPE.newItem(new SetValue[]{
-					new SetValue(DataItem.data, new Integer(1)),
-			});
+			DataItem.TYPE.newItem(
+					new SetValue(DataItem.data, new Integer(1))
+			);
 			fail();
 		}
 		catch(ClassCastException e)

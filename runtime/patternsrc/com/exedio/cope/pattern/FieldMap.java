@@ -20,14 +20,13 @@ package com.exedio.cope.pattern;
 
 import java.util.LinkedHashMap;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
@@ -116,11 +115,11 @@ public final class FieldMap<K,V> extends Pattern
 		if(relationItem==null)
 		{
 			if(value!=null)
-				uniqueConstraint.getType().newItem(new SetValue[]{
+				uniqueConstraint.getType().newItem(
 						Cope.mapAndCast(this.parent, item),
 						this.key.map(key),
-						this.value.map(value),
-				});
+						this.value.map(value)
+				);
 		}
 		else
 		{

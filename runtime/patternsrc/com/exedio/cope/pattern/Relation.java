@@ -31,7 +31,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
@@ -132,10 +131,10 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	{
 		try
 		{
-			getType().newItem(new SetValue[]{
+			getType().newItem(
 					this.source.map(source),
-					this.target.map(target),
-			});
+					this.target.map(target)
+			);
 			return true;
 		}
 		catch(UniqueViolationException e)
@@ -207,10 +206,10 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 			if(!keptRightItems.contains(rightItem))
 			{
 				//System.out.println("---------create--"+leftItem+'-'+rightItem);
-				type.newItem(new SetValue[]{
+				type.newItem(
 						leftField.map(leftItem),
-						rightField.map(rightItem),
-				});
+						rightField.map(rightItem)
+				);
 			}
 		}
 		//System.out.println("---------end");

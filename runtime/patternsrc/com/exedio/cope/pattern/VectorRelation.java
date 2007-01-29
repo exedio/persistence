@@ -24,14 +24,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
+import com.exedio.cope.Field;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
@@ -138,11 +137,11 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		int order = 0;
 		for(final T target : targets)
 		{
-			type.newItem(new SetValue[]{
+			type.newItem(
 					this.source.map(source),
 					this.target.map(target),
-					this.order.map(order++),
-			});
+					this.order.map(order++)
+			);
 		}
 	}
 	
