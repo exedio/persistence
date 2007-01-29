@@ -294,10 +294,6 @@ public final class Transaction
 				connectionPool = null;
 			}
 			
-			for(final TIntObjectHashMap<Entity> entityMap : entityMaps)
-				if(entityMap!=null)
-					entityMap.clear();
-			
 			closed = true;
 		}
 
@@ -339,6 +335,12 @@ public final class Transaction
 		}
 
 		// cleanup
+		// do this at the end, because there is no hurry with cleanup
+		
+		for(final TIntObjectHashMap<Entity> entityMap : entityMaps)
+			if(entityMap!=null)
+				entityMap.clear();
+		
 		for(int typeTransiently = 0; typeTransiently<invalidations.length; typeTransiently++)
 		{
 			final TIntHashSet invalidationSet = invalidations[typeTransiently];
