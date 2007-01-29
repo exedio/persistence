@@ -71,9 +71,9 @@ public class DefaultToTest extends AbstractLibTest
 		
 		{
 			final Date before = new Date();
-			final DefaultToItem item = new DefaultToItem(new SetValue[]{
-					DefaultToItem.booleanNone.map(false),
-			});
+			final DefaultToItem item = new DefaultToItem(
+					DefaultToItem.booleanNone.map(false)
+			);
 			final Date after = new Date();
 			deleteOnTearDown(item);
 			assertEquals(TRUE, item.getBooleanTrue());
@@ -92,7 +92,7 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getEnumNone());
 		}
 		{
-			final DefaultToItem item = new DefaultToItem(new SetValue[]{
+			final DefaultToItem item = new DefaultToItem(
 					DefaultToItem.booleanTrue.map(false),
 					DefaultToItem.booleanNone.map(true),
 					DefaultToItem.integerFive.map(6),
@@ -104,8 +104,8 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.dateNone.map(date(503)),
 					DefaultToItem.enumOne.map(DefaultToEnum.THREE),
 					DefaultToItem.enumTwo.map(DefaultToEnum.ONE),
-					DefaultToItem.enumNone.map(DefaultToEnum.TWO),
-			});
+					DefaultToItem.enumNone.map(DefaultToEnum.TWO)
+			);
 			deleteOnTearDown(item);
 			assertEquals(FALSE, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
@@ -123,7 +123,7 @@ public class DefaultToTest extends AbstractLibTest
 		}
 		{
 			final Date before = new Date();
-			final DefaultToItem item = new DefaultToItem(new SetValue[]{
+			final DefaultToItem item = new DefaultToItem(
 					DefaultToItem.booleanTrue.map(null),
 					DefaultToItem.booleanNone.map(true),
 					DefaultToItem.integerFifty.map(null),
@@ -132,8 +132,8 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.dateNone.map(null),
 					DefaultToItem.enumOne.map(DefaultToEnum.TWO),
 					DefaultToItem.enumTwo.map(null),
-					DefaultToItem.enumNone.map(null),
-			});
+					DefaultToItem.enumNone.map(null)
+			);
 			final Date after = new Date();
 			deleteOnTearDown(item);
 			assertEquals(null, item.getBooleanTrue());

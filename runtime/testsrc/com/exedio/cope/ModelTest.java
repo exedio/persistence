@@ -267,7 +267,7 @@ public class ModelTest extends TestmodelTest
 	{
 		NoCreationConstructor()
 		{
-			super(null);
+			super(new SetValue[]{});
 		}
 	}
 

@@ -143,7 +143,7 @@ public abstract class Item extends Cope
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
-	protected Item(final SetValue[] setValues)
+	protected Item(final SetValue... setValues)
 	{
 		this(setValues, null);
 	}
