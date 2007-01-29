@@ -19,12 +19,14 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 
 public class FieldListTest extends AbstractLibTest
@@ -165,6 +167,34 @@ public class FieldListTest extends AbstractLibTest
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.dates.getRelationType()));
 		assertTrue(!item.TYPE.isAssignableFrom(item.strings.getRelationType()));
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.TYPE));
+		
+		try
+		{
+			FieldList.newList(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("element must not be null", e.getMessage());
+		}
+		try
+		{
+			FieldList.newList(new StringField(Item.FINAL));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("element must not be final", e.getMessage());
+		}
+		try
+		{
+			FieldList.newList(new StringField(Item.UNIQUE));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("element must not be unique", e.getMessage());
+		}
 
 		// test persistence
 		// test searching
@@ -208,7 +238,18 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfStrings("hallo"));
 		assertContains(item, item.getDistinctParentsOfStrings("bello"));
 		assertContains(item.getDistinctParentsOfStrings("zack1"));
-		assertEquals(2, item.strings.getRelationType().newQuery(null).search().size());
+		final Item r0;
+		final Item r1;
+		{
+			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			r0 = i.next();
+			r1 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("hallo", r0.get(item.strings.getElement()));
+		assertEquals("bello", r1.get(item.strings.getElement()));
+		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
+		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
 
 		item.setStrings(listg("zack1", "zack2", "zack3"));
 		assertEquals(list("zack1", "zack2", "zack3"), item.getStrings());
@@ -217,7 +258,20 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfStrings("zack2"));
 		assertContains(item, item.getDistinctParentsOfStrings("zack3"));
 		assertContains(item.getDistinctParentsOfStrings("zackx"));
-		assertEquals(3, item.strings.getRelationType().newQuery(null).search().size());
+		final Item r2;
+		{
+			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			assertSame(r0, i.next());
+			assertSame(r1, i.next());
+			r2 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("zack1", r0.get(item.strings.getElement()));
+		assertEquals("zack2", r1.get(item.strings.getElement()));
+		assertEquals("zack3", r2.get(item.strings.getElement()));
+		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
+		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
+		assertEquals(2, r2.get(item.strings.getOrder()).intValue());
 
 		item.setStrings(listg("null1", null, "null3", "null4"));
 		assertEquals(list("null1", null, "null3", "null4"), item.getStrings());
@@ -226,7 +280,23 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(      item.getDistinctParentsOfStrings("null2"));
 		assertContains(item, item.getDistinctParentsOfStrings("null3"));
 		assertContains(item, item.getDistinctParentsOfStrings("null4"));
-		assertEquals(4, item.strings.getRelationType().newQuery(null).search().size());
+		final Item r3;
+		{
+			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			assertSame(r0, i.next());
+			assertSame(r1, i.next());
+			assertSame(r2, i.next());
+			r3 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("null1", r0.get(item.strings.getElement()));
+		assertEquals(null, r1.get(item.strings.getElement()));
+		assertEquals("null3", r2.get(item.strings.getElement()));
+		assertEquals("null4", r3.get(item.strings.getElement()));
+		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
+		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
+		assertEquals(2, r2.get(item.strings.getOrder()).intValue());
+		assertEquals(3, r3.get(item.strings.getOrder()).intValue());
 
 		item.setStrings(listg("dup1", "dup2", "dup1"));
 		assertEquals(list("dup1", "dup2", "dup1"), item.getStrings());
@@ -234,13 +304,30 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfStrings("dup1"));
 		assertContains(item, item.getDistinctParentsOfStrings("dup2"));
 		assertContains(      item.getDistinctParentsOfStrings("dup3"));
-		assertEquals(3, item.strings.getRelationType().newQuery(null).search().size());
+		{
+			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			assertSame(r0, i.next());
+			assertSame(r1, i.next());
+			assertSame(r2, i.next());
+			assertFalse(i.hasNext());
+		}
+		assertEquals("dup1", r0.get(item.strings.getElement()));
+		assertEquals("dup2", r1.get(item.strings.getElement()));
+		assertEquals("dup1", r2.get(item.strings.getElement()));
+		assertEquals(0, r0.get(item.strings.getOrder()).intValue());
+		assertEquals(1, r1.get(item.strings.getOrder()).intValue());
+		assertEquals(2, r2.get(item.strings.getOrder()).intValue());
+		assertFalse(r3.existsCopeItem());
 
 		item.setStrings(CopeAssert.<String>listg());
 		assertEquals(list(), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item.getDistinctParentsOfStrings("null1"));
 		assertEquals(0, item.strings.getRelationType().newQuery(null).search().size());
+		assertFalse(r0.existsCopeItem());
+		assertFalse(r1.existsCopeItem());
+		assertFalse(r2.existsCopeItem());
+		assertFalse(r3.existsCopeItem());
 
 		// dates
 		assertEquals(list(), item.getDates());
@@ -263,10 +350,10 @@ public class FieldListTest extends AbstractLibTest
 		{
 			assertEquals(item.dates.getElement(), e.getFeature());
 		}
-		assertEquals(list(date1), item.getDates()); // TODO should be list(date1, date2)
+		assertEquals(list(date1, date2), item.getDates());
 		assertContains(item, item.getDistinctParentsOfDates(date1));
-		assertContains(item.getDistinctParentsOfDates(date2)); // TODO should contain item
-		assertEquals(1, item.dates.getRelationType().newQuery(null).search().size());
+		assertContains(item, item.getDistinctParentsOfDates(date2));
+		assertEquals(2, item.dates.getRelationType().newQuery(null).search().size());
 		
 		// items
 		assertEquals(list(), item.getItems());
@@ -278,7 +365,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(list(item), item.getItems());
 		assertContains(item.getDistinctParentsOfItems(null));
 		assertContains(item, item.getDistinctParentsOfItems(item));
-		assertEquals(1, item.dates.getRelationType().newQuery(null).search().size());
+		assertEquals(1, item.items.getRelationType().newQuery(null).search().size());
 	}
 	
 }

@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -49,8 +50,10 @@ public final class FieldList<E> extends Pattern
 		this.element = element;
 		if(element==null)
 			throw new NullPointerException("element must not be null");
+		if(element.isFinal())
+			throw new IllegalArgumentException("element must not be final");
 		if(element.getImplicitUniqueConstraint()!=null)
-			throw new NullPointerException("element must not be unique");
+			throw new IllegalArgumentException("element must not be unique");
 	}
 	
 	public static final <E> FieldList<E> newList(final FunctionField<E> element)
@@ -95,7 +98,7 @@ public final class FieldList<E> extends Pattern
 		return element;
 	}
 
-	public Type<?> getRelationType()
+	public Type<? extends Item> getRelationType()
 	{
 		assert relationType!=null;
 		return relationType;
@@ -123,18 +126,33 @@ public final class FieldList<E> extends Pattern
 
 	public void set(final Item item, final Collection<? extends E> value)
 	{
-		// TODO: this implementation wastes resources !!
-		for(final Item tupel : this.relationType.newQuery(Cope.equalAndCast(this.parent, item)).search())
-			tupel.deleteCopeItem();
-
-		int order = 0;
-		for(final E element : value)
+		final Iterator<? extends Item> actual = this.relationType.newQuery(Cope.equalAndCast(this.parent, item)).search().iterator();
+		final Iterator<? extends E> expected = value.iterator();
+		
+		for(int order = 0; ; order++)
 		{
-			this.relationType.newItem(new SetValue[]{
-					Cope.mapAndCast(this.parent, item),
-					this.element.map(element),
-					this.order.map(order++),
-			});
+			if(!actual.hasNext())
+			{
+				for(; expected.hasNext(); order++)
+				{
+					this.relationType.newItem(new SetValue[]{
+							Cope.mapAndCast(this.parent, item),
+							this.element.map(expected.next()),
+							this.order.map(order),
+					});
+				}
+				return;
+			}
+			else if(!expected.hasNext())
+			{
+				for(; actual.hasNext(); )
+					actual.next().deleteCopeItem();
+				return;
+			}
+			else
+			{
+				this.element.set(actual.next(), expected.next());
+			}
 		}
 	}
 	
