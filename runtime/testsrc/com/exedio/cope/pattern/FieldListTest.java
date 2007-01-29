@@ -27,6 +27,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 
 public class FieldListTest extends AbstractLibTest
@@ -52,18 +53,22 @@ public class FieldListTest extends AbstractLibTest
 	
 	public void testIt()
 	{
+		final Type<?> stringsType = item.strings.getRelationType();
+		final Type<?> datesType = item.dates.getRelationType();
+		final Type<?> itemsType = item.items.getRelationType();
+		
 		// test model
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
-				item.strings.getRelationType(),
-				item.dates.getRelationType(),
-				item.items.getRelationType()
+				stringsType,
+				datesType,
+				itemsType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
-				item.strings.getRelationType(),
-				item.dates.getRelationType(),
-				item.items.getRelationType()
+				stringsType,
+				datesType,
+				itemsType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(FieldListItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
@@ -75,26 +80,26 @@ public class FieldListTest extends AbstractLibTest
 				item.items
 			), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
-				item.strings.getRelationType().getThis(),
+				stringsType.getThis(),
 				item.strings.getParent(),
 				item.strings.getOrder(),
 				item.strings.getUniqueConstraint(),
 				item.strings.getElement()
-			), item.strings.getRelationType().getFeatures());
+			), stringsType.getFeatures());
 		assertEqualsUnmodifiable(list(
-				item.dates.getRelationType().getThis(),
+				datesType.getThis(),
 				item.dates.getParent(),
 				item.dates.getOrder(),
 				item.dates.getUniqueConstraint(),
 				item.dates.getElement()
-			), item.dates.getRelationType().getFeatures());
+			), datesType.getFeatures());
 		assertEqualsUnmodifiable(list(
-				item.items.getRelationType().getThis(),
+				itemsType.getThis(),
 				item.items.getParent(),
 				item.items.getOrder(),
 				item.items.getUniqueConstraint(),
 				item.items.getElement()
-			), item.items.getRelationType().getFeatures());
+			), itemsType.getFeatures());
 
 		assertEquals(item.TYPE, item.strings.getType());
 		assertEquals("strings", item.strings.getName());
@@ -103,48 +108,48 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.items.getType());
 		assertEquals("items", item.items.getName());
 
-		assertEquals("FieldListItem.strings", item.strings.getRelationType().getID());
-		assertEquals(Item.class, item.strings.getRelationType().getJavaClass().getSuperclass());
-		assertEquals(false, item.strings.getRelationType().hasUniqueJavaClass());
-		assertEquals(null, item.strings.getRelationType().getSupertype());
-		assertEqualsUnmodifiable(list(), item.strings.getRelationType().getSubTypes());
-		assertEquals(false, item.strings.getRelationType().isAbstract());
-		assertEquals(Item.class, item.strings.getRelationType().getThis().getValueClass().getSuperclass());
-		assertEquals(item.strings.getRelationType(), item.strings.getRelationType().getThis().getValueType());
-		assertEquals(model, item.strings.getRelationType().getModel());
+		assertEquals("FieldListItem.strings", stringsType.getID());
+		assertEquals(Item.class, stringsType.getJavaClass().getSuperclass());
+		assertEquals(false, stringsType.hasUniqueJavaClass());
+		assertEquals(null, stringsType.getSupertype());
+		assertEqualsUnmodifiable(list(), stringsType.getSubTypes());
+		assertEquals(false, stringsType.isAbstract());
+		assertEquals(Item.class, stringsType.getThis().getValueClass().getSuperclass());
+		assertEquals(stringsType, stringsType.getThis().getValueType());
+		assertEquals(model, stringsType.getModel());
 
-		assertEquals("FieldListItem.dates", item.dates.getRelationType().getID());
-		assertEquals(Item.class, item.dates.getRelationType().getJavaClass().getSuperclass());
-		assertEquals(false, item.dates.getRelationType().hasUniqueJavaClass());
-		assertEquals(null, item.dates.getRelationType().getSupertype());
-		assertEqualsUnmodifiable(list(), item.dates.getRelationType().getSubTypes());
-		assertEquals(false, item.dates.getRelationType().isAbstract());
-		assertEquals(Item.class, item.dates.getRelationType().getThis().getValueClass().getSuperclass());
-		assertEquals(item.dates.getRelationType(), item.dates.getRelationType().getThis().getValueType());
-		assertEquals(model, item.dates.getRelationType().getModel());
+		assertEquals("FieldListItem.dates", datesType.getID());
+		assertEquals(Item.class, datesType.getJavaClass().getSuperclass());
+		assertEquals(false, datesType.hasUniqueJavaClass());
+		assertEquals(null, datesType.getSupertype());
+		assertEqualsUnmodifiable(list(), datesType.getSubTypes());
+		assertEquals(false, datesType.isAbstract());
+		assertEquals(Item.class, datesType.getThis().getValueClass().getSuperclass());
+		assertEquals(datesType, datesType.getThis().getValueType());
+		assertEquals(model, datesType.getModel());
 
-		assertEquals("FieldListItem.items", item.items.getRelationType().getID());
-		assertEquals(Item.class, item.items.getRelationType().getJavaClass().getSuperclass());
-		assertEquals(false, item.items.getRelationType().hasUniqueJavaClass());
-		assertEquals(null, item.items.getRelationType().getSupertype());
-		assertEqualsUnmodifiable(list(), item.items.getRelationType().getSubTypes());
-		assertEquals(false, item.items.getRelationType().isAbstract());
-		assertEquals(Item.class, item.items.getRelationType().getThis().getValueClass().getSuperclass());
-		assertEquals(item.items.getRelationType(), item.items.getRelationType().getThis().getValueType());
-		assertEquals(model, item.items.getRelationType().getModel());
+		assertEquals("FieldListItem.items", itemsType.getID());
+		assertEquals(Item.class, itemsType.getJavaClass().getSuperclass());
+		assertEquals(false, itemsType.hasUniqueJavaClass());
+		assertEquals(null, itemsType.getSupertype());
+		assertEqualsUnmodifiable(list(), itemsType.getSubTypes());
+		assertEquals(false, itemsType.isAbstract());
+		assertEquals(Item.class, itemsType.getThis().getValueClass().getSuperclass());
+		assertEquals(itemsType, itemsType.getThis().getValueType());
+		assertEquals(model, itemsType.getModel());
 
-		assertEquals(item.strings.getRelationType(), item.strings.getParent().getType());
-		assertEquals(item.strings.getRelationType(), item.strings.getOrder().getType());
-		assertEquals(item.strings.getRelationType(), item.strings.getUniqueConstraint().getType());
-		assertEquals(item.strings.getRelationType(), item.strings.getElement().getType());
-		assertEquals(item.dates.getRelationType(), item.dates.getParent().getType());
-		assertEquals(item.dates.getRelationType(), item.dates.getOrder().getType());
-		assertEquals(item.dates.getRelationType(), item.dates.getUniqueConstraint().getType());
-		assertEquals(item.dates.getRelationType(), item.dates.getElement().getType());
-		assertEquals(item.items.getRelationType(), item.items.getParent().getType());
-		assertEquals(item.items.getRelationType(), item.items.getOrder().getType());
-		assertEquals(item.items.getRelationType(), item.items.getUniqueConstraint().getType());
-		assertEquals(item.items.getRelationType(), item.items.getElement().getType());
+		assertEquals(stringsType, item.strings.getParent().getType());
+		assertEquals(stringsType, item.strings.getOrder().getType());
+		assertEquals(stringsType, item.strings.getUniqueConstraint().getType());
+		assertEquals(stringsType, item.strings.getElement().getType());
+		assertEquals(datesType, item.dates.getParent().getType());
+		assertEquals(datesType, item.dates.getOrder().getType());
+		assertEquals(datesType, item.dates.getUniqueConstraint().getType());
+		assertEquals(datesType, item.dates.getElement().getType());
+		assertEquals(itemsType, item.items.getParent().getType());
+		assertEquals(itemsType, item.items.getOrder().getType());
+		assertEquals(itemsType, item.items.getUniqueConstraint().getType());
+		assertEquals(itemsType, item.items.getElement().getType());
 
 		assertEquals("parent", item.strings.getParent().getName());
 		assertEquals("order", item.strings.getOrder().getName());
@@ -163,10 +168,10 @@ public class FieldListTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.dates.getParent(), item.dates.getOrder()), item.dates.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(item.items.getParent(), item.items.getOrder()), item.items.getUniqueConstraint().getFields());
 
-		assertTrue(item.strings.getRelationType().isAssignableFrom(item.strings.getRelationType()));
-		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.dates.getRelationType()));
-		assertTrue(!item.TYPE.isAssignableFrom(item.strings.getRelationType()));
-		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.TYPE));
+		assertTrue(stringsType.isAssignableFrom(stringsType));
+		assertTrue(!stringsType.isAssignableFrom(datesType));
+		assertTrue(!item.TYPE.isAssignableFrom(stringsType));
+		assertTrue(!stringsType.isAssignableFrom(item.TYPE));
 		
 		try
 		{
@@ -199,7 +204,7 @@ public class FieldListTest extends AbstractLibTest
 		// test persistence
 		// test searching
 		final Query<FieldListItem> q = item.TYPE.newQuery();
-		q.join(item.strings.getRelationType(), item.strings.getParent().equalTarget());
+		q.join(stringsType, item.strings.getParent().equalTarget());
 		assertEquals(list(), q.search());
 		
 		q.setCondition(item.strings.getElement().equal("zack"));
@@ -230,7 +235,7 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item.getDistinctParentsOfStrings("hallo"));
 		assertContains(item.getDistinctParentsOfStrings("bello"));
-		assertEquals(0, item.strings.getRelationType().newQuery(null).search().size());
+		assertEquals(0, stringsType.newQuery(null).search().size());
 
 		item.setStrings(listg("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());
@@ -241,7 +246,7 @@ public class FieldListTest extends AbstractLibTest
 		final Item r0;
 		final Item r1;
 		{
-			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
 			r0 = i.next();
 			r1 = i.next();
 			assertFalse(i.hasNext());
@@ -260,7 +265,7 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item.getDistinctParentsOfStrings("zackx"));
 		final Item r2;
 		{
-			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
 			assertSame(r0, i.next());
 			assertSame(r1, i.next());
 			r2 = i.next();
@@ -282,7 +287,7 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfStrings("null4"));
 		final Item r3;
 		{
-			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
 			assertSame(r0, i.next());
 			assertSame(r1, i.next());
 			assertSame(r2, i.next());
@@ -305,7 +310,7 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfStrings("dup2"));
 		assertContains(      item.getDistinctParentsOfStrings("dup3"));
 		{
-			final Iterator<? extends Item> i = item.strings.getRelationType().search(null, item.strings.getOrder(), true).iterator();
+			final Iterator<? extends Item> i = stringsType.search(null, item.strings.getOrder(), true).iterator();
 			assertSame(r0, i.next());
 			assertSame(r1, i.next());
 			assertSame(r2, i.next());
@@ -323,7 +328,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(list(), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item.getDistinctParentsOfStrings("null1"));
-		assertEquals(0, item.strings.getRelationType().newQuery(null).search().size());
+		assertEquals(0, stringsType.newQuery(null).search().size());
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());
 		assertFalse(r2.existsCopeItem());
@@ -333,13 +338,13 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(list(), item.getDates());
 		assertContains(item.getDistinctParentsOfDates(date1));
 		assertContains(item.getDistinctParentsOfDates(date2));
-		assertEquals(0, item.dates.getRelationType().newQuery(null).search().size());
+		assertEquals(0, datesType.newQuery(null).search().size());
 
 		item.setDates(listg(date1, date2));
 		assertEquals(list(date1, date2), item.getDates());
 		assertContains(item, item.getDistinctParentsOfDates(date1));
 		assertContains(item, item.getDistinctParentsOfDates(date2));
-		assertEquals(2, item.dates.getRelationType().newQuery(null).search().size());
+		assertEquals(2, datesType.newQuery(null).search().size());
 
 		try
 		{
@@ -353,19 +358,19 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(list(date1, date2), item.getDates());
 		assertContains(item, item.getDistinctParentsOfDates(date1));
 		assertContains(item, item.getDistinctParentsOfDates(date2));
-		assertEquals(2, item.dates.getRelationType().newQuery(null).search().size());
+		assertEquals(2, datesType.newQuery(null).search().size());
 		
 		// items
 		assertEquals(list(), item.getItems());
 		assertContains(item.getDistinctParentsOfItems(null));
 		assertContains(item.getDistinctParentsOfItems(item));
-		assertEquals(0, item.items.getRelationType().newQuery(null).search().size());
+		assertEquals(0, itemsType.newQuery(null).search().size());
 
 		item.setItems(listg(item));
 		assertEquals(list(item), item.getItems());
 		assertContains(item.getDistinctParentsOfItems(null));
 		assertContains(item, item.getDistinctParentsOfItems(item));
-		assertEquals(1, item.items.getRelationType().newQuery(null).search().size());
+		assertEquals(1, itemsType.newQuery(null).search().size());
 	}
 	
 }
