@@ -18,14 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -47,6 +50,8 @@ public final class FieldSet<E> extends Pattern
 		this.element = element;
 		if(element==null)
 			throw new NullPointerException("element must not be null");
+		if(element.isFinal())
+			throw new IllegalArgumentException("element must not be final");
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
 	}
@@ -100,16 +105,44 @@ public final class FieldSet<E> extends Pattern
 
 	public void set(final Item item, final Collection<? extends E> value)
 	{
-		// TODO: this implementation wastes resources !!
-		for(final Item tupel : this.relationType.newQuery(Cope.equalAndCast(this.parent, item)).search())
-			tupel.deleteCopeItem();
-
-		for(final E element : value)
+		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<E>(value);
+		final ArrayList<Item> toDeleteList = new ArrayList<Item>();
+		
+		for(final Item tupel : this.relationType.search(Cope.equalAndCast(this.parent, item)))
 		{
-			this.relationType.newItem(new SetValue[]{
-					Cope.mapAndCast(this.parent, item),
-					this.element.map(element),
-			});
+			final Object element = this.element.get(tupel);
+			
+			if(toCreateSet.contains(element))
+				toCreateSet.remove(element);
+			else
+				toDeleteList.add(tupel);
+		}
+
+		final Iterator<? extends E> toCreate = toCreateSet.iterator();
+		final Iterator<Item> toDelete = toDeleteList.iterator();
+		while(true)
+		{
+			if(!toDelete.hasNext())
+			{
+				while(toCreate.hasNext())
+				{
+					this.relationType.newItem(new SetValue[]{
+							Cope.mapAndCast(this.parent, item),
+							this.element.map(toCreate.next()),
+					});
+				}
+				return;
+			}
+			else if(!toCreate.hasNext())
+			{
+				while(toDelete.hasNext())
+					toDelete.next().deleteCopeItem();
+				return;
+			}
+			else
+			{
+				this.element.set(toDelete.next(), toCreate.next());
+			}
 		}
 	}
 	

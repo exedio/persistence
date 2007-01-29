@@ -19,8 +19,10 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
@@ -50,6 +52,7 @@ public class FieldSetTest extends AbstractLibTest
 	{
 		final Type<?> stringsType = item.strings.getRelationType();
 		final Type<?> datesType = item.dates.getRelationType();
+		final FunctionField<String> stringsElement = item.strings.getElement();
 		
 		// test model
 		assertEqualsUnmodifiable(list(
@@ -141,6 +144,15 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		try
 		{
+			FieldSet.newSet(new StringField(Item.FINAL));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("element must not be final", e.getMessage());
+		}
+		try
+		{
 			FieldSet.newSet(new StringField(Item.UNIQUE));
 			fail();
 		}
@@ -155,27 +167,78 @@ public class FieldSetTest extends AbstractLibTest
 
 		item.setStrings(listg("hallo", "bello"));
 		assertContains("hallo", "bello", item.getStrings());
-		assertEquals(2, stringsType.newQuery(null).search().size());
+		final Item r0;
+		final Item r1;
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			r0 = i.next();
+			r1 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("hallo", r0.get(stringsElement));
+		assertEquals("bello", r1.get(stringsElement));
 
 		item.setStrings(listg("bello", "knollo"));
 		assertContains("bello", "knollo", item.getStrings());
-		assertEquals(2, stringsType.newQuery(null).search().size());
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r0, i.next());
+			assertSame(r1, i.next());
+			assertFalse(i.hasNext());
+		}
+		assertEquals("knollo", r0.get(stringsElement));
+		assertEquals("bello", r1.get(stringsElement));
 
 		item.setStrings(listg("knollo"));
 		assertContains("knollo", item.getStrings());
-		assertEquals(1, stringsType.newQuery(null).search().size());
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r0, i.next());
+			assertFalse(i.hasNext());
+		}
+		assertEquals("knollo", r0.get(stringsElement));
+		assertFalse(r1.existsCopeItem());
 
 		item.setStrings(listg("zack1", "zack2", "zack3"));
 		assertContains("zack1", "zack2", "zack3", item.getStrings());
-		assertEquals(3, stringsType.newQuery(null).search().size());
+		final Item r1x;
+		final Item r2;
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r0, i.next());
+			r1x = i.next();
+			r2 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("zack1", r0.get(stringsElement));
+		assertFalse(r1.existsCopeItem());
+		assertEquals("zack2", r1x.get(stringsElement));
+		assertEquals("zack3", r2.get(stringsElement));
 
 		item.setStrings(listg("null1", null, "null3", "null4"));
 		assertContains("null1", null, "null3", "null4", item.getStrings());
-		assertEquals(4, stringsType.newQuery(null).search().size());
+		final Item r3;
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r0, i.next());
+			assertSame(r1x, i.next());
+			assertSame(r2, i.next());
+			r3 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("null1", r0.get(stringsElement));
+		assertFalse(r1.existsCopeItem());
+		assertEquals(null, r1x.get(stringsElement));
+		assertEquals("null3", r2.get(stringsElement));
+		assertEquals("null4", r3.get(stringsElement));
 
 		item.setStrings(CopeAssert.<String>listg());
 		assertContains(item.getStrings());
-		assertEquals(0, stringsType.newQuery(null).search().size());
+		assertFalse(r0.existsCopeItem());
+		assertFalse(r1.existsCopeItem());
+		assertFalse(r1x.existsCopeItem());
+		assertFalse(r2.existsCopeItem());
+		assertFalse(r3.existsCopeItem());
 
 		assertContains(item.getDates());
 		assertEquals(0, datesType.newQuery(null).search().size());
@@ -195,8 +258,8 @@ public class FieldSetTest extends AbstractLibTest
 		{
 			assertEquals(item.dates.getElement(), e.getFeature());
 		}
-		assertContains(date1, item.getDates()); // TODO should be list(date1, date2)
-		assertEquals(1, datesType.newQuery(null).search().size());
+		assertContains(date1, date2, item.getDates());
+		assertEquals(2, datesType.newQuery(null).search().size());
 	}
 	
 }
