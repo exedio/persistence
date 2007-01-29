@@ -24,6 +24,7 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 
 public class FieldSetTest extends AbstractLibTest
@@ -125,6 +126,25 @@ public class FieldSetTest extends AbstractLibTest
 		assertTrue(!item.TYPE.isAssignableFrom(item.strings.getRelationType()));
 		assertTrue(!item.strings.getRelationType().isAssignableFrom(item.TYPE));
 
+		try
+		{
+			FieldSet.newSet(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("element must not be null", e.getMessage());
+		}
+		try
+		{
+			FieldSet.newSet(new StringField(Item.UNIQUE));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("element must not be unique", e.getMessage());
+		}
+		
 		// test persistence
 		assertContains(item.getStrings());
 		assertEquals(0, item.strings.getRelationType().newQuery(null).search().size());

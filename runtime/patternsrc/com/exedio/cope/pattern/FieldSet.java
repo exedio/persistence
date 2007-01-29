@@ -48,7 +48,7 @@ public final class FieldSet<E> extends Pattern
 		if(element==null)
 			throw new NullPointerException("element must not be null");
 		if(element.getImplicitUniqueConstraint()!=null)
-			throw new NullPointerException("element must not be unique");
+			throw new IllegalArgumentException("element must not be unique");
 	}
 	
 	public static final <E> FieldSet<E> newSet(final FunctionField<E> element)
