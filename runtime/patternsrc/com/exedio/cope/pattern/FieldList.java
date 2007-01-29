@@ -126,26 +126,26 @@ public final class FieldList<E> extends Pattern
 
 	public void set(final Item item, final Collection<? extends E> value)
 	{
-		final Iterator<? extends Item> actual = this.relationType.newQuery(Cope.equalAndCast(this.parent, item)).search().iterator();
+		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item)).iterator();
 		final Iterator<? extends E> expected = value.iterator();
 		
 		for(int order = 0; ; order++)
 		{
 			if(!actual.hasNext())
 			{
-				for(; expected.hasNext(); order++)
+				while(expected.hasNext())
 				{
 					this.relationType.newItem(new SetValue[]{
 							Cope.mapAndCast(this.parent, item),
 							this.element.map(expected.next()),
-							this.order.map(order),
+							this.order.map(order++),
 					});
 				}
 				return;
 			}
 			else if(!expected.hasNext())
 			{
-				for(; actual.hasNext(); )
+				while(actual.hasNext())
 					actual.next().deleteCopeItem();
 				return;
 			}
