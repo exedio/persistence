@@ -65,7 +65,15 @@ final class Vm_Jspm
 	{
 			%>
 			<tr>
-				<th colspan="3"><%
+				<th colspan="3"></th>
+			</tr><%
+			final Package p = jar.iterator().next();
+			write(out, "Specification",  p.getSpecificationTitle(),  p.getSpecificationVersion(),  p.getSpecificationVendor());
+			write(out, "Implementation", p.getImplementationTitle(), p.getImplementationVersion(), p.getImplementationVendor());
+			%>
+			<tr>
+				<th colspan="2">Packages</th>
+				<td class="text" colspan="2"><%
 				boolean first = true;
 				for(final Package pack : jar)
 				{
@@ -76,11 +84,8 @@ final class Vm_Jspm
 						
 					%><%=pack.getName()%><%
 				}
-				%></th>
+				%></td>
 			</tr><%
-			final Package p = jar.iterator().next();
-			write(out, "Specification",  p.getSpecificationTitle(),  p.getSpecificationVersion(),  p.getSpecificationVendor());
-			write(out, "Implementation", p.getImplementationTitle(), p.getImplementationVersion(), p.getImplementationVendor());
 	}
 
 	final static void writeBody(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
