@@ -61,7 +61,7 @@ final class Vm_Jspm
 		}
 	}
 
-	private final static void write(final PrintStream out, final TreeSet<Package> jar)
+	private final static void writeDetailed(final PrintStream out, final TreeSet<Package> jar)
 	{
 			final Package p = jar.iterator().next();
 			
@@ -98,6 +98,33 @@ final class Vm_Jspm
 			</tr><%
 	}
 
+	private final static void writeShort(final PrintStream out, final TreeSet<Package> jar)
+	{
+			final Package p = jar.iterator().next();
+			final String spec = p.getSpecificationVersion();
+			final String impl = p.getImplementationVersion();
+			%>
+			<tr>
+				<th><%
+				
+					if(p.getSpecificationTitle()!=null)
+					{
+						%><%=p.getSpecificationTitle()%><%
+					}
+					else if(p.getImplementationTitle()!=null)
+					{
+						%><%=p.getImplementationTitle()%><%
+					}
+					else
+					{
+						%><%=p.getName()%><%
+					}
+				%></th>
+				<td class="text"><% if(spec!=null) { %><%=spec%><% } %></td>
+				<td class="text"><% if(impl!=null) { %><%=impl%><% } %></td>
+			</tr><%
+	}
+
 	final static void writeBody(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
 	{
 		%>
@@ -106,11 +133,25 @@ final class Vm_Jspm
 				<th class="caption" colspan="3">Packages in Virtual Machine</th>
 			</tr>
 			<tr>
-				<th colspan="3"><a href="<%=cop.toToggleAllPackages()%>"><%if(cop.allPackages){%>hide<%}else{%>show<%}%> none-cope</a></th>
+				<th colspan="3">
+					<a href="<%=cop.toToggleDetailed()%>"><%if(cop.detailed){%>short<%}else{%>detailed<%}%></a>,
+					<a href="<%=cop.toToggleAllPackages()%>"><%if(cop.allPackages){%>hide<%}else{%>show<%}%> none-cope</a>
+				</th>
 			</tr><%
-
-			for(final TreeSet<Package> jar : jars)
-				write(out, jar);
+			
+			if(cop.detailed)
+			{
+				for(final TreeSet<Package> jar : jars)
+					writeDetailed(out, jar);
+			}
+			else
+			{
+			%>
+			<tr><th>Package</th><th>Spec</th><th>Impl</th></tr><%
+			
+				for(final TreeSet<Package> jar : jars)
+					writeShort(out, jar);
+			}
 			%>
 		</table><%
 	}

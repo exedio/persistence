@@ -59,7 +59,7 @@ abstract class ConsoleCop extends Cop
 				new QueryCacheCop(),
 				new PrimaryKeysCop(),
 				new MediaStatsCop(),
-				new VmCop(false),
+				new VmCop(false, false),
 				new EnvironmentCop(),
 				new HiddenCop(),
 				new ModificationListenerCop(),

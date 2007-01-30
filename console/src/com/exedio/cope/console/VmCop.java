@@ -31,28 +31,38 @@ import com.exedio.cope.Model;
 
 final class VmCop extends ConsoleCop
 {
+	private static final String DETAILED = "dt";
 	private static final String ALL_PACKAGES = "ap";
 	
+	final boolean detailed;
 	final boolean allPackages;
 
-	VmCop(final boolean allPackages)
+	VmCop(final boolean detailed, final boolean allPackages)
 	{
 		super("vm");
+		this.detailed = detailed;
 		this.allPackages = allPackages;
 		
 		addParameter(TAB, TAB_VM);
+		if(detailed)
+			addParameter(DETAILED, "t");
 		if(allPackages)
 			addParameter(ALL_PACKAGES, "t");
 	}
 	
 	static final VmCop getVmCop(final HttpServletRequest request)
 	{
-		return new VmCop(request.getParameter(ALL_PACKAGES)!=null);
+		return new VmCop(request.getParameter(DETAILED)!=null, request.getParameter(ALL_PACKAGES)!=null);
+	}
+	
+	VmCop toToggleDetailed()
+	{
+		return new VmCop(!detailed, allPackages);
 	}
 	
 	VmCop toToggleAllPackages()
 	{
-		return new VmCop(!allPackages);
+		return new VmCop(detailed, !allPackages);
 	}
 	
 	private static final Comparator<Package> COMPARATOR = new Comparator<Package>()
