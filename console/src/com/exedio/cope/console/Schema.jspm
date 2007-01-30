@@ -37,7 +37,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 
-final class Schema_Jspm
+final class Schema_Jspm extends Console_Jspm
 {
 	private static final String type(final Constraint constraint)
 	{
@@ -145,8 +145,8 @@ final class Schema_Jspm
 		final boolean narrow = cop.isNarrow();
 
 %>
-drop boxes: <a href="<%=cop.toggleDropBoxes()%>"><%=cop.showDropBoxes?"hide":"show"%></a><br>
-rename fields: <a href="<%=cop.toggleRenameFields()%>"><%=cop.showRenameFields?"hide":"show"%></a><br>
+<% writeToggle(out, request, cop.toggleDropBoxes(), cop.showDropBoxes); %> show drop boxes<br>
+<% writeToggle(out, request, cop.toggleRenameFields(), cop.showRenameFields); %> show rename fields<br>
 check all:
 <input type="button" value="analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
 <input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">

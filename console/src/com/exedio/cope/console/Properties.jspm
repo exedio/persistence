@@ -23,12 +23,15 @@ import java.io.File;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Properties;
 
-final class Properties_Jspm
+final class Properties_Jspm extends Console_Jspm
 {
 	final static void write(
 				final PrintStream out,
+				final HttpServletRequest request,
 				final PropertiesCop cop,
 				final Properties properties,
 				final String sourceContent)
@@ -40,7 +43,7 @@ final class Properties_Jspm
 				<th class="caption" colspan="2">Properties</th>
 			</tr>
 			<tr>
-				<th colspan="2"><a href="<%=cop.toToggleUnspecified()%>"><%if(showUnspecified){%>hide<%}else{%>show<%}%> unspecified</a></th>
+				<th colspan="2"><% writeToggle(out, request, cop.toToggleUnspecified(), showUnspecified); %> show unspecified</th>
 			</tr><%
 			for(final Properties.Field field : properties.getFields())
 			{

@@ -68,6 +68,8 @@ public final class ConsoleServlet extends CopsServlet
 	static final Resource stylesheet = new Resource(resources, "console.css");
 	static final Resource reportScript = new Resource(resources, "console-report.js");
 	static final Resource logo = new Resource(resources, "logo.png");
+	static final Resource checkFalse = new Resource(resources, "checkfalse.png");
+	static final Resource checkTrue  = new Resource(resources, "checktrue.png");
 	
 	@Override
 	public final void init() throws ServletException
@@ -115,5 +117,4 @@ public final class ConsoleServlet extends CopsServlet
 		Console_Jspm.write(out, request, response, model, cop);
 		out.close();
 	}
-
 }

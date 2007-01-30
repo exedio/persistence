@@ -90,6 +90,6 @@ final class PropertiesCop extends ConsoleCop
 			throw new RuntimeException(e);
 		}
 		
-		Properties_Jspm.write(out, this, props, sourceContent);
+		Properties_Jspm.write(out, request, this, props, sourceContent);
 	}
 }

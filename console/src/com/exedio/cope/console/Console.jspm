@@ -162,4 +162,14 @@ abstract class Console_Jspm
 				%></td><%
 			}
 	}
+	
+	static final void writeToggle(
+			final PrintStream out,
+			final HttpServletRequest request,
+			final ConsoleCop cop,
+			final boolean value)
+	{
+		%><a href="<%=cop%>"><img src="<%=
+			(value ? ConsoleServlet.checkTrue : ConsoleServlet.checkFalse).url(request)%>"></a><%
+	}
 }%>
