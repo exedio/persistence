@@ -78,9 +78,9 @@ final class Vm_Jspm
 				}
 				%></th>
 			</tr><%
-			final Package thePackage = jar.iterator().next();
-			write(out, "Specification",  thePackage.getSpecificationTitle(),  thePackage.getSpecificationVersion(),  thePackage.getSpecificationVendor());
-			write(out, "Implementation", thePackage.getImplementationTitle(), thePackage.getImplementationVersion(), thePackage.getImplementationVendor());
+			final Package p = jar.iterator().next();
+			write(out, "Specification",  p.getSpecificationTitle(),  p.getSpecificationVersion(),  p.getSpecificationVendor());
+			write(out, "Implementation", p.getImplementationTitle(), p.getImplementationVersion(), p.getImplementationVendor());
 	}
 
 	final static void writeBody(final PrintStream out, final VmCop cop, final ArrayList<TreeSet<Package>> jars)
