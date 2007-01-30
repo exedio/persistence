@@ -25,22 +25,6 @@ import java.util.TreeSet;
 
 final class Vm_Jspm
 {
-	private static final String[] systemProperties = {
-			"java.runtime.version",
-			"java.class.path",
-			"java.version",
-			"java.vm.name",
-			"java.vm.info",
-			"java.vm.version",
-			"user.name",
-			"user.dir",
-			"user.home",
-			"user.language",
-			"os.name",
-			"os.arch",
-			"os.version",
-		};
-	
 	private final static void write(final PrintStream out, final String key, String value)
 	{
 		if(value!=null)
@@ -84,19 +68,8 @@ final class Vm_Jspm
 		%>
 		<table>
 			<tr>
-				<th colspan="2">System.getProperty()</th>
-			</tr><%
-
-			for(int i = 0; i<systemProperties.length; i++)
-			{
-				final String name = systemProperties[i];
-			%>
-			<tr>
-				<th><%=name%></th>
-				<td class="text"><%=System.getProperty(name)%></td>
-			</tr><%
-			}
-			%>
+				<th class="caption" colspan="2">Packages in Virtual Machine</th>
+			</tr>
 			<tr>
 				<th colspan="2"><a href="<%=cop.toToggleAllPackages()%>"><%if(cop.allPackages){%>hide<%}else{%>show<%}%> none-cope</a></th>
 			</tr><%
