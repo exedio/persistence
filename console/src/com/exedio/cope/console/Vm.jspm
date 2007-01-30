@@ -73,7 +73,7 @@ final class Vm_Jspm
 			%>
 			<tr>
 				<th colspan="2">Packages</th>
-				<td class="text" colspan="2"><%
+				<td class="text"><%
 				boolean first = true;
 				for(final Package pack : jar)
 				{
