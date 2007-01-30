@@ -63,11 +63,21 @@ final class Vm_Jspm
 
 	private final static void write(final PrintStream out, final TreeSet<Package> jar)
 	{
+			final Package p = jar.iterator().next();
+			
+			final String name;
+			if(p.getSpecificationTitle()!=null)
+				name = p.getSpecificationTitle();
+			else if(p.getImplementationTitle()!=null)
+				name = p.getImplementationTitle();
+			else
+				name = jar.iterator().next().getName();
+
 			%>
 			<tr>
-				<th colspan="3"></th>
+				<td colspan="2"></td>
+				<th><%=name%></th>
 			</tr><%
-			final Package p = jar.iterator().next();
 			write(out, "Specification",  p.getSpecificationTitle(),  p.getSpecificationVersion(),  p.getSpecificationVendor());
 			write(out, "Implementation", p.getImplementationTitle(), p.getImplementationVersion(), p.getImplementationVendor());
 			%>
