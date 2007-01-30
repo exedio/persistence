@@ -25,7 +25,7 @@ package com.exedio.cope;
  */
 public class HierarchyEmptySuper extends Item
 {
-	public static final IntegerField superInt = new IntegerField(UNIQUE);
+	public static final IntegerField superInt = new IntegerField().unique();
 	
 	
 /**

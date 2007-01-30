@@ -102,6 +102,15 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	public abstract FunctionField<E> copyFunctionField();
+	
+	/**
+	 * Returns a new FunctionField,
+	 * that differs from this FunctionField
+	 * by being unique.
+	 * If this FunctionField is already unique,
+	 * the the result is equal to this FunctionField.
+	 */
+	public abstract FunctionField<E> unique();
 
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);

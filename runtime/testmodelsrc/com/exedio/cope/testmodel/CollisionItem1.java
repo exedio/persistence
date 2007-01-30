@@ -30,7 +30,7 @@ import com.exedio.cope.ItemField;
 public class CollisionItem1 extends Item
 {
 
-	public static final ItemField<EmptyItem> collisionAttribute = newItemField(FINAL_UNIQUE, EmptyItem.class);
+	public static final ItemField<EmptyItem> collisionAttribute = newItemField(FINAL, EmptyItem.class).unique();
 
 /**
 

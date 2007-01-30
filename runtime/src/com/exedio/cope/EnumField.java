@@ -94,6 +94,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return new EnumField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
 	
+	@Override
+	public EnumField<E> unique()
+	{
+		return new EnumField<E>(isfinal, optional, true, valueClass, defaultConstant);
+	}
+	
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert isValid(defaultConstant);

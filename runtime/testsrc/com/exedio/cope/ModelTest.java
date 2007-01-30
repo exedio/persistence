@@ -52,7 +52,8 @@ public class ModelTest extends TestmodelTest
 		model.connect(defaultProps);
 	}
 	
-	public void testType() throws IOException
+	@Deprecated // OK: test deprecated api
+	public void testAttributeOption() throws IOException
 	{
 		final AttributeItem item = null;
 		
@@ -80,7 +81,12 @@ public class ModelTest extends TestmodelTest
 		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.isFinal);
 		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.unique);
 		assertEquals(true,  item.FINAL_UNIQUE_OPTIONAL.optional);
+	}
 
+	public void testType() throws IOException
+	{
+		final AttributeItem item = null;
+		
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));

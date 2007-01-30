@@ -91,6 +91,12 @@ public final class StringField extends FunctionField<String> implements StringFu
 		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
 	}
 	
+	@Override
+	public StringField unique()
+	{
+		return new StringField(isfinal, optional, true, defaultConstant, minimumLength, maximumLength);
+	}
+	
 	public StringField defaultTo(final String defaultConstant)
 	{
 		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);

@@ -30,7 +30,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	/**
 	 * An attribute that is unique and mandatory.
 	 */
-	public static final StringField uniqueNotNullString = new StringField(UNIQUE);
+	public static final StringField uniqueNotNullString = new StringField().unique();
 
 /**
 

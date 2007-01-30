@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 class HardJoinB1Item extends Item
 {
-	static final StringField code = new StringField(UNIQUE);
+	static final StringField code = new StringField().unique();
 	
 	/**
 	 * @cope.initial

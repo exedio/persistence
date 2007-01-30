@@ -24,7 +24,7 @@ package com.exedio.cope;
 class InstanceOfRefItem extends Item
 {
 	static final ItemField<InstanceOfAItem> ref = newItemField(FINAL, InstanceOfAItem.class);
-	static final StringField code = new StringField(FINAL_UNIQUE);
+	static final StringField code = new StringField(FINAL).unique();
 	static final ItemField<InstanceOfB2Item> refb2 = newItemField(OPTIONAL, InstanceOfB2Item.class);
 	
 	@Override

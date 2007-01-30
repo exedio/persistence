@@ -21,13 +21,10 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 
-/**
- * @author Ralf Wiebicke
- */
 public class CollisionItem2 extends Item
 {
 
-	public static final ItemField<EmptyItem> collisionAttribute = newItemField(FINAL_UNIQUE, EmptyItem.class);
+	public static final ItemField<EmptyItem> collisionAttribute = newItemField(FINAL, EmptyItem.class).unique();
 
 /**
 

@@ -49,7 +49,7 @@
 <pre>
 public class Customer extends Item
 {
-   static final StringField email = new StringField(UNIQUE);
+   static final StringField email = new StringField().<a href="api/com/exedio/cope/StringField.html#unique()">unique</a>();
 }
 </pre>
 		<div>
@@ -79,7 +79,7 @@ public class Customer extends Item
 <pre>
 public class Customer extends Item
 {
-   static final StringField email = new StringField(UNIQUE);
+   static final StringField email = new StringField().<a href="api/com/exedio/cope/StringField.html#unique()">unique</a>();
    <b>static final BooleanField blocked = new BooleanField();</b>
 }
 </pre>

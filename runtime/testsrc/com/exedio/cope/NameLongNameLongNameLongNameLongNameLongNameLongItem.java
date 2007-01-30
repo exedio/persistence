@@ -21,7 +21,7 @@ package com.exedio.cope;
 class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 {
 
-	static final StringField code = new StringField(UNIQUE);
+	static final StringField code = new StringField().unique();
 
 	static final StringField codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		new StringField(UNIQUE_OPTIONAL);

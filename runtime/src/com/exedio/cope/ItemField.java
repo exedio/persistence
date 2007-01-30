@@ -109,6 +109,15 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 			return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, null, initialValueType, policy);
 	}
 	
+	@Override
+	public ItemField<E> unique()
+	{
+		if(initialValueType==null)
+			return new ItemField<E>(isfinal, optional, true, valueClass, null, policy);
+		else
+			return new ItemField<E>(isfinal, optional, true, null, initialValueType, policy);
+	}
+	
 	private Type<E> valueType = null;
 	private Type<? extends E> onlyPossibleValueType = null;
 	private StringColumn typeColumn = null;

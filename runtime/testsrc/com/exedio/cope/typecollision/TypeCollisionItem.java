@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 
 public class TypeCollisionItem extends Item
 {
-	static final StringField code = new StringField(FINAL_UNIQUE);
+	static final StringField code = new StringField(FINAL).unique();
 	
 	/**
 

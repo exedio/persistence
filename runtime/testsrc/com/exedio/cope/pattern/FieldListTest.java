@@ -197,7 +197,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldList.newList(new StringField(Item.UNIQUE));
+			FieldList.newList(new StringField().unique());
 			fail();
 		}
 		catch(IllegalArgumentException e)

@@ -153,7 +153,7 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldSet.newSet(new StringField(Item.UNIQUE));
+			FieldSet.newSet(new StringField().unique());
 			fail();
 		}
 		catch(IllegalArgumentException e)

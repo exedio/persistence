@@ -28,7 +28,7 @@ package com.exedio.cope;
 class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem extends Item
 {
 
-	static final StringField code = new StringField(UNIQUE);
+	static final StringField code = new StringField().unique();
 
 	/**
 	 * The name of this attribute is deliberately chosen to collide with

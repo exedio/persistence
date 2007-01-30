@@ -10,7 +10,7 @@ public class Customer extends Item
    /**
     * The unique email address of the customer.
     */
-   static final StringField email = new StringField(UNIQUE);
+   static final StringField email = new StringField().unique();
 
    /**
     * The password of the customer, transparently

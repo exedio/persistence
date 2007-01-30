@@ -454,11 +454,26 @@ public abstract class Item extends Cope
 	
 	public static final Field.Option MANDATORY = Field.Option.MANDATORY;
 	public static final Field.Option OPTIONAL = Field.Option.OPTIONAL;
+
+	/**
+	 * @deprecated Use {@link FunctionField#unique()} instead.
+	 */
+	@Deprecated
 	public static final Field.Option UNIQUE = Field.Option.UNIQUE;
 	public static final Field.Option UNIQUE_OPTIONAL = Field.Option.UNIQUE_OPTIONAL;
 	public static final Field.Option FINAL = Field.Option.FINAL;
 	public static final Field.Option FINAL_OPTIONAL = Field.Option.FINAL_OPTIONAL;
+
+	/**
+	 * @deprecated Use {@link FunctionField#unique()} instead.
+	 */
+	@Deprecated
 	public static final Field.Option FINAL_UNIQUE = Field.Option.FINAL_UNIQUE;
+
+	/**
+	 * @deprecated Use {@link FunctionField#unique()} instead.
+	 */
+	@Deprecated
 	public static final Field.Option FINAL_UNIQUE_OPTIONAL = Field.Option.FINAL_UNIQUE_OPTIONAL;
 
 	/**

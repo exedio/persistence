@@ -102,7 +102,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringField orig = new StringField(Item.FINAL_UNIQUE_OPTIONAL).lengthMin(20);
+			final StringField orig = new StringField(Item.FINAL_OPTIONAL).unique().lengthMin(20);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNotNull(orig.getImplicitUniqueConstraint());

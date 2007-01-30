@@ -27,7 +27,7 @@ import com.exedio.cope.StringField;
  */
 public class RelationSourceItem extends Item
 {
-	static final StringField code = new StringField(UNIQUE);
+	static final StringField code = new StringField().unique();
 	
 	/**
 

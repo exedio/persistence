@@ -28,7 +28,7 @@ import com.exedio.cope.function.UppercaseView;
  */
 public abstract class HierarchySuper extends Item
 {
-	public static final IntegerField superInt = new IntegerField(UNIQUE);
+	public static final IntegerField superInt = new IntegerField().unique();
 	
 	public static final StringField superString = new StringField(OPTIONAL);
 

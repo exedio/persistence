@@ -23,7 +23,7 @@ import com.exedio.cope.StringField;
 
 public class RelationTargetItem extends Item
 {
-	static final StringField code = new StringField(UNIQUE);
+	static final StringField code = new StringField().unique();
 
 	// TODO generate, cannot generate because name conflicts in project, needs switch-off option
 	final java.util.List<? extends com.exedio.cope.pattern.RelationSourceItem> getVectorSource()
