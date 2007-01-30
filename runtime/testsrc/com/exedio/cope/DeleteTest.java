@@ -83,6 +83,8 @@ public class DeleteTest extends AbstractLibTest
 	{
 		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
 		assertSame(Item.NULLIFY, item.otherNullify.getDeletePolicy());
+		assertFalse(item.selfNullify.isMandatory());
+		assertFalse(item.otherNullify.isMandatory());
 
 		try
 		{
@@ -91,8 +93,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(NullPointerException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("delete policy for field "+ItemField.class.getName()+'@'));
-			assertTrue(e.getMessage(), e.getMessage().endsWith(" must not be null"));
+			assertEquals("delete policy for item field must not be null", e.getMessage());
 		}
 		try
 		{
@@ -101,8 +102,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("mandatory field "+ItemField.class.getName()+'@'));
-			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
+			assertEquals("mandatory item field cannot have delete policy nullify", e.getMessage());
 		}
 		try
 		{
@@ -111,8 +111,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("final field "+ItemField.class.getName()+'@'));
-			assertTrue(e.getMessage(), e.getMessage().endsWith(" cannot have delete policy nullify"));
+			assertEquals("final item field cannot have delete policy nullify", e.getMessage());
 		}
 
 		// other type
