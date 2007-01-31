@@ -54,6 +54,7 @@ final class Generator
 {
 	private static final String STRING = String.class.getName();
 	private static final String COLLECTION = Collection.class.getName();
+	private static final String LIST = List.class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
@@ -1114,7 +1115,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final " + List.class.getName() + '<'); // TODO: obey attribute visibility
+			o.write("public final " + LIST + '<'); // TODO: obey attribute visibility
 			o.write(endType);
 			o.write("> get");
 			o.write(endNameCamel);
