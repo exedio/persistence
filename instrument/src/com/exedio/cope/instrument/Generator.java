@@ -53,6 +53,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
+	private static final String ITEM = Item.class.getName();
 	
 	private static final char ATTRIBUTE_MAP_KEY = 'k';
 	
@@ -389,7 +390,7 @@ final class Generator
 		o.write("\t * ");
 		o.write(CONSTRUCTOR_REACTIVATION);
 		o.write(lineSeparator);
-		o.write("\t * @see " + Item.class.getName() + "#Item(" + ReactivationConstructorDummy.class.getName() + ",int)");
+		o.write("\t * @see " + ITEM + "#Item(" + ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
