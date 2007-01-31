@@ -622,8 +622,7 @@ final class Generator
 			o.write("[]");
 		o.write(" body,");
 		o.write(localFinal);
-		o.write(STRING + " contentType");
-		o.write(')');
+		o.write(STRING + " contentType)");
 		o.write(lineSeparator);
 		if(dataType!=byte.class)
 		{
