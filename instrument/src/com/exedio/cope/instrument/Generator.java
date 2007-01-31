@@ -54,6 +54,7 @@ final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
+	private static final String REACTIVATION = ReactivationConstructorDummy.class.getName();
 	
 	private static final char ATTRIBUTE_MAP_KEY = 'k';
 	
@@ -390,14 +391,14 @@ final class Generator
 		o.write("\t * ");
 		o.write(CONSTRUCTOR_REACTIVATION);
 		o.write(lineSeparator);
-		o.write("\t * @see " + ITEM + "#Item(" + ReactivationConstructorDummy.class.getName() + ",int)");
+		o.write("\t * @see " + ITEM + "#Item(" + REACTIVATION + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.name);
 		o.write('(');
 		o.write(localFinal);
-		o.write(ReactivationConstructorDummy.class.getName() + " d,");
+		o.write(REACTIVATION + " d,");
 		o.write(localFinal);
 		o.write("int pk)");
 		o.write(lineSeparator);
