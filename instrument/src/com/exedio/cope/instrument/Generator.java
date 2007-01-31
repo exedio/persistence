@@ -52,6 +52,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
 {
+	private static final String STRING = String.class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String REACTIVATION = ReactivationConstructorDummy.class.getName();
@@ -505,8 +506,7 @@ final class Generator
 		o.write(toCamelCase(hash.name));
 		o.write('(');
 		o.write(localFinal);
-		o.write(String.class.getName());
-		o.write(' ');
+		o.write(STRING + ' ');
 		o.write(hash.name);
 		o.write(')');
 		o.write(lineSeparator);
@@ -622,7 +622,7 @@ final class Generator
 			o.write("[]");
 		o.write(" body,");
 		o.write(localFinal);
-		o.write(String.class.getName() + " contentType");
+		o.write(STRING + " contentType");
 		o.write(')');
 		o.write(lineSeparator);
 		if(dataType!=byte.class)
