@@ -55,6 +55,7 @@ final class Generator
 	private static final String STRING = String.class.getName();
 	private static final String COLLECTION = Collection.class.getName();
 	private static final String LIST = List.class.getName();
+	private static final String IO_EXCEPTION = IOException.class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
@@ -571,9 +572,7 @@ final class Generator
 		o.write("\t * ");
 		o.write(GETTER_MEDIA_BODY_EXTRA);
 		o.write(lineSeparator);
-		o.write("\t * @throws ");
-		o.write(IOException.class.getName());
-		o.write(' ');
+		o.write("\t * @throws " + IO_EXCEPTION + ' ');
 		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>body</tt>"));
 		o.write(lineSeparator);
 		writeCommentFooter();
@@ -608,9 +607,7 @@ final class Generator
 		o.write(lineSeparator);
 		if(dataType!=byte.class)
 		{
-			o.write("\t * @throws ");
-			o.write(IOException.class.getName());
-			o.write(' ');
+			o.write("\t * @throws " + IO_EXCEPTION + ' ');
 			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>body</tt>"));
 			o.write(lineSeparator);
 		}
