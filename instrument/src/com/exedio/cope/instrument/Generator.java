@@ -55,6 +55,7 @@ final class Generator
 	private static final String STRING = String.class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
+	private static final String TYPE_NAME = Type.class.getName();
 	private static final String REACTIVATION = ReactivationConstructorDummy.class.getName();
 	
 	private static final char ATTRIBUTE_MAP_KEY = 'k';
@@ -365,7 +366,7 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC, type.name));
 		o.write(lineSeparator);
 		o.write("\t * ");
-		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + Type.class.getName() + "#newItem Type.newItem}"));
+		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + TYPE_NAME + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
@@ -1258,7 +1259,7 @@ final class Generator
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
 			writeModifier(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL); // TODO obey class visibility
-			o.write(Type.class.getName()+'<');
+			o.write(TYPE_NAME + '<');
 			o.write(type.name);
 			o.write("> TYPE = newType(");
 			o.write(type.name);
