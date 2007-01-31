@@ -124,6 +124,8 @@ final class Generator
 	private final CRC32 outputCRC = new CRC32();
 	private final String lineSeparator;
 	private final boolean longJavadoc;
+	private static final String localFinal = "final "; // TODO make switchable from ant target
+	
 	
 	Generator(final JavaFile javaFile, final File outputFile, final boolean longJavadoc) throws FileNotFoundException
 	{
@@ -363,7 +365,9 @@ final class Generator
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.name);
-		o.write("(final "+SetValue.class.getName()+"... setValues)");
+		o.write('(');
+		o.write(localFinal);
+		o.write(SetValue.class.getName() + "... setValues)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
@@ -389,7 +393,11 @@ final class Generator
 		writeCommentFooter();
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.name);
-		o.write("(final "+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
+		o.write('(');
+		o.write(localFinal);
+		o.write(ReactivationConstructorDummy.class.getName() + " d,");
+		o.write(localFinal);
+		o.write("int pk)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
@@ -445,7 +453,8 @@ final class Generator
 			o.write("void set");
 			o.write(toCamelCase(feature.name));
 			o.write(feature.setterOption.suffix);
-			o.write("(final ");
+			o.write('(');
+			o.write(localFinal);
 			o.write(type);
 			o.write(' ');
 			o.write(feature.name);
@@ -491,7 +500,8 @@ final class Generator
 		writeModifier(hash.getGeneratedCheckerModifier());
 		o.write("boolean check");
 		o.write(toCamelCase(hash.name));
-		o.write("(final ");
+		o.write('(');
+		o.write(localFinal);
 		o.write(String.class.getName());
 		o.write(' ');
 		o.write(hash.name);
@@ -564,7 +574,10 @@ final class Generator
 		writeModifier(media.getGeneratedGetterModifier());
 		o.write("void get");
 		o.write(toCamelCase(media.name));
-		o.write("Body(final " + dataType.getName() + " body)");
+		o.write("Body(");
+		o.write(localFinal);
+		o.write(dataType.getName());
+		o.write(" body)");
 		o.write(lineSeparator);
 		final TreeSet<Class> setterExceptions = new TreeSet<Class>();
 		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
@@ -599,11 +612,14 @@ final class Generator
 		writeModifier(media.getGeneratedSetterModifier());
 		o.write("void set");
 		o.write(toCamelCase(media.name));
-		o.write("(final ");
+		o.write('(');
+		o.write(localFinal);
 		o.write(dataType.getName());
 		if(dataType==byte.class)
 			o.write("[]");
-		o.write(" body,final "+String.class.getName()+" contentType");
+		o.write(" body,");
+		o.write(localFinal);
+		o.write(String.class.getName() + " contentType");
 		o.write(')');
 		o.write(lineSeparator);
 		if(dataType!=byte.class)
@@ -671,7 +687,8 @@ final class Generator
 		o.write(" findBy");
 		o.write(toCamelCase(attribute.name));
 		
-		o.write("(final ");
+		o.write('(');
+		o.write(localFinal);
 		o.write(attribute.getBoxedType());
 		o.write(' ');
 		o.write(attribute.name);
@@ -728,7 +745,7 @@ final class Generator
 			if(i>0)
 				o.write(',');
 			final CopeAttribute attribute = attributes[i];
-			o.write("final ");
+			o.write(localFinal);
 			o.write(attribute.getBoxedType());
 			o.write(' ');
 			o.write(attribute.name);
@@ -774,7 +791,7 @@ final class Generator
 		{
 			if(i>0)
 				o.write(',');
-			o.write("final ");
+			o.write(localFinal);
 			o.write(keys[i].persistentType);
 			o.write(' ');
 			o.write(keys[i].name);
@@ -902,7 +919,8 @@ final class Generator
 			o.write(attribute.setterOption.suffix);
 			o.write('(');
 			writeQualifierParameters(qualifier);
-			o.write(",final ");
+			o.write(',');
+			o.write(localFinal);
 			o.write(attribute.getBoxedType());
 			o.write(' ');
 			o.write(attribute.name);
@@ -973,7 +991,8 @@ final class Generator
 
 		o.write("public final void set"); // TODO: obey attribute visibility
 		o.write(toCamelCase(list.name));
-		o.write("(final ");
+		o.write('(');
+		o.write(localFinal);
 		o.write(Collection.class.getName());
 		o.write("<? extends ");
 		o.write(type);
@@ -1018,7 +1037,8 @@ final class Generator
 			o.write(map.getValueType());
 			o.write(" get");
 			o.write(toCamelCase(map.name));
-			o.write("(final ");
+			o.write('(');
+			o.write(localFinal);
 			o.write(map.getKeyType());
 			o.write(" " + ATTRIBUTE_MAP_KEY + ")");
 			o.write(lineSeparator);
@@ -1046,9 +1066,11 @@ final class Generator
 			o.write("public final "); // TODO SOON setter option
 			o.write("void set");
 			o.write(toCamelCase(map.name));
-			o.write("(final ");
+			o.write('(');
+			o.write(localFinal);
 			o.write(map.getKeyType());
-			o.write(" " + ATTRIBUTE_MAP_KEY + ",final ");
+			o.write(" " + ATTRIBUTE_MAP_KEY + ',');
+			o.write(localFinal);
 			o.write(map.getValueType());
 			o.write(' ');
 			o.write(map.name);
@@ -1122,7 +1144,8 @@ final class Generator
 	
 			o.write("public final boolean addTo"); // TODO: obey attribute visibility
 			o.write(endNameCamel);
-			o.write("(final ");
+			o.write('(');
+			o.write(localFinal);
 			o.write(endType);
 			o.write(' ');
 			o.write(endName);
@@ -1157,7 +1180,8 @@ final class Generator
 	
 			o.write("public final boolean removeFrom"); // TODO: obey attribute visibility
 			o.write(endNameCamel);
-			o.write("(final ");
+			o.write('(');
+			o.write(localFinal);
 			o.write(endType);
 			o.write(' ');
 			o.write(endName);
@@ -1192,7 +1216,8 @@ final class Generator
 	
 			o.write("public final void set"); // TODO: obey attribute visibility
 			o.write(endNameCamel);
-			o.write("(final ");
+			o.write('(');
+			o.write(localFinal);
 			o.write(Collection.class.getName() + "<? extends ");
 			o.write(endType);
 			o.write("> ");
