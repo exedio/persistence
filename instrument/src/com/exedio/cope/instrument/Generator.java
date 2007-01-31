@@ -387,8 +387,7 @@ final class Generator
 		o.write("\t * ");
 		o.write(CONSTRUCTOR_REACTIVATION);
 		o.write(lineSeparator);
-		o.write("\t * @see " + Item.class.getName() + "#Item("
-			+ ReactivationConstructorDummy.class.getName() + ",int)");
+		o.write("\t * @see " + Item.class.getName() + "#Item(" + ReactivationConstructorDummy.class.getName() + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
