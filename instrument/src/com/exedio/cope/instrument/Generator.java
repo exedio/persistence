@@ -389,7 +389,7 @@ final class Generator
 		writeCommentFooter();
 		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
 		o.write(type.name);
-		o.write("("+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
+		o.write("(final "+ReactivationConstructorDummy.class.getName()+" d,final int pk)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
