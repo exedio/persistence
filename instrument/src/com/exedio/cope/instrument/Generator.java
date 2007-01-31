@@ -53,6 +53,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 final class Generator
 {
 	private static final String STRING = String.class.getName();
+	private static final String COLLECTION = Collection.class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
@@ -996,8 +997,7 @@ final class Generator
 		o.write(toCamelCase(list.name));
 		o.write('(');
 		o.write(localFinal);
-		o.write(Collection.class.getName());
-		o.write("<? extends ");
+		o.write(COLLECTION + "<? extends ");
 		o.write(type);
 		o.write("> ");
 		o.write(list.name);
@@ -1221,7 +1221,7 @@ final class Generator
 			o.write(endNameCamel);
 			o.write('(');
 			o.write(localFinal);
-			o.write(Collection.class.getName() + "<? extends ");
+			o.write(COLLECTION + "<? extends ");
 			o.write(endType);
 			o.write("> ");
 			o.write(endName);
