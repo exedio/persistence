@@ -52,6 +52,8 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
 {
+	private static final String SET_VALUE = SetValue.class.getName();
+	
 	private static final char ATTRIBUTE_MAP_KEY = 'k';
 	
 	private static final String THROWS_NULL   = "if {0} is null.";
@@ -330,7 +332,7 @@ final class Generator
 		writeThrowsClause(constructorExceptions);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\tthis(new "+SetValue.class.getName()+"[]{");
+		o.write("\t\tthis(new " + SET_VALUE + "[]{");
 		o.write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
@@ -367,7 +369,7 @@ final class Generator
 		o.write(type.name);
 		o.write('(');
 		o.write(localFinal);
-		o.write(SetValue.class.getName() + "... setValues)");
+		o.write(SET_VALUE + "... setValues)");
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
