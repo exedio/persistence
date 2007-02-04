@@ -57,53 +57,25 @@ class DataItem extends Item
 	void setData(final InputStream data) // TODO generate this
 	throws IOException
 	{
-		try
-		{
-			DataItem.data.set(this, data);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
+		DataItem.data.set(this, data);
 	}
 	
 	void setData10(final InputStream data10) // TODO generate this
 	throws IOException
 	{
-		try
-		{
-			DataItem.data10.set(this, data10);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
+		DataItem.data10.set(this, data10);
 	}
 	
 	void setData(final File data) // TODO generate this
 	throws IOException
 	{
-		try
-		{
-			DataItem.data.set(this, data);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
+		DataItem.data.set(this, data);
 	}
 	
 	void setData10(final File data10) // TODO generate this
 	throws IOException
 	{
-		try
-		{
-			DataItem.data10.set(this, data10);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
+		DataItem.data10.set(this, data10);
 	}
 	
 	DataItem(final byte[] data)
