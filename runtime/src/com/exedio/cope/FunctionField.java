@@ -109,6 +109,7 @@ public abstract class FunctionField<E extends Object>
 	 * by being unique.
 	 * If this FunctionField is already unique,
 	 * the the result is equal to this FunctionField.
+	 * @see #getImplicitUniqueConstraint()
 	 */
 	public abstract FunctionField<E> unique();
 
@@ -229,6 +230,7 @@ public abstract class FunctionField<E extends Object>
 	 * that has been created implicitly when creating this field.
 	 * Does return null, if there is no such unique constraint.
 	 * @see #getUniqueConstraints()
+	 * @see #unique()
 	 */
 	public UniqueConstraint getImplicitUniqueConstraint()
 	{
