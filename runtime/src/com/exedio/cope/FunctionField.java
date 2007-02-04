@@ -135,7 +135,13 @@ public abstract class FunctionField<E extends Object>
 		}
 		else
 		{
-			checkNotNullValue(Cope.verboseCast(valueClass, value), exceptionItem);
+			if(!valueClass.isInstance(value))
+			{
+				throw new ClassCastException(
+						"expected a " + valueClass.getName() + ", but was a " + value.getClass().getName() +
+						" for " + toString() + '.');
+			}
+			checkNotNullValue(valueClass.cast(value), exceptionItem);
 		}
 	}
 

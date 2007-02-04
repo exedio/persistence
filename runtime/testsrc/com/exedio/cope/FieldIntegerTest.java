@@ -86,7 +86,7 @@ public class FieldIntegerTest extends FieldTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName(), e.getMessage());
+			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName() + " for " + item.someInteger + '.', e.getMessage());
 		}
 	}
 	

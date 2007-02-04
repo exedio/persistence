@@ -87,7 +87,7 @@ public class FieldLongTest extends FieldTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someLong + '.', e.getMessage());
 		}
 	}
 	

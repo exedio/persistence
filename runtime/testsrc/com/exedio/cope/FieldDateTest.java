@@ -100,7 +100,7 @@ public class FieldDateTest extends FieldTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDate + '.', e.getMessage());
 		}
 	}
 	

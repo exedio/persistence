@@ -137,7 +137,7 @@ public class FieldEnumTest extends FieldTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someEnum + '.', e.getMessage());
 		}
 		
 		try
@@ -147,7 +147,7 @@ public class FieldEnumTest extends FieldTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName(), e.getMessage());
+			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName() + " for " + item.someEnum + '.', e.getMessage());
 		}
 	}
 	
