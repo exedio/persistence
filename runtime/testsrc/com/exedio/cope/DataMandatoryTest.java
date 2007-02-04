@@ -100,7 +100,19 @@ public class DataMandatoryTest extends AbstractLibTest
 
 		try
 		{
-			new DataMandatoryItem(null);
+			new DataMandatoryItem((byte[])null);
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertSame(data, e.getFeature());
+			assertSame(null, e.getItem());
+		}
+		assertEquals(list(item), item.TYPE.search());
+
+		try
+		{
+			new DataMandatoryItem(new SetValue[0]);
 			fail();
 		}
 		catch(MandatoryViolationException e)
