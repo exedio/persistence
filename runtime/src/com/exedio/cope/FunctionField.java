@@ -116,48 +116,6 @@ public abstract class FunctionField<E extends Object>
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 	
-	/**
-	 * Checks field values set by
-	 * {@link Item#set(FunctionField,Object)} (for <tt>initial==false</tt>)
-	 * and {@link Item#Item(SetValue[])} (for <tt>initial==true</tt>)
-	 * and throws the exception specified there.
-	 */
-	@Override
-	final void checkValue(final Object value, final Item exceptionItem)
-		throws
-			MandatoryViolationException,
-			LengthViolationException
-	{
-		if(value == null)
-		{
-			if(!optional)
-				throw new MandatoryViolationException(this, exceptionItem);
-		}
-		else
-		{
-			if(!valueClass.isInstance(value))
-			{
-				throw new ClassCastException(
-						"expected a " + valueClass.getName() + ", but was a " + value.getClass().getName() +
-						" for " + toString() + '.');
-			}
-			checkNotNullValue(valueClass.cast(value), exceptionItem);
-		}
-	}
-
-	/**
-	 * Further checks non-null field values already checked by
-	 * {@link #checkValue(Object, Item)}.
-	 * To be overidden by subclasses,
-	 * the default implementation does nothing.
-	 */
-	void checkNotNullValue(final E value, final Item exceptionItem)
-		throws
-			LengthViolationException
-	{
-		// empty default implementation
-	}
-	
 	private static final Entity getEntity(final Item item)
 	{
 		return getEntity(item, true);

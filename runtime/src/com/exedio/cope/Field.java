@@ -122,7 +122,53 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return new SetValue[]{ map(value) };
 	}
 	
-	abstract void checkValue(final Object value, final Item item);
+	/**
+	 * Checks field values set by
+	 * {@link Item#set(FunctionField,Object)}
+	 * and {@link Item#Item(SetValue[])}
+	 * and throws the exception specified there.
+	 */
+	final void checkValue(final Object value, final Item exceptionItem)
+		throws
+			MandatoryViolationException,
+			LengthViolationException
+	{
+		if(value == null)
+		{
+			if(!optional)
+				throw new MandatoryViolationException(this, exceptionItem);
+		}
+		else
+		{
+			if(!valueClass.isInstance(value))
+			{
+				throw new ClassCastException(
+						"expected a " + getName(valueClass) +
+						", but was a " + getName(value.getClass()) +
+						" for " + toString() + '.');
+			}
+			
+			checkNotNullValue(valueClass.cast(value), exceptionItem);
+		}
+	}
+	
+	private static final String getName(final Class c)
+	{
+		return c.isArray() ? (c.getComponentType().getName() + "[]") : c.getName();
+	}
+
+	/**
+	 * Further checks non-null field values already checked by
+	 * {@link #checkValue(Object, Item)}.
+	 * To be overidden by subclasses,
+	 * the default implementation does nothing.
+	 */
+	void checkNotNullValue(final E value, final Item exceptionItem)
+		throws
+			LengthViolationException
+	{
+		// empty default implementation
+	}
 		
 	// patterns ---------------------------------------------------------------------
 	

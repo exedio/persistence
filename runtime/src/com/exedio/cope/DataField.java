@@ -263,26 +263,10 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	@Override
-	final void checkValue(final Object value, final Item item) throws MandatoryViolationException
+	final void checkNotNullValue(final byte[] value, final Item item) throws MandatoryViolationException
 	{
-		if(value == null)
-		{
-			if(!optional)
-				throw new MandatoryViolationException(this, item);
-		}
-		else
-		{
-			if(!(value instanceof byte[]))
-			{
-				throw new ClassCastException(
-						"expected a byte[], but was a " + value.getClass().getName() +
-						" for " + toString() + '.');
-			}
-			
-			final byte[] valueBytes = (byte[])value;
-			if(valueBytes.length>maximumLength)
-				throw new DataLengthViolationException(this, item, valueBytes.length, true);
-		}
+		if(value.length>maximumLength)
+			throw new DataLengthViolationException(this, item, value.length, true);
 	}
 
 	final void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
