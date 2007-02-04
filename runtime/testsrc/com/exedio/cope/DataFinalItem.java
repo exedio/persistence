@@ -18,53 +18,11 @@
 
 package com.exedio.cope;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 class DataFinalItem extends Item
 {
 
 	static final DataField data = new DataField(OPTIONAL).toFinal();
-	
-	void getDataFinal(final OutputStream data) // TODO generate this
-	throws IOException
-	{
-		DataFinalItem.data.get(this, data);
-	}
-	
-	void getDataFinal(final File data) // TODO generate this
-	throws IOException
-	{
-		DataFinalItem.data.get(this, data);
-	}
-	
-	void setDataFinal(final InputStream data) // TODO generate this
-	throws IOException
-	{
-		try
-		{
-			DataFinalItem.data.set(this, data);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-	
-	void setDataFinal(final File data) // TODO generate this
-	throws IOException
-	{
-		try
-		{
-			DataFinalItem.data.set(this, data);
-		}
-		catch(MandatoryViolationException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
 	
 	/**
 
