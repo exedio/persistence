@@ -68,6 +68,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( MatchTest.class );
 		suite.addTestSuite( DataTest.class );
 		suite.addTestSuite( DataFinalTest.class );
+		suite.addTestSuite( DataMandatoryTest.class );
 		suite.addTestSuite( UniqueItemTest.class );
 		suite.addTestSuite( HierarchyTest.class );
 		suite.addTestSuite( HierarchyEmptyTest.class );
