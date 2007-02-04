@@ -26,7 +26,7 @@ import com.exedio.cope.function.UppercaseView;
 public class HierarchyFirstSub extends HierarchySuper
 {
 
-	public static final StringField firstSubString = new StringField(UNIQUE_OPTIONAL);
+	public static final StringField firstSubString = new StringField(OPTIONAL).unique();
 	
 	public static final UppercaseView firstSubStringUpper = firstSubString.toUpperCase();
 	

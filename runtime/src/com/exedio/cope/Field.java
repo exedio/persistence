@@ -207,11 +207,31 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		MANDATORY            (false, false, false),
 		OPTIONAL             (false, false, true),
+
+		/**
+		 * @deprecated Use {@link FunctionField#unique()} instead.
+		 */
+		@Deprecated
 		UNIQUE               (false, true,  false),
+
+		/**
+		 * @deprecated Use {@link FunctionField#unique()} instead.
+		 */
+		@Deprecated
 		UNIQUE_OPTIONAL      (false, true,  true),
 		FINAL                (true,  false, false),
 		FINAL_OPTIONAL       (true,  false, true),
+
+		/**
+		 * @deprecated Use {@link FunctionField#unique()} instead.
+		 */
+		@Deprecated
 		FINAL_UNIQUE         (true,  true,  false),
+
+		/**
+		 * @deprecated Use {@link FunctionField#unique()} instead.
+		 */
+		@Deprecated
 		FINAL_UNIQUE_OPTIONAL(true,  true,  true);
 		
 		public final boolean isFinal;

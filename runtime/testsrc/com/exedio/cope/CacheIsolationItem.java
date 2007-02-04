@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 class CacheIsolationItem extends Item
 {
-	static final StringField uniqueString = new StringField( UNIQUE_OPTIONAL );
+	static final StringField uniqueString = new StringField(OPTIONAL).unique();
 	
 	static final StringField name = new StringField();
 	
