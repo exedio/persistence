@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 class InstanceOfAItem extends Item
 {
-	static final StringField code = new StringField(FINAL).unique();
+	static final StringField code = new StringField().toFinal().unique();
 	
 	@Override
 	public final String toString()

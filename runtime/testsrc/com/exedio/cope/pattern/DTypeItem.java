@@ -23,7 +23,7 @@ import com.exedio.cope.StringField;
 
 public class DTypeItem extends Item
 {
-	static final StringField name = new StringField(FINAL);
+	static final StringField name = new StringField().toFinal();
 	
 	static final DTypeSystem features = new DTypeSystem(1, 1, 1, 1, 2);
 	

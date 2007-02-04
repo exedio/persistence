@@ -52,6 +52,12 @@ public final class DateField extends FunctionField<Date>
 	}
 	
 	@Override
+	public DateField toFinal()
+	{
+		return new DateField(true, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
+	}
+	
+	@Override
 	public DateField unique()
 	{
 		return new DateField(isfinal, optional, true, defaultConstant, defaultNow);

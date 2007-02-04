@@ -29,9 +29,9 @@ import com.exedio.cope.pattern.Qualifier;
  */
 public class QualifiedEmptyQualifier extends Item
 {
-	public static final ItemField<QualifiedItem> parent = newItemField(FINAL, QualifiedItem.class, CASCADE);
+	public static final ItemField<QualifiedItem> parent = newItemField(QualifiedItem.class, CASCADE).toFinal();
 	
-	public static final ItemField<EmptyItem> key = newItemField(FINAL, EmptyItem.class);
+	public static final ItemField<EmptyItem> key = newItemField(EmptyItem.class).toFinal();
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	public static final Qualifier qualifier = new Qualifier(qualifyUnique);

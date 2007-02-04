@@ -39,6 +39,10 @@ public final class DataField extends Field<byte[]>
 		
 		if(maximumLength<=0)
 			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
+		if(!optional)
+			throw new RuntimeException("DataField cannot be mandatory, not yet implemented"); // TODO
+		if(isfinal)
+			throw new RuntimeException("DataField cannot be final, not yet implemented"); // TODO
 	}
 	
 	// TODO, empty constructor missing, since DataField cannot be MANDATORY
@@ -49,10 +53,12 @@ public final class DataField extends Field<byte[]>
 
 		if(option.unique)
 			throw new RuntimeException("DataField cannot be unique");
-		if(!option.optional)
-			throw new RuntimeException("DataField cannot be mandatory"); // TODO
-		if(option.isFinal)
-			throw new RuntimeException("DataField cannot be final"); // TODO
+	}
+	
+	@Override
+	public DataField toFinal()
+	{
+		return new DataField(true, optional, maximumLength);
 	}
 	
 	public DataField lengthMax(final long maximumLength)

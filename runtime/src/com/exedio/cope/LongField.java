@@ -46,6 +46,12 @@ public final class LongField extends FunctionField<Long>
 	}
 	
 	@Override
+	public LongField toFinal()
+	{
+		return new LongField(true, optional, implicitUniqueConstraint!=null, defaultConstant);
+	}
+	
+	@Override
 	public LongField unique()
 	{
 		return new LongField(isfinal, optional, true, defaultConstant);

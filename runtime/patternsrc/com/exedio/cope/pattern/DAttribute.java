@@ -33,8 +33,8 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DAttribute extends Item
 {
-	public static final ItemField<DType> parent = newItemField(FINAL, DType.class, CASCADE);
-	public static final IntegerField position = new IntegerField(FINAL);
+	public static final ItemField<DType> parent = newItemField(DType.class, CASCADE).toFinal();
+	public static final IntegerField position = new IntegerField().toFinal();
 	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, position);
 
 	public static enum ValueType
@@ -59,11 +59,11 @@ public final class DAttribute extends Item
 			return valueClass;
 		}
 	}
-	public static final EnumField<ValueType> valueType = newEnumField(FINAL, ValueType.class);
-	public static final IntegerField positionPerValueType = new IntegerField(FINAL);
+	public static final EnumField<ValueType> valueType = newEnumField(ValueType.class).toFinal();
+	public static final IntegerField positionPerValueType = new IntegerField().toFinal();
 	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
 	
-	public static final StringField code = new StringField(FINAL);
+	public static final StringField code = new StringField().toFinal();
 	public static final UniqueConstraint uniqueConstraintCode = new UniqueConstraint(parent, code);
 
 	public Object get(final Item item)

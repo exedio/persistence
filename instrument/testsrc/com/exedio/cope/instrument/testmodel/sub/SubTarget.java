@@ -25,7 +25,7 @@ import com.exedio.cope.StringField;
  */
 public class SubTarget extends Item
 {
-	public static final StringField string = new StringField(FINAL);
+	public static final StringField string = new StringField().toFinal();
 
 /**
 

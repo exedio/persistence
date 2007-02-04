@@ -144,7 +144,7 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldSet.newSet(new StringField(Item.FINAL));
+			FieldSet.newSet(new StringField().toFinal());
 			fail();
 		}
 		catch(IllegalArgumentException e)

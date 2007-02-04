@@ -813,6 +813,11 @@ public final class Type<C extends Item>
 		return uniqueConstraints;
 	}
 	
+	public ItemField<C> newItemField(final DeletePolicy policy)
+	{
+		return new ItemField<C>(Item.MANDATORY, this, policy);
+	}
+	
 	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)
 	{
 		return new ItemField<C>(option, this, policy);

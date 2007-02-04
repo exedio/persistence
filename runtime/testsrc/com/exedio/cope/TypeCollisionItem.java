@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 class TypeCollisionItem extends Item
 {
-	static final StringField code = new StringField(FINAL).unique();
+	static final StringField code = new StringField().toFinal().unique();
 	
 	/**
 

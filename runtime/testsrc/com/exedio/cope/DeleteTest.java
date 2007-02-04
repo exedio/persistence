@@ -106,7 +106,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		try
 		{
-			Item.newItemField(Item.FINAL_OPTIONAL, DeleteItem.class, Item.NULLIFY);
+			Item.newItemField(Item.OPTIONAL, DeleteItem.class, Item.NULLIFY).toFinal();
 			fail();
 		}
 		catch(IllegalArgumentException e)

@@ -30,9 +30,9 @@ import com.exedio.cope.pattern.Qualifier;
  */
 public class QualifiedStringQualifier extends Item
 {
-	public static final ItemField<QualifiedItem> parent = newItemField(FINAL, QualifiedItem.class);
+	public static final ItemField<QualifiedItem> parent = newItemField(QualifiedItem.class).toFinal();
 	
-	public static final StringField key = new StringField(FINAL);
+	public static final StringField key = new StringField().toFinal();
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	public static final Qualifier stringQualifier = new Qualifier(qualifyUnique);

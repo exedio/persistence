@@ -25,7 +25,6 @@ import java.util.List;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -45,7 +44,7 @@ public final class FieldList<E> extends Pattern
 
 	private FieldList(final FunctionField<E> element)
 	{
-		this.order = new IntegerField(Field.Option.FINAL);
+		this.order = new IntegerField().toFinal();
 		this.element = element;
 		if(element==null)
 			throw new NullPointerException("element must not be null");
@@ -65,7 +64,7 @@ public final class FieldList<E> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = type.newItemField(Field.Option.FINAL, ItemField.DeletePolicy.CASCADE);
+		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, order);
 		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
 		features.put("parent", parent);

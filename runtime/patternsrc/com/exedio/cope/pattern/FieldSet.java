@@ -28,7 +28,6 @@ import java.util.Set;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -65,7 +64,7 @@ public final class FieldSet<E> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = type.newItemField(Field.Option.FINAL, ItemField.DeletePolicy.CASCADE);
+		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, element);
 		final LinkedHashMap<String, Feature> features = new LinkedHashMap<String, Feature>();
 		features.put("parent", parent);

@@ -95,6 +95,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 	
 	@Override
+	public EnumField<E> toFinal()
+	{
+		return new EnumField<E>(true, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
+	}
+	
+	@Override
 	public EnumField<E> unique()
 	{
 		return new EnumField<E>(isfinal, optional, true, valueClass, defaultConstant);

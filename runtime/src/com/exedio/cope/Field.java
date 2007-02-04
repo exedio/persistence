@@ -52,6 +52,19 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		this.valueClass = valueClass;
 	}
 	
+	/**
+	 * Returns a new Field,
+	 * that differs from this Field
+	 * by being final.
+	 * If this Field is already final,
+	 * the the result is equal to this Field.
+	 * @see #isFinal()
+	 */
+	public abstract Field<E> toFinal();
+	
+	/**
+	 * @see #toFinal()
+	 */
 	public final boolean isFinal()
 	{
 		return isfinal;
@@ -219,17 +232,27 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		 */
 		@Deprecated
 		UNIQUE_OPTIONAL      (false, true,  true),
+
+		/**
+		 * @deprecated Use {@link FunctionField#toFinal()} instead.
+		 */
+		@Deprecated
 		FINAL                (true,  false, false),
+
+		/**
+		 * @deprecated Use {@link FunctionField#toFinal()} instead.
+		 */
+		@Deprecated
 		FINAL_OPTIONAL       (true,  false, true),
 
 		/**
-		 * @deprecated Use {@link FunctionField#unique()} instead.
+		 * @deprecated Use {@link FunctionField#toFinal()} and {@link FunctionField#unique()} instead.
 		 */
 		@Deprecated
 		FINAL_UNIQUE         (true,  true,  false),
 
 		/**
-		 * @deprecated Use {@link FunctionField#unique()} instead.
+		 * @deprecated Use {@link FunctionField#toFinal()} and {@link FunctionField#unique()} instead.
 		 */
 		@Deprecated
 		FINAL_UNIQUE_OPTIONAL(true,  true,  true);

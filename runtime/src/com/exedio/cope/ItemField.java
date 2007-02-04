@@ -110,6 +110,15 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	@Override
+	public ItemField<E> toFinal()
+	{
+		if(initialValueType==null)
+			return new ItemField<E>(true, optional, implicitUniqueConstraint!=null, valueClass, null, policy);
+		else
+			return new ItemField<E>(true, optional, implicitUniqueConstraint!=null, null, initialValueType, policy);
+	}
+	
+	@Override
 	public ItemField<E> unique()
 	{
 		if(initialValueType==null)

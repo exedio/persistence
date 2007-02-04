@@ -56,6 +56,12 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	@Override
+	public IntegerField toFinal()
+	{
+		return new IntegerField(true, optional, implicitUniqueConstraint!=null, defaultConstant);
+	}
+	
+	@Override
 	public IntegerField unique()
 	{
 		return new IntegerField(isfinal, optional, true, defaultConstant);

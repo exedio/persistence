@@ -29,12 +29,12 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DEnumValue extends Item
 {
-	public static final ItemField<DAttribute> parent = newItemField(FINAL, DAttribute.class, CASCADE);
+	public static final ItemField<DAttribute> parent = newItemField(DAttribute.class, CASCADE).toFinal();
 
-	public static final IntegerField position = new IntegerField(FINAL);
+	public static final IntegerField position = new IntegerField().toFinal();
 	public static final UniqueConstraint uniquePosition = new UniqueConstraint(parent, position);
 	
-	public static final StringField code = new StringField(FINAL);
+	public static final StringField code = new StringField().toFinal();
 	public static final UniqueConstraint uniqueCode = new UniqueConstraint(parent, code);
 	
 	DEnumValue(final DAttribute parent, final int position, final String code)

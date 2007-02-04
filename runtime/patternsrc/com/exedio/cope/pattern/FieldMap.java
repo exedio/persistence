@@ -22,7 +22,6 @@ import java.util.LinkedHashMap;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -62,7 +61,7 @@ public final class FieldMap<K,V> extends Pattern
 	{
 		final Type<?> type = getType();
 		
-		parent = type.newItemField(Field.Option.FINAL, ItemField.DeletePolicy.CASCADE);
+		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		uniqueConstraint = new UniqueConstraint(parent, key);
 		final LinkedHashMap<String, Feature> relationTypeFeatures = new LinkedHashMap<String, Feature>();
 		relationTypeFeatures.put("parent", parent);

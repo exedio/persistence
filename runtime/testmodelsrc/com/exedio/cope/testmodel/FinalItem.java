@@ -28,7 +28,7 @@ import com.exedio.cope.StringField;
  */
 public class FinalItem extends Item
 {
-	public static final StringField finalString = new StringField(FINAL);
+	public static final StringField finalString = new StringField().toFinal();
 	public static final IntegerField nonFinalInteger = new IntegerField();
 
 /**
