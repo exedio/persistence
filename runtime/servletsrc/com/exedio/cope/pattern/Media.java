@@ -45,7 +45,6 @@ import com.exedio.cope.Field.Option;
 
 public final class Media extends CachedMedia
 {
-	private final Option option;
 	final boolean optional;
 	final DataField body;
 	final ContentType contentType;
@@ -53,13 +52,10 @@ public final class Media extends CachedMedia
 
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 	
-	private Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor, final long bodyMaximumLength)
+	private Media(final boolean optional, final String fixedMimeMajor, final String fixedMimeMinor, final long bodyMaximumLength)
 	{
-		if(option==null)
-			throw new NullPointerException("option must not be null");
-		
-		this.option = option;
-		this.optional = option.optional;
+		final Field.Option option = optional ? Item.OPTIONAL : Item.MANDATORY;
+		this.optional = optional;
 		registerSource(this.body = new DataField(option).lengthMax(bodyMaximumLength));
 		
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null)
@@ -85,22 +81,25 @@ public final class Media extends CachedMedia
 	
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
-		this(option, fixedMimeMajor, fixedMimeMinor, DEFAULT_LENGTH);
+		this(option.optional, fixedMimeMajor, fixedMimeMinor, DEFAULT_LENGTH);
+
+		if(option.unique)
+			throw new RuntimeException("Media cannot be unique");
 	}
 	
 	public Media(final Option option, final String fixedMimeMajor)
 	{
-		this(option, fixedMimeMajor, null, DEFAULT_LENGTH);
+		this(option, fixedMimeMajor, null);
 	}
 	
 	public Media(final Option option)
 	{
-		this(option, null, null, DEFAULT_LENGTH);
+		this(option, null, null);
 	}
 	
 	public Media lengthMax(final long maximumLength)
 	{
-		return new Media(option, getFixedMimeMajor(), getFixedMimeMinor(), maximumLength);
+		return new Media(optional, getFixedMimeMajor(), getFixedMimeMinor(), maximumLength);
 	}
 	
 	public String getFixedMimeMajor()
