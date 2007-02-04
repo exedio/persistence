@@ -234,6 +234,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		@Deprecated
 		FINAL_UNIQUE_OPTIONAL(true,  true,  true);
 		
+		/**
+		 * Whether this option is final.
+		 */
 		public final boolean isFinal;
 		public final boolean unique;
 		public final boolean optional;
