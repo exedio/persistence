@@ -41,8 +41,6 @@ public final class DataField extends Field<byte[]>
 			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
 		if(!optional)
 			throw new RuntimeException("DataField cannot be mandatory, not yet implemented"); // TODO
-		if(isfinal)
-			throw new RuntimeException("DataField cannot be final, not yet implemented"); // TODO
 	}
 	
 	// TODO, empty constructor missing, since DataField cannot be MANDATORY
@@ -138,6 +136,8 @@ public final class DataField extends Field<byte[]>
 	@Override
 	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
 	{
+		if(isfinal)
+			throw new FinalViolationException(this, item);
 		if(data!=null && data.length>maximumLength)
 			throw new DataLengthViolationException(this, item, data.length, true);
 		
@@ -181,6 +181,9 @@ public final class DataField extends Field<byte[]>
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
+		if(isfinal)
+			throw new FinalViolationException(this, item);
+		
 		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, this);
 	}
 	
