@@ -377,6 +377,7 @@
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{db.driver}" />
+					<fileset file="lib/junit.jar" />
 				</copy>
 				
 				<copy tofile="build/runtime/testwebapp-@{db}/WEB-INF/cope.properties" file="@{db.file}" />
