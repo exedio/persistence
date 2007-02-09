@@ -109,14 +109,7 @@ public final class Main
 				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 				
 			final Injector injector = new Injector(file, new Instrumentor(), repository);
-			try
-			{
-				injector.parseFile();
-			}
-			finally
-			{
-				if(injector!=null) injector.close();
-			}
+			injector.parseFile();
 			injectors.add(injector);
 		}
 		
@@ -153,7 +146,7 @@ public final class Main
 			generator.write();
 			generator.close();
 			
-			if(injector.getCRC()!=generator.getCRC())
+			if(injector.inputCRC!=generator.getCRC())
 			{
 				logInstrumented(file);
 				if(!file.delete())

@@ -21,16 +21,15 @@ package com.exedio.cope.instrument;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Modifier;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.CRC32;
-import java.util.zip.CheckedInputStream;
 
 /**
  * Implements a modifying java parser.
@@ -49,8 +48,11 @@ import java.util.zip.CheckedInputStream;
  */
 final class Injector
 {
-	private final CRC32 inputCRC = new CRC32();
-	private final Reader input;
+	final long inputCRC;
+	private final char[] input;
+	private int inputPosition = 0;
+	private final int inputLength;
+	
 	private final StringBuffer output;
 	private final InjectionConsumer consumer;
 	private final String fileName;
@@ -78,26 +80,34 @@ final class Injector
 	 */
 	public Injector(final File inputFile,
 								final InjectionConsumer consumer, final JavaRepository repository)
-		throws FileNotFoundException
+		throws IOException
 	{
-		this.input = new InputStreamReader(new CheckedInputStream(new FileInputStream(inputFile), inputCRC));
+		final byte[] inputBytes = new byte[(int)inputFile.length()];
+		final FileInputStream fis = new FileInputStream(inputFile);
+		try
+		{
+			fis.read(inputBytes);
+		}
+		finally
+		{
+			fis.close();
+		}
+		final CRC32 crc32 = new CRC32();
+		crc32.update(inputBytes);
+		this.inputCRC = crc32.getValue();
+		
+		final Charset charset = Charset.defaultCharset(); // TODO make configurable
+		final CharsetDecoder decoder = charset.newDecoder();
+
+		this.input = decoder.decode(ByteBuffer.wrap(inputBytes)).array();
+		this.inputLength = input.length;
+		
 		this.consumer = consumer;
 		this.fileName = inputFile.getName();
 		this.javaFile = new JavaFile(repository);
 		this.output = javaFile.buffer;
 	}
 	
-	void close() throws IOException
-	{
-		if(input!=null)
-			input.close();
-	}
-	
-	long getCRC()
-	{
-		return inputCRC.getValue();
-	}
-
 	private char outbuf;
 	private boolean outbufvalid = false;
 
@@ -113,12 +123,20 @@ final class Injector
 
 	private final char read() throws IOException, EndException
 	{
-		int c = input.read();
+		if(inputPosition>=inputLength)
+		{
+			if (output != null && !do_block && outbufvalid && !discardNextFeature)
+				output.append(outbuf);
+			throw new EndException();
+		}
+			
+		final char c = input[inputPosition];
+		inputPosition++;
 
 		if (output != null && !do_block && outbufvalid && !discardNextFeature)
 			output.append(outbuf);
 
-		if (c >= 0)
+		if (c >= 0) // TODO cannot happen anymore
 		{
 			if (c == '\n')
 			{
@@ -132,10 +150,10 @@ final class Injector
 
 			if (do_block && collect_when_blocking)
 				collector.append(outbuf);
-			outbuf = (char)c;
+			outbuf = c;
 			outbufvalid = true;
 			//System.out.print((char)c);
-			return (char)c;
+			return c;
 		}
 		else
 			throw new EndException();
