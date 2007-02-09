@@ -56,7 +56,6 @@ public abstract class InjectorTest extends InstrumentorTest
 		if(assertText)
 			testInjectionConsumer.output = injector.javaFile.buffer;
 		injector.parseFile();
-		injector.close();
 		
 		assertInjection();
 		injectionEvents = null;
