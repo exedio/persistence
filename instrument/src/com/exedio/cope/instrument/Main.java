@@ -158,7 +158,7 @@ public final class Main
 				}
 				finally
 				{
-					baos.close();
+					o.close();
 				}
 			}
 			else
