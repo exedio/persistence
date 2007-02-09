@@ -19,7 +19,9 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -29,8 +31,6 @@ import com.exedio.cope.Cope;
 
 public final class Main
 {
-
-	private static final String TEMPFILE_SUFFIX=".temp_cope_injection";
 	
 	public static void main(final String[] args)
 	{
@@ -149,42 +149,29 @@ public final class Main
 			final File inputFile = (File)i.next();
 			final Injector injector = (Injector)injectorsIter.next();
 			
-			final File outputFile = new File(inputFile.getAbsolutePath()+TEMPFILE_SUFFIX);
-			if(outputFile.exists())
-			{
-				if(inputFile.getCanonicalPath().equals(outputFile.getCanonicalPath()))
-					throw new RuntimeException("error: input file and output file are the same.");
-				if(!outputFile.isFile())
-					throw new RuntimeException("error: output file is not a regular file.");
-			}
-			
-			final Generator generator = new Generator(injector.javaFile, outputFile, longJavadoc);
-			try
-			{
-				generator.write();
-			}
-			finally
-			{
-				if(generator!=null) generator.close();
-			}
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)inputFile.length() + 100);
+			final Generator generator = new Generator(injector.javaFile, baos, longJavadoc);
+			generator.write();
+			generator.close();
 			
 			if(injector.getCRC()!=generator.getCRC())
 			{
 				logInstrumented(inputFile);
-				if(!outputFile.exists())
-					throw new RuntimeException("not exists "+outputFile+".");
 				if(!inputFile.delete())
 					throw new RuntimeException("deleting "+inputFile+" failed.");
-				if(!outputFile.renameTo(inputFile))
-					throw new RuntimeException("renaming "+outputFile+" to "+inputFile+" failed.");
+				final FileOutputStream o = new FileOutputStream(inputFile);
+				try
+				{
+					baos.writeTo(o);
+				}
+				finally
+				{
+					baos.close();
+				}
 			}
 			else
 			{
 				logSkipped(inputFile);
-				if(!outputFile.exists())
-					throw new RuntimeException("not exists "+outputFile+".");
-				if(!outputFile.delete())
-					throw new RuntimeException("deleting "+inputFile+" failed.");
 			}
 		}
 
