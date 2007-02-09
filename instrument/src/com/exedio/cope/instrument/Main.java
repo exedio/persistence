@@ -144,9 +144,8 @@ public final class Main
 		}
 		
 		final Iterator<Injector> injectorsIter = injectors.iterator();
-		for(Iterator<File> i = inputFiles.iterator(); i.hasNext(); )
+		for(final File inputFile : inputFiles)
 		{
-			final File inputFile = i.next();
 			final Injector injector = injectorsIter.next();
 			
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)inputFile.length() + 100);
