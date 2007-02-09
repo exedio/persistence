@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import bsh.Interpreter;
 import bsh.UtilEvalError;
 
 import com.exedio.cope.Field;
@@ -64,6 +65,8 @@ final class JavaRepository
 	
 	// reusing externalNameSpace is more efficient than another root nameSpace
 	final CopeNameSpace nameSpace = new NameSpace(externalNameSpace);
+
+	final Interpreter interpreter = new Interpreter();
 	
 	static enum Stage
 	{

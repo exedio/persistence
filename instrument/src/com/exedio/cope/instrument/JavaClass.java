@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import bsh.EvalError;
-import bsh.Interpreter;
 import bsh.Primitive;
 import bsh.UtilEvalError;
 
@@ -161,11 +160,10 @@ final class JavaClass extends JavaFeature
 	{
 		assert !file.repository.isBuildStage();
 		
-		final Interpreter ip = new Interpreter();
 		try
 		{
 			//System.out.println("--------evaluate("+s+")");
-			final Object result = ip.eval(Injector.removeGenerics(s), nameSpace);
+			final Object result = file.repository.interpreter.eval(Injector.removeGenerics(s), nameSpace);
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
 		}
