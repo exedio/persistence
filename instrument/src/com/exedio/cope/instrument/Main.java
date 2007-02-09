@@ -68,15 +68,15 @@ public final class Main
 	
 	final void run(final File dir, final String[] args, final boolean longJavadoc, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
-		final ArrayList<File> sourcefiles = new ArrayList<File>();
+		final ArrayList<File> files = new ArrayList<File>();
 		
 		for(int i=0; i<args.length; i++)
-			sourcefiles.add(new File(dir, args[i]));
+			files.add(new File(dir, args[i]));
 		
-		run(sourcefiles, longJavadoc, verbose);
+		run(files, longJavadoc, verbose);
 	}
 		
-	final void run(final ArrayList<File> inputFiles, final boolean longJavadoc, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final ArrayList<File> files, final boolean longJavadoc, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		{
 			final Package runtimePackage = Cope.class.getPackage();
@@ -92,23 +92,23 @@ public final class Main
 				throw new RuntimeException("version of cope runtime library ("+runtimeVersion+") does dot match version of cope instrumentor: "+instrumentorVersion);
 		}
 		
-		if(inputFiles.isEmpty())
+		if(files.isEmpty())
 			throw new IllegalParameterException("nothing to do.");
 		
 		final JavaRepository repository = new JavaRepository();
-		final ArrayList<Injector> injectors = new ArrayList<Injector>(inputFiles.size());
+		final ArrayList<Injector> injectors = new ArrayList<Injector>(files.size());
 
 		this.verbose = verbose;
 		instrumented = 0;
 		skipped = 0;
-		for(final File inputFile : inputFiles)
+		for(final File file : files)
 		{
-			if(!inputFile.exists())
-				throw new RuntimeException("error: input file " + inputFile.getAbsolutePath() + " does not exist.");
-			if(!inputFile.isFile())
-				throw new RuntimeException("error: input file " + inputFile.getAbsolutePath() + " is not a regular file.");
+			if(!file.exists())
+				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " does not exist.");
+			if(!file.isFile())
+				throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 				
-			final Injector injector = new Injector(inputFile, new Instrumentor(), repository);
+			final Injector injector = new Injector(file, new Instrumentor(), repository);
 			try
 			{
 				injector.parseFile();
@@ -144,21 +144,21 @@ public final class Main
 		}
 		
 		final Iterator<Injector> injectorsIter = injectors.iterator();
-		for(final File inputFile : inputFiles)
+		for(final File file : files)
 		{
 			final Injector injector = injectorsIter.next();
 			
-			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)inputFile.length() + 100);
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)file.length() + 100);
 			final Generator generator = new Generator(injector.javaFile, baos, longJavadoc);
 			generator.write();
 			generator.close();
 			
 			if(injector.getCRC()!=generator.getCRC())
 			{
-				logInstrumented(inputFile);
-				if(!inputFile.delete())
-					throw new RuntimeException("deleting "+inputFile+" failed.");
-				final FileOutputStream o = new FileOutputStream(inputFile);
+				logInstrumented(file);
+				if(!file.delete())
+					throw new RuntimeException("deleting "+file+" failed.");
+				final FileOutputStream o = new FileOutputStream(file);
 				try
 				{
 					baos.writeTo(o);
@@ -170,12 +170,12 @@ public final class Main
 			}
 			else
 			{
-				logSkipped(inputFile);
+				logSkipped(file);
 			}
 		}
 
 		if(verbose || instrumented>0)
-			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + inputFiles.iterator().next().getParentFile().getAbsolutePath());
+			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
 	boolean verbose;
