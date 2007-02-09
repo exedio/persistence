@@ -143,11 +143,11 @@ public final class Main
 			}
 		}
 		
-		final Iterator injectorsIter = injectors.iterator();
-		for(Iterator i = inputFiles.iterator(); i.hasNext(); )
+		final Iterator<Injector> injectorsIter = injectors.iterator();
+		for(Iterator<File> i = inputFiles.iterator(); i.hasNext(); )
 		{
-			final File inputFile = (File)i.next();
-			final Injector injector = (Injector)injectorsIter.next();
+			final File inputFile = i.next();
+			final Injector injector = injectorsIter.next();
 			
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)inputFile.length() + 100);
 			final Generator generator = new Generator(injector.javaFile, baos, longJavadoc);
