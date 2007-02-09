@@ -185,7 +185,7 @@ public final class Main
 	private void logSkipped(final File file)
 	{
 		if(verbose)
-			System.out.println("Instrumented " + file);
+			System.out.println("Skipped " + file);
 		
 		skipped++;
 	}
@@ -193,7 +193,7 @@ public final class Main
 	private void logInstrumented(final File file)
 	{
 		if(verbose)
-			System.out.println("Skipped " + file);
+			System.out.println("Instrumented " + file);
 		
 		instrumented++;
 	}
