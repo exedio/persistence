@@ -92,6 +92,6 @@ final class QueryCacheCop extends ConsoleCop
 				histogram,
 				sumKeyLength, maxKeyLength, minKeyLength,
 				sumResultSize, maxResultSize, minResultSize, resultSizes,
-				model.getProperties().getCacheQueryHistogram());
+				model.getProperties().getQueryCacheHistogram());
 	}
 }

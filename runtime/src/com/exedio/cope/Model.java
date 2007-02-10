@@ -288,7 +288,7 @@ public final class Model
 				Arrays.fill(itemCacheLimits, itemCacheLimit);
 				final Properties p = properties;
 				this.itemCacheIfConnected = new ItemCache(concreteTypes, itemCacheLimits);
-				this.queryCacheIfConnected = new QueryCache(p.getQueryCacheLimit(), p.getCacheQueryHistogram());
+				this.queryCacheIfConnected = new QueryCache(p.getQueryCacheLimit(), p.getQueryCacheHistogram());
 				this.logTransactions = properties.getTransactionLog();
 
 				return;

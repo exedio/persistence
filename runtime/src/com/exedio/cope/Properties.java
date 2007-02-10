@@ -342,9 +342,18 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return getQueryCacheLimit();
 	}
 	
-	public boolean getCacheQueryHistogram()
+	public boolean getQueryCacheHistogram()
 	{
 		return cacheQueryHistogram.getBooleanValue();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getQueryCacheHistogram()}.
+	 */
+	@Deprecated
+	public boolean getCacheQueryHistogram()
+	{
+		return getQueryCacheHistogram();
 	}
 	
 	public String getMediaRootUrl()
