@@ -31,7 +31,7 @@ public final class DayField extends FunctionField<Day>
 	
 	public DayField()
 	{
-		this(Item.MANDATORY);
+		this(false, false, false, null);
 	}
 	
 	public DayField(final Option option)

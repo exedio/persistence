@@ -41,7 +41,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	 */
 	public IntegerField()
 	{
-		this(Item.MANDATORY);
+		this(false, false, false, null);
 	}
 	
 	public IntegerField(final Option option)

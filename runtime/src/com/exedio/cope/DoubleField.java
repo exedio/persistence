@@ -31,7 +31,7 @@ public final class DoubleField extends FunctionField<Double>
 	
 	public DoubleField()
 	{
-		this(Item.MANDATORY);
+		this(false, false, false, null);
 	}
 
 	public DoubleField(final Option option)

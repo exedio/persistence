@@ -72,7 +72,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Deprecated
 	public EnumField(final Class<E> valueClass)
 	{
-		this(Item.MANDATORY, valueClass);
+		this(false, false, false, valueClass, null);
 	}
 	
 	/**

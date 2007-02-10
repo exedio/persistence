@@ -59,7 +59,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	 */
 	public StringField()
 	{
-		this(Item.MANDATORY);
+		this(false, false, false, null, 0, DEFAULT_LENGTH);
 	}
 	
 	public StringField(final Option option)

@@ -37,7 +37,7 @@ public final class DateField extends FunctionField<Date>
 	
 	public DateField()
 	{
-		this(Item.MANDATORY);
+		this(false, false, false, null, false);
 	}
 	
 	public DateField(final Option option)

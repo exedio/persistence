@@ -31,7 +31,7 @@ public final class LongField extends FunctionField<Long>
 	
 	public LongField()
 	{
-		this(Item.MANDATORY);
+		this(false, false, false, null);
 	}
 	
 	public LongField(final Option option)

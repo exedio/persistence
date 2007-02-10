@@ -31,7 +31,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	
 	public BooleanField()
 	{
-		this(Item.MANDATORY);
+		this(false, false, false, null);
 	}
 	
 	public BooleanField(final Option option)
