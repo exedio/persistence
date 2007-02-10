@@ -56,7 +56,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	private final BooleanField transactionLog = new BooleanField("transaction.log", false);
 
-	private final IntField cacheLimit = new IntField("cache.limit", 10000, 0);
+	private final IntField itemCacheLimit = new IntField("cache.limit", 10000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.queryLimit", 10000, 0);
 	public static final String CACHE_QUERY_HISTOGRAM = "cache.queryHistogram";
 	private final BooleanField queryCacheHistogram = new BooleanField(CACHE_QUERY_HISTOGRAM, false);
@@ -316,7 +316,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	public int getItemCacheLimit()
 	{
-		return cacheLimit.getIntValue();
+		return itemCacheLimit.getIntValue();
 	}
 	
 	/**
