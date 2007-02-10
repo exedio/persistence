@@ -323,7 +323,7 @@ public class HierarchyTest extends AbstractLibTest
 			), model.getConcreteTypes());
 		
 		final CacheInfo[] itemCacheInfo = model.getItemCacheInfo();
-		if(model.getProperties().getCacheLimit()>0)
+		if(model.getProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(HierarchyFirstSub.TYPE, itemCacheInfo[0].getType());
 			assertEquals(HierarchySecondSub.TYPE, itemCacheInfo[1].getType());

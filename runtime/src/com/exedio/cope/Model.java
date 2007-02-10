@@ -284,7 +284,7 @@ public final class Model
 					type.connect(databaseIfConnected);
 				
 				final int[] itemCacheLimits = new int[concreteTypeCount];
-				final int itemCacheLimit = properties.getCacheLimit() / concreteTypeCount;
+				final int itemCacheLimit = properties.getItemCacheLimit() / concreteTypeCount;
 				Arrays.fill(itemCacheLimits, itemCacheLimit);
 				final Properties p = properties;
 				this.itemCacheIfConnected = new ItemCache(concreteTypes, itemCacheLimits);

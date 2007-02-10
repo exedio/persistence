@@ -101,7 +101,7 @@ public abstract class AbstractLibTest extends CopeTest
 		mysql  = dialect==Dialect.MYSQL;
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
-		cache = model.getProperties().getCacheLimit()>0;
+		cache = model.getProperties().getItemCacheLimit()>0;
 		noJoinParentheses = hsqldb;
 		files.clear();
 	}

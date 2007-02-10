@@ -314,9 +314,18 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return transactionLog.getBooleanValue();
 	}
 	
-	public int getCacheLimit()
+	public int getItemCacheLimit()
 	{
 		return cacheLimit.getIntValue();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getItemCacheLimit()}.
+	 */
+	@Deprecated
+	public int getCacheLimit()
+	{
+		return getItemCacheLimit();
 	}
 	
 	public int getCacheQueryLimit()

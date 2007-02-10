@@ -164,7 +164,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 			), model.getConcreteTypes());
 		
 		final CacheInfo[] itemCacheInfo = model.getItemCacheInfo();
-		if(model.getProperties().getCacheLimit()>0)
+		if(model.getProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(HierarchyEmptySub.TYPE, itemCacheInfo[0].getType());
 			assertEquals(HierarchyEmptySuper.TYPE, itemCacheInfo[1].getType());
