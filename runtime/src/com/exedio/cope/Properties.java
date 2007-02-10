@@ -328,9 +328,18 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return getItemCacheLimit();
 	}
 	
-	public int getCacheQueryLimit()
+	public int getQueryCacheLimit()
 	{
 		return cacheQueryLimit.getIntValue();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getQueryCacheLimit()}.
+	 */
+	@Deprecated
+	public int getCacheQueryLimit()
+	{
+		return getQueryCacheLimit();
 	}
 	
 	public boolean getCacheQueryHistogram()

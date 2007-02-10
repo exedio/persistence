@@ -143,7 +143,7 @@ public class UniqueItemTest extends TestmodelTest
 			assertEquals(item.hashCode(), foundItem.hashCode());
 			assertNotSame(item, foundItem);
 			assertNotSame(item, firstFoundItem);
-			if ( model.getProperties().getCacheQueryLimit()>0 )
+			if(model.getProperties().getQueryCacheLimit()>0)
 			{
 				assertSame(foundItem, firstFoundItem);
 			}

@@ -131,7 +131,7 @@ public class StatementInfoTest extends TestmodelTest
 		
 		query.search();
 		final StatementInfo cached1 = query.getStatementInfo();
-		if(model.getProperties().getCacheQueryLimit()>0)
+		if(model.getProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #1 for " + statement, cached1.getText());
 			assertEqualsUnmodifiable(list(), cached1.getChilds());
@@ -146,7 +146,7 @@ public class StatementInfoTest extends TestmodelTest
 		
 		query.search();
 		final StatementInfo cached2 = query.getStatementInfo();
-		if(model.getProperties().getCacheQueryLimit()>0)
+		if(model.getProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #2 for " + statement, cached2.getText());
 			assertEqualsUnmodifiable(list(), cached2.getChilds());
