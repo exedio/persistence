@@ -99,8 +99,8 @@ public class MigrationTest extends CopeAssert
 		try
 		{
 			new Model(new Migration[]{
-					new Migration(8, "migration8", "nonsensesql8"), 
-					new Migration(6, "migration6", "nonsensesql6"), 
+					new Migration(8, "migration8", "nonsensesql8"),
+					new Migration(6, "migration6", "nonsensesql6"),
 					}, (Type[])null);
 			fail();
 		}

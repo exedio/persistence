@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 /**
  * Test for bug 30
- * 
+ *
  * @author Ralf Wiebicke
  */
 public class UniqueHierarchyTest extends AbstractLibTest

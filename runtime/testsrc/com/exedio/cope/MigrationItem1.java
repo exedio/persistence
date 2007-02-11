@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 /**
- * @cope.type none 
+ * @cope.type none
  */
 class MigrationItem1 extends Item
 {
