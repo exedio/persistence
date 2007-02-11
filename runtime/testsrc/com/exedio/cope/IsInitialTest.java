@@ -37,8 +37,8 @@ public class IsInitialTest extends TestCase
 		assertEquals(true,  new StringField(Item.OPTIONAL).toFinal().isInitial());
 		assertEquals(false, new StringField().defaultTo("hallo").isInitial());
 		assertEquals(false, new StringField(Item.OPTIONAL).defaultTo("hallo").isInitial());
-		assertEquals(true,  new StringField().toFinal().defaultTo("hallo").isInitial()); // TODO should be false
-		assertEquals(true,  new StringField(Item.OPTIONAL).toFinal().defaultTo("hallo").isInitial()); // TODO should be false
+		assertEquals(false, new StringField().toFinal().defaultTo("hallo").isInitial());
+		assertEquals(false, new StringField(Item.OPTIONAL).toFinal().defaultTo("hallo").isInitial());
 		
 		assertEquals(true,  new DateField().isInitial());
 		assertEquals(false, new DateField(Item.OPTIONAL).isInitial());
@@ -46,11 +46,11 @@ public class IsInitialTest extends TestCase
 		assertEquals(true,  new DateField(Item.OPTIONAL).toFinal().isInitial());
 		assertEquals(false, new DateField().defaultTo(new Date()).isInitial());
 		assertEquals(false, new DateField(Item.OPTIONAL).defaultTo(new Date()).isInitial());
-		assertEquals(true,  new DateField().toFinal().defaultTo(new Date()).isInitial()); // TODO should be false
-		assertEquals(true,  new DateField(Item.OPTIONAL).toFinal().defaultTo(new Date()).isInitial()); // TODO should be false
+		assertEquals(false, new DateField().toFinal().defaultTo(new Date()).isInitial());
+		assertEquals(false, new DateField(Item.OPTIONAL).toFinal().defaultTo(new Date()).isInitial());
 		assertEquals(false, new DateField().defaultToNow().isInitial());
 		assertEquals(false, new DateField(Item.OPTIONAL).defaultToNow().isInitial());
-		assertEquals(true,  new DateField().toFinal().defaultToNow().isInitial()); // TODO should be false
-		assertEquals(true,  new DateField(Item.OPTIONAL).toFinal().defaultToNow().isInitial()); // TODO should be false
+		assertEquals(false, new DateField().toFinal().defaultToNow().isInitial());
+		assertEquals(false, new DateField(Item.OPTIONAL).toFinal().defaultToNow().isInitial());
 	}
 }

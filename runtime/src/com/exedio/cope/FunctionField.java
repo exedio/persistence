@@ -78,12 +78,12 @@ public abstract class FunctionField<E extends Object>
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant()}==null)</tt>.
+	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #getDefaultConstant()}==null</tt>.
 	 */
 	@Override
 	public boolean isInitial()
 	{
-		return isfinal || (!optional && defaultConstant==null);
+		return (defaultConstant==null) && super.isInitial();
 	}
 	
 	@Override

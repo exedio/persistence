@@ -82,12 +82,12 @@ public final class DateField extends FunctionField<Date>
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>{@link #isFinal() isFinal()} || ({@link #isMandatory() isMandatory()} && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()})</tt>.
+	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()}</tt>.
 	 */
 	@Override
 	public final boolean isInitial()
 	{
-		return isfinal || (!optional && (defaultConstant==null && !defaultNow));
+		return !defaultNow && super.isInitial();
 	}
 	
 	@Override
