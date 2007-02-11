@@ -85,7 +85,7 @@ public final class DateField extends FunctionField<Date>
 	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()}</tt>.
 	 */
 	@Override
-	public final boolean isInitial()
+	public boolean isInitial()
 	{
 		return !defaultNow && super.isInitial();
 	}
@@ -121,7 +121,7 @@ public final class DateField extends FunctionField<Date>
 	 * @throws FinalViolationException
 	 *         if this field is {@link #isFinal() final}.
 	 */
-	public final void touch(final Item item)
+	public void touch(final Item item)
 		throws
 			UniqueViolationException,
 			FinalViolationException
