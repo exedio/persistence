@@ -31,12 +31,30 @@ import com.exedio.cope.Model;
 
 final class MigrationCop extends ConsoleCop
 {
-	MigrationCop()
+	private static final String SQL = "sql";
+	
+	final boolean sql;
+
+	MigrationCop(final boolean sql)
 	{
 		super("migration");
+		this.sql = sql;
+		
 		addParameter(TAB, TAB_MIGRATION);
+		if(sql)
+			addParameter(SQL, "t");
 	}
-
+	
+	static final MigrationCop getMigrationCop(final HttpServletRequest request)
+	{
+		return new MigrationCop(request.getParameter(SQL)!=null);
+	}
+	
+	MigrationCop toToggleSql()
+	{
+		return new MigrationCop(!sql);
+	}
+	
 	int oldest = Integer.MAX_VALUE;
 	int latest = Integer.MIN_VALUE;
 	
@@ -68,9 +86,9 @@ final class MigrationCop extends ConsoleCop
 			final int current = model.getMigrationVersion();
 			register(current);
 			
-			Migration_Jspm.writeBody(this, out, oldest, latest, current, migrationMap, logs);
+			Migration_Jspm.writeBody(this, request, out, oldest, latest, current, migrationMap, logs);
 		}
 		else
-			Migration_Jspm.writeBody(this, out, 0, 0, 0, null, null);
+			Migration_Jspm.writeBody(this, request, out, 0, 0, 0, null, null);
 	}
 }

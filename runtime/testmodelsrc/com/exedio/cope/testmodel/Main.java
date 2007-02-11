@@ -50,8 +50,11 @@ public class Main
 
 	public static final Model model = new Model(
 		/*new Migration[]{
-			new Migration(2, "comment2 a bit longer", "sql"),
-			new Migration(1, "comment1", "sql"),
+			new Migration(2, "comment2 a bit longer",
+					"select nice sql statement of migration two which does not work",
+					"select second nice sql statement of migration two which does not work"),
+			new Migration(1, "comment1",
+					"select nice sql statement of migration one which does not work"),
 		},*/
 		modelTypes);
 }

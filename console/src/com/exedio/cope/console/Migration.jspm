@@ -22,12 +22,15 @@ package com.exedio.cope.console;
 import java.io.PrintStream;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Migration;
 
-final class Migration_Jspm
+final class Migration_Jspm extends Console_Jspm
 {
 	final static void writeBody(
 			final MigrationCop cop,
+			final HttpServletRequest request,
 			final PrintStream out,
 			final int oldest, final int latest, final int current,
 			Map<Integer, Migration> migrations,
@@ -36,6 +39,7 @@ final class Migration_Jspm
 		%>
 		<table>
 			<tr><th class="caption" colspan="3">Migrations</th></tr>
+			<tr><th colspan="3"><% writeToggle(out, request, cop.toToggleSql(), cop.sql); %> show sql</th></td>
 			<tr><th>version</th><th>declared</th><th>logged</th></tr><%
 			if(migrations!=null)
 			{
@@ -46,7 +50,29 @@ final class Migration_Jspm
 			%>
 			<tr>
 				<td><% if(v==current){ %>--&gt; <% }%><%=v%></td>
-				<td class="text"><% if(migration!=null){ %><%=migration.getComment()%><% } else { %>-<% } %></td>
+				<td class="text"><%
+				if(migration!=null)
+				{
+					%><%=migration.getComment()%><%
+					if(cop.sql)
+					{
+					%>
+					<ul><%
+						for(final String sql : migration.getBody())
+						{
+						%>
+						<li><%=sql%></li><%
+						}
+					%>
+					</ul>
+				<%
+					}
+				}
+				else
+				{
+					%>-<%
+				}
+				%></td>
 				<td class="text"><% if(log!=null){ %><%=log%><% } else { %>-<% } %></td>
 			</tr><%
 			}

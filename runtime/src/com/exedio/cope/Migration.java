@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public final class Migration
 {
 	final int version;
@@ -48,6 +52,11 @@ public final class Migration
 	public String getComment()
 	{
 		return comment;
+	}
+	
+	public List<String> getBody()
+	{
+		return Collections.unmodifiableList(Arrays.asList(body));
 	}
 	
 	@Override

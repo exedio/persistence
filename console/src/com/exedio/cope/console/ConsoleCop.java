@@ -52,7 +52,7 @@ abstract class ConsoleCop extends Cop
 				new PropertiesCop(false),
 				new SchemaCop(null, false, false),
 				new TypeColumnCop(),
-				new MigrationCop(),
+				new MigrationCop(false),
 				new DatabaseLogCop(),
 				new ConnectionPoolCop(),
 				new ItemCacheCop(),
@@ -130,7 +130,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_TYPE_COLUMNS.equals(tab))
 			return new TypeColumnCop();
 		if(TAB_MIGRATION.equals(tab))
-			return new MigrationCop();
+			return MigrationCop.getMigrationCop(request);
 		if(TAB_CONNECTION_POOL.equals(tab))
 			return new ConnectionPoolCop();
 		if(TAB_DATBASE_LOG.equals(tab))
