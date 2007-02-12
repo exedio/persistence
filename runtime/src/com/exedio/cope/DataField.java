@@ -47,7 +47,7 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link #toFinal()} and {@link #optional()} instead. 
 	 */
 	@Deprecated
 	public DataField(final Option option)

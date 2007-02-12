@@ -819,7 +819,7 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead. 
 	 */
 	@Deprecated
 	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)

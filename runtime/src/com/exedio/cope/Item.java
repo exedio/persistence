@@ -554,7 +554,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead. 
 	 */
 	@Deprecated
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
@@ -588,7 +588,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead. 
 	 */
 	@Deprecated
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
@@ -622,7 +622,7 @@ public abstract class Item extends Cope
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead. 
 	 */
 	@Deprecated
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
