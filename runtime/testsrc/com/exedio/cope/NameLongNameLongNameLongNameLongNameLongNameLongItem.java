@@ -24,7 +24,7 @@ class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	static final StringField code = new StringField().unique();
 
 	static final StringField codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		new StringField().unique().optional();
+		new StringField().optional().unique();
 
 	static final ItemField<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		newItemField(NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);

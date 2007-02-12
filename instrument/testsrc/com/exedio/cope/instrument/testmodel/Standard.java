@@ -44,7 +44,7 @@ public class Standard extends Item
 	public static final StringField notNullString = new StringField();
 	public static final StringField finalString = new StringField().toFinal().optional();
 	public static final StringField defaultToString = new StringField().defaultTo("defaultConstant for finalDefaultString");
-	public static final StringField uniqueString = new StringField().unique().optional();
+	public static final StringField uniqueString = new StringField().optional().unique();
 	/** @cope.initial */
 	public static final StringField initialString = new StringField().optional();
 

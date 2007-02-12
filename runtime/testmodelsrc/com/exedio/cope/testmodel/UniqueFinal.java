@@ -30,7 +30,7 @@ public class UniqueFinal extends Item
 	/**
 	 * An attribute that is unique and final.
 	 */
-	public static final StringField uniqueFinalString = new StringField().toFinal().unique().optional();
+	public static final StringField uniqueFinalString = new StringField().toFinal().optional().unique();
 
 /**
 

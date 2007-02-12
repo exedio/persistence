@@ -30,7 +30,7 @@ public class ItemWithSingleUnique extends Item
 	/**
 	 * An attribute that is unique.
 	 */
-	public static final StringField uniqueString = new StringField().unique().optional();
+	public static final StringField uniqueString = new StringField().optional().unique();
 
 	public static final StringField otherString = new StringField().optional();
 
