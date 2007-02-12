@@ -182,6 +182,20 @@ public class CompareConditionTest extends AbstractLibTest
 			assertContains(item3, item4, item5, itemX, item1.TYPE.search(item1.TYPE.getThis().greaterOrEqual(item3)));
 		}
 		
+		// between
+		assertContains(item2, item3, item4, item1.TYPE.search(item1.string.between("string2", "string4")));
+		assertContains(item2, item3, item4, item1.TYPE.search(item1.intx.between(2, 4)));
+		assertContains(item2, item3, item4, item1.TYPE.search(item1.longx.between(12l, 14l)));
+		assertContains(item2, item3, item4, item1.TYPE.search(item1.doublex.between(2.2, 2.4)));
+		assertContains(item2, item3, item4, item1.TYPE.search(item1.date.between(date(-1), date(+1))));
+		assertContains(item2, item3, item4, item1.TYPE.search(item1.day.between(day(-1), day(+1))));
+		assertContains(item2, item3, item4, item1.TYPE.search(item1.enumx.between(YEnum.V2, YEnum.V4)));
+		if(seq)
+		{
+			assertContains(item2, item3, item4, item1.TYPE.search(item1.item.between(item2, item4)));
+			assertContains(item2, item3, item4, item1.TYPE.search(item1.TYPE.getThis().between(item2, item4)));
+		}
+		
 		// in
 		assertContains(item1, item3, item1.TYPE.search(item1.string.in(listg("string1", "string3", "stringNone"))));
 		assertContains(item1, item3, item1.TYPE.search(item1.intx.in(listg(1, 3, 25))));

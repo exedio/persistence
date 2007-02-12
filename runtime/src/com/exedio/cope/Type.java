@@ -1160,6 +1160,11 @@ public final class Type<C extends Item>
 			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 		}
 		
+		public CompositeCondition between(final E lowerBound, final E upperBound)
+		{
+			return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound)); 
+		}
+		
 		public CompareFunctionCondition<E> equal(final Function<E> right)
 		{
 			return new CompareFunctionCondition<E>(CompareCondition.Operator.Equal, this, right);

@@ -263,6 +263,11 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 	}
 	
+	public CompositeCondition between(final E lowerBound, final E upperBound)
+	{
+		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound)); 
+	}
+
 	public final CompareFunctionCondition<E> equal(final Function<E> right)
 	{
 		return new CompareFunctionCondition<E>(CompareCondition.Operator.Equal, this, right);

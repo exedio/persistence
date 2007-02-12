@@ -92,6 +92,12 @@ public interface Function<E> extends Selectable<E>
 	CompareCondition<E> greaterOrEqual(E value);
 
 	/**
+	 * Returns a condition, that is equivalent to
+	 * <code>{@link #greaterOrEqual(Object) greaterOrEqual}(lowerBound).{@link Condition#and(Condition) and}({@link #lessOrEqual(Object) lessOrEqual}(upperBound))</code>. 
+	 */
+	CompositeCondition between(E lowerBound, E upperBound);
+
+	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is equal to the value of the <tt>right</tt> function.

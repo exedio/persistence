@@ -106,6 +106,20 @@ TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">s
 TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(loginCounter.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8));
 </pre>
 		<div>
+			To demonstrate composite conditions,
+			here another query, that searches for customers,
+			that have logged in at least 8 times, but at most 12 times:
+		</div>
+<pre>
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(loginCounter.<a href="api/com/exedio/cope/Function.html#greaterOrEqual(E)">greaterOrEqual</a>(8).<a href="api/com/exedio/cope/Condition.html#and(com.exedio.cope.Condition)">and</a>(loginCounter.<a href="api/com/exedio/cope/Function.html#lessOrEqual(E)">lessOrEqual</a>(12)));
+</pre>
+		<div>
+			which is equivalent to:
+		</div>
+<pre>
+TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">search</a>(loginCounter.<a href="api/com/exedio/cope/Function.html#between(E, E)">between</a>(8, 12));
+</pre>
+		<div>
 			In contrast to the queries above,
 			all the following queries will not compile:
 		</div>
