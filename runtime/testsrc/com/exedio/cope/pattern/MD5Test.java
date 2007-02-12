@@ -63,12 +63,16 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("password", item.password.getName());
 		assertEquals(item.TYPE, item.password.getStorage().getType());
 		assertEquals("passwordHash", item.password.getStorage().getName());
+		assertEquals(false, item.password.getStorage().isFinal());
+		assertEquals(false, item.password.getStorage().isMandatory());
 		assertEquals(32, item.password.getStorage().getMinimumLength());
 		assertEquals(32, item.password.getStorage().getMaximumLength());
 		assertEqualsUnmodifiable(list(item.password), item.password.getStorage().getPatterns());
 		assertEquals(false, item.password.isInitial());
 		assertEquals(false, item.password.isFinal());
+		assertEquals(false, item.password.isMandatory());
 		assertContains(item.password.getSetterExceptions());
+		assertEquals("utf8", item.password.getEncoding());
 		
 		assertEquals(item.TYPE, item.hashed1.getType());
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
@@ -81,12 +85,16 @@ public class MD5Test extends AbstractLibTest
 		assertEquals(false, item.hashed1Latin.isInitial());
 		assertEquals(false, item.hashed1.isFinal());
 		assertEquals(false, item.hashed1Latin.isFinal());
+		assertEquals(false, item.hashed1.isMandatory());
+		assertEquals(false, item.hashed1Latin.isMandatory());
 		assertContains(item.hashed1.getSetterExceptions());
 		assertContains(item.hashed1Latin.getSetterExceptions());
+		assertEquals("utf8", item.hashed1.getEncoding());
+		assertEquals("ISO-8859-1", item.hashed1Latin.getEncoding());
 
 		try
 		{
-			new MD5Hash(new StringField(item.OPTIONAL), "nixus");
+			new MD5Hash(new StringField(), "nixus");
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -96,7 +104,7 @@ public class MD5Test extends AbstractLibTest
 		}
 		try
 		{
-			new JavaSecurityHash(new StringField(item.OPTIONAL), "NIXUS");
+			new JavaSecurityHash(new StringField(), "NIXUS");
 			fail();
 		}
 		catch(IllegalArgumentException e)

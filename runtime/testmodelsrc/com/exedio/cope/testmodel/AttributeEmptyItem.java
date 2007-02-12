@@ -30,14 +30,14 @@ import com.exedio.cope.pattern.Qualifier;
  */
 public class AttributeEmptyItem extends Item
 {
-	public static final ItemField<AttributeItem> parent = newItemField(OPTIONAL, AttributeItem.class, CASCADE);
+	public static final ItemField<AttributeItem> parent = newItemField(AttributeItem.class, CASCADE).optional();
 
-	public static final ItemField<EmptyItem> key = newItemField(OPTIONAL, EmptyItem.class);
+	public static final ItemField<EmptyItem> key = newItemField(EmptyItem.class).optional();
 	
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 	public static final Qualifier emptyItem = new Qualifier(parentKey);
 
-	public static final StringField someQualifiedString = new StringField(OPTIONAL);
+	public static final StringField someQualifiedString = new StringField().optional();
 
 	/**
 

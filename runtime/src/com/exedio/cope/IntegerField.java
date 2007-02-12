@@ -44,6 +44,10 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		this(false, false, false, null);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public IntegerField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
@@ -65,6 +69,12 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	public IntegerField unique()
 	{
 		return new IntegerField(isfinal, optional, true, defaultConstant);
+	}
+	
+	@Override
+	public IntegerField optional()
+	{
+		return new IntegerField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
 	}
 
 	public IntegerField defaultTo(final Integer defaultConstant)

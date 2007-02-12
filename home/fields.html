@@ -69,7 +69,7 @@ class Customer extends Item
 		</div>
 <pre>
 static final LongField loginCounter =
-    new LongField(<b>OPTIONAL</b>);
+    new LongField().<a href="api/com/exedio/cope/LongField.html#optional()"><b>optional</b></a>();
 </pre>
 		<div>
 			When you run the instrumentor, you may notice
@@ -88,7 +88,7 @@ static final LongField loginCounter =
  * <b>@cope.initial</b>
  */
 static final LongField loginCounter =
-    new LongField(OPTIONAL);
+    new LongField().<a href="api/com/exedio/cope/LongField.html#optional()">optional</a>();
 </pre>
 				</li>
 				<li>
@@ -241,11 +241,11 @@ static final ItemField&lt;ProductGroup&gt; productGroup =
 		</div>
 <pre>
 static final ItemField&lt;ProductGroup&gt; productGroup =
-    newItemField(<b>OPTIONAL</b>, ProductGroup.class, <b>NULLIFY</b>);
+    newItemField(ProductGroup.class, <b>NULLIFY</b>);
 </pre>
 		<div>
-			Of course <i>nullify</i> makes no sense for a <i>mandatory</i> field,
-			so I changed it to <i>optional</i>.
+			Of course <i>nullify</i> makes no sense for a <i>mandatory</i> field.
+			Therefore such item fields are <i>optional</i> by default.
 		</div>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>

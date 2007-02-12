@@ -79,6 +79,20 @@ public class DeleteTest extends AbstractLibTest
 		assertDelete(item);
 	}
 	
+	@Deprecated
+	public void testNullifyDeprecated()
+	{
+		try
+		{
+			Item.newItemField(Item.MANDATORY, DeleteItem.class, Item.NULLIFY);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("mandatory item field cannot have delete policy nullify", e.getMessage());
+		}
+	}
+	
 	public void testNullify()
 	{
 		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
@@ -95,18 +109,10 @@ public class DeleteTest extends AbstractLibTest
 		{
 			assertEquals("delete policy for item field must not be null", e.getMessage());
 		}
+		assertEquals(false, Item.newItemField(DeleteItem.class, Item.NULLIFY).isMandatory());
 		try
 		{
-			Item.newItemField(DeleteItem.class, Item.NULLIFY);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("mandatory item field cannot have delete policy nullify", e.getMessage());
-		}
-		try
-		{
-			Item.newItemField(Item.OPTIONAL, DeleteItem.class, Item.NULLIFY).toFinal();
+			Item.newItemField(DeleteItem.class, Item.NULLIFY).toFinal();
 			fail();
 		}
 		catch(IllegalArgumentException e)

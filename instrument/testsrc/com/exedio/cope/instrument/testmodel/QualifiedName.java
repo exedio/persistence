@@ -27,13 +27,13 @@ import com.exedio.cope.pattern.Qualifier;
 
 public class QualifiedName extends Item
 {
-	public static final ItemField<Qualified> parent = newItemField(OPTIONAL, Qualified.class, CASCADE);
-	public static final StringField key = new StringField(OPTIONAL);
+	public static final ItemField<Qualified> parent = newItemField(Qualified.class, CASCADE).optional();
+	public static final StringField key = new StringField().optional();
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
 	public static final Qualifier nameQualifier = new Qualifier(parentKey);
 
 	public static final IntegerField number = new IntegerField();
-	public static final IntegerField optionalNumber = new IntegerField(OPTIONAL);
+	public static final IntegerField optionalNumber = new IntegerField().optional();
 	
 	/**
 	 * @cope.getter none

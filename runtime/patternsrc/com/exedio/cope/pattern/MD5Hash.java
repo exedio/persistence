@@ -45,6 +45,10 @@ public final class MD5Hash extends JavaSecurityHash
 		this(Item.MANDATORY);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public MD5Hash(final Option storageOption)
 	{
 		this(new StringField(storageOption).lengthExact(LENGTH));
@@ -60,4 +64,9 @@ public final class MD5Hash extends JavaSecurityHash
 		return result;
 	}
 	
+	@Override
+	public MD5Hash optional()
+	{
+		return new MD5Hash(getStorage().optional(), getEncoding());
+	}
 }

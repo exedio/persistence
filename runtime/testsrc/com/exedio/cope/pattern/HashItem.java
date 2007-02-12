@@ -29,12 +29,12 @@ import com.exedio.cope.testmodel.WrapHash;
  */
 public class HashItem extends Item
 {
-	static final StringField explicitExternalWrap = new StringField(OPTIONAL);
+	static final StringField explicitExternalWrap = new StringField().optional();
 	static final Hash explicitExternal = new WrapHash(explicitExternalWrap);
 
-	static final Hash implicitExternal = new WrapHash(new StringField(OPTIONAL));
+	static final Hash implicitExternal = new WrapHash(new StringField().optional());
 
-	static final Hash internal = new WrapHash(OPTIONAL);
+	static final Hash internal = new WrapHash().optional();
 
 /**
 

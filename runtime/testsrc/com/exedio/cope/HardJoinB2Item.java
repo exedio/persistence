@@ -23,7 +23,7 @@ class HardJoinB2Item extends HardJoinB1Item
 	/**
 	 * @cope.initial
 	 */
-	static final IntegerField b2 = new IntegerField(OPTIONAL);
+	static final IntegerField b2 = new IntegerField().optional();
 	
 	
 	/**

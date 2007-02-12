@@ -32,9 +32,9 @@ public abstract class Super extends Item
 	/**
 	 * @cope.initial
 	 */
-	public static final IntegerField superInitial = new IntegerField(OPTIONAL);
+	public static final IntegerField superInitial = new IntegerField().optional();
 
-	public static final DayField superNonInitial = new DayField(OPTIONAL);
+	public static final DayField superNonInitial = new DayField().optional();
 
 /**
 

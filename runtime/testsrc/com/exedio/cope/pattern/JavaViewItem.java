@@ -23,7 +23,7 @@ import com.exedio.cope.StringField;
 
 public class JavaViewItem extends Item
 {
-	static final StringField numberString = new StringField(OPTIONAL);
+	static final StringField numberString = new StringField().optional();
 	
 	static final JavaView number = new JavaView();
 	

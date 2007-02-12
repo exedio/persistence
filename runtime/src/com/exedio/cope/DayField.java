@@ -34,6 +34,10 @@ public final class DayField extends FunctionField<Day>
 		this(false, false, false, null);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public DayField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
@@ -55,6 +59,12 @@ public final class DayField extends FunctionField<Day>
 	public DayField unique()
 	{
 		return new DayField(isfinal, optional, true, defaultConstant);
+	}
+	
+	@Override
+	public DayField optional()
+	{
+		return new DayField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	public DayField defaultTo(final Day defaultConstant)

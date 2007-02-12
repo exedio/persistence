@@ -68,6 +68,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		registerSource(source);
 	}
 	
+	/**
+	 * @deprecated use {@link #optional()} instead. 
+	 */
+	@Deprecated
 	private Serializer(final Class<E> valueClass, final Field.Option option)
 	{
 		this(valueClass, new DataField(option));
@@ -78,9 +82,23 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new Serializer<E>(valueClass, source);
 	}
 	
+	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass)
+	{
+		return new Serializer<E>(valueClass, new DataField());
+	}
+	
+	/**
+	 * @deprecated use {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final Field.Option option)
 	{
 		return new Serializer<E>(valueClass, option);
+	}
+	
+	public Serializer<E> optional()
+	{
+		return new Serializer<E>(valueClass, source.optional());
 	}
 	
 	// TODO allow setting of length of DataField

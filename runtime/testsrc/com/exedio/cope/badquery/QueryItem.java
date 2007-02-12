@@ -22,7 +22,7 @@ import com.exedio.cope.StringField;
 
 class QueryItem extends SuperItem
 {
-	static final StringField name = new StringField(OPTIONAL);
+	static final StringField name = new StringField().optional();
 	
 	/**
 

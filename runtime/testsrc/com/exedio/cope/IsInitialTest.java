@@ -27,30 +27,30 @@ public class IsInitialTest extends TestCase
 	public void testIsInitial()
 	{
 		assertEquals(true,  new DataField().isInitial());
-		assertEquals(false, new DataField(Item.OPTIONAL).isInitial());
+		assertEquals(false, new DataField().optional().isInitial());
 		assertEquals(true,  new DataField().toFinal().isInitial());
-		assertEquals(true,  new DataField(Item.OPTIONAL).toFinal().isInitial());
+		assertEquals(true,  new DataField().toFinal().optional().isInitial());
 		
 		assertEquals(true,  new StringField().isInitial());
-		assertEquals(false, new StringField(Item.OPTIONAL).isInitial());
+		assertEquals(false, new StringField().optional().isInitial());
 		assertEquals(true,  new StringField().toFinal().isInitial());
-		assertEquals(true,  new StringField(Item.OPTIONAL).toFinal().isInitial());
+		assertEquals(true,  new StringField().toFinal().optional().isInitial());
 		assertEquals(false, new StringField().defaultTo("hallo").isInitial());
-		assertEquals(false, new StringField(Item.OPTIONAL).defaultTo("hallo").isInitial());
+		assertEquals(false, new StringField().optional().defaultTo("hallo").isInitial());
 		assertEquals(false, new StringField().toFinal().defaultTo("hallo").isInitial());
-		assertEquals(false, new StringField(Item.OPTIONAL).toFinal().defaultTo("hallo").isInitial());
+		assertEquals(false, new StringField().toFinal().optional().defaultTo("hallo").isInitial());
 		
 		assertEquals(true,  new DateField().isInitial());
-		assertEquals(false, new DateField(Item.OPTIONAL).isInitial());
+		assertEquals(false, new DateField().optional().isInitial());
 		assertEquals(true,  new DateField().toFinal().isInitial());
-		assertEquals(true,  new DateField(Item.OPTIONAL).toFinal().isInitial());
+		assertEquals(true,  new DateField().toFinal().optional().isInitial());
 		assertEquals(false, new DateField().defaultTo(new Date()).isInitial());
-		assertEquals(false, new DateField(Item.OPTIONAL).defaultTo(new Date()).isInitial());
+		assertEquals(false, new DateField().optional().defaultTo(new Date()).isInitial());
 		assertEquals(false, new DateField().toFinal().defaultTo(new Date()).isInitial());
-		assertEquals(false, new DateField(Item.OPTIONAL).toFinal().defaultTo(new Date()).isInitial());
+		assertEquals(false, new DateField().toFinal().optional().defaultTo(new Date()).isInitial());
 		assertEquals(false, new DateField().defaultToNow().isInitial());
-		assertEquals(false, new DateField(Item.OPTIONAL).defaultToNow().isInitial());
+		assertEquals(false, new DateField().optional().defaultToNow().isInitial());
 		assertEquals(false, new DateField().toFinal().defaultToNow().isInitial());
-		assertEquals(false, new DateField(Item.OPTIONAL).toFinal().defaultToNow().isInitial());
+		assertEquals(false, new DateField().toFinal().optional().defaultToNow().isInitial());
 	}
 }

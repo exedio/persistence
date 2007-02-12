@@ -40,92 +40,92 @@ import com.exedio.cope.pattern.Media;
  */
 public class Standard extends Item
 {
-	public static final StringField defaultString = new StringField(OPTIONAL);
+	public static final StringField defaultString = new StringField().optional();
 	public static final StringField notNullString = new StringField();
-	public static final StringField finalString = new StringField(OPTIONAL).toFinal();
+	public static final StringField finalString = new StringField().toFinal().optional();
 	public static final StringField defaultToString = new StringField().defaultTo("defaultConstant for finalDefaultString");
-	public static final StringField uniqueString = new StringField(OPTIONAL).unique();
+	public static final StringField uniqueString = new StringField().unique().optional();
 	/** @cope.initial */
-	public static final StringField initialString = new StringField(OPTIONAL);
+	public static final StringField initialString = new StringField().optional();
 
-	public static final IntegerField defaultInteger = new IntegerField(OPTIONAL);
+	public static final IntegerField defaultInteger = new IntegerField().optional();
 	public static final IntegerField nativeInteger = new IntegerField();
 
-	public static final LongField defaultLong = new LongField(OPTIONAL);
+	public static final LongField defaultLong = new LongField().optional();
 	public static final LongField nativeLong = new LongField();
 
-	public static final DoubleField defaultDouble = new DoubleField(OPTIONAL);
+	public static final DoubleField defaultDouble = new DoubleField().optional();
 	public static final DoubleField nativeDouble = new DoubleField();
 
-	public static final BooleanField defaultBoolean = new BooleanField(OPTIONAL);
+	public static final BooleanField defaultBoolean = new BooleanField().optional();
 	public static final BooleanField nativeBoolean = new BooleanField();
 
 	public static final DateField mandatoryDate = new DateField();
-	private static final DateField privateDate = new DateField(OPTIONAL);
+	private static final DateField privateDate = new DateField().optional();
 	public static final DateField nowDate = new DateField().defaultToNow();
 
 	public static final EnumField<Enum1> mandatoryEnum = newEnumField(Enum1.class);
-	protected static final EnumField<Enum2> protectedEnum = newEnumField(OPTIONAL, Enum2.class);
+	protected static final EnumField<Enum2> protectedEnum = newEnumField(Enum2.class).optional();
 	
 	public enum Enum1
 	{
 		ENUM1A, ENUM1B;
 	}
 
-	private static final StringField privateString = new StringField(OPTIONAL);
+	private static final StringField privateString = new StringField().optional();
 
 	/**
 	 * @cope.getter none
 	 */
-	public static final StringField noneGetterString = new StringField(OPTIONAL);
+	public static final StringField noneGetterString = new StringField().optional();
 
 	/**
 	 * @cope.getter private
 	 */
-	public static final StringField privateGetterString = new StringField(OPTIONAL);
+	public static final StringField privateGetterString = new StringField().optional();
 
 	/**
 	 * @cope.getter internal
 	 */
-	public static final StringField internalGetterString = new StringField(OPTIONAL);
+	public static final StringField internalGetterString = new StringField().optional();
 
 	/**
 	 * @cope.setter none
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringField noneSetterString = new StringField(OPTIONAL);
+	public static final StringField noneSetterString = new StringField().optional();
 
 	/**
 	 * @cope.setter private
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringField privateSetterString = new StringField(OPTIONAL);
+	public static final StringField privateSetterString = new StringField().optional();
 
 	/**
 	 * @cope.setter internal
 	 * @cope.getter boolean-as-is
 	 */
-	public static final StringField internalSetterString = new StringField(OPTIONAL);
+	public static final StringField internalSetterString = new StringField().optional();
 
 	/**
 	 * @cope.getter non-final
 	 * @cope.setter protected
 	 */
-	public static final StringField nonfinalGetterString = new StringField(OPTIONAL);
+	public static final StringField nonfinalGetterString = new StringField().optional();
 
 	/**
 	 * @cope.getter protected
 	 * @cope.setter non-final
 	 */
-	public static final StringField nonfinalSetterString = new StringField(OPTIONAL);
+	public static final StringField nonfinalSetterString = new StringField().optional();
 
 	/**
 	 * @cope.getter boolean-as-is
 	 */
-	public static final BooleanField asIsBoolean = new BooleanField(OPTIONAL);
+	public static final BooleanField asIsBoolean = new BooleanField().optional();
 	
-	public static final StringField doubleUnique1 = new StringField(OPTIONAL);
-	public static final IntegerField doubleUnique2 = new IntegerField(OPTIONAL);
+	public static final StringField doubleUnique1 = new StringField().optional();
+	public static final IntegerField doubleUnique2 = new IntegerField().optional();
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
 	public static final Media anyMedia = new Media(OPTIONAL);
@@ -151,7 +151,7 @@ public class Standard extends Item
 	/**
 	 * An upper-case attribute
 	 */
-	static final StringField XMLReader = new StringField(OPTIONAL);
+	static final StringField XMLReader = new StringField().optional();
 
 	/**
 	 * Some other variable

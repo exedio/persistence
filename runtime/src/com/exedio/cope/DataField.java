@@ -46,6 +46,10 @@ public final class DataField extends Field<byte[]>
 		this(false, false, DEFAULT_LENGTH);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public DataField(final Option option)
 	{
 		this(option.isFinal, option.optional, DEFAULT_LENGTH);
@@ -58,6 +62,12 @@ public final class DataField extends Field<byte[]>
 	public DataField toFinal()
 	{
 		return new DataField(true, optional, maximumLength);
+	}
+	
+	@Override
+	public DataField optional()
+	{
+		return new DataField(isfinal, true, maximumLength);
 	}
 	
 	public DataField lengthMax(final long maximumLength)

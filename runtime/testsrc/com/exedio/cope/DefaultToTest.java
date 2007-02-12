@@ -157,7 +157,7 @@ public class DefaultToTest extends AbstractLibTest
 		assertEquals(false, new DateField().defaultToNow().defaultTo(date(55)).isDefaultNow());
 		try
 		{
-			new StringField(Item.OPTIONAL).lengthMax(3).defaultTo("1234");
+			new StringField().lengthMax(3).defaultTo("1234");
 			fail();
 		}
 		catch(IllegalArgumentException e)

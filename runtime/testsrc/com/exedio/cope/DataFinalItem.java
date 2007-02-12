@@ -22,7 +22,7 @@ package com.exedio.cope;
 class DataFinalItem extends Item
 {
 
-	static final DataField data = new DataField(OPTIONAL).toFinal();
+	static final DataField data = new DataField().toFinal().optional();
 	
 	/**
 

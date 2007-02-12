@@ -28,7 +28,7 @@ import com.exedio.cope.StringField;
 public class FieldListItem extends Item
 {
 
-	static final FieldList<String> strings = FieldList.newList(new StringField(OPTIONAL).lengthRange(4, 8));
+	static final FieldList<String> strings = FieldList.newList(new StringField().optional().lengthRange(4, 8));
 	static final FieldList<Date> dates = FieldList.newList(new DateField());
 	static final FieldList<FieldListItem> items = FieldList.newList(newItemField(FieldListItem.class, CASCADE));
 

@@ -36,8 +36,8 @@ public class QualifiedEmptyQualifier extends Item
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	public static final Qualifier qualifier = new Qualifier(qualifyUnique);
 	
-	public static final StringField qualifiedA = new StringField(OPTIONAL);
-	public static final StringField qualifiedB = new StringField(OPTIONAL);
+	public static final StringField qualifiedA = new StringField().optional();
+	public static final StringField qualifiedB = new StringField().optional();
 	
 
 /**

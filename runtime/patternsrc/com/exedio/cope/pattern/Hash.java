@@ -45,6 +45,15 @@ public abstract class Hash extends Pattern implements Settable<String>
 		registerSource(this.storage = storage);
 	}
 	
+	public Hash()
+	{
+		this(new StringField());
+	}
+	
+	/**
+	 * @deprecated use {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public Hash(final Option storageOption)
 	{
 		this(new StringField(storageOption));
@@ -72,12 +81,19 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage.isFinal();
 	}
 	
+	public final boolean isMandatory()
+	{
+		return storage.isMandatory();
+	}
+	
 	public SortedSet<Class> getSetterExceptions()
 	{
 		return storage.getSetterExceptions();
 	}
 	
 	public abstract String hash(String plainText);
+	
+	public abstract Hash optional();
 	
 	public final void set(final Item item, final String plainText)
 		throws

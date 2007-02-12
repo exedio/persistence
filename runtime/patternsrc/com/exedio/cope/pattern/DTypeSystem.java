@@ -56,18 +56,18 @@ public final class DTypeSystem extends Pattern
 		enums    = castEnumArray(new ItemField[enumCapacity]);
 		fields   = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
-		registerSource(type = Item.newItemField(Item.OPTIONAL, DType.class));
+		registerSource(type = Item.newItemField(DType.class).optional());
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(fields[n++] = strings [i] = new StringField(Item.OPTIONAL));
+			registerSource(fields[n++] = strings [i] = new StringField().optional());
 		for(int i = 0; i<booleans.length; i++)
-			registerSource(fields[n++] = booleans[i] = new BooleanField(Item.OPTIONAL));
+			registerSource(fields[n++] = booleans[i] = new BooleanField().optional());
 		for(int i = 0; i<integers.length; i++)
-			registerSource(fields[n++] = integers[i] = new IntegerField(Item.OPTIONAL));
+			registerSource(fields[n++] = integers[i] = new IntegerField().optional());
 		for(int i = 0; i<doubles.length; i++)
-			registerSource(fields[n++] = doubles [i] = new DoubleField(Item.OPTIONAL));
+			registerSource(fields[n++] = doubles [i] = new DoubleField().optional());
 		for(int i = 0; i<enums.length; i++)
-			registerSource(fields[n++] = enums   [i] = Item.newItemField(Item.OPTIONAL, DEnumValue.class));
+			registerSource(fields[n++] = enums   [i] = Item.newItemField(DEnumValue.class).optional());
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation

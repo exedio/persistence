@@ -30,7 +30,7 @@ import com.exedio.cope.StringField;
 
 public final class CustomItem extends Item
 {
-	static final StringField numberString = new StringField(OPTIONAL);
+	static final StringField numberString = new StringField().optional();
 	
 	static final CustomAttribute<Integer> number = new CustomAttribute<Integer>(numberString)
 	{
@@ -83,9 +83,9 @@ public final class CustomItem extends Item
 		});
 	}
 
-	static final IntegerField element1 = new IntegerField(OPTIONAL);
-	static final IntegerField element2 = new IntegerField(OPTIONAL);
-	static final IntegerField element3 = new IntegerField(OPTIONAL);
+	static final IntegerField element1 = new IntegerField().optional();
+	static final IntegerField element2 = new IntegerField().optional();
+	static final IntegerField element3 = new IntegerField().optional();
 	
 	static final CustomAttribute<List<Integer>> elements = new CustomAttribute<List<Integer>>(new IntegerField[]{element1, element2, element3})
 	{

@@ -75,7 +75,7 @@ static final <a href="api/com/exedio/cope/pattern/FieldList.html">FieldList</a>&
 		</div>
 <pre>
 static final <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>&lt;String&gt; emails =
-    <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>.<a href="api/com/exedio/cope/pattern/FieldListLimited.html#newList(com.exedio.cope.FunctionField, int)">newList</a>(new StringField(OPTIONAL), 4);
+    <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>.<a href="api/com/exedio/cope/pattern/FieldListLimited.html#newList(com.exedio.cope.FunctionField, int)">newList</a>(new StringField().<a href="api/com/exedio/cope/StringField.html#optional()">optional</a>(), 4);
 </pre>
 		<div>
 			Internally there are 4 string fields used for storing the elements of the list.
@@ -130,7 +130,7 @@ static enum Language { DE, EN, PL; }
 
 static final <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMapLimited</a>&lt;Language,String&gt; description =
     <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMapLimited</a>.<a href="api/com/exedio/cope/pattern/FieldMapLimited.html#newMap(java.lang.Class, com.exedio.cope.FunctionField)">newMap</a>(Language.class,
-                        new StringField(OPTIONAL));
+                        new StringField().<a href="api/com/exedio/cope/StringField.html#optional()">optional</a>());
 </pre>
 		<div>
 			Internally three string fields

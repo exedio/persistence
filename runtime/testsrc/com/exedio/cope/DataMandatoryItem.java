@@ -28,7 +28,7 @@ import java.io.InputStream;
 class DataMandatoryItem extends Item
 {
 
-	static final DataField data = new DataField(MANDATORY);
+	static final DataField data = new DataField();
 	
 	void setData(final InputStream data) // TODO generate this
 	throws IOException

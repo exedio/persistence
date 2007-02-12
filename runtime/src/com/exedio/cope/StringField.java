@@ -61,14 +61,18 @@ public final class StringField extends FunctionField<String> implements StringFu
 	{
 		this(false, false, false, null, 0, DEFAULT_LENGTH);
 	}
-	
+
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public StringField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH);
 	}
 	
 	/**
-	 * @deprecated use {@link #lengthMin(int)} instead.
+	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthMin(int)} instead.
 	 */
 	@Deprecated
 	public StringField(final Option option, final int minimumLength)
@@ -77,7 +81,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	/**
-	 * @deprecated use {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
+	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
 	 */
 	@Deprecated
 	public StringField(final Option option, final int minimumLength, final int maximumLength)
@@ -101,6 +105,12 @@ public final class StringField extends FunctionField<String> implements StringFu
 	public StringField unique()
 	{
 		return new StringField(isfinal, optional, true, defaultConstant, minimumLength, maximumLength);
+	}
+	
+	@Override
+	public StringField optional()
+	{
+		return new StringField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
 	}
 	
 	public StringField defaultTo(final String defaultConstant)

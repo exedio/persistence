@@ -33,21 +33,21 @@ public class FieldListLimitedItem extends Item
 {
 	// explicit external source
 
-	static final IntegerField num1 = new IntegerField(OPTIONAL);
+	static final IntegerField num1 = new IntegerField().optional();
 
-	static final IntegerField num2 = new IntegerField(OPTIONAL);
+	static final IntegerField num2 = new IntegerField().optional();
 
-	static final IntegerField num3 = new IntegerField(OPTIONAL);
+	static final IntegerField num3 = new IntegerField().optional();
 	
 	static final FieldListLimited<Integer> nums = FieldListLimited.newList(num1, num2, num3);
 
 	// implicit external source
 
-	static final FieldListLimited<Date> dates = FieldListLimited.newList(new DateField(OPTIONAL), new DateField(OPTIONAL));
+	static final FieldListLimited<Date> dates = FieldListLimited.newList(new DateField().optional(), new DateField().optional());
 
 	// internal source
 
-	static final FieldListLimited<String> strings = FieldListLimited.newList(new StringField(OPTIONAL).lengthRange(1, 11), 4);
+	static final FieldListLimited<String> strings = FieldListLimited.newList(new StringField().optional().lengthRange(1, 11), 4);
 
 	FieldListLimitedItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{

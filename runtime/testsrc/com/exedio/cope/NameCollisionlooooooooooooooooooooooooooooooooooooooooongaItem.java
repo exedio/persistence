@@ -36,10 +36,10 @@ class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem extends Ite
 	 * after trimming of database names
 	 */
 	static final IntegerField collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber =
-		new IntegerField(OPTIONAL);
+		new IntegerField().optional();
 	
 	static final IntegerField collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber =
-		new IntegerField(OPTIONAL);
+		new IntegerField().optional();
 	
 /**
 

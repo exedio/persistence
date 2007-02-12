@@ -32,11 +32,11 @@ public class PointerItem extends Item
 	
 	public static final ItemField<PointerTargetItem> pointer = newItemField(PointerTargetItem.class);
 
-	public static final ItemField<PointerTargetItem> pointer2 = newItemField(OPTIONAL, PointerTargetItem.class);
+	public static final ItemField<PointerTargetItem> pointer2 = newItemField(PointerTargetItem.class).optional();
 
-	public static final ItemField<PointerItem> self = newItemField(OPTIONAL, PointerItem.class);
+	public static final ItemField<PointerItem> self = newItemField(PointerItem.class).optional();
 
-	public static final ItemField<EmptyItem2> empty2 = newItemField(OPTIONAL, EmptyItem2.class);
+	public static final ItemField<EmptyItem2> empty2 = newItemField(EmptyItem2.class).optional();
 
 /**
 

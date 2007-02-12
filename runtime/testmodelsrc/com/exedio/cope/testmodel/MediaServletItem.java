@@ -31,7 +31,7 @@ public class MediaServletItem extends Item
 	/**
 	 * @cope.initial
 	 */
-	public static final StringField name = new StringField(OPTIONAL);
+	public static final StringField name = new StringField().optional();
 
 	public static final Media content = new Media(OPTIONAL);
 

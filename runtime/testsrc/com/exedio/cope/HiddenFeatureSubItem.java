@@ -20,19 +20,19 @@ package com.exedio.cope;
 
 class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 {
-	static final StringField nonHiddenSub = new StringField(OPTIONAL);
+	static final StringField nonHiddenSub = new StringField().optional();
 	
 	/**
 	 * @cope.getter none
 	 * @cope.setter none
 	 */
-	static final StringField hiddenSame = new StringField(OPTIONAL);
+	static final StringField hiddenSame = new StringField().optional();
 
 	/**
 	 * @cope.getter none
 	 * @cope.setter none
 	 */
-	static final IntegerField hiddenOther = new IntegerField(OPTIONAL);
+	static final IntegerField hiddenOther = new IntegerField().optional();
 	
 	/**
 

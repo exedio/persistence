@@ -22,7 +22,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
 import com.exedio.cope.pattern.Hash;
 
-
 /**
  * A nonsense test hash for unit-testing the hashing mechanism.
  * @author Ralf Wiebicke
@@ -34,11 +33,26 @@ public class WrapHash extends Hash
 		super(storage);
 	}
 
+	public WrapHash()
+	{
+		super();
+	}
+	
+	/**
+	 * @deprecated use {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public WrapHash(final Option storageOption)
 	{
 		super(storageOption);
 	}
 
+	@Override
+	public WrapHash optional()
+	{
+		return new WrapHash(getStorage().optional());
+	}
+	
 	@Override
 	public String hash(final String plainText)
 	{
@@ -47,5 +61,4 @@ public class WrapHash extends Hash
 		else
 			return '[' + plainText + ']';
 	}
-
 }

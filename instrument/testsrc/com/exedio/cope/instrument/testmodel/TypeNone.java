@@ -29,7 +29,7 @@ import com.exedio.cope.StringField;
  */
 public class TypeNone extends Item
 {
-	public static final StringField defaultString = new StringField(OPTIONAL);
+	public static final StringField defaultString = new StringField().optional();
 
 /**
 

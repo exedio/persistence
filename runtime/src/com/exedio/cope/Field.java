@@ -63,6 +63,16 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	public abstract Field<E> toFinal();
 	
 	/**
+	 * Returns a new Field,
+	 * that differs from this Field
+	 * by being optional.
+	 * If this Field is already optional,
+	 * the the result is equal to this Field.
+	 * @see #isMandatory()
+	 */
+	public abstract Field<E> optional();
+	
+	/**
 	 * @see #toFinal()
 	 */
 	public final boolean isFinal()

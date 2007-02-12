@@ -553,6 +553,10 @@ public abstract class Item extends Cope
 		return newEnumField(option, valueClass);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Option option, final Class<E> valueClass)
 	{
@@ -583,6 +587,10 @@ public abstract class Item extends Cope
 		return newItemField(option, valueClass);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass)
 	{
@@ -613,6 +621,10 @@ public abstract class Item extends Cope
 		return newItemField(option, valueClass, policy);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
 	{

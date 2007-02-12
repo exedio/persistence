@@ -24,12 +24,12 @@ class JoinFunctionItem extends Item
 	/**
 	 * @cope.initial
 	 */
-	static final StringField string = new StringField(OPTIONAL);
+	static final StringField string = new StringField().optional();
 
 	/**
 	 * @cope.initial
 	 */
-	static final IntegerField integer = new IntegerField(OPTIONAL);
+	static final IntegerField integer = new IntegerField().optional();
 
 	
 /**

@@ -28,11 +28,11 @@ import com.exedio.cope.function.PlusView;
  */
 public class PlusItem extends Item
 {
-	public static final IntegerField num1 = new IntegerField(OPTIONAL);
+	public static final IntegerField num1 = new IntegerField().optional();
 
-	public static final IntegerField num2 = new IntegerField(OPTIONAL);
+	public static final IntegerField num2 = new IntegerField().optional();
 
-	public static final IntegerField num3 = new IntegerField(OPTIONAL);
+	public static final IntegerField num3 = new IntegerField().optional();
 	
 	public static final PlusView plus12 = num1.plus(num2);
 

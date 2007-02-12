@@ -22,7 +22,7 @@ package com.exedio.cope;
 class MatchItem extends Item
 {
 
-	static final StringField text = new StringField(OPTIONAL);
+	static final StringField text = new StringField().optional();
 	
 	MatchItem(final String text)
 	{

@@ -21,21 +21,21 @@ package com.exedio.cope;
 
 class CompareConditionItem extends Item
 {
-	/** @cope.initial */ static final StringField string = new StringField(OPTIONAL);
-	static final StringField otherString = new StringField(OPTIONAL);
-	/** @cope.initial */ static final IntegerField intx = new IntegerField(OPTIONAL);
-	/** @cope.initial */ static final LongField longx = new LongField(OPTIONAL);
-	/** @cope.initial */ static final DoubleField doublex = new DoubleField(OPTIONAL);
-	/** @cope.initial */ static final DateField date = new DateField(OPTIONAL);
-	/** @cope.initial */ static final DayField day = new DayField(OPTIONAL);
-	/** @cope.initial */ static final EnumField<YEnum> enumx = newEnumField(OPTIONAL, YEnum.class);
+	/** @cope.initial */ static final StringField string = new StringField().optional();
+	static final StringField otherString = new StringField().optional();
+	/** @cope.initial */ static final IntegerField intx = new IntegerField().optional();
+	/** @cope.initial */ static final LongField longx = new LongField().optional();
+	/** @cope.initial */ static final DoubleField doublex = new DoubleField().optional();
+	/** @cope.initial */ static final DateField date = new DateField().optional();
+	/** @cope.initial */ static final DayField day = new DayField().optional();
+	/** @cope.initial */ static final EnumField<YEnum> enumx = newEnumField(YEnum.class).optional();
 
 	static enum YEnum
 	{
 		V1, V2, V3, V4, V5, VX;
 	}
 	
-	static final ItemField<CompareConditionItem> item = newItemField(OPTIONAL, CompareConditionItem.class, NULLIFY);
+	static final ItemField<CompareConditionItem> item = newItemField(CompareConditionItem.class, NULLIFY);
 	
 	/**
 

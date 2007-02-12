@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 class InstanceOfB1Item extends InstanceOfAItem
 {
-	static final StringField textb1 = new StringField(OPTIONAL);
+	static final StringField textb1 = new StringField().optional();
 
 /**
 

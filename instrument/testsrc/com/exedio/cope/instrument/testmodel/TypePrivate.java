@@ -28,7 +28,7 @@ import com.exedio.cope.StringField;
  */
 public class TypePrivate extends Item
 {
-	public static final StringField defaultString = new StringField(OPTIONAL);
+	public static final StringField defaultString = new StringField().optional();
 
 	/**
 	 * Creates a new TypeNone and sets the given attributes initially.

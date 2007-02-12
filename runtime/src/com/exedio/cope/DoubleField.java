@@ -34,6 +34,10 @@ public final class DoubleField extends FunctionField<Double>
 		this(false, false, false, null);
 	}
 
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public DoubleField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
@@ -55,6 +59,12 @@ public final class DoubleField extends FunctionField<Double>
 	public DoubleField unique()
 	{
 		return new DoubleField(isfinal, optional, true, defaultConstant);
+	}
+	
+	@Override
+	public DoubleField optional()
+	{
+		return new DoubleField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	public DoubleField defaultTo(final Double defaultConstant)

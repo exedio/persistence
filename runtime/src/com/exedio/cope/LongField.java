@@ -34,6 +34,10 @@ public final class LongField extends FunctionField<Long>
 		this(false, false, false, null);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public LongField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null);
@@ -55,6 +59,12 @@ public final class LongField extends FunctionField<Long>
 	public LongField unique()
 	{
 		return new LongField(isfinal, optional, true, defaultConstant);
+	}
+	
+	@Override
+	public LongField optional()
+	{
+		return new LongField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
 	}
 	
 	public LongField defaultTo(final Long defaultConstant)

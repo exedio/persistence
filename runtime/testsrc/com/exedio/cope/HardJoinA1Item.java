@@ -25,7 +25,7 @@ class HardJoinA1Item extends Item
 	/**
 	 * @cope.initial
 	 */
-	static final IntegerField a1 = new IntegerField(OPTIONAL);
+	static final IntegerField a1 = new IntegerField().optional();
 	
 	
 	/**

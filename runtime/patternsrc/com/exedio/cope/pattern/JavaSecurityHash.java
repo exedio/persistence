@@ -70,6 +70,17 @@ public class JavaSecurityHash extends Hash
 	{
 		return MessageDigest.getInstance(algorithm);
 	}
+
+	@Override
+	public JavaSecurityHash optional()
+	{
+		return new JavaSecurityHash(getStorage().optional(), algorithm, encoding);
+	}
+	
+	public final String getEncoding()
+	{
+		return encoding;
+	}
 	
 	private final byte[] encode(final String s) throws UnsupportedEncodingException
 	{
@@ -122,5 +133,4 @@ public class JavaSecurityHash extends Hash
 		}
 		return new String(result);
 	}
-
 }

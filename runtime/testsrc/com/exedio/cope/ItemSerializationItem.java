@@ -30,7 +30,7 @@ class ItemSerializationItem extends Item implements Serializable
 	/**
 	 * @cope.initial
 	 */
-	static final StringField name = new StringField(OPTIONAL);
+	static final StringField name = new StringField().optional();
 	
 	
 	ItemSerializationItem()

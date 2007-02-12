@@ -7,34 +7,34 @@ import com.exedio.cope.util.Day;
 
 class CompareFunctionConditionItem extends Item
 {
-	/** @cope.initial */ static final StringField leftString = new StringField(OPTIONAL);
-	/** @cope.initial */ static final StringField rightString = new StringField(OPTIONAL);
+	/** @cope.initial */ static final StringField leftString = new StringField().optional();
+	/** @cope.initial */ static final StringField rightString = new StringField().optional();
 
-	/** @cope.initial */ static final IntegerField leftInt = new IntegerField(OPTIONAL);
-	/** @cope.initial */ static final IntegerField rightInt = new IntegerField(OPTIONAL);
+	/** @cope.initial */ static final IntegerField leftInt = new IntegerField().optional();
+	/** @cope.initial */ static final IntegerField rightInt = new IntegerField().optional();
 
-	/** @cope.initial */ static final LongField leftLong = new LongField(OPTIONAL);
-	/** @cope.initial */ static final LongField rightLong = new LongField(OPTIONAL);
+	/** @cope.initial */ static final LongField leftLong = new LongField().optional();
+	/** @cope.initial */ static final LongField rightLong = new LongField().optional();
 
-	/** @cope.initial */ static final DoubleField leftDouble = new DoubleField(OPTIONAL);
-	/** @cope.initial */ static final DoubleField rightDouble = new DoubleField(OPTIONAL);
+	/** @cope.initial */ static final DoubleField leftDouble = new DoubleField().optional();
+	/** @cope.initial */ static final DoubleField rightDouble = new DoubleField().optional();
 
-	/** @cope.initial */ static final DateField leftDate = new DateField(OPTIONAL);
-	/** @cope.initial */ static final DateField rightDate = new DateField(OPTIONAL);
+	/** @cope.initial */ static final DateField leftDate = new DateField().optional();
+	/** @cope.initial */ static final DateField rightDate = new DateField().optional();
 
-	/** @cope.initial */ static final DayField leftDay = new DayField(OPTIONAL);
+	/** @cope.initial */ static final DayField leftDay = new DayField().optional();
 	/** @cope.initial */ static final DayField rightDay = new DayField();
 
-	/** @cope.initial */ static final EnumField<XEnum> leftEnum = newEnumField(OPTIONAL, XEnum.class);
-	/** @cope.initial */ static final EnumField<XEnum> rightEnum = newEnumField(OPTIONAL, XEnum.class);
+	/** @cope.initial */ static final EnumField<XEnum> leftEnum = newEnumField(XEnum.class).optional();
+	/** @cope.initial */ static final EnumField<XEnum> rightEnum = newEnumField(XEnum.class).optional();
 
 	static enum XEnum
 	{
 		V1, V2, V3, V4, V5;
 	}
 	
-	static final ItemField<CompareFunctionConditionItem> leftItem = newItemField(OPTIONAL, CompareFunctionConditionItem.class, NULLIFY);
-	static final ItemField<CompareFunctionConditionItem> rightItem = newItemField(OPTIONAL, CompareFunctionConditionItem.class, NULLIFY);
+	static final ItemField<CompareFunctionConditionItem> leftItem = newItemField(CompareFunctionConditionItem.class, NULLIFY);
+	static final ItemField<CompareFunctionConditionItem> rightItem = newItemField(CompareFunctionConditionItem.class, NULLIFY);
 
 	static final Date date = new Date(1087365298214l);
 	static final Day day = new Day(2007, 4, 28);

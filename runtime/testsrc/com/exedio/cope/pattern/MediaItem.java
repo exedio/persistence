@@ -26,7 +26,7 @@ import com.exedio.cope.pattern.MediaRedirect;
 public class MediaItem extends Item
 {
 	
-	static final StringField name = new StringField(OPTIONAL);
+	static final StringField name = new StringField().optional();
 
 	static final Media file = new Media(OPTIONAL).lengthMax(20);
 

@@ -40,6 +40,10 @@ public final class DateField extends FunctionField<Date>
 		this(false, false, false, null, false);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public DateField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, false);
@@ -61,6 +65,12 @@ public final class DateField extends FunctionField<Date>
 	public DateField unique()
 	{
 		return new DateField(isfinal, optional, true, defaultConstant, defaultNow);
+	}
+	
+	@Override
+	public DateField optional()
+	{
+		return new DateField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
 	}
 	
 	public DateField defaultTo(final Date defaultConstant)

@@ -41,7 +41,7 @@ public class AttributeItem extends Item
 	/**
 	 * A string attribute.
 	 */
-	public static final StringField someString = new StringField(OPTIONAL);
+	public static final StringField someString = new StringField().optional();
 
 	/**
 	 * Test non-persistent static final attributes.
@@ -66,7 +66,7 @@ public class AttributeItem extends Item
 	/**
 	 * An integer attribute
 	 */
-	public static final IntegerField someInteger = new IntegerField(OPTIONAL);
+	public static final IntegerField someInteger = new IntegerField().optional();
 
 	/**
 	 * A mandatory integer attribute
@@ -76,7 +76,7 @@ public class AttributeItem extends Item
 	/**
 	 * An integer attribute
 	 */
-	public static final LongField someLong = new LongField(OPTIONAL);
+	public static final LongField someLong = new LongField().optional();
 
 	/**
 	 * A mandatory integer attribute
@@ -86,21 +86,21 @@ public class AttributeItem extends Item
 	/**
 	 * A double attribute
 	 */
-	public static final DoubleField someDouble = new DoubleField(OPTIONAL);
+	public static final DoubleField someDouble = new DoubleField().optional();
 
 	/**
 	 * A mandatory double attribute
 	 */
 	public static final DoubleField someNotNullDouble = new DoubleField();
 
-	public static final DateField someDate = new DateField(OPTIONAL);
+	public static final DateField someDate = new DateField().optional();
 
-	public static final DayField day = new DayField(OPTIONAL);
+	public static final DayField day = new DayField().optional();
 
 	/**
 	 * An boolean attribute
 	 */
-	public static final BooleanField someBoolean = new BooleanField(OPTIONAL);
+	public static final BooleanField someBoolean = new BooleanField().optional();
 
 	/**
 	 * A mandatory boolean attribute
@@ -110,7 +110,7 @@ public class AttributeItem extends Item
 	/**
 	 * An attribute referencing another persistent item
 	 */
-	public static final ItemField<EmptyItem> someItem = newItemField(OPTIONAL, EmptyItem.class);
+	public static final ItemField<EmptyItem> someItem = newItemField(EmptyItem.class).optional();
 
 	/**
 	 * An mandatory attribute referencing another persistent item
@@ -120,7 +120,7 @@ public class AttributeItem extends Item
 	/**
 	 * An enumeration attribute
 	 */
-	public static final EnumField<SomeEnum> someEnum = newEnumField(OPTIONAL, SomeEnum.class);
+	public static final EnumField<SomeEnum> someEnum = newEnumField(SomeEnum.class).optional();
 
 	/**
 	 * A mandatory enumeration attribute

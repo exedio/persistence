@@ -54,9 +54,8 @@ public final class Media extends CachedMedia
 	
 	private Media(final boolean optional, final String fixedMimeMajor, final String fixedMimeMinor, final long bodyMaximumLength)
 	{
-		final Field.Option option = optional ? Item.OPTIONAL : Item.MANDATORY;
 		this.optional = optional;
-		registerSource(this.body = new DataField(option).lengthMax(bodyMaximumLength));
+		registerSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength));
 		
 		if(fixedMimeMajor!=null && fixedMimeMinor!=null)
 		{
@@ -64,19 +63,34 @@ public final class Media extends CachedMedia
 		}
 		else if(fixedMimeMajor!=null && fixedMimeMinor==null)
 		{
-			final StringField mimeMinor = new StringField(option).lengthRange(1, 30);
+			final StringField mimeMinor = optional(new StringField(), optional).lengthRange(1, 30);
 			this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
 		}
 		else if(fixedMimeMajor==null && fixedMimeMinor==null)
 		{
-			final StringField mimeMajor = new StringField(option).lengthRange(1, 30);
-			final StringField mimeMinor = new StringField(option).lengthRange(1, 30);
+			final StringField mimeMajor = optional(new StringField(), optional).lengthRange(1, 30);
+			final StringField mimeMinor = optional(new StringField(), optional).lengthRange(1, 30);
 			this.contentType = new StoredContentType(mimeMajor, mimeMinor);
 		}
 		else
 			throw new RuntimeException();
 		
-		registerSource(this.lastModified = new DateField(option));
+		registerSource(this.lastModified = optional(new DateField(), optional));
+	}
+	
+	private static final DataField optional(final DataField field, final boolean optional)
+	{
+		return optional ? field.optional() : field;
+	}
+	
+	private static final StringField optional(final StringField field, final boolean optional)
+	{
+		return optional ? field.optional() : field;
+	}
+	
+	private static final DateField optional(final DateField field, final boolean optional)
+	{
+		return optional ? field.optional() : field;
 	}
 	
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)

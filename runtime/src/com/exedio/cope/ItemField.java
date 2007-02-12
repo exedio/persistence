@@ -62,6 +62,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	 * which allows ommitting the generics:
 	 * instead of <tt>new ItemField&lt;Target&gt;(OPTIONAL, Target.class)</tt>
 	 * one can write <tt>newItemField(OPTIONAL, Target.class)</tt>
+	 * and use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public ItemField(final Option option, final Class<E> valueClass)
@@ -79,7 +80,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	@Deprecated
 	public ItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		this(Item.MANDATORY, valueClass, policy);
+		this(policy==DeletePolicy.NULLIFY ? Item.OPTIONAL : Item.MANDATORY, valueClass, policy);
 	}
 
 	/**
@@ -88,6 +89,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	 * which allows ommitting the generics:
 	 * instead of <tt>new ItemField&lt;Target&gt;(OPTIONAL, Target.class, CASCADE)</tt>
 	 * one can write <tt>newItemField(OPTIONAL, Target.class, CASCADE)</tt>
+	 * and use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
@@ -95,6 +97,15 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		this(option.isFinal, option.optional, option.unique, valueClass, null, policy);
 	}
 
+	ItemField(final Type<E> valueType, final DeletePolicy policy)
+	{
+		this(false, policy==DeletePolicy.NULLIFY, false, null, valueType, policy);
+	}
+
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	ItemField(final Option option, final Type<E> valueType, final DeletePolicy policy)
 	{
 		this(option.isFinal, option.optional, option.unique, null, valueType, policy);
@@ -125,6 +136,15 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 			return new ItemField<E>(isfinal, optional, true, valueClass, null, policy);
 		else
 			return new ItemField<E>(isfinal, optional, true, null, initialValueType, policy);
+	}
+	
+	@Override
+	public ItemField<E> optional()
+	{
+		if(initialValueType==null)
+			return new ItemField<E>(isfinal, true, implicitUniqueConstraint!=null, valueClass, null, policy);
+		else
+			return new ItemField<E>(isfinal, true, implicitUniqueConstraint!=null, null, initialValueType, policy);
 	}
 	
 	private Type<E> valueType = null;

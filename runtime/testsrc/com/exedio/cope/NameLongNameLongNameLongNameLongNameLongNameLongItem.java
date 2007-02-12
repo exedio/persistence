@@ -24,10 +24,10 @@ class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	static final StringField code = new StringField().unique();
 
 	static final StringField codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		new StringField(OPTIONAL).unique();
+		new StringField().unique().optional();
 
 	static final ItemField<NameLongNameLongNameLongNameLongNameLongNameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
-		newItemField(OPTIONAL, NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);
+		newItemField(NameLongNameLongNameLongNameLongNameLongNameLongItem.class, NULLIFY);
 	
 /**
 

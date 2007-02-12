@@ -815,9 +815,13 @@ public final class Type<C extends Item>
 	
 	public ItemField<C> newItemField(final DeletePolicy policy)
 	{
-		return new ItemField<C>(Item.MANDATORY, this, policy);
+		return new ItemField<C>(this, policy);
 	}
 	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)
 	{
 		return new ItemField<C>(option, this, policy);

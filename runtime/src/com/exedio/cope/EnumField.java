@@ -81,6 +81,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	 * which allows ommitting the generics:
 	 * instead of <tt>new EnumField&lt;Target&gt;(OPTIONAL, Target.class)</tt>
 	 * one can write <tt>newEnumField(OPTIONAL, Target.class)</tt>
+	 * and use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public EnumField(final Option option, final Class<E> valueClass)
@@ -104,6 +105,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	public EnumField<E> unique()
 	{
 		return new EnumField<E>(isfinal, optional, true, valueClass, defaultConstant);
+	}
+	
+	@Override
+	public EnumField<E> optional()
+	{
+		return new EnumField<E>(isfinal, true, implicitUniqueConstraint!=null, valueClass, defaultConstant);
 	}
 	
 	public EnumField<E> defaultTo(final E defaultConstant)

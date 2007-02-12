@@ -309,6 +309,11 @@ final class JavaRepository
 	
 	public static final class DummyHash extends Hash
 	{
+		public DummyHash()
+		{
+			super();
+		}
+		
 		public DummyHash(final StringField storage)
 		{
 			super(storage);
@@ -316,7 +321,13 @@ final class JavaRepository
 		
 		public DummyHash(final com.exedio.cope.Field.Option storageOption)
 		{
-			super(storageOption);
+			super();
+		}
+		
+		@Override
+		public DummyHash optional()
+		{
+			return new DummyHash(getStorage().optional());
 		}
 		
 		@Override

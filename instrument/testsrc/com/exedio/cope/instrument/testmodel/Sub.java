@@ -29,9 +29,9 @@ public class Sub extends Super
 	/**
 	 * @cope.initial
 	 */
-	public static final LongField subInitial = new LongField(OPTIONAL);
+	public static final LongField subInitial = new LongField().optional();
 
-	public static final DateField subNonInitial = new DateField(OPTIONAL);
+	public static final DateField subNonInitial = new DateField().optional();
 
 /**
 

@@ -138,7 +138,7 @@ public class DataTest extends AbstractLibTest
 
 		try
 		{
-			new DataField(Item.OPTIONAL).lengthMax(0);
+			new DataField().lengthMax(0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -147,7 +147,7 @@ public class DataTest extends AbstractLibTest
 		}
 		try
 		{
-			new DataField(Item.OPTIONAL).lengthMax(-10);
+			new DataField().lengthMax(-10);
 			fail();
 		}
 		catch(IllegalArgumentException e)

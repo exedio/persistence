@@ -39,8 +39,8 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(up, keyX, keyY);
 	public static final Qualifier intEnumQualifier = new Qualifier(qualifyUnique);
 	
-	public static final StringField qualifiedA = new StringField(OPTIONAL);
-	public static final StringField qualifiedB = new StringField(OPTIONAL);
+	public static final StringField qualifiedA = new StringField().optional();
+	public static final StringField qualifiedB = new StringField().optional();
 
 	public static enum KeyEnum
 	{

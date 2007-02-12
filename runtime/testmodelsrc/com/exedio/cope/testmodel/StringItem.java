@@ -35,18 +35,18 @@ import com.exedio.cope.function.UppercaseView;
  */
 public class StringItem extends Item
 {
-	public static final StringField any = new StringField(OPTIONAL);
+	public static final StringField any = new StringField().optional();
 
 	public static final StringField mandatory = new StringField();
 	
-	public static final StringField min4 = new StringField(OPTIONAL).lengthMin(4);
-	public static final StringField max4 = new StringField(OPTIONAL).lengthMax(4);
-	public static final StringField min4Max8 = new StringField(OPTIONAL).lengthRange(4, 8);
-	public static final StringField exact6 = new StringField(OPTIONAL).lengthExact(6);
+	public static final StringField min4 = new StringField().optional().lengthMin(4);
+	public static final StringField max4 = new StringField().optional().lengthMax(4);
+	public static final StringField min4Max8 = new StringField().optional().lengthRange(4, 8);
+	public static final StringField exact6 = new StringField().optional().lengthExact(6);
 	
-	public static final StringField long1K = new StringField(OPTIONAL).lengthMax(1000);
-	public static final StringField long1M = new StringField(OPTIONAL).lengthMax(1000*1000);
-	public static final StringField long40M = new StringField(OPTIONAL).lengthMax(40*1000*1000);
+	public static final StringField long1K = new StringField().optional().lengthMax(1000);
+	public static final StringField long1M = new StringField().optional().lengthMax(1000*1000);
+	public static final StringField long40M = new StringField().optional().lengthMax(40*1000*1000);
 	
 	public static final UppercaseView min4Upper = min4.toUpperCase();
 	public static final UppercaseView max4Upper = max4.toUpperCase();

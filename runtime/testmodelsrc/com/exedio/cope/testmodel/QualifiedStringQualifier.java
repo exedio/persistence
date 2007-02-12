@@ -37,8 +37,8 @@ public class QualifiedStringQualifier extends Item
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
 	public static final Qualifier stringQualifier = new Qualifier(qualifyUnique);
 	
-	public static final IntegerField qualifiedA = new IntegerField(OPTIONAL);
-	public static final IntegerField qualifiedB = new IntegerField(OPTIONAL);
+	public static final IntegerField qualifiedA = new IntegerField().optional();
+	public static final IntegerField qualifiedB = new IntegerField().optional();
 	
 
 /**

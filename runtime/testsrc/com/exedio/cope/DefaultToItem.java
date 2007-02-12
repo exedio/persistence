@@ -27,18 +27,18 @@ import java.util.Date;
 class DefaultToItem extends Item
 {
 
-	static final BooleanField booleanTrue = new BooleanField(OPTIONAL).defaultTo(true);
+	static final BooleanField booleanTrue = new BooleanField().optional().defaultTo(true);
 	static final BooleanField booleanNone = new BooleanField();
 
 	static final IntegerField integerFive = new IntegerField().defaultTo(5);
-	static final IntegerField integerFifty = new IntegerField(OPTIONAL).defaultTo(50);
-	static final IntegerField integerNone = new IntegerField(OPTIONAL);
+	static final IntegerField integerFifty = new IntegerField().optional().defaultTo(50);
+	static final IntegerField integerNone = new IntegerField().optional();
 
 	static final DateField dateEight = new DateField().defaultTo(new Date(8));
-	static final DateField dateEighty = new DateField(OPTIONAL).defaultTo(new Date(80));
+	static final DateField dateEighty = new DateField().optional().defaultTo(new Date(80));
 	static final DateField dateNow = new DateField().defaultToNow();
-	static final DateField dateNowOpt = new DateField(OPTIONAL).defaultToNow();
-	static final DateField dateNone = new DateField(OPTIONAL);
+	static final DateField dateNowOpt = new DateField().optional().defaultToNow();
+	static final DateField dateNone = new DateField().optional();
 
 	enum DefaultToEnum
 	{
@@ -46,8 +46,8 @@ class DefaultToItem extends Item
 	}
 	
 	static final EnumField<DefaultToEnum> enumOne = newEnumField(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);
-	static final EnumField<DefaultToEnum> enumTwo = newEnumField(OPTIONAL, DefaultToEnum.class).defaultTo(DefaultToEnum.TWO);
-	static final EnumField<DefaultToEnum> enumNone = newEnumField(OPTIONAL, DefaultToEnum.class);
+	static final EnumField<DefaultToEnum> enumTwo = newEnumField(DefaultToEnum.class).optional().defaultTo(DefaultToEnum.TWO);
+	static final EnumField<DefaultToEnum> enumNone = newEnumField(DefaultToEnum.class).optional();
 
 	/**
 

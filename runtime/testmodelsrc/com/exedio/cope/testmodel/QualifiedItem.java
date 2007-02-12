@@ -24,7 +24,7 @@ import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier.KeyEnum;
 
 public class QualifiedItem extends Item
 {
-	public static final IntegerField number = new IntegerField(OPTIONAL);
+	public static final IntegerField number = new IntegerField().optional();
 	
 	/**
 

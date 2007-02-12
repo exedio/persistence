@@ -26,11 +26,11 @@ import java.io.OutputStream;
 class DataItem extends Item
 {
 
-	static final DataField data = new DataField(OPTIONAL);
-	static final DataField data10 = new DataField(OPTIONAL).lengthMax(10);
-	static final DataField data10k = new DataField(OPTIONAL).lengthMax(10*1000);
-	static final DataField data100M = new DataField(OPTIONAL).lengthMax(100*1000*1000);
-	static final StringField name = new StringField(OPTIONAL);
+	static final DataField data = new DataField().optional();
+	static final DataField data10 = new DataField().optional().lengthMax(10);
+	static final DataField data10k = new DataField().optional().lengthMax(10*1000);
+	static final DataField data100M = new DataField().optional().lengthMax(100*1000*1000);
+	static final StringField name = new StringField().optional();
 	
 	boolean isDataNull() // TODO generate this
 	{

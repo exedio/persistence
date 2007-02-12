@@ -74,7 +74,7 @@ public class StringTest extends TestmodelTest
 		assertEquals("min4Upper", item.min4Upper.getName());
 		
 		{
-			final StringField orig = new StringField(Item.OPTIONAL);
+			final StringField orig = new StringField().optional();
 			assertEquals(false, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertEquals(0, orig.getMinimumLength());
@@ -87,7 +87,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringField orig = new StringField(Item.OPTIONAL).toFinal().lengthMin(10);
+			final StringField orig = new StringField().toFinal().optional().lengthMin(10);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNull(orig.getImplicitUniqueConstraint());
@@ -102,7 +102,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
 		}
 		{
-			final StringField orig = new StringField(Item.OPTIONAL).toFinal().unique().lengthMin(20);
+			final StringField orig = new StringField().toFinal().optional().unique().lengthMin(20);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNotNull(orig.getImplicitUniqueConstraint());
@@ -525,7 +525,7 @@ public class StringTest extends TestmodelTest
 	{
 		try
 		{
-			new StringField(Item.OPTIONAL).lengthRange(minimumLength, maximumLength);
+			new StringField().optional().lengthRange(minimumLength, maximumLength);
 			fail();
 		}
 		catch(IllegalArgumentException e)
