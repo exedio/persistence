@@ -101,7 +101,17 @@ public abstract class FunctionField<E extends Object>
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
 	
-	public abstract FunctionField<E> copyFunctionField();
+	public abstract FunctionField<E> copy();
+
+	/**
+	 * @deprecated Renamed to {@link #copy()}.
+	 */
+	@Deprecated
+	public final FunctionField<E> copyFunctionField()
+	{
+		return copy();
+	}
+
 	
 	/**
 	 * Returns a new FunctionField,

@@ -50,7 +50,7 @@ public final class DateField extends FunctionField<Date>
 	}
 	
 	@Override
-	public DateField copyFunctionField()
+	public DateField copy()
 	{
 		return new DateField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
 	}

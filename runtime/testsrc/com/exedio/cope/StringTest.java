@@ -80,7 +80,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(0, orig.getMinimumLength());
 			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
 
-			final StringField copy = orig.copyFunctionField();
+			final StringField copy = orig.copy();
 			assertEquals(false, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertEquals(0, copy.getMinimumLength());
@@ -94,7 +94,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
 			
-			final StringField copy = orig.copyFunctionField();
+			final StringField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNull(copy.getImplicitUniqueConstraint());
@@ -109,7 +109,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(20, orig.getMinimumLength());
 			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
 			
-			final StringField copy = orig.copyFunctionField();
+			final StringField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNotNull(copy.getImplicitUniqueConstraint());
@@ -123,7 +123,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(10, orig.getMinimumLength());
 			assertEquals(20, orig.getMaximumLength());
 			
-			final StringField copy = orig.copyFunctionField();
+			final StringField copy = orig.copy();
 			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
 			assertEquals(10, copy.getMinimumLength());

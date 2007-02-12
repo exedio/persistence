@@ -44,7 +44,7 @@ public final class DoubleField extends FunctionField<Double>
 	}
 
 	@Override
-	public DoubleField copyFunctionField()
+	public DoubleField copy()
 	{
 		return new DoubleField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

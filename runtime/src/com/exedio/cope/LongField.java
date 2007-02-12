@@ -44,7 +44,7 @@ public final class LongField extends FunctionField<Long>
 	}
 	
 	@Override
-	public LongField copyFunctionField()
+	public LongField copy()
 	{
 		return new LongField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
 	}

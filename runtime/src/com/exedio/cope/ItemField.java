@@ -112,7 +112,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	@Override
-	public ItemField<E> copyFunctionField()
+	public ItemField<E> copy()
 	{
 		if(initialValueType==null)
 			return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, null, policy);

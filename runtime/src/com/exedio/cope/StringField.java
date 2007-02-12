@@ -90,7 +90,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	@Override
-	public StringField copyFunctionField()
+	public StringField copy()
 	{
 		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
 	}
