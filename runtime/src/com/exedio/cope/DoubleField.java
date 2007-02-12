@@ -56,15 +56,15 @@ public final class DoubleField extends FunctionField<Double>
 	}
 	
 	@Override
-	public DoubleField unique()
-	{
-		return new DoubleField(isfinal, optional, true, defaultConstant);
-	}
-	
-	@Override
 	public DoubleField optional()
 	{
 		return new DoubleField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
+	}
+	
+	@Override
+	public DoubleField unique()
+	{
+		return new DoubleField(isfinal, optional, true, defaultConstant);
 	}
 	
 	public DoubleField defaultTo(final Double defaultConstant)

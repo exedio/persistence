@@ -56,15 +56,15 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 	
 	@Override
-	public BooleanField unique()
-	{
-		return new BooleanField(isfinal, optional, true, defaultConstant);
-	}
-	
-	@Override
 	public BooleanField optional()
 	{
 		return new BooleanField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
+	}
+	
+	@Override
+	public BooleanField unique()
+	{
+		return new BooleanField(isfinal, optional, true, defaultConstant);
 	}
 	
 	public BooleanField defaultTo(final Boolean defaultConstant)
