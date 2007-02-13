@@ -51,32 +51,16 @@ public final class Media extends CachedMedia
 
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 	
-	private Media(final boolean optional, final String fixedMimeMajor, final String fixedMimeMinor, final long bodyMaximumLength)
+	private Media(final boolean optional, final ContentType contentType, final long bodyMaximumLength)
 	{
 		this.optional = optional;
 		registerSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength));
-		
-		if(fixedMimeMajor!=null && fixedMimeMinor!=null)
-		{
-			this.contentType = new FixedContentType(fixedMimeMajor, fixedMimeMinor);
-		}
-		else if(fixedMimeMajor!=null && fixedMimeMinor==null)
-		{
-			final StringField mimeMinor = optional(new StringField(), optional).lengthRange(1, 30);
-			this.contentType = new HalfFixedContentType(fixedMimeMajor, mimeMinor);
-		}
-		else if(fixedMimeMajor==null && fixedMimeMinor==null)
-		{
-			final StringField mimeMajor = optional(new StringField(), optional).lengthRange(1, 30);
-			final StringField mimeMinor = optional(new StringField(), optional).lengthRange(1, 30);
-			this.contentType = new StoredContentType(mimeMajor, mimeMinor);
-		}
-		else
-			throw new RuntimeException();
-		
+		this.contentType = contentType;
 		for(final StringField source : contentType.getSources())
 			registerSource(source);
 		registerSource(this.lastModified = optional(new DateField(), optional));
+		
+		assert contentType!=null;
 	}
 	
 	private static final DataField optional(final DataField field, final boolean optional)
@@ -96,7 +80,7 @@ public final class Media extends CachedMedia
 	
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
-		this(option.optional, fixedMimeMajor, fixedMimeMinor, DEFAULT_LENGTH);
+		this(option.optional, new FixedContentType(fixedMimeMajor, fixedMimeMinor), DEFAULT_LENGTH);
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
@@ -104,17 +88,20 @@ public final class Media extends CachedMedia
 	
 	public Media(final Option option, final String fixedMimeMajor)
 	{
-		this(option, fixedMimeMajor, null);
+		this(option.optional, new HalfFixedContentType(fixedMimeMajor, option.optional), DEFAULT_LENGTH);
+
+		if(option.unique)
+			throw new RuntimeException("Media cannot be unique");
 	}
 	
 	public Media(final Option option)
 	{
-		this(option, null, null);
+		this(option.optional, new StoredContentType(option.optional), DEFAULT_LENGTH);
 	}
 	
 	public Media lengthMax(final long maximumLength)
 	{
-		return new Media(optional, getFixedMimeMajor(), getFixedMimeMinor(), maximumLength);
+		return new Media(optional, contentType.copy(), maximumLength);
 	}
 	
 	public String getFixedMimeMajor()
@@ -444,6 +431,7 @@ public final class Media extends CachedMedia
 	static abstract class ContentType
 	{
 		abstract StringField[] getSources();
+		abstract ContentType copy();
 		abstract String getFixedMimeMajor();
 		abstract String getFixedMimeMinor();
 		abstract StringField getMimeMajor();
@@ -475,6 +463,12 @@ public final class Media extends CachedMedia
 		StringField[] getSources()
 		{
 			return new StringField[]{};
+		}
+		
+		@Override
+		FixedContentType copy()
+		{
+			return new FixedContentType(major, minor);
 		}
 		
 		@Override
@@ -527,22 +521,26 @@ public final class Media extends CachedMedia
 		private final String prefix;
 		private final StringField minor;
 		
-		HalfFixedContentType(final String major, final StringField minor)
+		HalfFixedContentType(final String major, final boolean optional)
 		{
 			this.major = major;
 			this.prefix = major + '/';
-			this.minor = minor;
+			this.minor = optional(new StringField(), optional).lengthRange(1, 30);
 			
 			if(major==null)
 				throw new NullPointerException("fixedMimeMajor must not be null");
-			if(minor==null)
-				throw new NullPointerException("mimeMinor must not be null");
 		}
 		
 		@Override
 		StringField[] getSources()
 		{
 			return new StringField[]{minor};
+		}
+		
+		@Override
+		HalfFixedContentType copy()
+		{
+			return new HalfFixedContentType(major, !minor.isMandatory());
 		}
 		
 		@Override
@@ -597,15 +595,16 @@ public final class Media extends CachedMedia
 		private final StringField major;
 		private final StringField minor;
 		
-		StoredContentType(final StringField major, final StringField minor)
+		StoredContentType(final boolean optional)
 		{
-			this.major = major;
-			this.minor = minor;
-			
-			if(major==null)
-				throw new NullPointerException("mimeMajor must not be null");
-			if(minor==null)
-				throw new NullPointerException("mimeMinor must not be null");
+			this.major = optional(new StringField(), optional).lengthRange(1, 30);
+			this.minor = optional(new StringField(), optional).lengthRange(1, 30);
+		}
+		
+		@Override
+		StoredContentType copy()
+		{
+			return new StoredContentType(!major.isMandatory());
 		}
 		
 		@Override
