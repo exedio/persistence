@@ -274,7 +274,16 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	
 	public static enum Option
 	{
+		/**
+		 * @deprecated Use default constructor instead.
+		 */
+		@Deprecated
 		MANDATORY            (false, false, false),
+
+		/**
+		 * @deprecated Use {@link Field#optional()} instead.
+		 */
+		@Deprecated
 		OPTIONAL             (false, false, true),
 
 		/**
@@ -284,31 +293,31 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		UNIQUE               (false, true,  false),
 
 		/**
-		 * @deprecated Use {@link FunctionField#unique()} instead.
+		 * @deprecated Use {@link Field#optional()} and {@link FunctionField#unique()} instead.
 		 */
 		@Deprecated
 		UNIQUE_OPTIONAL      (false, true,  true),
 
 		/**
-		 * @deprecated Use {@link FunctionField#toFinal()} instead.
+		 * @deprecated Use {@link Field#toFinal()} instead.
 		 */
 		@Deprecated
 		FINAL                (true,  false, false),
 
 		/**
-		 * @deprecated Use {@link FunctionField#toFinal()} instead.
+		 * @deprecated Use {@link FunctionField#toFinal()} and {@link Field#optional()} instead.
 		 */
 		@Deprecated
 		FINAL_OPTIONAL       (true,  false, true),
 
 		/**
-		 * @deprecated Use {@link FunctionField#toFinal()} and {@link FunctionField#unique()} instead.
+		 * @deprecated Use {@link Field#toFinal()} and {@link FunctionField#unique()} instead.
 		 */
 		@Deprecated
 		FINAL_UNIQUE         (true,  true,  false),
 
 		/**
-		 * @deprecated Use {@link FunctionField#toFinal()} and {@link FunctionField#unique()} instead.
+		 * @deprecated Use {@link Field#toFinal()}, {@link Field#optional()} and {@link FunctionField#unique()} instead.
 		 */
 		@Deprecated
 		FINAL_UNIQUE_OPTIONAL(true,  true,  true);

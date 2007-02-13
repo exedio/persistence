@@ -452,7 +452,16 @@ public abstract class Item extends Cope
 
 	// convenience for subclasses --------------------------------------------------
 	
+	/**
+	 * @deprecated Use default constructor instead.
+	 */
+	@Deprecated
 	public static final Field.Option MANDATORY = Field.Option.MANDATORY;
+
+	/**
+	 * @deprecated Use {@link Field#optional()} instead.
+	 */
+	@Deprecated
 	public static final Field.Option OPTIONAL = Field.Option.OPTIONAL;
 
 	/**
@@ -462,31 +471,31 @@ public abstract class Item extends Cope
 	public static final Field.Option UNIQUE = Field.Option.UNIQUE;
 	
 	/**
-	 * @deprecated Use {@link FunctionField#unique()} instead.
+	 * @deprecated Use {@link Field#optional()} and {@link FunctionField#unique()} instead.
 	 */
 	@Deprecated
 	public static final Field.Option UNIQUE_OPTIONAL = Field.Option.UNIQUE_OPTIONAL;
 	
 	/**
-	 * @deprecated Use {@link FunctionField#toFinal()} instead.
+	 * @deprecated Use {@link Field#toFinal()} instead.
 	 */
 	@Deprecated
 	public static final Field.Option FINAL = Field.Option.FINAL;
 
 	/**
-	 * @deprecated Use {@link FunctionField#toFinal()} instead.
+	 * @deprecated Use {@link Field#toFinal()} and {@link Field#optional()} instead.
 	 */
 	@Deprecated
 	public static final Field.Option FINAL_OPTIONAL = Field.Option.FINAL_OPTIONAL;
 
 	/**
-	 * @deprecated Use {@link FunctionField#toFinal()} and {@link FunctionField#unique()} instead.
+	 * @deprecated Use {@link Field#toFinal()} and {@link FunctionField#unique()} instead.
 	 */
 	@Deprecated
 	public static final Field.Option FINAL_UNIQUE = Field.Option.FINAL_UNIQUE;
 
 	/**
-	 * @deprecated Use {@link FunctionField#toFinal()} and {@link FunctionField#unique()} instead.
+	 * @deprecated Use {@link Field#toFinal()}, {@link Field#optional()} and {@link FunctionField#unique()} instead.
 	 */
 	@Deprecated
 	public static final Field.Option FINAL_UNIQUE_OPTIONAL = Field.Option.FINAL_UNIQUE_OPTIONAL;
