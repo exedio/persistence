@@ -75,6 +75,8 @@ public final class Media extends CachedMedia
 		else
 			throw new RuntimeException();
 		
+		for(final StringField source : contentType.getSources())
+			registerSource(source);
 		registerSource(this.lastModified = optional(new DateField(), optional));
 	}
 	
@@ -162,9 +164,9 @@ public final class Media extends CachedMedia
 		super.initialize();
 		
 		final String name = getName();
-		if(body!=null && !body.isInitialized())
+		if(!body.isInitialized())
 			initialize(body, name+"Body");
-		contentType.initialize(name);
+		contentType.initialize(this, name);
 		initialize(lastModified, name+"LastModified");
 	}
 	
@@ -440,18 +442,19 @@ public final class Media extends CachedMedia
 		}
 	}
 	
-	abstract class ContentType
+	static abstract class ContentType
 	{
+		abstract StringField[] getSources();
 		abstract String getFixedMimeMajor();
 		abstract String getFixedMimeMinor();
 		abstract StringField getMimeMajor();
 		abstract StringField getMimeMinor();
-		abstract void initialize(String name);
+		abstract void initialize(Media media, String name);
 		abstract String getContentType(Item item);
 		abstract void map(ArrayList<SetValue> values, String contentType);
 	}
 	
-	final class FixedContentType extends ContentType
+	static final class FixedContentType extends ContentType
 	{
 		private final String major;
 		private final String minor;
@@ -470,6 +473,12 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
+		StringField[] getSources()
+		{
+			return new StringField[]{};
+		}
+		
+		@Override
 		String getFixedMimeMajor()
 		{
 			return major;
@@ -494,7 +503,7 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void initialize(final String name)
+		void initialize(final Media media, final String name)
 		{
 			// no attributes to be initialized
 		}
@@ -513,7 +522,7 @@ public final class Media extends CachedMedia
 		}
 	}
 
-	final class HalfFixedContentType extends ContentType
+	static final class HalfFixedContentType extends ContentType
 	{
 		private final String major;
 		private final String prefix;
@@ -529,8 +538,12 @@ public final class Media extends CachedMedia
 				throw new NullPointerException("fixedMimeMajor must not be null");
 			if(minor==null)
 				throw new NullPointerException("mimeMinor must not be null");
-			
-			registerSource(this.minor);
+		}
+		
+		@Override
+		StringField[] getSources()
+		{
+			return new StringField[]{minor};
 		}
 		
 		@Override
@@ -558,10 +571,10 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void initialize(final String name)
+		void initialize(final Media media, final String name)
 		{
 			if(!minor.isInitialized())
-				Media.this.initialize(minor, name+"Minor");
+				media.initialize(minor, name+"Minor");
 		}
 		
 		@Override
@@ -580,7 +593,7 @@ public final class Media extends CachedMedia
 		}
 	}
 
-	final class StoredContentType extends ContentType
+	static final class StoredContentType extends ContentType
 	{
 		private final StringField major;
 		private final StringField minor;
@@ -594,9 +607,12 @@ public final class Media extends CachedMedia
 				throw new NullPointerException("mimeMajor must not be null");
 			if(minor==null)
 				throw new NullPointerException("mimeMinor must not be null");
-
-			registerSource(this.major);
-			registerSource(this.minor);
+		}
+		
+		@Override
+		StringField[] getSources()
+		{
+			return new StringField[]{major, minor};
 		}
 		
 		@Override
@@ -624,12 +640,12 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void initialize(final String name)
+		void initialize(final Media media, final String name)
 		{
 			if(!major.isInitialized())
-				Media.this.initialize(major, name+"Major");
+				media.initialize(major, name+"Major");
 			if(!minor.isInitialized())
-				Media.this.initialize(minor, name+"Minor");
+				media.initialize(minor, name+"Minor");
 		}
 		
 		@Override
@@ -652,5 +668,4 @@ public final class Media extends CachedMedia
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.S");
 		return df.format(new Date(date));
 	}
-	
 }
