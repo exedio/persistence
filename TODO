@@ -28,7 +28,6 @@
 		* maintain charset in Content-Type for texts
 		* optionally maintain filename param in Content-Disposition header
 		* implement MediaAlias
-		* implement redundant (computed) medias, such as thumbnails
 		* redundantly maintain width/height for images
 	- move Item#touch into separate pattern Timestamp
 	- FieldListLimited: allow length terminated instead of null terminated as well
