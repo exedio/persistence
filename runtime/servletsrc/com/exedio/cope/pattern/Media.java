@@ -68,11 +68,6 @@ public final class Media extends CachedMedia
 		return optional ? field.optional() : field;
 	}
 	
-	private static final StringField optional(final StringField field, final boolean optional)
-	{
-		return optional ? field.optional() : field;
-	}
-	
 	private static final DateField optional(final DateField field, final boolean optional)
 	{
 		return optional ? field.optional() : field;
@@ -439,6 +434,12 @@ public final class Media extends CachedMedia
 		abstract void initialize(Media media, String name);
 		abstract String getContentType(Item item);
 		abstract void map(ArrayList<SetValue> values, String contentType);
+		
+		protected static final StringField makeField(final boolean optional)
+		{
+			final StringField f = new StringField().lengthRange(1, 30);
+			return optional ? f.optional() : f;
+		}
 	}
 	
 	static final class FixedContentType extends ContentType
@@ -525,7 +526,7 @@ public final class Media extends CachedMedia
 		{
 			this.major = major;
 			this.prefix = major + '/';
-			this.minor = optional(new StringField(), optional).lengthRange(1, 30);
+			this.minor = makeField(optional);
 			
 			if(major==null)
 				throw new NullPointerException("fixedMimeMajor must not be null");
@@ -597,8 +598,8 @@ public final class Media extends CachedMedia
 		
 		StoredContentType(final boolean optional)
 		{
-			this.major = optional(new StringField(), optional).lengthRange(1, 30);
-			this.minor = optional(new StringField(), optional).lengthRange(1, 30);
+			this.major = makeField(optional);
+			this.minor = makeField(optional);
 		}
 		
 		@Override
