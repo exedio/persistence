@@ -215,7 +215,7 @@ public final class Media extends CachedMedia
 		{
 			final int pos = contentType.indexOf('/');
 			if(pos<0)
-				throw new IllegalContentTypeException(contentType);
+				throw new RuntimeException(contentType);
 			return
 				major
 				? contentType.substring(0, pos)
@@ -364,7 +364,7 @@ public final class Media extends CachedMedia
 		throws DataLengthViolationException, IOException
 	{
 		if(!this.contentType.check(contentType))
-			throw new IllegalContentTypeException(contentType);
+			throw new IllegalContentTypeException(this, item, contentType);
 		
 		if(body!=null)
 		{
@@ -670,7 +670,7 @@ public final class Media extends CachedMedia
 		@Override
 		boolean check(final String contentType)
 		{
-			return true;
+			return contentType==null || contentType.indexOf('/')>=0;
 		}
 		
 		@Override

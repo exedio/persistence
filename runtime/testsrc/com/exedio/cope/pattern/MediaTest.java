@@ -98,6 +98,7 @@ public class MediaTest extends AbstractLibTest
 
 		// file
 		assertEquals(true, item.file.checkContentType("some/thing"));
+		assertEquals(false, item.file.checkContentType("something"));
 		assertEquals("*/*", item.file.getContentTypeDescription());
 		assertEquals(20, item.file.getMaximumLength());
 		final DataField fileBody = item.file.getBody();
@@ -143,7 +144,10 @@ public class MediaTest extends AbstractLibTest
 			catch(IllegalContentTypeException e)
 			{
 				assertStreamClosed();
-				assertEquals("illegalContentType", e.getMessage());
+				assertSame(item.file, e.getFeature());
+				assertEquals(item, e.getItem());
+				assertEquals("illegalContentType", e.getContentType());
+				assertEquals("illegal content type 'illegalContentType' on MediaItem.0 for MediaItem.file, allowed is '*/*\' only.", e.getMessage());
 				assertFile(data6, before, after, "fileMajor2/fileMinor2", "");
 			}
 		}
@@ -278,7 +282,10 @@ public class MediaTest extends AbstractLibTest
 		catch(IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertEquals("illegalContentType", e.getMessage());
+			assertSame(item.image, e.getFeature());
+			assertEquals(item, e.getItem());
+			assertEquals("illegalContentType", e.getContentType());
+			assertEquals("illegal content type 'illegalContentType' on MediaItem.0 for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
 			assertImage(data6, "image/jpeg", ".jpg");
 		}
 
@@ -290,7 +297,10 @@ public class MediaTest extends AbstractLibTest
 		catch(IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertEquals("text/html", e.getMessage());
+			assertSame(item.image, e.getFeature());
+			assertEquals(item, e.getItem());
+			assertEquals("text/html", e.getContentType());
+			assertEquals("illegal content type 'text/html' on MediaItem.0 for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
 			assertImage(data6, "image/jpeg", ".jpg");
 		}
 
@@ -336,7 +346,10 @@ public class MediaTest extends AbstractLibTest
 		catch(IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertEquals("illegalContentType", e.getMessage());
+			assertSame(item.photo, e.getFeature());
+			assertEquals(item, e.getItem());
+			assertEquals("illegalContentType", e.getContentType());
+			assertEquals("illegal content type 'illegalContentType' on MediaItem.0 for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
 			assertPhoto(data6);
 		}
 
@@ -348,7 +361,10 @@ public class MediaTest extends AbstractLibTest
 		catch(IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertEquals("image/png", e.getMessage());
+			assertSame(item.photo, e.getFeature());
+			assertEquals(item, e.getItem());
+			assertEquals("image/png", e.getContentType());
+			assertEquals("illegal content type 'image/png' on MediaItem.0 for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
 			assertPhoto(data6);
 		}
 
