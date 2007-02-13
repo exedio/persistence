@@ -93,7 +93,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertSame(item.file.getMimeMajor(), e.getFeature());
+			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(item, e.getItem());
 		}
 		assertFile(item, data20, before, after, "major/minor", "");
@@ -105,7 +105,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertSame(item.file.getMimeMajor(), e.getFeature());
+			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(item, e.getItem());
 		}
 		assertFile(item, data20, before, after, "major/minor", "");
@@ -117,7 +117,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertSame(item.file.getMimeMajor(), e.getFeature());
+			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(item, e.getItem());
 		}
 		assertFile(item, data20, before, after, "major/minor", "");
@@ -134,7 +134,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertSame(item.file.getBody(), e.getFeature());
+			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(null, e.getItem());
 		}
 		assertEquals(list(item), item.TYPE.search());
@@ -146,7 +146,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertSame(item.file.getMimeMajor(), e.getFeature());
+			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(null, e.getItem());
 		}
 		assertEquals(list(item), item.TYPE.search());
@@ -158,7 +158,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertSame(item.file.getMimeMinor(), e.getFeature());
+			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(null, e.getItem());
 		}
 		assertEquals(list(item), item.TYPE.search());
