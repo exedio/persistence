@@ -129,7 +129,7 @@ public class Standard extends Item
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
 	public static final Media anyMedia = new Media().optional();
-	static final Media majorMedia = new Media("major").optional();
+	static final Media majorMedia = new Media().optional().contentTypeMajor("major");
 	protected static final Media minorMedia = new Media().optional().contentType("major/minor");
 	/**
 	 * @cope.setter none

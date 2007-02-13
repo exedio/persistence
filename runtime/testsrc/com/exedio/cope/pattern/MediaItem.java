@@ -30,7 +30,7 @@ public class MediaItem extends Item
 
 	static final Media file = new Media().optional().lengthMax(20);
 
-	static final Media image = new Media("image").optional();
+	static final Media image = new Media().optional().contentTypeMajor("image");
 	
 	static final Media photo = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 

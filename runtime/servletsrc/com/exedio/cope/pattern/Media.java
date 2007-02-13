@@ -94,13 +94,17 @@ public final class Media extends CachedMedia
 			throw new RuntimeException("Media cannot be unique");
 	}
 	
+	/**
+	 * @deprecated use {@link #contentTypeMajor(String)} instead. 
+	 */
+	@Deprecated
 	public Media(final String fixedMimeMajor)
 	{
 		this(false, DEFAULT_LENGTH, new HalfFixedContentType(fixedMimeMajor, false));
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} instead. 
+	 * @deprecated use {@link #optional()} and {@link #contentTypeMajor(String)} instead. 
 	 */
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor)
@@ -144,6 +148,14 @@ public final class Media extends CachedMedia
 	public Media contentType(final String contentType)
 	{
 		return new Media(optional, body.getMaximumLength(), new FixedContentType(contentType));
+	}
+	
+	/**
+	 * Creates a new media, that must contain the a content type with the given major part only.
+	 */
+	public Media contentTypeMajor(final String majorContentType)
+	{
+		return new Media(optional, body.getMaximumLength(), new HalfFixedContentType(majorContentType, optional));
 	}
 	
 	public boolean checkContentType(final String contentType)
