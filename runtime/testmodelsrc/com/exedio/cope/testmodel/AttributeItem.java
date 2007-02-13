@@ -130,7 +130,7 @@ public class AttributeItem extends Item
 	/**
 	 * A data attribute.
 	 */
-	public static final Media someData = new Media(OPTIONAL);
+	public static final Media someData = new Media().optional();
 	
 	/**
 	 * An enum for the persistent enumeration attribute {@link #someEnum}.

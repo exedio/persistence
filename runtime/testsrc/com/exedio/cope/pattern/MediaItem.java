@@ -28,11 +28,11 @@ public class MediaItem extends Item
 	
 	static final StringField name = new StringField().optional();
 
-	static final Media file = new Media(OPTIONAL).lengthMax(20);
+	static final Media file = new Media().optional().lengthMax(20);
 
-	static final Media image = new Media(OPTIONAL, "image");
+	static final Media image = new Media("image").optional();
 	
-	static final Media photo = new Media(OPTIONAL, "image", "jpeg").lengthMax(2000);
+	static final Media photo = new Media("image", "jpeg").optional().lengthMax(2000);
 
 	static final MediaRedirect foto = new MediaRedirect(photo);
 

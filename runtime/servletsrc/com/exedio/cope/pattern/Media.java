@@ -73,6 +73,15 @@ public final class Media extends CachedMedia
 		return optional ? field.optional() : field;
 	}
 	
+	public Media(final String fixedMimeMajor, final String fixedMimeMinor)
+	{
+		this(false, new FixedContentType(fixedMimeMajor, fixedMimeMinor), DEFAULT_LENGTH);
+	}
+
+	/**
+	 * @deprecated use {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		this(option.optional, new FixedContentType(fixedMimeMajor, fixedMimeMinor), DEFAULT_LENGTH);
@@ -81,6 +90,15 @@ public final class Media extends CachedMedia
 			throw new RuntimeException("Media cannot be unique");
 	}
 	
+	public Media(final String fixedMimeMajor)
+	{
+		this(false, new HalfFixedContentType(fixedMimeMajor, false), DEFAULT_LENGTH);
+	}
+	
+	/**
+	 * @deprecated use {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor)
 	{
 		this(option.optional, new HalfFixedContentType(fixedMimeMajor, option.optional), DEFAULT_LENGTH);
@@ -89,9 +107,26 @@ public final class Media extends CachedMedia
 			throw new RuntimeException("Media cannot be unique");
 	}
 	
+	public Media()
+	{
+		this(false, new StoredContentType(false), DEFAULT_LENGTH);
+	}
+	
+	/**
+	 * @deprecated use {@link #optional()} instead. 
+	 */
+	@Deprecated
 	public Media(final Option option)
 	{
 		this(option.optional, new StoredContentType(option.optional), DEFAULT_LENGTH);
+
+		if(option.unique)
+			throw new RuntimeException("Media cannot be unique");
+	}
+	
+	public Media optional()
+	{
+		return new Media(true, contentType.optional(), body.getMaximumLength());
 	}
 	
 	public Media lengthMax(final long maximumLength)
@@ -427,6 +462,7 @@ public final class Media extends CachedMedia
 	{
 		abstract StringField[] getSources();
 		abstract ContentType copy();
+		abstract ContentType optional();
 		abstract String getFixedMimeMajor();
 		abstract String getFixedMimeMinor();
 		abstract StringField getMimeMajor();
@@ -470,6 +506,12 @@ public final class Media extends CachedMedia
 		FixedContentType copy()
 		{
 			return new FixedContentType(major, minor);
+		}
+		
+		@Override
+		FixedContentType optional()
+		{
+			return copy();
 		}
 		
 		@Override
@@ -545,6 +587,12 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
+		HalfFixedContentType optional()
+		{
+			return new HalfFixedContentType(major, true);
+		}
+		
+		@Override
 		String getFixedMimeMajor()
 		{
 			return major;
@@ -606,6 +654,12 @@ public final class Media extends CachedMedia
 		StoredContentType copy()
 		{
 			return new StoredContentType(!major.isMandatory());
+		}
+		
+		@Override
+		StoredContentType optional()
+		{
+			return new StoredContentType(true);
 		}
 		
 		@Override

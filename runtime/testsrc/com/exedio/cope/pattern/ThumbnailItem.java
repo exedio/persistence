@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 public class ThumbnailItem extends Item
 {
 	
-	static final Media file = new Media(OPTIONAL).lengthMax(20);
+	static final Media file = new Media().optional().lengthMax(20);
 
 	static final MediaThumbnail thumb = new MediaThumbnail(file, 20, 30);
 	

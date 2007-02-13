@@ -33,7 +33,7 @@ public class MediaServletItem extends Item
 	 */
 	public static final StringField name = new StringField().optional();
 
-	public static final Media content = new Media(OPTIONAL);
+	public static final Media content = new Media().optional();
 
 	public static final MediaRedirect redirect = new MediaRedirect(content);
 

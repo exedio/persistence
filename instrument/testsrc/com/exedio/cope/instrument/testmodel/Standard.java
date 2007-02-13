@@ -128,17 +128,17 @@ public class Standard extends Item
 	public static final IntegerField doubleUnique2 = new IntegerField().optional();
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 	
-	public static final Media anyMedia = new Media(OPTIONAL);
-	static final Media majorMedia = new Media(OPTIONAL, "major");
-	protected static final Media minorMedia = new Media(OPTIONAL, "major", "minor");
+	public static final Media anyMedia = new Media().optional();
+	static final Media majorMedia = new Media("major").optional();
+	protected static final Media minorMedia = new Media("major", "minor").optional();
 	/**
 	 * @cope.setter none
 	 */
-	public static final Media noSetterMedia = new Media(OPTIONAL);
+	public static final Media noSetterMedia = new Media().optional();
 	/**
 	 * @cope.setter private
 	 */
-	public static final Media privateSetterMedia = new Media(OPTIONAL);
+	public static final Media privateSetterMedia = new Media().optional();
 	
 	public static final Hash publicHash = new MD5Hash(privateString);
 	private static final Hash privateHash = new MD5Hash(defaultString);

@@ -28,7 +28,7 @@ public class MediaMandatoryItem extends Item
 	
 	static final StringField name = new StringField().optional();
 
-	static final Media file = new Media(MANDATORY).lengthMax(20);
+	static final Media file = new Media().lengthMax(20);
 
 	
 	MediaMandatoryItem(final String name)
