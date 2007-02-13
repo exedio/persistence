@@ -24,7 +24,6 @@ import junit.framework.TestSuite;
 
 public class PackageTest extends TestCase
 {
-
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
@@ -38,6 +37,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(CustomTest.class);
 		suite.addTestSuite(JavaViewTest.class);
 		suite.addTestSuite(MediaTest.class);
+		suite.addTestSuite(MediaMandatoryTest.class);
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(QualifierTest.class);
 		suite.addTestSuite(RelationTest.class);
@@ -45,5 +45,4 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(DTypeTest.class);
 		return suite;
 	}
-
 }
