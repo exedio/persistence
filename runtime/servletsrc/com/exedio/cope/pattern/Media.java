@@ -138,6 +138,9 @@ public final class Media extends CachedMedia
 		return new Media(optional, contentType.copy(), maximumLength);
 	}
 	
+	/**
+	 * Creates a new media, that must contain the given content type only.
+	 */
 	public Media contentType(final String contentType)
 	{
 		return new Media(optional, new FixedContentType(contentType), body.getMaximumLength());
