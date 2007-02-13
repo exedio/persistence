@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import java.util.SortedSet;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
@@ -42,7 +41,7 @@ public final class MD5Hash extends JavaSecurityHash
 
 	public MD5Hash()
 	{
-		this(Item.MANDATORY);
+		this(new StringField().lengthExact(LENGTH));
 	}
 	
 	/**
