@@ -363,6 +363,9 @@ public final class Media extends CachedMedia
 	private void set(final Item item, final Object body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
+		if(!this.contentType.check(contentType))
+			throw new IllegalContentTypeException(contentType);
+		
 		if(body!=null)
 		{
 			if(contentType==null)
@@ -541,7 +544,7 @@ public final class Media extends CachedMedia
 		@Override
 		void initialize(final Media media, final String name)
 		{
-			// no attributes to be initialized
+			// no fields to be initialized
 		}
 		
 		@Override
@@ -553,8 +556,7 @@ public final class Media extends CachedMedia
 		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
-			if(!check(contentType))
-				throw new IllegalContentTypeException(contentType);
+			// no fields to be mapped
 		}
 	}
 
@@ -632,9 +634,6 @@ public final class Media extends CachedMedia
 		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
-			if(!check(contentType))
-				throw new IllegalContentTypeException(contentType);
-			
 			values.add(this.minor.map(toMinor(contentType)));
 		}
 	}
