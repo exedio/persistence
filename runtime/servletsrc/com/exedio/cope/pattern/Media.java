@@ -483,15 +483,16 @@ public final class Media extends CachedMedia
 	
 	static final class FixedContentType extends ContentType
 	{
-		private final String major;
-		private final String minor;
 		private final String full;
+		
+		FixedContentType(final String full)
+		{
+			this.full = full;
+		}
 		
 		FixedContentType(final String major, final String minor)
 		{
-			this.major = major;
-			this.minor = minor;
-			this.full = major + '/' + minor;
+			this(major + '/' + minor);
 			
 			if(major==null)
 				throw new NullPointerException("fixedMimeMajor must not be null");
@@ -508,7 +509,7 @@ public final class Media extends CachedMedia
 		@Override
 		FixedContentType copy()
 		{
-			return new FixedContentType(major, minor);
+			return new FixedContentType(full);
 		}
 		
 		@Override
