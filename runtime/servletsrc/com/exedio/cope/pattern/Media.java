@@ -51,7 +51,7 @@ public final class Media extends CachedMedia
 
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 	
-	private Media(final boolean optional, final ContentType contentType, final long bodyMaximumLength)
+	private Media(final boolean optional, final long bodyMaximumLength, final ContentType contentType)
 	{
 		this.optional = optional;
 		registerSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength));
@@ -79,7 +79,7 @@ public final class Media extends CachedMedia
 	@Deprecated
 	public Media(final String fixedMimeMajor, final String fixedMimeMinor)
 	{
-		this(false, new FixedContentType(fixedMimeMajor, fixedMimeMinor), DEFAULT_LENGTH);
+		this(false, DEFAULT_LENGTH, new FixedContentType(fixedMimeMajor, fixedMimeMinor));
 	}
 
 	/**
@@ -88,7 +88,7 @@ public final class Media extends CachedMedia
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
 	{
-		this(option.optional, new FixedContentType(fixedMimeMajor, fixedMimeMinor), DEFAULT_LENGTH);
+		this(option.optional, DEFAULT_LENGTH, new FixedContentType(fixedMimeMajor, fixedMimeMinor));
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
@@ -96,7 +96,7 @@ public final class Media extends CachedMedia
 	
 	public Media(final String fixedMimeMajor)
 	{
-		this(false, new HalfFixedContentType(fixedMimeMajor, false), DEFAULT_LENGTH);
+		this(false, DEFAULT_LENGTH, new HalfFixedContentType(fixedMimeMajor, false));
 	}
 	
 	/**
@@ -105,7 +105,7 @@ public final class Media extends CachedMedia
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor)
 	{
-		this(option.optional, new HalfFixedContentType(fixedMimeMajor, option.optional), DEFAULT_LENGTH);
+		this(option.optional, DEFAULT_LENGTH, new HalfFixedContentType(fixedMimeMajor, option.optional));
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
@@ -113,7 +113,7 @@ public final class Media extends CachedMedia
 	
 	public Media()
 	{
-		this(false, new StoredContentType(false), DEFAULT_LENGTH);
+		this(false, DEFAULT_LENGTH, new StoredContentType(false));
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public final class Media extends CachedMedia
 	@Deprecated
 	public Media(final Option option)
 	{
-		this(option.optional, new StoredContentType(option.optional), DEFAULT_LENGTH);
+		this(option.optional, DEFAULT_LENGTH, new StoredContentType(option.optional));
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
@@ -130,12 +130,12 @@ public final class Media extends CachedMedia
 	
 	public Media optional()
 	{
-		return new Media(true, contentType.optional(), body.getMaximumLength());
+		return new Media(true, body.getMaximumLength(), contentType.optional());
 	}
 	
 	public Media lengthMax(final long maximumLength)
 	{
-		return new Media(optional, contentType.copy(), maximumLength);
+		return new Media(optional, maximumLength, contentType.copy());
 	}
 	
 	/**
@@ -143,7 +143,7 @@ public final class Media extends CachedMedia
 	 */
 	public Media contentType(final String contentType)
 	{
-		return new Media(optional, new FixedContentType(contentType), body.getMaximumLength());
+		return new Media(optional, body.getMaximumLength(), new FixedContentType(contentType));
 	}
 	
 	public boolean checkContentType(final String contentType)
