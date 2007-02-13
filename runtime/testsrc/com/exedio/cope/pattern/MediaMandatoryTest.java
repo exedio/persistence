@@ -49,8 +49,8 @@ public class MediaMandatoryTest extends AbstractLibTest
 		
 		// test model
 		final MediaMandatoryItem t = null;
-		assertEquals(null, t.file.getFixedMimeMajor());
-		assertEquals(null, t.file.getFixedMimeMinor());
+		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
+		assertEquals("*/*", t.file.getContentTypeDescription());
 		assertEquals(20, t.file.getMaximumLength());
 		final DataField fileBody = t.file.getBody();
 		assertSame(t.TYPE, fileBody.getType());

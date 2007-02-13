@@ -27,8 +27,8 @@ public class FieldMediaTest extends FieldTest
 	{
 		assertEquals(item.TYPE, item.someData.getType());
 		assertEquals("someData", item.someData.getName());
-		assertEquals(null, item.someData.getFixedMimeMajor());
-		assertEquals(null, item.someData.getFixedMimeMinor());
+		assertEquals(true, item.someData.checkContentType("what/ever"));
+		assertEquals("*/*", item.someData.getContentTypeDescription());
 
 		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());

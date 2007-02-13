@@ -97,8 +97,8 @@ public class MediaTest extends AbstractLibTest
 			}), item.TYPE.getFeatures());
 
 		// file
-		assertEquals(null, item.file.getFixedMimeMajor());
-		assertEquals(null, item.file.getFixedMimeMinor());
+		assertEquals(true, item.file.checkContentType("some/thing"));
+		assertEquals("*/*", item.file.getContentTypeDescription());
 		assertEquals(20, item.file.getMaximumLength());
 		final DataField fileBody = item.file.getBody();
 		assertSame(item.TYPE, fileBody.getType());
@@ -238,8 +238,10 @@ public class MediaTest extends AbstractLibTest
 
 
 		// image
-		assertEquals("image", item.image.getFixedMimeMajor());
-		assertEquals(null, item.image.getFixedMimeMinor());
+		assertEquals(true, item.image.checkContentType("image/png"));
+		assertEquals(true, item.image.checkContentType("image/jpg"));
+		assertEquals(false, item.image.checkContentType("application/jpg"));
+		assertEquals("image/*", item.image.getContentTypeDescription());
 		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
 		final DataField imageBody = item.image.getBody();
 		assertSame(item.TYPE, imageBody.getType());
@@ -297,8 +299,10 @@ public class MediaTest extends AbstractLibTest
 		
 		
 		// photo
-		assertEquals("image", item.photo.getFixedMimeMajor());
-		assertEquals("jpeg", item.photo.getFixedMimeMinor());
+		assertEquals(true, item.photo.checkContentType("image/jpeg"));
+		assertEquals(false, item.photo.checkContentType("imaxge/jpeg"));
+		assertEquals(false, item.photo.checkContentType("image/jpxeg"));
+		assertEquals("image/jpeg", item.photo.getContentTypeDescription());
 		assertEquals(2000, item.photo.getMaximumLength());
 		final DataField photoBody = item.photo.getBody();
 		assertSame(item.TYPE, photoBody.getType());

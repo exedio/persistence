@@ -134,14 +134,14 @@ public final class Media extends CachedMedia
 		return new Media(optional, contentType.copy(), maximumLength);
 	}
 	
-	public String getFixedMimeMajor()
+	public boolean checkContentType(final String contentType)
 	{
-		return contentType.getFixedMimeMajor();
+		return this.contentType.check(contentType);
 	}
 	
-	public String getFixedMimeMinor()
+	public String getContentTypeDescription()
 	{
-		return contentType.getFixedMimeMinor();
+		return contentType.describe();
 	}
 	
 	public long getMaximumLength()
@@ -463,8 +463,8 @@ public final class Media extends CachedMedia
 		abstract StringField[] getSources();
 		abstract ContentType copy();
 		abstract ContentType optional();
-		abstract String getFixedMimeMajor();
-		abstract String getFixedMimeMinor();
+		abstract boolean check(String contentType);
+		abstract String describe();
 		abstract StringField getMimeMajor();
 		abstract StringField getMimeMinor();
 		abstract void initialize(Media media, String name);
@@ -515,15 +515,15 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		String getFixedMimeMajor()
+		boolean check(final String contentType)
 		{
-			return major;
+			return contentType==null || this.full.equals(contentType);
 		}
 		
 		@Override
-		String getFixedMimeMinor()
+		String describe()
 		{
-			return minor;
+			return full;
 		}
 		
 		@Override
@@ -553,7 +553,7 @@ public final class Media extends CachedMedia
 		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
-			if(contentType!=null && !full.equals(contentType))
+			if(!check(contentType))
 				throw new IllegalContentTypeException(contentType);
 		}
 	}
@@ -593,15 +593,15 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		String getFixedMimeMajor()
+		boolean check(final String contentType)
 		{
-			return major;
+			return contentType==null || contentType.startsWith(prefix);
 		}
 		
 		@Override
-		String getFixedMimeMinor()
+		String describe()
 		{
-			return null;
+			return prefix + '*';
 		}
 		
 		@Override
@@ -632,7 +632,7 @@ public final class Media extends CachedMedia
 		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
-			if(contentType!=null && !contentType.startsWith(prefix))
+			if(!check(contentType))
 				throw new IllegalContentTypeException(contentType);
 			
 			values.add(this.minor.map(toMinor(contentType)));
@@ -669,15 +669,15 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		String getFixedMimeMajor()
+		boolean check(final String contentType)
 		{
-			return null;
+			return true;
 		}
 		
 		@Override
-		String getFixedMimeMinor()
+		String describe()
 		{
-			return null;
+			return "*/*";
 		}
 		
 		@Override
