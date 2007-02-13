@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -660,12 +659,5 @@ public final class Media extends CachedMedia
 			values.add(this.major.map(toMajor(contentType)));
 			values.add(this.minor.map(toMinor(contentType)));
 		}
-	}
-	
-
-	private final static String format(final long date)
-	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.S");
-		return df.format(new Date(date));
 	}
 }
