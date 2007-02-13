@@ -73,13 +73,17 @@ public final class Media extends CachedMedia
 		return optional ? field.optional() : field;
 	}
 	
+	/**
+	 * @deprecated use {@link #contentType(String)} instead. 
+	 */
+	@Deprecated
 	public Media(final String fixedMimeMajor, final String fixedMimeMinor)
 	{
 		this(false, new FixedContentType(fixedMimeMajor, fixedMimeMinor), DEFAULT_LENGTH);
 	}
 
 	/**
-	 * @deprecated use {@link #optional()} instead. 
+	 * @deprecated use {@link #optional()} and {@link #contentType(String)} instead. 
 	 */
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
@@ -132,6 +136,11 @@ public final class Media extends CachedMedia
 	public Media lengthMax(final long maximumLength)
 	{
 		return new Media(optional, contentType.copy(), maximumLength);
+	}
+	
+	public Media contentType(final String contentType)
+	{
+		return new Media(optional, new FixedContentType(contentType), body.getMaximumLength());
 	}
 	
 	public boolean checkContentType(final String contentType)
@@ -490,6 +499,10 @@ public final class Media extends CachedMedia
 			this.full = full;
 		}
 		
+		/**
+		 * @deprecated is used from deprecated code only
+		 */
+		@Deprecated
 		FixedContentType(final String major, final String minor)
 		{
 			this(major + '/' + minor);

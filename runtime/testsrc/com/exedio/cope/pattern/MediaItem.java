@@ -32,7 +32,7 @@ public class MediaItem extends Item
 
 	static final Media image = new Media("image").optional();
 	
-	static final Media photo = new Media("image", "jpeg").optional().lengthMax(2000);
+	static final Media photo = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
 	static final MediaRedirect foto = new MediaRedirect(photo);
 

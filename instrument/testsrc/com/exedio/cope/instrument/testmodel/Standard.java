@@ -130,7 +130,7 @@ public class Standard extends Item
 	
 	public static final Media anyMedia = new Media().optional();
 	static final Media majorMedia = new Media("major").optional();
-	protected static final Media minorMedia = new Media("major", "minor").optional();
+	protected static final Media minorMedia = new Media().optional().contentType("major/minor");
 	/**
 	 * @cope.setter none
 	 */
