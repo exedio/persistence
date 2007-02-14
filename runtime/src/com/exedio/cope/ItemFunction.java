@@ -25,7 +25,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	void appendType(Statement bf, Join join);
 	
 	/**

@@ -163,7 +163,7 @@ public abstract class FunctionField<E extends Object>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void check(final TC tc, final Join join)
 	{
 		tc.check(this, join);
@@ -172,7 +172,7 @@ public abstract class FunctionField<E extends Object>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(getColumn(), join);
@@ -181,7 +181,7 @@ public abstract class FunctionField<E extends Object>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final int getTypeForDefiningColumn()
 	{
 		return getColumn().typeForDefiningColumn;
@@ -190,7 +190,7 @@ public abstract class FunctionField<E extends Object>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		final Row dummyRow = new Row();

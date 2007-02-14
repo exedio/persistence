@@ -84,7 +84,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void check(final TC tc, final Join join)
 	{
 		for(int i = 0; i<sources.length; i++)
@@ -128,7 +128,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final int getTypeForDefiningColumn()
 	{
 		return typeForDefiningColumn;
@@ -137,7 +137,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		if(bf.parameters==null)

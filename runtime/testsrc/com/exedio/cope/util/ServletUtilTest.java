@@ -254,19 +254,19 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException(name);
 		}
 
-		@Deprecated
+		@Deprecated // OK: implementing external api
 		public Servlet getServlet(String name) throws ServletException
 		{
 			throw new RuntimeException(name);
 		}
 
-		@Deprecated
+		@Deprecated // OK: implementing external api
 		public Enumeration getServlets()
 		{
 			throw new RuntimeException();
 		}
 
-		@Deprecated
+		@Deprecated // OK: implementing external api
 		public Enumeration getServletNames()
 		{
 			throw new RuntimeException();
@@ -277,7 +277,7 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException(name);
 		}
 
-		@Deprecated
+		@Deprecated // OK: implementing external api
 		public void log(Exception e, String name)
 		{
 			throw new RuntimeException(name);

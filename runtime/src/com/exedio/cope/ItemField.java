@@ -250,7 +250,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public void appendType(final Statement bf, final Join join)
 	{
 		bf.append(Statement.assertTypeColumn(typeColumn, getValueType()), join);

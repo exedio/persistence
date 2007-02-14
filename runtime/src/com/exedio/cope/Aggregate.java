@@ -62,7 +62,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void check(final TC tc, final Join join)
 	{
 		source.check(tc, join);
@@ -71,7 +71,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
@@ -82,7 +82,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final int getTypeForDefiningColumn()
 	{
 		return source.getTypeForDefiningColumn();

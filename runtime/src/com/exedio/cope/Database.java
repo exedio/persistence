@@ -1750,7 +1750,7 @@ final class Database
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
-	@Deprecated
+	@Deprecated // OK: for debugging
 	protected static void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
@@ -1762,7 +1762,7 @@ final class Database
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
-	@Deprecated
+	@Deprecated // OK: for debugging
 	protected static void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();;
@@ -1774,7 +1774,7 @@ final class Database
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
-	@Deprecated
+	@Deprecated // OK: for debugging
 	private static final ResultSetHandler logHandler = new ResultSetHandler()
 	{
 		public void handle(final ResultSet resultSet) throws SQLException
