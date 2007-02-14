@@ -53,7 +53,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	@Deprecated
 	public ItemField(final Class<E> valueClass)
 	{
-		this(Item.MANDATORY, valueClass, Item.FORBID);
+		this(false, false, false, valueClass, null, Item.FORBID);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	@Deprecated
 	public ItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		this(policy==DeletePolicy.NULLIFY ? Item.OPTIONAL : Item.MANDATORY, valueClass, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, valueClass, null, policy);
 	}
 
 	/**

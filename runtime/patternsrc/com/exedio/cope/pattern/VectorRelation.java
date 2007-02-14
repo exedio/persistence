@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.Field;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -61,7 +60,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	public VectorRelation(final ItemField<S> source, final ItemField<T> target)
 	{
 		this.source = source;
-		this.order = new IntegerField(Field.Option.FINAL);
+		this.order = new IntegerField().toFinal();
 		this.uniqueConstraint = new UniqueConstraint(source, order);
 		this.target = target;
 		
