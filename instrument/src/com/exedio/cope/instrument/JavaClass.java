@@ -173,7 +173,7 @@ final class JavaClass extends JavaFeature
 		}
 	}
 	
-	final class NameSpace extends CopeNameSpace
+	private final class NameSpace extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 2386458374658236l;
 		
