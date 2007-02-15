@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -136,7 +135,7 @@ final class Generator
 	private static final String localFinal = "final "; // TODO make switchable from ant target
 	
 	
-	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc) throws FileNotFoundException
+	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc)
 	{
 		this.javaFile = javaFile;
 		this.o = new OutputStreamWriter(new CheckedOutputStream(outputStream, outputCRC));
