@@ -58,7 +58,7 @@ final class JavaClass extends JavaFeature
 	throws InjectorParseException
 	{
 		super(file, parent, modifiers, null, simpleName);
-		this.nameSpace = new NameSpace(file.nameSpace);
+		this.nameSpace = new NS(file.nameSpace);
 		this.isEnum = isEnum;
 		this.classExtends = classExtends;
 		this.classImplements = Collections.unmodifiableList(classImplements);
@@ -173,11 +173,11 @@ final class JavaClass extends JavaFeature
 		}
 	}
 	
-	private final class NameSpace extends CopeNameSpace
+	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 2386458374658236l;
 		
-		NameSpace(final CopeNameSpace parent)
+		NS(final CopeNameSpace parent)
 		{
 			super(parent);
 		}

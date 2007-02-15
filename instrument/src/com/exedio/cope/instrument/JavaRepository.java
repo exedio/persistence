@@ -64,7 +64,7 @@ final class JavaRepository
 	final CopeNameSpace externalNameSpace = new CopeNameSpace(null);
 	
 	// reusing externalNameSpace is more efficient than another root nameSpace
-	final CopeNameSpace nameSpace = new NameSpace(externalNameSpace);
+	final CopeNameSpace nameSpace = new NS(externalNameSpace);
 
 	final Interpreter interpreter = new Interpreter();
 	
@@ -258,11 +258,11 @@ final class JavaRepository
 		return result;
 	}
 
-	private final class NameSpace extends CopeNameSpace
+	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 8362587526354862l;
 		
-		NameSpace(final CopeNameSpace parent)
+		NS(final CopeNameSpace parent)
 		{
 			super(parent);
 		}
