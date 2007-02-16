@@ -52,27 +52,42 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
 		assertEquals("*/*", t.file.getContentTypeDescription());
 		assertEquals(20, t.file.getMaximumLength());
+
 		final DataField fileBody = t.file.getBody();
 		assertSame(t.TYPE, fileBody.getType());
 		assertSame("fileBody", fileBody.getName());
+		assertEquals(false, fileBody.isFinal());
 		assertEquals(true, fileBody.isMandatory());
 		assertEquals(20, fileBody.getMaximumLength());
 		assertEqualsUnmodifiable(list(t.file), fileBody.getPatterns());
 		assertSame(t.file, Media.get(fileBody));
+		
 		final StringField fileMajor = t.file.getMimeMajor();
 		assertSame(t.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
+		assertEquals(false, fileMajor.isFinal());
 		assertEquals(true, fileMajor.isMandatory());
+		assertEquals(null, fileMajor.getImplicitUniqueConstraint());
+		assertEquals(1, fileMajor.getMinimumLength());
+		assertEquals(30, fileMajor.getMaximumLength());
 		assertEqualsUnmodifiable(list(t.file), fileMajor.getPatterns());
+		
 		final StringField fileMinor = t.file.getMimeMinor();
 		assertSame(t.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
+		assertEquals(false, fileMinor.isFinal());
 		assertEquals(true, fileMinor.isMandatory());
+		assertEquals(null, fileMinor.getImplicitUniqueConstraint());
+		assertEquals(1, fileMinor.getMinimumLength());
+		assertEquals(30, fileMinor.getMaximumLength());
 		assertEqualsUnmodifiable(list(t.file), fileMinor.getPatterns());
+		
 		final DateField fileLastModified = t.file.getLastModified();
 		assertSame(t.TYPE, fileLastModified.getType());
 		assertEquals("fileLastModified", fileLastModified.getName());
+		assertEquals(false, fileLastModified.isFinal());
 		assertEquals(true, fileLastModified.isMandatory());
+		assertEquals(null, fileLastModified.getImplicitUniqueConstraint());
 		assertEqualsUnmodifiable(list(t.file), fileLastModified.getPatterns());
 		assertSame(fileLastModified, t.file.getIsNull());
 		

@@ -101,24 +101,43 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(false, item.file.checkContentType("something"));
 		assertEquals("*/*", item.file.getContentTypeDescription());
 		assertEquals(20, item.file.getMaximumLength());
+
 		final DataField fileBody = item.file.getBody();
 		assertSame(item.TYPE, fileBody.getType());
 		assertSame("fileBody", fileBody.getName());
+		assertEquals(false, fileBody.isFinal());
+		assertEquals(false, fileBody.isMandatory());
 		assertEquals(20, fileBody.getMaximumLength());
 		assertEqualsUnmodifiable(list(item.file), fileBody.getPatterns());
 		assertSame(item.file, Media.get(fileBody));
+		
 		final StringField fileMajor = item.file.getMimeMajor();
 		assertSame(item.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
 		assertEqualsUnmodifiable(list(item.file), fileMajor.getPatterns());
+		assertEquals(false, fileMajor.isFinal());
+		assertEquals(false, fileMajor.isMandatory());
+		assertEquals(null, fileMajor.getImplicitUniqueConstraint());
+		assertEquals(1, fileMajor.getMinimumLength());
+		assertEquals(30, fileMajor.getMaximumLength());
+		
 		final StringField fileMinor = item.file.getMimeMinor();
 		assertSame(item.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
 		assertEqualsUnmodifiable(list(item.file), fileMinor.getPatterns());
+		assertEquals(false, fileMinor.isFinal());
+		assertEquals(false, fileMinor.isMandatory());
+		assertEquals(null, fileMinor.getImplicitUniqueConstraint());
+		assertEquals(1, fileMinor.getMinimumLength());
+		assertEquals(30, fileMinor.getMaximumLength());
+		
 		final DateField fileLastModified = item.file.getLastModified();
 		assertSame(item.TYPE, fileLastModified.getType());
 		assertEquals("fileLastModified", fileLastModified.getName());
 		assertEqualsUnmodifiable(list(item.file), fileLastModified.getPatterns());
+		assertEquals(false, fileLastModified.isFinal());
+		assertEquals(false, fileLastModified.isMandatory());
+		assertEquals(null, fileLastModified.getImplicitUniqueConstraint());
 		assertSame(fileLastModified, item.file.getIsNull());
 		
 		assertFileNull();
@@ -247,21 +266,34 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(false, item.image.checkContentType("application/jpg"));
 		assertEquals("image/*", item.image.getContentTypeDescription());
 		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
+
 		final DataField imageBody = item.image.getBody();
 		assertSame(item.TYPE, imageBody.getType());
 		assertSame("imageBody", imageBody.getName());
+		assertEquals(false, imageBody.isFinal());
+		assertEquals(false, imageBody.isMandatory());
 		assertEquals(Media.DEFAULT_LENGTH, imageBody.getMaximumLength());
 		assertEqualsUnmodifiable(list(item.image), imageBody.getPatterns());
 		assertSame(item.image, Media.get(imageBody));
 		assertEquals(null, item.image.getMimeMajor());
+		
 		final StringField imageMinor = item.image.getMimeMinor();
 		assertSame(item.TYPE, imageMinor.getType());
 		assertEquals("imageMinor", imageMinor.getName());
 		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());
+		assertEquals(false, imageMinor.isFinal());
+		assertEquals(false, imageMinor.isMandatory());
+		assertEquals(null, imageMinor.getImplicitUniqueConstraint());
+		assertEquals(1, imageMinor.getMinimumLength());
+		assertEquals(30, imageMinor.getMaximumLength());
+		
 		final DateField imageLastModified = item.image.getLastModified();
 		assertSame(item.TYPE, imageLastModified.getType());
 		assertEquals("imageLastModified", imageLastModified.getName());
 		assertEqualsUnmodifiable(list(item.image), imageLastModified.getPatterns());
+		assertEquals(false, imageLastModified.isFinal());
+		assertEquals(false, imageLastModified.isMandatory());
+		assertEquals(null, imageLastModified.getImplicitUniqueConstraint());
 		assertSame(imageLastModified, item.image.getIsNull());
 
 		assertImageNull();
@@ -314,18 +346,25 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(false, item.photo.checkContentType("image/jpxeg"));
 		assertEquals("image/jpeg", item.photo.getContentTypeDescription());
 		assertEquals(2000, item.photo.getMaximumLength());
+
 		final DataField photoBody = item.photo.getBody();
 		assertSame(item.TYPE, photoBody.getType());
 		assertSame("photoBody", photoBody.getName());
+		assertEquals(false, photoBody.isFinal());
+		assertEquals(false, photoBody.isMandatory());
 		assertEquals(2000, photoBody.getMaximumLength());
 		assertEqualsUnmodifiable(list(item.photo), photoBody.getPatterns());
 		assertSame(item.photo, Media.get(photoBody));
 		assertEquals(null, item.photo.getMimeMajor());
 		assertEquals(null, item.photo.getMimeMinor());
+
 		final DateField photoLastModified = item.photo.getLastModified();
 		assertSame(item.TYPE, photoLastModified.getType());
 		assertEquals("photoLastModified", photoLastModified.getName());
 		assertEqualsUnmodifiable(list(item.photo), photoLastModified.getPatterns());
+		assertEquals(false, photoLastModified.isFinal());
+		assertEquals(false, photoLastModified.isMandatory());
+		assertEquals(null, photoLastModified.getImplicitUniqueConstraint());
 		assertSame(photoLastModified, item.photo.getIsNull());
 
 		assertPhotoNull();
