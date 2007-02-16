@@ -514,6 +514,50 @@ public final class Media extends CachedMedia
 			return optional ? f.optional() : f;
 		}
 	}
+
+	private static final class DefaultContentType extends ContentType
+	{
+		DefaultContentType(final boolean optional)
+		{
+			super(makeField(optional, 61), "ContentType");
+		}
+		
+		@Override
+		DefaultContentType copy()
+		{
+			return new DefaultContentType(!field.isMandatory());
+		}
+		
+		@Override
+		DefaultContentType optional()
+		{
+			return new DefaultContentType(true);
+		}
+		
+		@Override
+		boolean check(final String contentType)
+		{
+			return contentType.indexOf('/')>=0;
+		}
+		
+		@Override
+		String describe()
+		{
+			return "*/*";
+		}
+		
+		@Override
+		String get(final Item item)
+		{
+			return field.get(item);
+		}
+		
+		@Override
+		String map(final String contentType)
+		{
+			return contentType;
+		}
+	}
 	
 	private static final class FixedContentType extends ContentType
 	{
@@ -628,50 +672,6 @@ public final class Media extends CachedMedia
 		{
 			assert check(contentType);
 			return contentType.substring(prefixLength);
-		}
-	}
-
-	private static final class DefaultContentType extends ContentType
-	{
-		DefaultContentType(final boolean optional)
-		{
-			super(makeField(optional, 61), "ContentType");
-		}
-		
-		@Override
-		DefaultContentType copy()
-		{
-			return new DefaultContentType(!field.isMandatory());
-		}
-		
-		@Override
-		DefaultContentType optional()
-		{
-			return new DefaultContentType(true);
-		}
-		
-		@Override
-		boolean check(final String contentType)
-		{
-			return contentType.indexOf('/')>=0;
-		}
-		
-		@Override
-		String describe()
-		{
-			return "*/*";
-		}
-		
-		@Override
-		String get(final Item item)
-		{
-			return field.get(item);
-		}
-		
-		@Override
-		String map(final String contentType)
-		{
-			return contentType;
 		}
 	}
 }
