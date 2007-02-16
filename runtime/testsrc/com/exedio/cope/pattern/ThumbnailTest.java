@@ -59,8 +59,8 @@ public class ThumbnailTest extends AbstractLibTest
 				item.TYPE.getThis(),
 				item.file,
 				item.file.getBody(),
-				item.file.getMimeMajor(),
-				item.file.getMimeMinor(),
+				item.file.getContentType().get(0),
+				item.file.getContentType().get(1),
 				item.file.getLastModified(),
 				item.thumb,
 			}), item.TYPE.getFeatures());

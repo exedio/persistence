@@ -45,8 +45,8 @@ public class MediaMandatoryItem extends Item
 	{
 		this(new com.exedio.cope.SetValue[]{
 				file.getBody().map(fileBody),
-				file.getMimeMajor().map(fileMimeMajor),
-				file.getMimeMinor().map(fileMimeMinor),
+				file.getContentType().get(0).map(fileMimeMajor),
+				file.getContentType().get(1).map(fileMimeMinor),
 				file.getLastModified().map(new Date()),
 		});
 	}

@@ -23,7 +23,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -178,14 +181,9 @@ public final class Media extends CachedMedia
 		return body;
 	}
 	
-	public StringField getMimeMajor()
+	public List<StringField> getContentType()
 	{
-		return contentType.getMimeMajor();
-	}
-	
-	public StringField getMimeMinor()
-	{
-		return contentType.getMimeMinor();
+		return Collections.unmodifiableList(Arrays.asList(contentType.getFields()));
 	}
 	
 	public DateField getLastModified()
@@ -492,8 +490,7 @@ public final class Media extends CachedMedia
 		abstract ContentType optional();
 		abstract boolean check(String contentType);
 		abstract String describe();
-		abstract StringField getMimeMajor();
-		abstract StringField getMimeMinor();
+		abstract StringField[] getFields();
 		abstract void initialize(Media media, String name);
 		abstract String getContentType(Item item);
 		abstract void map(ArrayList<SetValue> values, String contentType);
@@ -559,15 +556,9 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		StringField getMimeMajor()
+		StringField[] getFields()
 		{
-			return null;
-		}
-		
-		@Override
-		StringField getMimeMinor()
-		{
-			return null;
+			return new StringField[]{};
 		}
 		
 		@Override
@@ -638,15 +629,9 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		StringField getMimeMajor()
+		StringField[] getFields()
 		{
-			return null;
-		}
-		
-		@Override
-		StringField getMimeMinor()
-		{
-			return minor;
+			return new StringField[]{minor};
 		}
 		
 		@Override
@@ -712,15 +697,9 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		StringField getMimeMajor()
+		StringField[] getFields()
 		{
-			return major;
-		}
-		
-		@Override
-		StringField getMimeMinor()
-		{
-			return minor;
+			return new StringField[]{major, minor};
 		}
 		
 		@Override

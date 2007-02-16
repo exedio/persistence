@@ -62,7 +62,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(t.file), fileBody.getPatterns());
 		assertSame(t.file, Media.get(fileBody));
 		
-		final StringField fileMajor = t.file.getMimeMajor();
+		final StringField fileMajor = t.file.getContentType().get(0);
 		assertSame(t.TYPE, fileMajor.getType());
 		assertEquals("fileMajor", fileMajor.getName());
 		assertEquals(false, fileMajor.isFinal());
@@ -72,7 +72,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(30, fileMajor.getMaximumLength());
 		assertEqualsUnmodifiable(list(t.file), fileMajor.getPatterns());
 		
-		final StringField fileMinor = t.file.getMimeMinor();
+		final StringField fileMinor = t.file.getContentType().get(1);
 		assertSame(t.TYPE, fileMinor.getType());
 		assertEquals("fileMinor", fileMinor.getName());
 		assertEquals(false, fileMinor.isFinal());
@@ -81,6 +81,8 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(1, fileMinor.getMinimumLength());
 		assertEquals(30, fileMinor.getMaximumLength());
 		assertEqualsUnmodifiable(list(t.file), fileMinor.getPatterns());
+		
+		assertEqualsUnmodifiable(list(fileMajor, fileMinor), t.file.getContentType());
 		
 		final DateField fileLastModified = t.file.getLastModified();
 		assertSame(t.TYPE, fileLastModified.getType());

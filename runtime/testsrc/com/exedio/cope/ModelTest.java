@@ -124,8 +124,8 @@ public class ModelTest extends TestmodelTest
 			item.someEnum,
 			item.someNotNullEnum,
 			item.someData.getBody(),
-			item.someData.getMimeMajor(),
-			item.someData.getMimeMinor(),
+			item.someData.getContentType().get(0),
+			item.someData.getContentType().get(1),
 			item.someData.getLastModified(),
 		};
 		assertEqualsUnmodifiable(Arrays.asList(attributes), item.TYPE.getFields());
@@ -155,8 +155,8 @@ public class ModelTest extends TestmodelTest
 			item.someNotNullEnum,
 			item.someData,
 			item.someData.getBody(),
-			item.someData.getMimeMajor(),
-			item.someData.getMimeMinor(),
+			item.someData.getContentType().get(0),
+			item.someData.getContentType().get(1),
 			item.someData.getLastModified(),
 		};
 		assertEqualsUnmodifiable(Arrays.asList(features), item.TYPE.getFeatures());
