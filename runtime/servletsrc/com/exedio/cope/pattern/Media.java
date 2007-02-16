@@ -121,7 +121,7 @@ public final class Media extends CachedMedia
 	
 	public Media()
 	{
-		this(false, DEFAULT_LENGTH, new StoredContentType(false));
+		this(false, DEFAULT_LENGTH, new DefaultContentType(false));
 	}
 	
 	/**
@@ -130,7 +130,7 @@ public final class Media extends CachedMedia
 	@Deprecated
 	public Media(final Option option)
 	{
-		this(option.optional, DEFAULT_LENGTH, new StoredContentType(option.optional));
+		this(option.optional, DEFAULT_LENGTH, new DefaultContentType(option.optional));
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
@@ -631,23 +631,23 @@ public final class Media extends CachedMedia
 		}
 	}
 
-	private static final class StoredContentType extends ContentType
+	private static final class DefaultContentType extends ContentType
 	{
-		StoredContentType(final boolean optional)
+		DefaultContentType(final boolean optional)
 		{
 			super(makeField(optional, 61), "ContentType");
 		}
 		
 		@Override
-		StoredContentType copy()
+		DefaultContentType copy()
 		{
-			return new StoredContentType(!field.isMandatory());
+			return new DefaultContentType(!field.isMandatory());
 		}
 		
 		@Override
-		StoredContentType optional()
+		DefaultContentType optional()
 		{
-			return new StoredContentType(true);
+			return new DefaultContentType(true);
 		}
 		
 		@Override
