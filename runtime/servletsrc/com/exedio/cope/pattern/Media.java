@@ -484,7 +484,7 @@ public final class Media extends CachedMedia
 		}
 	}
 	
-	static abstract class ContentType
+	private static abstract class ContentType
 	{
 		final StringField field;
 		
@@ -508,7 +508,7 @@ public final class Media extends CachedMedia
 		}
 	}
 	
-	static final class FixedContentType extends ContentType
+	private static final class FixedContentType extends ContentType
 	{
 		private final String full;
 		
@@ -575,7 +575,7 @@ public final class Media extends CachedMedia
 		}
 	}
 
-	static final class HalfFixedContentType extends ContentType
+	private static final class HalfFixedContentType extends ContentType
 	{
 		private final String major;
 		private final String prefix;
@@ -637,7 +637,7 @@ public final class Media extends CachedMedia
 		}
 	}
 
-	static final class StoredContentType extends ContentType
+	private static final class StoredContentType extends ContentType
 	{
 		StoredContentType(final boolean optional)
 		{
