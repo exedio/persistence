@@ -258,7 +258,7 @@ public final class Media extends CachedMedia
 		if(isNull(item))
 			return null;
 
-		return contentType.getContentType(item);
+		return contentType.get(item);
 	}
 	
 	/**
@@ -498,7 +498,7 @@ public final class Media extends CachedMedia
 		abstract boolean check(String contentType);
 		abstract String describe();
 		abstract void initialize(Media media, String name);
-		abstract String getContentType(Item item);
+		abstract String get(Item item);
 		abstract void map(ArrayList<SetValue> values, String contentType);
 		
 		protected static final StringField makeField(final boolean optional, final int maxLength)
@@ -563,7 +563,7 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		String getContentType(final Item item)
+		String get(final Item item)
 		{
 			return full;
 		}
@@ -624,7 +624,7 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		String getContentType(final Item item)
+		String get(final Item item)
 		{
 			return prefix + field.get(item);
 		}
@@ -676,7 +676,7 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		String getContentType(final Item item)
+		String get(final Item item)
 		{
 			return field.get(item);
 		}
