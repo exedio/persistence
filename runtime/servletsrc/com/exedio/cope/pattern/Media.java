@@ -205,7 +205,9 @@ public final class Media extends CachedMedia
 		final String name = getName();
 		if(!body.isInitialized())
 			initialize(body, name+"Body");
-		contentType.initialize(this, name);
+		final StringField contentTypeField = contentType.field;
+		if(contentTypeField!=null && !contentTypeField.isInitialized())
+			initialize(contentTypeField, name + contentType.name);
 		initialize(lastModified, name+"LastModified");
 	}
 	
@@ -487,17 +489,20 @@ public final class Media extends CachedMedia
 	private static abstract class ContentType
 	{
 		final StringField field;
+		final String name;
 		
-		ContentType(final StringField field)
+		ContentType(final StringField field, final String name)
 		{
 			this.field = field;
+			this.name = name;
+			
+			assert (field==null) == (name==null);
 		}
 		
 		abstract ContentType copy();
 		abstract ContentType optional();
 		abstract boolean check(String contentType);
 		abstract String describe();
-		abstract void initialize(Media media, String name);
 		abstract String get(Item item);
 		abstract void map(ArrayList<SetValue> values, String contentType);
 		
@@ -514,7 +519,7 @@ public final class Media extends CachedMedia
 		
 		FixedContentType(final String full)
 		{
-			super(null);
+			super(null, null);
 			this.full = full;
 		}
 		
@@ -557,12 +562,6 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void initialize(final Media media, final String name)
-		{
-			// no fields to be initialized
-		}
-		
-		@Override
 		String get(final Item item)
 		{
 			return full;
@@ -583,7 +582,7 @@ public final class Media extends CachedMedia
 		
 		HalfFixedContentType(final String major, final boolean optional)
 		{
-			super(makeField(optional, 30));
+			super(makeField(optional, 30), "Minor");
 			this.major = major;
 			this.prefix = major + '/';
 			this.prefixLength = this.prefix.length();
@@ -617,13 +616,6 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void initialize(final Media media, final String name)
-		{
-			if(!field.isInitialized())
-				media.initialize(field, name+"Minor");
-		}
-		
-		@Override
 		String get(final Item item)
 		{
 			return prefix + field.get(item);
@@ -641,7 +633,7 @@ public final class Media extends CachedMedia
 	{
 		StoredContentType(final boolean optional)
 		{
-			super(makeField(optional, 61));
+			super(makeField(optional, 61), "ContentType");
 		}
 		
 		@Override
@@ -666,13 +658,6 @@ public final class Media extends CachedMedia
 		String describe()
 		{
 			return "*/*";
-		}
-		
-		@Override
-		void initialize(final Media media, final String name)
-		{
-			if(!field.isInitialized())
-				media.initialize(field, name+"ContentType");
 		}
 		
 		@Override
