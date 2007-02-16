@@ -287,7 +287,7 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullBoolean)+" IN (0,1))");
 			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect(AttributeItem.someEnum)+" IN (10,20,30)) OR ("+protect(AttributeItem.someEnum)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
-			assertCheckConstraint(attributeItem, "AttriItem_someDataMajo_Ck", "((LENGTH("+protect(AttributeItem.someData.getContentType().get(0))+")>=1) AND (LENGTH("+protect(AttributeItem.someData.getContentType().get(0))+")<=30)) OR ("+protect(AttributeItem.someData.getContentType().get(0))+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "((LENGTH("+protect(AttributeItem.someData.getContentType())+")>=1) AND (LENGTH("+protect(AttributeItem.someData.getContentType())+")<=61)) OR ("+protect(AttributeItem.someData.getContentType())+" IS NULL)");
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, AttributeItem.TYPE.getPrimaryKeyColumnName());
 

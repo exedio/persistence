@@ -23,10 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -181,9 +178,9 @@ public final class Media extends CachedMedia
 		return body;
 	}
 	
-	public List<StringField> getContentType()
+	public StringField getContentType()
 	{
-		return Collections.unmodifiableList(Arrays.asList(contentType.getFields()));
+		return contentType.getField();
 	}
 	
 	public DateField getLastModified()
@@ -490,14 +487,14 @@ public final class Media extends CachedMedia
 		abstract ContentType optional();
 		abstract boolean check(String contentType);
 		abstract String describe();
-		abstract StringField[] getFields();
+		abstract StringField getField();
 		abstract void initialize(Media media, String name);
 		abstract String getContentType(Item item);
 		abstract void map(ArrayList<SetValue> values, String contentType);
 		
-		protected static final StringField makeField(final boolean optional)
+		protected static final StringField makeField(final boolean optional, final int maxLength)
 		{
-			final StringField f = new StringField().lengthRange(1, 30);
+			final StringField f = new StringField().lengthRange(1, maxLength);
 			return optional ? f.optional() : f;
 		}
 	}
@@ -556,9 +553,9 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		StringField[] getFields()
+		StringField getField()
 		{
-			return new StringField[]{};
+			return null;
 		}
 		
 		@Override
@@ -592,7 +589,7 @@ public final class Media extends CachedMedia
 			this.major = major;
 			this.prefix = major + '/';
 			this.prefixLength = this.prefix.length();
-			this.minor = makeField(optional);
+			this.minor = makeField(optional, 30);
 			
 			if(major==null)
 				throw new NullPointerException("fixedMimeMajor must not be null");
@@ -629,9 +626,9 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		StringField[] getFields()
+		StringField getField()
 		{
-			return new StringField[]{minor};
+			return minor;
 		}
 		
 		@Override
@@ -657,19 +654,17 @@ public final class Media extends CachedMedia
 
 	static final class StoredContentType extends ContentType
 	{
-		private final StringField major;
-		private final StringField minor;
+		private final StringField field;
 		
 		StoredContentType(final boolean optional)
 		{
-			this.major = makeField(optional);
-			this.minor = makeField(optional);
+			this.field = makeField(optional, 61);
 		}
 		
 		@Override
 		StoredContentType copy()
 		{
-			return new StoredContentType(!major.isMandatory());
+			return new StoredContentType(!field.isMandatory());
 		}
 		
 		@Override
@@ -681,7 +676,7 @@ public final class Media extends CachedMedia
 		@Override
 		StringField[] getSources()
 		{
-			return new StringField[]{major, minor};
+			return new StringField[]{field};
 		}
 		
 		@Override
@@ -697,31 +692,28 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		StringField[] getFields()
+		StringField getField()
 		{
-			return new StringField[]{major, minor};
+			return field;
 		}
 		
 		@Override
 		void initialize(final Media media, final String name)
 		{
-			if(!major.isInitialized())
-				media.initialize(major, name+"Major");
-			if(!minor.isInitialized())
-				media.initialize(minor, name+"Minor");
+			if(!field.isInitialized())
+				media.initialize(field, name+"ContentType");
 		}
 		
 		@Override
 		String getContentType(final Item item)
 		{
-			return major.get(item) + '/' + minor.get(item);
+			return field.get(item);
 		}
 		
 		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
-			values.add(this.major.map(toMajor(contentType)));
-			values.add(this.minor.map(toMinor(contentType)));
+			values.add(this.field.map(contentType));
 		}
 	}
 }

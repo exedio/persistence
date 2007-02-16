@@ -41,12 +41,11 @@ public class MediaMandatoryItem extends Item
 	/**
 	 * Creates a new MediaMandatoryItem with all the fields initially needed.
 	 */
-	public MediaMandatoryItem(final byte[] fileBody, final String fileMimeMajor, final String fileMimeMinor)
+	public MediaMandatoryItem(final byte[] fileBody, final String fileContentType)
 	{
 		this(new com.exedio.cope.SetValue[]{
 				file.getBody().map(fileBody),
-				file.getContentType().get(0).map(fileMimeMajor),
-				file.getContentType().get(1).map(fileMimeMinor),
+				file.getContentType().map(fileContentType),
 				file.getLastModified().map(new Date()),
 		});
 	}

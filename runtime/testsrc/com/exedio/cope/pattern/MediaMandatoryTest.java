@@ -62,27 +62,15 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(t.file), fileBody.getPatterns());
 		assertSame(t.file, Media.get(fileBody));
 		
-		final StringField fileMajor = t.file.getContentType().get(0);
+		final StringField fileMajor = t.file.getContentType();
 		assertSame(t.TYPE, fileMajor.getType());
-		assertEquals("fileMajor", fileMajor.getName());
+		assertEquals("fileContentType", fileMajor.getName());
 		assertEquals(false, fileMajor.isFinal());
 		assertEquals(true, fileMajor.isMandatory());
 		assertEquals(null, fileMajor.getImplicitUniqueConstraint());
 		assertEquals(1, fileMajor.getMinimumLength());
-		assertEquals(30, fileMajor.getMaximumLength());
+		assertEquals(61, fileMajor.getMaximumLength());
 		assertEqualsUnmodifiable(list(t.file), fileMajor.getPatterns());
-		
-		final StringField fileMinor = t.file.getContentType().get(1);
-		assertSame(t.TYPE, fileMinor.getType());
-		assertEquals("fileMinor", fileMinor.getName());
-		assertEquals(false, fileMinor.isFinal());
-		assertEquals(true, fileMinor.isMandatory());
-		assertEquals(null, fileMinor.getImplicitUniqueConstraint());
-		assertEquals(1, fileMinor.getMinimumLength());
-		assertEquals(30, fileMinor.getMaximumLength());
-		assertEqualsUnmodifiable(list(t.file), fileMinor.getPatterns());
-		
-		assertEqualsUnmodifiable(list(fileMajor, fileMinor), t.file.getContentType());
 		
 		final DateField fileLastModified = t.file.getLastModified();
 		assertSame(t.TYPE, fileLastModified.getType());
@@ -97,7 +85,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(list(), t.TYPE.search());
 
 		final Date before = new Date();
-		final MediaMandatoryItem item = new MediaMandatoryItem(data20, "major", "minor");
+		final MediaMandatoryItem item = new MediaMandatoryItem(data20, "major/minor");
 		final Date after = new Date();
 		deleteOnTearDown(item);
 		assertFile(item, data20, before, after, "major/minor", "");
@@ -146,7 +134,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 
 		try
 		{
-			new MediaMandatoryItem(null, null, null);
+			new MediaMandatoryItem(null, null);
 			fail();
 		}
 		catch(MandatoryViolationException e)
@@ -158,19 +146,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 
 		try
 		{
-			new MediaMandatoryItem(data20, null, null);
-			fail();
-		}
-		catch(MandatoryViolationException e)
-		{
-			assertEquals(list(item.file), e.getFeature().getPatterns());
-			assertEquals(null, e.getItem());
-		}
-		assertEquals(list(item), item.TYPE.search());
-		
-		try
-		{
-			new MediaMandatoryItem(data20, "major", null);
+			new MediaMandatoryItem(data20, null);
 			fail();
 		}
 		catch(MandatoryViolationException e)
