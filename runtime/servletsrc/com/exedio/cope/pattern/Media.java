@@ -388,13 +388,13 @@ public final class Media extends CachedMedia
 	private void set(final Item item, final Object body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
-		if(!this.contentType.check(contentType))
-			throw new IllegalContentTypeException(this, item, contentType);
-		
 		if(body!=null)
 		{
 			if(contentType==null)
 				throw new RuntimeException("if body is not null, content type must also be not null");
+			
+			if(!this.contentType.check(contentType))
+				throw new IllegalContentTypeException(this, item, contentType);
 			
 			final long length;
 			if(body instanceof byte[])
@@ -554,7 +554,7 @@ public final class Media extends CachedMedia
 		@Override
 		boolean check(final String contentType)
 		{
-			return contentType==null || this.full.equals(contentType);
+			return this.full.equals(contentType);
 		}
 		
 		@Override
@@ -608,7 +608,7 @@ public final class Media extends CachedMedia
 		@Override
 		boolean check(final String contentType)
 		{
-			return contentType==null || contentType.startsWith(prefix);
+			return contentType.startsWith(prefix);
 		}
 		
 		@Override
@@ -653,7 +653,7 @@ public final class Media extends CachedMedia
 		@Override
 		boolean check(final String contentType)
 		{
-			return contentType==null || contentType.indexOf('/')>=0;
+			return contentType.indexOf('/')>=0;
 		}
 		
 		@Override
