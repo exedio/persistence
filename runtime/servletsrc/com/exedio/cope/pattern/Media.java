@@ -60,6 +60,8 @@ public final class Media extends CachedMedia
 			registerSource(source);
 		registerSource(this.lastModified = optional(new DateField(), optional));
 		
+		assert optional == !body.isMandatory();
+		assert optional == !lastModified.isMandatory();
 		assert contentType!=null;
 	}
 	
