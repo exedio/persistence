@@ -126,10 +126,8 @@ public class JavaSecurityHash extends Hash
 		for(int i = 0; i<length; i++,i2+=2)
 		{
 			final byte bufi = buf[i];
-			final int bufilo = bufi & 0x0F;
-			final int bufihi = (bufi & 0xF0)>>4;
-			result[i2]   = mapping[bufihi];
-			result[i2+1] = mapping[bufilo];
+			result[i2]   = mapping[(bufi & 0xF0)>>4];
+			result[i2+1] = mapping[bufi & 0x0F];
 		}
 		return new String(result);
 	}
