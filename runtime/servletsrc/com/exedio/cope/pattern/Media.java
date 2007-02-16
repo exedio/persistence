@@ -414,7 +414,9 @@ public final class Media extends CachedMedia
 		}
 
 		final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
-		this.contentType.map(values, contentType);
+		final StringField contentTypeField = this.contentType.field;
+		if(contentTypeField!=null)
+			values.add(contentTypeField.map(contentType!=null ? this.contentType.map(contentType) : null));
 		values.add(this.lastModified.map(body!=null ? new Date() : null));
 		if(body instanceof byte[])
 			values.add(this.body.map((byte[])body));
@@ -504,7 +506,7 @@ public final class Media extends CachedMedia
 		abstract boolean check(String contentType);
 		abstract String describe();
 		abstract String get(Item item);
-		abstract void map(ArrayList<SetValue> values, String contentType);
+		abstract String map(String contentType);
 		
 		protected static final StringField makeField(final boolean optional, final int maxLength)
 		{
@@ -568,9 +570,9 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void map(final ArrayList<SetValue> values, final String contentType)
+		String map(final String contentType)
 		{
-			// no fields to be mapped
+			throw new RuntimeException();
 		}
 	}
 
@@ -622,10 +624,10 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void map(final ArrayList<SetValue> values, final String contentType)
+		String map(final String contentType)
 		{
 			assert check(contentType);
-			values.add(field.map(contentType!=null ? contentType.substring(prefixLength) : null));
+			return contentType.substring(prefixLength);
 		}
 	}
 
@@ -667,9 +669,9 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		void map(final ArrayList<SetValue> values, final String contentType)
+		String map(final String contentType)
 		{
-			values.add(this.field.map(contentType));
+			return contentType;
 		}
 	}
 }
