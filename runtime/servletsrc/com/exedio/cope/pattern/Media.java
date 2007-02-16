@@ -421,15 +421,7 @@ public final class Media extends CachedMedia
 		if(body instanceof byte[])
 			values.add(this.body.map((byte[])body));
 		
-		try
-		{
-			item.set(values.toArray(new SetValue[values.size()]));
-		}
-		catch(CustomAttributeException e)
-		{
-			// cannot happen, since FunctionField only are allowed for source
-			throw new RuntimeException(e);
-		}
+		item.set(values.toArray(new SetValue[values.size()]));
 		
 		// TODO set InputStream/File via Item.set(SetValue[]) as well
 		if(body instanceof byte[])
