@@ -358,6 +358,12 @@ public class DataTest extends AbstractLibTest
 			assertEquals(true, e.isLengthExact());
 			assertEquals("length violation on a newly created item, 11 bytes is too long for " + item.data10, e.getMessage());
 		}
+		item.set(
+				DataItem.data.map(null),
+				DataItem.data10.map(null)
+		);
+		assertNull(item.getData());
+		assertNull(item.getData10());
 	}
 	
 	@SuppressWarnings("unchecked") // OK: test bad API usage

@@ -246,9 +246,14 @@ public final class Statement
 	{
 		if(parameters==null)
 		{
-			this.text.append('\'');
-			DataField.appendAsHex(data, data.length, this.text);
-			this.text.append('\'');
+			if(data!=null)
+			{
+				this.text.append('\'');
+				DataField.appendAsHex(data, data.length, this.text);
+				this.text.append('\'');
+			}
+			else
+				this.text.append("NULL");
 		}
 		else
 		{
