@@ -406,30 +406,39 @@ public final class Media extends CachedMedia
 			
 			if(length>this.body.getMaximumLength())
 				throw new DataLengthViolationException(this.body, item, length, true);
+
+			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
+			final StringField contentTypeField = this.contentType.field;
+			if(contentTypeField!=null)
+				values.add(contentTypeField.map(this.contentType.map(contentType)));
+			values.add(this.lastModified.map(new Date()));
+			if(body instanceof byte[])
+				values.add(this.body.map((byte[])body));
+			
+			item.set(values.toArray(new SetValue[values.size()]));
+			
+			// TODO set InputStream/File via Item.set(SetValue[]) as well
+			if(body instanceof byte[])
+				/* already set above */;
+			else if(body instanceof InputStream)
+				this.body.set(item, (InputStream)body);
+			else
+				this.body.set(item, (File)body);
 		}
 		else
 		{
 			if(contentType!=null)
 				throw new RuntimeException("if body is null, content type must also be null");
-		}
 
-		final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
-		final StringField contentTypeField = this.contentType.field;
-		if(contentTypeField!=null)
-			values.add(contentTypeField.map(contentType!=null ? this.contentType.map(contentType) : null));
-		values.add(this.lastModified.map(body!=null ? new Date() : null));
-		if(body instanceof byte[])
-			values.add(this.body.map((byte[])body));
-		
-		item.set(values.toArray(new SetValue[values.size()]));
-		
-		// TODO set InputStream/File via Item.set(SetValue[]) as well
-		if(body instanceof byte[])
-			/* already set above */;
-		else if(body instanceof InputStream)
-			this.body.set(item, (InputStream)body);
-		else
-			this.body.set(item, (File)body);
+			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
+			final StringField contentTypeField = this.contentType.field;
+			if(contentTypeField!=null)
+				values.add(contentTypeField.map(null));
+			values.add(this.lastModified.map(null));
+			values.add(this.body.map((byte[])null));
+			
+			item.set(values.toArray(new SetValue[values.size()]));
+		}
 	}
 	
 	public final static Media get(final DataField field)
