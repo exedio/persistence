@@ -593,12 +593,14 @@ public final class Media extends CachedMedia
 	{
 		private final String major;
 		private final String prefix;
+		private final int prefixLength;
 		private final StringField minor;
 		
 		HalfFixedContentType(final String major, final boolean optional)
 		{
 			this.major = major;
 			this.prefix = major + '/';
+			this.prefixLength = this.prefix.length();
 			this.minor = makeField(optional);
 			
 			if(major==null)
@@ -663,7 +665,8 @@ public final class Media extends CachedMedia
 		@Override
 		void map(final ArrayList<SetValue> values, final String contentType)
 		{
-			values.add(this.minor.map(toMinor(contentType)));
+			assert check(contentType);
+			values.add(this.minor.map(contentType!=null ? contentType.substring(prefixLength) : null));
 		}
 	}
 
