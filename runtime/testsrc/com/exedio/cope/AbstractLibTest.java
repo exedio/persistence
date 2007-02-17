@@ -51,14 +51,14 @@ public abstract class AbstractLibTest extends CopeTest
 	protected final static Integer i8 = Integer.valueOf(8);
 	protected final static Integer i9 = Integer.valueOf(9);
 	
-	protected final byte[] data0  = {};
-	protected final byte[] data4  = {-86,122,-8,23};
-	protected final byte[] data6  = {-97,35,-126,86,19,-8};
-	protected final byte[] data8  = {-54,104,-63,23,19,-45,71,-23};
-	protected final byte[] data10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
-	protected final byte[] data11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
-	protected final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
-	protected final byte[] data21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
+	protected static final byte[] data0  = {};
+	protected static final byte[] data4  = {-86,122,-8,23};
+	protected static final byte[] data6  = {-97,35,-126,86,19,-8};
+	protected static final byte[] data8  = {-54,104,-63,23,19,-45,71,-23};
+	protected static final byte[] data10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
+	protected static final byte[] data11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
+	protected static final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
+	protected static final byte[] data21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 	
 	enum Dialect
 	{
