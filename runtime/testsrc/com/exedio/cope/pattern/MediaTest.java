@@ -34,7 +34,7 @@ import com.exedio.cope.StringField;
 
 public class MediaTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(MediaItem.TYPE);
+	private static final Model MODEL = new Model(MediaItem.TYPE);
 
 	public MediaTest()
 	{
