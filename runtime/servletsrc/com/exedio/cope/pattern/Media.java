@@ -500,9 +500,9 @@ public final class Media extends CachedMedia
 			this.name = null;
 		}
 		
-		ContentType(final StringField field, final String name)
+		ContentType(final StringField field, final boolean optional, final String name)
 		{
-			this.field = field;
+			this.field = optional ? field.optional() : field;
 			this.name = name;
 			
 			assert field!=null;
@@ -516,10 +516,9 @@ public final class Media extends CachedMedia
 		abstract String get(Item item);
 		abstract String map(String contentType);
 		
-		protected static final StringField makeField(final boolean optional, final int maxLength)
+		protected static final StringField makeField(final int maxLength)
 		{
-			final StringField f = new StringField().lengthRange(1, maxLength);
-			return optional ? f.optional() : f;
+			return new StringField().lengthRange(1, maxLength);
 		}
 	}
 
@@ -527,7 +526,7 @@ public final class Media extends CachedMedia
 	{
 		DefaultContentType(final boolean optional)
 		{
-			super(makeField(optional, 61), "ContentType");
+			super(makeField(61), optional, "ContentType");
 		}
 		
 		@Override
@@ -636,7 +635,7 @@ public final class Media extends CachedMedia
 		
 		HalfFixedContentType(final String major, final boolean optional)
 		{
-			super(makeField(optional, 30), "Minor");
+			super(makeField(30), optional, "Minor");
 			this.major = major;
 			this.prefix = major + '/';
 			this.prefixLength = this.prefix.length();
