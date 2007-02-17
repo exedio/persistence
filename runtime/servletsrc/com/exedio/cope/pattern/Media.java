@@ -494,12 +494,19 @@ public final class Media extends CachedMedia
 		final StringField field;
 		final String name;
 		
+		ContentType()
+		{
+			this.field = null;
+			this.name = null;
+		}
+		
 		ContentType(final StringField field, final String name)
 		{
 			this.field = field;
 			this.name = name;
 			
-			assert (field==null) == (name==null);
+			assert field!=null;
+			assert name!=null;
 		}
 		
 		abstract ContentType copy();
@@ -566,7 +573,7 @@ public final class Media extends CachedMedia
 		
 		FixedContentType(final String full)
 		{
-			super(null, null);
+			super();
 			this.full = full;
 		}
 		
