@@ -38,6 +38,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(JavaViewTest.class);
 		suite.addTestSuite(MediaTest.class);
 		suite.addTestSuite(MediaDefaultTest.class);
+		suite.addTestSuite(MediaFixedTest.class);
 		suite.addTestSuite(MediaMajorTest.class);
 		suite.addTestSuite(MediaMandatoryTest.class);
 		suite.addTestSuite(ThumbnailTest.class);

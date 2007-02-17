@@ -23,8 +23,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.DataField;
-import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
@@ -75,77 +73,6 @@ public final class MediaTest extends AbstractLibTest
 				item.nameServer,
 			}), item.TYPE.getFeatures());
 
-		// photo
-		assertEquals(true, item.photo.checkContentType("image/jpeg"));
-		assertEquals(false, item.photo.checkContentType("imaxge/jpeg"));
-		assertEquals(false, item.photo.checkContentType("image/jpxeg"));
-		assertEquals("image/jpeg", item.photo.getContentTypeDescription());
-		assertEquals(2000, item.photo.getMaximumLength());
-
-		final DataField photoBody = item.photo.getBody();
-		assertSame(item.TYPE, photoBody.getType());
-		assertSame("photoBody", photoBody.getName());
-		assertEquals(false, photoBody.isFinal());
-		assertEquals(false, photoBody.isMandatory());
-		assertEquals(2000, photoBody.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.photo), photoBody.getPatterns());
-		assertSame(item.photo, Media.get(photoBody));
-
-		assertEquals(null, item.photo.getContentType());
-
-		final DateField photoLastModified = item.photo.getLastModified();
-		assertSame(item.TYPE, photoLastModified.getType());
-		assertEquals("photoLastModified", photoLastModified.getName());
-		assertEqualsUnmodifiable(list(item.photo), photoLastModified.getPatterns());
-		assertEquals(false, photoLastModified.isFinal());
-		assertEquals(false, photoLastModified.isMandatory());
-		assertEquals(null, photoLastModified.getImplicitUniqueConstraint());
-		assertSame(photoLastModified, item.photo.getIsNull());
-
-		assertPhotoNull();
-
-		item.setPhoto(stream(data4), "image/jpeg");
-		assertStreamClosed();
-		assertPhoto(data4);
-
-		item.setPhoto(stream(data6), "image/jpeg");
-		assertStreamClosed();
-		assertPhoto(data6);
-		
-		try
-		{
-			item.setPhoto(stream(data4), "illegalContentType");
-			fail();
-		}
-		catch(IllegalContentTypeException e)
-		{
-			assertStreamClosed();
-			assertSame(item.photo, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals("illegalContentType", e.getContentType());
-			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertPhoto(data6);
-		}
-
-		try
-		{
-			item.setPhoto(stream(data4), "image/png");
-			fail();
-		}
-		catch(IllegalContentTypeException e)
-		{
-			assertStreamClosed();
-			assertSame(item.photo, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals("image/png", e.getContentType());
-			assertEquals("illegal content type 'image/png' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertPhoto(data6);
-		}
-
-		item.setPhoto((InputStream)null, null);
-		assertPhotoNull();
-		
-		
 		// foto
 		assertEquals(item.TYPE, item.foto.getType());
 		assertEquals("foto", item.foto.getName());
@@ -165,12 +92,10 @@ public final class MediaTest extends AbstractLibTest
 		assertEquals(null, item.getFotoURL());
 
 		item.setPhoto(data4, "image/jpeg");
-		assertPhoto(data4);
 		assertEquals("image/jpeg", item.getFotoContentType());
 		assertEquals("media/MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoURL());
 		
 		item.setPhoto((InputStream)null, null);
-		assertPhotoNull();
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
 		
@@ -203,24 +128,5 @@ public final class MediaTest extends AbstractLibTest
 		assertEquals(1, item.photo.isNull.get());
 		assertEquals(1, item.photo.notModified.get());
 		assertEquals(1, item.photo.delivered.get());
-	}
-
-	private void assertPhotoNull()
-	{
-		assertTrue(item.photo.isNull(item));
-		assertTrue(item.isPhotoNull());
-		assertEquals(null, item.getPhotoBody());
-		assertEquals(-1, item.getPhotoLength());
-		assertEquals(null, item.getPhotoContentType());
-		assertEquals(null, item.getPhotoURL());
-	}
-	
-	private void assertPhoto(final byte[] expectedData)
-	{
-		assertTrue(!item.isPhotoNull());
-		assertData(expectedData, item.getPhotoBody());
-		assertEquals(expectedData.length, item.getPhotoLength());
-		assertEquals("image/jpeg", item.getPhotoContentType());
-		assertEquals("media/MediaItem/photo/" + item.getCopeID() + ".jpg", item.getPhotoURL());
 	}
 }
