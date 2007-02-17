@@ -156,7 +156,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				notifyMigration(con, migrationVersion, new Date(), "created schema", false);
+				notifyMigration(con, migrationVersion, new Date(), "created schema", null, null, false);
 			}
 			catch(SQLException e)
 			{
@@ -1497,6 +1497,8 @@ final class Database
 	
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
 	private static final String MIGRATION_COLUMN_COMMENT_NAME = "c";
+	private static final int    MIGRATION_COLUMN_COMMENT_LENGTH = 100;
+	private static final String MIGRATION_COLUMN_COMMENT_TRUNCATED = " ...";
 	
 	Schema makeSchema()
 	{
@@ -1521,7 +1523,7 @@ final class Database
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, dialect.getIntegerType(0, Integer.MAX_VALUE));
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_COMMENT_NAME, dialect.getStringType(100));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_COMMENT_NAME, dialect.getStringType(MIGRATION_COLUMN_COMMENT_LENGTH));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ')');
 		}
 		
@@ -1620,11 +1622,16 @@ final class Database
 		}
 	}
 	
-	private void notifyMigration(final Connection connection, final int version, final Date date, final String comment, final boolean logToConsole)
+	private void notifyMigration(final Connection connection, final int version, final Date date, String comment, final ArrayList<Integer> rowCounts, final ArrayList<Long> durations, final boolean logToConsole)
 	{
 		assert migrationSupported;
 		
-		final String fullComment = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':' + comment;
+		final String prefix = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':';
+		final String postfix = (rowCounts!=null && durations!=null) ? (String.valueOf(' ') + rowCounts + ' ' + durations) : "";
+		final int maxCommentLength = MIGRATION_COLUMN_COMMENT_LENGTH - prefix.length() - postfix.length();
+		if(comment.length()>maxCommentLength)
+			comment = comment.substring(0, maxCommentLength - MIGRATION_COLUMN_COMMENT_TRUNCATED.length()) + MIGRATION_COLUMN_COMMENT_TRUNCATED;
+		final String fullComment = prefix + comment + postfix;
 		if(logToConsole)
 			System.out.println("Migrated to version " + version + ':' + fullComment);
 
@@ -1713,7 +1720,7 @@ final class Database
 						durations.add(System.currentTimeMillis()-start);
 					}
 					
-					notifyMigration(con, migration.version, date, migration.comment + ' ' + rowCounts + ' ' + durations, true);
+					notifyMigration(con, migration.version, date, migration.comment, rowCounts, durations, true);
 				}
 				stmt.close();
 				stmt = null;

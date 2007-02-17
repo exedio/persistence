@@ -174,6 +174,11 @@ public class MigrationTest extends CopeAssert
 			assertEquals(1, logs.size());
 		}
 		
+		final String blah =
+			" blub blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
+			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
+			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
+			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blob";
 		final Dialect dialect = model7.getDatabase().dialect;
 		final Driver driver = dialect.driver;
 		final Migration[] migrations7 = new Migration[]{
@@ -181,8 +186,8 @@ public class MigrationTest extends CopeAssert
 				// Never do this in real projects,
 				// always use plain string literals
 				// containing the sql statement!
-				new Migration(7, "add column field7", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), dialect.getStringType(100))),
-				new Migration(6, "add column field6", driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), dialect.getStringType(100))),
+				new Migration(7, "add column field7" + blah, driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), dialect.getStringType(100))),
+				new Migration(6, "add column field6",        driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), dialect.getStringType(100))),
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};
@@ -197,10 +202,15 @@ public class MigrationTest extends CopeAssert
 			final Map<Integer, String> logs = model7.getMigrationLogs();
 			assertNotNull(logs.toString(), logs.get(5));
 			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertTrue(logs.toString(), logs.get(5).length()<=100);
 			assertNotNull(logs.toString(), logs.get(6));
 			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(6).length()<=100);
 			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
+			assertEquals(logs.toString(), 100, logs.get(7).length());
 			assertEquals(3, logs.size());
 		}
 		
@@ -212,10 +222,15 @@ public class MigrationTest extends CopeAssert
 			final Map<Integer, String> logs = model7.getMigrationLogs();
 			assertNotNull(logs.toString(), logs.get(5));
 			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertTrue(logs.toString(), logs.get(5).length()<=100);
 			assertNotNull(logs.toString(), logs.get(6));
 			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(6).length()<=100);
 			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
+			assertEquals(logs.toString(), logs.get(7).length(), 100);
 			assertEquals(3, logs.size());
 		}
 		
