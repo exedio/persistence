@@ -28,7 +28,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public class MediaTest extends AbstractLibTest
+public final class MediaTest extends AbstractLibTest
 {
 	static final Model MODEL = new Model(MediaItem.TYPE);
 
