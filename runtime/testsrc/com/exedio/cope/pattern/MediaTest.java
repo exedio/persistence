@@ -27,7 +27,6 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.StringField;
 
 public class MediaTest extends AbstractLibTest
 {
@@ -76,85 +75,6 @@ public class MediaTest extends AbstractLibTest
 				item.nameServer,
 			}), item.TYPE.getFeatures());
 
-		// image
-		assertEquals(true, item.image.checkContentType("image/png"));
-		assertEquals(true, item.image.checkContentType("image/jpg"));
-		assertEquals(false, item.image.checkContentType("application/jpg"));
-		assertEquals("image/*", item.image.getContentTypeDescription());
-		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
-
-		final DataField imageBody = item.image.getBody();
-		assertSame(item.TYPE, imageBody.getType());
-		assertSame("imageBody", imageBody.getName());
-		assertEquals(false, imageBody.isFinal());
-		assertEquals(false, imageBody.isMandatory());
-		assertEquals(Media.DEFAULT_LENGTH, imageBody.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.image), imageBody.getPatterns());
-		assertSame(item.image, Media.get(imageBody));
-		
-		final StringField imageMinor = item.image.getContentType();
-		assertSame(item.TYPE, imageMinor.getType());
-		assertEquals("imageMinor", imageMinor.getName());
-		assertEqualsUnmodifiable(list(item.image), imageMinor.getPatterns());
-		assertEquals(false, imageMinor.isFinal());
-		assertEquals(false, imageMinor.isMandatory());
-		assertEquals(null, imageMinor.getImplicitUniqueConstraint());
-		assertEquals(1, imageMinor.getMinimumLength());
-		assertEquals(30, imageMinor.getMaximumLength());
-		
-		final DateField imageLastModified = item.image.getLastModified();
-		assertSame(item.TYPE, imageLastModified.getType());
-		assertEquals("imageLastModified", imageLastModified.getName());
-		assertEqualsUnmodifiable(list(item.image), imageLastModified.getPatterns());
-		assertEquals(false, imageLastModified.isFinal());
-		assertEquals(false, imageLastModified.isMandatory());
-		assertEquals(null, imageLastModified.getImplicitUniqueConstraint());
-		assertSame(imageLastModified, item.image.getIsNull());
-
-		assertImageNull();
-
-		item.setImage(stream(data4), "image/imageMinor");
-		assertStreamClosed();
-		assertImage(data4, "image/imageMinor", "");
-
-		item.setImage(stream(data6), "image/jpeg");
-		assertStreamClosed();
-		assertImage(data6, "image/jpeg", ".jpg");
-
-		try
-		{
-			item.setImage(stream(data4), "illegalContentType");
-			fail();
-		}
-		catch(IllegalContentTypeException e)
-		{
-			assertStreamClosed();
-			assertSame(item.image, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals("illegalContentType", e.getContentType());
-			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
-			assertImage(data6, "image/jpeg", ".jpg");
-		}
-
-		try
-		{
-			item.setImage(stream(data4), "text/html");
-			fail();
-		}
-		catch(IllegalContentTypeException e)
-		{
-			assertStreamClosed();
-			assertSame(item.image, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals("text/html", e.getContentType());
-			assertEquals("illegal content type 'text/html' on " + item + " for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
-			assertImage(data6, "image/jpeg", ".jpg");
-		}
-
-		item.setImage((InputStream)null, null);
-		assertImageNull();
-		
-		
 		// photo
 		assertEquals(true, item.photo.checkContentType("image/jpeg"));
 		assertEquals(false, item.photo.checkContentType("imaxge/jpeg"));
@@ -285,26 +205,6 @@ public class MediaTest extends AbstractLibTest
 		assertEquals(1, item.photo.delivered.get());
 	}
 
-	private void assertImageNull()
-	{
-		assertTrue(item.isImageNull());
-		assertEquals(null, item.getImageBody());
-		assertEquals(-1, item.getImageLength());
-		assertEquals(null, item.getImageContentType());
-		assertEquals(null, item.getImageURL());
-	}
-	
-	private void assertImage(
-			final byte[] expectedData,
-			final String expectedContentType, final String expectedExtension)
-	{
-		assertTrue(!item.isImageNull());
-		assertData(expectedData, item.getImageBody());
-		assertEquals(expectedData.length, item.getImageLength());
-		assertEquals(expectedContentType, item.getImageContentType());
-		assertEquals("media/MediaItem/image/" + item.getCopeID() + expectedExtension, item.getImageURL());
-	}
-	
 	private void assertPhotoNull()
 	{
 		assertTrue(item.photo.isNull(item));
