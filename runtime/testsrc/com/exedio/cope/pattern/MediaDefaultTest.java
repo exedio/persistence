@@ -80,20 +80,20 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEquals(null, fileLastModified.getImplicitUniqueConstraint());
 		assertSame(fileLastModified, item.file.getIsNull());
 		
-		assertFileNull();
+		assertNull();
 		{
 			final Date before = new Date();
 			item.setFile(stream(data4), "fileMajor/fileMinor");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertFile(data4, before, after, "fileMajor/fileMinor", "");
+			assertContent(data4, before, after, "fileMajor/fileMinor", "");
 		}
 		{
 			final Date before = new Date();
 			item.setFile(stream(data6), "fileMajor2/fileMinor2");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertFile(data6, before, after, "fileMajor2/fileMinor2", "");
+			assertContent(data6, before, after, "fileMajor2/fileMinor2", "");
 
 			try
 			{
@@ -107,7 +107,7 @@ public class MediaDefaultTest extends AbstractLibTest
 				assertEquals(item, e.getItem());
 				assertEquals("illegalContentType", e.getContentType());
 				assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.file, allowed is '*/*\' only.", e.getMessage());
-				assertFile(data6, before, after, "fileMajor2/fileMinor2", "");
+				assertContent(data6, before, after, "fileMajor2/fileMinor2", "");
 			}
 		}
 		assertExtension("image/jpeg", ".jpg");
@@ -124,31 +124,31 @@ public class MediaDefaultTest extends AbstractLibTest
 			item.setFile(stream(data0), "emptyMajor/emptyMinor");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertFile(data0, before, after, "emptyMajor/emptyMinor", "");
+			assertContent(data0, before, after, "emptyMajor/emptyMinor", "");
 		}
 		item.setFile((InputStream)null, null);
-		assertFileNull();
+		assertNull();
 		{
 			final Date before = new Date();
 			item.setFile(file(data8), "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertFile(data8, before, after, "emptyMajor/emptyMinor", "");
+			assertContent(data8, before, after, "emptyMajor/emptyMinor", "");
 		}
 		item.setFile((File)null, null);
-		assertFileNull();
+		assertNull();
 		{
 			final Date before = new Date();
 			item.setFile(data8, "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertFile(data8, before, after, "emptyMajor/emptyMinor", "");
+			assertContent(data8, before, after, "emptyMajor/emptyMinor", "");
 		}
 		item.setFile((byte[])null, null);
-		assertFileNull();
+		assertNull();
 		{
 			final Date before = new Date();
 			item.setFile(data20, "emptyMajor/emptyMinor");
 			final Date after = new Date();
-			assertFile(data20, before, after, "emptyMajor/emptyMinor", "");
+			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
 			try
 			{
 				item.setFile(data21, "emptyMajorLong/emptyMinorLong");
@@ -163,7 +163,7 @@ public class MediaDefaultTest extends AbstractLibTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation on " + item + ", 21 bytes is too long for " + item.file.getBody(), e.getMessage());
 			}
-			assertFile(data20, before, after, "emptyMajor/emptyMinor", "");
+			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
 			try
 			{
 				item.setFile(file(data21), "emptyMajorLong/emptyMinorLong");
@@ -178,7 +178,7 @@ public class MediaDefaultTest extends AbstractLibTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation on " + item + ", 21 bytes is too long for " + item.file.getBody(), e.getMessage());
 			}
-			assertFile(data20, before, after, "emptyMajor/emptyMinor", "");
+			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
 			try
 			{
 				item.setFile(stream(data21), "emptyMajorLong/emptyMinorLong");
@@ -197,10 +197,10 @@ public class MediaDefaultTest extends AbstractLibTest
 			//assertFile(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
 		}
 		item.setFile((byte[])null, null);
-		assertFileNull();
+		assertNull();
 	}
 
-	private void assertFileNull() throws IOException
+	private void assertNull() throws IOException
 	{
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileBody());
@@ -211,7 +211,7 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEquals(null, item.getFileURL());
 	}
 	
-	private void assertFile(
+	private void assertContent(
 			final byte[] expectedData,
 			final Date before, final Date after,
 			final String expectedContentType, final String expectedExtension)
@@ -243,6 +243,6 @@ public class MediaDefaultTest extends AbstractLibTest
 		item.setFile(stream(data6), contentType);
 		final Date after = new Date();
 		assertStreamClosed();
-		assertFile(data6, before, after, contentType, extension);
+		assertContent(data6, before, after, contentType, extension);
 	}
 }

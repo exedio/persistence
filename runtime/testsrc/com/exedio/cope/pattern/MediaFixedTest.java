@@ -69,15 +69,15 @@ public class MediaFixedTest extends AbstractLibTest
 		assertEquals(null, photoLastModified.getImplicitUniqueConstraint());
 		assertSame(photoLastModified, item.photo.getIsNull());
 
-		assertPhotoNull();
+		assertNull();
 
 		item.setPhoto(stream(data4), "image/jpeg");
 		assertStreamClosed();
-		assertPhoto(data4);
+		assertContent(data4);
 
 		item.setPhoto(stream(data6), "image/jpeg");
 		assertStreamClosed();
-		assertPhoto(data6);
+		assertContent(data6);
 		
 		try
 		{
@@ -91,7 +91,7 @@ public class MediaFixedTest extends AbstractLibTest
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
 			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertPhoto(data6);
+			assertContent(data6);
 		}
 
 		try
@@ -106,14 +106,14 @@ public class MediaFixedTest extends AbstractLibTest
 			assertEquals(item, e.getItem());
 			assertEquals("image/png", e.getContentType());
 			assertEquals("illegal content type 'image/png' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertPhoto(data6);
+			assertContent(data6);
 		}
 
 		item.setPhoto((InputStream)null, null);
-		assertPhotoNull();
+		assertNull();
 	}
 
-	private void assertPhotoNull()
+	private void assertNull()
 	{
 		assertTrue(item.photo.isNull(item));
 		assertTrue(item.isPhotoNull());
@@ -123,7 +123,7 @@ public class MediaFixedTest extends AbstractLibTest
 		assertEquals(null, item.getPhotoURL());
 	}
 	
-	private void assertPhoto(final byte[] expectedData)
+	private void assertContent(final byte[] expectedData)
 	{
 		assertTrue(!item.isPhotoNull());
 		assertData(expectedData, item.getPhotoBody());
