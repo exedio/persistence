@@ -104,7 +104,7 @@ public final class Media extends CachedMedia
 	@Deprecated
 	public Media(final String fixedMimeMajor)
 	{
-		this(false, DEFAULT_LENGTH, new HalfFixedContentType(fixedMimeMajor, false));
+		this(false, DEFAULT_LENGTH, new MajorContentType(fixedMimeMajor, false));
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public final class Media extends CachedMedia
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor)
 	{
-		this(option.optional, DEFAULT_LENGTH, new HalfFixedContentType(fixedMimeMajor, option.optional));
+		this(option.optional, DEFAULT_LENGTH, new MajorContentType(fixedMimeMajor, option.optional));
 
 		if(option.unique)
 			throw new RuntimeException("Media cannot be unique");
@@ -159,7 +159,7 @@ public final class Media extends CachedMedia
 	 */
 	public Media contentTypeMajor(final String majorContentType)
 	{
-		return new Media(optional, body.getMaximumLength(), new HalfFixedContentType(majorContentType, optional));
+		return new Media(optional, body.getMaximumLength(), new MajorContentType(majorContentType, optional));
 	}
 	
 	public boolean checkContentType(final String contentType)
@@ -627,13 +627,13 @@ public final class Media extends CachedMedia
 		}
 	}
 
-	private static final class HalfFixedContentType extends ContentType
+	private static final class MajorContentType extends ContentType
 	{
 		private final String major;
 		private final String prefix;
 		private final int prefixLength;
 		
-		HalfFixedContentType(final String major, final boolean optional)
+		MajorContentType(final String major, final boolean optional)
 		{
 			super(makeField(30), optional, "Minor");
 			this.major = major;
@@ -645,15 +645,15 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		HalfFixedContentType copy()
+		MajorContentType copy()
 		{
-			return new HalfFixedContentType(major, !field.isMandatory());
+			return new MajorContentType(major, !field.isMandatory());
 		}
 		
 		@Override
-		HalfFixedContentType optional()
+		MajorContentType optional()
 		{
-			return new HalfFixedContentType(major, true);
+			return new MajorContentType(major, true);
 		}
 		
 		@Override
