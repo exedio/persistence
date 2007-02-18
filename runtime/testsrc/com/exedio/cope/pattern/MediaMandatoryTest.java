@@ -53,14 +53,14 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals("*/*", t.file.getContentTypeDescription());
 		assertEquals(20, t.file.getMaximumLength());
 
-		final DataField fileBody = t.file.getBody();
-		assertSame(t.TYPE, fileBody.getType());
-		assertSame("fileBody", fileBody.getName());
-		assertEquals(false, fileBody.isFinal());
-		assertEquals(true, fileBody.isMandatory());
-		assertEquals(20, fileBody.getMaximumLength());
-		assertEqualsUnmodifiable(list(t.file), fileBody.getPatterns());
-		assertSame(t.file, Media.get(fileBody));
+		final DataField body = t.file.getBody();
+		assertSame(t.TYPE, body.getType());
+		assertSame("fileBody", body.getName());
+		assertEquals(false, body.isFinal());
+		assertEquals(true, body.isMandatory());
+		assertEquals(20, body.getMaximumLength());
+		assertEqualsUnmodifiable(list(t.file), body.getPatterns());
+		assertSame(t.file, Media.get(body));
 		
 		final StringField fileMajor = t.file.getContentType();
 		assertSame(t.TYPE, fileMajor.getType());
