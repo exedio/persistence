@@ -52,14 +52,14 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEquals("*/*", item.file.getContentTypeDescription());
 		assertEquals(20, item.file.getMaximumLength());
 
-		final DataField fileBody = item.file.getBody();
-		assertSame(item.TYPE, fileBody.getType());
-		assertSame("fileBody", fileBody.getName());
-		assertEquals(false, fileBody.isFinal());
-		assertEquals(false, fileBody.isMandatory());
-		assertEquals(20, fileBody.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.file), fileBody.getPatterns());
-		assertSame(item.file, Media.get(fileBody));
+		final DataField body = item.file.getBody();
+		assertSame(item.TYPE, body.getType());
+		assertSame("fileBody", body.getName());
+		assertEquals(false, body.isFinal());
+		assertEquals(false, body.isMandatory());
+		assertEquals(20, body.getMaximumLength());
+		assertEqualsUnmodifiable(list(item.file), body.getPatterns());
+		assertSame(item.file, Media.get(body));
 		
 		final StringField fileMajor = item.file.getContentType();
 		assertSame(item.TYPE, fileMajor.getType());
@@ -156,8 +156,8 @@ public class MediaDefaultTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileBody, e.getFeature());
-				assertSame(fileBody, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
@@ -171,8 +171,8 @@ public class MediaDefaultTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileBody, e.getFeature());
-				assertSame(fileBody, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
@@ -186,8 +186,8 @@ public class MediaDefaultTest extends AbstractLibTest
 			}
 			catch(DataLengthViolationException e)
 			{
-				assertSame(fileBody, e.getFeature());
-				assertSame(fileBody, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(false, e.isLengthExact());
