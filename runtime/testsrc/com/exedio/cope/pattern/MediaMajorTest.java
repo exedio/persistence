@@ -69,14 +69,14 @@ public class MediaMajorTest extends AbstractLibTest
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(30, contentType.getMaximumLength());
 		
-		final DateField imageLastModified = item.image.getLastModified();
-		assertSame(item.TYPE, imageLastModified.getType());
-		assertEquals("imageLastModified", imageLastModified.getName());
-		assertEqualsUnmodifiable(list(item.image), imageLastModified.getPatterns());
-		assertEquals(false, imageLastModified.isFinal());
-		assertEquals(false, imageLastModified.isMandatory());
-		assertEquals(null, imageLastModified.getImplicitUniqueConstraint());
-		assertSame(imageLastModified, item.image.getIsNull());
+		final DateField lastModified = item.image.getLastModified();
+		assertSame(item.TYPE, lastModified.getType());
+		assertEquals("imageLastModified", lastModified.getName());
+		assertEqualsUnmodifiable(list(item.image), lastModified.getPatterns());
+		assertEquals(false, lastModified.isFinal());
+		assertEquals(false, lastModified.isMandatory());
+		assertEquals(null, lastModified.getImplicitUniqueConstraint());
+		assertSame(lastModified, item.image.getIsNull());
 
 		assertNull();
 
