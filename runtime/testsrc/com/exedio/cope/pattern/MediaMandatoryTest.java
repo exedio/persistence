@@ -88,7 +88,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		final MediaMandatoryItem item = new MediaMandatoryItem(data20, "major/minor");
 		final Date after = new Date();
 		deleteOnTearDown(item);
-		assertFile(item, data20, before, after, "major/minor", "");
+		assertContent(item, data20, before, after, "major/minor", "");
 		assertEquals(list(item), item.TYPE.search());
 		
 		try
@@ -101,7 +101,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(item, e.getItem());
 		}
-		assertFile(item, data20, before, after, "major/minor", "");
+		assertContent(item, data20, before, after, "major/minor", "");
 		
 		try
 		{
@@ -113,7 +113,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(item, e.getItem());
 		}
-		assertFile(item, data20, before, after, "major/minor", "");
+		assertContent(item, data20, before, after, "major/minor", "");
 		
 		try
 		{
@@ -125,12 +125,12 @@ public class MediaMandatoryTest extends AbstractLibTest
 			assertEquals(list(item.file), e.getFeature().getPatterns());
 			assertEquals(item, e.getItem());
 		}
-		assertFile(item, data20, before, after, "major/minor", "");
+		assertContent(item, data20, before, after, "major/minor", "");
 
 		final Date before19 = new Date();
 		item.setFile(data19, "major19/minor19");
 		final Date after19 = new Date();
-		assertFile(item, data19, before19, after19, "major19/minor19", "");
+		assertContent(item, data19, before19, after19, "major19/minor19", "");
 
 		try
 		{
@@ -157,7 +157,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(list(item), item.TYPE.search());
 	}
 
-	private void assertFile(
+	private void assertContent(
 			final MediaMandatoryItem item,
 			final byte[] expectedData,
 			final Date before, final Date after,
