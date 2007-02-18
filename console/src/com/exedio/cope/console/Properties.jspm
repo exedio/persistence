@@ -108,7 +108,7 @@ final class Properties_Jspm extends Console_Jspm
 				<th class="caption" colspan="2">Source</th>
 			</tr>
 			<tr>
-				<td colspan="2"><%=properties.getSource()%></td>
+				<td class="text" colspan="2"><%=properties.getSource()%></td>
 			</tr><%
 
 			if(sourceContent!=null)
