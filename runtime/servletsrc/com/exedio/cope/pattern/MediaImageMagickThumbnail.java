@@ -128,6 +128,8 @@ public final class MediaImageMagickThumbnail extends MediaFilter
 			throw new RuntimeException(String.valueOf(contentLength));
 		response.setContentLength(contentLength);
 		
+		response.setContentType(outputContentType);
+		
 		final byte[] b = new byte[Math.min(contentLength, 100*1024)];
 		FileInputStream body = null;
 		ServletOutputStream out = null;
