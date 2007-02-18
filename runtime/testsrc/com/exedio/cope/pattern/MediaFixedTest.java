@@ -49,14 +49,14 @@ public class MediaFixedTest extends AbstractLibTest
 		assertEquals("image/jpeg", item.photo.getContentTypeDescription());
 		assertEquals(2000, item.photo.getMaximumLength());
 
-		final DataField photoBody = item.photo.getBody();
-		assertSame(item.TYPE, photoBody.getType());
-		assertSame("photoBody", photoBody.getName());
-		assertEquals(false, photoBody.isFinal());
-		assertEquals(false, photoBody.isMandatory());
-		assertEquals(2000, photoBody.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.photo), photoBody.getPatterns());
-		assertSame(item.photo, Media.get(photoBody));
+		final DataField body = item.photo.getBody();
+		assertSame(item.TYPE, body.getType());
+		assertSame("photoBody", body.getName());
+		assertEquals(false, body.isFinal());
+		assertEquals(false, body.isMandatory());
+		assertEquals(2000, body.getMaximumLength());
+		assertEqualsUnmodifiable(list(item.photo), body.getPatterns());
+		assertSame(item.photo, Media.get(body));
 
 		assertEquals(null, item.photo.getContentType());
 
