@@ -161,7 +161,7 @@ public class MediaDefaultTest extends AbstractLibTest
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on " + item + ", 21 bytes is too long for " + item.file.getBody(), e.getMessage());
+				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
 			}
 			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
 			try
@@ -176,7 +176,7 @@ public class MediaDefaultTest extends AbstractLibTest
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(true, e.isLengthExact());
-				assertEquals("length violation on " + item + ", 21 bytes is too long for " + item.file.getBody(), e.getMessage());
+				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
 			}
 			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
 			try
@@ -191,7 +191,7 @@ public class MediaDefaultTest extends AbstractLibTest
 				assertSame(item, e.getItem());
 				assertEquals(21, e.getLength());
 				assertEquals(false, e.isLengthExact());
-				assertEquals("length violation on " + item + ", 21 bytes or more is too long for " + item.file.getBody(), e.getMessage());
+				assertEquals("length violation on " + item + ", 21 bytes or more is too long for " + body, e.getMessage());
 			}
 			assertStreamClosed();
 			//assertFile(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
