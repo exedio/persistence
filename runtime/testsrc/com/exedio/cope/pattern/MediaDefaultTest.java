@@ -71,14 +71,14 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
 		
-		final DateField fileLastModified = item.file.getLastModified();
-		assertSame(item.TYPE, fileLastModified.getType());
-		assertEquals("fileLastModified", fileLastModified.getName());
-		assertEqualsUnmodifiable(list(item.file), fileLastModified.getPatterns());
-		assertEquals(false, fileLastModified.isFinal());
-		assertEquals(false, fileLastModified.isMandatory());
-		assertEquals(null, fileLastModified.getImplicitUniqueConstraint());
-		assertSame(fileLastModified, item.file.getIsNull());
+		final DateField lastModified = item.file.getLastModified();
+		assertSame(item.TYPE, lastModified.getType());
+		assertEquals("fileLastModified", lastModified.getName());
+		assertEqualsUnmodifiable(list(item.file), lastModified.getPatterns());
+		assertEquals(false, lastModified.isFinal());
+		assertEquals(false, lastModified.isMandatory());
+		assertEquals(null, lastModified.getImplicitUniqueConstraint());
+		assertSame(lastModified, item.file.getIsNull());
 		
 		assertNull();
 		{
