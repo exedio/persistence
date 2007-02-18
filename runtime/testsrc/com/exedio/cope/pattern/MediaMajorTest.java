@@ -50,14 +50,14 @@ public class MediaMajorTest extends AbstractLibTest
 		assertEquals("image/*", item.image.getContentTypeDescription());
 		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
 
-		final DataField imageBody = item.image.getBody();
-		assertSame(item.TYPE, imageBody.getType());
-		assertSame("imageBody", imageBody.getName());
-		assertEquals(false, imageBody.isFinal());
-		assertEquals(false, imageBody.isMandatory());
-		assertEquals(Media.DEFAULT_LENGTH, imageBody.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.image), imageBody.getPatterns());
-		assertSame(item.image, Media.get(imageBody));
+		final DataField body = item.image.getBody();
+		assertSame(item.TYPE, body.getType());
+		assertSame("imageBody", body.getName());
+		assertEquals(false, body.isFinal());
+		assertEquals(false, body.isMandatory());
+		assertEquals(Media.DEFAULT_LENGTH, body.getMaximumLength());
+		assertEqualsUnmodifiable(list(item.image), body.getPatterns());
+		assertSame(item.image, Media.get(body));
 		
 		final StringField imageMinor = item.image.getContentType();
 		assertSame(item.TYPE, imageMinor.getType());
