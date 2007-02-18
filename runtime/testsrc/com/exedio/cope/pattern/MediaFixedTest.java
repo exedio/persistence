@@ -60,14 +60,14 @@ public class MediaFixedTest extends AbstractLibTest
 
 		assertEquals(null, item.photo.getContentType());
 
-		final DateField photoLastModified = item.photo.getLastModified();
-		assertSame(item.TYPE, photoLastModified.getType());
-		assertEquals("photoLastModified", photoLastModified.getName());
-		assertEqualsUnmodifiable(list(item.photo), photoLastModified.getPatterns());
-		assertEquals(false, photoLastModified.isFinal());
-		assertEquals(false, photoLastModified.isMandatory());
-		assertEquals(null, photoLastModified.getImplicitUniqueConstraint());
-		assertSame(photoLastModified, item.photo.getIsNull());
+		final DateField lastModified = item.photo.getLastModified();
+		assertSame(item.TYPE, lastModified.getType());
+		assertEquals("photoLastModified", lastModified.getName());
+		assertEqualsUnmodifiable(list(item.photo), lastModified.getPatterns());
+		assertEquals(false, lastModified.isFinal());
+		assertEquals(false, lastModified.isMandatory());
+		assertEquals(null, lastModified.getImplicitUniqueConstraint());
+		assertSame(lastModified, item.photo.getIsNull());
 
 		assertNull();
 
