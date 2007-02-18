@@ -194,7 +194,7 @@ public class MediaDefaultTest extends AbstractLibTest
 				assertEquals("length violation on " + item + ", 21 bytes or more is too long for " + body, e.getMessage());
 			}
 			assertStreamClosed();
-			//assertFile(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
+			//assertContent(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
 		}
 		item.setFile((byte[])null, null);
 		assertNull();
