@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -35,6 +36,7 @@ import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
@@ -46,7 +48,7 @@ public final class Media extends CachedMedia
 {
 	final boolean optional;
 	final DataField body;
-	final ContentType contentType;
+	final ContentType<?> contentType;
 	final DateField lastModified;
 
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
@@ -56,7 +58,7 @@ public final class Media extends CachedMedia
 		this.optional = optional;
 		registerSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength));
 		this.contentType = contentType;
-		final StringField contentTypeField = contentType.field;
+		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null)
 			registerSource(contentTypeField);
 		registerSource(this.lastModified = optional(new DateField(), optional));
@@ -155,6 +157,19 @@ public final class Media extends CachedMedia
 	}
 	
 	/**
+	 * Creates a new media, that must contain one the given content types only.
+	 */
+	public Media contentType(final String contentType1, final String contentType2)
+	{
+		return contentTypes(contentType1, contentType2);
+	}
+	
+	private Media contentTypes(final String... types)
+	{
+		return new Media(optional, body.getMaximumLength(), new EnumContentType(types, optional));
+	}
+	
+	/**
 	 * Creates a new media, that must contain the a content type with the given major part only.
 	 */
 	public Media contentTypeMajor(final String majorContentType)
@@ -182,7 +197,7 @@ public final class Media extends CachedMedia
 		return body;
 	}
 	
-	public StringField getContentType()
+	public FunctionField<?> getContentType()
 	{
 		return contentType.field;
 	}
@@ -205,7 +220,7 @@ public final class Media extends CachedMedia
 		final String name = getName();
 		if(!body.isInitialized())
 			initialize(body, name+"Body");
-		final StringField contentTypeField = contentType.field;
+		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null && !contentTypeField.isInitialized())
 			initialize(contentTypeField, name + contentType.name);
 		initialize(lastModified, name+"LastModified");
@@ -408,7 +423,7 @@ public final class Media extends CachedMedia
 				throw new DataLengthViolationException(this.body, item, length, true);
 
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
-			final StringField contentTypeField = this.contentType.field;
+			final FunctionField contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(contentTypeField.map(this.contentType.map(contentType)));
 			values.add(this.lastModified.map(new Date()));
@@ -431,7 +446,7 @@ public final class Media extends CachedMedia
 				throw new RuntimeException("if body is null, content type must also be null");
 
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
-			final StringField contentTypeField = this.contentType.field;
+			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(contentTypeField.map(null));
 			values.add(this.lastModified.map(null));
@@ -489,9 +504,9 @@ public final class Media extends CachedMedia
 		}
 	}
 	
-	private static abstract class ContentType
+	private static abstract class ContentType<B>
 	{
-		final StringField field;
+		final FunctionField<B> field;
 		final String name;
 		
 		ContentType()
@@ -500,9 +515,9 @@ public final class Media extends CachedMedia
 			this.name = null;
 		}
 		
-		ContentType(final StringField field, final boolean optional, final String name)
+		ContentType(final FunctionField<B> field, final boolean optional, final String name)
 		{
-			this.field = optional ? field.optional() : field;
+			this.field = optional ? (FunctionField<B>)field.optional() : field;
 			this.name = name;
 			
 			assert field!=null;
@@ -514,7 +529,7 @@ public final class Media extends CachedMedia
 		abstract boolean check(String contentType);
 		abstract String describe();
 		abstract String get(Item item);
-		abstract String map(String contentType);
+		abstract B map(String contentType);
 		
 		protected static final StringField makeField(final int maxLength)
 		{
@@ -522,7 +537,7 @@ public final class Media extends CachedMedia
 		}
 	}
 
-	private static final class DefaultContentType extends ContentType
+	private static final class DefaultContentType extends ContentType<String>
 	{
 		DefaultContentType(final boolean optional)
 		{
@@ -566,7 +581,77 @@ public final class Media extends CachedMedia
 		}
 	}
 	
-	private static final class FixedContentType extends ContentType
+	private static final class EnumContentType extends ContentType<Integer>
+	{
+		private final String[] types;
+		private final HashMap<String, Integer> typeSet;
+		
+		EnumContentType(final String[] types, final boolean optional)
+		{
+			super(new IntegerField(), optional, "ContentType");
+			this.types = types;
+			final HashMap<String, Integer> typeSet = new HashMap<String, Integer>();
+			for(int i = 0; i<types.length; i++)
+				typeSet.put(types[i], i);
+			
+			if(typeSet.containsKey(null))
+				throw new IllegalArgumentException("null is not allowed in content type enumeration");
+			if(typeSet.size()!=types.length)
+				throw new IllegalArgumentException("duplicates are not allowed for content type enumeration");
+			this.typeSet = typeSet;
+		}
+		
+		@Override
+		EnumContentType copy()
+		{
+			return new EnumContentType(types, !field.isMandatory());
+		}
+		
+		@Override
+		EnumContentType optional()
+		{
+			return new EnumContentType(types, true);
+		}
+		
+		@Override
+		boolean check(final String contentType)
+		{
+			return typeSet.containsKey(contentType);
+		}
+		
+		@Override
+		String describe()
+		{
+			final StringBuffer bf = new StringBuffer();
+			boolean first = true;
+			for(final String t : types)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+				
+				bf.append(t);
+			}
+			return bf.toString();
+		}
+		
+		@Override
+		String get(final Item item)
+		{
+			return types[field.get(item).intValue()];
+		}
+		
+		@Override
+		Integer map(final String contentType)
+		{
+			final Integer result = typeSet.get(contentType);
+			assert result!=null;
+			return result;
+		}
+	}
+	
+	private static final class FixedContentType extends ContentType<Void>
 	{
 		private final String full;
 		
@@ -621,13 +706,13 @@ public final class Media extends CachedMedia
 		}
 		
 		@Override
-		String map(final String contentType)
+		Void map(final String contentType)
 		{
 			throw new RuntimeException();
 		}
 	}
 
-	private static final class MajorContentType extends ContentType
+	private static final class MajorContentType extends ContentType<String>
 	{
 		private final String major;
 		private final String prefix;

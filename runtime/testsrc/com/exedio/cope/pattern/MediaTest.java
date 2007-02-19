@@ -70,6 +70,10 @@ public final class MediaTest extends AbstractLibTest
 				item.photo.getBody(),
 				item.photo.getLastModified(),
 				item.foto,
+				item.sheet,
+				item.sheet.getBody(),
+				item.sheet.getContentType(),
+				item.sheet.getLastModified(),
 				item.nameServer,
 			}), item.TYPE.getFeatures());
 

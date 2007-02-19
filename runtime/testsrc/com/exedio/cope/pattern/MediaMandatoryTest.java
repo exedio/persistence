@@ -62,7 +62,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(t.file), body.getPatterns());
 		assertSame(t.file, Media.get(body));
 		
-		final StringField contentType = t.file.getContentType();
+		final StringField contentType = (StringField)t.file.getContentType();
 		assertSame(t.TYPE, contentType.getType());
 		assertEquals("fileContentType", contentType.getName());
 		assertEquals(false, contentType.isFinal());

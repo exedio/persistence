@@ -61,7 +61,7 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.file), body.getPatterns());
 		assertSame(item.file, Media.get(body));
 		
-		final StringField contentType = item.file.getContentType();
+		final StringField contentType = (StringField)item.file.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("fileContentType", contentType.getName());
 		assertEqualsUnmodifiable(list(item.file), contentType.getPatterns());

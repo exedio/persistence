@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.Date;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -45,7 +46,7 @@ public class MediaMandatoryItem extends Item
 	{
 		this(new com.exedio.cope.SetValue[]{
 				file.getBody().map(fileBody),
-				file.getContentType().map(fileContentType),
+				Cope.mapAndCast(file.getContentType(), fileContentType),
 				file.getLastModified().map(new Date()),
 		});
 	}
