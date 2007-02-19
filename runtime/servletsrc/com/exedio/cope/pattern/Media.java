@@ -425,7 +425,7 @@ public final class Media extends CachedMedia
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 			final FunctionField contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
-				values.add(contentTypeField.map(this.contentType.set(contentType)));
+				values.add(this.contentType.map(contentType));
 			values.add(this.lastModified.map(new Date()));
 			if(body instanceof byte[])
 				values.add(this.body.map((byte[])body));
@@ -530,6 +530,11 @@ public final class Media extends CachedMedia
 		abstract String describe();
 		abstract String get(Item item);
 		abstract B set(String contentType);
+		
+		final SetValue<B> map(final String contentType)
+		{
+			return field.map(set(contentType));
+		}
 		
 		protected static final StringField makeField(final int maxLength)
 		{
