@@ -59,7 +59,7 @@ public class MediaMajorTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.image), body.getPatterns());
 		assertSame(item.image, Media.get(body));
 		
-		final StringField contentType = (StringField)(Object/*TODO workaround for compiler error: inconvertible types*/)item.image.getContentType();
+		final StringField contentType = (StringField)item.image.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("imageMinor", contentType.getName());
 		assertEqualsUnmodifiable(list(item.image), contentType.getPatterns());
