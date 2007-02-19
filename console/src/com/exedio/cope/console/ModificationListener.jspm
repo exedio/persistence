@@ -26,12 +26,19 @@ import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListener_Jspm
 {
-	final static void writeBody(final PrintStream out, final List<ModificationListener> listeners)
+	final static void writeBody(
+			final PrintStream out,
+			final int removedBefore,
+			final List<ModificationListener> listeners,
+			final int removedAfter)
 	{
 		%>
 		<table>
 			<tr>
 				<th class="caption" colspan="3">Modifying Commit Listeners</th>
+			</tr>
+			<tr>
+				<td class="text" colspan="3">removed: <%=removedBefore%>/<%=removedAfter%></td>
 			</tr>
 			<tr>
 				<th>#</th>

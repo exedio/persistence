@@ -35,9 +35,11 @@ public class ModificationListenerTest extends AbstractLibTest
 	public void testCommitListener()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
+		assertEquals(0, model.getModificationListenersRemoved());
 
 		model.addModificationListener(l);
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
+		assertEquals(0, model.getModificationListenersRemoved());
 
 		try
 		{
@@ -49,6 +51,19 @@ public class ModificationListenerTest extends AbstractLibTest
 			assertEquals("listener must not be null", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
+		assertEquals(0, model.getModificationListenersRemoved());
+		
+		try
+		{
+			model.removeModificationListener(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("listener must not be null", e.getMessage());
+		}
+		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
+		assertEquals(0, model.getModificationListenersRemoved());
 		
 		final MatchItem item1 = new MatchItem("item1");
 		deleteOnTearDown(item1);
@@ -105,11 +120,31 @@ public class ModificationListenerTest extends AbstractLibTest
 
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
+		assertEquals(0, model.getModificationListenersRemoved());
 
+		// test weakness
+		model.addModificationListener(new FailModificationListener());
+		assertEquals(1, model.getModificationListeners().size());
+		assertEquals(0, model.getModificationListenersRemoved());
+		
+		System.gc();
+		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(list(), model.getModificationListeners());
+		assertEquals(1, model.getModificationListenersRemoved());
+
+		final FailModificationListener l2 = new FailModificationListener();
+		model.addModificationListener(l2);
+		model.addModificationListener(new FailModificationListener());
+		System.gc();
+		model.removeModificationListener(l2);
+		assertEquals(2, model.getModificationListenersRemoved());
+		assertEquals(list(), model.getModificationListeners());
+		assertEquals(2, model.getModificationListenersRemoved());
+		
 		model.startTransaction("CommitListenerTestX");
 	}
 	
-	class TestListener implements ModificationListener
+	private final class TestListener implements ModificationListener
 	{
 		Collection<Item> modifiedItems = null;
 		
@@ -142,4 +177,11 @@ public class ModificationListenerTest extends AbstractLibTest
 		}
 	}
 
+	private final class FailModificationListener implements ModificationListener
+	{
+		public void onModifyingCommit(Collection<Item> modifiedItems)
+		{
+			throw new RuntimeException();
+		}
+	}
 }

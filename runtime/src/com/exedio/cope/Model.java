@@ -19,12 +19,15 @@
 package com.exedio.cope;
 
 import java.io.PrintStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -51,7 +54,8 @@ public final class Model
 	private final List<Type<?>> typeListSorted;
 	private final List<Type<?>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
-	private final ArrayList<ModificationListener> modificationListeners = new ArrayList<ModificationListener>();
+	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
+	private int modificationListenersRemoved = 0;
 
 	// set by connect
 	private Properties propertiesIfConnected;
@@ -646,11 +650,37 @@ public final class Model
 	{
 		synchronized(modificationListeners)
 		{
+			final int size = modificationListeners.size();
+			if(size==0)
+				return Collections.<ModificationListener>emptyList();
+			
 			// make a copy to avoid ConcurrentModificationViolations
-			return
-				modificationListeners.isEmpty()
-				? Collections.<ModificationListener>emptyList()
-				: Collections.unmodifiableList(new ArrayList<ModificationListener>(modificationListeners));
+			final ArrayList<ModificationListener> result = new ArrayList<ModificationListener>(size);
+			int removed = 0;
+			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
+			{
+				final ModificationListener listener = i.next().get();
+				if(listener==null)
+				{
+					i.remove();
+					removed++;
+				}
+				else
+					result.add(listener);
+			}
+			
+			if(removed>0)
+				this.modificationListenersRemoved += removed;
+			
+			return Collections.unmodifiableList(result);
+		}
+	}
+	
+	public int getModificationListenersRemoved()
+	{
+		synchronized(modificationListeners)
+		{
+			return modificationListenersRemoved;
 		}
 	}
 	
@@ -659,18 +689,34 @@ public final class Model
 		if(listener==null)
 			throw new NullPointerException("listener must not be null");
 		
-		// TODO do not hard link to allow GC remove listeners
+		final WeakReference<ModificationListener> ref = new WeakReference<ModificationListener>(listener);
 		synchronized(modificationListeners)
 		{
-			modificationListeners.add(listener);
+			modificationListeners.add(ref);
 		}
 	}
 	
 	public void removeModificationListener(final ModificationListener listener)
 	{
+		if(listener==null)
+			throw new NullPointerException("listener must not be null");
+
 		synchronized(modificationListeners)
 		{
-			modificationListeners.remove(listener);
+			int removed = 0;
+			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
+			{
+				final ModificationListener l = i.next().get();
+				if(l==null)
+				{
+					i.remove();
+					removed++;
+				}
+				else if(l==listener)
+					i.remove();
+			}
+			if(removed>0)
+				this.modificationListenersRemoved += removed;
 		}
 	}
 	
