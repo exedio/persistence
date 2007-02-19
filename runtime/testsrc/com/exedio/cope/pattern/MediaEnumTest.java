@@ -60,7 +60,7 @@ public class MediaEnumTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.sheet), body.getPatterns());
 		assertSame(item.sheet, Media.get(body));
 		
-		final IntegerField contentType = (IntegerField)item.sheet.getContentType();
+		final IntegerField contentType = (IntegerField)(Object/*TODO workaround for compiler error: inconvertible types*/)item.sheet.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("sheetContentType", contentType.getName());
 		assertEqualsUnmodifiable(list(item.sheet), contentType.getPatterns());
