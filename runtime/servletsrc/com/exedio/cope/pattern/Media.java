@@ -232,40 +232,6 @@ public final class Media extends CachedMedia
 	}
 
 	/**
-	 * Returns the major mime type for the given content type.
-	 * Returns null, if content type is null.
-	 */
-	public final static String toMajor(final String contentType) throws IllegalContentTypeException
-	{
-		return toMajorMinor(contentType, true);
-	}
-	
-	/**
-	 * Returns the minor mime type for the given content type.
-	 * Returns null, if content type is null.
-	 */
-	public final static String toMinor(final String contentType) throws IllegalContentTypeException
-	{
-		return toMajorMinor(contentType, false);
-	}
-
-	private final static String toMajorMinor(final String contentType, final boolean major) throws IllegalContentTypeException
-	{
-		if(contentType!=null)
-		{
-			final int pos = contentType.indexOf('/');
-			if(pos<0)
-				throw new RuntimeException(contentType);
-			return
-				major
-				? contentType.substring(0, pos)
-				: contentType.substring(contentType.indexOf('/')+1);
-		}
-		else
-			return null;
-	}
-
-	/**
 	 * Returns the content type of this media.
 	 * Returns null, if this media is null.
 	 */

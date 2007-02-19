@@ -127,16 +127,15 @@ class ItemCop_Jspm
 							{
 								%><a href="<%=url%>"><%
 								final String contentType = media.getContentType(item);
-								final String major = Media.toMajor(contentType);
-								if("image".equals(major))
+								if(contentType.startsWith("image/"))
 								{
-									%><img src="<%=url%>" width="250"><small>(<%=Media.toMinor(contentType)%>)</small><%
+									%><img src="<%=url%>" width="250"><%
 								}
 								else
 								{
-									%>download <small>(<%=contentType%>)</small><%
+									%>download <%
 								}
-								%></a><%
+								%><small>(<%=contentType%>)</small></a><%
 							}
 							%>
 							<input type="file" name="<%=attributeName%>" size="20"><%
