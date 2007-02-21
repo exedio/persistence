@@ -254,7 +254,7 @@ final class TypeCop_Jspm
 							;
 						else
 						{
-							%><%=item.get((Function<Object>)feature)%><%
+							%><%=item.get((Function<?>)feature)%><%
 						}
 						%></td><%
 					}
