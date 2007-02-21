@@ -106,7 +106,7 @@ abstract class CopeFeature
 	final SortedSet<Class> getSetterExceptions()
 	{
 		final Feature instance = getInstance();
-		final SortedSet<Class> result = ((Settable<Object>)instance).getSetterExceptions();
+		final SortedSet<Class> result = ((Settable<?>)instance).getSetterExceptions();
 		if(isBoxed())
 			result.remove(MandatoryViolationException.class);
 		return result;
