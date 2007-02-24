@@ -96,7 +96,12 @@ final class Media_Jspm extends Console_Jspm
 					{
 						%><%=className%><%
 					}
-					if(path instanceof MediaRedirect)
+					if(path instanceof Media)
+					{
+						final Media m = (Media)path;
+						%>(<%=m.getContentTypeDescription()%>)<%
+					}
+					else if(path instanceof MediaRedirect)
 					{
 						final MediaRedirect redirect = (MediaRedirect)path;
 						%>(<%=redirect.getTarget().getName()%>)<%
