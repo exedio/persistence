@@ -147,6 +147,52 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
+	 * Reads data for this persistent data field
+	 * and writes it into the given steam.
+	 * Does nothing, if there is no data for this field.
+	 * @throws NullPointerException
+	 *         if data is null.
+	 * @throws IOException if writing data throws an IOException.
+	 */
+	public void get(final Item item, final OutputStream data) throws IOException
+	{
+		if(data==null)
+			throw new NullPointerException();
+		
+		column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, this);
+	}
+	
+	/**
+	 * Reads data for this persistent data field
+	 * and writes it into the given file.
+	 * Does nothing, if there is no data for this field.
+	 * @throws NullPointerException
+	 *         if data is null.
+	 * @throws IOException if writing data throws an IOException.
+	 */
+	public void get(final Item item, final File data) throws IOException
+	{
+		if(data==null)
+			throw new NullPointerException();
+		
+		if(!isNull(item))
+		{
+			FileOutputStream target = null;
+			try
+			{
+				target = new FileOutputStream(data);
+				get(item, target);
+			}
+			finally
+			{
+				if(target!=null)
+					target.close();
+			}
+		}
+		// TODO maybe file should be deleted when field is null?
+	}
+	
+	/**
 	 * Provides data for this persistent data field.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
@@ -183,22 +229,6 @@ public final class DataField extends Field<byte[]>
 	}
 	
 	/**
-	 * Reads data for this persistent data field
-	 * and writes it into the given steam.
-	 * Does nothing, if there is no data for this field.
-	 * @throws NullPointerException
-	 *         if data is null.
-	 * @throws IOException if writing data throws an IOException.
-	 */
-	public void get(final Item item, final OutputStream data) throws IOException
-	{
-		if(data==null)
-			throw new NullPointerException();
-		
-		column.table.database.load(model.getCurrentTransaction().getConnection(), column, item, data, this);
-	}
-	
-	/**
 	 * Provides data for this persistent data field.
 	 * Closes <data>data</data> after reading the contents of the stream.
 	 * @param data give null to remove data.
@@ -217,36 +247,6 @@ public final class DataField extends Field<byte[]>
 			throw new MandatoryViolationException(this, item);
 		
 		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, this);
-	}
-	
-	/**
-	 * Reads data for this persistent data field
-	 * and writes it into the given file.
-	 * Does nothing, if there is no data for this field.
-	 * @throws NullPointerException
-	 *         if data is null.
-	 * @throws IOException if writing data throws an IOException.
-	 */
-	public void get(final Item item, final File data) throws IOException
-	{
-		if(data==null)
-			throw new NullPointerException();
-		
-		if(!isNull(item))
-		{
-			FileOutputStream target = null;
-			try
-			{
-				target = new FileOutputStream(data);
-				get(item, target);
-			}
-			finally
-			{
-				if(target!=null)
-					target.close();
-			}
-		}
-		// TODO maybe file should be deleted when field is null?
 	}
 	
 	/**
