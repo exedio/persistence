@@ -118,8 +118,6 @@ public final class DataField extends Field<byte[]>
 		return i<=l ? i : (int)l;
 	}
 	
-	// public methods ---------------------------------------------------------------
-	
 	/**
 	 * Returns, whether there is no data for this field.
 	 */
