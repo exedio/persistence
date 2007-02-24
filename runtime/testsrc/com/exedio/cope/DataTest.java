@@ -116,6 +116,34 @@ public class DataTest extends AbstractLibTest
 		assertEquals(11, data11.length);
 		
 		// test model
+		assertEquals(0, DataField.min(0, 0l));
+		assertEquals(0, DataField.min(Integer.MAX_VALUE, 0l));
+		assertEquals(0, DataField.min(0, Long.MAX_VALUE));
+		assertEquals(4, DataField.min(5, 4l));
+		assertEquals(5, DataField.min(5, 5l));
+		assertEquals(5, DataField.min(5, 6l));
+		assertEquals(5, DataField.min(5, Integer.MAX_VALUE));
+		assertEquals(5, DataField.min(5, Long.MAX_VALUE));
+		assertEquals(Integer.MAX_VALUE, DataField.min(Integer.MAX_VALUE, Long.MAX_VALUE));
+		try
+		{
+			DataField.min(-1, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("i must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
+			DataField.min(0, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("l must not be negative, but was -1", e.getMessage());
+		}
+		
 		assertEquals(item.TYPE, item.data.getType());
 		assertEquals("data", item.data.getName());
 		assertEquals(false, item.data.isMandatory());

@@ -93,17 +93,29 @@ public final class DataField extends Field<byte[]>
 		final Type type = getType();
 		this.model = type.getModel();
 		final Properties properties = model.getProperties();
-		final int maximumLengthInt = toInt(maximumLength);
 		column = new BlobColumn(table, name, optional, maximumLength);
-		bufferSizeDefault = Math.min(properties.dataFieldBufferSizeDefault.getIntValue(), maximumLengthInt);
-		bufferSizeLimit = Math.min(properties.dataFieldBufferSizeLimit.getIntValue(), maximumLengthInt);
+		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault.getIntValue(), maximumLength);
+		bufferSizeLimit = min(properties.dataFieldBufferSizeLimit.getIntValue(), maximumLength);
 		
 		return column;
 	}
 	
 	private static final int toInt(final long l)
 	{
-		return (int)Math.min(l, Integer.MAX_VALUE);
+		return min(Integer.MAX_VALUE, l);
+	}
+	
+	/**
+	 * @throws IllegalArgumentException if either i or l is negative
+	 */
+	public static final int min(final int i, final long l)
+	{
+		if(i<0)
+			throw new IllegalArgumentException("i must not be negative, but was " + i);
+		if(l<0)
+			throw new IllegalArgumentException("l must not be negative, but was " + l);
+		
+		return i<=l ? i : (int)l;
 	}
 	
 	// public methods ---------------------------------------------------------------
@@ -291,7 +303,7 @@ public final class DataField extends Field<byte[]>
 		
 		assert length>0;
 		
-		final byte[] b = new byte[Math.min(bufferSizeLimit, toInt(length))];
+		final byte[] b = new byte[min(bufferSizeLimit, length)];
 		//System.out.println("-------------- "+length+" ----- "+b.length);
 		
 		final long maximumLength = this.maximumLength;
@@ -350,7 +362,7 @@ public final class DataField extends Field<byte[]>
 	void copyAsHex(final InputStream in, final StringBuffer out, final Item exceptionItem) throws IOException
 	{
 		final long maximumLength = this.maximumLength;
-		final byte[] b = new byte[Math.max(bufferSizeLimit, toInt(maximumLength))];
+		final byte[] b = new byte[min(bufferSizeLimit, maximumLength)];
 		//System.out.println("-------------- "+length+" ----- "+b.length);
 		
 		long transferredLength = 0;

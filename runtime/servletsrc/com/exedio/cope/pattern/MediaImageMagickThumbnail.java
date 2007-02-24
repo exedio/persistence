@@ -30,6 +30,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 
 public final class MediaImageMagickThumbnail extends MediaFilter
@@ -121,14 +122,15 @@ public final class MediaImageMagickThumbnail extends MediaFilter
 		
 		inFile.delete();
 		
-		final int contentLength = (int)outFile.length();
+		final long contentLength = outFile.length();
 		if(contentLength<=0)
 			throw new RuntimeException(String.valueOf(contentLength));
-		response.setContentLength(contentLength);
+		if(contentLength<=Integer.MAX_VALUE)
+			response.setContentLength((int)contentLength);
 		
 		response.setContentType(outputContentType);
 		
-		final byte[] b = new byte[Math.min(contentLength, 100*1024)];
+		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
 		FileInputStream body = null;
 		ServletOutputStream out = null;
 		try
