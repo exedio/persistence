@@ -28,7 +28,6 @@ import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.DataField;
@@ -438,7 +437,7 @@ public final class Media extends CachedMedia
 	
 	@Override
 	public Media.Log doGetIfModified(
-			final HttpServletRequest request, final HttpServletResponse response,
+			final HttpServletResponse response,
 			final Item item, final String extension)
 		throws ServletException, IOException
 	{
