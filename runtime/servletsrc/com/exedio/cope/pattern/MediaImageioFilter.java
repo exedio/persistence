@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.imageio.IIOImage;
-import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
@@ -143,9 +142,8 @@ public abstract class MediaImageioFilter extends MediaFilter
 			final ImageReader imageReader = spi.createReaderInstance();
 			try
 			{
-				final ImageReadParam param = imageReader.getDefaultReadParam();
 				imageReader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
-				srcBuf = imageReader.read(0, param);
+				srcBuf = imageReader.read(0);
 				imageReader.dispose();
 			}
 			finally
