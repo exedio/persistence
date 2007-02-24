@@ -144,7 +144,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 			{
 				imageReader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
 				srcBuf = imageReader.read(0);
-				imageReader.dispose();
 			}
 			finally
 			{
