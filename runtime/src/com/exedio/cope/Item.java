@@ -686,7 +686,7 @@ public abstract class Item extends Cope
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 	
-	private final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> fieldValues)
+	private static final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> fieldValues)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
