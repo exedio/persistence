@@ -19,6 +19,8 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,11 +41,16 @@ abstract class ConsoleCop extends Cop
 	long start = 0;
 	long end = 0;
 	SimpleDateFormat df;
+	DecimalFormat nf;
 	
 	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
 		df = new SimpleDateFormat("dd.MM.yyyy'&nbsp;'HH:mm:ss.SSS");
+		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
+		nfs.setDecimalSeparator(',');
+		nfs.setGroupingSeparator(' ');
+		nf = new DecimalFormat("", nfs);
 	}
 	
 	final ConsoleCop[] getTabs()
@@ -105,7 +112,7 @@ abstract class ConsoleCop extends Cop
 	
 	final String format(final long number)
 	{
-		return /*"fm" +*/ Long.toString(number);
+		return /*"fm" +*/ nf.format(number);
 	}
 	
 	final String formatAndHide(final long hidden, final long number)
