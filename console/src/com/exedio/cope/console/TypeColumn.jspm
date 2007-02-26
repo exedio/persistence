@@ -32,11 +32,9 @@ final class TypeColumn_Jspm
 			final ArrayList<ItemFunction> functions,
 			final boolean test)
 	{
+		writeButton(cop, out);
 		int sumCount = 0;
 		%>
-		<form action="<%=cop%>#overall" method="POST">
-			<input type="submit" name="<%=cop.TEST%>" value="test all" />
-		</form>
 		<ol><%
 		for(final ItemFunction function : functions)
 		{
@@ -77,6 +75,13 @@ final class TypeColumn_Jspm
 			}
 			%></a></p><%
 		}
+		writeButton(cop, out);
+	}
+	
+	private final static void writeButton(
+			final TypeColumnCop cop,
+			final PrintStream out)
+	{
 		%>
 		<form action="<%=cop%>#overall" method="POST">
 			<input type="submit" name="<%=cop.TEST%>" value="test all" />
