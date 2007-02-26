@@ -182,7 +182,7 @@ final class Media_Jspm extends Console_Jspm
 				if(mediaLastModified!=null)
 				{
 				%>
-				<td><%=cop.format(mediaLastModified.getLastModified(item))%></td><%
+				<td><%=cop.formatDate(mediaLastModified.getLastModified(item))%></td><%
 				}
 				if(mediaLength!=null)
 				{

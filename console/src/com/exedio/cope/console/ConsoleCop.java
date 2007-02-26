@@ -98,7 +98,7 @@ abstract class ConsoleCop extends Cop
 		return df.format(date);
 	}
 	
-	final String format(final long date)
+	final String formatDate(final long date)
 	{
 		return df.format(new Date(date));
 	}
