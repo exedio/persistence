@@ -89,12 +89,12 @@ final class ConnectionPool_Jspm extends Console_Jspm
 						continue;
 				}
 				
-				final int[] data = {
-						pool.getLoss(),
-						pool.getIdleCount(),
-						pool.getIdleCountMax(),
-						pool.getCreateCounter(),
-						destroyCounter,
+				final String[] data = {
+						cop.format(pool.getLoss()),
+						cop.format(pool.getIdleCount()),
+						cop.format(pool.getIdleCountMax()),
+						cop.format(pool.getCreateCounter()),
+						cop.format(destroyCounter),
 					};
 			%>
 			<tr<%if(inconsistent){%> class="inconsistent"<%}%>><%

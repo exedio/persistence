@@ -103,6 +103,16 @@ abstract class ConsoleCop extends Cop
 		return df.format(new Date(date));
 	}
 	
+	final String format(final long number)
+	{
+		return /*"fm" +*/ Long.toString(number);
+	}
+	
+	final String formatAndHide(final long hidden, final long number)
+	{
+		return /*("["+hidden+']') +*/ (number!=hidden ? format(number) : "");
+	}
+	
 	void writeHead(HttpServletRequest request, PrintStream out)
 	{
 		// default implementation does nothing

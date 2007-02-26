@@ -119,10 +119,10 @@ final class QueryCache_Jspm extends Console_Jspm
 				break;
 			}
 			final CacheQueryInfo info = queryHistogram[i];
-			final int[] data = {
-					i,
-					info.getResultSize(),
-					hide(0, info.getHits()),
+			final String[] data = {
+					cop.format(i),
+					cop.format(info.getResultSize()),
+					cop.formatAndHide(0, info.getHits()),
 				};
 			%>
 			<tr><%

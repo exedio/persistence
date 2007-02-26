@@ -137,28 +137,13 @@ abstract class Console_Jspm
 				<th class="color<%= (names.length-1)%COLORS %>"></th><%
 	}
 	
-	private static final int EMPTY = -91872356;
-	
-	static final int hide(final int emptyNumber, final int number)
-	{
-		return (number==emptyNumber) ? EMPTY : number;
-	}
-	
-	static final void writeColouredData(final PrintStream out, final int[] data)
+	static final void writeColouredData(final PrintStream out, final String[] data)
 	{
 			for(int i = 0; i<data.length; i++)
 			{
 			%>
 				<td class="color<%= i%COLORS %>"><%
-				switch(data[i])
-				{
-				case EMPTY:
-					%>&nbsp;<%
-					break;
-				default:
 					%><%=data[i]%><%
-					break;
-				}
 				%></td><%
 			}
 	}

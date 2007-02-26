@@ -67,14 +67,14 @@ final class Media_Jspm extends Console_Jspm
 			{
 				final String type = path.getType().getID();
 				final String name = path.getName();
-				final int[] data = {
-					hide(0, path.exception.get()),
-					hide(0, path.notAnItem.get()),
-					hide(0, path.noSuchItem.get()),
-					hide(0, path.isNull.get()),
-					hide(0, path.notComputable.get()),
-					hide(0, path.notModified.get()),
-					hide(0, path.delivered.get()),
+				final String[] data = {
+					cop.formatAndHide(0, path.exception.get()),
+					cop.formatAndHide(0, path.notAnItem.get()),
+					cop.formatAndHide(0, path.noSuchItem.get()),
+					cop.formatAndHide(0, path.isNull.get()),
+					cop.formatAndHide(0, path.notComputable.get()),
+					cop.formatAndHide(0, path.notModified.get()),
+					cop.formatAndHide(0, path.delivered.get()),
 				};
 	
 				%>
