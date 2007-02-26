@@ -57,7 +57,7 @@ final class TypeColumn_Jspm
 				{
 					%>: ok.<%
 				}
-				%> (<%=(finishMillis-startMillis)%>ms)<%
+				%> (<%=cop.format(finishMillis-startMillis)%>ms)<%
 			}
 			%></li><%
 		}

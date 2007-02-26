@@ -44,23 +44,23 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		<table>
 			<tr><th class="caption" colspan="3">Query Cache Statistics</th></tr>
-			<tr><th colspan="2">Limit</th><td><%=limit%></td></tr>
-			<tr><th colspan="2">Level</th><td><%=queryInfos[2]%></td></tr>
-			<tr><th colspan="2">Hits</th><td><%=queryInfos[0]%></td></tr>
-			<tr><th colspan="2">Misses</th><td><%=queryInfos[1]%></td></tr><%
+			<tr><th colspan="2">Limit</th><td><%=cop.format(limit)%></td></tr>
+			<tr><th colspan="2">Level</th><td><%=cop.format(queryInfos[2])%></td></tr>
+			<tr><th colspan="2">Hits</th><td><%=cop.format(queryInfos[0])%></td></tr>
+			<tr><th colspan="2">Misses</th><td><%=cop.format(queryInfos[1])%></td></tr><%
 			if(queryHistogram.length>0)
 			{
 			%>
-			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=sumKeyLength/queryHistogram.length%></td></tr>
-			<tr><th>Maximum</th><td><%=maxKeyLength%></td></tr>
-			<tr><th>Minimum</th><td><%=minKeyLength%></td></tr>
-			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=sumResultSize/queryHistogram.length%></td></tr>
-			<tr><th>Maximum</th><td><%=maxResultSize%></td></tr>
-			<tr><th>Minimum</th><td><%=minResultSize%></td></tr><%
+			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=cop.format(sumKeyLength/queryHistogram.length)%></td></tr>
+			<tr><th>Maximum</th><td><%=cop.format(maxKeyLength)%></td></tr>
+			<tr><th>Minimum</th><td><%=cop.format(minKeyLength)%></td></tr>
+			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=cop.format(sumResultSize/queryHistogram.length)%></td></tr>
+			<tr><th>Maximum</th><td><%=cop.format(maxResultSize)%></td></tr>
+			<tr><th>Minimum</th><td><%=cop.format(minResultSize)%></td></tr><%
 				for(int i = 0; i<resultSizes.length; i++)
 				{
 			%>
-			<tr><th>Size <%=i%></th><td><%=resultSizes[i]%></td></tr><%
+			<tr><th>Size <%=i%></th><td><%=cop.format(resultSizes[i])%></td></tr><%
 				}
 			}
 			%>

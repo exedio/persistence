@@ -48,7 +48,7 @@ final class PrimaryKeys_Jspm
 					{
 						case Integer.MIN_VALUE: %>MIN <% break;
 						case Integer.MAX_VALUE: %>MAX <% break;
-						default:%><%=i%> <%
+						default:%><%=cop.format(i)%> <%
 					}
 				}
 				%></td></tr><%

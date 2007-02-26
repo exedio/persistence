@@ -51,15 +51,15 @@ final class ConnectionPool_Jspm extends Console_Jspm
 			</tr>
 			<tr>
 				<th>Idle</th>
-				<td><%=info.getIdleCounter()%></td>
+				<td><%=cop.format(info.getIdleCounter())%></td>
 			</tr>
 			<tr>
 				<th>Get</th>
-				<td><%=poolCounter.getGetCounter()%></td>
+				<td><%=cop.format(poolCounter.getGetCounter())%></td>
 			</tr>
 			<tr>
 				<th>Put</th>
-				<td><%=poolCounter.getPutCounter()%></td>
+				<td><%=cop.format(poolCounter.getPutCounter())%></td>
 			</tr>
 		</table>
 		<hr>

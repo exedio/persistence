@@ -27,6 +27,7 @@ import com.exedio.cope.util.ModificationListener;
 final class ModificationListener_Jspm
 {
 	final static void writeBody(
+			final ModificationListenerCop cop,
 			final PrintStream out,
 			final int removedBefore,
 			final List<ModificationListener> listeners,
@@ -50,7 +51,7 @@ final class ModificationListener_Jspm
 			{
 			%>
 			<tr>
-				<td><%=number++%></td>
+				<td><%=cop.format(number++)%></td>
 				<td class="text"><%=listener.getClass().getName()%></td>
 				<td class="text"><%
 				try
