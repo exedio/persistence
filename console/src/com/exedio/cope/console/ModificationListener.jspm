@@ -73,8 +73,9 @@ final class ModificationListener_Jspm
 						<ol><%
 							for(final ModificationListenerCop.Commit commit : introspector.getCommits())
 							{
+								final String name = commit.getTransactionName();
 							%>
-							<li><%=cop.format(commit.getTimeStamp())%> <%=commit.getModifiedItems()%></li><%
+							<li><%=cop.format(commit.getTimeStamp())%><% if(name!=null){%> <%=name%><%} %> <%=commit.getModifiedItems()%></li><%
 							}
 							%>
 						</ol>

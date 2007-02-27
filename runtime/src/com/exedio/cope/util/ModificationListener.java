@@ -21,8 +21,12 @@ package com.exedio.cope.util;
 import java.util.Collection;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.Transaction;
 
 public interface ModificationListener
 {
-	void onModifyingCommit(Collection<Item> modifiedItems);
+	/**
+	 * @param transactionName the {@link Transaction#getName() name} of the committed transaction
+	 */
+	void onModifyingCommit(Collection<Item> modifiedItems, String transactionName);
 }

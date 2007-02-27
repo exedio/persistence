@@ -123,9 +123,9 @@ final class ModificationListenerCop extends ConsoleCop
 			session.setAttribute(SESSION_KEY, this);
 		}
 		
-		public void onModifyingCommit(final Collection<Item> modifiedItems)
+		public void onModifyingCommit(final Collection<Item> modifiedItems, final String transactionName)
 		{
-			final Commit commit = new Commit(modifiedItems);
+			final Commit commit = new Commit(modifiedItems, transactionName);
 			synchronized(commits)
 			{
 				commits.add(commit);
@@ -167,8 +167,9 @@ final class ModificationListenerCop extends ConsoleCop
 	{
 		private final long timestamp = System.currentTimeMillis();
 		private final String modifiedItems;
+		private final String transactionName;
 		
-		Commit(final Collection<Item> modifiedItems)
+		Commit(final Collection<Item> modifiedItems, final String transactionName)
 		{
 			final StringBuffer bf = new StringBuffer();
 			boolean first = true;
@@ -182,6 +183,7 @@ final class ModificationListenerCop extends ConsoleCop
 				bf.append(item.getCopeID());
 			}
 			this.modifiedItems = bf.toString();
+			this.transactionName = transactionName;
 		}
 		
 		Date getTimeStamp()
@@ -192,6 +194,11 @@ final class ModificationListenerCop extends ConsoleCop
 		String getModifiedItems()
 		{
 			return modifiedItems;
+		}
+		
+		String getTransactionName()
+		{
+			return transactionName;
 		}
 	}
 }

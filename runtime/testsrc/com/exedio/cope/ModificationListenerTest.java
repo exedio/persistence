@@ -67,56 +67,57 @@ public class ModificationListenerTest extends AbstractLibTest
 		
 		final MatchItem item1 = new MatchItem("item1");
 		deleteOnTearDown(item1);
-		l.assertIt(null);
+		l.assertIt(null, null);
+		final String firstTransactionName = model.getCurrentTransaction().getName();
 		model.commit();
-		l.assertIt(list(item1));
-		l.assertIt(null);
+		l.assertIt(list(item1), firstTransactionName);
+		l.assertIt(null, null);
 
 		model.startTransaction("CommitListenerTest2");
 		assertEquals("item1", item1.getText());
-		l.assertIt(null);
+		l.assertIt(null, null);
 		model.commit();
-		l.assertIt(null);
+		l.assertIt(null, null);
 
 		model.startTransaction("CommitListenerTest3");
 		final MatchItem item2 = new MatchItem("item2");
 		deleteOnTearDown(item2);
-		l.assertIt(null);
+		l.assertIt(null, null);
 		model.commit();
-		l.assertIt(list(item2));
+		l.assertIt(list(item2), "CommitListenerTest3");
 		
 		model.startTransaction("CommitListenerTest4");
 		item1.setText("item1x");
-		l.assertIt(null);
+		l.assertIt(null, null);
 		model.commit();
-		l.assertIt(list(item1));
+		l.assertIt(list(item1), "CommitListenerTest4");
 		
 		model.startTransaction("CommitListenerTest5");
 		item1.setText("item1y");
 		item2.setText("item2y");
-		l.assertIt(null);
+		l.assertIt(null, null);
 		model.commit();
-		l.assertIt(list(item1, item2));
+		l.assertIt(list(item1, item2), "CommitListenerTest5");
 
-		model.startTransaction("CommitListenerTest5");
+		model.startTransaction("CommitListenerTest6");
 		item1.setText("item1R");
 		item2.setText("item2R");
-		l.assertIt(null);
+		l.assertIt(null, null);
 		model.rollback();
-		l.assertIt(null);
+		l.assertIt(null, null);
 
-		model.startTransaction("CommitListenerTest5");
+		model.startTransaction("CommitListenerTest7");
 		final MatchItem item3 = new MatchItem("item3");
 		item1.setText("item1z");
-		l.assertIt(null);
+		l.assertIt(null, null);
 		model.commit();
-		l.assertIt(list(item1, item3));
+		l.assertIt(list(item1, item3), "CommitListenerTest7");
 
-		model.startTransaction("CommitListenerTest5");
+		model.startTransaction("CommitListenerTest8");
 		item3.deleteCopeItem();
-		l.assertIt(null);
+		l.assertIt(null, null);
 		model.commit();
-		l.assertIt(list(item3));
+		l.assertIt(list(item3), "CommitListenerTest8");
 
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
@@ -147,8 +148,9 @@ public class ModificationListenerTest extends AbstractLibTest
 	private final class TestListener implements ModificationListener
 	{
 		Collection<Item> modifiedItems = null;
+		String transactionName = null;
 		
-		public void onModifyingCommit(final Collection<Item> modifiedItems)
+		public void onModifyingCommit(final Collection<Item> modifiedItems, final String transactionName)
 		{
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
@@ -168,18 +170,21 @@ public class ModificationListenerTest extends AbstractLibTest
 			}
 			
 			this.modifiedItems = modifiedItems;
+			this.transactionName = transactionName;
 		}
 		
-		void assertIt(final List<? extends Object> expectedItems)
+		void assertIt(final List<? extends Object> expectedItems, final String expectedTransactionName)
 		{
 			assertContainsList(expectedItems, modifiedItems);
+			assertEquals(expectedTransactionName, transactionName);
 			modifiedItems = null;
+			transactionName = null;
 		}
 	}
 
 	private final class FailModificationListener implements ModificationListener
 	{
-		public void onModifyingCommit(Collection<Item> modifiedItems)
+		public void onModifyingCommit(Collection<Item> modifiedItems, String transactionName)
 		{
 			throw new RuntimeException();
 		}

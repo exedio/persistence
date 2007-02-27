@@ -329,7 +329,7 @@ public final class Transaction
 				{
 					final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
 					for(final ModificationListener listener : commitListeners)
-						listener.onModifyingCommit(modifiedItemsUnmodifiable);
+						listener.onModifyingCommit(modifiedItemsUnmodifiable, name);
 				}
 			}
 		}
