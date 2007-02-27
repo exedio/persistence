@@ -49,23 +49,26 @@ final class ModificationListenerCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		if("POST".equals(request.getMethod()) && (request.getParameter(REMOVE_SELECTED)!=null))
+		if("POST".equals(request.getMethod()))
 		{
-			final String[] toDeleteArray = request.getParameterValues(REMOVE_CHECKBOX);
-			
-			if(toDeleteArray!=null)
+			if(request.getParameter(REMOVE_SELECTED)!=null)
 			{
-				final HashSet<String> toDelete = new HashSet<String>(Arrays.asList(toDeleteArray));
-				for(final ModificationListener listener : model.getModificationListeners())
+				final String[] toDeleteArray = request.getParameterValues(REMOVE_CHECKBOX);
+				
+				if(toDeleteArray!=null)
 				{
-					if(toDelete.contains(toID(listener)))
-						model.removeModificationListener(listener);
+					final HashSet<String> toDelete = new HashSet<String>(Arrays.asList(toDeleteArray));
+					for(final ModificationListener listener : model.getModificationListeners())
+					{
+						if(toDelete.contains(toID(listener)))
+							model.removeModificationListener(listener);
+					}
 				}
 			}
-		}
-		if("POST".equals(request.getMethod()) && (request.getParameter(ADD_INTROSPECTOR)!=null))
-		{
-			model.addModificationListener(new Introspector(request.getSession()));
+			if(request.getParameter(ADD_INTROSPECTOR)!=null)
+			{
+				model.addModificationListener(new Introspector(request.getSession()));
+			}
 		}
 		
 		ModificationListener_Jspm.writeBody(this, out,
