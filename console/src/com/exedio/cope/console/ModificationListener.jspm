@@ -35,7 +35,7 @@ final class ModificationListener_Jspm
 	{
 		%>
 		<form action="<%=cop%>" method="POST"><%
-		writeButton(out);
+		writeButtons(out);
 		%>
 			<table>
 				<tr>
@@ -56,7 +56,33 @@ final class ModificationListener_Jspm
 				%>
 				<tr>
 					<td><input type="checkbox" name="<%=cop.REMOVE_CHECKBOX%>" value="<%=cop.toID(listener)%>" /></td>
-					<td><%=cop.format(number++)%></td>
+					<td><%=cop.format(number++)%></td><%
+					if(listener instanceof ModificationListenerCop.Introspector)
+					{
+						final ModificationListenerCop.Introspector introspector =
+							(ModificationListenerCop.Introspector)listener;
+					%>
+					<td class="text" colspan="2">
+						added <%=cop.format(introspector.getStart())%>,
+						session <%=introspector.getSessionId()%><%
+						if(introspector.isSessionAttached())
+						{
+							%> <b>attached</b><%
+						}
+						%>
+						<ol><%
+							for(final ModificationListenerCop.Commit commit : introspector.getCommits())
+							{
+							%>
+							<li><%=cop.format(commit.getTimeStamp())%> <%=commit.getModifiedItems()%></li><%
+							}
+							%>
+						</ol>
+					</td><%
+					}
+					else
+					{
+					%>
 					<td class="text"><%=listener.getClass().getName()%></td>
 					<td class="text"><%
 					try
@@ -67,19 +93,21 @@ final class ModificationListener_Jspm
 					{
 						e.printStackTrace(out);
 					}
+					}
 					%></td>
 				</tr><%
 				}
 				%>
 			</table><%
-		writeButton(out);
+		writeButtons(out);
 		%>
 		</form><%
 	}
 	
-	private static final void writeButton(final PrintStream out)
+	private static final void writeButtons(final PrintStream out)
 	{
 			%>
+			<input type="submit" name="<%=ModificationListenerCop.ADD_INTROSPECTOR%>" value="add introspector" />
 			<input type="submit" name="<%=ModificationListenerCop.REMOVE_SELECTED%>" value="remove selected" /><%
 	}
 }%>
