@@ -19,23 +19,45 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListenerCop extends ConsoleCop
 {
+	static final String REMOVE_SELECTED = "removeSelected";
+	static final String REMOVE_CHECKBOX = "rm";
 
 	ModificationListenerCop()
 	{
 		super("mods");
 		addParameter(TAB, TAB_MODIFICATION_LISTENER);
 	}
+	
+	//static int debugNumber = 0;
 
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
+		if("POST".equals(request.getMethod()) && (request.getParameter(REMOVE_SELECTED)!=null))
+		{
+			final String[] toDeleteArray = request.getParameterValues(REMOVE_CHECKBOX);
+			
+			if(toDeleteArray!=null)
+			{
+				final HashSet<String> toDelete = new HashSet<String>(Arrays.asList(toDeleteArray));
+				for(final ModificationListener listener : model.getModificationListeners())
+				{
+					if(toDelete.contains(toID(listener)))
+						model.removeModificationListener(listener);
+				}
+			}
+		}
+		
 		ModificationListener_Jspm.writeBody(this, out,
 				model.getModificationListenersRemoved(),
 				model.getModificationListeners(),
@@ -43,6 +65,8 @@ final class ModificationListenerCop extends ConsoleCop
 
 		/*model.addModificationListener(new ModificationListener()
 		{
+			int count = debugNumber++;
+			
 			public void onModifyingCommit(final Collection<Item> modifiedItems)
 			{
 				// do nothing
@@ -51,11 +75,13 @@ final class ModificationListenerCop extends ConsoleCop
 			@Override
 			public String toString()
 			{
-				return "toString of ModificationListener";
+				return "toString of ModificationListener " + count;
 			}
 		});
 		model.addModificationListener(new ModificationListener()
 		{
+			int count = debugNumber++;
+
 			public void onModifyingCommit(final Collection<Item> modifiedItems)
 			{
 				// do nothing
@@ -64,8 +90,13 @@ final class ModificationListenerCop extends ConsoleCop
 			@Override
 			public String toString()
 			{
-				throw new RuntimeException("Exception in toString of ModificationListener");
+				throw new RuntimeException("Exception in toString of ModificationListener " + count);
 			}
 		});*/
+	}
+	
+	final String toID(final ModificationListener listener)
+	{
+		return listener.getClass().getName() + '@' + System.identityHashCode(listener);
 	}
 }
