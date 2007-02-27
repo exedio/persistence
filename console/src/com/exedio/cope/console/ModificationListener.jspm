@@ -37,41 +37,41 @@ final class ModificationListener_Jspm
 		<form action="<%=cop%>" method="POST"><%
 		writeButton(out);
 		%>
-		<table>
-			<tr>
-				<th class="caption" colspan="4">Modifying Commit Listeners</th>
-			</tr>
-			<tr>
-				<td class="text" colspan="4">removed: <%=removedBefore%>/<%=removedAfter%></td>
-			</tr>
-			<tr>
-				<th></th>
-				<th>#</th>
-				<th>getClass</th>
-				<th>toString</th>
-			</tr><%
-			int number = 0;
-			for(final ModificationListener listener : listeners)
-			{
-			%>
-			<tr>
-				<td><input type="checkbox" name="<%=cop.REMOVE_CHECKBOX%>" value="<%=cop.toID(listener)%>" /></td>
-				<td><%=cop.format(number++)%></td>
-				<td class="text"><%=listener.getClass().getName()%></td>
-				<td class="text"><%
-				try
+			<table>
+				<tr>
+					<th class="caption" colspan="4">Modifying Commit Listeners</th>
+				</tr>
+				<tr>
+					<td class="text" colspan="4">removed: <%=removedBefore%>/<%=removedAfter%></td>
+				</tr>
+				<tr>
+					<th></th>
+					<th>#</th>
+					<th>getClass</th>
+					<th>toString</th>
+				</tr><%
+				int number = 0;
+				for(final ModificationListener listener : listeners)
 				{
-					%><%=listener.toString()%><%
+				%>
+				<tr>
+					<td><input type="checkbox" name="<%=cop.REMOVE_CHECKBOX%>" value="<%=cop.toID(listener)%>" /></td>
+					<td><%=cop.format(number++)%></td>
+					<td class="text"><%=listener.getClass().getName()%></td>
+					<td class="text"><%
+					try
+					{
+						%><%=listener.toString()%><%
+					}
+					catch(RuntimeException e)
+					{
+						e.printStackTrace(out);
+					}
+					%></td>
+				</tr><%
 				}
-				catch(RuntimeException e)
-				{
-					e.printStackTrace(out);
-				}
-				%></td>
-			</tr><%
-			}
-			%>
-		</table><%
+				%>
+			</table><%
 		writeButton(out);
 		%>
 		</form><%
