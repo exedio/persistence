@@ -41,6 +41,18 @@ public final class PoolCounter
 
 	public PoolCounter(final int[] sizes)
 	{
+		for(int s : sizes)
+		{
+			if(s<0)
+				throw new IllegalArgumentException("sizes greater or equal zero");
+		}
+		
+		for(int i=1; i<sizes.length; i++)
+		{
+			if(sizes[i-1]>=sizes[i])
+				throw new IllegalArgumentException("sizes must be strictly monotonic increasing");
+		}
+		
 		this.start = System.currentTimeMillis();
 		final Pool[] pools = new Pool[sizes.length];
 		for(int i = 0; i<sizes.length; i++)
@@ -113,8 +125,7 @@ public final class PoolCounter
 		{
 			this.size = size;
 
-			if(size<0)
-				throw new RuntimeException(String.valueOf(size));
+			assert size>=0;
 		}
 
 		private Pool(final Pool source)

@@ -191,4 +191,26 @@ public class PoolCounterTest extends CopeAssert
 		assertEquals(loss, p.getLoss());
 		assertTrue(p.isConsistent());
 	}
+	
+	public void testFail()
+	{
+		try
+		{
+			new PoolCounter(new int[]{-1});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("sizes greater or equal zero", e.getMessage());
+		}
+		try
+		{
+			new PoolCounter(new int[]{1, 1});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("sizes must be strictly monotonic increasing", e.getMessage());
+		}
+	}
 }
