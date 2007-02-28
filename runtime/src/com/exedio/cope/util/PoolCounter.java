@@ -39,7 +39,7 @@ public final class PoolCounter
 	private int getCounter = 0;
 	private int putCounter = 0;
 
-	public PoolCounter(final int[] sizes)
+	public PoolCounter(final int... sizes)
 	{
 		for(int s : sizes)
 		{

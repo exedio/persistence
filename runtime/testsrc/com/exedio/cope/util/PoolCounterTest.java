@@ -30,7 +30,7 @@ public class PoolCounterTest extends CopeAssert
 	public void testIt()
 	{
 		final Date before = new Date();
-		final PoolCounter c = new PoolCounter(new int[]{0,2});
+		final PoolCounter c = new PoolCounter(0,2);
 		final Date after = new Date();
 		assertWithin(before, after, c.getStart());
 		
@@ -70,7 +70,7 @@ public class PoolCounterTest extends CopeAssert
 	
 	public void testExtend()
 	{
-		final PoolCounter c = new PoolCounter(new int[]{0,2,4,6});
+		final PoolCounter c = new PoolCounter(0,2,4,6);
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
 			assertEquals(4, ps.size());
@@ -196,7 +196,7 @@ public class PoolCounterTest extends CopeAssert
 	{
 		try
 		{
-			new PoolCounter(new int[]{-1});
+			new PoolCounter(-1);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -205,7 +205,7 @@ public class PoolCounterTest extends CopeAssert
 		}
 		try
 		{
-			new PoolCounter(new int[]{1, 1});
+			new PoolCounter(1,1);
 			fail();
 		}
 		catch(IllegalArgumentException e)
