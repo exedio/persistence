@@ -36,13 +36,13 @@ public final class PoolCounter
 	private final Object lock = new Object();
 	
 	private final int[] size;
-	private final int[] idleCount;
-	private final int[] idleCountMax;
-	private final int[] createCounter;
-	private final int[] destroyCounter;
+	private final int[] idle;
+	private final int[] idleMax;
+	private final int[] create;
+	private final int[] destroy;
 
-	private int getCounter = 0;
-	private int putCounter = 0;
+	private int get = 0;
+	private int put = 0;
 
 	public PoolCounter(final int... sizes)
 	{
@@ -63,22 +63,22 @@ public final class PoolCounter
 		
 		this.start = System.currentTimeMillis();
 		this.size = sizes;
-		this.idleCount      = new int[sizes.length];
-		this.idleCountMax   = new int[sizes.length];
-		this.createCounter  = new int[sizes.length];
-		this.destroyCounter = new int[sizes.length];
+		this.idle    = new int[sizes.length];
+		this.idleMax = new int[sizes.length];
+		this.create  = new int[sizes.length];
+		this.destroy = new int[sizes.length];
 	}
 
 	public PoolCounter(final PoolCounter source)
 	{
 		this.start = source.start;
 		this.size = source.size;
-		this.idleCount      = copy(source.idleCount);
-		this.idleCountMax   = copy(source.idleCountMax);
-		this.createCounter  = copy(source.createCounter);
-		this.destroyCounter = copy(source.destroyCounter);
-		this.getCounter = source.getCounter;
-		this.putCounter = source.putCounter;
+		this.idle    = copy(source.idle);
+		this.idleMax = copy(source.idleMax);
+		this.create  = copy(source.create);
+		this.destroy = copy(source.destroy);
+		this.get = source.get;
+		this.put = source.put;
 	}
 	
 	private static final int[] copy(final int[] array)
@@ -93,13 +93,13 @@ public final class PoolCounter
 	{
 		synchronized(lock)
 		{
-			getCounter++;
+			get++;
 			for(int i = 0; i<size.length; i++)
 			{
-				if(idleCount[i]>0)
-					idleCount[i]--;
+				if(idle[i]>0)
+					idle[i]--;
 				else
-					createCounter[i]++;
+					create[i]++;
 			}
 		}
 	}
@@ -108,16 +108,16 @@ public final class PoolCounter
 	{
 		synchronized(lock)
 		{
-			putCounter++;
+			put++;
 			for(int i = 0; i<size.length; i++)
 			{
-				if(idleCount[i]<size[i])
+				if(idle[i]<size[i])
 				{
-					if((++idleCount[i])>idleCountMax[i])
-						idleCountMax[i] = idleCount[i];
+					if((++idle[i])>idleMax[i])
+						idleMax[i] = idle[i];
 				}
 				else
-					destroyCounter[i]++;
+					destroy[i]++;
 			}
 		}
 	}
@@ -126,7 +126,7 @@ public final class PoolCounter
 	{
 		final Pool[] result = new Pool[size.length];
 		for(int i = 0; i<size.length; i++)
-			result[i] = new Pool(size[i], idleCount[i], idleCountMax[i], createCounter[i], destroyCounter[i]);
+			result[i] = new Pool(size[i], idle[i], idleMax[i], create[i], destroy[i]);
 		return Collections.unmodifiableList(Arrays.asList(result));
 	}
 	
@@ -137,31 +137,31 @@ public final class PoolCounter
 
 	public final int getGetCounter()
 	{
-		return getCounter;
+		return get;
 	}
 	
 	public final int getPutCounter()
 	{
-		return putCounter;
+		return put;
 	}
 	
 	public final class Pool
 	{
 		private final int size;
 
-		private final int idleCount;
-		private final int idleCountMax;
+		private final int idle;
+		private final int idleMax;
 
-		private final int createCounter;
-		private final int destroyCounter;
+		private final int create;
+		private final int destroy;
 		
-		private Pool(final int size, final int idleCount, final int idleCountMax, final int createCounter, final int destroyCounter)
+		private Pool(final int size, final int idle, final int idleMax, final int create, final int destroy)
 		{
 			this.size = size;
-			this.idleCount = idleCount;
-			this.idleCountMax = idleCountMax;
-			this.createCounter = createCounter;
-			this.destroyCounter = destroyCounter;
+			this.idle = idle;
+			this.idleMax = idleMax;
+			this.create = create;
+			this.destroy = destroy;
 
 			assert size>0;
 		}
@@ -173,33 +173,33 @@ public final class PoolCounter
 		
 		public final int getIdleCount()
 		{
-			return idleCount;
+			return idle;
 		}
 		
 		public final int getIdleCountMax()
 		{
-			return idleCountMax;
+			return idleMax;
 		}
 		
 		public final int getCreateCounter()
 		{
-			return createCounter;
+			return create;
 		}
 		
 		public final int getDestroyCounter()
 		{
-			return destroyCounter;
+			return destroy;
 		}
 		
 		public final boolean isConsistent()
 		{
-			return (getCounter - putCounter) == (createCounter - destroyCounter - idleCount);
+			return (get - put) == (create - destroy - idle);
 		}
 
 		public final int getLoss()
 		{
-			final int getCounter = PoolCounter.this.getCounter;
-			return (getCounter==0) ? 0 : ((100*destroyCounter)/getCounter);
+			final int getCounter = PoolCounter.this.get;
+			return (getCounter==0) ? 0 : ((100*destroy)/getCounter);
 		}
 	}
 }
