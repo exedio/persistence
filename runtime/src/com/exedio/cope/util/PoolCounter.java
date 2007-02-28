@@ -79,7 +79,7 @@ public final class PoolCounter
 		}
 	}
 	
-	public List getPools()
+	public List<Pool> getPools()
 	{
 		return Collections.unmodifiableList(Arrays.asList(pools));
 	}
@@ -180,7 +180,5 @@ public final class PoolCounter
 			final int getCounter = PoolCounter.this.getCounter;
 			return (getCounter==0) ? 0 : ((100*destroyCounter)/getCounter);
 		}
-
 	}
-
 }
