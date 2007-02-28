@@ -43,8 +43,8 @@ public final class PoolCounter
 	{
 		for(int s : sizes)
 		{
-			if(s<0)
-				throw new IllegalArgumentException("sizes greater or equal zero");
+			if(s<=0)
+				throw new IllegalArgumentException("sizes must be greater than zero");
 		}
 		
 		for(int i=1; i<sizes.length; i++)
@@ -125,7 +125,7 @@ public final class PoolCounter
 		{
 			this.size = size;
 
-			assert size>=0;
+			assert size>0;
 		}
 
 		private Pool(final Pool source)

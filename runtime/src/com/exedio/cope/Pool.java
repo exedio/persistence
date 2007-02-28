@@ -61,7 +61,7 @@ final class Pool<E>
 		this.factory = factory;
 		
 		// TODO: make this customizable and disableable
-		this.counter = new PoolCounter(0,1,2,4,6,8,10,15,20,25,30,40,50,60,70,80,90,100);
+		this.counter = new PoolCounter(1,2,4,6,8,10,15,20,25,30,40,50,60,70,80,90,100);
 
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
