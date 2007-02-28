@@ -196,6 +196,15 @@ public class PoolCounterTest extends CopeAssert
 	{
 		try
 		{
+			new PoolCounter((int[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
 			new PoolCounter(-1);
 			fail();
 		}
