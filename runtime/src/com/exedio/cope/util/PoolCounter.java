@@ -116,7 +116,7 @@ public final class PoolCounter
 	
 	public final class Pool
 	{
-		final int size;
+		private final int size;
 
 		private int idleCount = 0;
 		private int idleCountMax = 0;
