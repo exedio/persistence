@@ -901,6 +901,7 @@
 			<fileset file="${basedir}/build/exedio-copernica.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src.tar.gz" />
 			<fileset file="${basedir}/build/exedio-cope-home.tar.bz2" />
+			<fileset file="${basedir}/home/testprotocol.html" />
 		</copy>
 	</target>
 	
