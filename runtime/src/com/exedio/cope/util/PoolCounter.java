@@ -148,10 +148,8 @@ public final class PoolCounter
 	public final class Pool
 	{
 		private final int size;
-
 		private final int idle;
 		private final int idleMax;
-
 		private final int create;
 		private final int destroy;
 		
