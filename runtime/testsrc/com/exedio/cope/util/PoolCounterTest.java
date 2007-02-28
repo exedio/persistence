@@ -35,29 +35,29 @@ public class PoolCounterTest extends CopeAssert
 		assertWithin(before, after, c.getStart());
 		
 		final Iterator pi = c.getPools().iterator();
-		final PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
-		final PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
+		PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
+		PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
 		assertFalse(pi.hasNext());
 		assertIt(c, 0, 0);
 		assertIt(p1, 1, 0, 0, 0, 0, 0);
 		assertIt(p2, 2, 0, 0, 0, 0, 0);
 		
-		c.incrementGet();
+		c.incrementGet(); p1 = c.getPools().get(0); p2 = c.getPools().get(1);
 		assertIt(c, 1, 0); assertIt(p1,1, 0, 0, 1, 0,  0); assertIt(p2,2, 0, 0, 1, 0, 0);
 		
-		c.incrementGet();
+		c.incrementGet(); p1 = c.getPools().get(0); p2 = c.getPools().get(1);
 		assertIt(c, 2, 0); assertIt(p1,1, 0, 0, 2, 0,  0); assertIt(p2,2, 0, 0, 2, 0, 0);
 		
-		c.incrementPut();
+		c.incrementPut(); p1 = c.getPools().get(0); p2 = c.getPools().get(1);
 		assertIt(c, 2, 1); assertIt(p1,1, 1, 1, 2, 0,  0); assertIt(p2,2, 1, 1, 2, 0, 0);
 		
-		c.incrementPut();
+		c.incrementPut(); p1 = c.getPools().get(0); p2 = c.getPools().get(1);
 		assertIt(c, 2, 2); assertIt(p1,1, 1, 1, 2, 1, 50); assertIt(p2,2, 2, 2, 2, 0, 0);
 		
-		c.incrementPut();
+		c.incrementPut(); p1 = c.getPools().get(0); p2 = c.getPools().get(1);
 		assertIt(c, 2, 3); assertIt(p1,1, 1, 1, 2, 2,100); assertIt(p2,2, 2, 2, 2, 1,50);
 		
-		c.incrementGet();
+		c.incrementGet(); p1 = c.getPools().get(0); p2 = c.getPools().get(1);
 		assertIt(c, 3, 3); assertIt(p1,1, 0, 1, 2, 2, 66); assertIt(p2,2, 1, 2, 2, 1,33);
 		
 		final PoolCounter c2 = new PoolCounter(c);
