@@ -41,6 +41,9 @@ public final class PoolCounter
 
 	public PoolCounter(final int... sizes)
 	{
+		if(sizes.length<1)
+			throw new IllegalArgumentException("number of sizes must be at least 1");
+		
 		for(int s : sizes)
 		{
 			if(s<=0)

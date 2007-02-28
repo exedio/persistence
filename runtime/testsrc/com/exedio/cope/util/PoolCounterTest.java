@@ -205,6 +205,15 @@ public class PoolCounterTest extends CopeAssert
 		}
 		try
 		{
+			new PoolCounter(new int[0]);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("number of sizes must be at least 1", e.getMessage());
+		}
+		try
+		{
 			new PoolCounter(0);
 			fail();
 		}
