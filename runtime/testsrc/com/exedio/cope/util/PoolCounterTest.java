@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -67,6 +68,109 @@ public class PoolCounterTest extends CopeAssert
 		assertIt(c2, 3, 3); assertIt(p20,0, 0, 0, 3, 3,100); assertIt(p22,2, 1, 2, 2, 1,33);
 	}
 	
+	public void testExtend()
+	{
+		final PoolCounter c = new PoolCounter(new int[]{0,2,4,6});
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 0, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 0, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 0, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 0, 0, 0);
+		}
+		c.incrementGet();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 1, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 1, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 1, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 1, 0, 0);
+		}
+		c.incrementGet();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 2, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 2, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 2, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 2, 0, 0);
+		}
+		c.incrementGet();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 3, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 3, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 3, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 3, 0, 0);
+		}
+		c.incrementGet();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 4, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 4, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 4, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 4, 0, 0);
+		}
+		c.incrementGet();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 5, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 5, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 5, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 5, 0, 0);
+		}
+		c.incrementGet();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 6, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 6, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 6, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 6, 0, 0);
+		}
+		c.incrementGet();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 7, 0, 0);
+			assertIt(ps.get(1), 2, 0, 0, 7, 0, 0);
+			assertIt(ps.get(2), 4, 0, 0, 7, 0, 0);
+			assertIt(ps.get(3), 6, 0, 0, 7, 0, 0);
+		}
+		c.incrementPut();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 7, 1, 14);
+			assertIt(ps.get(1), 2, 1, 1, 7, 0, 0);
+			assertIt(ps.get(2), 4, 1, 1, 7, 0, 0);
+			assertIt(ps.get(3), 6, 1, 1, 7, 0, 0);
+		}
+		c.incrementPut();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 7, 2, 28);
+			assertIt(ps.get(1), 2, 2, 2, 7, 0, 0);
+			assertIt(ps.get(2), 4, 2, 2, 7, 0, 0);
+			assertIt(ps.get(3), 6, 2, 2, 7, 0, 0);
+		}
+		c.incrementPut();
+		{
+			final List<PoolCounter.Pool> ps = c.getPools();
+			assertEquals(4, ps.size());
+			assertIt(ps.get(0), 0, 0, 0, 7, 3, 42);
+			assertIt(ps.get(1), 2, 2, 2, 7, 1, 14);
+			assertIt(ps.get(2), 4, 3, 3, 7, 0, 0);
+			assertIt(ps.get(3), 6, 3, 3, 7, 0, 0);
+		}
+	}
+
 	static final void assertIt(final PoolCounter p, final int getCounter, final int putCounter)
 	{
 		assertEquals(getCounter, p.getGetCounter());
@@ -87,5 +191,4 @@ public class PoolCounterTest extends CopeAssert
 		assertEquals(loss, p.getLoss());
 		assertTrue(p.isConsistent());
 	}
-
 }
