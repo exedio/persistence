@@ -127,6 +127,11 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return new SetValue<E>(this, value);
 	}
 	
+	public final SetValue<E> mapNull()
+	{
+		return new SetValue<E>(this, null);
+	}
+	
 	public final SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue[]{ map(value) };
@@ -153,8 +158,8 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			if(!valueClass.isInstance(value))
 			{
 				throw new ClassCastException(
-						"expected a " + getName(valueClass) +
-						", but was a " + getName(value.getClass()) +
+						"expected a " + valueClass.getName() +
+						", but was a " + value.getClass().getName() +
 						" for " + toString() + '.');
 			}
 			
@@ -162,11 +167,6 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		}
 	}
 	
-	private static final String getName(final Class c)
-	{
-		return c.isArray() ? (c.getComponentType().getName() + "[]") : c.getName();
-	}
-
 	/**
 	 * Further checks non-null field values already checked by
 	 * {@link #checkValue(Object, Item)}.

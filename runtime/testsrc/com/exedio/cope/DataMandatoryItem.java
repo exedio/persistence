@@ -89,7 +89,7 @@ class DataMandatoryItem extends Item
 	 */
 	final byte[] getData()
 	{
-		return DataMandatoryItem.data.get(this);
+		return DataMandatoryItem.data.getArray(this);
 	}/**
 
 	 **

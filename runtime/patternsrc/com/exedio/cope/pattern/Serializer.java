@@ -132,7 +132,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	
 	public E get(final Item item)
 	{
-		final byte[] buf = source.get(item);
+		final byte[] buf = source.getArray(item);
 		
 		if(buf==null)
 			return null;

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -144,19 +145,27 @@ public class DataTest extends AbstractLibTest
 			assertEquals("l must not be negative, but was -1", e.getMessage());
 		}
 		
+		assertEquals("DataField.Value:aa7af817", DataField.toValue(data4).toString());
+		assertEquals("DataField.Value:9f13f82382aa7a5613f8", DataField.toValue(data10).toString());
+		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", DataField.toValue(data11).toString());
+		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", DataField.toValue(data21).toString());
+		final ByteArrayInputStream testBaos = new ByteArrayInputStream(data4);
+		assertEquals("DataField.Value:"+testBaos.toString(), DataField.toValue(testBaos).toString());
+		assertEquals("DataField.Value:hallo.txt", DataField.toValue(new File("hallo.txt")).toString());
+		
 		assertEquals(item.TYPE, item.data.getType());
 		assertEquals("data", item.data.getName());
 		assertEquals(false, item.data.isMandatory());
 		assertEqualsUnmodifiable(list(), item.data.getPatterns());
 		assertEquals(item.data.DEFAULT_LENGTH, item.data.getMaximumLength());
-		assertEquals(byte[].class, item.data.getValueClass());
+		assertEquals(DataField.Value.class, item.data.getValueClass());
 		
 		assertEquals(item.TYPE, item.data10.getType());
 		assertEquals("data10", item.data10.getName());
 		assertEquals(false, item.data10.isMandatory());
 		assertEqualsUnmodifiable(list(), item.data10.getPatterns());
 		assertEquals(10, item.data10.getMaximumLength());
-		assertEquals(byte[].class, item.data10.getValueClass());
+		assertEquals(DataField.Value.class, item.data10.getValueClass());
 
 		try
 		{
@@ -312,7 +321,19 @@ public class DataTest extends AbstractLibTest
 			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
 		}
 		assertData(data10, item.getData10());
-		
+
+		final DataField.Value value4 = DataField.toValue(data4);
+		item.setData(value4);
+		assertData(data4, item.getData());
+		try
+		{
+			item.setData(value4);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("Value already exhausted: DataField.Value:aa7af817. Each DataField.Value can be used for at most one setter action.", e.getMessage());
+		}
 
 		// implements Settable
 		assertNull(item.getName());
@@ -381,8 +402,8 @@ public class DataTest extends AbstractLibTest
 			assertEquals("length violation on a newly created item, 11 bytes is too long for " + item.data10, e.getMessage());
 		}
 		item.set(
-				DataItem.data.map(null),
-				DataItem.data10.map(null)
+				DataItem.data.mapNull(),
+				DataItem.data10.mapNull()
 		);
 		assertNull(item.getData());
 		assertNull(item.getData10());
@@ -402,7 +423,7 @@ public class DataTest extends AbstractLibTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a byte[], but was a java.lang.String for " + item.data + '.', e.getMessage());
+			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.String for " + item.data + '.', e.getMessage());
 		}
 		assertData(data8, item.getData());
 		
@@ -415,9 +436,8 @@ public class DataTest extends AbstractLibTest
 		}
 		catch(ClassCastException e)
 		{
-			assertEquals("expected a byte[], but was a java.lang.Integer for " + item.data + '.', e.getMessage());
+			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.Integer for " + item.data + '.', e.getMessage());
 		}
 		assertData(data8, item.getData());
 	}
-	
 }

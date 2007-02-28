@@ -189,7 +189,7 @@ public abstract class Item extends Cope
 
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
-		entity.write(toBlobs(fieldValues));
+		entity.write(toBlobs(fieldValues, null));
 		
 		postCreate();
 	}
@@ -321,7 +321,7 @@ public abstract class Item extends Cope
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
-		entity.write(toBlobs(fieldValues));
+		entity.write(toBlobs(fieldValues, this));
 	}
 	
 	private static final void checkUniqueConstraints(final Type<?> type, final Item item, final Map<? extends Field, ?> fieldValues)
@@ -686,7 +686,7 @@ public abstract class Item extends Cope
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 	
-	private static final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> fieldValues)
+	private static final HashMap<BlobColumn, byte[]> toBlobs(final Map<Field, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 		
@@ -695,8 +695,9 @@ public abstract class Item extends Cope
 			if(!(field instanceof DataField))
 				continue;
 			
+			final DataField.Value value = (DataField.Value)fieldValues.get(field);
 			final DataField df = (DataField)field;
-			result.put((BlobColumn)df.getColumn(), (byte[])fieldValues.get(field));
+			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, exceptionItem) : null);
 		}
 		return result;
 	}

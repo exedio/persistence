@@ -18,15 +18,18 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public final class DataField extends Field<byte[]>
+import java.net.HttpURLConnection;
+
+public final class DataField extends Field<DataField.Value>
 {
 	private final long maximumLength;
 
@@ -34,7 +37,7 @@ public final class DataField extends Field<byte[]>
 	
 	private DataField(final boolean isfinal, final boolean optional, final long maximumLength)
 	{
-		super(isfinal, optional, byte[].class);
+		super(isfinal, optional, Value.class);
 		this.maximumLength = maximumLength;
 		
 		if(maximumLength<=0)
@@ -141,7 +144,17 @@ public final class DataField extends Field<byte[]>
 	 * Returns null, if there is no data for this field.
 	 */
 	@Override
-	public byte[] get(final Item item)
+	public ArrayValue get(final Item item)
+	{
+		final byte[] array = getArray(item);
+		return array!=null ? new ArrayValue(array) : null;
+	}
+	
+	/**
+	 * Returns the data of this persistent data field.
+	 * Returns null, if there is no data for this field.
+	 */
+	public byte[] getArray(final Item item)
 	{
 		return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);
 	}
@@ -201,7 +214,7 @@ public final class DataField extends Field<byte[]>
 	 *         if data is longer than {@link #getMaximumLength()}
 	 */
 	@Override
-	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
+	public void set(final Item item, final Value data) throws MandatoryViolationException, DataLengthViolationException
 	{
 		if(isfinal)
 			throw new FinalViolationException(this, item);
@@ -213,19 +226,30 @@ public final class DataField extends Field<byte[]>
 		}
 		else
 		{
-			if(data.length>maximumLength)
-				throw new DataLengthViolationException(this, item, data.length, true);
+			checkNotNullValue(data, item);
 		}
 		
 		try
 		{
-			// TODO make more efficient implementation
-			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data!=null ? new ByteArrayInputStream(data) : null, this);
+			column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, this);
 		}
 		catch(IOException e)
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	/**
+	 * Provides data for this persistent data field.
+	 * @param data give null to remove data.
+	 * @throws MandatoryViolationException
+	 *         if data is null and field is {@link Field#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
+	 */
+	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
+	{
+		set(item, toValue(data));
 	}
 	
 	/**
@@ -241,12 +265,7 @@ public final class DataField extends Field<byte[]>
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
-		if(isfinal)
-			throw new FinalViolationException(this, item);
-		if(data==null && !optional)
-			throw new MandatoryViolationException(this, item);
-		
-		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, this);
+		set(item, toValue(data));
 	}
 	
 	/**
@@ -261,32 +280,54 @@ public final class DataField extends Field<byte[]>
 	public void set(final Item item, final File data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
-		InputStream source = null;
-		try
-		{
-			if(data!=null)
-			{
-				final long length = data.length();
-				if(length>maximumLength)
-					throw new DataLengthViolationException(this, item, length, true);
-				
-				source =  new FileInputStream(data);
-			}
-			
-			set(item, source);
-		}
-		finally
-		{
-			if(source!=null)
-				source.close();
-		}
+		set(item, toValue(data));
+	}
+	
+	/**
+	 * Returns null, if <code>array</code> is null.
+	 */
+	public static Value toValue(final byte[] array)
+	{
+		return array!=null ? new ArrayValue(array) : null;
+	}
+	
+	/**
+	 * Returns null, if <code>stream</code> is null.
+	 */
+	public static Value toValue(final InputStream stream)
+	{
+		return stream!=null ? new StreamValue(stream) : null;
+	}
+	
+	/**
+	 * Returns null, if <code>file</code> is null.
+	 */
+	public static Value toValue(final File file)
+	{
+		return file!=null ? new FileValue(file) : null;
+	}
+	
+	public SetValue map(final byte[] array)
+	{
+		return map(toValue(array));
+	}
+	
+	public SetValue map(final InputStream stream)
+	{
+		return map(toValue(stream));
+	}
+	
+	public SetValue map(final File file)
+	{
+		return map(toValue(file));
 	}
 	
 	@Override
-	final void checkNotNullValue(final byte[] value, final Item item) throws MandatoryViolationException
+	final void checkNotNullValue(final Value value, final Item item) throws MandatoryViolationException
 	{
-		if(value.length>maximumLength)
-			throw new DataLengthViolationException(this, item, value.length, true);
+		final long lengthIfKnown = value.estimateLength();
+		if(lengthIfKnown>maximumLength)
+			throw new DataLengthViolationException(this, item, lengthIfKnown, true);
 	}
 
 	final void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
@@ -357,24 +398,6 @@ public final class DataField extends Field<byte[]>
 		}
 	}
 	
-	void copyAsHex(final InputStream in, final StringBuffer out, final Item exceptionItem) throws IOException
-	{
-		final long maximumLength = this.maximumLength;
-		final byte[] b = new byte[min(bufferSizeLimit, maximumLength)];
-		//System.out.println("-------------- "+length+" ----- "+b.length);
-		
-		long transferredLength = 0;
-		for(int len = in.read(b); len>=0; len = in.read(b))
-		{
-			transferredLength += len;
-			if(transferredLength>maximumLength)
-				throw new DataLengthViolationException(this, exceptionItem, transferredLength, false);
-			
-			appendAsHex(b, len, out);
-		}
-		in.close();
-	}
-
 	private static final char[] mapping = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 	
 	static final void appendAsHex(final byte[] in, final int len, final StringBuffer out)
@@ -384,6 +407,180 @@ public final class DataField extends Field<byte[]>
 			final byte bi = in[i];
 			out.append(mapping[(bi & 0xF0)>>4]);
 			out.append(mapping[bi & 0x0F]);
+		}
+	}
+	
+	public abstract static class Value
+	{
+		/**
+		 * Estimates the length of this value.
+		 * Returns -1 if length cannot be estimated in advance.
+		 * This length is used for checking against {@link DataField#getMaximumLength()}.
+		 * If this length is greater than the actual length of this value,
+		 * this may cause a {@link DataLengthViolationException} wrongly thrown.
+		 * If this length is less than the actual length of this value,
+		 * an {@link DataLengthViolationException} is thrown nevertheless,
+		 * but only after fetching at least {@link DataField#getMaximumLength()} bytes from the source.
+		 * A typical source of the estimated length is
+		 * {@link File#length()} or {@link HttpURLConnection#getContentLength()}.
+		 */
+		abstract long estimateLength();
+		
+		abstract byte[] asArray(DataField field, Item exceptionItem); // TODO put this directly into statement
+		
+		@Override
+		public abstract String toString();
+		
+		boolean exhausted = false;
+		
+		protected final void assertNotExhausted()
+		{
+			if(exhausted)
+				throw new IllegalStateException(
+						"Value already exhausted: " + toString() + "." +
+						" Each DataField.Value can be used for at most one setter action.");
+			exhausted = true;
+		}
+	}
+	
+	final static class ArrayValue extends Value
+	{
+		final byte[] array;
+		
+		ArrayValue(final byte[] array)
+		{
+			this.array = array;
+
+			assert array!=null;
+		}
+		
+		@Override
+		long estimateLength()
+		{
+			return array.length;
+		}
+		
+		@Override
+		byte[] asArray(final DataField field, final Item exceptionItem)
+		{
+			assertNotExhausted();
+			return array;
+		}
+		
+		private static final int TO_STRING_LIMIT = 10;
+		
+		@Override
+		public String toString()
+		{
+			final StringBuffer bf = new StringBuffer((2*TO_STRING_LIMIT)+30);
+			bf.append("DataField.Value:");
+			appendAsHex(array, Math.min(TO_STRING_LIMIT, array.length), bf);
+
+			if(array.length>TO_STRING_LIMIT)
+				bf.append("...(").
+					append(array.length).
+					append(')');
+			
+			return bf.toString();
+		}
+	}
+	
+	abstract static class AbstractStreamValue extends Value
+	{
+		abstract InputStream openStream() throws IOException;
+		
+		@Override
+		final byte[] asArray(final DataField field, final Item exceptionItem)
+		{
+			assertNotExhausted();
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			InputStream stream = null;
+			try
+			{
+				stream = openStream();
+				field.copy(stream, baos, exceptionItem);
+				stream.close();
+				stream = null;
+			}
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			finally
+			{
+				if(stream!=null)
+				{
+					try
+					{
+						stream.close();
+					}
+					catch(IOException e)
+					{
+						// IGNORE, because already in exception 
+					}
+				}
+			}
+			return baos.toByteArray();
+		}
+	}
+	
+	final static class StreamValue extends AbstractStreamValue
+	{
+		private final InputStream stream;
+		
+		StreamValue(final InputStream stream)
+		{
+			this.stream = stream;
+
+			assert stream!=null;
+		}
+		
+		@Override
+		long estimateLength()
+		{
+			return -1;
+		}
+		
+		@Override
+		InputStream openStream()
+		{
+			return stream;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "DataField.Value:" + stream.toString();
+		}
+	}
+	
+	final static class FileValue extends AbstractStreamValue
+	{
+		private final File file;
+		
+		FileValue(final File file)
+		{
+			this.file = file;
+
+			assert file!=null;
+		}
+		
+		@Override
+		long estimateLength()
+		{
+			return file.length();
+		}
+		
+		@Override
+		InputStream openStream() throws FileNotFoundException
+		{
+			return new FileInputStream(file);
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "DataField.Value:" + file.toString();
 		}
 	}
 }

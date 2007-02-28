@@ -1356,6 +1356,8 @@ final class Generator
 		o.write(".get");
 		if(attribute.isBoxed())
 			o.write("Mandatory");
+		if(attribute instanceof CopeDataAttribute)
+			o.write("Array");
 		o.write("(this)");
 		o.write(';');
 		o.write(lineSeparator);

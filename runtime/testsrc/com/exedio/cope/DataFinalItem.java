@@ -68,7 +68,7 @@ class DataFinalItem extends Item
 	 */
 	final byte[] getData()
 	{
-		return DataFinalItem.data.get(this);
+		return DataFinalItem.data.getArray(this);
 	}/**
 
 	 **

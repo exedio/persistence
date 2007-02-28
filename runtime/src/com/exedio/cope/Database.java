@@ -1011,7 +1011,7 @@ final class Database
 	
 	void store(
 			final Connection connection, final BlobColumn column, final Item item,
-			final InputStream data, final DataField field)
+			final DataField.Value data, final DataField field)
 		throws IOException
 	{
 		buildStage = false;
@@ -1025,7 +1025,7 @@ final class Database
 			append('=');
 		
 		if(data!=null)
-			bf.appendParameterBlob(data, field, item);
+			bf.appendParameterBlob(data.asArray(field, item));
 		else
 			bf.append("NULL");
 		

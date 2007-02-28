@@ -20,9 +20,6 @@ package com.exedio.cope;
 
 import gnu.trove.TIntArrayList;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -216,49 +213,25 @@ public final class Statement
 		return this;
 	}
 	
-	private static final byte[] toArray(final InputStream source, final DataField field, final Item exceptionItem) throws IOException
-	{
-		final ByteArrayOutputStream target = new ByteArrayOutputStream();
-		field.copy(source, target, exceptionItem);
-		source.close();
-		final byte[] result = target.toByteArray();
-		target.close();
-		return result;
-	}
-	
-	Statement appendParameterBlob(final InputStream data, final DataField field, final Item exceptionItem) throws IOException
-	{
-		if(parameters==null)
-		{
-			this.text.append('\'');
-			field.copyAsHex(data, this.text, exceptionItem);
-			this.text.append('\'');
-		}
-		else
-		{
-			this.text.append(QUESTION_MARK);
-			this.parameters.add(toArray(data, field, exceptionItem)); // TODO
-		}
-		return this;
-	}
-	
 	Statement appendParameterBlob(final byte[] data)
 	{
-		if(parameters==null)
+		if(data!=null)
 		{
-			if(data!=null)
+			if(parameters==null)
 			{
 				this.text.append('\'');
 				DataField.appendAsHex(data, data.length, this.text);
 				this.text.append('\'');
 			}
 			else
-				this.text.append("NULL");
+			{
+				this.text.append(QUESTION_MARK);
+				this.parameters.add(data);
+			}
 		}
 		else
 		{
-			this.text.append(QUESTION_MARK);
-			this.parameters.add(data);
+			this.text.append("NULL");
 		}
 		return this;
 	}

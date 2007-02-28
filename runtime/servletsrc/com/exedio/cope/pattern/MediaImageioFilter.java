@@ -126,7 +126,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		if(spi==null)
 			return notComputable;
 		
-		final byte[] srcBytes = source.getBody().get(item);
+		final byte[] srcBytes = source.getBody().getArray(item);
 		final BufferedImage srcBuf;
 		
 		// Special handling of jpeg

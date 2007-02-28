@@ -54,6 +54,12 @@ class DataItem extends Item
 		DataItem.data.get(this, data);
 	}
 	
+	void setData(final DataField.Value data) // TODO generate this
+	throws IOException
+	{
+		DataItem.data.set(this, data);
+	}
+	
 	void setData(final InputStream data) // TODO generate this
 	throws IOException
 	{
@@ -135,7 +141,7 @@ class DataItem extends Item
 	 */
 	final byte[] getData()
 	{
-		return DataItem.data.get(this);
+		return DataItem.data.getArray(this);
 	}/**
 
 	 **
@@ -155,7 +161,7 @@ class DataItem extends Item
 	 */
 	final byte[] getData10()
 	{
-		return DataItem.data10.get(this);
+		return DataItem.data10.getArray(this);
 	}/**
 
 	 **
@@ -175,7 +181,7 @@ class DataItem extends Item
 	 */
 	final byte[] getData10k()
 	{
-		return DataItem.data10k.get(this);
+		return DataItem.data10k.getArray(this);
 	}/**
 
 	 **
@@ -195,7 +201,7 @@ class DataItem extends Item
 	 */
 	final byte[] getData100M()
 	{
-		return DataItem.data100M.get(this);
+		return DataItem.data100M.getArray(this);
 	}/**
 
 	 **

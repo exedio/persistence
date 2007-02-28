@@ -278,7 +278,7 @@ public final class Media extends CachedMedia
 	 */
 	public byte[] getBody(final Item item)
 	{
-		return this.body.get(item);
+		return this.body.getArray(item);
 	}
 
 	/**
@@ -294,7 +294,7 @@ public final class Media extends CachedMedia
 	{
 		try
 		{
-			set(item, (Object)body, contentType);
+			set(item, DataField.toValue(body), contentType);
 		}
 		catch(IOException e)
 		{
@@ -329,7 +329,7 @@ public final class Media extends CachedMedia
 	{
 		try
 		{
-			set(item, (Object)body, contentType);
+			set(item, DataField.toValue(body), contentType);
 		}
 		finally
 		{
@@ -362,10 +362,10 @@ public final class Media extends CachedMedia
 	public void set(final Item item, final File body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
-		set(item, (Object)body, contentType);
+		set(item, DataField.toValue(body), contentType);
 	}
 	
-	private void set(final Item item, final Object body, final String contentType)
+	private void set(final Item item, final DataField.Value body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
 		if(body!=null)
@@ -376,34 +376,14 @@ public final class Media extends CachedMedia
 			if(!this.contentType.check(contentType))
 				throw new IllegalContentTypeException(this, item, contentType);
 			
-			final long length;
-			if(body instanceof byte[])
-				length = ((byte[])body).length;
-			else if(body instanceof InputStream)
-				length = -1;
-			else
-				length = ((File)body).length();
-			
-			if(length>this.body.getMaximumLength())
-				throw new DataLengthViolationException(this.body, item, length, true);
-
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 			final FunctionField contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
 			values.add(this.lastModified.map(new Date()));
-			if(body instanceof byte[])
-				values.add(this.body.map((byte[])body));
+			values.add(this.body.map(body));
 			
 			item.set(values.toArray(new SetValue[values.size()]));
-			
-			// TODO set InputStream/File via Item.set(SetValue[]) as well
-			if(body instanceof byte[])
-				/* already set above */;
-			else if(body instanceof InputStream)
-				this.body.set(item, (InputStream)body);
-			else
-				this.body.set(item, (File)body);
 		}
 		else
 		{
@@ -415,7 +395,7 @@ public final class Media extends CachedMedia
 			if(contentTypeField!=null)
 				values.add(contentTypeField.map(null));
 			values.add(this.lastModified.map(null));
-			values.add(this.body.map((byte[])null));
+			values.add(this.body.mapNull());
 			
 			item.set(values.toArray(new SetValue[values.size()]));
 		}
