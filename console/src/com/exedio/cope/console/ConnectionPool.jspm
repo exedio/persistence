@@ -36,7 +36,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 		final String[] names = {
 			"Loss = 100 * Destroy / Get",
 			"Idle",
-			"Idle Max",
+			"Idle Maximum",
 			"Create",
 			"Destroy",
 		};
@@ -72,7 +72,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 			<tr><%
 				writeColouredHeaderSchnips(out, names);
 				%>
-				<th>maxIdle</th>
+				<th>Idle Limit</th>
 			</tr><%
 			for(final PoolCounter.Pool pool : poolCounter.getPools())
 			{
@@ -89,7 +89,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 			<tr<%if(inconsistent){%> class="inconsistent"<%}%>><%
 				writeColouredData(out, data);
 				%>
-				<td><%if(inconsistent){%>inconsistent <%}%><%=pool.getSize()%></td>
+				<td><%if(inconsistent){%>inconsistent <%}%><%=pool.getIdleLimit()%></td>
 			</tr><%
 			}
 		%>

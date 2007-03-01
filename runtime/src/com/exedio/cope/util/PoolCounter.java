@@ -24,9 +24,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Simulates the behaviour of a set of pools with different pool sizes,
+ * Simulates the behaviour of a set of pools with different pool idle limits,
  * and collects statistics about the efficiency of such pools.
- * Useful for determining pool sizes.
+ * Useful for determining pool idle limits.
  *
  * @author Ralf Wiebicke
  */
@@ -35,7 +35,7 @@ public final class PoolCounter
 	private final long start;
 	private final Object lock = new Object();
 	
-	private final int[] size; // TODO rename to idleLimit, consistently to Pool
+	private final int[] idleLimit;
 	private final int[] idle;
 	private final int[] idleMax;
 	private final int[] create;
@@ -45,36 +45,36 @@ public final class PoolCounter
 	private int get = 0;
 	private int put = 0;
 
-	public PoolCounter(final int... sizes)
+	public PoolCounter(final int... idleLimits)
 	{
-		if(sizes.length<1)
-			throw new IllegalArgumentException("number of sizes must be at least 1");
+		if(idleLimits.length<1)
+			throw new IllegalArgumentException("number of idleLimits must be at least 1");
 		
-		for(int s : sizes)
+		for(int s : idleLimits)
 		{
 			if(s<=0)
-				throw new IllegalArgumentException("sizes must be greater than zero");
+				throw new IllegalArgumentException("idleLimits must be greater than zero");
 		}
 		
-		for(int i=1; i<sizes.length; i++)
+		for(int i=1; i<idleLimits.length; i++)
 		{
-			if(sizes[i-1]>=sizes[i])
-				throw new IllegalArgumentException("sizes must be strictly monotonic increasing");
+			if(idleLimits[i-1]>=idleLimits[i])
+				throw new IllegalArgumentException("idleLimits must be strictly monotonic increasing");
 		}
 		
 		this.start = System.currentTimeMillis();
-		this.size = sizes;
-		this.idle    = new int[sizes.length];
-		this.idleMax = new int[sizes.length];
-		this.create  = new int[sizes.length];
-		this.destroy = new int[sizes.length];
+		this.idleLimit = idleLimits;
+		this.idle    = new int[idleLimits.length];
+		this.idleMax = new int[idleLimits.length];
+		this.create  = new int[idleLimits.length];
+		this.destroy = new int[idleLimits.length];
 		this.count = 1;
 	}
 
 	public PoolCounter(final PoolCounter source)
 	{
 		this.start = source.start;
-		this.size = source.size;
+		this.idleLimit = source.idleLimit;
 		this.idle    = copy(source.idle);
 		this.idleMax = copy(source.idleMax);
 		this.create  = copy(source.create);
@@ -122,7 +122,7 @@ public final class PoolCounter
 			{
 				int idleI = idle[i];
 				
-				if(idleI<size[i])
+				if(idleI<idleLimit[i])
 				{
 					idle[i] = ++idleI;
 
@@ -133,7 +133,7 @@ public final class PoolCounter
 				{
 					final int destroyI = destroy[i];
 					
-					if(destroyI==0 && count<size.length)
+					if(destroyI==0 && count<idleLimit.length)
 					{
 						assert i==(count-1);
 						idle   [count] = idleI;
@@ -151,12 +151,12 @@ public final class PoolCounter
 	
 	public List<Pool> getPools()
 	{
-		final ArrayList<Pool> result = new ArrayList<Pool>(size.length);
+		final ArrayList<Pool> result = new ArrayList<Pool>(idleLimit.length);
 		synchronized(lock)
 		{
 			final int count = this.count;
 			for(int i = 0; i<count; i++)
-				result.add(new Pool(size[i], idle[i], idleMax[i], create[i], destroy[i]));
+				result.add(new Pool(idleLimit[i], idle[i], idleMax[i], create[i], destroy[i]));
 		}
 		return Collections.unmodifiableList(result);
 	}
@@ -178,33 +178,42 @@ public final class PoolCounter
 	
 	public final class Pool
 	{
-		private final int size;
+		private final int idleLimit;
 		private final int idle;
 		private final int idleMax;
 		private final int create;
 		private final int destroy;
 		
-		private Pool(final int size, final int idle, final int idleMax, final int create, final int destroy)
+		private Pool(final int idleLimit, final int idle, final int idleMax, final int create, final int destroy)
 		{
-			this.size = size;
+			this.idleLimit = idleLimit;
 			this.idle = idle;
 			this.idleMax = idleMax;
 			this.create = create;
 			this.destroy = destroy;
 
-			assert size>0;
+			assert idleLimit>0;
 			assert idle>=0;
-			assert idle<=size;
+			assert idle<=idleLimit;
 			assert idleMax>=0;
 			assert idleMax>=idle;
-			assert idleMax<=size;
+			assert idleMax<=idleLimit;
 			assert create>=0;
 			assert destroy>=0;
 		}
 
+		/**
+		 * @deprecated renamed to {@link #getIdleLimit()}.
+		 */
+		@Deprecated
 		public final int getSize()
 		{
-			return size;
+			return getIdleLimit();
+		}
+		
+		public final int getIdleLimit()
+		{
+			return idleLimit;
 		}
 		
 		public final int getIdleCount()

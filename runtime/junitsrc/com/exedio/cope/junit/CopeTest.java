@@ -82,7 +82,7 @@ public abstract class CopeTest extends CopeAssert
 		for(Iterator i = connectionPoolCounter.getPools().iterator(); i.hasNext(); )
 		{
 			final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
-			System.out.println("ConnectionPool:["+pool.getSize()+"]: "+pool.getIdleCount()+", "+pool.getIdleCountMax()+", "+pool.getCreateCounter()+", "+pool.getDestroyCounter()+", "+pool.getLoss());
+			System.out.println("ConnectionPool:["+pool.getIdleLimit()+"]: "+pool.getIdleCount()+", "+pool.getIdleCountMax()+", "+pool.getCreateCounter()+", "+pool.getDestroyCounter()+", "+pool.getLoss());
 		}
 	}
 

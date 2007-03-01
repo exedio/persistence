@@ -200,12 +200,12 @@ public class PoolCounterTest extends CopeAssert
 	}
 
 	static final void assertIt(
-			final PoolCounter.Pool p, final int size,
+			final PoolCounter.Pool p, final int idleLimit,
 			final int idleCount, final int idleCountMax,
 			final int createCounter, final int destroyCounter,
 			final int loss)
 	{
-		assertEquals("size", size, p.getSize());
+		assertEquals("idleLimit", idleLimit, p.getIdleLimit());
 		assertEquals("idleCount", idleCount, p.getIdleCount());
 		assertEquals("idleCountMax", idleCountMax, p.getIdleCountMax());
 		assertEquals("createCounter", createCounter, p.getCreateCounter());
@@ -232,7 +232,7 @@ public class PoolCounterTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("number of sizes must be at least 1", e.getMessage());
+			assertEquals("number of idleLimits must be at least 1", e.getMessage());
 		}
 		try
 		{
@@ -241,7 +241,7 @@ public class PoolCounterTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("sizes must be greater than zero", e.getMessage());
+			assertEquals("idleLimits must be greater than zero", e.getMessage());
 		}
 		try
 		{
@@ -250,7 +250,7 @@ public class PoolCounterTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("sizes must be strictly monotonic increasing", e.getMessage());
+			assertEquals("idleLimits must be strictly monotonic increasing", e.getMessage());
 		}
 	}
 }
