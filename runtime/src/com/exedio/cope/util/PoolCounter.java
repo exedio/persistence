@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +40,7 @@ public final class PoolCounter
 	private final int[] idleMax;
 	private final int[] create;
 	private final int[] destroy;
+	private int count;
 
 	private int get = 0;
 	private int put = 0;
@@ -67,6 +68,7 @@ public final class PoolCounter
 		this.idleMax = new int[sizes.length];
 		this.create  = new int[sizes.length];
 		this.destroy = new int[sizes.length];
+		this.count = 1;
 	}
 
 	public PoolCounter(final PoolCounter source)
@@ -79,6 +81,7 @@ public final class PoolCounter
 		this.destroy = copy(source.destroy);
 		this.get = source.get;
 		this.put = source.put;
+		this.count = source.count;
 	}
 	
 	private static final int[] copy(final int[] array)
@@ -94,7 +97,7 @@ public final class PoolCounter
 		synchronized(lock)
 		{
 			get++;
-			for(int i = 0; i<size.length; i++)
+			for(int i = 0; i<count; i++)
 			{
 				if(idle[i]>0)
 					idle[i]--;
@@ -109,7 +112,7 @@ public final class PoolCounter
 		synchronized(lock)
 		{
 			put++;
-			for(int i = 0; i<size.length; i++)
+			for(int i = 0; i<count; i++)
 			{
 				if(idle[i]<size[i])
 				{
@@ -117,17 +120,31 @@ public final class PoolCounter
 						idleMax[i] = idle[i];
 				}
 				else
+				{
+					if(destroy[i]==0 && count<size.length)
+					{
+						assert i==(count-1);
+						idle   [count] = idle[i];
+						idleMax[count] = idleMax[i];
+						create [count] = create[i];
+						destroy[count] = 0/*equals to destroy[i]*/;
+						count++; // causes another iteration
+					}
 					destroy[i]++;
+				}
 			}
 		}
 	}
 	
 	public List<Pool> getPools()
 	{
-		final Pool[] result = new Pool[size.length];
-		for(int i = 0; i<size.length; i++)
-			result[i] = new Pool(size[i], idle[i], idleMax[i], create[i], destroy[i]);
-		return Collections.unmodifiableList(Arrays.asList(result));
+		final ArrayList<Pool> result = new ArrayList<Pool>(size.length);
+		synchronized(lock)
+		{
+			for(int i = 0; i<count; i++)
+				result.add(new Pool(size[i], idle[i], idleMax[i], create[i], destroy[i]));
+		}
+		return Collections.unmodifiableList(result);
 	}
 	
 	public Date getStart()

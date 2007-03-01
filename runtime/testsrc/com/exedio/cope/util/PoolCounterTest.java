@@ -36,29 +36,28 @@ public class PoolCounterTest extends CopeAssert
 		
 		final Iterator pi = c.getPools().iterator();
 		PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
-		PoolCounter.Pool p2 = (PoolCounter.Pool)pi.next();
+		PoolCounter.Pool p2 = null;
 		assertFalse(pi.hasNext());
 		assertIt(c, 0, 0);
 		assertIt(p1, 1, 0, 0, 0, 0, 0);
-		assertIt(p2, 2, 0, 0, 0, 0, 0);
 		
 		c.incrementGet();
-		assertEquals(2, c.getPools().size());
+		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
-		p2 = c.getPools().get(1);
-		assertIt(c, 1, 0); assertIt(p1,1, 0, 0, 1, 0,  0); assertIt(p2,2, 0, 0, 1, 0, 0);
+		p2 = null;
+		assertIt(c, 1, 0); assertIt(p1,1, 0, 0, 1, 0,  0);
 		
 		c.incrementGet();
-		assertEquals(2, c.getPools().size());
+		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
-		p2 = c.getPools().get(1);
-		assertIt(c, 2, 0); assertIt(p1,1, 0, 0, 2, 0,  0); assertIt(p2,2, 0, 0, 2, 0, 0);
+		p2 = null;
+		assertIt(c, 2, 0); assertIt(p1,1, 0, 0, 2, 0,  0);
 		
 		c.incrementPut();
-		assertEquals(2, c.getPools().size());
+		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
-		p2 = c.getPools().get(1);
-		assertIt(c, 2, 1); assertIt(p1,1, 1, 1, 2, 0,  0); assertIt(p2,2, 1, 1, 2, 0, 0);
+		p2 = null;
+		assertIt(c, 2, 1); assertIt(p1,1, 1, 1, 2, 0,  0);
 		
 		c.incrementPut();
 		assertEquals(2, c.getPools().size());
@@ -91,110 +90,79 @@ public class PoolCounterTest extends CopeAssert
 		final PoolCounter c = new PoolCounter(1,2,4,6);
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 0, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 0, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 0, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 0, 0, 0);
 		}
 		c.incrementGet();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 1, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 1, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 1, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 1, 0, 0);
 		}
 		c.incrementGet();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 2, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 2, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 2, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 2, 0, 0);
 		}
 		c.incrementGet();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 3, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 3, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 3, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 3, 0, 0);
 		}
 		c.incrementGet();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 4, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 4, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 4, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 4, 0, 0);
 		}
 		c.incrementGet();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 5, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 5, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 5, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 5, 0, 0);
 		}
 		c.incrementGet();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 6, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 6, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 6, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 6, 0, 0);
 		}
 		c.incrementGet();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 0, 0, 7, 0, 0);
-			assertIt(ps.get(1), 2, 0, 0, 7, 0, 0);
-			assertIt(ps.get(2), 4, 0, 0, 7, 0, 0);
-			assertIt(ps.get(3), 6, 0, 0, 7, 0, 0);
 		}
 		c.incrementPut();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(1, ps.size());
 			assertIt(ps.get(0), 1, 1, 1, 7, 0, 0);
-			assertIt(ps.get(1), 2, 1, 1, 7, 0, 0);
-			assertIt(ps.get(2), 4, 1, 1, 7, 0, 0);
-			assertIt(ps.get(3), 6, 1, 1, 7, 0, 0);
 		}
 		c.incrementPut();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(2, ps.size());
 			assertIt(ps.get(0), 1, 1, 1, 7, 1, 14);
 			assertIt(ps.get(1), 2, 2, 2, 7, 0, 0);
-			assertIt(ps.get(2), 4, 2, 2, 7, 0, 0);
-			assertIt(ps.get(3), 6, 2, 2, 7, 0, 0);
 		}
 		c.incrementPut();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(3, ps.size());
 			assertIt(ps.get(0), 1, 1, 1, 7, 2, 28);
 			assertIt(ps.get(1), 2, 2, 2, 7, 1, 14);
 			assertIt(ps.get(2), 4, 3, 3, 7, 0, 0);
-			assertIt(ps.get(3), 6, 3, 3, 7, 0, 0);
 		}
 		c.incrementPut();
 		{
 			final List<PoolCounter.Pool> ps = c.getPools();
-			assertEquals(4, ps.size());
+			assertEquals(3, ps.size());
 			assertIt(ps.get(0), 1, 1, 1, 7, 3, 42);
 			assertIt(ps.get(1), 2, 2, 2, 7, 2, 28);
 			assertIt(ps.get(2), 4, 4, 4, 7, 0, 0);
-			assertIt(ps.get(3), 6, 4, 4, 7, 0, 0);
 		}
 		c.incrementPut();
 		{
