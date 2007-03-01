@@ -131,8 +131,9 @@ public final class PoolCounter
 				}
 				else
 				{
+					final int destroyI = destroy[i];
 					
-					if(destroy[i]==0 && count<size.length)
+					if(destroyI==0 && count<size.length)
 					{
 						assert i==(count-1);
 						idle   [count] = idleI;
@@ -142,7 +143,7 @@ public final class PoolCounter
 						count++; // causes another iteration
 						this.count = count;
 					}
-					destroy[i]++;
+					destroy[i] = destroyI+1;
 				}
 			}
 		}
