@@ -68,7 +68,7 @@ public final class PoolCounter
 		}
 		
 		this.start = System.currentTimeMillis();
-		this.idleLimit = idleLimits;
+		this.idleLimit = copy(idleLimits);
 		this.idle    = new int[idleLimits.length];
 		this.idleMax = new int[idleLimits.length];
 		this.create  = new int[idleLimits.length];
