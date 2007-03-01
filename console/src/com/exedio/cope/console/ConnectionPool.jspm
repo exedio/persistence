@@ -74,9 +74,8 @@ final class ConnectionPool_Jspm extends Console_Jspm
 				%>
 				<th>maxIdle</th>
 			</tr><%
-			for(Iterator i = poolCounter.getPools().iterator(); i.hasNext(); )
+			for(final PoolCounter.Pool pool : poolCounter.getPools())
 			{
-				final PoolCounter.Pool pool = (PoolCounter.Pool)i.next();
 				final boolean inconsistent = !pool.isConsistent();
 				
 				final String[] data = {
