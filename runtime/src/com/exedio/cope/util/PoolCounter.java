@@ -35,7 +35,7 @@ public final class PoolCounter
 	private final long start;
 	private final Object lock = new Object();
 	
-	private final int[] size;
+	private final int[] size; // TODO rename to idleLimit, consistently to Pool
 	private final int[] idle;
 	private final int[] idleMax;
 	private final int[] create;
