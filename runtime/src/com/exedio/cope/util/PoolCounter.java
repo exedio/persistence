@@ -124,10 +124,10 @@ public final class PoolCounter
 				
 				if(idleI<size[i])
 				{
-					if((++idleI)>idleMax[i])
+					idle[i] = ++idleI;
+
+					if(idleI>idleMax[i])
 						idleMax[i] = idleI;
-					
-					idle[i] = idleI;
 				}
 				else
 				{
