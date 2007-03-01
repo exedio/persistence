@@ -162,6 +162,13 @@ public final class PoolCounter
 			this.destroy = destroy;
 
 			assert size>0;
+			assert idle>=0;
+			assert idle<=size;
+			assert idleMax>=0;
+			assert idleMax>=idle;
+			assert idleMax<=size;
+			assert create>=0;
+			assert destroy>=0;
 		}
 
 		public final int getSize()
