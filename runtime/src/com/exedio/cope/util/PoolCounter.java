@@ -97,6 +97,8 @@ public final class PoolCounter
 		synchronized(lock)
 		{
 			get++;
+			
+			final int count = this.count;
 			for(int i = 0; i<count; i++)
 			{
 				if(idle[i]>0)
@@ -112,6 +114,8 @@ public final class PoolCounter
 		synchronized(lock)
 		{
 			put++;
+
+			int count = this.count;
 			for(int i = 0; i<count; i++)
 			{
 				if(idle[i]<size[i])
@@ -129,6 +133,7 @@ public final class PoolCounter
 						create [count] = create[i];
 						destroy[count] = 0/*equals to destroy[i]*/;
 						count++; // causes another iteration
+						this.count = count;
 					}
 					destroy[i]++;
 				}
@@ -141,6 +146,7 @@ public final class PoolCounter
 		final ArrayList<Pool> result = new ArrayList<Pool>(size.length);
 		synchronized(lock)
 		{
+			final int count = this.count;
 			for(int i = 0; i<count; i++)
 				result.add(new Pool(size[i], idle[i], idleMax[i], create[i], destroy[i]));
 		}
