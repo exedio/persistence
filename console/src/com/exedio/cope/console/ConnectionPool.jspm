@@ -34,7 +34,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 	{
 		final PoolCounter poolCounter = info.getCounter();
 		final String[] names = {
-			"Loss = 100 * Destroy / Get",
+			"Loss = Destroy/Get /%",
 			"Idle",
 			"Idle Maximum",
 			"Create",
