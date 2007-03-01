@@ -101,9 +101,10 @@ public final class PoolCounter
 			final int count = this.count;
 			for(int i = 0; i<count; i++)
 			{
+				final int idleI = idle[i];
 				
-				if(idle[i]>0)
-					idle[i]--;
+				if(idleI>0)
+					idle[i] = idleI-1;
 				else
 					create[i]++;
 			}
@@ -119,19 +120,22 @@ public final class PoolCounter
 			int count = this.count;
 			for(int i = 0; i<count; i++)
 			{
+				int idleI = idle[i];
 				
-				if(idle[i]<size[i])
+				if(idleI<size[i])
 				{
-					if((++idle[i])>idleMax[i])
-						idleMax[i] = idle[i];
+					if((++idleI)>idleMax[i])
+						idleMax[i] = idleI;
 					
+					idle[i] = idleI;
 				}
 				else
 				{
+					
 					if(destroy[i]==0 && count<size.length)
 					{
 						assert i==(count-1);
-						idle   [count] = idle[i];
+						idle   [count] = idleI;
 						idleMax[count] = idleMax[i];
 						create [count] = create[i];
 						destroy[count] = 0/*equals to destroy[i]*/;
