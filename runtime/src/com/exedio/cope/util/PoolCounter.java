@@ -47,7 +47,7 @@ public final class PoolCounter
 
 	public PoolCounter()
 	{
-		this(1,2,4,6,8,10,15,20,25,30,40,50,60,70,80,90,100);
+		this(1,2,4,6,8,10,15,20,25,30,40,50,60,70,80,90,100,150,200,250,300,400,500,600,700,800,900,1000);
 	}
 	
 	public PoolCounter(final int... idleLimits)
