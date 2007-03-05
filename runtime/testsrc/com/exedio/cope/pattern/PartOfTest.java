@@ -78,9 +78,12 @@ public class PartOfTest extends AbstractLibTest
 		assertContains(container.getParts());
 		
 		final PartOfItem part1 = container.addToParts("part1", 1);
+		assertEquals(container, part1.getPartsContainer());
 		assertContains(part1, container.getParts());
 		
 		final PartOfItem part2 = container.addToParts("part2", 2);
+		assertEquals(container, part1.getPartsContainer());
+		assertEquals(container, part2.getPartsContainer());
 		assertContains(part1, part2, container.getParts());
 	}
 }

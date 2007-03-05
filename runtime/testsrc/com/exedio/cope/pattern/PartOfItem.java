@@ -32,6 +32,11 @@ public class PartOfItem extends Item
 	static final StringField partString = new StringField();
 	static final IntegerField partInteger = new IntegerField();
 	
+	PartOfContainerItem getPartsContainer() // TODO generate this
+	{
+		return parts.getContainer(this);
+	}
+	
 	/**
 
 	 **
