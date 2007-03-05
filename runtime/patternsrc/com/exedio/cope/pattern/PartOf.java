@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
@@ -59,6 +60,11 @@ public final class PartOf<C extends Item> extends Pattern
 		return (List<P>)getType().search(this.container.equal(container));
 	}
 
+	public List<? extends Item> getPartsAndCast(final Item container)
+	{
+		return getParts(Cope.<C>verboseCast(this.container.getValueClass(), container));
+	}
+	
 	// static convenience methods ---------------------------------
 
 	private static final HashMap<Type<?>, List<PartOf>> cacheForGetPartOfs = new HashMap<Type<?>, List<PartOf>>();
