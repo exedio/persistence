@@ -63,6 +63,7 @@ public class PartOfTest extends AbstractLibTest
 		assertEquals("parts", PartOfItem.parts.getName());
 
 		assertSame(PartOfItem.container, PartOfItem.parts.getContainer());
+		assertEquals(list(PartOfItem.parts), PartOfItem.container.getPatterns());
 
 		try
 		{
@@ -71,7 +72,7 @@ public class PartOfTest extends AbstractLibTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("container must not be null", e.getMessage());
+			assertEquals(null, e.getMessage());
 		}
 
 		// test persistence

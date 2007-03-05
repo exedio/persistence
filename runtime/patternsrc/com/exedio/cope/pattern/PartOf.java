@@ -31,9 +31,7 @@ public final class PartOf<C extends Item> extends Pattern
 	private PartOf(final ItemField<C> container)
 	{
 		this.container = container;
-		
-		if(container==null)
-			throw new NullPointerException("container must not be null");
+		registerSource(container);
 	}
 	
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
