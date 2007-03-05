@@ -18,11 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Type;
 
 public final class PartOf<C extends Item> extends Pattern
 {
@@ -53,5 +57,57 @@ public final class PartOf<C extends Item> extends Pattern
 	public <P extends Item> List<? extends P> getParts(final C container)
 	{
 		return (List<P>)getType().search(this.container.equal(container));
+	}
+
+	// static convenience methods ---------------------------------
+
+	private static final HashMap<Type<?>, List<PartOf>> cacheForGetPartOfs = new HashMap<Type<?>, List<PartOf>>();
+	private static final HashMap<Type<?>, List<PartOf>> cacheForGetDeclaredPartOfs = new HashMap<Type<?>, List<PartOf>>();
+	
+	/**
+	 * Returns all part-of declarations where <tt>type</tt> or any of it's super types is
+	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
+	 */
+	public static final List<PartOf> getPartOfs(final Type<?> type)
+	{
+		return getPartOfs(false, cacheForGetPartOfs, type);
+	}
+
+	/**
+	 * Returns all part-of declarations where <tt>type</tt> is
+	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
+	 */
+	public static final List<PartOf> getDeclaredPartOfs(final Type<?> type)
+	{
+		return getPartOfs(true, cacheForGetDeclaredPartOfs, type);
+	}
+	
+	private static final List<PartOf> getPartOfs(final boolean declared, final HashMap<Type<?>, List<PartOf>> cache, final Type<?> type)
+	{
+		synchronized(cache)
+		{
+			{
+				final List<PartOf> cachedResult = cache.get(type);
+				if(cachedResult!=null)
+					return cachedResult;
+			}
+			
+			final ArrayList<PartOf> resultModifiable = new ArrayList<PartOf>();
+			
+			for(final ItemField<?> ia : declared ? type.getDeclaredReferences() : type.getReferences())
+				for(final Pattern pattern : ia.getPatterns())
+				{
+					if(pattern instanceof PartOf)
+						resultModifiable.add((PartOf)pattern);
+				}
+			resultModifiable.trimToSize();
+			
+			final List<PartOf> result =
+				!resultModifiable.isEmpty()
+				? Collections.unmodifiableList(resultModifiable)
+				: Collections.<PartOf>emptyList();
+			cache.put(type, result);
+			return result;
+		}
 	}
 }

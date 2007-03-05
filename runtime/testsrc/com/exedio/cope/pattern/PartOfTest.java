@@ -64,6 +64,11 @@ public class PartOfTest extends AbstractLibTest
 
 		assertSame(PartOfItem.container, PartOfItem.parts.getContainer());
 		assertEquals(list(PartOfItem.parts), PartOfItem.container.getPatterns());
+		
+		assertEquals(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
+		assertEquals(list(), PartOf.getPartOfs(PartOfItem.TYPE));
+		assertEquals(list(PartOfItem.parts), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
+		assertEquals(list(PartOfItem.parts), PartOf.getPartOfs(PartOfContainerItem.TYPE));
 
 		try
 		{
