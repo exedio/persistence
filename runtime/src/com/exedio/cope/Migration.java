@@ -38,10 +38,19 @@ public final class Migration
 			throw new NullPointerException("body must not be null");
 		if(body.length==0)
 			throw new IllegalArgumentException("body must not be empty");
+		
+		// make a copy to avoid modifications afterwards
+		final String[] bodyCopy = new String[body.length];
+		for(int i = 0; i<body.length; i++)
+		{
+			if(body[i]==null)
+				throw new NullPointerException("body must not contain a null string, but does on position " + (i+1));
+			bodyCopy[i] = body[i];
+		}
 
 		this.version = version;
 		this.comment = comment;
-		this.body = body;
+		this.body = bodyCopy;
 	}
 	
 	public int getVersion()
