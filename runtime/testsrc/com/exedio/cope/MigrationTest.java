@@ -173,7 +173,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("no migration for versions [6] on migration from 5 to 7", e.getMessage());
+			assertEquals("attempt to migrate from 5 to 7, but declared migrations allow from 6 only", e.getMessage());
 		}
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{

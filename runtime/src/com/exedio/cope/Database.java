@@ -1672,37 +1672,18 @@ final class Database
 			}
 			else if(actualVersion<expectedVersion)
 			{
-				final Migration[] relevant = new Migration[expectedVersion-actualVersion];
-				for(final Migration migration : migrations)
-				{
-					final int version = migration.version;
-					if(version<=actualVersion || version>expectedVersion)
-						continue; // irrelevant
-					final int relevantIndex = version - actualVersion - 1;
-					assert relevant[relevantIndex]==null : "there is more than one migration for version " + version + ": " + relevant[relevantIndex].comment + " and " + migration.comment;
-					relevant[relevantIndex] = migration;
-				}
-				
-				ArrayList<Integer> missing = null;
-				for(int i = 0; i<relevant.length; i++)
-				{
-					if(relevant[i]==null)
-					{
-						if(missing==null)
-							missing = new ArrayList<Integer>();
-						
-						missing.add(i + actualVersion + 1);
-					}
-				}
-				if(missing!=null)
+				final int startMigrationIndex = expectedVersion - actualVersion - 1;
+				if(startMigrationIndex>=migrations.length)
 					throw new IllegalArgumentException(
-							"no migration for versions " + missing.toString() +
-							" on migration from " + actualVersion + " to " + expectedVersion);
+							"attempt to migrate from " + actualVersion + " to " + expectedVersion +
+							", but declared migrations allow from " + (expectedVersion - migrations.length) + " only");
 				
 				final Date date = new Date();
 				stmt = con.createStatement();
-				for(final Migration migration : relevant)
+				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
+					final Migration migration = migrations[migrationIndex];
+					assert migration.version == (expectedVersion - migrationIndex);
 					final String[] body = migration.body;
 					final ArrayList<Integer> rowCounts = new ArrayList<Integer>(body.length);
 					final ArrayList<Long> durations = new ArrayList<Long>(body.length);
