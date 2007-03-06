@@ -44,7 +44,7 @@ public final class Migration
 		for(int i = 0; i<body.length; i++)
 		{
 			if(body[i]==null)
-				throw new NullPointerException("body must not contain a null string, but does on position " + (i+1));
+				throw new NullPointerException("body must not be null, but was at index " + i);
 			bodyCopy[i] = body[i];
 		}
 

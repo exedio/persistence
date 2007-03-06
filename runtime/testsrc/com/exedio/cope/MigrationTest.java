@@ -75,7 +75,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("body must not contain a null string, but does on position 2", e.getMessage());
+			assertEquals("body must not be null, but was at index 1", e.getMessage());
 		}
 		
 		final Migration m = new Migration(123, "test-comment", "sql1", "sql2");
