@@ -1,7 +1,3 @@
-* Instrumentor
-	- localized generated comments
-	- instrumentation for modified files only
-	- disable/different access modifier for all generated methods
 * Lib
 	- constraints
 		- range (minimum/maximum) for integers/doubles
@@ -48,6 +44,10 @@
 	- write documention
 		* support for Defining Column Types on oracle
 			http://download-west.oracle.com/docs/cd/B10501_01/java.920/a96654/oraperf.htm#1002524
+* Instrumentor
+	- localized generated comments
+	- instrumentation for modified files only
+	- disable/different access modifier for all generated methods
 * ConsoleServlet
 	- allow changing the database connection parameters
 * Copernica
