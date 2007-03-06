@@ -30,10 +30,6 @@ public final class Migration
 	
 	public Migration(final int version, final String comment, final String... body)
 	{
-		this.version = version;
-		this.comment = comment;
-		this.body = body;
-		
 		if(version<0)
 			throw new IllegalArgumentException("version must not be negative");
 		if(comment==null)
@@ -42,6 +38,10 @@ public final class Migration
 			throw new NullPointerException("body must not be null");
 		if(body.length==0)
 			throw new IllegalArgumentException("body must not be empty");
+
+		this.version = version;
+		this.comment = comment;
+		this.body = body;
 	}
 	
 	public int getVersion()
