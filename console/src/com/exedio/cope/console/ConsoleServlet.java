@@ -89,6 +89,15 @@ public final class ConsoleServlet extends CopsServlet
 		}
 		catch(RuntimeException e)
 		{
+			// tomcat does not print stack trace or exception message, so we do
+			System.err.println("RuntimeException in ConsoleServlet.init");
+			e.printStackTrace();
+			throw e;
+		}
+		catch(Error e)
+		{
+			// tomcat does not print stack trace or exception message, so we do
+			System.err.println("Error in ConsoleServlet.init");
 			e.printStackTrace();
 			throw e;
 		}

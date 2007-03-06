@@ -87,16 +87,33 @@ public final class CopernicaServlet extends CopsServlet
 	public void init() throws ServletException
 	{
 		super.init();
-		resources.init();
-		
-		if(this.provider!=null)
+		try
 		{
-			System.out.println("reinvokation of jspInit");
-			return;
+			resources.init();
+			
+			if(this.provider!=null)
+			{
+				System.out.println("reinvokation of jspInit");
+				return;
+			}
+			
+			this.provider = createProvider();
+			this.checked = false;
 		}
-		
-		this.provider = createProvider();
-		this.checked = false;
+		catch(RuntimeException e)
+		{
+			// tomcat does not print stack trace or exception message, so we do
+			System.err.println("RuntimeException in CopernicaServlet.init");
+			e.printStackTrace();
+			throw e;
+		}
+		catch(Error e)
+		{
+			// tomcat does not print stack trace or exception message, so we do
+			System.err.println("Error in CopernicaServlet.init");
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Override
