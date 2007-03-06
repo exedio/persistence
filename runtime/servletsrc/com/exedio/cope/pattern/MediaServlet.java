@@ -91,6 +91,13 @@ public final class MediaServlet extends HttpServlet
 			e.printStackTrace();
 			throw e;
 		}
+		catch(ServletException e)
+		{
+			// tomcat does not print stack trace or exception message, so we do
+			System.err.println("ServletException in MediaServlet.init");
+			e.printStackTrace();
+			throw e;
+		}
 		catch(Error e)
 		{
 			// tomcat does not print stack trace or exception message, so we do

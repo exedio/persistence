@@ -73,6 +73,13 @@ public final class TransactionFilter implements Filter
 			e.printStackTrace();
 			throw e;
 		}
+		catch(ServletException e)
+		{
+			// tomcat does not print stack trace or exception message, so we do
+			System.err.println("ServletException in TransactionFilter.init");
+			e.printStackTrace();
+			throw e;
+		}
 		catch(Error e)
 		{
 			// tomcat does not print stack trace or exception message, so we do
