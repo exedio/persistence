@@ -1,4 +1,4 @@
-* Lib
+* runtime
 	- constraints
 		- range (minimum/maximum) for integers/doubles
 		- precision (number of fractional digits) for doubles
@@ -44,13 +44,13 @@
 	- write documention
 		* support for Defining Column Types on oracle
 			http://download-west.oracle.com/docs/cd/B10501_01/java.920/a96654/oraperf.htm#1002524
-* Instrumentor
+* instrument
 	- localized generated comments
 	- instrumentation for modified files only
 	- disable/different access modifier for all generated methods
-* ConsoleServlet
+* console
 	- allow changing the database connection parameters
-* Copernica
+* copernica
 	- query designer
 	- improve presentation of qualified fields / relation / dynamic type system
 	- restrictions
