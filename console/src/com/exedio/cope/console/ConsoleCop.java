@@ -49,7 +49,7 @@ abstract class ConsoleCop extends Cop
 		df = new SimpleDateFormat("dd.MM.yyyy'&nbsp;'HH:mm:ss.SSS");
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator(',');
-		nfs.setGroupingSeparator(' ');
+		nfs.setGroupingSeparator('\'');
 		nf = new DecimalFormat("", nfs);
 	}
 	
