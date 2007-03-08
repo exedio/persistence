@@ -116,9 +116,7 @@ final class Properties_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td class="text" colspan="2">
-					<pre>
-<%=sourceContent%>
-					</pre>
+					<pre><%=sourceContent%></pre>
 				</td>
 			</tr><%
 			}
