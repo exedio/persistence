@@ -100,7 +100,12 @@ public abstract class Pattern extends Feature
 	
 	protected final Type<?> newType(final LinkedHashMap<String, Feature> features)
 	{
-		final String id = getType().getID() + '.' + getName();
+		return newType(features, "");
+	}
+	
+	protected final Type<?> newType(final LinkedHashMap<String, Feature> features, final String postfix)
+	{
+		final String id = getType().getID() + '.' + getName() + postfix;
 		final Type<ItemWithoutJavaClass> result = new Type<ItemWithoutJavaClass>(ItemWithoutJavaClass.class, id, features);
 		generatedTypes.add(result);
 		return result;
