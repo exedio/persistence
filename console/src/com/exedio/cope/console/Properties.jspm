@@ -63,9 +63,9 @@ final class Properties_Jspm extends Console_Jspm
 					if(defaultValue!=null && fieldSpecified)
 					{
 						%><%=
-							field.getValue()
+							cop.formatObject(field.getValue())
 							%> <span style="font-size:8pt;">(<%=
-							defaultValue
+							cop.formatObject(defaultValue)
 							%>)</span><%
 					}
 					else if(field instanceof Properties.FileField)
@@ -94,7 +94,7 @@ final class Properties_Jspm extends Console_Jspm
 					}
 					else
 					{
-						%><%=field.getValue()%><%
+						%><%=cop.formatObject(field.getValue())%><%
 					}
 				%></td>
 			</tr><%

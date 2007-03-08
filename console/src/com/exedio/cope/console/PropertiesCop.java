@@ -92,4 +92,16 @@ final class PropertiesCop extends ConsoleCop
 		
 		Properties_Jspm.write(out, request, this, props, sourceContent);
 	}
+	
+	String formatObject(final Object o)
+	{
+		if(o==null)
+			return null;
+		else if(o instanceof Integer)
+			return format(((Integer)o).longValue());
+		else if(o instanceof Long)
+			return format(((Long)o).longValue());
+		else
+			return o.toString();
+	}
 }
