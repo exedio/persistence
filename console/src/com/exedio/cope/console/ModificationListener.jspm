@@ -42,9 +42,9 @@ final class ModificationListener_Jspm
 					<th class="caption" colspan="4">Modifying Commit Listeners</th>
 				</tr>
 				<tr>
-					<td class="text" colspan="4">size: <%=listeners.size()
-						%>, removed: <%=removedBefore
-						%><% if(removedBefore!=removedAfter) { %>/<%=removedAfter%><% }
+					<td class="text" colspan="4">size: <%=cop.format(listeners.size())
+						%>, removed: <%=cop.format(removedBefore)
+						%><% if(removedBefore!=removedAfter) { %>/<%=cop.format(removedAfter)%><% }
 					%></td>
 				</tr>
 				<tr>
