@@ -94,14 +94,14 @@ final class ModificationListener_Jspm
 					%>
 					<td class="text"><%=listener.getClass().getName()%></td>
 					<td class="text"><%
-					try
-					{
-						%><%=listener.toString()%><%
-					}
-					catch(RuntimeException e)
-					{
-						e.printStackTrace(out);
-					}
+						try
+						{
+							%><%=listener.toString()%><%
+						}
+						catch(RuntimeException e)
+						{
+							e.printStackTrace(out);
+						}
 					}
 					%></td>
 				</tr><%
