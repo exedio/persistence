@@ -102,6 +102,15 @@ public class DeleteTest extends AbstractLibTest
 
 		try
 		{
+			Item.newItemField(Item.class, null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("is not a subclass of " + Item.class.getName() + " but not Item itself", e.getMessage());
+		}
+		try
+		{
 			Item.newItemField(DeleteItem.class, null);
 			fail();
 		}
