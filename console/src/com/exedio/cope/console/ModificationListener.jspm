@@ -72,16 +72,21 @@ final class ModificationListener_Jspm
 						{
 							%> <b>attached</b><%
 						}
+						final List<ModificationListenerCop.Commit> commits = introspector.getCommits();
+						if(!commits.isEmpty())
+						{
 						%>
 						<ol><%
-							for(final ModificationListenerCop.Commit commit : introspector.getCommits())
+							for(final ModificationListenerCop.Commit commit : commits)
 							{
 								final String name = commit.getTransactionName();
 							%>
 							<li><%=cop.format(commit.getTimeStamp())%><% if(name!=null){%> <%=name%><%} %> <%=commit.getModifiedItems()%></li><%
 							}
 							%>
-						</ol>
+						</ol><%
+						}
+						%>
 					</td><%
 					}
 					else
