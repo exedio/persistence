@@ -664,10 +664,10 @@
 	</target>
 
 	<target name="copernica.index">
-		<foreachEnvironment skipSwitch="copernica.db">
+		<foreachEnvironment skipSwitch="index">
 			<body>
-				<mkdir dir="build/copernica/index" />
-				<copy file="copernica/index.html" tofile="build/copernica/index/@{db}.html">
+				<mkdir dir="build/environments" />
+				<copy file="environment.html" tofile="build/environments/@{db}.html">
 					<filterset>
 						<filter token="HOST" value="http://localhost:8080/" />
 						<filter token="DATABASE" value="@{db}" />
