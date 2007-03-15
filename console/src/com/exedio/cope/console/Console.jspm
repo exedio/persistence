@@ -47,7 +47,7 @@ abstract class Console_Jspm
 		%>
 	</head>
 	<body>
-		<a href="http://www.exedio.com/" target="_blank"><img src="<%=ConsoleServlet.logo.url(request)%>" width="200" height="66" align="right"></a>
+		<a href="http://www.exedio.com/" target="_blank"><img src="<%=ConsoleServlet.logo.url(request)%>" width="198" height="60" align="right"></a>
 		<h1><a href="http://cope.sourceforge.net/" target="_blank">COPE</a> Console</h1>
 		<br clear="right"><%
 		writeMenu(out, cop);
