@@ -711,7 +711,7 @@
 				<copy file="environment.html" tofile="build/environments/@{db}.html">
 					<filterset>
 						<filter token="HOST" value="http://localhost:8080/" />
-						<filter token="DATABASE" value="@{db}" />
+						<filter token="ENV" value="@{db}" />
 					</filterset>
 				</copy>
 			</body>

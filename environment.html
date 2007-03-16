@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>cope on @DATABASE@</title>
+		<title>cope on @ENV@</title>
 		<style language="text/css">
 			input
 			{
@@ -9,41 +9,41 @@
 		</style>
 	</head>
 	<body>
-		<h1>cope on  @DATABASE@</h1>
+		<h1>cope on @ENV@</h1>
 		<ul>
 			<li>
-				<form action="@HOST@copetest-@DATABASE@/console?schema=" method="POST">
-					<a href="@HOST@copetest-@DATABASE@/console">console</a>
+				<form action="@HOST@copetest-@ENV@/console?schema=" method="POST">
+					<a href="@HOST@copetest-@ENV@/console">console</a>
 					<input type="submit" name="CREATE" value="create" />
 					<input type="submit" name="DROP" value="drop" />
 				</form>
 			</li>
 			<li>
-				<form action="@HOST@copetest-@DATABASE@/init.jsp" method="POST">
-					<a href="@HOST@copetest-@DATABASE@/init.jsp">init</a>
+				<form action="@HOST@copetest-@ENV@/init.jsp" method="POST">
+					<a href="@HOST@copetest-@ENV@/init.jsp">init</a>
 					<input type="submit" name="INIT" value="init" />
 				</form>
 			</li>
-			<li><a href="@HOST@copetest-@DATABASE@/copernica.jsp">copernica</a></li>
-			<li><a href="@HOST@copetest-@DATABASE@/copernica-pure.jsp">copernica-pure</a></li>
+			<li><a href="@HOST@copetest-@ENV@/copernica.jsp">copernica</a></li>
+			<li><a href="@HOST@copetest-@ENV@/copernica-pure.jsp">copernica-pure</a></li>
 			<li>
 				For several models of the runtime test,
 				a cope console is mounted here:
 				<ul>
-					<li><a href="@HOST@copelibtest-@DATABASE@/delete/console">delete</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/day/console">day</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/data/console">data</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/hash/console">hash</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/md5/console">md5</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/fieldList/console">fieldList</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/fieldListLimited/console">fieldListLimited</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/cacheIsolation/console">cacheIsolation</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/name/console">name</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/match/console">match</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/hierarchy/console">hierarchy</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/typeNotInCondition/console">typeNotInCondition</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/hiddenFeature/console">hiddenFeature</a></li>
-					<li><a href="@HOST@copelibtest-@DATABASE@/badQuery/console">badQuery</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/delete/console">delete</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/day/console">day</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/data/console">data</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/hash/console">hash</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/md5/console">md5</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/fieldList/console">fieldList</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/fieldListLimited/console">fieldListLimited</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/cacheIsolation/console">cacheIsolation</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/name/console">name</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/match/console">match</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/hierarchy/console">hierarchy</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/typeNotInCondition/console">typeNotInCondition</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/hiddenFeature/console">hiddenFeature</a></li>
+					<li><a href="@HOST@copelibtest-@ENV@/badQuery/console">badQuery</a></li>
 				</ul>
 			</li>
 		</ul>
