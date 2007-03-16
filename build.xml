@@ -663,20 +663,6 @@
 		</junit>
 	</target>
 
-	<target name="copernica.index">
-		<foreachEnvironment skipSwitch="index">
-			<body>
-				<mkdir dir="build/environments" />
-				<copy file="environment.html" tofile="build/environments/@{db}.html">
-					<filterset>
-						<filter token="HOST" value="http://localhost:8080/" />
-						<filter token="DATABASE" value="@{db}" />
-					</filterset>
-				</copy>
-			</body>
-		</foreachEnvironment>
-	</target>
-	
 	<target name="copernica.clean" depends="catalina.home">
 		<delete dir="build/copernica" />
 		<delete>
@@ -718,7 +704,19 @@
 	
 	<target name="webtest" depends="copernica.webtest" />
 	
-	<target name="index" depends="copernica.index" />
+	<target name="index">
+		<foreachEnvironment skipSwitch="index">
+			<body>
+				<mkdir dir="build/environments" />
+				<copy file="environment.html" tofile="build/environments/@{db}.html">
+					<filterset>
+						<filter token="HOST" value="http://localhost:8080/" />
+						<filter token="DATABASE" value="@{db}" />
+					</filterset>
+				</copy>
+			</body>
+		</foreachEnvironment>
+	</target>
 	
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
 		<delete dir="build" />
