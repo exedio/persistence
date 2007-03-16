@@ -68,26 +68,26 @@
 		<attribute name="skipSwitch" />
 		<element name="body" optional="false" />
 		<sequential>
-			<for param="db.file">
+			<for param="env.file">
 				<path>
 					<fileset dir="${basedir}" includes="*.test.cope.properties" />
 				</path>
 				<sequential>
-					<basename file="@{db.file}" property="@{db.file}.db" suffix=".test.cope.properties" />
-					<!-- this is a dummy loop to create the attribute @{db} -->
-					<for param="db" list="${@{db.file}.db}">
+					<basename file="@{env.file}" property="@{env.file}.env" suffix=".test.cope.properties" />
+					<!-- this is a dummy loop to create the attribute @{env} -->
+					<for param="env" list="${@{env.file}.env}">
 						<sequential>
-							<property file="@{db.file}" prefix="@{db.file}." />
-							<!--echo message="Doing @{skipSwitch} for @{db} skip switch:${@{db.file}.x-build.skip.@{skipSwitch}}." /-->
+							<property file="@{env.file}" prefix="@{env.file}." />
+							<!--echo message="Doing @{skipSwitch} for @{env} skip switch:${@{env.file}.x-build.skip.@{skipSwitch}}." /-->
 							<if>
-								<istrue value="${@{db.file}.x-build.skip.@{skipSwitch}}"/>
+								<istrue value="${@{env.file}.x-build.skip.@{skipSwitch}}"/>
 								<then>
-									<echo level="warning" message="Skipped @{skipSwitch} for @{db}." />
+									<echo level="warning" message="Skipped @{skipSwitch} for @{env}." />
 								</then>
 								<else>
-									<echo level="info" message="Doing @{skipSwitch} for @{db}" />
-									<!-- this is a dummy loop to create the attribute @{db.driver} -->
-									<for param="db.driver" list="${@{db.file}.x-build.driver}">
+									<echo level="info" message="Doing @{skipSwitch} for @{env}" />
+									<!-- this is a dummy loop to create the attribute @{env.driver} -->
+									<for param="env.driver" list="${@{env.file}.x-build.driver}">
 										<sequential>
 											<body />
 										</sequential>
@@ -129,7 +129,7 @@
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="dsmf.test">
 			<body>
-				<junit taskname="junit @{db}" fork="yes"
+				<junit taskname="junit @{env}" fork="yes"
 						 haltonerror="true" haltonfailure="true"
 						 showoutput="true" printsummary="true">
 					<formatter type="brief" usefile="false" />
@@ -137,10 +137,10 @@
 					<classpath>
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/dsmf/testclasses" />
-						<pathelement location="lib/@{db.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 					</classpath>
-					<test name="com.exedio.dsmf.PackageTest" todir="build/testresults" outfile="dsmf-@{db}" />
-					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
+					<test name="com.exedio.dsmf.PackageTest" todir="build/testresults" outfile="dsmf-@{env}" />
+					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
@@ -270,10 +270,10 @@
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/@{db.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 					</classpath>
 				</nbjpdastart-->
-				<junit taskname="junit @{db}" fork="yes"
+				<junit taskname="junit @{env}" fork="yes"
 						 haltonerror="true" haltonfailure="true"
 						 dir="${basedir}"
 						 showoutput="true" printsummary="true">
@@ -285,12 +285,12 @@
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
-						<pathelement location="lib/@{db.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 					</classpath>
-					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{db}" />
-					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
+					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{env}" />
+					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/runtime/classes/com/exedio/cope/testprotocol.properties" />
-					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{db}" />
+					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{env}" />
 					<!--jvmarg value="-Xdebug"/>
 					<jvmarg value="-Xnoagent"/>
 					<jvmarg value="-Djava.compiler=none"/>
@@ -304,7 +304,7 @@
 	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
 		<foreachEnvironment skipSwitch="runtime.teardown">
 			<body>
-				<java classname="com.exedio.cope.PackageTest" taskname="tear down @{db}"
+				<java classname="com.exedio.cope.PackageTest" taskname="tear down @{env}"
 						fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="build/runtime/classes" />
@@ -313,9 +313,9 @@
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/@{db.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 					</classpath>
-					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
+					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<assertions><enable/></assertions>
 				</java>
 			</body>
@@ -336,7 +336,7 @@
 		
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
-				<junit taskname="emma @{db}" fork="yes"
+				<junit taskname="emma @{env}" fork="yes"
 						haltonerror="true" haltonfailure="true"
 						dir="${basedir}"
 						showoutput="true" printsummary="true">
@@ -347,11 +347,11 @@
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
-						<pathelement location="lib/@{db.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/servlet-api.jar" />
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" />
-					<sysproperty key="com.exedio.cope.properties" file="@{db.file}" />
+					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
@@ -363,9 +363,9 @@
 							console.compile, copernica.compile">
 		<foreachEnvironment skipSwitch="runtime.testwebapp">
 			<body>
-				<mkdir dir="build/runtime/testwebapp-@{db}" />
+				<mkdir dir="build/runtime/testwebapp-@{env}" />
 				
-				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/classes">
+				<copy todir="build/runtime/testwebapp-@{env}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/runtime/testmodelclasses" />
@@ -373,17 +373,17 @@
 					<fileset dir="build/copernica/classes" />
 				</copy>
 				
-				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/lib">
+				<copy todir="build/runtime/testwebapp-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
-					<fileset file="lib/@{db.driver}" />
+					<fileset file="lib/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
 				
-				<copy tofile="build/runtime/testwebapp-@{db}/WEB-INF/cope.properties" file="@{db.file}" />
-				<copy todir="build/runtime/testwebapp-@{db}/WEB-INF/"
+				<copy tofile="build/runtime/testwebapp-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
+				<copy todir="build/runtime/testwebapp-@{env}/WEB-INF/"
 						file="runtime/web.xml" />
-				<touch file="build/runtime/testwebapp-@{db}/WEB-INF/web.xml" />
+				<touch file="build/runtime/testwebapp-@{env}/WEB-INF/web.xml" />
 			</body>
 		</foreachEnvironment>
 	</target>
@@ -391,10 +391,10 @@
 	<target name="runtime.tomcat" depends="runtime.testwebapp, catalina.home">
 		<foreachEnvironment skipSwitch="runtime.tomcat">
 			<body>
-				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{db}.xml"
+				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{env}.xml"
 						file="runtime/testwebapp.xml">
 					<filterset>
-						<filter token="DATABASE" value="@{db}" />
+						<filter token="DATABASE" value="@{env}" />
 					</filterset>
 				</copy>
 			</body>
@@ -596,9 +596,9 @@
 	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
 		<foreachEnvironment skipSwitch="copernica.testwebapp">
 			<body>
-				<mkdir dir="build/copernica/testwebapp-@{db}" />
+				<mkdir dir="build/copernica/testwebapp-@{env}" />
 				
-				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/classes">
+				<copy todir="build/copernica/testwebapp-@{env}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="build/console/classes" />
@@ -606,18 +606,18 @@
 					<fileset dir="build/copernica/testclasses" />
 				</copy>
 				
-				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/lib">
+				<copy todir="build/copernica/testwebapp-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/commons-fileupload.jar" />
 					<fileset file="lib/commons-io.jar" />
 					<fileset file="lib/exedio-cops.jar" />
-					<fileset file="lib/@{db.driver}" />
+					<fileset file="lib/@{env.driver}" />
 				</copy>
 				
-				<copy tofile="build/copernica/testwebapp-@{db}/WEB-INF/cope.properties" file="@{db.file}" />
-				<copy todir="build/copernica/testwebapp-@{db}/WEB-INF/"
+				<copy tofile="build/copernica/testwebapp-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
+				<copy todir="build/copernica/testwebapp-@{env}/WEB-INF/"
 						file="copernica/web.xml" />
-				<touch file="build/copernica/testwebapp-@{db}/WEB-INF/web.xml" />
+				<touch file="build/copernica/testwebapp-@{env}/WEB-INF/web.xml" />
 			</body>
 		</foreachEnvironment>
 	</target>
@@ -625,10 +625,10 @@
 	<target name="copernica.tomcat" depends="copernica.testwebapp, catalina.home">
 		<foreachEnvironment skipSwitch="copernica.tomcat">
 			<body>
-				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{db}.xml"
+				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{env}.xml"
 						file="copernica/copetest.xml">
 					<filterset>
-						<filter token="DATABASE" value="@{db}" />
+						<filter token="DATABASE" value="@{env}" />
 					</filterset>
 				</copy>
 			</body>
@@ -708,10 +708,10 @@
 		<foreachEnvironment skipSwitch="index">
 			<body>
 				<mkdir dir="build/environments" />
-				<copy file="environment.html" tofile="build/environments/@{db}.html">
+				<copy file="environment.html" tofile="build/environments/@{env}.html">
 					<filterset>
 						<filter token="HOST" value="http://localhost:8080/" />
-						<filter token="ENV" value="@{db}" />
+						<filter token="ENV" value="@{env}" />
 					</filterset>
 				</copy>
 			</body>
