@@ -90,6 +90,19 @@ img
 	border:0;
 }
 
+img.logo
+{
+	float:right;
+	width:198px;
+	height:60px;
+}
+
+img.check
+{
+	width:13px;
+	height:13px;
+}
+
 span.ok      { background-color:#cfc; }
 span.warning { background-color:#ffc; }
 span.error   { background-color:#fcc; }
