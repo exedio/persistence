@@ -43,7 +43,7 @@
 			<hr>
 					<a href="?schema=Customer">flush log</a>
 	<ol>
-		<li>schema.getTable(&quot;<b>Customer</b>&quot;).getColumn(&quot;<b>blocked</b>&quot;).create();</li><li class="timelog">ok, 17ms.</li>
+		<li>alter table "Customer" add column "blocked" integer</li><li class="timelog">ok, 17ms.</li>
 	</ol>
 					<a href="?schema=Customer">flush log</a>
 					<hr>
