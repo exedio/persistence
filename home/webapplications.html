@@ -23,12 +23,22 @@
 			However it provides some additional convenience,
 			when used within web applications.
 		</div>
+		<div>
+			If you already decided to use cope for a project,
+			you may want to use the cope demoshop as a template.
+			This way you can skip the steps described here.
+			The demoshop is available under the
+			<a href="http://www.opensource.org/licenses/mit-license.php">The&nbsp;MIT&nbsp;License</a>.
+			<br>
+			<a href="http://sourceforge.net/project/showfiles.php?group_id=152867">Download</a>
+		</div>
 		<h3><a name="contents">Contents</a></h3>
 		<ul>
 			<li><a href="#connect">Connecting</a></li>
 			<li><a href="#transactions">Transactions</a></li>
 			<li><a href="#console">COPE Console</a></li>
 			<li><a href="#copernica">Copernica</a></li>
+			<li><a href="#context">Context Parameter</a></li>
 			<li><a href="#further">Further Reading</a></li>
 		</ul>
 		<h3><a name="connect">Connecting</a></h3>
@@ -214,6 +224,32 @@ protected void doGet(
    &lt;url-pattern&gt;/copernica/*&lt;/url-pattern&gt;
 &lt;/servlet-mapping&gt;
 </pre>
+		<h3><a name="context">Context Parameter</a></h3>
+		<div>
+			If you followed all the steps above,
+			you have the following snippet three times in your <code>web.xml</code>:
+		</div>
+<pre>
+   &lt;init-param&gt;
+      &lt;param-name&gt;model&lt;/param-name&gt;
+      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+   &lt;/init-param&gt;
+</pre>
+		<div>
+			You may want to simplify this
+			by replacing all three init parameters
+			by a single context parameter,
+			that has the same effect:
+		</div>
+<pre>
+&lt;context-param&gt;
+   &lt;param-name&gt;model&lt;/param-name&gt;
+   &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+&lt;/context-param&gt;
+</pre>
+		<div>
+			Note, that the context parameter has to be placed outside the servlet tag.
+		</div>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the web application trail of the cope tour.
