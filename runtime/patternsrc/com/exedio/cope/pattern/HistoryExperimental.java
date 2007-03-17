@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -153,7 +154,7 @@ public final class HistoryExperimental extends Pattern
 	
 	public List<? extends Event> getEvents(final Item item)
 	{
-		final List<? extends Item> eventItems = eventType.search(((ItemField)eventParent).equal(item), eventDate, false);
+		final List<? extends Item> eventItems = eventType.search(Cope.equalAndCast(eventParent, item), eventDate, false);
 		final ArrayList<Event> result = new ArrayList<Event>(eventItems.size());
 		for(final Item eventItem : eventItems)
 			result.add(new Event(eventItem));
@@ -163,7 +164,7 @@ public final class HistoryExperimental extends Pattern
 	public Event createEvent(final Item item, final String cause, final boolean creation)
 	{
 		return new Event(eventType.newItem(
-				((ItemField)eventParent).map(item),
+				Cope.mapAndCast(eventParent, item),
 				eventDate.map(new Date()),
 				eventCause.map(cause),
 				eventCreation.map(creation)
@@ -202,7 +203,7 @@ public final class HistoryExperimental extends Pattern
 		
 		public List<? extends Feature> getFeatures()
 		{
-			final List<? extends Item> featureItems = featureType.search(((ItemField)featureEvent).equal(event), featureType.getThis(), true);
+			final List<? extends Item> featureItems = featureType.search(Cope.equalAndCast(featureEvent, event), featureType.getThis(), true);
 			final ArrayList<Feature> result = new ArrayList<Feature>(featureItems.size());
 			for(final Item featureItem : featureItems)
 				result.add(new Feature(featureItem));
@@ -212,7 +213,7 @@ public final class HistoryExperimental extends Pattern
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
 			return new Feature(featureType.newItem(
-					((ItemField)featureEvent).map(event),
+					Cope.mapAndCast(featureEvent, event),
 					featureId.map(f.getID()),
 					featureName.map(name),
 					featureOld.map(oldValue!=null ? oldValue.toString() : null),
