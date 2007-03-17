@@ -25,6 +25,7 @@ import java.util.Map;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Driver;
+import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
@@ -226,6 +227,65 @@ public class MigrationTest extends CopeAssert
 		// test, that MigrationStep is not executed again,
 		// causing a SQLException because column does already exist
 		model7.migrate();
+		assertSchema(model7.getVerifiedSchema(), true, true);
+		{
+			final Map<Integer, String> logs = model7.getMigrationLogs();
+			assertNotNull(logs.toString(), logs.get(5));
+			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertTrue(logs.toString(), logs.get(5).length()<=100);
+			assertNotNull(logs.toString(), logs.get(6));
+			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(6).length()<=100);
+			assertNotNull(logs.toString(), logs.get(7));
+			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
+			assertEquals(logs.toString(), logs.get(7).length(), 100);
+			assertEquals(3, logs.size());
+		}
+		
+		final Migration[] migrations8 = new Migration[]{
+				new Migration(8, "nonsense8", "nonsense statement causing a test failure"),
+			};
+		model7.setMigrations(migrations8);
+		assertTrue(model7.isMigrationSupported());
+		assertEquals(8, model7.getMigrationVersion());
+		assertEqualsUnmodifiable(Arrays.asList(migrations8), model7.getMigrations());
+
+		try
+		{
+			model7.migrateIfSupported();
+		}
+		catch(SQLRuntimeException e)
+		{
+			assertEquals("nonsense statement causing a test failure", e.getMessage());
+		}
+		assertSchema(model7.getVerifiedSchema(), true, true);
+		{
+			final Map<Integer, String> logs = model7.getMigrationLogs();
+			assertNotNull(logs.toString(), logs.get(5));
+			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			assertTrue(logs.toString(), logs.get(5).length()<=100);
+			assertNotNull(logs.toString(), logs.get(6));
+			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(6).length()<=100);
+			assertNotNull(logs.toString(), logs.get(7));
+			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
+			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
+			assertEquals(logs.toString(), logs.get(7).length(), 100);
+			assertEquals(3, logs.size());
+		}
+		
+		// test a second time, TODO model should be persistently disabled after first error
+		try
+		{
+			model7.migrateIfSupported();
+		}
+		catch(SQLRuntimeException e)
+		{
+			assertEquals("nonsense statement causing a test failure", e.getMessage());
+		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, String> logs = model7.getMigrationLogs();

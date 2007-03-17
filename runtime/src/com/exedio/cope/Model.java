@@ -43,7 +43,7 @@ import com.exedio.dsmf.Schema;
 public final class Model
 {
 	private final boolean migrationSupported;
-	private final int migrationVersion;
+	private int migrationVersion;
 	private Migration[] migrations;
 	
 	private final Type<?>[] types;
@@ -368,9 +368,8 @@ public final class Model
 	void setMigrations(final Migration[] migrations) // for test only, not for productive use !!!
 	{
 		assertMigrationSupported();
-		if(migrationVersion!=migrationVersion(migrations))
-			throw new RuntimeException();
 		this.migrations = checkMigrations(migrations);
+		this.migrationVersion = migrationVersion(migrations);
 	}
 	
 	public void migrate()
