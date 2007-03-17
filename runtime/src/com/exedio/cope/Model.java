@@ -45,6 +45,7 @@ public final class Model
 	private final boolean migrationSupported;
 	private int migrationVersion;
 	private Migration[] migrations;
+	private final Object migrationLock = new Object();
 	
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
@@ -63,7 +64,6 @@ public final class Model
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
-	private final Object migrationLock = new Object();
 	private boolean logTransactions = false;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
