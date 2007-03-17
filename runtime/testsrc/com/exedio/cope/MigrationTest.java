@@ -277,14 +277,13 @@ public class MigrationTest extends CopeAssert
 			assertEquals(3, logs.size());
 		}
 		
-		// test a second time, TODO model should be persistently disabled after first error
 		try
 		{
 			model7.migrateIfSupported();
 		}
-		catch(SQLRuntimeException e)
+		catch(IllegalStateException e)
 		{
-			assertEquals("nonsense statement causing a test failure", e.getMessage());
+			assertEquals("Migration mutex set: Either a migration is currently underway, or a migration has failed unexpectedly.", e.getMessage());
 		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{

@@ -1496,9 +1496,11 @@ final class Database
 	}
 	
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
+	private static final int    MIGRATION_MUTEX_VERSION = -1;
 	private static final String MIGRATION_COLUMN_COMMENT_NAME = "c";
 	private static final int    MIGRATION_COLUMN_COMMENT_LENGTH = 100;
 	private static final String MIGRATION_COLUMN_COMMENT_TRUNCATED = " ...";
+	private static final String MIGRATION_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss.SSS";
 	
 	Schema makeSchema()
 	{
@@ -1538,15 +1540,19 @@ final class Database
 		return result;
 	}
 	
-	int getActualMigrationVersion(final Connection connection)
+	private int getActualMigrationVersion(final Connection connection)
 	{
 		buildStage = false;
 
 		final Statement bf = createStatement();
+		final String version = driver.protectName(MIGRATION_COLUMN_VERSION_NAME);
 		bf.append("select max(").
-			append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).defineColumnInteger().
+			append(version).defineColumnInteger().
 			append(") from ").
-			append(driver.protectName(Table.MIGRATION_TABLE_NAME));
+			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+			append(" where ").
+			append(version).
+			append(">=0");
 			
 		final ActualMigrationVersionResultSetHandler handler = new ActualMigrationVersionResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false, false);
@@ -1593,13 +1599,17 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
+		final String version = driver.protectName(MIGRATION_COLUMN_VERSION_NAME);
 		bf.append("select ").
-			append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).defineColumnInteger().
+			append(version).defineColumnInteger().
 			append(',').
 			append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).defineColumnString().
 			append(" from ").
-			append(driver.protectName(Table.MIGRATION_TABLE_NAME));
-			
+			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+			append(" where ").
+			append(version).
+			append(">=0");
+		
 		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false, false);
 		return Collections.unmodifiableMap(handler.result);
@@ -1626,7 +1636,7 @@ final class Database
 	{
 		assert migrationSupported;
 		
-		final String prefix = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date) + ':';
+		final String prefix = new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + ':';
 		final String postfix = (rowCounts!=null && durations!=null) ? (String.valueOf(' ') + rowCounts + ' ' + durations) : "";
 		final int maxCommentLength = MIGRATION_COLUMN_COMMENT_LENGTH - prefix.length() - postfix.length();
 		if(comment.length()>maxCommentLength)
@@ -1680,6 +1690,21 @@ final class Database
 				
 				final Date date = new Date();
 				stmt = con.createStatement();
+				try
+				{
+					stmt.executeUpdate(
+							"insert into " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
+							'(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ',' + driver.protectName(MIGRATION_COLUMN_COMMENT_NAME) + ')' +
+							"values" +
+							'(' + MIGRATION_MUTEX_VERSION + ",'" + new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + ":migration mutex')");
+				}
+				catch(SQLException e)
+				{
+					throw new IllegalStateException(
+							"Migration mutex set: " +
+							"Either a migration is currently underway, " +
+							"or a migration has failed unexpectedly.", e);
+				}
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Migration migration = migrations[migrationIndex];
@@ -1702,6 +1727,17 @@ final class Database
 					}
 					
 					notifyMigration(con, migration.version, date, migration.comment, rowCounts, durations, true);
+				}
+				final String mutexReleaseSql =
+						"delete from " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
+						" where" + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + '=' + MIGRATION_MUTEX_VERSION;
+				try
+				{
+					stmt.executeUpdate(mutexReleaseSql);
+				}
+				catch(SQLException e)
+				{
+					throw new SQLRuntimeException(e, mutexReleaseSql);
 				}
 				stmt.close();
 				stmt = null;
