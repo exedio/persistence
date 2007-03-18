@@ -37,6 +37,8 @@ abstract class Console_Jspm
 	{
 		try
 		{
+			final String authentication = cop.getAuthentication();
+			final String hostname = cop.getHostname();
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -49,6 +51,20 @@ abstract class Console_Jspm
 	<body>
 		<a href="http://www.exedio.com/" target="_blank"><img class="logo" src="<%=ConsoleServlet.logo.url(request)%>"></a>
 		<h1><a href="http://cope.sourceforge.net/" target="_blank">COPE</a> Console</h1>
+		<div class="<% if(authentication==null){%>not<%} %>authenticated"><%
+		if(authentication!=null)
+		{
+			%>authenticated as <%=authentication%><%
+		}
+		else
+		{
+			%>not authenticated<%
+		}
+		if(hostname!=null)
+		{
+			%> on <%=hostname%><%
+		}
+		%></div>
 		<br clear="right"><%
 		writeMenu(out, cop);
 		%>

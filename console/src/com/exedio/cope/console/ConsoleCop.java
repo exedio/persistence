@@ -19,6 +19,9 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -42,6 +45,8 @@ abstract class ConsoleCop extends Cop
 	long end = 0;
 	SimpleDateFormat df;
 	DecimalFormat nf;
+	String authenication;
+	String hostname;
 	
 	void initialize(final HttpServletRequest request, final Model model)
 	{
@@ -51,6 +56,16 @@ abstract class ConsoleCop extends Cop
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
 		nf = new DecimalFormat("", nfs);
+		final Principal principal = request.getUserPrincipal();
+		authenication = principal!=null ? principal.getName() : null;
+		try
+		{
+			hostname = InetAddress.getLocalHost().getHostName();
+		}
+		catch(UnknownHostException e)
+		{
+			// leave hostname==null
+		}
 	}
 	
 	final ConsoleCop[] getTabs()
@@ -98,6 +113,16 @@ abstract class ConsoleCop extends Cop
 			throw new RuntimeException();
 
 		return end-start;
+	}
+	
+	final String getAuthentication()
+	{
+		return authenication;
+	}
+	
+	final String getHostname()
+	{
+		return hostname;
 	}
 	
 	final String format(final Date date)
