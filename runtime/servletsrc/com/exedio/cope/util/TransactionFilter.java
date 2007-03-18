@@ -123,5 +123,4 @@ public final class TransactionFilter implements Filter
 	{
 		// empty implementation
 	}
-	
 }
