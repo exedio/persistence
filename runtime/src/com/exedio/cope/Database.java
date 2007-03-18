@@ -21,6 +21,8 @@ package com.exedio.cope;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -156,7 +158,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				notifyMigration(con, migrationVersion, new Date(), "created schema", null, null, false);
+				notifyMigration(con, migrationVersion, new Date(), getHostnameText(), "created schema", null, null, false);
 			}
 			catch(SQLException e)
 			{
@@ -1632,11 +1634,11 @@ final class Database
 		}
 	}
 	
-	private void notifyMigration(final Connection connection, final int version, final Date date, String comment, final ArrayList<Integer> rowCounts, final ArrayList<Long> durations, final boolean logToConsole)
+	private void notifyMigration(final Connection connection, final int version, final Date date, final String hostnameText, String comment, final ArrayList<Integer> rowCounts, final ArrayList<Long> durations, final boolean logToConsole)
 	{
 		assert migrationSupported;
 		
-		final String prefix = new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + ':';
+		final String prefix = new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + hostnameText + ':';
 		final String postfix = (rowCounts!=null && durations!=null) ? (String.valueOf(' ') + rowCounts + ' ' + durations) : "";
 		final int maxCommentLength = MIGRATION_COLUMN_COMMENT_LENGTH - prefix.length() - postfix.length();
 		if(comment.length()>maxCommentLength)
@@ -1689,6 +1691,7 @@ final class Database
 							", but declared migrations allow from " + (expectedVersion - migrations.length) + " only");
 				
 				final Date date = new Date();
+				final String hostnameText = getHostnameText();
 				stmt = con.createStatement();
 				try
 				{
@@ -1696,7 +1699,7 @@ final class Database
 							"insert into " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
 							'(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ',' + driver.protectName(MIGRATION_COLUMN_COMMENT_NAME) + ')' +
 							"values" +
-							'(' + MIGRATION_MUTEX_VERSION + ",'" + new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + ":migration mutex')");
+							'(' + MIGRATION_MUTEX_VERSION + ",'" + new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + hostnameText + ":migration mutex')");
 				}
 				catch(SQLException e)
 				{
@@ -1726,7 +1729,7 @@ final class Database
 						durations.add(System.currentTimeMillis()-start);
 					}
 					
-					notifyMigration(con, migration.version, date, migration.comment, rowCounts, durations, true);
+					notifyMigration(con, migration.version, date, hostnameText, migration.comment, rowCounts, durations, true);
 				}
 				final String mutexReleaseSql =
 						"delete from " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
@@ -1766,6 +1769,18 @@ final class Database
 				connectionPool.put(con);
 				con = null;
 			}
+		}
+	}
+	
+	private static final String getHostnameText()
+	{
+		try
+		{
+			return " (" + InetAddress.getLocalHost().getHostName() + ')';
+		}
+		catch(UnknownHostException e)
+		{
+			return "";
 		}
 	}
 
