@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.testmodel.AttributeItem;
@@ -49,7 +50,10 @@ public class ModelTest extends TestmodelTest
 	{
 		final Properties defaultProps = getProperties();
 		// test duplicate call of connect
+		final Date connectDate = model.getConnectDate();
+		assertNotNull(connectDate);
 		model.connect(defaultProps);
+		assertSame(connectDate, model.getConnectDate());
 	}
 	
 	@Deprecated // OK: test deprecated api
@@ -289,23 +293,29 @@ public class ModelTest extends TestmodelTest
 		return c;
 	}
 	
-	public void testUnsetProperties()
+	public void testDisconnect()
 	{
 		model.commit();
 		final Properties p = model.getProperties();
 		assertNotNull(p);
+		
 		model.disconnect();
 		try
 		{
-			assertSame(null, model.getProperties());
+			model.getProperties();
 			fail();
 		}
 		catch(IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
 		}
+		assertEquals(null, model.getConnectDate());
+
+		final Date before = new Date();
 		model.connect(p);
+		final Date after = new Date();
 		assertSame(p, model.getProperties());
+		assertWithin(before, after, model.getConnectDate());
 		model.startTransaction("ModelTest.testUnsetProperties");
 	}
 }

@@ -90,7 +90,7 @@ final class PropertiesCop extends ConsoleCop
 			throw new RuntimeException(e);
 		}
 		
-		Properties_Jspm.write(out, request, this, props, sourceContent);
+		Properties_Jspm.write(out, request, this, props, model.getConnectDate(), sourceContent);
 	}
 	
 	String formatObject(final Object o)

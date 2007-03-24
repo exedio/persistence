@@ -20,7 +20,6 @@ package com.exedio.cope.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +31,6 @@ import java.util.List;
  */
 public final class PoolCounter
 {
-	private final long start;
 	private final Object lock = new Object();
 	
 	private final int[] idleLimit;
@@ -67,7 +65,6 @@ public final class PoolCounter
 				throw new IllegalArgumentException("idleLimits must be strictly monotonic increasing");
 		}
 		
-		this.start = System.currentTimeMillis();
 		this.idleLimit = copy(idleLimits);
 		this.idle    = new int[idleLimits.length];
 		this.idleMax = new int[idleLimits.length];
@@ -78,7 +75,6 @@ public final class PoolCounter
 
 	public PoolCounter(final PoolCounter source)
 	{
-		this.start = source.start;
 		this.idleLimit = source.idleLimit;
 		this.idle    = copy(source.idle);
 		this.idleMax = copy(source.idleMax);
@@ -166,11 +162,6 @@ public final class PoolCounter
 		return Collections.unmodifiableList(result);
 	}
 	
-	public Date getStart()
-	{
-		return new Date(start);
-	}
-
 	public final int getGetCounter()
 	{
 		return get;

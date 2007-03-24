@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -64,6 +65,7 @@ public final class Model
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
+	private Date connectDate = null;
 	private boolean logTransactions = false;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
@@ -294,6 +296,7 @@ public final class Model
 				this.itemCacheIfConnected = new ItemCache(concreteTypes, itemCacheLimits);
 				this.queryCacheIfConnected = new QueryCache(p.getQueryCacheLimit(), p.getQueryCacheHistogram());
 				this.logTransactions = properties.getTransactionLog();
+				this.connectDate = new Date();
 
 				return;
 			}
@@ -334,6 +337,7 @@ public final class Model
 				
 				this.itemCacheIfConnected = null;
 				this.queryCacheIfConnected = null;
+				this.connectDate = null;
 				
 				db.close();
 
@@ -426,6 +430,11 @@ public final class Model
 			throw new IllegalStateException("model not yet connected, use connect(Properties)");
 
 		return queryCacheIfConnected;
+	}
+	
+	public Date getConnectDate()
+	{
+		return connectDate;
 	}
 	
 	public List<Type<?>> getTypes()

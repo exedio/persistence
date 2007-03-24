@@ -45,10 +45,6 @@ final class ConnectionPool_Jspm extends Console_Jspm
 				<th class="caption" colspan="2">Connection Pool Statistics</th>
 			</tr>
 			<tr>
-				<th>Since</th>
-				<td><%=cop.format(poolCounter.getStart())%></td>
-			</tr>
-			<tr>
 				<th>Idle</th>
 				<td><%=cop.format(info.getIdleCounter())%></td>
 			</tr>

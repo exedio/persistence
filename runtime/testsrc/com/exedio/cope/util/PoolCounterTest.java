@@ -18,21 +18,16 @@
 
 package com.exedio.cope.util;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.junit.CopeAssert;
 
-
 public class PoolCounterTest extends CopeAssert
 {
 	public void testIt()
 	{
-		final Date before = new Date();
 		final PoolCounter c = new PoolCounter(1,2);
-		final Date after = new Date();
-		assertWithin(before, after, c.getStart());
 		
 		final Iterator pi = c.getPools().iterator();
 		PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
