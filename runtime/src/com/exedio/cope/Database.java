@@ -628,7 +628,7 @@ final class Database
 		return result;
 	}
 	
-	void load(final Connection connection, final PersistentState state)
+	void load(final Connection connection, final WrittenState state)
 	{
 		buildStage = false;
 
@@ -1844,7 +1844,7 @@ final class Database
 	
 	private static final DatabaseListener noopListener = new DatabaseListener()
 	{
-		public void load(Connection connection, PersistentState state)
+		public void load(Connection connection, WrittenState state)
 		{/* DOES NOTHING */}
 		
 		public void search(Connection connection, Query query, boolean doCountOnly)

@@ -58,7 +58,7 @@ final class ModifiedState extends State
 		try
 		{
 			type.getModel().getDatabase().store(transaction.getConnection(), this, true, blobs);
-			return new PersistentState( this );
+			return new WrittenState(this);
 		}
 		catch ( RuntimeException e )
 		{

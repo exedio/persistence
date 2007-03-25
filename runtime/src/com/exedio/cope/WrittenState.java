@@ -23,13 +23,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-final class PersistentState extends State implements Database.ResultSetHandler
+final class WrittenState extends State implements Database.ResultSetHandler
 {
 	
 	private final Row row;
 	private long lastUsageMillis;
 	
-	PersistentState( final Connection connection, final Item item )
+	WrittenState(final Connection connection, final Item item)
 	{
 		super( item );
 		row = new Row();
@@ -37,7 +37,7 @@ final class PersistentState extends State implements Database.ResultSetHandler
 		lastUsageMillis = System.currentTimeMillis();
 	}
 	
-	PersistentState( final State original )
+	WrittenState(final State original)
 	{
 		super( original.item );
 		row = original.stealValues();

@@ -142,7 +142,7 @@ public class QueryCacheTest extends AbstractLibTest
 	{
 		final ArrayList<SC> scs = new ArrayList<SC>();
 		
-		public void load(Connection connection, PersistentState state)
+		public void load(Connection connection, WrittenState state)
 		{
 			throw new RuntimeException();
 		}

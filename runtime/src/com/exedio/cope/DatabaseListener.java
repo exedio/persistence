@@ -22,6 +22,6 @@ import java.sql.Connection;
 
 public interface DatabaseListener
 {
-	void load(Connection connection, PersistentState state);
+	void load(Connection connection, WrittenState state);
 	void search(Connection connection, Query query, boolean doCountOnly);
 }

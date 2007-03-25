@@ -32,7 +32,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 {
 	private List<Call> expectedCalls = null;
 	
-	public void load(Connection connection, PersistentState state)
+	public void load(Connection connection, WrittenState state)
 	{
 		if ( expectedCalls!=null )
 		{
@@ -108,7 +108,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 			this.tx = tx;
 		}
 		
-		void checkLoad( Connection connection, PersistentState state )
+		void checkLoad(Connection connection, WrittenState state)
 		{
 			throw new RuntimeException( "load in "+toString() );
 		}
@@ -138,7 +138,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 		}
 		
 		@Override
-		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad( Connection connection, PersistentState state )
+		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad(final Connection connection, final WrittenState state)
 		{
 			checkConnection( connection );
 			if ( !item.equals(state.item) )

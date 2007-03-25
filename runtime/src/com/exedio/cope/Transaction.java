@@ -126,7 +126,7 @@ public final class Transaction
 			{
 				if ( isInvalidated(item) )
 				{
-					state = new PersistentState( this.getConnection(), item );
+					state = new WrittenState(this.getConnection(), item);
 				}
 				else
 				{
