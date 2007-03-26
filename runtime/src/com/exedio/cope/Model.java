@@ -56,6 +56,7 @@ public final class Model
 	private final List<Type<?>> typeListSorted;
 	private final List<Type<?>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
+	private final Date initializeDate;
 	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
 	private int modificationListenersRemoved = 0;
 
@@ -170,6 +171,7 @@ public final class Model
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
 		this.typesSorted = typesSorted.toArray(new Type[typesSorted.size()]);
 		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
+		this.initializeDate = new Date();
 		
 		assert this.concreteTypeCount==this.concreteTypes.length;
 		assert this.concreteTypeCount==this.concreteTypeList.size();
@@ -479,6 +481,11 @@ public final class Model
 	Type getConcreteType(final int transientNumber)
 	{
 		return concreteTypes[transientNumber];
+	}
+	
+	public Date getInitializeDate()
+	{
+		return initializeDate;
 	}
 	
 	public boolean supportsCheckConstraints()

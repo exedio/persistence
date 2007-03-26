@@ -18,6 +18,8 @@
 
 package com.exedio.cope.testmodel;
 
+import java.util.Date;
+
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
@@ -48,6 +50,8 @@ public class Main
 		CollisionItem2.TYPE,
 	};
 
+	public static final Date beforeModel = new Date();
+	
 	public static final Model model = new Model(
 		/*new Migration[]{
 			new Migration(2, "comment2 a bit longer",
@@ -57,4 +61,6 @@ public class Main
 					"select nice sql statement of migration one which does not work"),
 		},*/
 		modelTypes);
+	
+	public static final Date afterModel = new Date();
 }

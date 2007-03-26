@@ -35,6 +35,7 @@ final class Properties_Jspm extends Console_Jspm
 				final HttpServletRequest request,
 				final PropertiesCop cop,
 				final Properties properties,
+				final Date initializeDate,
 				final Date connectDate,
 				final String sourceContent)
 	{
@@ -43,6 +44,10 @@ final class Properties_Jspm extends Console_Jspm
 		<table>
 			<tr>
 				<th class="caption" colspan="2">Properties</th>
+			</tr>
+			<tr>
+				<th>Initialized</th>
+				<td><%=cop.format(initializeDate)%></td>
 			</tr>
 			<tr>
 				<th>Connected</th>

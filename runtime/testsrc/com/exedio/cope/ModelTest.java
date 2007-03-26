@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.Main;
 
 /**
  * Tests the model itself, without creating/using any persistent data.
@@ -295,6 +296,8 @@ public class ModelTest extends TestmodelTest
 	
 	public void testDisconnect()
 	{
+		assertWithin(Main.beforeModel, Main.afterModel, model.getInitializeDate());
+		
 		model.commit();
 		final Properties p = model.getProperties();
 		assertNotNull(p);
