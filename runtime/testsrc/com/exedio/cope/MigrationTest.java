@@ -252,7 +252,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field6", log6.getProperty("comment"));
 				assertEquals(body60, log6.getProperty("body0.sql"));
 				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertMinInt(0, log6.getProperty("body0.elapsed"));
 				assertEquals(6, log6.size());
 			}
 			{
@@ -263,7 +263,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field7" + blah, log7.getProperty("comment"));
 				assertEquals(body70, log7.getProperty("body0.sql"));
 				assertMinInt(0, log7.getProperty("body0.rows"));
-				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertMinInt(0, log7.getProperty("body0.elapsed"));
 				assertEquals(6, log7.size());
 			}
 			assertEquals(3, logs.size());
@@ -292,7 +292,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field6", log6.getProperty("comment"));
 				assertEquals(body60, log6.getProperty("body0.sql"));
 				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertMinInt(0, log6.getProperty("body0.elapsed"));
 				assertEquals(6, log6.size());
 			}
 			{
@@ -303,7 +303,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field7" + blah, log7.getProperty("comment"));
 				assertEquals(body70, log7.getProperty("body0.sql"));
 				assertMinInt(0, log7.getProperty("body0.rows"));
-				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertMinInt(0, log7.getProperty("body0.elapsed"));
 				assertEquals(6, log7.size());
 			}
 			assertEquals(3, logs.size());
@@ -345,7 +345,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field6", log6.getProperty("comment"));
 				assertEquals(body60, log6.getProperty("body0.sql"));
 				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertMinInt(0, log6.getProperty("body0.elapsed"));
 				assertEquals(6, log6.size());
 			}
 			{
@@ -356,7 +356,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field7" + blah, log7.getProperty("comment"));
 				assertEquals(body70, log7.getProperty("body0.sql"));
 				assertMinInt(0, log7.getProperty("body0.rows"));
-				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertMinInt(0, log7.getProperty("body0.elapsed"));
 				assertEquals(6, log7.size());
 			}
 			assertEquals(3, logs.size());
@@ -390,7 +390,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field6", log6.getProperty("comment"));
 				assertEquals(body60, log6.getProperty("body0.sql"));
 				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertMinInt(0, log6.getProperty("body0.elapsed"));
 				assertEquals(6, log6.size());
 			}
 			{
@@ -401,7 +401,7 @@ public class MigrationTest extends CopeAssert
 				assertEquals("add column field7" + blah, log7.getProperty("comment"));
 				assertEquals(body70, log7.getProperty("body0.sql"));
 				assertMinInt(0, log7.getProperty("body0.rows"));
-				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertMinInt(0, log7.getProperty("body0.elapsed"));
 				assertEquals(6, log7.size());
 			}
 			assertEquals(3, logs.size());
