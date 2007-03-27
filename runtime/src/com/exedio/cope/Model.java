@@ -396,7 +396,7 @@ public final class Model
 		migrate();
 	}
 	
-	public Map<Integer, String> getMigrationLogs()
+	public Map<Integer, byte[]> getMigrationLogs()
 	{
 		assertMigrationSupported();
 		return getDatabase().getMigrationLogs();

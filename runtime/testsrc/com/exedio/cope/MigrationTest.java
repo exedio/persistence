@@ -18,9 +18,17 @@
 
 package com.exedio.cope;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
@@ -133,9 +141,11 @@ public class MigrationTest extends CopeAssert
 	
 	private static final Model model7 = new Model(migrations7Missing, MigrationItem2.TYPE);
 	
-	public void testMigrate()
+	public void testMigrate() throws ParseException, UnknownHostException
 	{
-		final Properties props = new Properties();
+		final com.exedio.cope.Properties props = new com.exedio.cope.Properties();
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		final String hostname = InetAddress.getLocalHost().getHostName();
 		
 		assertTrue(model5.isMigrationSupported());
 		assertEquals(5, model5.getMigrationVersion());
@@ -143,13 +153,18 @@ public class MigrationTest extends CopeAssert
 		
 		model5.connect(props);
 		model5.tearDownDatabase();
+		final Date createBefore = new Date();
 		model5.createDatabase();
+		final Date createAfter = new Date();
 		
 		assertSchema(model5.getVerifiedSchema(), false, false);
 		{
-			final Map<Integer, String> logs = model5.getMigrationLogs();
-			assertNotNull(logs.toString(), logs.get(5));
-			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			final Map<Integer, byte[]> logs = model5.getMigrationLogs();
+			final Properties log5 = log(logs.get(5));
+			assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
+			assertEquals(hostname, log5.getProperty("hostname"));
+			assertEquals("true", log5.getProperty("create"));
+			assertEquals(3, log5.size());
 			assertEquals(1, logs.size());
 		}
 		model5.disconnect();
@@ -161,9 +176,12 @@ public class MigrationTest extends CopeAssert
 		model7.connect(props);
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
-			final Map<Integer, String> logs = model7.getMigrationLogs();
-			assertNotNull(logs.toString(), logs.get(5));
-			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Properties log5 = log(logs.get(5));
+			assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
+			assertEquals(hostname, log5.getProperty("hostname"));
+			assertEquals("true", log5.getProperty("create"));
+			assertEquals(3, log5.size());
 			assertEquals(1, logs.size());
 		}
 
@@ -178,9 +196,12 @@ public class MigrationTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
-			final Map<Integer, String> logs = model7.getMigrationLogs();
-			assertNotNull(logs.toString(), logs.get(5));
-			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
+			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Properties log5 = log(logs.get(5));
+			assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
+			assertEquals(hostname, log5.getProperty("hostname"));
+			assertEquals("true", log5.getProperty("create"));
+			assertEquals(3, log5.size());
 			assertEquals(1, logs.size());
 		}
 		
@@ -191,13 +212,15 @@ public class MigrationTest extends CopeAssert
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blob";
 		final Dialect dialect = model7.getDatabase().dialect;
 		final Driver driver = dialect.driver;
+		// BEWARE:
+		// Never do this in real projects,
+		// always use plain string literals
+		// containing the sql statement!
+		final String body70 = driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), dialect.getStringType(100));
+		final String body60 = driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), dialect.getStringType(100));
 		final Migration[] migrations7 = new Migration[]{
-				// BEWARE:
-				// Never do this in real projects,
-				// always use plain string literals
-				// containing the sql statement!
-				new Migration(7, "add column field7" + blah, driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), dialect.getStringType(100))),
-				new Migration(6, "add column field6",        driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), dialect.getStringType(100))),
+				new Migration(7, "add column field7" + blah, body70),
+				new Migration(6, "add column field6",        body60),
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};
@@ -206,21 +229,43 @@ public class MigrationTest extends CopeAssert
 		assertEquals(7, model7.getMigrationVersion());
 		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getMigrations());
 
+		final Date migrateBefore = new Date();
 		model7.migrateIfSupported();
+		final Date migrateAfter = new Date();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, String> logs = model7.getMigrationLogs();
-			assertNotNull(logs.toString(), logs.get(5));
-			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
-			assertTrue(logs.toString(), logs.get(5).length()<=100);
-			assertNotNull(logs.toString(), logs.get(6));
-			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(6).length()<=100);
-			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
-			assertEquals(logs.toString(), 100, logs.get(7).length());
+			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			{
+				final Properties log5 = log(logs.get(5));
+				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
+				assertEquals(hostname, log5.getProperty("hostname"));
+				assertEquals("true", log5.getProperty("create"));
+				assertEquals(3, log5.size());
+			}
+			final Date date6;
+			{
+				final Properties log6 = log(logs.get(6));
+				date6 = df.parse(log6.getProperty("date"));
+				assertWithin(migrateBefore, migrateAfter, date6);
+				assertEquals(hostname, log6.getProperty("hostname"));
+				assertEquals(null, log6.getProperty("create"));
+				assertEquals("add column field6", log6.getProperty("comment"));
+				assertEquals(body60, log6.getProperty("body0.sql"));
+				assertMinInt(0, log6.getProperty("body0.rows"));
+				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertEquals(6, log6.size());
+			}
+			{
+				final Properties log7 = log(logs.get(7));
+				assertEquals(date6, df.parse(log7.getProperty("date")));
+				assertEquals(hostname, log7.getProperty("hostname"));
+				assertEquals(null, log7.getProperty("create"));
+				assertEquals("add column field7" + blah, log7.getProperty("comment"));
+				assertEquals(body70, log7.getProperty("body0.sql"));
+				assertMinInt(0, log7.getProperty("body0.rows"));
+				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertEquals(6, log7.size());
+			}
 			assertEquals(3, logs.size());
 		}
 		
@@ -229,18 +274,38 @@ public class MigrationTest extends CopeAssert
 		model7.migrate();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, String> logs = model7.getMigrationLogs();
-			assertNotNull(logs.toString(), logs.get(5));
-			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
-			assertTrue(logs.toString(), logs.get(5).length()<=100);
-			assertNotNull(logs.toString(), logs.get(6));
-			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(6).length()<=100);
-			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
-			assertEquals(logs.toString(), logs.get(7).length(), 100);
+			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			{
+				final Properties log5 = log(logs.get(5));
+				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
+				assertEquals(hostname, log5.getProperty("hostname"));
+				assertEquals("true", log5.getProperty("create"));
+				assertEquals(3, log5.size());
+			}
+			final Date date6;
+			{
+				final Properties log6 = log(logs.get(6));
+				date6 = df.parse(log6.getProperty("date"));
+				assertWithin(migrateBefore, migrateAfter, date6);
+				assertEquals(hostname, log6.getProperty("hostname"));
+				assertEquals(null, log6.getProperty("create"));
+				assertEquals("add column field6", log6.getProperty("comment"));
+				assertEquals(body60, log6.getProperty("body0.sql"));
+				assertMinInt(0, log6.getProperty("body0.rows"));
+				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertEquals(6, log6.size());
+			}
+			{
+				final Properties log7 = log(logs.get(7));
+				assertEquals(date6, df.parse(log7.getProperty("date")));
+				assertEquals(hostname, log7.getProperty("hostname"));
+				assertEquals(null, log7.getProperty("create"));
+				assertEquals("add column field7" + blah, log7.getProperty("comment"));
+				assertEquals(body70, log7.getProperty("body0.sql"));
+				assertMinInt(0, log7.getProperty("body0.rows"));
+				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertEquals(6, log7.size());
+			}
 			assertEquals(3, logs.size());
 		}
 		
@@ -262,18 +327,38 @@ public class MigrationTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, String> logs = model7.getMigrationLogs();
-			assertNotNull(logs.toString(), logs.get(5));
-			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
-			assertTrue(logs.toString(), logs.get(5).length()<=100);
-			assertNotNull(logs.toString(), logs.get(6));
-			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(6).length()<=100);
-			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
-			assertEquals(logs.toString(), logs.get(7).length(), 100);
+			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			{
+				final Properties log5 = log(logs.get(5));
+				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
+				assertEquals(hostname, log5.getProperty("hostname"));
+				assertEquals("true", log5.getProperty("create"));
+				assertEquals(3, log5.size());
+			}
+			final Date date6;
+			{
+				final Properties log6 = log(logs.get(6));
+				date6 = df.parse(log6.getProperty("date"));
+				assertWithin(migrateBefore, migrateAfter, date6);
+				assertEquals(hostname, log6.getProperty("hostname"));
+				assertEquals(null, log6.getProperty("create"));
+				assertEquals("add column field6", log6.getProperty("comment"));
+				assertEquals(body60, log6.getProperty("body0.sql"));
+				assertMinInt(0, log6.getProperty("body0.rows"));
+				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertEquals(6, log6.size());
+			}
+			{
+				final Properties log7 = log(logs.get(7));
+				assertEquals(date6, df.parse(log7.getProperty("date")));
+				assertEquals(hostname, log7.getProperty("hostname"));
+				assertEquals(null, log7.getProperty("create"));
+				assertEquals("add column field7" + blah, log7.getProperty("comment"));
+				assertEquals(body70, log7.getProperty("body0.sql"));
+				assertMinInt(0, log7.getProperty("body0.rows"));
+				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertEquals(6, log7.size());
+			}
 			assertEquals(3, logs.size());
 		}
 		
@@ -287,18 +372,38 @@ public class MigrationTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, String> logs = model7.getMigrationLogs();
-			assertNotNull(logs.toString(), logs.get(5));
-			assertTrue(logs.toString(), logs.get(5).endsWith(":created schema"));
-			assertTrue(logs.toString(), logs.get(5).length()<=100);
-			assertNotNull(logs.toString(), logs.get(6));
-			assertTrue(logs.toString(), logs.get(6).indexOf(":add column field6 [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(6).length()<=100);
-			assertNotNull(logs.toString(), logs.get(7));
-			assertTrue(logs.toString(), logs.get(7).indexOf(":add column field7 blub blah blah ")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf(" ... [0] [")>=0);
-			assertTrue(logs.toString(), logs.get(7).indexOf("blob")<0);
-			assertEquals(logs.toString(), logs.get(7).length(), 100);
+			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			{
+				final Properties log5 = log(logs.get(5));
+				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
+				assertEquals(hostname, log5.getProperty("hostname"));
+				assertEquals("true", log5.getProperty("create"));
+				assertEquals(3, log5.size());
+			}
+			final Date date6;
+			{
+				final Properties log6 = log(logs.get(6));
+				date6 = df.parse(log6.getProperty("date"));
+				assertWithin(migrateBefore, migrateAfter, date6);
+				assertEquals(hostname, log6.getProperty("hostname"));
+				assertEquals(null, log6.getProperty("create"));
+				assertEquals("add column field6", log6.getProperty("comment"));
+				assertEquals(body60, log6.getProperty("body0.sql"));
+				assertMinInt(0, log6.getProperty("body0.rows"));
+				assertMinInt(1, log6.getProperty("body0.elapsed"));
+				assertEquals(6, log6.size());
+			}
+			{
+				final Properties log7 = log(logs.get(7));
+				assertEquals(date6, df.parse(log7.getProperty("date")));
+				assertEquals(hostname, log7.getProperty("hostname"));
+				assertEquals(null, log7.getProperty("create"));
+				assertEquals("add column field7" + blah, log7.getProperty("comment"));
+				assertEquals(body70, log7.getProperty("body0.sql"));
+				assertMinInt(0, log7.getProperty("body0.rows"));
+				assertMinInt(1, log7.getProperty("body0.elapsed"));
+				assertEquals(6, log7.size());
+			}
 			assertEquals(3, logs.size());
 		}
 		
@@ -346,5 +451,24 @@ public class MigrationTest extends CopeAssert
 		assertEquals("while", migrationTable.getName());
 		assertEquals(true, migrationTable.required());
 		assertEquals(true, migrationTable.exists());
+	}
+	
+	private static final Properties log(final byte[] log)
+	{
+		final Properties result = new Properties();
+		try
+		{
+			result.load(new ByteArrayInputStream(log));
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+	
+	private static final void assertMinInt(final int expectedMinimum, final String actual)
+	{
+		assertTrue(actual, Integer.parseInt(actual)>=expectedMinimum);
 	}
 }

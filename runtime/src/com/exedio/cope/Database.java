@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Blob;
@@ -158,7 +160,9 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				notifyMigration(con, migrationVersion, new Date(), getHostnameText(), "created schema", null, null, false);
+				final java.util.Properties info = new java.util.Properties();
+				info.setProperty("create", Boolean.TRUE.toString());
+				notifyMigration(con, migrationVersion, info, new Date(), getHostname());
 			}
 			catch(SQLException e)
 			{
@@ -1499,9 +1503,7 @@ final class Database
 	
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
 	private static final int    MIGRATION_MUTEX_VERSION = -1;
-	private static final String MIGRATION_COLUMN_COMMENT_NAME = "c";
-	private static final int    MIGRATION_COLUMN_COMMENT_LENGTH = 100;
-	private static final String MIGRATION_COLUMN_COMMENT_TRUNCATED = " ...";
+	private static final String MIGRATION_COLUMN_INFO_NAME = "i";
 	private static final String MIGRATION_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss.SSS";
 	
 	Schema makeSchema()
@@ -1527,7 +1529,7 @@ final class Database
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, dialect.getIntegerType(0, Integer.MAX_VALUE));
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_COMMENT_NAME, dialect.getStringType(MIGRATION_COLUMN_COMMENT_LENGTH));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ')');
 		}
 		
@@ -1572,7 +1574,7 @@ final class Database
 		}
 	}
 	
-	Map<Integer, String> getMigrationLogs()
+	Map<Integer, byte[]> getMigrationLogs()
 	{
 		final Pool<Connection> connectionPool = this.connectionPool;
 		Connection con = null;
@@ -1596,7 +1598,7 @@ final class Database
 		}
 	}
 	
-	private Map<Integer, String> getMigrationLogs(final Connection connection)
+	private Map<Integer, byte[]> getMigrationLogs(final Connection connection)
 	{
 		buildStage = false;
 
@@ -1605,7 +1607,7 @@ final class Database
 		bf.append("select ").
 			append(version).defineColumnInteger().
 			append(',').
-			append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).defineColumnString().
+			append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).defineColumnString().
 			append(" from ").
 			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 			append(" where ").
@@ -1619,45 +1621,50 @@ final class Database
 	
 	private static class MigrationLogsResultSetHandler implements ResultSetHandler
 	{
-		final HashMap<Integer, String> result = new HashMap<Integer, String>();
+		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 
 		public void handle(final ResultSet resultSet) throws SQLException
 		{
 			while(resultSet.next())
 			{
 				final int version = resultSet.getInt(1);
-				final String comment = resultSet.getString(2);
-				final String previous = result.put(version, comment);
+				final byte[] info = resultSet.getBytes(2);
+				final byte[] previous = result.put(version, info);
 				if(previous!=null)
-					throw new RuntimeException("duplicate version " + version + ':' + previous + "/" + comment);
+					throw new RuntimeException("duplicate version " + version);
 			}
 		}
 	}
 	
-	private void notifyMigration(final Connection connection, final int version, final Date date, final String hostnameText, String comment, final ArrayList<Integer> rowCounts, final ArrayList<Long> durations, final boolean logToConsole)
+	private void notifyMigration(final Connection connection, final int version, final java.util.Properties info, final Date date, final String hostname)
 	{
 		assert migrationSupported;
 		
-		final String prefix = new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + hostnameText + ':';
-		final String postfix = (rowCounts!=null && durations!=null) ? (String.valueOf(' ') + rowCounts + ' ' + durations) : "";
-		final int maxCommentLength = MIGRATION_COLUMN_COMMENT_LENGTH - prefix.length() - postfix.length();
-		if(comment.length()>maxCommentLength)
-			comment = comment.substring(0, maxCommentLength - MIGRATION_COLUMN_COMMENT_TRUNCATED.length()) + MIGRATION_COLUMN_COMMENT_TRUNCATED;
-		final String fullComment = prefix + comment + postfix;
-		if(logToConsole)
-			System.out.println("Migrated to version " + version + ':' + fullComment);
-
+		info.setProperty("date", new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date));
+		if(hostname!=null)
+			info.setProperty("hostname", hostname);
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try
+		{
+			info.store(baos, "migrationlogv01");
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e); // ByteArrayOutputStream cannot throw IOException
+		}
+		//try{System.out.println("-----------"+new String(baos.toByteArray(), "latin1")+"-----------");}catch(UnsupportedEncodingException e){throw new RuntimeException(e);};
+		
 		final Statement bf = createStatement();
 		bf.append("insert into ").
 			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 			append('(').
 			append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
 			append(',').
-			append(driver.protectName(MIGRATION_COLUMN_COMMENT_NAME)).
+			append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).
 			append(")values(").
 			appendParameter(version).
 			append(',').
-			appendParameter(fullComment).
+			appendParameterBlob(baos.toByteArray()).
 			append(')');
 		
 		executeSQLUpdate(connection, bf, 1);
@@ -1691,15 +1698,21 @@ final class Database
 							", but declared migrations allow from " + (expectedVersion - migrations.length) + " only");
 				
 				final Date date = new Date();
-				final String hostnameText = getHostnameText();
+				final String hostname = getHostname();
 				stmt = con.createStatement();
 				try
 				{
-					stmt.executeUpdate(
+					final StringBuffer bf = new StringBuffer();
+					bf.append(
 							"insert into " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
-							'(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ',' + driver.protectName(MIGRATION_COLUMN_COMMENT_NAME) + ')' +
+							'(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ',' + driver.protectName(MIGRATION_COLUMN_INFO_NAME) + ')' +
 							"values" +
-							'(' + MIGRATION_MUTEX_VERSION + ",'" + new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + hostnameText + ":migration mutex')");
+							'(' + MIGRATION_MUTEX_VERSION + ",'");
+					final byte[] info =
+						(new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + '/' + hostname + ":migration mutex").getBytes("latin1");
+					DataField.appendAsHex(info, info.length, bf);
+					bf.append("')");
+					stmt.executeUpdate(bf.toString());
 				}
 				catch(SQLException e)
 				{
@@ -1708,28 +1721,36 @@ final class Database
 							"Either a migration is currently underway, " +
 							"or a migration has failed unexpectedly.", e);
 				}
+				catch(UnsupportedEncodingException e)
+				{
+					throw new RuntimeException(e);
+				}
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Migration migration = migrations[migrationIndex];
 					assert migration.version == (expectedVersion - migrationIndex);
+					final java.util.Properties info = new java.util.Properties();
+					info.setProperty("comment", migration.comment);
 					final String[] body = migration.body;
-					final ArrayList<Integer> rowCounts = new ArrayList<Integer>(body.length);
-					final ArrayList<Long> durations = new ArrayList<Long>(body.length);
-					for(final String sql : body)
+					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
+						final String sql = body[bodyIndex];
+						final String bodyPrefix = "body" + bodyIndex + '.';
+						info.setProperty(bodyPrefix + "sql", sql);
+						System.out.println("Migrating to version " + migration.version + ':' + sql);
 						final long start = System.currentTimeMillis();
 						try
 						{
-							rowCounts.add(stmt.executeUpdate(sql));
+							info.setProperty(bodyPrefix + "rows", String.valueOf(stmt.executeUpdate(sql)));
 						}
 						catch(SQLException e)
 						{
 							throw new SQLRuntimeException(e, sql);
 						}
-						durations.add(System.currentTimeMillis()-start);
+						info.setProperty(bodyPrefix + "elapsed", String.valueOf(System.currentTimeMillis()-start));
 					}
 					
-					notifyMigration(con, migration.version, date, hostnameText, migration.comment, rowCounts, durations, true);
+					notifyMigration(con, migration.version, info, date, hostname);
 				}
 				final String mutexReleaseSql =
 						"delete from " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
@@ -1772,15 +1793,15 @@ final class Database
 		}
 	}
 	
-	private static final String getHostnameText()
+	private static final String getHostname()
 	{
 		try
 		{
-			return " (" + InetAddress.getLocalHost().getHostName() + ')';
+			return InetAddress.getLocalHost().getHostName();
 		}
 		catch(UnknownHostException e)
 		{
-			return "";
+			return null;
 		}
 	}
 

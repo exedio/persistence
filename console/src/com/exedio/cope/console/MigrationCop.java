@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,9 +80,20 @@ final class MigrationCop extends ConsoleCop
 				migrationMap.put(m.getVersion(), m);
 			}
 			
-			final Map<Integer, String> logs = model.getMigrationLogs();
-			for(final Integer v : logs.keySet())
-				register(v);
+			final Map<Integer, byte[]> logsRaw = model.getMigrationLogs();
+			final HashMap<Integer, String> logs = new HashMap<Integer, String>();
+			try
+			{
+				for(final Integer v : logsRaw.keySet())
+				{
+					register(v);
+					logs.put(v, new String(logsRaw.get(v), "latin1"));
+				}
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
 			
 			final int current = model.getMigrationVersion();
 			register(current);
