@@ -875,7 +875,7 @@ final class Database
 			result = supportsGetBytes ? resultSet.getBytes(1) : loadBlob(resultSet.getBlob(1));
 		}
 		
-		private static final byte[] loadBlob(final Blob blob) throws SQLException
+		private static final byte[] loadBlob(final Blob blob) throws SQLException // TODO refactor
 		{
 			if(blob==null)
 				return null;
@@ -1614,13 +1614,20 @@ final class Database
 			append(version).
 			append(">=0");
 		
-		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler();
+		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler(supportsGetBytes);
 		executeSQLQuery(connection, bf, handler, false, false);
 		return Collections.unmodifiableMap(handler.result);
 	}
 	
 	private static class MigrationLogsResultSetHandler implements ResultSetHandler
 	{
+		final boolean supportsGetBytes;
+		
+		MigrationLogsResultSetHandler(final boolean supportsGetBytes)
+		{
+			this.supportsGetBytes = supportsGetBytes;
+		}
+		
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 
 		public void handle(final ResultSet resultSet) throws SQLException
@@ -1628,7 +1635,7 @@ final class Database
 			while(resultSet.next())
 			{
 				final int version = resultSet.getInt(1);
-				final byte[] info = resultSet.getBytes(2);
+				final byte[] info = supportsGetBytes ? resultSet.getBytes(2) : LoadBlobResultSetHandler.loadBlob(resultSet.getBlob(2));
 				final byte[] previous = result.put(version, info);
 				if(previous!=null)
 					throw new RuntimeException("duplicate version " + version);
