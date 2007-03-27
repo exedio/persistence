@@ -20,6 +20,7 @@ package com.exedio.cope.testmodel;
 
 import java.util.Date;
 
+import com.exedio.cope.Migration;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
@@ -49,17 +50,20 @@ public class Main
 		CollisionItem1.TYPE,
 		CollisionItem2.TYPE,
 	};
+	
+	private static final Migration[] migrations = new Migration[]
+	{
+		new Migration(2, "comment2 a bit longer",
+				"select nice sql statement of migration two which does not work",
+				"select second nice sql statement of migration two which does not work"),
+		new Migration(1, "comment1",
+				"select nice sql statement of migration one which does not work"),
+	};
 
 	public static final Date beforeModel = new Date();
 	
 	public static final Model model = new Model(
-		/*new Migration[]{
-			new Migration(2, "comment2 a bit longer",
-					"select nice sql statement of migration two which does not work",
-					"select second nice sql statement of migration two which does not work"),
-			new Migration(1, "comment1",
-					"select nice sql statement of migration one which does not work"),
-		},*/
+		//migrations,
 		modelTypes);
 	
 	public static final Date afterModel = new Date();
