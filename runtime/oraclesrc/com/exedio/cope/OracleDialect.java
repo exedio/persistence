@@ -21,6 +21,7 @@ package com.exedio.cope;
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntObjectHashMap;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -157,9 +158,13 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	boolean supportsGetBytes()
+	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{
-		return false;
+		final Blob blob = resultSet.getBlob(columnIndex);
+		if(blob==null)
+			return null;
+
+		return DataField.copy(blob.getBinaryStream(), blob.length());
 	}
 
 	@Override

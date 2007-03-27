@@ -67,7 +67,6 @@ final class Database
 	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
-	final boolean supportsGetBytes;
 	final boolean supportsBlobInResultSet;
 	
 	final boolean oracle; // TODO remove
@@ -100,7 +99,6 @@ final class Database
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
-		this.supportsGetBytes = dialect.supportsGetBytes();
 		this.supportsBlobInResultSet = dialect.supportsBlobInResultSet();
 	}
 	
@@ -851,20 +849,13 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
-		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler(supportsGetBytes);
+		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false, false);
 		return handler.result;
 	}
 	
-	private static final class LoadBlobResultSetHandler implements ResultSetHandler
+	private final class LoadBlobResultSetHandler implements ResultSetHandler
 	{
-		final boolean supportsGetBytes;
-		
-		LoadBlobResultSetHandler(final boolean supportsGetBytes)
-		{
-			this.supportsGetBytes = supportsGetBytes;
-		}
-		
 		byte[] result;
 
 		public void handle(final ResultSet resultSet) throws SQLException
@@ -872,15 +863,7 @@ final class Database
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
 			
-			result = supportsGetBytes ? resultSet.getBytes(1) : loadBlob(resultSet.getBlob(1));
-		}
-		
-		private static final byte[] loadBlob(final Blob blob) throws SQLException // TODO refactor
-		{
-			if(blob==null)
-				return null;
-
-			return DataField.copy(blob.getBinaryStream(), blob.length());
+			result = dialect.getBytes(resultSet, 1);
 		}
 	}
 	
@@ -1614,20 +1597,13 @@ final class Database
 			append(version).
 			append(">=0");
 		
-		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler(supportsGetBytes);
+		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler();
 		executeSQLQuery(connection, bf, handler, false, false);
 		return Collections.unmodifiableMap(handler.result);
 	}
 	
-	private static class MigrationLogsResultSetHandler implements ResultSetHandler
+	private final class MigrationLogsResultSetHandler implements ResultSetHandler
 	{
-		final boolean supportsGetBytes;
-		
-		MigrationLogsResultSetHandler(final boolean supportsGetBytes)
-		{
-			this.supportsGetBytes = supportsGetBytes;
-		}
-		
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 
 		public void handle(final ResultSet resultSet) throws SQLException
@@ -1635,7 +1611,7 @@ final class Database
 			while(resultSet.next())
 			{
 				final int version = resultSet.getInt(1);
-				final byte[] info = supportsGetBytes ? resultSet.getBytes(2) : LoadBlobResultSetHandler.loadBlob(resultSet.getBlob(2));
+				final byte[] info = dialect.getBytes(resultSet, 2);
 				final byte[] previous = result.put(version, info);
 				if(previous!=null)
 					throw new RuntimeException("duplicate version " + version);

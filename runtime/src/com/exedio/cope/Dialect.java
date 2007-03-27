@@ -3,6 +3,7 @@ package com.exedio.cope;
 import gnu.trove.TIntArrayList;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exedio.dsmf.Driver;
@@ -36,9 +37,9 @@ abstract class Dialect
 		return null;
 	}
 	
-	boolean supportsGetBytes()
+	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{
-		return true;
+		return resultSet.getBytes(columnIndex);
 	}
 
 	boolean supportsBlobInResultSet()
