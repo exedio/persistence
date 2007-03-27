@@ -2,6 +2,10 @@ package com.exedio.cope;
 
 import gnu.trove.TIntArrayList;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,9 +46,37 @@ abstract class Dialect
 		return resultSet.getBytes(columnIndex);
 	}
 
-	boolean supportsBlobInResultSet()
+	void fetchBlob(
+			final ResultSet resultSet, final int columnIndex,
+			final Item item, final OutputStream data, final DataField field)
+	throws SQLException
 	{
-		return true;
+		final Blob blob = resultSet.getBlob(columnIndex);
+		if(blob!=null)
+		{
+			InputStream source = null;
+			try
+			{
+				source = blob.getBinaryStream();
+				field.copy(source, data, blob.length(), item);
+			}
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			finally
+			{
+				if(source!=null)
+				{
+					try
+					{
+						source.close();
+					}
+					catch(IOException e)
+					{/*IGNORE*/}
+				}
+			}
+		}
 	}
 
 	boolean supportsEmptyStrings()

@@ -20,12 +20,10 @@ package com.exedio.cope;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,7 +65,6 @@ final class Database
 	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
-	final boolean supportsBlobInResultSet;
 	
 	final boolean oracle; // TODO remove
 	
@@ -99,7 +96,6 @@ final class Database
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
-		this.supportsBlobInResultSet = dialect.supportsBlobInResultSet();
 	}
 	
 	Driver getDriver()
@@ -890,63 +886,8 @@ final class Database
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 				
-				if(supportsBlobInResultSet)
-				{
-					final Blob blob = resultSet.getBlob(1);
-					if(blob!=null)
-					{
-						InputStream source = null;
-						try
-						{
-							source = blob.getBinaryStream();
-							field.copy(source, data, blob.length(), item);
-						}
-						catch(IOException e)
-						{
-							throw new RuntimeException(e);
-						}
-						finally
-						{
-							if(source!=null)
-							{
-								try
-								{
-									source.close();
-								}
-								catch(IOException e)
-								{/*IGNORE*/}
-							}
-						}
-					}
-				}
-				else
-				{
-					InputStream source = null;
-					try
-					{
-						source = resultSet.getBinaryStream(1);
-						if(source!=null)
-							field.copy(source, data, item);
-					}
-					catch(IOException e)
-					{
-						throw new RuntimeException(e);
-					}
-					finally
-					{
-						if(source!=null)
-						{
-							try
-							{
-								source.close();
-							}
-							catch(IOException e)
-							{/*IGNORE*/}
-						}
-					}
-				}
+				dialect.fetchBlob(resultSet, 1, item, data, field);
 			}
-			
 		});
 	}
 	
