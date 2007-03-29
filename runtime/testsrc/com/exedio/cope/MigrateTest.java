@@ -138,9 +138,10 @@ public class MigrateTest extends CopeAssert
 		// containing the sql statement!
 		final String body70 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field7"), dialect.getStringType(100));
 		final String body60 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field6"), dialect.getStringType(100));
+		final String body61 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field6b"), dialect.getStringType(100));
 		final Migration[] migrations7 = new Migration[]{
 				new Migration(7, "add column field7" + blah, body70),
-				new Migration(6, "add column field6",        body60),
+				new Migration(6, "add column field6",        body60, body61),
 				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
 				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
 			};
@@ -247,6 +248,12 @@ public class MigrateTest extends CopeAssert
 			assertEquals(migrated, column6.exists());
 			assertNotNull(column6.getType());
 
+			final Column column6b = columns.next();
+			assertEquals("field6b", column6b.getName());
+			assertEquals(true, column6b.required());
+			assertEquals(migrated, column6b.exists());
+			assertNotNull(column6b.getType());
+
 			final Column column7 = columns.next();
 			assertEquals("field7", column7.getName());
 			assertEquals(true, column7.required());
@@ -281,19 +288,20 @@ public class MigrateTest extends CopeAssert
 	
 	private final Date assertMigrate(final Date before, final Date after, final Migration migration, final byte[] log) throws ParseException
 	{
-		assertEquals(1, migration.body.length);
-		
 		final Properties logProps = log(log);
 		final Date date = df.parse(logProps.getProperty("date"));
 		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
 		assertEquals(null, logProps.getProperty("create"));
 		assertEquals(migration.comment, logProps.getProperty("comment"));
-		assertEquals(migration.body[0], logProps.getProperty("body0.sql"));
-		assertMinInt(0, logProps.getProperty("body0.rows"));
-		assertMinInt(0, logProps.getProperty("body0.elapsed"));
+		for(int i = 0; i<migration.body.length; i++)
+		{
+			assertEquals(migration.body[i], logProps.getProperty("body" + i + ".sql"));
+			assertMinInt(0, logProps.getProperty("body" + i + ".rows"));
+			assertMinInt(0, logProps.getProperty("body" + i + ".elapsed"));
+		}
 		assertVersions(logProps);
-		assertEquals(14, logProps.size());
+		assertEquals(11 + (3*migration.body.length), logProps.size());
 		return date;
 	}
 	
