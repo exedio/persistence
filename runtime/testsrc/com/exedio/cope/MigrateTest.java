@@ -52,11 +52,19 @@ public class MigrateTest extends CopeAssert
 	
 	private static final Model model7 = new Model(migrations7Missing, MigrationItem2.TYPE);
 	
+	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+	private String hostname;
+	
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		hostname = InetAddress.getLocalHost().getHostName();
+	}
+	
 	public void testMigrate() throws ParseException, UnknownHostException
 	{
 		final com.exedio.cope.Properties props = new com.exedio.cope.Properties();
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-		final String hostname = InetAddress.getLocalHost().getHostName();
 		
 		assertTrue(model5.isMigrationSupported());
 		assertEquals(5, model5.getMigrationVersion());
@@ -71,11 +79,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model5.getVerifiedSchema(), false, false);
 		{
 			final Map<Integer, byte[]> logs = model5.getMigrationLogs();
-			final Properties log5 = log(logs.get(5));
-			assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
-			assertEquals(hostname, log5.getProperty("hostname"));
-			assertEquals("true", log5.getProperty("create"));
-			assertEquals(3, log5.size());
+			assertCreate(createBefore, createAfter, logs.get(5));
 			assertEquals(1, logs.size());
 		}
 		model5.disconnect();
@@ -88,11 +92,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			final Properties log5 = log(logs.get(5));
-			assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
-			assertEquals(hostname, log5.getProperty("hostname"));
-			assertEquals("true", log5.getProperty("create"));
-			assertEquals(3, log5.size());
+			assertCreate(createBefore, createAfter, logs.get(5));
 			assertEquals(1, logs.size());
 		}
 
@@ -108,11 +108,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			final Properties log5 = log(logs.get(5));
-			assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
-			assertEquals(hostname, log5.getProperty("hostname"));
-			assertEquals("true", log5.getProperty("create"));
-			assertEquals(3, log5.size());
+			assertCreate(createBefore, createAfter, logs.get(5));
 			assertEquals(1, logs.size());
 		}
 		
@@ -146,13 +142,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			{
-				final Properties log5 = log(logs.get(5));
-				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
-				assertEquals(hostname, log5.getProperty("hostname"));
-				assertEquals("true", log5.getProperty("create"));
-				assertEquals(3, log5.size());
-			}
+			assertCreate(createBefore, createAfter, logs.get(5));
 			final Date date6;
 			{
 				final Properties log6 = log(logs.get(6));
@@ -186,13 +176,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			{
-				final Properties log5 = log(logs.get(5));
-				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
-				assertEquals(hostname, log5.getProperty("hostname"));
-				assertEquals("true", log5.getProperty("create"));
-				assertEquals(3, log5.size());
-			}
+			assertCreate(createBefore, createAfter, logs.get(5));
 			final Date date6;
 			{
 				final Properties log6 = log(logs.get(6));
@@ -239,13 +223,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			{
-				final Properties log5 = log(logs.get(5));
-				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
-				assertEquals(hostname, log5.getProperty("hostname"));
-				assertEquals("true", log5.getProperty("create"));
-				assertEquals(3, log5.size());
-			}
+			assertCreate(createBefore, createAfter, logs.get(5));
 			final Date date6;
 			{
 				final Properties log6 = log(logs.get(6));
@@ -284,13 +262,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			{
-				final Properties log5 = log(logs.get(5));
-				assertWithin(createBefore, createAfter, df.parse(log5.getProperty("date")));
-				assertEquals(hostname, log5.getProperty("hostname"));
-				assertEquals("true", log5.getProperty("create"));
-				assertEquals(3, log5.size());
-			}
+			assertCreate(createBefore, createAfter, logs.get(5));
 			final Date date6;
 			{
 				final Properties log6 = log(logs.get(6));
@@ -362,6 +334,15 @@ public class MigrateTest extends CopeAssert
 		assertEquals("while", migrationTable.getName());
 		assertEquals(true, migrationTable.required());
 		assertEquals(true, migrationTable.exists());
+	}
+	
+	private final void assertCreate(final Date before, final Date after, final byte[] log) throws ParseException
+	{
+		final Properties logProps = log(log);
+		assertWithin(before, after, df.parse(logProps.getProperty("date")));
+		assertEquals(hostname, logProps.getProperty("hostname"));
+		assertEquals("true", logProps.getProperty("create"));
+		assertEquals(3, logProps.size());
 	}
 	
 	private static final Properties log(final byte[] log)
