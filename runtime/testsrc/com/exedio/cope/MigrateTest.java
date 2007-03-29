@@ -77,9 +77,10 @@ public class MigrateTest extends CopeAssert
 		final Date createAfter = new Date();
 		
 		assertSchema(model5.getVerifiedSchema(), false, false);
+		final Date createDate;
 		{
 			final Map<Integer, byte[]> logs = model5.getMigrationLogs();
-			assertCreate(createBefore, createAfter, logs.get(5));
+			createDate = assertCreate(createBefore, createAfter, logs.get(5));
 			assertEquals(1, logs.size());
 		}
 		model5.disconnect();
@@ -92,7 +93,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			assertCreate(createBefore, createAfter, logs.get(5));
+			assertCreate(createDate, logs.get(5));
 			assertEquals(1, logs.size());
 		}
 
@@ -108,7 +109,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			assertCreate(createBefore, createAfter, logs.get(5));
+			assertCreate(createDate, logs.get(5));
 			assertEquals(1, logs.size());
 		}
 		
@@ -143,7 +144,7 @@ public class MigrateTest extends CopeAssert
 		final Date migrateDate;
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			assertCreate(createBefore, createAfter, logs.get(5));
+			assertCreate(createDate, logs.get(5));
 			migrateDate = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
 			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
@@ -155,7 +156,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			assertCreate(createBefore, createAfter, logs.get(5));
+			assertCreate(createDate, logs.get(5));
 			assertMigrate(migrateDate, migrations7[1], logs.get(6));
 			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
@@ -180,7 +181,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			assertCreate(createBefore, createAfter, logs.get(5));
+			assertCreate(createDate, logs.get(5));
 			assertMigrate(migrateDate, migrations7[1], logs.get(6));
 			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
@@ -197,7 +198,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
-			assertCreate(createBefore, createAfter, logs.get(5));
+			assertCreate(createDate, logs.get(5));
 			assertMigrate(migrateDate, migrations7[1], logs.get(6));
 			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
@@ -249,13 +250,20 @@ public class MigrateTest extends CopeAssert
 		assertEquals(true, migrationTable.exists());
 	}
 	
-	private final void assertCreate(final Date before, final Date after, final byte[] log) throws ParseException
+	private final Date assertCreate(final Date before, final Date after, final byte[] log) throws ParseException
 	{
 		final Properties logProps = log(log);
-		assertWithin(before, after, df.parse(logProps.getProperty("date")));
+		final Date date = df.parse(logProps.getProperty("date"));
+		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
 		assertEquals("true", logProps.getProperty("create"));
 		assertEquals(3, logProps.size());
+		return date;
+	}
+	
+	private final void assertCreate(final Date date, final byte[] log) throws ParseException
+	{
+		assertEquals(date, assertCreate(date, date, log));
 	}
 	
 	private final Date assertMigrate(final Date before, final Date after, final Migration migration, final byte[] log) throws ParseException
