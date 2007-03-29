@@ -43,14 +43,14 @@ public class MigrateTest extends CopeAssert
 		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for version 5"),
 	};
 	
-	private static final Model model5 = new Model(migrations5, MigrationItem1.TYPE);
+	private static final Model model5 = new Model(migrations5, MigrateItem1.TYPE);
 	
 	
 	private static final Migration[] migrations7Missing = new Migration[]{
 			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
 		};
 	
-	private static final Model model7 = new Model(migrations7Missing, MigrationItem2.TYPE);
+	private static final Model model7 = new Model(migrations7Missing, MigrateItem2.TYPE);
 	
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	private String hostname;
@@ -136,8 +136,8 @@ public class MigrateTest extends CopeAssert
 		// Never do this in real projects,
 		// always use plain string literals
 		// containing the sql statement!
-		final String body70 = driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field7"), dialect.getStringType(100));
-		final String body60 = driver.createColumn(driver.protectName("MigrationItem"), driver.protectName("field6"), dialect.getStringType(100));
+		final String body70 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field7"), dialect.getStringType(100));
+		final String body60 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field6"), dialect.getStringType(100));
 		final Migration[] migrations7 = new Migration[]{
 				new Migration(7, "add column field7" + blah, body70),
 				new Migration(6, "add column field6",        body60),
@@ -221,8 +221,8 @@ public class MigrateTest extends CopeAssert
 	
 	private void assertSchema(final Schema schema, final boolean model2, final boolean migrated)
 	{
-		final Table table = schema.getTable("MigrationItem");
-		assertEquals("MigrationItem", table.getName());
+		final Table table = schema.getTable("MigrateItem");
+		assertEquals("MigrateItem", table.getName());
 		assertEquals(true, table.required());
 		assertEquals(true, table.exists());
 		final Iterator<Column> columns = table.getColumns().iterator();
