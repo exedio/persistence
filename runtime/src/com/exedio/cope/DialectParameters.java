@@ -61,4 +61,16 @@ final class DialectParameters
 			throw new SQLRuntimeException(e, "getMetaData");
 		}
 	}
+	
+	void setVersions(final java.util.Properties p)
+	{
+		p.setProperty("database.name", databaseProductName);
+		p.setProperty("database.version", databaseProductVersion);
+		p.setProperty("database.version.major", String.valueOf(databaseMajorVersion));
+		p.setProperty("database.version.minor", String.valueOf(databaseMinorVersion));
+		p.setProperty("driver.name", driverName);
+		p.setProperty("driver.version", driverVersion);
+		p.setProperty("driver.version.major", String.valueOf(driverMajorVersion));
+		p.setProperty("driver.version.minor", String.valueOf(driverMinorVersion));
+	}
 }

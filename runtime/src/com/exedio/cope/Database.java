@@ -1567,6 +1567,7 @@ final class Database
 		info.setProperty("date", new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date));
 		if(hostname!=null)
 			info.setProperty("hostname", hostname);
+		dialectParameters.setVersions(info);
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
 		{

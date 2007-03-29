@@ -62,6 +62,11 @@ public class MigrateTest extends CopeAssert
 		hostname = InetAddress.getLocalHost().getHostName();
 	}
 	
+	String databaseName;
+	String databaseVersion;
+	String driverName;
+	String driverVersion;
+	
 	public void testMigrate() throws ParseException, UnknownHostException
 	{
 		final com.exedio.cope.Properties props = new com.exedio.cope.Properties();
@@ -72,6 +77,13 @@ public class MigrateTest extends CopeAssert
 		
 		model5.connect(props);
 		model5.tearDownDatabase();
+
+		final Properties info = model5.getDatabaseInfo();
+		databaseName = info.getProperty("database.name");
+		databaseVersion = info.getProperty("database.version");
+		driverName = info.getProperty("driver.name");
+		driverVersion = info.getProperty("driver.version");
+		
 		final Date createBefore = new Date();
 		model5.createDatabase();
 		final Date createAfter = new Date();
@@ -257,7 +269,8 @@ public class MigrateTest extends CopeAssert
 		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
 		assertEquals("true", logProps.getProperty("create"));
-		assertEquals(3, logProps.size());
+		assertVersions(logProps);
+		assertEquals(11, logProps.size());
 		return date;
 	}
 	
@@ -279,13 +292,27 @@ public class MigrateTest extends CopeAssert
 		assertEquals(migration.body[0], logProps.getProperty("body0.sql"));
 		assertMinInt(0, logProps.getProperty("body0.rows"));
 		assertMinInt(0, logProps.getProperty("body0.elapsed"));
-		assertEquals(6, logProps.size());
+		assertVersions(logProps);
+		assertEquals(14, logProps.size());
 		return date;
 	}
 	
 	private final void assertMigrate(final Date date, final Migration migration, final byte[] log) throws ParseException
 	{
 		assertEquals(date, assertMigrate(date, date, migration, log));
+	}
+	
+	private final void assertVersions(final Properties p)
+	{
+		assertNotNull(databaseName);
+		assertNotNull(databaseVersion);
+		assertNotNull(driverName);
+		assertNotNull(driverVersion);
+
+		assertEquals(databaseName, p.getProperty("database.name"));
+		assertEquals(databaseVersion, p.getProperty("database.version") + " (" + p.getProperty("database.version.major") + '.' + p.getProperty("database.version.minor") + ')');
+		assertEquals(driverName, p.getProperty("driver.name"));
+		assertEquals(driverVersion, p.getProperty("driver.version") + " (" + p.getProperty("driver.version.major") + '.' + p.getProperty("driver.version.minor") + ')');
 	}
 	
 	private static final Properties log(final byte[] log)
