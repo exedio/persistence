@@ -143,19 +143,7 @@ public class MigrateTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6;
-			{
-				final Properties log6 = log(logs.get(6));
-				date6 = df.parse(log6.getProperty("date"));
-				assertWithin(migrateBefore, migrateAfter, date6);
-				assertEquals(hostname, log6.getProperty("hostname"));
-				assertEquals(null, log6.getProperty("create"));
-				assertEquals("add column field6", log6.getProperty("comment"));
-				assertEquals(body60, log6.getProperty("body0.sql"));
-				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(0, log6.getProperty("body0.elapsed"));
-				assertEquals(6, log6.size());
-			}
+			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
 			{
 				final Properties log7 = log(logs.get(7));
 				assertEquals(date6, df.parse(log7.getProperty("date")));
@@ -177,19 +165,7 @@ public class MigrateTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6;
-			{
-				final Properties log6 = log(logs.get(6));
-				date6 = df.parse(log6.getProperty("date"));
-				assertWithin(migrateBefore, migrateAfter, date6);
-				assertEquals(hostname, log6.getProperty("hostname"));
-				assertEquals(null, log6.getProperty("create"));
-				assertEquals("add column field6", log6.getProperty("comment"));
-				assertEquals(body60, log6.getProperty("body0.sql"));
-				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(0, log6.getProperty("body0.elapsed"));
-				assertEquals(6, log6.size());
-			}
+			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
 			{
 				final Properties log7 = log(logs.get(7));
 				assertEquals(date6, df.parse(log7.getProperty("date")));
@@ -224,19 +200,7 @@ public class MigrateTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6;
-			{
-				final Properties log6 = log(logs.get(6));
-				date6 = df.parse(log6.getProperty("date"));
-				assertWithin(migrateBefore, migrateAfter, date6);
-				assertEquals(hostname, log6.getProperty("hostname"));
-				assertEquals(null, log6.getProperty("create"));
-				assertEquals("add column field6", log6.getProperty("comment"));
-				assertEquals(body60, log6.getProperty("body0.sql"));
-				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(0, log6.getProperty("body0.elapsed"));
-				assertEquals(6, log6.size());
-			}
+			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
 			{
 				final Properties log7 = log(logs.get(7));
 				assertEquals(date6, df.parse(log7.getProperty("date")));
@@ -263,19 +227,7 @@ public class MigrateTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6;
-			{
-				final Properties log6 = log(logs.get(6));
-				date6 = df.parse(log6.getProperty("date"));
-				assertWithin(migrateBefore, migrateAfter, date6);
-				assertEquals(hostname, log6.getProperty("hostname"));
-				assertEquals(null, log6.getProperty("create"));
-				assertEquals("add column field6", log6.getProperty("comment"));
-				assertEquals(body60, log6.getProperty("body0.sql"));
-				assertMinInt(0, log6.getProperty("body0.rows"));
-				assertMinInt(0, log6.getProperty("body0.elapsed"));
-				assertEquals(6, log6.size());
-			}
+			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
 			{
 				final Properties log7 = log(logs.get(7));
 				assertEquals(date6, df.parse(log7.getProperty("date")));
@@ -345,6 +297,22 @@ public class MigrateTest extends CopeAssert
 		assertEquals(3, logProps.size());
 	}
 	
+	private final Date assertMigrate(final Date before, final Date after, final Migration migration, final byte[] log) throws ParseException
+	{
+		assertEquals(1, migration.body.length);
+		
+		final Properties logProps = log(log);
+		final Date date = df.parse(logProps.getProperty("date"));
+		assertWithin(before, after, date);
+		assertEquals(hostname, logProps.getProperty("hostname"));
+		assertEquals(null, logProps.getProperty("create"));
+		assertEquals("add column field6", logProps.getProperty("comment"));
+		assertEquals(migration.body[0], logProps.getProperty("body0.sql"));
+		assertMinInt(0, logProps.getProperty("body0.rows"));
+		assertMinInt(0, logProps.getProperty("body0.elapsed"));
+		assertEquals(6, logProps.size());
+		return date;
+	}
 	private static final Properties log(final byte[] log)
 	{
 		final Properties result = new Properties();
