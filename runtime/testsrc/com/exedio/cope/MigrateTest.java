@@ -140,11 +140,12 @@ public class MigrateTest extends CopeAssert
 		model7.migrateIfSupported();
 		final Date migrateAfter = new Date();
 		assertSchema(model7.getVerifiedSchema(), true, true);
+		final Date migrateDate;
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
-			assertMigrate(date6, migrations7[0], logs.get(7));
+			migrateDate = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
+			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
 		}
 		
@@ -155,8 +156,8 @@ public class MigrateTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
-			assertMigrate(date6, migrations7[0], logs.get(7));
+			assertMigrate(migrateDate, migrations7[1], logs.get(6));
+			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
 		}
 		
@@ -180,8 +181,8 @@ public class MigrateTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
-			assertMigrate(date6, migrations7[0], logs.get(7));
+			assertMigrate(migrateDate, migrations7[1], logs.get(6));
+			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
 		}
 		
@@ -197,8 +198,8 @@ public class MigrateTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
 			assertCreate(createBefore, createAfter, logs.get(5));
-			final Date date6 = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs.get(6));
-			assertMigrate(date6, migrations7[0], logs.get(7));
+			assertMigrate(migrateDate, migrations7[1], logs.get(6));
+			assertMigrate(migrateDate, migrations7[0], logs.get(7));
 			assertEquals(3, logs.size());
 		}
 		
