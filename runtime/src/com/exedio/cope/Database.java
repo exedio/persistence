@@ -925,15 +925,15 @@ final class Database
 			if(o==null)
 				return -1l;
 
-			long value = ((Number)o).longValue();
+			long result = ((Number)o).longValue();
 			final long factor = blobLengthFactor;
 			if(factor!=1)
 			{
-				if(value%factor!=0)
-					throw new RuntimeException("not dividable "+value+'/'+factor);
-				value /= factor;
+				if(result%factor!=0)
+					throw new RuntimeException("not dividable "+result+'/'+factor);
+				result /= factor;
 			}
-			return value;
+			return result;
 		}
 	}
 	
