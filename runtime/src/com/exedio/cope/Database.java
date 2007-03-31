@@ -1371,8 +1371,7 @@ final class Database
 		
 		//System.out.println("CHECKT:"+bf.toString());
 		
-		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		return executeSQLQuery(connection, bf, null, false, handler);
+		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	int checkTypeColumn(final Connection connection, final ItemField field)
@@ -1400,11 +1399,10 @@ final class Database
 		
 		//System.out.println("CHECKA:"+bf.toString());
 		
-		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		return executeSQLQuery(connection, bf, null, false, handler);
+		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
 	}
 	
-	private static class CheckTypeColumnResultSetHandler implements ResultSetHandler<Integer>
+	private static final ResultSetHandler<Integer> integerResultSetHandler = new ResultSetHandler<Integer>()
 	{
 		public Integer handle(final ResultSet resultSet) throws SQLException
 		{
@@ -1413,7 +1411,7 @@ final class Database
 			
 			return resultSet.getInt(1);
 		}
-	}
+	};
 	
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
 	private static final int    MIGRATION_MUTEX_VERSION = -1;
@@ -1472,7 +1470,7 @@ final class Database
 			append(version).
 			append(">=0");
 			
-		return executeSQLQuery(connection, bf, null, false, new CheckTypeColumnResultSetHandler());
+		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
 	}
 	
 	Map<Integer, byte[]> getMigrationLogs()
