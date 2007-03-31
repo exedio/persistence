@@ -526,106 +526,105 @@ final class Database
 		//System.out.println(bf.toString());
 
 		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
+		{
+			public Void handle(final ResultSet resultSet) throws SQLException
 			{
-				public Void handle(final ResultSet resultSet) throws SQLException
+				if(doCountOnly)
 				{
-					if(doCountOnly)
-					{
-						resultSet.next();
-						result.add(Integer.valueOf(resultSet.getInt(1)));
-						if(resultSet.next())
-							throw new RuntimeException();
-						return null;
-					}
-					
-					if(limitStart>0 && limitSupport==Dialect.LimitSupport.NONE)
-					{
-						// TODO: ResultSet.relative
-						// Would like to use
-						//    resultSet.relative(limitStart+1);
-						// but this throws a java.sql.SQLException:
-						// Invalid operation for forward only resultset : relative
-						for(int i = limitStart; i>0; i--)
-							resultSet.next();
-					}
-						
-					int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limitCount );
-					if(i<=0)
-						throw new RuntimeException(String.valueOf(limitCount));
-					
-					while(resultSet.next() && (--i)>=0)
-					{
-						int columnIndex = 1;
-						final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
-						final Row dummyRow = new Row();
-							
-						for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
-						{
-							final Selectable select;
-							{
-								Selectable select0 = selects[selectIndex];
-								if(select0 instanceof Aggregate)
-									select0 = ((Aggregate)select0).getSource();
-								select = select0;
-							}
-							
-							final Object resultCell;
-							if(select instanceof FunctionField)
-							{
-								selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
-								final FunctionField selectField = (FunctionField)select;
-								if(select instanceof ItemField)
-								{
-									final StringColumn typeColumn = ((ItemField)selectField).getTypeColumn();
-									if(typeColumn!=null)
-										typeColumn.load(resultSet, columnIndex++, dummyRow);
-								}
-								resultCell = selectField.get(dummyRow);
-							}
-							else if(select instanceof View)
-							{
-								final View selectFunction = (View)select;
-								resultCell = selectFunction.load(resultSet, columnIndex++);
-							}
-							else
-							{
-								final Number pk = (Number)resultSet.getObject(columnIndex++);
-								//System.out.println("pk:"+pk);
-								if(pk==null)
-								{
-									// can happen when using right outer joins
-									resultCell = null;
-								}
-								else
-								{
-									final Type type = types[selectIndex];
-									final Type currentType;
-									if(type==null)
-									{
-										final String typeID = resultSet.getString(columnIndex++);
-										currentType = model.findTypeByID(typeID);
-										if(currentType==null)
-											throw new RuntimeException("no type with type id "+typeID);
-									}
-									else
-										currentType = type;
-
-									resultCell = currentType.getItemObject(pk.intValue());
-								}
-							}
-							if(resultRow!=null)
-								resultRow[selectIndex] = resultCell;
-							else
-								result.add(resultCell);
-						}
-						if(resultRow!=null)
-							result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
-					}
-					
+					resultSet.next();
+					result.add(Integer.valueOf(resultSet.getInt(1)));
+					if(resultSet.next())
+						throw new RuntimeException();
 					return null;
 				}
+				
+				if(limitStart>0 && limitSupport==Dialect.LimitSupport.NONE)
+				{
+					// TODO: ResultSet.relative
+					// Would like to use
+					//    resultSet.relative(limitStart+1);
+					// but this throws a java.sql.SQLException:
+					// Invalid operation for forward only resultset : relative
+					for(int i = limitStart; i>0; i--)
+						resultSet.next();
+				}
+					
+				int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limitCount );
+				if(i<=0)
+					throw new RuntimeException(String.valueOf(limitCount));
+				
+				while(resultSet.next() && (--i)>=0)
+				{
+					int columnIndex = 1;
+					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
+					final Row dummyRow = new Row();
+						
+					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
+					{
+						final Selectable select;
+						{
+							Selectable select0 = selects[selectIndex];
+							if(select0 instanceof Aggregate)
+								select0 = ((Aggregate)select0).getSource();
+							select = select0;
+						}
+						
+						final Object resultCell;
+						if(select instanceof FunctionField)
+						{
+							selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
+							final FunctionField selectField = (FunctionField)select;
+							if(select instanceof ItemField)
+							{
+								final StringColumn typeColumn = ((ItemField)selectField).getTypeColumn();
+								if(typeColumn!=null)
+									typeColumn.load(resultSet, columnIndex++, dummyRow);
+							}
+							resultCell = selectField.get(dummyRow);
+						}
+						else if(select instanceof View)
+						{
+							final View selectFunction = (View)select;
+							resultCell = selectFunction.load(resultSet, columnIndex++);
+						}
+						else
+						{
+							final Number pk = (Number)resultSet.getObject(columnIndex++);
+							//System.out.println("pk:"+pk);
+							if(pk==null)
+							{
+								// can happen when using right outer joins
+								resultCell = null;
+							}
+							else
+							{
+								final Type type = types[selectIndex];
+								final Type currentType;
+								if(type==null)
+								{
+									final String typeID = resultSet.getString(columnIndex++);
+									currentType = model.findTypeByID(typeID);
+									if(currentType==null)
+										throw new RuntimeException("no type with type id "+typeID);
+								}
+								else
+									currentType = type;
+
+								resultCell = currentType.getItemObject(pk.intValue());
+							}
+						}
+						if(resultRow!=null)
+							resultRow[selectIndex] = resultCell;
+						else
+							result.add(resultCell);
+					}
+					if(resultRow!=null)
+						result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
+				}
+				
+				return null;
 			}
-		);
+		});
 
 		return result;
 	}
