@@ -47,15 +47,15 @@ final class TypeCop_Jspm
 		throws IOException
 	{
 		%><%=info.getText()%><%
-		final Collection childs = info.getChilds();
+		final Collection<QueryInfo> childs = info.getChilds();
 		if(!childs.isEmpty())
 		{
 			%><ul><%
-			for(Iterator i = childs.iterator(); i.hasNext(); )
+			for(final QueryInfo child : childs)
 			{
 				%>
 				<li><%
-				writeInfo(out, ((QueryInfo)i.next()));
+				writeInfo(out, child);
 				%></li><%
 			}
 			%>
