@@ -1004,7 +1004,6 @@ final class Database
 			final long timePrepared;
 			final long timeExecuted;
 			
-			final X result;
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
@@ -1013,8 +1012,6 @@ final class Database
 				
 				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
-				timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
-				result = resultSetHandler.handle(resultSet);
 			}
 			else
 			{
@@ -1028,9 +1025,9 @@ final class Database
 				
 				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
-				timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
-				result = resultSetHandler.handle(resultSet);
 			}
+			timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
+			final X result = resultSetHandler.handle(resultSet);
 			final long timeResultRead = takeTimes ? System.currentTimeMillis() : 0;
 			
 			if(resultSet!=null)
