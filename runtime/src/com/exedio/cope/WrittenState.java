@@ -97,16 +97,14 @@ final class WrittenState extends State implements Database.ResultSetHandler<Void
 	{
 		if(!resultSet.next())
 			throw new NoSuchItemException(item);
-		else
+
+		int columnIndex = 1;
+		for(Type itype = type; itype!=null; itype = itype.supertype)
 		{
-			int columnIndex = 1;
-			for(Type itype = type; itype!=null; itype = itype.supertype)
+			for(final Column column : itype.getTable().getColumns())
 			{
-				for(final Column column : itype.getTable().getColumns())
-				{
-					if(!(column instanceof BlobColumn))
-						column.load(resultSet, columnIndex++, row);
-				}
+				if(!(column instanceof BlobColumn))
+					column.load(resultSet, columnIndex++, row);
 			}
 		}
 		
@@ -128,5 +126,4 @@ final class WrittenState extends State implements Database.ResultSetHandler<Void
 	{
 		return toString()+row.toString();
 	}
-	
 }
