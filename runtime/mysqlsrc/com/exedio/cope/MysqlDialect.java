@@ -196,7 +196,8 @@ final class MysqlDialect extends Dialect
 				append(statementText).
 				appendParameters(statement);
 
-			database.executeSQLQuery(connection, bf, null, true, new Database.ResultSetHandler<Void>(){
+			database.executeSQLQuery(connection, bf, null, true, new Database.ResultSetHandler<Void>()
+			{
 				public Void handle(final ResultSet resultSet) throws SQLException
 				{
 					final ResultSetMetaData metaData = resultSet.getMetaData();
