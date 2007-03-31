@@ -1497,12 +1497,12 @@ final class Database
 			append(version).
 			append(">=0");
 		
-		return Collections.unmodifiableMap(executeSQLQuery(connection, bf, null, false, new ResultSetHandler<HashMap<Integer, byte[]>>()
+		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
+		
+		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
-			public HashMap<Integer, byte[]> handle(final ResultSet resultSet) throws SQLException
+			public Void handle(final ResultSet resultSet) throws SQLException
 			{
-				final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
-	
 				while(resultSet.next())
 				{
 					final int version = resultSet.getInt(1);
@@ -1512,9 +1512,10 @@ final class Database
 						throw new RuntimeException("duplicate version " + version);
 				}
 				
-				return result;
+				return null;
 			}
-		}));
+		});
+		return Collections.unmodifiableMap(result);
 	}
 	
 	private void notifyMigration(final Connection connection, final int version, final java.util.Properties info, final Date date, final String hostname)
