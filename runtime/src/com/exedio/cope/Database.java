@@ -246,18 +246,16 @@ final class Database
 			}
 			
 			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
-			executeSQLQuery(connection, bf, null, false,
-				new ResultSetHandler<Void>()
+			executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
+			{
+				public Void handle(final ResultSet resultSet) throws SQLException
 				{
-					public Void handle(final ResultSet resultSet) throws SQLException
-					{
-						if(!resultSet.next())
-							throw new SQLException(NO_SUCH_ROW);
-						
-						return null;
-					}
+					if(!resultSet.next())
+						throw new SQLException(NO_SUCH_ROW);
+					
+					return null;
 				}
-			);
+			});
 		}
 	}
 
@@ -876,8 +874,8 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 		
-		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>(){
-			
+		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>()
+		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
