@@ -1621,7 +1621,7 @@ final class Database
 						final String sql = body[bodyIndex];
 						final String bodyPrefix = "body" + bodyIndex + '.';
 						info.setProperty(bodyPrefix + "sql", sql);
-						System.out.println("Migrating to version " + migration.version + ':' + sql);
+						System.out.println("COPE migrating " + migration.version + ':' + sql);
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
