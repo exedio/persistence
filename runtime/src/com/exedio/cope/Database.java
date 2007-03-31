@@ -1582,22 +1582,23 @@ final class Database
 				
 				final Date date = new Date();
 				final String hostname = getHostname();
-				stmt = con.createStatement();
 				try
 				{
-					final StringBuffer bf = new StringBuffer();
-					bf.append(
-							"insert into " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
-							'(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ',' + driver.protectName(MIGRATION_COLUMN_INFO_NAME) + ')' +
-							"values" +
-							'(' + MIGRATION_MUTEX_VERSION + ",'");
-					final byte[] info =
-						(new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + '/' + hostname + ":migration mutex").getBytes("latin1");
-					DataField.appendAsHex(info, info.length, bf);
-					bf.append("')");
-					stmt.executeUpdate(bf.toString());
+					final Statement bf = createStatement();
+					bf.append("insert into ").
+						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+						append('(').
+						append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
+						append(',').
+						append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).
+						append(")values(").
+						appendParameter(MIGRATION_MUTEX_VERSION).
+						append(',').
+						appendParameterBlob((new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + '/' + hostname + ":migration mutex").getBytes("latin1")).
+						append(')');
+					executeSQLUpdate(con, bf, 1);
 				}
-				catch(SQLException e)
+				catch(SQLRuntimeException e)
 				{
 					throw new IllegalStateException(
 							"Migration mutex set: " +
@@ -1608,6 +1609,7 @@ final class Database
 				{
 					throw new RuntimeException(e);
 				}
+				stmt = con.createStatement();
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Migration migration = migrations[migrationIndex];
