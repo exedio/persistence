@@ -966,6 +966,17 @@ final class Database
 		public R handle(ResultSet resultSet) throws SQLException;
 	}
 
+	private static final ResultSetHandler<Integer> integerResultSetHandler = new ResultSetHandler<Integer>()
+	{
+		public Integer handle(final ResultSet resultSet) throws SQLException
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+			
+			return resultSet.getInt(1);
+		}
+	};
+	
 	private static int convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE
@@ -1388,17 +1399,6 @@ final class Database
 		
 		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
 	}
-	
-	private static final ResultSetHandler<Integer> integerResultSetHandler = new ResultSetHandler<Integer>()
-	{
-		public Integer handle(final ResultSet resultSet) throws SQLException
-		{
-			if(!resultSet.next())
-				throw new RuntimeException();
-			
-			return resultSet.getInt(1);
-		}
-	};
 	
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
 	private static final int    MIGRATION_MUTEX_VERSION = -1;
