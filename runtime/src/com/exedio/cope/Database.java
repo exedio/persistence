@@ -1093,7 +1093,7 @@ final class Database
 		}
 	}
 	
-	private void executeSQLUpdate(
+	private int executeSQLUpdate(
 			final Connection connection,
 			final Statement statement, final int expectedRows)
 		throws UniqueViolationException
@@ -1130,8 +1130,9 @@ final class Database
 				log.log(statement, timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
-			if(rows!=expectedRows)
+			if(expectedRows!=Integer.MIN_VALUE && rows!=expectedRows)
 				throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
+			return rows;
 		}
 		catch(SQLException e)
 		{
@@ -1560,7 +1561,6 @@ final class Database
 
 		final Pool<Connection> connectionPool = this.connectionPool;
 		Connection con = null;
-		java.sql.Statement stmt = null;
 		try
 		{
 			con = connectionPool.get();
@@ -1609,7 +1609,6 @@ final class Database
 				{
 					throw new RuntimeException(e);
 				}
-				stmt = con.createStatement();
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Migration migration = migrations[migrationIndex];
@@ -1623,22 +1622,14 @@ final class Database
 						final String bodyPrefix = "body" + bodyIndex + '.';
 						info.setProperty(bodyPrefix + "sql", sql);
 						System.out.println("Migrating to version " + migration.version + ':' + sql);
+						final Statement bf = createStatement();
+						bf.append(sql);
 						final long start = System.currentTimeMillis();
-						try
-						{
-							info.setProperty(bodyPrefix + "rows", String.valueOf(stmt.executeUpdate(sql)));
-						}
-						catch(SQLException e)
-						{
-							throw new SQLRuntimeException(e, sql);
-						}
+						info.setProperty(bodyPrefix + "rows", String.valueOf(executeSQLUpdate(con, bf, Integer.MIN_VALUE)));
 						info.setProperty(bodyPrefix + "elapsed", String.valueOf(System.currentTimeMillis()-start));
 					}
-					
 					notifyMigration(con, migration.version, info, date, hostname);
 				}
-				stmt.close();
-				stmt = null;
 				{
 					final Statement bf = createStatement();
 					bf.append("delete from ").
@@ -1657,18 +1648,6 @@ final class Database
 		}
 		finally
 		{
-			if(stmt!=null)
-			{
-				try
-				{
-					stmt.close();
-					stmt = null;
-				}
-				catch(SQLException ex)
-				{
-					throw new SQLRuntimeException(ex, "close");
-				}
-			}
 			if(con!=null)
 			{
 				connectionPool.put(con);
