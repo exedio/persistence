@@ -36,14 +36,14 @@ import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.StatementInfo;
+import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Media;
 
 final class TypeCop_Jspm
 {
-	private static void writeInfo(final PrintStream out, final StatementInfo info)
+	private static void writeInfo(final PrintStream out, final QueryInfo info)
 		throws IOException
 	{
 		%><%=info.getText()%><%
@@ -55,7 +55,7 @@ final class TypeCop_Jspm
 			{
 				%>
 				<li><%
-				writeInfo(out, ((StatementInfo)i.next()));
+				writeInfo(out, ((QueryInfo)i.next()));
 				%></li><%
 			}
 			%>
@@ -266,7 +266,7 @@ final class TypeCop_Jspm
 			</table>
 
 			<%
-			final StatementInfo info = cop.getStatementInfo();
+			final QueryInfo info = cop.getQueryInfo();
 			if(info!=null)
 			{
 				%><ul style="background-color:#ccc">

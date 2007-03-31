@@ -183,13 +183,13 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
-	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
 			return null;
 		
-		final StatementInfo root = new StatementInfo(EXPLAIN_PLAN);
+		final QueryInfo root = new QueryInfo(EXPLAIN_PLAN);
 		{
 			final Statement bf = database.createStatement();
 			bf.append("explain ").
@@ -219,7 +219,7 @@ final class MysqlDialect extends Dialect
 									append(value.toString());
 							}
 						}
-						root.addChild(new StatementInfo(bf.toString()));
+						root.addChild(new QueryInfo(bf.toString()));
 					}
 				}
 				

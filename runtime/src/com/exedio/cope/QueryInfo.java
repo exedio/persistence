@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public final class StatementInfo
+public final class QueryInfo
 {
-	private ArrayList<StatementInfo> childsLazilyInitialized;
+	private ArrayList<QueryInfo> childsLazilyInitialized;
 	final String text;
 	
-	StatementInfo(final String text)
+	QueryInfo(final String text)
 	{
 		this.text = text;
 	}
@@ -38,18 +38,18 @@ public final class StatementInfo
 		return text;
 	}
 	
-	public Collection<StatementInfo> getChilds()
+	public Collection<QueryInfo> getChilds()
 	{
 		return
 			childsLazilyInitialized==null
-			? Collections.<StatementInfo>emptyList()
+			? Collections.<QueryInfo>emptyList()
 			: Collections.unmodifiableList(childsLazilyInitialized);
 	}
 	
-	void addChild(final StatementInfo newChild)
+	void addChild(final QueryInfo newChild)
 	{
 		if(childsLazilyInitialized==null)
-			childsLazilyInitialized = new ArrayList<StatementInfo>();
+			childsLazilyInitialized = new ArrayList<QueryInfo>();
 
 		childsLazilyInitialized.add(newChild);
 	}
@@ -66,7 +66,7 @@ public final class StatementInfo
 		o.println(text);
 		level++;
 		if(childsLazilyInitialized!=null)
-			for(final StatementInfo s : childsLazilyInitialized)
+			for(final QueryInfo s : childsLazilyInitialized)
 				s.print(o, level);
 	}
 
@@ -75,5 +75,4 @@ public final class StatementInfo
 	{
 		return text;
 	}
-
 }

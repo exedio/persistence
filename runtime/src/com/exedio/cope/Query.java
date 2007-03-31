@@ -46,8 +46,8 @@ public final class Query<R>
 	int limitStart = 0;
 	int limitCount = UNLIMITED_COUNT;
 	
-	boolean makeStatementInfo = false;
-	private StatementInfo statementInfo = null;
+	boolean makeInfo = false;
+	private QueryInfo info = null;
 	
 	public Query(final Selectable<? extends R> select)
 	{
@@ -286,30 +286,57 @@ public final class Query<R>
 		this.limitCount = UNLIMITED_COUNT;
 	}
 	
+	/**
+	 * @deprecated Use {@link #enableMakeInfo()} instead
+	 */
+	@Deprecated
 	public void enableMakeStatementInfo()
 	{
-		makeStatementInfo = true;
+		enableMakeInfo();
 	}
-	
-	public StatementInfo getStatementInfo()
+
+	public void enableMakeInfo()
 	{
-		return statementInfo;
+		makeInfo = true;
 	}
 	
+	/**
+	 * @deprecated Use {@link #getInfo()} instead
+	 */
+	@Deprecated
+	public QueryInfo getStatementInfo()
+	{
+		return getInfo();
+	}
+
+	public QueryInfo getInfo()
+	{
+		return info;
+	}
+	
+	/**
+	 * @deprecated Use {@link #clearInfo()} instead
+	 */
+	@Deprecated
 	public void clearStatementInfo()
 	{
-		statementInfo = null;;
+		clearInfo();
+	}
+
+	public void clearInfo()
+	{
+		info = null;
 	}
 	
-	void addStatementInfo(final StatementInfo newInfo)
+	void addInfo(final QueryInfo newInfo)
 	{
-		if(makeStatementInfo != (newInfo!=null))
-			throw new RuntimeException(String.valueOf(makeStatementInfo));
+		if(makeInfo != (newInfo!=null))
+			throw new RuntimeException(String.valueOf(makeInfo));
 		
 		if(newInfo!=null)
 		{
 			final String ROOT_FOR_MULTIPLE = "--- multiple statements ---";
-			final StatementInfo previousInfo = this.statementInfo;
+			final QueryInfo previousInfo = this.info;
 			if(previousInfo!=null)
 			{
 				if(ROOT_FOR_MULTIPLE.equals(previousInfo.text))
@@ -318,14 +345,14 @@ public final class Query<R>
 				}
 				else
 				{
-					final StatementInfo rootForMultiple = new StatementInfo(ROOT_FOR_MULTIPLE);
+					final QueryInfo rootForMultiple = new QueryInfo(ROOT_FOR_MULTIPLE);
 					rootForMultiple.addChild(previousInfo);
 					rootForMultiple.addChild(newInfo);
-					this.statementInfo = rootForMultiple;
+					this.info = rootForMultiple;
 				}
 			}
 			else
-				this.statementInfo = newInfo;
+				this.info = newInfo;
 		}
 	}
 	
@@ -340,8 +367,8 @@ public final class Query<R>
 	{
 		if(limitCount==0)
 		{
-			if(makeStatementInfo)
-				addStatementInfo(new StatementInfo("skipped search because limitCount==0"));
+			if(makeInfo)
+				addInfo(new QueryInfo("skipped search because limitCount==0"));
 			return Collections.<R>emptyList();
 		}
 		

@@ -29,28 +29,28 @@ public class StatementInfoTest extends TestmodelTest
 	public void testExecutionPlan()
 	{
 		final Query query = ItemWithSingleUnique.TYPE.newQuery(ItemWithSingleUnique.uniqueString.equal("zack"));
-		query.enableMakeStatementInfo();
+		query.enableMakeInfo();
 		query.search();
-		final StatementInfo root = query.getStatementInfo();
+		final QueryInfo root = query.getInfo();
 		assertUnmodifiable(root.getChilds());
 		//root.print(System.out);
 		
 		final String firstStatementText = root.getText();
 		assertTrue(firstStatementText, firstStatementText.startsWith("select "));
 		
-		final Iterator<StatementInfo> rootChilds = root.getChilds().iterator();
+		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
 		{
-			final StatementInfo timing = rootChilds.next();
+			final QueryInfo timing = rootChilds.next();
 			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
 			assertContains(timing.getChilds());
 		}
 		if(!model.getProperties().getDatabaseDontSupportPreparedStatements())
 		{
-			final StatementInfo parameters = rootChilds.next();
+			final QueryInfo parameters = rootChilds.next();
 			assertEquals("parameters", parameters.getText());
-			final Iterator<StatementInfo> parametersChilds = parameters.getChilds().iterator();
+			final Iterator<QueryInfo> parametersChilds = parameters.getChilds().iterator();
 			{
-				final StatementInfo parameter = parametersChilds.next();
+				final QueryInfo parameter = parametersChilds.next();
 				assertEquals("1:zack", parameter.getText());
 				assertContains(parameter.getChilds());
 			}
@@ -63,28 +63,28 @@ public class StatementInfoTest extends TestmodelTest
 				break;
 			case MYSQL:
 			{
-				final StatementInfo plan = rootChilds.next();
+				final QueryInfo plan = rootChilds.next();
 				assertEquals("explain plan", plan.getText());
 				break;
 			}
 			case ORACLE:
 			{
-				final StatementInfo planId = rootChilds.next();
+				final QueryInfo planId = rootChilds.next();
 				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
 				{
-					final Iterator<StatementInfo> planIdChilds = planId.getChilds().iterator();
+					final Iterator<QueryInfo> planIdChilds = planId.getChilds().iterator();
 					{
-						final StatementInfo planSelect = planIdChilds.next();
+						final QueryInfo planSelect = planIdChilds.next();
 						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
 						{
-							final Iterator<StatementInfo> planSelectChilds = planSelect.getChilds().iterator();
+							final Iterator<QueryInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{
-								final StatementInfo planTableAccess = planSelectChilds.next();
+								final QueryInfo planTableAccess = planSelectChilds.next();
 								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on UNIQUE_ITEMS[1]"));
 								{
-									final Iterator<StatementInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
+									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
-										final StatementInfo planUnique = planTableAccessChilds.next();
+										final QueryInfo planUnique = planTableAccessChilds.next();
 										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on IX_ITEMWSU_US"));
 										assertEquals(list(), planUnique.getChilds());
 									}
@@ -109,19 +109,19 @@ public class StatementInfoTest extends TestmodelTest
 		// test multiple queries
 		query.setOrderBy(ItemWithSingleUnique.uniqueString, true);
 		query.search();
-		final StatementInfo rootOrdered = query.getStatementInfo();
+		final QueryInfo rootOrdered = query.getInfo();
 		//rootOrdered.print(System.out);
 		assertEquals("--- multiple statements ---", rootOrdered.getText());
-		final Iterator<StatementInfo> rootOrderedIterator = rootOrdered.getChilds().iterator();
-		final StatementInfo ordered1 = rootOrderedIterator.next();
+		final Iterator<QueryInfo> rootOrderedIterator = rootOrdered.getChilds().iterator();
+		final QueryInfo ordered1 = rootOrderedIterator.next();
 		assertEquals(firstStatementText, ordered1.getText());
-		final StatementInfo ordered2 = rootOrderedIterator.next();
+		final QueryInfo ordered2 = rootOrderedIterator.next();
 		assertTrue(!firstStatementText.equals(ordered2.getText()));
 		assertTrue(ordered2.getText(), ordered2.getText().startsWith("select "));
 		assertTrue(!rootOrderedIterator.hasNext());
 		
-		query.clearStatementInfo();
-		assertNull(query.getStatementInfo());
+		query.clearInfo();
+		assertNull(query.getInfo());
 		
 		final String statement =
 			"select ItemWithSingleUnique.this " +
@@ -130,7 +130,7 @@ public class StatementInfoTest extends TestmodelTest
 			"order by ItemWithSingleUnique.uniqueString";
 		
 		query.search();
-		final StatementInfo cached1 = query.getStatementInfo();
+		final QueryInfo cached1 = query.getInfo();
 		if(model.getProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #1 for " + statement, cached1.getText());
@@ -141,11 +141,11 @@ public class StatementInfoTest extends TestmodelTest
 			assertTrue(cached1.getText(), cached1.getText().startsWith("select "));
 		}
 
-		query.clearStatementInfo();
-		assertNull(query.getStatementInfo());
+		query.clearInfo();
+		assertNull(query.getInfo());
 		
 		query.search();
-		final StatementInfo cached2 = query.getStatementInfo();
+		final QueryInfo cached2 = query.getInfo();
 		if(model.getProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #2 for " + statement, cached2.getText());

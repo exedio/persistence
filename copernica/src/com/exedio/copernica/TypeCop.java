@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
 import com.exedio.cope.Query;
-import com.exedio.cope.StatementInfo;
+import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Type;
 
 final class TypeCop extends CopernicaCop
@@ -39,7 +39,7 @@ final class TypeCop extends CopernicaCop
 	final int limitCount;
 
 	private Query.Result queryResult = null;
-	private StatementInfo statementInfo;
+	private QueryInfo queryInfo;
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
@@ -161,10 +161,10 @@ final class TypeCop extends CopernicaCop
 		return queryResult.getCountWithoutLimit();
 	}
 
-	final StatementInfo getStatementInfo()
+	final QueryInfo getQueryInfo()
 	{
 		computeItems();
-		return statementInfo;
+		return queryInfo;
 	}
 
 	private final void computeItems()
@@ -178,10 +178,10 @@ final class TypeCop extends CopernicaCop
 		else
 			query.setOrderByThis(true);
 		query.setLimit(limitStart, limitCount);
-		query.enableMakeStatementInfo();
+		query.enableMakeInfo();
 		
 		queryResult = query.searchAndCountWithoutLimit();
-		statementInfo = query.getStatementInfo();
+		queryInfo = query.getInfo();
 	}
 	
 	@Override

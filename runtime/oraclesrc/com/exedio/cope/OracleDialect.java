@@ -244,7 +244,7 @@ final class OracleDialect extends Dialect
 		}));
 	
 	@Override
-	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -257,7 +257,7 @@ final class OracleDialect extends Dialect
 		}
 		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(Math.abs(statementIDNumber));
 		
-		final StatementInfo root;
+		final QueryInfo root;
 		{
 			final Statement bf = database.createStatement();
 			bf.append("explain plan set "+STATEMENT_ID+"='").
@@ -303,7 +303,7 @@ final class OracleDialect extends Dialect
 		if(root==null)
 			throw new RuntimeException();
 		
-		final StatementInfo result = new StatementInfo(EXPLAIN_PLAN + " statement_id=" + statementID);
+		final QueryInfo result = new QueryInfo(EXPLAIN_PLAN + " statement_id=" + statementID);
 		result.addChild(root);
 		
 		//System.out.println("######################");
@@ -315,11 +315,11 @@ final class OracleDialect extends Dialect
 
 	private static class PlanResultSetHandler implements Database.ResultSetHandler
 	{
-		StatementInfo root;
+		QueryInfo root;
 
 		public void handle(final ResultSet resultSet) throws SQLException
 		{
-			final TIntObjectHashMap<StatementInfo> infos = new TIntObjectHashMap<StatementInfo>();
+			final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<QueryInfo>();
 
 			final ResultSetMetaData metaData = resultSet.getMetaData();
 			final int columnCount = metaData.getColumnCount();
@@ -365,7 +365,7 @@ final class OracleDialect extends Dialect
 					}
 				}
 
-				final StatementInfo info = new StatementInfo(bf.toString());
+				final QueryInfo info = new QueryInfo(bf.toString());
 				if(parentID==null)
 				{
 					if(root!=null)
@@ -374,7 +374,7 @@ final class OracleDialect extends Dialect
 				}
 				else
 				{
-					final StatementInfo parent = infos.get(parentID.intValue());
+					final QueryInfo parent = infos.get(parentID.intValue());
 					if(parent==null)
 						throw new RuntimeException();
 					parent.addChild(info);

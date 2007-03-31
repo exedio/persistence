@@ -36,7 +36,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final StringField databasePassword =  new StringField("database.password", true);
 	private final BooleanField databaseLog = new BooleanField("database.log", false);
 	private final IntField databaseLogThreshold = new IntField("database.log.threshold", 0, 0);
-	private final BooleanField databaseLogStatementInfo = new BooleanField("database.logStatementInfo", false);
+	private final BooleanField databaseLogQueryInfo = new BooleanField("database.logStatementInfo", false); // TODO rename property
 	
 	private final BooleanField databaseDontSupportPreparedStatements = new BooleanField("database.dontSupport.preparedStatements", false);
 	private final BooleanField databaseDontSupportEmptyStrings = new BooleanField("database.dontSupport.emptyStrings", false);
@@ -249,9 +249,18 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return databaseLogThreshold.getIntValue();
 	}
 	
+	/**
+	 * @deprecated Use {@link #getDatabaseLogQueryInfo()} instead
+	 */
+	@Deprecated
 	public boolean getDatabaseLogStatementInfo()
 	{
-		return databaseLogStatementInfo.getBooleanValue();
+		return getDatabaseLogQueryInfo();
+	}
+
+	public boolean getDatabaseLogQueryInfo()
+	{
+		return databaseLogQueryInfo.getBooleanValue();
 	}
 	
 	public boolean getDatabaseDontSupportPreparedStatements()

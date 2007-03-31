@@ -67,7 +67,7 @@ final class QueryCache
 		}
 		else
 		{
-			if(histogram || query.makeStatementInfo)
+			if(histogram || query.makeInfo)
 			{
 				final Query.Key originalKey;
 				synchronized(map)
@@ -77,8 +77,8 @@ final class QueryCache
 				if(originalKey!=null)
 					originalKey.hits++;
 				
-				if(query.makeStatementInfo)
-					query.addStatementInfo(new StatementInfo("query cache hit #" + originalKey.hits + " for " + originalKey.getText()));
+				if(query.makeInfo)
+					query.addInfo(new QueryInfo("query cache hit #" + originalKey.hits + " for " + originalKey.getText()));
 			}
 			hits++;
 		}

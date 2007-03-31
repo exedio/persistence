@@ -56,7 +56,7 @@ final class Database
 	private final boolean migrationSupported;
 	final boolean prepare;
 	volatile DatabaseLogConfig log;
-	private final boolean logStatementInfo;
+	private final boolean logQueryInfo;
 	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
 	final Pool<Connection> connectionPool;
@@ -77,7 +77,7 @@ final class Database
 		this.migrationSupported = migrationSupported;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), null, System.out) : null;
-		this.logStatementInfo = properties.getDatabaseLogStatementInfo();
+		this.logQueryInfo = properties.getDatabaseLogQueryInfo();
 		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = new Pool<Connection>(
@@ -523,7 +523,7 @@ final class Database
 		
 		//System.out.println(bf.toString());
 
-		query.addStatementInfo(executeSQLQuery(connection, bf, query.makeStatementInfo, false, new ResultSetHandler()
+		query.addInfo(executeSQLQuery(connection, bf, query.makeInfo, false, new ResultSetHandler()
 			{
 				public void handle(final ResultSet resultSet) throws SQLException
 				{
@@ -986,10 +986,10 @@ final class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	protected StatementInfo executeSQLQuery(
+	protected QueryInfo executeSQLQuery(
 		final Connection connection,
 		final Statement statement,
-		final boolean makeStatementInfo,
+		final boolean makeQueryInfo,
 		final boolean explain,
 		final ResultSetHandler resultSetHandler)
 	{
@@ -998,7 +998,7 @@ final class Database
 		try
 		{
 			final DatabaseLogConfig log = this.log;
-			final boolean takeTimes = !explain && (log!=null || this.logStatementInfo || makeStatementInfo);
+			final boolean takeTimes = !explain && (log!=null || this.logQueryInfo || makeQueryInfo);
 			final String sqlText = statement.getText();
 			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
 			final long timePrepared;
@@ -1051,15 +1051,15 @@ final class Database
 			if(log!=null)
 				log.log(statement, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
-			final StatementInfo statementInfo =
-				(this.logStatementInfo || makeStatementInfo)
-				? makeStatementInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
+			final QueryInfo queryInfo =
+				(this.logQueryInfo || makeQueryInfo)
+				? makeQueryInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
 				: null;
 			
-			if(this.logStatementInfo)
-				statementInfo.print(System.out);
+			if(this.logQueryInfo)
+				queryInfo.print(System.out);
 			
-			return makeStatementInfo ? statementInfo : null;
+			return makeQueryInfo ? queryInfo : null;
 		}
 		catch(SQLException e)
 		{
@@ -1152,25 +1152,25 @@ final class Database
 		}
 	}
 	
-	StatementInfo makeStatementInfo(
+	QueryInfo makeQueryInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
-		final StatementInfo result = new StatementInfo(statement.getText());
+		final QueryInfo result = new QueryInfo(statement.getText());
 		
-		result.addChild(new StatementInfo("timing "+(end-start)+'/'+(prepared-start)+'/'+(executed-prepared)+'/'+(resultRead-executed)+'/'+(end-resultRead)+" (total/prepare/execute/readResult/close in ms)"));
+		result.addChild(new QueryInfo("timing "+(end-start)+'/'+(prepared-start)+'/'+(executed-prepared)+'/'+(resultRead-executed)+'/'+(end-resultRead)+" (total/prepare/execute/readResult/close in ms)"));
 		
 		final ArrayList<Object> parameters = statement.parameters;
 		if(parameters!=null)
 		{
-			final StatementInfo parametersChild = new StatementInfo("parameters");
+			final QueryInfo parametersChild = new QueryInfo("parameters");
 			result.addChild(parametersChild);
 			int i = 1;
 			for(Object p : parameters)
-				parametersChild.addChild(new StatementInfo(String.valueOf(i++) + ':' + p));
+				parametersChild.addChild(new QueryInfo(String.valueOf(i++) + ':' + p));
 		}
 			
-		final StatementInfo plan = dialect.explainExecutionPlan(statement, connection, this);
+		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)
 			result.addChild(plan);
 		

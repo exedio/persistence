@@ -36,7 +36,7 @@ abstract class Dialect
 	
 	protected static final String EXPLAIN_PLAN = "explain plan";
 	
-	protected StatementInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
+	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
 	{
 		return null;
 	}
