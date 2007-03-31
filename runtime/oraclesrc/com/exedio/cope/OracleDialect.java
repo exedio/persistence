@@ -296,8 +296,76 @@ final class OracleDialect extends Dialect
 				appendParameter(statementID).
 				append(" order by "+ID);
 
-			final PlanResultSetHandler handler = new PlanResultSetHandler();
-			root = database.executeSQLQuery(connection, bf, null, true, handler);
+			root = database.executeSQLQuery(connection, bf, null, true, new Database.ResultSetHandler<QueryInfo>()
+			{
+				public QueryInfo handle(final ResultSet resultSet) throws SQLException
+				{
+					QueryInfo root = null;
+					final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<QueryInfo>();
+
+					final ResultSetMetaData metaData = resultSet.getMetaData();
+					final int columnCount = metaData.getColumnCount();
+
+					while(resultSet.next())
+					{
+						final String operation = resultSet.getString(OPERATION);
+						final String options = resultSet.getString(OPTIONS);
+						final String objectName = resultSet.getString(OBJECT_NAME);
+						final int objectInstance = resultSet.getInt(OBJECT_INSTANCE);
+						final String objectType = resultSet.getString(OBJECT_TYPE);
+						final int id = resultSet.getInt(ID);
+						final Number parentID = (Number)resultSet.getObject(PARENT_ID);
+						
+						final StringBuffer bf = new StringBuffer(operation);
+
+						if(options!=null)
+							bf.append(" (").append(options).append(')');
+
+						if(objectName!=null)
+							bf.append(" on ").append(objectName);
+						
+						if(objectInstance!=0)
+							bf.append('[').append(objectInstance).append(']');
+
+						if(objectType!=null)
+							bf.append('[').append(objectType).append(']');
+						
+
+						for(int i = 1; i<=columnCount; i++)
+						{
+							final String columnName = metaData.getColumnName(i);
+							if(!skippedColumnNames.contains(columnName))
+							{
+								final Object value = resultSet.getObject(i);
+								if(value!=null)
+								{
+									bf.append(' ').
+										append(columnName.toLowerCase()).
+										append('=').
+										append(value.toString());
+								}
+							}
+						}
+
+						final QueryInfo info = new QueryInfo(bf.toString());
+						if(parentID==null)
+						{
+							if(root!=null)
+								throw new RuntimeException(String.valueOf(id));
+							root = info;
+						}
+						else
+						{
+							final QueryInfo parent = infos.get(parentID.intValue());
+							if(parent==null)
+								throw new RuntimeException();
+							parent.addChild(info);
+						}
+						infos.put(id, info);
+					}
+					return root;
+				}
+			});
 		}
 		if(root==null)
 			throw new RuntimeException();
@@ -310,76 +378,5 @@ final class OracleDialect extends Dialect
 		//root.print(System.out);
 		//System.out.println("######################");
 		return result;
-	}
-
-	private static class PlanResultSetHandler implements Database.ResultSetHandler<QueryInfo>
-	{
-		public QueryInfo handle(final ResultSet resultSet) throws SQLException
-		{
-			QueryInfo root = null;
-			final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<QueryInfo>();
-
-			final ResultSetMetaData metaData = resultSet.getMetaData();
-			final int columnCount = metaData.getColumnCount();
-
-			while(resultSet.next())
-			{
-				final String operation = resultSet.getString(OPERATION);
-				final String options = resultSet.getString(OPTIONS);
-				final String objectName = resultSet.getString(OBJECT_NAME);
-				final int objectInstance = resultSet.getInt(OBJECT_INSTANCE);
-				final String objectType = resultSet.getString(OBJECT_TYPE);
-				final int id = resultSet.getInt(ID);
-				final Number parentID = (Number)resultSet.getObject(PARENT_ID);
-				
-				final StringBuffer bf = new StringBuffer(operation);
-
-				if(options!=null)
-					bf.append(" (").append(options).append(')');
-
-				if(objectName!=null)
-					bf.append(" on ").append(objectName);
-				
-				if(objectInstance!=0)
-					bf.append('[').append(objectInstance).append(']');
-
-				if(objectType!=null)
-					bf.append('[').append(objectType).append(']');
-				
-
-				for(int i = 1; i<=columnCount; i++)
-				{
-					final String columnName = metaData.getColumnName(i);
-					if(!skippedColumnNames.contains(columnName))
-					{
-						final Object value = resultSet.getObject(i);
-						if(value!=null)
-						{
-							bf.append(' ').
-								append(columnName.toLowerCase()).
-								append('=').
-								append(value.toString());
-						}
-					}
-				}
-
-				final QueryInfo info = new QueryInfo(bf.toString());
-				if(parentID==null)
-				{
-					if(root!=null)
-						throw new RuntimeException(String.valueOf(id));
-					root = info;
-				}
-				else
-				{
-					final QueryInfo parent = infos.get(parentID.intValue());
-					if(parent==null)
-						throw new RuntimeException();
-					parent.addChild(info);
-				}
-				infos.put(id, info);
-			}
-			return root;
-		}
 	}
 }
