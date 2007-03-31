@@ -1625,8 +1625,10 @@ final class Database
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
-						info.setProperty(bodyPrefix + "rows", String.valueOf(executeSQLUpdate(con, bf, Integer.MIN_VALUE)));
-						info.setProperty(bodyPrefix + "elapsed", String.valueOf(System.currentTimeMillis()-start));
+						final int rows = executeSQLUpdate(con, bf, Integer.MIN_VALUE);
+						final long end = System.currentTimeMillis();
+						info.setProperty(bodyPrefix + "rows", String.valueOf(rows));
+						info.setProperty(bodyPrefix + "elapsed", String.valueOf(end-start));
 					}
 					notifyMigration(con, migration.version, info, date, hostname);
 				}
