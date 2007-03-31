@@ -89,7 +89,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( JoinFunctionTest.class );
 		suite.addTestSuite( HardJoinTest.class );
 		suite.addTestSuite( SchemaTest.class );
-		suite.addTestSuite( StatementInfoTest.class );
+		suite.addTestSuite( QueryInfoTest.class );
 		suite.addTestSuite( TransactionTest.class );
 		suite.addTestSuite( CacheIsolationTest.class );
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
