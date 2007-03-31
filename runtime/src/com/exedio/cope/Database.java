@@ -1342,16 +1342,14 @@ final class Database
 				throw new SQLException(NO_SUCH_ROW);
 			
 			final Object oLo = resultSet.getObject(1);
-			if(oLo!=null)
-			{
-				final int[] result = new int[2];
-				result[0] = convertSQLResult(oLo);
-				final Object oHi = resultSet.getObject(2);
-				result[1] = convertSQLResult(oHi);
-				return result;
-			}
-			else
+			if(oLo==null)
 				return null;
+
+			final int[] result = new int[2];
+			result[0] = convertSQLResult(oLo);
+			final Object oHi = resultSet.getObject(2);
+			result[1] = convertSQLResult(oHi);
+			return result;
 		}
 	}
 	
