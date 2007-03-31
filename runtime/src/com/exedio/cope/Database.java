@@ -922,20 +922,18 @@ final class Database
 				throw new SQLException(NO_SUCH_ROW);
 
 			final Object o = resultSet.getObject(1);
-			if(o!=null)
-			{
-				long value = ((Number)o).longValue();
-				final long factor = blobLengthFactor;
-				if(factor!=1)
-				{
-					if(value%factor!=0)
-						throw new RuntimeException("not dividable "+value+'/'+factor);
-					value /= factor;
-				}
-				return value;
-			}
-			else
+			if(o==null)
 				return -1l;
+
+			long value = ((Number)o).longValue();
+			final long factor = blobLengthFactor;
+			if(factor!=1)
+			{
+				if(value%factor!=0)
+					throw new RuntimeException("not dividable "+value+'/'+factor);
+				value /= factor;
+			}
+			return value;
 		}
 	}
 	
