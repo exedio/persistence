@@ -1637,19 +1637,18 @@ final class Database
 					
 					notifyMigration(con, migration.version, info, date, hostname);
 				}
-				final String mutexReleaseSql =
-						"delete from " + driver.protectName(Table.MIGRATION_TABLE_NAME) +
-						" where" + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + '=' + MIGRATION_MUTEX_VERSION;
-				try
-				{
-					stmt.executeUpdate(mutexReleaseSql);
-				}
-				catch(SQLException e)
-				{
-					throw new SQLRuntimeException(e, mutexReleaseSql);
-				}
 				stmt.close();
 				stmt = null;
+				{
+					final Statement bf = createStatement();
+					bf.append("delete from ").
+						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+						append(" where ").
+						append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
+						append('=').
+						appendParameter(MIGRATION_MUTEX_VERSION);
+					executeSQLUpdate(con, bf, 1);
+				}
 			}
 		}
 		catch(SQLException e)
