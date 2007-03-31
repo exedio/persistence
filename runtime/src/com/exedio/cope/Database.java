@@ -849,19 +849,16 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
-		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler();
-		return executeSQLQuery(connection, bf, null, false, handler);
-	}
-	
-	private final class LoadBlobResultSetHandler implements ResultSetHandler<byte[]>
-	{
-		public byte[] handle(final ResultSet resultSet) throws SQLException
+		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<byte[]>()
 		{
-			if(!resultSet.next())
-				throw new SQLException(NO_SUCH_ROW);
-			
-			return dialect.getBytes(resultSet, 1);
-		}
+			public byte[] handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+				
+				return dialect.getBytes(resultSet, 1);
+			}
+		});
 	}
 	
 	void load(final Connection connection, final BlobColumn column, final Item item, final OutputStream data, final DataField field)
@@ -910,31 +907,28 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 			
-		final LoadBlobLengthResultSetHandler handler = new LoadBlobLengthResultSetHandler();
-		return executeSQLQuery(connection, bf, null, false, handler);
-	}
-	
-	private final class LoadBlobLengthResultSetHandler implements ResultSetHandler<Long>
-	{
-		public Long handle(final ResultSet resultSet) throws SQLException
+		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			if(!resultSet.next())
-				throw new SQLException(NO_SUCH_ROW);
-
-			final Object o = resultSet.getObject(1);
-			if(o==null)
-				return -1l;
-
-			long result = ((Number)o).longValue();
-			final long factor = blobLengthFactor;
-			if(factor!=1)
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
-				if(result%factor!=0)
-					throw new RuntimeException("not dividable "+result+'/'+factor);
-				result /= factor;
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+	
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					return -1l;
+	
+				long result = ((Number)o).longValue();
+				final long factor = blobLengthFactor;
+				if(factor!=1)
+				{
+					if(result%factor!=0)
+						throw new RuntimeException("not dividable "+result+'/'+factor);
+					result /= factor;
+				}
+				return result;
 			}
-			return result;
-		}
+		});
 	}
 	
 	void store(
@@ -1291,21 +1285,17 @@ final class Database
 		bf.append("select count(*) from ").defineColumnInteger().
 			append(table.protectedID);
 
-		final CountResultSetHandler handler = new CountResultSetHandler();
-		return executeSQLQuery(connection, bf, null, false, handler);
-	}
-	
-	private static class CountResultSetHandler implements ResultSetHandler<Integer>
-	{
-		public Integer handle(final ResultSet resultSet) throws SQLException
+		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
-			if(!resultSet.next())
-				throw new SQLException(NO_SUCH_ROW);
-
-			return convertSQLResult(resultSet.getObject(1));
-		}
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+	
+				return convertSQLResult(resultSet.getObject(1));
+			}
+		});
 	}
-
 
 	PkSource makePkSource(final Table table)
 	{
@@ -1325,27 +1315,24 @@ final class Database
 			append(") from ").
 			append(table.protectedID);
 			
-		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-		return executeSQLQuery(connection, bf, null, false, handler);
-	}
-	
-	private static class NextPKResultSetHandler implements ResultSetHandler<int[]>
-	{
-		public int[] handle(final ResultSet resultSet) throws SQLException
+		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<int[]>()
 		{
-			if(!resultSet.next())
-				throw new SQLException(NO_SUCH_ROW);
-			
-			final Object oLo = resultSet.getObject(1);
-			if(oLo==null)
-				return null;
-
-			final int[] result = new int[2];
-			result[0] = convertSQLResult(oLo);
-			final Object oHi = resultSet.getObject(2);
-			result[1] = convertSQLResult(oHi);
-			return result;
-		}
+			public int[] handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new SQLException(NO_SUCH_ROW);
+				
+				final Object oLo = resultSet.getObject(1);
+				if(oLo==null)
+					return null;
+	
+				final int[] result = new int[2];
+				result[0] = convertSQLResult(oLo);
+				final Object oHi = resultSet.getObject(2);
+				result[1] = convertSQLResult(oHi);
+				return result;
+			}
+		});
 	}
 	
 	int checkTypeColumn(final Connection connection, final Type type)
@@ -1513,27 +1500,24 @@ final class Database
 			append(version).
 			append(">=0");
 		
-		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler();
-		return Collections.unmodifiableMap(executeSQLQuery(connection, bf, null, false, handler));
-	}
-	
-	private final class MigrationLogsResultSetHandler implements ResultSetHandler<HashMap<Integer, byte[]>>
-	{
-		public HashMap<Integer, byte[]> handle(final ResultSet resultSet) throws SQLException
+		return Collections.unmodifiableMap(executeSQLQuery(connection, bf, null, false, new ResultSetHandler<HashMap<Integer, byte[]>>()
 		{
-			final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
-
-			while(resultSet.next())
+			public HashMap<Integer, byte[]> handle(final ResultSet resultSet) throws SQLException
 			{
-				final int version = resultSet.getInt(1);
-				final byte[] info = dialect.getBytes(resultSet, 2);
-				final byte[] previous = result.put(version, info);
-				if(previous!=null)
-					throw new RuntimeException("duplicate version " + version);
+				final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
+	
+				while(resultSet.next())
+				{
+					final int version = resultSet.getInt(1);
+					final byte[] info = dialect.getBytes(resultSet, 2);
+					final byte[] previous = result.put(version, info);
+					if(previous!=null)
+						throw new RuntimeException("duplicate version " + version);
+				}
+				
+				return result;
 			}
-			
-			return result;
-		}
+		}));
 	}
 	
 	private void notifyMigration(final Connection connection, final int version, final java.util.Properties info, final Date date, final String hostname)
