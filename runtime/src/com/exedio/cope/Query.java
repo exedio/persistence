@@ -46,9 +46,6 @@ public final class Query<R>
 	int limitStart = 0;
 	int limitCount = UNLIMITED_COUNT;
 	
-	boolean makeInfo = false;
-	private QueryInfo info = null;
-	
 	public Query(final Selectable<? extends R> select)
 	{
 		this(select, (Condition)null);
@@ -287,76 +284,6 @@ public final class Query<R>
 	}
 	
 	/**
-	 * @deprecated Use {@link #enableMakeInfo()} instead
-	 */
-	@Deprecated
-	public void enableMakeStatementInfo()
-	{
-		enableMakeInfo();
-	}
-
-	public void enableMakeInfo()
-	{
-		makeInfo = true;
-	}
-	
-	/**
-	 * @deprecated Use {@link #getInfo()} instead
-	 */
-	@Deprecated
-	public QueryInfo getStatementInfo()
-	{
-		return getInfo();
-	}
-
-	public QueryInfo getInfo()
-	{
-		return info;
-	}
-	
-	/**
-	 * @deprecated Use {@link #clearInfo()} instead
-	 */
-	@Deprecated
-	public void clearStatementInfo()
-	{
-		clearInfo();
-	}
-
-	public void clearInfo()
-	{
-		info = null;
-	}
-	
-	void addInfo(final QueryInfo newInfo)
-	{
-		if(makeInfo != (newInfo!=null))
-			throw new RuntimeException(String.valueOf(makeInfo));
-		
-		if(newInfo!=null)
-		{
-			final String ROOT_FOR_MULTIPLE = "--- multiple statements ---";
-			final QueryInfo previousInfo = this.info;
-			if(previousInfo!=null)
-			{
-				if(ROOT_FOR_MULTIPLE.equals(previousInfo.text))
-				{
-					previousInfo.addChild(newInfo);
-				}
-				else
-				{
-					final QueryInfo rootForMultiple = new QueryInfo(ROOT_FOR_MULTIPLE);
-					rootForMultiple.addChild(previousInfo);
-					rootForMultiple.addChild(newInfo);
-					this.info = rootForMultiple;
-				}
-			}
-			else
-				this.info = newInfo;
-		}
-	}
-	
-	/**
 	 * Searches for items matching this query.
 	 * <p>
 	 * Returns an unmodifiable collection.
@@ -365,14 +292,17 @@ public final class Query<R>
 	 */
 	public List<R> search()
 	{
+		final Transaction transaction = model.getCurrentTransaction();
+		
 		if(limitCount==0)
 		{
-			if(makeInfo)
-				addInfo(new QueryInfo("skipped search because limitCount==0"));
+			final List<QueryInfo> queryInfos = transaction.queryInfos;
+			if(queryInfos!=null)
+				queryInfos.add(new QueryInfo("skipped search because limitCount==0"));
 			return Collections.<R>emptyList();
 		}
 		
-		return Collections.unmodifiableList(castQL(model.getCurrentTransaction().search(this, false)));
+		return Collections.unmodifiableList(castQL(transaction.search(this, false)));
 	}
 	
 	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
@@ -597,7 +527,7 @@ public final class Query<R>
 	
 	ArrayList<Object> searchUncached(final Transaction transaction, final boolean doCountOnly)
 	{
-		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly);
+		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly, transaction.queryInfos);
 	}
 	
 	static final class Key

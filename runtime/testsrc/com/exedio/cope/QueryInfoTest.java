@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Iterator;
+import java.util.List;
 
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 
@@ -28,10 +29,14 @@ public class QueryInfoTest extends TestmodelTest
 	
 	public void testExecutionPlan()
 	{
+		final Transaction transaction = model.getCurrentTransaction();
 		final Query query = ItemWithSingleUnique.TYPE.newQuery(ItemWithSingleUnique.uniqueString.equal("zack"));
-		query.enableMakeInfo();
+		transaction.setQueryInfoEnabled(true);
 		query.search();
-		final QueryInfo root = query.getInfo();
+		final List<QueryInfo> infos = transaction.getQueryInfos();
+		assertUnmodifiable(infos);
+		assertEquals(1, infos.size());
+		final QueryInfo root = infos.iterator().next();
 		assertUnmodifiable(root.getChilds());
 		//root.print(System.out);
 		
@@ -109,10 +114,10 @@ public class QueryInfoTest extends TestmodelTest
 		// test multiple queries
 		query.setOrderBy(ItemWithSingleUnique.uniqueString, true);
 		query.search();
-		final QueryInfo rootOrdered = query.getInfo();
+		final List<QueryInfo> rootOrdered = transaction.getQueryInfos();
 		//rootOrdered.print(System.out);
-		assertEquals("--- multiple statements ---", rootOrdered.getText());
-		final Iterator<QueryInfo> rootOrderedIterator = rootOrdered.getChilds().iterator();
+		assertUnmodifiable(rootOrdered);
+		final Iterator<QueryInfo> rootOrderedIterator = rootOrdered.iterator();
 		final QueryInfo ordered1 = rootOrderedIterator.next();
 		assertEquals(firstStatementText, ordered1.getText());
 		final QueryInfo ordered2 = rootOrderedIterator.next();
@@ -120,8 +125,8 @@ public class QueryInfoTest extends TestmodelTest
 		assertTrue(ordered2.getText(), ordered2.getText().startsWith("select "));
 		assertTrue(!rootOrderedIterator.hasNext());
 		
-		query.clearInfo();
-		assertNull(query.getInfo());
+		transaction.setQueryInfoEnabled(false);
+		assertNull(transaction.getQueryInfos());
 		
 		final String statement =
 			"select ItemWithSingleUnique.this " +
@@ -129,8 +134,12 @@ public class QueryInfoTest extends TestmodelTest
 			"where ItemWithSingleUnique.uniqueString='zack' " +
 			"order by ItemWithSingleUnique.uniqueString";
 		
+		transaction.setQueryInfoEnabled(true);
 		query.search();
-		final QueryInfo cached1 = query.getInfo();
+		final List<QueryInfo> cached1Infos = transaction.getQueryInfos();
+		assertUnmodifiable(cached1Infos);
+		assertEquals(1, cached1Infos.size());
+		final QueryInfo cached1 = cached1Infos.iterator().next();
 		if(model.getProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #1 for " + statement, cached1.getText());
@@ -141,11 +150,15 @@ public class QueryInfoTest extends TestmodelTest
 			assertTrue(cached1.getText(), cached1.getText().startsWith("select "));
 		}
 
-		query.clearInfo();
-		assertNull(query.getInfo());
+		transaction.setQueryInfoEnabled(false);
+		assertNull(transaction.getQueryInfos());
 		
+		transaction.setQueryInfoEnabled(true);
 		query.search();
-		final QueryInfo cached2 = query.getInfo();
+		final List<QueryInfo> cached2Infos = transaction.getQueryInfos();
+		assertUnmodifiable(cached2Infos);
+		assertEquals(1, cached2Infos.size());
+		final QueryInfo cached2 = cached2Infos.iterator().next();
 		if(model.getProperties().getQueryCacheLimit()>0)
 		{
 			assertEquals("query cache hit #2 for " + statement, cached2.getText());
@@ -155,6 +168,11 @@ public class QueryInfoTest extends TestmodelTest
 		{
 			assertTrue(cached1.getText(), cached1.getText().startsWith("select "));
 		}
+
+		transaction.setQueryInfoEnabled(false);
+		assertNull(transaction.getQueryInfos());
+
+		query.search();
+		assertNull(transaction.getQueryInfos());
 	}
-	
 }

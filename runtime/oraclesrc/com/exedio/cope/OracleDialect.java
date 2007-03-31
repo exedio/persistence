@@ -297,7 +297,7 @@ final class OracleDialect extends Dialect
 				append(" order by "+ID);
 
 			final PlanResultSetHandler handler = new PlanResultSetHandler();
-			database.executeSQLQuery(connection, bf, false, true, handler);
+			database.executeSQLQuery(connection, bf, null, true, handler);
 			root = handler.root;
 		}
 		if(root==null)

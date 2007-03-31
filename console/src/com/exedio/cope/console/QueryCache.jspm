@@ -73,7 +73,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			<b>Values not accurate:</b>
 			Property <tt><%=Properties.CACHE_QUERY_HISTOGRAM%></tt> is not enabled.
 			Therefore the column <b>Hits</b> counts queries only,
-			for which <tt>Query#enableMakeInfo()</tt> has been set.
+			for which <tt>Transaction#setQueryInfoEnabled(true)</tt> has been set.
 		</div><%
 		}
 		else

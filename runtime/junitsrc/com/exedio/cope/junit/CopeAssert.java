@@ -33,6 +33,7 @@ import junit.framework.TestCase;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;
+import com.exedio.cope.Transaction;
 
 public abstract class CopeAssert extends TestCase
 {
@@ -237,15 +238,14 @@ public abstract class CopeAssert extends TestCase
 	 */
 	public static final Collection infoSearch(final Query query)
 	{
-		query.enableMakeInfo();
+		final Transaction transaction = query.getType().getModel().getCurrentTransaction();
+		transaction.setQueryInfoEnabled(true);
 		final Collection result = query.search();
 		System.out.println("INFO-------------------");
-		final QueryInfo info = query.getInfo();
-		if(info==null)
-			System.out.println("NONE !!");
-		else
+		final List<QueryInfo> infos = transaction.getQueryInfos();
+		transaction.setQueryInfoEnabled(false);
+		for(final QueryInfo info : infos)
 			info.print(System.out);
 		return result;
 	}
-
 }

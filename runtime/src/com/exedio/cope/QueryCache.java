@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.util.CacheQueryInfo;
@@ -67,7 +68,8 @@ final class QueryCache
 		}
 		else
 		{
-			if(histogram || query.makeInfo)
+			final List<QueryInfo> queryInfos = transaction.queryInfos;
+			if(histogram || queryInfos!=null)
 			{
 				final Query.Key originalKey;
 				synchronized(map)
@@ -77,8 +79,8 @@ final class QueryCache
 				if(originalKey!=null)
 					originalKey.hits++;
 				
-				if(query.makeInfo)
-					query.addInfo(new QueryInfo("query cache hit #" + originalKey.hits + " for " + originalKey.getText()));
+				if(queryInfos!=null)
+					queryInfos.add(new QueryInfo("query cache hit #" + originalKey.hits + " for " + originalKey.getText()));
 			}
 			hits++;
 		}

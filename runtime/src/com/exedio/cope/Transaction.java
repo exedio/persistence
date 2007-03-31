@@ -46,6 +46,7 @@ public final class Transaction
 	final TIntObjectHashMap<Entity>[] entityMaps;
 	final TIntHashSet[] invalidations;
 	private Thread boundThread = null;
+	ArrayList<QueryInfo> queryInfos = null;
 	
 	Transaction(final Model model, final int concreteTypeCount, final String name)
 	{
@@ -372,10 +373,20 @@ public final class Transaction
 		}
 	}
 	
+	public void setQueryInfoEnabled(final boolean enabled)
+	{
+		this.queryInfos = enabled ? new ArrayList<QueryInfo>() : null;
+	}
+	
+	public List<QueryInfo> getQueryInfos()
+	{
+		final ArrayList<QueryInfo> queryInfos = this.queryInfos;
+		return queryInfos!=null ? Collections.unmodifiableList(queryInfos) : null;
+	}
+	
 	@Override
 	public String toString()
 	{
 		return "CT." + getID() + (closed?"(closed)":"");
 	}
-
 }

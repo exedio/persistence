@@ -246,7 +246,7 @@ final class Database
 			}
 			
 			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
-			executeSQLQuery(connection, bf, false, false,
+			executeSQLQuery(connection, bf, null, false,
 				new ResultSetHandler()
 				{
 					public void handle(final ResultSet resultSet) throws SQLException
@@ -303,7 +303,7 @@ final class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly)
+	ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly, final ArrayList<QueryInfo> queryInfos)
 	{
 		buildStage = false;
 
@@ -523,7 +523,7 @@ final class Database
 		
 		//System.out.println(bf.toString());
 
-		query.addInfo(executeSQLQuery(connection, bf, query.makeInfo, false, new ResultSetHandler()
+		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler()
 			{
 				public void handle(final ResultSet resultSet) throws SQLException
 				{
@@ -621,7 +621,7 @@ final class Database
 					}
 				}
 			}
-		));
+		);
 
 		return result;
 	}
@@ -686,7 +686,7 @@ final class Database
 		}
 			
 		//System.out.println(bf.toString());
-		executeSQLQuery(connection, bf, false, false, state);
+		executeSQLQuery(connection, bf, null, false, state);
 	}
 
 	void store(
@@ -846,7 +846,7 @@ final class Database
 			appendTypeCheck(table, item.type);
 			
 		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return handler.result;
 	}
 	
@@ -879,7 +879,7 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 		
-		executeSQLQuery(connection, bf, false, false, new ResultSetHandler(){
+		executeSQLQuery(connection, bf, null, false, new ResultSetHandler(){
 			
 			public void handle(final ResultSet resultSet) throws SQLException
 			{
@@ -908,7 +908,7 @@ final class Database
 			appendTypeCheck(table, item.type);
 			
 		final LoadBlobLengthResultSetHandler handler = new LoadBlobLengthResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return handler.result;
 	}
 	
@@ -986,10 +986,10 @@ final class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	protected QueryInfo executeSQLQuery(
+	protected void executeSQLQuery(
 		final Connection connection,
 		final Statement statement,
-		final boolean makeQueryInfo,
+		final ArrayList<QueryInfo> queryInfos,
 		final boolean explain,
 		final ResultSetHandler resultSetHandler)
 	{
@@ -998,7 +998,7 @@ final class Database
 		try
 		{
 			final DatabaseLogConfig log = this.log;
-			final boolean takeTimes = !explain && (log!=null || this.logQueryInfo || makeQueryInfo);
+			final boolean takeTimes = !explain && (log!=null || this.logQueryInfo || (queryInfos!=null));
 			final String sqlText = statement.getText();
 			final long timeStart = takeTimes ? System.currentTimeMillis() : 0;
 			final long timePrepared;
@@ -1044,7 +1044,7 @@ final class Database
 			}
 
 			if(explain)
-				return null;
+				return;
 
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
@@ -1052,14 +1052,15 @@ final class Database
 				log.log(statement, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd);
 			
 			final QueryInfo queryInfo =
-				(this.logQueryInfo || makeQueryInfo)
+				(this.logQueryInfo || (queryInfos!=null))
 				? makeQueryInfo(statement, connection, timeStart, timePrepared, timeExecuted, timeResultRead, timeEnd)
 				: null;
 			
 			if(this.logQueryInfo)
 				queryInfo.print(System.out);
 			
-			return makeQueryInfo ? queryInfo : null;
+			if(queryInfos!=null)
+				queryInfos.add(queryInfo);
 		}
 		catch(SQLException e)
 		{
@@ -1293,7 +1294,7 @@ final class Database
 			append(table.protectedID);
 
 		final CountResultSetHandler handler = new CountResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return handler.result;
 	}
 	
@@ -1330,7 +1331,7 @@ final class Database
 			append(table.protectedID);
 			
 		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return handler.result;
 	}
 	
@@ -1378,7 +1379,7 @@ final class Database
 		//System.out.println("CHECKT:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return handler.result;
 	}
 	
@@ -1408,7 +1409,7 @@ final class Database
 		//System.out.println("CHECKA:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return handler.result;
 	}
 	
@@ -1483,7 +1484,7 @@ final class Database
 			append(">=0");
 			
 		final ActualMigrationVersionResultSetHandler handler = new ActualMigrationVersionResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return handler.result;
 	}
 	
@@ -1539,7 +1540,7 @@ final class Database
 			append(">=0");
 		
 		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler();
-		executeSQLQuery(connection, bf, false, false, handler);
+		executeSQLQuery(connection, bf, null, false, handler);
 		return Collections.unmodifiableMap(handler.result);
 	}
 	

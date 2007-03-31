@@ -266,8 +266,8 @@ final class TypeCop_Jspm
 			</table>
 
 			<%
-			final QueryInfo info = cop.getQueryInfo();
-			if(info!=null)
+			final List<QueryInfo> infos = cop.getQueryInfos();
+			for(final QueryInfo info : infos)
 			{
 				%><ul style="background-color:#ccc">
 				<li><%

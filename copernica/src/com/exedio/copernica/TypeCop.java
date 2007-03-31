@@ -28,6 +28,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Function;
 import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 
 final class TypeCop extends CopernicaCop
@@ -39,7 +40,7 @@ final class TypeCop extends CopernicaCop
 	final int limitCount;
 
 	private Query.Result queryResult = null;
-	private QueryInfo queryInfo;
+	private List<QueryInfo> queryInfos;
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
@@ -161,10 +162,10 @@ final class TypeCop extends CopernicaCop
 		return queryResult.getCountWithoutLimit();
 	}
 
-	final QueryInfo getQueryInfo()
+	final List<QueryInfo> getQueryInfos()
 	{
 		computeItems();
-		return queryInfo;
+		return queryInfos;
 	}
 
 	private final void computeItems()
@@ -178,10 +179,14 @@ final class TypeCop extends CopernicaCop
 		else
 			query.setOrderByThis(true);
 		query.setLimit(limitStart, limitCount);
-		query.enableMakeInfo();
 		
+		final Transaction transaction = type.getModel().getCurrentTransaction();
+		transaction.setQueryInfoEnabled(true);
+
 		queryResult = query.searchAndCountWithoutLimit();
-		queryInfo = query.getInfo();
+		
+		queryInfos = transaction.getQueryInfos();
+		transaction.setQueryInfoEnabled(false);
 	}
 	
 	@Override
