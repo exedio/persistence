@@ -1479,17 +1479,7 @@ final class Database
 			append(version).
 			append(">=0");
 			
-		final ActualMigrationVersionResultSetHandler handler = new ActualMigrationVersionResultSetHandler();
-		return executeSQLQuery(connection, bf, null, false, handler);
-	}
-	
-	private static class ActualMigrationVersionResultSetHandler implements ResultSetHandler<Integer>
-	{
-		public Integer handle(final ResultSet resultSet) throws SQLException
-		{
-			resultSet.next();
-			return resultSet.getInt(1);
-		}
+		return executeSQLQuery(connection, bf, null, false, new CheckTypeColumnResultSetHandler());
 	}
 	
 	Map<Integer, byte[]> getMigrationLogs()
