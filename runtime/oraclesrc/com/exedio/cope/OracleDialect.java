@@ -257,7 +257,6 @@ final class OracleDialect extends Dialect
 		}
 		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(Math.abs(statementIDNumber));
 		
-		final QueryInfo root;
 		{
 			final Statement bf = database.createStatement();
 			bf.append("explain plan set "+STATEMENT_ID+"='").
@@ -290,6 +289,7 @@ final class OracleDialect extends Dialect
 				}
 			}
 		}
+		final QueryInfo root;
 		{
 			final Statement bf = database.createStatement();
 			bf.append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
@@ -297,8 +297,7 @@ final class OracleDialect extends Dialect
 				append(" order by "+ID);
 
 			final PlanResultSetHandler handler = new PlanResultSetHandler();
-			database.executeSQLQuery(connection, bf, null, true, handler);
-			root = handler.root;
+			root = database.executeSQLQuery(connection, bf, null, true, handler);
 		}
 		if(root==null)
 			throw new RuntimeException();
@@ -313,12 +312,11 @@ final class OracleDialect extends Dialect
 		return result;
 	}
 
-	private static class PlanResultSetHandler implements Database.ResultSetHandler
+	private static class PlanResultSetHandler implements Database.ResultSetHandler<QueryInfo>
 	{
-		QueryInfo root;
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public QueryInfo handle(final ResultSet resultSet) throws SQLException
 		{
+			QueryInfo root = null;
 			final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<QueryInfo>();
 
 			final ResultSetMetaData metaData = resultSet.getMetaData();
@@ -381,7 +379,7 @@ final class OracleDialect extends Dialect
 				}
 				infos.put(id, info);
 			}
+			return root;
 		}
-		
 	}
 }

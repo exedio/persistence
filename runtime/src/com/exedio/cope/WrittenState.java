@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-final class WrittenState extends State implements Database.ResultSetHandler
+final class WrittenState extends State implements Database.ResultSetHandler<Void>
 {
 	
 	private final Row row;
@@ -93,7 +93,7 @@ final class WrittenState extends State implements Database.ResultSetHandler
 	}
 	
 	// implementation of ResultSetHandler
-	public void handle(final ResultSet resultSet) throws SQLException
+	public Void handle(final ResultSet resultSet) throws SQLException
 	{
 		if(!resultSet.next())
 			throw new NoSuchItemException(item);
@@ -109,6 +109,8 @@ final class WrittenState extends State implements Database.ResultSetHandler
 				}
 			}
 		}
+		
+		return null;
 	}
 	
 	void notifyUsed()

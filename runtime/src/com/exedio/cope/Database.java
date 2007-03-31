@@ -247,12 +247,14 @@ final class Database
 			
 			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
 			executeSQLQuery(connection, bf, null, false,
-				new ResultSetHandler()
+				new ResultSetHandler<Void>()
 				{
-					public void handle(final ResultSet resultSet) throws SQLException
+					public Void handle(final ResultSet resultSet) throws SQLException
 					{
 						if(!resultSet.next())
 							throw new SQLException(NO_SUCH_ROW);
+						
+						return null;
 					}
 				}
 			);
@@ -523,9 +525,9 @@ final class Database
 		
 		//System.out.println(bf.toString());
 
-		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler()
+		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
 			{
-				public void handle(final ResultSet resultSet) throws SQLException
+				public Void handle(final ResultSet resultSet) throws SQLException
 				{
 					if(doCountOnly)
 					{
@@ -533,7 +535,7 @@ final class Database
 						result.add(Integer.valueOf(resultSet.getInt(1)));
 						if(resultSet.next())
 							throw new RuntimeException();
-						return;
+						return null;
 					}
 					
 					if(limitStart>0 && limitSupport==Dialect.LimitSupport.NONE)
@@ -619,6 +621,8 @@ final class Database
 						if(resultRow!=null)
 							result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
 					}
+					
+					return null;
 				}
 			}
 		);
@@ -846,20 +850,17 @@ final class Database
 			appendTypeCheck(table, item.type);
 			
 		final LoadBlobResultSetHandler handler = new LoadBlobResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return handler.result;
+		return executeSQLQuery(connection, bf, null, false, handler);
 	}
 	
-	private final class LoadBlobResultSetHandler implements ResultSetHandler
+	private final class LoadBlobResultSetHandler implements ResultSetHandler<byte[]>
 	{
-		byte[] result;
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public byte[] handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
 			
-			result = dialect.getBytes(resultSet, 1);
+			return dialect.getBytes(resultSet, 1);
 		}
 	}
 	
@@ -879,14 +880,16 @@ final class Database
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 		
-		executeSQLQuery(connection, bf, null, false, new ResultSetHandler(){
+		executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Void>(){
 			
-			public void handle(final ResultSet resultSet) throws SQLException
+			public Void handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 				
 				dialect.fetchBlob(resultSet, 1, item, data, field);
+				
+				return null;
 			}
 		});
 	}
@@ -908,15 +911,12 @@ final class Database
 			appendTypeCheck(table, item.type);
 			
 		final LoadBlobLengthResultSetHandler handler = new LoadBlobLengthResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return handler.result;
+		return executeSQLQuery(connection, bf, null, false, handler);
 	}
 	
-	private final class LoadBlobLengthResultSetHandler implements ResultSetHandler
+	private final class LoadBlobLengthResultSetHandler implements ResultSetHandler<Long>
 	{
-		long result;
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public Long handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
@@ -932,10 +932,10 @@ final class Database
 						throw new RuntimeException("not dividable "+value+'/'+factor);
 					value /= factor;
 				}
-				result = value;
+				return value;
 			}
 			else
-				result = -1;
+				return -1l;
 		}
 	}
 	
@@ -969,9 +969,9 @@ final class Database
 		executeSQLUpdate(connection, bf, 1);
 	}
 	
-	static interface ResultSetHandler
+	static interface ResultSetHandler<R>
 	{
-		public void handle(ResultSet resultSet) throws SQLException;
+		public R handle(ResultSet resultSet) throws SQLException;
 	}
 
 	private static int convertSQLResult(final Object sqlInteger)
@@ -986,12 +986,12 @@ final class Database
 
 	//private static int timeExecuteQuery = 0;
 
-	protected void executeSQLQuery(
+	protected <X> X executeSQLQuery(
 		final Connection connection,
 		final Statement statement,
 		final ArrayList<QueryInfo> queryInfos,
 		final boolean explain,
-		final ResultSetHandler resultSetHandler)
+		final ResultSetHandler<X> resultSetHandler)
 	{
 		java.sql.Statement sqlStatement = null;
 		ResultSet resultSet = null;
@@ -1004,6 +1004,7 @@ final class Database
 			final long timePrepared;
 			final long timeExecuted;
 			
+			final X result;
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
@@ -1013,7 +1014,7 @@ final class Database
 				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
 				timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
-				resultSetHandler.handle(resultSet);
+				result = resultSetHandler.handle(resultSet);
 			}
 			else
 			{
@@ -1028,7 +1029,7 @@ final class Database
 				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
 				timeExecuted = takeTimes ? System.currentTimeMillis() : 0;
-				resultSetHandler.handle(resultSet);
+				result = resultSetHandler.handle(resultSet);
 			}
 			final long timeResultRead = takeTimes ? System.currentTimeMillis() : 0;
 			
@@ -1044,7 +1045,7 @@ final class Database
 			}
 
 			if(explain)
-				return;
+				return result;
 
 			final long timeEnd = takeTimes ? System.currentTimeMillis() : 0;
 			
@@ -1061,6 +1062,8 @@ final class Database
 			
 			if(queryInfos!=null)
 				queryInfos.add(queryInfo);
+			
+			return result;
 		}
 		catch(SQLException e)
 		{
@@ -1294,20 +1297,17 @@ final class Database
 			append(table.protectedID);
 
 		final CountResultSetHandler handler = new CountResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return handler.result;
+		return executeSQLQuery(connection, bf, null, false, handler);
 	}
 	
-	private static class CountResultSetHandler implements ResultSetHandler
+	private static class CountResultSetHandler implements ResultSetHandler<Integer>
 	{
-		int result;
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public Integer handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
 
-			result = convertSQLResult(resultSet.getObject(1));
+			return convertSQLResult(resultSet.getObject(1));
 		}
 	}
 
@@ -1331,15 +1331,12 @@ final class Database
 			append(table.protectedID);
 			
 		final NextPKResultSetHandler handler = new NextPKResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return handler.result;
+		return executeSQLQuery(connection, bf, null, false, handler);
 	}
 	
-	private static class NextPKResultSetHandler implements ResultSetHandler
+	private static class NextPKResultSetHandler implements ResultSetHandler<int[]>
 	{
-		int[] result;
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public int[] handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
@@ -1347,11 +1344,14 @@ final class Database
 			final Object oLo = resultSet.getObject(1);
 			if(oLo!=null)
 			{
-				result = new int[2];
+				final int[] result = new int[2];
 				result[0] = convertSQLResult(oLo);
 				final Object oHi = resultSet.getObject(2);
 				result[1] = convertSQLResult(oHi);
+				return result;
 			}
+			else
+				return null;
 		}
 	}
 	
@@ -1379,8 +1379,7 @@ final class Database
 		//System.out.println("CHECKT:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return handler.result;
+		return executeSQLQuery(connection, bf, null, false, handler);
 	}
 	
 	int checkTypeColumn(final Connection connection, final ItemField field)
@@ -1409,20 +1408,17 @@ final class Database
 		//System.out.println("CHECKA:"+bf.toString());
 		
 		final CheckTypeColumnResultSetHandler handler = new CheckTypeColumnResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return handler.result;
+		return executeSQLQuery(connection, bf, null, false, handler);
 	}
 	
-	private static class CheckTypeColumnResultSetHandler implements ResultSetHandler
+	private static class CheckTypeColumnResultSetHandler implements ResultSetHandler<Integer>
 	{
-		int result = Integer.MIN_VALUE;
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public Integer handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
 			
-			result = resultSet.getInt(1);
+			return resultSet.getInt(1);
 		}
 	}
 	
@@ -1484,18 +1480,15 @@ final class Database
 			append(">=0");
 			
 		final ActualMigrationVersionResultSetHandler handler = new ActualMigrationVersionResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return handler.result;
+		return executeSQLQuery(connection, bf, null, false, handler);
 	}
 	
-	private static class ActualMigrationVersionResultSetHandler implements ResultSetHandler
+	private static class ActualMigrationVersionResultSetHandler implements ResultSetHandler<Integer>
 	{
-		int result = -1;
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public Integer handle(final ResultSet resultSet) throws SQLException
 		{
 			resultSet.next();
-			result = resultSet.getInt(1);
+			return resultSet.getInt(1);
 		}
 	}
 	
@@ -1540,16 +1533,15 @@ final class Database
 			append(">=0");
 		
 		final MigrationLogsResultSetHandler handler = new MigrationLogsResultSetHandler();
-		executeSQLQuery(connection, bf, null, false, handler);
-		return Collections.unmodifiableMap(handler.result);
+		return Collections.unmodifiableMap(executeSQLQuery(connection, bf, null, false, handler));
 	}
 	
-	private final class MigrationLogsResultSetHandler implements ResultSetHandler
+	private final class MigrationLogsResultSetHandler implements ResultSetHandler<HashMap<Integer, byte[]>>
 	{
-		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
-
-		public void handle(final ResultSet resultSet) throws SQLException
+		public HashMap<Integer, byte[]> handle(final ResultSet resultSet) throws SQLException
 		{
+			final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
+
 			while(resultSet.next())
 			{
 				final int version = resultSet.getInt(1);
@@ -1558,6 +1550,8 @@ final class Database
 				if(previous!=null)
 					throw new RuntimeException("duplicate version " + version);
 			}
+			
+			return result;
 		}
 	}
 	
@@ -1761,9 +1755,9 @@ final class Database
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated // OK: for debugging
-	private static final ResultSetHandler logHandler = new ResultSetHandler()
+	private static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
 	{
-		public void handle(final ResultSet resultSet) throws SQLException
+		public Void handle(final ResultSet resultSet) throws SQLException
 		{
 			final int columnCount = resultSet.getMetaData().getColumnCount();
 			System.out.println("columnCount:"+columnCount);
@@ -1779,6 +1773,7 @@ final class Database
 					System.out.println(resultSet.getObject(i)+"|");
 				}
 			}
+			return null;
 		}
 	};
 	

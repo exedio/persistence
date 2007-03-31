@@ -196,8 +196,8 @@ final class MysqlDialect extends Dialect
 				append(statementText).
 				appendParameters(statement);
 
-			database.executeSQLQuery(connection, bf, null, true, new Database.ResultSetHandler(){
-				public void handle(final ResultSet resultSet) throws SQLException
+			database.executeSQLQuery(connection, bf, null, true, new Database.ResultSetHandler<Void>(){
+				public Void handle(final ResultSet resultSet) throws SQLException
 				{
 					final ResultSetMetaData metaData = resultSet.getMetaData();
 					final int columnCount = metaData.getColumnCount();
@@ -221,8 +221,8 @@ final class MysqlDialect extends Dialect
 						}
 						root.addChild(new QueryInfo(bf.toString()));
 					}
+					return null;
 				}
-				
 			});
 		}
 		
