@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
@@ -156,7 +155,7 @@ final class Database
 				con.setAutoCommit(true);
 				final java.util.Properties info = new java.util.Properties();
 				info.setProperty("create", Boolean.TRUE.toString());
-				notifyMigration(con, migrationVersion, info, new Date(), getHostname());
+				insertMigration(con, migrationVersion, info, new Date(), getHostname());
 			}
 			catch(SQLException e)
 			{
@@ -1519,7 +1518,7 @@ final class Database
 		return Collections.unmodifiableMap(result);
 	}
 	
-	private void notifyMigration(final Connection connection, final int version, final java.util.Properties info, final Date date, final String hostname)
+	private void insertMigration(final Connection connection, final int version, final java.util.Properties info, final Date date, final String hostname)
 	{
 		assert migrationSupported;
 		
@@ -1584,19 +1583,9 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					final Statement bf = createStatement();
-					bf.append("insert into ").
-						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
-						append('(').
-						append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
-						append(',').
-						append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).
-						append(")values(").
-						appendParameter(MIGRATION_MUTEX_VERSION).
-						append(',').
-						appendParameterBlob((new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date) + '/' + hostname + ":migration mutex").getBytes("latin1")).
-						append(')');
-					executeSQLUpdate(con, bf, 1);
+					final java.util.Properties info = new java.util.Properties();
+					info.setProperty("mutex", Boolean.TRUE.toString());
+					insertMigration(con, MIGRATION_MUTEX_VERSION, info, date, hostname);
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1604,10 +1593,6 @@ final class Database
 							"Migration mutex set: " +
 							"Either a migration is currently underway, " +
 							"or a migration has failed unexpectedly.", e);
-				}
-				catch(UnsupportedEncodingException e)
-				{
-					throw new RuntimeException(e);
 				}
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
@@ -1630,7 +1615,7 @@ final class Database
 						info.setProperty(bodyPrefix + "rows", String.valueOf(rows));
 						info.setProperty(bodyPrefix + "elapsed", String.valueOf(end-start));
 					}
-					notifyMigration(con, migration.version, info, date, hostname);
+					insertMigration(con, migration.version, info, date, hostname);
 				}
 				{
 					final Statement bf = createStatement();
