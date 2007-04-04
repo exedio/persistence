@@ -1400,7 +1400,6 @@ final class Database
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
 	private static final int    MIGRATION_MUTEX_VERSION = -1;
 	private static final String MIGRATION_COLUMN_INFO_NAME = "i";
-	private static final String MIGRATION_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss.SSS";
 	
 	Schema makeSchema()
 	{
@@ -1522,7 +1521,7 @@ final class Database
 	{
 		assert migrationSupported;
 		
-		info.setProperty("date", new SimpleDateFormat(MIGRATION_DATE_FORMAT).format(date));
+		info.setProperty("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date));
 		if(hostname!=null)
 			info.setProperty("hostname", hostname);
 		dialectParameters.setVersions(info);
