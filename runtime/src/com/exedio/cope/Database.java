@@ -1585,6 +1585,8 @@ final class Database
 				{
 					final java.util.Properties info = new java.util.Properties();
 					info.setProperty("mutex", Boolean.TRUE.toString());
+					info.setProperty("mutex.actual", String.valueOf(actualVersion));
+					info.setProperty("mutex.expected", String.valueOf(expectedVersion));
 					insertMigration(con, MIGRATION_MUTEX_VERSION, info, date, hostname);
 				}
 				catch(SQLRuntimeException e)
