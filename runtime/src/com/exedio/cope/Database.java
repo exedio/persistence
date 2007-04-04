@@ -1561,7 +1561,14 @@ final class Database
 		try
 		{
 			con = connectionPool.get();
-			con.setAutoCommit(true);
+			try
+			{
+				con.setAutoCommit(true);
+			}
+			catch(SQLException e)
+			{
+				throw new SQLRuntimeException(e, "setAutoCommit");
+			}
 			
 			final int actualVersion = getActualMigrationVersion(con);
 			
@@ -1629,10 +1636,6 @@ final class Database
 					executeSQLUpdate(con, bf, 1);
 				}
 			}
-		}
-		catch(SQLException e)
-		{
-			throw new SQLRuntimeException(e, "migrate");
 		}
 		finally
 		{
