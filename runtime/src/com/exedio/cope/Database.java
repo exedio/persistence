@@ -1398,7 +1398,6 @@ final class Database
 	}
 	
 	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
-	private static final int    MIGRATION_MUTEX_VERSION = -1;
 	private static final String MIGRATION_COLUMN_INFO_NAME = "i";
 	
 	Schema makeSchema()
@@ -1572,6 +1571,7 @@ final class Database
 			}
 			else if(actualVersion<expectedVersion)
 			{
+				final int MIGRATION_MUTEX_VERSION = -1;
 				final int startMigrationIndex = expectedVersion - actualVersion - 1;
 				if(startMigrationIndex>=migrations.length)
 					throw new IllegalArgumentException(
