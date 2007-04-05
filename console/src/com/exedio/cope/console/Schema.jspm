@@ -182,10 +182,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 	}
 	if(table.exists())
 	{
-		{
 			%>,
 		<span id="tableDrop<%=tableName%>" style="display:none;"><input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
-		}
 	}
 	else if(table.required())
 	{
@@ -255,10 +253,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			}
 			if(column.exists())
 			{
-				{
 					%>,
 				<span id="columnDrop<%=tableName%>#<%=columnName%>" style="display:none;"><input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
-				}
 			}
 			else if(column.required() &&
 						column.getTable().exists() )
@@ -289,10 +285,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			final String constraintError = constraint.getError();
 			if(constraintError!=null)
 			{
-				{
 				%>
 				<span class="<%=constraint.getParticularColor()%>"><%=constraintError%></span><%
-				}
 			}
 			if(constraint.exists())
 			{
