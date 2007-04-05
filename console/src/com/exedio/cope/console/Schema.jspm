@@ -188,11 +188,11 @@ final class Schema_Jspm extends Console_Jspm
 					%>,
 					<input type="checkbox" name="CREATE_TABLE" value="<%=tableName%>"/>create<%
 					}
-				
-					final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
-			
+					
 					%>
 					<ul id="tabBdy<%=tableCount%>" style="display:none;"><%
+					
+					final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 					if(lastAnalyzed!=null)
 					{
 						final Date date = lastAnalyzed.getDate();
