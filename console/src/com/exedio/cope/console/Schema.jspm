@@ -76,6 +76,10 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
 			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
 			<input type="submit" name="CHECK_UNSUPPORTED_CONSTRAINTS" value="check unsupported"/>
+			<br>
+			supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
+			<br>
+			supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
 			<hr>
 			<h4>Details</h4>
 			<%
@@ -151,10 +155,6 @@ check all:
 <br>
 <span class="<%=schemaColor%>">Schema</span>
 <input type="submit" name="APPLY" value="apply"/>
-<br>
-supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
-<br>
-supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
 <ul class="<%=schemaColor%>"><%
 
 int tableCount = 1;
