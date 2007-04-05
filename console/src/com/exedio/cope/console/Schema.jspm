@@ -144,168 +144,168 @@ final class Schema_Jspm extends Console_Jspm
 				}
 			}
 
-		final Schema schema = model.getVerifiedSchema();
-		final String schemaColor = schema.getCumulativeColor().toString();
+			final Schema schema = model.getVerifiedSchema();
+			final String schemaColor = schema.getCumulativeColor().toString();
 
-%>
-check all:
-<input type="button" value="analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
-<input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
-<input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
-<br>
-<span class="<%=schemaColor%>">Schema</span>
-<input type="submit" name="APPLY" value="apply"/>
-<ul class="<%=schemaColor%>"><%
-
-int tableCount = 1;
-for(final Table table : schema.getTables())
-{
-	final String tableName = table.getName();
-	%>
-	<li class="<%=table.getCumulativeColor()%>"><%
-	%><img id="tableSwitch<%=tableName%>" class="check" onClick="toggleTable(&quot;<%=tableName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> <%
-	
-	%><small>tab<%=tableCount++%></small> <%
-	%><%=tableName%><%
-	if(table.exists())
-	{
-		%>
-		<input id="tableRename<%=tableName%>" style="display:none;" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
-	}
-	
-	final String tableError = table.getError();
-	if(tableError!=null)
-	{
-		%> <span class="<%=table.getParticularColor()
-										%>"><%=tableError%></span><%
-	}
-	if(table.exists())
-	{
-			%>,
-		<span id="tableDrop<%=tableName%>" style="display:none;"><input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
-	}
-	else if(table.required())
-	{
-		%>,
-		<input type="checkbox" name="CREATE_TABLE" value="<%=tableName%>"/>create<%
-	}
-	
-	final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
-
-	%>
-		<ul id="tableBody<%=tableName%>" style="display:none;"><%
-		if(lastAnalyzed!=null)
-		{
-			final Date date = lastAnalyzed.getDate();
-			final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
 			%>
-			<li class="<%=lastAnalyzed.getCumulativeColor()%>">
-				last analyzed: <%=lastAnalyzedString%>
-				<input type="checkbox" name="ANALYZE_TABLE" value="<%=tableName%>"/>analyze
-			</li><%
-		}
-		
-		final String options = table.getOptions();
-		if(options!=null)
-		{
-			%>
-			<li class="<%=Schema.Color.OK%>">
-				options: <pre><%=options%></pre>
-			</li><%
-		}
-		
-		int columnCount = 1;
-		for(final Column column : table.getColumns())
-		{
-			final String columnName = column.getName();
-			%>
-			<li class="<%=column.getCumulativeColor()%>">
-				<img id="columnSwitch<%=tableName%>#<%=columnName%>" class="check" onClick="toggleColumn(&quot;<%=tableName%>#<%=columnName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-				<small>col<%=columnCount++%></small> <%=columnName%><%
+			check all:
+			<input type="button" value="analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
+			<input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
+			<input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
+			<br>
+			<span class="<%=schemaColor%>">Schema</span>
+			<input type="submit" name="APPLY" value="apply"/>
+			<ul class="<%=schemaColor%>"><%
 			
-			if(column.exists())
+			int tableCount = 1;
+			for(final Table table : schema.getTables())
 			{
+				final String tableName = table.getName();
 				%>
-				<input id="columnRename<%=tableName%>#<%=columnName%>" style="display:none;" name="RENAME_COLUMN_<%=
-					tableName%>#<%=columnName%>" size="<%=
-					columnName.length()%>"/><%
-			}
-			
-			final String columnType = column.getType();
-			%>
-				<small><%=columnType%></small><%
-			
-			if(column.exists())
-			{
-				%>
-				<input id="columnModify<%=tableName%>#<%=columnName%>" style="display:none;" name="MODIFY_COLUMN_<%=
-					tableName%>#<%=columnName%>" size="<%=
-					columnType.length()%>"/><%
-			}
-			
-			final String error = column.getError();
-			if(error!=null)
-			{
-				%>
-				<span class="<%=column.getParticularColor()%>"><%=error%></span><%
-			}
-			if(column.exists())
-			{
-					%>,
-				<span id="columnDrop<%=tableName%>#<%=columnName%>" style="display:none;"><input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
-			}
-			else if(column.required() &&
-						column.getTable().exists() )
-			{
-				%>,
-				<input type="checkbox" name="CREATE_COLUMN" value="<%=tableName%>#<%=columnName%>"/>create<%
-			}
-			%>
-			</li><%
-		}
-		
-		int constraintCount = 1;
-		for(final Constraint constraint : table.getConstraints())
-		{
-			final String constraintName = constraint.getName();
-			%>
-			<li class="<%=constraint.getCumulativeColor()%>">
-				<img id="constraintSwitch<%=tableName%>#<%=constraintName%>" class="check" onClick="toggleConstraint(&quot;<%=tableName%>#<%=constraintName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-				<small><%=type(constraint)%><%=constraintCount++%></small> <%=constraintName%><%
-			
-			final String constraintCondition = constraint.getRequiredCondition();
-			if(constraintCondition!=null)
-			{
-				%> <small><%=constraintCondition%></small><%
-			}
-			
-			final String constraintError = constraint.getError();
-			if(constraintError!=null)
-			{
-				%>
-				<span class="<%=constraint.getParticularColor()%>"><%=constraintError%></span><%
-			}
-			if(constraint.exists())
-			{
+				<li class="<%=table.getCumulativeColor()%>"><%
+				%><img id="tableSwitch<%=tableName%>" class="check" onClick="toggleTable(&quot;<%=tableName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> <%
+				
+				%><small>tab<%=tableCount++%></small> <%
+				%><%=tableName%><%
+				if(table.exists())
+				{
 					%>
-				<span id="constraintDrop<%=tableName%>#<%=constraintName%>" style="display:none;"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
-			}
-			else if( constraint.required() &&
-						constraint.isSupported() &&
-						constraint.getTable().exists() )
-			{
+					<input id="tableRename<%=tableName%>" style="display:none;" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
+				}
+				
+				final String tableError = table.getError();
+				if(tableError!=null)
+				{
+					%> <span class="<%=table.getParticularColor()
+													%>"><%=tableError%></span><%
+				}
+				if(table.exists())
+				{
+						%>,
+					<span id="tableDrop<%=tableName%>" style="display:none;"><input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
+				}
+				else if(table.required())
+				{
+					%>,
+					<input type="checkbox" name="CREATE_TABLE" value="<%=tableName%>"/>create<%
+				}
+				
+				final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
+			
 				%>
-				<input type="checkbox" name="<%=SchemaCop.CREATE_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>create<%
+					<ul id="tableBody<%=tableName%>" style="display:none;"><%
+					if(lastAnalyzed!=null)
+					{
+						final Date date = lastAnalyzed.getDate();
+						final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
+						%>
+						<li class="<%=lastAnalyzed.getCumulativeColor()%>">
+							last analyzed: <%=lastAnalyzedString%>
+							<input type="checkbox" name="ANALYZE_TABLE" value="<%=tableName%>"/>analyze
+						</li><%
+					}
+					
+					final String options = table.getOptions();
+					if(options!=null)
+					{
+						%>
+						<li class="<%=Schema.Color.OK%>">
+							options: <pre><%=options%></pre>
+						</li><%
+					}
+					
+					int columnCount = 1;
+					for(final Column column : table.getColumns())
+					{
+						final String columnName = column.getName();
+						%>
+						<li class="<%=column.getCumulativeColor()%>">
+							<img id="columnSwitch<%=tableName%>#<%=columnName%>" class="check" onClick="toggleColumn(&quot;<%=tableName%>#<%=columnName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+							<small>col<%=columnCount++%></small> <%=columnName%><%
+						
+						if(column.exists())
+						{
+							%>
+							<input id="columnRename<%=tableName%>#<%=columnName%>" style="display:none;" name="RENAME_COLUMN_<%=
+								tableName%>#<%=columnName%>" size="<%=
+								columnName.length()%>"/><%
+						}
+						
+						final String columnType = column.getType();
+						%>
+							<small><%=columnType%></small><%
+						
+						if(column.exists())
+						{
+							%>
+							<input id="columnModify<%=tableName%>#<%=columnName%>" style="display:none;" name="MODIFY_COLUMN_<%=
+								tableName%>#<%=columnName%>" size="<%=
+								columnType.length()%>"/><%
+						}
+						
+						final String error = column.getError();
+						if(error!=null)
+						{
+							%>
+							<span class="<%=column.getParticularColor()%>"><%=error%></span><%
+						}
+						if(column.exists())
+						{
+								%>,
+							<span id="columnDrop<%=tableName%>#<%=columnName%>" style="display:none;"><input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
+						}
+						else if(column.required() &&
+									column.getTable().exists() )
+						{
+							%>,
+							<input type="checkbox" name="CREATE_COLUMN" value="<%=tableName%>#<%=columnName%>"/>create<%
+						}
+						%>
+						</li><%
+					}
+					
+					int constraintCount = 1;
+					for(final Constraint constraint : table.getConstraints())
+					{
+						final String constraintName = constraint.getName();
+						%>
+						<li class="<%=constraint.getCumulativeColor()%>">
+							<img id="constraintSwitch<%=tableName%>#<%=constraintName%>" class="check" onClick="toggleConstraint(&quot;<%=tableName%>#<%=constraintName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+							<small><%=type(constraint)%><%=constraintCount++%></small> <%=constraintName%><%
+						
+						final String constraintCondition = constraint.getRequiredCondition();
+						if(constraintCondition!=null)
+						{
+							%> <small><%=constraintCondition%></small><%
+						}
+						
+						final String constraintError = constraint.getError();
+						if(constraintError!=null)
+						{
+							%>
+							<span class="<%=constraint.getParticularColor()%>"><%=constraintError%></span><%
+						}
+						if(constraint.exists())
+						{
+								%>
+							<span id="constraintDrop<%=tableName%>#<%=constraintName%>" style="display:none;"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
+						}
+						else if( constraint.required() &&
+									constraint.isSupported() &&
+									constraint.getTable().exists() )
+						{
+							%>
+							<input type="checkbox" name="<%=SchemaCop.CREATE_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>create<%
+						}
+						%>
+						</li><%
+					}
+					%>
+					</ul>
+				</li><%
 			}
 			%>
-			</li><%
-		}
-		%>
-		</ul>
-	</li><%
-}
-%>
-</ul>
+			</ul>
 		</form><%
 	}
 	
