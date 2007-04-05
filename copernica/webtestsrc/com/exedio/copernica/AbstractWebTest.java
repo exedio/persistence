@@ -41,7 +41,7 @@ public class AbstractWebTest extends WebTestCase
 		final TestContext ctx = getTestContext();
 		ctx.setBaseUrl("http://127.0.0.1:8080/copetest-hsqldb/");
 		ctx.setAuthorization("admin", "nimda");
-		beginAt("console?schema=");
+		beginAt("console?t=schema");
 		submit("CREATE");
 		beginAt("init.jsp");
 		submit("INIT");
@@ -50,7 +50,7 @@ public class AbstractWebTest extends WebTestCase
 	@Override
 	public void tearDown() throws Exception
 	{
-		beginAt("console?schema=");
+		beginAt("console?t=schema");
 		submit("DROP");
 		super.tearDown();
 	}
