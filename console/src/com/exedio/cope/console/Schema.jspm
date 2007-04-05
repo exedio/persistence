@@ -158,15 +158,14 @@ supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<
 <ul class="<%=schemaColor%>"><%
 
 int tableCount = 1;
-for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++)
+for(final Table table : schema.getTables())
 {
-	final Table table = i.next();
 	final String tableName = table.getName();
 	%>
 	<li class="<%=table.getCumulativeColor()%>"><%
 	%><img id="tableSwitch<%=tableName%>" class="check" onClick="toggleTable(&quot;<%=tableName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> <%
 	
-	%><small>tab<%=tableCount%></small> <%
+	%><small>tab<%=tableCount++%></small> <%
 	%><%=tableName%><%
 	if(table.exists())
 	{
@@ -216,14 +215,13 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		}
 		
 		int columnCount = 1;
-		for(Iterator j = table.getColumns().iterator(); j.hasNext(); columnCount++)
+		for(final Column column : table.getColumns())
 		{
-			final Column column = (Column)j.next();
 			final String columnName = column.getName();
 			%>
 			<li class="<%=column.getCumulativeColor()%>">
 				<img id="columnSwitch<%=tableName%>#<%=columnName%>" class="check" onClick="toggleColumn(&quot;<%=tableName%>#<%=columnName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-				<small>col<%=columnCount%></small> <%=columnName%><%
+				<small>col<%=columnCount++%></small> <%=columnName%><%
 			
 			if(column.exists())
 			{
@@ -267,14 +265,13 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 		}
 		
 		int constraintCount = 1;
-		for(Iterator j = table.getConstraints().iterator(); j.hasNext(); constraintCount++)
+		for(final Constraint constraint : table.getConstraints())
 		{
-			final Constraint constraint = (Constraint)j.next();
 			final String constraintName = constraint.getName();
 			%>
 			<li class="<%=constraint.getCumulativeColor()%>">
 				<img id="constraintSwitch<%=tableName%>#<%=constraintName%>" class="check" onClick="toggleConstraint(&quot;<%=tableName%>#<%=constraintName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-				<small><%=type(constraint)%><%=constraintCount%></small> <%=constraintName%><%
+				<small><%=type(constraint)%><%=constraintCount++%></small> <%=constraintName%><%
 			
 			final String constraintCondition = constraint.getRequiredCondition();
 			if(constraintCondition!=null)
