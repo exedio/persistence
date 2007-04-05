@@ -36,12 +36,12 @@ function toggleTable(table)
 	}
 }
 
-function toggleColumn(column)
+function toggleColumn(table,column)
 {
-	var modifyElement = document.getElementById("columnModify" + column);
-	var dropElement   = document.getElementById("columnDrop"   + column);
-	var renameElement = document.getElementById("columnRename" + column);
-	var switchElement = document.getElementById("columnSwitch" + column);
+	var modifyElement = document.getElementById("columnModify" + table + "x" + column);
+	var dropElement   = document.getElementById("columnDrop"   + table + "x" + column);
+	var renameElement = document.getElementById("columnRename" + table + "x" + column);
+	var switchElement = document.getElementById("columnSwitch" + table + "x" + column);
 	var switchSrc = switchElement.src;
 	var switchPart = switchSrc.lastIndexOf("/") + 1;
 	if(switchSrc.substring(switchPart)=="checkfalse.png")
@@ -60,10 +60,10 @@ function toggleColumn(column)
 	}
 }
 
-function toggleConstraint(constraint)
+function toggleConstraint(table,constraint)
 {
-	var dropElement   = document.getElementById("constraintDrop"   + constraint);
-	var switchElement = document.getElementById("constraintSwitch" + constraint);
+	var dropElement   = document.getElementById("constraintDrop"   + table + "x" + constraint);
+	var switchElement = document.getElementById("constraintSwitch" + table + "x" + constraint);
 	var switchSrc = switchElement.src;
 	var switchPart = switchSrc.lastIndexOf("/") + 1;
 	if(switchSrc.substring(switchPart)=="checkfalse.png")

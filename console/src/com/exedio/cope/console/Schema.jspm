@@ -156,19 +156,20 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="APPLY" value="apply"/>
 			<ul class="<%=schemaColor%>"><%
 			
-			int tableCount = 1;
+			int tableCount = 0;
 			for(final Table table : schema.getTables())
 			{
+				tableCount++;
 				final String tableName = table.getName();
 				%>
 				<li class="<%=table.getCumulativeColor()%>">
-					<img id="tableSwitch<%=tableName%>" class="check" onClick="toggleTable(&quot;<%=tableName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-					<small>tab<%=tableCount++%></small>
+					<img id="tableSwitch<%=tableCount%>" class="check" onClick="toggleTable(<%=tableCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+					<small>tab<%=tableCount%></small>
 					<%=tableName%><%
 					if(table.exists())
 					{
 					%>
-					<input id="tableRename<%=tableName%>" style="display:none;" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
+					<input id="tableRename<%=tableCount%>" style="display:none;" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
 					}
 				
 					final String tableError = table.getError();
@@ -180,7 +181,7 @@ final class Schema_Jspm extends Console_Jspm
 					if(table.exists())
 					{
 					%>
-					<span id="tableDrop<%=tableName%>" style="display:none;">, <input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
+					<span id="tableDrop<%=tableCount%>" style="display:none;">, <input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
 					}
 					else if(table.required())
 					{
@@ -191,7 +192,7 @@ final class Schema_Jspm extends Console_Jspm
 					final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 			
 					%>
-					<ul id="tableBody<%=tableName%>" style="display:none;"><%
+					<ul id="tableBody<%=tableCount%>" style="display:none;"><%
 					if(lastAnalyzed!=null)
 					{
 						final Date date = lastAnalyzed.getDate();
@@ -212,20 +213,21 @@ final class Schema_Jspm extends Console_Jspm
 						</li><%
 					}
 					
-					int columnCount = 1;
+					int columnCount = 0;
 					for(final Column column : table.getColumns())
 					{
+						columnCount++;
 						final String columnName = column.getName();
 						%>
 						<li class="<%=column.getCumulativeColor()%>">
-							<img id="columnSwitch<%=tableName%>#<%=columnName%>" class="check" onClick="toggleColumn(&quot;<%=tableName%>#<%=columnName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-							<small>col<%=columnCount++%></small>
+							<img id="columnSwitch<%=tableCount%>x<%=columnCount%>" class="check" onClick="toggleColumn(<%=tableCount%>,<%=columnCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+							<small>col<%=columnCount%></small>
 							<%=columnName%><%
 						
 							if(column.exists())
 							{
 							%>
-							<input id="columnRename<%=tableName%>#<%=columnName%>" style="display:none;" name="RENAME_COLUMN_<%=
+							<input id="columnRename<%=tableCount%>x<%=columnCount%>" style="display:none;" name="RENAME_COLUMN_<%=
 								tableName%>#<%=columnName%>" size="<%=
 								columnName.length()%>"/><%
 							}
@@ -237,7 +239,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(column.exists())
 							{
 							%>
-							<input id="columnModify<%=tableName%>#<%=columnName%>" style="display:none;" name="MODIFY_COLUMN_<%=
+							<input id="columnModify<%=tableCount%>x<%=columnCount%>" style="display:none;" name="MODIFY_COLUMN_<%=
 								tableName%>#<%=columnName%>" size="<%=
 								columnType.length()%>"/><%
 							}
@@ -251,7 +253,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(column.exists())
 							{
 							%>
-							<span id="columnDrop<%=tableName%>#<%=columnName%>" style="display:none;">, <input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
+							<span id="columnDrop<%=tableCount%>x<%=columnCount%>" style="display:none;">, <input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
 							}
 							else if(column.required() &&
 									column.getTable().exists() )
@@ -263,14 +265,15 @@ final class Schema_Jspm extends Console_Jspm
 						</li><%
 					}
 					
-					int constraintCount = 1;
+					int constraintCount = 0;
 					for(final Constraint constraint : table.getConstraints())
 					{
+						constraintCount++;
 						final String constraintName = constraint.getName();
 						%>
 						<li class="<%=constraint.getCumulativeColor()%>">
-							<img id="constraintSwitch<%=tableName%>#<%=constraintName%>" class="check" onClick="toggleConstraint(&quot;<%=tableName%>#<%=constraintName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-							<small><%=type(constraint)%><%=constraintCount++%></small>
+							<img id="constraintSwitch<%=tableCount%>x<%=constraintCount%>" class="check" onClick="toggleConstraint(<%=tableCount%>,<%=constraintCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+							<small><%=type(constraint)%><%=constraintCount%></small>
 							<%=constraintName%><%
 						
 							final String constraintCondition = constraint.getRequiredCondition();
@@ -289,7 +292,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(constraint.exists())
 							{
 							%>
-							<span id="constraintDrop<%=tableName%>#<%=constraintName%>" style="display:none;"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
+							<span id="constraintDrop<%=tableCount%>x<%=constraintCount%>" style="display:none;"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
 							}
 							else if( constraint.required() &&
 									constraint.isSupported() &&
