@@ -33,57 +33,10 @@ import com.exedio.dsmf.Table;
 
 final class SchemaCop extends ConsoleCop
 {
-	private static final String SCHEMA = "schema";
-	private static final String SHOW = "show";
-	private static final String SHOW_DROP_BOXES = "drop";
-	private static final String SHOW_RENAME_FIELDS = "rename";
-
-	final String table;
-	final boolean showDropBoxes;
-	final boolean showRenameFields;
-
-	SchemaCop(final String table, final boolean showDropBoxes, final boolean showRenameFields)
+	SchemaCop()
 	{
 		super("schema");
-		this.table = table;
-		this.showDropBoxes = showDropBoxes;
-		this.showRenameFields = showRenameFields;
-		
-		addParameter(SCHEMA, table==null ? "" : table);
-		if(showDropBoxes)
-			addParameter(SHOW, SHOW_DROP_BOXES);
-		if(showRenameFields)
-			addParameter(SHOW, SHOW_RENAME_FIELDS);
-	}
-	
-	static SchemaCop getSchemaCop(final HttpServletRequest request)
-	{
-		final String schemaID = request.getParameter(SchemaCop.SCHEMA);
-		if(schemaID==null)
-			return null;
-		
-		boolean showDropBoxes = false;
-		boolean showRenameFields = false;
-
-		final String[] showIDs = request.getParameterValues(SchemaCop.SHOW);
-		if(showIDs!=null)
-		{
-			for(int i = 0; i<showIDs.length; i++)
-			{
-				final String showID = showIDs[i];
-				if(SchemaCop.SHOW_DROP_BOXES.equals(showID))
-					showDropBoxes = true;
-				else if(SchemaCop.SHOW_RENAME_FIELDS.equals(showID))
-					showRenameFields = true;
-				else
-					throw new RuntimeException(showID);
-			}
-		}
-		
-		if(schemaID.length()==0)
-			return new SchemaCop(null, showDropBoxes, showRenameFields);
-		else
-			return new SchemaCop(schemaID, showDropBoxes, showRenameFields);
+		addParameter(TAB, TAB_SCHEMA);
 	}
 	
 	@Override
@@ -98,36 +51,6 @@ final class SchemaCop extends ConsoleCop
 		Schema_Jspm.writeBody(this, out, model, request);
 	}
 	
-	final SchemaCop narrow(final Table table)
-	{
-		return new SchemaCop(table.getName(), showDropBoxes, showRenameFields);
-	}
-	
-	final SchemaCop widen()
-	{
-		return new SchemaCop(null, showDropBoxes, showRenameFields);
-	}
-	
-	final SchemaCop toggleDropBoxes()
-	{
-		return new SchemaCop(table, !showDropBoxes, showRenameFields);
-	}
-	
-	final SchemaCop toggleRenameFields()
-	{
-		return new SchemaCop(table, showDropBoxes, !showRenameFields);
-	}
-	
-	final boolean isNarrow()
-	{
-		return table!=null;
-	}
-	
-	final boolean skipTable(final Table table)
-	{
-		return this.table!=null && !this.table.equals(table.getName());
-	}
-
 	private static final Column getColumn(final Schema schema, final String param)
 	{
 		final int pos = param.indexOf('#');

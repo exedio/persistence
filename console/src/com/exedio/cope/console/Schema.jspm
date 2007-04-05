@@ -142,27 +142,14 @@ final class Schema_Jspm extends Console_Jspm
 
 		final Schema schema = model.getVerifiedSchema();
 		final String schemaColor = schema.getCumulativeColor().toString();
-		final boolean narrow = cop.isNarrow();
 
 %>
-<% writeToggle(out, request, cop.toggleDropBoxes(), cop.showDropBoxes); %> show drop boxes<br>
-<% writeToggle(out, request, cop.toggleRenameFields(), cop.showRenameFields); %> show rename fields<br>
 check all:
 <input type="button" value="analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
 <input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
 <input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
 <br>
-<span class="<%=schemaColor%>"><%
-if(narrow)
-{
-	%><a href="<%=cop.widen()%>"><%
-}
-%>Schema<%
-if(narrow)
-{
-	%></a><%
-}
-%></span>
+<span class="<%=schemaColor%>">Schema</span>
 <input type="submit" name="APPLY" value="apply"/>
 <br>
 supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
@@ -174,27 +161,16 @@ int tableCount = 1;
 for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++)
 {
 	final Table table = i.next();
-	
-	if(cop.skipTable(table))
-		continue;
-	
 	%>
 	<li class="<%=table.getCumulativeColor()%>"><%
+	%><img id="tableSwitch<%=table.getName()%>" class="check" onClick="toggleTable(&quot;<%=table.getName()%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> <%
 	
 	%><small>tab<%=tableCount%></small> <%
-	if(!narrow)
-	{
-		%><a href="<%=cop.narrow(table)%>"><%
-	}
 	%><%=table.getName()%><%
-	if(!narrow)
-	{
-		%></a><%
-	}
-	if(cop.showRenameFields && table.exists())
+	if(table.exists())
 	{
 		%>
-		<input name="RENAME_TABLE_<%=table.getName()%>" size="<%=table.getName().length()%>"/><%
+		<input id="tableRename<%=table.getName()%>" style="display:none;" name="RENAME_TABLE_<%=table.getName()%>" size="<%=table.getName().length()%>"/><%
 	}
 	
 	final String tableError = table.getError();
@@ -205,10 +181,9 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 	}
 	if(table.exists())
 	{
-		if(cop.showDropBoxes)
 		{
 			%>,
-		<input type="checkbox" name="DROP_TABLE" value="<%=table.getName()%>"/>drop<%
+		<span id="tableDrop<%=table.getName()%>" style="display:none;"><input type="checkbox" name="DROP_TABLE" value="<%=table.getName()%>"/>drop</span><%
 		}
 	}
 	else if(table.required())
@@ -219,20 +194,8 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 	
 	final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 
-	if(!narrow)
-	{
-		if(lastAnalyzed!=null)
-		{
-			final Date date = lastAnalyzed.getDate();
-			final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
-			%>
-			<input type="checkbox" name="ANALYZE_TABLE" value="<%=table.getName()%>"/>analyze (<%=lastAnalyzedString%>)<%
-		}
-	}
-	else
-	{
 	%>
-		<ul><%
+		<ul id="tableBody<%=table.getName()%>" style="display:none;"><%
 		if(lastAnalyzed!=null)
 		{
 			final Date date = lastAnalyzed.getDate();
@@ -259,12 +222,13 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			final Column column = (Column)j.next();
 			%>
 			<li class="<%=column.getCumulativeColor()%>">
+				<img id="columnSwitch<%=table.getName()%>#<%=column.getName()%>" class="check" onClick="toggleColumn(&quot;<%=table.getName()%>#<%=column.getName()%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 				<small>col<%=columnCount%></small> <%=column.getName()%><%
 			
-			if(cop.showRenameFields && column.exists())
+			if(column.exists())
 			{
 				%>
-				<input name="RENAME_COLUMN_<%=
+				<input id="columnRename<%=table.getName()%>#<%=column.getName()%>" style="display:none;" name="RENAME_COLUMN_<%=
 					table.getName()%>#<%=column.getName()%>" size="<%=
 					column.getName().length()%>"/><%
 			}
@@ -273,10 +237,10 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			%>
 				<small><%=columnType%></small><%
 			
-			if(cop.showRenameFields && column.exists())
+			if(column.exists())
 			{
 				%>
-				<input name="MODIFY_COLUMN_<%=
+				<input id="columnModify<%=table.getName()%>#<%=column.getName()%>" style="display:none;" name="MODIFY_COLUMN_<%=
 					table.getName()%>#<%=column.getName()%>" size="<%=
 					columnType.length()%>"/><%
 			}
@@ -289,10 +253,9 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			}
 			if(column.exists())
 			{
-				if(cop.showDropBoxes)
 				{
 					%>,
-				<input type="checkbox" name="DROP_COLUMN" value="<%=table.getName()%>#<%=column.getName()%>"/>drop<%
+				<span id="columnDrop<%=table.getName()%>#<%=column.getName()%>" style="display:none;"><input type="checkbox" name="DROP_COLUMN" value="<%=table.getName()%>#<%=column.getName()%>"/>drop</span><%
 				}
 			}
 			else if(column.required() &&
@@ -311,6 +274,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			final Constraint constraint = (Constraint)j.next();
 			%>
 			<li class="<%=constraint.getCumulativeColor()%>">
+				<img id="constraintSwitch<%=table.getName()%>#<%=constraint.getName()%>" class="check" onClick="toggleConstraint(&quot;<%=table.getName()%>#<%=constraint.getName()%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 				<small><%=type(constraint)%><%=constraintCount%></small> <%=constraint.getName()%><%
 			
 			final String constraintCondition = constraint.getRequiredCondition();
@@ -322,16 +286,15 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			final String constraintError = constraint.getError();
 			if(constraintError!=null)
 			{
+				{
 				%>
 				<span class="<%=constraint.getParticularColor()%>"><%=constraintError%></span><%
+				}
 			}
 			if(constraint.exists())
 			{
-				if(cop.showDropBoxes)
-				{
 					%>
-				<input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=table.getName()%>#<%=constraint.getName()%>"/>drop<%
-				}
+				<span id="constraintDrop<%=table.getName()%>#<%=constraint.getName()%>" style="display:none;"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=table.getName()%>#<%=constraint.getName()%>"/>drop</span><%
 			}
 			else if( constraint.required() &&
 						constraint.isSupported() &&
@@ -344,9 +307,7 @@ for(Iterator<Table> i = schema.getTables().iterator(); i.hasNext(); tableCount++
 			</li><%
 		}
 		%>
-		</ul><%
-	}
-	%>
+		</ul>
 	</li><%
 }
 %>

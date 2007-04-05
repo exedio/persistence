@@ -11,3 +11,75 @@ function checkAll(checkboxName)
 		}
 	}
 }
+
+function toggleTable(table)
+{
+	var bodyElement   = document.getElementById("tableBody"   + table);
+	var dropElement   = document.getElementById("tableDrop"   + table);
+	var renameElement = document.getElementById("tableRename" + table);
+	var switchElement = document.getElementById("tableSwitch" + table);
+	var switchSrc = switchElement.src;
+	var switchPart = switchSrc.lastIndexOf("/") + 1;
+	if(switchSrc.substring(switchPart)=="checkfalse.png")
+	{
+		setDisplay(bodyElement,   "block");
+		setDisplay(dropElement,   "inline");
+		setDisplay(renameElement, "inline");
+		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
+	}
+	else
+	{
+		setDisplay(bodyElement,   "none");
+		setDisplay(dropElement,   "none");
+		setDisplay(renameElement, "none");
+		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
+	}
+}
+
+function toggleColumn(column)
+{
+	var modifyElement = document.getElementById("columnModify" + column);
+	var dropElement   = document.getElementById("columnDrop"   + column);
+	var renameElement = document.getElementById("columnRename" + column);
+	var switchElement = document.getElementById("columnSwitch" + column);
+	var switchSrc = switchElement.src;
+	var switchPart = switchSrc.lastIndexOf("/") + 1;
+	if(switchSrc.substring(switchPart)=="checkfalse.png")
+	{
+		setDisplay(modifyElement, "inline");
+		setDisplay(dropElement,   "inline");
+		setDisplay(renameElement, "inline");
+		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
+	}
+	else
+	{
+		setDisplay(modifyElement, "none");
+		setDisplay(dropElement,   "none");
+		setDisplay(renameElement, "none");
+		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
+	}
+}
+
+function toggleConstraint(constraint)
+{
+	var dropElement   = document.getElementById("constraintDrop"   + constraint);
+	var switchElement = document.getElementById("constraintSwitch" + constraint);
+	var switchSrc = switchElement.src;
+	var switchPart = switchSrc.lastIndexOf("/") + 1;
+	if(switchSrc.substring(switchPart)=="checkfalse.png")
+	{
+		setDisplay(dropElement,   "inline");
+		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
+	}
+	else
+	{
+		setDisplay(dropElement,   "none");
+		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
+	}
+}
+
+function setDisplay(element, display)
+{
+	if(element!=null)
+		element.style.display = display;
+}

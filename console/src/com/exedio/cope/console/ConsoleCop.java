@@ -72,7 +72,7 @@ abstract class ConsoleCop extends Cop
 	{
 		return new ConsoleCop[]{
 				new PropertiesCop(false),
-				new SchemaCop(null, false, false),
+				new SchemaCop(),
 				new TypeColumnCop(),
 				new MigrationCop(false),
 				new DatabaseLogCop(),
@@ -153,6 +153,7 @@ abstract class ConsoleCop extends Cop
 	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request);
 	
 	static final String TAB = "t";
+	static final String TAB_SCHEMA = "schema";
 	static final String TAB_TYPE_COLUMNS = "tc";
 	static final String TAB_MIGRATION = "mig";
 	static final String TAB_DATBASE_LOG = "dblog";
@@ -169,6 +170,8 @@ abstract class ConsoleCop extends Cop
 	static final ConsoleCop getCop(final Model model, final HttpServletRequest request)
 	{
 		final String tab = request.getParameter(TAB);
+		if(TAB_SCHEMA.equals(tab))
+			return new SchemaCop();
 		if(TAB_TYPE_COLUMNS.equals(tab))
 			return new TypeColumnCop();
 		if(TAB_MIGRATION.equals(tab))
@@ -194,10 +197,6 @@ abstract class ConsoleCop extends Cop
 		if(TAB_MODIFICATION_LISTENER.equals(tab))
 			return new ModificationListenerCop();
 
-		final SchemaCop schemaCop = SchemaCop.getSchemaCop(request);
-		if(schemaCop!=null)
-			return schemaCop;
-		
 		final MediaCop mediaCop = MediaCop.getMediaCop(model, request);
 		if(mediaCop!=null)
 			return mediaCop;
