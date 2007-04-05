@@ -210,6 +210,11 @@ public final class HistoryExperimental extends Pattern
 			return Collections.unmodifiableList(result);
 		}
 		
+		public final Item getItem()
+		{
+			return event;
+		}
+		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
 			return new Feature(featureType.newItem(
