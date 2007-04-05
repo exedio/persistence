@@ -12,12 +12,12 @@ function checkAll(checkboxName)
 	}
 }
 
-function toggleTable(table)
+function togTab(table)
 {
-	var bodyElement   = document.getElementById("tableBody"   + table);
-	var dropElement   = document.getElementById("tableDrop"   + table);
-	var renameElement = document.getElementById("tableRename" + table);
-	var switchElement = document.getElementById("tableSwitch" + table);
+	var bodyElement   = document.getElementById("tabBdy" + table);
+	var dropElement   = document.getElementById("tabDrp" + table);
+	var renameElement = document.getElementById("tabRen" + table);
+	var switchElement = document.getElementById("tabSwt" + table);
 	var switchSrc = switchElement.src;
 	var switchPart = switchSrc.lastIndexOf("/") + 1;
 	if(switchSrc.substring(switchPart)=="checkfalse.png")
@@ -36,12 +36,12 @@ function toggleTable(table)
 	}
 }
 
-function toggleColumn(table,column)
+function togCol(table,column)
 {
-	var modifyElement = document.getElementById("columnModify" + table + "x" + column);
-	var dropElement   = document.getElementById("columnDrop"   + table + "x" + column);
-	var renameElement = document.getElementById("columnRename" + table + "x" + column);
-	var switchElement = document.getElementById("columnSwitch" + table + "x" + column);
+	var modifyElement = document.getElementById("colMod" + table + "x" + column);
+	var dropElement   = document.getElementById("colDrp" + table + "x" + column);
+	var renameElement = document.getElementById("colRen" + table + "x" + column);
+	var switchElement = document.getElementById("colSwt" + table + "x" + column);
 	var switchSrc = switchElement.src;
 	var switchPart = switchSrc.lastIndexOf("/") + 1;
 	if(switchSrc.substring(switchPart)=="checkfalse.png")
@@ -60,10 +60,10 @@ function toggleColumn(table,column)
 	}
 }
 
-function toggleConstraint(table,constraint)
+function togCon(table,constraint)
 {
-	var dropElement   = document.getElementById("constraintDrop"   + table + "x" + constraint);
-	var switchElement = document.getElementById("constraintSwitch" + table + "x" + constraint);
+	var dropElement   = document.getElementById("conDrp" + table + "x" + constraint);
+	var switchElement = document.getElementById("conSwt" + table + "x" + constraint);
 	var switchSrc = switchElement.src;
 	var switchPart = switchSrc.lastIndexOf("/") + 1;
 	if(switchSrc.substring(switchPart)=="checkfalse.png")
