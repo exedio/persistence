@@ -81,8 +81,7 @@ final class Schema_Jspm extends Console_Jspm
 			<br>
 			supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
 			<hr>
-			<h4>Details</h4>
-			<%
+			<h4>Details</h4><%
 			if("POST".equals(request.getMethod()))
 			{
 				int mask = 0;
@@ -162,37 +161,37 @@ final class Schema_Jspm extends Console_Jspm
 			{
 				final String tableName = table.getName();
 				%>
-				<li class="<%=table.getCumulativeColor()%>"><%
-				%><img id="tableSwitch<%=tableName%>" class="check" onClick="toggleTable(&quot;<%=tableName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> <%
+				<li class="<%=table.getCumulativeColor()%>">
+					<img id="tableSwitch<%=tableName%>" class="check" onClick="toggleTable(&quot;<%=tableName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 				
-				%><small>tab<%=tableCount++%></small> <%
-				%><%=tableName%><%
-				if(table.exists())
-				{
+					<small>tab<%=tableCount++%></small>
+					<%=tableName%><%
+					if(table.exists())
+					{
 					%>
 					<input id="tableRename<%=tableName%>" style="display:none;" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
-				}
+					}
 				
-				final String tableError = table.getError();
-				if(tableError!=null)
-				{
-					%> <span class="<%=table.getParticularColor()
-													%>"><%=tableError%></span><%
-				}
-				if(table.exists())
-				{
-						%>,
-					<span id="tableDrop<%=tableName%>" style="display:none;"><input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
-				}
-				else if(table.required())
-				{
+					final String tableError = table.getError();
+					if(tableError!=null)
+					{
+					%>
+					<span class="<%=table.getParticularColor()%>"><%=tableError%></span><%
+					}
+					if(table.exists())
+					{
+					%>
+					<span id="tableDrop<%=tableName%>" style="display:none;">, <input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
+					}
+					else if(table.required())
+					{
 					%>,
 					<input type="checkbox" name="CREATE_TABLE" value="<%=tableName%>"/>create<%
-				}
+					}
 				
-				final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
+					final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 			
-				%>
+					%>
 					<ul id="tableBody<%=tableName%>" style="display:none;"><%
 					if(lastAnalyzed!=null)
 					{
@@ -221,45 +220,46 @@ final class Schema_Jspm extends Console_Jspm
 						%>
 						<li class="<%=column.getCumulativeColor()%>">
 							<img id="columnSwitch<%=tableName%>#<%=columnName%>" class="check" onClick="toggleColumn(&quot;<%=tableName%>#<%=columnName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-							<small>col<%=columnCount++%></small> <%=columnName%><%
+							<small>col<%=columnCount++%></small>
+							<%=columnName%><%
 						
-						if(column.exists())
-						{
+							if(column.exists())
+							{
 							%>
 							<input id="columnRename<%=tableName%>#<%=columnName%>" style="display:none;" name="RENAME_COLUMN_<%=
 								tableName%>#<%=columnName%>" size="<%=
 								columnName.length()%>"/><%
-						}
+							}
 						
-						final String columnType = column.getType();
-						%>
+							final String columnType = column.getType();
+							%>
 							<small><%=columnType%></small><%
 						
-						if(column.exists())
-						{
+							if(column.exists())
+							{
 							%>
 							<input id="columnModify<%=tableName%>#<%=columnName%>" style="display:none;" name="MODIFY_COLUMN_<%=
 								tableName%>#<%=columnName%>" size="<%=
 								columnType.length()%>"/><%
-						}
+							}
 						
-						final String error = column.getError();
-						if(error!=null)
-						{
+							final String error = column.getError();
+							if(error!=null)
+							{
 							%>
 							<span class="<%=column.getParticularColor()%>"><%=error%></span><%
-						}
-						if(column.exists())
-						{
-								%>,
-							<span id="columnDrop<%=tableName%>#<%=columnName%>" style="display:none;"><input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
-						}
-						else if(column.required() &&
+							}
+							if(column.exists())
+							{
+							%>
+							<span id="columnDrop<%=tableName%>#<%=columnName%>" style="display:none;">, <input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
+							}
+							else if(column.required() &&
 									column.getTable().exists() )
-						{
+							{
 							%>,
 							<input type="checkbox" name="CREATE_COLUMN" value="<%=tableName%>#<%=columnName%>"/>create<%
-						}
+							}
 						%>
 						</li><%
 					}
@@ -271,32 +271,34 @@ final class Schema_Jspm extends Console_Jspm
 						%>
 						<li class="<%=constraint.getCumulativeColor()%>">
 							<img id="constraintSwitch<%=tableName%>#<%=constraintName%>" class="check" onClick="toggleConstraint(&quot;<%=tableName%>#<%=constraintName%>&quot;)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
-							<small><%=type(constraint)%><%=constraintCount++%></small> <%=constraintName%><%
+							<small><%=type(constraint)%><%=constraintCount++%></small>
+							<%=constraintName%><%
 						
-						final String constraintCondition = constraint.getRequiredCondition();
-						if(constraintCondition!=null)
-						{
-							%> <small><%=constraintCondition%></small><%
-						}
+							final String constraintCondition = constraint.getRequiredCondition();
+							if(constraintCondition!=null)
+							{
+							%>
+							<small><%=constraintCondition%></small><%
+							}
 						
-						final String constraintError = constraint.getError();
-						if(constraintError!=null)
-						{
+							final String constraintError = constraint.getError();
+							if(constraintError!=null)
+							{
 							%>
 							<span class="<%=constraint.getParticularColor()%>"><%=constraintError%></span><%
-						}
-						if(constraint.exists())
-						{
-								%>
+							}
+							if(constraint.exists())
+							{
+							%>
 							<span id="constraintDrop<%=tableName%>#<%=constraintName%>" style="display:none;"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
-						}
-						else if( constraint.required() &&
+							}
+							else if( constraint.required() &&
 									constraint.isSupported() &&
 									constraint.getTable().exists() )
-						{
+							{
 							%>
 							<input type="checkbox" name="<%=SchemaCop.CREATE_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>create<%
-						}
+							}
 						%>
 						</li><%
 					}
