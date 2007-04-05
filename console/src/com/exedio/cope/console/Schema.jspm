@@ -169,7 +169,7 @@ final class Schema_Jspm extends Console_Jspm
 					if(table.exists())
 					{
 					%>
-					<input id="tabRen<%=tableCount%>" style="display:none;" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
+					<input id="tabRen<%=tableCount%>" class="expand" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
 					}
 				
 					final String tableError = table.getError();
@@ -181,7 +181,7 @@ final class Schema_Jspm extends Console_Jspm
 					if(table.exists())
 					{
 					%>
-					<span id="tabDrp<%=tableCount%>" style="display:none;">, <input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
+					<span id="tabDrp<%=tableCount%>" class="expand">, <input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
 					}
 					else if(table.required())
 					{
@@ -190,7 +190,7 @@ final class Schema_Jspm extends Console_Jspm
 					}
 					
 					%>
-					<ul id="tabBdy<%=tableCount%>" style="display:none;"><%
+					<ul id="tabBdy<%=tableCount%>" class="expand"><%
 					
 					final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
 					if(lastAnalyzed!=null)
@@ -227,7 +227,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(column.exists())
 							{
 							%>
-							<input id="colRen<%=tableCount%>x<%=columnCount%>" style="display:none;" name="RENAME_COLUMN_<%=
+							<input id="colRen<%=tableCount%>x<%=columnCount%>" class="expand" name="RENAME_COLUMN_<%=
 								tableName%>#<%=columnName%>" size="<%=
 								columnName.length()%>"/><%
 							}
@@ -239,7 +239,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(column.exists())
 							{
 							%>
-							<input id="colMod<%=tableCount%>x<%=columnCount%>" style="display:none;" name="MODIFY_COLUMN_<%=
+							<input id="colMod<%=tableCount%>x<%=columnCount%>" class="expand" name="MODIFY_COLUMN_<%=
 								tableName%>#<%=columnName%>" size="<%=
 								columnType.length()%>"/><%
 							}
@@ -253,7 +253,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(column.exists())
 							{
 							%>
-							<span id="colDrp<%=tableCount%>x<%=columnCount%>" style="display:none;">, <input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
+							<span id="colDrp<%=tableCount%>x<%=columnCount%>" class="expand">, <input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
 							}
 							else if(column.required() &&
 									column.getTable().exists() )
@@ -292,7 +292,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(constraint.exists())
 							{
 							%>
-							<span id="conDrp<%=tableCount%>x<%=constraintCount%>" style="display:none;"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
+							<span id="conDrp<%=tableCount%>x<%=constraintCount%>" class="expand"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
 							}
 							else if( constraint.required() &&
 									constraint.isSupported() &&

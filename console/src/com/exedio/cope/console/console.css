@@ -114,6 +114,11 @@ img.check
 	height:13px;
 }
 
+.expand
+{
+	display:none;
+}
+
 span.ok      { background-color:#cfc; }
 span.warning { background-color:#ffc; }
 span.error   { background-color:#fcc; }
