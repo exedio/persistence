@@ -31,7 +31,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("version must not be negative", e.getMessage());
+			assertEquals("revision must not be negative", e.getMessage());
 		}
 		try
 		{
@@ -71,7 +71,7 @@ public class MigrationTest extends CopeAssert
 		}
 		
 		final Migration m = new Migration(123, "test-comment", "sql1", "sql2");
-		assertEquals(123, m.getVersion());
+		assertEquals(123, m.getRevision());
 		assertEquals("test-comment", m.getComment());
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
 		assertEquals("M123:test-comment", m.toString());
@@ -107,7 +107,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("inconsistent migration version at index 1, expected 7, but was 6", e.getMessage());
+			assertEquals("inconsistent migration revision at index 1, expected 7, but was 6", e.getMessage());
 		}
 	}
 }

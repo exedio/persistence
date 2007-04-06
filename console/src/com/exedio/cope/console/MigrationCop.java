@@ -59,12 +59,12 @@ final class MigrationCop extends ConsoleCop
 	int oldest = Integer.MAX_VALUE;
 	int latest = Integer.MIN_VALUE;
 	
-	private void register(final int version)
+	private void register(final int revision)
 	{
-		if(oldest>version)
-			oldest = version;
-		if(latest<version)
-			latest = version;
+		if(oldest>revision)
+			oldest = revision;
+		if(latest<revision)
+			latest = revision;
 	}
 
 	@Override
@@ -76,8 +76,8 @@ final class MigrationCop extends ConsoleCop
 			final HashMap<Integer, Migration> migrationMap = new HashMap<Integer, Migration>();
 			for(final Migration m : migrations)
 			{
-				register(m.getVersion());
-				migrationMap.put(m.getVersion(), m);
+				register(m.getRevision());
+				migrationMap.put(m.getRevision(), m);
 			}
 			
 			final Map<Integer, byte[]> logsRaw = model.getMigrationLogs();
@@ -95,7 +95,7 @@ final class MigrationCop extends ConsoleCop
 				throw new RuntimeException(e);
 			}
 			
-			final int current = model.getMigrationVersion();
+			final int current = model.getMigrationRevision();
 			register(current);
 			
 			Migration_Jspm.writeBody(this, request, out, oldest, latest, current, migrationMap, logs);

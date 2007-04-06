@@ -40,14 +40,14 @@ import com.exedio.dsmf.Table;
 public class MigrateTest extends CopeAssert
 {
 	private static final Migration[] migrations5 = new Migration[]{
-		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for version 5"),
+		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5"),
 	};
 	
 	private static final Model model5 = new Model(migrations5, MigrateItem1.TYPE);
 	
 	
 	private static final Migration[] migrations7Missing = new Migration[]{
-			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for version 7"),
+			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7"),
 		};
 	
 	private static final Model model7 = new Model(migrations7Missing, MigrateItem2.TYPE);
@@ -72,7 +72,7 @@ public class MigrateTest extends CopeAssert
 		final com.exedio.cope.Properties props = new com.exedio.cope.Properties();
 		
 		assertTrue(model5.isMigrationSupported());
-		assertEquals(5, model5.getMigrationVersion());
+		assertEquals(5, model5.getMigrationRevision());
 		assertEqualsUnmodifiable(Arrays.asList(migrations5), model5.getMigrations());
 		
 		model5.connect(props);
@@ -98,7 +98,7 @@ public class MigrateTest extends CopeAssert
 		model5.disconnect();
 		
 		assertTrue(model7.isMigrationSupported());
-		assertEquals(7, model7.getMigrationVersion());
+		assertEquals(7, model7.getMigrationRevision());
 		assertEqualsUnmodifiable(list(migrations7Missing[0]), model7.getMigrations());
 
 		model7.connect(props);
@@ -142,12 +142,12 @@ public class MigrateTest extends CopeAssert
 		final Migration[] migrations7 = new Migration[]{
 				new Migration(7, "add column field7" + blah, body70),
 				new Migration(6, "add column field6",        body60, body61),
-				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for version 5"),
-				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for version 4"),
+				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
+				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4"),
 			};
 		model7.setMigrations(migrations7);
 		assertTrue(model7.isMigrationSupported());
-		assertEquals(7, model7.getMigrationVersion());
+		assertEquals(7, model7.getMigrationRevision());
 		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getMigrations());
 
 		final Date migrateBefore = new Date();
@@ -180,7 +180,7 @@ public class MigrateTest extends CopeAssert
 			};
 		model7.setMigrations(migrations8);
 		assertTrue(model7.isMigrationSupported());
-		assertEquals(8, model7.getMigrationVersion());
+		assertEquals(8, model7.getMigrationRevision());
 		assertEqualsUnmodifiable(Arrays.asList(migrations8), model7.getMigrations());
 
 		try

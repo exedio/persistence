@@ -44,7 +44,7 @@ import com.exedio.dsmf.Schema;
 public final class Model
 {
 	private final boolean migrationSupported;
-	private int migrationVersion;
+	private int migrationRevision;
 	private Migration[] migrations;
 	private final Object migrationLock = new Object();
 	
@@ -94,26 +94,26 @@ public final class Model
 				throw new NullPointerException("migration must not be null, but was at index " + i);
 			
 			if(i==0)
-				base = m.version;
+				base = m.revision;
 			else
 			{
-				final int expectedVersion = base-i;
-				if(m.version!=expectedVersion)
-					throw new IllegalArgumentException("inconsistent migration version at index " + i + ", expected " + expectedVersion + ", but was " + m.version);
+				final int expectedRevision = base-i;
+				if(m.revision!=expectedRevision)
+					throw new IllegalArgumentException("inconsistent migration revision at index " + i + ", expected " + expectedRevision + ", but was " + m.revision);
 			}
 		}
 		
 		return result;
 	}
 	
-	private static final int migrationVersion(final Migration[] migrations)
+	private static final int migrationRevision(final Migration[] migrations)
 	{
 		if(migrations==null)
 			return -1;
 		else if(migrations.length==0)
 			return 0;
 		else
-			return migrations[0].version;
+			return migrations[0].revision;
 	}
 	
 	public Model(final Migration[] migrations, final Type... types)
@@ -126,7 +126,7 @@ public final class Model
 		assert dummy==0.0;
 		
 		this.migrationSupported = (migrations!=null);
-		this.migrationVersion = migrationVersion(migrations);
+		this.migrationRevision = migrationRevision(migrations);
 		this.migrations = migrations;
 		
 		if(types==null)
@@ -359,10 +359,19 @@ public final class Model
 			throw new IllegalArgumentException("not in migration mode");
 	}
 	
+	/**
+	 * @deprecated Use {@link #getMigrationRevision()} instead
+	 */
+	@Deprecated
 	public int getMigrationVersion()
 	{
+		return getMigrationRevision();
+	}
+
+	public int getMigrationRevision()
+	{
 		assertMigrationSupported();
-		return migrationVersion;
+		return migrationRevision;
 	}
 	
 	public List<Migration> getMigrations()
@@ -375,7 +384,7 @@ public final class Model
 	{
 		assertMigrationSupported();
 		this.migrations = checkMigrations(migrations);
-		this.migrationVersion = migrationVersion(migrations);
+		this.migrationRevision = migrationRevision(migrations);
 	}
 	
 	public void migrate()
@@ -384,7 +393,7 @@ public final class Model
 		
 		synchronized(migrationLock)
 		{
-			getDatabase().migrate(migrationVersion, migrations);
+			getDatabase().migrate(migrationRevision, migrations);
 		}
 	}
 
@@ -546,7 +555,7 @@ public final class Model
 	
 	public void createDatabase()
 	{
-		getDatabase().createDatabase(migrationVersion);
+		getDatabase().createDatabase(migrationRevision);
 		clearCache();
 	}
 

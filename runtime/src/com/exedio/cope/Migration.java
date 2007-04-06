@@ -24,14 +24,14 @@ import java.util.List;
 
 public final class Migration
 {
-	final int version;
+	final int revision;
 	final String comment;
 	final String[] body;
 	
-	public Migration(final int version, final String comment, final String... body)
+	public Migration(final int revision, final String comment, final String... body)
 	{
-		if(version<0)
-			throw new IllegalArgumentException("version must not be negative");
+		if(revision<0)
+			throw new IllegalArgumentException("revision must not be negative");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 		if(body==null)
@@ -48,14 +48,23 @@ public final class Migration
 			bodyCopy[i] = body[i];
 		}
 
-		this.version = version;
+		this.revision = revision;
 		this.comment = comment;
 		this.body = bodyCopy;
 	}
 	
+	/**
+	 * @deprecated Use {@link #getRevision()} instead
+	 */
+	@Deprecated
 	public int getVersion()
 	{
-		return version;
+		return getRevision();
+	}
+
+	public int getRevision()
+	{
+		return revision;
 	}
 	
 	public String getComment()
@@ -71,6 +80,6 @@ public final class Migration
 	@Override
 	public String toString()
 	{
-		return String.valueOf('M') + version + ':' + comment;
+		return String.valueOf('M') + revision + ':' + comment;
 	}
 }

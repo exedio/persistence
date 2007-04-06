@@ -139,7 +139,7 @@ final class Database
 		return new Statement(this, query);
 	}
 	
-	void createDatabase(final int migrationVersion)
+	void createDatabase(final int migrationRevision)
 	{
 		buildStage = false;
 		
@@ -155,7 +155,7 @@ final class Database
 				con.setAutoCommit(true);
 				final java.util.Properties info = new java.util.Properties();
 				info.setProperty("create", Boolean.TRUE.toString());
-				insertMigration(con, migrationVersion, info, new Date(), getHostname());
+				insertMigration(con, migrationRevision, info, new Date(), getHostname());
 			}
 			catch(SQLException e)
 			{
@@ -1397,7 +1397,7 @@ final class Database
 		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
 	}
 	
-	private static final String MIGRATION_COLUMN_VERSION_NAME = "v";
+	private static final String MIGRATION_COLUMN_REVISION_NAME = "v";
 	private static final String MIGRATION_COLUMN_INFO_NAME = "i";
 	
 	Schema makeSchema()
@@ -1422,9 +1422,9 @@ final class Database
 		if(migrationSupported)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_VERSION_NAME, dialect.getIntegerType(0, Integer.MAX_VALUE));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_REVISION_NAME, dialect.getIntegerType(0, Integer.MAX_VALUE));
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_VERSION_NAME) + ')');
+			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_REVISION_NAME) + ')');
 		}
 		
 		dialect.completeSchema(result);
@@ -1438,18 +1438,18 @@ final class Database
 		return result;
 	}
 	
-	private int getActualMigrationVersion(final Connection connection)
+	private int getActualMigrationRevision(final Connection connection)
 	{
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String version = driver.protectName(MIGRATION_COLUMN_VERSION_NAME);
+		final String revision = driver.protectName(MIGRATION_COLUMN_REVISION_NAME);
 		bf.append("select max(").
-			append(version).defineColumnInteger().
+			append(revision).defineColumnInteger().
 			append(") from ").
 			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 			append(" where ").
-			append(version).
+			append(revision).
 			append(">=0");
 			
 		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
@@ -1484,15 +1484,15 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String version = driver.protectName(MIGRATION_COLUMN_VERSION_NAME);
+		final String revision = driver.protectName(MIGRATION_COLUMN_REVISION_NAME);
 		bf.append("select ").
-			append(version).defineColumnInteger().
+			append(revision).defineColumnInteger().
 			append(',').
 			append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).defineColumnString().
 			append(" from ").
 			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 			append(" where ").
-			append(version).
+			append(revision).
 			append(">=0");
 		
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
@@ -1503,11 +1503,11 @@ final class Database
 			{
 				while(resultSet.next())
 				{
-					final int version = resultSet.getInt(1);
+					final int revision = resultSet.getInt(1);
 					final byte[] info = dialect.getBytes(resultSet, 2);
-					final byte[] previous = result.put(version, info);
+					final byte[] previous = result.put(revision, info);
 					if(previous!=null)
-						throw new RuntimeException("duplicate version " + version);
+						throw new RuntimeException("duplicate revision " + revision);
 				}
 				
 				return null;
@@ -1516,7 +1516,7 @@ final class Database
 		return Collections.unmodifiableMap(result);
 	}
 	
-	private void insertMigration(final Connection connection, final int version, final java.util.Properties info, final Date date, final String hostname)
+	private void insertMigration(final Connection connection, final int revision, final java.util.Properties info, final Date date, final String hostname)
 	{
 		assert migrationSupported;
 		
@@ -1539,11 +1539,11 @@ final class Database
 		bf.append("insert into ").
 			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 			append('(').
-			append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
+			append(driver.protectName(MIGRATION_COLUMN_REVISION_NAME)).
 			append(',').
 			append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).
 			append(")values(").
-			appendParameter(version).
+			appendParameter(revision).
 			append(',').
 			appendParameterBlob(baos.toByteArray()).
 			append(')');
@@ -1551,9 +1551,9 @@ final class Database
 		executeSQLUpdate(connection, bf, 1);
 	}
 	
-	void migrate(final int expectedVersion, final Migration[] migrations)
+	void migrate(final int expectedRevision, final Migration[] migrations)
 	{
-		assert expectedVersion>=0 : expectedVersion;
+		assert expectedRevision>=0 : expectedRevision;
 		assert migrationSupported;
 
 		final Pool<Connection> connectionPool = this.connectionPool;
@@ -1570,20 +1570,20 @@ final class Database
 				throw new SQLRuntimeException(e, "setAutoCommit");
 			}
 			
-			final int actualVersion = getActualMigrationVersion(con);
+			final int actualRevision = getActualMigrationRevision(con);
 			
-			if(actualVersion>expectedVersion)
+			if(actualRevision>expectedRevision)
 			{
-				throw new IllegalArgumentException("cannot migrate backwards, expected " + expectedVersion + ", but was " + actualVersion);
+				throw new IllegalArgumentException("cannot migrate backwards, expected " + expectedRevision + ", but was " + actualRevision);
 			}
-			else if(actualVersion<expectedVersion)
+			else if(actualRevision<expectedRevision)
 			{
-				final int MIGRATION_MUTEX_VERSION = -1;
-				final int startMigrationIndex = expectedVersion - actualVersion - 1;
+				final int MIGRATION_MUTEX_REVISION = -1;
+				final int startMigrationIndex = expectedRevision - actualRevision - 1;
 				if(startMigrationIndex>=migrations.length)
 					throw new IllegalArgumentException(
-							"attempt to migrate from " + actualVersion + " to " + expectedVersion +
-							", but declared migrations allow from " + (expectedVersion - migrations.length) + " only");
+							"attempt to migrate from " + actualRevision + " to " + expectedRevision +
+							", but declared migrations allow from " + (expectedRevision - migrations.length) + " only");
 				
 				final Date date = new Date();
 				final String hostname = getHostname();
@@ -1591,9 +1591,9 @@ final class Database
 				{
 					final java.util.Properties info = new java.util.Properties();
 					info.setProperty("mutex", Boolean.TRUE.toString());
-					info.setProperty("mutex.actual", String.valueOf(actualVersion));
-					info.setProperty("mutex.expected", String.valueOf(expectedVersion));
-					insertMigration(con, MIGRATION_MUTEX_VERSION, info, date, hostname);
+					info.setProperty("mutex.actual", String.valueOf(actualRevision));
+					info.setProperty("mutex.expected", String.valueOf(expectedRevision));
+					insertMigration(con, MIGRATION_MUTEX_REVISION, info, date, hostname);
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1605,7 +1605,7 @@ final class Database
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Migration migration = migrations[migrationIndex];
-					assert migration.version == (expectedVersion - migrationIndex);
+					assert migration.revision == (expectedRevision - migrationIndex);
 					final java.util.Properties info = new java.util.Properties();
 					info.setProperty("comment", migration.comment);
 					final String[] body = migration.body;
@@ -1614,7 +1614,7 @@ final class Database
 						final String sql = body[bodyIndex];
 						final String bodyPrefix = "body" + bodyIndex + '.';
 						info.setProperty(bodyPrefix + "sql", sql);
-						System.out.println("COPE migrating " + migration.version + ':' + sql);
+						System.out.println("COPE migrating " + migration.revision + ':' + sql);
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
@@ -1623,16 +1623,16 @@ final class Database
 						info.setProperty(bodyPrefix + "rows", String.valueOf(rows));
 						info.setProperty(bodyPrefix + "elapsed", String.valueOf(end-start));
 					}
-					insertMigration(con, migration.version, info, date, hostname);
+					insertMigration(con, migration.revision, info, date, hostname);
 				}
 				{
 					final Statement bf = createStatement();
 					bf.append("delete from ").
 						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 						append(" where ").
-						append(driver.protectName(MIGRATION_COLUMN_VERSION_NAME)).
+						append(driver.protectName(MIGRATION_COLUMN_REVISION_NAME)).
 						append('=').
-						appendParameter(MIGRATION_MUTEX_VERSION);
+						appendParameter(MIGRATION_MUTEX_REVISION);
 					executeSQLUpdate(con, bf, 1);
 				}
 			}

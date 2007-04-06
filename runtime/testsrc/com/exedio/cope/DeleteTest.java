@@ -316,7 +316,7 @@ public class DeleteTest extends AbstractLibTest
 		assertFalse(model.isMigrationSupported());
 		try
 		{
-			model.getMigrationVersion();
+			model.getMigrationRevision();
 			fail();
 		}
 		catch(IllegalArgumentException e)
