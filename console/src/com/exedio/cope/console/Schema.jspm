@@ -67,10 +67,10 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="DROP" value="drop"/>
 			<hr>
 			<h4>Constraints</h4>
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_PK     %>" checked="true" />pk
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_FK     %>" checked="true" />fk
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_UNIQUE %>" checked="true" />unique
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_CHECK  %>" checked="true" />check
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_PK     %>" checked="checked" />pk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_FK     %>" checked="checked" />fk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_UNIQUE %>" checked="checked" />unique
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_CHECK  %>" checked="checked" />check
 			<br>
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
