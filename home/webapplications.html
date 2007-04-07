@@ -70,7 +70,7 @@ public void init() throws ServletException
 }
 </pre>
 		<div>
-			Even this can be ommitted, if you use the <i>TransactionFilter</i>
+			Even this can be ommitted, if you use the <i>CopeFilter</i>
 			explained below.
 			Please note, that
 			<tt><a href="api/com/exedio/cope/Model.html#connect(com.exedio.cope.Properties)">connect</a></tt>
@@ -113,21 +113,21 @@ protected void doGet(
 			A nice solution for both problems is delegating the transaction handling into a
 			<a href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/javax/servlet/Filter.html">filter</a>.
 			Class
-			<a href="api/com/exedio/cope/util/TransactionFilter.html">TransactionFilter</a>
+			<a href="api/com/exedio/cope/util/CopeFilter.html">CopeFilter</a>
 			provides such a filter.
 			It must be deployed in your <tt>web.xml</tt>:
 		</div>
 <pre>
 &lt;filter&gt;
-   &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
-   &lt;filter-class&gt;<a href="api/com/exedio/cope/util/TransactionFilter.html">com.exedio.cope.util.TransactionFilter</a>&lt;/filter-class&gt;
+   &lt;filter-name&gt;CopeFilter&lt;/filter-name&gt;
+   &lt;filter-class&gt;<a href="api/com/exedio/cope/util/CopeFilter.html">com.exedio.cope.util.CopeFilter</a>&lt;/filter-class&gt;
    &lt;init-param&gt;
       &lt;param-name&gt;model&lt;/param-name&gt;
       &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
    &lt;/init-param&gt;
 &lt;/filter&gt;
 &lt;filter-mapping&gt;
-   &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
+   &lt;filter-name&gt;CopeFilter&lt;/filter-name&gt;
    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
    &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
 &lt;/filter-mapping&gt;
@@ -139,7 +139,7 @@ protected void doGet(
 			please adapt this to your package.
 		</div>
 		<div>
-			As a side effect, the <i>TransactionFilter</i> connects the
+			As a side effect, the <i>CopeFilter</i> connects the
 			model in its own <tt>init()</tt>,
 			so you don't have to care about it anymore.
 		</div>

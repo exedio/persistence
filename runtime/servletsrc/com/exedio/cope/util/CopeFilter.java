@@ -37,15 +37,15 @@ import com.exedio.cope.Model;
  * Typically, your <tt>web.xml</tt> would contain a snippet like this:
  * <pre>
  * &lt;filter&gt;
- *    &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
- *    &lt;filter-class&gt;com.exedio.cope.util.TransactionFilter&lt;/filter-class&gt;
+ *    &lt;filter-name&gt;CopeFilter&lt;/filter-name&gt;
+ *    &lt;filter-class&gt;com.exedio.cope.util.CopeFilter&lt;/filter-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
  *       &lt;param-value&gt;{@link com.exedio.cope.Model com.exedio.demoshop.Main#model}&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/filter&gt;
  * &lt;filter-mapping&gt;
- *    &lt;filter-name&gt;TransactionFilter&lt;/filter-name&gt;
+ *    &lt;filter-name&gt;CopeFilter&lt;/filter-name&gt;
  *    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
  *    &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
  * &lt;/filter-mapping&gt;
@@ -53,7 +53,7 @@ import com.exedio.cope.Model;
  *
  * @author Stephan Frisch, exedio GmbH
  */
-public final class TransactionFilter implements Filter
+public final class CopeFilter implements Filter
 {
 	private Model model;
 	private String transactionName = null;
@@ -69,21 +69,21 @@ public final class TransactionFilter implements Filter
 		catch(RuntimeException e)
 		{
 			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("RuntimeException in TransactionFilter.init");
+			System.err.println("RuntimeException in CopeFilter.init");
 			e.printStackTrace();
 			throw e;
 		}
 		catch(ServletException e)
 		{
 			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("ServletException in TransactionFilter.init");
+			System.err.println("ServletException in CopeFilter.init");
 			e.printStackTrace();
 			throw e;
 		}
 		catch(Error e)
 		{
 			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("Error in TransactionFilter.init");
+			System.err.println("Error in CopeFilter.init");
 			e.printStackTrace();
 			throw e;
 		}
