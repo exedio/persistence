@@ -44,7 +44,7 @@ abstract class ConsoleCop extends Cop
 	long start = 0;
 	SimpleDateFormat df;
 	DecimalFormat nf;
-	String authenication;
+	String authentication;
 	String hostname;
 	
 	void initialize(final HttpServletRequest request, final Model model)
@@ -56,7 +56,7 @@ abstract class ConsoleCop extends Cop
 		nfs.setGroupingSeparator('\'');
 		nf = new DecimalFormat("", nfs);
 		final Principal principal = request.getUserPrincipal();
-		authenication = principal!=null ? principal.getName() : null;
+		authentication = principal!=null ? principal.getName() : null;
 		try
 		{
 			hostname = InetAddress.getLocalHost().getHostName();
@@ -105,7 +105,7 @@ abstract class ConsoleCop extends Cop
 	
 	final String getAuthentication()
 	{
-		return authenication;
+		return authentication;
 	}
 	
 	final String getHostname()
@@ -191,5 +191,4 @@ abstract class ConsoleCop extends Cop
 
 		return PropertiesCop.getPropertiesCop(request);
 	}
-
 }
