@@ -42,7 +42,6 @@ abstract class ConsoleCop extends Cop
 	}
 	
 	long start = 0;
-	long end = 0;
 	SimpleDateFormat df;
 	DecimalFormat nf;
 	String authenication;
@@ -96,23 +95,12 @@ abstract class ConsoleCop extends Cop
 		return df.format(new Date(start));
 	}
 	
-	final String getEnd()
-	{
-		if(end!=0)
-			throw new RuntimeException();
-		
-		end = System.currentTimeMillis();
-		return df.format(new Date(end));
-	}
-	
 	final long getDuration()
 	{
 		if(start==0)
 			throw new RuntimeException();
-		if(end==0)
-			throw new RuntimeException();
 
-		return end-start;
+		return System.currentTimeMillis()-start;
 	}
 	
 	final String getAuthentication()
