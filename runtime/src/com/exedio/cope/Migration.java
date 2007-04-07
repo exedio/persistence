@@ -37,8 +37,8 @@ public final class Migration
 	
 	public Migration(final int revision, final String comment, final String... body)
 	{
-		if(revision<0)
-			throw new IllegalArgumentException("revision must not be negative");
+		if(revision<=0)
+			throw new IllegalArgumentException("revision must be greater zero");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 		if(body==null)

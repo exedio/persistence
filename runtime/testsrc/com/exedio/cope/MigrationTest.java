@@ -33,11 +33,20 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("revision must not be negative", e.getMessage());
+			assertEquals("revision must be greater zero", e.getMessage());
 		}
 		try
 		{
 			new Migration(0, null, (String[])null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("revision must be greater zero", e.getMessage());
+		}
+		try
+		{
+			new Migration(1, null, (String[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -46,7 +55,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(0, "some comment", (String[])null);
+			new Migration(1, "some comment", (String[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -55,7 +64,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(0, "some comment", new String[0]);
+			new Migration(1, "some comment", new String[0]);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -64,7 +73,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(0, "some comment", "hallo", null);
+			new Migration(1, "some comment", "hallo", null);
 			fail();
 		}
 		catch(NullPointerException e)
