@@ -32,7 +32,14 @@
 			It assumes that you have already deployed the <i>COPE Console</i> into your
 			web application.
 		</div>
-		<h3>Inspection</h3>
+		<h3><a name="contents">Contents</a></h3>
+		<ul>
+			<li><a href="#inspection">Inspection</a></li>
+			<li><a href="#modification">Modification</a></li>
+			<li><a href="#migration">Migration</a></li>
+			<li><a href="#further">Further Reading</a></li>
+		</ul>
+		<h3><a name="inspection">Inspection</a></h3>
 		<div>
 			You may want to know first,
 			which database schema is created by COPE.
@@ -72,7 +79,7 @@ public class Customer extends Item
 			set up by COPE,
 			but we won't deal with them in this trail.
 		</div>
-		<h3>Modification</h3>
+		<h3><a name="modification">Modification</a></h3>
 		<div>
 			Let's say you want to add a new field to your type:
 		</div>
@@ -129,7 +136,89 @@ public class Customer extends Item
 			If everything is green, then there is a very little chance,
 			that application and database schema don't fit to each other.
 		</div>
-		<h3>Further Reading</h3>
+		<h3><a name="migration">Migration</a></h3>
+		<div>
+			Now that you have some sql for migrating your database
+			to the new application version,
+			you may want to reuse it for two purposes:
+			<ul>
+				<li>Communicate it to your coworkers, so they can adapt their database,
+					once they check out your modification from the source code repository.</li>
+				<li>If there is already any production system, apply it to it,
+					once your modification is deployed there.</li>
+			</ul>
+			With <i>COPE Migrations</i> both is achieved easily.
+			All you have to do is to register the sql command at the COPE model
+			of your application.
+			The model currently looks like this:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a href="api/com/exedio/cope/Model.html#Model(com.exedio.cope.Type...)">Model</a>(
+   Customer.TYPE,
+   Order.TYPE);
+</pre>
+		<div>
+			Now insert a list of migrations with the first migration
+			containing your sql command:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a href="api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)">Model</a>(
+   <b>new <a href="api/com/exedio/cope/Migration.html">Migration</a>[] {
+      new <a href="api/com/exedio/cope/Migration.html#Migration(int, java.lang.String, java.lang.String...)">Migration</a>(1, "add flag blocked to customer",
+         "alter table Customer add column blocked integer")
+   },</b>
+   Customer.TYPE,
+   Order.TYPE);
+</pre>
+		<div>
+			So your sql command is executed,
+			whenever your application starts up on a database,
+			where migration number 1 has not yet been applied.
+			So this happens both on the systems of your coworkers
+			and on the production system as well without any further action needed.
+		</div>
+		<div>
+			Of course you can have more than one migration,
+			and each migration can consist of more than one sql command.
+			Below the date of last modification is added to both types:
+		</div>
+<pre>
+static final <a href="api/com/exedio/cope/Model.html">Model</a> model = new <a href="api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)">Model</a>(
+   new <a href="api/com/exedio/cope/Migration.html">Migration</a>[] {
+      <b>new <a href="api/com/exedio/cope/Migration.html#Migration(int, java.lang.String, java.lang.String...)">Migration</a>(2, "log last modification",
+         "alter table Customer add column lastModified date",
+         "alter table Order add column lastModified date"),</b>
+      new <a href="api/com/exedio/cope/Migration.html#Migration(int, java.lang.String, java.lang.String...)">Migration</a>(1, "add flag blocked to customer",
+         "alter table Customer add column blocked integer")
+   },
+   Customer.TYPE,
+   Order.TYPE);
+</pre>
+		<div>
+			However, before you really can start with migrations,
+			you have to do two one-time preparations:
+			<ol>
+				<li>
+					Make sure, that Model.<a href="api/com/exedio/cope/Model.html#migrate()">migrate</a>()
+					is called before you use the application.
+					This method actually executes the sql commands when necessary.
+					The best place for this call is immediately after
+					<a href="api/com/exedio/cope/Model.html#connect(com.exedio.cope.Properties)">connecting</a>.
+					If you already use the
+					<a href="api/com/exedio/cope/util/TransactionFilter.html">TransactionFilter</a>,
+					you don't have do do anything, the filter calls Model.migrate() for you.
+				</li>
+				<li>
+					COPE stores the information about migrations already applied to
+					the database schema in an extra table named '<code>while</code>'.
+					Create this table with the COPE Console,
+					and make sure, this as done on the production system and the systems
+					of your coworkers as well.
+					It will be the last time, you have to do something like this manually.
+				</li>
+			</ol>
+		</div>
+		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			After having a look at the COPE Console,
 			you may want to go back to COPE itself.
