@@ -100,7 +100,7 @@ abstract class ConsoleCop extends Cop
 		if(start==0)
 			throw new RuntimeException();
 
-		return System.currentTimeMillis()-start;
+		return System.currentTimeMillis() - start;
 	}
 	
 	final String getAuthentication()
