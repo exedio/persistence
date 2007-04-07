@@ -23,6 +23,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -81,13 +83,24 @@ final class MigrationCop extends ConsoleCop
 			}
 			
 			final Map<Integer, byte[]> logsRaw = model.getMigrationLogs();
-			final HashMap<Integer, String> logs = new HashMap<Integer, String>();
+			final HashMap<Integer, String> logStrings = new HashMap<Integer, String>();
+			final HashMap<Integer, TreeMap<String, String>> logProperties = new HashMap<Integer, TreeMap<String, String>>();
 			try
 			{
 				for(final Integer v : logsRaw.keySet())
 				{
 					register(v);
-					logs.put(v, new String(logsRaw.get(v), "latin1"));
+					final byte[] infoBytes = logsRaw.get(v);
+					final Properties infoProperties = Migration.parse(infoBytes);
+					if(infoProperties!=null)
+					{
+						final TreeMap<String, String> map = new TreeMap<String, String>();
+						for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
+							map.put((String)entry.getKey(), (String)entry.getValue());
+						logProperties.put(v, map);
+						continue;
+					}
+					logStrings.put(v, new String(infoBytes, "latin1"));
 				}
 			}
 			catch(UnsupportedEncodingException e)
@@ -98,9 +111,9 @@ final class MigrationCop extends ConsoleCop
 			final int current = model.getMigrationRevision();
 			register(current);
 			
-			Migration_Jspm.writeBody(this, request, out, oldest, latest, current, migrationMap, logs);
+			Migration_Jspm.writeBody(this, request, out, oldest, latest, current, migrationMap, logStrings, logProperties);
 		}
 		else
-			Migration_Jspm.writeBody(this, request, out, 0, 0, 0, null, null);
+			Migration_Jspm.writeBody(this, request, out, 0, 0, 0, null, null, null);
 	}
 }

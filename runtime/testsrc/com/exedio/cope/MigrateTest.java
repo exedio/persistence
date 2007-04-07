@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
@@ -325,16 +323,7 @@ public class MigrateTest extends CopeAssert
 	
 	private static final Properties log(final byte[] log)
 	{
-		final Properties result = new Properties();
-		try
-		{
-			result.load(new ByteArrayInputStream(log));
-		}
-		catch(IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		return result;
+		return Migration.parse(log);
 	}
 	
 	private static final void assertMinInt(final int expectedMinimum, final String actual)

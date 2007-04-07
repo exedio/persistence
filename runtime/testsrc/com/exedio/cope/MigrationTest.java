@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.UnsupportedEncodingException;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class MigrationTest extends CopeAssert
@@ -108,6 +110,24 @@ public class MigrationTest extends CopeAssert
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("inconsistent migration revision at index 1, expected 7, but was 6", e.getMessage());
+		}
+	}
+	
+	public static void testParse() throws UnsupportedEncodingException
+	{
+		assertEquals(map("key1", "value1", "key2", "value2"), Migration.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
+		assertEquals(null, Migration.parse("migrationlogv01".getBytes("latin1")));
+		assertEquals(null, Migration.parse("#migrationlogv0".getBytes("latin1")));
+		assertEquals(null, Migration.parse("x#migrationlogv01".getBytes("latin1")));
+		assertEquals(null, Migration.parse("".getBytes("latin1")));
+		try
+		{
+			Migration.parse(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
 		}
 	}
 }

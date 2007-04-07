@@ -18,9 +18,13 @@
 
 package com.exedio.cope;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 public final class Migration
 {
@@ -81,5 +85,42 @@ public final class Migration
 	public String toString()
 	{
 		return String.valueOf('M') + revision + ':' + comment;
+	}
+	
+	// logs
+	
+	static final String INFO_MAGIC = "migrationlogv01";
+	
+	public static final Properties parse(final byte[] info)
+	{
+		if(info.length<=INFO_MAGIC.length()+1)
+			return null;
+
+		if(info[0]!='#')
+			return null;
+		
+		final byte[] magic;
+		try
+		{
+			magic = INFO_MAGIC.getBytes("latin1");
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
+		for(int i = 0; i<magic.length; i++)
+			if(info[i+1]!=magic[i])
+				return null;
+		
+		final Properties result = new Properties();
+		try
+		{
+			result.load(new ByteArrayInputStream(info));
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return result;
 	}
 }

@@ -1527,7 +1527,7 @@ final class Database
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try
 		{
-			info.store(baos, "migrationlogv01");
+			info.store(baos, Migration.INFO_MAGIC);
 		}
 		catch(IOException e)
 		{

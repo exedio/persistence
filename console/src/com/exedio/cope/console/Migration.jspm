@@ -20,7 +20,9 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +36,8 @@ final class Migration_Jspm extends Console_Jspm
 			final PrintStream out,
 			final int oldest, final int latest, final int current,
 			Map<Integer, Migration> migrations,
-			Map<Integer, String> logs)
+			final HashMap<Integer, String> logStrings,
+			final HashMap<Integer, TreeMap<String, String>> logProperties)
 	{
 		%>
 		<table>
@@ -46,7 +49,8 @@ final class Migration_Jspm extends Console_Jspm
 			for(int v = latest; v>=oldest; v--)
 			{
 				final Migration migration = migrations.get(v);
-				final String log = logs.get(v);
+				final String logString = logStrings.get(v);
+				final TreeMap<String, String> logProperty = logProperties.get(v);
 			%>
 			<tr>
 				<td><% if(v==current){ %>--&gt; <% }%><%=v%></td>
@@ -73,7 +77,23 @@ final class Migration_Jspm extends Console_Jspm
 					%>-<%
 				}
 				%></td>
-				<td class="text"><% if(log!=null){ %><%=log%><% } else { %>-<% } %></td>
+				<td class="text"><%
+				if(logString!=null)
+				{
+					%><%=logString%><%
+				}
+				else if(logProperty!=null)
+				{
+					for(final Map.Entry<String, String> entry : logProperty.entrySet())
+					{
+						%><%=entry.getKey()%>=<%=entry.getValue()%><br><%
+					}
+				}
+				else
+				{
+					%>-<%
+				}
+				%></td>
 			</tr><%
 			}
 			}
