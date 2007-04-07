@@ -269,7 +269,7 @@ public class MigrateTest extends CopeAssert
 	
 	private final Date assertCreate(final Date before, final Date after, final byte[] log) throws ParseException
 	{
-		final Properties logProps = log(log);
+		final Properties logProps = parse(log);
 		final Date date = df.parse(logProps.getProperty("date"));
 		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
@@ -286,7 +286,7 @@ public class MigrateTest extends CopeAssert
 	
 	private final Date assertMigrate(final Date before, final Date after, final Migration migration, final byte[] log) throws ParseException
 	{
-		final Properties logProps = log(log);
+		final Properties logProps = parse(log);
 		final Date date = df.parse(logProps.getProperty("date"));
 		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
@@ -321,7 +321,7 @@ public class MigrateTest extends CopeAssert
 		assertEquals(driverVersion, p.getProperty("driver.version") + " (" + p.getProperty("driver.version.major") + '.' + p.getProperty("driver.version.minor") + ')');
 	}
 	
-	private static final Properties log(final byte[] log)
+	private static final Properties parse(final byte[] log)
 	{
 		return Migration.parse(log);
 	}
