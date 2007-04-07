@@ -19,10 +19,13 @@
 package com.exedio.cope;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -89,7 +92,7 @@ public final class Migration
 	
 	// logs
 	
-	static final String INFO_MAGIC = "migrationlogv01";
+	private static final String INFO_MAGIC = "migrationlogv01";
 	
 	public static final Properties parse(final byte[] info)
 	{
@@ -122,5 +125,67 @@ public final class Migration
 			throw new RuntimeException(e);
 		}
 		return result;
+	}
+	
+	static byte[] mutex(
+			final Date date, final String hostname, final DialectParameters dialectParameters,
+			final int expectedRevision, final int actualRevision)
+	{
+		final Properties result = newInfo(date, hostname, dialectParameters);
+		result.setProperty("mutex", Boolean.TRUE.toString());
+		result.setProperty("mutex.expected", String.valueOf(expectedRevision));
+		result.setProperty("mutex.actual", String.valueOf(actualRevision));
+		return toBytes(result);
+	}
+	
+	static byte[] create(
+			final String hostname, final DialectParameters dialectParameters)
+	{
+		final Properties result = newInfo(new Date(), hostname, dialectParameters);
+		result.setProperty("create", Boolean.TRUE.toString());
+		return toBytes(result);
+	}
+	
+	static Properties migrate(
+			final Date date, final String hostname, final DialectParameters dialectParameters,
+			final String comment)
+	{
+		final Properties result = newInfo(date, hostname, dialectParameters);
+		result.setProperty("comment", comment);
+		return result;
+	}
+	
+	static void migrateSql(final Properties info, final int index, final String sql, final int rows, final long elapsed)
+	{
+		final String bodyPrefix = "body" + index + '.';
+		info.setProperty(bodyPrefix + "sql", sql);
+		info.setProperty(bodyPrefix + "rows", String.valueOf(rows));
+		info.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
+	}
+	
+	private static Properties newInfo(
+			final Date date, final String hostname, final DialectParameters dialectParameters)
+	{
+		final Properties result = new Properties();
+		result.setProperty("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date));
+		if(hostname!=null)
+			result.setProperty("hostname", hostname);
+		dialectParameters.setVersions(result);
+		return result;
+	}
+	
+	static byte[] toBytes(final java.util.Properties info)
+	{
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try
+		{
+			info.store(baos, INFO_MAGIC);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e); // ByteArrayOutputStream cannot throw IOException
+		}
+		//try{System.out.println("-----------"+new String(baos.toByteArray(), "latin1")+"-----------");}catch(UnsupportedEncodingException e){throw new RuntimeException(e);};
+		return baos.toByteArray();
 	}
 }

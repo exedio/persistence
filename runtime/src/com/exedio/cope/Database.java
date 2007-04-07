@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -28,7 +27,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -153,9 +151,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				final java.util.Properties info = new java.util.Properties();
-				info.setProperty("create", Boolean.TRUE.toString());
-				insertMigration(con, migrationRevision, info, new Date(), getHostname());
+				insertMigration(con, migrationRevision, Migration.create(getHostname(), dialectParameters));
 			}
 			catch(SQLException e)
 			{
@@ -1516,24 +1512,9 @@ final class Database
 		return Collections.unmodifiableMap(result);
 	}
 	
-	private void insertMigration(final Connection connection, final int revision, final java.util.Properties info, final Date date, final String hostname)
+	private void insertMigration(final Connection connection, final int revision, final byte[] info)
 	{
 		assert migrationSupported;
-		
-		info.setProperty("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date));
-		if(hostname!=null)
-			info.setProperty("hostname", hostname);
-		dialectParameters.setVersions(info);
-		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try
-		{
-			info.store(baos, Migration.INFO_MAGIC);
-		}
-		catch(IOException e)
-		{
-			throw new RuntimeException(e); // ByteArrayOutputStream cannot throw IOException
-		}
-		//try{System.out.println("-----------"+new String(baos.toByteArray(), "latin1")+"-----------");}catch(UnsupportedEncodingException e){throw new RuntimeException(e);};
 		
 		final Statement bf = createStatement();
 		bf.append("insert into ").
@@ -1545,7 +1526,7 @@ final class Database
 			append(")values(").
 			appendParameter(revision).
 			append(',').
-			appendParameterBlob(baos.toByteArray()).
+			appendParameterBlob(info).
 			append(')');
 		
 		executeSQLUpdate(connection, bf, 1);
@@ -1589,11 +1570,7 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					final java.util.Properties info = new java.util.Properties();
-					info.setProperty("mutex", Boolean.TRUE.toString());
-					info.setProperty("mutex.actual", String.valueOf(actualRevision));
-					info.setProperty("mutex.expected", String.valueOf(expectedRevision));
-					insertMigration(con, MIGRATION_MUTEX_REVISION, info, date, hostname);
+					insertMigration(con, MIGRATION_MUTEX_REVISION, Migration.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1606,24 +1583,20 @@ final class Database
 				{
 					final Migration migration = migrations[migrationIndex];
 					assert migration.revision == (expectedRevision - migrationIndex);
-					final java.util.Properties info = new java.util.Properties();
-					info.setProperty("comment", migration.comment);
+					final java.util.Properties info = Migration.migrate(date, hostname, dialectParameters, migration.comment);
 					final String[] body = migration.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
 						final String sql = body[bodyIndex];
-						final String bodyPrefix = "body" + bodyIndex + '.';
-						info.setProperty(bodyPrefix + "sql", sql);
 						System.out.println("COPE migrating " + migration.revision + ':' + sql);
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
 						final int rows = executeSQLUpdate(con, bf, Integer.MIN_VALUE);
 						final long end = System.currentTimeMillis();
-						info.setProperty(bodyPrefix + "rows", String.valueOf(rows));
-						info.setProperty(bodyPrefix + "elapsed", String.valueOf(end-start));
+						Migration.migrateSql(info, bodyIndex, sql, rows, end-start);
 					}
-					insertMigration(con, migration.revision, info, date, hostname);
+					insertMigration(con, migration.revision, Migration.toBytes(info));
 				}
 				{
 					final Statement bf = createStatement();
