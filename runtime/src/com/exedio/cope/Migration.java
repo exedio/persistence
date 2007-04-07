@@ -170,7 +170,14 @@ public final class Migration
 		result.setProperty("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date));
 		if(hostname!=null)
 			result.setProperty("hostname", hostname);
-		dialectParameters.setVersions(result);
+		result.setProperty("database.name", dialectParameters.databaseProductName);
+		result.setProperty("database.version", dialectParameters.databaseProductVersion);
+		result.setProperty("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
+		result.setProperty("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
+		result.setProperty("driver.name", dialectParameters.driverName);
+		result.setProperty("driver.version", dialectParameters.driverVersion);
+		result.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
+		result.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
 		return result;
 	}
 	
