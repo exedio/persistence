@@ -33,11 +33,18 @@ public class Properties
 	private final java.util.Properties properties;
 	private final String source;
 	private final ArrayList<Field> fields = new ArrayList<Field>();
+	private final Context context;
 	
 	public Properties(final java.util.Properties properties, final String source)
 	{
+		this(properties, source, null);
+	}
+	
+	public Properties(final java.util.Properties properties, final String source, final Context context)
+	{
 		this.properties = properties;
 		this.source = source;
+		this.context = context;
 		
 		// TODO check, that no other property key do occur
 	}
@@ -50,6 +57,39 @@ public class Properties
 	public final List<Field> getFields()
 	{
 		return Collections.unmodifiableList(fields);
+	}
+	
+	private final String getProperty(final String key)
+	{
+		final String raw = properties.getProperty(key);
+		if(raw==null || context==null)
+			return raw;
+
+		final StringBuffer bf = new StringBuffer();
+		int previous = 0;
+		for(int dollar = raw.indexOf("${"); dollar>=0; dollar = raw.indexOf("${", previous))
+		{
+			final int contextKeyBegin = dollar+2;
+			final int contextKeyEnd = raw.indexOf('}', contextKeyBegin);
+			if(contextKeyEnd<0)
+				throw new IllegalArgumentException("missing '}' in " + raw);
+			if(contextKeyBegin==contextKeyEnd)
+				throw new IllegalArgumentException("${} not allowed in " + raw);
+			final String contextKey = raw.substring(contextKeyBegin, contextKeyEnd);
+			final String replaced = context.get(contextKey);
+			if(replaced==null)
+				throw new IllegalArgumentException("key '" + contextKey + "\' not defined by context " + context);
+			bf.append(raw.substring(previous, dollar)).
+				append(replaced);
+			previous = contextKeyEnd + 1;
+		}
+		bf.append(raw.substring(previous));
+		return bf.toString();
+	}
+	
+	public interface Context
+	{
+		String get(String key);
 	}
 	
 	public abstract class Field
@@ -99,7 +139,7 @@ public class Properties
 			super(key);
 			this.defaultValue = defaultValue;
 			
-			final String s = properties.getProperty(key);
+			final String s = getProperty(key);
 			if(s==null)
 				this.value = defaultValue;
 			else
@@ -144,7 +184,7 @@ public class Properties
 			if(defaultValue<minimumValue)
 				throw new RuntimeException(key+defaultValue+','+minimumValue);
 			
-			final String s = properties.getProperty(key);
+			final String s = getProperty(key);
 			if(s==null)
 				value = defaultValue;
 			else
@@ -223,7 +263,7 @@ public class Properties
 			
 			assert !(defaultValue!=null && hideValue);
 			
-			final String s = properties.getProperty(key);
+			final String s = getProperty(key);
 			if(s==null)
 			{
 				if(defaultValue==null)
@@ -267,7 +307,7 @@ public class Properties
 		{
 			super(key);
 
-			final String valueString = properties.getProperty(key);
+			final String valueString = getProperty(key);
 			this.value = (valueString==null) ? null : new File(valueString);
 		}
 		
@@ -311,7 +351,7 @@ public class Properties
 			{
 				final String currentKey = (String)i.next();
 				if(currentKey.startsWith(prefix))
-					value.put(currentKey.substring(prefixLength), properties.getProperty(currentKey));
+					value.put(currentKey.substring(prefixLength), getProperty(currentKey));
 			}
 		}
 		

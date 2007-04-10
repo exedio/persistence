@@ -41,6 +41,11 @@ public class PropertiesTest extends CopeAssert
 			super(properties, source);
 		}
 		
+		public TestProperties(final java.util.Properties properties, final String source, final Context context)
+		{
+			super(properties, source, context);
+		}
+		
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
@@ -376,5 +381,83 @@ public class PropertiesTest extends CopeAssert
 	private static final java.util.Properties copy(final java.util.Properties source)
 	{
 		return (java.util.Properties)source.clone();
+	}
+	
+	public void testContext()
+	{
+		assertContext("y", "${x}");
+		assertContext("bucket", "${eimer}");
+		assertContext("bucketpostfix", "${eimer}postfix");
+		assertContext("prefixbucket", "prefix${eimer}");
+		assertContext("prefixbucketpostfix", "prefix${eimer}postfix");
+		assertContext("bucketinfixwater", "${eimer}infix${wasser}");
+		assertContext("bucketinfixwaterpostfix", "${eimer}infix${wasser}postfix");
+		assertContext("prefixbucketinfixwater", "prefix${eimer}infix${wasser}");
+		assertContext("prefixbucketinfixwaterpostfix", "prefix${eimer}infix${wasser}postfix");
+		assertContext("x$kkk", "x$kkk");
+
+		try
+		{
+			getContext("${nixus}");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("key 'nixus' not defined by context TestContext", e.getMessage());
+		}
+		try
+		{
+			getContext("x${}y");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("${} not allowed in x${}y", e.getMessage());
+		}
+		try
+		{
+			getContext("x${kkk");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("missing '}' in x${kkk", e.getMessage());
+		}
+	}
+	
+	private static final TestProperties getContext(final String raw)
+	{
+		final java.util.Properties pminimal = new java.util.Properties();
+		pminimal.setProperty("stringMandatory", raw);
+		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
+		final TestProperties minimal = new TestProperties(pminimal, "minimal", new Properties.Context(){
+
+			public String get(final String key)
+			{
+				if("x".equals(key))
+					return "y";
+				else if("eimer".equals(key))
+					return "bucket";
+				else if("wasser".equals(key))
+					return "water";
+				else if("nixus".equals(key))
+					return null;
+				else
+					throw new RuntimeException(key);
+			}
+			
+			@Override
+			public String toString()
+			{
+				return "TestContext";
+			}
+		});
+		
+		return minimal;
+	}
+	
+	private static final void assertContext(final String replaced, final String raw)
+	{
+		assertEquals(replaced, getContext(raw).stringMandatory.getStringValue());
 	}
 }
