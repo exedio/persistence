@@ -85,7 +85,7 @@ public final class ConsoleServlet extends CopsServlet
 		
 		try
 		{
-			model = ServletUtil.getModel(getServletConfig());
+			model = ServletUtil.getConnectedModel(getServletConfig());
 		}
 		catch(RuntimeException e)
 		{

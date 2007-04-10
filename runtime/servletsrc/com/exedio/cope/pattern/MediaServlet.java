@@ -70,7 +70,7 @@ public final class MediaServlet extends HttpServlet
 
 		try
 		{
-			final Model model = ServletUtil.getModel(getServletConfig());
+			final Model model = ServletUtil.getConnectedModel(getServletConfig());
 			model.migrateIfSupported();
 			for(final Type<?> type : model.getTypes())
 			{

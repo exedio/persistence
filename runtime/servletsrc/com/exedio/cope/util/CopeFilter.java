@@ -62,7 +62,7 @@ public final class CopeFilter implements Filter
 	{
 		try
 		{
-			model = ServletUtil.getModel(config);
+			model = ServletUtil.getConnectedModel(config);
 			final String transactionNameParameter = config.getInitParameter("transactionName");
 			transactionName = (transactionNameParameter!=null) ? transactionNameParameter : getClass().getName();
 		}

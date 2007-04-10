@@ -32,13 +32,33 @@ public class ServletUtil
 {
 	private static final String PARAMETER_MODEL = "model";
 
+	/**
+	 * @deprecated Use {@link #getConnectedModel(ServletConfig)} instead
+	 */
+	@Deprecated
 	public static final Model getModel(final ServletConfig config)
+	throws ServletException
+	{
+		return getConnectedModel(config);
+	}
+
+	public static final Model getConnectedModel(final ServletConfig config)
 	throws ServletException
 	{
 		return getModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
 	}
 	
+	/**
+	 * @deprecated Use {@link #getConnectedModel(FilterConfig)} instead
+	 */
+	@Deprecated
 	public static final Model getModel(final FilterConfig config)
+	throws ServletException
+	{
+		return getConnectedModel(config);
+	}
+
+	public static final Model getConnectedModel(final FilterConfig config)
 	throws ServletException
 	{
 		return getModel(config.getInitParameter(PARAMETER_MODEL), "filter", config.getFilterName(), config.getServletContext());

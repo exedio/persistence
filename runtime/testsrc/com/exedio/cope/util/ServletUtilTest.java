@@ -45,20 +45,20 @@ public class ServletUtilTest extends CopeAssert
 	public void testIt() throws ServletException
 	{
 		assertModelNotConnected(modelOk);
-		assertSame(modelOk, ServletUtil.getModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
+		assertSame(modelOk, ServletUtil.getConnectedModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
 		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
 
 		assertModelNotConnected(modelOk2);
-		assertSame(modelOk2, ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
+		assertSame(modelOk2, ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
 
 		assertModelNotConnected(modelContext);
-		assertSame(modelContext, ServletUtil.getModel(new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
+		assertSame(modelContext, ServletUtil.getConnectedModel(new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
 		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig(null, "nameNull"));
+			ServletUtil.getConnectedModel(new MockFilterConfig(null, "nameNull"));
 			fail();
 		}
 		catch(ServletException e)
@@ -68,7 +68,7 @@ public class ServletUtilTest extends CopeAssert
 
 		try
 		{
-			ServletUtil.getModel(new MockServletConfig("zick", "nameZick"));
+			ServletUtil.getConnectedModel(new MockServletConfig("zick", "nameZick"));
 			fail();
 		}
 		catch(ServletException e)
@@ -78,7 +78,7 @@ public class ServletUtilTest extends CopeAssert
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig("zack", "nameZack"));
+			ServletUtil.getConnectedModel(new MockFilterConfig("zack", "nameZack"));
 			fail();
 		}
 		catch(ServletException e)
@@ -88,7 +88,7 @@ public class ServletUtilTest extends CopeAssert
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"));
+			ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"));
 			fail();
 		}
 		catch(ServletException e)
@@ -98,7 +98,7 @@ public class ServletUtilTest extends CopeAssert
 
 		try
 		{
-			ServletUtil.getModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"));
+			ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"));
 			fail();
 		}
 		catch(ServletException e)
