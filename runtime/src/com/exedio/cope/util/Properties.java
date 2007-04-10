@@ -336,7 +336,6 @@ public class Properties
 		{
 			return value.getProperty(key);
 		}
-		
 	}
 
 	public final void ensureValidity(final String... prefixes)
@@ -400,7 +399,6 @@ public class Properties
 						" between " + source + " and " + other.source +
 						(thisHideValue ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
 		}
-		
 	}
 	
 	public static final java.util.Properties loadProperties(final File file)
