@@ -355,15 +355,15 @@ public class Properties
 		if(prefixes!=null)
 			allowedPrefixes.addAll(Arrays.asList(prefixes));
 		
-		for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
+		for(final Object keyObject : properties.keySet())
 		{
-			final String key = (String)i.next();
+			final String key = (String)keyObject;
 			if(!allowedValues.contains(key))
 			{
 				boolean error = true;
-				for(Iterator j = allowedPrefixes.iterator(); j.hasNext(); )
+				for(String allowedPrefix : allowedPrefixes)
 				{
-					if(key.startsWith((String)j.next()))
+					if(key.startsWith(allowedPrefix))
 					{
 						error = false;
 						break;
@@ -429,5 +429,4 @@ public class Properties
 			}
 		}
 	}
-
 }
