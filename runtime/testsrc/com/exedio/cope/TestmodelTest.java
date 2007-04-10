@@ -54,7 +54,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 		dp.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
 		dp.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
 		
-		return new Properties(dp, dpf.getAbsolutePath()+" plus TestmodelTest forced names");
+		return new Properties(dp, dpf.getAbsolutePath()+" plus TestmodelTest forced names", null);
 	}
 	
 	protected void assertDataMime(final AttributeItem item,

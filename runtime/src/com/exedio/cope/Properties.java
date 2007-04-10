@@ -85,12 +85,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 	public Properties(final File file)
 	{
-		this(loadProperties(file), file.getAbsolutePath());
+		this(file, null);
 	}
 
-	public Properties(final java.util.Properties properties, final String source)
+	public Properties(final File file, final Context context)
 	{
-		super(properties, source);
+		this(loadProperties(file), file.getAbsolutePath(), context);
+	}
+
+	public Properties(final java.util.Properties properties, final String source, final Context context)
+	{
+		super(properties, source, context);
 
 		final String dialectCodeRaw = this.dialectCode.getStringValue();
 		

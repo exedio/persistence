@@ -44,7 +44,7 @@ public class NameTest extends AbstractLibTest
 		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
 		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_pointerLoooooooooooooName_Ck", "NmeLngIm_pointrLngNme_Ck");
 		
-		return new Properties(dp, dpf.getAbsolutePath()+" plus NameTest forced names");
+		return new Properties(dp, dpf.getAbsolutePath()+" plus NameTest forced names", null);
 	}
 	
 	NameLongNameLongNameLongNameLongNameLongNameLongItem item;

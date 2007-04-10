@@ -88,7 +88,13 @@ public class ServletUtil
 	{
 		model.connect(
 			new com.exedio.cope.Properties(
-				new File(context.getRealPath("WEB-INF/cope.properties"))));
+				new File(context.getRealPath("WEB-INF/cope.properties")), new Properties.Context(){
+					public String get(final String key)
+					{
+						return context.getInitParameter(key);
+					}
+				}
+			));
 	}
 
 	/**
