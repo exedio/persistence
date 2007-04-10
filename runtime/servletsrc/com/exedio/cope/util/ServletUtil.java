@@ -45,7 +45,7 @@ public class ServletUtil
 	public static final Model getConnectedModel(final ServletConfig config)
 	throws ServletException
 	{
-		return getModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
+		return getConnectedModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
 	}
 	
 	/**
@@ -61,10 +61,10 @@ public class ServletUtil
 	public static final Model getConnectedModel(final FilterConfig config)
 	throws ServletException
 	{
-		return getModel(config.getInitParameter(PARAMETER_MODEL), "filter", config.getFilterName(), config.getServletContext());
+		return getConnectedModel(config.getInitParameter(PARAMETER_MODEL), "filter", config.getFilterName(), config.getServletContext());
 	}
 	
-	private static final Model getModel(final String initParam, final String kind, final String name, final ServletContext context)
+	private static final Model getConnectedModel(final String initParam, final String kind, final String name, final ServletContext context)
 	throws ServletException
 	{
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
