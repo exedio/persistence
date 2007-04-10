@@ -56,15 +56,12 @@ import com.exedio.cope.Model;
 public final class CopeFilter implements Filter
 {
 	private Model model;
-	private String transactionName = null;
 	
 	public void init(final FilterConfig config) throws ServletException
 	{
 		try
 		{
 			model = ServletUtil.getConnectedModel(config);
-			final String transactionNameParameter = config.getInitParameter("transactionName");
-			transactionName = (transactionNameParameter!=null) ? transactionNameParameter : getClass().getName();
 		}
 		catch(RuntimeException e)
 		{
@@ -109,7 +106,7 @@ public final class CopeFilter implements Filter
 		
 		try
 		{
-			model.startTransaction(transactionName);
+			model.startTransaction("CopeFilter");
 			chain.doFilter(request, response);
 			model.commit();
 		}
