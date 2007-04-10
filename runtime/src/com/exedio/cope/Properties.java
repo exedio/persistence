@@ -116,7 +116,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 		if(connectionPoolIdleInitial.getIntValue()>connectionPoolIdleLimit.getIntValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 		
-		ensureValidity(new String[]{"x-build"});
+		ensureValidity("x-build");
 	}
 	
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String source)

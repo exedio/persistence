@@ -200,7 +200,7 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("wrongKey.zack", "somethingZack");
 			final TestProperties tp = new TestProperties(p, "wrongkey");
 			assertEquals("wrongkey", tp.getSource());
-			tp.ensureValidity(new String[]{"wrongKey"});
+			tp.ensureValidity("wrongKey");
 			try
 			{
 				tp.ensureValidity();

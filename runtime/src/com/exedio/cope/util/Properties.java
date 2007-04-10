@@ -339,12 +339,7 @@ public class Properties
 		
 	}
 
-	public final void ensureValidity()
-	{
-		ensureValidity(null);
-	}
-	
-	public final void ensureValidity(final String[] prefixes)
+	public final void ensureValidity(final String... prefixes)
 	{
 		final HashSet<String> allowedValues = new HashSet<String>();
 		final ArrayList<String> allowedPrefixes = new ArrayList<String>();
