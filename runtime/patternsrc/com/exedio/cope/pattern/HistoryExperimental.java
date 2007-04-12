@@ -42,7 +42,7 @@ public final class HistoryExperimental extends Pattern
 	private ItemField<?> eventParent = null;
 	private final DateField eventDate = new DateField().toFinal();
 	private UniqueConstraint eventUnique = null;
-	private final StringField eventCause = new StringField().toFinal();
+	private final StringField eventOrigin = new StringField().toFinal();
 	private final BooleanField eventCreation = new BooleanField().toFinal();
 	private Type<?> eventType = null;
 	
@@ -65,7 +65,7 @@ public final class HistoryExperimental extends Pattern
 		features.put("parent", eventParent);
 		features.put("date", eventDate);
 		features.put("uniqueConstraint", eventUnique);
-		features.put("cause", eventCause);
+		features.put("origin", eventOrigin);
 		features.put("creation", eventCreation);
 		eventType = newType(features, "Event");
 		
@@ -98,9 +98,9 @@ public final class HistoryExperimental extends Pattern
 		return eventUnique;
 	}
 	
-	public StringField getEventCause()
+	public StringField getEventOrigin()
 	{
-		return eventCause;
+		return eventOrigin;
 	}
 	
 	public BooleanField getEventCreation()
@@ -161,12 +161,12 @@ public final class HistoryExperimental extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	public Event createEvent(final Item item, final String cause, final boolean creation)
+	public Event createEvent(final Item item, final String origin, final boolean creation)
 	{
 		return new Event(eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
 				eventDate.map(new Date()),
-				eventCause.map(cause),
+				eventOrigin.map(origin),
 				eventCreation.map(creation)
 			));
 	}
@@ -193,7 +193,7 @@ public final class HistoryExperimental extends Pattern
 		
 		public String getCause()
 		{
-			return eventCause.get(event);
+			return eventOrigin.get(event);
 		}
 		
 		public boolean isCreation()

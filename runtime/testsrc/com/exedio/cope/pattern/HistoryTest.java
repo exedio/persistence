@@ -74,7 +74,7 @@ public class HistoryTest extends AbstractLibTest
 				item.audit.getEventParent(),
 				item.audit.getEventDate(),
 				item.audit.getEventUniqueConstraint(),
-				item.audit.getEventCause(),
+				item.audit.getEventOrigin(),
 				item.audit.getEventCreation()
 			), eventType.getFeatures());
 		assertEqualsUnmodifiable(list(
@@ -113,7 +113,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(eventType, item.audit.getEventParent().getType());
 		assertEquals(eventType, item.audit.getEventDate().getType());
 		assertEquals(eventType, item.audit.getEventUniqueConstraint().getType());
-		assertEquals(eventType, item.audit.getEventCause().getType());
+		assertEquals(eventType, item.audit.getEventOrigin().getType());
 		assertEquals(eventType, item.audit.getEventCreation().getType());
 		assertEquals(featureType, item.audit.getFeatureEvent().getType());
 		assertEquals(featureType, item.audit.getFeatureId().getType());
@@ -125,7 +125,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals("parent", item.audit.getEventParent().getName());
 		assertEquals("date", item.audit.getEventDate().getName());
 		assertEquals("uniqueConstraint", item.audit.getEventUniqueConstraint().getName());
-		assertEquals("cause", item.audit.getEventCause().getName());
+		assertEquals("origin", item.audit.getEventOrigin().getName());
 		assertEquals("creation", item.audit.getEventCreation().getName());
 		assertEquals("event", item.audit.getFeatureEvent().getName());
 		assertEquals("id", item.audit.getFeatureId().getName());
