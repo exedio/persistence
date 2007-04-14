@@ -128,8 +128,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			final String[] dropColumns = (String[]) request.getParameterMap().get(
-					"DROP_COLUMN"); // TODO use constant and use the constant in Schema.jspm
+			final String[] dropColumns = (String[]) request.getParameterMap().get("DROP_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			if (dropColumns != null)
 			{
 				for (int i = 0; i < dropColumns.length; i++)
@@ -141,8 +140,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			final String[] dropTables = (String[]) request.getParameterMap().get(
-					"DROP_TABLE"); // TODO use constant and use the constant in Schema.jspm
+			final String[] dropTables = (String[]) request.getParameterMap().get("DROP_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (dropTables != null)
 			{
 				for (int i = 0; i < dropTables.length; i++)
@@ -156,8 +154,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			for (Iterator i = request.getParameterMap().keySet().iterator(); i
-					.hasNext();)
+			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 			{
 				final String parameterName = (String) i.next();
 				if (!parameterName.startsWith("RENAME_TABLE_")) // TODO use constant and use the constant in Schema.jspm
@@ -177,8 +174,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			for (Iterator i = request.getParameterMap().keySet().iterator(); i
-					.hasNext();)
+			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 			{
 				final String parameterName = (String) i.next();
 				if (!parameterName.startsWith("MODIFY_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
@@ -199,8 +195,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			for (Iterator i = request.getParameterMap().keySet().iterator(); i
-					.hasNext();)
+			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 			{
 				final String parameterName = (String) i.next();
 				if (!parameterName.startsWith("RENAME_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
@@ -221,8 +216,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			final String[] createTables = (String[]) request.getParameterMap()
-					.get("CREATE_TABLE"); // TODO use constant and use the constant in Schema.jspm
+			final String[] createTables = (String[]) request.getParameterMap().get("CREATE_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (createTables != null)
 			{
 				for (int i = 0; i < createTables.length; i++)
@@ -237,8 +231,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			final String[] analyzeTables = (String[]) request.getParameterMap()
-					.get("ANALYZE_TABLE"); // TODO use constant and use the constant in Schema.jspm
+			final String[] analyzeTables = (String[]) request.getParameterMap().get("ANALYZE_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (analyzeTables != null)
 			{
 				for (int i = 0; i < analyzeTables.length; i++)
@@ -252,8 +245,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			final String[] createColumns = (String[]) request.getParameterMap()
-					.get("CREATE_COLUMN"); // TODO use constant and use the constant in Schema.jspm
+			final String[] createColumns = (String[]) request.getParameterMap().get("CREATE_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			if (createColumns != null)
 			{
 				for (int i = 0; i < createColumns.length; i++)
