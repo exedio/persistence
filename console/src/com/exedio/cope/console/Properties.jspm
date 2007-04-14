@@ -63,7 +63,7 @@ final class Properties_Jspm extends Console_Jspm
 		</script><%
 	}
 	
-	final static void write(
+	final static void writeBody(
 				final PrintStream out,
 				final HttpServletRequest request,
 				final PropertiesCop cop,
