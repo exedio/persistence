@@ -70,7 +70,7 @@ abstract class ConsoleCop extends Cop
 	final ConsoleCop[] getTabs()
 	{
 		return new ConsoleCop[]{
-				new PropertiesCop(false),
+				new PropertiesCop(),
 				new SchemaCop(),
 				new TypeColumnCop(),
 				new MigrationCop(false),
@@ -189,6 +189,6 @@ abstract class ConsoleCop extends Cop
 		if(mediaCop!=null)
 			return mediaCop;
 
-		return PropertiesCop.getPropertiesCop(request);
+		return new PropertiesCop();
 	}
 }

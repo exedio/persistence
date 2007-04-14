@@ -30,6 +30,39 @@ import com.exedio.cope.Properties;
 
 final class Properties_Jspm extends Console_Jspm
 {
+	final static void writeHead(final PrintStream out)
+	{
+	%>
+		<script>
+			function toggleUnspecified(image)
+			{
+				var imageSrc = image.src;
+				if(imageSrc.substring(imageSrc.length-8)=="true.png")
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
+					var rows = document.body.getElementsByTagName("tr");
+					for(i=0; i<rows.length; i++)
+					{
+						var row = rows[i];
+						if(row.className=="unspecified")
+							row.style.display = "none";
+					}
+				}
+				else
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
+					var rows = document.body.getElementsByTagName("tr");
+					for(i=0; i<rows.length; i++)
+					{
+						var row = rows[i];
+						if(row.className=="unspecified")
+							row.style.display = "table-row";
+					}
+				}
+			}
+		</script><%
+	}
+	
 	final static void write(
 				final PrintStream out,
 				final HttpServletRequest request,
@@ -39,7 +72,6 @@ final class Properties_Jspm extends Console_Jspm
 				final Date connectDate,
 				final String sourceContent)
 	{
-		final boolean showUnspecified = cop.showUnspecified;
 		%>
 		<table>
 			<tr>
@@ -54,12 +86,12 @@ final class Properties_Jspm extends Console_Jspm
 				<td><%=cop.format(connectDate)%></td>
 			</tr>
 			<tr>
-				<th colspan="2"><% writeToggle(out, request, cop.toToggleUnspecified(), showUnspecified); %> show unspecified</th>
+				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> show unspecified</th>
 			</tr><%
 			for(final Properties.Field field : properties.getFields())
 			{
 				final boolean fieldSpecified = field.isSpecified();
-				if(!field.hasHiddenValue() && (showUnspecified||fieldSpecified))
+				if(!field.hasHiddenValue())
 				{
 			%>
 			<tr<%

@@ -63,6 +63,11 @@ table tr.inconsistent td
 	background:#C00;
 }
 
+table tr.unspecified
+{
+	display:none;
+}
+
 table tr.unspecified th
 {
 	background:#CCB;

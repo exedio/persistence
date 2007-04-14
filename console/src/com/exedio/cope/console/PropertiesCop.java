@@ -32,27 +32,15 @@ import com.exedio.cope.Properties;
 
 final class PropertiesCop extends ConsoleCop
 {
-	private static final String SHOW_UNSPECIFIED = "up";
-	
-	final boolean showUnspecified;
-
-	PropertiesCop(final boolean showUnspecified)
+	PropertiesCop()
 	{
 		super("properties");
-		this.showUnspecified = showUnspecified;
-		
-		if(showUnspecified)
-			addParameter(SHOW_UNSPECIFIED, "t");
 	}
 	
-	static final PropertiesCop getPropertiesCop(final HttpServletRequest request)
+	@Override
+	void writeHead(final HttpServletRequest request, final PrintStream out)
 	{
-		return new PropertiesCop(request.getParameter(SHOW_UNSPECIFIED)!=null);
-	}
-	
-	PropertiesCop toToggleUnspecified()
-	{
-		return new PropertiesCop(!showUnspecified);
+		Properties_Jspm.writeHead(out);
 	}
 	
 	@Override
