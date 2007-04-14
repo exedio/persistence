@@ -185,7 +185,7 @@ public class SchemaTest extends TestmodelTest
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
-				assertEquals("MISSING !!!", table.getError());
+				assertEquals("missing", table.getError());
 				assertEquals(Schema.Color.ERROR, table.getParticularColor());
 
 				final Column column = table.getColumn(COLUMN1);
@@ -242,7 +242,7 @@ public class SchemaTest extends TestmodelTest
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
-				assertEquals("MISSING !!!", table.getError());
+				assertEquals("missing", table.getError());
 				assertEquals(Schema.Color.ERROR, table.getParticularColor());
 
 				final Column column = table.getColumn(COLUMN1);
