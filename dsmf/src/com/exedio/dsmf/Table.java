@@ -214,7 +214,7 @@ public final class Table extends Node
 		final Color particularColor;
 		if(!exists)
 		{
-			error = "MISSING !!!";
+			error = "missing";
 			particularColor = Color.ERROR;
 		}
 		else if(!required)

@@ -31,6 +31,7 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.LastAnalyzed;
+import com.exedio.dsmf.Node;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -143,17 +144,15 @@ final class Schema_Jspm extends Console_Jspm
 			}
 
 			final Schema schema = model.getVerifiedSchema();
-			final String schemaColor = schema.getCumulativeColor().toString();
-
 			%>
 			check all:
 			<input type="button" value="analyze" onClick="checkAll(&quot;ANALYZE_TABLE&quot;)">
 			<input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
 			<input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
 			<br>
-			<span class="<%=schemaColor%>">Schema</span>
+			<% write(schema.getCumulativeColor(), request, out); %> Schema
 			<input type="submit" name="APPLY" value="apply"/>
-			<ul class="<%=schemaColor%>"><%
+			<ul><%
 			
 			int tableCount = 0;
 			for(final Table table : schema.getTables())
@@ -161,7 +160,7 @@ final class Schema_Jspm extends Console_Jspm
 				tableCount++;
 				final String tableName = table.getName();
 				%>
-				<li class="<%=table.getCumulativeColor()%>">
+				<li><% write(table.getCumulativeColor(), request, out); %>
 					<img id="tabSwt<%=tableCount%>" class="check" onClick="togTab(<%=tableCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 					<small>tab<%=tableCount%></small>
 					<%=tableName%><%
@@ -175,7 +174,7 @@ final class Schema_Jspm extends Console_Jspm
 					if(tableError!=null)
 					{
 					%>
-					<span class="<%=table.getParticularColor()%>"><%=tableError%></span><%
+					<% write(table.getParticularColor(), request, out); %> <%=tableError%><%
 					}
 					if(table.exists())
 					{
@@ -197,7 +196,7 @@ final class Schema_Jspm extends Console_Jspm
 						final Date date = lastAnalyzed.getDate();
 						final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
 						%>
-						<li class="<%=lastAnalyzed.getCumulativeColor()%>">
+						<li><% write(lastAnalyzed.getCumulativeColor(), request, out); %>
 							last analyzed: <%=lastAnalyzedString%>
 							<input type="checkbox" name="ANALYZE_TABLE" value="<%=tableName%>"/>analyze
 						</li><%
@@ -207,7 +206,7 @@ final class Schema_Jspm extends Console_Jspm
 					if(options!=null)
 					{
 						%>
-						<li class="<%=Schema.Color.OK%>">
+						<li>
 							options: <pre><%=options%></pre>
 						</li><%
 					}
@@ -218,7 +217,7 @@ final class Schema_Jspm extends Console_Jspm
 						columnCount++;
 						final String columnName = column.getName();
 						%>
-						<li class="<%=column.getCumulativeColor()%>">
+						<li><% write(column.getCumulativeColor(), request, out); %>
 							<img id="colSwt<%=tableCount%>x<%=columnCount%>" class="check" onClick="togCol(<%=tableCount%>,<%=columnCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 							<small>col<%=columnCount%></small>
 							<%=columnName%><%
@@ -247,7 +246,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(error!=null)
 							{
 							%>
-							<span class="<%=column.getParticularColor()%>"><%=error%></span><%
+							<% write(column.getParticularColor(), request, out); %> <%=error%></span><%
 							}
 							if(column.exists())
 							{
@@ -270,7 +269,7 @@ final class Schema_Jspm extends Console_Jspm
 						constraintCount++;
 						final String constraintName = constraint.getName();
 						%>
-						<li class="<%=constraint.getCumulativeColor()%>">
+						<li><% write(constraint.getCumulativeColor(), request, out); %>
 							<img id="conSwt<%=tableCount%>x<%=constraintCount%>" class="check" onClick="togCon(<%=tableCount%>,<%=constraintCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 							<small><%=type(constraint)%><%=constraintCount%></small>
 							<%=constraintName%><%
@@ -286,7 +285,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(constraintError!=null)
 							{
 							%>
-							<span class="<%=constraint.getParticularColor()%>"><%=constraintError%></span><%
+							<% write(constraint.getParticularColor(), request, out); %> <%=constraintError%><%
 							}
 							if(constraint.exists())
 							{
@@ -310,6 +309,23 @@ final class Schema_Jspm extends Console_Jspm
 			%>
 			</ul>
 		</form><%
+	}
+	
+	final static void write(final Node.Color color, final HttpServletRequest request, final PrintStream out)
+	{
+		switch(color)
+		{
+			case OK:
+				break;
+			case WARNING:
+				%><img class="check" src="<%=ConsoleServlet.warning.url(request)%>"><%
+				break;
+			case ERROR:
+				%><img class="check" src="<%=ConsoleServlet.error.url(request)%>"><%
+				break;
+			default:
+				throw new RuntimeException(color.toString());
+		}
 	}
 	
 	final static void writeHead(final HttpServletRequest request, final PrintStream out)

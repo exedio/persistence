@@ -124,14 +124,4 @@ img.check
 	display:none;
 }
 
-span.ok      { background-color:#cfc; }
-span.warning { background-color:#ffc; }
-span.error   { background-color:#fcc; }
-li.ok        { background-color:#cfc; }
-li.warning   { background-color:#ffc; }
-li.error     { background-color:#fcc; }
-ul.ok        { background-color:#cfc; }
-ul.warning   { background-color:#ffc; }
-ul.error     { background-color:#fcc; }
-
 li.timelog { color:#ccc; }
