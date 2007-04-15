@@ -311,7 +311,7 @@ final class Schema_Jspm extends Console_Jspm
 		</form><%
 	}
 	
-	final static void write(final Node.Color color, final HttpServletRequest request, final PrintStream out)
+	private final static void write(final Node.Color color, final HttpServletRequest request, final PrintStream out)
 	{
 		switch(color)
 		{
