@@ -125,6 +125,12 @@ img.write
 	height:14px;
 }
 
+img.node
+{
+	width:9px;
+	height:9px;
+}
+
 .expand
 {
 	display:none;

@@ -161,7 +161,7 @@ final class Schema_Jspm extends Console_Jspm
 				final String tableName = table.getName();
 				%>
 				<li><% write(table.getCumulativeColor(), request, out); %>
-					<img id="tabSwt<%=tableCount%>" class="check" onClick="togTab(<%=tableCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+					<img id="tabSwt<%=tableCount%>" class="node" onClick="togTab(<%=tableCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
 					<small>tab<%=tableCount%></small>
 					<%
 					writeEdit(tableName, table.exists(), "RENAME_TABLE_" + tableName, request, out);
@@ -214,7 +214,7 @@ final class Schema_Jspm extends Console_Jspm
 						final String columnName = column.getName();
 						%>
 						<li><% write(column.getCumulativeColor(), request, out); %>
-							<img id="colSwt<%=tableCount%>x<%=columnCount%>" class="check" onClick="togCol(<%=tableCount%>,<%=columnCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+							<img id="colSwt<%=tableCount%>x<%=columnCount%>" class="node" onClick="togCol(<%=tableCount%>,<%=columnCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
 							<small>col<%=columnCount%></small>
 							<%
 							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, request, out);
@@ -248,7 +248,7 @@ final class Schema_Jspm extends Console_Jspm
 						final String constraintName = constraint.getName();
 						%>
 						<li><% write(constraint.getCumulativeColor(), request, out); %>
-							<img id="conSwt<%=tableCount%>x<%=constraintCount%>" class="check" onClick="togCon(<%=tableCount%>,<%=constraintCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
+							<img id="conSwt<%=tableCount%>x<%=constraintCount%>" class="node" onClick="togCon(<%=tableCount%>,<%=constraintCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
 							<small><%=type(constraint)%><%=constraintCount%></small>
 							<%=constraintName%><%
 						
