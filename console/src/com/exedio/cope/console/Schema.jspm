@@ -159,7 +159,7 @@ final class Schema_Jspm extends Console_Jspm
 			final Schema schema = model.getVerifiedSchema();
 			%>
 			<img class="node" onClick="togSch(this)" src="<%=node(schema.getCumulativeColor()).url(request)%>"> Schema
-			<input type="submit" name="APPLY" value="apply"/>
+			<input id="schApp" class="expand" type="submit" name="APPLY" value="apply"/>
 			<ul id="schBdy" class="expand"><%
 			
 			int tableCount = 0;

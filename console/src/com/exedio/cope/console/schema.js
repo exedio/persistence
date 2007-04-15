@@ -1,15 +1,18 @@
 function togSch(switchElement)
 {
 	var bodyElement = document.getElementById("schBdy");
+	var applyElement = document.getElementById("schApp");
 	var switchSrc = switchElement.src;
 	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
 		setDisplay(bodyElement, "none");
+		setDisplay(applyElement, "none");
 		switchElement.src = switchSrc.substring(0, switchSrc.length-8) + "false.png";
 	}
 	else
 	{
 		setDisplay(bodyElement, "block");
+		setDisplay(applyElement, "inline");
 		switchElement.src = switchSrc.substring(0, switchSrc.length-9) + "true.png";
 	}
 }
