@@ -12,11 +12,10 @@ function checkAll(checkboxName)
 	}
 }
 
-function togTab(table)
+function togTab(switchElement,table)
 {
 	var bodyElement   = document.getElementById("tabBdy" + table);
 	var dropElement   = document.getElementById("tabDrp" + table);
-	var switchElement = document.getElementById("tabSwt" + table);
 	var switchSrc = switchElement.src;
 	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
@@ -32,10 +31,9 @@ function togTab(table)
 	}
 }
 
-function togCol(table,column)
+function togCol(switchElement,table,column)
 {
 	var dropElement   = document.getElementById("colDrp" + table + "x" + column);
-	var switchElement = document.getElementById("colSwt" + table + "x" + column);
 	var switchSrc = switchElement.src;
 	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
@@ -49,10 +47,9 @@ function togCol(table,column)
 	}
 }
 
-function togCon(table,constraint)
+function togCon(switchElement,table,constraint)
 {
 	var dropElement   = document.getElementById("conDrp" + table + "x" + constraint);
-	var switchElement = document.getElementById("conSwt" + table + "x" + constraint);
 	var switchSrc = switchElement.src;
 	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
