@@ -341,7 +341,13 @@ final class Schema_Jspm extends Console_Jspm
 	final static void writeHead(final HttpServletRequest request, final PrintStream out)
 	{
 		%>
-		<script src="<%=ConsoleServlet.schemaScript.url(request)%>" type="text/javascript"></script><%
+		<script src="<%=ConsoleServlet.schemaScript.url(request)%>" type="text/javascript"></script>
+		<style>
+			ul
+			{
+				list-style:none;
+			}
+		</style><%
 	}
 	
 	final static void writeDoneCheck(final PrintStream out, final long startTime, final int count)
