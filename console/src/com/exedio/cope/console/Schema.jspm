@@ -135,24 +135,24 @@ final class Schema_Jspm extends Console_Jspm
 				}
 				else if(request.getParameter("CHECK_UNSUPPORTED_CONSTRAINTS")!=null)
 				{
-	%>
-	<ol><%
+			%>
+			<ol><%
 					SchemaCop.writeCheckUnsupportedConstraints(out, model);
-	%>
-	</ol><%
+			%>
+			</ol><%
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{
 					%><hr>
-					<a href="<%=cop%>">flush log</a><%
-	%>
-	<ol><%
-					SchemaCop.writeApply(out, request, model);
-	%>
-	</ol><%
-					%>
-					<a href="<%=cop%>">flush log</a>
-					<hr><%
+			<a href="<%=cop%>">flush log</a><%
+			%>
+			<ol><%
+				SchemaCop.writeApply(out, request, model);
+			%>
+			</ol><%
+			%>
+			<a href="<%=cop%>">flush log</a>
+			<hr><%
 				}
 			}
 
