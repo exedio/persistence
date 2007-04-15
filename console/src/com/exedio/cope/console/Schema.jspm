@@ -162,8 +162,8 @@ final class Schema_Jspm extends Console_Jspm
 				%>
 				<li><% write(table.getCumulativeColor(), request, out); %>
 					<img id="tabSwt<%=tableCount%>" class="node" onClick="togTab(<%=tableCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
-					<small>tab<%=tableCount%></small>
-					<%
+					<small>tab<%=tableCount%></small><%
+					
 					writeEdit(tableName, table.exists(), "RENAME_TABLE_" + tableName, request, out);
 				
 					final String tableError = table.getError();
@@ -215,8 +215,8 @@ final class Schema_Jspm extends Console_Jspm
 						%>
 						<li><% write(column.getCumulativeColor(), request, out); %>
 							<img id="colSwt<%=tableCount%>x<%=columnCount%>" class="node" onClick="togCol(<%=tableCount%>,<%=columnCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
-							<small>col<%=columnCount%></small>
-							<%
+							<small>col<%=columnCount%></small><%
+							
 							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, request, out);
 							writeEdit(column.getType(), column.exists(), "MODIFY_COLUMN_" + tableName + '#' + columnName, request, out);
 						
