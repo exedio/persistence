@@ -163,12 +163,8 @@ final class Schema_Jspm extends Console_Jspm
 				<li><% write(table.getCumulativeColor(), request, out); %>
 					<img id="tabSwt<%=tableCount%>" class="check" onClick="togTab(<%=tableCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 					<small>tab<%=tableCount%></small>
-					<%=tableName%><%
-					if(table.exists())
-					{
-					%>
-					<input id="tabRen<%=tableCount%>" class="expand" name="RENAME_TABLE_<%=tableName%>" size="<%=tableName.length()%>"/><%
-					}
+					<%
+					writeEdit(tableName, table.exists(), "RENAME_TABLE_" + tableName, request, out);
 				
 					final String tableError = table.getError();
 					if(tableError!=null)
@@ -220,27 +216,9 @@ final class Schema_Jspm extends Console_Jspm
 						<li><% write(column.getCumulativeColor(), request, out); %>
 							<img id="colSwt<%=tableCount%>x<%=columnCount%>" class="check" onClick="togCol(<%=tableCount%>,<%=columnCount%>)" src="<%=ConsoleServlet.checkFalse.url(request)%>">
 							<small>col<%=columnCount%></small>
-							<%=columnName%><%
-						
-							if(column.exists())
-							{
-							%>
-							<input id="colRen<%=tableCount%>x<%=columnCount%>" class="expand" name="RENAME_COLUMN_<%=
-								tableName%>#<%=columnName%>" size="<%=
-								columnName.length()%>"/><%
-							}
-						
-							final String columnType = column.getType();
-							%>
-							<small><%=columnType%></small><%
-						
-							if(column.exists())
-							{
-							%>
-							<input id="colMod<%=tableCount%>x<%=columnCount%>" class="expand" name="MODIFY_COLUMN_<%=
-								tableName%>#<%=columnName%>" size="<%=
-								columnType.length()%>"/><%
-							}
+							<%
+							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, request, out);
+							writeEdit(column.getType(), column.exists(), "MODIFY_COLUMN_" + tableName + '#' + columnName, request, out);
 						
 							final String error = column.getError();
 							if(error!=null)
@@ -325,6 +303,25 @@ final class Schema_Jspm extends Console_Jspm
 				break;
 			default:
 				throw new RuntimeException(color.toString());
+		}
+	}
+	
+	private final static void writeEdit(
+			final String text, final boolean editable, final String name,
+			final HttpServletRequest request, final PrintStream out)
+	{
+		if(editable)
+		{
+							%>
+							<span class="textedit" onClick="edit(this)">
+								<%=text%><img class="write" src="<%=ConsoleServlet.write.url(request)%>">
+								<input name="<%=name%>" size="<%=text.length()%>">
+							</span><%
+		}
+		else
+		{
+							%>
+							<%=text%><%
 		}
 	}
 	

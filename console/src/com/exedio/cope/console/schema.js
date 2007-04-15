@@ -16,7 +16,6 @@ function togTab(table)
 {
 	var bodyElement   = document.getElementById("tabBdy" + table);
 	var dropElement   = document.getElementById("tabDrp" + table);
-	var renameElement = document.getElementById("tabRen" + table);
 	var switchElement = document.getElementById("tabSwt" + table);
 	var switchSrc = switchElement.src;
 	var switchPart = switchSrc.lastIndexOf("/") + 1;
@@ -24,38 +23,30 @@ function togTab(table)
 	{
 		setDisplay(bodyElement,   "block");
 		setDisplay(dropElement,   "inline");
-		setDisplay(renameElement, "inline");
 		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
 	}
 	else
 	{
 		setDisplay(bodyElement,   "none");
 		setDisplay(dropElement,   "none");
-		setDisplay(renameElement, "none");
 		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
 	}
 }
 
 function togCol(table,column)
 {
-	var modifyElement = document.getElementById("colMod" + table + "x" + column);
 	var dropElement   = document.getElementById("colDrp" + table + "x" + column);
-	var renameElement = document.getElementById("colRen" + table + "x" + column);
 	var switchElement = document.getElementById("colSwt" + table + "x" + column);
 	var switchSrc = switchElement.src;
 	var switchPart = switchSrc.lastIndexOf("/") + 1;
 	if(switchSrc.substring(switchPart)=="checkfalse.png")
 	{
-		setDisplay(modifyElement, "inline");
 		setDisplay(dropElement,   "inline");
-		setDisplay(renameElement, "inline");
 		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
 	}
 	else
 	{
-		setDisplay(modifyElement, "none");
 		setDisplay(dropElement,   "none");
-		setDisplay(renameElement, "none");
 		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
 	}
 }
@@ -82,4 +73,18 @@ function setDisplay(element, display)
 {
 	if(element!=null)
 		element.style.display = display;
+}
+
+function edit(span)
+{
+	var childs = span.childNodes;
+	for(i = 0; i<childs.length; i++)
+	{
+		var child = childs[i];
+		var childName = child.nodeName;
+		if(childName=="IMG")
+			child.style.display = "none";
+		else if(childName=="INPUT")
+			child.style.display = "inline";
+	}
 }

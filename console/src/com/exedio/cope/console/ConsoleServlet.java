@@ -72,6 +72,7 @@ public final class ConsoleServlet extends CopsServlet
 	static final Resource checkTrue  = new Resource(resources, "checktrue.png");
 	static final Resource warning = new Resource(resources, "warning.png");
 	static final Resource error  = new Resource(resources, "error.png");
+	static final Resource write  = new Resource(resources, "write.png");
 	
 	@Override
 	public final void init() throws ServletException

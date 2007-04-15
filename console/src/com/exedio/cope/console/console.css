@@ -119,7 +119,18 @@ img.check
 	height:13px;
 }
 
+img.write
+{
+	width:8px;
+	height:14px;
+}
+
 .expand
+{
+	display:none;
+}
+
+span.textedit input
 {
 	display:none;
 }
