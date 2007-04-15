@@ -30,8 +30,8 @@ function togSch(switchElement)
 
 function togTab(switchElement,table)
 {
-	var bodyElement   = document.getElementById("tabBdy" + table);
-	var dropElement   = document.getElementById("tabDrp" + table);
+	var bodyElement = document.getElementById("tabBdy" + table);
+	var dropElement = document.getElementById("tabDrp" + table);
 	var switchSrc = switchElement.src;
 	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
@@ -49,7 +49,7 @@ function togTab(switchElement,table)
 
 function togCol(switchElement,table,column)
 {
-	var dropElement   = document.getElementById("colDrp" + table + "x" + column);
+	var dropElement = document.getElementById("colDrp" + table + "x" + column);
 	var switchSrc = switchElement.src;
 	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
@@ -65,7 +65,7 @@ function togCol(switchElement,table,column)
 
 function togCon(switchElement,table,constraint)
 {
-	var dropElement   = document.getElementById("conDrp" + table + "x" + constraint);
+	var dropElement = document.getElementById("conDrp" + table + "x" + constraint);
 	var switchSrc = switchElement.src;
 	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
