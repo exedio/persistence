@@ -18,18 +18,17 @@ function togTab(table)
 	var dropElement   = document.getElementById("tabDrp" + table);
 	var switchElement = document.getElementById("tabSwt" + table);
 	var switchSrc = switchElement.src;
-	var switchPart = switchSrc.lastIndexOf("/") + 1;
-	if(switchSrc.substring(switchPart)=="checkfalse.png")
+	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
-		setDisplay(bodyElement,   "block");
-		setDisplay(dropElement,   "inline");
-		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
+		setDisplay(bodyElement, "none");
+		setDisplay(dropElement, "none");
+		switchElement.src = switchSrc.substring(0, switchSrc.length-8) + "false.png";
 	}
 	else
 	{
-		setDisplay(bodyElement,   "none");
-		setDisplay(dropElement,   "none");
-		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
+		setDisplay(bodyElement, "block");
+		setDisplay(dropElement, "inline");
+		switchElement.src = switchSrc.substring(0, switchSrc.length-9) + "true.png";
 	}
 }
 
@@ -38,16 +37,15 @@ function togCol(table,column)
 	var dropElement   = document.getElementById("colDrp" + table + "x" + column);
 	var switchElement = document.getElementById("colSwt" + table + "x" + column);
 	var switchSrc = switchElement.src;
-	var switchPart = switchSrc.lastIndexOf("/") + 1;
-	if(switchSrc.substring(switchPart)=="checkfalse.png")
+	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
-		setDisplay(dropElement,   "inline");
-		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
+		setDisplay(dropElement, "none");
+		switchElement.src = switchSrc.substring(0, switchSrc.length-8) + "false.png";
 	}
 	else
 	{
-		setDisplay(dropElement,   "none");
-		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
+		setDisplay(dropElement, "inline");
+		switchElement.src = switchSrc.substring(0, switchSrc.length-9) + "true.png";
 	}
 }
 
@@ -56,16 +54,15 @@ function togCon(table,constraint)
 	var dropElement   = document.getElementById("conDrp" + table + "x" + constraint);
 	var switchElement = document.getElementById("conSwt" + table + "x" + constraint);
 	var switchSrc = switchElement.src;
-	var switchPart = switchSrc.lastIndexOf("/") + 1;
-	if(switchSrc.substring(switchPart)=="checkfalse.png")
+	if(switchSrc.substring(switchSrc.length-8)=="true.png")
 	{
-		setDisplay(dropElement,   "inline");
-		switchElement.src = switchSrc.substring(0, switchPart) + "checktrue.png";
+		setDisplay(dropElement, "none");
+		switchElement.src = switchSrc.substring(0, switchSrc.length-8) + "false.png";
 	}
 	else
 	{
-		setDisplay(dropElement,   "none");
-		switchElement.src = switchSrc.substring(0, switchPart) + "checkfalse.png";
+		setDisplay(dropElement, "inline");
+		switchElement.src = switchSrc.substring(0, switchSrc.length-9) + "true.png";
 	}
 }
 
