@@ -26,6 +26,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cops.Resource;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
@@ -160,8 +161,8 @@ final class Schema_Jspm extends Console_Jspm
 				tableCount++;
 				final String tableName = table.getName();
 				%>
-				<li><% write(table.getCumulativeColor(), request, out); %>
-					<img id="tabSwt<%=tableCount%>" class="node" onClick="togTab(<%=tableCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
+				<li>
+					<img id="tabSwt<%=tableCount%>" class="node" onClick="togTab(<%=tableCount%>)" src="<%=node(table.getCumulativeColor()).url(request)%>">
 					<small>tab<%=tableCount%></small><%
 					
 					writeEdit(tableName, table.exists(), "RENAME_TABLE_" + tableName, request, out);
@@ -213,8 +214,8 @@ final class Schema_Jspm extends Console_Jspm
 						columnCount++;
 						final String columnName = column.getName();
 						%>
-						<li><% write(column.getCumulativeColor(), request, out); %>
-							<img id="colSwt<%=tableCount%>x<%=columnCount%>" class="node" onClick="togCol(<%=tableCount%>,<%=columnCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
+						<li>
+							<img id="colSwt<%=tableCount%>x<%=columnCount%>" class="node" onClick="togCol(<%=tableCount%>,<%=columnCount%>)" src="<%=node(column.getCumulativeColor()).url(request)%>">
 							<small>col<%=columnCount%></small><%
 							
 							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, request, out);
@@ -247,8 +248,8 @@ final class Schema_Jspm extends Console_Jspm
 						constraintCount++;
 						final String constraintName = constraint.getName();
 						%>
-						<li><% write(constraint.getCumulativeColor(), request, out); %>
-							<img id="conSwt<%=tableCount%>x<%=constraintCount%>" class="node" onClick="togCon(<%=tableCount%>,<%=constraintCount%>)" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
+						<li>
+							<img id="conSwt<%=tableCount%>x<%=constraintCount%>" class="node" onClick="togCon(<%=tableCount%>,<%=constraintCount%>)" src="<%=node(constraint.getCumulativeColor()).url(request)%>">
 							<small><%=type(constraint)%><%=constraintCount%></small>
 							<%=constraintName%><%
 						
@@ -287,6 +288,18 @@ final class Schema_Jspm extends Console_Jspm
 			%>
 			</ul>
 		</form><%
+	}
+	
+	private final static Resource node(final Node.Color color)
+	{
+		switch(color)
+		{
+			case OK:      return ConsoleServlet.nodeFalse;
+			case WARNING: return ConsoleServlet.nodeWarningFalse;
+			case ERROR:   return ConsoleServlet.nodeErrorFalse;
+			default:
+				throw new RuntimeException(color.toString());
+		}
 	}
 	
 	private final static void write(final Node.Color color, final HttpServletRequest request, final PrintStream out)

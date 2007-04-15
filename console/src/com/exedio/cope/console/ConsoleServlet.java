@@ -72,6 +72,10 @@ public final class ConsoleServlet extends CopsServlet
 	static final Resource checkTrue  = new Resource(resources, "checktrue.png");
 	static final Resource nodeFalse = new Resource(resources, "nodefalse.png");
 	static final Resource nodeTrue  = new Resource(resources, "nodetrue.png");
+	static final Resource nodeWarningFalse = new Resource(resources, "nodewarningfalse.png");
+	static final Resource nodeWarningTrue  = new Resource(resources, "nodewarningtrue.png");
+	static final Resource nodeErrorFalse = new Resource(resources, "nodeerrorfalse.png");
+	static final Resource nodeErrorTrue  = new Resource(resources, "nodeerrortrue.png");
 	static final Resource warning = new Resource(resources, "warning.png");
 	static final Resource error  = new Resource(resources, "error.png");
 	static final Resource write  = new Resource(resources, "write.png");
