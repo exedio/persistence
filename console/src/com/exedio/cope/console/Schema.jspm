@@ -163,9 +163,9 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="button" value="drop table" onClick="checkAll(&quot;DROP_TABLE&quot;)">
 			<input type="button" value="drop column" onClick="checkAll(&quot;DROP_COLUMN&quot;)">
 			<br>
-			<% write(schema.getCumulativeColor(), request, out); %> Schema
+			<img class="node" onClick="togSch(this)" src="<%=node(schema.getCumulativeColor()).url(request)%>"> Schema
 			<input type="submit" name="APPLY" value="apply"/>
-			<ul><%
+			<ul id="schBdy" class="expand"><%
 			
 			int tableCount = 0;
 			for(final Table table : schema.getTables())
