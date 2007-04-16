@@ -79,11 +79,11 @@ final class Properties_Jspm extends Console_Jspm
 			</tr>
 			<tr>
 				<th>Initialized</th>
-				<td><%=cop.format(initializeDate)%></td>
+				<td class="text"><%=cop.format(initializeDate)%></td>
 			</tr>
 			<tr>
 				<th>Connected</th>
-				<td><%=cop.format(connectDate)%></td>
+				<td class="text"><%=cop.format(connectDate)%></td>
 			</tr>
 			<tr>
 				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> show unspecified</th>
