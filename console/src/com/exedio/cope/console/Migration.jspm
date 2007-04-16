@@ -30,6 +30,28 @@ import com.exedio.cope.Migration;
 
 final class Migration_Jspm extends Console_Jspm
 {
+	final static void writeHead(final PrintStream out)
+	{
+		%>
+		<script>
+			function toggleSql(image,revision)
+			{
+				var sqlElement = document.getElementById("sql" + revision);
+				var imageSrc = image.src;
+				if(imageSrc.substring(imageSrc.length-8)=="true.png")
+				{
+					sqlElement.style.display = "none";
+					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
+				}
+				else
+				{
+					sqlElement.style.display = "block";
+					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
+				}
+			}
+		</script><%
+	}
+	
 	final static void writeBody(
 			final MigrationCop cop,
 			final HttpServletRequest request,
@@ -42,7 +64,6 @@ final class Migration_Jspm extends Console_Jspm
 		%>
 		<table>
 			<tr><th class="caption" colspan="3">Migrations</th></tr>
-			<tr><th colspan="3"><% writeToggle(out, request, cop.toToggleSql(), cop.sql); %> show sql</th></td>
 			<tr><th>revision</th><th>declared</th><th>logged</th></tr><%
 			if(migrations!=null)
 			{
@@ -57,11 +78,10 @@ final class Migration_Jspm extends Console_Jspm
 				<td class="text"><%
 				if(migration!=null)
 				{
-					%><%=migration.getComment()%><%
-					if(cop.sql)
-					{
 					%>
-					<ul><%
+					<img class="node" src="<%=ConsoleServlet.nodeFalse.url(request)%>" onClick="toggleSql(this,<%=v%>)">
+					<%=migration.getComment()%>
+					<ul id="sql<%=v%>" class="expand"><%
 						for(final String sql : migration.getBody())
 						{
 						%>
@@ -70,7 +90,6 @@ final class Migration_Jspm extends Console_Jspm
 					%>
 					</ul>
 				<%
-					}
 				}
 				else
 				{
