@@ -92,6 +92,15 @@ public class MigrationTest extends CopeAssert
 	{
 		try
 		{
+			new Model(-1, (Type[])null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("migration revision must not be negative, but was -1", e.getMessage());
+		}
+		try
+		{
 			new Model(null, (Type[])null);
 			fail();
 		}

@@ -74,7 +74,19 @@ public final class Model
 	
 	public Model(final Type... types)
 	{
-		this(0.0, null, types);
+		this(-1, null, types);
+	}
+	
+	private static final int checkMigrationRevision(final int migrationRevision)
+	{
+		if(migrationRevision<0)
+			throw new IllegalArgumentException("migration revision must not be negative, but was " + migrationRevision);
+		return migrationRevision;
+	}
+	
+	public Model(final int migrationRevision, final Type... types)
+	{
+		this(checkMigrationRevision(migrationRevision), new Migration[0], types);
 	}
 	
 	private static final Migration[] checkMigrations(final Migration[] migrations)
@@ -118,15 +130,15 @@ public final class Model
 	
 	public Model(final Migration[] migrations, final Type... types)
 	{
-		this(0.0, checkMigrations(migrations), types);
+		this(migrationRevision(migrations), checkMigrations(migrations), types);
 	}
 	
-	private Model(final double dummy, final Migration[] migrations, final Type... types)
+	private Model(final int migrationRevision, final Migration[] migrations, final Type... types)
 	{
-		assert dummy==0.0;
+		assert (migrationRevision>=0) == (migrations!=null);
 		
 		this.migrationSupported = (migrations!=null);
-		this.migrationRevision = migrationRevision(migrations);
+		this.migrationRevision = migrationRevision;
 		this.migrations = migrations;
 		
 		if(types==null)
