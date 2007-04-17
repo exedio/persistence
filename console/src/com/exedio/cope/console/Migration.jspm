@@ -65,8 +65,6 @@ final class Migration_Jspm extends Console_Jspm
 		<table>
 			<tr><th class="caption" colspan="3">Migrations</th></tr>
 			<tr><th>revision</th><th>declared</th><th>logged</th></tr><%
-			if(migrations!=null)
-			{
 			for(int v = latest; v>=oldest; v--)
 			{
 				final Migration migration = migrations.get(v);
@@ -115,21 +113,24 @@ final class Migration_Jspm extends Console_Jspm
 				%></td>
 			</tr><%
 			}
-			}
-			else
-			{
 			%>
+		</table><%
+	}
+	
+	final static void writeBodyDisabled(final PrintStream out)
+	{
+		%>
+		<table>
+			<tr><th class="caption">Migrations</th></tr>
 			<tr>
-				<td class="text" colspan="3">
+				<td class="text">
 					Migrations are not enabled for this model.
 					<br>
 					Use <a
 						href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)"
 						target="_blank">migration constructor</a> to enable.
 				</td>
-			</td><%
-			}
-			%>
+			</td>
 		</table><%
 	}
 }%>
