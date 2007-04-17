@@ -73,7 +73,7 @@ final class Schema_Jspm extends Console_Jspm
 			final HttpServletRequest request)
 	{
 		%>
-		<form action="<%=cop%>" method="POST">
+		<form action="<%=cop%>#overall" method="POST">
 			<h4>Schema</h4>
 			<input type="submit" name="CREATE" value="create" />
 			<input type="submit" name="TEARDOWN" value="tear down"/>
@@ -362,7 +362,7 @@ final class Schema_Jspm extends Console_Jspm
 	
 	final static void writeDoneCheckSum(final PrintStream out, final int count)
 	{
-		%><li class="timelog">Overall: <%
+		%><li class="timelog"><a name="overall">Overall: <%
 		if(count==0)
 		{
 			%>ok.<%
@@ -371,7 +371,7 @@ final class Schema_Jspm extends Console_Jspm
 		{
 			%><font color="#F00"><b>violated for <%=count%> tupels.</b></font><%
 		}
-		%></li><%
+		%></a></li><%
 		out.flush();
 	}
 	
