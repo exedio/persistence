@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Migration;
 import com.exedio.cope.Model;
+import com.exedio.dsmf.SQLRuntimeException;
 
 
 final class MigrationCop extends ConsoleCop
@@ -70,30 +71,42 @@ final class MigrationCop extends ConsoleCop
 				migrationMap.put(m.getRevision(), m);
 			}
 			
-			final Map<Integer, byte[]> logsRaw = model.getMigrationLogs();
-			final HashMap<Integer, String> logStrings = new HashMap<Integer, String>();
-			final HashMap<Integer, TreeMap<String, String>> logProperties = new HashMap<Integer, TreeMap<String, String>>();
+			Map<Integer, byte[]> logsRaw = null;
 			try
 			{
-				for(final Integer v : logsRaw.keySet())
-				{
-					register(v);
-					final byte[] infoBytes = logsRaw.get(v);
-					final Properties infoProperties = Migration.parse(infoBytes);
-					if(infoProperties!=null)
-					{
-						final TreeMap<String, String> map = new TreeMap<String, String>();
-						for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
-							map.put((String)entry.getKey(), (String)entry.getValue());
-						logProperties.put(v, map);
-						continue;
-					}
-					logStrings.put(v, new String(infoBytes, "latin1"));
-				}
+				logsRaw = model.getMigrationLogs();
 			}
-			catch(UnsupportedEncodingException e)
+			catch(SQLRuntimeException e)
 			{
-				throw new RuntimeException(e);
+				e.printStackTrace(); // TODO show error in page together with declared migrations
+			}
+
+			final HashMap<Integer, String> logStrings = new HashMap<Integer, String>();
+			final HashMap<Integer, TreeMap<String, String>> logProperties = new HashMap<Integer, TreeMap<String, String>>();
+			if(logsRaw!=null)
+			{
+				try
+				{
+					for(final Integer v : logsRaw.keySet())
+					{
+						register(v);
+						final byte[] infoBytes = logsRaw.get(v);
+						final Properties infoProperties = Migration.parse(infoBytes);
+						if(infoProperties!=null)
+						{
+							final TreeMap<String, String> map = new TreeMap<String, String>();
+							for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
+								map.put((String)entry.getKey(), (String)entry.getValue());
+							logProperties.put(v, map);
+							continue;
+						}
+						logStrings.put(v, new String(infoBytes, "latin1"));
+					}
+				}
+				catch(UnsupportedEncodingException e)
+				{
+					throw new RuntimeException(e);
+				}
 			}
 			
 			final int current = model.getMigrationRevision();
