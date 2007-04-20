@@ -272,12 +272,13 @@ public class MigrateTest extends CopeAssert
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);
 		final Properties logProps = parse(log);
+		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
 		final Date date = df.parse(logProps.getProperty("date"));
 		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
 		assertEquals("true", logProps.getProperty("create"));
 		assertVersions(logProps);
-		assertEquals(11, logProps.size());
+		assertEquals(12, logProps.size());
 		return date;
 	}
 	
@@ -291,6 +292,7 @@ public class MigrateTest extends CopeAssert
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);
 		final Properties logProps = parse(log);
+		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
 		final Date date = df.parse(logProps.getProperty("date"));
 		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
@@ -303,7 +305,7 @@ public class MigrateTest extends CopeAssert
 			assertMinInt(0, logProps.getProperty("body" + i + ".elapsed"));
 		}
 		assertVersions(logProps);
-		assertEquals(11 + (3*migration.body.length), logProps.size());
+		assertEquals(12 + (3*migration.body.length), logProps.size());
 		return date;
 	}
 	

@@ -151,7 +151,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertMigration(con, migrationRevision, Migration.create(getHostname(), dialectParameters));
+				insertMigration(con, migrationRevision, Migration.create(migrationRevision, getHostname(), dialectParameters));
 			}
 			catch(SQLException e)
 			{
@@ -1582,13 +1582,14 @@ final class Database
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Migration migration = migrations[migrationIndex];
+					final int revision = migration.revision;
 					assert migration.revision == (expectedRevision - migrationIndex);
-					final java.util.Properties info = Migration.migrate(date, hostname, dialectParameters, migration.comment);
+					final java.util.Properties info = Migration.migrate(revision, date, hostname, dialectParameters, migration.comment);
 					final String[] body = migration.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
 						final String sql = body[bodyIndex];
-						System.out.println("COPE migrating " + migration.revision + ':' + sql);
+						System.out.println("COPE migrating " + revision + ':' + sql);
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
@@ -1596,7 +1597,7 @@ final class Database
 						final long end = System.currentTimeMillis();
 						Migration.migrateSql(info, bodyIndex, sql, rows, end-start);
 					}
-					insertMigration(con, migration.revision, Migration.toBytes(info));
+					insertMigration(con, revision, Migration.toBytes(info));
 				}
 				{
 					final Statement bf = createStatement();

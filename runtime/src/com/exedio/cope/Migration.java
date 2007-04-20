@@ -131,7 +131,7 @@ public final class Migration
 			final Date date, final String hostname, final DialectParameters dialectParameters,
 			final int expectedRevision, final int actualRevision)
 	{
-		final Properties result = newInfo(date, hostname, dialectParameters);
+		final Properties result = newInfo(-1, date, hostname, dialectParameters);
 		result.setProperty("mutex", Boolean.TRUE.toString());
 		result.setProperty("mutex.expected", String.valueOf(expectedRevision));
 		result.setProperty("mutex.actual", String.valueOf(actualRevision));
@@ -139,18 +139,20 @@ public final class Migration
 	}
 	
 	static byte[] create(
+			final int revision,
 			final String hostname, final DialectParameters dialectParameters)
 	{
-		final Properties result = newInfo(new Date(), hostname, dialectParameters);
+		final Properties result = newInfo(revision, new Date(), hostname, dialectParameters);
 		result.setProperty("create", Boolean.TRUE.toString());
 		return toBytes(result);
 	}
 	
 	static Properties migrate(
+			final int revision,
 			final Date date, final String hostname, final DialectParameters dialectParameters,
 			final String comment)
 	{
-		final Properties result = newInfo(date, hostname, dialectParameters);
+		final Properties result = newInfo(revision, date, hostname, dialectParameters);
 		result.setProperty("comment", comment);
 		return result;
 	}
@@ -164,9 +166,12 @@ public final class Migration
 	}
 	
 	private static Properties newInfo(
+			final int revision,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
 	{
 		final Properties result = new Properties();
+		if(revision>0)
+			result.setProperty("revision", String.valueOf(revision));
 		result.setProperty("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date));
 		if(hostname!=null)
 			result.setProperty("hostname", hostname);
