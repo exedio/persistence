@@ -56,8 +56,8 @@ public class Main
 		new Migration(2, "comment2 a bit longer",
 				"select nice sql statement of migration two which does not work",
 				"select second nice sql statement of migration two which does not work"),
-		new Migration(1, "comment1",
-				"select nice sql statement of migration one which does not work"),
+		new Migration(1, "comment1<andTag>",
+				"select nice sql statement of migration one which does not work <andAnotherTag>"),
 	};
 
 	public static final Date beforeModel = new Date();

@@ -263,14 +263,14 @@ final class Schema_Jspm extends Console_Jspm
 							if(constraintCondition!=null)
 							{
 							%>
-							<small><%=constraintCondition%></small><%
+							<small><%=encode(constraintCondition)%></small><%
 							}
 						
 							final String constraintError = constraint.getError();
 							if(constraintError!=null)
 							{
 							%>
-							<% write(constraint.getParticularColor(), request, out); %> <%=constraintError%><%
+							<% write(constraint.getParticularColor(), request, out); %> <%=encode(constraintError)%><%
 							}
 							if(constraint.exists())
 							{
@@ -381,7 +381,7 @@ final class Schema_Jspm extends Console_Jspm
 		<li>schema.getTable(&quot;<b><%=
 			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
 			constraint.getName()%></b>&quot;).check(); // <%=
-			constraint.getRequiredCondition()%></li><%
+			encode(constraint.getRequiredCondition())%></li><%
 	}
 }
 %>

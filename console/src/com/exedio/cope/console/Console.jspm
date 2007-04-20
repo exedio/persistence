@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
+import com.exedio.cops.Cop;
 
 abstract class Console_Jspm
 {
@@ -54,7 +55,7 @@ abstract class Console_Jspm
 		<div class="<% if(authentication==null){%>not<%} %>authenticated"><%
 		if(authentication!=null)
 		{
-			%>authenticated as <%=authentication%><%
+			%>authenticated as <%=encode(authentication)%><%
 		}
 		else
 		{
@@ -62,7 +63,7 @@ abstract class Console_Jspm
 		}
 		if(hostname!=null)
 		{
-			%> on <%=hostname%><%
+			%> on <%=encode(hostname)%><%
 		}
 		%></div>
 		<br clear="right"><%
@@ -170,5 +171,10 @@ abstract class Console_Jspm
 	{
 		%><a href="<%=cop%>"><img class="check" src="<%=
 			(value ? ConsoleServlet.checkTrue : ConsoleServlet.checkFalse).url(request)%>"></a><%
+	}
+	
+	static final String encode(final String s)
+	{
+		return Cop.encodeXml(s);
 	}
 }%>

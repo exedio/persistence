@@ -99,7 +99,7 @@ final class SchemaCop extends ConsoleCop
 			public void beforeExecute(final String statement)
 			{
 				out.print("\n\t\t<li>");
-				out.print(statement);
+				out.print(encodeXml(statement));
 				out.print("</li>");
 				out.flush();
 				beforeExecuteTime = System.currentTimeMillis();

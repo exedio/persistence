@@ -24,7 +24,7 @@ import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
 
-final class ModificationListener_Jspm
+final class ModificationListener_Jspm extends Console_Jspm
 {
 	final static void writeBody(
 			final ModificationListenerCop cop,
@@ -67,7 +67,7 @@ final class ModificationListener_Jspm
 					%>
 					<td class="text" colspan="2">
 						added <%=cop.format(introspector.getStart())%>,
-						session <%=introspector.getSessionId()%><%
+						session <%=encode(introspector.getSessionId())%><%
 						if(introspector.isSessionAttached())
 						{
 							%> <b>attached</b><%
@@ -81,7 +81,7 @@ final class ModificationListener_Jspm
 							{
 								final String name = commit.getTransactionName();
 							%>
-							<li><%=cop.format(commit.getTimeStamp())%><% if(name!=null){%> <%=name%><%} %> <%=commit.getModifiedItems()%></li><%
+							<li><%=cop.format(commit.getTimeStamp())%><% if(name!=null){%> <%=encode(name)%><%} %> <%=commit.getModifiedItems()%></li><%
 							}
 							%>
 						</ol><%
@@ -96,7 +96,7 @@ final class ModificationListener_Jspm
 					<td class="text"><%
 						try
 						{
-							%><%=listener.toString()%><%
+							%><%=encode(listener.toString())%><%
 						}
 						catch(RuntimeException e)
 						{

@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-final class Environment_Jspm
+final class Environment_Jspm extends Console_Jspm
 {
 	final static void writeCurrent(final PrintStream out, final String dialect, final java.util.Properties properties)
 	{
@@ -39,14 +39,14 @@ final class Environment_Jspm
 			{
 			%>
 			<tr>
-				<th><%=name%></th>
-				<td class="text"><%=properties.getProperty(name)%></td>
+				<th><%=encode(name)%></th>
+				<td class="text"><%=encode(properties.getProperty(name))%></td>
 			</tr><%
 			}
 			%>
 			<tr>
 				<th>dialect</th>
-				<td class="text"><%=dialect%></td>
+				<td class="text"><%=encode(dialect)%></td>
 			</tr>
 		</table><%
 	}
@@ -139,14 +139,14 @@ final class Environment_Jspm
 						final Map valueMap = (Map)value;
 						for(Iterator k = valueMap.keySet().iterator(); k.hasNext(); )
 						{
-							final Object mapKey = k.next();
-							final Object mapValue = valueMap.get(mapKey);
-							%><%=mapKey%>=<%=mapValue%><br><%
+							final String mapKey = (String)k.next();
+							final String mapValue = (String)valueMap.get(mapKey);
+							%><%=encode(mapKey)%>=<%=encode(mapValue)%><br><%
 						}
 					}
 					else
 					{
-						%><%=value%><%
+						%><%=encode((String)value)%><%
 					}
 					%></td><%
 					}

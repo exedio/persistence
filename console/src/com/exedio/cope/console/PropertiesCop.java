@@ -59,7 +59,7 @@ final class PropertiesCop extends ConsoleCop
 			for(int len = r.read(b); len>=0; len = r.read(b))
 				bf.append(b, 0, len);
 
-			sourceContent = bf.toString();
+			sourceContent = encodeXml(bf.toString());
 			for(final Properties.Field field : props.getFields())
 			{
 				if(field.hasHiddenValue())
@@ -89,6 +89,8 @@ final class PropertiesCop extends ConsoleCop
 			return format(((Integer)o).longValue());
 		else if(o instanceof Long)
 			return format(((Long)o).longValue());
+		else if(o instanceof String)
+			return encodeXml((String)o);
 		else
 			return o.toString();
 	}

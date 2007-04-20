@@ -127,7 +127,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				writeColouredData(out, data); %>
-				<td class="text"><%=info.getQuery()%></td>
+				<td class="text"><%=encode(info.getQuery())%></td>
 			</tr><%
 		}
 		%>

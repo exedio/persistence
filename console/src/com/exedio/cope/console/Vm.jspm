@@ -47,8 +47,8 @@ final class Vm_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<th rowspan="<%=values.size()%>"><%=key%></th>
-				<th><%=first.getKey()%></th>
-				<td class="text"><%=first.getValue()%></td>
+				<th><%=encode(first.getKey())%></th>
+				<td class="text"><%=encode(first.getValue())%></td>
 			</tr><%
 			
 			while(i.hasNext())
@@ -56,8 +56,8 @@ final class Vm_Jspm extends Console_Jspm
 				final Map.Entry<String, String> next = i.next();
 			%>
 			<tr>
-				<th><%=next.getKey()%></th>
-				<td class="text"><%=next.getValue()%></td>
+				<th><%=encode(next.getKey())%></th>
+				<td class="text"><%=encode(next.getValue())%></td>
 			</tr><%
 			}
 		}
@@ -78,7 +78,7 @@ final class Vm_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td colspan="2"></td>
-				<th><%=name%></th>
+				<th><%=encode(name)%></th>
 			</tr><%
 			write(out, "Specification",  p.getSpecificationTitle(),  p.getSpecificationVersion(),  p.getSpecificationVendor());
 			write(out, "Implementation", p.getImplementationTitle(), p.getImplementationVersion(), p.getImplementationVendor());
@@ -94,7 +94,7 @@ final class Vm_Jspm extends Console_Jspm
 					else
 						{%>, <%}
 						
-					%><%=pack.getName()%><%
+					%><%=encode(pack.getName())%><%
 				}
 				%></td>
 			</tr><%
@@ -111,19 +111,19 @@ final class Vm_Jspm extends Console_Jspm
 				
 					if(p.getSpecificationTitle()!=null)
 					{
-						%><%=p.getSpecificationTitle()%><%
+						%><%=encode(p.getSpecificationTitle())%><%
 					}
 					else if(p.getImplementationTitle()!=null)
 					{
-						%><%=p.getImplementationTitle()%><%
+						%><%=encode(p.getImplementationTitle())%><%
 					}
 					else
 					{
-						%><%=p.getName()%><%
+						%><%=encode(p.getName())%><%
 					}
 				%></th>
-				<td class="text"><% if(spec!=null) { %><%=spec%><% } %></td>
-				<td class="text"><% if(impl!=null) { %><%=impl%><% } %></td>
+				<td class="text"><% if(spec!=null) { %><%=encode(spec)%><% } %></td>
+				<td class="text"><% if(impl!=null) { %><%=encode(impl)%><% } %></td>
 			</tr><%
 	}
 

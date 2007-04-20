@@ -78,12 +78,12 @@ final class Migration_Jspm extends Console_Jspm
 				{
 					%>
 					<img class="node" src="<%=ConsoleServlet.nodeFalse.url(request)%>" onClick="toggleSql(this,<%=v%>)">
-					<%=migration.getComment()%>
+					<%=encode(migration.getComment())%>
 					<ul id="sql<%=v%>" class="expand"><%
 						for(final String sql : migration.getBody())
 						{
 						%>
-						<li><%=sql%></li><%
+						<li><%=encode(sql)%></li><%
 						}
 					%>
 					</ul>
@@ -97,13 +97,13 @@ final class Migration_Jspm extends Console_Jspm
 				<td class="text"><%
 				if(logString!=null)
 				{
-					%><%=logString%><%
+					%><%=encode(logString)%><%
 				}
 				else if(logProperty!=null)
 				{
 					for(final Map.Entry<String, String> entry : logProperty.entrySet())
 					{
-						%><%=entry.getKey()%>=<%=entry.getValue()%><br><%
+						%><%=encode(entry.getKey())%>=<%=encode(entry.getValue())%><br><%
 					}
 				}
 				else
