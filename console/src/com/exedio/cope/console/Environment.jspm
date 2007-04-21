@@ -32,9 +32,7 @@ final class Environment_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<tr>
-				<th class="caption" colspan="2">Environment</th>
-			</tr><%
+			<tr><th class="caption" colspan="2">Environment</th></tr><%
 			for(final String name : new TreeSet<String>(castTreeSet(properties.keySet())))
 			{
 			%>
@@ -71,9 +69,7 @@ final class Environment_Jspm extends Console_Jspm
 		%>
 		<hr>
 		<table>
-			<tr>
-				<th class="caption" colspan="<%=TEST_INFO_KEYS.length%>">Test Environments (<a href="http://cope.sourceforge.net/testprotocol.html" target="_blank">more...</a>)</th>
-			</tr><%
+			<tr><th class="caption" colspan="<%=TEST_INFO_KEYS.length%>">Test Environments (<a href="http://cope.sourceforge.net/testprotocol.html" target="_blank">more...</a>)</th></tr><%
 		if(properties!=null)
 		{
 			%>
