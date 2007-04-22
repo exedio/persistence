@@ -48,9 +48,15 @@ table td
 	padding:1px 3px;
 }
 
-table th.caption
+table caption
 {
 	font-style:italic;
+	text-align:left;
+	white-space:nowrap;
+	background:#ccc;
+	padding:1px 5px;
+	border:solid 2px white;
+	border-bottom-width:0px;
 }
 
 table td.text

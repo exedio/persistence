@@ -50,7 +50,7 @@ final class Media_Jspm extends Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th class="caption" colspan="<%=names.length+2%>">Media Statistics</th></tr>
+			<caption>Media Statistics</caption>
 			<tr><th colspan="<%=names.length+1%>">No Such Path (404)</th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
 			writeColouredHeader(out, names, 0, 2);
 			%>
@@ -135,18 +135,9 @@ final class Media_Jspm extends Console_Jspm
 		final Media mediaLength = media instanceof Media ? (Media)media : null;
 		final boolean inlineMedia = cop.inlineMedia;
 		final boolean inlineOther = cop.inlineOther;
-		
-		int columns = 3;
-		if(mediaLastModified!=null)
-			columns++;
-		if(mediaLength!=null)
-			columns++;
-		if(other!=null)
-			columns++;
-		
 		%>
 		<table>
-			<tr><th class="caption" colspan="<%=columns%>"><%=media.getID()%> (first 50)</th></tr>
+			<caption><%=media.getID()%> (first 50)</caption>
 			<tr>
 				<th>Item</th>
 				<th>URL <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>

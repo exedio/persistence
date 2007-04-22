@@ -43,7 +43,7 @@ final class QueryCache_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<tr><th class="caption" colspan="3">Query Cache Statistics</th></tr>
+			<caption>Query Cache Statistics</caption>
 			<tr><th colspan="2">Limit</th><td><%=cop.format(limit)%></td></tr>
 			<tr><th colspan="2">Level</th><td><%=cop.format(queryInfos[2])%></td></tr>
 			<tr><th colspan="2">Hits</th><td><%=cop.format(queryInfos[0])%></td></tr>
@@ -89,7 +89,7 @@ final class QueryCache_Jspm extends Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th class="caption" colspan="<%=names.length+1%>">Query Cache Histogram</th></tr><%
+			<caption>Query Cache Histogram</caption><%
 			writeColouredHeader(out, names, 0, 1);
 			%>
 			<tr><%

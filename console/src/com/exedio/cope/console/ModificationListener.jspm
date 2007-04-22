@@ -38,7 +38,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 		writeButtons(out);
 		%>
 			<table>
-				<tr><th class="caption" colspan="4">Modifying Commit Listeners</th></tr>
+				<caption>Modifying Commit Listeners</caption>
 				<tr>
 					<td class="text" colspan="4">size: <%=cop.format(listeners.size())
 						%>, removed: <%=cop.format(removedBefore)

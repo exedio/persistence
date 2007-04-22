@@ -41,7 +41,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th class="caption" colspan="2">Connection Pool Statistics</th></tr>
+			<caption>Connection Pool Statistics</caption>
 			<tr>
 				<th>Idle</th>
 				<td><%=cop.format(info.getIdleCounter())%></td>
@@ -57,7 +57,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 		</table>
 		<hr>
 		<table>
-			<tr><th class="caption" colspan="6">Hypothetical</th></tr><%
+			<caption>Hypothetical</caption><%
 			writeColouredHeader(out, names, 0, 1);
 			%>
 			<tr><%

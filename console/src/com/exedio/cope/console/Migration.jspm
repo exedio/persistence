@@ -63,7 +63,7 @@ final class Migration_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<tr><th class="caption" colspan="3">Migrations</th></tr>
+			<caption>Migrations</caption>
 			<tr><th>revision</th><th>declared</th><th>logged</th></tr><%
 			for(int v = latest; v>=oldest; v--)
 			{
@@ -121,7 +121,7 @@ final class Migration_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<tr><th class="caption">Migrations</th></tr>
+			<caption>Migrations</caption>
 			<tr>
 				<td class="text">
 					Migrations are not enabled for this model.

@@ -131,7 +131,7 @@ final class Vm_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<tr><th class="caption" colspan="3">Packages in Virtual Machine</th></tr>
+			<caption>Packages in Virtual Machine</caption>
 			<tr>
 				<th colspan="3">
 					<% writeToggle(out, request, cop.toToggleDetailed(), cop.detailed); %> detailed

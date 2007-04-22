@@ -48,7 +48,7 @@ final class ItemCache_Jspm extends Console_Jspm
 		};
 		%>
 		<table>
-			<tr><th class="caption" colspan="<%=names.length+1%>">Item Cache Statistics</th></tr><%
+			<caption>Item Cache Statistics</caption><%
 			writeColouredHeader(out, names, 0, 1);
 			%>
 			<tr><%
