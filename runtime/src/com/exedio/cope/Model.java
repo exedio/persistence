@@ -102,17 +102,17 @@ public final class Model
 		int base = -1;
 		for(int i = 0; i<result.length; i++)
 		{
-			final Migration m = result[i];
-			if(m==null)
+			final Migration migration = result[i];
+			if(migration==null)
 				throw new NullPointerException("migration must not be null, but was at index " + i);
 			
 			if(i==0)
-				base = m.revision;
+				base = migration.revision;
 			else
 			{
 				final int expectedRevision = base-i;
-				if(m.revision!=expectedRevision)
-					throw new IllegalArgumentException("inconsistent migration revision at index " + i + ", expected " + expectedRevision + ", but was " + m.revision);
+				if(migration.revision!=expectedRevision)
+					throw new IllegalArgumentException("inconsistent migration revision at index " + i + ", expected " + expectedRevision + ", but was " + migration.revision);
 			}
 		}
 		
