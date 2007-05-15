@@ -19,9 +19,19 @@ public class TransactionOnlyTest extends AbstractLibTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals( "there is already a transaction bound to current thread", e.getMessage() );
+			assertEquals("tried to start a new transaction with name >nested<, but there is already a transaction with name >CopeTest< bound to current thread", e.getMessage());
 		}
 		assertEquals( tx, model.getCurrentTransaction() );
+		try
+		{
+			model.startTransaction(null);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("tried to start a new transaction without a name, but there is already a transaction with name >CopeTest< bound to current thread", e.getMessage());
+		}
+		assertEquals(tx, model.getCurrentTransaction());
 	}
 	
 	public void testJoinClosed()

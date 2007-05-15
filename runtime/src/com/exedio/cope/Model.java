@@ -843,8 +843,18 @@ public final class Model
 		if(logTransactions)
 			System.out.println("transaction start " + name);
 
-		if( hasCurrentTransaction() )
-			throw new IllegalStateException("there is already a transaction bound to current thread");
+		final Transaction previousTransaction = getCurrentTransactionIfAvailable();
+		if(previousTransaction!=null)
+		{
+			final String previousName = previousTransaction.name;
+			throw new IllegalStateException(
+					"tried to start a new transaction " +
+					(name!=null ? ("with name >" + name + '<') : "without a name") +
+					", but there is already a transaction " +
+					(previousName!=null ? ("with name >" + previousName + '<') : "without a name") +
+					" bound to current thread");
+		}
+		
 		final Transaction result = new Transaction(this, concreteTypeCount, name);
 		setTransaction( result );
 		openTransactions.add( result );
