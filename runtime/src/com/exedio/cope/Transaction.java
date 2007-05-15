@@ -26,6 +26,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
@@ -37,6 +38,7 @@ public final class Transaction
 	final Model model;
 	final Database database;
 	final String name;
+	final long startDate;
 	
 	/**
 	 * index in array is {@link Type#idTransiently};
@@ -53,6 +55,7 @@ public final class Transaction
 		this.model = model;
 		this.database = model.getDatabase();
 		this.name = name;
+		this.startDate = System.currentTimeMillis();
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
 		this.invalidations = new TIntHashSet[concreteTypeCount];
 	}
@@ -359,6 +362,11 @@ public final class Transaction
 	public String getName()
 	{
 		return name;
+	}
+	
+	public Date getStartDate()
+	{
+		return new Date(startDate);
 	}
 	
 	private String getID()

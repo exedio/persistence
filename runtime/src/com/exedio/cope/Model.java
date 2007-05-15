@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.io.PrintStream;
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -852,6 +853,7 @@ public final class Model
 					(name!=null ? ("with name >" + name + '<') : "without a name") +
 					", but there is already a transaction " +
 					(previousName!=null ? ("with name >" + previousName + '<') : "without a name") +
+					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(previousTransaction.getStartDate()) +
 					" bound to current thread");
 		}
 		
