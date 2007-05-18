@@ -229,5 +229,4 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		}
 		return bos.toByteArray();
 	}
-	
 }

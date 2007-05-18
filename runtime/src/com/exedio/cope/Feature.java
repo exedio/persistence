@@ -87,7 +87,6 @@ public abstract class Feature
 	@Override
 	public final String toString()
 	{
-		return type!=null ? (id) : toStringNonInitialized();
+		return type!=null ? id : toStringNonInitialized();
 	}
-	
 }
