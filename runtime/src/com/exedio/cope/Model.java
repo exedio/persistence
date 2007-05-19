@@ -923,17 +923,7 @@ public final class Model
 	
 	public void rollback()
 	{
-		Transaction tx = getCurrentTransaction();
-		
-		if(logTransactions)
-			System.out.println("transaction rollback " + tx.name);
-		
-		synchronized(openTransactions)
-		{
-			openTransactions.remove(tx);
-		}
-		setTransaction(null);
-		tx.commitOrRollback(true);
+		commitOrRollback(true);
 	}
 	
 	public void rollbackIfNotCommitted()
@@ -947,17 +937,22 @@ public final class Model
 	
 	public void commit()
 	{
+		commitOrRollback(false);
+	}
+
+	private void commitOrRollback(final boolean rollback)
+	{
 		final Transaction tx = getCurrentTransaction();
 		
 		if(logTransactions)
-			System.out.println("transaction commit " + tx.name);
+			System.out.println("transaction " + (rollback?"rollback":"commit") + ' ' + tx.name);
 		
 		synchronized(openTransactions)
 		{
 			openTransactions.remove(tx);
 		}
 		setTransaction(null);
-		tx.commitOrRollback(false);
+		tx.commitOrRollback(rollback);
 	}
 
 	/**
