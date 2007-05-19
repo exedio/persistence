@@ -71,7 +71,7 @@ public final class Model
 	private boolean logTransactions = false;
 
 	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
-	private final Set<Transaction> openTransactions = Collections.synchronizedSet(new HashSet<Transaction>());
+	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	
 	public Model(final Type... types)
 	{
@@ -859,7 +859,10 @@ public final class Model
 		
 		final Transaction result = new Transaction(this, concreteTypeCount, name);
 		setTransaction( result );
-		openTransactions.add( result );
+		synchronized(openTransactions)
+		{
+			openTransactions.add(result);
+		}
 		return result;
 	}
 	
@@ -925,7 +928,10 @@ public final class Model
 		if(logTransactions)
 			System.out.println("transaction rollback " + tx.name);
 		
-		openTransactions.remove( tx );
+		synchronized(openTransactions)
+		{
+			openTransactions.remove(tx);
+		}
 		setTransaction(null);
 		tx.commitOrRollback(true);
 	}
@@ -941,12 +947,15 @@ public final class Model
 	
 	public void commit()
 	{
-		Transaction tx = getCurrentTransaction();
+		final Transaction tx = getCurrentTransaction();
 		
 		if(logTransactions)
 			System.out.println("transaction commit " + tx.name);
 		
-		openTransactions.remove( tx );
+		synchronized(openTransactions)
+		{
+			openTransactions.remove(tx);
+		}
 		setTransaction(null);
 		tx.commitOrRollback(false);
 	}
@@ -963,14 +972,18 @@ public final class Model
 	 * Returns the collection of open {@link Transaction}s
 	 * on this model.
 	 * <p>
-	 * Returns a unmodifiable synchronized view on the actual data,
-	 * so iterating over the collection on a live server may cause
+	 * Returns an unmodifiable snapshot of the actual data,
+	 * so iterating over the collection on a live server cannot cause
 	 * {@link java.util.ConcurrentModificationException}s.
-	 * For such cases you may want to create a copy of the collection first.
 	 */
 	public Collection<Transaction> getOpenTransactions()
 	{
-		return Collections.unmodifiableCollection( openTransactions );
+		final Transaction[] result;
+		synchronized(openTransactions)
+		{
+			result = openTransactions.toArray(new Transaction[openTransactions.size()]);
+		}
+		return Collections.unmodifiableCollection(Arrays.asList(result));
 	}
 	
 	public void clearCache()
