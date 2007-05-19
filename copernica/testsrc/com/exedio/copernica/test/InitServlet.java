@@ -26,6 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Transaction;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;
@@ -97,7 +98,9 @@ public class InitServlet extends CopsServlet
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 
-		final boolean initialize = (request.getParameter("INIT")!=null) && "POST".equals(request.getMethod());
+		final boolean post = "POST".equals(request.getMethod());
+		final boolean initialize = post && request.getParameter("INIT")!=null;
+		final boolean transaction = post && request.getParameter("TRANSACTION")!=null;
 		if(initialize)
 		{
 			try
@@ -113,7 +116,31 @@ public class InitServlet extends CopsServlet
 		}
 
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
-		Init_Jspm.write(out, initialize);
+		
+		final Transaction tx1;
+		if(transaction)
+		{
+			Main.model.startTransaction("example transaction");
+			tx1 = Main.model.leaveTransaction();
+			Main.model.startTransaction("second example transaction");
+		}
+		else
+			tx1 = null;
+		
+		try
+		{
+			Init_Jspm.write(out, initialize, transaction);
+		}
+		catch(InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
+		if(transaction)
+		{
+			Main.model.commit();
+			Main.model.joinTransaction(tx1);
+			Main.model.commit();
+		}
 		out.close();
 	}
 

@@ -23,7 +23,7 @@ import java.io.PrintStream;
 
 final class Init_Jspm
 {
-	final static void write(final PrintStream out, final boolean initialized)
+	final static void write(final PrintStream out, final boolean initialized, final boolean transaction) throws InterruptedException
 	{%>
 <html>
 	<head>
@@ -40,11 +40,21 @@ final class Init_Jspm
 		<form action="init.jsp" method="POST">
 			Database:
 			<br>
-			<input type="submit" name="INIT" value="init" /><%
+			<input type="submit" name="INIT" value="init" />
+			<input type="submit" name="TRANSACTION" value="transaction" /><%
 			if(initialized)
 			{
 			%>
 			<div class="message">Example system successfully created!</div><%
+			}
+			if(transaction)
+			{
+			%>
+			<div class="message">Waiting 10 seconds until ending transaction ...</div><%
+			out.flush();
+			Thread.sleep(10000);
+			%>
+			<div class="message">Finished.</div><%
 			}
 			%>
 		</form>

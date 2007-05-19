@@ -76,6 +76,7 @@ abstract class ConsoleCop extends Cop
 				new MigrationCop(),
 				new DatabaseLogCop(),
 				new ConnectionPoolCop(),
+				new TransactionCop(),
 				new ItemCacheCop(),
 				new QueryCacheCop(),
 				new PrimaryKeysCop(),
@@ -146,6 +147,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_MIGRATION = "mig";
 	static final String TAB_DATBASE_LOG = "dblog";
 	static final String TAB_CONNECTION_POOL = "cp";
+	static final String TAB_TRANSACTION = "tx";
 	static final String TAB_ITEM_CACHE = "ca";
 	static final String TAB_QUERY_CACHE = "qca";
 	static final String TAB_PRIMARY_KEY = "pk";
@@ -166,6 +168,8 @@ abstract class ConsoleCop extends Cop
 			return new MigrationCop();
 		if(TAB_CONNECTION_POOL.equals(tab))
 			return new ConnectionPoolCop();
+		if(TAB_TRANSACTION.equals(tab))
+			return new TransactionCop();
 		if(TAB_DATBASE_LOG.equals(tab))
 			return new DatabaseLogCop();
 		if(TAB_ITEM_CACHE.equals(tab))
