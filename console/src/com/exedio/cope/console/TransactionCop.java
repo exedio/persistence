@@ -19,10 +19,13 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Transaction;
 
 final class TransactionCop extends ConsoleCop
 {
@@ -35,6 +38,17 @@ final class TransactionCop extends ConsoleCop
 	@Override
 	void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		Transaction_Jspm.writeBody(out, this, model.getOpenTransactions());
+		final Transaction[] openTransactions = model.getOpenTransactions().toArray(new Transaction[]{});
+		Arrays.sort(openTransactions, new Comparator<Transaction>(){
+
+			public int compare(final Transaction tx1, final Transaction tx2)
+			{
+				final long id1 = tx1.getID();
+				final long id2 = tx2.getID();
+				return id1<id2 ? -1 : id1>id2 ? 1 : 0;
+			}
+			
+		});
+		Transaction_Jspm.writeBody(out, this, openTransactions);
 	}
 }

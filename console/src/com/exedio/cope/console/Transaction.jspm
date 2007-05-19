@@ -29,18 +29,19 @@ final class Transaction_Jspm extends Console_Jspm
 	final static void writeBody(
 			final PrintStream out,
 			final TransactionCop cop,
-			final Collection<Transaction> openTransactions)
+			final Transaction[] openTransactions)
 	{
 		%>
 		<table>
 			<caption>Open Transactions</caption>
-			<tr><th>#</th><th>Started</th><th>Name</th></tr><%
+			<tr><th>#</th><th>ID</th><th>Started</th><th>Name</th></tr><%
 			
 			int number = 0;
 			for(final Transaction t : openTransactions)
 			{
 			%>
 			<tr><td><%=cop.format(number++)
+				%></td><td><%=cop.format(t.getID())
 				%></td><td><%=cop.format(t.getStartDate())
 				%></td><td class="text"><%=encode(t.getName())%></td></tr><%
 			}
