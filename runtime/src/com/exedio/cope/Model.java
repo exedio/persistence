@@ -70,7 +70,7 @@ public final class Model
 	private Date connectDate = null;
 	private boolean logTransactions = false;
 
-	private final ThreadLocal<Transaction> transactionThreads = new ThreadLocal<Transaction>();
+	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	
 	public Model(final Type... types)
@@ -905,7 +905,7 @@ public final class Model
 	
 	private Transaction getCurrentTransactionIfAvailable()
 	{
-		final Transaction result = transactionThreads.get();
+		final Transaction result = boundTransactions.get();
 		assert result==null || result.assertBoundToCurrentThread();
 		return result;
 	}
@@ -915,10 +915,10 @@ public final class Model
 		if(transaction!=null)
 		{
 			transaction.bindToCurrentThread();
-			transactionThreads.set(transaction);
+			boundTransactions.set(transaction);
 		}
 		else
-			transactionThreads.remove();
+			boundTransactions.remove();
 	}
 	
 	public void rollback()
