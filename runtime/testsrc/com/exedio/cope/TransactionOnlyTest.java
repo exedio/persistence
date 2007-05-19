@@ -22,7 +22,13 @@ public class TransactionOnlyTest extends AbstractLibTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("tried to start a new transaction with name >nested<, but there is already a transaction CT." + model.getCurrentTransaction().getID() + " with name >CopeTest< started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) + " bound to current thread", e.getMessage());
+			assertEquals(
+					"tried to start a new transaction with name >nested<, " +
+					"but there is already a transaction CT." + model.getCurrentTransaction().getID() +
+					" with name >CopeTest< " +
+					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
+					" bound to current thread",
+					e.getMessage());
 		}
 		assertEquals( tx, model.getCurrentTransaction() );
 		try
@@ -32,7 +38,13 @@ public class TransactionOnlyTest extends AbstractLibTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("tried to start a new transaction without a name, but there is already a transaction CT." + model.getCurrentTransaction().getID() + " with name >CopeTest< started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) + " bound to current thread", e.getMessage());
+			assertEquals(
+					"tried to start a new transaction without a name, " +
+					"but there is already a transaction CT." + model.getCurrentTransaction().getID() +
+					" with name >CopeTest< " +
+					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
+					" bound to current thread",
+					e.getMessage());
 		}
 		assertEquals(tx, model.getCurrentTransaction());
 	}
