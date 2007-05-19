@@ -309,6 +309,7 @@ public final class Transaction
 			}
 			
 			closed = true;
+			unbindThread();
 		}
 
 		// notify global cache
@@ -384,7 +385,7 @@ public final class Transaction
 		return new Date(startDate);
 	}
 	
-	/* TODO public*/ Thread getBoundThread()
+	public Thread getBoundThread()
 	{
 		return boundThread;
 	}
