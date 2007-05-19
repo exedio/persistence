@@ -1,6 +1,7 @@
 package com.exedio.cope;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TransactionOnlyTest extends AbstractLibTest
 {
@@ -13,7 +14,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 	public void testNesting()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
-		Transaction tx = model.getCurrentTransaction();
+		final Transaction tx = model.getCurrentTransaction();
 		try
 		{
 			model.startTransaction("nested");
@@ -21,7 +22,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("tried to start a new transaction with name >nested<, but there is already a transaction with name >CopeTest< started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) + " bound to current thread", e.getMessage());
+			assertEquals("tried to start a new transaction with name >nested<, but there is already a transaction CT." + model.getCurrentTransaction().getID() + " with name >CopeTest< started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) + " bound to current thread", e.getMessage());
 		}
 		assertEquals( tx, model.getCurrentTransaction() );
 		try
@@ -31,7 +32,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("tried to start a new transaction without a name, but there is already a transaction with name >CopeTest< started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) + " bound to current thread", e.getMessage());
+			assertEquals("tried to start a new transaction without a name, but there is already a transaction CT." + model.getCurrentTransaction().getID() + " with name >CopeTest< started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) + " bound to current thread", e.getMessage());
 		}
 		assertEquals(tx, model.getCurrentTransaction());
 	}
@@ -96,8 +97,13 @@ public class TransactionOnlyTest extends AbstractLibTest
 		assertEquals( false, copeTest.isClosed() );
 		assertCurrentTransaction( null );
 		
+		final Date before = new Date();
 		final Transaction tx1 = model.startTransaction( "tx1" );
+		final Date after = new Date();
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
+		assertEquals(copeTest.getID()+1, tx1.getID());
+		assertEquals("tx1", tx1.getName());
+		assertWithin(before, after, tx1.getStartDate());
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( tx1 );

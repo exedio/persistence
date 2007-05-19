@@ -35,8 +35,12 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Transaction
 {
+	private static long idSource = 0;
+	private static final Object idSourceLock = new Object();
+	
 	final Model model;
 	final Database database;
+	final long id;
 	final String name;
 	final long startDate;
 	
@@ -54,6 +58,12 @@ public final class Transaction
 	{
 		this.model = model;
 		this.database = model.getDatabase();
+		final long id;
+		synchronized(idSourceLock)
+		{
+			id = idSource++;
+		}
+		this.id = id;
 		this.name = name;
 		this.startDate = System.currentTimeMillis();
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
@@ -359,6 +369,11 @@ public final class Transaction
 		}
 	}
 
+	public long getID()
+	{
+		return id;
+	}
+	
 	public String getName()
 	{
 		return name;
@@ -367,18 +382,6 @@ public final class Transaction
 	public Date getStartDate()
 	{
 		return new Date(startDate);
-	}
-	
-	private String getID()
-	{
-		if ( name==null )
-		{
-			return String.valueOf( System.identityHashCode(this) );
-		}
-		else
-		{
-			return name;
-		}
 	}
 	
 	public void setQueryInfoEnabled(final boolean enabled)
@@ -395,6 +398,6 @@ public final class Transaction
 	@Override
 	public String toString()
 	{
-		return "CT." + getID() + (closed?"(closed)":"");
+		return "CT." + id + (closed?"(closed)":"");
 	}
 }

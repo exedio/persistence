@@ -851,7 +851,7 @@ public final class Model
 			throw new IllegalStateException(
 					"tried to start a new transaction " +
 					(name!=null ? ("with name >" + name + '<') : "without a name") +
-					", but there is already a transaction " +
+					", but there is already a transaction " + previousTransaction + ' ' +
 					(previousName!=null ? ("with name >" + previousName + '<') : "without a name") +
 					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(previousTransaction.getStartDate()) +
 					" bound to current thread");
@@ -945,7 +945,7 @@ public final class Model
 		final Transaction tx = getCurrentTransaction();
 		
 		if(logTransactions)
-			System.out.println("transaction " + (rollback?"rollback":"commit") + ' ' + tx.name);
+			System.out.println("transaction " + (rollback?"rollback":"commit") + ' ' + tx);
 		
 		synchronized(openTransactions)
 		{
