@@ -77,7 +77,7 @@ public final class Transaction
 	}
 	
 	/**
-	 * calling this method directly breaks model.transactionThreads
+	 * calling this method directly breaks Model.boundTransactions
 	 */
 	void bindToCurrentThread()
 	{
@@ -98,7 +98,7 @@ public final class Transaction
 	}
 	
 	/**
-	 * calling this method directly breaks model.transactionThreads
+	 * calling this method directly breaks Model.boundTransactions
 	 */
 	void unbindThread()
 	{
