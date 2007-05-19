@@ -58,10 +58,16 @@ final class Transaction_Jspm extends Console_Jspm
 				{
 				%><td><%=thread.getId()%></td>
 				<td class="text"><%
-					final StackTraceElement[] st = thread.getStackTrace();
-					if(st!=null && st.length>0)
+					final StackTraceElement[] sts = thread.getStackTrace();
+					if(sts!=null)
 					{
-						%><%=st[0].toString()%><%
+						for(StackTraceElement st : sts)
+						{
+					%>
+					<%=st.toString()%><br><%
+						}
+						%>
+				<%
 					}
 				}
 				else
