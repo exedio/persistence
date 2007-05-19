@@ -384,6 +384,11 @@ public final class Transaction
 		return new Date(startDate);
 	}
 	
+	/* TODO public*/ Thread getBoundThread()
+	{
+		return boundThread;
+	}
+	
 	public void setQueryInfoEnabled(final boolean enabled)
 	{
 		this.queryInfos = enabled ? new ArrayList<QueryInfo>() : null;

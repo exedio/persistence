@@ -101,11 +101,13 @@ public class TransactionOnlyTest extends AbstractLibTest
 		final Transaction copeTest = model.getCurrentTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );
 		assertUnmodifiable( model.getOpenTransactions() );
+		assertSame(Thread.currentThread(), copeTest.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertCurrentTransaction( copeTest );
 		
 		model.leaveTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );
+		assertSame(null, copeTest.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertCurrentTransaction( null );
 		
@@ -116,36 +118,48 @@ public class TransactionOnlyTest extends AbstractLibTest
 		assertEquals(copeTest.getID()+1, tx1.getID());
 		assertEquals("tx1", tx1.getName());
 		assertWithin(before, after, tx1.getStartDate());
+		assertSame(null, copeTest.getBoundThread());
+		assertSame(Thread.currentThread(), tx1.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( tx1 );
 		
 		model.leaveTransaction();
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
+		assertSame(null, copeTest.getBoundThread());
+		assertSame(null, tx1.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( null );
 		
 		model.joinTransaction( copeTest );
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
+		assertSame(Thread.currentThread(), copeTest.getBoundThread());
+		assertSame(null, tx1.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( copeTest );
 		
 		model.commit();
 		assertContains( tx1, model.getOpenTransactions() );
+		assertSame(Thread.currentThread()/* TODO should be null */, copeTest.getBoundThread());
+		assertSame(null, tx1.getBoundThread());
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( null );
 		
 		model.joinTransaction( tx1 );
 		assertContains( tx1, model.getOpenTransactions() );
+		assertSame(Thread.currentThread()/* TODO should be null */, copeTest.getBoundThread());
+		assertSame(Thread.currentThread(), tx1.getBoundThread());
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( false, tx1.isClosed() );
 		assertCurrentTransaction( tx1 );
 		
 		model.rollback();
 		assertContains( model.getOpenTransactions() );
+		assertSame(Thread.currentThread()/* TODO should be null */, copeTest.getBoundThread());
+		assertSame(Thread.currentThread()/* TODO should be null */, tx1.getBoundThread());
 		assertEquals( true, copeTest.isClosed() );
 		assertEquals( true, tx1.isClosed() );
 		assertCurrentTransaction( null );
