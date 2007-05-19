@@ -34,21 +34,30 @@ final class Transaction_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Open Transactions</caption>
-			<tr><th>#</th><th>ID</th><th>Started</th><th>Name</th><th>Thread</th><th>Stack</th></tr><%
+			<tr>
+				<th>#</th>
+				<th>ID</th>
+				<th>Started</th>
+				<th>Name</th>
+				<th>Thread</th>
+				<th>Stack</th>
+			</tr><%
 			
 			int number = 0;
 			for(final Transaction t : openTransactions)
 			{
 				final Thread thread = t.getBoundThread();
 			%>
-			<tr><td><%=cop.format(number++)
-				%></td><td><%=cop.format(t.getID())
-				%></td><td><%=cop.format(t.getStartDate())
-				%></td><td class="text"><%=encode(t.getName())
-				%></td><%
+			<tr>
+				<td><%=cop.format(number++)%></td>
+				<td><%=cop.format(t.getID())%></td>
+				<td><%=cop.format(t.getStartDate())%></td>
+				<td class="text"><%=encode(t.getName())%></td>
+				<%
 				if(thread!=null)
 				{
-					%><td><%=thread.getId()%></td><td class="text"><%
+				%><td><%=thread.getId()%></td>
+				<td class="text"><%
 					final StackTraceElement[] st = thread.getStackTrace();
 					if(st!=null && st.length>0)
 					{
@@ -59,7 +68,8 @@ final class Transaction_Jspm extends Console_Jspm
 				{
 					%><td colspan="2"><%
 				}
-				%></td></tr><%
+				%></td>
+			</tr><%
 			}
 			%>
 		</table><%
