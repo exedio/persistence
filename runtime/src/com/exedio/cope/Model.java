@@ -70,8 +70,8 @@ public final class Model
 	private Date connectDate = null;
 	private boolean logTransactions = false;
 
-	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
+	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 	
 	public Model(final Type... types)
 	{
