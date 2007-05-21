@@ -73,12 +73,9 @@ final class CopeNativeAttribute extends CopeAttribute
 	private static final HashMap<Class, String> toNativeTypeMapping = new HashMap<Class, String>(3);
 	private static final HashMap<Class, String> toBoxingPrefixMapping = new HashMap<Class, String>(3);
 	private static final HashMap<Class, String> toBoxingPostfixMapping = new HashMap<Class, String>(3);
-	private static final HashMap<Class, String> toUnboxingPrefixMapping = new HashMap<Class, String>(3);
-	private static final HashMap<Class, String> toUnboxingPostfixMapping = new HashMap<Class, String>(3);
 	
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType,
-															  final String boxingPrefix, final String boxingPostfix,
-															  final String unboxingPrefix, final String unboxingPostfix)
+															  final String boxingPrefix, final String boxingPostfix)
 	{
 		if(persistentType.isPrimitive())
 			throw new RuntimeException(nativeType.toString());
@@ -95,19 +92,17 @@ final class CopeNativeAttribute extends CopeAttribute
 		
 		toBoxingPrefixMapping.put(typeClass, boxingPrefix);
 		toBoxingPostfixMapping.put(typeClass, boxingPostfix);
-		toUnboxingPrefixMapping.put(typeClass, unboxingPrefix);
-		toUnboxingPostfixMapping.put(typeClass, unboxingPostfix);
 	}
 	
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType)
 	{
 		fillNativeTypeMap(typeClass, persistentType, nativeType,
-				persistentType.getName()+".valueOf(", ")", "(", ")."+nativeType.getName()+"Value()");
+				persistentType.getName()+".valueOf(", ")");
 	}
 
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType)
 	{
-		fillNativeTypeMap(typeClass, persistentType, null, null, null, null, null);
+		fillNativeTypeMap(typeClass, persistentType, null, null, null);
 	}
 
 	static
@@ -152,23 +147,5 @@ final class CopeNativeAttribute extends CopeAttribute
 			throw new RuntimeException();
 
 		return toBoxingPostfixMapping.get(typeClass);
-	}
-	
-	@Override
-	public final String getUnBoxingPrefix()
-	{
-		if(!isBoxed())
-			throw new RuntimeException();
-
-		return toUnboxingPrefixMapping.get(typeClass);
-	}
-	
-	@Override
-	public final String getUnBoxingPostfix()
-	{
-		if(!isBoxed())
-			throw new RuntimeException();
-
-		return toUnboxingPostfixMapping.get(typeClass);
 	}
 }

@@ -82,16 +82,6 @@ abstract class CopeAttribute extends CopeFeature
 		throw new RuntimeException();
 	}
 	
-	String getUnBoxingPrefix()
-	{
-		throw new RuntimeException();
-	}
-	
-	String getUnBoxingPostfix()
-	{
-		throw new RuntimeException();
-	}
-	
 	final boolean isImplicitlyUnique()
 	{
 		final Feature instance = getInstance();
@@ -105,5 +95,4 @@ abstract class CopeAttribute extends CopeFeature
 
 		return isBoolean && getterOption.booleanAsIs;
 	}
-
 }
