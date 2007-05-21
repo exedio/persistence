@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -71,11 +73,8 @@ final class CopeNativeAttribute extends CopeAttribute
 
 	private static final HashMap<Class, String> toPersistentTypeMapping = new HashMap<Class, String>(3);
 	private static final HashMap<Class, String> toNativeTypeMapping = new HashMap<Class, String>(3);
-	private static final HashMap<Class, String> toBoxingPrefixMapping = new HashMap<Class, String>(3);
-	private static final HashMap<Class, String> toBoxingPostfixMapping = new HashMap<Class, String>(3);
 	
-	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType,
-															  final String boxingPrefix, final String boxingPostfix)
+	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType)
 	{
 		if(persistentType.isPrimitive())
 			throw new RuntimeException(nativeType.toString());
@@ -89,20 +88,11 @@ final class CopeNativeAttribute extends CopeAttribute
 
 			toNativeTypeMapping.put(typeClass, nativeType.getName());
 		}
-		
-		toBoxingPrefixMapping.put(typeClass, boxingPrefix);
-		toBoxingPostfixMapping.put(typeClass, boxingPostfix);
 	}
 	
-	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType)
-	{
-		fillNativeTypeMap(typeClass, persistentType, nativeType,
-				persistentType.getName()+".valueOf(", ")");
-	}
-
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType)
 	{
-		fillNativeTypeMap(typeClass, persistentType, null, null, null);
+		fillNativeTypeMap(typeClass, persistentType, null);
 	}
 
 	static
@@ -132,20 +122,18 @@ final class CopeNativeAttribute extends CopeAttribute
 	}
 	
 	@Override
-	public final String getBoxingPrefix()
+	void write(final Writer o) throws IOException
 	{
-		if(!isBoxed())
-			throw new RuntimeException();
-
-		return toBoxingPrefixMapping.get(typeClass);
-	}
-	
-	@Override
-	public final String getBoxingPostfix()
-	{
-		if(!isBoxed())
-			throw new RuntimeException();
-
-		return toBoxingPostfixMapping.get(typeClass);
-	}
+		final boolean boxed = isBoxed();
+		if(boxed)
+		{
+			o.write(getPersistentType(typeClass));
+			o.write(".valueOf(");
+		}
+		
+		o.write(name);
+		
+		if(boxed)
+			o.write(')');
+	}	
 }

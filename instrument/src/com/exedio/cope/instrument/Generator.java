@@ -705,7 +705,7 @@ final class Generator
 		o.write('.');
 		o.write(attribute.name);
 		o.write(".searchUnique(");
-		writeAttribute(attribute);
+		attribute.write(o);
 		
 		o.write(");");
 		o.write(lineSeparator);
@@ -763,25 +763,15 @@ final class Generator
 		o.write('.');
 		o.write(constraint.name);
 		o.write(".searchUnique(");
-		writeAttribute(attributes[0]);
+		attributes[0].write(o);
 		for(int i = 1; i<attributes.length; i++)
 		{
 			o.write(',');
-			writeAttribute(attributes[i]);
+			attributes[i].write(o);
 		}
 		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
-	}
-	
-	private void writeAttribute(final CopeAttribute attribute)
-			throws IOException
-	{
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPrefix());
-		o.write(attribute.name);
-		if(attribute.isBoxed())
-			o.write(attribute.getBoxingPostfix());
 	}
 	
 	private void writeQualifierParameters(final CopeQualifier qualifier)

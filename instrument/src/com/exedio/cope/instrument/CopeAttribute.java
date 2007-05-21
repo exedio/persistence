@@ -18,6 +18,9 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -72,16 +75,6 @@ abstract class CopeAttribute extends CopeFeature
 		return false;
 	}
 	
-	String getBoxingPrefix()
-	{
-		throw new RuntimeException();
-	}
-	
-	String getBoxingPostfix()
-	{
-		throw new RuntimeException();
-	}
-	
 	final boolean isImplicitlyUnique()
 	{
 		final Feature instance = getInstance();
@@ -95,4 +88,9 @@ abstract class CopeAttribute extends CopeFeature
 
 		return isBoolean && getterOption.booleanAsIs;
 	}
+	
+	void write(final Writer o) throws IOException
+	{
+		o.write(name);
+	}	
 }
