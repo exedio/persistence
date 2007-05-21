@@ -131,9 +131,9 @@ final class CopeNativeAttribute extends CopeAttribute
 	public final boolean isBoxed()
 	{
 		final Feature instance = getInstance();
-		final boolean notNull = instance instanceof Field && ((Field)instance).isMandatory();
+		final boolean mandatory = instance instanceof Field && ((Field)instance).isMandatory();
 
-		return (notNull && nativeType!=null);
+		return mandatory && nativeType!=null;
 	}
 	
 	@Override
