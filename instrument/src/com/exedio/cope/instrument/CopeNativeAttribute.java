@@ -102,7 +102,7 @@ final class CopeNativeAttribute extends CopeAttribute
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType)
 	{
 		fillNativeTypeMap(typeClass, persistentType, nativeType,
-				"new "+persistentType.getName()+"(", ")", "(", ")."+nativeType.getName()+"Value()");
+				persistentType.getName()+".valueOf(", ")", "(", ")."+nativeType.getName()+"Value()");
 	}
 
 	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType)

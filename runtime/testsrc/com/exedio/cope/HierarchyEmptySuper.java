@@ -98,7 +98,7 @@ public class HierarchyEmptySuper extends Item
 	 */
 	public static final HierarchyEmptySuper findBySuperInt(final int superInt)
 	{
-		return (HierarchyEmptySuper)HierarchyEmptySuper.superInt.searchUnique(new java.lang.Integer(superInt));
+		return (HierarchyEmptySuper)HierarchyEmptySuper.superInt.searchUnique(java.lang.Integer.valueOf(superInt));
 	}/**
 
 	 **
