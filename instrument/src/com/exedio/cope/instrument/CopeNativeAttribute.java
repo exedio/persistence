@@ -112,13 +112,13 @@ final class CopeNativeAttribute extends CopeAttribute
 
 	static
 	{
-		fillNativeTypeMap(BooleanField.class, Boolean.class, boolean.class, "(", "?"+Boolean.class.getName()+".TRUE:"+Boolean.class.getName()+".FALSE)", "(", ").booleanValue()");
-		fillNativeTypeMap(LongField.class,    Long.class,    long.class);
-		fillNativeTypeMap(IntegerFunction.class,  Integer.class, int.class);
-		fillNativeTypeMap(DoubleField.class,  Double.class,  double.class);
-		fillNativeTypeMap(StringFunction.class,   String.class);
-		fillNativeTypeMap(DateField.class,    Date.class);
-		fillNativeTypeMap(DayField.class,     Day.class);
+		fillNativeTypeMap(BooleanField.class,    Boolean.class, boolean.class, "(", "?"+Boolean.class.getName()+".TRUE:"+Boolean.class.getName()+".FALSE)", "(", ").booleanValue()");
+		fillNativeTypeMap(LongField.class,       Long.class,    long.class);
+		fillNativeTypeMap(IntegerFunction.class, Integer.class, int.class);
+		fillNativeTypeMap(DoubleField.class,     Double.class,  double.class);
+		fillNativeTypeMap(StringFunction.class,  String.class);
+		fillNativeTypeMap(DateField.class,       Date.class);
+		fillNativeTypeMap(DayField.class,        Day.class);
 	}
 	
 	@Override
