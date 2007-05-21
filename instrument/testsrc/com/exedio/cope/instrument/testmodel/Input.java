@@ -107,7 +107,7 @@ public class Input extends Item
 	 */
 	public static final Input findByUnique(final java.lang.String string,final int integer)
 	{
-		return (Input)Input.unique.searchUnique(new Object[]{string,new java.lang.Integer(integer)});
+		return (Input)Input.unique.searchUnique(string,new java.lang.Integer(integer));
 	}/**
 
 	 **

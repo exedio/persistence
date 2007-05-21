@@ -157,7 +157,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	 */
 	public boolean removeFromTargets(final S source, final T target)
 	{
-		final Item item = uniqueConstraint.searchUnique(new Object[]{source, target});
+		final Item item = uniqueConstraint.searchUnique(source, target);
 		if(item==null)
 			return false;
 		else

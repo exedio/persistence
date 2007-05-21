@@ -126,7 +126,7 @@ public class AttributeEmptyItem extends Item
 	 */
 	public static final AttributeEmptyItem findByParentKey(final AttributeItem parent,final EmptyItem key)
 	{
-		return (AttributeEmptyItem)AttributeEmptyItem.parentKey.searchUnique(new Object[]{parent,key});
+		return (AttributeEmptyItem)AttributeEmptyItem.parentKey.searchUnique(parent,key);
 	}/**
 
 	 **

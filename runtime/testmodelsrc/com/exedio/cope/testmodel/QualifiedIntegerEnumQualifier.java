@@ -137,7 +137,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	 */
 	public static final QualifiedIntegerEnumQualifier findByQualifyUnique(final QualifiedItem up,final int keyX,final KeyEnum keyY)
 	{
-		return (QualifiedIntegerEnumQualifier)QualifiedIntegerEnumQualifier.qualifyUnique.searchUnique(new Object[]{up,new java.lang.Integer(keyX),keyY});
+		return (QualifiedIntegerEnumQualifier)QualifiedIntegerEnumQualifier.qualifyUnique.searchUnique(up,new java.lang.Integer(keyX),keyY);
 	}/**
 
 	 **

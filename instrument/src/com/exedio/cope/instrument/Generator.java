@@ -762,14 +762,14 @@ final class Generator
 		o.write(attributes[0].parent.name);
 		o.write('.');
 		o.write(constraint.name);
-		o.write(".searchUnique(new Object[]{");
+		o.write(".searchUnique(");
 		writeAttribute(attributes[0]);
 		for(int i = 1; i<attributes.length; i++)
 		{
 			o.write(',');
 			writeAttribute(attributes[i]);
 		}
-		o.write("});");
+		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
 	}

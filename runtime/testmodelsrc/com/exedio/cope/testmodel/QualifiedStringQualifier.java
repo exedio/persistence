@@ -117,7 +117,7 @@ public class QualifiedStringQualifier extends Item
 	 */
 	public static final QualifiedStringQualifier findByQualifyUnique(final QualifiedItem parent,final java.lang.String key)
 	{
-		return (QualifiedStringQualifier)QualifiedStringQualifier.qualifyUnique.searchUnique(new Object[]{parent,key});
+		return (QualifiedStringQualifier)QualifiedStringQualifier.qualifyUnique.searchUnique(parent,key);
 	}/**
 
 	 **

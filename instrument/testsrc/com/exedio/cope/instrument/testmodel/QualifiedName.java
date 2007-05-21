@@ -175,7 +175,7 @@ public class QualifiedName extends Item
 	 */
 	public static final QualifiedName findByParentKey(final Qualified parent,final java.lang.String key)
 	{
-		return (QualifiedName)QualifiedName.parentKey.searchUnique(new Object[]{parent,key});
+		return (QualifiedName)QualifiedName.parentKey.searchUnique(parent,key);
 	}/**
 
 	 **

@@ -908,7 +908,7 @@ public class Standard extends Item
 	 */
 	public static final Standard findByDoubleUnique(final java.lang.String doubleUnique1,final java.lang.Integer doubleUnique2)
 	{
-		return (Standard)Standard.doubleUnique.searchUnique(new Object[]{doubleUnique1,doubleUnique2});
+		return (Standard)Standard.doubleUnique.searchUnique(doubleUnique1,doubleUnique2);
 	}/**
 
 	 **

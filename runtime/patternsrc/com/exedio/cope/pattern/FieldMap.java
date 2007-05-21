@@ -101,7 +101,7 @@ public final class FieldMap<K,V> extends Pattern
 	
 	public V get(final Item item, final K key)
 	{
-		final Item relationItem = uniqueConstraint.searchUnique(new Object[]{item, key});
+		final Item relationItem = uniqueConstraint.searchUnique(item, key);
 		if(relationItem!=null)
 			return value.get(relationItem);
 		else
@@ -110,7 +110,7 @@ public final class FieldMap<K,V> extends Pattern
 	
 	public void set(final Item item, final K key, final V value)
 	{
-		final Item relationItem = uniqueConstraint.searchUnique(new Object[]{item, key});
+		final Item relationItem = uniqueConstraint.searchUnique(item, key);
 		if(relationItem==null)
 		{
 			if(value!=null)

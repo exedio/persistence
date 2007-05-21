@@ -146,7 +146,7 @@ public final class UniqueConstraint extends Feature
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 */
-	public final Item searchUnique(final Object[] values)
+	public final Item searchUnique(final Object... values)
 	{
 		// TODO: search nativly for unique constraints
 		final List<FunctionField<?>> fields = getFields();
@@ -160,5 +160,4 @@ public final class UniqueConstraint extends Feature
 
 		return getType().searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
 	}
-	
 }
