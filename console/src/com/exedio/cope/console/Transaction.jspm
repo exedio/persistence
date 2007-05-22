@@ -20,7 +20,6 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.util.Collection;
 
 import com.exedio.cope.Transaction;
 
