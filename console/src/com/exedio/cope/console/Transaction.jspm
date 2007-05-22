@@ -30,6 +30,12 @@ final class Transaction_Jspm extends Console_Jspm
 	final static void writeHead(final PrintStream out)
 	{
 	%>
+		<style>
+			span.expand
+			{
+				font-size:80%;
+			}
+		</style>
 		<script>
 			function toggleStacktrace(image,more)
 			{
