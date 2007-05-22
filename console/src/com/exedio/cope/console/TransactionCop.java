@@ -36,6 +36,12 @@ final class TransactionCop extends ConsoleCop
 	}
 	
 	@Override
+	void writeHead(final HttpServletRequest request, final PrintStream out)
+	{
+		Transaction_Jspm.writeHead(out);
+	}
+	
+	@Override
 	void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final Transaction[] openTransactions = model.getOpenTransactions().toArray(new Transaction[]{});
@@ -49,6 +55,6 @@ final class TransactionCop extends ConsoleCop
 			}
 			
 		});
-		Transaction_Jspm.writeBody(out, this, openTransactions);
+		Transaction_Jspm.writeBody(out, request, this, openTransactions);
 	}
 }

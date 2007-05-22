@@ -21,12 +21,37 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Transaction;
 
 final class Transaction_Jspm extends Console_Jspm
 {
+	final static void writeHead(final PrintStream out)
+	{
+	%>
+		<script>
+			function toggleStacktrace(image,more)
+			{
+				var imageSrc = image.src;
+				var moreElement = document.getElementById(more);
+				if(imageSrc.substring(imageSrc.length-8)=="true.png")
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
+					moreElement.style.display = "none";
+				}
+				else
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
+					moreElement.style.display = "inline";
+				}
+			}
+		</script><%
+	}
+	
 	final static void writeBody(
 			final PrintStream out,
+			final HttpServletRequest request,
 			final TransactionCop cop,
 			final Transaction[] openTransactions)
 	{
@@ -55,17 +80,25 @@ final class Transaction_Jspm extends Console_Jspm
 				<%
 				if(thread!=null)
 				{
-				%><td><%=thread.getId()%></td>
+					final long threadId = thread.getId();
+				%><td><%=threadId%></td>
 				<td class="text"><%
 					final StackTraceElement[] sts = thread.getStackTrace();
-					if(sts!=null)
+					if(sts!=null && sts.length>0)
 					{
-						for(StackTraceElement st : sts)
-						{
 					%>
-					<%=st.toString()%><br><%
+					<img class="node" onClick="toggleStacktrace(this,'more<%=threadId%>')" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
+					<%=sts[0].toString()%>
+					<span id="more<%=threadId%>" class="expand"><%
+						
+						for(int i = 1; i<sts.length; i++)
+						{
+							final StackTraceElement st = sts[i];
+						%>
+						<br><%=st.toString()%><%
 						}
 						%>
+					</span>
 				<%
 					}
 				}
