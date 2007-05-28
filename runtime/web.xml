@@ -149,7 +149,7 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>typeNotInConditionConsole</servlet-name>
+		<servlet-name>instanceOfConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
@@ -157,8 +157,8 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>typeNotInConditionConsole</servlet-name>
-		<url-pattern>/typeNotInCondition/console/*</url-pattern>
+		<servlet-name>instanceOfConsole</servlet-name>
+		<url-pattern>/instanceOf/console/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
