@@ -358,14 +358,14 @@
 		</foreachEnvironment>
 	</target>
 
-	<target name="runtime.testwebapp"
+	<target name="runtime.web"
 			  depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile,
 							console.compile, copernica.compile">
-		<foreachEnvironment skipSwitch="runtime.testwebapp">
+		<foreachEnvironment skipSwitch="runtime.web">
 			<body>
-				<mkdir dir="build/runtime/testwebapp-@{env}" />
+				<mkdir dir="build/runtime/web-@{env}" />
 				
-				<copy todir="build/runtime/testwebapp-@{env}/WEB-INF/classes">
+				<copy todir="build/runtime/web-@{env}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/runtime/testmodelclasses" />
@@ -373,22 +373,22 @@
 					<fileset dir="build/copernica/classes" />
 				</copy>
 				
-				<copy todir="build/runtime/testwebapp-@{env}/WEB-INF/lib">
+				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
 				
-				<copy tofile="build/runtime/testwebapp-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
-				<copy todir="build/runtime/testwebapp-@{env}/WEB-INF/"
+				<copy tofile="build/runtime/web-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
+				<copy todir="build/runtime/web-@{env}/WEB-INF/"
 						file="runtime/web.xml" />
-				<touch file="build/runtime/testwebapp-@{env}/WEB-INF/web.xml" />
+				<touch file="build/runtime/web-@{env}/WEB-INF/web.xml" />
 			</body>
 		</foreachEnvironment>
 	</target>
 	
-	<target name="runtime.tomcat" depends="runtime.testwebapp, catalina.home">
+	<target name="runtime.tomcat" depends="runtime.web, catalina.home">
 		<foreachEnvironment skipSwitch="runtime.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{env}.xml"
@@ -593,12 +593,12 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.testwebapp" depends="copernica.compile, copernica.test.compile">
-		<foreachEnvironment skipSwitch="copernica.testwebapp">
+	<target name="copernica.web" depends="copernica.compile, copernica.test.compile">
+		<foreachEnvironment skipSwitch="copernica.web">
 			<body>
-				<mkdir dir="build/copernica/testwebapp-@{env}" />
+				<mkdir dir="build/copernica/web-@{env}" />
 				
-				<copy todir="build/copernica/testwebapp-@{env}/WEB-INF/classes">
+				<copy todir="build/copernica/web-@{env}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="build/console/classes" />
@@ -606,7 +606,7 @@
 					<fileset dir="build/copernica/testclasses" />
 				</copy>
 				
-				<copy todir="build/copernica/testwebapp-@{env}/WEB-INF/lib">
+				<copy todir="build/copernica/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/commons-fileupload.jar" />
 					<fileset file="lib/commons-io.jar" />
@@ -614,15 +614,15 @@
 					<fileset file="lib/@{env.driver}" />
 				</copy>
 				
-				<copy tofile="build/copernica/testwebapp-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
-				<copy todir="build/copernica/testwebapp-@{env}/WEB-INF/"
+				<copy tofile="build/copernica/web-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
+				<copy todir="build/copernica/web-@{env}/WEB-INF/"
 						file="copernica/web.xml" />
-				<touch file="build/copernica/testwebapp-@{env}/WEB-INF/web.xml" />
+				<touch file="build/copernica/web-@{env}/WEB-INF/web.xml" />
 			</body>
 		</foreachEnvironment>
 	</target>
 	
-	<target name="copernica.tomcat" depends="copernica.testwebapp, catalina.home">
+	<target name="copernica.tomcat" depends="copernica.web, catalina.home">
 		<foreachEnvironment skipSwitch="copernica.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{env}.xml"
@@ -698,7 +698,7 @@
 	
 	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
 	
-	<target name="testwebapp" depends="runtime.testwebapp, copernica.testwebapp" />
+	<target name="web" depends="runtime.web, copernica.web" />
 	
 	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
 	
