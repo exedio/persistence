@@ -1,7 +1,7 @@
 
 <Context
-		path="/copelibtest-@DATABASE@"
-		docBase="../../persistence/build/runtime/web-@DATABASE@"
+		path="/copelibtest-@ENV@"
+		docBase="../../persistence/build/runtime/web-@ENV@"
 		debug="0"
 		privileged="true">
 </Context>

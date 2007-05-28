@@ -394,7 +394,7 @@
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{env}.xml"
 						file="runtime/context.xml">
 					<filterset>
-						<filter token="DATABASE" value="@{env}" />
+						<filter token="ENV" value="@{env}" />
 					</filterset>
 				</copy>
 			</body>
@@ -628,7 +628,7 @@
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{env}.xml"
 						file="copernica/context.xml">
 					<filterset>
-						<filter token="DATABASE" value="@{env}" />
+						<filter token="ENV" value="@{env}" />
 					</filterset>
 				</copy>
 			</body>

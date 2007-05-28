@@ -1,7 +1,7 @@
 
 <Context
-		path="/copetest-@DATABASE@"
-		docBase="../../persistence/build/copernica/web-@DATABASE@"
+		path="/copetest-@ENV@"
+		docBase="../../persistence/build/copernica/web-@ENV@"
 		debug="0"
 		privileged="true">
 </Context>
