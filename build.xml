@@ -626,7 +626,7 @@
 		<foreachEnvironment skipSwitch="copernica.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{env}.xml"
-						file="copernica/copetest.xml">
+						file="copernica/context.xml">
 					<filterset>
 						<filter token="DATABASE" value="@{env}" />
 					</filterset>
