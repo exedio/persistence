@@ -4,9 +4,4 @@
 		docBase="../../persistence/build/runtime/testwebapp-@DATABASE@"
 		debug="0"
 		privileged="true">
-	<Logger
-			className="org.apache.catalina.logger.FileLogger"
-			prefix="localhost_copelibtest_@DATABASE@_log."
-			suffix=".txt"
-			timestamp="true"/>
 </Context>

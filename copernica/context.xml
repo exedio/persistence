@@ -4,9 +4,4 @@
 		docBase="../../persistence/build/copernica/testwebapp-@DATABASE@"
 		debug="0"
 		privileged="true">
-	<Logger
-			className="org.apache.catalina.logger.FileLogger"
-			prefix="localhost_copetest_@DATABASE@_log."
-			suffix=".txt"
-			timestamp="true"/>
 </Context>
