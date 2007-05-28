@@ -23,7 +23,7 @@ import com.exedio.cope.Model;
 
 public class FieldMapLimitedTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(FieldMapLimitedItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(FieldMapLimitedItem.TYPE);
 
 	private static final FieldMapLimitedItem.Language DE = FieldMapLimitedItem.Language.DE;
 	private static final FieldMapLimitedItem.Language EN = FieldMapLimitedItem.Language.EN;

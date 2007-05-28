@@ -21,11 +21,9 @@ package com.exedio.cope;
 import java.util.Collection;
 import java.util.List;
 
-
-
 public class DeleteTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
 
 	public DeleteTest()
 	{

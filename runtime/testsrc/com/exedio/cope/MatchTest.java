@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class MatchTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(MatchItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(MatchItem.TYPE);
 
 	public MatchTest()
 	{

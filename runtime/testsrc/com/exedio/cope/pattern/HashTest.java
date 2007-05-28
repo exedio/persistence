@@ -28,7 +28,7 @@ import com.exedio.cope.SetValue;
 
 public class HashTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(HashItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(HashItem.TYPE);
 
 	public HashTest()
 	{

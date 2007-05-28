@@ -34,7 +34,7 @@ import com.exedio.cope.StringField;
 
 public class FieldListLimitedTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(FieldListLimitedItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(FieldListLimitedItem.TYPE);
 	
 	public FieldListLimitedTest()
 	{

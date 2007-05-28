@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public class InstanceOfTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(
+	public/*for web.xml*/ static final Model MODEL = new Model(
 			InstanceOfAItem.TYPE,
 			InstanceOfB1Item.TYPE,
 			InstanceOfB2Item.TYPE,

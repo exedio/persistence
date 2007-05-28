@@ -25,7 +25,7 @@ import com.exedio.cope.util.Day;
 
 public class DayFieldTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(DayItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(DayItem.TYPE);
 
 	DayItem item, item2;
 	static final Day DEFAULT = new Day(2005, 8, 14);

@@ -29,7 +29,7 @@ import com.exedio.cope.StringField;
 
 public class MD5Test extends AbstractLibTest
 {
-	static final Model MODEL = new Model(MD5Item.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(MD5Item.TYPE);
 
 	public MD5Test()
 	{

@@ -23,7 +23,7 @@ import com.exedio.dsmf.Constraint;
 
 public class HierarchyTest extends AbstractLibTest
 {
-	public static final Model MODEL = new Model(
+	public/*for web.xml*/ static final Model MODEL = new Model(
 			HierarchyFirstSub.TYPE,
 			HierarchySecondSub.TYPE,
 			HierarchySuper.TYPE, // deliberately put this type below it's sub types to test correct functionality

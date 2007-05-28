@@ -34,7 +34,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class FieldListTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(FieldListItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(FieldListItem.TYPE);
 	
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);

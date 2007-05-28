@@ -27,7 +27,7 @@ import java.io.OutputStream;
 
 public class DataTest extends AbstractLibTest
 {
-	private static final Model MODEL = new Model(DataItem.TYPE, DataSubItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(DataItem.TYPE, DataSubItem.TYPE);
 
 	public DataTest()
 	{

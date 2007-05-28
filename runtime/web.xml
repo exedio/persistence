@@ -10,7 +10,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#deleteModel</param-value>
+			<param-value>com.exedio.cope.DeleteTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -23,7 +23,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#dayModel</param-value>
+			<param-value>com.exedio.cope.DayFieldTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -36,7 +36,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#dataModel</param-value>
+			<param-value>com.exedio.cope.DataTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -49,7 +49,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#hashModel</param-value>
+			<param-value>com.exedio.cope.pattern.HashTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -62,7 +62,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#md5Model</param-value>
+			<param-value>com.exedio.cope.pattern.MD5Test#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -75,7 +75,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#fieldListModel</param-value>
+			<param-value>com.exedio.cope.pattern.FieldListTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -88,7 +88,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#fieldListLimitedModel</param-value>
+			<param-value>com.exedio.cope.pattern.FieldListLimitedTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -101,7 +101,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#cacheIsolationModel</param-value>
+			<param-value>com.exedio.cope.CacheIsolationTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -114,7 +114,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#nameModel</param-value>
+			<param-value>com.exedio.cope.NameTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -127,7 +127,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#matchModel</param-value>
+			<param-value>com.exedio.cope.MatchTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -140,7 +140,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#hierarchyModel</param-value>
+			<param-value>com.exedio.cope.HierarchyTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -153,7 +153,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#typeNotInConditionModel</param-value>
+			<param-value>com.exedio.cope.InstanceOfTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -166,7 +166,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.Main#hiddenFeatureModel</param-value>
+			<param-value>com.exedio.cope.HiddenFeatureTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
