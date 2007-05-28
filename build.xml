@@ -392,7 +392,7 @@
 		<foreachEnvironment skipSwitch="runtime.tomcat">
 			<body>
 				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{env}.xml"
-						file="runtime/testwebapp.xml">
+						file="runtime/context.xml">
 					<filterset>
 						<filter token="DATABASE" value="@{env}" />
 					</filterset>
