@@ -18,14 +18,13 @@
 
 package com.exedio.dsmf;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import junit.framework.TestCase;
 
@@ -41,17 +40,42 @@ public abstract class SchemaTest extends TestCase
 	Connection connection1; // visible for BatchTest
 	private Connection connection2;
 	
+	private static final File getDefaultPropertyFile()
+	{
+		String result = System.getProperty("com.exedio.cope.properties");
+		if(result==null)
+			result = "cope.properties";
+
+		return new File(result);
+	}
+
+	private final class Properties extends com.exedio.cope.util.Properties
+	{
+		private final StringField databaseUrl =  new StringField("database.url");
+		private final StringField databaseUser =  new StringField("database.user");
+		private final StringField databasePassword =  new StringField("database.password", true);
+		private final BooleanField mysqlToLowerCase =  new BooleanField("database.mysql.tolowercase", false);
+
+		public Properties()
+		{
+			this(getDefaultPropertyFile(), null);
+		}
+		
+		public Properties(final File file, final Context context)
+		{
+			super(loadProperties(file), file.getAbsolutePath(), context);
+		}
+	}
+	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		
 		final Properties config = new Properties();
-		final String propertiesProperty = System.getProperty("com.exedio.cope.properties");
-		config.load(new FileInputStream(propertiesProperty!=null ? propertiesProperty : "cope.properties"));
-		final String url = config.getProperty("database.url");
-		final String user = config.getProperty("database.user");
-		final String password = config.getProperty("database.password");
+		final String url = config.databaseUrl.getStringValue();
+		final String user = config.databaseUser.getStringValue();
+		final String password = config.databasePassword.getStringValue();
 		
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
@@ -65,7 +89,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:mysql:"))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			driver = new MysqlDriver("this", Boolean.valueOf(config.getProperty("database.mysql.tolowercase")).booleanValue());
+			driver = new MysqlDriver("this", config.mysqlToLowerCase.getBooleanValue());
 			stringType = "varchar(8) character set utf8 binary";
 			intType = "integer";
 			intType2 = "bigint";
