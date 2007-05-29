@@ -49,8 +49,8 @@ public final class Transaction
 	 * value in array is a map, where the keys are {@link Item#pk item pks}
 	 * and the values are {@link Entity}s
 	 */
-	final TIntObjectHashMap<Entity>[] entityMaps;
-	final TIntHashSet[] invalidations;
+	private final TIntObjectHashMap<Entity>[] entityMaps;
+	private final TIntHashSet[] invalidations;
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
 	
