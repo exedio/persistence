@@ -105,7 +105,8 @@ final class ItemCache
 		private final Type type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
-		private volatile int hits = 0, misses = 0;
+		private volatile int hits = 0;
+		private volatile int misses = 0;
 
 		Cachlet(final Type type, final int limit)
 		{
