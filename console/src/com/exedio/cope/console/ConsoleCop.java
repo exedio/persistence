@@ -50,7 +50,7 @@ abstract class ConsoleCop extends Cop
 	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
-		df = new SimpleDateFormat("dd.MM.yyyy'&nbsp;'HH:mm:ss.SSS");
+		df = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss.SSS");
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
