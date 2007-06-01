@@ -31,7 +31,7 @@ final class TransactionCop extends ConsoleCop
 {
 	TransactionCop()
 	{
-		super("transaction");
+		super("transactions");
 		addParameter(TAB, TAB_TRANSACTION);
 	}
 	

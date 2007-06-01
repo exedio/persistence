@@ -58,9 +58,9 @@ final class Media_Jspm extends Console_Jspm
 				writeColouredHeaderSchnips(out, names);
 				%>
 				<th>Type</th>
-				<th>Media</th>
+				<th>Name</th>
 				<th>Since</th>
-				<th>Class</th>
+				<th>Description</th>
 			</tr><%
 	
 			for(final MediaPath path : media)

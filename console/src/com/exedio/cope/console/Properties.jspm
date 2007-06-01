@@ -74,7 +74,7 @@ final class Properties_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<caption>Properties</caption>
+			<caption>Connect Properties</caption>
 			<tr>
 				<th>Initialized</th>
 				<td class="text"><%=cop.format(initializeDate)%></td>
@@ -145,7 +145,7 @@ final class Properties_Jspm extends Console_Jspm
 		</table>
 		<hr>
 		<table>
-			<caption>Source</caption>
+			<caption>Connect Properties Source</caption>
 			<tr>
 				<td class="text" colspan="2"><%=properties.getSource()%></td>
 			</tr><%
