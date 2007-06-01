@@ -92,6 +92,16 @@ public class Properties
 		String get(String key);
 	}
 	
+	public static final Context getSystemPropertyContext()
+	{
+		return new Context(){
+			public String get(final String key)
+			{
+				return System.getProperty(key);
+			}
+		};
+	}
+	
 	public abstract class Field
 	{
 		private final String key;

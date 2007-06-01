@@ -309,7 +309,10 @@ public class ServletUtilTest extends CopeAssert
 			if("model".equals(name))
 				return model;
 			else
-				throw new RuntimeException(name);
+			{
+				//System.out.println("ServletUtilTest accessing System.getProperty(" + name + ')');
+				return System.getProperty(name);
+			}
 		}
 
 		public Enumeration getInitParameterNames()

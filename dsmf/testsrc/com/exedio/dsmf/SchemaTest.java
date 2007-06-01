@@ -56,12 +56,12 @@ public abstract class SchemaTest extends TestCase
 		private final StringField databasePassword =  new StringField("database.password", true);
 		private final BooleanField mysqlToLowerCase =  new BooleanField("database.mysql.tolowercase", false);
 
-		public Properties()
+		Properties()
 		{
-			this(getDefaultPropertyFile(), null);
+			this(getDefaultPropertyFile(), getSystemPropertyContext());
 		}
 		
-		public Properties(final File file, final Context context)
+		Properties(final File file, final Context context)
 		{
 			super(loadProperties(file), file.getAbsolutePath(), context);
 		}

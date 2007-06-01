@@ -41,7 +41,7 @@ public class DefaultToTest extends AbstractLibTest
 		
 		dp.setProperty("database.forcename.DefaultToItem_dateEighty_Ck", "DefltToItm_dateEighty_Ck");
 		
-		return new Properties(dp, dpf.getAbsolutePath()+" plus DefaultToTest forced names", null);
+		return new Properties(dp, dpf.getAbsolutePath()+" plus DefaultToTest forced names", Properties.getSystemPropertyContext());
 	}
 	
 	public void testIt()

@@ -145,7 +145,7 @@ public abstract class CopeTest extends CopeAssert
 	
 	public Properties getProperties()
 	{
-		return new Properties();
+		return new Properties(Properties.getSystemPropertyContext());
 	}
 	
 	@Override

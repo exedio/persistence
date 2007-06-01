@@ -67,7 +67,7 @@ public class MigrateTest extends CopeAssert
 	
 	public void testMigrate() throws ParseException, UnknownHostException
 	{
-		final com.exedio.cope.Properties props = new com.exedio.cope.Properties();
+		final com.exedio.cope.Properties props = new com.exedio.cope.Properties(com.exedio.cope.Properties.getSystemPropertyContext());
 		
 		assertTrue(model5.isMigrationSupported());
 		assertEquals(5, model5.getMigrationRevision());

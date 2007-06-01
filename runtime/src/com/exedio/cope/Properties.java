@@ -71,7 +71,12 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 	public Properties()
 	{
-		this(getDefaultPropertyFile());
+		this(getDefaultPropertyFile(), null);
+	}
+	
+	public Properties(final Context context)
+	{
+		this(getDefaultPropertyFile(), context);
 	}
 	
 	public static final File getDefaultPropertyFile()
