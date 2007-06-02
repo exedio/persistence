@@ -319,6 +319,6 @@ public class ModelTest extends TestmodelTest
 		final Date after = new Date();
 		assertSame(p, model.getProperties());
 		assertWithin(before, after, model.getConnectDate());
-		model.startTransaction("ModelTest.testUnsetProperties");
+		model.startTransaction("ModelTest.testDisconnect");
 	}
 }
