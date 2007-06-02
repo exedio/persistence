@@ -221,7 +221,7 @@ final class Schema_Jspm extends Console_Jspm
 						final String columnName = column.getName();
 						%>
 						<li>
-							<img class="node" onClick="togCol(this,<%=tableCount%>,<%=columnCount%>)" src="<%=node(column.getCumulativeColor()).url(request)%>">
+							<img class="node" src="<%=leaf(column.getCumulativeColor()).url(request)%>">
 							<small>col<%=columnCount%></small><%
 							
 							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, request, out);
@@ -236,7 +236,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(column.exists())
 							{
 							%>
-							<span id="colDrp<%=tableCount%>x<%=columnCount%>" class="expand">, <input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop</span><%
+							<input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop<%
 							}
 							else if(column.required() &&
 									column.getTable().exists() )
@@ -255,7 +255,7 @@ final class Schema_Jspm extends Console_Jspm
 						final String constraintName = constraint.getName();
 						%>
 						<li>
-							<img class="node" onClick="togCon(this,<%=tableCount%>,<%=constraintCount%>)" src="<%=node(constraint.getCumulativeColor()).url(request)%>">
+							<img class="node" src="<%=leaf(constraint.getCumulativeColor()).url(request)%>">
 							<small><%=type(constraint)%><%=constraintCount%></small>
 							<%=constraintName%><%
 						
@@ -275,7 +275,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(constraint.exists())
 							{
 							%>
-							<span id="conDrp<%=tableCount%>x<%=constraintCount%>" class="expand"><input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop</span><%
+							<input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop<%
 							}
 							else if( constraint.required() &&
 									constraint.isSupported() &&
@@ -303,6 +303,18 @@ final class Schema_Jspm extends Console_Jspm
 			case OK:      return ConsoleServlet.nodeFalse;
 			case WARNING: return ConsoleServlet.nodeWarningFalse;
 			case ERROR:   return ConsoleServlet.nodeErrorFalse;
+			default:
+				throw new RuntimeException(color.toString());
+		}
+	}
+	
+	private final static Resource leaf(final Node.Color color)
+	{
+		switch(color)
+		{
+			case OK:      return ConsoleServlet.nodeLeaf;
+			case WARNING: return ConsoleServlet.nodeLeafWarning;
+			case ERROR:   return ConsoleServlet.nodeLeafError;
 			default:
 				throw new RuntimeException(color.toString());
 		}

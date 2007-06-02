@@ -36,38 +36,6 @@ function togTab(switchElement,table)
 	}
 }
 
-function togCol(switchElement,table,column)
-{
-	var dropElement = document.getElementById("colDrp" + table + "x" + column);
-	var switchSrc = switchElement.src;
-	if(switchSrc.substring(switchSrc.length-8)=="true.png")
-	{
-		setDisplay(dropElement, "none");
-		switchElement.src = switchSrc.substring(0, switchSrc.length-8) + "false.png";
-	}
-	else
-	{
-		setDisplay(dropElement, "inline");
-		switchElement.src = switchSrc.substring(0, switchSrc.length-9) + "true.png";
-	}
-}
-
-function togCon(switchElement,table,constraint)
-{
-	var dropElement = document.getElementById("conDrp" + table + "x" + constraint);
-	var switchSrc = switchElement.src;
-	if(switchSrc.substring(switchSrc.length-8)=="true.png")
-	{
-		setDisplay(dropElement, "none");
-		switchElement.src = switchSrc.substring(0, switchSrc.length-8) + "false.png";
-	}
-	else
-	{
-		setDisplay(dropElement, "inline");
-		switchElement.src = switchSrc.substring(0, switchSrc.length-9) + "true.png";
-	}
-}
-
 function setDisplay(element, display)
 {
 	if(element!=null)
