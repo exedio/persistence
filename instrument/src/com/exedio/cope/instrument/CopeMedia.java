@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 
+import com.exedio.cope.pattern.Media;
 
 final class CopeMedia extends CopeFeature
 {
@@ -43,6 +44,6 @@ final class CopeMedia extends CopeFeature
 	@Override
 	String getBoxedType()
 	{
-		throw new RuntimeException();
+		return Media.Value.class.getCanonicalName();
 	}
 }

@@ -149,10 +149,20 @@ public class MediaMandatoryTest extends AbstractLibTest
 			new MediaMandatoryItem(data20, null);
 			fail();
 		}
-		catch(MandatoryViolationException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals(list(item.file), e.getFeature().getPatterns());
-			assertEquals(null, e.getItem());
+			assertEquals("if body is not null, content type must also be not null", e.getMessage());
+		}
+		assertEquals(list(item), item.TYPE.search());
+
+		try
+		{
+			new MediaMandatoryItem(null, "major/minor");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("if body is null, content type must also be null", e.getMessage());
 		}
 		assertEquals(list(item), item.TYPE.search());
 	}

@@ -25,6 +25,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -40,10 +42,12 @@ import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
+import com.exedio.cope.util.ClassComparator;
 
-public final class Media extends CachedMedia
+public final class Media extends CachedMedia implements Settable<Media.Value>
 {
 	final boolean optional;
 	final DataField body;
@@ -211,6 +215,29 @@ public final class Media extends CachedMedia
 		return lastModified;
 	}
 	
+	public SortedSet<Class> getSetterExceptions()
+	{
+		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
+		if(!optional)
+			result.add(MandatoryViolationException.class);
+		return result;
+	}
+
+	public boolean isFinal()
+	{
+		return false; // TODO
+	}
+
+	public boolean isInitial()
+	{
+		return !optional;
+	}
+
+	public SetValue map(final Value value)
+	{
+		return new SetValue<Value>(this, value);
+	}
+	
 	@Override
 	public void initialize()
 	{
@@ -368,13 +395,35 @@ public final class Media extends CachedMedia
 	private void set(final Item item, final DataField.Value body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
+		item.set(execute(toValue(body, contentType), item));
+	}
+	
+	static final Value toValue(final DataField.Value body, final String contentType) // TODO make public and test
+	{
 		if(body!=null)
 		{
-			if(contentType==null)
-				throw new RuntimeException("if body is not null, content type must also be not null");
-			
+			if(contentType!=null)
+				return new Value(body, contentType);
+			else
+				throw new IllegalArgumentException("if body is not null, content type must also be not null");
+		}
+		else
+		{
+			if(contentType!=null)
+				throw new IllegalArgumentException("if body is null, content type must also be null");
+			else
+				return null;
+		}
+	}
+	
+	public SetValue[] execute(final Value value, final Item exceptionItem)
+	{
+		if(value!=null)
+		{
+			final DataField.Value body = value.body;
+			final String contentType = value.contentType;
 			if(!this.contentType.check(contentType))
-				throw new IllegalContentTypeException(this, item, contentType);
+				throw new IllegalContentTypeException(this, exceptionItem, contentType);
 			
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 			final FunctionField contentTypeField = this.contentType.field;
@@ -383,13 +432,10 @@ public final class Media extends CachedMedia
 			values.add(this.lastModified.map(new Date()));
 			values.add(this.body.map(body));
 			
-			item.set(values.toArray(new SetValue[values.size()]));
+			return values.toArray(new SetValue[values.size()]);
 		}
 		else
 		{
-			if(contentType!=null)
-				throw new RuntimeException("if body is null, content type must also be null");
-
 			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
@@ -397,7 +443,7 @@ public final class Media extends CachedMedia
 			values.add(this.lastModified.map(null));
 			values.add(this.body.mapNull());
 			
-			item.set(values.toArray(new SetValue[values.size()]));
+			return values.toArray(new SetValue[values.size()]);
 		}
 	}
 	
@@ -446,6 +492,21 @@ public final class Media extends CachedMedia
 		{
 			if(out!=null)
 				out.close();
+		}
+	}
+	
+	public static final class Value // TODO add getter methods
+	{
+		private final String contentType;
+		private final DataField.Value body;
+		
+		private Value(final DataField.Value body, final String contentType)
+		{
+			assert body!=null;
+			assert contentType!=null;
+
+			this.body = body;
+			this.contentType = contentType;
 		}
 	}
 	
