@@ -25,7 +25,9 @@ import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,7 +44,7 @@ abstract class ConsoleCop extends Cop
 	}
 	
 	long start = 0;
-	SimpleDateFormat df;
+	private SimpleDateFormat fullDateFormat, todayDateFormat;
 	DecimalFormat nf;
 	String authentication;
 	String hostname;
@@ -50,7 +52,8 @@ abstract class ConsoleCop extends Cop
 	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
-		df = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss.SSS");
+		fullDateFormat = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss.SSS");
+		todayDateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
@@ -93,7 +96,7 @@ abstract class ConsoleCop extends Cop
 		if(start==0)
 			throw new RuntimeException();
 		
-		return df.format(new Date(start));
+		return fullDateFormat.format(new Date(start));
 	}
 	
 	final long getDuration()
@@ -116,12 +119,21 @@ abstract class ConsoleCop extends Cop
 	
 	final String format(final Date date)
 	{
-		return df.format(date);
+		final GregorianCalendar calStart = new GregorianCalendar();
+		calStart.setTimeInMillis(start);
+		final GregorianCalendar calDate = new GregorianCalendar();
+		calDate.setTime(date);
+		return (
+			(
+				calStart.get(Calendar.DAY_OF_YEAR)==calDate.get(Calendar.DAY_OF_YEAR) && 
+				calStart.get(Calendar.YEAR)       ==calDate.get(Calendar.YEAR)
+			)
+			? todayDateFormat : fullDateFormat).format(date);
 	}
 	
 	final String formatDate(final long date)
 	{
-		return df.format(new Date(date));
+		return format(new Date(date));
 	}
 	
 	final String format(final long number)
