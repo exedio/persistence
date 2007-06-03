@@ -85,7 +85,16 @@ final class Transaction_Jspm extends Console_Jspm
 		</table>
 		<hr>
 		<table>
-			<caption>Open Transactions</caption>
+			<caption>Open Transactions</caption><%
+			
+		if(openTransactions.length==0)
+		{
+			%>
+			<tr><td class="text">There are no COPE transactions currently running.</td></tr><%
+		}
+		else
+		{
+			%>
 			<tr>
 				<th>#</th>
 				<th>ID</th>
@@ -108,7 +117,6 @@ final class Transaction_Jspm extends Console_Jspm
 				<%
 				if(thread!=null)
 				{
-					
 				%><td><%=thread.getId()%></td>
 				<td class="text"><%
 					final StackTraceElement[] sts = stacktraces[n];
@@ -137,7 +145,8 @@ final class Transaction_Jspm extends Console_Jspm
 				%></td>
 			</tr><%
 			}
-			%>
+		}
+		%>
 		</table><%
 	}
 }%>
