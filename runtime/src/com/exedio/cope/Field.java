@@ -325,7 +325,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		/**
 		 * Works around a bug in javac 1.5.0_08,
 		 * which propagates the deprecated flag from
-		 * FINAL_UNIQUE_OPTIONAL to its sucessor in source code.
+		 * FINAL_UNIQUE_OPTIONAL to its successor in source code.
 		 */
 		@Deprecated
 		private final boolean dummyNotToBeUsed = true;
@@ -340,8 +340,5 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			this.unique = unique;
 			this.optional = optional;
 		}
-	}
-	
+	}	
 }
-
-
