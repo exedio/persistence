@@ -76,6 +76,4 @@ public class FieldMediaTest extends FieldTest
 		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());
 	}
-
-
 }
