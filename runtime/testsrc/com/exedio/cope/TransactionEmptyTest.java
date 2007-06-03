@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Date;
+
 public class TransactionEmptyTest extends AbstractLibTest
 {
 	public TransactionEmptyTest()
@@ -30,46 +32,68 @@ public class TransactionEmptyTest extends AbstractLibTest
 	{
 		assertEquals(false, model.hasCurrentTransaction());
 		final long id = model.getNextTransactionId();
+		assertEquals(0, id);
+		assertNull(model.getLastTransactionStartDate());
 
+		final Date beforeCommit = new Date();
 		final Transaction emptyCommit = model.startTransaction("emptyCommit");
+		final Date afterCommit = new Date();
 		assertEquals(true, model.hasCurrentTransaction());
 		assertSame(emptyCommit, model.getCurrentTransaction());
 		assertEquals(id+1, model.getNextTransactionId());
+		final Date startCommit = model.getLastTransactionStartDate();
+		assertWithin(beforeCommit, afterCommit, startCommit);
+
 		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
+		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(false, emptyCommit.isClosed());
 		assertSame(Thread.currentThread(), emptyCommit.getBoundThread());
 
 		model.commit();
 		assertEquals(false, model.hasCurrentTransaction());
 		assertEquals(id+1, model.getNextTransactionId());
+
 		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
+		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
 
+		final Date beforeRollback = new Date();
 		final Transaction emptyRollback = model.startTransaction("emptyRollback");
+		final Date afterRollback = new Date();
 		assertEquals(true, model.hasCurrentTransaction());
 		assertSame(emptyRollback, model.getCurrentTransaction());
 		assertEquals(id+2, model.getNextTransactionId());
+		final Date startRollback = model.getLastTransactionStartDate();
+		assertWithin(beforeRollback, afterRollback, startRollback);
+
 		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
+		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
+
 		assertEquals(id+1, emptyRollback.getID());
 		assertEquals("emptyRollback", emptyRollback.getName());
+		assertEquals(startRollback, emptyRollback.getStartDate());
 		assertEquals(false, emptyRollback.isClosed());
 		assertSame(Thread.currentThread(), emptyRollback.getBoundThread());
 
 		model.rollback();
 		assertEquals(false, model.hasCurrentTransaction());
 		assertEquals(id+2, model.getNextTransactionId());
+		
 		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
+		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
+
 		assertEquals(id+1, emptyRollback.getID());
 		assertEquals("emptyRollback", emptyRollback.getName());
+		assertEquals(startRollback, emptyRollback.getStartDate());
 		assertEquals(true, emptyRollback.isClosed());
 		assertSame(null, emptyRollback.getBoundThread());
 	}

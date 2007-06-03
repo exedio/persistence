@@ -70,6 +70,7 @@ public final class Model
 	private boolean logTransactions = false;
 
 	private long nextTransactionId = 0;
+	private long lastTransactionStartDate = Long.MIN_VALUE;
 	private final Object nextTransactionIdLock = new Object();
 	
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
@@ -860,12 +861,14 @@ public final class Model
 		}
 		
 		final long id;
+		final long startDate = System.currentTimeMillis();
 		synchronized(nextTransactionIdLock)
 		{
 			id = nextTransactionId++;
+			lastTransactionStartDate = startDate;
 		}
 		
-		final Transaction result = new Transaction(this, concreteTypeCount, id, name);
+		final Transaction result = new Transaction(this, concreteTypeCount, id, name, startDate);
 		setTransaction( result );
 		synchronized(openTransactions)
 		{
@@ -880,6 +883,16 @@ public final class Model
 		{
 			return nextTransactionId;
 		}
+	}
+	
+	public Date getLastTransactionStartDate()
+	{
+		final long lastTransactionStartDate;
+		synchronized(nextTransactionIdLock)
+		{
+			lastTransactionStartDate = this.lastTransactionStartDate;
+		}
+		return lastTransactionStartDate!=Long.MIN_VALUE ? new Date(lastTransactionStartDate) : null;
 	}
 	
 	public Transaction leaveTransaction()

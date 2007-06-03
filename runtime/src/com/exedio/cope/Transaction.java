@@ -51,13 +51,13 @@ public final class Transaction
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
 	
-	Transaction(final Model model, final int concreteTypeCount, final long id, final String name)
+	Transaction(final Model model, final int concreteTypeCount, final long id, final String name, final long startDate)
 	{
 		this.model = model;
 		this.database = model.getDatabase();
 		this.id = id;
 		this.name = name;
-		this.startDate = System.currentTimeMillis();
+		this.startDate = startDate;
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
 		this.invalidations = new TIntHashSet[concreteTypeCount];
 	}
