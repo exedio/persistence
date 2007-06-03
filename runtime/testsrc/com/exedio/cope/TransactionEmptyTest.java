@@ -29,16 +29,21 @@ public class TransactionEmptyTest extends AbstractLibTest
 	public void testEmptyTransaction()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
+		final long id = model.getNextTransactionId();
 
 		final Transaction emptyCommit = model.startTransaction("emptyCommit");
 		assertEquals(true, model.hasCurrentTransaction());
 		assertSame(emptyCommit, model.getCurrentTransaction());
+		assertEquals(id+1, model.getNextTransactionId());
+		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(false, emptyCommit.isClosed());
 		assertSame(Thread.currentThread(), emptyCommit.getBoundThread());
 
 		model.commit();
 		assertEquals(false, model.hasCurrentTransaction());
+		assertEquals(id+1, model.getNextTransactionId());
+		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
@@ -46,18 +51,24 @@ public class TransactionEmptyTest extends AbstractLibTest
 		final Transaction emptyRollback = model.startTransaction("emptyRollback");
 		assertEquals(true, model.hasCurrentTransaction());
 		assertSame(emptyRollback, model.getCurrentTransaction());
+		assertEquals(id+2, model.getNextTransactionId());
+		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
+		assertEquals(id+1, emptyRollback.getID());
 		assertEquals("emptyRollback", emptyRollback.getName());
 		assertEquals(false, emptyRollback.isClosed());
 		assertSame(Thread.currentThread(), emptyRollback.getBoundThread());
 
 		model.rollback();
 		assertEquals(false, model.hasCurrentTransaction());
+		assertEquals(id+2, model.getNextTransactionId());
+		assertEquals(id, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
+		assertEquals(id+1, emptyRollback.getID());
 		assertEquals("emptyRollback", emptyRollback.getName());
 		assertEquals(true, emptyRollback.isClosed());
 		assertSame(null, emptyRollback.getBoundThread());

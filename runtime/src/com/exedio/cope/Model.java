@@ -69,6 +69,9 @@ public final class Model
 	private Date connectDate = null;
 	private boolean logTransactions = false;
 
+	private long nextTransactionId = 0;
+	private final Object nextTransactionIdLock = new Object();
+	
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 	
@@ -856,13 +859,27 @@ public final class Model
 					" bound to current thread");
 		}
 		
-		final Transaction result = new Transaction(this, concreteTypeCount, name);
+		final long id;
+		synchronized(nextTransactionIdLock)
+		{
+			id = nextTransactionId++;
+		}
+		
+		final Transaction result = new Transaction(this, concreteTypeCount, id, name);
 		setTransaction( result );
 		synchronized(openTransactions)
 		{
 			openTransactions.add(result);
 		}
 		return result;
+	}
+	
+	public long getNextTransactionId()
+	{
+		synchronized(nextTransactionIdLock)
+		{
+			return nextTransactionId;
+		}
 	}
 	
 	public Transaction leaveTransaction()

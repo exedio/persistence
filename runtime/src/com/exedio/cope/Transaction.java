@@ -35,9 +35,6 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Transaction
 {
-	private static long idSource = 0;
-	private static final Object idSourceLock = new Object();
-	
 	final Model model;
 	final Database database;
 	final long id;
@@ -54,15 +51,10 @@ public final class Transaction
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
 	
-	Transaction(final Model model, final int concreteTypeCount, final String name)
+	Transaction(final Model model, final int concreteTypeCount, final long id, final String name)
 	{
 		this.model = model;
 		this.database = model.getDatabase();
-		final long id;
-		synchronized(idSourceLock)
-		{
-			id = idSource++;
-		}
 		this.id = id;
 		this.name = name;
 		this.startDate = System.currentTimeMillis();
