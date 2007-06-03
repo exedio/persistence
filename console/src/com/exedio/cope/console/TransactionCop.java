@@ -55,6 +55,10 @@ final class TransactionCop extends ConsoleCop
 			}
 			
 		});
-		Transaction_Jspm.writeBody(out, request, this, model.getNextTransactionId(), model.getLastTransactionStartDate(), openTransactions);
+		Transaction_Jspm.writeBody(
+				out, request, this,
+				model.getNextTransactionId(),
+				model.getLastTransactionStartDate(),
+				openTransactions);
 	}
 }
