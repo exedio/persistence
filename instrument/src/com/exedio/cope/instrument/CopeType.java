@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.SortedSet;
@@ -28,7 +29,6 @@ import java.util.TreeSet;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
-import com.exedio.cope.util.ClassComparator;
 
 final class CopeType
 {
@@ -231,7 +231,7 @@ final class CopeType
 	private final void makeInitialFeaturesAndConstructorExceptions()
 	{
 		initialFeatures = new ArrayList<CopeFeature>();
-		constructorExceptions = new TreeSet<Class>(ClassComparator.getInstance());
+		constructorExceptions = new TreeSet<Class>(CLASS_COMPARATOR);
 		
 		final CopeType superclass = getSuperclass();
 		if(superclass!=null)
@@ -275,4 +275,11 @@ final class CopeType
 		return constructorExceptions;
 	}
 
+	static final Comparator<Class> CLASS_COMPARATOR = new Comparator<Class>()
+	{
+		public int compare(final Class c1, final Class c2)
+		{
+			return c1.getName().compareTo(c2.getName());
+		}
+	};
 }

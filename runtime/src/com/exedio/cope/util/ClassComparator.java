@@ -20,10 +20,18 @@ package com.exedio.cope.util;
 
 import java.util.Comparator;
 
+/**
+ * @deprecated This class is not used in the cope runtime library anymore.
+ */
+@Deprecated
 public final class ClassComparator implements Comparator<Class>
 {
 	private static final ClassComparator instance = new ClassComparator();
 
+	/**
+	 * @deprecated This class is not used in the cope runtime library anymore.
+	 */
+	@Deprecated
 	public static final ClassComparator getInstance()
 	{
 		return instance;
