@@ -20,6 +20,7 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,9 +60,26 @@ final class Transaction_Jspm extends Console_Jspm
 			final PrintStream out,
 			final HttpServletRequest request,
 			final TransactionCop cop,
+			final long nextId,
+			final Date lastStartDate,
 			final Transaction[] openTransactions)
 	{
 		%>
+		<table>
+			<caption>Transaction Statistics</caption>
+			<tr><th>Next ID</th><td><%=cop.format(nextId)%></td></tr>
+			<tr><th>Last Start Date</th><td><%
+				if(lastStartDate!=null)
+				{
+					%><%=cop.format(lastStartDate)%><%
+				}
+				else
+				{
+					%>none started yet<%
+				}
+				%></td></tr>
+		</table>
+		<hr>
 		<table>
 			<caption>Open Transactions</caption>
 			<tr>
