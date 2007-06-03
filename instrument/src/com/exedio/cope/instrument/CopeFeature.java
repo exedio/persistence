@@ -18,13 +18,15 @@
 
 package com.exedio.cope.instrument;
 
+import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
-
+import com.exedio.cope.util.ClassComparator;
 
 abstract class CopeFeature
 {
@@ -106,7 +108,9 @@ abstract class CopeFeature
 	final SortedSet<Class> getSetterExceptions()
 	{
 		final Feature instance = getInstance();
-		final SortedSet<Class> result = ((Settable<?>)instance).getSetterExceptions();
+		final Set<Class> resultList = ((Settable<?>)instance).getSetterExceptions();
+		final SortedSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
+		result.addAll(resultList);
 		if(isBoxed())
 			result.remove(MandatoryViolationException.class);
 		return result;
@@ -124,5 +128,4 @@ abstract class CopeFeature
 		result.remove(MandatoryViolationException.class);
 		return result;
 	}
-
 }

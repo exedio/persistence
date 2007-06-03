@@ -22,11 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import com.exedio.cope.util.ClassComparator;
+import java.util.Set;
 
 /**
  * An <tt>field</tt> represents a persistently
@@ -96,9 +94,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return isfinal || !optional;
 	}
 	
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
-		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
+		final HashSet<Class> result = new HashSet<Class>();
 		if(isfinal)
 			result.add(FinalViolationException.class);
 		if(!optional)

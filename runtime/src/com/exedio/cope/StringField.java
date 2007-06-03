@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.SortedSet;
+import java.util.Set;
 
 import com.exedio.cope.function.LengthView;
 import com.exedio.cope.function.UppercaseView;
@@ -158,9 +158,9 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	@Override
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
-		final SortedSet<Class> result = super.getSetterExceptions();
+		final Set<Class> result = super.getSetterExceptions();
 		result.add(LengthViolationException.class);
 		return result;
 	}

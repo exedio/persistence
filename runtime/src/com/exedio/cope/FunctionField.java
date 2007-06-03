@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
+import java.util.Set;
 
 import com.exedio.cope.search.ExtremumAggregate;
 
@@ -223,9 +223,9 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	@Override
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
-		final SortedSet<Class> result = super.getSetterExceptions();
+		final Set<Class> result = super.getSetterExceptions();
 		if(uniqueConstraints!=null)
 			result.add(UniqueViolationException.class);
 		return result;

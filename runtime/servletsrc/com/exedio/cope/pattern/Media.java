@@ -25,8 +25,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -45,7 +45,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
-import com.exedio.cope.util.ClassComparator;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
 {
@@ -215,9 +214,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return lastModified;
 	}
 	
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
-		final TreeSet<Class> result = new TreeSet<Class>(ClassComparator.getInstance());
+		final HashSet<Class> result = new HashSet<Class>();
 		if(!optional)
 			result.add(MandatoryViolationException.class);
 		return result;

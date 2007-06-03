@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.SortedSet;
+import java.util.Set;
 
 import com.exedio.cope.CompositeCondition;
 import com.exedio.cope.Condition;
@@ -135,9 +135,9 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		return isFinal;
 	}
 	
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
-		final SortedSet<Class> result = sources[0].getSetterExceptions();
+		final Set<Class> result = sources[0].getSetterExceptions();
 		for(int i = 1; i<sources.length; i++)
 			result.addAll(sources[i].getSetterExceptions());
 		return result;

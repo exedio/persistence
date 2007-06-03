@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.SortedSet;
+import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.FinalViolationException;
@@ -86,7 +86,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage.isMandatory();
 	}
 	
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
 		return storage.getSetterExceptions();
 	}

@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.SortedSet;
+import java.util.Set;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionField;
@@ -133,9 +133,9 @@ public abstract class CustomAttribute<E>
 		return isFinal;
 	}
 	
-	public final SortedSet<Class> getSetterExceptions()
+	public final Set<Class> getSetterExceptions()
 	{
-		final SortedSet<Class> result = storages[0].getSetterExceptions();
+		final Set<Class> result = storages[0].getSetterExceptions();
 		for(int i = 1; i<storages.length; i++)
 			result.addAll(storages[i].getSetterExceptions());
 		return result;

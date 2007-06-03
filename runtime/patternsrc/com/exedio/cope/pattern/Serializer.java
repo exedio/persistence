@@ -23,12 +23,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.SortedSet;
+import java.util.Set;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
+import com.exedio.cope.Field;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
@@ -125,7 +125,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source.isFinal();
 	}
 	
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
 		return source.getSetterExceptions();
 	}

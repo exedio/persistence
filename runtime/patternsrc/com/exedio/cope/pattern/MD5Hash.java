@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.SortedSet;
+import java.util.Set;
 
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.StringField;
@@ -54,9 +54,9 @@ public final class MD5Hash extends JavaSecurityHash
 	}
 
 	@Override
-	public SortedSet<Class> getSetterExceptions()
+	public Set<Class> getSetterExceptions()
 	{
-		final SortedSet<Class> result = super.getSetterExceptions();
+		final Set<Class> result = super.getSetterExceptions();
 		final StringField storage = getStorage();
 		if(storage.getMinimumLength()<=LENGTH && storage.getMaximumLength()>=LENGTH)
 			result.remove(LengthViolationException.class);

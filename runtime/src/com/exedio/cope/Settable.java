@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.SortedSet;
+import java.util.Set;
 
 public interface Settable<E>
 {
@@ -41,5 +41,5 @@ public interface Settable<E>
 	 * Returns the exceptions possibly thrown,
 	 * when setting a value for this settable.
 	 */
-	SortedSet<Class> getSetterExceptions();
+	Set<Class> getSetterExceptions();
 }
