@@ -108,16 +108,16 @@ final class Transaction_Jspm extends Console_Jspm
 				<%
 				if(thread!=null)
 				{
-					final long threadId = thread.getId();
-				%><td><%=threadId%></td>
+					
+				%><td><%=thread.getId()%></td>
 				<td class="text"><%
 					final StackTraceElement[] sts = stacktraces[n];
 					if(sts!=null && sts.length>0)
 					{
 					%>
-					<img class="node" onClick="toggleStacktrace(this,'more<%=threadId%>')" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
+					<img class="node" onClick="toggleStacktrace(this,'more<%=n%>')" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
 					<%=sts[0].toString()%>
-					<span id="more<%=threadId%>" class="expand"><%
+					<span id="more<%=n%>" class="expand"><%
 						
 						for(int i = 1; i<sts.length; i++)
 						{
