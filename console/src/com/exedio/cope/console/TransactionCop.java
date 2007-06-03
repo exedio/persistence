@@ -55,10 +55,23 @@ final class TransactionCop extends ConsoleCop
 			}
 			
 		});
+
+		final Thread[] threads = new Thread[openTransactions.length];
+		final StackTraceElement[][] stacktraces = new StackTraceElement[openTransactions.length][];
+		for(int i = 0; i<openTransactions.length; i++)
+		{
+			final Thread thread = openTransactions[i].getBoundThread();
+			if(thread!=null)
+			{
+				threads[i] = thread;
+				stacktraces[i] = thread.getStackTrace();
+			}
+		}
+
 		Transaction_Jspm.writeBody(
 				out, request, this,
 				model.getNextTransactionId(),
 				model.getLastTransactionStartDate(),
-				openTransactions);
+				openTransactions, threads, stacktraces);
 	}
 }

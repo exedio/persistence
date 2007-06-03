@@ -62,8 +62,12 @@ final class Transaction_Jspm extends Console_Jspm
 			final TransactionCop cop,
 			final long nextId,
 			final Date lastStartDate,
-			final Transaction[] openTransactions)
+			final Transaction[] openTransactions,
+			final Thread[] threads,
+			final StackTraceElement[][] stacktraces)
 	{
+		assert openTransactions.length==threads.length;
+		assert openTransactions.length==stacktraces.length;
 		%>
 		<table>
 			<caption>Transaction Statistics</caption>
@@ -91,13 +95,13 @@ final class Transaction_Jspm extends Console_Jspm
 				<th>Stack</th>
 			</tr><%
 			
-			int number = 0;
-			for(final Transaction t : openTransactions)
+			for(int n = 0; n<openTransactions.length; n++)
 			{
-				final Thread thread = t.getBoundThread();
+				final Transaction t = openTransactions[n];
+				final Thread thread = threads[n];
 			%>
 			<tr>
-				<td><%=cop.format(number++)%></td>
+				<td><%=cop.format(n)%></td>
 				<td><%=cop.format(t.getID())%></td>
 				<td><%=cop.format(t.getStartDate())%></td>
 				<td class="text"><%=encode(t.getName())%></td>
@@ -107,7 +111,7 @@ final class Transaction_Jspm extends Console_Jspm
 					final long threadId = thread.getId();
 				%><td><%=threadId%></td>
 				<td class="text"><%
-					final StackTraceElement[] sts = thread.getStackTrace();
+					final StackTraceElement[] sts = stacktraces[n];
 					if(sts!=null && sts.length>0)
 					{
 					%>
