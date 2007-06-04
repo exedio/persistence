@@ -104,15 +104,19 @@ final class Transaction_Jspm extends Console_Jspm
 		{
 			%>
 			<tr>
+				<th colspan="4">Transaction</th>
+				<th colspan="5">Bound Thread</th>
+			</tr>
+			<tr>
 				<th>#</th>
 				<th>ID</th>
 				<th>Started</th>
 				<th>Name</th>
-				<th>Thread</th>
+				<th>ID</th>
 				<th>Name</th>
 				<th>Prio</th>
 				<th>State</th>
-				<th>Stack</th>
+				<th>Stacktrace</th>
 			</tr><%
 			
 			for(int n = 0; n<openTransactions.length; n++)
@@ -129,9 +133,9 @@ final class Transaction_Jspm extends Console_Jspm
 				if(thread!=null)
 				{
 				%><td><%=cop.format(threadIds[n])%></td>
-				<td><%=encode(threadNames[n])%></td>
+				<td class="text"><%=encode(threadNames[n])%></td>
 				<td><%=threadPriorities[n]%></td>
-				<td><%=threadStates[n].name().toLowerCase()%></td>
+				<td class="text"><%=threadStates[n].name().toLowerCase()%></td>
 				<td class="text"><%
 					final StackTraceElement[] sts = stacktraces[n];
 					if(sts!=null && sts.length>0)
@@ -154,7 +158,7 @@ final class Transaction_Jspm extends Console_Jspm
 				}
 				else
 				{
-					%><td colspan="5"><%
+					%><td class="text" colspan="5">none<%
 				}
 				%></td>
 			</tr><%
