@@ -64,9 +64,17 @@ final class Transaction_Jspm extends Console_Jspm
 			final Date lastStartDate,
 			final Transaction[] openTransactions,
 			final Thread[] threads,
+			final long[] threadIds,
+			final String[] threadNames,
+			final int[] threadPriorities,
+			final Thread.State[] threadStates,
 			final StackTraceElement[][] stacktraces)
 	{
 		assert openTransactions.length==threads.length;
+		assert openTransactions.length==threadIds.length;
+		assert openTransactions.length==threadNames.length;
+		assert openTransactions.length==threadPriorities.length;
+		assert openTransactions.length==threadStates.length;
 		assert openTransactions.length==stacktraces.length;
 		%>
 		<table>
@@ -101,6 +109,9 @@ final class Transaction_Jspm extends Console_Jspm
 				<th>Started</th>
 				<th>Name</th>
 				<th>Thread</th>
+				<th>Name</th>
+				<th>Prio</th>
+				<th>State</th>
 				<th>Stack</th>
 			</tr><%
 			
@@ -117,7 +128,10 @@ final class Transaction_Jspm extends Console_Jspm
 				<%
 				if(thread!=null)
 				{
-				%><td><%=thread.getId()%></td>
+				%><td><%=cop.format(threadIds[n])%></td>
+				<td><%=encode(threadNames[n])%></td>
+				<td><%=threadPriorities[n]%></td>
+				<td><%=threadStates[n].name().toLowerCase()%></td>
 				<td class="text"><%
 					final StackTraceElement[] sts = stacktraces[n];
 					if(sts!=null && sts.length>0)
@@ -140,7 +154,7 @@ final class Transaction_Jspm extends Console_Jspm
 				}
 				else
 				{
-					%><td colspan="2"><%
+					%><td colspan="5"><%
 				}
 				%></td>
 			</tr><%

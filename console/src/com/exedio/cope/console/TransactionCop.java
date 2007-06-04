@@ -57,6 +57,10 @@ final class TransactionCop extends ConsoleCop
 		});
 
 		final Thread[] threads = new Thread[openTransactions.length];
+		final long[] threadIds = new long[openTransactions.length];
+		final String[] threadNames = new String[openTransactions.length];
+		final int[] threadPriorities = new int[openTransactions.length];
+		final Thread.State[] threadStates = new Thread.State[openTransactions.length];
 		final StackTraceElement[][] stacktraces = new StackTraceElement[openTransactions.length][];
 		for(int i = 0; i<openTransactions.length; i++)
 		{
@@ -64,6 +68,10 @@ final class TransactionCop extends ConsoleCop
 			if(thread!=null)
 			{
 				threads[i] = thread;
+				threadIds[i] = thread.getId();
+				threadNames[i] = thread.getName();
+				threadPriorities[i] = thread.getPriority();
+				threadStates[i] = thread.getState();
 				stacktraces[i] = thread.getStackTrace();
 			}
 		}
@@ -72,6 +80,6 @@ final class TransactionCop extends ConsoleCop
 				out, request, this,
 				model.getNextTransactionId(),
 				model.getLastTransactionStartDate(),
-				openTransactions, threads, stacktraces);
+				openTransactions, threads, threadIds, threadNames, threadPriorities, threadStates, stacktraces);
 	}
 }
