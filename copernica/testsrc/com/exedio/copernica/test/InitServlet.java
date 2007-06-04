@@ -49,6 +49,7 @@ import com.exedio.copernica.CopernicaProvider;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
 import com.exedio.cops.ResourceSet;
+import com.exedio.dsmf.SQLRuntimeException;
 
 public class InitServlet extends CopsServlet
 {
@@ -123,6 +124,15 @@ public class InitServlet extends CopsServlet
 			Main.model.startTransaction("example transaction");
 			tx1 = Main.model.leaveTransaction();
 			Main.model.startTransaction("second example transaction");
+			try
+			{
+				// make transaction connected
+				Main.model.checkDatabase();
+			}
+			catch(SQLRuntimeException e)
+			{
+				// ignore
+			}
 		}
 		else
 			tx1 = null;
