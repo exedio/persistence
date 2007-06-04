@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -159,15 +158,7 @@ public abstract class MediaPath extends Pattern
 	
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
 		throws ServletException, IOException;
-
-	// logs --------------------------
 	
-	private final long start = System.currentTimeMillis();
-	
-	public final Date getStart()
-	{
-		return new Date(start);
-	}
 	
 	public final static class Log
 	{
@@ -209,6 +200,5 @@ public abstract class MediaPath extends Pattern
 				return counter;
 			}
 		}
-
 	}
 }
