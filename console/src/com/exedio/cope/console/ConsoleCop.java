@@ -25,9 +25,7 @@ import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -117,17 +115,13 @@ abstract class ConsoleCop extends Cop
 		return hostname;
 	}
 	
+	private static final long todayInterval = 6 * 60 * 60 * 1000; // 6 hours
+	
 	final String format(final Date date)
 	{
-		final GregorianCalendar calStart = new GregorianCalendar();
-		calStart.setTimeInMillis(start);
-		final GregorianCalendar calDate = new GregorianCalendar();
-		calDate.setTime(date);
+		final long dateMillis = date.getTime();
 		return (
-			(
-				calStart.get(Calendar.DAY_OF_YEAR)==calDate.get(Calendar.DAY_OF_YEAR) && 
-				calStart.get(Calendar.YEAR)       ==calDate.get(Calendar.YEAR)
-			)
+			( (start-todayInterval) < dateMillis && dateMillis < (start+todayInterval) )
 			? todayDateFormat : fullDateFormat).format(date);
 	}
 	
