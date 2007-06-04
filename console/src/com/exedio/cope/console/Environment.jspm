@@ -87,7 +87,7 @@ final class Environment_Jspm extends Console_Jspm
 		{
 			%>
 			<tr>
-				<td class="text" colspan="<%=TEST_INFO_KEYS.length%>">
+				<td class="text">
 					No such file available from class loader.
 					<br>
 					This should not happen with any officially distributed jar files for cope.
