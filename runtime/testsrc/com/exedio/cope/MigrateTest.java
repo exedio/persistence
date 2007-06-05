@@ -59,7 +59,9 @@ public class MigrateTest extends CopeAssert
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
 	}
-	
+
+	String jdbcUrl;
+	String jdbcUser;
 	String databaseName;
 	String databaseVersion;
 	String driverName;
@@ -68,6 +70,8 @@ public class MigrateTest extends CopeAssert
 	public void testMigrate() throws ParseException, UnknownHostException
 	{
 		final com.exedio.cope.Properties props = new com.exedio.cope.Properties(com.exedio.cope.Properties.getSystemPropertyContext());
+		jdbcUrl  = props.getDatabaseUrl();
+		jdbcUser = props.getDatabaseUser();
 		
 		assertTrue(model5.isMigrationSupported());
 		assertEquals(5, model5.getMigrationRevision());
@@ -277,8 +281,8 @@ public class MigrateTest extends CopeAssert
 		assertWithin(before, after, date);
 		assertEquals(hostname, logProps.getProperty("hostname"));
 		assertEquals("true", logProps.getProperty("create"));
-		assertVersions(logProps);
-		assertEquals(12, logProps.size());
+		assertMigrationEnvironment(logProps);
+		assertEquals(14, logProps.size());
 		return date;
 	}
 	
@@ -304,8 +308,8 @@ public class MigrateTest extends CopeAssert
 			assertMinInt(0, logProps.getProperty("body" + i + ".rows"));
 			assertMinInt(0, logProps.getProperty("body" + i + ".elapsed"));
 		}
-		assertVersions(logProps);
-		assertEquals(12 + (3*migration.body.length), logProps.size());
+		assertMigrationEnvironment(logProps);
+		assertEquals(14 + (3*migration.body.length), logProps.size());
 		return date;
 	}
 	
@@ -314,13 +318,17 @@ public class MigrateTest extends CopeAssert
 		assertEquals(date, assertMigrate(date, date, migration, logs, revision));
 	}
 	
-	private final void assertVersions(final Properties p)
+	private final void assertMigrationEnvironment(final Properties p)
 	{
+		assertNotNull(jdbcUrl);
+		assertNotNull(jdbcUser);
 		assertNotNull(databaseName);
 		assertNotNull(databaseVersion);
 		assertNotNull(driverName);
 		assertNotNull(driverVersion);
 
+		assertEquals(jdbcUrl, p.getProperty("jdbc.url"));
+		assertEquals(jdbcUser, p.getProperty("jdbc.user"));
 		assertEquals(databaseName, p.getProperty("database.name"));
 		assertEquals(databaseVersion, p.getProperty("database.version") + " (" + p.getProperty("database.version.major") + '.' + p.getProperty("database.version.minor") + ')');
 		assertEquals(driverName, p.getProperty("driver.name"));

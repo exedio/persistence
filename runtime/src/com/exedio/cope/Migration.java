@@ -175,6 +175,8 @@ public final class Migration
 		result.setProperty("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date));
 		if(hostname!=null)
 			result.setProperty("hostname", hostname);
+		result.setProperty("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
+		result.setProperty("jdbc.user", dialectParameters.properties.getDatabaseUser());
 		result.setProperty("database.name", dialectParameters.databaseProductName);
 		result.setProperty("database.version", dialectParameters.databaseProductVersion);
 		result.setProperty("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
