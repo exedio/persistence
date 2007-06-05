@@ -279,7 +279,6 @@ public class MigrateTest extends CopeAssert
 		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
 		final Date date = df.parse(logProps.getProperty("date"));
 		assertWithin(before, after, date);
-		assertEquals(hostname, logProps.getProperty("hostname"));
 		assertEquals("true", logProps.getProperty("create"));
 		assertMigrationEnvironment(logProps);
 		assertEquals(14, logProps.size());
@@ -299,7 +298,6 @@ public class MigrateTest extends CopeAssert
 		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
 		final Date date = df.parse(logProps.getProperty("date"));
 		assertWithin(before, after, date);
-		assertEquals(hostname, logProps.getProperty("hostname"));
 		assertEquals(null, logProps.getProperty("create"));
 		assertEquals(migration.comment, logProps.getProperty("comment"));
 		for(int i = 0; i<migration.body.length; i++)
@@ -320,6 +318,7 @@ public class MigrateTest extends CopeAssert
 	
 	private final void assertMigrationEnvironment(final Properties p)
 	{
+		assertNotNull(hostname);
 		assertNotNull(jdbcUrl);
 		assertNotNull(jdbcUser);
 		assertNotNull(databaseName);
@@ -327,6 +326,7 @@ public class MigrateTest extends CopeAssert
 		assertNotNull(driverName);
 		assertNotNull(driverVersion);
 
+		assertEquals(hostname, p.getProperty("hostname"));
 		assertEquals(jdbcUrl, p.getProperty("jdbc.url"));
 		assertEquals(jdbcUser, p.getProperty("jdbc.user"));
 		assertEquals(databaseName, p.getProperty("database.name"));
