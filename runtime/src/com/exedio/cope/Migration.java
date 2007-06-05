@@ -177,11 +177,11 @@ public final class Migration
 			result.setProperty("hostname", hostname);
 		result.setProperty("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
 		result.setProperty("jdbc.user", dialectParameters.properties.getDatabaseUser());
-		result.setProperty("database.name", dialectParameters.databaseProductName);
+		result.setProperty("database.name",    dialectParameters.databaseProductName);
 		result.setProperty("database.version", dialectParameters.databaseProductVersion);
 		result.setProperty("database.version.major", String.valueOf(dialectParameters.databaseMajorVersion));
 		result.setProperty("database.version.minor", String.valueOf(dialectParameters.databaseMinorVersion));
-		result.setProperty("driver.name", dialectParameters.driverName);
+		result.setProperty("driver.name",    dialectParameters.driverName);
 		result.setProperty("driver.version", dialectParameters.driverVersion);
 		result.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
 		result.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
