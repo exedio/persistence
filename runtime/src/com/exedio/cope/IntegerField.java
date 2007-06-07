@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Set;
+
 import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
@@ -29,10 +31,18 @@ import com.exedio.cope.search.SumAggregate;
  */
 public final class IntegerField extends FunctionField<Integer> implements IntegerFunction
 {
+	final int minimum;
+	final int maximum;
 
-	private IntegerField(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultConstant)
+	private IntegerField(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultConstant, final int minimum, final int maximum)
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
+		this.minimum = minimum;
+		this.maximum = maximum;
+
+		if(minimum>=maximum)
+			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
+
 		checkDefaultValue();
 	}
 	
@@ -41,7 +51,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	 */
 	public IntegerField()
 	{
-		this(false, false, false, null);
+		this(false, false, false, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 	
 	/**
@@ -50,42 +60,76 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	@Deprecated
 	public IntegerField(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique, null);
+		this(option.isFinal, option.optional, option.unique, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 	
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
 	}
 	
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new IntegerField(true, optional, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
 	}
 	
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
+		return new IntegerField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, defaultConstant);
+		return new IntegerField(isfinal, optional, true, defaultConstant, minimum, maximum);
 	}
 	
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
+	}
+	
+	public IntegerField range(final int minimum, final int maximum)
+	{
+		return new IntegerField(this.isfinal, this.optional, this.implicitUniqueConstraint!=null, this.defaultConstant, minimum, maximum);
+	}
+	
+	public IntegerField min(final int minimum)
+	{
+		return new IntegerField(this.isfinal, this.optional, this.implicitUniqueConstraint!=null, this.defaultConstant, minimum, Integer.MAX_VALUE);
+	}
+	
+	public IntegerField max(final int maximum)
+	{
+		return new IntegerField(this.isfinal, this.optional, this.implicitUniqueConstraint!=null, this.defaultConstant, Integer.MIN_VALUE, maximum);
+	}
+	
+	public final int getMinimum()
+	{
+		return minimum;
+	}
+	
+	public final int getMaximum()
+	{
+		return maximum;
+	}
+	
+	@Override
+	public Set<Class> getSetterExceptions()
+	{
+		final Set<Class> result = super.getSetterExceptions();
+		if(minimum!=Integer.MIN_VALUE || maximum!=Integer.MAX_VALUE)
+			result.add(RangeViolationException.class);
+		return result;
 	}
 	
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, optional, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+		return new IntegerColumn(table, name, optional, minimum, maximum, false);
 	}
 	
 	@Override
@@ -114,11 +158,22 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	public final void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
-			FinalViolationException
+			FinalViolationException,
+			RangeViolationException
 	{
 		set(item, Integer.valueOf(value));
 	}
 
+	@Override
+	void checkNotNullValue(final Integer value, final Item exceptionItem) throws RangeViolationException
+	{
+		final int valuePrimitive = value.intValue();
+		if(valuePrimitive<minimum)
+			throw new RangeViolationException(this, exceptionItem, value, true, minimum);
+		if(valuePrimitive>maximum)
+			throw new RangeViolationException(this, exceptionItem, value, false, maximum);
+	}
+	
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
