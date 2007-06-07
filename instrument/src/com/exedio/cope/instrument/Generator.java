@@ -63,10 +63,10 @@ final class Generator
 	
 	private static final char ATTRIBUTE_MAP_KEY = 'k';
 	
-	private static final String THROWS_NULL   = "if {0} is null.";
-	private static final String THROWS_UNIQUE = "if {0} is not unique.";
-	private static final String THROWS_RANGE  = "if {0} violates its range constraint.";
-	private static final String THROWS_LENGTH = "if {0} violates its length constraint.";
+	private static final String THROWS_MANDATORY = "if {0} is null.";
+	private static final String THROWS_UNIQUE    = "if {0} is not unique.";
+	private static final String THROWS_RANGE     = "if {0} violates its range constraint.";
+	private static final String THROWS_LENGTH    = "if {0} violates its length constraint.";
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
 	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE = "It can be customized with the tags " +
@@ -304,7 +304,7 @@ final class Generator
 
 			final String pattern;
 			if(MandatoryViolationException.class.equals(constructorException))
-				pattern = THROWS_NULL;
+				pattern = THROWS_MANDATORY;
 			else if(UniqueViolationException.class.equals(constructorException))
 				pattern = THROWS_UNIQUE;
 			else if(RangeViolationException.class.equals(constructorException))
