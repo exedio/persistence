@@ -1395,6 +1395,7 @@ final class Database
 	
 	private static final String MIGRATION_COLUMN_REVISION_NAME = "v";
 	private static final String MIGRATION_COLUMN_INFO_NAME = "i";
+	private static final int MIGRATION_MUTEX_REVISION = -1;
 	
 	Schema makeSchema()
 	{
@@ -1418,7 +1419,7 @@ final class Database
 		if(migrationSupported)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_REVISION_NAME, dialect.getIntegerType(0, Integer.MAX_VALUE));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_REVISION_NAME, dialect.getIntegerType(MIGRATION_MUTEX_REVISION, Integer.MAX_VALUE));
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_REVISION_NAME) + ')');
 		}
@@ -1559,7 +1560,6 @@ final class Database
 			}
 			else if(actualRevision<expectedRevision)
 			{
-				final int MIGRATION_MUTEX_REVISION = -1;
 				final int startMigrationIndex = expectedRevision - actualRevision - 1;
 				if(startMigrationIndex>=migrations.length)
 					throw new IllegalArgumentException(
