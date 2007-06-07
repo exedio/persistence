@@ -32,7 +32,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -281,9 +280,8 @@ final class Generator
 			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
 			o.write(lineSeparator);
 		}
-		for(Iterator i = constructorExceptions.iterator(); i.hasNext(); )
+		for(final Class constructorException : constructorExceptions)
 		{
-			final Class constructorException = (Class)i.next();
 			o.write("\t * @throws ");
 			o.write(constructorException.getName());
 			o.write(' ');
