@@ -31,6 +31,7 @@
 			<li><a href="#fieldlists">Field Lists</a></li>
 			<li><a href="#fieldmaps">Field Maps</a></li>
 			<li><a href="#dayfields">Day Fields</a></li>
+			<li><a href="#constraints">Check Constraints</a></li>
 			<li><a href="#further">Further Reading</a></li>
 		</ul>
 		<h3><a name="hashes">Hashes</a></h3>
@@ -150,6 +151,26 @@ static final <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMap
 <pre>
 static final <a href="api/com/exedio/cope/DayField.html">DayField</a> dateOfBirth = new <a href="api/com/exedio/cope/DayField.html#DayField()">DayField</a>();
 </pre>
+		<h3><a name="constraints">Check Constraints</a></h3>
+		<div>
+			COPE makes it easy to define check constraints for persistent fields.
+			Here an example with a string field, that holds at most 40 characters
+			and an integer field that must not be negative:
+		</div>
+<pre>
+class Customer extends Item
+{
+   static final <a href="api/com/exedio/cope/StringField.html">StringField</a> email =
+       new <a href="api/com/exedio/cope/StringField.html#StringField()">StringField</a>().<b><a href="api/com/exedio/cope/StringField.html#lengthMax(int)">lengthMax</a>(40)</b>;
+   static final <a href="api/com/exedio/cope/IntegerField.html">IntegerField</a> loginCounter =
+       new <a href="api/com/exedio/cope/IntegerField.html#IntegerField()">IntegerField</a>().<b><a href="api/com/exedio/cope/IntegerField.html#min(int)">min</a>(0)</b>;
+}
+</pre>
+		<div>
+			Trying to violate such a constraint when modifying or creating a Customer causes a
+			<a href="api/com/exedio/cope/LengthViolationException.html">LengthViolationException</a> or
+			<a href="api/com/exedio/cope/RangeViolationException.html">RangeViolationException</a> to be thrown.
+		</div>
 		<h3><a name="further">Further Reading</a></h3>
 		<div>
 			This was the advanced field trail of the cope tour.
