@@ -44,6 +44,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.RangeViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
@@ -64,6 +65,7 @@ final class Generator
 	
 	private static final String THROWS_NULL   = "if {0} is null.";
 	private static final String THROWS_UNIQUE = "if {0} is not unique.";
+	private static final String THROWS_RANGE  = "if {0} violates its range constraint.";
 	private static final String THROWS_LENGTH = "if {0} violates its length constraint.";
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -305,6 +307,8 @@ final class Generator
 				pattern = THROWS_NULL;
 			else if(UniqueViolationException.class.equals(constructorException))
 				pattern = THROWS_UNIQUE;
+			else if(RangeViolationException.class.equals(constructorException))
+				pattern = THROWS_RANGE;
 			else if(LengthViolationException.class.equals(constructorException))
 				pattern = THROWS_LENGTH;
 			else
