@@ -2,6 +2,8 @@
 
 <project name="cope.persistence" default="build" basedir=".">
 
+	<property name="build.file.tag" value="unlabeled" />
+	
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
 
 	<taskdef
@@ -848,7 +850,7 @@
 	<target name="dist.tar">
 		<mkdir dir="build/runtime" />
 		<echo file="build/runtime/build.number" message="${build.tag}" />
-		<tar destfile="build/exedio-cope-src.tar.gz"
+		<tar destfile="build/exedio-cope-src-${build.file.tag}.tar.gz"
 			  compression="gzip">
 			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
@@ -878,7 +880,7 @@
 	<target name="dist.test" depends="dist.tar">
 		<delete dir="build/dist-test" />
 		<mkdir dir="build/dist-test" />
-		<untar src="build/exedio-cope-src.tar.gz"
+		<untar src="build/exedio-cope-src-${build.file.tag}.tar.gz"
 				 dest="build/dist-test"
 				 compression="gzip" />
 		<ant dir="build/dist-test" target="build" />
@@ -897,7 +899,7 @@
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/build/exedio-cope-console.jar" />
 			<fileset file="${basedir}/build/exedio-copernica.jar" />
-			<fileset file="${basedir}/build/exedio-cope-src.tar.gz" />
+			<fileset file="${basedir}/build/exedio-cope-src-${build.file.tag}.tar.gz" />
 			<fileset file="${basedir}/build/exedio-cope-home.tar.bz2" />
 			<fileset file="${basedir}/home/testprotocol.html" />
 		</copy>
