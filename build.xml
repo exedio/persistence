@@ -508,7 +508,7 @@
 		</jspm>
 	</target>
 	
-	<target name="console.compile" depends="runtime.compile, console.jspm">
+	<target name="console.core.compile" depends="runtime.compile, console.jspm">
 		<ljavac srcdir="console/src" destdir="build/console/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
@@ -525,11 +525,41 @@
 		</copy>
 	</target>
 	
-	<target name="console.jar" depends="console.compile">
+	<target name="console.jar" depends="console.core.compile">
 		<ljar name="cope console" jarfile="build/exedio-cope-console.jar" classpath="exedio-cope.jar exedio-cops.jar">
 			<fileset dir="build/console/classes" />
 		</ljar>
 	</target>
+	
+	<target name="console.test.compile" depends="console.core.compile">
+		<ljavac srcdir="console/testsrc" destdir="build/console/testclasses">
+			<classpath>
+				<pathelement location="build/runtime/classes" />
+				<pathelement location="build/console/classes" />
+				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/junit.jar" />
+			</classpath>
+		</ljavac>
+	</target>
+	
+	<target name="console.test" depends="console.test.compile">
+		<junit taskname="junit" fork="yes"
+					haltonerror="true" haltonfailure="true"
+					showoutput="true" printsummary="true">
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
+			<classpath>
+				<pathelement location="build/runtime/classes" />
+				<pathelement location="build/console/classes" />
+				<pathelement location="build/console/testclasses" />
+			</classpath>
+			<test name="com.exedio.cope.console.PackageTest" todir="build/testresults" outfile="console" />
+			<assertions><enable/></assertions>
+		</junit>
+	</target>
+	
+	<target name="console.compile" depends="console.core.compile, console.test.compile" />
 	
 	<target name="console.clean" depends="catalina.home">
 		<delete dir="build/console" />
@@ -698,7 +728,7 @@
 	
 	<target name="teardown" depends="runtime.test.teardown" />
 	
-	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
+	<target name="test" depends="dsmf.test, runtime.test, instrument.test, console.test" />
 	
 	<target name="web" depends="runtime.web, copernica.web" />
 	

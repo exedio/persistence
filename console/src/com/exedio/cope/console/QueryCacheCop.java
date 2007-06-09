@@ -53,45 +53,86 @@ final class QueryCacheCop extends ConsoleCop
 		return new QueryCacheCop(hl!=null ? Integer.valueOf(hl) : HISTOGRAM_LIMIT_DEFAULT);
 	}
 	
+	static final class Content
+	{
+		final CacheQueryInfo[] histogram;
+		
+		final int avgKeyLength;
+		final int maxKeyLength;
+		final int minKeyLength;
+		
+		final int avgResultSize;
+		final int maxResultSize;
+		final int minResultSize;
+		final int[] resultSizes;
+		
+		Content(final CacheQueryInfo[] histogram)
+		{
+			if(histogram.length>0)
+			{
+				int sumKeyLength = 0;
+				int maxKeyLength = 0;
+				int minKeyLength = Integer.MAX_VALUE;
+				
+				int sumResultSize = 0;
+				int maxResultSize = 0;
+				int minResultSize = Integer.MAX_VALUE;
+				int[] resultSizes = new int[5];
+				
+				for(final CacheQueryInfo info : histogram)
+				{
+					final int keyLength = info.getQuery().length();
+					sumKeyLength += keyLength;
+					if(keyLength<minKeyLength)
+						minKeyLength = keyLength;
+					if(keyLength>maxKeyLength)
+						maxKeyLength = keyLength;
+		
+					final int resultSize = info.getResultSize();
+					sumResultSize += resultSize;
+					if(resultSize<minResultSize)
+						minResultSize = resultSize;
+					if(resultSize>maxResultSize)
+						maxResultSize = resultSize;
+					if(resultSize<resultSizes.length)
+						resultSizes[resultSize]++;
+				}
+				
+				this.histogram = histogram;
+				
+				this.avgKeyLength = sumKeyLength / histogram.length;
+				this.maxKeyLength = maxKeyLength;
+				this.minKeyLength = minKeyLength;
+				
+				this.avgResultSize = sumResultSize / histogram.length;
+				this.maxResultSize = maxResultSize;
+				this.minResultSize = minResultSize;
+				this.resultSizes = resultSizes;
+			}
+			else
+			{
+				this.histogram = histogram;
+				
+				this.avgKeyLength = -1;
+				this.maxKeyLength = -1;
+				this.minKeyLength = -1;
+				
+				this.avgResultSize = -1;
+				this.maxResultSize = -1;
+				this.minResultSize = -1;
+				this.resultSizes = new int[0];
+			}
+		}
+	}
+		
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final CacheQueryInfo[] histogram = model.getQueryCacheHistogram();
-		
-		int sumKeyLength = 0;
-		int maxKeyLength = 0;
-		int minKeyLength = Integer.MAX_VALUE;
-		
-		int sumResultSize = 0;
-		int maxResultSize = 0;
-		int minResultSize = Integer.MAX_VALUE;
-		int[] resultSizes = new int[5];
-		
-		for(final CacheQueryInfo info : histogram)
-		{
-			final int keyLength = info.getQuery().length();
-			sumKeyLength += keyLength;
-			if(keyLength<minKeyLength)
-				minKeyLength = keyLength;
-			if(keyLength>maxKeyLength)
-				maxKeyLength = keyLength;
-
-			final int resultSize = info.getResultSize();
-			sumResultSize += resultSize;
-			if(resultSize<minResultSize)
-				minResultSize = resultSize;
-			if(resultSize>maxResultSize)
-				maxResultSize = resultSize;
-			if(resultSize<resultSizes.length)
-				resultSizes[resultSize]++;
-		}
-		
 		QueryCache_Jspm.writeBody(this, out,
 				model.getProperties().getQueryCacheLimit(),
 				model.getQueryCacheInfo(),
-				histogram,
-				sumKeyLength, maxKeyLength, minKeyLength,
-				sumResultSize, maxResultSize, minResultSize, resultSizes,
+				new Content(histogram),
 				model.getProperties().getQueryCacheHistogram());
 	}
 }

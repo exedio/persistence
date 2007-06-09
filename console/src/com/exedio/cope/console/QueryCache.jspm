@@ -31,14 +31,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			final PrintStream out,
 			final int limit,
 			final int[] queryInfos,
-			final CacheQueryInfo[] queryHistogram,
-			final int sumKeyLength,
-			final int maxKeyLength,
-			final int minKeyLength,
-			final int sumResultSize,
-			final int maxResultSize,
-			final int minResultSize,
-			final int[] resultSizes,
+			final QueryCacheCop.Content content,
 			final boolean queryHistogramAccurate)
 	{
 		%>
@@ -48,19 +41,19 @@ final class QueryCache_Jspm extends Console_Jspm
 			<tr><th colspan="2">Level</th><td><%=cop.format(queryInfos[2])%></td></tr>
 			<tr><th colspan="2">Hits</th><td><%=cop.format(queryInfos[0])%></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=cop.format(queryInfos[1])%></td></tr><%
-			if(queryHistogram.length>0)
+			if(content.histogram.length>0)
 			{
 			%>
-			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=cop.format(sumKeyLength/queryHistogram.length)%></td></tr>
-			<tr><th>Maximum</th><td><%=cop.format(maxKeyLength)%></td></tr>
-			<tr><th>Minimum</th><td><%=cop.format(minKeyLength)%></td></tr>
-			<tr><th rowspan="<%=resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=cop.format(sumResultSize/queryHistogram.length)%></td></tr>
-			<tr><th>Maximum</th><td><%=cop.format(maxResultSize)%></td></tr>
-			<tr><th>Minimum</th><td><%=cop.format(minResultSize)%></td></tr><%
-				for(int i = 0; i<resultSizes.length; i++)
+			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=cop.format(content.avgKeyLength)%></td></tr>
+			<tr><th>Maximum</th><td><%=cop.format(content.maxKeyLength)%></td></tr>
+			<tr><th>Minimum</th><td><%=cop.format(content.minKeyLength)%></td></tr>
+			<tr><th rowspan="<%=content.resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=cop.format(content.avgResultSize)%></td></tr>
+			<tr><th>Maximum</th><td><%=cop.format(content.maxResultSize)%></td></tr>
+			<tr><th>Minimum</th><td><%=cop.format(content.minResultSize)%></td></tr><%
+				for(int i = 0; i<content.resultSizes.length; i++)
 				{
 			%>
-			<tr><th>Size <%=i%></th><td><%=cop.format(resultSizes[i])%></td></tr><%
+			<tr><th>Size <%=i%></th><td><%=cop.format(content.resultSizes[i])%></td></tr><%
 				}
 			}
 			%>
@@ -100,14 +93,14 @@ final class QueryCache_Jspm extends Console_Jspm
 		
 		final int histogramLimit = cop.histogramLimit;
 		
-		for(int i = 0; i<queryHistogram.length; i++)
+		for(int i = 0; i<content.histogram.length; i++)
 		{
 			if(i>=histogramLimit)
 			{
 			%>
 			<tr>
 				<td class="text" colspan="<%=names.length+1%>">
-					Skipped display of <%=queryHistogram.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
+					Skipped display of <%=content.histogram.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
 					<form action="<%=cop%>" method="GET">
 						New limit:
 						<input type="hidden" name="<%=cop.TAB%>" value="<%=cop.TAB_QUERY_CACHE%>">
@@ -118,7 +111,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			</tr><%
 				break;
 			}
-			final CacheQueryInfo info = queryHistogram[i];
+			final CacheQueryInfo info = content.histogram[i];
 			final String[] data = {
 					cop.format(i),
 					cop.format(info.getResultSize()),
