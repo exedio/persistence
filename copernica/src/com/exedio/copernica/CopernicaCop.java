@@ -32,13 +32,7 @@ import com.exedio.cops.Cop;
 abstract class CopernicaCop extends Cop implements RequestCache
 {
 	static final String LANGUAGE = "l";
-
 	static final String TYPE = "t";
-	static final String ORDER_ASCENDING = "oa";
-	static final String ORDER_DESCENDING = "od";
-	static final String OFFSET = "st"; // TODO change value to "off"
-	static final String LIMIT  = "ct"; // TODO change value to "lim"
-	
 	final static String ITEM = "i";
 
 

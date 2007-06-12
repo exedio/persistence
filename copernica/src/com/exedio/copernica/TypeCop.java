@@ -33,6 +33,11 @@ import com.exedio.cope.Type;
 
 final class TypeCop extends CopernicaCop
 {
+	private static final String ORDER_ASCENDING = "oa";
+	private static final String ORDER_DESCENDING = "od";
+	private static final String OFFSET = "st"; // TODO change value to "off"
+	private static final String LIMIT  = "ct"; // TODO change value to "lim"
+
 	final Type type;
 	final Function orderBy;
 	final boolean orderAscending;
