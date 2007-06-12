@@ -269,7 +269,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	}
 
 
-	public int getLimitCountCeiling(final Type type)
+	public int getLimitCeiling(final Type type)
 	{
 		return 500;
 	}

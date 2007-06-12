@@ -30,7 +30,7 @@ import java.util.List;
 
 public final class Query<R>
 {
-	final static int UNLIMITED_COUNT = -66;
+	final static int UNLIMITED = -66;
 	
 	final Model model;
 	final Selectable[] selects;
@@ -43,8 +43,8 @@ public final class Query<R>
 	Function[] orderBy = null;
 	boolean[] orderAscending;
 	
-	int limitStart = 0;
-	int limitCount = UNLIMITED_COUNT;
+	int offset = 0;
+	int limit = UNLIMITED;
 	
 	public Query(final Selectable<? extends R> select)
 	{
@@ -255,32 +255,32 @@ public final class Query<R>
 	
 	/**
 	 * @see #setLimit(int)
-	 * @param count the maximum number of items to be found.
-	 * @throws IllegalArgumentException if start is a negative value
-	 * @throws IllegalArgumentException if count is a negative value
+	 * @param limit the maximum number of items to be found.
+	 * @throws IllegalArgumentException if offset is a negative value
+	 * @throws IllegalArgumentException if limit is a negative value
 	 */
-	public void setLimit(final int start, final int count)
+	public void setLimit(final int offset, final int limit)
 	{
-		if(start<0)
-			throw new IllegalArgumentException("start must not be negative, but was " + start);
-		if(count<0)
-			throw new IllegalArgumentException("count must not be negative, but was " + count);
+		if(offset<0)
+			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
+		if(limit<0)
+			throw new IllegalArgumentException("limit must not be negative, but was " + limit);
 
-		this.limitStart = start;
-		this.limitCount = count;
+		this.offset = offset;
+		this.limit = limit;
 	}
 	
 	/**
 	 * @see #setLimit(int, int)
-	 * @throws IllegalArgumentException if start is a negative value
+	 * @throws IllegalArgumentException if offset is a negative value
 	 */
-	public void setLimit(final int start)
+	public void setLimit(final int offset)
 	{
-		if(start<0)
-			throw new IllegalArgumentException("start must not be negative, but was " + start);
+		if(offset<0)
+			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
 
-		this.limitStart = start;
-		this.limitCount = UNLIMITED_COUNT;
+		this.offset = offset;
+		this.limit = UNLIMITED;
 	}
 	
 	/**
@@ -294,11 +294,11 @@ public final class Query<R>
 	{
 		final Transaction transaction = model.getCurrentTransaction();
 		
-		if(limitCount==0)
+		if(limit==0)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("skipped search because limitCount==0"));
+				queryInfos.add(new QueryInfo("skipped search because limit==0"));
 			return Collections.<R>emptyList();
 		}
 		
@@ -373,8 +373,8 @@ public final class Query<R>
 		final int dataSize = data.size();
 
 		return new Result<R>(data,
-				(((dataSize>0) || (limitStart==0))  &&  ((dataSize<limitCount) || (limitCount==UNLIMITED_COUNT)))
-				? (limitStart+dataSize)
+				(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==UNLIMITED)))
+				? (offset+dataSize)
 				: countWithoutLimit());
 	}
 	
@@ -512,14 +512,14 @@ public final class Query<R>
 				}
 			}
 
-			if(limitStart>0)
+			if(offset>0)
 				bf.append(" offset '").
-					append(limitStart).
+					append(offset).
 					append('\'');
 			
-			if(limitCount!=UNLIMITED_COUNT)
+			if(limit!=UNLIMITED)
 				bf.append(" limit '").
-					append(limitCount).
+					append(limit).
 					append('\'');
 		}
 		

@@ -114,31 +114,31 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	void appendLimitClause(final Statement bf, final int start, final int count)
+	void appendLimitClause(final Statement bf, final int offset, final int limit)
 	{
-		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
-			throw new RuntimeException(start+"-"+count);
+		if((offset==0&&limit==Query.UNLIMITED)||(limit<=0&&limit!=Query.UNLIMITED)||offset<0)
+			throw new RuntimeException(offset+"-"+limit);
 
 		// TODO: check, whether ROW_NUMBER() OVER is faster,
 		// see http://www.php-faq.de/q/q-oracle-limit.html
 		bf.append("select * from(");
-		if(start>0)
+		if(offset>0)
 			bf.append("select "+com.exedio.cope.Table.SQL_ALIAS_2+".*,ROWNUM "+com.exedio.cope.Table.SQL_ALIAS_1+" from(");
 	}
 	
 	@Override
-	void appendLimitClause2(final Statement bf, final int start, final int count)
+	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
-		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
-			throw new RuntimeException(start+"-"+count);
+		if((offset==0&&limit==Query.UNLIMITED)||(limit<=0&&limit!=Query.UNLIMITED)||offset<0)
+			throw new RuntimeException(offset+"-"+limit);
 
 		bf.append(')');
-		if(start>0)
+		if(offset>0)
 			bf.append(com.exedio.cope.Table.SQL_ALIAS_2+' ');
-		if(count!=Query.UNLIMITED_COUNT)
-			bf.append("where ROWNUM<=").appendParameter(start+count);
-		if(start>0)
-			bf.append(")where "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(start);
+		if(limit!=Query.UNLIMITED)
+			bf.append("where ROWNUM<=").appendParameter(offset+limit);
+		if(offset>0)
+			bf.append(")where "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(offset);
 	}
 	
 	@Override

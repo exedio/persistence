@@ -127,21 +127,21 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void appendLimitClause(final Statement bf, final int start, final int count)
+	void appendLimitClause(final Statement bf, final int offset, final int limit)
 	{
-		assert start>=0;
-		assert count>0 || count==Query.UNLIMITED_COUNT;
-		assert start>0 || count>0;
+		assert offset>=0;
+		assert limit>0 || limit==Query.UNLIMITED;
+		assert offset>0 || limit>0;
 		
-		if(count!=Query.UNLIMITED_COUNT)
-			bf.append(" limit ").appendParameter(count);
+		if(limit!=Query.UNLIMITED)
+			bf.append(" limit ").appendParameter(limit);
 
-		if(start>0)
-			bf.append(" offset ").appendParameter(start);
+		if(offset>0)
+			bf.append(" offset ").appendParameter(offset);
 	}
 	
 	@Override
-	void appendLimitClause2(final Statement bf, final int start, final int count)
+	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException();
 	}

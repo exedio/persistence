@@ -304,21 +304,21 @@ final class Database
 
 		listener.search(connection, query, doCountOnly);
 		
-		final int limitStart = query.limitStart;
-		final int limitCount = query.limitCount;
-		final boolean limitActive = limitStart>0 || limitCount!=Query.UNLIMITED_COUNT;
+		final int offset = query.offset;
+		final int limit = query.limit;
+		final boolean limitActive = offset>0 || limit!=Query.UNLIMITED;
 		final boolean distinct = query.distinct;
 
 		final ArrayList<Join> queryJoins = query.joins;
 		final Statement bf = createStatement(query);
 		
 		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
-			dialect.appendLimitClause(bf, limitStart, limitCount);
+			dialect.appendLimitClause(bf, offset, limit);
 		
 		bf.append("select");
 		
 		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
-			dialect.appendLimitClause(bf, limitStart, limitCount);
+			dialect.appendLimitClause(bf, offset, limit);
 		
 		bf.append(' ');
 		
@@ -499,17 +499,17 @@ final class Database
 			}
 			
 			if(limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_WHERE)
-				dialect.appendLimitClause(bf, limitStart, limitCount);
+				dialect.appendLimitClause(bf, offset, limit);
 		}
 
 		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
-			dialect.appendLimitClause2(bf, limitStart, limitCount);
+			dialect.appendLimitClause2(bf, offset, limit);
 		
 		final Type[] types = selectTypes;
 		final Model model = query.model;
 		final ArrayList<Object> result = new ArrayList<Object>();
 
-		if(limitStart<0)
+		if(offset<0)
 			throw new RuntimeException();
 		if(selects.length!=selectColumns.length)
 			throw new RuntimeException();
@@ -531,20 +531,20 @@ final class Database
 					return null;
 				}
 				
-				if(limitStart>0 && limitSupport==Dialect.LimitSupport.NONE)
+				if(offset>0 && limitSupport==Dialect.LimitSupport.NONE)
 				{
 					// TODO: ResultSet.relative
 					// Would like to use
 					//    resultSet.relative(limitStart+1);
 					// but this throws a java.sql.SQLException:
 					// Invalid operation for forward only resultset : relative
-					for(int i = limitStart; i>0; i--)
+					for(int i = offset; i>0; i--)
 						resultSet.next();
 				}
 					
-				int i = ((limitCount==Query.UNLIMITED_COUNT||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limitCount );
+				int i = ((limit==Query.UNLIMITED||(limitSupport!=Dialect.LimitSupport.NONE)) ? Integer.MAX_VALUE : limit );
 				if(i<=0)
-					throw new RuntimeException(String.valueOf(limitCount));
+					throw new RuntimeException(String.valueOf(limit));
 				
 				while(resultSet.next() && (--i)>=0)
 				{

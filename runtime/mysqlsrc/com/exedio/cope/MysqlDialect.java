@@ -142,23 +142,23 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendLimitClause(final Statement bf, final int start, final int count)
+	void appendLimitClause(final Statement bf, final int offset, final int limit)
 	{
-		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
-			throw new RuntimeException(start+"-"+count);
+		if((offset==0&&limit==Query.UNLIMITED)||(limit<=0&&limit!=Query.UNLIMITED)||offset<0)
+			throw new RuntimeException(offset+"-"+limit);
 		
 		bf.append(" limit ");
 
-		if(start>0)
+		if(offset>0)
 		{
 			if(placeholdersInLimit)
-				bf.appendParameter(start).append(',');
+				bf.appendParameter(offset).append(',');
 			else
-				bf.append(Integer.toString(start)).append(',');
+				bf.append(Integer.toString(offset)).append(',');
 		}
 
 		// using MAX_VALUE is really the recommended usage, see MySQL doc.
-		final int countInStatement = count!=Query.UNLIMITED_COUNT ? count : Integer.MAX_VALUE;
+		final int countInStatement = limit!=Query.UNLIMITED ? limit : Integer.MAX_VALUE;
 
 		if(placeholdersInLimit)
 			bf.appendParameter(countInStatement);
@@ -167,7 +167,7 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
-	void appendLimitClause2(final Statement bf, final int start, final int count)
+	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException(bf.toString());
 	}

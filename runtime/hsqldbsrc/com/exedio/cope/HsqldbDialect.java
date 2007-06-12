@@ -91,19 +91,19 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void appendLimitClause(final Statement bf, final int start, final int count)
+	void appendLimitClause(final Statement bf, final int offset, final int limit)
 	{
-		if((start==0&&count==Query.UNLIMITED_COUNT)||(count<=0&&count!=Query.UNLIMITED_COUNT)||start<0)
-			throw new RuntimeException(start+"-"+count);
+		if((offset==0&&limit==Query.UNLIMITED)||(limit<=0&&limit!=Query.UNLIMITED)||offset<0)
+			throw new RuntimeException(offset+"-"+limit);
 
 		bf.append(" limit ").
-			appendParameter(start).
+			appendParameter(offset).
 			append(' ').
-			appendParameter(count!=Query.UNLIMITED_COUNT ? count : 0);
+			appendParameter(limit!=Query.UNLIMITED ? limit : 0);
 	}
 	
 	@Override
-	void appendLimitClause2(final Statement bf, final int start, final int count)
+	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException(bf.toString());
 	}

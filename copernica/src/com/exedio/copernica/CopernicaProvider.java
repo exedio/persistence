@@ -78,6 +78,6 @@ public interface CopernicaProvider
 	void handleException(PrintStream out, CopernicaServlet servlet, HttpServletRequest request, Exception e)
 		throws IOException;
 	
-	int getLimitCountCeiling(Type type);
+	int getLimitCeiling(Type type);
 	
 }

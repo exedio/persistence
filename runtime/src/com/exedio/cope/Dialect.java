@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
 package com.exedio.cope;
 
 import gnu.trove.TIntArrayList;
@@ -125,23 +143,23 @@ abstract class Dialect
 
 	/**
 	 * Appends a clause to the statement causing the database limiting the query result.
-	 * This method is never called for <tt>start==0 && count=={@link Query#UNLIMITED_COUNT}</tt>.
+	 * This method is never called for <tt>offset==0 && limit=={@link Query#UNLIMITED}</tt>.
 	 * NOTE: Don't forget the space before the keyword 'limit'!
-	 * @param start the number of rows to be skipped
+	 * @param offset the number of rows to be skipped
 	 *        or zero, if no rows to be skipped.
 	 *        Is never negative.
-	 * @param count the number of rows to be returned
-	 *        or {@link Query#UNLIMITED_COUNT} if all rows to be returned.
+	 * @param limit the number of rows to be returned
+	 *        or {@link Query#UNLIMITED} if all rows to be returned.
 	 *        Is always positive (greater zero).
 	 */
-	abstract void appendLimitClause(Statement bf, int start, int count);
+	abstract void appendLimitClause(Statement bf, int offset, int limit);
 	
 	/**
 	 * Same as {@link #appendLimitClause(Statement, int, int)}.
 	 * Is used for {@link LimitSupport#CLAUSES_AROUND} only,
 	 * for the postfix.
 	 */
-	abstract void appendLimitClause2(Statement bf, int start, int count);
+	abstract void appendLimitClause2(Statement bf, int offset, int limit);
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 	
