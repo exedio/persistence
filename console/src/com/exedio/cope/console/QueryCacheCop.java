@@ -37,14 +37,14 @@ final class QueryCacheCop extends ConsoleCop
 		this(HISTOGRAM_LIMIT_DEFAULT);
 	}
 	
-	private QueryCacheCop(final int maximumSize)
+	private QueryCacheCop(final int histogramLimit)
 	{
 		super("query cache");
 		addParameter(TAB, TAB_QUERY_CACHE);
-		if(maximumSize!=HISTOGRAM_LIMIT_DEFAULT)
-			addParameter(HISTOGRAM_LIMIT, String.valueOf(maximumSize));
+		if(histogramLimit!=HISTOGRAM_LIMIT_DEFAULT)
+			addParameter(HISTOGRAM_LIMIT, String.valueOf(histogramLimit));
 		
-		this.histogramLimit = maximumSize;
+		this.histogramLimit = histogramLimit;
 	}
 
 	static QueryCacheCop getQueryCacheCop(final HttpServletRequest request)
