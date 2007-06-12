@@ -511,15 +511,16 @@ public final class Query<R>
 						bf.append(" desc");
 				}
 			}
+
+			if(limitStart>0)
+				bf.append(" offset '").
+					append(limitStart).
+					append('\'');
 			
-			if(limitStart>0 || limitCount!=UNLIMITED_COUNT)
-			{
-				bf.append(" limit ").
-					append(limitStart);
-	
-				if(limitCount!=UNLIMITED_COUNT)
-					bf.append(' ').append(limitCount);
-			}
+			if(limitCount!=UNLIMITED_COUNT)
+				bf.append(" limit '").
+					append(limitCount).
+					append('\'');
 		}
 		
 		return bf.toString();
