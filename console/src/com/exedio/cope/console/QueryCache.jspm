@@ -58,12 +58,8 @@ final class QueryCache_Jspm extends Console_Jspm
 				}
 			}
 			%>
-		</table><%
-
-		%>
-		<hr><%
-		
-		%>
+		</table>
+		<hr>
 		<% writeToggle(out, request, cop.toToggleCondense(), cop.condense); %> condense<%
 		
 		if(cop.condense)
