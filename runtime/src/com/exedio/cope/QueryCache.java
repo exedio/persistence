@@ -166,6 +166,7 @@ final class QueryCache
 	private static final class Key
 	{
 		private final byte[] text;
+		private final int hashCode;
 		
 		private static final String CHARSET = "utf8";
 		
@@ -180,6 +181,8 @@ final class QueryCache
 				throw new RuntimeException(e);
 			}
 			// TODO compress
+
+			hashCode = Arrays.hashCode(text);
 		}
 		
 		@Override
@@ -192,7 +195,7 @@ final class QueryCache
 		@Override
 		public int hashCode()
 		{
-			return Arrays.hashCode(text);
+			return hashCode;
 		}
 		
 		String getText()
