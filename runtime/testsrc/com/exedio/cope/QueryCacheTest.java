@@ -98,7 +98,7 @@ public class QueryCacheTest extends AbstractLibTest
 	
 	private CacheQueryInfo cqi(final String query, final int resultSize, final int hits)
 	{
-		return new CacheQueryInfo(query, resultSize, model.getProperties().getQueryCacheHistogram() ? hits : 0);
+		return new CacheQueryInfo(query, resultSize, hits);
 	}
 
 	private List<CacheQueryInfo> cqi()

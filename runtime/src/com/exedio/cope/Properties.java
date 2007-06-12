@@ -58,8 +58,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 
 	private final IntField itemCacheLimit = new IntField("cache.limit", 10000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.queryLimit", 10000, 0);
-	public static final String CACHE_QUERY_HISTOGRAM = "cache.queryHistogram";
-	private final BooleanField queryCacheHistogram = new BooleanField(CACHE_QUERY_HISTOGRAM, false);
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
@@ -359,20 +357,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public int getCacheQueryLimit()
 	{
 		return getQueryCacheLimit();
-	}
-	
-	public boolean getQueryCacheHistogram()
-	{
-		return queryCacheHistogram.getBooleanValue();
-	}
-	
-	/**
-	 * @deprecated renamed to {@link #getQueryCacheHistogram()}.
-	 */
-	@Deprecated
-	public boolean getCacheQueryHistogram()
-	{
-		return getQueryCacheHistogram();
 	}
 	
 	public String getMediaRootUrl()

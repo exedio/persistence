@@ -23,7 +23,6 @@ import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Properties;
 import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCache_Jspm extends Console_Jspm
@@ -34,8 +33,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			final HttpServletRequest request,
 			final int limit,
 			final int[] queryInfos,
-			final QueryCacheCop.Content content,
-			final boolean queryHistogramAccurate)
+			final QueryCacheCop.Content content)
 	{
 		%>
 		<table>
@@ -62,21 +60,8 @@ final class QueryCache_Jspm extends Console_Jspm
 			%>
 		</table><%
 
-		if(!queryHistogramAccurate)
-		{
-		%>
-		<div class="message">
-			<b>Values not accurate:</b>
-			Property <tt><%=Properties.CACHE_QUERY_HISTOGRAM%></tt> is not enabled.
-			Therefore the column <b>Hits</b> counts queries only,
-			for which <tt>Transaction#setQueryInfoEnabled(true)</tt> has been set.
-		</div><%
-		}
-		else
-		{
 		%>
 		<hr><%
-		}
 		
 		%>
 		<% writeToggle(out, request, cop.toToggleCondense(), cop.condense); %> condense<%

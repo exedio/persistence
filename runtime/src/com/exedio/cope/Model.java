@@ -312,7 +312,7 @@ public final class Model
 				Arrays.fill(itemCacheLimits, itemCacheLimit);
 				final Properties p = properties;
 				this.itemCacheIfConnected = new ItemCache(concreteTypes, itemCacheLimits);
-				this.queryCacheIfConnected = new QueryCache(p.getQueryCacheLimit(), p.getQueryCacheHistogram());
+				this.queryCacheIfConnected = new QueryCache(p.getQueryCacheLimit());
 				this.logTransactions = properties.getTransactionLog();
 				this.connectDate = new Date();
 

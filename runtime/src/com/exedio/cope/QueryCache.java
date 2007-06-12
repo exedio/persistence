@@ -22,11 +22,8 @@ import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -36,14 +33,12 @@ import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCache
 {
-	private final LRUMap<Key, ArrayList<Object>> map;
+	private final LRUMap<Key, Value> map;
 	private volatile int hits = 0, misses = 0;
-	private final boolean histogram;
 
-	QueryCache(final int limit, final boolean histogram)
+	QueryCache(final int limit)
 	{
-		this.map = limit>0 ? new LRUMap<Key, ArrayList<Object>>(limit) : null;
-		this.histogram = histogram;
+		this.map = limit>0 ? new LRUMap<Key, Value>(limit) : null;
 	}
 	
 	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean doCountOnly)
@@ -53,15 +48,14 @@ final class QueryCache
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
 		final Key key = new Key(query, doCountOnly);
-		ArrayList<Object> result;
+		Value result;
 		synchronized(map)
 		{
 			result = map.get(key);
 		}
 		if ( result==null )
 		{
-			result = query.searchUncached(transaction, doCountOnly);
-			key.prepareForPut(query);
+			result = new Value(query, query.searchUncached(transaction, doCountOnly));
 			synchronized(map)
 			{
 				map.put(key, result);
@@ -70,24 +64,16 @@ final class QueryCache
 		}
 		else
 		{
+			result.hits++;
+			
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
-			if(histogram || queryInfos!=null)
-			{
-				final Key originalKey;
-				synchronized(map)
-				{
-					originalKey = map.getKeyIfHackSucceeded(key);
-				}
-				if(originalKey!=null)
-					originalKey.hits++;
-				
-				if(queryInfos!=null)
-					queryInfos.add(new QueryInfo("query cache hit #" + originalKey.hits + " for " + originalKey.getText()));
-			}
+			if(queryInfos!=null)
+				queryInfos.add(new QueryInfo("query cache hit #" + result.hits + " for " + key.getText()));
+
 			hits++;
 		}
 		
-		return result;
+		return result.list;
 	}
 	
 	boolean isEnabled()
@@ -109,16 +95,16 @@ final class QueryCache
 			
 			synchronized(map)
 			{
-				final Iterator<Key> keys = map.keySet().iterator();
-				while(keys.hasNext())
+				final Iterator<Value> values = map.values().iterator();
+				while(values.hasNext())
 				{
-					final Key key = keys.next();
-					query: for(final int queryTypeTransiently : key.invalidationTypesTransiently)
+					final Value value = values.next();
+					query: for(final int queryTypeTransiently : value.invalidationTypesTransiently)
 					{
 						for(final int invalidatedTypeTransiently : invalidatedTypesTransiently)
 						if(queryTypeTransiently==invalidatedTypeTransiently)
 						{
-							keys.remove();
+							values.remove();
 							break query;
 						}
 					}
@@ -161,18 +147,18 @@ final class QueryCache
 			return new CacheQueryInfo[0];
 		
 		final Key[] keys;
-		final ArrayList[] values;
+		final Value[] values;
 		synchronized(map)
 		{
 			keys = map.keySet().toArray(new Key[map.size()]);
-			values = map.values().toArray(new ArrayList[map.size()]);
+			values = map.values().toArray(new Value[map.size()]);
 		}
 
 		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
 		int i = result.length-1;
 		int j = 0;
 		for(final Key key : keys)
-			result[i--] = new CacheQueryInfo(key.getText(), values[j++].size(), key.hits);
+			result[i--] = new CacheQueryInfo(key.getText(), values[j].list.size(), values[j++].hits);
 		
 		return result;
 	}
@@ -180,8 +166,6 @@ final class QueryCache
 	private static final class Key
 	{
 		private final byte[] text;
-		int[] invalidationTypesTransiently = null;
-		volatile int hits = 0;
 		
 		private static final String CHARSET = "utf8";
 		
@@ -196,26 +180,6 @@ final class QueryCache
 				throw new RuntimeException(e);
 			}
 			// TODO compress
-		}
-		
-		/**
-		 * @param query must be the same as in the constructor!
-		 */
-		void prepareForPut(final Query<? extends Object> query)
-		{
-			assert this.invalidationTypesTransiently==null;
-			
-			final ArrayList<Join> joins = query.joins;
-			final TIntHashSet typeSet = new TIntHashSet();
-			for(final Type<?> t : query.type.getTypesOfInstances())
-				typeSet.add(t.idTransiently);
-			if(joins!=null)
-			{
-				for(final Join join : joins)
-					for(final Type t : join.type.getTypesOfInstances())
-						typeSet.add(t.idTransiently);
-			}
-			this.invalidationTypesTransiently = typeSet.toArray();
 		}
 		
 		@Override
@@ -250,6 +214,30 @@ final class QueryCache
 		}
 	}
 	
+	private static final class Value
+	{
+		final ArrayList<Object> list;
+		final int[] invalidationTypesTransiently;
+		volatile int hits = 0;
+		
+		Value(final Query<? extends Object> query, final ArrayList<Object> list)
+		{
+			final ArrayList<Join> joins = query.joins;
+			final TIntHashSet typeSet = new TIntHashSet();
+			for(final Type<?> t : query.type.getTypesOfInstances())
+				typeSet.add(t.idTransiently);
+			if(joins!=null)
+			{
+				for(final Join join : joins)
+					for(final Type t : join.type.getTypesOfInstances())
+						typeSet.add(t.idTransiently);
+			}
+			this.invalidationTypesTransiently = typeSet.toArray();
+
+			this.list = list;
+		}
+	}
+	
 	private static final class LRUMap<K,V> extends LinkedHashMap<K,V>
 	{
 		private static final long serialVersionUID = 19641264861283476l;
@@ -260,43 +248,6 @@ final class QueryCache
 		{
 			super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
 			this.maxSize = maxSize;
-		}
-		
-		private static Method getEntry = null;
-
-		static
-		{
-			try
-			{
-				final Method m = HashMap.class.getDeclaredMethod("getEntry", Object.class);
-				m.setAccessible(true);
-				getEntry = m;
-			}
-			catch(Exception e)
-			{
-				System.out.println("Accessing getEntry method failed, no query histograms available: " + e.getMessage());;
-			}
-		}
-		
-		@SuppressWarnings("unchecked") // OK: reflection does not support generics
-		K getKeyIfHackSucceeded(final K key)
-		{
-			if(getEntry==null)
-				return null;
-			
-			try
-			{
-				final Map.Entry e = (Map.Entry)getEntry.invoke(this, key);
-				return (K)e.getKey();
-			}
-			catch(InvocationTargetException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch(IllegalAccessException e)
-			{
-				throw new RuntimeException(e);
-			}
 		}
 		
 		@Override

@@ -267,7 +267,6 @@ final class QueryCacheCop extends ConsoleCop
 		QueryCache_Jspm.writeBody(this, out, request,
 				model.getProperties().getQueryCacheLimit(),
 				model.getQueryCacheInfo(),
-				new Content(histogram, condense),
-				model.getProperties().getQueryCacheHistogram());
+				new Content(histogram, condense));
 	}
 }
