@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -457,7 +454,7 @@ public final class Query<R>
 		return toString(false, false);
 	}
 	
-	private String toString(final boolean key, final boolean doCountOnly)
+	String toString(final boolean key, final boolean doCountOnly)
 	{
 		final StringBuffer bf = new StringBuffer();
 		
@@ -529,78 +526,5 @@ public final class Query<R>
 	ArrayList<Object> searchUncached(final Transaction transaction, final boolean doCountOnly)
 	{
 		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly, transaction.queryInfos);
-	}
-	
-	static final class Key
-	{
-		private final byte[] text;
-		int[] invalidationTypesTransiently = null;
-		volatile int hits = 0;
-		
-		private static final String CHARSET = "utf8";
-		
-		Key(final Query<? extends Object> query, final boolean doCountOnly)
-		{
-			try
-			{
-				text = query.toString(true, doCountOnly).getBytes(CHARSET);
-			}
-			catch(UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(e);
-			}
-			// TODO compress
-		}
-		
-		/**
-		 * @param query must be the same as in the constructor!
-		 */
-		void prepareForPut(final Query<? extends Object> query)
-		{
-			assert this.invalidationTypesTransiently==null;
-			
-			final ArrayList<Join> joins = query.joins;
-			final TIntHashSet typeSet = new TIntHashSet();
-			for(final Type<?> t : query.type.getTypesOfInstances())
-				typeSet.add(t.idTransiently);
-			if(joins!=null)
-			{
-				for(final Join join : joins)
-					for(final Type t : join.type.getTypesOfInstances())
-						typeSet.add(t.idTransiently);
-			}
-			this.invalidationTypesTransiently = typeSet.toArray();
-		}
-		
-		@Override
-		public boolean equals(final Object obj)
-		{
-			final Key other = (Key)obj;
-			return Arrays.equals(text, other.text);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return Arrays.hashCode(text);
-		}
-		
-		String getText()
-		{
-			try
-			{
-				return new String(text, CHARSET);
-			}
-			catch(UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		
-		@Override
-		public String toString()
-		{
-			return getText();
-		}
 	}
 }

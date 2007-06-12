@@ -21,9 +21,11 @@ package com.exedio.cope;
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -34,13 +36,13 @@ import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCache
 {
-	private final LRUMap<Query.Key, ArrayList<Object>> map;
+	private final LRUMap<Key, ArrayList<Object>> map;
 	private volatile int hits = 0, misses = 0;
 	private final boolean histogram;
 
 	QueryCache(final int limit, final boolean histogram)
 	{
-		this.map = limit>0 ? new LRUMap<Query.Key, ArrayList<Object>>(limit) : null;
+		this.map = limit>0 ? new LRUMap<Key, ArrayList<Object>>(limit) : null;
 		this.histogram = histogram;
 	}
 	
@@ -50,7 +52,7 @@ final class QueryCache
 		{
 			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
 		}
-		final Query.Key key = new Query.Key(query, doCountOnly);
+		final Key key = new Key(query, doCountOnly);
 		ArrayList<Object> result;
 		synchronized(map)
 		{
@@ -71,7 +73,7 @@ final class QueryCache
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(histogram || queryInfos!=null)
 			{
-				final Query.Key originalKey;
+				final Key originalKey;
 				synchronized(map)
 				{
 					originalKey = map.getKeyIfHackSucceeded(key);
@@ -107,10 +109,10 @@ final class QueryCache
 			
 			synchronized(map)
 			{
-				final Iterator<Query.Key> keys = map.keySet().iterator();
+				final Iterator<Key> keys = map.keySet().iterator();
 				while(keys.hasNext())
 				{
-					final Query.Key key = keys.next();
+					final Key key = keys.next();
 					query: for(final int queryTypeTransiently : key.invalidationTypesTransiently)
 					{
 						for(final int invalidatedTypeTransiently : invalidatedTypesTransiently)
@@ -158,21 +160,94 @@ final class QueryCache
 		if(map==null)
 			return new CacheQueryInfo[0];
 		
-		final Query.Key[] keys;
+		final Key[] keys;
 		final ArrayList[] values;
 		synchronized(map)
 		{
-			keys = map.keySet().toArray(new Query.Key[map.size()]);
+			keys = map.keySet().toArray(new Key[map.size()]);
 			values = map.values().toArray(new ArrayList[map.size()]);
 		}
 
 		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
 		int i = result.length-1;
 		int j = 0;
-		for(final Query.Key key : keys)
+		for(final Key key : keys)
 			result[i--] = new CacheQueryInfo(key.getText(), values[j++].size(), key.hits);
 		
 		return result;
+	}
+	
+	private static final class Key
+	{
+		private final byte[] text;
+		int[] invalidationTypesTransiently = null;
+		volatile int hits = 0;
+		
+		private static final String CHARSET = "utf8";
+		
+		Key(final Query<? extends Object> query, final boolean doCountOnly)
+		{
+			try
+			{
+				text = query.toString(true, doCountOnly).getBytes(CHARSET);
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
+			// TODO compress
+		}
+		
+		/**
+		 * @param query must be the same as in the constructor!
+		 */
+		void prepareForPut(final Query<? extends Object> query)
+		{
+			assert this.invalidationTypesTransiently==null;
+			
+			final ArrayList<Join> joins = query.joins;
+			final TIntHashSet typeSet = new TIntHashSet();
+			for(final Type<?> t : query.type.getTypesOfInstances())
+				typeSet.add(t.idTransiently);
+			if(joins!=null)
+			{
+				for(final Join join : joins)
+					for(final Type t : join.type.getTypesOfInstances())
+						typeSet.add(t.idTransiently);
+			}
+			this.invalidationTypesTransiently = typeSet.toArray();
+		}
+		
+		@Override
+		public boolean equals(final Object obj)
+		{
+			final Key other = (Key)obj;
+			return Arrays.equals(text, other.text);
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return Arrays.hashCode(text);
+		}
+		
+		String getText()
+		{
+			try
+			{
+				return new String(text, CHARSET);
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		
+		@Override
+		public String toString()
+		{
+			return getText();
+		}
 	}
 	
 	private static final class LRUMap<K,V> extends LinkedHashMap<K,V>
