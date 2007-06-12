@@ -150,8 +150,9 @@ final class QueryCache
 		final Value[] values;
 		synchronized(map)
 		{
-			keys = map.keySet().toArray(new Key[map.size()]);
-			values = map.values().toArray(new Value[map.size()]);
+			final int size = map.size();
+			keys   = map.keySet().toArray(new Key[size]);
+			values = map.values().toArray(new Value[size]);
 		}
 
 		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
