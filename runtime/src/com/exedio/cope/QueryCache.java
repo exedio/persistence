@@ -33,12 +33,12 @@ import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCache
 {
-	private final LRUMap<Key, Value> map;
+	private final LRUMap map;
 	private volatile int hits = 0, misses = 0;
 
 	QueryCache(final int limit)
 	{
-		this.map = limit>0 ? new LRUMap<Key, Value>(limit) : null;
+		this.map = limit>0 ? new LRUMap(limit) : null;
 	}
 	
 	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean doCountOnly)
@@ -238,7 +238,7 @@ final class QueryCache
 		}
 	}
 	
-	private static final class LRUMap<K,V> extends LinkedHashMap<K,V>
+	private static final class LRUMap extends LinkedHashMap<Key, Value>
 	{
 		private static final long serialVersionUID = 19641264861283476l;
 		
@@ -251,7 +251,7 @@ final class QueryCache
 		}
 		
 		@Override
-		protected boolean removeEldestEntry(final Map.Entry<K,V> eldest)
+		protected boolean removeEldestEntry(final Map.Entry<Key,Value> eldest)
 		{
 			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
 			return size() > maxSize;
