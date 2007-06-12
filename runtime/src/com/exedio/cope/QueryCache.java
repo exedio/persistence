@@ -64,13 +64,12 @@ final class QueryCache
 		}
 		else
 		{
+			hits++;
 			result.hits++;
 			
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
 				queryInfos.add(new QueryInfo("query cache hit #" + result.hits + " for " + key.getText()));
-
-			hits++;
 		}
 		
 		return result.list;
