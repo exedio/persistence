@@ -553,6 +553,7 @@
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/console/classes" />
 				<pathelement location="build/console/testclasses" />
+				<pathelement location="lib/exedio-cops.jar" />
 			</classpath>
 			<test name="com.exedio.cope.console.PackageTest" todir="build/testresults" outfile="console" />
 			<assertions><enable/></assertions>

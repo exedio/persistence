@@ -21,6 +21,8 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Properties;
 import com.exedio.cope.util.CacheQueryInfo;
 
@@ -29,6 +31,7 @@ final class QueryCache_Jspm extends Console_Jspm
 	final static void writeBody(
 			final QueryCacheCop cop,
 			final PrintStream out,
+			final HttpServletRequest request,
 			final int limit,
 			final int[] queryInfos,
 			final QueryCacheCop.Content content,
@@ -74,6 +77,67 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		<hr><%
 		}
+		
+		%>
+		<% writeToggle(out, request, cop.toToggleCondense(), cop.condense); %> condense<%
+		
+		if(cop.condense)
+		{
+		
+		final String[] names = {
+			"Recent Usage (LRU) (Average)",
+			"Count",
+			"Result Size (Sum)",
+			"Cache Hits (Sum)",
+		};
+		%>
+		<table>
+			<caption>Query Cache Histogram</caption><%
+			writeColouredHeader(out, names, 0, 1);
+			%>
+			<tr><%
+				writeColouredHeaderSchnips(out, names);
+				%>
+				<th>Query</th>
+			</tr><%
+		
+		final int histogramLimit = cop.histogramLimit;
+		
+		for(int i = 0; i<content.histogramCondensed.length; i++)
+		{
+			if(i>=histogramLimit)
+			{
+			%>
+			<tr>
+				<td class="text" colspan="<%=names.length+1%>">
+					Skipped display of <%=content.histogramCondensed.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
+					<form action="<%=cop%>" method="GET">
+						New limit:
+						<input type="hidden" name="<%=cop.TAB%>" value="<%=cop.TAB_QUERY_CACHE%>">
+						<input type="text" name="<%=cop.HISTOGRAM_LIMIT%>" value="<%=histogramLimit%>">
+						<input type="submit" name="set" value="set">
+					</form>
+				</td>
+			</tr><%
+				break;
+			}
+			final QueryCacheCop.Condense condense = content.histogramCondensed[i];
+			final String[] data = {
+					cop.format(condense.getRecentUsage()),
+					cop.format(condense.getCount()),
+					cop.format(condense.getResultSize()),
+					cop.formatAndHide(0, condense.getHits()),
+				};
+			%>
+			<tr><%
+				writeColouredData(out, data); %>
+				<td class="text"><%=encode(condense.query)%></td>
+			</tr><%
+		}
+		
+		}
+		else
+		{
 		
 		final String[] names = {
 			"Recent Usage (LRU)",
@@ -122,6 +186,8 @@ final class QueryCache_Jspm extends Console_Jspm
 				writeColouredData(out, data); %>
 				<td class="text"><%=encode(info.getQuery())%></td>
 			</tr><%
+		}
+		
 		}
 		%>
 		</table><%

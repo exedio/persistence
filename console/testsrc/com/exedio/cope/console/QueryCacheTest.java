@@ -30,7 +30,7 @@ public class QueryCacheTest extends TestCase
 	{
 		try
 		{
-			new QueryCacheCop.Content(null);
+			new QueryCacheCop.Content(null, true);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -39,8 +39,9 @@ public class QueryCacheTest extends TestCase
 		}
 		{
 			final CacheQueryInfo[] histogram = new CacheQueryInfo[]{};
-			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram);
+			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, false);
 			assertSame(histogram, content.histogram);
+			assertNull(content.histogramCondensed);
 			assertEquals(-1, content.avgKeyLength);
 			assertEquals(-1, content.minKeyLength);
 			assertEquals(-1, content.maxKeyLength);
@@ -54,8 +55,9 @@ public class QueryCacheTest extends TestCase
 					new CacheQueryInfo("query1",   3, 101),
 					new CacheQueryInfo("query2xx", 7, 103),
 			};
-			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram);
+			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, false);
 			assertSame(histogram, content.histogram);
+			assertNull(content.histogramCondensed);
 			assertEquals(7, content.avgKeyLength);
 			assertEquals(6, content.minKeyLength);
 			assertEquals(8, content.maxKeyLength);
@@ -64,6 +66,44 @@ public class QueryCacheTest extends TestCase
 			assertEquals(7, content.maxResultSize);
 			assertEquals(new int[]{0, 0, 0, 1, 0}, content.resultSizes);
 		}
+		{
+			final CacheQueryInfo[] histogram = new CacheQueryInfo[]{
+					new CacheQueryInfo("query1 'hallo' and 'bello' order by",   11, 31),
+					new CacheQueryInfo("query1 'knollo' and 'knallo' order by", 13, 33),
+					new CacheQueryInfo("query2 nixus",                          14, 34),
+					new CacheQueryInfo("query3 'backus'",                       15, 35),
+					new CacheQueryInfo("'frontus' query4",                      16, 36),
+					new CacheQueryInfo("'' query5",                             17, 37),
+					new CacheQueryInfo("query6 ''",                             18, 38),
+					new CacheQueryInfo("query7 '' order by",                    19, 39),
+			};
+			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, true);
+			assertSame(histogram, content.histogram);
+			final QueryCacheCop.Condense[] cn = content.histogramCondensed;
+			assertInfo(cn[0], 2, 0, 24, 64, "query1 ? and ? order by");
+			assertInfo(cn[1], 1, 2, 14, 34, "query2 nixus");
+			assertInfo(cn[2], 1, 3, 15, 35, "query3 ?");
+			assertInfo(cn[3], 1, 4, 16, 36, "? query4");
+			assertInfo(cn[4], 1, 5, 17, 37, "? query5");
+			assertInfo(cn[5], 1, 6, 18, 38, "query6 ?");
+			assertInfo(cn[6], 1, 7, 19, 39, "query7 ? order by");
+			assertEquals(7, cn.length);
+		}
+	}
+	
+	private static final void assertInfo(
+			final QueryCacheCop.Condense actual,
+			final int count,
+			final int recentUsage,
+			final int resultSize,
+			final int hits,
+			final String query)
+	{
+		assertEquals(count, actual.getCount());
+		assertEquals(recentUsage, actual.getRecentUsage());
+		assertEquals(resultSize, actual.getResultSize());
+		assertEquals(hits, actual.getHits());
+		assertEquals(query, actual.query);
 	}
 	
 	private static final void assertEquals(final int[] expected, final int[] actual)
