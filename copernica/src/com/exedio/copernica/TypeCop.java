@@ -38,6 +38,9 @@ final class TypeCop extends CopernicaCop
 	private static final String OFFSET = "st"; // TODO change value to "off"
 	private static final String LIMIT  = "ct"; // TODO change value to "lim"
 
+	private static final int OFFSET_DEFAULT = 0;
+	private static final int LIMIT_DEFAULT  = 10;
+
 	final Type type;
 	final Function orderBy;
 	final boolean orderAscending;
@@ -49,7 +52,7 @@ final class TypeCop extends CopernicaCop
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
-		this(provider, language, type, null, true, 0, 10);
+		this(provider, language, type, null, true, OFFSET_DEFAULT, LIMIT_DEFAULT);
 	}
 	
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type,
@@ -72,9 +75,9 @@ final class TypeCop extends CopernicaCop
 		// orderBy must be a feature
 		if(orderBy!=null)
 			addParameter(orderAscending ? ORDER_ASCENDING : ORDER_DESCENDING, ((Feature)orderBy).getName());
-		if(offset!=0)
+		if(offset!=OFFSET_DEFAULT)
 			addParameter(OFFSET, String.valueOf(offset));
-		if(limit!=10)
+		if(limit!=LIMIT_DEFAULT)
 			addParameter(LIMIT, String.valueOf(limit));
 	}
 	
@@ -219,8 +222,8 @@ final class TypeCop extends CopernicaCop
 
 		final String offsetString = request.getParameter(OFFSET);
 		final String limitString  = request.getParameter(LIMIT);
-		final int offset = (offsetString==null) ?  0 : Integer.parseInt(offsetString);
-		final int limit  = (limitString ==null) ? 10 : Integer.parseInt(limitString);
+		final int offset = (offsetString==null) ? OFFSET_DEFAULT : Integer.parseInt(offsetString);
+		final int limit  = (limitString ==null) ? LIMIT_DEFAULT  : Integer.parseInt(limitString);
 
 		return new TypeCop(provider, language, type, orderBy, orderAscending, offset, limit);
 	}
