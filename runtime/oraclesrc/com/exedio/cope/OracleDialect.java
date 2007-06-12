@@ -116,8 +116,9 @@ final class OracleDialect extends Dialect
 	@Override
 	void appendLimitClause(final Statement bf, final int offset, final int limit)
 	{
-		if((offset==0&&limit==Query.UNLIMITED)||(limit<=0&&limit!=Query.UNLIMITED)||offset<0)
-			throw new RuntimeException(offset+"-"+limit);
+		assert offset>=0;
+		assert limit>0 || limit==Query.UNLIMITED;
+		assert offset>0 || limit>0;
 
 		// TODO: check, whether ROW_NUMBER() OVER is faster,
 		// see http://www.php-faq.de/q/q-oracle-limit.html
@@ -129,8 +130,9 @@ final class OracleDialect extends Dialect
 	@Override
 	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
-		if((offset==0&&limit==Query.UNLIMITED)||(limit<=0&&limit!=Query.UNLIMITED)||offset<0)
-			throw new RuntimeException(offset+"-"+limit);
+		assert offset>=0;
+		assert limit>0 || limit==Query.UNLIMITED;
+		assert offset>0 || limit>0;
 
 		bf.append(')');
 		if(offset>0)

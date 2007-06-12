@@ -93,8 +93,9 @@ final class HsqldbDialect extends Dialect
 	@Override
 	void appendLimitClause(final Statement bf, final int offset, final int limit)
 	{
-		if((offset==0&&limit==Query.UNLIMITED)||(limit<=0&&limit!=Query.UNLIMITED)||offset<0)
-			throw new RuntimeException(offset+"-"+limit);
+		assert offset>=0;
+		assert limit>0 || limit==Query.UNLIMITED;
+		assert offset>0 || limit>0;
 
 		bf.append(" limit ").
 			appendParameter(offset).
