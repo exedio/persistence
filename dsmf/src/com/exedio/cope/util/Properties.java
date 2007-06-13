@@ -103,7 +103,7 @@ public class Properties
 			@Override
 			public String toString()
 			{
-				return "Properties.getSystemPropertyContext";
+				return "java.lang.System.getProperty";
 			}
 		};
 	}
