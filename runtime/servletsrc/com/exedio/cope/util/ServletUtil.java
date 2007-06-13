@@ -113,6 +113,12 @@ public class ServletUtil
 					{
 						return context.getInitParameter(key);
 					}
+
+					@Override
+					public String toString()
+					{
+						return "ServletContext.getInitParameter of '" + context.getServletContextName() + '\'';
+					}
 				}
 			));
 	}

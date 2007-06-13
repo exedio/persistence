@@ -99,6 +99,12 @@ public class Properties
 			{
 				return System.getProperty(key);
 			}
+
+			@Override
+			public String toString()
+			{
+				return "Properties.getSystemPropertyContext";
+			}
 		};
 	}
 	
