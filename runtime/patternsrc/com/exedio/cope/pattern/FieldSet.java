@@ -102,6 +102,10 @@ public final class FieldSet<E> extends Pattern
 		return new HashSet<E>(new Query<E>(element, Cope.equalAndCast(this.parent, item)).search());
 	}
 
+	/**
+	 * Returns the items, for which this field set contains the given element.
+	 * The order of the result is unspecified.
+	 */
 	public <P extends Item> List<P> getParents(final E element, final Class<P> parentClass)
 	{
 		if(!this.parent.getValueClass().equals(parentClass))
