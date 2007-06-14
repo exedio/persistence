@@ -35,8 +35,8 @@ public final class TransactionSlicer
 		this.bitesPerSlice = bitesPerSlice;
 		this.transactionName = model.getCurrentTransaction().getName();
 		
-		if(bitesPerSlice<0)
-			throw new IllegalArgumentException("bitesPerSlice must not be negative, but was " + bitesPerSlice);
+		if(bitesPerSlice<=0)
+			throw new IllegalArgumentException("bitesPerSlice must be positive, but was " + bitesPerSlice);
 	}
 	
 	public boolean biteOff()

@@ -83,7 +83,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 	{
 		final Transaction t1 = model.getCurrentTransaction();
 		
-		final TransactionSlicer ts = new TransactionSlicer(model, 0);
+		final TransactionSlicer ts = new TransactionSlicer(model, 1);
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.getCurrentTransaction());
 		
@@ -108,12 +108,12 @@ public class TransactionSlicerTest extends AbstractLibTest
 		
 		try
 		{
-			new TransactionSlicer(model, -1);
+			new TransactionSlicer(model, 0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("bitesPerSlice must not be negative, but was -1", e.getMessage());
+			assertEquals("bitesPerSlice must be positive, but was 0", e.getMessage());
 		}
 	}
 
@@ -124,7 +124,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		
 		final Transaction t1 = model.getCurrentTransaction();
 		
-		final TransactionSlicer ts = new TransactionSlicer(model, 0);
+		final TransactionSlicer ts = new TransactionSlicer(model, 1);
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.getCurrentTransaction());
 		
