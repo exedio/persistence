@@ -105,6 +105,16 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertTrue(t2.isClosed());
 		assertFalse(t3.isClosed());
 		assertEquals(t1.getName() + "-slice2", t3.getName());
+		
+		try
+		{
+			new TransactionSlicer(model, -1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("transactionsInSlice must not be negative, but was -1", e.getMessage());
+		}
 	}
 
 	public void testNoname()
