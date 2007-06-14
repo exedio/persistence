@@ -102,6 +102,20 @@ public final class FieldSet<E> extends Pattern
 		return new HashSet<E>(new Query<E>(element, Cope.equalAndCast(this.parent, item)).search());
 	}
 
+	public <P extends Item> List<P> getParents(final E element, final Class<P> parentClass)
+	{
+		if(!this.parent.getValueClass().equals(parentClass))
+			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
+		
+		return FieldSet.<P>cast(new Query<Item>(this.parent, this.element.equal(element)).search());
+	}
+	
+	@SuppressWarnings("unchecked") // OK: parent not maintained by generics
+	private static final <P> List<P> cast(final List<?> l)
+	{
+		return (List<P>)l;
+	}
+
 	public void set(final Item item, final Collection<? extends E> value)
 	{
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<E>(value);
@@ -145,20 +159,6 @@ public final class FieldSet<E> extends Pattern
 		}
 	}
 	
-	public <P extends Item> List<P> getParents(final E element, final Class<P> parentClass)
-	{
-		if(!this.parent.getValueClass().equals(parentClass))
-			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
-		
-		return FieldSet.<P>cast(new Query<Item>(this.parent, this.element.equal(element)).search());
-	}
-	
-	@SuppressWarnings("unchecked") // OK: parent not maintained by generics
-	private static final <P> List<P> cast(final List<?> l)
-	{
-		return (List<P>)l;
-	}
-
 	public void setAndCast(final Item item, final Collection<?> value)
 	{
 		set(item, element.castCollection(value));
