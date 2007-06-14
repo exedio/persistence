@@ -23,25 +23,25 @@ import com.exedio.cope.Model;
 public final class TransactionSlicer
 {
 	private final Model model;
-	private final int transactionsInSlice;
+	private final int bitesPerSlice;
 	private final String transactionName;
 
 	private int transactionsInCurrentSlice = 0;
 	private int sliceCount = 0;
 	
-	public TransactionSlicer(final Model model, final int transactionsInSlice)
+	public TransactionSlicer(final Model model, final int bitesPerSlice)
 	{
 		this.model = model;
-		this.transactionsInSlice = transactionsInSlice;
+		this.bitesPerSlice = bitesPerSlice;
 		this.transactionName = model.getCurrentTransaction().getName();
 		
-		if(transactionsInSlice<0)
-			throw new IllegalArgumentException("transactionsInSlice must not be negative, but was " + transactionsInSlice);
+		if(bitesPerSlice<0)
+			throw new IllegalArgumentException("bitesPerSlice must not be negative, but was " + bitesPerSlice);
 	}
 	
-	public boolean sliceIfNeeded()
+	public boolean biteOff()
 	{
-		if((++transactionsInCurrentSlice)>=transactionsInSlice)
+		if((++transactionsInCurrentSlice)>=bitesPerSlice)
 		{
 			model.commit();
 			transactionsInCurrentSlice = 0;

@@ -37,17 +37,17 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.getCurrentTransaction());
 		
-		assertEquals(false, ts.sliceIfNeeded());
+		assertEquals(false, ts.biteOff());
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.getCurrentTransaction());
 		assertFalse(t1.isClosed());
 		
-		assertEquals(false, ts.sliceIfNeeded());
+		assertEquals(false, ts.biteOff());
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.getCurrentTransaction());
 		assertFalse(t1.isClosed());
 		
-		assertEquals(true, ts.sliceIfNeeded());
+		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		final Transaction t2 = model.getCurrentTransaction();
 		assertNotSame(t1, t2);
@@ -55,19 +55,19 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertFalse(t2.isClosed());
 		assertEquals(t1.getName() + "-slice1", t2.getName());
 		
-		assertEquals(false, ts.sliceIfNeeded());
+		assertEquals(false, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		assertSame(t2, model.getCurrentTransaction());
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
 		
-		assertEquals(false, ts.sliceIfNeeded());
+		assertEquals(false, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		assertSame(t2, model.getCurrentTransaction());
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
 		
-		assertEquals(true, ts.sliceIfNeeded());
+		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
 		final Transaction t3 = model.getCurrentTransaction();
 		assertNotSame(t1, t2);
@@ -87,7 +87,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.getCurrentTransaction());
 		
-		assertEquals(true, ts.sliceIfNeeded());
+		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		final Transaction t2 = model.getCurrentTransaction();
 		assertNotSame(t1, t2);
@@ -95,7 +95,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertFalse(t2.isClosed());
 		assertEquals(t1.getName() + "-slice1", t2.getName());
 		
-		assertEquals(true, ts.sliceIfNeeded());
+		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
 		final Transaction t3 = model.getCurrentTransaction();
 		assertNotSame(t1, t2);
@@ -113,7 +113,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("transactionsInSlice must not be negative, but was -1", e.getMessage());
+			assertEquals("bitesPerSlice must not be negative, but was -1", e.getMessage());
 		}
 	}
 
@@ -128,7 +128,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertEquals(0, ts.getSliceCount());
 		assertSame(t1, model.getCurrentTransaction());
 		
-		assertEquals(true, ts.sliceIfNeeded());
+		assertEquals(true, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
 		final Transaction t2 = model.getCurrentTransaction();
 		assertNotSame(t1, t2);
@@ -136,7 +136,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertFalse(t2.isClosed());
 		assertEquals("slice1", t2.getName());
 		
-		assertEquals(true, ts.sliceIfNeeded());
+		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
 		final Transaction t3 = model.getCurrentTransaction();
 		assertNotSame(t1, t2);
