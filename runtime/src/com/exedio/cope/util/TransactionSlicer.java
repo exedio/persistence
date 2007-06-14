@@ -48,7 +48,10 @@ public final class TransactionSlicer
 		model.commit();
 		bitsLeft = bitesPerSlice;
 		sliceCount++;
-		model.startTransaction(transactionName!=null ? (transactionName+"-slice"+sliceCount) : ("slice"+sliceCount));
+		model.startTransaction(
+				transactionName!=null
+				? (transactionName+"-slice"+sliceCount)
+				: ("slice"+sliceCount));
 		return true;
 	}
 	
