@@ -19,11 +19,13 @@
 package com.exedio.cope.util;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Transaction;
 
 public final class TransactionSlicer
 {
 	private final Model model;
 	private final int bitesPerSlice;
+	private Transaction transaction;
 	private final String transactionName;
 
 	private int bitsLeft;
@@ -33,7 +35,8 @@ public final class TransactionSlicer
 	{
 		this.model = model;
 		this.bitesPerSlice = bitesPerSlice;
-		this.transactionName = model.getCurrentTransaction().getName();
+		this.transaction = model.getCurrentTransaction();
+		this.transactionName = transaction.getName();
 		this.bitsLeft = bitesPerSlice;
 		
 		if(bitesPerSlice<=0)
@@ -44,11 +47,14 @@ public final class TransactionSlicer
 	{
 		if((--bitsLeft)>0)
 			return false;
+		
+		if(transaction!=model.getCurrentTransaction())
+			throw new IllegalStateException("inconsistent transaction, expected " + transaction + ", but was " + model.getCurrentTransaction());
 
 		model.commit();
 		bitsLeft = bitesPerSlice;
 		sliceCount++;
-		model.startTransaction(
+		transaction = model.startTransaction(
 				transactionName!=null
 				? (transactionName+"-slice"+sliceCount)
 				: ("slice"+sliceCount));
