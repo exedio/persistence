@@ -26,7 +26,7 @@ public final class TransactionSlicer
 	private final int bitesPerSlice;
 	private final String transactionName;
 
-	private int bits = 0;
+	private int bitsLeft;
 	private int sliceCount = 0;
 	
 	public TransactionSlicer(final Model model, final int bitesPerSlice)
@@ -34,6 +34,7 @@ public final class TransactionSlicer
 		this.model = model;
 		this.bitesPerSlice = bitesPerSlice;
 		this.transactionName = model.getCurrentTransaction().getName();
+		this.bitsLeft = bitesPerSlice;
 		
 		if(bitesPerSlice<=0)
 			throw new IllegalArgumentException("bitesPerSlice must be positive, but was " + bitesPerSlice);
@@ -41,10 +42,10 @@ public final class TransactionSlicer
 	
 	public boolean biteOff()
 	{
-		if((++bits)>=bitesPerSlice)
+		if((--bitsLeft)<=0)
 		{
 			model.commit();
-			bits = 0;
+			bitsLeft = bitesPerSlice;
 			sliceCount++;
 			model.startTransaction(transactionName!=null ? (transactionName+"-slice"+sliceCount) : ("slice"+sliceCount));
 			return true;
