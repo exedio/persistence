@@ -42,18 +42,14 @@ public final class TransactionSlicer
 	
 	public boolean biteOff()
 	{
-		if((--bitsLeft)<=0)
-		{
-			model.commit();
-			bitsLeft = bitesPerSlice;
-			sliceCount++;
-			model.startTransaction(transactionName!=null ? (transactionName+"-slice"+sliceCount) : ("slice"+sliceCount));
-			return true;
-		}
-		else
-		{
+		if((--bitsLeft)>0)
 			return false;
-		}
+
+		model.commit();
+		bitsLeft = bitesPerSlice;
+		sliceCount++;
+		model.startTransaction(transactionName!=null ? (transactionName+"-slice"+sliceCount) : ("slice"+sliceCount));
+		return true;
 	}
 	
 	public int getSliceCount()
