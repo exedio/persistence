@@ -164,6 +164,9 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		
 		// test persistence
+		
+		// strings
+		
 		assertContains(item.getStrings());
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
@@ -257,6 +260,69 @@ public class FieldSetTest extends AbstractLibTest
 		assertFalse(r2.existsCopeItem());
 		assertFalse(r3.existsCopeItem());
 
+		assertEquals(true, item.addToStrings("bing"));
+		assertContains("bing", item.getStrings());
+		final Item r4;
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			r4 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("bing", r4.get(item.strings.getElement()));
+
+		assertEquals(false, item.addToStrings("bing"));
+		assertContains("bing", item.getStrings());
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r4, i.next());
+			assertFalse(i.hasNext());
+		}
+		assertEquals("bing", r4.get(item.strings.getElement()));
+
+		assertEquals(true, item.addToStrings("bong"));
+		assertContains("bing", "bong", item.getStrings());
+		final Item r5;
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r4, i.next());
+			r5 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("bing", r4.get(item.strings.getElement()));
+		assertEquals("bong", r5.get(item.strings.getElement()));
+		
+		assertEquals(true, item.removeFromStrings("bing"));
+		assertContains("bong", item.getStrings());
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r5, i.next());
+			assertFalse(i.hasNext());
+		}
+		assertFalse(r4.existsCopeItem());
+		assertEquals("bong", r5.get(item.strings.getElement()));
+
+		assertEquals(false, item.removeFromStrings("bing"));
+		assertContains("bong", item.getStrings());
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertSame(r5, i.next());
+			assertFalse(i.hasNext());
+		}
+		assertFalse(r4.existsCopeItem());
+		assertEquals("bong", r5.get(item.strings.getElement()));
+
+		assertEquals(true, item.removeFromStrings("bong"));
+		assertContains(item.getStrings());
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
+			assertFalse(i.hasNext());
+		}
+		assertFalse(r4.existsCopeItem());
+		assertFalse(r5.existsCopeItem());
+
+		
+		// dates
+		
 		assertContains(item.getDates());
 		assertEquals(0, datesType.newQuery(null).search().size());
 

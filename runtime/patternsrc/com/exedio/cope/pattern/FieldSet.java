@@ -35,6 +35,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.UniqueViolationException;
+
 import java.util.List;
 
 public final class FieldSet<E> extends Pattern
@@ -118,6 +120,41 @@ public final class FieldSet<E> extends Pattern
 	private static final <P> List<P> cast(final List<?> l)
 	{
 		return (List<P>)l;
+	}
+
+	/**
+	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
+	 */
+	public boolean add(final Item item, final E element)
+	{
+		try
+		{
+			relationType.newItem(
+					Cope.mapAndCast(this.parent, item),
+					this.element.map(element)
+			);
+			return true;
+		}
+		catch(UniqueViolationException e)
+		{
+			assert uniqueConstraint==e.getFeature();
+			return false;
+		}
+	}
+
+	/**
+	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
+	 */
+	public boolean remove(final Item item, final E element)
+	{
+		final Item row = uniqueConstraint.searchUnique(item, element);
+		if(row==null)
+			return false;
+		else
+		{
+			row.deleteCopeItem();
+			return true;
+		}
 	}
 
 	public void set(final Item item, final Collection<? extends E> value)

@@ -36,6 +36,16 @@ public class FieldSetItem extends Item
 		return FieldSetItem.strings.getParents(element, FieldSetItem.class);
 	}
 	
+	public final boolean addToStrings(final String element)
+	{
+		return FieldSetItem.strings.add(this, element);
+	}
+	
+	public final boolean removeFromStrings(final String element)
+	{
+		return FieldSetItem.strings.remove(this, element);
+	}
+	
 	
 	/**
 
