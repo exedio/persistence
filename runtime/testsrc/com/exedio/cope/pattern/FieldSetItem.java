@@ -31,9 +31,9 @@ public class FieldSetItem extends Item
 	static final FieldSet<String> strings = FieldSet.newSet(new StringField().optional().lengthRange(4, 8));
 	static final FieldSet<Date> dates = FieldSet.newSet(new DateField());
 	
-	public static final List<FieldSetItem> getParentsOfStrings(final String stringsElement)
+	public static final List<FieldSetItem> getParentsOfStrings(final String element)
 	{
-		return strings.getParents(stringsElement, FieldSetItem.class);
+		return FieldSetItem.strings.getParents(element, FieldSetItem.class);
 	}
 	
 	
