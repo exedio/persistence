@@ -33,21 +33,21 @@ public class FieldListItem extends Item
 	static final FieldList<FieldListItem> items = FieldList.newList(newItemField(FieldListItem.class, CASCADE));
 
 	// TODO generate by instrumentor
-	static final List<? extends Item> getDistinctParentsOfStrings(final String element)
+	static final List<FieldListItem> getDistinctParentsOfStrings(final String element)
 	{
-		return FieldListItem.strings.getDistinctParents(element);
+		return FieldListItem.strings.getDistinctParents(element, FieldListItem.class);
 	}
 	
 	// TODO generate by instrumentor
-	static final List<? extends Item> getDistinctParentsOfDates(final Date element)
+	static final List<FieldListItem> getDistinctParentsOfDates(final Date element)
 	{
-		return FieldListItem.dates.getDistinctParents(element);
+		return FieldListItem.dates.getDistinctParents(element, FieldListItem.class);
 	}
 	
 	// TODO generate by instrumentor
-	static final List<? extends Item> getDistinctParentsOfItems(final FieldListItem element)
+	static final List<FieldListItem> getDistinctParentsOfItems(final FieldListItem element)
 	{
-		return FieldListItem.items.getDistinctParents(element);
+		return FieldListItem.items.getDistinctParents(element, FieldListItem.class);
 	}
 	
 	/**

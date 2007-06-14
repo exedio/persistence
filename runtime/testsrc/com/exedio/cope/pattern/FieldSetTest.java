@@ -277,8 +277,26 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		assertContains(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
+
+		try
+		{
+			item.strings.getParents("hallo", Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
+		try
+		{
+			item.dates.getParents(new Date(), Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
 	}
-	
 	
 	public void testMultipleItems() throws Exception
 	{

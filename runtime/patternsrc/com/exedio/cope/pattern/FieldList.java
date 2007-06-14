@@ -115,11 +115,20 @@ public final class FieldList<E> extends Pattern
 	 * even if the element is contained in this field list for an item more than once.
 	 * The order of the result is unspecified.
 	 */
-	public List<? extends Item> getDistinctParents(final E element)
+	public <P extends Item> List<P> getDistinctParents(final E element, final Class<P> parentClass)
 	{
+		if(!this.parent.getValueClass().equals(parentClass))
+			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
+		
 		final Query<? extends Item> q = new Query<Item>(this.parent, Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
-		return q.search();
+		return FieldList.<P>cast(q.search());
+	}
+	
+	@SuppressWarnings("unchecked") // OK: parent not maintained by generics
+	private static final <P> List<P> cast(final List<?> l)
+	{
+		return (List<P>)l;
 	}
 
 	public void set(final Item item, final Collection<? extends E> value)

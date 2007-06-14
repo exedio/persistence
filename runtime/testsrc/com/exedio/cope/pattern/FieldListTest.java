@@ -375,6 +375,33 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item.getDistinctParentsOfItems(null));
 		assertContains(item, item.getDistinctParentsOfItems(item));
 		assertEquals(1, itemsType.newQuery(null).search().size());
+
+		try
+		{
+			item.strings.getDistinctParents("hallo", Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
+		try
+		{
+			item.dates.getDistinctParents(new Date(), Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
+		try
+		{
+			item.items.getDistinctParents(item, Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
 	}
-	
 }
