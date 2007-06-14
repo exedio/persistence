@@ -35,6 +35,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import java.util.List;
 
 public final class FieldSet<E> extends Pattern
 {
@@ -142,6 +143,11 @@ public final class FieldSet<E> extends Pattern
 				this.element.set(toDelete.next(), toCreate.next());
 			}
 		}
+	}
+	
+	public List<? extends Item> getParents(final E element)
+	{
+		return new Query<Item>(this.parent, this.element.equal(element)).search();
 	}
 	
 	public void setAndCast(final Item item, final Collection<?> value)

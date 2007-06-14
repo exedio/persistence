@@ -40,12 +40,14 @@ public class FieldSetTest extends AbstractLibTest
 	}
 
 	FieldSetItem item;
+	FieldSetItem otherItem;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		deleteOnTearDown(item = new FieldSetItem());
+		deleteOnTearDown(otherItem = new FieldSetItem());
 	}
 	
 	public void testIt()
@@ -132,7 +134,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertTrue(!stringsType.isAssignableFrom(datesType));
 		assertTrue(!item.TYPE.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(item.TYPE));
-
+		
 		try
 		{
 			FieldSet.newSet(null);
@@ -167,6 +169,10 @@ public class FieldSetTest extends AbstractLibTest
 
 		item.setStrings(listg("hallo", "bello"));
 		assertContains("hallo", "bello", item.getStrings());
+		assertContains(item, item.getParentsOfStrings("hallo"));
+		assertContains(item, item.getParentsOfStrings("bello"));
+		assertContains(item.getParentsOfStrings("knollo"));
+		assertContains(item.getParentsOfStrings(null));
 		final Item r0;
 		final Item r1;
 		{
@@ -177,9 +183,13 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		assertEquals("hallo", r0.get(stringsElement));
 		assertEquals("bello", r1.get(stringsElement));
-
+		
 		item.setStrings(listg("bello", "knollo"));
 		assertContains("bello", "knollo", item.getStrings());
+		assertContains(item.getParentsOfStrings("hallo"));
+		assertContains(item, item.getParentsOfStrings("bello"));
+		assertContains(item, item.getParentsOfStrings("knollo"));
+		assertContains(item.getParentsOfStrings(null));
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r0, i.next());
@@ -191,6 +201,10 @@ public class FieldSetTest extends AbstractLibTest
 
 		item.setStrings(listg("knollo"));
 		assertContains("knollo", item.getStrings());
+		assertContains(item.getParentsOfStrings("hallo"));
+		assertContains(item.getParentsOfStrings("bello"));
+		assertContains(item, item.getParentsOfStrings("knollo"));
+		assertContains(item.getParentsOfStrings(null));
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r0, i.next());
@@ -217,6 +231,9 @@ public class FieldSetTest extends AbstractLibTest
 
 		item.setStrings(listg("null1", null, "null3", "null4"));
 		assertContains("null1", null, "null3", "null4", item.getStrings());
+		assertContains(item, item.getParentsOfStrings("null1"));
+		assertContains(item, item.getParentsOfStrings(null));
+		assertContains(item.getParentsOfStrings("null2"));
 		final Item r3;
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -262,4 +279,31 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals(2, datesType.newQuery(null).search().size());
 	}
 	
+	
+	public void testMultipleItems() throws Exception
+	{
+		String rot = "hellrot";
+		String blau = "blau";
+		String gelb = "gelb";
+		
+		item.setStrings(listg(rot, blau));
+		assertContains(rot, blau, item.getStrings());
+		otherItem.setStrings(listg(rot));
+		assertContains(rot, otherItem.getStrings());
+
+		assertContains(item, otherItem, item.getParentsOfStrings(rot));
+		assertContains(item, item.getParentsOfStrings(blau));
+		assertContains(item.getParentsOfStrings(gelb));
+		assertContains(item.getParentsOfStrings(null));
+		
+		item.setStrings(listg(rot, null, blau));
+		assertContains(rot, blau, null, item.getStrings());
+		otherItem.setStrings(listg((String)null));
+		assertContains(null, otherItem.getStrings());
+
+		assertContains(item, item.getParentsOfStrings(rot));
+		assertContains(item, item.getParentsOfStrings(blau));
+		assertContains(item.getParentsOfStrings(gelb));
+		assertContains(item, otherItem, item.getParentsOfStrings(null));		
+	}
 }

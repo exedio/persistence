@@ -23,12 +23,19 @@ import java.util.Date;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import java.util.List;
 
 public class FieldSetItem extends Item
 {
 
 	static final FieldSet<String> strings = FieldSet.newSet(new StringField().optional().lengthRange(4, 8));
 	static final FieldSet<Date> dates = FieldSet.newSet(new DateField());
+	
+	public static final List<? extends Item> getParentsOfStrings(final String stringsElement)
+	{
+		return strings.getParents(stringsElement);
+	}
+	
 	
 	/**
 
