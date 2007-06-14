@@ -26,7 +26,7 @@ public final class TransactionSlicer
 	private final int bitesPerSlice;
 	private final String transactionName;
 
-	private int transactionsInCurrentSlice = 0;
+	private int bits = 0;
 	private int sliceCount = 0;
 	
 	public TransactionSlicer(final Model model, final int bitesPerSlice)
@@ -41,10 +41,10 @@ public final class TransactionSlicer
 	
 	public boolean biteOff()
 	{
-		if((++transactionsInCurrentSlice)>=bitesPerSlice)
+		if((++bits)>=bitesPerSlice)
 		{
 			model.commit();
-			transactionsInCurrentSlice = 0;
+			bits = 0;
 			sliceCount++;
 			model.startTransaction(transactionName!=null ? (transactionName+"-slice"+sliceCount) : ("slice"+sliceCount));
 			return true;
