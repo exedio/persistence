@@ -108,6 +108,15 @@ public class TransactionSlicerTest extends AbstractLibTest
 		
 		try
 		{
+			new TransactionSlicer(null, 0);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertNull(e.getMessage());
+		}
+		try
+		{
 			new TransactionSlicer(model, 0);
 			fail();
 		}
