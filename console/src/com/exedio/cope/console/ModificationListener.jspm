@@ -79,7 +79,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 							{
 								final String name = commit.getTransactionName();
 							%>
-							<li><%=cop.format(commit.getTimeStamp())%><% if(name!=null){%> <%=encode(name)%><%} %> <%=commit.getModifiedItems()%></li><%
+							<li><%=cop.format(commit.getTimeStamp())%><% if(name!=null){%> <u><%=encode(name)%></u><%} %> <%=commit.getModifiedItems()%></li><%
 							}
 							%>
 						</ol><%
