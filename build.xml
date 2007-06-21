@@ -544,6 +544,7 @@
 	</target>
 	
 	<target name="console.test" depends="console.test.compile">
+		<mkdir dir="build/testresults" />
 		<junit taskname="junit" fork="yes"
 					haltonerror="true" haltonfailure="true"
 					showoutput="true" printsummary="true">
