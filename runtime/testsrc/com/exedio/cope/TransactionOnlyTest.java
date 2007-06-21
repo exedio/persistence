@@ -77,7 +77,7 @@ public class TransactionOnlyTest extends AbstractLibTest
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals( "cannot bind to closed transaction", e.getMessage() );
+			assertEquals("cannot join closed transaction " + tx.id, e.getMessage());
 		}
 		assertEquals( false, model.hasCurrentTransaction() );
 		model.startTransaction("just for tearDown");

@@ -75,7 +75,7 @@ public final class Transaction
 	{
 		if ( closed )
 		{
-			throw new IllegalStateException("cannot bind to closed transaction");
+			throw new IllegalStateException("cannot join closed transaction " + id);
 		}
 		if ( boundThread!=null && !boundThread.equals(Thread.currentThread()) )
 		{
