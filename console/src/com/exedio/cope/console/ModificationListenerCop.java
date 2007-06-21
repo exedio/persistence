@@ -30,6 +30,7 @@ import javax.servlet.http.HttpSession;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListenerCop extends ConsoleCop
@@ -126,9 +127,9 @@ final class ModificationListenerCop extends ConsoleCop
 			session.setAttribute(SESSION_KEY, this);
 		}
 		
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final String transactionName)
+		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
-			final Commit commit = new Commit(modifiedItems, transactionName);
+			final Commit commit = new Commit(modifiedItems, transaction);
 			synchronized(commits)
 			{
 				commits.add(commit);
@@ -170,9 +171,11 @@ final class ModificationListenerCop extends ConsoleCop
 	{
 		private final long timestamp = System.currentTimeMillis();
 		private final String modifiedItems;
+		final long transactionId;
 		private final String transactionName;
+		final long elapsedTime;
 		
-		Commit(final Collection<Item> modifiedItems, final String transactionName)
+		Commit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
 			final StringBuffer bf = new StringBuffer();
 			boolean first = true;
@@ -186,7 +189,9 @@ final class ModificationListenerCop extends ConsoleCop
 				bf.append(item.getCopeID());
 			}
 			this.modifiedItems = bf.toString();
-			this.transactionName = transactionName;
+			this.transactionId = transaction.getID();
+			this.transactionName = transaction.getName();
+			this.elapsedTime = timestamp - transaction.getStartDate().getTime();
 		}
 		
 		Date getTimeStamp()

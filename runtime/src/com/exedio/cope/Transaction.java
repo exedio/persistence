@@ -339,7 +339,7 @@ public final class Transaction
 					{
 						try
 						{
-							listener.onModifyingCommit(modifiedItemsUnmodifiable, name);
+							listener.onModifyingCommit(modifiedItemsUnmodifiable, this);
 						}
 						catch(RuntimeException e)
 						{

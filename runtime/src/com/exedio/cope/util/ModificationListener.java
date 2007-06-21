@@ -26,7 +26,7 @@ import com.exedio.cope.Transaction;
 public interface ModificationListener
 {
 	/**
-	 * @param transactionName the {@link Transaction#getName() name} of the committed transaction
+	 * @param transaction the committed transaction
 	 */
-	void onModifyingCommit(Collection<Item> modifiedItems, String transactionName);
+	void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction);
 }
