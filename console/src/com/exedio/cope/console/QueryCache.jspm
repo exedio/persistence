@@ -56,6 +56,10 @@ final class QueryCache_Jspm extends Console_Jspm
 			%>
 			<tr><th>Size <%=i%></th><td><%=cop.format(content.resultSizes[i])%></td></tr><%
 				}
+			%>
+			<tr><th rowspan="3">Hits</th><th>Average</th><td><%=cop.format(content.avgHits)%></td></tr>
+			<tr><th>Maximum</th><td><%=cop.format(content.maxHits)%></td></tr>
+			<tr><th>Minimum</th><td><%=cop.format(content.minHits)%></td></tr><%
 			}
 			%>
 		</table>

@@ -49,6 +49,9 @@ public class QueryCacheTest extends TestCase
 			assertEquals(-1, content.minResultSize);
 			assertEquals(-1, content.maxResultSize);
 			assertEquals(new int[]{}, content.resultSizes);
+			assertEquals(-1, content.avgHits);
+			assertEquals(-1, content.minHits);
+			assertEquals(-1, content.maxHits);
 		}
 		{
 			final CacheQueryInfo[] histogram = new CacheQueryInfo[]{
@@ -65,6 +68,9 @@ public class QueryCacheTest extends TestCase
 			assertEquals(3, content.minResultSize);
 			assertEquals(7, content.maxResultSize);
 			assertEquals(new int[]{0, 0, 0, 1, 0}, content.resultSizes);
+			assertEquals(102, content.avgHits);
+			assertEquals(101, content.minHits);
+			assertEquals(103, content.maxHits);
 		}
 		{
 			final CacheQueryInfo[] histogram = new CacheQueryInfo[]{

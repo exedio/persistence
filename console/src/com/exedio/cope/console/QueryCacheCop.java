@@ -80,6 +80,10 @@ final class QueryCacheCop extends ConsoleCop
 		final int minResultSize;
 		final int[] resultSizes;
 		
+		final int avgHits;
+		final int maxHits;
+		final int minHits;
+
 		Content(final CacheQueryInfo[] histogram, final boolean condense)
 		{
 			if(histogram.length>0)
@@ -96,6 +100,10 @@ final class QueryCacheCop extends ConsoleCop
 				int maxResultSize = 0;
 				int minResultSize = Integer.MAX_VALUE;
 				int[] resultSizes = new int[5];
+				
+				int sumHits = 0;
+				int maxHits = 0;
+				int minHits = Integer.MAX_VALUE;
 				
 				int recentUsage = 0;
 				for(final CacheQueryInfo info : histogram)
@@ -156,6 +164,13 @@ final class QueryCacheCop extends ConsoleCop
 					if(resultSize<resultSizes.length)
 						resultSizes[resultSize]++;
 					
+					final int hits = info.getHits();
+					sumHits += hits;
+					if(hits<minHits)
+						minHits = hits;
+					if(hits>maxHits)
+						maxHits = hits;
+					
 					recentUsage++;
 				}
 				
@@ -195,6 +210,10 @@ final class QueryCacheCop extends ConsoleCop
 				this.maxResultSize = maxResultSize;
 				this.minResultSize = minResultSize;
 				this.resultSizes = resultSizes;
+				
+				this.avgHits = sumHits / histogram.length;
+				this.maxHits = maxHits;
+				this.minHits = minHits;
 			}
 			else
 			{
@@ -209,6 +228,10 @@ final class QueryCacheCop extends ConsoleCop
 				this.maxResultSize = -1;
 				this.minResultSize = -1;
 				this.resultSizes = new int[0];
+				
+				this.avgHits = -1;
+				this.maxHits = -1;
+				this.minHits = -1;
 			}
 		}
 	}
