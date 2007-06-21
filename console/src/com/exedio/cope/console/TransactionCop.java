@@ -119,7 +119,10 @@ final class TransactionCop extends ConsoleCop
 				out, request, this,
 				model.getNextTransactionId(),
 				model.getLastTransactionStartDate(),
-				openTransactions, threads, threadIds, threadNames, threadPriorities, threadStates, stacktraces, model.getModificationListeners().contains(listener), commits);
+				openTransactions,
+				threads, threadIds, threadNames, threadPriorities, threadStates, stacktraces,
+				model.getModificationListeners().contains(listener),
+				commits);
 	}
 	
 	private static final ArrayList<Commit> commits = new ArrayList<Commit>();
