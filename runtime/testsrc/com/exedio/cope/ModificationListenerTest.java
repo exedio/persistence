@@ -119,6 +119,22 @@ public class ModificationListenerTest extends AbstractLibTest
 		model.commit();
 		l.assertIt(list(item3), "CommitListenerTest8");
 
+		final Transaction te = model.startTransaction("CommitListenerTestE");
+		item1.setText("item1Exception");
+		l.assertIt(null, null);
+		l.exception = true;
+		try
+		{
+			model.commit();
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("ModificationListener exception", e.getMessage());
+		}
+		l.assertIt(list(item1), "CommitListenerTestE");
+		assertTrue(te.isClosed());
+
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersRemoved());
@@ -149,6 +165,7 @@ public class ModificationListenerTest extends AbstractLibTest
 	{
 		Collection<Item> modifiedItems = null;
 		String transactionName = null;
+		boolean exception = false;
 		
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final String transactionName)
 		{
@@ -171,6 +188,12 @@ public class ModificationListenerTest extends AbstractLibTest
 			
 			this.modifiedItems = modifiedItems;
 			this.transactionName = transactionName;
+			
+			if(exception)
+			{
+				exception = false;
+				throw new NullPointerException("ModificationListener exception");
+			}
 		}
 		
 		void assertIt(final List<? extends Object> expectedItems, final String expectedTransactionName)
