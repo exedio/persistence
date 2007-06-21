@@ -336,7 +336,18 @@ public final class Transaction
 				{
 					final List<Item> modifiedItemsUnmodifiable = Collections.unmodifiableList(modifiedItems);
 					for(final ModificationListener listener : commitListeners)
-						listener.onModifyingCommit(modifiedItemsUnmodifiable, name);
+					{
+						try
+						{
+							listener.onModifyingCommit(modifiedItemsUnmodifiable, name);
+						}
+						catch(RuntimeException e)
+						{
+							System.err.println(
+									"Suppressing exception from modification listener " + listener.getClass().getName() +
+									':' + e.getClass().getName() + ' ' + e.getMessage());
+						}
+					}
 				}
 			}
 		}

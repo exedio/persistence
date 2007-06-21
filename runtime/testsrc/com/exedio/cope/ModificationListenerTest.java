@@ -123,16 +123,9 @@ public class ModificationListenerTest extends AbstractLibTest
 		item1.setText("item1Exception");
 		l.assertIt(null, null);
 		l.exception = true;
-		try
-		{
-			model.commit();
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("ModificationListener exception", e.getMessage());
-		}
+		model.commit();
 		l.assertIt(list(item1), "CommitListenerTestE");
+		assertEquals(false, l.exception);
 		assertTrue(te.isClosed());
 
 		model.removeModificationListener(l);
