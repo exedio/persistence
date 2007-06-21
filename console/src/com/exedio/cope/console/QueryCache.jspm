@@ -51,17 +51,17 @@ final class QueryCache_Jspm extends Console_Jspm
 			<tr><th rowspan="<%=content.resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=cop.format(content.avgResultSize)%></td></tr>
 			<tr><th>Maximum</th><td><%=cop.format(content.maxResultSize)%></td></tr>
 			<tr><th>Minimum</th><td><%=cop.format(content.minResultSize)%></td></tr><%
-				for(int i = 0; i<content.resultSizes.length; i++)
-				{
+			for(int i = 0; i<content.resultSizes.length; i++)
+			{
 			%>
 			<tr><th>Size <%=i%></th><td><%=cop.format(content.resultSizes[i])%></td></tr><%
-				}
+			}
 			%>
 			<tr><th rowspan="3">Hits</th><th>Average</th><td><%=cop.format(content.avgHits)%></td></tr>
 			<tr><th>Maximum</th><td><%=cop.format(content.maxHits)%></td></tr>
 			<tr><th>Minimum</th><td><%=cop.format(content.minHits)%></td></tr><%
 			}
-			%>
+		%>
 		</table>
 		<hr>
 		<% writeToggle(out, request, cop.toToggleCondense(), cop.condense); %> condense<%
