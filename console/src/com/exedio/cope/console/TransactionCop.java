@@ -19,20 +19,53 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.util.ModificationListener;
 
 final class TransactionCop extends ConsoleCop
 {
+	static final String ENABLE  = "txlistenerenable";
+	static final String DISABLE = "txlistenerdisable";
+	static final String CLEAR   = "txlistenerclear";
+
 	TransactionCop()
 	{
 		super("transactions");
 		addParameter(TAB, TAB_TRANSACTION);
+	}
+	
+	@Override
+	void initialize(final HttpServletRequest request, final Model model)
+	{
+		super.initialize(request, model);
+		
+		if("POST".equals(request.getMethod()))
+		{
+			if(request.getParameter(ENABLE)!=null && !model.getModificationListeners().contains(listener))
+			{
+				model.addModificationListener(listener);
+			}
+			else if(request.getParameter(DISABLE)!=null)
+			{
+				model.removeModificationListener(listener);
+			}
+			else if(request.getParameter(CLEAR)!=null)
+			{
+				synchronized(commits)
+				{
+					commits.clear();
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -75,11 +108,37 @@ final class TransactionCop extends ConsoleCop
 				stacktraces[i] = thread.getStackTrace();
 			}
 		}
+		
+		final Commit[] commits;
+		synchronized(this.commits)
+		{
+			commits = this.commits.toArray(new Commit[this.commits.size()]);
+		}
 
 		Transaction_Jspm.writeBody(
 				out, request, this,
 				model.getNextTransactionId(),
 				model.getLastTransactionStartDate(),
-				openTransactions, threads, threadIds, threadNames, threadPriorities, threadStates, stacktraces);
+				openTransactions, threads, threadIds, threadNames, threadPriorities, threadStates, stacktraces, model.getModificationListeners().contains(listener), commits);
 	}
+	
+	private static final ArrayList<Commit> commits = new ArrayList<Commit>();
+	
+	private static final ModificationListener listener = new ModificationListener()
+	{
+		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
+		{
+			final Commit commit = new Commit(modifiedItems, transaction);
+			synchronized(commits)
+			{
+				commits.add(commit);
+			}
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "Console ModificationListener for Committed Transactions";
+		}
+	};
 }

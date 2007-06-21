@@ -36,6 +36,10 @@ final class Transaction_Jspm extends Console_Jspm
 			{
 				font-size:80%;
 			}
+			input
+			{
+				font-size:7pt;
+			}
 		</style>
 		<script>
 			function toggleStacktrace(image,more)
@@ -68,7 +72,9 @@ final class Transaction_Jspm extends Console_Jspm
 			final String[] threadNames,
 			final int[] threadPriorities,
 			final Thread.State[] threadStates,
-			final StackTraceElement[][] stacktraces)
+			final StackTraceElement[][] stacktraces,
+			final boolean recordCommits,
+			final Commit[] commits)
 	{
 		assert openTransactions.length==threads.length;
 		assert openTransactions.length==threadIds.length;
@@ -165,6 +171,62 @@ final class Transaction_Jspm extends Console_Jspm
 			}
 		}
 		%>
+		</table>
+		<hr><%
+		writeRecordingForm(out, cop, recordCommits);
+		%>
+		<table>
+			<caption>Modifying Committed Transactions</caption><%
+		
+		if(commits.length==0)
+		{
+			%>
+			<tr><td class="text">There are no recorded modifying committed COPE transactions.</td></tr><%
+		}
+		else
+		{
+			%>
+			<tr>
+				<th>#</th>
+				<th>ID</th>
+				<th>Started</th>
+				<th>Elpsd.</th>
+				<th>Name</th>
+				<th>Modified Items</th>
+			</tr><%
+			
+			for(int n = 0; n<commits.length; n++)
+			{
+				final Commit commit = commits[n];
+			%>
+			<tr>
+				<td><%=cop.format(n)%></td>
+				<td><%=cop.format(commit.id)%></td>
+				<td><%=cop.format(commit.getStartDate())%></td>
+				<td><%=cop.format(commit.elapsed)%></td>
+				<td class="text"><%=encode(commit.name)%></td>
+				<td class="text"><%=encode(commit.modifiedItems)%></td>
+			</tr><%
+			}
+		}
+		%>
 		</table><%
+		
+		if(commits.length!=0)
+			writeRecordingForm(out, cop, recordCommits);
+	}
+	
+	private static final void writeRecordingForm(
+					final PrintStream out,
+					final TransactionCop cop,
+					final boolean recordCommits)
+	{
+		%>
+		<form action="<%=cop%>" method="POST">
+			recording: <% if(recordCommits){%>enabled<%}else{%>disabled<%}%>
+			<input type="submit" name="<%=cop.ENABLE%>"  value="enable" />
+			<input type="submit" name="<%=cop.DISABLE%>" value="disable" />
+			<input type="submit" name="<%=cop.CLEAR%>"   value="clear" />
+		</form><%
 	}
 }%>
