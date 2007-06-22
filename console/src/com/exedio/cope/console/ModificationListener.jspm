@@ -34,17 +34,22 @@ final class ModificationListener_Jspm extends Console_Jspm
 			final int clearedAfter)
 	{
 		%>
+		<table>
+			<caption>Listener Statistics</caption>
+			<tr><th>Size</td><td><%=cop.format(listeners.size())%></td></tr>
+			<tr><th>Cleared</td><td><%=cop.format(clearedBefore)%><%
+					if(clearedBefore!=clearedAfter)
+					{
+						%>/<%=cop.format(clearedAfter)%><%
+					}
+					%></td></tr>
+		</table>
+		<hr>
 		<form action="<%=cop%>" method="POST"><%
 		writeButtons(out);
 		%>
 			<table>
-				<caption>Modifying Commit Listeners</caption>
-				<tr>
-					<td class="text" colspan="4">size: <%=cop.format(listeners.size())
-						%>, cleared: <%=cop.format(clearedBefore)
-						%><% if(clearedBefore!=clearedAfter) { %>/<%=cop.format(clearedAfter)%><% }
-					%></td>
-				</tr><%
+				<caption>Modifying Commit Listeners</caption><%
 			
 			if(listeners.isEmpty())
 			{
