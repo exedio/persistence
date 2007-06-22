@@ -44,7 +44,15 @@ final class ModificationListener_Jspm extends Console_Jspm
 						%>, cleared: <%=cop.format(clearedBefore)
 						%><% if(clearedBefore!=clearedAfter) { %>/<%=cop.format(clearedAfter)%><% }
 					%></td>
-				</tr>
+				</tr><%
+			if(listeners.isEmpty())
+			{
+				%>
+				<tr><td>There are no modification listeners registered.</td></tr><%
+			}
+			else
+			{
+				%>
 				<tr>
 					<th></th>
 					<th>#</th>
@@ -104,9 +112,13 @@ final class ModificationListener_Jspm extends Console_Jspm
 					%></td>
 				</tr><%
 				}
+			}
 				%>
 			</table><%
-		writeButtons(out);
+		
+		if(!listeners.isEmpty())
+			writeButtons(out);
+		
 		%>
 		</form><%
 	}
