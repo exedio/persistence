@@ -29,9 +29,9 @@ final class ModificationListener_Jspm extends Console_Jspm
 	final static void writeBody(
 			final ModificationListenerCop cop,
 			final PrintStream out,
-			final int removedBefore,
+			final int clearedBefore,
 			final List<ModificationListener> listeners,
-			final int removedAfter)
+			final int clearedAfter)
 	{
 		%>
 		<form action="<%=cop%>" method="POST"><%
@@ -41,8 +41,8 @@ final class ModificationListener_Jspm extends Console_Jspm
 				<caption>Modifying Commit Listeners</caption>
 				<tr>
 					<td class="text" colspan="4">size: <%=cop.format(listeners.size())
-						%>, removed: <%=cop.format(removedBefore)
-						%><% if(removedBefore!=removedAfter) { %>/<%=cop.format(removedAfter)%><% }
+						%>, cleared: <%=cop.format(clearedBefore)
+						%><% if(clearedBefore!=clearedAfter) { %>/<%=cop.format(clearedAfter)%><% }
 					%></td>
 				</tr>
 				<tr>

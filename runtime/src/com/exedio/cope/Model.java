@@ -58,7 +58,7 @@ public final class Model
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
 	private final Date initializeDate;
 	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
-	private int modificationListenersRemoved = 0;
+	private int modificationListenersCleared = 0;
 
 	// set by connect
 	private Properties propertiesIfConnected;
@@ -696,31 +696,40 @@ public final class Model
 			
 			// make a copy to avoid ConcurrentModificationViolations
 			final ArrayList<ModificationListener> result = new ArrayList<ModificationListener>(size);
-			int removed = 0;
+			int cleared = 0;
 			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
 			{
 				final ModificationListener listener = i.next().get();
 				if(listener==null)
 				{
 					i.remove();
-					removed++;
+					cleared++;
 				}
 				else
 					result.add(listener);
 			}
 			
-			if(removed>0)
-				this.modificationListenersRemoved += removed;
+			if(cleared>0)
+				this.modificationListenersCleared += cleared;
 			
 			return Collections.unmodifiableList(result);
 		}
 	}
 	
+	/**
+	 * @deprecated Use {@link #getModificationListenersCleared()} instead
+	 */
+	@Deprecated
 	public int getModificationListenersRemoved()
+	{
+		return getModificationListenersCleared();
+	}
+
+	public int getModificationListenersCleared()
 	{
 		synchronized(modificationListeners)
 		{
-			return modificationListenersRemoved;
+			return modificationListenersCleared;
 		}
 	}
 	
@@ -743,20 +752,20 @@ public final class Model
 
 		synchronized(modificationListeners)
 		{
-			int removed = 0;
+			int cleared = 0;
 			for(final Iterator<WeakReference<ModificationListener>> i = modificationListeners.iterator(); i.hasNext(); )
 			{
 				final ModificationListener l = i.next().get();
 				if(l==null)
 				{
 					i.remove();
-					removed++;
+					cleared++;
 				}
 				else if(l==listener)
 					i.remove();
 			}
-			if(removed>0)
-				this.modificationListenersRemoved += removed;
+			if(cleared>0)
+				this.modificationListenersCleared += cleared;
 		}
 	}
 	

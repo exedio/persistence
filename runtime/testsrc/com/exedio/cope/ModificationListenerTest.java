@@ -35,11 +35,11 @@ public class ModificationListenerTest extends AbstractLibTest
 	public void testCommitListener()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(0, model.getModificationListenersCleared());
 
 		model.addModificationListener(l);
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(0, model.getModificationListenersCleared());
 
 		try
 		{
@@ -51,7 +51,7 @@ public class ModificationListenerTest extends AbstractLibTest
 			assertEquals("listener must not be null", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(0, model.getModificationListenersCleared());
 		
 		try
 		{
@@ -63,7 +63,7 @@ public class ModificationListenerTest extends AbstractLibTest
 			assertEquals("listener must not be null", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(0, model.getModificationListenersCleared());
 		
 		final MatchItem item1 = new MatchItem("item1");
 		deleteOnTearDown(item1);
@@ -130,26 +130,26 @@ public class ModificationListenerTest extends AbstractLibTest
 
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
-		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(0, model.getModificationListenersCleared());
 
 		// test weakness
 		model.addModificationListener(new FailModificationListener());
 		assertEquals(1, model.getModificationListeners().size());
-		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(0, model.getModificationListenersCleared());
 		
 		System.gc();
-		assertEquals(0, model.getModificationListenersRemoved());
+		assertEquals(0, model.getModificationListenersCleared());
 		assertEquals(list(), model.getModificationListeners());
-		assertEquals(1, model.getModificationListenersRemoved());
+		assertEquals(1, model.getModificationListenersCleared());
 
 		final FailModificationListener l2 = new FailModificationListener();
 		model.addModificationListener(l2);
 		model.addModificationListener(new FailModificationListener());
 		System.gc();
 		model.removeModificationListener(l2);
-		assertEquals(2, model.getModificationListenersRemoved());
+		assertEquals(2, model.getModificationListenersCleared());
 		assertEquals(list(), model.getModificationListeners());
-		assertEquals(2, model.getModificationListenersRemoved());
+		assertEquals(2, model.getModificationListenersCleared());
 		
 		model.startTransaction("CommitListenerTestX");
 	}

@@ -73,9 +73,9 @@ final class ModificationListenerCop extends ConsoleCop
 		}
 		
 		ModificationListener_Jspm.writeBody(this, out,
-				model.getModificationListenersRemoved(),
+				model.getModificationListenersCleared(),
 				model.getModificationListeners(),
-				model.getModificationListenersRemoved());
+				model.getModificationListenersCleared());
 
 		/*model.addModificationListener(new ModificationListener()
 		{
