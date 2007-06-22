@@ -126,7 +126,6 @@ public class ModificationListenerTest extends AbstractLibTest
 		model.commit();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		assertTrue(te.isClosed());
 
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
@@ -165,6 +164,7 @@ public class ModificationListenerTest extends AbstractLibTest
 			assertTrue(modifiedItems!=null);
 			assertTrue(!modifiedItems.isEmpty());
 			assertUnmodifiable(modifiedItems);
+			assertTrue(transaction.isClosed());
 			
 			assertTrue(this.modifiedItems==null);
 			assertTrue(this.transaction==null);
