@@ -71,7 +71,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			// fine
+			assertEquals("conditions must not be null", e.getMessage());
 		}
 		try
 		{
@@ -80,7 +80,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			// fine
+			assertEquals(null/*TODO*/, e.getMessage());
 		}
 		try
 		{
@@ -89,7 +89,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			// fine
+			assertEquals("conditions must not be null", e.getMessage());
 		}
 		try
 		{
@@ -98,7 +98,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			// fine
+			assertEquals(null/*TODO*/, e.getMessage());
 		}
 		try
 		{
@@ -176,5 +176,4 @@ public class SearchTest extends TestmodelTest
 		assertDelete(item2);
 		assertDelete(someItem);
 	}
-	
 }
