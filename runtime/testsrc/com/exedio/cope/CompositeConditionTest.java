@@ -32,6 +32,10 @@ public class CompositeConditionTest extends CopeAssert
 	
 	public void testIt()
 	{
+		final Condition c1 = CompareConditionItem.doublex.equal(1d);
+		final Condition c2 = CompareConditionItem.doublex.equal(2d);
+		final Condition c3 = CompareConditionItem.doublex.equal(3d);
+		
 		try
 		{
 			Cope.and((Condition[])null);
@@ -104,5 +108,32 @@ public class CompositeConditionTest extends CopeAssert
 		{
 			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
+		
+		// test flattening of CompositeCondition
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2, c3}),
+				c1.and(c2).and(c3));
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2, c3}),
+				c1.and(c2.and(c3)));
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2, c3}),
+				c1.or(c2).or(c3));
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2, c3}),
+				c1.or(c2.or(c3)));
+
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2}), c3}),
+				c1.or(c2).and(c3));
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c2, c3})}),
+				c1.and(c2.or(c3)));
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2}), c3}),
+				c1.and(c2).or(c3));
+		assertEquals(
+				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c2, c3})}),
+				c1.or(c2.and(c3)));
 	}
 }
