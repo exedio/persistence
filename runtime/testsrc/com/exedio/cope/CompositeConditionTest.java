@@ -185,4 +185,17 @@ public class CompositeConditionTest extends CopeAssert
 				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c2, c3})}),
 				c1.or(c2.and(c3)));
 	}
+	
+	public void testNot()
+	{
+		try
+		{
+			new NotCondition(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertNull(e.getMessage());
+		}
+	}
 }
