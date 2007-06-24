@@ -57,7 +57,7 @@ public class QueryTest extends AbstractLibTest
 		assertEquals(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
 
-		// test folding of CompositeCondition
+		// test flattening of CompositeCondition
 		assertEquals(
 				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2, c3}),
 				c1.and(c2).and(c3));
