@@ -38,6 +38,15 @@ public class CompositeConditionTest extends CopeAssert
 		
 		try
 		{
+			new CompositeCondition(null, (Condition[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("operator must not be null", e.getMessage());
+		}
+		try
+		{
 			Cope.and((Condition[])null);
 			fail();
 		}
@@ -107,6 +116,42 @@ public class CompositeConditionTest extends CopeAssert
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("composite condition must have at least one subcondition", e.getMessage());
+		}
+		try
+		{
+			Cope.and(new Condition[]{null});
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("condition 0 must not be null", e.getMessage());
+		}
+		try
+		{
+			Cope.and(listg((Condition)null));
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("condition 0 must not be null", e.getMessage());
+		}
+		try
+		{
+			Cope.or(new Condition[]{null});
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("condition 0 must not be null", e.getMessage());
+		}
+		try
+		{
+			Cope.or(listg((Condition)null));
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("condition 0 must not be null", e.getMessage());
 		}
 		
 		// test flattening of CompositeCondition
