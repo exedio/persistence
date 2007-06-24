@@ -188,6 +188,7 @@ public class CompositeConditionTest extends CopeAssert
 	
 	public void testNot()
 	{
+		final Condition c1 = CompareConditionItem.doublex.equal(1d);
 		try
 		{
 			new NotCondition(null);
@@ -197,5 +198,7 @@ public class CompositeConditionTest extends CopeAssert
 		{
 			assertNull(e.getMessage());
 		}
+		assertEquals(new NotCondition(c1), c1.not());
+		assertEquals(new NotCondition(new NotCondition(c1)), c1.not().not());
 	}
 }
