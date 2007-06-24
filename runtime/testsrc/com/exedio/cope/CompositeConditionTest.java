@@ -153,6 +153,10 @@ public class CompositeConditionTest extends CopeAssert
 		{
 			assertEquals("condition 0 must not be null", e.getMessage());
 		}
+
+		// test composites with a single subcondition
+		assertEquals(new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1}), Cope.and(new Condition[]{c1}));
+		assertEquals(new CompositeCondition(CompositeCondition.Operator.OR,  new Condition[]{c1}), Cope.or(new Condition[]{c1}));
 		
 		// test flattening of CompositeCondition
 		assertEquals(
