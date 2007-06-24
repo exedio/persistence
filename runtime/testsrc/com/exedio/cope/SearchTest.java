@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 
@@ -62,79 +59,6 @@ public class SearchTest extends TestmodelTest
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
-		}
-		
-		try
-		{
-			Cope.and((Condition[])null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("conditions must not be null", e.getMessage());
-		}
-		try
-		{
-			Cope.and((List<Condition>)null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals(null/*TODO*/, e.getMessage());
-		}
-		try
-		{
-			Cope.or((Condition[])null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals("conditions must not be null", e.getMessage());
-		}
-		try
-		{
-			Cope.or((List<Condition>)null);
-			fail();
-		}
-		catch(NullPointerException e)
-		{
-			assertEquals(null/*TODO*/, e.getMessage());
-		}
-		try
-		{
-			Cope.and(new Condition[0]);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
-		}
-		try
-		{
-			Cope.and(Collections.<Condition>emptyList());
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
-		}
-		try
-		{
-			Cope.or(new Condition[0]);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
-		}
-		try
-		{
-			Cope.or(Collections.<Condition>emptyList());
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("composite condition must have at least one subcondition", e.getMessage());
 		}
 
 		final EmptyItem someItem = new EmptyItem();
