@@ -245,6 +245,63 @@ public class FieldListLimitedTest extends AbstractLibTest
 		assertEquals(null, item3.get(string2));
 		assertEquals(null, item3.get(string3));
 		assertEquals(null, item3.get(string4));
+
+		// TODO return Condition.FALSE instead
+		try
+		{
+			item.nums.equal(listg(i1, i2, i3, i4));
+			fail();
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			assertEquals("3", e.getMessage());
+		}
+		try
+		{
+			item.dates.equal(listg(ts1, ts2, ts1));
+			fail();
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			assertEquals("2", e.getMessage());
+		}
+		try
+		{
+			item.strings.equal(listg("one", "two", "three", "four", "five"));
+			fail();
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			assertEquals("4", e.getMessage());
+		}
+		// TODO return Condition.TRUE instead
+		try
+		{
+			item.nums.notEqual(listg(i1, i2, i3, i4));
+			fail();
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			assertEquals("3", e.getMessage());
+		}
+		try
+		{
+			item.dates.notEqual(listg(ts1, ts2, ts1));
+			fail();
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			assertEquals("2", e.getMessage());
+		}
+		try
+		{
+			item.strings.notEqual(listg("one", "two", "three", "four", "five"));
+			fail();
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			assertEquals("4", e.getMessage());
+		}
 	}
 	
 	private final DateField assertDate(final Iterator i, final int num)
