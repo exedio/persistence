@@ -43,34 +43,14 @@ public abstract class Cope
 		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.NotEqual, function, value) : new IsNullCondition<E>(function, true);
 	}
 	
-	public static final Condition and(final Condition condition1, final Condition condition2)
-	{
-		return composite(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2});
-	}
-	
-	public static final Condition and(final Condition condition1, final Condition condition2, final Condition condition3)
-	{
-		return composite(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2, condition3});
-	}
-	
 	public static final Condition and(final List<? extends Condition> conditions)
 	{
 		return composite(CompositeCondition.Operator.AND, conditions);
 	}
 	
-	public static final Condition and(final Condition[] conditions)
+	public static final Condition and(final Condition... conditions)
 	{
 		return composite(CompositeCondition.Operator.AND, conditions);
-	}
-	
-	public static final Condition or(final Condition condition1, final Condition condition2)
-	{
-		return composite(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2});
-	}
-	
-	public static final Condition or(final Condition condition1, final Condition condition2, final Condition condition3)
-	{
-		return composite(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2, condition3});
 	}
 	
 	public static final Condition or(final List<? extends Condition> conditions)
@@ -78,7 +58,7 @@ public abstract class Cope
 		return composite(CompositeCondition.Operator.OR, conditions);
 	}
 	
-	public static final Condition or(final Condition[] conditions)
+	public static final Condition or(final Condition... conditions)
 	{
 		return composite(CompositeCondition.Operator.OR, conditions);
 	}

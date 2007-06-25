@@ -39,7 +39,7 @@ public final class CompositeCondition extends Condition
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.length==0</tt>
 	 */
-	public CompositeCondition(final Operator operator, final Condition[] conditions)
+	public CompositeCondition(final Operator operator, final Condition... conditions)
 	{
 		if(operator==null)
 			throw new NullPointerException("operator must not be null");

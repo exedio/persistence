@@ -103,7 +103,7 @@ public class CompositeConditionTest extends CopeAssert
 		assertSame(FALSE, Cope.or(Collections.<Condition>emptyList()));
 		try
 		{
-			new CompositeCondition(AND, new Condition[0]);
+			new CompositeCondition(AND);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -121,7 +121,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, new Condition[0]);
+			new CompositeCondition(OR);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -157,7 +157,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, new Condition[]{null});
+			new CompositeCondition(OR, (Condition)null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -175,7 +175,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND, new Condition[]{Condition.TRUE});
+			new CompositeCondition(AND, Condition.TRUE);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -193,7 +193,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, new Condition[]{Condition.TRUE});
+			new CompositeCondition(OR, Condition.TRUE);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -218,29 +218,29 @@ public class CompositeConditionTest extends CopeAssert
 		
 		// test flattening of CompositeCondition
 		assertEquals(
-				new CompositeCondition(AND, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(AND, c1, c2, c3),
 				c1.and(c2).and(c3));
 		assertEquals(
-				new CompositeCondition(AND, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(AND, c1, c2, c3),
 				c1.and(c2.and(c3)));
 		assertEquals(
-				new CompositeCondition(OR, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(OR,  c1, c2, c3),
 				c1.or(c2).or(c3));
 		assertEquals(
-				new CompositeCondition(OR, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(OR,  c1, c2, c3),
 				c1.or(c2.or(c3)));
 
 		assertEquals(
-				new CompositeCondition(AND, new Condition[]{new CompositeCondition(OR, new Condition[]{c1, c2}), c3}),
+				new CompositeCondition(AND, new CompositeCondition(OR, c1, c2), c3),
 				c1.or(c2).and(c3));
 		assertEquals(
-				new CompositeCondition(AND, new Condition[]{c1, new CompositeCondition(OR, new Condition[]{c2, c3})}),
+				new CompositeCondition(AND, c1, new CompositeCondition(OR, c2, c3)),
 				c1.and(c2.or(c3)));
 		assertEquals(
-				new CompositeCondition(OR, new Condition[]{new CompositeCondition(AND, new Condition[]{c1, c2}), c3}),
+				new CompositeCondition(OR,  new CompositeCondition(AND, c1, c2), c3),
 				c1.and(c2).or(c3));
 		assertEquals(
-				new CompositeCondition(OR, new Condition[]{c1, new CompositeCondition(AND, new Condition[]{c2, c3})}),
+				new CompositeCondition(OR,  c1, new CompositeCondition(AND, c2, c3)),
 				c1.or(c2.and(c3)));
 	}
 	
@@ -295,9 +295,9 @@ public class CompositeConditionTest extends CopeAssert
 		// Cope.and/or
 		assertSame(c1, Cope.and(c1, TRUE));
 		assertSame(c1, Cope.and(TRUE, c1));
-		assertEquals(new CompositeCondition(AND, new Condition[]{c1, c2}), Cope.and(TRUE, c1, c2));
-		assertEquals(new CompositeCondition(AND, new Condition[]{c1, c2}), Cope.and(c1, TRUE, c2));
-		assertEquals(new CompositeCondition(AND, new Condition[]{c1, c2}), Cope.and(c1, c2, TRUE));
+		assertEquals(new CompositeCondition(AND, c1, c2), Cope.and(TRUE, c1, c2));
+		assertEquals(new CompositeCondition(AND, c1, c2), Cope.and(c1, TRUE, c2));
+		assertEquals(new CompositeCondition(AND, c1, c2), Cope.and(c1, c2, TRUE));
 		assertSame(c1, Cope.and(TRUE, TRUE, c1));
 		assertSame(c1, Cope.and(TRUE, c1, TRUE));
 		assertSame(c1, Cope.and(c1, TRUE, TRUE));
@@ -305,9 +305,9 @@ public class CompositeConditionTest extends CopeAssert
 
 		assertSame(c1, Cope.or(c1, FALSE));
 		assertSame(c1, Cope.or(FALSE, c1));
-		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), Cope.or(FALSE, c1, c2));
-		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), Cope.or(c1, FALSE, c2));
-		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), Cope.or(c1, c2, FALSE));
+		assertEquals(new CompositeCondition(OR, c1, c2), Cope.or(FALSE, c1, c2));
+		assertEquals(new CompositeCondition(OR, c1, c2), Cope.or(c1, FALSE, c2));
+		assertEquals(new CompositeCondition(OR, c1, c2), Cope.or(c1, c2, FALSE));
 		assertSame(c1, Cope.or(FALSE, FALSE, c1));
 		assertSame(c1, Cope.or(FALSE, c1, FALSE));
 		assertSame(c1, Cope.or(c1, FALSE, FALSE));
@@ -337,7 +337,7 @@ public class CompositeConditionTest extends CopeAssert
 		assertSame(TRUE,  Cope.or(FALSE, TRUE, FALSE));
 		
 		// Function.in
-		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), CompareConditionItem.doublex.in(listg(1.0, 2.0)));
+		assertEquals(new CompositeCondition(OR, c1, c2), CompareConditionItem.doublex.in(listg(1.0, 2.0)));
 		assertEquals(c1, CompareConditionItem.doublex.in(listg(1.0)));
 		assertEquals(c2, CompareConditionItem.doublex.in(listg(2.0)));
 		assertSame(FALSE, CompareConditionItem.doublex.in(CopeAssert.<Double>listg()));
