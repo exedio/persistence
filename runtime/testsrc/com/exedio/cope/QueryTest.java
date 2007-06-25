@@ -22,6 +22,9 @@ import com.exedio.cope.util.Day;
 
 public class QueryTest extends AbstractLibTest
 {
+	private static final Condition TRUE  = Condition.TRUE;
+	private static final Condition FALSE = Condition.FALSE;
+
 	public QueryTest()
 	{
 		super(DayFieldTest.MODEL);
@@ -55,5 +58,48 @@ public class QueryTest extends AbstractLibTest
 		assertFalse(c1.equals(c2));
 		assertEquals(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
+	}
+	
+	public void testLiterals()
+	{
+		final Condition c1 = DayItem.day.equal(d1);
+		final Condition c2 = DayItem.day.equal(d2);
+		{
+			final Query q = DayItem.TYPE.newQuery(TRUE);
+			assertSame(null, q.getCondition());
+	
+			model.getCurrentTransaction().setQueryInfoEnabled(true);
+			assertContains(q.search());
+			assertTrue(model.getCurrentTransaction().getQueryInfos().get(0).getText().startsWith("select "));
+			
+			q.narrow(c1);
+			assertSame(c1, q.getCondition());
+			
+			q.narrow(c2);
+			assertEquals(c1.and(c2), q.getCondition());
+			
+			q.narrow(FALSE);
+			assertSame(FALSE, q.getCondition());
+			
+			q.narrow(c1);
+			assertSame(FALSE, q.getCondition());
+		}
+		{
+			final Query q = DayItem.TYPE.newQuery(FALSE);
+			assertSame(FALSE, q.getCondition());
+	
+			model.getCurrentTransaction().setQueryInfoEnabled(true);
+			assertContains(q.search());
+			assertEquals("skipped search because condition==false", model.getCurrentTransaction().getQueryInfos().get(0).getText());
+			
+			q.setCondition(TRUE);
+			assertSame(null, q.getCondition());
+			
+			q.setCondition(c1);
+			assertSame(c1, q.getCondition());
+			
+			q.setCondition(FALSE);
+			assertSame(FALSE, q.getCondition());
+		}
 	}
 }

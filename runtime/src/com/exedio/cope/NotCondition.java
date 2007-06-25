@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public final class NotCondition extends Condition
 {
-	private final Condition argument;
+	final Condition argument;
 
 	/**
 	 * Creates a new NotCondition.
@@ -34,6 +34,8 @@ public final class NotCondition extends Condition
 	{
 		if(argument==null)
 			throw new NullPointerException();
+		if(argument instanceof Literal)
+			throw new IllegalArgumentException("argument must not be a literal");
 		
 		this.argument = argument;
 	}

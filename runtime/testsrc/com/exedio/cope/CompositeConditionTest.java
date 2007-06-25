@@ -25,6 +25,9 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeConditionTest extends CopeAssert
 {
+	private static final Condition TRUE  = Condition.TRUE;
+	private static final Condition FALSE = Condition.FALSE;
+	
 	private static final CompositeCondition.Operator AND = CompositeCondition.Operator.AND;
 	private static final CompositeCondition.Operator OR  = CompositeCondition.Operator.OR;
 	
@@ -38,6 +41,16 @@ public class CompositeConditionTest extends CopeAssert
 		final Condition c1 = CompareConditionItem.doublex.equal(1d);
 		final Condition c2 = CompareConditionItem.doublex.equal(2d);
 		final Condition c3 = CompareConditionItem.doublex.equal(3d);
+		
+		assertEquals(TRUE, TRUE);
+		assertEquals(FALSE, FALSE);
+		assertFalse(TRUE.equals(FALSE));
+		assertFalse(FALSE.equals(TRUE));
+		
+		assertFalse(TRUE.equals(c1));
+		assertFalse(c1.equals(TRUE));
+		assertFalse(FALSE.equals(c1));
+		assertFalse(c1.equals(FALSE));
 		
 		try
 		{
@@ -64,7 +77,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals(null/*TODO*/, e.getMessage());
+			assertEquals("conditions must not be null", e.getMessage());
 		}
 		try
 		{
@@ -82,11 +95,15 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals(null/*TODO*/, e.getMessage());
+			assertEquals("conditions must not be null", e.getMessage());
 		}
+		assertSame(TRUE, Cope.and(new Condition[0]));
+		assertSame(TRUE, Cope.and(Collections.<Condition>emptyList()));
+		assertSame(FALSE, Cope.or(new Condition[0]));
+		assertSame(FALSE, Cope.or(Collections.<Condition>emptyList()));
 		try
 		{
-			Cope.and(new Condition[0]);
+			new CompositeCondition(AND, new Condition[0]);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -95,7 +112,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			Cope.and(Collections.<Condition>emptyList());
+			new CompositeCondition(AND, Collections.<Condition>emptyList());
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -104,7 +121,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			Cope.or(new Condition[0]);
+			new CompositeCondition(OR, new Condition[0]);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -113,7 +130,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			Cope.or(Collections.<Condition>emptyList());
+			new CompositeCondition(OR, Collections.<Condition>emptyList());
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -131,7 +148,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			Cope.and(listg((Condition)null));
+			new CompositeCondition(AND, listg((Condition)null));
 			fail();
 		}
 		catch(NullPointerException e)
@@ -140,7 +157,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			Cope.or(new Condition[]{null});
+			new CompositeCondition(OR, new Condition[]{null});
 			fail();
 		}
 		catch(NullPointerException e)
@@ -149,19 +166,55 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			Cope.or(listg((Condition)null));
+			new CompositeCondition(OR, listg((Condition)null));
 			fail();
 		}
 		catch(NullPointerException e)
 		{
 			assertEquals("condition 0 must not be null", e.getMessage());
+		}
+		try
+		{
+			new CompositeCondition(AND, new Condition[]{Condition.TRUE});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("condition 0 must not be a literal", e.getMessage());
+		}
+		try
+		{
+			new CompositeCondition(AND, listg(Condition.TRUE));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("condition 0 must not be a literal", e.getMessage());
+		}
+		try
+		{
+			new CompositeCondition(OR, new Condition[]{Condition.TRUE});
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("condition 0 must not be a literal", e.getMessage());
+		}
+		try
+		{
+			new CompositeCondition(OR, listg(Condition.TRUE));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("condition 0 must not be a literal", e.getMessage());
 		}
 
 		// test composites with a single subcondition
-		assertEquals(new CompositeCondition(AND, new Condition[]{c1}), Cope.and(new Condition[]{c1}));
-		assertEquals(new CompositeCondition(AND, new Condition[]{c1}), Cope.and(listg(c1)));
-		assertEquals(new CompositeCondition(OR,  new Condition[]{c1}), Cope.or(new Condition[]{c1}));
-		assertEquals(new CompositeCondition(OR,  new Condition[]{c1}), Cope.or(listg(c1)));
+		assertEquals(c1, Cope.and(new Condition[]{c1}));
+		assertEquals(c1, Cope.and(listg(c1)));
+		assertEquals(c1, Cope.or(new Condition[]{c1}));
+		assertEquals(c1, Cope.or(listg(c1)));
 		
 		// test flattening of CompositeCondition
 		assertEquals(
@@ -203,7 +256,94 @@ public class CompositeConditionTest extends CopeAssert
 		{
 			assertNull(e.getMessage());
 		}
+		try
+		{
+			new NotCondition(Condition.TRUE);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("argument must not be a literal", e.getMessage());
+		}
+		assertSame(TRUE, FALSE.not());
+		assertSame(FALSE, TRUE.not());
 		assertEquals(new NotCondition(c1), c1.not());
-		assertEquals(new NotCondition(new NotCondition(c1)), c1.not().not());
+		assertSame(c1, c1.not().not());
+	}
+	
+	public void testNeutrumAbsolutum()
+	{
+		final Condition c1 = CompareConditionItem.doublex.equal(1d);
+		final Condition c2 = CompareConditionItem.doublex.equal(2d);
+
+		// Condition.and/or
+		assertSame(c1, c1.and(TRUE));
+		assertSame(c1, TRUE.and(c1));
+		assertSame(c1, c1.or(FALSE));
+		assertSame(c1, FALSE.or(c1));
+		
+		assertSame(FALSE, c1.and(FALSE));
+		assertSame(FALSE, FALSE.and(c1));
+		assertSame(TRUE,  c1.or(TRUE));
+		assertSame(TRUE,  TRUE.or(c1));
+		
+		assertSame(FALSE, TRUE.and(FALSE));
+		assertSame(FALSE, FALSE.and(TRUE));
+		assertSame(TRUE,  TRUE.or(FALSE));
+		assertSame(TRUE,  FALSE.or(TRUE));
+
+		// Cope.and/or
+		assertSame(c1, Cope.and(c1, TRUE));
+		assertSame(c1, Cope.and(TRUE, c1));
+		assertEquals(new CompositeCondition(AND, new Condition[]{c1, c2}), Cope.and(TRUE, c1, c2));
+		assertEquals(new CompositeCondition(AND, new Condition[]{c1, c2}), Cope.and(c1, TRUE, c2));
+		assertEquals(new CompositeCondition(AND, new Condition[]{c1, c2}), Cope.and(c1, c2, TRUE));
+		assertSame(c1, Cope.and(TRUE, TRUE, c1));
+		assertSame(c1, Cope.and(TRUE, c1, TRUE));
+		assertSame(c1, Cope.and(c1, TRUE, TRUE));
+		assertSame(TRUE, Cope.and(TRUE, TRUE, TRUE));
+
+		assertSame(c1, Cope.or(c1, FALSE));
+		assertSame(c1, Cope.or(FALSE, c1));
+		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), Cope.or(FALSE, c1, c2));
+		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), Cope.or(c1, FALSE, c2));
+		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), Cope.or(c1, c2, FALSE));
+		assertSame(c1, Cope.or(FALSE, FALSE, c1));
+		assertSame(c1, Cope.or(FALSE, c1, FALSE));
+		assertSame(c1, Cope.or(c1, FALSE, FALSE));
+		assertSame(FALSE, Cope.or(FALSE, FALSE, FALSE));
+
+		assertSame(FALSE, Cope.and(c1, FALSE));
+		assertSame(FALSE, Cope.and(FALSE, c1));
+		assertSame(FALSE, Cope.and(FALSE, c1, c2));
+		assertSame(FALSE, Cope.and(c1, FALSE, c2));
+		assertSame(FALSE, Cope.and(c1, c2, FALSE));
+		assertSame(FALSE, Cope.and(FALSE, FALSE, c1));
+		assertSame(FALSE, Cope.and(FALSE, c1, FALSE));
+		assertSame(FALSE, Cope.and(c1, FALSE, FALSE));
+		assertSame(FALSE, Cope.and(FALSE, FALSE, FALSE));
+
+		assertSame(TRUE, Cope.or(c1, TRUE));
+		assertSame(TRUE, Cope.or(TRUE, c1));
+		assertSame(TRUE, Cope.or(TRUE, c1, c2));
+		assertSame(TRUE, Cope.or(c1, TRUE, c2));
+		assertSame(TRUE, Cope.or(c1, c2, TRUE));
+		assertSame(TRUE, Cope.or(TRUE, TRUE, c1));
+		assertSame(TRUE, Cope.or(TRUE, c1, TRUE));
+		assertSame(TRUE, Cope.or(c1, TRUE, TRUE));
+		assertSame(TRUE, Cope.or(TRUE, TRUE, TRUE));
+
+		assertSame(FALSE, Cope.and(TRUE, FALSE, TRUE));
+		assertSame(TRUE,  Cope.or(FALSE, TRUE, FALSE));
+		
+		// Function.in
+		assertEquals(new CompositeCondition(OR, new Condition[]{c1, c2}), CompareConditionItem.doublex.in(listg(1.0, 2.0)));
+		assertEquals(c1, CompareConditionItem.doublex.in(listg(1.0)));
+		assertEquals(c2, CompareConditionItem.doublex.in(listg(2.0)));
+		assertSame(FALSE, CompareConditionItem.doublex.in(CopeAssert.<Double>listg()));
+		
+		// Condition.valueOf
+		assertSame(Condition.TRUE,  Condition.valueOf(true));
+		assertSame(Condition.FALSE, Condition.valueOf(false));
 	}
 }

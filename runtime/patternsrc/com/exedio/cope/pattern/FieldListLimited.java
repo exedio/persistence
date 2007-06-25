@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.exedio.cope.CompositeCondition;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
@@ -211,7 +210,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		return result;
 	}
 	
-	public CompositeCondition equal(final Collection<E> value)
+	public Condition equal(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
@@ -225,7 +224,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		return Cope.and(conditions);
 	}
 	
-	public CompositeCondition notEqual(final Collection<E> value)
+	public Condition notEqual(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
@@ -242,7 +241,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		return Cope.or(conditions);
 	}
 
-	public CompositeCondition contains(final E value)
+	public Condition contains(final E value)
 	{
 		final Condition[] conditions = new Condition[sources.length];
 		
@@ -251,5 +250,4 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 
 		return Cope.or(conditions);
 	}
-	
 }

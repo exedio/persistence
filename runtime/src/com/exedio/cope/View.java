@@ -233,7 +233,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		return this.bind(join).equal(value);
 	}
 	
-	public final CompositeCondition in(final Collection<E> values)
+	public final Condition in(final Collection<E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
@@ -263,7 +263,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
 	}
 	
-	public CompositeCondition between(final E lowerBound, final E upperBound)
+	public Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound)); 
 	}

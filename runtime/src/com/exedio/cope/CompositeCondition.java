@@ -48,8 +48,12 @@ public final class CompositeCondition extends Condition
 		if(conditions.length==0)
 			throw new IllegalArgumentException("composite condition must have at least one subcondition");
 		for(int i = 0; i<conditions.length; i++)
+		{
 			if(conditions[i]==null)
 				throw new NullPointerException("condition " + i + " must not be null");
+			if(conditions[i] instanceof Literal)
+				throw new IllegalArgumentException("condition " + i + " must not be a literal");
+		}
 				
 
 		this.operator = operator;
@@ -122,27 +126,39 @@ public final class CompositeCondition extends Condition
 		bf.append(')');
 	}
 
-	public static final <E> CompositeCondition in(final Function<E> function, final Collection<E> values)
+	public static final <E> Condition in(final Function<E> function, final Collection<E> values)
 	{
-		final Condition[] result = new Condition[values.size()];
+		switch(values.size())
+		{
+			case 0:
+				return FALSE;
+			case 1:
+				return function.equal(values.iterator().next());
+			default:
+				final Condition[] result = new Condition[values.size()];
 
-		int i = 0;
-		for(E value : values)
-			result[i++] = function.equal(value);
-		
-		return new CompositeCondition(Operator.OR, result);
+				int i = 0;
+				for(E value : values)
+					result[i++] = function.equal(value);
+				
+				return new CompositeCondition(Operator.OR, result);
+		}
 	}
 	
 	public static enum Operator
 	{
-		AND(" and "),
-		OR(" or ");
+		AND(" and ", FALSE, TRUE),
+		OR (" or ",  TRUE, FALSE);
 		
 		private final String sql;
+		final Condition.Literal absorber;
+		final Condition.Literal identity;
 		
-		private Operator(final String sql)
+		private Operator(final String sql, final Condition.Literal absorber, final Condition.Literal identity)
 		{
 			this.sql = sql;
+			this.absorber = absorber;
+			this.identity = identity;
 		}
 	}
 }

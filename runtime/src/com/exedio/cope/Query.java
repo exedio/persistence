@@ -53,7 +53,7 @@ public final class Query<R>
 		this.selects = new Selectable[]{select};
 		this.type = select.getType();
 		this.model = this.type.getModel();
-		this.condition = condition;
+		this.condition = replaceTrue(condition);
 	}
 	
 	public Query(final Selectable<R> select, final Type type, final Condition condition)
@@ -61,7 +61,7 @@ public final class Query<R>
 		this.model = type.getModel();
 		this.selects = new Selectable[]{select};
 		this.type = type;
-		this.condition = condition;
+		this.condition = replaceTrue(condition);
 	}
 	
 	public Query(final Selectable[] selects, final Type type, final Condition condition)
@@ -69,7 +69,7 @@ public final class Query<R>
 		this.model = type.getModel();
 		this.selects = selects;
 		this.type = type;
-		this.condition = condition;
+		this.condition = replaceTrue(condition);
 	}
 	
 	public boolean isDistinct()
@@ -89,7 +89,7 @@ public final class Query<R>
 	
 	public void setCondition(final Condition condition)
 	{
-		this.condition = condition;
+		this.condition = replaceTrue(condition);
 	}
 	
 	public Condition getCondition()
@@ -291,11 +291,11 @@ public final class Query<R>
 	{
 		final Transaction transaction = model.getCurrentTransaction();
 		
-		if(limit==0)
+		if(limit==0 || condition==Condition.FALSE)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("skipped search because limit==0"));
+				queryInfos.add(new QueryInfo("skipped search because " + (limit==0 ? "limit==0" : "condition==false")));
 			return Collections.<R>emptyList();
 		}
 		
@@ -526,5 +526,10 @@ public final class Query<R>
 	ArrayList<Object> searchUncached(final Transaction transaction, final boolean doCountOnly)
 	{
 		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly, transaction.queryInfos);
+	}
+	
+	private static final Condition replaceTrue(final Condition c)
+	{
+		return c==Condition.TRUE ? null : c;
 	}
 }

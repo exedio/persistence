@@ -43,44 +43,110 @@ public abstract class Cope
 		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.NotEqual, function, value) : new IsNullCondition<E>(function, true);
 	}
 	
-	public static final CompositeCondition and(final Condition condition1, final Condition condition2)
+	public static final Condition and(final Condition condition1, final Condition condition2)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2});
+		return composite(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2});
 	}
 	
-	public static final CompositeCondition and(final Condition condition1, final Condition condition2, final Condition condition3)
+	public static final Condition and(final Condition condition1, final Condition condition2, final Condition condition3)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2, condition3});
+		return composite(CompositeCondition.Operator.AND, new Condition[]{condition1, condition2, condition3});
 	}
 	
-	public static final CompositeCondition and(final List<? extends Condition> conditions)
+	public static final Condition and(final List<? extends Condition> conditions)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.AND, conditions);
+		return composite(CompositeCondition.Operator.AND, conditions);
 	}
 	
-	public static final CompositeCondition and(final Condition[] conditions)
+	public static final Condition and(final Condition[] conditions)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.AND, conditions);
+		return composite(CompositeCondition.Operator.AND, conditions);
 	}
 	
-	public static final CompositeCondition or(final Condition condition1, final Condition condition2)
+	public static final Condition or(final Condition condition1, final Condition condition2)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2});
+		return composite(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2});
 	}
 	
-	public static final CompositeCondition or(final Condition condition1, final Condition condition2, final Condition condition3)
+	public static final Condition or(final Condition condition1, final Condition condition2, final Condition condition3)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2, condition3});
+		return composite(CompositeCondition.Operator.OR, new Condition[]{condition1, condition2, condition3});
 	}
 	
-	public static final CompositeCondition or(final List<? extends Condition> conditions)
+	public static final Condition or(final List<? extends Condition> conditions)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.OR, conditions);
+		return composite(CompositeCondition.Operator.OR, conditions);
 	}
 	
-	public static final CompositeCondition or(final Condition[] conditions)
+	public static final Condition or(final Condition[] conditions)
 	{
-		return new CompositeCondition(CompositeCondition.Operator.OR, conditions);
+		return composite(CompositeCondition.Operator.OR, conditions);
+	}
+	
+	private static final Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
+	{
+		if(conditions==null)
+			throw new NullPointerException("conditions must not be null");
+
+		switch(conditions.size())
+		{
+			case 0:
+				return operator.identity;
+			case 1:
+				return conditions.get(0);
+			default:
+				return new CompositeCondition(operator, conditions);
+		}
+	}
+	
+	private static final Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
+	{
+		if(conditions==null)
+			throw new NullPointerException("conditions must not be null");
+		
+		int filtered = 0;
+		
+		for(int i = 0; i<conditions.length; i++)
+		{
+			final Condition c = conditions[i];
+			if(c==null)
+				throw new NullPointerException("condition " + i + " must not be null");
+
+			if(c instanceof Condition.Literal)
+			{
+				if(operator.absorber==c)
+					return c;
+				else
+					filtered++;
+			}
+		}
+
+		final Condition[] filteredConditions;
+		if(filtered==0)
+		{
+			filteredConditions = conditions;
+		}
+		else
+		{
+			filteredConditions = new Condition[conditions.length-filtered];
+
+			int j = 0;
+			for(final Condition c : conditions)
+				if(operator.identity!=c)
+					filteredConditions[j++] = c;
+			
+			assert j==filteredConditions.length;
+		}
+		
+		switch(filteredConditions.length)
+		{
+			case 0:
+				return operator.identity;
+			case 1:
+				return filteredConditions[0];
+			default:
+				return new CompositeCondition(operator, filteredConditions);
+		}
 	}
 	
 	public static final PlusView plus(final IntegerFunction addend1, final IntegerFunction addend2)
