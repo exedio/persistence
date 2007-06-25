@@ -60,6 +60,7 @@ public interface Function<E> extends Selectable<E>
 	Condition equal(E value);
 	
 	Condition equal(Join join, E value);
+	Condition in(E... values);
 	Condition in(Collection<E> value);
 	Condition notEqual(E value);
 

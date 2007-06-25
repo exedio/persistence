@@ -281,6 +281,11 @@ public abstract class FunctionField<E extends Object>
 		return this.bind(join).equal(value);
 	}
 	
+	public final Condition in(final E... values)
+	{
+		return CompositeCondition.in(this, values);
+	}
+	
 	public final Condition in(final Collection<E> values)
 	{
 		return CompositeCondition.in(this, values);

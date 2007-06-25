@@ -126,6 +126,25 @@ public final class CompositeCondition extends Condition
 		bf.append(')');
 	}
 
+	public static final <E> Condition in(final Function<E> function, final E... values)
+	{
+		switch(values.length)
+		{
+			case 0:
+				return FALSE;
+			case 1:
+				return function.equal(values[0]);
+			default:
+				final Condition[] result = new Condition[values.length];
+
+				int i = 0;
+				for(E value : values)
+					result[i++] = function.equal(value);
+				
+				return new CompositeCondition(Operator.OR, result);
+		}
+	}
+
 	public static final <E> Condition in(final Function<E> function, final Collection<E> values)
 	{
 		switch(values.size())

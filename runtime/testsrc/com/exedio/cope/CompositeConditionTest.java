@@ -321,9 +321,13 @@ public class CompositeConditionTest extends CopeAssert
 		assertSame(TRUE,  Cope.or(FALSE, TRUE, FALSE));
 		
 		// Function.in
+		assertEquals(new CompositeCondition(OR, c1, c2), CompareConditionItem.doublex.in(1.0, 2.0));
 		assertEquals(new CompositeCondition(OR, c1, c2), CompareConditionItem.doublex.in(listg(1.0, 2.0)));
+		assertEquals(c1, CompareConditionItem.doublex.in(1.0));
 		assertEquals(c1, CompareConditionItem.doublex.in(listg(1.0)));
+		assertEquals(c2, CompareConditionItem.doublex.in(2.0));
 		assertEquals(c2, CompareConditionItem.doublex.in(listg(2.0)));
+		assertSame(FALSE, CompareConditionItem.doublex.in());
 		assertSame(FALSE, CompareConditionItem.doublex.in(CopeAssert.<Double>listg()));
 		
 		// Condition.valueOf
