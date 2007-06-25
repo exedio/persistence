@@ -217,31 +217,15 @@ public class CompositeConditionTest extends CopeAssert
 		assertEquals(c1, Cope.or(listg(c1)));
 		
 		// test flattening of CompositeCondition
-		assertEquals(
-				new CompositeCondition(AND, c1, c2, c3),
-				c1.and(c2).and(c3));
-		assertEquals(
-				new CompositeCondition(AND, c1, c2, c3),
-				c1.and(c2.and(c3)));
-		assertEquals(
-				new CompositeCondition(OR,  c1, c2, c3),
-				c1.or(c2).or(c3));
-		assertEquals(
-				new CompositeCondition(OR,  c1, c2, c3),
-				c1.or(c2.or(c3)));
+		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
+		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2.and(c3)));
+		assertEquals(new CompositeCondition(OR,  c1, c2, c3), c1.or(c2).or(c3));
+		assertEquals(new CompositeCondition(OR,  c1, c2, c3), c1.or(c2.or(c3)));
 
-		assertEquals(
-				new CompositeCondition(AND, new CompositeCondition(OR, c1, c2), c3),
-				c1.or(c2).and(c3));
-		assertEquals(
-				new CompositeCondition(AND, c1, new CompositeCondition(OR, c2, c3)),
-				c1.and(c2.or(c3)));
-		assertEquals(
-				new CompositeCondition(OR,  new CompositeCondition(AND, c1, c2), c3),
-				c1.and(c2).or(c3));
-		assertEquals(
-				new CompositeCondition(OR,  c1, new CompositeCondition(AND, c2, c3)),
-				c1.or(c2.and(c3)));
+		assertEquals(new CompositeCondition(AND, new CompositeCondition(OR,  c1, c2), c3), c1.or(c2).and(c3));
+		assertEquals(new CompositeCondition(AND, c1, new CompositeCondition(OR,  c2, c3)), c1.and(c2.or(c3)));
+		assertEquals(new CompositeCondition(OR,  new CompositeCondition(AND, c1, c2), c3), c1.and(c2).or(c3));
+		assertEquals(new CompositeCondition(OR,  c1, new CompositeCondition(AND, c2, c3)), c1.or(c2.and(c3)));
 	}
 	
 	public void testNot()
