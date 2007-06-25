@@ -25,6 +25,9 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeConditionTest extends CopeAssert
 {
+	private static final CompositeCondition.Operator AND = CompositeCondition.Operator.AND;
+	private static final CompositeCondition.Operator OR  = CompositeCondition.Operator.OR;
+	
 	public CompositeConditionTest()
 	{
 		super();
@@ -155,36 +158,36 @@ public class CompositeConditionTest extends CopeAssert
 		}
 
 		// test composites with a single subcondition
-		assertEquals(new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1}), Cope.and(new Condition[]{c1}));
-		assertEquals(new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1}), Cope.and(listg(c1)));
-		assertEquals(new CompositeCondition(CompositeCondition.Operator.OR,  new Condition[]{c1}), Cope.or(new Condition[]{c1}));
-		assertEquals(new CompositeCondition(CompositeCondition.Operator.OR,  new Condition[]{c1}), Cope.or(listg(c1)));
+		assertEquals(new CompositeCondition(AND, new Condition[]{c1}), Cope.and(new Condition[]{c1}));
+		assertEquals(new CompositeCondition(AND, new Condition[]{c1}), Cope.and(listg(c1)));
+		assertEquals(new CompositeCondition(OR,  new Condition[]{c1}), Cope.or(new Condition[]{c1}));
+		assertEquals(new CompositeCondition(OR,  new Condition[]{c1}), Cope.or(listg(c1)));
 		
 		// test flattening of CompositeCondition
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(AND, new Condition[]{c1, c2, c3}),
 				c1.and(c2).and(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(AND, new Condition[]{c1, c2, c3}),
 				c1.and(c2.and(c3)));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(OR, new Condition[]{c1, c2, c3}),
 				c1.or(c2).or(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2, c3}),
+				new CompositeCondition(OR, new Condition[]{c1, c2, c3}),
 				c1.or(c2.or(c3)));
 
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, c2}), c3}),
+				new CompositeCondition(AND, new Condition[]{new CompositeCondition(OR, new Condition[]{c1, c2}), c3}),
 				c1.or(c2).and(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c2, c3})}),
+				new CompositeCondition(AND, new Condition[]{c1, new CompositeCondition(OR, new Condition[]{c2, c3})}),
 				c1.and(c2.or(c3)));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c1, c2}), c3}),
+				new CompositeCondition(OR, new Condition[]{new CompositeCondition(AND, new Condition[]{c1, c2}), c3}),
 				c1.and(c2).or(c3));
 		assertEquals(
-				new CompositeCondition(CompositeCondition.Operator.OR, new Condition[]{c1, new CompositeCondition(CompositeCondition.Operator.AND, new Condition[]{c2, c3})}),
+				new CompositeCondition(OR, new Condition[]{c1, new CompositeCondition(AND, new Condition[]{c2, c3})}),
 				c1.or(c2.and(c3)));
 	}
 	
