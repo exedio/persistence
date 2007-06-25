@@ -64,7 +64,7 @@ final class Migration_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Migrations</caption>
-			<tr><th>revision</th><th>declared</th><th>logged</th></tr><%
+			<tr><th>rev.</th><th>declared</th><th>logged</th></tr><%
 			for(int v = latest; v>=oldest; v--)
 			{
 				final Migration migration = migrations.get(v);
@@ -72,7 +72,7 @@ final class Migration_Jspm extends Console_Jspm
 				final TreeMap<String, String> logProperty = logProperties.get(v);
 			%>
 			<tr>
-				<td><% if(v==current){ %>--&gt; <% }%><%=v%></td>
+				<td><% if(v==current){%>&#187;<%} %><%=v%></td>
 				<td class="text"><%
 				if(migration!=null)
 				{
