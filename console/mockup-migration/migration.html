@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>COPE Console - migration</title>
+		<link rel="STYLESHEET" type="text/css" href="console.css">
+		<script>
+			function toggleRev(image,revision,dateRevision,bodies)
+			{
+				var imageSrc = image.src;
+				if(imageSrc.substring(imageSrc.length-8)=="true.png")
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
+					for(body=0; body<bodies; body++)
+						document.getElementById("r"+revision+"b"+body).style.display = "none";
+					document.getElementById("r"+dateRevision+"d").rowSpan -= bodies;
+				}
+				else
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
+					for(body=0; body<bodies; body++)
+						document.getElementById("r"+revision+"b"+body).style.display = "table-row";
+					document.getElementById("r"+dateRevision+"d").rowSpan += bodies;
+				}
+			}
+			function toggleEnv(image,number)
+			{
+				var imageSrc = image.src;
+				var expandElement = document.getElementById("e"+number);
+				if(imageSrc.substring(imageSrc.length-8)=="true.png")
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
+					expandElement.style.display = "none";
+				}
+				else
+				{
+					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
+					expandElement.style.display = "block";
+				}
+			}
+		</script>
+		<style>
+			tr.sql
+			{
+				display:none;
+			}
+			tr.sql td
+			{
+				border-color:#ddf;
+				background-color:#ddf;
+				color:#007;
+			}
+			td.toggle
+			{
+				border-width:0px;
+				padding:10px 2px;
+			}
+			tr.sql td.toggle
+			{
+				border-width:0px;
+				background-color:#fff;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="http://www.exedio.com/" target="_blank"><img src="logo.png" width="198" height="60" align="right"></a>
+		<h1><a href="http://cope.sourceforge.net/" target="_blank">COPE</a> Console</h1>
+		<br clear="right">
+		<div class="menu">
+			| <a href="?">properties</a>
+			| <a href="?schema=">schema</a>
+			| <a href="?t=tc">type columns</a>
+			| <b>migration</b>
+			| <a href="?t=dblog">db logs</a>
+			| <a href="?t=cp">connections</a>
+			| <a href="?t=cp">transaction</a>
+			| <a href="?t=ca">item cache</a>
+			| <a href="?t=qca">query cache</a>
+			| <a href="?t=pk">pk</a>
+			| <a href="?t=m">media</a>
+			| <a href="?t=vm">vm</a>
+			| <a href="?t=env">environment</a>
+			| <a href="?t=hidden">hidden</a>
+			| <a href="?t=ml">mods</a>
+		</div>
+		<hr>
+		<table>
+			<caption>Migrations</caption>
+			<tr><th></th><th>Rev.</th><th>Date</th><th>Content</th><th>Rows</th><th>Elpsd.</th></tr>
+			<tr>
+				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,12,12,1)"></td>
+				<td>&#187;12</td>
+				<td id="r12d" class="text">-</td>
+				<td class="text">migration not yet applied</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+			<tr id="r12b0" class="sql">
+				<td class="toggle" colspan="2"></td>
+				<td class="text">drop table "Item"</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,11,11,1)"></td>
+				<td>11</td>
+				<td id="r11d" class="text" rowspan="2">2007/03/01 22:30:21.207</td>
+				<td class="text">migration already applied together with its predecessor with a single sql statement</td>
+				<td>3</td>
+				<td>12</td>
+			</tr>
+			<tr id="r11b0" class="sql">
+				<td class="toggle" colspan="2"></td>
+				<td class="text">
+					create table "Mail"(
+					"this" integer,"created" bigint,
+					"body" blob,"toSend" integer,
+					"sentDate" bigint,"failedDate" bigint,
+					"exceptionStacktrace" text character set utf8 binary,
+					constraint "Mail_Pk" primary key("this"),
+					constraint "Mail_this_CkPk" check(("this">=-2147483647) AND ("this"&lt;=2147483647)),
+					constraint "Mail_created_Ck" check(("created" IS NOT NULL) AND (("created">=-9223372036854775808) AND ("created"&lt;=9223372036854775807))),
+					constraint "Mail_body_Ck" check((LENGTH("body")&lt;=100000) OR ("body" IS NULL)),
+					constraint "Mail_toSend_Ck" check(("toSend" IS NOT NULL) AND ("toSend" IN (0,1))),
+					constraint "Mail_sentDate_Ck" check((("sentDate">=-9223372036854775808) AND ("sentDate"&lt;=9223372036854775807)) OR ("sentDate" IS NULL)),
+					constraint "Mail_failedDate_Ck" check((("failedDate">=-9223372036854775808) AND ("failedDate"&lt;=9223372036854775807)) OR ("failedDate" IS NULL)),
+					constraint "Mail_excepStack_Ck" check((LENGTH("exceptionStacktrace")&lt;=1500) OR ("exceptionStacktrace" IS NULL)))
+				</td>
+				<td>3</td>
+				<td>12</td>
+			</tr>
+			<tr>
+				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,10,11,2)"></td>
+				<td>10</td>
+				<td class="text">predecessor migration with two sql statements</td>
+				<td>7'471</td>
+				<td>20'895</td>
+			</tr>
+			<tr id="r10b0" class="sql">
+				<td class="toggle" colspan="2"></td>
+				<td class="text">alter table "Media" add column "mediaContentType" varchar(61) character set utf8 binary</td>
+				<td>3'736</td>
+				<td>16'996</td>
+			</tr>
+			<tr id="r10b1" class="sql">
+				<td class="toggle" colspan="2"></td>
+				<td class="text">update Media set mediaContentType=concat(mediaMajor, '/', mediaMinor) where mediaMajor is not null and mediaMinor is not null</td>
+				<td>3'735</td>
+				<td>3'899</td>
+			</tr>
+			<tr>
+				<td class="toggle"><img src="nodefalse.png" onClick="toggleEnv(this,0)"></td>
+				<td class="text" colspan="5">
+					<div>Change of Environment: Database, Driver, Host.</div>
+					<table id="e0" class="expand">
+						<tr>
+							<th rowspan="2">Database</th>
+							<td class="text">MySQL 5.0.32-Debian_3-log (5.0)</td>
+						</tr>
+						<tr>
+							<td class="text">MySQL 5.0.30-Debian_3-log (5.0)</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Driver</th>
+							<td class="text">MySQL-AB JDBC Driver mysql-connector-java-5.0.3 ( $Date: 2006-07-26 17:26:47 +0200 (Wed, 26 Jul 2006) $, $Revision: 5553 $ ) (5.0)</td>
+						</tr>
+						<tr>
+							<td class="text">MySQL-AB JDBC Driver mysql-connector-java-5.0.2 ( $Date: 2006-06-26 17:26:47 +0200 (Wed, 26 Jul 2006) $, $Revision: 5543 $ ) (5.0)</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Host</th>
+							<td class="text">localhost</td>
+						</tr>
+						<tr>
+							<td class="text">kroesus</td>
+						</tr>
+					</table>
+				</th>
+			</tr>
+			<tr>
+				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,9,9,1)"></td>
+				<td>9</td>
+				<td id="r9d" class="text">2007/02/12 23:26:33.232</td>
+				<td class="text">create Mail</td>
+				<td>0</td>
+				<td>1'261</td>
+			</tr>
+			<tr id="r9b0" class="sql">
+				<td class="toggle" colspan="2"></td>
+				<td class="text">create table "Mail"("this" integer,"created" bigint,"body" MEDIUMBLOB,"toSend" integer,"sentDate" bigint,"failedDate" bigint,"exceptionStacktrace" text character set utf8 binary,constraint "Mail_Pk" primary key("this"),constraint "Mail_this_CkPk" check(("this">=-2147483647) AND ("this"<=2147483647)),constraint "Mail_created_Ck" check(("created" IS NOT NULL) AND (("created">=-9223372036854775808) AND ("created"<=9223372036854775807))),constraint "Mail_body_Ck" check((LENGTH("body")<=100000) OR ("body" IS NULL)),constraint "Mail_toSend_Ck" check(("toSend" IS NOT NULL) AND ("toSend" IN (0,1))),constraint "Mail_sentDate_Ck" check((("sentDate">=-9223372036854775808) AND ("sentDate"<=9223372036854775807)) OR ("sentDate" IS NULL)),constraint "Mail_failedDate_Ck" check((("failedDate">=-9223372036854775808) AND ("failedDate"<=9223372036854775807)) OR ("failedDate" IS NULL)),constraint "Mail_excepStack_Ck" check((LENGTH("exceptionStacktrace")<=1500) OR ("exceptionStacktrace" IS NULL))) engine=innodb</td>
+				<td>0</td>
+				<td>1'261</td>
+			</tr>
+		</table>
+		<hr>
+		<div class="menu">
+			| <a href="?">properties</a>
+			| <a href="?schema=">schema</a>
+			| <a href="?t=tc">type columns</a>
+			| <b>migration</b>
+			| <a href="?t=dblog">db logs</a>
+			| <a href="?t=cp">connections</a>
+			| <a href="?t=cp">transaction</a>
+			| <a href="?t=ca">item cache</a>
+			| <a href="?t=qca">query cache</a>
+			| <a href="?t=pk">pk</a>
+			| <a href="?t=m">media</a>
+			| <a href="?t=vm">vm</a>
+			| <a href="?t=env">environment</a>
+			| <a href="?t=hidden">hidden</a>
+			| <a href="?t=ml">mods</a>
+		</div>
+		<hr>
+		<div class="footer">2007/03/15&nbsp;14:51:47.736 (2ms)</div>
+	</body>
+</html>
