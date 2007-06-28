@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.Column;
@@ -51,6 +52,11 @@ public class MigrateTest extends CopeAssert
 	private static final Model model7 = new Model(migrations7Missing, MigrateItem2.TYPE);
 	
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+	static
+	{
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
+	
 	private String hostname;
 	
 	@Override
@@ -277,7 +283,7 @@ public class MigrateTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
-		final Date date = df.parse(logProps.getProperty("date"));
+		final Date date = df.parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals("true", logProps.getProperty("create"));
 		assertMigrationEnvironment(logProps);
@@ -296,7 +302,7 @@ public class MigrateTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
-		final Date date = df.parse(logProps.getProperty("date"));
+		final Date date = df.parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals(null, logProps.getProperty("create"));
 		assertEquals(migration.comment, logProps.getProperty("comment"));

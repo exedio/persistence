@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.TimeZone;
 
 public final class Migration
 {
@@ -169,10 +170,13 @@ public final class Migration
 			final int revision,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
 	{
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
 		final Properties result = new Properties();
 		if(revision>0)
 			result.setProperty("revision", String.valueOf(revision));
-		result.setProperty("date", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(date));
+		result.setProperty("dateUTC", df.format(date));
 		if(hostname!=null)
 			result.setProperty("hostname", hostname);
 		result.setProperty("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
