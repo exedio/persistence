@@ -170,15 +170,18 @@ public final class Migration
 			final int revision,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
-		
 		final Properties result = new Properties();
+
 		if(revision>0)
 			result.setProperty("revision", String.valueOf(revision));
+
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 		result.setProperty("dateUTC", df.format(date));
+
 		if(hostname!=null)
 			result.setProperty("hostname", hostname);
+		
 		result.setProperty("jdbc.url",  dialectParameters.properties.getDatabaseUrl());
 		result.setProperty("jdbc.user", dialectParameters.properties.getDatabaseUser());
 		result.setProperty("database.name",    dialectParameters.databaseProductName);
@@ -189,6 +192,7 @@ public final class Migration
 		result.setProperty("driver.version", dialectParameters.driverVersion);
 		result.setProperty("driver.version.major", String.valueOf(dialectParameters.driverMajorVersion));
 		result.setProperty("driver.version.minor", String.valueOf(dialectParameters.driverMinorVersion));
+		
 		return result;
 	}
 	
