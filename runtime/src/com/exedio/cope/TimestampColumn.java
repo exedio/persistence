@@ -58,14 +58,14 @@ final class TimestampColumn extends Column
 	@Override
 	final String cacheToDatabase(final Object cache)
 	{
-		// Don't use a static instance,
-		// since then access must be synchronized
-		final SimpleDateFormat df = new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
-
 		if(cache==null)
 			return "NULL";
 		else
 		{
+			// Don't use a static instance,
+			// since then access must be synchronized
+			final SimpleDateFormat df = new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
+
 			return df.format(new Date(((Long)cache).longValue()));
 		}
 	}
