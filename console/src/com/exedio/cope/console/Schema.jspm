@@ -20,7 +20,6 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -197,7 +196,7 @@ final class Schema_Jspm extends Console_Jspm
 					if(lastAnalyzed!=null)
 					{
 						final Date date = lastAnalyzed.getDate();
-						final String lastAnalyzedString = date!=null ? (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss")).format(date) : "NEVER";
+						final String lastAnalyzedString = date!=null ? cop.format(date) : "NEVER";
 						%>
 						<li><% write(lastAnalyzed.getCumulativeColor(), request, out); %>
 							last analyzed: <%=lastAnalyzedString%>
