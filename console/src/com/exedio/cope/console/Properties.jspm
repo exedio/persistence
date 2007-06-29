@@ -147,14 +147,14 @@ final class Properties_Jspm extends Console_Jspm
 		<table>
 			<caption>Connect Properties Source</caption>
 			<tr>
-				<td class="text" colspan="2"><%=properties.getSource()%></td>
+				<td class="text"><%=properties.getSource()%></td>
 			</tr><%
 
 			if(sourceContent!=null)
 			{
 			%>
 			<tr>
-				<td class="text" colspan="2">
+				<td class="text">
 					<pre><%=sourceContent%></pre>
 				</td>
 			</tr><%
