@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.exedio.cope.testmodel.AttributeItem;
-
 
 public class FieldDateTest extends FieldTest
 {
@@ -124,7 +122,7 @@ public class FieldDateTest extends FieldTest
 		item3.setSomeDate( dates[5] );
 		item4.setSomeDate( dates[7] );
 		StringBuffer message = new StringBuffer();
-		DateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
+		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		for ( int i=0; i<dates.length; i++ )
 		{
 			if ( i!=0 ) message.append( "; " );
@@ -158,7 +156,7 @@ public class FieldDateTest extends FieldTest
 		AttributeItem item3, item4;
 		deleteOnTearDown( item3 = new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
 		deleteOnTearDown( item4 = new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
-		DateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
+		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		dates[0] = format.parse("2005-09-22 10:26:46.031");
 		dates[1] = format.parse("2005-09-22 10:26:46.046"); // item
 		dates[2] = format.parse("2005-09-22 10:26:46.062");
