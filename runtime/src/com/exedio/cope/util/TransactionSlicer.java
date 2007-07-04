@@ -56,7 +56,7 @@ public final class TransactionSlicer
 		sliceCount++;
 		transaction = model.startTransaction(
 				transactionName!=null
-				? (transactionName+"-slice"+sliceCount)
+				? (transactionName+" slice"+sliceCount)
 				: ("slice"+sliceCount));
 		return true;
 	}

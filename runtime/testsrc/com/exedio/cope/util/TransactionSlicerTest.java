@@ -53,7 +53,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertNotSame(t1, t2);
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
-		assertEquals(t1.getName() + "-slice1", t2.getName());
+		assertEquals(t1.getName() + " slice1", t2.getName());
 		
 		assertEquals(false, ts.biteOff());
 		assertEquals(1, ts.getSliceCount());
@@ -76,7 +76,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertTrue(t1.isClosed());
 		assertTrue(t2.isClosed());
 		assertFalse(t3.isClosed());
-		assertEquals(t1.getName() + "-slice2", t3.getName());
+		assertEquals(t1.getName() + " slice2", t3.getName());
 	}
 
 	public void testEmpty()
@@ -93,7 +93,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertNotSame(t1, t2);
 		assertTrue(t1.isClosed());
 		assertFalse(t2.isClosed());
-		assertEquals(t1.getName() + "-slice1", t2.getName());
+		assertEquals(t1.getName() + " slice1", t2.getName());
 		
 		assertEquals(true, ts.biteOff());
 		assertEquals(2, ts.getSliceCount());
@@ -104,7 +104,7 @@ public class TransactionSlicerTest extends AbstractLibTest
 		assertTrue(t1.isClosed());
 		assertTrue(t2.isClosed());
 		assertFalse(t3.isClosed());
-		assertEquals(t1.getName() + "-slice2", t3.getName());
+		assertEquals(t1.getName() + " slice2", t3.getName());
 		
 		try
 		{
