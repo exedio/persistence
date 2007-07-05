@@ -28,7 +28,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cops.Cop;
 
-
 abstract class CopernicaCop extends Cop implements RequestCache
 {
 	static final String LANGUAGE = "l";
@@ -39,8 +38,9 @@ abstract class CopernicaCop extends Cop implements RequestCache
 	final CopernicaProvider provider;
 	final CopernicaLanguage language;
 
-	CopernicaCop(final CopernicaProvider provider, final CopernicaLanguage language)
+	CopernicaCop(final String name, final CopernicaProvider provider, final CopernicaLanguage language)
 	{
+		super(name + ".html");
 		this.language = language;
 		this.provider = provider;
 		if(language!=null)
@@ -206,6 +206,6 @@ abstract class CopernicaCop extends Cop implements RequestCache
 		//System.out.println("nullNameMisses: "+nullNameMisses+", onNameMisses: "+onNameMisses+", offNameMisses: "+offNameMisses);
 	}
 	
-	abstract void writeBody(HttpServletRequest request, PrintStream out) throws IOException;
+	abstract void writeBody(PrintStream out) throws IOException;
 	
 }

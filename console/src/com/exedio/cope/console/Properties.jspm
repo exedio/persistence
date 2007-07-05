@@ -24,8 +24,6 @@ import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.exedio.cope.Properties;
 
 final class Properties_Jspm extends Console_Jspm
@@ -65,7 +63,6 @@ final class Properties_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 				final PrintStream out,
-				final HttpServletRequest request,
 				final PropertiesCop cop,
 				final Properties properties,
 				final Date initializeDate,
@@ -84,7 +81,7 @@ final class Properties_Jspm extends Console_Jspm
 				<td class="text"><%=cop.format(connectDate)%></td>
 			</tr>
 			<tr>
-				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse.url(request)%>"> show unspecified</th>
+				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse%>"> show unspecified</th>
 			</tr><%
 			for(final Properties.Field field : properties.getFields())
 			{

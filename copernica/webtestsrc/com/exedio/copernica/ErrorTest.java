@@ -18,22 +18,19 @@
 
 package com.exedio.copernica;
 
-
 public class ErrorTest extends AbstractWebTest
 {
-
 	public void testError() throws Exception
 	{
 		try
 		{
-			beginAt("copernica.jsp?t=EmptyItemx");
+			beginAt("copernica.jsp/type.html?t=EmptyItemx");
 			fail();
 		}
 		catch(RuntimeException e)
 		{
 			final String message = e.getMessage();
-			assertTrue(message, message.startsWith("com.meterware.httpunit.HttpInternalErrorException: Error on HTTP request: 500 Internal Error [http://127.0.0.1:8080/copetest-hsqldb/copernica.jsp?t=EmptyItemx"));
+			assertTrue(message, message.startsWith("com.meterware.httpunit.HttpInternalErrorException: Error on HTTP request: 500 Internal Error [http://127.0.0.1:8080/copetest-hsqldb/copernica.jsp/type.html?t=EmptyItemx"));
 		}
 	}
-
 }

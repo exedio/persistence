@@ -24,8 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.exedio.cope.Migration;
 
 final class Migration_Jspm extends Console_Jspm
@@ -54,7 +52,6 @@ final class Migration_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 			final MigrationCop cop,
-			final HttpServletRequest request,
 			final PrintStream out,
 			final int oldest, final int latest, final int current,
 			Map<Integer, Migration> migrations,
@@ -77,7 +74,7 @@ final class Migration_Jspm extends Console_Jspm
 				if(migration!=null)
 				{
 					%>
-					<img class="node" src="<%=ConsoleServlet.nodeFalse.url(request)%>" onClick="toggleSql(this,<%=v%>)">
+					<img class="node" src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleSql(this,<%=v%>)">
 					<%=encode(migration.getComment())%>
 					<ul id="sql<%=v%>" class="expand"><%
 						for(final String sql : migration.getBody())

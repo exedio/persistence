@@ -35,11 +35,9 @@ import com.exedio.cope.Model;
 
 final class EnvironmentCop extends ConsoleCop
 {
-
 	EnvironmentCop()
 	{
-		super("environment");
-		addParameter(TAB, TAB_ENVIRONMENT);
+		super(TAB_ENVIRONMENT, "environment");
 	}
 	
 	private static final String replaceLineBreaks(final String s)

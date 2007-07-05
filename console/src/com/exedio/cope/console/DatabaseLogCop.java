@@ -32,8 +32,7 @@ final class DatabaseLogCop extends ConsoleCop
 	
 	DatabaseLogCop()
 	{
-		super("db logs");
-		addParameter(TAB, TAB_DATBASE_LOG);
+		super(TAB_DATBASE_LOG, "db logs");
 	}
 	
 	@Override

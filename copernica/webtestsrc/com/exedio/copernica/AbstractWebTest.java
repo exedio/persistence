@@ -31,7 +31,6 @@ import com.meterware.httpunit.WebForm;
 
 public class AbstractWebTest extends WebTestCase
 {
-
 	protected static final String SAVE_BUTTON = "Save";
 
 	@Override
@@ -41,7 +40,7 @@ public class AbstractWebTest extends WebTestCase
 		final TestContext ctx = getTestContext();
 		ctx.setBaseUrl("http://127.0.0.1:8080/copetest-hsqldb/");
 		ctx.setAuthorization("admin", "nimda");
-		beginAt("console?t=schema");
+		beginAt("console/schema.html");
 		submit("CREATE");
 		beginAt("init.jsp");
 		submit("INIT");
@@ -50,7 +49,7 @@ public class AbstractWebTest extends WebTestCase
 	@Override
 	public void tearDown() throws Exception
 	{
-		beginAt("console?t=schema");
+		beginAt("console/schema.html");
 		submit("DROP");
 		super.tearDown();
 	}
@@ -120,5 +119,4 @@ public class AbstractWebTest extends WebTestCase
 		assertTrue(message, !expectedBefore.after(actual));
 		assertTrue(message, !expectedAfter.before(actual));
 	}
-	
 }

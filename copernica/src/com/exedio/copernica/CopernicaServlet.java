@@ -160,7 +160,7 @@ public final class CopernicaServlet extends CopsServlet
 			cop.init(request);
 
 			out = new PrintStream(response.getOutputStream(), false, ENCODING);
-			Copernica_Jspm.write(out, request, user, cop);
+			Copernica_Jspm.write(out, user, cop);
 			out.close();
 			
 			model.commit();

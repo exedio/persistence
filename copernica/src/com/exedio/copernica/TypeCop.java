@@ -59,7 +59,7 @@ final class TypeCop extends CopernicaCop
 					final Function orderBy, final boolean orderAscending,
 					final int offset, int limit)
 	{
-		super(provider, language);
+		super("type", provider, language);
 		
 		final int limitCeiling = provider.getLimitCeiling(type);
 		if(limit>limitCeiling)
@@ -198,7 +198,7 @@ final class TypeCop extends CopernicaCop
 	}
 	
 	@Override
-	void writeBody(final HttpServletRequest request, final PrintStream out)
+	void writeBody(final PrintStream out)
 		throws IOException
 	{
 		TypeCop_Jspm.writeBody(out, this);

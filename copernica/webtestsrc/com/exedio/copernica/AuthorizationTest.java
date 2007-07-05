@@ -34,14 +34,14 @@ public class AuthorizationTest extends WebTestCase
 		super.setUp();
 		final TestContext ctx = getTestContext();
 		ctx.setBaseUrl("http://127.0.0.1:8080/copetest-hsqldb/");
-		beginAt("console?t=schema");
+		beginAt("console/schema.html");
 		submit("CREATE");
 	}
 	
 	@Override
 	public void tearDown() throws Exception
 	{
-		beginAt("console?t=schema");
+		beginAt("console/schema.html");
 		submit("DROP");
 		super.tearDown();
 	}
@@ -70,5 +70,4 @@ public class AuthorizationTest extends WebTestCase
 			assertEquals("Basic authentication required: realm=\"Copernica\"", e.getMessage());
 		}
 	}
-
 }

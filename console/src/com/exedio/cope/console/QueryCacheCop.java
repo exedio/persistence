@@ -44,8 +44,7 @@ final class QueryCacheCop extends ConsoleCop
 	
 	private QueryCacheCop(final int histogramLimit, final boolean condense)
 	{
-		super("query cache");
-		addParameter(TAB, TAB_QUERY_CACHE);
+		super(TAB_QUERY_CACHE, "query cache");
 		if(histogramLimit!=HISTOGRAM_LIMIT_DEFAULT)
 			addParameter(HISTOGRAM_LIMIT, String.valueOf(histogramLimit));
 		if(!condense)
@@ -287,7 +286,7 @@ final class QueryCacheCop extends ConsoleCop
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
 		final CacheQueryInfo[] histogram = model.getQueryCacheHistogram();
-		QueryCache_Jspm.writeBody(this, out, request,
+		QueryCache_Jspm.writeBody(this, out,
 				model.getProperties().getQueryCacheLimit(),
 				model.getQueryCacheInfo(),
 				new Content(histogram, condense));

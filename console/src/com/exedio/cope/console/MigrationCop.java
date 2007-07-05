@@ -32,17 +32,15 @@ import com.exedio.cope.Migration;
 import com.exedio.cope.Model;
 import com.exedio.dsmf.SQLRuntimeException;
 
-
 final class MigrationCop extends ConsoleCop
 {
 	MigrationCop()
 	{
-		super("migration");
-		addParameter(TAB, TAB_MIGRATION);
+		super(TAB_MIGRATION, "migration");
 	}
 	
 	@Override
-	void writeHead(final HttpServletRequest request, final PrintStream out)
+	void writeHead(final PrintStream out)
 	{
 		Migration_Jspm.writeHead(out);
 	}
@@ -112,7 +110,7 @@ final class MigrationCop extends ConsoleCop
 			final int current = model.getMigrationRevision();
 			register(current);
 			
-			Migration_Jspm.writeBody(this, request, out, oldest, latest, current, migrationMap, logStrings, logProperties);
+			Migration_Jspm.writeBody(this, out, oldest, latest, current, migrationMap, logStrings, logProperties);
 		}
 		else
 		{

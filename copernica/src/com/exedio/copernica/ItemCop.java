@@ -33,7 +33,7 @@ final class ItemCop extends CopernicaCop
 	
 	ItemCop(final CopernicaProvider provider, final CopernicaLanguage language, final Item item)
 	{
-		super(provider, language);
+		super("item", provider, language);
 		this.item = item;
 		addParameter(ITEM, item.getCopeID());
 	}
@@ -69,7 +69,7 @@ final class ItemCop extends CopernicaCop
 	}
 
 	@Override
-	void writeBody(final HttpServletRequest request, final PrintStream out)
+	void writeBody(final PrintStream out)
 		throws IOException
 	{
 		ItemCop_Jspm.writeBody(out, this);

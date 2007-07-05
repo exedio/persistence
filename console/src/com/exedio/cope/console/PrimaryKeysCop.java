@@ -29,11 +29,9 @@ import com.exedio.cope.Type;
 
 final class PrimaryKeysCop extends ConsoleCop
 {
-
 	PrimaryKeysCop()
 	{
-		super("pk");
-		addParameter(TAB, TAB_PRIMARY_KEY);
+		super(TAB_PRIMARY_KEY, "pk");
 	}
 	
 	private static final Comparator<Type> TYPE_COMPARATOR = new Comparator<Type>()

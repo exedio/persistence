@@ -41,8 +41,7 @@ final class ModificationListenerCop extends ConsoleCop
 
 	ModificationListenerCop()
 	{
-		super("mods");
-		addParameter(TAB, TAB_MODIFICATION_LISTENER);
+		super(TAB_MODIFICATION_LISTENER, "mods");
 	}
 	
 	//static int debugNumber = 0;

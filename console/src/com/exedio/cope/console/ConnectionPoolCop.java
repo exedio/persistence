@@ -26,11 +26,9 @@ import com.exedio.cope.Model;
 
 final class ConnectionPoolCop extends ConsoleCop
 {
-
 	ConnectionPoolCop()
 	{
-		super("connections");
-		addParameter(TAB, TAB_CONNECTION_POOL);
+		super(TAB_CONNECTION_POOL, "connections");
 	}
 
 	@Override

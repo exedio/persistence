@@ -37,7 +37,6 @@ public final class Copernica_Jspm
 {
 	static final void write(
 			final PrintStream out,
-			final HttpServletRequest request,
 			final CopernicaUser user,
 			final CopernicaCop cop)
 		throws IOException
@@ -67,7 +66,7 @@ public final class Copernica_Jspm
 		}
 		
 		%>
-		<link rel="STYLESHEET" type="text/css" href="<%=CopernicaServlet.stylesheet.url(request)%>">
+		<link rel="STYLESHEET" type="text/css" href="<%=CopernicaServlet.stylesheet%>">
 	</head>
 	<body><%
 		final Collection<? extends CopernicaLanguage> displayLanguages = provider.getDisplayLanguages();
@@ -100,7 +99,7 @@ public final class Copernica_Jspm
 		Copernica_Jspm.writeTypeList(out, cop);
 		%>
 		<div id="main"><%
-		cop.writeBody(request, out);
+		cop.writeBody(out);
 		//cop.log();
 		%>
 		</div>
@@ -201,12 +200,12 @@ public final class Copernica_Jspm
 		</ul><%
 	}
 	
-	static final void writeEmptyBody(final HttpServletRequest request, final PrintStream out)
+	static final void writeEmptyBody(final PrintStream out)
 	{
 			%>
 			<h1>Copernica</h1>
 			<h2>Generic Backoffice for COPE</h2>
-			<img src="<%=CopernicaServlet.logo.url(request)%>" width="200" height="66"><%
+			<img src="<%=CopernicaServlet.logo%>" width="200" height="66"><%
 	}
 
 	public static final void writeParameters(final PrintStream out, final HttpServletRequest request)

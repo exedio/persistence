@@ -29,16 +29,15 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
 
-
 final class PropertiesCop extends ConsoleCop
 {
 	PropertiesCop()
 	{
-		super("properties");
+		super(TAB_PROPERTIES, "properties");
 	}
 	
 	@Override
-	void writeHead(final HttpServletRequest request, final PrintStream out)
+	void writeHead(final PrintStream out)
 	{
 		Properties_Jspm.writeHead(out);
 	}
@@ -78,7 +77,7 @@ final class PropertiesCop extends ConsoleCop
 			throw new RuntimeException(e);
 		}
 		
-		Properties_Jspm.writeBody(out, request, this, props, model.getInitializeDate(), model.getConnectDate(), sourceContent);
+		Properties_Jspm.writeBody(out, this, props, model.getInitializeDate(), model.getConnectDate(), sourceContent);
 	}
 	
 	String formatObject(final Object o)

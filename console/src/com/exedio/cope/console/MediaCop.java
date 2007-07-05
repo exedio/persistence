@@ -47,7 +47,7 @@ final class MediaCop extends ConsoleCop
 
 	MediaCop(final MediaPath media, final boolean inlineMedia, final boolean inlineOther)
 	{
-		super("media - " + media.getID());
+		super("media", "media - " + media.getID());
 		
 		this.media = media;
 		

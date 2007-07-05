@@ -22,8 +22,6 @@ package com.exedio.cope.console;
 import java.io.PrintStream;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.exedio.cope.Transaction;
 
 final class Transaction_Jspm extends Console_Jspm
@@ -62,7 +60,6 @@ final class Transaction_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 			final PrintStream out,
-			final HttpServletRequest request,
 			final TransactionCop cop,
 			final long nextId,
 			final Date lastStartDate,
@@ -147,7 +144,7 @@ final class Transaction_Jspm extends Console_Jspm
 					if(sts!=null && sts.length>0)
 					{
 					%>
-					<img class="node" onClick="toggleStacktrace(this,'more<%=n%>')" src="<%=ConsoleServlet.nodeFalse.url(request)%>">
+					<img class="node" onClick="toggleStacktrace(this,'more<%=n%>')" src="<%=ConsoleServlet.nodeFalse%>">
 					<%=sts[0].toString()%>
 					<span id="more<%=n%>" class="expand"><%
 						

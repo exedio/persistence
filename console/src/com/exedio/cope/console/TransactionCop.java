@@ -39,8 +39,7 @@ final class TransactionCop extends ConsoleCop
 
 	TransactionCop()
 	{
-		super("transactions");
-		addParameter(TAB, TAB_TRANSACTION);
+		super(TAB_TRANSACTION, "transactions");
 	}
 	
 	@Override
@@ -69,7 +68,7 @@ final class TransactionCop extends ConsoleCop
 	}
 	
 	@Override
-	void writeHead(final HttpServletRequest request, final PrintStream out)
+	void writeHead(final PrintStream out)
 	{
 		Transaction_Jspm.writeHead(out);
 	}
@@ -116,7 +115,7 @@ final class TransactionCop extends ConsoleCop
 		}
 
 		Transaction_Jspm.writeBody(
-				out, request, this,
+				out, this,
 				model.getNextTransactionId(),
 				model.getLastTransactionStartDate(),
 				openTransactions,

@@ -39,11 +39,10 @@ final class VmCop extends ConsoleCop
 
 	VmCop(final boolean detailed, final boolean allPackages)
 	{
-		super("vm");
+		super(TAB_VM, "vm");
 		this.detailed = detailed;
 		this.allPackages = allPackages;
 		
-		addParameter(TAB, TAB_VM);
 		if(detailed)
 			addParameter(DETAILED, "t");
 		if(allPackages)
@@ -112,6 +111,6 @@ final class VmCop extends ConsoleCop
 		final ArrayList<TreeSet<Package>> jars = new ArrayList<TreeSet<Package>>();
 		jars.addAll(jarMap.values());
 		
-		Vm_Jspm.writeBody(out, request, this, jars);
+		Vm_Jspm.writeBody(out, this, jars);
 	}
 }

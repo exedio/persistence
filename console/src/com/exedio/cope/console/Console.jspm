@@ -45,12 +45,12 @@ abstract class Console_Jspm
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=ConsoleServlet.ENCODING%>">
 		<title>COPE Console - <%=cop.name%></title>
-		<link rel="STYLESHEET" type="text/css" href="<%=ConsoleServlet.stylesheet.url(request)%>"><%
-		cop.writeHead(request, out);
+		<link rel="STYLESHEET" type="text/css" href="<%=ConsoleServlet.stylesheet%>"><%
+		cop.writeHead(out);
 		%>
 	</head>
 	<body>
-		<a href="http://www.exedio.com/" target="_blank"><img class="logo" src="<%=ConsoleServlet.logo.url(request)%>"></a>
+		<a href="http://www.exedio.com/" target="_blank"><img class="logo" src="<%=ConsoleServlet.logo%>"></a>
 		<h1><a href="http://cope.sourceforge.net/" target="_blank">COPE</a> Console</h1>
 		<div class="<% if(authentication==null){%>not<%} %>authenticated"><%
 		if(authentication!=null)
@@ -123,6 +123,18 @@ abstract class Console_Jspm
 		</div><%
 	}
 	
+	final static void writeNotFound(final PrintStream out, final String pathInfo)
+	{
+		%>
+		<div class="message">
+			<b>Not Found (404)</b>
+			<br>
+			The requested path &quot;<%=pathInfo%>&quot; was not found within the COPE Console.
+			<br>
+			You may want to choose an item from the menu instead.
+		</div><%
+	}
+	
 	private static final int COLORS = 2;
 	
 	static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns, final int postColumns)
@@ -165,12 +177,11 @@ abstract class Console_Jspm
 	
 	static final void writeToggle(
 			final PrintStream out,
-			final HttpServletRequest request,
 			final ConsoleCop cop,
 			final boolean value)
 	{
 		%><a href="<%=cop%>"><img class="check" src="<%=
-			(value ? ConsoleServlet.checkTrue : ConsoleServlet.checkFalse).url(request)%>"></a><%
+			(value ? ConsoleServlet.checkTrue : ConsoleServlet.checkFalse)%>"></a><%
 	}
 	
 	static final String encode(final String s)

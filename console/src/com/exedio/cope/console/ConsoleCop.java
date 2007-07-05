@@ -28,16 +28,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cops.Cop;
 
 abstract class ConsoleCop extends Cop
 {
+	private static final String NAME_POSTFIX = ".html";
 	final String name;
 
-	protected ConsoleCop(final String name)
+	protected ConsoleCop(final String tab, final String name)
 	{
+		super(tab + NAME_POSTFIX);
 		this.name = name;
 	}
 	
@@ -66,6 +69,11 @@ abstract class ConsoleCop extends Cop
 		{
 			// leave hostname==null
 		}
+	}
+	
+	int getResponseStatus()
+	{
+		return HttpServletResponse.SC_OK;
 	}
 	
 	final ConsoleCop[] getTabs()
@@ -140,36 +148,46 @@ abstract class ConsoleCop extends Cop
 		return /*("["+hidden+']') +*/ (number!=hidden ? format(number) : "");
 	}
 	
-	void writeHead(HttpServletRequest request, PrintStream out)
+	void writeHead(PrintStream out)
 	{
 		// default implementation does nothing
 	}
 	
 	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request);
 	
-	static final String TAB = "t";
+	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
-	static final String TAB_TYPE_COLUMNS = "tc";
-	static final String TAB_MIGRATION = "mig";
-	static final String TAB_DATBASE_LOG = "dblog";
-	static final String TAB_CONNECTION_POOL = "cp";
-	static final String TAB_TRANSACTION = "tx";
-	static final String TAB_ITEM_CACHE = "ca";
-	static final String TAB_QUERY_CACHE = "qca";
-	static final String TAB_PRIMARY_KEY = "pk";
-	static final String TAB_MEDIA_STATS = "m";
+	static final String TAB_TYPE_COLUMNS = "typecolumns";
+	static final String TAB_MIGRATION = "migration";
+	static final String TAB_DATBASE_LOG = "dblogs";
+	static final String TAB_CONNECTION_POOL = "connections";
+	static final String TAB_TRANSACTION = "transactions";
+	static final String TAB_ITEM_CACHE = "itemcache";
+	static final String TAB_QUERY_CACHE = "querycache";
+	static final String TAB_PRIMARY_KEY = "primarykeys";
+	static final String TAB_MEDIA_STATS = "mediastats";
 	static final String TAB_VM = "vm";
-	static final String TAB_ENVIRONMENT = "env";
+	static final String TAB_ENVIRONMENT = "environment";
 	static final String TAB_HIDDEN = "hidden";
-	static final String TAB_MODIFICATION_LISTENER = "ml";
+	static final String TAB_MODIFICATION_LISTENER = "modificationlistener";
 	
 	static final ConsoleCop getCop(final Model model, final HttpServletRequest request)
 	{
-		final String tab = request.getParameter(TAB);
+		final String pathInfo = request.getPathInfo();
+		
+		if("/".equals(pathInfo))
+			return new PropertiesCop();
+		
+		if(pathInfo==null || !pathInfo.startsWith("/") || !pathInfo.endsWith(NAME_POSTFIX))
+			return new NotFound(pathInfo);
+		
+		final String tab = pathInfo.substring(1, pathInfo.length()-NAME_POSTFIX.length());
 		if(TAB_SCHEMA.equals(tab))
 			return new SchemaCop();
 		if(TAB_TYPE_COLUMNS.equals(tab))
 			return new TypeColumnCop();
+		if(TAB_PROPERTIES.equals(tab))
+			return new PropertiesCop();
 		if(TAB_MIGRATION.equals(tab))
 			return new MigrationCop();
 		if(TAB_CONNECTION_POOL.equals(tab))
@@ -199,6 +217,29 @@ abstract class ConsoleCop extends Cop
 		if(mediaCop!=null)
 			return mediaCop;
 
-		return new PropertiesCop();
+		return new NotFound(pathInfo);
+	}
+	
+	private static class NotFound extends ConsoleCop
+	{
+		private final String pathInfo;
+		
+		protected NotFound(final String pathInfo)
+		{
+			super("Not Found", "Not Found");
+			this.pathInfo = pathInfo;
+		}
+		
+		@Override
+		int getResponseStatus()
+		{
+			return HttpServletResponse.SC_NOT_FOUND;
+		}
+
+		@Override
+		void writeBody(PrintStream out, Model model, HttpServletRequest request)
+		{
+			Console_Jspm.writeNotFound(out, pathInfo);
+		}
 	}
 }

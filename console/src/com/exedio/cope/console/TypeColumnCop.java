@@ -35,8 +35,7 @@ final class TypeColumnCop extends ConsoleCop
 
 	TypeColumnCop()
 	{
-		super("type columns");
-		addParameter(TAB, TAB_TYPE_COLUMNS);
+		super(TAB_TYPE_COLUMNS, "type columns");
 	}
 
 	@Override

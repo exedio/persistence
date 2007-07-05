@@ -27,11 +27,9 @@ import com.exedio.cope.util.CacheInfo;
 
 final class ItemCacheCop extends ConsoleCop
 {
-
 	ItemCacheCop()
 	{
-		super("item cache");
-		addParameter(TAB, TAB_ITEM_CACHE);
+		super(TAB_ITEM_CACHE, "item cache");
 	}
 
 	@Override

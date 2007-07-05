@@ -39,10 +39,10 @@ import com.exedio.dsmf.UniqueConstraint;
 
 final class Schema_Jspm extends Console_Jspm
 {
-	final static void writeHead(final HttpServletRequest request, final PrintStream out)
+	final static void writeHead(final PrintStream out)
 	{
 		%>
-		<script src="<%=ConsoleServlet.schemaScript.url(request)%>" type="text/javascript"></script>
+		<script src="<%=ConsoleServlet.schemaScript%>" type="text/javascript"></script>
 		<style>
 			ul
 			{
@@ -155,7 +155,7 @@ final class Schema_Jspm extends Console_Jspm
 
 			final Schema schema = model.getVerifiedSchema();
 			%>
-			<img class="node" onClick="togSch(this)" src="<%=node(schema.getCumulativeColor()).url(request)%>">
+			<img class="node" onClick="togSch(this)" src="<%=node(schema.getCumulativeColor())%>">
 			Schema
 			<input id="schApp" class="expand" type="submit" name="APPLY" value="apply"/>
 			<ul id="schBdy" class="expand"><%
@@ -167,16 +167,16 @@ final class Schema_Jspm extends Console_Jspm
 				final String tableName = table.getName();
 				%>
 				<li>
-					<img class="node" onClick="togTab(this,<%=tableCount%>)" src="<%=node(table.getCumulativeColor()).url(request)%>">
+					<img class="node" onClick="togTab(this,<%=tableCount%>)" src="<%=node(table.getCumulativeColor())%>">
 					<small>tab<%=tableCount%></small><%
 					
-					writeEdit(tableName, table.exists(), "RENAME_TABLE_" + tableName, request, out);
+					writeEdit(tableName, table.exists(), "RENAME_TABLE_" + tableName, out);
 				
 					final String tableError = table.getError();
 					if(tableError!=null)
 					{
 					%>
-					<% write(table.getParticularColor(), request, out); %> <%=tableError%><%
+					<% write(table.getParticularColor(), out); %> <%=tableError%><%
 					}
 					if(table.exists())
 					{
@@ -198,7 +198,7 @@ final class Schema_Jspm extends Console_Jspm
 						final Date date = lastAnalyzed.getDate();
 						final String lastAnalyzedString = date!=null ? cop.format(date) : "NEVER";
 						%>
-						<li><% write(lastAnalyzed.getCumulativeColor(), request, out); %>
+						<li><% write(lastAnalyzed.getCumulativeColor(), out); %>
 							last analyzed: <%=lastAnalyzedString%>
 							<input type="checkbox" name="ANALYZE_TABLE" value="<%=tableName%>"/>analyze
 						</li><%
@@ -220,17 +220,17 @@ final class Schema_Jspm extends Console_Jspm
 						final String columnName = column.getName();
 						%>
 						<li>
-							<img class="node" src="<%=leaf(column.getCumulativeColor()).url(request)%>">
+							<img class="node" src="<%=leaf(column.getCumulativeColor())%>">
 							<small>col<%=columnCount%></small><%
 							
-							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, request, out);
-							writeEdit(column.getType(), column.exists(), "MODIFY_COLUMN_" + tableName + '#' + columnName, request, out);
+							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, out);
+							writeEdit(column.getType(), column.exists(), "MODIFY_COLUMN_" + tableName + '#' + columnName, out);
 						
 							final String error = column.getError();
 							if(error!=null)
 							{
 							%>
-							<% write(column.getParticularColor(), request, out); %> <%=error%></span><%
+							<% write(column.getParticularColor(), out); %> <%=error%></span><%
 							}
 							if(column.exists())
 							{
@@ -254,7 +254,7 @@ final class Schema_Jspm extends Console_Jspm
 						final String constraintName = constraint.getName();
 						%>
 						<li>
-							<img class="node" src="<%=leaf(constraint.getCumulativeColor()).url(request)%>">
+							<img class="node" src="<%=leaf(constraint.getCumulativeColor())%>">
 							<small><%=type(constraint)%><%=constraintCount%></small>
 							<%=constraintName%><%
 						
@@ -269,7 +269,7 @@ final class Schema_Jspm extends Console_Jspm
 							if(constraintError!=null)
 							{
 							%>
-							<% write(constraint.getParticularColor(), request, out); %> <%=encode(constraintError)%><%
+							<% write(constraint.getParticularColor(), out); %> <%=encode(constraintError)%><%
 							}
 							if(constraint.exists())
 							{
@@ -319,17 +319,17 @@ final class Schema_Jspm extends Console_Jspm
 		}
 	}
 	
-	private final static void write(final Node.Color color, final HttpServletRequest request, final PrintStream out)
+	private final static void write(final Node.Color color, final PrintStream out)
 	{
 		switch(color)
 		{
 			case OK:
 				break;
 			case WARNING:
-				%><img class="check" src="<%=ConsoleServlet.warning.url(request)%>"><%
+				%><img class="check" src="<%=ConsoleServlet.warning%>"><%
 				break;
 			case ERROR:
-				%><img class="check" src="<%=ConsoleServlet.error.url(request)%>"><%
+				%><img class="check" src="<%=ConsoleServlet.error%>"><%
 				break;
 			default:
 				throw new RuntimeException(color.toString());
@@ -338,13 +338,13 @@ final class Schema_Jspm extends Console_Jspm
 	
 	private final static void writeEdit(
 			final String text, final boolean editable, final String name,
-			final HttpServletRequest request, final PrintStream out)
+			final PrintStream out)
 	{
 		if(editable)
 		{
 							%>
 							<span class="textedit" onClick="edit(this)">
-								<%=text%><img class="write" src="<%=ConsoleServlet.write.url(request)%>">
+								<%=text%><img class="write" src="<%=ConsoleServlet.write%>">
 								<input name="<%=name%>" size="<%=text.length()%>">
 							</span><%
 		}

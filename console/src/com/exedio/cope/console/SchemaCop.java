@@ -30,19 +30,17 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.StatementListener;
 import com.exedio.dsmf.Table;
 
-
 final class SchemaCop extends ConsoleCop
 {
 	SchemaCop()
 	{
-		super("schema");
-		addParameter(TAB, TAB_SCHEMA);
+		super(TAB_SCHEMA, "schema");
 	}
 	
 	@Override
-	void writeHead(final HttpServletRequest request, final PrintStream out)
+	void writeHead(final PrintStream out)
 	{
-		Schema_Jspm.writeHead(request, out);
+		Schema_Jspm.writeHead(out);
 	}
 
 	@Override

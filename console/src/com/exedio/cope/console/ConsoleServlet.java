@@ -141,6 +141,7 @@ public final class ConsoleServlet extends CopsServlet
 
 		final ConsoleCop cop = ConsoleCop.getCop(model, request);
 		cop.initialize(request, model);
+		response.setStatus(cop.getResponseStatus());
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 		Console_Jspm.write(out, request, response, model, cop);
 		out.close();

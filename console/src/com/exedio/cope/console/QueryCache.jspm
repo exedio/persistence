@@ -21,8 +21,6 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.exedio.cope.util.CacheQueryInfo;
 
 final class QueryCache_Jspm extends Console_Jspm
@@ -30,7 +28,6 @@ final class QueryCache_Jspm extends Console_Jspm
 	final static void writeBody(
 			final QueryCacheCop cop,
 			final PrintStream out,
-			final HttpServletRequest request,
 			final int limit,
 			final int[] queryInfos,
 			final QueryCacheCop.Content content)
@@ -64,7 +61,7 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		</table>
 		<hr>
-		<% writeToggle(out, request, cop.toToggleCondense(), cop.condense); %> condense<%
+		<% writeToggle(out, cop.toToggleCondense(), cop.condense); %> condense<%
 		
 		if(cop.condense)
 		{
@@ -98,7 +95,6 @@ final class QueryCache_Jspm extends Console_Jspm
 					Skipped display of <%=content.histogramCondensed.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
 					<form action="<%=cop%>" method="GET">
 						New limit:
-						<input type="hidden" name="<%=cop.TAB%>" value="<%=cop.TAB_QUERY_CACHE%>">
 						<input type="text" name="<%=cop.HISTOGRAM_LIMIT%>" value="<%=histogramLimit%>">
 						<input type="submit" name="set" value="set">
 					</form>
@@ -152,7 +148,6 @@ final class QueryCache_Jspm extends Console_Jspm
 					Skipped display of <%=content.histogram.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
 					<form action="<%=cop%>" method="GET">
 						New limit:
-						<input type="hidden" name="<%=cop.TAB%>" value="<%=cop.TAB_QUERY_CACHE%>">
 						<input type="text" name="<%=cop.HISTOGRAM_LIMIT%>" value="<%=histogramLimit%>">
 						<input type="submit" name="set" value="set">
 					</form>
