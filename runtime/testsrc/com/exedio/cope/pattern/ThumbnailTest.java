@@ -118,17 +118,17 @@ public class ThumbnailTest extends AbstractLibTest
 		assertEquals(null, empty.getThumbContentType());
 		
 		// test url
-		assertEquals("media/ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURL());
-		assertEquals("media/ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
-		assertEquals("media/ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
+		assertEquals(MEDIA_ROOTURL + "ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURL());
+		assertEquals(MEDIA_ROOTURL + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
+		assertEquals(MEDIA_ROOTURL + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
 		assertEquals(null, text.getThumbURL());
 		assertEquals(null, empty.getThumbURL());
 		
 		// test url fallback
-		assertEquals("media/ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURLWithFallbackToSource());
-		assertEquals("media/ThumbnailItem/thumb/" + png.getCopeID()  + ".jpg", png.getThumbURLWithFallbackToSource());
-		assertEquals("media/ThumbnailItem/thumb/" + gif.getCopeID()  + ".jpg", gif.getThumbURLWithFallbackToSource());
-		assertEquals("media/ThumbnailItem/file/"  + text.getCopeID() + ".txt", text.getThumbURLWithFallbackToSource());
+		assertEquals(MEDIA_ROOTURL + "ThumbnailItem/thumb/" + jpeg.getCopeID() + ".jpg", jpeg.getThumbURLWithFallbackToSource());
+		assertEquals(MEDIA_ROOTURL + "ThumbnailItem/thumb/" + png.getCopeID()  + ".jpg", png.getThumbURLWithFallbackToSource());
+		assertEquals(MEDIA_ROOTURL + "ThumbnailItem/thumb/" + gif.getCopeID()  + ".jpg", gif.getThumbURLWithFallbackToSource());
+		assertEquals(MEDIA_ROOTURL + "ThumbnailItem/file/"  + text.getCopeID() + ".txt", text.getThumbURLWithFallbackToSource());
 		assertEquals(null, empty.getThumbURL());
 	}
 	

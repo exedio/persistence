@@ -30,7 +30,6 @@ import com.exedio.cope.junit.CopeTest;
 
 public abstract class AbstractLibTest extends CopeTest
 {
-	
 	public AbstractLibTest(final Model model)
 	{
 		super(model);
@@ -40,6 +39,8 @@ public abstract class AbstractLibTest extends CopeTest
 	{
 		super(model, exclusive);
 	}
+	
+	protected static final String MEDIA_ROOTURL = "/junitwebapp/media/";
 	
 	protected static final Integer i1 = Integer.valueOf(1);
 	protected static final Integer i2 = Integer.valueOf(2);
@@ -295,5 +296,4 @@ public abstract class AbstractLibTest extends CopeTest
 		else
 			assertNotSame(o1, o2);
 	}
-	
 }

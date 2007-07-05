@@ -4,4 +4,5 @@
 		docBase="../../persistence/build/runtime/web-@ENV@"
 		debug="0"
 		privileged="true">
+	<Parameter override="false" name="webapp" value="copelibtest-@ENV@" />
 </Context>

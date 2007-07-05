@@ -180,7 +180,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(expectedData.length, item.getFileLength());
 		assertWithin(before, after, new Date(item.getFileLastModified()));
 		assertEquals(expectedContentType, item.getFileContentType());
-		assertEquals("media/MediaMandatoryItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
+		assertEquals(MEDIA_ROOTURL + "MediaMandatoryItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}
 	
 	private final void assertDataFile(final MediaMandatoryItem item, final byte[] expectedData) throws IOException

@@ -293,6 +293,7 @@
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/runtime/classes/com/exedio/cope/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{env}" />
+					<sysproperty key="webapp" value="junitwebapp" />
 					<!--jvmarg value="-Xdebug"/>
 					<jvmarg value="-Xnoagent"/>
 					<jvmarg value="-Djava.compiler=none"/>
