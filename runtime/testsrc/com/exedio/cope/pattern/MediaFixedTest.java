@@ -129,6 +129,6 @@ public class MediaFixedTest extends AbstractLibTest
 		assertData(expectedData, item.getPhotoBody());
 		assertEquals(expectedData.length, item.getPhotoLength());
 		assertEquals("image/jpeg", item.getPhotoContentType());
-		assertEquals(MEDIA_ROOTURL + "MediaItem/photo/" + item.getCopeID() + ".jpg", item.getPhotoURL());
+		assertEquals(mediaRootUrl + "MediaItem/photo/" + item.getCopeID() + ".jpg", item.getPhotoURL());
 	}
 }

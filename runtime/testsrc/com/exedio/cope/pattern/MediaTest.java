@@ -97,7 +97,7 @@ public final class MediaTest extends AbstractLibTest
 
 		item.setPhoto(data4, "image/jpeg");
 		assertEquals("image/jpeg", item.getFotoContentType());
-		assertEquals(MEDIA_ROOTURL + "MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoURL());
+		assertEquals(mediaRootUrl + "MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoURL());
 		
 		item.setPhoto((InputStream)null, null);
 		assertEquals(null, item.getFotoContentType());
@@ -108,7 +108,7 @@ public final class MediaTest extends AbstractLibTest
 		assertEquals("nameServer", item.nameServer.getName());
 		assertSame(item.name, item.nameServer.getSource());
 		assertEquals("text/plain", item.getNameServerContentType());
-		assertEquals(MEDIA_ROOTURL + "MediaItem/nameServer/" + item.getCopeID() + ".txt", item.getNameServerURL());
+		assertEquals(mediaRootUrl + "MediaItem/nameServer/" + item.getCopeID() + ".txt", item.getNameServerURL());
 		
 
 		// logs -----------------------------------------------

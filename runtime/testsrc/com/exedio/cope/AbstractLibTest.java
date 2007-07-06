@@ -40,8 +40,6 @@ public abstract class AbstractLibTest extends CopeTest
 		super(model, exclusive);
 	}
 	
-	protected static final String MEDIA_ROOTURL = "/junitwebapp/media/";
-	
 	protected static final Integer i1 = Integer.valueOf(1);
 	protected static final Integer i2 = Integer.valueOf(2);
 	protected static final Integer i3 = Integer.valueOf(3);
@@ -88,6 +86,7 @@ public abstract class AbstractLibTest extends CopeTest
 	
 	private final ArrayList<File> files = new ArrayList<File>();
 	private TestByteArrayInputStream testStream;
+	protected String mediaRootUrl = null;
 	
 	@Override
 	protected void setUp() throws Exception
@@ -114,11 +113,15 @@ public abstract class AbstractLibTest extends CopeTest
 		cache = model.getProperties().getItemCacheLimit()>0;
 		noJoinParentheses = hsqldb;
 		files.clear();
+		
+		mediaRootUrl = model.getProperties().getMediaRootUrl();
 	}
 	
 	@Override
 	protected void tearDown() throws Exception
 	{
+		mediaRootUrl = null;
+		
 		for(Iterator i = files.iterator(); i.hasNext(); )
 			((File)i.next()).delete();
 		files.clear();

@@ -223,7 +223,7 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEquals(expectedData.length, item.getFileLength());
 		assertWithin(before, after, new Date(item.getFileLastModified()));
 		assertEquals(expectedContentType, item.getFileContentType());
-		assertEquals(MEDIA_ROOTURL + "MediaItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
+		assertEquals(mediaRootUrl + "MediaItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}
 	
 	private final void assertDataFile(final byte[] expectedData) throws IOException

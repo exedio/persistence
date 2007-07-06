@@ -142,6 +142,6 @@ public class MediaEnumTest extends AbstractLibTest
 		assertEquals(expectedData.length, item.getSheetLength());
 		assertEquals(expectedContentType, item.getSheetContentType());
 		assertEquals(expectedContentTypeNumber, item.sheet.getContentType().get(item));
-		assertEquals(MEDIA_ROOTURL + "MediaItem/sheet/" + item.getCopeID() + expectedExtension, item.getSheetURL());
+		assertEquals(mediaRootUrl + "MediaItem/sheet/" + item.getCopeID() + expectedExtension, item.getSheetURL());
 	}
 }
