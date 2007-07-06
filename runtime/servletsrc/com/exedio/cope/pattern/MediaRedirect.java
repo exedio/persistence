@@ -85,16 +85,34 @@ public final class MediaRedirect extends MediaPath
 		if(url==null)
 			return isNull;
 		
-		final String location =
-			request.getScheme() + "://" +
-			request.getHeader("Host") +
-			request.getContextPath() + '/' +
-			url;
+		final StringBuffer location = new StringBuffer();
+		
+		if(url.startsWith("http:")||url.startsWith("https:"))
+		{
+			location.append(url);
+		}
+		else if(url.startsWith("/"))
+		{
+			location.
+				append(request.getScheme()).
+				append("://").
+				append(request.getHeader("Host")).
+				append(url);
+		}
+		else
+		{
+			location.
+				append(request.getScheme()).
+				append("://").
+				append(request.getHeader("Host")).
+				append(request.getContextPath()).
+				append('/').
+				append(url);
+		}
 		//System.out.println("location="+location);
 		
 		response.setStatus(response.SC_MOVED_PERMANENTLY);
-		response.setHeader(RESPONSE_LOCATION, location);
+		response.setHeader(RESPONSE_LOCATION, location.toString());
 		return delivered;
 	}
-
 }
