@@ -65,10 +65,8 @@ public class AbstractWebTest extends WebTestCase
 	{
 		final Button buttonWithValue = null;
 		for(final WebForm form : getDialog().getResponse().getForms())
-		
 		{
 			for(final Button button : form.getButtons())
-			
 			{
 				if(button.getValue().equals(buttonValue))
 				{
