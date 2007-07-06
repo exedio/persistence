@@ -64,13 +64,12 @@ public class AbstractWebTest extends WebTestCase
 	protected final void submitWithValue(final String buttonValue) throws SAXException
 	{
 		final Button buttonWithValue = null;
-		final WebForm[] forms = getDialog().getResponse().getForms();
-		for(int i = 0; i<forms.length; i++)
+		for(final WebForm form : getDialog().getResponse().getForms())
+		
 		{
-			final Button[] buttons = forms[i].getButtons();
-			for(int j = 0; j<buttons.length; j++)
+			for(final Button button : form.getButtons())
+			
 			{
-				final Button button = buttons[j];
 				if(button.getValue().equals(buttonValue))
 				{
 					if(buttonWithValue!=null)
