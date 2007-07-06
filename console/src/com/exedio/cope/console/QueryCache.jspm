@@ -96,7 +96,7 @@ final class QueryCache_Jspm extends Console_Jspm
 					<form action="<%=cop%>" method="GET">
 						New limit:
 						<input type="text" name="<%=cop.HISTOGRAM_LIMIT%>" value="<%=histogramLimit%>">
-						<input type="submit" name="set" value="set">
+						<input type="submit" value="set">
 					</form>
 				</td>
 			</tr><%
@@ -149,7 +149,7 @@ final class QueryCache_Jspm extends Console_Jspm
 					<form action="<%=cop%>" method="GET">
 						New limit:
 						<input type="text" name="<%=cop.HISTOGRAM_LIMIT%>" value="<%=histogramLimit%>">
-						<input type="submit" name="set" value="set">
+						<input type="submit" value="set">
 					</form>
 				</td>
 			</tr><%
