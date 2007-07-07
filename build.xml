@@ -877,7 +877,7 @@
 	
 	<target name="build"
 			depends="compile, test, jar, home,
-						tomcat,
+						tomcat, index,
 						copernica.webtest.compile" />
 	
 	<target name="dist.tar">
