@@ -40,7 +40,7 @@ abstract class ConsoleCop extends Cop
 
 	protected ConsoleCop(final String tab, final String name)
 	{
-		super(tab + NAME_POSTFIX);
+		super(null, tab + NAME_POSTFIX);
 		this.name = name;
 	}
 	
