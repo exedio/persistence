@@ -59,11 +59,25 @@ final class MediaStatsCop extends ConsoleCop
 		Media_Jspm.writeBody(this, out, medias);
 	}
 	
+	private static final void collapse(final TreeSet<String> contentTypes, final String r, final String a, final String b)
+	{
+		if(contentTypes.contains(a) && contentTypes.contains(b))
+		{
+			contentTypes.remove(a);
+			contentTypes.remove(b);
+			contentTypes.add(r);
+		}
+	}
+	
 	static final void printContentTypes(final PrintStream out, final Collection<String> contentTypes)
 	{
+		final TreeSet<String> sorted = new TreeSet<String>(contentTypes);
+		collapse(sorted, "image/[p]jpeg", "image/jpeg", "image/pjpeg");
+		collapse(sorted, "image/[x-]png", "image/png", "image/x-png");
+		
 		String prefix = null;
 		boolean first = true;
-		for(final String contentType : new TreeSet<String>(contentTypes))
+		for(final String contentType : sorted)
 		{
 			if(first)
 				first = false;

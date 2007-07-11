@@ -32,8 +32,8 @@ public class MimeTypesTest extends TestCase
 		assertIt("image/png, text/plain", "image/png", "text/plain");
 		assertIt("image/png, text/plain", "text/plain", "image/png");
 		assertIt("image/jpeg, ~/png, text/plain", "image/jpeg", "text/plain", "image/png");
-		assertIt("image/jpeg, ~/pjpeg, ~/png, text/plain", "image/jpeg", "text/plain", "image/png", "image/pjpeg");
-		assertIt("image/jpeg, ~/pjpeg, ~/png, ~/x-png, text/plain", "image/x-png", "image/jpeg", "text/plain", "image/png", "image/pjpeg");
+		assertIt("image/[p]jpeg, ~/png, text/plain", "image/jpeg", "text/plain", "image/png", "image/pjpeg");
+		assertIt("image/[p]jpeg, ~/[x-]png, text/plain", "image/x-png", "image/jpeg", "text/plain", "image/png", "image/pjpeg");
 	}
 	
 	private void assertIt(final String expected, final String... actual) throws UnsupportedEncodingException
