@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.CachedMedia;
 import com.exedio.cope.pattern.Media;
@@ -112,7 +113,7 @@ final class Media_Jspm extends Console_Jspm
 					if(path instanceof MediaFilter)
 					{
 						final MediaFilter filter = (MediaFilter)path;
-						final TreeSet contentTypes = new TreeSet<String>(filter.getSupportedSourceContentTypes());
+						final TreeSet<String> contentTypes = new TreeSet<String>(filter.getSupportedSourceContentTypes());
 						%><br>supports <% cop.printContentTypes(out, contentTypes); %><%
 					}
 				%></td>
