@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		
+		suite.addTestSuite(MimeTypesTest.class);
 		suite.addTestSuite(QueryCacheTest.class);
 		
 		return suite;

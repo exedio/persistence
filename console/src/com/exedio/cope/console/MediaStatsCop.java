@@ -20,6 +20,8 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,5 +57,31 @@ final class MediaStatsCop extends ConsoleCop
 		}
 
 		Media_Jspm.writeBody(this, out, medias);
+	}
+	
+	static final void printContentTypes(final PrintStream out, final Collection<String> contentTypes)
+	{
+		String prefix = null;
+		boolean first = true;
+		for(final String contentType : new TreeSet<String>(contentTypes))
+		{
+			if(first)
+				first = false;
+			else
+				out.print(", ");
+			
+			if(prefix!=null && contentType.startsWith(prefix))
+			{
+				out.print('~');
+				out.print(contentType.substring(prefix.length()-1));
+			}
+			else
+			{
+				out.print(contentType);
+				int pos = contentType.indexOf('/');
+				if(pos>1)
+					prefix = contentType.substring(0, pos+1);
+			}
+		}
 	}
 }
