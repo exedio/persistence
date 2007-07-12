@@ -22,7 +22,7 @@ package com.exedio.cope.console;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Set;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
@@ -113,7 +113,7 @@ final class Media_Jspm extends Console_Jspm
 					if(path instanceof MediaFilter)
 					{
 						final MediaFilter filter = (MediaFilter)path;
-						final TreeSet<String> contentTypes = new TreeSet<String>(filter.getSupportedSourceContentTypes());
+						final Set<String> contentTypes = filter.getSupportedSourceContentTypes();
 						%><small><br>supports <% cop.printContentTypes(out, contentTypes); %></small><%
 					}
 				%></td>
