@@ -113,6 +113,7 @@ final class ItemCache
 		Cachlet(final Type type, final int limit)
 		{
 			assert !type.isAbstract;
+			assert limit>0;
 			
 			this.type = type;
 			this.limit = limit;
