@@ -230,7 +230,12 @@ final class ItemCache
 				}
 			}
 			
-			return new CacheInfo(type, limit, level, hits, misses, (lastCleanup!=0 ? new Date(lastCleanup) : null), ageSum, ageMin, ageMax);
+			return new CacheInfo(
+				type,
+				limit, level,
+				hits, misses,
+				(lastCleanup!=0 ? new Date(lastCleanup) : null),
+				ageSum, ageMin, ageMax);
 		}
 	}
 }
