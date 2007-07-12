@@ -114,7 +114,7 @@ final class Media_Jspm extends Console_Jspm
 					{
 						final MediaFilter filter = (MediaFilter)path;
 						final TreeSet<String> contentTypes = new TreeSet<String>(filter.getSupportedSourceContentTypes());
-						%><br>supports <% cop.printContentTypes(out, contentTypes); %><%
+						%><small><br>supports <% cop.printContentTypes(out, contentTypes); %></small><%
 					}
 				%></td>
 			</tr><%
