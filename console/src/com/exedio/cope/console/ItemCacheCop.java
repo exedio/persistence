@@ -19,6 +19,7 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,6 +42,7 @@ final class ItemCacheCop extends ConsoleCop
 		int allLevel = 0;
 		int allHits = 0;
 		int allMisses = 0;
+		Date allLastCleanup = null;
 		long allNum = 0;
 		long allAgeMinMillis = Long.MAX_VALUE;
 		long allSumAgeAverageMillis = 0l;
@@ -52,6 +54,10 @@ final class ItemCacheCop extends ConsoleCop
 			allLevel += info.getLevel();
 			allHits += info.getHits();
 			allMisses += info.getMisses();
+			
+			final Date lastCleanup = info.getLastCleanup();
+			if(allLastCleanup==null || (lastCleanup!=null && allLastCleanup.before(lastCleanup)))
+				allLastCleanup = lastCleanup;
 
 			if(info.getLevel()>0)
 			{
@@ -72,6 +78,7 @@ final class ItemCacheCop extends ConsoleCop
 		ItemCache_Jspm.writeBody(this, out,
 				allLimit, allLevel,
 				allHits, allMisses,
+				allLastCleanup,
 				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,
 				allNum>0 ? allSumAgeAverageMillis/allNum : 0,
 				allAgeMaxMillis,

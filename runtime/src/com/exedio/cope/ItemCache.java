@@ -24,6 +24,7 @@ import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TIntObjectIterator;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.exedio.cope.util.CacheInfo;
 
@@ -107,6 +108,7 @@ final class ItemCache
 		private final TIntObjectHashMap<WrittenState> map;
 		private volatile int hits = 0;
 		private volatile int misses = 0;
+		private long lastCleanup = 0;
 
 		Cachlet(final Type type, final int limit)
 		{
@@ -169,6 +171,7 @@ final class ItemCache
 							i.remove();
 					}
 					newMapSize = map.size();
+					lastCleanup = now;
 				}
 				else
 					newMapSize = -1;
@@ -204,6 +207,7 @@ final class ItemCache
 		{
 			final long now = System.currentTimeMillis();
 			final int level;
+			final long lastCleanup;
 			long ageSum = 0;
 			long ageMin = Long.MAX_VALUE;
 			long ageMax = 0;
@@ -211,6 +215,7 @@ final class ItemCache
 			synchronized(map)
 			{
 				level = map.size();
+				lastCleanup = this.lastCleanup;
 				for(final TIntObjectIterator<WrittenState> stateMapI = map.iterator(); stateMapI.hasNext(); )
 				{
 					stateMapI.advance();
@@ -225,7 +230,7 @@ final class ItemCache
 				}
 			}
 			
-			return new CacheInfo(type, limit, level, hits, misses, ageSum, ageMin, ageMax);
+			return new CacheInfo(type, limit, level, hits, misses, (lastCleanup!=0 ? new Date(lastCleanup) : null), ageSum, ageMin, ageMax);
 		}
 	}
 }

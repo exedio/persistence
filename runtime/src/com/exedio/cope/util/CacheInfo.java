@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import java.util.Date;
+
 import com.exedio.cope.Type;
 
 public final class CacheInfo
@@ -27,6 +29,7 @@ public final class CacheInfo
 	private final int level;
 	private final int hits;
 	private final int misses;
+	private final Date lastCleanup;
 	private final long ageSum;
 	private final long ageMin;
 	private final long ageMax;
@@ -36,6 +39,7 @@ public final class CacheInfo
 			final int limit,
 			final int level,
 			final int hits, final int misses,
+			final Date lastCleanup,
 			final long ageSum, final long ageMin, final long ageMax)
 	{
 		this.type = type;
@@ -43,6 +47,7 @@ public final class CacheInfo
 		this.level = level;
 		this.hits = hits;
 		this.misses = misses;
+		this.lastCleanup = lastCleanup;
 		this.ageSum = ageSum;
 		this.ageMin = ageMin;
 		this.ageMax = ageMax;
@@ -79,6 +84,11 @@ public final class CacheInfo
 		return misses;
 	}
 	
+	public Date getLastCleanup()
+	{
+		return lastCleanup;
+	}
+	
 	public long getAgeAverageMillis()
 	{
 		return (level!=0) ? (ageSum / level) : 0l;
@@ -93,5 +103,4 @@ public final class CacheInfo
 	{
 		return ageMax;
 	}
-
 }

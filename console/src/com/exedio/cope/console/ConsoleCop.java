@@ -125,6 +125,11 @@ abstract class ConsoleCop extends Cop
 	
 	private static final long todayInterval = 6 * 60 * 60 * 1000; // 6 hours
 	
+	final String formatAndHide(final Date date)
+	{
+		return date!=null ? format(date) : "";
+	}
+	
 	final String format(final Date date)
 	{
 		final long dateMillis = date.getTime();
