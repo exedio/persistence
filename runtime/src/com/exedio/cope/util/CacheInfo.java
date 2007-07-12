@@ -29,6 +29,8 @@ public final class CacheInfo
 	private final int level;
 	private final int hits;
 	private final int misses;
+	private final int numberOfCleanups;
+	private final int itemsCleanedUp;
 	private final Date lastCleanup;
 	private final long ageSum;
 	private final long ageMin;
@@ -39,7 +41,7 @@ public final class CacheInfo
 			final int limit,
 			final int level,
 			final int hits, final int misses,
-			final Date lastCleanup,
+			final int numberOfCleanups, final int itemsCleanedUp, final Date lastCleanup,
 			final long ageSum, final long ageMin, final long ageMax)
 	{
 		this.type = type;
@@ -47,6 +49,8 @@ public final class CacheInfo
 		this.level = level;
 		this.hits = hits;
 		this.misses = misses;
+		this.numberOfCleanups = numberOfCleanups;
+		this.itemsCleanedUp = itemsCleanedUp;
 		this.lastCleanup = lastCleanup;
 		this.ageSum = ageSum;
 		this.ageMin = ageMin;
@@ -82,6 +86,16 @@ public final class CacheInfo
 	public int getMisses()
 	{
 		return misses;
+	}
+	
+	public int getNumberOfCleanups()
+	{
+		return numberOfCleanups;
+	}
+	
+	public int getItemsCleanedUp()
+	{
+		return itemsCleanedUp;
 	}
 	
 	public Date getLastCleanup()

@@ -108,6 +108,8 @@ final class ItemCache
 		private final TIntObjectHashMap<WrittenState> map;
 		private volatile int hits = 0;
 		private volatile int misses = 0;
+		private int numberOfCleanups = 0;
+		private int itemsCleanedUp = 0;
 		private long lastCleanup = 0;
 
 		Cachlet(final Type type, final int limit)
@@ -142,13 +144,12 @@ final class ItemCache
 		void put(final WrittenState state)
 		{
 			final Object oldValue;
-			final int mapSize, newMapSize;
 			synchronized(map)
 			{
 				oldValue = map.put(state.pk, state);
 
 				// TODO use a LRU map instead
-				mapSize = map.size();
+				final int mapSize = map.size();
 				if(mapSize>=limit)
 				{
 					final long now = System.currentTimeMillis();
@@ -171,16 +172,11 @@ final class ItemCache
 						if(timeLimit>currentLastUsage)
 							i.remove();
 					}
-					newMapSize = map.size();
+					numberOfCleanups++;
+					itemsCleanedUp += (mapSize - map.size());
 					lastCleanup = now;
 				}
-				else
-					newMapSize = -1;
 			}
-			
-			// logging must be outside synchronized block
-			if(newMapSize>=0)
-				System.out.println("cope cache cleanup " + type + ": " + mapSize + "->" + newMapSize);
 			
 			if(oldValue!=null)
 				System.out.println("warning: duplicate computation of state " + type + '.' + state.pk);
@@ -235,7 +231,7 @@ final class ItemCache
 				type,
 				limit, level,
 				hits, misses,
-				(lastCleanup!=0 ? new Date(lastCleanup) : null),
+				numberOfCleanups, itemsCleanedUp, (lastCleanup!=0 ? new Date(lastCleanup) : null),
 				ageSum, ageMin, ageMax);
 		}
 	}

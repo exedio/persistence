@@ -42,6 +42,8 @@ final class ItemCacheCop extends ConsoleCop
 		int allLevel = 0;
 		int allHits = 0;
 		int allMisses = 0;
+		int allNumberOfCleanups = 0;
+		int allItemsCleanedUp = 0;
 		Date allLastCleanup = null;
 		long allNum = 0;
 		long allAgeMinMillis = Long.MAX_VALUE;
@@ -54,6 +56,9 @@ final class ItemCacheCop extends ConsoleCop
 			allLevel += info.getLevel();
 			allHits += info.getHits();
 			allMisses += info.getMisses();
+			
+			allNumberOfCleanups += info.getNumberOfCleanups();
+			allItemsCleanedUp += info.getItemsCleanedUp();
 			
 			final Date lastCleanup = info.getLastCleanup();
 			if(allLastCleanup==null || (lastCleanup!=null && allLastCleanup.before(lastCleanup)))
@@ -78,7 +83,7 @@ final class ItemCacheCop extends ConsoleCop
 		ItemCache_Jspm.writeBody(this, out,
 				allLimit, allLevel,
 				allHits, allMisses,
-				allLastCleanup,
+				allNumberOfCleanups, allItemsCleanedUp, allLastCleanup,
 				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,
 				allNum>0 ? allSumAgeAverageMillis/allNum : 0,
 				allAgeMaxMillis,
