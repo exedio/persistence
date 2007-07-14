@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.CachedMedia;
 import com.exedio.cope.pattern.Media;
