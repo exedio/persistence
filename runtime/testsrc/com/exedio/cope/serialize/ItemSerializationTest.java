@@ -17,6 +17,10 @@
  */
 
 package com.exedio.cope.serialize;
+// Must not be in package com.exedio.cope,
+// otherwise bugs could be hidden, where empty constructor
+// needed for deserialization is not public.
+// See http://www.jguru.com/faq/view.jsp?EID=251942
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
