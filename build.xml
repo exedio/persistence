@@ -40,7 +40,6 @@
 					 optimize="off">
 				<classpath />
 				<compilerarg value="-Xlint" />
-				<compilerarg value="-Xlint:-serial" /><!-- TODO -->
 			</javac>
 		</sequential>
 	</macrodef>

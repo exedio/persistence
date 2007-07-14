@@ -266,6 +266,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "setXMLReader", new Class[]{STRING}, FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getXMLReader", STRING, FINAL);
 		
+		assertField(STANDARD, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
 		assertConstructor(TYPE_NONE, new Class[]{}, PRIVATE);
@@ -273,6 +274,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(TYPE_NONE, new Class[]{REACTIVATION_DUMMY, int.class}, 0); // @cope.reactivation.constructor package
 		assertMethod(TYPE_NONE, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(TYPE_NONE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
+		assertField(TYPE_NONE, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
 		assertNoField(TYPE_NONE, "TYPE");
 
 		assertConstructor(TYPE_PRIVATE, new Class[]{}, PUBLIC);
@@ -280,6 +282,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertConstructor(TYPE_PRIVATE, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 		assertMethod(TYPE_PRIVATE, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(TYPE_PRIVATE, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
+		assertField(TYPE_PRIVATE, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
 		assertField(TYPE_PRIVATE, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 

@@ -282,4 +282,9 @@ final class CopeType
 			return c1.getName().compareTo(c2.getName());
 		}
 	};
+	
+	int getSerialVersionUID()
+	{
+		return name.hashCode();
+	}
 }

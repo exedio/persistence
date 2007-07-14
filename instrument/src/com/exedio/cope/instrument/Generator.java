@@ -1235,6 +1235,18 @@ final class Generator
 		}
 	}
 
+	private void writeSerialVersionUID() throws IOException
+	{
+		// TODO make disableable
+		{
+			writeCommentHeader();
+			writeCommentFooter(null);
+			
+			writeModifier(Modifier.PRIVATE | Modifier.STATIC | Modifier.FINAL);
+			o.write("long serialVersionUID = 1l;");
+		}
+	}
+	
 	private void writeType(final CopeType type)
 	throws IOException
 	{
@@ -1315,6 +1327,7 @@ final class Generator
 			for(final CopeRelation relation : sort(type.getRelations(false)))
 				writeRelation(relation, true);
 			
+			writeSerialVersionUID();
 			writeType(type);
 		}
 	}
