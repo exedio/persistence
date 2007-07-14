@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -34,14 +36,16 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  * This is the super class for all classes,
  * that want to store their data persistently with COPE.
  * <p>
- * To enable serialization for subclasses of <tt>Item</tt>,
- * see {@link #Item()}.
+ * Serialization of instances of <tt>Item</tt>
+ * is guaranteed to be light-weight -
+ * there are no non-static, non-transient object reference
+ * fields in this class or its superclasses.
  *
  * @author Ralf Wiebicke
  */
 public abstract class Item extends Cope
 {
-	final transient Type<? extends Item> type;
+	transient Type<? extends Item> type;
 
 	/**
 	 * The primary key of the item,
@@ -230,30 +234,12 @@ public abstract class Item extends Cope
 			throw new RuntimeException();
 	}
 	
-	/**
-	 * Empty constructor for deserialization.
-	 * <p>
-	 * To enable serialization for subclasses of <tt>Item</tt>,
-	 * let these classes implement {@link java.io.Serializable}
-	 * and make sure, there is a no-arg constructor
-	 * calling this deserialization constructor.
-	 * <p>
-	 * Serialization of instances of <tt>Item</tt>
-	 * is guaranteed to be light-weight -
-	 * there are no non-static, non-transient object reference
-	 * fields in this class or its superclasses.
-	 */
-	protected Item()
+	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
+		in.defaultReadObject();
 		type = Type.findByJavaClass(getClass());
-		pk = suppressWarning(this.pk);
 	}
 	
-	private static final int suppressWarning(final int pk)
-	{
-		return pk;
-	}
-
 	public final <E> E get(final Function<E> function)
 	{
 		return function.get(this);
@@ -701,5 +687,4 @@ public abstract class Item extends Cope
 		}
 		return result;
 	}
-
 }

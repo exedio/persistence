@@ -18,9 +18,15 @@
 
 package com.exedio.cope;
 
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 final class ItemWithoutJavaClass extends Item
 {
+	private static final long serialVersionUID = -8395452345350687651l;
+
 	ItemWithoutJavaClass(final SetValue[] setValues, final Type<? extends Item> type)
 	{
 		super(setValues, type);
@@ -32,5 +38,15 @@ final class ItemWithoutJavaClass extends Item
 		super(pk, type);
 	}
 	
-	// TODO make serializable and add an empty deserialization constructor
+	private void writeObject(final ObjectOutputStream out) throws IOException
+	{
+		// TODO
+		throw new NotSerializableException("not yet implemented for " + getClass());
+	}
+	
+	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
+	{
+		// TODO
+		throw new NotSerializableException("not yet implemented for " + getClass());
+	}
 }

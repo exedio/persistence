@@ -29,6 +29,8 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DType extends Item
 {
+	private static final long serialVersionUID = 5332445284970526901l;
+	
 	public static final StringField parentTypeId = new StringField().toFinal();
 	public static final StringField dtypeSystemName = new StringField().toFinal();
 	public static final StringField code = new StringField().toFinal();

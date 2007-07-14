@@ -16,14 +16,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.serialize;
 
-import java.io.Serializable;
+import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
 
-/**
- * @author Ralf Wiebicke
- */
-class ItemSerializationItem extends Item implements Serializable
+class ItemSerializationItem extends Item
 {
 	private static final long serialVersionUID = 3645734236563215l;
 
@@ -33,12 +31,7 @@ class ItemSerializationItem extends Item implements Serializable
 	static final StringField name = new StringField().optional();
 	
 	
-	ItemSerializationItem()
-	{
-		super();
-	}
-	
-/**
+	/**
 
 	 **
 	 * Creates a new ItemSerializationItem with all the fields initially needed.
