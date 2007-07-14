@@ -304,7 +304,7 @@ final class JavaRepository
 	
 	static class DummyItem extends Item
 	{
-		// just a dummy
+		private static final long serialVersionUID = 1l;
 	}
 	
 	public static final class DummyHash extends Hash

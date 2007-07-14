@@ -274,6 +274,8 @@ public class ModelTest extends TestmodelTest
 	
 	static class NoCreationConstructor extends Item
 	{
+		private static final long serialVersionUID = 1l;
+
 		NoCreationConstructor()
 		{
 			super(new SetValue[]{});
@@ -282,6 +284,8 @@ public class ModelTest extends TestmodelTest
 
 	static class NoReactivationConstructor extends Item
 	{
+		private static final long serialVersionUID = 1l;
+
 		NoReactivationConstructor(final SetValue[] initialAttributes)
 		{
 			super(initialAttributes);
