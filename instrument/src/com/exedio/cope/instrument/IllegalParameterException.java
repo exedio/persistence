@@ -24,13 +24,12 @@ package com.exedio.cope.instrument;
  */
 final class IllegalParameterException extends Exception
 {
-	private static final long serialVersionUID = 386582136598l;
+	private static final long serialVersionUID = 1l;
 	
 	IllegalParameterException(String msg)
 	{
 		super(msg);
 	}
-	
 }
 
 

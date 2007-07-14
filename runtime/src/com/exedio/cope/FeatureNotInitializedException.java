@@ -20,6 +20,6 @@ package com.exedio.cope;
 
 class FeatureNotInitializedException extends RuntimeException
 {
-	private static final long serialVersionUID = 483353862125215l;
+	private static final long serialVersionUID = 1l;
 	
 }

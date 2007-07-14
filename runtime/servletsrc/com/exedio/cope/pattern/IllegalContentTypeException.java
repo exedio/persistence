@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 
 public final class IllegalContentTypeException extends ConstraintViolationException
 {
-	private static final long serialVersionUID = 2386518376582l;
+	private static final long serialVersionUID = 1l;
 	
 	private final Media feature;
 	private final String contentType;

@@ -21,10 +21,9 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Item;
 
-
 public final class CustomAttributeException extends ConstraintViolationException
 {
-	private static final long serialVersionUID = 182648164823110l;
+	private static final long serialVersionUID = 1l;
 	
 	final CustomAttribute feature;
 	
@@ -48,5 +47,4 @@ public final class CustomAttributeException extends ConstraintViolationException
 	{
 		return feature;
 	}
-	
 }

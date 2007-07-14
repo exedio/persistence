@@ -33,7 +33,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DAttribute extends Item
 {
-	private static final long serialVersionUID = -1491983338842121558l;
+	private static final long serialVersionUID = 1l;
 	
 	public static final ItemField<DType> parent = newItemField(DType.class, CASCADE).toFinal();
 	public static final IntegerField position = new IntegerField().toFinal();

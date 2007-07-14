@@ -29,7 +29,7 @@ package com.exedio.cope;
  */
 public final class LengthViolationException extends ConstraintViolationException
 {
-	private static final long serialVersionUID = 21864323501623l;
+	private static final long serialVersionUID = 1l;
 	
 	private final StringField feature;
 	private final String value;
@@ -104,5 +104,4 @@ public final class LengthViolationException extends ConstraintViolationException
 			", must be at " + (isTooShort?"least":"most") +
 			' ' + border + " characters.";
 	}
-	
 }

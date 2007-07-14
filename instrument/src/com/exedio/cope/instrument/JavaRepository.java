@@ -260,7 +260,7 @@ final class JavaRepository
 
 	private final class NS extends CopeNameSpace
 	{
-		private static final long serialVersionUID = 8362587526354862l;
+		private static final long serialVersionUID = 1l;
 		
 		NS(final CopeNameSpace parent)
 		{

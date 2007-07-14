@@ -20,7 +20,7 @@ package com.exedio.copernica;
 
 final class CopernicaAuthorizationFailedException extends Exception
 {
-	private static final long serialVersionUID = 283658236856232356l;
+	private static final long serialVersionUID = 1l;
 	
 	final String code;
 	final String param;
@@ -43,5 +43,4 @@ final class CopernicaAuthorizationFailedException extends Exception
 	{
 		return param==null ? code : (code+"*"+param);
 	}
-
 }

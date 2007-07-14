@@ -29,7 +29,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DEnumValue extends Item
 {
-	private static final long serialVersionUID = 5312475781813105854l;
+	private static final long serialVersionUID = 1l;
 
 	public static final ItemField<DAttribute> parent = newItemField(DAttribute.class, CASCADE).toFinal();
 

@@ -53,7 +53,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public class InitServlet extends CopsServlet
 {
-	private static final long serialVersionUID = 328658236589653l;
+	private static final long serialVersionUID = 1l;
 	
 	final static String ENCODING = "utf-8";
 

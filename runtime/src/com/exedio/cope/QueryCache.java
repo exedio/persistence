@@ -243,7 +243,7 @@ final class QueryCache
 	
 	private static final class LRUMap extends LinkedHashMap<Key, Value>
 	{
-		private static final long serialVersionUID = 19641264861283476l;
+		private static final long serialVersionUID = 1l;
 		
 		private final int maxSize;
 		

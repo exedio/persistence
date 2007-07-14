@@ -32,7 +32,7 @@ package com.exedio.cope;
  */
 public final class IntegrityViolationException extends ConstraintViolationException
 {
-	private static final long serialVersionUID = 217658164836512l;
+	private static final long serialVersionUID = 1l;
 	
 	private final ItemField feature;
 
@@ -82,5 +82,4 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	{
 		return "integrity violation on deletion of " + getItemID();
 	}
-	
 }

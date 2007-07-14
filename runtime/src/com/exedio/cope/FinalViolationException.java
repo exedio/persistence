@@ -29,7 +29,7 @@ package com.exedio.cope;
  */
 public final class FinalViolationException extends ConstraintViolationException
 {
-	private static final long serialVersionUID = 19862582163486l;
+	private static final long serialVersionUID = 1l;
 	
 	private final Field feature;
 	
@@ -77,5 +77,4 @@ public final class FinalViolationException extends ConstraintViolationException
 	{
 		return "final violation on " + getItemID();
 	}
-	
 }

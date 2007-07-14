@@ -29,7 +29,7 @@ package com.exedio.cope;
  */
 public final class RangeViolationException extends ConstraintViolationException
 {
-	private static final long serialVersionUID = 218716254712623l;
+	private static final long serialVersionUID = 1l;
 	
 	private final IntegerField feature;
 	private final int value;

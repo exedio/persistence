@@ -1018,13 +1018,13 @@ final class Injector
 
 	private class EndException extends Exception
 	{
-		private static final long serialVersionUID = 298765358236485l;
+		private static final long serialVersionUID = 1l;
 		
 	}
 
 	private class ParseException extends InjectorParseException
 	{
-		private static final long serialVersionUID = 2938658236582l;
+		private static final long serialVersionUID = 1l;
 		
 		final int line;
 		final int column;
@@ -1059,7 +1059,6 @@ final class Injector
 				+ ' '
 				+ super.getMessage();
 		}
-
 	}
 
 	public final static boolean hasTag(String doccomment, String tagname)

@@ -31,7 +31,7 @@ package com.exedio.cope;
  */
 public final class UniqueViolationException extends ConstraintViolationException
 {
-	private static final long serialVersionUID = 2834521945195l;
+	private static final long serialVersionUID = 1l;
 	
 	private final UniqueConstraint feature;
 	

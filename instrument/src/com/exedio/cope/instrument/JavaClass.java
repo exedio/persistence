@@ -175,7 +175,7 @@ final class JavaClass extends JavaFeature
 	
 	private final class NS extends CopeNameSpace
 	{
-		private static final long serialVersionUID = 2386458374658236l;
+		private static final long serialVersionUID = 1l;
 		
 		NS(final CopeNameSpace parent)
 		{
