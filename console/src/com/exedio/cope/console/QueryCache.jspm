@@ -29,7 +29,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			final QueryCacheCop cop,
 			final PrintStream out,
 			final int limit,
-			final int[] queryInfos,
+			final long[] queryInfos,
 			final QueryCacheCop.Content content)
 	{
 		%>

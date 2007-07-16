@@ -783,7 +783,7 @@ public final class Model
 		return getItemCacheInfo();
 	}
 	
-	public int[] getQueryCacheInfo()
+	public long[] getQueryCacheInfo()
 	{
 		return getQueryCache().getQueryInfo();
 	}
@@ -792,7 +792,7 @@ public final class Model
 	 * @deprecated renamed to {@link #getQueryCacheInfo()}.
 	 */
 	@Deprecated
-	public int[] getCacheQueryInfo()
+	public long[] getCacheQueryInfo()
 	{
 		return getQueryCacheInfo();
 	}

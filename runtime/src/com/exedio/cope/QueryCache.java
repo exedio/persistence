@@ -34,7 +34,7 @@ import com.exedio.cope.util.CacheQueryInfo;
 final class QueryCache
 {
 	private final LRUMap map;
-	private volatile int hits = 0, misses = 0;
+	private volatile long hits = 0, misses = 0;
 
 	QueryCache(final int limit)
 	{
@@ -123,7 +123,7 @@ final class QueryCache
 		}
 	}
 	
-	int[] getQueryInfo()
+	long[] getQueryInfo()
 	{
 		final int level;
 		
@@ -137,7 +137,7 @@ final class QueryCache
 		else
 			level = 0;
 		
-		return new int[]{hits, misses, level};
+		return new long[]{hits, misses, level};
 	}
 	
 	CacheQueryInfo[] getHistogram()
