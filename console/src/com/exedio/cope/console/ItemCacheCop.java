@@ -40,8 +40,8 @@ final class ItemCacheCop extends ConsoleCop
 		
 		int allLimit = 0;
 		int allLevel = 0;
-		int allHits = 0;
-		int allMisses = 0;
+		long allHits = 0;
+		long allMisses = 0;
 		int allNumberOfCleanups = 0;
 		int allItemsCleanedUp = 0;
 		Date allLastCleanup = null;

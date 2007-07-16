@@ -27,8 +27,8 @@ public final class CacheInfo
 	private final Type type;
 	private final int limit;
 	private final int level;
-	private final int hits;
-	private final int misses;
+	private final long hits;
+	private final long misses;
 	private final int numberOfCleanups;
 	private final int itemsCleanedUp;
 	private final Date lastCleanup;
@@ -40,7 +40,7 @@ public final class CacheInfo
 			final Type type,
 			final int limit,
 			final int level,
-			final int hits, final int misses,
+			final long hits, final long misses,
 			final int numberOfCleanups, final int itemsCleanedUp, final Date lastCleanup,
 			final long ageSum, final long ageMin, final long ageMax)
 	{
@@ -78,12 +78,12 @@ public final class CacheInfo
 		return level;
 	}
 
-	public int getHits()
+	public long getHits()
 	{
 		return hits;
 	}
 
-	public int getMisses()
+	public long getMisses()
 	{
 		return misses;
 	}

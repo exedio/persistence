@@ -106,8 +106,8 @@ final class ItemCache
 		private final Type type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
-		private volatile int hits = 0;
-		private volatile int misses = 0;
+		private volatile long hits = 0;
+		private volatile long misses = 0;
 		private int numberOfCleanups = 0;
 		private int itemsCleanedUp = 0;
 		private long lastCleanup = 0;
