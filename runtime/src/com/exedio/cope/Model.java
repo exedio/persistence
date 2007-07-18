@@ -62,7 +62,7 @@ public final class Model
 
 	// set by connect
 	private Properties propertiesIfConnected;
-	private final Object propertiesLock = new Object();
+	private final Object connectLock = new Object();
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
@@ -290,7 +290,7 @@ public final class Model
 		if(properties==null)
 			throw new NullPointerException();
 
-		synchronized(propertiesLock)
+		synchronized(connectLock)
 		{
 			if(this.propertiesIfConnected==null)
 			{
@@ -335,7 +335,7 @@ public final class Model
 	
 	public void disconnect()
 	{
-		synchronized(propertiesLock)
+		synchronized(connectLock)
 		{
 			if(this.propertiesIfConnected!=null)
 			{
