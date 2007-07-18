@@ -61,8 +61,8 @@ public final class Model
 	private int modificationListenersCleared = 0;
 
 	// set by connect
-	private Properties propertiesIfConnected;
 	private final Object connectLock = new Object();
+	private Properties propertiesIfConnected;
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
