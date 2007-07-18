@@ -303,11 +303,13 @@ public final class Model
 				if(this.connectDate!=null)
 					throw new RuntimeException();
 		
+				// do this at first, to avoid half.connected model if probe connection fails
+				final Database db = properties.createDatabase(migrationSupported);
 				this.propertiesIfConnected = properties;
-				this.databaseIfConnected = properties.createDatabase(migrationSupported);
+				this.databaseIfConnected = db;
 				
 				for(final Type type : typesSorted)
-					type.connect(databaseIfConnected);
+					type.connect(db);
 				
 				final int[] itemCacheLimits = new int[concreteTypeCount];
 				final int itemCacheLimit = properties.getItemCacheLimit() / concreteTypeCount;
