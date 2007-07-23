@@ -124,7 +124,7 @@ public class ServletUtil
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #connect(Model, ServletContext)}.
+	 * @deprecated Renamed to {@link #connect(Model, ServletContext, String)}.
 	 */
 	@Deprecated
 	public static final ConnectToken initialize(final Model model, final ServletContext context, final String name)
