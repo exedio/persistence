@@ -78,8 +78,8 @@ public final class CopernicaServlet extends CopsServlet
 	final static String ENCODING = "utf-8";
 
 	private ConnectToken connectToken = null;
-	CopernicaProvider provider = null;
-	boolean checked;
+	private CopernicaProvider provider = null;
+	private boolean checked;
 
 	private static final ResourceSet resources = new ResourceSet(CopernicaServlet.class);
 	static final Resource stylesheet = new Resource(resources, "copernica.css");
@@ -130,6 +130,7 @@ public final class CopernicaServlet extends CopsServlet
 	{
 		connectToken.returnIt();
 		connectToken = null;
+		provider = null;
 		super.destroy();
 	}
 

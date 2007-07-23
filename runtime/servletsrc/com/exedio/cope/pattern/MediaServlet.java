@@ -115,6 +115,7 @@ public final class MediaServlet extends HttpServlet
 	{
 		connectToken.returnIt();
 		connectToken = null;
+		pathes.clear();
 		super.destroy();
 	}
 

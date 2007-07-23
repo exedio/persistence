@@ -64,7 +64,7 @@ public final class ConsoleServlet extends CopsServlet
 	final static String ENCODING = "utf-8";
 
 	private ConnectToken connectToken = null;
-	Model model = null;
+	private Model model = null;
 	
 	private static final ResourceSet resources = new ResourceSet(ConsoleServlet.class);
 	static final Resource stylesheet = new Resource(resources, "console.css");
@@ -130,6 +130,7 @@ public final class ConsoleServlet extends CopsServlet
 	{
 		connectToken.returnIt();
 		connectToken = null;
+		model = null;
 		super.destroy();
 	}
 	
