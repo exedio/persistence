@@ -18,11 +18,13 @@
 
 package com.exedio.cope.util;
 
+import java.io.File;
 import java.util.Date;
 
 import javax.servlet.ServletException;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Properties;
 import com.exedio.cope.junit.CopeAssert;
 
 public class ConnectTokenTest extends CopeAssert
@@ -75,6 +77,28 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals(false, token2.didConnect());
 		assertEquals(false, token2.isReturned());
 		
+		{
+			final File dpf = Properties.getDefaultPropertyFile();
+			final java.util.Properties dp = Properties.loadProperties(dpf);
+			dp.setProperty("database.user", "zack");
+			final Properties props2 = new Properties(dp, "ConnectTokenTestChangedProps", Properties.getSystemPropertyContext());
+			try
+			{
+				ConnectToken.issue(model, props2, "tokenXName");
+				fail();
+			}
+			catch(IllegalArgumentException e)
+			{
+				assertEquals(
+						"inconsistent initialization for database.user between " + props.getSource() +
+						" and ConnectTokenTestChangedProps, expected " + props.getDatabaseUser() +
+						" but got zack.", e.getMessage());
+			}
+			assertSame(props, model.getProperties());
+			assertSame(connectDate, model.getConnectDate());
+			assertEqualsUnmodifiable(list(token1, token2), ConnectToken.getTokens(model));
+		}
+
 		assertEquals(false, token1.returnIt());
 		assertSame(props, model.getProperties());
 		assertSame(connectDate, model.getConnectDate());
