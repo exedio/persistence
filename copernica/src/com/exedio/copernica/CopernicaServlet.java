@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
@@ -76,6 +77,7 @@ public final class CopernicaServlet extends CopsServlet
 	
 	final static String ENCODING = "utf-8";
 
+	private ConnectToken connectToken = null;
 	CopernicaProvider provider = null;
 	boolean checked;
 
@@ -121,6 +123,14 @@ public final class CopernicaServlet extends CopsServlet
 			e.printStackTrace();
 			throw e;
 		}
+	}
+
+	@Override
+	public void destroy()
+	{
+		connectToken.returnIt();
+		connectToken = null;
+		super.destroy();
 	}
 
 	@Override
@@ -197,7 +207,8 @@ public final class CopernicaServlet extends CopsServlet
 			final String providerName = config.getInitParameter("provider");
 			if(providerName==null)
 			{
-				final Model model = ServletUtil.getConnectedModel(config);
+				connectToken = ServletUtil.getConnectedModel(config);
+				final Model model = connectToken.getModel();
 				model.migrateIfSupported();
 				return new PureCopernicaProvider(model);
 			}
@@ -205,7 +216,7 @@ public final class CopernicaServlet extends CopsServlet
 			{
 				final Class providerClass = Class.forName(providerName);
 				final CopernicaProvider provider = (CopernicaProvider)providerClass.newInstance();
-				provider.initialize(config);
+				connectToken = provider.connect(config, "servlet \"" + config.getServletName() +'"' + ' ' + '(' + providerClass.getName() + ')');
 				return provider;
 			}
 		}

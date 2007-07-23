@@ -89,13 +89,17 @@ public abstract class CopeTest extends CopeAssert
 	private final void createDatabase()
 	{
 		if(exclusive)
+		{
+			model.connect(getProperties());
 			model.createDatabase();
+		}
 		else
 		{
 			synchronized(lock)
 			{
 				if(!createdDatabase.contains(model))
 				{
+					model.connect(getProperties());
 					model.createDatabase();
 					createdDatabase.add(model);
 				}
@@ -106,7 +110,10 @@ public abstract class CopeTest extends CopeAssert
 	private final void dropDatabase()
 	{
 		if(exclusive)
+		{
 			model.dropDatabase();
+			model.disconnect();
+		}
 		else
 		{
 			synchronized(lock)
@@ -118,7 +125,7 @@ public abstract class CopeTest extends CopeAssert
 						{
 							//printConnectionPoolCounter();
 							model.dropDatabase();
-							model.close();
+							model.disconnect();
 						}
 					}));
 					registeredDropDatabaseHook.add(model);
@@ -151,8 +158,6 @@ public abstract class CopeTest extends CopeAssert
 	@Override
 	protected void setUp() throws Exception
 	{
-		model.connect(getProperties());
-
 		super.setUp();
 		deleteOnTearDown = new ArrayList<Item>();
 		createDatabase();

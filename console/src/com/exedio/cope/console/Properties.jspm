@@ -23,8 +23,10 @@ import java.io.File;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.Properties;
+import com.exedio.cope.util.ConnectToken;
 
 final class Properties_Jspm extends Console_Jspm
 {
@@ -67,6 +69,7 @@ final class Properties_Jspm extends Console_Jspm
 				final Properties properties,
 				final Date initializeDate,
 				final Date connectDate,
+				final List<ConnectToken> connectTokens,
 				final String sourceContent)
 	{
 		%>
@@ -139,6 +142,29 @@ final class Properties_Jspm extends Console_Jspm
 				}
 			}
 			%>
+		</table>
+		<hr>
+		<table>
+			<caption>Open Connect Tokens</caption>
+			<tr>
+				<th>#</th>
+				<th>ID</th>
+				<th>Issue Date</th>
+				<th>Name</th>
+			</tr><%
+			int number = 0;
+			for(final ConnectToken token : connectTokens)
+			{
+				final String name = token.getName();
+			%>
+			<tr>
+				<td><%=cop.format(number++)%></td>
+				<td><% if(token.didConnect()){%>&#187;<%} %><%=cop.format(token.getID())%></td>
+				<td class="text"><%=cop.format(token.getIssueDate())%></td>
+				<td class="text"><% if(name!=null) { %><%=encode(name)%><% } %></td>
+			</tr><%
+			}
+		%>
 		</table>
 		<hr>
 		<table>

@@ -35,17 +35,18 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ServletUtil;
-
 
 public abstract class TransientCopernicaProvider implements CopernicaProvider
 {
 	
-	public void initialize(final ServletConfig config)
+	public ConnectToken connect(final ServletConfig config, final String name)
 	{
 		final Model model = getModel();
-		ServletUtil.connect(model, config.getServletContext());
+		final ConnectToken result = ServletUtil.connect(model, config.getServletContext(), name);
 		model.migrateIfSupported();
+		return result;
 	}
 	
 	// Transient Languages

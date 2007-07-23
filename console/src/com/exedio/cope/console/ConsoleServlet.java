@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
@@ -62,6 +63,7 @@ public final class ConsoleServlet extends CopsServlet
 	
 	final static String ENCODING = "utf-8";
 
+	private ConnectToken connectToken = null;
 	Model model = null;
 	
 	private static final ResourceSet resources = new ResourceSet(ConsoleServlet.class);
@@ -84,7 +86,7 @@ public final class ConsoleServlet extends CopsServlet
 	static final Resource write  = new Resource(resources, "write.png");
 	
 	@Override
-	public final void init() throws ServletException
+	public void init() throws ServletException
 	{
 		super.init();
 		resources.init();
@@ -97,7 +99,8 @@ public final class ConsoleServlet extends CopsServlet
 		
 		try
 		{
-			model = ServletUtil.getConnectedModel(getServletConfig());
+			connectToken = ServletUtil.getConnectedModel(getServletConfig());
+			model = connectToken.getModel();
 		}
 		catch(RuntimeException e)
 		{
@@ -122,6 +125,14 @@ public final class ConsoleServlet extends CopsServlet
 		}
 	}
 
+	@Override
+	public void destroy()
+	{
+		connectToken.returnIt();
+		connectToken = null;
+		super.destroy();
+	}
+	
 	@Override
 	protected void doRequest(
 			final HttpServletRequest request,

@@ -273,17 +273,9 @@ public final class Model
 	}
 	
 	/**
-	 * Initially connects this model to the database described in the properties.
-	 * Can be called multiple times, but only the first time
-	 * takes effect.
-	 * Any subsequent calls must give properties equal to properties given
-	 * on the first call, otherwise a RuntimeException is thrown.
-	 * <p>
-	 * Usually you may want to use this method, if you want to connect this model
-	 * from different servlets with equal properties in an undefined order.
+	 * Connects this model to the database described in the properties.
 	 *
-	 * @throws IllegalArgumentException if a subsequent call provides properties different
-	 * 									to the first call.
+	 * @throws IllegalStateException if this model has already been connected.
 	 */
 	public void connect(final Properties properties)
 	{
@@ -318,13 +310,10 @@ public final class Model
 				this.queryCacheIfConnected = new QueryCache(properties.getQueryCacheLimit());
 				this.logTransactions = properties.getTransactionLog();
 				this.connectDate = new Date();
-
-				return;
 			}
+			else
+				throw new IllegalStateException("model already been connected"); // TODO reorder code
 		}
-		
-		// can be done outside the synchronized block
-		this.propertiesIfConnected.ensureEquality(properties);
 	}
 
 	/**
@@ -363,9 +352,9 @@ public final class Model
 				this.connectDate = null;
 				
 				db.close();
-
-				return;
 			}
+			else
+				throw new IllegalStateException("model not yet connected, use connect(Properties)"); // TODO reorder code
 		}
 	}
 	
@@ -631,11 +620,6 @@ public final class Model
 	public void tearDownDatabaseConstraints(final int mask)
 	{
 		getDatabase().tearDownDatabaseConstraints(mask);
-	}
-
-	public void close()
-	{
-		getDatabase().close();
 	}
 
 	public Schema getVerifiedSchema()

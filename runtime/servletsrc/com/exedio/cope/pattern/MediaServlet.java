@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ServletUtil;
 
 /**
@@ -61,6 +62,7 @@ public final class MediaServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
 	
+	private ConnectToken connectToken = null;
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	
 	@Override
@@ -70,7 +72,8 @@ public final class MediaServlet extends HttpServlet
 
 		try
 		{
-			final Model model = ServletUtil.getConnectedModel(getServletConfig());
+			connectToken = ServletUtil.getConnectedModel(getServletConfig());
+			final Model model = connectToken.getModel();
 			model.migrateIfSupported();
 			for(final Type<?> type : model.getTypes())
 			{
@@ -105,6 +108,14 @@ public final class MediaServlet extends HttpServlet
 			e.printStackTrace();
 			throw e;
 		}
+	}
+
+	@Override
+	public void destroy()
+	{
+		connectToken.returnIt();
+		connectToken = null;
+		super.destroy();
 	}
 
 	@Override

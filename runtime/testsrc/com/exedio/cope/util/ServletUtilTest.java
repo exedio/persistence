@@ -45,15 +45,15 @@ public class ServletUtilTest extends CopeAssert
 	public void testIt() throws ServletException
 	{
 		assertModelNotConnected(modelOk);
-		assertSame(modelOk, ServletUtil.getConnectedModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
+		assertIt(modelOk, "servlet \"nameOk\"", ServletUtil.getConnectedModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
 		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
 
 		assertModelNotConnected(modelOk2);
-		assertSame(modelOk2, ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
+		assertIt(modelOk2, "filter \"nameOk2\"", ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
 
 		assertModelNotConnected(modelContext);
-		assertSame(modelContext, ServletUtil.getConnectedModel(new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
+		assertIt(modelContext, "filter \"nameContext\"", ServletUtil.getConnectedModel(new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
 		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
 		try
@@ -105,6 +105,12 @@ public class ServletUtilTest extends CopeAssert
 		{
 			assertEquals("filter nameNull, init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
 		}
+	}
+	
+	private static final void assertIt(final Model model, final String tokenName, final ConnectToken token)
+	{
+		assertSame(model, token.getModel());
+		assertEquals(tokenName, token.getName());
 	}
 	
 	private static final void assertModelNotConnected(final Model model)

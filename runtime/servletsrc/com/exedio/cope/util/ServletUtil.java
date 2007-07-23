@@ -36,13 +36,13 @@ public class ServletUtil
 	 * @deprecated Use {@link #getConnectedModel(ServletConfig)} instead
 	 */
 	@Deprecated
-	public static final Model getModel(final ServletConfig config)
+	public static final ConnectToken getModel(final ServletConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(config);
 	}
 
-	public static final Model getConnectedModel(final ServletConfig config)
+	public static final ConnectToken getConnectedModel(final ServletConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
@@ -52,19 +52,19 @@ public class ServletUtil
 	 * @deprecated Use {@link #getConnectedModel(FilterConfig)} instead
 	 */
 	@Deprecated
-	public static final Model getModel(final FilterConfig config)
+	public static final ConnectToken getModel(final FilterConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(config);
 	}
 
-	public static final Model getConnectedModel(final FilterConfig config)
+	public static final ConnectToken getConnectedModel(final FilterConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(config.getInitParameter(PARAMETER_MODEL), "filter", config.getFilterName(), config.getServletContext());
 	}
 	
-	private static final Model getConnectedModel(final String initParam, final String kind, final String name, final ServletContext context)
+	private static final ConnectToken getConnectedModel(final String initParam, final String kind, final String name, final ServletContext context)
 	throws ServletException
 	{
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
@@ -93,8 +93,7 @@ public class ServletUtil
 		{
 			throw new ServletException(kind + ' ' + name + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
-		connect(result, context);
-		return result;
+		return connect(result, context, kind + ' ' + '"' + name + '"');
 	}
 	
 	/**
@@ -103,10 +102,11 @@ public class ServletUtil
 	 * in the directory <tt>WEB-INF</tt>
 	 * of the web application.
 	 * @see Model#connect(com.exedio.cope.Properties)
+	 * @see ConnectToken#issue(Model,com.exedio.cope.Properties,String)
 	 */
-	public static final void connect(final Model model, final ServletContext context)
+	public static final ConnectToken connect(final Model model, final ServletContext context, final String name)
 	{
-		model.connect(
+		return ConnectToken.issue(model,
 			new com.exedio.cope.Properties(
 				new File(context.getRealPath("WEB-INF/cope.properties")), new Properties.Context(){
 					public String get(final String key)
@@ -120,15 +120,15 @@ public class ServletUtil
 						return "javax.servlet.ServletContext.getInitParameter of '" + context.getServletContextName() + '\'';
 					}
 				}
-			));
+			), name);
 	}
 
 	/**
 	 * @deprecated Renamed to {@link #connect(Model, ServletContext)}.
 	 */
 	@Deprecated
-	public static final void initialize(final Model model, final ServletContext context)
+	public static final ConnectToken initialize(final Model model, final ServletContext context, final String name)
 	{
-		connect(model, context);
+		return connect(model, context, name);
 	}
 }

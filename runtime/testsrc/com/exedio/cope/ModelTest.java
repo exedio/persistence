@@ -53,7 +53,15 @@ public class ModelTest extends TestmodelTest
 		// test duplicate call of connect
 		final Date connectDate = model.getConnectDate();
 		assertNotNull(connectDate);
-		model.connect(defaultProps);
+		try
+		{
+			model.connect(defaultProps);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("model already been connected", e.getMessage());
+		}
 		assertSame(connectDate, model.getConnectDate());
 	}
 	
@@ -310,6 +318,17 @@ public class ModelTest extends TestmodelTest
 		try
 		{
 			model.getProperties();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
+		}
+		assertEquals(null, model.getConnectDate());
+
+		try
+		{
+			model.disconnect();
 			fail();
 		}
 		catch(IllegalStateException e)

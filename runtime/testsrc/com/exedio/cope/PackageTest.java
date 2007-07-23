@@ -143,6 +143,7 @@ public class PackageTest extends TestCase
 			//System.out.println("teardown " + m.getTypes());
 			m.connect(models.get(m));
 			m.tearDownDatabase();
+			m.disconnect();
 		}
 	}
 }

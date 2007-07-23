@@ -25,11 +25,12 @@ import java.util.Collection;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Field;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.util.ConnectToken;
 
 public interface CopernicaProvider
 {
@@ -39,7 +40,7 @@ public interface CopernicaProvider
 	/**
 	 * Is called once after the constructor.
 	 */
-	void initialize(ServletConfig config);
+	ConnectToken connect(ServletConfig config, String name);
 	
 	Collection<? extends CopernicaLanguage> getDisplayLanguages();
 	

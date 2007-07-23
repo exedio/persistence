@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Properties;
+import com.exedio.cope.util.ConnectToken;
 
 final class PropertiesCop extends ConsoleCop
 {
@@ -77,7 +78,7 @@ final class PropertiesCop extends ConsoleCop
 			throw new RuntimeException(e);
 		}
 		
-		Properties_Jspm.writeBody(out, this, props, model.getInitializeDate(), model.getConnectDate(), sourceContent);
+		Properties_Jspm.writeBody(out, this, props, model.getInitializeDate(), model.getConnectDate(), ConnectToken.getTokens(model), sourceContent);
 	}
 	
 	String formatObject(final Object o)

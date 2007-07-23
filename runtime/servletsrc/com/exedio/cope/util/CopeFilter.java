@@ -55,13 +55,15 @@ import com.exedio.cope.Model;
  */
 public final class CopeFilter implements Filter
 {
+	private ConnectToken connectToken = null;
 	private Model model;
 	
 	public void init(final FilterConfig config) throws ServletException
 	{
 		try
 		{
-			model = ServletUtil.getConnectedModel(config);
+			connectToken = ServletUtil.getConnectedModel(config);
+			model = connectToken.getModel();
 		}
 		catch(RuntimeException e)
 		{
@@ -118,6 +120,7 @@ public final class CopeFilter implements Filter
 	
 	public void destroy()
 	{
-		// empty implementation
+		connectToken.returnIt();
+		connectToken = null;
 	}
 }

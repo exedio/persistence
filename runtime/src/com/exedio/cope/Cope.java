@@ -329,5 +329,6 @@ public abstract class Cope implements Serializable
 			model.tearDownDatabase();
 		else
 			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
+		model.disconnect();
 	}
 }
