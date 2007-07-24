@@ -102,7 +102,7 @@ public class QueryCacheTest extends TestCase
 			final int count,
 			final int recentUsage,
 			final int resultSize,
-			final int hits,
+			final long hits,
 			final String query)
 	{
 		assertEquals(count, actual.getCount());

@@ -221,7 +221,7 @@ final class QueryCache
 	{
 		final ArrayList<Object> list;
 		final int[] invalidationTypesTransiently;
-		volatile int hits = 0;
+		volatile long hits = 0;
 		
 		Value(final Query<? extends Object> query, final ArrayList<Object> list)
 		{

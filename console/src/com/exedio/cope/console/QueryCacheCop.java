@@ -79,9 +79,9 @@ final class QueryCacheCop extends ConsoleCop
 		final int minResultSize;
 		final int[] resultSizes;
 		
-		final int avgHits;
-		final int maxHits;
-		final int minHits;
+		final long avgHits;
+		final long maxHits;
+		final long minHits;
 
 		Content(final CacheQueryInfo[] histogram, final boolean condense)
 		{
@@ -100,9 +100,9 @@ final class QueryCacheCop extends ConsoleCop
 				int minResultSize = Integer.MAX_VALUE;
 				int[] resultSizes = new int[5];
 				
-				int sumHits = 0;
-				int maxHits = 0;
-				int minHits = Integer.MAX_VALUE;
+				long sumHits = 0;
+				long maxHits = 0;
+				long minHits = Integer.MAX_VALUE;
 				
 				int recentUsage = 0;
 				for(final CacheQueryInfo info : histogram)
@@ -163,7 +163,7 @@ final class QueryCacheCop extends ConsoleCop
 					if(resultSize<resultSizes.length)
 						resultSizes[resultSize]++;
 					
-					final int hits = info.getHits();
+					final long hits = info.getHits();
 					sumHits += hits;
 					if(hits<minHits)
 						minHits = hits;
@@ -241,7 +241,7 @@ final class QueryCacheCop extends ConsoleCop
 		private int count;
 		private int recentUsage;
 		private int resultSize;
-		private int hits;
+		private long hits;
 		
 		Condense(final String query, final int recentUsage, final CacheQueryInfo info)
 		{
@@ -276,7 +276,7 @@ final class QueryCacheCop extends ConsoleCop
 			return resultSize;
 		}
 		
-		int getHits()
+		long getHits()
 		{
 			return hits;
 		}

@@ -23,12 +23,12 @@ public final class CacheQueryInfo
 {
 	private final String query;
 	private final int resultSize;
-	private final int hits;
+	private final long hits;
 	
 	public CacheQueryInfo(
 			final String query,
 			final int resultSize,
-			final int hits)
+			final long hits)
 	{
 		if(query==null)
 			throw new NullPointerException();
@@ -48,7 +48,7 @@ public final class CacheQueryInfo
 		return resultSize;
 	}
 
-	public int getHits()
+	public long getHits()
 	{
 		return hits;
 	}
@@ -67,7 +67,7 @@ public final class CacheQueryInfo
 	@Override
 	public int hashCode()
 	{
-		return query.hashCode() ^ resultSize ^ hits ^ 298742165;
+		return query.hashCode() ^ resultSize ^ ((int)hits) ^ 298742165;
 	}
 	
 	@Override
