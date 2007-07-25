@@ -22,6 +22,7 @@ public interface Selectable<E extends Object>
 {
 	Type<? extends Item> getType();
 	
+	// TODO convert to void toString(StringBuffer bf, Type defaultType)
 	String toString(Type defaultType);
 
 	/**
