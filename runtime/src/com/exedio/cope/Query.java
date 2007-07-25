@@ -456,6 +456,7 @@ public final class Query<R>
 	
 	String toString(final boolean key, final boolean doCountOnly)
 	{
+		final Type type = this.type;
 		final StringBuffer bf = new StringBuffer();
 		
 		bf.append("select ");
@@ -474,7 +475,7 @@ public final class Query<R>
 				if(i>0)
 					bf.append(',');
 	
-				bf.append(selects[i]);
+				bf.append(selects[i].toString(type));
 			}
 		}
 
@@ -484,13 +485,13 @@ public final class Query<R>
 		if(joins!=null)
 		{
 			for(final Join join : joins)
-				join.toString(bf, key);
+				join.toString(bf, key, type);
 		}
 
 		if(condition!=null)
 		{
 			bf.append(" where ");
-			condition.toString(bf, key);
+			condition.toString(bf, key, type);
 		}
 
 		if(!doCountOnly)
@@ -503,7 +504,7 @@ public final class Query<R>
 					if(i>0)
 						bf.append(", ");
 					
-					bf.append(orderBy[i]);
+					bf.append(orderBy[i].toString(type));
 					if(!orderAscending[i])
 						bf.append(" desc");
 				}

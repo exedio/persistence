@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 /**
  * A condition matching a fulltext index. EXPERIMENTAL!!!
  *
@@ -80,9 +79,9 @@ public final class MatchCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key)
+	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(function.toString()).
+		bf.append(function.toString(defaultType)).
 			append(" matches '").
 			append(toStringForValue(value, key)).
 			append('\'');

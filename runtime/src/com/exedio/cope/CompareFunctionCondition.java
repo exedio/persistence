@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public final class CompareFunctionCondition<E> extends Condition
 {
 	private final CompareCondition.Operator operator;
@@ -82,10 +81,10 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key)
+	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(left.toString()).
+		bf.append(left.toString(defaultType)).
 			append(operator.sql).
-			append(right.toString());
+			append(right.toString(defaultType));
 	}
 }

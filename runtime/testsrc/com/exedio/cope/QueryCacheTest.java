@@ -41,10 +41,10 @@ public class QueryCacheTest extends AbstractLibTest
 		deleteOnTearDown(item = new MatchItem());
 	}
 	
-	private static final String Q1 = "select MatchItem.this from MatchItem where MatchItem.text='someString'";
-	private static final String C1 = "select count(*) from MatchItem where MatchItem.text='someString'";
-	private static final String Q2 = "select MatchItem.this from MatchItem where MatchItem.text='someString2'";
-	private static final String C2 = "select count(*) from MatchItem where MatchItem.text='someString2'";
+	private static final String Q1 = "select this from MatchItem where text='someString'";
+	private static final String C1 = "select count(*) from MatchItem where text='someString'";
+	private static final String Q2 = "select this from MatchItem where text='someString2'";
+	private static final String C2 = "select count(*) from MatchItem where text='someString2'";
 	
 	public void testQueryCache()
 	{

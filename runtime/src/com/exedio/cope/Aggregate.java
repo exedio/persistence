@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public abstract class Aggregate<E> implements Selectable<E>
 {
 	/**
@@ -109,5 +108,10 @@ public abstract class Aggregate<E> implements Selectable<E>
 	public final String toString()
 	{
 		return name + '(' + source + ')';
+	}
+
+	public final String toString(final Type defaultType)
+	{
+		return name + '(' + source.toString(defaultType) + ')';
 	}
 }

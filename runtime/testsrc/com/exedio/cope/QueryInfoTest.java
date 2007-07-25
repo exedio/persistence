@@ -23,10 +23,8 @@ import java.util.List;
 
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 
-
 public class QueryInfoTest extends TestmodelTest
 {
-	
 	public void testExecutionPlan()
 	{
 		final Transaction transaction = model.getCurrentTransaction();
@@ -129,10 +127,10 @@ public class QueryInfoTest extends TestmodelTest
 		assertNull(transaction.getQueryInfos());
 		
 		final String statement =
-			"select ItemWithSingleUnique.this " +
+			"select this " +
 			"from ItemWithSingleUnique " +
-			"where ItemWithSingleUnique.uniqueString='zack' " +
-			"order by ItemWithSingleUnique.uniqueString";
+			"where uniqueString='zack' " +
+			"order by uniqueString";
 		
 		transaction.setQueryInfoEnabled(true);
 		query.search();

@@ -112,16 +112,16 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key)
+	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
 		bf.append('(');
-		conditions[0].toString(bf, key);
+		conditions[0].toString(bf, key, defaultType);
 		for(int i = 1; i<conditions.length; i++)
 		{
 			bf.append(' ').
 				append(operator).
 				append(' ');
-			conditions[i].toString(bf, key);
+			conditions[i].toString(bf, key, defaultType);
 		}
 		bf.append(')');
 	}

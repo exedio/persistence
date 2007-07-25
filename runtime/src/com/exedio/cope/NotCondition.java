@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public final class NotCondition extends Condition
 {
 	final Condition argument;
@@ -72,10 +71,10 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key)
+	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
 		bf.append("!(");
-		argument.toString(bf, key);
+		argument.toString(bf, key, defaultType);
 		bf.append(')');
 	}
 }

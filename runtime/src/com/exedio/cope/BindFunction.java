@@ -23,7 +23,6 @@ import java.util.Map;
 
 import com.exedio.cope.search.ExtremumAggregate;
 
-
 public class BindFunction<E> implements Function<E>
 {
 	final Function<E> function;
@@ -120,6 +119,11 @@ public class BindFunction<E> implements Function<E>
 	public final String toString()
 	{
 		return join.getToStringAlias() + '.' + function.toString();
+	}
+	
+	public final String toString(final Type defaultType)
+	{
+		return join.getToStringAlias() + '.' + function.toString(defaultType);
 	}
 	
 	// convenience methods for conditions and views ---------------------------------

@@ -21,6 +21,8 @@ package com.exedio.cope;
 public interface Selectable<E extends Object>
 {
 	Type<? extends Item> getType();
+	
+	String toString(Type defaultType);
 
 	/**
 	 * @deprecated For internal use within COPE only.

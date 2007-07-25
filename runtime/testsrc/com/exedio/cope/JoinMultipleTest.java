@@ -75,9 +75,9 @@ public class JoinMultipleTest extends TestmodelTest
 			assertEqualsUnmodifiable(list(source), query.search());
 			
 			assertEquals(
-					"select PointerItem.this from PointerItem " +
-					"join PointerTargetItem p1 on PointerItem.pointer=p1.PointerTargetItem.this " +
-					"join PointerTargetItem p2 on PointerItem.pointer2=p2.PointerTargetItem.this " +
+					"select this from PointerItem " +
+					"join PointerTargetItem p1 on pointer=p1.PointerTargetItem.this " +
+					"join PointerTargetItem p2 on pointer2=p2.PointerTargetItem.this " +
 					"where p1.PointerTargetItem.code='target1'",
 					query.toString());
 			
@@ -86,5 +86,4 @@ public class JoinMultipleTest extends TestmodelTest
 			// TODO test with functions on joined types
 		}
 	}
-	
 }

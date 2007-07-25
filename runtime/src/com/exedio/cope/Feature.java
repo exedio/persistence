@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public abstract class Feature
 {
 	private Type<? extends Item> type;
@@ -88,5 +87,10 @@ public abstract class Feature
 	public final String toString()
 	{
 		return type!=null ? id : toStringNonInitialized();
+	}
+	
+	public final String toString(final Type defaultType)
+	{
+		return (defaultType!=null && defaultType==type) ? name : id;
 	}
 }

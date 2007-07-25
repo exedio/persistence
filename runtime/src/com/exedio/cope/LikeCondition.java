@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-
-/**
- * @author Ralf Wiebicke
- */
 public final class LikeCondition extends Condition
 {
 	public final StringFunction function;
@@ -76,9 +72,9 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key)
+	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(function.toString()).
+		bf.append(function.toString(defaultType)).
 			append(" like '").
 			append(toStringForValue(value, key)).
 			append('\'');

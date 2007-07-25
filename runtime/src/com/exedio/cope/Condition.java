@@ -152,7 +152,7 @@ public abstract class Condition
 		}
 
 		@Override
-		void toString(StringBuffer bf, boolean key)
+		void toString(StringBuffer bf, boolean key, Type defaultType)
 		{
 			bf.append(name);
 		}
@@ -186,11 +186,11 @@ public abstract class Condition
 	public final String toString()
 	{
 		final StringBuffer bf = new StringBuffer();
-		toString(bf, false);
+		toString(bf, false, null);
 		return bf.toString();
 	}
 	
-	abstract void toString(final StringBuffer bf, final boolean key);
+	abstract void toString(StringBuffer bf, boolean key, Type defaultType);
 
 	static final String toStringForValue(final Object o, final boolean key)
 	{

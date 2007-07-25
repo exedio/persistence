@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public final class CompareCondition<E> extends Condition
 {
 	private final Operator operator;
@@ -82,9 +81,9 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key)
+	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(function.toString()).
+		bf.append(function.toString(defaultType)).
 			append(operator.sql).
 			append('\'').
 			append(toStringForValue(value, key)).

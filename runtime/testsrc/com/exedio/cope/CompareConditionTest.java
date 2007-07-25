@@ -208,6 +208,7 @@ public class CompareConditionTest extends AbstractLibTest
 		assertContains(item1, item3, item1.TYPE.search(item1.TYPE.getThis().in(listg(item1, item3))));
 		
 		// min
+		assertEquals("select min(" + item1.string.getName() + ") from " + item1.TYPE, new Query<String>(item1.string.min()).toString());
 		assertEquals("string1", new Query<String>(item1.string.min()).searchSingleton());
 		assertEquals(new Integer(1), new Query<Integer>(item1.intx.min()).searchSingleton());
 		assertEquals(new Long(11l), new Query<Long>(item1.longx.min()).searchSingleton());
@@ -241,6 +242,7 @@ public class CompareConditionTest extends AbstractLibTest
 		}
 
 		// max
+		assertEquals("select max(" + item1.string.getName() + ") from " + item1.TYPE, new Query<String>(item1.string.max()).toString());
 		assertEquals("string5", new Query<String>(item1.string.max()).searchSingleton());
 		assertEquals(new Integer(5), new Query<Integer>(item1.intx.max()).searchSingleton());
 		assertEquals(new Long(15l), new Query<Long>(item1.longx.max()).searchSingleton());
@@ -263,24 +265,29 @@ public class CompareConditionTest extends AbstractLibTest
 		// sum
 		{
 			final Query<Integer> q = new Query<Integer>(item1.intx.sum());
+			assertEquals("select sum(" + item1.intx.getName() + ") from " + item1.TYPE, q.toString());
 			assertEquals(new Integer(1+2+3+4+5), q.searchSingleton());
 			q.setCondition(item1.intx.less(4));
+			assertEquals("select sum(" + item1.intx.getName() + ") from " + item1.TYPE + " where " + item1.intx.getName() + "<'4'", q.toString());
 			assertEquals(new Integer(1+2+3), q.searchSingleton());
 		}
 		{
 			final Query<Long> q = new Query<Long>(item1.longx.sum());
+			assertEquals("select sum(" + item1.longx.getName() + ") from " + item1.TYPE, q.toString());
 			assertEquals(new Long(11+12+13+14+15), q.searchSingleton());
 			q.setCondition(item1.longx.less(14l));
+			assertEquals("select sum(" + item1.longx.getName() + ") from " + item1.TYPE + " where " + item1.longx.getName() + "<'14'", q.toString());
 			assertEquals(new Long(11+12+13), q.searchSingleton());
 		}
 		{
 			final Query<Double> q = new Query<Double>(item1.doublex.sum());
+			assertEquals("select sum(" + item1.doublex.getName() + ") from " + item1.TYPE, q.toString());
 			assertEquals(new Double(2.1+2.2+2.3+2.4+2.5).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
 			q.setCondition(item1.doublex.less(2.4));
+			assertEquals("select sum(" + item1.doublex.getName() + ") from " + item1.TYPE + " where " + item1.doublex.getName() + "<'2.4'", q.toString());
 			assertEquals(new Double(2.1+2.2+2.3).doubleValue(), q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
 
 		model.checkUnsupportedConstraints();
 	}
-
 }

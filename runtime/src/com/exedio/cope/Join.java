@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public final class Join
 {
 	static enum Kind
@@ -93,11 +92,11 @@ public final class Join
 	public String toString()
 	{
 		final StringBuffer bf = new StringBuffer();
-		toString(bf, false);
+		toString(bf, false, null);
 		return bf.toString();
 	}
 
-	void toString(final StringBuffer bf, final boolean key)
+	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
 		bf.append(' ').
 			append(kind.sql).
@@ -108,7 +107,7 @@ public final class Join
 		if(condition!=null)
 		{
 			bf.append(" on ");
-			condition.toString(bf, key);
+			condition.toString(bf, key, defaultType);
 		}
 	}
 

@@ -93,7 +93,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select " + item.TYPE.getThis() + " from AttributeItem order by " + item.TYPE.getThis(), e.getMessage());
+			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select this from AttributeItem order by this", e.getMessage());
 		}
 		
 		assertDelete(item);
