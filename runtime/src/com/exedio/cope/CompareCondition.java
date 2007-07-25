@@ -83,8 +83,8 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(function.toString(defaultType)).
-			append(operator.sql).
+		function.toString(bf, defaultType);
+		bf.append(operator.sql).
 			append('\'').
 			append(toStringForValue(value, key)).
 			append('\'');

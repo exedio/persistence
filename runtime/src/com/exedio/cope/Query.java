@@ -475,7 +475,7 @@ public final class Query<R>
 				if(i>0)
 					bf.append(',');
 	
-				bf.append(selects[i].toString(type));
+				selects[i].toString(bf, type);
 			}
 		}
 
@@ -504,7 +504,7 @@ public final class Query<R>
 					if(i>0)
 						bf.append(", ");
 					
-					bf.append(orderBy[i].toString(type));
+					orderBy[i].toString(bf, type);
 					if(!orderAscending[i])
 						bf.append(" desc");
 				}

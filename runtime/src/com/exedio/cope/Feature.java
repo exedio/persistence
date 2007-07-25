@@ -89,8 +89,8 @@ public abstract class Feature
 		return type!=null ? id : toStringNonInitialized();
 	}
 	
-	public final String toString(final Type defaultType)
+	public final void toString(final StringBuffer bf, final Type defaultType)
 	{
-		return (defaultType!=null && defaultType==type) ? name : id;
+		bf.append((defaultType!=null && defaultType==type) ? name : id);
 	}
 }

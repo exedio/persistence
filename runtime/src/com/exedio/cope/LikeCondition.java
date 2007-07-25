@@ -74,8 +74,8 @@ public final class LikeCondition extends Condition
 	@Override
 	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(function.toString(defaultType)).
-			append(" like '").
+		function.toString(bf, defaultType);
+		bf.append(" like '").
 			append(toStringForValue(value, key)).
 			append('\'');
 	}

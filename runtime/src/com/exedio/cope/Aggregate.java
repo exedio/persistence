@@ -110,8 +110,11 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name + '(' + source + ')';
 	}
 
-	public final String toString(final Type defaultType)
+	public final void toString(final StringBuffer bf, final Type defaultType)
 	{
-		return name + '(' + source.toString(defaultType) + ')';
+		bf.append(name).
+			append('(');
+		source.toString(bf, defaultType);
+		bf.append(')');
 	}
 }

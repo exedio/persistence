@@ -147,7 +147,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(function.toString(defaultType));
+		function.toString(bf, defaultType);
 		
 		if(not)
 			bf.append(" not");

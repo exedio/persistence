@@ -81,8 +81,8 @@ public final class MatchCondition extends Condition
 	@Override
 	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(function.toString(defaultType)).
-			append(" matches '").
+		function.toString(bf, defaultType);
+		bf.append(" matches '").
 			append(toStringForValue(value, key)).
 			append('\'');
 	}

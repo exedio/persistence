@@ -83,8 +83,8 @@ public final class CompareFunctionCondition<E> extends Condition
 	@Override
 	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
 	{
-		bf.append(left.toString(defaultType)).
-			append(operator.sql).
-			append(right.toString(defaultType));
+		left.toString(bf, defaultType);
+		bf.append(operator.sql);
+		right.toString(bf, defaultType);
 	}
 }

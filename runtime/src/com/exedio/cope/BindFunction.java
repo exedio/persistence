@@ -121,9 +121,11 @@ public class BindFunction<E> implements Function<E>
 		return join.getToStringAlias() + '.' + function.toString();
 	}
 	
-	public final String toString(final Type defaultType)
+	public final void toString(final StringBuffer bf, final Type defaultType)
 	{
-		return join.getToStringAlias() + '.' + function.toString(defaultType);
+		bf.append(join.getToStringAlias()).
+			append('.');
+		function.toString(bf, defaultType);
 	}
 	
 	// convenience methods for conditions and views ---------------------------------
