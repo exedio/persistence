@@ -32,32 +32,12 @@ public class ServletUtil
 {
 	private static final String PARAMETER_MODEL = "model";
 
-	/**
-	 * @deprecated Use {@link #getConnectedModel(ServletConfig)} instead
-	 */
-	@Deprecated
-	public static final ConnectToken getModel(final ServletConfig config)
-	throws ServletException
-	{
-		return getConnectedModel(config);
-	}
-
 	public static final ConnectToken getConnectedModel(final ServletConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
 	}
 	
-	/**
-	 * @deprecated Use {@link #getConnectedModel(FilterConfig)} instead
-	 */
-	@Deprecated
-	public static final ConnectToken getModel(final FilterConfig config)
-	throws ServletException
-	{
-		return getConnectedModel(config);
-	}
-
 	public static final ConnectToken getConnectedModel(final FilterConfig config)
 	throws ServletException
 	{
@@ -121,6 +101,26 @@ public class ServletUtil
 					}
 				}
 			), name);
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectedModel(ServletConfig)} instead
+	 */
+	@Deprecated
+	public static final ConnectToken getModel(final ServletConfig config)
+	throws ServletException
+	{
+		return getConnectedModel(config);
+	}
+
+	/**
+	 * @deprecated Use {@link #getConnectedModel(FilterConfig)} instead
+	 */
+	@Deprecated
+	public static final ConnectToken getModel(final FilterConfig config)
+	throws ServletException
+	{
+		return getConnectedModel(config);
 	}
 
 	/**
