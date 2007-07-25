@@ -27,7 +27,6 @@ import com.exedio.dsmf.Table;
 
 public final class UniqueConstraint extends Feature
 {
-	
 	private final FunctionField<?>[] fields;
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
@@ -67,19 +66,19 @@ public final class UniqueConstraint extends Feature
 	 * @deprecated Renamed to {@link #getFields()}.
 	 */
 	@Deprecated
-	public final List<FunctionField<?>> getUniqueAttributes()
+	public List<FunctionField<?>> getUniqueAttributes()
 	{
 		return getFields();
 	}
 	
-	public final List<FunctionField<?>> getFields()
+	public List<FunctionField<?>> getFields()
 	{
 		return fieldList;
 	}
 	
 	static final String IMPLICIT_UNIQUE_SUFFIX = "ImplicitUnique";
 	
-	final void connect(final Database database)
+	void connect(final Database database)
 	{
 		if(this.databaseID!=null)
 			throw new RuntimeException();
@@ -93,7 +92,7 @@ public final class UniqueConstraint extends Feature
 		database.addUniqueConstraint(databaseID, this);
 	}
 
-	final void disconnect()
+	void disconnect()
 	{
 		if(this.databaseID==null)
 			throw new RuntimeException();
@@ -101,7 +100,7 @@ public final class UniqueConstraint extends Feature
 		this.databaseID = null;
 	}
 
-	private final String getDatabaseID()
+	private String getDatabaseID()
 	{
 		if(databaseID==null)
 			throw new RuntimeException();
@@ -109,7 +108,7 @@ public final class UniqueConstraint extends Feature
 		return databaseID;
 	}
 	
-	final void makeSchema(final Table dsmfTable)
+	void makeSchema(final Table dsmfTable)
 	{
 		final StringBuffer bf = new StringBuffer();
 		bf.append('(');
@@ -126,10 +125,8 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	@Override
-	final String toStringNonInitialized()
+	void toStringNonInitialized(final StringBuffer buf, final Type defaultType)
 	{
-		final StringBuffer buf = new StringBuffer();
-		
 		buf.append("unique(");
 		buf.append(fields[0].toString());
 		for(int i = 1; i<fields.length; i++)
@@ -138,15 +135,13 @@ public final class UniqueConstraint extends Feature
 			buf.append(fields[i].toString());
 		}
 		buf.append(')');
-		
-		return buf.toString();
 	}
 	
 	/**
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 */
-	public final Item searchUnique(final Object... values)
+	public Item searchUnique(final Object... values)
 	{
 		// TODO: search nativly for unique constraints
 		final List<FunctionField<?>> fields = getFields();

@@ -78,19 +78,32 @@ public abstract class Feature
 		return id;
 	}
 	
-	String toStringNonInitialized()
+	void toStringNonInitialized(final StringBuffer bf, final Type defaultType)
 	{
-		return super.toString();
+		bf.append(super.toString());
 	}
 	
 	@Override
 	public final String toString()
 	{
-		return type!=null ? id : toStringNonInitialized();
+		if(type!=null)
+		{
+			assert id!=null;
+			return id;
+		}
+		else
+		{
+			final StringBuffer bf = new StringBuffer();
+			toStringNonInitialized(bf, null);
+			return bf.toString();
+		}
 	}
 	
 	public final void toString(final StringBuffer bf, final Type defaultType)
 	{
-		bf.append((defaultType!=null && defaultType==type) ? name : id);
+		if(type!=null)
+			bf.append((defaultType==type) ? name : id);
+		else
+			toStringNonInitialized(bf, defaultType);
 	}
 }
