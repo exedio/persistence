@@ -147,17 +147,17 @@ public abstract class View<E> extends Feature implements Function<E>
 	}
 	
 	@Override
-	final void toStringNonInitialized(final StringBuffer buf, final Type defaultType)
+	final void toStringNonInitialized(final StringBuffer bf, final Type defaultType)
 	{
-		buf.append(name);
-		buf.append('(');
+		bf.append(name);
+		bf.append('(');
 		for(int i = 0; i<sources.length; i++)
 		{
 			if(i>0)
-				buf.append(',');
-			buf.append(sources[i].toString());
+				bf.append(',');
+			bf.append(sources[i].toString());
 		}
-		buf.append(')');
+		bf.append(')');
 	}
 	
 	@Override

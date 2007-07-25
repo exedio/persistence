@@ -125,16 +125,16 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	@Override
-	void toStringNonInitialized(final StringBuffer buf, final Type defaultType)
+	void toStringNonInitialized(final StringBuffer bf, final Type defaultType)
 	{
-		buf.append("unique(");
-		buf.append(fields[0].toString());
+		bf.append("unique(");
+		bf.append(fields[0].toString());
 		for(int i = 1; i<fields.length; i++)
 		{
-			buf.append(',');
-			buf.append(fields[i].toString());
+			bf.append(',');
+			bf.append(fields[i].toString());
 		}
-		buf.append(')');
+		bf.append(')');
 	}
 	
 	/**
