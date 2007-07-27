@@ -88,7 +88,12 @@ public class ServletUtil
 	{
 		return ConnectToken.issue(model,
 			new com.exedio.cope.Properties(
-				new File(context.getRealPath("WEB-INF/cope.properties")), new Properties.Context(){
+				new File(context.getRealPath("WEB-INF/cope.properties")), getPropertyContext(context)), name);
+	}
+	
+	public static final Properties.Context getPropertyContext(final ServletContext context)
+	{
+		return new Properties.Context(){
 					public String get(final String key)
 					{
 						return context.getInitParameter(key);
@@ -99,8 +104,7 @@ public class ServletUtil
 					{
 						return "javax.servlet.ServletContext.getInitParameter of '" + context.getServletContextName() + '\'';
 					}
-				}
-			), name);
+				};
 	}
 
 	/**
