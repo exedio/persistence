@@ -40,7 +40,6 @@ import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.dsmf.Schema;
 
-
 public final class Model
 {
 	private final boolean migrationSupported;
@@ -315,15 +314,6 @@ public final class Model
 				throw new IllegalStateException("model already been connected"); // TODO reorder code
 		}
 	}
-
-	/**
-	 * @deprecated renamed to {@link #connect(Properties)}.
-	 */
-	@Deprecated
-	public void setPropertiesInitially(final Properties properties)
-	{
-		connect(properties);
-	}
 	
 	public void disconnect()
 	{
@@ -367,15 +357,6 @@ public final class Model
 	{
 		if(!migrationSupported)
 			throw new IllegalArgumentException("not in migration mode");
-	}
-	
-	/**
-	 * @deprecated Use {@link #getMigrationRevision()} instead
-	 */
-	@Deprecated
-	public int getMigrationVersion()
-	{
-		return getMigrationRevision();
 	}
 
 	public int getMigrationRevision()
@@ -704,15 +685,6 @@ public final class Model
 			return Collections.unmodifiableList(result);
 		}
 	}
-	
-	/**
-	 * @deprecated Use {@link #getModificationListenersCleared()} instead
-	 */
-	@Deprecated
-	public int getModificationListenersRemoved()
-	{
-		return getModificationListenersCleared();
-	}
 
 	public int getModificationListenersCleared()
 	{
@@ -763,41 +735,14 @@ public final class Model
 		return getItemCache().getInfo();
 	}
 	
-	/**
-	 * @deprecated renamed to {@link #getItemCacheInfo()}.
-	 */
-	@Deprecated
-	public CacheInfo[] getCacheInfo()
-	{
-		return getItemCacheInfo();
-	}
-	
 	public long[] getQueryCacheInfo()
 	{
 		return getQueryCache().getQueryInfo();
 	}
 	
-	/**
-	 * @deprecated renamed to {@link #getQueryCacheInfo()}.
-	 */
-	@Deprecated
-	public long[] getCacheQueryInfo()
-	{
-		return getQueryCacheInfo();
-	}
-	
 	public CacheQueryInfo[] getQueryCacheHistogram()
 	{
 		return getQueryCache().getHistogram();
-	}
-
-	/**
-	 * @deprecated renamed to {@link #getQueryCacheHistogram()}.
-	 */
-	@Deprecated
-	public CacheQueryInfo[] getCacheQueryHistogram()
-	{
-		return getQueryCacheHistogram();
 	}
 	
 	public ConnectionPoolInfo getConnectionPoolInfo()
@@ -1041,5 +986,59 @@ public final class Model
 	public void checkUnsupportedConstraints()
 	{
 		getDatabase().makeSchema().checkUnsupportedConstraints();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getItemCacheInfo()}.
+	 */
+	@Deprecated
+	public CacheInfo[] getCacheInfo()
+	{
+		return getItemCacheInfo();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getQueryCacheHistogram()}.
+	 */
+	@Deprecated
+	public CacheQueryInfo[] getCacheQueryHistogram()
+	{
+		return getQueryCacheHistogram();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getQueryCacheInfo()}.
+	 */
+	@Deprecated
+	public long[] getCacheQueryInfo()
+	{
+		return getQueryCacheInfo();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getMigrationRevision()} instead
+	 */
+	@Deprecated
+	public int getMigrationVersion()
+	{
+		return getMigrationRevision();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getModificationListenersCleared()} instead
+	 */
+	@Deprecated
+	public int getModificationListenersRemoved()
+	{
+		return getModificationListenersCleared();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #connect(Properties)}.
+	 */
+	@Deprecated
+	public void setPropertiesInitially(final Properties properties)
+	{
+		connect(properties);
 	}
 }
