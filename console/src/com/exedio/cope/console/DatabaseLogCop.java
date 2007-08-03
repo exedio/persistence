@@ -39,7 +39,7 @@ final class DatabaseLogCop extends ConsoleCop
 	void initialize(final HttpServletRequest request, final Model model)
 	{
 		super.initialize(request, model);
-		if("POST".equals(request.getMethod()))
+		if(isPost(request))
 		{
 			final boolean enable = request.getParameter(ENABLE)!=null;
 			final String threshold = request.getParameter(THRESHOLD).trim();

@@ -49,7 +49,7 @@ final class ModificationListenerCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		if("POST".equals(request.getMethod()))
+		if(isPost(request))
 		{
 			if(request.getParameter(REMOVE_SELECTED)!=null)
 			{
