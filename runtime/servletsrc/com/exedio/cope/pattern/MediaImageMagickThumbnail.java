@@ -36,23 +36,38 @@ import com.exedio.cope.Item;
 public final class MediaImageMagickThumbnail extends MediaFilter
 {
 	private final Media source;
+	private final String outputExtension;
 	private final int boundX;
 	private final int boundY;
 	private final String[] options;
 
 	private static final int MIN_BOUND = 5;
-	private static final String outputContentType = "image/jpeg";
+	private final String outputContentType;
 	
 	private static final HashSet<String> supportedSourceContentTypes =
 		new HashSet<String>(Arrays.asList("image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/gif"));
 	
 	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)
 	{
+		this(source, boundX, boundY, "image/jpeg", ".jpg");
+	}
+	
+	public MediaImageMagickThumbnail(
+			final Media source,
+			final int boundX, final int boundY,
+			final String outputContentType, final String outputExtension)
+	{
 		super(source);
 		this.source = source;
+		this.outputContentType = outputContentType;
+		this.outputExtension = outputExtension;
 		this.boundX = boundX;
 		this.boundY = boundY;
 		
+		if(outputContentType==null)
+			throw new RuntimeException(); // TODO test
+		if(outputExtension==null)
+			throw new RuntimeException(); // TODO test
 		if(boundX<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
@@ -100,7 +115,7 @@ public final class MediaImageMagickThumbnail extends MediaFilter
 			return notComputable;
 		
 		final File inFile  = File.createTempFile("MediaImageMagickThumbnail.in." + getID(), ".data");
-		final File outFile = File.createTempFile("MediaImageMagickThumbnail.out." + getID(), ".jpg");
+		final File outFile = File.createTempFile("MediaImageMagickThumbnail.out." + getID(), outputExtension);
 
 		final String[] command = new String[options.length+4];
 		command[0] = "convert";
