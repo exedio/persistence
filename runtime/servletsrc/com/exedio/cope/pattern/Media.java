@@ -397,7 +397,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		item.set(execute(toValue(body, contentType), item));
 	}
 	
-	static final Value toValue(final DataField.Value body, final String contentType) // TODO make public and test
+	public static final Value toValue(final DataField.Value body, final String contentType)
 	{
 		if(body!=null)
 		{
