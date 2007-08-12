@@ -22,7 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
@@ -104,16 +103,14 @@ public final class OracleDriver extends Driver
 	{
 		super.verify(schema);
 
-		schema.querySQL("select TABLE_NAME,LAST_ANALYZED from user_tables", new Node.ResultSetHandler()
+		schema.querySQL("select TABLE_NAME from user_tables", new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					while(resultSet.next())
 					{
 						final String tableName = resultSet.getString(1);
-						final Date lastAnalyzed = (Date)resultSet.getObject(2);
-						final Table table = schema.notifyExistentTable(tableName);
-						table.setLastAnalyzed(lastAnalyzed);
+						schema.notifyExistentTable(tableName);
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}

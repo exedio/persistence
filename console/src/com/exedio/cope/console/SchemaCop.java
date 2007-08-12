@@ -229,20 +229,6 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 		{
-			final String[] analyzeTables = (String[]) request.getParameterMap().get("ANALYZE_TABLE"); // TODO use constant and use the constant in Schema.jspm
-			if (analyzeTables != null)
-			{
-				for (int i = 0; i < analyzeTables.length; i++)
-				{
-					final String analyzeTable = analyzeTables[i];
-					final Table table = schema.getTable(analyzeTable);
-					if (table == null)
-						throw new RuntimeException(analyzeTable);
-					table.analyze(listener);
-				}
-			}
-		}
-		{
 			final String[] createColumns = (String[]) request.getParameterMap().get("CREATE_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			if (createColumns != null)
 			{

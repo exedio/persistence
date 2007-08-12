@@ -30,7 +30,6 @@ import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
-import com.exedio.dsmf.LastAnalyzed;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
@@ -191,18 +190,6 @@ final class Schema_Jspm extends Console_Jspm
 					
 					%>
 					<ul id="tabBdy<%=tableCount%>" class="expand"><%
-					
-					final LastAnalyzed lastAnalyzed = table.getLastAnalyzed();
-					if(lastAnalyzed!=null)
-					{
-						final Date date = lastAnalyzed.getDate();
-						final String lastAnalyzedString = date!=null ? cop.format(date) : "NEVER";
-						%>
-						<li><% write(lastAnalyzed.getCumulativeColor(), out); %>
-							last analyzed: <%=lastAnalyzedString%>
-							<input type="checkbox" name="ANALYZE_TABLE" value="<%=tableName%>"/>analyze
-						</li><%
-					}
 					
 					final String options = table.getOptions();
 					if(options!=null)

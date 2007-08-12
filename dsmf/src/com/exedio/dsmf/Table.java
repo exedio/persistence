@@ -20,7 +20,6 @@ package com.exedio.dsmf;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 
 public final class Table extends Node
@@ -30,7 +29,6 @@ public final class Table extends Node
 	final String options;
 	private final boolean required;
 	private boolean exists;
-	private LastAnalyzed lastAnalyzed = null;
 	
 	private boolean defensive = false;
 
@@ -95,14 +93,6 @@ public final class Table extends Node
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in table " + name + ": " + constraint.name);
 		constraintList.add(constraint);
-	}
-	
-	final void setLastAnalyzed(final Date lastAnalyzed)
-	{
-		if(this.lastAnalyzed!=null)
-			throw new RuntimeException();
-
-		this.lastAnalyzed = new LastAnalyzed(this, lastAnalyzed);
 	}
 	
 	final void notifyExists()
@@ -179,11 +169,6 @@ public final class Table extends Node
 		return exists;
 	}
 		
-	public final LastAnalyzed getLastAnalyzed()
-	{
-		return lastAnalyzed;
-	}
-		
 	public final Collection<Column> getColumns()
 	{
 		return columnList;
@@ -231,12 +216,6 @@ public final class Table extends Node
 		this.error = error;
 		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
-			
-		if(lastAnalyzed!=null)
-		{
-			lastAnalyzed.finish();
-			cumulativeColor = cumulativeColor.max(lastAnalyzed.cumulativeColor);
-		}
 			
 		for(final Column column : columnList)
 		{
@@ -383,17 +362,6 @@ public final class Table extends Node
 	public final void renameTo(final String newName, final StatementListener listener)
 	{
 		executeSQL(driver.renameTable(protectName(name), protectName(newName)), listener);
-	}
-
-	public final void analyze(final StatementListener listener)
-	{
-		final StringBuffer bf = new StringBuffer();
-		bf.append("analyze table ").
-			append(protectName(name)).
-			append(" compute statistics");
-
-		//System.out.println("analyzeTable:"+bf);
-		executeSQL(bf.toString(), listener);
 	}
 	
 	public final void checkUnsupportedConstraints()
