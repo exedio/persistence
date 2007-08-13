@@ -32,7 +32,6 @@ import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
 import com.exedio.cope.pattern.MediaImageMagickThumbnail;
-import com.exedio.cope.pattern.MediaPnmThumbnail;
 
 final class Media_Jspm extends Console_Jspm
 {
@@ -114,11 +113,6 @@ final class Media_Jspm extends Console_Jspm
 					else if(path instanceof MediaImageMagickThumbnail)
 					{
 						final MediaImageMagickThumbnail thumbnail = (MediaImageMagickThumbnail)path;
-						%>(<%=thumbnail.getSource().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
-					}
-					else if(path instanceof MediaPnmThumbnail)
-					{
-						final MediaPnmThumbnail thumbnail = (MediaPnmThumbnail)path;
 						%>(<%=thumbnail.getSource().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
 					}
 					if(path instanceof MediaFilter)
