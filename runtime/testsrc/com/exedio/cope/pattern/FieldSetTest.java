@@ -167,11 +167,11 @@ public class FieldSetTest extends AbstractLibTest
 		
 		// strings
 		
-		assertContains(item.getStrings());
+		assertContainsUnmodifiable(item.getStrings());
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
 		item.setStrings(listg("hallo", "bello"));
-		assertContains("hallo", "bello", item.getStrings());
+		assertContainsUnmodifiable("hallo", "bello", item.getStrings());
 		assertContains(item, item.getParentsOfStrings("hallo"));
 		assertContains(item, item.getParentsOfStrings("bello"));
 		assertContains(item.getParentsOfStrings("knollo"));
@@ -188,7 +188,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("bello", r1.get(stringsElement));
 		
 		item.setStrings(listg("bello", "knollo"));
-		assertContains("bello", "knollo", item.getStrings());
+		assertContainsUnmodifiable("bello", "knollo", item.getStrings());
 		assertContains(item.getParentsOfStrings("hallo"));
 		assertContains(item, item.getParentsOfStrings("bello"));
 		assertContains(item, item.getParentsOfStrings("knollo"));
@@ -203,7 +203,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("bello", r1.get(stringsElement));
 
 		item.setStrings(listg("knollo"));
-		assertContains("knollo", item.getStrings());
+		assertContainsUnmodifiable("knollo", item.getStrings());
 		assertContains(item.getParentsOfStrings("hallo"));
 		assertContains(item.getParentsOfStrings("bello"));
 		assertContains(item, item.getParentsOfStrings("knollo"));
@@ -217,7 +217,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertFalse(r1.existsCopeItem());
 
 		item.setStrings(listg("zack1", "zack2", "zack3"));
-		assertContains("zack1", "zack2", "zack3", item.getStrings());
+		assertContainsUnmodifiable("zack1", "zack2", "zack3", item.getStrings());
 		final Item r1x;
 		final Item r2;
 		{
@@ -233,7 +233,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("zack3", r2.get(stringsElement));
 
 		item.setStrings(listg("null1", null, "null3", "null4"));
-		assertContains("null1", null, "null3", "null4", item.getStrings());
+		assertContainsUnmodifiable("null1", null, "null3", "null4", item.getStrings());
 		assertContains(item, item.getParentsOfStrings("null1"));
 		assertContains(item, item.getParentsOfStrings(null));
 		assertContains(item.getParentsOfStrings("null2"));
@@ -253,7 +253,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("null4", r3.get(stringsElement));
 
 		item.setStrings(CopeAssert.<String>listg());
-		assertContains(item.getStrings());
+		assertContainsUnmodifiable(item.getStrings());
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());
 		assertFalse(r1x.existsCopeItem());
@@ -261,7 +261,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertFalse(r3.existsCopeItem());
 
 		assertEquals(true, item.addToStrings("bing"));
-		assertContains("bing", item.getStrings());
+		assertContainsUnmodifiable("bing", item.getStrings());
 		final Item r4;
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -271,7 +271,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("bing", r4.get(item.strings.getElement()));
 
 		assertEquals(false, item.addToStrings("bing"));
-		assertContains("bing", item.getStrings());
+		assertContainsUnmodifiable("bing", item.getStrings());
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r4, i.next());
@@ -280,7 +280,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("bing", r4.get(item.strings.getElement()));
 
 		assertEquals(true, item.addToStrings("bong"));
-		assertContains("bing", "bong", item.getStrings());
+		assertContainsUnmodifiable("bing", "bong", item.getStrings());
 		final Item r5;
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -292,7 +292,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("bong", r5.get(item.strings.getElement()));
 		
 		assertEquals(true, item.removeFromStrings("bing"));
-		assertContains("bong", item.getStrings());
+		assertContainsUnmodifiable("bong", item.getStrings());
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r5, i.next());
@@ -302,7 +302,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("bong", r5.get(item.strings.getElement()));
 
 		assertEquals(false, item.removeFromStrings("bing"));
-		assertContains("bong", item.getStrings());
+		assertContainsUnmodifiable("bong", item.getStrings());
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r5, i.next());
@@ -312,7 +312,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals("bong", r5.get(item.strings.getElement()));
 
 		assertEquals(true, item.removeFromStrings("bong"));
-		assertContains(item.getStrings());
+		assertContainsUnmodifiable(item.getStrings());
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertFalse(i.hasNext());
@@ -323,13 +323,13 @@ public class FieldSetTest extends AbstractLibTest
 		
 		// dates
 		
-		assertContains(item.getDates());
+		assertContainsUnmodifiable(item.getDates());
 		assertEquals(0, datesType.newQuery(null).search().size());
 
 		final Date date1 = new Date(918756915152l);
 		final Date date2 = new Date(918756915153l);
 		item.setDates(listg(date1, date2));
-		assertContains(date1, date2, item.getDates());
+		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
 
 		try
@@ -341,7 +341,7 @@ public class FieldSetTest extends AbstractLibTest
 		{
 			assertEquals(item.dates.getElement(), e.getFeature());
 		}
-		assertContains(date1, date2, item.getDates());
+		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
 
 		try
@@ -371,9 +371,9 @@ public class FieldSetTest extends AbstractLibTest
 		String gelb = "gelb";
 		
 		item.setStrings(listg(rot, blau));
-		assertContains(rot, blau, item.getStrings());
+		assertContainsUnmodifiable(rot, blau, item.getStrings());
 		otherItem.setStrings(listg(rot));
-		assertContains(rot, otherItem.getStrings());
+		assertContainsUnmodifiable(rot, otherItem.getStrings());
 
 		assertContains(item, otherItem, item.getParentsOfStrings(rot));
 		assertContains(item, item.getParentsOfStrings(blau));
@@ -381,9 +381,9 @@ public class FieldSetTest extends AbstractLibTest
 		assertContains(item.getParentsOfStrings(null));
 		
 		item.setStrings(listg(rot, null, blau));
-		assertContains(rot, blau, null, item.getStrings());
+		assertContainsUnmodifiable(rot, blau, null, item.getStrings());
 		otherItem.setStrings(listg((String)null));
-		assertContains(null, otherItem.getStrings());
+		assertContainsUnmodifiable(null, otherItem.getStrings());
 
 		assertContains(item, item.getParentsOfStrings(rot));
 		assertContains(item, item.getParentsOfStrings(blau));

@@ -104,6 +104,18 @@ public abstract class CopeAssert extends TestCase
 		assertContains(o1, o2, actual);
 	}
 
+	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
+	{
+		assertUnmodifiable(actual);
+		assertContains(o1, o2, o3, actual);
+	}
+
+	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
+	{
+		assertUnmodifiable(actual);
+		assertContains(o1, o2, o3, o4, actual);
+	}
+
 	public final static List<Object> list(final Object... o)
 	{
 		return Arrays.asList(o);

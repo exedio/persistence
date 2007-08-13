@@ -20,10 +20,12 @@ package com.exedio.cope.pattern;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Cope;
@@ -36,8 +38,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
-
-import java.util.List;
 
 public final class FieldSet<E> extends Pattern
 {
@@ -101,7 +101,7 @@ public final class FieldSet<E> extends Pattern
 	
 	public Set<E> get(final Item item)
 	{
-		return new HashSet<E>(new Query<E>(element, Cope.equalAndCast(this.parent, item)).search());
+		return Collections.unmodifiableSet(new HashSet<E>(new Query<E>(element, Cope.equalAndCast(this.parent, item)).search()));
 	}
 
 	/**
