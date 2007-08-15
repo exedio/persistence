@@ -40,6 +40,8 @@ public class MediaServletItem extends Item
 
 	public static final MediaImageMagickThumbnail thumbnailMagick = new MediaImageMagickThumbnail(content, 150, 150);
 
+	public static final MediaImageMagickThumbnail thumbnailMagickPng = new MediaImageMagickThumbnail(content, 150, 150, "image/png", ".png");
+
 	public static final MediaNameServer nameServer = new MediaNameServer(name);
 	
 	
