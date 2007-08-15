@@ -35,7 +35,20 @@ import com.exedio.cope.Item;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
+	private static boolean available = "Linux".equals(System.getProperty("os.name"));
+	
+	static
+	{
+		System.out.println("MediaImageMagickFilter: ImageMagick is" + (available ? "" : " NOT") + " available.");
+	}
+	
+	public static boolean isAvailable()
+	{
+		return available;
+	}
+	
 	private final Media source;
+	private final MediaFilter fallback;
 	private final String outputExtension;
 	private final String[] options;
 
@@ -44,22 +57,26 @@ public class MediaImageMagickFilter extends MediaFilter
 	private static final HashSet<String> supportedSourceContentTypes =
 		new HashSet<String>(Arrays.asList("image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/gif"));
 	
-	public MediaImageMagickFilter(final Media source, final String[] options)
+	public MediaImageMagickFilter(final Media source, final MediaFilter fallback, final String[] options)
 	{
-		this(source, "image/jpeg", ".jpg", options);
+		this(source, fallback, "image/jpeg", ".jpg", options);
 	}
 	
 	public MediaImageMagickFilter(
 			final Media source,
+			final MediaFilter fallback,
 			final String outputContentType, final String outputExtension,
 			final String[] options)
 	{
 		super(source);
 		this.source = source;
+		this.fallback = fallback;
 		this.outputContentType = outputContentType;
 		this.outputExtension = outputExtension;
 		this.options = options;
 		
+		if(fallback==null)
+			throw new RuntimeException(); // TODO test
 		if(outputContentType==null)
 			throw new RuntimeException(); // TODO test
 		if(outputExtension==null)
@@ -87,6 +104,9 @@ public class MediaImageMagickFilter extends MediaFilter
 			final String extension)
 	throws ServletException, IOException
 	{
+		if(!available)
+			return fallback.doGetIfModified(response, item, extension);
+		
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return isNull;

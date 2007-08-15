@@ -31,6 +31,7 @@ import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
+import com.exedio.cope.pattern.MediaImageMagickFilter;
 import com.exedio.cope.pattern.MediaImageMagickThumbnail;
 
 final class Media_Jspm extends Console_Jspm
@@ -114,6 +115,10 @@ final class Media_Jspm extends Console_Jspm
 					{
 						final MediaImageMagickThumbnail thumbnail = (MediaImageMagickThumbnail)path;
 						%>(<%=thumbnail.getSource().getName()%>,<%=thumbnail.getBoundX()%>,<%=thumbnail.getBoundY()%>)<%
+					}
+					if(path instanceof MediaImageMagickFilter)
+					{
+						%><br>ImageMagick is<% if(!MediaImageMagickFilter.isAvailable()){%> NOT<%} %> available.<%
 					}
 					if(path instanceof MediaFilter)
 					{

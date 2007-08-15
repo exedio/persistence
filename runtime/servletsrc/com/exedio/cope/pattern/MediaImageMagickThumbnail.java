@@ -37,6 +37,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	{
 		super(
 				source,
+				new MediaThumbnail(source, boundX, boundY),
 				outputContentType, outputExtension,
 				new String[]{"-resize", String.valueOf(boundX) + 'x' + String.valueOf(boundY) + '>'});
 		this.boundX = boundX;
