@@ -82,6 +82,12 @@ public class MediaServletTest extends AbstractWebTest
 		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.3"), "image/jpeg"));
 		assertEquals(gifLastModified, assertBinary(new URL(prefix + "thumbnail/MediaServletItem.8"), "image/jpeg"));
 		
+		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.0"), NOT_COMPUTABLE);
+		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.1"), IS_NULL);
+		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.2"), "image/jpeg"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.3"), "image/jpeg"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.8"), "image/jpeg"));
+		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20.jpg"), NO_SUCH_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20."), NO_SUCH_ITEM);
