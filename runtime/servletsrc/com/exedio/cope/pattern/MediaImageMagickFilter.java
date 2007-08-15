@@ -35,11 +35,48 @@ import com.exedio.cope.Item;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
-	private static boolean available = "Linux".equals(System.getProperty("os.name"));
+	private static boolean available = checkAvailable();
 	
-	static
+	private static boolean checkAvailable()
 	{
-		System.out.println("MediaImageMagickFilter: ImageMagick is" + (available ? "" : " NOT") + " available.");
+		if(!"Linux".equals(System.getProperty("os.name")))
+		{
+			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because its not a Linux system.");
+			return false;
+		}
+
+		final ProcessBuilder processBuilder = new ProcessBuilder(COMMAND_BINARY, COMMAND_QUIET);
+		
+		final Process process;
+		try
+		{
+			process = processBuilder.start();
+		}
+		catch(IOException e)
+		{
+			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an IOException:" + e.getMessage());
+			return false;
+		}
+		
+		try
+		{
+			process.waitFor();
+		}
+		catch(InterruptedException e)
+		{
+			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an InterruptedException:" + e.getMessage());
+			return false;
+		}
+		
+		final int exitValue = process.exitValue();
+		if(exitValue!=0)
+		{
+			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does return an exit value of " + exitValue + '.');
+			return false;
+		}
+		
+		System.out.println("MediaImageMagickFilter: ImageMagick is available.");
+		return true;
 	}
 	
 	public static boolean isAvailable()
@@ -97,6 +134,9 @@ public class MediaImageMagickFilter extends MediaFilter
 		return (contentType!=null&&supportedSourceContentTypes.contains(contentType)) ? outputContentType : null;
 	}
 
+	private static final String COMMAND_BINARY = "convert";
+	private static final String COMMAND_QUIET  = "-quiet";
+
 	@Override
 	public final Media.Log doGetIfModified(
 			final HttpServletResponse response,
@@ -118,8 +158,8 @@ public class MediaImageMagickFilter extends MediaFilter
 		final File outFile = File.createTempFile("MediaImageMagickThumbnail.out." + getID(), outputExtension);
 
 		final String[] command = new String[options.length+4];
-		command[0] = "convert";
-		command[1] = "-quiet";
+		command[0] = COMMAND_BINARY;
+		command[1] = COMMAND_QUIET;
 		for(int i = 0; i<options.length; i++)
 			command[i+2] = options[i];
 		command[command.length-2] = inFile.getAbsolutePath();
