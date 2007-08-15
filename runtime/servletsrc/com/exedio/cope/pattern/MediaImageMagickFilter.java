@@ -86,11 +86,10 @@ public class MediaImageMagickFilter extends MediaFilter
 	
 	private final Media source;
 	private final MediaFilter fallback;
+	private final String outputContentType;
 	private final String outputExtension;
 	private final String[] options;
 
-	private final String outputContentType;
-	
 	private static final HashSet<String> supportedSourceContentTypes =
 		new HashSet<String>(Arrays.asList("image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/gif"));
 	
