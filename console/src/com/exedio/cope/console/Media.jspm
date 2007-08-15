@@ -63,7 +63,7 @@ final class Media_Jspm extends Console_Jspm
 				<th>Name</th>
 				<th>Description</th>
 			</tr><%
-	
+			boolean firstMediaImageMagickFilter = true;
 			for(final MediaPath path : media)
 			{
 				final String type = path.getType().getID();
@@ -118,7 +118,11 @@ final class Media_Jspm extends Console_Jspm
 					}
 					if(path instanceof MediaImageMagickFilter)
 					{
-						%><br>ImageMagick is<% if(!MediaImageMagickFilter.isAvailable()){%> NOT<%} %> available.<%
+						if(firstMediaImageMagickFilter)
+						{
+							firstMediaImageMagickFilter = false;
+							%><br>ImageMagick is<% if(!MediaImageMagickFilter.isAvailable()){%> NOT<%} %> available.<%
+						}
 					}
 					if(path instanceof MediaFilter)
 					{
