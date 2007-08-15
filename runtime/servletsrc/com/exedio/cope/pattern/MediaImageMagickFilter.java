@@ -21,9 +21,8 @@ package com.exedio.cope.pattern;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -90,25 +89,33 @@ public class MediaImageMagickFilter extends MediaFilter
 	private final String outputExtension;
 	private final String[] options;
 
-	private static final HashSet<String> supportedSourceContentTypes =
-		new HashSet<String>(Arrays.asList("image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/gif"));
+	private static final HashMap<String,String> supportedContentTypes = new HashMap<String,String>();
+	
+	static
+	{
+		supportedContentTypes.put("image/jpeg",  ".jpg");
+		supportedContentTypes.put("image/pjpeg", ".jpg");
+		supportedContentTypes.put("image/png",   ".png");
+		supportedContentTypes.put("image/x-png", ".png");
+		supportedContentTypes.put("image/gif",   ".gif");
+	}
 	
 	public MediaImageMagickFilter(final Media source, final MediaFilter fallback, final String[] options)
 	{
-		this(source, fallback, "image/jpeg", ".jpg", options);
+		this(source, fallback, "image/jpeg", options);
 	}
 	
 	public MediaImageMagickFilter(
 			final Media source,
 			final MediaFilter fallback,
-			final String outputContentType, final String outputExtension,
+			final String outputContentType,
 			final String[] options)
 	{
 		super(source);
 		this.source = source;
 		this.fallback = fallback;
 		this.outputContentType = outputContentType;
-		this.outputExtension = outputExtension;
+		this.outputExtension = supportedContentTypes.get(outputContentType);
 		this.options = options;
 		
 		if(fallback==null)
@@ -116,13 +123,13 @@ public class MediaImageMagickFilter extends MediaFilter
 		if(outputContentType==null)
 			throw new RuntimeException(); // TODO test
 		if(outputExtension==null)
-			throw new RuntimeException(); // TODO test
+			throw new RuntimeException(outputContentType); // TODO test
 	}
 	
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
-		return Collections.unmodifiableSet(supportedSourceContentTypes);
+		return Collections.unmodifiableSet(supportedContentTypes.keySet());
 	}
 
 	@Override
@@ -130,7 +137,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	{
 		final String contentType = source.getContentType(item);
 
-		return (contentType!=null&&supportedSourceContentTypes.contains(contentType)) ? outputContentType : null;
+		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? outputContentType : null;
 	}
 
 	private static final String COMMAND_BINARY = "convert";
@@ -150,7 +157,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		if(contentType==null)
 			return isNull;
 		
-		if(!supportedSourceContentTypes.contains(contentType))
+		if(!supportedContentTypes.containsKey(contentType))
 			return notComputable;
 		
 		final File inFile  = File.createTempFile("MediaImageMagickThumbnail.in." + getID(), ".data");

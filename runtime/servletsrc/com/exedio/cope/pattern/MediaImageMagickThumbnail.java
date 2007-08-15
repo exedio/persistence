@@ -27,18 +27,18 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	
 	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)
 	{
-		this(source, boundX, boundY, "image/jpeg", ".jpg");
+		this(source, boundX, boundY, "image/jpeg");
 	}
 	
 	public MediaImageMagickThumbnail(
 			final Media source,
 			final int boundX, final int boundY,
-			final String outputContentType, final String outputExtension)
+			final String outputContentType)
 	{
 		super(
 				source,
 				new MediaThumbnail(source, boundX, boundY),
-				outputContentType, outputExtension,
+				outputContentType,
 				new String[]{"-resize", String.valueOf(boundX) + 'x' + String.valueOf(boundY) + '>'});
 		this.boundX = boundX;
 		this.boundY = boundY;
