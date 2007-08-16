@@ -415,6 +415,21 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 	}
 	
+	public static final Value toValue(final byte[] body, final String contentType)
+	{
+		return toValue(DataField.toValue(body), contentType);
+	}
+	
+	public static final Value toValue(final InputStream body, final String contentType)
+	{
+		return toValue(DataField.toValue(body), contentType);
+	}
+	
+	public static final Value toValue(final File body, final String contentType)
+	{
+		return toValue(DataField.toValue(body), contentType);
+	}
+	
 	public SetValue[] execute(final Value value, final Item exceptionItem)
 	{
 		if(value!=null)

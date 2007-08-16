@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -35,7 +34,7 @@ public class MediaMandatoryItem extends Item
 	 */
 	public MediaMandatoryItem(final byte[] fileBody, final String fileContentType)
 	{
-		this(Media.toValue(DataField.toValue(fileBody), fileContentType));
+		this(Media.toValue(fileBody, fileContentType));
 	}
 	
 	/**
