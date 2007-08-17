@@ -67,9 +67,9 @@ public class MediaImageMagickFilter extends MediaFilter
 		return null;
 	}
 	
-	private static boolean availableChecked = false;
-	private static boolean available;
-	private static String availabilityMessage = null;
+	private static volatile boolean availableChecked = false;
+	private static volatile boolean available;
+	private static volatile String availabilityMessage = null;
 	
 	public static boolean isAvailable()
 	{
