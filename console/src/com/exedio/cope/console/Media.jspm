@@ -121,7 +121,8 @@ final class Media_Jspm extends Console_Jspm
 						if(firstMediaImageMagickFilter)
 						{
 							firstMediaImageMagickFilter = false;
-							%><br>ImageMagick is<% if(!MediaImageMagickFilter.isAvailable()){%> NOT<%} %> available.<%
+							final String message = MediaImageMagickFilter.getAvailabilityMessage();
+							%><br><% if(message!=null) {%><%=message%><%} else {%>Availability not yet determined.<%}
 						}
 					}
 					if(path instanceof MediaFilter)

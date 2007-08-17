@@ -69,6 +69,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	
 	private static boolean availableChecked = false;
 	private static boolean available;
+	private static String availabilityMessage = null;
 	
 	public static boolean isAvailable()
 	{
@@ -79,10 +80,16 @@ public class MediaImageMagickFilter extends MediaFilter
 		available = reasonNotAvailable==null;
 		availableChecked = true;
 		
-		System.out.println("MediaImageMagickFilter " + ((reasonNotAvailable!=null) ? ("is NOT available because " + reasonNotAvailable) : "is available."));
+		availabilityMessage = "MediaImageMagickFilter " + ((reasonNotAvailable!=null) ? ("is NOT available because " + reasonNotAvailable) : "is available.");
 		
 		return available;
 	}
+	
+	public static String getAvailabilityMessage()
+	{
+		return availabilityMessage;
+	}
+	
 	
 	private static final HashMap<String,String> supportedContentTypes = new HashMap<String,String>();
 	
