@@ -68,6 +68,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	}
 	
 	private static volatile boolean availableChecked = false;
+	private static final Object availableLock = new Object();
 	private static volatile boolean available;
 	private static volatile String availabilityMessage = null;
 	
@@ -75,15 +76,22 @@ public class MediaImageMagickFilter extends MediaFilter
 	{
 		if(availableChecked)
 			return available;
-		
-		final String reasonNotAvailable = checkAvailable();
-		available = reasonNotAvailable==null;
-		availableChecked = true;
-		
-		availabilityMessage = "MediaImageMagickFilter " + ((reasonNotAvailable!=null) ? ("is NOT available because " + reasonNotAvailable) : "is available.");
-		System.out.println(availabilityMessage);
-		
-		return available;
+
+		synchronized(availableLock)
+		{
+			// double checking
+			if(availableChecked)
+				return available;
+
+			final String reasonNotAvailable = checkAvailable();
+			available = reasonNotAvailable==null;
+			availableChecked = true;
+			
+			availabilityMessage = "MediaImageMagickFilter " + ((reasonNotAvailable!=null) ? ("is NOT available because " + reasonNotAvailable) : "is available.");
+			System.out.println(availabilityMessage);
+			
+			return available;
+		}
 	}
 	
 	public static String getAvailabilityMessage()
