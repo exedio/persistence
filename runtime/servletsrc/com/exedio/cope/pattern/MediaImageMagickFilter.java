@@ -89,12 +89,6 @@ public class MediaImageMagickFilter extends MediaFilter
 		return available;
 	}
 	
-	private final Media source;
-	private final MediaFilter fallback;
-	private final String outputContentType;
-	private final String outputExtension;
-	private final String[] options;
-
 	private static final HashMap<String,String> supportedContentTypes = new HashMap<String,String>();
 	
 	static
@@ -106,6 +100,12 @@ public class MediaImageMagickFilter extends MediaFilter
 		supportedContentTypes.put("image/gif",   ".gif");
 	}
 	
+	private final Media source;
+	private final MediaFilter fallback;
+	private final String outputContentType;
+	private final String outputExtension;
+	private final String[] options;
+
 	public MediaImageMagickFilter(final Media source, final MediaFilter fallback, final String[] options)
 	{
 		this(source, fallback, "image/jpeg", options);
