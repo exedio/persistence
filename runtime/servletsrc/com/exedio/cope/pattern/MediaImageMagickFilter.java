@@ -37,9 +37,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	private static String checkAvailable()
 	{
 		if(!"Linux".equals(System.getProperty("os.name")))
-		{
 			return "ImageMagick is NOT available because its not a Linux system.";
-		}
 
 		final ProcessBuilder processBuilder = new ProcessBuilder(COMMAND_BINARY, COMMAND_QUIET);
 		
@@ -64,9 +62,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		
 		final int exitValue = process.exitValue();
 		if(exitValue!=0)
-		{
 			return "ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does return an exit value of " + exitValue + '.';
-		}
 		
 		return null;
 	}
