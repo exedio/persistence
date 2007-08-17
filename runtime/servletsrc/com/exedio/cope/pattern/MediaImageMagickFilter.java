@@ -81,6 +81,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		availableChecked = true;
 		
 		availabilityMessage = "MediaImageMagickFilter " + ((reasonNotAvailable!=null) ? ("is NOT available because " + reasonNotAvailable) : "is available.");
+		System.out.println(availabilityMessage);
 		
 		return available;
 	}
