@@ -37,7 +37,7 @@ public class MediaImageMagickFilter extends MediaFilter
 	private static String checkAvailable()
 	{
 		if(!"Linux".equals(System.getProperty("os.name")))
-			return "ImageMagick is NOT available because its not a Linux system.";
+			return "its not a Linux system.";
 
 		final ProcessBuilder processBuilder = new ProcessBuilder(COMMAND_BINARY, COMMAND_QUIET);
 		
@@ -48,7 +48,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 		catch(IOException e)
 		{
-			return "ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an IOException:" + e.getMessage();
+			return COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an IOException:" + e.getMessage();
 		}
 		
 		try
@@ -57,12 +57,12 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 		catch(InterruptedException e)
 		{
-			return "ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an InterruptedException:" + e.getMessage();
+			return COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an InterruptedException:" + e.getMessage();
 		}
 		
 		final int exitValue = process.exitValue();
 		if(exitValue!=0)
-			return "ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does return an exit value of " + exitValue + '.';
+			return COMMAND_BINARY + ' ' + COMMAND_QUIET + " does return an exit value of " + exitValue + '.';
 		
 		return null;
 	}
@@ -79,7 +79,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		available = reasonNotAvailable==null;
 		availableChecked = true;
 		
-		System.out.println("MediaImageMagickFilter: " + ((reasonNotAvailable!=null) ? reasonNotAvailable : "ImageMagick is available."));
+		System.out.println("MediaImageMagickFilter " + ((reasonNotAvailable!=null) ? ("is NOT available because " + reasonNotAvailable) : "is available."));
 		
 		return available;
 	}
