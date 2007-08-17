@@ -34,8 +34,6 @@ import com.exedio.cope.Item;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
-	private static boolean available = checkAvailable();
-	
 	private static boolean checkAvailable()
 	{
 		if(!"Linux".equals(System.getProperty("os.name")))
@@ -78,8 +76,16 @@ public class MediaImageMagickFilter extends MediaFilter
 		return true;
 	}
 	
+	private static boolean availableChecked = false;
+	private static boolean available;
+	
 	public static boolean isAvailable()
 	{
+		if(availableChecked)
+			return available;
+		
+		available = checkAvailable();
+		availableChecked = true;
 		return available;
 	}
 	
@@ -150,7 +156,7 @@ public class MediaImageMagickFilter extends MediaFilter
 			final String extension)
 	throws ServletException, IOException
 	{
-		if(!available)
+		if(!isAvailable())
 			return fallback.doGetIfModified(response, item, extension);
 		
 		final String contentType = source.getContentType(item);
