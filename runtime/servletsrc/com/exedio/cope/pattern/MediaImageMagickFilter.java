@@ -34,12 +34,11 @@ import com.exedio.cope.Item;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
-	private static boolean checkAvailable()
+	private static String checkAvailable()
 	{
 		if(!"Linux".equals(System.getProperty("os.name")))
 		{
-			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because its not a Linux system.");
-			return false;
+			return "ImageMagick is NOT available because its not a Linux system.";
 		}
 
 		final ProcessBuilder processBuilder = new ProcessBuilder(COMMAND_BINARY, COMMAND_QUIET);
@@ -51,8 +50,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 		catch(IOException e)
 		{
-			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an IOException:" + e.getMessage());
-			return false;
+			return "ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an IOException:" + e.getMessage();
 		}
 		
 		try
@@ -61,19 +59,16 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 		catch(InterruptedException e)
 		{
-			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an InterruptedException:" + e.getMessage());
-			return false;
+			return "ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does throw an InterruptedException:" + e.getMessage();
 		}
 		
 		final int exitValue = process.exitValue();
 		if(exitValue!=0)
 		{
-			System.out.println("MediaImageMagickFilter: ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does return an exit value of " + exitValue + '.');
-			return false;
+			return "ImageMagick is NOT available because " + COMMAND_BINARY + ' ' + COMMAND_QUIET + " does return an exit value of " + exitValue + '.';
 		}
 		
-		System.out.println("MediaImageMagickFilter: ImageMagick is available.");
-		return true;
+		return null;
 	}
 	
 	private static boolean availableChecked = false;
@@ -84,8 +79,12 @@ public class MediaImageMagickFilter extends MediaFilter
 		if(availableChecked)
 			return available;
 		
-		available = checkAvailable();
+		final String reasonNotAvailable = checkAvailable();
+		available = reasonNotAvailable==null;
 		availableChecked = true;
+		
+		System.out.println("MediaImageMagickFilter: " + ((reasonNotAvailable!=null) ? reasonNotAvailable : "ImageMagick is available."));
+		
 		return available;
 	}
 	
