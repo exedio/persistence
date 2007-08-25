@@ -1589,7 +1589,8 @@ final class Database
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
 						final String sql = body[bodyIndex];
-						System.out.println("COPE migrating " + revision + ':' + sql);
+						if(Model.isLoggingEnabled())
+							System.out.println("COPE migrating " + revision + ':' + sql);
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();

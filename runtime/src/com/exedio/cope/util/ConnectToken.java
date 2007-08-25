@@ -113,7 +113,8 @@ public final class ConnectToken
 				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, connect);
 				tokens.add(result);
 
-				System.out.println("ConnectToken " + Integer.toString(System.identityHashCode(model), 36) + ": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : "") + (connect ? " CONNECT" : "")); // TODO disable
+				if(Model.isLoggingEnabled())
+					System.out.println("ConnectToken " + Integer.toString(System.identityHashCode(model), 36) + ": issued " + result.id + (tokenName!=null ? (" (" + tokenName + ')') : "") + (connect ? " CONNECT" : ""));
 				return result;
 			}
 		}
@@ -128,7 +129,8 @@ public final class ConnectToken
 				if(disconnect)
 					token.model.disconnect();
 
-				System.out.println("ConnectToken " + Integer.toString(System.identityHashCode(token.model), 36) + ": returned " + token.id + (token.name!=null ? (" (" + token.name + ')') : "") + (disconnect ? " DISCONNECT" : "")); // TODO disable
+				if(Model.isLoggingEnabled())
+					System.out.println("ConnectToken " + Integer.toString(System.identityHashCode(token.model), 36) + ": returned " + token.id + (token.name!=null ? (" (" + token.name + ')') : "") + (disconnect ? " DISCONNECT" : ""));
 				return disconnect;
 			}
 		}

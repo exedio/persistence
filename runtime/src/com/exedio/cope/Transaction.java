@@ -343,9 +343,10 @@ public final class Transaction
 						}
 						catch(RuntimeException e)
 						{
-							System.err.println(
-									"Suppressing exception from modification listener " + listener.getClass().getName() +
-									':' + e.getClass().getName() + ' ' + e.getMessage());
+							if(Model.isLoggingEnabled())
+								System.err.println(
+										"Suppressing exception from modification listener " + listener.getClass().getName() +
+										':' + e.getClass().getName() + ' ' + e.getMessage());
 						}
 					}
 				}

@@ -988,6 +988,11 @@ public final class Model
 		getDatabase().makeSchema().checkUnsupportedConstraints();
 	}
 	
+	public static final boolean isLoggingEnabled()
+	{
+		return Boolean.valueOf(System.getProperty("com.exedio.cope.logging"));
+	}
+	
 	/**
 	 * @deprecated renamed to {@link #getItemCacheInfo()}.
 	 */
