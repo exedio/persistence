@@ -244,6 +244,7 @@ public class ModelTest extends TestmodelTest
 			assertEquals("types must not be empty", e.getMessage());
 		}
 
+		// TODO put this into an extra test called an extra ant target
 		{
 			final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
 			if(prefix!=null)
