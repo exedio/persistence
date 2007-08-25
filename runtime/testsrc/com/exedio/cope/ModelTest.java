@@ -260,6 +260,7 @@ public class ModelTest extends TestmodelTest
 				for(final Properties.Field field : p.getFields())
 				{
 					if(field.getDefaultValue()!=null
+						&& field!=p.mediaRooturl
 						&& !field.hasHiddenValue()
 						&& field.isSpecified()
 						&& field.getValue()!=null)

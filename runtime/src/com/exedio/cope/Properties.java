@@ -62,7 +62,7 @@ public final class Properties extends com.exedio.cope.util.Properties
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
 	final IntField dataFieldBufferSizeLimit = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
 	
-	private final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
+	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
 	
 	private final Constructor<? extends Dialect> dialect;
