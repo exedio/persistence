@@ -25,7 +25,9 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.Join;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
@@ -137,5 +139,13 @@ public final class FieldMap<K,V> extends Pattern
 	public void setAndCast(final Item item, final Object key, final Object value)
 	{
 		set(item, Cope.verboseCast(this.key.getValueClass(), key), Cope.verboseCast(this.value.getValueClass(), value));
+	}
+	
+	public Join join(final Query q, final K key)
+	{
+		return q.joinOuterLeft(
+				getRelationType(),
+				getParent().equalTarget().
+					and(this.key.equal(key)));
 	}
 }

@@ -22,6 +22,7 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.ItemField.DeletePolicy;
 
 public class FieldMapTest extends AbstractLibTest
@@ -105,6 +106,21 @@ public class FieldMapTest extends AbstractLibTest
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		{
+			final Query<FieldMapItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
+			item.name.join(q, DE);
+			assertContains(item, q.search());
+		}
+		{
+			final Query<FieldMapItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameEN"));
+			item.name.join(q, DE);
+			assertContains(q.search());
+		}
+		{
+			final Query<FieldMapItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
+			item.name.join(q, EN);
+			assertContains(q.search());
+		}
 		
 		item.setNameLength(DE, 5);
 		assertEquals("nameDE", item.getName(DE));
