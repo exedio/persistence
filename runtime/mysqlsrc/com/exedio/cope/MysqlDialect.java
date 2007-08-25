@@ -136,6 +136,13 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
+	void addBlobInStatementText(final StringBuffer statementText, final byte[] parameter)
+	{
+		statementText.append('x');
+		super.addBlobInStatementText(statementText, parameter);
+	}
+	
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_WHERE;

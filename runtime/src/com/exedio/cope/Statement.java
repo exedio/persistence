@@ -219,9 +219,7 @@ public final class Statement
 		{
 			if(parameters==null)
 			{
-				this.text.append('\'');
-				DataField.appendAsHex(data, data.length, this.text);
-				this.text.append('\'');
+				this.database.dialect.addBlobInStatementText(this.text, data);
 			}
 			else
 			{
@@ -276,12 +274,10 @@ public final class Statement
 	
 	Statement appendParameters(final Statement other)
 	{
-		if(parameters==null)
-			throw new RuntimeException();
-		if(other.parameters==null)
-			throw new RuntimeException();
+		assert (parameters==null) == (other.parameters==null);
 
-		parameters.addAll(other.parameters);
+		if(parameters!=null) // otherwise no prepared statements are used
+			parameters.addAll(other.parameters);
 		
 		return this;
 	}

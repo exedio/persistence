@@ -115,6 +115,13 @@ abstract class Dialect
 	{
 		return 1;
 	}
+	
+	void addBlobInStatementText(final StringBuffer statementText, final byte[] parameter)
+	{
+		statementText.append('\'');
+		DataField.appendAsHex(parameter, parameter.length, statementText);
+		statementText.append('\'');
+	}
 
 	abstract String getIntegerType(long minimum, long maximum);
 	abstract String getDoubleType();
