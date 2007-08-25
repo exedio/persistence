@@ -92,8 +92,6 @@ public class JavaSecurityHash extends Hash
 	{
 		if(plainText == null)
 			return null;
-		if(plainText.length() == 0)
-			return plainText;
 
 		try
 		{

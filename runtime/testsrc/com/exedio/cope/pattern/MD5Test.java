@@ -177,19 +177,36 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getPassword());
 		assertTrue(item.checkPassword(upper));
 		assertTrue(!item.checkPassword(lower));
+		assertTrue(!item.checkPassword(""));
 		assertContains(item, item.TYPE.search(item.password.equal(upper)));
 		assertContains(item.TYPE.search(item.password.equal(lower)));
+		assertContains(item.TYPE.search(item.password.equal("")));
 		assertContains(item.TYPE.search(item.password.notEqual(upper)));
 		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
+		assertContains(item, item.TYPE.search(item.password.notEqual("")));
 
 		item.setPassword(lower);
 		assertEquals("4679e94e07f9a61f42b3d7f50cae0aef", item.getPassword());
 		assertTrue(!item.checkPassword(upper));
 		assertTrue(item.checkPassword(lower));
+		assertTrue(!item.checkPassword(""));
 		assertContains(item.TYPE.search(item.password.equal(upper)));
 		assertContains(item, item.TYPE.search(item.password.equal(lower)));
+		assertContains(item.TYPE.search(item.password.equal("")));
 		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
 		assertContains(item.TYPE.search(item.password.notEqual(lower)));
-	}
+		assertContains(item, item.TYPE.search(item.password.notEqual("")));
 
+		item.setPassword("");
+		assertEquals("d41d8cd98f00b204e9800998ecf8427e", item.getPassword());
+		assertTrue(!item.checkPassword(upper));
+		assertTrue(!item.checkPassword(lower));
+		assertTrue(item.checkPassword(""));
+		assertContains(item.TYPE.search(item.password.equal(upper)));
+		assertContains(item.TYPE.search(item.password.equal(lower)));
+		assertContains(item, item.TYPE.search(item.password.equal("")));
+		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
+		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
+		assertContains(item.TYPE.search(item.password.notEqual("")));
+	}
 }
