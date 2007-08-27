@@ -893,17 +893,14 @@
 				<exclude name="cruise/**" />
 				<exclude name="**/*_Jspm.java" />
 				
-				<exclude name="*.driver.properties" />
+				<exclude name="oracle.driver.properties" />
 				
 				<exclude name="*.test.cope.properties" />
 				
-				<exclude name="lib/mysql-connector-java*.jar" />
-				<exclude name="lib/classes12.jar" />
 				<exclude name="lib/ojdbc14*.jar" />
-				<exclude name="lib/pg74.*.jdbc*.jar" />
+				<exclude name="local.properties" />
 			</tarfileset>
 			<tarfileset dir="${basedir}">
-				<include name="hsqldb.driver.properties" />
 				<include name="hsqldb.test.cope.properties" />
 				<include name="hsqldbextra.test.cope.properties" />
 			</tarfileset>
