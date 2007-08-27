@@ -892,10 +892,11 @@
 				<exclude name="home/lib/**" />
 				<exclude name="cruise/**" />
 				<exclude name="**/*_Jspm.java" />
-				<exclude name="oracle.driver.properties" />
 				<exclude name="*.test.cope.properties" />
-				<exclude name="lib/ojdbc14*.jar" />
 				<exclude name="local.properties" />
+				<!-- oracle is not open source -->
+				<exclude name="oracle.driver.properties" />
+				<exclude name="lib/ojdbc14*.jar" />
 			</tarfileset>
 			<tarfileset dir="${basedir}">
 				<include name="hsqldb.test.cope.properties" />
