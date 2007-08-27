@@ -38,8 +38,8 @@ public abstract class Feature
 		assert this.id==null;
 
 		this.type = type;
-		this.name = name.intern();
-		this.id =   (type.id + ID_SEPARATOR + name).intern();
+		this.name = Model.intern(name);
+		this.id =   Model.intern(type.id + ID_SEPARATOR + name);
 		
 		type.registerInitialization(this);
 	}

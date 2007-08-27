@@ -88,7 +88,7 @@ public final class UniqueConstraint extends Feature
 			featureName.endsWith(IMPLICIT_UNIQUE_SUFFIX)
 			? featureName.substring(0, featureName.length()-IMPLICIT_UNIQUE_SUFFIX.length())
 			: featureName;
-		this.databaseID = database.makeName(getType().id + '_' + databaseName + "_Unq").intern();
+		this.databaseID = database.intern(database.makeName(getType().id + '_' + databaseName + "_Unq"));
 		database.addUniqueConstraint(databaseID, this);
 	}
 

@@ -36,8 +36,8 @@ final class Table
 	Table(final Database database, final String id, final Type<? extends Item> supertype, final String[] typesOfInstancesColumnValues)
 	{
 		this.database = database;
-		this.id = database.makeName(id).intern();
-		this.protectedID = database.getDriver().protectName(this.id).intern();
+		this.id = database.intern(database.makeName(id));
+		this.protectedID = database.intern(database.getDriver().protectName(this.id));
 		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype) : new IntegerColumn(this);
 		this.typeColumn = (typesOfInstancesColumnValues!=null) ? new StringColumn(this, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues) : null;
 		database.addTable(this);

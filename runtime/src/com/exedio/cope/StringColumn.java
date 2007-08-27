@@ -53,8 +53,9 @@ final class StringColumn extends Column
 
 		if(allowedValues.length<2)
 			throw new RuntimeException(id);
+		final Database database = table.database;
 		for(int i = 0; i<allowedValues.length; i++)
-			allowedValues[i] = allowedValues[i].intern();
+			allowedValues[i] = database.intern(allowedValues[i]);
 		
 		assert minimumLength<=maximumLength;
 	}

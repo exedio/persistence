@@ -38,9 +38,10 @@ abstract class Column
 			final boolean primaryKey, final boolean optional,
 			final int typeForDefiningColumn)
 	{
+		final Database database = table.database;
 		this.table = table;
-		this.id = table.database.makeName(table.id, id).intern();
-		this.protectedID = table.database.getDriver().protectName(this.id).intern();
+		this.id = database.intern(database.makeName(table.id, id));
+		this.protectedID = database.intern(database.getDriver().protectName(this.id));
 		this.primaryKey = primaryKey;
 		this.optional = optional;
 		this.typeForDefiningColumn = typeForDefiningColumn;

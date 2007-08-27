@@ -122,6 +122,11 @@ final class Database
 			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
+	final String intern(final String s)
+	{
+		return Model.intern(s);
+	}
+	
 	protected Statement createStatement()
 	{
 		return createStatement(true);
