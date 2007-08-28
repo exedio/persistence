@@ -899,8 +899,7 @@
 				<exclude name="lib/ojdbc14*.jar" />
 			</tarfileset>
 			<tarfileset dir="${basedir}">
-				<include name="hsqldb.test.cope.properties" />
-				<include name="hsqldbextra.test.cope.properties" />
+				<include name="hsqldb*.test.cope.properties" />
 			</tarfileset>
 		</tar>
 	</target>
