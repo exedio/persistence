@@ -1011,6 +1011,8 @@ public final class Model
 		return Boolean.valueOf(System.getProperty("com.exedio.cope.logging"));
 	}
 	
+	// ------------------- deprecated stuff -------------------
+	
 	/**
 	 * @deprecated renamed to {@link #getItemCacheInfo()}.
 	 */
