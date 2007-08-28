@@ -40,7 +40,6 @@ import com.exedio.cope.util.ServletUtil;
 
 public abstract class TransientCopernicaProvider implements CopernicaProvider
 {
-	
 	public ConnectToken connect(final ServletConfig config, final String name)
 	{
 		final Model model = getModel();
