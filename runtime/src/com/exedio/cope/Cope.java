@@ -297,10 +297,10 @@ public abstract class Cope implements Serializable
 			throw new IllegalArgumentException("field " + fieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
 		}
 		
-		final Model result;
+		final Object result;
 		try
 		{
-			result = (Model)field.get(null);
+			result = field.get(null);
 		}
 		catch(IllegalAccessException e)
 		{
@@ -309,8 +309,10 @@ public abstract class Cope implements Serializable
 		
 		if(result==null)
 			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is null.");
+		if(!(result instanceof Model))
+			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is not a model, but a " + result.getClass().getName() + '.');
 		
-		return result;
+		return (Model)result;
 	}
 	
 	public static final void main(final String[] args)

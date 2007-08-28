@@ -25,6 +25,7 @@ public class GetModelTest extends CopeAssert
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	private static final Model modelPrivate = modelOk;
 	public static final Model modelNull = null;
+	public static final String modelNoModel = "hallo";
 
 	public void testIt()
 	{
@@ -78,6 +79,16 @@ public class GetModelTest extends CopeAssert
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("field com.exedio.cope.GetModelTest#modelNull is null.", e.getMessage());
+		}
+
+		try
+		{
+			Cope.getModel("com.exedio.cope.GetModelTest#modelNoModel");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("field com.exedio.cope.GetModelTest#modelNoModel is not a model, but a java.lang.String.", e.getMessage());
 		}
 	}
 	
