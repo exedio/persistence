@@ -46,6 +46,7 @@ import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.testmodel.UniqueFinal;
 import com.exedio.copernica.CopernicaProvider;
+import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
 import com.exedio.cops.ResourceSet;
@@ -99,7 +100,7 @@ public class InitServlet extends CopsServlet
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 
-		final boolean post = "POST".equals(request.getMethod());
+		final boolean post = Cop.isPost(request);
 		final boolean initialize = post && request.getParameter("INIT")!=null;
 		final boolean transaction = post && request.getParameter("TRANSACTION")!=null;
 		if(initialize)
