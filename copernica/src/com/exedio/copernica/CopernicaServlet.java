@@ -80,7 +80,6 @@ public final class CopernicaServlet extends CopsServlet
 	private CopernicaProvider provider = null;
 	private boolean checked;
 
-	
 	static final Resource stylesheet = new Resource("copernica.css");
 	static final Resource logo = new Resource("exedio.png");
 	

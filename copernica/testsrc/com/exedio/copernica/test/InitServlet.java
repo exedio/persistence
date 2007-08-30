@@ -58,7 +58,6 @@ public class InitServlet extends CopsServlet
 	final static String ENCODING = "utf-8";
 
 	// For ResourceTest.
-	
 	static final Resource stylesheet = new Resource("resource-test.txt");
 	
 	@Override
