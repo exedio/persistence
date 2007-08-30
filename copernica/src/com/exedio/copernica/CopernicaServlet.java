@@ -32,7 +32,6 @@ import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
-import com.exedio.cops.ResourceSet;
 
 /**
  * The servlet providing Copernica, the Generic Backoffice for COPE.
@@ -81,9 +80,9 @@ public final class CopernicaServlet extends CopsServlet
 	private CopernicaProvider provider = null;
 	private boolean checked;
 
-	private static final ResourceSet resources = new ResourceSet(CopernicaServlet.class);
-	static final Resource stylesheet = new Resource(resources, "copernica.css");
-	static final Resource logo = new Resource(resources, "exedio.png");
+	
+	static final Resource stylesheet = new Resource("copernica.css");
+	static final Resource logo = new Resource("exedio.png");
 	
 	@Override
 	public void init() throws ServletException
@@ -91,8 +90,6 @@ public final class CopernicaServlet extends CopsServlet
 		super.init();
 		try
 		{
-			resources.init();
-			
 			if(this.provider!=null)
 			{
 				System.out.println("reinvokation of jspInit");
@@ -140,14 +137,6 @@ public final class CopernicaServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		// resource handling
-		if("GET".equals(request.getMethod()))
-		{
-			if(resources.doGet(request, response))
-				return;
-		}
-		// /resource handling
-
 		PrintStream out = null;
 		try
 		{

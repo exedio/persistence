@@ -31,7 +31,6 @@ import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
-import com.exedio.cops.ResourceSet;
 
 /**
  * The servlet providing the COPE Database Administration application.
@@ -66,30 +65,29 @@ public final class ConsoleServlet extends CopsServlet
 	private ConnectToken connectToken = null;
 	private Model model = null;
 	
-	private static final ResourceSet resources = new ResourceSet(ConsoleServlet.class);
-	static final Resource stylesheet = new Resource(resources, "console.css");
-	static final Resource schemaScript = new Resource(resources, "schema.js");
-	static final Resource logo = new Resource(resources, "logo.png");
-	static final Resource checkFalse = new Resource(resources, "checkfalse.png");
-	static final Resource checkTrue  = new Resource(resources, "checktrue.png");
-	static final Resource nodeFalse = new Resource(resources, "nodefalse.png");
-	static final Resource nodeTrue  = new Resource(resources, "nodetrue.png");
-	static final Resource nodeWarningFalse = new Resource(resources, "nodewarningfalse.png");
-	static final Resource nodeWarningTrue  = new Resource(resources, "nodewarningtrue.png");
-	static final Resource nodeErrorFalse = new Resource(resources, "nodeerrorfalse.png");
-	static final Resource nodeErrorTrue  = new Resource(resources, "nodeerrortrue.png");
-	static final Resource nodeLeaf        = new Resource(resources, "nodeleaf.png");
-	static final Resource nodeLeafWarning = new Resource(resources, "nodewarningleaf.png");
-	static final Resource nodeLeafError   = new Resource(resources, "nodeerrorleaf.png");
-	static final Resource warning = new Resource(resources, "warning.png");
-	static final Resource error  = new Resource(resources, "error.png");
-	static final Resource write  = new Resource(resources, "write.png");
+	
+	static final Resource stylesheet = new Resource("console.css");
+	static final Resource schemaScript = new Resource("schema.js");
+	static final Resource logo = new Resource("logo.png");
+	static final Resource checkFalse = new Resource("checkfalse.png");
+	static final Resource checkTrue  = new Resource("checktrue.png");
+	static final Resource nodeFalse = new Resource("nodefalse.png");
+	static final Resource nodeTrue  = new Resource("nodetrue.png");
+	static final Resource nodeWarningFalse = new Resource("nodewarningfalse.png");
+	static final Resource nodeWarningTrue  = new Resource("nodewarningtrue.png");
+	static final Resource nodeErrorFalse = new Resource("nodeerrorfalse.png");
+	static final Resource nodeErrorTrue  = new Resource("nodeerrortrue.png");
+	static final Resource nodeLeaf        = new Resource("nodeleaf.png");
+	static final Resource nodeLeafWarning = new Resource("nodewarningleaf.png");
+	static final Resource nodeLeafError   = new Resource("nodeerrorleaf.png");
+	static final Resource warning = new Resource("warning.png");
+	static final Resource error  = new Resource("error.png");
+	static final Resource write  = new Resource("write.png");
 	
 	@Override
 	public void init() throws ServletException
 	{
 		super.init();
-		resources.init();
 		
 		if(model!=null)
 		{
@@ -140,14 +138,6 @@ public final class ConsoleServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		// resource handling
-		if("GET".equals(request.getMethod()))
-		{
-			if(resources.doGet(request, response))
-				return;
-		}
-		// /resource handling
-
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 

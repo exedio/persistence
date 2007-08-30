@@ -49,7 +49,6 @@ import com.exedio.copernica.CopernicaProvider;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
-import com.exedio.cops.ResourceSet;
 import com.exedio.dsmf.SQLRuntimeException;
 
 public class InitServlet extends CopsServlet
@@ -59,29 +58,8 @@ public class InitServlet extends CopsServlet
 	final static String ENCODING = "utf-8";
 
 	// For ResourceTest.
-	private static final ResourceSet resources = new ResourceSet(CopernicaProvider.class);
-	static final Resource stylesheet = new Resource(resources, "resource-test.txt");
 	
-	@Override
-	public final void init() throws ServletException
-	{
-		super.init();
-
-		try
-		{
-			resources.init();
-		}
-		catch(RuntimeException e)
-		{
-			e.printStackTrace();
-			throw e;
-		}
-		catch(Error e)
-		{
-			e.printStackTrace();
-			throw e;
-		}
-	}
+	static final Resource stylesheet = new Resource("resource-test.txt");
 	
 	@Override
 	protected void doRequest(
@@ -89,14 +67,6 @@ public class InitServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		// resource handling
-		if("GET".equals(request.getMethod()))
-		{
-			if(resources.doGet(request, response))
-				return;
-		}
-		// /resource handling
-		
 		request.setCharacterEncoding(ENCODING);
 		response.setContentType("text/html; charset="+ENCODING);
 
