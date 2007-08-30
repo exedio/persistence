@@ -60,8 +60,6 @@ public final class ConsoleServlet extends CopsServlet
 {
 	private static final long serialVersionUID = 1l;
 	
-	final static String ENCODING = "utf-8";
-
 	private ConnectToken connectToken = null;
 	private Model model = null;
 	
@@ -137,9 +135,6 @@ public final class ConsoleServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		request.setCharacterEncoding(ENCODING);
-		response.setContentType("text/html; charset="+ENCODING);
-
 		final ConsoleCop cop = ConsoleCop.getCop(model, request);
 		cop.initialize(request, model);
 		response.setStatus(cop.getResponseStatus());

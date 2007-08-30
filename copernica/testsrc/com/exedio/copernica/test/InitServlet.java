@@ -55,8 +55,6 @@ public class InitServlet extends CopsServlet
 {
 	private static final long serialVersionUID = 1l;
 	
-	final static String ENCODING = "utf-8";
-
 	// For ResourceTest.
 	static final Resource stylesheet = new Resource("resource-test.txt");
 	
@@ -66,9 +64,6 @@ public class InitServlet extends CopsServlet
 			final HttpServletResponse response)
 		throws ServletException, IOException
 	{
-		request.setCharacterEncoding(ENCODING);
-		response.setContentType("text/html; charset="+ENCODING);
-
 		final boolean post = Cop.isPost(request);
 		final boolean initialize = post && request.getParameter("INIT")!=null;
 		final boolean transaction = post && request.getParameter("TRANSACTION")!=null;

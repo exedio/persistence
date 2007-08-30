@@ -74,8 +74,6 @@ public final class CopernicaServlet extends CopsServlet
 {
 	private static final long serialVersionUID = 8236598236451l;
 	
-	final static String ENCODING = "utf-8";
-
 	private ConnectToken connectToken = null;
 	private CopernicaProvider provider = null;
 	private boolean checked;
@@ -139,9 +137,6 @@ public final class CopernicaServlet extends CopsServlet
 		PrintStream out = null;
 		try
 		{
-			request.setCharacterEncoding(ENCODING);
-			response.setContentType("text/html; charset="+ENCODING);
-
 			final Model model = provider.getModel();
 
 			if(!checked)
