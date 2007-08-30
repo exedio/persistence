@@ -20,10 +20,8 @@ package com.exedio.copernica;
 
 import java.util.Arrays;
 
-
 public class WebTest extends AbstractWebTest
 {
-
 	String someString;
 	String someNotNullString;
 	String section;
@@ -84,7 +82,7 @@ public class WebTest extends AbstractWebTest
 		assertFormElementEquals("someEnum", someEnum);
 		assertFormElementEquals("someNotNullEnum", someNotNullEnum);
 	
-		assertFormElementEquals("someDate", someDate);
+		assertFormElementEquals("someDate", someDate); // TODO fails with wrong time zone
 		assertFormElementEquals("someBoolean", someBoolean);
 		if(section.equals(SECTION_OTHER))
 		{
