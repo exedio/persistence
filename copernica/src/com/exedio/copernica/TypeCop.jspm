@@ -68,12 +68,12 @@ final class TypeCop_Jspm
 	static final void writePager(final PrintStream out, final TypeCop cop)
 		throws IOException
 	{
+		if(cop.getTotal()>PAGER_LIMITS[0])
+		{
 			final int itemsSize = cop.getItems().size();
 			final boolean firstPage = cop.isFirstPage();
 			final boolean lastPage = cop.isLastPage();
 			final int limit = cop.limit;
-			if(cop.getTotal()>PAGER_LIMITS[0])
-			{
 			%>
 			<div id="pager">
 				<a href="<%=cop.firstPage()%>"<%
@@ -94,7 +94,7 @@ final class TypeCop_Jspm
 				}%>
 				)
 			</div><%
-			}
+		}
 	}
 	
 	static final void writeBody(final PrintStream out, final TypeCop cop)
