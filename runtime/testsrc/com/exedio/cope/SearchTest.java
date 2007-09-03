@@ -53,7 +53,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			illegalQuery.countWithoutLimit();
+			illegalQuery.total();
 			fail();
 		}
 		catch(IllegalArgumentException e)

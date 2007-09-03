@@ -118,7 +118,7 @@ final class TypeCop extends CopernicaCop
 	
 	final boolean isLastPage()
 	{
-		return (offset+limit)>=queryResult.getCountWithoutLimit();
+		return (offset+limit)>=queryResult.getTotal();
 	}
 	
 	final TypeCop firstPage()
@@ -128,7 +128,7 @@ final class TypeCop extends CopernicaCop
 	
 	final TypeCop lastPage()
 	{
-		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getCountWithoutLimit()-1)/limit)*limit, limit);
+		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getTotal()-1)/limit)*limit, limit);
 	}
 	
 	final TypeCop previousPage()
@@ -162,7 +162,7 @@ final class TypeCop extends CopernicaCop
 
 	final int getTotal()
 	{
-		return queryResult.getCountWithoutLimit();
+		return queryResult.getTotal();
 	}
 
 	final List<QueryInfo> getQueryInfos()
@@ -186,7 +186,7 @@ final class TypeCop extends CopernicaCop
 		final Transaction transaction = type.getModel().getCurrentTransaction();
 		transaction.setQueryInfoEnabled(true);
 
-		queryResult = query.searchAndCountWithoutLimit();
+		queryResult = query.searchAndTotal();
 		
 		queryInfos = transaction.getQueryInfos();
 		transaction.setQueryInfoEnabled(false);

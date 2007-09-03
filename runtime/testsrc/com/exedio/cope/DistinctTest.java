@@ -43,10 +43,10 @@ public class DistinctTest extends TestmodelTest
 		{
 			final Query<List> q = new Query<List>(new Function[]{item1.num2}, item1.TYPE, null);
 			assertContains(2, 3, 4, 4, 4, q.search());
-			assertEquals(5, q.countWithoutLimit());
+			assertEquals(5, q.total());
 			q.setDistinct(true);
 			assertContains(2, 3, 4, q.search());
-			assertEquals(3, q.countWithoutLimit());
+			assertEquals(3, q.total());
 		}
 		{
 			final Query<List> q = new Query<List>(new Function[]{item1.num1, item1.num2}, item1.TYPE, null);
@@ -57,7 +57,7 @@ public class DistinctTest extends TestmodelTest
 					list(1, 4),
 					list(2, 4),
 				q.search());
-			assertEquals(5, q.countWithoutLimit());
+			assertEquals(5, q.total());
 			q.setDistinct(true);
 			assertContains(
 					list(1, 2),
@@ -69,7 +69,7 @@ public class DistinctTest extends TestmodelTest
 			{
 				try
 				{
-					assertEquals(4, q.countWithoutLimit());
+					assertEquals(4, q.total());
 					assertTrue("statement above fails on all databases but mysql", mysql);
 				}
 				catch(SQLRuntimeException e)

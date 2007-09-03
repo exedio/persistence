@@ -276,11 +276,11 @@ public class OrderByTest extends TestmodelTest
 			else
 				query.setLimit(offset, limit);
 			
-			final Query.Result resultWithSizeWithoutLimit = query.searchAndCountWithoutLimit();
+			final Query.Result resultWithSizeWithoutLimit = query.searchAndTotal();
 			assertEquals(expectedOrder, resultWithSizeWithoutLimit.getData());
 			query.setLimit(0);
 			final Collection resultWithoutLimit = query.search();
-			assertEquals(resultWithoutLimit.size(), resultWithSizeWithoutLimit.getCountWithoutLimit());
+			assertEquals(resultWithoutLimit.size(), resultWithSizeWithoutLimit.getTotal());
 		}
 	}
 }

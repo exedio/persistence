@@ -309,6 +309,15 @@ public final class Query<R>
 	}
 	
 	/**
+	 * @deprecated Use {@link #total()} instead
+	 */
+	@Deprecated
+	public int countWithoutLimit()
+	{
+		return total();
+	}
+
+	/**
 	 * Counts the items matching this query.
 	 * <p>
 	 * Returns the
@@ -316,7 +325,7 @@ public final class Query<R>
 	 * {@link #search()} would have returned for this query with
 	 * {@link #setLimit(int)} reset set to <tt>(0)</tt>.
 	 */
-	public int countWithoutLimit()
+	public int total()
 	{
 		final ArrayList<Object> result = model.getCurrentTransaction().search(this, true);
 		assert result.size()==1;
@@ -351,20 +360,29 @@ public final class Query<R>
 	}
 
 	/**
+	 * @deprecated Use {@link #searchAndTotal()} instead
+	 */
+	@Deprecated
+	public Result<R> searchAndCountWithoutLimit()
+	{
+		return searchAndTotal();
+	}
+
+	/**
 	 * Searches for items matching this query.
 	 * <p>
 	 * Returns a {@link Result} containing the
 	 * {@link Result#getData() data} and the
-	 * {@link Result#getCountWithoutLimit() countWithoutLimit}.
+	 * {@link Result#getTotal() total}.
 	 * The {@link Result#getData() data} is equal to
 	 * what {@link #search()} would have returned for this query.
-	 * The {@link Result#getCountWithoutLimit() countWithoutLimit} is equal to what
-	 * {@link #countWithoutLimit()} would have returned for this query.
+	 * The {@link Result#getTotal() total} is equal to what
+	 * {@link #total()} would have returned for this query.
 	 * <p>
 	 * This method does it's best to avoid issuing two queries
 	 * for searching and counting.
 	 */
-	public Result<R> searchAndCountWithoutLimit()
+	public Result<R> searchAndTotal()
 	{
 		final List<R> data = search();
 		final int dataSize = data.size();
@@ -372,21 +390,21 @@ public final class Query<R>
 		return new Result<R>(data,
 				(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==UNLIMITED)))
 				? (offset+dataSize)
-				: countWithoutLimit());
+				: total());
 	}
 	
 	public static final class Result<R>
 	{
 		final List<R> data;
-		final int countWithoutLimit;
+		final int total;
 		
-		private Result(final List<R> data, final int countWithoutLimit)
+		private Result(final List<R> data, final int total)
 		{
 			assert data!=null;
-			assert countWithoutLimit>=0 : countWithoutLimit;
+			assert total>=0 : total;
 			
 			this.data = data;
-			this.countWithoutLimit = countWithoutLimit;
+			this.total = total;
 		}
 		
 		public List<R> getData()
@@ -394,9 +412,9 @@ public final class Query<R>
 			return data;
 		}
 		
-		public int getCountWithoutLimit()
+		public int getTotal()
 		{
-			return countWithoutLimit;
+			return total;
 		}
 		
 		@Override
@@ -404,13 +422,13 @@ public final class Query<R>
 		{
 			final Result or = (Result)o;
 
-			return countWithoutLimit==or.countWithoutLimit && data.equals(or.data);
+			return total==or.total && data.equals(or.data);
 		}
 		
 		@Override
 		public String toString()
 		{
-			return data.toString() + '(' + countWithoutLimit + ')';
+			return data.toString() + '(' + total + ')';
 		}
 	}
 	

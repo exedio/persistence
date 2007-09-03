@@ -75,17 +75,17 @@ public class QueryCacheTest extends AbstractLibTest
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
 		
-		q1.countWithoutLimit();
+		q1.total();
 		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C1, 1, 0), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
 		
-		q1.countWithoutLimit();
+		q1.total();
 		assertEquals(enabled ? list() : list(sc(q1, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
 		
-		q2.countWithoutLimit();
+		q2.total();
 		assertEquals(list(sc(q2, true)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());

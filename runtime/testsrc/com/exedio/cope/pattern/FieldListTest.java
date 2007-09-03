@@ -226,7 +226,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		try
 		{
-			q.countWithoutLimit();
+			q.total();
 			fail();
 		}
 		catch(IllegalArgumentException e)
