@@ -79,7 +79,7 @@ final class TypeCop_Jspm
 
 	private static final int[] PAGER_LIMITS = new int[]{10, 20, 50, 100};
 
-	static final void writePager(final PrintStream out, final TypeCop cop)
+	private static final void writePager(final PrintStream out, final TypeCop cop)
 		throws IOException
 	{
 		final Pager pager = cop.pager;
