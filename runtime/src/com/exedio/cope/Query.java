@@ -416,6 +416,15 @@ public final class Query<R>
 			return data;
 		}
 		
+		/**
+		 * @deprecated Use {@link #getTotal()} instead
+		 */
+		@Deprecated
+		public int getCountWithoutLimit()
+		{
+			return getTotal();
+		}
+		
 		public int getTotal()
 		{
 			return total;
