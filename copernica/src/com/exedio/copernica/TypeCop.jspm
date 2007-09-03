@@ -72,7 +72,6 @@ final class TypeCop_Jspm
 		final Pager pager = cop.pager;
 		if(pager.getTotal()>PAGER_LIMITS[0])
 		{
-			final int itemsSize = cop.getItems().size();
 			final boolean firstPage = pager.isFirst();
 			final boolean lastPage = pager.isLast();
 			final int limit = pager.getLimit();
