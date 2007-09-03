@@ -36,7 +36,7 @@ final class TypeCop extends CopernicaCop
 {
 	private static final String ORDER_ASCENDING = "oa";
 	private static final String ORDER_DESCENDING = "od";
-	private static final int LIMIT_DEFAULT  = 10;
+	private static final int LIMIT_DEFAULT = 10;
 
 	final Type type;
 	final Function orderBy;
