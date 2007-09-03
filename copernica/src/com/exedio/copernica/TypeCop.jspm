@@ -86,11 +86,11 @@ final class TypeCop_Jspm
 					if(lastPage) {%> id="disabled"<%}%>>&gt;&gt;</a>
 				<%=cop.offset+1%> - <%=cop.offset+itemsSize%> / <%=cop.getTotal()%>
 				(<%
-				for(final int i : PAGER_LIMITS)
+				for(final int newLimit : PAGER_LIMITS)
 				{
 				%>
-				<a href="<%=cop.switchLimit(i)%>"<%
-					if(i==limit){%> id="disabled"<%}%>><%=i%></a><%
+				<a href="<%=cop.switchLimit(newLimit)%>"<%
+					if(newLimit==limit){%> id="disabled"<%}%>><%=newLimit%></a><%
 				}%>
 				)
 			</div><%
