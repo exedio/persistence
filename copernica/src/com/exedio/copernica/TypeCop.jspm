@@ -72,7 +72,7 @@ final class TypeCop_Jspm
 			final boolean firstPage = cop.isFirstPage();
 			final boolean lastPage = cop.isLastPage();
 			final int limit = cop.limit;
-			if(cop.offset>0 || itemsSize>0)
+			if(cop.getTotal()>PAGER_LIMITS[0])
 			{
 			%>
 			<div id="pager">
