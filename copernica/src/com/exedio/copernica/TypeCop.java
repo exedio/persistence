@@ -139,7 +139,7 @@ final class TypeCop extends CopernicaCop
 		
 		queryInfos = transaction.getQueryInfos();
 		transaction.setQueryInfoEnabled(false);
-		pager.init(queryResult.getTotal());
+		pager.init(queryResult.getData().size(), queryResult.getTotal());
 	}
 	
 	@Override

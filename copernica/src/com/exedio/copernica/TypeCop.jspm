@@ -86,7 +86,7 @@ final class TypeCop_Jspm
 					if(lastPage) {%> class="disabled"<%}%>>&gt;</a>
 				<a href="<%=cop.toPage(pager.last())%>"<%
 					if(lastPage) {%> class="disabled"<%}%>>&gt;&gt;</a>
-				<%=pager.getOffset()+1%> - <%=pager.getOffset()+itemsSize%> / <%=pager.getTotal()%>
+				<%=pager.getFrom()%> - <%=pager.getTo()%> / <%=pager.getTotal()%>
 				(<%
 				for(final int newLimit : PAGER_LIMITS)
 				{
