@@ -215,11 +215,10 @@ final class TypeCop extends CopernicaCop
 		final String orderID = orderAscending ? orderAscendingID : orderDescendingID;
 		final Function orderBy = (orderID==null) ? null : (Function)type.getFeature(orderID);
 
-		final String offsetString = request.getParameter(OFFSET);
-		final String limitString  = request.getParameter(LIMIT);
-		final int offset = (offsetString==null) ? OFFSET_DEFAULT : Integer.parseInt(offsetString);
-		final int limit  = (limitString ==null) ? LIMIT_DEFAULT  : Integer.parseInt(limitString);
-
-		return new TypeCop(provider, language, type, orderBy, orderAscending, offset, limit);
+		return new TypeCop(
+				provider, language, type,
+				orderBy, orderAscending,
+				getIntParameter(request, OFFSET, OFFSET_DEFAULT),
+				getIntParameter(request, LIMIT,  LIMIT_DEFAULT));
 	}
 }
