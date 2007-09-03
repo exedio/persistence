@@ -64,6 +64,19 @@ final class TypeCop_Jspm
 		}
 	}
 
+	private static final void writePagerButton(
+			final PrintStream out,
+			final TypeCop cop,
+			final boolean disabled,
+			final Pager href,
+			final String text)
+		throws IOException
+	{
+				%>
+				<a href="<%=cop.toPage(href)%>"<%
+					if(disabled){%> class="disabled"<%}%>><%=text%></a><%
+	}
+
 	private static final int[] PAGER_LIMITS = new int[]{10, 20, 50, 100};
 
 	static final void writePager(final PrintStream out, final TypeCop cop)
@@ -76,15 +89,12 @@ final class TypeCop_Jspm
 			final boolean lastPage = pager.isLast();
 			final int limit = pager.getLimit();
 			%>
-			<div class="pager">
-				<a href="<%=cop.toPage(pager.first())%>"<%
-					if(firstPage){%> class="disabled"<%}%>>&lt;&lt;</a>
-				<a href="<%=cop.toPage(pager.previous())%>"<%
-					if(firstPage){%> class="disabled"<%}%>>&lt;</a>
-				<a href="<%=cop.toPage(pager.next())%>"<%
-					if(lastPage) {%> class="disabled"<%}%>>&gt;</a>
-				<a href="<%=cop.toPage(pager.last())%>"<%
-					if(lastPage) {%> class="disabled"<%}%>>&gt;&gt;</a>
+			<div class="pager"><%
+				writePagerButton(out, cop, firstPage, pager.first(),    "&lt;&lt;");
+				writePagerButton(out, cop, firstPage, pager.previous(), "&lt;");
+				writePagerButton(out, cop, lastPage,  pager.next(),     "&gt;");
+				writePagerButton(out, cop, lastPage,  pager.last(),     "&gt;&gt;");
+				%>
 				<%=pager.getFrom()%> - <%=pager.getTo()%> / <%=pager.getTotal()%>
 				(<%
 				for(final int newLimit : PAGER_LIMITS)
