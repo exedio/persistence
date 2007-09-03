@@ -63,6 +63,8 @@ final class TypeCop_Jspm
 		}
 	}
 
+	private static final int[] PAGER_LIMITS = new int[]{10, 20, 50, 100};
+
 	static final void writePager(final PrintStream out, final TypeCop cop)
 		throws IOException
 	{
@@ -83,7 +85,7 @@ final class TypeCop_Jspm
 					if(lastPage) {%> id="disabled"<%}%>>&gt;&gt;</a>
 				<%=cop.offset+1%> - <%=cop.offset+itemsSize%> / <%=cop.getTotal()%>
 				(<%
-				for(int i = 10; i<=50; i+=10)
+				for(final int i : PAGER_LIMITS)
 				{
 				%>
 				<a href="<%=cop.switchLimit(i)%>"<%
