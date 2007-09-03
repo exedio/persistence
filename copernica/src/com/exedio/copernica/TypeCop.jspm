@@ -19,7 +19,6 @@
 
 package com.exedio.copernica;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -45,7 +44,6 @@ import com.exedio.cops.Pager;
 final class TypeCop_Jspm
 {
 	private static void writeInfo(final PrintStream out, final QueryInfo info)
-		throws IOException
 	{
 		%><%=info.getText()%><%
 		final Collection<QueryInfo> childs = info.getChilds();
@@ -70,7 +68,6 @@ final class TypeCop_Jspm
 			final boolean disabled,
 			final Pager href,
 			final String text)
-		throws IOException
 	{
 				%>
 				<a href="<%=cop.toPage(href)%>"<%
@@ -80,7 +77,6 @@ final class TypeCop_Jspm
 	private static final int[] PAGER_LIMITS = new int[]{10, 20, 50, 100};
 
 	private static final void writePager(final PrintStream out, final TypeCop cop)
-		throws IOException
 	{
 		final Pager pager = cop.pager;
 		if(pager.isNeeded())
@@ -109,7 +105,6 @@ final class TypeCop_Jspm
 	}
 	
 	static final void writeBody(final PrintStream out, final TypeCop cop)
-		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;

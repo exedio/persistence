@@ -18,7 +18,6 @@
 
 package com.exedio.copernica;
 
-import java.io.IOException;
 import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +69,6 @@ final class ItemCop extends CopernicaCop
 
 	@Override
 	void writeBody(final PrintStream out)
-		throws IOException
 	{
 		ItemCop_Jspm.writeBody(out, this);
 	}

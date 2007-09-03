@@ -39,7 +39,6 @@ public final class Copernica_Jspm
 			final PrintStream out,
 			final CopernicaUser user,
 			final CopernicaCop cop)
-		throws IOException
 	{
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;

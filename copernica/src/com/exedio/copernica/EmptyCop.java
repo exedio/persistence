@@ -17,7 +17,6 @@
  */
 package com.exedio.copernica;
 
-import java.io.IOException;
 import java.io.PrintStream;
 
 import com.exedio.cope.Type;
@@ -49,7 +48,6 @@ final class EmptyCop extends CopernicaCop
 
 	@Override
 	void writeBody(final PrintStream out)
-		throws IOException
 	{
 		Copernica_Jspm.writeEmptyBody(out);
 	}

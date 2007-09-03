@@ -18,7 +18,6 @@
 
 package com.exedio.copernica;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
@@ -144,7 +143,6 @@ final class TypeCop extends CopernicaCop
 	
 	@Override
 	void writeBody(final PrintStream out)
-		throws IOException
 	{
 		TypeCop_Jspm.writeBody(out, this);
 	}
