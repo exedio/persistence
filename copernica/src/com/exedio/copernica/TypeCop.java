@@ -30,61 +30,49 @@ import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
+import com.exedio.cops.Pager;
 
 final class TypeCop extends CopernicaCop
 {
 	private static final String ORDER_ASCENDING = "oa";
 	private static final String ORDER_DESCENDING = "od";
-	private static final String OFFSET = "st"; // TODO change value to "off"
-	private static final String LIMIT  = "ct"; // TODO change value to "lim"
-
-	private static final int OFFSET_DEFAULT = 0;
 	private static final int LIMIT_DEFAULT  = 10;
 
 	final Type type;
 	final Function orderBy;
 	final boolean orderAscending;
-	final int offset;
-	final int limit;
+	final Pager pager;
 
 	private Query.Result queryResult = null;
 	private List<QueryInfo> queryInfos;
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
-		this(provider, language, type, null, true, OFFSET_DEFAULT, LIMIT_DEFAULT);
+		this(provider, language, type, null, true, new Pager(LIMIT_DEFAULT));
 	}
 	
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type,
 					final Function orderBy, final boolean orderAscending,
-					final int offset, int limit)
+					final Pager pager)
 	{
 		super("type", provider, language);
 		
-		final int limitCeiling = provider.getLimitCeiling(type);
-		if(limit>limitCeiling)
-			limit = limitCeiling;
-
 		this.type = type;
 		this.orderBy = orderBy;
 		this.orderAscending = orderAscending;
-		this.offset = offset;
-		this.limit = limit;
+		this.pager = pager;
 
 		addParameter(TYPE, type.getID());
 		// orderBy must be a feature
 		if(orderBy!=null)
 			addParameter(orderAscending ? ORDER_ASCENDING : ORDER_DESCENDING, ((Feature)orderBy).getName());
-		if(offset!=OFFSET_DEFAULT)
-			addParameter(OFFSET, String.valueOf(offset));
-		if(limit!=LIMIT_DEFAULT)
-			addParameter(LIMIT, String.valueOf(limit));
+		pager.addParameters(this);
 	}
 	
 	@Override
 	final CopernicaCop switchLanguage(final CopernicaLanguage newLanguage)
 	{
-		return new TypeCop(provider, newLanguage, type, orderBy, orderAscending, offset, limit);
+		return new TypeCop(provider, newLanguage, type, orderBy, orderAscending, pager);
 	}
 	
 	@Override
@@ -102,67 +90,28 @@ final class TypeCop extends CopernicaCop
 	@Override
 	final CopernicaCop toPrev()
 	{
-		return offset==0 ? null : previousPage();
+		return pager.isFirst() ? null : toPage(pager.previous());
 	}
-	
+
 	@Override
 	final CopernicaCop toNext()
 	{
-		return isLastPage() ? null : nextPage();
+		return pager.isLast() ? null : toPage(pager.next());
 	}
 	
-	final boolean isFirstPage()
+	final CopernicaCop toPage(final Pager pager)
 	{
-		return offset == 0;
-	}
-	
-	final boolean isLastPage()
-	{
-		return (offset+limit)>=queryResult.getTotal();
-	}
-	
-	final TypeCop firstPage()
-	{
-		return new TypeCop(provider, language, type, orderBy, orderAscending, 0, limit);
-	}
-	
-	final TypeCop lastPage()
-	{
-		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getTotal()-1)/limit)*limit, limit);
-	}
-	
-	final TypeCop previousPage()
-	{
-		int newOffset = offset - limit;
-		if(newOffset<0)
-			newOffset = 0;
-		return new TypeCop(provider, language, type, orderBy, orderAscending, newOffset, limit);
-	}
-	
-	final TypeCop nextPage()
-	{
-		int newOffset = offset + limit;
-		return new TypeCop(provider, language, type, orderBy, orderAscending, newOffset, limit);
-	}
-	
-	final TypeCop switchLimit(final int newLimit)
-	{
-		return new TypeCop(provider, language, type, orderBy, orderAscending, offset, newLimit);
+		return pager!=null ? new TypeCop(provider, language, type, orderBy, orderAscending, pager) : null;
 	}
 	
 	final TypeCop orderBy(final Function newOrderBy, final boolean ascending)
 	{
-		return new TypeCop(provider, language, type, newOrderBy, ascending, offset, limit);
+		return new TypeCop(provider, language, type, newOrderBy, ascending, pager);
 	}
-	
+
 	final List getItems()
 	{
 		return queryResult.getData();
-	}
-
-	final int getTotal()
-	{
-		return queryResult.getTotal();
 	}
 
 	final List<QueryInfo> getQueryInfos()
@@ -181,7 +130,7 @@ final class TypeCop extends CopernicaCop
 			query.setOrderByAndThis(orderBy, orderAscending);
 		else
 			query.setOrderByThis(true);
-		query.setLimit(offset, limit);
+		query.setLimit(pager.getOffset(), pager.getLimit());
 		
 		final Transaction transaction = type.getModel().getCurrentTransaction();
 		transaction.setQueryInfoEnabled(true);
@@ -190,6 +139,7 @@ final class TypeCop extends CopernicaCop
 		
 		queryInfos = transaction.getQueryInfos();
 		transaction.setQueryInfoEnabled(false);
+		pager.init(queryResult.getTotal());
 	}
 	
 	@Override
@@ -218,7 +168,6 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(
 				provider, language, type,
 				orderBy, orderAscending,
-				getIntParameter(request, OFFSET, OFFSET_DEFAULT),
-				getIntParameter(request, LIMIT,  LIMIT_DEFAULT));
+				Pager.newPager(request, LIMIT_DEFAULT));
 	}
 }

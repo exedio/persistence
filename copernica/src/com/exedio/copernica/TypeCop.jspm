@@ -40,6 +40,7 @@ import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Media;
+import com.exedio.cops.Pager;
 
 final class TypeCop_Jspm
 {
@@ -68,29 +69,30 @@ final class TypeCop_Jspm
 	static final void writePager(final PrintStream out, final TypeCop cop)
 		throws IOException
 	{
-		if(cop.getTotal()>PAGER_LIMITS[0])
+		final Pager pager = cop.pager;
+		if(pager.getTotal()>PAGER_LIMITS[0])
 		{
 			final int itemsSize = cop.getItems().size();
-			final boolean firstPage = cop.isFirstPage();
-			final boolean lastPage = cop.isLastPage();
-			final int limit = cop.limit;
+			final boolean firstPage = pager.isFirst();
+			final boolean lastPage = pager.isLast();
+			final int limit = pager.getLimit();
 			%>
 			<div class="pager">
-				<a href="<%=cop.firstPage()%>"<%
+				<a href="<%=cop.toPage(pager.first())%>"<%
 					if(firstPage){%> class="disabled"<%}%>>&lt;&lt;</a>
-				<a href="<%=cop.previousPage()%>"<%
+				<a href="<%=cop.toPage(pager.previous())%>"<%
 					if(firstPage){%> class="disabled"<%}%>>&lt;</a>
-				<a href="<%=cop.nextPage()%>"<%
+				<a href="<%=cop.toPage(pager.next())%>"<%
 					if(lastPage) {%> class="disabled"<%}%>>&gt;</a>
-				<a href="<%=cop.lastPage()%>"<%
+				<a href="<%=cop.toPage(pager.last())%>"<%
 					if(lastPage) {%> class="disabled"<%}%>>&gt;&gt;</a>
-				<%=cop.offset+1%> - <%=cop.offset+itemsSize%> / <%=cop.getTotal()%>
+				<%=pager.getOffset()+1%> - <%=pager.getOffset()+itemsSize%> / <%=pager.getTotal()%>
 				(<%
 				for(final int newLimit : PAGER_LIMITS)
 				{
 				%>
-				<a href="<%=cop.switchLimit(newLimit)%>"<%
-					if(newLimit==limit){%> id="disabled"<%}%>><%=newLimit%></a><%
+				<a href="<%=cop.toPage(pager.switchLimit(newLimit))%>"<%
+					if(newLimit==limit){%> class="disabled"<%}%>><%=newLimit%></a><%
 				}%>
 				)
 			</div><%
@@ -164,7 +166,7 @@ final class TypeCop_Jspm
 				}
 			%>
 				</tr><%
-				if(cop.offset==0 && items.isEmpty())
+				if(cop.pager.getOffset()==0 && items.isEmpty()) // TODO add convenience method
 				{
 					%>
 				<tr><td colspan="<%=features.size()+1%>">No Data Found.</td></tr><%
