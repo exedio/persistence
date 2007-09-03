@@ -166,7 +166,7 @@ final class TypeCop_Jspm
 				}
 			%>
 				</tr><%
-				if(cop.pager.getOffset()==0 && items.isEmpty()) // TODO add convenience method
+				if(cop.pager.isTotalEmpty())
 				{
 					%>
 				<tr><td colspan="<%=features.size()+1%>">No Data Found.</td></tr><%
