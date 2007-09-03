@@ -18,7 +18,7 @@
 
 body
 {
-  margin : 0px 0px 0px 0px;
+	margin: 0px;
 }
 
 div#langcontainer
@@ -175,7 +175,7 @@ h1 a
 
 
 
-div#pager
+div.pager
 {
 	margin: 0px;
 	margin-top: 30px;
@@ -187,14 +187,14 @@ div#pager
 	font-size: 0.7em;
 }
 
-div#pager a
+div.pager a
 {
 	color: #ffffff;
 	font-weight: bold;
 	text-decoration: none;
 }
 
-div#pager a#disabled
+div.pager a.disabled
 {
 	color: #4a75d5;
 }

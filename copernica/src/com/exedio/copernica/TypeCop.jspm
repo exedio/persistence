@@ -75,15 +75,15 @@ final class TypeCop_Jspm
 			final boolean lastPage = cop.isLastPage();
 			final int limit = cop.limit;
 			%>
-			<div id="pager">
+			<div class="pager">
 				<a href="<%=cop.firstPage()%>"<%
-					if(firstPage){%> id="disabled"<%}%>>&lt;&lt;</a>
+					if(firstPage){%> class="disabled"<%}%>>&lt;&lt;</a>
 				<a href="<%=cop.previousPage()%>"<%
-					if(firstPage){%> id="disabled"<%}%>>&lt;</a>
+					if(firstPage){%> class="disabled"<%}%>>&lt;</a>
 				<a href="<%=cop.nextPage()%>"<%
-					if(lastPage) {%> id="disabled"<%}%>>&gt;</a>
+					if(lastPage) {%> class="disabled"<%}%>>&gt;</a>
 				<a href="<%=cop.lastPage()%>"<%
-					if(lastPage) {%> id="disabled"<%}%>>&gt;&gt;</a>
+					if(lastPage) {%> class="disabled"<%}%>>&gt;&gt;</a>
 				<%=cop.offset+1%> - <%=cop.offset+itemsSize%> / <%=cop.getTotal()%>
 				(<%
 				for(final int newLimit : PAGER_LIMITS)
