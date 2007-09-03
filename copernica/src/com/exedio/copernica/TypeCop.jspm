@@ -63,31 +63,10 @@ final class TypeCop_Jspm
 		}
 	}
 
-	static final void writeBody(final PrintStream out, final TypeCop cop)
+	static final void writePager(final PrintStream out, final TypeCop cop)
 		throws IOException
 	{
-		final CopernicaProvider provider = cop.provider;
-		final CopernicaLanguage language = cop.language;
-		final Type type = cop.type;
-		final List items = cop.getItems();
-			
-			%>
-			<h1>
-				<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(language, type)%></a>
-			</h1>
-			<ul><%
-			int numberOfSearchFeatures = 5;
-			for(Iterator i = type.getFeatures().iterator();
-					i.hasNext() && numberOfSearchFeatures>0;
-					numberOfSearchFeatures--)
-			{
-				final Feature feature = (Feature)i.next();
-				%>
-				<li><%=provider.getDisplayName(language, feature)%></li><%
-			}
-			%>
-			</ul><%
-			final int itemsSize = items.size();
+			final int itemsSize = cop.getItems().size();
 			final boolean firstPage = cop.isFirstPage();
 			final boolean lastPage = cop.isLastPage();
 			if(cop.offset>0 || itemsSize>0)
@@ -113,6 +92,33 @@ final class TypeCop_Jspm
 				)
 			</div><%
 			}
+	}
+	
+	static final void writeBody(final PrintStream out, final TypeCop cop)
+		throws IOException
+	{
+		final CopernicaProvider provider = cop.provider;
+		final CopernicaLanguage language = cop.language;
+		final Type type = cop.type;
+		final List items = cop.getItems();
+			
+			%>
+			<h1>
+				<a href="<%=(cop.toType(type))%>"><%=provider.getDisplayName(language, type)%></a>
+			</h1>
+			<ul><%
+			int numberOfSearchFeatures = 5;
+			for(Iterator i = type.getFeatures().iterator();
+					i.hasNext() && numberOfSearchFeatures>0;
+					numberOfSearchFeatures--)
+			{
+				final Feature feature = (Feature)i.next();
+				%>
+				<li><%=provider.getDisplayName(language, feature)%></li><%
+			}
+			%>
+			</ul><%
+			writePager(out, cop);
 			%>
 			<table id="item">
 				<tr>
@@ -155,7 +161,7 @@ final class TypeCop_Jspm
 				}
 			%>
 				</tr><%
-				if(cop.offset==0 && itemsSize==0)
+				if(cop.offset==0 && items.isEmpty())
 				{
 					%>
 				<tr><td colspan="<%=features.size()+1%>">No Data Found.</td></tr><%
@@ -266,6 +272,9 @@ final class TypeCop_Jspm
 			</table>
 
 			<%
+			if(items.size()>5)
+				writePager(out, cop);
+			
 			final List<QueryInfo> infos = cop.getQueryInfos();
 			for(final QueryInfo info : infos)
 			{
