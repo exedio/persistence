@@ -108,7 +108,6 @@ final class TypeCop extends CopernicaCop
 	@Override
 	final CopernicaCop toNext()
 	{
-		computeItems();
 		return isLastPage() ? null : nextPage();
 	}
 	
@@ -119,7 +118,6 @@ final class TypeCop extends CopernicaCop
 	
 	final boolean isLastPage()
 	{
-		computeItems();
 		return (offset+limit)>=queryResult.getCountWithoutLimit();
 	}
 	
@@ -130,7 +128,6 @@ final class TypeCop extends CopernicaCop
 	
 	final TypeCop lastPage()
 	{
-		computeItems();
 		return new TypeCop(provider, language, type, orderBy, orderAscending, ((queryResult.getCountWithoutLimit()-1)/limit)*limit, limit);
 	}
 	
@@ -160,26 +157,24 @@ final class TypeCop extends CopernicaCop
 	
 	final List getItems()
 	{
-		computeItems();
 		return queryResult.getData();
 	}
 
 	final int getTotal()
 	{
-		computeItems();
 		return queryResult.getCountWithoutLimit();
 	}
 
 	final List<QueryInfo> getQueryInfos()
 	{
-		computeItems();
 		return queryInfos;
 	}
 
-	private final void computeItems()
+	@Override
+	void init(final HttpServletRequest request)
 	{
-		if(queryResult!=null)
-			return;
+		super.init(request);
+		assert queryResult==null;
 		
 		final Query query = type.newQuery(null);
 		if(orderBy!=null)
