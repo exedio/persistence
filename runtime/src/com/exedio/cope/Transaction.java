@@ -166,15 +166,15 @@ public final class Transaction
 		}
 	}
 	
-	ArrayList<Object> search(final Query<?> query, final boolean doCountOnly)
+	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
 		if(!model.getQueryCache().isEnabled() || isInvalidated(query))
 		{
-			return query.searchUncached(this, doCountOnly);
+			return query.searchUncached(this, totalOnly);
 		}
 		else
 		{
-			return model.getQueryCache().search(this, query, doCountOnly);
+			return model.getQueryCache().search(this, query, totalOnly);
 		}
 	}
 	

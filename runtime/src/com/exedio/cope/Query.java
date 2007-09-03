@@ -380,7 +380,7 @@ public final class Query<R>
 	 * {@link #total()} would have returned for this query.
 	 * <p>
 	 * This method does it's best to avoid issuing two queries
-	 * for searching and counting.
+	 * for searching and totaling.
 	 */
 	public Result<R> searchAndTotal()
 	{
@@ -472,7 +472,7 @@ public final class Query<R>
 		return toString(false, false);
 	}
 	
-	String toString(final boolean key, final boolean doCountOnly)
+	String toString(final boolean key, final boolean totalOnly)
 	{
 		final Type type = this.type;
 		final StringBuffer bf = new StringBuffer();
@@ -482,7 +482,7 @@ public final class Query<R>
 		if(distinct)
 			bf.append("distinct ");
 
-		if(doCountOnly)
+		if(totalOnly)
 		{
 			bf.append("count(*)");
 		}
@@ -512,7 +512,7 @@ public final class Query<R>
 			condition.toString(bf, key, type);
 		}
 
-		if(!doCountOnly)
+		if(!totalOnly)
 		{
 			if(orderBy!=null)
 			{
@@ -542,9 +542,9 @@ public final class Query<R>
 		return bf.toString();
 	}
 	
-	ArrayList<Object> searchUncached(final Transaction transaction, final boolean doCountOnly)
+	ArrayList<Object> searchUncached(final Transaction transaction, final boolean totalOnly)
 	{
-		return model.getDatabase().search(transaction.getConnection(), this, doCountOnly, transaction.queryInfos);
+		return model.getDatabase().search(transaction.getConnection(), this, totalOnly, transaction.queryInfos);
 	}
 	
 	private static final Condition replaceTrue(final Condition c)

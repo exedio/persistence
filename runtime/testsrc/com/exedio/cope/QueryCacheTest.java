@@ -106,20 +106,20 @@ public class QueryCacheTest extends AbstractLibTest
 		return Arrays.asList(model.getQueryCacheHistogram());
 	}
 
-	private SC sc(final Query query, final boolean doCountOnly)
+	private SC sc(final Query query, final boolean totalOnly)
 	{
-		return new SC(query, doCountOnly);
+		return new SC(query, totalOnly);
 	}
 
 	private class SC
 	{
 		final Query query;
-		final boolean doCountOnly;
+		final boolean totalOnly;
 		
-		SC(final Query query, final boolean doCountOnly)
+		SC(final Query query, final boolean totalOnly)
 		{
 			this.query = query;
-			this.doCountOnly = doCountOnly;
+			this.totalOnly = totalOnly;
 		}
 		
 		@Override
@@ -128,13 +128,13 @@ public class QueryCacheTest extends AbstractLibTest
 			final SC o = (SC)other;
 			return
 				query == o.query && // do not use equals !!!
-				doCountOnly == o.doCountOnly;
+				totalOnly == o.totalOnly;
 		}
 
 		@Override
 		public String toString()
 		{
-			return (doCountOnly ? "COUNT " : "SEARCH ") + query.toString();
+			return (totalOnly ? "TOTAL " : "SEARCH ") + query.toString();
 		}
 	}
 	
@@ -147,9 +147,9 @@ public class QueryCacheTest extends AbstractLibTest
 			throw new RuntimeException();
 		}
 
-		public void search(final Connection connection, final Query query, final boolean doCountOnly)
+		public void search(final Connection connection, final Query query, final boolean totalOnly)
 		{
-			scs.add(new SC(query, doCountOnly));
+			scs.add(new SC(query, totalOnly));
 		}
 		
 		void clear()

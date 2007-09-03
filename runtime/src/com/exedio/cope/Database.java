@@ -303,11 +303,11 @@ final class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean doCountOnly, final ArrayList<QueryInfo> queryInfos)
+	ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean totalOnly, final ArrayList<QueryInfo> queryInfos)
 	{
 		buildStage = false;
 
-		listener.search(connection, query, doCountOnly);
+		listener.search(connection, query, totalOnly);
 		
 		final int offset = query.offset;
 		final int limit = query.limit;
@@ -317,12 +317,12 @@ final class Database
 		final ArrayList<Join> queryJoins = query.joins;
 		final Statement bf = createStatement(query);
 		
-		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
+		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
 			dialect.appendLimitClause(bf, offset, limit);
 		
 		bf.append("select");
 		
-		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
+		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_SELECT)
 			dialect.appendLimitClause(bf, offset, limit);
 		
 		bf.append(' ');
@@ -331,13 +331,13 @@ final class Database
 		final Column[] selectColumns = new Column[selects.length];
 		final Type[] selectTypes = new Type[selects.length];
 
-		if(!distinct&&doCountOnly)
+		if(!distinct&&totalOnly)
 		{
 			bf.append("count(*)");
 		}
 		else
 		{
-			if(doCountOnly)
+			if(totalOnly)
 				bf.append("count(");
 			if(distinct)
 				bf.append("distinct ");
@@ -427,7 +427,7 @@ final class Database
 				selectColumns[selectIndex] = selectColumn;
 			}
 			
-			if(doCountOnly)
+			if(totalOnly)
 				bf.append(')');
 		}
 
@@ -469,7 +469,7 @@ final class Database
 			query.condition.append(bf);
 		}
 		
-		if(!doCountOnly)
+		if(!totalOnly)
 		{
 			final Function[] orderBy = query.orderBy;
 			
@@ -507,7 +507,7 @@ final class Database
 				dialect.appendLimitClause(bf, offset, limit);
 		}
 
-		if(!doCountOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
+		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
 			dialect.appendLimitClause2(bf, offset, limit);
 		
 		final Type[] types = selectTypes;
@@ -527,7 +527,7 @@ final class Database
 		{
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
-				if(doCountOnly)
+				if(totalOnly)
 				{
 					resultSet.next();
 					result.add(Integer.valueOf(resultSet.getInt(1)));
@@ -1703,7 +1703,7 @@ final class Database
 		public void load(Connection connection, WrittenState state)
 		{/* DOES NOTHING */}
 		
-		public void search(Connection connection, Query query, boolean doCountOnly)
+		public void search(Connection connection, Query query, boolean totalOnly)
 		{/* DOES NOTHING */}
 	};
 

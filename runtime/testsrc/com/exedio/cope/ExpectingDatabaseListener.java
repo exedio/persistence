@@ -40,7 +40,7 @@ public class ExpectingDatabaseListener implements DatabaseListener
 		}
 	}
 
-	public void search(Connection connection, Query query, boolean doCountOnly)
+	public void search(Connection connection, Query query, boolean totalOnly)
 	{
 		nextExpectedCall().checkSearch( connection, query );
 	}

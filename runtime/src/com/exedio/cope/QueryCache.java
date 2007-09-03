@@ -41,13 +41,13 @@ final class QueryCache
 		this.map = limit>0 ? new LRUMap(limit) : null;
 	}
 	
-	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean doCountOnly)
+	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean totalOnly)
 	{
 		if(map==null)
 		{
-			throw new RuntimeException( "search in cache must not be called if query caching is disabled" );
+			throw new RuntimeException("search in cache must not be called if query caching is disabled");
 		}
-		final Key key = new Key(query, doCountOnly);
+		final Key key = new Key(query, totalOnly);
 		Value result;
 		synchronized(map)
 		{
@@ -55,7 +55,7 @@ final class QueryCache
 		}
 		if ( result==null )
 		{
-			result = new Value(query, query.searchUncached(transaction, doCountOnly));
+			result = new Value(query, query.searchUncached(transaction, totalOnly));
 			synchronized(map)
 			{
 				map.put(key, result);
@@ -170,11 +170,11 @@ final class QueryCache
 		
 		private static final String CHARSET = "utf8";
 		
-		Key(final Query<? extends Object> query, final boolean doCountOnly)
+		Key(final Query<? extends Object> query, final boolean totalOnly)
 		{
 			try
 			{
-				text = query.toString(true, doCountOnly).getBytes(CHARSET);
+				text = query.toString(true, totalOnly).getBytes(CHARSET);
 			}
 			catch(UnsupportedEncodingException e)
 			{
