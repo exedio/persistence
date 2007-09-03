@@ -200,7 +200,10 @@ public final class Query<R>
 	public void setOrderBy(final Function[] orderBy, final boolean[] ascending)
 	{
 		if(orderBy.length!=ascending.length)
-			throw new IllegalArgumentException("orderBy and ascending must have same length, but was "+orderBy.length+" and "+ascending.length);
+			throw new IllegalArgumentException(
+					"orderBy and ascending must have same length, " +
+					"but was " + orderBy.length +
+					" and " + ascending.length);
 		for(int i = 0; i<orderBy.length; i++)
 			if(orderBy[i]==null)
 				throw new NullPointerException("orderBy contains null at index "+i);
@@ -327,7 +330,8 @@ public final class Query<R>
 	 */
 	public int total()
 	{
-		final ArrayList<Object> result = model.getCurrentTransaction().search(this, true);
+		final ArrayList<Object> result =
+			model.getCurrentTransaction().search(this, true);
 		assert result.size()==1;
 		return ((Integer)result.iterator().next()).intValue();
 	}
@@ -449,7 +453,10 @@ public final class Query<R>
 		{
 			final R result = searchResult.next();
 			if(searchResult.hasNext())
-				throw new IllegalArgumentException("expected result of size one or less, but was " + searchResultCollection + " for query: " + toString());
+				throw new IllegalArgumentException(
+						"expected result of size one or less, " +
+						"but was " + searchResultCollection +
+						" for query: " + toString());
 			else
 				return result;
 		}
@@ -544,7 +551,11 @@ public final class Query<R>
 	
 	ArrayList<Object> searchUncached(final Transaction transaction, final boolean totalOnly)
 	{
-		return model.getDatabase().search(transaction.getConnection(), this, totalOnly, transaction.queryInfos);
+		return model.getDatabase().search(
+				transaction.getConnection(),
+				this,
+				totalOnly,
+				transaction.queryInfos);
 	}
 	
 	private static final Condition replaceTrue(final Condition c)

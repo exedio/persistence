@@ -41,7 +41,10 @@ final class QueryCache
 		this.map = limit>0 ? new LRUMap(limit) : null;
 	}
 	
-	ArrayList<Object> search(final Transaction transaction, final Query<?> query, final boolean totalOnly)
+	ArrayList<Object> search(
+			final Transaction transaction,
+			final Query<?> query,
+			final boolean totalOnly)
 	{
 		if(map==null)
 		{

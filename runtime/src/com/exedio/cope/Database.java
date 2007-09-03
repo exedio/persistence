@@ -303,7 +303,11 @@ final class Database
 		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 	
-	ArrayList<Object> search(final Connection connection, final Query<? extends Object> query, final boolean totalOnly, final ArrayList<QueryInfo> queryInfos)
+	ArrayList<Object> search(
+			final Connection connection,
+			final Query<? extends Object> query,
+			final boolean totalOnly,
+			final ArrayList<QueryInfo> queryInfos)
 	{
 		buildStage = false;
 
