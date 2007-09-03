@@ -71,6 +71,7 @@ final class TypeCop_Jspm
 			final int itemsSize = cop.getItems().size();
 			final boolean firstPage = cop.isFirstPage();
 			final boolean lastPage = cop.isLastPage();
+			final int limit = cop.limit;
 			if(cop.offset>0 || itemsSize>0)
 			{
 			%>
@@ -89,7 +90,7 @@ final class TypeCop_Jspm
 				{
 				%>
 				<a href="<%=cop.switchLimit(i)%>"<%
-					if(i==cop.limit){%> id="disabled"<%}%>><%=i%></a><%
+					if(i==limit){%> id="disabled"<%}%>><%=i%></a><%
 				}%>
 				)
 			</div><%
