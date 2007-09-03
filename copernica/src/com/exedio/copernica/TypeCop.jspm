@@ -70,7 +70,7 @@ final class TypeCop_Jspm
 		throws IOException
 	{
 		final Pager pager = cop.pager;
-		if(pager.getTotal()>PAGER_LIMITS[0])
+		if(pager.isNeeded())
 		{
 			final boolean firstPage = pager.isFirst();
 			final boolean lastPage = pager.isLast();
