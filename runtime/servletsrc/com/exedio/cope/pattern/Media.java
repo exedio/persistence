@@ -613,7 +613,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		
 		EnumContentType(final String[] types, final boolean optional)
 		{
-			super(new IntegerField(), optional, "ContentType");
+			super(new IntegerField().range(0, types.length), optional, "ContentType");
 			this.types = types;
 			final HashMap<String, Integer> typeSet = new HashMap<String, Integer>();
 			for(int i = 0; i<types.length; i++)
