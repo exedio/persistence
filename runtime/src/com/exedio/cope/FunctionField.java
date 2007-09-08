@@ -271,7 +271,7 @@ public abstract class FunctionField<E extends Object>
 		return new IsNullCondition<E>(this, true);
 	}
 	
-	public final Condition equal(final E value)
+	public Condition equal(final E value)
 	{
 		return Cope.equal(this, value);
 	}
@@ -291,7 +291,7 @@ public abstract class FunctionField<E extends Object>
 		return CompositeCondition.in(this, values);
 	}
 	
-	public final Condition notEqual(final E value)
+	public Condition notEqual(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}

@@ -174,6 +174,37 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 			throw new RangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 	
+	@Override
+	public Condition equal(final Integer value)
+	{
+		if(value!=null)
+		{
+			final int valuePrimitive = value.intValue();
+			if(valuePrimitive<minimum || valuePrimitive>maximum)
+				return Condition.FALSE;
+			else
+				return super.equal(value);
+		}
+		else
+			return super.equal(value);
+	}
+	
+	@Override
+	public Condition notEqual(final Integer value)
+	{
+		if(value!=null)
+		{
+			final int valuePrimitive = value.intValue();
+			if(valuePrimitive<minimum || valuePrimitive>maximum)
+				return Condition.TRUE;
+			else
+				return super.notEqual(value);
+		}
+		else
+			return super.notEqual(value);
+	}
+	// TODO the same for less, lessEqual, greater, greaterEqual
+	
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
