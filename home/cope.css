@@ -79,6 +79,14 @@ img.sf
 	height:31px;
 }
 
+img.validhtml
+{
+	float:right;
+	border:0;
+	width:44px;
+	height:16px;
+}
+
 address
 {
 	width:100%;

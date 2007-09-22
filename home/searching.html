@@ -149,7 +149,6 @@ TYPE.<a href="api/com/exedio/cope/Type.html#search(com.exedio.cope.Condition)">s
 		</div>
 		<h3><a name="sorting">Sorting</a></h3>
 		<div>
-		<div>
 			Here again a query, that searches for customers,
 			that have logged in more than 8 times,
 			but now sorted by their email adresses:
@@ -178,6 +177,7 @@ List&lt;Customer&gt; customers = q.search();
 			which have logged in at least 8 times,
 			sorted by the number of their logins ascendingly
 			and their email adress descendingly.
+		</div>
 		<div>
 			Note, that all the methods <tt>Type.search(...)</tt> in the examples before
 			use an instance of <tt>Query</tt> in their implementation as well.
@@ -329,6 +329,9 @@ q.join(Order.TYPE, Order.buyer.<b>equalTarget()</b>);
 			</ul>
 		</div>
 		<address>
+			<a href="http://validator.w3.org/check?uri=referer">
+				<img src="valid-html401.png" class="validhtml" alt="Valid HTML 4.01 Transitional" />
+			</a>
 			Copyright &copy; 2004-2007
 			<a href="http://www.exedio.com/" target="_top">exedio</a>
 			Gesellschaft f&uuml;r Softwareentwicklung mbH.
