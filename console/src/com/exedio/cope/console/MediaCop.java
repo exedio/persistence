@@ -37,15 +37,15 @@ final class MediaCop extends ConsoleCop
 
 	private static final String MEDIA = "m";
 	private static final String INLINE = "il";
-	private static final String INLINE_MEDIA = "m";
-	private static final String INLINE_OTHER = "o";
+	private static final String MEDIA_INLINE = "m";
+	private static final String OTHER_INLINE = "o";
 	
 	final MediaPath media;
 	final Media other;
-	final boolean inlineMedia;
-	final boolean inlineOther;
+	final boolean mediaInline;
+	final boolean otherInline;
 
-	MediaCop(final MediaPath media, final boolean inlineMedia, final boolean inlineOther)
+	MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline)
 	{
 		super("media", "media - " + media.getID());
 		
@@ -60,14 +60,14 @@ final class MediaCop extends ConsoleCop
 		else
 			other = null;
 
-		this.inlineMedia = inlineMedia;
-		this.inlineOther = inlineOther;
+		this.mediaInline = mediaInline;
+		this.otherInline = otherInline;
 		
 		addParameter(MEDIA, media.getID());
-		if(inlineMedia)
-			addParameter(INLINE, INLINE_MEDIA);
-		if(inlineOther)
-			addParameter(INLINE, INLINE_OTHER);
+		if(mediaInline)
+			addParameter(INLINE, MEDIA_INLINE);
+		if(otherInline)
+			addParameter(INLINE, OTHER_INLINE);
 	}
 	
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
@@ -76,31 +76,31 @@ final class MediaCop extends ConsoleCop
 		if(mediaID==null)
 			return null;
 
-		boolean inlineMedia = false;
-		boolean inlineOther = false;
+		boolean mediaInline = false;
+		boolean otherInline = false;
 		final String[] inlineParameters = request.getParameterValues(INLINE);
 		if(inlineParameters!=null)
 		{
 			for(final String p : inlineParameters)
 			{
-				if(INLINE_MEDIA.equals(p))
-					inlineMedia = true;
-				else if(INLINE_OTHER.equals(p))
-					inlineOther = true;
+				if(MEDIA_INLINE.equals(p))
+					mediaInline = true;
+				else if(OTHER_INLINE.equals(p))
+					otherInline = true;
 			}
 		}
 		
-		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), inlineMedia, inlineOther);
+		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), mediaInline, otherInline);
 	}
 	
 	MediaCop toggleInlineMedia()
 	{
-		return new MediaCop(media, !inlineMedia, inlineOther);
+		return new MediaCop(media, !mediaInline, otherInline);
 	}
 
 	MediaCop toggleInlineOther()
 	{
-		return new MediaCop(media, inlineMedia, !inlineOther);
+		return new MediaCop(media, mediaInline, !otherInline);
 	}
 
 	@Override
