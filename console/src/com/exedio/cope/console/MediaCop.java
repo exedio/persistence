@@ -181,8 +181,6 @@ final class MediaCop extends ConsoleCop
 		return (pos>0) ? url.substring(pos+1) : url;
 	}
 	
-	private static final int[] PAGER_LIMITS = new int[]{10, 20, 50, 100};
-	
 	void writePager(final PrintStream out)
 	{
 		if(pager.isNeeded())
@@ -196,8 +194,8 @@ final class MediaCop extends ConsoleCop
 			Media_Jspm.writePagerButton(out, this, pager.previous(), "&lt;");
 			Media_Jspm.writePagerButton(out, this, pager.next(),     "&gt;");
 			Media_Jspm.writePagerButton(out, this, pager.last(),     "&gt;&gt;");
-			for(final int newLimit : PAGER_LIMITS)
-				Media_Jspm.writePagerButton(out, this, pager.switchLimit(newLimit), String.valueOf(newLimit));
+			for(final Pager newLimit : pager.newLimits())
+				Media_Jspm.writePagerButton(out, this, newLimit, String.valueOf(newLimit.getLimit()));
 		}
 	}
 }
