@@ -47,6 +47,9 @@ import com.exedio.cope.RangeViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaFilter;
+import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -91,6 +94,7 @@ final class Generator
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
 	private static final String GETTER_MEDIA_IS_NULL      = "Returns whether media {0} is null.";
 	private static final String GETTER_MEDIA_URL          = "Returns a URL the content of the media {0} is available under.";
+	private static final String GETTER_MEDIA_PATH_URL     = "Returns a URL the content of {0} is available under.";
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
 	private static final String GETTER_MEDIA_LENGTH = "Returns the body length of the media {0}.";
 	private static final String GETTER_MEDIA_LASTMODIFIED = "Returns the last modification date of media {0}.";
@@ -646,20 +650,29 @@ final class Generator
 	private void writeMedia(final CopeMedia media)
 	throws IOException
 	{
-		writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL);
-		writeMediaGetter(media, String.class,      "URL",          GETTER_MEDIA_URL);
+		final MediaPath instance = (MediaPath)media.getInstance();
+		if(instance instanceof Media)
+			writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL);
+		
+		writeMediaGetter(media, String.class,      "URL",          (instance instanceof Media) ? GETTER_MEDIA_URL : GETTER_MEDIA_PATH_URL);
+		if(instance instanceof MediaFilter)
+			writeMediaGetter(media, String.class,      "URLWithFallbackToSource", GETTER_MEDIA_PATH_URL);
 		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
-		writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED);
-		writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH);
-		writeMediaGetter(media, byte.class,        "Body",         GETTER_MEDIA_BODY_BYTE);
-		writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_BODY_STREAM);
-		writeMediaGetter(media, File.class,                        GETTER_MEDIA_BODY_FILE);
-
-		if(media.setterOption.exists)
+		
+		if(instance instanceof Media)
 		{
-			writeMediaSetter(media, byte.class);
-			writeMediaSetter(media, InputStream.class);
-			writeMediaSetter(media, File.class);
+			writeMediaGetter(media, long.class,        "LastModified", GETTER_MEDIA_LASTMODIFIED);
+			writeMediaGetter(media, long.class,        "Length",       GETTER_MEDIA_LENGTH);
+			writeMediaGetter(media, byte.class,        "Body",         GETTER_MEDIA_BODY_BYTE);
+			writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_BODY_STREAM);
+			writeMediaGetter(media, File.class,                        GETTER_MEDIA_BODY_FILE);
+	
+			if(media.setterOption.exists)
+			{
+				writeMediaSetter(media, byte.class);
+				writeMediaSetter(media, InputStream.class);
+				writeMediaSetter(media, File.class);
+			}
 		}
 	}
 	

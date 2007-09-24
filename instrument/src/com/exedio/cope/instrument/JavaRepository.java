@@ -26,13 +26,13 @@ import java.util.List;
 import bsh.Interpreter;
 import bsh.UtilEvalError;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
+import com.exedio.cope.Field;
 import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.Item;
@@ -47,7 +47,7 @@ import com.exedio.cope.pattern.FieldMap;
 import com.exedio.cope.pattern.FieldMapLimited;
 import com.exedio.cope.pattern.FieldSet;
 import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.VectorRelation;
@@ -146,7 +146,7 @@ final class JavaRepository
 								new CopeAttributeList(type, javaAttribute, true);
 							else if(FieldMap.class.isAssignableFrom(typeClass) || FieldMapLimited.class.isAssignableFrom(typeClass))
 								new CopeAttributeMap(type, javaAttribute);
-							else if(Media.class.isAssignableFrom(typeClass))
+							else if(MediaPath.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
 							else if(Relation.class.isAssignableFrom(typeClass))
 								new CopeRelation(type, javaAttribute, false);
