@@ -99,7 +99,10 @@ final class MediaCop extends ConsoleCop
 			}
 		}
 		
-		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), mediaInline, otherInline, Pager.newPager(request, LIMIT_DEFAULT));
+		return new MediaCop(
+				(MediaPath)model.findFeatureByID(mediaID),
+				mediaInline, otherInline,
+				Pager.newPager(request, LIMIT_DEFAULT));
 	}
 	
 	MediaCop toggleInlineMedia()
@@ -125,7 +128,10 @@ final class MediaCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request)
 	{
 		try
 		{
@@ -156,8 +162,10 @@ final class MediaCop extends ConsoleCop
 			}
 			
 			final Query<? extends Item> q = media.getType().newQuery(c);
-			q.setLimit(pager.getOffset(), pager.getLimit()); /**/q.setOrderBy(media.getType().getThis(), true);
-			final Query.Result<? extends Item> items = q.searchAndTotal(); /**/pager.init(items.getData().size(), items.getTotal());
+			q.setLimit(pager.getOffset(), pager.getLimit());
+			q.setOrderBy(media.getType().getThis(), true);
+			final Query.Result<? extends Item> items = q.searchAndTotal();
+			pager.init(items.getData().size(), items.getTotal());
 			Media_Jspm.writeBody(this, out, items, other);
 			model.commit();
 		}
