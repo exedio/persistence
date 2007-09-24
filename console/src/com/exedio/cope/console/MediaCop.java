@@ -107,12 +107,12 @@ final class MediaCop extends ConsoleCop
 	
 	MediaCop toggleInlineMedia()
 	{
-		return new MediaCop(media, !mediaInline, otherInline);
+		return new MediaCop(media, !mediaInline, otherInline, pager);
 	}
 
 	MediaCop toggleInlineOther()
 	{
-		return new MediaCop(media, mediaInline, !otherInline);
+		return new MediaCop(media, mediaInline, !otherInline, pager);
 	}
 
 	MediaCop toPage(final Pager pager)
