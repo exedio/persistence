@@ -187,6 +187,11 @@ final class MediaCop extends ConsoleCop
 	{
 		if(pager.isNeeded())
 		{
+			out.print(' ');
+			out.print(pager.getFrom());
+			out.print('-');
+			out.print(pager.getTo());
+			out.print(' ');
 			Media_Jspm.writePagerButton(out, this, pager.first(),    "&lt;&lt;");
 			Media_Jspm.writePagerButton(out, this, pager.previous(), "&lt;");
 			Media_Jspm.writePagerButton(out, this, pager.next(),     "&gt;");
