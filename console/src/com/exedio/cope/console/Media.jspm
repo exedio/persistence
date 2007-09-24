@@ -184,7 +184,7 @@ final class Media_Jspm extends Console_Jspm
 				{
 				%>
 				<th><a href="<%=
-					new MediaCop(other, otherInline)%>"><%=other.getName()%></a> <a href="<%=
+					cop.toOther()%>"><%=other.getName()%></a> <a href="<%=
 					cop.toggleInlineOther()%>">IN</a></th><%
 				}
 			%>

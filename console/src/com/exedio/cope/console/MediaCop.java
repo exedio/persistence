@@ -49,14 +49,9 @@ final class MediaCop extends ConsoleCop
 
 	MediaCop(final MediaPath media)
 	{
-		this(media, false);
+		this(media, false, false, new Pager(LIMIT_DEFAULT));
 	}
 
-	MediaCop(final MediaPath media, final boolean inline)
-	{
-		this(media, inline, false, new Pager(LIMIT_DEFAULT));
-	}
-	
 	private MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline, final Pager pager)
 	{
 		super("media", "media - " + media.getID());
@@ -123,6 +118,11 @@ final class MediaCop extends ConsoleCop
 	MediaCop toPage(final Pager pager)
 	{
 		return new MediaCop(media, mediaInline, otherInline, pager);
+	}
+	
+	MediaCop toOther()
+	{
+		return new MediaCop(other, otherInline, false, pager);
 	}
 	
 	@Override
