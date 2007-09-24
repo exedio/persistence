@@ -138,6 +138,19 @@ final class Media_Jspm extends Console_Jspm
 		</table><%
 	}
 
+	final static void writeHead(
+				final MediaCop cop,
+				final PrintStream out)
+	{
+		%>
+		<style>
+			img.media
+			{
+				background:url('<%=ConsoleServlet.imagebackground%>');
+			}
+		</style><%
+	}
+	
 	final static void writeBody(
 				final MediaCop cop,
 				final PrintStream out,
@@ -213,7 +226,7 @@ final class Media_Jspm extends Console_Jspm
 			%><a href="<%=url%>"><%
 			if(inline && contentType!=null && contentType.startsWith("image/"))
 			{
-				%><img src="<%=url%>"><%
+				%><img src="<%=url%>" class="media"><%
 			}
 			else
 			{

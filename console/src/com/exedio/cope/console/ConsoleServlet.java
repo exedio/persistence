@@ -80,6 +80,7 @@ public final class ConsoleServlet extends CopsServlet
 	static final Resource warning = new Resource("warning.png");
 	static final Resource error  = new Resource("error.png");
 	static final Resource write  = new Resource("write.png");
+	static final Resource imagebackground = new Resource("imagebackground.png");
 	
 	@Override
 	public void init() throws ServletException

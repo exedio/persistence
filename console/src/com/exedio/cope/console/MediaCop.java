@@ -34,7 +34,6 @@ import com.exedio.cope.pattern.MediaRedirect;
 
 final class MediaCop extends ConsoleCop
 {
-
 	private static final String MEDIA = "m";
 	private static final String INLINE = "il";
 	private static final String MEDIA_INLINE = "m";
@@ -103,6 +102,13 @@ final class MediaCop extends ConsoleCop
 		return new MediaCop(media, mediaInline, !otherInline);
 	}
 
+	@Override
+	void writeHead(final PrintStream out)
+	{
+		if(mediaInline || otherInline)
+			Media_Jspm.writeHead(this, out);
+	}
+	
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
