@@ -39,7 +39,7 @@ final class MediaStatsCop extends ConsoleCop
 	
 	MediaCop toMedia(final MediaPath media)
 	{
-		return new MediaCop(media, false, false);
+		return new MediaCop(media);
 	}
 	
 	@Override

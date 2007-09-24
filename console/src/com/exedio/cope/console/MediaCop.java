@@ -47,9 +47,14 @@ final class MediaCop extends ConsoleCop
 	final boolean otherInline;
 	final Pager pager;
 
-	MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline)
+	MediaCop(final MediaPath media)
 	{
-		this(media, mediaInline, otherInline, new Pager(LIMIT_DEFAULT));
+		this(media, false);
+	}
+
+	MediaCop(final MediaPath media, final boolean inline)
+	{
+		this(media, inline, false, new Pager(LIMIT_DEFAULT));
 	}
 	
 	private MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline, final Pager pager)
