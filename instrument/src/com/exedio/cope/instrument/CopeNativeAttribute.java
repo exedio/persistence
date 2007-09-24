@@ -135,5 +135,5 @@ final class CopeNativeAttribute extends CopeAttribute
 		
 		if(boxed)
 			o.write(')');
-	}	
+	}
 }

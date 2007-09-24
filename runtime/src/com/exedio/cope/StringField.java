@@ -63,7 +63,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public StringField(final Option option)

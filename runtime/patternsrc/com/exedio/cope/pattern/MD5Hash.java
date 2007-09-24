@@ -45,7 +45,7 @@ public final class MD5Hash extends JavaSecurityHash
 	}
 	
 	/**
-	 * @deprecated use {@link com.exedio.cope.Field#toFinal()}, {@link com.exedio.cope.FunctionField#unique()} and {@link com.exedio.cope.Field#optional()} instead. 
+	 * @deprecated use {@link com.exedio.cope.Field#toFinal()}, {@link com.exedio.cope.FunctionField#unique()} and {@link com.exedio.cope.Field#optional()} instead.
 	 */
 	@Deprecated
 	public MD5Hash(final Option storageOption)

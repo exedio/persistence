@@ -50,7 +50,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()} and {@link #optional()} instead. 
+	 * @deprecated use {@link #toFinal()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public DataField(final Option option)
@@ -516,7 +516,7 @@ public final class DataField extends Field<DataField.Value>
 					}
 					catch(IOException e)
 					{
-						// IGNORE, because already in exception 
+						// IGNORE, because already in exception
 					}
 				}
 			}

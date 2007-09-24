@@ -234,7 +234,7 @@ public class MediaDefaultTest extends AbstractLibTest
 		
 		item.getFileBody(tempFile);
 		assertEqualContent(expectedData, tempFile);
-	}	
+	}
 	
 	private void assertExtension(final String contentType, final String extension)
 		throws IOException

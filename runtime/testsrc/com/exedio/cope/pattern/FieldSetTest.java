@@ -388,6 +388,6 @@ public class FieldSetTest extends AbstractLibTest
 		assertContains(item, item.getParentsOfStrings(rot));
 		assertContains(item, item.getParentsOfStrings(blau));
 		assertContains(item.getParentsOfStrings(gelb));
-		assertContains(item, otherItem, item.getParentsOfStrings(null));		
+		assertContains(item, otherItem, item.getParentsOfStrings(null));
 	}
 }

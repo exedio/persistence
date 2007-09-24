@@ -39,7 +39,7 @@ public class WrapHash extends Hash
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} instead. 
+	 * @deprecated use {@link #optional()} instead.
 	 */
 	@Deprecated
 	public WrapHash(final Option storageOption)

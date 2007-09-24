@@ -35,7 +35,7 @@ public final class DoubleField extends FunctionField<Double>
 	}
 
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public DoubleField(final Option option)

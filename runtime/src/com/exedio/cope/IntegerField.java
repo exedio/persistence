@@ -55,7 +55,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public IntegerField(final Option option)

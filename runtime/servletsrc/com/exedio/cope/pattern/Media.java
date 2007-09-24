@@ -82,7 +82,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	/**
-	 * @deprecated use {@link #contentType(String)} instead. 
+	 * @deprecated use {@link #contentType(String)} instead.
 	 */
 	@Deprecated
 	public Media(final String fixedMimeMajor, final String fixedMimeMinor)
@@ -91,7 +91,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	/**
-	 * @deprecated use {@link #optional()} and {@link #contentType(String)} instead. 
+	 * @deprecated use {@link #optional()} and {@link #contentType(String)} instead.
 	 */
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor, final String fixedMimeMinor)
@@ -103,7 +103,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	/**
-	 * @deprecated use {@link #contentTypeMajor(String)} instead. 
+	 * @deprecated use {@link #contentTypeMajor(String)} instead.
 	 */
 	@Deprecated
 	public Media(final String fixedMimeMajor)
@@ -112,7 +112,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} and {@link #contentTypeMajor(String)} instead. 
+	 * @deprecated use {@link #optional()} and {@link #contentTypeMajor(String)} instead.
 	 */
 	@Deprecated
 	public Media(final Option option, final String fixedMimeMajor)
@@ -129,7 +129,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} instead. 
+	 * @deprecated use {@link #optional()} instead.
 	 */
 	@Deprecated
 	public Media(final Option option)

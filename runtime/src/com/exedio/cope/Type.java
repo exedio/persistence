@@ -819,7 +819,7 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead. 
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
 	 */
 	@Deprecated
 	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)
@@ -1167,7 +1167,7 @@ public final class Type<C extends Item>
 		
 		public Condition between(final E lowerBound, final E upperBound)
 		{
-			return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound)); 
+			return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 		}
 		
 		public CompareFunctionCondition<E> equal(final Function<E> right)

@@ -51,7 +51,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} instead. 
+	 * @deprecated use {@link #optional()} instead.
 	 */
 	@Deprecated
 	public Hash(final Option storageOption)

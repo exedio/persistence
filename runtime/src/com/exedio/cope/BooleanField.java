@@ -35,7 +35,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public BooleanField(final Option option)

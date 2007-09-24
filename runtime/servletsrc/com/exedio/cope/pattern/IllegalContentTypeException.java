@@ -55,9 +55,9 @@ public final class IllegalContentTypeException extends ConstraintViolationExcept
 	public String getMessage()
 	{
 		return
-			"illegal content type '" + contentType + 
-			"' on " + getItemID() + 
-			" for " + feature + 
+			"illegal content type '" + contentType +
+			"' on " + getItemID() +
+			" for " + feature +
 			", allowed is '" + feature.getContentTypeDescription() + "' only.";
 	}
 }

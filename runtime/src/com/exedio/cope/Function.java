@@ -94,7 +94,7 @@ public interface Function<E> extends Selectable<E>
 
 	/**
 	 * Returns a condition, that is equivalent to
-	 * <code>{@link #greaterOrEqual(Object) greaterOrEqual}(lowerBound).{@link Condition#and(Condition) and}({@link #lessOrEqual(Object) lessOrEqual}(upperBound))</code>. 
+	 * <code>{@link #greaterOrEqual(Object) greaterOrEqual}(lowerBound).{@link Condition#and(Condition) and}({@link #lessOrEqual(Object) lessOrEqual}(upperBound))</code>.
 	 */
 	Condition between(E lowerBound, E upperBound);
 

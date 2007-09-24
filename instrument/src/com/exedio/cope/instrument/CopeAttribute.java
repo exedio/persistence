@@ -92,5 +92,5 @@ abstract class CopeAttribute extends CopeFeature
 	void write(final Writer o) throws IOException
 	{
 		o.write(name);
-	}	
+	}
 }

@@ -187,7 +187,7 @@ public class BindFunction<E> implements Function<E>
 	
 	public Condition between(final E lowerBound, final E upperBound)
 	{
-		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound)); 
+		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 
 	public final CompareFunctionCondition<E> equal(final Function<E> right)

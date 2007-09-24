@@ -31,7 +31,7 @@ import com.exedio.cope.function.PlusView;
  * constructor for deserialization, needed on the first
  * non-Serializable super class of {@link Item}.
  * See http://www.jguru.com/faq/view.jsp?EID=251942
- * 
+ *
  * @author Ralf Wiebicke
  */
 public abstract class Cope implements Serializable

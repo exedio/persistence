@@ -95,5 +95,5 @@ public final class RangeViolationException extends ConstraintViolationException
 			" for "+ feature +
 			", must be at " + (isTooSmall?"least":"most") +
 			' ' + border + '.';
-	}	
+	}
 }

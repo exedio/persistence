@@ -338,5 +338,5 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			this.unique = unique;
 			this.optional = optional;
 		}
-	}	
+	}
 }

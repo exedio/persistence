@@ -69,7 +69,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} instead. 
+	 * @deprecated use {@link #optional()} instead.
 	 */
 	@Deprecated
 	private Serializer(final Class<E> valueClass, final Field.Option option)
@@ -88,7 +88,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	}
 	
 	/**
-	 * @deprecated use {@link #optional()} instead. 
+	 * @deprecated use {@link #optional()} instead.
 	 */
 	@Deprecated
 	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final Field.Option option)

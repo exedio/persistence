@@ -105,7 +105,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead. 
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	ItemField(final Option option, final Type<E> valueType, final DeletePolicy policy)
