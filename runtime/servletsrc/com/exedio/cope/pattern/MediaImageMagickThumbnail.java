@@ -30,7 +30,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 		this(source, boundX, boundY, "image/jpeg");
 	}
 	
-	public MediaImageMagickThumbnail(
+	private MediaImageMagickThumbnail(
 			final Media source,
 			final int boundX, final int boundY,
 			final String outputContentType)
@@ -47,6 +47,11 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
 			throw new IllegalArgumentException("boundY must be " + MIN_BOUND + " or greater, but was " + boundY);
+	}
+	
+	public MediaImageMagickThumbnail outputContentType(final String outputContentType)
+	{
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, outputContentType);
 	}
 	
 	public int getBoundX()
