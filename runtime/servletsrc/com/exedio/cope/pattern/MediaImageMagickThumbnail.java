@@ -70,9 +70,9 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 			throw new IllegalArgumentException("boundY must be " + MIN_BOUND + " or greater, but was " + boundY);
 	}
 	
-	public MediaImageMagickThumbnail outputContentType(final String outputContentType)
+	public MediaImageMagickThumbnail outputContentType(final String contentType)
 	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.flattenColor, outputContentType);
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.flattenColor, contentType);
 	}
 	
 	public MediaImageMagickThumbnail flatten(final String color)
