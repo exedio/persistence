@@ -19,7 +19,6 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,6 +30,7 @@ import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
+import com.exedio.cops.Pager;
 
 final class MediaCop extends ConsoleCop
 {
@@ -39,12 +39,20 @@ final class MediaCop extends ConsoleCop
 	private static final String MEDIA_INLINE = "m";
 	private static final String OTHER_INLINE = "o";
 	
+	private static final int LIMIT_DEFAULT = 10;
+	
 	final MediaPath media;
 	final Media other;
 	final boolean mediaInline;
 	final boolean otherInline;
+	final Pager pager;
 
 	MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline)
+	{
+		this(media, mediaInline, otherInline, new Pager(LIMIT_DEFAULT));
+	}
+	
+	private MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline, final Pager pager)
 	{
 		super("media", "media - " + media.getID());
 		
@@ -61,12 +69,14 @@ final class MediaCop extends ConsoleCop
 
 		this.mediaInline = mediaInline;
 		this.otherInline = otherInline;
+		this.pager = pager;
 		
 		addParameter(MEDIA, media.getID());
 		if(mediaInline)
 			addParameter(INLINE, MEDIA_INLINE);
 		if(otherInline)
 			addParameter(INLINE, OTHER_INLINE);
+		pager.addParameters(this);
 	}
 	
 	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
@@ -89,7 +99,7 @@ final class MediaCop extends ConsoleCop
 			}
 		}
 		
-		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), mediaInline, otherInline);
+		return new MediaCop((MediaPath)model.findFeatureByID(mediaID), mediaInline, otherInline, Pager.newPager(request, LIMIT_DEFAULT));
 	}
 	
 	MediaCop toggleInlineMedia()
@@ -102,6 +112,11 @@ final class MediaCop extends ConsoleCop
 		return new MediaCop(media, mediaInline, !otherInline);
 	}
 
+	MediaCop toPage(final Pager pager)
+	{
+		return new MediaCop(media, mediaInline, otherInline, pager);
+	}
+	
 	@Override
 	void writeHead(final PrintStream out)
 	{
@@ -141,8 +156,8 @@ final class MediaCop extends ConsoleCop
 			}
 			
 			final Query<? extends Item> q = media.getType().newQuery(c);
-			q.setLimit(0, 50);
-			final List<? extends Item> items = q.search();
+			q.setLimit(pager.getOffset(), pager.getLimit()); /**/q.setOrderBy(media.getType().getThis(), true);
+			final Query.Result<? extends Item> items = q.searchAndTotal(); /**/pager.init(items.getData().size(), items.getTotal());
 			Media_Jspm.writeBody(this, out, items, other);
 			model.commit();
 		}
@@ -156,5 +171,23 @@ final class MediaCop extends ConsoleCop
 	{
 		final int pos = url.lastIndexOf('/');
 		return (pos>0) ? url.substring(pos+1) : url;
+	}
+	
+	private static final int[] PAGER_LIMITS = new int[]{10, 20, 50, 100};
+	
+	void writePager(final PrintStream out)
+	{
+		if(pager.isNeeded())
+		{
+			final boolean firstPage = pager.isFirst();
+			final boolean lastPage = pager.isLast();
+			final int limit = pager.getLimit();
+			Media_Jspm.writePagerButton(out, this, firstPage, pager.first(),    "&lt;&lt;");
+			Media_Jspm.writePagerButton(out, this, firstPage, pager.previous(), "&lt;");
+			Media_Jspm.writePagerButton(out, this, lastPage,  pager.next(),     "&gt;");
+			Media_Jspm.writePagerButton(out, this, lastPage,  pager.last(),     "&gt;&gt;");
+			for(final int newLimit : PAGER_LIMITS)
+				Media_Jspm.writePagerButton(out, this, newLimit==limit,  pager.switchLimit(newLimit), String.valueOf(newLimit));
+		}
 	}
 }
