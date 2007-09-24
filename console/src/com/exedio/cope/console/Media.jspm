@@ -223,12 +223,11 @@ final class Media_Jspm extends Console_Jspm
 	static final void writePagerButton(
 			final PrintStream out,
 			final MediaCop cop,
-			final boolean disabled,
 			final Pager href,
 			final String text)
 	{
 				%>
-				<a href="<%=cop.toPage(href)%>"<% if(disabled){%> class="disabled"<%}%>><%=text%></a><%
+				<a href="<%=cop.toPage(href)%>"<% if(href.isNeutral()){%> class="disabled"<%}%>><%=text%></a><%
 	}
 	
 	private static final void writeURL(final PrintStream out, final String url, final String contentType, final boolean inline)

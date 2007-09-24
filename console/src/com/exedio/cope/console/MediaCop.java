@@ -187,15 +187,15 @@ final class MediaCop extends ConsoleCop
 	{
 		if(pager.isNeeded())
 		{
-			final boolean firstPage = pager.isFirst();
-			final boolean lastPage = pager.isLast();
-			final int limit = pager.getLimit();
-			Media_Jspm.writePagerButton(out, this, firstPage, pager.first(),    "&lt;&lt;");
-			Media_Jspm.writePagerButton(out, this, firstPage, pager.previous(), "&lt;");
-			Media_Jspm.writePagerButton(out, this, lastPage,  pager.next(),     "&gt;");
-			Media_Jspm.writePagerButton(out, this, lastPage,  pager.last(),     "&gt;&gt;");
+			
+			
+			
+			Media_Jspm.writePagerButton(out, this, pager.first(),    "&lt;&lt;");
+			Media_Jspm.writePagerButton(out, this, pager.previous(), "&lt;");
+			Media_Jspm.writePagerButton(out, this, pager.next(),     "&gt;");
+			Media_Jspm.writePagerButton(out, this, pager.last(),     "&gt;&gt;");
 			for(final int newLimit : PAGER_LIMITS)
-				Media_Jspm.writePagerButton(out, this, newLimit==limit,  pager.switchLimit(newLimit), String.valueOf(newLimit));
+				Media_Jspm.writePagerButton(out, this, pager.switchLimit(newLimit), String.valueOf(newLimit));
 		}
 	}
 }
