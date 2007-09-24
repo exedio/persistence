@@ -32,6 +32,9 @@ final class TypeColumn_Jspm
 			final ArrayList<ItemFunction> functions,
 			final boolean test)
 	{
+		if(functions.isEmpty())
+			return;
+		
 		writeButton(cop, out);
 		int sumCount = 0;
 		%>
@@ -75,7 +78,8 @@ final class TypeColumn_Jspm
 			}
 			%></a></p><%
 		}
-		writeButton(cop, out);
+		if(functions.size()>10)
+			writeButton(cop, out);
 	}
 	
 	private final static void writeButton(
