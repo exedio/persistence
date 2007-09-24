@@ -18,30 +18,51 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+
 public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 {
 	private final int boundX;
 	private final int boundY;
+	private final String flattenColor;
 
 	private static final int MIN_BOUND = 5;
 	
 	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)
 	{
-		this(source, boundX, boundY, "image/jpeg");
+		this(source, boundX, boundY, null, "image/jpeg");
+	}
+	
+	private static String[] options(
+			final int boundX, final int boundY,
+			final String flattenColor)
+	{
+		final ArrayList<String> result = new ArrayList<String>(5);
+		result.add("-resize");
+		result.add(String.valueOf(boundX) + 'x' + String.valueOf(boundY) + '>');
+		if(flattenColor!=null)
+		{
+			result.add("-flatten");
+			result.add("-background");
+			result.add(flattenColor);
+		}
+		return result.toArray(new String[result.size()]);
 	}
 	
 	private MediaImageMagickThumbnail(
 			final Media source,
 			final int boundX, final int boundY,
+			final String flattenColor,
 			final String outputContentType)
 	{
 		super(
 				source,
 				new MediaThumbnail(source, boundX, boundY),
 				outputContentType,
-				new String[]{"-resize", String.valueOf(boundX) + 'x' + String.valueOf(boundY) + '>'});
+				options(boundX, boundY, flattenColor));
 		this.boundX = boundX;
 		this.boundY = boundY;
+		this.flattenColor = flattenColor;
 		
 		if(boundX<MIN_BOUND)
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
@@ -51,7 +72,12 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	
 	public MediaImageMagickThumbnail outputContentType(final String outputContentType)
 	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, outputContentType);
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.flattenColor, outputContentType);
+	}
+	
+	public MediaImageMagickThumbnail flatten(final String color)
+	{
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, color, this.getOutputContentType());
 	}
 	
 	public int getBoundX()

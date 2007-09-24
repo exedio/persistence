@@ -148,6 +148,11 @@ public class MediaImageMagickFilter extends MediaFilter
 	{
 		return Collections.unmodifiableSet(supportedContentTypes.keySet());
 	}
+	
+	public final String getOutputContentType()
+	{
+		return outputContentType;
+	}
 
 	@Override
 	public final String getContentType(final Item item)
