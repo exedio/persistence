@@ -147,8 +147,8 @@ final class Media_Jspm extends Console_Jspm
 		final MediaPath media = cop.media;
 		final CachedMedia mediaLastModified = media instanceof CachedMedia ? (CachedMedia)media : null;
 		final Media mediaLength = media instanceof Media ? (Media)media : null;
-		final boolean inlineMedia = cop.inlineMedia;
-		final boolean inlineOther = cop.inlineOther;
+		final boolean mediaInline = cop.mediaInline;
+		final boolean otherInline = cop.otherInline;
 		%>
 		<table>
 			<caption><%=media.getID()%> (first 50)</caption>
@@ -170,7 +170,7 @@ final class Media_Jspm extends Console_Jspm
 				{
 				%>
 				<th><a href="<%=
-					new MediaCop(other, inlineOther, false)%>"><%=other.getName()%></a> <a href="<%=
+					new MediaCop(other, otherInline, false)%>"><%=other.getName()%></a> <a href="<%=
 					cop.toggleInlineOther()%>">IN</a></th><%
 				}
 			%>
@@ -182,7 +182,7 @@ final class Media_Jspm extends Console_Jspm
 				%>
 			<tr>
 				<td class="text"><%=item.getCopeID()%></td>
-				<td class="text"><% writeURL(out, media.getURL(item), contentType, inlineMedia); %></td>
+				<td class="text"><% writeURL(out, media.getURL(item), contentType, mediaInline); %></td>
 				<td class="text"><%if(contentType!=null){%><%=contentType%><%}%></td><%
 				if(mediaLastModified!=null)
 				{
@@ -197,7 +197,7 @@ final class Media_Jspm extends Console_Jspm
 				if(other!=null)
 				{
 				%>
-				<td class="text"><% writeURL(out, other.getURL(item), other.getContentType(item), inlineOther); %></td><%
+				<td class="text"><% writeURL(out, other.getURL(item), other.getContentType(item), otherInline); %></td><%
 				}
 				%>
 			</tr><%
