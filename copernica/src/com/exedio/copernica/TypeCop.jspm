@@ -65,39 +65,33 @@ final class TypeCop_Jspm
 	private static final void writePagerButton(
 			final PrintStream out,
 			final TypeCop cop,
-			final boolean disabled,
 			final Pager href,
 			final String text)
 	{
 				%>
 				<a href="<%=cop.toPage(href)%>"<%
-					if(disabled){%> class="disabled"<%}%>><%=text%></a><%
+					if(href.isNeutral()){%> class="disabled"<%}%>><%=text%></a><%
 	}
-
-	private static final int[] PAGER_LIMITS = new int[]{10, 20, 50, 100};
 
 	private static final void writePager(final PrintStream out, final TypeCop cop)
 	{
 		final Pager pager = cop.pager;
 		if(pager.isNeeded())
 		{
-			final boolean firstPage = pager.isFirst();
-			final boolean lastPage = pager.isLast();
-			final int limit = pager.getLimit();
 			%>
 			<div class="pager"><%
-				writePagerButton(out, cop, firstPage, pager.first(),    "&lt;&lt;");
-				writePagerButton(out, cop, firstPage, pager.previous(), "&lt;");
-				writePagerButton(out, cop, lastPage,  pager.next(),     "&gt;");
-				writePagerButton(out, cop, lastPage,  pager.last(),     "&gt;&gt;");
+				writePagerButton(out, cop, pager.first(),    "&lt;&lt;");
+				writePagerButton(out, cop, pager.previous(), "&lt;");
+				writePagerButton(out, cop, pager.next(),     "&gt;");
+				writePagerButton(out, cop, pager.last(),     "&gt;&gt;");
 				%>
 				<%=pager.getFrom()%> - <%=pager.getTo()%> / <%=pager.getTotal()%>
 				(<%
-				for(final int newLimit : PAGER_LIMITS)
+				for(final Pager newLimit : pager.newLimits())
 				{
 				%>
-				<a href="<%=cop.toPage(pager.switchLimit(newLimit))%>"<%
-					if(newLimit==limit){%> class="disabled"<%}%>><%=newLimit%></a><%
+				<a href="<%=cop.toPage(newLimit)%>"<%
+					if(newLimit.isNeutral()){%> class="disabled"<%}%>><%=newLimit.getLimit()%></a><%
 				}%>
 				)
 			</div><%
