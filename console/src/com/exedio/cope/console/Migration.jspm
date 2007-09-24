@@ -123,7 +123,7 @@ final class Migration_Jspm extends Console_Jspm
 				<td class="text">
 					Migrations are not enabled for this model.
 					<br>
-					Use <a
+					Use the <a
 						href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)"
 						target="_blank">migration constructor</a> to enable.
 				</td>
