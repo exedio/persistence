@@ -76,6 +76,12 @@ public final class FieldSet<E> extends Pattern
 		this.relationType = newType(features);
 	}
 	
+	private void assertParent(final Class<?> parentClass)
+	{
+		if(!this.parent.getValueClass().equals(parentClass))
+			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
+	}
+	
 	public ItemField<?> getParent()
 	{
 		assert parent!=null;
@@ -110,9 +116,7 @@ public final class FieldSet<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getParents(final E element, final Class<P> parentClass)
 	{
-		if(!this.parent.getValueClass().equals(parentClass))
-			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
-		
+		assertParent(parentClass);
 		return FieldSet.<P>cast(new Query<Item>(this.parent, this.element.equal(element)).search());
 	}
 	

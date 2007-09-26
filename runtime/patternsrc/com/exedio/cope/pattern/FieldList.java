@@ -74,6 +74,12 @@ public final class FieldList<E> extends Pattern
 		this.relationType = newType(features);
 	}
 	
+	private void assertParent(final Class<?> parentClass)
+	{
+		if(!this.parent.getValueClass().equals(parentClass))
+			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
+	}
+	
 	public ItemField<?> getParent()
 	{
 		assert parent!=null;
@@ -117,9 +123,7 @@ public final class FieldList<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getDistinctParents(final E element, final Class<P> parentClass)
 	{
-		if(!this.parent.getValueClass().equals(parentClass))
-			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
-		
+		assertParent(parentClass);
 		final Query<? extends Item> q = new Query<Item>(this.parent, Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
 		return FieldList.<P>cast(q.search());
