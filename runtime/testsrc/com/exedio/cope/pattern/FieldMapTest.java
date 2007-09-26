@@ -56,21 +56,21 @@ public class FieldMapTest extends AbstractLibTest
 		assertEquals(FieldMapItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 
-		assertEquals(item.TYPE, item.name.getParent().getValueType());
-		assertEquals("parent", item.name.getParent().getName());
-		assertEquals(DeletePolicy.CASCADE, item.name.getParent().getDeletePolicy());
-		assertSame(item.name.getRelationType(), item.name.getParent().getType());
-		assertEqualsUnmodifiable(list(), item.name.getParent().getPatterns());
+		assertEquals(item.TYPE, item.nameParent().getValueType());
+		assertEquals("parent", item.nameParent().getName());
+		assertEquals(DeletePolicy.CASCADE, item.nameParent().getDeletePolicy());
+		assertSame(item.name.getRelationType(), item.nameParent().getType());
+		assertEqualsUnmodifiable(list(), item.nameParent().getPatterns());
 
 		assertEquals(FieldMapItem.Language.class, ((EnumField<FieldMapItem.Language>)item.name.getKey()).getValueClass());
 		assertEquals("key", item.name.getKey().getName());
 		assertSame(item.name.getRelationType(), item.name.getKey().getType());
 		assertEqualsUnmodifiable(list(), item.name.getKey().getPatterns());
 
-		assertEqualsUnmodifiable(list(item.name.getParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.nameParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
 		assertEquals("uniqueConstraint", item.name.getUniqueConstraint().getName());
 		assertSame(item.name.getRelationType(), item.name.getUniqueConstraint().getType());
-		assertEquals(list(item.name.getParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
+		assertEquals(list(item.nameParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
 
 		assertEquals(String.class, item.name.getValue().getValueClass());
 		assertEquals("value", item.name.getValue().getName());
@@ -85,7 +85,7 @@ public class FieldMapTest extends AbstractLibTest
 		assertEqualsUnmodifiable(
 				list(
 						item.name.getRelationType().getThis(),
-						item.name.getParent(), item.name.getKey(), item.name.getUniqueConstraint(),
+						item.nameParent(), item.name.getKey(), item.name.getUniqueConstraint(),
 						item.name.getValue()),
 				item.name.getRelationType().getFeatures());
 		assertEquals(model, item.name.getRelationType().getModel());
@@ -149,5 +149,15 @@ public class FieldMapTest extends AbstractLibTest
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		
+		try
+		{
+			item.name.getParent(Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
 	}
 }

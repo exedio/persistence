@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
 public class FieldListItem extends Item
@@ -32,6 +33,24 @@ public class FieldListItem extends Item
 	static final FieldList<Date> dates = FieldList.newList(new DateField());
 	static final FieldList<FieldListItem> items = FieldList.newList(newItemField(FieldListItem.class, CASCADE));
 
+	// TODO generate by instrumentor
+	public static final ItemField<FieldListItem> stringsParent()
+	{
+		return strings.getParent(FieldListItem.class);
+	}
+	
+	// TODO generate by instrumentor
+	public static final ItemField<FieldListItem> datesParent()
+	{
+		return dates.getParent(FieldListItem.class);
+	}
+	
+	// TODO generate by instrumentor
+	public static final ItemField<FieldListItem> itemsParent()
+	{
+		return items.getParent(FieldListItem.class);
+	}
+	
 	// TODO generate by instrumentor
 	static final List<FieldListItem> getDistinctParentsOfStrings(final String element)
 	{

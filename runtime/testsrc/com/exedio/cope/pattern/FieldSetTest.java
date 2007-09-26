@@ -77,13 +77,13 @@ public class FieldSetTest extends AbstractLibTest
 			), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				stringsType.getThis(),
-				item.strings.getParent(),
+				item.stringsParent(),
 				stringsElement,
 				item.strings.getUniqueConstraint()
 			), stringsType.getFeatures());
 		assertEqualsUnmodifiable(list(
 				datesType.getThis(),
-				item.dates.getParent(),
+				item.datesParent(),
 				item.dates.getElement(),
 				item.dates.getUniqueConstraint()
 			), datesType.getFeatures());
@@ -113,22 +113,22 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals(datesType, datesType.getThis().getValueType());
 		assertEquals(model, datesType.getModel());
 
-		assertEquals(stringsType, item.strings.getParent().getType());
+		assertEquals(stringsType, item.stringsParent().getType());
 		assertEquals(stringsType, stringsElement.getType());
 		assertEquals(stringsType, item.strings.getUniqueConstraint().getType());
-		assertEquals(datesType, item.dates.getParent().getType());
+		assertEquals(datesType, item.datesParent().getType());
 		assertEquals(datesType, item.dates.getElement().getType());
 		assertEquals(datesType, item.dates.getUniqueConstraint().getType());
 
-		assertEquals("parent", item.strings.getParent().getName());
+		assertEquals("parent", item.stringsParent().getName());
 		assertEquals("element", stringsElement.getName());
 		assertEquals("uniqueConstraint", item.strings.getUniqueConstraint().getName());
-		assertEquals("parent", item.dates.getParent().getName());
+		assertEquals("parent", item.datesParent().getName());
 		assertEquals("element", item.dates.getElement().getName());
 		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
 
-		assertEqualsUnmodifiable(list(item.strings.getParent(), stringsElement), item.strings.getUniqueConstraint().getFields());
-		assertEqualsUnmodifiable(list(item.dates.getParent(), item.dates.getElement()), item.dates.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.stringsParent(), stringsElement), item.strings.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.datesParent(), item.dates.getElement()), item.dates.getUniqueConstraint().getFields());
 
 		assertTrue(stringsType.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(datesType));
@@ -344,6 +344,24 @@ public class FieldSetTest extends AbstractLibTest
 		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
 
+		try
+		{
+			item.strings.getParent(Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
+		try
+		{
+			item.dates.getParent(Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
 		try
 		{
 			item.strings.getParents("hallo", Item.class);

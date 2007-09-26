@@ -58,6 +58,14 @@ public final class FieldMap<K,V> extends Pattern
 		return new FieldMap<K,V>(key, value);
 	}
 	
+	private void assertParent(final Class<?> parentClass)
+	{
+		if(!parent.getValueClass().equals(parentClass))
+			throw new IllegalArgumentException(
+					"parent class must be " + parent.getValueClass().getName() +
+					", but was " + parentClass.getName());
+	}
+	
 	@Override
 	public void initialize()
 	{
@@ -73,10 +81,10 @@ public final class FieldMap<K,V> extends Pattern
 		this.relationType = newType(relationTypeFeatures);
 	}
 	
-	public ItemField<?> getParent()
+	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		assert parent!=null;
-		return parent;
+		assertParent(parentClass);
+		return (ItemField<P>)parent;
 	}
 	
 	public FunctionField<K> getKey()
@@ -145,7 +153,7 @@ public final class FieldMap<K,V> extends Pattern
 	{
 		return q.joinOuterLeft(
 				getRelationType(),
-				getParent().equalTarget().
+				parent.equalTarget().
 					and(this.key.equal(key)));
 	}
 }

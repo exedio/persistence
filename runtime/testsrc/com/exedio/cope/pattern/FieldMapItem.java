@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
 public class FieldMapItem extends Item
@@ -36,6 +37,13 @@ public class FieldMapItem extends Item
 	static final FieldMap<String, String> string = FieldMap.newMap(new StringField().toFinal().lengthRange(4, 8), new StringField());
 	
 	static final FieldMap<String, Integer> integer = FieldMap.newMap(new StringField().toFinal().lengthRange(4, 8), new IntegerField());
+	
+	// TODO generate by instrumentor
+	public static final ItemField<FieldMapItem> nameParent()
+	{
+		return name.getParent(FieldMapItem.class);
+	}
+	
 	
 	/**
 

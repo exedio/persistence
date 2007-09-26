@@ -85,21 +85,21 @@ public class FieldListTest extends AbstractLibTest
 			), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				stringsType.getThis(),
-				item.strings.getParent(),
+				item.stringsParent(),
 				stringsOrder,
 				item.strings.getUniqueConstraint(),
 				stringsElement
 			), stringsType.getFeatures());
 		assertEqualsUnmodifiable(list(
 				datesType.getThis(),
-				item.dates.getParent(),
+				item.datesParent(),
 				item.dates.getOrder(),
 				item.dates.getUniqueConstraint(),
 				item.dates.getElement()
 			), datesType.getFeatures());
 		assertEqualsUnmodifiable(list(
 				itemsType.getThis(),
-				item.items.getParent(),
+				item.itemsParent(),
 				item.items.getOrder(),
 				item.items.getUniqueConstraint(),
 				item.items.getElement()
@@ -142,35 +142,35 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(itemsType, itemsType.getThis().getValueType());
 		assertEquals(model, itemsType.getModel());
 
-		assertEquals(stringsType, item.strings.getParent().getType());
+		assertEquals(stringsType, item.stringsParent().getType());
 		assertEquals(stringsType, stringsOrder.getType());
 		assertEquals(stringsType, item.strings.getUniqueConstraint().getType());
 		assertEquals(stringsType, stringsElement.getType());
-		assertEquals(datesType, item.dates.getParent().getType());
+		assertEquals(datesType, item.datesParent().getType());
 		assertEquals(datesType, item.dates.getOrder().getType());
 		assertEquals(datesType, item.dates.getUniqueConstraint().getType());
 		assertEquals(datesType, item.dates.getElement().getType());
-		assertEquals(itemsType, item.items.getParent().getType());
+		assertEquals(itemsType, item.itemsParent().getType());
 		assertEquals(itemsType, item.items.getOrder().getType());
 		assertEquals(itemsType, item.items.getUniqueConstraint().getType());
 		assertEquals(itemsType, item.items.getElement().getType());
 
-		assertEquals("parent", item.strings.getParent().getName());
+		assertEquals("parent", item.stringsParent().getName());
 		assertEquals("order", stringsOrder.getName());
 		assertEquals("uniqueConstraint", item.strings.getUniqueConstraint().getName());
 		assertEquals("element", stringsElement.getName());
-		assertEquals("parent", item.dates.getParent().getName());
+		assertEquals("parent", item.datesParent().getName());
 		assertEquals("order", item.dates.getOrder().getName());
 		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
 		assertEquals("element", item.dates.getElement().getName());
-		assertEquals("parent", item.items.getParent().getName());
+		assertEquals("parent", item.itemsParent().getName());
 		assertEquals("order", item.items.getOrder().getName());
 		assertEquals("uniqueConstraint", item.items.getUniqueConstraint().getName());
 		assertEquals("element", item.items.getElement().getName());
 
-		assertEqualsUnmodifiable(list(item.strings.getParent(), stringsOrder), item.strings.getUniqueConstraint().getFields());
-		assertEqualsUnmodifiable(list(item.dates.getParent(), item.dates.getOrder()), item.dates.getUniqueConstraint().getFields());
-		assertEqualsUnmodifiable(list(item.items.getParent(), item.items.getOrder()), item.items.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.stringsParent(), stringsOrder), item.strings.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.datesParent(), item.dates.getOrder()), item.dates.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.itemsParent(), item.items.getOrder()), item.items.getUniqueConstraint().getFields());
 
 		assertTrue(stringsType.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(datesType));
@@ -208,7 +208,7 @@ public class FieldListTest extends AbstractLibTest
 		// test persistence
 		// test searching
 		final Query<FieldListItem> q = item.TYPE.newQuery();
-		q.join(stringsType, item.strings.getParent().equalTarget());
+		q.join(stringsType, item.stringsParent().equalTarget());
 		assertEquals(list(), q.search());
 		
 		q.setCondition(stringsElement.equal("zack"));
@@ -376,6 +376,33 @@ public class FieldListTest extends AbstractLibTest
 		assertContains(item, item.getDistinctParentsOfItems(item));
 		assertEquals(1, itemsType.newQuery(null).search().size());
 
+		try
+		{
+			item.strings.getParent(Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
+		try
+		{
+			item.dates.getParent(Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
+		try
+		{
+			item.items.getParent(Item.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+		}
 		try
 		{
 			item.strings.getDistinctParents("hallo", Item.class);

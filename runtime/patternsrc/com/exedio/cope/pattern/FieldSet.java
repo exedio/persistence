@@ -84,10 +84,10 @@ public final class FieldSet<E> extends Pattern
 					", but was " + parentClass.getName());
 	}
 	
-	public ItemField<?> getParent()
+	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		assert parent!=null;
-		return parent;
+		assertParent(parentClass);
+		return (ItemField<P>)parent;
 	}
 	
 	public FunctionField<E> getElement()
