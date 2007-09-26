@@ -58,14 +58,6 @@ public final class FieldMap<K,V> extends Pattern
 		return new FieldMap<K,V>(key, value);
 	}
 	
-	private void assertParent(final Class<?> parentClass)
-	{
-		if(!parent.getValueClass().equals(parentClass))
-			throw new IllegalArgumentException(
-					"parent class must be " + parent.getValueClass().getName() +
-					", but was " + parentClass.getName());
-	}
-	
 	@Override
 	public void initialize()
 	{
@@ -79,6 +71,14 @@ public final class FieldMap<K,V> extends Pattern
 		relationTypeFeatures.put("uniqueConstraint", uniqueConstraint);
 		relationTypeFeatures.put("value", value);
 		this.relationType = newType(relationTypeFeatures);
+	}
+	
+	private void assertParent(final Class<?> parentClass)
+	{
+		if(!parent.getValueClass().equals(parentClass))
+			throw new IllegalArgumentException(
+					"parent class must be " + parent.getValueClass().getName() +
+					", but was " + parentClass.getName());
 	}
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
