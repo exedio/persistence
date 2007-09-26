@@ -76,8 +76,10 @@ public final class FieldList<E> extends Pattern
 	
 	private void assertParent(final Class<?> parentClass)
 	{
-		if(!this.parent.getValueClass().equals(parentClass))
-			throw new IllegalArgumentException("parent class must be " + this.parent.getValueClass().getName() + ", but was " + parentClass.getName());
+		if(!parent.getValueClass().equals(parentClass))
+			throw new IllegalArgumentException(
+					"parent class must be " + parent.getValueClass().getName() +
+					", but was " + parentClass.getName());
 	}
 	
 	public ItemField<?> getParent()
