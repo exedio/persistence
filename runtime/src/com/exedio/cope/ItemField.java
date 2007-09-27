@@ -167,9 +167,13 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	public <X extends Item> ItemField<X> cast(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
-			throw new IllegalArgumentException(
-					"parent class must be " + valueClass.getName() + // TODO remove parent from text
-					", but was " + clazz.getName());
+		{
+			final String n = ItemField.class.getName();
+			// expection message consistent with Cope.verboseCast(Class, Object)
+			throw new ClassCastException(
+					"expected a " + n + '<' + clazz.getName() +
+					">, but was a " + n + '<' + valueClass.getName() + '>');
+		}
 		
 		return (ItemField<X>)this;
 	}

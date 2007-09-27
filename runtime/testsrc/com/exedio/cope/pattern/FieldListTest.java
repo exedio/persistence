@@ -25,6 +25,7 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -381,54 +382,54 @@ public class FieldListTest extends AbstractLibTest
 			item.strings.getParent(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.dates.getParent(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.items.getParent(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.strings.getDistinctParents("hallo", Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.dates.getDistinctParents(new Date(), Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.items.getDistinctParents(item, Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 	}
 }

@@ -24,6 +24,7 @@ import java.util.Iterator;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
@@ -349,36 +350,36 @@ public class FieldSetTest extends AbstractLibTest
 			item.strings.getParent(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.dates.getParent(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.strings.getParents("hallo", Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 		try
 		{
 			item.dates.getParents(new Date(), Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 	}
 	

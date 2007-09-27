@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -155,9 +156,9 @@ public class FieldMapTest extends AbstractLibTest
 			item.name.getParent(Item.class);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(ClassCastException e)
 		{
-			assertEquals("parent class must be " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
+			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 	}
 }
