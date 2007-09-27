@@ -32,6 +32,9 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.WrapInstrumented;
+import com.exedio.cope.WrapInstrumentedModifier;
+import com.exedio.cope.WrapInstrumentedModifierHint;
+import com.exedio.cope.WrapInstrumentedModifierThrows;
 import com.exedio.cope.Field.Option;
 
 public abstract class Hash extends Pattern implements Settable<String>
@@ -96,6 +99,12 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public abstract Hash optional();
 	
+	@WrapInstrumented("Sets a new value for the persistent field {0}.") // TODO better text
+	@WrapInstrumentedModifier("cope.setter")
+	@WrapInstrumentedModifierHint("It can be customized with the tag " +
+			  "<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
+			  "in the comment of the field.")
+	@WrapInstrumentedModifierThrows("getSetterExceptions")
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
@@ -142,5 +151,4 @@ public abstract class Hash extends Pattern implements Settable<String>
 	{
 		return storage.notEqual(hash(value));
 	}
-	
 }

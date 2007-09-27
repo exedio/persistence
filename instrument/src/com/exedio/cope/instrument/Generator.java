@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
@@ -53,6 +54,7 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.WrapInstrumented;
 import com.exedio.cope.WrapInstrumentedModifier;
 import com.exedio.cope.WrapInstrumentedModifierHint;
+import com.exedio.cope.WrapInstrumentedModifierThrows;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
@@ -430,6 +432,7 @@ final class Generator
 		for(final Method method : instance.getClass().getMethods())
 		{
 			final String methodName = method.getName();
+			final Class methodReturnType = method.getReturnType();
 			final boolean isGet = methodName.equals("get");
 			
 			final WrapInstrumentedModifier modifierAnnotation = method.getAnnotation(WrapInstrumentedModifier.class);
@@ -455,7 +458,7 @@ final class Generator
 			final WrapInstrumentedModifierHint modifierHintAnnotation = method.getAnnotation(WrapInstrumentedModifierHint.class);
 			writeCommentFooter(modifierHintAnnotation!=null ? modifierHintAnnotation.value()[0] : null);
 			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
-			o.write(isGet ? type : toString(method.getReturnType()));
+			o.write(isGet ? type : toString(methodReturnType));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
 				o.write(" is");
 			else
@@ -484,9 +487,47 @@ final class Generator
 			}
 			o.write(')');
 			o.write(lineSeparator);
+			{
+				final WrapInstrumentedModifierThrows modifierThrowsAnnotation =
+					method.getAnnotation(WrapInstrumentedModifierThrows.class);
+				if(modifierThrowsAnnotation!=null)
+				{
+					final Set<Class> exceptions;
+					try
+					{
+						exceptions =
+							(Set<Class>)
+							instance.getClass().getMethod(modifierThrowsAnnotation.value()[0]).
+							invoke(instance, (Object[])null);
+					}
+					catch(SecurityException e)
+					{
+						throw new RuntimeException(e);
+					}
+					catch(NoSuchMethodException e)
+					{
+						throw new RuntimeException(e);
+					}
+					catch(IllegalArgumentException e)
+					{
+						throw new RuntimeException(e);
+					}
+					catch(IllegalAccessException e)
+					{
+						throw new RuntimeException(e);
+					}
+					catch(InvocationTargetException e)
+					{
+						throw new RuntimeException(e);
+					}
+					writeThrowsClause(exceptions);
+				}
+			}
 			o.write("\t{");
 			o.write(lineSeparator);
-			o.write("\t\treturn ");
+			o.write("\t\t");
+			if(!methodReturnType.equals(void.class))
+				o.write("return ");
 			o.write(feature.parent.name);
 			o.write('.');
 			o.write(feature.name);
@@ -592,7 +633,6 @@ final class Generator
 	throws IOException, InjectorParseException
 	{
 		writeGenerically(hash);
-		writeSetter(hash);
 	}
 	
 	private void writeMediaGetter(final CopeMedia media,
