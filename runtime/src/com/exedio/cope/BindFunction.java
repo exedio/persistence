@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.Collection;
-import java.util.Map;
 
 import com.exedio.cope.search.ExtremumAggregate;
 
@@ -45,11 +44,6 @@ public class BindFunction<E> implements Function<E>
 	public final E get(final Item item)
 	{
 		return function.get(item);
-	}
-
-	public final E get(final Item item, final Map<FunctionField, Object> delta)
-	{
-		return function.get(item, delta);
 	}
 
 	public final Class<E> getValueClass()
