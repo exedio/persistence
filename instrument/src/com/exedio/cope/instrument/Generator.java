@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ import com.exedio.cope.RangeViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.WrapInstrumented;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
@@ -82,7 +84,6 @@ final class Generator
 																					"<tt>@" + CopeType.TAG_GENERIC_CONSTRUCTOR + " public|package|protected|private|none</tt> " +
 																					"in the class comment.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
-	private static final String GETTER = "Returns the value of the persistent field {0}.";
 	private static final String GETTER_CUSTOMIZE = "It can be customized with the tag " +
 																  "<tt>@" + CopeFeature.TAG_GETTER + " public|package|protected|private|none|non-final|boolean-as-is</tt> " +
 																  "in the comment of the field.";
@@ -421,28 +422,42 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeAccessMethods(final CopeAttribute attribute)
+	private void writeGenerically(final CopeAttribute attribute)
 	throws InjectorParseException, IOException
 	{
 		final String type = attribute.getBoxedType();
-
-		// getter
-		if(attribute.getterOption.exists)
+		
+		final Object instance = attribute.getInstance();
+		for(Method method : instance.getClass().getMethods())
 		{
+			final String methodName = method.getName();
+			final boolean isGet = methodName.equals("get");
+			if(isGet && !attribute.getterOption.exists)
+				continue;
+			final WrapInstrumented annotation = method.getAnnotation(WrapInstrumented.class);
+			if(annotation==null)
+				continue;
+
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(GETTER, link(attribute.name)));
+			o.write(format(annotation.value()[0], link(attribute.name)));
 			o.write(lineSeparator);
 			writeStreamWarning(type);
 			writeCommentFooter(GETTER_CUSTOMIZE);
 			writeModifier(attribute.getGeneratedGetterModifier());
 			o.write(type);
-			if(attribute.hasIsGetter())
+			if(isGet && attribute.hasIsGetter())
 				o.write(" is");
-			else
+			else if("getArray".equals(methodName)) // TODO remove
 				o.write(" get");
+			else
+			{
+				o.write(' ');
+				o.write(methodName);
+			}
 			o.write(toCamelCase(attribute.name));
-			o.write(attribute.getterOption.suffix);
+			if(isGet)
+				o.write(attribute.getterOption.suffix);
 			o.write("()");
 			o.write(lineSeparator);
 			o.write("\t{");
@@ -451,16 +466,21 @@ final class Generator
 			o.write(attribute.parent.name);
 			o.write('.');
 			o.write(attribute.name);
-			o.write(".get");
+			o.write('.');
+			o.write(methodName);
 			if(attribute.isBoxed())
 				o.write("Mandatory");
-			if(attribute instanceof CopeDataAttribute)
-				o.write("Array");
 			o.write("(this)");
 			o.write(';');
 			o.write(lineSeparator);
 			o.write("\t}");
 		}
+	}
+	
+	private void writeAccessMethods(final CopeAttribute attribute)
+	throws InjectorParseException, IOException
+	{
+		writeGenerically(attribute);
 		writeSetter(attribute);
 		writeUniqueFinder(attribute);
 	}

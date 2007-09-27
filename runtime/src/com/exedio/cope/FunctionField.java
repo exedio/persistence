@@ -136,6 +136,7 @@ public abstract class FunctionField<E extends Object>
 	}
 
 	@Override
+	@WrapInstrumented("Returns the value of the persistent field {0}.") // TODO better text
 	public final E get(final Item item)
 	{
 		item.type.assertBelongs(this);
