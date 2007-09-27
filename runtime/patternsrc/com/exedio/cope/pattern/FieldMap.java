@@ -73,7 +73,7 @@ public final class FieldMap<K,V> extends Pattern
 		this.relationType = newType(relationTypeFeatures);
 	}
 	
-	private void assertParent(final Class<?> parentClass)
+	private void assertParentXXX(final Class<?> parentClass)
 	{
 		if(!parent.getValueClass().equals(parentClass))
 			throw new IllegalArgumentException(
@@ -83,8 +83,8 @@ public final class FieldMap<K,V> extends Pattern
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		assertParent(parentClass);
-		return (ItemField<P>)parent;
+		// XXX
+		return parent.cast(parentClass);
 	}
 	
 	public FunctionField<K> getKey()

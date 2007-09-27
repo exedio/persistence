@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public final class ItemField<E extends Item> extends FunctionField<E> implements ItemFunction<E>
 {
 	private final Type<E> initialValueType;
@@ -162,6 +161,17 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 			throw new RuntimeException();
 
 		return valueType;
+	}
+	
+	@SuppressWarnings("unchecked") // OK: is checked on runtime
+	public <X extends Item> ItemField<X> cast(final Class<X> clazz)
+	{
+		if(!valueClass.equals(clazz))
+			throw new IllegalArgumentException(
+					"parent class must be " + valueClass.getName() + // TODO remove parent from text
+					", but was " + clazz.getName());
+		
+		return (ItemField<X>)this;
 	}
 	
 	/**
