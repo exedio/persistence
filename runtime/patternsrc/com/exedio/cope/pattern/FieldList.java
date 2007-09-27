@@ -74,17 +74,8 @@ public final class FieldList<E> extends Pattern
 		this.relationType = newType(features);
 	}
 	
-	private void assertParentXXX(final Class<?> parentClass)
-	{
-		if(!parent.getValueClass().equals(parentClass))
-			throw new IllegalArgumentException(
-					"parent class must be " + parent.getValueClass().getName() +
-					", but was " + parentClass.getName());
-	}
-	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		// XXX
 		return parent.cast(parentClass);
 	}
 	
@@ -125,18 +116,11 @@ public final class FieldList<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getDistinctParents(final E element, final Class<P> parentClass)
 	{
-		// XXX
 		final Query<P> q = new Query<P>(this.parent.cast(parentClass), Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
 		return q.search();
 	}
 	
-	@SuppressWarnings("unchecked") // OK: parent not maintained by generics
-	private static final <P> List<P> castXXX(final List<?> l)
-	{
-		return (List<P>)l;
-	}
-
 	public void set(final Item item, final Collection<? extends E> value)
 	{
 		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item)).iterator();

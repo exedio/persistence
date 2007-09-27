@@ -76,17 +76,8 @@ public final class FieldSet<E> extends Pattern
 		this.relationType = newType(features);
 	}
 	
-	private void assertParentXXX(final Class<?> parentClass)
-	{
-		if(!parent.getValueClass().equals(parentClass))
-			throw new IllegalArgumentException(
-					"parent class must be " + parent.getValueClass().getName() +
-					", but was " + parentClass.getName());
-	}
-	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		// XXX
 		return parent.cast(parentClass);
 	}
 	
@@ -118,16 +109,9 @@ public final class FieldSet<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getParents(final E element, final Class<P> parentClass)
 	{
-		// XXX
 		return new Query<P>(this.parent.cast(parentClass), this.element.equal(element)).search();
 	}
 	
-	@SuppressWarnings("unchecked") // OK: parent not maintained by generics
-	private static final <P> List<P> castXXX(final List<?> l)
-	{
-		return (List<P>)l;
-	}
-
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
