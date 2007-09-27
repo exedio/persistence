@@ -40,6 +40,7 @@ import java.util.TreeSet;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -87,7 +88,6 @@ final class Generator
 	private static final String GETTER_CUSTOMIZE = "It can be customized with the tag " +
 																  "<tt>@" + CopeFeature.TAG_GETTER + " public|package|protected|private|none|non-final|boolean-as-is</tt> " +
 																  "in the comment of the field.";
-	private static final String CHECKER = "Returns whether the given value corresponds to the hash in {0}.";
 	private static final String SETTER = "Sets a new value for the persistent field {0}.";
 	private static final String SETTER_CUSTOMIZE = "It can be customized with the tag " +
 																  "<tt>@" + CopeFeature.TAG_SETTER + " public|package|protected|private|none|non-final</tt> " +
@@ -422,17 +422,17 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenerically(final CopeAttribute attribute)
+	private void writeGenerically(final CopeFeature attribute, final Option getterOption)
 	throws InjectorParseException, IOException
 	{
 		final String type = attribute.getBoxedType();
 		
 		final Object instance = attribute.getInstance();
-		for(Method method : instance.getClass().getMethods())
+		for(final Method method : instance.getClass().getMethods())
 		{
 			final String methodName = method.getName();
-			final boolean isGet = methodName.equals("get");
-			if(isGet && !attribute.getterOption.exists)
+			final boolean isGet = methodName.equals("get")||methodName.equals("getArray");
+			if(isGet && getterOption!=null && !getterOption.exists)
 				continue;
 			final WrapInstrumented annotation = method.getAnnotation(WrapInstrumented.class);
 			if(annotation==null)
@@ -443,10 +443,10 @@ final class Generator
 			o.write(format(annotation.value()[0], link(attribute.name)));
 			o.write(lineSeparator);
 			writeStreamWarning(type);
-			writeCommentFooter(GETTER_CUSTOMIZE);
-			writeModifier(attribute.getGeneratedGetterModifier());
-			o.write(type);
-			if(isGet && attribute.hasIsGetter())
+			writeCommentFooter(isGet ? GETTER_CUSTOMIZE : null);
+			writeModifier(isGet ? getterOption.getModifier(attribute.modifier) : (attribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
+			o.write(isGet ? type : method.getReturnType().getName());
+			if(isGet && (instance instanceof BooleanField) && getterOption.booleanAsIs)
 				o.write(" is");
 			else if("getArray".equals(methodName)) // TODO remove
 				o.write(" get");
@@ -456,9 +456,25 @@ final class Generator
 				o.write(methodName);
 			}
 			o.write(toCamelCase(attribute.name));
-			if(isGet)
-				o.write(attribute.getterOption.suffix);
-			o.write("()");
+			if(isGet && getterOption!=null)
+				o.write(getterOption.suffix);
+			o.write('(');
+			int methodParameterI = 0;
+			int writtenParameterI = 0;
+			for(final Class parameter : method.getParameterTypes())
+			{
+				if(methodParameterI++==0) // TODO only if non-static and Item
+					continue;
+				
+				o.write(localFinal);
+				o.write(parameter.getName());
+				o.write(' ');
+				o.write(attribute.name);
+
+				if(writtenParameterI++!=0)
+					o.write(',');
+			}
+			o.write(')');
 			o.write(lineSeparator);
 			o.write("\t{");
 			o.write(lineSeparator);
@@ -470,7 +486,17 @@ final class Generator
 			o.write(methodName);
 			if(attribute.isBoxed())
 				o.write("Mandatory");
-			o.write("(this)");
+			o.write("(this");
+			methodParameterI = 0;
+			for(int i = 0; i<method.getParameterTypes().length; i++)
+			{
+				if(methodParameterI++==0) // TODO only if non-static and Item
+					continue;
+				
+				o.write(',');
+				o.write(attribute.name);
+			}
+			o.write(')');
 			o.write(';');
 			o.write(lineSeparator);
 			o.write("\t}");
@@ -480,7 +506,7 @@ final class Generator
 	private void writeAccessMethods(final CopeAttribute attribute)
 	throws InjectorParseException, IOException
 	{
-		writeGenerically(attribute);
+		writeGenerically(attribute, attribute.getterOption);
 		writeSetter(attribute);
 		writeUniqueFinder(attribute);
 	}
@@ -549,33 +575,7 @@ final class Generator
 	private void writeHash(final CopeHash hash)
 	throws IOException, InjectorParseException
 	{
-		// checker
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(CHECKER, link(hash.name)));
-		o.write(lineSeparator);
-		writeCommentFooter();
-		writeModifier(hash.getGeneratedCheckerModifier());
-		o.write("boolean check");
-		o.write(toCamelCase(hash.name));
-		o.write('(');
-		o.write(localFinal);
-		o.write(STRING + ' ');
-		o.write(hash.name);
-		o.write(')');
-		o.write(lineSeparator);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\treturn ");
-		o.write(hash.parent.name);
-		o.write('.');
-		o.write(hash.name);
-		o.write(".check(this,");
-		o.write(hash.name);
-		o.write(");");
-		o.write(lineSeparator);
-		o.write("\t}");
-
+		writeGenerically(hash, null); // TODO: implement checker option
 		writeSetter(hash);
 	}
 	

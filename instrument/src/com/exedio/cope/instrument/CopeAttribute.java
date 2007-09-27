@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 
@@ -81,14 +80,6 @@ abstract class CopeAttribute extends CopeFeature
 		return instance instanceof FunctionField && ((FunctionField)instance).getImplicitUniqueConstraint()!=null;
 	}
 
-	final boolean hasIsGetter()
-	{
-		final Feature instance = getInstance();
-		final boolean isBoolean = instance instanceof BooleanField;
-
-		return isBoolean && getterOption.booleanAsIs;
-	}
-	
 	void write(final Writer o) throws IOException
 	{
 		o.write(name);

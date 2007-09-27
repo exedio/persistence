@@ -31,6 +31,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.WrapInstrumented;
 import com.exedio.cope.Field.Option;
 
 public abstract class Hash extends Pattern implements Settable<String>
@@ -105,6 +106,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash(plainText));
 	}
 	
+	@WrapInstrumented("Returns whether the given value corresponds to the hash in {0}.") // TODO better text
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);

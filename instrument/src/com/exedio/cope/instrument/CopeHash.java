@@ -18,20 +18,11 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
-
-
 final class CopeHash extends CopeFeature
 {
 	public CopeHash(final CopeType parent, final JavaAttribute javaAttribute)
 	{
 		super(parent, javaAttribute);
-	}
-
-	final int getGeneratedCheckerModifier()
-	{
-		return (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL;
-		// TODO: implement checker option: return checkerOption.getModifier(javaAttribute.modifier);
 	}
 
 	@Override
