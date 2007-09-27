@@ -448,8 +448,6 @@ final class Generator
 			o.write(isGet ? type : method.getReturnType().getName());
 			if(isGet && (instance instanceof BooleanField) && getterOption.booleanAsIs)
 				o.write(" is");
-			else if("getArray".equals(methodName)) // TODO remove
-				o.write(" get");
 			else
 			{
 				o.write(' ');

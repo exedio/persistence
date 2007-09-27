@@ -51,10 +51,10 @@ public class DataMandatoryTest extends AbstractLibTest
 		assertEquals(true, data.isMandatory());
 		
 		// test persistence
-		assertData(data4, item.getData());
+		assertData(data4, item.getArrayData());
 
 		item.setData(data6);
-		assertData(data6, item.getData());
+		assertData(data6, item.getArrayData());
 
 		try
 		{
@@ -66,10 +66,10 @@ public class DataMandatoryTest extends AbstractLibTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data6, item.getData());
+		assertData(data6, item.getArrayData());
 
 		item.setData(stream(data4));
-		assertData(data4, item.getData());
+		assertData(data4, item.getArrayData());
 
 		try
 		{
@@ -81,10 +81,10 @@ public class DataMandatoryTest extends AbstractLibTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getData());
+		assertData(data4, item.getArrayData());
 
 		item.setData(file(data6));
-		assertData(data6, item.getData());
+		assertData(data6, item.getArrayData());
 		
 		try
 		{
@@ -96,7 +96,7 @@ public class DataMandatoryTest extends AbstractLibTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data6, item.getData());
+		assertData(data6, item.getArrayData());
 
 		try
 		{
