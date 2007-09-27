@@ -41,6 +41,7 @@ import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.RangeViolationException;
@@ -120,6 +121,7 @@ final class Generator
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
 	private static final String RELATION_SETTER  = "Sets the items associated to this item by the relation.";
+	private static final String PARENT = "Returns the parent field of the type of {0}.";
 	private static final String TYPE = "The persistent type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + " public|package|protected|private|none</tt> " +
@@ -1026,6 +1028,9 @@ final class Generator
 		o.write(lineSeparator);
 
 		o.write("\t}");
+		
+		if(list.hasParent)
+			writeParent(list);
 	}
 	
 	private void write(final CopeAttributeMap map) throws IOException
@@ -1093,6 +1098,45 @@ final class Generator
 			o.write(map.name);
 			o.write(");");
 			o.write(lineSeparator);
+			o.write("\t}");
+		}
+		if(map.hasParent)
+			writeParent(map);
+	}
+	
+	private void writeParent(final CopeFeature f) throws IOException
+	{
+		if(true) // TODO SOON parent option
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(MessageFormat.format(PARENT, link(f.name)));
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write(Modifier.toString(f.modifier | (Modifier.STATIC | Modifier.FINAL)));
+			o.write(' ');
+			o.write(ItemField.class.getName());
+			o.write('<');
+			o.write(f.parent.name);
+			o.write('>');
+			o.write(' ');
+			o.write(f.name);
+			o.write("Parent()");
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\treturn ");
+			o.write(f.parent.name);
+			o.write('.');
+			o.write(f.name);
+			o.write(".getParent(");
+			o.write(f.parent.name);
+			o.write(".class);");
+			o.write(lineSeparator);
+	
 			o.write("\t}");
 		}
 	}

@@ -21,11 +21,13 @@ package com.exedio.cope.instrument;
 final class CopeAttributeList extends CopeFeature
 {
 	final boolean set;
+	final boolean hasParent;
 	
-	public CopeAttributeList(final CopeType parent, final JavaAttribute javaAttribute, final boolean set)
+	public CopeAttributeList(final CopeType parent, final JavaAttribute javaAttribute, final boolean set, final boolean hasParent)
 	{
 		super(parent, javaAttribute);
 		this.set = set;
+		this.hasParent = hasParent;
 	}
 
 	@Override

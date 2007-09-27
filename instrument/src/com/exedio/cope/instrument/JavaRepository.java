@@ -140,12 +140,16 @@ final class JavaRepository
 								new CopeQualifier(type, javaAttribute);
 							else if(Hash.class.isAssignableFrom(typeClass))
 								new CopeHash(type, javaAttribute);
-							else if(FieldList.class.isAssignableFrom(typeClass) || FieldListLimited.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute, false);
+							else if(FieldList.class.isAssignableFrom(typeClass))
+								new CopeAttributeList(type, javaAttribute, false, true);
+							else if(FieldListLimited.class.isAssignableFrom(typeClass))
+								new CopeAttributeList(type, javaAttribute, false, false);
 							else if(FieldSet.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute, true);
-							else if(FieldMap.class.isAssignableFrom(typeClass) || FieldMapLimited.class.isAssignableFrom(typeClass))
-								new CopeAttributeMap(type, javaAttribute);
+								new CopeAttributeList(type, javaAttribute, true, true);
+							else if(FieldMap.class.isAssignableFrom(typeClass))
+								new CopeAttributeMap(type, javaAttribute, true);
+							else if(FieldMapLimited.class.isAssignableFrom(typeClass))
+								new CopeAttributeMap(type, javaAttribute, false);
 							else if(MediaPath.class.isAssignableFrom(typeClass))
 								new CopeMedia(type, javaAttribute);
 							else if(Relation.class.isAssignableFrom(typeClass))

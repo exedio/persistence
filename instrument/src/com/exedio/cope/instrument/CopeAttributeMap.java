@@ -21,9 +21,12 @@ package com.exedio.cope.instrument;
 
 final class CopeAttributeMap extends CopeFeature
 {
-	public CopeAttributeMap(final CopeType parent, final JavaAttribute javaAttribute)
+	final boolean hasParent;
+	
+	public CopeAttributeMap(final CopeType parent, final JavaAttribute javaAttribute, final boolean hasParent)
 	{
 		super(parent, javaAttribute);
+		this.hasParent = hasParent;
 	}
 
 	@Override
