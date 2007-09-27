@@ -138,6 +138,10 @@ public abstract class FunctionField<E extends Object>
 	@Override
 	@WrapInstrumented("Returns the value of the persistent field {0}.") // TODO better text
 	@WrapInstrumentedModifier("cope.getter")
+	@WrapInstrumentedModifierHint(
+			"It can be customized with the tag " +
+			"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
+			"in the comment of the field.")
 	public final E get(final Item item)
 	{
 		item.type.assertBelongs(this);

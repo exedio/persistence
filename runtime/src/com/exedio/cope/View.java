@@ -92,6 +92,10 @@ public abstract class View<E> extends Feature implements Function<E>
 	
 	@WrapInstrumented("Returns the value of the persistent field {0}.") // TODO better text
 	@WrapInstrumentedModifier("cope.getter")
+	@WrapInstrumentedModifierHint(
+			"It can be customized with the tag " +
+			"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
+			"in the comment of the field.")
 	public final E get(final Item item)
 	{
 		final Object[] values = new Object[sources.length];

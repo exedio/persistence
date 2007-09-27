@@ -26,7 +26,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import java.net.HttpURLConnection;
 
 public final class DataField extends Field<DataField.Value>
@@ -156,6 +155,10 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@WrapInstrumented("Returns the value of the persistent field {0}.") // TODO better text
 	@WrapInstrumentedModifier("cope.getter")
+	@WrapInstrumentedModifierHint(
+			"It can be customized with the tag " +
+			"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
+			"in the comment of the field.")
 	public byte[] getArray(final Item item)
 	{
 		return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);

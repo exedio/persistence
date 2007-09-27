@@ -52,6 +52,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.WrapInstrumented;
 import com.exedio.cope.WrapInstrumentedModifier;
+import com.exedio.cope.WrapInstrumentedModifierHint;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
@@ -86,9 +87,6 @@ final class Generator
 																					"<tt>@" + CopeType.TAG_GENERIC_CONSTRUCTOR + " public|package|protected|private|none</tt> " +
 																					"in the class comment.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
-	private static final String GETTER_CUSTOMIZE = "It can be customized with the tag " +
-																  "<tt>@" + CopeFeature.TAG_GETTER + " public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-																  "in the comment of the field.";
 	private static final String SETTER = "Sets a new value for the persistent field {0}.";
 	private static final String SETTER_CUSTOMIZE = "It can be customized with the tag " +
 																  "<tt>@" + CopeFeature.TAG_SETTER + " public|package|protected|private|none|non-final</tt> " +
@@ -432,7 +430,7 @@ final class Generator
 		for(final Method method : instance.getClass().getMethods())
 		{
 			final String methodName = method.getName();
-			final boolean isGet = methodName.equals("get")||methodName.equals("getArray");
+			final boolean isGet = methodName.equals("get");
 			
 			final WrapInstrumentedModifier modifierAnnotation = method.getAnnotation(WrapInstrumentedModifier.class);
 			final Option option =
@@ -454,9 +452,10 @@ final class Generator
 			o.write(format(annotation.value()[0], link(feature.name)));
 			o.write(lineSeparator);
 			writeStreamWarning(type);
-			writeCommentFooter(isGet ? GETTER_CUSTOMIZE : null);
+			final WrapInstrumentedModifierHint modifierHintAnnotation = method.getAnnotation(WrapInstrumentedModifierHint.class);
+			writeCommentFooter(modifierHintAnnotation!=null ? modifierHintAnnotation.value()[0] : null);
 			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
-			o.write(isGet ? type : method.getReturnType().getName());
+			o.write(isGet ? type : toString(method.getReturnType()));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
 				o.write(" is");
 			else
@@ -510,6 +509,14 @@ final class Generator
 			o.write(lineSeparator);
 			o.write("\t}");
 		}
+	}
+	
+	private static final String toString(final Class c)
+	{
+		if(c.isArray())
+			return c.getComponentType().getName() + "[]";
+		else
+			return c.getName();
 	}
 	
 	private void writeAccessMethods(final CopeAttribute attribute)
