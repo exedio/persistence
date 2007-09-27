@@ -422,12 +422,12 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenerically(final CopeFeature attribute, final Option getterOption)
+	private void writeGenerically(final CopeFeature feature, final Option getterOption)
 	throws InjectorParseException, IOException
 	{
-		final String type = attribute.getBoxedType();
+		final String type = feature.getBoxedType();
 		
-		final Object instance = attribute.getInstance();
+		final Object instance = feature.getInstance();
 		for(final Method method : instance.getClass().getMethods())
 		{
 			final String methodName = method.getName();
@@ -440,11 +440,11 @@ final class Generator
 
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(annotation.value()[0], link(attribute.name)));
+			o.write(format(annotation.value()[0], link(feature.name)));
 			o.write(lineSeparator);
 			writeStreamWarning(type);
 			writeCommentFooter(isGet ? GETTER_CUSTOMIZE : null);
-			writeModifier(isGet ? getterOption.getModifier(attribute.modifier) : (attribute.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
+			writeModifier(isGet ? getterOption.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
 			o.write(isGet ? type : method.getReturnType().getName());
 			if(isGet && (instance instanceof BooleanField) && getterOption.booleanAsIs)
 				o.write(" is");
@@ -455,7 +455,7 @@ final class Generator
 				o.write(' ');
 				o.write(methodName);
 			}
-			o.write(toCamelCase(attribute.name));
+			o.write(toCamelCase(feature.name));
 			if(isGet && getterOption!=null)
 				o.write(getterOption.suffix);
 			o.write('(');
@@ -469,7 +469,7 @@ final class Generator
 				o.write(localFinal);
 				o.write(parameter.getName());
 				o.write(' ');
-				o.write(attribute.name);
+				o.write(feature.name);
 
 				if(writtenParameterI++!=0)
 					o.write(',');
@@ -479,12 +479,12 @@ final class Generator
 			o.write("\t{");
 			o.write(lineSeparator);
 			o.write("\t\treturn ");
-			o.write(attribute.parent.name);
+			o.write(feature.parent.name);
 			o.write('.');
-			o.write(attribute.name);
+			o.write(feature.name);
 			o.write('.');
 			o.write(methodName);
-			if(attribute.isBoxed())
+			if(feature.isBoxed())
 				o.write("Mandatory");
 			o.write("(this");
 			methodParameterI = 0;
@@ -494,7 +494,7 @@ final class Generator
 					continue;
 				
 				o.write(',');
-				o.write(attribute.name);
+				o.write(feature.name);
 			}
 			o.write(')');
 			o.write(';');
