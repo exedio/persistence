@@ -39,6 +39,7 @@ abstract class CopeFeature
 	final String name;
 	final int modifier;
 	final int accessModifier;
+	final String docComment;
 	final Option setterOption;
 	final boolean initial;
 	private Feature value;
@@ -51,7 +52,7 @@ abstract class CopeFeature
 		this.modifier = javaAttribute.modifier;
 		this.accessModifier = javaAttribute.getAccessModifier();
 
-		final String docComment = javaAttribute.getDocComment();
+		this.docComment = javaAttribute.getDocComment();
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
 		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
 		

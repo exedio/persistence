@@ -107,6 +107,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	}
 	
 	@WrapInstrumented("Returns whether the given value corresponds to the hash in {0}.") // TODO better text
+	// TODO @WrapInstrumentedModifier("cope.checker")
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);

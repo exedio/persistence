@@ -51,6 +51,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.WrapInstrumented;
+import com.exedio.cope.WrapInstrumentedModifier;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
@@ -422,7 +423,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenerically(final CopeFeature feature, final Option getterOption)
+	private void writeGenerically(final CopeFeature feature)
 	throws InjectorParseException, IOException
 	{
 		final String type = feature.getBoxedType();
@@ -432,7 +433,17 @@ final class Generator
 		{
 			final String methodName = method.getName();
 			final boolean isGet = methodName.equals("get")||methodName.equals("getArray");
-			if(isGet && getterOption!=null && !getterOption.exists)
+			
+			final WrapInstrumentedModifier modifierAnnotation = method.getAnnotation(WrapInstrumentedModifier.class);
+			final Option option =
+				modifierAnnotation!=null
+				? new Option(Injector.findDocTagLine(
+						feature.docComment,
+						modifierAnnotation.value()[0]),
+						true)
+				: null;
+			
+			if(option!=null && !option.exists)
 				continue;
 			final WrapInstrumented annotation = method.getAnnotation(WrapInstrumented.class);
 			if(annotation==null)
@@ -444,9 +455,9 @@ final class Generator
 			o.write(lineSeparator);
 			writeStreamWarning(type);
 			writeCommentFooter(isGet ? GETTER_CUSTOMIZE : null);
-			writeModifier(isGet ? getterOption.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
+			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
 			o.write(isGet ? type : method.getReturnType().getName());
-			if(isGet && (instance instanceof BooleanField) && getterOption.booleanAsIs)
+			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
 				o.write(" is");
 			else
 			{
@@ -454,8 +465,8 @@ final class Generator
 				o.write(methodName);
 			}
 			o.write(toCamelCase(feature.name));
-			if(isGet && getterOption!=null)
-				o.write(getterOption.suffix);
+			if(option!=null)
+				o.write(option.suffix);
 			o.write('(');
 			int methodParameterI = 0;
 			int writtenParameterI = 0;
@@ -504,7 +515,7 @@ final class Generator
 	private void writeAccessMethods(final CopeAttribute attribute)
 	throws InjectorParseException, IOException
 	{
-		writeGenerically(attribute, attribute.getterOption);
+		writeGenerically(attribute);
 		writeSetter(attribute);
 		writeUniqueFinder(attribute);
 	}
@@ -573,7 +584,7 @@ final class Generator
 	private void writeHash(final CopeHash hash)
 	throws IOException, InjectorParseException
 	{
-		writeGenerically(hash, null); // TODO: implement checker option
+		writeGenerically(hash);
 		writeSetter(hash);
 	}
 	

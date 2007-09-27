@@ -155,6 +155,7 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns null, if there is no data for this field.
 	 */
 	@WrapInstrumented("Returns the value of the persistent field {0}.") // TODO better text
+	@WrapInstrumentedModifier("cope.getter")
 	public byte[] getArray(final Item item)
 	{
 		return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);
