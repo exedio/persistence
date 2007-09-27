@@ -447,7 +447,18 @@ final class Generator
 			o.write(lineSeparator);
 			o.write("\t{");
 			o.write(lineSeparator);
-			writeGetterBody(attribute);
+			o.write("\t\treturn ");
+			o.write(attribute.parent.name);
+			o.write('.');
+			o.write(attribute.name);
+			o.write(".get");
+			if(attribute.isBoxed())
+				o.write("Mandatory");
+			if(attribute instanceof CopeDataAttribute)
+				o.write("Array");
+			o.write("(this)");
+			o.write(';');
+			o.write(lineSeparator);
 			o.write("\t}");
 		}
 		writeSetter(attribute);
@@ -478,7 +489,14 @@ final class Generator
 			writeThrowsClause(feature.getSetterExceptions());
 			o.write("\t{");
 			o.write(lineSeparator);
-			writeSetterBody(feature);
+			o.write("\t\t");
+			o.write(feature.parent.name);
+			o.write('.');
+			o.write(feature.name);
+			o.write(".set(this,");
+			o.write(feature.name);
+			o.write(");");
+			o.write(lineSeparator);
 			o.write("\t}");
 			
 			// touch for date attributes
@@ -497,7 +515,12 @@ final class Generator
 				writeThrowsClause(feature.getToucherExceptions());
 				o.write("\t{");
 				o.write(lineSeparator);
-				writeToucherBody(feature);
+				o.write("\t\t");
+				o.write(feature.parent.name);
+				o.write('.');
+				o.write(feature.name);
+				o.write(".touch(this);");
+				o.write(lineSeparator);
 				o.write("\t}");
 			}
 		}
@@ -523,7 +546,14 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		writeCheckerBody(hash);
+		o.write("\t\treturn ");
+		o.write(hash.parent.name);
+		o.write('.');
+		o.write(hash.name);
+		o.write(".check(this,");
+		o.write(hash.name);
+		o.write(");");
+		o.write(lineSeparator);
 		o.write("\t}");
 
 		writeSetter(hash);
@@ -1402,103 +1432,6 @@ final class Generator
 		return result;
 	}
 
-	/**
-	 * Identation contract:
-	 * This methods is called, when o stream is immediately after a line break,
-	 * and it should return the o stream after immediately after a line break.
-	 * This means, doing nothing fullfils the contract.
-	 */
-	private void writeGetterBody(final CopeAttribute attribute)
-	throws IOException
-	{
-		o.write("\t\treturn ");
-		o.write(attribute.parent.name);
-		o.write('.');
-		o.write(attribute.name);
-		o.write(".get");
-		if(attribute.isBoxed())
-			o.write("Mandatory");
-		if(attribute instanceof CopeDataAttribute)
-			o.write("Array");
-		o.write("(this)");
-		o.write(';');
-		o.write(lineSeparator);
-	}
-
-	/**
-	 * Identation contract:
-	 * This methods is called, when o stream is immediately after a line break,
-	 * and it should return the o stream after immediately after a line break.
-	 * This means, doing nothing fullfils the contract.
-	 */
-	private void writeSetterBody(final CopeFeature feature)
-	throws IOException
-	{
-		o.write("\t\t");
-		o.write(feature.parent.name);
-		o.write('.');
-		o.write(feature.name);
-		o.write(".set(this,");
-		o.write(feature.name);
-		o.write(");");
-		o.write(lineSeparator);
-	}
-	
-	/**
-	 * Identation contract:
-	 * This methods is called, when o stream is immediately after a line break,
-	 * and it should return the o stream after immediately after a line break.
-	 * This means, doing nothing fullfils the contract.
-	 */
-	private void writeToucherBody(final CopeFeature feature)
-	throws IOException
-	{
-		o.write("\t\t");
-		o.write(feature.parent.name);
-		o.write('.');
-		o.write(feature.name);
-		o.write(".touch(this);");
-		o.write(lineSeparator);
-	}
-	
-	/**
-	 * Identation contract:
-	 * This methods is called, when o stream is immediately after a line break,
-	 * and it should return the o stream after immediately after a line break.
-	 * This means, doing nothing fullfils the contract.
-	 */
-	private void writeCheckerBody(final CopeHash hash)
-	throws IOException
-	{
-		o.write("\t\treturn ");
-		o.write(hash.parent.name);
-		o.write('.');
-		o.write(hash.name);
-		o.write(".check(this,");
-		o.write(hash.name);
-		o.write(");");
-		o.write(lineSeparator);
-	}
-
-	/**
-	 * Identation contract:
-	 * This methods is called, when o stream is immediately after a line break,
-	 * and it should return the o stream after immediately after a line break.
-	 * This means, doing nothing fullfils the contract.
-	 */
-	private void writeSetterBody(final CopeHash hash)
-	throws IOException, InjectorParseException
-	{
-		o.write("\t\t");
-		o.write(hash.parent.name);
-		o.write('.');
-		o.write(hash.name);
-		o.write(".set(this,");
-		o.write(hash.name);
-		o.write(");");
-		o.write(lineSeparator);
-	}
-	
 	private void writeStreamWarning(final String type) throws IOException
 	{
 		if(InputStream.class.getName().equals(type))
@@ -1518,5 +1451,4 @@ final class Generator
 			o.write(' ');
 		}
 	}
-
 }
