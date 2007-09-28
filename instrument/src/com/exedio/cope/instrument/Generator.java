@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -430,9 +431,9 @@ final class Generator
 			final String methodName = wrapper.getMethodName();
 			final Class methodReturnType = wrapper.getMethodReturnType();
 			final List<Class> parameterTypes = wrapper.getParameterTypes();
+			final List<String> parameterNames = wrapper.getParameterNames(); 
 			final boolean isGet = methodName.equals("get");
 			final String featureNameCamelCase = toCamelCase(feature.name);
-			final String parameterName = wrapper.getParameterName()!=null ? wrapper.getParameterName() : feature.name; 
 			
 			writeCommentHeader();
 			o.write("\t * ");
@@ -481,15 +482,17 @@ final class Generator
 				o.write(option.suffix);
 			o.write('(');
 			int writtenParameterI = 0;
+			final Iterator<String> parameterNameIter = parameterNames.iterator();
 			for(final Class parameter : parameterTypes)
 			{
-				o.write(localFinal);
-				o.write(parameter.getName());
-				o.write(' ');
-				o.write(parameterName);
-
 				if(writtenParameterI++!=0)
 					o.write(',');
+				
+				o.write(localFinal);
+				o.write(toString(parameter));
+				o.write(' ');
+				final String name = parameterNameIter.next();
+				o.write(name!=null ? name : feature.name);
 			}
 			o.write(')');
 			o.write(lineSeparator);
@@ -511,10 +514,10 @@ final class Generator
 			if(feature.isBoxed())
 				o.write("Mandatory");
 			o.write("(this");
-			for(int i = 0; i<parameterTypes.size(); i++)
+			for(final String name : parameterNames)
 			{
 				o.write(',');
-				o.write(parameterName);
+				o.write(name!=null ? name : feature.name);
 			}
 			o.write(')');
 			o.write(';');
@@ -661,7 +664,6 @@ final class Generator
 		{
 			if(media.setterOption.exists)
 			{
-				writeMediaSetter(media, byte.class);
 				writeMediaSetter(media, InputStream.class);
 				writeMediaSetter(media, File.class);
 			}

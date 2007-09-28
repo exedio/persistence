@@ -28,14 +28,14 @@ public final class Wrapper
 {
 	private final Class methodReturnType;
 	private final String methodName;
-	private final Class[] parameterTypes;
+	private ArrayList<Class> parameterTypes;
+	private ArrayList<String> parameterNames;
 	private final String comment;
 	private final String modifier;
 	private final String modifierComment;
 	private final Class[] throwsClause;
 	private final String methodWrapperPattern;
 	private ArrayList<String> comments = null;
-	private String parameterName = null;
 	
 	public Wrapper(
 			final Class methodReturnType,
@@ -47,12 +47,15 @@ public final class Wrapper
 	{
 		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
-		this.parameterTypes = parameterTypes;
 		this.comment = comment;
 		this.modifier = modifier;
 		this.modifierComment = modifierComment;
 		this.throwsClause = null;
 		this.methodWrapperPattern = null;
+		
+		if(parameterTypes!=null)
+			for(Class p : parameterTypes)
+				addParameter(p, null);
 	}
 
 	public Wrapper(
@@ -66,12 +69,15 @@ public final class Wrapper
 	{
 		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
-		this.parameterTypes = parameterTypes;
 		this.comment = comment;
 		this.modifier = modifier;
 		this.modifierComment = modifierComment;
 		this.throwsClause = throwsClause;
 		this.methodWrapperPattern = null;
+		
+		if(parameterTypes!=null)
+			for(Class p : parameterTypes)
+				addParameter(p, null);
 	}
 
 	public Wrapper(
@@ -85,12 +91,15 @@ public final class Wrapper
 	{
 		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
-		this.parameterTypes = parameterTypes;
 		this.comment = comment;
 		this.modifier = modifier;
 		this.modifierComment = modifierComment;
 		this.throwsClause = null;
 		this.methodWrapperPattern = methodWrapperPattern;
+		
+		if(parameterTypes!=null)
+			for(Class p : parameterTypes)
+				addParameter(p, null);
 	}
 
 	public Wrapper(
@@ -105,12 +114,15 @@ public final class Wrapper
 	{
 		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
-		this.parameterTypes = parameterTypes;
 		this.comment = comment;
 		this.modifier = modifier;
 		this.modifierComment = modifierComment;
 		this.throwsClause = throwsClause;
 		this.methodWrapperPattern = methodWrapperPattern;
+		
+		if(parameterTypes!=null)
+			for(Class p : parameterTypes)
+				addParameter(p, null);
 	}
 
 	public Class getMethodReturnType()
@@ -123,12 +135,33 @@ public final class Wrapper
 		return methodName;
 	}
 
+	public Wrapper addParameter(final Class type, final String name)
+	{
+		if(parameterTypes==null)
+		{
+			parameterTypes = new ArrayList<Class>();
+			parameterNames = new ArrayList<String>();
+		}
+		parameterTypes.add(type);
+		parameterNames.add(name);
+
+		return this;
+	}
+
 	public List<Class> getParameterTypes()
 	{
 		return
 			parameterTypes!=null
-			? Collections.unmodifiableList(Arrays.asList(parameterTypes))
+			? Collections.unmodifiableList(parameterTypes)
 			: Collections.<Class>emptyList();
+	}
+
+	public List<String> getParameterNames()
+	{
+		return
+			parameterNames!=null
+			? Collections.unmodifiableList(parameterNames)
+			: Collections.<String>emptyList();
 	}
 
 	public String getComment()
@@ -174,17 +207,5 @@ public final class Wrapper
 			comments!=null
 			? Collections.unmodifiableList(comments)
 			: Collections.<String>emptyList();
-	}
-
-	public String getParameterName()
-	{
-		return parameterName;
-	}
-
-	public Wrapper setParameterName(final String parameterName)
-	{
-		this.parameterName = parameterName;
-
-		return this;
 	}
 }
