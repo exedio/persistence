@@ -404,8 +404,6 @@ final class Generator
 	private void writeGenerically(final CopeFeature feature)
 	throws InjectorParseException, IOException
 	{
-		final String type = feature.getBoxedType();
-		
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
 		{
@@ -422,6 +420,7 @@ final class Generator
 				continue;
 
 			final String methodName = wrapper.getMethodName();
+			final String type = feature.getBoxedType();
 			final Class methodReturnType = wrapper.getMethodReturnType();
 			final List<Class> parameterTypes = wrapper.getParameterTypes();
 			final List<String> parameterNames = wrapper.getParameterNames(); 
@@ -520,7 +519,6 @@ final class Generator
 	private void writeAccessMethods(final CopeAttribute attribute)
 	throws InjectorParseException, IOException
 	{
-		writeGenerically(attribute);
 		writeSetter(attribute);
 		writeUniqueFinder(attribute);
 	}
@@ -584,18 +582,6 @@ final class Generator
 				o.write("\t}");
 			}
 		}
-	}
-	
-	private void writeHash(final CopeHash hash)
-	throws IOException, InjectorParseException
-	{
-		writeGenerically(hash);
-	}
-	
-	private void writeMedia(final CopeMedia media)
-	throws IOException
-	{
-		writeGenerically(media);
 	}
 	
 	private void writeUniqueFinder(final CopeAttribute attribute)
@@ -1280,6 +1266,7 @@ final class Generator
 			
 			for(final CopeFeature feature : type.getFeatures())
 			{
+				writeGenerically(feature);
 				if(feature instanceof CopeAttribute)
 					writeAccessMethods((CopeAttribute)feature);
 				else if(feature instanceof CopeUniqueConstraint)
@@ -1289,9 +1276,9 @@ final class Generator
 				else if(feature instanceof CopeAttributeMap)
 					write((CopeAttributeMap)feature);
 				else if(feature instanceof CopeMedia)
-					writeMedia((CopeMedia)feature);
+					; // TODO remove CopeMedia
 				else if(feature instanceof CopeHash)
-					writeHash((CopeHash)feature);
+					; // TODO remove CopeHash
 				else if(feature instanceof CopeRelation || feature instanceof CopeQualifier)
 					; // is handled below
 				else
