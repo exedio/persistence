@@ -683,11 +683,11 @@ final class Generator
 		o.write(".searchUnique(");
 		o.write(className);
 		o.write(".class,");
-		attributes[0].write(o);
+		o.write(attributes[0].name);
 		for(int i = 1; i<attributes.length; i++)
 		{
 			o.write(',');
-			attributes[i].write(o);
+			o.write(attributes[i].name);
 		}
 		o.write(");");
 		o.write(lineSeparator);

@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.IOException;
-import java.io.Writer;
-
 abstract class CopeAttribute extends CopeFeature
 {
 	/**
@@ -69,10 +66,5 @@ abstract class CopeAttribute extends CopeFeature
 	boolean isBoxed()
 	{
 		return false;
-	}
-	
-	void write(final Writer o) throws IOException
-	{
-		o.write(name);
 	}
 }

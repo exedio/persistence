@@ -18,17 +18,15 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.exedio.cope.Field;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Field;
 import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringFunction;
@@ -119,11 +117,5 @@ final class CopeNativeAttribute extends CopeAttribute
 		final boolean mandatory = instance instanceof Field && ((Field)instance).isMandatory();
 
 		return mandatory && nativeType!=null;
-	}
-	
-	@Override
-	void write(final Writer o) throws IOException
-	{
-		o.write(name);
 	}
 }
