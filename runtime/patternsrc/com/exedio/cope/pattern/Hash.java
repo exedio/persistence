@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
@@ -31,10 +34,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.WrapInstrumented;
-import com.exedio.cope.WrapInstrumentedModifier;
-import com.exedio.cope.WrapInstrumentedModifierHint;
-import com.exedio.cope.WrapInstrumentedModifierThrows;
+import com.exedio.cope.Wrapper;
 import com.exedio.cope.Field.Option;
 
 public abstract class Hash extends Pattern implements Settable<String>
@@ -99,12 +99,29 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public abstract Hash optional();
 	
-	@WrapInstrumented("Sets a new value for the persistent field {0}.") // TODO better text
-	@WrapInstrumentedModifier("cope.setter")
-	@WrapInstrumentedModifierHint("It can be customized with the tag " +
-			  "<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
-			  "in the comment of the field.")
-	@WrapInstrumentedModifierThrows("getSetterExceptions")
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		result.add(new Wrapper(
+			boolean.class, "check", new Class[]{String.class},
+			"Returns whether the given value corresponds to the hash in {0}.", // better text
+			null, // TODO "cope.checker"
+			null // TODO
+				));
+		final Set<Class> setterExceptions = getSetterExceptions();
+		result.add(new Wrapper(
+			void.class, "set", new Class[]{String.class},
+			"Sets a new value for the persistent field {0}.", // TODO better text
+			"cope.setter",
+			"It can be customized with the tag " +
+				"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
+				"in the comment of the field.",
+				setterExceptions.toArray(new Class[setterExceptions.size()])));
+		return Collections.unmodifiableList(result);
+	}
+	
 	public final void set(final Item item, final String plainText)
 		throws
 			UniqueViolationException,
@@ -115,8 +132,6 @@ public abstract class Hash extends Pattern implements Settable<String>
 		storage.set(item, hash(plainText));
 	}
 	
-	@WrapInstrumented("Returns whether the given value corresponds to the hash in {0}.") // TODO better text
-	// TODO @WrapInstrumentedModifier("cope.checker")
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);

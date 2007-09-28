@@ -136,12 +136,21 @@ public abstract class FunctionField<E extends Object>
 	}
 
 	@Override
-	@WrapInstrumented("Returns the value of the persistent field {0}.") // TODO better text
-	@WrapInstrumentedModifier("cope.getter")
-	@WrapInstrumentedModifierHint(
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		result.add(new Wrapper(
+			null, "get", null,
+			"Returns the value of the persistent field {0}.", // TODO better text
+			"cope.getter",
 			"It can be customized with the tag " +
-			"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-			"in the comment of the field.")
+				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
+				"in the comment of the field."));
+		return Collections.unmodifiableList(result);
+	}
+	
+	@Override
 	public final E get(final Item item)
 	{
 		item.type.assertBelongs(this);

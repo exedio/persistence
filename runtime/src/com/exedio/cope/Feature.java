@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class Feature
 {
 	private Type<? extends Item> type;
@@ -76,6 +79,11 @@ public abstract class Feature
 		assert id!=null;
 
 		return id;
+	}
+	
+	public List<Wrapper> getWrappers()
+	{
+		return Collections.<Wrapper>emptyList();
 	}
 	
 	void toStringNonInitialized(final StringBuffer bf, final Type defaultType)

@@ -27,6 +27,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class DataField extends Field<DataField.Value>
 {
@@ -120,6 +123,21 @@ public final class DataField extends Field<DataField.Value>
 		return i<=l ? i : (int)l;
 	}
 	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		result.add(new Wrapper(
+			byte[].class, "getArray", null,
+			"Returns the value of the persistent field {0}.", // TODO better text
+			"cope.getter",
+			"It can be customized with the tag " +
+				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
+				"in the comment of the field."));
+		return Collections.unmodifiableList(result);
+	}
+	
 	/**
 	 * Returns, whether there is no data for this field.
 	 */
@@ -153,12 +171,6 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns the data of this persistent data field.
 	 * Returns null, if there is no data for this field.
 	 */
-	@WrapInstrumented("Returns the value of the persistent field {0}.") // TODO better text
-	@WrapInstrumentedModifier("cope.getter")
-	@WrapInstrumentedModifierHint(
-			"It can be customized with the tag " +
-			"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-			"in the comment of the field.")
 	public byte[] getArray(final Item item)
 	{
 		return column.table.database.load(model.getCurrentTransaction().getConnection(), column, item);

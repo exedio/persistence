@@ -25,8 +25,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -42,6 +40,7 @@ import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -51,10 +50,7 @@ import com.exedio.cope.RangeViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.WrapInstrumented;
-import com.exedio.cope.WrapInstrumentedModifier;
-import com.exedio.cope.WrapInstrumentedModifierHint;
-import com.exedio.cope.WrapInstrumentedModifierThrows;
+import com.exedio.cope.Wrapper;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
@@ -428,35 +424,32 @@ final class Generator
 	{
 		final String type = feature.getBoxedType();
 		
-		final Object instance = feature.getInstance();
-		for(final Method method : instance.getClass().getMethods())
+		final Feature instance = feature.getInstance();
+		for(final Wrapper wrapper : instance.getWrappers())
 		{
-			final String methodName = method.getName();
-			final Class methodReturnType = method.getReturnType();
+			final String methodName = wrapper.getMethodName();
+			final Class methodReturnType = wrapper.getMethodReturnType();
 			final boolean isGet = methodName.equals("get");
 			
-			final WrapInstrumentedModifier modifierAnnotation = method.getAnnotation(WrapInstrumentedModifier.class);
+			final String modifierTag = wrapper.getModifier();
 			final Option option =
-				modifierAnnotation!=null
+				modifierTag!=null
 				? new Option(Injector.findDocTagLine(
-						feature.docComment,
-						modifierAnnotation.value()[0]),
+									feature.docComment,
+									modifierTag),
 						true)
 				: null;
 			
 			if(option!=null && !option.exists)
 				continue;
-			final WrapInstrumented annotation = method.getAnnotation(WrapInstrumented.class);
-			if(annotation==null)
-				continue;
 
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(annotation.value()[0], link(feature.name)));
+			o.write(format(wrapper.getComment(), link(feature.name)));
 			o.write(lineSeparator);
 			writeStreamWarning(type);
-			final WrapInstrumentedModifierHint modifierHintAnnotation = method.getAnnotation(WrapInstrumentedModifierHint.class);
-			writeCommentFooter(modifierHintAnnotation!=null ? modifierHintAnnotation.value()[0] : null);
+			final String modifierComment = wrapper.getModifierComment();
+			writeCommentFooter(modifierComment);
 			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
 			o.write(isGet ? type : toString(methodReturnType));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
@@ -470,13 +463,9 @@ final class Generator
 			if(option!=null)
 				o.write(option.suffix);
 			o.write('(');
-			int methodParameterI = 0;
 			int writtenParameterI = 0;
-			for(final Class parameter : method.getParameterTypes())
+			for(final Class parameter : wrapper.getParameterTypes())
 			{
-				if(methodParameterI++==0) // TODO only if non-static and Item
-					continue;
-				
 				o.write(localFinal);
 				o.write(parameter.getName());
 				o.write(' ');
@@ -488,45 +477,14 @@ final class Generator
 			o.write(')');
 			o.write(lineSeparator);
 			{
-				final WrapInstrumentedModifierThrows modifierThrowsAnnotation =
-					method.getAnnotation(WrapInstrumentedModifierThrows.class);
-				if(modifierThrowsAnnotation!=null)
-				{
-					final Set<Class> exceptions;
-					try
-					{
-						exceptions =
-							(Set<Class>)
-							instance.getClass().getMethod(modifierThrowsAnnotation.value()[0]).
-							invoke(instance, (Object[])null);
-					}
-					catch(SecurityException e)
-					{
-						throw new RuntimeException(e);
-					}
-					catch(NoSuchMethodException e)
-					{
-						throw new RuntimeException(e);
-					}
-					catch(IllegalArgumentException e)
-					{
-						throw new RuntimeException(e);
-					}
-					catch(IllegalAccessException e)
-					{
-						throw new RuntimeException(e);
-					}
-					catch(InvocationTargetException e)
-					{
-						throw new RuntimeException(e);
-					}
+					final SortedSet<Class> exceptions = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
+					exceptions.addAll(wrapper.getThrowsClause());
 					writeThrowsClause(exceptions);
-				}
 			}
 			o.write("\t{");
 			o.write(lineSeparator);
 			o.write("\t\t");
-			if(!methodReturnType.equals(void.class))
+			if(methodReturnType==null || !methodReturnType.equals(void.class))
 				o.write("return ");
 			o.write(feature.parent.name);
 			o.write('.');
@@ -536,12 +494,8 @@ final class Generator
 			if(feature.isBoxed())
 				o.write("Mandatory");
 			o.write("(this");
-			methodParameterI = 0;
-			for(int i = 0; i<method.getParameterTypes().length; i++)
+			for(int i = 0; i<wrapper.getParameterTypes().size(); i++)
 			{
-				if(methodParameterI++==0) // TODO only if non-static and Item
-					continue;
-				
 				o.write(',');
 				o.write(feature.name);
 			}
