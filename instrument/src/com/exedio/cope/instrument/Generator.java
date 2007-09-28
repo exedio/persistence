@@ -471,11 +471,13 @@ final class Generator
 			if(option!=null)
 				o.write(option.suffix);
 			o.write('(');
-			int writtenParameterI = 0;
+			boolean first = true;
 			final Iterator<String> parameterNameIter = parameterNames.iterator();
 			for(final Class parameter : parameterTypes)
 			{
-				if(writtenParameterI++!=0)
+				if(first)
+					first = false;
+				else
 					o.write(',');
 				
 				o.write(localFinal);
@@ -502,22 +504,26 @@ final class Generator
 			o.write('.');
 			o.write(methodName);
 			o.write('(');
-			writtenParameterI = 0;
+			first = true;
 			if(!isStatic)
 			{
-				writtenParameterI++;
+				first = false;
 				o.write("this");
 			}
 			for(final String name : parameterNames)
 			{
-				if(writtenParameterI++!=0)
+				if(first)
+					first = false;
+				else
 					o.write(',');
 				
 				o.write(name!=null ? name : feature.name);
 			}
 			if(isStatic)
 			{
-				if(writtenParameterI++!=0)
+				if(first)
+					first = false;
+				else
 					o.write(',');
 				
 				o.write(feature.parent.name);
