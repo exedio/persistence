@@ -415,11 +415,6 @@ final class Generator
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
 		{
-			final String methodName = wrapper.getMethodName();
-			final Class methodReturnType = wrapper.getMethodReturnType();
-			final List<Class> parameterTypes = wrapper.getParameterTypes();
-			final boolean isGet = methodName.equals("get");
-			
 			final String modifierTag = wrapper.getModifier();
 			final Option option =
 				modifierTag!=null
@@ -432,6 +427,10 @@ final class Generator
 			if(option!=null && !option.exists)
 				continue;
 
+			final String methodName = wrapper.getMethodName();
+			final Class methodReturnType = wrapper.getMethodReturnType();
+			final List<Class> parameterTypes = wrapper.getParameterTypes();
+			final boolean isGet = methodName.equals("get");
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final String parameterName = wrapper.getParameterName()!=null ? wrapper.getParameterName() : feature.name; 
 			
