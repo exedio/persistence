@@ -18,7 +18,11 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 public final class DateField extends FunctionField<Date>
 {
@@ -86,6 +90,28 @@ public final class DateField extends FunctionField<Date>
 	public boolean isDefaultNow()
 	{
 		return defaultNow;
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		if(!isfinal)
+		{
+			final Set<Class> exceptions = getSetterExceptions();
+			exceptions.remove(MandatoryViolationException.class); // cannot set null
+			
+			result.add(new Wrapper(
+				void.class, "touch",
+				"Sets the current date for the date field {0}.", // TODO better text
+				"cope.setter", null, // TODO document modifier tag
+				exceptions.toArray(new Class[exceptions.size()]),
+				"touch{0}"));
+		}
+			
+		return Collections.unmodifiableList(result);
 	}
 	
 	/**

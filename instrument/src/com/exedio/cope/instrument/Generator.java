@@ -78,7 +78,6 @@ final class Generator
 																					"<tt>@" + CopeType.TAG_GENERIC_CONSTRUCTOR + " public|package|protected|private|none</tt> " +
 																					"in the class comment.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
-	private static final String TOUCHER = "Sets the current date for the date field {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
 	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
@@ -559,37 +558,6 @@ final class Generator
 			return toString((ParameterizedType)t, feature);
 		else
 			throw new RuntimeException(t.toString());
-	}
-	
-	private void writeSetter(final CopeFeature feature) throws IOException
-	{
-		if(feature.hasGeneratedSetter())
-		{
-			// touch for date attributes
-			if(feature.isTouchable())
-			{
-				writeCommentHeader();
-				o.write("\t * ");
-				o.write(format(TOUCHER, link(feature.name)));
-				o.write(lineSeparator);
-				writeCommentFooter();
-				writeModifier(feature.getGeneratedSetterModifier());
-				o.write("void touch");
-				o.write(toCamelCase(feature.name));
-				o.write("()");
-				o.write(lineSeparator);
-				writeThrowsClause(feature.getToucherExceptions());
-				o.write("\t{");
-				o.write(lineSeparator);
-				o.write("\t\t");
-				o.write(feature.parent.name);
-				o.write('.');
-				o.write(feature.name);
-				o.write(".touch(this);");
-				o.write(lineSeparator);
-				o.write("\t}");
-			}
-		}
 	}
 	
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
@@ -1127,7 +1095,7 @@ final class Generator
 			{
 				writeFeature(feature, true);
 				if(feature instanceof CopeAttribute)
-					writeSetter(feature);
+					; // TODO remove CopeAttribute
 				else if(feature instanceof CopeUniqueConstraint)
 					writeUniqueFinder((CopeUniqueConstraint)feature);
 				else if(feature instanceof CopeAttributeList)

@@ -22,7 +22,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
@@ -113,19 +112,6 @@ abstract class CopeFeature
 		result.addAll(resultList);
 		if(isBoxed())
 			result.remove(MandatoryViolationException.class);
-		return result;
-	}
-	
-	final boolean isTouchable()
-	{
-		final Object instance = getInstance();
-		return instance instanceof DateField;
-	}
-
-	final SortedSet<Class> getToucherExceptions()
-	{
-		final SortedSet<Class> result = getSetterExceptions();
-		result.remove(MandatoryViolationException.class);
 		return result;
 	}
 }
