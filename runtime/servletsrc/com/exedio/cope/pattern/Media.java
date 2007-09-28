@@ -23,9 +23,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -44,6 +46,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Wrapper;
 import com.exedio.cope.Field.Option;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
@@ -222,6 +225,22 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return result;
 	}
 
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+
+		final Wrapper isNull = new Wrapper(
+			boolean.class, "isNull", null,
+			"Returns whether media {0} is null.", // TODO better text
+			null, null); // TODO
+		isNull.setMethodWrapperPattern("is{0}Null");
+		result.add(isNull);
+		
+		return Collections.unmodifiableList(result);
+	}
+	
 	public boolean isFinal()
 	{
 		return false; // TODO

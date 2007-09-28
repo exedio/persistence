@@ -91,7 +91,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_IS_NULL      = "Returns whether media {0} is null.";
 	private static final String GETTER_MEDIA_URL          = "Returns a URL the content of the media {0} is available under.";
 	private static final String GETTER_MEDIA_PATH_URL     = "Returns a URL the content of {0} is available under.";
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
@@ -609,7 +608,7 @@ final class Generator
 											final String commentPattern)
 	throws IOException
 	{
-		final String prefix = (boolean.class==returnType) ? "is" : "get";
+		final String prefix = "get";
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(format(commentPattern, link(media.name)));
@@ -727,8 +726,8 @@ final class Generator
 	throws IOException
 	{
 		final MediaPath instance = (MediaPath)media.getInstance();
-		if(instance instanceof Media)
-			writeMediaGetter(media, boolean.class,     "Null",         GETTER_MEDIA_IS_NULL);
+		
+		writeGenerically(media);
 		
 		writeMediaGetter(media, String.class,      "URL",          (instance instanceof Media) ? GETTER_MEDIA_URL : GETTER_MEDIA_PATH_URL);
 		if(instance instanceof MediaFilter)
