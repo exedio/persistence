@@ -445,7 +445,16 @@ final class Generator
 				o.write(comment);
 				o.write(lineSeparator);
 			}
-			writeStreamWarning(type);
+			for(final Class pt : parameterTypes)
+			{
+				if(InputStream.class.equals(pt))
+				{
+					o.write("\t * ");
+					o.write(GETTER_STREAM_WARNING);
+					o.write(lineSeparator);
+					break;
+				}
+			}
 			final String modifierComment = wrapper.getModifierComment();
 			writeCommentFooter(modifierComment);
 			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
@@ -1382,16 +1391,6 @@ final class Generator
 					}
 				});
 		return result;
-	}
-
-	private void writeStreamWarning(final String type) throws IOException
-	{
-		if(InputStream.class.getName().equals(type))
-		{
-			o.write("\t * ");
-			o.write(GETTER_STREAM_WARNING);
-			o.write(lineSeparator);
-		}
 	}
 
 	private void writeModifier(final int modifier) throws IOException
