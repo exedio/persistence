@@ -51,6 +51,8 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
 import com.exedio.cope.pattern.FieldList;
 import com.exedio.cope.pattern.FieldListLimited;
+import com.exedio.cope.pattern.FieldMap;
+import com.exedio.cope.pattern.FieldMapLimited;
 import com.exedio.cope.pattern.FieldSet;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -96,7 +98,6 @@ final class Generator
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
 	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the field list {0}.";
 	private static final String ATTIBUTE_SET_SETTER = "Sets the contents of the field set {0}.";
-	private static final String ATTIBUTE_MAP_GETTER = "Returns the value mapped to <tt>" + ATTRIBUTE_MAP_KEY + "</tt> by the field map {0}.";
 	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the field map {0}.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
@@ -428,6 +429,8 @@ final class Generator
 			
 			// TODO remove
 			final int modifier =
+				FieldMap.class.isInstance(instance) ||
+				FieldMapLimited.class.isInstance(instance) ||
 				FieldSet.class.isInstance(instance) ||
 				FieldList.class.isInstance(instance) ||
 				FieldListLimited.class.isInstance(instance)
@@ -518,6 +521,8 @@ final class Generator
 			return c.getComponentType().getName() + "[]";
 		else if(Wrapper.TypeVariable0.class.equals(c))
 			return Injector.getGenerics(feature.javaAttribute.type).get(0);
+		else if(Wrapper.TypeVariable1.class.equals(c))
+			return Injector.getGenerics(feature.javaAttribute.type).get(1);
 		else
 			return c.getName();
 	}
@@ -949,36 +954,6 @@ final class Generator
 	
 	private void write(final CopeAttributeMap map) throws IOException
 	{
-		if(true) // TODO SOON getter option
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(MessageFormat.format(ATTIBUTE_MAP_GETTER, link(map.name)));
-			o.write(lineSeparator);
-			writeCommentFooter();
-	
-			o.write("public final "); // TODO SOON getter option
-			o.write(map.getValueType());
-			o.write(" get");
-			o.write(toCamelCase(map.name));
-			o.write('(');
-			o.write(localFinal);
-			o.write(map.getKeyType());
-			o.write(" " + ATTRIBUTE_MAP_KEY + ")");
-			o.write(lineSeparator);
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\treturn ");
-			o.write(map.parent.name);
-			o.write('.');
-			o.write(map.name);
-			o.write(".get(this," + ATTRIBUTE_MAP_KEY + ");");
-			o.write(lineSeparator);
-	
-			o.write("\t}");
-		}
 		if(true) // TODO SOON setter option
 		{
 			writeCommentHeader();

@@ -18,11 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.List;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Wrapper;
 
 public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 {
@@ -76,6 +80,22 @@ public final class FieldMapLimited<K extends Enum<K>,V> extends Pattern
 	public FunctionField<V> getAttribute(final K key)
 	{
 		return getField(key);
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final char KEY = 'k';
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(new Wrapper(
+			Wrapper.TypeVariable1.class, "get",
+			"Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.",
+			null, null).
+			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
+		
+		return Collections.unmodifiableList(result);
 	}
 
 	public V get(final Item item, final K key)

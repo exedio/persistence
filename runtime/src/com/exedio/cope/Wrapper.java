@@ -191,6 +191,7 @@ public final class Wrapper
 	}
 	
 	public class TypeVariable0 { /* OK, just a placeholder */ };
+	public class TypeVariable1 { /* OK, just a placeholder */ };
 	
 	public static final java.lang.reflect.Type makeType(final Class rawType, final Class... actualTypeArguments)
 	{
