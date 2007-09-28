@@ -73,6 +73,12 @@ public final class DoubleField extends FunctionField<Double>
 	}
 	
 	@Override
+	Class getWrapperValueClass()
+	{
+		return optional ? Double.class : double.class;
+	}
+	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new DoubleColumn(table, name, optional);

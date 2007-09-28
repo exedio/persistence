@@ -125,6 +125,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return values;
 	}
 	
+	@Override
+	Class getWrapperValueClass()
+	{
+		return Wrapper.TypeVariable0.class;
+	}
+	
 	private E getValue(final int number)
 	{
 		final E result = numbersToValues.get(number);

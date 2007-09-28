@@ -73,6 +73,12 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 	
 	@Override
+	Class getWrapperValueClass()
+	{
+		return optional ? Boolean.class : boolean.class;
+	}
+	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);

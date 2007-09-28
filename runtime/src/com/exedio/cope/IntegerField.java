@@ -127,6 +127,12 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	@Override
+	Class getWrapperValueClass()
+	{
+		return optional ? Integer.class : int.class;
+	}
+	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, minimum, maximum, false);

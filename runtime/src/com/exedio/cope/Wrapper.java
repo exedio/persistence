@@ -52,6 +52,8 @@ public final class Wrapper
 		this.throwsClause = null;
 		this.methodWrapperPattern = null;
 		
+		if(methodReturnType==null)
+			throw new NullPointerException("methodReturnType must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 	}
@@ -72,6 +74,8 @@ public final class Wrapper
 		this.throwsClause = throwsClause;
 		this.methodWrapperPattern = null;
 		
+		if(methodReturnType==null)
+			throw new NullPointerException("methodReturnType must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 	}
@@ -92,6 +96,8 @@ public final class Wrapper
 		this.throwsClause = null;
 		this.methodWrapperPattern = methodWrapperPattern;
 		
+		if(methodReturnType==null)
+			throw new NullPointerException("methodReturnType must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 	}
@@ -113,6 +119,8 @@ public final class Wrapper
 		this.throwsClause = throwsClause;
 		this.methodWrapperPattern = methodWrapperPattern;
 		
+		if(methodReturnType==null)
+			throw new NullPointerException("methodReturnType must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 	}
@@ -205,4 +213,6 @@ public final class Wrapper
 			? Collections.unmodifiableList(comments)
 			: Collections.<String>emptyList();
 	}
+	
+	public class TypeVariable0 { /* OK, just a placeholder */ };
 }

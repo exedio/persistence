@@ -290,7 +290,7 @@ final class JavaRepository
 				if(javaClass.isEnum)
 					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
-					return DummyItem.class;
+					return ToBeReplacedByWrapperTypeVariableXItem.class;
 			}
 			
 			return null;
@@ -306,8 +306,10 @@ final class JavaRepository
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
 	
-	static class DummyItem extends Item
+	static class ToBeReplacedByWrapperTypeVariableXItem extends Item
 	{
+		// If this type is encountered in the instrumentor output,
+		// it has to be replaced by Wrapper.TypeVariableX
 		private static final long serialVersionUID = 1l;
 	}
 	

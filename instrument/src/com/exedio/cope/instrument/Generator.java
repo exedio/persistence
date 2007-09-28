@@ -420,11 +420,9 @@ final class Generator
 				continue;
 
 			final String methodName = wrapper.getMethodName();
-			final String type = feature.getBoxedType();
 			final Class methodReturnType = wrapper.getMethodReturnType();
 			final List<Class> parameterTypes = wrapper.getParameterTypes();
 			final List<String> parameterNames = wrapper.getParameterNames(); 
-			final boolean isGet = methodName.equals("get");
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			
 			writeCommentHeader();
@@ -440,7 +438,7 @@ final class Generator
 			final String modifierComment = wrapper.getModifierComment();
 			writeCommentFooter(modifierComment);
 			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
-			o.write(isGet ? type : toString(methodReturnType));
+			o.write(toString(methodReturnType, feature));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
 			{
 				o.write(" is");
@@ -471,7 +469,7 @@ final class Generator
 					o.write(',');
 				
 				o.write(localFinal);
-				o.write(toString(parameter));
+				o.write(toString(parameter, feature));
 				o.write(' ');
 				final String name = parameterNameIter.next();
 				o.write(name!=null ? name : feature.name);
@@ -508,10 +506,12 @@ final class Generator
 		}
 	}
 	
-	private static final String toString(final Class c)
+	private static final String toString(final Class c, final CopeFeature feature)
 	{
 		if(c.isArray())
 			return c.getComponentType().getName() + "[]";
+		else if(Wrapper.TypeVariable0.class.equals(c))
+			return Injector.getGenerics(feature.javaAttribute.type).get(0);
 		else
 			return c.getName();
 	}

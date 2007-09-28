@@ -73,6 +73,12 @@ public final class LongField extends FunctionField<Long>
 	}
 	
 	@Override
+	Class getWrapperValueClass()
+	{
+		return optional ? Long.class : long.class;
+	}
+	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);

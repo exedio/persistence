@@ -135,18 +135,27 @@ public abstract class FunctionField<E extends Object>
 		return item.type.getModel().getCurrentTransaction().getEntity(item, present);
 	}
 
+	Class getWrapperValueClass()
+	{
+		return valueClass;
+	}
+	
 	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
+		
+		final Class wrapperValueClass = getWrapperValueClass();
+		
 		result.add(new Wrapper(
-			null, "get",
+			wrapperValueClass, "get",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
 			"It can be customized with the tag " +
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
 				"in the comment of the field."));
+		
 		return Collections.unmodifiableList(result);
 	}
 	
