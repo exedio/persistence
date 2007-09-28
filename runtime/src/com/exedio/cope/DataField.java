@@ -128,8 +128,9 @@ public final class DataField extends Field<DataField.Value>
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
+		
 		result.add(new Wrapper(
-			byte[].class, "getArray", null,
+			byte[].class, "getArray",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
 			"It can be customized with the tag " +

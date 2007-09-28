@@ -104,21 +104,23 @@ public abstract class Hash extends Pattern implements Settable<String>
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
+		
 		result.add(new Wrapper(
-			boolean.class, "check", new Class[]{String.class},
+			boolean.class, "check",
 			"Returns whether the given value corresponds to the hash in {0}.", // better text
 			null, // TODO "cope.checker"
-			null // TODO
-				));
+			null). // TODO
+			addParameter(String.class));
 		final Set<Class> setterExceptions = getSetterExceptions();
 		result.add(new Wrapper(
-			void.class, "set", new Class[]{String.class},
+			void.class, "set",
 			"Sets a new value for the persistent field {0}.", // TODO better text
 			"cope.setter",
 			"It can be customized with the tag " +
 				"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
 				"in the comment of the field.",
-				setterExceptions.toArray(new Class[setterExceptions.size()])));
+				setterExceptions.toArray(new Class[setterExceptions.size()])).
+			addParameter(String.class));
 		return Collections.unmodifiableList(result);
 	}
 	

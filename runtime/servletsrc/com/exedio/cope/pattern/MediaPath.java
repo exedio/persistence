@@ -84,7 +84,7 @@ public abstract class MediaPath extends Pattern
 		result.addAll(super.getWrappers());
 
 		result.add(new Wrapper(
-			String.class, "getURL", null,
+			String.class, "getURL",
 			this instanceof Media // TODO
 			? "Returns a URL the content of the media {0} is available under."
 			: "Returns a URL the content of {0} is available under.", // TODO better text
@@ -92,7 +92,7 @@ public abstract class MediaPath extends Pattern
 			"get{0}URL"));
 		
 		result.add(new Wrapper(
-			String.class, "getContentType", null,
+			String.class, "getContentType",
 			"Returns the content type of the media {0}.",
 			null, null, // TODO
 			"get{0}ContentType"));

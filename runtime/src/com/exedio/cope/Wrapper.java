@@ -40,7 +40,6 @@ public final class Wrapper
 	public Wrapper(
 			final Class methodReturnType,
 			final String methodName,
-			final Class[] parameterTypes,
 			final String comment,
 			final String modifier,
 			final String modifierComment)
@@ -53,15 +52,13 @@ public final class Wrapper
 		this.throwsClause = null;
 		this.methodWrapperPattern = null;
 		
-		if(parameterTypes!=null)
-			for(Class p : parameterTypes)
-				addParameter(p, null);
+		if(comment==null)
+			throw new NullPointerException("comment must not be null");
 	}
 
 	public Wrapper(
 			final Class methodReturnType,
 			final String methodName,
-			final Class[] parameterTypes,
 			final String comment,
 			final String modifier,
 			final String modifierComment,
@@ -75,15 +72,13 @@ public final class Wrapper
 		this.throwsClause = throwsClause;
 		this.methodWrapperPattern = null;
 		
-		if(parameterTypes!=null)
-			for(Class p : parameterTypes)
-				addParameter(p, null);
+		if(comment==null)
+			throw new NullPointerException("comment must not be null");
 	}
 
 	public Wrapper(
 			final Class methodReturnType,
 			final String methodName,
-			final Class[] parameterTypes,
 			final String comment,
 			final String modifier,
 			final String modifierComment,
@@ -97,15 +92,13 @@ public final class Wrapper
 		this.throwsClause = null;
 		this.methodWrapperPattern = methodWrapperPattern;
 		
-		if(parameterTypes!=null)
-			for(Class p : parameterTypes)
-				addParameter(p, null);
+		if(comment==null)
+			throw new NullPointerException("comment must not be null");
 	}
 
 	public Wrapper(
 			final Class methodReturnType,
 			final String methodName,
-			final Class[] parameterTypes,
 			final String comment,
 			final String modifier,
 			final String modifierComment,
@@ -120,9 +113,8 @@ public final class Wrapper
 		this.throwsClause = throwsClause;
 		this.methodWrapperPattern = methodWrapperPattern;
 		
-		if(parameterTypes!=null)
-			for(Class p : parameterTypes)
-				addParameter(p, null);
+		if(comment==null)
+			throw new NullPointerException("comment must not be null");
 	}
 
 	public Class getMethodReturnType()
@@ -135,6 +127,11 @@ public final class Wrapper
 		return methodName;
 	}
 
+	public Wrapper addParameter(final Class type)
+	{
+		return addParameter(type, null);
+	}
+	
 	public Wrapper addParameter(final Class type, final String name)
 	{
 		if(parameterTypes==null)

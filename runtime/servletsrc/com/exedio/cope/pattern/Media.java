@@ -234,31 +234,31 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		result.addAll(super.getWrappers());
 
 		result.add(0/*TODO*/, new Wrapper(
-			boolean.class, "isNull", null,
+			boolean.class, "isNull",
 			"Returns whether media {0} is null.", // TODO better text
 			null, null, // TODO
 			"is{0}Null"));
 		
 		result.add(new Wrapper(
-			long.class, "getLastModified", null,
+			long.class, "getLastModified",
 			"Returns the last modification date of media {0}.",
 			null, null, // TODO
 			"get{0}LastModified"));
 		
 		result.add(new Wrapper(
-			long.class, "getLength", null,
+			long.class, "getLength",
 			"Returns the body length of the media {0}.",
 			null, null, // TODO
 			"get{0}Length"));
 		
 		result.add(new Wrapper(
-			byte[].class, "getBody", null,
+			byte[].class, "getBody",
 			"Returns the body of the media {0}.",
 			null, null, // TODO
 			"get{0}Body"));
 			
 		result.add(new Wrapper(
-			void.class, "getBody", null,
+			void.class, "getBody",
 			"Writes the body of media {0} into the given stream.",
 			null, null, // TODO
 			new Class[]{IOException.class},
@@ -268,7 +268,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			addParameter(OutputStream.class, "body"));
 		
 		result.add(new Wrapper(
-			void.class, "getBody", null,
+			void.class, "getBody",
 			"Writes the body of media {0} into the given file.",
 			null, null, // TODO
 			new Class[]{IOException.class},
@@ -278,14 +278,14 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			addParameter(File.class, "body"));
 		
 		result.add(new Wrapper(
-			void.class, "set", null,
+			void.class, "set",
 			"Sets the content of media {0}.",
 			"cope.setter", null). // TODO
 			addParameter(byte[].class, "body").
 			addParameter(String.class, "contentType"));
 			
 		result.add(new Wrapper(
-			void.class, "set", null,
+			void.class, "set",
 			"Sets the content of media {0}.",
 			"cope.setter", null, // TODO
 			new Class[]{IOException.class}).
@@ -294,7 +294,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			addParameter(String.class, "contentType"));
 		
 		result.add(new Wrapper(
-			void.class, "set", null,
+			void.class, "set",
 			"Sets the content of media {0}.",
 			"cope.setter", null, // TODO
 			new Class[]{IOException.class}).

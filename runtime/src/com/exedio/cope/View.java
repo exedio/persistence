@@ -97,7 +97,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		result.add(new Wrapper(
-			null, "get", null,
+			null, "get",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
 			"It can be customized with the tag " +
