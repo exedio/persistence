@@ -249,6 +249,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			null, null, // TODO
 			"get{0}Length"));
 		
+		result.add(new Wrapper(
+			byte[].class, "getBody", null,
+			"Returns the body of the media {0}.",
+			null, null, // TODO
+			"get{0}Body"));
+			
 		return Collections.unmodifiableList(result);
 	}
 	

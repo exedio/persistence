@@ -90,7 +90,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_BODY_BYTE    = "Returns the body of the media {0}.";
 	private static final String GETTER_MEDIA_BODY_STREAM  = "Writes the body of media {0} into the given stream.";
 	private static final String GETTER_MEDIA_BODY_FILE    = "Writes the body of media {0} into the given file.";
 	private static final String GETTER_MEDIA_BODY_EXTRA = "Does nothing, if the media is null.";
@@ -596,43 +595,6 @@ final class Generator
 		writeGenerically(hash);
 	}
 	
-	private void writeMediaGetter(final CopeMedia media,
-											final Class returnType,
-											final String part,
-											final String commentPattern)
-	throws IOException
-	{
-		final String prefix = "get";
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(commentPattern, link(media.name)));
-		o.write(lineSeparator);
-		writeStreamWarning(returnType.getName());
-		writeCommentFooter();
-		writeModifier(media.getGeneratedGetterModifier());
-		o.write(returnType.getName());
-		if(returnType==byte.class)
-			o.write("[]");
-		o.write(' ');
-		o.write(prefix);
-		o.write(toCamelCase(media.name));
-		o.write(part);
-		o.write("()");
-		o.write(lineSeparator);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\treturn ");
-		o.write(media.parent.name);
-		o.write('.');
-		o.write(media.name);
-		o.write('.');
-		o.write(prefix);
-		o.write(part);
-		o.write("(this);");
-		o.write(lineSeparator);
-		o.write("\t}");
-	}
-	
 	private void writeMediaGetter(
 			final CopeMedia media,
 			final Class dataType,
@@ -725,7 +687,6 @@ final class Generator
 		
 		if(instance instanceof Media)
 		{
-			writeMediaGetter(media, byte.class,        "Body",         GETTER_MEDIA_BODY_BYTE);
 			writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_BODY_STREAM);
 			writeMediaGetter(media, File.class,                        GETTER_MEDIA_BODY_FILE);
 	
