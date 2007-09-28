@@ -484,7 +484,7 @@ final class Generator
 			o.write("\t{");
 			o.write(lineSeparator);
 			o.write("\t\t");
-			if(methodReturnType==null || !methodReturnType.equals(void.class))
+			if(!methodReturnType.equals(void.class))
 				o.write("return ");
 			o.write(feature.parent.name);
 			o.write('.');
