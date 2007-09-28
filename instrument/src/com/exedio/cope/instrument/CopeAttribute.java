@@ -21,9 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionField;
-
 abstract class CopeAttribute extends CopeFeature
 {
 	/**
@@ -74,12 +71,6 @@ abstract class CopeAttribute extends CopeFeature
 		return false;
 	}
 	
-	final boolean isImplicitlyUnique()
-	{
-		final Feature instance = getInstance();
-		return instance instanceof FunctionField && ((FunctionField)instance).getImplicitUniqueConstraint()!=null;
-	}
-
 	void write(final Writer o) throws IOException
 	{
 		o.write(name);

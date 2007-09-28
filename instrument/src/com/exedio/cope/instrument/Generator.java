@@ -229,14 +229,9 @@ final class Generator
 		return "{@link #" + target + ' ' + name + '}';
 	}
 	
-	private static final String format(final String pattern, final String parameter1)
+	private static final String format(final String pattern, final Object... parameters)
 	{
-		return MessageFormat.format(pattern, new Object[]{ parameter1 });
-	}
-
-	private static final String format(final String pattern, final String parameter1, final String parameter2)
-	{
-		return MessageFormat.format(pattern, new Object[]{ parameter1, parameter2 });
+		return MessageFormat.format(pattern, parameters);
 	}
 
 	private void writeInitialConstructor(final CopeType type)
@@ -395,12 +390,16 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeFeature(final CopeFeature feature)
+	private void writeFeature(final CopeFeature feature, final boolean firstStage)
 	throws InjectorParseException, IOException
 	{
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
 		{
+			// TODO remove
+			if(firstStage == (wrapper.getMethodName().equals("searchUnique")))
+				continue;
+			
 			final String modifierTag = wrapper.getModifier();
 			final Option option =
 				modifierTag!=null
@@ -424,12 +423,12 @@ final class Generator
 			
 			writeCommentHeader();
 			o.write("\t * ");
-			o.write(format(wrapper.getComment(), link(feature.name)));
+			o.write(format(wrapper.getComment(), link(feature.name), feature.name, lowerCamelCase(feature.parent.name)));
 			o.write(lineSeparator);
 			for(final String comment : wrapper.getComments())
 			{
 				o.write("\t * ");
-				o.write(comment);
+				o.write(format(comment, link(feature.name), feature.name, lowerCamelCase(feature.parent.name)));
 				o.write(lineSeparator);
 			}
 			final String modifierComment = wrapper.getModifierComment();
@@ -570,7 +569,6 @@ final class Generator
 	throws InjectorParseException, IOException
 	{
 		writeSetter(attribute);
-		writeUniqueFinder(attribute);
 	}
 	
 	private void writeSetter(final CopeFeature feature) throws IOException
@@ -632,57 +630,6 @@ final class Generator
 				o.write("\t}");
 			}
 		}
-	}
-	
-	private void writeUniqueFinder(final CopeAttribute attribute)
-	throws IOException, InjectorParseException
-	{
-		if(!attribute.isImplicitlyUnique())
-			return;
-		
-		final String className = attribute.getParent().name;
-		
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
-		o.write(lineSeparator);
-		o.write("\t * @param ");
-		o.write(attribute.name);
-		o.write(' ');
-		o.write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
-		o.write(lineSeparator);
-		o.write("\t * @return ");
-		o.write(FINDER_UNIQUE_RETURN);
-		o.write(lineSeparator);
-
-		writeCommentFooter();
-		writeModifier((attribute.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) );
-		o.write(className);
-		o.write(" findBy");
-		o.write(toCamelCase(attribute.name));
-		
-		o.write('(');
-		o.write(localFinal);
-		o.write(attribute.getBoxedType());
-		o.write(' ');
-		o.write(attribute.name);
-		o.write(')');
-		o.write(lineSeparator);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\treturn ");
-
-		o.write(attribute.parent.name);
-		o.write('.');
-		o.write(attribute.name);
-		o.write(".searchUnique(");
-		o.write(className);
-		o.write(".class,");
-		attribute.write(o);
-		
-		o.write(");");
-		o.write(lineSeparator);
-		o.write("\t}");
 	}
 	
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
@@ -1218,7 +1165,7 @@ final class Generator
 			
 			for(final CopeFeature feature : type.getFeatures())
 			{
-				writeFeature(feature);
+				writeFeature(feature, true);
 				if(feature instanceof CopeAttribute)
 					writeAccessMethods((CopeAttribute)feature);
 				else if(feature instanceof CopeUniqueConstraint)
@@ -1235,6 +1182,7 @@ final class Generator
 					; // is handled below
 				else
 					throw new RuntimeException(feature.getClass().getName());
+				writeFeature(feature, false);
 			}
 			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
 				writeQualifier(qualifier);
