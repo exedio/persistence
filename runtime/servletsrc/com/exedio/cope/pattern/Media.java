@@ -265,7 +265,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			addComment("@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException."). // TODO make an extra method for exceptions
 			setParameterName("body"));
 		
-				
+		result.add(new Wrapper(
+			void.class, "getBody", new Class[]{File.class},
+			"Writes the body of media {0} into the given file.",
+			null, null, // TODO
+			new Class[]{IOException.class},
+			"get{0}Body").
+			addComment("Does nothing, if the media is null.").
+			addComment("@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException."). // TODO make an extra method for exceptions
+			setParameterName("body"));
+		
 		return Collections.unmodifiableList(result);
 	}
 	

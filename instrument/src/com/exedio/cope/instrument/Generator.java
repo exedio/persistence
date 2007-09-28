@@ -89,8 +89,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_BODY_FILE    = "Writes the body of media {0} into the given file.";
-	private static final String GETTER_MEDIA_BODY_EXTRA = "Does nothing, if the media is null.";
 	private static final String GETTER_STREAM_WARNING  = "<b>You are responsible for closing the stream, when you are finished!</b>";
 	private static final String TOUCHER = "Sets the current date for the date field {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
@@ -600,45 +598,6 @@ final class Generator
 		writeGenerically(hash);
 	}
 	
-	private void writeMediaGetter(
-			final CopeMedia media,
-			final Class dataType,
-			final String commentPattern)
-	throws IOException
-	{
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(commentPattern, link(media.name)));
-		o.write(lineSeparator);
-		o.write("\t * ");
-		o.write(GETTER_MEDIA_BODY_EXTRA);
-		o.write(lineSeparator);
-		o.write("\t * @throws " + IO_EXCEPTION + ' ');
-		o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>body</tt>"));
-		o.write(lineSeparator);
-		writeCommentFooter();
-		writeModifier(media.getGeneratedGetterModifier());
-		o.write("void get");
-		o.write(toCamelCase(media.name));
-		o.write("Body(");
-		o.write(localFinal);
-		o.write(dataType.getName());
-		o.write(" body)");
-		o.write(lineSeparator);
-		final TreeSet<Class> setterExceptions = new TreeSet<Class>();
-		setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
-		writeThrowsClause(setterExceptions);
-		o.write("\t{");
-		o.write(lineSeparator);
-		o.write("\t\t");
-		o.write(media.parent.name);
-		o.write('.');
-		o.write(media.name);
-		o.write(".getBody(this,body);");
-		o.write(lineSeparator);
-		o.write("\t}");
-	}
-	
 	private void writeMediaSetter(final CopeMedia media, final Class dataType)
 	throws IOException
 	{
@@ -692,8 +651,6 @@ final class Generator
 		
 		if(instance instanceof Media)
 		{
-			writeMediaGetter(media, File.class,                        GETTER_MEDIA_BODY_FILE);
-	
 			if(media.setterOption.exists)
 			{
 				writeMediaSetter(media, byte.class);
