@@ -565,12 +565,6 @@ final class Generator
 			throw new RuntimeException(t.toString());
 	}
 	
-	private void writeAccessMethods(final CopeAttribute attribute)
-	throws InjectorParseException, IOException
-	{
-		writeSetter(attribute);
-	}
-	
 	private void writeSetter(final CopeFeature feature) throws IOException
 	{
 		final String type = feature.getBoxedType();
@@ -1167,7 +1161,7 @@ final class Generator
 			{
 				writeFeature(feature, true);
 				if(feature instanceof CopeAttribute)
-					writeAccessMethods((CopeAttribute)feature);
+					writeSetter(feature);
 				else if(feature instanceof CopeUniqueConstraint)
 					writeUniqueFinder((CopeUniqueConstraint)feature);
 				else if(feature instanceof CopeAttributeList)
