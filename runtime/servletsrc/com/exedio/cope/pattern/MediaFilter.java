@@ -53,8 +53,8 @@ public abstract class MediaFilter extends CachedMedia
 		final Wrapper isNull = new Wrapper(
 			String.class, "getURLWithFallbackToSource", null,
 			"Returns a URL the content of {0} is available under.", // TODO better text
-			null, null); // TODO
-		isNull.setMethodWrapperPattern("get{0}URLWithFallbackToSource");
+			null, null, // TODO
+			"get{0}URLWithFallbackToSource");
 		result.add(1, isNull);
 		
 		return Collections.unmodifiableList(result);

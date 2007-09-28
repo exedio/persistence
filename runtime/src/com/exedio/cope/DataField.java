@@ -134,8 +134,8 @@ public final class DataField extends Field<DataField.Value>
 			"cope.getter",
 			"It can be customized with the tag " +
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-				"in the comment of the field.");
-		getArray.setMethodWrapperPattern("get{0}Array");
+				"in the comment of the field.",
+			"get{0}Array");
 		result.add(getArray);
 		return Collections.unmodifiableList(result);
 	}

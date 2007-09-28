@@ -32,7 +32,7 @@ public final class Wrapper
 	private final String modifier;
 	private final String modifierComment;
 	private final Class[] throwsClause;
-	private String methodWrapperPattern = null;
+	private final String methodWrapperPattern;
 	
 	public Wrapper(
 			final Class methodReturnType,
@@ -49,6 +49,7 @@ public final class Wrapper
 		this.modifier = modifier;
 		this.modifierComment = modifierComment;
 		this.throwsClause = null;
+		this.methodWrapperPattern = null;
 	}
 
 	public Wrapper(
@@ -67,6 +68,26 @@ public final class Wrapper
 		this.modifier = modifier;
 		this.modifierComment = modifierComment;
 		this.throwsClause = throwsClause;
+		this.methodWrapperPattern = null;
+	}
+
+	public Wrapper(
+			final Class methodReturnType,
+			final String methodName,
+			final Class[] parameterTypes,
+			final String comment,
+			final String modifier,
+			final String modifierComment,
+			final String methodWrapperPattern)
+	{
+		this.methodReturnType = methodReturnType;
+		this.methodName = methodName;
+		this.parameterTypes = parameterTypes;
+		this.comment = comment;
+		this.modifier = modifier;
+		this.modifierComment = modifierComment;
+		this.throwsClause = null;
+		this.methodWrapperPattern = methodWrapperPattern;
 	}
 
 	public Class getMethodReturnType()
@@ -113,10 +134,5 @@ public final class Wrapper
 	public String getMethodWrapperPattern()
 	{
 		return methodWrapperPattern;
-	}
-
-	public void setMethodWrapperPattern(final String methodWrapperPattern)
-	{
-		this.methodWrapperPattern = methodWrapperPattern;
 	}
 }
