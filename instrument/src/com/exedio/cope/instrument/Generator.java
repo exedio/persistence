@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
@@ -90,7 +89,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_STREAM_WARNING  = "<b>You are responsible for closing the stream, when you are finished!</b>";
 	private static final String TOUCHER = "Sets the current date for the date field {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
@@ -445,16 +443,6 @@ final class Generator
 				o.write(comment);
 				o.write(lineSeparator);
 			}
-			for(final Class pt : parameterTypes)
-			{
-				if(InputStream.class.equals(pt))
-				{
-					o.write("\t * ");
-					o.write(GETTER_STREAM_WARNING);
-					o.write(lineSeparator);
-					break;
-				}
-			}
 			final String modifierComment = wrapper.getModifierComment();
 			writeCommentFooter(modifierComment);
 			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
@@ -664,7 +652,6 @@ final class Generator
 		{
 			if(media.setterOption.exists)
 			{
-				writeMediaSetter(media, InputStream.class);
 				writeMediaSetter(media, File.class);
 			}
 		}
