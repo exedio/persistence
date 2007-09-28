@@ -97,7 +97,6 @@ public abstract class MediaPath extends Pattern
 			null, null, // TODO
 			"get{0}ContentType"));
 		
-			
 		return Collections.unmodifiableList(result);
 	}
 	

@@ -56,7 +56,6 @@ public abstract class MediaFilter extends CachedMedia
 			null, null, // TODO
 			"get{0}URLWithFallbackToSource"));
 		
-		
 		return Collections.unmodifiableList(result);
 	}
 
