@@ -109,6 +109,10 @@ public final class Wrapper
 	
 	public Wrapper addParameter(final Class type, final String name)
 	{
+		if(type==null)
+			throw new NullPointerException("type must not be null");
+		// name can be null, then the feature name is used
+		
 		if(parameterTypes==null)
 		{
 			parameterTypes = new ArrayList<Class>();
