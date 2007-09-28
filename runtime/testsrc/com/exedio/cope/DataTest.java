@@ -80,7 +80,7 @@ public class DataTest extends AbstractLibTest
 		{
 			assertTrue(!item.isDataNull());
 			assertEquals(expectedData.length, item.getDataLength());
-			assertData(expectedData, item.getArrayData());
+			assertData(expectedData, item.getDataArray());
 
 			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
 			item.getData(tempStream);
@@ -97,7 +97,7 @@ public class DataTest extends AbstractLibTest
 		{
 			assertTrue(item.isDataNull());
 			assertEquals(-1, item.getDataLength());
-			assertEquals(null, item.getArrayData());
+			assertEquals(null, item.getDataArray());
 			
 			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
 			item.getData(tempStream);
@@ -274,7 +274,7 @@ public class DataTest extends AbstractLibTest
 		item.setData10(data6);
 		item.setData10(data8);
 		item.setData10(data10);
-		assertData(data10, item.getArrayData10());
+		assertData(data10, item.getData10Array());
 		
 		try
 		{
@@ -290,7 +290,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(true, e.isLengthExact());
 			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
 		}
-		assertData(data10, item.getArrayData10());
+		assertData(data10, item.getData10Array());
 		try
 		{
 			item.setData10(stream(data11));
@@ -305,7 +305,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(false, e.isLengthExact());
 			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for " + item.data10, e.getMessage());
 		}
-		assertData(data10, item.getArrayData10());
+		assertData(data10, item.getData10Array());
 		try
 		{
 			item.setData10(file(data11));
@@ -320,11 +320,11 @@ public class DataTest extends AbstractLibTest
 			assertEquals(true, e.isLengthExact());
 			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
 		}
-		assertData(data10, item.getArrayData10());
+		assertData(data10, item.getData10Array());
 
 		final DataField.Value value4 = DataField.toValue(data4);
 		item.setData(value4);
-		assertData(data4, item.getArrayData());
+		assertData(data4, item.getDataArray());
 		try
 		{
 			item.setData(value4);
@@ -342,23 +342,23 @@ public class DataTest extends AbstractLibTest
 				DataItem.data10.map(data10),
 				DataItem.name.map("eins")
 		);
-		assertData(data8, item.getArrayData());
-		assertData(data10, item.getArrayData10());
+		assertData(data8, item.getDataArray());
+		assertData(data10, item.getData10Array());
 		assertEquals("eins", item.getName());
 
 		item.set(
 				DataItem.data.map(data11),
 				DataItem.data10.map(data10)
 		);
-		assertData(data11, item.getArrayData());
-		assertData(data10, item.getArrayData10());
+		assertData(data11, item.getDataArray());
+		assertData(data10, item.getData10Array());
 		assertEquals("eins", item.getName());
 		
 		{
 			final DataItem item2 = new DataItem(data4, data10);
 			deleteOnTearDown(item2);
-			assertData(data4, item2.getArrayData());
-			assertData(data10, item2.getArrayData10());
+			assertData(data4, item2.getDataArray());
+			assertData(data10, item2.getData10Array());
 		}
 		{
 			final DataItem item3 = DataItem.TYPE.newItem(
@@ -366,11 +366,11 @@ public class DataTest extends AbstractLibTest
 					DataItem.data10.map(data10)
 			);
 			deleteOnTearDown(item3);
-			assertData(data6, item3.getArrayData());
-			assertData(data10, item3.getArrayData10());
+			assertData(data6, item3.getDataArray());
+			assertData(data10, item3.getData10Array());
 		}
 
-		assertData(data10, item.getArrayData10());
+		assertData(data10, item.getData10Array());
 		try
 		{
 			item.set(DataItem.data10.map(data11));
@@ -385,7 +385,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(true, e.isLengthExact());
 			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
 		}
-		assertData(data10, item.getArrayData10());
+		assertData(data10, item.getData10Array());
 
 		try
 		{
@@ -405,15 +405,15 @@ public class DataTest extends AbstractLibTest
 				DataItem.data.mapNull(),
 				DataItem.data10.mapNull()
 		);
-		assertNull(item.getArrayData());
-		assertNull(item.getArrayData10());
+		assertNull(item.getDataArray());
+		assertNull(item.getData10Array());
 	}
 	
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	public void testUnchecked()
 	{
 		item.data.set(item, data8);
-		assertData(data8, item.getArrayData());
+		assertData(data8, item.getDataArray());
 		try
 		{
 			item.set(
@@ -425,7 +425,7 @@ public class DataTest extends AbstractLibTest
 		{
 			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.String for " + item.data + '.', e.getMessage());
 		}
-		assertData(data8, item.getArrayData());
+		assertData(data8, item.getDataArray());
 		
 		try
 		{
@@ -438,6 +438,6 @@ public class DataTest extends AbstractLibTest
 		{
 			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.Integer for " + item.data + '.', e.getMessage());
 		}
-		assertData(data8, item.getArrayData());
+		assertData(data8, item.getDataArray());
 	}
 }

@@ -444,6 +444,8 @@ final class Generator
 			if(option!=null && !option.exists)
 				continue;
 
+			final String featureNameCamelCase = toCamelCase(feature.name);
+			
 			writeCommentHeader();
 			o.write("\t * ");
 			o.write(format(wrapper.getComment(), link(feature.name)));
@@ -454,13 +456,24 @@ final class Generator
 			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
 			o.write(isGet ? type : toString(methodReturnType));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
+			{
 				o.write(" is");
+				o.write(featureNameCamelCase);
+			}
 			else
 			{
 				o.write(' ');
-				o.write(methodName);
+				final String pattern = wrapper.getMethodWrapperPattern();
+				if(pattern!=null)
+				{
+					o.write(MessageFormat.format(pattern, featureNameCamelCase));
+				}
+				else
+				{
+					o.write(methodName);
+					o.write(featureNameCamelCase);
+				}
 			}
-			o.write(toCamelCase(feature.name));
 			if(option!=null)
 				o.write(option.suffix);
 			o.write('(');

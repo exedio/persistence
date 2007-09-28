@@ -128,13 +128,15 @@ public final class DataField extends Field<DataField.Value>
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
-		result.add(new Wrapper(
+		final Wrapper getArray = new Wrapper(
 			byte[].class, "getArray", null,
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
 			"It can be customized with the tag " +
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-				"in the comment of the field."));
+				"in the comment of the field.");
+		getArray.setMethodWrapperPattern("get{0}Array");
+		result.add(getArray);
 		return Collections.unmodifiableList(result);
 	}
 	

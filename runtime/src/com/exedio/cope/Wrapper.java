@@ -32,6 +32,7 @@ public final class Wrapper
 	private final String modifier;
 	private final String modifierComment;
 	private final Class[] throwsClause;
+	private String methodWrapperPattern = null;
 	
 	public Wrapper(
 			final Class methodReturnType,
@@ -107,5 +108,15 @@ public final class Wrapper
 			throwsClause!=null
 			? Collections.unmodifiableCollection(Arrays.asList(throwsClause))
 			: Collections.<Class>emptySet();
+	}
+
+	public String getMethodWrapperPattern()
+	{
+		return methodWrapperPattern;
+	}
+
+	public void setMethodWrapperPattern(final String methodWrapperPattern)
+	{
+		this.methodWrapperPattern = methodWrapperPattern;
 	}
 }
