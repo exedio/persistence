@@ -224,7 +224,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			result.add(MandatoryViolationException.class);
 		return result;
 	}
-
+	
+	private static final String IO_EXCEPTION_COMMENT = "@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException.";
+	
 	@Override
 	public List<Wrapper> getWrappers()
 	{
@@ -262,7 +264,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			new Class[]{IOException.class},
 			"get{0}Body").
 			addComment("Does nothing, if the media is null.").
-			addComment("@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException."). // TODO make an extra method for exceptions
+			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(OutputStream.class, "body"));
 		
 		result.add(new Wrapper(
@@ -272,7 +274,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			new Class[]{IOException.class},
 			"get{0}Body").
 			addComment("Does nothing, if the media is null.").
-			addComment("@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException."). // TODO make an extra method for exceptions
+			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(File.class, "body"));
 		
 		result.add(new Wrapper(
@@ -287,7 +289,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			"Sets the content of media {0}.",
 			"cope.setter", null, // TODO
 			new Class[]{IOException.class}).
-			addComment("@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException."). // TODO make an extra method for exceptions
+			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(InputStream.class, "body").
 			addParameter(String.class, "contentType"));
 		
@@ -296,7 +298,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			"Sets the content of media {0}.",
 			"cope.setter", null, // TODO
 			new Class[]{IOException.class}).
-			addComment("@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException."). // TODO make an extra method for exceptions
+			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(File.class, "body").
 			addParameter(String.class, "contentType"));
 		
