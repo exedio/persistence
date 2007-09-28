@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +32,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.zip.CRC32;
@@ -49,6 +49,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
+import com.exedio.cope.pattern.FieldList;
+import com.exedio.cope.pattern.FieldListLimited;
+import com.exedio.cope.pattern.FieldSet;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -420,10 +423,17 @@ final class Generator
 				continue;
 
 			final String methodName = wrapper.getMethodName();
-			final Class methodReturnType = wrapper.getMethodReturnType();
+			final java.lang.reflect.Type methodReturnType = wrapper.getMethodReturnType();
 			final List<Class> parameterTypes = wrapper.getParameterTypes();
 			final List<String> parameterNames = wrapper.getParameterNames(); 
 			final String featureNameCamelCase = toCamelCase(feature.name);
+			
+			// TODO remove
+			final int modifier =
+				FieldSet.class.isInstance(instance) ||
+				FieldList.class.isInstance(instance) ||
+				FieldListLimited.class.isInstance(instance)
+				? Modifier.PUBLIC : feature.modifier;
 			
 			writeCommentHeader();
 			o.write("\t * ");
@@ -437,7 +447,7 @@ final class Generator
 			}
 			final String modifierComment = wrapper.getModifierComment();
 			writeCommentFooter(modifierComment);
-			writeModifier(option!=null ? option.getModifier(feature.modifier) : (feature.modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
+			writeModifier(option!=null ? option.getModifier(modifier) : (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
 			o.write(toString(methodReturnType, feature));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
 			{
@@ -512,6 +522,35 @@ final class Generator
 			return Injector.getGenerics(feature.javaAttribute.type).get(0);
 		else
 			return c.getName();
+	}
+	
+	private static final String toString(final ParameterizedType t, final CopeFeature feature)
+	{
+		final StringBuffer bf = new StringBuffer(toString(t.getRawType(), feature));
+		bf.append('<');
+		boolean first = true;
+		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
+		{
+			bf.append(toString(a, feature));
+			
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+		}
+		bf.append('>');
+		
+		return bf.toString();
+	}
+	
+	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature)
+	{
+		if(t instanceof Class)
+			return toString((Class)t, feature);
+		else if(t instanceof ParameterizedType)
+			return toString((ParameterizedType)t, feature);
+		else
+			throw new RuntimeException(t.toString());
 	}
 	
 	private void writeAccessMethods(final CopeAttribute attribute)
@@ -868,33 +907,6 @@ final class Generator
 		final String type = list.getType();
 		final String name = list.name;
 		
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(MessageFormat.format(list.set?ATTIBUTE_SET_GETTER:ATTIBUTE_LIST_GETTER, link(name)));
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		o.write("public final "); // TODO: obey attribute visibility
-		o.write((list.set?Set.class:List.class).getName());
-		o.write('<');
-		o.write(type);
-		o.write("> get");
-		o.write(toCamelCase(list.name));
-		o.write("()");
-		o.write(lineSeparator);
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\treturn ");
-		o.write(list.parent.name);
-		o.write('.');
-		o.write(list.name);
-		o.write(".get(this);");
-		o.write(lineSeparator);
-
-		o.write("\t}");
-
 		writeCommentHeader();
 		o.write("\t * ");
 		o.write(MessageFormat.format(list.set?ATTIBUTE_SET_SETTER:ATTIBUTE_LIST_SETTER, link(name)));

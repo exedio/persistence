@@ -28,6 +28,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -38,6 +40,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.Wrapper;
 
 public final class FieldSet<E> extends Pattern
 {
@@ -96,6 +99,21 @@ public final class FieldSet<E> extends Pattern
 	{
 		assert relationType!=null;
 		return relationType;
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(new Wrapper(
+			ParameterizedTypeImpl.make(Set.class, new java.lang.reflect.Type[]{Wrapper.TypeVariable0.class}, null),
+			"get",
+			"Returns the contents of the field set {0}.",
+			null, null));
+		
+		return Collections.unmodifiableList(result);
 	}
 	
 	public Set<E> get(final Item item)

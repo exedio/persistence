@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
@@ -37,6 +39,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.Wrapper;
 
 public final class FieldListLimited<E> extends Pattern implements Settable<Collection<E>>
 {
@@ -122,6 +125,21 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	public List<FunctionField<E>> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(new Wrapper(
+			ParameterizedTypeImpl.make(List.class, new java.lang.reflect.Type[]{Wrapper.TypeVariable0.class}, null),
+			"get",
+			"Returns the contents of the field list {0}.",
+			null, null));
+		
+		return Collections.unmodifiableList(result);
 	}
 	
 	public boolean isInitial()

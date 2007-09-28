@@ -26,7 +26,7 @@ import java.util.List;
 
 public final class Wrapper
 {
-	private final Class methodReturnType;
+	private final java.lang.reflect.Type methodReturnType;
 	private final String methodName;
 	private ArrayList<Class> parameterTypes;
 	private ArrayList<String> parameterNames;
@@ -38,7 +38,7 @@ public final class Wrapper
 	private ArrayList<String> comments = null;
 	
 	public Wrapper(
-			final Class methodReturnType,
+			final java.lang.reflect.Type methodReturnType,
 			final String methodName,
 			final String comment,
 			final String modifier,
@@ -48,7 +48,7 @@ public final class Wrapper
 	}
 
 	public Wrapper(
-			final Class methodReturnType,
+			final java.lang.reflect.Type methodReturnType,
 			final String methodName,
 			final String comment,
 			final String modifier,
@@ -59,7 +59,7 @@ public final class Wrapper
 	}
 
 	public Wrapper(
-			final Class methodReturnType,
+			final java.lang.reflect.Type methodReturnType,
 			final String methodName,
 			final String comment,
 			final String modifier,
@@ -70,7 +70,7 @@ public final class Wrapper
 	}
 
 	public Wrapper(
-			final Class methodReturnType,
+			final java.lang.reflect.Type methodReturnType,
 			final String methodName,
 			final String comment,
 			final String modifier,
@@ -92,7 +92,7 @@ public final class Wrapper
 			throw new NullPointerException("comment must not be null");
 	}
 
-	public Class getMethodReturnType()
+	public java.lang.reflect.Type getMethodReturnType()
 	{
 		return methodReturnType;
 	}

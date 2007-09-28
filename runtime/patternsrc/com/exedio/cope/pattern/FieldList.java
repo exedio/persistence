@@ -18,10 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
@@ -33,6 +37,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.Wrapper;
 
 public final class FieldList<E> extends Pattern
 {
@@ -99,6 +104,21 @@ public final class FieldList<E> extends Pattern
 	{
 		assert relationType!=null;
 		return relationType;
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(new Wrapper(
+			ParameterizedTypeImpl.make(List.class, new java.lang.reflect.Type[]{Wrapper.TypeVariable0.class}, null),
+			"get",
+			"Returns the contents of the field list {0}.",
+			null, null));
+		
+		return Collections.unmodifiableList(result);
 	}
 	
 	public List<E> get(final Item item)
