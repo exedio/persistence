@@ -107,7 +107,7 @@ class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 */
 	static final UniqueHierarchySubItem findBySubField(final java.lang.String subField)
 	{
-		return (UniqueHierarchySubItem)UniqueHierarchySubItem.subField.searchUnique(subField);
+		return UniqueHierarchySubItem.subField.searchUnique(UniqueHierarchySubItem.class,subField);
 	}/**
 
 	 **

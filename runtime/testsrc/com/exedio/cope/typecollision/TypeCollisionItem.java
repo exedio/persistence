@@ -88,7 +88,7 @@ public class TypeCollisionItem extends Item
 	 */
 	static final TypeCollisionItem findByCode(final java.lang.String code)
 	{
-		return (TypeCollisionItem)TypeCollisionItem.code.searchUnique(code);
+		return TypeCollisionItem.code.searchUnique(TypeCollisionItem.class,code);
 	}/**
 
 	 **

@@ -86,7 +86,7 @@ public class CollisionItem2 extends Item
 	 */
 	public static final CollisionItem2 findByCollisionAttribute(final EmptyItem collisionAttribute)
 	{
-		return (CollisionItem2)CollisionItem2.collisionAttribute.searchUnique(collisionAttribute);
+		return CollisionItem2.collisionAttribute.searchUnique(CollisionItem2.class,collisionAttribute);
 	}/**
 
 	 **

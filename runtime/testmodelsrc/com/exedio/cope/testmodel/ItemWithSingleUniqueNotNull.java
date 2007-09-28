@@ -108,7 +108,7 @@ public class ItemWithSingleUniqueNotNull extends Item
 	 */
 	public static final ItemWithSingleUniqueNotNull findByUniqueNotNullString(final java.lang.String uniqueNotNullString)
 	{
-		return (ItemWithSingleUniqueNotNull)ItemWithSingleUniqueNotNull.uniqueNotNullString.searchUnique(uniqueNotNullString);
+		return ItemWithSingleUniqueNotNull.uniqueNotNullString.searchUnique(ItemWithSingleUniqueNotNull.class,uniqueNotNullString);
 	}/**
 
 	 **

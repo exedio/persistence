@@ -99,7 +99,7 @@ class NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem extends Ite
 	 */
 	static final NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem findByCode(final java.lang.String code)
 	{
-		return (NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem)NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code.searchUnique(code);
+		return NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code.searchUnique(NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.class,code);
 	}/**
 
 	 **

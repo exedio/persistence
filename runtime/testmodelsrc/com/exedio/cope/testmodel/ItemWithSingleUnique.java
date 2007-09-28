@@ -99,7 +99,7 @@ public class ItemWithSingleUnique extends Item
 	 */
 	public static final ItemWithSingleUnique findByUniqueString(final java.lang.String uniqueString)
 	{
-		return (ItemWithSingleUnique)ItemWithSingleUnique.uniqueString.searchUnique(uniqueString);
+		return ItemWithSingleUnique.uniqueString.searchUnique(ItemWithSingleUnique.class,uniqueString);
 	}/**
 
 	 **

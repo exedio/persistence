@@ -107,7 +107,7 @@ class HardJoinA1Item extends Item
 	 */
 	static final HardJoinA1Item findByCode(final java.lang.String code)
 	{
-		return (HardJoinA1Item)HardJoinA1Item.code.searchUnique(code);
+		return HardJoinA1Item.code.searchUnique(HardJoinA1Item.class,code);
 	}/**
 
 	 **

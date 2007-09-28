@@ -49,11 +49,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
-import com.exedio.cope.pattern.FieldList;
-import com.exedio.cope.pattern.FieldListLimited;
-import com.exedio.cope.pattern.FieldMap;
-import com.exedio.cope.pattern.FieldMapLimited;
-import com.exedio.cope.pattern.FieldSet;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -425,15 +420,7 @@ final class Generator
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifierOr = isStatic ? (Modifier.FINAL|Modifier.STATIC) : Modifier.FINAL;
-			
-			// TODO remove
-			final int modifier =
-				(FieldMap.class.isInstance(instance) && !methodName.equals("getParent")) ||
-				FieldMapLimited.class.isInstance(instance) ||
-				FieldSet.class.isInstance(instance) ||
-				FieldList.class.isInstance(instance) ||
-				FieldListLimited.class.isInstance(instance)
-				? Modifier.PUBLIC : feature.modifier;
+			final int modifier = feature.modifier;
 			
 			writeCommentHeader();
 			o.write("\t * ");
@@ -683,14 +670,14 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\treturn (");
-		o.write(className);
-		o.write(')');
+		o.write("\t\treturn ");
 
 		o.write(attribute.parent.name);
 		o.write('.');
 		o.write(attribute.name);
 		o.write(".searchUnique(");
+		o.write(className);
+		o.write(".class,");
 		attribute.write(o);
 		
 		o.write(");");
@@ -741,14 +728,14 @@ final class Generator
 		o.write(lineSeparator);
 		o.write("\t{");
 		o.write(lineSeparator);
-		o.write("\t\treturn (");
-		o.write(className);
-		o.write(')');
+		o.write("\t\treturn ");
 
 		o.write(attributes[0].parent.name);
 		o.write('.');
 		o.write(constraint.name);
 		o.write(".searchUnique(");
+		o.write(className);
+		o.write(".class,");
 		attributes[0].write(o);
 		for(int i = 1; i<attributes.length; i++)
 		{

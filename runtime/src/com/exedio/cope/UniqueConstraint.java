@@ -155,4 +155,23 @@ public final class UniqueConstraint extends Feature
 
 		return getType().searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
 	}
+	
+	/**
+	 * Finds an item by its unique fields.
+	 * @return null if there is no matching item.
+	 */
+	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
+	{
+		// TODO: search nativly for unique constraints
+		final List<FunctionField<?>> fields = getFields();
+		if(fields.size()!=values.length)
+			throw new RuntimeException("-"+fields.size()+'-'+values.length);
+
+		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
+		final Condition[] conditions = new Condition[fields.size()];
+		for(int j = 0; fieldIter.hasNext(); j++)
+			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
+
+		return getType().castType(typeClass).searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
+	}
 }

@@ -273,6 +273,16 @@ public abstract class FunctionField<E extends Object>
 		return getType().searchSingleton(equal(value));
 	}
 
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 */
+	public final <P extends Item> P searchUnique(final Class<P> typeClass, final E value)
+	{
+		// TODO: search nativly for unique constraints
+		return getType().castType(typeClass).searchSingleton(equal(value));
+	}
+
 	// convenience methods for conditions and views ---------------------------------
 	
 	public final IsNullCondition<E> isNull()

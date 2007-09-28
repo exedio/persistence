@@ -105,7 +105,7 @@ class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	 */
 	static final NameLongNameLongNameLongNameLongNameLongNameLongItem findByCode(final java.lang.String code)
 	{
-		return (NameLongNameLongNameLongNameLongNameLongNameLongItem)NameLongNameLongNameLongNameLongNameLongNameLongItem.code.searchUnique(code);
+		return NameLongNameLongNameLongNameLongNameLongNameLongItem.code.searchUnique(NameLongNameLongNameLongNameLongNameLongNameLongItem.class,code);
 	}/**
 
 	 **
@@ -139,7 +139,7 @@ class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	 */
 	static final NameLongNameLongNameLongNameLongNameLongNameLongItem findByCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 	{
-		return (NameLongNameLongNameLongNameLongNameLongNameLongItem)NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.searchUnique(codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
+		return NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.searchUnique(NameLongNameLongNameLongNameLongNameLongNameLongItem.class,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
 	}/**
 
 	 **

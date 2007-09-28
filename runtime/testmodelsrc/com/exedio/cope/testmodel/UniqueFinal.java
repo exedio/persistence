@@ -92,7 +92,7 @@ public class UniqueFinal extends Item
 	 */
 	public static final UniqueFinal findByUniqueFinalString(final java.lang.String uniqueFinalString)
 	{
-		return (UniqueFinal)UniqueFinal.uniqueFinalString.searchUnique(uniqueFinalString);
+		return UniqueFinal.uniqueFinalString.searchUnique(UniqueFinal.class,uniqueFinalString);
 	}/**
 
 	 **

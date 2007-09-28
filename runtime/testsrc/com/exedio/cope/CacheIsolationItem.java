@@ -97,7 +97,7 @@ class CacheIsolationItem extends Item
 	 */
 	static final CacheIsolationItem findByUniqueString(final java.lang.String uniqueString)
 	{
-		return (CacheIsolationItem)CacheIsolationItem.uniqueString.searchUnique(uniqueString);
+		return CacheIsolationItem.uniqueString.searchUnique(CacheIsolationItem.class,uniqueString);
 	}/**
 
 	 **

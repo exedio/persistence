@@ -105,7 +105,7 @@ public class RelationSourceItem extends Item
 	 */
 	static final RelationSourceItem findByCode(final java.lang.String code)
 	{
-		return (RelationSourceItem)RelationSourceItem.code.searchUnique(code);
+		return RelationSourceItem.code.searchUnique(RelationSourceItem.class,code);
 	}/**
 
 	 **

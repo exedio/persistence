@@ -90,7 +90,7 @@ class InstanceOfAItem extends Item
 	 */
 	static final InstanceOfAItem findByCode(final java.lang.String code)
 	{
-		return (InstanceOfAItem)InstanceOfAItem.code.searchUnique(code);
+		return InstanceOfAItem.code.searchUnique(InstanceOfAItem.class,code);
 	}/**
 
 	 **

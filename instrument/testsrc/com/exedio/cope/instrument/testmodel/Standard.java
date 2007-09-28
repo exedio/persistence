@@ -340,7 +340,7 @@ public class Standard extends Item
 	 */
 	public static final Standard findByUniqueString(final java.lang.String uniqueString)
 	{
-		return (Standard)Standard.uniqueString.searchUnique(uniqueString);
+		return Standard.uniqueString.searchUnique(Standard.class,uniqueString);
 	}/**
 
 	 **
@@ -908,7 +908,7 @@ public class Standard extends Item
 	 */
 	public static final Standard findByDoubleUnique(final java.lang.String doubleUnique1,final java.lang.Integer doubleUnique2)
 	{
-		return (Standard)Standard.doubleUnique.searchUnique(doubleUnique1,doubleUnique2);
+		return Standard.doubleUnique.searchUnique(Standard.class,doubleUnique1,doubleUnique2);
 	}/**
 
 	 **

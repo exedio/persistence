@@ -113,7 +113,7 @@ class InstanceOfRefItem extends Item
 	 */
 	static final InstanceOfRefItem findByCode(final java.lang.String code)
 	{
-		return (InstanceOfRefItem)InstanceOfRefItem.code.searchUnique(code);
+		return InstanceOfRefItem.code.searchUnique(InstanceOfRefItem.class,code);
 	}/**
 
 	 **

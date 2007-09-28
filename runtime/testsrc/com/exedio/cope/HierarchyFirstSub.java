@@ -102,7 +102,7 @@ public class HierarchyFirstSub extends HierarchySuper
 	 */
 	public static final HierarchyFirstSub findByFirstSubString(final java.lang.String firstSubString)
 	{
-		return (HierarchyFirstSub)HierarchyFirstSub.firstSubString.searchUnique(firstSubString);
+		return HierarchyFirstSub.firstSubString.searchUnique(HierarchyFirstSub.class,firstSubString);
 	}/**
 
 	 **
