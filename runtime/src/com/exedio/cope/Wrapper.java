@@ -159,11 +159,13 @@ public final class Wrapper
 		return methodWrapperPattern;
 	}
 	
-	public void addComment(final String comment)
+	public Wrapper addComment(final String comment)
 	{
 		if(comments==null)
 			comments = new ArrayList<String>();
 		comments.add(comment);
+
+		return this;
 	}
 	
 	public List<String> getComments()
@@ -179,8 +181,10 @@ public final class Wrapper
 		return parameterName;
 	}
 
-	public void setParameterName(final String parameterName)
+	public Wrapper setParameterName(final String parameterName)
 	{
 		this.parameterName = parameterName;
+
+		return this;
 	}
 }
