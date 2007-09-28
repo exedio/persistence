@@ -28,6 +28,7 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class Wrapper
 {
+	private boolean isStatic = false;
 	private final java.lang.reflect.Type methodReturnType;
 	private final String methodName;
 	private ArrayList<Class> parameterTypes;
@@ -92,6 +93,18 @@ public final class Wrapper
 			throw new NullPointerException("methodReturnType must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
+	}
+	
+	public Wrapper setStatic()
+	{
+		isStatic = true;
+		
+		return this;
+	}
+	
+	public boolean isStatic()
+	{
+		return isStatic;
 	}
 
 	public java.lang.reflect.Type getMethodReturnType()
@@ -190,6 +203,7 @@ public final class Wrapper
 			: Collections.<String>emptyList();
 	}
 	
+	public class ClassVariable { /* OK, just a placeholder */ };
 	public class TypeVariable0 { /* OK, just a placeholder */ };
 	public class TypeVariable1 { /* OK, just a placeholder */ };
 	

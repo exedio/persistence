@@ -423,10 +423,12 @@ final class Generator
 			final List<Class> parameterTypes = wrapper.getParameterTypes();
 			final List<String> parameterNames = wrapper.getParameterNames(); 
 			final String featureNameCamelCase = toCamelCase(feature.name);
+			final boolean isStatic = wrapper.isStatic();
+			final int modifierOr = isStatic ? (Modifier.FINAL|Modifier.STATIC) : Modifier.FINAL;
 			
 			// TODO remove
 			final int modifier =
-				FieldMap.class.isInstance(instance) ||
+				(FieldMap.class.isInstance(instance) && !methodName.equals("getParent")) ||
 				FieldMapLimited.class.isInstance(instance) ||
 				FieldSet.class.isInstance(instance) ||
 				FieldList.class.isInstance(instance) ||
@@ -445,7 +447,7 @@ final class Generator
 			}
 			final String modifierComment = wrapper.getModifierComment();
 			writeCommentFooter(modifierComment);
-			writeModifier(option!=null ? option.getModifier(modifier) : (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL);
+			writeModifier(option!=null ? option.getModifier(modifier) : (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | modifierOr);
 			o.write(toString(methodReturnType, feature));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
 			{
@@ -458,7 +460,7 @@ final class Generator
 				final String pattern = wrapper.getMethodWrapperPattern();
 				if(pattern!=null)
 				{
-					o.write(MessageFormat.format(pattern, featureNameCamelCase));
+					o.write(MessageFormat.format(pattern, featureNameCamelCase, feature.name));
 				}
 				else
 				{
@@ -499,11 +501,27 @@ final class Generator
 			o.write(feature.name);
 			o.write('.');
 			o.write(methodName);
-			o.write("(this");
+			o.write('(');
+			writtenParameterI = 0;
+			if(!isStatic)
+			{
+				writtenParameterI++;
+				o.write("this");
+			}
 			for(final String name : parameterNames)
 			{
-				o.write(',');
+				if(writtenParameterI++!=0)
+					o.write(',');
+				
 				o.write(name!=null ? name : feature.name);
+			}
+			if(isStatic)
+			{
+				if(writtenParameterI++!=0)
+					o.write(',');
+				
+				o.write(feature.parent.name);
+				o.write(".class");
 			}
 			o.write(')');
 			o.write(';');
@@ -516,6 +534,8 @@ final class Generator
 	{
 		if(c.isArray())
 			return c.getComponentType().getName() + "[]";
+		else if(Wrapper.ClassVariable.class.equals(c))
+			return feature.parent.name;
 		else if(Wrapper.TypeVariable0.class.equals(c))
 			return Injector.getGenerics(feature.javaAttribute.type).get(0);
 		else if(Wrapper.TypeVariable1.class.equals(c))
@@ -949,12 +969,6 @@ final class Generator
 			writeParent(list);
 	}
 	
-	private void write(final CopeAttributeMap map) throws IOException
-	{
-		if(map.hasParent)
-			writeParent(map);
-	}
-	
 	private void writeParent(final CopeFeature f) throws IOException
 	{
 		if(true) // TODO SOON parent option
@@ -1219,7 +1233,7 @@ final class Generator
 				else if(feature instanceof CopeAttributeList)
 					write((CopeAttributeList)feature);
 				else if(feature instanceof CopeAttributeMap)
-					write((CopeAttributeMap)feature);
+					; // TODO remove CopeAttributeMap
 				else if(feature instanceof CopeMedia)
 					; // TODO remove CopeMedia
 				else if(feature instanceof CopeHash)

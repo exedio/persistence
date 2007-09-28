@@ -124,6 +124,13 @@ public final class FieldMap<K,V> extends Pattern
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
 			addParameter(Wrapper.TypeVariable1.class));
 		
+		result.add(new Wrapper(
+			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
+			"Returns the parent field of the type of {0}.",
+			null, null,
+			"{1}Parent").
+			setStatic());
+			
 		return Collections.unmodifiableList(result);
 	}
 	
