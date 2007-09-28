@@ -429,6 +429,7 @@ final class Generator
 		{
 			final String methodName = wrapper.getMethodName();
 			final Class methodReturnType = wrapper.getMethodReturnType();
+			final List<Class> parameterTypes = wrapper.getParameterTypes();
 			final boolean isGet = methodName.equals("get");
 			
 			final String modifierTag = wrapper.getModifier();
@@ -464,7 +465,7 @@ final class Generator
 				o.write(option.suffix);
 			o.write('(');
 			int writtenParameterI = 0;
-			for(final Class parameter : wrapper.getParameterTypes())
+			for(final Class parameter : parameterTypes)
 			{
 				o.write(localFinal);
 				o.write(parameter.getName());
@@ -477,9 +478,9 @@ final class Generator
 			o.write(')');
 			o.write(lineSeparator);
 			{
-					final SortedSet<Class> exceptions = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
-					exceptions.addAll(wrapper.getThrowsClause());
-					writeThrowsClause(exceptions);
+				final SortedSet<Class> exceptions = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
+				exceptions.addAll(wrapper.getThrowsClause());
+				writeThrowsClause(exceptions);
 			}
 			o.write("\t{");
 			o.write(lineSeparator);
@@ -494,7 +495,7 @@ final class Generator
 			if(feature.isBoxed())
 				o.write("Mandatory");
 			o.write("(this");
-			for(int i = 0; i<wrapper.getParameterTypes().size(); i++)
+			for(int i = 0; i<parameterTypes.size(); i++)
 			{
 				o.write(',');
 				o.write(feature.name);
