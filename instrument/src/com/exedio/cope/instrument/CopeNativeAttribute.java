@@ -124,16 +124,6 @@ final class CopeNativeAttribute extends CopeAttribute
 	@Override
 	void write(final Writer o) throws IOException
 	{
-		final boolean boxed = isBoxed();
-		if(boxed)
-		{
-			o.write(getPersistentType(typeClass));
-			o.write(".valueOf(");
-		}
-		
 		o.write(name);
-		
-		if(boxed)
-			o.write(')');
 	}
 }

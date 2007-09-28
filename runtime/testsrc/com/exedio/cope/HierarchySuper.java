@@ -104,7 +104,7 @@ public abstract class HierarchySuper extends Item
 	 */
 	public static final HierarchySuper findBySuperInt(final int superInt)
 	{
-		return HierarchySuper.superInt.searchUnique(HierarchySuper.class,java.lang.Integer.valueOf(superInt));
+		return HierarchySuper.superInt.searchUnique(HierarchySuper.class,superInt);
 	}/**
 
 	 **
