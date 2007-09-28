@@ -19,7 +19,10 @@
 package com.exedio.cope.pattern;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Wrapper;
 
 public abstract class MediaPath extends Pattern
 {
@@ -73,6 +77,24 @@ public abstract class MediaPath extends Pattern
 		contentTypeToExtension.put("application/java-archive", ".jar");
 	}
 
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+
+		final Wrapper isNull = new Wrapper(
+			String.class, "getURL", null,
+			this instanceof Media // TODO
+			? "Returns a URL the content of the media {0} is available under."
+			: "Returns a URL the content of {0} is available under.", // TODO better text
+			null, null); // TODO
+		isNull.setMethodWrapperPattern("get{0}URL");
+		result.add(isNull);
+		
+		return Collections.unmodifiableList(result);
+	}
+	
 	/**
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.

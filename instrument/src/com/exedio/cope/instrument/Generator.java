@@ -91,7 +91,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_URL          = "Returns a URL the content of the media {0} is available under.";
 	private static final String GETTER_MEDIA_PATH_URL     = "Returns a URL the content of {0} is available under.";
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
 	private static final String GETTER_MEDIA_LENGTH = "Returns the body length of the media {0}.";
@@ -729,7 +728,6 @@ final class Generator
 		
 		writeGenerically(media);
 		
-		writeMediaGetter(media, String.class,      "URL",          (instance instanceof Media) ? GETTER_MEDIA_URL : GETTER_MEDIA_PATH_URL);
 		if(instance instanceof MediaFilter)
 			writeMediaGetter(media, String.class,      "URLWithFallbackToSource", GETTER_MEDIA_PATH_URL);
 		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
