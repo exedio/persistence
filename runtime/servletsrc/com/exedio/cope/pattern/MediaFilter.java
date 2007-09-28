@@ -18,9 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.Wrapper;
 
 public abstract class MediaFilter extends CachedMedia
 {
@@ -39,6 +43,22 @@ public abstract class MediaFilter extends CachedMedia
 	}
 
 	public abstract Set<String> getSupportedSourceContentTypes();
+
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+
+		final Wrapper isNull = new Wrapper(
+			String.class, "getURLWithFallbackToSource", null,
+			"Returns a URL the content of {0} is available under.", // TODO better text
+			null, null); // TODO
+		isNull.setMethodWrapperPattern("get{0}URLWithFallbackToSource");
+		result.add(isNull);
+		
+		return Collections.unmodifiableList(result);
+	}
 
 	@Override
 	public final long getLastModified(final Item item)

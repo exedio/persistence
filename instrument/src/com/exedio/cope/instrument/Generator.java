@@ -52,7 +52,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
@@ -91,7 +90,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_PATH_URL     = "Returns a URL the content of {0} is available under.";
 	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
 	private static final String GETTER_MEDIA_LENGTH = "Returns the body length of the media {0}.";
 	private static final String GETTER_MEDIA_LASTMODIFIED = "Returns the last modification date of media {0}.";
@@ -728,8 +726,6 @@ final class Generator
 		
 		writeGenerically(media);
 		
-		if(instance instanceof MediaFilter)
-			writeMediaGetter(media, String.class,      "URLWithFallbackToSource", GETTER_MEDIA_PATH_URL);
 		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
 		
 		if(instance instanceof Media)
