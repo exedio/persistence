@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -50,8 +49,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
-import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -87,8 +84,6 @@ final class Generator
 	private static final String SETTER_CUSTOMIZE = "It can be customized with the tag " +
 																  "<tt>@" + CopeFeature.TAG_SETTER + " public|package|protected|private|none|non-final</tt> " +
 																  "in the comment of the field.";
-	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
-	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
 	private static final String TOUCHER = "Sets the current date for the date field {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
@@ -597,64 +592,10 @@ final class Generator
 		writeGenerically(hash);
 	}
 	
-	private void writeMediaSetter(final CopeMedia media, final Class dataType)
-	throws IOException
-	{
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(format(SETTER_MEDIA, link(media.name)));
-		o.write(lineSeparator);
-		if(dataType!=byte.class)
-		{
-			o.write("\t * @throws " + IO_EXCEPTION + ' ');
-			o.write(format(SETTER_MEDIA_IOEXCEPTION, "<tt>body</tt>"));
-			o.write(lineSeparator);
-		}
-		writeCommentFooter();
-		writeModifier(media.getGeneratedSetterModifier());
-		o.write("void set");
-		o.write(toCamelCase(media.name));
-		o.write('(');
-		o.write(localFinal);
-		o.write(dataType.getName());
-		if(dataType==byte.class)
-			o.write("[]");
-		o.write(" body,");
-		o.write(localFinal);
-		o.write(STRING + " contentType)");
-		o.write(lineSeparator);
-		if(dataType!=byte.class)
-		{
-			final SortedSet<Class> setterExceptions = new TreeSet<Class>();
-			setterExceptions.addAll(Arrays.asList(new Class[]{IOException.class})); // TODO
-			writeThrowsClause(setterExceptions);
-		}
-		o.write("\t{");
-		o.write(lineSeparator);
-		
-		o.write("\t\t");
-		o.write(media.parent.name);
-		o.write('.');
-		o.write(media.name);
-		o.write(".set(this,body,contentType);");
-		o.write(lineSeparator);
-		o.write("\t}");
-	}
-	
 	private void writeMedia(final CopeMedia media)
 	throws IOException
 	{
-		final MediaPath instance = (MediaPath)media.getInstance();
-		
 		writeGenerically(media);
-		
-		if(instance instanceof Media)
-		{
-			if(media.setterOption.exists)
-			{
-				writeMediaSetter(media, File.class);
-			}
-		}
 	}
 	
 	private void writeUniqueFinder(final CopeAttribute attribute)
