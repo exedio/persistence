@@ -149,12 +149,13 @@ public abstract class FunctionField<E extends Object>
 		final Class wrapperValueClass = getWrapperValueClass();
 		
 		result.add(new Wrapper(
-			wrapperValueClass, "get",
+			wrapperValueClass, wrapperValueClass.isPrimitive() ? "getMandatory" : "get",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
 			"It can be customized with the tag " +
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-				"in the comment of the field."));
+				"in the comment of the field.",
+			"get{0}"));
 		
 		return Collections.unmodifiableList(result);
 	}

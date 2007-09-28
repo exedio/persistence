@@ -491,8 +491,6 @@ final class Generator
 			o.write(feature.name);
 			o.write('.');
 			o.write(methodName);
-			if(feature.isBoxed())
-				o.write("Mandatory");
 			o.write("(this");
 			for(final String name : parameterNames)
 			{
