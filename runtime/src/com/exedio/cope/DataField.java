@@ -30,6 +30,7 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public final class DataField extends Field<DataField.Value>
 {
@@ -138,6 +139,22 @@ public final class DataField extends Field<DataField.Value>
 				"in the comment of the field.",
 			"get{0}Array"));
 		
+		if(!isfinal)
+		{
+			final Set<Class> exceptions = getSetterExceptions();
+			
+			result.add(new Wrapper(
+				void.class, "set",
+				"Sets a new value for the persistent field {0}.", // TODO better text
+				"cope.setter",
+				"It can be customized with the tag " +
+					"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
+					"in the comment of the field.",
+				exceptions.toArray(new Class[exceptions.size()]),
+				"set{0}").
+				addParameter(byte[].class));
+		}
+			
 		return Collections.unmodifiableList(result);
 	}
 	

@@ -78,10 +78,6 @@ final class Generator
 																					"<tt>@" + CopeType.TAG_GENERIC_CONSTRUCTOR + " public|package|protected|private|none</tt> " +
 																					"in the class comment.";
 	private static final String CONSTRUCTOR_REACTIVATION = "Reactivation constructor. Used for internal purposes only.";
-	private static final String SETTER = "Sets a new value for the persistent field {0}.";
-	private static final String SETTER_CUSTOMIZE = "It can be customized with the tag " +
-																  "<tt>@" + CopeFeature.TAG_SETTER + " public|package|protected|private|none|non-final</tt> " +
-																  "in the comment of the field.";
 	private static final String TOUCHER = "Sets the current date for the date field {0}.";
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
@@ -567,38 +563,8 @@ final class Generator
 	
 	private void writeSetter(final CopeFeature feature) throws IOException
 	{
-		final String type = feature.getBoxedType();
 		if(feature.hasGeneratedSetter())
 		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(format(SETTER, link(feature.name)));
-			o.write(lineSeparator);
-			writeCommentFooter(SETTER_CUSTOMIZE);
-			writeModifier(feature.getGeneratedSetterModifier());
-			o.write("void set");
-			o.write(toCamelCase(feature.name));
-			o.write(feature.setterOption.suffix);
-			o.write('(');
-			o.write(localFinal);
-			o.write(type);
-			o.write(' ');
-			o.write(feature.name);
-			o.write(')');
-			o.write(lineSeparator);
-			writeThrowsClause(feature.getSetterExceptions());
-			o.write("\t{");
-			o.write(lineSeparator);
-			o.write("\t\t");
-			o.write(feature.parent.name);
-			o.write('.');
-			o.write(feature.name);
-			o.write(".set(this,");
-			o.write(feature.name);
-			o.write(");");
-			o.write(lineSeparator);
-			o.write("\t}");
-			
 			// touch for date attributes
 			if(feature.isTouchable())
 			{

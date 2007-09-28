@@ -157,6 +157,24 @@ public abstract class FunctionField<E extends Object>
 				"in the comment of the field.",
 			"get{0}"));
 		
+		if(!isfinal)
+		{
+			final Set<Class> exceptions = getSetterExceptions();
+			if(wrapperValueClass.isPrimitive())
+				exceptions.remove(MandatoryViolationException.class);
+			
+			result.add(new Wrapper(
+				void.class, "set",
+				"Sets a new value for the persistent field {0}.", // TODO better text
+				"cope.setter",
+				"It can be customized with the tag " +
+					"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
+					"in the comment of the field.",
+				exceptions.toArray(new Class[exceptions.size()]),
+				"set{0}").
+				addParameter(wrapperValueClass));
+		}
+			
 		if(implicitUniqueConstraint!=null)
 			result.add(new Wrapper(
 				Wrapper.ClassVariable.class, "searchUnique",
