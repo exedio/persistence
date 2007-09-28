@@ -117,6 +117,13 @@ public final class FieldMap<K,V> extends Pattern
 			null, null).
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
 		
+		result.add(new Wrapper(
+			void.class, "set",
+			"Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.",
+			null, null).
+			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
+			addParameter(Wrapper.TypeVariable1.class));
+		
 		return Collections.unmodifiableList(result);
 	}
 	

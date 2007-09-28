@@ -67,8 +67,6 @@ final class Generator
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String REACTIVATION = ReactivationConstructorDummy.class.getName();
 	
-	private static final char ATTRIBUTE_MAP_KEY = 'k';
-	
 	private static final String THROWS_MANDATORY = "if {0} is null.";
 	private static final String THROWS_UNIQUE    = "if {0} is not unique.";
 	private static final String THROWS_RANGE     = "if {0} violates its range constraint.";
@@ -98,7 +96,6 @@ final class Generator
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
 	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the field list {0}.";
 	private static final String ATTIBUTE_SET_SETTER = "Sets the contents of the field set {0}.";
-	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the field map {0}.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
@@ -954,41 +951,6 @@ final class Generator
 	
 	private void write(final CopeAttributeMap map) throws IOException
 	{
-		if(true) // TODO SOON setter option
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(MessageFormat.format(ATTIBUTE_MAP_SETTER, link(map.name)));
-			o.write(lineSeparator);
-			writeCommentFooter();
-	
-			o.write("public final "); // TODO SOON setter option
-			o.write("void set");
-			o.write(toCamelCase(map.name));
-			o.write('(');
-			o.write(localFinal);
-			o.write(map.getKeyType());
-			o.write(" " + ATTRIBUTE_MAP_KEY + ',');
-			o.write(localFinal);
-			o.write(map.getValueType());
-			o.write(' ');
-			o.write(map.name);
-			o.write(')');
-			o.write(lineSeparator);
-			
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\t");
-			o.write(map.parent.name);
-			o.write('.');
-			o.write(map.name);
-			o.write(".set(this," + ATTRIBUTE_MAP_KEY + ',');
-			o.write(map.name);
-			o.write(");");
-			o.write(lineSeparator);
-			o.write("\t}");
-		}
 		if(map.hasParent)
 			writeParent(map);
 	}

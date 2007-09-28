@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-
 final class CopeAttributeMap extends CopeFeature
 {
 	final boolean hasParent;
@@ -39,15 +38,5 @@ final class CopeAttributeMap extends CopeFeature
 	String getBoxedType()
 	{
 		throw new RuntimeException();
-	}
-	
-	String getKeyType()
-	{
-		return Injector.getGenerics(javaAttribute.type).get(0);
-	}
-	
-	String getValueType()
-	{
-		return Injector.getGenerics(javaAttribute.type).get(1);
 	}
 }
