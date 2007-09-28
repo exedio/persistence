@@ -170,6 +170,9 @@ public final class Wrapper
 	
 	public Wrapper addComment(final String comment)
 	{
+		if(comment==null)
+			throw new NullPointerException("comment must not be null");
+		
 		if(comments==null)
 			comments = new ArrayList<String>();
 		comments.add(comment);
