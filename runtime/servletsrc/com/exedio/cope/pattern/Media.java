@@ -231,27 +231,24 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
-		final Wrapper isNull = new Wrapper(
+		result.add(0/*TODO*/, new Wrapper(
 			boolean.class, "isNull", null,
 			"Returns whether media {0} is null.", // TODO better text
 			null, null, // TODO
-			"is{0}Null");
-		result.add(0/*TODO*/, isNull);
+			"is{0}Null"));
 		
-		final Wrapper getLastModified = new Wrapper(
+		result.add(new Wrapper(
 			long.class, "getLastModified", null,
 			"Returns the last modification date of media {0}.",
 			null, null, // TODO
-			"get{0}LastModified");
-		result.add(getLastModified);
+			"get{0}LastModified"));
 		
-		final Wrapper getLength = new Wrapper(
+		result.add(new Wrapper(
 			long.class, "getLength", null,
 			"Returns the body length of the media {0}.",
 			null, null, // TODO
-			"get{0}Length");
-		result.add(getLength);
-			
+			"get{0}Length"));
+		
 		return Collections.unmodifiableList(result);
 	}
 	
