@@ -505,7 +505,17 @@ final class Generator
 			o.write(methodName);
 			o.write('(');
 			first = true;
-			if(!isStatic)
+			if(isStatic)
+			{
+				if(first)
+					first = false;
+				else
+					o.write(',');
+				
+				o.write(feature.parent.name);
+				o.write(".class");
+			}
+			else
 			{
 				first = false;
 				o.write("this");
@@ -518,16 +528,6 @@ final class Generator
 					o.write(',');
 				
 				o.write(name!=null ? name : feature.name);
-			}
-			if(isStatic)
-			{
-				if(first)
-					first = false;
-				else
-					o.write(',');
-				
-				o.write(feature.parent.name);
-				o.write(".class");
 			}
 			o.write(')');
 			o.write(';');
