@@ -92,6 +92,13 @@ public abstract class MediaPath extends Pattern
 		isNull.setMethodWrapperPattern("get{0}URL");
 		result.add(isNull);
 		
+		final Wrapper getContentType = new Wrapper(
+			String.class, "getContentType", null,
+			"Returns the content type of the media {0}.",
+			null, null); // TODO
+		getContentType.setMethodWrapperPattern("get{0}ContentType");
+		result.add(getContentType);
+			
 		return Collections.unmodifiableList(result);
 	}
 	

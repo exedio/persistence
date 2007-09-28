@@ -90,7 +90,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_CONTENT_TYPE = "Returns the content type of the media {0}.";
 	private static final String GETTER_MEDIA_LENGTH = "Returns the body length of the media {0}.";
 	private static final String GETTER_MEDIA_LASTMODIFIED = "Returns the last modification date of media {0}.";
 	private static final String GETTER_MEDIA_BODY_BYTE    = "Returns the body of the media {0}.";
@@ -725,8 +724,6 @@ final class Generator
 		final MediaPath instance = (MediaPath)media.getInstance();
 		
 		writeGenerically(media);
-		
-		writeMediaGetter(media, String.class,      "ContentType",  GETTER_MEDIA_CONTENT_TYPE);
 		
 		if(instance instanceof Media)
 		{

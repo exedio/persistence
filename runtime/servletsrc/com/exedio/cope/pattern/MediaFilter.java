@@ -55,7 +55,7 @@ public abstract class MediaFilter extends CachedMedia
 			"Returns a URL the content of {0} is available under.", // TODO better text
 			null, null); // TODO
 		isNull.setMethodWrapperPattern("get{0}URLWithFallbackToSource");
-		result.add(isNull);
+		result.add(1, isNull);
 		
 		return Collections.unmodifiableList(result);
 	}
