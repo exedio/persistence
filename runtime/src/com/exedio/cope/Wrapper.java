@@ -44,18 +44,7 @@ public final class Wrapper
 			final String modifier,
 			final String modifierComment)
 	{
-		this.methodReturnType = methodReturnType;
-		this.methodName = methodName;
-		this.comment = comment;
-		this.modifier = modifier;
-		this.modifierComment = modifierComment;
-		this.throwsClause = null;
-		this.methodWrapperPattern = null;
-		
-		if(methodReturnType==null)
-			throw new NullPointerException("methodReturnType must not be null");
-		if(comment==null)
-			throw new NullPointerException("comment must not be null");
+		this(methodReturnType, methodName, comment, modifier, modifierComment, null, null);
 	}
 
 	public Wrapper(
@@ -66,18 +55,7 @@ public final class Wrapper
 			final String modifierComment,
 			final Class[] throwsClause)
 	{
-		this.methodReturnType = methodReturnType;
-		this.methodName = methodName;
-		this.comment = comment;
-		this.modifier = modifier;
-		this.modifierComment = modifierComment;
-		this.throwsClause = throwsClause;
-		this.methodWrapperPattern = null;
-		
-		if(methodReturnType==null)
-			throw new NullPointerException("methodReturnType must not be null");
-		if(comment==null)
-			throw new NullPointerException("comment must not be null");
+		this(methodReturnType, methodName, comment, modifier, modifierComment, throwsClause, null);
 	}
 
 	public Wrapper(
@@ -88,18 +66,7 @@ public final class Wrapper
 			final String modifierComment,
 			final String methodWrapperPattern)
 	{
-		this.methodReturnType = methodReturnType;
-		this.methodName = methodName;
-		this.comment = comment;
-		this.modifier = modifier;
-		this.modifierComment = modifierComment;
-		this.throwsClause = null;
-		this.methodWrapperPattern = methodWrapperPattern;
-		
-		if(methodReturnType==null)
-			throw new NullPointerException("methodReturnType must not be null");
-		if(comment==null)
-			throw new NullPointerException("comment must not be null");
+		this(methodReturnType, methodName, comment, modifier, modifierComment, null, methodWrapperPattern);
 	}
 
 	public Wrapper(
