@@ -22,7 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
@@ -90,7 +89,6 @@ final class Generator
 																  "in the comment of the field.";
 	private static final String SETTER_MEDIA              = "Sets the content of media {0}.";
 	private static final String SETTER_MEDIA_IOEXCEPTION  = "if accessing {0} throws an IOException.";
-	private static final String GETTER_MEDIA_BODY_STREAM  = "Writes the body of media {0} into the given stream.";
 	private static final String GETTER_MEDIA_BODY_FILE    = "Writes the body of media {0} into the given file.";
 	private static final String GETTER_MEDIA_BODY_EXTRA = "Does nothing, if the media is null.";
 	private static final String GETTER_STREAM_WARNING  = "<b>You are responsible for closing the stream, when you are finished!</b>";
@@ -437,11 +435,18 @@ final class Generator
 				continue;
 
 			final String featureNameCamelCase = toCamelCase(feature.name);
+			final String parameterName = wrapper.getParameterName()!=null ? wrapper.getParameterName() : feature.name; 
 			
 			writeCommentHeader();
 			o.write("\t * ");
 			o.write(format(wrapper.getComment(), link(feature.name)));
 			o.write(lineSeparator);
+			for(final String comment : wrapper.getComments())
+			{
+				o.write("\t * ");
+				o.write(comment);
+				o.write(lineSeparator);
+			}
 			writeStreamWarning(type);
 			final String modifierComment = wrapper.getModifierComment();
 			writeCommentFooter(modifierComment);
@@ -475,7 +480,7 @@ final class Generator
 				o.write(localFinal);
 				o.write(parameter.getName());
 				o.write(' ');
-				o.write(feature.name);
+				o.write(parameterName);
 
 				if(writtenParameterI++!=0)
 					o.write(',');
@@ -503,7 +508,7 @@ final class Generator
 			for(int i = 0; i<parameterTypes.size(); i++)
 			{
 				o.write(',');
-				o.write(feature.name);
+				o.write(parameterName);
 			}
 			o.write(')');
 			o.write(';');
@@ -687,7 +692,6 @@ final class Generator
 		
 		if(instance instanceof Media)
 		{
-			writeMediaGetter(media, OutputStream.class,                GETTER_MEDIA_BODY_STREAM);
 			writeMediaGetter(media, File.class,                        GETTER_MEDIA_BODY_FILE);
 	
 			if(media.setterOption.exists)

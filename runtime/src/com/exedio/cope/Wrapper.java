@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,6 +34,8 @@ public final class Wrapper
 	private final String modifierComment;
 	private final Class[] throwsClause;
 	private final String methodWrapperPattern;
+	private ArrayList<String> comments = null;
+	private String parameterName = null;
 	
 	public Wrapper(
 			final Class methodReturnType,
@@ -90,6 +93,26 @@ public final class Wrapper
 		this.methodWrapperPattern = methodWrapperPattern;
 	}
 
+	public Wrapper(
+			final Class methodReturnType,
+			final String methodName,
+			final Class[] parameterTypes,
+			final String comment,
+			final String modifier,
+			final String modifierComment,
+			final Class[] throwsClause,
+			final String methodWrapperPattern)
+	{
+		this.methodReturnType = methodReturnType;
+		this.methodName = methodName;
+		this.parameterTypes = parameterTypes;
+		this.comment = comment;
+		this.modifier = modifier;
+		this.modifierComment = modifierComment;
+		this.throwsClause = throwsClause;
+		this.methodWrapperPattern = methodWrapperPattern;
+	}
+
 	public Class getMethodReturnType()
 	{
 		return methodReturnType;
@@ -134,5 +157,30 @@ public final class Wrapper
 	public String getMethodWrapperPattern()
 	{
 		return methodWrapperPattern;
+	}
+	
+	public void addComment(final String comment)
+	{
+		if(comments==null)
+			comments = new ArrayList<String>();
+		comments.add(comment);
+	}
+	
+	public List<String> getComments()
+	{
+		return
+			comments!=null
+			? Collections.unmodifiableList(comments)
+			: Collections.<String>emptyList();
+	}
+
+	public String getParameterName()
+	{
+		return parameterName;
+	}
+
+	public void setParameterName(final String parameterName)
+	{
+		this.parameterName = parameterName;
 	}
 }

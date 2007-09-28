@@ -255,6 +255,17 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			null, null, // TODO
 			"get{0}Body"));
 			
+		final Wrapper getBodyStream = new Wrapper(
+			void.class, "getBody", new Class[]{OutputStream.class},
+			"Writes the body of media {0} into the given stream.",
+			null, null, // TODO
+			new Class[]{IOException.class},
+			"get{0}Body");
+		getBodyStream.addComment("Does nothing, if the media is null.");
+		getBodyStream.addComment("@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException."); // TODO make an extra method for exceptions
+		getBodyStream.setParameterName("body");
+		result.add(getBodyStream);
+				
 		return Collections.unmodifiableList(result);
 	}
 	
