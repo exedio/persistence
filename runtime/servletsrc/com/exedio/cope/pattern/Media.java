@@ -238,6 +238,20 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		isNull.setMethodWrapperPattern("is{0}Null");
 		result.add(0/*TODO*/, isNull);
 		
+		final Wrapper getLastModified = new Wrapper(
+			long.class, "getLastModified", null,
+			"Returns the last modification date of media {0}.",
+			null, null); // TODO
+		getLastModified.setMethodWrapperPattern("get{0}LastModified");
+		result.add(getLastModified);
+		
+		final Wrapper getLength = new Wrapper(
+			long.class, "getLength", null,
+			"Returns the body length of the media {0}.",
+			null, null); // TODO
+		getLength.setMethodWrapperPattern("get{0}Length");
+		result.add(getLength);
+			
 		return Collections.unmodifiableList(result);
 	}
 	
