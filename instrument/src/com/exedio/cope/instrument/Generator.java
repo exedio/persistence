@@ -385,16 +385,12 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeFeature(final CopeFeature feature, final boolean firstStage)
+	private void writeFeature(final CopeFeature feature)
 	throws InjectorParseException, IOException
 	{
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
 		{
-			// TODO remove
-			if(firstStage == (wrapper.getMethodName().equals("searchUnique")))
-				continue;
-			
 			final String modifierTag = wrapper.getModifier();
 			final Option option =
 				modifierTag!=null
@@ -1093,7 +1089,7 @@ final class Generator
 			
 			for(final CopeFeature feature : type.getFeatures())
 			{
-				writeFeature(feature, true);
+				writeFeature(feature);
 				if(feature instanceof CopeAttribute)
 					; // TODO remove CopeAttribute
 				else if(feature instanceof CopeUniqueConstraint)
@@ -1110,7 +1106,6 @@ final class Generator
 					; // is handled below
 				else
 					throw new RuntimeException(feature.getClass().getName());
-				writeFeature(feature, false);
 			}
 			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
 				writeQualifier(qualifier);
