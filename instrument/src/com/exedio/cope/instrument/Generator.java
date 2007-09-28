@@ -401,7 +401,7 @@ final class Generator
 		o.write("\t}");
 	}
 	
-	private void writeGenerically(final CopeFeature feature)
+	private void writeFeature(final CopeFeature feature)
 	throws InjectorParseException, IOException
 	{
 		final Feature instance = feature.getInstance();
@@ -1266,7 +1266,7 @@ final class Generator
 			
 			for(final CopeFeature feature : type.getFeatures())
 			{
-				writeGenerically(feature);
+				writeFeature(feature);
 				if(feature instanceof CopeAttribute)
 					writeAccessMethods((CopeAttribute)feature);
 				else if(feature instanceof CopeUniqueConstraint)
