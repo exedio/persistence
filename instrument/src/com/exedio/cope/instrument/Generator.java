@@ -94,9 +94,7 @@ final class Generator
 	private static final String QUALIFIER = "Returns the qualifier.";
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
-	private static final String ATTIBUTE_LIST_GETTER = "Returns the contents of the field list {0}.";
 	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the field list {0}.";
-	private static final String ATTIBUTE_SET_GETTER = "Returns the contents of the field set {0}.";
 	private static final String ATTIBUTE_SET_SETTER = "Sets the contents of the field set {0}.";
 	private static final String ATTIBUTE_MAP_GETTER = "Returns the value mapped to <tt>" + ATTRIBUTE_MAP_KEY + "</tt> by the field map {0}.";
 	private static final String ATTIBUTE_MAP_SETTER = "Associates <tt>" + ATTRIBUTE_MAP_KEY + "</tt> to a new value in the field map {0}.";
