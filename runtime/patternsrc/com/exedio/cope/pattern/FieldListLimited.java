@@ -26,8 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
@@ -134,7 +132,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		result.addAll(super.getWrappers());
 		
 		result.add(new Wrapper(
-			ParameterizedTypeImpl.make(List.class, new java.lang.reflect.Type[]{Wrapper.TypeVariable0.class}, null),
+			Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
 			"get",
 			"Returns the contents of the field list {0}.",
 			null, null));

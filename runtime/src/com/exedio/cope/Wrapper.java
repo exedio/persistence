@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
+
 public final class Wrapper
 {
 	private final java.lang.reflect.Type methodReturnType;
@@ -189,4 +191,9 @@ public final class Wrapper
 	}
 	
 	public class TypeVariable0 { /* OK, just a placeholder */ };
+	
+	public static final java.lang.reflect.Type makeType(final Class rawType, final Class... actualTypeArguments)
+	{
+		return ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
+	}
 }

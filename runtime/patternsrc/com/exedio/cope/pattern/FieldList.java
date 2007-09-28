@@ -25,8 +25,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
-
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -113,7 +111,7 @@ public final class FieldList<E> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(new Wrapper(
-			ParameterizedTypeImpl.make(List.class, new java.lang.reflect.Type[]{Wrapper.TypeVariable0.class}, null),
+			Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
 			"get",
 			"Returns the contents of the field list {0}.",
 			null, null));

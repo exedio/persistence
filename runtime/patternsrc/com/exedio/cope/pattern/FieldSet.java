@@ -28,8 +28,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
-
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -108,7 +106,7 @@ public final class FieldSet<E> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(new Wrapper(
-			ParameterizedTypeImpl.make(Set.class, new java.lang.reflect.Type[]{Wrapper.TypeVariable0.class}, null),
+			Wrapper.makeType(Set.class, Wrapper.TypeVariable0.class),
 			"get",
 			"Returns the contents of the field set {0}.",
 			null, null));
