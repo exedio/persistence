@@ -618,6 +618,214 @@ final class Generator
 		o.write("\t}");
 	}
 	
+	private void write(final CopeAttributeList list)
+		throws IOException
+	{
+		final String type = list.getType();
+		final String name = list.name;
+		
+		writeCommentHeader();
+		o.write("\t * ");
+		o.write(MessageFormat.format(list.set?ATTIBUTE_SET_SETTER:ATTIBUTE_LIST_SETTER, link(name)));
+		o.write(lineSeparator);
+		writeCommentFooter();
+
+		o.write("public final void set"); // TODO: obey attribute visibility
+		o.write(toCamelCase(list.name));
+		o.write('(');
+		o.write(localFinal);
+		o.write(COLLECTION + "<? extends ");
+		o.write(type);
+		o.write("> ");
+		o.write(list.name);
+		o.write(')');
+		o.write(lineSeparator);
+
+		writeThrowsClause(Arrays.asList(new Class[]{
+				UniqueViolationException.class,
+				MandatoryViolationException.class,
+				LengthViolationException.class,
+				FinalViolationException.class,
+				ClassCastException.class}));
+
+		o.write("\t{");
+		o.write(lineSeparator);
+
+		o.write("\t\t");
+		o.write(list.parent.name);
+		o.write('.');
+		o.write(list.name);
+		o.write(".set(this,");
+		o.write(list.name);
+		o.write(");");
+		o.write(lineSeparator);
+
+		o.write("\t}");
+		
+		if(list.hasParent)
+			writeParent(list);
+	}
+	
+	private void writeParent(final CopeFeature f) throws IOException
+	{
+		if(true) // TODO SOON parent option
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(MessageFormat.format(PARENT, link(f.name)));
+			o.write(lineSeparator);
+			writeCommentFooter();
+	
+			o.write(Modifier.toString(f.modifier | (Modifier.STATIC | Modifier.FINAL)));
+			o.write(' ');
+			o.write(ItemField.class.getName());
+			o.write('<');
+			o.write(f.parent.name);
+			o.write('>');
+			o.write(' ');
+			o.write(f.name);
+			o.write("Parent()");
+			o.write(lineSeparator);
+	
+			o.write("\t{");
+			o.write(lineSeparator);
+	
+			o.write("\t\treturn ");
+			o.write(f.parent.name);
+			o.write('.');
+			o.write(f.name);
+			o.write(".getParent(");
+			o.write(f.parent.name);
+			o.write(".class);");
+			o.write(lineSeparator);
+	
+			o.write("\t}");
+		}
+	}
+	
+	private void writeSerialVersionUID() throws IOException
+	{
+		// TODO make disableable
+		{
+			writeCommentHeader();
+			writeCommentFooter(null);
+			
+			writeModifier(Modifier.PRIVATE | Modifier.STATIC | Modifier.FINAL);
+			o.write("long serialVersionUID = 1l;");
+		}
+	}
+	
+	private void writeType(final CopeType type)
+	throws IOException
+	{
+		final Option option = type.typeOption;
+		if(option.exists)
+		{
+			writeCommentHeader();
+			o.write("\t * ");
+			o.write(format(TYPE, lowerCamelCase(type.name)));
+			o.write(lineSeparator);
+			writeCommentFooter(TYPE_CUSTOMIZE);
+			
+			writeModifier(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL); // TODO obey class visibility
+			o.write(TYPE_NAME + '<');
+			o.write(type.name);
+			o.write("> TYPE = newType(");
+			o.write(type.name);
+			o.write(".class)");
+			o.write(lineSeparator);
+	
+			o.write(';');
+		}
+	}
+	
+	void write() throws IOException, InjectorParseException
+	{
+		final String buffer = javaFile.buffer.toString();
+		int previousClassEndPosition = 0;
+		for(final JavaClass javaClass : javaFile.getClasses())
+		{
+			final CopeType type = CopeType.getCopeType(javaClass);
+			final int classEndPosition = javaClass.getClassEndPosition();
+			if(type!=null)
+			{
+				assert previousClassEndPosition<=classEndPosition;
+				if(previousClassEndPosition<classEndPosition)
+					o.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
+
+				writeClassFeatures(type);
+				previousClassEndPosition = classEndPosition;
+			}
+		}
+		o.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
+	}
+
+	private void writeClassFeatures(final CopeType type)
+			throws IOException, InjectorParseException
+	{
+		if(!type.isInterface())
+		{
+			writeInitialConstructor(type);
+			writeGenericConstructor(type);
+			writeReactivationConstructor(type);
+			
+			for(final CopeFeature feature : type.getFeatures())
+			{
+				writeFeature(feature);
+				if(feature instanceof CopeAttribute)
+					; // TODO remove CopeAttribute
+				else if(feature instanceof CopeUniqueConstraint)
+					writeUniqueFinder((CopeUniqueConstraint)feature);
+				else if(feature instanceof CopeAttributeList)
+					write((CopeAttributeList)feature);
+				else if(feature instanceof CopeAttributeMap)
+					; // TODO remove CopeAttributeMap
+				else if(feature instanceof CopeMedia)
+					; // TODO remove CopeMedia
+				else if(feature instanceof CopeHash)
+					; // TODO remove CopeHash
+				else if(feature instanceof CopeRelation || feature instanceof CopeQualifier)
+					; // is handled below
+				else
+					throw new RuntimeException(feature.getClass().getName());
+			}
+			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
+				writeQualifier(qualifier);
+			for(final CopeRelation relation : sort(type.getRelations(true)))
+				writeRelation(relation, false);
+			for(final CopeRelation relation : sort(type.getRelations(false)))
+				writeRelation(relation, true);
+			
+			writeSerialVersionUID();
+			writeType(type);
+		}
+	}
+	
+	private static final <X extends CopeFeature> List<X> sort(final List<X> l)
+	{
+		final ArrayList<X> result = new ArrayList<X>(l);
+		Collections.sort(result, new Comparator<X>()
+				{
+					public int compare(final X a, final X b)
+					{
+						return a.parent.javaClass.getFullName().compareTo(b.parent.javaClass.getFullName());
+					}
+				});
+		return result;
+	}
+
+	private void writeModifier(final int modifier) throws IOException
+	{
+		final String modifierString = Modifier.toString(modifier);
+		if(modifierString.length()>0)
+		{
+			o.write(modifierString);
+			o.write(' ');
+		}
+	}
+	
+	// --------------------------------------- deprecated stuff ----------------------------------------------
+	
 	private void writeQualifierParameters(final CopeQualifier qualifier)
 	throws IOException, InjectorParseException
 	{
@@ -785,91 +993,6 @@ final class Generator
 		}
 	}
 	
-	private void write(final CopeAttributeList list)
-		throws IOException
-	{
-		final String type = list.getType();
-		final String name = list.name;
-		
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(MessageFormat.format(list.set?ATTIBUTE_SET_SETTER:ATTIBUTE_LIST_SETTER, link(name)));
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		o.write("public final void set"); // TODO: obey attribute visibility
-		o.write(toCamelCase(list.name));
-		o.write('(');
-		o.write(localFinal);
-		o.write(COLLECTION + "<? extends ");
-		o.write(type);
-		o.write("> ");
-		o.write(list.name);
-		o.write(')');
-		o.write(lineSeparator);
-
-		writeThrowsClause(Arrays.asList(new Class[]{
-				UniqueViolationException.class,
-				MandatoryViolationException.class,
-				LengthViolationException.class,
-				FinalViolationException.class,
-				ClassCastException.class}));
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\t");
-		o.write(list.parent.name);
-		o.write('.');
-		o.write(list.name);
-		o.write(".set(this,");
-		o.write(list.name);
-		o.write(");");
-		o.write(lineSeparator);
-
-		o.write("\t}");
-		
-		if(list.hasParent)
-			writeParent(list);
-	}
-	
-	private void writeParent(final CopeFeature f) throws IOException
-	{
-		if(true) // TODO SOON parent option
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(MessageFormat.format(PARENT, link(f.name)));
-			o.write(lineSeparator);
-			writeCommentFooter();
-	
-			o.write(Modifier.toString(f.modifier | (Modifier.STATIC | Modifier.FINAL)));
-			o.write(' ');
-			o.write(ItemField.class.getName());
-			o.write('<');
-			o.write(f.parent.name);
-			o.write('>');
-			o.write(' ');
-			o.write(f.name);
-			o.write("Parent()");
-			o.write(lineSeparator);
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\treturn ");
-			o.write(f.parent.name);
-			o.write('.');
-			o.write(f.name);
-			o.write(".getParent(");
-			o.write(f.parent.name);
-			o.write(".class);");
-			o.write(lineSeparator);
-	
-			o.write("\t}");
-		}
-	}
-	
 	private void writeRelation(final CopeRelation relation, final boolean source)
 	throws IOException
 	{
@@ -1018,127 +1141,6 @@ final class Generator
 			o.write(lineSeparator);
 	
 			o.write("\t}");
-		}
-	}
-
-	private void writeSerialVersionUID() throws IOException
-	{
-		// TODO make disableable
-		{
-			writeCommentHeader();
-			writeCommentFooter(null);
-			
-			writeModifier(Modifier.PRIVATE | Modifier.STATIC | Modifier.FINAL);
-			o.write("long serialVersionUID = 1l;");
-		}
-	}
-	
-	private void writeType(final CopeType type)
-	throws IOException
-	{
-		final Option option = type.typeOption;
-		if(option.exists)
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(format(TYPE, lowerCamelCase(type.name)));
-			o.write(lineSeparator);
-			writeCommentFooter(TYPE_CUSTOMIZE);
-			
-			writeModifier(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL); // TODO obey class visibility
-			o.write(TYPE_NAME + '<');
-			o.write(type.name);
-			o.write("> TYPE = newType(");
-			o.write(type.name);
-			o.write(".class)");
-			o.write(lineSeparator);
-	
-			o.write(';');
-		}
-	}
-	
-	void write() throws IOException, InjectorParseException
-	{
-		final String buffer = javaFile.buffer.toString();
-		int previousClassEndPosition = 0;
-		for(final JavaClass javaClass : javaFile.getClasses())
-		{
-			final CopeType type = CopeType.getCopeType(javaClass);
-			final int classEndPosition = javaClass.getClassEndPosition();
-			if(type!=null)
-			{
-				assert previousClassEndPosition<=classEndPosition;
-				if(previousClassEndPosition<classEndPosition)
-					o.write(buffer, previousClassEndPosition, classEndPosition-previousClassEndPosition);
-
-				writeClassFeatures(type);
-				previousClassEndPosition = classEndPosition;
-			}
-		}
-		o.write(buffer, previousClassEndPosition, buffer.length()-previousClassEndPosition);
-	}
-
-	private void writeClassFeatures(final CopeType type)
-			throws IOException, InjectorParseException
-	{
-		if(!type.isInterface())
-		{
-			writeInitialConstructor(type);
-			writeGenericConstructor(type);
-			writeReactivationConstructor(type);
-			
-			for(final CopeFeature feature : type.getFeatures())
-			{
-				writeFeature(feature);
-				if(feature instanceof CopeAttribute)
-					; // TODO remove CopeAttribute
-				else if(feature instanceof CopeUniqueConstraint)
-					writeUniqueFinder((CopeUniqueConstraint)feature);
-				else if(feature instanceof CopeAttributeList)
-					write((CopeAttributeList)feature);
-				else if(feature instanceof CopeAttributeMap)
-					; // TODO remove CopeAttributeMap
-				else if(feature instanceof CopeMedia)
-					; // TODO remove CopeMedia
-				else if(feature instanceof CopeHash)
-					; // TODO remove CopeHash
-				else if(feature instanceof CopeRelation || feature instanceof CopeQualifier)
-					; // is handled below
-				else
-					throw new RuntimeException(feature.getClass().getName());
-			}
-			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
-				writeQualifier(qualifier);
-			for(final CopeRelation relation : sort(type.getRelations(true)))
-				writeRelation(relation, false);
-			for(final CopeRelation relation : sort(type.getRelations(false)))
-				writeRelation(relation, true);
-			
-			writeSerialVersionUID();
-			writeType(type);
-		}
-	}
-	
-	private static final <X extends CopeFeature> List<X> sort(final List<X> l)
-	{
-		final ArrayList<X> result = new ArrayList<X>(l);
-		Collections.sort(result, new Comparator<X>()
-				{
-					public int compare(final X a, final X b)
-					{
-						return a.parent.javaClass.getFullName().compareTo(b.parent.javaClass.getFullName());
-					}
-				});
-		return result;
-	}
-
-	private void writeModifier(final int modifier) throws IOException
-	{
-		final String modifierString = Modifier.toString(modifier);
-		if(modifierString.length()>0)
-		{
-			o.write(modifierString);
-			o.write(' ');
 		}
 	}
 }
