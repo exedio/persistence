@@ -37,7 +37,7 @@ public final class Wrapper
 	private final String modifier;
 	private final String modifierComment;
 	private final Class[] throwsClause;
-	private final String methodWrapperPattern;
+	private String methodWrapperPattern;
 	private ArrayList<String> comments = null;
 	
 	public Wrapper(
@@ -47,7 +47,7 @@ public final class Wrapper
 			final String modifier,
 			final String modifierComment)
 	{
-		this(methodReturnType, methodName, comment, modifier, modifierComment, null, null);
+		this(methodReturnType, methodName, comment, modifier, modifierComment, null);
 	}
 
 	public Wrapper(
@@ -58,36 +58,12 @@ public final class Wrapper
 			final String modifierComment,
 			final Class[] throwsClause)
 	{
-		this(methodReturnType, methodName, comment, modifier, modifierComment, throwsClause, null);
-	}
-
-	public Wrapper(
-			final java.lang.reflect.Type methodReturnType,
-			final String methodName,
-			final String comment,
-			final String modifier,
-			final String modifierComment,
-			final String methodWrapperPattern)
-	{
-		this(methodReturnType, methodName, comment, modifier, modifierComment, null, methodWrapperPattern);
-	}
-
-	public Wrapper(
-			final java.lang.reflect.Type methodReturnType,
-			final String methodName,
-			final String comment,
-			final String modifier,
-			final String modifierComment,
-			final Class[] throwsClause,
-			final String methodWrapperPattern)
-	{
 		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
 		this.comment = comment;
 		this.modifier = modifier;
 		this.modifierComment = modifierComment;
 		this.throwsClause = throwsClause;
-		this.methodWrapperPattern = methodWrapperPattern;
 		
 		if(methodReturnType==null)
 			throw new NullPointerException("methodReturnType must not be null");
@@ -178,6 +154,13 @@ public final class Wrapper
 			: Collections.<Class>emptySet();
 	}
 
+	public Wrapper setMethodWrapperPattern(final String pattern)
+	{
+		this.methodWrapperPattern = pattern;
+		
+		return this;
+	}
+	
 	public String getMethodWrapperPattern()
 	{
 		return methodWrapperPattern;

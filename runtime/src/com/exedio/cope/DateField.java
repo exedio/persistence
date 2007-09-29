@@ -107,8 +107,8 @@ public final class DateField extends FunctionField<Date>
 				void.class, "touch",
 				"Sets the current date for the date field {0}.", // TODO better text
 				"cope.setter", null, // TODO document modifier tag
-				exceptions.toArray(new Class[exceptions.size()]),
-				"touch{0}"));
+				exceptions.toArray(new Class[exceptions.size()])
+				));
 		}
 			
 		return Collections.unmodifiableList(result);

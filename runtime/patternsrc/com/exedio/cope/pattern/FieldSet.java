@@ -128,8 +128,8 @@ public final class FieldSet<E> extends Pattern
 		result.add(new Wrapper(
 			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
 			"Returns the parent field of the type of {0}.",
-			null, null,
-			"{1}Parent").
+			null, null).
+			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 		
 		return Collections.unmodifiableList(result);

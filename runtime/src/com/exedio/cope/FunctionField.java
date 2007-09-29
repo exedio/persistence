@@ -149,14 +149,16 @@ public abstract class FunctionField<E extends Object>
 		final Class wrapperValueClass = getWrapperValueClass();
 		final boolean wrapperValueClassPrimitive = wrapperValueClass.isPrimitive();
 		
-		result.add(new Wrapper(
+		final Wrapper get = new Wrapper(
 			wrapperValueClass, wrapperValueClassPrimitive ? "getMandatory" : "get",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
 			"It can be customized with the tag " +
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-				"in the comment of the field.",
-			wrapperValueClassPrimitive ? "get{0}" : null));
+				"in the comment of the field.");
+		if(wrapperValueClassPrimitive)
+			get.setMethodWrapperPattern("get{0}");
+		result.add(get);
 		
 		if(!isfinal)
 		{
@@ -180,8 +182,8 @@ public abstract class FunctionField<E extends Object>
 			result.add(new Wrapper(
 				Wrapper.ClassVariable.class, "searchUnique",
 				"Finds a {2} by it''s unique fields.", // TODO better text
-				null, null,
-				"findBy{0}").
+				null, null).
+				setMethodWrapperPattern("findBy{0}").
 				setStatic().
 				addComment("@param {1} shall be equal to field {0}.").
 				addComment("@return null if there is no matching item.").
