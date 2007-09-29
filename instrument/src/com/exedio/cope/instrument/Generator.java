@@ -416,7 +416,8 @@ final class Generator
 			
 			{
 				writeCommentHeader();
-				final Object[] arguments = new String[]{link(feature.name),
+				final Object[] arguments = new String[]{
+						link(feature.name),
 						feature.name,
 						lowerCamelCase(feature.parent.name)};
 				o.write("\t * ");
