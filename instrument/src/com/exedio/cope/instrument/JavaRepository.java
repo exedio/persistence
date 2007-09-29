@@ -141,11 +141,11 @@ final class JavaRepository
 							else if(Hash.class.isAssignableFrom(typeClass))
 								new CopeHash(type, javaAttribute);
 							else if(FieldList.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute, true);
+								new CopeAttributeList(type, javaAttribute);
 							else if(FieldListLimited.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute, false);
+								new CopeAttributeList(type, javaAttribute);
 							else if(FieldSet.class.isAssignableFrom(typeClass))
-								new CopeAttributeList(type, javaAttribute, true);
+								new CopeAttributeList(type, javaAttribute);
 							else if(FieldMap.class.isAssignableFrom(typeClass) || FieldMapLimited.class.isAssignableFrom(typeClass))
 								new CopeAttributeMap(type, javaAttribute);
 							else if(MediaPath.class.isAssignableFrom(typeClass))

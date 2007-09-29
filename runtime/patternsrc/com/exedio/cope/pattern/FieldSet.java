@@ -125,6 +125,13 @@ public final class FieldSet<E> extends Pattern
 				ClassCastException.class}).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
+		result.add(new Wrapper(
+			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
+			"Returns the parent field of the type of {0}.",
+			null, null,
+			"{1}Parent").
+			setStatic());
+		
 		return Collections.unmodifiableList(result);
 	}
 	
