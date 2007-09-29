@@ -147,20 +147,21 @@ public abstract class FunctionField<E extends Object>
 		result.addAll(super.getWrappers());
 		
 		final Class wrapperValueClass = getWrapperValueClass();
+		final boolean wrapperValueClassPrimitive = wrapperValueClass.isPrimitive();
 		
 		result.add(new Wrapper(
-			wrapperValueClass, wrapperValueClass.isPrimitive() ? "getMandatory" : "get",
+			wrapperValueClass, wrapperValueClassPrimitive ? "getMandatory" : "get",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
 			"It can be customized with the tag " +
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
 				"in the comment of the field.",
-			"get{0}"));
+			wrapperValueClassPrimitive ? "get{0}" : null));
 		
 		if(!isfinal)
 		{
 			final Set<Class> exceptions = getSetterExceptions();
-			if(wrapperValueClass.isPrimitive())
+			if(wrapperValueClassPrimitive)
 				exceptions.remove(MandatoryViolationException.class);
 			
 			result.add(new Wrapper(
@@ -170,8 +171,8 @@ public abstract class FunctionField<E extends Object>
 				"It can be customized with the tag " +
 					"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
 					"in the comment of the field.",
-				exceptions.toArray(new Class[exceptions.size()]),
-				"set{0}").
+				exceptions.toArray(new Class[exceptions.size()])
+				).
 				addParameter(wrapperValueClass));
 		}
 			

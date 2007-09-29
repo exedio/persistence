@@ -438,14 +438,9 @@ final class Generator
 				o.write(' ');
 				final String pattern = wrapper.getMethodWrapperPattern();
 				if(pattern!=null)
-				{
 					o.write(MessageFormat.format(pattern, featureNameCamelCase, feature.name));
-				}
 				else
-				{
-					o.write(methodName);
-					o.write(featureNameCamelCase);
-				}
+					writeName(methodName, featureNameCamelCase);
 			}
 			if(option!=null)
 				o.write(option.suffix);
@@ -517,6 +512,21 @@ final class Generator
 			o.write(lineSeparator);
 			o.write("\t}");
 		}
+	}
+	
+	private void writeName(final String methodName, final String featureName) throws IOException
+	{
+		for(int i = 0; i<methodName.length(); i++)
+			if(Character.isUpperCase(methodName.charAt(i)))
+			{
+				o.write(methodName.substring(0, i));
+				o.write(featureName);
+				o.write(methodName.substring(i));
+				return;
+			}
+		
+		o.write(methodName);
+		o.write(featureName);
 	}
 	
 	private static final String toString(final Class c, final CopeFeature feature)

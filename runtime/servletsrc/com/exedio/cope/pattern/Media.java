@@ -242,27 +242,27 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		result.add(new Wrapper(
 			long.class, "getLastModified",
 			"Returns the last modification date of media {0}.",
-			null, null, // TODO
-			"get{0}LastModified"));
+			null, null // TODO
+			));
 		
 		result.add(new Wrapper(
 			long.class, "getLength",
 			"Returns the body length of the media {0}.",
-			null, null, // TODO
-			"get{0}Length"));
+			null, null // TODO
+			));
 		
 		result.add(new Wrapper(
 			byte[].class, "getBody",
 			"Returns the body of the media {0}.",
-			null, null, // TODO
-			"get{0}Body"));
+			null, null // TODO
+			));
 			
 		result.add(new Wrapper(
 			void.class, "getBody",
 			"Writes the body of media {0} into the given stream.",
 			null, null, // TODO
-			new Class[]{IOException.class},
-			"get{0}Body").
+			new Class[]{IOException.class}
+			).
 			addComment("Does nothing, if the media is null.").
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(OutputStream.class, "body"));
@@ -271,8 +271,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			void.class, "getBody",
 			"Writes the body of media {0} into the given file.",
 			null, null, // TODO
-			new Class[]{IOException.class},
-			"get{0}Body").
+			new Class[]{IOException.class}
+			).
 			addComment("Does nothing, if the media is null.").
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(File.class, "body"));

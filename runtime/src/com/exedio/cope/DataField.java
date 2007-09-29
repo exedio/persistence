@@ -136,8 +136,8 @@ public final class DataField extends Field<DataField.Value>
 			"cope.getter",
 			"It can be customized with the tag " +
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
-				"in the comment of the field.",
-			"get{0}Array"));
+				"in the comment of the field."
+			));
 		
 		if(!isfinal)
 		{
@@ -150,8 +150,8 @@ public final class DataField extends Field<DataField.Value>
 				"It can be customized with the tag " +
 					"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
 					"in the comment of the field.",
-				exceptions.toArray(new Class[exceptions.size()]),
-				"set{0}").
+				exceptions.toArray(new Class[exceptions.size()])
+				).
 				addParameter(byte[].class));
 		}
 			
