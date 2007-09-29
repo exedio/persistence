@@ -406,6 +406,7 @@ final class Generator
 			final boolean isStatic = wrapper.isStatic();
 			final int modifierOr = isStatic ? (Modifier.FINAL|Modifier.STATIC) : Modifier.FINAL;
 			final int modifier = feature.modifier;
+			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 			
 			{
 				writeCommentHeader();
@@ -422,11 +423,17 @@ final class Generator
 					o.write(format(comment, arguments));
 					o.write(lineSeparator);
 				}
-				writeCommentFooter(wrapper.getModifierComment());
+				writeCommentFooter(
+					modifierTag!=null
+					?  "It can be customized with the tag " +
+						"<tt>@" + modifierTag + " public|package|protected|private|none|non-final"
+						+ (useIs ? "|boolean-as-is" : "") + "</tt> " +
+						"in the comment of the field."
+					: null);
 			}
 			writeModifier(option!=null ? option.getModifier(modifier) : (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | modifierOr);
 			o.write(toString(methodReturnType, feature));
-			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
+			if(option!=null && useIs && option.booleanAsIs)
 			{
 				o.write(" is");
 				o.write(featureNameCamelCase);

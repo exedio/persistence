@@ -35,7 +35,6 @@ public final class Wrapper
 	private ArrayList<String> parameterNames;
 	private final String comment;
 	private final String modifier;
-	private final String modifierComment;
 	private final Class[] throwsClause;
 	private String methodWrapperPattern;
 	private ArrayList<String> comments = null;
@@ -62,7 +61,6 @@ public final class Wrapper
 		this.methodName = methodName;
 		this.comment = comment;
 		this.modifier = modifier;
-		this.modifierComment = modifierComment;
 		this.throwsClause = throwsClause;
 		
 		if(methodReturnType==null)
@@ -139,11 +137,6 @@ public final class Wrapper
 	public String getModifier()
 	{
 		return modifier;
-	}
-
-	public String getModifierComment()
-	{
-		return modifierComment;
 	}
 
 	public Collection<Class> getThrowsClause()
