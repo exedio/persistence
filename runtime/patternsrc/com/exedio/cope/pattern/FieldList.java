@@ -133,7 +133,7 @@ public final class FieldList<E> extends Pattern
 		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the contents of the field list {0}.",
-			null, null, exceptionArray).
+			null, exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 			
 		result.add(new Wrapper(

@@ -129,13 +129,13 @@ public final class FieldSet<E> extends Pattern
 		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the contents of the field set {0}.",
-			null, null, exceptionArray).
+			null, exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(new Wrapper(
 			boolean.class, "add",
 			"Adds a new element to the field set {0}.",
-			null, null,
+			null,
 			exceptionArray).
 			setMethodWrapperPattern("addTo{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
@@ -144,7 +144,7 @@ public final class FieldSet<E> extends Pattern
 		result.add(new Wrapper(
 			boolean.class, "remove",
 			"Removes an element from the field set {0}.",
-			null, null,
+			null,
 			exceptionArray).
 			setMethodWrapperPattern("removeFrom{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").

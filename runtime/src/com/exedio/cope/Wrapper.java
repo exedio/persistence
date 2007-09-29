@@ -43,10 +43,9 @@ public final class Wrapper
 			final java.lang.reflect.Type methodReturnType,
 			final String methodName,
 			final String comment,
-			final String modifier,
-			final String modifierComment)
+			final String modifier)
 	{
-		this(methodReturnType, methodName, comment, modifier, modifierComment, null);
+		this(methodReturnType, methodName, comment, modifier, null);
 	}
 
 	public Wrapper(
@@ -54,7 +53,6 @@ public final class Wrapper
 			final String methodName,
 			final String comment,
 			final String modifier,
-			final String modifierComment,
 			final Class[] throwsClause)
 	{
 		this.methodReturnType = methodReturnType;
