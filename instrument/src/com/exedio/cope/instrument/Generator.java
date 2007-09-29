@@ -414,21 +414,23 @@ final class Generator
 				? Modifier.PUBLIC
 				: feature.modifier;
 			
-			writeCommentHeader();
-			final String commentParameter0 = link(feature.name);
-			final String commentParameter1 = feature.name;
-			final String commentParameter2 = lowerCamelCase(feature.parent.name);
-			o.write("\t * ");
-			o.write(format(wrapper.getComment(), commentParameter0, commentParameter1, commentParameter2));
-			o.write(lineSeparator);
-			for(final String comment : wrapper.getComments())
 			{
+				writeCommentHeader();
+				final String commentParameter0 = link(feature.name);
+				final String commentParameter1 = feature.name;
+				final String commentParameter2 = lowerCamelCase(feature.parent.name);
 				o.write("\t * ");
-				o.write(format(comment, commentParameter0, commentParameter1, commentParameter2));
+				o.write(format(wrapper.getComment(), commentParameter0, commentParameter1, commentParameter2));
 				o.write(lineSeparator);
+				for(final String comment : wrapper.getComments())
+				{
+					o.write("\t * ");
+					o.write(format(comment, commentParameter0, commentParameter1, commentParameter2));
+					o.write(lineSeparator);
+				}
+				final String modifierComment = wrapper.getModifierComment();
+				writeCommentFooter(modifierComment);
 			}
-			final String modifierComment = wrapper.getModifierComment();
-			writeCommentFooter(modifierComment);
 			writeModifier(option!=null ? option.getModifier(modifier) : (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | modifierOr);
 			o.write(toString(methodReturnType, feature));
 			if(option!=null && (instance instanceof BooleanField) && option.booleanAsIs)
