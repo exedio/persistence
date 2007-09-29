@@ -47,9 +47,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
-import com.exedio.cope.pattern.FieldList;
-import com.exedio.cope.pattern.FieldListLimited;
-import com.exedio.cope.pattern.FieldSet;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -408,11 +405,7 @@ final class Generator
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifierOr = isStatic ? (Modifier.FINAL|Modifier.STATIC) : Modifier.FINAL;
-			// TODO remove
-			final int modifier =
-				((instance instanceof FieldList || instance instanceof FieldListLimited || instance instanceof FieldSet) && "set".equals(methodName))
-				? Modifier.PUBLIC
-				: feature.modifier;
+			final int modifier = feature.modifier;
 			
 			{
 				writeCommentHeader();
@@ -470,10 +463,6 @@ final class Generator
 			{
 				final SortedSet<Class> exceptions = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
 				exceptions.addAll(wrapper.getThrowsClause());
-				// TODO remove
-				if((instance instanceof FieldList || instance instanceof FieldListLimited || instance instanceof FieldSet) && "set".equals(methodName))
-					writeThrowsClause(wrapper.getThrowsClause());
-				else
 				writeThrowsClause(exceptions);
 			}
 			o.write("\t{");
@@ -545,7 +534,7 @@ final class Generator
 		else if(Wrapper.TypeVariable1.class.equals(c))
 			return Injector.getGenerics(feature.javaAttribute.type).get(1);
 		else
-			return c.getName();
+			return c.getCanonicalName();
 	}
 	
 	private static final String toString(final ParameterizedType t, final CopeFeature feature)

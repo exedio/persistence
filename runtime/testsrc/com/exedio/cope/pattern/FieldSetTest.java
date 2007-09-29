@@ -365,7 +365,7 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		try
 		{
-			item.strings.getParents("hallo", Item.class);
+			item.strings.getParents(Item.class, "hallo");
 			fail();
 		}
 		catch(ClassCastException e)
@@ -374,7 +374,7 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		try
 		{
-			item.dates.getParents(new Date(), Item.class);
+			item.dates.getParents(Item.class, new Date());
 			fail();
 		}
 		catch(ClassCastException e)

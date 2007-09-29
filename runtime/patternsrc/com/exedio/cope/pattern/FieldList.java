@@ -24,21 +24,18 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.LengthViolationException;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
 
 public final class FieldList<E> extends Pattern
@@ -121,14 +118,22 @@ public final class FieldList<E> extends Pattern
 			null, null));
 		
 		result.add(new Wrapper(
+			Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
+			"getDistinctParents",
+			"Returns the items, for which field list {0} contains the given element.",
+			null, null).
+			setStatic().
+			setMethodWrapperPattern("getDistinctParentsOf{0}").
+			addParameter(Wrapper.TypeVariable0.class, "element"));
+			
+		final Set<Class> exceptions = element.getSetterExceptions();
+		exceptions.add(ClassCastException.class);
+		final Class[] exceptionArray = exceptions.toArray(new Class[exceptions.size()]);
+		
+		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the contents of the field list {0}.",
-			null, null, new Class[]{
-				UniqueViolationException.class, // TODO remove
-				MandatoryViolationException.class, // TODO remove if not mandatory
-				LengthViolationException.class, // TODO remove if no strings
-				FinalViolationException.class, // TODO remove
-				ClassCastException.class}).
+			null, null, exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 			
 		result.add(new Wrapper(
@@ -154,7 +159,7 @@ public final class FieldList<E> extends Pattern
 	 * even if the element is contained in this field list for an item more than once.
 	 * The order of the result is unspecified.
 	 */
-	public <P extends Item> List<P> getDistinctParents(final E element, final Class<P> parentClass)
+	public <P extends Item> List<P> getDistinctParents(final Class<P> parentClass, final E element)
 	{
 		final Query<P> q = new Query<P>(this.parent.cast(parentClass), Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);

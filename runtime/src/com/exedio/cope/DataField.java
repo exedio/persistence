@@ -131,6 +131,24 @@ public final class DataField extends Field<DataField.Value>
 		result.addAll(super.getWrappers());
 		
 		result.add(new Wrapper(
+			boolean.class, "isNull",
+			"Returns, whether there is no data for field {0}.",
+			"cope.getter",
+			"It can be customized with the tag " +
+				"<tt>@cope.getter public|package|protected|private|none|non-final</tt> " +
+				"in the comment of the field."
+			));
+		
+		result.add(new Wrapper(
+			long.class, "getLength",
+			"Returns the length of the data of the data field {0}.",
+			"cope.getter",
+			"It can be customized with the tag " +
+				"<tt>@cope.getter public|package|protected|private|none|non-final</tt> " +
+				"in the comment of the field."
+			));
+			
+		result.add(new Wrapper(
 			byte[].class, "getArray",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"cope.getter",
@@ -138,6 +156,28 @@ public final class DataField extends Field<DataField.Value>
 				"<tt>@cope.getter public|package|protected|private|none|non-final|boolean-as-is</tt> " +
 				"in the comment of the field."
 			));
+		
+		result.add(new Wrapper(
+			void.class, "get",
+			"Writes the data of this persistent data field into the given stream.",
+			"cope.getter",
+			"It can be customized with the tag " +
+				"<tt>@cope.getter public|package|protected|private|none|non-final</tt> " +
+				"in the comment of the field.",
+			new Class[]{IOException.class}
+			).
+			addParameter(OutputStream.class));
+			
+		result.add(new Wrapper(
+			void.class, "get",
+			"Writes the data of this persistent data field into the given file.",
+			"cope.getter",
+			"It can be customized with the tag " +
+				"<tt>@cope.getter public|package|protected|private|none|non-final</tt> " +
+				"in the comment of the field.",
+			new Class[]{IOException.class}
+			).
+			addParameter(File.class));
 		
 		if(!isfinal)
 		{
@@ -152,7 +192,43 @@ public final class DataField extends Field<DataField.Value>
 					"in the comment of the field.",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
+				addParameter(Value.class));
+			
+			result.add(new Wrapper(
+				void.class, "set",
+				"Sets a new value for the persistent field {0}.", // TODO better text
+				"cope.setter",
+				"It can be customized with the tag " +
+					"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
+					"in the comment of the field.",
+				exceptions.toArray(new Class[exceptions.size()])
+				).
 				addParameter(byte[].class));
+
+			final ArrayList<Class> exceptionWithIO = new ArrayList<Class>(exceptions);
+			exceptionWithIO.add(IOException.class);
+			
+			result.add(new Wrapper(
+				void.class, "set",
+				"Sets a new value for the persistent field {0}.", // TODO better text
+				"cope.setter",
+				"It can be customized with the tag " +
+					"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
+					"in the comment of the field.",
+				exceptionWithIO.toArray(new Class[exceptionWithIO.size()])
+				).
+				addParameter(InputStream.class));
+			
+			result.add(new Wrapper(
+				void.class, "set",
+				"Sets a new value for the persistent field {0}.", // TODO better text
+				"cope.setter",
+				"It can be customized with the tag " +
+					"<tt>@cope.setter public|package|protected|private|none|non-final</tt> " +
+					"in the comment of the field.",
+				exceptionWithIO.toArray(new Class[exceptionWithIO.size()])
+				).
+				addParameter(File.class));
 		}
 			
 		return Collections.unmodifiableList(result);
@@ -198,7 +274,7 @@ public final class DataField extends Field<DataField.Value>
 	
 	/**
 	 * Reads data for this persistent data field
-	 * and writes it into the given steam.
+	 * and writes it into the given stream.
 	 * Does nothing, if there is no data for this field.
 	 * @throws NullPointerException
 	 *         if data is null.

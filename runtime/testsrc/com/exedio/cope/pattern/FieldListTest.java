@@ -406,7 +406,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		try
 		{
-			item.strings.getDistinctParents("hallo", Item.class);
+			item.strings.getDistinctParents(Item.class, "hallo");
 			fail();
 		}
 		catch(ClassCastException e)
@@ -415,7 +415,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		try
 		{
-			item.dates.getDistinctParents(new Date(), Item.class);
+			item.dates.getDistinctParents(Item.class, new Date());
 			fail();
 		}
 		catch(ClassCastException e)
@@ -424,7 +424,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		try
 		{
-			item.items.getDistinctParents(item, Item.class);
+			item.items.getDistinctParents(Item.class, item);
 			fail();
 		}
 		catch(ClassCastException e)
