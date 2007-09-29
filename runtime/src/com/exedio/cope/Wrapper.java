@@ -31,7 +31,7 @@ public final class Wrapper
 	private boolean isStatic = false;
 	private final java.lang.reflect.Type methodReturnType;
 	private final String methodName;
-	private ArrayList<Class> parameterTypes;
+	private ArrayList<java.lang.reflect.Type> parameterTypes;
 	private ArrayList<String> parameterNames;
 	private final String comment;
 	private final String modifier;
@@ -117,12 +117,12 @@ public final class Wrapper
 		return methodName;
 	}
 
-	public Wrapper addParameter(final Class type)
+	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
 		return addParameter(type, null);
 	}
 	
-	public Wrapper addParameter(final Class type, final String name)
+	public Wrapper addParameter(final java.lang.reflect.Type type, final String name)
 	{
 		if(type==null)
 			throw new NullPointerException("type must not be null");
@@ -130,7 +130,7 @@ public final class Wrapper
 		
 		if(parameterTypes==null)
 		{
-			parameterTypes = new ArrayList<Class>();
+			parameterTypes = new ArrayList<java.lang.reflect.Type>();
 			parameterNames = new ArrayList<String>();
 		}
 		parameterTypes.add(type);
@@ -139,12 +139,12 @@ public final class Wrapper
 		return this;
 	}
 
-	public List<Class> getParameterTypes()
+	public List<java.lang.reflect.Type> getParameterTypes()
 	{
 		return
 			parameterTypes!=null
 			? Collections.unmodifiableList(parameterTypes)
-			: Collections.<Class>emptyList();
+			: Collections.<java.lang.reflect.Type>emptyList();
 	}
 
 	public List<String> getParameterNames()
@@ -210,5 +210,34 @@ public final class Wrapper
 	public static final java.lang.reflect.Type makeType(final Class rawType, final Class... actualTypeArguments)
 	{
 		return ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
+	}
+	
+	public static class ExtendsType implements java.lang.reflect.Type
+	{
+		private final Class rawType;
+		private final Class[] actualTypeArguments;
+		
+		private ExtendsType(
+				final Class rawType,
+				final Class[] actualTypeArguments)
+		{
+			this.rawType = rawType;
+			this.actualTypeArguments = actualTypeArguments;
+		}
+
+		public Class getRawType()
+		{
+			return rawType;
+		}
+
+		public Class[] getActualTypeArguments()
+		{
+			return actualTypeArguments;
+		}
+	}
+	
+	public static final java.lang.reflect.Type makeTypeExtends(final Class rawType, final Class... actualTypeArguments)
+	{
+		return new ExtendsType(rawType, actualTypeArguments);
 	}
 }

@@ -30,9 +30,12 @@ import java.util.Set;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
@@ -110,6 +113,17 @@ public final class FieldSet<E> extends Pattern
 			"get",
 			"Returns the contents of the field set {0}.",
 			null, null));
+		
+		result.add(new Wrapper(
+			void.class, "set",
+			"Sets the contents of the field set {0}.",
+			null, null, new Class[]{
+				UniqueViolationException.class, // TODO remove
+				MandatoryViolationException.class, // TODO remove, if not mandatory
+				LengthViolationException.class, // TODO remove, if not strings
+				FinalViolationException.class, // TODO remove
+				ClassCastException.class}).
+			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		return Collections.unmodifiableList(result);
 	}

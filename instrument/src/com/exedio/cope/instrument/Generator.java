@@ -39,7 +39,6 @@ import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LengthViolationException;
@@ -49,6 +48,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
+import com.exedio.cope.pattern.FieldList;
+import com.exedio.cope.pattern.FieldListLimited;
+import com.exedio.cope.pattern.FieldSet;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -84,8 +86,6 @@ final class Generator
 	private static final String QUALIFIER = "Returns the qualifier.";
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
-	private static final String ATTIBUTE_LIST_SETTER = "Sets the contents of the field list {0}.";
-	private static final String ATTIBUTE_SET_SETTER = "Sets the contents of the field set {0}.";
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
@@ -405,12 +405,16 @@ final class Generator
 
 			final String methodName = wrapper.getMethodName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getMethodReturnType();
-			final List<Class> parameterTypes = wrapper.getParameterTypes();
+			final List<java.lang.reflect.Type> parameterTypes = wrapper.getParameterTypes();
 			final List<String> parameterNames = wrapper.getParameterNames(); 
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifierOr = isStatic ? (Modifier.FINAL|Modifier.STATIC) : Modifier.FINAL;
-			final int modifier = feature.modifier;
+			// TODO remove
+			final int modifier =
+				((instance instanceof FieldList || instance instanceof FieldListLimited || instance instanceof FieldSet) && "set".equals(methodName))
+				? Modifier.PUBLIC
+				: feature.modifier;
 			
 			writeCommentHeader();
 			o.write("\t * ");
@@ -450,7 +454,7 @@ final class Generator
 			o.write('(');
 			boolean first = true;
 			final Iterator<String> parameterNameIter = parameterNames.iterator();
-			for(final Class parameter : parameterTypes)
+			for(final java.lang.reflect.Type parameter : parameterTypes)
 			{
 				if(first)
 					first = false;
@@ -468,6 +472,10 @@ final class Generator
 			{
 				final SortedSet<Class> exceptions = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
 				exceptions.addAll(wrapper.getThrowsClause());
+				// TODO remove
+				if((instance instanceof FieldList || instance instanceof FieldListLimited || instance instanceof FieldSet) && "set".equals(methodName))
+					writeThrowsClause(wrapper.getThrowsClause());
+				else
 				writeThrowsClause(exceptions);
 			}
 			o.write("\t{");
@@ -546,12 +554,34 @@ final class Generator
 		return bf.toString();
 	}
 	
+	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
+	{
+		final StringBuffer bf = new StringBuffer(toString(t.getRawType(), feature));
+		bf.append('<');
+		boolean first = true;
+		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
+		{
+			bf.append("? extends ");
+			bf.append(toString(a, feature));
+			
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+		}
+		bf.append('>');
+		
+		return bf.toString();
+	}
+	
 	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature)
 	{
 		if(t instanceof Class)
 			return toString((Class)t, feature);
 		else if(t instanceof ParameterizedType)
 			return toString((ParameterizedType)t, feature);
+		else if(t instanceof Wrapper.ExtendsType)
+			return toString((Wrapper.ExtendsType)t, feature);
 		else
 			throw new RuntimeException(t.toString());
 	}
@@ -621,47 +651,6 @@ final class Generator
 	private void write(final CopeAttributeList list)
 		throws IOException
 	{
-		final String type = list.getType();
-		final String name = list.name;
-		
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(MessageFormat.format(list.set?ATTIBUTE_SET_SETTER:ATTIBUTE_LIST_SETTER, link(name)));
-		o.write(lineSeparator);
-		writeCommentFooter();
-
-		o.write("public final void set"); // TODO: obey attribute visibility
-		o.write(toCamelCase(list.name));
-		o.write('(');
-		o.write(localFinal);
-		o.write(COLLECTION + "<? extends ");
-		o.write(type);
-		o.write("> ");
-		o.write(list.name);
-		o.write(')');
-		o.write(lineSeparator);
-
-		writeThrowsClause(Arrays.asList(new Class[]{
-				UniqueViolationException.class,
-				MandatoryViolationException.class,
-				LengthViolationException.class,
-				FinalViolationException.class,
-				ClassCastException.class}));
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\t");
-		o.write(list.parent.name);
-		o.write('.');
-		o.write(list.name);
-		o.write(".set(this,");
-		o.write(list.name);
-		o.write(");");
-		o.write(lineSeparator);
-
-		o.write("\t}");
-		
 		if(list.hasParent)
 			writeParent(list);
 	}

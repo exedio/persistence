@@ -20,13 +20,11 @@ package com.exedio.cope.instrument;
 
 final class CopeAttributeList extends CopeFeature
 {
-	final boolean set;
 	final boolean hasParent;
 	
-	public CopeAttributeList(final CopeType parent, final JavaAttribute javaAttribute, final boolean set, final boolean hasParent)
+	public CopeAttributeList(final CopeType parent, final JavaAttribute javaAttribute, final boolean hasParent)
 	{
 		super(parent, javaAttribute);
-		this.set = set;
 		this.hasParent = hasParent;
 	}
 
@@ -40,10 +38,5 @@ final class CopeAttributeList extends CopeFeature
 	String getBoxedType()
 	{
 		throw new RuntimeException();
-	}
-	
-	String getType()
-	{
-		return Injector.getGenerics(javaAttribute.type).iterator().next();
 	}
 }

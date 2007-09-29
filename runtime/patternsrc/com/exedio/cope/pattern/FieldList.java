@@ -27,14 +27,18 @@ import java.util.List;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
 
 public final class FieldList<E> extends Pattern
@@ -116,6 +120,17 @@ public final class FieldList<E> extends Pattern
 			"Returns the contents of the field list {0}.",
 			null, null));
 		
+		result.add(new Wrapper(
+			void.class, "set",
+			"Sets the contents of the field list {0}.",
+			null, null, new Class[]{
+				UniqueViolationException.class, // TODO remove
+				MandatoryViolationException.class, // TODO remove if not mandatory
+				LengthViolationException.class, // TODO remove if no strings
+				FinalViolationException.class, // TODO remove
+				ClassCastException.class}).
+			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
+			
 		return Collections.unmodifiableList(result);
 	}
 	

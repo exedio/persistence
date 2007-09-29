@@ -137,6 +137,17 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 			"Returns the contents of the field list {0}.",
 			null, null));
 		
+		result.add(new Wrapper(
+			void.class, "set",
+			"Sets the contents of the field list {0}.",
+			null, null, new Class[]{
+				UniqueViolationException.class, // TODO remove
+				MandatoryViolationException.class, // TODO remove if not mandatory
+				LengthViolationException.class, // TODO remove if no strings
+				FinalViolationException.class, // TODO remove if not final
+				ClassCastException.class}).
+			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
+		
 		return Collections.unmodifiableList(result);
 	}
 	
