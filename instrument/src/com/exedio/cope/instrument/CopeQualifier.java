@@ -73,13 +73,11 @@ final class CopeQualifier extends CopeFeature
 		return result;
 	}
 
-	private CopeType qualifiedType = null;
-	
 	@Override
 	void endBuildStage()
 	{
-		qualifiedType = javaAttribute.file.repository.getCopeType(getQualifierParent().getBoxedType());
-		qualifiedType.addQualifier(this);
+		javaAttribute.file.repository.getCopeType(getQualifierParent().getBoxedType()).
+		addQualifier(this);
 	}
 	
 	@Override
