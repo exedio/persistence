@@ -222,9 +222,9 @@ final class Generator
 		return "{@link #" + target + ' ' + name + '}';
 	}
 	
-	private static final String format(final String pattern, final Object... parameters)
+	private static final String format(final String pattern, final Object... arguments)
 	{
-		return MessageFormat.format(pattern, parameters);
+		return MessageFormat.format(pattern, arguments);
 	}
 
 	private void writeInitialConstructor(final CopeType type)
@@ -416,16 +416,16 @@ final class Generator
 			
 			{
 				writeCommentHeader();
-				final String commentParameter0 = link(feature.name);
-				final String commentParameter1 = feature.name;
-				final String commentParameter2 = lowerCamelCase(feature.parent.name);
+				final Object[] arguments = new String[]{link(feature.name),
+						feature.name,
+						lowerCamelCase(feature.parent.name)};
 				o.write("\t * ");
-				o.write(format(wrapper.getComment(), commentParameter0, commentParameter1, commentParameter2));
+				o.write(format(wrapper.getComment(), arguments));
 				o.write(lineSeparator);
 				for(final String comment : wrapper.getComments())
 				{
 					o.write("\t * ");
-					o.write(format(comment, commentParameter0, commentParameter1, commentParameter2));
+					o.write(format(comment, arguments));
 					o.write(lineSeparator);
 				}
 				final String modifierComment = wrapper.getModifierComment();
