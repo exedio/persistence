@@ -429,8 +429,7 @@ final class Generator
 					o.write(format(comment, arguments));
 					o.write(lineSeparator);
 				}
-				final String modifierComment = wrapper.getModifierComment();
-				writeCommentFooter(modifierComment);
+				writeCommentFooter(wrapper.getModifierComment());
 			}
 			writeModifier(option!=null ? option.getModifier(modifier) : (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | modifierOr);
 			o.write(toString(methodReturnType, feature));
