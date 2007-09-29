@@ -415,13 +415,16 @@ final class Generator
 				: feature.modifier;
 			
 			writeCommentHeader();
+			final String commentParameter0 = link(feature.name);
+			final String commentParameter1 = feature.name;
+			final String commentParameter2 = lowerCamelCase(feature.parent.name);
 			o.write("\t * ");
-			o.write(format(wrapper.getComment(), link(feature.name), feature.name, lowerCamelCase(feature.parent.name)));
+			o.write(format(wrapper.getComment(), commentParameter0, commentParameter1, commentParameter2));
 			o.write(lineSeparator);
 			for(final String comment : wrapper.getComments())
 			{
 				o.write("\t * ");
-				o.write(format(comment, link(feature.name), feature.name, lowerCamelCase(feature.parent.name)));
+				o.write(format(comment, commentParameter0, commentParameter1, commentParameter2));
 				o.write(lineSeparator);
 			}
 			final String modifierComment = wrapper.getModifierComment();
