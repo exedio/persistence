@@ -152,7 +152,7 @@ public abstract class FunctionField<E extends Object>
 		final Wrapper get = new Wrapper(
 			wrapperValueClass, wrapperValueClassPrimitive ? "getMandatory" : "get",
 			"Returns the value of the persistent field {0}.", // TODO better text
-			"cope.getter");
+			"getter");
 		if(wrapperValueClassPrimitive)
 			get.setMethodWrapperPattern("get{0}");
 		result.add(get);
@@ -166,7 +166,7 @@ public abstract class FunctionField<E extends Object>
 			result.add(new Wrapper(
 				void.class, "set",
 				"Sets a new value for the persistent field {0}.", // TODO better text
-				"cope.setter",
+				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
 				addParameter(wrapperValueClass));

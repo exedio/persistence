@@ -133,22 +133,22 @@ public final class DataField extends Field<DataField.Value>
 		result.add(new Wrapper(
 			boolean.class, "isNull",
 			"Returns, whether there is no data for field {0}.",
-			"cope.getter"));
+			"getter"));
 		
 		result.add(new Wrapper(
 			long.class, "getLength",
 			"Returns the length of the data of the data field {0}.",
-			"cope.getter"));
+			"getter"));
 			
 		result.add(new Wrapper(
 			byte[].class, "getArray",
 			"Returns the value of the persistent field {0}.", // TODO better text
-			"cope.getter"));
+			"getter"));
 		
 		result.add(new Wrapper(
 			void.class, "get",
 			"Writes the data of this persistent data field into the given stream.",
-			"cope.getter",
+			"getter",
 			new Class[]{IOException.class}
 			).
 			addParameter(OutputStream.class));
@@ -156,7 +156,7 @@ public final class DataField extends Field<DataField.Value>
 		result.add(new Wrapper(
 			void.class, "get",
 			"Writes the data of this persistent data field into the given file.",
-			"cope.getter",
+			"getter",
 			new Class[]{IOException.class}
 			).
 			addParameter(File.class));
@@ -168,7 +168,7 @@ public final class DataField extends Field<DataField.Value>
 			result.add(new Wrapper(
 				void.class, "set",
 				"Sets a new value for the persistent field {0}.", // TODO better text
-				"cope.setter",
+				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
 				addParameter(Value.class));
@@ -176,7 +176,7 @@ public final class DataField extends Field<DataField.Value>
 			result.add(new Wrapper(
 				void.class, "set",
 				"Sets a new value for the persistent field {0}.", // TODO better text
-				"cope.setter",
+				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
 				addParameter(byte[].class));
@@ -187,7 +187,7 @@ public final class DataField extends Field<DataField.Value>
 			result.add(new Wrapper(
 				void.class, "set",
 				"Sets a new value for the persistent field {0}.", // TODO better text
-				"cope.setter",
+				"setter",
 				exceptionWithIO.toArray(new Class[exceptionWithIO.size()])
 				).
 				addParameter(InputStream.class));
@@ -195,7 +195,7 @@ public final class DataField extends Field<DataField.Value>
 			result.add(new Wrapper(
 				void.class, "set",
 				"Sets a new value for the persistent field {0}.", // TODO better text
-				"cope.setter",
+				"setter",
 				exceptionWithIO.toArray(new Class[exceptionWithIO.size()])
 				).
 				addParameter(File.class));

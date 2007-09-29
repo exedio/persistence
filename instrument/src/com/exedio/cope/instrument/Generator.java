@@ -391,7 +391,7 @@ final class Generator
 				modifierTag!=null
 				? new Option(Injector.findDocTagLine(
 									feature.docComment,
-									modifierTag),
+									"cope." + modifierTag),
 						true)
 				: null;
 			
@@ -426,7 +426,7 @@ final class Generator
 				writeCommentFooter(
 					modifierTag!=null
 					?  "It can be customized with the tag " +
-						"<tt>@" + modifierTag + " public|package|protected|private|none|non-final"
+						"<tt>@cope." + modifierTag + " public|package|protected|private|none|non-final"
 						+ (useIs ? "|boolean-as-is" : "") + "</tt> " +
 						"in the comment of the field."
 					: null);
