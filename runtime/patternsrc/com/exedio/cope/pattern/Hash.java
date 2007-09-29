@@ -116,7 +116,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 			void.class, "set",
 			"Sets a new value for the persistent field {0}.", // TODO better text
 			"cope.setter",
-				setterExceptions.toArray(new Class[setterExceptions.size()])).
+			setterExceptions.toArray(new Class[setterExceptions.size()])).
 			addParameter(String.class));
 		return Collections.unmodifiableList(result);
 	}
