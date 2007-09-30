@@ -18,6 +18,12 @@
 
 package com.exedio.cope.instrument;
 
+import static java.lang.reflect.Modifier.FINAL;
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PROTECTED;
+import static java.lang.reflect.Modifier.PUBLIC;
+import static java.lang.reflect.Modifier.STATIC;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,14 +55,8 @@ import com.exedio.cope.instrument.testmodel.TypePrivate;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-
 public class GeneratorTest extends InstrumentorTest
 {
-	public static final int PUBLIC = Modifier.PUBLIC;
-	public static final int PROTECTED = Modifier.PROTECTED;
-	public static final int PRIVATE = Modifier.PRIVATE;
-	public static final int STATIC = Modifier.STATIC;
-	public static final int FINAL = Modifier.FINAL;
 	public static final int VARARGS = 0x00000080;
 	
 	final static Class STRING = String.class;

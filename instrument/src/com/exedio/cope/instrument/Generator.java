@@ -18,6 +18,12 @@
 
 package com.exedio.cope.instrument;
 
+import static java.lang.reflect.Modifier.FINAL;
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PROTECTED;
+import static java.lang.reflect.Modifier.PUBLIC;
+import static java.lang.reflect.Modifier.STATIC;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -338,7 +344,7 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + TYPE_NAME + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
-		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
+		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
 		o.write(localFinal);
@@ -365,7 +371,7 @@ final class Generator
 		o.write("\t * @see " + ITEM + "#Item(" + REACTIVATION + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
-		writeModifier(option.getModifier(type.allowSubTypes() ? Modifier.PROTECTED : Modifier.PRIVATE));
+		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
 		o.write(localFinal);
@@ -434,10 +440,10 @@ final class Generator
 				(
 					option!=null
 					? option.getModifier(modifier)
-					: ((modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL)
+					: ((modifier & (PUBLIC|PROTECTED|PRIVATE)) | FINAL)
 				)
 				|
-				(isStatic ? Modifier.STATIC : 0)
+				(isStatic ? STATIC : 0)
 			);
 			o.write(toString(methodReturnType, feature));
 			if(option!=null && useIs && option.booleanAsIs)
@@ -625,7 +631,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		writeCommentFooter();
-		writeModifier((constraint.modifier & (Modifier.PRIVATE|Modifier.PROTECTED|Modifier.PUBLIC)) | (Modifier.STATIC|Modifier.FINAL) );
+		writeModifier((constraint.modifier & (PRIVATE|PROTECTED|PUBLIC)) | (STATIC|FINAL) );
 		o.write(className);
 		o.write(" findBy");
 		o.write(toCamelCase(constraint.name));
@@ -671,7 +677,7 @@ final class Generator
 			writeCommentHeader();
 			writeCommentFooter(null);
 			
-			writeModifier(Modifier.PRIVATE | Modifier.STATIC | Modifier.FINAL);
+			writeModifier(PRIVATE|STATIC|FINAL);
 			o.write("long serialVersionUID = 1l;");
 		}
 	}
@@ -688,7 +694,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
-			writeModifier(option.getModifier(Modifier.PUBLIC) | Modifier.STATIC | Modifier.FINAL); // TODO obey class visibility
+			writeModifier(option.getModifier(PUBLIC) | STATIC|FINAL); // TODO obey class visibility
 			o.write(TYPE_NAME + '<');
 			o.write(type.name);
 			o.write("> TYPE = newType(");
