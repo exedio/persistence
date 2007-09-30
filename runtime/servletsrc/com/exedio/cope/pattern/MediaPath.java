@@ -88,12 +88,13 @@ public abstract class MediaPath extends Pattern
 			"Returns a URL the content of {0} is available under.",
 			"getter"
 			));
-		
-		result.add(new Wrapper(
-			String.class, "getContentType",
-			"Returns the content type of the media {0}.",
-			"getter"
-			));
+
+		if((!(this instanceof Media)) || (((Media)this).getContentType()!=null))
+			result.add(new Wrapper(
+				String.class, "getContentType",
+				"Returns the content type of the media {0}.",
+				"getter"
+				));
 		
 		return Collections.unmodifiableList(result);
 	}

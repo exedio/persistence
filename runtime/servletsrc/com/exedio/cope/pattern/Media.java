@@ -233,11 +233,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
-		result.add(0/*TODO*/, new Wrapper(
-			boolean.class, "isNull",
-			"Returns whether media {0} is null.", // TODO better text
-			"getter"
-			));
+		if(optional)
+			result.add(0/*TODO*/, new Wrapper(
+				boolean.class, "isNull",
+				"Returns whether media {0} is null.", // TODO better text
+				"getter"
+				));
 		
 		result.add(new Wrapper(
 			long.class, "getLastModified",

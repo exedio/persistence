@@ -216,7 +216,7 @@ public class GeneratorTest extends InstrumentorTest
 
 		assertMethod(STANDARD, "isMinorMediaNull", boolean.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaURL", STRING, PROTECTED|FINAL);
-		assertMethod(STANDARD, "getMinorMediaContentType", STRING, PROTECTED|FINAL);
+		assertNoMethod(STANDARD, "getMinorMediaContentType");
 		assertMethod(STANDARD, "getMinorMediaLength", long.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaLastModified", long.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaBody", BYTE_ARRAY, PROTECTED|FINAL);
