@@ -20,16 +20,16 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 
-class Option
+final class Option
 {
-	private static final String TEXT_NONE = "none";
-	private static final String TEXT_INTERNAL = "internal";
-	private static final String TEXT_VISIBILITY_PRIVATE = "private";
-	private static final String TEXT_VISIBILITY_PROTECTED = "protected";
-	private static final String TEXT_VISIBILITY_PACKAGE = "package";
-	private static final String TEXT_VISIBILITY_PUBLIC = "public";
-	private static final String TEXT_BOOLEAN_AS_IS = "boolean-as-is";
-	private static final String TEXT_NON_FINAL = "non-final";
+	static final String TEXT_NONE = "none";
+	static final String TEXT_INTERNAL = "internal";
+	static final String TEXT_VISIBILITY_PRIVATE = "private";
+	static final String TEXT_VISIBILITY_PROTECTED = "protected";
+	static final String TEXT_VISIBILITY_PACKAGE = "package";
+	static final String TEXT_VISIBILITY_PUBLIC = "public";
+	static final String TEXT_BOOLEAN_AS_IS = "boolean-as-is";
+	static final String TEXT_NON_FINAL = "non-final";
 	
 	final boolean exists;
 	final int visibility;
