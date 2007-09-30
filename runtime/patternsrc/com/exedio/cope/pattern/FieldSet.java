@@ -109,13 +109,13 @@ public final class FieldSet<E> extends Pattern
 			Wrapper.makeType(Set.class, Wrapper.TypeVariable0.class),
 			"get",
 			"Returns the contents of the field set {0}.",
-			null, null));
+			"getter"));
 		
 		result.add(new Wrapper(
 			Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
 			"getParents",
 			"Returns the items, for which field set {0} contains the given element.",
-			null, null).
+			"getter").
 			setStatic().
 			setMethodWrapperPattern("getParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
@@ -129,13 +129,13 @@ public final class FieldSet<E> extends Pattern
 		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the contents of the field set {0}.",
-			null, exceptionArray).
+			"setter", exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(new Wrapper(
 			boolean.class, "add",
 			"Adds a new element to the field set {0}.",
-			null,
+			"setter",
 			exceptionArray).
 			setMethodWrapperPattern("addTo{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
@@ -144,7 +144,7 @@ public final class FieldSet<E> extends Pattern
 		result.add(new Wrapper(
 			boolean.class, "remove",
 			"Removes an element from the field set {0}.",
-			null,
+			"setter",
 			exceptionArray).
 			setMethodWrapperPattern("removeFrom{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
@@ -153,7 +153,7 @@ public final class FieldSet<E> extends Pattern
 		result.add(new Wrapper(
 			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
 			"Returns the parent field of the type of {0}.",
-			null, null).
+			"parent").
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 		

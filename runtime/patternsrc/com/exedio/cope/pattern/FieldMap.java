@@ -114,20 +114,20 @@ public final class FieldMap<K,V> extends Pattern
 		result.add(new Wrapper(
 			Wrapper.TypeVariable1.class, "get",
 			"Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.",
-			null, null).
+			"getter").
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
 		
 		result.add(new Wrapper(
 			void.class, "set",
 			"Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.",
-			null, null).
+			"setter").
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
 			addParameter(Wrapper.TypeVariable1.class));
 		
 		result.add(new Wrapper(
 			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
 			"Returns the parent field of the type of {0}.",
-			null, null).
+			"parent").
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 			

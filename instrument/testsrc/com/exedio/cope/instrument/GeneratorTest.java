@@ -258,6 +258,14 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "setPrivateHash", new Class[]{STRING}, PRIVATE|FINAL);
 		assertMethod(STANDARD, "setMandatoryHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "setPrivateSetterHash", new Class[]{STRING}, PRIVATE|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "getPublicHashHash", String.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateHashHash", String.class, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getMandatoryHashHash", String.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterHashHash", String.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setPublicHashHash", new Class[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setPrivateHashHash", new Class[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setMandatoryHashHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setPrivateSetterHashHash", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION});
 		assertNoMethod(STANDARD, "getPublicHash");
 		assertNoMethod(STANDARD, "getPrivateHash");
 		assertNoMethod(STANDARD, "getMandatoryHash");
@@ -422,7 +430,7 @@ public class GeneratorTest extends InstrumentorTest
 			throw new AssertionError(e);
 		}
 		assertEquals(returnType, method.getReturnType());
-		assertEquals(modifiers, method.getModifiers());
+		assertEquals('('+Modifier.toString(modifiers)+'|'+Modifier.toString(method.getModifiers())+')', modifiers, method.getModifiers());
 		assertEquals(Arrays.asList(exceptionTypes), Arrays.asList(method.getExceptionTypes()));
 	}
 

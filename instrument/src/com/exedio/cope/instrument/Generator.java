@@ -404,7 +404,6 @@ final class Generator
 			final List<String> parameterNames = wrapper.getParameterNames(); 
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
-			final int modifierOr = isStatic ? (Modifier.FINAL|Modifier.STATIC) : Modifier.FINAL;
 			final int modifier = feature.modifier;
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 			
@@ -431,7 +430,15 @@ final class Generator
 						"in the comment of the field."
 					: null);
 			}
-			writeModifier(option!=null ? option.getModifier(modifier) : (modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | modifierOr);
+			writeModifier(
+				(
+					option!=null
+					? option.getModifier(modifier)
+					: ((modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE)) | Modifier.FINAL)
+				)
+				|
+				(isStatic ? Modifier.STATIC : 0)
+			);
 			o.write(toString(methodReturnType, feature));
 			if(option!=null && useIs && option.booleanAsIs)
 			{

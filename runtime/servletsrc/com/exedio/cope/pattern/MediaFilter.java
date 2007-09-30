@@ -53,7 +53,7 @@ public abstract class MediaFilter extends CachedMedia
 		result.add(1/*TODO*/, new Wrapper(
 			String.class, "getURLWithFallbackToSource",
 			"Returns a URL the content of {0} is available under.", // TODO better text
-			null, null // TODO
+			"getter"
 			));
 		
 		return Collections.unmodifiableList(result);

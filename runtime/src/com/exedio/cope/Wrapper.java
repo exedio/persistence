@@ -63,8 +63,12 @@ public final class Wrapper
 		
 		if(methodReturnType==null)
 			throw new NullPointerException("methodReturnType must not be null");
+		if(methodName==null)
+			throw new NullPointerException("methodName must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
+		if(modifier==null)
+			throw new NullPointerException("modifier must not be null");
 	}
 	
 	public Wrapper setStatic()

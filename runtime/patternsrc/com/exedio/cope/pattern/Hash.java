@@ -107,10 +107,11 @@ public abstract class Hash extends Pattern implements Settable<String>
 		
 		result.add(new Wrapper(
 			boolean.class, "check",
-			"Returns whether the given value corresponds to the hash in {0}.", // better text
-			null, // TODO "checker"
-			null). // TODO
+			"Returns whether the given value corresponds to the hash in {0}.", // TODO better text
+			"checker"
+			).
 			addParameter(String.class));
+		
 		final Set<Class> setterExceptions = getSetterExceptions();
 		result.add(new Wrapper(
 			void.class, "set",
@@ -118,6 +119,21 @@ public abstract class Hash extends Pattern implements Settable<String>
 			"setter",
 			setterExceptions.toArray(new Class[setterExceptions.size()])).
 			addParameter(String.class));
+		
+		result.add(new Wrapper(
+			String.class, "getHash",
+			"Returns the encoded hash value for hash {0}.",
+			"hashGetter"
+			));
+		
+		result.add(new Wrapper(
+			void.class, "setHash",
+			"Sets the encoded hash value for hash {0}.",
+			"hashSetter",
+			setterExceptions.toArray(new Class[setterExceptions.size()])
+			).
+			addParameter(String.class));
+		
 		return Collections.unmodifiableList(result);
 	}
 	
@@ -149,6 +165,16 @@ public abstract class Hash extends Pattern implements Settable<String>
 	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
 		return new SetValue[]{ storage.map(hash(value)) };
+	}
+	
+	public final String getHash(final Item item)
+	{
+		return storage.get(item);
+	}
+	
+	public final void setHash(final Item item, final String hash)
+	{
+		storage.set(item, hash);
 	}
 	
 	public final Condition equal(final String value)

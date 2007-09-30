@@ -115,13 +115,13 @@ public final class FieldList<E> extends Pattern
 			Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
 			"get",
 			"Returns the contents of the field list {0}.",
-			null, null));
+			"getter"));
 		
 		result.add(new Wrapper(
 			Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
 			"getDistinctParents",
 			"Returns the items, for which field list {0} contains the given element.",
-			null, null).
+			"getter").
 			setStatic().
 			setMethodWrapperPattern("getDistinctParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
@@ -133,13 +133,13 @@ public final class FieldList<E> extends Pattern
 		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the contents of the field list {0}.",
-			null, exceptionArray).
+			"setter", exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 			
 		result.add(new Wrapper(
 			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
 			"Returns the parent field of the type of {0}.",
-			null, null).
+			"parent").
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 				

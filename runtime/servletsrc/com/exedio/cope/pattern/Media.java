@@ -236,31 +236,31 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		result.add(0/*TODO*/, new Wrapper(
 			boolean.class, "isNull",
 			"Returns whether media {0} is null.", // TODO better text
-			null, null // TODO
+			"getter"
 			));
 		
 		result.add(new Wrapper(
 			long.class, "getLastModified",
 			"Returns the last modification date of media {0}.",
-			null, null // TODO
+			"getter"
 			));
 		
 		result.add(new Wrapper(
 			long.class, "getLength",
 			"Returns the body length of the media {0}.",
-			null, null // TODO
+			"getter"
 			));
 		
 		result.add(new Wrapper(
 			byte[].class, "getBody",
 			"Returns the body of the media {0}.",
-			null, null // TODO
+			"getter"
 			));
 			
 		result.add(new Wrapper(
 			void.class, "getBody",
 			"Writes the body of media {0} into the given stream.",
-			null, // TODO
+			"getter",
 			new Class[]{IOException.class}
 			).
 			addComment("Does nothing, if the media is null.").
@@ -270,7 +270,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		result.add(new Wrapper(
 			void.class, "getBody",
 			"Writes the body of media {0} into the given file.",
-			null, // TODO
+			"getter",
 			new Class[]{IOException.class}
 			).
 			addComment("Does nothing, if the media is null.").

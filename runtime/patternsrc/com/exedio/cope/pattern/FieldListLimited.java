@@ -135,7 +135,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 			Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
 			"get",
 			"Returns the contents of the field list {0}.",
-			null, null));
+			"getter"));
 		
 		final Set<Class> exceptions = sources[0].getSetterExceptions();
 		exceptions.add(ClassCastException.class);
@@ -144,7 +144,7 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the contents of the field list {0}.",
-			null, exceptionArray).
+			"setter", exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		return Collections.unmodifiableList(result);
