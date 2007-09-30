@@ -56,8 +56,8 @@ public class WrapHash extends Hash
 	@Override
 	public String hash(final String plainText)
 	{
-		if(plainText == null)
-			return null;
+		if(plainText==null)
+			throw new NullPointerException();
 		else
 			return '[' + plainText + ']';
 	}

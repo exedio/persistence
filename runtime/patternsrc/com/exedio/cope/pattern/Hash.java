@@ -25,6 +25,7 @@ import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LengthViolationException;
@@ -95,6 +96,10 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage.getSetterExceptions();
 	}
 	
+	/**
+	 * @param plainText the text to be hashed. Is never null.
+	 * @return the hash of plainText. Must never return null.
+	 */
 	public abstract String hash(String plainText);
 	
 	public abstract Hash optional();
@@ -144,17 +149,16 @@ public abstract class Hash extends Pattern implements Settable<String>
 			LengthViolationException,
 			FinalViolationException
 	{
-		storage.set(item, hash(plainText));
+		storage.set(item, plainText!=null ? hash(plainText) : null);
 	}
 	
 	public final boolean check(final Item item, final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);
-		final String actualHash = hash(actualPlainText);
-		if(expectedHash==null)
-			return actualHash==null;
+		if(actualPlainText!=null)
+			return hash(actualPlainText).equals(expectedHash); // hash(String) must not return null
 		else
-			return expectedHash.equals(actualHash);
+			return expectedHash==null;
 	}
 	
 	public final SetValue<String> map(final String value)
@@ -164,7 +168,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public final SetValue[] execute(final String value, final Item exceptionItem)
 	{
-		return new SetValue[]{ storage.map(hash(value)) };
+		return new SetValue[]{ storage.map(value!=null ? hash(value) : null) };
 	}
 	
 	public final String getHash(final Item item)
@@ -179,16 +183,17 @@ public abstract class Hash extends Pattern implements Settable<String>
 	
 	public final Condition equal(final String value)
 	{
-		return storage.equal(hash(value));
+		return value!=null ? storage.equal(hash(value)) : storage.isNull();
 	}
 	
 	public final Condition equal(final Join join, final String value)
 	{
-		return storage.bind(join).equal(hash(value));
+		final Function<String> boundStorage = storage.bind(join);
+		return value!=null ? boundStorage.equal(hash(value)) : boundStorage.isNull();
 	}
 
 	public final Condition notEqual(final String value)
 	{
-		return storage.notEqual(hash(value));
+		return value!=null ? storage.notEqual(hash(value)) : storage.isNotNull();
 	}
 }

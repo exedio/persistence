@@ -90,9 +90,6 @@ public class JavaSecurityHash extends Hash
 	@Override
 	public final String hash(final String plainText)
 	{
-		if(plainText == null)
-			return null;
-
 		try
 		{
 			final MessageDigest messageDigest = createDigest();
