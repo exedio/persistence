@@ -20,9 +20,17 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 
-
 class Option
 {
+	private static final String TEXT_NONE = "none";
+	private static final String TEXT_INTERNAL = "internal";
+	private static final String TEXT_VISIBILITY_PRIVATE = "private";
+	private static final String TEXT_VISIBILITY_PROTECTED = "protected";
+	private static final String TEXT_VISIBILITY_PACKAGE = "package";
+	private static final String TEXT_VISIBILITY_PUBLIC = "public";
+	private static final String TEXT_BOOLEAN_AS_IS = "boolean-as-is";
+	private static final String TEXT_NON_FINAL = "non-final";
+	
 	final boolean exists;
 	final int visibility;
 	final String suffix;
@@ -41,37 +49,37 @@ class Option
 		}
 		else
 		{
-			if(optionString.indexOf("none")>=0)
+			if(optionString.indexOf(TEXT_NONE)>=0)
 			{
 				exists = false;
 				visibility = -1;
 				suffix = null;
 			}
-			else if(optionString.indexOf("internal")>=0)
+			else if(optionString.indexOf(TEXT_INTERNAL)>=0)
 			{
 				exists = true;
 				visibility = PRIVATE;
 				suffix = "Internal";
 			}
-			else if(optionString.indexOf("private")>=0)
+			else if(optionString.indexOf(TEXT_VISIBILITY_PRIVATE)>=0)
 			{
 				exists = true;
 				visibility = PRIVATE;
 				suffix = "";
 			}
-			else if(optionString.indexOf("protected")>=0)
+			else if(optionString.indexOf(TEXT_VISIBILITY_PROTECTED)>=0)
 			{
 				exists = true;
 				visibility = PROTECTED;
 				suffix = "";
 			}
-			else if(optionString.indexOf("package")>=0)
+			else if(optionString.indexOf(TEXT_VISIBILITY_PACKAGE)>=0)
 			{
 				exists = true;
 				visibility = PACKAGE;
 				suffix = "";
 			}
-			else if(optionString.indexOf("public")>=0)
+			else if(optionString.indexOf(TEXT_VISIBILITY_PUBLIC)>=0)
 			{
 				exists = true;
 				visibility = PUBLIC;
@@ -84,9 +92,9 @@ class Option
 				suffix = "";
 			}
 
-			booleanAsIs = (optionString.indexOf("boolean-as-is")>=0);
+			booleanAsIs = (optionString.indexOf(TEXT_BOOLEAN_AS_IS)>=0);
 			if(allowFinal)
-				this.isFinal = (optionString.indexOf("non-final")<0);
+				this.isFinal = (optionString.indexOf(TEXT_NON_FINAL)<0);
 			else
 				this.isFinal = false;
 		}
@@ -129,5 +137,4 @@ class Option
 		else
 			return result;
 	}
-	
 }
