@@ -197,6 +197,18 @@ public class MD5Test extends AbstractLibTest
 		assertContains(item.TYPE.search(item.password.notEqual(lower)));
 		assertContains(item, item.TYPE.search(item.password.notEqual("")));
 
+		item.setPasswordHash("12345678901234567890123456789012");
+		assertEquals("12345678901234567890123456789012", item.getPasswordHash());
+		assertTrue(!item.checkPassword(upper));
+		assertTrue(!item.checkPassword(lower));
+		assertTrue(!item.checkPassword(""));
+		assertContains(item.TYPE.search(item.password.equal(upper)));
+		assertContains(item.TYPE.search(item.password.equal(lower)));
+		assertContains(item.TYPE.search(item.password.equal("")));
+		assertContains(item, item.TYPE.search(item.password.notEqual(upper)));
+		assertContains(item, item.TYPE.search(item.password.notEqual(lower)));
+		assertContains(item, item.TYPE.search(item.password.notEqual("")));
+
 		item.setPassword("");
 		assertEquals("d41d8cd98f00b204e9800998ecf8427e", item.getPasswordHash());
 		assertTrue(!item.checkPassword(upper));
