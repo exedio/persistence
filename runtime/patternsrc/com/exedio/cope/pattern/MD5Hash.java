@@ -39,6 +39,11 @@ public final class MD5Hash extends JavaSecurityHash
 		super(storage, HASH, encoding);
 	}
 
+	public MD5Hash(final String encoding)
+	{
+		super(new StringField().lengthExact(LENGTH), HASH, encoding);
+	}
+
 	public MD5Hash()
 	{
 		this(new StringField().lengthExact(LENGTH));

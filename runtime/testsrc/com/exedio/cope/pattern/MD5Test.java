@@ -53,9 +53,10 @@ public class MD5Test extends AbstractLibTest
 				item.TYPE.getThis(),
 				item.password,
 				item.password.getStorage(),
-				item.hashed1MD5,
 				item.hashed1,
-				item.hashed1Latin
+				item.hashed1.getStorage(),
+				item.hashed1Latin,
+				item.hashed1Latin.getStorage()
 			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.password.getType());
@@ -77,9 +78,8 @@ public class MD5Test extends AbstractLibTest
 		assertEquals(item.TYPE, item.hashed1Latin.getType());
 		assertEquals("hashed1", item.hashed1.getName());
 		assertEquals("hashed1Latin", item.hashed1Latin.getName());
-		assertEquals(item.hashed1MD5, item.hashed1.getStorage());
-		assertEquals(item.hashed1MD5, item.hashed1Latin.getStorage());
-		assertEqualsUnmodifiable(list(item.hashed1, item.hashed1Latin), item.hashed1MD5.getPatterns());
+		assertEqualsUnmodifiable(list(item.hashed1), item.hashed1.getStorage().getPatterns());
+		assertEqualsUnmodifiable(list(item.hashed1Latin), item.hashed1Latin.getStorage().getPatterns());
 		assertEquals(false, item.hashed1.isInitial());
 		assertEquals(false, item.hashed1Latin.isInitial());
 		assertEquals(false, item.hashed1.isFinal());
@@ -112,21 +112,21 @@ public class MD5Test extends AbstractLibTest
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
 
-		assertNull(item.getHashed1MD5());
+		assertNull(item.getHashed1Hash());
 		assertTrue(item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bing"));
 		assertContains(item, item.TYPE.search(item.hashed1.equal(null)));
 		assertContains(item.TYPE.search(item.hashed1.equal("bing")));
 		
-		item.setHashed1MD5("bello");
-		assertEquals("bello", item.getHashed1MD5());
+		item.setHashed1Hash("12345678901234567890123456789012");
+		assertEquals("12345678901234567890123456789012", item.getHashed1Hash());
 		assertTrue(!item.checkHashed1(null));
-		assertTrue(!item.checkHashed1("bello"));
+		assertTrue(!item.checkHashed1("12345678901234567890123456789012"));
 		assertContains(item.TYPE.search(item.hashed1.equal(null)));
-		assertContains(item.TYPE.search(item.hashed1.equal("bello")));
+		assertContains(item.TYPE.search(item.hashed1.equal("12345678901234567890123456789012")));
 
 		item.setHashed1("knollo");
-		assertEquals("ad373a47d81949f466552edf29499b32", item.getHashed1MD5());
+		assertEquals("ad373a47d81949f466552edf29499b32", item.getHashed1Hash());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1("knollo"));
@@ -139,7 +139,7 @@ public class MD5Test extends AbstractLibTest
 			"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 			"knolloknolloknolloknolloknollo";
 		item.setHashed1(longPlainText);
-		assertEquals("6ce62d0dbd8e8b3f453ba742c102cd0b", item.getHashed1MD5());
+		assertEquals("6ce62d0dbd8e8b3f453ba742c102cd0b", item.getHashed1Hash());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1(longPlainText));
@@ -149,18 +149,16 @@ public class MD5Test extends AbstractLibTest
 		final String specialPlainText = "Viele Gr\u00fc\u00dfe";
 		
 		item.setHashed1(specialPlainText);
-		assertEquals("b6f7c12664a57ad17298068b62c9053c", item.getHashed1MD5());
+		assertEquals("b6f7c12664a57ad17298068b62c9053c", item.getHashed1Hash());
 		assertTrue(!item.checkHashed1(null));
 		assertTrue(!item.checkHashed1("bello"));
 		assertTrue(item.checkHashed1(specialPlainText));
-		assertTrue(!item.checkHashed1Latin(specialPlainText));
 
 		item.setHashed1Latin(specialPlainText);
-		assertEquals("f80281c9b755508af7c42f585ed76e23", item.getHashed1MD5());
+		assertEquals("f80281c9b755508af7c42f585ed76e23", item.getHashed1LatinHash());
 		assertTrue(!item.checkHashed1Latin(null));
 		assertTrue(!item.checkHashed1Latin("bello"));
 		assertTrue(item.checkHashed1Latin(specialPlainText));
-		assertTrue(!item.checkHashed1(specialPlainText));
 	}
 	
 	/**
