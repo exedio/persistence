@@ -29,12 +29,12 @@ public final class MD5Hash extends JavaSecurityHash
 	private static final String HASH = "MD5";
 	private static final int LENGTH = 32;
 
-	public MD5Hash(final StringField storage)
+	private MD5Hash(final StringField storage)
 	{
 		super(storage, HASH);
 	}
 
-	public MD5Hash(final StringField storage, final String encoding)
+	private MD5Hash(final StringField storage, final String encoding)
 	{
 		super(storage, HASH, encoding);
 	}

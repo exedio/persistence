@@ -140,8 +140,8 @@ public class Standard extends Item
 	 */
 	public static final Media privateSetterMedia = new Media().optional();
 	
-	public static final Hash publicHash = new MD5Hash(privateString);
-	private static final Hash privateHash = new MD5Hash(defaultString);
+	public static final Hash publicHash = new MD5Hash().optional();
+	private static final Hash privateHash = new MD5Hash().optional();
 	public static final Hash mandatoryHash = new MD5Hash();
 	/**
 	 * @cope.setter private

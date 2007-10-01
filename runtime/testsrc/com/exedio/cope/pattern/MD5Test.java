@@ -88,7 +88,7 @@ public class MD5Test extends AbstractLibTest
 
 		try
 		{
-			new MD5Hash(new StringField(), "nixus");
+			new MD5Hash("nixus");
 			fail();
 		}
 		catch(IllegalArgumentException e)
