@@ -44,6 +44,10 @@ public class MediaEnumTest extends AbstractLibTest
 	
 	public void testIt() throws IOException
 	{
+		assertEquals(false, item.sheet.isInitial());
+		assertEquals(false, item.sheet.isFinal());
+		assertEquals(Media.Value.class, item.sheet.getWrapperSetterType());
+		assertContains(item.sheet.getSetterExceptions());
 		assertEquals(true, item.sheet.checkContentType("image/png"));
 		assertEquals(false, item.sheet.checkContentType("image/jpg"));
 		assertEquals(true, item.sheet.checkContentType("application/pdf"));

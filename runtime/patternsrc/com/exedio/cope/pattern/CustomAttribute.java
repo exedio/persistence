@@ -133,6 +133,11 @@ public abstract class CustomAttribute<E>
 		return isFinal;
 	}
 	
+	public final Class getWrapperSetterType()
+	{
+		return valueClass;
+	}
+	
 	public final Set<Class> getSetterExceptions()
 	{
 		final Set<Class> result = storages[0].getSetterExceptions();

@@ -73,7 +73,7 @@ public final class LongField extends FunctionField<Long>
 	}
 	
 	@Override
-	Class getWrapperValueClass()
+	public Class getWrapperSetterType()
 	{
 		return optional ? Long.class : long.class;
 	}

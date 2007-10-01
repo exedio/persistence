@@ -24,16 +24,4 @@ final class CopeHash extends CopeFeature
 	{
 		super(parent, javaAttribute);
 	}
-
-	@Override
-	boolean isBoxed()
-	{
-		return false;
-	}
-	
-	@Override
-	String getBoxedType()
-	{
-		return String.class.getName();
-	}
 }

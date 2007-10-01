@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
@@ -74,9 +75,11 @@ public class SerializerTest extends AbstractLibTest
 		
 		assertEquals(false, item.integer.isInitial());
 		assertEquals(false, item.integer.isFinal());
+		assertEquals(Integer.class, item.integer.getWrapperSetterType());
 		assertContains(item.integer.getSetterExceptions());
 		assertEquals(false, item.map.isInitial());
 		assertEquals(false, item.map.isFinal());
+		assertEquals(Map.class, item.map.getWrapperSetterType());
 		assertContains(item.map.getSetterExceptions());
 		
 		final HashMap<String, String> map1 = new HashMap<String, String>();

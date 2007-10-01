@@ -73,7 +73,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 	
 	@Override
-	Class getWrapperValueClass()
+	public Class getWrapperSetterType()
 	{
 		return optional ? Boolean.class : boolean.class;
 	}

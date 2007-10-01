@@ -73,7 +73,7 @@ public final class DoubleField extends FunctionField<Double>
 	}
 	
 	@Override
-	Class getWrapperValueClass()
+	public Class getWrapperSetterType()
 	{
 		return optional ? Double.class : double.class;
 	}

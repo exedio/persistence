@@ -149,7 +149,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	@Override
-	Class getWrapperValueClass()
+	public Class getWrapperSetterType()
 	{
 		return Wrapper.TypeVariable0.class;
 	}

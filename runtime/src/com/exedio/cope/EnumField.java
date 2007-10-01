@@ -126,7 +126,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 	
 	@Override
-	Class getWrapperValueClass()
+	public Class getWrapperSetterType()
 	{
 		return Wrapper.TypeVariable0.class;
 	}

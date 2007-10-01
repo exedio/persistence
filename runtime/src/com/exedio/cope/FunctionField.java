@@ -135,7 +135,8 @@ public abstract class FunctionField<E extends Object>
 		return item.type.getModel().getCurrentTransaction().getEntity(item, present);
 	}
 
-	Class getWrapperValueClass()
+	@Override
+	public Class getWrapperSetterType()
 	{
 		return valueClass;
 	}
@@ -146,7 +147,7 @@ public abstract class FunctionField<E extends Object>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		final Class wrapperValueClass = getWrapperValueClass();
+		final Class wrapperValueClass = getWrapperSetterType();
 		final boolean wrapperValueClassPrimitive = wrapperValueClass.isPrimitive();
 		
 		final Wrapper get = new Wrapper(

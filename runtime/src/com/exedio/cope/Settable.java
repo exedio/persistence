@@ -37,6 +37,8 @@ public interface Settable<E>
 	 */
 	boolean isFinal();
 	
+	Class getWrapperSetterType();
+	
 	/**
 	 * Returns the exceptions possibly thrown,
 	 * when setting a value for this settable.

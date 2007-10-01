@@ -50,6 +50,7 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.RangeViolationException;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
@@ -319,7 +320,7 @@ final class Generator
 			
 			o.write(lineSeparator);
 			o.write("\t\t\t\tfinal ");
-			o.write(feature.getBoxedType());
+			o.write(toString(((Settable<?>)feature.getInstance()).getWrapperSetterType(), feature));
 			o.write(' ');
 			o.write(feature.name);
 		}

@@ -160,6 +160,11 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		return isFinal;
 	}
 	
+	public Class getWrapperSetterType()
+	{
+		return List.class;
+	}
+	
 	public Set<Class> getSetterExceptions()
 	{
 		final Set<Class> result = sources[0].getSetterExceptions();

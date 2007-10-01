@@ -47,6 +47,10 @@ public class MediaDefaultTest extends AbstractLibTest
 	
 	public void testIt() throws IOException
 	{
+		assertEquals(false, item.file.isInitial());
+		assertEquals(false, item.file.isFinal());
+		assertEquals(Media.Value.class, item.file.getWrapperSetterType());
+		assertContains(item.file.getSetterExceptions());
 		assertEquals(true, item.file.checkContentType("some/thing"));
 		assertEquals(false, item.file.checkContentType("something"));
 		assertEquals("*/*", item.file.getContentTypeDescription());

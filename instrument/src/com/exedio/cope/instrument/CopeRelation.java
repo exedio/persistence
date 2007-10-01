@@ -82,16 +82,4 @@ final class CopeRelation extends CopeFeature
 		}
 		throw new RuntimeException("no " + (source?"source":"target") + " found for relation " + parent.javaClass.getFullName() + '#' + name);
 	}
-	
-	@Override
-	boolean isBoxed()
-	{
-		return false;
-	}
-	
-	@Override
-	String getBoxedType()
-	{
-		throw new RuntimeException();
-	}
 }

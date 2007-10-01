@@ -125,6 +125,12 @@ public final class DataField extends Field<DataField.Value>
 	}
 	
 	@Override
+	public Class getWrapperSetterType()
+	{
+		return byte[].class; // TODO remove (use DataField.Value.class)
+	}
+	
+	@Override
 	public List<Wrapper> getWrappers()
 	{
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();

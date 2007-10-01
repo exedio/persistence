@@ -79,16 +79,4 @@ final class CopeQualifier extends CopeFeature
 		javaAttribute.file.repository.getCopeType(getQualifierParent().getBoxedType()).
 		addQualifier(this);
 	}
-	
-	@Override
-	boolean isBoxed()
-	{
-		return false;
-	}
-	
-	@Override
-	String getBoxedType()
-	{
-		throw new RuntimeException();
-	}
 }

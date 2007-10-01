@@ -94,6 +94,11 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return isfinal || !optional;
 	}
 	
+	public Class getWrapperSetterType()
+	{
+		return valueClass;
+	}
+	
 	public Set<Class> getSetterExceptions()
 	{
 		final HashSet<Class> result = new HashSet<Class>();

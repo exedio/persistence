@@ -18,32 +18,10 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
-
-import com.exedio.cope.pattern.Media;
-
 final class CopeMedia extends CopeFeature
 {
-
 	public CopeMedia(final CopeType parent, final JavaAttribute javaAttribute)
 	{
 		super(parent, javaAttribute);
-	}
-
-	final int getGeneratedGetterModifier()
-	{
-		return modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE) | Modifier.FINAL;
-	}
-	
-	@Override
-	boolean isBoxed()
-	{
-		return false;
-	}
-	
-	@Override
-	String getBoxedType()
-	{
-		return Media.Value.class.getCanonicalName();
 	}
 }

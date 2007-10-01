@@ -101,16 +101,13 @@ abstract class CopeFeature
 		return setterOption.getModifier(modifier);
 	}
 	
-	abstract boolean isBoxed();
-	abstract String getBoxedType();
-	
 	final SortedSet<Class> getSetterExceptions()
 	{
 		final Feature instance = getInstance();
 		final Set<Class> resultList = ((Settable<?>)instance).getSetterExceptions();
 		final SortedSet<Class> result = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
 		result.addAll(resultList);
-		if(isBoxed())
+		if(((Settable<?>)instance).getWrapperSetterType().isPrimitive())
 			result.remove(MandatoryViolationException.class);
 		return result;
 	}

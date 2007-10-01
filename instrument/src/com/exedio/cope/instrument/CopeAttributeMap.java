@@ -24,16 +24,4 @@ final class CopeAttributeMap extends CopeFeature
 	{
 		super(parent, javaAttribute);
 	}
-
-	@Override
-	boolean isBoxed()
-	{
-		return false;
-	}
-	
-	@Override
-	String getBoxedType()
-	{
-		throw new RuntimeException();
-	}
 }

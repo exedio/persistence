@@ -125,6 +125,11 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source.isFinal();
 	}
 	
+	public Class getWrapperSetterType()
+	{
+		return valueClass;
+	}
+	
 	public Set<Class> getSetterExceptions()
 	{
 		return source.getSetterExceptions();
