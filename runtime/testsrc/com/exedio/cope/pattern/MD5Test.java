@@ -159,13 +159,8 @@ public class MD5Test extends AbstractLibTest
 		assertTrue(!item.checkHashed1Latin(null));
 		assertTrue(!item.checkHashed1Latin("bello"));
 		assertTrue(item.checkHashed1Latin(specialPlainText));
-	}
 	
-	/**
-	 * reference example from http://de.wikipedia.org/wiki/MD5
-	 */
-	public void testWikipedia()
-	{
+		// reference example from http://de.wikipedia.org/wiki/MD5
 		final String appendix = "ranz jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		final String upper = "F" + appendix;
 		final String lower = "f" + appendix;
