@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.Feature;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
@@ -46,15 +45,15 @@ public class HashTest extends AbstractLibTest
 	
 	public void testExplicitExternal()
 	{
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEquals(Arrays.asList(
 				item.TYPE.getThis(),
 				item.explicitExternalWrap,
 				item.explicitExternal,
 				item.implicitExternal,
 				item.implicitExternal.getStorage(),
 				item.internal,
-				item.internal.getStorage(),
-			}), item.TYPE.getFeatures());
+				item.internal.getStorage()
+			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
@@ -160,5 +159,4 @@ public class HashTest extends AbstractLibTest
 		assertFalse(item3.checkInternal(""));
 		assertTrue(item3.checkInternal("fetz"));
 	}
-
 }

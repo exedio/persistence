@@ -23,7 +23,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 
@@ -50,14 +49,14 @@ public class MD5Test extends AbstractLibTest
 		assertEquals("000ff0aa", JavaSecurityHash.encodeBytes(new byte[]{0x00, 0x0F, (byte)0xF0, (byte)0xAA}));
 		assertEquals("0123456789abcdef", JavaSecurityHash.encodeBytes(new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef}));
 
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEquals(Arrays.asList(
 				item.TYPE.getThis(),
 				item.password,
 				item.password.getStorage(),
 				item.hashed1MD5,
 				item.hashed1,
-				item.hashed1Latin,
-			}), item.TYPE.getFeatures());
+				item.hashed1Latin
+			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.password.getType());
 		assertEquals("password", item.password.getName());
