@@ -26,7 +26,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 
-abstract class CopeFeature
+class CopeFeature
 {
 	static final String TAG_PREFIX = "cope.";
 	static final String TAG_GETTER  = TAG_PREFIX + "getter";

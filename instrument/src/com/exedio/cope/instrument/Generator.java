@@ -764,22 +764,8 @@ final class Generator
 			for(final CopeFeature feature : type.getFeatures())
 			{
 				writeFeature(feature);
-				if(feature instanceof CopeAttribute)
-					; // TODO remove CopeAttribute
-				else if(feature instanceof CopeUniqueConstraint)
+				if(feature instanceof CopeUniqueConstraint)
 					writeUniqueFinder((CopeUniqueConstraint)feature);
-				else if(feature instanceof CopeAttributeList)
-					; // TODO remove CopeAttributeList
-				else if(feature instanceof CopeAttributeMap)
-					; // TODO remove CopeAttributeMap
-				else if(feature instanceof CopeMedia)
-					; // TODO remove CopeMedia
-				else if(feature instanceof CopeHash)
-					; // TODO remove CopeHash
-				else if(feature instanceof CopeRelation || feature instanceof CopeQualifier)
-					; // is handled below
-				else
-					throw new RuntimeException(feature.getClass().getName());
 			}
 			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
 				writeQualifier(qualifier);
