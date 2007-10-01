@@ -32,6 +32,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.Function;
 import com.exedio.cope.IntegerFunction;
@@ -41,13 +42,8 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.FieldList;
-import com.exedio.cope.pattern.FieldListLimited;
-import com.exedio.cope.pattern.FieldMap;
-import com.exedio.cope.pattern.FieldMapLimited;
-import com.exedio.cope.pattern.FieldSet;
+import com.exedio.cope.pattern.CustomAttribute;
 import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.VectorRelation;
@@ -138,22 +134,14 @@ final class JavaRepository
 								new CopeUniqueConstraint(type, javaAttribute);
 							else if(Qualifier.class.isAssignableFrom(typeClass))
 								new CopeQualifier(type, javaAttribute);
-							else if(Hash.class.isAssignableFrom(typeClass))
-								new CopeFeature(type, javaAttribute);
-							else if(FieldList.class.isAssignableFrom(typeClass))
-								new CopeFeature(type, javaAttribute);
-							else if(FieldListLimited.class.isAssignableFrom(typeClass))
-								new CopeFeature(type, javaAttribute);
-							else if(FieldSet.class.isAssignableFrom(typeClass))
-								new CopeFeature(type, javaAttribute);
-							else if(FieldMap.class.isAssignableFrom(typeClass) || FieldMapLimited.class.isAssignableFrom(typeClass))
-								new CopeFeature(type, javaAttribute);
-							else if(MediaPath.class.isAssignableFrom(typeClass))
-								new CopeFeature(type, javaAttribute);
 							else if(Relation.class.isAssignableFrom(typeClass))
 								new CopeRelation(type, javaAttribute, false);
 							else if(VectorRelation.class.isAssignableFrom(typeClass))
 								new CopeRelation(type, javaAttribute, true);
+							else if(CustomAttribute.class.isAssignableFrom(typeClass))
+								; // ignore
+							else if(Feature.class.isAssignableFrom(typeClass))
+								new CopeFeature(type, javaAttribute);
 						}
 					}
 				}

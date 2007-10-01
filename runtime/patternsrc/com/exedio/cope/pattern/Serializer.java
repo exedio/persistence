@@ -23,6 +23,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Cope;
@@ -38,6 +41,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.Wrapper;
 
 /**
  * Stores a java object by serialization - use with care!
@@ -133,6 +137,35 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public Set<Class> getSetterExceptions()
 	{
 		return source.getSetterExceptions();
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		final Class setterType = getWrapperSetterType();
+		
+		result.add(new Wrapper(
+			setterType, "get",
+			"Returns the value of the serializer {0}.",
+			"getter"));
+		
+		if(!isFinal())
+		{
+			final Set<Class> exceptions = getSetterExceptions();
+			
+			result.add(new Wrapper(
+				void.class, "set",
+				"Sets a new value for the serializer {0}.",
+				"setter",
+				exceptions.toArray(new Class[exceptions.size()])
+				).
+				addParameter(setterType));
+		}
+			
+		return Collections.unmodifiableList(result);
 	}
 	
 	public E get(final Item item)

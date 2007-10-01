@@ -33,6 +33,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.Wrapper;
 
 /**
  * This pattern is still experimental, and its API may change any time.
@@ -150,6 +151,28 @@ public final class HistoryExperimental extends Pattern
 	{
 		assert featureType!=null;
 		return featureType;
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(new Wrapper(
+			Wrapper.makeTypeExtends(List.class, Event.class), "getEvents",
+			"Returns the events of the history {0}.",
+			"getter"));
+		
+		result.add(new Wrapper(
+			Event.class, "createEvent",
+			"Creates a new event for the history {0}.",
+			"setter"
+			).
+			addParameter(String.class, "cause").
+			addParameter(boolean.class, "created"));
+			
+		return Collections.unmodifiableList(result);
 	}
 	
 	public List<? extends Event> getEvents(final Item item)

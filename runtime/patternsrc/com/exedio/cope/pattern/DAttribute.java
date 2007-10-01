@@ -70,12 +70,12 @@ public final class DAttribute extends Item
 
 	public Object get(final Item item)
 	{
-		return getParent().getDtypeSystem().get(this, item);
+		return getParent().getDtypeSystem().get(item, this);
 	}
 	
 	public void set(final Item item, final Object value)
 	{
-		getParent().getDtypeSystem().set(this, item, value);
+		getParent().getDtypeSystem().set(item, this, value);
 	}
 	
 	private void assertEnum()

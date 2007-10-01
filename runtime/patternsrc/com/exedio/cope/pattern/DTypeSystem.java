@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.BooleanField;
@@ -30,6 +32,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Wrapper;
 
 public final class DTypeSystem extends Pattern
 {
@@ -133,6 +136,40 @@ public final class DTypeSystem extends Pattern
 				DType.code.equal(code)));
 	}
 	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(new Wrapper(
+			DType.class, "getType",
+			"Returns the dynamic type of this item in the type system {0}.",
+			"getter"));
+		
+		result.add(new Wrapper(
+			void.class, "setType",
+			"Sets the dynamic type of this item in the type system {0}.",
+			"setter"
+			).
+			addParameter(DType.class, "type"));
+			
+		result.add(new Wrapper(
+			Object.class, "get",
+			"Returns the value of <tt>attribute</tt> for this item in the type system {0}.",
+			"getter").
+			addParameter(DAttribute.class, "attribute"));
+			
+		result.add(new Wrapper(
+			void.class, "set",
+			"Sets the value of <tt>attribute</tt> for this item in the type system {0}.",
+			"setter").
+			addParameter(DAttribute.class, "attribute").
+			addParameter(Object.class, "value"));
+		
+		return Collections.unmodifiableList(result);
+	}
+	
 	public DType getType(final Item item)
 	{
 		return this.type.get(item);
@@ -155,7 +192,7 @@ public final class DTypeSystem extends Pattern
 		item.set(values);
 	}
 	
-	private void assertType(final DAttribute attribute, final Item item)
+	private void assertType(final Item item, final DAttribute attribute)
 	{
 		final DType attributeType = attribute.getParent();
 		final DType itemType = type.get(item);
@@ -180,15 +217,15 @@ public final class DTypeSystem extends Pattern
 		return array[pos];
 	}
 	
-	public Object get(final DAttribute attribute, final Item item)
+	public Object get(final Item item, final DAttribute attribute)
 	{
-		assertType(attribute, item);
+		assertType(item, attribute);
 		return getField(attribute).get(item);
 	}
 	
-	public void set(final DAttribute attribute, final Item item, final Object value)
+	public void set(final Item item, final DAttribute attribute, final Object value)
 	{
-		assertType(attribute, item);
+		assertType(item, attribute);
 		
 		if(value!=null &&
 			value instanceof DEnumValue &&
