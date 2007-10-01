@@ -23,12 +23,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 
 public class MD5Test extends AbstractLibTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(MD5Item.TYPE);
+	
+	private static final String EMPTY_HASH = "d41d8cd98f00b204e9800998ecf8427e";
 
 	public MD5Test()
 	{
@@ -41,7 +44,7 @@ public class MD5Test extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MD5Item());
+		deleteOnTearDown(item = new MD5Item("musso"));
 	}
 	
 	public void testMD5()
@@ -54,8 +57,10 @@ public class MD5Test extends AbstractLibTest
 				item.password,
 				item.password.getStorage(),
 				item.passwordLatin,
-				item.passwordLatin.getStorage()
-			), item.TYPE.getFeatures());
+				item.passwordLatin.getStorage(),
+				item.passwordMandatory,
+				item.passwordMandatory.getStorage()),
+			item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.password.getType());
 		assertEquals("password", item.password.getName());
@@ -148,6 +153,73 @@ public class MD5Test extends AbstractLibTest
 		assertTrue(!item.checkPasswordLatin("bello"));
 		assertTrue(item.checkPasswordLatin(specialPlainText));
 	
+		assertEquals("780e05d22aa148f225ea2d9f0e97b109", item.getPasswordMandatoryHash());
+		assertTrue(item.checkPasswordMandatory("musso"));
+		assertTrue(!item.checkPasswordMandatory("mussx"));
+		assertTrue(!item.checkPasswordMandatory(""));
+		assertTrue(!item.checkPasswordMandatory(null));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("musso")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
+		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("musso")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		
+		item.setPasswordMandatory("mussx");
+		assertEquals("20e875db11d2cc3b3378cb905cbcd340", item.getPasswordMandatoryHash());
+		assertTrue(!item.checkPasswordMandatory("musso"));
+		assertTrue(item.checkPasswordMandatory("mussx"));
+		assertTrue(!item.checkPasswordMandatory(""));
+		assertTrue(!item.checkPasswordMandatory(null));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("mussx")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
+		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		
+		item.setPasswordMandatory("");
+		assertEquals(EMPTY_HASH, item.getPasswordMandatoryHash());
+		assertTrue(!item.checkPasswordMandatory("musso"));
+		assertTrue(!item.checkPasswordMandatory("mussx"));
+		assertTrue(item.checkPasswordMandatory(""));
+		assertTrue(!item.checkPasswordMandatory(null));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
+		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+
+		try
+		{
+			item.setPasswordMandatory(null);
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(item.passwordMandatory.getStorage(), e.getFeature());
+		}
+		assertEquals(EMPTY_HASH, item.getPasswordMandatoryHash());
+		assertTrue(!item.checkPasswordMandatory("musso"));
+		assertTrue(!item.checkPasswordMandatory("mussx"));
+		assertTrue(item.checkPasswordMandatory(""));
+		assertTrue(!item.checkPasswordMandatory(null));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("musso")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal("mussx")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.equal("")));
+		assertContains(item.TYPE.search(item.passwordMandatory.equal(null)));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("musso")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual("mussx")));
+		assertContains(item.TYPE.search(item.passwordMandatory.notEqual("")));
+		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
+		
 		// reference example from http://de.wikipedia.org/wiki/MD5
 		final String appendix = "ranz jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		final String upper = "F" + appendix;
@@ -199,7 +271,7 @@ public class MD5Test extends AbstractLibTest
 		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
 
 		item.setPassword("");
-		assertEquals("d41d8cd98f00b204e9800998ecf8427e", item.getPasswordHash());
+		assertEquals(EMPTY_HASH, item.getPasswordHash());
 		assertTrue(!item.checkPassword(upper));
 		assertTrue(!item.checkPassword(lower));
 		assertTrue(item.checkPassword(""));
