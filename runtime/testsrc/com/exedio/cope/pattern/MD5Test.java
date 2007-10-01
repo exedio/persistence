@@ -53,8 +53,8 @@ public class MD5Test extends AbstractLibTest
 				item.TYPE.getThis(),
 				item.password,
 				item.password.getStorage(),
-				item.hashed1Latin,
-				item.hashed1Latin.getStorage()
+				item.passwordLatin,
+				item.passwordLatin.getStorage()
 			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.password.getType());
@@ -72,14 +72,14 @@ public class MD5Test extends AbstractLibTest
 		assertContains(item.password.getSetterExceptions());
 		assertEquals("utf8", item.password.getEncoding());
 		
-		assertEquals(item.TYPE, item.hashed1Latin.getType());
-		assertEquals("hashed1Latin", item.hashed1Latin.getName());
-		assertEqualsUnmodifiable(list(item.hashed1Latin), item.hashed1Latin.getStorage().getPatterns());
-		assertEquals(false, item.hashed1Latin.isInitial());
-		assertEquals(false, item.hashed1Latin.isFinal());
-		assertEquals(false, item.hashed1Latin.isMandatory());
-		assertContains(item.hashed1Latin.getSetterExceptions());
-		assertEquals("ISO-8859-1", item.hashed1Latin.getEncoding());
+		assertEquals(item.TYPE, item.passwordLatin.getType());
+		assertEquals("passwordLatin", item.passwordLatin.getName());
+		assertEqualsUnmodifiable(list(item.passwordLatin), item.passwordLatin.getStorage().getPatterns());
+		assertEquals(false, item.passwordLatin.isInitial());
+		assertEquals(false, item.passwordLatin.isFinal());
+		assertEquals(false, item.passwordLatin.isMandatory());
+		assertContains(item.passwordLatin.getSetterExceptions());
+		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
 
 		try
 		{
@@ -144,11 +144,11 @@ public class MD5Test extends AbstractLibTest
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword(specialPlainText));
 
-		item.setHashed1Latin(specialPlainText);
-		assertEquals("f80281c9b755508af7c42f585ed76e23", item.getHashed1LatinHash());
-		assertTrue(!item.checkHashed1Latin(null));
-		assertTrue(!item.checkHashed1Latin("bello"));
-		assertTrue(item.checkHashed1Latin(specialPlainText));
+		item.setPasswordLatin(specialPlainText);
+		assertEquals("f80281c9b755508af7c42f585ed76e23", item.getPasswordLatinHash());
+		assertTrue(!item.checkPasswordLatin(null));
+		assertTrue(!item.checkPasswordLatin("bello"));
+		assertTrue(item.checkPasswordLatin(specialPlainText));
 	
 		// reference example from http://de.wikipedia.org/wiki/MD5
 		final String appendix = "ranz jagt im komplett verwahrlosten Taxi quer durch Bayern";
