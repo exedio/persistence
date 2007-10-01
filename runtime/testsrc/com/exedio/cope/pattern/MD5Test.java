@@ -135,17 +135,15 @@ public class MD5Test extends AbstractLibTest
 		assertTrue(item.checkPassword(longPlainText));
 
 		// Test, that special characters produce different hashes
-		// with different pre-MD5 encodings.
+		// with different encodings.
 		final String specialPlainText = "Viele Gr\u00fc\u00dfe";
-		
 		item.setPassword(specialPlainText);
+		item.setPasswordLatin(specialPlainText);
 		assertEquals("b6f7c12664a57ad17298068b62c9053c", item.getPasswordHash());
+		assertEquals("f80281c9b755508af7c42f585ed76e23", item.getPasswordLatinHash());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword(specialPlainText));
-
-		item.setPasswordLatin(specialPlainText);
-		assertEquals("f80281c9b755508af7c42f585ed76e23", item.getPasswordLatinHash());
 		assertTrue(!item.checkPasswordLatin(null));
 		assertTrue(!item.checkPasswordLatin("bello"));
 		assertTrue(item.checkPasswordLatin(specialPlainText));
