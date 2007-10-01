@@ -150,6 +150,7 @@ final class CopeType
 	
 	private final ArrayList<CopeQualifier> qualifiers = new ArrayList<CopeQualifier>();
 	
+	@Deprecated
 	void addQualifier(final CopeQualifier qualifier)
 	{
 		assert !javaClass.file.repository.isBuildStage();

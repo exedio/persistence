@@ -23,8 +23,10 @@ abstract class CopeAttribute extends CopeFeature
 	/**
 	 * The persistent type of this attribute.
 	 */
+	@Deprecated
 	final String persistentType;
 
+	@Deprecated
 	final Option getterOption;
 	
 	CopeAttribute(
@@ -40,6 +42,7 @@ abstract class CopeAttribute extends CopeFeature
 		this.getterOption = new Option(Injector.findDocTagLine(docComment, TAG_GETTER), true);
 	}
 	
+	@Deprecated
 	final int getGeneratedGetterModifier()
 	{
 		return getterOption.getModifier(modifier);
@@ -50,6 +53,7 @@ abstract class CopeAttribute extends CopeFeature
 	 * Differs from {@link #persistentType the persistent type},
 	 * if and only if the attribute is {@link #isBoxed() boxed}.
 	 */
+	@Deprecated
 	String getBoxedType()
 	{
 		return persistentType;
@@ -61,6 +65,7 @@ abstract class CopeAttribute extends CopeFeature
 	 * and the persistent type is convertable to a native types (int, double, boolean).
 	 * @see #getBoxedType()
 	 */
+	@Deprecated
 	boolean isBoxed()
 	{
 		return false;

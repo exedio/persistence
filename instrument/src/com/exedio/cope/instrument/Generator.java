@@ -818,6 +818,7 @@ final class Generator
 	
 	// --------------------------------------- deprecated stuff ----------------------------------------------
 	
+	@Deprecated
 	private void writeQualifierParameters(final CopeQualifier qualifier)
 	throws IOException, InjectorParseException
 	{
@@ -833,6 +834,7 @@ final class Generator
 		}
 	}
 	
+	@Deprecated
 	private void writeQualifierCall(final CopeQualifier qualifier)
 	throws IOException, InjectorParseException
 	{
@@ -844,6 +846,7 @@ final class Generator
 		}
 	}
 	
+	@Deprecated
 	private void writeQualifier(final CopeQualifier qualifier)
 	throws IOException, InjectorParseException
 	{
@@ -894,6 +897,7 @@ final class Generator
 		}
 	}
 
+	@Deprecated
 	private void writeQualifierGetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException, InjectorParseException
 	{
@@ -936,6 +940,7 @@ final class Generator
 		}
 	}
 
+	@Deprecated
 	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
 	throws IOException, InjectorParseException
 	{

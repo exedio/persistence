@@ -74,6 +74,7 @@ final class CopeQualifier extends CopeFeature
 	}
 
 	@Override
+	@Deprecated
 	void endBuildStage()
 	{
 		javaAttribute.file.repository.getCopeType(getQualifierParent().getBoxedType()).

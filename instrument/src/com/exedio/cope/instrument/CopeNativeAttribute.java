@@ -105,12 +105,14 @@ final class CopeNativeAttribute extends CopeAttribute
 	}
 	
 	@Override
+	@Deprecated
 	public final String getBoxedType()
 	{
 		return isBoxed() ? nativeType : persistentType;
 	}
 	
 	@Override
+	@Deprecated
 	public final boolean isBoxed()
 	{
 		final Feature instance = getInstance();
