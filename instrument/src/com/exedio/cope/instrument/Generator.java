@@ -990,6 +990,7 @@ final class Generator
 		}
 	}
 	
+	@Deprecated
 	private void writeRelation(final CopeRelation relation, final boolean source)
 	throws IOException
 	{

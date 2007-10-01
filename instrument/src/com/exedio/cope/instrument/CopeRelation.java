@@ -56,11 +56,13 @@ final class CopeRelation extends CopeFeature
 		targetType.addRelation(this, false);
 	}
 	
+	@Deprecated
 	String getEndType(final boolean source)
 	{
 		return (source ? sourceType : targetType).javaClass.getFullName();
 	}
 	
+	@Deprecated
 	String getEndName(final boolean source)
 	{
 		final ItemField<? extends Item> endAttribute;
