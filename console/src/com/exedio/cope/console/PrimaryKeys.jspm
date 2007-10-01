@@ -34,7 +34,7 @@ final class PrimaryKeys_Jspm
 		%>
 		<table>
 			<caption>Primary Keys</caption>
-			<tr><th>Type</th><th>Info</th></tr><%
+			<tr><th>Type</th><th>PK</th></tr><%
 			for(final Type type : primaryKeys.keySet())
 			{
 			%>
