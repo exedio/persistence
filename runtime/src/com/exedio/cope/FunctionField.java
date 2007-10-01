@@ -147,21 +147,21 @@ public abstract class FunctionField<E extends Object>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		final Class wrapperValueClass = getWrapperSetterType();
-		final boolean wrapperValueClassPrimitive = wrapperValueClass.isPrimitive();
+		final Class setterType = getWrapperSetterType();
+		final boolean setterTypePrimitive = setterType.isPrimitive();
 		
 		final Wrapper get = new Wrapper(
-			wrapperValueClass, wrapperValueClassPrimitive ? "getMandatory" : "get",
+			setterType, setterTypePrimitive ? "getMandatory" : "get",
 			"Returns the value of the persistent field {0}.", // TODO better text
 			"getter");
-		if(wrapperValueClassPrimitive)
+		if(setterTypePrimitive)
 			get.setMethodWrapperPattern("get{0}");
 		result.add(get);
 		
 		if(!isfinal)
 		{
 			final Set<Class> exceptions = getSetterExceptions();
-			if(wrapperValueClassPrimitive)
+			if(setterTypePrimitive)
 				exceptions.remove(MandatoryViolationException.class);
 			
 			result.add(new Wrapper(
@@ -170,7 +170,7 @@ public abstract class FunctionField<E extends Object>
 				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
-				addParameter(wrapperValueClass));
+				addParameter(setterType));
 		}
 			
 		if(implicitUniqueConstraint!=null)
@@ -182,7 +182,7 @@ public abstract class FunctionField<E extends Object>
 				setStatic().
 				addComment("@param {1} shall be equal to field {0}.").
 				addComment("@return null if there is no matching item.").
-				addParameter(wrapperValueClass));
+				addParameter(setterType));
 			
 		return Collections.unmodifiableList(result);
 	}
