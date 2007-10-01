@@ -38,7 +38,11 @@ public class JavaSecurityHash extends Hash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(final boolean optional, final String algorithm, final int algorithmLength, final String encoding)
+	public JavaSecurityHash(
+			final boolean optional,
+			final String algorithm,
+			final int algorithmLength,
+			final String encoding)
 	{
 		super(optional(new StringField().lengthExact(algorithmLength), optional));
 		this.algorithm = algorithm;
@@ -68,7 +72,10 @@ public class JavaSecurityHash extends Hash
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(final boolean optional, final String algorithm, final int algorithmLength)
+	public JavaSecurityHash(
+			final boolean optional,
+			final String algorithm,
+			final int algorithmLength)
 	{
 		this(optional, algorithm, algorithmLength, "utf8");
 	}
