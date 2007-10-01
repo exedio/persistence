@@ -217,7 +217,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return lastModified;
 	}
 	
-	public Class getWrapperValueClass()
+	public Class getWrapperSetterType()
 	{
 		return Value.class;
 	}
