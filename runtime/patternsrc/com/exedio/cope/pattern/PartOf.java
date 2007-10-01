@@ -28,6 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import com.exedio.cope.Wrapper;
 
 public final class PartOf<C extends Item> extends Pattern
 {
@@ -47,6 +48,20 @@ public final class PartOf<C extends Item> extends Pattern
 	public ItemField<C> getContainer()
 	{
 		return container;
+	}
+	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(new Wrapper(
+			Wrapper.TypeVariable0.class, "getContainer",
+			"Returns the container this item is part of by {0}.",
+			"getter"));
+		
+		return Collections.unmodifiableList(result);
 	}
 	
 	public C getContainer(final Item part)
