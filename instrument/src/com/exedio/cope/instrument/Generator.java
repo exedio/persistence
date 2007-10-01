@@ -668,7 +668,7 @@ final class Generator
 				o.write(',');
 			final CopeAttribute attribute = attributes[i];
 			o.write(localFinal);
-			o.write(attribute.getBoxedType());
+			o.write(getBoxedType(attribute));
 			o.write(' ');
 			o.write(attribute.name);
 		}
@@ -693,6 +693,12 @@ final class Generator
 		o.write(");");
 		o.write(lineSeparator);
 		o.write("\t}");
+	}
+	
+	@SuppressWarnings("deprecation")
+	private String getBoxedType(final CopeAttribute a)
+	{
+		return a.getBoxedType();
 	}
 	
 	private void writeSerialVersionUID() throws IOException
