@@ -32,15 +32,17 @@ import com.exedio.cope.StringField;
 public class JavaSecurityHash extends Hash
 {
 	private final String algorithm;
+	private final int algorithmLength;
 	private final String encoding;
 
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(final StringField storage, final String algorithm, final String encoding)
+	public JavaSecurityHash(final boolean optional, final String algorithm, final int algorithmLength, final String encoding)
 	{
-		super(storage);
+		super(optional(new StringField().lengthExact(algorithmLength), optional));
 		this.algorithm = algorithm;
+		this.algorithmLength = algorithmLength;
 		this.encoding = encoding;
 
 		try
@@ -57,24 +59,29 @@ public class JavaSecurityHash extends Hash
 			throw new IllegalArgumentException(e);
 		}
 	}
+	
+	private static final StringField optional(final StringField f, final boolean optional)
+	{
+		return optional ? f.optional() : f;
+	}
 
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
-	public JavaSecurityHash(final StringField storage, final String algorithm)
+	public JavaSecurityHash(final boolean optional, final String algorithm, final int algorithmLength)
 	{
-		this(storage, algorithm, "utf8");
+		this(optional, algorithm, algorithmLength, "utf8");
 	}
 	
 	private final MessageDigest createDigest() throws NoSuchAlgorithmException
 	{
 		return MessageDigest.getInstance(algorithm);
 	}
-
+	
 	@Override
 	public JavaSecurityHash optional()
 	{
-		return new JavaSecurityHash(getStorage().optional(), algorithm, encoding);
+		return new JavaSecurityHash(true, algorithm, algorithmLength, encoding);
 	}
 	
 	public final String getEncoding()

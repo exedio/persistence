@@ -29,24 +29,19 @@ public final class MD5Hash extends JavaSecurityHash
 	private static final String HASH = "MD5";
 	private static final int LENGTH = 32;
 
-	private MD5Hash(final StringField storage)
+	private MD5Hash(final boolean optional, final String encoding)
 	{
-		super(storage, HASH);
-	}
-
-	private MD5Hash(final StringField storage, final String encoding)
-	{
-		super(storage, HASH, encoding);
+		super(optional, HASH, LENGTH, encoding);
 	}
 
 	public MD5Hash(final String encoding)
 	{
-		super(new StringField().lengthExact(LENGTH), HASH, encoding);
+		super(false, HASH, LENGTH, encoding);
 	}
 
 	public MD5Hash()
 	{
-		this(new StringField().lengthExact(LENGTH));
+		super(false, HASH, LENGTH);
 	}
 	
 	/**
@@ -55,7 +50,7 @@ public final class MD5Hash extends JavaSecurityHash
 	@Deprecated
 	public MD5Hash(final Option storageOption)
 	{
-		this(new StringField(storageOption).lengthExact(LENGTH));
+		super(storageOption.optional, HASH, LENGTH);
 	}
 
 	@Override
@@ -71,6 +66,6 @@ public final class MD5Hash extends JavaSecurityHash
 	@Override
 	public MD5Hash optional()
 	{
-		return new MD5Hash(getStorage().optional(), getEncoding());
+		return new MD5Hash(true, getEncoding());
 	}
 }

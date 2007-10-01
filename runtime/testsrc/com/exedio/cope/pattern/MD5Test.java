@@ -25,7 +25,6 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
-import com.exedio.cope.StringField;
 
 public class MD5Test extends AbstractLibTest
 {
@@ -98,7 +97,7 @@ public class MD5Test extends AbstractLibTest
 		}
 		try
 		{
-			new JavaSecurityHash(new StringField(), "NIXUS");
+			new JavaSecurityHash(true, "NIXUS", 66);
 			fail();
 		}
 		catch(IllegalArgumentException e)
