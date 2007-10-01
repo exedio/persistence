@@ -85,6 +85,15 @@ public class MD5Test extends AbstractLibTest
 		assertContains(item.passwordLatin.getSetterExceptions());
 		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
 
+		assertEquals(item.TYPE, item.passwordMandatory.getType());
+		assertEquals("passwordMandatory", item.passwordMandatory.getName());
+		assertEqualsUnmodifiable(list(item.passwordMandatory), item.passwordMandatory.getStorage().getPatterns());
+		assertEquals(true, item.passwordMandatory.isInitial());
+		assertEquals(false, item.passwordMandatory.isFinal());
+		assertEquals(true, item.passwordMandatory.isMandatory());
+		assertContains(MandatoryViolationException.class, item.passwordMandatory.getSetterExceptions());
+		assertEquals("utf8", item.passwordMandatory.getEncoding());
+		
 		try
 		{
 			new MD5Hash("nixus");
