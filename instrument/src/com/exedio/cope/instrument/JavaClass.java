@@ -169,7 +169,7 @@ final class JavaClass extends JavaFeature
 		}
 		catch(EvalError e) // TODO method should throw this
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException("In class " + getFullName() + " evaluated " + s);
 		}
 	}
 	
