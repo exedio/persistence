@@ -53,9 +53,9 @@ import com.exedio.cope.Item;
  */
 public final class MediaRedirect extends MediaPath
 {
-	private final Media target;
+	private final MediaPath target;
 
-	public MediaRedirect(final Media target)
+	public MediaRedirect(final MediaPath target)
 	{
 		if(target==null)
 			throw new NullPointerException("target must not be null");
@@ -63,7 +63,7 @@ public final class MediaRedirect extends MediaPath
 		this.target = target;
 	}
 	
-	public final Media getTarget()
+	public final MediaPath getTarget()
 	{
 		return target;
 	}

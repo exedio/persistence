@@ -41,7 +41,7 @@ final class MediaCop extends ConsoleCop
 	private static final int LIMIT_DEFAULT = 10;
 	
 	final MediaPath media;
-	final Media other;
+	final MediaPath other;
 	final boolean mediaInline;
 	final boolean otherInline;
 	final Pager pager;
