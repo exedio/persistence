@@ -141,22 +141,12 @@ final class MediaCop extends ConsoleCop
 		{
 			model.startTransaction(getClass().getName());
 			
-			final Media other;
-			if(media instanceof Media)
-				other = null;
-			else if(media instanceof MediaFilter)
-				other = ((MediaFilter)media).getSource();
-			else if(media instanceof MediaRedirect)
-				other = ((MediaRedirect)media).getTarget();
-			else
-				other = null;
-			
 			final Query<? extends Item> q = media.getType().newQuery(media.isNotNull());
 			q.setLimit(pager.getOffset(), pager.getLimit());
 			q.setOrderBy(media.getType().getThis(), true);
 			final Query.Result<? extends Item> items = q.searchAndTotal();
 			pager.init(items.getData().size(), items.getTotal());
-			Media_Jspm.writeBody(this, out, items, other);
+			Media_Jspm.writeBody(this, out, items);
 			model.commit();
 		}
 		finally

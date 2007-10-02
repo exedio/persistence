@@ -155,10 +155,10 @@ final class Media_Jspm extends Console_Jspm
 	final static void writeBody(
 				final MediaCop cop,
 				final PrintStream out,
-				final Query.Result<? extends Item> items,
-				final Media other)
+				final Query.Result<? extends Item> items)
 	{
 		final MediaPath media = cop.media;
+		final Media other = cop.other;
 		final CachedMedia mediaLastModified = media instanceof CachedMedia ? (CachedMedia)media : null;
 		final Media mediaLength = media instanceof Media ? (Media)media : null;
 		final boolean mediaInline = cop.mediaInline;
