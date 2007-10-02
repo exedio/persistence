@@ -570,9 +570,7 @@ final class Generator
 	
 	private static final String toString(final Class c, final CopeFeature feature)
 	{
-		if(c.isArray())
-			return c.getComponentType().getName() + "[]";
-		else if(Wrapper.ClassVariable.class.equals(c))
+		if(Wrapper.ClassVariable.class.equals(c))
 			return feature.parent.name;
 		else if(Wrapper.TypeVariable0.class.equals(c))
 			return Injector.getGenerics(feature.javaAttribute.type).get(0);
