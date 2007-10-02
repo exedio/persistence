@@ -144,21 +144,13 @@ final class MediaCop extends ConsoleCop
 			final Media other;
 			
 			if(media instanceof Media)
-			{
 				other = null;
-			}
 			else if(media instanceof MediaFilter)
-			{
 				other = ((MediaFilter)media).getSource();
-			}
 			else if(media instanceof MediaRedirect)
-			{
 				other = ((MediaRedirect)media).getTarget();
-			}
 			else
-			{
 				other = null;
-			}
 			
 			final Query<? extends Item> q = media.getType().newQuery(media.isNotNull());
 			q.setLimit(pager.getOffset(), pager.getLimit());
