@@ -140,7 +140,7 @@ final class JavaRepository
 								new CopeRelation(type, javaAttribute, true);
 							else if(CustomAttribute.class.isAssignableFrom(typeClass))
 								; // ignore
-							else if(Feature.class.isAssignableFrom(typeClass))
+							else if(Feature.class.isAssignableFrom(typeClass) && /* TODO bad hack */ !"config".equals(javaAttribute.name))
 								new CopeFeature(type, javaAttribute);
 						}
 					}
