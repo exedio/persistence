@@ -142,7 +142,6 @@ final class MediaCop extends ConsoleCop
 			model.startTransaction(getClass().getName());
 			
 			final Media other;
-			
 			if(media instanceof Media)
 				other = null;
 			else if(media instanceof MediaFilter)
