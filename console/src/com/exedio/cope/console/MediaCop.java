@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
@@ -57,9 +56,7 @@ final class MediaCop extends ConsoleCop
 		
 		this.media = media;
 		
-		if(media instanceof Media)
-			other = null;
-		else if(media instanceof MediaFilter)
+		if(media instanceof MediaFilter)
 			other = ((MediaFilter)media).getSource();
 		else if(media instanceof MediaRedirect)
 			other = ((MediaRedirect)media).getTarget();
