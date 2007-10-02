@@ -24,7 +24,7 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.pattern.HistoryExperimental.Feature;
+import com.exedio.cope.pattern.History.Feature;
 
 public class HistoryTest extends AbstractLibTest
 {
@@ -146,7 +146,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(list(), item.getAuditEvents());
 		
 		final Date before1 = new Date();
-		HistoryExperimental.Event event1 = item.createAuditEvent("cause1", true);
+		History.Event event1 = item.createAuditEvent("cause1", true);
 		final Date after1 = new Date();
 		assertEquals(item, event1.getParent());
 		assertWithin(before1, after1, event1.getDate());
@@ -174,7 +174,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(list(feature11, feature12), event1.getFeatures());
 		
 		final Date before2 = new Date();
-		HistoryExperimental.Event event2 = item.createAuditEvent("cause2", false);
+		History.Event event2 = item.createAuditEvent("cause2", false);
 		final Date after2 = new Date();
 		assertEquals(item, event2.getParent());
 		assertWithin(before2, after2, event2.getDate());

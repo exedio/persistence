@@ -38,7 +38,7 @@ import com.exedio.cope.Wrapper;
 /**
  * This pattern is still experimental, and its API may change any time.
  */
-public final class HistoryExperimental extends Pattern
+public final class History extends Pattern
 {
 	private ItemField<?> eventParent = null;
 	private final DateField eventDate = new DateField().toFinal();
