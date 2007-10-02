@@ -34,6 +34,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
@@ -208,11 +209,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	public DateField getLastModified()
-	{
-		return lastModified;
-	}
-	
-	public FunctionField getIsNull()
 	{
 		return lastModified;
 	}
@@ -596,6 +592,18 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			if(out!=null)
 				out.close();
 		}
+	}
+
+	@Override
+	public Condition isNull()
+	{
+		return lastModified.isNull();
+	}
+
+	@Override
+	public Condition isNotNull()
+	{
+		return lastModified.isNotNull();
 	}
 	
 	public static final class Value // TODO add getter methods

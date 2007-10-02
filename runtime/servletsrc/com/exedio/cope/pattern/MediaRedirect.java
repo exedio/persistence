@@ -24,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 
 /**
@@ -114,5 +115,17 @@ public final class MediaRedirect extends MediaPath
 		response.setStatus(response.SC_MOVED_PERMANENTLY);
 		response.setHeader(RESPONSE_LOCATION, location.toString());
 		return delivered;
+	}
+
+	@Override
+	public Condition isNull()
+	{
+		return target.isNull();
+	}
+
+	@Override
+	public Condition isNotNull()
+	{
+		return target.isNotNull();
 	}
 }

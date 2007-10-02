@@ -25,6 +25,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -107,5 +108,16 @@ public final class MediaNameServer extends MediaPath
 		}
 		return delivered;
 	}
+	
+	@Override
+	public Condition isNull()
+	{
+		return source.isNull();
+	}
 
+	@Override
+	public Condition isNotNull()
+	{
+		return source.isNotNull();
+	}
 }

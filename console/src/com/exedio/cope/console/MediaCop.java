@@ -22,7 +22,6 @@ import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -143,30 +142,25 @@ final class MediaCop extends ConsoleCop
 			model.startTransaction(getClass().getName());
 			
 			final Media other;
-			final Condition c;
 			
 			if(media instanceof Media)
 			{
 				other = null;
-				c = ((Media)media).getIsNull().isNotNull();
 			}
 			else if(media instanceof MediaFilter)
 			{
 				other = ((MediaFilter)media).getSource();
-				c = other.getIsNull().isNotNull();
 			}
 			else if(media instanceof MediaRedirect)
 			{
 				other = ((MediaRedirect)media).getTarget();
-				c = other.getIsNull().isNotNull();
 			}
 			else
 			{
 				other = null;
-				c = null;
 			}
 			
-			final Query<? extends Item> q = media.getType().newQuery(c);
+			final Query<? extends Item> q = media.getType().newQuery(media.isNotNull());
 			q.setLimit(pager.getOffset(), pager.getLimit());
 			q.setOrderBy(media.getType().getThis(), true);
 			final Query.Result<? extends Item> items = q.searchAndTotal();

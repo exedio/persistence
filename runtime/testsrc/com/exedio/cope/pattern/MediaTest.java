@@ -81,6 +81,8 @@ public final class MediaTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.foto.getType());
 		assertEquals("foto", item.foto.getName());
 		assertSame(item.photo, item.foto.getTarget());
+		assertEquals(item.photo.isNull(), item.foto.isNull());
+		assertEquals(item.photo.isNotNull(), item.foto.isNotNull());
 		
 		try
 		{

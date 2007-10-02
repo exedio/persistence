@@ -82,9 +82,12 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		assertSame(lastModified, item.file.getIsNull());
+		assertEquals(lastModified.isNull(), item.file.isNull());
+		assertEquals(lastModified.isNotNull(), item.file.isNotNull());
 		
 		assertNull();
+		assertContains(item, item.TYPE.search(item.file.isNull()));
+		assertContains(item.TYPE.search(item.file.isNotNull()));
 		{
 			final Date before = new Date();
 			item.setFile(stream(data4), "fileMajor/fileMinor");
@@ -92,6 +95,8 @@ public class MediaDefaultTest extends AbstractLibTest
 			assertStreamClosed();
 			assertContent(data4, before, after, "fileMajor/fileMinor", "");
 		}
+		assertContains(item.TYPE.search(item.file.isNull()));
+		assertContains(item, item.TYPE.search(item.file.isNotNull()));
 		{
 			final Date before = new Date();
 			item.setFile(stream(data6), "fileMajor2/fileMinor2");

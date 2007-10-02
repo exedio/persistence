@@ -75,6 +75,9 @@ public class ThumbnailTest extends AbstractLibTest
 		assertTrue(sct.toString(), sct.contains("image/gif"));
 		assertUnmodifiable(sct);
 		
+		assertEquals(item.file.isNull(), item.thumb.isNull());
+		assertEquals(item.file.isNotNull(), item.thumb.isNotNull());
+		
 		try
 		{
 			new MediaThumbnail(null, 80, 80);
@@ -130,6 +133,11 @@ public class ThumbnailTest extends AbstractLibTest
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID()  + ".jpg", gif.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + text.getCopeID() + ".txt", text.getThumbURLWithFallbackToSource());
 		assertEquals(null, empty.getThumbURL());
+		
+		assertContains(empty, item.TYPE.search(item.file.isNull()));
+		assertContains(jpeg, png, gif, text, item.TYPE.search(item.file.isNotNull()));
+		assertContains(empty , item.TYPE.search(item.thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
+		assertContains(jpeg, png, gif, text, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 	}
 	
 	private void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)

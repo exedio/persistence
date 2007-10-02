@@ -83,7 +83,6 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(true, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 		assertEqualsUnmodifiable(list(t.file), lastModified.getPatterns());
-		assertSame(lastModified, t.file.getIsNull());
 		
 		// test persistence
 		assertEquals(list(), t.TYPE.search());

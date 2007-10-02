@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Wrapper;
 
@@ -69,5 +70,17 @@ public abstract class MediaFilter extends CachedMedia
 	{
 		final String myURL = getURL(item);
 		return (myURL!=null) ? myURL : source.getURL(item);
+	}
+
+	@Override
+	public Condition isNull()
+	{
+		return source.isNull(); // TODO check for getSupportedSourceContentTypes
+	}
+
+	@Override
+	public Condition isNotNull()
+	{
+		return source.isNotNull(); // TODO check for getSupportedSourceContentTypes
 	}
 }

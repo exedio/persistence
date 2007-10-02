@@ -28,6 +28,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -184,6 +185,16 @@ public abstract class MediaPath extends Pattern
 	
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
 		throws ServletException, IOException;
+	
+	/**
+	 * Returns a condition matching all items, for which {@link #getURL(Item)} returns null.
+	 */
+	public abstract Condition isNull();
+	
+	/**
+	 * Returns a condition matching all items, for which {@link #getURL(Item)} does not return null.
+	 */
+	public abstract Condition isNotNull();
 	
 	
 	public final static class Log

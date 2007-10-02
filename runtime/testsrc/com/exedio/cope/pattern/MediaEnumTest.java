@@ -79,7 +79,6 @@ public class MediaEnumTest extends AbstractLibTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		assertSame(lastModified, item.sheet.getIsNull());
 
 		assertNull();
 
