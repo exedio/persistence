@@ -333,11 +333,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		
 		final String name = getName();
 		if(!body.isInitialized())
-			initialize(body, name+"Body");
+			initialize(body, name + "Body");
 		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null && !contentTypeField.isInitialized())
 			initialize(contentTypeField, name + contentType.name);
-		initialize(lastModified, name+"LastModified");
+		initialize(lastModified, name + "LastModified");
 	}
 	
 	public boolean isNull(final Item item)
