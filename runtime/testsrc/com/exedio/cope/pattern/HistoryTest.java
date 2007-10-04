@@ -148,6 +148,7 @@ public class HistoryTest extends AbstractLibTest
 		final Date before1 = new Date();
 		History.Event event1 = item.createAuditEvent("cause1", true);
 		final Date after1 = new Date();
+		assertSame(item.audit, event1.getPattern());
 		assertEquals(item, event1.getParent());
 		assertWithin(before1, after1, event1.getDate());
 		assertEquals("cause1", event1.getCause());
@@ -156,6 +157,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(event1), item.getAuditEvents());
 		
 		final Feature feature11 = event1.createFeature(item.amount, "Amount", new Double(1.1), new Double(2.2));
+		assertSame(item.audit, feature11.getPattern());
 		assertEquals(event1, feature11.getEvent());
 		assertSame(item.amount, feature11.getFeature());
 		assertEquals(item.amount.getID(), feature11.getId());
@@ -165,6 +167,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(list(feature11), event1.getFeatures());
 		
 		final Feature feature12 = event1.createFeature(item.comment, "Comment", "blub", "blah");
+		assertSame(item.audit, feature12.getPattern());
 		assertEquals(event1, feature12.getEvent());
 		assertSame(item.comment, feature12.getFeature());
 		assertEquals(item.comment.getID(), feature12.getId());
@@ -176,6 +179,7 @@ public class HistoryTest extends AbstractLibTest
 		final Date before2 = new Date();
 		History.Event event2 = item.createAuditEvent("cause2", false);
 		final Date after2 = new Date();
+		assertSame(item.audit, event2.getPattern());
 		assertEquals(item, event2.getParent());
 		assertWithin(before2, after2, event2.getDate());
 		assertEquals("cause2", event2.getCause());

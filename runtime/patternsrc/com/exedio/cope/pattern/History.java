@@ -198,10 +198,15 @@ public final class History extends Pattern
 	{
 		private final Item backingItem;
 		
-		Event(final Item backingItem)
+		private Event(final Item backingItem)
 		{
 			this.backingItem = backingItem;
 			assert backingItem!=null;
+		}
+		
+		public History getPattern()
+		{
+			return History.this;
 		}
 		
 		public Item getParent()
@@ -272,10 +277,15 @@ public final class History extends Pattern
 	{
 		private final Item backingItem;
 		
-		Feature(final Item backingItem)
+		private Feature(final Item backingItem)
 		{
 			this.backingItem = backingItem;
 			assert backingItem!=null;
+		}
+		
+		public History getPattern()
+		{
+			return History.this;
 		}
 		
 		public Event getEvent()
