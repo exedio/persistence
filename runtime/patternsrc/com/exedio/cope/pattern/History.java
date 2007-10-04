@@ -196,52 +196,52 @@ public final class History extends Pattern
 
 	public final class Event
 	{
-		private final Item event;
+		private final Item backingItem;
 		
-		Event(final Item event)
+		Event(final Item backingItem)
 		{
-			this.event = event;
-			assert event!=null;
+			this.backingItem = backingItem;
+			assert backingItem!=null;
 		}
 		
 		public Item getParent()
 		{
-			return eventParent.get(event);
+			return eventParent.get(backingItem);
 		}
 		
 		public Date getDate()
 		{
-			return eventDate.get(event);
+			return eventDate.get(backingItem);
 		}
 		
 		public String getCause()
 		{
-			return eventOrigin.get(event);
+			return eventOrigin.get(backingItem);
 		}
 		
 		public boolean isCreation()
 		{
-			return eventCreation.getMandatory(event);
+			return eventCreation.getMandatory(backingItem);
 		}
 		
 		public List<? extends Feature> getFeatures()
 		{
-			final List<? extends Item> featureItems = featureType.search(Cope.equalAndCast(featureEvent, event), featureType.getThis(), true);
+			final List<? extends Item> featureItems = featureType.search(Cope.equalAndCast(featureEvent, backingItem), featureType.getThis(), true);
 			final ArrayList<Feature> result = new ArrayList<Feature>(featureItems.size());
 			for(final Item featureItem : featureItems)
 				result.add(new Feature(featureItem));
 			return Collections.unmodifiableList(result);
 		}
 		
-		public final Item getItem()
+		public final Item getBackingItem()
 		{
-			return event;
+			return backingItem;
 		}
 		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
 			return new Feature(featureType.newItem(
-					Cope.mapAndCast(featureEvent, event),
+					Cope.mapAndCast(featureEvent, backingItem),
 					featureId.map(f.getID()),
 					featureName.map(name),
 					featureOld.map(oldValue!=null ? oldValue.toString() : null),
@@ -252,78 +252,78 @@ public final class History extends Pattern
 		@Override
 		public boolean equals(final Object other)
 		{
-			return other instanceof Event && event.equals(((Event)other).event);
+			return other instanceof Event && backingItem.equals(((Event)other).backingItem);
 		}
 		
 		@Override
 		public int hashCode()
 		{
-			return event.hashCode() ^ 28736589;
+			return backingItem.hashCode() ^ 28736589;
 		}
 		
 		@Override
 		public String toString()
 		{
-			return event.toString();
+			return backingItem.toString();
 		}
 	}
 
 	public final class Feature
 	{
-		private final Item feature;
+		private final Item backingItem;
 		
-		Feature(final Item feature)
+		Feature(final Item backingItem)
 		{
-			this.feature = feature;
-			assert feature!=null;
+			this.backingItem = backingItem;
+			assert backingItem!=null;
 		}
 		
 		public Event getEvent()
 		{
-			return new Event(featureEvent.get(feature));
+			return new Event(featureEvent.get(backingItem));
 		}
 		
 		public com.exedio.cope.Feature getFeature()
 		{
-			return featureId.getType().getModel().findFeatureByID(featureId.get(feature));
+			return featureId.getType().getModel().findFeatureByID(featureId.get(backingItem));
 		}
 		
 		public String getId()
 		{
-			return featureId.get(feature);
+			return featureId.get(backingItem);
 		}
 		
 		public String getName()
 		{
-			return featureName.get(feature);
+			return featureName.get(backingItem);
 		}
 		
 		public String getOld()
 		{
-			return featureOld.get(feature);
+			return featureOld.get(backingItem);
 		}
 		
 		public String getNew()
 		{
-			return featureNew.get(feature);
+			return featureNew.get(backingItem);
 		}
 		
 		@Override
 		public boolean equals(final Object other)
 		{
-			return other instanceof Feature && feature.equals(((Feature)other).feature);
+			return other instanceof Feature && backingItem.equals(((Feature)other).backingItem);
 		}
 		
 		@Override
 		public int hashCode()
 		{
-			return feature.hashCode() ^ 125437263;
+			return backingItem.hashCode() ^ 125437263;
 		}
 		
 		@Override
 		public String toString()
 		{
-			return feature.toString();
+			return backingItem.toString();
 		}
 	}
 }
