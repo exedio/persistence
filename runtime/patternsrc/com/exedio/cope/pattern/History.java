@@ -82,10 +82,10 @@ public final class History extends Pattern
 		featureType = newType(features, "Feature");
 	}
 	
-	public ItemField<?> getEventParent()
+	public <P extends Item> ItemField<P> getEventParent(final Class<P> parentClass)
 	{
 		assert eventParent!=null;
-		return eventParent;
+		return eventParent.cast(parentClass);
 	}
 	
 	public DateField getEventDate()
@@ -172,6 +172,13 @@ public final class History extends Pattern
 			addParameter(String.class, "cause").
 			addParameter(boolean.class, "created"));
 			
+		result.add(new Wrapper(
+			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getEventParent",
+			"Returns the parent field of the event type of {0}.",
+			"parent").
+			setMethodWrapperPattern("{1}EventParent").
+			setStatic());
+					
 		return Collections.unmodifiableList(result);
 	}
 	

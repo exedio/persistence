@@ -71,7 +71,7 @@ public class HistoryTest extends AbstractLibTest
 			), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				eventType.getThis(),
-				item.audit.getEventParent(),
+				item.auditEventParent(),
 				item.audit.getEventDate(),
 				item.audit.getEventUniqueConstraint(),
 				item.audit.getEventOrigin(),
@@ -110,7 +110,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(featureType, featureType.getThis().getValueType());
 		assertEquals(model, featureType.getModel());
 
-		assertEquals(eventType, item.audit.getEventParent().getType());
+		assertEquals(eventType, item.auditEventParent().getType());
 		assertEquals(eventType, item.audit.getEventDate().getType());
 		assertEquals(eventType, item.audit.getEventUniqueConstraint().getType());
 		assertEquals(eventType, item.audit.getEventOrigin().getType());
@@ -122,7 +122,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(featureType, item.audit.getFeatureOld().getType());
 		assertEquals(featureType, item.audit.getFeatureNew().getType());
 
-		assertEquals("parent", item.audit.getEventParent().getName());
+		assertEquals("parent", item.auditEventParent().getName());
 		assertEquals("date", item.audit.getEventDate().getName());
 		assertEquals("uniqueConstraint", item.audit.getEventUniqueConstraint().getName());
 		assertEquals("origin", item.audit.getEventOrigin().getName());
@@ -134,7 +134,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals("old", item.audit.getFeatureOld().getName());
 		assertEquals("new", item.audit.getFeatureNew().getName());
 
-		assertEqualsUnmodifiable(list(item.audit.getEventParent(), item.audit.getEventDate()), item.audit.getEventUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(item.auditEventParent(), item.audit.getEventDate()), item.audit.getEventUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(item.audit.getFeatureEvent(), item.audit.getFeatureId()), item.audit.getFeatureUniqueConstraint().getFields());
 
 		assertTrue(eventType.isAssignableFrom(eventType));
