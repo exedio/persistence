@@ -459,10 +459,10 @@ public final class Type<C extends Item>
 
 		this.table = new Table(database, id, supertype, typesOfInstancesColumnValues);
 
-		if(supertype!=null)
-			pkSource = supertype.getPkSource();
-		else
-			pkSource = new PkSource(table);
+		pkSource =
+			supertype!=null
+			? supertype.getPkSource()
+			: new PkSource(table);
 		
 		for(final Field a : declaredFields)
 			a.connect(table);
