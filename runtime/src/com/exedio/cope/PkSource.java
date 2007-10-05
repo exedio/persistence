@@ -33,30 +33,30 @@ final class PkSource
 		this.table = table;
 	}
 
-	private int nextPK = NOT_A_PK;
+	private int next = NOT_A_PK;
 	private final Object lock = new Object();
 	
 	void flushPK()
 	{
 		synchronized(lock)
 		{
-			nextPK = NOT_A_PK;
+			next = NOT_A_PK;
 		}
 	}
 
-	int nextPK(final Connection connection)
+	int next(final Connection connection)
 	{
 		final int result;
 		
 		synchronized(lock)
 		{
-			if(nextPK==NOT_A_PK)
+			if(next==NOT_A_PK)
 			{
 				final Integer maxPK = table.database.maxPK(connection, table);
-				nextPK = maxPK!=null ? (maxPK.intValue()+1) : 0;
+				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
 			
-			result = nextPK++;
+			result = next++;
 		}
 		
 		if(!isValid(result))
@@ -72,6 +72,6 @@ final class PkSource
 
 	Integer getInfo()
 	{
-		return nextPK!=NOT_A_PK ? nextPK : null;
+		return next!=NOT_A_PK ? next : null;
 	}
 }
