@@ -158,7 +158,7 @@ public abstract class Item extends Cope
 	Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
 	{
 		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
-		this.pk = type.getPkSource().next();
+		this.pk = type.getPkSource().next(type.getModel().getCurrentTransaction().getConnection());
 		assert PkSource.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
 		
