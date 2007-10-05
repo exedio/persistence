@@ -70,7 +70,7 @@ final class PkSource
 		return pk>=MIN_PK && pk<=MAX_PK;
 	}
 
-	Integer getPrimaryKeyInfo()
+	Integer getInfo()
 	{
 		return nextPK!=NOT_A_PK ? nextPK : null;
 	}

@@ -577,7 +577,7 @@ public final class Type<C extends Item>
 	
 	public Integer getPrimaryKeyInfo()
 	{
-		return getPkSource().getPrimaryKeyInfo();
+		return getPkSource().getInfo();
 	}
 	
 	/**
