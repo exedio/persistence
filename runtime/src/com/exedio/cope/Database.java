@@ -600,7 +600,7 @@ final class Database
 									currentType = type;
 
 								final int pkPrimitive = pk.intValue();
-								if(!PkSource.isPk(pkPrimitive))
+								if(!PkSource.isPK(pkPrimitive))
 									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
 								resultCell = currentType.getItemObject(pkPrimitive);
 							}
@@ -1300,7 +1300,7 @@ final class Database
 		});
 	}
 
-	Integer nextPK(final Connection connection, final Table table)
+	Integer maxPK(final Connection connection, final Table table)
 	{
 		buildStage = false;
 
@@ -1322,7 +1322,7 @@ final class Database
 				if(o!=null)
 				{
 					final int result = convertSQLResult(o);
-					if(!PkSource.isPk(result))
+					if(!PkSource.isPK(result))
 						throw new RuntimeException("invalid primary key " + result + " in table " + table.id);
 					return result;
 				}

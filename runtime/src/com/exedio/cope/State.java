@@ -34,7 +34,7 @@ abstract class State
 		this.type = item.type;
 		this.pk = item.pk;
 
-		assert PkSource.isPk(pk) : pk;
+		assert PkSource.isPK(pk) : pk;
 	}
 	
 	abstract Object get(FunctionField field);

@@ -33,14 +33,14 @@ final class PkSource
 		this.table = table;
 	}
 
-	private int nextPk = NOT_A_PK;
+	private int nextPK = NOT_A_PK;
 	private final Object lock = new Object();
 	
 	void flushPK()
 	{
 		synchronized(lock)
 		{
-			nextPk = NOT_A_PK;
+			nextPK = NOT_A_PK;
 		}
 	}
 
@@ -50,28 +50,28 @@ final class PkSource
 		
 		synchronized(lock)
 		{
-			if(nextPk==NOT_A_PK)
+			if(nextPK==NOT_A_PK)
 			{
-				final Integer maxPK = table.database.nextPK(connection, table);
-				nextPk = maxPK!=null ? (maxPK.intValue()+1) : 0;
+				final Integer maxPK = table.database.maxPK(connection, table);
+				nextPK = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
 			
-			result = nextPk++;
+			result = nextPK++;
 		}
 		
-		if(!isPk(result))
+		if(!isPK(result))
 			throw new RuntimeException("primary key overflow to " + result + " in table " + table.id);
 		
 		return result;
 	}
 
-	static boolean isPk(final int pk)
+	static boolean isPK(final int pk)
 	{
 		return pk>=MIN_PK && pk<=MAX_PK;
 	}
 
 	Integer getPrimaryKeyInfo()
 	{
-		return nextPk!=NOT_A_PK ? nextPk : null;
+		return nextPK!=NOT_A_PK ? nextPK : null;
 	}
 }
