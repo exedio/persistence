@@ -168,16 +168,16 @@ public class DispatcherTest extends AbstractLibTest
 		assertDone(d1, list(), item3);
 		assertNotDone(list(d1, d2), item4);
 		
+		item2.setFail(false);
 		final DateRange d3 = dispatch();
 		assertDone(d1, list(), item1);
-		assertNotDone(list(d1, d2, d3), item2);
+		assertDone(d3, list(d1, d2), item2);
 		assertDone(d1, list(), item3);
 		assertNotDone(list(d1, d2, d3), item4);
 		
-		item2.setFail(false);
 		dispatch();
 		assertDone(d1, list(), item1);
-		assertNotDone(list(d1, d2, d3), item2);
+		assertDone(d3, list(d1, d2), item2);
 		assertDone(d1, list(), item3);
 		assertNotDone(list(d1, d2, d3), item4);
 		
