@@ -39,7 +39,7 @@ public abstract class PkSourceAbstractTest extends TestCase
 	{
 		try
 		{
-			PkSource.pk2id(Type.NOT_A_PK);
+			PkSource.pk2id(PkSource.NOT_A_PK);
 			fail();
 		}
 		catch(IllegalArgumentException e)

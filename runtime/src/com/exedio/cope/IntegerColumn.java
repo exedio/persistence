@@ -99,8 +99,8 @@ class IntegerColumn extends Column
 
 		super(table, Table.PK_COLUMN_NAME, true, true, JDBC_TYPE_INT);
 
-		this.minimum = Type.MIN_PK;
-		this.maximum = Type.MAX_PK;
+		this.minimum = PkSource.MIN_PK;
+		this.maximum = PkSource.MAX_PK;
 		this.longInsteadOfInt = false;
 		this.allowedValues = null;
 		

@@ -1000,10 +1000,6 @@ public final class Type<C extends Item>
 		}
 	}
 
-	static final int MIN_PK = 0;
-	static final int MAX_PK = Integer.MAX_VALUE;
-	static final int NOT_A_PK = Integer.MIN_VALUE;
-
 	public static final class This<E extends Item> extends Feature implements Function<E>, ItemFunction<E>
 	{
 		private static final String NAME = "this";
