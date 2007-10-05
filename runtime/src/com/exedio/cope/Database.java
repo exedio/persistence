@@ -1300,7 +1300,7 @@ final class Database
 		});
 	}
 
-	Integer maxPK(final Connection connection, final Table table)
+	Integer maxPK(final Table table)
 	{
 		buildStage = false;
 
@@ -1310,28 +1310,46 @@ final class Database
 			append(primaryKeyProtectedID).defineColumnInteger().
 			append(") from ").
 			append(table.protectedID);
-			
-		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+
+		final Pool<Connection> connectionPool = this.connectionPool;
+		Connection connection = null;
+		try
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			// BEWARE
+			// Never use the current transaction for fetching the primary key maximum,
+			// this can cause primary key collisions in the database. 
+			connection = connectionPool.get();
+			
+			return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 			{
-				if(!resultSet.next())
-					throw new SQLException(NO_SUCH_ROW);
-				
-				final Object o = resultSet.getObject(1);
-				if(o!=null)
+				public Integer handle(final ResultSet resultSet) throws SQLException
 				{
-					final int result = convertSQLResult(o);
-					if(!PkSource.isValid(result))
-						throw new RuntimeException("invalid primary key " + result + " in table " + table.id);
-					return result;
+					if(!resultSet.next())
+						throw new SQLException(NO_SUCH_ROW);
+					
+					final Object o = resultSet.getObject(1);
+					if(o!=null)
+					{
+						final int result = convertSQLResult(o);
+						if(!PkSource.isValid(result))
+							throw new RuntimeException("invalid primary key " + result + " in table " + table.id);
+						return result;
+					}
+					else
+					{
+						return null;
+					}
 				}
-				else
-				{
-					return null;
-				}
+			});
+		}
+		finally
+		{
+			if(connection!=null)
+			{
+				connectionPool.put(connection);
+				connection = null;
 			}
-		});
+		}
 	}
 	
 	int checkTypeColumn(final Connection connection, final Type type)

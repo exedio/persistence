@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-
 final class PkSource
 {
 	static final int MIN_VALUE = 0;
@@ -44,7 +42,7 @@ final class PkSource
 		}
 	}
 
-	int next(final Connection connection)
+	int next()
 	{
 		final int result;
 		
@@ -52,7 +50,7 @@ final class PkSource
 		{
 			if(next==NaPK)
 			{
-				final Integer maxPK = table.database.maxPK(connection, table);
+				final Integer maxPK = table.database.maxPK(table);
 				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
 			
