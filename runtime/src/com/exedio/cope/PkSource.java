@@ -34,7 +34,7 @@ final class PkSource
 	private int next = NaPK;
 	private final Object lock = new Object();
 	
-	void flushPK()
+	void flush()
 	{
 		synchronized(lock)
 		{

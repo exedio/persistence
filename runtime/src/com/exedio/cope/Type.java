@@ -962,7 +962,7 @@ public final class Type<C extends Item>
 	
 	void onDropTable()
 	{
-		getPkSource().flushPK();
+		getPkSource().flush();
 	}
 
 	
