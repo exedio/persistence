@@ -1319,7 +1319,17 @@ final class Database
 					throw new SQLException(NO_SUCH_ROW);
 				
 				final Object o = resultSet.getObject(1);
-				return o!=null ? convertSQLResult(o) : null;
+				if(o!=null)
+				{
+					final int result = convertSQLResult(o);
+					if(!PkSource.isPk(result))
+						throw new RuntimeException("invalid primary key " + result + " in table " + table.id);
+					return result;
+				}
+				else
+				{
+					return null;
+				}
 			}
 		});
 	}
