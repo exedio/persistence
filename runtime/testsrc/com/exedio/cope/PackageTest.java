@@ -42,7 +42,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TypeCollisionTest.class );
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
-		suite.addTestSuite( PkSourceSequentialTest.class );
 		suite.addTestSuite( ModelTest.class );
 		suite.addTestSuite( HiddenFeatureTest.class );
 		suite.addTestSuite( ItemTest.class );

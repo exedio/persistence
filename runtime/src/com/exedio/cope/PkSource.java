@@ -65,14 +65,6 @@ final class PkSource
 		return result;
 	}
 
-	static long pk2id(final int pk)
-	{
-		if(!isPk(pk))
-			throw new IllegalArgumentException("not a pk");
-		
-		return pk;
-	}
-	
 	static boolean isPk(final int pk)
 	{
 		return pk>=MIN_PK && pk<=MAX_PK;
