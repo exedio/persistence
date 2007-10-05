@@ -55,7 +55,7 @@ final class PkSource
 			result = nextPk++;
 		}
 		
-		if(result==Type.NOT_A_PK) // pk overflow
+		if(!isPk(result)) // pk overflow
 			throw new RuntimeException();
 		
 		return result;
@@ -63,10 +63,15 @@ final class PkSource
 
 	static long pk2id(final int pk)
 	{
-		if(pk==Type.NOT_A_PK)
+		if(!isPk(pk))
 			throw new IllegalArgumentException("not a pk");
-
+		
 		return pk;
+	}
+	
+	static boolean isPk(final int pk)
+	{
+		return pk>=Type.MIN_PK && pk<=Type.MAX_PK;
 	}
 
 	Integer getPrimaryKeyInfo()

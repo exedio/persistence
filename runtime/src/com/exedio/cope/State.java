@@ -34,7 +34,7 @@ abstract class State
 		this.type = item.type;
 		this.pk = item.pk;
 
-		if(pk==Type.NOT_A_PK)
+		if(!PkSource.isPk(pk))
 			throw new RuntimeException();
 	}
 	

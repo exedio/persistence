@@ -159,7 +159,7 @@ public abstract class Item extends Cope
 	{
 		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
 		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
-		assert pk!=Type.NOT_A_PK;
+		assert PkSource.isPk(pk);
 		//System.out.println("create item "+type+" "+pk);
 		
 		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
@@ -230,7 +230,7 @@ public abstract class Item extends Cope
 		this.pk = pk;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
-		if(pk==Type.NOT_A_PK)
+		if(!PkSource.isPk(pk))
 			throw new RuntimeException();
 	}
 	
