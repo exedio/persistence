@@ -132,6 +132,8 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertIDFails("HierarchyEmptySuper.-1", "must be positive", true);
 		assertIDFails("HierarchyEmptySuper.50", "item <50> does not exist", false);
 		assertIDFails("HierarchyEmptySuper." + Long.MIN_VALUE, "must be positive", true);
+		assertIDFails("HierarchyEmptySuper." + 2147483646l, "item <2147483646> does not exist", false); // 2^31 - 2
+		assertIDFails("HierarchyEmptySuper." + 2147483647l, "item <2147483647> does not exist", false); // 2^31 - 1
 		assertIDFails("HierarchyEmptySuper." + 2147483648l, "does not fit in 31 bit", true); // 2^31
 		assertIDFails("HierarchyEmptySuper." + 2147483649l, "does not fit in 31 bit", true); // 2^31 + 1
 		assertIDFails("HierarchyEmptySuper." + Long.MAX_VALUE, "does not fit in 31 bit", true);

@@ -32,7 +32,6 @@ public abstract class PkSourceAbstractTest extends TestCase
 	void assertIdPk(final long id, final int pk)
 			throws NoSuchIDException
 	{
-		assertEquals(pk, PkSource.id2pk(id, "idString"+id));
 		assertEquals(id, PkSource.pk2id(pk));
 	}
 	

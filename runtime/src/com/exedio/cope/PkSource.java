@@ -66,17 +66,6 @@ final class PkSource
 		return pk;
 	}
 
-	static int id2pk(final long id, final String idString)
-			throws NoSuchIDException
-	{
-		if(id<0)
-			throw new NoSuchIDException(idString, true, "must be positive");
-		if(id>=2147483648l)
-			throw new NoSuchIDException(idString, true, "does not fit in 31 bit");
-
-		return (int)id;
-	}
-	
 	Integer getPrimaryKeyInfo()
 	{
 		return nextPk!=Type.NOT_A_PK ? nextPk : null;

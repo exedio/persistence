@@ -646,7 +646,11 @@ public final class Model
 			throw new NoSuchIDException(id, e, idString);
 		}
 
-		final int pk = PkSource.id2pk(idNumber, id);
+		if(idNumber<0)
+			throw new NoSuchIDException(id, true, "must be positive");
+		if(idNumber>=2147483648l)
+			throw new NoSuchIDException(id, true, "does not fit in 31 bit");
+		final int pk = (int)idNumber;
 		
 		final Item result = type.getItemObject(pk);
 		if ( ! result.existsCopeItem() )
