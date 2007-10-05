@@ -159,7 +159,7 @@ public abstract class Item extends Cope
 	{
 		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
 		this.pk = type.getPkSource().nextPK(type.getModel().getCurrentTransaction().getConnection());
-		assert PkSource.isPK(pk) : pk;
+		assert PkSource.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
 		
 		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
@@ -230,7 +230,7 @@ public abstract class Item extends Cope
 		this.pk = pk;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
-		assert PkSource.isPK(pk) : pk;
+		assert PkSource.isValid(pk) : pk;
 	}
 	
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException

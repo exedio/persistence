@@ -600,7 +600,7 @@ final class Database
 									currentType = type;
 
 								final int pkPrimitive = pk.intValue();
-								if(!PkSource.isPK(pkPrimitive))
+								if(!PkSource.isValid(pkPrimitive))
 									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
 								resultCell = currentType.getItemObject(pkPrimitive);
 							}
@@ -1322,7 +1322,7 @@ final class Database
 				if(o!=null)
 				{
 					final int result = convertSQLResult(o);
-					if(!PkSource.isPK(result))
+					if(!PkSource.isValid(result))
 						throw new RuntimeException("invalid primary key " + result + " in table " + table.id);
 					return result;
 				}

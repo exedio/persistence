@@ -59,13 +59,13 @@ final class PkSource
 			result = nextPK++;
 		}
 		
-		if(!isPK(result))
+		if(!isValid(result))
 			throw new RuntimeException("primary key overflow to " + result + " in table " + table.id);
 		
 		return result;
 	}
 
-	static boolean isPK(final int pk)
+	static boolean isValid(final int pk)
 	{
 		return pk>=MIN_PK && pk<=MAX_PK;
 	}
