@@ -1319,6 +1319,14 @@ final class Database
 			// Never use the current transaction for fetching the primary key maximum,
 			// this can cause primary key collisions in the database. 
 			connection = connectionPool.get();
+			try
+			{
+				connection.setAutoCommit(true);
+			}
+			catch(SQLException e)
+			{
+				throw new SQLRuntimeException(e, "setAutoCommit");
+			}
 			
 			return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 			{
