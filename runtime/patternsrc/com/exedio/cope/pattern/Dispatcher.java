@@ -225,7 +225,7 @@ public final class Dispatcher extends Pattern
 						final long elapsed = System.currentTimeMillis() - start;
 						item.set(
 							pending.map(false),
-							successDate.map(new Date()),
+							successDate.map(new Date(start)),
 							successElapsed.map(elapsed));
 					}
 					catch(Exception cause)
@@ -263,7 +263,7 @@ public final class Dispatcher extends Pattern
 						
 						failureType.newItem(
 							((ItemField<Item>)failureParent).map(item),
-							failureDate.map(new Date()),
+							failureDate.map(new Date(start)),
 							failureElapsed.map(elapsed),
 							failureCause.map(bf.toString()));
 					}
