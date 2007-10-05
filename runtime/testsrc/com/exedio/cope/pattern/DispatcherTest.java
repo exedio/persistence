@@ -125,6 +125,9 @@ public class DispatcherTest extends AbstractLibTest
 		{
 			assertEquals("searchSize must be greater zero, but was -10.", e.getMessage());
 		}
+		
+		if(model.getProperties().getPkSourceButterfly())
+			return; // greater(type.getThis()) does not work with butterfly
 
 		// test persistence
 		assertNotDone(list(), item1);
@@ -135,27 +138,27 @@ public class DispatcherTest extends AbstractLibTest
 		final DateRange d1 = dispatch();
 		assertDone(d1, list(), item1);
 		assertNotDone(list(d1), item2);
-		assertNotDone(list(), item3);
-		assertNotDone(list(), item4);
+		assertDone(d1, list(), item3);
+		assertNotDone(list(d1), item4);
 		
 		final DateRange d2 = dispatch();
 		assertDone(d1, list(), item1);
 		assertNotDone(list(d1, d2), item2);
-		assertDone(d2, list(), item3);
-		assertNotDone(list(), item4);
+		assertDone(d1, list(), item3);
+		assertNotDone(list(d1, d2), item4);
 		
 		final DateRange d3 = dispatch();
 		assertDone(d1, list(), item1);
 		assertNotDone(list(d1, d2, d3), item2);
-		assertDone(d2, list(), item3);
-		assertNotDone(list(d3), item4);
+		assertDone(d1, list(), item3);
+		assertNotDone(list(d1, d2, d3), item4);
 		
 		item2.setFail(false);
 		final DateRange d4 = dispatch();
 		assertDone(d1, list(), item1);
 		assertDone(d4, list(d1, d2, d3), item2);
-		assertDone(d2, list(), item3);
-		assertNotDone(list(d3, d4), item4);
+		assertDone(d1, list(), item3);
+		assertNotDone(list(d1, d2, d3, d4), item4);
 		
 	}
 	

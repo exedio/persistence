@@ -156,85 +156,96 @@ public final class Dispatcher extends Pattern
 	<P extends Item> void dispatch(final Class<P> parentClass)
 	{
 		final Type<P> type = getType().castType(parentClass);
+		final Type.This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
 		
-		final List<P> toDispatch;
-		try
+		P lastDispatched = null;
+		while(true)
 		{
-			model.startTransaction(featureID + " search");
-			final Query<P> q  = type.newQuery(done.equal(false));
-			q.setOrderBy(type.getThis(), true);
-			q.setLimit(0, searchSize);
-			toDispatch = q.search();
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
-		}
-		
-		for(final P item : toDispatch)
-		{
-			final String itemID = item.getCopeID();
+			final List<P> toDispatch;
 			try
 			{
-				model.startTransaction(featureID + " dispatch " + itemID);
-				try
-				{
-					if(isDone(item))
-					{
-						System.out.println("Already dispatched " + itemID + " by " + featureID + ", probably due to concurrent dispatching.");
-						continue;
-					}
-					
-					((Dispatchable)item).dispatch();
-
-					item.set(
-						done.map(true),
-						doneDate.map(new Date()));
-				}
-				catch(Exception cause)
-				{
-					final StringBuffer bf = new StringBuffer();
-					final int stopLength = failureCause.getMaximumLength()-15;
-					
-					final String causeText = cause.getMessage();
-					if(causeText!=null)
-						bf.append(causeText.length()>stopLength ? (causeText.substring(0, stopLength) + "\n shorted !!!") : causeText);
-					
-					boolean shorted=false;
-					for(final StackTraceElement element : cause.getStackTrace())
-					{
-						if(bf.length()+element.toString().length()<stopLength)
-						{
-							bf.append(element.toString());
-						}
-						else
-						{
-							bf.append("\n shorted !!!");
-							shorted=true;
-							break;
-						}
-					}
-					
-					if(shorted)
-					{
-						System.out.println("------------ Dispatcher " + featureID + " had to short exception -------------");
-						cause.printStackTrace();
-						System.out.println("/----------- Dispatcher " + featureID + " had to short exception -------------");
-					}
-					
-					failureType.newItem(
-						((ItemField<Item>)failureParent).map(item),
-						failureDate.map(new Date()),
-						failureCause.map(bf.toString()));
-				}
+				model.startTransaction(featureID + " search");
+				final Query<P> q  = type.newQuery(done.equal(false));
+				if(lastDispatched!=null)
+					q.narrow(typeThis.greater(lastDispatched));
+				q.setOrderBy(typeThis, true);
+				q.setLimit(0, searchSize);
+				toDispatch = q.search();
 				model.commit();
 			}
 			finally
 			{
 				model.rollbackIfNotCommitted();
+			}
+			
+			if(toDispatch.isEmpty())
+				break;
+			
+			for(final P item : toDispatch)
+			{
+				lastDispatched = item;
+				final String itemID = item.getCopeID();
+				try
+				{
+					model.startTransaction(featureID + " dispatch " + itemID);
+					try
+					{
+						if(isDone(item))
+						{
+							System.out.println("Already dispatched " + itemID + " by " + featureID + ", probably due to concurrent dispatching.");
+							continue;
+						}
+						
+						((Dispatchable)item).dispatch();
+	
+						item.set(
+							done.map(true),
+							doneDate.map(new Date()));
+					}
+					catch(Exception cause)
+					{
+						final StringBuffer bf = new StringBuffer();
+						final int stopLength = failureCause.getMaximumLength()-15;
+						
+						final String causeText = cause.getMessage();
+						if(causeText!=null)
+							bf.append(causeText.length()>stopLength ? (causeText.substring(0, stopLength) + "\n shorted !!!") : causeText);
+						
+						boolean shorted=false;
+						for(final StackTraceElement element : cause.getStackTrace())
+						{
+							if(bf.length()+element.toString().length()<stopLength)
+							{
+								bf.append(element.toString());
+							}
+							else
+							{
+								bf.append("\n shorted !!!");
+								shorted=true;
+								break;
+							}
+						}
+						
+						if(shorted)
+						{
+							System.out.println("------------ Dispatcher " + featureID + " had to short exception -------------");
+							cause.printStackTrace();
+							System.out.println("/----------- Dispatcher " + featureID + " had to short exception -------------");
+						}
+						
+						failureType.newItem(
+							((ItemField<Item>)failureParent).map(item),
+							failureDate.map(new Date()),
+							failureCause.map(bf.toString()));
+					}
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
 			}
 		}
 	}
