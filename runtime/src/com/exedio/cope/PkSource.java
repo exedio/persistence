@@ -51,7 +51,8 @@ final class PkSource
 		synchronized(lock)
 		{
 			if(next==NaPK)
-			{	final Table table = type.getTable();
+			{
+				final Table table = type.getTable();
 				final Integer maxPK = table.database.maxPK(connection, table);
 				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
