@@ -22,9 +22,9 @@ import java.sql.Connection;
 
 final class PkSource
 {
-	static final int MIN_PK = 0;
-	static final int MAX_PK = Integer.MAX_VALUE;
-	static final int NOT_A_PK = Integer.MIN_VALUE;
+	static final int MIN_VALUE = 0;
+	static final int MAX_VALUE = Integer.MAX_VALUE;
+	static final int NaPK = Integer.MIN_VALUE;
 
 	private final Table table;
 	
@@ -33,14 +33,14 @@ final class PkSource
 		this.table = table;
 	}
 
-	private int next = NOT_A_PK;
+	private int next = NaPK;
 	private final Object lock = new Object();
 	
 	void flushPK()
 	{
 		synchronized(lock)
 		{
-			next = NOT_A_PK;
+			next = NaPK;
 		}
 	}
 
@@ -50,7 +50,7 @@ final class PkSource
 		
 		synchronized(lock)
 		{
-			if(next==NOT_A_PK)
+			if(next==NaPK)
 			{
 				final Integer maxPK = table.database.maxPK(connection, table);
 				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
@@ -67,11 +67,11 @@ final class PkSource
 
 	static boolean isValid(final int pk)
 	{
-		return pk>=MIN_PK && pk<=MAX_PK;
+		return pk>=MIN_VALUE && pk<=MAX_VALUE;
 	}
 
 	Integer getInfo()
 	{
-		return next!=NOT_A_PK ? next : null;
+		return next!=NaPK ? next : null;
 	}
 }

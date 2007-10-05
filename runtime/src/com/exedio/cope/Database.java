@@ -224,7 +224,7 @@ final class Database
 				final Column primaryKey = table.primaryKey;
 				bf.append(primaryKey).
 					append('=').
-					appendParameter(PkSource.NOT_A_PK);
+					appendParameter(PkSource.NaPK);
 				
 				for(final Column column : table.getColumns())
 				{
