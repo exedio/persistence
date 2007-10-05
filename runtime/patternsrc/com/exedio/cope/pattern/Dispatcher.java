@@ -40,7 +40,7 @@ public final class Dispatcher extends Pattern
 {
 	private final int searchSize;
 	private final BooleanField pending = new BooleanField().defaultTo(true);
-	private final DateField doneDate = new DateField().optional();
+	private final DateField successDate = new DateField().optional();
 
 	private ItemField<?> failureParent = null;
 	private final DateField failureDate = new DateField().toFinal();
@@ -59,7 +59,7 @@ public final class Dispatcher extends Pattern
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
 		registerSource(pending);
-		registerSource(doneDate);
+		registerSource(successDate);
 	}
 	
 	@Override
@@ -67,7 +67,7 @@ public final class Dispatcher extends Pattern
 	{
 		final String name = getName();
 		initialize(pending, name + "Pending");
-		initialize(doneDate, name + "DoneDate");
+		initialize(successDate, name + "SuccessDate");
 		
 		final Type<?> type = getType();
 
@@ -89,9 +89,9 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 	
-	public DateField getDoneDate()
+	public DateField getSuccessDate()
 	{
-		return doneDate;
+		return successDate;
 	}
 	
 	public <P extends Item> ItemField<P> getFailureParent(final Class<P> parentClass)
@@ -134,8 +134,8 @@ public final class Dispatcher extends Pattern
 			"getter"));
 				
 		result.add(new Wrapper(
-			Date.class, "getDoneDate",
-			"Returns the date, this item was dispatched by {0}.",
+			Date.class, "getSuccessDate",
+			"Returns the date, this item was successfully dispatched by {0}.",
 			"getter"));
 			
 		result.add(new Wrapper(
@@ -202,7 +202,7 @@ public final class Dispatcher extends Pattern
 	
 						item.set(
 							pending.map(false),
-							doneDate.map(new Date()));
+							successDate.map(new Date()));
 					}
 					catch(Exception cause)
 					{
@@ -255,9 +255,9 @@ public final class Dispatcher extends Pattern
 		return pending.getMandatory(item);
 	}
 	
-	public Date getDoneDate(final Item item)
+	public Date getSuccessDate(final Item item)
 	{
-		return doneDate.get(item);
+		return successDate.get(item);
 	}
 	
 	public List<Failure> getFailures(final Item item)

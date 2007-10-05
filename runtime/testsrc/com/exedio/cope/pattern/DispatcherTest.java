@@ -76,7 +76,7 @@ public class DispatcherTest extends AbstractLibTest
 				item.dispatchCount,
 				item.upload,
 				item.upload.getPending(),
-				item.upload.getDoneDate()
+				item.upload.getSuccessDate()
 			), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				failureType.getThis(),
@@ -187,7 +187,7 @@ public class DispatcherTest extends AbstractLibTest
 	private static void assertDone(final DateRange date, final List failures, final DispatcherItem item)
 	{
 		assertEquals(false, item.isUploadPending());
-		assertWithin(date.before, date.after, item.getUploadDoneDate());
+		assertWithin(date.before, date.after, item.getUploadSuccessDate());
 		assertIt(failures.size()+1, failures, item);
 	}
 	
@@ -195,7 +195,7 @@ public class DispatcherTest extends AbstractLibTest
 	private static void assertNotDone(final List failures, final DispatcherItem item)
 	{
 		assertEquals(true, item.isUploadPending());
-		assertNull(item.getUploadDoneDate());
+		assertNull(item.getUploadSuccessDate());
 		assertIt(failures.size(), failures, item);
 	}
 	
