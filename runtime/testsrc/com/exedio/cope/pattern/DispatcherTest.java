@@ -76,12 +76,14 @@ public class DispatcherTest extends AbstractLibTest
 				item.dispatchCount,
 				item.upload,
 				item.upload.getPending(),
-				item.upload.getSuccessDate()
+				item.upload.getSuccessDate(),
+				item.upload.getSuccessElapsed()
 			), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				failureType.getThis(),
 				item.uploadFailureParent(),
 				item.upload.getFailureDate(),
+				item.upload.getFailureElapsed(),
 				item.upload.getFailureCause()
 			), failureType.getFeatures());
 
@@ -188,6 +190,7 @@ public class DispatcherTest extends AbstractLibTest
 	{
 		assertEquals(false, item.isUploadPending());
 		assertWithin(date.before, date.after, item.getUploadSuccessDate());
+		assertTrue(String.valueOf(item.getUploadSuccessElapsed()), item.getUploadSuccessElapsed()>5);
 		assertIt(failures.size()+1, failures, item);
 	}
 	
@@ -196,6 +199,7 @@ public class DispatcherTest extends AbstractLibTest
 	{
 		assertEquals(true, item.isUploadPending());
 		assertNull(item.getUploadSuccessDate());
+		assertNull(item.getUploadSuccessElapsed());
 		assertIt(failures.size(), failures, item);
 	}
 	
@@ -212,6 +216,7 @@ public class DispatcherTest extends AbstractLibTest
 			assertSame(item.upload, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			assertWithin(expected.before, expected.after, actual.getDate());
+			assertTrue(String.valueOf(actual.getElapsed()), actual.getElapsed()>5);
 		}
 	}
 }

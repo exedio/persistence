@@ -29,6 +29,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
@@ -41,9 +42,11 @@ public final class Dispatcher extends Pattern
 	private final int searchSize;
 	private final BooleanField pending = new BooleanField().defaultTo(true);
 	private final DateField successDate = new DateField().optional();
+	private final LongField successElapsed = new LongField().optional();
 
 	private ItemField<?> failureParent = null;
 	private final DateField failureDate = new DateField().toFinal();
+	private final LongField failureElapsed = new LongField();
 	private final StringField failureCause = new StringField().toFinal().lengthMax(3000);
 	private Type<?> failureType = null;
 	
@@ -68,6 +71,7 @@ public final class Dispatcher extends Pattern
 		final String name = getName();
 		initialize(pending, name + "Pending");
 		initialize(successDate, name + "SuccessDate");
+		initialize(successElapsed, name + "SuccessElapsed");
 		
 		final Type<?> type = getType();
 
@@ -75,6 +79,7 @@ public final class Dispatcher extends Pattern
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("parent", failureParent);
 		features.put("date", failureDate);
+		features.put("elapsed", failureElapsed);
 		features.put("cause", failureCause);
 		failureType = newType(features, "Failure");
 	}
@@ -94,6 +99,11 @@ public final class Dispatcher extends Pattern
 		return successDate;
 	}
 	
+	public LongField getSuccessElapsed()
+	{
+		return successElapsed;
+	}
+	
 	public <P extends Item> ItemField<P> getFailureParent(final Class<P> parentClass)
 	{
 		assert failureParent!=null;
@@ -103,6 +113,11 @@ public final class Dispatcher extends Pattern
 	public DateField getFailureDate()
 	{
 		return failureDate;
+	}
+	
+	public LongField getFailureElapsed()
+	{
+		return failureElapsed;
 	}
 	
 	public StringField getFailureCause()
@@ -138,6 +153,11 @@ public final class Dispatcher extends Pattern
 			"Returns the date, this item was successfully dispatched by {0}.",
 			"getter"));
 			
+		result.add(new Wrapper(
+			Long.class, "getSuccessElapsed",
+			"Returns the milliseconds, this item needed to be successfully dispatched by {0}.",
+			"getter"));
+				
 		result.add(new Wrapper(
 			Wrapper.makeType(List.class, Failure.class), "getFailures",
 			"Returns the failed attempts to dispatch this item by {0}.",
@@ -190,22 +210,28 @@ public final class Dispatcher extends Pattern
 				try
 				{
 					model.startTransaction(featureID + " dispatch " + itemID);
+					
+					if(!isPending(item))
+					{
+						System.out.println("Already dispatched " + itemID + " by " + featureID + ", probably due to concurrent dispatching.");
+						continue;
+					}
+					
+					final long start = System.currentTimeMillis();
 					try
 					{
-						if(!isPending(item))
-						{
-							System.out.println("Already dispatched " + itemID + " by " + featureID + ", probably due to concurrent dispatching.");
-							continue;
-						}
-						
 						((Dispatchable)item).dispatch();
-	
+
+						final long elapsed = System.currentTimeMillis() - start;
 						item.set(
 							pending.map(false),
-							successDate.map(new Date()));
+							successDate.map(new Date()),
+							successElapsed.map(elapsed));
 					}
 					catch(Exception cause)
 					{
+						final long elapsed = System.currentTimeMillis() - start;
+						
 						final StringBuffer bf = new StringBuffer();
 						final int stopLength = failureCause.getMaximumLength()-15;
 						
@@ -238,6 +264,7 @@ public final class Dispatcher extends Pattern
 						failureType.newItem(
 							((ItemField<Item>)failureParent).map(item),
 							failureDate.map(new Date()),
+							failureElapsed.map(elapsed),
 							failureCause.map(bf.toString()));
 					}
 					model.commit();
@@ -258,6 +285,11 @@ public final class Dispatcher extends Pattern
 	public Date getSuccessDate(final Item item)
 	{
 		return successDate.get(item);
+	}
+	
+	public Long getSuccessElapsed(final Item item)
+	{
+		return successElapsed.get(item);
 	}
 	
 	public List<Failure> getFailures(final Item item)
@@ -292,6 +324,11 @@ public final class Dispatcher extends Pattern
 		public Date getDate()
 		{
 			return failureDate.get(backingItem);
+		}
+		
+		public long getElapsed()
+		{
+			return failureElapsed.getMandatory(backingItem);
 		}
 		
 		public String getCause()
