@@ -57,6 +57,7 @@ public final class Type<C extends Item>
 
 	private final Constructor<C> creationConstructor;
 	private final Constructor<C> reactivationConstructor;
+	private final PkSource pkSource;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
 
@@ -83,7 +84,6 @@ public final class Type<C extends Item>
 	int idTransiently = -1;
 
 	private Table table;
-	private PkSource pkSource;
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
@@ -249,6 +249,11 @@ public final class Type<C extends Item>
 		this.creationConstructor = getConstructor(new Class[]{SetValue[].class}, "creation");
 		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
 
+		this.pkSource =
+			supertype!=null
+			? supertype.getPkSource()
+			: new PkSource(this);
+		
 		// register type at the end of the constructor, so the
 		// type is not registered, if the constructor throws
 		// an exception
@@ -342,8 +347,6 @@ public final class Type<C extends Item>
 		if(this.typesOfInstancesColumnValues!=null)
 			throw new RuntimeException();
 		if(this.table!=null)
-			throw new RuntimeException();
-		if(this.pkSource!=null)
 			throw new RuntimeException();
 		if(this.idTransiently>=0)
 			throw new RuntimeException();
@@ -454,16 +457,9 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
-		if(this.pkSource!=null)
-			throw new RuntimeException();
 
 		this.table = new Table(database, id, supertype, typesOfInstancesColumnValues);
 
-		pkSource =
-			supertype!=null
-			? supertype.getPkSource()
-			: new PkSource(table);
-		
 		for(final Field a : declaredFields)
 			a.connect(table);
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
@@ -482,7 +478,7 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 
 		table = null;
-		pkSource = null;
+		pkSource.flush();
 		
 		for(final Field a : declaredFields)
 			a.disconnect();

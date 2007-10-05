@@ -24,11 +24,11 @@ final class PkSource
 	static final int MAX_VALUE = Integer.MAX_VALUE;
 	static final int NaPK = Integer.MIN_VALUE;
 
-	private final Table table;
+	private final Type type;
 	
-	PkSource(final Table table)
+	PkSource(final Type type)
 	{
-		this.table = table;
+		this.type = type;
 	}
 
 	private int next = NaPK;
@@ -49,7 +49,7 @@ final class PkSource
 		synchronized(lock)
 		{
 			if(next==NaPK)
-			{
+			{	final Table table = type.getTable();
 				final Integer maxPK = table.database.maxPK(table);
 				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
@@ -58,7 +58,7 @@ final class PkSource
 		}
 		
 		if(!isValid(result))
-			throw new RuntimeException("primary key overflow to " + result + " in table " + table.id);
+			throw new RuntimeException("primary key overflow to " + result + " in type " + type.id);
 		
 		return result;
 	}
