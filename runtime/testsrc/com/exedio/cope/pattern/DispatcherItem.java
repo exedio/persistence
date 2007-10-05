@@ -31,7 +31,7 @@ public class DispatcherItem extends Item implements Dispatchable
 	static final BooleanField fail = new BooleanField();
 	static final IntegerField dispatchCount = new IntegerField().defaultTo(0).min(0);
 
-	static final Dispatcher upload = new Dispatcher(2);
+	static final Dispatcher upload = new Dispatcher(3, 2);
 	
 	public void dispatch() throws IOException, InterruptedException
 	{

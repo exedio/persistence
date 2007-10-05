@@ -89,6 +89,7 @@ public class DispatcherTest extends AbstractLibTest
 
 		assertEquals(item.TYPE, item.upload.getType());
 		assertEquals("upload", item.upload.getName());
+		assertEquals(3, item.upload.getFailureLimit());
 		assertEquals(2, item.upload.getSearchSize());
 
 		assertEquals("DispatcherItem.uploadFailure", failureType.getID());
@@ -111,7 +112,25 @@ public class DispatcherTest extends AbstractLibTest
 		
 		try
 		{
-			new Dispatcher(0);
+			new Dispatcher(0, 0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("failureLimit must be greater zero, but was 0.", e.getMessage());
+		}
+		try
+		{
+			new Dispatcher(-10, 0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("failureLimit must be greater zero, but was -10.", e.getMessage());
+		}
+		try
+		{
+			new Dispatcher(1000, 0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -120,7 +139,7 @@ public class DispatcherTest extends AbstractLibTest
 		}
 		try
 		{
-			new Dispatcher(-10);
+			new Dispatcher(1000, -10);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -156,11 +175,11 @@ public class DispatcherTest extends AbstractLibTest
 		assertNotDone(list(d1, d2, d3), item4);
 		
 		item2.setFail(false);
-		final DateRange d4 = dispatch();
+		dispatch();
 		assertDone(d1, list(), item1);
-		assertDone(d4, list(d1, d2, d3), item2);
+		assertNotDone(list(d1, d2, d3), item2);
 		assertDone(d1, list(), item3);
-		assertNotDone(list(d1, d2, d3, d4), item4);
+		assertNotDone(list(d1, d2, d3), item4);
 		
 	}
 	
@@ -197,7 +216,7 @@ public class DispatcherTest extends AbstractLibTest
 	
 	private static void assertNotDone(final List failures, final DispatcherItem item)
 	{
-		assertEquals(true, item.isUploadPending());
+		assertEquals(failures.size()!=3, item.isUploadPending());
 		assertNull(item.getUploadSuccessDate());
 		assertNull(item.getUploadSuccessElapsed());
 		assertIt(failures.size(), failures, item);
@@ -208,6 +227,7 @@ public class DispatcherTest extends AbstractLibTest
 		assertEquals(dispatchCount, item.getDispatchCount());
 		
 		final List<Failure> actualFailures = item.getUploadFailures();
+		assertTrue(actualFailures.size()<=3);
 		assertEquals(failures.size(), actualFailures.size());
 		final Iterator expectedFailureIter = failures.iterator();
 		for(final Failure actual : actualFailures)

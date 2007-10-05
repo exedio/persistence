@@ -39,6 +39,7 @@ import com.exedio.cope.Wrapper;
 
 public final class Dispatcher extends Pattern
 {
+	private final int failureLimit;
 	private final int searchSize;
 	private final BooleanField pending = new BooleanField().defaultTo(true);
 	private final DateField successDate = new DateField().optional();
@@ -52,12 +53,15 @@ public final class Dispatcher extends Pattern
 	
 	public Dispatcher()
 	{
-		this(100);
+		this(5, 100);
 	}
 	
-	public Dispatcher(final int searchSize)
+	public Dispatcher(final int maxFailures, final int searchSize)
 	{
+		this.failureLimit = maxFailures;
 		this.searchSize = searchSize;
+		if(maxFailures<1)
+			throw new IllegalArgumentException("failureLimit must be greater zero, but was " + maxFailures + ".");
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
@@ -82,6 +86,11 @@ public final class Dispatcher extends Pattern
 		features.put("elapsed", failureElapsed);
 		features.put("cause", failureCause);
 		failureType = newType(features, "Failure");
+	}
+	
+	public int getFailureLimit()
+	{
+		return failureLimit;
 	}
 	
 	public int getSearchSize()
@@ -261,11 +270,16 @@ public final class Dispatcher extends Pattern
 							System.out.println("/----------- Dispatcher " + featureID + " had to short exception -------------");
 						}
 						
+						final ItemField<P> failureParent = this.failureParent.cast(parentClass);
+						
 						failureType.newItem(
-							((ItemField<Item>)failureParent).map(item),
+							failureParent.map(item),
 							failureDate.map(new Date(start)),
 							failureElapsed.map(elapsed),
 							failureCause.map(bf.toString()));
+						
+						if(failureType.newQuery(failureParent.equal(item)).total()>=failureLimit)
+							pending.set(item, false);
 					}
 					model.commit();
 				}
