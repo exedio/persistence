@@ -59,8 +59,8 @@ final class PkSource
 			result = nextPk++;
 		}
 		
-		if(!isPk(result)) // pk overflow
-			throw new RuntimeException();
+		if(!isPk(result))
+			throw new RuntimeException("primary key overflow to " + result + " in table " + table.id);
 		
 		return result;
 	}

@@ -599,7 +599,10 @@ final class Database
 								else
 									currentType = type;
 
-								resultCell = currentType.getItemObject(pk.intValue());
+								final int pkPrimitive = pk.intValue();
+								if(!PkSource.isPk(pkPrimitive))
+									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
+								resultCell = currentType.getItemObject(pkPrimitive);
 							}
 						}
 						if(resultRow!=null)

@@ -34,8 +34,7 @@ abstract class State
 		this.type = item.type;
 		this.pk = item.pk;
 
-		if(!PkSource.isPk(pk))
-			throw new RuntimeException();
+		assert PkSource.isPk(pk) : pk;
 	}
 	
 	abstract Object get(FunctionField field);
