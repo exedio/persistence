@@ -36,19 +36,6 @@ public abstract class PkSourceAbstractTest extends TestCase
 		assertEquals(id, PkSource.pk2id(pk));
 	}
 	
-	void assertIDFails(final long id, final String detail)
-	{
-		try
-		{
-			PkSource.id2pk(id, "idString"+id);
-			fail();
-		}
-		catch(NoSuchIDException e)
-		{
-			assertEquals("no such id <idString"+id+">, "+detail, e.getMessage());
-		}
-	}
-	
 	public void testPk2Id()
 	{
 		try

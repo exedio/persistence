@@ -35,17 +35,11 @@ public class PkSourceSequentialTest extends PkSourceAbstractTest
 		assertIdPk(3, 3);
 		assertIdPk(4, 4);
 
-		assertIDFails(-1, "must be positive");
-		assertIDFails(Long.MIN_VALUE, "must be positive");
-
 		assertIdPk(2147483643l, 2147483643); // 2^31 - 5
 		assertIdPk(2147483644l, 2147483644); // 2^31 - 4
 		assertIdPk(2147483645l, 2147483645); // 2^31 - 3
 		assertIdPk(2147483646l, 2147483646); // 2^31 - 2
 		assertIdPk(2147483647l, 2147483647); // 2^31 - 1
-		assertIDFails(2147483648l, "does not fit in 31 bit"); // 2^31
-		assertIDFails(2147483649l, "does not fit in 31 bit"); // 2^31 + 1
-		assertIDFails(Long.MAX_VALUE, "does not fit in 31 bit");
 	}
 	
 }
