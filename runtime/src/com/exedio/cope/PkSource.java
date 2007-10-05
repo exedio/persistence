@@ -20,21 +20,65 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
-abstract class PkSource
+final class PkSource
 {
-	final Table table;
+	private final Table table;
 	
 	PkSource(final Table table)
 	{
 		this.table = table;
 	}
 
-	abstract void flushPK();
-	abstract int nextPK(Connection connection);
-	abstract long pk2id(int pk);
-	abstract int id2pk(long id, String idString) throws NoSuchIDException;
+	private int nextPk = Type.NOT_A_PK;
+	private final Object lock = new Object();
+	
+	void flushPK()
+	{
+		synchronized(lock)
+		{
+			nextPk = Type.NOT_A_PK;
+		}
+	}
 
-	abstract void appendOrderByExpression(Statement bf, Function orderBy);
+	int nextPK(final Connection connection)
+	{
+		synchronized(lock)
+		{
+			if(nextPk==Type.NOT_A_PK)
+			{
+				final Integer maxPK = table.database.nextPK(connection, table);
+				nextPk = maxPK!=null ? (maxPK.intValue()+1) : 0;
+			}
+			
+			final int result = nextPk++;
+	
+			if(result==Type.NOT_A_PK) // pk overflow
+				throw new RuntimeException();
+			return result;
+		}
+	}
 
-	abstract int[] getPrimaryKeyInfo();
+	static long pk2id(final int pk)
+	{
+		if(pk==Type.NOT_A_PK)
+			throw new IllegalArgumentException("not a pk");
+
+		return pk;
+	}
+
+	static int id2pk(final long id, final String idString)
+			throws NoSuchIDException
+	{
+		if(id<0)
+			throw new NoSuchIDException(idString, true, "must be positive");
+		if(id>=2147483648l)
+			throw new NoSuchIDException(idString, true, "does not fit in 31 bit");
+
+		return (int)id;
+	}
+	
+	Integer getPrimaryKeyInfo()
+	{
+		return nextPk!=Type.NOT_A_PK ? nextPk : null;
+	}
 }

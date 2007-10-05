@@ -147,9 +147,6 @@ public class DispatcherTest extends AbstractLibTest
 			assertEquals("searchSize must be greater zero, but was -10.", e.getMessage());
 		}
 		
-		if(model.getProperties().getPkSourceButterfly())
-			return; // greater(type.getThis()) does not work with butterfly
-
 		// test persistence
 		assertNotDone(list(), item1);
 		assertNotDone(list(), item2);

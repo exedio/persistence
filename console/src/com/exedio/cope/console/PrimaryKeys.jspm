@@ -29,7 +29,7 @@ final class PrimaryKeys_Jspm
 	final static void writeBody(
 			final PrimaryKeysCop cop,
 			final PrintStream out,
-			final Map<Type, int[]> primaryKeys)
+			final Map<Type, Integer> primaryKeys)
 	{
 		%>
 		<table>
@@ -39,16 +39,8 @@ final class PrimaryKeys_Jspm
 			{
 			%>
 			<tr><td class="text"><%=type.getID()%></td><td><%
-				final int[] info = primaryKeys.get(type);
-				for(int i : info)
-				{
-					switch(i)
-					{
-						case Integer.MIN_VALUE: %>- <% break;
-						case Integer.MAX_VALUE: %>MAX <% break;
-						default:%><%=cop.format(i)%> <%
-					}
-				}
+				final Integer info = primaryKeys.get(type);
+				if(info==null) { %>-<% } else { %><%=cop.format(info)%><% }
 				%></td></tr><%
 			}
 		%>

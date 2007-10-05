@@ -47,8 +47,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 	private final MapField databaseCustomProperties;
 	
-	static final String PKSOURCE_BUTTERFLY = "pksource.butterfly";
-	private final BooleanField pksourceButterfly = new BooleanField(PKSOURCE_BUTTERFLY, false);
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
@@ -304,11 +302,6 @@ public final class Properties extends com.exedio.cope.util.Properties
 	String getDatabaseCustomProperty(final String key)
 	{
 		return databaseCustomProperties.getValue(key);
-	}
-	
-	public boolean getPkSourceButterfly()
-	{
-		return pksourceButterfly.getBooleanValue();
 	}
 	
 	public boolean getFulltextIndex()

@@ -54,7 +54,6 @@ final class Database
 	final boolean prepare;
 	volatile DatabaseLogConfig log;
 	private final boolean logQueryInfo;
-	private final boolean butterflyPkSource;
 	private final boolean fulltextIndex;
 	final Pool<Connection> connectionPool;
 	private final java.util.Properties forcedNames;
@@ -75,7 +74,6 @@ final class Database
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), null, System.out) : null;
 		this.logQueryInfo = properties.getDatabaseLogQueryInfo();
-		this.butterflyPkSource = properties.getPkSourceButterfly();
 		this.fulltextIndex = properties.getFulltextIndex();
 		this.connectionPool = new Pool<Connection>(
 				new ConnectionFactory(properties, dialect),
@@ -487,18 +485,7 @@ final class Database
 					else
 						bf.append(',');
 					
-					if(orderBy[i] instanceof ItemField)
-					{
-						final ItemField<? extends Item> itemOrderBy = (ItemField<? extends Item>)orderBy[i];
-						itemOrderBy.getValueType().getPkSource().appendOrderByExpression(bf, itemOrderBy);
-					}
-					else if(orderBy[i] instanceof Type.This)
-					{
-						final Type.This<? extends Item> itemOrderBy = (Type.This<? extends Item>)orderBy[i];
-						itemOrderBy.type.getPkSource().appendOrderByExpression(bf, itemOrderBy);
-					}
-					else
-						bf.append(orderBy[i], (Join)null);
+					bf.append(orderBy[i], (Join)null);
 					
 					if(!orderAscending[i])
 						bf.append(" desc");
@@ -1310,40 +1297,26 @@ final class Database
 		});
 	}
 
-	PkSource makePkSource(final Table table)
-	{
-		return butterflyPkSource ? (PkSource)new ButterflyPkSource(table) : new SequentialPkSource(table);
-	}
-	
-	int[] getMinMaxPK(final Connection connection, final Table table)
+	Integer nextPK(final Connection connection, final Table table)
 	{
 		buildStage = false;
 
 		final Statement bf = createStatement();
 		final String primaryKeyProtectedID = table.primaryKey.protectedID;
-		bf.append("select min(").
-			append(primaryKeyProtectedID).defineColumnInteger().
-			append("),max(").
+		bf.append("select max(").
 			append(primaryKeyProtectedID).defineColumnInteger().
 			append(") from ").
 			append(table.protectedID);
 			
-		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<int[]>()
+		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
-			public int[] handle(final ResultSet resultSet) throws SQLException
+			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 				
-				final Object oLo = resultSet.getObject(1);
-				if(oLo==null)
-					return null;
-	
-				final int[] result = new int[2];
-				result[0] = convertSQLResult(oLo);
-				final Object oHi = resultSet.getObject(2);
-				result[1] = convertSQLResult(oHi);
-				return result;
+				final Object o = resultSet.getObject(1);
+				return o!=null ? convertSQLResult(o) : null;
 			}
 		});
 	}

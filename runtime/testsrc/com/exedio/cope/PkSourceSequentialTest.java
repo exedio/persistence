@@ -23,7 +23,7 @@ public class PkSourceSequentialTest extends PkSourceAbstractTest
 {
 	public PkSourceSequentialTest()
 	{
-		super(new SequentialPkSource(null));
+		super(new PkSource(null));
 	}
 	
 	public void testId2Pk()

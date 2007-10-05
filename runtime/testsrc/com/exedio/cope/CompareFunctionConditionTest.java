@@ -35,7 +35,6 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 	CompareFunctionConditionItem item1, item2, item3, item4, item5, itemX;
 	final Date date = CompareFunctionConditionItem.date;
 	final Day day = CompareFunctionConditionItem.day;
-	boolean seq;
 	
 	private Date date(final long offset)
 	{
@@ -51,7 +50,6 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		seq = !model.getProperties().getPkSourceButterfly();
 		deleteOnTearDown(item1 = new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1));
 		deleteOnTearDown(item2 = new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2));
 		deleteOnTearDown(item3 = new CompareFunctionConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), XEnum.V3));
@@ -112,11 +110,8 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item1.TYPE.search(item1.leftDate.less(item1.rightDate)));
 		assertContains(item1, item2, item1.TYPE.search(item1.leftDay.less(item1.rightDay)));
 		assertContains(item1, item2, item1.TYPE.search(item1.leftEnum.less(item1.rightEnum)));
-		if(seq)
-		{
-			assertContains(item1, item2, item1.TYPE.search(item1.leftItem.less(item1.rightItem)));
-			assertContains(item1, item2, item1.TYPE.search(item1.TYPE.getThis().less(item1.rightItem)));
-		}
+		assertContains(item1, item2, item1.TYPE.search(item1.leftItem.less(item1.rightItem)));
+		assertContains(item1, item2, item1.TYPE.search(item1.TYPE.getThis().less(item1.rightItem)));
 
 		// lessOrEqual
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftString.lessOrEqual(item1.rightString)));
@@ -126,11 +121,8 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftDate.lessOrEqual(item1.rightDate)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftDay.lessOrEqual(item1.rightDay)));
 		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftEnum.lessOrEqual(item1.rightEnum)));
-		if(seq)
-		{
-			assertContains(item1, item2, item3, item1.TYPE.search(item1.leftItem.lessOrEqual(item1.rightItem)));
-			assertContains(item1, item2, item3, item1.TYPE.search(item1.TYPE.getThis().lessOrEqual(item1.rightItem)));
-		}
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.leftItem.lessOrEqual(item1.rightItem)));
+		assertContains(item1, item2, item3, item1.TYPE.search(item1.TYPE.getThis().lessOrEqual(item1.rightItem)));
 
 		// greater
 		assertContains(item4, item5, item1.TYPE.search(item1.leftString.greater(item1.rightString)));
@@ -140,11 +132,8 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item4, item5, item1.TYPE.search(item1.leftDate.greater(item1.rightDate)));
 		assertContains(item4, item5, item1.TYPE.search(item1.leftDay.greater(item1.rightDay)));
 		assertContains(item4, item5, item1.TYPE.search(item1.leftEnum.greater(item1.rightEnum)));
-		if(seq)
-		{
-			assertContains(item4, item5, item1.TYPE.search(item1.leftItem.greater(item1.rightItem)));
-			assertContains(item4, item5, item1.TYPE.search(item1.TYPE.getThis().greater(item1.rightItem)));
-		}
+		assertContains(item4, item5, item1.TYPE.search(item1.leftItem.greater(item1.rightItem)));
+		assertContains(item4, item5, item1.TYPE.search(item1.TYPE.getThis().greater(item1.rightItem)));
 
 		// greaterOrEqual
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftString.greaterOrEqual(item1.rightString)));
@@ -154,10 +143,7 @@ public class CompareFunctionConditionTest extends AbstractLibTest
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftDate.greaterOrEqual(item1.rightDate)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftDay.greaterOrEqual(item1.rightDay)));
 		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftEnum.greaterOrEqual(item1.rightEnum)));
-		if(seq)
-		{
-			assertContains(item3, item4, item5, item1.TYPE.search(item1.leftItem.greaterOrEqual(item1.rightItem)));
-			assertContains(item3, item4, item5, item1.TYPE.search(item1.TYPE.getThis().greaterOrEqual(item1.rightItem)));
-		}
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.leftItem.greaterOrEqual(item1.rightItem)));
+		assertContains(item3, item4, item5, item1.TYPE.search(item1.TYPE.getThis().greaterOrEqual(item1.rightItem)));
 	}
 }

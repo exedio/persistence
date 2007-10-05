@@ -462,7 +462,7 @@ public final class Type<C extends Item>
 		if(supertype!=null)
 			pkSource = supertype.getPkSource();
 		else
-			pkSource = database.makePkSource(table);
+			pkSource = new PkSource(table);
 		
 		for(final Field a : declaredFields)
 			a.connect(table);
@@ -575,7 +575,7 @@ public final class Type<C extends Item>
 		return table;
 	}
 	
-	public int[] getPrimaryKeyInfo()
+	public Integer getPrimaryKeyInfo()
 	{
 		return getPkSource().getPrimaryKeyInfo();
 	}
@@ -1000,7 +1000,7 @@ public final class Type<C extends Item>
 		}
 	}
 
-	static final int MIN_PK = Integer.MIN_VALUE + 1;
+	static final int MIN_PK = 0;
 	static final int MAX_PK = Integer.MAX_VALUE;
 	static final int NOT_A_PK = Integer.MIN_VALUE;
 

@@ -32,15 +32,15 @@ public abstract class PkSourceAbstractTest extends TestCase
 	void assertIdPk(final long id, final int pk)
 			throws NoSuchIDException
 	{
-		assertEquals(pk, i.id2pk(id, "idString"+id));
-		assertEquals(id, i.pk2id(pk));
+		assertEquals(pk, PkSource.id2pk(id, "idString"+id));
+		assertEquals(id, PkSource.pk2id(pk));
 	}
 	
 	void assertIDFails(final long id, final String detail)
 	{
 		try
 		{
-			i.id2pk(id, "idString"+id);
+			PkSource.id2pk(id, "idString"+id);
 			fail();
 		}
 		catch(NoSuchIDException e)
@@ -53,7 +53,7 @@ public abstract class PkSourceAbstractTest extends TestCase
 	{
 		try
 		{
-			i.pk2id(Type.NOT_A_PK);
+			PkSource.pk2id(Type.NOT_A_PK);
 			fail();
 		}
 		catch(IllegalArgumentException e)

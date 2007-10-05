@@ -45,7 +45,7 @@ final class PrimaryKeysCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		final TreeMap<Type, int[]> primaryKeys = new TreeMap<Type, int[]>(TYPE_COMPARATOR);
+		final TreeMap<Type, Integer> primaryKeys = new TreeMap<Type, Integer>(TYPE_COMPARATOR);
 		for(final Type t : model.getTypes())
 		{
 			if(t.getSupertype()==null)
