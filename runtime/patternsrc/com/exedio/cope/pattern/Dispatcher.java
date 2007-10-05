@@ -39,7 +39,7 @@ import com.exedio.cope.Wrapper;
 public final class Dispatcher extends Pattern
 {
 	private final int searchSize;
-	private final BooleanField done = new BooleanField().defaultTo(false);
+	private final BooleanField pending = new BooleanField().defaultTo(true);
 	private final DateField doneDate = new DateField().optional();
 
 	private ItemField<?> failureParent = null;
@@ -58,7 +58,7 @@ public final class Dispatcher extends Pattern
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
-		registerSource(done);
+		registerSource(pending);
 		registerSource(doneDate);
 	}
 	
@@ -66,7 +66,7 @@ public final class Dispatcher extends Pattern
 	public void initialize()
 	{
 		final String name = getName();
-		initialize(done, name + "Done");
+		initialize(pending, name + "Pending");
 		initialize(doneDate, name + "DoneDate");
 		
 		final Type<?> type = getType();
@@ -84,9 +84,9 @@ public final class Dispatcher extends Pattern
 		return searchSize;
 	}
 	
-	public BooleanField getDone()
+	public BooleanField getPending()
 	{
-		return done;
+		return pending;
 	}
 	
 	public DateField getDoneDate()
@@ -129,8 +129,8 @@ public final class Dispatcher extends Pattern
 			setStatic());
 			
 		result.add(new Wrapper(
-			boolean.class, "isDone",
-			"Returns, whether this item was already dispatched by {0}.",
+			boolean.class, "isPending",
+			"Returns, whether this item is yet to be dispatched by {0}.",
 			"getter"));
 				
 		result.add(new Wrapper(
@@ -167,7 +167,7 @@ public final class Dispatcher extends Pattern
 			try
 			{
 				model.startTransaction(featureID + " search");
-				final Query<P> q  = type.newQuery(done.equal(false));
+				final Query<P> q  = type.newQuery(pending.equal(true));
 				if(lastDispatched!=null)
 					q.narrow(typeThis.greater(lastDispatched));
 				q.setOrderBy(typeThis, true);
@@ -192,7 +192,7 @@ public final class Dispatcher extends Pattern
 					model.startTransaction(featureID + " dispatch " + itemID);
 					try
 					{
-						if(isDone(item))
+						if(!isPending(item))
 						{
 							System.out.println("Already dispatched " + itemID + " by " + featureID + ", probably due to concurrent dispatching.");
 							continue;
@@ -201,7 +201,7 @@ public final class Dispatcher extends Pattern
 						((Dispatchable)item).dispatch();
 	
 						item.set(
-							done.map(true),
+							pending.map(false),
 							doneDate.map(new Date()));
 					}
 					catch(Exception cause)
@@ -250,9 +250,9 @@ public final class Dispatcher extends Pattern
 		}
 	}
 	
-	public boolean isDone(final Item item)
+	public boolean isPending(final Item item)
 	{
-		return done.getMandatory(item);
+		return pending.getMandatory(item);
 	}
 	
 	public Date getDoneDate(final Item item)
