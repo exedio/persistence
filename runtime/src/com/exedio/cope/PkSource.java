@@ -42,6 +42,8 @@ final class PkSource
 
 	int nextPK(final Connection connection)
 	{
+		final int result;
+		
 		synchronized(lock)
 		{
 			if(nextPk==Type.NOT_A_PK)
@@ -50,12 +52,13 @@ final class PkSource
 				nextPk = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
 			
-			final int result = nextPk++;
-	
-			if(result==Type.NOT_A_PK) // pk overflow
-				throw new RuntimeException();
-			return result;
+			result = nextPk++;
 		}
+		
+		if(result==Type.NOT_A_PK) // pk overflow
+			throw new RuntimeException();
+		
+		return result;
 	}
 
 	static long pk2id(final int pk)
