@@ -132,11 +132,11 @@ public class JavaSecurityHash extends Hash
 		final char[] result = new char[length*2];
 
 		int i2 = 0;
-		for(int i = 0; i<length; i++,i2+=2)
+		for(int i = 0; i<length; i++)
 		{
 			final byte bufi = buf[i];
-			result[i2]   = mapping[(bufi & 0xF0)>>4];
-			result[i2+1] = mapping[bufi & 0x0F];
+			result[i2++] = mapping[(bufi & 0xF0)>>4];
+			result[i2++] = mapping[bufi & 0x0F];
 		}
 		return new String(result);
 	}
