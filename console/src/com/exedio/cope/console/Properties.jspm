@@ -159,7 +159,7 @@ final class Properties_Jspm extends Console_Jspm
 			%>
 			<tr>
 				<td><%=cop.format(number++)%></td>
-				<td><% if(token.didConnect()){%>&#187;<%} %><%=cop.format(token.getID())%></td>
+				<td><% if(token.didConnect()){%>&#187;&nbsp;<%} %><%=cop.format(token.getID())%></td>
 				<td class="text"><%=cop.format(token.getIssueDate())%></td>
 				<td class="text"><% if(name!=null) { %><%=encode(name)%><% } %></td>
 			</tr><%
