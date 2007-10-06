@@ -128,7 +128,7 @@ final class Generator
 	private final CRC32 outputCRC = new CRC32();
 	private final String lineSeparator;
 	private final boolean longJavadoc;
-	private final String localFinal;
+	private final String finalArgPrefix;
 	
 	
 	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc, final boolean finalArgs)
@@ -146,7 +146,7 @@ final class Generator
 			lineSeparator = systemLineSeparator;
 		
 		this.longJavadoc = longJavadoc;
-		this.localFinal = finalArgs ? "final " : "";
+		this.finalArgPrefix = finalArgs ? "final " : "";
 	}
 	
 	void close() throws IOException
@@ -321,7 +321,7 @@ final class Generator
 			
 			o.write(lineSeparator);
 			o.write("\t\t\t\t");
-			o.write(localFinal);
+			o.write(finalArgPrefix);
 			o.write(toString(((Settable<?>)feature.getInstance()).getWrapperSetterType(), feature));
 			o.write(' ');
 			o.write(feature.name);
@@ -368,7 +368,7 @@ final class Generator
 		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
-		o.write(localFinal);
+		o.write(finalArgPrefix);
 		o.write(SET_VALUE + "... setValues)");
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -395,9 +395,9 @@ final class Generator
 		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
-		o.write(localFinal);
+		o.write(finalArgPrefix);
 		o.write(REACTIVATION + " d,");
-		o.write(localFinal);
+		o.write(finalArgPrefix);
 		o.write("int pk)");
 		o.write(lineSeparator);
 		o.write("\t{");
@@ -499,7 +499,7 @@ final class Generator
 				else
 					o.write(',');
 				
-				o.write(localFinal);
+				o.write(finalArgPrefix);
 				o.write(toString(parameter, feature));
 				o.write(' ');
 				final String name = parameterNameIter.next();
@@ -667,7 +667,7 @@ final class Generator
 			if(i>0)
 				o.write(',');
 			final CopeAttribute attribute = attributes[i];
-			o.write(localFinal);
+			o.write(finalArgPrefix);
 			o.write(getBoxedType(attribute));
 			o.write(' ');
 			o.write(attribute.name);
@@ -819,7 +819,7 @@ final class Generator
 		{
 			if(i>0)
 				o.write(',');
-			o.write(localFinal);
+			o.write(finalArgPrefix);
 			o.write(keys[i].persistentType);
 			o.write(' ');
 			o.write(keys[i].name);
@@ -952,7 +952,7 @@ final class Generator
 			o.write('(');
 			writeQualifierParameters(qualifier);
 			o.write(',');
-			o.write(localFinal);
+			o.write(finalArgPrefix);
 			o.write(attribute.getBoxedType());
 			o.write(' ');
 			o.write(attribute.name);
@@ -1036,7 +1036,7 @@ final class Generator
 			o.write("public final boolean addTo"); // TODO: obey attribute visibility
 			o.write(endNameCamel);
 			o.write('(');
-			o.write(localFinal);
+			o.write(finalArgPrefix);
 			o.write(endType);
 			o.write(' ');
 			o.write(endName);
@@ -1072,7 +1072,7 @@ final class Generator
 			o.write("public final boolean removeFrom"); // TODO: obey attribute visibility
 			o.write(endNameCamel);
 			o.write('(');
-			o.write(localFinal);
+			o.write(finalArgPrefix);
 			o.write(endType);
 			o.write(' ');
 			o.write(endName);
@@ -1108,7 +1108,7 @@ final class Generator
 			o.write("public final void set"); // TODO: obey attribute visibility
 			o.write(endNameCamel);
 			o.write('(');
-			o.write(localFinal);
+			o.write(finalArgPrefix);
 			o.write(COLLECTION + "<? extends ");
 			o.write(endType);
 			o.write("> ");
