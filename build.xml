@@ -217,12 +217,12 @@
 	</target>
 	
 	<target name="runtime.testmodel.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument verbose="false">
+		<instrument finalArgs="true" verbose="false">
 			<fileset dir="runtime/testmodelsrc/com/exedio/cope/testmodel">
 				<include name="**/*.java" />
 			</fileset>
 		</instrument>
-		<instrument verbose="false">
+		<instrument finalArgs="true" verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
 				<exclude name="ModelTest.java" /><!-- TODO remove -->
@@ -454,7 +454,7 @@
 	</target>
 	
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument verbose="false">
+		<instrument finalArgs="true" verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="**/*.java" />
 			</fileset>

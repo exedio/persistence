@@ -34,6 +34,7 @@ public final class AntTask extends Task
 {
 	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<DataType>();
 	private boolean longJavadoc = true;
+	private boolean finalArgs = false;
 	private boolean verbose = true;
 
 	public void addFileset(final FileSet fileSet)
@@ -49,6 +50,11 @@ public final class AntTask extends Task
 	public void setLongJavadoc(final boolean longJavadoc)
 	{
 		this.longJavadoc = longJavadoc;
+	}
+
+	public void setFinalArgs(final boolean finalArgs)
+	{
+		this.finalArgs = finalArgs;
 	}
 
 	public void setVerbose(final boolean verbose)
@@ -91,7 +97,7 @@ public final class AntTask extends Task
 				}
 			}
 
-			(new Main()).run(sourcefiles, longJavadoc, verbose);
+			(new Main()).run(sourcefiles, longJavadoc, finalArgs, verbose);
 		}
 		catch(Exception e)
 		{

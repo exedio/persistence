@@ -128,10 +128,10 @@ final class Generator
 	private final CRC32 outputCRC = new CRC32();
 	private final String lineSeparator;
 	private final boolean longJavadoc;
-	private static final String localFinal = "final "; // TODO make switchable from ant target
+	private final String localFinal;
 	
 	
-	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc)
+	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc, final boolean finalArgs)
 	{
 		this.javaFile = javaFile;
 		this.o = new OutputStreamWriter(new CheckedOutputStream(outputStream, outputCRC));
@@ -146,6 +146,7 @@ final class Generator
 			lineSeparator = systemLineSeparator;
 		
 		this.longJavadoc = longJavadoc;
+		this.localFinal = finalArgs ? "final " : "";
 	}
 	
 	void close() throws IOException
@@ -319,7 +320,8 @@ final class Generator
 				o.write(',');
 			
 			o.write(lineSeparator);
-			o.write("\t\t\t\tfinal ");
+			o.write("\t\t\t\t");
+			o.write(localFinal);
 			o.write(toString(((Settable<?>)feature.getInstance()).getWrapperSetterType(), feature));
 			o.write(' ');
 			o.write(feature.name);
