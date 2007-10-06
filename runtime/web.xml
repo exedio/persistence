@@ -188,6 +188,19 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>dispatcherConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.pattern.DispatcherTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcherConsole</servlet-name>
+		<url-pattern>/dispatcher/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>badQueryConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>

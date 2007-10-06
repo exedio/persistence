@@ -30,7 +30,7 @@ import com.exedio.cope.pattern.Dispatcher.Failure;
 
 public class DispatcherTest extends AbstractLibTest
 {
-	private static final Model MODEL = new Model(DispatcherItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(DispatcherItem.TYPE);
 	
 	public DispatcherTest()
 	{
