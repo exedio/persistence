@@ -182,7 +182,7 @@ public final class Dispatcher extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	<P extends Item> void dispatch(final Class<P> parentClass)
+	public <P extends Item> void dispatch(final Class<P> parentClass)
 	{
 		final Type<P> type = getType().castType(parentClass);
 		final Type.This<P> typeThis = type.getThis();
