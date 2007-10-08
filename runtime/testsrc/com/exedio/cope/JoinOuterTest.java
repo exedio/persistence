@@ -32,10 +32,10 @@ public class JoinOuterTest extends TestmodelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(rightLonely = new PointerTargetItem("right"));
-		deleteOnTearDown(rightJoined = new PointerTargetItem("joined"));
-		deleteOnTearDown(leftJoined = new PointerItem("joined", rightJoined));
-		deleteOnTearDown(leftLonely = new PointerItem("left", rightJoined));
+		rightLonely = deleteOnTearDown(new PointerTargetItem("right"));
+		rightJoined = deleteOnTearDown(new PointerTargetItem("joined"));
+		leftJoined = deleteOnTearDown(new PointerItem("joined", rightJoined));
+		leftLonely = deleteOnTearDown(new PointerItem("left", rightJoined));
 	}
 
 	public void testJoin()

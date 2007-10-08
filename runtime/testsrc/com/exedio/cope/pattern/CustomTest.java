@@ -41,7 +41,7 @@ public class CustomTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new CustomItem());
+		item = deleteOnTearDown(new CustomItem());
 	}
 	
 	static final Integer i20 = Integer.valueOf(20);
@@ -155,16 +155,14 @@ public class CustomTest extends AbstractLibTest
 		assertEquals(list(null, null, null), item.getElements());
 
 		{
-			final CustomItem numberItem55 = new CustomItem(i55);
-			deleteOnTearDown(numberItem55);
+			final CustomItem numberItem55 = deleteOnTearDown(new CustomItem(i55));
 			assertEquals("55", numberItem55.getNumberString());
 			assertEquals(i55, numberItem55.getNumber());
 			assertEquals(i55, numberItem55.number.get(numberItem55));
 		}
 		{
 			final CustomItem numberItem56 =
-				CustomItem.TYPE.newItem(CustomItem.number.map(i56));
-			deleteOnTearDown(numberItem56);
+				deleteOnTearDown(CustomItem.TYPE.newItem(CustomItem.number.map(i56)));
 			assertEquals("56", numberItem56.getNumberString());
 			assertEquals(i56, numberItem56.getNumber());
 			assertEquals(i56, numberItem56.number.get(numberItem56));
@@ -181,8 +179,7 @@ public class CustomTest extends AbstractLibTest
 		assertEquals(i8, item.getElement3());
 		
 		{
-			final CustomItem elementsItem3 = new CustomItem(listg(i3, i4, i5));
-			deleteOnTearDown(elementsItem3);
+			final CustomItem elementsItem3 = deleteOnTearDown(new CustomItem(listg(i3, i4, i5)));
 			assertEquals(list(i3, i4, i5), elementsItem3.getElements());
 			assertEquals(list(i3, i4, i5), elementsItem3.elements.get(elementsItem3));
 			assertEquals(i3, elementsItem3.getElement1());
@@ -191,8 +188,7 @@ public class CustomTest extends AbstractLibTest
 		}
 		{
 			final CustomItem elementsItem7 =
-				CustomItem.TYPE.newItem(CustomItem.elements.map(listg(i7, i8, i9)));
-			deleteOnTearDown(elementsItem7);
+				deleteOnTearDown(CustomItem.TYPE.newItem(CustomItem.elements.map(listg(i7, i8, i9))));
 			assertEquals(list(i7, i8, i9), elementsItem7.getElements());
 			assertEquals(list(i7, i8, i9), elementsItem7.elements.get(elementsItem7));
 			assertEquals(i7, elementsItem7.getElement1());

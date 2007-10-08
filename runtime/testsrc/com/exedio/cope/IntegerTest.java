@@ -44,8 +44,8 @@ public class IntegerTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new IntegerItem(2201));
-		deleteOnTearDown(item2 = new IntegerItem(2202));
+		item = deleteOnTearDown(new IntegerItem(2201));
+		item2 = deleteOnTearDown(new IntegerItem(2202));
 		numberOfItems = 2;
 	}
 	

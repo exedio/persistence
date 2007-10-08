@@ -48,15 +48,15 @@ public class InstanceOfTest extends AbstractLibTest
 	{
 		super.setUp();
 		
-		deleteOnTearDown(itema = new InstanceOfAItem("itema"));
-		deleteOnTearDown(itemb1 = new InstanceOfB1Item("itemb1"));
-		deleteOnTearDown(itemb2 = new InstanceOfB2Item("itemb2"));
-		deleteOnTearDown(itemc1 = new InstanceOfC1Item("itemc1"));
+		itema = deleteOnTearDown(new InstanceOfAItem("itema"));
+		itemb1 = deleteOnTearDown(new InstanceOfB1Item("itemb1"));
+		itemb2 = deleteOnTearDown(new InstanceOfB2Item("itemb2"));
+		itemc1 = deleteOnTearDown(new InstanceOfC1Item("itemc1"));
 		
-		deleteOnTearDown(reffa = new InstanceOfRefItem(itema));
-		deleteOnTearDown(reffb1 = new InstanceOfRefItem(itemb1));
-		deleteOnTearDown(reffb2 = new InstanceOfRefItem(itemb2));
-		deleteOnTearDown(reffc1 = new InstanceOfRefItem(itemc1));
+		reffa = deleteOnTearDown(new InstanceOfRefItem(itema));
+		reffb1 = deleteOnTearDown(new InstanceOfRefItem(itemb1));
+		reffb2 = deleteOnTearDown(new InstanceOfRefItem(itemb2));
+		reffc1 = deleteOnTearDown(new InstanceOfRefItem(itemc1));
 	}
 	
 	public void testIt()

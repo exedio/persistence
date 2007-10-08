@@ -51,7 +51,7 @@ public class FieldListTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new FieldListItem());
+		item = deleteOnTearDown(new FieldListItem());
 	}
 	
 	public void testIt()

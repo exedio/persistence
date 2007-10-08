@@ -35,9 +35,9 @@ public class PlusOrderTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item1 = new PlusItem(1, 6, -1000));
-		deleteOnTearDown(item2 = new PlusItem(2, 1, -1000));
-		deleteOnTearDown(item3 = new PlusItem(6, 2, -1000));
+		item1 = deleteOnTearDown(new PlusItem(1, 6, -1000));
+		item2 = deleteOnTearDown(new PlusItem(2, 1, -1000));
+		item3 = deleteOnTearDown(new PlusItem(6, 2, -1000));
 	}
 	
 	public void testSumOrder()

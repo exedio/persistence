@@ -36,8 +36,8 @@ public class DTypeTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new DTypeItem("item1"));
-		deleteOnTearDown(item2 = new DTypeItem("item2"));
+		item = deleteOnTearDown(new DTypeItem("item1"));
+		item2 = deleteOnTearDown(new DTypeItem("item2"));
 	}
 	
 	public void testIt()
@@ -58,8 +58,7 @@ public class DTypeTest extends AbstractLibTest
 		// test persistence
 		assertContains(item.features.getTypes());
 		
-		final DType cellPhone = item.features.createType("cellPhone");
-		deleteOnTearDown(cellPhone);
+		final DType cellPhone = deleteOnTearDown(item.features.createType("cellPhone"));
 		assertEquals(item.TYPE, cellPhone.getParentType());
 		assertEquals(item.features, cellPhone.getDtypeSystem());
 		assertEquals("cellPhone", cellPhone.getCode());
@@ -115,8 +114,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("80TB", item.getFeatures(memory));
 		assertEquals("80TB", memory.get(item));
 		
-		final DType organizer = item.features.createType("organizer");
-		deleteOnTearDown(organizer);
+		final DType organizer = deleteOnTearDown(item.features.createType("organizer"));
 		assertEquals(item.TYPE, organizer.getParentType());
 		assertEquals(item.features, organizer.getDtypeSystem());
 		assertEquals("organizer", organizer.getCode());

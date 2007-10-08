@@ -38,7 +38,7 @@ public class MediaFixedTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MediaItem("test media item"));
+		item = deleteOnTearDown(new MediaItem("test media item"));
 	}
 	
 	public void testIt() throws IOException

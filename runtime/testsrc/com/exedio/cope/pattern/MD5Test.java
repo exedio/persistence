@@ -43,7 +43,7 @@ public class MD5Test extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MD5Item("musso"));
+		item = deleteOnTearDown(new MD5Item("musso"));
 	}
 	
 	public void testMD5()

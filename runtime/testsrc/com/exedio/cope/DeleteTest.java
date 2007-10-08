@@ -244,26 +244,21 @@ public class DeleteTest extends AbstractLibTest
 	
 	public void testAtomicity()
 	{
-		final DeleteItem todelete = new DeleteItem("todelete");
-		deleteOnTearDown(todelete);
+		final DeleteItem todelete = deleteOnTearDown(new DeleteItem("todelete"));
 
-		final DeleteItem middle1 = new DeleteItem("middle1");
-		deleteOnTearDown(middle1);
+		final DeleteItem middle1 = deleteOnTearDown(new DeleteItem("middle1"));
 		middle1.setSelfCascade(todelete);
 		middle1.setSelfNullify(todelete);
 		
-		final DeleteItem middle2 = new DeleteItem("middle2");
-		deleteOnTearDown(middle2);
+		final DeleteItem middle2 = deleteOnTearDown(new DeleteItem("middle2"));
 		middle2.setSelfCascade(todelete);
 		middle2.setSelfNullify(todelete);
 		
-		final DeleteItem middle3 = new DeleteItem("middle3");
-		deleteOnTearDown(middle3);
+		final DeleteItem middle3 = deleteOnTearDown(new DeleteItem("middle3"));
 		middle3.setSelfCascade(todelete);
 		middle3.setSelfNullify(todelete);
 		
-		final DeleteItem item = new DeleteItem("forbid");
-		deleteOnTearDown(item);
+		final DeleteItem item = deleteOnTearDown(new DeleteItem("forbid"));
 		item.setSelfForbid(middle2);
 
 		assertDeleteFails(todelete, item.selfForbid, middle2);
@@ -279,10 +274,8 @@ public class DeleteTest extends AbstractLibTest
 	
 	public void testItemObjectPool() throws NoSuchIDException
 	{
-		item = new DeleteItem("item1");
-		DeleteItem item2 = new DeleteItem("item2");
-		deleteOnTearDown(item);
-		deleteOnTearDown(item2);
+		item = deleteOnTearDown(new DeleteItem("item1"));
+		DeleteItem item2 = deleteOnTearDown(new DeleteItem("item2"));
 		
 		// test Model.findByID
 		assertSame(item, item.TYPE.getModel().findByID(item.getCopeID()));

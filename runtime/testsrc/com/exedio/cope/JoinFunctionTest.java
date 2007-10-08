@@ -39,11 +39,11 @@ public class JoinFunctionTest extends AbstractLibTest
 	{
 		super.setUp();
 		
-		deleteOnTearDown(single = new JoinFunctionItemSingle("single"));
-		deleteOnTearDown(a1 = new JoinFunctionItem("a1", Integer.valueOf(1)));
-		deleteOnTearDown(a2 = new JoinFunctionItem("a2", Integer.valueOf(2)));
-		deleteOnTearDown(b1 = new JoinFunctionItem("b1", Integer.valueOf(1)));
-		deleteOnTearDown(b3 = new JoinFunctionItem("b3", Integer.valueOf(3)));
+		single = deleteOnTearDown(new JoinFunctionItemSingle("single"));
+		a1 = deleteOnTearDown(new JoinFunctionItem("a1", Integer.valueOf(1)));
+		a2 = deleteOnTearDown(new JoinFunctionItem("a2", Integer.valueOf(2)));
+		b1 = deleteOnTearDown(new JoinFunctionItem("b1", Integer.valueOf(1)));
+		b3 = deleteOnTearDown(new JoinFunctionItem("b3", Integer.valueOf(3)));
 	}
 	
 	public void testIt()

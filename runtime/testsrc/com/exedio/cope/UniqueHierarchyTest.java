@@ -37,8 +37,7 @@ public class UniqueHierarchyTest extends AbstractLibTest
 		assertEquals(list(), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(), UniqueHierarchySubItem.TYPE.search());
 		
-		final UniqueHierarchySubItem item = new UniqueHierarchySubItem("super1", "sub1");
-		deleteOnTearDown(item);
+		final UniqueHierarchySubItem item = deleteOnTearDown(new UniqueHierarchySubItem("super1", "sub1"));
 		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
 

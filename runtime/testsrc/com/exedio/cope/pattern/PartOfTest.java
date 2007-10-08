@@ -36,7 +36,7 @@ public class PartOfTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(container = new PartOfContainerItem("container"));
+		container = deleteOnTearDown(new PartOfContainerItem("container"));
 	}
 	
 	public void testIt()

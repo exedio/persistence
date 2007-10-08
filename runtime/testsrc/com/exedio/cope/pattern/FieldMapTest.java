@@ -45,8 +45,8 @@ public class FieldMapTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new FieldMapItem());
-		deleteOnTearDown(itemX = new FieldMapItem());
+		item = deleteOnTearDown(new FieldMapItem());
+		itemX = deleteOnTearDown(new FieldMapItem());
 	}
 	
 	public void testIt()

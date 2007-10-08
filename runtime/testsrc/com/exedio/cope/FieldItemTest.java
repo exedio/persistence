@@ -75,8 +75,7 @@ public class FieldItemTest extends FieldTest
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someItem + '.', e.getMessage());
 		}
 		
-		final EmptyItem2 wrongItem = new EmptyItem2();
-		deleteOnTearDown(wrongItem);
+		final EmptyItem2 wrongItem = deleteOnTearDown(new EmptyItem2());
 		try
 		{
 			item.set((FunctionField)item.someItem, wrongItem);
@@ -134,12 +133,9 @@ public class FieldItemTest extends FieldTest
 	
 	public void testIntegrity()
 	{
-		final EmptyItem2 target = new EmptyItem2();
-		deleteOnTearDown(target);
-		final PointerTargetItem pointer2 = new PointerTargetItem("pointer2");
-		deleteOnTearDown(pointer2);
-		final PointerItem source = new PointerItem("source", pointer2);
-		deleteOnTearDown(source);
+		final EmptyItem2 target = deleteOnTearDown(new EmptyItem2());
+		final PointerTargetItem pointer2 = deleteOnTearDown(new PointerTargetItem("pointer2"));
+		final PointerItem source = deleteOnTearDown(new PointerItem("source", pointer2));
 		source.setEmpty2(target);
 
 		assertDeleteFails(target, source.empty2);

@@ -33,10 +33,8 @@ public class CacheIsolationTest extends AbstractLibTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = new CacheIsolationItem( "blub" );
-		deleteOnTearDown( item );
-		collisionItem = new CacheIsolationItem( "collision" );
-		deleteOnTearDown( collisionItem );
+		item = deleteOnTearDown(new CacheIsolationItem("blub"));
+		collisionItem = deleteOnTearDown(new CacheIsolationItem("collision"));
 		collisionItem.setUniqueString( "unique" );
 	}
 	

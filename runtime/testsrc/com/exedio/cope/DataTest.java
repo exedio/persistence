@@ -50,7 +50,7 @@ public class DataTest extends AbstractLibTest
 		for(int i = 0; i<dataBigLength; i++)
 			dataBig[i] = data8[i % data8Length];
 		
-		deleteOnTearDown(item = new DataItem());
+		item = deleteOnTearDown(new DataItem());
 	}
 	
 	@Override
@@ -260,8 +260,7 @@ public class DataTest extends AbstractLibTest
 			assertEquals(null, e.getMessage());
 		}
 		
-		final DataSubItem subItem = new DataSubItem();
-		deleteOnTearDown(subItem);
+		final DataSubItem subItem = deleteOnTearDown(new DataSubItem());
 		
 		subItem.setData(stream(data4));
 		assertStreamClosed();
@@ -355,17 +354,15 @@ public class DataTest extends AbstractLibTest
 		assertEquals("eins", item.getName());
 		
 		{
-			final DataItem item2 = new DataItem(data4, data10);
-			deleteOnTearDown(item2);
+			final DataItem item2 = deleteOnTearDown(new DataItem(data4, data10));
 			assertData(data4, item2.getDataArray());
 			assertData(data10, item2.getData10Array());
 		}
 		{
-			final DataItem item3 = DataItem.TYPE.newItem(
+			final DataItem item3 = deleteOnTearDown(DataItem.TYPE.newItem(
 					DataItem.data.map(data6),
 					DataItem.data10.map(data10)
-			);
-			deleteOnTearDown(item3);
+			));
 			assertData(data6, item3.getDataArray());
 			assertData(data10, item3.getData10Array());
 		}

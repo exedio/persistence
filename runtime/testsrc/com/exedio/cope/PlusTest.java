@@ -30,8 +30,8 @@ public class PlusTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new PlusItem(1, 2, 3));
-		deleteOnTearDown(item2 = new PlusItem(3, 4, 5));
+		item = deleteOnTearDown(new PlusItem(1, 2, 3));
+		item2 = deleteOnTearDown(new PlusItem(3, 4, 5));
 	}
 	
 	public void testSum()

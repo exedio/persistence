@@ -41,7 +41,7 @@ public class HistoryTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new HistoryItem());
+		item = deleteOnTearDown(new HistoryItem());
 	}
 	
 	public void testIt()

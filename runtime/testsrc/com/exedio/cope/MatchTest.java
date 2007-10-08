@@ -33,7 +33,7 @@ public class MatchTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MatchItem());
+		item = deleteOnTearDown(new MatchItem());
 	}
 	
 	public void testStrings() throws LengthViolationException

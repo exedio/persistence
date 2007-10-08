@@ -47,10 +47,10 @@ public class DispatcherTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item1 = new DispatcherItem("item1", false));
-		deleteOnTearDown(item2 = new DispatcherItem("item2", true));
-		deleteOnTearDown(item3 = new DispatcherItem("item3", false));
-		deleteOnTearDown(item4 = new DispatcherItem("item4", true));
+		item1 = deleteOnTearDown(new DispatcherItem("item1", false));
+		item2 = deleteOnTearDown(new DispatcherItem("item2", true));
+		item3 = deleteOnTearDown(new DispatcherItem("item3", false));
+		item4 = deleteOnTearDown(new DispatcherItem("item4", true));
 	}
 	
 	public void testIt()

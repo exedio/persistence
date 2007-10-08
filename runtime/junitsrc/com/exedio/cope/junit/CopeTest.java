@@ -69,9 +69,10 @@ public abstract class CopeTest extends CopeAssert
 		manageTransactions = false;
 	}
 	
-	protected final void deleteOnTearDown(final Item item)
+	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
 		deleteOnTearDown.add(item);
+		return item;
 	}
 	
 	protected final void printConnectionPoolCounter()

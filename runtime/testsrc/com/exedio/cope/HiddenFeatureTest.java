@@ -113,10 +113,10 @@ public class HiddenFeatureTest extends AbstractLibTest
 				model.getHiddenFeatures());
 
 		// test persistence
-		deleteOnTearDown(sp = new HiddenFeatureSuperItem());
+		sp = deleteOnTearDown(new HiddenFeatureSuperItem());
 		sp.setHiddenSame("hiddenSameSuperSuper");
 		sp.setHiddenOther("hiddenOtherSuperSuper");
-		deleteOnTearDown(sb = new HiddenFeatureSubItem());
+		sb = deleteOnTearDown(new HiddenFeatureSubItem());
 		sb.setHiddenSame("hiddenSameSuperSub");
 		sb.setHiddenOther("hiddenOtherSuperSub");
 		sb.hiddenSame.set(sb, "hiddenSameSub");

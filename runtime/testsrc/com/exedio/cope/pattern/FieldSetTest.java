@@ -47,8 +47,8 @@ public class FieldSetTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new FieldSetItem());
-		deleteOnTearDown(otherItem = new FieldSetItem());
+		item = deleteOnTearDown(new FieldSetItem());
+		otherItem = deleteOnTearDown(new FieldSetItem());
 	}
 	
 	public void testIt()

@@ -35,10 +35,10 @@ public abstract class FieldTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(someItem = new EmptyItem());
-		deleteOnTearDown(someItem2 = new EmptyItem());
-		deleteOnTearDown(item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
-		deleteOnTearDown(item2 = new AttributeItem("someString2", 6, 7l, 2.3, false, someItem2, AttributeItem.SomeEnum.enumValue2));
+		someItem = deleteOnTearDown(new EmptyItem());
+		someItem2 = deleteOnTearDown(new EmptyItem());
+		item = deleteOnTearDown(new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		item2 = deleteOnTearDown(new AttributeItem("someString2", 6, 7l, 2.3, false, someItem2, AttributeItem.SomeEnum.enumValue2));
 	}
 	
 	protected static <R> List<? extends R> search(final FunctionField<? extends R> selectAttribute)

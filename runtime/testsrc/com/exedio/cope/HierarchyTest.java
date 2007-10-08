@@ -127,8 +127,7 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals(map(), model.getHiddenFeatures());
 
 		// test persistence
-		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
-		deleteOnTearDown(firstItem);
+		final HierarchyFirstSub firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
 		assertID(0, firstItem);
 		assertEquals(0, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
@@ -148,18 +147,15 @@ public class HierarchyTest extends AbstractLibTest
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		firstItem.setSuperInt(0);
 		
-		final HierarchySecondSub secondItem = new HierarchySecondSub(2);
-		deleteOnTearDown(secondItem);
+		final HierarchySecondSub secondItem = deleteOnTearDown(new HierarchySecondSub(2));
 		assertID(1, secondItem);
 		assertEquals(2, secondItem.getSuperInt());
 		assertEquals(null, secondItem.getFirstSubString());
 
-		final HierarchySecondSub secondItem2 = new HierarchySecondSub(3);
-		deleteOnTearDown(secondItem2);
+		final HierarchySecondSub secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
 		assertID(2, secondItem2);
 
-		final HierarchyFirstSub firstItem2 = new HierarchyFirstSub(4);
-		deleteOnTearDown(firstItem2);
+		final HierarchyFirstSub firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
 		assertID(3, firstItem2);
 		
 		assertEquals(list(firstItem), firstItem.TYPE.search(firstItem.firstSubString.equal("firstSubString")));
@@ -176,14 +172,11 @@ public class HierarchyTest extends AbstractLibTest
 		assertTrue(HierarchySingleSuper.TYPE.isAbstract());
 		assertFalse(HierarchySingleSub.TYPE.isAbstract());
 		
-		final HierarchySingleSub singleSub1a = new HierarchySingleSub();
-		deleteOnTearDown(singleSub1a);
+		final HierarchySingleSub singleSub1a = deleteOnTearDown(new HierarchySingleSub());
 		singleSub1a.setSubString("a");
 		singleSub1a.setSuperInt(Integer.valueOf(1));
-		final HierarchySingleSub singleSub1b = new HierarchySingleSub(1, "b");
-		deleteOnTearDown(singleSub1b);
-		final HierarchySingleSub singleSub2a = new HierarchySingleSub(2, "a");
-		deleteOnTearDown(singleSub2a);
+		final HierarchySingleSub singleSub1b = deleteOnTearDown(new HierarchySingleSub(1, "b"));
+		final HierarchySingleSub singleSub2a = deleteOnTearDown(new HierarchySingleSub(2, "a"));
 		if(!noJoinParentheses) assertContains(singleSub1a, singleSub1b, singleSub1a.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub1b, HierarchySingleSuper.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub2a, singleSub1a.TYPE.search(singleSub1a.subString.equal("a")));
@@ -272,8 +265,7 @@ public class HierarchyTest extends AbstractLibTest
 	
 	public void testPolymorphicQueryInvalidation() throws UniqueViolationException
 	{
-		final HierarchyFirstSub item = new HierarchyFirstSub(10);
-		deleteOnTearDown(item);
+		final HierarchyFirstSub item = deleteOnTearDown(new HierarchyFirstSub(10));
 		
 		final Query q1 = HierarchySuper.TYPE.newQuery(item.superInt.equal(10));
 		final Query q2 = HierarchySuper.TYPE.newQuery(item.superInt.equal(20));

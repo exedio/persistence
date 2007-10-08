@@ -71,11 +71,10 @@ public class DefaultToTest extends AbstractLibTest
 		
 		{
 			final Date before = new Date();
-			final DefaultToItem item = new DefaultToItem(
+			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					DefaultToItem.booleanNone.map(false)
-			);
+			));
 			final Date after = new Date();
-			deleteOnTearDown(item);
 			assertEquals(TRUE, item.getBooleanTrue());
 			assertEquals(false, item.getBooleanNone());
 			assertEquals(5, item.getIntegerFive());
@@ -92,7 +91,7 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getEnumNone());
 		}
 		{
-			final DefaultToItem item = new DefaultToItem(
+			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					DefaultToItem.booleanTrue.map(false),
 					DefaultToItem.booleanNone.map(true),
 					DefaultToItem.integerFive.map(6),
@@ -105,8 +104,7 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.enumOne.map(DefaultToEnum.THREE),
 					DefaultToItem.enumTwo.map(DefaultToEnum.ONE),
 					DefaultToItem.enumNone.map(DefaultToEnum.TWO)
-			);
-			deleteOnTearDown(item);
+			));
 			assertEquals(FALSE, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
 			assertEquals(6, item.getIntegerFive());

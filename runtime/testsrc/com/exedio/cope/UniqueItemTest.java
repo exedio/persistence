@@ -162,10 +162,8 @@ public class UniqueItemTest extends TestmodelTest
 	
 	public void testMultipleSet()
 	{
-		final ItemWithSingleUnique item1 = new ItemWithSingleUnique();
-		deleteOnTearDown(item1);
-		final ItemWithSingleUnique item2 = new ItemWithSingleUnique();
-		deleteOnTearDown(item2);
+		final ItemWithSingleUnique item1 = deleteOnTearDown(new ItemWithSingleUnique());
+		final ItemWithSingleUnique item2 = deleteOnTearDown(new ItemWithSingleUnique());
 
 		item1.set(
 				item1.uniqueString.map("uniqueString1"),

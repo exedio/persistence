@@ -42,8 +42,8 @@ public class HardJoinTest extends AbstractLibTest
 	{
 		super.setUp();
 		
-		deleteOnTearDown(a = new HardJoinA3Item("a", 10, 11, 12));
-		deleteOnTearDown(b = new HardJoinB3Item("b", 20, 21, 22));
+		a = deleteOnTearDown(new HardJoinA3Item("a", 10, 11, 12));
+		b = deleteOnTearDown(new HardJoinB3Item("b", 20, 21, 22));
 	}
 	
 	private void reset()

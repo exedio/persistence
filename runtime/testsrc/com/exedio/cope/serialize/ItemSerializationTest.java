@@ -49,7 +49,7 @@ public class ItemSerializationTest extends AbstractLibTest
 		
 		// need this to let item have pk==1 but not the default pk==0, which could hide bugs
 		deleteOnTearDown(new ItemSerializationItem("nullus"));
-		deleteOnTearDown(item = new ItemSerializationItem("eins"));
+		item = deleteOnTearDown(new ItemSerializationItem("eins"));
 	}
 	
 	public void testItemSerialization() throws IOException, ClassNotFoundException

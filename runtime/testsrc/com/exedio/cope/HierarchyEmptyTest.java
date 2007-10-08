@@ -94,8 +94,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertFalse(HierarchyEmptySub.TYPE.isAbstract());
 
 		// test persistence
-		final HierarchyEmptySub subItem = new HierarchyEmptySub(0);
-		deleteOnTearDown(subItem);
+		final HierarchyEmptySub subItem = deleteOnTearDown(new HierarchyEmptySub(0));
 		assertID(0, subItem);
 		assertEquals(0, subItem.getSuperInt());
 		
@@ -106,8 +105,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertEquals(list(subItem), subItem.TYPE.search(null));
 		if(!noJoinParentheses) assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
 		
-		final HierarchyEmptySuper superItem = new HierarchyEmptySuper(3);
-		deleteOnTearDown(superItem);
+		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
 		assertID(1, superItem);
 		assertEquals(3, superItem.getSuperInt());
 		

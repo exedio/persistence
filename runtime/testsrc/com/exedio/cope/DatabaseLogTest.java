@@ -34,7 +34,7 @@ public class DatabaseLogTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MatchItem());
+		item = deleteOnTearDown(new MatchItem());
 	}
 	
 	public void testDatabaseLog()

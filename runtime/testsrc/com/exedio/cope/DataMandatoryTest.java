@@ -41,7 +41,7 @@ public class DataMandatoryTest extends AbstractLibTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new DataMandatoryItem(data4));
+		item = deleteOnTearDown(new DataMandatoryItem(data4));
 	}
 	
 	public void testData() throws MandatoryViolationException, IOException

@@ -40,7 +40,7 @@ public class HashTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new HashItem());
+		item = deleteOnTearDown(new HashItem());
 	}
 	
 	public void testExplicitExternal()
@@ -145,15 +145,13 @@ public class HashTest extends AbstractLibTest
 		assertFalse(item.checkInternal("zack"));
 		assertTrue(item.checkInternal("zosch"));
 		
-		final HashItem item2 = new HashItem(new SetValue[]{item.internal.map("lets")});
-		deleteOnTearDown(item2);
+		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue[]{item.internal.map("lets")}));
 		assertEquals("[lets]", item2.get(item2.internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal(""));
 		assertTrue(item2.checkInternal("lets"));
 		
-		final HashItem item3 = HashItem.TYPE.newItem(item.internal.map("fetz"));
-		deleteOnTearDown(item3);
+		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(item.internal.map("fetz")));
 		assertEquals("[fetz]", item3.get(item3.internal.getStorage()));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal(""));

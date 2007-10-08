@@ -41,11 +41,11 @@ public class ThumbnailTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(jpeg  = new ThumbnailItem());
-		deleteOnTearDown(png   = new ThumbnailItem());
-		deleteOnTearDown(gif   = new ThumbnailItem());
-		deleteOnTearDown(text  = new ThumbnailItem());
-		deleteOnTearDown(empty = new ThumbnailItem());
+		jpeg  = deleteOnTearDown(new ThumbnailItem());
+		png   = deleteOnTearDown(new ThumbnailItem());
+		gif   = deleteOnTearDown(new ThumbnailItem());
+		text  = deleteOnTearDown(new ThumbnailItem());
+		empty = deleteOnTearDown(new ThumbnailItem());
 		jpeg.setFile(data, "image/jpeg");
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");

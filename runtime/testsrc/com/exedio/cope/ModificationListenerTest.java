@@ -65,8 +65,7 @@ public class ModificationListenerTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(l), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
 		
-		final MatchItem item1 = new MatchItem("item1");
-		deleteOnTearDown(item1);
+		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
 		l.assertIt(null, null);
 		final Transaction firstTransaction = model.getCurrentTransaction();
 		model.commit();
@@ -80,8 +79,7 @@ public class ModificationListenerTest extends AbstractLibTest
 		l.assertIt(null, null);
 
 		final Transaction t3 = model.startTransaction("CommitListenerTest3");
-		final MatchItem item2 = new MatchItem("item2");
-		deleteOnTearDown(item2);
+		final MatchItem item2 = deleteOnTearDown(new MatchItem("item2"));
 		l.assertIt(null, null);
 		model.commit();
 		l.assertIt(list(item2), t3);

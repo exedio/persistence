@@ -31,9 +31,9 @@ public class JoinMultipleTest extends TestmodelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(target1 = new PointerTargetItem("target1"));
-		deleteOnTearDown(target2 = new PointerTargetItem("target2"));
-		deleteOnTearDown(source = new PointerItem("source", target1));
+		target1 = deleteOnTearDown(new PointerTargetItem("target1"));
+		target2 = deleteOnTearDown(new PointerTargetItem("target2"));
+		source = deleteOnTearDown(new PointerItem("source", target1));
 		source.setPointer2(target2);
 	}
 

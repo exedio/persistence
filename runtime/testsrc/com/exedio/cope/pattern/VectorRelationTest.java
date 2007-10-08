@@ -42,12 +42,12 @@ public class VectorRelationTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(source1 = new RelationSourceItem("source1"));
-		deleteOnTearDown(source2 = new RelationSourceItem("source2"));
+		source1 = deleteOnTearDown(new RelationSourceItem("source1"));
+		source2 = deleteOnTearDown(new RelationSourceItem("source2"));
 		deleteOnTearDown(new RelationSourceItem("sourceX"));
-		deleteOnTearDown(target1 = new RelationTargetItem("target1"));
-		deleteOnTearDown(target2 = new RelationTargetItem("target2"));
-		deleteOnTearDown(target3 = new RelationTargetItem("target3"));
+		target1 = deleteOnTearDown(new RelationTargetItem("target1"));
+		target2 = deleteOnTearDown(new RelationTargetItem("target2"));
+		target3 = deleteOnTearDown(new RelationTargetItem("target3"));
 		deleteOnTearDown(new RelationTargetItem("targetX"));
 	}
 	

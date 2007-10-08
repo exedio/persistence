@@ -38,7 +38,7 @@ public class QueryCacheTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new MatchItem());
+		item = deleteOnTearDown(new MatchItem());
 	}
 	
 	private static final String Q1 = "select this from MatchItem where text='someString'";

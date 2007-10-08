@@ -37,8 +37,8 @@ public class EnumTest extends AbstractLibTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new EnumItem(EnumItem.Status.status1));
-		deleteOnTearDown(item2 = new EnumItem2(EnumItem2.Status.state1));
+		item = deleteOnTearDown(new EnumItem(EnumItem.Status.status1));
+		item2 = deleteOnTearDown(new EnumItem2(EnumItem2.Status.state1));
 	}
 
 	public void testIt()

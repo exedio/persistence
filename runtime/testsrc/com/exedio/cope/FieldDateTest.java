@@ -106,8 +106,8 @@ public class FieldDateTest extends FieldTest
 	{
 		Date[] dates = new Date[9];
 		AttributeItem item3, item4;
-		deleteOnTearDown( item3 = new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
-		deleteOnTearDown( item4 = new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
+		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
 		dates[0] = new Date();
 		for ( int i=1; i<dates.length; i++ )
 		{
@@ -154,8 +154,8 @@ public class FieldDateTest extends FieldTest
 	{
 		Date[] dates = new Date[9];
 		AttributeItem item3, item4;
-		deleteOnTearDown( item3 = new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
-		deleteOnTearDown( item4 = new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1) );
+		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		dates[0] = format.parse("2005-09-22 10:26:46.031");
 		dates[1] = format.parse("2005-09-22 10:26:46.046"); // item

@@ -40,8 +40,8 @@ public class DayFieldTest extends AbstractLibTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new DayItem(DEFAULT));
-		deleteOnTearDown(item2 = new DayItem(DEFAULT2));
+		item = deleteOnTearDown(new DayItem(DEFAULT));
+		item2 = deleteOnTearDown(new DayItem(DEFAULT2));
 	}
 
 	public void testIt()

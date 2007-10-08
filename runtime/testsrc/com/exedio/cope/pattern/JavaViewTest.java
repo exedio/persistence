@@ -40,7 +40,7 @@ public class JavaViewTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new JavaViewItem());
+		item = deleteOnTearDown(new JavaViewItem());
 	}
 	
 	public void testNumber()

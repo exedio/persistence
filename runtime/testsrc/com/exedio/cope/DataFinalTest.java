@@ -39,7 +39,7 @@ public class DataFinalTest extends AbstractLibTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new DataFinalItem(data4));
+		item = deleteOnTearDown(new DataFinalItem(data4));
 	}
 	
 	public void testData() throws MandatoryViolationException, IOException

@@ -31,11 +31,11 @@ public class DistinctTest extends TestmodelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item1 = new PlusItem(1, 2, 0));
-		deleteOnTearDown(item2 = new PlusItem(1, 3, 0));
-		deleteOnTearDown(item3 = new PlusItem(1, 4, 0));
-		deleteOnTearDown(item4 = new PlusItem(1, 4, 0));
-		deleteOnTearDown(item4 = new PlusItem(2, 4, 0));
+		item1 = deleteOnTearDown(new PlusItem(1, 2, 0));
+		item2 = deleteOnTearDown(new PlusItem(1, 3, 0));
+		item3 = deleteOnTearDown(new PlusItem(1, 4, 0));
+		item4 = deleteOnTearDown(new PlusItem(1, 4, 0));
+		item4 = deleteOnTearDown(new PlusItem(2, 4, 0));
 	}
 	
 	public void testDistinct()

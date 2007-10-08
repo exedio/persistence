@@ -39,8 +39,8 @@ public class StringTest extends TestmodelTest
 		super.setUp();
 		supports = model.supportsEmptyStrings();
 		emptyString = supports ? "" : null;
-		deleteOnTearDown(item = new StringItem("StringTest"));
-		deleteOnTearDown(item2 = new StringItem("StringTest2"));
+		item = deleteOnTearDown(new StringItem("StringTest"));
+		item2 = deleteOnTearDown(new StringItem("StringTest2"));
 		numberOfItems = 2;
 	}
 	
@@ -165,8 +165,7 @@ public class StringTest extends TestmodelTest
 		assertString(item, item2, item.long1M);
 		
 		{
-			final StringItem itemEmptyInit = new StringItem("", false);
-			deleteOnTearDown(itemEmptyInit);
+			final StringItem itemEmptyInit = deleteOnTearDown(new StringItem("", false));
 			numberOfItems++;
 			assertEquals(emptyString, itemEmptyInit.getAny());
 			restartTransaction();
@@ -246,8 +245,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			item3 = new StringItem("", 0.0);
-			deleteOnTearDown(item3);
+			item3 = deleteOnTearDown(new StringItem("", 0.0));
 			numberOfItems++;
 			if(supports)
 				assertEquals("", item3.getMandatory());

@@ -45,9 +45,9 @@ public class QualifierTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(key1 = new EmptyItem());
-		deleteOnTearDown(key2 = new EmptyItem());
-		deleteOnTearDown(item = new QualifiedItem());
+		key1 = deleteOnTearDown(new EmptyItem());
+		key2 = deleteOnTearDown(new EmptyItem());
+		item = deleteOnTearDown(new QualifiedItem());
 	}
 	
 	public void testQualified()

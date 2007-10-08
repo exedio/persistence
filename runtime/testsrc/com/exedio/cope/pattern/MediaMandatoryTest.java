@@ -88,9 +88,8 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(list(), t.TYPE.search());
 
 		final Date before = new Date();
-		final MediaMandatoryItem item = new MediaMandatoryItem(data20, "major/minor");
+		final MediaMandatoryItem item = deleteOnTearDown(new MediaMandatoryItem(data20, "major/minor"));
 		final Date after = new Date();
-		deleteOnTearDown(item);
 		assertContent(item, data20, before, after, "major/minor", "");
 		assertEquals(list(item), item.TYPE.search());
 		

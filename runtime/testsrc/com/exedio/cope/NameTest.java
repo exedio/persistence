@@ -54,9 +54,9 @@ public class NameTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new NameLongNameLongNameLongNameLongNameLongNameLongItem("long name item"));
-		deleteOnTearDown(itemca = new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision A"));
-		deleteOnTearDown(itemcb = new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision B"));
+		item = deleteOnTearDown(new NameLongNameLongNameLongNameLongNameLongNameLongItem("long name item"));
+		itemca = deleteOnTearDown(new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision A"));
+		itemcb = deleteOnTearDown(new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision B"));
 	}
 	
 	public void test()

@@ -42,7 +42,7 @@ public class SerializerTest extends AbstractLibTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown(item = new SerializerItem());
+		item = deleteOnTearDown(new SerializerItem());
 	}
 	
 	public void testSerializer()
@@ -115,20 +115,18 @@ public class SerializerTest extends AbstractLibTest
 		assertNull(item.getInteger());
 		assertNull(item.getMap());
 
-		final SerializerItem item2 = new SerializerItem(new SetValue[]{
+		final SerializerItem item2 = deleteOnTearDown(new SerializerItem(new SetValue[]{
 				item.integer.map(33),
 				item.map.map(map1),
-		});
-		deleteOnTearDown(item2);
+		}));
 		assertEquals(new Integer(33), item2.getInteger());
 		assertEquals(map1, item2.getMap());
 		assertNotSame(map1, item2.getMap());
 		
-		final SerializerItem item3 = SerializerItem.TYPE.newItem(
+		final SerializerItem item3 = deleteOnTearDown(SerializerItem.TYPE.newItem(
 				item.integer.map(44),
 				item.map.map(map2)
-		);
-		deleteOnTearDown(item3);
+		));
 		assertEquals(new Integer(44), item3.getInteger());
 		assertEquals(map2, item3.getMap());
 		assertNotSame(map2, item3.getMap());
