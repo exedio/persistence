@@ -32,7 +32,7 @@ final class Option
 	static final String TEXT_NON_FINAL = "non-final";
 	
 	final boolean exists;
-	final int visibility;
+	final Visibility visibility;
 	final String suffix;
 	final boolean booleanAsIs;
 	final boolean isFinal;
@@ -42,7 +42,7 @@ final class Option
 		if(optionString==null)
 		{
 			exists = true;
-			visibility = Option.INHERITED;
+			visibility = null;
 			suffix = "";
 			booleanAsIs = false;
 			isFinal = allowFinal;
@@ -52,43 +52,43 @@ final class Option
 			if(optionString.indexOf(TEXT_NONE)>=0)
 			{
 				exists = false;
-				visibility = -1;
+				visibility = null;
 				suffix = null;
 			}
 			else if(optionString.indexOf(TEXT_INTERNAL)>=0)
 			{
 				exists = true;
-				visibility = PRIVATE;
+				visibility = Visibility.PRIVATE;
 				suffix = "Internal";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PRIVATE)>=0)
 			{
 				exists = true;
-				visibility = PRIVATE;
+				visibility = Visibility.PRIVATE;
 				suffix = "";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PROTECTED)>=0)
 			{
 				exists = true;
-				visibility = PROTECTED;
+				visibility = Visibility.PROTECTED;
 				suffix = "";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PACKAGE)>=0)
 			{
 				exists = true;
-				visibility = PACKAGE;
+				visibility = Visibility.PACKAGE;
 				suffix = "";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PUBLIC)>=0)
 			{
 				exists = true;
-				visibility = PUBLIC;
+				visibility = Visibility.PUBLIC;
 				suffix = "";
 			}
 			else
 			{
 				exists = true;
-				visibility = INHERITED;
+				visibility = null;
 				suffix = "";
 			}
 
@@ -100,38 +100,16 @@ final class Option
 		}
 	}
 
-	private static final int INHERITED = 0;
-	private static final int PRIVATE = 1;
-	private static final int PROTECTED = 2;
-	private static final int PACKAGE = 3;
-	private static final int PUBLIC = 4;
-	
 	final int getModifier(final int inheritedModifier)
 	{
 		if(!exists)
 			throw new RuntimeException();
 		
-		final int result;
-		switch(visibility)
-		{
-			case Option.INHERITED:
-				result = inheritedModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
-				break;
-			case Option.PRIVATE:
-				result = Modifier.PRIVATE;
-				break;
-			case Option.PROTECTED:
-				result = Modifier.PROTECTED;
-				break;
-			case Option.PACKAGE:
-				result = 0;
-				break;
-			case Option.PUBLIC:
-				result = Modifier.PUBLIC;
-				break;
-			default:
-				throw new RuntimeException(String.valueOf(visibility));
-		}
+		final int result =
+			visibility!=null
+			? visibility.modifier
+			: inheritedModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+		
 		if(isFinal)
 			return result | Modifier.FINAL;
 		else
