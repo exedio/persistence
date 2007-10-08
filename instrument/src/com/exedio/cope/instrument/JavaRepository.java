@@ -42,7 +42,6 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.CustomAttribute;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cope.pattern.Relation;
@@ -142,8 +141,6 @@ final class JavaRepository
 						new CopeRelation(type, javaAttribute, false);
 					else if(VectorRelation.class.isAssignableFrom(typeClass))
 						new CopeRelation(type, javaAttribute, true);
-					else if(CustomAttribute.class.isAssignableFrom(typeClass))
-						; // ignore
 					else if(Feature.class.isAssignableFrom(typeClass))
 						new CopeFeature(type, javaAttribute);
 				}

@@ -32,6 +32,7 @@ public final class CustomItem extends Item
 {
 	static final StringField numberString = new StringField().optional();
 	
+	/** @cope.ignore */
 	static final CustomAttribute<Integer> number = new CustomAttribute<Integer>(numberString)
 	{
 		Integer get(final String numberString)
