@@ -37,7 +37,7 @@ import com.exedio.cope.Transaction;
 
 public abstract class CopeAssert extends TestCase
 {
-	public final static void assertContainsList(final List<?> expected, final Collection<?> actual)
+	public static final void assertContainsList(final List<?> expected, final Collection<?> actual)
 	{
 		if(expected==null && actual==null)
 			return;
@@ -51,92 +51,92 @@ public abstract class CopeAssert extends TestCase
 			fail("expected "+expected+", but was "+actual);
 	}
 
-	public final static void assertContains(final Collection<?> actual)
+	public static final void assertContains(final Collection<?> actual)
 	{
 		assertContainsList(Collections.<Object>emptyList(), actual);
 	}
 
-	public final static void assertContains(final Object o, final Collection<?> actual)
+	public static final void assertContains(final Object o, final Collection<?> actual)
 	{
 		assertContainsList(Collections.singletonList(o), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Collection<?> actual)
+	public static final void assertContains(final Object o1, final Object o2, final Collection<?> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
+	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
+	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<?> actual)
+	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<?> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
 	}
 
-	public final static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Collection<?> actual)
+	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Collection<?> actual)
 	{
 		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6}), actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Collection<?> actual)
+	public static final void assertContainsUnmodifiable(final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o, final Collection<?> actual)
+	public static final void assertContainsUnmodifiable(final Object o, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o, actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<?> actual)
+	public static final void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
+	public static final void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, o3, actual);
 	}
 
-	public final static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
+	public static final void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, o3, o4, actual);
 	}
 
-	public final static List<Object> list(final Object... o)
+	public static final List<Object> list(final Object... o)
 	{
 		return Arrays.asList(o);
 	}
 	
-	public final static <T> List<T> listg(final T... o)
+	public static final <T> List<T> listg(final T... o)
 	{
 		return Arrays.asList(o);
 	}
 	
-	public final static Map<Object, Object> map()
+	public static final Map<Object, Object> map()
 	{
 		return Collections.<Object, Object>emptyMap();
 	}
 
-	public final static Map<Object, Object> map(final Object key1, final Object value1)
+	public static final Map<Object, Object> map(final Object key1, final Object value1)
 	{
 		return Collections.<Object, Object>singletonMap(key1, value1);
 	}
 
-	public final static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
+	public static final Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
 	{
 		final HashMap<Object, Object> result = new HashMap<Object, Object>();
 		result.put(key1, value1);
@@ -144,7 +144,7 @@ public abstract class CopeAssert extends TestCase
 		return result;
 	}
 
-	public final static <T extends Object> void assertUnmodifiable(final Collection<T> c)
+	public static final <T extends Object> void assertUnmodifiable(final Collection<T> c)
 	{
 		try
 		{
@@ -197,13 +197,13 @@ public abstract class CopeAssert extends TestCase
 		}
 	}
 	
-	public final static void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
+	public static final void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertEquals(expected, actual);
 	}
 	
-	public final static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
+	public static final void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
 		assertUnmodifiable(actual.keySet());
 		assertUnmodifiable(actual.values());
@@ -213,7 +213,7 @@ public abstract class CopeAssert extends TestCase
 	
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 	
-	public final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	public static final void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		final String message =
@@ -225,7 +225,7 @@ public abstract class CopeAssert extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 	
-	public final static <R> R waitForKey(final R o)
+	public static final <R> R waitForKey(final R o)
 	{
 		System.out.println("WAITING FOR KEY");
 		try
@@ -239,7 +239,7 @@ public abstract class CopeAssert extends TestCase
 		return o;
 	}
 
-	public final static void waitForKey()
+	public static final void waitForKey()
 	{
 		waitForKey(null);
 	}
