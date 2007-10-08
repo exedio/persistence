@@ -225,7 +225,7 @@ public abstract class CopeAssert extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 	
-	public final static Object waitForKey(final Object o)
+	public final static <R> R waitForKey(final R o)
 	{
 		System.out.println("WAITING FOR KEY");
 		try
