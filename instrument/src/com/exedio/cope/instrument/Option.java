@@ -105,14 +105,14 @@ final class Option
 		if(!exists)
 			throw new RuntimeException();
 		
-		final int result =
+		final int visibilityModifier =
 			visibility!=null
 			? visibility.modifier
 			: inheritedModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 		
 		if(isFinal)
-			return result | Modifier.FINAL;
+			return visibilityModifier | Modifier.FINAL;
 		else
-			return result;
+			return visibilityModifier;
 	}
 }
