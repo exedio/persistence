@@ -99,6 +99,10 @@ final class JavaRepository
 					final int modifier = javaAttribute.modifier;
 					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
 						continue feature;
+					
+					final String docComment = javaAttribute.getDocComment();
+					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
+						continue feature;
 
 					final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
 					if(typeClass==null)
@@ -140,7 +144,7 @@ final class JavaRepository
 						new CopeRelation(type, javaAttribute, true);
 					else if(CustomAttribute.class.isAssignableFrom(typeClass))
 						; // ignore
-					else if(Feature.class.isAssignableFrom(typeClass) && /* TODO bad hack */ !"config".equals(javaAttribute.name))
+					else if(Feature.class.isAssignableFrom(typeClass))
 						new CopeFeature(type, javaAttribute);
 				}
 			}

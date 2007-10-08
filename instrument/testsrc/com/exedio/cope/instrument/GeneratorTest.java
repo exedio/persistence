@@ -191,6 +191,9 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
 		assertMethod(STANDARD, "findByDoubleUnique", new Class[]{STRING, Integer.class}, STANDARD, PUBLIC|STATIC|FINAL);
 
+		assertNoMethod(STANDARD, "getIgnoreString");
+		assertNoMethod(STANDARD, "setIgnoreString", new Class[]{STRING});
+
 		assertMethod(STANDARD, "isAnyMediaNull", boolean.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaURL", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaContentType", STRING, PUBLIC|FINAL);
