@@ -94,56 +94,56 @@ final class JavaRepository
 			{
 				final CopeType type = new CopeType(javaClass);
 
-				for(final JavaAttribute javaAttribute : javaClass.getAttributes())
+				feature: for(final JavaAttribute javaAttribute : javaClass.getAttributes())
 				{
 					final int modifier = javaAttribute.modifier;
 
-					if(Modifier.isFinal(modifier) && Modifier.isStatic(modifier))
-					{
-						final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
+					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
+						continue feature;
+					final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
 
-						if(typeClass!=null)
+					if(typeClass==null)
+						continue feature;
+					if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
+					{
+						if(
+							IntegerFunction.class.isAssignableFrom(typeClass) ||
+							LongField.class.equals(typeClass) ||
+							DoubleField.class.equals(typeClass) ||
+							BooleanField.class.equals(typeClass) ||
+							DateField.class.equals(typeClass) ||
+							DayField.class.equals(typeClass) ||
+							StringFunction.class.isAssignableFrom(typeClass))
 						{
-							if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
-							{
-								if(
-									IntegerFunction.class.isAssignableFrom(typeClass) ||
-									LongField.class.equals(typeClass) ||
-									DoubleField.class.equals(typeClass) ||
-									BooleanField.class.equals(typeClass) ||
-									DateField.class.equals(typeClass) ||
-									DayField.class.equals(typeClass) ||
-									StringFunction.class.isAssignableFrom(typeClass))
-								{
-									new CopeNativeAttribute(type, javaAttribute, typeClass);
-								}
-								else if(
-									EnumField.class.equals(typeClass)||
-									ItemField.class.equals(typeClass))
-								{
-									new CopeObjectAttribute(type, javaAttribute);
-								}
-								else if(DataField.class.equals(typeClass))
-								{
-									new CopeDataAttribute(type, javaAttribute);
-								}
-								else
-									throw new RuntimeException(typeClass.toString());
-							}
-							else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-								new CopeUniqueConstraint(type, javaAttribute);
-							else if(Qualifier.class.isAssignableFrom(typeClass))
-								new CopeQualifier(type, javaAttribute);
-							else if(Relation.class.isAssignableFrom(typeClass))
-								new CopeRelation(type, javaAttribute, false);
-							else if(VectorRelation.class.isAssignableFrom(typeClass))
-								new CopeRelation(type, javaAttribute, true);
-							else if(CustomAttribute.class.isAssignableFrom(typeClass))
-								; // ignore
-							else if(Feature.class.isAssignableFrom(typeClass) && /* TODO bad hack */ !"config".equals(javaAttribute.name))
-								new CopeFeature(type, javaAttribute);
+							new CopeNativeAttribute(type, javaAttribute, typeClass);
 						}
+						else if(
+							EnumField.class.equals(typeClass)||
+							ItemField.class.equals(typeClass))
+						{
+							new CopeObjectAttribute(type, javaAttribute);
+						}
+						else if(DataField.class.equals(typeClass))
+						{
+							new CopeDataAttribute(type, javaAttribute);
+						}
+						else
+							throw new RuntimeException(typeClass.toString());
 					}
+					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
+						new CopeUniqueConstraint(type, javaAttribute);
+					else if(Qualifier.class.isAssignableFrom(typeClass))
+						new CopeQualifier(type, javaAttribute);
+					else if(Relation.class.isAssignableFrom(typeClass))
+						new CopeRelation(type, javaAttribute, false);
+					else if(VectorRelation.class.isAssignableFrom(typeClass))
+						new CopeRelation(type, javaAttribute, true);
+					else if(CustomAttribute.class.isAssignableFrom(typeClass))
+						; // ignore
+					else if(Feature.class.isAssignableFrom(typeClass) && /* TODO bad hack */ !"config".equals(javaAttribute.name))
+						new CopeFeature(type, javaAttribute);
+
+
 				}
 			}
 		}
