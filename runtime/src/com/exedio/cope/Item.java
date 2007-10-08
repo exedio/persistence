@@ -86,6 +86,8 @@ public abstract class Item extends Cope
 	@Override
 	public final boolean equals(final Object o)
 	{
+		if(this==o)
+			return true;
 		if(o==null || !(o instanceof Item))
 			return false;
 
