@@ -88,6 +88,7 @@ public final class CustomItem extends Item
 	static final IntegerField element2 = new IntegerField().optional();
 	static final IntegerField element3 = new IntegerField().optional();
 	
+	/** @cope.ignore */
 	static final CustomAttribute<List<Integer>> elements = new CustomAttribute<List<Integer>>(new IntegerField[]{element1, element2, element3})
 	{
 		List get(final Integer element1, final Integer element2, final Integer element3)
