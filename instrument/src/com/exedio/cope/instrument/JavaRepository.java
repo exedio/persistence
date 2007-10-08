@@ -97,13 +97,13 @@ final class JavaRepository
 				feature: for(final JavaAttribute javaAttribute : javaClass.getAttributes())
 				{
 					final int modifier = javaAttribute.modifier;
-
 					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
 						continue feature;
-					final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
 
+					final Class typeClass = javaAttribute.file.findTypeExternally(javaAttribute.type);
 					if(typeClass==null)
 						continue feature;
+					
 					if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 					{
 						if(
@@ -142,8 +142,6 @@ final class JavaRepository
 						; // ignore
 					else if(Feature.class.isAssignableFrom(typeClass) && /* TODO bad hack */ !"config".equals(javaAttribute.name))
 						new CopeFeature(type, javaAttribute);
-
-
 				}
 			}
 		}
