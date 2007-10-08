@@ -30,12 +30,6 @@ import java.lang.reflect.Modifier;
  */
 abstract class JavaFeature
 {
-	public static final int ACCESS_PUBLIC = 0;
-	public static final int ACCESS_PACKAGE = 1;
-	public static final int ACCESS_PROTECTED = 2;
-	public static final int ACCESS_PRIVATE = 3;
-	
-
 	/**
 	 * The java file, which contains this feature.
 	 * Is never null.
@@ -107,43 +101,9 @@ abstract class JavaFeature
 		return (modifier & Modifier.ABSTRACT) > 0;
 	}
 	
-	final int getAccessModifier()
+	final Visibility getVisibility()
 	{
-		return toAccessModifier(modifier);
-	}
-	
-	private static final int toAccessModifier(final int reflectionModifier)
-	{
-		switch(reflectionModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
-		{
-			case Modifier.PUBLIC:
-				return ACCESS_PUBLIC;
-			case 0:
-				return ACCESS_PACKAGE;
-			case Modifier.PROTECTED:
-				return ACCESS_PROTECTED;
-			case Modifier.PRIVATE:
-				return ACCESS_PRIVATE;
-			default:
-				throw new RuntimeException(Integer.toString(reflectionModifier));
-		}
-	}
-	
-	static final int toReflectionModifier(final int accessModifier)
-	{
-		switch(accessModifier)
-		{
-			case ACCESS_PUBLIC:
-				return Modifier.PUBLIC;
-			case ACCESS_PACKAGE:
-				return 0;
-			case ACCESS_PROTECTED:
-				return Modifier.PROTECTED;
-			case ACCESS_PRIVATE:
-				return Modifier.PRIVATE;
-			default:
-				throw new RuntimeException(Integer.toString(accessModifier));
-		}
+		return Visibility.fromModifier(modifier);
 	}
 	
 	@Override
@@ -151,7 +111,4 @@ abstract class JavaFeature
 	{
 		return getClass().getName()+'('+name+')';
 	}
-	
 }
-
-

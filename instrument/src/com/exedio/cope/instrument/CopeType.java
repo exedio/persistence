@@ -50,7 +50,7 @@ final class CopeType
 
 	final JavaClass javaClass;
 	final String name;
-	final int accessModifier;
+	final Visibility visibility;
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
@@ -64,7 +64,7 @@ final class CopeType
 	{
 		this.javaClass = javaClass;
 		this.name = javaClass.name;
-		this.accessModifier = javaClass.getAccessModifier();
+		this.visibility = javaClass.getVisibility();
 		copeTypeByJavaClass.put(javaClass, this);
 		
 		final String docComment = javaClass.getDocComment();
@@ -215,15 +215,15 @@ final class CopeType
 	
 	public int getInitialConstructorModifier()
 	{
-		int inheritedModifier = accessModifier;
+		Visibility inheritedVisibility = visibility;
 		for(final CopeFeature initialFeature : getInitialFeatures())
 		{
-			final int intialFeatureAccessModifier = initialFeature.accessModifier;
-			if(inheritedModifier<intialFeatureAccessModifier)
-				inheritedModifier = intialFeatureAccessModifier;
+			final Visibility intialFeatureVisibility = initialFeature.visibility;
+			if(inheritedVisibility.ordinal()<intialFeatureVisibility.ordinal())
+				inheritedVisibility = intialFeatureVisibility;
 		}
 		
-		return initialConstructorOption.getModifier(JavaFeature.toReflectionModifier(inheritedModifier));
+		return initialConstructorOption.getModifier(inheritedVisibility.modifier);
 	}
 	
 	private ArrayList<CopeFeature> initialFeatures = null;

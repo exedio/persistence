@@ -37,7 +37,7 @@ class CopeFeature
 	final JavaAttribute javaAttribute;
 	final String name;
 	final int modifier;
-	final int accessModifier;
+	final Visibility visibility;
 	final String docComment;
 	final Option setterOption;
 	final boolean initial;
@@ -49,7 +49,7 @@ class CopeFeature
 		this.javaAttribute = javaAttribute;
 		this.name = javaAttribute.name;
 		this.modifier = javaAttribute.modifier;
-		this.accessModifier = javaAttribute.getAccessModifier();
+		this.visibility = javaAttribute.getVisibility();
 
 		this.docComment = javaAttribute.getDocComment();
 		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
