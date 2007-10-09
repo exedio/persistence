@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public abstract class Feature
 	private Type<? extends Item> type;
 	private String name;
 	private String id;
+	private java.lang.reflect.Field annotationField = null;
 	
 	final static char ID_SEPARATOR = '.';
 
@@ -79,6 +81,23 @@ public abstract class Feature
 		assert id!=null;
 
 		return id;
+	}
+	
+	final void setAnnotationField(final java.lang.reflect.Field annotationField)
+	{
+		assert this.annotationField==null;
+		this.annotationField = annotationField;
+	}
+	
+	/**
+	 * @see Class#getAnnotation(Class)
+	 */
+	public final <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+	{
+		return
+			annotationField!=null
+			? annotationField.getAnnotation(annotationClass)
+			: null;
 	}
 	
 	public List<Wrapper> getWrappers()

@@ -227,6 +227,7 @@
 				<include name="**/*.java" />
 				<exclude name="ModelTest.java" /><!-- TODO remove -->
 				<exclude name="FieldTest.java" /><!-- TODO remove -->
+				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
 			</fileset>
 		</instrument>
 	</target>

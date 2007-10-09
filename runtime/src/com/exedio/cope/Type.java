@@ -146,6 +146,7 @@ public final class Type<C extends Item>
 						if(feature==null)
 							throw new RuntimeException(field.getName());
 						result.put(field.getName(), feature);
+						feature.setAnnotationField(field);
 					}
 				}
 			}
