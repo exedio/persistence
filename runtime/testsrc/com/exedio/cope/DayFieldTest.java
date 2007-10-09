@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.exedio.cope.util.Day;
@@ -53,7 +52,7 @@ public class DayFieldTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.day.getType());
 		assertEquals(Day.class, item.day.getValueClass());
 		
-		assertEquals(list("testannotationcontent"), Arrays.asList(item.day.getAnnotation(TestAnnotation.class).value()));
+		assertEquals("testannotationcontent", item.day.getAnnotation(TestAnnotation.class).value());
 		assertEquals(null, item.optionalDay.getAnnotation(TestAnnotation.class));
 
 		// test persistence
