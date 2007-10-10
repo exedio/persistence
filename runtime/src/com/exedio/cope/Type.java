@@ -285,14 +285,14 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Constructor<C> getConstructor(final String name, final Class... params)
+	private Constructor<C> getConstructor(final String name, final Class... parameterTypes)
 	{
 		if(!uniqueJavaClass)
 			return null;
 		
 		try
 		{
-			final Constructor<C> result = javaClass.getDeclaredConstructor(params);
+			final Constructor<C> result = javaClass.getDeclaredConstructor(parameterTypes);
 			result.setAccessible(true);
 			return result;
 		}
