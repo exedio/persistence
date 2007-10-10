@@ -298,7 +298,10 @@ public final class Type<C extends Item>
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new IllegalArgumentException(javaClass.getName() + " does not have a " + name + " constructor " + javaClass.getSimpleName() + '(' + toString(parameterTypes) + ')', e);
+			throw new IllegalArgumentException(
+					javaClass.getName() + " does not have a " +
+					name + " constructor " +
+					javaClass.getSimpleName() + '(' + toString(parameterTypes) + ')', e);
 		}
 	}
 	
