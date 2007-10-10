@@ -105,7 +105,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Item.class.getName() + " but not Item itself", e.getMessage());
+			assertEquals("is not a subclass of " + Item.class.getName() + " but Item itself", e.getMessage());
 		}
 		try
 		{

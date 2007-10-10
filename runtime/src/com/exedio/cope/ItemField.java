@@ -28,7 +28,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		super(isfinal, optional, unique, initialValueType==null?valueClass:initialValueType.getJavaClass(), null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but not Item itself");
+			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
 		assert (valueClass==null) != (initialValueType==null);
 		this.initialValueType = initialValueType;
 		this.policy = policy;
