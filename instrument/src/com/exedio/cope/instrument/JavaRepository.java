@@ -39,11 +39,13 @@ import com.exedio.cope.IntegerFunction;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Qualifier;
+import com.exedio.cope.pattern.Record;
 import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.VectorRelation;
 
@@ -276,6 +278,8 @@ final class JavaRepository
 					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
 					return ToBeReplacedByWrapperTypeVariableXItem.class;
+				if("RecordValue".equals(javaClass.name)) // TODO
+					return ToBeReplacedByWrapperTypeVariableXRecord.class;
 			}
 			
 			return null;
@@ -296,6 +300,18 @@ final class JavaRepository
 		// If this type is encountered in the instrumentor output,
 		// it has to be replaced by Wrapper.TypeVariableX
 		private static final long serialVersionUID = 1l;
+	}
+	
+	private static class ToBeReplacedByWrapperTypeVariableXRecord extends Record.Value
+	{
+		// If this type is encountered in the instrumentor output,
+		// it has to be replaced by Wrapper.TypeVariableX
+		private static final long serialVersionUID = 1l;
+		
+		protected ToBeReplacedByWrapperTypeVariableXRecord(final SetValue... setValues)
+		{
+			super(setValues);
+		}
 	}
 	
 	public static final class DummyHash extends Hash
