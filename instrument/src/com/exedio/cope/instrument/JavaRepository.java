@@ -291,7 +291,7 @@ final class JavaRepository
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
 	
-	static class ToBeReplacedByWrapperTypeVariableXItem extends Item
+	private static class ToBeReplacedByWrapperTypeVariableXItem extends Item
 	{
 		// If this type is encountered in the instrumentor output,
 		// it has to be replaced by Wrapper.TypeVariableX
