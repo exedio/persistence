@@ -22,10 +22,13 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -166,6 +169,32 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 		return result;
 	}
 	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		final Wrapper get = new Wrapper(
+			Wrapper.TypeVariable0.class, "get",
+			"Returns the value of record {0}.",
+			"getter");
+		result.add(get);
+		
+		if(!isfinal)
+		{
+			final Set<Class> exceptions = getSetterExceptions();
+			result.add(new Wrapper(
+				void.class, "set",
+				"Sets a new value for the record {0}.", // TODO better text
+				"setter",
+				exceptions.toArray(new Class[exceptions.size()])
+				).
+				addParameter(Wrapper.TypeVariable0.class));
+		}
+			
+		return Collections.unmodifiableList(result);
+	}
 	
 	public E get(final Item item)
 	{
