@@ -28,6 +28,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
  * Tests the model itself, without creating/using any persistent data.
@@ -210,7 +211,7 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals(
 					NoCreationConstructor.class.getName() +
-					" does not have a creation constructor", e.getMessage());
+					" does not have a creation constructor NoCreationConstructor(" + SetValue.class.getName() + "[])", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 		try
@@ -222,7 +223,7 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals(e.getMessage(),
 					NoReactivationConstructor.class.getName() +
-					" does not have a reactivation constructor", e.getMessage());
+					" does not have a reactivation constructor NoReactivationConstructor(" + ReactivationConstructorDummy.class.getName() + ",int)", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 		try

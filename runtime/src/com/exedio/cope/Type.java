@@ -247,8 +247,8 @@ public final class Type<C extends Item>
 		// Here we don't precompute the constructor parameters
 		// because they are needed in the initialization phase
 		// only.
-		this.creationConstructor = getConstructor("creation", SetValue[].class);
-		this.reactivationConstructor = getConstructor("reactivation", ReactivationConstructorDummy.class, int.class);
+		this.creationConstructor = getConstructor("creation", SetValue[].class.getCanonicalName(), SetValue[].class);
+		this.reactivationConstructor = getConstructor("reactivation", ReactivationConstructorDummy.class.getName() + ",int", ReactivationConstructorDummy.class, int.class);
 
 		this.pkSource =
 			supertype!=null
@@ -285,7 +285,7 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Constructor<C> getConstructor(final String name, final Class... parameterTypes)
+	private Constructor<C> getConstructor(final String name, final String paramString, final Class... parameterTypes)
 	{
 		if(!uniqueJavaClass)
 			return null;
@@ -298,7 +298,7 @@ public final class Type<C extends Item>
 		}
 		catch(NoSuchMethodException e)
 		{
-			throw new IllegalArgumentException(javaClass.getName() + " does not have a " + name + " constructor", e);
+			throw new IllegalArgumentException(javaClass.getName() + " does not have a " + name + " constructor " + javaClass.getSimpleName() + '(' + paramString + ')', e);
 		}
 	}
 	
