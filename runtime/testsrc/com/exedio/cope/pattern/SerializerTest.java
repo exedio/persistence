@@ -49,25 +49,27 @@ public class SerializerTest extends AbstractLibTest
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
-				item.integer.getSource(),
+				item.TYPE.getThis(),
 				item.integer,
-				item.map.getSource(),
+				item.integer.getSource(),
 				item.map,
+				item.map.getSource(),
 			}), item.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
-				item.integer.getSource(),
+				item.TYPE.getThis(),
 				item.integer,
-				item.map.getSource(),
+				item.integer.getSource(),
 				item.map,
+				item.map.getSource(),
 			}), item.TYPE.getDeclaredFeatures());
 
-		assertEquals(item.TYPE, item.integer.getSource());
-		assertEquals(item.TYPE, item.integer);
-		assertEquals(item.TYPE, item.map.getSource());
-		assertEquals(item.TYPE, item.map);
+		assertEquals(item.TYPE, item.integer.getSource().getType());
+		assertEquals(item.TYPE, item.integer.getType());
+		assertEquals(item.TYPE, item.map.getSource().getType());
+		assertEquals(item.TYPE, item.map.getType());
 		assertEquals("integerData", item.integer.getSource().getName());
 		assertEquals("integer", item.integer.getName());
-		assertEquals("mapDate", item.map.getSource().getName());
+		assertEquals("mapData", item.map.getSource().getName());
 		assertEquals("map", item.map.getName());
 
 		assertEqualsUnmodifiable(list(item.integer), item.integer.getSource().getPatterns());
