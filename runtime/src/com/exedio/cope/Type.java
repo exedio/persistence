@@ -247,8 +247,8 @@ public final class Type<C extends Item>
 		// Here we don't precompute the constructor parameters
 		// because they are needed in the initialization phase
 		// only.
-		this.creationConstructor = getConstructor(new Class[]{SetValue[].class}, "creation");
-		this.reactivationConstructor = getConstructor(new Class[]{ReactivationConstructorDummy.class, int.class}, "reactivation");
+		this.creationConstructor = getConstructor("creation", SetValue[].class);
+		this.reactivationConstructor = getConstructor("reactivation", ReactivationConstructorDummy.class, int.class);
 
 		this.pkSource =
 			supertype!=null
@@ -285,7 +285,7 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Constructor<C> getConstructor(final Class[] params, final String name)
+	private Constructor<C> getConstructor(final String name, final Class... params)
 	{
 		if(!uniqueJavaClass)
 			return null;
