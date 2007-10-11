@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
@@ -46,7 +51,7 @@ public class CompositeTest extends AbstractLibTest
 		target2 = deleteOnTearDown(new CompositeOptionalItem("target2"));
 	}
 	
-	public void testIt()
+	public void testIt() throws IOException, ClassNotFoundException
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -192,5 +197,33 @@ public class CompositeTest extends AbstractLibTest
 		// test hashCode
 		assertEquals(fItem.getFirst().hashCode(), fItem.getFirst().hashCode());
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
+		
+		// test serialization
+		final CompositeValue serializedValue = (CompositeValue)deserialize(serialize(value));
+		assertEquals(value, serializedValue);
+		assertNotSame(value, serializedValue);
+	}
+	
+	private static Object deserialize(final byte[] value) throws IOException, ClassNotFoundException
+	{
+		if(value==null)
+			throw new NullPointerException();
+
+		final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(value));
+		final Object result = ois.readObject();
+		ois.close();
+		return result;
+	}
+	
+	private static byte[] serialize(final Object value) throws IOException
+	{
+		if(value==null)
+			throw new NullPointerException();
+		
+		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		final ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(value);
+		oos.close();
+		return bos.toByteArray();
 	}
 }

@@ -260,6 +260,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		final Class<X> valueClass;
 		final Constructor<X> valueConstructor;
 		final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
+		final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
 		final int componentSize;
 		
 		ValueType(final Class<X> valueClass)
@@ -280,6 +281,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
 			try
 			{
+				int position = 0;
 				for(final java.lang.reflect.Field field : fields)
 				{
 					if((field.getModifiers()&expectedModifier)==expectedModifier)
@@ -292,6 +294,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 							if(template==null)
 								throw new RuntimeException(field.getName());
 							templates.put(field.getName(), template);
+							templatePositions.put(template, position++);
 						}
 					}
 				}
@@ -325,25 +328,40 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	
 	public static abstract class Value implements Serializable
 	{
-		private final HashMap<FunctionField, Object> values = new HashMap<FunctionField, Object>(); // TODO make an array
+		private final Object[] values;
 
 		protected Value(final SetValue... setValues)
 		{
+			final ValueType<?> valueType = valueType();
+			values = new Object[valueType.componentSize];
 			for(final SetValue v : setValues)
-				values.put((FunctionField)v.settable, v.value);
+				values[valueType.templatePositions.get(v.settable)] = v.value;
 		}
 
 		@SuppressWarnings("unchecked")
 		protected <X> X get(final FunctionField<X> member)
 		{
-			return (X)values.get(member);
+			final ValueType<?> valueType = valueType();
+			return (X)values[valueType.templatePositions.get(member)];
 		}
 		
 		protected <X> void set(final FunctionField<X> member, final X value)
 		{
-			values.put(member, value);
+			final ValueType<?> valueType = valueType();
+			values[valueType.templatePositions.get(member)] = value;
 		}
 		
+		private final ValueType<?> valueType()
+		{
+			final ValueType result;
+			synchronized(valueTypes)
+			{
+				result = valueTypes.get(getClass());
+			}
+			assert result!=null;
+			return result;
+		}
+
 		@Override
 		public final boolean equals(final Object other)
 		{
@@ -353,13 +371,13 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			return
 				other!=null &&
 				getClass().equals(other.getClass()) &&
-				values.equals(((Value)other).values);
+				Arrays.equals(values, ((Value)other).values);
 		}
 		
 		@Override
 		public final int hashCode()
 		{
-			return getClass().hashCode() ^ values.hashCode();
+			return getClass().hashCode() ^ Arrays.hashCode(values);
 		}
 	}
 }
