@@ -278,7 +278,7 @@ final class JavaRepository
 					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
 					return ToBeReplacedByWrapperTypeVariableXItem.class;
-				if("CompositeValue".equals(javaClass.name)) // TODO
+				if("Composite.Value".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 					return ToBeReplacedByWrapperTypeVariableXComposite.class;
 			}
 			
