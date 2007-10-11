@@ -169,6 +169,11 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		return result;
 	}
 	
+	public List<FunctionField> getComponents()
+	{
+		return Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
+	}
+	
 	@Override
 	public List<Wrapper> getWrappers()
 	{

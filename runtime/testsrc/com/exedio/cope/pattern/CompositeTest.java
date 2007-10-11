@@ -49,7 +49,7 @@ public class CompositeTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
@@ -61,7 +61,7 @@ public class CompositeTest extends AbstractLibTest
 				oItem.duo.getComponent(CompositeValue.anInt),
 				oItem.duo.getComponent(CompositeValue.anItem),
 			}), oItem.TYPE.getFeatures());
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
@@ -73,7 +73,7 @@ public class CompositeTest extends AbstractLibTest
 				oItem.duo.getComponent(CompositeValue.anInt),
 				oItem.duo.getComponent(CompositeValue.anItem),
 			}), oItem.TYPE.getDeclaredFeatures());
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
@@ -85,7 +85,7 @@ public class CompositeTest extends AbstractLibTest
 				fItem.second.getComponent(CompositeValue.anInt),
 				fItem.second.getComponent(CompositeValue.anItem),
 			}), fItem.TYPE.getFeatures());
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
@@ -115,6 +115,16 @@ public class CompositeTest extends AbstractLibTest
 		assertEquals(true, fItem.first.getComponent(CompositeValue.aString).isFinal());
 		assertEquals(true, fItem.first.getComponent(CompositeValue.aString).isMandatory());
 		
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				oItem.uno.getComponent(CompositeValue.aString),
+				oItem.uno.getComponent(CompositeValue.anInt),
+				oItem.uno.getComponent(CompositeValue.anItem),
+			}), oItem.uno.getComponents());
+		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+				fItem.second.getComponent(CompositeValue.aString),
+				fItem.second.getComponent(CompositeValue.anInt),
+				fItem.second.getComponent(CompositeValue.anItem),
+			}), fItem.second.getComponents());
 		
 		try
 		{
