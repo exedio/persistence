@@ -48,8 +48,9 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	private final boolean optional;
 	private final Class<E> valueClass;
 	
+	private final ValueType<E> valueType;
 	private final Constructor<E> valueConstructor;
-	private final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
+	private final LinkedHashMap<String, FunctionField> templates;
 	private final int componentSize;
 	
 	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
@@ -67,41 +68,10 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		if(Value.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Value.class.getName() + " but Composite.Value itself");
 
-		try
-		{
-			valueConstructor = valueClass.getDeclaredConstructor(SetValue[].class);
-			valueConstructor.setAccessible(true);
-		}
-		catch(NoSuchMethodException e)
-		{
-			throw new IllegalArgumentException(valueClass.getName() + " does not have a constructor " + Arrays.toString(new Class[]{SetValue[].class}), e);
-		}
-		
-		final java.lang.reflect.Field[] fields = valueClass.getDeclaredFields();
-		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
-		try
-		{
-			for(final java.lang.reflect.Field field : fields)
-			{
-				if((field.getModifiers()&expectedModifier)==expectedModifier)
-				{
-					final Class fieldType = field.getType();
-					if(Field.class.isAssignableFrom(fieldType))
-					{
-						field.setAccessible(true);
-						final FunctionField template = (FunctionField)field.get(null);
-						if(template==null)
-							throw new RuntimeException(field.getName());
-						templates.put(field.getName(), template);
-					}
-				}
-			}
-		}
-		catch(IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		this.componentSize = templates.size();
+		this.valueType = getValueType(valueClass);
+		this.valueConstructor = valueType.valueConstructor;
+		this.templates = valueType.templates;
+		this.componentSize = valueType.componentSize;
 	}
 	
 	public static <E extends Composite.Value> Composite<E> newComposite(final Class<E> valueClass)
@@ -283,6 +253,74 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	public SetValue map(E value)
 	{
 		return new SetValue<E>(this, value);
+	}
+	
+	private static final class ValueType<X>
+	{
+		final Class<X> valueClass;
+		final Constructor<X> valueConstructor;
+		final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
+		final int componentSize;
+		
+		ValueType(final Class<X> valueClass)
+		{
+			//System.out.println("---------------new ValueType(" + vc + ')');
+			this.valueClass = valueClass;
+			try
+			{
+				valueConstructor = valueClass.getDeclaredConstructor(SetValue[].class);
+				valueConstructor.setAccessible(true);
+			}
+			catch(NoSuchMethodException e)
+			{
+				throw new IllegalArgumentException(valueClass.getName() + " does not have a constructor " + Arrays.toString(new Class[]{SetValue[].class}), e);
+			}
+			
+			final java.lang.reflect.Field[] fields = valueClass.getDeclaredFields();
+			final int expectedModifier = Modifier.STATIC | Modifier.FINAL;
+			try
+			{
+				for(final java.lang.reflect.Field field : fields)
+				{
+					if((field.getModifiers()&expectedModifier)==expectedModifier)
+					{
+						final Class fieldType = field.getType();
+						if(Field.class.isAssignableFrom(fieldType))
+						{
+							field.setAccessible(true);
+							final FunctionField template = (FunctionField)field.get(null);
+							if(template==null)
+								throw new RuntimeException(field.getName());
+							templates.put(field.getName(), template);
+						}
+					}
+				}
+			}
+			catch(IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
+			this.componentSize = templates.size();
+		}
+	}
+	
+	private static final HashMap<Class, ValueType> valueTypes = new HashMap<Class, ValueType>();
+
+	@SuppressWarnings("unchecked")
+	private static final <E> ValueType<E> getValueType(final Class valueClass)
+	{
+		assert valueClass!=null;
+		
+		synchronized(valueTypes)
+		{
+			ValueType<E> result = valueTypes.get(valueClass);
+			if(result==null)
+			{
+				result = new ValueType(valueClass);
+				valueTypes.put(valueClass, result);
+			}
+			return result;
+		}
 	}
 	
 	public static abstract class Value implements Serializable
