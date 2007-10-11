@@ -45,7 +45,7 @@ import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Qualifier;
-import com.exedio.cope.pattern.Record;
+import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.VectorRelation;
 
@@ -278,8 +278,8 @@ final class JavaRepository
 					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
 					return ToBeReplacedByWrapperTypeVariableXItem.class;
-				if("RecordValue".equals(javaClass.name)) // TODO
-					return ToBeReplacedByWrapperTypeVariableXRecord.class;
+				if("CompositeValue".equals(javaClass.name)) // TODO
+					return ToBeReplacedByWrapperTypeVariableXComposite.class;
 			}
 			
 			return null;
@@ -302,13 +302,13 @@ final class JavaRepository
 		private static final long serialVersionUID = 1l;
 	}
 	
-	private static class ToBeReplacedByWrapperTypeVariableXRecord extends Record.Value
+	private static class ToBeReplacedByWrapperTypeVariableXComposite extends Composite.Value
 	{
 		// If this type is encountered in the instrumentor output,
 		// it has to be replaced by Wrapper.TypeVariableX
 		private static final long serialVersionUID = 1l;
 		
-		protected ToBeReplacedByWrapperTypeVariableXRecord(final SetValue... setValues)
+		protected ToBeReplacedByWrapperTypeVariableXComposite(final SetValue... setValues)
 		{
 			super(setValues);
 		}

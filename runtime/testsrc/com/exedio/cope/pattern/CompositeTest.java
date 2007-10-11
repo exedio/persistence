@@ -24,26 +24,26 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public class RecordTest extends AbstractLibTest
+public class CompositeTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(RecordOptionalItem.TYPE, RecordFinalItem.TYPE);
+	static final Model MODEL = new Model(CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE);
 	
-	public RecordTest()
+	public CompositeTest()
 	{
 		super(MODEL);
 	}
 
-	RecordOptionalItem target1;
-	RecordOptionalItem target2;
-	RecordOptionalItem oItem;
-	RecordFinalItem fItem;
+	CompositeOptionalItem target1;
+	CompositeOptionalItem target2;
+	CompositeOptionalItem oItem;
+	CompositeFinalItem fItem;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		target1 = deleteOnTearDown(new RecordOptionalItem("target1"));
-		target2 = deleteOnTearDown(new RecordOptionalItem("target2"));
+		target1 = deleteOnTearDown(new CompositeOptionalItem("target1"));
+		target2 = deleteOnTearDown(new CompositeOptionalItem("target2"));
 	}
 	
 	public void testIt()
@@ -53,67 +53,67 @@ public class RecordTest extends AbstractLibTest
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
-				oItem.uno.getSource(RecordValue.aString),
-				oItem.uno.getSource(RecordValue.anInt),
-				oItem.uno.getSource(RecordValue.anItem),
+				oItem.uno.getSource(CompositeValue.aString),
+				oItem.uno.getSource(CompositeValue.anInt),
+				oItem.uno.getSource(CompositeValue.anItem),
 				oItem.duo,
-				oItem.duo.getSource(RecordValue.aString),
-				oItem.duo.getSource(RecordValue.anInt),
-				oItem.duo.getSource(RecordValue.anItem),
+				oItem.duo.getSource(CompositeValue.aString),
+				oItem.duo.getSource(CompositeValue.anInt),
+				oItem.duo.getSource(CompositeValue.anItem),
 			}), oItem.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
-				oItem.uno.getSource(RecordValue.aString),
-				oItem.uno.getSource(RecordValue.anInt),
-				oItem.uno.getSource(RecordValue.anItem),
+				oItem.uno.getSource(CompositeValue.aString),
+				oItem.uno.getSource(CompositeValue.anInt),
+				oItem.uno.getSource(CompositeValue.anItem),
 				oItem.duo,
-				oItem.duo.getSource(RecordValue.aString),
-				oItem.duo.getSource(RecordValue.anInt),
-				oItem.duo.getSource(RecordValue.anItem),
+				oItem.duo.getSource(CompositeValue.aString),
+				oItem.duo.getSource(CompositeValue.anInt),
+				oItem.duo.getSource(CompositeValue.anItem),
 			}), oItem.TYPE.getDeclaredFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
-				fItem.first.getSource(RecordValue.aString),
-				fItem.first.getSource(RecordValue.anInt),
-				fItem.first.getSource(RecordValue.anItem),
+				fItem.first.getSource(CompositeValue.aString),
+				fItem.first.getSource(CompositeValue.anInt),
+				fItem.first.getSource(CompositeValue.anItem),
 				fItem.second,
-				fItem.second.getSource(RecordValue.aString),
-				fItem.second.getSource(RecordValue.anInt),
-				fItem.second.getSource(RecordValue.anItem),
+				fItem.second.getSource(CompositeValue.aString),
+				fItem.second.getSource(CompositeValue.anInt),
+				fItem.second.getSource(CompositeValue.anItem),
 			}), fItem.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
-				fItem.first.getSource(RecordValue.aString),
-				fItem.first.getSource(RecordValue.anInt),
-				fItem.first.getSource(RecordValue.anItem),
+				fItem.first.getSource(CompositeValue.aString),
+				fItem.first.getSource(CompositeValue.anInt),
+				fItem.first.getSource(CompositeValue.anItem),
 				fItem.second,
-				fItem.second.getSource(RecordValue.aString),
-				fItem.second.getSource(RecordValue.anInt),
-				fItem.second.getSource(RecordValue.anItem),
+				fItem.second.getSource(CompositeValue.aString),
+				fItem.second.getSource(CompositeValue.anInt),
+				fItem.second.getSource(CompositeValue.anItem),
 			}), fItem.TYPE.getDeclaredFeatures());
 
-		assertEquals(oItem.TYPE, oItem.uno.getSource(RecordValue.aString).getType());
+		assertEquals(oItem.TYPE, oItem.uno.getSource(CompositeValue.aString).getType());
 		assertEquals(oItem.TYPE, oItem.uno.getType());
-		assertEquals("unoAString", oItem.uno.getSource(RecordValue.aString).getName());
+		assertEquals("unoAString", oItem.uno.getSource(CompositeValue.aString).getName());
 		assertEquals("uno", oItem.uno.getName());
-		assertEqualsUnmodifiable(list(oItem.uno), oItem.uno.getSource(RecordValue.aString).getPatterns());
+		assertEqualsUnmodifiable(list(oItem.uno), oItem.uno.getSource(CompositeValue.aString).getPatterns());
 		
 		assertEquals(false, oItem.uno.isInitial());
 		assertEquals(false, oItem.uno.isFinal());
-		assertEquals(false, oItem.uno.getSource(RecordValue.aString).isInitial());
-		assertEquals(false, oItem.uno.getSource(RecordValue.aString).isFinal());
-		assertEquals(false, oItem.uno.getSource(RecordValue.aString).isMandatory());
+		assertEquals(false, oItem.uno.getSource(CompositeValue.aString).isInitial());
+		assertEquals(false, oItem.uno.getSource(CompositeValue.aString).isFinal());
+		assertEquals(false, oItem.uno.getSource(CompositeValue.aString).isMandatory());
 		assertEquals(true, fItem.first.isInitial());
 		assertEquals(true, fItem.first.isFinal());
-		assertEquals(true, fItem.first.getSource(RecordValue.aString).isInitial());
-		assertEquals(true, fItem.first.getSource(RecordValue.aString).isFinal());
-		assertEquals(true, fItem.first.getSource(RecordValue.aString).isMandatory());
+		assertEquals(true, fItem.first.getSource(CompositeValue.aString).isInitial());
+		assertEquals(true, fItem.first.getSource(CompositeValue.aString).isFinal());
+		assertEquals(true, fItem.first.getSource(CompositeValue.aString).isMandatory());
 		
 		
 		try
@@ -123,11 +123,11 @@ public class RecordTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("RecordOptionalItem.code is not a template of RecordOptionalItem.uno", e.getMessage());
+			assertEquals("CompositeOptionalItem.code is not a template of CompositeOptionalItem.uno", e.getMessage());
 		}
 
 		// test persistence
-		oItem = deleteOnTearDown(new RecordOptionalItem("optional1"));
+		oItem = deleteOnTearDown(new CompositeOptionalItem("optional1"));
 		assertEquals("optional1", oItem.getCode());
 		assertEquals(null, oItem.getUno().getAString());
 		assertEquals(null, oItem.getUno().getAnInt());
@@ -137,9 +137,9 @@ public class RecordTest extends AbstractLibTest
 		assertEquals(null, oItem.getDuo().getAnItem());
 		
 		fItem = deleteOnTearDown(
-				new RecordFinalItem("final1",
-						new RecordValue("firstString1", 1, target1),
-						new RecordValue("secondString1", 2, target2)));
+				new CompositeFinalItem("final1",
+						new CompositeValue("firstString1", 1, target1),
+						new CompositeValue("secondString1", 2, target2)));
 		assertEquals("final1", fItem.getCode());
 		assertEquals("firstString1", fItem.getFirst().getAString());
 		assertEquals(new Integer(1), fItem.getFirst().getAnInt());
@@ -157,7 +157,7 @@ public class RecordTest extends AbstractLibTest
 		assertEquals(target1, oItem.getDuo().getAnItem());
 
 		// test value independence
-		final RecordValue value = oItem.getDuo();
+		final CompositeValue value = oItem.getDuo();
 		assertEquals("firstString1", value.getAString());
 		assertEquals("firstString1", oItem.getDuo().getAString());
 		assertEquals("firstString1", fItem.getFirst().getAString());

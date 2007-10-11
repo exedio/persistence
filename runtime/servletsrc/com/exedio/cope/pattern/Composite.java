@@ -42,7 +42,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.Wrapper;
 
-public final class Record<E extends Record.Value> extends Pattern implements Settable<E>
+public final class Composite<E extends Composite.Value> extends Pattern implements Settable<E>
 {
 	private final boolean isfinal;
 	private final boolean optional;
@@ -50,11 +50,11 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 	
 	private final Constructor<E> valueConstructor;
 	private final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
-	private final int memberSize;
+	private final int componentSize;
 	
-	private LinkedHashMap<FunctionField, FunctionField> templateToMember = null;
+	private LinkedHashMap<FunctionField, FunctionField> templateToComponent = null;
 	
-	private Record(final boolean isfinal, final boolean optional, final Class<E> valueClass)
+	private Composite(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
@@ -65,7 +65,7 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 		if(!Value.class.isAssignableFrom(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Value.class.getName() + ": "+valueClass.getName());
 		if(Value.class.equals(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Value.class.getName() + " but Record.Value itself");
+			throw new IllegalArgumentException("is not a subclass of " + Value.class.getName() + " but Composite.Value itself");
 
 		try
 		{
@@ -101,41 +101,41 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 		{
 			throw new RuntimeException(e);
 		}
-		this.memberSize = templates.size();
+		this.componentSize = templates.size();
 	}
 	
-	public static <E extends Record.Value> Record<E> newRecord(final Class<E> valueClass)
+	public static <E extends Composite.Value> Composite<E> newComposite(final Class<E> valueClass)
 	{
-		return new Record<E>(false, false, valueClass);
+		return new Composite<E>(false, false, valueClass);
 	}
 	
-	public Record<E> toFinal()
+	public Composite<E> toFinal()
 	{
-		return new Record<E>(true, optional, valueClass);
+		return new Composite<E>(true, optional, valueClass);
 	}
 	
-	public Record<E> optional()
+	public Composite<E> optional()
 	{
-		return new Record<E>(isfinal, true, valueClass);
+		return new Composite<E>(isfinal, true, valueClass);
 	}
 	
 	@Override
 	public void initialize()
 	{
 		final String name = getName();
-		final LinkedHashMap<FunctionField, FunctionField> templateToMember =
+		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
 			new LinkedHashMap<FunctionField, FunctionField>();
 		
 		for(Map.Entry<String, FunctionField> e : templates.entrySet())
 		{
-			final String memberName = e.getKey();
+			final String templateName = e.getKey();
 			final FunctionField template = e.getValue();
-			final FunctionField member = copy(template);
-			registerSource(member);
-			initialize(member, name + toCamelCase(memberName));
-			templateToMember.put(template, member);
+			final FunctionField component = copy(template);
+			registerSource(component);
+			initialize(component, name + toCamelCase(templateName));
+			templateToComponent.put(template, component);
 		}
-		this.templateToMember = templateToMember;
+		this.templateToComponent = templateToComponent;
 	}
 	
 	private FunctionField copy(final FunctionField template)
@@ -163,7 +163,7 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 
 	public FunctionField getSource(final FunctionField template)
 	{
-		final FunctionField result = templateToMember.get(template);
+		final FunctionField result = templateToComponent.get(template);
 		if(result==null)
 			throw new IllegalArgumentException(template + " is not a template of " + toString());
 		return result;
@@ -177,7 +177,7 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 		
 		final Wrapper get = new Wrapper(
 			Wrapper.TypeVariable0.class, "get",
-			"Returns the value of record {0}.",
+			"Returns the value of composite {0}.",
 			"getter");
 		result.add(get);
 		
@@ -186,7 +186,7 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 			final Set<Class> exceptions = getSetterExceptions();
 			result.add(new Wrapper(
 				void.class, "set",
-				"Sets a new value for the record {0}.", // TODO better text
+				"Sets a new value for the composite {0}.",
 				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
@@ -198,9 +198,9 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 	
 	public E get(final Item item)
 	{
-		final SetValue[] initargs = new SetValue[memberSize];
+		final SetValue[] initargs = new SetValue[componentSize];
 		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToMember.entrySet())
+		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
 		{
 			initargs[i++] = e.getKey().map(e.getValue().get(item));
 		}
@@ -228,18 +228,18 @@ public final class Record<E extends Record.Value> extends Pattern implements Set
 	
 	public void set(final Item item, final E value)
 	{
-		final SetValue[] setValues = new SetValue[memberSize];
+		final SetValue[] setValues = new SetValue[componentSize];
 		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToMember.entrySet())
+		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
 			setValues[i++] = e.getValue().map(value.get(e.getKey()));
 		item.set(setValues);
 	}
 
 	public SetValue[] execute(E value, Item exceptionItem)
 	{
-		final SetValue[] result = new SetValue[memberSize];
+		final SetValue[] result = new SetValue[componentSize];
 		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToMember.entrySet())
+		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
 			result[i++] = e.getValue().map(value.get(e.getKey()));
 		return result;
 	}
