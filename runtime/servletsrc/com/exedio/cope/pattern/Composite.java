@@ -201,6 +201,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		return Collections.unmodifiableList(result);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public E get(final Item item)
 	{
 		final SetValue[] initargs = new SetValue[componentSize];
@@ -231,6 +232,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void set(final Item item, final E value)
 	{
 		final SetValue[] setValues = new SetValue[componentSize];
@@ -240,6 +242,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		item.set(setValues);
 	}
 
+	@SuppressWarnings("unchecked")
 	public SetValue[] execute(E value, Item exceptionItem)
 	{
 		final SetValue[] result = new SetValue[componentSize];
@@ -249,6 +252,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<Class> getSetterExceptions()
 	{
 		final HashSet<Class> result = new HashSet<Class>();
@@ -291,6 +295,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 				values.put((FunctionField)v.settable, v.value);
 		}
 
+		@SuppressWarnings("unchecked")
 		protected <X> X get(final FunctionField<X> member)
 		{
 			return (X)values.get(member);
