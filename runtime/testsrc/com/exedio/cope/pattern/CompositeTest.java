@@ -53,72 +53,72 @@ public class CompositeTest extends AbstractLibTest
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
-				oItem.uno.getSource(CompositeValue.aString),
-				oItem.uno.getSource(CompositeValue.anInt),
-				oItem.uno.getSource(CompositeValue.anItem),
+				oItem.uno.getComponent(CompositeValue.aString),
+				oItem.uno.getComponent(CompositeValue.anInt),
+				oItem.uno.getComponent(CompositeValue.anItem),
 				oItem.duo,
-				oItem.duo.getSource(CompositeValue.aString),
-				oItem.duo.getSource(CompositeValue.anInt),
-				oItem.duo.getSource(CompositeValue.anItem),
+				oItem.duo.getComponent(CompositeValue.aString),
+				oItem.duo.getComponent(CompositeValue.anInt),
+				oItem.duo.getComponent(CompositeValue.anItem),
 			}), oItem.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
-				oItem.uno.getSource(CompositeValue.aString),
-				oItem.uno.getSource(CompositeValue.anInt),
-				oItem.uno.getSource(CompositeValue.anItem),
+				oItem.uno.getComponent(CompositeValue.aString),
+				oItem.uno.getComponent(CompositeValue.anInt),
+				oItem.uno.getComponent(CompositeValue.anItem),
 				oItem.duo,
-				oItem.duo.getSource(CompositeValue.aString),
-				oItem.duo.getSource(CompositeValue.anInt),
-				oItem.duo.getSource(CompositeValue.anItem),
+				oItem.duo.getComponent(CompositeValue.aString),
+				oItem.duo.getComponent(CompositeValue.anInt),
+				oItem.duo.getComponent(CompositeValue.anItem),
 			}), oItem.TYPE.getDeclaredFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
-				fItem.first.getSource(CompositeValue.aString),
-				fItem.first.getSource(CompositeValue.anInt),
-				fItem.first.getSource(CompositeValue.anItem),
+				fItem.first.getComponent(CompositeValue.aString),
+				fItem.first.getComponent(CompositeValue.anInt),
+				fItem.first.getComponent(CompositeValue.anItem),
 				fItem.second,
-				fItem.second.getSource(CompositeValue.aString),
-				fItem.second.getSource(CompositeValue.anInt),
-				fItem.second.getSource(CompositeValue.anItem),
+				fItem.second.getComponent(CompositeValue.aString),
+				fItem.second.getComponent(CompositeValue.anInt),
+				fItem.second.getComponent(CompositeValue.anItem),
 			}), fItem.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
-				fItem.first.getSource(CompositeValue.aString),
-				fItem.first.getSource(CompositeValue.anInt),
-				fItem.first.getSource(CompositeValue.anItem),
+				fItem.first.getComponent(CompositeValue.aString),
+				fItem.first.getComponent(CompositeValue.anInt),
+				fItem.first.getComponent(CompositeValue.anItem),
 				fItem.second,
-				fItem.second.getSource(CompositeValue.aString),
-				fItem.second.getSource(CompositeValue.anInt),
-				fItem.second.getSource(CompositeValue.anItem),
+				fItem.second.getComponent(CompositeValue.aString),
+				fItem.second.getComponent(CompositeValue.anInt),
+				fItem.second.getComponent(CompositeValue.anItem),
 			}), fItem.TYPE.getDeclaredFeatures());
 
-		assertEquals(oItem.TYPE, oItem.uno.getSource(CompositeValue.aString).getType());
+		assertEquals(oItem.TYPE, oItem.uno.getComponent(CompositeValue.aString).getType());
 		assertEquals(oItem.TYPE, oItem.uno.getType());
-		assertEquals("unoAString", oItem.uno.getSource(CompositeValue.aString).getName());
+		assertEquals("unoAString", oItem.uno.getComponent(CompositeValue.aString).getName());
 		assertEquals("uno", oItem.uno.getName());
-		assertEqualsUnmodifiable(list(oItem.uno), oItem.uno.getSource(CompositeValue.aString).getPatterns());
+		assertEqualsUnmodifiable(list(oItem.uno), oItem.uno.getComponent(CompositeValue.aString).getPatterns());
 		
 		assertEquals(false, oItem.uno.isInitial());
 		assertEquals(false, oItem.uno.isFinal());
-		assertEquals(false, oItem.uno.getSource(CompositeValue.aString).isInitial());
-		assertEquals(false, oItem.uno.getSource(CompositeValue.aString).isFinal());
-		assertEquals(false, oItem.uno.getSource(CompositeValue.aString).isMandatory());
+		assertEquals(false, oItem.uno.getComponent(CompositeValue.aString).isInitial());
+		assertEquals(false, oItem.uno.getComponent(CompositeValue.aString).isFinal());
+		assertEquals(false, oItem.uno.getComponent(CompositeValue.aString).isMandatory());
 		assertEquals(true, fItem.first.isInitial());
 		assertEquals(true, fItem.first.isFinal());
-		assertEquals(true, fItem.first.getSource(CompositeValue.aString).isInitial());
-		assertEquals(true, fItem.first.getSource(CompositeValue.aString).isFinal());
-		assertEquals(true, fItem.first.getSource(CompositeValue.aString).isMandatory());
+		assertEquals(true, fItem.first.getComponent(CompositeValue.aString).isInitial());
+		assertEquals(true, fItem.first.getComponent(CompositeValue.aString).isFinal());
+		assertEquals(true, fItem.first.getComponent(CompositeValue.aString).isMandatory());
 		
 		
 		try
 		{
-			oItem.uno.getSource(oItem.code);
+			oItem.uno.getComponent(oItem.code);
 			fail();
 		}
 		catch(IllegalArgumentException e)

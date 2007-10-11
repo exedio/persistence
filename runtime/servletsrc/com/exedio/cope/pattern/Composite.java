@@ -161,7 +161,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			return Character.toUpperCase(first) + name.substring(1);
 	}
 
-	public FunctionField getSource(final FunctionField template)
+	public FunctionField getComponent(final FunctionField template)
 	{
 		final FunctionField result = templateToComponent.get(template);
 		if(result==null)
