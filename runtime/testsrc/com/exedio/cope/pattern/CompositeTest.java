@@ -204,6 +204,7 @@ public class CompositeTest extends AbstractLibTest
 		assertNotSame(value, serializedValue);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static final <S> S reserialize(final S value) throws IOException, ClassNotFoundException
 	{
 		if(value==null)
