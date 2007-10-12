@@ -199,12 +199,12 @@ public class CompositeTest extends AbstractLibTest
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
 		
 		// test serialization
-		final CompositeValue serializedValue = (CompositeValue)reserialize(value);
+		final CompositeValue serializedValue = reserialize(value);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 	}
 	
-	private static Object reserialize(final Object value) throws IOException, ClassNotFoundException
+	private static final <S> S reserialize(final S value) throws IOException, ClassNotFoundException
 	{
 		if(value==null)
 			throw new NullPointerException();
@@ -217,6 +217,6 @@ public class CompositeTest extends AbstractLibTest
 		final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
 		final Object result = ois.readObject();
 		ois.close();
-		return result;
+		return (S)result;
 	}
 }
