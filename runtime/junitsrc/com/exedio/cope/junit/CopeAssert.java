@@ -18,7 +18,11 @@
 
 package com.exedio.cope.junit;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -223,6 +227,34 @@ public abstract class CopeAssert extends TestCase
 
 		assertTrue(message, !expectedBefore.after(actual));
 		assertTrue(message, !expectedAfter.before(actual));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static final <S> S reserialize(final S value)
+	{
+		if(value==null)
+			throw new NullPointerException();
+		
+		try
+		{
+			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			final ObjectOutputStream oos = new ObjectOutputStream(bos);
+			oos.writeObject(value);
+			oos.close();
+	
+			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
+			final Object result = ois.readObject();
+			ois.close();
+			return (S)result;
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static final <R> R waitForKey(final R o)

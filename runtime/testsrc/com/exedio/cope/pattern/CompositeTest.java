@@ -18,11 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractLibTest;
@@ -202,33 +197,5 @@ public class CompositeTest extends AbstractLibTest
 		final CompositeValue serializedValue = reserialize(value);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
-	}
-	
-	@SuppressWarnings("unchecked")
-	private static final <S> S reserialize(final S value)
-	{
-		if(value==null)
-			throw new NullPointerException();
-		
-		try
-		{
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final ObjectOutputStream oos = new ObjectOutputStream(bos);
-			oos.writeObject(value);
-			oos.close();
-	
-			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
-			final Object result = ois.readObject();
-			ois.close();
-			return (S)result;
-		}
-		catch(IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
 	}
 }
