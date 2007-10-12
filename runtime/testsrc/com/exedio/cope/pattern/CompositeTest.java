@@ -51,7 +51,7 @@ public class CompositeTest extends AbstractLibTest
 		target2 = deleteOnTearDown(new CompositeOptionalItem("target2"));
 	}
 	
-	public void testIt() throws IOException, ClassNotFoundException
+	public void testIt()
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -205,19 +205,30 @@ public class CompositeTest extends AbstractLibTest
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static final <S> S reserialize(final S value) throws IOException, ClassNotFoundException
+	private static final <S> S reserialize(final S value)
 	{
 		if(value==null)
 			throw new NullPointerException();
 		
-		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		final ObjectOutputStream oos = new ObjectOutputStream(bos);
-		oos.writeObject(value);
-		oos.close();
-
-		final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
-		final Object result = ois.readObject();
-		ois.close();
-		return (S)result;
+		try
+		{
+			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			final ObjectOutputStream oos = new ObjectOutputStream(bos);
+			oos.writeObject(value);
+			oos.close();
+	
+			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
+			final Object result = ois.readObject();
+			ois.close();
+			return (S)result;
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }
