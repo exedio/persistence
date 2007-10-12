@@ -229,8 +229,13 @@ public abstract class CopeAssert extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static final <S> S reserialize(final S value)
+	{
+		return reserialize(value, Integer.MAX_VALUE);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static final <S> S reserialize(final S value, final int maxSize)
 	{
 		if(value==null)
 			throw new NullPointerException();
@@ -241,6 +246,8 @@ public abstract class CopeAssert extends TestCase
 			final ObjectOutputStream oos = new ObjectOutputStream(bos);
 			oos.writeObject(value);
 			oos.close();
+			
+			assertTrue(String.valueOf(bos.size()), bos.size()<maxSize);
 	
 			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
 			final Object result = ois.readObject();

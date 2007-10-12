@@ -22,11 +22,7 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Model;
@@ -58,23 +54,7 @@ public class ItemSerializationTest extends AbstractLibTest
 		assertSame(item.TYPE, item.getCopeType());
 		assertEquals("eins", item.getName());
 		
-		final byte[] buf;
-		{
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final ObjectOutputStream oos = new ObjectOutputStream(bos);
-			oos.writeObject(item);
-			oos.close();
-			buf = bos.toByteArray();
-		}
-		
-		final ItemSerializationItem readItem;
-		{
-			final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
-			final ObjectInputStream ois = new ObjectInputStream(bis);
-			readItem = (ItemSerializationItem)ois.readObject();
-			ois.close();
-		}
-		
+		final ItemSerializationItem readItem = reserialize(item, 150);
 		assertEquals(id, readItem.getCopeID());
 		assertSame(item.TYPE, readItem.getCopeType());
 		assertEquals("eins", readItem.getName());
@@ -83,7 +63,6 @@ public class ItemSerializationTest extends AbstractLibTest
 		assertNotSame(item, readItem);
 		assertSame(item, item.activeCopeItem());
 		assertSame(item, readItem.activeCopeItem());
-		assertTrue(String.valueOf(buf.length), buf.length<150);
 		
 		readItem.setName("zwei");
 		assertEquals("zwei", readItem.getName());
