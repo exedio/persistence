@@ -194,7 +194,7 @@ public class CompositeTest extends AbstractLibTest
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
 		
 		// test serialization
-		final CompositeValue serializedValue = reserialize(value);
+		final CompositeValue serializedValue = reserialize(value, 500);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 	}

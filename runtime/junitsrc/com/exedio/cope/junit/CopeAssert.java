@@ -229,11 +229,6 @@ public abstract class CopeAssert extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 	
-	public static final <S> S reserialize(final S value)
-	{
-		return reserialize(value, Integer.MAX_VALUE);
-	}
-	
 	@SuppressWarnings("unchecked")
 	public static final <S> S reserialize(final S value, final int maxSize)
 	{
