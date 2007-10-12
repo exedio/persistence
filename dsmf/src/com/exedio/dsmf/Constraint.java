@@ -202,7 +202,7 @@ public abstract class Constraint extends Node
 		drop(null);
 	}
 	
-	abstract void createInTable(StringBuffer bf);
+	abstract void createInTable(StringBuilder bf);
 	public abstract void create(StatementListener listener);
 	public abstract void drop(StatementListener listener);
 

@@ -1191,7 +1191,7 @@ final class Database
 		final int[] trimPotential = new int[maxLength];
 		final ArrayList<String> words = new ArrayList<String>();
 		{
-			final StringBuffer buf = new StringBuffer();
+			final StringBuilder buf = new StringBuilder();
 			for(int i=0; i<longString.length(); i++)
 			{
 				char c = longString.charAt(i);
@@ -1233,7 +1233,7 @@ final class Database
 				break;
 		}
 		
-		final StringBuffer result = new StringBuffer(longStringLength);
+		final StringBuilder result = new StringBuilder(longStringLength);
 		for(final String word : words)
 		{
 			//System.out.println("word "+word+" remainder:"+remainder);

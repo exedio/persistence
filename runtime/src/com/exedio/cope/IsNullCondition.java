@@ -75,7 +75,7 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
 		function.toString(bf, defaultType);
 		bf.append(sql());

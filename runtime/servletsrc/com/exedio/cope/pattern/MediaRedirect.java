@@ -86,7 +86,7 @@ public final class MediaRedirect extends MediaPath
 		if(url==null)
 			return isNull;
 		
-		final StringBuffer location = new StringBuffer();
+		final StringBuilder location = new StringBuilder();
 		
 		if(url.startsWith("http:")||url.startsWith("https:"))
 		{

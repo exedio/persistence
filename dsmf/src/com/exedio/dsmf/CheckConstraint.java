@@ -47,7 +47,7 @@ public class CheckConstraint extends Constraint
 	@Override
 	public int check()
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("select count(*) from ").
 			append(protectName(table.name)).
 			append(" where not(").
@@ -75,7 +75,7 @@ public class CheckConstraint extends Constraint
 	}
 
 	@Override
-	final void createInTable(final StringBuffer bf)
+	final void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(protectName(name)).
@@ -87,7 +87,7 @@ public class CheckConstraint extends Constraint
 	@Override
 	public final void create(final StatementListener listener)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(protectName(table.name)).
 			append(" add constraint ").
@@ -102,7 +102,7 @@ public class CheckConstraint extends Constraint
 	@Override
 	public final void drop(final StatementListener listener)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(protectName(table.name)).
 			append(" drop constraint ").

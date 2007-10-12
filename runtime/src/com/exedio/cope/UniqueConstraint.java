@@ -110,7 +110,7 @@ public final class UniqueConstraint extends Feature
 	
 	void makeSchema(final Table dsmfTable)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append('(');
 		for(int i = 0; i<fields.length; i++)
 		{
@@ -125,7 +125,7 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	@Override
-	void toStringNonInitialized(final StringBuffer bf, final Type defaultType)
+	void toStringNonInitialized(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append("unique(");
 		bf.append(fields[0].toString());

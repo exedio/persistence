@@ -116,7 +116,7 @@ abstract class Dialect
 		return 1;
 	}
 	
-	void addBlobInStatementText(final StringBuffer statementText, final byte[] parameter)
+	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('\'');
 		DataField.appendAsHex(parameter, parameter.length, statementText);

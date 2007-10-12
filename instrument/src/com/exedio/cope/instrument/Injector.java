@@ -53,16 +53,16 @@ final class Injector
 	private int inputPosition = 0;
 	private final int inputLength;
 	
-	private final StringBuffer output;
+	private final StringBuilder output;
 	private final InjectionConsumer consumer;
 	private final String fileName;
 
-	private final StringBuffer buf = new StringBuffer();
+	private final StringBuilder buf = new StringBuilder();
 
 	private boolean do_block = false;
 	private boolean start_block = false;
 	private boolean collect_when_blocking = false;
-	private final StringBuffer collector = new StringBuffer();
+	private final StringBuilder collector = new StringBuilder();
 
 	private String docComment = null;
 	private boolean discardNextFeature = false;

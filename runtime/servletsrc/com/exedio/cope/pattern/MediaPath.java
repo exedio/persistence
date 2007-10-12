@@ -112,7 +112,7 @@ public abstract class MediaPath extends Pattern
 		if(contentType==null)
 			return null;
 
-		final StringBuffer bf = new StringBuffer(getMediaRootUrl());
+		final StringBuilder bf = new StringBuilder(getMediaRootUrl());
 
 		bf.append(getUrlPath()).
 			append(item.getCopeID());

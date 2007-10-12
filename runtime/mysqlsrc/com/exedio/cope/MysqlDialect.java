@@ -136,7 +136,7 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
-	void addBlobInStatementText(final StringBuffer statementText, final byte[] parameter)
+	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('x');
 		super.addBlobInStatementText(statementText, parameter);
@@ -213,7 +213,7 @@ final class MysqlDialect extends Dialect
 
 					while(resultSet.next())
 					{
-						final StringBuffer bf = new StringBuffer();
+						final StringBuilder bf = new StringBuilder();
 
 						for(int i = 1; i<=columnCount; i++)
 						{

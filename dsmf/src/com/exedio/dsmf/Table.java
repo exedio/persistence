@@ -237,7 +237,7 @@ public final class Table extends Node
 	
 	public final void create(final StatementListener listener)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 
 		bf.append("create table ").
 			append(protectName(name)).
@@ -297,7 +297,7 @@ public final class Table extends Node
 	
 	public final void drop(final StatementListener listener)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("drop table ").
 			append(protectName(name));
 

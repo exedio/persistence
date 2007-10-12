@@ -111,12 +111,12 @@ final class QueryCacheCop extends ConsoleCop
 					
 					if(condense)
 					{
-						StringBuffer qxbuf = null;
+						StringBuilder qxbuf = null;
 						int lastpos = 0;
 						for(int pos = q.indexOf('\''); pos>=0; pos = q.indexOf('\'', pos+1))
 						{
 							if(qxbuf==null)
-								qxbuf = new StringBuffer(q.substring(0, pos));
+								qxbuf = new StringBuilder(q.substring(0, pos));
 							else
 								qxbuf.append(q.substring(lastpos+1, pos));
 							

@@ -29,7 +29,7 @@ import java.util.Map;
 public final class Statement
 {
 	private final Database database;
-	final StringBuffer text = new StringBuffer();
+	final StringBuilder text = new StringBuilder();
 	final ArrayList<Object> parameters;
 	final TC tc;
 	private final HashMap<JoinTable, JoinTable> joinTables;
@@ -329,7 +329,7 @@ public final class Statement
 		else
 		{
 			final String text = this.text.toString();
-			final StringBuffer result = new StringBuffer();
+			final StringBuilder result = new StringBuilder();
 			
 			int lastPos = 0;
 			final Iterator pi = parameters.iterator();

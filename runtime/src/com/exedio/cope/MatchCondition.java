@@ -79,7 +79,7 @@ public final class MatchCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
 		function.toString(bf, defaultType);
 		bf.append(" matches '").

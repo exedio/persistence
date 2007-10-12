@@ -186,7 +186,7 @@ public final class Column extends Node
 	
 	public final void drop(final StatementListener listener)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(protectName(table.name)).
 			append(" drop column ").

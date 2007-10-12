@@ -103,7 +103,7 @@ public abstract class Driver
 			});
 	}
 	
-	void appendTableCreateStatement(final StringBuffer bf)
+	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		// empty default implementation
 	}
@@ -116,7 +116,7 @@ public abstract class Driver
 	// derby needs a different syntax
 	public String renameTable(final String tableName, final String newTableName)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" rename to ").
@@ -130,7 +130,7 @@ public abstract class Driver
 
 	private final String dropConstraint(final String tableName, final String constraintName)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop constraint ").

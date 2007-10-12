@@ -241,7 +241,7 @@ public final class Dispatcher extends Pattern
 					{
 						final long elapsed = System.currentTimeMillis() - start;
 						
-						final StringBuffer bf = new StringBuffer();
+						final StringBuilder bf = new StringBuilder();
 						final int stopLength = failureCause.getMaximumLength()-15;
 						
 						final String causeText = cause.getMessage();

@@ -83,7 +83,7 @@ final class StringColumn extends Column
 	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 
 		if(allowedValues!=null)
 		{
@@ -144,7 +144,7 @@ final class StringColumn extends Column
 			final String cleanCache;
 			if(taintedCache.indexOf('\'')>=0)
 			{
-				final StringBuffer buf = new StringBuffer(taintedCache.length());
+				final StringBuilder buf = new StringBuilder(taintedCache.length());
 				int pos;
 				int lastpos = 0;
 				for(pos = taintedCache.indexOf('\''); pos>=0; pos = taintedCache.indexOf('\'', lastpos))

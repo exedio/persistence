@@ -278,7 +278,7 @@ final class Generator
 			o.write(' ');
 
 			boolean first = true;
-			final StringBuffer initialAttributesBuf = new StringBuffer();
+			final StringBuilder initialAttributesBuf = new StringBuilder();
 			for(final CopeFeature feature : initialFeatures)
 			{
 				if(!feature.getSetterExceptions().contains(constructorException))
@@ -584,7 +584,7 @@ final class Generator
 	
 	private static final String toString(final ParameterizedType t, final CopeFeature feature)
 	{
-		final StringBuffer bf = new StringBuffer(toString(t.getRawType(), feature));
+		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
 		bf.append('<');
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
@@ -603,7 +603,7 @@ final class Generator
 	
 	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
 	{
-		final StringBuffer bf = new StringBuffer(toString(t.getRawType(), feature));
+		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
 		bf.append('<');
 		boolean first = true;
 		for(final java.lang.reflect.Type a : t.getActualTypeArguments())

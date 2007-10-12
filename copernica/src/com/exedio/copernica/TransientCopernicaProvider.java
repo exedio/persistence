@@ -134,7 +134,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	
 	public static final String breakupName(final String name)
 	{
-		final StringBuffer result = new StringBuffer(name.length());
+		final StringBuilder result = new StringBuilder(name.length());
 		boolean wordStart = true;
 		for(int i=0; i<name.length(); i++)
 		{
@@ -200,7 +200,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			return item.toString();
 		else
 		{
-			final StringBuffer result = new StringBuffer();
+			final StringBuilder result = new StringBuilder();
 			final UniqueConstraint uniqueConstraint = (UniqueConstraint)uniqueConstraints.iterator().next();
 			boolean first = true;
 			for(final FunctionField<?> attribute : uniqueConstraint.getFields())

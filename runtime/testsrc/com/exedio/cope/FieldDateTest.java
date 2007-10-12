@@ -121,7 +121,7 @@ public class FieldDateTest extends FieldTest
 		item2.setSomeDate( dates[3] );
 		item3.setSomeDate( dates[5] );
 		item4.setSomeDate( dates[7] );
-		StringBuffer message = new StringBuffer();
+		StringBuilder message = new StringBuilder();
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		for ( int i=0; i<dates.length; i++ )
 		{
@@ -171,7 +171,7 @@ public class FieldDateTest extends FieldTest
 		item2.setSomeDate( dates[3] );
 		item3.setSomeDate( dates[5] );
 		item4.setSomeDate( dates[7] );
-		StringBuffer message = new StringBuffer();
+		StringBuilder message = new StringBuilder();
 		for ( int i=0; i<dates.length; i++ )
 		{
 			if ( i!=0 ) message.append( "; " );

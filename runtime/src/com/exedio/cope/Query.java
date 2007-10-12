@@ -491,7 +491,7 @@ public final class Query<R>
 	String toString(final boolean key, final boolean totalOnly)
 	{
 		final Type type = this.type;
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		
 		bf.append("select ");
 		

@@ -91,12 +91,12 @@ public final class Join
 	@Override
 	public String toString()
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		toString(bf, false, null);
 		return bf.toString();
 	}
 
-	void toString(final StringBuffer bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
 		bf.append(' ').
 			append(kind.sql).

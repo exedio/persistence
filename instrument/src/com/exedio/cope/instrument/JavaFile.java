@@ -57,7 +57,7 @@ final class JavaFile
 	final JavaRepository repository;
 	final ArrayList<JavaClass> classes = new ArrayList<JavaClass>();
 	
-	final StringBuffer buffer = new StringBuffer();
+	final StringBuilder buffer = new StringBuilder();
 
 	public JavaFile(final JavaRepository repository)
 	{

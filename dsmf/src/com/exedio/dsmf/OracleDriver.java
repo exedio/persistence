@@ -82,7 +82,7 @@ public final class OracleDriver extends Driver
 
 	private Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append('(');
 		boolean first = true;
 		for(Iterator i = columns.iterator(); i.hasNext(); )
@@ -190,7 +190,7 @@ public final class OracleDriver extends Driver
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" rename column ").
@@ -203,7 +203,7 @@ public final class OracleDriver extends Driver
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" add (").
@@ -217,7 +217,7 @@ public final class OracleDriver extends Driver
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" modify ").

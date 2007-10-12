@@ -95,8 +95,8 @@ public final class HsqldbDriver extends Driver
 						else if("UNIQUE".equals(constraintType))
 						{
 							//printRow(resultSet);
-							final StringBuffer clause = new StringBuffer();
-							final StringBuffer bf = new StringBuffer();
+							final StringBuilder clause = new StringBuilder();
+							final StringBuilder bf = new StringBuilder();
 							bf.append("select COLUMN_NAME from " + SYSTEM_INDEXINFO + " where INDEX_NAME like 'SYS_IDX_").
 								append(constraintName).
 								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
@@ -135,7 +135,7 @@ public final class HsqldbDriver extends Driver
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" alter column ").
@@ -148,7 +148,7 @@ public final class HsqldbDriver extends Driver
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" add column ").

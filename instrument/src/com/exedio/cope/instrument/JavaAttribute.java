@@ -93,7 +93,7 @@ final class JavaAttribute
 	
 	// --------------------
 	
-	private StringBuffer initializerBuf = new StringBuffer();
+	private StringBuilder initializerBuf = new StringBuilder();
 	private String initializer = null;
 
 	public void addToInitializer(char c)

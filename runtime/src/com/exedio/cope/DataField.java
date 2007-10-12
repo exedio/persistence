@@ -489,7 +489,7 @@ public final class DataField extends Field<DataField.Value>
 	
 	private static final char[] mapping = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 	
-	static final void appendAsHex(final byte[] in, final int len, final StringBuffer out)
+	static final void appendAsHex(final byte[] in, final int len, final StringBuilder out)
 	{
 		for(int i = 0; i<len; i++)
 		{
@@ -561,7 +561,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		public String toString()
 		{
-			final StringBuffer bf = new StringBuffer((2*TO_STRING_LIMIT)+30);
+			final StringBuilder bf = new StringBuilder((2*TO_STRING_LIMIT)+30);
 			bf.append("DataField.Value:");
 			appendAsHex(array, Math.min(TO_STRING_LIMIT, array.length), bf);
 

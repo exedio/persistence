@@ -76,7 +76,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		if(s==null)
 			return null;
 
-		final StringBuffer result = new StringBuffer();
+		final StringBuilder result = new StringBuilder();
 		int pos;
 		int lastpos = -1;
 		for(pos = s.indexOf('\n'); pos>=0; pos = s.indexOf('\n', pos+1))
@@ -357,7 +357,7 @@ public abstract class InjectorTest extends InstrumentorTest
 	
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
-		StringBuffer output;
+		StringBuilder output;
 		
 		public void onPackage(final JavaFile javaFile) throws InjectorParseException
 		{

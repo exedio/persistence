@@ -316,7 +316,7 @@ public final class Type<C extends Item>
 			return parameterTypes[0].getCanonicalName();
 		else
 		{
-			final StringBuffer bf = new StringBuffer(parameterTypes[0].getCanonicalName());
+			final StringBuilder bf = new StringBuilder(parameterTypes[0].getCanonicalName());
 			for(int i = 1; i<parameterTypes.length; i++)
 			{
 				bf.append(',').

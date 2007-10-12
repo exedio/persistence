@@ -94,7 +94,7 @@ final class JavaClass extends JavaFeature
 	 */
 	public String getFullName()
 	{
-		StringBuffer buf=new StringBuffer();
+		StringBuilder buf=new StringBuilder();
 		final String packagename = file.getPackageName();
 		if(packagename!=null)
 		{

@@ -105,7 +105,7 @@ public abstract class Feature
 		return Collections.<Wrapper>emptyList();
 	}
 	
-	void toStringNonInitialized(final StringBuffer bf, final Type defaultType)
+	void toStringNonInitialized(final StringBuilder bf, final Type defaultType)
 	{
 		bf.append(super.toString());
 	}
@@ -120,13 +120,13 @@ public abstract class Feature
 		}
 		else
 		{
-			final StringBuffer bf = new StringBuffer();
+			final StringBuilder bf = new StringBuilder();
 			toStringNonInitialized(bf, null);
 			return bf.toString();
 		}
 	}
 	
-	public final void toString(final StringBuffer bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type defaultType)
 	{
 		if(type!=null)
 			bf.append((defaultType==type) ? name : id);

@@ -133,7 +133,7 @@ public final class MysqlDriver extends Driver
 					continue;
 				
 				{
-					final StringBuffer bf = new StringBuffer();
+					final StringBuilder bf = new StringBuilder();
 					bf.append("show columns from ").
 						append(protectName(table.name));
 					
@@ -168,7 +168,7 @@ public final class MysqlDriver extends Driver
 						});
 				}
 				{
-					final StringBuffer bf = new StringBuffer();
+					final StringBuilder bf = new StringBuilder();
 					bf.append("show create table ").
 						append(protectName(table.name));
 					
@@ -243,7 +243,7 @@ public final class MysqlDriver extends Driver
 	}
 
 	@Override
-	void appendTableCreateStatement(final StringBuffer bf)
+	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(" engine=innodb");
 	}
@@ -257,7 +257,7 @@ public final class MysqlDriver extends Driver
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" change ").
@@ -273,7 +273,7 @@ public final class MysqlDriver extends Driver
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" add column ").
@@ -286,7 +286,7 @@ public final class MysqlDriver extends Driver
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" modify ").
@@ -299,7 +299,7 @@ public final class MysqlDriver extends Driver
 	@Override
 	public String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop primary key");
@@ -309,7 +309,7 @@ public final class MysqlDriver extends Driver
 	@Override
 	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop foreign key ").
@@ -320,7 +320,7 @@ public final class MysqlDriver extends Driver
 	@Override
 	public String dropUniqueConstraint(final String tableName, final String constraintName)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop index ").

@@ -22,7 +22,7 @@ public interface Selectable<E extends Object>
 {
 	Type<? extends Item> getType();
 	
-	void toString(StringBuffer bf, Type defaultType);
+	void toString(StringBuilder bf, Type defaultType);
 
 	/**
 	 * @deprecated For internal use within COPE only.

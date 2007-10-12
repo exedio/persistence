@@ -126,7 +126,7 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
-			final StringBuffer bf = new StringBuffer();
+			final StringBuilder bf = new StringBuilder();
 			bf.append(protectedID + " IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)

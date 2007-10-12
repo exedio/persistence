@@ -318,7 +318,7 @@ final class OracleDialect extends Dialect
 						final int id = resultSet.getInt(ID);
 						final Number parentID = (Number)resultSet.getObject(PARENT_ID);
 						
-						final StringBuffer bf = new StringBuffer(operation);
+						final StringBuilder bf = new StringBuilder(operation);
 
 						if(options!=null)
 							bf.append(" (").append(options).append(')');

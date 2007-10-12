@@ -176,7 +176,7 @@ final class ModificationListenerCop extends ConsoleCop
 		
 		Commit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
-			final StringBuffer bf = new StringBuffer();
+			final StringBuilder bf = new StringBuilder();
 			boolean first = true;
 			for(final Item item : modifiedItems)
 			{

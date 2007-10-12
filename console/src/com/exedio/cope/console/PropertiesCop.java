@@ -53,7 +53,7 @@ final class PropertiesCop extends ConsoleCop
 		{
 			final File f = new File(source);
 			final FileReader r = new FileReader(f);
-			final StringBuffer bf = new StringBuffer();
+			final StringBuilder bf = new StringBuilder();
 
 			final char[] b = new char[20*1024];
 			for(int len = r.read(b); len>=0; len = r.read(b))

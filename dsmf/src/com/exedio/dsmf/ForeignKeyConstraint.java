@@ -64,7 +64,7 @@ public class ForeignKeyConstraint extends Constraint
 	@Override
 	public final void create(final StatementListener listener)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(protectName(table.name)).
 			append(" add constraint ").
@@ -92,7 +92,7 @@ public class ForeignKeyConstraint extends Constraint
 	}
 
 	@Override
-	final void createInTable(final StringBuffer bf)
+	final void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(protectName(name)).

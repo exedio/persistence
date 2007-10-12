@@ -46,7 +46,7 @@ final class DatabaseLogConfig
 		if((times[times.length-1]-times[0])>=threshold &&
 			(sql==null || statement.text.indexOf(sql)>=0))
 		{
-			final StringBuffer bf = new StringBuffer(
+			final StringBuilder bf = new StringBuilder(
 					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date(times[0])));
 			
 			for(int i = 1; i<times.length; i++)

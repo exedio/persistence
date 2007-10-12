@@ -36,7 +36,7 @@ final class Commit
 	{
 		final long now = System.currentTimeMillis();
 		
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		boolean first = true;
 		for(final Item item : modifiedItems)
 		{

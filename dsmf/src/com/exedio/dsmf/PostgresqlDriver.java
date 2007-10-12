@@ -137,7 +137,7 @@ public final class PostgresqlDriver extends Driver
 	}
 
 	@Override
-	void appendTableCreateStatement(final StringBuffer bf)
+	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(" without oids");
 	}
@@ -146,7 +146,7 @@ public final class PostgresqlDriver extends Driver
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" rename column ").
@@ -160,7 +160,7 @@ public final class PostgresqlDriver extends Driver
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" add column ").
@@ -174,7 +174,7 @@ public final class PostgresqlDriver extends Driver
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" modify ").

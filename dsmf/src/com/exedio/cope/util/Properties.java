@@ -65,7 +65,7 @@ public class Properties
 		if(raw==null || context==null)
 			return raw;
 
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		int previous = 0;
 		for(int dollar = raw.indexOf("${"); dollar>=0; dollar = raw.indexOf("${", previous))
 		{

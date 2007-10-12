@@ -744,7 +744,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		@Override
 		String describe()
 		{
-			final StringBuffer bf = new StringBuffer();
+			final StringBuilder bf = new StringBuilder();
 			boolean first = true;
 			for(final String t : types)
 			{
