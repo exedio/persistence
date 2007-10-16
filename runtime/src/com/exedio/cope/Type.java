@@ -934,7 +934,8 @@ public final class Type<C extends Item>
 	 * but assumes that the condition forces the search result to have at most one element.
 	 * <p>
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
-	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
+	 * returns the only element of the search result,
+	 * if the result {@link Collection#size() size} is exactly one.
 	 * @throws IllegalArgumentException if the search result size is greater than one.
 	 * @see Query#searchSingleton()
 	 */

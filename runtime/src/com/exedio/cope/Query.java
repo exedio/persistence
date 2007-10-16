@@ -450,7 +450,8 @@ public final class Query<R>
 	 * but assumes that the search result has at most one element.
 	 * <p>
 	 * Returns null, if the search result is {@link Collection#isEmpty() empty},
-	 * returns the only element of the search result, if the result {@link Collection#size() size} is exactly one.
+	 * returns the only element of the search result,
+	 * if the result {@link Collection#size() size} is exactly one.
 	 * @throws IllegalArgumentException if the search result size is greater than one.
 	 * @see Type#searchSingleton(Condition)
 	 */
