@@ -458,17 +458,17 @@ public final class Query<R>
 	{
 		// this is the most efficient implementation for
 		// array-backed lists returned by #search()
-		final List<R> searchResultCollection = search();
-		switch(searchResultCollection.size())
+		final List<R> resultList = search();
+		switch(resultList.size())
 		{
 			case 0:
 				return null;
 			case 1:
-				return searchResultCollection.get(0);
+				return resultList.get(0);
 			default:
 				throw new IllegalArgumentException(
 						"expected result of size one or less, " +
-						"but was " + searchResultCollection +
+						"but was " + resultList +
 						" for query: " + toString());
 		}
 	}
