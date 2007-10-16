@@ -387,13 +387,7 @@ public final class Query<R>
 	 */
 	public Result<R> searchAndTotal()
 	{
-		final List<R> data = search();
-		final int dataSize = data.size();
-
-		return new Result<R>(data,
-				(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==UNLIMITED)))
-				? (offset+dataSize)
-				: total());
+		return new Result<R>(this);
 	}
 	
 	public static final class Result<R>
@@ -401,13 +395,17 @@ public final class Query<R>
 		final List<R> data;
 		final int total;
 		
-		private Result(final List<R> data, final int total)
+		private Result(final Query<R> query)
 		{
-			assert data!=null;
-			assert total>=0 : total;
+			this.data = query.search();
+			final int dataSize = data.size();
+			final int limit = query.limit;
+			final int offset = query.offset;
 			
-			this.data = data;
-			this.total = total;
+			this.total =
+					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==UNLIMITED)))
+					? (offset+dataSize)
+					: query.total();
 		}
 		
 		public List<R> getData()
