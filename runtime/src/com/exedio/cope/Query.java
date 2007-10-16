@@ -452,6 +452,7 @@ public final class Query<R>
 	 * returns the only element of the search result,
 	 * if the result {@link Collection#size() size} is exactly one.
 	 * @throws IllegalArgumentException if the search result size is greater than one.
+	 * @see #searchSingletonStrict()
 	 * @see Type#searchSingleton(Condition)
 	 */
 	public R searchSingleton()
@@ -468,6 +469,37 @@ public final class Query<R>
 			default:
 				throw new IllegalArgumentException(
 						"expected result of size one or less, " +
+						"but was " + resultList +
+						" for query: " + toString());
+		}
+	}
+	
+	/**
+	 * Searches equivalently to {@link #search()},
+	 * but assumes that the search result has exactly one element.
+	 * <p>
+	 * Returns the only element of the search result,
+	 * if the result {@link Collection#size() size} is exactly one.
+	 * @throws IllegalArgumentException if the search result size is not exactly one.
+	 * @see #searchSingleton()
+	 * @see Type#searchSingletonStrict(Condition)
+	 */
+	public R searchSingletonStrict()
+	{
+		// this is the most efficient implementation for
+		// array-backed lists returned by #search()
+		final List<R> resultList = search();
+		switch(resultList.size())
+		{
+			case 0:
+				throw new IllegalArgumentException(
+						"expected result of size one, " +
+						"but was empty for query: " + toString());
+			case 1:
+				return resultList.get(0);
+			default:
+				throw new IllegalArgumentException(
+						"expected result of size one, " +
 						"but was " + resultList +
 						" for query: " + toString());
 		}

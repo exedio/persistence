@@ -96,6 +96,28 @@ public class SearchTest extends TestmodelTest
 			assertEquals("expected result of size one or less, but was " + list(item, item2) + " for query: select this from AttributeItem order by this", e.getMessage());
 		}
 		
+		// test Query#searchSingletonStrict
+		try
+		{
+			assertEquals(null, item.TYPE.searchSingletonStrict(item.someNotNullString.equal("someStringx")));
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("expected result of size one, but was empty for query: select this from AttributeItem where someNotNullString='someStringx'", e.getMessage());
+		}
+		assertEquals(item, item.TYPE.searchSingletonStrict(item.someNotNullString.equal("someString")));
+		q.setOrderBy(item.TYPE.getThis(), true);
+		try
+		{
+			q.searchSingletonStrict();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("expected result of size one, but was " + list(item, item2) + " for query: select this from AttributeItem order by this", e.getMessage());
+		}
+
 		assertDelete(item);
 		assertDelete(item2);
 		assertDelete(someItem);

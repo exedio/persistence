@@ -938,10 +938,26 @@ public final class Type<C extends Item>
 	 * if the result {@link Collection#size() size} is exactly one.
 	 * @throws IllegalArgumentException if the search result size is greater than one.
 	 * @see Query#searchSingleton()
+	 * @see #searchSingletonStrict(Condition)
 	 */
 	public C searchSingleton(final Condition condition)
 	{
 		return newQuery(condition).searchSingleton();
+	}
+	
+	/**
+	 * Searches equivalently to {@link #search(Condition)},
+	 * but assumes that the condition forces the search result to have exactly one element.
+	 * <p>
+	 * Returns the only element of the search result,
+	 * if the result {@link Collection#size() size} is exactly one.
+	 * @throws IllegalArgumentException if the search result size is not exactly one.
+	 * @see Query#searchSingletonStrict()
+	 * @see #searchSingleton(Condition)
+	 */
+	public C searchSingletonStrict(final Condition condition)
+	{
+		return newQuery(condition).searchSingletonStrict();
 	}
 	
 	/**
