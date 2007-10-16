@@ -399,8 +399,8 @@ public final class Query<R>
 		{
 			this.data = query.search();
 			final int dataSize = data.size();
-			final int limit = query.limit;
 			final int offset = query.offset;
+			final int limit = query.limit;
 			
 			this.total =
 					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==UNLIMITED)))
