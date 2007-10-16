@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public final class Query<R>
@@ -457,21 +456,21 @@ public final class Query<R>
 	 */
 	public R searchSingleton()
 	{
+		// this is the most efficient implementation for
+		// array-backed lists returned by #search()
 		final List<R> searchResultCollection = search();
-		final Iterator<R> searchResult = searchResultCollection.iterator();
-		if(searchResult.hasNext())
+		switch(searchResultCollection.size())
 		{
-			final R result = searchResult.next();
-			if(searchResult.hasNext())
+			case 0:
+				return null;
+			case 1:
+				return searchResultCollection.get(0);
+			default:
 				throw new IllegalArgumentException(
 						"expected result of size one or less, " +
 						"but was " + searchResultCollection +
 						" for query: " + toString());
-			else
-				return result;
 		}
-		else
-			return null;
 	}
 	
 	/**
