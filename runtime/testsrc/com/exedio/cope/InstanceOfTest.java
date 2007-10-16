@@ -61,6 +61,47 @@ public class InstanceOfTest extends AbstractLibTest
 	
 	public void testIt()
 	{
+		// test ItemField#cast
+		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.cast(InstanceOfAItem.class));
+		try
+		{
+			InstanceOfRefItem.ref.cast(InstanceOfB1Item.class);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(
+					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
+					"but was a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + '>',
+				e.getMessage());
+		}
+		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.cast(InstanceOfB2Item.class));
+		try
+		{
+			InstanceOfRefItem.refb2.cast(InstanceOfB1Item.class);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(
+					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
+					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
+				e.getMessage());
+		}
+		try
+		{
+			InstanceOfRefItem.refb2.cast(InstanceOfAItem.class);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(
+					"expected a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + ">, " +
+					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
+				e.getMessage());
+		}
+		
+		
 		assertContains(itema, itemb1, itemb2, itemc1, itema.TYPE.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffa.TYPE.search(null));
 
