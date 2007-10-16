@@ -394,13 +394,15 @@ public final class Query<R>
 	{
 		final List<R> data;
 		final int total;
+		final int offset;
+		final int limit;
 		
 		private Result(final Query<R> query)
 		{
 			this.data = query.search();
 			final int dataSize = data.size();
-			final int offset = query.offset;
-			final int limit = query.limit;
+			this.offset = query.offset;
+			this.limit = query.limit;
 			
 			this.total =
 					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==UNLIMITED)))
@@ -425,6 +427,16 @@ public final class Query<R>
 		public int getTotal()
 		{
 			return total;
+		}
+		
+		public int getOffset()
+		{
+			return offset;
+		}
+		
+		public int getLimit()
+		{
+			return limit!=UNLIMITED ? limit : -1;
 		}
 		
 		@Override

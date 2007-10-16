@@ -279,6 +279,8 @@ public class OrderByTest extends TestmodelTest
 			final Query.Result resultAndTotal = query.searchAndTotal();
 			assertEquals(expectedOrder, resultAndTotal.getData());
 			assertEquals(5, resultAndTotal.getTotal());
+			assertEquals(offset, resultAndTotal.getOffset());
+			assertEquals(limit, resultAndTotal.getLimit());
 			query.setLimit(0);
 			final Collection resultWithoutLimit = query.search();
 			assertEquals(5, resultWithoutLimit.size());
