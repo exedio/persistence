@@ -169,6 +169,9 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return valueType;
 	}
 	
+	/**
+	 * @see EnumField#cast(Class)
+	 */
 	@SuppressWarnings("unchecked") // OK: is checked on runtime
 	public <X extends Item> ItemField<X> cast(final Class<X> clazz)
 	{

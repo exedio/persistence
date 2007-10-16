@@ -153,6 +153,24 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return Enum.valueOf(valueClass, code);
 	}
 
+	/**
+	 * @see ItemField#cast(Class)
+	 */
+	@SuppressWarnings("unchecked") // OK: is checked on runtime
+	public <X extends Enum<X>> EnumField<X> cast(final Class<X> clazz)
+	{
+		if(!valueClass.equals(clazz))
+		{
+			final String n = EnumField.class.getName();
+			// expection message consistent with Cope.verboseCast(Class, Object)
+			throw new ClassCastException(
+					"expected a " + n + '<' + clazz.getName() +
+					">, but was a " + n + '<' + valueClass.getName() + '>');
+		}
+		
+		return (EnumField<X>)this;
+	}
+	
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
