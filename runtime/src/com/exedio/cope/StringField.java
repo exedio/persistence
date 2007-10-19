@@ -34,7 +34,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	private final int minimumLength;
 	private final int maximumLength;
 	
-	public static final int DEFAULT_LENGTH = 100;
+	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,

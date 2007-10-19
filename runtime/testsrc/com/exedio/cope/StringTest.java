@@ -635,8 +635,9 @@ public class StringTest extends TestmodelTest
 			+ "auml \u00e4; "
 			+ "ouml \u00f6; "
 			+ "uuml \u00fc; "
-			+ "szlig \u00df; "
-			+ "paragraph \u00a7; "
+			+ "szlig \u00df; ");
+		assertStringSet(item, sa,
+			"paragraph \u00a7; "
 			+ "kringel \u00b0; "
 			//+ "abreve \u0102; "
 			//+ "hebrew \u05d8 "
