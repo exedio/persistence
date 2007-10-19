@@ -172,7 +172,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		if(!valueClass.equals(clazz))
 		{
 			final String n = EnumField.class.getName();
-			// expection message consistent with Cope.verboseCast(Class, Object)
+			// exception message consistent with Cope.verboseCast(Class, Object)
 			throw new ClassCastException(
 					"expected a " + n + '<' + clazz.getName() +
 					">, but was a " + n + '<' + valueClass.getName() + '>');

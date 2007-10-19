@@ -188,7 +188,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(!valueClass.equals(clazz))
 		{
 			final String n = ItemField.class.getName();
-			// expection message consistent with Cope.verboseCast(Class, Object)
+			// exception message consistent with Cope.verboseCast(Class, Object)
 			throw new ClassCastException(
 					"expected a " + n + '<' + clazz.getName() +
 					">, but was a " + n + '<' + valueClass.getName() + '>');
