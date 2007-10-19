@@ -79,7 +79,7 @@ public final class FieldMap<K,V> extends Pattern
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		return parent.cast(parentClass);
+		return parent.as(parentClass);
 	}
 	
 	public FunctionField<K> getKey()

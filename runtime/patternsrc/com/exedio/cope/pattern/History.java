@@ -85,7 +85,7 @@ public final class History extends Pattern
 	public <P extends Item> ItemField<P> getEventParent(final Class<P> parentClass)
 	{
 		assert eventParent!=null;
-		return eventParent.cast(parentClass);
+		return eventParent.as(parentClass);
 	}
 	
 	public DateField getEventDate()

@@ -62,10 +62,10 @@ public class InstanceOfTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test ItemField#cast
-		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.cast(InstanceOfAItem.class));
+		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
 		try
 		{
-			InstanceOfRefItem.ref.cast(InstanceOfB1Item.class);
+			InstanceOfRefItem.ref.as(InstanceOfB1Item.class);
 			fail();
 		}
 		catch(ClassCastException e)
@@ -75,10 +75,10 @@ public class InstanceOfTest extends AbstractLibTest
 					"but was a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + '>',
 				e.getMessage());
 		}
-		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.cast(InstanceOfB2Item.class));
+		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
 		try
 		{
-			InstanceOfRefItem.refb2.cast(InstanceOfB1Item.class);
+			InstanceOfRefItem.refb2.as(InstanceOfB1Item.class);
 			fail();
 		}
 		catch(ClassCastException e)
@@ -90,7 +90,7 @@ public class InstanceOfTest extends AbstractLibTest
 		}
 		try
 		{
-			InstanceOfRefItem.refb2.cast(InstanceOfAItem.class);
+			InstanceOfRefItem.refb2.as(InstanceOfAItem.class);
 			fail();
 		}
 		catch(ClassCastException e)

@@ -116,7 +116,7 @@ public final class Dispatcher extends Pattern
 	public <P extends Item> ItemField<P> getFailureParent(final Class<P> parentClass)
 	{
 		assert failureParent!=null;
-		return failureParent.cast(parentClass);
+		return failureParent.as(parentClass);
 	}
 	
 	public DateField getFailureDate()
@@ -270,7 +270,7 @@ public final class Dispatcher extends Pattern
 							System.out.println("/----------- Dispatcher " + featureID + " had to short exception -------------");
 						}
 						
-						final ItemField<P> failureParent = this.failureParent.cast(parentClass);
+						final ItemField<P> failureParent = this.failureParent.as(parentClass);
 						
 						failureType.newItem(
 							failureParent.map(item),

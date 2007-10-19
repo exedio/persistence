@@ -46,10 +46,10 @@ public class EnumTest extends AbstractLibTest
 		assertEquals(EnumItem.Status.class, item.status.getValueClass());
 		assertEquals(EnumItem2.Status.class, item2.status.getValueClass());
 		
-		assertSame(item.status, item.status.cast(EnumItem.Status.class));
+		assertSame(item.status, item.status.as(EnumItem.Status.class));
 		try
 		{
-			item.status.cast(EnumItem2.Status.class);
+			item.status.as(EnumItem2.Status.class);
 			fail();
 		}
 		catch(ClassCastException e)

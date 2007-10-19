@@ -79,7 +79,7 @@ public final class FieldSet<E> extends Pattern
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		return parent.cast(parentClass);
+		return parent.as(parentClass);
 	}
 	
 	public FunctionField<E> getElement()
@@ -171,7 +171,7 @@ public final class FieldSet<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getParents(final Class<P> parentClass, final E element)
 	{
-		return new Query<P>(this.parent.cast(parentClass), this.element.equal(element)).search();
+		return new Query<P>(this.parent.as(parentClass), this.element.equal(element)).search();
 	}
 	
 	/**

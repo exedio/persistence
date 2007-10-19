@@ -154,10 +154,20 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	/**
-	 * @see ItemField#cast(Class)
+	 * @deprecated Use {@link #as(Class)} instead
+	 */
+	@Deprecated
+	public <X extends Enum<X>> EnumField<X> cast(final Class<X> clazz)
+	{
+		return as(clazz);
+	}
+
+	/**
+	 * @see ItemField#as(Class)
+	 * @see Class#asSubclass(Class)
 	 */
 	@SuppressWarnings("unchecked") // OK: is checked on runtime
-	public <X extends Enum<X>> EnumField<X> cast(final Class<X> clazz)
+	public <X extends Enum<X>> EnumField<X> as(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
 		{

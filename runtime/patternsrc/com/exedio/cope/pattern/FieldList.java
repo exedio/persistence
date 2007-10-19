@@ -80,7 +80,7 @@ public final class FieldList<E> extends Pattern
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
-		return parent.cast(parentClass);
+		return parent.as(parentClass);
 	}
 	
 	public IntegerField getOrder()
@@ -161,7 +161,7 @@ public final class FieldList<E> extends Pattern
 	 */
 	public <P extends Item> List<P> getDistinctParents(final Class<P> parentClass, final E element)
 	{
-		final Query<P> q = new Query<P>(this.parent.cast(parentClass), Cope.equalAndCast(this.element, element));
+		final Query<P> q = new Query<P>(this.parent.as(parentClass), Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
 		return q.search();
 	}
