@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="console/src"/>
+	<classpathentry kind="src" path="console/testsrc"/>
+	<classpathentry kind="src" path="copernica/src"/>
+	<classpathentry kind="src" path="copernica/testsrc"/>
+	<classpathentry kind="src" path="copernica/webtestsrc"/>
+	<classpathentry kind="src" path="dsmf/src"/>
+	<classpathentry kind="src" path="dsmf/testsrc"/>
+	<classpathentry kind="src" path="instrument/antsrc"/>
+	<classpathentry kind="src" path="instrument/src"/>
+	<classpathentry kind="src" path="instrument/testsrc"/>
+	<classpathentry kind="src" path="runtime/hsqldbsrc"/>
+	<classpathentry kind="src" path="runtime/junitsrc"/>
+	<classpathentry kind="src" path="runtime/mysqlsrc"/>
+	<classpathentry kind="src" path="runtime/oraclesrc"/>
+	<classpathentry kind="src" path="runtime/patternsrc"/>
+	<classpathentry kind="src" path="runtime/postgresqlsrc"/>
+	<classpathentry kind="src" path="runtime/servletsrc"/>
+	<classpathentry kind="src" path="runtime/src"/>
+	<classpathentry kind="src" path="runtime/testmodelsrc"/>
+	<classpathentry kind="src" path="runtime/testsrc"/>
+	<classpathentry kind="lib" path="lib/bsh-core.jar"/>
+	<classpathentry kind="lib" path="lib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io.jar"/>
+	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/jwebunit/httpunit-1.5.4.jar"/>
+	<classpathentry kind="lib" path="lib/jwebunit/js-1.5R4.1.jar"/>
+	<classpathentry kind="lib" path="lib/jwebunit/jwebunit-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jwebunit/nekohtml-0.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.12-bin.jar"/>
+	<classpathentry kind="lib" path="lib/ojdbc14-10.1.0.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-8.1-404.jdbc3.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/trove.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cops"/>
+	<classpathentry kind="var" path="ANT_JAR"/>
+	<classpathentry kind="output" path=".eclipse-output"/>
+</classpath>
