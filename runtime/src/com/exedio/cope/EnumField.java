@@ -28,7 +28,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;
-	private final int[] valuesToNumbers;
+	private final int[] ordinalsToNumbers;
 	
 	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
@@ -41,7 +41,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
 			throw new RuntimeException("must have at least one enum value: " + valueClass);
-		final int[] valuesToNumbers = new int[enumConstants.length];
+		final int[] ordinalsToNumbers = new int[enumConstants.length];
 		
 		for(int j = 0; j<enumConstants.length; j++)
 		{
@@ -51,13 +51,13 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 			if(numbersToValues.put(number, enumConstant)!=null)
 				throw new RuntimeException("duplicate number " + number + " for enum field on " + valueClass);
-			valuesToNumbers[enumConstant.ordinal()] = number;
+			ordinalsToNumbers[enumConstant.ordinal()] = number;
 		}
 		values.trimToSize();
 		numbersToValues.trimToSize();
 		this.values = Collections.unmodifiableList(values);
 		this.numbersToValues = numbersToValues;
-		this.valuesToNumbers = valuesToNumbers;
+		this.ordinalsToNumbers = ordinalsToNumbers;
 		
 		checkDefaultValue();
 	}
@@ -141,7 +141,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	private int getNumber(final E value)
 	{
 		assert isValid(value);
-		return valuesToNumbers[value.ordinal()];
+		return ordinalsToNumbers[value.ordinal()];
 	}
 
 	/**
@@ -184,7 +184,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, optional, valuesToNumbers);
+		return new IntegerColumn(table, name, optional, ordinalsToNumbers);
 	}
 	
 	@Override
