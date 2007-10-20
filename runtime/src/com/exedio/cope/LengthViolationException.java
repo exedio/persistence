@@ -91,7 +91,7 @@ public final class LengthViolationException extends ConstraintViolationException
 			(isTooShort?"short":"long") +
 			" for "+ feature +
 			", must be at " + (isTooShort?"least":"most") +
-			' ' + border + " characters.";
+			' ' + border + " characters, but was " + value.length() + '.';
 	}
 	
 	@Override

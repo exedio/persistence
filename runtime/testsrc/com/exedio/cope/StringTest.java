@@ -279,7 +279,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'123' is too short for " + item.min4 + ", " +
-					"must be at least 4 characters.",
+					"must be at least 4 characters, but was 3.",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4());
@@ -307,7 +307,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'12345' is too long for " + item.max4 + ", " +
-					"must be at most 4 characters.",
+					"must be at most 4 characters, but was 5.",
 					e.getMessage());
 		}
 		assertEquals("1234", item.getMax4());
@@ -329,7 +329,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on a newly created item, " +
 					"'12345' is too long for " + item.max4 + ", " +
-					"must be at most 4 characters.",
+					"must be at most 4 characters, but was 5.",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
@@ -350,7 +350,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on a newly created item, " +
 					"'12345' is too long for " + item.max4 + ", " +
-					"must be at most 4 characters.",
+					"must be at most 4 characters, but was 5.",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
@@ -371,7 +371,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'123' is too short for " + item.min4Max8 + ", " +
-					"must be at least 4 characters.",
+					"must be at least 4 characters, but was 3.",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4Max8());
@@ -402,7 +402,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'123456789' is too long for " + item.min4Max8 + ", " +
-					"must be at most 8 characters.",
+					"must be at most 8 characters, but was 9.",
 					e.getMessage());
 		}
 		assertEquals("12345678", item.getMin4Max8());
@@ -425,7 +425,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'12345' is too short for " + item.exact6 + ", " +
-					"must be at least 6 characters.",
+					"must be at least 6 characters, but was 5.",
 					e.getMessage());
 		}
 		assertEquals(null, item.getExact6());
@@ -453,7 +453,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'1234567' is too long for " + item.exact6 + ", " +
-					"must be at most 6 characters.",
+					"must be at most 6 characters, but was 7.",
 					e.getMessage());
 		}
 		assertEquals("123456", item.getExact6());
@@ -476,7 +476,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on a newly created item, " +
 					"'1234567' is too long for " + item.exact6 + ", " +
-					"must be at most 6 characters.",
+					"must be at most 6 characters, but was 7.",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
@@ -498,7 +498,7 @@ public class StringTest extends TestmodelTest
 			assertEquals(
 					"length violation on a newly created item, " +
 					"'1234567' is too long for " + item.exact6 + ", " +
-					"must be at most 6 characters.",
+					"must be at most 6 characters, but was 7.",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
