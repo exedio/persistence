@@ -283,12 +283,12 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.Color.OK, attributeItem.getParticularColor());
 
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+protect(AttributeItem.someNotNullString)+" IS NOT NULL) AND ("+LENGTH+"("+protect(AttributeItem.someNotNullString)+")<="+StringField.DEFAULT_LENGTH+")");
-			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+protect(AttributeItem.someBoolean)+" IN (0,1)) OR ("+protect(AttributeItem.someBoolean)+" IS NULL)");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+protect(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullBoolean)+" IN (0,1))");
-			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+protect(AttributeItem.someEnum)+" IN (10,20,30)) OR ("+protect(AttributeItem.someEnum)+" IS NULL)");
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+protect(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+protect(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
-			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "(("+LENGTH+"("+protect(AttributeItem.someData.getContentType())+")>=1) AND ("+LENGTH+"("+protect(AttributeItem.someData.getContentType())+")<=61)) OR ("+protect(AttributeItem.someData.getContentType())+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+p(AttributeItem.someNotNullString)+" IS NOT NULL) AND ("+LENGTH+"("+p(AttributeItem.someNotNullString)+")<="+StringField.DEFAULT_LENGTH+")");
+			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+p(AttributeItem.someBoolean)+" IN (0,1)) OR ("+p(AttributeItem.someBoolean)+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullBoolean)+" IN (0,1))");
+			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+p(AttributeItem.someEnum)+" IN (10,20,30)) OR ("+p(AttributeItem.someEnum)+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+p(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
+			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "(("+LENGTH+"("+p(AttributeItem.someData.getContentType())+")>=1) AND ("+LENGTH+"("+p(AttributeItem.someData.getContentType())+")<=61)) OR ("+p(AttributeItem.someData.getContentType())+" IS NULL)");
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, AttributeItem.TYPE.getPrimaryKeyColumnName());
 
@@ -388,7 +388,7 @@ public class SchemaTest extends TestmodelTest
 		return protect(type.getTableName());
 	}
 	
-	private final String protect(final Field attribute)
+	private final String p(final Field attribute)
 	{
 		return protect(attribute.getColumnName());
 	}
