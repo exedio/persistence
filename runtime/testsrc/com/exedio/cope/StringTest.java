@@ -164,7 +164,6 @@ public class StringTest extends TestmodelTest
 		assertString(item, item2, item.any);
 		assertString(item, item2, item.long1K);
 		assertString(item, item2, item.long1M);
-		assertStringSet(item, item.max4, "\u20ac\u20ac\u20ac\u20ac"); // euro in utf8 has two bytes
 		
 		{
 			final StringItem itemEmptyInit = deleteOnTearDown(new StringItem("", false));

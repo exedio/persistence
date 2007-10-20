@@ -84,9 +84,8 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	String getStringType(final int maxChars)
+	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
-		final int maxBytes = maxChars * 3;
 		if(maxBytes<=varcharLength)
 			return (varchar?"VARCHAR2(":"NVARCHAR2(")+maxBytes+")";
 		else
