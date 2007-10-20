@@ -629,6 +629,7 @@ public class StringTest extends TestmodelTest
 			}
 		}
 		
+		assertStringSet(item, sa, " trim "); // ensure that leading/trailing white space is not removed
 		assertStringSet(item, sa,
 			"Auml \u00c4; "
 			+ "Ouml \u00d6; "
