@@ -85,6 +85,10 @@ final class MysqlDialect extends Dialect
 		return "double";
 	}
 
+	/**
+	 * Always returns "binary" types make string comparisions and
+	 * unique constraints case sensitive.
+	 */
 	@Override
 	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
@@ -95,8 +99,6 @@ final class MysqlDialect extends Dialect
 		// 255 is needed for unique columns only,
 		// non-unique can have more,
 		// and for longer unique columns you may specify a shorter key length
-		
-		// IMPLEMENTATION NOTE: "binary" is needed to make string comparisions case sensitive
 		// TODO mysql 5.0.3 and later can have varchars up to 64k
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
 		if(maxBytes<TWOPOW8)
