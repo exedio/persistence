@@ -339,65 +339,65 @@ public class SchemaTest extends TestmodelTest
 	
 	private CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
-			final String constraintName,
-			final String requiredCondition)
+			final String name,
+			final String condition)
 	{
 		return
-			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
+			(CheckConstraint)assertConstraint(table, CHECK, name, condition);
 	}
 	
 	private void assertPkConstraint(
 			final com.exedio.dsmf.Table table,
-			final String constraintName,
-			final String requiredCondition,
-			final String primaryKeyColumn)
+			final String name,
+			final String condition,
+			final String column)
 	{
 		final PrimaryKeyConstraint constraint =
-			(PrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
+			(PrimaryKeyConstraint)assertConstraint(table, PK, name, condition);
 
-		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
+		assertEquals(column, constraint.getPrimaryKeyColumn());
 	}
 	
 	private void assertFkConstraint(
 			final com.exedio.dsmf.Table table,
-			final String constraintName,
-			final String foreignKeyColumn,
+			final String name,
+			final String column,
 			final String targetTable,
 			final String targetColumn)
 	{
 		final ForeignKeyConstraint constraint =
-			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
+			(ForeignKeyConstraint)assertConstraint(table, FK, name, null);
 
-		assertEquals(foreignKeyColumn, constraint.getForeignKeyColumn());
+		assertEquals(column, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());
 		assertEquals(targetColumn, constraint.getTargetColumn());
 	}
 	
 	private void assertUniqueConstraint(
 			final com.exedio.dsmf.Table table,
-			final String constraintName,
+			final String name,
 			final String clause)
 	{
 		final UniqueConstraint constraint =
-			(UniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
+			(UniqueConstraint)assertConstraint(table, UNIQUE, name, clause);
 
 		assertEquals(clause, constraint.getClause());
 	}
 	
 	private Constraint assertConstraint(
 			final com.exedio.dsmf.Table table,
-			final Class constraintType,
-			final String constraintName,
-			final String requiredCondition)
+			final Class type,
+			final String name,
+			final String condition)
 	{
-		final Constraint constraint = table.getConstraint(constraintName);
-		final boolean expectedSupported = model.supportsCheckConstraints() || constraintType!=CHECK;
-		assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
-		assertEquals(constraintName, constraintType, constraint.getClass());
-		assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
+		final Constraint constraint = table.getConstraint(name);
+		final boolean expectedSupported = model.supportsCheckConstraints() || type!=CHECK;
+		assertNotNull("no such constraint "+name+", but has "+table.getConstraints(), constraint);
+		assertEquals(name, type, constraint.getClass());
+		assertEquals(name, condition, constraint.getRequiredCondition());
 		assertEquals(expectedSupported, constraint.isSupported());
-		assertEquals(constraintName, expectedSupported ? null : "not supported", constraint.getError());
-		assertEquals(constraintName, Schema.Color.OK, constraint.getParticularColor());
+		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
+		assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
 		return constraint;
 	}
 	
