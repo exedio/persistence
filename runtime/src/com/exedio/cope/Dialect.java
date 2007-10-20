@@ -127,7 +127,7 @@ abstract class Dialect
 
 	abstract String getIntegerType(long minimum, long maximum);
 	abstract String getDoubleType();
-	abstract String getStringType(int maxLength);
+	abstract String getStringType(int maxChars);
 	abstract String getDayType();
 	
 	/**

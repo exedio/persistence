@@ -68,9 +68,9 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	String getStringType(final int maxLength)
+	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
-		return (maxLength>10485760) ? "TEXT" : "VARCHAR("+maxLength+')'; // in postgres varchar cannot be longer
+		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')'; // in postgres varchar cannot be longer
 	}
 	
 	@Override

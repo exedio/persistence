@@ -57,9 +57,9 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	String getStringType(final int maxLength)
+	String getStringType(final int maxChars)
 	{
-		return "varchar("+maxLength+")";
+		return "varchar("+maxChars+")";
 	}
 	
 	@Override

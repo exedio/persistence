@@ -84,10 +84,10 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	String getStringType(final int maxLength)
+	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
-		if(maxLength<=varcharLength)
-			return (varchar?"VARCHAR2(":"NVARCHAR2(")+maxLength+")";
+		if(maxBytes<=varcharLength)
+			return (varchar?"VARCHAR2(":"NVARCHAR2(")+maxBytes+")";
 		else
 			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}

@@ -85,7 +85,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	String getStringType(final int maxLength)
+	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
 		assert TWOPOW8==256;
 		assert TWOPOW16==65536;
@@ -98,11 +98,11 @@ final class MysqlDialect extends Dialect
 		// IMPLEMENTATION NOTE: "binary" is needed to make string comparisions case sensitive
 		// TODO mysql 5.0.3 and later can have varchars up to 64k
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
-		if(maxLength<TWOPOW8)
-			return "varchar("+maxLength+") character set utf8 binary";
-		else if(maxLength<TWOPOW16)
+		if(maxBytes<TWOPOW8)
+			return "varchar("+maxBytes+") character set utf8 binary";
+		else if(maxBytes<TWOPOW16)
 			return "text character set utf8 binary";
-		else if(maxLength<TWOPOW24)
+		else if(maxBytes<TWOPOW24)
 			return "mediumtext character set utf8 binary";
 		else
 			return "longtext character set utf8 binary";
