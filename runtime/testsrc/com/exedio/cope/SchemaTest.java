@@ -298,14 +298,14 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Schema.Color.OK, uniqueItem.getParticularColor());
 			
-			assertUniqueConstraint(uniqueItem, "IX_ITEMWSU_US", "("+protect("UNIQUE_STRING")+")");
+			assertUniqueConstraint(uniqueItem, "IX_ITEMWSU_US", "("+p("UNIQUE_STRING")+")");
 			
 			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable("ItemWithDoubleUnique");
 			assertNotNull(doubleUniqueItem);
 			assertEquals(null, doubleUniqueItem.getError());
 			assertEquals(Schema.Color.OK, doubleUniqueItem.getParticularColor());
 			
-			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+protect("string")+","+protect("integer")+")");
+			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 			
 			final com.exedio.dsmf.Table stringItem = schema.getTable("STRINGITEMS");
 			assertNotNull(stringItem);
@@ -330,10 +330,10 @@ public class SchemaTest extends TestmodelTest
 			}
 			assertEquals(string8, min4Max8.getType());
 
-			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(("+LENGTH("MIN_4")+">=4) AND ("+LENGTH("MIN_4")+"<="+StringField.DEFAULT_LENGTH+")) OR ("+protect("MIN_4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "("+LENGTH("MAX_4")+"<=4) OR ("+protect("MAX_4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "STRINGITEMS_MIN4_MAX8_Ck", "(("+LENGTH("MIN4_MAX8")+">=4) AND ("+LENGTH("MIN4_MAX8")+"<=8)) OR ("+protect("MIN4_MAX8")+" IS NULL)");
-			assertCheckConstraint(stringItem, "STRINGITEMS_EXACT_6_Ck",   "("+LENGTH("EXACT_6")+"=6) OR ("+protect("EXACT_6")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(("+LENGTH("MIN_4")+">=4) AND ("+LENGTH("MIN_4")+"<="+StringField.DEFAULT_LENGTH+")) OR ("+p("MIN_4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "("+LENGTH("MAX_4")+"<=4) OR ("+p("MAX_4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MIN4_MAX8_Ck", "(("+LENGTH("MIN4_MAX8")+">=4) AND ("+LENGTH("MIN4_MAX8")+"<=8)) OR ("+p("MIN4_MAX8")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_EXACT_6_Ck",   "("+LENGTH("EXACT_6")+"=6) OR ("+p("EXACT_6")+" IS NULL)");
 		}
 	}
 	
@@ -382,17 +382,17 @@ public class SchemaTest extends TestmodelTest
 		return constraint;
 	}
 	
-	private final String protect(final Type type)
+	private final String p(final Type type)
 	{
-		return protect(type.getTableName());
+		return p(type.getTableName());
 	}
 	
 	private final String p(final Field attribute)
 	{
-		return protect(attribute.getColumnName());
+		return p(attribute.getColumnName());
 	}
 	
-	private final String protect(final String name)
+	private final String p(final String name)
 	{
 		return model.getDatabase().getDriver().protectName(name);
 	}
@@ -404,6 +404,6 @@ public class SchemaTest extends TestmodelTest
 	
 	private final String LENGTH(final String f)
 	{
-		return model.getDatabase().dialect.stringLength + '(' + protect(f) + ')';
+		return model.getDatabase().dialect.stringLength + '(' + p(f) + ')';
 	}
 }
