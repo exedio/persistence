@@ -95,10 +95,9 @@ final class MysqlDialect extends Dialect
 		assert TWOPOW8==256;
 		assert TWOPOW16==65536;
 
-		// TODO:
-		// 255 is needed for unique columns only,
-		// non-unique can have more,
-		// and for longer unique columns you may specify a shorter key length
+		// TODO 255 (TWOPOW8) is needed for unique columns only,
+		//      non-unique can have more,
+		//      and for longer unique columns you may specify a shorter key length
 		// TODO mysql 5.0.3 and later can have varchars up to 64k
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
 		if(maxBytes<TWOPOW8)
