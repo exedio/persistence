@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -688,6 +689,20 @@ public class StringTest extends TestmodelTest
 			assertEquals(list(item), type.search(sa.equal(value)));
 			assertEquals(list(), type.search(sa.equal(value+"x")));
 		}
+		
+		// test length view
+		final Integer valueChars = value.length();
+		final String message;
+		try
+		{
+			message = value+'('+valueChars+','+value.getBytes("utf8").length+')';
+		}
+		catch(UnsupportedEncodingException e)
+		{
+			throw new RuntimeException(e);
+		}
+		assertEquals(message, valueChars, sa.length().get(item));
+		assertEquals(message, valueChars, new Query<Integer>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict());
 	}
 	
 	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute)

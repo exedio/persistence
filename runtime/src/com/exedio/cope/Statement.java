@@ -282,6 +282,13 @@ public final class Statement
 		return this;
 	}
 	
+	public Statement appendLength()
+	{
+		this.text.append(database.dialect.stringLength);
+		
+		return this;
+	}
+
 	void appendMatch(final StringFunction function, final String value)
 	{
 		database.appendMatchClause(this, function, value);

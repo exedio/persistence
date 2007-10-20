@@ -63,7 +63,7 @@ final class OracleDialect extends Dialect
 
 	protected OracleDialect(final DialectParameters parameters)
 	{
-		super(new OracleDriver(parameters.properties.getDatabaseUser().toUpperCase()));
+		super(new OracleDriver(parameters.properties.getDatabaseUser().toUpperCase()), "LENGTH");
 		this.varchar = "true".equalsIgnoreCase(parameters.properties.getDatabaseCustomProperty(VARCHAR));
 		this.varcharLength = varchar ? 4000 : 2000;
 	}

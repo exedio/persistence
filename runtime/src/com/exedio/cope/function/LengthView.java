@@ -54,7 +54,8 @@ public class LengthView extends IntegerView implements IntegerFunction
 	@Deprecated
 	public final void append(final Statement bf, final Join join)
 	{
-		bf.append("LENGTH(").
+		bf.appendLength().
+			append('(').
 			append(source, join).
 			append(')');
 	}

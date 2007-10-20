@@ -103,16 +103,17 @@ final class StringColumn extends Column
 		}
 		else
 		{
+			final String LENGTH = table.database.dialect.stringLength;
 			if(minimumLength>0)
 			{
 				if(minimumLength==maximumLength)
-					bf.append("LENGTH(" + protectedID + ")="  + minimumLength );
+					bf.append(LENGTH + '(' + protectedID + ")=" + minimumLength );
 				else
-					bf.append("(LENGTH(" + protectedID + ")>=" + minimumLength + ") AND (LENGTH(" + protectedID + ")<=" + maximumLength + ')');
+					bf.append('(' + LENGTH + '(' + protectedID + ")>=" + minimumLength + ") AND (" + LENGTH + "(" + protectedID + ")<=" + maximumLength + ')');
 			}
 			else
 			{
-				bf.append("LENGTH(" + protectedID + ")<=" + maximumLength);
+				bf.append(LENGTH + '(' + protectedID + ")<=" + maximumLength);
 			}
 		}
 

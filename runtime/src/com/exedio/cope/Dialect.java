@@ -41,10 +41,12 @@ abstract class Dialect
 	protected static final int TWOPOW24 = 1<<24;
 	
 	final Driver driver;
+	final String stringLength;
 	
-	protected Dialect(final Driver driver)
+	protected Dialect(final Driver driver, final String stringLength)
 	{
 		this.driver = driver;
+		this.stringLength = stringLength;
 	}
 	
 	protected void completeConnectionInfo(final java.util.Properties info)
