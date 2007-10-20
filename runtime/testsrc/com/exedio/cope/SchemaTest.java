@@ -342,8 +342,7 @@ public class SchemaTest extends TestmodelTest
 			final String name,
 			final String condition)
 	{
-		return
-			assertConstraint(table, CHECK, name, condition);
+		return assertConstraint(table, CHECK, name, condition);
 	}
 	
 	private void assertPkConstraint(
@@ -352,8 +351,7 @@ public class SchemaTest extends TestmodelTest
 			final String condition,
 			final String column)
 	{
-		final PrimaryKeyConstraint constraint =
-			assertConstraint(table, PK, name, condition);
+		final PrimaryKeyConstraint constraint = assertConstraint(table, PK, name, condition);
 
 		assertEquals(column, constraint.getPrimaryKeyColumn());
 	}
@@ -365,8 +363,7 @@ public class SchemaTest extends TestmodelTest
 			final String targetTable,
 			final String targetColumn)
 	{
-		final ForeignKeyConstraint constraint =
-			assertConstraint(table, FK, name, null);
+		final ForeignKeyConstraint constraint = assertConstraint(table, FK, name, null);
 
 		assertEquals(column, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());
@@ -378,8 +375,7 @@ public class SchemaTest extends TestmodelTest
 			final String name,
 			final String clause)
 	{
-		final UniqueConstraint constraint =
-			assertConstraint(table, UNIQUE, name, clause);
+		final UniqueConstraint constraint = assertConstraint(table, UNIQUE, name, clause);
 
 		assertEquals(clause, constraint.getClause());
 	}
