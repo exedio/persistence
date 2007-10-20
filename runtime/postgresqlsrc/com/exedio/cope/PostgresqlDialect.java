@@ -67,6 +67,10 @@ final class PostgresqlDialect extends Dialect
 		return "DOUBLE PRECISION";
 	}
 
+	/**
+	 * Does never return "char(n)", because even if minChars==maxChars,
+	 * in postgresql datatype "char" has no performance advantage compared to "varchar". 
+	 */
 	@Override
 	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
