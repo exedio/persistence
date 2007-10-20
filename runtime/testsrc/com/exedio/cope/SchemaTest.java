@@ -337,13 +337,20 @@ public class SchemaTest extends TestmodelTest
 		}
 	}
 	
-	private CheckConstraint assertCheckConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String requiredCondition)
+	private CheckConstraint assertCheckConstraint(
+			final com.exedio.dsmf.Table table,
+			final String constraintName,
+			final String requiredCondition)
 	{
 		return
 			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
 	}
 	
-	private void assertPkConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
+	private void assertPkConstraint(
+			final com.exedio.dsmf.Table table,
+			final String constraintName,
+			final String requiredCondition,
+			final String primaryKeyColumn)
 	{
 		final PrimaryKeyConstraint constraint =
 			(PrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
@@ -351,7 +358,12 @@ public class SchemaTest extends TestmodelTest
 		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
 	}
 	
-	private void assertFkConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
+	private void assertFkConstraint(
+			final com.exedio.dsmf.Table table,
+			final String constraintName,
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
 	{
 		final ForeignKeyConstraint constraint =
 			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
@@ -361,7 +373,10 @@ public class SchemaTest extends TestmodelTest
 		assertEquals(targetColumn, constraint.getTargetColumn());
 	}
 	
-	private void assertUniqueConstraint(final com.exedio.dsmf.Table table, final String constraintName, final String clause)
+	private void assertUniqueConstraint(
+			final com.exedio.dsmf.Table table,
+			final String constraintName,
+			final String clause)
 	{
 		final UniqueConstraint constraint =
 			(UniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
@@ -369,7 +384,11 @@ public class SchemaTest extends TestmodelTest
 		assertEquals(clause, constraint.getClause());
 	}
 	
-	private Constraint assertConstraint(final com.exedio.dsmf.Table table, final Class constraintType, final String constraintName, final String requiredCondition)
+	private Constraint assertConstraint(
+			final com.exedio.dsmf.Table table,
+			final Class constraintType,
+			final String constraintName,
+			final String requiredCondition)
 	{
 		final Constraint constraint = table.getConstraint(constraintName);
 		final boolean expectedSupported = model.supportsCheckConstraints() || constraintType!=CHECK;
