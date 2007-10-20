@@ -29,7 +29,8 @@ import com.mysql.jdbc.Driver;
 /**
  * This MySQL driver requires the InnoDB engine.
  * It makes no sense supporting older engines,
- * since cope heavily depends on foreign key constraints.
+ * since cope heavily depends on foreign key constraints,
+ * and transactions.
  * @author Ralf Wiebicke
  */
 final class MysqlDialect extends Dialect
