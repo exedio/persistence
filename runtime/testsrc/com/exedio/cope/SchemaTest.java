@@ -282,12 +282,12 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.Color.OK, attributeItem.getParticularColor());
 
-			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+p(AttributeItem.someNotNullString)+" IS NOT NULL) AND ("+LENGTH(AttributeItem.someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
+			assertCheckConstraint(attributeItem, "AttrItem_somNotNullStr_Ck", "("+p(AttributeItem.someNotNullString)+" IS NOT NULL) AND ("+l(AttributeItem.someNotNullString)+"<="+StringField.DEFAULT_LENGTH+")");
 			assertCheckConstraint(attributeItem, "AttribuItem_someBoolea_Ck", "("+p(AttributeItem.someBoolean)+" IN (0,1)) OR ("+p(AttributeItem.someBoolean)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullBoo_Ck", "("+p(AttributeItem.someNotNullBoolean)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullBoolean)+" IN (0,1))");
 			assertCheckConstraint(attributeItem, "AttributeItem_someEnum_Ck", "("+p(AttributeItem.someEnum)+" IN (10,20,30)) OR ("+p(AttributeItem.someEnum)+" IS NULL)");
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+p(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
-			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "(("+LENGTH(AttributeItem.someData.getContentType())+">=1) AND ("+LENGTH(AttributeItem.someData.getContentType())+"<=61)) OR ("+p(AttributeItem.someData.getContentType())+" IS NULL)");
+			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "(("+l(AttributeItem.someData.getContentType())+">=1) AND ("+l(AttributeItem.someData.getContentType())+"<=61)) OR ("+p(AttributeItem.someData.getContentType())+" IS NULL)");
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, AttributeItem.TYPE.getPrimaryKeyColumnName());
 
@@ -330,10 +330,10 @@ public class SchemaTest extends TestmodelTest
 			}
 			assertEquals(string8, min4Max8.getType());
 
-			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(("+LENGTH("MIN_4")+">=4) AND ("+LENGTH("MIN_4")+"<="+StringField.DEFAULT_LENGTH+")) OR ("+p("MIN_4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "("+LENGTH("MAX_4")+"<=4) OR ("+p("MAX_4")+" IS NULL)");
-			assertCheckConstraint(stringItem, "STRINGITEMS_MIN4_MAX8_Ck", "(("+LENGTH("MIN4_MAX8")+">=4) AND ("+LENGTH("MIN4_MAX8")+"<=8)) OR ("+p("MIN4_MAX8")+" IS NULL)");
-			assertCheckConstraint(stringItem, "STRINGITEMS_EXACT_6_Ck",   "("+LENGTH("EXACT_6")+"=6) OR ("+p("EXACT_6")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MIN_4_Ck",     "(("+l("MIN_4")+">=4) AND ("+l("MIN_4")+"<="+StringField.DEFAULT_LENGTH+")) OR ("+p("MIN_4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MAX_4_Ck",     "("+l("MAX_4")+"<=4) OR ("+p("MAX_4")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_MIN4_MAX8_Ck", "(("+l("MIN4_MAX8")+">=4) AND ("+l("MIN4_MAX8")+"<=8)) OR ("+p("MIN4_MAX8")+" IS NULL)");
+			assertCheckConstraint(stringItem, "STRINGITEMS_EXACT_6_Ck",   "("+l("EXACT_6")+"=6) OR ("+p("EXACT_6")+" IS NULL)");
 		}
 	}
 	
@@ -397,12 +397,12 @@ public class SchemaTest extends TestmodelTest
 		return model.getDatabase().getDriver().protectName(name);
 	}
 	
-	private final String LENGTH(final FunctionField f)
+	private final String l(final FunctionField f)
 	{
 		return model.getDatabase().dialect.stringLength + '(' + p(f) + ')';
 	}
 	
-	private final String LENGTH(final String f)
+	private final String l(final String f)
 	{
 		return model.getDatabase().dialect.stringLength + '(' + p(f) + ')';
 	}
