@@ -33,10 +33,10 @@ public class SchemaTest extends TestmodelTest
 	private static final String TABLE1X = "PlusItemX";
 	private static final String COLUMN1X = "num2X";
 	
-	public static final Class CHECK = CheckConstraint.class;
-	public static final Class PK = PrimaryKeyConstraint.class;
-	public static final Class FK = ForeignKeyConstraint.class;
-	public static final Class UNIQUE = UniqueConstraint.class;
+	public static final Class<CheckConstraint> CHECK = CheckConstraint.class;
+	public static final Class<PrimaryKeyConstraint> PK = PrimaryKeyConstraint.class;
+	public static final Class<ForeignKeyConstraint> FK = ForeignKeyConstraint.class;
+	public static final Class<UniqueConstraint> UNIQUE = UniqueConstraint.class;
 
 	public void testSchema()
 	{
@@ -343,7 +343,7 @@ public class SchemaTest extends TestmodelTest
 			final String condition)
 	{
 		return
-			(CheckConstraint)assertConstraint(table, CHECK, name, condition);
+			assertConstraint(table, CHECK, name, condition);
 	}
 	
 	private void assertPkConstraint(
@@ -353,7 +353,7 @@ public class SchemaTest extends TestmodelTest
 			final String column)
 	{
 		final PrimaryKeyConstraint constraint =
-			(PrimaryKeyConstraint)assertConstraint(table, PK, name, condition);
+			assertConstraint(table, PK, name, condition);
 
 		assertEquals(column, constraint.getPrimaryKeyColumn());
 	}
@@ -366,7 +366,7 @@ public class SchemaTest extends TestmodelTest
 			final String targetColumn)
 	{
 		final ForeignKeyConstraint constraint =
-			(ForeignKeyConstraint)assertConstraint(table, FK, name, null);
+			assertConstraint(table, FK, name, null);
 
 		assertEquals(column, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());
@@ -379,14 +379,14 @@ public class SchemaTest extends TestmodelTest
 			final String clause)
 	{
 		final UniqueConstraint constraint =
-			(UniqueConstraint)assertConstraint(table, UNIQUE, name, clause);
+			assertConstraint(table, UNIQUE, name, clause);
 
 		assertEquals(clause, constraint.getClause());
 	}
 	
-	private Constraint assertConstraint(
+	private <X extends Constraint> X assertConstraint(
 			final com.exedio.dsmf.Table table,
-			final Class type,
+			final Class<X> type,
 			final String name,
 			final String condition)
 	{
@@ -398,7 +398,7 @@ public class SchemaTest extends TestmodelTest
 		assertEquals(expectedSupported, constraint.isSupported());
 		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
 		assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
-		return constraint;
+		return type.cast(constraint);
 	}
 	
 	private final String p(final Type type)
