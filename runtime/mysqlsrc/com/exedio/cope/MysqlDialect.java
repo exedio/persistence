@@ -55,7 +55,11 @@ final class MysqlDialect extends Dialect
 
 	protected MysqlDialect(final DialectParameters parameters)
 	{
-		super(new MysqlDriver(Table.PK_COLUMN_NAME, Boolean.valueOf(parameters.properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()), "CHAR_LENGTH");
+		super(
+				new MysqlDriver(
+						Table.PK_COLUMN_NAME,
+						Boolean.valueOf(parameters.properties.getDatabaseCustomProperty(TOLOWERCASE)).booleanValue()),
+				"CHAR_LENGTH");
 		this.placeholdersInLimit = parameters.databaseMajorVersion>=5;
 	}
 
