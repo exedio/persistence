@@ -225,6 +225,7 @@
 		<instrument finalArgs="true" verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
+				<exclude name="SchemaTest.java" /><!-- TODO remove -->
 				<exclude name="ModelTest.java" /><!-- TODO remove -->
 				<exclude name="FieldTest.java" /><!-- TODO remove -->
 				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
