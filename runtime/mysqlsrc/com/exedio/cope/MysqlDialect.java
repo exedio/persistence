@@ -86,12 +86,20 @@ final class MysqlDialect extends Dialect
 	}
 
 	/**
+	 * Triples maxChars because UTF8 can hav at most three bytes per character.
+	 * 
+	 * Limits for datatypes are in bytes, but varchar parameter specifies
+	 * characters.
+	 * 
 	 * Always returns "binary" types make string comparisions and
 	 * unique constraints case sensitive.
 	 */
 	@Override
-	String getStringType(final int maxBytes /* TODO should be maxChars*/)
+	String getStringType(final int maxChars)
 	{
+		// TODO implement maxBytes==maxChars for strings with character set us-ascii
+		final int maxBytes = maxChars * 3;
+
 		assert TWOPOW8==256;
 		assert TWOPOW16==65536;
 
@@ -100,8 +108,10 @@ final class MysqlDialect extends Dialect
 		//      and for longer unique columns you may specify a shorter key length
 		// TODO mysql 5.0.3 and later can have varchars up to 64k
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
+		// TODO use char instead of varchar, if minChars==maxChars and
+		//      no spaces allowed (char drops trailing spaces)
 		if(maxBytes<TWOPOW8)
-			return "varchar("+maxBytes+") character set utf8 binary";
+			return "varchar("+maxChars+") character set utf8 binary";
 		else if(maxBytes<TWOPOW16)
 			return "text character set utf8 binary";
 		else if(maxBytes<TWOPOW24)
