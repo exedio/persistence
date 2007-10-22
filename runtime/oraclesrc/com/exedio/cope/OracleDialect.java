@@ -91,8 +91,8 @@ final class OracleDialect extends Dialect
 		if(maxChars<=ORACLE_VARCHAR_MAX_CHARS)
 			return
 				varchar
-				? ("VARCHAR2("+(maxChars*MAX_BYTES_PER_CHARACTER_UTF8)+" BYTE)")
-				: ("NVARCHAR2("+maxChars+')');
+				? ( "VARCHAR2(" + (maxChars*MAX_BYTES_PER_CHARACTER_UTF8) + " BYTE)")
+				: ("NVARCHAR2(" +  maxChars                               +      ')');
 		else
 			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}
