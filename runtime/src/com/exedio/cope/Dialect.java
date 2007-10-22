@@ -39,6 +39,7 @@ abstract class Dialect
 	protected static final int TWOPOW8 = 1<<8;
 	protected static final int TWOPOW16 = 1<<16;
 	protected static final int TWOPOW24 = 1<<24;
+	protected static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
 	
 	final Driver driver;
 	final String stringLength;

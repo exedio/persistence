@@ -83,8 +83,6 @@ final class MysqlDialect extends Dialect
 	}
 
 	/**
-	 * Triples maxChars because UTF8 can hav at most three bytes per character.
-	 * 
 	 * Limits for datatypes are in bytes, but varchar parameter specifies
 	 * characters.
 	 * 
@@ -95,7 +93,7 @@ final class MysqlDialect extends Dialect
 	String getStringType(final int maxChars)
 	{
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
-		final int maxBytes = maxChars * 3;
+		final int maxBytes = maxChars * MAX_BYTES_PER_CHARACTER_UTF8;
 
 		assert TWOPOW8==256;
 		assert TWOPOW16==65536;
