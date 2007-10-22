@@ -41,6 +41,9 @@ abstract class Dialect
 	protected static final int TWOPOW24 = 1<<24;
 	protected static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
 	
+	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
+	protected static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
+	
 	final Driver driver;
 	final String stringLength;
 	

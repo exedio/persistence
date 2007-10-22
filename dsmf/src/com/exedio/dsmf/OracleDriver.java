@@ -65,7 +65,7 @@ public final class OracleDriver extends Driver
 				return "error: unknown TYPE_NAME for Types.OTHER: "+typeName;
 			}
 			case Types.VARCHAR:
-				return "VARCHAR2("+columnSize+')';
+				return "VARCHAR2("+columnSize+" BYTE)";
 			case Types.TIMESTAMP:
 			case Types.DATE:
 				return "DATE";

@@ -324,9 +324,9 @@ public class SchemaTest extends TestmodelTest
 			else
 			{
 				if(model.getProperties().getDatabaseCustomProperty("varchar")!=null)
-					string8 = "VARCHAR2(8)";
+					string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 				else
-					string8 = "NVARCHAR2(8)";
+					string8 = "NVARCHAR2(8)"; // nvarchar specifies characters
 			}
 			assertEquals(string8, min4Max8.getType());
 

@@ -164,6 +164,9 @@ public class StringTest extends TestmodelTest
 		assertString(item, item2, item.any);
 		assertString(item, item2, item.long1K);
 		assertString(item, item2, item.long1M);
+		assertString(item, item2, item.oracleNoCLOB);
+		assertString(item, item2, item.oracleCLOB);
+		assertStringSet(item, item.max4, "\u20ac\u20ac\u20ac\u20ac"); // euro in utf8 has two bytes
 		
 		{
 			final StringItem itemEmptyInit = deleteOnTearDown(new StringItem("", false));
@@ -585,7 +588,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(VALUE2_UPPER, saup.get(item2));
 		assertEquals(Integer.valueOf(VALUE2.length()), saln.get(item2));
 		
-		if(!oracle||sa.getMaximumLength()<4000)
+		if(searchEnabled(sa))
 		{
 			assertContains(item, type.search(sa.equal(VALUE)));
 			assertContains(item2, type.search(sa.notEqual(VALUE)));
@@ -622,7 +625,7 @@ public class StringTest extends TestmodelTest
 			restartTransaction();
 			assertEquals(emptyString, sa.get(item));
 			assertEquals(list(item), type.search(sa.equal(emptyString)));
-			if(!oracle||sa.getMaximumLength()<4000)
+			if(searchEnabled(sa))
 			{
 				assertEquals(list(), type.search(sa.equal("x")));
 				assertEquals(supports ? list(item) : list(), type.search(sa.equal("")));
@@ -685,7 +688,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(value, sa.get(item));
 		restartTransaction();
 		assertEquals(value, sa.get(item));
-		if(!oracle||sa.getMaximumLength()<4000) // TODO should work without condition
+		if(searchEnabled(sa))
 		{
 			assertEquals(list(item), type.search(sa.equal(value)));
 			assertEquals(list(), type.search(sa.equal(value+"x")));
@@ -715,5 +718,10 @@ public class StringTest extends TestmodelTest
 	{
 		return new Query<Object>(selectAttribute, condition).search();
 	}
-
+	
+	// TODO should work without
+	private boolean searchEnabled(final StringField field)
+	{
+		return !oracle || field.getMaximumLength()<=com.exedio.cope.Dialect.ORACLE_VARCHAR_MAX_CHARS;
+	}
 }

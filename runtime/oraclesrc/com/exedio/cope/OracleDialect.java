@@ -59,8 +59,6 @@ final class OracleDialect extends Dialect
 	 */
 	private final boolean varchar;
 
-	private final int varcharLength;
-
 	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(
@@ -68,7 +66,6 @@ final class OracleDialect extends Dialect
 						parameters.properties.getDatabaseUser().toUpperCase()),
 				"LENGTH");
 		this.varchar = "true".equalsIgnoreCase(parameters.properties.getDatabaseCustomProperty(VARCHAR));
-		this.varcharLength = varchar ? 4000 : 2000;
 	}
 	
 	@Override
@@ -83,11 +80,16 @@ final class OracleDialect extends Dialect
 		return "NUMBER(30,8)";
 	}
 
+	/**
+	 * The parameter of varchar specifies bytes.
+	 * The parameter of nvarchar specifies characters.
+	 * The maximum for both varchar and nvarchar is 4000 bytes.
+	 */
 	@Override
-	String getStringType(final int maxBytes /* TODO should be maxChars*/)
+	String getStringType(final int maxChars)
 	{
-		if(maxBytes<=varcharLength)
-			return (varchar?"VARCHAR2(":"NVARCHAR2(")+maxBytes+")";
+		if(maxChars<=ORACLE_VARCHAR_MAX_CHARS)
+			return varchar ? ("VARCHAR2("+(maxChars*MAX_BYTES_PER_CHARACTER_UTF8)+" BYTE)") : ("NVARCHAR2("+maxChars+')');
 		else
 			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}
@@ -198,17 +200,17 @@ final class OracleDialect extends Dialect
 	{
 		final Table planTable = new Table(schema, "PLAN_TABLE");
 		planTable.makeDefensive();
-		new Column(planTable, STATEMENT_ID, "VARCHAR2(30)");
+		new Column(planTable, STATEMENT_ID, "VARCHAR2(30 BYTE)");
 		new Column(planTable, "TIMESTAMP", "DATE");
-		new Column(planTable, "REMARKS", "VARCHAR2(80)");
-		new Column(planTable, OPERATION, "VARCHAR2(30)");
-		new Column(planTable, OPTIONS, "VARCHAR2(30)");
-		new Column(planTable, "OBJECT_NODE", "VARCHAR2(128)");
-		new Column(planTable, "OBJECT_OWNER", "VARCHAR2(30)");
-		new Column(planTable, OBJECT_NAME, "VARCHAR2(30)");
+		new Column(planTable, "REMARKS", "VARCHAR2(80 BYTE)");
+		new Column(planTable, OPERATION, "VARCHAR2(30 BYTE)");
+		new Column(planTable, OPTIONS, "VARCHAR2(30 BYTE)");
+		new Column(planTable, "OBJECT_NODE", "VARCHAR2(128 BYTE)");
+		new Column(planTable, "OBJECT_OWNER", "VARCHAR2(30 BYTE)");
+		new Column(planTable, OBJECT_NAME, "VARCHAR2(30 BYTE)");
 		new Column(planTable, OBJECT_INSTANCE, "NUMBER(22)");
-		new Column(planTable, OBJECT_TYPE, "VARCHAR2(30)");
-		new Column(planTable, "OPTIMIZER", "VARCHAR2(255)");
+		new Column(planTable, OBJECT_TYPE, "VARCHAR2(30 BYTE)");
+		new Column(planTable, "OPTIMIZER", "VARCHAR2(255 BYTE)");
 		new Column(planTable, "SEARCH_COLUMNS", "NUMBER(22)");
 		new Column(planTable, ID, "NUMBER(22)");
 		new Column(planTable, PARENT_ID, "NUMBER(22)");
@@ -216,7 +218,7 @@ final class OracleDialect extends Dialect
 		new Column(planTable, "COST", "NUMBER(22)");
 		new Column(planTable, "CARDINALITY", "NUMBER(22)");
 		new Column(planTable, "BYTES", "NUMBER(22)");
-		new Column(planTable, "OTHER_TAG", "VARCHAR2(255)");
+		new Column(planTable, "OTHER_TAG", "VARCHAR2(255 BYTE)");
 		new Column(planTable, "OTHER", "LONG");
 	}
 	

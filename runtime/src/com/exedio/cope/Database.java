@@ -233,7 +233,7 @@ final class Database
 					bf.append(" and ").
 						append(column);
 					
-					if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>=4000))
+					if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>Dialect.ORACLE_VARCHAR_MAX_CHARS))
 					{
 						bf.append("is not null");
 					}
