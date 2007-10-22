@@ -98,7 +98,7 @@ public abstract class SchemaTest extends TestCase
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			driver = new OracleDriver(user.toUpperCase());
-			stringType = "VARCHAR2(8)";
+			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
 			postgresql = false;
