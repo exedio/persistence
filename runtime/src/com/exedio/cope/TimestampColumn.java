@@ -50,9 +50,9 @@ final class TimestampColumn extends Column
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
-		final Timestamp loadedTimestamp = resultSet.getTimestamp(columnIndex);
-		//System.out.println("TimestampColumn.load "+columnIndex+" "+loadedTimestamp);
-		row.put(this, (loadedTimestamp!=null) ? Long.valueOf(loadedTimestamp.getTime()) : null);
+		final Timestamp ts = resultSet.getTimestamp(columnIndex);
+		//System.out.println("TimestampColumn.load "+columnIndex+" "+ts);
+		row.put(this, (ts!=null) ? Long.valueOf(ts.getTime()) : null);
 	}
 	
 	@Override
