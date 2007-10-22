@@ -37,14 +37,14 @@ public final class Schema extends Node
 
 	final void register(final Table table)
 	{
-		if(tableMap.put(driver.canonizeTableName(table.name), table)!=null)
+		if(tableMap.put(table.name, table)!=null)
 			throw new RuntimeException("duplicate table name in schema: " + table.name);
 		tableList.add(table);
 	}
 	
 	final Table notifyExistentTable(final String tableName)
 	{
-		Table result = tableMap.get(driver.canonizeTableName(tableName));
+		Table result = tableMap.get(tableName);
 		if(result==null)
 			result = new Table(this, tableName, null, false);
 		else
@@ -55,7 +55,7 @@ public final class Schema extends Node
 	
 	public Table getTable(final String name)
 	{
-		return tableMap.get(driver.canonizeTableName(name));
+		return tableMap.get(name);
 	}
 	
 	public List<Table> getTables()

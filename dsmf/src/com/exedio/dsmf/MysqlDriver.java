@@ -28,14 +28,11 @@ import com.exedio.dsmf.Node.ResultSetHandler;
 public final class MysqlDriver extends Driver
 {
 	final String primaryKeyColumnName;
-	private final boolean toLowerCase;
 	
-	public MysqlDriver(final String primaryKeyColumnName, final boolean toLowerCase)
+	public MysqlDriver(final String primaryKeyColumnName)
 	{
 		super(null, null);
 		this.primaryKeyColumnName = primaryKeyColumnName;
-		this.toLowerCase = toLowerCase;
-		//System.out.println("toLowerCase:"+toLowerCase);
 	}
 	
 	private static final char PROTECTOR = '`';
@@ -56,12 +53,6 @@ public final class MysqlDriver extends Driver
 	public boolean supportsCheckConstraints()
 	{
 		return false;
-	}
-
-	@Override
-	public String canonizeTableName(final String tableName)
-	{
-		return toLowerCase ? tableName.toLowerCase() : tableName;
 	}
 
 	@Override

@@ -51,11 +51,6 @@ public abstract class Driver
 		return true;
 	}
 	
-	public String canonizeTableName(final String tableName)
-	{
-		return tableName;
-	}
-
 	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
 	void verify(final Schema schema)

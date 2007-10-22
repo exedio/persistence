@@ -54,7 +54,6 @@ public abstract class SchemaTest extends TestCase
 		private final StringField databaseUrl =  new StringField("database.url");
 		private final StringField databaseUser =  new StringField("database.user");
 		private final StringField databasePassword =  new StringField("database.password", true);
-		private final BooleanField mysqlToLowerCase =  new BooleanField("database.mysql.tolowercase", false);
 
 		Properties()
 		{
@@ -89,7 +88,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:mysql:"))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			driver = new MysqlDriver("this", config.mysqlToLowerCase.getBooleanValue());
+			driver = new MysqlDriver("this");
 			stringType = "varchar(8) character set utf8 binary";
 			intType = "integer";
 			intType2 = "bigint";
