@@ -43,7 +43,7 @@ public class SchemaTest extends TestmodelTest
 		if(postgresql) return;
 		final String TABLE1 = PlusItem.TYPE.getTableName();
 		final String COLUMN1 = PlusItem.num2.getColumnName();
-		assertEquals("PlusItem", TABLE1);
+		assertEquals(mysqlLower("PlusItem"), TABLE1);
 		assertEquals("num2", COLUMN1);
 
 		final String column1Type;
@@ -291,23 +291,23 @@ public class SchemaTest extends TestmodelTest
 
 			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, AttributeItem.TYPE.getPrimaryKeyColumnName());
 
-			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", "EmptyItem", AttributeItem.TYPE.getPrimaryKeyColumnName());
+			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", mysqlLower("EmptyItem"), AttributeItem.TYPE.getPrimaryKeyColumnName());
 
-			final com.exedio.dsmf.Table uniqueItem = schema.getTable("UNIQUE_ITEMS");
+			final com.exedio.dsmf.Table uniqueItem = schema.getTable(mysqlLower("UNIQUE_ITEMS"));
 			assertNotNull(uniqueItem);
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Schema.Color.OK, uniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(uniqueItem, "IX_ITEMWSU_US", "("+p("UNIQUE_STRING")+")");
 			
-			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable("ItemWithDoubleUnique");
+			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable(mysqlLower("ItemWithDoubleUnique"));
 			assertNotNull(doubleUniqueItem);
 			assertEquals(null, doubleUniqueItem.getError());
 			assertEquals(Schema.Color.OK, doubleUniqueItem.getParticularColor());
 			
 			assertUniqueConstraint(doubleUniqueItem, "ItemWithDoubUni_doUni_Unq", "("+p("string")+","+p("integer")+")");
 			
-			final com.exedio.dsmf.Table stringItem = schema.getTable("STRINGITEMS");
+			final com.exedio.dsmf.Table stringItem = schema.getTable(mysqlLower("STRINGITEMS"));
 			assertNotNull(stringItem);
 			assertEquals(null, stringItem.getError());
 			assertEquals(Schema.Color.OK, stringItem.getParticularColor());

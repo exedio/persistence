@@ -56,6 +56,7 @@ final class Database
 	private final boolean logQueryInfo;
 	private final boolean fulltextIndex;
 	final Pool<Connection> connectionPool;
+	final boolean mysqlLowerCaseTableNames;
 	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
 	final Dialect.LimitSupport limitSupport;
@@ -79,6 +80,7 @@ final class Database
 				new ConnectionFactory(properties, dialect),
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial());
+		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
 		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();

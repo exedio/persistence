@@ -299,4 +299,9 @@ public abstract class AbstractLibTest extends CopeTest
 		else
 			assertNotSame(o1, o2);
 	}
+	
+	final String mysqlLower(final String name)
+	{
+		return model.getProperties().getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
+	}
 }

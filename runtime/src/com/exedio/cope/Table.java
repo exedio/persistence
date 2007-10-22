@@ -24,11 +24,11 @@ import java.util.List;
 
 import com.exedio.dsmf.Schema;
 
-
 final class Table
 {
 	final Database database;
 	final String id;
+	final String idLower;
 	final String protectedID;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
@@ -37,7 +37,8 @@ final class Table
 	{
 		this.database = database;
 		this.id = database.intern(database.makeName(id));
-		this.protectedID = database.intern(database.getDriver().protectName(this.id));
+		this.idLower = database.mysqlLowerCaseTableNames ? this.id.toLowerCase() : this.id;
+		this.protectedID = database.intern(database.getDriver().protectName(this.idLower));
 		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype) : new IntegerColumn(this);
 		this.typeColumn = (typesOfInstancesColumnValues!=null) ? new StringColumn(this, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues) : null;
 		database.addTable(this);
@@ -171,7 +172,7 @@ final class Table
 	
 	void makeSchema(final Schema schema)
 	{
-		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, id, database.getTableOptions().getProperty(id));
+		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower, database.getTableOptions().getProperty(id));
 		
 		for(final Column c : getAllColumns())
 			c.makeSchema(result);
@@ -179,5 +180,4 @@ final class Table
 		for(final UniqueConstraint uc : getUniqueConstraints())
 			uc.makeSchema(result);
 	}
-
 }

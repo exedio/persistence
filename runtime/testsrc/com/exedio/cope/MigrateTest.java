@@ -58,12 +58,14 @@ public class MigrateTest extends CopeAssert
 	}
 	
 	private String hostname;
+	private com.exedio.cope.Properties props;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
+		props = new com.exedio.cope.Properties(com.exedio.cope.Properties.getSystemPropertyContext());
 	}
 
 	String jdbcUrl;
@@ -75,7 +77,6 @@ public class MigrateTest extends CopeAssert
 	
 	public void testMigrate() throws ParseException, UnknownHostException
 	{
-		final com.exedio.cope.Properties props = new com.exedio.cope.Properties(com.exedio.cope.Properties.getSystemPropertyContext());
 		jdbcUrl  = props.getDatabaseUrl();
 		jdbcUser = props.getDatabaseUser();
 		
@@ -144,9 +145,9 @@ public class MigrateTest extends CopeAssert
 		// Never do this in real projects,
 		// always use plain string literals
 		// containing the sql statement!
-		final String body70 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field7"), dialect.getStringType(100));
-		final String body60 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field6"), dialect.getStringType(100));
-		final String body61 = driver.createColumn(driver.protectName("MigrateItem"), driver.protectName("field6b"), dialect.getStringType(100));
+		final String body70 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field7"), dialect.getStringType(100));
+		final String body60 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field6"), dialect.getStringType(100));
+		final String body61 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field6b"), dialect.getStringType(100));
 		final Migration[] migrations7 = new Migration[]{
 				new Migration(7, "add column field7" + blah, body70),
 				new Migration(6, "add column field6",        body60, body61),
@@ -230,8 +231,8 @@ public class MigrateTest extends CopeAssert
 	
 	private void assertSchema(final Schema schema, final boolean model2, final boolean migrated)
 	{
-		final Table table = schema.getTable("MigrateItem");
-		assertEquals("MigrateItem", table.getName());
+		final Table table = schema.getTable(mysqlLower(("MigrateItem")));
+		assertEquals(mysqlLower("MigrateItem"), table.getName());
 		assertEquals(true, table.required());
 		assertEquals(true, table.exists());
 		final Iterator<Column> columns = table.getColumns().iterator();
@@ -349,5 +350,10 @@ public class MigrateTest extends CopeAssert
 	private static final void assertMinInt(final int expectedMinimum, final String actual)
 	{
 		assertTrue(actual, Integer.parseInt(actual)>=expectedMinimum);
+	}
+	
+	final String mysqlLower(final String name)
+	{
+		return props.getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
 	}
 }

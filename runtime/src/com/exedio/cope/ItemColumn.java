@@ -50,7 +50,6 @@ final class ItemColumn extends IntegerColumn
 	{
 		super.makeSchema(dsmfTable);
 		final Table targetTable = targetType.getTable();
-		new ForeignKeyConstraint(dsmfTable, integrityConstraintName, id, targetTable.id, targetTable.primaryKey.id);
+		new ForeignKeyConstraint(dsmfTable, integrityConstraintName, id, targetTable.idLower, targetTable.primaryKey.id);
 	}
-		
 }

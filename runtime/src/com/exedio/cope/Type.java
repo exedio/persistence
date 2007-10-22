@@ -615,7 +615,7 @@ public final class Type<C extends Item>
 	 */
 	public String getTableName()
 	{
-		return table.id;
+		return table.idLower;
 	}
 	
 	/**

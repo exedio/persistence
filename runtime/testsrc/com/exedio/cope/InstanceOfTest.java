@@ -200,7 +200,7 @@ public class InstanceOfTest extends AbstractLibTest
 	public void testSchemaNames()
 	{
 		// with sub types
-		assertEquals("InstanceOfAItem", InstanceOfAItem.TYPE.getTableName());
+		assertEquals(mysqlLower("InstanceOfAItem"), InstanceOfAItem.TYPE.getTableName());
 		assertEquals("this", InstanceOfAItem.TYPE.getPrimaryKeyColumnName());
 		assertEquals("class", InstanceOfAItem.TYPE.getTypeColumnName());
 		assertEquals("code", InstanceOfAItem.code.getColumnName());
@@ -208,7 +208,7 @@ public class InstanceOfTest extends AbstractLibTest
 		assertEquals("refType", InstanceOfRefItem.ref.getTypeColumnName());
 
 		// without sub types
-		assertEquals("InstanceOfB2Item", InstanceOfB2Item.TYPE.getTableName());
+		assertEquals(mysqlLower("InstanceOfB2Item"), InstanceOfB2Item.TYPE.getTableName());
 		assertEquals("this", InstanceOfB2Item.TYPE.getPrimaryKeyColumnName());
 		try
 		{

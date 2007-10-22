@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.io.File;
 
-
 public class NameTest extends AbstractLibTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
@@ -73,7 +72,7 @@ public class NameTest extends AbstractLibTest
 		item.setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item");
 		assertEquals(item, item.findByCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item"));
 		
-		assertEquals("NameCollisionlongAItem_F", itemca.TYPE.getTableName());
+		assertEquals(mysqlLower("NameCollisionlongAItem_F"), itemca.TYPE.getTableName());
 		assertEquals("collisionlongANumber_F", itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.getColumnName());
 		assertEquals(null, itemca.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
@@ -86,5 +85,4 @@ public class NameTest extends AbstractLibTest
 		assertContains(itemcb, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal((Integer)null)));
 		assertContains(itemca, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(Integer.valueOf(5))));
 	}
-
 }

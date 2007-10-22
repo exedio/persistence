@@ -43,6 +43,8 @@ public final class Properties extends com.exedio.cope.util.Properties
 	private final BooleanField databaseDontSupportNativeDate = new BooleanField("database.dontSupport.nativeDate", false);
 	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 	
+	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
+	
 	private final MapField databaseForcedNames = new MapField("database.forcename");
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 	private final MapField databaseCustomProperties;
@@ -287,6 +289,11 @@ public final class Properties extends com.exedio.cope.util.Properties
 	public boolean getDatabaseDontSupportNativeDate()
 	{
 		return databaseDontSupportNativeDate.getBooleanValue();
+	}
+	
+	public boolean getMysqlLowerCaseTableNames()
+	{
+		return mysqlLowerCaseTableNames.getBooleanValue();
 	}
 	
 	java.util.Properties getDatabaseForcedNames()
