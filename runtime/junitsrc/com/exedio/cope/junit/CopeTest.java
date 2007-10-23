@@ -35,9 +35,10 @@ import com.exedio.cope.util.PoolCounter;
  */
 public abstract class CopeTest extends CopeAssert
 {
-	private static HashSet<Model> createdDatabase = new HashSet<Model>();
-	private static HashSet<Model> registeredDropDatabaseHook = new HashSet<Model>();
+	private static Model createdDatabase = null;
+	private static boolean registeredDropDatabaseHook = false;
 	private static Object lock = new Object();
+	//private static final HashSet<Model> duplicateCreates = new HashSet<Model>();
 
 	public final Model model;
 	public final boolean exclusive;
@@ -98,11 +99,22 @@ public abstract class CopeTest extends CopeAssert
 		{
 			synchronized(lock)
 			{
-				if(!createdDatabase.contains(model))
+				if(createdDatabase!=model)
 				{
+					if(createdDatabase!=null)
+					{
+						//System.out.println("---- drop " + System.identityHashCode(createdDatabase));
+						createdDatabase.dropDatabase();
+						createdDatabase.disconnect();
+						createdDatabase = null;
+					}
+					
+					//System.out.println("---- create " + System.identityHashCode(model));
 					model.connect(getProperties());
 					model.createDatabase();
-					createdDatabase.add(model);
+					createdDatabase = model;
+					//if(!duplicateCreates.add(model))
+						//System.out.println("creating duplicate model " + System.identityHashCode(model) + ':' + model.getTypes());
 				}
 			}
 		}
@@ -119,17 +131,22 @@ public abstract class CopeTest extends CopeAssert
 		{
 			synchronized(lock)
 			{
-				if(!registeredDropDatabaseHook.contains(model))
+				if(!registeredDropDatabaseHook)
 				{
 					Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
 						public void run()
 						{
 							//printConnectionPoolCounter();
-							model.dropDatabase();
-							model.disconnect();
+							if(createdDatabase!=null)
+							{
+								//System.out.println("---- drop hook " + System.identityHashCode(createdDatabase));
+								createdDatabase.dropDatabase();
+								createdDatabase.disconnect();
+								createdDatabase = null;
+							}
 						}
 					}));
-					registeredDropDatabaseHook.add(model);
+					registeredDropDatabaseHook = true;
 				}
 			}
 		}
