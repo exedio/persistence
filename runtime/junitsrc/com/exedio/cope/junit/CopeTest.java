@@ -164,7 +164,23 @@ public abstract class CopeTest extends CopeAssert
 		}
 		finally
 		{
-			tearDown();
+			if(testMethodFinished)
+			{
+				tearDown();
+			}
+			else
+			{
+				try
+				{
+					tearDown();
+				}
+				catch(Exception e)
+				{
+					System.err.println("--------------------- additional exception in tearDown --------------------");
+					e.printStackTrace();
+					System.err.println("-------------------- /additional exception in tearDown --------------------");
+				}
+			}
 		}
 	}
 	
