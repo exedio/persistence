@@ -40,7 +40,7 @@ final class EnvironmentCop extends ConsoleCop
 		super(TAB_ENVIRONMENT, "environment");
 	}
 	
-	private static final String replaceLineBreaks(final String s)
+	private static final String replaceNull(final String s)
 	{
 		return (s==null) ? "n/a" : s;
 	}
@@ -52,7 +52,7 @@ final class EnvironmentCop extends ConsoleCop
 		for(Iterator i = current.keySet().iterator(); i.hasNext(); )
 		{
 			final String name = (String)i.next();
-			current.setProperty(name, replaceLineBreaks(current.getProperty(name)));
+			current.setProperty(name, replaceNull(current.getProperty(name)));
 		}
 
 		Environment_Jspm.writeCurrent(out, model.getProperties().getDialect(), current);
@@ -96,7 +96,7 @@ final class EnvironmentCop extends ConsoleCop
 		for(Iterator i = p.keySet().iterator(); i.hasNext(); )
 		{
 			final String name = (String)i.next();
-			final String value = replaceLineBreaks(p.getProperty(name));
+			final String value = replaceNull(p.getProperty(name));
 			
 			final int nameDot = name.indexOf('.');
 			if(nameDot<=0)
