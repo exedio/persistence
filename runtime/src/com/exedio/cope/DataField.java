@@ -532,7 +532,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 	
-	final static class ArrayValue extends Value
+	public final static class ArrayValue extends Value
 	{
 		final byte[] array;
 		
@@ -553,6 +553,11 @@ public final class DataField extends Field<DataField.Value>
 		byte[] asArray(final DataField field, final Item exceptionItem)
 		{
 			assertNotExhausted();
+			return array;
+		}
+		
+		public byte[] asArray()
+		{
 			return array;
 		}
 		

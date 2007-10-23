@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.io.IOException;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
@@ -234,7 +235,7 @@ public class DispatcherTest extends AbstractLibTest
 			assertEquals(item, actual.getParent());
 			assertWithin(expected.before, expected.after, actual.getDate());
 			assertTrue(String.valueOf(actual.getElapsed()), actual.getElapsed()>5);
-			assertTrue(actual.getCause(), actual.getCause().startsWith(item.getBody()));
+			assertTrue(actual.getCause(), actual.getCause().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
 	}
 }

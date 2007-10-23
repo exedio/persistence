@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -26,6 +29,7 @@ import java.util.List;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -33,12 +37,13 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.Wrapper;
 
 public final class Dispatcher extends Pattern
 {
+	private static final String ENCODING = "utf8";
+	
 	private final int failureLimit;
 	private final int searchSize;
 	private final BooleanField pending = new BooleanField().defaultTo(true);
@@ -48,7 +53,7 @@ public final class Dispatcher extends Pattern
 	private ItemField<?> failureParent = null;
 	private final DateField failureDate = new DateField().toFinal();
 	private final LongField failureElapsed = new LongField();
-	private final StringField failureCause = new StringField().toFinal().lengthMax(3000);
+	private final DataField failureCause = new DataField().toFinal();
 	private Type<?> failureType = null;
 	
 	public Dispatcher()
@@ -129,7 +134,7 @@ public final class Dispatcher extends Pattern
 		return failureElapsed;
 	}
 	
-	public StringField getFailureCause()
+	public DataField getFailureCause()
 	{
 		return failureCause;
 	}
@@ -241,34 +246,18 @@ public final class Dispatcher extends Pattern
 					{
 						final long elapsed = System.currentTimeMillis() - start;
 						
-						final StringBuilder bf = new StringBuilder();
-						final int stopLength = failureCause.getMaximumLength()-15;
-						
-						final String causeText = cause.getMessage();
-						if(causeText!=null)
-							bf.append(causeText.length()>stopLength ? (causeText.substring(0, stopLength) + "\n shorted !!!") : causeText);
-						
-						boolean shorted=false;
-						for(final StackTraceElement element : cause.getStackTrace())
+						final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						final PrintStream out;
+						try
 						{
-							if(bf.length()+element.toString().length()<stopLength)
-							{
-								bf.append(element.toString());
-							}
-							else
-							{
-								bf.append("\n shorted !!!");
-								shorted=true;
-								break;
-							}
+							out = new PrintStream(baos, false, ENCODING);
 						}
-						
-						if(shorted)
+						catch(UnsupportedEncodingException e)
 						{
-							System.out.println("------------ Dispatcher " + featureID + " had to short exception -------------");
-							cause.printStackTrace();
-							System.out.println("/----------- Dispatcher " + featureID + " had to short exception -------------");
+							throw new RuntimeException(e);
 						}
+						cause.printStackTrace(out);
+						out.close();
 						
 						final ItemField<P> failureParent = this.failureParent.as(parentClass);
 						
@@ -276,7 +265,7 @@ public final class Dispatcher extends Pattern
 							failureParent.map(item),
 							failureDate.map(new Date(start)),
 							failureElapsed.map(elapsed),
-							failureCause.map(bf.toString()));
+							failureCause.map(baos.toByteArray()));
 						
 						if(failureType.newQuery(failureParent.equal(item)).total()>=failureLimit)
 							pending.set(item, false);
@@ -347,7 +336,14 @@ public final class Dispatcher extends Pattern
 		
 		public String getCause()
 		{
-			return failureCause.get(backingItem);
+			try
+			{
+				return new String(failureCause.get(backingItem).asArray(), ENCODING);
+			}
+			catch(UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
 		}
 		
 		public Item getItem()
