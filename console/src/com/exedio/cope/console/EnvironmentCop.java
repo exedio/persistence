@@ -42,7 +42,7 @@ final class EnvironmentCop extends ConsoleCop
 	
 	private static final String replaceLineBreaks(final String s)
 	{
-		return (s==null) ? "n/a" : s.replaceAll("\n", "<br>");
+		return (s==null) ? "n/a" : s;
 	}
 
 	@Override
