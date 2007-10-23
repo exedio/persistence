@@ -234,6 +234,7 @@ public class DispatcherTest extends AbstractLibTest
 			assertEquals(item, actual.getParent());
 			assertWithin(expected.before, expected.after, actual.getDate());
 			assertTrue(String.valueOf(actual.getElapsed()), actual.getElapsed()>5);
+			assertTrue(actual.getCause(), actual.getCause().startsWith(item.getBody()));
 		}
 	}
 }
