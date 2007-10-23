@@ -350,7 +350,7 @@ public final class Dispatcher extends Pattern
 			return failureCause.get(backingItem);
 		}
 		
-		public final Item getItem()
+		public Item getItem()
 		{
 			return backingItem;
 		}
