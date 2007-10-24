@@ -38,7 +38,12 @@ public final class ConnectToken
 	private volatile boolean returned = false;
 	private final Object returnedLock = new Object();
 	
-	private ConnectToken(final Manciple manciple, final Model model, final int id, final String name, final boolean didConnect)
+	private ConnectToken(
+			final Manciple manciple,
+			final Model model,
+			final int id,
+			final String name,
+			final boolean didConnect)
 	{
 		assert manciple!=null;
 		assert model!=null;
@@ -100,7 +105,10 @@ public final class ConnectToken
 		private int nextId = 0;
 		private final Object lock = new Object();
 		
-		private ConnectToken issue(final Model model, final com.exedio.cope.ConnectProperties properties, final String tokenName)
+		private ConnectToken issue(
+				final Model model,
+				final com.exedio.cope.ConnectProperties properties,
+				final String tokenName)
 		{
 			synchronized(lock)
 			{
@@ -182,7 +190,10 @@ public final class ConnectToken
 	 * @throws IllegalArgumentException if a subsequent call provides properties different
 	 * 									to the first call.
 	 */
-	public static final ConnectToken issue(final Model model, final com.exedio.cope.ConnectProperties properties, final String tokenName)
+	public static final ConnectToken issue(
+			final Model model,
+			final com.exedio.cope.ConnectProperties properties,
+			final String tokenName)
 	{
 		return manciple(model).issue(model, properties, tokenName);
 	}
