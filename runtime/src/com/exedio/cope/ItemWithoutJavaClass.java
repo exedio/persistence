@@ -44,7 +44,7 @@ final class ItemWithoutJavaClass extends Item
 		throw new NotSerializableException("not yet implemented for " + getClass());
 	}
 	
-	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
+	private void readObject(final ObjectInputStream in) throws IOException
 	{
 		// TODO
 		throw new NotSerializableException("not yet implemented for " + getClass());

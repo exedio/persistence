@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
 
 final class BlobColumn extends Column
@@ -51,7 +50,6 @@ final class BlobColumn extends Column
 	
 	@Override
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
-			throws SQLException
 	{
 		throw new RuntimeException(id);
 	}

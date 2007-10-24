@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Date;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -62,7 +61,7 @@ public class InitServlet extends CopsServlet
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
-		throws ServletException, IOException
+		throws IOException
 	{
 		final boolean post = Cop.isPost(request);
 		final boolean initialize = post && request.getParameter("INIT")!=null;

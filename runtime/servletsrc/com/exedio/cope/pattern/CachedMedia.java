@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,7 +35,7 @@ public abstract class CachedMedia extends MediaPath
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException
+		throws IOException
 	{
 		final long lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
@@ -80,5 +79,5 @@ public abstract class CachedMedia extends MediaPath
 	 * because the response of a cached media must depend
 	 * on the item only.
 	 */
-	public abstract Media.Log doGetIfModified(HttpServletResponse response, Item item, String extension) throws ServletException, IOException;
+	public abstract Media.Log doGetIfModified(HttpServletResponse response, Item item, String extension) throws IOException;
 }

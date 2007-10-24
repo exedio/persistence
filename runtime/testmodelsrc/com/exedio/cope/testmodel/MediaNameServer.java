@@ -20,7 +20,6 @@ package com.exedio.cope.testmodel;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,7 +73,7 @@ public final class MediaNameServer extends MediaPath
 	public Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException
+		throws IOException
 	{
 		final String content = source.get(item);
 		//System.out.println("contentType="+contentType);

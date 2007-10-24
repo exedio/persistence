@@ -67,7 +67,7 @@ public class ModelTest extends TestmodelTest
 	}
 	
 	@Deprecated // OK: test deprecated api
-	public void testAttributeOption() throws IOException
+	public void testAttributeOption()
 	{
 		final AttributeItem item = null;
 		

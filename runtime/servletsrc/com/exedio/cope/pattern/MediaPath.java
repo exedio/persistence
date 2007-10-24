@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -136,7 +135,7 @@ public abstract class MediaPath extends Pattern
 	final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String subPath)
-		throws ServletException, IOException
+		throws IOException
 	{
 		//final long start = System.currentTimeMillis();
 		
@@ -184,7 +183,7 @@ public abstract class MediaPath extends Pattern
 	public abstract String getContentType(Item item);
 	
 	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item, String extension)
-		throws ServletException, IOException;
+		throws IOException;
 	
 	/**
 	 * Returns a condition matching all items, for which {@link #getURL(Item)} returns null.

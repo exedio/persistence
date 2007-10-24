@@ -197,5 +197,7 @@ abstract class Dialect
 			throws SQLException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
+		if(false)
+			throw new SQLException(); // disables warning about throws clause
 	}
 }

@@ -37,7 +37,6 @@ import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -117,7 +116,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 			final HttpServletResponse response,
 			final Item item,
 			final String extension)
-	throws ServletException, IOException
+	throws IOException
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)

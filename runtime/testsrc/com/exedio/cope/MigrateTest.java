@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -75,7 +74,7 @@ public class MigrateTest extends CopeAssert
 	String driverName;
 	String driverVersion;
 	
-	public void testMigrate() throws ParseException, UnknownHostException
+	public void testMigrate() throws ParseException
 	{
 		jdbcUrl  = props.getDatabaseUrl();
 		jdbcUser = props.getDatabaseUser();

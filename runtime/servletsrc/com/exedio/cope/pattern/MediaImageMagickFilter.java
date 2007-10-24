@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -170,7 +169,7 @@ public class MediaImageMagickFilter extends MediaFilter
 			final HttpServletResponse response,
 			final Item item,
 			final String extension)
-	throws ServletException, IOException
+	throws IOException
 	{
 		if(!isAvailable())
 			return fallback.doGetIfModified(response, item, extension);

@@ -134,7 +134,7 @@ public final class ConsoleServlet extends CopsServlet
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
-		throws ServletException, IOException
+		throws IOException
 	{
 		final ConsoleCop cop = ConsoleCop.getCop(model, request);
 		cop.initialize(request, model);

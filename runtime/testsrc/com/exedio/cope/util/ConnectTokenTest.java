@@ -21,17 +21,15 @@ package com.exedio.cope.util;
 import java.io.File;
 import java.util.Date;
 
-import javax.servlet.ServletException;
-
-import com.exedio.cope.Model;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 
 public class ConnectTokenTest extends CopeAssert
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 
-	public void testIt() throws ServletException
+	public void testIt()
 	{
 		try
 		{

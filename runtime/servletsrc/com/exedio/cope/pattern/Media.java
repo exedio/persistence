@@ -30,7 +30,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -422,6 +421,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 */
 	public void getBody(final Item item, final OutputStream body) throws IOException
 	{
+		if(false)
+			throw new IOException(); // disables warning about throws clause, TODO
 		this.body.get(item, body);
 	}
 
@@ -479,6 +480,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private void set(final Item item, final DataField.Value body, final String contentType)
 		throws DataLengthViolationException, IOException
 	{
+		if(false)
+			throw new IOException(); // disables warning about throws clause, TODO
 		item.set(execute(toValue(body, contentType), item));
 	}
 	
@@ -564,7 +567,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public Media.Log doGetIfModified(
 			final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException
+		throws IOException
 	{
 		final String contentType = getContentType(item);
 		//System.out.println("contentType="+contentType);

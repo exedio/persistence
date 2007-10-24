@@ -132,7 +132,7 @@ public final class CopernicaServlet extends CopsServlet
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
-		throws ServletException, IOException
+		throws IOException
 	{
 		PrintStream out = null;
 		try

@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -927,7 +926,6 @@ final class Database
 	void store(
 			final Connection connection, final BlobColumn column, final Item item,
 			final DataField.Value data, final DataField field)
-		throws IOException
 	{
 		buildStage = false;
 
@@ -1405,7 +1403,7 @@ final class Database
 				return result;
 			}
 
-			public void putConnection(Connection connection) throws SQLException
+			public void putConnection(Connection connection)
 			{
 				connectionPool.put(connection);
 			}

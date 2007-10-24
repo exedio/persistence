@@ -22,8 +22,6 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
-import java.io.IOException;
-
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Model;
 
@@ -48,7 +46,7 @@ public class ItemSerializationTest extends AbstractLibTest
 		item = deleteOnTearDown(new ItemSerializationItem("eins"));
 	}
 	
-	public void testItemSerialization() throws IOException, ClassNotFoundException
+	public void testItemSerialization()
 	{
 		final String id = item.getCopeID();
 		assertSame(item.TYPE, item.getCopeType());

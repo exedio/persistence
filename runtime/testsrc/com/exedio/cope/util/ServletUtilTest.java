@@ -19,7 +19,6 @@
 package com.exedio.cope.util;
 
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Set;
@@ -240,7 +239,7 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException(name);
 		}
 
-		public URL getResource(String name) throws MalformedURLException
+		public URL getResource(String name)
 		{
 			throw new RuntimeException(name);
 		}
@@ -261,7 +260,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 
 		@Deprecated // OK: implementing external api
-		public Servlet getServlet(String name) throws ServletException
+		public Servlet getServlet(String name)
 		{
 			throw new RuntimeException(name);
 		}

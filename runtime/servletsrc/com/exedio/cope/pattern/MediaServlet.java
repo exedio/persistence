@@ -123,7 +123,7 @@ public final class MediaServlet extends HttpServlet
 	protected final void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
-		throws ServletException, IOException
+		throws IOException
 	{
 		final Media.Log log = serveContent(request, response);
 		log.increment();
@@ -190,7 +190,7 @@ public final class MediaServlet extends HttpServlet
 	private final Media.Log serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
-		throws ServletException, IOException
+		throws IOException
 	{
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);

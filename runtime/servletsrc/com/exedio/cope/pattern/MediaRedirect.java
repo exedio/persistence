@@ -18,9 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -80,7 +77,6 @@ public final class MediaRedirect extends MediaPath
 	public final Media.Log doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item, final String extension)
-		throws ServletException, IOException
 	{
 		final String url = target.getURL(item);
 		if(url==null)

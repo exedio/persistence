@@ -121,7 +121,7 @@ final class Injector
 	 */
 	int positionColumn = 0;
 
-	private final char read() throws IOException, EndException
+	private final char read() throws EndException
 	{
 		if(inputPosition>=inputLength)
 		{
@@ -209,7 +209,7 @@ final class Injector
 	 * If not, there is no comment,
 	 * and this next character is returned, casted to int.
 	 */
-	private int readComment() throws IOException, EndException
+	private int readComment() throws EndException
 	{
 		char x;
 		switch (x = read())
@@ -253,7 +253,7 @@ final class Injector
 	 * 'c' for comment token in comment,
 	 * else for single character token.
 	 */
-	private char readToken() throws IOException, EndException
+	private char readToken() throws EndException
 	{
 		char c;
 
@@ -362,7 +362,7 @@ final class Injector
 	 * (';' or ',') or '}' for methods.
 	 */
 	private char parseBody(final boolean attribute, final InitializerConsumer tokenConsumer)
-		throws IOException, EndException, ParseException
+		throws EndException, ParseException
 	{
 		//System.out.println("    body("+(attribute?"attribute":"method")+")");
 
@@ -659,7 +659,7 @@ final class Injector
 	}
 
 	private void parseBehaviour(JavaBehaviour jb)
-		throws IOException, EndException, ParseException
+		throws EndException, ParseException
 	{
 		char c = readToken();
 		// parsing parameter list
@@ -755,7 +755,7 @@ final class Injector
 	}
 
 	private JavaAttribute[] parseAttribute(JavaAttribute ja, char c)
-		throws IOException, EndException, InjectorParseException
+		throws EndException, InjectorParseException
 	{
 		consumer.onAttributeHeader(ja);
 
