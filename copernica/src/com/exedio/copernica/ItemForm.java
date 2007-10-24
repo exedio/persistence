@@ -204,7 +204,7 @@ final class ItemForm extends Form
 		
 		if(attribute instanceof com.exedio.cope.EnumField)
 		{
-			final com.exedio.cope.EnumField<? extends Enum> enumAttribute = (com.exedio.cope.EnumField<? extends Enum>)attribute;
+			final com.exedio.cope.EnumField<? extends Enum> enumAttribute = (com.exedio.cope.EnumField<?>)attribute;
 			if(post)
 				return new EnumField(enumAttribute, cop);
 			else
@@ -268,7 +268,7 @@ final class ItemForm extends Form
 			if(post)
 				return new ItemField(attribute, name, model, cop);
 			else
-				return new ItemField(attribute, name, ((com.exedio.cope.ItemField<? extends Item>)attribute).get(item), model, cop);
+				return new ItemField(attribute, name, ((com.exedio.cope.ItemField<?>)attribute).get(item), model, cop);
 		}
 		else
 		{

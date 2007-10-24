@@ -68,12 +68,12 @@ final class CopeRelation extends CopeFeature
 		final ItemField<? extends Item> endAttribute;
 		if(vector)
 		{
-			final VectorRelation<? extends Item,? extends Item> instance = (VectorRelation<? extends Item,? extends Item>)getInstance();
+			final VectorRelation<? extends Item,? extends Item> instance = (VectorRelation<?,?>)getInstance();
 			endAttribute = source ? instance.getSource() : instance.getTarget();
 		}
 		else
 		{
-			final Relation<? extends Item,? extends Item> instance = (Relation<? extends Item,? extends Item>)getInstance();
+			final Relation<? extends Item,? extends Item> instance = (Relation<?,?>)getInstance();
 			endAttribute = source ? instance.getSource() : instance.getTarget();
 		}
 		

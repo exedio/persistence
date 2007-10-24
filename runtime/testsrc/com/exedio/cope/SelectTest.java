@@ -101,7 +101,7 @@ public class SelectTest extends TestmodelTest
 				someString, someStringUppercase, Integer.valueOf(someStringLength),
 				someNotNullString, Integer.valueOf(someNotNullInteger), Long.valueOf(someNotNullLong),
 				new Double(someNotNullDouble), new Boolean(someNotNullBoolean), someNotNullItem, someNotNullEnumeration),
-			(List<? extends Object>)i.next());
+			(List<?>)i.next());
 	}
 	
 }

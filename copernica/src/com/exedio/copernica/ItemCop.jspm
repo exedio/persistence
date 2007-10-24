@@ -142,7 +142,7 @@ class ItemCop_Jspm
 						}
 						else if(attribute.isFinal() && attribute instanceof FunctionField)
 						{
-							%><b><%=item.get((FunctionField<? extends Object>)attribute)%></b><%
+							%><b><%=item.get((FunctionField<?>)attribute)%></b><%
 						}
 						else if(field instanceof RadioField
 									|| field instanceof CheckboxField
@@ -171,7 +171,7 @@ class ItemCop_Jspm
 							{
 								if(anyAttribute instanceof FunctionField)
 								{
-									final FunctionField<? extends Object> attribute = (FunctionField<? extends Object>)anyAttribute;
+									final FunctionField<? extends Object> attribute = (FunctionField<?>)anyAttribute;
 									final Object qualifiedValue = value.get(attribute);
 									if(qualifiedValue!=null)
 									{
