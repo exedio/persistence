@@ -61,7 +61,7 @@ public final class Model
 
 	// set by connect
 	private final Object connectLock = new Object();
-	private Properties propertiesIfConnected;
+	private ConnectProperties propertiesIfConnected;
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
@@ -276,7 +276,7 @@ public final class Model
 	 *
 	 * @throws IllegalStateException if this model has already been connected.
 	 */
-	public void connect(final Properties properties)
+	public void connect(final ConnectProperties properties)
 	{
 		if(properties==null)
 			throw new NullPointerException();
@@ -402,7 +402,7 @@ public final class Model
 		return getDatabase().getMigrationLogs();
 	}
 	
-	public Properties getProperties()
+	public ConnectProperties getProperties()
 	{
 		if(propertiesIfConnected==null)
 			throw new IllegalStateException("model not yet connected, use connect(Properties)");
@@ -1063,10 +1063,10 @@ public final class Model
 	}
 	
 	/**
-	 * @deprecated renamed to {@link #connect(Properties)}.
+	 * @deprecated renamed to {@link #connect(ConnectProperties)}.
 	 */
 	@Deprecated
-	public void setPropertiesInitially(final Properties properties)
+	public void setPropertiesInitially(final ConnectProperties properties)
 	{
 		connect(properties);
 	}

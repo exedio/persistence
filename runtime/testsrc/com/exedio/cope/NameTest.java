@@ -33,17 +33,17 @@ public class NameTest extends AbstractLibTest
 	}
 
 	@Override
-	public Properties getProperties()
+	public ConnectProperties getProperties()
 	{
-		final File dpf = Properties.getDefaultPropertyFile();
-		final java.util.Properties dp = Properties.loadProperties(dpf);
+		final File dpf = ConnectProperties.getDefaultPropertyFile();
+		final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
 		
 		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", "NameCollisionlongAItem_F");
 		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
 		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
 		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_pointerLoooooooooooooName_Ck", "NmeLngIm_pointrLngNme_Ck");
 		
-		return new Properties(dp, dpf.getAbsolutePath()+" plus NameTest forced names", Properties.getSystemPropertyContext());
+		return new ConnectProperties(dp, dpf.getAbsolutePath()+" plus NameTest forced names", ConnectProperties.getSystemPropertyContext());
 	}
 	
 	NameLongNameLongNameLongNameLongNameLongNameLongItem item;

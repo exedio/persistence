@@ -304,7 +304,7 @@ public class DeleteTest extends AbstractLibTest
 	 */
 	public void testMigrate()
 	{
-		assertEquals(Properties.getDefaultPropertyFile().getAbsolutePath(), model.getProperties().getSource());
+		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getProperties().getSource());
 		
 		assertFalse(model.isMigrationSupported());
 		try

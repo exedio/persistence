@@ -50,7 +50,7 @@ public class ModelTest extends TestmodelTest
 	
 	public void testConnect()
 	{
-		final Properties defaultProps = getProperties();
+		final ConnectProperties defaultProps = getProperties();
 		// test duplicate call of connect
 		final Date connectDate = model.getConnectDate();
 		assertNotNull(connectDate);
@@ -258,8 +258,8 @@ public class ModelTest extends TestmodelTest
 					final String name = (String)i.next();
 					prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 				}
-				final Properties p = model.getProperties();
-				for(final Properties.Field field : p.getFields())
+				final ConnectProperties p = model.getProperties();
+				for(final ConnectProperties.Field field : p.getFields())
 				{
 					if(field.getDefaultValue()!=null
 						&& field!=p.mediaRooturl
@@ -314,7 +314,7 @@ public class ModelTest extends TestmodelTest
 		assertWithin(Main.beforeModel, Main.afterModel, model.getInitializeDate());
 		
 		model.commit();
-		final Properties p = model.getProperties();
+		final ConnectProperties p = model.getProperties();
 		assertNotNull(p);
 		
 		model.disconnect();

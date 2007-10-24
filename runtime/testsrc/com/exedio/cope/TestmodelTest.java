@@ -35,10 +35,10 @@ public abstract class TestmodelTest extends AbstractLibTest
 	}
 	
 	@Override
-	public Properties getProperties()
+	public ConnectProperties getProperties()
 	{
-		final File dpf = Properties.getDefaultPropertyFile();
-		final java.util.Properties dp = Properties.loadProperties(dpf);
+		final File dpf = ConnectProperties.getDefaultPropertyFile();
+		final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
 		
 		dp.setProperty("database.forcename.StringItem", "STRINGITEMS");
 		dp.setProperty("database.forcename.STRINGITEMS.this", "STRINGITEM_ID");
@@ -54,7 +54,7 @@ public abstract class TestmodelTest extends AbstractLibTest
 		dp.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
 		dp.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
 		
-		return new Properties(dp, dpf.getAbsolutePath()+" plus TestmodelTest forced names", Properties.getSystemPropertyContext());
+		return new ConnectProperties(dp, dpf.getAbsolutePath()+" plus TestmodelTest forced names", ConnectProperties.getSystemPropertyContext());
 	}
 	
 	protected void assertDataMime(final AttributeItem item,

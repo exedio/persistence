@@ -110,7 +110,7 @@ public class PackageTest extends TestCase
 		return suite;
 	}
 
-	private static final void collectModels(final Test test, final HashMap<Model, Properties> models)
+	private static final void collectModels(final Test test, final HashMap<Model, ConnectProperties> models)
 	{
 		if(test instanceof com.exedio.cope.junit.CopeTest)
 		{
@@ -126,16 +126,16 @@ public class PackageTest extends TestCase
 		}
 	}
 	
-	static HashMap<Model, Properties> getModels(final Test test)
+	static HashMap<Model, ConnectProperties> getModels(final Test test)
 	{
-		final HashMap<Model, Properties> models = new HashMap<Model, Properties>();
+		final HashMap<Model, ConnectProperties> models = new HashMap<Model, ConnectProperties>();
 		collectModels(test, models);
 		return models;
 	}
 	
 	public static void main(String[] args)
 	{
-		final HashMap<Model, Properties> models = getModels(PackageTest.suite());
+		final HashMap<Model, ConnectProperties> models = getModels(PackageTest.suite());
 		for(final Model m : models.keySet())
 		{
 			//System.out.println("teardown " + m.getTypes());

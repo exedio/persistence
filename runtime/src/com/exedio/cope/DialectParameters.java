@@ -26,7 +26,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class DialectParameters
 {
-	final Properties properties;
+	final ConnectProperties properties;
 
 	// probed on the initial connection
 	final boolean supportsTransactionIsolationLevel;
@@ -39,7 +39,7 @@ final class DialectParameters
 	final int driverMajorVersion;
 	final int driverMinorVersion;
 	
-	DialectParameters(final Properties properties, final Connection connection)
+	DialectParameters(final ConnectProperties properties, final Connection connection)
 	{
 		this.properties = properties;
 

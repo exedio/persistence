@@ -28,7 +28,7 @@ public class TestGetModelTest extends CopeAssert
 {
 	public void testIt()
 	{
-		final HashMap<Model, Properties> models = PackageTest.getModels(PackageTest.suite());
+		final HashMap<Model, ConnectProperties> models = PackageTest.getModels(PackageTest.suite());
 		assertTrue(models.keySet().contains(NameTest.MODEL));
 		assertTrue(models.keySet().contains(DTypeTest.MODEL));
 		assertTrue(models.keySet().contains(BadQueryTest.MODEL));

@@ -24,7 +24,7 @@ import java.util.Date;
 import javax.servlet.ServletException;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Properties;
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.junit.CopeAssert;
 
 public class ConnectTokenTest extends CopeAssert
@@ -45,7 +45,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertNull(model.getConnectDate());
 		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
 		
-		final com.exedio.cope.Properties props = new com.exedio.cope.Properties(com.exedio.cope.Properties.getSystemPropertyContext());
+		final com.exedio.cope.ConnectProperties props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertyContext());
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = ConnectToken.issue(model, props, "token1Name");
@@ -63,7 +63,7 @@ public class ConnectTokenTest extends CopeAssert
 		
 		final Date before2 = new Date();
 		final ConnectToken token2 = ConnectToken.issue(model,
-				new com.exedio.cope.Properties(com.exedio.cope.Properties.getSystemPropertyContext())/* not the same but equal */,
+				new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertyContext())/* not the same but equal */,
 				"token2Name");
 		final Date after2 = new Date();
 		assertSame(props, model.getProperties());
@@ -78,10 +78,10 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals(false, token2.isReturned());
 		
 		{
-			final File dpf = Properties.getDefaultPropertyFile();
-			final java.util.Properties dp = Properties.loadProperties(dpf);
+			final File dpf = ConnectProperties.getDefaultPropertyFile();
+			final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
 			dp.setProperty("database.user", "zack");
-			final Properties props2 = new Properties(dp, "ConnectTokenTestChangedProps", Properties.getSystemPropertyContext());
+			final ConnectProperties props2 = new ConnectProperties(dp, "ConnectTokenTestChangedProps", ConnectProperties.getSystemPropertyContext());
 			try
 			{
 				ConnectToken.issue(model, props2, "tokenXName");

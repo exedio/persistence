@@ -100,7 +100,7 @@ public final class ConnectToken
 		private int nextId = 0;
 		private final Object lock = new Object();
 		
-		private ConnectToken issue(final Model model, final com.exedio.cope.Properties properties, final String tokenName)
+		private ConnectToken issue(final Model model, final com.exedio.cope.ConnectProperties properties, final String tokenName)
 		{
 			synchronized(lock)
 			{
@@ -182,7 +182,7 @@ public final class ConnectToken
 	 * @throws IllegalArgumentException if a subsequent call provides properties different
 	 * 									to the first call.
 	 */
-	public static final ConnectToken issue(final Model model, final com.exedio.cope.Properties properties, final String tokenName)
+	public static final ConnectToken issue(final Model model, final com.exedio.cope.ConnectProperties properties, final String tokenName)
 	{
 		return manciple(model).issue(model, properties, tokenName);
 	}

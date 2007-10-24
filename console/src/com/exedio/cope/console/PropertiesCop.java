@@ -27,7 +27,7 @@ import java.io.PrintStream;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Properties;
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.ConnectToken;
 
 final class PropertiesCop extends ConsoleCop
@@ -46,7 +46,7 @@ final class PropertiesCop extends ConsoleCop
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		final Properties props = model.getProperties();
+		final ConnectProperties props = model.getProperties();
 		final String source = props.getSource();
 		String sourceContent = null;
 		try
@@ -60,7 +60,7 @@ final class PropertiesCop extends ConsoleCop
 				bf.append(b, 0, len);
 
 			sourceContent = encodeXml(bf.toString());
-			for(final Properties.Field field : props.getFields())
+			for(final ConnectProperties.Field field : props.getFields())
 			{
 				if(field.hasHiddenValue())
 				{

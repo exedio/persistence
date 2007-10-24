@@ -67,7 +67,7 @@ final class Database
 	
 	Database(final Driver driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean migrationSupported)
 	{
-		final Properties properties = dialectParameters.properties;
+		final ConnectProperties properties = dialectParameters.properties;
 		this.driver = driver;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;

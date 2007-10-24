@@ -25,7 +25,7 @@ import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.List;
 
-import com.exedio.cope.Properties;
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.ConnectToken;
 
 final class Properties_Jspm extends Console_Jspm
@@ -66,7 +66,7 @@ final class Properties_Jspm extends Console_Jspm
 	final static void writeBody(
 				final PrintStream out,
 				final PropertiesCop cop,
-				final Properties properties,
+				final ConnectProperties properties,
 				final Date initializeDate,
 				final Date connectDate,
 				final List<ConnectToken> connectTokens,
@@ -86,7 +86,7 @@ final class Properties_Jspm extends Console_Jspm
 			<tr>
 				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse%>"> show unspecified</th>
 			</tr><%
-			for(final Properties.Field field : properties.getFields())
+			for(final ConnectProperties.Field field : properties.getFields())
 			{
 				final boolean fieldSpecified = field.isSpecified();
 				if(!field.hasHiddenValue())
@@ -109,9 +109,9 @@ final class Properties_Jspm extends Console_Jspm
 							cop.formatObject(defaultValue)
 							%>)</span><%
 					}
-					else if(field instanceof Properties.FileField)
+					else if(field instanceof ConnectProperties.FileField)
 					{
-						final File file = ((Properties.FileField)field).getFileValue();
+						final File file = ((ConnectProperties.FileField)field).getFileValue();
 						if(file!=null)
 						{
 							try

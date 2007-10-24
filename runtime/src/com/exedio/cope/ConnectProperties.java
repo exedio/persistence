@@ -27,7 +27,7 @@ import java.sql.SQLException;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
-public final class Properties extends com.exedio.cope.util.Properties
+public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
@@ -67,12 +67,12 @@ public final class Properties extends com.exedio.cope.util.Properties
 	
 	private final Constructor<? extends Dialect> dialect;
 
-	public Properties()
+	public ConnectProperties()
 	{
 		this(getDefaultPropertyFile(), null);
 	}
 	
-	public Properties(final Context context)
+	public ConnectProperties(final Context context)
 	{
 		this(getDefaultPropertyFile(), context);
 	}
@@ -86,17 +86,17 @@ public final class Properties extends com.exedio.cope.util.Properties
 		return new File(result);
 	}
 
-	public Properties(final File file)
+	public ConnectProperties(final File file)
 	{
 		this(file, null);
 	}
 
-	public Properties(final File file, final Context context)
+	public ConnectProperties(final File file, final Context context)
 	{
 		this(loadProperties(file), file.getAbsolutePath(), context);
 	}
 
-	public Properties(final java.util.Properties properties, final String source, final Context context)
+	public ConnectProperties(final java.util.Properties properties, final String source, final Context context)
 	{
 		super(properties, source, context);
 

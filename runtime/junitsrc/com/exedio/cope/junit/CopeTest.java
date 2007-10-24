@@ -25,7 +25,7 @@ import java.util.ListIterator;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.Properties;
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
 
@@ -184,9 +184,9 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 	
-	public Properties getProperties()
+	public ConnectProperties getProperties()
 	{
-		return new Properties(Properties.getSystemPropertyContext());
+		return new ConnectProperties(ConnectProperties.getSystemPropertyContext());
 	}
 	
 	@Override

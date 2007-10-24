@@ -30,7 +30,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final String url;
 	private final java.util.Properties info;
 
-	ConnectionFactory(final Properties properties, final Dialect dialect)
+	ConnectionFactory(final ConnectProperties properties, final Dialect dialect)
 	{
 		this.url = properties.getDatabaseUrl();
 

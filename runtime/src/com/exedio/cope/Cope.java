@@ -321,7 +321,7 @@ public abstract class Cope implements Serializable
 			throw new RuntimeException("must have two arguments, model and action");
 		
 		final Model model = getModel(args[0]);
-		model.connect(new Properties(Properties.getSystemPropertyContext()));
+		model.connect(new ConnectProperties(ConnectProperties.getSystemPropertyContext()));
 		final String action = args[1];
 		if("create".equals(action))
 			model.createDatabase();

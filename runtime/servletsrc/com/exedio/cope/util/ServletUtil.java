@@ -81,13 +81,13 @@ public class ServletUtil
 	 * the file <tt>cope.properties</tt>
 	 * in the directory <tt>WEB-INF</tt>
 	 * of the web application.
-	 * @see Model#connect(com.exedio.cope.Properties)
-	 * @see ConnectToken#issue(Model,com.exedio.cope.Properties,String)
+	 * @see Model#connect(com.exedio.cope.ConnectProperties)
+	 * @see ConnectToken#issue(Model,com.exedio.cope.ConnectProperties,String)
 	 */
 	public static final ConnectToken connect(final Model model, final ServletContext context, final String name)
 	{
 		return ConnectToken.issue(model,
-			new com.exedio.cope.Properties(
+			new com.exedio.cope.ConnectProperties(
 				new File(context.getRealPath("WEB-INF/cope.properties")), getPropertyContext(context)), name);
 	}
 	

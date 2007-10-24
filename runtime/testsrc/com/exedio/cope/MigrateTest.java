@@ -58,14 +58,14 @@ public class MigrateTest extends CopeAssert
 	}
 	
 	private String hostname;
-	private com.exedio.cope.Properties props;
+	private com.exedio.cope.ConnectProperties props;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new com.exedio.cope.Properties(com.exedio.cope.Properties.getSystemPropertyContext());
+		props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertyContext());
 	}
 
 	String jdbcUrl;

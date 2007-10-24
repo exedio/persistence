@@ -34,14 +34,14 @@ public class DefaultToTest extends AbstractLibTest
 	}
 	
 	@Override
-	public Properties getProperties()
+	public ConnectProperties getProperties()
 	{
-		final File dpf = Properties.getDefaultPropertyFile();
-		final java.util.Properties dp = Properties.loadProperties(dpf);
+		final File dpf = ConnectProperties.getDefaultPropertyFile();
+		final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
 		
 		dp.setProperty("database.forcename.DefaultToItem_dateEighty_Ck", "DefltToItm_dateEighty_Ck");
 		
-		return new Properties(dp, dpf.getAbsolutePath()+" plus DefaultToTest forced names", Properties.getSystemPropertyContext());
+		return new ConnectProperties(dp, dpf.getAbsolutePath()+" plus DefaultToTest forced names", ConnectProperties.getSystemPropertyContext());
 	}
 	
 	public void testIt()
