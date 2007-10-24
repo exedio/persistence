@@ -70,10 +70,10 @@ public class DataTest extends AbstractLibTest
 	private void assertIt(final byte[] expectedData, final DataItem item)
 		throws MandatoryViolationException, IOException
 	{
-		assertIt(expectedData, item, oracle, model);
+		assertIt(expectedData, item, oracle);
 	}
 	
-	private static final void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle, final Model model)
+	private static final void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle)
 		throws MandatoryViolationException, IOException
 	{
 		if(expectedData!=null && !(oracle && expectedData.length==0))

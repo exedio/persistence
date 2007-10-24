@@ -108,11 +108,19 @@ public class ExpectingDatabaseListener implements DatabaseListener
 			this.tx = tx;
 		}
 		
+		/**
+		 * @param connection used in subclasses
+		 * @param state used in subclasses
+		 */
 		void checkLoad(Connection connection, WrittenState state)
 		{
 			throw new RuntimeException( "load in "+toString() );
 		}
 		
+		/**
+		 * @param connection used in subclasses
+		 * @param query used in subclasses
+		 */
 		void checkSearch( Connection connection, Query query )
 		{
 			throw new RuntimeException( "search in "+toString() );

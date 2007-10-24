@@ -36,6 +36,9 @@ final class HsqldbDialect extends Dialect
 		}
 	}
 
+	/**
+	 * @param parameters must be there to be called by reflection
+	 */
 	protected HsqldbDialect(final DialectParameters parameters)
 	{
 		super(

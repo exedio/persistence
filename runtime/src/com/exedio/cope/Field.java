@@ -175,6 +175,8 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * {@link #checkValue(Object, Item)}.
 	 * To be overidden by subclasses,
 	 * the default implementation does nothing.
+	 * @param value used in subclasses
+	 * @param exceptionItem used in subclasses
 	 */
 	void checkNotNullValue(final E value, final Item exceptionItem)
 		throws

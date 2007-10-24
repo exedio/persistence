@@ -326,6 +326,9 @@ final class JavaRepository
 			super(storage);
 		}
 		
+		/**
+		 * @param storageOption must be there to be called by bean shell
+		 */
 		public DummyHash(final com.exedio.cope.Field.Option storageOption)
 		{
 			super();

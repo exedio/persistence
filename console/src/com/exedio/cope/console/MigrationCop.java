@@ -110,7 +110,7 @@ final class MigrationCop extends ConsoleCop
 			final int current = model.getMigrationRevision();
 			register(current);
 			
-			Migration_Jspm.writeBody(this, out, oldest, latest, current, migrationMap, logStrings, logProperties);
+			Migration_Jspm.writeBody(out, oldest, latest, current, migrationMap, logStrings, logProperties);
 		}
 		else
 		{

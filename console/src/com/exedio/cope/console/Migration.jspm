@@ -51,7 +51,6 @@ final class Migration_Jspm extends Console_Jspm
 	}
 	
 	final static void writeBody(
-			final MigrationCop cop,
 			final PrintStream out,
 			final int oldest, final int latest, final int current,
 			Map<Integer, Migration> migrations,

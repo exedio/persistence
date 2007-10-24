@@ -98,6 +98,9 @@ public abstract class Driver
 			});
 	}
 	
+	/**
+	 * @param bf used in subclasses
+	 */
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		// empty default implementation

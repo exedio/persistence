@@ -50,6 +50,9 @@ abstract class ConsoleCop extends Cop
 	String authentication;
 	String hostname;
 	
+	/**
+	 * @param model used in subclasses
+	 */
 	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
@@ -153,6 +156,9 @@ abstract class ConsoleCop extends Cop
 		return /*("["+hidden+']') +*/ (number!=hidden ? format(number) : "");
 	}
 	
+	/**
+	 * @param out used in subclasses
+	 */
 	void writeHead(PrintStream out)
 	{
 		// default implementation does nothing

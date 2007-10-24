@@ -125,7 +125,7 @@ public final class UniqueConstraint extends Feature
 	}
 	
 	@Override
-	void toStringNonInitialized(final StringBuilder bf, final Type defaultType)
+	void toStringNonInitialized(final StringBuilder bf)
 	{
 		bf.append("unique(");
 		bf.append(fields[0].toString());

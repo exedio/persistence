@@ -125,7 +125,7 @@ final class MediaCop extends ConsoleCop
 	void writeHead(final PrintStream out)
 	{
 		if(mediaInline || otherInline)
-			Media_Jspm.writeHead(this, out);
+			Media_Jspm.writeHead(out);
 	}
 	
 	@Override

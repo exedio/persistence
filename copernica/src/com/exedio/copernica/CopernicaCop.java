@@ -46,6 +46,9 @@ abstract class CopernicaCop extends Cop implements RequestCache
 			addParameter(LANGUAGE, language.getCopernicaID());
 	}
 	
+	/**
+	 * @param request used in subclasses
+	 */
 	void init(final HttpServletRequest request)
 	{
 		// empty default implementation

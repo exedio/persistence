@@ -53,6 +53,9 @@ abstract class Dialect
 		this.stringLength = stringLength;
 	}
 	
+	/**
+	 * @param info used in subclasses
+	 */
 	protected void completeConnectionInfo(final java.util.Properties info)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
@@ -60,6 +63,11 @@ abstract class Dialect
 	
 	protected static final String EXPLAIN_PLAN = "explain plan";
 	
+	/**
+	 * @param statement used in subclasses
+	 * @param connection used in subclasses
+	 * @param database used in subclasses
+	 */
 	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Database database)
 	{
 		return null;
@@ -183,6 +191,9 @@ abstract class Dialect
 			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 	
+	/**
+	 * @param schema used in subclasses
+	 */
 	protected void completeSchema(final Schema schema)
 	{
 		// empty default implementation
@@ -193,6 +204,10 @@ abstract class Dialect
 		return false;
 	}
 	
+	/**
+	 * @param columnTypes used in subclasses
+	 * @param statement used in subclasses
+	 */
 	void defineColumnTypes(TIntArrayList columnTypes, java.sql.Statement statement)
 			throws SQLException
 	{

@@ -40,6 +40,9 @@ public class IntegerItem extends Item
 		});
 	}
 	
+	/**
+	 * @param dummy is a dummy
+	 */
 	IntegerItem(final Integer max4, final Date dummy) throws LengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{

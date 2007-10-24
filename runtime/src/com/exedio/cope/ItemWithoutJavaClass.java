@@ -38,12 +38,18 @@ final class ItemWithoutJavaClass extends Item
 		super(pk, type);
 	}
 	
+	/**
+	 * @param out must be there to be called by serialization
+	 */
 	private void writeObject(final ObjectOutputStream out) throws IOException
 	{
 		// TODO
 		throw new NotSerializableException("not yet implemented for " + getClass());
 	}
 	
+	/**
+	 * @param in must be there to be called by serialization
+	 */
 	private void readObject(final ObjectInputStream in) throws IOException
 	{
 		// TODO

@@ -59,6 +59,9 @@ public class StringItem extends Item
 	
 	public static final PlusView min4AndMax4UpperLength = min4UpperLength.plus(max4UpperLength);
 	
+	/**
+	 * @param dummy is a dummy
+	 */
 	public StringItem(final String any, boolean dummy)
 	{
 		this(
@@ -67,6 +70,9 @@ public class StringItem extends Item
 		);
 	}
 	
+	/**
+	 * @param dummy is a dummy
+	 */
 	public StringItem(final String mandatory, double dummy) throws MandatoryViolationException
 	{
 		this(
@@ -74,6 +80,9 @@ public class StringItem extends Item
 		);
 	}
 	
+	/**
+	 * @param dummy is a dummy
+	 */
 	public StringItem(final String exact6, int dummy) throws LengthViolationException
 	{
 		this(
@@ -82,6 +91,9 @@ public class StringItem extends Item
 		);
 	}
 	
+	/**
+	 * @param dummy is a dummy
+	 */
 	public StringItem(final String max4, Date dummy) throws LengthViolationException
 	{
 		this(new SetValue[]{

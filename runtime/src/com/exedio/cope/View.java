@@ -149,7 +149,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	}
 	
 	@Override
-	final void toStringNonInitialized(final StringBuilder bf, final Type defaultType)
+	final void toStringNonInitialized(final StringBuilder bf)
 	{
 		bf.append(name);
 		bf.append('(');
