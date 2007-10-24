@@ -169,7 +169,7 @@ public final class CompositeCondition extends Condition
 		AND(" and ", FALSE, TRUE),
 		OR (" or ",  TRUE, FALSE);
 		
-		private final String sql;
+		final String sql;
 		final Condition.Literal absorber;
 		final Condition.Literal identity;
 		

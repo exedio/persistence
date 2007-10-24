@@ -29,7 +29,7 @@ import junit.framework.AssertionFailedError;
 public abstract class InjectorTest extends InstrumentorTest
 {
 	private final String resourceName;
-	private final boolean assertText;
+	final boolean assertText;
 	private final String lineSeparator;
 
 	protected InjectorTest(final String resourceName, final boolean assertText)
@@ -39,7 +39,7 @@ public abstract class InjectorTest extends InstrumentorTest
 		this.lineSeparator = System.getProperty("line.separator");
 	}
 
-	private LinkedList<InjectionEvent> injectionEvents;
+	LinkedList<InjectionEvent> injectionEvents;
 	private TestInjectionConsumer testInjectionConsumer;
 
 	public abstract void assertInjection();
@@ -225,6 +225,10 @@ public abstract class InjectorTest extends InstrumentorTest
 
 	private static class InjectionEvent
 	{
+		InjectionEvent()
+		{
+			// make constructor non-private
+		}
 		// just a common super class
 	}
 
@@ -358,6 +362,11 @@ public abstract class InjectorTest extends InstrumentorTest
 	private class TestInjectionConsumer implements InjectionConsumer
 	{
 		StringBuilder output;
+		
+		TestInjectionConsumer()
+		{
+			// make constructor non-private
+		}
 		
 		public void onPackage(final JavaFile javaFile) throws InjectorParseException
 		{

@@ -239,7 +239,7 @@ final class OracleDialect extends Dialect
 
 	private static final String STATEMENT_ID_PREFIX = "cope";
 
-	private static final HashSet<String> skippedColumnNames = new HashSet<String>(Arrays.asList(new String[]{
+	static final HashSet<String> skippedColumnNames = new HashSet<String>(Arrays.asList(new String[]{
 			STATEMENT_ID,
 			OPERATION,
 			OPTIONS,

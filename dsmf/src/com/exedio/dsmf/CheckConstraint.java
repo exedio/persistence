@@ -64,6 +64,11 @@ public class CheckConstraint extends Constraint
 	private static class CheckResultSetHandler implements ResultSetHandler
 	{
 		int result = Integer.MIN_VALUE;
+		
+		CheckResultSetHandler()
+		{
+			// make constructor non-private
+		}
 
 		public void run(final ResultSet resultSet) throws SQLException
 		{

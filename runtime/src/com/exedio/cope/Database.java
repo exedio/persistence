@@ -970,7 +970,7 @@ final class Database
 		}
 	};
 	
-	private static int convertSQLResult(final Object sqlInteger)
+	static int convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE
 		// Whether the returned object is an Integer, a Long or a BigDecimal,

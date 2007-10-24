@@ -100,7 +100,7 @@ public final class MysqlDriver extends Driver
 		}
 	}
 	
-	private final String unprotectName(final String protectedName)
+	final String unprotectName(final String protectedName)
 	{
 		final int length = protectedName.length();
 		if(length<3)

@@ -397,7 +397,7 @@ public final class Query<R>
 		final int offset;
 		final int limit;
 		
-		private Result(final Query<R> query)
+		Result(final Query<R> query)
 		{
 			this.data = query.search();
 			final int dataSize = data.size();

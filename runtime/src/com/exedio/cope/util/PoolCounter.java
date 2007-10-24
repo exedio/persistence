@@ -40,8 +40,8 @@ public final class PoolCounter
 	private final int[] destroy;
 	private int count;
 
-	private int get = 0;
-	private int put = 0;
+	int get = 0;
+	int put = 0;
 
 	public PoolCounter()
 	{
@@ -180,7 +180,7 @@ public final class PoolCounter
 		private final int create;
 		private final int destroy;
 		
-		private Pool(final int idleLimit, final int idle, final int idleMax, final int create, final int destroy)
+		Pool(final int idleLimit, final int idle, final int idleMax, final int create, final int destroy)
 		{
 			this.idleLimit = idleLimit;
 			this.idle = idle;

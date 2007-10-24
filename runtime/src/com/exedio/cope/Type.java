@@ -83,7 +83,7 @@ public final class Type<C extends Item>
 	 */
 	int idTransiently = -1;
 
-	private Table table;
+	Table table;
 	
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
@@ -1039,7 +1039,7 @@ public final class Type<C extends Item>
 		
 		final Type<E> type;
 		
-		private This(final Type<E> type)
+		This(final Type<E> type)
 		{
 			assert type!=null;
 			this.type = type;

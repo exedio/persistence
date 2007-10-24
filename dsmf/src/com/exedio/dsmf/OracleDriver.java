@@ -80,7 +80,7 @@ public final class OracleDriver extends Driver
 		}
 	}
 
-	private Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
+	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('(');

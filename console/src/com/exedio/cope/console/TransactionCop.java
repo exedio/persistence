@@ -124,7 +124,7 @@ final class TransactionCop extends ConsoleCop
 				commits);
 	}
 	
-	private static final ArrayList<Commit> commits = new ArrayList<Commit>();
+	static final ArrayList<Commit> commits = new ArrayList<Commit>();
 	
 	private static final ModificationListener listener = new ModificationListener()
 	{

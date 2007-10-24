@@ -608,10 +608,10 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	
 	public static final class Value // TODO add getter methods
 	{
-		private final String contentType;
-		private final DataField.Value body;
+		final String contentType;
+		final DataField.Value body;
 		
-		private Value(final DataField.Value body, final String contentType)
+		Value(final DataField.Value body, final String contentType)
 		{
 			assert body!=null;
 			assert contentType!=null;

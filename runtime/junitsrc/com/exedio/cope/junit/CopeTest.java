@@ -35,7 +35,7 @@ import com.exedio.cope.util.PoolCounter;
  */
 public abstract class CopeTest extends CopeAssert
 {
-	private static Model createdDatabase = null;
+	static Model createdDatabase = null;
 	private static boolean registeredDropDatabaseHook = false;
 	private static Object lock = new Object();
 	//private static final HashSet<Model> duplicateCreates = new HashSet<Model>();

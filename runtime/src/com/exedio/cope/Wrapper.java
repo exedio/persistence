@@ -195,7 +195,7 @@ public final class Wrapper
 		private final Class rawType;
 		private final Class[] actualTypeArguments;
 		
-		private ExtendsType(
+		ExtendsType(
 				final Class rawType,
 				final Class[] actualTypeArguments)
 		{

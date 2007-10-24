@@ -40,7 +40,7 @@ public abstract class SchemaTest extends TestCase
 	Connection connection1; // visible for BatchTest
 	private Connection connection2;
 	
-	private static final File getDefaultPropertyFile()
+	static final File getDefaultPropertyFile()
 	{
 		String result = System.getProperty("com.exedio.cope.properties");
 		if(result==null)
@@ -51,9 +51,9 @@ public abstract class SchemaTest extends TestCase
 
 	private final class Properties extends com.exedio.cope.util.Properties
 	{
-		private final StringField databaseUrl =  new StringField("database.url");
-		private final StringField databaseUser =  new StringField("database.user");
-		private final StringField databasePassword =  new StringField("database.password", true);
+		final StringField databaseUrl =  new StringField("database.url");
+		final StringField databaseUser =  new StringField("database.user");
+		final StringField databasePassword =  new StringField("database.password", true);
 
 		Properties()
 		{

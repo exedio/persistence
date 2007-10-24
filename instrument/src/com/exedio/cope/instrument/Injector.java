@@ -55,7 +55,7 @@ final class Injector
 	
 	private final StringBuilder output;
 	private final InjectionConsumer consumer;
-	private final String fileName;
+	final String fileName;
 
 	private final StringBuilder buf = new StringBuilder();
 
@@ -114,12 +114,12 @@ final class Injector
 	/**
 	 * The line number in the current file.
 	 */
-	private int positionLine = 1;
+	int positionLine = 1;
 
 	/**
 	 * The character in the current line.
 	 */
-	private int positionColumn = 0;
+	int positionColumn = 0;
 
 	private final char read() throws IOException, EndException
 	{
@@ -1016,7 +1016,7 @@ final class Injector
 		}
 	}
 
-	private class EndException extends Exception
+	class EndException extends Exception
 	{
 		private static final long serialVersionUID = 1l;
 		
@@ -1029,7 +1029,7 @@ final class Injector
 		final int line;
 		final int column;
 
-		private ParseException(String message)
+		ParseException(String message)
 		{
 			//super("["+positionLine+':'+positionColumn+']'+' '+message);
 			super(message);
@@ -1037,7 +1037,7 @@ final class Injector
 			column = positionColumn;
 		}
 
-		private ParseException(final RuntimeException cause)
+		ParseException(final RuntimeException cause)
 		{
 			//super("["+positionLine+':'+positionColumn+']'+' '+message);
 			super(cause);

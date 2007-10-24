@@ -157,6 +157,11 @@ public class ModificationListenerTest extends AbstractLibTest
 		Transaction transaction = null;
 		boolean exception = false;
 		
+		TestListener()
+		{
+			// make constructor non-private
+		}
+		
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
 			assertTrue(modifiedItems!=null);
@@ -199,6 +204,11 @@ public class ModificationListenerTest extends AbstractLibTest
 
 	private final class FailModificationListener implements ModificationListener
 	{
+		FailModificationListener()
+		{
+			// make constructor non-private
+		}
+		
 		public void onModifyingCommit(Collection<Item> modifiedItems, Transaction transaction)
 		{
 			throw new RuntimeException();

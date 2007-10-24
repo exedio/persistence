@@ -72,7 +72,7 @@ final class JavaRepository
 		GENERATE;
 	}
 	
-	private Stage stage = Stage.BUILD;
+	Stage stage = Stage.BUILD;
 	
 	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
 	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<String, JavaClass>();

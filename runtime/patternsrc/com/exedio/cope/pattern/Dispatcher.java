@@ -50,10 +50,10 @@ public final class Dispatcher extends Pattern
 	private final DateField successDate = new DateField().optional();
 	private final LongField successElapsed = new LongField().optional();
 
-	private ItemField<?> failureParent = null;
-	private final DateField failureDate = new DateField().toFinal();
-	private final LongField failureElapsed = new LongField();
-	private final DataField failureCause = new DataField().toFinal();
+	ItemField<?> failureParent = null;
+	final DateField failureDate = new DateField().toFinal();
+	final LongField failureElapsed = new LongField();
+	final DataField failureCause = new DataField().toFinal();
 	private Type<?> failureType = null;
 	
 	public Dispatcher()
@@ -308,7 +308,7 @@ public final class Dispatcher extends Pattern
 	{
 		private final Item backingItem;
 		
-		private Failure(final Item backingItem)
+		Failure(final Item backingItem)
 		{
 			this.backingItem = backingItem;
 			assert backingItem!=null;

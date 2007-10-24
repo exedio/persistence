@@ -30,9 +30,9 @@ import java.util.List;
 
 public class Properties
 {
-	private final java.util.Properties properties;
-	private final String source;
-	private final ArrayList<Field> fields = new ArrayList<Field>();
+	final java.util.Properties properties;
+	final String source;
+	final ArrayList<Field> fields = new ArrayList<Field>();
 	private final Context context;
 	
 	public Properties(final java.util.Properties properties, final String source)
@@ -59,7 +59,7 @@ public class Properties
 		return Collections.unmodifiableList(fields);
 	}
 	
-	private final String getProperty(final String key)
+	final String getProperty(final String key)
 	{
 		final String raw = properties.getProperty(key);
 		if(raw==null || context==null)
@@ -110,7 +110,7 @@ public class Properties
 	
 	public abstract class Field
 	{
-		private final String key;
+		final String key;
 		private final boolean specified;
 		
 		Field(final String key)

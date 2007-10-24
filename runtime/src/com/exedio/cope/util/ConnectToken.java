@@ -30,15 +30,15 @@ import com.exedio.cope.Model;
 public final class ConnectToken
 {
 	private final Manciple manciple;
-	private final Model model;
-	private final int id;
+	final Model model;
+	final int id;
 	private final long issueDate = System.currentTimeMillis();
-	private final String name;
+	final String name;
 	private final boolean didConnect;
 	private volatile boolean returned = false;
 	private final Object returnedLock = new Object();
 	
-	private ConnectToken(
+	ConnectToken(
 			final Manciple manciple,
 			final Model model,
 			final int id,
@@ -105,7 +105,12 @@ public final class ConnectToken
 		private int nextId = 0;
 		private final Object lock = new Object();
 		
-		private ConnectToken issue(
+		Manciple()
+		{
+			// make constructor non-private
+		}
+		
+		ConnectToken issue(
 				final Model model,
 				final com.exedio.cope.ConnectProperties properties,
 				final String tokenName)
@@ -130,7 +135,7 @@ public final class ConnectToken
 			}
 		}
 		
-		private boolean returnIt(final ConnectToken token)
+		boolean returnIt(final ConnectToken token)
 		{
 			synchronized(lock)
 			{

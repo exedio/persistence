@@ -118,10 +118,10 @@ public abstract class Condition
 	
 	static class Literal extends Condition
 	{
-		private final boolean value;
+		final boolean value;
 		private final String name;
 		
-		private Literal(final boolean value, final String name)
+		Literal(final boolean value, final String name)
 		{
 			this.value = value;
 			this.name = name;

@@ -40,20 +40,20 @@ import com.exedio.cope.Wrapper;
  */
 public final class History extends Pattern
 {
-	private ItemField<?> eventParent = null;
-	private final DateField eventDate = new DateField().toFinal();
+	ItemField<?> eventParent = null;
+	final DateField eventDate = new DateField().toFinal();
 	private UniqueConstraint eventUnique = null;
-	private final StringField eventOrigin = new StringField().toFinal();
-	private final BooleanField eventCreation = new BooleanField().toFinal();
+	final StringField eventOrigin = new StringField().toFinal();
+	final BooleanField eventCreation = new BooleanField().toFinal();
 	private Type<?> eventType = null;
 	
-	private ItemField<?> featureEvent = null;
-	private final StringField featureId = new StringField().toFinal();
+	ItemField<?> featureEvent = null;
+	final StringField featureId = new StringField().toFinal();
 	private UniqueConstraint featureUnique = null;
-	private final StringField featureName = new StringField().toFinal();
-	private final StringField featureOld = new StringField().toFinal().optional();
-	private final StringField featureNew = new StringField().toFinal().optional();
-	private Type<?> featureType = null;
+	final StringField featureName = new StringField().toFinal();
+	final StringField featureOld = new StringField().toFinal().optional();
+	final StringField featureNew = new StringField().toFinal().optional();
+	Type<?> featureType = null;
 
 	@Override
 	public void initialize()
@@ -205,7 +205,7 @@ public final class History extends Pattern
 	{
 		private final Item backingItem;
 		
-		private Event(final Item backingItem)
+		Event(final Item backingItem)
 		{
 			this.backingItem = backingItem;
 			assert backingItem!=null;
@@ -284,7 +284,7 @@ public final class History extends Pattern
 	{
 		private final Item backingItem;
 		
-		private Feature(final Item backingItem)
+		Feature(final Item backingItem)
 		{
 			this.backingItem = backingItem;
 			assert backingItem!=null;

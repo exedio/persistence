@@ -307,7 +307,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		}
 	}
 	
-	private static final HashMap<Class, ValueType> valueTypes = new HashMap<Class, ValueType>();
+	static final HashMap<Class, ValueType> valueTypes = new HashMap<Class, ValueType>();
 
 	@SuppressWarnings("unchecked")
 	private static final <E> ValueType<E> getValueType(final Class valueClass)

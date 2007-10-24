@@ -142,6 +142,11 @@ public class QueryCacheTest extends AbstractLibTest
 	{
 		final ArrayList<SC> scs = new ArrayList<SC>();
 		
+		DBL()
+		{
+			// make constructor non-private
+		}
+		
 		public void load(Connection connection, WrittenState state)
 		{
 			throw new RuntimeException();
