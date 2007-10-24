@@ -29,12 +29,9 @@ import com.exedio.cope.UniqueConstraint;
  */
 final class CopeUniqueConstraint extends CopeFeature
 {
-	private final JavaAttribute javaAttribute;
-	
 	CopeUniqueConstraint(final CopeType parent, final JavaAttribute javaAttribute)
 	{
 		super(parent, javaAttribute);
-		this.javaAttribute = javaAttribute;
 	}
 	
 	CopeAttribute[] getAttributes() throws InjectorParseException

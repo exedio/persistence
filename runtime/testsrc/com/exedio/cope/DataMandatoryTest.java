@@ -32,9 +32,6 @@ public class DataMandatoryTest extends AbstractLibTest
 		super(MODEL);
 	}
 	
-	private final byte[] data4  = {-86,122,-8,23};
-	private final byte[] data6  = {-97,35,-126,86,19,-8};
-	
 	private DataMandatoryItem item;
 
 	@Override
