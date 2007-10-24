@@ -181,9 +181,9 @@ public final class Wrapper
 			: Collections.<String>emptyList();
 	}
 	
-	public class ClassVariable { /* OK, just a placeholder */ };
-	public class TypeVariable0 { /* OK, just a placeholder */ };
-	public class TypeVariable1 { /* OK, just a placeholder */ };
+	public class ClassVariable { /* OK, just a placeholder */ }
+	public class TypeVariable0 { /* OK, just a placeholder */ }
+	public class TypeVariable1 { /* OK, just a placeholder */ }
 	
 	public static final java.lang.reflect.Type makeType(final Class rawType, final Class... actualTypeArguments)
 	{

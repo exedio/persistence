@@ -1637,7 +1637,7 @@ final class Database
 	@Deprecated // OK: for debugging
 	protected static void printMeta(final ResultSet resultSet) throws SQLException
 	{
-		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
 		for(int i = 1; i<=columnCount; i++)
 			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
@@ -1649,7 +1649,7 @@ final class Database
 	@Deprecated // OK: for debugging
 	protected static void printRow(final ResultSet resultSet) throws SQLException
 	{
-		final ResultSetMetaData metaData = resultSet.getMetaData();;
+		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
 		for(int i = 1; i<=columnCount; i++)
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
