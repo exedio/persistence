@@ -328,7 +328,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		FINAL_UNIQUE_OPTIONAL(true,  true,  true);
 		
 		/**
-		 * Works around a bug in javac 1.5.0_08,
+		 * Works around a bug in javac 1.5.0_08 (and 1.5.0_11),
 		 * which propagates the deprecated flag from
 		 * FINAL_UNIQUE_OPTIONAL to its successor in source code.
 		 */
