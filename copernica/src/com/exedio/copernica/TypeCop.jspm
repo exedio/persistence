@@ -209,7 +209,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof ItemField)
 						{
-							final Item value = ((ItemField<? extends Item>)feature).get(item);
+							final Item value = ((ItemField<?>)feature).get(item);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
@@ -235,7 +235,7 @@ final class TypeCop_Jspm
 						}
 						else if(feature instanceof EnumField)
 						{
-							final Enum value = ((EnumField<? extends Enum>)feature).get(item);
+							final Enum value = ((EnumField<?>)feature).get(item);
 							if(value==null)
 							{
 								%><%=cop.getDisplayNameNull()%><%
