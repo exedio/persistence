@@ -631,6 +631,11 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws IOException, InjectorParseException
 	{
+		final Option option = new Option(
+				Injector.findDocTagLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
+		if(option!=null && !option.exists)
+			return;
+		
 		final CopeAttribute[] attributes = constraint.getAttributes();
 		final String className = attributes[0].getParent().name;
 		
@@ -651,7 +656,7 @@ final class Generator
 		o.write(lineSeparator);
 
 		writeCommentFooter();
-		writeModifier((constraint.modifier & (PRIVATE|PROTECTED|PUBLIC)) | (STATIC|FINAL) );
+		writeModifier((option!=null ? option.getModifier(constraint.modifier) : (constraint.modifier&(PRIVATE|PROTECTED|PUBLIC))) | (STATIC|FINAL) );
 		o.write(className);
 		o.write(" findBy");
 		o.write(toCamelCase(constraint.name));
