@@ -37,7 +37,9 @@ public class IntegerTest extends AbstractLibTest
 	private static final Condition TRUE  = Condition.TRUE;
 	private static final Condition FALSE = Condition.FALSE;
 	
-	private IntegerItem item, item2;
+	private IntegerItem item;
+	@SuppressWarnings("unused") // OK: is an item not to be found by searches
+	private IntegerItem item2;
 	private int numberOfItems;
 	
 	@Override

@@ -99,11 +99,13 @@ public final class DType extends Item
 		});
 	}
 	
+	@SuppressWarnings("unused") // OK: called by reflection
 	private DType(final SetValue[] setValues)
 	{
 		super(setValues);
 	}
 	
+	@SuppressWarnings("unused") // OK: called by reflection
 	private DType(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d, pk);

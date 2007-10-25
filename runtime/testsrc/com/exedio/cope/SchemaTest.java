@@ -397,11 +397,6 @@ public class SchemaTest extends TestmodelTest
 		return type.cast(constraint);
 	}
 	
-	private final String p(final Type type)
-	{
-		return p(type.getTableName());
-	}
-	
 	private final String p(final Field attribute)
 	{
 		return p(attribute.getColumnName());

@@ -21,7 +21,6 @@ package com.exedio.copernica;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import com.exedio.cope.Field;
@@ -31,7 +30,6 @@ public class TransientSection
 	implements CopernicaSection
 {
 	private final List<? extends Field> attributes;
-	private final HashMap names = new HashMap();
 	
 	public TransientSection(final String id, final Field[] attributes)
 	{

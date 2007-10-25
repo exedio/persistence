@@ -163,11 +163,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 	
-	private final RuntimeException newNotSetException(final String key)
-	{
-		return new RuntimeException("property " + key + " in " + getSource() + " not set.");
-	}
-	
 	Database createDatabase(final boolean migrationSupported)
 	{
 		final DialectParameters parameters;

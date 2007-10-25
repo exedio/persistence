@@ -51,6 +51,7 @@ public class Main
 		CollisionItem2.TYPE,
 	};
 	
+	@SuppressWarnings("unused") // OK: to be used by model for debugging
 	private static final Migration[] migrations = new Migration[]
 	{
 		new Migration(2, "comment2 a bit longer",

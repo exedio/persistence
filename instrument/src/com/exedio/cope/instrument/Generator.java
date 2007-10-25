@@ -58,10 +58,8 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
 {
-	private static final String STRING = String.class.getName();
 	private static final String COLLECTION = Collection.class.getName();
 	private static final String LIST = List.class.getName();
-	private static final String IO_EXCEPTION = IOException.class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
@@ -238,11 +236,6 @@ final class Generator
 	private static final String link(final String target)
 	{
 		return "{@link #" + target + '}';
-	}
-	
-	private static final String link(final String target, final String name)
-	{
-		return "{@link #" + target + ' ' + name + '}';
 	}
 	
 	private static final String format(final String pattern, final Object... arguments)

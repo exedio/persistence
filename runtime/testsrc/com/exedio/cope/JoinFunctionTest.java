@@ -30,8 +30,11 @@ public class JoinFunctionTest extends AbstractLibTest
 	
 	private JoinFunctionItemSingle single;
 	private JoinFunctionItem a1;
+	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private JoinFunctionItem a2;
+	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private JoinFunctionItem b1;
+	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private JoinFunctionItem b3;
 
 	@Override

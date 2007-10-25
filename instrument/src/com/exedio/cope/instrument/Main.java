@@ -23,7 +23,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -57,14 +56,6 @@ public final class Main
 	
 	Main()
 	{/* do not allow instantiation by public */}
-	
-	private void printUsage(PrintStream o)
-	{
-		o.println("usage:");
-		o.print("java ");
-		o.print(getClass().getName());
-		o.println(" tobemodified1.java ...");
-	}
 	
 	final void run(final File dir, final String[] args, final boolean longJavadoc, final boolean finalArgs, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{

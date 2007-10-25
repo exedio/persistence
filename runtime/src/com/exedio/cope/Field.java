@@ -333,6 +333,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		 * FINAL_UNIQUE_OPTIONAL to its successor in source code.
 		 */
 		@Deprecated
+		@SuppressWarnings("unused")
 		private final boolean dummyNotToBeUsed = true;
 		
 		public final boolean isFinal;

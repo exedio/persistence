@@ -46,11 +46,6 @@ public class ResourceTest extends AbstractWebTest
 		return assertURL(url, -1, false);
 	}
 	
-	private long assertURL(final URL url, final String contentType) throws IOException
-	{
-		return assertURL(url, contentType, -1, false);
-	}
-	
 	private long assertURL(final URL url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		return assertURL(url, "text/plain", ifModifiedSince, expectNotModified);

@@ -35,11 +35,13 @@ public final class CustomItem extends Item
 	/** @cope.ignore */
 	static final CustomAttribute<Integer> number = new CustomAttribute<Integer>(numberString)
 	{
+		@SuppressWarnings("unused") // OK: called by reflection
 		Integer get(final String numberString)
 		{
 			return numberString!=null ? Integer.valueOf(Integer.parseInt(numberString)) : null;
 		}
 		
+		@SuppressWarnings("unused") // OK: called by reflection
 		String set(final Integer value) throws IOException
 		{
 			if(value!=null && value.intValue()<0)
@@ -91,6 +93,7 @@ public final class CustomItem extends Item
 	/** @cope.ignore */
 	static final CustomAttribute<List<Integer>> elements = new CustomAttribute<List<Integer>>(new IntegerField[]{element1, element2, element3})
 	{
+		@SuppressWarnings("unused") // OK: called by reflection
 		List get(final Integer element1, final Integer element2, final Integer element3)
 		{
 			final ArrayList<Integer> result = new ArrayList<Integer>(3);
@@ -100,6 +103,7 @@ public final class CustomItem extends Item
 			return result;
 		}
 		
+		@SuppressWarnings("unused") // OK: called by reflection
 		SetValue[] set(final List value)
 		{
 			final Iterator i = value.iterator();

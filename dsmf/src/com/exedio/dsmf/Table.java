@@ -24,7 +24,6 @@ import java.util.HashMap;
 
 public final class Table extends Node
 {
-	private final Schema schema;
 	final String name;
 	final String options;
 	private final boolean required;
@@ -57,7 +56,6 @@ public final class Table extends Node
 		if(name==null)
 			throw new RuntimeException();
 
-		this.schema = schema;
 		this.name = name;
 		this.options = options;
 		this.required = required;

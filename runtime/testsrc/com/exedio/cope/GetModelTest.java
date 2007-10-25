@@ -23,6 +23,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class GetModelTest extends CopeAssert
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
+	@SuppressWarnings("unused") // OK: read by reflection
 	private static final Model modelPrivate = modelOk;
 	public static final Model modelNull = null;
 	public static final String modelNoModel = "hallo";

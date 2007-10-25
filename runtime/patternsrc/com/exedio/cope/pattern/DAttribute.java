@@ -119,11 +119,13 @@ public final class DAttribute extends Item
 		});
 	}
 	
+	@SuppressWarnings("unused") // OK: called by reflection
 	private DAttribute(final SetValue[] setValues)
 	{
 		super(setValues);
 	}
 	
+	@SuppressWarnings("unused") // OK: called by reflection
 	private DAttribute(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d, pk);

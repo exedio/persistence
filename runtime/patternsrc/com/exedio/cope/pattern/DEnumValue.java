@@ -48,11 +48,13 @@ public final class DEnumValue extends Item
 		});
 	}
 	
+	@SuppressWarnings("unused") // OK: called by reflection
 	private DEnumValue(final SetValue[] initialAttributes)
 	{
 		super(initialAttributes);
 	}
 	
+	@SuppressWarnings("unused") // OK: called by reflection
 	private DEnumValue(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d, pk);

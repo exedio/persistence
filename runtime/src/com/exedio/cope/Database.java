@@ -1659,6 +1659,7 @@ final class Database
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated // OK: for debugging
+	@SuppressWarnings("unused") // OK: for debugging
 	private static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
 	{
 		public Void handle(final ResultSet resultSet) throws SQLException
