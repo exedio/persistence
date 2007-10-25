@@ -22,6 +22,14 @@ import com.exedio.cope.Item;
 
 public class Qualified extends Item
 {
+	void useFeaturesToAvoidWarning()
+	{
+		getInternalGetterNumberInternal(null);
+		getPrivateGetterNumber(null);
+		setInternalSetterNumberInternal(null, 0);
+		setPrivateSetterNumber(null, 0);
+	}
+	
 	
 	/**
 

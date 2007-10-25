@@ -18,6 +18,10 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DoubleField;
@@ -161,6 +165,36 @@ public class Standard extends Item
 	 */
 	private static final String SUPER = "duper";
 
+	void useFeaturesToAvoidWarning()
+	{
+		System.out.println(SUPER);
+		checkPrivateHash(null);
+		getInternalGetterStringInternal();
+		getInternalSetterString();
+		getPrivateDate();
+		getPrivateGetterString();
+		getPrivateHashHash();
+		getPrivateString();
+		setInternalSetterStringInternal(null);
+		setPrivateDate(null);
+		setPrivateHash(null);
+		setPrivateHashHash(null);
+		setPrivateSetterHash(null);
+		setPrivateSetterMedia((byte[])null, null);
+		try
+		{
+			setPrivateSetterMedia((File)null, null);
+			setPrivateSetterMedia((InputStream)null, null);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		setPrivateSetterString(null);
+		setPrivateString(null);
+		touchPrivateDate();
+	}
+	
 
    /**
 

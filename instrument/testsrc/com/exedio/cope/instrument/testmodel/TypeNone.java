@@ -30,8 +30,14 @@ import com.exedio.cope.StringField;
 public class TypeNone extends Item
 {
 	public static final StringField defaultString = new StringField().optional();
+	
+	static void useFeaturesToAvoidWarning()
+	{
+		new TypeNone();
+	}
+	
 
-/**
+	/**
 
 	 **
 	 * Creates a new TypeNone with all the fields initially needed.

@@ -65,6 +65,14 @@ public class QualifiedName extends Item
 	 */
 	public static final IntegerField internalSetterNumber = new IntegerField();
 	
+	void useFeaturesToAvoidWarning()
+	{
+		getInternalGetterNumberInternal();
+		getPrivateGetterNumber();
+		setInternalSetterNumberInternal(0);
+		setPrivateSetterNumber(0);
+	}
+	
 
 	/**
 

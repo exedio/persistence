@@ -40,7 +40,13 @@ public class TypePrivate extends Item
 		// here one could do additional things
 	}
 
-/**
+	void useFeaturesToAvoidWarning()
+	{
+		System.out.println(TYPE);
+	}
+	
+	
+	/**
 
 	 **
 	 * Creates a new TypePrivate with all the fields initially needed.
