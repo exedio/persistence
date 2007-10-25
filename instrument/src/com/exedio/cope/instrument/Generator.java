@@ -392,6 +392,8 @@ final class Generator
 		o.write("\t * @see " + ITEM + "#Item(" + REACTIVATION + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
+		if(!type.allowSubTypes())
+			o.write("@SuppressWarnings(\"unused\") ");
 		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
