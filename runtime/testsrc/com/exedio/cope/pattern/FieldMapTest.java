@@ -93,6 +93,13 @@ public class FieldMapTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.name, item.nameLength, item.string, item.integer), item.TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypesSortedByHierarchy());
+		
+		assertEquals("FieldMapItem.name.parent", item.name.getParent(FieldMapItem.class).getID());
+		assertEquals("FieldMapItem.name.key", item.name.getKey().getID());
+		assertEquals("FieldMapItem.name.value", item.name.getValue().getID());
+		assertSame(item.name.getParent(FieldMapItem.class), model.findFeatureByID("FieldMapItem.name.parent"));
+		assertSame(item.name.getKey(), model.findFeatureByID("FieldMapItem.name.key"));
+		assertSame(item.name.getValue(), model.findFeatureByID("FieldMapItem.name.value"));
 
 		// test persistence
 		assertEquals(null, item.getName(DE));

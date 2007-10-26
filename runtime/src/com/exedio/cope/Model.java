@@ -469,7 +469,7 @@ public final class Model
 	 */
 	public Feature findFeatureByID(final String id)
 	{
-		final int pos = id.indexOf(Feature.ID_SEPARATOR);
+		final int pos = id.lastIndexOf(Feature.ID_SEPARATOR);
 		if(pos<0)
 			return null;
 		final Type t = typesByID.get(id.substring(0, pos));
