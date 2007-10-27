@@ -13,7 +13,6 @@
 	<classpathentry kind="src" path="runtime/hsqldbsrc"/>
 	<classpathentry kind="src" path="runtime/junitsrc"/>
 	<classpathentry kind="src" path="runtime/mysqlsrc"/>
-	<classpathentry kind="src" path="runtime/oraclesrc"/>
 	<classpathentry kind="src" path="runtime/patternsrc"/>
 	<classpathentry kind="src" path="runtime/postgresqlsrc"/>
 	<classpathentry kind="src" path="runtime/servletsrc"/>
@@ -36,6 +35,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cops"/>
 	<classpathentry kind="var" path="ANT_JAR"/>
-	<classpathentry kind="lib" path="lib/ojdbc14-10.2.0.3.jar"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
