@@ -464,8 +464,6 @@ public final class Model
 	 */
 	public Type findTypeByID(final String id)
 	{
-		getProperties(); // ensure initialization
-		
 		return typesByID.get(id);
 	}
 	

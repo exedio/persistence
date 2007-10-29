@@ -116,7 +116,7 @@ public class ServletUtilTest extends CopeAssert
 	{
 		try
 		{
-			model.findTypeByID("zack");
+			model.getDatabaseInfo();
 			fail();
 		}
 		catch(IllegalStateException e)
