@@ -55,6 +55,7 @@ public final class Model
 	private final List<Type<?>> typeListSorted;
 	private final List<Type<?>> concreteTypeList;
 	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
+	private final HashMap<String, Feature> featuresByID = new HashMap<String, Feature>();
 	private final Date initializeDate;
 	private final LinkedList<WeakReference<ModificationListener>> modificationListeners = new LinkedList<WeakReference<ModificationListener>>();
 	private int modificationListenersCleared = 0;
@@ -165,6 +166,10 @@ public final class Model
 				throw new IllegalArgumentException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
 			if(!type.isAbstract)
 				concreteTypes.add(type);
+			
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(featuresByID.put(feature.getID(), feature)!=null)
+					throw new IllegalArgumentException("duplicate feature id \"" + feature.getID() + '"');
 		}
 		
 		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
@@ -469,13 +474,7 @@ public final class Model
 	 */
 	public Feature findFeatureByID(final String id)
 	{
-		final int pos = id.lastIndexOf(Feature.ID_SEPARATOR);
-		if(pos<0)
-			return null;
-		final Type t = typesByID.get(id.substring(0, pos));
-		if(t==null)
-			return null;
-		return t.getDeclaredFeature(id.substring(pos+1));
+		return featuresByID.get(id);
 	}
 	
 	Type getConcreteType(final int transientNumber)
