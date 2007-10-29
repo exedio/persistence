@@ -786,7 +786,7 @@ public final class Model
 	 */
 	public Transaction startTransaction(final String name)
 	{
-		getDatabase(); // ensure initialization
+		getDatabase(); // ensure connected
 		
 		if(logTransactions)
 			System.out.println("transaction start " + name);
