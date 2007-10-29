@@ -29,8 +29,6 @@ public abstract class Feature
 	private String id;
 	private java.lang.reflect.Field annotationField = null;
 	
-	final static char ID_SEPARATOR = '.';
-
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
@@ -44,7 +42,7 @@ public abstract class Feature
 
 		this.type = type;
 		this.name = Model.intern(name);
-		this.id =   Model.intern(type.id + ID_SEPARATOR + name);
+		this.id =   Model.intern(type.id + '.' + name);
 		
 		type.registerInitialization(this);
 	}
