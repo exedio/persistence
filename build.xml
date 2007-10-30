@@ -216,6 +216,27 @@
 		</ljar>
 	</target>
 	
+	<target name="runtime.jar.src">
+		<mkdir dir="build" />
+		<zip destfile="build/exedio-cope.jar-src.zip">
+			<zipfileset dir="${basedir}/dsmf/src">
+				<include name="**/*.java"/>
+			</zipfileset>
+			<zipfileset dir="${basedir}/runtime/src">
+				<include name="**/*.java"/>
+			</zipfileset>
+			<zipfileset dir="${basedir}/runtime/patternsrc">
+				<include name="**/*.java"/>
+			</zipfileset>
+			<zipfileset dir="${basedir}/runtime/servletsrc">
+				<include name="**/*.java"/>
+			</zipfileset>
+			<zipfileset dir="${basedir}/runtime/junitsrc">
+				<include name="**/*.java"/>
+			</zipfileset>
+		</zip>
+	</target>
+	
 	<target name="runtime.testmodel.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument finalArgs="true" verbose="false">
 			<fileset dir="runtime/testmodelsrc/com/exedio/cope/testmodel">
@@ -918,13 +939,14 @@
 	
 	<target name="dist" depends="dist.tar, dist.test" />
 	
-	<target name="all" depends="build, dist" />
+	<target name="all" depends="build, runtime.jar.src, dist" />
 
 	<target name="cruise" depends="all">
 		<delete dir="cruise" />
 		<mkdir dir="cruise" />
 		<copy todir="${basedir}/cruise">
 			<fileset file="${basedir}/build/exedio-cope.jar" />
+			<fileset file="${basedir}/build/exedio-cope.jar-src.zip" />
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/build/exedio-cope-console.jar" />
