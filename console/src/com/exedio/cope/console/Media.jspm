@@ -146,6 +146,7 @@ final class Media_Jspm extends Console_Jspm
 		<style>
 			img.media
 			{
+				border:dotted 4px black;
 				background:url('<%=ConsoleServlet.imagebackground%>');
 			}
 		</style><%
