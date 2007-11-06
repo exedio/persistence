@@ -207,7 +207,7 @@ public class DispatcherTest extends AbstractLibTest
 	{
 		assertEquals(false, item.isUploadPending());
 		assertWithin(date.before, date.after, item.getUploadSuccessDate());
-		assertTrue(String.valueOf(item.getUploadSuccessElapsed()), item.getUploadSuccessElapsed()>5);
+		assertTrue(String.valueOf(item.getUploadSuccessElapsed()), item.getUploadSuccessElapsed()>=5);
 		assertIt(failures.size()+1, failures, item);
 	}
 	
@@ -234,7 +234,7 @@ public class DispatcherTest extends AbstractLibTest
 			assertSame(item.upload, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			assertWithin(expected.before, expected.after, actual.getDate());
-			assertTrue(String.valueOf(actual.getElapsed()), actual.getElapsed()>5);
+			assertTrue(String.valueOf(actual.getElapsed()), actual.getElapsed()>=5);
 			assertTrue(actual.getCause(), actual.getCause().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
 	}
