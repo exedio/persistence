@@ -19,7 +19,7 @@
 	<classpathentry kind="src" path="runtime/src"/>
 	<classpathentry kind="src" path="runtime/testmodelsrc"/>
 	<classpathentry kind="src" path="runtime/testsrc"/>
-	<classpathentry kind="lib" path="lib/bsh-core.jar"/>
+	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>
 	<classpathentry kind="lib" path="lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
