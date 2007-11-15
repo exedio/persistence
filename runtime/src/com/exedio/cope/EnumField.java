@@ -34,6 +34,8 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	{
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 		checkValueClass(Enum.class);
+		if(!valueClass.isEnum())
+			throw new RuntimeException("must be an enum: " + valueClass);
 
 		final ArrayList<E> values = new ArrayList<E>();
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
