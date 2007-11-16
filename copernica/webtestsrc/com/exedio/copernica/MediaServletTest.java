@@ -243,7 +243,7 @@ public class MediaServletTest extends AbstractWebTest
 			print(conn, url);
 		assertEquals(contentType, conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
-		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
+		assertWithin(new Date(date+3000), new Date(date+6000), new Date(conn.getExpiration()));
 		
 		return lastModified;
 	}
