@@ -18,10 +18,6 @@
 
 package com.exedio.cope;
 
-
-/**
- * @author Ralf Wiebicke
- */
 class EnumItem extends Item
 {
 	static enum Status
@@ -32,9 +28,9 @@ class EnumItem extends Item
 	}
 	
 	static final EnumField<Status> status = newEnumField(Status.class);
-
 	
-/**
+	
+	/**
 
 	 **
 	 * Creates a new EnumItem with all the fields initially needed.

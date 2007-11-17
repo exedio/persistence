@@ -60,7 +60,6 @@ public class EnumTest extends AbstractLibTest
 				e.getMessage());
 		}
 		
-		
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());
 	}
