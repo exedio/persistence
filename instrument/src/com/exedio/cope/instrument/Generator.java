@@ -570,11 +570,16 @@ final class Generator
 		if(Wrapper.ClassVariable.class.equals(c))
 			return feature.parent.name;
 		else if(Wrapper.TypeVariable0.class.equals(c))
-			return Injector.getGenerics(feature.javaAttribute.type).get(0);
+			return toStringType(feature, 0);
 		else if(Wrapper.TypeVariable1.class.equals(c))
-			return Injector.getGenerics(feature.javaAttribute.type).get(1);
+			return toStringType(feature, 1);
 		else
 			return c.getCanonicalName();
+	}
+	
+	private static final String toStringType(final CopeFeature feature, final int number)
+	{
+		return Injector.getGenerics(feature.javaAttribute.type).get(number);
 	}
 	
 	private static final String toString(final ParameterizedType t, final CopeFeature feature)
