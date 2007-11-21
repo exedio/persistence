@@ -99,6 +99,9 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 	
 	private final static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
 	{
+		if(maximumSize<=1)
+			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);
+		
 		final FunctionField<Y>[] result = cast(new FunctionField[maximumSize]);
 		
 		for(int i = 0; i<maximumSize; i++)

@@ -300,6 +300,15 @@ public class FieldListLimitedTest extends AbstractLibTest
 		{
 			assertEquals("4", e.getMessage());
 		}
+		try
+		{
+			FieldListLimited.newList(new StringField(), 1);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("maximumSize must be greater 1, but was 1", e.getMessage());
+		}
 	}
 	
 	private final DateField assertDate(final Iterator i, final int num)
