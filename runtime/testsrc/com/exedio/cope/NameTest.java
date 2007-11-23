@@ -70,7 +70,7 @@ public class NameTest extends AbstractLibTest
 		assertEquals(null, item.getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName());
 
 		item.setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item");
-		assertEquals(item, item.findByCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item"));
+		assertEquals(item, item.forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item"));
 		
 		assertEquals(mysqlLower("NameCollisionlongAItem_F"), itemca.TYPE.getTableName());
 		assertEquals("collisionlongANumber_F", itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.getColumnName());

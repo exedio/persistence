@@ -116,7 +116,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "setDefaultToString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, UNIQUE_VIOLATION});
-		assertMethod(STANDARD, "findByUniqueString", new Class[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);
+		assertMethod(STANDARD, "forUniqueString", new Class[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);
 		assertMethod(STANDARD, "getInitialString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setInitialString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 

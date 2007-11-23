@@ -67,15 +67,15 @@ public class UniqueItemTest extends TestmodelTest
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString.getImplicitUniqueConstraint()),
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.getUniqueConstraints());
 
-		assertEquals(null, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+		assertEquals(null, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
 		final ItemWithSingleUnique item = new ItemWithSingleUnique();
 		assertEquals(null, item.getUniqueString());
-		assertEquals(null, item.findByUniqueString("uniqueString"));
+		assertEquals(null, item.forUniqueString("uniqueString"));
 
 		item.setUniqueString("uniqueString");
 		assertEquals("uniqueString", item.getUniqueString());
-		assertEquals(item, ItemWithSingleUnique.findByUniqueString("uniqueString"));
+		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
 		// test unique violation
 		{
@@ -93,7 +93,7 @@ public class UniqueItemTest extends TestmodelTest
 				assertEquals("unique violation on " + item2 + " for " + item2.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
-			assertEquals(item2, ItemWithSingleUnique.findByUniqueString("uniqueString2"));
+			assertEquals(item2, ItemWithSingleUnique.forUniqueString("uniqueString2"));
 
 			assertDelete(item2);
 		}
@@ -112,7 +112,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
-			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
+			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.forUniqueString("uniqueString");
 			assertEquals(item, foundItem);
 			assertEquals(item.getCopeID(), foundItem.getCopeID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
@@ -135,7 +135,7 @@ public class UniqueItemTest extends TestmodelTest
 		{
 			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
-			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.findByUniqueString("uniqueString");
+			final ItemWithSingleUnique foundItem = ItemWithSingleUnique.forUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
 			assertEquals(item, foundItem);
@@ -208,11 +208,11 @@ public class UniqueItemTest extends TestmodelTest
 
 	public void testUniqueFinal()
 	{
-		assertEquals(null, UniqueFinal.findByUniqueFinalString("uniqueString"));
+		assertEquals(null, UniqueFinal.forUniqueFinalString("uniqueString"));
 
 		final UniqueFinal item = new UniqueFinal("uniqueString");
 		assertEquals("uniqueString", item.getUniqueFinalString());
-		assertEquals(item, UniqueFinal.findByUniqueFinalString("uniqueString"));
+		assertEquals(item, UniqueFinal.forUniqueFinalString("uniqueString"));
 
 		try
 		{
@@ -227,25 +227,25 @@ public class UniqueItemTest extends TestmodelTest
 			assertEquals("final violation on " + item + " for " + item.uniqueFinalString, e.getMessage());
 		}
 		assertEquals("uniqueString", item.getUniqueFinalString());
-		assertEquals(item, UniqueFinal.findByUniqueFinalString("uniqueString"));
+		assertEquals(item, UniqueFinal.forUniqueFinalString("uniqueString"));
 
 		assertDelete(item);
 	}
 
 	public void testItemWithSingleUniqueNotNull()
 	{
-		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
-		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
+		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
 
 		final ItemWithSingleUniqueNotNull item = new ItemWithSingleUniqueNotNull("uniqueString");
 		assertEquals("uniqueString", item.getUniqueNotNullString());
-		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
-		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+		assertEquals(item, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
+		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
 
 		item.setUniqueNotNullString("uniqueString2");
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
-		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
-		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
+		assertEquals(item, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
 
 		try
 		{
@@ -259,8 +259,8 @@ public class UniqueItemTest extends TestmodelTest
 			assertEquals("mandatory violation on " + item + " for " + item.uniqueNotNullString, e.getMessage());
 		}
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
-		assertEquals(null, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString"));
-		assertEquals(item, ItemWithSingleUniqueNotNull.findByUniqueNotNullString("uniqueString2"));
+		assertEquals(null, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString"));
+		assertEquals(item, ItemWithSingleUniqueNotNull.forUniqueNotNullString("uniqueString2"));
 
 		assertContains(item, item.TYPE.search(null));
 		try

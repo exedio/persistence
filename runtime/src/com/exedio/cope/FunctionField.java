@@ -178,7 +178,7 @@ public abstract class FunctionField<E extends Object>
 				Wrapper.ClassVariable.class, "searchUnique",
 				"Finds a {2} by it''s unique fields.", // TODO better text
 				"finder").
-				setMethodWrapperPattern("findBy{0}").
+				setMethodWrapperPattern("for{0}").
 				setStatic().
 				addComment("@param {1} shall be equal to field {0}.").
 				addComment("@return null if there is no matching item.").
