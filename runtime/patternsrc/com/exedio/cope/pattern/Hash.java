@@ -117,7 +117,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		
 		result.add(new Wrapper(
 			boolean.class, "check",
-			"Returns whether the given value corresponds to the hash in {0}.", // TODO better text
+			"Returns whether the given value corresponds to the hash in {0}.",
 			"checker"
 			).
 			addParameter(String.class));
@@ -125,7 +125,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		final Set<Class> setterExceptions = getSetterExceptions();
 		result.add(new Wrapper(
 			void.class, "set",
-			"Sets a new value for the persistent field {0}.", // TODO better text
+			"Sets a new value for {0}.",
 			"setter",
 			setterExceptions.toArray(new Class[setterExceptions.size()])).
 			addParameter(String.class));

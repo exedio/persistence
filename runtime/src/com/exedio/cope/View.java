@@ -97,8 +97,8 @@ public abstract class View<E> extends Feature implements Function<E>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		result.add(new Wrapper(
-			valueClass /* box into primitives */, "get",
-			"Returns the value of the persistent field {0}.", // TODO better text
+			valueClass /* TODO box into primitives */, "get",
+			"Returns the value of {0}.",
 			"getter"));
 		return Collections.unmodifiableList(result);
 	}

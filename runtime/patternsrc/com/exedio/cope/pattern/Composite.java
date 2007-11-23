@@ -152,7 +152,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		
 		final Wrapper get = new Wrapper(
 			Wrapper.TypeVariable0.class, "get",
-			"Returns the value of composite {0}.",
+			"Returns the value of {0}.",
 			"getter");
 		result.add(get);
 		
@@ -161,7 +161,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			final Set<Class> exceptions = getSetterExceptions();
 			result.add(new Wrapper(
 				void.class, "set",
-				"Sets a new value for the composite {0}.",
+				"Sets a new value for {0}.",
 				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).

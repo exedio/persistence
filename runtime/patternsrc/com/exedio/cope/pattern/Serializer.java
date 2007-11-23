@@ -149,7 +149,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		
 		result.add(new Wrapper(
 			setterType, "get",
-			"Returns the value of the serializer {0}.",
+			"Returns the value of {0}.",
 			"getter"));
 		
 		if(!isFinal())
@@ -158,7 +158,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			
 			result.add(new Wrapper(
 				void.class, "set",
-				"Sets a new value for the serializer {0}.",
+				"Sets a new value for {0}.",
 				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
