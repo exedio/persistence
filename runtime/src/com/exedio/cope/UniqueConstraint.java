@@ -162,7 +162,7 @@ public final class UniqueConstraint extends Feature
 	 */
 	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
 	{
-		// TODO: search nativly for unique constraints
+		// TODO: search natively for unique constraints
 		final List<FunctionField<?>> fields = getFields();
 		if(fields.size()!=values.length)
 			throw new RuntimeException("-"+fields.size()+'-'+values.length);
