@@ -130,7 +130,10 @@ final class Generator
 	private final boolean skipDeprecated;
 	
 	
-	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final Params params)
+	Generator(
+			final JavaFile javaFile,
+			final ByteArrayOutputStream outputStream,
+			final Params params)
 	{
 		this.javaFile = javaFile;
 		this.o = new OutputStreamWriter(new CheckedOutputStream(outputStream, outputCRC));
