@@ -162,16 +162,6 @@ public final class UniqueConstraint extends Feature
 	 */
 	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
 	{
-		// TODO: search natively for unique constraints
-		final List<FunctionField<?>> fields = getFields();
-		if(fields.size()!=values.length)
-			throw new RuntimeException(String.valueOf(fields.size())+'-'+values.length);
-
-		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
-		final Condition[] conditions = new Condition[fields.size()];
-		for(int j = 0; fieldIter.hasNext(); j++)
-			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
-
-		return getType().castType(typeClass).searchSingleton(new CompositeCondition(CompositeCondition.Operator.AND, conditions));
+		return Cope.verboseCast(typeClass, searchUnique(values));
 	}
 }
