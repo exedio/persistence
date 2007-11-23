@@ -23,11 +23,13 @@ final class Params
 	final boolean longJavadoc;
 	final boolean finalArgs;
 	final boolean createDeprecated;
+	final boolean verbose;
 	
-	Params(final boolean longJavadoc, final boolean finalArgs, final boolean createDeprecated)
+	Params(final boolean longJavadoc, final boolean finalArgs, final boolean createDeprecated, final boolean verbose)
 	{
 		this.longJavadoc = longJavadoc;
 		this.finalArgs = finalArgs;
 		this.createDeprecated = createDeprecated;
+		this.verbose = verbose;
 	}
 }

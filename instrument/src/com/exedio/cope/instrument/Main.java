@@ -35,7 +35,7 @@ public final class Main
 	{
 		try
 		{
-			(new Main()).run(new File("."), args, new Params(true, true, false), true);
+			(new Main()).run(new File("."), args, new Params(true, true, false, true));
 		}
 		catch(RuntimeException e)
 		{
@@ -57,17 +57,17 @@ public final class Main
 	Main()
 	{/* do not allow instantiation by public */}
 	
-	final void run(final File dir, final String[] args, final Params params, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final File dir, final String[] args, final Params params) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		final ArrayList<File> files = new ArrayList<File>();
 		
 		for(int i=0; i<args.length; i++)
 			files.add(new File(dir, args[i]));
 		
-		run(files, params, verbose);
+		run(files, params);
 	}
 		
-	final void run(final ArrayList<File> files, final Params params, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final ArrayList<File> files, final Params params) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		{
 			final Package runtimePackage = Cope.class.getPackage();
@@ -89,7 +89,7 @@ public final class Main
 		final JavaRepository repository = new JavaRepository();
 		final ArrayList<Injector> injectors = new ArrayList<Injector>(files.size());
 
-		this.verbose = verbose;
+		this.verbose = params.verbose;
 		instrumented = 0;
 		skipped = 0;
 		for(final File file : files)
