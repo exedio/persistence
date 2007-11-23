@@ -663,7 +663,7 @@ final class Generator
 		writeCommentFooter();
 		writeModifier((option!=null ? option.getModifier(constraint.modifier) : (constraint.modifier&(PRIVATE|PROTECTED|PUBLIC))) | (STATIC|FINAL) );
 		o.write(className);
-		o.write(" findBy");
+		o.write(" for");
 		o.write(toCamelCase(constraint.name));
 		
 		o.write('(');

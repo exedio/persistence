@@ -321,21 +321,21 @@ public class UniqueItemTest extends TestmodelTest
 			list(ItemWithDoubleUnique.doubleUnique),
 			ItemWithDoubleUnique.integer.getUniqueConstraints());
 
-		assertEquals(null, ItemWithDoubleUnique.findByDoubleUnique("a", 1));
+		assertEquals(null, ItemWithDoubleUnique.forDoubleUnique("a", 1));
 		
 		final ItemWithDoubleUnique a1 = new ItemWithDoubleUnique("a", 1);
-		assertEquals(a1, ItemWithDoubleUnique.findByDoubleUnique("a", 1));
+		assertEquals(a1, ItemWithDoubleUnique.forDoubleUnique("a", 1));
 		
 		final ItemWithDoubleUnique a2 = new ItemWithDoubleUnique("a", 2);
-		assertEquals(a2, ItemWithDoubleUnique.findByDoubleUnique("a", 2));
+		assertEquals(a2, ItemWithDoubleUnique.forDoubleUnique("a", 2));
 		
 		final ItemWithDoubleUnique b1 = new ItemWithDoubleUnique("b", 1);
-		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
+		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
 		
 		final ItemWithDoubleUnique b2 = new ItemWithDoubleUnique("b", 2);
-		assertEquals(b2, ItemWithDoubleUnique.findByDoubleUnique("b", 2));
+		assertEquals(b2, ItemWithDoubleUnique.forDoubleUnique("b", 2));
 
-		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
+		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
 		try
 		{
 			new ItemWithDoubleUnique("b", 1);
@@ -347,7 +347,7 @@ public class UniqueItemTest extends TestmodelTest
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation on a newly created item for " + a1.doubleUnique, e.getMessage());
 		}
-		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
+		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
 		try
 		{
 			ItemWithDoubleUnique.TYPE.newItem(
@@ -362,7 +362,7 @@ public class UniqueItemTest extends TestmodelTest
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation on a newly created item for " + a1.doubleUnique, e.getMessage());
 		}
-		assertEquals(b1, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
+		assertEquals(b1, ItemWithDoubleUnique.forDoubleUnique("b", 1));
 		
 		try
 		{
@@ -398,7 +398,7 @@ public class UniqueItemTest extends TestmodelTest
 		assertDelete(b1);
 
 		final ItemWithDoubleUnique b1X = new ItemWithDoubleUnique("b", 1);
-		assertEquals(b1X, ItemWithDoubleUnique.findByDoubleUnique("b", 1));
+		assertEquals(b1X, ItemWithDoubleUnique.forDoubleUnique("b", 1));
 
 		assertDelete(a2);
 		assertDelete(a1);

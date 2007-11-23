@@ -129,7 +129,7 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(null, item.getQualifiedB(key2));
 
 		item.setQualifiedB(key2, "value2B");
-		final QualifiedEmptyQualifier qitem2 = QualifiedEmptyQualifier.findByQualifyUnique(item, key2);
+		final QualifiedEmptyQualifier qitem2 = QualifiedEmptyQualifier.forQualifyUnique(item, key2);
 		assertEquals("value2B", qitem2.getQualifiedB());
 		assertEquals(qitem1, item.getQualifier(key1));
 		assertEquals("value1A", item.getQualifiedA(key1));
@@ -173,8 +173,8 @@ public class QualifierTest extends TestmodelTest
 		assertEquals(null, item.getQualifiedA("key2"));
 		assertEquals(Integer.valueOf(10), item.getQualifiedB("key2"));
 		
-		QualifiedStringQualifier.findByQualifyUnique(item, "key1").deleteCopeItem();
-		QualifiedStringQualifier.findByQualifyUnique(item, "key2").deleteCopeItem();
+		QualifiedStringQualifier.forQualifyUnique(item, "key1").deleteCopeItem();
+		QualifiedStringQualifier.forQualifyUnique(item, "key2").deleteCopeItem();
 
 		assertEquals(QualifiedIntegerEnumQualifier.up, QualifiedIntegerEnumQualifier.intEnumQualifier.getParent());
 		assertEqualsUnmodifiable(
@@ -211,11 +211,11 @@ public class QualifierTest extends TestmodelTest
 		assertEquals("A-21-key1", item.getQualifiedB(Integer.valueOf(21), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		assertEquals("A-20-key2", item.getQualifiedB(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key2));
 	
-		assertEquals(null, QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key2));
+		assertEquals(null, QualifiedIntegerEnumQualifier.forQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key2));
 
-		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
-		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
-		QualifiedIntegerEnumQualifier.findByQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key2).deleteCopeItem();
+		QualifiedIntegerEnumQualifier.forQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
+		QualifiedIntegerEnumQualifier.forQualifyUnique(item, 21, QualifiedIntegerEnumQualifier.KeyEnum.key1).deleteCopeItem();
+		QualifiedIntegerEnumQualifier.forQualifyUnique(item, 20, QualifiedIntegerEnumQualifier.KeyEnum.key2).deleteCopeItem();
 
 		assertEquals(null, item.getIntEnumQualifier(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
 		assertEquals(null, item.getQualifiedA(Integer.valueOf(20), QualifiedIntegerEnumQualifier.KeyEnum.key1));
