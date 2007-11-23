@@ -127,9 +127,10 @@ final class Generator
 	private final String lineSeparator;
 	private final boolean longJavadoc;
 	private final String finalArgPrefix;
+	private final boolean skipDeprecated;
 	
 	
-	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc, final boolean finalArgs)
+	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc, final boolean finalArgs, final boolean createDeprecated)
 	{
 		this.javaFile = javaFile;
 		this.o = new OutputStreamWriter(new CheckedOutputStream(outputStream, outputCRC));
@@ -145,6 +146,7 @@ final class Generator
 		
 		this.longJavadoc = longJavadoc;
 		this.finalArgPrefix = finalArgs ? "final " : "";
+		this.skipDeprecated = !createDeprecated;
 	}
 	
 	void close() throws IOException
@@ -408,6 +410,10 @@ final class Generator
 		final Feature instance = feature.getInstance();
 		for(final Wrapper wrapper : instance.getWrappers())
 		{
+			final boolean deprecated = wrapper.isDeprecated();
+			if(deprecated && skipDeprecated)
+				continue;
+			
 			final String modifierTag = wrapper.getModifier();
 			final Option option =
 				modifierTag!=null
@@ -438,6 +444,12 @@ final class Generator
 				o.write("\t * ");
 				o.write(format(wrapper.getComment(), arguments));
 				o.write(lineSeparator);
+				if(deprecated)
+				{
+					o.write("\t * @deprecated ");
+					o.write(format(wrapper.getDeprecationComment(), arguments));
+					o.write(lineSeparator);
+				}
 				for(final String comment : wrapper.getComments())
 				{
 					o.write("\t * ");
@@ -457,6 +469,12 @@ final class Generator
 						(useIs ? '|' + Option.TEXT_BOOLEAN_AS_IS : "") + "</tt> " +
 						"in the comment of the field."
 					: null);
+			}
+			if(deprecated)
+			{
+				o.write("@Deprecated");
+				o.write(lineSeparator);
+				o.write('\t');
 			}
 			writeModifier(
 				(
@@ -633,7 +651,7 @@ final class Generator
 			throw new RuntimeException(t.toString());
 	}
 	
-	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
+	private void writeUniqueFinder(final CopeUniqueConstraint constraint, final boolean deprecated)
 	throws IOException, InjectorParseException
 	{
 		final Option option = new Option(
@@ -648,6 +666,13 @@ final class Generator
 		o.write("\t * ");
 		o.write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		o.write(lineSeparator);
+		if(deprecated)
+		{
+			o.write("\t * @deprecated use for");
+			o.write(toCamelCase(constraint.name));
+			o.write(" instead.");
+			o.write(lineSeparator);
+		}
 		for(int i=0; i<attributes.length; i++)
 		{
 			o.write("\t * @param ");
@@ -661,9 +686,15 @@ final class Generator
 		o.write(lineSeparator);
 
 		writeCommentFooter();
+		if(deprecated)
+		{
+			o.write("@Deprecated");
+			o.write(lineSeparator);
+			o.write('\t');
+		}
 		writeModifier((option!=null ? option.getModifier(constraint.modifier) : (constraint.modifier&(PRIVATE|PROTECTED|PUBLIC))) | (STATIC|FINAL) );
 		o.write(className);
-		o.write(" for");
+		o.write(deprecated ? " findBy" : " for");
 		o.write(toCamelCase(constraint.name));
 		
 		o.write('(');
@@ -776,7 +807,11 @@ final class Generator
 			{
 				writeFeature(feature);
 				if(feature instanceof CopeUniqueConstraint)
-					writeUniqueFinder((CopeUniqueConstraint)feature);
+				{
+					writeUniqueFinder((CopeUniqueConstraint)feature, false);
+					if(!skipDeprecated)
+						writeUniqueFinder((CopeUniqueConstraint)feature, true);
+				}
 			}
 			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
 				writeQualifier(qualifier);

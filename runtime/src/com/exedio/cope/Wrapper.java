@@ -38,6 +38,7 @@ public final class Wrapper
 	private final Class[] throwsClause;
 	private String methodWrapperPattern;
 	private ArrayList<String> comments = null;
+	private String deprecationComment = null;
 	
 	public Wrapper(
 			final java.lang.reflect.Type methodReturnType,
@@ -179,6 +180,25 @@ public final class Wrapper
 			comments!=null
 			? Collections.unmodifiableList(comments)
 			: Collections.<String>emptyList();
+	}
+	
+	public Wrapper deprecate(final String comment)
+	{
+		if(comment==null)
+			throw new NullPointerException();
+		deprecationComment = comment;
+
+		return this;
+	}
+	
+	public boolean isDeprecated()
+	{
+		return deprecationComment!=null;
+	}
+	
+	public String getDeprecationComment()
+	{
+		return deprecationComment;
 	}
 	
 	public class ClassVariable { /* OK, just a placeholder */ }

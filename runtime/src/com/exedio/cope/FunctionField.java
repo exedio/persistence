@@ -174,6 +174,7 @@ public abstract class FunctionField<E extends Object>
 		}
 			
 		if(implicitUniqueConstraint!=null)
+		{
 			result.add(new Wrapper(
 				Wrapper.ClassVariable.class, "searchUnique",
 				"Finds a {2} by it''s unique fields.", // TODO better text
@@ -183,6 +184,16 @@ public abstract class FunctionField<E extends Object>
 				addComment("@param {1} shall be equal to field {0}.").
 				addComment("@return null if there is no matching item.").
 				addParameter(setterType));
+			
+			result.add(new Wrapper(
+				Wrapper.ClassVariable.class, "searchUnique",
+				"Finds a {2} by it''s unique fields.", // TODO better text
+				"finder").
+				setMethodWrapperPattern("findBy{0}").
+				setStatic().
+				deprecate("use for{0} instead.").
+				addParameter(setterType));
+		}
 			
 		return Collections.unmodifiableList(result);
 	}
