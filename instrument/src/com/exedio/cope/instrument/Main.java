@@ -35,7 +35,7 @@ public final class Main
 	{
 		try
 		{
-			(new Main()).run(new File("."), args, true, true, false, true);
+			(new Main()).run(new File("."), args, new Params(true, true, false), true);
 		}
 		catch(RuntimeException e)
 		{
@@ -57,17 +57,17 @@ public final class Main
 	Main()
 	{/* do not allow instantiation by public */}
 	
-	final void run(final File dir, final String[] args, final boolean longJavadoc, final boolean finalArgs, final boolean createDeprecated, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final File dir, final String[] args, final Params params, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		final ArrayList<File> files = new ArrayList<File>();
 		
 		for(int i=0; i<args.length; i++)
 			files.add(new File(dir, args[i]));
 		
-		run(files, longJavadoc, finalArgs, createDeprecated, verbose);
+		run(files, params, verbose);
 	}
 		
-	final void run(final ArrayList<File> files, final boolean longJavadoc, final boolean finalArgs, final boolean createDeprecated, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
+	final void run(final ArrayList<File> files, final Params params, final boolean verbose) throws IllegalParameterException, InjectorParseException, IOException
 	{
 		{
 			final Package runtimePackage = Cope.class.getPackage();
@@ -133,7 +133,7 @@ public final class Main
 			final Injector injector = injectorsIter.next();
 			
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream((int)file.length() + 100);
-			final Generator generator = new Generator(injector.javaFile, baos, longJavadoc, finalArgs, createDeprecated);
+			final Generator generator = new Generator(injector.javaFile, baos, params);
 			generator.write();
 			generator.close();
 			

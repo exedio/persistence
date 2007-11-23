@@ -103,7 +103,7 @@ public final class AntTask extends Task
 				}
 			}
 
-			(new Main()).run(sourcefiles, longJavadoc, finalArgs, createDeprecated, verbose);
+			(new Main()).run(sourcefiles, new Params(longJavadoc, finalArgs, createDeprecated), verbose);
 		}
 		catch(Exception e)
 		{

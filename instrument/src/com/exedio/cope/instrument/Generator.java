@@ -130,7 +130,7 @@ final class Generator
 	private final boolean skipDeprecated;
 	
 	
-	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final boolean longJavadoc, final boolean finalArgs, final boolean createDeprecated)
+	Generator(final JavaFile javaFile, final ByteArrayOutputStream outputStream, final Params params)
 	{
 		this.javaFile = javaFile;
 		this.o = new OutputStreamWriter(new CheckedOutputStream(outputStream, outputCRC));
@@ -144,9 +144,9 @@ final class Generator
 		else
 			lineSeparator = systemLineSeparator;
 		
-		this.longJavadoc = longJavadoc;
-		this.finalArgPrefix = finalArgs ? "final " : "";
-		this.skipDeprecated = !createDeprecated;
+		this.longJavadoc = params.longJavadoc;
+		this.finalArgPrefix = params.finalArgs ? "final " : "";
+		this.skipDeprecated = !params.createDeprecated;
 	}
 	
 	void close() throws IOException
