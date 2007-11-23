@@ -165,7 +165,7 @@ public final class UniqueConstraint extends Feature
 		// TODO: search natively for unique constraints
 		final List<FunctionField<?>> fields = getFields();
 		if(fields.size()!=values.length)
-			throw new RuntimeException("-"+fields.size()+'-'+values.length);
+			throw new RuntimeException(String.valueOf(fields.size())+'-'+values.length);
 
 		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
