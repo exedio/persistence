@@ -35,7 +35,7 @@ public final class Main
 	{
 		try
 		{
-			(new Main()).run(new File("."), args, new Params(true, true, false, true));
+			(new Main()).run(new File("."), args, new Params());
 		}
 		catch(RuntimeException e)
 		{
