@@ -1063,46 +1063,31 @@ public final class Type<C extends Item>
 			return type.getJavaClass();
 		}
 		
-		/**
-		 * @deprecated For internal use within COPE only.
-		 */
-		@Deprecated
+		@Deprecated // OK: for internal use within COPE only
 		public void check(final TC tc, final Join join)
 		{
 			tc.check(this, join);
 		}
 		
-		/**
-		 * @deprecated For internal use within COPE only.
-		 */
-		@Deprecated
+		@Deprecated // OK: for internal use within COPE only
 		public void append(final Statement bf, final Join join)
 		{
 			bf.appendPK(type, join);
 		}
 		
-		/**
-		 * @deprecated For internal use within COPE only.
-		 */
-		@Deprecated
+		@Deprecated // OK: for internal use within COPE only
 		public void appendType(final Statement bf, final Join join)
 		{
 			bf.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);
 		}
 		
-		/**
-		 * @deprecated For internal use within COPE only.
-		 */
-		@Deprecated
+		@Deprecated // OK: for internal use within COPE only
 		public final int getTypeForDefiningColumn()
 		{
 			return IntegerColumn.JDBC_TYPE_INT;
 		}
 		
-		/**
-		 * @deprecated For internal use within COPE only.
-		 */
-		@Deprecated
+		@Deprecated // OK: for internal use within COPE only
 		public void appendParameter(final Statement bf, final E value)
 		{
 			bf.appendParameter(value.pk);
