@@ -96,13 +96,6 @@ final class Generator
 	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
 	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
-	private static final String QUALIFIER = "Returns the qualifier.";
-	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
-	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
-	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
-	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
-	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
-	private static final String RELATION_SETTER  = "Sets the items associated to this item by the relation.";
 	private static final String TYPE = "The persistent type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + ' ' +
@@ -849,6 +842,14 @@ final class Generator
 	}
 	
 	// --------------------------------------- deprecated stuff ----------------------------------------------
+	
+	private static final String QUALIFIER = "Returns the qualifier.";
+	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
+	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
+	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
+	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
+	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
+	private static final String RELATION_SETTER  = "Sets the items associated to this item by the relation.";
 	
 	@Deprecated
 	private void writeQualifierParameters(final CopeQualifier qualifier)
