@@ -843,12 +843,19 @@ final class Generator
 	
 	// --------------------------------------- deprecated stuff ----------------------------------------------
 	
+	@Deprecated
 	private static final String QUALIFIER = "Returns the qualifier.";
+	@Deprecated
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
+	@Deprecated
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
+	@Deprecated
 	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
+	@Deprecated
 	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
+	@Deprecated
 	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
+	@Deprecated
 	private static final String RELATION_SETTER  = "Sets the items associated to this item by the relation.";
 	
 	@Deprecated
