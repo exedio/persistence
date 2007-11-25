@@ -898,7 +898,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentFooter();
 
-		o.write("public final "); // TODO: obey attribute visibility
+		o.write("public final ");
 		o.write(qualifierClassName);
 		o.write(" get");
 		o.write(toCamelCase(qualifier.name));
@@ -1050,7 +1050,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final " + LIST + '<'); // TODO: obey attribute visibility
+			o.write("public final " + LIST + '<');
 			o.write(endType);
 			o.write("> get");
 			o.write(endNameCamel);
@@ -1081,7 +1081,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final boolean addTo"); // TODO: obey attribute visibility
+			o.write("public final boolean addTo");
 			o.write(endNameCamel);
 			o.write('(');
 			o.write(finalArgPrefix);
@@ -1117,7 +1117,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final boolean removeFrom"); // TODO: obey attribute visibility
+			o.write("public final boolean removeFrom");
 			o.write(endNameCamel);
 			o.write('(');
 			o.write(finalArgPrefix);
@@ -1153,7 +1153,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final void set"); // TODO: obey attribute visibility
+			o.write("public final void set");
 			o.write(endNameCamel);
 			o.write('(');
 			o.write(finalArgPrefix);
