@@ -227,7 +227,6 @@ final class Generator
 		}
 		o.write("\t */");
 		o.write(lineSeparator);
-		o.write('\t'); // TODO put this into calling methods
 	}
 	
 	private static final String link(final String target)
@@ -297,6 +296,8 @@ final class Generator
 			o.write(lineSeparator);
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
+		
+		o.write('\t');
 		writeModifier(type.getInitialConstructorModifier());
 		o.write(type.name);
 		o.write('(');
@@ -355,6 +356,8 @@ final class Generator
 		o.write(format(CONSTRUCTOR_GENERIC_CALLED, "{@link " + TYPE_NAME + "#newItem Type.newItem}"));
 		o.write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
+		
+		o.write('\t');
 		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
@@ -382,6 +385,8 @@ final class Generator
 		o.write("\t * @see " + ITEM + "#Item(" + REACTIVATION + ",int)");
 		o.write(lineSeparator);
 		writeCommentFooter();
+		
+		o.write('\t');
 		if(!type.allowSubTypes())
 			o.write("@SuppressWarnings(\"unused\") ");
 		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
@@ -465,12 +470,15 @@ final class Generator
 						"in the comment of the field."
 					: null);
 			}
+			
 			if(deprecated)
 			{
+				o.write('\t');
 				o.write("@Deprecated");
 				o.write(lineSeparator);
-				o.write('\t');
 			}
+			
+			o.write('\t');
 			writeModifier(
 				(
 					option!=null
@@ -681,12 +689,15 @@ final class Generator
 		o.write(lineSeparator);
 
 		writeCommentFooter();
+		
 		if(deprecated)
 		{
+			o.write('\t');
 			o.write("@Deprecated");
 			o.write(lineSeparator);
-			o.write('\t');
 		}
+		
+		o.write('\t');
 		writeModifier((option!=null ? option.getModifier(constraint.modifier) : (constraint.modifier&(PRIVATE|PROTECTED|PUBLIC))) | (STATIC|FINAL) );
 		o.write(className);
 		o.write(deprecated ? " findBy" : " for");
@@ -739,6 +750,7 @@ final class Generator
 			writeCommentHeader();
 			writeCommentFooter(null);
 			
+			o.write('\t');
 			writeModifier(PRIVATE|STATIC|FINAL);
 			o.write("long serialVersionUID = 1l;");
 		}
@@ -756,6 +768,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
+			o.write('\t');
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
 			o.write(TYPE_NAME + '<');
 			o.write(type.name);
@@ -900,7 +913,7 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentFooter();
 
-		o.write("public final ");
+		o.write("\tpublic final ");
 		o.write(qualifierClassName);
 		o.write(" get");
 		o.write(toCamelCase(qualifier.name));
@@ -952,6 +965,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
+			o.write('\t');
 			writeModifier(attribute.getGeneratedGetterModifier());
 			o.write(attribute.persistentType);
 			o.write(" get");
@@ -995,6 +1009,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
+			o.write('\t');
 			writeModifier(attribute.getGeneratedSetterModifier());
 			o.write("void set");
 			o.write(toCamelCase(attribute.name));
@@ -1052,7 +1067,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final " + LIST + '<');
+			o.write("\tpublic final " + LIST + '<');
 			o.write(endType);
 			o.write("> get");
 			o.write(endNameCamel);
@@ -1083,7 +1098,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final boolean addTo");
+			o.write("\tpublic final boolean addTo");
 			o.write(endNameCamel);
 			o.write('(');
 			o.write(finalArgPrefix);
@@ -1119,7 +1134,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final boolean removeFrom");
+			o.write("\tpublic final boolean removeFrom");
 			o.write(endNameCamel);
 			o.write('(');
 			o.write(finalArgPrefix);
@@ -1155,7 +1170,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter();
 	
-			o.write("public final void set");
+			o.write("\tpublic final void set");
 			o.write(endNameCamel);
 			o.write('(');
 			o.write(finalArgPrefix);
