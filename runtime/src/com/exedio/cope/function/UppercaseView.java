@@ -48,10 +48,7 @@ public final class UppercaseView extends StringView implements StringFunction
 		return sourceValue==null ? null : ((String)sourceValue).toUpperCase();
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append("UPPER(").

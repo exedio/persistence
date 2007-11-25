@@ -55,10 +55,7 @@ public final class PlusView extends IntegerView implements IntegerFunction
 		return Integer.valueOf(result);
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated
+	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append('(');
