@@ -55,6 +55,7 @@ public class RelationTest extends AbstractLibTest
 		deleteOnTearDown(new RelationTargetItem("targetX"));
 	}
 	
+	@Deprecated // OK: test deprecated api
 	public void testRelation()
 	{
 		// test model

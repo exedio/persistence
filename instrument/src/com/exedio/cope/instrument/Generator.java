@@ -1048,6 +1048,13 @@ final class Generator
 	}
 	
 	@Deprecated
+	private void writeDeprecated() throws IOException
+	{
+		o.write("\t@SuppressWarnings(\"deprecation\") // pattern is deprecated");
+		o.write(lineSeparator);
+	}
+	
+	@Deprecated
 	private void writeRelation(final CopeRelation relation, final boolean source)
 	throws IOException
 	{
@@ -1066,6 +1073,7 @@ final class Generator
 			o.write(RELATION_GETTER);
 			o.write(lineSeparator);
 			writeCommentFooter();
+			writeDeprecated();
 	
 			o.write("\tpublic final " + LIST + '<');
 			o.write(endType);
@@ -1097,6 +1105,7 @@ final class Generator
 			o.write(RELATION_ADDER);
 			o.write(lineSeparator);
 			writeCommentFooter();
+			writeDeprecated();
 	
 			o.write("\tpublic final boolean addTo");
 			o.write(endNameCamel);
@@ -1133,6 +1142,7 @@ final class Generator
 			o.write(RELATION_REMOVER);
 			o.write(lineSeparator);
 			writeCommentFooter();
+			writeDeprecated();
 	
 			o.write("\tpublic final boolean removeFrom");
 			o.write(endNameCamel);
@@ -1169,6 +1179,7 @@ final class Generator
 			o.write(RELATION_SETTER);
 			o.write(lineSeparator);
 			writeCommentFooter();
+			writeDeprecated();
 	
 			o.write("\tpublic final void set");
 			o.write(endNameCamel);

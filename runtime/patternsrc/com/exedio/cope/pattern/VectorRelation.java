@@ -69,7 +69,10 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 		registerSource(target);
 	}
 	
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
+	/**
+	 * @deprecated use {@link FieldList} instead.
+	 */
+	@Deprecated
 	public static final <S extends Item, T extends Item> VectorRelation<S,T> newRelation(final ItemField<S> source, final ItemField<T> target)
 	{
 		return new VectorRelation<S, T>(source, target);

@@ -68,7 +68,10 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 		registerSource(target);
 	}
 
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
+	/**
+	 * @deprecated use {@link FieldSet} instead.
+	 */
+	@Deprecated
 	public static final <S extends Item, T extends Item> Relation<S,T> newRelation(final ItemField<S> source, final ItemField<T> target)
 	{
 		return new Relation<S, T>(source, target);

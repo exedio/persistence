@@ -51,6 +51,7 @@ public class VectorRelationTest extends AbstractLibTest
 		deleteOnTearDown(new RelationTargetItem("targetX"));
 	}
 	
+	@Deprecated // OK: test deprecated api
 	public void testRelation()
 	{
 		// test model
@@ -131,6 +132,7 @@ public class VectorRelationTest extends AbstractLibTest
 		assertEquals(list(source1), target3.getVectorSource());
 	}
 
+	@Deprecated // OK: test deprecated api
 	private static void assertIt(
 			final RelationSourceItem[] expectedSources,
 			final RelationTargetItem[] expectedTargets,
