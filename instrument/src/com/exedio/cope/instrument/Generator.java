@@ -756,7 +756,7 @@ final class Generator
 			o.write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 			
-			writeModifier(option.getModifier(PUBLIC) | STATIC|FINAL); // TODO obey class visibility
+			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
 			o.write(TYPE_NAME + '<');
 			o.write(type.name);
 			o.write("> TYPE = newType(");
