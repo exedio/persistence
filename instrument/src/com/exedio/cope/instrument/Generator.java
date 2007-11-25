@@ -120,6 +120,7 @@ final class Generator
 	private final String lineSeparator;
 	private final boolean longJavadoc;
 	private final String finalArgPrefix;
+	private final boolean serialVersionUID;
 	private final boolean skipDeprecated;
 	
 	
@@ -139,6 +140,7 @@ final class Generator
 		
 		this.longJavadoc = params.longJavadoc;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
+		this.serialVersionUID = params.serialVersionUID;
 		this.skipDeprecated = !params.createDeprecated;
 	}
 	
@@ -732,7 +734,7 @@ final class Generator
 	
 	private void writeSerialVersionUID() throws IOException
 	{
-		// TODO make disableable
+		if(serialVersionUID)
 		{
 			writeCommentHeader();
 			writeCommentFooter(null);

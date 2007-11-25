@@ -22,6 +22,7 @@ final class Params
 {
 	boolean longJavadoc = true;
 	boolean finalArgs = false;
+	boolean serialVersionUID = true;
 	boolean createDeprecated = false;
 	boolean verbose = true;
 }

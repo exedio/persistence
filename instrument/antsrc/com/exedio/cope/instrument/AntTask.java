@@ -54,6 +54,11 @@ public final class AntTask extends Task
 	{
 		params.finalArgs = finalArgs;
 	}
+	
+	public void setSerialVersionUID(final boolean serialVersionUID)
+	{
+		params.serialVersionUID = serialVersionUID;
+	}
 
 	public void setCreateDeprecated(final boolean createDeprecated)
 	{
