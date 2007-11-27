@@ -40,4 +40,9 @@ class InjectorParseException extends RuntimeException
 	{
 		super(cause);
 	}
+
+	protected InjectorParseException(final String message, final RuntimeException cause)
+	{
+		super(message, cause);
+	}
 }

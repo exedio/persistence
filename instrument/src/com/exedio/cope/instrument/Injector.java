@@ -49,8 +49,8 @@ import java.util.zip.CRC32;
 final class Injector
 {
 	final long inputCRC;
-	private final char[] input;
-	private int inputPosition = 0;
+	final char[] input;
+	int inputPosition = 0;
 	private final int inputLength;
 	
 	private final StringBuilder output;
@@ -111,16 +111,6 @@ final class Injector
 	private char outbuf;
 	private boolean outbufvalid = false;
 
-	/**
-	 * The line number in the current file.
-	 */
-	int positionLine = 1;
-
-	/**
-	 * The character in the current line.
-	 */
-	int positionColumn = 0;
-
 	private final char read() throws EndException
 	{
 		if(inputPosition>=inputLength)
@@ -137,16 +127,6 @@ final class Injector
 
 		if (c >= 0) // TODO cannot happen anymore
 		{
-			if (c == '\n')
-			{
-				positionLine++;
-				positionColumn = -1;
-			}
-			else
-			{
-				positionColumn++;
-			}
-
 			if (do_block && collect_when_blocking)
 				collector.append(outbuf);
 			outbuf = c;
@@ -1027,21 +1007,42 @@ final class Injector
 		
 		final int line;
 		final int column;
+		
+		private ParseException(final String message, final RuntimeException cause)
+		{
+			super(message, cause);
+			
+			final char[] input = Injector.this.input;
+			final int inputPosition = Injector.this.inputPosition;
+			
+			int line = 1;
+			int column = 0;
+			for(int i = 0; i<inputPosition; i++)
+			{
+				if(input[i]=='\n')
+				{
+					line++;
+					column = -1;
+				}
+				else
+				{
+					column++;
+				}
+			}
+			this.line = line;
+			this.column = column;
+		}
 
 		ParseException(String message)
 		{
 			//super("["+positionLine+':'+positionColumn+']'+' '+message);
-			super(message);
-			line = positionLine;
-			column = positionColumn;
+			this(message, null);
 		}
 
 		ParseException(final RuntimeException cause)
 		{
 			//super("["+positionLine+':'+positionColumn+']'+' '+message);
-			super(cause);
-			line = positionLine;
-			column = positionColumn;
+			this(null, cause);
 		}
 
 		@Override
