@@ -125,17 +125,12 @@ final class Injector
 		if (output != null && !do_block && outbufvalid && !discardNextFeature)
 			output.append(outbuf);
 
-		if (c >= 0) // TODO cannot happen anymore
-		{
 			if (do_block && collect_when_blocking)
 				collector.append(outbuf);
 			outbuf = c;
 			outbufvalid = true;
 			//System.out.print((char)c);
 			return c;
-		}
-		else
-			throw new EndException();
 	}
 
 	private void scheduleBlock(boolean collect_when_blocking)
