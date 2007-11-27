@@ -18,7 +18,8 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
+import static java.lang.reflect.Modifier.PUBLIC;
+import static java.lang.reflect.Modifier.PRIVATE;
 
 public class Example15Test extends InjectorTest
 {
@@ -45,11 +46,11 @@ public class Example15Test extends InjectorTest
 		final JavaClass exampleClass = assertClass("Example15", null, null);
 
 		final JavaAttribute name =
-			assertAttributeHeader("name", "String", Modifier.PRIVATE);
+			assertAttributeHeader("name", "String", PRIVATE);
 		assertAttribute("name", null, name);
 
 		final JavaAttribute dates =
-			assertAttributeHeader("dates", "HashSet<Date>", Modifier.PUBLIC);
+			assertAttributeHeader("dates", "HashSet<Date>", PUBLIC);
 		assertAttribute("dates", null, dates);
 
 		final JavaAttribute primes =
@@ -57,15 +58,15 @@ public class Example15Test extends InjectorTest
 		assertAttribute("primes", null, primes);
 
 		final JavaBehaviour constructor =
-			assertBehaviourHeader("Example15", null, Modifier.PUBLIC);
+			assertBehaviourHeader("Example15", null, PUBLIC);
 		assertMethod("Example15", null, constructor);
 		
 		final JavaBehaviour setter =
-			assertBehaviourHeader("set", "void", Modifier.PUBLIC);
+			assertBehaviourHeader("set", "void", PUBLIC);
 		assertMethod("set", null, setter);
 
 		final JavaBehaviour getDates =
-			assertBehaviourHeader("getDates", "HashSet<Date>", Modifier.PRIVATE);
+			assertBehaviourHeader("getDates", "HashSet<Date>", PRIVATE);
 		assertMethod("getDates", null, getDates);
 
 		final JavaBehaviour getPrimes =
@@ -81,7 +82,7 @@ public class Example15Test extends InjectorTest
 		assertInnerClassAttribute("Weekday", null);
 		
 		final JavaBehaviour equalsMethod =
-			assertBehaviourHeader("equals", "boolean", 0 /* TODO should be Modifier.PUBLIC */);
+			assertBehaviourHeader("equals", "boolean", 0 /* TODO should be PUBLIC */);
 		assertMethod("equals", null, equalsMethod);
 
 		assertClassEnd(exampleClass);
