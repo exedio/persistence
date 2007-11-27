@@ -125,12 +125,12 @@ final class Injector
 		if (output != null && !do_block && outbufvalid && !discardNextFeature)
 			output.append(outbuf);
 
-			if (do_block && collect_when_blocking)
-				collector.append(outbuf);
-			outbuf = c;
-			outbufvalid = true;
-			//System.out.print((char)c);
-			return c;
+		if (do_block && collect_when_blocking)
+			collector.append(outbuf);
+		outbuf = c;
+		outbufvalid = true;
+		//System.out.print((char)c);
+		return c;
 	}
 
 	private void scheduleBlock(boolean collect_when_blocking)
