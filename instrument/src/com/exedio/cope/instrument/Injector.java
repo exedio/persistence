@@ -130,8 +130,7 @@ final class Injector
 			throw new EndException();
 		}
 			
-		final char c = input[inputPosition];
-		inputPosition++;
+		final char c = input[inputPosition++];
 
 		if (output != null && !do_block && outbufvalid && !discardNextFeature)
 			output.append(outbuf);
