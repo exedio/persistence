@@ -39,13 +39,13 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.Wrapper;
 
-public final class FieldListLimited<E> extends Pattern implements Settable<Collection<E>>
+public final class LimitedListField<E> extends Pattern implements Settable<Collection<E>>
 {
 	private final FunctionField<E>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;
 
-	private FieldListLimited(final FunctionField<E>[] sources)
+	private LimitedListField(final FunctionField<E>[] sources)
 	{
 		this.sources = sources;
 
@@ -61,34 +61,34 @@ public final class FieldListLimited<E> extends Pattern implements Settable<Colle
 		this.isFinal = isFinal;
 	}
 	
-	private FieldListLimited(final FunctionField<E> source1, final FunctionField<E> source2)
+	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(FieldListLimited.<E>cast(new FunctionField[]{source1, source2}));
+		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2}));
 	}
 	
-	private FieldListLimited(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(FieldListLimited.<E>cast(new FunctionField[]{source1, source2, source3}));
+		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2, source3}));
 	}
 	
-	private FieldListLimited(final FunctionField<E> template, final int maximumSize)
+	private LimitedListField(final FunctionField<E> template, final int maximumSize)
 	{
 		this(template2Sources(template, maximumSize));
 	}
 	
-	public static final <E> FieldListLimited<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		return new FieldListLimited<E>(source1, source2);
+		return new LimitedListField<E>(source1, source2);
 	}
 	
-	public static final <E> FieldListLimited<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		return new FieldListLimited<E>(source1, source2, source3);
+		return new LimitedListField<E>(source1, source2, source3);
 	}
 	
-	public static final <E> FieldListLimited<E> newList(final FunctionField<E> template, final int maximumSize)
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
 	{
-		return new FieldListLimited<E>(template, maximumSize);
+		return new LimitedListField<E>(template, maximumSize);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: no generic array creation

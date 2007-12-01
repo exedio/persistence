@@ -26,8 +26,8 @@ import com.exedio.cope.StringField;
 
 public class FieldSetItem extends Item
 {
-	static final FieldSet<String> strings = FieldSet.newSet(new StringField().optional().lengthRange(4, 8));
-	static final FieldSet<Date> dates = FieldSet.newSet(new DateField());
+	static final SetField<String> strings = SetField.newSet(new StringField().optional().lengthRange(4, 8));
+	static final SetField<Date> dates = SetField.newSet(new DateField());
 	
 	
 	/**

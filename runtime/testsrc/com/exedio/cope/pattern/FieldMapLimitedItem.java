@@ -29,9 +29,9 @@ public class FieldMapLimitedItem extends Item
 		DE, EN, PL;
 	}
 	
-	static final FieldMapLimited<Language, String> name = FieldMapLimited.newMap(Language.class, new StringField().optional());
+	static final EnumMapField<Language, String> name = EnumMapField.newMap(Language.class, new StringField().optional());
 	
-	static final FieldMapLimited<Language, Integer> nameLength = FieldMapLimited.newMap(Language.class, new IntegerField().optional());
+	static final EnumMapField<Language, Integer> nameLength = EnumMapField.newMap(Language.class, new IntegerField().optional());
 	
 	/**
 

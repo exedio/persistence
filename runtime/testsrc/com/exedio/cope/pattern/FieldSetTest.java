@@ -138,7 +138,7 @@ public class FieldSetTest extends AbstractLibTest
 		
 		try
 		{
-			FieldSet.newSet(null);
+			SetField.newSet(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -147,7 +147,7 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldSet.newSet(new StringField().toFinal());
+			SetField.newSet(new StringField().toFinal());
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -156,7 +156,7 @@ public class FieldSetTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldSet.newSet(new StringField().unique());
+			SetField.newSet(new StringField().unique());
 			fail();
 		}
 		catch(IllegalArgumentException e)

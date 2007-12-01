@@ -70,7 +70,7 @@ public final class VectorRelation<S extends Item, T extends Item> extends Patter
 	}
 	
 	/**
-	 * @deprecated use {@link FieldList} instead.
+	 * @deprecated use {@link ListField} instead.
 	 */
 	@Deprecated
 	public static final <S extends Item, T extends Item> VectorRelation<S,T> newRelation(final ItemField<S> source, final ItemField<T> target)

@@ -180,7 +180,7 @@ public class FieldListTest extends AbstractLibTest
 		
 		try
 		{
-			FieldList.newList(null);
+			ListField.newList(null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -189,7 +189,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldList.newList(new StringField().toFinal());
+			ListField.newList(new StringField().toFinal());
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -198,7 +198,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldList.newList(new StringField().unique());
+			ListField.newList(new StringField().unique());
 			fail();
 		}
 		catch(IllegalArgumentException e)

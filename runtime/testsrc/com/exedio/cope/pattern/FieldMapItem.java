@@ -29,13 +29,13 @@ public class FieldMapItem extends Item
 		DE, EN, PL;
 	}
 	
-	static final FieldMap<Language, String> name = FieldMap.newMap(newEnumField(Language.class).toFinal(), new StringField());
+	static final MapField<Language, String> name = MapField.newMap(newEnumField(Language.class).toFinal(), new StringField());
 	
-	static final FieldMap<Language, Integer> nameLength = FieldMap.newMap(newEnumField(Language.class).toFinal(), new IntegerField());
+	static final MapField<Language, Integer> nameLength = MapField.newMap(newEnumField(Language.class).toFinal(), new IntegerField());
 	
-	static final FieldMap<String, String> string = FieldMap.newMap(new StringField().toFinal().lengthRange(4, 8), new StringField());
+	static final MapField<String, String> string = MapField.newMap(new StringField().toFinal().lengthRange(4, 8), new StringField());
 	
-	static final FieldMap<String, Integer> integer = FieldMap.newMap(new StringField().toFinal().lengthRange(4, 8), new IntegerField());
+	static final MapField<String, Integer> integer = MapField.newMap(new StringField().toFinal().lengthRange(4, 8), new IntegerField());
 	
 	
 	/**

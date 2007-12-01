@@ -30,8 +30,8 @@
 		<h3><a name="contents">Contents</a></h3>
 		<ul>
 			<li><a href="#hashes">Hashes</a></li>
-			<li><a href="#fieldlists">Field Lists</a></li>
-			<li><a href="#fieldmaps">Field Maps</a></li>
+			<li><a href="#list">List Fields</a></li>
+			<li><a href="#map">Map Fields</a></li>
 			<li><a href="#dayfields">Day Fields</a></li>
 			<li><a href="#constraints">Check Constraints</a></li>
 			<li><a href="#further">Further Reading</a></li>
@@ -60,40 +60,40 @@ boolean checkPassword(String password)
 			you can choose any hash algorithm provided by the java.security package
 			or even implement a custom algorithm.
 		</div>
-		<h3><a name="fieldlists">Field Lists</a></h3>
+		<h3><a name="list">List Fields</a></h3>
 		<div>
 			Sometimes you may want to store multiple values for an field,
 			such as multiple email addresses for the customer.
-			This can be achieved with <i>field lists</i>:
+			This can be achieved with <i>list fields</i>:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/pattern/FieldList.html">FieldList</a>&lt;String&gt; emails =
-    <a href="api/com/exedio/cope/pattern/FieldList.html">FieldList</a>.<a href="api/com/exedio/cope/pattern/FieldList.html#newList(com.exedio.cope.FunctionField)">newList</a>(new StringField());
+static final <a href="api/com/exedio/cope/pattern/ListField.html">ListField</a>&lt;String&gt; emails =
+    <a href="api/com/exedio/cope/pattern/ListField.html">ListField</a>.<a href="api/com/exedio/cope/pattern/ListField.html#newList(com.exedio.cope.FunctionField)">newList</a>(new StringField());
 </pre>
 		<div>
 			Internally this is implemented by an extra table in the database,
 			so you can store lists of any size.
 			If you are sure, that the list cannot a exceed a certain size,
-			you may decide to use a <i>limited field list</i>:
+			you may decide to use a <i>limited list field</i>:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>&lt;String&gt; emails =
-    <a href="api/com/exedio/cope/pattern/FieldListLimited.html">FieldListLimited</a>.<a href="api/com/exedio/cope/pattern/FieldListLimited.html#newList(com.exedio.cope.FunctionField, int)">newList</a>(new StringField().<a href="api/com/exedio/cope/StringField.html#optional()">optional</a>(), 4);
+static final <a href="api/com/exedio/cope/pattern/LimitedListField.html">LimitedListField</a>&lt;String&gt; emails =
+    <a href="api/com/exedio/cope/pattern/LimitedListField.html">LimitedListField</a>.<a href="api/com/exedio/cope/pattern/LimitedListField.html#newList(com.exedio.cope.FunctionField, int)">newList</a>(new StringField().<a href="api/com/exedio/cope/StringField.html#optional()">optional</a>(), 4);
 </pre>
 		<div>
 			Internally there are 4 string fields used for storing the elements of the list.
 			If someone tries to store a list of more than 4 elements,
 			an exception is thrown.
 		</div>
-		<h3><a name="fieldmaps">Field Maps</a></h3>
+		<h3><a name="map">Map Fields</a></h3>
 		<div>
 			Especially in international applications you may want to store multiple field values,
 			such as one price of a product for each country or one description for each language.
 			The following example specifies the latter:
 		</div>
 <pre>
-static final <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>.<a href="api/com/exedio/cope/pattern/FieldMap.html#newMap(com.exedio.cope.FunctionField, com.exedio.cope.FunctionField)">newMap</a>(newItemField(Language.class),
+static final <a href="api/com/exedio/cope/pattern/MapField.html">MapField</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/MapField.html">MapField</a>.<a href="api/com/exedio/cope/pattern/MapField.html#newMap(com.exedio.cope.FunctionField, com.exedio.cope.FunctionField)">newMap</a>(newItemField(Language.class),
                         new StringField());
 </pre>
 		<div>
@@ -118,21 +118,21 @@ void setDescription(Language k, String description)
 <pre>
 static enum Language { DE, EN, PL; }
 
-static final <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/FieldMap.html">FieldMap</a>.<a href="api/com/exedio/cope/pattern/FieldMap.html#newMap(com.exedio.cope.FunctionField, com.exedio.cope.FunctionField)">newMap</a>(newEnumField(Language.class),
+static final <a href="api/com/exedio/cope/pattern/MapField.html">MapField</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/MapField.html">MapField</a>.<a href="api/com/exedio/cope/pattern/MapField.html#newMap(com.exedio.cope.FunctionField, com.exedio.cope.FunctionField)">newMap</a>(newEnumField(Language.class),
                         new StringField());
 </pre>
 		<div>
-			As with <i>field lists</i> this is implemented by an extra table in the database,
+			As with <i>list fields</i> this is implemented by an extra table in the database,
 			so you can store maps of any size.
 			If the key space of the map is limited to an enum,
-			you may decide to use a <i>limited field map</i> instead:
+			you may decide to use a <i>enum map field</i> instead:
 		</div>
 <pre>
 static enum Language { DE, EN, PL; }
 
-static final <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMapLimited</a>&lt;Language,String&gt; description =
-    <a href="api/com/exedio/cope/pattern/FieldMapLimited.html">FieldMapLimited</a>.<a href="api/com/exedio/cope/pattern/FieldMapLimited.html#newMap(java.lang.Class, com.exedio.cope.FunctionField)">newMap</a>(Language.class,
+static final <a href="api/com/exedio/cope/pattern/EnumMapField.html">EnumMapField</a>&lt;Language,String&gt; description =
+    <a href="api/com/exedio/cope/pattern/EnumMapField.html">EnumMapField</a>.<a href="api/com/exedio/cope/pattern/EnumMapField.html#newMap(java.lang.Class, com.exedio.cope.FunctionField)">newMap</a>(Language.class,
                         new StringField().<a href="api/com/exedio/cope/StringField.html#optional()">optional</a>());
 </pre>
 		<div>

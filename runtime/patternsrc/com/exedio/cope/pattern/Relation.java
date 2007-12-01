@@ -69,7 +69,7 @@ public final class Relation<S extends Item, T extends Item> extends Pattern
 	}
 
 	/**
-	 * @deprecated use {@link FieldSet} instead.
+	 * @deprecated use {@link SetField} instead.
 	 */
 	@Deprecated
 	public static final <S extends Item, T extends Item> Relation<S,T> newRelation(final ItemField<S> source, final ItemField<T> target)

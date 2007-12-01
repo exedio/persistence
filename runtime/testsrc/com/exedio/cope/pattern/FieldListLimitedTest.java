@@ -302,7 +302,7 @@ public class FieldListLimitedTest extends AbstractLibTest
 		}
 		try
 		{
-			FieldListLimited.newList(new StringField(), 1);
+			LimitedListField.newList(new StringField(), 1);
 			fail();
 		}
 		catch(IllegalArgumentException e)
