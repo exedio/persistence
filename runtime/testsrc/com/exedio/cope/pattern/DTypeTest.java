@@ -332,7 +332,17 @@ public class DTypeTest extends AbstractLibTest
 		final DField smallField1 = smallType1.addStringField("smallStringField1");
 		item3.setSmall(smallField1, "hallo");
 		assertEquals("hallo", item3.getSmall(smallField1));
-		//item3.setSmallType(null);
+		
+		// test model mismatch
+		try
+		{
+			item3.setSmallType(cellPhone);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("dynamic model mismatch: new type has model DTypeItem.features, but must be DTypeItem.small", e.getMessage());
+		}
 	}
 	
 	private final DType deleteOnTearDown(final DType type)

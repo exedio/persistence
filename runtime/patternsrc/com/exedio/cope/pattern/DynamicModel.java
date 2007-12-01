@@ -243,7 +243,7 @@ public final class DynamicModel extends Pattern
 	public void setType(final Item item, final DType type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
-			throw new RuntimeException("dynamic model mismatch: new type has model " + type.getModel() + ", but must be " + toString());
+			throw new IllegalArgumentException("dynamic model mismatch: new type has model " + type.getModel() + ", but must be " + toString());
 		
 		final SetValue[] values = new SetValue[1+fields.length];
 		values[0] = Cope.mapAndCast(this.type, type!=null ? type.getBackingItem() : null);
