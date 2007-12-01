@@ -62,7 +62,8 @@ public class DTypeTest extends AbstractLibTest
 		
 		assertEquals(list(
 				DTypeItem.TYPE,
-				DTypeItem.features.getTypeType(), DTypeItem.features.getFieldType(), DTypeItem.features.getEnumValueType()
+				DTypeItem.features.getTypeType(), DTypeItem.features.getFieldType(), DTypeItem.features.getEnumValueType(),
+				DTypeItem.small.getTypeType(), DTypeItem.small.getFieldType() // no getEnumValueType()
 			), model.getTypes());
 		
 		// test persistence
@@ -323,6 +324,15 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(null, item.getFeaturesType());
 		item2.setFeaturesType(null);
 		assertEquals(null, item2.getFeaturesType());
+		
+		// test very small system without enums
+		final DType smallType1 = deleteOnTearDown(item.small.createType("small1"));
+		final DTypeItem item3 = deleteOnTearDown(new DTypeItem("item3"));
+		item3.setSmallType(smallType1);
+		final DField smallField1 = smallType1.addStringField("smallStringField1");
+		item3.setSmall(smallField1, "hallo");
+		assertEquals("hallo", item3.getSmall(smallField1));
+		//item3.setSmallType(null);
 	}
 	
 	private final DType deleteOnTearDown(final DType type)
