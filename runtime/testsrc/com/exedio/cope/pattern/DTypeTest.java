@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.pattern.DTypeSystem.DAttribute;
+import com.exedio.cope.pattern.DTypeSystem.DField;
 import com.exedio.cope.pattern.DTypeSystem.DType;
 import com.exedio.cope.pattern.DTypeSystem.DEnumValue;
 import com.exedio.cope.pattern.DTypeSystem.ValueType;
@@ -70,27 +70,27 @@ public class DTypeTest extends AbstractLibTest
 		assertContains(cellPhone, item.features.getTypes());
 		assertEquals(cellPhone, item.features.getType("cellPhone"));
 		assertEquals(null, item.features.getType("cellPhoneX"));
-		assertContains(cellPhone.getAttributes());
+		assertContains(cellPhone.getFields());
 
-		final DAttribute akkuTime = cellPhone.addIntegerAttribute("akkuTime");
+		final DField akkuTime = cellPhone.addIntegerField("akkuTime");
 		assertEquals(ValueType.INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
 		assertSame(item.TYPE, akkuTime.getField().getType());
 		assertEquals("featuresInt1", akkuTime.getField().getName());
 		assertEquals(Integer.class, akkuTime.getField().getValueClass());
-		assertEquals(list(akkuTime), cellPhone.getAttributes());
-		assertEquals(akkuTime, cellPhone.getAttribute("akkuTime"));
-		assertEquals(null, cellPhone.getAttribute("akkuTimeX"));
+		assertEquals(list(akkuTime), cellPhone.getFields());
+		assertEquals(akkuTime, cellPhone.getField("akkuTime"));
+		assertEquals(null, cellPhone.getField("akkuTimeX"));
 
-		final DAttribute memory = cellPhone.addStringAttribute("memory");
+		final DField memory = cellPhone.addStringField("memory");
 		assertEquals(ValueType.STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
 		assertSame(item.TYPE, memory.getField().getType());
 		assertEquals("featuresString1", memory.getField().getName());
 		assertEquals(String.class, memory.getField().getValueClass());
-		assertEquals(list(akkuTime, memory), cellPhone.getAttributes());
+		assertEquals(list(akkuTime, memory), cellPhone.getFields());
 		
 		assertEquals(null, item.getFeaturesType());
 		
@@ -125,12 +125,12 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("organizer", organizer.getCode());
 		assertContains(cellPhone, organizer, item.features.getTypes());
 
-		final DAttribute weight = organizer.addIntegerAttribute("weight");
+		final DField weight = organizer.addIntegerField("weight");
 		assertEquals(ValueType.INTEGER, weight.getValueType());
 		assertEquals(0, weight.getPosition());
 		assertEquals("weight", weight.getCode());
 		assertSame(akkuTime.getField(), weight.getField());
-		assertEquals(list(weight), organizer.getAttributes());
+		assertEquals(list(weight), organizer.getFields());
 		
 		item2.setFeaturesType(organizer);
 		assertEquals(organizer, item2.getFeaturesType());
@@ -139,23 +139,23 @@ public class DTypeTest extends AbstractLibTest
 		item2.setFeatures(weight, 500);
 		assertEquals(500, item2.getFeatures(weight));
 		
-		final DAttribute bluetooth = organizer.addBooleanAttribute("bluetooth");
+		final DField bluetooth = organizer.addBooleanField("bluetooth");
 		assertEquals(ValueType.BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
 		assertSame(item.TYPE, bluetooth.getField().getType());
 		assertEquals("featuresBool1", bluetooth.getField().getName());
 		assertEquals(Boolean.class, bluetooth.getField().getValueClass());
-		assertEquals(list(weight, bluetooth), organizer.getAttributes());
+		assertEquals(list(weight, bluetooth), organizer.getFields());
 		
-		final DAttribute length = organizer.addDoubleAttribute("length");
+		final DField length = organizer.addDoubleField("length");
 		assertEquals(ValueType.DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
 		assertSame(item.TYPE, length.getField().getType());
 		assertEquals("featuresDouble1", length.getField().getName());
 		assertEquals(Double.class, length.getField().getValueClass());
-		assertEquals(list(weight, bluetooth, length), organizer.getAttributes());
+		assertEquals(list(weight, bluetooth, length), organizer.getFields());
 		
 		assertEquals(null, item2.getFeatures(bluetooth));
 		assertEquals(null, item2.getFeatures(length));
@@ -164,14 +164,14 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(true, item2.getFeatures(bluetooth));
 		assertEquals(2.2, item2.getFeatures(length));
 		
-		final DAttribute color = organizer.addEnumAttribute("color");
+		final DField color = organizer.addEnumField("color");
 		assertEquals(ValueType.ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
 		assertSame(item.TYPE, color.getField().getType());
 		assertEquals("featuresEnum1", color.getField().getName());
 		assertTrue(Item.class.isAssignableFrom(color.getField().getValueClass()));
-		assertEquals(list(weight, bluetooth, length, color), organizer.getAttributes());
+		assertEquals(list(weight, bluetooth, length, color), organizer.getFields());
 		assertContains(color.getEnumValues());
 		assertEquals(null, item2.getFeatures(color));
 		
@@ -192,14 +192,14 @@ public class DTypeTest extends AbstractLibTest
 		item2.setFeatures(color, colorBlue);
 		assertEquals(colorBlue, item2.getFeatures(color));
 		
-		final DAttribute manufacturer = organizer.addEnumAttribute("manufacturer");
+		final DField manufacturer = organizer.addEnumField("manufacturer");
 		assertEquals(ValueType.ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(item.TYPE, manufacturer.getField().getType());
 		assertEquals("featuresEnum2", manufacturer.getField().getName());
 		assertTrue(Item.class.isAssignableFrom(manufacturer.getField().getValueClass()));
-		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getAttributes());
+		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getFields());
 		assertContains(manufacturer.getEnumValues());
 		assertEquals(null, item2.getFeatures(manufacturer));
 		
@@ -243,7 +243,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
+			assertEquals("dynamic type mismatch: field has type organizer, but item has cellPhone", e.getMessage());
 		}
 		try
 		{
@@ -252,21 +252,21 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("dynamic type mismatch: attribute has type organizer, but item has cellPhone", e.getMessage());
+			assertEquals("dynamic type mismatch: field has type organizer, but item has cellPhone", e.getMessage());
 		}
 		assertEquals(500, item2.getFeatures(weight));
 		
-		assertContains(akkuTime, memory, cellPhone.getAttributes());
+		assertContains(akkuTime, memory, cellPhone.getFields());
 		try
 		{
-			cellPhone.addStringAttribute("tooMuch");
+			cellPhone.addStringField("tooMuch");
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("capacity for STRING exceeded, 1 available, but tried to allocate 2", e.getMessage());
 		}
-		assertContains(akkuTime, memory, cellPhone.getAttributes());
+		assertContains(akkuTime, memory, cellPhone.getFields());
 		
 		/* TODO assertContains(akkuTime, memory, cellPhone.getAttributes());
 		try
@@ -287,7 +287,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
 		}
 		try
 		{
@@ -296,7 +296,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
 		}
 		try
 		{
@@ -305,7 +305,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
 		}
 			
 		

@@ -46,12 +46,12 @@ public final class DTypeSystem extends Pattern
 	final StringField typeCode = new StringField().toFinal().unique();
 	private Type<?> typeType = null;
 	
-	ItemField<?> attributeParent = null;
-	final IntegerField attributePosition = new IntegerField().toFinal();
-	final EnumField<ValueType> attributeValueType = Item.newEnumField(ValueType.class).toFinal();
-	final IntegerField attributePositionPerValueType = new IntegerField().toFinal();
-	final StringField attributeCode = new StringField().toFinal();
-	Type<?> attributeType = null;
+	ItemField<?> fieldParent = null;
+	final IntegerField fieldPosition = new IntegerField().toFinal();
+	final EnumField<ValueType> fieldValueType = Item.newEnumField(ValueType.class).toFinal();
+	final IntegerField fieldPositionPerValueType = new IntegerField().toFinal();
+	final StringField fieldCode = new StringField().toFinal();
+	Type<?> fieldType = null;
 	
 	ItemField<?> enumValueParent = null;
 	final IntegerField enumValuePosition = new IntegerField().toFinal();
@@ -123,16 +123,16 @@ public final class DTypeSystem extends Pattern
 		typeType = newType(features, "Type");
 		
 		features.clear();
-		attributeParent = typeType.newItemField(CASCADE).toFinal();
-		features.put("parent", attributeParent);
-		features.put("position", attributePosition);
-		features.put("uniqueConstraint", new UniqueConstraint(attributeParent, attributePosition));
-		features.put("valueType", attributeValueType);
-		features.put("positionPerValueType", attributePositionPerValueType);
-		features.put("uniqueConstraintPerValueType", new UniqueConstraint(attributeParent, attributeValueType, attributePositionPerValueType));
-		features.put("code", attributeCode);
-		features.put("uniqueConstraintCode", new UniqueConstraint(attributeParent, attributeCode));
-		attributeType = newType(features, "Field");
+		fieldParent = typeType.newItemField(CASCADE).toFinal();
+		features.put("parent", fieldParent);
+		features.put("position", fieldPosition);
+		features.put("uniqueConstraint", new UniqueConstraint(fieldParent, fieldPosition));
+		features.put("valueType", fieldValueType);
+		features.put("positionPerValueType", fieldPositionPerValueType);
+		features.put("uniqueConstraintPerValueType", new UniqueConstraint(fieldParent, fieldValueType, fieldPositionPerValueType));
+		features.put("code", fieldCode);
+		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
+		fieldType = newType(features, "Field");
 		
 		registerSource(type = typeType.newItemField(FORBID).optional());
 		initialize(type, name + "Type");
@@ -140,7 +140,7 @@ public final class DTypeSystem extends Pattern
 		if(enums.length>0)
 		{
 			features.clear();
-			enumValueParent = attributeType.newItemField(CASCADE).toFinal();
+			enumValueParent = fieldType.newItemField(CASCADE).toFinal();
 			features.put("parent", enumValueParent);
 			features.put("position", enumValuePosition);
 			features.put("uniquePosition", new UniqueConstraint(enumValueParent, enumValuePosition));
@@ -201,15 +201,15 @@ public final class DTypeSystem extends Pattern
 			
 		result.add(new Wrapper(
 			Object.class, "get",
-			"Returns the value of <tt>attribute</tt> for this item in the type system {0}.",
+			"Returns the value of <tt>field</tt> for this item in the type system {0}.",
 			"getter").
-			addParameter(DAttribute.class, "attribute"));
+			addParameter(DField.class, "field"));
 			
 		result.add(new Wrapper(
 			void.class, "set",
-			"Sets the value of <tt>attribute</tt> for this item in the type system {0}.",
+			"Sets the value of <tt>field</tt> for this item in the type system {0}.",
 			"setter").
-			addParameter(DAttribute.class, "attribute").
+			addParameter(DField.class, "field").
 			addParameter(Object.class, "value"));
 		
 		return Collections.unmodifiableList(result);
@@ -242,18 +242,18 @@ public final class DTypeSystem extends Pattern
 		item.set(values);
 	}
 	
-	private void assertType(final Item item, final DAttribute attribute)
+	private void assertType(final Item item, final DField field)
 	{
-		final Item attributeType = attributeParent.get(attribute.backingItem);
+		final Item fieldType = fieldParent.get(field.backingItem);
 		final Item itemType = type.get(item);
-		if(!attributeType.equals(itemType))
-			throw new IllegalArgumentException("dynamic type mismatch: attribute has type " + typeCode.get(attributeType) + ", but item has " + (itemType!=null ? typeCode.get(itemType) : "none"));
+		if(!fieldType.equals(itemType))
+			throw new IllegalArgumentException("dynamic type mismatch: field has type " + typeCode.get(fieldType) + ", but item has " + (itemType!=null ? typeCode.get(itemType) : "none"));
 	}
 	
-	FunctionField<?> getField(final DAttribute attribute)
+	FunctionField<?> getField(final DField field)
 	{
-		final ValueType valueType = attribute.getValueType();
-		final int pos = attribute.getPositionPerValueType();
+		final ValueType valueType = field.getValueType();
+		final int pos = field.getPositionPerValueType();
 
 		final FunctionField[] array = array(valueType);
 		
@@ -262,40 +262,40 @@ public final class DTypeSystem extends Pattern
 		// thrown by the last line.
 		final int capacity = array.length;
 		if(capacity<=pos)
-			throw new RuntimeException("accessing " + attribute + " exceeded capacity for " + valueType + ", " + capacity + " available, but tried to access " + (pos+1));
+			throw new RuntimeException("accessing " + field + " exceeded capacity for " + valueType + ", " + capacity + " available, but tried to access " + (pos+1));
 
 		return array[pos];
 	}
 	
-	public Object get(final Item item, final DAttribute attribute)
+	public Object get(final Item item, final DField field)
 	{
-		assertType(item, attribute);
-		final Object backingValue = getField(attribute).get(item);
+		assertType(item, field);
+		final Object backingValue = getField(field).get(item);
 		if(backingValue!=null && backingValue instanceof Item)
 			return new DEnumValue((Item)backingValue);
 		else
 			return backingValue;
 	}
 	
-	public void set(final Item item, final DAttribute attribute, final Object value)
+	public void set(final Item item, final DField field, final Object value)
 	{
-		assertType(item, attribute);
+		assertType(item, field);
 		
 		final Object backingValue;
 		if(value!=null &&
 			value instanceof DEnumValue &&
-			attribute.getValueType()==ValueType.ENUM)
+			field.getValueType()==ValueType.ENUM)
 		{
 			final DEnumValue enumValue = (DEnumValue)value;
-			final DAttribute enumValueParent = enumValue.getParent();
-			if(!enumValueParent.equals(attribute))
-				throw new IllegalArgumentException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + attribute);
+			final DField enumValueParent = enumValue.getParent();
+			if(!enumValueParent.equals(field))
+				throw new IllegalArgumentException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);
 			backingValue = enumValue.backingItem;
 		}
 		else
 			backingValue = value;
 		
-		Cope.setAndCast(getField(attribute), item, backingValue);
+		Cope.setAndCast(getField(field), item, backingValue);
 	}
 	
 	private DType toDType(final Item backingItem)
@@ -330,72 +330,69 @@ public final class DTypeSystem extends Pattern
 	{
 		final Item backingItem;
 		
-		public DAttribute addAttribute(final String name, final ValueType valueType)
+		public DField addField(final String name, final ValueType valueType)
 		{
-			final List<DAttribute> attributes = getAttributes(); // TODO make more efficient
+			final List<DField> attributes = getFields(); // TODO make more efficient
 			final int position = attributes.isEmpty() ? 0 : (attributes.get(attributes.size()-1).getPosition()+1);
-			final List<DAttribute> attributesPerValuetype = getAttributes(valueType); // TODO make more efficient
+			final List<DField> attributesPerValuetype = getAttributes(valueType); // TODO make more efficient
 			final int positionPerValuetype = attributesPerValuetype.isEmpty() ? 0 : (attributesPerValuetype.get(attributesPerValuetype.size()-1).getPositionPerValueType()+1);
 			getDtypeSystem().assertCapacity(valueType, positionPerValuetype);
 			//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
-			return new DAttribute(
-					attributeType.newItem(
-							Cope.mapAndCast(attributeParent, backingItem),
-							attributePosition.map(position),
-							attributeCode.map(name),
-							attributeValueType.map(valueType),
-							attributePositionPerValueType.map(positionPerValuetype)));
+			return new DField(
+					fieldType.newItem(
+							Cope.mapAndCast(fieldParent, backingItem),
+							fieldPosition.map(position),
+							fieldCode.map(name),
+							fieldValueType.map(valueType),
+							fieldPositionPerValueType.map(positionPerValuetype)));
+		}
+
+		public DField addStringField(final String name)
+		{
+			return addField(name, ValueType.STRING);
+		}
+
+		public DField addBooleanField(final String name)
+		{
+			return addField(name, ValueType.BOOLEAN);
 		}
 		
-		public DAttribute addStringAttribute(final String name)
+		public DField addIntegerField(final String name)
 		{
-			return addAttribute(name, ValueType.STRING);
+			return addField(name, ValueType.INTEGER);
+		}
+		public DField addDoubleField(final String name)
+		{
+			return addField(name, ValueType.DOUBLE);
 		}
 		
-		public DAttribute addBooleanAttribute(final String name)
+		public DField addEnumField(final String name)
 		{
-			return addAttribute(name, ValueType.BOOLEAN);
+			return addField(name, ValueType.ENUM);
 		}
-		
-		public DAttribute addIntegerAttribute(final String name)
+
+		public List<DField> getFields()
 		{
-			return addAttribute(name, ValueType.INTEGER);
-		}
-		
-		public DAttribute addDoubleAttribute(final String name)
-		{
-			return addAttribute(name, ValueType.DOUBLE);
-		}
-		
-		public DAttribute addEnumAttribute(final String name)
-		{
-			return addAttribute(name, ValueType.ENUM);
-		}
-		
-		public List<DAttribute> getAttributes()
-		{
-			final List<? extends Item> backingItems = attributeType.search(Cope.equalAndCast(attributeParent, backingItem), attributePosition, true);
-			final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
+			final List<? extends Item> backingItems = fieldType.search(Cope.equalAndCast(fieldParent, backingItem), fieldPosition, true);
+			final ArrayList<DField> result = new ArrayList<DField>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DAttribute(backingItem));
+				result.add(new DField(backingItem));
 			return Collections.unmodifiableList(result);
 		}
-		
-		public DAttribute getAttribute(final String code)
+
+		public DField getField(final String code)
 		{
-			return toDAttribute(attributeType.searchSingleton(Cope.equalAndCast(attributeParent, backingItem).and(attributeCode.equal(code))));
+			return toDAttribute(fieldType.searchSingleton(Cope.equalAndCast(fieldParent, backingItem).and(fieldCode.equal(code))));
 		}
 		
-		private List<DAttribute> getAttributes(final ValueType valueType)
+		private List<DField> getAttributes(final ValueType valueType)
 		{
-			final List<? extends Item> backingItems = attributeType.search(Cope.equalAndCast(attributeParent, backingItem).and(attributeValueType.equal(valueType)), attributePositionPerValueType, true);
-			final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
+			final List<? extends Item> backingItems = fieldType.search(Cope.equalAndCast(fieldParent, backingItem).and(fieldValueType.equal(valueType)), fieldPositionPerValueType, true);
+			final ArrayList<DField> result = new ArrayList<DField>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DAttribute(backingItem));
+				result.add(new DField(backingItem));
 			return Collections.unmodifiableList(result);
 		}
-		
-		
 		
 		DType(final Item backingItem)
 		{
@@ -423,9 +420,9 @@ public final class DTypeSystem extends Pattern
 			return backingItem;
 		}
 		
-		private DAttribute toDAttribute(final Item backingItem)
+		private DField toDAttribute(final Item backingItem)
 		{
-			return backingItem!=null ? new DAttribute(backingItem) : null;
+			return backingItem!=null ? new DField(backingItem) : null;
 		}
 		
 		@Override
@@ -445,9 +442,81 @@ public final class DTypeSystem extends Pattern
 		{
 			return backingItem.toString();
 		}
+		
+		/**
+		 * @deprecated Use {@link #addField(String,ValueType)} instead
+		 */
+		@Deprecated
+		public DField addAttribute(final String name, final ValueType valueType)
+		{
+			return addField(name, valueType);
+		}
+		
+		/**
+		 * @deprecated Use {@link #addStringField(String)} instead
+		 */
+		@Deprecated
+		public DField addStringAttribute(final String name)
+		{
+			return addStringField(name);
+		}
+		
+		/**
+		 * @deprecated Use {@link #addBooleanField(String)} instead
+		 */
+		@Deprecated
+		public DField addBooleanAttribute(final String name)
+		{
+			return addBooleanField(name);
+		}
+		
+		/**
+		 * @deprecated Use {@link #addIntegerField(String)} instead
+		 */
+		@Deprecated
+		public DField addIntegerAttribute(final String name)
+		{
+			return addIntegerField(name);
+		}
+
+		/**
+		 * @deprecated Use {@link #addDoubleField(String)} instead
+		 */
+		@Deprecated
+		public DField addDoubleAttribute(final String name)
+		{
+			return addDoubleField(name);
+		}
+
+		/**
+		 * @deprecated Use {@link #addEnumField(String)} instead
+		 */
+		@Deprecated
+		public DField addEnumAttribute(final String name)
+		{
+			return addEnumField(name);
+		}
+		
+		/**
+		 * @deprecated Use {@link #getFields()} instead
+		 */
+		@Deprecated
+		public List<DField> getAttributes()
+		{
+			return getFields();
+		}
+		
+		/**
+		 * @deprecated Use {@link #getField(String)} instead
+		 */
+		@Deprecated
+		public DField getAttribute(final String code)
+		{
+			return getField(code);
+		}
 	}
 	
-	public final class DAttribute
+	public final class DField
 	{
 		final Item backingItem;
 		
@@ -465,7 +534,7 @@ public final class DTypeSystem extends Pattern
 		{
 			final ValueType vt = getValueType();
 			if(vt!=ValueType.ENUM)
-				throw new IllegalArgumentException("operation allowed for getValueType()==ENUM attributes only, but was " + vt);
+				throw new IllegalArgumentException("operation allowed for getValueType()==ENUM fields only, but was " + vt);
 		}
 		
 		public List<DEnumValue> getEnumValues()
@@ -499,7 +568,7 @@ public final class DTypeSystem extends Pattern
 		
 
 		
-		DAttribute(final Item backingItem)
+		DField(final Item backingItem)
 		{
 			this.backingItem = backingItem;
 			assert backingItem!=null;
@@ -507,27 +576,27 @@ public final class DTypeSystem extends Pattern
 		
 		public DType getParent()
 		{
-			return new DType(attributeParent.get(backingItem));
+			return new DType(fieldParent.get(backingItem));
 		}
 		
 		public int getPosition()
 		{
-			return attributePosition.getMandatory(backingItem);
+			return fieldPosition.getMandatory(backingItem);
 		}
 		
 		public ValueType getValueType()
 		{
-			return attributeValueType.get(backingItem);
+			return fieldValueType.get(backingItem);
 		}
 		
 		int getPositionPerValueType()
 		{
-			return attributePositionPerValueType.getMandatory(backingItem);
+			return fieldPositionPerValueType.getMandatory(backingItem);
 		}
 		
 		public String getCode()
 		{
-			return attributeCode.get(backingItem);
+			return fieldCode.get(backingItem);
 		}
 		
 		public FunctionField<?> getField()
@@ -548,7 +617,7 @@ public final class DTypeSystem extends Pattern
 		@Override
 		public boolean equals(final Object other)
 		{
-			return other instanceof DAttribute && backingItem.equals(((DAttribute)other).backingItem);
+			return other instanceof DField && backingItem.equals(((DField)other).backingItem);
 		}
 		
 		@Override
@@ -574,9 +643,9 @@ public final class DTypeSystem extends Pattern
 			assert backingItem!=null;
 		}
 		
-		public DAttribute getParent()
+		public DField getParent()
 		{
-			return new DAttribute(enumValueParent.get(backingItem));
+			return new DField(enumValueParent.get(backingItem));
 		}
 		
 		public int getPosition()
