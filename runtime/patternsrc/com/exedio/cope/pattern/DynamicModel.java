@@ -41,7 +41,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.Wrapper;
 
-public final class DTypeSystem extends Pattern
+public final class DynamicModel extends Pattern
 {
 	final StringField typeCode = new StringField().toFinal().unique();
 	private Type<?> typeType = null;
@@ -67,7 +67,7 @@ public final class DTypeSystem extends Pattern
 	private final DoubleField[]  doubles;
 	private final ItemField<?>[]  enums;
 	
-	public DTypeSystem(
+	public DynamicModel(
 			final int stringCapacity,
 			final int booleanCapacity,
 			final int integerCapacity,
@@ -409,12 +409,12 @@ public final class DTypeSystem extends Pattern
 		
 		public Type getParentType()
 		{
-			return DTypeSystem.this.getType();
+			return DynamicModel.this.getType();
 		}
 		
-		public DTypeSystem getDtypeSystem()
+		public DynamicModel getDtypeSystem()
 		{
-			return DTypeSystem.this;
+			return DynamicModel.this;
 		}
 		
 		public String getCode()
@@ -509,12 +509,12 @@ public final class DTypeSystem extends Pattern
 		
 		public Object get(final Item item)
 		{
-			return DTypeSystem.this.get(item, this);
+			return DynamicModel.this.get(item, this);
 		}
 		
 		public void set(final Item item, final Object value)
 		{
-			DTypeSystem.this.set(item, this, value);
+			DynamicModel.this.set(item, this, value);
 		}
 		
 		private void assertEnum()
@@ -579,7 +579,7 @@ public final class DTypeSystem extends Pattern
 		
 		public FunctionField<?> getField()
 		{
-			return DTypeSystem.this.getField(this);
+			return DynamicModel.this.getField(this);
 		}
 		
 		private DEnumValue toDEnumValue(final Item backingItem)

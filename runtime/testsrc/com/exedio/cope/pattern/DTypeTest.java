@@ -21,10 +21,10 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
-import com.exedio.cope.pattern.DTypeSystem.DEnumValue;
-import com.exedio.cope.pattern.DTypeSystem.DField;
-import com.exedio.cope.pattern.DTypeSystem.DType;
-import com.exedio.cope.pattern.DTypeSystem.ValueType;
+import com.exedio.cope.pattern.DynamicModel.DEnumValue;
+import com.exedio.cope.pattern.DynamicModel.DField;
+import com.exedio.cope.pattern.DynamicModel.DType;
+import com.exedio.cope.pattern.DynamicModel.ValueType;
 
 public class DTypeTest extends AbstractLibTest
 {
