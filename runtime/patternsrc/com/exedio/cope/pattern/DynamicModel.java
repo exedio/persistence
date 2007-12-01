@@ -380,6 +380,7 @@ public final class DynamicModel extends Pattern
 		{
 			return addField(code, ValueType.INTEGER);
 		}
+		
 		public DField addDoubleField(final String code)
 		{
 			return addField(code, ValueType.DOUBLE);
