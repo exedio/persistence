@@ -40,7 +40,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.Wrapper;
-import com.exedio.cope.pattern.DAttribute.ValueType;
 
 public final class DTypeSystem extends Pattern
 {
@@ -93,7 +92,7 @@ public final class DTypeSystem extends Pattern
 			registerSource(fields[n++] = doubles [i] = new DoubleField().optional());
 	}
 	
-	private FunctionField<?>[] array(final DAttribute.ValueType valueType)
+	private FunctionField<?>[] array(final ValueType valueType)
 	{
 		switch(valueType)
 		{
@@ -107,7 +106,7 @@ public final class DTypeSystem extends Pattern
 		}
 	}
 	
-	void assertCapacity(final DAttribute.ValueType valueType, final int positionPerValuetype)
+	void assertCapacity(final ValueType valueType, final int positionPerValuetype)
 	{
 		final int capacity = array(valueType).length;
 		if(capacity<=positionPerValuetype)
@@ -154,7 +153,7 @@ public final class DTypeSystem extends Pattern
 				registerSource(fields[i+enumOffset] = enums[i] = enumValueType.newItemField(FORBID).optional());
 		}
 		
-		for(final DAttribute.ValueType valueType : DAttribute.ValueType.values())
+		for(final ValueType valueType : ValueType.values())
 		{
 			final FunctionField<?>[] array = array(valueType);
 			final String postfix = valueType.postfix;
@@ -253,7 +252,7 @@ public final class DTypeSystem extends Pattern
 	
 	FunctionField<?> getField(final DAttribute attribute)
 	{
-		final DAttribute.ValueType valueType = attribute.getValueType();
+		final ValueType valueType = attribute.getValueType();
 		final int pos = attribute.getPositionPerValueType();
 
 		final FunctionField[] array = array(valueType);
@@ -285,7 +284,7 @@ public final class DTypeSystem extends Pattern
 		final Object backingValue;
 		if(value!=null &&
 			value instanceof DEnumValue &&
-			attribute.getValueType()==DAttribute.ValueType.ENUM)
+			attribute.getValueType()==ValueType.ENUM)
 		{
 			final DEnumValue enumValue = (DEnumValue)value;
 			final DAttribute enumValueParent = enumValue.getParent();
@@ -302,5 +301,324 @@ public final class DTypeSystem extends Pattern
 	private DType toDType(final Item backingItem)
 	{
 		return backingItem!=null ? new DType(this, backingItem) : null;
+	}
+
+	public static enum ValueType
+	{
+		STRING (String.class,     "String"),
+		BOOLEAN(Boolean.class,    "Bool"),
+		INTEGER(Integer.class,    "Int"),
+		DOUBLE (Double.class,     "Double"),
+		ENUM   (DEnumValue.class, "Enum");
+		
+		final Class valueClass;
+		final String postfix;
+		
+		ValueType(final Class valueClass, final String postfix)
+		{
+			this.valueClass = valueClass;
+			this.postfix = postfix;
+		}
+		
+		public final Class getValueClass()
+		{
+			return valueClass;
+		}
+	}
+
+	public static final class DType
+	{
+		private final DTypeSystem system;
+		final Item backingItem;
+		
+		public DAttribute addAttribute(final String name, final ValueType valueType)
+		{
+			final List<DAttribute> attributes = getAttributes(); // TODO make more efficient
+			final int position = attributes.isEmpty() ? 0 : (attributes.get(attributes.size()-1).getPosition()+1);
+			final List<DAttribute> attributesPerValuetype = getAttributes(valueType); // TODO make more efficient
+			final int positionPerValuetype = attributesPerValuetype.isEmpty() ? 0 : (attributesPerValuetype.get(attributesPerValuetype.size()-1).getPositionPerValueType()+1);
+			getDtypeSystem().assertCapacity(valueType, positionPerValuetype);
+			//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
+			return new DAttribute(system,
+					system.attributeType.newItem(
+							Cope.mapAndCast(system.attributeParent, backingItem),
+							system.attributePosition.map(position),
+							system.attributeCode.map(name),
+							system.attributeValueType.map(valueType),
+							system.attributePositionPerValueType.map(positionPerValuetype)));
+		}
+		
+		public DAttribute addStringAttribute(final String name)
+		{
+			return addAttribute(name, ValueType.STRING);
+		}
+		
+		public DAttribute addBooleanAttribute(final String name)
+		{
+			return addAttribute(name, ValueType.BOOLEAN);
+		}
+		
+		public DAttribute addIntegerAttribute(final String name)
+		{
+			return addAttribute(name, ValueType.INTEGER);
+		}
+		
+		public DAttribute addDoubleAttribute(final String name)
+		{
+			return addAttribute(name, ValueType.DOUBLE);
+		}
+		
+		public DAttribute addEnumAttribute(final String name)
+		{
+			return addAttribute(name, ValueType.ENUM);
+		}
+		
+		public List<DAttribute> getAttributes()
+		{
+			final List<? extends Item> backingItems = system.attributeType.search(Cope.equalAndCast(system.attributeParent, backingItem), system.attributePosition, true);
+			final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
+			for(final Item backingItem : backingItems)
+				result.add(new DAttribute(system, backingItem));
+			return Collections.unmodifiableList(result);
+		}
+		
+		public DAttribute getAttribute(final String code)
+		{
+			return toDAttribute(system.attributeType.searchSingleton(Cope.equalAndCast(system.attributeParent, backingItem).and(system.attributeCode.equal(code))));
+		}
+		
+		private List<DAttribute> getAttributes(final ValueType valueType)
+		{
+			final List<? extends Item> backingItems = system.attributeType.search(Cope.equalAndCast(system.attributeParent, backingItem).and(system.attributeValueType.equal(valueType)), system.attributePositionPerValueType, true);
+			final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
+			for(final Item backingItem : backingItems)
+				result.add(new DAttribute(system, backingItem));
+			return Collections.unmodifiableList(result);
+		}
+		
+		
+		
+		DType(final DTypeSystem system, final Item backingItem)
+		{
+			this.system = system;
+			this.backingItem = backingItem;
+			assert system!=null;
+			assert backingItem!=null;
+		}
+		
+		public Type getParentType()
+		{
+			return system.getType();
+		}
+		
+		public DTypeSystem getDtypeSystem()
+		{
+			return system;
+		}
+		
+		public String getCode()
+		{
+			return system.typeCode.get(backingItem);
+		}
+		
+		public final Item getBackingItem()
+		{
+			return backingItem;
+		}
+		
+		private DAttribute toDAttribute(final Item backingItem)
+		{
+			return backingItem!=null ? new DAttribute(system, backingItem) : null;
+		}
+		
+		@Override
+		public boolean equals(final Object other)
+		{
+			return other instanceof DType && backingItem.equals(((DType)other).backingItem);
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return backingItem.hashCode() ^ 6853522;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return backingItem.toString();
+		}
+	}
+	
+	public static final class DAttribute
+	{
+		private final DTypeSystem system;
+		final Item backingItem;
+		
+		public Object get(final Item item)
+		{
+			return getParent().getDtypeSystem().get(item, this);
+		}
+		
+		public void set(final Item item, final Object value)
+		{
+			getParent().getDtypeSystem().set(item, this, value);
+		}
+		
+		private void assertEnum()
+		{
+			final ValueType vt = getValueType();
+			if(vt!=ValueType.ENUM)
+				throw new IllegalArgumentException("operation allowed for getValueType()==ENUM attributes only, but was " + vt);
+		}
+		
+		public List<DEnumValue> getEnumValues()
+		{
+			assertEnum();
+			final List<? extends Item> backingItems = system.enumValueType.search(Cope.equalAndCast(system.enumValueParent, backingItem), system.enumValuePosition, true);
+			final ArrayList<DEnumValue> result = new ArrayList<DEnumValue>(backingItems.size());
+			for(final Item backingItem : backingItems)
+				result.add(new DEnumValue(system, backingItem));
+			return Collections.unmodifiableList(result);
+		}
+		
+		public DEnumValue getEnumValue(final String code)
+		{
+			assertEnum();
+			return toDEnumValue(system.enumValueType.searchSingleton(Cope.equalAndCast(system.enumValueParent, backingItem).and(system.enumValueCode.equal(code))));
+		}
+		
+		public DEnumValue addEnumValue(final String code)
+		{
+			assertEnum();
+			final List<DEnumValue> values = getEnumValues(); // TODO make more efficient
+			final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
+			return new DEnumValue(system,
+					system.enumValueType.newItem(
+							Cope.mapAndCast(system.enumValueParent, backingItem),
+							system.enumValuePosition.map(position),
+							system.enumValueCode.map(code)));
+		}
+		
+		
+
+		
+		DAttribute(final DTypeSystem system, final Item backingItem)
+		{
+			this.system = system;
+			this.backingItem = backingItem;
+			assert system!=null;
+			assert backingItem!=null;
+		}
+		
+		public DType getParent()
+		{
+			return new DType(system, system.attributeParent.get(backingItem));
+		}
+		
+		public int getPosition()
+		{
+			return system.attributePosition.getMandatory(backingItem);
+		}
+		
+		public ValueType getValueType()
+		{
+			return system.attributeValueType.get(backingItem);
+		}
+		
+		int getPositionPerValueType()
+		{
+			return system.attributePositionPerValueType.getMandatory(backingItem);
+		}
+		
+		public String getCode()
+		{
+			return system.attributeCode.get(backingItem);
+		}
+		
+		public FunctionField<?> getField()
+		{
+			return getParent().getDtypeSystem().getField(this);
+		}
+		
+		private DEnumValue toDEnumValue(final Item backingItem)
+		{
+			return backingItem!=null ? new DEnumValue(system, backingItem) : null;
+		}
+		
+		public final Item getBackingItem()
+		{
+			return backingItem;
+		}
+		
+		@Override
+		public boolean equals(final Object other)
+		{
+			return other instanceof DAttribute && backingItem.equals(((DAttribute)other).backingItem);
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return backingItem.hashCode() ^ 63352268;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return backingItem.toString();
+		}
+	}
+
+	public static final class DEnumValue
+	{
+		private final DTypeSystem system;
+		final Item backingItem;
+		
+		DEnumValue(final DTypeSystem system, final Item backingItem)
+		{
+			this.system = system;
+			this.backingItem = backingItem;
+			assert system!=null;
+			assert backingItem!=null;
+		}
+		
+		public DAttribute getParent()
+		{
+			return new DAttribute(system, system.enumValueParent.get(backingItem));
+		}
+		
+		public int getPosition()
+		{
+			return system.enumValuePosition.getMandatory(backingItem);
+		}
+		
+		public String getCode()
+		{
+			return system.enumValueCode.get(backingItem);
+		}
+		
+		public final Item getBackingItem()
+		{
+			return backingItem;
+		}
+		
+		@Override
+		public boolean equals(final Object other)
+		{
+			return other instanceof DEnumValue && backingItem.equals(((DEnumValue)other).backingItem);
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return backingItem.hashCode() ^ 765744;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return backingItem.toString();
+		}
 	}
 }

@@ -21,6 +21,10 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.DTypeSystem.DAttribute;
+import com.exedio.cope.pattern.DTypeSystem.DType;
+import com.exedio.cope.pattern.DTypeSystem.DEnumValue;
+import com.exedio.cope.pattern.DTypeSystem.ValueType;
 
 public class DTypeTest extends AbstractLibTest
 {
@@ -44,11 +48,11 @@ public class DTypeTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(String.class,     DAttribute.ValueType.STRING.getValueClass());
-		assertEquals(Boolean.class,    DAttribute.ValueType.BOOLEAN.getValueClass());
-		assertEquals(Integer.class,    DAttribute.ValueType.INTEGER.getValueClass());
-		assertEquals(Double.class,     DAttribute.ValueType.DOUBLE.getValueClass());
-		assertEquals(DEnumValue.class, DAttribute.ValueType.ENUM.getValueClass());
+		assertEquals(String.class,     ValueType.STRING.getValueClass());
+		assertEquals(Boolean.class,    ValueType.BOOLEAN.getValueClass());
+		assertEquals(Integer.class,    ValueType.INTEGER.getValueClass());
+		assertEquals(Double.class,     ValueType.DOUBLE.getValueClass());
+		assertEquals(DEnumValue.class, ValueType.ENUM.getValueClass());
 		
 		assertEquals(item.TYPE, item.features.getType());
 		assertEquals("features", item.features.getName());
@@ -69,7 +73,7 @@ public class DTypeTest extends AbstractLibTest
 		assertContains(cellPhone.getAttributes());
 
 		final DAttribute akkuTime = cellPhone.addIntegerAttribute("akkuTime");
-		assertEquals(DAttribute.ValueType.INTEGER, akkuTime.getValueType());
+		assertEquals(ValueType.INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
 		assertSame(item.TYPE, akkuTime.getField().getType());
@@ -80,7 +84,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(null, cellPhone.getAttribute("akkuTimeX"));
 
 		final DAttribute memory = cellPhone.addStringAttribute("memory");
-		assertEquals(DAttribute.ValueType.STRING, memory.getValueType());
+		assertEquals(ValueType.STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
 		assertSame(item.TYPE, memory.getField().getType());
@@ -122,7 +126,7 @@ public class DTypeTest extends AbstractLibTest
 		assertContains(cellPhone, organizer, item.features.getTypes());
 
 		final DAttribute weight = organizer.addIntegerAttribute("weight");
-		assertEquals(DAttribute.ValueType.INTEGER, weight.getValueType());
+		assertEquals(ValueType.INTEGER, weight.getValueType());
 		assertEquals(0, weight.getPosition());
 		assertEquals("weight", weight.getCode());
 		assertSame(akkuTime.getField(), weight.getField());
@@ -136,7 +140,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(500, item2.getFeatures(weight));
 		
 		final DAttribute bluetooth = organizer.addBooleanAttribute("bluetooth");
-		assertEquals(DAttribute.ValueType.BOOLEAN, bluetooth.getValueType());
+		assertEquals(ValueType.BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
 		assertSame(item.TYPE, bluetooth.getField().getType());
@@ -145,7 +149,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(list(weight, bluetooth), organizer.getAttributes());
 		
 		final DAttribute length = organizer.addDoubleAttribute("length");
-		assertEquals(DAttribute.ValueType.DOUBLE, length.getValueType());
+		assertEquals(ValueType.DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
 		assertSame(item.TYPE, length.getField().getType());
@@ -161,7 +165,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(2.2, item2.getFeatures(length));
 		
 		final DAttribute color = organizer.addEnumAttribute("color");
-		assertEquals(DAttribute.ValueType.ENUM, color.getValueType());
+		assertEquals(ValueType.ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
 		assertSame(item.TYPE, color.getField().getType());
@@ -189,7 +193,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(colorBlue, item2.getFeatures(color));
 		
 		final DAttribute manufacturer = organizer.addEnumAttribute("manufacturer");
-		assertEquals(DAttribute.ValueType.ENUM, manufacturer.getValueType());
+		assertEquals(ValueType.ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(item.TYPE, manufacturer.getField().getType());
@@ -283,7 +287,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + ValueType.INTEGER, e.getMessage());
 		}
 		try
 		{
@@ -292,7 +296,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + ValueType.INTEGER, e.getMessage());
 		}
 		try
 		{
@@ -301,7 +305,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + DAttribute.ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM attributes only, but was " + ValueType.INTEGER, e.getMessage());
 		}
 			
 		
