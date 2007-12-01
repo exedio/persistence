@@ -350,7 +350,7 @@ public final class DynamicModel extends Pattern
 			super(backingItem);
 		}
 		
-		public DField addField(final String name, final ValueType valueType)
+		public DField addField(final String code, final ValueType valueType)
 		{
 			final List<DField> fields = getFields(); // TODO make more efficient
 			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
@@ -361,33 +361,33 @@ public final class DynamicModel extends Pattern
 					fieldType.newItem(
 							Cope.mapAndCast(fieldParent, backingItem),
 							fieldPosition.map(position),
-							fieldCode.map(name),
+							fieldCode.map(code),
 							fieldValueType.map(valueType),
 							fieldPositionPerValueType.map(positionPerValuetype)));
 		}
 
-		public DField addStringField(final String name)
+		public DField addStringField(final String code)
 		{
-			return addField(name, ValueType.STRING);
+			return addField(code, ValueType.STRING);
 		}
 
-		public DField addBooleanField(final String name)
+		public DField addBooleanField(final String code)
 		{
-			return addField(name, ValueType.BOOLEAN);
+			return addField(code, ValueType.BOOLEAN);
 		}
 		
-		public DField addIntegerField(final String name)
+		public DField addIntegerField(final String code)
 		{
-			return addField(name, ValueType.INTEGER);
+			return addField(code, ValueType.INTEGER);
 		}
-		public DField addDoubleField(final String name)
+		public DField addDoubleField(final String code)
 		{
-			return addField(name, ValueType.DOUBLE);
+			return addField(code, ValueType.DOUBLE);
 		}
 		
-		public DField addEnumField(final String name)
+		public DField addEnumField(final String code)
 		{
-			return addField(name, ValueType.ENUM);
+			return addField(code, ValueType.ENUM);
 		}
 
 		public List<DField> getFields()
@@ -437,54 +437,54 @@ public final class DynamicModel extends Pattern
 		 * @deprecated Use {@link #addField(String,ValueType)} instead
 		 */
 		@Deprecated
-		public DField addAttribute(final String name, final ValueType valueType)
+		public DField addAttribute(final String code, final ValueType valueType)
 		{
-			return addField(name, valueType);
+			return addField(code, valueType);
 		}
 		
 		/**
 		 * @deprecated Use {@link #addStringField(String)} instead
 		 */
 		@Deprecated
-		public DField addStringAttribute(final String name)
+		public DField addStringAttribute(final String code)
 		{
-			return addStringField(name);
+			return addStringField(code);
 		}
 		
 		/**
 		 * @deprecated Use {@link #addBooleanField(String)} instead
 		 */
 		@Deprecated
-		public DField addBooleanAttribute(final String name)
+		public DField addBooleanAttribute(final String code)
 		{
-			return addBooleanField(name);
+			return addBooleanField(code);
 		}
 		
 		/**
 		 * @deprecated Use {@link #addIntegerField(String)} instead
 		 */
 		@Deprecated
-		public DField addIntegerAttribute(final String name)
+		public DField addIntegerAttribute(final String code)
 		{
-			return addIntegerField(name);
+			return addIntegerField(code);
 		}
 
 		/**
 		 * @deprecated Use {@link #addDoubleField(String)} instead
 		 */
 		@Deprecated
-		public DField addDoubleAttribute(final String name)
+		public DField addDoubleAttribute(final String code)
 		{
-			return addDoubleField(name);
+			return addDoubleField(code);
 		}
 
 		/**
 		 * @deprecated Use {@link #addEnumField(String)} instead
 		 */
 		@Deprecated
-		public DField addEnumAttribute(final String name)
+		public DField addEnumAttribute(final String code)
 		{
-			return addEnumField(name);
+			return addEnumField(code);
 		}
 		
 		/**
