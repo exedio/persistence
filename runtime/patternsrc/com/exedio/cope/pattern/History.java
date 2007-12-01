@@ -201,14 +201,11 @@ public final class History extends Pattern
 			));
 	}
 
-	public final class Event
+	public final class Event extends BackedItem
 	{
-		private final Item backingItem;
-		
 		Event(final Item backingItem)
 		{
-			this.backingItem = backingItem;
-			assert backingItem!=null;
+			super(backingItem);
 		}
 		
 		public History getPattern()
@@ -255,39 +252,13 @@ public final class History extends Pattern
 					featureNew.map(newValue!=null ? newValue.toString() : null)
 				));
 		}
-		
-		public final Item getBackingItem()
-		{
-			return backingItem;
-		}
-		
-		@Override
-		public boolean equals(final Object other)
-		{
-			return other instanceof Event && backingItem.equals(((Event)other).backingItem);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return backingItem.hashCode() ^ 28736589;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return backingItem.toString();
-		}
 	}
 
-	public final class Feature
+	public final class Feature extends BackedItem
 	{
-		private final Item backingItem;
-		
 		Feature(final Item backingItem)
 		{
-			this.backingItem = backingItem;
-			assert backingItem!=null;
+			super(backingItem);
 		}
 		
 		public History getPattern()
@@ -323,24 +294,6 @@ public final class History extends Pattern
 		public String getNew()
 		{
 			return featureNew.get(backingItem);
-		}
-		
-		@Override
-		public boolean equals(final Object other)
-		{
-			return other instanceof Feature && backingItem.equals(((Feature)other).backingItem);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return backingItem.hashCode() ^ 125437263;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return backingItem.toString();
 		}
 	}
 }

@@ -236,7 +236,7 @@ public final class DTypeSystem extends Pattern
 			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getDtypeSystem() + ", but must be " + toString());
 		
 		final SetValue[] values = new SetValue[1+fields.length];
-		values[0] = Cope.mapAndCast(this.type, type!=null ? type.backingItem : null);
+		values[0] = Cope.mapAndCast(this.type, type!=null ? type.getBackingItem() : null);
 		for(int i = 0; i<fields.length; i++)
 			values[1+i] = fields[i].map(null);
 		item.set(values);
@@ -244,7 +244,7 @@ public final class DTypeSystem extends Pattern
 	
 	private void assertType(final Item item, final DField field)
 	{
-		final Item fieldType = fieldParent.get(field.backingItem);
+		final Item fieldType = fieldParent.get(field.getBackingItem());
 		final Item itemType = type.get(item);
 		if(!fieldType.equals(itemType))
 			throw new IllegalArgumentException("dynamic type mismatch: field has type " + typeCode.get(fieldType) + ", but item has " + (itemType!=null ? typeCode.get(itemType) : "none"));
@@ -290,7 +290,7 @@ public final class DTypeSystem extends Pattern
 			final DField enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(field))
 				throw new IllegalArgumentException("dynamic type system mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);
-			backingValue = enumValue.backingItem;
+			backingValue = enumValue.getBackingItem();
 		}
 		else
 			backingValue = value;
@@ -326,10 +326,8 @@ public final class DTypeSystem extends Pattern
 		}
 	}
 
-	public final class DType
+	public final class DType extends BackedItem
 	{
-		final Item backingItem;
-		
 		public DField addField(final String name, final ValueType valueType)
 		{
 			final List<DField> attributes = getFields(); // TODO make more efficient
@@ -396,8 +394,7 @@ public final class DTypeSystem extends Pattern
 		
 		DType(final Item backingItem)
 		{
-			this.backingItem = backingItem;
-			assert backingItem!=null;
+			super(backingItem);
 		}
 		
 		public Type getParentType()
@@ -415,32 +412,9 @@ public final class DTypeSystem extends Pattern
 			return typeCode.get(backingItem);
 		}
 		
-		public final Item getBackingItem()
-		{
-			return backingItem;
-		}
-		
 		private DField toDAttribute(final Item backingItem)
 		{
 			return backingItem!=null ? new DField(backingItem) : null;
-		}
-		
-		@Override
-		public boolean equals(final Object other)
-		{
-			return other instanceof DType && backingItem.equals(((DType)other).backingItem);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return backingItem.hashCode() ^ 6853522;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return backingItem.toString();
 		}
 		
 		/**
@@ -516,10 +490,8 @@ public final class DTypeSystem extends Pattern
 		}
 	}
 	
-	public final class DField
+	public final class DField extends BackedItem
 	{
-		final Item backingItem;
-		
 		public Object get(final Item item)
 		{
 			return getParent().getDtypeSystem().get(item, this);
@@ -570,8 +542,7 @@ public final class DTypeSystem extends Pattern
 		
 		DField(final Item backingItem)
 		{
-			this.backingItem = backingItem;
-			assert backingItem!=null;
+			super(backingItem);
 		}
 		
 		public DType getParent()
@@ -608,39 +579,13 @@ public final class DTypeSystem extends Pattern
 		{
 			return backingItem!=null ? new DEnumValue(backingItem) : null;
 		}
-		
-		public final Item getBackingItem()
-		{
-			return backingItem;
-		}
-		
-		@Override
-		public boolean equals(final Object other)
-		{
-			return other instanceof DField && backingItem.equals(((DField)other).backingItem);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return backingItem.hashCode() ^ 63352268;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return backingItem.toString();
-		}
 	}
 
-	public final class DEnumValue
+	public final class DEnumValue extends BackedItem
 	{
-		final Item backingItem;
-		
 		DEnumValue(final Item backingItem)
 		{
-			this.backingItem = backingItem;
-			assert backingItem!=null;
+			super(backingItem);
 		}
 		
 		public DField getParent()
@@ -656,29 +601,6 @@ public final class DTypeSystem extends Pattern
 		public String getCode()
 		{
 			return enumValueCode.get(backingItem);
-		}
-		
-		public final Item getBackingItem()
-		{
-			return backingItem;
-		}
-		
-		@Override
-		public boolean equals(final Object other)
-		{
-			return other instanceof DEnumValue && backingItem.equals(((DEnumValue)other).backingItem);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return backingItem.hashCode() ^ 765744;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return backingItem.toString();
 		}
 	}
 }

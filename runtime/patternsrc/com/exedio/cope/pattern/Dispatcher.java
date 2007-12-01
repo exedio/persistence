@@ -304,14 +304,11 @@ public final class Dispatcher extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 
-	public final class Failure
+	public final class Failure extends BackedItem
 	{
-		private final Item backingItem;
-		
 		Failure(final Item backingItem)
 		{
-			this.backingItem = backingItem;
-			assert backingItem!=null;
+			super(backingItem);
 		}
 		
 		public Dispatcher getPattern()
@@ -349,24 +346,6 @@ public final class Dispatcher extends Pattern
 		public Item getItem()
 		{
 			return backingItem;
-		}
-		
-		@Override
-		public boolean equals(final Object other)
-		{
-			return other instanceof Failure && backingItem.equals(((Failure)other).backingItem);
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return backingItem.hashCode() ^ 348765283;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return backingItem.toString();
 		}
 	}
 }
