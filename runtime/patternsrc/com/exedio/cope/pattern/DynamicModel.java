@@ -242,8 +242,8 @@ public final class DynamicModel extends Pattern
 	
 	public void setType(final Item item, final DType type)
 	{
-		if(type!=null && !this.equals(type.getDtypeSystem()))
-			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getDtypeSystem() + ", but must be " + toString());
+		if(type!=null && !this.equals(type.getModel()))
+			throw new RuntimeException("dynamic type system mismatch: new type has system " + type.getModel() + ", but must be " + toString());
 		
 		final SetValue[] values = new SetValue[1+fields.length];
 		values[0] = Cope.mapAndCast(this.type, type!=null ? type.getBackingItem() : null);
@@ -349,7 +349,7 @@ public final class DynamicModel extends Pattern
 			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
 			final List<DField> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
 			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
-			getDtypeSystem().assertCapacity(valueType, positionPerValuetype);
+			getModel().assertCapacity(valueType, positionPerValuetype);
 			//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
 			return new DField(
 					fieldType.newItem(
@@ -412,7 +412,7 @@ public final class DynamicModel extends Pattern
 			return DynamicModel.this.getType();
 		}
 		
-		public DynamicModel getDtypeSystem()
+		public DynamicModel getModel()
 		{
 			return DynamicModel.this;
 		}
@@ -497,6 +497,15 @@ public final class DynamicModel extends Pattern
 		public DField getAttribute(final String code)
 		{
 			return getField(code);
+		}
+		
+		/**
+		 * @deprecated Use {@link #getModel()} instead
+		 */
+		@Deprecated
+		public DynamicModel getDtypeSystem()
+		{
+			return getModel();
 		}
 	}
 	

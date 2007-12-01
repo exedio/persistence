@@ -71,7 +71,7 @@ public class DTypeTest extends AbstractLibTest
 		
 		final DType cellPhone = deleteOnTearDown(item.features.createType("cellPhone"));
 		assertEquals(item.TYPE, cellPhone.getParentType());
-		assertEquals(item.features, cellPhone.getDtypeSystem());
+		assertEquals(item.features, cellPhone.getModel());
 		assertEquals("cellPhone", cellPhone.getCode());
 		assertContains(cellPhone, item.features.getTypes());
 		assertEquals(cellPhone, item.features.getType("cellPhone"));
@@ -127,7 +127,7 @@ public class DTypeTest extends AbstractLibTest
 		
 		final DType organizer = deleteOnTearDown(item.features.createType("organizer"));
 		assertEquals(item.TYPE, organizer.getParentType());
-		assertEquals(item.features, organizer.getDtypeSystem());
+		assertEquals(item.features, organizer.getModel());
 		assertEquals("organizer", organizer.getCode());
 		assertContains(cellPhone, organizer, item.features.getTypes());
 
