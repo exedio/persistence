@@ -110,7 +110,10 @@ public final class DynamicModel extends Pattern
 	{
 		final int capacity = array(valueType).length;
 		if(capacity<=positionPerValuetype)
-			throw new IllegalArgumentException("capacity for " + valueType + " exceeded, " + capacity + " available, but tried to allocate " + (positionPerValuetype+1));
+			throw new IllegalArgumentException(
+					"capacity for " + valueType + " exceeded, " +
+					capacity + " available, " +
+					"but tried to allocate " + (positionPerValuetype+1));
 	}
 	
 	@Override
@@ -243,7 +246,9 @@ public final class DynamicModel extends Pattern
 	public void setType(final Item item, final DType type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
-			throw new IllegalArgumentException("dynamic model mismatch: new type has model " + type.getModel() + ", but must be " + toString());
+			throw new IllegalArgumentException(
+					"dynamic model mismatch: new type has model " + type.getModel() +
+					", but must be " + toString());
 		
 		final SetValue[] values = new SetValue[1+fields.length];
 		values[0] = Cope.mapAndCast(this.type, type!=null ? type.getBackingItem() : null);
@@ -257,7 +262,9 @@ public final class DynamicModel extends Pattern
 		final Item fieldType = fieldParent.get(field.getBackingItem());
 		final Item itemType = type.get(item);
 		if(!fieldType.equals(itemType))
-			throw new IllegalArgumentException("dynamic type mismatch: field has type " + typeCode.get(fieldType) + ", but item has " + (itemType!=null ? typeCode.get(itemType) : "none"));
+			throw new IllegalArgumentException(
+					"dynamic type mismatch: field has type " + typeCode.get(fieldType) +
+					", but item has " + (itemType!=null ? typeCode.get(itemType) : "none"));
 	}
 	
 	FunctionField<?> getField(final DField field)
@@ -350,7 +357,6 @@ public final class DynamicModel extends Pattern
 			final List<DField> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
 			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
 			DynamicModel.this.assertCapacity(valueType, positionPerValuetype);
-			//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
 			return new DField(
 					fieldType.newItem(
 							Cope.mapAndCast(fieldParent, backingItem),
