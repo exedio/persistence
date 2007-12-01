@@ -345,10 +345,10 @@ public final class DTypeSystem extends Pattern
 		
 		public DField addField(final String name, final ValueType valueType)
 		{
-			final List<DField> attributes = getFields(); // TODO make more efficient
-			final int position = attributes.isEmpty() ? 0 : (attributes.get(attributes.size()-1).getPosition()+1);
-			final List<DField> attributesPerValuetype = getAttributes(valueType); // TODO make more efficient
-			final int positionPerValuetype = attributesPerValuetype.isEmpty() ? 0 : (attributesPerValuetype.get(attributesPerValuetype.size()-1).getPositionPerValueType()+1);
+			final List<DField> fields = getFields(); // TODO make more efficient
+			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
+			final List<DField> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
+			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
 			getDtypeSystem().assertCapacity(valueType, positionPerValuetype);
 			//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
 			return new DField(
@@ -395,10 +395,10 @@ public final class DTypeSystem extends Pattern
 
 		public DField getField(final String code)
 		{
-			return toDAttribute(fieldType.searchSingleton(Cope.equalAndCast(fieldParent, backingItem).and(fieldCode.equal(code))));
+			return toDField(fieldType.searchSingleton(Cope.equalAndCast(fieldParent, backingItem).and(fieldCode.equal(code))));
 		}
 		
-		private List<DField> getAttributes(final ValueType valueType)
+		private List<DField> getFields(final ValueType valueType)
 		{
 			final List<? extends Item> backingItems = fieldType.search(Cope.equalAndCast(fieldParent, backingItem).and(fieldValueType.equal(valueType)), fieldPositionPerValueType, true);
 			final ArrayList<DField> result = new ArrayList<DField>(backingItems.size());
@@ -422,7 +422,7 @@ public final class DTypeSystem extends Pattern
 			return typeCode.get(backingItem);
 		}
 		
-		private DField toDAttribute(final Item backingItem)
+		private DField toDField(final Item backingItem)
 		{
 			return backingItem!=null ? new DField(backingItem) : null;
 		}
