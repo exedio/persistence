@@ -328,6 +328,11 @@ public final class DTypeSystem extends Pattern
 
 	public final class DType extends BackedItem
 	{
+		DType(final Item backingItem)
+		{
+			super(backingItem);
+		}
+		
 		public DField addField(final String name, final ValueType valueType)
 		{
 			final List<DField> attributes = getFields(); // TODO make more efficient
@@ -390,11 +395,6 @@ public final class DTypeSystem extends Pattern
 			for(final Item backingItem : backingItems)
 				result.add(new DField(backingItem));
 			return Collections.unmodifiableList(result);
-		}
-		
-		DType(final Item backingItem)
-		{
-			super(backingItem);
 		}
 		
 		public Type getParentType()
@@ -492,6 +492,11 @@ public final class DTypeSystem extends Pattern
 	
 	public final class DField extends BackedItem
 	{
+		DField(final Item backingItem)
+		{
+			super(backingItem);
+		}
+		
 		public Object get(final Item item)
 		{
 			return getParent().getDtypeSystem().get(item, this);
@@ -535,14 +540,6 @@ public final class DTypeSystem extends Pattern
 							Cope.mapAndCast(enumValueParent, backingItem),
 							enumValuePosition.map(position),
 							enumValueCode.map(code)));
-		}
-		
-		
-
-		
-		DField(final Item backingItem)
-		{
-			super(backingItem);
 		}
 		
 		public DType getParent()
