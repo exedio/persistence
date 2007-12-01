@@ -499,12 +499,12 @@ public final class DTypeSystem extends Pattern
 		
 		public Object get(final Item item)
 		{
-			return getParent().getDtypeSystem().get(item, this);
+			return DTypeSystem.this.get(item, this);
 		}
 		
 		public void set(final Item item, final Object value)
 		{
-			getParent().getDtypeSystem().set(item, this, value);
+			DTypeSystem.this.set(item, this, value);
 		}
 		
 		private void assertEnum()
@@ -569,7 +569,7 @@ public final class DTypeSystem extends Pattern
 		
 		public FunctionField<?> getField()
 		{
-			return getParent().getDtypeSystem().getField(this);
+			return DTypeSystem.this.getField(this);
 		}
 		
 		private DEnumValue toDEnumValue(final Item backingItem)
