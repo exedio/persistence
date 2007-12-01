@@ -164,7 +164,7 @@ public final class DTypeSystem extends Pattern
 	
 	public DType createType(final String code)
 	{
-		return new DType(this, typeType.newItem(typeCode.map(code)));
+		return new DType(typeType.newItem(typeCode.map(code)));
 	}
 	
 	public List<DType> getTypes()
@@ -172,7 +172,7 @@ public final class DTypeSystem extends Pattern
 		final List<? extends Item> backingItems = typeType.search();
 		final ArrayList<DType> result = new ArrayList<DType>(backingItems.size());
 		for(final Item backingItem : backingItems)
-			result.add(new DType(this, backingItem));
+			result.add(new DType(backingItem));
 		return Collections.unmodifiableList(result);
 	}
 	
@@ -272,7 +272,7 @@ public final class DTypeSystem extends Pattern
 		assertType(item, attribute);
 		final Object backingValue = getField(attribute).get(item);
 		if(backingValue!=null && backingValue instanceof Item)
-			return new DEnumValue(this, (Item)backingValue);
+			return new DEnumValue((Item)backingValue);
 		else
 			return backingValue;
 	}
@@ -300,7 +300,7 @@ public final class DTypeSystem extends Pattern
 	
 	private DType toDType(final Item backingItem)
 	{
-		return backingItem!=null ? new DType(this, backingItem) : null;
+		return backingItem!=null ? new DType(backingItem) : null;
 	}
 
 	public static enum ValueType
@@ -326,9 +326,8 @@ public final class DTypeSystem extends Pattern
 		}
 	}
 
-	public static final class DType
+	public final class DType
 	{
-		private final DTypeSystem system;
 		final Item backingItem;
 		
 		public DAttribute addAttribute(final String name, final ValueType valueType)
@@ -339,13 +338,13 @@ public final class DTypeSystem extends Pattern
 			final int positionPerValuetype = attributesPerValuetype.isEmpty() ? 0 : (attributesPerValuetype.get(attributesPerValuetype.size()-1).getPositionPerValueType()+1);
 			getDtypeSystem().assertCapacity(valueType, positionPerValuetype);
 			//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
-			return new DAttribute(system,
-					system.attributeType.newItem(
-							Cope.mapAndCast(system.attributeParent, backingItem),
-							system.attributePosition.map(position),
-							system.attributeCode.map(name),
-							system.attributeValueType.map(valueType),
-							system.attributePositionPerValueType.map(positionPerValuetype)));
+			return new DAttribute(
+					attributeType.newItem(
+							Cope.mapAndCast(attributeParent, backingItem),
+							attributePosition.map(position),
+							attributeCode.map(name),
+							attributeValueType.map(valueType),
+							attributePositionPerValueType.map(positionPerValuetype)));
 		}
 		
 		public DAttribute addStringAttribute(final String name)
@@ -375,50 +374,48 @@ public final class DTypeSystem extends Pattern
 		
 		public List<DAttribute> getAttributes()
 		{
-			final List<? extends Item> backingItems = system.attributeType.search(Cope.equalAndCast(system.attributeParent, backingItem), system.attributePosition, true);
+			final List<? extends Item> backingItems = attributeType.search(Cope.equalAndCast(attributeParent, backingItem), attributePosition, true);
 			final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DAttribute(system, backingItem));
+				result.add(new DAttribute(backingItem));
 			return Collections.unmodifiableList(result);
 		}
 		
 		public DAttribute getAttribute(final String code)
 		{
-			return toDAttribute(system.attributeType.searchSingleton(Cope.equalAndCast(system.attributeParent, backingItem).and(system.attributeCode.equal(code))));
+			return toDAttribute(attributeType.searchSingleton(Cope.equalAndCast(attributeParent, backingItem).and(attributeCode.equal(code))));
 		}
 		
 		private List<DAttribute> getAttributes(final ValueType valueType)
 		{
-			final List<? extends Item> backingItems = system.attributeType.search(Cope.equalAndCast(system.attributeParent, backingItem).and(system.attributeValueType.equal(valueType)), system.attributePositionPerValueType, true);
+			final List<? extends Item> backingItems = attributeType.search(Cope.equalAndCast(attributeParent, backingItem).and(attributeValueType.equal(valueType)), attributePositionPerValueType, true);
 			final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DAttribute(system, backingItem));
+				result.add(new DAttribute(backingItem));
 			return Collections.unmodifiableList(result);
 		}
 		
 		
 		
-		DType(final DTypeSystem system, final Item backingItem)
+		DType(final Item backingItem)
 		{
-			this.system = system;
 			this.backingItem = backingItem;
-			assert system!=null;
 			assert backingItem!=null;
 		}
 		
 		public Type getParentType()
 		{
-			return system.getType();
+			return DTypeSystem.this.getType();
 		}
 		
 		public DTypeSystem getDtypeSystem()
 		{
-			return system;
+			return DTypeSystem.this;
 		}
 		
 		public String getCode()
 		{
-			return system.typeCode.get(backingItem);
+			return typeCode.get(backingItem);
 		}
 		
 		public final Item getBackingItem()
@@ -428,7 +425,7 @@ public final class DTypeSystem extends Pattern
 		
 		private DAttribute toDAttribute(final Item backingItem)
 		{
-			return backingItem!=null ? new DAttribute(system, backingItem) : null;
+			return backingItem!=null ? new DAttribute(backingItem) : null;
 		}
 		
 		@Override
@@ -450,9 +447,8 @@ public final class DTypeSystem extends Pattern
 		}
 	}
 	
-	public static final class DAttribute
+	public final class DAttribute
 	{
-		private final DTypeSystem system;
 		final Item backingItem;
 		
 		public Object get(final Item item)
@@ -475,17 +471,17 @@ public final class DTypeSystem extends Pattern
 		public List<DEnumValue> getEnumValues()
 		{
 			assertEnum();
-			final List<? extends Item> backingItems = system.enumValueType.search(Cope.equalAndCast(system.enumValueParent, backingItem), system.enumValuePosition, true);
+			final List<? extends Item> backingItems = enumValueType.search(Cope.equalAndCast(enumValueParent, backingItem), enumValuePosition, true);
 			final ArrayList<DEnumValue> result = new ArrayList<DEnumValue>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DEnumValue(system, backingItem));
+				result.add(new DEnumValue(backingItem));
 			return Collections.unmodifiableList(result);
 		}
 		
 		public DEnumValue getEnumValue(final String code)
 		{
 			assertEnum();
-			return toDEnumValue(system.enumValueType.searchSingleton(Cope.equalAndCast(system.enumValueParent, backingItem).and(system.enumValueCode.equal(code))));
+			return toDEnumValue(enumValueType.searchSingleton(Cope.equalAndCast(enumValueParent, backingItem).and(enumValueCode.equal(code))));
 		}
 		
 		public DEnumValue addEnumValue(final String code)
@@ -493,47 +489,45 @@ public final class DTypeSystem extends Pattern
 			assertEnum();
 			final List<DEnumValue> values = getEnumValues(); // TODO make more efficient
 			final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
-			return new DEnumValue(system,
-					system.enumValueType.newItem(
-							Cope.mapAndCast(system.enumValueParent, backingItem),
-							system.enumValuePosition.map(position),
-							system.enumValueCode.map(code)));
+			return new DEnumValue(
+					enumValueType.newItem(
+							Cope.mapAndCast(enumValueParent, backingItem),
+							enumValuePosition.map(position),
+							enumValueCode.map(code)));
 		}
 		
 		
 
 		
-		DAttribute(final DTypeSystem system, final Item backingItem)
+		DAttribute(final Item backingItem)
 		{
-			this.system = system;
 			this.backingItem = backingItem;
-			assert system!=null;
 			assert backingItem!=null;
 		}
 		
 		public DType getParent()
 		{
-			return new DType(system, system.attributeParent.get(backingItem));
+			return new DType(attributeParent.get(backingItem));
 		}
 		
 		public int getPosition()
 		{
-			return system.attributePosition.getMandatory(backingItem);
+			return attributePosition.getMandatory(backingItem);
 		}
 		
 		public ValueType getValueType()
 		{
-			return system.attributeValueType.get(backingItem);
+			return attributeValueType.get(backingItem);
 		}
 		
 		int getPositionPerValueType()
 		{
-			return system.attributePositionPerValueType.getMandatory(backingItem);
+			return attributePositionPerValueType.getMandatory(backingItem);
 		}
 		
 		public String getCode()
 		{
-			return system.attributeCode.get(backingItem);
+			return attributeCode.get(backingItem);
 		}
 		
 		public FunctionField<?> getField()
@@ -543,7 +537,7 @@ public final class DTypeSystem extends Pattern
 		
 		private DEnumValue toDEnumValue(final Item backingItem)
 		{
-			return backingItem!=null ? new DEnumValue(system, backingItem) : null;
+			return backingItem!=null ? new DEnumValue(backingItem) : null;
 		}
 		
 		public final Item getBackingItem()
@@ -570,32 +564,29 @@ public final class DTypeSystem extends Pattern
 		}
 	}
 
-	public static final class DEnumValue
+	public final class DEnumValue
 	{
-		private final DTypeSystem system;
 		final Item backingItem;
 		
-		DEnumValue(final DTypeSystem system, final Item backingItem)
+		DEnumValue(final Item backingItem)
 		{
-			this.system = system;
 			this.backingItem = backingItem;
-			assert system!=null;
 			assert backingItem!=null;
 		}
 		
 		public DAttribute getParent()
 		{
-			return new DAttribute(system, system.enumValueParent.get(backingItem));
+			return new DAttribute(enumValueParent.get(backingItem));
 		}
 		
 		public int getPosition()
 		{
-			return system.enumValuePosition.getMandatory(backingItem);
+			return enumValuePosition.getMandatory(backingItem);
 		}
 		
 		public String getCode()
 		{
-			return system.enumValueCode.get(backingItem);
+			return enumValueCode.get(backingItem);
 		}
 		
 		public final Item getBackingItem()
