@@ -224,7 +224,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("dynamic type system mismatch: enum value " + colorBlue + " has type " + color + ", but must be " + manufacturer, e.getMessage());
+			assertEquals("dynamic model mismatch: enum value " + colorBlue + " has type " + color + ", but must be " + manufacturer, e.getMessage());
 		}
 		assertEquals(manufacturer1, item2.getFeatures(manufacturer));
 
