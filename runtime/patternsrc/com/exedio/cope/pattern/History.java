@@ -245,11 +245,6 @@ public final class History extends Pattern
 			return Collections.unmodifiableList(result);
 		}
 		
-		public final Item getBackingItem()
-		{
-			return backingItem;
-		}
-		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
 			return new Feature(featureType.newItem(
@@ -259,6 +254,11 @@ public final class History extends Pattern
 					featureOld.map(oldValue!=null ? oldValue.toString() : null),
 					featureNew.map(newValue!=null ? newValue.toString() : null)
 				));
+		}
+		
+		public final Item getBackingItem()
+		{
+			return backingItem;
 		}
 		
 		@Override
