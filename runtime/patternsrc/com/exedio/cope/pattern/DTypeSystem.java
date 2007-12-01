@@ -225,6 +225,16 @@ public final class DTypeSystem extends Pattern
 		return typeType;
 	}
 	
+	public Type getFieldType()
+	{
+		return fieldType;
+	}
+	
+	public Type getEnumValueType()
+	{
+		return enumValueType;
+	}
+	
 	public ItemField<?> getTypeField()
 	{
 		return type;

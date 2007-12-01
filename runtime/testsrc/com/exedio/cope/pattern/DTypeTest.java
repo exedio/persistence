@@ -19,11 +19,11 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
-import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.DTypeSystem.DEnumValue;
 import com.exedio.cope.pattern.DTypeSystem.DField;
 import com.exedio.cope.pattern.DTypeSystem.DType;
-import com.exedio.cope.pattern.DTypeSystem.DEnumValue;
 import com.exedio.cope.pattern.DTypeSystem.ValueType;
 
 public class DTypeTest extends AbstractLibTest
@@ -59,6 +59,11 @@ public class DTypeTest extends AbstractLibTest
 		
 		assertSame(item.features.getTypeType(), item.features.getTypeField().getValueType());
 		assertEquals("featuresType", item.features.getTypeField().getName());
+		
+		assertEquals(list(
+				DTypeItem.TYPE,
+				DTypeItem.features.getTypeType(), DTypeItem.features.getFieldType(), DTypeItem.features.getEnumValueType()
+			), model.getTypes());
 		
 		// test persistence
 		assertContains(item.features.getTypes());
@@ -170,7 +175,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("color", color.getCode());
 		assertSame(item.TYPE, color.getField().getType());
 		assertEquals("featuresEnum1", color.getField().getName());
-		assertTrue(Item.class.isAssignableFrom(color.getField().getValueClass()));
+		assertEquals(item.features.getEnumValueType(), ((ItemField)color.getField()).getValueType());
 		assertEquals(list(weight, bluetooth, length, color), organizer.getFields());
 		assertContains(color.getEnumValues());
 		assertEquals(null, item2.getFeatures(color));
@@ -198,7 +203,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(item.TYPE, manufacturer.getField().getType());
 		assertEquals("featuresEnum2", manufacturer.getField().getName());
-		assertTrue(Item.class.isAssignableFrom(manufacturer.getField().getValueClass()));
+		assertEquals(item.features.getEnumValueType(), ((ItemField)manufacturer.getField()).getValueType());
 		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getFields());
 		assertContains(manufacturer.getEnumValues());
 		assertEquals(null, item2.getFeatures(manufacturer));
