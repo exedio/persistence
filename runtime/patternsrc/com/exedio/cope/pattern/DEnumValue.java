@@ -18,62 +18,51 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class DEnumValue extends Item
+public final class DEnumValue
 {
-	private static final long serialVersionUID = 1l;
-
-	public static final ItemField<DAttribute> parent = newItemField(DAttribute.class, CASCADE).toFinal();
-
-	public static final IntegerField position = new IntegerField().toFinal();
-	public static final UniqueConstraint uniquePosition = new UniqueConstraint(parent, position);
+	private final DTypeSystem system;
+	final Item backingItem;
 	
-	public static final StringField code = new StringField().toFinal();
-	public static final UniqueConstraint uniqueCode = new UniqueConstraint(parent, code);
-	
-	DEnumValue(final DAttribute parent, final int position, final String code)
+	DEnumValue(final DTypeSystem system, final Item backingItem)
 	{
-		super(new SetValue[]{
-				DEnumValue.parent.map(parent),
-				DEnumValue.position.map(position),
-				DEnumValue.code.map(code),
-		});
-	}
-	
-	@SuppressWarnings("unused") // OK: called by reflection
-	private DEnumValue(final SetValue[] initialAttributes)
-	{
-		super(initialAttributes);
-	}
-	
-	@SuppressWarnings("unused") // OK: called by reflection
-	private DEnumValue(final ReactivationConstructorDummy d, final int pk)
-	{
-		super(d, pk);
+		this.system = system;
+		this.backingItem = backingItem;
+		assert system!=null;
+		assert backingItem!=null;
 	}
 	
 	public DAttribute getParent()
 	{
-		return parent.get(this);
+		return new DAttribute(system, system.enumValueParent.get(backingItem));
 	}
 	
 	public int getPosition()
 	{
-		return position.getMandatory(this);
+		return system.enumValuePosition.getMandatory(backingItem);
 	}
 	
 	public String getCode()
 	{
-		return code.get(this);
+		return system.enumValueCode.get(backingItem);
 	}
 	
-	public static final Type<DEnumValue> TYPE = newType(DEnumValue.class);
+	@Override
+	public boolean equals(final Object other)
+	{
+		return other instanceof DEnumValue && backingItem.equals(((DEnumValue)other).backingItem);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return backingItem.hashCode() ^ 765744;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return backingItem.toString();
+	}
 }

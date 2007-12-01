@@ -18,24 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
-import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class DType extends Item
+public final class DType
 {
-	private static final long serialVersionUID = 1l;
-	
-	public static final StringField parentTypeId = new StringField().toFinal();
-	public static final StringField dtypeSystemName = new StringField().toFinal();
-	public static final StringField code = new StringField().toFinal();
-	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parentTypeId, dtypeSystemName, code);
-	
+	private final DTypeSystem system;
+	final Item backingItem;
 	
 	public DAttribute addAttribute(final String name, final DAttribute.ValueType valueType)
 	{
@@ -45,7 +39,13 @@ public final class DType extends Item
 		final int positionPerValuetype = attributesPerValuetype.isEmpty() ? 0 : (attributesPerValuetype.get(attributesPerValuetype.size()-1).getPositionPerValueType()+1);
 		getDtypeSystem().assertCapacity(valueType, positionPerValuetype);
 		//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
-		return new DAttribute(this, position, name, valueType, positionPerValuetype);
+		return new DAttribute(system,
+				system.attributeType.newItem(
+						Cope.mapAndCast(system.attributeParent, backingItem),
+						system.attributePosition.map(position),
+						system.attributeCode.map(name),
+						system.attributeValueType.map(valueType),
+						system.attributePositionPerValueType.map(positionPerValuetype)));
 	}
 	
 	public DAttribute addStringAttribute(final String name)
@@ -75,66 +75,77 @@ public final class DType extends Item
 	
 	public List<DAttribute> getAttributes()
 	{
-		return DAttribute.TYPE.search(DAttribute.parent.equal(this), DAttribute.position, true);
+		final List<? extends Item> backingItems = system.attributeType.search(Cope.equalAndCast(system.attributeParent, backingItem), system.attributePosition, true);
+		final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
+		for(final Item backingItem : backingItems)
+			result.add(new DAttribute(system, backingItem));
+		return Collections.unmodifiableList(result);
 	}
 	
 	public DAttribute getAttribute(final String code)
 	{
-		return DAttribute.TYPE.searchSingleton(DAttribute.parent.equal(this).and(DAttribute.code.equal(code)));
+		return toDAttribute(system.attributeType.searchSingleton(Cope.equalAndCast(system.attributeParent, backingItem).and(system.attributeCode.equal(code))));
 	}
 	
 	private List<DAttribute> getAttributes(final DAttribute.ValueType valueType)
 	{
-		return DAttribute.TYPE.search(DAttribute.parent.equal(this).and(DAttribute.valueType.equal(valueType)), DAttribute.positionPerValueType, true);
+		final List<? extends Item> backingItems = system.attributeType.search(Cope.equalAndCast(system.attributeParent, backingItem).and(system.attributeValueType.equal(valueType)), system.attributePositionPerValueType, true);
+		final ArrayList<DAttribute> result = new ArrayList<DAttribute>(backingItems.size());
+		for(final Item backingItem : backingItems)
+			result.add(new DAttribute(system, backingItem));
+		return Collections.unmodifiableList(result);
 	}
 	
 	
 	
-	DType(final DTypeSystem dtypeSystem, final String code)
+	DType(final DTypeSystem system, final Item backingItem)
 	{
-		super(new SetValue[]{
-				DType.parentTypeId.map(dtypeSystem.getType().getID()),
-				DType.dtypeSystemName.map(dtypeSystem.getName()),
-				DType.code.map(code),
-		});
-	}
-	
-	@SuppressWarnings("unused") // OK: called by reflection
-	private DType(final SetValue[] setValues)
-	{
-		super(setValues);
-	}
-	
-	@SuppressWarnings("unused") // OK: called by reflection
-	private DType(final ReactivationConstructorDummy d, final int pk)
-	{
-		super(d, pk);
-	}
-	
-	private String getParentTypeId()
-	{
-		return parentTypeId.get(this);
+		this.system = system;
+		this.backingItem = backingItem;
+		assert system!=null;
+		assert backingItem!=null;
 	}
 	
 	public Type getParentType()
 	{
-		return TYPE.getModel().findTypeByID(getParentTypeId());
-	}
-	
-	private String getDtypeSystemName()
-	{
-		return dtypeSystemName.get(this);
+		return system.getType();
 	}
 	
 	public DTypeSystem getDtypeSystem()
 	{
-		return (DTypeSystem)getParentType().getDeclaredFeature(getDtypeSystemName());
+		return system;
 	}
 	
 	public String getCode()
 	{
-		return code.get(this);
+		return system.typeCode.get(backingItem);
 	}
 	
-	public static final Type<DType> TYPE = newType(DType.class);
+	public final Item getBackingItem()
+	{
+		return backingItem;
+	}
+	
+	private DAttribute toDAttribute(final Item backingItem)
+	{
+		return backingItem!=null ? new DAttribute(system, backingItem) : null;
+	}
+	
+	@Override
+	public boolean equals(final Object other)
+	{
+		return other instanceof DType && backingItem.equals(((DType)other).backingItem);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return backingItem.hashCode() ^ 6853522;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return backingItem.toString();
+	}
 }

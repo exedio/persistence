@@ -18,27 +18,19 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.EnumField;
+import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionField;
-import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class DAttribute extends Item
+public final class DAttribute
 {
-	private static final long serialVersionUID = 1l;
+	private final DTypeSystem system;
+	final Item backingItem;
 	
-	public static final ItemField<DType> parent = newItemField(DType.class, CASCADE).toFinal();
-	public static final IntegerField position = new IntegerField().toFinal();
-	public static final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, position);
-
 	public static enum ValueType
 	{
 		STRING (String.class,     "String"),
@@ -61,12 +53,6 @@ public final class DAttribute extends Item
 			return valueClass;
 		}
 	}
-	public static final EnumField<ValueType> valueType = newEnumField(ValueType.class).toFinal();
-	public static final IntegerField positionPerValueType = new IntegerField().toFinal();
-	public static final UniqueConstraint uniqueConstraintPerValueType = new UniqueConstraint(parent, valueType, positionPerValueType);
-	
-	public static final StringField code = new StringField().toFinal();
-	public static final UniqueConstraint uniqueConstraintCode = new UniqueConstraint(parent, code);
 
 	public Object get(final Item item)
 	{
@@ -88,13 +74,17 @@ public final class DAttribute extends Item
 	public List<DEnumValue> getEnumValues()
 	{
 		assertEnum();
-		return DEnumValue.TYPE.search(DEnumValue.parent.equal(this), DEnumValue.position, true);
+		final List<? extends Item> backingItems = system.enumValueType.search(Cope.equalAndCast(system.enumValueParent, backingItem), system.enumValuePosition, true);
+		final ArrayList<DEnumValue> result = new ArrayList<DEnumValue>(backingItems.size());
+		for(final Item backingItem : backingItems)
+			result.add(new DEnumValue(system, backingItem));
+		return Collections.unmodifiableList(result);
 	}
 	
 	public DEnumValue getEnumValue(final String code)
 	{
 		assertEnum();
-		return DEnumValue.TYPE.searchSingleton(DEnumValue.parent.equal(this).and(DEnumValue.code.equal(code)));
+		return toDEnumValue(system.enumValueType.searchSingleton(Cope.equalAndCast(system.enumValueParent, backingItem).and(system.enumValueCode.equal(code))));
 	}
 	
 	public DEnumValue addEnumValue(final String code)
@@ -102,58 +92,47 @@ public final class DAttribute extends Item
 		assertEnum();
 		final List<DEnumValue> values = getEnumValues(); // TODO make more efficient
 		final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
-		return new DEnumValue(this, position, code);
+		return new DEnumValue(system,
+				system.enumValueType.newItem(
+						Cope.mapAndCast(system.enumValueParent, backingItem),
+						system.enumValuePosition.map(position),
+						system.enumValueCode.map(code)));
 	}
 	
 	
 
 	
-	DAttribute(final DType parent, final int position, final String code, final ValueType valueType, final int positionPerValueType)
+	DAttribute(final DTypeSystem system, final Item backingItem)
 	{
-		super(new SetValue[]{
-				DAttribute.parent.map(parent),
-				DAttribute.position.map(position),
-				DAttribute.code.map(code),
-				DAttribute.valueType.map(valueType),
-				DAttribute.positionPerValueType.map(positionPerValueType),
-		});
-	}
-	
-	@SuppressWarnings("unused") // OK: called by reflection
-	private DAttribute(final SetValue[] setValues)
-	{
-		super(setValues);
-	}
-	
-	@SuppressWarnings("unused") // OK: called by reflection
-	private DAttribute(final ReactivationConstructorDummy d, final int pk)
-	{
-		super(d, pk);
+		this.system = system;
+		this.backingItem = backingItem;
+		assert system!=null;
+		assert backingItem!=null;
 	}
 	
 	public DType getParent()
 	{
-		return parent.get(this);
+		return new DType(system, system.attributeParent.get(backingItem));
 	}
 	
 	public int getPosition()
 	{
-		return position.getMandatory(this);
+		return system.attributePosition.getMandatory(backingItem);
 	}
 	
 	public ValueType getValueType()
 	{
-		return valueType.get(this);
+		return system.attributeValueType.get(backingItem);
 	}
 	
 	int getPositionPerValueType()
 	{
-		return positionPerValueType.getMandatory(this);
+		return system.attributePositionPerValueType.getMandatory(backingItem);
 	}
 	
 	public String getCode()
 	{
-		return code.get(this);
+		return system.attributeCode.get(backingItem);
 	}
 	
 	public FunctionField<?> getField()
@@ -161,5 +140,26 @@ public final class DAttribute extends Item
 		return getParent().getDtypeSystem().getField(this);
 	}
 	
-	public static final Type<DAttribute> TYPE = newType(DAttribute.class);
+	private DEnumValue toDEnumValue(final Item backingItem)
+	{
+		return backingItem!=null ? new DEnumValue(system, backingItem) : null;
+	}
+	
+	@Override
+	public boolean equals(final Object other)
+	{
+		return other instanceof DAttribute && backingItem.equals(((DAttribute)other).backingItem);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return backingItem.hashCode() ^ 63352268;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return backingItem.toString();
+	}
 }

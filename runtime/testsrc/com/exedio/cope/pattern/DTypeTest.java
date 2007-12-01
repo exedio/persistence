@@ -19,11 +19,12 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 
 public class DTypeTest extends AbstractLibTest
 {
-	public static final Model MODEL = new Model(DType.TYPE, DAttribute.TYPE, DEnumValue.TYPE, DTypeItem.TYPE);
+	public static final Model MODEL = new Model(DTypeItem.TYPE);
 
 	public DTypeTest()
 	{
@@ -52,7 +53,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.features.getType());
 		assertEquals("features", item.features.getName());
 		
-		assertSame(DType.TYPE, item.features.getTypeField().getValueType());
+		assertSame(item.features.getTypeType(), item.features.getTypeField().getValueType());
 		assertEquals("featuresType", item.features.getTypeField().getName());
 		
 		// test persistence
@@ -165,7 +166,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("color", color.getCode());
 		assertSame(item.TYPE, color.getField().getType());
 		assertEquals("featuresEnum1", color.getField().getName());
-		assertEquals(DEnumValue.class, color.getField().getValueClass());
+		assertTrue(Item.class.isAssignableFrom(color.getField().getValueClass()));
 		assertEquals(list(weight, bluetooth, length, color), organizer.getAttributes());
 		assertContains(color.getEnumValues());
 		assertEquals(null, item2.getFeatures(color));
@@ -193,7 +194,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(item.TYPE, manufacturer.getField().getType());
 		assertEquals("featuresEnum2", manufacturer.getField().getName());
-		assertEquals(DEnumValue.class, manufacturer.getField().getValueClass());
+		assertTrue(Item.class.isAssignableFrom(manufacturer.getField().getValueClass()));
 		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getAttributes());
 		assertContains(manufacturer.getEnumValues());
 		assertEquals(null, item2.getFeatures(manufacturer));
@@ -315,4 +316,9 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(null, item2.getFeaturesType());
 	}
 	
+	private final DType deleteOnTearDown(final DType type)
+	{
+		deleteOnTearDown(type.getBackingItem());
+		return type;
+	}
 }
