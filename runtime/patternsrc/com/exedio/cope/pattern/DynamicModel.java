@@ -349,7 +349,7 @@ public final class DynamicModel extends Pattern
 			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
 			final List<DField> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
 			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
-			getModel().assertCapacity(valueType, positionPerValuetype);
+			DynamicModel.this.assertCapacity(valueType, positionPerValuetype);
 			//System.out.println("----------------"+getCode()+'-'+name+'-'+position);
 			return new DField(
 					fieldType.newItem(
