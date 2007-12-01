@@ -145,6 +145,11 @@ public final class DAttribute
 		return backingItem!=null ? new DEnumValue(system, backingItem) : null;
 	}
 	
+	public final Item getBackingItem()
+	{
+		return backingItem;
+	}
+	
 	@Override
 	public boolean equals(final Object other)
 	{

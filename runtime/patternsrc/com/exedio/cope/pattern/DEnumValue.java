@@ -48,6 +48,11 @@ public final class DEnumValue
 		return system.enumValueCode.get(backingItem);
 	}
 	
+	public final Item getBackingItem()
+	{
+		return backingItem;
+	}
+	
 	@Override
 	public boolean equals(final Object other)
 	{
