@@ -357,10 +357,10 @@ public final class DynamicModel<L> extends Pattern
 
 	public static enum ValueType
 	{
-		STRING (String.class,     "String"),
-		BOOLEAN(Boolean.class,    "Bool"),
-		INTEGER(Integer.class,    "Int"),
-		DOUBLE (Double.class,     "Double"),
+		STRING (String.class,            "String"),
+		BOOLEAN(Boolean.class,           "Bool"),
+		INTEGER(Integer.class,           "Int"),
+		DOUBLE (Double.class,            "Double"),
 		ENUM   (DynamicModel.Enum.class, "Enum");
 		
 		final Class valueClass;

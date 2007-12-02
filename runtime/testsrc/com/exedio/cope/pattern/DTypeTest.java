@@ -49,11 +49,11 @@ public class DTypeTest extends AbstractLibTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(String.class,     ValueType.STRING.getValueClass());
-		assertEquals(Boolean.class,    ValueType.BOOLEAN.getValueClass());
-		assertEquals(Integer.class,    ValueType.INTEGER.getValueClass());
-		assertEquals(Double.class,     ValueType.DOUBLE.getValueClass());
-		assertEquals(Enum.class,       ValueType.ENUM.getValueClass());
+		assertEquals(String.class,  ValueType.STRING.getValueClass());
+		assertEquals(Boolean.class, ValueType.BOOLEAN.getValueClass());
+		assertEquals(Integer.class, ValueType.INTEGER.getValueClass());
+		assertEquals(Double.class,  ValueType.DOUBLE.getValueClass());
+		assertEquals(Enum.class,    ValueType.ENUM.getValueClass());
 		
 		assertEquals(item.TYPE, item.features.getType());
 		assertEquals("features", item.features.getName());
