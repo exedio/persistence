@@ -241,6 +241,7 @@
 				<exclude name="FieldTest.java" /><!-- TODO remove -->
 				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/DTypeTest.java" /><!-- TODO remove -->
 			</fileset>
 		</instrument>
 	</target>

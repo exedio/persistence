@@ -22,13 +22,11 @@ import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.DynamicModel.DEnumValue;
-import com.exedio.cope.pattern.DynamicModel.DField;
-import com.exedio.cope.pattern.DynamicModel.DType;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 
 public class DTypeTest extends AbstractLibTest
 {
-	public static final Model MODEL = new Model(DTypeItem.TYPE);
+	public static final Model MODEL = new Model(DTypeItem.TYPE, DynamicModelLocalizationItem.TYPE);
 
 	public DTypeTest()
 	{
@@ -36,6 +34,7 @@ public class DTypeTest extends AbstractLibTest
 	}
 	
 	DTypeItem item, item2;
+	DynamicModelLocalizationItem de, en;
 	
 	@Override
 	public void setUp() throws Exception
@@ -43,6 +42,8 @@ public class DTypeTest extends AbstractLibTest
 		super.setUp();
 		item = deleteOnTearDown(new DTypeItem("item1"));
 		item2 = deleteOnTearDown(new DTypeItem("item2"));
+		de = deleteOnTearDown(new DynamicModelLocalizationItem("de"));
+		en = deleteOnTearDown(new DynamicModelLocalizationItem("en"));
 	}
 	
 	public void testIt()
@@ -62,14 +63,19 @@ public class DTypeTest extends AbstractLibTest
 		
 		assertEquals(list(
 				DTypeItem.TYPE,
-				DTypeItem.features.getTypeType(), DTypeItem.features.getFieldType(), DTypeItem.features.getEnumValueType(),
-				DTypeItem.small.getTypeType(), DTypeItem.small.getFieldType() // no getEnumValueType()
+				DTypeItem.features.getTypeType(), DTypeItem.features.getTypeLocalizationType(),
+				DTypeItem.features.getFieldType(), DTypeItem.features.getFieldLocalizationType(),
+				DTypeItem.features.getEnumValueType(), DTypeItem.features.getEnumValueLocalizationType(),
+				DTypeItem.small.getTypeType(), DTypeItem.small.getTypeLocalizationType(),
+				DTypeItem.small.getFieldType(), DTypeItem.small.getFieldLocalizationType(),
+				// no getEnumValueType()
+				DynamicModelLocalizationItem.TYPE
 			), model.getTypes());
 		
 		// test persistence
 		assertContains(item.features.getTypes());
 		
-		final DType cellPhone = deleteOnTearDown(item.features.createType("cellPhone"));
+		final DynamicModel<DynamicModelLocalizationItem>.DType cellPhone = deleteOnTearDown(item.features.createType("cellPhone"));
 		assertEquals(item.TYPE, cellPhone.getParentType());
 		assertEquals(item.features, cellPhone.getModel());
 		assertEquals("cellPhone", cellPhone.getCode());
@@ -78,7 +84,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(null, item.features.getType("cellPhoneX"));
 		assertContains(cellPhone.getFields());
 
-		final DField akkuTime = cellPhone.addIntegerField("akkuTime");
+		final DynamicModel<DynamicModelLocalizationItem>.DField akkuTime = cellPhone.addIntegerField("akkuTime");
 		assertEquals(ValueType.INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
@@ -89,7 +95,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(akkuTime, cellPhone.getField("akkuTime"));
 		assertEquals(null, cellPhone.getField("akkuTimeX"));
 
-		final DField memory = cellPhone.addStringField("memory");
+		final DynamicModel<DynamicModelLocalizationItem>.DField memory = cellPhone.addStringField("memory");
 		assertEquals(ValueType.STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
@@ -125,13 +131,13 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("80TB", item.getFeatures(memory));
 		assertEquals("80TB", memory.get(item));
 		
-		final DType organizer = deleteOnTearDown(item.features.createType("organizer"));
+		final DynamicModel<DynamicModelLocalizationItem>.DType organizer = deleteOnTearDown(item.features.createType("organizer"));
 		assertEquals(item.TYPE, organizer.getParentType());
 		assertEquals(item.features, organizer.getModel());
 		assertEquals("organizer", organizer.getCode());
 		assertContains(cellPhone, organizer, item.features.getTypes());
 
-		final DField weight = organizer.addIntegerField("weight");
+		final DynamicModel<DynamicModelLocalizationItem>.DField weight = organizer.addIntegerField("weight");
 		assertEquals(ValueType.INTEGER, weight.getValueType());
 		assertEquals(0, weight.getPosition());
 		assertEquals("weight", weight.getCode());
@@ -145,7 +151,7 @@ public class DTypeTest extends AbstractLibTest
 		item2.setFeatures(weight, 500);
 		assertEquals(500, item2.getFeatures(weight));
 		
-		final DField bluetooth = organizer.addBooleanField("bluetooth");
+		final DynamicModel<DynamicModelLocalizationItem>.DField bluetooth = organizer.addBooleanField("bluetooth");
 		assertEquals(ValueType.BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
@@ -154,7 +160,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(Boolean.class, bluetooth.getField().getValueClass());
 		assertEquals(list(weight, bluetooth), organizer.getFields());
 		
-		final DField length = organizer.addDoubleField("length");
+		final DynamicModel<DynamicModelLocalizationItem>.DField length = organizer.addDoubleField("length");
 		assertEquals(ValueType.DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
@@ -170,7 +176,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(true, item2.getFeatures(bluetooth));
 		assertEquals(2.2, item2.getFeatures(length));
 		
-		final DField color = organizer.addEnumField("color");
+		final DynamicModel<DynamicModelLocalizationItem>.DField color = organizer.addEnumField("color");
 		assertEquals(ValueType.ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
@@ -189,7 +195,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(colorRed, color.getEnumValue("red"));
 		assertEquals(null, color.getEnumValue("redX"));
 		
-		final DEnumValue colorBlue = color.addEnumValue("blue");
+		final DynamicModel<DynamicModelLocalizationItem>.DEnumValue colorBlue = color.addEnumValue("blue");
 		assertEquals(color, colorBlue.getParent());
 		assertEquals(1, colorBlue.getPosition());
 		assertEquals("blue", colorBlue.getCode());
@@ -198,7 +204,7 @@ public class DTypeTest extends AbstractLibTest
 		item2.setFeatures(color, colorBlue);
 		assertEquals(colorBlue, item2.getFeatures(color));
 		
-		final DField manufacturer = organizer.addEnumField("manufacturer");
+		final DynamicModel<DynamicModelLocalizationItem>.DField manufacturer = organizer.addEnumField("manufacturer");
 		assertEquals(ValueType.ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
@@ -326,12 +332,60 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(null, item2.getFeaturesType());
 		
 		// test very small system without enums
-		final DType smallType1 = deleteOnTearDown(item.small.createType("small1"));
+		final DynamicModel<DynamicModelLocalizationItem>.DType smallType1 = deleteOnTearDown(item.small.createType("small1"));
 		final DTypeItem item3 = deleteOnTearDown(new DTypeItem("item3"));
 		item3.setSmallType(smallType1);
-		final DField smallField1 = smallType1.addStringField("smallStringField1");
+		final DynamicModel<DynamicModelLocalizationItem>.DField smallField1 = smallType1.addStringField("smallStringField1");
 		item3.setSmall(smallField1, "hallo");
 		assertEquals("hallo", item3.getSmall(smallField1));
+		
+		// test localization
+		assertEquals(null, cellPhone.getName(de));
+		assertEquals(null, cellPhone.getName(en));
+		assertEquals(null, akkuTime.getName(de));
+		assertEquals(null, akkuTime.getName(en));
+		assertEquals(null, colorBlue.getName(de));
+		assertEquals(null, colorBlue.getName(en));
+		
+		cellPhone.setName(de, "cellPhoneDE");
+		akkuTime.setName(de, "akkuTimeDE");
+		colorBlue.setName(de, "colorBlueDE");
+		assertEquals("cellPhoneDE", cellPhone.getName(de));
+		assertEquals(null, cellPhone.getName(en));
+		assertEquals("akkuTimeDE", akkuTime.getName(de));
+		assertEquals(null, akkuTime.getName(en));
+		assertEquals("colorBlueDE", colorBlue.getName(de));
+		assertEquals(null, colorBlue.getName(en));
+		
+		cellPhone.setName(de, "cellPhoneDE2");
+		akkuTime.setName(de, "akkuTimeDE2");
+		colorBlue.setName(de, "colorBlueDE2");
+		assertEquals("cellPhoneDE2", cellPhone.getName(de));
+		assertEquals(null, cellPhone.getName(en));
+		assertEquals("akkuTimeDE2", akkuTime.getName(de));
+		assertEquals(null, akkuTime.getName(en));
+		assertEquals("colorBlueDE2", colorBlue.getName(de));
+		assertEquals(null, colorBlue.getName(en));
+		
+		cellPhone.setName(en, "cellPhoneEN");
+		akkuTime.setName(en, "akkuTimeEN");
+		colorBlue.setName(en, "colorBlueEN");
+		assertEquals("cellPhoneDE2", cellPhone.getName(de));
+		assertEquals("cellPhoneEN", cellPhone.getName(en));
+		assertEquals("akkuTimeDE2", akkuTime.getName(de));
+		assertEquals("akkuTimeEN", akkuTime.getName(en));
+		assertEquals("colorBlueDE2", colorBlue.getName(de));
+		assertEquals("colorBlueEN", colorBlue.getName(en));
+		
+		cellPhone.setName(de, null);
+		akkuTime.setName(de, null);
+		colorBlue.setName(de, null);
+		assertEquals(null, cellPhone.getName(de));
+		assertEquals("cellPhoneEN", cellPhone.getName(en));
+		assertEquals(null, akkuTime.getName(de));
+		assertEquals("akkuTimeEN", akkuTime.getName(en));
+		assertEquals(null, colorBlue.getName(de));
+		assertEquals("colorBlueEN", colorBlue.getName(en));
 		
 		// test model mismatch
 		try
@@ -345,7 +399,7 @@ public class DTypeTest extends AbstractLibTest
 		}
 	}
 	
-	private final DType deleteOnTearDown(final DType type)
+	private final <L> DynamicModel<L>.DType deleteOnTearDown(final DynamicModel<L>.DType type)
 	{
 		deleteOnTearDown(type.getBackingItem());
 		return type;
