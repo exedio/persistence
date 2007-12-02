@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
+import static java.lang.Math.max;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +51,7 @@ public final class DynamicModel<L> extends Pattern
 	ItemField<?> fieldParent = null;
 	final IntegerField fieldPosition = new IntegerField().toFinal();
 	final EnumField<ValueType> fieldValueType = Item.newEnumField(ValueType.class).toFinal();
-	final IntegerField fieldPositionPerValueType = new IntegerField().toFinal();
+	final IntegerField fieldPositionPerValueType;
 	final StringField fieldCode = new StringField().toFinal();
 	com.exedio.cope.Type<?> fieldType = null;
 	Localization fieldLocalization = null;
@@ -79,6 +80,8 @@ public final class DynamicModel<L> extends Pattern
 			final int enumCapacity)
 	{
 		this.localeTemplate = locale;
+		fieldPositionPerValueType = new IntegerField().toFinal().range(0,
+				max(max(max(max(stringCapacity, booleanCapacity), integerCapacity), doubleCapacity), enumCapacity));
 		strings  = new StringField[stringCapacity];
 		booleans = new BooleanField[booleanCapacity];
 		integers = new IntegerField[integerCapacity];
