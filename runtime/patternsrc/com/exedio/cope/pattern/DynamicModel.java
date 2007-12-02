@@ -37,7 +37,6 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.Wrapper;
 
@@ -45,7 +44,7 @@ public final class DynamicModel<L> extends Pattern
 {
 	private final FunctionField<L> localeTemplate;
 	final StringField typeCode = new StringField().toFinal().unique();
-	private Type<?> typeType = null;
+	private com.exedio.cope.Type<?> typeType = null;
 	Localization typeLocalization = null;
 	
 	ItemField<?> fieldParent = null;
@@ -53,13 +52,13 @@ public final class DynamicModel<L> extends Pattern
 	final EnumField<ValueType> fieldValueType = Item.newEnumField(ValueType.class).toFinal();
 	final IntegerField fieldPositionPerValueType = new IntegerField().toFinal();
 	final StringField fieldCode = new StringField().toFinal();
-	Type<?> fieldType = null;
+	com.exedio.cope.Type<?> fieldType = null;
 	Localization fieldLocalization = null;
 	
 	ItemField<?> enumValueParent = null;
 	final IntegerField enumValuePosition = new IntegerField().toFinal();
 	final StringField enumValueCode = new StringField().toFinal();
-	Type<?> enumValueType = null;
+	com.exedio.cope.Type<?> enumValueType = null;
 	Localization enumValueLocalization = null;
 	
 	private ItemField<?> type = null;
@@ -186,21 +185,21 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 	
-	public DynamicModel<L>.DType createType(final String code)
+	public DynamicModel<L>.Type createType(final String code)
 	{
-		return new DType(typeType.newItem(typeCode.map(code)));
+		return new Type(typeType.newItem(typeCode.map(code)));
 	}
 	
-	public List<DType> getTypes()
+	public List<Type> getTypes()
 	{
 		final List<? extends Item> backingItems = typeType.search();
-		final ArrayList<DType> result = new ArrayList<DType>(backingItems.size());
+		final ArrayList<Type> result = new ArrayList<Type>(backingItems.size());
 		for(final Item backingItem : backingItems)
-			result.add(new DType(backingItem));
+			result.add(new Type(backingItem));
 		return Collections.unmodifiableList(result);
 	}
 	
-	public DType getType(final String code)
+	public Type getType(final String code)
 	{
 		return toDType(typeType.searchSingleton(typeCode.equal(code)));
 	}
@@ -212,7 +211,7 @@ public final class DynamicModel<L> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(new Wrapper(
-			DType.class, "getType",
+			Type.class, "getType",
 			"Returns the dynamic type of this item in the model {0}.",
 			"getter"));
 		
@@ -221,55 +220,55 @@ public final class DynamicModel<L> extends Pattern
 			"Sets the dynamic type of this item in the model {0}.",
 			"setter"
 			).
-			addParameter(DType.class, "type"));
+			addParameter(Type.class, "type"));
 			
 		result.add(new Wrapper(
 			Object.class, "get",
 			"Returns the value of <tt>field</tt> for this item in the model {0}.",
 			"getter").
-			addParameter(DField.class, "field"));
+			addParameter(Field.class, "field"));
 			
 		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the value of <tt>field</tt> for this item in the model {0}.",
 			"setter").
-			addParameter(DField.class, "field").
+			addParameter(Field.class, "field").
 			addParameter(Object.class, "value"));
 		
 		return Collections.unmodifiableList(result);
 	}
 	
-	public DType getType(final Item item)
+	public Type getType(final Item item)
 	{
 		return toDType(this.type.get(item));
 	}
 	
-	public Type getTypeType()
+	public com.exedio.cope.Type getTypeType()
 	{
 		return typeType;
 	}
 	
-	public Type getFieldType()
+	public com.exedio.cope.Type getFieldType()
 	{
 		return fieldType;
 	}
 	
-	public Type getEnumValueType()
+	public com.exedio.cope.Type getEnumValueType()
 	{
 		return enumValueType;
 	}
 	
-	public Type getTypeLocalizationType()
+	public com.exedio.cope.Type getTypeLocalizationType()
 	{
 		return typeLocalization.type;
 	}
 	
-	public Type getFieldLocalizationType()
+	public com.exedio.cope.Type getFieldLocalizationType()
 	{
 		return fieldLocalization.type;
 	}
 	
-	public Type getEnumValueLocalizationType()
+	public com.exedio.cope.Type getEnumValueLocalizationType()
 	{
 		return enumValueLocalization.type;
 	}
@@ -279,7 +278,7 @@ public final class DynamicModel<L> extends Pattern
 		return type;
 	}
 	
-	public void setType(final Item item, final DType type)
+	public void setType(final Item item, final Type type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
@@ -293,7 +292,7 @@ public final class DynamicModel<L> extends Pattern
 		item.set(values);
 	}
 	
-	private void assertType(final Item item, final DField field)
+	private void assertType(final Item item, final Field field)
 	{
 		final Item fieldType = fieldParent.get(field.getBackingItem());
 		final Item itemType = type.get(item);
@@ -303,7 +302,7 @@ public final class DynamicModel<L> extends Pattern
 					", but item has " + (itemType!=null ? typeCode.get(itemType) : "none"));
 	}
 	
-	FunctionField<?> getField(final DField field)
+	FunctionField<?> getField(final Field field)
 	{
 		final ValueType valueType = field.getValueType();
 		final int pos = field.getPositionPerValueType();
@@ -320,27 +319,27 @@ public final class DynamicModel<L> extends Pattern
 		return array[pos];
 	}
 	
-	public Object get(final Item item, final DField field)
+	public Object get(final Item item, final Field field)
 	{
 		assertType(item, field);
 		final Object backingValue = getField(field).get(item);
 		if(backingValue!=null && backingValue instanceof Item)
-			return new DEnumValue((Item)backingValue);
+			return new EnumValue((Item)backingValue);
 		else
 			return backingValue;
 	}
 	
-	public void set(final Item item, final DynamicModel<L>.DField field, final Object value)
+	public void set(final Item item, final DynamicModel<L>.Field field, final Object value)
 	{
 		assertType(item, field);
 		
 		final Object backingValue;
 		if(value!=null &&
-			value instanceof DynamicModel.DEnumValue &&
+			value instanceof DynamicModel.EnumValue &&
 			field.getValueType()==ValueType.ENUM)
 		{
-			final DEnumValue enumValue = (DEnumValue)value;
-			final DField enumValueParent = enumValue.getParent();
+			final EnumValue enumValue = (EnumValue)value;
+			final Field enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(field))
 				throw new IllegalArgumentException("dynamic model mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);
 			backingValue = enumValue.getBackingItem();
@@ -351,9 +350,9 @@ public final class DynamicModel<L> extends Pattern
 		Cope.setAndCast(getField(field), item, backingValue);
 	}
 	
-	private DType toDType(final Item backingItem)
+	private Type toDType(final Item backingItem)
 	{
-		return backingItem!=null ? new DType(backingItem) : null;
+		return backingItem!=null ? new Type(backingItem) : null;
 	}
 
 	public static enum ValueType
@@ -362,7 +361,7 @@ public final class DynamicModel<L> extends Pattern
 		BOOLEAN(Boolean.class,    "Bool"),
 		INTEGER(Integer.class,    "Int"),
 		DOUBLE (Double.class,     "Double"),
-		ENUM   (DynamicModel.DEnumValue.class, "Enum");
+		ENUM   (DynamicModel.EnumValue.class, "Enum");
 		
 		final Class valueClass;
 		final String postfix;
@@ -379,21 +378,21 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 
-	public final class DType extends BackedItem
+	public final class Type extends BackedItem
 	{
-		DType(final Item backingItem)
+		Type(final Item backingItem)
 		{
 			super(backingItem);
 		}
 		
-		public DField addField(final String code, final ValueType valueType)
+		public Field addField(final String code, final ValueType valueType)
 		{
-			final List<DField> fields = getFields(); // TODO make more efficient
+			final List<Field> fields = getFields(); // TODO make more efficient
 			final int position = fields.isEmpty() ? 0 : (fields.get(fields.size()-1).getPosition()+1);
-			final List<DField> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
+			final List<Field> fieldsPerValuetype = getFields(valueType); // TODO make more efficient
 			final int positionPerValuetype = fieldsPerValuetype.isEmpty() ? 0 : (fieldsPerValuetype.get(fieldsPerValuetype.size()-1).getPositionPerValueType()+1);
 			DynamicModel.this.assertCapacity(valueType, positionPerValuetype);
-			return new DField(
+			return new Field(
 					fieldType.newItem(
 							Cope.mapAndCast(fieldParent, backingItem),
 							fieldPosition.map(position),
@@ -402,55 +401,55 @@ public final class DynamicModel<L> extends Pattern
 							fieldPositionPerValueType.map(positionPerValuetype)));
 		}
 
-		public DField addStringField(final String code)
+		public Field addStringField(final String code)
 		{
 			return addField(code, ValueType.STRING);
 		}
 
-		public DField addBooleanField(final String code)
+		public Field addBooleanField(final String code)
 		{
 			return addField(code, ValueType.BOOLEAN);
 		}
 		
-		public DField addIntegerField(final String code)
+		public Field addIntegerField(final String code)
 		{
 			return addField(code, ValueType.INTEGER);
 		}
 		
-		public DField addDoubleField(final String code)
+		public Field addDoubleField(final String code)
 		{
 			return addField(code, ValueType.DOUBLE);
 		}
 		
-		public DField addEnumField(final String code)
+		public Field addEnumField(final String code)
 		{
 			return addField(code, ValueType.ENUM);
 		}
 
-		public List<DField> getFields()
+		public List<Field> getFields()
 		{
 			final List<? extends Item> backingItems = fieldType.search(Cope.equalAndCast(fieldParent, backingItem), fieldPosition, true);
-			final ArrayList<DField> result = new ArrayList<DField>(backingItems.size());
+			final ArrayList<Field> result = new ArrayList<Field>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DField(backingItem));
+				result.add(new Field(backingItem));
 			return Collections.unmodifiableList(result);
 		}
 
-		public DField getField(final String code)
+		public Field getField(final String code)
 		{
 			return toDField(fieldType.searchSingleton(Cope.equalAndCast(fieldParent, backingItem).and(fieldCode.equal(code))));
 		}
 		
-		private List<DField> getFields(final ValueType valueType)
+		private List<Field> getFields(final ValueType valueType)
 		{
 			final List<? extends Item> backingItems = fieldType.search(Cope.equalAndCast(fieldParent, backingItem).and(fieldValueType.equal(valueType)), fieldPositionPerValueType, true);
-			final ArrayList<DField> result = new ArrayList<DField>(backingItems.size());
+			final ArrayList<Field> result = new ArrayList<Field>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DField(backingItem));
+				result.add(new Field(backingItem));
 			return Collections.unmodifiableList(result);
 		}
 		
-		public Type getParentType()
+		public com.exedio.cope.Type getParentType()
 		{
 			return DynamicModel.this.getType();
 		}
@@ -465,9 +464,9 @@ public final class DynamicModel<L> extends Pattern
 			return typeCode.get(backingItem);
 		}
 		
-		private DField toDField(final Item backingItem)
+		private Field toDField(final Item backingItem)
 		{
-			return backingItem!=null ? new DField(backingItem) : null;
+			return backingItem!=null ? new Field(backingItem) : null;
 		}
 		
 		public String getName(final L locale)
@@ -484,7 +483,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addField(String,ValueType)} instead
 		 */
 		@Deprecated
-		public DField addAttribute(final String code, final ValueType valueType)
+		public Field addAttribute(final String code, final ValueType valueType)
 		{
 			return addField(code, valueType);
 		}
@@ -493,7 +492,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addStringField(String)} instead
 		 */
 		@Deprecated
-		public DField addStringAttribute(final String code)
+		public Field addStringAttribute(final String code)
 		{
 			return addStringField(code);
 		}
@@ -502,7 +501,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addBooleanField(String)} instead
 		 */
 		@Deprecated
-		public DField addBooleanAttribute(final String code)
+		public Field addBooleanAttribute(final String code)
 		{
 			return addBooleanField(code);
 		}
@@ -511,7 +510,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addIntegerField(String)} instead
 		 */
 		@Deprecated
-		public DField addIntegerAttribute(final String code)
+		public Field addIntegerAttribute(final String code)
 		{
 			return addIntegerField(code);
 		}
@@ -520,7 +519,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addDoubleField(String)} instead
 		 */
 		@Deprecated
-		public DField addDoubleAttribute(final String code)
+		public Field addDoubleAttribute(final String code)
 		{
 			return addDoubleField(code);
 		}
@@ -529,7 +528,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addEnumField(String)} instead
 		 */
 		@Deprecated
-		public DField addEnumAttribute(final String code)
+		public Field addEnumAttribute(final String code)
 		{
 			return addEnumField(code);
 		}
@@ -538,7 +537,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #getFields()} instead
 		 */
 		@Deprecated
-		public List<DField> getAttributes()
+		public List<Field> getAttributes()
 		{
 			return getFields();
 		}
@@ -547,7 +546,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #getField(String)} instead
 		 */
 		@Deprecated
-		public DField getAttribute(final String code)
+		public Field getAttribute(final String code)
 		{
 			return getField(code);
 		}
@@ -562,9 +561,9 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 	
-	public final class DField extends BackedItem
+	public final class Field extends BackedItem
 	{
-		DField(final Item backingItem)
+		Field(final Item backingItem)
 		{
 			super(backingItem);
 		}
@@ -586,37 +585,37 @@ public final class DynamicModel<L> extends Pattern
 				throw new IllegalArgumentException("operation allowed for getValueType()==ENUM fields only, but was " + vt);
 		}
 		
-		public List<DEnumValue> getEnumValues()
+		public List<EnumValue> getEnumValues()
 		{
 			assertEnum();
 			final List<? extends Item> backingItems = enumValueType.search(Cope.equalAndCast(enumValueParent, backingItem), enumValuePosition, true);
-			final ArrayList<DEnumValue> result = new ArrayList<DEnumValue>(backingItems.size());
+			final ArrayList<EnumValue> result = new ArrayList<EnumValue>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new DEnumValue(backingItem));
+				result.add(new EnumValue(backingItem));
 			return Collections.unmodifiableList(result);
 		}
 		
-		public DEnumValue getEnumValue(final String code)
+		public EnumValue getEnumValue(final String code)
 		{
 			assertEnum();
 			return toDEnumValue(enumValueType.searchSingleton(Cope.equalAndCast(enumValueParent, backingItem).and(enumValueCode.equal(code))));
 		}
 		
-		public DEnumValue addEnumValue(final String code)
+		public EnumValue addEnumValue(final String code)
 		{
 			assertEnum();
-			final List<DEnumValue> values = getEnumValues(); // TODO make more efficient
+			final List<EnumValue> values = getEnumValues(); // TODO make more efficient
 			final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
-			return new DEnumValue(
+			return new EnumValue(
 					enumValueType.newItem(
 							Cope.mapAndCast(enumValueParent, backingItem),
 							enumValuePosition.map(position),
 							enumValueCode.map(code)));
 		}
 		
-		public DType getParent()
+		public Type getParent()
 		{
-			return new DType(fieldParent.get(backingItem));
+			return new Type(fieldParent.get(backingItem));
 		}
 		
 		public int getPosition()
@@ -644,9 +643,9 @@ public final class DynamicModel<L> extends Pattern
 			return DynamicModel.this.getField(this);
 		}
 		
-		private DEnumValue toDEnumValue(final Item backingItem)
+		private EnumValue toDEnumValue(final Item backingItem)
 		{
-			return backingItem!=null ? new DEnumValue(backingItem) : null;
+			return backingItem!=null ? new EnumValue(backingItem) : null;
 		}
 		
 		public String getName(final L locale)
@@ -660,16 +659,16 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 
-	public final class DEnumValue extends BackedItem
+	public final class EnumValue extends BackedItem
 	{
-		DEnumValue(final Item backingItem)
+		EnumValue(final Item backingItem)
 		{
 			super(backingItem);
 		}
 		
-		public DField getParent()
+		public Field getParent()
 		{
-			return new DField(enumValueParent.get(backingItem));
+			return new Field(enumValueParent.get(backingItem));
 		}
 		
 		public int getPosition()
@@ -694,7 +693,7 @@ public final class DynamicModel<L> extends Pattern
 	}
 	
 	// just for making newType accessible
-	Type newLocalizationType(final LinkedHashMap<String, com.exedio.cope.Feature> features, final String postfix)
+	com.exedio.cope.Type newLocalizationType(final LinkedHashMap<String, com.exedio.cope.Feature> features, final String postfix)
 	{
 		return newType(features, postfix);
 	}
@@ -705,9 +704,9 @@ public final class DynamicModel<L> extends Pattern
 		final FunctionField<L> locale;
 		final StringField value;
 		final UniqueConstraint uniqueConstraint;
-		final Type<?> type;
+		final com.exedio.cope.Type<?> type;
 		
-		Localization(final Type<?> type, final FunctionField<L> localeTemplate, final String id)
+		Localization(final com.exedio.cope.Type<?> type, final FunctionField<L> localeTemplate, final String id)
 		{
 			assert type!=null;
 			
