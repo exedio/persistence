@@ -109,6 +109,11 @@ public final class DynamicModel<L> extends Pattern
 				stringCapacity, booleanCapacity, integerCapacity, doubleCapacity, enumCapacity);
 	}
 	
+	public static final <L> DynamicModel<L> newModel(final FunctionField<L> locale)
+	{
+		return new DynamicModel<L>(locale, 5, 5, 5, 5, 5);
+	}
+	
 	private FunctionField<?>[] array(final ValueType valueType)
 	{
 		switch(valueType)
@@ -243,7 +248,7 @@ public final class DynamicModel<L> extends Pattern
 		return toDType(this.type.get(item));
 	}
 	
-	public com.exedio.cope.Type getTypeType()
+	public com.exedio.cope.Type<?> getTypeType()
 	{
 		return typeType;
 	}
