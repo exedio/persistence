@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
-import com.exedio.cope.pattern.DynamicModel.EnumValue;
+import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 
 public class DTypeTest extends AbstractLibTest
@@ -53,7 +53,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(Boolean.class,    ValueType.BOOLEAN.getValueClass());
 		assertEquals(Integer.class,    ValueType.INTEGER.getValueClass());
 		assertEquals(Double.class,     ValueType.DOUBLE.getValueClass());
-		assertEquals(EnumValue.class,  ValueType.ENUM.getValueClass());
+		assertEquals(Enum.class,       ValueType.ENUM.getValueClass());
 		
 		assertEquals(item.TYPE, item.features.getType());
 		assertEquals("features", item.features.getName());
@@ -65,10 +65,10 @@ public class DTypeTest extends AbstractLibTest
 				DTypeItem.TYPE,
 				DTypeItem.features.getTypeType(), DTypeItem.features.getTypeLocalizationType(),
 				DTypeItem.features.getFieldType(), DTypeItem.features.getFieldLocalizationType(),
-				DTypeItem.features.getEnumValueType(), DTypeItem.features.getEnumValueLocalizationType(),
+				DTypeItem.features.getEnumType(), DTypeItem.features.getEnumLocalizationType(),
 				DTypeItem.small.getTypeType(), DTypeItem.small.getTypeLocalizationType(),
 				DTypeItem.small.getFieldType(), DTypeItem.small.getFieldLocalizationType(),
-				// no getEnumValueType()
+				// no getEnumType()
 				DynamicModelLocalizationItem.TYPE
 			), model.getTypes());
 		
@@ -182,12 +182,12 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("color", color.getCode());
 		assertSame(item.TYPE, color.getField().getType());
 		assertEquals("featuresEnum1", color.getField().getName());
-		assertEquals(item.features.getEnumValueType(), ((ItemField)color.getField()).getValueType());
+		assertEquals(item.features.getEnumType(), ((ItemField)color.getField()).getValueType());
 		assertEquals(list(weight, bluetooth, length, color), organizer.getFields());
 		assertContains(color.getEnumValues());
 		assertEquals(null, item2.getFeatures(color));
 		
-		final EnumValue colorRed = color.addEnumValue("red");
+		final Enum colorRed = color.addEnumValue("red");
 		assertEquals(color, colorRed.getParent());
 		assertEquals(0, colorRed.getPosition());
 		assertEquals("red", colorRed.getCode());
@@ -195,7 +195,7 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals(colorRed, color.getEnumValue("red"));
 		assertEquals(null, color.getEnumValue("redX"));
 		
-		final DynamicModel<DynamicModelLocalizationItem>.EnumValue colorBlue = color.addEnumValue("blue");
+		final DynamicModel<DynamicModelLocalizationItem>.Enum colorBlue = color.addEnumValue("blue");
 		assertEquals(color, colorBlue.getParent());
 		assertEquals(1, colorBlue.getPosition());
 		assertEquals("blue", colorBlue.getCode());
@@ -210,12 +210,12 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(item.TYPE, manufacturer.getField().getType());
 		assertEquals("featuresEnum2", manufacturer.getField().getName());
-		assertEquals(item.features.getEnumValueType(), ((ItemField)manufacturer.getField()).getValueType());
+		assertEquals(item.features.getEnumType(), ((ItemField)manufacturer.getField()).getValueType());
 		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getFields());
 		assertContains(manufacturer.getEnumValues());
 		assertEquals(null, item2.getFeatures(manufacturer));
 		
-		final EnumValue manufacturer1 = manufacturer.addEnumValue("manufacturer1");
+		final Enum manufacturer1 = manufacturer.addEnumValue("manufacturer1");
 		assertEquals(manufacturer, manufacturer1.getParent());
 		assertEquals(0, manufacturer1.getPosition());
 		assertEquals("manufacturer1", manufacturer1.getCode());

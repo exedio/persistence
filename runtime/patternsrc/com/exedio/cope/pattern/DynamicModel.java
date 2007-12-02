@@ -55,11 +55,11 @@ public final class DynamicModel<L> extends Pattern
 	com.exedio.cope.Type<?> fieldType = null;
 	Localization fieldLocalization = null;
 	
-	ItemField<?> enumValueParent = null;
-	final IntegerField enumValuePosition = new IntegerField().toFinal();
-	final StringField enumValueCode = new StringField().toFinal();
-	com.exedio.cope.Type<?> enumValueType = null;
-	Localization enumValueLocalization = null;
+	ItemField<?> enumParent = null;
+	final IntegerField enumPosition = new IntegerField().toFinal();
+	final StringField enumCode = new StringField().toFinal();
+	com.exedio.cope.Type<?> enumType = null;
+	Localization enumLocalization = null;
 	
 	private ItemField<?> type = null;
 	private final FunctionField<?>[] fields;
@@ -162,18 +162,18 @@ public final class DynamicModel<L> extends Pattern
 		if(enums.length>0)
 		{
 			features.clear();
-			enumValueParent = fieldType.newItemField(CASCADE).toFinal();
-			features.put("parent", enumValueParent);
-			features.put("position", enumValuePosition);
-			features.put("uniquePosition", new UniqueConstraint(enumValueParent, enumValuePosition));
-			features.put("code", enumValueCode);
-			features.put("uniqueCode", new UniqueConstraint(enumValueParent, enumValueCode));
-			enumValueType = newType(features, "Enum");
-			enumValueLocalization = new Localization(enumValueType, localeTemplate, "Enum");
+			enumParent = fieldType.newItemField(CASCADE).toFinal();
+			features.put("parent", enumParent);
+			features.put("position", enumPosition);
+			features.put("uniquePosition", new UniqueConstraint(enumParent, enumPosition));
+			features.put("code", enumCode);
+			features.put("uniqueCode", new UniqueConstraint(enumParent, enumCode));
+			enumType = newType(features, "Enum");
+			enumLocalization = new Localization(enumType, localeTemplate, "Enum");
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
 			for(int i = 0; i<enums.length; i++)
-				registerSource(fields[i+enumOffset] = enums[i] = enumValueType.newItemField(FORBID).optional());
+				registerSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional());
 		}
 		
 		for(final ValueType valueType : ValueType.values())
@@ -253,9 +253,9 @@ public final class DynamicModel<L> extends Pattern
 		return fieldType;
 	}
 	
-	public com.exedio.cope.Type getEnumValueType()
+	public com.exedio.cope.Type getEnumType()
 	{
-		return enumValueType;
+		return enumType;
 	}
 	
 	public com.exedio.cope.Type getTypeLocalizationType()
@@ -268,9 +268,9 @@ public final class DynamicModel<L> extends Pattern
 		return fieldLocalization.type;
 	}
 	
-	public com.exedio.cope.Type getEnumValueLocalizationType()
+	public com.exedio.cope.Type getEnumLocalizationType()
 	{
-		return enumValueLocalization.type;
+		return enumLocalization.type;
 	}
 	
 	public ItemField<?> getTypeField()
@@ -324,7 +324,7 @@ public final class DynamicModel<L> extends Pattern
 		assertType(item, field);
 		final Object backingValue = getField(field).get(item);
 		if(backingValue!=null && backingValue instanceof Item)
-			return new EnumValue((Item)backingValue);
+			return new Enum((Item)backingValue);
 		else
 			return backingValue;
 	}
@@ -335,10 +335,10 @@ public final class DynamicModel<L> extends Pattern
 		
 		final Object backingValue;
 		if(value!=null &&
-			value instanceof DynamicModel.EnumValue &&
+			value instanceof DynamicModel.Enum &&
 			field.getValueType()==ValueType.ENUM)
 		{
-			final EnumValue enumValue = (EnumValue)value;
+			final Enum enumValue = (Enum)value;
 			final Field enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(field))
 				throw new IllegalArgumentException("dynamic model mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);
@@ -361,7 +361,7 @@ public final class DynamicModel<L> extends Pattern
 		BOOLEAN(Boolean.class,    "Bool"),
 		INTEGER(Integer.class,    "Int"),
 		DOUBLE (Double.class,     "Double"),
-		ENUM   (DynamicModel.EnumValue.class, "Enum");
+		ENUM   (DynamicModel.Enum.class, "Enum");
 		
 		final Class valueClass;
 		final String postfix;
@@ -585,32 +585,32 @@ public final class DynamicModel<L> extends Pattern
 				throw new IllegalArgumentException("operation allowed for getValueType()==ENUM fields only, but was " + vt);
 		}
 		
-		public List<EnumValue> getEnumValues()
+		public List<Enum> getEnumValues()
 		{
 			assertEnum();
-			final List<? extends Item> backingItems = enumValueType.search(Cope.equalAndCast(enumValueParent, backingItem), enumValuePosition, true);
-			final ArrayList<EnumValue> result = new ArrayList<EnumValue>(backingItems.size());
+			final List<? extends Item> backingItems = enumType.search(Cope.equalAndCast(enumParent, backingItem), enumPosition, true);
+			final ArrayList<Enum> result = new ArrayList<Enum>(backingItems.size());
 			for(final Item backingItem : backingItems)
-				result.add(new EnumValue(backingItem));
+				result.add(new Enum(backingItem));
 			return Collections.unmodifiableList(result);
 		}
 		
-		public EnumValue getEnumValue(final String code)
+		public Enum getEnumValue(final String code)
 		{
 			assertEnum();
-			return toDEnumValue(enumValueType.searchSingleton(Cope.equalAndCast(enumValueParent, backingItem).and(enumValueCode.equal(code))));
+			return toEnum(enumType.searchSingleton(Cope.equalAndCast(enumParent, backingItem).and(enumCode.equal(code))));
 		}
 		
-		public EnumValue addEnumValue(final String code)
+		public Enum addEnumValue(final String code)
 		{
 			assertEnum();
-			final List<EnumValue> values = getEnumValues(); // TODO make more efficient
+			final List<Enum> values = getEnumValues(); // TODO make more efficient
 			final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
-			return new EnumValue(
-					enumValueType.newItem(
-							Cope.mapAndCast(enumValueParent, backingItem),
-							enumValuePosition.map(position),
-							enumValueCode.map(code)));
+			return new Enum(
+					enumType.newItem(
+							Cope.mapAndCast(enumParent, backingItem),
+							enumPosition.map(position),
+							enumCode.map(code)));
 		}
 		
 		public Type getParent()
@@ -643,9 +643,9 @@ public final class DynamicModel<L> extends Pattern
 			return DynamicModel.this.getField(this);
 		}
 		
-		private EnumValue toDEnumValue(final Item backingItem)
+		private Enum toEnum(final Item backingItem)
 		{
-			return backingItem!=null ? new EnumValue(backingItem) : null;
+			return backingItem!=null ? new Enum(backingItem) : null;
 		}
 		
 		public String getName(final L locale)
@@ -659,36 +659,36 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 
-	public final class EnumValue extends BackedItem
+	public final class Enum extends BackedItem
 	{
-		EnumValue(final Item backingItem)
+		Enum(final Item backingItem)
 		{
 			super(backingItem);
 		}
 		
 		public Field getParent()
 		{
-			return new Field(enumValueParent.get(backingItem));
+			return new Field(enumParent.get(backingItem));
 		}
 		
 		public int getPosition()
 		{
-			return enumValuePosition.getMandatory(backingItem);
+			return enumPosition.getMandatory(backingItem);
 		}
 		
 		public String getCode()
 		{
-			return enumValueCode.get(backingItem);
+			return enumCode.get(backingItem);
 		}
 		
 		public String getName(final L locale)
 		{
-			return enumValueLocalization.getName(backingItem, locale);
+			return enumLocalization.getName(backingItem, locale);
 		}
 		
 		public void setName(final L locale, final String value)
 		{
-			enumValueLocalization.setName(backingItem, locale, value);
+			enumLocalization.setName(backingItem, locale, value);
 		}
 	}
 	
