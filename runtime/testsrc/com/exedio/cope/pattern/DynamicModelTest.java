@@ -321,7 +321,7 @@ public class DynamicModelTest extends AbstractLibTest
 		}
 			
 		
-		// test cleaning of attributes on setting type
+		// test cleaning of fields on setting type
 		item2.setFeaturesType(cellPhone);
 		assertEquals(null, item2.getFeatures(akkuTime)); // must not be 500 left from weight
 		assertEquals(null, item2.getFeatures(memory));
@@ -331,7 +331,7 @@ public class DynamicModelTest extends AbstractLibTest
 		item2.setFeaturesType(null);
 		assertEquals(null, item2.getFeaturesType());
 		
-		// test very small system without enums
+		// test very small model without enums
 		final DynamicModel<DynamicModelLocalizationItem>.Type smallType1 = deleteOnTearDown(item.small.createType("small1"));
 		final DynamicModelItem item3 = deleteOnTearDown(new DynamicModelItem("item3"));
 		item3.setSmallType(smallType1);
