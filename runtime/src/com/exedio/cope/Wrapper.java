@@ -204,6 +204,8 @@ public final class Wrapper
 	public class ClassVariable { /* OK, just a placeholder */ }
 	public class TypeVariable0 { /* OK, just a placeholder */ }
 	public class TypeVariable1 { /* OK, just a placeholder */ }
+	public class DynamicModelType { /* OK, just a placeholder */ } // TODO remove, is a hack
+	public class DynamicModelField { /* OK, just a placeholder */ } // TODO remove, is a hack
 	
 	public static final java.lang.reflect.Type makeType(final Class rawType, final Class... actualTypeArguments)
 	{

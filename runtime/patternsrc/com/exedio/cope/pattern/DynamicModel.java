@@ -219,7 +219,7 @@ public final class DynamicModel<L> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(new Wrapper(
-			Type.class, "getType",
+			Wrapper.DynamicModelType.class, "getType",
 			"Returns the dynamic type of this item in the model {0}.",
 			"getter"));
 		
@@ -228,19 +228,19 @@ public final class DynamicModel<L> extends Pattern
 			"Sets the dynamic type of this item in the model {0}.",
 			"setter"
 			).
-			addParameter(Type.class, "type"));
+			addParameter(Wrapper.DynamicModelType.class, "type"));
 			
 		result.add(new Wrapper(
 			Object.class, "get",
 			"Returns the value of <tt>field</tt> for this item in the model {0}.",
 			"getter").
-			addParameter(Field.class, "field"));
+			addParameter(Wrapper.DynamicModelField.class, "field"));
 			
 		result.add(new Wrapper(
 			void.class, "set",
 			"Sets the value of <tt>field</tt> for this item in the model {0}.",
 			"setter").
-			addParameter(Field.class, "field").
+			addParameter(Wrapper.DynamicModelField.class, "field").
 			addParameter(Object.class, "value"));
 		
 		return Collections.unmodifiableList(result);
