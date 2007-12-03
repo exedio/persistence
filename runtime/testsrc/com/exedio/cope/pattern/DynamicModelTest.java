@@ -395,7 +395,7 @@ public class DynamicModelTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("dynamic model mismatch: new type has model DTypeItem.features, but must be DTypeItem.small", e.getMessage());
+			assertEquals("dynamic model mismatch: new type has model DynamicModelItem.features, but must be DynamicModelItem.small", e.getMessage());
 		}
 	}
 	
