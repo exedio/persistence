@@ -49,7 +49,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(RelationTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(VectorRelationTest.class);
-		suite.addTestSuite(DTypeTest.class);
+		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);
 		suite.addTestSuite(DispatcherTest.class);
 		return suite;

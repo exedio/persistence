@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.pattern.DTypeTest;
+import com.exedio.cope.pattern.DynamicModelTest;
 
 public class TestGetModelTest extends CopeAssert
 {
@@ -30,7 +30,7 @@ public class TestGetModelTest extends CopeAssert
 	{
 		final HashMap<Model, ConnectProperties> models = PackageTest.getModels(PackageTest.suite());
 		assertTrue(models.keySet().contains(NameTest.MODEL));
-		assertTrue(models.keySet().contains(DTypeTest.MODEL));
+		assertTrue(models.keySet().contains(DynamicModelTest.MODEL));
 		assertTrue(models.keySet().contains(BadQueryTest.MODEL));
 	}
 }

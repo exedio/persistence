@@ -24,24 +24,24 @@ import com.exedio.cope.Model;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 
-public class DTypeTest extends AbstractLibTest
+public class DynamicModelTest extends AbstractLibTest
 {
-	public static final Model MODEL = new Model(DTypeItem.TYPE, DynamicModelLocalizationItem.TYPE);
+	public static final Model MODEL = new Model(DynamicModelItem.TYPE, DynamicModelLocalizationItem.TYPE);
 
-	public DTypeTest()
+	public DynamicModelTest()
 	{
 		super(MODEL);
 	}
 	
-	DTypeItem item, item2;
+	DynamicModelItem item, item2;
 	DynamicModelLocalizationItem de, en;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DTypeItem("item1"));
-		item2 = deleteOnTearDown(new DTypeItem("item2"));
+		item = deleteOnTearDown(new DynamicModelItem("item1"));
+		item2 = deleteOnTearDown(new DynamicModelItem("item2"));
 		de = deleteOnTearDown(new DynamicModelLocalizationItem("de"));
 		en = deleteOnTearDown(new DynamicModelLocalizationItem("en"));
 	}
@@ -62,12 +62,12 @@ public class DTypeTest extends AbstractLibTest
 		assertEquals("featuresType", item.features.getTypeField().getName());
 		
 		assertEquals(list(
-				DTypeItem.TYPE,
-				DTypeItem.features.getTypeType(), DTypeItem.features.getTypeLocalizationType(),
-				DTypeItem.features.getFieldType(), DTypeItem.features.getFieldLocalizationType(),
-				DTypeItem.features.getEnumType(), DTypeItem.features.getEnumLocalizationType(),
-				DTypeItem.small.getTypeType(), DTypeItem.small.getTypeLocalizationType(),
-				DTypeItem.small.getFieldType(), DTypeItem.small.getFieldLocalizationType(),
+				DynamicModelItem.TYPE,
+				DynamicModelItem.features.getTypeType(), DynamicModelItem.features.getTypeLocalizationType(),
+				DynamicModelItem.features.getFieldType(), DynamicModelItem.features.getFieldLocalizationType(),
+				DynamicModelItem.features.getEnumType(), DynamicModelItem.features.getEnumLocalizationType(),
+				DynamicModelItem.small.getTypeType(), DynamicModelItem.small.getTypeLocalizationType(),
+				DynamicModelItem.small.getFieldType(), DynamicModelItem.small.getFieldLocalizationType(),
 				// no getEnumType()
 				DynamicModelLocalizationItem.TYPE
 			), model.getTypes());
@@ -333,7 +333,7 @@ public class DTypeTest extends AbstractLibTest
 		
 		// test very small system without enums
 		final DynamicModel<DynamicModelLocalizationItem>.Type smallType1 = deleteOnTearDown(item.small.createType("small1"));
-		final DTypeItem item3 = deleteOnTearDown(new DTypeItem("item3"));
+		final DynamicModelItem item3 = deleteOnTearDown(new DynamicModelItem("item3"));
 		item3.setSmallType(smallType1);
 		final DynamicModel<DynamicModelLocalizationItem>.Field smallField1 = smallType1.addStringField("smallStringField1");
 		item3.setSmall(smallField1, "hallo");
