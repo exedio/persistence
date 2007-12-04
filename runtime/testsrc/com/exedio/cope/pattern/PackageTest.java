@@ -30,11 +30,11 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(HashTest.class);
 		suite.addTestSuite(MD5Test.class);
 		suite.addTestSuite(PartOfTest.class);
-		suite.addTestSuite(FieldListLimitedTest.class);
-		suite.addTestSuite(FieldListTest.class);
-		suite.addTestSuite(FieldSetTest.class);
-		suite.addTestSuite(FieldMapLimitedTest.class);
-		suite.addTestSuite(FieldMapTest.class);
+		suite.addTestSuite(LimitedListFieldTest.class);
+		suite.addTestSuite(ListFieldTest.class);
+		suite.addTestSuite(SetFieldTest.class);
+		suite.addTestSuite(EnumMapFieldTest.class);
+		suite.addTestSuite(MapFieldTest.class);
 		suite.addTestSuite(CustomTest.class);
 		suite.addTestSuite(JavaViewTest.class);
 		suite.addTestSuite(MediaTest.class);

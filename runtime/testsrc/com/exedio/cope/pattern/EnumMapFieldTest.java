@@ -21,27 +21,27 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Model;
 
-public class FieldMapLimitedTest extends AbstractLibTest
+public class EnumMapFieldTest extends AbstractLibTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(FieldMapLimitedItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
 
-	private static final FieldMapLimitedItem.Language DE = FieldMapLimitedItem.Language.DE;
-	private static final FieldMapLimitedItem.Language EN = FieldMapLimitedItem.Language.EN;
-	private static final FieldMapLimitedItem.Language PL = FieldMapLimitedItem.Language.PL;
+	private static final EnumMapFieldItem.Language DE = EnumMapFieldItem.Language.DE;
+	private static final EnumMapFieldItem.Language EN = EnumMapFieldItem.Language.EN;
+	private static final EnumMapFieldItem.Language PL = EnumMapFieldItem.Language.PL;
 	
-	public FieldMapLimitedTest()
+	public EnumMapFieldTest()
 	{
 		super(MODEL);
 	}
 	
-	FieldMapLimitedItem item, itemX;
+	EnumMapFieldItem item, itemX;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new FieldMapLimitedItem());
-		itemX = deleteOnTearDown(new FieldMapLimitedItem());
+		item = deleteOnTearDown(new EnumMapFieldItem());
+		itemX = deleteOnTearDown(new EnumMapFieldItem());
 	}
 	
 	public void testIt()
@@ -50,7 +50,7 @@ public class FieldMapLimitedTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.name.getType());
 		assertEquals("name", item.name.getName());
 
-		assertEquals(FieldMapLimitedItem.Language.class, item.name.getKeyClass());
+		assertEquals(EnumMapFieldItem.Language.class, item.name.getKeyClass());
 
 		assertEquals(String.class, item.name.getField(DE).getValueClass());
 		assertEquals("nameDE", item.name.getField(DE).getName());

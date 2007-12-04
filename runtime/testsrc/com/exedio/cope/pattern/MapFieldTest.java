@@ -26,26 +26,26 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.ItemField.DeletePolicy;
 
-public class FieldMapTest extends AbstractLibTest
+public class MapFieldTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(FieldMapItem.TYPE);
+	static final Model MODEL = new Model(MapFieldItem.TYPE);
 
-	private static final FieldMapItem.Language DE = FieldMapItem.Language.DE;
-	private static final FieldMapItem.Language EN = FieldMapItem.Language.EN;
+	private static final MapFieldItem.Language DE = MapFieldItem.Language.DE;
+	private static final MapFieldItem.Language EN = MapFieldItem.Language.EN;
 	
-	public FieldMapTest()
+	public MapFieldTest()
 	{
 		super(MODEL);
 	}
 	
-	FieldMapItem item, itemX;
+	MapFieldItem item, itemX;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new FieldMapItem());
-		itemX = deleteOnTearDown(new FieldMapItem());
+		item = deleteOnTearDown(new MapFieldItem());
+		itemX = deleteOnTearDown(new MapFieldItem());
 	}
 	
 	public void testIt()
@@ -53,7 +53,7 @@ public class FieldMapTest extends AbstractLibTest
 		// test model
 		assertEquals(item.TYPE, item.name.getType());
 		assertEquals("name", item.name.getName());
-		assertEquals(FieldMapItem.class, item.TYPE.getJavaClass());
+		assertEquals(MapFieldItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 
 		assertEquals(item.TYPE, item.nameParent().getValueType());
@@ -62,7 +62,7 @@ public class FieldMapTest extends AbstractLibTest
 		assertSame(item.name.getRelationType(), item.nameParent().getType());
 		assertEqualsUnmodifiable(list(), item.nameParent().getPatterns());
 
-		assertEquals(FieldMapItem.Language.class, ((EnumField<FieldMapItem.Language>)item.name.getKey()).getValueClass());
+		assertEquals(MapFieldItem.Language.class, ((EnumField<MapFieldItem.Language>)item.name.getKey()).getValueClass());
 		assertEquals("key", item.name.getKey().getName());
 		assertSame(item.name.getRelationType(), item.name.getKey().getType());
 		assertEqualsUnmodifiable(list(), item.name.getKey().getPatterns());
@@ -77,7 +77,7 @@ public class FieldMapTest extends AbstractLibTest
 		assertSame(item.name.getRelationType(), item.name.getValue().getType());
 		assertEqualsUnmodifiable(list(), item.name.getValue().getPatterns());
 
-		assertEquals("FieldMapItem.name", item.name.getRelationType().getID());
+		assertEquals("MapFieldItem.name", item.name.getRelationType().getID());
 		assertEquals(Item.class, item.name.getRelationType().getJavaClass().getSuperclass());
 		assertEquals(false, item.name.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.name.getRelationType().getSupertype());
@@ -94,14 +94,14 @@ public class FieldMapTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());
 		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypesSortedByHierarchy());
 		
-		assertEquals("FieldMapItem.name", item.name.getRelationType().getID());
-		assertEquals("FieldMapItem.name.parent", item.name.getParent(FieldMapItem.class).getID());
-		assertEquals("FieldMapItem.name.key", item.name.getKey().getID());
-		assertEquals("FieldMapItem.name.value", item.name.getValue().getID());
-		assertSame(item.name.getRelationType(), model.findTypeByID("FieldMapItem.name"));
-		assertSame(item.name.getParent(FieldMapItem.class), model.findFeatureByID("FieldMapItem.name.parent"));
-		assertSame(item.name.getKey(), model.findFeatureByID("FieldMapItem.name.key"));
-		assertSame(item.name.getValue(), model.findFeatureByID("FieldMapItem.name.value"));
+		assertEquals("MapFieldItem.name", item.name.getRelationType().getID());
+		assertEquals("MapFieldItem.name.parent", item.name.getParent(MapFieldItem.class).getID());
+		assertEquals("MapFieldItem.name.key", item.name.getKey().getID());
+		assertEquals("MapFieldItem.name.value", item.name.getValue().getID());
+		assertSame(item.name.getRelationType(), model.findTypeByID("MapFieldItem.name"));
+		assertSame(item.name.getParent(MapFieldItem.class), model.findFeatureByID("MapFieldItem.name.parent"));
+		assertSame(item.name.getKey(), model.findFeatureByID("MapFieldItem.name.key"));
+		assertSame(item.name.getValue(), model.findFeatureByID("MapFieldItem.name.value"));
 
 		// test persistence
 		assertEquals(null, item.getName(DE));
@@ -116,17 +116,17 @@ public class FieldMapTest extends AbstractLibTest
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
 		{
-			final Query<FieldMapItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
+			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
 			item.name.join(q, DE);
 			assertContains(item, q.search());
 		}
 		{
-			final Query<FieldMapItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameEN"));
+			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameEN"));
 			item.name.join(q, DE);
 			assertContains(q.search());
 		}
 		{
-			final Query<FieldMapItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
+			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
 			item.name.join(q, EN);
 			assertContains(q.search());
 		}

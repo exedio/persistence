@@ -33,25 +33,25 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 
-public class FieldListTest extends AbstractLibTest
+public class ListFieldTest extends AbstractLibTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(FieldListItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(ListFieldItem.TYPE);
 	
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);
 	
-	public FieldListTest()
+	public ListFieldTest()
 	{
 		super(MODEL);
 	}
 
-	FieldListItem item;
+	ListFieldItem item;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new FieldListItem());
+		item = deleteOnTearDown(new ListFieldItem());
 	}
 	
 	public void testIt()
@@ -75,7 +75,7 @@ public class FieldListTest extends AbstractLibTest
 				datesType,
 				itemsType
 			), model.getTypesSortedByHierarchy());
-		assertEquals(FieldListItem.class, item.TYPE.getJavaClass());
+		assertEquals(ListFieldItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 
 		assertEqualsUnmodifiable(list(
@@ -113,7 +113,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.items.getType());
 		assertEquals("items", item.items.getName());
 
-		assertEquals("FieldListItem.strings", stringsType.getID());
+		assertEquals("ListFieldItem.strings", stringsType.getID());
 		assertEquals(Item.class, stringsType.getJavaClass().getSuperclass());
 		assertEquals(false, stringsType.hasUniqueJavaClass());
 		assertEquals(null, stringsType.getSupertype());
@@ -123,7 +123,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(stringsType, stringsType.getThis().getValueType());
 		assertEquals(model, stringsType.getModel());
 
-		assertEquals("FieldListItem.dates", datesType.getID());
+		assertEquals("ListFieldItem.dates", datesType.getID());
 		assertEquals(Item.class, datesType.getJavaClass().getSuperclass());
 		assertEquals(false, datesType.hasUniqueJavaClass());
 		assertEquals(null, datesType.getSupertype());
@@ -133,7 +133,7 @@ public class FieldListTest extends AbstractLibTest
 		assertEquals(datesType, datesType.getThis().getValueType());
 		assertEquals(model, datesType.getModel());
 
-		assertEquals("FieldListItem.items", itemsType.getID());
+		assertEquals("ListFieldItem.items", itemsType.getID());
 		assertEquals(Item.class, itemsType.getJavaClass().getSuperclass());
 		assertEquals(false, itemsType.hasUniqueJavaClass());
 		assertEquals(null, itemsType.getSupertype());
@@ -208,7 +208,7 @@ public class FieldListTest extends AbstractLibTest
 
 		// test persistence
 		// test searching
-		final Query<FieldListItem> q = item.TYPE.newQuery();
+		final Query<ListFieldItem> q = item.TYPE.newQuery();
 		q.join(stringsType, item.stringsParent().equalTarget());
 		assertEquals(list(), q.search());
 		
@@ -223,7 +223,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("FieldListItem.dates.element does not belong to a type of the query: " + q, e.getMessage());
+			assertEquals("ListFieldItem.dates.element does not belong to a type of the query: " + q, e.getMessage());
 		}
 		try
 		{
@@ -232,7 +232,7 @@ public class FieldListTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("FieldListItem.dates.element does not belong to a type of the query: " + q.toString(), e.getMessage());
+			assertEquals("ListFieldItem.dates.element does not belong to a type of the query: " + q.toString(), e.getMessage());
 		}
 
 		// strings

@@ -31,24 +31,24 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 
-public class FieldSetTest extends AbstractLibTest
+public class SetFieldTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(FieldSetItem.TYPE);
+	static final Model MODEL = new Model(SetFieldItem.TYPE);
 	
-	public FieldSetTest()
+	public SetFieldTest()
 	{
 		super(MODEL);
 	}
 
-	FieldSetItem item;
-	FieldSetItem otherItem;
+	SetFieldItem item;
+	SetFieldItem otherItem;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new FieldSetItem());
-		otherItem = deleteOnTearDown(new FieldSetItem());
+		item = deleteOnTearDown(new SetFieldItem());
+		otherItem = deleteOnTearDown(new SetFieldItem());
 	}
 	
 	public void testIt()
@@ -68,7 +68,7 @@ public class FieldSetTest extends AbstractLibTest
 				stringsType,
 				datesType
 			), model.getTypesSortedByHierarchy());
-		assertEquals(FieldSetItem.class, item.TYPE.getJavaClass());
+		assertEquals(SetFieldItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 
 		assertEqualsUnmodifiable(list(
@@ -94,7 +94,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
 
-		assertEquals("FieldSetItem.strings", stringsType.getID());
+		assertEquals("SetFieldItem.strings", stringsType.getID());
 		assertEquals(Item.class, stringsType.getJavaClass().getSuperclass());
 		assertEquals(false, stringsType.hasUniqueJavaClass());
 		assertEquals(null, stringsType.getSupertype());
@@ -104,7 +104,7 @@ public class FieldSetTest extends AbstractLibTest
 		assertEquals(stringsType, stringsType.getThis().getValueType());
 		assertEquals(model, stringsType.getModel());
 
-		assertEquals("FieldSetItem.dates", datesType.getID());
+		assertEquals("SetFieldItem.dates", datesType.getID());
 		assertEquals(Item.class, datesType.getJavaClass().getSuperclass());
 		assertEquals(false, datesType.hasUniqueJavaClass());
 		assertEquals(null, datesType.getSupertype());

@@ -32,22 +32,22 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
-public class FieldListLimitedTest extends AbstractLibTest
+public class LimitedListFieldTest extends AbstractLibTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(FieldListLimitedItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(LimitedListFieldItem.TYPE);
 	
-	public FieldListLimitedTest()
+	public LimitedListFieldTest()
 	{
 		super(MODEL);
 	}
 
-	FieldListLimitedItem item;
+	LimitedListFieldItem item;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new FieldListLimitedItem(1, 2, 3));
+		item = deleteOnTearDown(new LimitedListFieldItem(1, 2, 3));
 	}
 	
 	public void testIt()
@@ -162,13 +162,13 @@ public class FieldListLimitedTest extends AbstractLibTest
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(FieldListLimitedTest.<Integer>listg());
+		item.setNums(LimitedListFieldTest.<Integer>listg());
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
-		assertContains(item, item.TYPE.search(item.nums.equal(FieldListLimitedTest.<Integer>listg())));
+		assertContains(item, item.TYPE.search(item.nums.equal(LimitedListFieldTest.<Integer>listg())));
 		assertContains(item.TYPE.search(item.nums.equal(listg(i1))));
-		assertContains(item.TYPE.search(item.nums.notEqual(FieldListLimitedTest.<Integer>listg())));
+		assertContains(item.TYPE.search(item.nums.notEqual(LimitedListFieldTest.<Integer>listg())));
 		assertContains(item, item.TYPE.search(item.nums.notEqual(listg(i1))));
 		assertContains(item.TYPE.search(item.nums.contains(i1)));
 		assertContains(item.TYPE.search(item.nums.contains(i2)));
@@ -208,12 +208,12 @@ public class FieldListLimitedTest extends AbstractLibTest
 		assertEquals("bello", item.get(string2));
 		assertEquals(null, item.get(string3));
 		assertEquals(null, item.get(string4));
-		assertContains(item.TYPE.search(item.strings.equal(FieldListLimitedTest.<String>listg())));
+		assertContains(item.TYPE.search(item.strings.equal(LimitedListFieldTest.<String>listg())));
 		assertContains(item.TYPE.search(item.strings.equal(listg("hallo"))));
 		assertContains(item, item.TYPE.search(item.strings.equal(listg("hallo", "bello"))));
 		assertContains(item.TYPE.search(item.strings.equal(listg("bello", "hallo", "zollo"))));
 		assertContains(item.TYPE.search(item.strings.equal(listg("bello", "hallo"))));
-		assertContains(item, item.TYPE.search(item.strings.notEqual(FieldListLimitedTest.<String>listg())));
+		assertContains(item, item.TYPE.search(item.strings.notEqual(LimitedListFieldTest.<String>listg())));
 		assertContains(item, item.TYPE.search(item.strings.notEqual(listg("hallo"))));
 		assertContains(item.TYPE.search(item.strings.notEqual(listg("hallo", "bello"))));
 		assertContains(item, item.TYPE.search(item.strings.notEqual(listg("bello", "hallo", "zollo"))));
@@ -230,14 +230,14 @@ public class FieldListLimitedTest extends AbstractLibTest
 		assertEquals("zocko", item.get(string3));
 		assertEquals(null, item.get(string4));
 		
-		final FieldListLimitedItem item2 = deleteOnTearDown(new FieldListLimitedItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
+		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
 		assertEquals(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.get(string1));
 		assertEquals("lets2", item2.get(string2));
 		assertEquals("lets3", item2.get(string3));
 		assertEquals("lets4", item2.get(string4));
 		
-		final FieldListLimitedItem item3 = deleteOnTearDown(FieldListLimitedItem.TYPE.newItem(item.strings.map(listg("fetz1", null, null, null))));
+		final LimitedListFieldItem item3 = deleteOnTearDown(LimitedListFieldItem.TYPE.newItem(item.strings.map(listg("fetz1", null, null, null))));
 		assertEquals(list("fetz1"), item3.getStrings());
 		assertEquals("fetz1", item3.get(string1));
 		assertEquals(null, item3.get(string2));
