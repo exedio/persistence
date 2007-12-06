@@ -45,7 +45,7 @@ public final class DynamicModel<L> extends Pattern
 {
 	private final FunctionField<L> localeTemplate;
 	final StringField typeCode = new StringField().toFinal().unique();
-	private com.exedio.cope.Type<?> typeType = null;
+	com.exedio.cope.Type<?> typeType = null;
 	Localization typeLocalization = null;
 	
 	ItemField<?> fieldParent = null;
@@ -391,6 +391,7 @@ public final class DynamicModel<L> extends Pattern
 		Type(final Item backingItem)
 		{
 			super(backingItem);
+			assert backingItem.getCopeType()==typeType;
 		}
 		
 		public Field addField(final String code, final ValueType valueType)
@@ -574,6 +575,7 @@ public final class DynamicModel<L> extends Pattern
 		Field(final Item backingItem)
 		{
 			super(backingItem);
+			assert backingItem.getCopeType()==fieldType;
 		}
 		
 		public Object get(final Item item)
@@ -672,6 +674,7 @@ public final class DynamicModel<L> extends Pattern
 		Enum(final Item backingItem)
 		{
 			super(backingItem);
+			assert backingItem.getCopeType()==enumType;
 		}
 		
 		public Field getParent()

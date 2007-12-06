@@ -45,7 +45,7 @@ public final class History extends Pattern
 	private UniqueConstraint eventUnique = null;
 	final StringField eventOrigin = new StringField().toFinal();
 	final BooleanField eventCreation = new BooleanField().toFinal();
-	private Type<?> eventType = null;
+	Type<?> eventType = null;
 	
 	ItemField<?> featureEvent = null;
 	final StringField featureId = new StringField().toFinal();
@@ -206,6 +206,7 @@ public final class History extends Pattern
 		Event(final Item backingItem)
 		{
 			super(backingItem);
+			assert backingItem.getCopeType()==eventType;
 		}
 		
 		public History getPattern()
@@ -259,6 +260,7 @@ public final class History extends Pattern
 		Feature(final Item backingItem)
 		{
 			super(backingItem);
+			assert backingItem.getCopeType()==featureType;
 		}
 		
 		public History getPattern()

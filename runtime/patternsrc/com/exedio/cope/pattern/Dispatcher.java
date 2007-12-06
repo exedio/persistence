@@ -54,7 +54,7 @@ public final class Dispatcher extends Pattern
 	final DateField failureDate = new DateField().toFinal();
 	final LongField failureElapsed = new LongField();
 	final DataField failureCause = new DataField().toFinal();
-	private Type<?> failureType = null;
+	Type<?> failureType = null;
 	
 	public Dispatcher()
 	{
@@ -309,6 +309,7 @@ public final class Dispatcher extends Pattern
 		Failure(final Item backingItem)
 		{
 			super(backingItem);
+			assert backingItem.getCopeType()==failureType;
 		}
 		
 		public Dispatcher getPattern()
