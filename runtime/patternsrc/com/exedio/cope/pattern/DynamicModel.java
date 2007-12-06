@@ -286,6 +286,11 @@ public final class DynamicModel<L> extends Pattern
 		return type;
 	}
 	
+	public void setTypeBacked(final Item item, final Item typeBackingItem)
+	{
+		setType(item, toType(typeBackingItem));
+	}
+	
 	public void setType(final Item item, final Type type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
