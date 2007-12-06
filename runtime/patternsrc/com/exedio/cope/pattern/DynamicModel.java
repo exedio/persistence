@@ -209,7 +209,7 @@ public final class DynamicModel<L> extends Pattern
 	
 	public Type getType(final String code)
 	{
-		return toDType(typeType.searchSingleton(typeCode.equal(code)));
+		return toType(typeType.searchSingleton(typeCode.equal(code)));
 	}
 	
 	@Override
@@ -248,7 +248,7 @@ public final class DynamicModel<L> extends Pattern
 	
 	public Type getType(final Item item)
 	{
-		return toDType(this.type.get(item));
+		return toType(this.type.get(item));
 	}
 	
 	public com.exedio.cope.Type<?> getTypeType()
@@ -358,7 +358,7 @@ public final class DynamicModel<L> extends Pattern
 		Cope.setAndCast(getField(field), item, backingValue);
 	}
 	
-	private Type toDType(final Item backingItem)
+	private Type toType(final Item backingItem)
 	{
 		return backingItem!=null ? new Type(backingItem) : null;
 	}
@@ -446,7 +446,7 @@ public final class DynamicModel<L> extends Pattern
 
 		public Field getField(final String code)
 		{
-			return toDField(fieldType.searchSingleton(Cope.equalAndCast(fieldParent, backingItem).and(fieldCode.equal(code))));
+			return toField(fieldType.searchSingleton(Cope.equalAndCast(fieldParent, backingItem).and(fieldCode.equal(code))));
 		}
 		
 		private List<Field> getFields(final ValueType valueType)
@@ -473,7 +473,7 @@ public final class DynamicModel<L> extends Pattern
 			return typeCode.get(backingItem);
 		}
 		
-		private Field toDField(final Item backingItem)
+		private Field toField(final Item backingItem)
 		{
 			return backingItem!=null ? new Field(backingItem) : null;
 		}
