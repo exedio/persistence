@@ -130,7 +130,7 @@ public class ServletUtil
 	}
 
 	/**
-	 * @deprecated Use {@link #getConnectedModel(ServletConfig)} instead
+	 * @deprecated Use {@link #getConnectedModel(Servlet)} instead
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Servlet servlet)
@@ -140,7 +140,7 @@ public class ServletUtil
 	}
 
 	/**
-	 * @deprecated Use {@link #getConnectedModel(FilterConfig)} instead
+	 * @deprecated Use {@link #getConnectedModel(Filter,FilterConfig)} instead
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Filter filter, final FilterConfig config)
