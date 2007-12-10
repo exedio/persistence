@@ -48,15 +48,15 @@ public class ServletUtilTest extends CopeAssert
 	public void testIt() throws ServletException
 	{
 		assertModelNotConnected(modelOk);
-		assertIt(modelOk, false, "nameOk", ServletUtil.getConnectedModel(new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
+		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk"));
 		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
 
 		assertModelNotConnected(modelOk2);
-		assertIt(modelOk2, true, "nameOk2", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
+		assertIt(modelOk2, "nameOk2", new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2"));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
 
 		assertModelNotConnected(modelContext);
-		assertIt(modelContext, true, "nameContext", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
+		assertIt(modelContext, "nameContext", new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext")));
 		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
 		try
@@ -110,10 +110,18 @@ public class ServletUtilTest extends CopeAssert
 		}
 	}
 	
-	private static final void assertIt(final Model model, final boolean filter, final String tokenName, final ConnectToken token)
+	private static final void assertIt(final Model model, final String tokenName, final MockServlet servlet) throws ServletException
 	{
+		final ConnectToken token = ServletUtil.getConnectedModel(servlet);
 		assertSame(model, token.getModel());
-		assertEquals((filter?"filter":"servlet") + " \"" + tokenName + "\" (" + (filter?MockFilter.class:MockServlet.class).getName() + ')', token.getName());
+		assertEquals("servlet" + " \"" + tokenName + "\" (" + MockServlet.class.getName() + ')', token.getName());
+	}
+	
+	private static final void assertIt(final Model model, final String tokenName, final MockFilter filter, final MockFilterConfig config) throws ServletException
+	{
+		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
+		assertSame(model, token.getModel());
+		assertEquals("filter" + " \"" + tokenName + "\" (" + MockFilter.class.getName() + ')', token.getName());
 	}
 	
 	private static final void assertModelNotConnected(final Model model)
