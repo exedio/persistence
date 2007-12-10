@@ -131,19 +131,16 @@ public class ServletUtilTest extends CopeAssert
 	
 	private static class MockServlet implements Servlet
 	{
-		final String model;
-		final String name;
+		final MockServletConfig config;
 		
 		MockServlet(final String model, final String name)
 		{
-			this.model = model;
-			this.name = name;
-			assert name!=null;
+			this.config = new MockServletConfig(model, name);
 		}
 
 		public ServletConfig getServletConfig()
 		{
-			return new MockServletConfig(model, name);
+			return config;
 		}
 
 		public void destroy()
