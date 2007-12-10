@@ -48,15 +48,15 @@ public class ServletUtilTest extends CopeAssert
 	public void testIt() throws ServletException
 	{
 		assertModelNotConnected(modelOk);
-		assertIt(modelOk, false, "servlet \"nameOk\"", ServletUtil.getConnectedModel(new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
+		assertIt(modelOk, false, "nameOk", ServletUtil.getConnectedModel(new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
 		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
 
 		assertModelNotConnected(modelOk2);
-		assertIt(modelOk2, true, "filter \"nameOk2\"", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
+		assertIt(modelOk2, true, "nameOk2", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
 
 		assertModelNotConnected(modelContext);
-		assertIt(modelContext, true, "filter \"nameContext\"", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
+		assertIt(modelContext, true, "nameContext", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
 		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
 		try
@@ -113,7 +113,7 @@ public class ServletUtilTest extends CopeAssert
 	private static final void assertIt(final Model model, final boolean filter, final String tokenName, final ConnectToken token)
 	{
 		assertSame(model, token.getModel());
-		assertEquals(tokenName + " (" + (filter?MockFilter.class:MockServlet.class).getName() + ')', token.getName());
+		assertEquals((filter?"filter":"servlet") + " \"" + tokenName + "\" (" + (filter?MockFilter.class:MockServlet.class).getName() + ')', token.getName());
 	}
 	
 	private static final void assertModelNotConnected(final Model model)
