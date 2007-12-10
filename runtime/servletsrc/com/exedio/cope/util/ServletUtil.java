@@ -68,7 +68,7 @@ public class ServletUtil
 		final String description =
 					kind + ' ' +
 					'"' + name + '"' + ' ' +
-					'(' + nameObject.getClass().getName() + ')';
+					'(' + nameObject.getClass().getName() + '@' + System.identityHashCode(nameObject) + ')';
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
 		final String modelName;
 		final String modelNameSource;
