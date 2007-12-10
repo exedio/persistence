@@ -131,11 +131,38 @@ public class ServletUtilTest extends CopeAssert
 	
 	private static class MockServlet implements Servlet
 	{
-		final MockServletConfig config;
+		final ServletConfig config;
 		
 		MockServlet(final String model, final String name)
 		{
-			this.config = new MockServletConfig(model, name);
+			assert model!=null;
+			assert name!=null;
+			
+			this.config = new ServletConfig()
+			{
+				public ServletContext getServletContext()
+				{
+					return new MockServletContext(null);
+				}
+
+				public String getInitParameter(final String name)
+				{
+					if("model".equals(name))
+						return model;
+					else
+						throw new RuntimeException(name);
+				}
+
+				public String getServletName()
+				{
+					return name;
+				}
+
+				public Enumeration getInitParameterNames()
+				{
+					throw new RuntimeException();
+				}
+			};
 		}
 
 		public ServletConfig getServletConfig()
@@ -164,42 +191,6 @@ public class ServletUtilTest extends CopeAssert
 		}
 	}
 	
-	private static class MockServletConfig implements ServletConfig
-	{
-		final String model;
-		final String name;
-
-		MockServletConfig(final String model, final String name)
-		{
-			this.model = model;
-			this.name = name;
-			assert name!=null;
-		}
-
-		public ServletContext getServletContext()
-		{
-			return new MockServletContext(null);
-		}
-
-		public String getInitParameter(final String name)
-		{
-			if("model".equals(name))
-				return model;
-			else
-				throw new RuntimeException(name);
-		}
-
-		public String getServletName()
-		{
-			return name;
-		}
-
-		public Enumeration getInitParameterNames()
-		{
-			throw new RuntimeException();
-		}
-	}
-
 	private static class MockFilter implements Filter
 	{
 		MockFilter()
