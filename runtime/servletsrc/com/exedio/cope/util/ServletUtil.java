@@ -35,13 +35,21 @@ public class ServletUtil
 	public static final ConnectToken getConnectedModel(final ServletConfig config)
 	throws ServletException
 	{
-		return getConnectedModel(config.getInitParameter(PARAMETER_MODEL), "servlet", config.getServletName(), config.getServletContext());
+		return getConnectedModel(
+				config.getInitParameter(PARAMETER_MODEL),
+				"servlet",
+				config.getServletName(),
+				config.getServletContext());
 	}
 	
 	public static final ConnectToken getConnectedModel(final FilterConfig config)
 	throws ServletException
 	{
-		return getConnectedModel(config.getInitParameter(PARAMETER_MODEL), "filter", config.getFilterName(), config.getServletContext());
+		return getConnectedModel(
+				config.getInitParameter(PARAMETER_MODEL),
+				"filter",
+				config.getFilterName(),
+				config.getServletContext());
 	}
 	
 	private static final ConnectToken getConnectedModel(final String initParam, final String kind, final String name, final ServletContext context)
