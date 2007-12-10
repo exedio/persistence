@@ -61,23 +61,23 @@ public class ServletUtilTest extends CopeAssert
 
 		assertFails(
 				new MockFilter(), new MockFilterConfig(null, "nameNull"),
-				"filter \"nameNull\" (" + MockFilter.class.getName() + "): neither init-param nor context-param 'model' set");
+				"nameNull", ": neither init-param nor context-param 'model' set");
 
 		assertFails(
 				new MockServlet("zick", "nameZick"),
-				"servlet \"nameZick\" (" + MockServlet.class.getName() + "), init-param model: does not contain '#', but was zick");
+				"nameZick", ", init-param model: does not contain '#', but was zick");
 
 		assertFails(
 				new MockFilter(), new MockFilterConfig("zack", "nameZack"),
-				"filter \"nameZack\" (" + MockFilter.class.getName() + "), init-param model: does not contain '#', but was zack");
+				"nameZack", ", init-param model: does not contain '#', but was zack");
 
 		assertFails(
 				new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"),
-				"filter \"nameNotExists\" (" + MockFilter.class.getName() + "), init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.");
+				"nameNotExists", ", init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.");
 
 		assertFails(
 				new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"),
-				"filter \"nameNull\" (" + MockFilter.class.getName() + "), init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.");
+				"nameNull", ", init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.");
 	}
 	
 	private static final void assertIt(final Model model, final String tokenName, final MockServlet servlet) throws ServletException
@@ -94,7 +94,7 @@ public class ServletUtilTest extends CopeAssert
 		assertEquals("filter" + " \"" + tokenName + "\" (" + MockFilter.class.getName() + ')', token.getName());
 	}
 	
-	private static final void assertFails(final MockServlet servlet, final String message)
+	private static final void assertFails(final MockServlet servlet, final String name, final String message)
 	{
 		try
 		{
@@ -103,11 +103,11 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals(message, e.getMessage());
+			assertEquals("servlet \"" + name + "\" (" + MockServlet.class.getName() + ')' + message, e.getMessage());
 		}
 	}
 	
-	private static final void assertFails(final MockFilter filter, final MockFilterConfig config, final String message)
+	private static final void assertFails(final MockFilter filter, final MockFilterConfig config, final String name, final String message)
 	{
 		try
 		{
@@ -116,7 +116,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals(message, e.getMessage());
+			assertEquals("filter \"" + name + "\" (" + MockFilter.class.getName() + ')' + message, e.getMessage());
 		}
 	}
 	
