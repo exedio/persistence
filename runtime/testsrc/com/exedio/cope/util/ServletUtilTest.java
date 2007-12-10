@@ -59,55 +59,25 @@ public class ServletUtilTest extends CopeAssert
 		assertIt(modelContext, "nameContext", new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext")));
 		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
-		try
-		{
-			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig(null, "nameNull"));
-			fail();
-		}
-		catch(ServletException e)
-		{
-			assertEquals("filter \"nameNull\" (" + MockFilter.class.getName() + "): neither init-param nor context-param 'model' set", e.getMessage());
-		}
+		assertFails(
+				new MockFilter(), new MockFilterConfig(null, "nameNull"),
+				"filter \"nameNull\" (" + MockFilter.class.getName() + "): neither init-param nor context-param 'model' set");
 
-		try
-		{
-			ServletUtil.getConnectedModel(new MockServlet("zick", "nameZick"));
-			fail();
-		}
-		catch(ServletException e)
-		{
-			assertEquals("servlet \"nameZick\" (" + MockServlet.class.getName() + "), init-param model: does not contain '#', but was zick", e.getMessage());
-		}
+		assertFails(
+				new MockServlet("zick", "nameZick"),
+				"servlet \"nameZick\" (" + MockServlet.class.getName() + "), init-param model: does not contain '#', but was zick");
 
-		try
-		{
-			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("zack", "nameZack"));
-			fail();
-		}
-		catch(ServletException e)
-		{
-			assertEquals("filter \"nameZack\" (" + MockFilter.class.getName() + "), init-param model: does not contain '#', but was zack", e.getMessage());
-		}
+		assertFails(
+				new MockFilter(), new MockFilterConfig("zack", "nameZack"),
+				"filter \"nameZack\" (" + MockFilter.class.getName() + "), init-param model: does not contain '#', but was zack");
 
-		try
-		{
-			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"));
-			fail();
-		}
-		catch(ServletException e)
-		{
-			assertEquals("filter \"nameNotExists\" (" + MockFilter.class.getName() + "), init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
-		}
+		assertFails(
+				new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"),
+				"filter \"nameNotExists\" (" + MockFilter.class.getName() + "), init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.");
 
-		try
-		{
-			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"));
-			fail();
-		}
-		catch(ServletException e)
-		{
-			assertEquals("filter \"nameNull\" (" + MockFilter.class.getName() + "), init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
-		}
+		assertFails(
+				new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"),
+				"filter \"nameNull\" (" + MockFilter.class.getName() + "), init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.");
 	}
 	
 	private static final void assertIt(final Model model, final String tokenName, final MockServlet servlet) throws ServletException
@@ -122,6 +92,32 @@ public class ServletUtilTest extends CopeAssert
 		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
 		assertSame(model, token.getModel());
 		assertEquals("filter" + " \"" + tokenName + "\" (" + MockFilter.class.getName() + ')', token.getName());
+	}
+	
+	private static final void assertFails(final MockServlet servlet, final String message)
+	{
+		try
+		{
+			ServletUtil.getConnectedModel(servlet);
+			fail();
+		}
+		catch(ServletException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
+	}
+	
+	private static final void assertFails(final MockFilter filter, final MockFilterConfig config, final String message)
+	{
+		try
+		{
+			ServletUtil.getConnectedModel(filter, config);
+			fail();
+		}
+		catch(ServletException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
 	}
 	
 	private static final void assertModelNotConnected(final Model model)
