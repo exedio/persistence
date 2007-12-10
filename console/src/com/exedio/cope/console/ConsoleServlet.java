@@ -95,7 +95,7 @@ public final class ConsoleServlet extends CopsServlet
 		
 		try
 		{
-			connectToken = ServletUtil.getConnectedModel(getServletConfig());
+			connectToken = ServletUtil.getConnectedModel(this);
 			model = connectToken.getModel();
 		}
 		catch(RuntimeException e)

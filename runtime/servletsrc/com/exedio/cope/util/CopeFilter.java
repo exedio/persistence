@@ -62,7 +62,7 @@ public final class CopeFilter implements Filter
 	{
 		try
 		{
-			connectToken = ServletUtil.getConnectedModel(config);
+			connectToken = ServletUtil.getConnectedModel(this, config);
 			model = connectToken.getModel();
 		}
 		catch(RuntimeException e)

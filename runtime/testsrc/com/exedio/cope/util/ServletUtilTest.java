@@ -23,12 +23,16 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.Set;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -44,72 +48,72 @@ public class ServletUtilTest extends CopeAssert
 	public void testIt() throws ServletException
 	{
 		assertModelNotConnected(modelOk);
-		assertIt(modelOk, "servlet \"nameOk\"", ServletUtil.getConnectedModel(new MockServletConfig("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
+		assertIt(modelOk, false, "servlet \"nameOk\"", ServletUtil.getConnectedModel(new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk")));
 		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
 
 		assertModelNotConnected(modelOk2);
-		assertIt(modelOk2, "filter \"nameOk2\"", ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
+		assertIt(modelOk2, true, "filter \"nameOk2\"", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2")));
 		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
 
 		assertModelNotConnected(modelContext);
-		assertIt(modelContext, "filter \"nameContext\"", ServletUtil.getConnectedModel(new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
+		assertIt(modelContext, true, "filter \"nameContext\"", ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext"))));
 		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
 
 		try
 		{
-			ServletUtil.getConnectedModel(new MockFilterConfig(null, "nameNull"));
+			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig(null, "nameNull"));
 			fail();
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter \"nameNull\": neither init-param nor context-param 'model' set", e.getMessage());
+			assertEquals("filter \"nameNull\" (" + MockFilter.class.getName() + "): neither init-param nor context-param 'model' set", e.getMessage());
 		}
 
 		try
 		{
-			ServletUtil.getConnectedModel(new MockServletConfig("zick", "nameZick"));
+			ServletUtil.getConnectedModel(new MockServlet("zick", "nameZick"));
 			fail();
 		}
 		catch(ServletException e)
 		{
-			assertEquals("servlet \"nameZick\", init-param model: does not contain '#', but was zick", e.getMessage());
+			assertEquals("servlet \"nameZick\" (" + MockServlet.class.getName() + "), init-param model: does not contain '#', but was zick", e.getMessage());
 		}
 
 		try
 		{
-			ServletUtil.getConnectedModel(new MockFilterConfig("zack", "nameZack"));
+			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("zack", "nameZack"));
 			fail();
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter \"nameZack\", init-param model: does not contain '#', but was zack", e.getMessage());
+			assertEquals("filter \"nameZack\" (" + MockFilter.class.getName() + "), init-param model: does not contain '#', but was zack", e.getMessage());
 		}
 
 		try
 		{
-			ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"));
+			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNotExists", "nameNotExists"));
 			fail();
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter \"nameNotExists\", init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
+			assertEquals("filter \"nameNotExists\" (" + MockFilter.class.getName() + "), init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
 		}
 
 		try
 		{
-			ServletUtil.getConnectedModel(new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"));
+			ServletUtil.getConnectedModel(new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelNull", "nameNull"));
 			fail();
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter \"nameNull\", init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
+			assertEquals("filter \"nameNull\" (" + MockFilter.class.getName() + "), init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
 		}
 	}
 	
-	private static final void assertIt(final Model model, final String tokenName, final ConnectToken token)
+	private static final void assertIt(final Model model, final boolean filter, final String tokenName, final ConnectToken token)
 	{
 		assertSame(model, token.getModel());
-		assertEquals(tokenName, token.getName());
+		assertEquals(tokenName + " (" + (filter?MockFilter.class:MockServlet.class).getName() + ')', token.getName());
 	}
 	
 	private static final void assertModelNotConnected(final Model model)
@@ -122,6 +126,44 @@ public class ServletUtilTest extends CopeAssert
 		catch(IllegalStateException e)
 		{
 			assertEquals("model not yet connected, use connect(Properties)", e.getMessage());
+		}
+	}
+	
+	private static class MockServlet implements Servlet
+	{
+		final String model;
+		final String name;
+		
+		MockServlet(final String model, final String name)
+		{
+			this.model = model;
+			this.name = name;
+			assert name!=null;
+		}
+
+		public ServletConfig getServletConfig()
+		{
+			return new MockServletConfig(model, name);
+		}
+
+		public void destroy()
+		{
+			throw new RuntimeException();
+		}
+
+		public String getServletInfo()
+		{
+			throw new RuntimeException();
+		}
+
+		public void init(ServletConfig arg0)
+		{
+			throw new RuntimeException();
+		}
+
+		public void service(ServletRequest arg0, ServletResponse arg1)
+		{
+			throw new RuntimeException();
 		}
 	}
 	
@@ -156,6 +198,29 @@ public class ServletUtilTest extends CopeAssert
 		}
 
 		public Enumeration getInitParameterNames()
+		{
+			throw new RuntimeException();
+		}
+	}
+
+	private static class MockFilter implements Filter
+	{
+		MockFilter()
+		{
+			// just make it package private
+		}
+		
+		public void destroy()
+		{
+			throw new RuntimeException();
+		}
+
+		public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
+		{
+			throw new RuntimeException();
+		}
+
+		public void init(FilterConfig arg0)
 		{
 			throw new RuntimeException();
 		}

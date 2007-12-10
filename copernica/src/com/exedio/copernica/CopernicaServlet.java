@@ -191,7 +191,7 @@ public final class CopernicaServlet extends CopsServlet
 			final String providerName = config.getInitParameter("provider");
 			if(providerName==null)
 			{
-				connectToken = ServletUtil.getConnectedModel(config);
+				connectToken = ServletUtil.getConnectedModel(this);
 				final Model model = connectToken.getModel();
 				model.migrateIfSupported();
 				return new PureCopernicaProvider(model);

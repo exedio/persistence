@@ -20,7 +20,9 @@ package com.exedio.cope.util;
 
 import java.io.File;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -32,23 +34,26 @@ public class ServletUtil
 {
 	private static final String PARAMETER_MODEL = "model";
 
-	public static final ConnectToken getConnectedModel(final ServletConfig config)
+	public static final ConnectToken getConnectedModel(final Servlet servlet)
 	throws ServletException
 	{
+		final ServletConfig config = servlet.getServletConfig();
 		return getConnectedModel(
 				config.getInitParameter(PARAMETER_MODEL),
 				"servlet",
 				config.getServletName(),
+				servlet,
 				config.getServletContext());
 	}
 	
-	public static final ConnectToken getConnectedModel(final FilterConfig config)
+	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(
 				config.getInitParameter(PARAMETER_MODEL),
 				"filter",
 				config.getFilterName(),
+				filter,
 				config.getServletContext());
 	}
 	
@@ -56,12 +61,14 @@ public class ServletUtil
 					final String initParam,
 					final String kind,
 					final String name,
+					final Object nameObject,
 					final ServletContext context)
 	throws ServletException
 	{
 		final String description =
 					kind + ' ' +
-					'"' + name + '"';
+					'"' + name + '"' + ' ' +
+					'(' + nameObject.getClass().getName() + ')';
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
 		final String modelName;
 		final String modelNameSource;
@@ -126,20 +133,20 @@ public class ServletUtil
 	 * @deprecated Use {@link #getConnectedModel(ServletConfig)} instead
 	 */
 	@Deprecated
-	public static final ConnectToken getModel(final ServletConfig config)
+	public static final ConnectToken getModel(final Servlet servlet)
 	throws ServletException
 	{
-		return getConnectedModel(config);
+		return getConnectedModel(servlet);
 	}
 
 	/**
 	 * @deprecated Use {@link #getConnectedModel(FilterConfig)} instead
 	 */
 	@Deprecated
-	public static final ConnectToken getModel(final FilterConfig config)
+	public static final ConnectToken getModel(final Filter filter, final FilterConfig config)
 	throws ServletException
 	{
-		return getConnectedModel(config);
+		return getConnectedModel(filter, config);
 	}
 
 	/**
