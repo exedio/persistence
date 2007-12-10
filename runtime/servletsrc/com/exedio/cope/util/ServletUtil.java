@@ -52,10 +52,16 @@ public class ServletUtil
 				config.getServletContext());
 	}
 	
-	private static final ConnectToken getConnectedModel(final String initParam, final String kind, final String name, final ServletContext context)
+	private static final ConnectToken getConnectedModel(
+					final String initParam,
+					final String kind,
+					final String name,
+					final ServletContext context)
 	throws ServletException
 	{
-		final String description = kind + ' ' + '"' + name + '"';
+		final String description =
+					kind + ' ' +
+					'"' + name + '"';
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
 		final String modelName;
 		final String modelNameSource;
