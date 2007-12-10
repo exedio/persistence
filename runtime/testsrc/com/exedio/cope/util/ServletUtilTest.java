@@ -84,14 +84,20 @@ public class ServletUtilTest extends CopeAssert
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(servlet);
 		assertSame(model, token.getModel());
-		assertEquals("servlet" + " \"" + tokenName + "\" (" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')', token.getName());
+		assertEquals(
+				"servlet" + " \"" + tokenName + "\" " +
+				"(" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')',
+				token.getName());
 	}
 	
 	private static final void assertIt(final Model model, final String tokenName, final MockFilter filter, final MockFilterConfig config) throws ServletException
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
 		assertSame(model, token.getModel());
-		assertEquals("filter" + " \"" + tokenName + "\" (" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')', token.getName());
+		assertEquals(
+				"filter" + " \"" + tokenName + "\" " +
+				"(" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')',
+				token.getName());
 	}
 	
 	private static final void assertFails(final MockServlet servlet, final String name, final String message)
@@ -103,7 +109,10 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals("servlet \"" + name + "\" (" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')' + message, e.getMessage());
+			assertEquals(
+				"servlet \"" + name + "\" " +
+				"(" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')' +
+				message, e.getMessage());
 		}
 	}
 	
@@ -116,7 +125,10 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter \"" + name + "\" (" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')' + message, e.getMessage());
+			assertEquals(
+				"filter \"" + name + "\" " +
+					"(" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')' +
+					message, e.getMessage());
 		}
 	}
 	
