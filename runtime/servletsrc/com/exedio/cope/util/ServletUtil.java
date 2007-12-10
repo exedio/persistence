@@ -47,6 +47,7 @@ public class ServletUtil
 	private static final ConnectToken getConnectedModel(final String initParam, final String kind, final String name, final ServletContext context)
 	throws ServletException
 	{
+		final String description = kind + ' ' + '"' + name + '"';
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
 		final String modelName;
 		final String modelNameSource;
@@ -54,7 +55,7 @@ public class ServletUtil
 		{
 			final String contextParam = context.getInitParameter(PARAMETER_MODEL);
 			if(contextParam==null)
-				throw new ServletException(kind + ' ' + name + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
+				throw new ServletException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
 			modelName = contextParam;
 			modelNameSource = "context-param";
 		}
@@ -71,9 +72,9 @@ public class ServletUtil
 		}
 		catch(IllegalArgumentException e)
 		{
-			throw new ServletException(kind + ' ' + name + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
+			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
-		return connect(result, context, kind + ' ' + '"' + name + '"');
+		return connect(result, context, description);
 	}
 	
 	/**

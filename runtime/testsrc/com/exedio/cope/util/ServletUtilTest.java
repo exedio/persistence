@@ -62,7 +62,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter nameNull: neither init-param nor context-param 'model' set", e.getMessage());
+			assertEquals("filter \"nameNull\": neither init-param nor context-param 'model' set", e.getMessage());
 		}
 
 		try
@@ -72,7 +72,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals("servlet nameZick, init-param model: does not contain '#', but was zick", e.getMessage());
+			assertEquals("servlet \"nameZick\", init-param model: does not contain '#', but was zick", e.getMessage());
 		}
 
 		try
@@ -82,7 +82,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter nameZack, init-param model: does not contain '#', but was zack", e.getMessage());
+			assertEquals("filter \"nameZack\", init-param model: does not contain '#', but was zack", e.getMessage());
 		}
 
 		try
@@ -92,7 +92,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter nameNotExists, init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
+			assertEquals("filter \"nameNotExists\", init-param model: field modelNotExists in class com.exedio.cope.util.ServletUtilTest does not exist or is not public.", e.getMessage());
 		}
 
 		try
@@ -102,7 +102,7 @@ public class ServletUtilTest extends CopeAssert
 		}
 		catch(ServletException e)
 		{
-			assertEquals("filter nameNull, init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
+			assertEquals("filter \"nameNull\", init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.", e.getMessage());
 		}
 	}
 	
