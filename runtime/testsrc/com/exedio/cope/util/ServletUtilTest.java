@@ -80,7 +80,11 @@ public class ServletUtilTest extends CopeAssert
 				"nameNull", ", init-param model: field com.exedio.cope.util.ServletUtilTest#modelNull is null.");
 	}
 	
-	private static final void assertIt(final Model model, final String tokenName, final MockServlet servlet) throws ServletException
+	private static final void assertIt(
+			final Model model,
+			final String tokenName,
+			final MockServlet servlet)
+	throws ServletException
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(servlet);
 		assertSame(model, token.getModel());
@@ -90,7 +94,12 @@ public class ServletUtilTest extends CopeAssert
 				token.getName());
 	}
 	
-	private static final void assertIt(final Model model, final String tokenName, final MockFilter filter, final MockFilterConfig config) throws ServletException
+	private static final void assertIt(
+			final Model model,
+			final String tokenName,
+			final MockFilter filter,
+			final MockFilterConfig config)
+	throws ServletException
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
 		assertSame(model, token.getModel());
@@ -100,7 +109,10 @@ public class ServletUtilTest extends CopeAssert
 				token.getName());
 	}
 	
-	private static final void assertFails(final MockServlet servlet, final String name, final String message)
+	private static final void assertFails(
+			final MockServlet servlet,
+			final String name,
+			final String message)
 	{
 		try
 		{
@@ -116,7 +128,11 @@ public class ServletUtilTest extends CopeAssert
 		}
 	}
 	
-	private static final void assertFails(final MockFilter filter, final MockFilterConfig config, final String name, final String message)
+	private static final void assertFails(
+			final MockFilter filter,
+			final MockFilterConfig config,
+			final String name,
+			final String message)
 	{
 		try
 		{
