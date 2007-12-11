@@ -192,7 +192,18 @@ final class Pool<E>
 			}
 			
 			for(final E e : copyOfIdle)
-				factory.dispose(e);
+			{
+				try
+				{
+					factory.dispose(e);
+				}
+				catch(Exception ex)
+				{
+					System.err.println("warning: exception on flushing connection pool");
+					ex.printStackTrace();
+					System.err.println("/warning: exception on flushing connection pool");
+				}
+			}
 		}
 	}
 	
