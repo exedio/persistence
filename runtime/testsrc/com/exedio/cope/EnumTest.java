@@ -62,5 +62,11 @@ public class EnumTest extends AbstractLibTest
 		
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());
+		
+		assertEquals(10, item.status.getColumnValue(EnumItem.Status.status1));
+		assertEquals(20, item.status.getColumnValue(EnumItem.Status.status2));
+		assertEquals(30, item.status.getColumnValue(EnumItem.Status.status3));
+		assertEquals(10, item2.status.getColumnValue(EnumItem2.Status.state1));
+		assertEquals(20, item2.status.getColumnValue(EnumItem2.Status.state2));
 	}
 }

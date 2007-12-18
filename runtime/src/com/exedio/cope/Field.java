@@ -267,6 +267,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 *
 	 * @see Type#getTableName()
 	 * @see ItemField#getTypeColumnName()
+	 * @see EnumField#getColumnValue(Enum)
 	 */
 	public final String getColumnName()
 	{

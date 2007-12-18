@@ -214,4 +214,26 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		final Class actualValueClass = value.getClass();
       return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
 	}
+	
+	/**
+	 * Returns the value of database column for this field
+	 * and the given enum value
+	 * - <b>use with care!</b>
+	 * <p>
+	 * This information is needed only, if you want to access
+	 * the database without cope.
+	 * In this case you should really know, what you are doing.
+	 * Any INSERT/UPDATE/DELETE on the database bypassing cope
+	 * may lead to inconsistent caches.
+	 * Please note, that this string may vary,
+	 * if a cope model is configured for different databases.
+	 *
+	 * @see Type#getTableName()
+	 * @see Field#getColumnName()
+	 */
+	public final int getColumnValue(final E value)
+	{
+		assert isValid(value);
+		return ordinalsToNumbers[value.ordinal()];
+	}
 }
