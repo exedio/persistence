@@ -68,5 +68,28 @@ public class EnumTest extends AbstractLibTest
 		assertEquals(30, item.status.getColumnValue(EnumItem.Status.status3));
 		assertEquals(10, item2.status.getColumnValue(EnumItem2.Status.state1));
 		assertEquals(20, item2.status.getColumnValue(EnumItem2.Status.state2));
+		try
+		{
+			item2.status.getColumnValue(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+	
+	@SuppressWarnings("unchecked") // OK: test bad api usage
+	public void testUnchecked()
+	{
+		try
+		{
+			((EnumField)item.status).getColumnValue((Enum)EnumItem2.Status.state2);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("expected " + EnumItem.Status.class.getName() + ", but was a " + EnumItem2.Status.class.getName(), e.getMessage());
+		}
 	}
 }

@@ -233,7 +233,10 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	 */
 	public final int getColumnValue(final E value)
 	{
-		assert isValid(value);
+		if(!isValid(value))
+			throw new IllegalArgumentException(
+					"expected " + valueClass.getName() +
+					", but was a " + value.getClass().getName());
 		return ordinalsToNumbers[value.ordinal()];
 	}
 }
