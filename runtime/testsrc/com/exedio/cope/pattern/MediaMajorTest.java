@@ -52,6 +52,7 @@ public class MediaMajorTest extends AbstractLibTest
 		assertEquals(true, item.image.checkContentType("image/jpg"));
 		assertEquals(false, item.image.checkContentType("application/jpg"));
 		assertEquals("image/*", item.image.getContentTypeDescription());
+		assertEquals(null, item.image.getContentTypesAllowed());
 		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
 
 		final DataField body = item.image.getBody();

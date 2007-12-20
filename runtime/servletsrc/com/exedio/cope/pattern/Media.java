@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -190,6 +191,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public String getContentTypeDescription()
 	{
 		return contentType.describe();
+	}
+	
+	/**
+	 * Returns a list of content types allowed for this media.
+	 * Returns null, if such a list would not contain a finite
+	 * number of elements.
+	 */
+	public List<String> getContentTypesAllowed()
+	{
+		return contentType.getAllowed();
 	}
 	
 	public long getMaximumLength()
@@ -648,6 +659,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		abstract ContentType optional();
 		abstract boolean check(String contentType);
 		abstract String describe();
+		abstract List<String> getAllowed();
 		abstract String get(Item item);
 		abstract B set(String contentType);
 		
@@ -691,6 +703,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		String describe()
 		{
 			return "*/*";
+		}
+		
+		@Override
+		List<String> getAllowed()
+		{
+			return null;
 		}
 		
 		@Override
@@ -762,6 +780,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
+		List<String> getAllowed()
+		{
+			return Collections.unmodifiableList(Arrays.asList(types));
+		}
+		
+		@Override
 		String get(final Item item)
 		{
 			return types[field.get(item).intValue()];
@@ -825,6 +849,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		}
 		
 		@Override
+		List<String> getAllowed()
+		{
+			return Collections.singletonList(full);
+		}
+		
+		@Override
 		String get(final Item item)
 		{
 			return full;
@@ -876,6 +906,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		String describe()
 		{
 			return prefix + '*';
+		}
+		
+		@Override
+		List<String> getAllowed()
+		{
+			return null;
 		}
 		
 		@Override

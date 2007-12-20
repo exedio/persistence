@@ -53,6 +53,7 @@ public class MediaEnumTest extends AbstractLibTest
 		assertEquals(true, item.sheet.checkContentType("application/pdf"));
 		assertEquals(false, item.sheet.checkContentType("application/msword"));
 		assertEquals("application/pdf,image/png", item.sheet.getContentTypeDescription());
+		assertEqualsUnmodifiable(list("application/pdf", "image/png"), item.sheet.getContentTypesAllowed());
 		assertEquals(5000, item.sheet.getMaximumLength());
 
 		final DataField body = item.sheet.getBody();

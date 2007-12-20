@@ -55,6 +55,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertContains(MandatoryViolationException.class, t.file.getSetterExceptions());
 		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
 		assertEquals("*/*", t.file.getContentTypeDescription());
+		assertEquals(null, t.file.getContentTypesAllowed());
 		assertEquals(20, t.file.getMaximumLength());
 
 		final DataField body = t.file.getBody();

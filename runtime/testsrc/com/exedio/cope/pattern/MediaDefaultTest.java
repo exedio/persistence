@@ -54,6 +54,7 @@ public class MediaDefaultTest extends AbstractLibTest
 		assertEquals(true, item.file.checkContentType("some/thing"));
 		assertEquals(false, item.file.checkContentType("something"));
 		assertEquals("*/*", item.file.getContentTypeDescription());
+		assertEquals(null, item.file.getContentTypesAllowed());
 		assertEquals(20, item.file.getMaximumLength());
 
 		final DataField body = item.file.getBody();

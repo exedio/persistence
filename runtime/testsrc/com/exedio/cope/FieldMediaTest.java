@@ -29,6 +29,7 @@ public class FieldMediaTest extends FieldTest
 		assertEquals("someData", item.someData.getName());
 		assertEquals(true, item.someData.checkContentType("what/ever"));
 		assertEquals("*/*", item.someData.getContentTypeDescription());
+		assertEquals(null, item.someData.getContentTypesAllowed());
 
 		// TODO: test with not null data
 		assertEquals(item.TYPE, item.someData.getType());

@@ -51,6 +51,7 @@ public class MediaFixedTest extends AbstractLibTest
 		assertEquals(false, item.photo.checkContentType("imaxge/jpeg"));
 		assertEquals(false, item.photo.checkContentType("image/jpxeg"));
 		assertEquals("image/jpeg", item.photo.getContentTypeDescription());
+		assertEqualsUnmodifiable(list("image/jpeg"), item.photo.getContentTypesAllowed());
 		assertEquals(2000, item.photo.getMaximumLength());
 
 		final DataField body = item.photo.getBody();
