@@ -194,10 +194,26 @@ public abstract class CopeAssert extends TestCase
 			final Iterator iterator = c.iterator();
 			try
 			{
+				iterator.next();
 				iterator.remove();
 				fail("should have thrown UnsupportedOperationException");
 			}
 			catch(UnsupportedOperationException e) {/*OK*/}
+		}
+		
+		if(c instanceof List)
+		{
+			final List<T> l = (List<T>)c;
+			
+			if(!l.isEmpty())
+			{
+				try
+				{
+					l.set(0, null);
+					fail("should have thrown UnsupportedOperationException");
+				}
+				catch(UnsupportedOperationException e) {/*OK*/}
+			}
 		}
 	}
 	
