@@ -79,7 +79,7 @@ public class EnumTest extends AbstractLibTest
 		}
 	}
 	
-	@SuppressWarnings("unchecked") // OK: test bad api usage
+	@SuppressWarnings({"unchecked","cast"}) // OK: test bad api usage
 	public void testUnchecked()
 	{
 		try
