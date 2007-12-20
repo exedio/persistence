@@ -225,11 +225,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return result;
 	}
 	
-	private static final String IO_EXCEPTION_COMMENT = "@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException.";
-	
 	@Override
 	public List<Wrapper> getWrappers()
 	{
+		final String IO_EXCEPTION_COMMENT = "@throws " + IOException.class.getName() + " if accessing <tt>body</tt> throws an IOException.";
+		
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
