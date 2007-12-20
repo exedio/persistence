@@ -37,6 +37,7 @@ public class QualifiedIntegerEnumQualifier extends Item
 	public static final EnumField<KeyEnum> keyY = newEnumField(KeyEnum.class).toFinal();
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(up, keyX, keyY);
+	@Deprecated transient // OK: test deprecated api
 	public static final Qualifier intEnumQualifier = new Qualifier(qualifyUnique);
 	
 	public static final StringField qualifiedA = new StringField().optional();

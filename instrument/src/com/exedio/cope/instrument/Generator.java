@@ -916,6 +916,7 @@ final class Generator
 		o.write(QUALIFIER);
 		o.write(lineSeparator);
 		writeCommentFooter();
+		writeDeprecated();
 
 		o.write("\tpublic final ");
 		o.write(qualifierClassName);
@@ -968,6 +969,7 @@ final class Generator
 			o.write(QUALIFIER_GETTER);
 			o.write(lineSeparator);
 			writeCommentFooter();
+			writeDeprecated();
 	
 			o.write('\t');
 			writeModifier(attribute.getGeneratedGetterModifier());
@@ -1012,6 +1014,7 @@ final class Generator
 			o.write(QUALIFIER_SETTER);
 			o.write(lineSeparator);
 			writeCommentFooter();
+			writeDeprecated();
 	
 			o.write('\t');
 			writeModifier(attribute.getGeneratedSetterModifier());

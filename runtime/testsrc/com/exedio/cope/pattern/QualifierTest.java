@@ -50,6 +50,7 @@ public class QualifierTest extends TestmodelTest
 		item = deleteOnTearDown(new QualifiedItem());
 	}
 	
+	@Deprecated // OK: test deprecated api
 	public void testQualified()
 		throws UniqueViolationException, MandatoryViolationException, IntegrityViolationException,
 			LengthViolationException, FinalViolationException

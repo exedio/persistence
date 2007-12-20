@@ -42,6 +42,10 @@ public final class Qualifier extends Pattern
 	private final List<FunctionField<?>> keyList;
 	private final UniqueConstraint uniqueConstraint;
 
+	/**
+	 * @deprecated use {@link MapField} instead.
+	 */
+	@Deprecated
 	public Qualifier(final UniqueConstraint uniqueConstraint)
 	{
 		if(uniqueConstraint==null)
