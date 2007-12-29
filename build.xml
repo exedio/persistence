@@ -427,7 +427,7 @@
 	</target>
 	
 	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument finalArgs="true" createDeprecated="true" verbose="false"><!-- TODO use defaults -->
+		<instrument verbose="false">
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
 			</fileset>
