@@ -426,6 +426,44 @@
 		</foreachEnvironment>
 	</target>
 	
+	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
+		<instrument finalArgs="true" createDeprecated="true" verbose="false"><!-- TODO use defaults -->
+			<fileset dir="runtime/servlettestsrc">
+				<include name="**/*.java" />
+			</fileset>
+		</instrument>
+	</target>
+
+	<target name="runtime.servlet.test.web"
+			  depends="runtime.servlet.test.instrument, runtime.servlet.compile">
+		<copy todir="runtime/servlettestweb/WEB-INF/classes">
+			<fileset dir="build/runtime/classes" />
+		</copy>
+		<ljavac srcdir="runtime/servlettestsrc" destdir="runtime/servlettestweb/WEB-INF/classes">
+			<classpath>
+				<pathelement location="lib/servlet-api.jar" />
+			</classpath>
+		</ljavac>
+		<copy todir="runtime/servlettestweb/WEB-INF/classes">
+			<fileset dir="runtime/servlettestsrc">
+				<include name="**/*.gif" />
+				<include name="**/*.jpg" />
+				<include name="**/*.png" />
+				<include name="**/*.txt" />
+			</fileset>
+		</copy>
+		<copy todir="runtime/servlettestweb/WEB-INF/lib">
+			<fileset file="lib/trove.jar" />
+			<fileset file="lib/exedio-cops.jar" />
+			<fileset file="lib/hsqldb.jar" />
+		</copy>
+	</target>
+	
+	<target name="runtime.servlet.test.tomcat" depends="runtime.servlet.test.web, catalina.home">
+		<copy tofile="${catalina.home}/conf/Catalina/localhost/cope-runtime-servlet.xml"
+				file="runtime/servlet-context.xml" />
+	</target>
+	
 	<target name="runtime.clean" depends="catalina.home">
 		<delete>
 			<fileset dir="runtime/servletsrc">
@@ -436,8 +474,11 @@
 		<delete>
 			<fileset dir="${catalina.home}">
 				<include name="conf/Catalina/localhost/copelibtest-*.xml" />
+				<include name="conf/Catalina/localhost/cope-runtime-servlet.xml" />
 			</fileset>
 		</delete>
+		<delete dir="runtime/servlettestweb/WEB-INF/classes" />
+		<delete dir="runtime/servlettestweb/WEB-INF/lib" />
 	</target>
 	
 	<!-- instrument -->
@@ -746,10 +787,11 @@
 	
 	<target name="jspm" depends="runtime.servlet.jspm, console.jspm, copernica.jspm, copernica.test.jspm" />
 	
-	<target name="instrument" depends="instrument.test.instrument, runtime.testmodel.instrument" />
+	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.testmodel.instrument" />
 	
 	<target name="compile"
 			  depends="runtime.compile,
+			  runtime.servlet.test.web,
 			  instrument.compile,
 			  console.compile,
 			  copernica.compile, copernica.test.compile" />
@@ -762,7 +804,7 @@
 	
 	<target name="web" depends="runtime.web, copernica.web" />
 	
-	<target name="tomcat" depends="runtime.tomcat, copernica.tomcat" />
+	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat, copernica.tomcat" />
 	
 	<target name="webtest" depends="copernica.webtest" />
 	

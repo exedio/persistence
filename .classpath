@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="console/src"/>
+	<classpathentry kind="src" path="runtime/servlettestsrc"/>
 	<classpathentry kind="src" path="console/testsrc"/>
 	<classpathentry kind="src" path="copernica/src"/>
 	<classpathentry kind="src" path="copernica/testsrc"/>

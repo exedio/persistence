@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<context-param>
+		<param-name>model</param-name>
+		<param-value>com.exedio.cope.pattern.Main#model</param-value>
+	</context-param>
+	
+	<servlet>
+		<servlet-name>media</servlet-name>
+		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>media</servlet-name>
+		<url-pattern>/media/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>init</servlet-name>
+		<servlet-class>com.exedio.cope.pattern.InitServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>init</servlet-name>
+		<url-pattern>/init/*</url-pattern>
+	</servlet-mapping>
+
+	<description>Cope Runtime Servlet Test</description>
+	<display-name>Cope Runtime Servlet Test</display-name>
+	
+	<session-config>
+		<session-timeout>1<!--minute--></session-timeout>
+	</session-config>
+	
+</web-app>

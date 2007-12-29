@@ -36,7 +36,6 @@ import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.Main;
-import com.exedio.cope.testmodel.MediaServletItem;
 import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
@@ -177,52 +176,6 @@ public class InitServlet extends CopsServlet
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
 			
-			final MediaServletItem text = new MediaServletItem();
-			assertID("MediaServletItem.0", text);
-			text.setContent(thisClass.getResourceAsStream("dummy.txt"), "text/plain");
-				
-			final MediaServletItem empty = new MediaServletItem();
-			assertID("MediaServletItem.1", empty);
-
-			final MediaServletItem png = new MediaServletItem();
-			assertID("MediaServletItem.2", png);
-			png.setContent(thisClass.getResourceAsStream("osorno.png"), "image/png");
-
-			final MediaServletItem jpeg = new MediaServletItem();
-			assertID("MediaServletItem.3", jpeg);
-			jpeg.setContent(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg");
-
-			final MediaServletItem unknown = new MediaServletItem();
-			assertID("MediaServletItem.4", unknown);
-			unknown.setContent(thisClass.getResourceAsStream("dummy.txt"), "unknownma/unknownmi");
-			
-			final MediaServletItem nameOk = new MediaServletItem("media item 1");
-			assertID("MediaServletItem.5", nameOk);
-			final MediaServletItem nameNull = new MediaServletItem(null);
-			assertID("MediaServletItem.6", nameNull);
-			final MediaServletItem nameError = new MediaServletItem("media item 3 error");
-			assertID("MediaServletItem.7", nameError);
-			
-			final MediaServletItem gif = new MediaServletItem();
-			assertID("MediaServletItem.8", gif);
-			gif.setContent(thisClass.getResourceAsStream("gif.gif"), "image/gif");
-
-			final MediaServletItem small = new MediaServletItem();
-			assertID("MediaServletItem.9", small);
-			small.setContent(thisClass.getResourceAsStream("small.jpg"), "image/jpeg");
-
-			final MediaServletItem antialias = new MediaServletItem();
-			assertID("MediaServletItem.10", antialias);
-			antialias.setContent(thisClass.getResourceAsStream("antialias.png"), "image/png");
-
-			final MediaServletItem antialiasJpeg = new MediaServletItem();
-			assertID("MediaServletItem.11", antialiasJpeg);
-			antialiasJpeg.setContent(thisClass.getResourceAsStream("antialias.jpg"), "image/jpeg");
-
-			final MediaServletItem transparency = new MediaServletItem();
-			assertID("MediaServletItem.12", transparency);
-			transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png");
-
 			new PlusItem(1, 2, 3);
 			new PlusItem(4, 5, 4);
 			new PlusItem(9, 2, 6);
@@ -275,11 +228,5 @@ public class InitServlet extends CopsServlet
 		{
 			throw new RuntimeException(e);
 		}
-	}
-	
-	private static final void assertID(final String id, final MediaServletItem item)
-	{
-		if(!id.equals(item.getCopeID()))
-			throw new RuntimeException(item.getCopeID());
 	}
 }

@@ -27,9 +27,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MediaServletTest extends AbstractWebTest
+import net.sourceforge.jwebunit.WebTestCase;
+
+public class MediaServletTest extends WebTestCase
 {
 	private static final String NO_SUCH_PATH = "no such path";
 	private static final String NOT_AN_ITEM = "not an item";
@@ -39,7 +42,11 @@ public class MediaServletTest extends AbstractWebTest
 
 	public void testError() throws Exception
 	{
-		final String prefix = "http://localhost:8080/copetest-hsqldb/media/MediaServletItem/";
+		final String app = "http://localhost:8080/cope-runtime-servlet/";
+		final URL init = new URL(app + "init");
+		init.getContent();
+		
+		final String prefix = app + "media/MediaServletItem/";
 
 		final long textLastModified = assertURL(new URL(prefix + "content/MediaServletItem.0.txt"));
 		final long pngLastModified = assertBinary(new URL(prefix + "content/MediaServletItem.2.txt"), "image/png");
@@ -329,5 +336,38 @@ public class MediaServletTest extends AbstractWebTest
 			out.close();
 			in.close();
 		}
+	}
+	
+	// ----------------------------------- adapted from CopeAssert
+	
+	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
+
+	public final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	{
+		final long resolution = 1000;
+		final long leftTolerance = 995;
+		final Date expectedBeforeFloor = new Date(((expectedBefore.getTime()-leftTolerance) / resolution) * resolution);
+		final Date expectedAfterCeil   = new Date(((expectedAfter.getTime() / resolution) * resolution) + resolution);
+
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final String message =
+			"expected date within " + df.format(expectedBeforeFloor) + " (" + df.format(expectedBefore) + ")" +
+			" and " + df.format(expectedAfterCeil) + " (" + df.format(expectedAfter) + ")" +
+			", but was " + df.format(actual);
+
+		assertTrue(message, !expectedBeforeFloor.after(actual));
+		assertTrue(message, !expectedAfterCeil.before(actual));
+	}
+
+	public final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	{
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final String message =
+			"expected date within " + df.format(expectedBefore) +
+			" and " + df.format(expectedAfter) +
+			", but was " + df.format(actual);
+
+		assertTrue(message, !expectedBefore.after(actual));
+		assertTrue(message, !expectedAfter.before(actual));
 	}
 }

@@ -16,14 +16,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.testmodel;
+package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaImageMagickThumbnail;
-import com.exedio.cope.pattern.MediaRedirect;
-import com.exedio.cope.pattern.MediaThumbnail;
 
 public class MediaServletItem extends Item
 {
