@@ -34,16 +34,16 @@ import com.exedio.cope.pattern.MediaPath;
  * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.
  * @author Ralf Wiebicke
  */
-public final class MediaNameServer extends MediaPath
+final class MediaNameServer extends MediaPath
 {
 	final StringField source;
 
-	public MediaNameServer(final StringField source)
+	MediaNameServer(final StringField source)
 	{
 		this.source = source;
 	}
 	
-	public StringField getSource()
+	StringField getSource()
 	{
 		return source;
 	}

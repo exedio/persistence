@@ -29,16 +29,16 @@ import com.exedio.cope.StringField;
  * A test subclass of MediaPath for unit-testing custom extensions of MediaPath.
  * @author Ralf Wiebicke
  */
-public final class MediaCustom extends MediaPath
+final class MediaCustom extends MediaPath
 {
 	final StringField source;
 
-	public MediaCustom(final StringField source)
+	MediaCustom(final StringField source)
 	{
 		this.source = source;
 	}
 	
-	public StringField getSource()
+	StringField getSource()
 	{
 		return source;
 	}
