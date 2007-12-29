@@ -26,7 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
 /**
- * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.
+ * A test subclass of MediaPath for unit-testing custom extensions of MediaPath.
  * @author Ralf Wiebicke
  */
 public final class MediaCustom extends MediaPath
