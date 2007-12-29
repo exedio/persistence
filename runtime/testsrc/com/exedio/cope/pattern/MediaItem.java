@@ -37,7 +37,7 @@ public class MediaItem extends Item
 
 	static final Media sheet = new Media().optional().lengthMax(5000).contentType("application/pdf", "image/png");
 	
-	static final MediaNameServer nameServer = new MediaNameServer(name);
+	static final MediaCustom nameServer = new MediaCustom(name);
 	
 	
 	MediaItem(final String name)
