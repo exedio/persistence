@@ -187,10 +187,17 @@
 		<ljavac srcdir="runtime/patternsrc" destdir="build/runtime/classes" />
 	</target>
 	
-	<target name="runtime.servlet.compile" depends="runtime.core.compile">
+	<target name="runtime.servlet.jspm" depends="jspm.taskdef">
+		<jspm>
+			<fileset dir="runtime/servletsrc" includes="**/*.jspm" />
+		</jspm>
+	</target>
+	
+	<target name="runtime.servlet.compile" depends="runtime.core.compile, runtime.servlet.jspm">
 		<ljavac srcdir="runtime/servletsrc" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/exedio-cops.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -420,6 +427,11 @@
 	</target>
 	
 	<target name="runtime.clean" depends="catalina.home">
+		<delete>
+			<fileset dir="runtime/servletsrc">
+				<include name="**/*_Jspm.java" />
+			</fileset>
+		</delete>
 		<delete dir="build/runtime" />
 		<delete>
 			<fileset dir="${catalina.home}">
@@ -732,7 +744,7 @@
 	
 	<!-- common -->
 	
-	<target name="jspm" depends="console.jspm, copernica.jspm, copernica.test.jspm" />
+	<target name="jspm" depends="runtime.servlet.jspm, console.jspm, copernica.jspm, copernica.test.jspm" />
 	
 	<target name="instrument" depends="instrument.test.instrument, runtime.testmodel.instrument" />
 	

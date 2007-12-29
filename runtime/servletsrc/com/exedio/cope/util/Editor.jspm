@@ -1,0 +1,147 @@
+<%
+/*
+ * Copyright (C) 2004-2007  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.util;
+
+import java.io.PrintStream;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.exedio.cops.Cop;
+import com.exedio.cops.CopsServlet;
+
+final class Editor_Jspm
+{
+	static final void writeLogin(
+			final PrintStream out,
+			final HttpServletResponse response,
+			final String failureUser)
+	{
+%><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=<%=CopsServlet.ENCODING%>">
+		<title>Content Editor Login</title>
+		<style>
+			img
+			{
+				float: right;
+				margin: 0px 20px;
+				border: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="http://cope.sourceforge.net/"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" width="198" height="60" border="0"></a>
+		<h1>Content Editor Login</h1><%
+		if(failureUser!=null)
+		{
+		%>
+		<div>Login failed, because either user or password was not correct.</div><%
+		}
+		%>
+		<form action="<%=response.encodeURL(Editor.LOGIN_URL)%>" method="POST">
+			<table>
+				<tr>
+					<td>Login</td>
+					<td><input name="<%=Editor.LOGIN_USER%>"<% if(failureUser!=null){%> value="<%=Cop.encodeXml(failureUser)%>"<%} %>></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password" name="<%=Editor.LOGIN_PASSWORD%>"></td>
+				</tr>
+			</table>
+			<input type="submit" name="<%=Editor.LOGIN%>" value="Login">
+		</form>
+	</body>
+</html><%
+	}
+	
+	static final void writeBar(
+			final PrintStream out,
+			final boolean borders,
+			final String loginName)
+	{
+		%>
+		<div class="contentEditorBar">
+			<form method="POST">
+				Editor Mode enabled, logged in as <%=Cop.encodeXml(loginName)%>
+				<input type="hidden" name="<%=Editor.AVOID_COLLISION%>" value="true">
+				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
+			</form><%
+			if(borders)
+			{
+				final String ID_FORM    = Editor.AVOID_COLLISION + "saveForm";
+				final String ID_FEATURE = Editor.AVOID_COLLISION + "saveFeature";
+				final String ID_ITEM    = Editor.AVOID_COLLISION + "saveItem";
+				final String ID_KIND    = Editor.AVOID_COLLISION + "saveKind";
+				final String ID_LINE    = Editor.AVOID_COLLISION + "saveLine";
+				final String ID_AREA    = Editor.AVOID_COLLISION + "saveArea";
+			%>
+			<script>
+				var previousBorder = null;
+				
+				function <%=Editor.EDIT_METHOD%>(border,feature,item,value)
+				{
+					document.getElementById("<%=ID_FEATURE%>").value = feature;
+					document.getElementById("<%=ID_ITEM   %>").value = item;
+					
+					var kind = document.getElementById("<%=ID_KIND%>");
+					var line = document.getElementById("<%=ID_LINE%>");
+					var area = document.getElementById("<%=ID_AREA%>");
+					if(border.tagName=="SPAN")
+					{
+						area.style.display = "none";
+						area.firstChild.data = null;
+						kind.value = '<%=Editor.SAVE_KIND_LINE%>';
+						line.value = value;
+						line.style.display = "inline";
+					}
+					else
+					{
+						line.style.display = "none";
+						line.value = null;
+						kind.value = '<%=Editor.SAVE_KIND_AREA%>';
+						area.firstChild.data = value;
+						area.style.display = "inline";
+					}
+					
+					document.getElementById("<%=ID_FORM%>").style.display = "inline";
+					
+					if(previousBorder!=null)
+						previousBorder.className='contentEditorLink';
+					border.className='contentEditorLinkEdited';
+					previousBorder = border;
+				}
+			</script>
+			<form method="POST" id="<%=ID_FORM%>" style="display:none;">
+				<input name="<%=   Editor.AVOID_COLLISION%>" value="true"         type="hidden">
+				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FEATURE%>" type="hidden">
+				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_ITEM   %>" type="hidden">
+				<input name="<%=   Editor.SAVE_KIND      %>" id="<%=ID_KIND   %>" type="hidden">
+				<input name="<%=   Editor.SAVE_LINE      %>" id="<%=ID_LINE   %>" size="100">
+				<textarea name="<%=Editor.SAVE_AREA      %>" id="<%=ID_AREA   %>" cols="100" rows="15">X</textarea>
+				<input type="submit" value="Save">
+			</form><%
+			}
+			%>
+		</div><%
+	}
+}
+%>
