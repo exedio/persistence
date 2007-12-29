@@ -37,7 +37,7 @@ public class MediaItem extends Item
 
 	static final Media sheet = new Media().optional().lengthMax(5000).contentType("application/pdf", "image/png");
 	
-	static final MediaCustom nameServer = new MediaCustom(name);
+	static final MediaCustom custom = new MediaCustom(name);
 	
 	
 	MediaItem(final String name)
@@ -55,15 +55,15 @@ public class MediaItem extends Item
 	}
 	
 	// TODO generate by instrumentor
-	final String getNameServerContentType()
+	final String getCustomContentType()
 	{
-		return nameServer.getContentType(this);
+		return custom.getContentType(this);
 	}
 	
 	// TODO generate by instrumentor
-	final String getNameServerURL()
+	final String getCustomURL()
 	{
-		return nameServer.getURL(this);
+		return custom.getURL(this);
 	}
 	
 	/**

@@ -74,7 +74,7 @@ public final class MediaTest extends AbstractLibTest
 				item.sheet.getBody(),
 				item.sheet.getContentType(),
 				item.sheet.getLastModified(),
-				item.nameServer,
+				item.custom,
 			}), item.TYPE.getFeatures());
 
 		// foto
@@ -105,12 +105,12 @@ public final class MediaTest extends AbstractLibTest
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
 		
-		// nameServer
-		assertEquals(item.TYPE, item.nameServer.getType());
-		assertEquals("nameServer", item.nameServer.getName());
-		assertSame(item.name, item.nameServer.getSource());
-		assertEquals("text/plain", item.getNameServerContentType());
-		assertEquals(mediaRootUrl + "MediaItem/nameServer/" + item.getCopeID() + ".txt", item.getNameServerURL());
+		// custom
+		assertEquals(item.TYPE, item.custom.getType());
+		assertEquals("custom", item.custom.getName());
+		assertSame(item.name, item.custom.getSource());
+		assertEquals("text/plain", item.getCustomContentType());
+		assertEquals(mediaRootUrl + "MediaItem/custom/" + item.getCopeID() + ".txt", item.getCustomURL());
 		
 
 		// logs -----------------------------------------------
