@@ -40,11 +40,6 @@
 	<filter>
 		<filter-name>editor</filter-name>
 		<filter-class>com.exedio.cope.util.EditorFilter</filter-class>
-		<!-- TODO move into class -->
-		<init-param>
-			<param-name>model</param-name>
-			<param-value>com.exedio.cope.util.EditedServlet#model</param-value>
-		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>editor</filter-name>

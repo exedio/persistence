@@ -45,27 +45,32 @@ import com.exedio.cops.CopsServlet;
 
 public abstract class Editor implements Filter
 {
-	private ConnectToken connectToken = null;
-	private Model model;
+	private final Model model;
 	
-	public final void init(final FilterConfig config) throws ServletException
+	/**
+	 * Subclasses must define a public no-args constructor
+	 * providing the model.
+	 */
+	protected Editor(final Model model)
+	{
+		if(model==null)
+			throw new NullPointerException("model was null in " + getClass().getName());
+		
+		this.model = model;
+	}
+	
+	private ConnectToken connectToken = null;
+	
+	public final void init(final FilterConfig config)
 	{
 		try
 		{
-			connectToken = ServletUtil.getConnectedModel(this, config);
-			model = connectToken.getModel();
+			connectToken = ServletUtil.connect(model, config.getServletContext(), getClass().getName());
 		}
 		catch(RuntimeException e)
 		{
 			// tomcat does not print stack trace or exception message, so we do
 			System.err.println("RuntimeException in Edit.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(ServletException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("ServletException in Edit.init");
 			e.printStackTrace();
 			throw e;
 		}

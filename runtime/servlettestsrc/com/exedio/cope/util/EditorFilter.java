@@ -20,6 +20,11 @@ package com.exedio.cope.util;
 
 public final class EditorFilter extends Editor
 {
+	public EditorFilter()
+	{
+		super(EditedServlet.model);
+	}
+	
 	@Override
 	protected Login login(final String user, final String password)
 	{
