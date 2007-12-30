@@ -25,12 +25,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Model;
 import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ServletUtil;
 
 public class InitServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
+	
+	public static final Model model = new Model(MediaServletItem.TYPE);
 	
 	private ConnectToken connectToken = null;
 	
@@ -41,7 +44,7 @@ public class InitServlet extends HttpServlet
 		
 		try
 		{
-			connectToken = ServletUtil.connect(Main.model, getServletContext(), getClass().getName());
+			connectToken = ServletUtil.connect(model, getServletContext(), getClass().getName());
 			create();
 		}
 		catch(RuntimeException e)
@@ -70,16 +73,16 @@ public class InitServlet extends HttpServlet
 	
 	private void create()
 	{
-			Main.model.createDatabase();
+			model.createDatabase();
 			try
 			{
-				Main.model.startTransaction("initializeExampleSystem");
+				model.startTransaction("initializeExampleSystem");
 				initializeExampleSystem();
-				Main.model.commit();
+				model.commit();
 			}
 			finally
 			{
-				Main.model.rollbackIfNotCommitted();
+				model.rollbackIfNotCommitted();
 			}
 	}
 

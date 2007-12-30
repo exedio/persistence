@@ -10,7 +10,7 @@
 		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.pattern.Main#model</param-value>
+			<param-value>com.exedio.cope.pattern.InitServlet#model</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
