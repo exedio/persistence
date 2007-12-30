@@ -99,7 +99,7 @@ public abstract class Editor implements Filter
 		
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
-			handleLogin(request, (HttpServletResponse)response);
+			doLogin(request, (HttpServletResponse)response);
 			return;
 		}
 
@@ -108,7 +108,7 @@ public abstract class Editor implements Filter
 		{
 			final Object session = httpSession.getAttribute(SESSION);
 			if(session!=null)
-				handleBar(request, (HttpServletResponse)response, chain, (Session)session);
+				doBar(request, (HttpServletResponse)response, chain, (Session)session);
 			else
 				chain.doFilter(request, response);
 		}
@@ -128,7 +128,7 @@ public abstract class Editor implements Filter
 	static final String SAVE_KIND_LINE = "kindLine";
 	static final String SAVE_KIND_AREA = "kindArea";
 	
-	private final void handleBar(
+	private final void doBar(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final FilterChain chain,
@@ -195,7 +195,7 @@ public abstract class Editor implements Filter
 	static final String LOGIN_USER = "user";
 	static final String LOGIN_PASSWORD = "password";
 	
-	private final void handleLogin(
+	private final void doLogin(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 	throws IOException
