@@ -64,7 +64,7 @@ public final class EditedServlet extends HttpServlet
 		final EditedItem item1 = new EditedItem("item" + number);
 		item1.setMap(1, "item" + number + "map1");
 		item1.setMap(2, "item" + number + "map2");
-		item1.setMap(3, "item" + number + "map3Block");
+		item1.setMap(3, "item" + number + "map3Block\nsecond line\r\nthird line");
 		return item1;
 	}
 
