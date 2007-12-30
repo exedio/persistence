@@ -43,8 +43,6 @@ public class InitServlet extends HttpServlet
 		super.init();
 		
 		final Class thisClass = InitServlet.class;
-		try
-		{
 			connectToken = ServletUtil.connect(model, getServletContext(), thisClass.getName());
 			model.createDatabase();
 			try
@@ -99,15 +97,14 @@ public class InitServlet extends HttpServlet
 				
 				model.commit();
 			}
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
 			finally
 			{
 				model.rollbackIfNotCommitted();
 			}
-		}
-		catch(IOException e)
-		{
-			throw new RuntimeException(e);
-		}
 	}
 
 	@Override
