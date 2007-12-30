@@ -88,8 +88,8 @@ public abstract class Editor implements Filter
 			final ServletResponse response,
 			final FilterChain chain) throws IOException, ServletException
 	{
-		servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
 		final HttpServletRequest request = (HttpServletRequest)servletRequest;
+		servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
 		
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
