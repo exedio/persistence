@@ -60,8 +60,8 @@ public final class CopeFilter implements Filter
 	
 	public void init(final FilterConfig config) throws ServletException
 	{
-			connectToken = ServletUtil.getConnectedModel(this, config);
-			model = connectToken.getModel();
+		connectToken = ServletUtil.getConnectedModel(this, config);
+		model = connectToken.getModel();
 	}
 	
 	private volatile boolean migrated = false;

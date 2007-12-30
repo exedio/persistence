@@ -70,20 +70,20 @@ public final class MediaServlet extends HttpServlet
 	{
 		super.init();
 
-			connectToken = ServletUtil.getConnectedModel(this);
-			final Model model = connectToken.getModel();
-			model.migrateIfSupported();
-			for(final Type<?> type : model.getTypes())
+		connectToken = ServletUtil.getConnectedModel(this);
+		final Model model = connectToken.getModel();
+		model.migrateIfSupported();
+		for(final Type<?> type : model.getTypes())
+		{
+			for(final Feature feature : type.getDeclaredFeatures())
 			{
-				for(final Feature feature : type.getDeclaredFeatures())
+				if(feature instanceof MediaPath)
 				{
-					if(feature instanceof MediaPath)
-					{
-						final MediaPath path = (MediaPath)feature;
-						pathes.put('/' + path.getUrlPath(), path);
-					}
+					final MediaPath path = (MediaPath)feature;
+					pathes.put('/' + path.getUrlPath(), path);
 				}
 			}
+		}
 	}
 
 	@Override

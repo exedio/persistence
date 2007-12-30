@@ -93,8 +93,8 @@ public final class ConsoleServlet extends CopsServlet
 			return;
 		}
 		
-			connectToken = ServletUtil.getConnectedModel(this);
-			model = connectToken.getModel();
+		connectToken = ServletUtil.getConnectedModel(this);
+		model = connectToken.getModel();
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public abstract class Editor implements Filter
 	
 	public final void init(final FilterConfig config)
 	{
-			connectToken = ServletUtil.connect(model, config.getServletContext(), getClass().getName());
+		connectToken = ServletUtil.connect(model, config.getServletContext(), getClass().getName());
 	}
 	
 	public final void destroy()

@@ -86,14 +86,14 @@ public final class CopernicaServlet extends CopsServlet
 	{
 		super.init();
 		
-			if(this.provider!=null)
-			{
-				System.out.println("reinvokation of jspInit");
-				return;
-			}
-			
-			this.provider = createProvider();
-			this.checked = false;
+		if(this.provider!=null)
+		{
+			System.out.println("reinvokation of jspInit");
+			return;
+		}
+		
+		this.provider = createProvider();
+		this.checked = false;
 	}
 
 	@Override
