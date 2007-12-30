@@ -41,20 +41,13 @@ public class InitServlet extends HttpServlet
 		
 		try
 		{
-			connectToken = ServletUtil.getConnectedModel(this);
+			connectToken = ServletUtil.connect(Main.model, getServletContext(), getClass().getName());
 			create();
 		}
 		catch(RuntimeException e)
 		{
 			// tomcat does not print stack trace or exception message, so we do
 			System.err.println("RuntimeException in ConsoleServlet.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(ServletException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("ServletException in ConsoleServlet.init");
 			e.printStackTrace();
 			throw e;
 		}
