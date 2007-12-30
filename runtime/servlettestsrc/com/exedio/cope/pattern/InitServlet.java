@@ -45,7 +45,17 @@ public class InitServlet extends HttpServlet
 		try
 		{
 			connectToken = ServletUtil.connect(model, getServletContext(), getClass().getName());
-			create();
+			model.createDatabase();
+			try
+			{
+				model.startTransaction("initializeExampleSystem");
+				initializeExampleSystem();
+				model.commit();
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
+			}
 		}
 		catch(RuntimeException e)
 		{
@@ -71,21 +81,6 @@ public class InitServlet extends HttpServlet
 		super.destroy();
 	}
 	
-	private void create()
-	{
-			model.createDatabase();
-			try
-			{
-				model.startTransaction("initializeExampleSystem");
-				initializeExampleSystem();
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
-			}
-	}
-
 	private static final void initializeExampleSystem()
 	{
 		try
