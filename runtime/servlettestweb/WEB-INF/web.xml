@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
+	<!-- TODO move into servlet -->
 	<context-param>
 		<param-name>model</param-name>
 		<param-value>com.exedio.cope.pattern.Main#model</param-value>
@@ -28,6 +29,31 @@
 		<url-pattern>/init/*</url-pattern>
 	</servlet-mapping>
 
+
+	<servlet>
+		<servlet-name>edited</servlet-name>
+		<servlet-class>com.exedio.cope.util.EditedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>edited</servlet-name>
+		<url-pattern>/edited/*</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>editor</filter-name>
+		<filter-class>com.exedio.cope.util.EditorFilter</filter-class>
+		<!-- TODO move into class -->
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.util.EditedServlet#model</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>editor</filter-name>
+		<servlet-name>edited</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
 	<description>Cope Runtime Servlet Test</description>
 	<display-name>Cope Runtime Servlet Test</display-name>
 	
