@@ -42,15 +42,14 @@ public class InitServlet extends HttpServlet
 	{
 		super.init();
 		
+		final Class thisClass = InitServlet.class;
 		try
 		{
-			connectToken = ServletUtil.connect(model, getServletContext(), getClass().getName());
+			connectToken = ServletUtil.connect(model, getServletContext(), thisClass.getName());
 			model.createDatabase();
 			try
 			{
-				model.startTransaction("initializeExampleSystem");
-				
-				final Class thisClass = MediaServletItem.class;
+				model.startTransaction(thisClass.getName());
 				
 				final MediaServletItem text = new MediaServletItem();
 				assertID("MediaServletItem.0", text);
