@@ -106,9 +106,9 @@ public abstract class Editor implements Filter
 		final HttpSession httpSession = request.getSession(false);
 		if(httpSession!=null)
 		{
-			final Object sessionNonCasted = httpSession.getAttribute(SESSION);
-			if(sessionNonCasted!=null)
-				handleBar(request, (HttpServletResponse)response, chain, (Session)sessionNonCasted);
+			final Object session = httpSession.getAttribute(SESSION);
+			if(session!=null)
+				handleBar(request, (HttpServletResponse)response, chain, (Session)session);
 			else
 				chain.doFilter(request, response);
 		}
