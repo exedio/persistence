@@ -88,6 +88,12 @@ public abstract class Editor implements Filter
 			final ServletResponse response,
 			final FilterChain chain) throws IOException, ServletException
 	{
+		if(!(servletRequest instanceof HttpServletRequest))
+		{
+			chain.doFilter(servletRequest, response);
+			return;
+		}
+		
 		final HttpServletRequest request = (HttpServletRequest)servletRequest;
 		servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
 		
