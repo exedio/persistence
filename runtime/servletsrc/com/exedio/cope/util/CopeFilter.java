@@ -60,32 +60,8 @@ public final class CopeFilter implements Filter
 	
 	public void init(final FilterConfig config) throws ServletException
 	{
-		try
-		{
 			connectToken = ServletUtil.getConnectedModel(this, config);
 			model = connectToken.getModel();
-		}
-		catch(RuntimeException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("RuntimeException in CopeFilter.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(ServletException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("ServletException in CopeFilter.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(Error e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("Error in CopeFilter.init");
-			e.printStackTrace();
-			throw e;
-		}
 	}
 	
 	private volatile boolean migrated = false;

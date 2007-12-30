@@ -93,32 +93,8 @@ public final class ConsoleServlet extends CopsServlet
 			return;
 		}
 		
-		try
-		{
 			connectToken = ServletUtil.getConnectedModel(this);
 			model = connectToken.getModel();
-		}
-		catch(RuntimeException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("RuntimeException in ConsoleServlet.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(ServletException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("ServletException in ConsoleServlet.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(Error e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("Error in ConsoleServlet.init");
-			e.printStackTrace();
-			throw e;
-		}
 	}
 
 	@Override

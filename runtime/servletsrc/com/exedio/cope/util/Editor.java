@@ -63,24 +63,7 @@ public abstract class Editor implements Filter
 	
 	public final void init(final FilterConfig config)
 	{
-		try
-		{
 			connectToken = ServletUtil.connect(model, config.getServletContext(), getClass().getName());
-		}
-		catch(RuntimeException e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("RuntimeException in Edit.init");
-			e.printStackTrace();
-			throw e;
-		}
-		catch(Error e)
-		{
-			// tomcat does not print stack trace or exception message, so we do
-			System.err.println("Error in Edit.init");
-			e.printStackTrace();
-			throw e;
-		}
 	}
 	
 	public final void destroy()
