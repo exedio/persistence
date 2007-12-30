@@ -162,7 +162,7 @@ public abstract class Editor implements Filter
 			
 				try
 				{
-					model.startTransaction("Edit#editor");
+					model.startTransaction(getClass().getName() + "#save");
 					
 					final StringField feature = (StringField)model.findFeatureByID(featureID);
 					assert feature!=null : featureID;
@@ -221,7 +221,7 @@ public abstract class Editor implements Filter
 					final String password = request.getParameter(LOGIN_PASSWORD);
 					try
 					{
-						model.startTransaction("Editor#login");
+						model.startTransaction(getClass().getName() + "#login");
 						final Login login = login(user, password);
 						if(login!=null)
 						{
