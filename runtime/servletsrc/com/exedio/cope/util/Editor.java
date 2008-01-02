@@ -99,7 +99,14 @@ public abstract class Editor implements Filter
 		
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
-			doLogin(request, (HttpServletResponse)response);
+			final HttpSession httpSession = request.getSession(true);
+			final Session session = (Session)httpSession.getAttribute(SESSION);
+			
+			if(session==null)
+				doLogin(request, httpSession, (HttpServletResponse)response);
+			else
+				doBar(request, (HttpServletResponse)response, session);
+			
 			return;
 		}
 
@@ -203,14 +210,11 @@ public abstract class Editor implements Filter
 	
 	private final void doLogin(
 			final HttpServletRequest request,
+			final HttpSession httpSession,
 			final HttpServletResponse response)
 	throws IOException
 	{
-		final HttpSession httpSession = request.getSession(true);
-		final Session session = (Session)httpSession.getAttribute(SESSION);
-		
-		if(session==null)
-		{
+		assert httpSession!=null;
 			PrintStream out = null;
 			try
 			{
@@ -252,11 +256,6 @@ public abstract class Editor implements Filter
 				if(out!=null)
 					out.close();
 			}
-		}
-		else
-		{
-			doBar(request, response, session);
-		}
 	}
 	
 	private static final String SESSION = Session.class.getCanonicalName();
