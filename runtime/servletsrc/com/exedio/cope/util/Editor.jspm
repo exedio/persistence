@@ -84,7 +84,6 @@ final class Editor_Jspm
 		<div class="contentEditorBar">
 			<form action="<%=action%>" method="POST">
 				Editor Mode enabled, logged in as <%=Cop.encodeXml(loginName)%>
-				<input type="hidden" name="<%=Editor.AVOID_COLLISION%>" value="true">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
 			</form><%
@@ -134,7 +133,6 @@ final class Editor_Jspm
 				}
 			</script>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM%>" style="display:none;">
-				<input name="<%=   Editor.AVOID_COLLISION%>" value="true"         type="hidden">
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_ITEM   %>" type="hidden">

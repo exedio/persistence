@@ -152,7 +152,7 @@ public abstract class Editor implements Filter
 			final Session session)
 	throws IOException
 	{
-		if(Cop.isPost(request) && request.getParameter(AVOID_COLLISION)!=null)
+		if(Cop.isPost(request))
 		{
 			if(request.getParameter(TOGGLE_BORDERS)!=null)
 			{
