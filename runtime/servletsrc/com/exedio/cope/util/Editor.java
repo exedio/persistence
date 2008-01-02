@@ -95,10 +95,10 @@ public abstract class Editor implements Filter
 		}
 		
 		final HttpServletRequest request = (HttpServletRequest)servletRequest;
-		servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
 		
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
+			servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
 			final HttpServletResponse httpResponse = (HttpServletResponse)response;
 			final HttpSession httpSession = request.getSession(true);
 			final Object session = httpSession.getAttribute(SESSION);
@@ -231,7 +231,7 @@ public abstract class Editor implements Filter
 						if(login!=null)
 						{
 							final String name = login.getName();
-							httpSession.setAttribute(Editor.SESSION, new Session(login, name));
+							httpSession.setAttribute(SESSION, new Session(login, name));
 							response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + '/'));
 						}
 						else
