@@ -141,7 +141,9 @@ public abstract class Editor implements Filter
 	
 	private final void doBar(
 			final HttpServletRequest request,
+			final HttpServletResponse response,
 			final Session session)
+	throws IOException
 	{
 		if(Cop.isPost(request) && request.getParameter(AVOID_COLLISION)!=null)
 		{
@@ -186,6 +188,10 @@ public abstract class Editor implements Filter
 					model.rollbackIfNotCommitted();
 				}
 			}
+			
+			final String referer = request.getParameter(REFERER);
+			if(referer!=null)
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
 		}
 	}
 	
@@ -200,7 +206,6 @@ public abstract class Editor implements Filter
 			final HttpServletResponse response)
 	throws IOException
 	{
-		response.setContentType("text/html; charset="+CopsServlet.ENCODING);
 		final HttpSession httpSession = request.getSession(true);
 		final Session session = (Session)httpSession.getAttribute(SESSION);
 		
@@ -209,6 +214,7 @@ public abstract class Editor implements Filter
 			PrintStream out = null;
 			try
 			{
+				response.setContentType("text/html; charset="+CopsServlet.ENCODING);
 				if(Cop.isPost(request) && request.getParameter(LOGIN)!=null)
 				{
 					final String user = request.getParameter(LOGIN_USER);
@@ -249,14 +255,7 @@ public abstract class Editor implements Filter
 		}
 		else
 		{
-			doBar(request, session);
-			
-			if(Cop.isPost(request))
-			{
-				final String referer = request.getParameter(REFERER);
-				if(referer!=null)
-					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
-			}
+			doBar(request, response, session);
 		}
 	}
 	
