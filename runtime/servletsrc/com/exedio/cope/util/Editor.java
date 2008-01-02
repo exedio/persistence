@@ -397,8 +397,12 @@ public abstract class Editor implements Filter
 		final TL tl = tls.get();
 		if(tl==null)
 			return;
-		final HttpServletRequest request = tl.request;
 		
-		Editor_Jspm.writeBar(out, tl.response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_URL_PATH_INFO), request.getPathInfo(), tl.session.borders, tl.session.login.getName());
+		final HttpServletRequest request = tl.request;
+		Editor_Jspm.writeBar(out,
+				tl.response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_URL_PATH_INFO),
+				request.getPathInfo(),
+				tl.session.borders,
+				tl.session.login.getName());
 	}
 }
