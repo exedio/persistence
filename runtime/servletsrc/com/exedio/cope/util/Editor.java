@@ -108,7 +108,19 @@ public abstract class Editor implements Filter
 		{
 			final Object session = httpSession.getAttribute(SESSION);
 			if(session!=null)
-				doBar(request, (HttpServletResponse)response, chain, (Session)session);
+			{
+				doBar(request, (Session)session);
+				
+				try
+				{
+					tls.set(new TL((HttpServletResponse)response, (Session)session));
+					chain.doFilter(request, response);
+				}
+				finally
+				{
+					tls.remove();
+				}
+			}
 			else
 				chain.doFilter(request, response);
 		}
@@ -130,9 +142,7 @@ public abstract class Editor implements Filter
 	
 	private final void doBar(
 			final HttpServletRequest request,
-			final HttpServletResponse response,
-			final FilterChain chain,
-			final Session session) throws IOException, ServletException
+			final Session session)
 	{
 		if(Cop.isPost(request) && request.getParameter(AVOID_COLLISION)!=null)
 		{
@@ -177,15 +187,6 @@ public abstract class Editor implements Filter
 					model.rollbackIfNotCommitted();
 				}
 			}
-		}
-		try
-		{
-			tls.set(new TL(response, session));
-			chain.doFilter(request, response);
-		}
-		finally
-		{
-			tls.remove();
 		}
 	}
 	
