@@ -99,13 +99,14 @@ public abstract class Editor implements Filter
 		
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
+			final HttpServletResponse httpResponse = (HttpServletResponse)response;
 			final HttpSession httpSession = request.getSession(true);
 			final Session session = (Session)httpSession.getAttribute(SESSION);
 			
 			if(session==null)
-				doLogin(request, httpSession, (HttpServletResponse)response);
+				doLogin(request, httpSession, httpResponse);
 			else
-				doBar(request, (HttpServletResponse)response, session);
+				doBar(request, httpResponse, session);
 			
 			return;
 		}
