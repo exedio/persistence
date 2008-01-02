@@ -101,12 +101,12 @@ public abstract class Editor implements Filter
 		{
 			final HttpServletResponse httpResponse = (HttpServletResponse)response;
 			final HttpSession httpSession = request.getSession(true);
-			final Session session = (Session)httpSession.getAttribute(SESSION);
+			final Object session = httpSession.getAttribute(SESSION);
 			
 			if(session==null)
 				doLogin(request, httpSession, httpResponse);
 			else
-				doBar(request, httpResponse, session);
+				doBar(request, httpResponse, (Session)session);
 			
 			return;
 		}
