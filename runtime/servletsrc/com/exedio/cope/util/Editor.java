@@ -216,47 +216,47 @@ public abstract class Editor implements Filter
 	throws IOException
 	{
 		assert httpSession!=null;
-			PrintStream out = null;
-			try
+		PrintStream out = null;
+		try
+		{
+			response.setContentType("text/html; charset="+CopsServlet.ENCODING);
+			if(Cop.isPost(request) && request.getParameter(LOGIN)!=null)
 			{
-				response.setContentType("text/html; charset="+CopsServlet.ENCODING);
-				if(Cop.isPost(request) && request.getParameter(LOGIN)!=null)
+				final String user = request.getParameter(LOGIN_USER);
+				final String password = request.getParameter(LOGIN_PASSWORD);
+				try
 				{
-					final String user = request.getParameter(LOGIN_USER);
-					final String password = request.getParameter(LOGIN_PASSWORD);
-					try
+					model.startTransaction(getClass().getName() + "#login");
+					final Login login = login(user, password);
+					if(login!=null)
 					{
-						model.startTransaction(getClass().getName() + "#login");
-						final Login login = login(user, password);
-						if(login!=null)
-						{
-							final String name = login.getName();
-							httpSession.setAttribute(SESSION, new Session(login, name));
-							response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + '/'));
-						}
-						else
-						{
-							out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
-							Editor_Jspm.writeLogin(out, response, user);
-						}
-						model.commit();
+						final String name = login.getName();
+						httpSession.setAttribute(SESSION, new Session(login, name));
+						response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + '/'));
 					}
-					finally
+					else
 					{
-						model.rollbackIfNotCommitted();
+						out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
+						Editor_Jspm.writeLogin(out, response, user);
 					}
+					model.commit();
 				}
-				else
+				finally
 				{
-					out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
-					Editor_Jspm.writeLogin(out, response, null);
+					model.rollbackIfNotCommitted();
 				}
 			}
-			finally
+			else
 			{
-				if(out!=null)
-					out.close();
+				out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
+				Editor_Jspm.writeLogin(out, response, null);
 			}
+		}
+		finally
+		{
+			if(out!=null)
+				out.close();
+		}
 	}
 	
 	private static final String SESSION = Session.class.getCanonicalName();
