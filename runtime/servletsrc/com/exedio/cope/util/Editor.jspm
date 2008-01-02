@@ -75,14 +75,17 @@ final class Editor_Jspm
 	
 	static final void writeBar(
 			final PrintStream out,
+			final String action,
+			final String referer,
 			final boolean borders,
 			final String loginName)
 	{
 		%>
 		<div class="contentEditorBar">
-			<form method="POST">
+			<form action="<%=action%>" method="POST">
 				Editor Mode enabled, logged in as <%=Cop.encodeXml(loginName)%>
 				<input type="hidden" name="<%=Editor.AVOID_COLLISION%>" value="true">
+				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
 			</form><%
 			if(borders)
@@ -130,8 +133,9 @@ final class Editor_Jspm
 					previousBorder = border;
 				}
 			</script>
-			<form method="POST" id="<%=ID_FORM%>" style="display:none;">
+			<form action="<%=action%>" method="POST" id="<%=ID_FORM%>" style="display:none;">
 				<input name="<%=   Editor.AVOID_COLLISION%>" value="true"         type="hidden">
+				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_KIND      %>" id="<%=ID_KIND   %>" type="hidden">

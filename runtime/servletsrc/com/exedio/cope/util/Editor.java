@@ -109,11 +109,9 @@ public abstract class Editor implements Filter
 			final Object session = httpSession.getAttribute(SESSION);
 			if(session!=null)
 			{
-				doBar(request, (Session)session);
-				
 				try
 				{
-					tls.set(new TL((HttpServletResponse)response, (Session)session));
+					tls.set(new TL(request, (HttpServletResponse)response, (Session)session));
 					chain.doFilter(request, response);
 				}
 				finally
@@ -131,6 +129,7 @@ public abstract class Editor implements Filter
 	}
 	
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
+	static final String REFERER = "referer";
 	static final String TOGGLE_BORDERS = "borders";
 	static final String SAVE_FEATURE = "feature";
 	static final String SAVE_ITEM    = "item";
@@ -248,6 +247,17 @@ public abstract class Editor implements Filter
 					out.close();
 			}
 		}
+		else
+		{
+			doBar(request, session);
+			
+			if(Cop.isPost(request))
+			{
+				final String referer = request.getParameter(REFERER);
+				if(referer!=null)
+					response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
+			}
+		}
 	}
 	
 	private static final String SESSION = Session.class.getCanonicalName();
@@ -282,14 +292,17 @@ public abstract class Editor implements Filter
 	
 	private static final class TL
 	{
+		final HttpServletRequest request;
 		final HttpServletResponse response;
 		final Session session;
 		
-		TL(final HttpServletResponse response, final Session session)
+		TL(final HttpServletRequest request, final HttpServletResponse response, final Session session)
 		{
+			this.request = request;
 			this.response = response;
 			this.session = session;
 			
+			assert request!=null;
 			assert response!=null;
 			assert session!=null;
 		}
@@ -384,7 +397,8 @@ public abstract class Editor implements Filter
 		final TL tl = tls.get();
 		if(tl==null)
 			return;
+		final HttpServletRequest request = tl.request;
 		
-		Editor_Jspm.writeBar(out, tl.session.borders, tl.session.login.getName());
+		Editor_Jspm.writeBar(out, tl.response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_URL_PATH_INFO), request.getPathInfo(), tl.session.borders, tl.session.login.getName());
 	}
 }
