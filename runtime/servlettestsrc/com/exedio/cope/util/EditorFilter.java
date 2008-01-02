@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serializable;
+
 public final class EditorFilter extends Editor
 {
 	public EditorFilter()
@@ -25,17 +27,29 @@ public final class EditorFilter extends Editor
 		super(EditedServlet.model);
 	}
 	
+	private static class Login implements Editor.Login, Serializable
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final String user;
+		
+		Login(final String user)
+		{
+			this.user = user;
+		}
+		
+		public String getName()
+		{
+			return "editor login name '" + user + '\'';
+		}
+	};
+	
 	@Override
 	protected Login login(final String user, final String password)
 	{
 		if(password.equals(user+"1234"))
-			return new Login()
-			{
-				public String getName()
-				{
-					return "editor login name '" + user + '\'';
-				}
-			};
+			return new Login(user);
+		
 		return null;
 	}
 }
