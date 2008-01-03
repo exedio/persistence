@@ -61,9 +61,13 @@ public final class EditedServlet extends HttpServlet
 		}
 	}
 	
-	private static final EditedItem createItem(final int number, final String image, final String imageContentType)
+	private static final EditedItem createItem(
+			final int number,
+			final String image, final String imageContentType)
 	{
-		final EditedItem item1 = new EditedItem("item" + number, Media.toValue(InitServlet.class.getResourceAsStream(image), imageContentType));
+		final EditedItem item1 = new EditedItem(
+				"item" + number,
+				Media.toValue(InitServlet.class.getResourceAsStream(image), imageContentType));
 		item1.setMap(1, "item" + number + "map1");
 		item1.setMap(2, "item" + number + "map2");
 		item1.setMap(3, "item" + number + "map3Block\nsecond line\r\nthird line");
