@@ -48,6 +48,7 @@ import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 
@@ -471,6 +472,15 @@ public abstract class Editor implements Filter
 					append("');return false;\"");
 		
 		return bf.toString();
+	}
+	
+	public static final String edit(final MediaFilter feature, final Item item)
+	{
+		final TL tl = tls.get();
+		if(tl==null || !tl.session.borders)
+			return "";
+		
+		return edit(feature.getSource(), item);
 	}
 	
 	public static final void writeBar(final PrintStream out)

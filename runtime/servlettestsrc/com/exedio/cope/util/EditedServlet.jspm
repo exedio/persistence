@@ -88,6 +88,7 @@ final class EditedServlet_Jspm
 					<li>map(2): <%=edit(item.getMap(2), item.map, item, 2)%> (<%=item.getMap(2)%>)</li>
 					<li>map(3)B: <pre><%=editBlock(item.getMap(3), item.map, item, 3)%></pre> <pre><%=item.getMap(3)%></pre></li>
 					<li>image: <img src="<%=item.getImageURL()%>"<%=edit(item.image, item)%>><%=item.getImageContentType()%></li>
+					<li>thumbnail: <img src="<%=item.getThumbnailURL()%>"<%=edit(item.thumbnail, item)%>><%=item.getThumbnailContentType()%></li>
 				</ul>
 			</li><%
 		}
