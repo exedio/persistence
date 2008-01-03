@@ -462,6 +462,8 @@
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
 			<fileset file="lib/exedio-cops.jar" />
+			<fileset file="lib/commons-fileupload.jar" />
+			<fileset file="lib/commons-io.jar" />
 			<fileset file="lib/hsqldb.jar" />
 		</copy>
 	</target>
@@ -524,6 +526,7 @@
 			<classpath>
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/commons-fileupload.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/instrument/classes" />
@@ -665,7 +668,6 @@
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/commons-fileupload.jar" />
 			</classpath>
 		</ljavac>
 		<copy todir="build/copernica/classes">

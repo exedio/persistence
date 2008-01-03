@@ -21,6 +21,8 @@ package com.exedio.cope.util;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -32,14 +34,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.exedio.cope.Cope;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.MapField;
-import com.exedio.cope.util.ConnectToken;
-import com.exedio.cope.util.ServletUtil;
+import com.exedio.cope.pattern.Media;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 
@@ -143,10 +151,13 @@ public abstract class Editor implements Filter
 	static final String SAVE_ITEM    = "item";
 	static final String SAVE_KIND    = "kind";
 	static final String SAVE_LINE    = "line";
+	static final String SAVE_FILE    = "file";
 	static final String SAVE_AREA    = "area";
 	static final String SAVE_KIND_LINE = "kindLine";
+	static final String SAVE_KIND_FILE = "kindFile";
 	static final String SAVE_KIND_AREA = "kindArea";
 	
+	@SuppressWarnings("deprecation")
 	private final void doBar(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
@@ -155,21 +166,57 @@ public abstract class Editor implements Filter
 	{
 		if(Cop.isPost(request))
 		{
-			if(request.getParameter(TOGGLE_BORDERS)!=null)
+			if(!ServletFileUpload.isMultipartContent(request))
+				throw new RuntimeException();
+
+			final HashMap<String, String> fields = new HashMap<String, String>();
+			final HashMap<String, FileItem> files = new HashMap<String, FileItem>();
+			final FileItemFactory factory = new DiskFileItemFactory();
+			final ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setHeaderEncoding(CopsServlet.ENCODING);
+			try
+			{
+				for(Iterator<?> i = upload.parseRequest(request).iterator(); i.hasNext(); )
+				{
+					final FileItem item = (FileItem)i.next();
+					if(item.isFormField())
+						fields.put(item.getFieldName(), item.getString(CopsServlet.ENCODING));
+					else
+						files.put(item.getFieldName(), item);
+				}
+			}
+			catch(FileUploadException e)
+			{
+				throw new RuntimeException(e);
+			}
+			
+			if(fields.get(TOGGLE_BORDERS)!=null)
 			{
 				session.borders = !session.borders;
 			}
 			
-			final String featureID = request.getParameter(SAVE_FEATURE);
+			final String featureID = fields.get(SAVE_FEATURE);
 			if(featureID!=null)
 			{
-				final String itemID    = request.getParameter(SAVE_ITEM);
-				final String kind      = request.getParameter(SAVE_KIND);
+				final String itemID    = fields.get(SAVE_ITEM);
+				final String kind      = fields.get(SAVE_KIND);
 				final String value;
+				final FileItem file;
 				if(SAVE_KIND_LINE.equals(kind))
-					value = request.getParameter(SAVE_LINE);
+				{
+					value = fields.get(SAVE_LINE);
+					file = null;
+				}
 				else if(SAVE_KIND_AREA.equals(kind))
-					value = request.getParameter(SAVE_AREA);
+				{
+					value = fields.get(SAVE_AREA);
+					file = null;
+				}
+				else if(SAVE_KIND_FILE.equals(kind))
+				{
+					file = files.get(SAVE_FILE);
+					value = null;
+				}
 				else
 					throw new RuntimeException(kind);
 			
@@ -177,13 +224,22 @@ public abstract class Editor implements Filter
 				{
 					model.startTransaction(getClass().getName() + "#save");
 					
-					final StringField feature = (StringField)model.findFeatureByID(featureID);
+					final Feature feature = model.findFeatureByID(featureID);
 					assert feature!=null : featureID;
 					final Item item = model.findByID(itemID);
-					String v = value;
-					if("".equals(v))
-						v = null;
-					feature.set(item, v);
+
+					if(file!=null)
+					{
+						// TODO use more efficient setter with File or byte[]
+						((Media)feature).set(item, file.getInputStream(), file.getContentType());
+					}
+					else
+					{
+						String v = value;
+						if("".equals(v))
+							v = null;
+						((StringField)feature).set(item, v);
+					}
 					
 					model.commit();
 				}
@@ -197,7 +253,7 @@ public abstract class Editor implements Filter
 				}
 			}
 			
-			final String referer = request.getParameter(REFERER);
+			final String referer = fields.get(REFERER);
 			if(referer!=null)
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
 		}
@@ -387,6 +443,32 @@ public abstract class Editor implements Filter
 			append("</").
 			append(tag).
 			append('>');
+		
+		return bf.toString();
+	}
+	
+	public static final String edit(final Media feature, final Item item)
+	{
+		final TL tl = tls.get();
+		if(tl==null || !tl.session.borders)
+			return "";
+		
+		assert feature!=null;
+		assert item!=null;
+		assert !feature.isFinal();
+		assert feature.getType().isAssignableFrom(item.getCopeType()) : item.getCopeID()+'-'+feature.getID();
+		
+		final StringBuilder bf = new StringBuilder();
+		bf.append(
+				" class=\"contentEditorLink\"" +
+				" onclick=\"" +
+					EDIT_METHOD + "(this,'").
+						append(feature.getID()).
+						append("','").
+						append(item.getCopeID()).
+						append("','").
+						append(Cop.encodeXml(feature.getURL(item))).		
+					append("');return false;\"");
 		
 		return bf.toString();
 	}

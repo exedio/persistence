@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.InitServlet;
+import com.exedio.cope.pattern.Media;
 
 public final class EditedServlet extends HttpServlet
 {
@@ -48,9 +50,9 @@ public final class EditedServlet extends HttpServlet
 		try
 		{
 			model.startTransaction("create sample data");
-			createItem(0);
-			createItem(1);
-			createItem(2);
+			createItem(0, "osorno.png", "image/png");
+			createItem(1, "tree.jpg", "image/jpeg");
+			createItem(2, "tree.jpg", "image/jpeg");
 			model.commit();
 		}
 		finally
@@ -59,9 +61,9 @@ public final class EditedServlet extends HttpServlet
 		}
 	}
 	
-	private static final EditedItem createItem(final int number)
+	private static final EditedItem createItem(final int number, final String image, final String imageContentType)
 	{
-		final EditedItem item1 = new EditedItem("item" + number);
+		final EditedItem item1 = new EditedItem("item" + number, Media.toValue(InitServlet.class.getResourceAsStream(image), imageContentType));
 		item1.setMap(1, "item" + number + "map1");
 		item1.setMap(2, "item" + number + "map2");
 		item1.setMap(3, "item" + number + "map3Block\nsecond line\r\nthird line");
