@@ -480,9 +480,10 @@ public abstract class Editor implements Filter
 			return;
 		
 		final HttpServletRequest request = tl.request;
+		final String queryString = request.getQueryString();
 		Editor_Jspm.writeBar(out,
 				tl.response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_URL_PATH_INFO),
-				request.getPathInfo(),
+				queryString!=null ? (request.getPathInfo() + '?' + request.getQueryString()) : request.getPathInfo(),
 				tl.session.borders,
 				tl.session.login.getName());
 	}
