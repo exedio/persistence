@@ -32,6 +32,13 @@ import com.exedio.cope.Model;
 
 public class ServletUtil
 {
+	private interface Config
+	{
+		String getInitParameter(String name);
+		String getName();
+		ServletContext getServletContext();
+	}
+
 	private static final String PARAMETER_MODEL = "model";
 
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
@@ -39,32 +46,58 @@ public class ServletUtil
 	{
 		final ServletConfig config = servlet.getServletConfig();
 		return getConnectedModel(
-				config.getInitParameter(PARAMETER_MODEL),
+				new Config()
+				{
+					public String getInitParameter(final String name)
+					{
+						return config.getInitParameter(name);
+					}
+					public String getName()
+					{
+						return config.getServletName();
+					}
+					public ServletContext getServletContext()
+					{
+						return config.getServletContext();
+					}
+				},
 				"servlet",
-				config.getServletName(),
-				servlet,
-				config.getServletContext());
+				servlet);
 	}
 	
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(
-				config.getInitParameter(PARAMETER_MODEL),
+				new Config()
+				{
+					public String getInitParameter(final String name)
+					{
+						return config.getInitParameter(name);
+					}
+					public String getName()
+					{
+						return config.getFilterName();
+					}
+					public ServletContext getServletContext()
+					{
+						return config.getServletContext();
+					}
+				},
 				"filter",
-				config.getFilterName(),
-				filter,
-				config.getServletContext());
+				filter);
 	}
 	
 	private static final ConnectToken getConnectedModel(
-					final String initParam,
+					final Config config,
 					final String kind,
-					final String name,
-					final Object nameObject,
-					final ServletContext context)
+					final Object nameObject)
 	throws ServletException
 	{
+		final String initParam = config.getInitParameter(PARAMETER_MODEL);
+		final String name = config.getName();
+		final ServletContext context = config.getServletContext();
+		
 		final String description =
 					kind + ' ' +
 					'"' + name + '"' + ' ' +
