@@ -159,10 +159,13 @@ public class ServletUtil
 	
 	private static final ConnectToken connect(final Model model, final Config config, final String name)
 	{
+		final String propertiesInitParam = config.getInitParameter("cope.properties");
+		final String propertiesFile = propertiesInitParam!=null ? propertiesInitParam : "WEB-INF/cope.properties";
+		
 		final ServletContext context = config.getServletContext();
 		return ConnectToken.issue(model,
 			new com.exedio.cope.ConnectProperties(
-				new File(context.getRealPath("WEB-INF/cope.properties")), getPropertyContext(context)), name);
+				new File(context.getRealPath(propertiesFile)), getPropertyContext(context)), name);
 	}
 	
 	public static final Properties.Context getPropertyContext(final ServletContext context)

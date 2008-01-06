@@ -12,6 +12,10 @@
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.pattern.InitServlet#model</param-value>
 		</init-param>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/media.cope.properties</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>media</servlet-name>
@@ -21,6 +25,10 @@
 	<servlet>
 		<servlet-name>init</servlet-name>
 		<servlet-class>com.exedio.cope.pattern.InitServlet</servlet-class>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/media.cope.properties</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>init</servlet-name>
@@ -34,6 +42,10 @@
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.pattern.InitServlet#model</param-value>
 		</init-param>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/media.cope.properties</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>mediaConsole</servlet-name>
@@ -44,6 +56,10 @@
 	<servlet>
 		<servlet-name>edited</servlet-name>
 		<servlet-class>com.exedio.cope.util.EditedServlet</servlet-class>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/editor.cope.properties</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>edited</servlet-name>
@@ -53,6 +69,10 @@
 	<filter>
 		<filter-name>editor</filter-name>
 		<filter-class>com.exedio.cope.util.EditorFilter</filter-class>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/editor.cope.properties</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>editor</filter-name>
@@ -61,11 +81,32 @@
 	</filter-mapping>
 	
 	<servlet>
+		<servlet-name>editorMedia</servlet-name>
+		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.util.EditedServlet#model</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/editor.cope.properties</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>editorMedia</servlet-name>
+		<url-pattern>/editorMedia/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>editedConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.util.EditedServlet#model</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cope.properties</param-name>
+			<param-value>WEB-INF/editor.cope.properties</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

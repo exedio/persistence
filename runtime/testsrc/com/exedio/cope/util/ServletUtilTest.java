@@ -181,6 +181,8 @@ public class ServletUtilTest extends CopeAssert
 				{
 					if("model".equals(name))
 						return model;
+					else if("cope.properties".equals(name))
+						return null;
 					else
 						throw new RuntimeException(name);
 				}
@@ -275,6 +277,8 @@ public class ServletUtilTest extends CopeAssert
 		{
 			if("model".equals(name))
 				return model;
+			else if("cope.properties".equals(name))
+				return null;
 			else
 				throw new RuntimeException(name);
 		}
