@@ -39,8 +39,6 @@ public class ServletUtil
 		ServletContext getServletContext();
 	}
 
-	private static final String PARAMETER_MODEL = "model";
-
 	private static final Config wrap(final Servlet servlet)
 	{
 		final ServletConfig config = servlet.getServletConfig();
@@ -59,15 +57,6 @@ public class ServletUtil
 				return config.getServletContext();
 			}
 		};
-	}
-	
-	public static final ConnectToken getConnectedModel(final Servlet servlet)
-	throws ServletException
-	{
-		return getConnectedModel(
-				wrap(servlet),
-				"servlet",
-				servlet);
 	}
 	
 	private static final Config wrap(final FilterConfig config)
@@ -89,6 +78,15 @@ public class ServletUtil
 		};
 	}
 	
+	public static final ConnectToken getConnectedModel(final Servlet servlet)
+	throws ServletException
+	{
+		return getConnectedModel(
+				wrap(servlet),
+				"servlet",
+				servlet);
+	}
+	
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
 	throws ServletException
 	{
@@ -98,6 +96,8 @@ public class ServletUtil
 				filter);
 	}
 	
+	private static final String PARAMETER_MODEL = "model";
+
 	private static final ConnectToken getConnectedModel(
 					final Config config,
 					final String kind,
