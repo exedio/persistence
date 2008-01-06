@@ -39,9 +39,8 @@ public class ServletUtil
 		ServletContext getServletContext();
 	}
 
-	private static final Config wrap(final Servlet servlet)
+	private static final Config wrap(final ServletConfig config)
 	{
-		final ServletConfig config = servlet.getServletConfig();
 		return new Config()
 		{
 			public String getInitParameter(final String name)
@@ -82,7 +81,7 @@ public class ServletUtil
 	throws ServletException
 	{
 		return getConnectedModel(
-				wrap(servlet),
+				wrap(servlet.getServletConfig()),
 				"servlet",
 				servlet);
 	}
@@ -138,7 +137,7 @@ public class ServletUtil
 		{
 			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
-		return connect(result, context, description);
+		return connect(result, config, description);
 	}
 	
 	/**
@@ -149,8 +148,19 @@ public class ServletUtil
 	 * @see Model#connect(com.exedio.cope.ConnectProperties)
 	 * @see ConnectToken#issue(Model,com.exedio.cope.ConnectProperties,String)
 	 */
-	public static final ConnectToken connect(final Model model, final ServletContext context, final String name)
+	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
 	{
+		return connect(model, wrap(config), name);
+	}
+	
+	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
+	{
+		return connect(model, wrap(config), name);
+	}
+	
+	private static final ConnectToken connect(final Model model, final Config config, final String name)
+	{
+		final ServletContext context = config.getServletContext();
 		return ConnectToken.issue(model,
 			new com.exedio.cope.ConnectProperties(
 				new File(context.getRealPath("WEB-INF/cope.properties")), getPropertyContext(context)), name);
@@ -193,11 +203,11 @@ public class ServletUtil
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #connect(Model, ServletContext, String)}.
+	 * @deprecated Renamed to {@link #connect(Model, ServletConfig, String)}.
 	 */
 	@Deprecated
-	public static final ConnectToken initialize(final Model model, final ServletContext context, final String name)
+	public static final ConnectToken initialize(final Model model, final ServletConfig config, final String name)
 	{
-		return connect(model, context, name);
+		return connect(model, config, name);
 	}
 }

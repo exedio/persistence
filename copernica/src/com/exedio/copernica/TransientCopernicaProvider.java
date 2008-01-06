@@ -42,7 +42,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 	public ConnectToken connect(final ServletConfig config, final String name)
 	{
 		final Model model = getModel();
-		final ConnectToken result = ServletUtil.connect(model, config.getServletContext(), name);
+		final ConnectToken result = ServletUtil.connect(model, config, name);
 		model.migrateIfSupported();
 		return result;
 	}

@@ -45,7 +45,7 @@ public final class EditedServlet extends HttpServlet
 	{
 		super.init();
 		
-		connectToken = ServletUtil.connect(model, getServletContext(), "EditedServlet#init");
+		connectToken = ServletUtil.connect(model, getServletConfig(), "EditedServlet#init");
 		model.createDatabase();
 		try
 		{

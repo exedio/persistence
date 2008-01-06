@@ -43,7 +43,7 @@ public class InitServlet extends HttpServlet
 		super.init();
 		
 		final Class thisClass = InitServlet.class;
-		connectToken = ServletUtil.connect(model, getServletContext(), thisClass.getName());
+		connectToken = ServletUtil.connect(model, getServletConfig(), thisClass.getName());
 		model.createDatabase();
 		try
 		{
