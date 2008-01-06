@@ -95,14 +95,13 @@ public class ServletUtil
 				filter);
 	}
 	
-	private static final String PARAMETER_MODEL = "model";
-
 	private static final ConnectToken getConnectedModel(
 					final Config config,
 					final String kind,
 					final Object nameObject)
 	throws ServletException
 	{
+		final String PARAMETER_MODEL = "model";
 		final String initParam = config.getInitParameter(PARAMETER_MODEL);
 		final String name = config.getName();
 		final ServletContext context = config.getServletContext();
