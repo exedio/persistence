@@ -442,7 +442,8 @@
 	</target>
 
 	<target name="runtime.servlet.test.web"
-			  depends="runtime.servlet.test.instrument, runtime.servlet.test.jspm, runtime.servlet.compile, console.compile">
+			  depends="runtime.servlet.test.instrument, runtime.servlet.test.jspm, runtime.servlet.compile,
+			           console.compile">
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
 			<fileset dir="build/runtime/classes" />
 		</copy>
