@@ -41,49 +41,59 @@ public class ServletUtil
 
 	private static final String PARAMETER_MODEL = "model";
 
+	private static final Config wrap(final Servlet servlet)
+	{
+		final ServletConfig config = servlet.getServletConfig();
+		return new Config()
+		{
+			public String getInitParameter(final String name)
+			{
+				return config.getInitParameter(name);
+			}
+			public String getName()
+			{
+				return config.getServletName();
+			}
+			public ServletContext getServletContext()
+			{
+				return config.getServletContext();
+			}
+		};
+	}
+	
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
 	throws ServletException
 	{
-		final ServletConfig config = servlet.getServletConfig();
 		return getConnectedModel(
-				new Config()
-				{
-					public String getInitParameter(final String name)
-					{
-						return config.getInitParameter(name);
-					}
-					public String getName()
-					{
-						return config.getServletName();
-					}
-					public ServletContext getServletContext()
-					{
-						return config.getServletContext();
-					}
-				},
+				wrap(servlet),
 				"servlet",
 				servlet);
+	}
+	
+	private static final Config wrap(final FilterConfig config)
+	{
+		return new Config()
+		{
+			public String getInitParameter(final String name)
+			{
+				return config.getInitParameter(name);
+			}
+			public String getName()
+			{
+				return config.getFilterName();
+			}
+			public ServletContext getServletContext()
+			{
+				return config.getServletContext();
+			}
+		};
 	}
 	
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
 	throws ServletException
 	{
 		return getConnectedModel(
-				new Config()
-				{
-					public String getInitParameter(final String name)
-					{
-						return config.getInitParameter(name);
-					}
-					public String getName()
-					{
-						return config.getFilterName();
-					}
-					public ServletContext getServletContext()
-					{
-						return config.getServletContext();
-					}
-				},
+				wrap(config),
 				"filter",
 				filter);
 	}
