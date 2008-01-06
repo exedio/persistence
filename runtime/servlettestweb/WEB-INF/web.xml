@@ -27,6 +27,19 @@
 		<url-pattern>/init/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>mediaConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.pattern.InitServlet#model</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mediaConsole</servlet-name>
+		<url-pattern>/mediaConsole/*</url-pattern>
+	</servlet-mapping>
+
 
 	<servlet>
 		<servlet-name>edited</servlet-name>
@@ -46,6 +59,19 @@
 		<servlet-name>edited</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>editedConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.util.EditedServlet#model</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>editedConsole</servlet-name>
+		<url-pattern>/editedConsole/*</url-pattern>
+	</servlet-mapping>
 	
 	<description>Cope Runtime Servlet Test</description>
 	<display-name>Cope Runtime Servlet Test</display-name>
