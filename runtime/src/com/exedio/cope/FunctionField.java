@@ -304,9 +304,12 @@ public abstract class FunctionField<E extends Object>
 	/**
 	 * Finds an item by it's unique fields.
 	 * @return null if there is no matching item.
+	 * @throws NullPointerException if value is null.
 	 */
 	public final Item searchUnique(final E value)
 	{
+		if(value==null)
+			throw new NullPointerException("cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
 		return getType().searchSingleton(equal(value));
 	}
@@ -314,9 +317,12 @@ public abstract class FunctionField<E extends Object>
 	/**
 	 * Finds an item by it's unique fields.
 	 * @return null if there is no matching item.
+	 * @throws NullPointerException if value is null.
 	 */
 	public final <P extends Item> P searchUnique(final Class<P> typeClass, final E value)
 	{
+		if(value==null)
+			throw new NullPointerException("cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
 		return getType().castType(typeClass).searchSingleton(equal(value));
 	}

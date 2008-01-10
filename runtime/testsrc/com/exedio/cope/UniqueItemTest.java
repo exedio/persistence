@@ -75,7 +75,17 @@ public class UniqueItemTest extends TestmodelTest
 		final ItemWithSingleUnique nullItem1 = deleteOnTearDown(new ItemWithSingleUnique());
 		assertEquals(null, nullItem1.getUniqueString());
 		assertEquals(null, nullItem1.forUniqueString("uniqueString"));
-		assertEquals(nullItem1, nullItem1.forUniqueString(null));
+		try
+		{
+			nullItem1.forUniqueString(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(
+					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
+					e.getMessage());
+		}
 		
 		final ItemWithSingleUnique nullItem2 = deleteOnTearDown(new ItemWithSingleUnique());
 		assertEquals(null, nullItem2.getUniqueString());
@@ -85,17 +95,27 @@ public class UniqueItemTest extends TestmodelTest
 			nullItem2.forUniqueString(null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(NullPointerException e)
 		{
 			assertEquals(
-					"expected result of size one or less, but was [ItemWithSingleUnique.0, ItemWithSingleUnique.1] for query: select this from ItemWithSingleUnique where uniqueString is null",
+					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
 					e.getMessage());
 		}
 		
 		nullItem2.setUniqueString("uniqueString");
 		assertEquals("uniqueString", nullItem2.getUniqueString());
 		assertEquals(nullItem2, ItemWithSingleUnique.forUniqueString("uniqueString"));
-		assertEquals(nullItem1, nullItem2.forUniqueString(null));
+		try
+		{
+			nullItem2.forUniqueString(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(
+					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
+					e.getMessage());
+		}
 		
 		nullItem2.setUniqueString(null);
 		assertEquals(null, nullItem2.getUniqueString());
@@ -105,10 +125,10 @@ public class UniqueItemTest extends TestmodelTest
 			nullItem2.forUniqueString(null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(NullPointerException e)
 		{
 			assertEquals(
-					"expected result of size one or less, but was [ItemWithSingleUnique.0, ItemWithSingleUnique.1] for query: select this from ItemWithSingleUnique where uniqueString is null",
+					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
 					e.getMessage());
 		}
 		
