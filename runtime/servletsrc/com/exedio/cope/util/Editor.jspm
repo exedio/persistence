@@ -132,7 +132,7 @@ final class Editor_Jspm
 						area.firstChild.data = null;
 						document.getElementById("<%=ID_FILE_FEATURE%>").value = feature;
 						document.getElementById("<%=ID_FILE_ITEM   %>").value = item;
-						file.value = value;
+						file.src = value;
 						fileForm.style.display = "inline";
 					}
 					else
@@ -166,8 +166,10 @@ final class Editor_Jspm
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FILE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_KIND      %>" value="<%=Editor.SAVE_KIND_FILE%>" type="hidden">
-				<input name="<%=   Editor.SAVE_FILE      %>" id="<%=ID_FILE   %>" type="file" size="100">
+				<input name="<%=   Editor.SAVE_FILE      %>" type="file" size="100">
 				<input type="submit" value="Save">
+				<br>
+				<img id="<%=ID_FILE%>" src="">
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;" enctype="multipart/form-data">
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
