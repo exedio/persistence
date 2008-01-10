@@ -21,10 +21,6 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-/**
- * An item having a unique attribute.
- * @author Ralf Wiebicke
- */
 public class ItemWithSingleUnique extends Item
 {
 	/**
@@ -33,7 +29,22 @@ public class ItemWithSingleUnique extends Item
 	public static final StringField uniqueString = new StringField().optional().unique();
 
 	public static final StringField otherString = new StringField().optional();
+	
+	public ItemWithSingleUnique(final String uniqueString)
+	{
+		this(new com.exedio.cope.SetValue[]{
+			ItemWithSingleUnique.uniqueString.map(uniqueString)
+		});
+	}
 
+	public ItemWithSingleUnique(final String uniqueString, final String otherString)
+	{
+		this(new com.exedio.cope.SetValue[]{
+			ItemWithSingleUnique.uniqueString.map(uniqueString),
+			ItemWithSingleUnique.otherString.map(otherString)
+		});
+	}
+	
 /**
 
 	 **

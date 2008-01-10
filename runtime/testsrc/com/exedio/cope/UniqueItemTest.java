@@ -30,6 +30,7 @@ public class UniqueItemTest extends TestmodelTest
 	public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
 	{
+		// test model
 		assertEqualsUnmodifiable(
 			list(
 				ItemWithSingleUnique.TYPE.getThis(),
@@ -67,6 +68,7 @@ public class UniqueItemTest extends TestmodelTest
 			list(ItemWithSingleUniqueNotNull.uniqueNotNullString.getImplicitUniqueConstraint()),
 			ItemWithSingleUniqueNotNull.uniqueNotNullString.getUniqueConstraints());
 
+		// test persistence
 		assertEquals(null, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
 		final ItemWithSingleUnique item = new ItemWithSingleUnique();
@@ -97,6 +99,45 @@ public class UniqueItemTest extends TestmodelTest
 
 			assertDelete(item2);
 		}
+		
+		try
+		{
+			new ItemWithSingleUnique("uniqueString");
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("unique violation on a newly created item for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+		}
+		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
+
+		try
+		{
+			new ItemWithSingleUnique("uniqueString", "otherString");
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("unique violation on a newly created item for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+		}
+		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
+
+		try
+		{
+			new ItemWithSingleUnique("uniqueString", null);
+			fail();
+		}
+		catch(UniqueViolationException e)
+		{
+			assertEquals(item.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("unique violation on a newly created item for " + item.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+		}
+		assertEquals(item, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
 		restartTransaction();
 		assertTrue(!item.isActiveCopeItem());
