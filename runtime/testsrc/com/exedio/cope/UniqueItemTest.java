@@ -82,9 +82,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals(
-					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
-					e.getMessage());
+			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
 		}
 		
 		final ItemWithSingleUnique nullItem2 = deleteOnTearDown(new ItemWithSingleUnique());
@@ -97,9 +95,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals(
-					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
-					e.getMessage());
+			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
 		}
 		
 		nullItem2.setUniqueString("uniqueString");
@@ -112,9 +108,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals(
-					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
-					e.getMessage());
+			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
 		}
 		
 		nullItem2.setUniqueString(null);
@@ -127,9 +121,7 @@ public class UniqueItemTest extends TestmodelTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals(
-					"cannot search uniquely for null on ItemWithSingleUnique.uniqueString",
-					e.getMessage());
+			assertEquals("cannot search uniquely for null on ItemWithSingleUnique.uniqueString", e.getMessage());
 		}
 		
 		// test non-null values
