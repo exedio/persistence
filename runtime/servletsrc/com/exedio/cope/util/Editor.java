@@ -115,7 +115,7 @@ public abstract class Editor implements Filter
 			if(session==null)
 				doLogin(request, httpSession, httpResponse);
 			else
-				doBar(request, httpResponse, httpSession, (Session)session);
+				doBar(request, httpSession, httpResponse, (Session)session);
 			
 			return;
 		}
@@ -162,8 +162,8 @@ public abstract class Editor implements Filter
 	@SuppressWarnings("deprecation")
 	private final void doBar(
 			final HttpServletRequest request,
-			final HttpServletResponse response,
 			final HttpSession httpSession,
+			final HttpServletResponse response,
 			final Session session)
 	throws IOException
 	{
