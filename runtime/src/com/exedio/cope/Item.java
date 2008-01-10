@@ -313,7 +313,7 @@ public abstract class Item extends Cope
 	
 	private static final void checkUniqueConstraints(final Type<?> type, final Item item, final Map<? extends Field, ?> fieldValues)
 	{
-		uc: for(final UniqueConstraint uc : type.uniqueConstraints)
+		for(final UniqueConstraint uc : type.uniqueConstraints)
 		{
 			final List<FunctionField<?>> fields = uc.getFields();
 			field:
@@ -328,7 +328,7 @@ public abstract class Item extends Cope
 					{
 						final Object value = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
 						if(value==null)
-							continue uc;
+							break field;
 						values[i++] = value;
 					}
 					
