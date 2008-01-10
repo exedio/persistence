@@ -71,6 +71,48 @@ public class UniqueItemTest extends TestmodelTest
 		// test persistence
 		assertEquals(null, ItemWithSingleUnique.forUniqueString("uniqueString"));
 
+		// create two items with null, that must not interfere with uniqueness
+		final ItemWithSingleUnique nullItem1 = deleteOnTearDown(new ItemWithSingleUnique());
+		assertEquals(null, nullItem1.getUniqueString());
+		assertEquals(null, nullItem1.forUniqueString("uniqueString"));
+		assertEquals(nullItem1, nullItem1.forUniqueString(null));
+		
+		final ItemWithSingleUnique nullItem2 = deleteOnTearDown(new ItemWithSingleUnique());
+		assertEquals(null, nullItem2.getUniqueString());
+		assertEquals(null, nullItem2.forUniqueString("uniqueString"));
+		try
+		{
+			nullItem2.forUniqueString(null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(
+					"expected result of size one or less, but was [ItemWithSingleUnique.0, ItemWithSingleUnique.1] for query: select this from ItemWithSingleUnique where uniqueString is null",
+					e.getMessage());
+		}
+		
+		nullItem2.setUniqueString("uniqueString");
+		assertEquals("uniqueString", nullItem2.getUniqueString());
+		assertEquals(nullItem2, ItemWithSingleUnique.forUniqueString("uniqueString"));
+		assertEquals(nullItem1, nullItem2.forUniqueString(null));
+		
+		nullItem2.setUniqueString(null);
+		assertEquals(null, nullItem2.getUniqueString());
+		assertEquals(null, nullItem2.forUniqueString("uniqueString"));
+		try
+		{
+			nullItem2.forUniqueString(null);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(
+					"expected result of size one or less, but was [ItemWithSingleUnique.0, ItemWithSingleUnique.1] for query: select this from ItemWithSingleUnique where uniqueString is null",
+					e.getMessage());
+		}
+		
+		// test non-null values
 		final ItemWithSingleUnique item = new ItemWithSingleUnique();
 		assertEquals(null, item.getUniqueString());
 		assertEquals(null, item.forUniqueString("uniqueString"));
