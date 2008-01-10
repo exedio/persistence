@@ -115,7 +115,7 @@ public abstract class Editor implements Filter
 			if(session==null)
 				doLogin(request, httpSession, httpResponse);
 			else
-				doBar(request, httpResponse, (Session)session);
+				doBar(request, httpResponse, httpSession, (Session)session);
 			
 			return;
 		}
@@ -148,6 +148,7 @@ public abstract class Editor implements Filter
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
 	static final String REFERER = "referer";
 	static final String TOGGLE_BORDERS = "borders";
+	static final String LOGOUT = "logout";
 	static final String SAVE_FEATURE = "feature";
 	static final String SAVE_ITEM    = "item";
 	static final String SAVE_KIND    = "kind";
@@ -162,6 +163,7 @@ public abstract class Editor implements Filter
 	private final void doBar(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
+			final HttpSession httpSession,
 			final Session session)
 	throws IOException
 	{
@@ -194,6 +196,10 @@ public abstract class Editor implements Filter
 			if(fields.get(TOGGLE_BORDERS)!=null)
 			{
 				session.borders = !session.borders;
+			}
+			else if(fields.get(LOGOUT)!=null)
+			{
+				httpSession.removeAttribute(SESSION);
 			}
 			
 			final String featureID = fields.get(SAVE_FEATURE);

@@ -86,6 +86,7 @@ final class Editor_Jspm
 				Editor Mode enabled, logged in as <%=Cop.encodeXml(loginName)%>
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
+				<input type="submit" name="<%=Editor.LOGOUT%>" value="Log out">
 			</form><%
 			if(borders)
 			{
