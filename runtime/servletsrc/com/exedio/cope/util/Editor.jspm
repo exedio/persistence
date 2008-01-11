@@ -82,8 +82,7 @@ final class Editor_Jspm
 	{
 		%>
 		<div class="contentEditorBar">
-			<form action="<%=action%>" method="POST" enctype="multipart/form-data"
-					class="contentEditorBarSwitches">
+			<form action="<%=action%>" method="POST" enctype="multipart/form-data" class="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
 				<input type="submit" name="<%=Editor.LOGOUT%>" value="X">
@@ -171,7 +170,8 @@ final class Editor_Jspm
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FILE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_KIND      %>" value="<%=Editor.SAVE_KIND_FILE%>" type="hidden">
-				<input name="<%=   Editor.SAVE_FILE      %>" type="file" class="text"><br>
+				<input name="<%=   Editor.SAVE_FILE      %>" type="file" class="text">
+				<br>
 				<input type="submit" value="Save">
 				<br>
 			</form>
