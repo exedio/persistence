@@ -82,12 +82,15 @@ final class Editor_Jspm
 	{
 		%>
 		<div class="contentEditorBar">
-			<form action="<%=action%>" method="POST" enctype="multipart/form-data">
-				Editor Mode enabled, logged in as <%=Cop.encodeXml(loginName)%>
+			<form action="<%=action%>" method="POST" enctype="multipart/form-data"
+					class="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
-				<input type="submit" name="<%=Editor.LOGOUT%>" value="Log out">
-			</form><%
+				<input type="submit" name="<%=Editor.LOGOUT%>" value="X">
+			</form>
+			<h1>COPE Content Editor</h1>
+			logged in as <%=Cop.encodeXml(loginName)%>
+			<br clear="both"><%
 			if(borders)
 			{
 				final String ID_FORM_LINE = Editor.AVOID_COLLISION + "saveFormLine";
@@ -159,18 +162,18 @@ final class Editor_Jspm
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_LINE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_KIND      %>" value="<%=Editor.SAVE_KIND_LINE%>" type="hidden">
-				<input name="<%=   Editor.SAVE_LINE      %>" id="<%=ID_LINE   %>" size="100">
+				<input name="<%=   Editor.SAVE_LINE      %>" id="<%=ID_LINE   %>" class="text">
 				<input type="submit" value="Save">
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
+				<img id="<%=ID_FILE%>" src="">
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FILE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_KIND      %>" value="<%=Editor.SAVE_KIND_FILE%>" type="hidden">
-				<input name="<%=   Editor.SAVE_FILE      %>" type="file" size="100">
+				<input name="<%=   Editor.SAVE_FILE      %>" type="file" class="text"><br>
 				<input type="submit" value="Save">
 				<br>
-				<img id="<%=ID_FILE%>" src="">
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;" enctype="multipart/form-data">
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">

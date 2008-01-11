@@ -45,26 +45,57 @@ final class EditedServlet_Jspm
 		
 			.contentEditorLink
 			{
-				margin: -1px;
-				border: dashed 1px #f33;
+				margin: -2px;
+				border: dotted 2px #d33;
 			}
 			
 			.contentEditorLinkEdited
 			{
-				margin: -1px;
-				border: solid 1px #f33;
+				margin: -2px;
+				border: solid 2px #d33;
 			}
 			
 			div.contentEditorBar
 			{
-				border: dashed 1px #f33;
-				padding: 2px 5px;
+				margin: 10px;
+				border-bottom: solid 1px #dde;
+				background: #eef;
+				padding: 5px;
 				font-size: 10pt;
+				color: #002;
+			}
+			
+			div.contentEditorBar h1
+			{
+				margin: 0px;
+				border: 0px;
+				padding: 0px;
+				font-size: 12pt;
+			}
+			
+			form.contentEditorBarSwitches
+			{
+				float: right;
 			}
 			
 			div.contentEditorBar input
 			{
+				background: #eef;
 				font-size: 80%;
+				color: #002;
+			}
+			
+			div.contentEditorBar input.text
+			{
+				width: 90%;
+			}
+			
+			#contentEditorBar823658617saveFormFile img
+			{
+				margin: 0px;
+				float: right;
+				border: solid #ccd 5px;
+				height: 40px;
 			}
 			
 		</style><%
