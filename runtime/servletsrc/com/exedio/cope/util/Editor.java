@@ -166,7 +166,7 @@ public abstract class Editor implements Filter
 			final Session session)
 	throws IOException
 	{
-		if(Cop.isPost(request))
+		if(!Cop.isPost(request))
 			return;
 		
 		final String referer;
