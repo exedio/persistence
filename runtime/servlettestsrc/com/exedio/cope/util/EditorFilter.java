@@ -40,7 +40,7 @@ public final class EditorFilter extends Editor
 		
 		public String getName()
 		{
-			return "editor login name '" + user + '\'';
+			return "---" + user + "---";
 		}
 	};
 	
