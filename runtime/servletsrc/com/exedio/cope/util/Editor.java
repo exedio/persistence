@@ -144,6 +144,14 @@ public abstract class Editor implements Filter
 		}
 	}
 	
+	private static final void redirectHome(
+			final HttpServletRequest request,
+			final HttpServletResponse response)
+	throws IOException
+	{
+		response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + '/'));
+	}
+	
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
 	static final String REFERER = "referer";
 	static final String TOGGLE_BORDERS = "borders";
@@ -167,7 +175,10 @@ public abstract class Editor implements Filter
 	throws IOException
 	{
 		if(!Cop.isPost(request))
+		{
+			redirectHome(request, response);
 			return;
+		}
 		
 		final String referer;
 		
@@ -315,7 +326,7 @@ public abstract class Editor implements Filter
 					{
 						final String name = login.getName();
 						httpSession.setAttribute(SESSION, new Session(login, name));
-						response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + '/'));
+						redirectHome(request, response);
 					}
 					else
 					{
