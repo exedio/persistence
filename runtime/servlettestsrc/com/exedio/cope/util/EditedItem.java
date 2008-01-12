@@ -35,7 +35,7 @@ final class EditedItem extends Item
 	static final MapField<Integer, String> map = MapField.newMap(new IntegerField(), new StringField());
 	
 	static final Media image = new Media().contentType("image/jpeg", "image/png");
-	static final MediaThumbnail thumbnail = new MediaThumbnail(image, 10, 10);
+	static final MediaThumbnail thumbnail = new MediaThumbnail(image, 20, 20);
 
 	
 	/**
