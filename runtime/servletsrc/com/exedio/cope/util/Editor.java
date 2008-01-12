@@ -41,7 +41,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -169,98 +168,118 @@ public abstract class Editor implements Filter
 	{
 		if(Cop.isPost(request))
 		{
-			if(!ServletFileUpload.isMultipartContent(request))
-				throw new RuntimeException();
-
-			final HashMap<String, String> fields = new HashMap<String, String>();
-			final HashMap<String, FileItem> files = new HashMap<String, FileItem>();
-			final FileItemFactory factory = new DiskFileItemFactory();
-			final ServletFileUpload upload = new ServletFileUpload(factory);
-			upload.setHeaderEncoding(CopsServlet.ENCODING);
-			try
-			{
-				for(Iterator<?> i = upload.parseRequest(request).iterator(); i.hasNext(); )
-				{
-					final FileItem item = (FileItem)i.next();
-					if(item.isFormField())
-						fields.put(item.getFieldName(), item.getString(CopsServlet.ENCODING));
-					else
-						files.put(item.getFieldName(), item);
-				}
-			}
-			catch(FileUploadException e)
-			{
-				throw new RuntimeException(e);
-			}
+			final String referer;
 			
-			if(fields.get(TOGGLE_BORDERS)!=null)
+			if(ServletFileUpload.isMultipartContent(request))
 			{
-				session.borders = !session.borders;
-			}
-			else if(fields.get(LOGOUT)!=null)
-			{
-				httpSession.removeAttribute(SESSION);
-			}
-			
-			final String featureID = fields.get(SAVE_FEATURE);
-			if(featureID!=null)
-			{
-				final String itemID    = fields.get(SAVE_ITEM);
-				final String kind      = fields.get(SAVE_KIND);
-				final String value;
-				final FileItem file;
-				if(SAVE_KIND_LINE.equals(kind))
-				{
-					value = fields.get(SAVE_LINE);
-					file = null;
-				}
-				else if(SAVE_KIND_AREA.equals(kind))
-				{
-					value = fields.get(SAVE_AREA);
-					file = null;
-				}
-				else if(SAVE_KIND_FILE.equals(kind))
-				{
-					file = files.get(SAVE_FILE);
-					value = null;
-				}
-				else
-					throw new RuntimeException(kind);
-			
+				final HashMap<String, String> fields = new HashMap<String, String>();
+				final HashMap<String, FileItem> files = new HashMap<String, FileItem>();
+				final FileItemFactory factory = new DiskFileItemFactory();
+				final ServletFileUpload upload = new ServletFileUpload(factory);
+				upload.setHeaderEncoding(CopsServlet.ENCODING);
 				try
 				{
-					model.startTransaction(getClass().getName() + "#save");
-					
-					final Feature feature = model.findFeatureByID(featureID);
-					assert feature!=null : featureID;
-					final Item item = model.findByID(itemID);
-
-					if(file!=null)
+					for(Iterator<?> i = upload.parseRequest(request).iterator(); i.hasNext(); )
 					{
-						// TODO use more efficient setter with File or byte[]
-						((Media)feature).set(item, file.getInputStream(), file.getContentType());
+						final FileItem item = (FileItem)i.next();
+						if(item.isFormField())
+							fields.put(item.getFieldName(), item.getString(CopsServlet.ENCODING));
+						else
+							files.put(item.getFieldName(), item);
 					}
-					else
-					{
-						String v = value;
-						if("".equals(v))
-							v = null;
-						((StringField)feature).set(item, v);
-					}
-					
-					model.commit();
 				}
-				catch(NoSuchIDException e)
+				catch(FileUploadException e)
 				{
 					throw new RuntimeException(e);
 				}
-				finally
+				
+				final String featureID = fields.get(SAVE_FEATURE);
+				if(featureID!=null)
 				{
-					model.rollbackIfNotCommitted();
+					final String itemID    = fields.get(SAVE_ITEM);
+					final String kind      = fields.get(SAVE_KIND);
+					if(!SAVE_KIND_FILE.equals(kind))
+						throw new RuntimeException(kind);
+					
+					final FileItem file = files.get(SAVE_FILE);
+				
+					try
+					{
+						model.startTransaction(getClass().getName() + "#saveFile");
+						
+						final Media feature = (Media)model.findFeatureByID(featureID);
+						assert feature!=null : featureID;
+						final Item item = model.findByID(itemID);
+	
+						// TODO use more efficient setter with File or byte[]
+						feature.set(item, file.getInputStream(), file.getContentType());
+						
+						model.commit();
+					}
+					catch(NoSuchIDException e)
+					{
+						throw new RuntimeException(e);
+					}
+					finally
+					{
+						model.rollbackIfNotCommitted();
+					}
 				}
+				
+				referer = fields.get(REFERER);
+			}
+			else // isMultipartContent
+			{
+				if(request.getParameter(TOGGLE_BORDERS)!=null)
+				{
+					session.borders = !session.borders;
+				}
+				else if(request.getParameter(LOGOUT)!=null)
+				{
+					httpSession.removeAttribute(SESSION);
+				}
+				
+				final String featureID = request.getParameter(SAVE_FEATURE);
+				if(featureID!=null)
+				{
+					final String itemID    = request.getParameter(SAVE_ITEM);
+					final String kind      = request.getParameter(SAVE_KIND);
+					final String value;
+					if(SAVE_KIND_LINE.equals(kind))
+						value = request.getParameter(SAVE_LINE);
+					else if(SAVE_KIND_AREA.equals(kind))
+						value = request.getParameter(SAVE_AREA);
+					else
+						throw new RuntimeException(kind);
+				
+					try
+					{
+						model.startTransaction(getClass().getName() + "#save");
+						
+						final StringField feature = (StringField)model.findFeatureByID(featureID);
+						assert feature!=null : featureID;
+						final Item item = model.findByID(itemID);
+	
+						String v = value;
+						if("".equals(v))
+							v = null;
+						feature.set(item, v);
+						
+						model.commit();
+					}
+					catch(NoSuchIDException e)
+					{
+						throw new RuntimeException(e);
+					}
+					finally
+					{
+						model.rollbackIfNotCommitted();
+					}
+				}
+				
+				referer = request.getParameter(REFERER);
 			}
 			
-			final String referer = fields.get(REFERER);
 			if(referer!=null)
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
 		}

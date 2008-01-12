@@ -82,7 +82,7 @@ final class Editor_Jspm
 	{
 		%>
 		<div class="contentEditorBar">
-			<form action="<%=action%>" method="POST" enctype="multipart/form-data" class="contentEditorBarSwitches">
+			<form action="<%=action%>" method="POST" class="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
 				<input type="submit" name="<%=Editor.LOGOUT%>" value="X">
@@ -156,7 +156,7 @@ final class Editor_Jspm
 					previousBorder = border;
 				}
 			</script>
-			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;" enctype="multipart/form-data">
+			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;">
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_LINE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
@@ -175,7 +175,7 @@ final class Editor_Jspm
 				<input type="submit" value="Save">
 				<br>
 			</form>
-			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;" enctype="multipart/form-data">
+			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;">
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_AREA_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_AREA_ITEM   %>" type="hidden">
