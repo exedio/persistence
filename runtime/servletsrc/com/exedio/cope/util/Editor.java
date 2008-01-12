@@ -41,6 +41,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.Feature;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -160,6 +162,7 @@ public abstract class Editor implements Filter
 	static final String SAVE_ITEM    = "item";
 	static final String SAVE_TEXT    = "text";
 	static final String SAVE_FILE    = "file";
+	static final String SAVE_ITEM_FROM = "itemPrevious";
 	
 	@SuppressWarnings("deprecation")
 	private static final boolean isMultipartContent(final HttpServletRequest request)
@@ -257,36 +260,71 @@ public abstract class Editor implements Filter
 				if(featureID==null)
 					throw new NullPointerException();
 				
-				final StringField feature = (StringField)model.findFeatureByID(featureID);
-				if(feature==null)
+				final Feature featureO = model.findFeatureByID(featureID);
+				if(featureO==null)
 					throw new NullPointerException(featureID);
 				
 				final String itemID = request.getParameter(SAVE_ITEM);
 				if(itemID==null)
 					throw new NullPointerException();
 				
-				final String value = request.getParameter(SAVE_TEXT);
-			
-				try
+				if(featureO instanceof StringField)
 				{
-					model.startTransaction(getClass().getName() + "#saveText(" + featureID + ',' + itemID + ')');
-					
-					final Item item = model.findByID(itemID);
-
-					String v = value;
-					if("".equals(v))
-						v = null;
-					feature.set(item, v);
-					
-					model.commit();
+					final StringField feature = (StringField)featureO;
+					final String value = request.getParameter(SAVE_TEXT);
+				
+					try
+					{
+						model.startTransaction(getClass().getName() + "#saveText(" + featureID + ',' + itemID + ')');
+						
+						final Item item = model.findByID(itemID);
+	
+						String v = value;
+						if("".equals(v))
+							v = null;
+						feature.set(item, v);
+						
+						model.commit();
+					}
+					catch(NoSuchIDException e)
+					{
+						throw new RuntimeException(e);
+					}
+					finally
+					{
+						model.rollbackIfNotCommitted();
+					}
 				}
-				catch(NoSuchIDException e)
+				else
 				{
-					throw new RuntimeException(e);
-				}
-				finally
-				{
-					model.rollbackIfNotCommitted();
+					final IntegerField feature = (IntegerField)featureO;
+					final String itemIDFrom = request.getParameter(SAVE_ITEM_FROM);
+					if(itemIDFrom==null)
+						throw new NullPointerException();
+					
+					try
+					{
+						model.startTransaction(getClass().getName() + "#savePosition(" + featureID + ',' + itemIDFrom +  + ',' + itemID + ')');
+						
+						final Item itemFrom = model.findByID(itemIDFrom);
+						final Item itemTo   = model.findByID(itemID);
+	
+						final Integer positionFrom = feature.get(itemFrom);
+						final Integer positionTo   = feature.get(itemTo);
+						feature.set(itemFrom, feature.getMinimum());
+						feature.set(itemTo,   positionFrom);
+						feature.set(itemFrom, positionTo);
+						
+						model.commit();
+					}
+					catch(NoSuchIDException e)
+					{
+						throw new RuntimeException(e);
+					}
+					finally
+					{
+						model.rollbackIfNotCommitted();
+					}
 				}
 			}
 			
@@ -388,6 +426,7 @@ public abstract class Editor implements Filter
 		final HttpServletRequest request;
 		final HttpServletResponse response;
 		final Session session;
+		private HashMap<IntegerField, Item> positionItems = null;
 		
 		TL(final HttpServletRequest request, final HttpServletResponse response, final Session session)
 		{
@@ -398,6 +437,23 @@ public abstract class Editor implements Filter
 			assert request!=null;
 			assert response!=null;
 			assert session!=null;
+		}
+		
+		Item registerPositionItem(final IntegerField feature, final Item item)
+		{
+			final Integer next = feature.get(item);
+			if(next==null)
+				return null;
+			
+			if(positionItems==null)
+				positionItems = new HashMap<IntegerField, Item>();
+			
+			final Item result = positionItems.put(feature, item);
+			if(result==null)
+				return null;
+			
+			final Integer previous = feature.get(result);
+			return (previous!=null && previous.intValue()<next.intValue()) ? result : null;
 		}
 	}
 	
@@ -520,6 +576,32 @@ public abstract class Editor implements Filter
 		return edit(feature.getSource(), item);
 	}
 	
+	public static final String edit(final IntegerField feature, final Item item)
+	{
+		final TL tl = tls.get();
+		if(tl==null || !tl.session.borders)
+			return "";
+		
+		assert feature!=null;
+		assert item!=null;
+		assert !feature.isFinal();
+		assert feature.getType().isAssignableFrom(item.getCopeType()) : item.getCopeID()+'-'+feature.getID();
+		
+		final Item previousItem = tl.registerPositionItem(feature, item);
+		if(previousItem==null)
+			return "";
+		
+		final HttpServletRequest request = tl.request;
+		return
+			"<form action=\"" + action(request, tl.response) + "\"" + " method=\"POST\" class=\"contentEditorPosition\">" +
+				"<input type=\"hidden\" name=\"" + REFERER + "\" value=\"" + referer(request) + "\">" +
+				"<input type=\"hidden\" name=\"" + SAVE_FEATURE + "\" value=\"" + feature.getID() + "\">" +
+				"<input type=\"hidden\" name=\"" + SAVE_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
+				"<input type=\"hidden\" name=\"" + SAVE_ITEM + "\" value=\"" + item.getCopeID() + "\">" +
+				"<input type=\"submit\" value=\"Up" /*+ " " + feature.get(previousItem) + '/' + feature.get(item)*/ + "\">" +
+			"</form>";
+	}
+	
 	public static final void writeBar(final PrintStream out)
 	{
 		final TL tl = tls.get();
@@ -527,11 +609,21 @@ public abstract class Editor implements Filter
 			return;
 		
 		final HttpServletRequest request = tl.request;
-		final String queryString = request.getQueryString();
 		Editor_Jspm.writeBar(out,
-				tl.response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_URL_PATH_INFO),
-				queryString!=null ? (request.getPathInfo() + '?' + request.getQueryString()) : request.getPathInfo(),
+				action(request, tl.response),
+				referer(request),
 				tl.session.borders,
 				tl.session.login.getName());
+	}
+	
+	private static final String action(final HttpServletRequest request, final HttpServletResponse response)
+	{
+		return response.encodeURL(request.getContextPath() + request.getServletPath() + LOGIN_URL_PATH_INFO);
+	}
+	
+	private static final String referer(final HttpServletRequest request)
+	{
+		final String queryString = request.getQueryString();
+		return queryString!=null ? (request.getPathInfo() + '?' + request.getQueryString()) : request.getPathInfo();
 	}
 }

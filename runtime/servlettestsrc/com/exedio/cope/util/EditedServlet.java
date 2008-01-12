@@ -66,6 +66,7 @@ public final class EditedServlet extends HttpServlet
 			final String image, final String imageContentType)
 	{
 		final EditedItem item1 = new EditedItem(
+				number,
 				"item" + number,
 				Media.toValue(InitServlet.class.getResourceAsStream(image), imageContentType));
 		item1.setMap(1, "item" + number + "map1");
@@ -103,7 +104,7 @@ public final class EditedServlet extends HttpServlet
 		try
 		{
 			model.startTransaction("EditedServlet");
-			EditedServlet_Jspm.write(out, response.encodeURL("contentEditorLogin.html"), EditedItem.TYPE.search());
+			EditedServlet_Jspm.write(out, response.encodeURL("contentEditorLogin.html"), EditedItem.TYPE.search(null, EditedItem.position, true));
 			model.commit();
 			response.setStatus(HttpServletResponse.SC_OK);
 		}
