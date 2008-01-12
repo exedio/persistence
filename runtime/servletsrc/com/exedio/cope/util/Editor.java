@@ -196,6 +196,10 @@ public abstract class Editor implements Filter
 				final String featureID = fields.get(SAVE_FEATURE);
 				if(featureID!=null)
 				{
+					final Media feature = (Media)model.findFeatureByID(featureID);
+					if(feature==null)
+						throw new NullPointerException(featureID);
+					
 					final String itemID    = fields.get(SAVE_ITEM);
 					final String kind      = fields.get(SAVE_KIND);
 					if(!SAVE_KIND_FILE.equals(kind))
@@ -207,8 +211,6 @@ public abstract class Editor implements Filter
 					{
 						model.startTransaction(getClass().getName() + "#saveFile");
 						
-						final Media feature = (Media)model.findFeatureByID(featureID);
-						assert feature!=null : featureID;
 						final Item item = model.findByID(itemID);
 	
 						// TODO use more efficient setter with File or byte[]
@@ -242,6 +244,10 @@ public abstract class Editor implements Filter
 				final String featureID = request.getParameter(SAVE_FEATURE);
 				if(featureID!=null)
 				{
+					final StringField feature = (StringField)model.findFeatureByID(featureID);
+					if(feature==null)
+						throw new NullPointerException(featureID);
+					
 					final String itemID    = request.getParameter(SAVE_ITEM);
 					final String kind      = request.getParameter(SAVE_KIND);
 					final String value;
@@ -256,8 +262,6 @@ public abstract class Editor implements Filter
 					{
 						model.startTransaction(getClass().getName() + "#save");
 						
-						final StringField feature = (StringField)model.findFeatureByID(featureID);
-						assert feature!=null : featureID;
 						final Item item = model.findByID(itemID);
 	
 						String v = value;
