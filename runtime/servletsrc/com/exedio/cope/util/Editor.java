@@ -167,121 +167,121 @@ public abstract class Editor implements Filter
 	throws IOException
 	{
 		if(Cop.isPost(request))
+			return;
+		
+		final String referer;
+		
+		if(isMultipartContent(request))
 		{
-			final String referer;
-			
-			if(isMultipartContent(request))
+			final HashMap<String, String> fields = new HashMap<String, String>();
+			final HashMap<String, FileItem> files = new HashMap<String, FileItem>();
+			final FileItemFactory factory = new DiskFileItemFactory();
+			final ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setHeaderEncoding(CopsServlet.ENCODING);
+			try
 			{
-				final HashMap<String, String> fields = new HashMap<String, String>();
-				final HashMap<String, FileItem> files = new HashMap<String, FileItem>();
-				final FileItemFactory factory = new DiskFileItemFactory();
-				final ServletFileUpload upload = new ServletFileUpload(factory);
-				upload.setHeaderEncoding(CopsServlet.ENCODING);
+				for(Iterator<?> i = upload.parseRequest(request).iterator(); i.hasNext(); )
+				{
+					final FileItem item = (FileItem)i.next();
+					if(item.isFormField())
+						fields.put(item.getFieldName(), item.getString(CopsServlet.ENCODING));
+					else
+						files.put(item.getFieldName(), item);
+				}
+			}
+			catch(FileUploadException e)
+			{
+				throw new RuntimeException(e);
+			}
+			
+			final String featureID = fields.get(SAVE_FEATURE);
+			if(featureID!=null)
+			{
+				final Media feature = (Media)model.findFeatureByID(featureID);
+				if(feature==null)
+					throw new NullPointerException(featureID);
+				
+				final String itemID = fields.get(SAVE_ITEM);
+				if(itemID==null)
+					throw new NullPointerException();
+				
+				final FileItem file = files.get(SAVE_FILE);
+			
 				try
 				{
-					for(Iterator<?> i = upload.parseRequest(request).iterator(); i.hasNext(); )
-					{
-						final FileItem item = (FileItem)i.next();
-						if(item.isFormField())
-							fields.put(item.getFieldName(), item.getString(CopsServlet.ENCODING));
-						else
-							files.put(item.getFieldName(), item);
-					}
+					model.startTransaction(getClass().getName() + "#saveFile");
+					
+					final Item item = model.findByID(itemID);
+
+					// TODO use more efficient setter with File or byte[]
+					feature.set(item, file.getInputStream(), file.getContentType());
+					
+					model.commit();
 				}
-				catch(FileUploadException e)
+				catch(NoSuchIDException e)
 				{
 					throw new RuntimeException(e);
 				}
-				
-				final String featureID = fields.get(SAVE_FEATURE);
-				if(featureID!=null)
+				finally
 				{
-					final Media feature = (Media)model.findFeatureByID(featureID);
-					if(feature==null)
-						throw new NullPointerException(featureID);
-					
-					final String itemID = fields.get(SAVE_ITEM);
-					if(itemID==null)
-						throw new NullPointerException();
-					
-					final FileItem file = files.get(SAVE_FILE);
-				
-					try
-					{
-						model.startTransaction(getClass().getName() + "#saveFile");
-						
-						final Item item = model.findByID(itemID);
-	
-						// TODO use more efficient setter with File or byte[]
-						feature.set(item, file.getInputStream(), file.getContentType());
-						
-						model.commit();
-					}
-					catch(NoSuchIDException e)
-					{
-						throw new RuntimeException(e);
-					}
-					finally
-					{
-						model.rollbackIfNotCommitted();
-					}
+					model.rollbackIfNotCommitted();
 				}
-				
-				referer = fields.get(REFERER);
-			}
-			else // isMultipartContent
-			{
-				if(request.getParameter(TOGGLE_BORDERS)!=null)
-				{
-					session.borders = !session.borders;
-				}
-				else if(request.getParameter(LOGOUT)!=null)
-				{
-					httpSession.removeAttribute(SESSION);
-				}
-				
-				final String featureID = request.getParameter(SAVE_FEATURE);
-				if(featureID!=null)
-				{
-					final StringField feature = (StringField)model.findFeatureByID(featureID);
-					if(feature==null)
-						throw new NullPointerException(featureID);
-					
-					final String itemID = request.getParameter(SAVE_ITEM);
-					if(itemID==null)
-						throw new NullPointerException();
-					
-					final String value = request.getParameter(SAVE_TEXT);
-				
-					try
-					{
-						model.startTransaction(getClass().getName() + "#saveText");
-						
-						final Item item = model.findByID(itemID);
-	
-						String v = value;
-						if("".equals(v))
-							v = null;
-						feature.set(item, v);
-						
-						model.commit();
-					}
-					catch(NoSuchIDException e)
-					{
-						throw new RuntimeException(e);
-					}
-					finally
-					{
-						model.rollbackIfNotCommitted();
-					}
-				}
-				
-				referer = request.getParameter(REFERER);
 			}
 			
-			if(referer!=null)
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
+			referer = fields.get(REFERER);
 		}
+		else // isMultipartContent
+		{
+			if(request.getParameter(TOGGLE_BORDERS)!=null)
+			{
+				session.borders = !session.borders;
+			}
+			else if(request.getParameter(LOGOUT)!=null)
+			{
+				httpSession.removeAttribute(SESSION);
+			}
+			
+			final String featureID = request.getParameter(SAVE_FEATURE);
+			if(featureID!=null)
+			{
+				final StringField feature = (StringField)model.findFeatureByID(featureID);
+				if(feature==null)
+					throw new NullPointerException(featureID);
+				
+				final String itemID = request.getParameter(SAVE_ITEM);
+				if(itemID==null)
+					throw new NullPointerException();
+				
+				final String value = request.getParameter(SAVE_TEXT);
+			
+				try
+				{
+					model.startTransaction(getClass().getName() + "#saveText");
+					
+					final Item item = model.findByID(itemID);
+
+					String v = value;
+					if("".equals(v))
+						v = null;
+					feature.set(item, v);
+					
+					model.commit();
+				}
+				catch(NoSuchIDException e)
+				{
+					throw new RuntimeException(e);
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
+			
+			referer = request.getParameter(REFERER);
+		}
+		
+		if(referer!=null)
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
 	}
 	
 	static final String LOGIN_URL = "contentEditorLogin.html";
