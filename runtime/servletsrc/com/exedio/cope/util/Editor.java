@@ -221,7 +221,7 @@ public abstract class Editor implements Filter
 		
 			try
 			{
-				model.startTransaction(getClass().getName() + "#saveFile");
+				model.startTransaction(getClass().getName() + "#saveFile(" + featureID + ',' + itemID + ')');
 				
 				final Item item = model.findByID(itemID);
 
@@ -269,7 +269,7 @@ public abstract class Editor implements Filter
 			
 				try
 				{
-					model.startTransaction(getClass().getName() + "#saveText");
+					model.startTransaction(getClass().getName() + "#saveText(" + featureID + ',' + itemID + ')');
 					
 					final Item item = model.findByID(itemID);
 
