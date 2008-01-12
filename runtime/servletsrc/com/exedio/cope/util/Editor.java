@@ -200,9 +200,9 @@ public abstract class Editor implements Filter
 					if(feature==null)
 						throw new NullPointerException(featureID);
 					
-					final String itemID    = fields.get(SAVE_ITEM);
+					final String itemID = fields.get(SAVE_ITEM);
 					if(itemID==null)
-						throw new NullPointerException(itemID);
+						throw new NullPointerException();
 					
 					final FileItem file = files.get(SAVE_FILE);
 				
@@ -247,9 +247,9 @@ public abstract class Editor implements Filter
 					if(feature==null)
 						throw new NullPointerException(featureID);
 					
-					final String itemID    = request.getParameter(SAVE_ITEM);
+					final String itemID = request.getParameter(SAVE_ITEM);
 					if(itemID==null)
-						throw new NullPointerException(itemID);
+						throw new NullPointerException();
 					
 					final String value = request.getParameter(SAVE_TEXT);
 				
