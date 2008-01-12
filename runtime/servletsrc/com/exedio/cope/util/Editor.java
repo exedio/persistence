@@ -150,13 +150,8 @@ public abstract class Editor implements Filter
 	static final String LOGOUT = "logout";
 	static final String SAVE_FEATURE = "feature";
 	static final String SAVE_ITEM    = "item";
-	static final String SAVE_KIND    = "kind";
-	static final String SAVE_LINE    = "line";
+	static final String SAVE_TEXT    = "text";
 	static final String SAVE_FILE    = "file";
-	static final String SAVE_AREA    = "area";
-	static final String SAVE_KIND_LINE = "kindLine";
-	static final String SAVE_KIND_FILE = "kindFile";
-	static final String SAVE_KIND_AREA = "kindArea";
 	
 	@SuppressWarnings("deprecation")
 	private static final boolean isMultipartContent(final HttpServletRequest request)
@@ -209,10 +204,6 @@ public abstract class Editor implements Filter
 					if(itemID==null)
 						throw new NullPointerException(itemID);
 					
-					final String kind      = fields.get(SAVE_KIND);
-					if(!SAVE_KIND_FILE.equals(kind))
-						throw new RuntimeException(kind);
-					
 					final FileItem file = files.get(SAVE_FILE);
 				
 					try
@@ -260,14 +251,7 @@ public abstract class Editor implements Filter
 					if(itemID==null)
 						throw new NullPointerException(itemID);
 					
-					final String kind      = request.getParameter(SAVE_KIND);
-					final String value;
-					if(SAVE_KIND_LINE.equals(kind))
-						value = request.getParameter(SAVE_LINE);
-					else if(SAVE_KIND_AREA.equals(kind))
-						value = request.getParameter(SAVE_AREA);
-					else
-						throw new RuntimeException(kind);
+					final String value = request.getParameter(SAVE_TEXT);
 				
 					try
 					{

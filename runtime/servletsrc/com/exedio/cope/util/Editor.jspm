@@ -160,8 +160,7 @@ final class Editor_Jspm
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_LINE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
-				<input name="<%=   Editor.SAVE_KIND      %>" value="<%=Editor.SAVE_KIND_LINE%>" type="hidden">
-				<input name="<%=   Editor.SAVE_LINE      %>" id="<%=ID_LINE   %>" class="text">
+				<input name="<%=   Editor.SAVE_TEXT      %>" id="<%=ID_LINE   %>" class="text">
 				<input type="submit" value="Save">
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
@@ -169,7 +168,6 @@ final class Editor_Jspm
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FILE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
-				<input name="<%=   Editor.SAVE_KIND      %>" value="<%=Editor.SAVE_KIND_FILE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FILE      %>" type="file" class="text">
 				<br>
 				<input type="submit" value="Save">
@@ -179,8 +177,7 @@ final class Editor_Jspm
 				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_AREA_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_AREA_ITEM   %>" type="hidden">
-				<input name="<%=   Editor.SAVE_KIND      %>" value="<%=Editor.SAVE_KIND_AREA%>" type="hidden">
-				<textarea name="<%=Editor.SAVE_AREA      %>" id="<%=ID_AREA   %>" cols="100" rows="15">X</textarea>
+				<textarea name="<%=Editor.SAVE_TEXT      %>" id="<%=ID_AREA   %>" cols="100" rows="15">X</textarea>
 				<input type="submit" value="Save">
 			</form><%
 			}
