@@ -29,9 +29,6 @@ final class EditedItem extends Item
 {
 	static final IntegerField position = new IntegerField();
 
-	/**
-	 * @cope.initial
-	 */
 	static final StringField field = new StringField();
 
 	static final MapField<Integer, String> map = MapField.newMap(new IntegerField(), new StringField());
