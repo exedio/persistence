@@ -30,6 +30,7 @@ final class EditedServlet_Jspm
 {
 	static final void write(
 			final PrintStream out,
+			final String loginURL,
 			final List<EditedItem> items)
 	{
 		final EditedItem item1 = items.get(0);
@@ -107,6 +108,15 @@ final class EditedServlet_Jspm
 		%>
 		isActive:<%=Editor.isActive()%>
 		duplicate: <%=item1.getCopeID()%>, <%=edit(item1.getField(), item1.field, item1)%> (<%=item1.getField()%>)
+		<br>
+		to login page:
+		<a href="<%=loginURL%>">get</a>
+		<form action="<%=loginURL%>" method="POST">
+			<input type="submit" name="something" value="post text">
+		</form>
+		<form action="<%=loginURL%>" method="POST" enctype="multipart/form-data">
+			<input type="submit" name="something" value="post file">
+		</form>
 		<ol><%
 		for(final EditedItem item : items)
 		{
