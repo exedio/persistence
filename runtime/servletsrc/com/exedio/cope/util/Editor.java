@@ -206,6 +206,9 @@ public abstract class Editor implements Filter
 						throw new NullPointerException(featureID);
 					
 					final String itemID    = fields.get(SAVE_ITEM);
+					if(itemID==null)
+						throw new NullPointerException(itemID);
+					
 					final String kind      = fields.get(SAVE_KIND);
 					if(!SAVE_KIND_FILE.equals(kind))
 						throw new RuntimeException(kind);
@@ -254,6 +257,9 @@ public abstract class Editor implements Filter
 						throw new NullPointerException(featureID);
 					
 					final String itemID    = request.getParameter(SAVE_ITEM);
+					if(itemID==null)
+						throw new NullPointerException(itemID);
+					
 					final String kind      = request.getParameter(SAVE_KIND);
 					final String value;
 					if(SAVE_KIND_LINE.equals(kind))
@@ -265,7 +271,7 @@ public abstract class Editor implements Filter
 				
 					try
 					{
-						model.startTransaction(getClass().getName() + "#save");
+						model.startTransaction(getClass().getName() + "#saveText");
 						
 						final Item item = model.findByID(itemID);
 	
