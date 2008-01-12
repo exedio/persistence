@@ -56,6 +56,19 @@ final class EditedServlet_Jspm
 				border: solid 2px #d33;
 			}
 			
+			.contentEditorPosition
+			{
+				display: inline;
+			}
+			
+			.contentEditorPosition input
+			{
+				width: 20px;
+				height: 20px;
+				background: #d33;
+				font-size: 7pt;
+			}
+			
 			div.contentEditorBar
 			{
 				margin: 10px;
@@ -123,7 +136,7 @@ final class EditedServlet_Jspm
 			%>
 			<li>
 				<%=item.getCopeID()%>
-				p(<%=item.getPosition()%>)<%=edit(item.position, item)%>
+				p(<%=item.getPosition()%>,<%=edit(item.position, item)%>)
 				<ul>
 					<li>field: <%=edit(item.getField(), item.field, item)%> (<%=item.getField()%>)</li>
 					<li>map(1): <%=edit(item.getMap(1), item.map, item, 1)%> (<%=item.getMap(1)%>)</li>
