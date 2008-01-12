@@ -195,37 +195,37 @@ public abstract class Editor implements Filter
 			}
 			
 			final String featureID = fields.get(SAVE_FEATURE);
-			if(featureID!=null)
-			{
-				final Media feature = (Media)model.findFeatureByID(featureID);
-				if(feature==null)
-					throw new NullPointerException(featureID);
-				
-				final String itemID = fields.get(SAVE_ITEM);
-				if(itemID==null)
-					throw new NullPointerException();
-				
-				final FileItem file = files.get(SAVE_FILE);
+			if(featureID==null)
+				throw new NullPointerException();
 			
-				try
-				{
-					model.startTransaction(getClass().getName() + "#saveFile");
-					
-					final Item item = model.findByID(itemID);
+			final Media feature = (Media)model.findFeatureByID(featureID);
+			if(feature==null)
+				throw new NullPointerException(featureID);
+			
+			final String itemID = fields.get(SAVE_ITEM);
+			if(itemID==null)
+				throw new NullPointerException();
+			
+			final FileItem file = files.get(SAVE_FILE);
+		
+			try
+			{
+				model.startTransaction(getClass().getName() + "#saveFile");
+				
+				final Item item = model.findByID(itemID);
 
-					// TODO use more efficient setter with File or byte[]
-					feature.set(item, file.getInputStream(), file.getContentType());
-					
-					model.commit();
-				}
-				catch(NoSuchIDException e)
-				{
-					throw new RuntimeException(e);
-				}
-				finally
-				{
-					model.rollbackIfNotCommitted();
-				}
+				// TODO use more efficient setter with File or byte[]
+				feature.set(item, file.getInputStream(), file.getContentType());
+				
+				model.commit();
+			}
+			catch(NoSuchIDException e)
+			{
+				throw new RuntimeException(e);
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
 			}
 			
 			referer = fields.get(REFERER);
@@ -240,10 +240,12 @@ public abstract class Editor implements Filter
 			{
 				httpSession.removeAttribute(SESSION);
 			}
-			
-			final String featureID = request.getParameter(SAVE_FEATURE);
-			if(featureID!=null)
+			else
 			{
+				final String featureID = request.getParameter(SAVE_FEATURE);
+				if(featureID==null)
+					throw new NullPointerException();
+				
 				final StringField feature = (StringField)model.findFeatureByID(featureID);
 				if(feature==null)
 					throw new NullPointerException(featureID);
