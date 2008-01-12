@@ -104,7 +104,9 @@ public final class EditedServlet extends HttpServlet
 		try
 		{
 			model.startTransaction("EditedServlet");
-			EditedServlet_Jspm.write(out, response.encodeURL("contentEditorLogin.html"), EditedItem.TYPE.search(null, EditedItem.position, true));
+			EditedServlet_Jspm.write(out,
+					response.encodeURL("contentEditorLogin.html"),
+					EditedItem.TYPE.search(null, EditedItem.position, true));
 			model.commit();
 			response.setStatus(HttpServletResponse.SC_OK);
 		}
