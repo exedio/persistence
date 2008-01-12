@@ -159,6 +159,11 @@ public abstract class Editor implements Filter
 	static final String SAVE_KIND_AREA = "kindArea";
 	
 	@SuppressWarnings("deprecation")
+	private static final boolean isMultipartContent(final HttpServletRequest request)
+	{
+		return ServletFileUpload.isMultipartContent(request);
+	}
+	
 	private final void doBar(
 			final HttpServletRequest request,
 			final HttpSession httpSession,
@@ -170,7 +175,7 @@ public abstract class Editor implements Filter
 		{
 			final String referer;
 			
-			if(ServletFileUpload.isMultipartContent(request))
+			if(isMultipartContent(request))
 			{
 				final HashMap<String, String> fields = new HashMap<String, String>();
 				final HashMap<String, FileItem> files = new HashMap<String, FileItem>();
