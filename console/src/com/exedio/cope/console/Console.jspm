@@ -50,8 +50,8 @@ abstract class Console_Jspm
 		%>
 	</head>
 	<body>
-		<a href="http://www.exedio.com/" target="_blank"><img class="logo" src="<%=ConsoleServlet.logo%>"></a>
-		<h1><a href="http://cope.sourceforge.net/" target="_blank">COPE</a> Console</h1>
+		<a href="http://cope.sourceforge.net/" target="_blank"><img class="logo" src="<%=ConsoleServlet.logo%>"></a>
+		<h1>COPE Console</h1>
 		<div class="<% if(authentication==null){%>not<%} %>authenticated"><%
 		if(authentication!=null)
 		{
