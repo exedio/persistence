@@ -20,6 +20,9 @@ package com.exedio.cope.util;
 
 import java.io.Serializable;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 public final class EditorFilter extends Editor
 {
 	public EditorFilter()
@@ -51,5 +54,19 @@ public final class EditorFilter extends Editor
 			return new Login(user);
 		
 		return null;
+	}
+	
+	@Override
+	protected String getCloseButtonURL(final HttpServletRequest request, final HttpServletResponse response)
+	{
+		return request.getContextPath() + "/close.png";
+		//return null;
+	}
+	
+	@Override
+	protected String getPreviousPositionButtonURL(final HttpServletRequest request, final HttpServletResponse response)
+	{
+		return request.getContextPath() + "/previous.png";
+		//return null;
 	}
 }

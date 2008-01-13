@@ -93,6 +93,18 @@ public abstract class Editor implements Filter
 	
 	protected abstract Login login(String user, String password);
 	
+	@SuppressWarnings("unused")
+	protected String getCloseButtonURL(HttpServletRequest request, HttpServletResponse response)
+	{
+		return null;
+	}
+	
+	@SuppressWarnings("unused")
+	protected String getPreviousPositionButtonURL(HttpServletRequest request, HttpServletResponse response)
+	{
+		return null;
+	}
+	
 	public final void doFilter(
 			final ServletRequest servletRequest,
 			final ServletResponse response,
@@ -129,7 +141,7 @@ public abstract class Editor implements Filter
 			{
 				try
 				{
-					tls.set(new TL(request, (HttpServletResponse)response, (Session)session));
+					tls.set(new TL(this, request, (HttpServletResponse)response, (Session)session));
 					chain.doFilter(request, response);
 				}
 				finally
@@ -158,6 +170,7 @@ public abstract class Editor implements Filter
 	static final String REFERER = "referer";
 	static final String TOGGLE_BORDERS = "borders";
 	static final String LOGOUT = "logout";
+	private static final String LOGOUT_IMAGE = LOGOUT + ".x";
 	static final String SAVE_FEATURE = "feature";
 	static final String SAVE_ITEM    = "item";
 	static final String SAVE_TEXT    = "text";
@@ -250,7 +263,7 @@ public abstract class Editor implements Filter
 			{
 				session.borders = !session.borders;
 			}
-			else if(request.getParameter(LOGOUT)!=null)
+			else if(request.getParameter(LOGOUT)!=null || request.getParameter(LOGOUT_IMAGE)!=null)
 			{
 				httpSession.removeAttribute(SESSION);
 			}
@@ -423,17 +436,20 @@ public abstract class Editor implements Filter
 	
 	private static final class TL
 	{
+		final Editor filter;
 		final HttpServletRequest request;
 		final HttpServletResponse response;
 		final Session session;
 		private HashMap<IntegerField, Item> positionItems = null;
 		
-		TL(final HttpServletRequest request, final HttpServletResponse response, final Session session)
+		TL(final Editor filter, final HttpServletRequest request, final HttpServletResponse response, final Session session)
 		{
+			this.filter = filter;
 			this.request = request;
 			this.response = response;
 			this.session = session;
 			
+			assert filter!=null;
 			assert request!=null;
 			assert response!=null;
 			assert session!=null;
@@ -592,13 +608,18 @@ public abstract class Editor implements Filter
 			return "";
 		
 		final HttpServletRequest request = tl.request;
+		final String previousPositionButtonURL = tl.filter.getPreviousPositionButtonURL(request, tl.response);
 		return
-			"<form action=\"" + action(request, tl.response) + "\"" + " method=\"POST\" class=\"contentEditorPosition\">" +
+			"<form action=\"" + action(request, tl.response) + "\" method=\"POST\" class=\"contentEditorPosition\">" +
 				"<input type=\"hidden\" name=\"" + REFERER + "\" value=\"" + referer(request) + "\">" +
 				"<input type=\"hidden\" name=\"" + SAVE_FEATURE + "\" value=\"" + feature.getID() + "\">" +
 				"<input type=\"hidden\" name=\"" + SAVE_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
 				"<input type=\"hidden\" name=\"" + SAVE_ITEM + "\" value=\"" + item.getCopeID() + "\">" +
+				(previousPositionButtonURL!=null ? (
+				"<input type=\"image\" src=\"" + previousPositionButtonURL + "\" alt=\"Swap with previous item\">"
+				):(
 				"<input type=\"submit\" value=\"Up" /*+ " " + feature.get(previousItem) + '/' + feature.get(item)*/ + "\">" +
+				"")) +
 			"</form>";
 	}
 	
@@ -613,6 +634,7 @@ public abstract class Editor implements Filter
 				action(request, tl.response),
 				referer(request),
 				tl.session.borders,
+				tl.filter.getCloseButtonURL(request, tl.response),
 				tl.session.login.getName());
 	}
 	

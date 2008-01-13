@@ -78,6 +78,7 @@ final class Editor_Jspm
 			final String action,
 			final String referer,
 			final boolean borders,
+			final String closeButtonURL,
 			final String loginName)
 	{
 		%>
@@ -85,7 +86,7 @@ final class Editor_Jspm
 			<form action="<%=action%>" method="POST" class="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
-				<input type="submit" name="<%=Editor.LOGOUT%>" value="X">
+				<input type="<% if(closeButtonURL!=null){%>image<%}else{%>submit<%} %>" name="<%=Editor.LOGOUT%>" <% if(closeButtonURL!=null){%>src="<%=closeButtonURL%>" alt="Close Content Editor"<%}else{%>value="X"<%} %>>
 			</form>
 			<h1>COPE Content Editor</h1>
 			logged in as <%=Cop.encodeXml(loginName)%>
