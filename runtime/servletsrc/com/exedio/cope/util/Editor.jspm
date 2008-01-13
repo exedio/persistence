@@ -48,8 +48,8 @@ final class Editor_Jspm
 		</style>
 	</head>
 	<body>
-		<a href="http://cope.sourceforge.net/"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" width="198" height="60" border="0"></a>
-		<h1>Content Editor Login</h1><%
+		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" width="198" height="60" border="0"></a>
+		<h1>COPE Content Editor</h1><%
 		if(failureUser!=null)
 		{
 		%>
