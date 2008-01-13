@@ -169,8 +169,8 @@ public abstract class Editor implements Filter
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
 	static final String REFERER = "referer";
 	static final String TOGGLE_BORDERS = "borders";
-	static final String LOGOUT = "logout";
-	private static final String LOGOUT_IMAGE = LOGOUT + ".x";
+	static final String CLOSE = "close";
+	private static final String CLOSE_IMAGE = CLOSE + ".x";
 	static final String SAVE_FEATURE = "feature";
 	static final String SAVE_ITEM    = "item";
 	static final String SAVE_TEXT    = "text";
@@ -263,7 +263,7 @@ public abstract class Editor implements Filter
 			{
 				session.borders = !session.borders;
 			}
-			else if(request.getParameter(LOGOUT)!=null || request.getParameter(LOGOUT_IMAGE)!=null)
+			else if(request.getParameter(CLOSE)!=null || request.getParameter(CLOSE_IMAGE)!=null)
 			{
 				httpSession.removeAttribute(SESSION);
 			}

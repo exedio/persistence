@@ -88,7 +88,7 @@ final class Editor_Jspm
 				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
 				<input type="<%
 					if(closeButtonURL!=null) { %>image<% } else { %>submit<% }
-					%>" name="<%=Editor.LOGOUT%>" <%
+					%>" name="<%=Editor.CLOSE%>" <%
 					if(closeButtonURL!=null)
 					{ %>src="<%=closeButtonURL%>" alt="Close Content Editor"<% }
 					else
