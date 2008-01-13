@@ -442,7 +442,11 @@ public abstract class Editor implements Filter
 		final Session session;
 		private HashMap<IntegerField, Item> positionItems = null;
 		
-		TL(final Editor filter, final HttpServletRequest request, final HttpServletResponse response, final Session session)
+		TL(
+				final Editor filter,
+				final HttpServletRequest request,
+				final HttpServletResponse response,
+				final Session session)
 		{
 			this.filter = filter;
 			this.request = request;
