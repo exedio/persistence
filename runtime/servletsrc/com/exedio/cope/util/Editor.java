@@ -177,14 +177,15 @@ public abstract class Editor implements Filter
 	private static final String BORDERS_ON  = "bordersOn";
 	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
-	private static final String CLOSE_IMAGE = CLOSE + ".x";
-	private static final String BORDERS_ON_IMAGE  = BORDERS_ON  + ".x";
-	private static final String BORDERS_OFF_IMAGE = BORDERS_OFF + ".x";
 	static final String SAVE_FEATURE = "feature";
 	static final String SAVE_ITEM    = "item";
 	static final String SAVE_TEXT    = "text";
 	static final String SAVE_FILE    = "file";
 	static final String SAVE_ITEM_FROM = "itemPrevious";
+	
+	private static final String CLOSE_IMAGE       = CLOSE + ".x";
+	private static final String BORDERS_ON_IMAGE  = BORDERS_ON  + ".x";
+	private static final String BORDERS_OFF_IMAGE = BORDERS_OFF + ".x";
 	
 	@SuppressWarnings("deprecation")
 	private static final boolean isMultipartContent(final HttpServletRequest request)
