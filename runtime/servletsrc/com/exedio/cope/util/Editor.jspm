@@ -118,6 +118,9 @@ final class Editor_Jspm
 				
 				function <%=Editor.EDIT_METHOD%>(border,feature,item,value)
 				{
+					if(previousBorder==border)
+						return true;
+					
 					var lineForm = document.getElementById("<%=ID_FORM_LINE%>");
 					var fileForm = document.getElementById("<%=ID_FORM_FILE%>");
 					var areaForm = document.getElementById("<%=ID_FORM_AREA%>");
@@ -162,6 +165,8 @@ final class Editor_Jspm
 						previousBorder.className='contentEditorLink';
 					border.className='contentEditorLinkEdited';
 					previousBorder = border;
+					
+					return false;
 				}
 			</script>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;">

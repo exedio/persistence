@@ -545,7 +545,7 @@ public abstract class Editor implements Filter
 			append(
 				" class=\"contentEditorLink\"" +
 				" onclick=\"" +
-					EDIT_METHOD + "(this,'").
+					"return " + EDIT_METHOD + "(this,'").
 						append(feature.getID()).
 						append("','").
 						append(item.getCopeID()).
@@ -576,7 +576,7 @@ public abstract class Editor implements Filter
 		bf.append(
 				" class=\"contentEditorLink\"" +
 				" onclick=\"" +
-					EDIT_METHOD + "(this,'").
+					"return " + EDIT_METHOD + "(this,'").
 						append(feature.getID()).
 						append("','").
 						append(item.getCopeID()).
