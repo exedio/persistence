@@ -114,7 +114,8 @@ public abstract class Editor implements Filter
 	public final void doFilter(
 			final ServletRequest servletRequest,
 			final ServletResponse response,
-			final FilterChain chain) throws IOException, ServletException
+			final FilterChain chain)
+	throws IOException, ServletException
 	{
 		if(!(servletRequest instanceof HttpServletRequest))
 		{
