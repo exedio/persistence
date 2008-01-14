@@ -183,7 +183,7 @@ public abstract class Editor implements Filter
 	static final String SAVE_FILE    = "file";
 	static final String SAVE_ITEM_FROM = "itemPrevious";
 	
-	private static final String CLOSE_IMAGE       = CLOSE + ".x";
+	private static final String CLOSE_IMAGE       = CLOSE       + ".x";
 	private static final String BORDERS_ON_IMAGE  = BORDERS_ON  + ".x";
 	private static final String BORDERS_OFF_IMAGE = BORDERS_OFF + ".x";
 	
