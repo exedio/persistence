@@ -57,6 +57,13 @@ public final class EditorFilter extends Editor
 	}
 	
 	@Override
+	protected String getBorderButtonURL(final HttpServletRequest request, final HttpServletResponse response, final boolean bordersEnabled)
+	{
+		return request.getContextPath() + "/border-" + (bordersEnabled ? "dis" : "en") + "able.png";
+		//return null;
+	}
+	
+	@Override
 	protected String getCloseButtonURL(final HttpServletRequest request, final HttpServletResponse response)
 	{
 		return request.getContextPath() + "/close.png";

@@ -94,6 +94,12 @@ public abstract class Editor implements Filter
 	protected abstract Login login(String user, String password);
 	
 	@SuppressWarnings("unused")
+	protected String getBorderButtonURL(HttpServletRequest request, HttpServletResponse response, boolean bordersEnabled)
+	{
+		return null;
+	}
+	
+	@SuppressWarnings("unused")
 	protected String getCloseButtonURL(HttpServletRequest request, HttpServletResponse response)
 	{
 		return null;
@@ -172,6 +178,8 @@ public abstract class Editor implements Filter
 	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
 	private static final String CLOSE_IMAGE = CLOSE + ".x";
+	private static final String BORDERS_ON_IMAGE  = BORDERS_ON  + ".x";
+	private static final String BORDERS_OFF_IMAGE = BORDERS_OFF + ".x";
 	static final String SAVE_FEATURE = "feature";
 	static final String SAVE_ITEM    = "item";
 	static final String SAVE_TEXT    = "text";
@@ -260,11 +268,11 @@ public abstract class Editor implements Filter
 		}
 		else // isMultipartContent
 		{
-			if(request.getParameter(BORDERS_ON)!=null)
+			if(request.getParameter(BORDERS_ON)!=null || request.getParameter(BORDERS_ON_IMAGE)!=null)
 			{
 				session.borders = true;
 			}
-			else if(request.getParameter(BORDERS_OFF)!=null)
+			else if(request.getParameter(BORDERS_OFF)!=null || request.getParameter(BORDERS_OFF_IMAGE)!=null)
 			{
 				session.borders = false;
 			}
@@ -643,6 +651,7 @@ public abstract class Editor implements Filter
 				referer(request),
 				tl.session.borders,
 				tl.session.borders ? BORDERS_OFF : BORDERS_ON,
+				tl.filter.getBorderButtonURL(request, tl.response, tl.session.borders),
 				tl.filter.getCloseButtonURL(request, tl.response),
 				tl.session.login.getName());
 	}
