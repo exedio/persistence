@@ -168,7 +168,8 @@ public abstract class Editor implements Filter
 	
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
 	static final String REFERER = "referer";
-	static final String TOGGLE_BORDERS = "borders";
+	private static final String BORDERS_ON  = "bordersOn";
+	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
 	private static final String CLOSE_IMAGE = CLOSE + ".x";
 	static final String SAVE_FEATURE = "feature";
@@ -259,9 +260,13 @@ public abstract class Editor implements Filter
 		}
 		else // isMultipartContent
 		{
-			if(request.getParameter(TOGGLE_BORDERS)!=null)
+			if(request.getParameter(BORDERS_ON)!=null)
 			{
-				session.borders = !session.borders;
+				session.borders = true;
+			}
+			else if(request.getParameter(BORDERS_OFF)!=null)
+			{
+				session.borders = false;
 			}
 			else if(request.getParameter(CLOSE)!=null || request.getParameter(CLOSE_IMAGE)!=null)
 			{
@@ -637,6 +642,7 @@ public abstract class Editor implements Filter
 				action(request, tl.response),
 				referer(request),
 				tl.session.borders,
+				tl.session.borders ? BORDERS_OFF : BORDERS_ON,
 				tl.filter.getCloseButtonURL(request, tl.response),
 				tl.session.login.getName());
 	}

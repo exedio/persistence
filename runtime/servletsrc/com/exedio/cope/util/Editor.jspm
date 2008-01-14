@@ -78,6 +78,7 @@ final class Editor_Jspm
 			final String action,
 			final String referer,
 			final boolean borders,
+			final String borderToggleParameter,
 			final String closeButtonURL,
 			final String loginName)
 	{
@@ -85,7 +86,7 @@ final class Editor_Jspm
 		<div class="contentEditorBar">
 			<form action="<%=action%>" method="POST" class="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
-				<input type="submit" name="<%=Editor.TOGGLE_BORDERS%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
+				<input type="submit" name="<%=borderToggleParameter%>" value="<%if(borders){%>dis<%}else{%>en<%}%>able borders">
 				<input type="<%
 					if(closeButtonURL!=null) { %>image<% } else { %>submit<% }
 					%>" name="<%=Editor.CLOSE%>" <%
