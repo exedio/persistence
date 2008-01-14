@@ -21,15 +21,17 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Editor.edit;
 import static com.exedio.cope.util.Editor.editBlock;
-import com.exedio.cope.util.Editor;
 
 import java.io.PrintStream;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 final class EditedServlet_Jspm
 {
 	static final void write(
 			final PrintStream out,
+			final HttpServletResponse response,
 			final String loginURL,
 			final List<EditedItem> items)
 	{
@@ -120,7 +122,7 @@ final class EditedServlet_Jspm
 		Editor.writeBar(out);
 		%>
 		isActive:<%=Editor.isActive()%>
-		duplicate: <%=item1.getCopeID()%>, <%=edit(item1.getField(), item1.field, item1)%> (<%=item1.getField()%>)
+		duplicate: <%=item1.getCopeID()%>, <a href="<%=response.encodeURL("duplicate.html")%>"><%=edit(item1.getField(), item1.field, item1)%></a> (<%=item1.getField()%>)
 		<br>
 		to login page:
 		<a href="<%=loginURL%>">get</a>
@@ -142,7 +144,7 @@ final class EditedServlet_Jspm
 					<li>map(1): <%=edit(item.getMap(1), item.map, item, 1)%> (<%=item.getMap(1)%>)</li>
 					<li>map(2): <%=edit(item.getMap(2), item.map, item, 2)%> (<%=item.getMap(2)%>)</li>
 					<li>map(3)B: <pre><%=editBlock(item.getMap(3), item.map, item, 3)%></pre> <pre><%=item.getMap(3)%></pre></li>
-					<li>image: <img src="<%=item.getImageURL()%>"<%=edit(item.image, item)%> height="50"><%=item.getImageContentType()%></li>
+					<li>image: <a href="<%=response.encodeURL("image" + item.getPosition() + ".html")%>"><img src="<%=item.getImageURL()%>"<%=edit(item.image, item)%> height="50"></a><%=item.getImageContentType()%></li>
 					<li>thumbnail: <img src="<%=item.getThumbnailURL()%>"<%=edit(item.thumbnail, item)%>><%=item.getThumbnailContentType()%></li>
 				</ul>
 			</li><%
