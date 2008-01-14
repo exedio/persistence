@@ -87,7 +87,14 @@ final class Editor_Jspm
 		<div class="contentEditorBar">
 			<form action="<%=action%>" method="POST" class="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
-				<input type="<% if(borderButtonURL!=null) { %>image<% } else { %>submit<% } %>" name="<%=borderToggleParameter%>" <% if(borderButtonURL!=null) { %>src="<%=borderButtonURL%>" alt="<%if(borders){%>Dis<%}else{%>En<%}%>able Borders"<% } else { %>value="<%if(borders){%>dis<%}else{%>en<%}%>able borders"<% } %>>
+				<input type="<%
+					if(borderButtonURL!=null) { %>image<% } else { %>submit<% }
+					%>" name="<%=borderToggleParameter%>" <%
+					if(borderButtonURL!=null)
+					{ %>src="<%=borderButtonURL%>" alt="<%if(borders){%>Dis<%}else{%>En<%}%>able Borders"<% }
+					else
+					{ %>value="<%if(borders){%>dis<%}else{%>en<%}%>able borders"<% }
+					%>>
 				<input type="<%
 					if(closeButtonURL!=null) { %>image<% } else { %>submit<% }
 					%>" name="<%=Editor.CLOSE%>" <%
