@@ -529,6 +529,8 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.session.borders)
 			return content;
 		
+		checkEdit(feature, item);
+		
 		return edit(
 				tl, true,
 				content,
@@ -551,7 +553,8 @@ public abstract class Editor implements Filter
 	{
 		assert tl.session.borders;
 		checkEdit(feature, item);
-		assert !feature.isFinal();
+		if(feature.isFinal())
+			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
 		final String tag = block ? "div" : "span";
 		final StringBuilder bf = new StringBuilder();
@@ -583,7 +586,8 @@ public abstract class Editor implements Filter
 			return "";
 		
 		checkEdit(feature, item);
-		assert !feature.isFinal();
+		if(feature.isFinal())
+			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
 		final StringBuilder bf = new StringBuilder();
 		bf.append(
@@ -618,7 +622,8 @@ public abstract class Editor implements Filter
 			return "";
 		
 		checkEdit(feature, item);
-		assert !feature.isFinal();
+		if(feature.isFinal())
+			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
 		final Item previousItem = tl.registerPositionItem(feature, item);
 		if(previousItem==null)
