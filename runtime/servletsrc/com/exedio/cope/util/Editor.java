@@ -514,6 +514,8 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.session.borders)
 			return content;
 		
+		checkEdit(feature, item);
+		
 		return edit(
 				tl, false,
 				content,
@@ -548,10 +550,8 @@ public abstract class Editor implements Filter
 	private static final String edit(final TL tl, final boolean block, final String content, final StringField feature, final Item item)
 	{
 		assert tl.session.borders;
-		assert feature!=null;
-		assert item!=null;
+		checkEdit(feature, item);
 		assert !feature.isFinal();
-		assert feature.getType().isAssignableFrom(item.getCopeType()) : item.getCopeID()+'-'+feature.getID();
 		
 		final String tag = block ? "div" : "span";
 		final StringBuilder bf = new StringBuilder();
@@ -582,10 +582,8 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.session.borders)
 			return "";
 		
-		assert feature!=null;
-		assert item!=null;
+		checkEdit(feature, item);
 		assert !feature.isFinal();
-		assert feature.getType().isAssignableFrom(item.getCopeType()) : item.getCopeID()+'-'+feature.getID();
 		
 		final StringBuilder bf = new StringBuilder();
 		bf.append(
@@ -608,6 +606,8 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.session.borders)
 			return "";
 		
+		checkEdit(feature, item);
+		
 		return edit(feature.getSource(), item);
 	}
 	
@@ -617,10 +617,8 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.session.borders)
 			return "";
 		
-		assert feature!=null;
-		assert item!=null;
+		checkEdit(feature, item);
 		assert !feature.isFinal();
-		assert feature.getType().isAssignableFrom(item.getCopeType()) : item.getCopeID()+'-'+feature.getID();
 		
 		final Item previousItem = tl.registerPositionItem(feature, item);
 		if(previousItem==null)
@@ -639,6 +637,16 @@ public abstract class Editor implements Filter
 				: ("<input type=\"submit\" value=\"Up" /*+ " " + feature.get(previousItem) + '/' + feature.get(item)*/ + "\">")
 				) +
 			"</form>";
+	}
+	
+	private static final void checkEdit(final Feature feature, final Item item)
+	{
+		if(feature==null)
+			throw new NullPointerException("feature must not be null");
+		if(item==null)
+			throw new NullPointerException("item must not be null");
+		if(!feature.getType().isAssignableFrom(item.getCopeType()))
+			throw new IllegalArgumentException("item " + item.getCopeID() + " does not belong to type of feature " + feature.getID());
 	}
 	
 	public static final void writeBar(final PrintStream out)
