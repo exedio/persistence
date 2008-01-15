@@ -83,8 +83,8 @@ public abstract class Editor implements Filter
 	}
 	
 	/**
-	 * If you want persistent sessions,
-	 * the make implementors of this interface serializable.
+	 * If you want persistent http sessions,
+	 * make implementions of this interface serializable.
 	 */
 	public interface Login
 	{
