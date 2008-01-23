@@ -277,7 +277,7 @@ public class DeleteTest extends AbstractLibTest
 		item = deleteOnTearDown(new DeleteItem("item1"));
 		DeleteItem item2 = deleteOnTearDown(new DeleteItem("item2"));
 		
-		// test Model.findByID
+		// test Model.getItem
 		assertSame(item, item.TYPE.getModel().getItem(item.getCopeID()));
 		
 		// test Item.get(ItemAttribute)
