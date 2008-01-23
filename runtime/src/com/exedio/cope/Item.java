@@ -161,7 +161,7 @@ public abstract class Item extends Cope
 	 */
 	Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
 	{
-		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
+		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
 		this.pk = type.getPkSource().next(type.getModel().getCurrentTransaction().getConnection());
 		assert PkSource.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
@@ -230,7 +230,7 @@ public abstract class Item extends Cope
 
 	protected Item(final int pk, final Type<? extends Item> typeWithoutJavaClass)
 	{
-		this.type = typeWithoutJavaClass==null ? Type.findByJavaClass(getClass()) : typeWithoutJavaClass;
+		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
 		this.pk = pk;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
@@ -240,7 +240,7 @@ public abstract class Item extends Cope
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		in.defaultReadObject();
-		type = Type.findByJavaClass(getClass());
+		type = Type.forClass(getClass());
 	}
 	
 	public final <E> E get(final Function<E> function)

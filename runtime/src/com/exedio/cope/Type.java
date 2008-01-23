@@ -89,11 +89,20 @@ public final class Type<C extends Item>
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #hasUniqueJavaClass()
 	 */
-	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
+	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
-		return findByJavaClassUnchecked(javaClass).castType(javaClass);
+		return forClassUnchecked(javaClass).castType(javaClass);
 	}
 	
+	/**
+	 * @deprecated Use {@link #forClass(Class)} instead
+	 */
+	@Deprecated
+	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
+	{
+		return forClass(javaClass);
+	}
+
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
 	public <X extends Item> Type<X> castType(final Class<X> clazz)
 	{
@@ -107,7 +116,7 @@ public final class Type<C extends Item>
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see #hasUniqueJavaClass()
 	 */
-	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
+	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
 		final Type<? extends Item> result = typesByClass.get(javaClass);
 		if(result==null)
@@ -115,6 +124,15 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
+	/**
+	 * @deprecated Use {@link #forClassUnchecked(Class)} instead
+	 */
+	@Deprecated
+	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
+	{
+		return forClassUnchecked(javaClass);
+	}
+
 	private ArrayList<Feature> featuresWhileConstruction;
 	
 	Type(final Class<C> javaClass)
@@ -177,7 +195,7 @@ public final class Type<C extends Item>
 			supertype = null;
 		else
 		{
-			supertype = findByJavaClass(castSuperType(superClass));
+			supertype = forClass(castSuperType(superClass));
 			supertype.registerSubType(this);
 		}
 
@@ -515,8 +533,8 @@ public final class Type<C extends Item>
 	 * Returns, whether this type has a java class
 	 * uniquely for this type.
 	 * Only such types can be found by
-	 * {@link #findByJavaClass(Class)} and
-	 * {@link #findByJavaClassUnchecked(Class)}.
+	 * {@link #forClass(Class)} and
+	 * {@link #forClassUnchecked(Class)}.
 	 */
 	public boolean hasUniqueJavaClass()
 	{

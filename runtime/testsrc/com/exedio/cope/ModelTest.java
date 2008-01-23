@@ -103,10 +103,10 @@ public class ModelTest extends TestmodelTest
 		
 		assertEquals(AttributeItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
-		assertEquals(item.TYPE, Type.findByJavaClass(AttributeItem.class));
+		assertEquals(item.TYPE, Type.forClass(AttributeItem.class));
 		try
 		{
-			Type.findByJavaClass(Item.class);
+			Type.forClass(Item.class);
 			fail();
 		}
 		catch(IllegalArgumentException e)

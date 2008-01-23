@@ -210,7 +210,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(valueType!=null)
 			throw new RuntimeException();
 		
-		valueType = initialValueType!=null ? initialValueType : Type.findByJavaClass(valueClass);
+		valueType = initialValueType!=null ? initialValueType : Type.forClass(valueClass);
 		valueType.registerReference(this);
 	}
 	
