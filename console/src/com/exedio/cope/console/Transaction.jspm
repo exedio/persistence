@@ -101,7 +101,7 @@ final class Transaction_Jspm extends Console_Jspm
 		if(openTransactions.length==0)
 		{
 			%>
-			<tr><td class="text">There are no COPE transactions currently running.</td></tr><%
+			<tr><td class="text">There are no transactions currently running.</td></tr><%
 		}
 		else
 		{
@@ -178,7 +178,7 @@ final class Transaction_Jspm extends Console_Jspm
 		if(commits.length==0)
 		{
 			%>
-			<tr><td class="text">There are no recorded modifying committed COPE transactions.</td></tr><%
+			<tr><td class="text">There are no recorded modifying committed transactions.</td></tr><%
 		}
 		else
 		{
