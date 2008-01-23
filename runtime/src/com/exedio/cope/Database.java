@@ -678,7 +678,7 @@ final class Database
 			bf.appendPK(type, (Join)null).
 				append('=').
 				appendParameter(state.pk).
-				appendTypeCheck(type.getTable(), state.type); // Here this also checks additionally for Model#findByID, that the item has the type given in the ID.
+				appendTypeCheck(type.getTable(), state.type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 			
 		//System.out.println(bf.toString());
