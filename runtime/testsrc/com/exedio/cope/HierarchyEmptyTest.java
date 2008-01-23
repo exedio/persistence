@@ -117,7 +117,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertContains(superItem, subItem, superItem.TYPE.search(null));
 		assertEquals(list(), superItem.TYPE.search(superItem.superInt.equal(1)));
 		
-		// test findByID
+		// test getItem
 		assertSame(subItem, model.getItem("HierarchyEmptySub.0"));
 		assertSame(superItem, model.getItem("HierarchyEmptySuper.1"));
 		assertIDFails("HierarchyEmptySuper.0",  "item <0> does not exist", false);

@@ -84,7 +84,7 @@ public class FieldDateTest extends FieldTest
 		final Date afterTouch = new Date();
 		assertWithin(beforeTouch, afterTouch, item.getSomeDate());
 		
-		// special test of Model#findByID for items without any attributes
+		// special test of Model#getItem for items without any attributes
 		assertIDFails("EmptyItem.51", "item <51> does not exist", false);
 	}
 
