@@ -309,7 +309,7 @@ final class ItemForm extends Form
 				Item parsed = null;
 				try
 				{
-					parsed = model.findByID(value);
+					parsed = model.getItem(value);
 				}
 				catch(NoSuchIDException e)
 				{

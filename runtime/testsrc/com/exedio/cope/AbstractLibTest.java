@@ -276,7 +276,7 @@ public abstract class AbstractLibTest extends CopeTest
 	{
 		try
 		{
-			model.findByID(id);
+			model.getItem(id);
 			fail();
 		}
 		catch(NoSuchIDException e)

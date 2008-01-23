@@ -62,7 +62,7 @@ public abstract class Item extends Cope
 	 * <tt>a.equals(m.findByID(a.getCopeID()).</tt>
 	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
-	 * @see Model#findByID(String)
+	 * @see Model#getItem(String)
 	 */
 	public final String getCopeID()
 	{

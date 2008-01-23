@@ -77,9 +77,9 @@ public class ItemTest extends TestmodelTest
 		assertID(1, item2);
 		assertID(0, item3);
 
-		assertEquals(item1, model.findByID(item1.getCopeID()));
-		assertEquals(item2, model.findByID(item2.getCopeID()));
-		assertEquals(item3, model.findByID(item3.getCopeID()));
+		assertEquals(item1, model.getItem(item1.getCopeID()));
+		assertEquals(item2, model.getItem(item2.getCopeID()));
+		assertEquals(item3, model.getItem(item3.getCopeID()));
 
 		assertEquals(item1, item1);
 		assertEquals(item2, item2);

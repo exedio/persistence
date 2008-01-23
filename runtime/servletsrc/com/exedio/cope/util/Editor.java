@@ -250,7 +250,7 @@ public abstract class Editor implements Filter
 			{
 				model.startTransaction(getClass().getName() + "#saveFile(" + featureID + ',' + itemID + ')');
 				
-				final Item item = model.findByID(itemID);
+				final Item item = model.getItem(itemID);
 
 				// TODO use more efficient setter with File or byte[]
 				feature.set(item, file.getInputStream(), file.getContentType());
@@ -305,7 +305,7 @@ public abstract class Editor implements Filter
 					{
 						model.startTransaction(getClass().getName() + "#saveText(" + featureID + ',' + itemID + ')');
 						
-						final Item item = model.findByID(itemID);
+						final Item item = model.getItem(itemID);
 	
 						String v = value;
 						if("".equals(v))
@@ -334,8 +334,8 @@ public abstract class Editor implements Filter
 					{
 						model.startTransaction(getClass().getName() + "#savePosition(" + featureID + ',' + itemIDFrom +  + ',' + itemID + ')');
 						
-						final Item itemFrom = model.findByID(itemIDFrom);
-						final Item itemTo   = model.findByID(itemID);
+						final Item itemFrom = model.getItem(itemIDFrom);
+						final Item itemTo   = model.getItem(itemID);
 	
 						final Integer positionFrom = feature.get(itemFrom);
 						final Integer positionTo   = feature.get(itemTo);

@@ -131,7 +131,7 @@ public class HierarchyTest extends AbstractLibTest
 		assertID(0, firstItem);
 		assertEquals(0, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
-		assertSame(firstItem, model.findByID(HierarchyFirstSub.TYPE.getID()+".0"));
+		assertSame(firstItem, model.getItem(HierarchyFirstSub.TYPE.getID()+".0"));
 		assertIDFails("HierarchySuper.0", "type is abstract", true);
 		
 		firstItem.setSuperInt(2);

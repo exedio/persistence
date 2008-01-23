@@ -617,7 +617,7 @@ public final class Model
 	 * @see Item#getCopeID()
 	 * @throws NoSuchIDException if there is no item with the given id.
 	 */
-	public Item findByID(final String id)
+	public Item getItem(final String id)
 			throws NoSuchIDException
 	{
 		final int pos = id.lastIndexOf(Item.ID_SEPARATOR);
@@ -1066,5 +1066,14 @@ public final class Model
 	public void setPropertiesInitially(final ConnectProperties properties)
 	{
 		connect(properties);
+	}
+	
+	/**
+	 * @deprecated Use {@link #getItem(String)} instead
+	 */
+	@Deprecated
+	public Item findByID(final String id) throws NoSuchIDException
+	{
+		return getItem(id);
 	}
 }

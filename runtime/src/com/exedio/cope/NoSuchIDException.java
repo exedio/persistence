@@ -22,7 +22,7 @@ package com.exedio.cope;
  * Signals, that an attempt to find an item by it's ID has been failed,
  * because there is no item with such an ID.
  *
- * This exception will be thrown by {@link Model#findByID(String) Model.findByID},
+ * This exception will be thrown by {@link Model#getItem(String) Model.getItem},
  * if there is no item with the given ID.
  *
  * @author Ralf Wiebicke

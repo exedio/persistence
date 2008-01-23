@@ -195,7 +195,7 @@ public class UniqueItemTest extends TestmodelTest
 
 		restartTransaction();
 		assertTrue(!item.isActiveCopeItem());
-		Item otheritem = model.findByID(item.getCopeID());
+		Item otheritem = model.getItem(item.getCopeID());
 		assertNotSame(item, otheritem);
 		assertTrue(otheritem.isActiveCopeItem());
 		assertTrue(!item.isActiveCopeItem());

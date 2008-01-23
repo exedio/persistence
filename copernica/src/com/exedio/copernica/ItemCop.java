@@ -79,7 +79,7 @@ final class ItemCop extends CopernicaCop
 	{
 		try
 		{
-			final Item item = provider.getModel().findByID(itemID);
+			final Item item = provider.getModel().getItem(itemID);
 			return new ItemCop(provider, language, item);
 		}
 		catch(NoSuchIDException e)
