@@ -122,7 +122,7 @@ public class HierarchyEmptyTest extends AbstractLibTest
 		assertSame(superItem, model.findByID("HierarchyEmptySuper.1"));
 		assertIDFails("HierarchyEmptySuper.0",  "item <0> does not exist", false);
 		assertIDFails("HierarchyEmptySub.1",    "item <1> does not exist", false);
-		assertIDFails("noDotInThisString",      "no dot in id", true);
+		assertIDFails("noDotInThisString",      "no separator '.' in id", true);
 		assertIDFails("noSuchType.x",           "type <noSuchType> does not exist", true);
 		assertIDFails("HierarchyEmptySuper.x",  "wrong number format <x>", true);
 		assertIDFails("HierarchyEmptySuper.92386591832651832659213865193456293456",

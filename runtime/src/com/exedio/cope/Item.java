@@ -45,6 +45,8 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  */
 public abstract class Item extends Cope
 {
+	static final char ID_SEPARATOR = '.';
+	
 	transient Type<? extends Item> type;
 
 	/**
@@ -64,7 +66,7 @@ public abstract class Item extends Cope
 	 */
 	public final String getCopeID()
 	{
-		return type.id + '.' + pk;
+		return type.id + ID_SEPARATOR + pk;
 	}
 	
 	/**

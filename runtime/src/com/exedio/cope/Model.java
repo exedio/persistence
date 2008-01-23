@@ -620,9 +620,9 @@ public final class Model
 	public Item findByID(final String id)
 			throws NoSuchIDException
 	{
-		final int pos = id.lastIndexOf('.');
+		final int pos = id.lastIndexOf(Item.ID_SEPARATOR);
 		if(pos<=0)
-			throw new NoSuchIDException(id, true, "no dot in id");
+			throw new NoSuchIDException(id, true, "no separator '" + Item.ID_SEPARATOR + "' in id");
 
 		final String typeID = id.substring(0, pos);
 		final Type type = findTypeByID(typeID);
