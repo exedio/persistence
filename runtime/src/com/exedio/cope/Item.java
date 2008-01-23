@@ -59,7 +59,7 @@ public abstract class Item extends Cope
 	 * Returns a string unique for this item in all other items of the model.
 	 * For any item <tt>a</tt> in its model <tt>m</tt>
 	 * the following holds true:
-	 * <tt>a.equals(m.findByID(a.getCopeID()).</tt>
+	 * <tt>a.equals(m.getItem(a.getCopeID()).</tt>
 	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
 	 * @see Model#getItem(String)
