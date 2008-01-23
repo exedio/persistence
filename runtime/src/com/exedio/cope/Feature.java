@@ -70,7 +70,7 @@ public abstract class Feature
 	}
 	
 	/**
-	 * @see Model#findFeatureByID(String)
+	 * @see Model#getFeature(String)
 	 */
 	public final String getID()
 	{

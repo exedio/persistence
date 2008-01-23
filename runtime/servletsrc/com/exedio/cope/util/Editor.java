@@ -236,7 +236,7 @@ public abstract class Editor implements Filter
 			if(featureID==null)
 				throw new NullPointerException();
 			
-			final Media feature = (Media)model.findFeatureByID(featureID);
+			final Media feature = (Media)model.getFeature(featureID);
 			if(feature==null)
 				throw new NullPointerException(featureID);
 			
@@ -288,7 +288,7 @@ public abstract class Editor implements Filter
 				if(featureID==null)
 					throw new NullPointerException();
 				
-				final Feature featureO = model.findFeatureByID(featureID);
+				final Feature featureO = model.getFeature(featureID);
 				if(featureO==null)
 					throw new NullPointerException(featureID);
 				

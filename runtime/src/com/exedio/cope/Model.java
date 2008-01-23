@@ -470,7 +470,7 @@ public final class Model
 	/**
 	 * @see Feature#getID()
 	 */
-	public Feature findFeatureByID(final String id)
+	public Feature getFeature(final String id)
 	{
 		return featuresByID.get(id);
 	}
@@ -1084,5 +1084,14 @@ public final class Model
 	public Type findTypeByID(final String id)
 	{
 		return getType(id);
+	}
+	
+	/**
+	 * @deprecated Use {@link #getFeature(String)} instead
+	 */
+	@Deprecated
+	public Feature findFeatureByID(final String id)
+	{
+		return getFeature(id);
 	}
 }

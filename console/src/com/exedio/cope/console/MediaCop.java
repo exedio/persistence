@@ -96,7 +96,7 @@ final class MediaCop extends ConsoleCop
 		}
 		
 		return new MediaCop(
-				(MediaPath)model.findFeatureByID(mediaID),
+				(MediaPath)model.getFeature(mediaID),
 				mediaInline, otherInline,
 				Pager.newPager(request, LIMIT_DEFAULT));
 	}

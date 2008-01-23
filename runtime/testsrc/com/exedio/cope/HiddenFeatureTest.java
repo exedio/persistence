@@ -93,19 +93,19 @@ public class HiddenFeatureTest extends AbstractLibTest
 		assertEquals("HiddenFeatureSubItem.nonHiddenSub", sb.nonHiddenSub.getID());
 		assertEquals("HiddenFeatureSubItem.hiddenSame",   sb.hiddenSame.getID());
 		assertEquals("HiddenFeatureSubItem.hiddenOther",  sb.hiddenOther.getID());
-		assertSame(spt,               model.findFeatureByID("HiddenFeatureSuperItem.this"));
-		assertSame(sp.nonHiddenSuper, model.findFeatureByID("HiddenFeatureSuperItem.nonHiddenSuper"));
-		assertSame(sp.hiddenSame,     model.findFeatureByID("HiddenFeatureSuperItem.hiddenSame"));
-		assertSame(sp.hiddenOther,    model.findFeatureByID("HiddenFeatureSuperItem.hiddenOther"));
-		assertSame(sbt,             model.findFeatureByID("HiddenFeatureSubItem.this"));
-		assertSame(sb.nonHiddenSub, model.findFeatureByID("HiddenFeatureSubItem.nonHiddenSub"));
-		assertSame(sb.hiddenSame,   model.findFeatureByID("HiddenFeatureSubItem.hiddenSame"));
-		assertSame(sb.hiddenOther,  model.findFeatureByID("HiddenFeatureSubItem.hiddenOther"));
-		assertSame(null, model.findFeatureByID("HiddenFeatureSuperItem.hiddenOtherx"));
-		assertSame(null, model.findFeatureByID("HiddenFeatureSuperItemx.hiddenOther"));
-		assertSame(null, model.findFeatureByID("HiddenFeatureSuperItemhiddenOther"));
-		assertSame(null, model.findFeatureByID("HiddenFeatureSuperItem.nonHiddenSub"));
-		assertSame(null, model.findFeatureByID("HiddenFeatureSubItem.nonHiddenSuper"));
+		assertSame(spt,               model.getFeature("HiddenFeatureSuperItem.this"));
+		assertSame(sp.nonHiddenSuper, model.getFeature("HiddenFeatureSuperItem.nonHiddenSuper"));
+		assertSame(sp.hiddenSame,     model.getFeature("HiddenFeatureSuperItem.hiddenSame"));
+		assertSame(sp.hiddenOther,    model.getFeature("HiddenFeatureSuperItem.hiddenOther"));
+		assertSame(sbt,             model.getFeature("HiddenFeatureSubItem.this"));
+		assertSame(sb.nonHiddenSub, model.getFeature("HiddenFeatureSubItem.nonHiddenSub"));
+		assertSame(sb.hiddenSame,   model.getFeature("HiddenFeatureSubItem.hiddenSame"));
+		assertSame(sb.hiddenOther,  model.getFeature("HiddenFeatureSubItem.hiddenOther"));
+		assertSame(null, model.getFeature("HiddenFeatureSuperItem.hiddenOtherx"));
+		assertSame(null, model.getFeature("HiddenFeatureSuperItemx.hiddenOther"));
+		assertSame(null, model.getFeature("HiddenFeatureSuperItemhiddenOther"));
+		assertSame(null, model.getFeature("HiddenFeatureSuperItem.nonHiddenSub"));
+		assertSame(null, model.getFeature("HiddenFeatureSubItem.nonHiddenSuper"));
 
 		assertEquals(map(
 				HiddenFeatureSubItem.hiddenOther, HiddenFeatureSuperItem.hiddenOther,

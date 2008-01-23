@@ -275,7 +275,7 @@ public final class History extends Pattern
 		
 		public com.exedio.cope.Feature getFeature()
 		{
-			return featureId.getType().getModel().findFeatureByID(featureId.get(backingItem));
+			return featureId.getType().getModel().getFeature(featureId.get(backingItem));
 		}
 		
 		public String getId()
