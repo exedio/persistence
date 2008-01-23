@@ -153,7 +153,7 @@ final class TypeCop extends CopernicaCop
 			final String typeID,
 			final HttpServletRequest request)
 	{
-		final Type type = provider.getModel().findTypeByID(typeID);
+		final Type type = provider.getModel().getType(typeID);
 		if(type==null)
 			throw new RuntimeException("type "+typeID+" not available");
 

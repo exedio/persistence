@@ -98,7 +98,7 @@ public class MapFieldTest extends AbstractLibTest
 		assertEquals("MapFieldItem.name.parent", item.name.getParent(MapFieldItem.class).getID());
 		assertEquals("MapFieldItem.name.key", item.name.getKey().getID());
 		assertEquals("MapFieldItem.name.value", item.name.getValue().getID());
-		assertSame(item.name.getRelationType(), model.findTypeByID("MapFieldItem.name"));
+		assertSame(item.name.getRelationType(), model.getType("MapFieldItem.name"));
 		assertSame(item.name.getParent(MapFieldItem.class), model.findFeatureByID("MapFieldItem.name.parent"));
 		assertSame(item.name.getKey(), model.findFeatureByID("MapFieldItem.name.key"));
 		assertSame(item.name.getValue(), model.findFeatureByID("MapFieldItem.name.value"));

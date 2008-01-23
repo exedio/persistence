@@ -462,7 +462,7 @@ public final class Model
 	/**
 	 * @see Type#getID()
 	 */
-	public Type findTypeByID(final String id)
+	public Type getType(final String id)
 	{
 		return typesByID.get(id);
 	}
@@ -625,7 +625,7 @@ public final class Model
 			throw new NoSuchIDException(id, true, "no separator '" + Item.ID_SEPARATOR + "' in id");
 
 		final String typeID = id.substring(0, pos);
-		final Type type = findTypeByID(typeID);
+		final Type type = getType(typeID);
 		if(type==null)
 			throw new NoSuchIDException(id, true, "type <" + typeID + "> does not exist");
 		if(type.isAbstract)
@@ -1075,5 +1075,14 @@ public final class Model
 	public Item findByID(final String id) throws NoSuchIDException
 	{
 		return getItem(id);
+	}
+	
+	/**
+	 * @deprecated Use {@link #getType(String)} instead
+	 */
+	@Deprecated
+	public Type findTypeByID(final String id)
+	{
+		return getType(id);
 	}
 }

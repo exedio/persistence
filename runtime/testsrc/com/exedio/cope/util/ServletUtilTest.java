@@ -49,15 +49,15 @@ public class ServletUtilTest extends CopeAssert
 	{
 		assertModelNotConnected(modelOk);
 		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk"));
-		assertSame(ModelOk.TYPE, modelOk.findTypeByID("ModelOk"));
+		assertSame(ModelOk.TYPE, modelOk.getType("ModelOk"));
 
 		assertModelNotConnected(modelOk2);
 		assertIt(modelOk2, "nameOk2", new MockFilter(), new MockFilterConfig("com.exedio.cope.util.ServletUtilTest#modelOk2", "nameOk2"));
-		assertSame(ModelOk2.TYPE, modelOk2.findTypeByID("ModelOk2"));
+		assertSame(ModelOk2.TYPE, modelOk2.getType("ModelOk2"));
 
 		assertModelNotConnected(modelContext);
 		assertIt(modelContext, "nameContext", new MockFilter(), new MockFilterConfig(null, "nameContext", new MockServletContext("com.exedio.cope.util.ServletUtilTest#modelContext")));
-		assertSame(ModelContext.TYPE, modelContext.findTypeByID("ModelContext"));
+		assertSame(ModelContext.TYPE, modelContext.getType("ModelContext"));
 
 		assertFails(
 				new MockFilter(), new MockFilterConfig(null, "nameNull"),

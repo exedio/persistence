@@ -542,7 +542,7 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @see Model#findTypeByID(String)
+	 * @see Model#getType(String)
 	 */
 	public String getID()
 	{

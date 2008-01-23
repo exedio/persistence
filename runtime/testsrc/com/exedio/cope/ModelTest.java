@@ -113,7 +113,7 @@ public class ModelTest extends TestmodelTest
 		{
 			assertEquals("there is no type for class com.exedio.cope.Item", e.getMessage());
 		}
-		assertEquals(item.TYPE, model.findTypeByID(item.TYPE.getID()));
+		assertEquals(item.TYPE, model.getType(item.TYPE.getID()));
 
 		assertSame(item.TYPE, item.TYPE.getThis().getType());
 		assertEquals("AttributeItem.this", item.TYPE.getThis().getID());

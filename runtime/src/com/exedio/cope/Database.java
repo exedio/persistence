@@ -593,7 +593,7 @@ final class Database
 								if(type==null)
 								{
 									final String typeID = resultSet.getString(columnIndex++);
-									currentType = model.findTypeByID(typeID);
+									currentType = model.getType(typeID);
 									if(currentType==null)
 										throw new RuntimeException("no type with type id "+typeID);
 								}
