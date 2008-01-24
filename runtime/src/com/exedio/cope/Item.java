@@ -459,15 +459,6 @@ public abstract class Item extends Cope
 	{
 		return new Type<C>(javaClass, id);
 	}
-
-	/**
-	 * @deprecated Renamed to {@link #newEnumField(Class)}.
-	 */
-	@Deprecated
-	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Class<E> valueClass)
-	{
-		return newEnumField(valueClass);
-	}
 	
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
@@ -475,47 +466,10 @@ public abstract class Item extends Cope
 		return new EnumField<E>(valueClass);
 	}
 	
-	/**
-	 * @deprecated Renamed to {@link #newEnumField(com.exedio.cope.Field.Option, Class)}.
-	 */
-	@Deprecated
-	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Option option, final Class<E> valueClass)
-	{
-		return newEnumField(option, valueClass);
-	}
-	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
-	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Option option, final Class<E> valueClass)
-	{
-		return new EnumField<E>(option, valueClass);
-	}
-	
-	/**
-	 * @deprecated Renamed to {@link #newItemField(Class)}.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass)
-	{
-		return newItemField(valueClass);
-	}
-	
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return new ItemField<E>(valueClass);
-	}
-	
-	/**
-	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class)}.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass)
-	{
-		return newItemField(option, valueClass);
 	}
 	
 	/**
@@ -697,4 +651,50 @@ public abstract class Item extends Cope
 	 */
 	@Deprecated
 	public static final Field.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
+
+	/**
+	 * @deprecated Renamed to {@link #newEnumField(Class)}.
+	 */
+	@Deprecated
+	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Class<E> valueClass)
+	{
+		return newEnumField(valueClass);
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #newEnumField(com.exedio.cope.Field.Option, Class)}.
+	 */
+	@Deprecated
+	public static final <E extends Enum<E>> EnumField<E> newEnumAttribute(final Option option, final Class<E> valueClass)
+	{
+		return newEnumField(option, valueClass);
+	}
+	
+	/**
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
+	 */
+	@Deprecated
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
+	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Option option, final Class<E> valueClass)
+	{
+		return new EnumField<E>(option, valueClass);
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(Class)}.
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass)
+	{
+		return newItemField(valueClass);
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class)}.
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass)
+	{
+		return newItemField(option, valueClass);
+	}
 }
