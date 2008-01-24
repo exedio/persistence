@@ -472,48 +472,10 @@ public abstract class Item extends Cope
 		return new ItemField<E>(valueClass);
 	}
 	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
-	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass)
-	{
-		return new ItemField<E>(option, valueClass);
-	}
-	
-	/**
-	 * @deprecated Renamed to {@link #newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)}.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return newItemField(valueClass, policy);
-	}
-	
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<E>(valueClass, policy);
-	}
-	
-	/**
-	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class, com.exedio.cope.ItemField.DeletePolicy)}.
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return newItemField(option, valueClass, policy);
-	}
-	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
-	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return new ItemField<E>(option, valueClass, policy);
 	}
 	
 	// activation/deactivation -----------------------------------------------------
@@ -696,5 +658,43 @@ public abstract class Item extends Cope
 	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass)
 	{
 		return newItemField(option, valueClass);
+	}
+	
+	/**
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
+	 */
+	@Deprecated
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
+	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass)
+	{
+		return new ItemField<E>(option, valueClass);
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)}.
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return newItemField(valueClass, policy);
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #newItemField(com.exedio.cope.Field.Option, Class, com.exedio.cope.ItemField.DeletePolicy)}.
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemAttribute(final Option option, final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return newItemField(option, valueClass, policy);
+	}
+	
+	/**
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
+	 */
+	@Deprecated
+	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
+	public static final <E extends Item> ItemField<E> newItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return new ItemField<E>(option, valueClass, policy);
 	}
 }
