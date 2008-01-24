@@ -446,78 +446,6 @@ public abstract class Item extends Cope
 
 	// convenience for subclasses --------------------------------------------------
 	
-	/**
-	 * @deprecated Use default constructor instead.
-	 */
-	@Deprecated
-	public static final Field.Option MANDATORY = Field.Option.MANDATORY;
-
-	/**
-	 * @deprecated Use {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option OPTIONAL = Field.Option.OPTIONAL;
-
-	/**
-	 * @deprecated Use {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option UNIQUE = Field.Option.UNIQUE;
-	
-	/**
-	 * @deprecated Use {@link Field#optional()} and {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option UNIQUE_OPTIONAL = Field.Option.UNIQUE_OPTIONAL;
-	
-	/**
-	 * @deprecated Use {@link Field#toFinal()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL = Field.Option.FINAL;
-
-	/**
-	 * @deprecated Use {@link Field#toFinal()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL_OPTIONAL = Field.Option.FINAL_OPTIONAL;
-
-	/**
-	 * @deprecated Use {@link Field#toFinal()} and {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL_UNIQUE = Field.Option.FINAL_UNIQUE;
-
-	/**
-	 * @deprecated Use {@link Field#toFinal()}, {@link Field#optional()} and {@link FunctionField#unique()} instead.
-	 */
-	@Deprecated
-	public static final Field.Option FINAL_UNIQUE_OPTIONAL = Field.Option.FINAL_UNIQUE_OPTIONAL;
-
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY = FINAL;
-	
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL_OPTIONAL}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
-	
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY_UNIQUE = FINAL_UNIQUE;
-
-	/**
-	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE_OPTIONAL}.
-	 */
-	@Deprecated
-	public static final Field.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
-	
 	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
@@ -695,4 +623,78 @@ public abstract class Item extends Cope
 		}
 		return result;
 	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use default constructor instead.
+	 */
+	@Deprecated
+	public static final Field.Option MANDATORY = Field.Option.MANDATORY;
+
+	/**
+	 * @deprecated Use {@link Field#optional()} instead.
+	 */
+	@Deprecated
+	public static final Field.Option OPTIONAL = Field.Option.OPTIONAL;
+
+	/**
+	 * @deprecated Use {@link FunctionField#unique()} instead.
+	 */
+	@Deprecated
+	public static final Field.Option UNIQUE = Field.Option.UNIQUE;
+	
+	/**
+	 * @deprecated Use {@link Field#optional()} and {@link FunctionField#unique()} instead.
+	 */
+	@Deprecated
+	public static final Field.Option UNIQUE_OPTIONAL = Field.Option.UNIQUE_OPTIONAL;
+	
+	/**
+	 * @deprecated Use {@link Field#toFinal()} instead.
+	 */
+	@Deprecated
+	public static final Field.Option FINAL = Field.Option.FINAL;
+
+	/**
+	 * @deprecated Use {@link Field#toFinal()} and {@link Field#optional()} instead.
+	 */
+	@Deprecated
+	public static final Field.Option FINAL_OPTIONAL = Field.Option.FINAL_OPTIONAL;
+
+	/**
+	 * @deprecated Use {@link Field#toFinal()} and {@link FunctionField#unique()} instead.
+	 */
+	@Deprecated
+	public static final Field.Option FINAL_UNIQUE = Field.Option.FINAL_UNIQUE;
+
+	/**
+	 * @deprecated Use {@link Field#toFinal()}, {@link Field#optional()} and {@link FunctionField#unique()} instead.
+	 */
+	@Deprecated
+	public static final Field.Option FINAL_UNIQUE_OPTIONAL = Field.Option.FINAL_UNIQUE_OPTIONAL;
+
+	/**
+	 * @deprecated Has been renamed to {@link #FINAL}.
+	 */
+	@Deprecated
+	public static final Field.Option READ_ONLY = FINAL;
+	
+	/**
+	 * @deprecated Has been renamed to {@link #FINAL_OPTIONAL}.
+	 */
+	@Deprecated
+	public static final Field.Option READ_ONLY_OPTIONAL = FINAL_OPTIONAL;
+	
+	/**
+	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE}.
+	 */
+	@Deprecated
+	public static final Field.Option READ_ONLY_UNIQUE = FINAL_UNIQUE;
+
+	/**
+	 * @deprecated Has been renamed to {@link #FINAL_UNIQUE_OPTIONAL}.
+	 */
+	@Deprecated
+	public static final Field.Option READ_ONLY_UNIQUE_OPTIONAL = FINAL_UNIQUE_OPTIONAL;
 }
