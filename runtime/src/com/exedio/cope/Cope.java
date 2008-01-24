@@ -18,23 +18,16 @@
 
 package com.exedio.cope;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.exedio.cope.function.PlusView;
 
 /**
  * Utility class for creating conditions.
- * May be subclassed to access methods without class qualifier.
- * <p>
- * Must be {@link Serializable} to avoid needing a public empty
- * constructor for deserialization, needed on the first
- * non-Serializable super class of {@link Item}.
- * See http://www.jguru.com/faq/view.jsp?EID=251942
  *
  * @author Ralf Wiebicke
  */
-public abstract class Cope implements Serializable
+public abstract class Cope
 {
 	Cope()
 	{/* do not allow class to be subclassed by public */}

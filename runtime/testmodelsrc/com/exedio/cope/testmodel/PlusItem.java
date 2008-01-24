@@ -18,9 +18,10 @@
 
 package com.exedio.cope.testmodel;
 
-import com.exedio.cope.SetValue;
+import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.function.PlusView;
 
 /**
@@ -40,7 +41,7 @@ public class PlusItem extends Item
 
 	public static final PlusView plus23 = num2.plus(num3);
 
-	public static final PlusView plus123 = plus(num1, num2, num3);
+	public static final PlusView plus123 = Cope.plus(num1, num2, num3);
 
 	public static final PlusView plus12a3 = plus12.plus(num3);
 	

@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -43,7 +44,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
  *
  * @author Ralf Wiebicke
  */
-public abstract class Item extends Cope
+public abstract class Item implements Serializable
 {
 	static final char ID_SEPARATOR = '.';
 	
