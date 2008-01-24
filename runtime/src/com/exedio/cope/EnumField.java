@@ -78,12 +78,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 	
 	/**
-	 * @deprecated
-	 * use {@link Item#newEnumField(com.exedio.cope.Field.Option, Class)} instead,
-	 * which allows ommitting the generics:
-	 * instead of <tt>new EnumField&lt;Target&gt;(OPTIONAL, Target.class)</tt>
-	 * one can write <tt>newEnumField(OPTIONAL, Target.class)</tt>
-	 * and use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public EnumField(final Option option, final Class<E> valueClass)

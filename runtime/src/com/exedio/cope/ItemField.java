@@ -58,12 +58,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	/**
-	 * @deprecated
-	 * use {@link Item#newItemField(com.exedio.cope.Field.Option, Class)} instead,
-	 * which allows ommitting the generics:
-	 * instead of <tt>new ItemField&lt;Target&gt;(OPTIONAL, Target.class)</tt>
-	 * one can write <tt>newItemField(OPTIONAL, Target.class)</tt>
-	 * and use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public ItemField(final Option option, final Class<E> valueClass)
@@ -85,12 +80,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 
 	/**
-	 * @deprecated
-	 * use {@link Item#newItemField(com.exedio.cope.Field.Option, Class, com.exedio.cope.ItemField.DeletePolicy)} instead,
-	 * which allows ommitting the generics:
-	 * instead of <tt>new ItemField&lt;Target&gt;(OPTIONAL, Target.class, CASCADE)</tt>
-	 * one can write <tt>newItemField(OPTIONAL, Target.class, CASCADE)</tt>
-	 * and use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
 	 */
 	@Deprecated
 	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
