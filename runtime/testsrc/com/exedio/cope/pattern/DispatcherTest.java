@@ -179,6 +179,15 @@ public class DispatcherTest extends AbstractLibTest
 		assertDone(d1, list(), item3);
 		assertNotDone(list(d1, d2, d3), item4);
 		
+		try
+		{
+			DispatcherItem.upload.dispatch(HashItem.class);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected " + HashItem.class.getName() + ", but was " + DispatcherItem.class.getName(), e.getMessage());
+		}
 	}
 	
 	private static class DateRange
