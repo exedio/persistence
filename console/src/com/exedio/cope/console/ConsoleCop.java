@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cops.Cop;
+import com.exedio.cops.Pager;
 
 abstract class ConsoleCop extends Cop
 {
@@ -251,6 +252,26 @@ abstract class ConsoleCop extends Cop
 		void writeBody(PrintStream out, Model model, HttpServletRequest request)
 		{
 			Console_Jspm.writeNotFound(out, pathInfo);
+		}
+	}
+	
+	static void writePager(final PrintStream out, final Pageable cop)
+	{
+		final Pager pager = cop.getPager();
+		if(pager.isNeeded())
+		{
+			out.print(' ');
+			out.print(pager.getFrom());
+			out.print('-');
+			out.print(pager.getTo());
+			out.print('/');
+			out.print(pager.getTotal());
+			Media_Jspm.writePagerButton(out, cop, pager.first(),    "&lt;&lt;");
+			Media_Jspm.writePagerButton(out, cop, pager.previous(), "&lt;");
+			Media_Jspm.writePagerButton(out, cop, pager.next(),     "&gt;");
+			Media_Jspm.writePagerButton(out, cop, pager.last(),     "&gt;&gt;");
+			for(final Pager newLimit : pager.newLimits())
+				Media_Jspm.writePagerButton(out, cop, newLimit, String.valueOf(newLimit.getLimit()));
 		}
 	}
 }
