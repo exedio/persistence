@@ -26,17 +26,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.Migration;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.InitServlet;
 import com.exedio.cope.pattern.Media;
 
 public final class EditedServlet extends HttpServlet
 {
+	static final Migration[] migrations(final int length)
+	{
+		final Migration[] result = new Migration[length];
+		for(int i = 0; i<length; i++)
+		{
+			final int revision = length - i;
+			result[i] = new Migration(revision, "comment " + revision, "sql " + revision + "/1");
+		}
+		return result;
+	}
+	
 	private static final long serialVersionUID = 1l;
 	
 	static final String ENCODING = "utf-8";
 	
-	public static final Model model = new Model(EditedItem.TYPE);
+	public static final Model model = new Model(migrations(64), EditedItem.TYPE);
 	
 	private ConnectToken connectToken = null;
 	
