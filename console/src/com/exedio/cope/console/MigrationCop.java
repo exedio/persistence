@@ -22,7 +22,6 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -120,13 +119,11 @@ final class MigrationCop extends ConsoleCop
 				}
 			}
 			
-			final int current = model.getMigrationRevision();
-			register(current).current = true;
+			register(model.getMigrationRevision()).current = true;
 			
 			final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
 			Collections.reverse(lineList);
-			Migration_Jspm.writeBody(out,
-					lineList);
+			Migration_Jspm.writeBody(out, lineList);
 		}
 		else
 		{
