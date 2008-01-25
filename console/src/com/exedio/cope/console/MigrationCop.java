@@ -20,7 +20,8 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -45,15 +46,33 @@ final class MigrationCop extends ConsoleCop
 		Migration_Jspm.writeHead(out);
 	}
 	
-	int oldest = Integer.MAX_VALUE;
-	int latest = Integer.MIN_VALUE;
+	private TreeMap<Integer, Line> lines = null;
 	
-	private void register(final int revision)
+	private Line register(final int revision)
 	{
-		if(oldest>revision)
-			oldest = revision;
-		if(latest<revision)
-			latest = revision;
+		if(lines==null)
+			lines = new TreeMap<Integer, Line>();
+		Line result = lines.get(revision);
+		if(result==null)
+		{
+			result = new Line(revision);
+			lines.put(revision, result);
+		}
+		return result;
+	}
+	
+	static class Line
+	{
+		final int revision;
+		Migration migration = null;
+		byte[] logRaw = null;
+		String logString = null;
+		TreeMap<String, String> logProperties = null;
+		
+		Line(final int revision)
+		{
+			this.revision = revision;
+		}
 	}
 
 	@Override
@@ -62,11 +81,11 @@ final class MigrationCop extends ConsoleCop
 		if(model.isMigrationSupported())
 		{
 			final List<Migration> migrations = model.getMigrations();
-			final HashMap<Integer, Migration> migrationMap = new HashMap<Integer, Migration>();
+			
 			for(final Migration m : migrations)
 			{
-				register(m.getRevision());
-				migrationMap.put(m.getRevision(), m);
+				register(m.getRevision()).migration = m;
+				
 			}
 			
 			Map<Integer, byte[]> logsRaw = null;
@@ -79,15 +98,13 @@ final class MigrationCop extends ConsoleCop
 				e.printStackTrace(); // TODO show error in page together with declared migrations
 			}
 
-			final HashMap<Integer, String> logStrings = new HashMap<Integer, String>();
-			final HashMap<Integer, TreeMap<String, String>> logProperties = new HashMap<Integer, TreeMap<String, String>>();
 			if(logsRaw!=null)
 			{
 				try
 				{
 					for(final Integer v : logsRaw.keySet())
 					{
-						register(v);
+						register(v).logRaw = logsRaw.get(v);
 						final byte[] infoBytes = logsRaw.get(v);
 						final Properties infoProperties = Migration.parse(infoBytes);
 						if(infoProperties!=null)
@@ -95,10 +112,10 @@ final class MigrationCop extends ConsoleCop
 							final TreeMap<String, String> map = new TreeMap<String, String>();
 							for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
 								map.put((String)entry.getKey(), (String)entry.getValue());
-							logProperties.put(v, map);
+							register(v).logProperties = map;
 							continue;
 						}
-						logStrings.put(v, new String(infoBytes, "latin1"));
+						register(v).logString = new String(infoBytes, "latin1");
 					}
 				}
 				catch(UnsupportedEncodingException e)
@@ -110,10 +127,12 @@ final class MigrationCop extends ConsoleCop
 			final int current = model.getMigrationRevision();
 			register(current);
 			
+			final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
+			Collections.reverse(lineList);
 			Migration_Jspm.writeBody(out,
-					oldest, latest, current,
-					migrationMap,
-					logStrings, logProperties);
+					current,
+					lineList);
+			
 		}
 		else
 		{

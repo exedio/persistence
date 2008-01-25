@@ -20,11 +20,12 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.exedio.cope.Migration;
+import com.exedio.cope.console.MigrationCop.Line;
 
 final class Migration_Jspm extends Console_Jspm
 {
@@ -52,23 +53,23 @@ final class Migration_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 			final PrintStream out,
-			final int oldest, final int latest, final int current,
-			Map<Integer, Migration> migrations,
-			final HashMap<Integer, String> logStrings,
-			final HashMap<Integer, TreeMap<String, String>> logProperties)
+			final int current,
+			List<Line> lines)
+			
+			
 	{
 		%>
 		<table>
 			<caption>Migrations</caption>
 			<tr><th>rev.</th><th>declared</th><th>logged</th></tr><%
-			for(int v = latest; v>=oldest; v--)
+			for(final Line line : lines)
 			{
-				final Migration migration = migrations.get(v);
-				final String logString = logStrings.get(v);
-				final TreeMap<String, String> logProperty = logProperties.get(v);
+				final Migration migration = line.migration;
+				final String logString = line.logString;
+				final TreeMap<String, String> logProperty = line.logProperties;
 			%>
 			<tr>
-				<td><% if(v==current){%>&#187;&nbsp;<%} %><%=v%></td>
+				<td><% final int v = migration.getRevision(); if(v==current){%>&#187;&nbsp;<%} %><%=v%></td>
 				<td class="text"><%
 				if(migration!=null)
 				{
