@@ -80,8 +80,7 @@ final class MigrationCop extends ConsoleCop
 	{
 		if(model.isMigrationSupported())
 		{
-			final List<Migration> migrations = model.getMigrations();
-			for(final Migration m : migrations)
+			for(final Migration m : model.getMigrations())
 				register(m.getRevision()).migration = m;
 			
 			Map<Integer, byte[]> logsRaw = null;
