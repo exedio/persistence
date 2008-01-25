@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cops.Cop;
+import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 
 abstract class ConsoleCop extends Cop

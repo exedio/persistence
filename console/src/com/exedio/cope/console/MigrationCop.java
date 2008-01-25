@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Migration;
 import com.exedio.cope.Model;
+import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 import com.exedio.dsmf.SQLRuntimeException;
 

@@ -28,6 +28,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
+import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 
 final class MediaCop extends ConsoleCop implements Pageable
