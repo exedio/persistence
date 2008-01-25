@@ -33,7 +33,6 @@ import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cope.pattern.MediaThumbnail;
 import com.exedio.cope.pattern.MediaImageMagickFilter;
 import com.exedio.cope.pattern.MediaImageMagickThumbnail;
-import com.exedio.cops.Pager;
 
 final class Media_Jspm extends Console_Jspm
 {
@@ -218,16 +217,6 @@ final class Media_Jspm extends Console_Jspm
 			}
 		%>
 		</table><%
-	}
-	
-	static final void writePagerButton(
-			final PrintStream out,
-			final Pageable cop,
-			final Pager href,
-			final String text)
-	{
-				%>
-				<a href="<%=cop.toPage(href)%>"<% if(href.isNeutral()){%> class="disabled"<%}%>><%=text%></a><%
 	}
 	
 	private static final void writeURL(final PrintStream out, final String url, final String contentType, final boolean inline)

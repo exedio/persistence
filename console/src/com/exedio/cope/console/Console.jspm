@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cops.Cop;
+import com.exedio.cops.Pager;
 
 abstract class Console_Jspm
 {
@@ -182,6 +183,16 @@ abstract class Console_Jspm
 	{
 		%><a href="<%=cop%>"><img class="check" src="<%=
 			(value ? ConsoleServlet.checkTrue : ConsoleServlet.checkFalse)%>"></a><%
+	}
+	
+	static final void writePagerButton(
+			final PrintStream out,
+			final Pageable cop,
+			final Pager href,
+			final String text)
+	{
+				%>
+				<a href="<%=cop.toPage(href)%>"<% if(href.isNeutral()){%> class="disabled"<%}%>><%=text%></a><%
 	}
 	
 	static final String encode(final String s)
