@@ -81,12 +81,8 @@ final class MigrationCop extends ConsoleCop
 		if(model.isMigrationSupported())
 		{
 			final List<Migration> migrations = model.getMigrations();
-			
 			for(final Migration m : migrations)
-			{
 				register(m.getRevision()).migration = m;
-				
-			}
 			
 			Map<Integer, byte[]> logsRaw = null;
 			try
@@ -132,7 +128,6 @@ final class MigrationCop extends ConsoleCop
 			Migration_Jspm.writeBody(out,
 					current,
 					lineList);
-			
 		}
 		else
 		{
