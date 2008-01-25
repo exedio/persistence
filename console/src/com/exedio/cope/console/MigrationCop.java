@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -30,13 +31,41 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Migration;
 import com.exedio.cope.Model;
+import com.exedio.cops.Pager;
 import com.exedio.dsmf.SQLRuntimeException;
 
-final class MigrationCop extends ConsoleCop
+final class MigrationCop extends ConsoleCop implements Pageable
 {
-	MigrationCop()
+	private static final int LIMIT_DEFAULT = 10;
+	
+	final Pager pager;
+	
+	private MigrationCop(final Pager pager)
 	{
 		super(TAB_MIGRATION, "migration");
+		this.pager = pager;
+		
+		pager.addParameters(this);
+	}
+	
+	MigrationCop()
+	{
+		this(new Pager(LIMIT_DEFAULT));
+	}
+	
+	MigrationCop(final HttpServletRequest request)
+	{
+		this(Pager.newPager(request, LIMIT_DEFAULT));
+	}
+	
+	public Pager getPager()
+	{
+		return pager;
+	}
+	
+	public MigrationCop toPage(final Pager pager)
+	{
+		return new MigrationCop(pager);
 	}
 	
 	@Override
@@ -124,7 +153,14 @@ final class MigrationCop extends ConsoleCop
 			
 			final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
 			Collections.reverse(lineList);
-			Migration_Jspm.writeBody(out, lineList);
+			
+			final int offset = pager.getOffset();
+			final List<Line> lineListLimited =
+				lineList.subList(offset, Math.min(offset + pager.getLimit(), lineList.size()));
+			
+			pager.init(lineListLimited.size(), lineList.size());
+			
+			Migration_Jspm.writeBody(out, this, lineListLimited);
 		}
 		else
 		{

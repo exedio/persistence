@@ -53,11 +53,12 @@ final class Migration_Jspm extends Console_Jspm
 	
 	final static void writeBody(
 			final PrintStream out,
+			final MigrationCop cop,
 			List<Line> lines)
 	{
 		%>
 		<table>
-			<caption>Migrations</caption>
+			<caption>Migrations<% cop.writePager(out, cop); %></caption>
 			<tr><th>rev.</th><th>declared</th><th>logged</th></tr><%
 			int n = 0;
 			for(final Line line : lines)

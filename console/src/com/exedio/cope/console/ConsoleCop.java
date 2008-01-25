@@ -201,7 +201,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_PROPERTIES.equals(tab))
 			return new PropertiesCop();
 		if(TAB_MIGRATION.equals(tab))
-			return new MigrationCop();
+			return new MigrationCop(request);
 		if(TAB_CONNECTION_POOL.equals(tab))
 			return new ConnectionPoolCop();
 		if(TAB_TRANSACTION.equals(tab))
