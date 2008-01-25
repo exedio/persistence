@@ -111,14 +111,14 @@ final class MediaCop extends ConsoleCop implements Pageable
 		return new MediaCop(media, mediaInline, !otherInline, pager);
 	}
 
-	public MediaCop toPage(final Pager pager)
-	{
-		return new MediaCop(media, mediaInline, otherInline, pager);
-	}
-	
 	public Pager getPager()
 	{
 		return pager;
+	}
+	
+	public MediaCop toPage(final Pager pager)
+	{
+		return new MediaCop(media, mediaInline, otherInline, pager);
 	}
 	
 	MediaCop toOther()
