@@ -68,6 +68,7 @@ final class MigrationCop extends ConsoleCop
 		byte[] logRaw = null;
 		String logString = null;
 		TreeMap<String, String> logProperties = null;
+		boolean current = false;
 		
 		Line(final int revision)
 		{
@@ -120,12 +121,11 @@ final class MigrationCop extends ConsoleCop
 			}
 			
 			final int current = model.getMigrationRevision();
-			register(current);
+			register(current).current = true;
 			
 			final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
 			Collections.reverse(lineList);
 			Migration_Jspm.writeBody(out,
-					current,
 					lineList);
 		}
 		else
