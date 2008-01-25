@@ -59,22 +59,23 @@ final class Migration_Jspm extends Console_Jspm
 		<table>
 			<caption>Migrations</caption>
 			<tr><th>rev.</th><th>declared</th><th>logged</th></tr><%
+			int n = 0;
 			for(final Line line : lines)
 			{
+				n++;
 				final Migration migration = line.migration;
 				final String logString = line.logString;
 				final TreeMap<String, String> logProperty = line.logProperties;
-				final int v = migration.getRevision();
 			%>
 			<tr>
-				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=v%></td>
+				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=migration.getRevision()%></td>
 				<td class="text"><%
 				if(migration!=null)
 				{
 					%>
-					<img class="node" src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleSql(this,<%=v%>)">
+					<img class="node" src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleSql(this,<%=n%>)">
 					<%=encode(migration.getComment())%>
-					<ul id="sql<%=v%>" class="expand"><%
+					<ul id="sql<%=n%>" class="expand"><%
 						for(final String sql : migration.getBody())
 						{
 						%>
