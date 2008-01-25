@@ -99,7 +99,8 @@ final class MigrationCop extends ConsoleCop
 				{
 					for(final Integer v : logsRaw.keySet())
 					{
-						final Line line = register(v); line.logRaw = logsRaw.get(v);
+						final Line line = register(v);
+						line.logRaw = logsRaw.get(v);
 						final byte[] infoBytes = logsRaw.get(v);
 						final Properties infoProperties = Migration.parse(infoBytes);
 						if(infoProperties!=null)
