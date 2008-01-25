@@ -99,7 +99,7 @@ final class MigrationCop extends ConsoleCop
 				{
 					for(final Integer v : logsRaw.keySet())
 					{
-						register(v).logRaw = logsRaw.get(v);
+						final Line line = register(v); line.logRaw = logsRaw.get(v);
 						final byte[] infoBytes = logsRaw.get(v);
 						final Properties infoProperties = Migration.parse(infoBytes);
 						if(infoProperties!=null)
@@ -107,10 +107,10 @@ final class MigrationCop extends ConsoleCop
 							final TreeMap<String, String> map = new TreeMap<String, String>();
 							for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
 								map.put((String)entry.getKey(), (String)entry.getValue());
-							register(v).logProperties = map;
+							line.logProperties = map;
 							continue;
 						}
-						register(v).logString = new String(infoBytes, "latin1");
+						line.logString = new String(infoBytes, "latin1");
 					}
 				}
 				catch(UnsupportedEncodingException e)
