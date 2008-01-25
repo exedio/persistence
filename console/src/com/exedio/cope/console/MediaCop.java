@@ -30,7 +30,7 @@ import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.pattern.MediaRedirect;
 import com.exedio.cops.Pager;
 
-final class MediaCop extends ConsoleCop
+final class MediaCop extends ConsoleCop implements Pageable
 {
 	private static final String MEDIA = "m";
 	private static final String INLINE = "il";
@@ -111,9 +111,14 @@ final class MediaCop extends ConsoleCop
 		return new MediaCop(media, mediaInline, !otherInline, pager);
 	}
 
-	MediaCop toPage(final Pager pager)
+	public MediaCop toPage(final Pager pager)
 	{
 		return new MediaCop(media, mediaInline, otherInline, pager);
+	}
+	
+	public Pager getPager()
+	{
+		return pager;
 	}
 	
 	MediaCop toOther()
@@ -158,8 +163,9 @@ final class MediaCop extends ConsoleCop
 		return (pos>0) ? url.substring(pos+1) : url;
 	}
 	
-	void writePager(final PrintStream out)
+	static void writePager(final PrintStream out, final Pageable cop)
 	{
+		final Pager pager = cop.getPager();
 		if(pager.isNeeded())
 		{
 			out.print(' ');
@@ -168,12 +174,12 @@ final class MediaCop extends ConsoleCop
 			out.print(pager.getTo());
 			out.print('/');
 			out.print(pager.getTotal());
-			Media_Jspm.writePagerButton(out, this, pager.first(),    "&lt;&lt;");
-			Media_Jspm.writePagerButton(out, this, pager.previous(), "&lt;");
-			Media_Jspm.writePagerButton(out, this, pager.next(),     "&gt;");
-			Media_Jspm.writePagerButton(out, this, pager.last(),     "&gt;&gt;");
+			Media_Jspm.writePagerButton(out, cop, pager.first(),    "&lt;&lt;");
+			Media_Jspm.writePagerButton(out, cop, pager.previous(), "&lt;");
+			Media_Jspm.writePagerButton(out, cop, pager.next(),     "&gt;");
+			Media_Jspm.writePagerButton(out, cop, pager.last(),     "&gt;&gt;");
 			for(final Pager newLimit : pager.newLimits())
-				Media_Jspm.writePagerButton(out, this, newLimit, String.valueOf(newLimit.getLimit()));
+				Media_Jspm.writePagerButton(out, cop, newLimit, String.valueOf(newLimit.getLimit()));
 		}
 	}
 }

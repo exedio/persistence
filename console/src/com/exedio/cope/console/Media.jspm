@@ -165,7 +165,7 @@ final class Media_Jspm extends Console_Jspm
 		final boolean otherInline = cop.otherInline;
 		%>
 		<table>
-			<caption><%=media.getID()%><% cop.writePager(out); %></caption>
+			<caption><%=media.getID()%><% cop.writePager(out, cop); %></caption>
 			<tr>
 				<th>Item</th>
 				<th>URL <a href="<%=cop.toggleInlineMedia()%>">IN</a></th>
@@ -222,7 +222,7 @@ final class Media_Jspm extends Console_Jspm
 	
 	static final void writePagerButton(
 			final PrintStream out,
-			final MediaCop cop,
+			final Pageable cop,
 			final Pager href,
 			final String text)
 	{
