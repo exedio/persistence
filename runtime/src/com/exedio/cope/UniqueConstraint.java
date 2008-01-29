@@ -148,6 +148,10 @@ public final class UniqueConstraint extends Feature
 		if(fields.size()!=values.length)
 			throw new RuntimeException(String.valueOf(fields.size())+'-'+values.length);
 
+		for(int i = 0; i<values.length; i++)
+			if(values[i]==null)
+				throw new NullPointerException("cannot search uniquely for null on " + getID() + " for " + fields.get(i).getID());
+		
 		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
 		for(int j = 0; fieldIter.hasNext(); j++)
