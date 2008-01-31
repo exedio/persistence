@@ -438,6 +438,11 @@ public class ServletUtilTest extends CopeAssert
 		{
 			throw new RuntimeException();
 		}
+
+		public String getContextPath()
+		{
+			throw new RuntimeException();
+		}
 	}
 
 	static class ModelOk extends Item
