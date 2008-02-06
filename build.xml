@@ -972,6 +972,7 @@
 			  compression="gzip">
 			<tarfileset file="${basedir}/build/runtime/build.number" />
 			<tarfileset dir="${basedir}">
+				<exclude name=".eclipse-output/**" />
 				<exclude name="build/**" />
 				<exclude name="home/api/**" />
 				<exclude name="home/lib/**" />
