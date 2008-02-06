@@ -494,7 +494,16 @@ public abstract class Editor implements Filter
 	
 	private static final ThreadLocal<TL> tls = new ThreadLocal<TL>();
 	
+	/**
+	 * @deprecated Use {@link #isLoggedIn()} instead
+	 */
+	@Deprecated
 	public static final boolean isActive()
+	{
+		return isLoggedIn();
+	}
+
+	public static final boolean isLoggedIn()
 	{
 		return tls.get()!=null;
 	}

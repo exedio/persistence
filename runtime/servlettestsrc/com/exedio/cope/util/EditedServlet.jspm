@@ -41,7 +41,7 @@ final class EditedServlet_Jspm
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=EditedServlet.ENCODING%>">
 		<title>Content Editor Test</title><%
-		if(Editor.isActive())
+		if(Editor.isLoggedIn())
 		{
 		%>
 		<style type="text/css">
@@ -121,7 +121,7 @@ final class EditedServlet_Jspm
 	<body><%
 		Editor.writeBar(out);
 		%>
-		isActive:<%=Editor.isActive()%>
+		isLoggedIn:<%=Editor.isLoggedIn()%>
 		getLogin:<%=Editor.getLogin()%>
 		duplicate: <%=item1.getCopeID()%>, <a href="<%=response.encodeURL("duplicate.html")%>"><%=edit(item1.getField(), item1.field, item1)%></a> (<%=item1.getField()%>)
 		<br>
