@@ -43,7 +43,13 @@ public final class EditorFilter extends Editor
 		
 		public String getName()
 		{
-			return "---" + user + "---";
+			return "---" + user + "---getName()---";
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "---" + user + "---toString()---";
 		}
 	};
 	

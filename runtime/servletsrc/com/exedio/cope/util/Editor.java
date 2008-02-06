@@ -499,6 +499,12 @@ public abstract class Editor implements Filter
 		return tls.get()!=null;
 	}
 	
+	public static final Login getLogin()
+	{
+		final TL tl = tls.get();
+		return tl!=null ? tl.session.login : null;
+	}
+	
 	@SuppressWarnings("cast") // OK: for eclipse because of the javac bug
 	private static final <K> Item getItem(final MapField<K, String> map, final K key, final Item item)
 	{
