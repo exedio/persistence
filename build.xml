@@ -1021,6 +1021,8 @@
 				<exclude name="**/*_Jspm.java" />
 				<exclude name="*.test.cope.properties" />
 				<exclude name="local.properties" />
+				<exclude name="runtime/servlettestweb/WEB-INF/classes/**" />
+				<exclude name="runtime/servlettestweb/WEB-INF/lib/**" />
 				<!-- oracle is not open source -->
 				<exclude name="oracle.driver.properties" />
 				<exclude name="lib/ojdbc14*.jar" />
