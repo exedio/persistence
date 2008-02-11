@@ -791,21 +791,21 @@
 				</waitfor>
 				<echo message="tomcat: ready, starting tests ..." />
 				<fail if="server.app.init.failed" message="tomcat could not be started." />
-		<mkdir dir="build/testresults" />
-		<junit fork="yes"
-				 haltonerror="true" haltonfailure="true"
-				 showoutput="true" printsummary="true">
-			<formatter type="brief" usefile="false" />
-			<formatter type="xml" />
-			<classpath>
-				<pathelement location="build/copernica/webtestclasses" />
-				<fileset dir="lib/jwebunit">
-					<include name="*.jar" />
-				</fileset>
-			</classpath>
-			<test name="com.exedio.copernica.PackageTest" todir="build/testresults" outfile="copernica" />
-			<assertions><enable/></assertions>
-		</junit>
+				<mkdir dir="build/testresults" />
+				<junit fork="yes"
+						haltonerror="true" haltonfailure="true"
+						showoutput="true" printsummary="true">
+					<formatter type="brief" usefile="false" />
+					<formatter type="xml" />
+					<classpath>
+						<pathelement location="build/copernica/webtestclasses" />
+						<fileset dir="lib/jwebunit">
+							<include name="*.jar" />
+						</fileset>
+					</classpath>
+					<test name="com.exedio.copernica.PackageTest" todir="build/testresults" outfile="copernica" />
+					<assertions><enable/></assertions>
+				</junit>
 			</try>
 			<catch>
 				<throw refid="exception"/>
