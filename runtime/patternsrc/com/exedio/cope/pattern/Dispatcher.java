@@ -343,10 +343,5 @@ public final class Dispatcher extends Pattern
 				throw new RuntimeException(e);
 			}
 		}
-		
-		public Item getItem()
-		{
-			return backingItem;
-		}
 	}
 }
