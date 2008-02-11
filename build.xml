@@ -107,9 +107,19 @@
 		<property file="local.properties" />
 	</target>
 	
-	<target name="catalina.home" depends="local.properties">
-		<property name="catalina.home" value="../tomcat" />
-		<echo message="assuming tomcat in directory ${catalina.home}" />
+	<target name="catalina">
+		<untar src="lib/apache-tomcat.tar.gz"
+				 compression="gzip"
+				 dest="${basedir}">
+			<mapper type="glob" from="apache-tomcat-6.0.14/*" to="tomcat/*" />
+		</untar>
+		<chmod dir="tomcat/bin" perm="ugo+x" includes="*.sh" />
+		<copy todir="tomcat/conf" overwrite="true">
+			<fileset dir="lib">
+				<include name="server.xml" />
+				<include name="tomcat-users.xml" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<!-- dsmf -->
@@ -413,10 +423,10 @@
 		</foreachEnvironment>
 	</target>
 	
-	<target name="runtime.tomcat" depends="runtime.web, catalina.home">
+	<target name="runtime.tomcat" depends="runtime.web, catalina">
 		<foreachEnvironment skipSwitch="runtime.tomcat">
 			<body>
-				<copy tofile="${catalina.home}/conf/Catalina/localhost/copelibtest-@{env}.xml"
+				<copy tofile="tomcat/conf/Catalina/localhost/copelibtest-@{env}.xml"
 						file="runtime/context.xml">
 					<filterset>
 						<filter token="ENV" value="@{env}" />
@@ -472,12 +482,12 @@
 		</copy>
 	</target>
 	
-	<target name="runtime.servlet.test.tomcat" depends="runtime.servlet.test.web, catalina.home">
-		<copy tofile="${catalina.home}/conf/Catalina/localhost/cope-runtime-servlet.xml"
+	<target name="runtime.servlet.test.tomcat" depends="runtime.servlet.test.web, catalina">
+		<copy tofile="tomcat/conf/Catalina/localhost/cope-runtime-servlet.xml"
 				file="runtime/servlet-context.xml" />
 	</target>
 	
-	<target name="runtime.clean" depends="catalina.home">
+	<target name="runtime.clean">
 		<delete>
 			<fileset dir="runtime/servletsrc">
 				<include name="**/*_Jspm.java" />
@@ -487,12 +497,6 @@
 			</fileset>
 		</delete>
 		<delete dir="build/runtime" />
-		<delete>
-			<fileset dir="${catalina.home}">
-				<include name="conf/Catalina/localhost/copelibtest-*.xml" />
-				<include name="conf/Catalina/localhost/cope-runtime-servlet.xml" />
-			</fileset>
-		</delete>
 		<delete dir="runtime/servlettestweb/WEB-INF/classes" />
 		<delete dir="runtime/servlettestweb/WEB-INF/lib" />
 	</target>
@@ -649,7 +653,7 @@
 	
 	<target name="console.compile" depends="console.core.compile, console.test.compile" />
 	
-	<target name="console.clean" depends="catalina.home">
+	<target name="console.clean">
 		<delete dir="build/console" />
 		<delete>
 			<fileset dir="console/src">
@@ -741,10 +745,10 @@
 		</foreachEnvironment>
 	</target>
 	
-	<target name="copernica.tomcat" depends="copernica.web, catalina.home">
+	<target name="copernica.tomcat" depends="copernica.web, catalina">
 		<foreachEnvironment skipSwitch="copernica.tomcat">
 			<body>
-				<copy tofile="${catalina.home}/conf/Catalina/localhost/copetest-@{env}.xml"
+				<copy tofile="tomcat/conf/Catalina/localhost/copetest-@{env}.xml"
 						file="copernica/context.xml">
 					<filterset>
 						<filter token="ENV" value="@{env}" />
@@ -764,7 +768,29 @@
 		</ljavac>
 	</target>
 	
-	<target name="copernica.webtest" depends="copernica.webtest.compile">
+	<target name="copernica.webtest"
+				depends="catalina,
+							runtime.servlet.test.tomcat,
+							copernica.tomcat, copernica.webtest.compile">
+		<trycatch reference="exception">
+			<try>
+				<echo message="tomcat: starting ..." />
+				<forget>
+					<exec executable="${basedir}/tomcat/bin/catalina.sh"
+							failonerror="true"
+							output="build/catalina-start.log">
+						<arg value="run" />
+					</exec>
+				</forget>
+				<echo message="tomcat: waiting to be ready ..." />
+				<waitfor
+						maxwait="40" maxwaitunit="second"
+						checkevery="5" checkeveryunit="second"
+						timeoutproperty="server.app.init.failed">
+					<http url="http://127.0.0.1:8080/cope-runtime-servlet/mediaConsole" />
+				</waitfor>
+				<echo message="tomcat: ready, starting tests ..." />
+				<fail if="server.app.init.failed" message="tomcat could not be started." />
 		<mkdir dir="build/testresults" />
 		<junit fork="yes"
 				 haltonerror="true" haltonfailure="true"
@@ -780,9 +806,25 @@
 			<test name="com.exedio.copernica.PackageTest" todir="build/testresults" outfile="copernica" />
 			<assertions><enable/></assertions>
 		</junit>
+			</try>
+			<catch>
+				<throw refid="exception"/>
+			</catch>
+			<finally>
+				<echo message="tomcat: stoping ..." />
+				<exec executable="${basedir}/tomcat/bin/catalina.sh"
+						failonerror="true"
+						output="build/catalina-stop.log">
+					<arg value="stop" />
+				</exec>
+				<echo message="tomcat: waiting to be stoped ..." />
+				<sleep seconds="10" />
+				<echo message="tomcat: stoped." />
+			</finally>
+		</trycatch>
 	</target>
 
-	<target name="copernica.clean" depends="catalina.home">
+	<target name="copernica.clean">
 		<delete dir="build/copernica" />
 		<delete>
 			<fileset dir="copernica/src">
@@ -790,9 +832,6 @@
 			</fileset>
 			<fileset dir="copernica/testsrc">
 				<include name="**/*_Jspm.java" />
-			</fileset>
-			<fileset dir="${catalina.home}">
-				<include name="conf/Catalina/localhost/copetest-*.xml" />
 			</fileset>
 		</delete>
 	</target>
@@ -840,6 +879,7 @@
 	
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean, console.clean, copernica.clean">
 		<delete dir="build" />
+		<delete dir="tomcat" />
 		<delete dir="home/lib" />
 		<delete dir="home/testprotocol.html" />
 	</target>
@@ -963,7 +1003,7 @@
 	<target name="build"
 			depends="compile, test, jar, home,
 						tomcat, index,
-						copernica.webtest.compile" />
+						webtest" />
 	
 	<target name="dist.tar">
 		<mkdir dir="build/runtime" />
@@ -974,6 +1014,7 @@
 			<tarfileset dir="${basedir}">
 				<exclude name=".eclipse-output/**" />
 				<exclude name="build/**" />
+				<exclude name="tomcat/**" />
 				<exclude name="home/api/**" />
 				<exclude name="home/lib/**" />
 				<exclude name="cruise/**" />

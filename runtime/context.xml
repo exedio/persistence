@@ -1,7 +1,7 @@
 
 <Context
 		path="/copelibtest-@ENV@"
-		docBase="../../persistence/build/runtime/web-@ENV@"
+		docBase="../../build/runtime/web-@ENV@"
 		debug="0"
 		privileged="true">
 	<Parameter override="false" name="webapp" value="copelibtest-@ENV@" />
