@@ -114,6 +114,9 @@
 			<patternset>
 				<exclude name="apache-tomcat-6.0.14/conf/server.xml" />
 				<exclude name="apache-tomcat-6.0.14/conf/tomcat-users.xml" />
+				<exclude name="apache-tomcat-6.0.14/webapps/ROOT/**" />
+				<exclude name="apache-tomcat-6.0.14/webapps/docs/**" />
+				<exclude name="apache-tomcat-6.0.14/webapps/examples/**" />
 			</patternset>
 			<mapper type="glob" from="apache-tomcat-6.0.14/*" to="tomcat/*" />
 		</untar>
