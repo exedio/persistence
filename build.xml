@@ -66,6 +66,23 @@
 		</sequential>
 	</macrodef>
 	
+	<macrodef name="ljunit">
+		<attribute name="test" />
+		<element name="classpath" optional="true" implicit="true" />
+		<sequential>
+			<mkdir dir="build/testresults" />
+			<junit fork="yes"
+					haltonerror="true" haltonfailure="true"
+					showoutput="true" printsummary="true">
+				<formatter type="brief" usefile="false" />
+				<formatter type="xml" />
+				<classpath />
+				<test name="@{test}" todir="build/testresults" outfile="@{test}" />
+				<assertions><enable/></assertions>
+			</junit>
+		</sequential>
+	</macrodef>
+	
 	<macrodef name="foreachEnvironment">
 		<attribute name="skipSwitch" />
 		<element name="body" optional="false" />
@@ -596,23 +613,6 @@
 			</fileset>
 		</copy>
 	</target>
-	
-	<macrodef name="ljunit">
-		<attribute name="test" />
-		<element name="classpath" optional="true" implicit="true" />
-		<sequential>
-			<mkdir dir="build/testresults" />
-			<junit fork="yes"
-					haltonerror="true" haltonfailure="true"
-					showoutput="true" printsummary="true">
-				<formatter type="brief" usefile="false" />
-				<formatter type="xml" />
-				<classpath />
-				<test name="@{test}" todir="build/testresults" outfile="@{test}" />
-				<assertions><enable/></assertions>
-			</junit>
-		</sequential>
-	</macrodef>
 	
 	<target name="instrument.test"
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
