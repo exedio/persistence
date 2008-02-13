@@ -103,6 +103,46 @@
 		</sequential>
 	</macrodef>
 	
+	<macrodef name="runInTomcat">
+		<attribute name="name" />
+		<element name="body" optional="false" />
+		<sequential>
+			<trycatch>
+				<try>
+					<echo message="tomcat (@{name}): starting ..." />
+					<forget>
+						<exec executable="${basedir}/tomcat/bin/catalina.sh"
+								failonerror="true"
+								output="build/@{name}-catalina-start.log">
+							<arg value="run" />
+						</exec>
+					</forget>
+					<echo message="tomcat (@{name}): waiting to be ready ..." />
+					<waitfor
+							maxwait="40" maxwaitunit="second"
+							checkevery="5" checkeveryunit="second"
+							timeoutproperty="server.app.init.failed">
+						<http url="http://127.0.0.1:8080/cope-runtime-servlet/mediaConsole" />
+					</waitfor>
+					<echo message="tomcat (@{name}): ready ..." />
+					<fail if="server.app.init.failed" message="tomcat could not be started." />
+					<body />
+				</try>
+				<finally>
+					<echo message="tomcat (@{name}): stoping ..." />
+					<exec executable="${basedir}/tomcat/bin/catalina.sh"
+							failonerror="true"
+							output="build/@{name}-catalina-stop.log">
+						<arg value="stop" />
+					</exec>
+					<echo message="tomcat (@{name}): waiting to be stoped ..." />
+					<sleep seconds="10" />
+					<echo message="tomcat (@{name}): stoped." />
+				</finally>
+			</trycatch>
+		</sequential>
+	</macrodef>
+	
 	<target name="local.properties">
 		<property file="local.properties" />
 	</target>
@@ -773,46 +813,6 @@
 			</classpath>
 		</ljavac>
 	</target>
-	
-	<macrodef name="runInTomcat">
-		<attribute name="name" />
-		<element name="body" optional="false" />
-		<sequential>
-			<trycatch>
-				<try>
-					<echo message="tomcat (@{name}): starting ..." />
-					<forget>
-						<exec executable="${basedir}/tomcat/bin/catalina.sh"
-								failonerror="true"
-								output="build/@{name}-catalina-start.log">
-							<arg value="run" />
-						</exec>
-					</forget>
-					<echo message="tomcat (@{name}): waiting to be ready ..." />
-					<waitfor
-							maxwait="40" maxwaitunit="second"
-							checkevery="5" checkeveryunit="second"
-							timeoutproperty="server.app.init.failed">
-						<http url="http://127.0.0.1:8080/cope-runtime-servlet/mediaConsole" />
-					</waitfor>
-					<echo message="tomcat (@{name}): ready ..." />
-					<fail if="server.app.init.failed" message="tomcat could not be started." />
-					<body />
-				</try>
-				<finally>
-					<echo message="tomcat (@{name}): stoping ..." />
-					<exec executable="${basedir}/tomcat/bin/catalina.sh"
-							failonerror="true"
-							output="build/@{name}-catalina-stop.log">
-						<arg value="stop" />
-					</exec>
-					<echo message="tomcat (@{name}): waiting to be stoped ..." />
-					<sleep seconds="10" />
-					<echo message="tomcat (@{name}): stoped." />
-				</finally>
-			</trycatch>
-		</sequential>
-	</macrodef>
 	
 	<target name="copernica.webtest"
 				depends="catalina,
