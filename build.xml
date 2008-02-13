@@ -68,6 +68,7 @@
 	
 	<macrodef name="ljunit">
 		<attribute name="test" />
+		<attribute name="env" default="N" />
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
 			<mkdir dir="build/testresults" />
@@ -77,7 +78,7 @@
 				<formatter type="brief" usefile="false" />
 				<formatter type="xml" />
 				<classpath />
-				<test name="@{test}" todir="build/testresults" outfile="@{test}" />
+				<test name="@{test}" todir="build/testresults" outfile="@{test}-@{env}" />
 				<assertions><enable/></assertions>
 			</junit>
 		</sequential>
@@ -202,23 +203,16 @@
 	</target>
 	
 	<target name="dsmf.test" depends="dsmf.test.compile">
-		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="dsmf.test">
 			<body>
-				<junit taskname="junit @{env}" fork="yes"
-						 haltonerror="true" haltonfailure="true"
-						 showoutput="true" printsummary="true">
-					<formatter type="brief" usefile="false" />
-					<formatter type="xml" />
+				<ljunit test="com.exedio.dsmf.PackageTest" env="@{env}">
 					<classpath>
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/dsmf/testclasses" />
 						<pathelement location="lib/@{env.driver}" />
 					</classpath>
-					<test name="com.exedio.dsmf.PackageTest" todir="build/testresults" outfile="dsmf-@{env}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<assertions><enable/></assertions>
-				</junit>
+				</ljunit>
 			</body>
 		</foreachEnvironment>
 	</target>
