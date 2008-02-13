@@ -601,16 +601,16 @@
 		<attribute name="test" />
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
-		<mkdir dir="build/testresults" />
-		<junit fork="yes"
-				 haltonerror="true" haltonfailure="true"
-				 showoutput="true" printsummary="true">
-			<formatter type="brief" usefile="false" />
-			<formatter type="xml" />
-			<classpath />
-			<test name="@{test}" todir="build/testresults" outfile="@{test}" />
-			<assertions><enable/></assertions>
-		</junit>
+			<mkdir dir="build/testresults" />
+			<junit fork="yes"
+					haltonerror="true" haltonfailure="true"
+					showoutput="true" printsummary="true">
+				<formatter type="brief" usefile="false" />
+				<formatter type="xml" />
+				<classpath />
+				<test name="@{test}" todir="build/testresults" outfile="@{test}" />
+				<assertions><enable/></assertions>
+			</junit>
 		</sequential>
 	</macrodef>
 	
@@ -809,7 +809,6 @@
 							copernica.tomcat, copernica.webtest.compile">
 		<runInTomcat name="copernica.webtest">
 			<body>
-				<mkdir dir="build/testresults" />
 				<ljunit test="com.exedio.copernica.PackageTest">
 					<classpath>
 						<pathelement location="build/copernica/webtestclasses" />
