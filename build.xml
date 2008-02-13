@@ -381,7 +381,6 @@
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/servlet-api.jar" />
 					</classpath>
