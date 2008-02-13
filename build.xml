@@ -778,7 +778,7 @@
 				depends="catalina,
 							runtime.servlet.test.tomcat,
 							copernica.tomcat, copernica.webtest.compile">
-		<trycatch reference="exception">
+		<trycatch>
 			<try>
 				<echo message="tomcat: starting ..." />
 				<forget>
@@ -813,9 +813,6 @@
 					<assertions><enable/></assertions>
 				</junit>
 			</try>
-			<catch>
-				<throw refid="exception"/>
-			</catch>
 			<finally>
 				<echo message="tomcat: stoping ..." />
 				<exec executable="${basedir}/tomcat/bin/catalina.sh"
