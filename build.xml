@@ -344,16 +344,6 @@
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
-				<!--nbjpdastart addressproperty="jpda.address" name="cope" transport="dt_socket">
-					<classpath>
-						<pathelement location="build/runtime/classes" />
-						<pathelement location="build/runtime/testmodelclasses" />
-						<pathelement location="build/runtime/testclasses" />
-						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/@{env.driver}" />
-					</classpath>
-				</nbjpdastart-->
 				<junit taskname="junit @{env}" fork="yes"
 						 haltonerror="true" haltonfailure="true"
 						 dir="${basedir}"
@@ -373,10 +363,6 @@
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/runtime/classes/com/exedio/cope/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{env}" />
 					<sysproperty key="webapp" value="junitwebapp" />
-					<!--jvmarg value="-Xdebug"/>
-					<jvmarg value="-Xnoagent"/>
-					<jvmarg value="-Djava.compiler=none"/>
-					<jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/-->
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
