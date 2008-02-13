@@ -111,10 +111,14 @@
 		<untar src="lib/apache-tomcat.tar.gz"
 				 compression="gzip"
 				 dest="${basedir}">
+			<patternset>
+				<exclude name="apache-tomcat-6.0.14/conf/server.xml" />
+				<exclude name="apache-tomcat-6.0.14/conf/tomcat-users.xml" />
+			</patternset>
 			<mapper type="glob" from="apache-tomcat-6.0.14/*" to="tomcat/*" />
 		</untar>
 		<chmod dir="tomcat/bin" perm="ugo+x" includes="*.sh" />
-		<copy todir="tomcat/conf" overwrite="true">
+		<copy todir="tomcat/conf">
 			<fileset dir="lib">
 				<include name="server.xml" />
 				<include name="tomcat-users.xml" />
