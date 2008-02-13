@@ -597,14 +597,26 @@
 		</copy>
 	</target>
 	
-	<target name="instrument.test"
-				depends="runtime.compile, instrument.compile, instrument.test.compile">
+	<macrodef name="ljunit">
+		<attribute name="test" />
+		<element name="classpath" optional="true" implicit="true" />
+		<sequential>
 		<mkdir dir="build/testresults" />
 		<junit fork="yes"
 				 haltonerror="true" haltonfailure="true"
 				 showoutput="true" printsummary="true">
 			<formatter type="brief" usefile="false" />
 			<formatter type="xml" />
+			<classpath />
+			<test name="@{test}" todir="build/testresults" outfile="@{test}" />
+			<assertions><enable/></assertions>
+		</junit>
+		</sequential>
+	</macrodef>
+	
+	<target name="instrument.test"
+				depends="runtime.compile, instrument.compile, instrument.test.compile">
+		<ljunit test="com.exedio.cope.instrument.PackageTest">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/instrument/classes" />
@@ -613,9 +625,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 			</classpath>
-			<test name="com.exedio.cope.instrument.PackageTest" todir="build/testresults" outfile="instrument" />
-			<assertions><enable/></assertions>
-		</junit>
+		</ljunit>
 	</target>
 	
 	<target name="instrument.clean">
@@ -666,21 +676,14 @@
 	</target>
 	
 	<target name="console.test" depends="console.test.compile">
-		<mkdir dir="build/testresults" />
-		<junit taskname="junit" fork="yes"
-					haltonerror="true" haltonfailure="true"
-					showoutput="true" printsummary="true">
-			<formatter type="brief" usefile="false" />
-			<formatter type="xml" />
+		<ljunit test="com.exedio.cope.console.PackageTest">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/console/classes" />
 				<pathelement location="build/console/testclasses" />
 				<pathelement location="lib/exedio-cops.jar" />
 			</classpath>
-			<test name="com.exedio.cope.console.PackageTest" todir="build/testresults" outfile="console" />
-			<assertions><enable/></assertions>
-		</junit>
+		</ljunit>
 	</target>
 	
 	<target name="console.compile" depends="console.core.compile, console.test.compile" />
@@ -807,20 +810,14 @@
 		<runInTomcat name="copernica.webtest">
 			<body>
 				<mkdir dir="build/testresults" />
-				<junit fork="yes"
-						haltonerror="true" haltonfailure="true"
-						showoutput="true" printsummary="true">
-					<formatter type="brief" usefile="false" />
-					<formatter type="xml" />
+				<ljunit test="com.exedio.copernica.PackageTest">
 					<classpath>
 						<pathelement location="build/copernica/webtestclasses" />
 						<fileset dir="lib/jwebunit">
 							<include name="*.jar" />
 						</fileset>
 					</classpath>
-					<test name="com.exedio.copernica.PackageTest" todir="build/testresults" outfile="copernica" />
-					<assertions><enable/></assertions>
-				</junit>
+				</ljunit>
 			</body>
 		</runInTomcat>
 	</target>
