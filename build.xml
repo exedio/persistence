@@ -774,29 +774,52 @@
 		</ljavac>
 	</target>
 	
-	<target name="copernica.webtest"
-				depends="catalina,
-							runtime.servlet.test.tomcat,
-							copernica.tomcat, copernica.webtest.compile">
+	<macrodef name="runInTomcat">
+		<attribute name="name" />
+		<element name="body" optional="false" />
+		<sequential>
 		<trycatch>
 			<try>
-				<echo message="tomcat: starting ..." />
+				<echo message="tomcat (@{name}): starting ..." />
 				<forget>
 					<exec executable="${basedir}/tomcat/bin/catalina.sh"
 							failonerror="true"
-							output="build/catalina-start.log">
+							output="build/@{name}-catalina-start.log">
 						<arg value="run" />
 					</exec>
 				</forget>
-				<echo message="tomcat: waiting to be ready ..." />
+				<echo message="tomcat (@{name}): waiting to be ready ..." />
 				<waitfor
 						maxwait="40" maxwaitunit="second"
 						checkevery="5" checkeveryunit="second"
 						timeoutproperty="server.app.init.failed">
 					<http url="http://127.0.0.1:8080/cope-runtime-servlet/mediaConsole" />
 				</waitfor>
-				<echo message="tomcat: ready, starting tests ..." />
+				<echo message="tomcat (@{name}): ready ..." />
 				<fail if="server.app.init.failed" message="tomcat could not be started." />
+											<body />
+			</try>
+			<finally>
+				<echo message="tomcat (@{name}): stoping ..." />
+				<exec executable="${basedir}/tomcat/bin/catalina.sh"
+						failonerror="true"
+						output="build/@{name}-catalina-stop.log">
+					<arg value="stop" />
+				</exec>
+				<echo message="tomcat (@{name}): waiting to be stoped ..." />
+				<sleep seconds="10" />
+				<echo message="tomcat (@{name}): stoped." />
+			</finally>
+		</trycatch>
+		</sequential>
+	</macrodef>
+	
+	<target name="copernica.webtest"
+				depends="catalina,
+							runtime.servlet.test.tomcat,
+							copernica.tomcat, copernica.webtest.compile">
+		<runInTomcat name="copernica.webtest">
+			<body>
 				<mkdir dir="build/testresults" />
 				<junit fork="yes"
 						haltonerror="true" haltonfailure="true"
@@ -812,19 +835,8 @@
 					<test name="com.exedio.copernica.PackageTest" todir="build/testresults" outfile="copernica" />
 					<assertions><enable/></assertions>
 				</junit>
-			</try>
-			<finally>
-				<echo message="tomcat: stoping ..." />
-				<exec executable="${basedir}/tomcat/bin/catalina.sh"
-						failonerror="true"
-						output="build/catalina-stop.log">
-					<arg value="stop" />
-				</exec>
-				<echo message="tomcat: waiting to be stoped ..." />
-				<sleep seconds="10" />
-				<echo message="tomcat: stoped." />
-			</finally>
-		</trycatch>
+			</body>
+		</runInTomcat>
 	</target>
 
 	<target name="copernica.clean">
