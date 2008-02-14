@@ -798,7 +798,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executeSQLUpdate(connection, bf, 1);
+		executeSQLUpdate(connection, bf, true);
 	}
 
 	void delete(final Connection connection, final Item item)
@@ -820,7 +820,7 @@ final class Database
 
 			//System.out.println("deleting "+bf.toString());
 
-			executeSQLUpdate(connection, bf, 1);
+			executeSQLUpdate(connection, bf, true);
 		}
 	}
 
@@ -949,7 +949,7 @@ final class Database
 			appendTypeCheck(table, item.type);
 		
 		//System.out.println("storing "+bf.toString());
-		executeSQLUpdate(connection, bf, 1);
+		executeSQLUpdate(connection, bf, true);
 	}
 	
 	static interface ResultSetHandler<R>
@@ -1089,7 +1089,7 @@ final class Database
 	
 	private int executeSQLUpdate(
 			final Connection connection,
-			final Statement statement, final int expectedRows)
+			final Statement statement, final boolean checkRows)
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
@@ -1124,8 +1124,8 @@ final class Database
 				log.log(statement, timeStart, timePrepared, timeEnd);
 
 			//System.out.println("("+rows+"): "+statement.getText());
-			if(expectedRows!=Integer.MIN_VALUE && rows!=expectedRows)
-				throw new RuntimeException("expected "+expectedRows+" rows, but got "+rows+" on statement "+sqlText);
+			if(checkRows && rows!=1)
+				throw new RuntimeException("expected one row, but got " + rows + " on statement " + sqlText);
 			return rows;
 		}
 		catch(SQLException e)
@@ -1525,7 +1525,7 @@ final class Database
 			appendParameterBlob(info).
 			append(')');
 		
-		executeSQLUpdate(connection, bf, 1);
+		executeSQLUpdate(connection, bf, true);
 	}
 	
 	void migrate(final int expectedRevision, final Migration[] migrations)
@@ -1589,7 +1589,7 @@ final class Database
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
-						final int rows = executeSQLUpdate(con, bf, Integer.MIN_VALUE);
+						final int rows = executeSQLUpdate(con, bf, false);
 						final long end = System.currentTimeMillis();
 						Migration.migrateSql(info, bodyIndex, sql, rows, end-start);
 					}
@@ -1603,7 +1603,7 @@ final class Database
 						append(driver.protectName(MIGRATION_COLUMN_REVISION_NAME)).
 						append('=').
 						appendParameter(MIGRATION_MUTEX_REVISION);
-					executeSQLUpdate(con, bf, 1);
+					executeSQLUpdate(con, bf, true);
 				}
 			}
 		}
