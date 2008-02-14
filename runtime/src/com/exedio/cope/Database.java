@@ -62,7 +62,7 @@ final class Database
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
 	
-	final boolean oracle; // TODO remove
+	private final boolean oracle; // TODO remove
 	
 	Database(final Driver driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean migrationSupported)
 	{
