@@ -10,9 +10,9 @@
 			resource="net/sf/antcontrib/antcontrib.properties"
 			classpath="lib/ant-contrib.jar" />
 
-		<taskdef name="jspm"
-					classname="com.exedio.jspm.AntTask"
-					classpath="lib/exedio-jspm.jar" />
+	<taskdef name="jspm"
+			classname="com.exedio.jspm.AntTask"
+			classpath="lib/exedio-jspm.jar" />
 	
 	<path id="emma.lib">
 		<pathelement location="lib/emma.jar" />
