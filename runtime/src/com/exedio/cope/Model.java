@@ -299,7 +299,7 @@ public final class Model
 				if(this.connectDate!=null)
 					throw new RuntimeException();
 		
-				// do this at first, to avoid half.connected model if probe connection fails
+				// do this at first, to avoid half-connected model if probe connection fails
 				final Database db = properties.createDatabase(migrationSupported);
 				this.propertiesIfConnected = properties;
 				this.databaseIfConnected = db;
