@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-public final class Statement
+final class Statement
 {
 	private final Database database;
 	final StringBuilder text = new StringBuilder();

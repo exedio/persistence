@@ -21,7 +21,6 @@ package com.exedio.cope;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.function.UppercaseView;
 
 /**
  * @author Ralf Wiebicke

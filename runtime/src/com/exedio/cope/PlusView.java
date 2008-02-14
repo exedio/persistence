@@ -16,44 +16,50 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.function;
+package com.exedio.cope;
 
-import com.exedio.cope.IntegerFunction;
-import com.exedio.cope.IntegerView;
-import com.exedio.cope.Join;
-import com.exedio.cope.Statement;
-import com.exedio.cope.StringFunction;
 
-public class LengthView extends IntegerView implements IntegerFunction
+public final class PlusView extends IntegerView implements IntegerFunction
 {
-	private final StringFunction source;
+	private final IntegerFunction[] addends;
 
 	/**
-	 * Creates a new LengthView.
+	 * Creates a new PlusView.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper method
-	 * {@link StringFunction#length()}.
+	 * you may want to use the more convenient wrapper methods.
+	 * @see IntegerFunction#plus(IntegerFunction)
+	 * @see Cope#plus(IntegerFunction,IntegerFunction)
+	 * @see Cope#plus(IntegerFunction,IntegerFunction,IntegerFunction)
 	 */
-	public LengthView(final StringFunction source)
+	public PlusView(final IntegerFunction[] addends)
 	{
-		super(new StringFunction[]{source}, "length");
-		this.source = source;
+		super(addends, "plus");
+		this.addends = addends;
 	}
-
+	
 	@Override
 	public final Integer mapJava(final Object[] sourceValues)
 	{
-		assert sourceValues.length==1;
-		final Object sourceValue = sourceValues[0];
-		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
+		int result = 0;
+		for(int i=0; i<sourceValues.length; i++)
+		{
+			if(sourceValues[i]==null)
+				return null;
+			result += ((Integer)sourceValues[i]).intValue();
+		}
+		return Integer.valueOf(result);
 	}
 
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
-		bf.appendLength().
-			append('(').
-			append(source, join).
-			append(')');
+		bf.append('(');
+		for(int i = 0; i<addends.length; i++)
+		{
+			if(i>0)
+				bf.append('+');
+			bf.append(addends[i], join);
+		}
+		bf.append(')');
 	}
 }

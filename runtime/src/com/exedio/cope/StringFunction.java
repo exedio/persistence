@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.LengthView;
-import com.exedio.cope.function.UppercaseView;
 
 public interface StringFunction extends Function<String>
 {

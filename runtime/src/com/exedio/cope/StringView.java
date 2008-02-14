@@ -21,8 +21,6 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.function.LengthView;
-import com.exedio.cope.function.UppercaseView;
 
 public abstract class StringView extends View<String> implements StringFunction
 {

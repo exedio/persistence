@@ -21,8 +21,8 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.PlusView;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.function.PlusView;
 
 /**
  * @author Ralf Wiebicke

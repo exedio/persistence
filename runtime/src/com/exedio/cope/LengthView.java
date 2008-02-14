@@ -16,55 +16,39 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.function;
+package com.exedio.cope;
 
-import com.exedio.cope.Cope;
-import com.exedio.cope.IntegerFunction;
-import com.exedio.cope.IntegerView;
-import com.exedio.cope.Join;
-import com.exedio.cope.Statement;
 
-public final class PlusView extends IntegerView implements IntegerFunction
+public class LengthView extends IntegerView implements IntegerFunction
 {
-	private final IntegerFunction[] addends;
+	private final StringFunction source;
 
 	/**
-	 * Creates a new PlusView.
+	 * Creates a new LengthView.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see IntegerFunction#plus(IntegerFunction)
-	 * @see Cope#plus(IntegerFunction,IntegerFunction)
-	 * @see Cope#plus(IntegerFunction,IntegerFunction,IntegerFunction)
+	 * you may want to use the more convenient wrapper method
+	 * {@link StringFunction#length()}.
 	 */
-	public PlusView(final IntegerFunction[] addends)
+	public LengthView(final StringFunction source)
 	{
-		super(addends, "plus");
-		this.addends = addends;
+		super(new StringFunction[]{source}, "length");
+		this.source = source;
 	}
-	
+
 	@Override
 	public final Integer mapJava(final Object[] sourceValues)
 	{
-		int result = 0;
-		for(int i=0; i<sourceValues.length; i++)
-		{
-			if(sourceValues[i]==null)
-				return null;
-			result += ((Integer)sourceValues[i]).intValue();
-		}
-		return Integer.valueOf(result);
+		assert sourceValues.length==1;
+		final Object sourceValue = sourceValues[0];
+		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
 	}
 
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
-		bf.append('(');
-		for(int i = 0; i<addends.length; i++)
-		{
-			if(i>0)
-				bf.append('+');
-			bf.append(addends[i], join);
-		}
-		bf.append(')');
+		bf.appendLength().
+			append('(').
+			append(source, join).
+			append(')');
 	}
 }

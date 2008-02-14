@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
 /**

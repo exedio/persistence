@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
 public abstract class IntegerView extends View<Integer> implements IntegerFunction

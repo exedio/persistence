@@ -16,13 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.function;
+package com.exedio.cope;
 
-import com.exedio.cope.Join;
-import com.exedio.cope.Statement;
-import com.exedio.cope.StringField;
-import com.exedio.cope.StringFunction;
-import com.exedio.cope.StringView;
 
 public final class UppercaseView extends StringView implements StringFunction
 {

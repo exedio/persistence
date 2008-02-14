@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-import com.exedio.cope.function.LengthView;
-import com.exedio.cope.function.UppercaseView;
 
 /**
  * Represents a field within a {@link Type type},

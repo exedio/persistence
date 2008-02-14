@@ -26,10 +26,10 @@ import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.LengthView;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
-import com.exedio.cope.function.LengthView;
-import com.exedio.cope.function.UppercaseView;
+import com.exedio.cope.UppercaseView;
 import com.exedio.cope.pattern.Media;
 
 /**

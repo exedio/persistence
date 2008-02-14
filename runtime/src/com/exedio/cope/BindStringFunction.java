@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.LengthView;
-import com.exedio.cope.function.UppercaseView;
 
 public class BindStringFunction extends BindFunction<String> implements StringFunction
 {

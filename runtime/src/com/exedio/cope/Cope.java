@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.function.PlusView;
 
 /**
  * Utility class for creating conditions.

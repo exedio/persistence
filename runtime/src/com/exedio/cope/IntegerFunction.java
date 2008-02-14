@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.function.PlusView;
 import com.exedio.cope.search.SumAggregate;
 
 public interface IntegerFunction extends Function<Integer>

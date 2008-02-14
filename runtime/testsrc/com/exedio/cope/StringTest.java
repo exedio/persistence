@@ -23,8 +23,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.exedio.cope.function.LengthView;
-import com.exedio.cope.function.UppercaseView;
 import com.exedio.cope.testmodel.StringItem;
 
 public class StringTest extends TestmodelTest
