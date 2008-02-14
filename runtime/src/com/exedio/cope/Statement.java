@@ -132,20 +132,20 @@ final class Statement
 		return (ArrayList<JoinTable>)o;
 	}
 
-	public Statement append(final String text)
+	Statement append(final String text)
 	{
 		this.text.append(text);
 		return this;
 	}
 		
-	public Statement append(final char text)
+	Statement append(final char text)
 	{
 		this.text.append(text);
 		return this;
 	}
 	
 	@SuppressWarnings("deprecation") // OK: Selectable.append is for internal use within COPE only
-	public Statement append(final Selectable select, final Join join)
+	Statement append(final Selectable select, final Join join)
 	{
 		select.append(this, join);
 		return this;
@@ -164,9 +164,9 @@ final class Statement
 	}
 		
 	/**
-	 * Check correctness of type column
+	 * Check correctness of type column.
 	 * If type column is inconsistent,
-	 * the database will query will affect no rows.
+	 * the database statement won't match any row.
 	 * Within a SELECT query the result set handler will fail,
 	 * because the result is empty.
 	 * Within a UPDATE, INSERT or DELETE
@@ -282,7 +282,7 @@ final class Statement
 		return this;
 	}
 	
-	public Statement appendLength()
+	Statement appendLength()
 	{
 		this.text.append(database.dialect.stringLength);
 		
