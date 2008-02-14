@@ -21,7 +21,7 @@ package com.exedio.cope.search;
 import com.exedio.cope.Aggregate;
 import com.exedio.cope.Function;
 
-public class ExtremumAggregate<E> extends Aggregate<E>
+public final class ExtremumAggregate<E> extends Aggregate<E>
 {
 	final boolean minimum;
 	
