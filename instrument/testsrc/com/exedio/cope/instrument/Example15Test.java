@@ -18,8 +18,8 @@
 
 package com.exedio.cope.instrument;
 
-import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PUBLIC;
 
 public class Example15Test extends InjectorTest
 {

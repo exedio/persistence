@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
 
 /**
  * @author Ralf Wiebicke

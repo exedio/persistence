@@ -18,8 +18,8 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.SetValue;
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
 /**

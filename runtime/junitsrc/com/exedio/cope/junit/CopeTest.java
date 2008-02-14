@@ -23,9 +23,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
 

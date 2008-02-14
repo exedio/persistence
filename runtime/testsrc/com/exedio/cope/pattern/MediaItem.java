@@ -20,8 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaRedirect;
 
 public class MediaItem extends Item
 {

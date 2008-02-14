@@ -43,9 +43,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Qualifier;
-import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.Relation;
 import com.exedio.cope.pattern.VectorRelation;
 

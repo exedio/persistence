@@ -22,9 +22,9 @@ import com.exedio.cope.testmodel.AttributeEmptyItem;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
+import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
-import com.exedio.cope.testmodel.PlusItem;
 
 
 public class FieldItemTest extends FieldTest

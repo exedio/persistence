@@ -18,10 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.io.IOException;
 
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Item;

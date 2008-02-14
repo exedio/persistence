@@ -26,8 +26,8 @@ import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Model;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Model;
 import com.exedio.cope.util.ConnectToken;
 
 final class PropertiesCop extends ConsoleCop
