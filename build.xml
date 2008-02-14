@@ -10,11 +10,9 @@
 			resource="net/sf/antcontrib/antcontrib.properties"
 			classpath="lib/ant-contrib.jar" />
 
-	<target name="jspm.taskdef">
 		<taskdef name="jspm"
 					classname="com.exedio.jspm.AntTask"
 					classpath="lib/exedio-jspm.jar" />
-	</target>
 	
 	<path id="emma.lib">
 		<pathelement location="lib/emma.jar" />
@@ -255,7 +253,7 @@
 		<ljavac srcdir="runtime/patternsrc" destdir="build/runtime/classes" />
 	</target>
 	
-	<target name="runtime.servlet.jspm" depends="jspm.taskdef">
+	<target name="runtime.servlet.jspm">
 		<jspm>
 			<fileset dir="runtime/servletsrc" includes="**/*.jspm" />
 		</jspm>
@@ -488,7 +486,7 @@
 		</instrument>
 	</target>
 
-	<target name="runtime.servlet.test.jspm" depends="jspm.taskdef">
+	<target name="runtime.servlet.test.jspm">
 		<jspm>
 			<fileset dir="runtime/servlettestsrc" includes="**/*.jspm" />
 		</jspm>
@@ -628,7 +626,7 @@
 	
 	<!-- console -->
 	
-	<target name="console.jspm" depends="jspm.taskdef">
+	<target name="console.jspm">
 		<jspm>
 			<fileset dir="console/src" includes="**/*.jspm" />
 		</jspm>
@@ -693,7 +691,7 @@
 	
 	<!-- copernica -->
 	
-	<target name="copernica.jspm" depends="jspm.taskdef">
+	<target name="copernica.jspm">
 		<jspm>
 			<fileset dir="copernica/src" includes="**/*.jspm" />
 		</jspm>
@@ -722,7 +720,7 @@
 		</ljar>
 	</target>
 	
-	<target name="copernica.test.jspm" depends="jspm.taskdef">
+	<target name="copernica.test.jspm">
 		<jspm>
 			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
 		</jspm>
