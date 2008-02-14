@@ -978,8 +978,6 @@ final class Database
 		return ((Number)sqlInteger).intValue();
 	}
 
-	//private static int timeExecuteQuery = 0;
-
 	protected <X> X executeSQLQuery(
 		final Connection connection,
 		final Statement statement,
