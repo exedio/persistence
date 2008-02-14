@@ -254,24 +254,12 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 	
 	/**
-	 * Returns the name of database column for this field
-	 * - <b>use with care!</b>
-	 * <p>
-	 * This information is needed only, if you want to access
-	 * the database without cope.
-	 * In this case you should really know, what you are doing.
-	 * Any INSERT/UPDATE/DELETE on the database bypassing cope
-	 * may lead to inconsistent caches.
-	 * Please note, that this string may vary,
-	 * if a cope model is configured for different databases.
-	 *
-	 * @see Type#getTableName()
-	 * @see ItemField#getTypeColumnName()
-	 * @see EnumField#getColumnValue(Enum)
+	 * @deprecated Use {@link SchemaInfo#getColumnName(Field)} instead
 	 */
+	@Deprecated
 	public final String getColumnName()
 	{
-		return column.id;
+		return SchemaInfo.getColumnName(this);
 	}
 	
 	abstract Column createColumn(Table table, String name, boolean optional);

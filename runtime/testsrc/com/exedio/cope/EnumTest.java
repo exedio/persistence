@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getColumnValue;
+
 public class EnumTest extends AbstractLibTest
 {
 	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);
@@ -63,14 +65,14 @@ public class EnumTest extends AbstractLibTest
 		assertEquals(status1, item.getStatus());
 		assertEquals(state1, item2.getStatus());
 		
-		assertEquals(10, item.status.getColumnValue(EnumItem.Status.status1));
-		assertEquals(20, item.status.getColumnValue(EnumItem.Status.status2));
-		assertEquals(30, item.status.getColumnValue(EnumItem.Status.status3));
-		assertEquals(10, item2.status.getColumnValue(EnumItem2.Status.state1));
-		assertEquals(20, item2.status.getColumnValue(EnumItem2.Status.state2));
+		assertEquals(10, getColumnValue(item.status, EnumItem.Status.status1));
+		assertEquals(20, getColumnValue(item.status, EnumItem.Status.status2));
+		assertEquals(30, getColumnValue(item.status, EnumItem.Status.status3));
+		assertEquals(10, getColumnValue(item2.status, EnumItem2.Status.state1));
+		assertEquals(20, getColumnValue(item2.status, EnumItem2.Status.state2));
 		try
 		{
-			item2.status.getColumnValue(null);
+			getColumnValue(item2.status, null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -84,7 +86,7 @@ public class EnumTest extends AbstractLibTest
 	{
 		try
 		{
-			((EnumField)item.status).getColumnValue((Enum)EnumItem2.Status.state2);
+			getColumnValue(((EnumField)item.status), (Enum)EnumItem2.Status.state2);
 			fail();
 		}
 		catch(IllegalArgumentException e)

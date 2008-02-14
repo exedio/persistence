@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+
 import java.io.File;
 
 public class NameTest extends AbstractLibTest
@@ -72,8 +75,8 @@ public class NameTest extends AbstractLibTest
 		item.setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item");
 		assertEquals(item, item.forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item"));
 		
-		assertEquals(mysqlLower("NameCollisionlongAItem_F"), itemca.TYPE.getTableName());
-		assertEquals("collisionlongANumber_F", itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.getColumnName());
+		assertEquals(mysqlLower("NameCollisionlongAItem_F"), getTableName(itemca.TYPE));
+		assertEquals("collisionlongANumber_F", getColumnName(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber));
 		assertEquals(null, itemca.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertContains(itemca, itemcb, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal((Integer)null)));

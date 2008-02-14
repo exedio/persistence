@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.dsmf.CheckConstraint;
@@ -41,8 +45,8 @@ public class SchemaTest extends TestmodelTest
 	public void testSchema()
 	{
 		if(postgresql) return;
-		final String TABLE1 = PlusItem.TYPE.getTableName();
-		final String COLUMN1 = PlusItem.num2.getColumnName();
+		final String TABLE1 = getTableName(PlusItem.TYPE);
+		final String COLUMN1 = getColumnName(PlusItem.num2);
 		assertEquals(mysqlLower("PlusItem"), TABLE1);
 		assertEquals("num2", COLUMN1);
 
@@ -277,7 +281,7 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(!mysql, model.supportsCheckConstraints());
 			final Schema schema = model.getVerifiedSchema();
 
-			final com.exedio.dsmf.Table attributeItem = schema.getTable(AttributeItem.TYPE.getTableName());
+			final com.exedio.dsmf.Table attributeItem = schema.getTable(getTableName(AttributeItem.TYPE));
 			assertNotNull(attributeItem);
 			assertEquals(null, attributeItem.getError());
 			assertEquals(Schema.Color.OK, attributeItem.getParticularColor());
@@ -289,9 +293,9 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(attributeItem, "AttrItem_somNotNullEnu_Ck", "("+p(AttributeItem.someNotNullEnum)+" IS NOT NULL) AND ("+p(AttributeItem.someNotNullEnum)+" IN (10,20,30))");
 			assertCheckConstraint(attributeItem, "AttrItem_somDataConTyp_Ck", "(("+l(AttributeItem.someData.getContentType())+">=1) AND ("+l(AttributeItem.someData.getContentType())+"<=61)) OR ("+p(AttributeItem.someData.getContentType())+" IS NULL)");
 
-			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, AttributeItem.TYPE.getPrimaryKeyColumnName());
+			assertPkConstraint(attributeItem, "AttributeItem_Pk", null, getPrimaryKeyColumnName(AttributeItem.TYPE));
 
-			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", mysqlLower("EmptyItem"), AttributeItem.TYPE.getPrimaryKeyColumnName());
+			assertFkConstraint(attributeItem, "AttributeItem_someItem_Fk", "someItem", mysqlLower("EmptyItem"), getPrimaryKeyColumnName(AttributeItem.TYPE));
 
 			final com.exedio.dsmf.Table uniqueItem = schema.getTable(mysqlLower("UNIQUE_ITEMS"));
 			assertNotNull(uniqueItem);
@@ -399,7 +403,7 @@ public class SchemaTest extends TestmodelTest
 	
 	private final String p(final Field attribute)
 	{
-		return p(attribute.getColumnName());
+		return p(getColumnName(attribute));
 	}
 	
 	private final String p(final String name)

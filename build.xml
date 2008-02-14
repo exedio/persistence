@@ -311,6 +311,9 @@
 				<include name="**/*.java" />
 				<exclude name="SchemaTest.java" /><!-- TODO remove -->
 				<exclude name="ModelTest.java" /><!-- TODO remove -->
+				<exclude name="EnumTest.java" /><!-- TODO remove -->
+				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
+				<exclude name="NameTest.java" /><!-- TODO remove -->
 				<exclude name="FieldTest.java" /><!-- TODO remove -->
 				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeTest.java" /><!-- TODO remove -->

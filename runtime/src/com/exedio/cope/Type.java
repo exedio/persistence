@@ -615,75 +615,30 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * Returns the name of database table for this type
-	 * - <b>use with care!</b>
-	 * <p>
-	 * This information is needed only, if you want to access
-	 * the database without cope.
-	 * In this case you should really know, what you are doing.
-	 * Any INSERT/UPDATE/DELETE on the database bypassing cope
-	 * may lead to inconsistent caches.
-	 * Please note, that this string may vary,
-	 * if a cope model is configured for different databases.
-	 *
-	 * @see #getPrimaryKeyColumnName()
-	 * @see #getTypeColumnName()
-	 * @see Field#getColumnName()
-	 * @see ItemField#getTypeColumnName()
+	 * @deprecated Use {@link SchemaInfo#getTableName(Type)} instead
 	 */
+	@Deprecated
 	public String getTableName()
 	{
-		return table.idLower;
+		return SchemaInfo.getTableName(this);
 	}
 	
 	/**
-	 * Returns the name of primary key column in the database for this type
-	 * - <b>use with care!</b>
-	 * <p>
-	 * This information is needed only, if you want to access
-	 * the database without cope.
-	 * In this case you should really know, what you are doing.
-	 * Any INSERT/UPDATE/DELETE on the database bypassing cope
-	 * may lead to inconsistent caches.
-	 * Please note, that this string may vary,
-	 * if a cope model is configured for different databases.
-	 *
-	 * @see #getTableName()
-	 * @see #getTypeColumnName()
-	 * @see Field#getColumnName()
+	 * @deprecated Use {@link SchemaInfo#getPrimaryKeyColumnName(Type)} instead
 	 */
+	@Deprecated
 	public String getPrimaryKeyColumnName()
 	{
-		return table.primaryKey.id;
+		return SchemaInfo.getPrimaryKeyColumnName(this);
 	}
 	
 	/**
-	 * Returns the name of type column in the database for this type
-	 * - <b>use with care!</b>
-	 * <p>
-	 * This information is needed only, if you want to access
-	 * the database without cope.
-	 * In this case you should really know, what you are doing.
-	 * Any INSERT/UPDATE/DELETE on the database bypassing cope
-	 * may lead to inconsistent caches.
-	 * Please note, that this string may vary,
-	 * if a cope model is configured for different databases.
-	 *
-	 * @throws IllegalArgumentException
-	 *         if there is no type column for this type,
-	 *         because <code>{@link Type#getTypesOfInstances()}</code>
-	 *         contains one type only.
-	 * @see #getTableName()
-	 * @see #getPrimaryKeyColumnName()
-	 * @see Field#getColumnName()
-	 * @see ItemField#getTypeColumnName()
+	 * @deprecated Use {@link SchemaInfo#getTypeColumnName(Type)} instead
 	 */
+	@Deprecated
 	public String getTypeColumnName()
 	{
-		if(table.typeColumn==null)
-			throw new IllegalArgumentException("no type column for " + this);
-
-		return table.typeColumn.id;
+		return SchemaInfo.getTypeColumnName(this);
 	}
 	
 	/**

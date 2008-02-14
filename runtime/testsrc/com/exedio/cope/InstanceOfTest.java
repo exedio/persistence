@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 
 public class InstanceOfTest extends AbstractLibTest
 {
@@ -197,33 +201,33 @@ public class InstanceOfTest extends AbstractLibTest
 		}
 	}
 
-	public void testSchemaNames()
+	public void testSchemaInfo()
 	{
 		// with sub types
-		assertEquals(mysqlLower("InstanceOfAItem"), InstanceOfAItem.TYPE.getTableName());
-		assertEquals("this", InstanceOfAItem.TYPE.getPrimaryKeyColumnName());
-		assertEquals("class", InstanceOfAItem.TYPE.getTypeColumnName());
-		assertEquals("code", InstanceOfAItem.code.getColumnName());
-		assertEquals("ref", InstanceOfRefItem.ref.getColumnName());
-		assertEquals("refType", InstanceOfRefItem.ref.getTypeColumnName());
+		assertEquals(mysqlLower("InstanceOfAItem"), SchemaInfo.getTableName(InstanceOfAItem.TYPE));
+		assertEquals("this", getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
+		assertEquals("class", getTypeColumnName(InstanceOfAItem.TYPE));
+		assertEquals("code", getColumnName(InstanceOfAItem.code));
+		assertEquals("ref", getColumnName(InstanceOfRefItem.ref));
+		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
 
 		// without sub types
-		assertEquals(mysqlLower("InstanceOfB2Item"), InstanceOfB2Item.TYPE.getTableName());
-		assertEquals("this", InstanceOfB2Item.TYPE.getPrimaryKeyColumnName());
+		assertEquals(mysqlLower("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
+		assertEquals("this", getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
 		try
 		{
-			InstanceOfB2Item.TYPE.getTypeColumnName();
+			getTypeColumnName(InstanceOfB2Item.TYPE);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("no type column for InstanceOfB2Item", e.getMessage());
 		}
-		assertEquals("textb2", InstanceOfB2Item.textb2.getColumnName());
-		assertEquals("refb2", InstanceOfRefItem.refb2.getColumnName());
+		assertEquals("textb2", getColumnName(InstanceOfB2Item.textb2));
+		assertEquals("refb2", getColumnName(InstanceOfRefItem.refb2));
 		try
 		{
-			InstanceOfRefItem.refb2.getTypeColumnName();
+			getTypeColumnName(InstanceOfRefItem.refb2);
 			fail();
 		}
 		catch(IllegalArgumentException e)
