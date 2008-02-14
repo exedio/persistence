@@ -253,18 +253,11 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return column;
 	}
 	
-	/**
-	 * @deprecated Use {@link SchemaInfo#getColumnName(Field)} instead
-	 */
-	@Deprecated
-	public final String getColumnName()
-	{
-		return SchemaInfo.getColumnName(this);
-	}
-	
 	abstract Column createColumn(Table table, String name, boolean optional);
 	public abstract E get(Item item);
 	public abstract void set(Item item, E value);
+	
+	// ------------------- deprecated stuff -------------------
 	
 	public static enum Option
 	{
@@ -335,5 +328,14 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			this.unique = unique;
 			this.optional = optional;
 		}
+	}
+	
+	/**
+	 * @deprecated Use {@link SchemaInfo#getColumnName(Field)} instead
+	 */
+	@Deprecated
+	public final String getColumnName()
+	{
+		return SchemaInfo.getColumnName(this);
 	}
 }

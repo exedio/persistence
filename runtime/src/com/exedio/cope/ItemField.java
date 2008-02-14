@@ -58,15 +58,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	}
 	
 	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public ItemField(final Option option, final Class<E> valueClass)
-	{
-		this(option, valueClass, Item.FORBID);
-	}
-	
-	/**
 	 * @deprecated
 	 * use {@link Item#newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)} instead,
 	 * which allows ommitting the generics:
@@ -79,29 +70,11 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		this(false, policy==DeletePolicy.NULLIFY, false, valueClass, null, policy);
 	}
 
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
-	{
-		this(option.isFinal, option.optional, option.unique, valueClass, null, policy);
-	}
-
 	ItemField(final Type<E> valueType, final DeletePolicy policy)
 	{
 		this(false, policy==DeletePolicy.NULLIFY, false, null, valueType, policy);
 	}
 
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	ItemField(final Option option, final Type<E> valueType, final DeletePolicy policy)
-	{
-		this(option.isFinal, option.optional, option.unique, null, valueType, policy);
-	}
-	
 	@Override
 	public ItemField<E> copy()
 	{
@@ -159,15 +132,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return valueType;
 	}
 	
-	/**
-	 * @deprecated Use {@link #as(Class)} instead
-	 */
-	@Deprecated
-	public <X extends Item> ItemField<X> cast(final Class<X> clazz)
-	{
-		return as(clazz);
-	}
-
 	/**
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
@@ -234,15 +198,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		super.disconnect();
 		this.onlyPossibleValueType = null;
 		this.typeColumn = null;
-	}
-	
-	/**
-	 * @deprecated Use {@link SchemaInfo#getTypeColumnName(ItemField)} instead
-	 */
-	@Deprecated
-	public String getTypeColumnName()
-	{
-		return SchemaInfo.getTypeColumnName(this);
 	}
 	
 	StringColumn getTypeColumn()
@@ -407,6 +362,53 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return new InstanceOfCondition<E>(this, true, types);
 	}
 
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	public ItemField(final Option option, final Class<E> valueClass)
+	{
+		this(option, valueClass, Item.FORBID);
+	}
+	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	public ItemField(final Option option, final Class<E> valueClass, final DeletePolicy policy)
+	{
+		this(option.isFinal, option.optional, option.unique, valueClass, null, policy);
+	}
+
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	ItemField(final Option option, final Type<E> valueType, final DeletePolicy policy)
+	{
+		this(option.isFinal, option.optional, option.unique, null, valueType, policy);
+	}
+	
+	/**
+	 * @deprecated Use {@link #as(Class)} instead
+	 */
+	@Deprecated
+	public <X extends Item> ItemField<X> cast(final Class<X> clazz)
+	{
+		return as(clazz);
+	}
+
+	/**
+	 * @deprecated Use {@link SchemaInfo#getTypeColumnName(ItemField)} instead
+	 */
+	@Deprecated
+	public String getTypeColumnName()
+	{
+		return SchemaInfo.getTypeColumnName(this);
+	}
+	
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1)
 	{

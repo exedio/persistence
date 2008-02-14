@@ -77,15 +77,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		this(false, false, false, valueClass, null);
 	}
 	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public EnumField(final Option option, final Class<E> valueClass)
-	{
-		this(option.isFinal, option.optional, option.unique, valueClass, null);
-	}
-	
 	@Override
 	public EnumField<E> copy()
 	{
@@ -151,15 +142,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	/**
-	 * @deprecated Use {@link #as(Class)} instead
-	 */
-	@Deprecated
-	public <X extends Enum<X>> EnumField<X> cast(final Class<X> clazz)
-	{
-		return as(clazz);
-	}
-
-	/**
 	 * @see ItemField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
@@ -210,15 +192,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
       return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
 	}
 	
-	/**
-	 * @deprecated Use {@link SchemaInfo#getColumnValue(EnumField,Enum)} instead
-	 */
-	@Deprecated
-	public final int getColumnValue(final E value)
-	{
-		return SchemaInfo.getColumnValue(this, value);
-	}
-	
 	int columnValue(final E value)
 	{
 		if(!isValid(value))
@@ -226,5 +199,34 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 					"expected " + valueClass.getName() +
 					", but was a " + value.getClass().getName());
 		return ordinalsToNumbers[value.ordinal()];
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	public EnumField(final Option option, final Class<E> valueClass)
+	{
+		this(option.isFinal, option.optional, option.unique, valueClass, null);
+	}
+	
+	/**
+	 * @deprecated Use {@link #as(Class)} instead
+	 */
+	@Deprecated
+	public <X extends Enum<X>> EnumField<X> cast(final Class<X> clazz)
+	{
+		return as(clazz);
+	}
+
+	/**
+	 * @deprecated Use {@link SchemaInfo#getColumnValue(EnumField,Enum)} instead
+	 */
+	@Deprecated
+	public final int getColumnValue(final E value)
+	{
+		return SchemaInfo.getColumnValue(this, value);
 	}
 }

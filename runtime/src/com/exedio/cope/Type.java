@@ -94,15 +94,6 @@ public final class Type<C extends Item>
 		return forClassUnchecked(javaClass).castType(javaClass);
 	}
 	
-	/**
-	 * @deprecated Use {@link #forClass(Class)} instead
-	 */
-	@Deprecated
-	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
-	{
-		return forClass(javaClass);
-	}
-
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
 	public <X extends Item> Type<X> castType(final Class<X> clazz)
 	{
@@ -124,15 +115,6 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
-	/**
-	 * @deprecated Use {@link #forClassUnchecked(Class)} instead
-	 */
-	@Deprecated
-	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
-	{
-		return forClassUnchecked(javaClass);
-	}
-
 	private ArrayList<Feature> featuresWhileConstruction;
 	
 	Type(final Class<C> javaClass)
@@ -615,33 +597,6 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @deprecated Use {@link SchemaInfo#getTableName(Type)} instead
-	 */
-	@Deprecated
-	public String getTableName()
-	{
-		return SchemaInfo.getTableName(this);
-	}
-	
-	/**
-	 * @deprecated Use {@link SchemaInfo#getPrimaryKeyColumnName(Type)} instead
-	 */
-	@Deprecated
-	public String getPrimaryKeyColumnName()
-	{
-		return SchemaInfo.getPrimaryKeyColumnName(this);
-	}
-	
-	/**
-	 * @deprecated Use {@link SchemaInfo#getTypeColumnName(Type)} instead
-	 */
-	@Deprecated
-	public String getTypeColumnName()
-	{
-		return SchemaInfo.getTypeColumnName(this);
-	}
-	
-	/**
 	 * Returns the type representing the {@link Class#getSuperclass() superclass}
 	 * of this type's {@link #getJavaClass() java class}.
 	 * If this type has no super type
@@ -738,15 +693,6 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @deprecated Renamed to {@link #getDeclaredFields()}.
-	 */
-	@Deprecated
-	public List<Field> getDeclaredAttributes()
-	{
-		return declaredFields;
-	}
-	
-	/**
 	 * Returns the list of accessible persistent fields of this type.
 	 * This includes inherited fields.
 	 * The elements in the list returned are ordered by their type,
@@ -761,15 +707,6 @@ public final class Type<C extends Item>
 	public List<Field> getFields()
 	{
 		return fields;
-	}
-	
-	/**
-	 * @deprecated Renamed to {@link #getFields()}.
-	 */
-	@Deprecated
-	public List<Field> getAttributes()
-	{
-		return getFields();
 	}
 	
 	public List<Feature> getDeclaredFeatures()
@@ -805,15 +742,6 @@ public final class Type<C extends Item>
 	public ItemField<C> newItemField(final DeletePolicy policy)
 	{
 		return new ItemField<C>(this, policy);
-	}
-	
-	/**
-	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
-	 */
-	@Deprecated
-	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)
-	{
-		return new ItemField<C>(option, this, policy);
 	}
 	
 	private static final SetValue[] EMPTY_SET_VALUES = {};
@@ -931,15 +859,6 @@ public final class Type<C extends Item>
 	public C searchSingletonStrict(final Condition condition)
 	{
 		return newQuery(condition).searchSingletonStrict();
-	}
-	
-	/**
-	 * @deprecated renamed to {@link #searchSingleton(Condition)}.
-	 */
-	@Deprecated
-	public C searchUnique(final Condition condition)
-	{
-		return searchSingleton(condition);
 	}
 	
 	public Query<C> newQuery()
@@ -1257,6 +1176,8 @@ public final class Type<C extends Item>
 			return new InstanceOfCondition<E>(this, true, types);
 		}
 
+		// ------------------- deprecated stuff -------------------
+		
 		@Deprecated
 		public InstanceOfCondition<E> typeIn(final Type<? extends E> type1)
 		{
@@ -1317,4 +1238,88 @@ public final class Type<C extends Item>
 			return notInstanceOf(types);
 		}
 	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #forClass(Class)} instead
+	 */
+	@Deprecated
+	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
+	{
+		return forClass(javaClass);
+	}
+
+	/**
+	 * @deprecated Use {@link #forClassUnchecked(Class)} instead
+	 */
+	@Deprecated
+	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
+	{
+		return forClassUnchecked(javaClass);
+	}
+
+	/**
+	 * @deprecated Use {@link SchemaInfo#getTableName(Type)} instead
+	 */
+	@Deprecated
+	public String getTableName()
+	{
+		return SchemaInfo.getTableName(this);
+	}
+	
+	/**
+	 * @deprecated Use {@link SchemaInfo#getPrimaryKeyColumnName(Type)} instead
+	 */
+	@Deprecated
+	public String getPrimaryKeyColumnName()
+	{
+		return SchemaInfo.getPrimaryKeyColumnName(this);
+	}
+	
+	/**
+	 * @deprecated Use {@link SchemaInfo#getTypeColumnName(Type)} instead
+	 */
+	@Deprecated
+	public String getTypeColumnName()
+	{
+		return SchemaInfo.getTypeColumnName(this);
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #getDeclaredFields()}.
+	 */
+	@Deprecated
+	public List<Field> getDeclaredAttributes()
+	{
+		return declaredFields;
+	}
+	
+	/**
+	 * @deprecated Renamed to {@link #getFields()}.
+	 */
+	@Deprecated
+	public List<Field> getAttributes()
+	{
+		return getFields();
+	}
+	
+	/**
+	 * @deprecated use {@link Field#toFinal()}, {@link FunctionField#unique()} and {@link Field#optional()} instead.
+	 */
+	@Deprecated
+	public ItemField<C> newItemField(final Option option, final DeletePolicy policy)
+	{
+		return new ItemField<C>(option, this, policy);
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #searchSingleton(Condition)}.
+	 */
+	@Deprecated
+	public C searchUnique(final Condition condition)
+	{
+		return searchSingleton(condition);
+	}
+	
 }
