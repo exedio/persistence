@@ -101,6 +101,9 @@ public class NameTest extends AbstractLibTest
 		assertEquals("this", NameCollisionlongbItem_TYPE.getThis().getName());
 		assertEquals("code", NameCollisionlongbItem_code.getName());
 		
+		assertEquals("NameSubItem", NameSubItem.TYPE.getID());
+		assertEquals("this", NameSubItem.TYPE.getThis().getName());
+		
 		// test schema
 		
 		assertEquals(mysqlLower("NaLoNaLoNaLoNaLoNaLoNaLoI"), SchemaInfo.getTableName(NameLongItem_TYPE));
