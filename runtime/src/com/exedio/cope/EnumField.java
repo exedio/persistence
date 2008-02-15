@@ -45,9 +45,8 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			throw new RuntimeException("must have at least one enum value: " + valueClass);
 		final int[] ordinalsToNumbers = new int[enumConstants.length];
 		
-		for(int j = 0; j<enumConstants.length; j++)
+		for(final E enumConstant : enumConstants)
 		{
-			final E enumConstant = enumConstants[j];
 			final int number = (enumConstant.ordinal() + 1) * 10;
 			values.add(enumConstant);
 
