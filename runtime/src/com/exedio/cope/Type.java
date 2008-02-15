@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -472,6 +473,17 @@ public final class Type<C extends Item>
 		return l;
 	}
 	
+	/**
+	 * @see Class#getAnnotation(Class)
+	 */
+	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+	{
+		return
+			(uniqueJavaClass && javaClass!=null)
+			? javaClass.getAnnotation(annotationClass)
+			: null;
+	}
+	
 	void connect(final Database database)
 	{
 		if(database==null)
@@ -482,14 +494,8 @@ public final class Type<C extends Item>
 		if(this.table!=null)
 			throw new RuntimeException();
 		
-		final String tableID;
-		if(uniqueJavaClass && javaClass!=null)
-		{
-			final CopeSchemaName annotation = javaClass.getAnnotation(CopeSchemaName.class);
-			tableID = annotation!=null ? annotation.value(): id;
-		}
-		else
-			tableID = id;
+		final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
+		final String tableID = annotation!=null ? annotation.value(): id;
 
 		this.table = new Table(database, tableID, supertype, typesOfInstancesColumnValues);
 

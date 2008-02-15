@@ -126,6 +126,9 @@ public class HierarchyTest extends AbstractLibTest
 
 		assertEquals(map(), model.getHiddenFeatures());
 
+		assertEquals("typetestannotationcontent", HierarchyFirstSub.TYPE.getAnnotation(TestAnnotation.class).value());
+		assertEquals(null, HierarchySuper.TYPE.getAnnotation(TestAnnotation.class));
+		
 		// test persistence
 		final HierarchyFirstSub firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
 		assertID(0, firstItem);

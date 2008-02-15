@@ -18,10 +18,7 @@
 
 package com.exedio.cope;
 
-
-/**
- * @author Ralf Wiebicke
- */
+@TestAnnotation("typetestannotationcontent")
 public class HierarchyFirstSub extends HierarchySuper
 {
 
