@@ -23,6 +23,8 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 
+import com.exedio.dsmf.Schema;
+
 public class NameTest extends AbstractLibTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
@@ -109,6 +111,27 @@ public class NameTest extends AbstractLibTest
 		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongbItem_TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongbItem_code));
 		
+		{
+			final Schema schema = model.getVerifiedSchema();
+			final com.exedio.dsmf.Table nameSub = schema.getTable(getTableName(NameSubItem.TYPE));
+			assertNotNull(nameSub);
+			assertEquals(null, nameSub.getError());
+			assertEquals(Schema.Color.OK, nameSub.getParticularColor());
+			
+			assertEquals("this",    nameSub.getColumn("this")   .getName());
+			assertEquals("unique",  nameSub.getColumn("unique") .getName());
+			assertEquals("integer", nameSub.getColumn("integer").getName());
+			assertEquals("item",    nameSub.getColumn("item")   .getName());
+			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertUniqueConstraint(nameSub, "NameSubItemX_unique_Unq",   "("+p("unique")+")");
+			assertFkConstraint    (nameSub, "NameSubItemX_item_Fk",      "item", mysqlLower("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertUniqueConstraint(nameSub, "NameSubItemX_integers_Unq", "("+p("integer")+","+p("item")+")");
+			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+p("this")+">=0) AND ("+p("this")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    "("+p("unique")+" IS NOT NULL) AND (("+p("unique")+">=-2147483648) AND ("+p("unique")+"<=2147483647))");
+			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   "("+p("integer")+" IS NOT NULL) AND (("+p("integer")+">=-2147483648) AND ("+p("integer")+"<=2147483647))");
+			assertCheckConstraint (nameSub, "NameSubItemX_item_Ck",      "("+p("item")+" IS NOT NULL) AND (("+p("item")+">=0) AND ("+p("item")+"<=2147483647))");
+		}
+		
 		// test persistence
 		
 		assertEquals("long name item", item.getCode());
@@ -133,5 +156,10 @@ public class NameTest extends AbstractLibTest
 		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertContains(itemcb, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal((Integer)null)));
 		assertContains(itemca, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(Integer.valueOf(5))));
+	}
+	
+	private final String p(final String name)
+	{
+		return model.getDatabase().getDriver().protectName(name);
 	}
 }
