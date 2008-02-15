@@ -119,14 +119,15 @@ public class NameTest extends AbstractLibTest
 			assertEquals(Schema.Color.OK, nameSub.getParticularColor());
 			
 			assertEquals("this",    nameSub.getColumn("this")   .getName());
+			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+p("this")+">=0) AND ("+p("this")+"<=2147483647)");
+			
 			assertEquals("unique",  nameSub.getColumn("unique") .getName());
 			assertEquals("integer", nameSub.getColumn("integer").getName());
 			assertEquals("item",    nameSub.getColumn("item")   .getName());
-			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_unique_Unq",   "("+p("unique")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_item_Fk",      "item", mysqlLower("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_integers_Unq", "("+p("integer")+","+p("item")+")");
-			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+p("this")+">=0) AND ("+p("this")+"<=2147483647)");
 			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    "("+p("unique")+" IS NOT NULL) AND (("+p("unique")+">=-2147483648) AND ("+p("unique")+"<=2147483647))");
 			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   "("+p("integer")+" IS NOT NULL) AND (("+p("integer")+">=-2147483648) AND ("+p("integer")+"<=2147483647))");
 			assertCheckConstraint (nameSub, "NameSubItemX_item_Ck",      "("+p("item")+" IS NOT NULL) AND (("+p("item")+">=0) AND ("+p("item")+"<=2147483647))");
