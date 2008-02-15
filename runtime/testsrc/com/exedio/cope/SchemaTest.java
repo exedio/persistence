@@ -293,7 +293,7 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, uniqueItem.getError());
 			assertEquals(Schema.Color.OK, uniqueItem.getParticularColor());
 			
-			assertUniqueConstraint(uniqueItem, "UNIQUE_ITEMS_uniqStri_Unq", "("+p("UNIQUE_STRING")+")"); // TODO is a bug
+			assertUniqueConstraint(uniqueItem, "UNIQUE_ITEMS_uniqStri_Unq", "("+p("UNIQUE_S")+")"); // TODO is a bug
 			
 			final com.exedio.dsmf.Table doubleUniqueItem = schema.getTable(mysqlLower("ItemWithDoubleUnique"));
 			assertNotNull(doubleUniqueItem);

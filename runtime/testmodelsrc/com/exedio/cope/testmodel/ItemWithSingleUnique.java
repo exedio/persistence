@@ -28,7 +28,7 @@ public class ItemWithSingleUnique extends Item
 	/**
 	 * An attribute that is unique.
 	 */
-	@CopeSchemaName("UNIQUE_STRING")
+	@CopeSchemaName("UNIQUE_S")
 	public static final StringField uniqueString = new StringField().optional().unique();
 
 	public static final StringField otherString = new StringField().optional();
