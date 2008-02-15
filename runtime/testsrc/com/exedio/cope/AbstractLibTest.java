@@ -311,17 +311,12 @@ public abstract class AbstractLibTest extends CopeTest
 		return model.getProperties().getMysqlLowerCaseTableNames() ? name.toLowerCase() : name;
 	}
 	
-	public static final Class<CheckConstraint> CHECK = CheckConstraint.class;
-	public static final Class<PrimaryKeyConstraint> PK = PrimaryKeyConstraint.class;
-	public static final Class<ForeignKeyConstraint> FK = ForeignKeyConstraint.class;
-	public static final Class<UniqueConstraint> UNIQUE = UniqueConstraint.class;
-	
 	protected final CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String condition)
 	{
-		return assertConstraint(table, CHECK, name, condition);
+		return assertConstraint(table, CheckConstraint.class, name, condition);
 	}
 	
 	protected final void assertPkConstraint(
@@ -330,7 +325,7 @@ public abstract class AbstractLibTest extends CopeTest
 			final String condition,
 			final String column)
 	{
-		final PrimaryKeyConstraint constraint = assertConstraint(table, PK, name, condition);
+		final PrimaryKeyConstraint constraint = assertConstraint(table, PrimaryKeyConstraint.class, name, condition);
 
 		assertEquals(column, constraint.getPrimaryKeyColumn());
 	}
@@ -342,7 +337,7 @@ public abstract class AbstractLibTest extends CopeTest
 			final String targetTable,
 			final String targetColumn)
 	{
-		final ForeignKeyConstraint constraint = assertConstraint(table, FK, name, null);
+		final ForeignKeyConstraint constraint = assertConstraint(table, ForeignKeyConstraint.class, name, null);
 
 		assertEquals(column, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());
@@ -354,7 +349,7 @@ public abstract class AbstractLibTest extends CopeTest
 			final String name,
 			final String clause)
 	{
-		final UniqueConstraint constraint = assertConstraint(table, UNIQUE, name, clause);
+		final UniqueConstraint constraint = assertConstraint(table, UniqueConstraint.class, name, clause);
 
 		assertEquals(clause, constraint.getClause());
 	}
@@ -366,7 +361,7 @@ public abstract class AbstractLibTest extends CopeTest
 			final String condition)
 	{
 		final Constraint constraint = table.getConstraint(name);
-		final boolean expectedSupported = model.supportsCheckConstraints() || type!=CHECK;
+		final boolean expectedSupported = model.supportsCheckConstraints() || type!=CheckConstraint.class;
 		assertNotNull("no such constraint "+name+", but has "+table.getConstraints(), constraint);
 		assertEquals(name, type, constraint.getClass());
 		assertEquals(name, condition, constraint.getRequiredCondition());
