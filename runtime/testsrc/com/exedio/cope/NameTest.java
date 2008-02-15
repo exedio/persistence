@@ -84,31 +84,37 @@ public class NameTest extends AbstractLibTest
 		// test model
 		
 		assertEquals("NameLongNameLongNameLongNameLongNameLongNameLongItem", NameLongItem_TYPE.getID());
+		assertEquals("this", NameLongItem_TYPE.getThis().getName());
 		assertEquals("code", NameLongItem_code.getName());
 		assertEquals("codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName", NameLongItem_codeLongName.getName());
 		assertEquals("pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName", NameLongItem_pointerLongName.getName());
 		
 		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", NameCollisionlongaItem_TYPE.getID());
+		assertEquals("this", NameCollisionlongaItem_TYPE.getThis().getName());
 		assertEquals("code", NameCollisionlongaItem_code.getName());
 		assertEquals("collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", NameCollisionlongaItem_collisionlongaNumber.getName());
 		assertEquals("collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber", NameCollisionlongaItem_collisionlongbNumber.getName());
 		
 		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem", NameCollisionlongbItem_TYPE.getID());
+		assertEquals("this", NameCollisionlongbItem_TYPE.getThis().getName());
 		assertEquals("code",NameCollisionlongbItem_code.getName());
 		
 		// test schema
 		
 		assertEquals(mysqlLower("NaLoNaLoNaLoNaLoNaLoNaLoI"), SchemaInfo.getTableName(NameLongItem_TYPE));
+		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameLongItem_TYPE));
 		assertEquals("code", SchemaInfo.getColumnName(NameLongItem_code));
 		assertEquals("codeLooooooooooooooooName", SchemaInfo.getColumnName(NameLongItem_codeLongName));
 		assertEquals("pointerLoooooooooooooName", SchemaInfo.getColumnName(NameLongItem_pointerLongName));
 		
 		assertEquals(mysqlLower("NameCollisionlongAItem_F"), SchemaInfo.getTableName(NameCollisionlongaItem_TYPE));
+		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameCollisionlongaItem_TYPE));
 		assertEquals("code", SchemaInfo.getColumnName(NameCollisionlongaItem_code));
 		assertEquals("collisionlongANumber_F", SchemaInfo.getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionloooooooooNumber", SchemaInfo.getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 		
 		assertEquals(mysqlLower("NameCollisionloooooooItem"), SchemaInfo.getTableName(NameCollisionlongbItem_TYPE));
+		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameCollisionlongbItem_TYPE));
 		assertEquals("code", SchemaInfo.getColumnName(NameCollisionlongbItem_code));
 		
 		// test persistence
