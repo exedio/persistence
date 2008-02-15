@@ -119,12 +119,16 @@ public final class Type<C extends Item>
 	
 	Type(final Class<C> javaClass)
 	{
-		this(javaClass, javaClass.getSimpleName());
+		this(javaClass, getID(javaClass), getFeatureMap(javaClass));
 	}
 	
-	Type(final Class<C> javaClass, final String id)
+	private static final String getID(final Class<?> javaClass)
 	{
-		this(javaClass, id, getFeatureMap(javaClass));
+		final CopeID annotation = javaClass.getAnnotation(CopeID.class);
+		return
+			annotation!=null
+			? annotation.value()
+			: javaClass.getSimpleName();
 	}
 	
 	private static final LinkedHashMap<String, Feature> getFeatureMap(final Class<?> javaClass)

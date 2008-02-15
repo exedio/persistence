@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeID("NameSubItemX")
 public class NameSubItem extends NameLongNameLongNameLongNameLongNameLongNameLongItem
 {
 	/**

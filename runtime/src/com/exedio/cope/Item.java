@@ -456,11 +456,6 @@ public abstract class Item implements Serializable
 		return new Type<C>(javaClass);
 	}
 	
-	protected static final <C extends Item> Type<C> newType(final Class<C> javaClass, final String id)
-	{
-		return new Type<C>(javaClass, id);
-	}
-	
 	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
