@@ -496,7 +496,6 @@ public final class Type<C extends Item>
 		
 		final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
 		final String tableID = annotation!=null ? annotation.value(): id;
-
 		this.table = new Table(database, tableID, supertype, typesOfInstancesColumnValues);
 
 		for(final Field a : declaredFields)
