@@ -236,9 +236,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			throw new NullPointerException();
 		if(this.column!=null)
 			throw new RuntimeException();
+		
 		final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
 		final String columnName = annotation!=null ? annotation.value() : getName();
-
 		this.column = createColumn(table, columnName, optional);
 	}
 	

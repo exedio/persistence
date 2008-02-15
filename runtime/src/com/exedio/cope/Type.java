@@ -481,6 +481,7 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
+		
 		final String tableID;
 		if(uniqueJavaClass && javaClass!=null)
 		{
@@ -488,9 +489,7 @@ public final class Type<C extends Item>
 			tableID = annotation!=null ? annotation.value(): id;
 		}
 		else
-		{
 			tableID = id;
-		}
 
 		this.table = new Table(database, tableID, supertype, typesOfInstancesColumnValues);
 
