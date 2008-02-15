@@ -88,7 +88,7 @@ public class QueryInfoTest extends TestmodelTest
 									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final QueryInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on UNIQUE_ITEMS_uniqStri_Unq")); // TODO is a bug
+										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on UNIQUE_ITEMS_UNIQUE_S_Unq"));
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
