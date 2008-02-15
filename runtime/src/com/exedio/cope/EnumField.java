@@ -45,14 +45,14 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			throw new RuntimeException("must have at least one enum value: " + valueClass);
 		final int[] ordinalsToNumbers = new int[enumConstants.length];
 		
-		for(final E enumConstant : enumConstants)
+		for(final E e : enumConstants)
 		{
-			final int number = (enumConstant.ordinal() + 1) * 10;
-			values.add(enumConstant);
+			final int number = (e.ordinal() + 1) * 10;
+			values.add(e);
 
-			if(numbersToValues.put(number, enumConstant)!=null)
+			if(numbersToValues.put(number, e)!=null)
 				throw new RuntimeException("duplicate number " + number + " for enum field on " + valueClass);
-			ordinalsToNumbers[enumConstant.ordinal()] = number;
+			ordinalsToNumbers[e.ordinal()] = number;
 		}
 		values.trimToSize();
 		numbersToValues.trimToSize();
