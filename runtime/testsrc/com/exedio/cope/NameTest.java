@@ -99,7 +99,7 @@ public class NameTest extends AbstractLibTest
 		
 		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem", NameCollisionlongbItem_TYPE.getID());
 		assertEquals("this", NameCollisionlongbItem_TYPE.getThis().getName());
-		assertEquals("code",NameCollisionlongbItem_code.getName());
+		assertEquals("code", NameCollisionlongbItem_code.getName());
 		
 		// test schema
 		
