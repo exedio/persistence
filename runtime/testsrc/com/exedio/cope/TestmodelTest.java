@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 
 import com.exedio.cope.testmodel.AttributeItem;
@@ -32,29 +31,6 @@ public abstract class TestmodelTest extends AbstractLibTest
 	public TestmodelTest()
 	{
 		super(Main.model);
-	}
-	
-	@Override
-	public ConnectProperties getProperties()
-	{
-		final File dpf = ConnectProperties.getDefaultPropertyFile();
-		final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
-		
-		dp.setProperty("database.forcename.StringItem", "STRINGITEMS");
-		dp.setProperty("database.forcename.STRINGITEMS.this", "STRINGITEM_ID");
-		dp.setProperty("database.forcename.STRINGITEMS.any", "ANY");
-		dp.setProperty("database.forcename.STRINGITEMS.mandatory", "MANDATORY");
-		dp.setProperty("database.forcename.STRINGITEMS.min4", "MIN_4");
-		dp.setProperty("database.forcename.STRINGITEMS.max4", "MAX_4");
-		dp.setProperty("database.forcename.STRINGITEMS.min4Max8", "MIN4_MAX8");
-		dp.setProperty("database.forcename.STRINGITEMS.exact6", "EXACT_6");
-		dp.setProperty("database.forcename.ItemWithSingleUnique", "UNIQUE_ITEMS");
-		dp.setProperty("database.forcename.UNIQUE_ITEMS.this", "UNIQUE_ITEM_ID");
-		dp.setProperty("database.forcename.UNIQUE_ITEMS.uniqueString", "UNIQUE_STRING");
-		dp.setProperty("database.forcename.UNIQUE_ITEMS.otherString", "OTHER_STRING");
-		dp.setProperty("database.forcename.ItemWithSingleUnique_uniqueString_Unq", "IX_ITEMWSU_US");
-		
-		return new ConnectProperties(dp, dpf.getAbsolutePath()+" plus TestmodelTest forced names", ConnectProperties.getSystemPropertyContext());
 	}
 	
 	protected void assertDataMime(final AttributeItem item,

@@ -56,7 +56,6 @@ final class Database
 	private final boolean fulltextIndex;
 	final Pool<Connection> connectionPool;
 	final boolean mysqlLowerCaseTableNames;
-	private final java.util.Properties forcedNames;
 	final java.util.Properties tableOptions;
 	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
@@ -80,7 +79,6 @@ final class Database
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial());
 		this.mysqlLowerCaseTableNames = properties.getMysqlLowerCaseTableNames();
-		this.forcedNames = properties.getDatabaseForcedNames();
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
 		this.blobLengthFactor = dialect.getBlobLengthFactor();
@@ -1255,17 +1253,6 @@ final class Database
 	
 	String makeName(final String longName)
 	{
-		return makeName(null, longName);
-	}
-
-	String makeName(final String prefix, final String longName)
-	{
-		final String query = prefix==null ? longName : prefix+'.'+longName;
-		final String forcedName = forcedNames.getProperty(query);
-		//System.out.println("---------"+query+"--"+forcedName);
-		if(forcedName!=null)
-			return forcedName;
-		
 		return trimString(longName, 25);
 	}
 

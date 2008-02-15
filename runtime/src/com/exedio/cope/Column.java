@@ -40,7 +40,7 @@ abstract class Column
 	{
 		final Database database = table.database;
 		this.table = table;
-		this.id = database.intern(database.makeName(table.id, id));
+		this.id = database.intern(database.makeName(id));
 		this.protectedID = database.intern(database.getDriver().protectName(this.id));
 		this.primaryKey = primaryKey;
 		this.optional = optional;

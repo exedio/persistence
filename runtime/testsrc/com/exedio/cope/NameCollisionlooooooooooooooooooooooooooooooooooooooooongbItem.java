@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeSchemaName("NameCollisionlongBItem")
 class NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem extends Item
 {
 

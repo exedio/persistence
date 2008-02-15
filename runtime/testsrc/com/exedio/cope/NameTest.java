@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
-import java.io.File;
-
 public class NameTest extends AbstractLibTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
@@ -34,21 +32,6 @@ public class NameTest extends AbstractLibTest
 	public NameTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	public ConnectProperties getProperties()
-	{
-		final File dpf = ConnectProperties.getDefaultPropertyFile();
-		final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
-		
-		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", "NameCollisionlongAItem_F");
-		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
-		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
-		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_pointerLoooooooooooooName_Ck", "NmeLngIm_pointrLngNme_Ck");
-		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_code_Ck", "NmeLngIm_code_Ck");
-		
-		return new ConnectProperties(dp, dpf.getAbsolutePath()+" plus NameTest forced names", ConnectProperties.getSystemPropertyContext());
 	}
 	
 	NameLongNameLongNameLongNameLongNameLongNameLongItem item;
@@ -106,7 +89,7 @@ public class NameTest extends AbstractLibTest
 		
 		// test schema
 		
-		assertEquals(mysqlLower("NaLoNaLoNaLoNaLoNaLoNaLoI"), SchemaInfo.getTableName(NameLongItem_TYPE));
+		assertEquals(mysqlLower("NameLongItem"), SchemaInfo.getTableName(NameLongItem_TYPE));
 		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameLongItem_TYPE));
 		assertEquals("class", SchemaInfo.getTypeColumnName(NameLongItem_TYPE));
 		assertEquals("code", SchemaInfo.getColumnName(NameLongItem_code));
@@ -114,13 +97,13 @@ public class NameTest extends AbstractLibTest
 		assertEquals("pointerLoooooooooooooName", SchemaInfo.getColumnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLoooooooooNameType", SchemaInfo.getTypeColumnName(NameLongItem_pointerLongName));
 		
-		assertEquals(mysqlLower("NameCollisionlongAItem_F"), SchemaInfo.getTableName(NameCollisionlongaItem_TYPE));
+		assertEquals(mysqlLower("NameCollisionloooooooItem"), SchemaInfo.getTableName(NameCollisionlongaItem_TYPE));
 		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameCollisionlongaItem_TYPE));
 		assertEquals("code", SchemaInfo.getColumnName(NameCollisionlongaItem_code));
-		assertEquals("collisionlongANumber_F", SchemaInfo.getColumnName(NameCollisionlongaItem_collisionlongaNumber));
-		assertEquals("collisionloooooooooNumber", SchemaInfo.getColumnName(NameCollisionlongaItem_collisionlongbNumber));
+		assertEquals("collisionlongANumber", SchemaInfo.getColumnName(NameCollisionlongaItem_collisionlongaNumber));
+		assertEquals("collisionlongBNumber", SchemaInfo.getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 		
-		assertEquals(mysqlLower("NameCollisionloooooooItem"), SchemaInfo.getTableName(NameCollisionlongbItem_TYPE));
+		assertEquals(mysqlLower("NameCollisionlongBItem"), SchemaInfo.getTableName(NameCollisionlongbItem_TYPE));
 		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameCollisionlongbItem_TYPE));
 		assertEquals("code", SchemaInfo.getColumnName(NameCollisionlongbItem_code));
 		
@@ -138,8 +121,8 @@ public class NameTest extends AbstractLibTest
 		item.setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item");
 		assertEquals(item, item.forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName("long name item"));
 		
-		assertEquals(mysqlLower("NameCollisionlongAItem_F"), getTableName(itemca.TYPE));
-		assertEquals("collisionlongANumber_F", getColumnName(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber));
+		assertEquals(mysqlLower("NameCollisionloooooooItem"), getTableName(itemca.TYPE));
+		assertEquals("collisionlongANumber", getColumnName(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber));
 		assertEquals(null, itemca.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertContains(itemca, itemcb, itemca.TYPE.search(itemca.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal((Integer)null)));

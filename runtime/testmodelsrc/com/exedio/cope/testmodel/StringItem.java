@@ -26,6 +26,7 @@ import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.PlusView;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UppercaseView;
 
@@ -33,15 +34,20 @@ import com.exedio.cope.UppercaseView;
  * @cope.generic.constructor public
  * @author Ralf Wiebicke
  */
+@CopeSchemaName("STRINGITEMS")
 public class StringItem extends Item
 {
 	public static final StringField any = new StringField().optional();
 
 	public static final StringField mandatory = new StringField();
 	
+	@CopeSchemaName("MIN_4")
 	public static final StringField min4 = new StringField().optional().lengthMin(4);
+	@CopeSchemaName("MAX_4")
 	public static final StringField max4 = new StringField().optional().lengthMax(4);
+	@CopeSchemaName("MIN4_MAX8")
 	public static final StringField min4Max8 = new StringField().optional().lengthRange(4, 8);
+	@CopeSchemaName("EXACT_6")
 	public static final StringField exact6 = new StringField().optional().lengthExact(6);
 	
 	public static final StringField long1K = new StringField().optional().lengthMax(1000);

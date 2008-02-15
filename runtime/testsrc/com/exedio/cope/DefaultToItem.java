@@ -35,6 +35,7 @@ class DefaultToItem extends Item
 	static final IntegerField integerNone = new IntegerField().optional();
 
 	static final DateField dateEight = new DateField().defaultTo(new Date(8));
+	@CopeSchemaName("dateEty")
 	static final DateField dateEighty = new DateField().optional().defaultTo(new Date(80));
 	static final DateField dateNow = new DateField().defaultToNow();
 	static final DateField dateNowOpt = new DateField().optional().defaultToNow();

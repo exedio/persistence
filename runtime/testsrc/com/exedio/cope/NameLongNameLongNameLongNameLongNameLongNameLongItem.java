@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeSchemaName("NameLongItem")
 class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 {
 

@@ -481,13 +481,23 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		if(this.table!=null)
 			throw new RuntimeException();
+		final String tableID;
+		if(uniqueJavaClass && javaClass!=null)
+		{
+			final CopeSchemaName annotation = javaClass.getAnnotation(CopeSchemaName.class);
+			tableID = annotation!=null ? annotation.value(): id;
+		}
+		else
+		{
+			tableID = id;
+		}
 
-		this.table = new Table(database, id, supertype, typesOfInstancesColumnValues);
+		this.table = new Table(database, tableID, supertype, typesOfInstancesColumnValues);
 
 		for(final Field a : declaredFields)
 			a.connect(table);
 		for(final UniqueConstraint uc : declaredUniqueConstraints)
-			uc.connect(database);
+			uc.connect(table);
 		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
 		this.table.finish();
 	}

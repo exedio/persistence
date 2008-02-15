@@ -35,9 +35,11 @@ class NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem extends Ite
 	 * {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber},
 	 * after trimming of database names
 	 */
+	@CopeSchemaName("collisionlongANumber")
 	static final IntegerField collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber =
 		new IntegerField().optional();
 	
+	@CopeSchemaName("collisionlongBNumber")
 	static final IntegerField collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber =
 		new IntegerField().optional();
 	

@@ -23,8 +23,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.dsmf.Table;
-
 public final class UniqueConstraint extends Feature
 {
 	private final FunctionField<?>[] fields;
@@ -78,17 +76,19 @@ public final class UniqueConstraint extends Feature
 	
 	static final String IMPLICIT_UNIQUE_SUFFIX = "ImplicitUnique";
 	
-	void connect(final Database database)
+	void connect(final Table table)
 	{
 		if(this.databaseID!=null)
 			throw new RuntimeException();
 
+		// TODO obey @CopeSchemaName
+		final Database database = table.database;
 		final String featureName = getName();
 		final String databaseName =
 			featureName.endsWith(IMPLICIT_UNIQUE_SUFFIX)
 			? featureName.substring(0, featureName.length()-IMPLICIT_UNIQUE_SUFFIX.length())
 			: featureName;
-		this.databaseID = database.intern(database.makeName(getType().id + '_' + databaseName + "_Unq"));
+		this.databaseID = database.intern(database.makeName(table.id + '_' + databaseName + "_Unq"));
 		database.addUniqueConstraint(databaseID, this);
 	}
 
@@ -108,7 +108,7 @@ public final class UniqueConstraint extends Feature
 		return databaseID;
 	}
 	
-	void makeSchema(final Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('(');

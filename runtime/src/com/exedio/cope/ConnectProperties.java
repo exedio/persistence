@@ -45,7 +45,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
 	
-	private final MapField databaseForcedNames = new MapField("database.forcename");
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
 	private final MapField databaseCustomProperties;
 	
@@ -289,11 +288,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getMysqlLowerCaseTableNames()
 	{
 		return mysqlLowerCaseTableNames.getBooleanValue();
-	}
-	
-	java.util.Properties getDatabaseForcedNames()
-	{
-		return databaseForcedNames.getMapValue();
 	}
 	
 	java.util.Properties getDatabaseTableOptions()

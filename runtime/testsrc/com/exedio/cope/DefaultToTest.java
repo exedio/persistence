@@ -18,11 +18,9 @@
 
 package com.exedio.cope;
 
-import java.io.File;
 import java.util.Date;
 
 import com.exedio.cope.DefaultToItem.DefaultToEnum;
-
 
 public class DefaultToTest extends AbstractLibTest
 {
@@ -31,17 +29,6 @@ public class DefaultToTest extends AbstractLibTest
 	public DefaultToTest()
 	{
 		super(MODEL);
-	}
-	
-	@Override
-	public ConnectProperties getProperties()
-	{
-		final File dpf = ConnectProperties.getDefaultPropertyFile();
-		final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
-		
-		dp.setProperty("database.forcename.DefaultToItem_dateEighty_Ck", "DefltToItm_dateEighty_Ck");
-		
-		return new ConnectProperties(dp, dpf.getAbsolutePath()+" plus DefaultToTest forced names", ConnectProperties.getSystemPropertyContext());
 	}
 	
 	public void testIt()

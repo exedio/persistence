@@ -184,7 +184,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 	}
 	
-	public ConnectProperties getProperties()
+	public final ConnectProperties getProperties()
 	{
 		return new ConnectProperties(ConnectProperties.getSystemPropertyContext());
 	}
