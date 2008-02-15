@@ -63,6 +63,78 @@ public class NameTest extends AbstractLibTest
 	
 	public void test()
 	{
+		// test model
+		
+		assertEquals(
+				"NameLongNameLongNameLongNameLongNameLongNameLongItem",
+				NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE.getID());
+		assertEquals(
+				"code",
+				NameLongNameLongNameLongNameLongNameLongNameLongItem.code.getName());
+		assertEquals(
+				"codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName",
+				NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.getName());
+		assertEquals(
+				"pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName",
+				NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.getName());
+		
+		assertEquals(
+				"NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem",
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE.getID());
+		assertEquals(
+				"code",
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code.getName());
+		assertEquals(
+				"collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber",
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.getName());
+		assertEquals(
+				"collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber",
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.getName());
+		
+		assertEquals(
+				"NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem",
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE.getID());
+		assertEquals(
+				"code",
+				NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code.getName());
+		
+		// test schema
+		
+		assertEquals(
+				mysqlLower("NaLoNaLoNaLoNaLoNaLoNaLoI"),
+				SchemaInfo.getTableName(NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE));
+		assertEquals(
+				"code",
+				SchemaInfo.getColumnName(NameLongNameLongNameLongNameLongNameLongNameLongItem.code));
+		assertEquals(
+				"codeLooooooooooooooooName",
+				SchemaInfo.getColumnName(NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName));
+		assertEquals(
+				"pointerLoooooooooooooName",
+				SchemaInfo.getColumnName(NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName));
+		
+		assertEquals(
+				mysqlLower("NameCollisionlongAItem_F"),
+				SchemaInfo.getTableName(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE));
+		assertEquals(
+				"code",
+				SchemaInfo.getColumnName(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code));
+		assertEquals(
+				"collisionlongANumber_F",
+				SchemaInfo.getColumnName(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber));
+		assertEquals(
+				"collisionloooooooooNumber",
+				SchemaInfo.getColumnName(NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber));
+		
+		assertEquals(
+				mysqlLower("NameCollisionloooooooItem"),
+				SchemaInfo.getTableName(NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE));
+		assertEquals(
+				"code",
+				SchemaInfo.getColumnName(NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code));
+		
+		// test persistence
+		
 		assertEquals("long name item", item.getCode());
 		assertEquals(null, item.getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName());
 
