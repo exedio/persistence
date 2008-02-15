@@ -27,6 +27,7 @@ public class NameTest extends AbstractLibTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
+			NameSubItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
 			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE);
 	
@@ -45,6 +46,7 @@ public class NameTest extends AbstractLibTest
 		dp.setProperty("database.forcename.NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem_code_Unq", "NameCollisionA_code_Unq_F");
 		dp.setProperty("database.forcename.NameCollisionlongAItem_F.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", "collisionlongANumber_F");
 		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_pointerLoooooooooooooName_Ck", "NmeLngIm_pointrLngNme_Ck");
+		dp.setProperty("database.forcename.NaLoNaLoNaLoNaLoNaLoNaLoI_code_Ck", "NmeLngIm_code_Ck");
 		
 		return new ConnectProperties(dp, dpf.getAbsolutePath()+" plus NameTest forced names", ConnectProperties.getSystemPropertyContext());
 	}
@@ -67,7 +69,7 @@ public class NameTest extends AbstractLibTest
 		final Field NameLongItem_code = NameLongNameLongNameLongNameLongNameLongNameLongItem.code;
 		final Field NameLongItem_codeLongName =
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
-		final Field NameLongItem_pointerLongName =
+		final ItemField NameLongItem_pointerLongName =
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 		
 		final Type NameCollisionlongaItem_TYPE = NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE;
@@ -103,9 +105,11 @@ public class NameTest extends AbstractLibTest
 		
 		assertEquals(mysqlLower("NaLoNaLoNaLoNaLoNaLoNaLoI"), SchemaInfo.getTableName(NameLongItem_TYPE));
 		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameLongItem_TYPE));
+		assertEquals("class", SchemaInfo.getTypeColumnName(NameLongItem_TYPE));
 		assertEquals("code", SchemaInfo.getColumnName(NameLongItem_code));
 		assertEquals("codeLooooooooooooooooName", SchemaInfo.getColumnName(NameLongItem_codeLongName));
 		assertEquals("pointerLoooooooooooooName", SchemaInfo.getColumnName(NameLongItem_pointerLongName));
+		assertEquals("pointerLoooooooooNameType", SchemaInfo.getTypeColumnName(NameLongItem_pointerLongName));
 		
 		assertEquals(mysqlLower("NameCollisionlongAItem_F"), SchemaInfo.getTableName(NameCollisionlongaItem_TYPE));
 		assertEquals("this", SchemaInfo.getPrimaryKeyColumnName(NameCollisionlongaItem_TYPE));
