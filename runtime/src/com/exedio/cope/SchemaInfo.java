@@ -34,6 +34,9 @@ public final class SchemaInfo
 {
 	/**
 	 * Returns the name of database table for the type.
+	 * If not configured otherwise
+	 * or trimmed to fit into name length restrictions,
+	 * the name equals the {@link Type#getID() id} of the type.
 	 */
 	public static String getTableName(final Type type)
 	{
@@ -42,6 +45,8 @@ public final class SchemaInfo
 	
 	/**
 	 * Returns the name of primary key column in the database for the type.
+	 * If not configured otherwise
+	 * the name equals "this".
 	 */
 	public static String getPrimaryKeyColumnName(final Type type)
 	{
@@ -50,6 +55,8 @@ public final class SchemaInfo
 	
 	/**
 	 * Returns the name of type column in the database for the type.
+	 * If not configured otherwise
+	 * the name equals "class".
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this type,
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
@@ -66,6 +73,9 @@ public final class SchemaInfo
 	
 	/**
 	 * Returns the name of database column for the field.
+	 * If not configured otherwise
+	 * or trimmed to fit into name length restrictions,
+	 * the name equals the {@link Field#getName() name} of the field.
 	 */
 	public static String getColumnName(final Field field)
 	{
@@ -74,6 +84,10 @@ public final class SchemaInfo
 	
 	/**
 	 * Returns the name of type column in the database for the field.
+	 * If not configured otherwise
+	 * or trimmed to fit into name length restrictions,
+	 * the name equals the {@link Field#getName() name} of the field
+	 * plus the appendix "Type".
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this ItemField,
 	 *         because <code>{@link ItemField#getValueType() getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
