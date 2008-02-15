@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
+@SuppressWarnings("unchecked")
 public class Example15
 {
 	private String name;

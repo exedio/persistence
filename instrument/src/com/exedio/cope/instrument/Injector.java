@@ -973,6 +973,22 @@ final class Injector
 							write(comment);
 						}
 						break;
+						
+					case '@':
+					{
+						final char nameToken = readToken();
+						if(nameToken!='\0')
+							throw new ParseException("expected name of annotation");
+						//System.out.println("---------name of annotation-------"+buf);
+
+						final char bracketToken = readToken();
+						if(bracketToken!='(')
+							break; // TODO this is a bug, should push back the token
+						
+						while(readToken()!=')')
+							;
+						break;
+					}
 
 					default :
 						System.out.println("bufc >" + c + "<");
