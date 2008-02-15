@@ -24,23 +24,14 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.PlusItem;
-import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.ForeignKeyConstraint;
-import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.UniqueConstraint;
 
 public class SchemaTest extends TestmodelTest
 {
 	private static final String TABLE1X = "PlusItemX";
 	private static final String COLUMN1X = "num2X";
-	
-	public static final Class<CheckConstraint> CHECK = CheckConstraint.class;
-	public static final Class<PrimaryKeyConstraint> PK = PrimaryKeyConstraint.class;
-	public static final Class<ForeignKeyConstraint> FK = ForeignKeyConstraint.class;
-	public static final Class<UniqueConstraint> UNIQUE = UniqueConstraint.class;
 
 	public void testSchema()
 	{
@@ -339,66 +330,6 @@ public class SchemaTest extends TestmodelTest
 			assertCheckConstraint(stringItem, "STRINGITEMS_MIN4_MAX8_Ck", "(("+l("MIN4_MAX8")+">=4) AND ("+l("MIN4_MAX8")+"<=8)) OR ("+p("MIN4_MAX8")+" IS NULL)");
 			assertCheckConstraint(stringItem, "STRINGITEMS_EXACT_6_Ck",   "("+l("EXACT_6")+"=6) OR ("+p("EXACT_6")+" IS NULL)");
 		}
-	}
-	
-	private CheckConstraint assertCheckConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String condition)
-	{
-		return assertConstraint(table, CHECK, name, condition);
-	}
-	
-	private void assertPkConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String condition,
-			final String column)
-	{
-		final PrimaryKeyConstraint constraint = assertConstraint(table, PK, name, condition);
-
-		assertEquals(column, constraint.getPrimaryKeyColumn());
-	}
-	
-	private void assertFkConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String column,
-			final String targetTable,
-			final String targetColumn)
-	{
-		final ForeignKeyConstraint constraint = assertConstraint(table, FK, name, null);
-
-		assertEquals(column, constraint.getForeignKeyColumn());
-		assertEquals(targetTable, constraint.getTargetTable());
-		assertEquals(targetColumn, constraint.getTargetColumn());
-	}
-	
-	private void assertUniqueConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String clause)
-	{
-		final UniqueConstraint constraint = assertConstraint(table, UNIQUE, name, clause);
-
-		assertEquals(clause, constraint.getClause());
-	}
-	
-	private <X extends Constraint> X assertConstraint(
-			final com.exedio.dsmf.Table table,
-			final Class<X> type,
-			final String name,
-			final String condition)
-	{
-		final Constraint constraint = table.getConstraint(name);
-		final boolean expectedSupported = model.supportsCheckConstraints() || type!=CHECK;
-		assertNotNull("no such constraint "+name+", but has "+table.getConstraints(), constraint);
-		assertEquals(name, type, constraint.getClass());
-		assertEquals(name, condition, constraint.getRequiredCondition());
-		assertEquals(expectedSupported, constraint.isSupported());
-		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
-		assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
-		return type.cast(constraint);
 	}
 	
 	private final String p(final Field attribute)
