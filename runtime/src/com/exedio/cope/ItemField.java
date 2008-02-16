@@ -178,13 +178,13 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(typeColumn!=null)
 			throw new RuntimeException();
 		
-		final ItemColumn result = new ItemColumn(table, name, optional, valueType);
+		final ItemColumn result = new ItemColumn(table, this, name, optional, valueType);
 		
 		final String[] typeColumnValues = valueType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
 			onlyPossibleValueType = valueType.getOnlyPossibleTypeOfInstances();
 		else
-			typeColumn = new StringColumn(table, result.id + "Type"/* not equal to "name"! */, optional, typeColumnValues);
+			typeColumn = new StringColumn(table, null, result.id + "Type"/* not equal to "name"! */, optional, typeColumnValues);
 
 		return result;
 	}

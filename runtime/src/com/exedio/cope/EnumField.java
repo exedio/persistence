@@ -162,7 +162,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, optional, ordinalsToNumbers);
+		return new IntegerColumn(table, this, name, optional, ordinalsToNumbers);
 	}
 	
 	@Override

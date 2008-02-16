@@ -40,7 +40,7 @@ final class Table
 		this.idLower = database.mysqlLowerCaseTableNames ? this.id.toLowerCase() : this.id;
 		this.protectedID = database.intern(database.getDriver().protectName(this.idLower));
 		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype) : new IntegerColumn(this);
-		this.typeColumn = (typesOfInstancesColumnValues!=null) ? new StringColumn(this, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues) : null;
+		this.typeColumn = (typesOfInstancesColumnValues!=null) ? new StringColumn(this, null, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues) : null;
 		database.addTable(this);
 	}
 	

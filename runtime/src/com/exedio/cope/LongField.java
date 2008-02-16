@@ -81,7 +81,7 @@ public final class LongField extends FunctionField<Long>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
+		return new IntegerColumn(table, this, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
 	
 	@Override

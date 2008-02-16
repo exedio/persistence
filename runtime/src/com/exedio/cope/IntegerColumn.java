@@ -31,12 +31,12 @@ class IntegerColumn extends Column
 	final boolean longInsteadOfInt;
 	final int[] allowedValues;
 
-	IntegerColumn(final Table table, final String id,
+	IntegerColumn(final Table table, final Field field, final String id,
 					  final boolean optional,
 					  final long minimum, final long maximum,
 					  final boolean longInsteadOfInt)
 	{
-		super(table, id, false, optional, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(table, field, id, false, optional, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
@@ -45,11 +45,11 @@ class IntegerColumn extends Column
 		assert assertMembers();
 	}
 
-	IntegerColumn(final Table table, final String id,
+	IntegerColumn(final Table table, final Field field, final String id,
 					  final boolean optional,
 					  final int[] allowedValues)
 	{
-		super(table, id, false, optional, JDBC_TYPE_INT);
+		super(table, field, id, false, optional, JDBC_TYPE_INT);
 		this.minimum = 0;
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
@@ -97,7 +97,7 @@ class IntegerColumn extends Column
 		//
 		//super(table, Table.PK_COLUMN_NAME+table.id, true, true, JDBC_TYPE_INT);
 
-		super(table, Table.PK_COLUMN_NAME, true, true, JDBC_TYPE_INT);
+		super(table, null, Table.PK_COLUMN_NAME, true, true, JDBC_TYPE_INT);
 
 		this.minimum = PkSource.MIN_VALUE;
 		this.maximum = PkSource.MAX_VALUE;

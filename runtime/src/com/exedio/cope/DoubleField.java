@@ -81,7 +81,7 @@ public final class DoubleField extends FunctionField<Double>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DoubleColumn(table, name, optional);
+		return new DoubleColumn(table, this, name, optional);
 	}
 
 	@Override

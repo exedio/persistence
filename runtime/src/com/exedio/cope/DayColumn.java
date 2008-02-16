@@ -31,9 +31,9 @@ final class DayColumn extends Column
 {
 	static final int JDBC_TYPE = Types.DATE;
 	
-	DayColumn(final Table table, final String id, final boolean optional)
+	DayColumn(final Table table, final Field field, final String id, final boolean optional)
 	{
-		super(table, id, false, optional, JDBC_TYPE);
+		super(table, field, id, false, optional, JDBC_TYPE);
 	}
 	
 	@Override
@@ -106,5 +106,4 @@ final class DayColumn extends Column
 	{
 		return Integer.valueOf(DayColumn.getTransientNumber(new Day(2005, 9, 26)));
 	}
-	
 }

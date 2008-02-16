@@ -136,8 +136,8 @@ public final class DateField extends FunctionField<Date>
 		
 		return
 				useLong
-				? (Column)new IntegerColumn(table, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true)
-				: (Column)new TimestampColumn(table, name, optional);
+				? (Column)new IntegerColumn(table, this, name, optional, Long.MIN_VALUE, Long.MAX_VALUE, true)
+				: (Column)new TimestampColumn(table, this, name, optional);
 	}
 	
 	@Override

@@ -25,9 +25,9 @@ final class ItemColumn extends IntegerColumn
 	final Type<?> targetType;
 	final String integrityConstraintName;
 
-	ItemColumn(final Table table, final String id, final boolean optional, final Type<?> targetType)
+	ItemColumn(final Table table, final Field field, final String id, final boolean optional, final Type<?> targetType)
 	{
-		super(table, id, optional, PkSource.MIN_VALUE, PkSource.MAX_VALUE, false);
+		super(table, field, id, optional, PkSource.MIN_VALUE, PkSource.MAX_VALUE, false);
 		final Database database = table.database;
 		assert targetType!=null;
 		this.targetType = targetType;
