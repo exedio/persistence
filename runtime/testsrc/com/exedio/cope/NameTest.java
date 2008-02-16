@@ -111,6 +111,7 @@ public class NameTest extends AbstractLibTest
 		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongbItem_TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongbItem_code));
 		
+		if(!postgresql)
 		{
 			final Schema schema = model.getVerifiedSchema();
 			final com.exedio.dsmf.Table nameSub = schema.getTable(getTableName(NameSubItem.TYPE));
@@ -120,7 +121,6 @@ public class NameTest extends AbstractLibTest
 			
 			assertEquals("this",    nameSub.getColumn("this")   .getName());
 			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
-			if(!postgresql)
 			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+p("this")+">=0) AND ("+p("this")+"<=2147483647)");
 			
 			assertEquals("unique",  nameSub.getColumn("unique") .getName());
