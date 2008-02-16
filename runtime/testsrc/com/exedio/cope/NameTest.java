@@ -120,6 +120,7 @@ public class NameTest extends AbstractLibTest
 			
 			assertEquals("this",    nameSub.getColumn("this")   .getName());
 			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
+			if(!postgresql)
 			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+p("this")+">=0) AND ("+p("this")+"<=2147483647)");
 			
 			assertEquals("unique",  nameSub.getColumn("unique") .getName());
