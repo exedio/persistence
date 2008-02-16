@@ -31,10 +31,14 @@ class IntegerColumn extends Column
 	final boolean longInsteadOfInt;
 	final int[] allowedValues;
 
-	IntegerColumn(final Table table, final Field field, final String id,
-					  final boolean optional,
-					  final long minimum, final long maximum,
-					  final boolean longInsteadOfInt)
+	IntegerColumn(
+			final Table table,
+			final Field field,
+			final String id,
+			final boolean optional,
+			final long minimum,
+			final long maximum,
+			final boolean longInsteadOfInt)
 	{
 		super(table, field, id, false, optional, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
 		this.minimum = minimum;
@@ -45,9 +49,12 @@ class IntegerColumn extends Column
 		assert assertMembers();
 	}
 
-	IntegerColumn(final Table table, final Field field, final String id,
-					  final boolean optional,
-					  final int[] allowedValues)
+	IntegerColumn(
+			final Table table,
+			final Field field,
+			final String id,
+			final boolean optional,
+			final int[] allowedValues)
 	{
 		super(table, field, id, false, optional, JDBC_TYPE_INT);
 		this.minimum = 0;

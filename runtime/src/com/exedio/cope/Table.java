@@ -33,14 +33,24 @@ final class Table
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 
-	Table(final Database database, final String id, final Type<? extends Item> supertype, final String[] typesOfInstancesColumnValues)
+	Table(
+			final Database database,
+			final String id,
+			final Type<? extends Item> supertype,
+			final String[] typesOfInstancesColumnValues)
 	{
 		this.database = database;
 		this.id = database.intern(database.makeName(id));
 		this.idLower = database.mysqlLowerCaseTableNames ? this.id.toLowerCase() : this.id;
 		this.protectedID = database.intern(database.getDriver().protectName(this.idLower));
-		this.primaryKey = (supertype!=null) ? new ItemColumn(this, supertype) : new IntegerColumn(this);
-		this.typeColumn = (typesOfInstancesColumnValues!=null) ? new StringColumn(this, null, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues) : null;
+		this.primaryKey =
+			(supertype!=null)
+			? new ItemColumn(this, supertype)
+			: new IntegerColumn(this);
+		this.typeColumn =
+			(typesOfInstancesColumnValues!=null)
+			? new StringColumn(this, null, TYPE_COLUMN_NAME, false, typesOfInstancesColumnValues)
+			: null;
 		database.addTable(this);
 	}
 	

@@ -35,8 +35,11 @@ abstract class Column
 	final int typeForDefiningColumn;
 	
 	Column(
-			final Table table, final Field field, final String id,
-			final boolean primaryKey, final boolean optional,
+			final Table table,
+			final Field field,
+			final String id,
+			final boolean primaryKey,
+			final boolean optional,
 			final int typeForDefiningColumn)
 	{
 		final Database database = table.database;

@@ -31,8 +31,12 @@ final class StringColumn extends Column
 	final String[] allowedValues;
 
 	StringColumn(
-			final Table table, final Field field, final String id, final boolean optional,
-			final int minimumLength, final int maximumLength)
+			final Table table,
+			final Field field,
+			final String id,
+			final boolean optional,
+			final int minimumLength,
+			final int maximumLength)
 	{
 		super(table, field, id, false, optional, JDBC_TYPE);
 		this.minimumLength = minimumLength;
@@ -43,7 +47,10 @@ final class StringColumn extends Column
 	}
 	
 	StringColumn(
-			final Table table, final Field field, final String id, final boolean optional,
+			final Table table,
+			final Field field,
+			final String id,
+			final boolean optional,
 			final String[] allowedValues)
 	{
 		super(table, field, id, false, optional, JDBC_TYPE);

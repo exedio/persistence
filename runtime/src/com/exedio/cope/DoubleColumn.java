@@ -26,8 +26,11 @@ final class DoubleColumn extends Column
 {
 	static final int JDBC_TYPE = Types.DOUBLE;
 	
-	DoubleColumn(final Table table, final Field field, final String id,
-					  final boolean optional)
+	DoubleColumn(
+			final Table table,
+			final Field field,
+			final String id,
+			final boolean optional)
 	{
 		super(table, field, id, false, optional, JDBC_TYPE);
 	}
