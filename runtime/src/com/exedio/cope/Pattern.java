@@ -120,7 +120,7 @@ public abstract class Pattern extends Feature
 	
 	/**
 	 * Common super class for all wrapper classes backed by a real
-	 * item of a type created by {@link #newType(LinkedHashMap, String)};
+	 * item of a type created by {@link #newType(Class, LinkedHashMap, String)};
 	 * TODO: remove, support custom classes for such types.
 	 */
 	public abstract class BackedItem
