@@ -247,13 +247,13 @@ public final class History extends Pattern
 		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
-			
-			return getPattern().featureType.newItem(
-					Cope.mapAndCast(getPattern().featureEvent, this),
-					getPattern().featureId.map(f.getID()),
-					getPattern().featureName.map(name),
-					getPattern().featureOld.map(oldValue!=null ? oldValue.toString() : null),
-					getPattern().featureNew.map(newValue!=null ? newValue.toString() : null)
+			final History pattern = getPattern();
+			return pattern.featureType.newItem(
+					Cope.mapAndCast(pattern.featureEvent, this),
+					pattern.featureId.map(f.getID()),
+					pattern.featureName.map(name),
+					pattern.featureOld.map(oldValue!=null ? oldValue.toString() : null),
+					pattern.featureNew.map(newValue!=null ? newValue.toString() : null)
 				);
 		}
 	}
