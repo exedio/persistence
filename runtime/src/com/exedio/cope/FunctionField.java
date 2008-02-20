@@ -39,11 +39,11 @@ public abstract class FunctionField<E extends Object>
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
-		this.defaultConstant = defaultConstant;
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint(this) :
 				null;
+		this.defaultConstant = defaultConstant;
 	}
 	
 	final void checkDefaultValue()
