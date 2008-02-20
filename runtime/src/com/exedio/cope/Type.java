@@ -935,11 +935,11 @@ public final class Type<C extends Item>
 		try
 		{
 			return
-			reactivationConstructor.newInstance(
-				uniqueJavaClass
-				? new Object[]{ REACTIVATION_DUMMY, pk }
-				: new Object[]{ REACTIVATION_DUMMY, pk, this }
-			);
+				reactivationConstructor.newInstance(
+					uniqueJavaClass
+					? new Object[]{ REACTIVATION_DUMMY, pk }
+					: new Object[]{ REACTIVATION_DUMMY, pk, this }
+				);
 		}
 		catch(InstantiationException e)
 		{
