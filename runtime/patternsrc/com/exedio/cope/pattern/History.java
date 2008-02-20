@@ -187,10 +187,6 @@ public final class History extends Pattern
 	public List<Event> getEvents(final Item item)
 	{
 		return eventType.search(Cope.equalAndCast(eventParent, item), eventDate, false);
-		
-		
-		
-		
 	}
 	
 	public Event createEvent(final Item item, final String origin, final boolean creation)
@@ -246,10 +242,6 @@ public final class History extends Pattern
 		public List<? extends Feature> getFeatures()
 		{
 			return getPattern().featureType.search(Cope.equalAndCast(getPattern().featureEvent, this), getPattern().featureType.getThis(), true);
-			
-			
-			
-			
 		}
 		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)

@@ -300,10 +300,6 @@ public final class Dispatcher extends Pattern
 	public List<Failure> getFailures(final Item item)
 	{
 		return failureType.search(Cope.equalAndCast(failureParent, item), failureType.getThis(), true);
-		
-		
-		
-		
 	}
 
 	public static final class Failure extends Item
