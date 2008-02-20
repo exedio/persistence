@@ -69,6 +69,7 @@ public class DispatcherTest extends AbstractLibTest
 			), model.getTypesSortedByHierarchy());
 		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
+		assertEquals(null, item.TYPE.getPattern());
 
 		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
@@ -96,6 +97,7 @@ public class DispatcherTest extends AbstractLibTest
 		assertEquals("DispatcherItem.uploadFailure", failureType.getID());
 		assertEquals(Dispatcher.Failure.class, failureType.getJavaClass());
 		assertEquals(false, failureType.hasUniqueJavaClass());
+		assertSame(DispatcherItem.upload, failureType.getPattern());
 		assertEquals(null, failureType.getSupertype());
 		assertEqualsUnmodifiable(list(), failureType.getSubTypes());
 		assertEquals(false, failureType.isAbstract());

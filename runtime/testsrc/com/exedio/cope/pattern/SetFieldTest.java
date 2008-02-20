@@ -70,6 +70,7 @@ public class SetFieldTest extends AbstractLibTest
 			), model.getTypesSortedByHierarchy());
 		assertEquals(SetFieldItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
+		assertEquals(null, item.TYPE.getPattern());
 
 		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
@@ -97,6 +98,7 @@ public class SetFieldTest extends AbstractLibTest
 		assertEquals("SetFieldItem.strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.hasUniqueJavaClass());
+		assertSame(SetFieldItem.strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
 		assertEqualsUnmodifiable(list(), stringsType.getSubTypes());
 		assertEquals(false, stringsType.isAbstract());
@@ -107,6 +109,7 @@ public class SetFieldTest extends AbstractLibTest
 		assertEquals("SetFieldItem.dates", datesType.getID());
 		assertEquals(PatternItem.class, datesType.getJavaClass());
 		assertEquals(false, datesType.hasUniqueJavaClass());
+		assertSame(SetFieldItem.dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
 		assertEqualsUnmodifiable(list(), datesType.getSubTypes());
 		assertEquals(false, datesType.isAbstract());

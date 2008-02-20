@@ -62,6 +62,7 @@ public class HistoryTest extends AbstractLibTest
 			), model.getTypesSortedByHierarchy());
 		assertEquals(HistoryItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
+		assertEquals(null, item.TYPE.getPattern());
 
 		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
@@ -93,6 +94,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals("HistoryItem.auditEvent", eventType.getID());
 		assertEquals(History.Event.class, eventType.getJavaClass());
 		assertEquals(false, eventType.hasUniqueJavaClass());
+		assertSame(HistoryItem.audit, eventType.getPattern());
 		assertEquals(null, eventType.getSupertype());
 		assertEqualsUnmodifiable(list(), eventType.getSubTypes());
 		assertEquals(false, eventType.isAbstract());
@@ -103,6 +105,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals("HistoryItem.auditFeature", featureType.getID());
 		assertEquals(History.Feature.class, featureType.getJavaClass());
 		assertEquals(false, featureType.hasUniqueJavaClass());
+		assertSame(HistoryItem.audit, featureType.getPattern());
 		assertEquals(null, featureType.getSupertype());
 		assertEqualsUnmodifiable(list(), featureType.getSubTypes());
 		assertEquals(false, featureType.isAbstract());
