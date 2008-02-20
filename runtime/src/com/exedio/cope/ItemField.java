@@ -31,11 +31,10 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 			final Type<E> initialValueType,
 			final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, initialValueType==null?valueClass:initialValueType.getJavaClass(), null/* defaultConstant makes no sense for ItemField */);
+		super(isfinal, optional, unique, valueClass, null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
-		assert (valueClass==null) != (initialValueType==null);
 		this.initialValueType = initialValueType;
 		this.policy = policy;
 		if(policy==null)
@@ -78,43 +77,31 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 
 	ItemField(final Type<E> valueType, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, null, valueType, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, valueType.getJavaClass(), valueType, policy);
 	}
 
 	@Override
 	public ItemField<E> copy()
 	{
-		if(initialValueType==null)
-			return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, null, policy);
-		else
-			return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, null, initialValueType, policy);
+		return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, initialValueType, policy);
 	}
 	
 	@Override
 	public ItemField<E> toFinal()
 	{
-		if(initialValueType==null)
-			return new ItemField<E>(true, optional, implicitUniqueConstraint!=null, valueClass, null, policy);
-		else
-			return new ItemField<E>(true, optional, implicitUniqueConstraint!=null, null, initialValueType, policy);
+		return new ItemField<E>(true, optional, implicitUniqueConstraint!=null, valueClass, initialValueType, policy);
 	}
 	
 	@Override
 	public ItemField<E> optional()
 	{
-		if(initialValueType==null)
-			return new ItemField<E>(isfinal, true, implicitUniqueConstraint!=null, valueClass, null, policy);
-		else
-			return new ItemField<E>(isfinal, true, implicitUniqueConstraint!=null, null, initialValueType, policy);
+		return new ItemField<E>(isfinal, true, implicitUniqueConstraint!=null, valueClass, initialValueType, policy);
 	}
 	
 	@Override
 	public ItemField<E> unique()
 	{
-		if(initialValueType==null)
-			return new ItemField<E>(isfinal, optional, true, valueClass, null, policy);
-		else
-			return new ItemField<E>(isfinal, optional, true, null, initialValueType, policy);
+		return new ItemField<E>(isfinal, optional, true, valueClass, initialValueType, policy);
 	}
 	
 	@Override
@@ -171,6 +158,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 			throw new RuntimeException();
 		
 		valueType = initialValueType!=null ? initialValueType : Type.forClass(valueClass);
+		assert valueClass.equals(valueType.getJavaClass());
 		valueType.registerReference(this);
 	}
 	
