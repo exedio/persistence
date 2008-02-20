@@ -241,6 +241,7 @@ public final class History extends Pattern
 		
 		public List<? extends Feature> getFeatures()
 		{
+			
 			return getPattern().featureType.search(Cope.equalAndCast(getPattern().featureEvent, this), getPattern().featureType.getThis(), true);
 		}
 		
@@ -283,6 +284,7 @@ public final class History extends Pattern
 		
 		public com.exedio.cope.Feature getFeature()
 		{
+			
 			return getPattern().featureId.getType().getModel().getFeature(getPattern().featureId.get(this));
 		}
 		
