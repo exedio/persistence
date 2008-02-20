@@ -934,10 +934,10 @@ public final class Type<C extends Item>
 	{
 		try
 		{
-			return
+			return reactivationConstructor.newInstance(
 				uniqueJavaClass
-				? reactivationConstructor.newInstance(REACTIVATION_DUMMY, pk)
-				: reactivationConstructor.newInstance(REACTIVATION_DUMMY, pk, this);
+				? new Object[]{ REACTIVATION_DUMMY, pk }
+				: new Object[]{ REACTIVATION_DUMMY, pk, this });
 		}
 		catch(InstantiationException e)
 		{
