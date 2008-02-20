@@ -241,12 +241,13 @@ public final class History extends Pattern
 		
 		public List<? extends Feature> getFeatures()
 		{
-			
-			return getPattern().featureType.search(Cope.equalAndCast(getPattern().featureEvent, this), getPattern().featureType.getThis(), true);
+			final History pattern = getPattern();
+			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
 		}
 		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
+			
 			return getPattern().featureType.newItem(
 					Cope.mapAndCast(getPattern().featureEvent, this),
 					getPattern().featureId.map(f.getID()),
@@ -284,8 +285,8 @@ public final class History extends Pattern
 		
 		public com.exedio.cope.Feature getFeature()
 		{
-			
-			return getPattern().featureId.getType().getModel().getFeature(getPattern().featureId.get(this));
+			final History pattern = getPattern();
+			return pattern.featureId.getType().getModel().getFeature(pattern.featureId.get(this));
 		}
 		
 		public String getId()
