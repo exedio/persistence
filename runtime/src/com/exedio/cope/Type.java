@@ -785,14 +785,10 @@ public final class Type<C extends Item>
 		try
 		{
 			return
-				creationConstructor.newInstance( uniqueJavaClass ?
-					new Object[]{
-						setValues
-					}
-					: new Object[]{
-						setValues
-						, this
-					}
+				creationConstructor.newInstance(
+					uniqueJavaClass
+					? new Object[]{ setValues }
+					: new Object[]{ setValues, this }
 				);
 		}
 		catch(InstantiationException e)
