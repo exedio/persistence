@@ -777,22 +777,20 @@ public final class Type<C extends Item>
 	
 	private static final SetValue[] EMPTY_SET_VALUES = {};
 	
-	public C newItem(final SetValue... setValues)
+	public C newItem(SetValue... setValues)
 		throws ConstraintViolationException
 	{
+		if(setValues==null)
+			setValues = EMPTY_SET_VALUES;
 		try
 		{
 			return
 				creationConstructor.newInstance( uniqueJavaClass ?
 					new Object[]{
-						setValues!=null
-						? setValues
-						: EMPTY_SET_VALUES
+						setValues
 					}
 					: new Object[]{
-						setValues!=null
-						? setValues
-						: EMPTY_SET_VALUES
+						setValues
 						, this
 					}
 				);
