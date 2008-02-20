@@ -111,7 +111,7 @@ public final class History extends Pattern
 		return eventCreation;
 	}
 	
-	public Type<? extends Item> getEventType()
+	public Type<Event> getEventType()
 	{
 		assert eventType!=null;
 		return eventType;
@@ -149,7 +149,7 @@ public final class History extends Pattern
 		return featureNew;
 	}
 	
-	public Type<? extends Item> getFeatureType()
+	public Type<Feature> getFeatureType()
 	{
 		assert featureType!=null;
 		return featureType;
