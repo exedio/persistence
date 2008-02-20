@@ -84,17 +84,17 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(this.isfinal, this.optional, this.unique, this.defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
 	
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(this.isfinal, this.optional, this.unique, this.defaultConstant, minimum, Integer.MAX_VALUE);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, Integer.MAX_VALUE);
 	}
 	
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(this.isfinal, this.optional, this.unique, this.defaultConstant, Integer.MIN_VALUE, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, Integer.MIN_VALUE, maximum);
 	}
 	
 	public final int getMinimum()
