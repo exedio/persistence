@@ -94,7 +94,7 @@ public class DispatcherTest extends AbstractLibTest
 		assertEquals(2, item.upload.getSearchSize());
 
 		assertEquals("DispatcherItem.uploadFailure", failureType.getID());
-		assertEquals(Item.class, failureType.getJavaClass().getSuperclass());
+		assertEquals(Dispatcher.Failure.class, failureType.getJavaClass());
 		assertEquals(false, failureType.hasUniqueJavaClass());
 		assertEquals(null, failureType.getSupertype());
 		assertEqualsUnmodifiable(list(), failureType.getSubTypes());

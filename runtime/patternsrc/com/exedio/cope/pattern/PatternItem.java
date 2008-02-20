@@ -16,26 +16,31 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-final class ItemWithoutJavaClass extends Item
+import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.Type;
+import com.exedio.cope.util.ReactivationConstructorDummy;
+
+final class PatternItem extends Item
 {
 	private static final long serialVersionUID = -8395452345350687651l;
 
-	ItemWithoutJavaClass(final SetValue[] setValues, final Type<? extends Item> type)
+	PatternItem(final SetValue[] setValues, final Type<? extends Item> type)
 	{
 		super(setValues, type);
 		assert type!=null;
 	}
 
-	ItemWithoutJavaClass(final int pk, final Type<? extends Item> type)
+	PatternItem(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
 	{
-		super(pk, type);
+		super(reactivationDummy, pk, type);
 	}
 	
 	/**

@@ -42,6 +42,7 @@ public final class Type<C extends Item>
 	private final Class<C> javaClass;
 	private final boolean uniqueJavaClass;
 	final String id;
+	private final Pattern pattern;
 	final boolean isAbstract;
 	final Type<? super C> supertype;
 	
@@ -120,7 +121,7 @@ public final class Type<C extends Item>
 	
 	Type(final Class<C> javaClass)
 	{
-		this(javaClass, getID(javaClass), getFeatureMap(javaClass));
+		this(javaClass, true, getID(javaClass), null, getFeatureMap(javaClass));
 	}
 	
 	private static final String getID(final Class<?> javaClass)
@@ -163,11 +164,12 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
-	Type(final Class<C> javaClass, final String id, final LinkedHashMap<String, Feature> featureMap)
+	Type(final Class<C> javaClass, final boolean uniqueJavaClass, final String id, final Pattern pattern, final LinkedHashMap<String, Feature> featureMap)
 	{
 		this.javaClass = javaClass;
-		this.uniqueJavaClass = (javaClass!=ItemWithoutJavaClass.class);
+		this.uniqueJavaClass = uniqueJavaClass;
 		this.id = id;
+		this.pattern = pattern;
 		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
 		if(!Item.class.isAssignableFrom(javaClass))
@@ -290,10 +292,16 @@ public final class Type<C extends Item>
 		}
 	}
 	
-	private Constructor<C> getConstructor(final String name, final Class... parameterTypes)
+	private Constructor<C> getConstructor(final String name, Class... parameterTypes)
 	{
 		if(!uniqueJavaClass)
-			return null;
+		{
+			final int l = parameterTypes.length;
+			final Class[] c = new Class[l + 1];
+			System.arraycopy(parameterTypes, 0, c, 0, l);
+			c[l] = Type.class;
+			parameterTypes = c;
+		}
 		
 		try
 		{
@@ -757,6 +765,11 @@ public final class Type<C extends Item>
 		return uniqueConstraints;
 	}
 	
+	public Pattern getPattern()
+	{
+		return pattern;
+	}
+	
 	public ItemField<C> newItemField(final DeletePolicy policy)
 	{
 		return new ItemField<C>(this, policy);
@@ -767,17 +780,20 @@ public final class Type<C extends Item>
 	public C newItem(final SetValue... setValues)
 		throws ConstraintViolationException
 	{
-		if(!uniqueJavaClass)
-			return cast(new ItemWithoutJavaClass(setValues, this));
-
 		try
 		{
 			return
-				creationConstructor.newInstance(
+				creationConstructor.newInstance( uniqueJavaClass ?
 					new Object[]{
 						setValues!=null
 						? setValues
 						: EMPTY_SET_VALUES
+					}
+					: new Object[]{
+						setValues!=null
+						? setValues
+						: EMPTY_SET_VALUES
+						, this
 					}
 				);
 		}
@@ -922,12 +938,9 @@ public final class Type<C extends Item>
 	
 	C createItemObject(final int pk)
 	{
-		if(!uniqueJavaClass)
-			return cast(new ItemWithoutJavaClass(pk, this));
-
 		try
 		{
-			return reactivationConstructor.newInstance(REACTIVATION_DUMMY, pk);
+			return uniqueJavaClass ? reactivationConstructor.newInstance(REACTIVATION_DUMMY, pk) : reactivationConstructor.newInstance(REACTIVATION_DUMMY, pk, this);
 		}
 		catch(InstantiationException e)
 		{

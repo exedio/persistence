@@ -37,8 +37,10 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.Wrapper;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Dispatcher extends Pattern
 {
@@ -54,7 +56,7 @@ public final class Dispatcher extends Pattern
 	final DateField failureDate = new DateField().toFinal();
 	final LongField failureElapsed = new LongField();
 	final DataField failureCause = new DataField().toFinal();
-	Type<?> failureType = null;
+	Type<Failure> failureType = null;
 	
 	public Dispatcher()
 	{
@@ -90,7 +92,7 @@ public final class Dispatcher extends Pattern
 		features.put("date", failureDate);
 		features.put("elapsed", failureElapsed);
 		features.put("cause", failureCause);
-		failureType = newType(features, "Failure");
+		failureType = newType(Failure.class, features, "Failure");
 	}
 	
 	public int getFailureLimit()
@@ -297,46 +299,53 @@ public final class Dispatcher extends Pattern
 	
 	public List<Failure> getFailures(final Item item)
 	{
-		final List<? extends Item> eventItems = failureType.search(Cope.equalAndCast(failureParent, item), failureType.getThis(), true);
-		final ArrayList<Failure> result = new ArrayList<Failure>(eventItems.size());
-		for(final Item eventItem : eventItems)
-			result.add(new Failure(eventItem));
-		return Collections.unmodifiableList(result);
+		return failureType.search(Cope.equalAndCast(failureParent, item), failureType.getThis(), true);
+		
+		
+		
+		
 	}
 
-	public final class Failure extends BackedItem
+	public static final class Failure extends Item
 	{
-		Failure(final Item backingItem)
+		private static final long serialVersionUID = -1l;
+		
+		Failure(final SetValue[] setValues, final Type<? extends Item> type)
 		{
-			super(backingItem);
-			assert backingItem.getCopeType()==failureType;
+			super(setValues, type);
+			assert type!=null;
+		}
+
+		Failure(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
+		{
+			super(reactivationDummy, pk, type);
 		}
 		
 		public Dispatcher getPattern()
 		{
-			return Dispatcher.this;
+			return (Dispatcher)getCopeType().getPattern();
 		}
 		
 		public Item getParent()
 		{
-			return failureParent.get(backingItem);
+			return getPattern().failureParent.get(this);
 		}
 		
 		public Date getDate()
 		{
-			return failureDate.get(backingItem);
+			return getPattern().failureDate.get(this);
 		}
 		
 		public long getElapsed()
 		{
-			return failureElapsed.getMandatory(backingItem);
+			return getPattern().failureElapsed.getMandatory(this);
 		}
 		
 		public String getCause()
 		{
 			try
 			{
-				return new String(failureCause.get(backingItem).asArray(), ENCODING);
+				return new String(getPattern().failureCause.get(this).asArray(), ENCODING);
 			}
 			catch(UnsupportedEncodingException e)
 			{

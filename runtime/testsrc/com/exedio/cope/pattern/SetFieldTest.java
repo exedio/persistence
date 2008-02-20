@@ -95,7 +95,7 @@ public class SetFieldTest extends AbstractLibTest
 		assertEquals("dates", item.dates.getName());
 
 		assertEquals("SetFieldItem.strings", stringsType.getID());
-		assertEquals(Item.class, stringsType.getJavaClass().getSuperclass());
+		assertEquals(PatternItem.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.hasUniqueJavaClass());
 		assertEquals(null, stringsType.getSupertype());
 		assertEqualsUnmodifiable(list(), stringsType.getSubTypes());
@@ -105,7 +105,7 @@ public class SetFieldTest extends AbstractLibTest
 		assertEquals(model, stringsType.getModel());
 
 		assertEquals("SetFieldItem.dates", datesType.getID());
-		assertEquals(Item.class, datesType.getJavaClass().getSuperclass());
+		assertEquals(PatternItem.class, datesType.getJavaClass());
 		assertEquals(false, datesType.hasUniqueJavaClass());
 		assertEquals(null, datesType.getSupertype());
 		assertEqualsUnmodifiable(list(), datesType.getSubTypes());

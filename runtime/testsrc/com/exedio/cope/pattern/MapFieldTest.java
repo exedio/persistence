@@ -78,7 +78,7 @@ public class MapFieldTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(), item.name.getValue().getPatterns());
 
 		assertEquals("MapFieldItem.name", item.name.getRelationType().getID());
-		assertEquals(Item.class, item.name.getRelationType().getJavaClass().getSuperclass());
+		assertEquals(PatternItem.class, item.name.getRelationType().getJavaClass());
 		assertEquals(false, item.name.getRelationType().hasUniqueJavaClass());
 		assertEquals(null, item.name.getRelationType().getSupertype());
 		assertEquals(list(), item.name.getRelationType().getSubTypes());

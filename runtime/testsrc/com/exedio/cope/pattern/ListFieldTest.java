@@ -114,7 +114,7 @@ public class ListFieldTest extends AbstractLibTest
 		assertEquals("items", item.items.getName());
 
 		assertEquals("ListFieldItem.strings", stringsType.getID());
-		assertEquals(Item.class, stringsType.getJavaClass().getSuperclass());
+		assertEquals(PatternItem.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.hasUniqueJavaClass());
 		assertEquals(null, stringsType.getSupertype());
 		assertEqualsUnmodifiable(list(), stringsType.getSubTypes());
@@ -124,7 +124,7 @@ public class ListFieldTest extends AbstractLibTest
 		assertEquals(model, stringsType.getModel());
 
 		assertEquals("ListFieldItem.dates", datesType.getID());
-		assertEquals(Item.class, datesType.getJavaClass().getSuperclass());
+		assertEquals(PatternItem.class, datesType.getJavaClass());
 		assertEquals(false, datesType.hasUniqueJavaClass());
 		assertEquals(null, datesType.getSupertype());
 		assertEqualsUnmodifiable(list(), datesType.getSubTypes());
@@ -134,7 +134,7 @@ public class ListFieldTest extends AbstractLibTest
 		assertEquals(model, datesType.getModel());
 
 		assertEquals("ListFieldItem.items", itemsType.getID());
-		assertEquals(Item.class, itemsType.getJavaClass().getSuperclass());
+		assertEquals(PatternItem.class, itemsType.getJavaClass());
 		assertEquals(false, itemsType.hasUniqueJavaClass());
 		assertEquals(null, itemsType.getSupertype());
 		assertEqualsUnmodifiable(list(), itemsType.getSubTypes());

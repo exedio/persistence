@@ -157,10 +157,7 @@ public abstract class Item implements Serializable
 		this(setValues, null);
 	}
 
-	/**
-	 * To be used from {@link ItemWithoutJavaClass} only.
-	 */
-	Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
+	public Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
 	{
 		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
 		this.pk = type.getPkSource().next(type.getModel().getCurrentTransaction().getConnection());
@@ -224,13 +221,13 @@ public abstract class Item implements Serializable
 		final ReactivationConstructorDummy reactivationDummy,
 		final int pk)
 	{
-		this(pk, null);
-		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
-			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
+		this(reactivationDummy, pk, null);
 	}
 
-	protected Item(final int pk, final Type<? extends Item> typeWithoutJavaClass)
+	protected Item(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> typeWithoutJavaClass)
 	{
+		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
+			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");
 		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
 		this.pk = pk;
 		//System.out.println("reactivate item:"+type+" "+pk);

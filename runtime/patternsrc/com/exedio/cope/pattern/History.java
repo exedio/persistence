@@ -30,10 +30,12 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.Wrapper;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**
  * This pattern is still experimental, and its API may change any time.
@@ -45,15 +47,15 @@ public final class History extends Pattern
 	private UniqueConstraint eventUnique = null;
 	final StringField eventOrigin = new StringField().toFinal();
 	final BooleanField eventCreation = new BooleanField().toFinal();
-	Type<?> eventType = null;
+	Type<Event> eventType = null;
 	
-	ItemField<?> featureEvent = null;
+	ItemField<Event> featureEvent = null;
 	final StringField featureId = new StringField().toFinal();
 	private UniqueConstraint featureUnique = null;
 	final StringField featureName = new StringField().toFinal();
 	final StringField featureOld = new StringField().toFinal().optional();
 	final StringField featureNew = new StringField().toFinal().optional();
-	Type<?> featureType = null;
+	Type<Feature> featureType = null;
 
 	@Override
 	public void initialize()
@@ -68,7 +70,7 @@ public final class History extends Pattern
 		features.put("uniqueConstraint", eventUnique);
 		features.put("origin", eventOrigin);
 		features.put("creation", eventCreation);
-		eventType = newType(features, "Event");
+		eventType = newType(Event.class, features, "Event");
 		
 		features.clear();
 		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
@@ -79,7 +81,7 @@ public final class History extends Pattern
 		features.put("name", featureName);
 		features.put("old", featureOld);
 		features.put("new", featureNew);
-		featureType = newType(features, "Feature");
+		featureType = newType(Feature.class, features, "Feature");
 	}
 	
 	public <P extends Item> ItemField<P> getEventParent(final Class<P> parentClass)
@@ -182,120 +184,134 @@ public final class History extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	public List<? extends Event> getEvents(final Item item)
+	public List<Event> getEvents(final Item item)
 	{
-		final List<? extends Item> eventItems = eventType.search(Cope.equalAndCast(eventParent, item), eventDate, false);
-		final ArrayList<Event> result = new ArrayList<Event>(eventItems.size());
-		for(final Item eventItem : eventItems)
-			result.add(new Event(eventItem));
-		return Collections.unmodifiableList(result);
+		return eventType.search(Cope.equalAndCast(eventParent, item), eventDate, false);
+		
+		
+		
+		
 	}
 	
 	public Event createEvent(final Item item, final String origin, final boolean creation)
 	{
-		return new Event(eventType.newItem(
+		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
 				eventDate.map(new Date()),
 				eventOrigin.map(origin),
 				eventCreation.map(creation)
-			));
+			);
 	}
 
-	public final class Event extends BackedItem
+	public static final class Event extends Item
 	{
-		Event(final Item backingItem)
+		private static final long serialVersionUID = 1l;
+
+		Event(final SetValue[] setValues, final Type<? extends Item> type)
 		{
-			super(backingItem);
-			assert backingItem.getCopeType()==eventType;
+			super(setValues, type);
+			assert type!=null;
+		}
+
+		Event(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
+		{
+			super(reactivationDummy, pk, type);
 		}
 		
 		public History getPattern()
 		{
-			return History.this;
+			return (History)getCopeType().getPattern();
 		}
 		
 		public Item getParent()
 		{
-			return eventParent.get(backingItem);
+			return getPattern().eventParent.get(this);
 		}
 		
 		public Date getDate()
 		{
-			return eventDate.get(backingItem);
+			return getPattern().eventDate.get(this);
 		}
 		
 		public String getCause()
 		{
-			return eventOrigin.get(backingItem);
+			return getPattern().eventOrigin.get(this);
 		}
 		
 		public boolean isCreation()
 		{
-			return eventCreation.getMandatory(backingItem);
+			return getPattern().eventCreation.getMandatory(this);
 		}
 		
 		public List<? extends Feature> getFeatures()
 		{
-			final List<? extends Item> featureItems = featureType.search(Cope.equalAndCast(featureEvent, backingItem), featureType.getThis(), true);
-			final ArrayList<Feature> result = new ArrayList<Feature>(featureItems.size());
-			for(final Item featureItem : featureItems)
-				result.add(new Feature(featureItem));
-			return Collections.unmodifiableList(result);
+			return getPattern().featureType.search(Cope.equalAndCast(getPattern().featureEvent, this), getPattern().featureType.getThis(), true);
+			
+			
+			
+			
 		}
 		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
-			return new Feature(featureType.newItem(
-					Cope.mapAndCast(featureEvent, backingItem),
-					featureId.map(f.getID()),
-					featureName.map(name),
-					featureOld.map(oldValue!=null ? oldValue.toString() : null),
-					featureNew.map(newValue!=null ? newValue.toString() : null)
-				));
+			return getPattern().featureType.newItem(
+					Cope.mapAndCast(getPattern().featureEvent, this),
+					getPattern().featureId.map(f.getID()),
+					getPattern().featureName.map(name),
+					getPattern().featureOld.map(oldValue!=null ? oldValue.toString() : null),
+					getPattern().featureNew.map(newValue!=null ? newValue.toString() : null)
+				);
 		}
 	}
 
-	public final class Feature extends BackedItem
+	public static final class Feature extends Item
 	{
-		Feature(final Item backingItem)
+		private static final long serialVersionUID = 1l;
+
+		Feature(final SetValue[] setValues, final Type<? extends Item> type)
 		{
-			super(backingItem);
-			assert backingItem.getCopeType()==featureType;
+			super(setValues, type);
+			assert type!=null;
+		}
+
+		Feature(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
+		{
+			super(reactivationDummy, pk, type);
 		}
 		
 		public History getPattern()
 		{
-			return History.this;
+			return (History)getCopeType().getPattern();
 		}
 		
 		public Event getEvent()
 		{
-			return new Event(featureEvent.get(backingItem));
+			return getPattern().featureEvent.get(this);
 		}
 		
 		public com.exedio.cope.Feature getFeature()
 		{
-			return featureId.getType().getModel().getFeature(featureId.get(backingItem));
+			return getPattern().featureId.getType().getModel().getFeature(getPattern().featureId.get(this));
 		}
 		
 		public String getId()
 		{
-			return featureId.get(backingItem);
+			return getPattern().featureId.get(this);
 		}
 		
 		public String getName()
 		{
-			return featureName.get(backingItem);
+			return getPattern().featureName.get(this);
 		}
 		
 		public String getOld()
 		{
-			return featureOld.get(backingItem);
+			return getPattern().featureOld.get(this);
 		}
 		
 		public String getNew()
 		{
-			return featureNew.get(backingItem);
+			return getPattern().featureNew.get(this);
 		}
 	}
 }

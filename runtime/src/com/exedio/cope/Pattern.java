@@ -53,7 +53,7 @@ public abstract class Pattern extends Feature
 {
 	// TODO SOON introduce getSources
 	private final ArrayList<Field> sources = new ArrayList<Field>();
-	final ArrayList<Type<ItemWithoutJavaClass>> generatedTypes = new ArrayList<Type<ItemWithoutJavaClass>>();
+	final ArrayList<Type<? extends Item>> generatedTypes = new ArrayList<Type<? extends Item>>();
 	
 	@Override
 	final void initialize(final Type<? extends Item> type, final String name)
@@ -98,15 +98,15 @@ public abstract class Pattern extends Feature
 		uniqueConstraint.initialize(getType(), name);
 	}
 	
-	protected final Type<?> newType(final LinkedHashMap<String, Feature> features)
+	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features)
 	{
-		return newType(features, "");
+		return newType(javaClass, features, "");
 	}
 	
-	protected final Type<?> newType(final LinkedHashMap<String, Feature> features, final String postfix)
+	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
 		final String id = getType().getID() + '.' + getName() + postfix;
-		final Type<ItemWithoutJavaClass> result = new Type<ItemWithoutJavaClass>(ItemWithoutJavaClass.class, id, features);
+		final Type<X> result = new Type<X>(javaClass, false, id, this, features);
 		generatedTypes.add(result);
 		return result;
 	}
