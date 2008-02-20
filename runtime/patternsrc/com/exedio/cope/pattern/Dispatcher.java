@@ -141,7 +141,7 @@ public final class Dispatcher extends Pattern
 		return failureCause;
 	}
 	
-	public Type<? extends Item> getFailureType()
+	public Type<Failure> getFailureType()
 	{
 		assert failureType!=null;
 		return failureType;
