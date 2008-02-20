@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-
 /**
  * Represents a field within a {@link Type type},
  * that enables instances of that type to store a string.
@@ -90,19 +89,19 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Override
 	public StringField copy()
 	{
-		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength);
 	}
 	
 	@Override
 	public StringField toFinal()
 	{
-		return new StringField(true, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(true, optional, unique, defaultConstant, minimumLength, maximumLength);
 	}
 	
 	@Override
 	public StringField optional()
 	{
-		return new StringField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, true, unique, defaultConstant, minimumLength, maximumLength);
 	}
 	
 	@Override
@@ -113,22 +112,22 @@ public final class StringField extends FunctionField<String> implements StringFu
 	
 	public StringField defaultTo(final String defaultConstant)
 	{
-		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength);
 	}
 	
 	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength);
 	}
 	
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimumLength, DEFAULT_LENGTH);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH);
 	}
 	
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, 0, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength);
 	}
 	
 	/**
@@ -142,7 +141,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	
 	public StringField lengthExact(final int exactLength)
 	{
-		return new StringField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, exactLength, exactLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength);
 	}
 	
 	public final int getMinimumLength()

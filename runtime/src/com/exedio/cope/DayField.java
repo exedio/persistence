@@ -46,19 +46,19 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField copy()
 	{
-		return new DayField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DayField(isfinal, optional, unique, defaultConstant);
 	}
 	
 	@Override
 	public DayField toFinal()
 	{
-		return new DayField(true, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DayField(true, optional, unique, defaultConstant);
 	}
 	
 	@Override
 	public DayField optional()
 	{
-		return new DayField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
+		return new DayField(isfinal, true, unique, defaultConstant);
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public final class DayField extends FunctionField<Day>
 	
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DayField(isfinal, optional, unique, defaultConstant);
 	}
 	
 	@Override

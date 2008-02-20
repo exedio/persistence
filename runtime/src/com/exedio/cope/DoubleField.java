@@ -46,19 +46,19 @@ public final class DoubleField extends FunctionField<Double>
 	@Override
 	public DoubleField copy()
 	{
-		return new DoubleField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DoubleField(isfinal, optional, unique, defaultConstant);
 	}
 	
 	@Override
 	public DoubleField toFinal()
 	{
-		return new DoubleField(true, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DoubleField(true, optional, unique, defaultConstant);
 	}
 	
 	@Override
 	public DoubleField optional()
 	{
-		return new DoubleField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
+		return new DoubleField(isfinal, true, unique, defaultConstant);
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public final class DoubleField extends FunctionField<Double>
 	
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new DoubleField(isfinal, optional, unique, defaultConstant);
 	}
 	
 	@Override

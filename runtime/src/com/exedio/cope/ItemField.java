@@ -83,19 +83,19 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, initialValueType, policy);
+		return new ItemField<E>(isfinal, optional, unique, valueClass, initialValueType, policy);
 	}
 	
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<E>(true, optional, implicitUniqueConstraint!=null, valueClass, initialValueType, policy);
+		return new ItemField<E>(true, optional, unique, valueClass, initialValueType, policy);
 	}
 	
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<E>(isfinal, true, implicitUniqueConstraint!=null, valueClass, initialValueType, policy);
+		return new ItemField<E>(isfinal, true, unique, valueClass, initialValueType, policy);
 	}
 	
 	@Override

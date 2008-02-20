@@ -56,19 +56,19 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
 	}
 	
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
+		return new DateField(true, optional, unique, defaultConstant, defaultNow);
 	}
 	
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant, defaultNow);
+		return new DateField(isfinal, true, unique, defaultConstant, defaultNow);
 	}
 	
 	@Override
@@ -79,12 +79,12 @@ public final class DateField extends FunctionField<Date>
 	
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, false);
+		return new DateField(isfinal, optional, unique, defaultConstant, false);
 	}
 	
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, implicitUniqueConstraint!=null, null, true);
+		return new DateField(isfinal, optional, unique, null, true);
 	}
 	
 	public boolean isDefaultNow()

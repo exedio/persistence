@@ -30,13 +30,15 @@ public abstract class FunctionField<E extends Object>
 	extends Field<E>
 	implements Function<E>
 {
-	final UniqueConstraint implicitUniqueConstraint;
+	final boolean unique;
+	private final UniqueConstraint implicitUniqueConstraint;
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	
 	FunctionField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
+		this.unique = unique;
 		this.defaultConstant = defaultConstant;
 		this.implicitUniqueConstraint =
 			unique ?
@@ -90,7 +92,7 @@ public abstract class FunctionField<E extends Object>
 	{
 		super.initialize(type, name);
 		
-		if(implicitUniqueConstraint!=null)
+		if(unique)
 			implicitUniqueConstraint.initialize(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX);
 	}
 	
@@ -173,7 +175,7 @@ public abstract class FunctionField<E extends Object>
 				addParameter(setterType));
 		}
 			
-		if(implicitUniqueConstraint!=null)
+		if(unique)
 		{
 			result.add(new Wrapper(
 				Wrapper.ClassVariable.class, "searchUnique",

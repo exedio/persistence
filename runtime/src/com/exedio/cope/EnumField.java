@@ -79,19 +79,19 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	public EnumField<E> copy()
 	{
-		return new EnumField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, valueClass, defaultConstant);
 	}
 	
 	@Override
 	public EnumField<E> toFinal()
 	{
-		return new EnumField<E>(true, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
+		return new EnumField<E>(true, optional, unique, valueClass, defaultConstant);
 	}
 	
 	@Override
 	public EnumField<E> optional()
 	{
-		return new EnumField<E>(isfinal, true, implicitUniqueConstraint!=null, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, true, unique, valueClass, defaultConstant);
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert isValid(defaultConstant);
-		return new EnumField<E>(isfinal, optional, implicitUniqueConstraint!=null, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, valueClass, defaultConstant);
 	}
 	
 	public List<E> getValues()

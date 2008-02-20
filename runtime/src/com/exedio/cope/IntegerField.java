@@ -65,19 +65,19 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
 	
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
+		return new IntegerField(true, optional, unique, defaultConstant, minimum, maximum);
 	}
 	
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, defaultConstant, minimum, maximum);
 	}
 
 	@Override
@@ -88,22 +88,22 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
 	
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(this.isfinal, this.optional, this.implicitUniqueConstraint!=null, this.defaultConstant, minimum, maximum);
+		return new IntegerField(this.isfinal, this.optional, this.unique, this.defaultConstant, minimum, maximum);
 	}
 	
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(this.isfinal, this.optional, this.implicitUniqueConstraint!=null, this.defaultConstant, minimum, Integer.MAX_VALUE);
+		return new IntegerField(this.isfinal, this.optional, this.unique, this.defaultConstant, minimum, Integer.MAX_VALUE);
 	}
 	
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(this.isfinal, this.optional, this.implicitUniqueConstraint!=null, this.defaultConstant, Integer.MIN_VALUE, maximum);
+		return new IntegerField(this.isfinal, this.optional, this.unique, this.defaultConstant, Integer.MIN_VALUE, maximum);
 	}
 	
 	public final int getMinimum()

@@ -46,19 +46,19 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public BooleanField copy()
 	{
-		return new BooleanField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, defaultConstant);
 	}
 	
 	@Override
 	public BooleanField toFinal()
 	{
-		return new BooleanField(true, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new BooleanField(true, optional, unique, defaultConstant);
 	}
 	
 	@Override
 	public BooleanField optional()
 	{
-		return new BooleanField(isfinal, true, implicitUniqueConstraint!=null, defaultConstant);
+		return new BooleanField(isfinal, true, unique, defaultConstant);
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	
 	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
-		return new BooleanField(isfinal, optional, implicitUniqueConstraint!=null, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, defaultConstant);
 	}
 	
 	@Override
