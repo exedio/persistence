@@ -30,7 +30,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class PatternItem extends Item
 {
-	private static final long serialVersionUID = -8395452345350687651l;
+	private static final long serialVersionUID = 1l;
 
 	PatternItem(final SetValue[] setValues, final Type<? extends Item> type)
 	{
