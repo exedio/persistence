@@ -58,33 +58,6 @@ public final class StringField extends FunctionField<String> implements StringFu
 	{
 		this(false, false, false, null, 0, DEFAULT_LENGTH);
 	}
-
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public StringField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH);
-	}
-	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthMin(int)} instead.
-	 */
-	@Deprecated
-	public StringField(final Option option, final int minimumLength)
-	{
-		this(option.isFinal, option.optional, option.unique, null, minimumLength, DEFAULT_LENGTH);
-	}
-	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
-	 */
-	@Deprecated
-	public StringField(final Option option, final int minimumLength, final int maximumLength)
-	{
-		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength);
-	}
 	
 	@Override
 	public StringField copy()
@@ -128,15 +101,6 @@ public final class StringField extends FunctionField<String> implements StringFu
 	public StringField lengthMax(final int maximumLength)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength);
-	}
-	
-	/**
-	 * @deprecated use {@link #lengthMax(int)}.
-	 */
-	@Deprecated
-	public StringField lengthMaxUnchecked(final int maximumLength)
-	{
-		return lengthMax(maximumLength);
 	}
 	
 	public StringField lengthExact(final int exactLength)
@@ -240,15 +204,6 @@ public final class StringField extends FunctionField<String> implements StringFu
 		return new UppercaseView(this);
 	}
 	
-	/**
-	 * @deprecated renamed to {@link #toUpperCase()}
-	 */
-	@Deprecated
-	public final UppercaseView uppercase()
-	{
-		return toUpperCase();
-	}
-	
 	public final Condition equalIgnoreCase(final String value)
 	{
 		return toUpperCase().equal(value.toUpperCase());
@@ -278,5 +233,52 @@ public final class StringField extends FunctionField<String> implements StringFu
 	public BindStringFunction bind(final Join join)
 	{
 		return new BindStringFunction(this, join);
+	}
+	
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	public StringField(final Option option)
+	{
+		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH);
+	}
+	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthMin(int)} instead.
+	 */
+	@Deprecated
+	public StringField(final Option option, final int minimumLength)
+	{
+		this(option.isFinal, option.optional, option.unique, null, minimumLength, DEFAULT_LENGTH);
+	}
+	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()}, {@link #optional()} and {@link #lengthRange(int, int)} or {@link #lengthMax(int)} or {@link #lengthExact(int)} instead.
+	 */
+	@Deprecated
+	public StringField(final Option option, final int minimumLength, final int maximumLength)
+	{
+		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength);
+	}
+	
+	/**
+	 * @deprecated use {@link #lengthMax(int)}.
+	 */
+	@Deprecated
+	public StringField lengthMaxUnchecked(final int maximumLength)
+	{
+		return lengthMax(maximumLength);
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #toUpperCase()}
+	 */
+	@Deprecated
+	public final UppercaseView uppercase()
+	{
+		return toUpperCase();
 	}
 }

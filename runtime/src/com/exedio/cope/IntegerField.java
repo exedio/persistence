@@ -53,15 +53,6 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		this(false, false, false, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public IntegerField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-	
 	@Override
 	public IntegerField copy()
 	{
@@ -222,6 +213,22 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	{
 		return new PlusView(new IntegerFunction[]{this, other});
 	}
+	
+	public final SumAggregate<Integer> sum()
+	{
+		return new SumAggregate<Integer>(this);
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	public IntegerField(final Option option)
+	{
+		this(option.isFinal, option.optional, option.unique, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
 
 	/**
 	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
@@ -230,10 +237,5 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	public final PlusView sum(final IntegerFunction other)
 	{
 		return plus(other);
-	}
-	
-	public final SumAggregate<Integer> sum()
-	{
-		return new SumAggregate<Integer>(this);
 	}
 }
