@@ -145,6 +145,11 @@ public class HistoryTest extends AbstractLibTest
 		assertTrue(!item.TYPE.isAssignableFrom(eventType));
 		assertTrue(!eventType.isAssignableFrom(item.TYPE));
 		
+		assertSame(HistoryItem.class, item.auditEventParent().getValueClass());
+		assertSame(HistoryItem.TYPE, item.auditEventParent().getValueType());
+		assertSame(History.Event.class, item.audit.getFeatureEvent().getValueClass());
+		assertSame(item.audit.getEventType(), item.audit.getFeatureEvent().getValueType());
+		
 		// test persistence
 		assertEquals(list(), item.getAuditEvents());
 		

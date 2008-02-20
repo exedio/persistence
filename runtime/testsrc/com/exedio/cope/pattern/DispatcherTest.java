@@ -113,6 +113,9 @@ public class DispatcherTest extends AbstractLibTest
 		assertEquals("date", item.upload.getFailureDate().getName());
 		assertEquals("cause", item.upload.getFailureCause().getName());
 		
+		assertSame(DispatcherItem.class, item.uploadFailureParent().getValueClass());
+		assertSame(DispatcherItem.TYPE, item.uploadFailureParent().getValueType());
+		
 		try
 		{
 			new Dispatcher(0, 0);
