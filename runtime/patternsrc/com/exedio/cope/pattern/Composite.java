@@ -237,7 +237,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 
 	public Class getWrapperSetterType()
 	{
-		return Wrapper.TypeVariable0.class;
+		return valueClass;
 	}
 
 	public boolean isFinal()

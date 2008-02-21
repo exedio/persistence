@@ -43,8 +43,8 @@ public final class CompositeFinalItem extends Item
 	 */
 	public CompositeFinalItem(
 				final java.lang.String code,
-				final CompositeValue first,
-				final CompositeValue second)
+				final com.exedio.cope.pattern.CompositeValue first,
+				final com.exedio.cope.pattern.CompositeValue second)
 			throws
 				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.MandatoryViolationException
