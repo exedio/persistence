@@ -553,6 +553,7 @@
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="lib/bsh-core.jar" />
+				<pathelement location="lib/cojen.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -569,7 +570,7 @@
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />
 
 	<target name="instrument.jar" depends="instrument.compile">
-		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope.jar bsh-core.jar">
+		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope.jar bsh-core.jar cojen.jar">
 			<fileset dir="build/instrument/classes" />
 		</ljar>
 	</target>
@@ -581,6 +582,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/commons-fileupload.jar" />
 				<pathelement location="lib/bsh-core.jar" />
+				<pathelement location="lib/cojen.jar" />
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/instrument/classes" />
 			</classpath>
@@ -932,6 +934,7 @@
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="${ant.jar}" />
 				<pathelement location="lib/bsh-core.jar" />
+				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/commons-fileupload.jar" />

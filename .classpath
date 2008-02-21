@@ -36,5 +36,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cops"/>
 	<classpathentry kind="var" path="ANT_JAR"/>
+	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-sources.jar"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>

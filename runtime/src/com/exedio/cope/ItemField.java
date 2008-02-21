@@ -104,12 +104,6 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		return new ItemField<E>(isfinal, optional, true, valueClass, initialValueType, policy);
 	}
 	
-	@Override
-	public Class getWrapperSetterType()
-	{
-		return Wrapper.TypeVariable0.class;
-	}
-	
 	private Type<E> valueType = null;
 	private Type<? extends E> onlyPossibleValueType = null;
 	private StringColumn typeColumn = null;

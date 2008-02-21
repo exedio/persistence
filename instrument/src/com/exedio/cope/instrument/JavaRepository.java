@@ -23,6 +23,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.cojen.classfile.ClassFile;
+import org.cojen.classfile.CodeBuilder;
+import org.cojen.classfile.MethodInfo;
+import org.cojen.classfile.Modifiers;
+import org.cojen.classfile.TypeDesc;
+import org.cojen.util.ClassInjector;
+
 import bsh.Interpreter;
 import bsh.UtilEvalError;
 
@@ -277,12 +284,41 @@ final class JavaRepository
 				if(javaClass.isEnum)
 					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
-					return ToBeReplacedByWrapperTypeVariableXItem.class;
+				{
+					final ClassFile cf =
+						new ClassFile(javaClass.getFullName(), Item.class);
+					addDelegateConstructor(cf,
+							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
+					return define(cf);
+				}
 				if("Composite.Value".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
-					return ToBeReplacedByWrapperTypeVariableXComposite.class;
+				{
+					final ClassFile cf =
+						new ClassFile(javaClass.getFullName(), Composite.Value.class);
+					addDelegateConstructor(cf,
+							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
+					return define(cf);
+				}
 			}
 			
 			return null;
+		}
+		
+		private final Class define(final ClassFile cf)
+		{
+			return ClassInjector.createExplicit(
+					cf.getClassName(), getClass().getClassLoader()).defineClass(cf);
+		}
+		
+		private final void addDelegateConstructor(final ClassFile cf, final Modifiers modifiers, final TypeDesc... args)
+		{
+			final MethodInfo creator = cf.addConstructor(modifiers, args);
+			final CodeBuilder cb = new CodeBuilder(creator);
+			cb.loadThis();
+			for(int i = 0; i<args.length; i++)
+				cb.loadLocal(cb.getParameter(i));
+			cb.invokeSuperConstructor(args);
+			cb.returnVoid();
 		}
 	}
 	
@@ -293,25 +329,6 @@ final class JavaRepository
 	public static enum EnumBeanShellHackClass
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
-	}
-	
-	private static class ToBeReplacedByWrapperTypeVariableXItem extends Item
-	{
-		// If this type is encountered in the instrumentor output,
-		// it has to be replaced by Wrapper.TypeVariableX
-		private static final long serialVersionUID = 1l;
-	}
-	
-	private static class ToBeReplacedByWrapperTypeVariableXComposite extends Composite.Value
-	{
-		// If this type is encountered in the instrumentor output,
-		// it has to be replaced by Wrapper.TypeVariableX
-		private static final long serialVersionUID = 1l;
-		
-		protected ToBeReplacedByWrapperTypeVariableXComposite(final SetValue... setValues)
-		{
-			super(setValues);
-		}
 	}
 	
 	public static final class DummyHash extends Hash

@@ -151,7 +151,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		result.addAll(super.getWrappers());
 		
 		final Wrapper get = new Wrapper(
-			Wrapper.TypeVariable0.class, "get",
+			valueClass, "get",
 			"Returns the value of {0}.",
 			"getter");
 		result.add(get);
@@ -165,7 +165,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 				"setter",
 				exceptions.toArray(new Class[exceptions.size()])
 				).
-				addParameter(Wrapper.TypeVariable0.class));
+				addParameter(valueClass));
 		}
 			
 		return Collections.unmodifiableList(result);
