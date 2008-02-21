@@ -72,7 +72,7 @@ import com.exedio.cops.Resource;
  */
 public final class CopernicaServlet extends CopsServlet
 {
-	private static final long serialVersionUID = 8236598236451l;
+	private static final long serialVersionUID = 1l;
 	
 	private ConnectToken connectToken = null;
 	private CopernicaProvider provider = null;

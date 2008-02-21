@@ -304,7 +304,7 @@ public final class Dispatcher extends Pattern
 
 	public static final class Failure extends Item
 	{
-		private static final long serialVersionUID = -1l;
+		private static final long serialVersionUID = 1l;
 		
 		Failure(final SetValue[] setValues, final Type<? extends Item> type)
 		{
