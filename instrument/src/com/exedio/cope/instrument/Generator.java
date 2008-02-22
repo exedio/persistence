@@ -435,12 +435,12 @@ final class Generator
 			final int modifier = feature.modifier;
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 			
+			final Object[] arguments = new String[]{
+					link(feature.name),
+					feature.name,
+					lowerCamelCase(feature.parent.name)};
 			{
 				writeCommentHeader();
-				final Object[] arguments = new String[]{
-						link(feature.name),
-						feature.name,
-						lowerCamelCase(feature.parent.name)};
 				o.write("\t * ");
 				o.write(format(wrapper.getComment(), arguments));
 				o.write(lineSeparator);
@@ -519,7 +519,7 @@ final class Generator
 				o.write(toString(parameter, feature));
 				o.write(' ');
 				final String name = parameterNameIter.next();
-				o.write(name!=null ? name : feature.name);
+				o.write(format(name, arguments));
 			}
 			o.write(')');
 			o.write(lineSeparator);
@@ -562,7 +562,7 @@ final class Generator
 				else
 					o.write(',');
 				
-				o.write(name!=null ? name : feature.name);
+				o.write(format(name, arguments));
 			}
 			o.write(')');
 			o.write(';');

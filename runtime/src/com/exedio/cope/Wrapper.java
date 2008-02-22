@@ -87,14 +87,15 @@ public final class Wrapper
 
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
-		return addParameter(type, null);
+		return addParameter(type, "{1}");
 	}
 	
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name)
 	{
 		if(type==null)
 			throw new NullPointerException("type must not be null");
-		// name can be null, then the feature name is used
+		if(name==null)
+			throw new NullPointerException("name must not be null");
 		
 		if(parameterTypes==null)
 		{
