@@ -551,8 +551,7 @@ final class Generator
 					o.write(finalArgPrefix);
 					o.write(toString(parameter.getType(), feature));
 					o.write(' ');
-					final String name = parameter.getName(); // TODO inline
-					o.write(format(name, arguments));
+					o.write(format(parameter.getName(), arguments));
 				}
 			}
 			o.write(')');
