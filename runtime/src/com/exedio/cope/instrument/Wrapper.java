@@ -113,9 +113,39 @@ public final class Wrapper
 	}
 	
 	
-	private ArrayList<java.lang.reflect.Type> parameterTypes;
-	private ArrayList<String> parameterNames;
-	private ArrayList<String> parameterComments;
+	final class Parameter
+	{
+		private final java.lang.reflect.Type type;
+		private final String name;
+		private final String comment;
+		
+		Parameter(final java.lang.reflect.Type type, final String name, String comment)
+		{
+			this.type = type;
+			this.name = name;
+			this.comment = comment;
+			
+			assert type!=null;
+			assert name!=null;
+		}
+
+		public java.lang.reflect.Type getType()
+		{
+			return type;
+		}
+
+		public String getName()
+		{
+			return name;
+		}
+
+		public String getComment()
+		{
+			return comment;
+		}
+	}
+	
+	private ArrayList<Parameter> parameters;
 	
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
@@ -134,41 +164,19 @@ public final class Wrapper
 		if(name==null)
 			throw new NullPointerException("name must not be null");
 		
-		if(parameterTypes==null)
-		{
-			parameterTypes = new ArrayList<java.lang.reflect.Type>();
-			parameterNames = new ArrayList<String>();
-			parameterComments = new ArrayList<String>();
-		}
-		parameterTypes.add(type);
-		parameterNames.add(name);
-		parameterComments.add(comment);
+		if(parameters==null)
+			parameters = new ArrayList<Parameter>();
+		parameters.add(new Parameter(type, name, comment));
 
 		return this;
 	}
 
-	public List<java.lang.reflect.Type> getParameterTypes()
+	public List<Parameter> getParameters()
 	{
 		return
-			parameterTypes!=null
-			? Collections.unmodifiableList(parameterTypes)
-			: Collections.<java.lang.reflect.Type>emptyList();
-	}
-
-	public List<String> getParameterNames()
-	{
-		return
-			parameterNames!=null
-			? Collections.unmodifiableList(parameterNames)
-			: Collections.<String>emptyList();
-	}
-
-	public List<String> getParameterComments()
-	{
-		return
-			parameterComments!=null
-			? Collections.unmodifiableList(parameterComments)
-			: Collections.<String>emptyList();
+			parameters!=null
+			? Collections.unmodifiableList(parameters)
+			: Collections.<Parameter>emptyList();
 	}
 	
 	

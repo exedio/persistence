@@ -36,7 +36,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -428,8 +427,7 @@ final class Generator
 
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
-			final List<java.lang.reflect.Type> parameterTypes = wrapper.getParameterTypes();
-			final List<String> parameterNames = wrapper.getParameterNames(); 
+			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifier = feature.modifier;
@@ -457,14 +455,13 @@ final class Generator
 					o.write(lineSeparator);
 				}
 				{
-					final Iterator<String> parameterNameIter = parameterNames.iterator();
-					for(final String comment : wrapper.getParameterComments())
+					for(final Wrapper.Parameter parameter : wrapper.getParameters())
 					{
-						final String name = parameterNameIter.next();
+						final String comment = parameter.getComment();
 						if(comment!=null)
 						{
 							o.write("\t * @param ");
-							o.write(format(name, arguments)); // TODO reuse
+							o.write(format(parameter.getName(), arguments)); // TODO reuse
 							o.write(' ');
 							o.write(format(comment, arguments));
 							o.write(lineSeparator);
@@ -549,8 +546,7 @@ final class Generator
 			o.write('(');
 			{
 				boolean first = true;
-				final Iterator<String> parameterNameIter = parameterNames.iterator();
-				for(final java.lang.reflect.Type parameter : parameterTypes)
+				for(final Wrapper.Parameter parameter : parameters)
 				{
 					if(first)
 						first = false;
@@ -558,9 +554,9 @@ final class Generator
 						o.write(',');
 					
 					o.write(finalArgPrefix);
-					o.write(toString(parameter, feature));
+					o.write(toString(parameter.getType(), feature));
 					o.write(' ');
-					final String name = parameterNameIter.next();
+					final String name = parameter.getName(); // TODO inline
 					o.write(format(name, arguments));
 				}
 			}
@@ -599,14 +595,14 @@ final class Generator
 					first = false;
 					o.write("this");
 				}
-				for(final String name : parameterNames)
+				for(final Wrapper.Parameter parameter : parameters)
 				{
 					if(first)
 						first = false;
 					else
 						o.write(',');
 					
-					o.write(format(name, arguments));
+					o.write(format(parameter.getName(), arguments));
 				}
 			}
 			o.write(')');
