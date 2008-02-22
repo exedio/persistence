@@ -477,18 +477,16 @@ final class Generator
 						o.write(lineSeparator);
 					}
 				}
+				for(final Map.Entry<Class<? extends Throwable>, String> e : exceptions.entrySet())
 				{
-					for(final Map.Entry<Class<? extends Throwable>, String> e : exceptions.entrySet())
+					final String comment = e.getValue();
+					if(comment!=null)
 					{
-						final String comment = e.getValue();
-						if(comment!=null)
-						{
-							o.write("\t * @throws ");
-							o.write(e.getKey().getName());
-							o.write(' ');
-							o.write(format(comment, arguments));
-							o.write(lineSeparator);
-						}
+						o.write("\t * @throws ");
+						o.write(e.getKey().getName());
+						o.write(' ');
+						o.write(format(comment, arguments));
+						o.write(lineSeparator);
 					}
 				}
 				writeCommentFooter(
@@ -559,9 +557,7 @@ final class Generator
 			}
 			o.write(')');
 			o.write(lineSeparator);
-			{
-				writeThrowsClause(exceptions.keySet());
-			}
+			writeThrowsClause(exceptions.keySet());
 			o.write("\t{");
 			o.write(lineSeparator);
 			o.write("\t\t");
