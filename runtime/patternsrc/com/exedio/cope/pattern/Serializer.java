@@ -134,7 +134,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return valueClass;
 	}
 	
-	public Set<Class> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getSetterExceptions()
 	{
 		return source.getSetterExceptions();
 	}

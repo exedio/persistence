@@ -124,7 +124,7 @@ public final class SetField<E> extends Pattern
 		
 		final String MODIFICATION_RESULT =
 			"@return <tt>true</tt> if the field set changed as a result of the call.";
-		final Set<Class> exceptions = element.getSetterExceptions();
+		final Set<Class<? extends Throwable>> exceptions = element.getSetterExceptions();
 		exceptions.add(ClassCastException.class);
 		
 		result.add(

@@ -54,9 +54,9 @@ public final class MD5Hash extends JavaSecurityHash
 	}
 
 	@Override
-	public Set<Class> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getSetterExceptions()
 	{
-		final Set<Class> result = super.getSetterExceptions();
+		final Set<Class<? extends Throwable>> result = super.getSetterExceptions();
 		final StringField storage = getStorage();
 		if(storage.getMinimumLength()<=LENGTH && storage.getMaximumLength()>=LENGTH)
 			result.remove(LengthViolationException.class);

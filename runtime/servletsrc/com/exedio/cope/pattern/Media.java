@@ -228,9 +228,9 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return Value.class;
 	}
 	
-	public Set<Class> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getSetterExceptions()
 	{
-		final HashSet<Class> result = new HashSet<Class>();
+		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
 		if(!optional)
 			result.add(MandatoryViolationException.class);
 		return result;

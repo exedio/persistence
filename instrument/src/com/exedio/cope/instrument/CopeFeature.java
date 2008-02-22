@@ -104,7 +104,7 @@ class CopeFeature
 	final SortedSet<Class> getSetterExceptions()
 	{
 		final Feature instance = getInstance();
-		final Set<Class> resultList = ((Settable<?>)instance).getSetterExceptions();
+		final Set<Class<? extends Throwable>> resultList = ((Settable<?>)instance).getSetterExceptions();
 		final SortedSet<Class> result = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
 		result.addAll(resultList);
 		if(((Settable<?>)instance).getWrapperSetterType().isPrimitive())

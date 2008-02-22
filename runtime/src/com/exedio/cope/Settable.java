@@ -43,5 +43,5 @@ public interface Settable<E>
 	 * Returns the exceptions possibly thrown,
 	 * when setting a value for this settable.
 	 */
-	Set<Class> getSetterExceptions();
+	Set<Class<? extends Throwable>> getSetterExceptions();
 }

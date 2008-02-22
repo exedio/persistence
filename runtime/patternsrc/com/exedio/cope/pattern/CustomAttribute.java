@@ -138,9 +138,9 @@ public abstract class CustomAttribute<E>
 		return valueClass;
 	}
 	
-	public final Set<Class> getSetterExceptions()
+	public final Set<Class<? extends Throwable>> getSetterExceptions()
 	{
-		final Set<Class> result = storages[0].getSetterExceptions();
+		final Set<Class<? extends Throwable>> result = storages[0].getSetterExceptions();
 		for(int i = 1; i<storages.length; i++)
 			result.addAll(storages[i].getSetterExceptions());
 		return result;

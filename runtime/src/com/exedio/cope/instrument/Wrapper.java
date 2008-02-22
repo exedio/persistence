@@ -139,9 +139,9 @@ public final class Wrapper
 		return modifier;
 	}
 	
-	public Wrapper addThrows(final Collection<Class> throwables)
+	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
-		for(final Class throwable : throwables)
+		for(final Class<? extends Throwable> throwable : throwables)
 			addThrows(throwable, null);
 		
 		return this;

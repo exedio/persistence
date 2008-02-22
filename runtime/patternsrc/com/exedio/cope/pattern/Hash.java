@@ -96,7 +96,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return String.class;
 	}
 	
-	public Set<Class> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getSetterExceptions()
 	{
 		return storage.getSetterExceptions();
 	}
@@ -123,7 +123,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 				"checker").
 				addParameter(String.class));
 		
-		final Set<Class> setterExceptions = getSetterExceptions();
+		final Set<Class<? extends Throwable>> setterExceptions = getSetterExceptions();
 		result.add(
 			new Wrapper(
 				void.class,

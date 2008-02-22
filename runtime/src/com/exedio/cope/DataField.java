@@ -178,7 +178,7 @@ public final class DataField extends Field<DataField.Value>
 		
 		if(!isfinal)
 		{
-			final Set<Class> exceptions = getSetterExceptions();
+			final Set<Class<? extends Throwable>> exceptions = getSetterExceptions();
 			
 			result.add(
 				new Wrapper(

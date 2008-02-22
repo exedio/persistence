@@ -224,9 +224,9 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Class> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getSetterExceptions()
 	{
-		final HashSet<Class> result = new HashSet<Class>();
+		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
 		for(final FunctionField member : templates.values())
 			result.addAll(member.getSetterExceptions());
 		if(isfinal)
