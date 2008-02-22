@@ -27,17 +27,9 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class Wrapper
 {
-	private boolean isStatic = false;
-	private java.lang.reflect.Type methodReturnType;
 	private final String methodName;
-	private ArrayList<java.lang.reflect.Type> parameterTypes;
-	private ArrayList<String> parameterNames;
 	private final String comment;
 	private final String modifier;
-	private ArrayList<Class<? extends Throwable>> throwsClause;
-	private String methodWrapperPattern;
-	private ArrayList<String> comments = null;
-	private String deprecationComment = null;
 	
 	public Wrapper(
 			final String methodName,
@@ -68,6 +60,8 @@ public final class Wrapper
 			throw new NullPointerException("modifier must not be null");
 	}
 	
+	private boolean isStatic = false;
+	
 	public Wrapper setStatic()
 	{
 		isStatic = true;
@@ -79,6 +73,8 @@ public final class Wrapper
 	{
 		return isStatic;
 	}
+	
+	private java.lang.reflect.Type methodReturnType;
 	
 	public Wrapper setReturn(final Class methodReturnType, final String comment)
 	{
@@ -104,6 +100,9 @@ public final class Wrapper
 		return methodName;
 	}
 
+	private ArrayList<java.lang.reflect.Type> parameterTypes;
+	private ArrayList<String> parameterNames;
+	
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
 		return addParameter(type, "{1}", null);
@@ -161,6 +160,8 @@ public final class Wrapper
 		return modifier;
 	}
 	
+	private ArrayList<Class<? extends Throwable>> throwsClause;
+	
 	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
 		for(final Class<? extends Throwable> throwable : throwables)
@@ -197,6 +198,8 @@ public final class Wrapper
 			: Collections.<Class<? extends Throwable>>emptyList();
 	}
 
+	private String methodWrapperPattern;
+	
 	public Wrapper setMethodWrapperPattern(final String pattern)
 	{
 		this.methodWrapperPattern = pattern;
@@ -208,6 +211,8 @@ public final class Wrapper
 	{
 		return methodWrapperPattern;
 	}
+	
+	private ArrayList<String> comments = null;
 	
 	public Wrapper addComment(final String comment)
 	{
@@ -236,6 +241,8 @@ public final class Wrapper
 			? Collections.unmodifiableList(comments)
 			: Collections.<String>emptyList();
 	}
+	
+	private String deprecationComment = null;
 	
 	public Wrapper deprecate(final String comment)
 	{
