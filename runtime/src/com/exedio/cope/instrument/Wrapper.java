@@ -59,6 +59,21 @@ public final class Wrapper
 		if(modifier==null)
 			throw new NullPointerException("modifier must not be null");
 	}
+
+	public String getMethodName()
+	{
+		return methodName;
+	}
+
+	public String getComment()
+	{
+		return comment;
+	}
+
+	public String getModifier()
+	{
+		return modifier;
+	}
 	
 	private boolean isStatic = false;
 	
@@ -93,11 +108,6 @@ public final class Wrapper
 	public java.lang.reflect.Type getMethodReturnType()
 	{
 		return methodReturnType;
-	}
-
-	public String getMethodName()
-	{
-		return methodName;
 	}
 
 	private ArrayList<java.lang.reflect.Type> parameterTypes;
@@ -148,16 +158,6 @@ public final class Wrapper
 			parameterNames!=null
 			? Collections.unmodifiableList(parameterNames)
 			: Collections.<String>emptyList();
-	}
-
-	public String getComment()
-	{
-		return comment;
-	}
-
-	public String getModifier()
-	{
-		return modifier;
 	}
 	
 	private ArrayList<Class<? extends Throwable>> throwsClause;
