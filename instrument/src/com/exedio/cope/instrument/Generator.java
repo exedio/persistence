@@ -460,7 +460,7 @@ final class Generator
 					if(comment!=null)
 					{
 						o.write("\t * @param ");
-						o.write(format(parameter.getName(), arguments)); // TODO reuse
+						o.write(format(parameter.getName(), arguments));
 						o.write(' ');
 						o.write(format(comment, arguments));
 						o.write(lineSeparator);
