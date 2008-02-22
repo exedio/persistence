@@ -198,16 +198,14 @@ public final class DataField extends Field<DataField.Value>
 				addThrows(exceptions).
 				addParameter(byte[].class));
 
-			final ArrayList<Class> exceptionWithIO = new ArrayList<Class>(exceptions);
-			exceptionWithIO.add(IOException.class);
-			
 			result.add(
 				new Wrapper(
 					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
 					"setter").
-				addThrows(exceptionWithIO).
+				addThrows(exceptions).
+				addThrows(IOException.class).
 				addParameter(InputStream.class));
 			
 			result.add(
@@ -216,7 +214,8 @@ public final class DataField extends Field<DataField.Value>
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
 					"setter").
-				addThrows(exceptionWithIO).
+				addThrows(exceptions).
+				addThrows(IOException.class).
 				addParameter(File.class));
 		}
 			
