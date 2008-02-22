@@ -38,8 +38,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.TreeMap;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
@@ -455,6 +456,47 @@ final class Generator
 					o.write(format(comment, arguments));
 					o.write(lineSeparator);
 				}
+				{
+					final Iterator<String> parameterNameIter = parameterNames.iterator();
+					for(final String comment : wrapper.getParameterComments())
+					{
+						final String name = parameterNameIter.next();
+						if(comment!=null)
+						{
+							o.write("\t * @param ");
+							o.write(format(name, arguments)); // TODO reuse
+							o.write(' ');
+							o.write(format(comment, arguments));
+							o.write(lineSeparator);
+						}
+					}
+				}
+				{
+					final String comment = wrapper.getReturnComment();
+					if(comment!=null)
+					{
+						o.write("\t * @return ");
+						o.write(format(comment, arguments));
+						o.write(lineSeparator);
+					}
+				}
+				{
+					// TODO reuse
+					final TreeMap<Class<? extends Throwable>, String> exceptions = new TreeMap<Class<? extends Throwable>, String>(CopeType.CLASS_COMPARATOR);
+					exceptions.putAll(wrapper.getThrowsClause());
+					for(final Map.Entry<Class<? extends Throwable>, String> e : exceptions.entrySet())
+					{
+						final String comment = e.getValue();
+						if(comment!=null)
+						{
+							o.write("\t * @throws ");
+							o.write(e.getKey().getName());
+							o.write(' ');
+							o.write(format(comment, arguments));
+							o.write(lineSeparator);
+						}
+					}
+				}
 				writeCommentFooter(
 					modifierTag!=null
 					?  "It can be customized with the tag " +
@@ -523,9 +565,9 @@ final class Generator
 			o.write(')');
 			o.write(lineSeparator);
 			{
-				final SortedSet<Class<? extends Throwable>> exceptions = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
-				exceptions.addAll(wrapper.getThrowsClause());
-				writeThrowsClause(exceptions);
+				final TreeMap<Class<? extends Throwable>, String> exceptions = new TreeMap<Class<? extends Throwable>, String>(CopeType.CLASS_COMPARATOR);
+				exceptions.putAll(wrapper.getThrowsClause());
+				writeThrowsClause(exceptions.keySet());
 			}
 			o.write("\t{");
 			o.write(lineSeparator);

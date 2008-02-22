@@ -21,7 +21,9 @@ package com.exedio.cope.instrument;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
@@ -80,6 +82,7 @@ public final class Wrapper
 	
 	
 	private java.lang.reflect.Type returnType = void.class;
+	private String returnComment = null;
 	
 	public Wrapper setReturn(final java.lang.reflect.Type type)
 	{
@@ -94,8 +97,7 @@ public final class Wrapper
 			throw new NullPointerException("type must not be set twice");
 		
 		this.returnType = type;
-		if(comment!=null)
-			addCommentPrivate("@return " + comment);
+		this.returnComment = comment;
 		
 		return this;
 	}
@@ -104,10 +106,16 @@ public final class Wrapper
 	{
 		return returnType;
 	}
+
+	public String getReturnComment()
+	{
+		return returnComment;
+	}
 	
 	
 	private ArrayList<java.lang.reflect.Type> parameterTypes;
 	private ArrayList<String> parameterNames;
+	private ArrayList<String> parameterComments;
 	
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
@@ -130,12 +138,11 @@ public final class Wrapper
 		{
 			parameterTypes = new ArrayList<java.lang.reflect.Type>();
 			parameterNames = new ArrayList<String>();
+			parameterComments = new ArrayList<String>();
 		}
 		parameterTypes.add(type);
 		parameterNames.add(name);
-		
-		if(comment!=null)
-			addCommentPrivate("@param " + name + ' ' + comment);
+		parameterComments.add(comment);
 
 		return this;
 	}
@@ -155,9 +162,17 @@ public final class Wrapper
 			? Collections.unmodifiableList(parameterNames)
 			: Collections.<String>emptyList();
 	}
+
+	public List<String> getParameterComments()
+	{
+		return
+			parameterComments!=null
+			? Collections.unmodifiableList(parameterComments)
+			: Collections.<String>emptyList();
+	}
 	
 	
-	private ArrayList<Class<? extends Throwable>> throwsClause;
+	private LinkedHashMap<Class<? extends Throwable>, String> throwsClause; // TODO try non-sorted
 	
 	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
@@ -178,21 +193,19 @@ public final class Wrapper
 			throw new NullPointerException("throwable must not be null");
 		
 		if(throwsClause==null)
-			throwsClause = new ArrayList<Class<? extends Throwable>>();
+			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String>();
 		
-		throwsClause.add(throwable);
-		if(comment!=null)
-			addCommentPrivate("@throws " + throwable.getName() + ' ' + comment);
+		throwsClause.put(throwable, comment);
 		
 		return this;
 	}
 
-	public List<Class<? extends Throwable>> getThrowsClause()
+	public Map<Class<? extends Throwable>, String> getThrowsClause()
 	{
 		return
 			throwsClause!=null
-			? Collections.unmodifiableList(throwsClause)
-			: Collections.<Class<? extends Throwable>>emptyList();
+			? Collections.unmodifiableMap(throwsClause)
+			: Collections.<Class<? extends Throwable>, String>emptyMap();
 	}
 	
 	
@@ -215,16 +228,10 @@ public final class Wrapper
 	
 	public Wrapper addComment(final String comment)
 	{
-		if(comment.startsWith("@"))
-			throw new RuntimeException(comment);
-		
-		return addCommentPrivate(comment);
-	}
-	
-	private Wrapper addCommentPrivate(final String comment)
-	{
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
+		if(comment.startsWith("@"))
+			throw new IllegalArgumentException("comment must not contain tag, but was " + comment);
 		
 		if(comments==null)
 			comments = new ArrayList<String>();
