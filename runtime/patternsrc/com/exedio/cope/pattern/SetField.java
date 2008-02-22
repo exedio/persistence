@@ -110,14 +110,14 @@ public final class SetField<E> extends Pattern
 				"get",
 				"Returns the value of {0}.",
 				"getter").
-			setReturn(Wrapper.makeType(Set.class, Wrapper.TypeVariable0.class)));
+			setReturn(Wrapper.generic(Set.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
 			new Wrapper(
 				"getParents",
 				"Returns the items, for which field set {0} contains the given element.",
 				"getter").
-			setReturn(Wrapper.makeType(List.class, Wrapper.ClassVariable.class)).
+			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
 			setStatic().
 			setMethodWrapperPattern("getParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
@@ -133,7 +133,7 @@ public final class SetField<E> extends Pattern
 				"Sets a new value for {0}.",
 				"setter").
 			addThrows(exceptions).
-			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
+			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
 			new Wrapper(
@@ -160,7 +160,7 @@ public final class SetField<E> extends Pattern
 				"getParent",
 				"Returns the parent field of the type of {0}.",
 				"parent").
-			setReturn(Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class)).
+			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 		

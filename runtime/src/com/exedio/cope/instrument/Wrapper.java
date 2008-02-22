@@ -272,7 +272,7 @@ public final class Wrapper
 	public class DynamicModelType { /* OK, just a placeholder */ } // TODO remove, is a hack
 	public class DynamicModelField { /* OK, just a placeholder */ } // TODO remove, is a hack
 	
-	public static final java.lang.reflect.Type makeType(final Class rawType, final Class... actualTypeArguments)
+	public static final java.lang.reflect.Type generic(final Class rawType, final Class... actualTypeArguments)
 	{
 		return ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
 	}
@@ -301,7 +301,7 @@ public final class Wrapper
 		}
 	}
 	
-	public static final java.lang.reflect.Type makeTypeExtends(final Class rawType, final Class... actualTypeArguments)
+	public static final java.lang.reflect.Type genericExtends(final Class rawType, final Class... actualTypeArguments)
 	{
 		return new ExtendsType(rawType, actualTypeArguments);
 	}

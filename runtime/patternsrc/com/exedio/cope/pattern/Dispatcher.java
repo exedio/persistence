@@ -186,14 +186,14 @@ public final class Dispatcher extends Pattern
 				"getFailures",
 				"Returns the failed attempts to dispatch this item by {0}.",
 				"getter").
-			setReturn(Wrapper.makeType(List.class, Failure.class)));
+			setReturn(Wrapper.generic(List.class, Failure.class)));
 			
 		result.add(
 			new Wrapper(
 				"getFailureParent",
 				"Returns the parent field of the failure type of {0}.",
 				"parent").
-			setReturn(Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class)).
+			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}FailureParent").
 			setStatic());
 			

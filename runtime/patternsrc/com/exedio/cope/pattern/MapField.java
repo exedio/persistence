@@ -132,7 +132,7 @@ public final class MapField<K,V> extends Pattern
 				"getParent",
 				"Returns the parent field of the type of {0}.",
 				"parent").
-			setReturn(Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class)).
+			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 			
