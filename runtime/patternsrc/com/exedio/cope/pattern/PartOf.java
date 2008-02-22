@@ -28,7 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 
 public final class PartOf<C extends Item> extends Pattern
 {

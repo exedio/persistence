@@ -40,7 +40,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 
 public final class Composite<E extends Composite.Value> extends Pattern implements Settable<E>
 {

@@ -22,6 +22,8 @@ import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.instrument.Wrapper;
+
 public abstract class Feature
 {
 	private Type<? extends Item> type;

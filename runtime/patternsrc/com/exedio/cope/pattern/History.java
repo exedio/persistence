@@ -34,7 +34,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 /**

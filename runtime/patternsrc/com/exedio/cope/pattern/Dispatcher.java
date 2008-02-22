@@ -39,7 +39,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Dispatcher extends Pattern

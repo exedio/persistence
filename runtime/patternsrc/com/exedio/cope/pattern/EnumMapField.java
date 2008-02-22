@@ -26,7 +26,7 @@ import java.util.List;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 {

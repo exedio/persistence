@@ -37,7 +37,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 
 public final class LimitedListField<E> extends Pattern implements Settable<Collection<E>>
 {

@@ -39,7 +39,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 
 public final class DynamicModel<L> extends Pattern
 {

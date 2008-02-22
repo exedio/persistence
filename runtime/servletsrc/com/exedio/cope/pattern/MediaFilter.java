@@ -25,7 +25,7 @@ import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaFilter extends CachedMedia
 {

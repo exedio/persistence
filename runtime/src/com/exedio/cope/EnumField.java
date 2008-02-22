@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.exedio.cope.instrument.Wrapper;
+
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private final List<E> values;

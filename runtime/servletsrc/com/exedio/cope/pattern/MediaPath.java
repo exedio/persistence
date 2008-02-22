@@ -32,7 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.Wrapper;
+import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaPath extends Pattern
 {

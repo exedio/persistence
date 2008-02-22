@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.instrument.Wrapper;
+
 public final class DateField extends FunctionField<Date>
 {
 	final boolean defaultNow;

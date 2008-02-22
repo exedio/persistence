@@ -47,8 +47,8 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Wrapper;
 import com.exedio.cope.Field.Option;
+import com.exedio.cope.instrument.Wrapper;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
 {

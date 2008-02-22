@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.search.ExtremumAggregate;
 
 public abstract class FunctionField<E extends Object>

@@ -32,6 +32,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.instrument.Wrapper;
+
 public final class DataField extends Field<DataField.Value>
 {
 	private final long maximumLength;
