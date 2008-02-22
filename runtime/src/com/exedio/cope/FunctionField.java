@@ -183,14 +183,13 @@ public abstract class FunctionField<E extends Object>
 		{
 			result.add(
 				new Wrapper(
-					Wrapper.ClassVariable.class,
 					"searchUnique",
 					"Finds a {2} by it''s {0}.",
 					"finder").
 				setMethodWrapperPattern("for{0}").
 				setStatic().
 				addParameter(setterType, "{1}", "shall be equal to field {0}.").
-				addComment("@return null if there is no matching item."));
+				setReturn(Wrapper.ClassVariable.class, "null if there is no matching item."));
 			
 			result.add(
 				new Wrapper(

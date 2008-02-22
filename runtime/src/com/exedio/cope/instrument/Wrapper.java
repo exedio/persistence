@@ -28,7 +28,7 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 public final class Wrapper
 {
 	private boolean isStatic = false;
-	private final java.lang.reflect.Type methodReturnType;
+	private java.lang.reflect.Type methodReturnType;
 	private final String methodName;
 	private ArrayList<java.lang.reflect.Type> parameterTypes;
 	private ArrayList<String> parameterNames;
@@ -38,6 +38,14 @@ public final class Wrapper
 	private String methodWrapperPattern;
 	private ArrayList<String> comments = null;
 	private String deprecationComment = null;
+	
+	public Wrapper(
+			final String methodName,
+			final String comment,
+			final String modifier)
+	{
+		this(void.class, methodName, comment, modifier);
+	}
 	
 	public Wrapper(
 			final java.lang.reflect.Type methodReturnType,
@@ -70,6 +78,20 @@ public final class Wrapper
 	public boolean isStatic()
 	{
 		return isStatic;
+	}
+	
+	public Wrapper setReturn(final Class methodReturnType, final String comment)
+	{
+		if(methodReturnType==null)
+			throw new NullPointerException("methodReturnType must not be null");
+		if(this.methodReturnType!=void.class)
+			throw new NullPointerException("methodReturnType must not be set twice");
+		
+		this.methodReturnType = methodReturnType;
+		if(comment!=null)
+			addCommentPrivate("@return " + comment);
+		
+		return this;
 	}
 
 	public java.lang.reflect.Type getMethodReturnType()
@@ -189,9 +211,7 @@ public final class Wrapper
 	
 	public Wrapper addComment(final String comment)
 	{
-		if(comment.startsWith("@param"))
-			throw new RuntimeException(comment);
-		if(comment.startsWith("@throws"))
+		if(comment.startsWith("@"))
 			throw new RuntimeException(comment);
 		
 		return addCommentPrivate(comment);

@@ -122,8 +122,8 @@ public final class SetField<E> extends Pattern
 			setMethodWrapperPattern("getParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
 		
-		final String MODIFICATION_RESULT =
-			"@return <tt>true</tt> if the field set changed as a result of the call.";
+		final String MODIFICATION_RETURN =
+			"<tt>true</tt> if the field set changed as a result of the call.";
 		final Set<Class<? extends Throwable>> exceptions = element.getSetterExceptions();
 		exceptions.add(ClassCastException.class);
 		
@@ -138,25 +138,23 @@ public final class SetField<E> extends Pattern
 		
 		result.add(
 			new Wrapper(
-				boolean.class,
 				"add",
 				"Adds a new element to {0}.",
 				"setter").
 			addThrows(exceptions).
 			setMethodWrapperPattern("addTo{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
-			addComment(MODIFICATION_RESULT));
+			setReturn(boolean.class, MODIFICATION_RETURN));
 			
 		result.add(
 			new Wrapper(
-				boolean.class,
 				"remove",
 				"Removes an element from {0}.",
 				"setter").
 			addThrows(exceptions).
 			setMethodWrapperPattern("removeFrom{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
-			addComment(MODIFICATION_RESULT));
+			setReturn(boolean.class, MODIFICATION_RETURN));
 				
 		result.add(
 			new Wrapper(
