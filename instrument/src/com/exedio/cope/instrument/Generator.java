@@ -172,7 +172,7 @@ final class Generator
 			return Character.toLowerCase(first) + s.substring(1);
 	}
 	
-	private void writeThrowsClause(final Collection<Class> exceptions)
+	private void writeThrowsClause(final Collection<Class<? extends Throwable>> exceptions)
 	throws IOException
 	{
 		if(!exceptions.isEmpty())
@@ -245,7 +245,7 @@ final class Generator
 			return;
 
 		final List<CopeFeature> initialFeatures = type.getInitialFeatures();
-		final SortedSet<Class> constructorExceptions = type.getConstructorExceptions();
+		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
 		
 		writeCommentHeader();
 		o.write("\t * ");
@@ -523,7 +523,7 @@ final class Generator
 			o.write(')');
 			o.write(lineSeparator);
 			{
-				final SortedSet<Class> exceptions = new TreeSet<Class>(CopeType.CLASS_COMPARATOR);
+				final SortedSet<Class<? extends Throwable>> exceptions = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
 				exceptions.addAll(wrapper.getThrowsClause());
 				writeThrowsClause(exceptions);
 			}

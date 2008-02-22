@@ -227,12 +227,12 @@ final class CopeType
 	}
 	
 	private ArrayList<CopeFeature> initialFeatures = null;
-	private TreeSet<Class> constructorExceptions = null;
+	private TreeSet<Class<? extends Throwable>> constructorExceptions = null;
 	
 	private final void makeInitialFeaturesAndConstructorExceptions()
 	{
 		initialFeatures = new ArrayList<CopeFeature>();
-		constructorExceptions = new TreeSet<Class>(CLASS_COMPARATOR);
+		constructorExceptions = new TreeSet<Class<? extends Throwable>>(CLASS_COMPARATOR);
 		
 		final CopeType superclass = getSuperclass();
 		if(superclass!=null)
@@ -269,7 +269,7 @@ final class CopeType
 	 * but without the FinalViolationException,
 	 * because final attributes can only be written in the constructor.
 	 */
-	public final SortedSet<Class> getConstructorExceptions()
+	public final SortedSet<Class<? extends Throwable>> getConstructorExceptions()
 	{
 		if(constructorExceptions == null)
 			makeInitialFeaturesAndConstructorExceptions();
