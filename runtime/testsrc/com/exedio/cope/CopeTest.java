@@ -38,7 +38,7 @@ public class CopeTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		try
 		{
-			final Class c = Class.forName("com.exedio.dsmf.PackageTest");
+			final Class<?> c = Class.forName("com.exedio.dsmf.PackageTest");
 			final Method m = c.getDeclaredMethod("suite", (Class[])null);
 			final Test test = (Test)m.invoke(null, (Object[])null);
 			suite.addTest(test);

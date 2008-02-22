@@ -420,7 +420,7 @@ public class GeneratorTest extends InstrumentorTest
 	}
 
 	void assertMethod(
-			final Class javaClass, final String name, final Class[] parameterTypes,
+			final Class<?> javaClass, final String name, final Class[] parameterTypes,
 			final Class returnType, final int modifiers, final Class[] exceptionTypes)
 	{
 		final Method method;
@@ -442,7 +442,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertNoMethod(javaClass, name, null);
 	}
 
-	void assertNoMethod(final Class javaClass, final String name, final Class[] parameterTypes)
+	void assertNoMethod(final Class<?> javaClass, final String name, final Class[] parameterTypes)
 	{
 		try
 		{
@@ -462,7 +462,7 @@ public class GeneratorTest extends InstrumentorTest
 	}
 	
 	void assertConstructor(
-			final Class javaClass, final Class[] parameterTypes, final int modifiers, final Class[] exceptionTypes)
+			final Class<?> javaClass, final Class[] parameterTypes, final int modifiers, final Class[] exceptionTypes)
 	{
 		final Constructor constructor;
 		try

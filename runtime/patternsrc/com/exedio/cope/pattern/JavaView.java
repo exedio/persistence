@@ -40,7 +40,7 @@ public final class JavaView extends Pattern
 			? Character.toString(Character.toUpperCase(name.charAt(0)))
 			: (Character.toUpperCase(name.charAt(0)) + name.substring(1));
 		
-		final Class javaClass = getType().getJavaClass();
+		final Class<?> javaClass = getType().getJavaClass();
 		final Method getter;
 		try
 		{
