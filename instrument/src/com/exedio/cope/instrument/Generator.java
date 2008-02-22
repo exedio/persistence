@@ -428,6 +428,8 @@ final class Generator
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
+			final TreeMap<Class<? extends Throwable>, String> exceptions = new TreeMap<Class<? extends Throwable>, String>(CopeType.CLASS_COMPARATOR);
+			exceptions.putAll(wrapper.getThrowsClause());
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifier = feature.modifier;
@@ -476,9 +478,6 @@ final class Generator
 					}
 				}
 				{
-					// TODO reuse
-					final TreeMap<Class<? extends Throwable>, String> exceptions = new TreeMap<Class<? extends Throwable>, String>(CopeType.CLASS_COMPARATOR);
-					exceptions.putAll(wrapper.getThrowsClause());
 					for(final Map.Entry<Class<? extends Throwable>, String> e : exceptions.entrySet())
 					{
 						final String comment = e.getValue();
@@ -561,8 +560,6 @@ final class Generator
 			o.write(')');
 			o.write(lineSeparator);
 			{
-				final TreeMap<Class<? extends Throwable>, String> exceptions = new TreeMap<Class<? extends Throwable>, String>(CopeType.CLASS_COMPARATOR);
-				exceptions.putAll(wrapper.getThrowsClause());
 				writeThrowsClause(exceptions.keySet());
 			}
 			o.write("\t{");
