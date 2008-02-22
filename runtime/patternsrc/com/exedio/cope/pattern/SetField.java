@@ -132,7 +132,8 @@ public final class SetField<E> extends Pattern
 				void.class,
 				"set",
 				"Sets a new value for {0}.",
-				"setter").addThrows(exceptions).
+				"setter").
+			addThrows(exceptions).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
