@@ -188,9 +188,8 @@ public abstract class FunctionField<E extends Object>
 					"finder").
 				setMethodWrapperPattern("for{0}").
 				setStatic().
-				addComment("@param {1} shall be equal to field {0}.").
-				addComment("@return null if there is no matching item.").
-				addParameter(setterType));
+				addParameter(setterType, "{1}", "shall be equal to field {0}.").
+				addComment("@return null if there is no matching item."));
 			
 			result.add(
 				new Wrapper(

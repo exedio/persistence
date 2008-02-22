@@ -87,10 +87,15 @@ public final class Wrapper
 
 	public Wrapper addParameter(final java.lang.reflect.Type type)
 	{
-		return addParameter(type, "{1}");
+		return addParameter(type, "{1}", null);
 	}
 	
 	public Wrapper addParameter(final java.lang.reflect.Type type, final String name)
+	{
+		return addParameter(type, name, null);
+	}
+	
+	public Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment)
 	{
 		if(type==null)
 			throw new NullPointerException("type must not be null");
@@ -104,6 +109,9 @@ public final class Wrapper
 		}
 		parameterTypes.add(type);
 		parameterNames.add(name);
+		
+		if(comment!=null)
+			addCommentPrivate("@param " + name + ' ' + comment);
 
 		return this;
 	}
@@ -155,6 +163,14 @@ public final class Wrapper
 	}
 	
 	public Wrapper addComment(final String comment)
+	{
+		if(comment.startsWith("@param"))
+			throw new RuntimeException(comment);
+		
+		return addCommentPrivate(comment);
+	}
+	
+	private Wrapper addCommentPrivate(final String comment)
 	{
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
