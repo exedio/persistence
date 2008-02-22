@@ -113,17 +113,17 @@ public final class ListField<E> extends Pattern
 		
 		result.add(
 			new Wrapper(
-				Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
 				"get",
 				"Returns the value of {0}.",
-				"getter"));
+				"getter").
+			setReturn(Wrapper.makeType(List.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
 			new Wrapper(
-				Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
 				"getDistinctParents",
 				"Returns the items, for which field list {0} contains the given element.",
 				"getter").
+			setReturn(Wrapper.makeType(List.class, Wrapper.ClassVariable.class)).
 			setStatic().
 			setMethodWrapperPattern("getDistinctParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
@@ -133,7 +133,7 @@ public final class ListField<E> extends Pattern
 		
 		result.add(
 			new Wrapper(
-				void.class, "set",
+				"set",
 				"Sets a new value for {0}.",
 				"setter").
 			addThrows(exceptions).
@@ -141,10 +141,10 @@ public final class ListField<E> extends Pattern
 			
 		result.add(
 			new Wrapper(
-				Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class),
 				"getParent",
 				"Returns the parent field of the type of {0}.",
 				"parent").
+			setReturn(Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 				

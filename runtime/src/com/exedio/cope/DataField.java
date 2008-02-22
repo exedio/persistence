@@ -140,28 +140,27 @@ public final class DataField extends Field<DataField.Value>
 		
 		result.add(
 			new Wrapper(
-				boolean.class,
 				"isNull",
 				"Returns, whether there is no data for field {0}.",
-				"getter"));
+				"getter").
+			setReturn(boolean.class));
 		
 		result.add(
 			new Wrapper(
-				long.class,
 				"getLength",
 				"Returns the length of the data of the data field {0}.",
-				"getter"));
+				"getter").
+			setReturn(long.class));
 			
 		result.add(
 			new Wrapper(
-				byte[].class,
 				"getArray",
 				"Returns the value of the persistent field {0}.", // TODO better text
-				"getter"));
+				"getter").
+			setReturn(byte[].class));
 		
 		result.add(
 			new Wrapper(
-				void.class,
 				"get",
 				"Writes the data of this persistent data field into the given stream.",
 				"getter").
@@ -170,7 +169,7 @@ public final class DataField extends Field<DataField.Value>
 			
 		result.add(
 			new Wrapper(
-				void.class, "get",
+				"get",
 				"Writes the data of this persistent data field into the given file.",
 				"getter").
 			addThrows(IOException.class).
@@ -182,7 +181,6 @@ public final class DataField extends Field<DataField.Value>
 			
 			result.add(
 				new Wrapper(
-					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
 					"setter").
@@ -191,7 +189,6 @@ public final class DataField extends Field<DataField.Value>
 			
 			result.add(
 				new Wrapper(
-					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
 					"setter").
@@ -200,7 +197,6 @@ public final class DataField extends Field<DataField.Value>
 
 			result.add(
 				new Wrapper(
-					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
 					"setter").
@@ -210,7 +206,6 @@ public final class DataField extends Field<DataField.Value>
 			
 			result.add(
 				new Wrapper(
-					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
 					"setter").

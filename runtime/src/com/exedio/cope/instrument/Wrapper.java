@@ -36,16 +36,6 @@ public final class Wrapper
 			final String comment,
 			final String modifier)
 	{
-		this(void.class, methodName, comment, modifier);
-	}
-	
-	public Wrapper(
-			final java.lang.reflect.Type methodReturnType,
-			final String methodName,
-			final String comment,
-			final String modifier)
-	{
-		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
 		this.comment = comment;
 		this.modifier = modifier;
@@ -91,9 +81,14 @@ public final class Wrapper
 	}
 	
 	
-	private java.lang.reflect.Type methodReturnType;
+	private java.lang.reflect.Type methodReturnType = void.class;
 	
-	public Wrapper setReturn(final Class methodReturnType, final String comment)
+	public Wrapper setReturn(final java.lang.reflect.Type methodReturnType)
+	{
+		return setReturn(methodReturnType, null);
+	}
+	
+	public Wrapper setReturn(final java.lang.reflect.Type methodReturnType, final String comment)
 	{
 		if(methodReturnType==null)
 			throw new NullPointerException("methodReturnType must not be null");

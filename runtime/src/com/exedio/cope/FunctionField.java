@@ -155,10 +155,10 @@ public abstract class FunctionField<E extends Object>
 		
 		final Wrapper get =
 			new Wrapper(
-				setterType,
 				setterTypePrimitive ? "getMandatory" : "get",
 				"Returns the value of {0}.",
-				"getter");
+				"getter").
+			setReturn(setterType);
 		if(setterTypePrimitive)
 			get.setMethodWrapperPattern("get{0}");
 		result.add(get);
@@ -171,7 +171,6 @@ public abstract class FunctionField<E extends Object>
 			
 			result.add(
 				new Wrapper(
-					void.class,
 					"set",
 					"Sets a new value for {0}.",
 					"setter").
@@ -193,10 +192,10 @@ public abstract class FunctionField<E extends Object>
 			
 			result.add(
 				new Wrapper(
-					Wrapper.ClassVariable.class,
 					"searchUnique",
 					"Finds a {2} by it''s {0}.",
 					"finder").
+				setReturn(Wrapper.ClassVariable.class).
 				setMethodWrapperPattern("findBy{0}").
 				setStatic().
 				deprecate("use for{0} instead.").

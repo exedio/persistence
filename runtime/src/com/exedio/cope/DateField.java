@@ -107,7 +107,7 @@ public final class DateField extends FunctionField<Date>
 			
 			result.add(
 				new Wrapper(
-					void.class, "touch",
+					"touch",
 					"Sets the current date for the date field {0}.", // TODO better text
 					"toucher").
 				addThrows(exceptions));

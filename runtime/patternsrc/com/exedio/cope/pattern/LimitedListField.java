@@ -136,17 +136,16 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		
 		result.add(
 			new Wrapper(
-				Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
 				"get",
 				"Returns the value of {0}.",
-				"getter"));
+				"getter").
+			setReturn(Wrapper.makeType(List.class, Wrapper.TypeVariable0.class)));
 		
 		final Set<Class<? extends Throwable>> exceptions = sources[0].getSetterExceptions();
 		exceptions.add(ClassCastException.class);
 		
 		result.add(
 			new Wrapper(
-				void.class,
 				"set",
 				"Sets a new value for {0}.",
 				"setter").

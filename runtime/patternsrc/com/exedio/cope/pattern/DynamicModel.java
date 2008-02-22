@@ -220,14 +220,13 @@ public final class DynamicModel<L> extends Pattern
 		
 		result.add(
 			new Wrapper(
-				Wrapper.DynamicModelType.class,
 				"getType",
 				"Returns the dynamic type of this item in the model {0}.",
-				"getter"));
+				"getter").
+			setReturn(Wrapper.DynamicModelType.class));
 		
 		result.add(
 			new Wrapper(
-				void.class,
 				"setType",
 				"Sets the dynamic type of this item in the model {0}.",
 				"setter").
@@ -235,15 +234,14 @@ public final class DynamicModel<L> extends Pattern
 			
 		result.add(
 			new Wrapper(
-				Object.class,
 				"get",
 				"Returns the value of <tt>field</tt> for this item in the model {0}.",
 				"getter").
+			setReturn(Object.class).
 			addParameter(Wrapper.DynamicModelField.class, "field"));
 			
 		result.add(
 			new Wrapper(
-				void.class,
 				"set",
 				"Sets the value of <tt>field</tt> for this item in the model {0}.",
 				"setter").

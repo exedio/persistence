@@ -99,10 +99,10 @@ public abstract class View<E> extends Feature implements Function<E>
 		result.addAll(super.getWrappers());
 		result.add(
 			new Wrapper(
-				valueClass, // TODO box into primitives
 				"get",
 				"Returns the value of {0}.",
-				"getter"));
+				"getter").
+			setReturn(valueClass)); // TODO box into primitives
 		return Collections.unmodifiableList(result);
 	}
 	
