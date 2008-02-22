@@ -273,7 +273,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			void.class, "getBody",
 			"Writes the body of media {0} into the given stream.",
 			"getter",
-			new Class[]{IOException.class}
+			IOException.class
 			).
 			addComment("Does nothing, if the media is null.").
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
@@ -283,7 +283,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			void.class, "getBody",
 			"Writes the body of media {0} into the given file.",
 			"getter",
-			new Class[]{IOException.class}
+			IOException.class
 			).
 			addComment("Does nothing, if the media is null.").
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
@@ -300,7 +300,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			void.class, "set",
 			"Sets the content of media {0}.",
 			"setter",
-			new Class[]{IOException.class}).
+			IOException.class).
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(InputStream.class, "body").
 			addParameter(String.class, "contentType"));
@@ -309,7 +309,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			void.class, "set",
 			"Sets the content of media {0}.",
 			"setter",
-			new Class[]{IOException.class}).
+			IOException.class).
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(File.class, "body").
 			addParameter(String.class, "contentType"));

@@ -155,7 +155,7 @@ public final class DataField extends Field<DataField.Value>
 			void.class, "get",
 			"Writes the data of this persistent data field into the given stream.",
 			"getter",
-			new Class[]{IOException.class}
+			IOException.class
 			).
 			addParameter(OutputStream.class));
 			
@@ -163,7 +163,7 @@ public final class DataField extends Field<DataField.Value>
 			void.class, "get",
 			"Writes the data of this persistent data field into the given file.",
 			"getter",
-			new Class[]{IOException.class}
+			IOException.class
 			).
 			addParameter(File.class));
 		
