@@ -75,6 +75,7 @@ public final class Wrapper
 		return modifier;
 	}
 	
+	
 	private boolean isStatic = false;
 	
 	public Wrapper setStatic()
@@ -88,6 +89,7 @@ public final class Wrapper
 	{
 		return isStatic;
 	}
+	
 	
 	private java.lang.reflect.Type methodReturnType;
 	
@@ -109,7 +111,8 @@ public final class Wrapper
 	{
 		return methodReturnType;
 	}
-
+	
+	
 	private ArrayList<java.lang.reflect.Type> parameterTypes;
 	private ArrayList<String> parameterNames;
 	
@@ -160,6 +163,7 @@ public final class Wrapper
 			: Collections.<String>emptyList();
 	}
 	
+	
 	private ArrayList<Class<? extends Throwable>> throwsClause;
 	
 	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
@@ -197,7 +201,8 @@ public final class Wrapper
 			? Collections.unmodifiableList(throwsClause)
 			: Collections.<Class<? extends Throwable>>emptyList();
 	}
-
+	
+	
 	private String methodWrapperPattern;
 	
 	public Wrapper setMethodWrapperPattern(final String pattern)
@@ -211,6 +216,7 @@ public final class Wrapper
 	{
 		return methodWrapperPattern;
 	}
+	
 	
 	private ArrayList<String> comments = null;
 	
@@ -242,6 +248,7 @@ public final class Wrapper
 			: Collections.<String>emptyList();
 	}
 	
+	
 	private String deprecationComment = null;
 	
 	public Wrapper deprecate(final String comment)
@@ -262,6 +269,7 @@ public final class Wrapper
 	{
 		return deprecationComment;
 	}
+	
 	
 	public class ClassVariable { /* OK, just a placeholder */ }
 	public class TypeVariable0 { /* OK, just a placeholder */ }
