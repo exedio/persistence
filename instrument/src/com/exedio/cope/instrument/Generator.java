@@ -426,7 +426,7 @@ final class Generator
 				continue;
 
 			final String methodName = wrapper.getName();
-			final java.lang.reflect.Type methodReturnType = wrapper.getMethodReturnType();
+			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final List<java.lang.reflect.Type> parameterTypes = wrapper.getParameterTypes();
 			final List<String> parameterNames = wrapper.getParameterNames(); 
 			final String featureNameCamelCase = toCamelCase(feature.name);

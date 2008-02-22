@@ -40,8 +40,6 @@ public final class Wrapper
 		this.comment = comment;
 		this.modifier = modifier;
 		
-		if(methodReturnType==null)
-			throw new NullPointerException("methodReturnType must not be null");
 		if(name==null)
 			throw new NullPointerException("name must not be null");
 		if(comment==null)
@@ -81,7 +79,7 @@ public final class Wrapper
 	}
 	
 	
-	private java.lang.reflect.Type methodReturnType = void.class;
+	private java.lang.reflect.Type returnType = void.class;
 	
 	public Wrapper setReturn(final java.lang.reflect.Type type)
 	{
@@ -92,19 +90,19 @@ public final class Wrapper
 	{
 		if(type==null)
 			throw new NullPointerException("type must not be null");
-		if(this.methodReturnType!=void.class)
+		if(this.returnType!=void.class)
 			throw new NullPointerException("type must not be set twice");
 		
-		this.methodReturnType = type;
+		this.returnType = type;
 		if(comment!=null)
 			addCommentPrivate("@return " + comment);
 		
 		return this;
 	}
 
-	public java.lang.reflect.Type getMethodReturnType()
+	public java.lang.reflect.Type getReturnType()
 	{
-		return methodReturnType;
+		return returnType;
 	}
 	
 	
