@@ -548,21 +548,21 @@ final class Generator
 				o.write(option.suffix);
 			o.write('(');
 			{
-			boolean first = true;
-			final Iterator<String> parameterNameIter = parameterNames.iterator();
-			for(final java.lang.reflect.Type parameter : parameterTypes)
-			{
-				if(first)
-					first = false;
-				else
-					o.write(',');
-				
-				o.write(finalArgPrefix);
-				o.write(toString(parameter, feature));
-				o.write(' ');
-				final String name = parameterNameIter.next();
-				o.write(format(name, arguments));
-			}
+				boolean first = true;
+				final Iterator<String> parameterNameIter = parameterNames.iterator();
+				for(final java.lang.reflect.Type parameter : parameterTypes)
+				{
+					if(first)
+						first = false;
+					else
+						o.write(',');
+					
+					o.write(finalArgPrefix);
+					o.write(toString(parameter, feature));
+					o.write(' ');
+					final String name = parameterNameIter.next();
+					o.write(format(name, arguments));
+				}
 			}
 			o.write(')');
 			o.write(lineSeparator);
@@ -583,31 +583,31 @@ final class Generator
 			o.write(methodName);
 			o.write('(');
 			{
-			boolean first = true;
-			if(isStatic)
-			{
-				if(first)
-					first = false;
+				boolean first = true;
+				if(isStatic)
+				{
+					if(first)
+						first = false;
+					else
+						o.write(',');
+					
+					o.write(feature.parent.name);
+					o.write(".class");
+				}
 				else
-					o.write(',');
-				
-				o.write(feature.parent.name);
-				o.write(".class");
-			}
-			else
-			{
-				first = false;
-				o.write("this");
-			}
-			for(final String name : parameterNames)
-			{
-				if(first)
+				{
 					first = false;
-				else
-					o.write(',');
-				
-				o.write(format(name, arguments));
-			}
+					o.write("this");
+				}
+				for(final String name : parameterNames)
+				{
+					if(first)
+						first = false;
+					else
+						o.write(',');
+					
+					o.write(format(name, arguments));
+				}
 			}
 			o.write(')');
 			o.write(';');
