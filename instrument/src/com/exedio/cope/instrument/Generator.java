@@ -23,6 +23,7 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
+import static java.text.MessageFormat.format;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,7 +31,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -229,11 +229,6 @@ final class Generator
 	private static final String link(final String target)
 	{
 		return "{@link #" + target + '}';
-	}
-	
-	private static final String format(final String pattern, final Object... arguments)
-	{
-		return MessageFormat.format(pattern, arguments);
 	}
 
 	private void writeInitialConstructor(final CopeType type)
@@ -530,7 +525,7 @@ final class Generator
 				o.write(' ');
 				final String pattern = wrapper.getMethodWrapperPattern();
 				if(pattern!=null)
-					o.write(MessageFormat.format(pattern, featureNameCamelCase, feature.name));
+					o.write(format(pattern, featureNameCamelCase, feature.name));
 				else
 					writeName(methodName, featureNameCamelCase);
 			}
