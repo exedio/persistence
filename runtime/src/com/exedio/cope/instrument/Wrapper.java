@@ -83,19 +83,19 @@ public final class Wrapper
 	
 	private java.lang.reflect.Type methodReturnType = void.class;
 	
-	public Wrapper setReturn(final java.lang.reflect.Type methodReturnType)
+	public Wrapper setReturn(final java.lang.reflect.Type type)
 	{
-		return setReturn(methodReturnType, null);
+		return setReturn(type, null);
 	}
 	
-	public Wrapper setReturn(final java.lang.reflect.Type methodReturnType, final String comment)
+	public Wrapper setReturn(final java.lang.reflect.Type type, final String comment)
 	{
-		if(methodReturnType==null)
-			throw new NullPointerException("methodReturnType must not be null");
+		if(type==null)
+			throw new NullPointerException("type must not be null");
 		if(this.methodReturnType!=void.class)
-			throw new NullPointerException("methodReturnType must not be set twice");
+			throw new NullPointerException("type must not be set twice");
 		
-		this.methodReturnType = methodReturnType;
+		this.methodReturnType = type;
 		if(comment!=null)
 			addCommentPrivate("@return " + comment);
 		
