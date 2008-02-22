@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +34,7 @@ public final class Wrapper
 	private ArrayList<String> parameterNames;
 	private final String comment;
 	private final String modifier;
-	private final Class[] throwsClause;
+	private ArrayList<Class<? extends Throwable>> throwsClause;
 	private String methodWrapperPattern;
 	private ArrayList<String> comments = null;
 	private String deprecationComment = null;
@@ -44,14 +43,12 @@ public final class Wrapper
 			final java.lang.reflect.Type methodReturnType,
 			final String methodName,
 			final String comment,
-			final String modifier,
-			final Class... throwsClause)
+			final String modifier)
 	{
 		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
 		this.comment = comment;
 		this.modifier = modifier;
-		this.throwsClause = throwsClause;
 		
 		if(methodReturnType==null)
 			throw new NullPointerException("methodReturnType must not be null");
@@ -141,13 +138,41 @@ public final class Wrapper
 	{
 		return modifier;
 	}
+	
+	public Wrapper addThrows(final Collection<Class> throwables)
+	{
+		for(final Class throwable : throwables)
+			addThrows(throwable, null);
+		
+		return this;
+	}
+	
+	public Wrapper addThrows(final Class<? extends Throwable> throwable)
+	{
+		return addThrows(throwable, null);
+	}
+	
+	public Wrapper addThrows(final Class<? extends Throwable> throwable, final String comment)
+	{
+		if(throwable==null)
+			throw new NullPointerException("throwable must not be null");
+		
+		if(throwsClause==null)
+			throwsClause = new ArrayList<Class<? extends Throwable>>();
+		
+		throwsClause.add(throwable);
+		if(comment!=null)
+			addCommentPrivate("@throws " + throwable.getName() + ' ' + comment);
+		
+		return this;
+	}
 
-	public Collection<Class> getThrowsClause()
+	public List<Class<? extends Throwable>> getThrowsClause()
 	{
 		return
 			throwsClause!=null
-			? Collections.unmodifiableCollection(Arrays.asList(throwsClause))
-			: Collections.<Class>emptySet();
+			? Collections.unmodifiableList(throwsClause)
+			: Collections.<Class<? extends Throwable>>emptyList();
 	}
 
 	public Wrapper setMethodWrapperPattern(final String pattern)
@@ -165,6 +190,8 @@ public final class Wrapper
 	public Wrapper addComment(final String comment)
 	{
 		if(comment.startsWith("@param"))
+			throw new RuntimeException(comment);
+		if(comment.startsWith("@throws"))
 			throw new RuntimeException(comment);
 		
 		return addCommentPrivate(comment);

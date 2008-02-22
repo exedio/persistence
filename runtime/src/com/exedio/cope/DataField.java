@@ -164,16 +164,16 @@ public final class DataField extends Field<DataField.Value>
 				void.class,
 				"get",
 				"Writes the data of this persistent data field into the given stream.",
-				"getter",
-				IOException.class).
+				"getter").
+			addThrows(IOException.class).
 			addParameter(OutputStream.class));
 			
 		result.add(
 			new Wrapper(
 				void.class, "get",
 				"Writes the data of this persistent data field into the given file.",
-				"getter",
-				IOException.class).
+				"getter").
+			addThrows(IOException.class).
 			addParameter(File.class));
 		
 		if(!isfinal)
@@ -185,8 +185,8 @@ public final class DataField extends Field<DataField.Value>
 					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
-					"setter",
-					exceptions.toArray(new Class[exceptions.size()])).
+					"setter").
+				addThrows(exceptions).
 				addParameter(Value.class));
 			
 			result.add(
@@ -194,8 +194,8 @@ public final class DataField extends Field<DataField.Value>
 					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
-					"setter",
-					exceptions.toArray(new Class[exceptions.size()])).
+					"setter").
+				addThrows(exceptions).
 				addParameter(byte[].class));
 
 			final ArrayList<Class> exceptionWithIO = new ArrayList<Class>(exceptions);
@@ -206,8 +206,8 @@ public final class DataField extends Field<DataField.Value>
 					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
-					"setter",
-					exceptionWithIO.toArray(new Class[exceptionWithIO.size()])).
+					"setter").
+				addThrows(exceptionWithIO).
 				addParameter(InputStream.class));
 			
 			result.add(
@@ -215,8 +215,8 @@ public final class DataField extends Field<DataField.Value>
 					void.class,
 					"set",
 					"Sets a new value for the persistent field {0}.", // TODO better text
-					"setter",
-					exceptionWithIO.toArray(new Class[exceptionWithIO.size()])).
+					"setter").
+				addThrows(exceptionWithIO).
 				addParameter(File.class));
 		}
 			

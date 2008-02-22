@@ -126,14 +126,13 @@ public final class SetField<E> extends Pattern
 			"@return <tt>true</tt> if the field set changed as a result of the call.";
 		final Set<Class> exceptions = element.getSetterExceptions();
 		exceptions.add(ClassCastException.class);
-		final Class[] exceptionArray = exceptions.toArray(new Class[exceptions.size()]);
 		
 		result.add(
 			new Wrapper(
 				void.class,
 				"set",
 				"Sets a new value for {0}.",
-				"setter", exceptionArray).
+				"setter").addThrows(exceptions).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
@@ -141,8 +140,8 @@ public final class SetField<E> extends Pattern
 				boolean.class,
 				"add",
 				"Adds a new element to {0}.",
-				"setter",
-				exceptionArray).
+				"setter").
+			addThrows(exceptions).
 			setMethodWrapperPattern("addTo{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
 			addComment(MODIFICATION_RESULT));
@@ -152,8 +151,8 @@ public final class SetField<E> extends Pattern
 				boolean.class,
 				"remove",
 				"Removes an element from {0}.",
-				"setter",
-				exceptionArray).
+				"setter").
+			addThrows(exceptions).
 			setMethodWrapperPattern("removeFrom{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
 			addComment(MODIFICATION_RESULT));

@@ -129,8 +129,8 @@ public abstract class Hash extends Pattern implements Settable<String>
 				void.class,
 				"set",
 				"Sets a new value for {0}.",
-				"setter",
-				setterExceptions.toArray(new Class[setterExceptions.size()])).
+				"setter").
+			addThrows(setterExceptions).
 			addParameter(String.class));
 		
 		result.add(
@@ -145,8 +145,8 @@ public abstract class Hash extends Pattern implements Settable<String>
 				void.class,
 				"setHash",
 				"Sets the encoded hash value for hash {0}.",
-				"hashSetter",
-				setterExceptions.toArray(new Class[setterExceptions.size()])).
+				"hashSetter").
+			addThrows(setterExceptions).
 			addParameter(String.class));
 		
 		return Collections.unmodifiableList(result);

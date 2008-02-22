@@ -130,14 +130,13 @@ public final class ListField<E> extends Pattern
 			
 		final Set<Class> exceptions = element.getSetterExceptions();
 		exceptions.add(ClassCastException.class);
-		final Class[] exceptionArray = exceptions.toArray(new Class[exceptions.size()]);
 		
 		result.add(
 			new Wrapper(
 				void.class, "set",
 				"Sets a new value for {0}.",
-				"setter",
-				exceptionArray).
+				"setter").
+			addThrows(exceptions).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 			
 		result.add(

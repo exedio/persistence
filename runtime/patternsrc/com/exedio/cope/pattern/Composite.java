@@ -159,14 +159,13 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		
 		if(!isfinal)
 		{
-			final Set<Class> exceptions = getSetterExceptions();
 			result.add(
 				new Wrapper(
 					void.class,
 					"set",
 					"Sets a new value for {0}.",
-					"setter",
-					exceptions.toArray(new Class[exceptions.size()])).
+					"setter").
+				addThrows(getSetterExceptions()).
 				addParameter(valueClass));
 		}
 			

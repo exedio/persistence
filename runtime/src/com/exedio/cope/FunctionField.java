@@ -174,8 +174,8 @@ public abstract class FunctionField<E extends Object>
 					void.class,
 					"set",
 					"Sets a new value for {0}.",
-					"setter",
-					exceptions.toArray(new Class[exceptions.size()])).
+					"setter").
+				addThrows(exceptions).
 				addParameter(setterType));
 		}
 			
