@@ -454,18 +454,16 @@ final class Generator
 					o.write(format(comment, arguments));
 					o.write(lineSeparator);
 				}
+				for(final Wrapper.Parameter parameter : wrapper.getParameters())
 				{
-					for(final Wrapper.Parameter parameter : wrapper.getParameters())
+					final String comment = parameter.getComment();
+					if(comment!=null)
 					{
-						final String comment = parameter.getComment();
-						if(comment!=null)
-						{
-							o.write("\t * @param ");
-							o.write(format(parameter.getName(), arguments)); // TODO reuse
-							o.write(' ');
-							o.write(format(comment, arguments));
-							o.write(lineSeparator);
-						}
+						o.write("\t * @param ");
+						o.write(format(parameter.getName(), arguments)); // TODO reuse
+						o.write(' ');
+						o.write(format(comment, arguments));
+						o.write(lineSeparator);
 					}
 				}
 				{
