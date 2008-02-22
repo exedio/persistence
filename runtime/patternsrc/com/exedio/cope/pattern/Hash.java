@@ -121,7 +121,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 				"Returns whether the given value corresponds to the hash in {0}.",
 				"checker").
 			setReturn(boolean.class).
-				addParameter(String.class));
+			addParameter(String.class));
 		
 		final Set<Class<? extends Throwable>> setterExceptions = getSetterExceptions();
 		result.add(
