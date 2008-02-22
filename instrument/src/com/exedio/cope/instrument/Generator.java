@@ -547,6 +547,7 @@ final class Generator
 			if(option!=null)
 				o.write(option.suffix);
 			o.write('(');
+			{
 			boolean first = true;
 			final Iterator<String> parameterNameIter = parameterNames.iterator();
 			for(final java.lang.reflect.Type parameter : parameterTypes)
@@ -561,6 +562,7 @@ final class Generator
 				o.write(' ');
 				final String name = parameterNameIter.next();
 				o.write(format(name, arguments));
+			}
 			}
 			o.write(')');
 			o.write(lineSeparator);
@@ -580,7 +582,8 @@ final class Generator
 			o.write('.');
 			o.write(methodName);
 			o.write('(');
-			first = true;
+			{
+			boolean first = true;
 			if(isStatic)
 			{
 				if(first)
@@ -604,6 +607,7 @@ final class Generator
 					o.write(',');
 				
 				o.write(format(name, arguments));
+			}
 			}
 			o.write(')');
 			o.write(';');
