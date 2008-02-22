@@ -56,10 +56,12 @@ public final class PartOf<C extends Item> extends Pattern
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			container.getValueClass(), "getContainer",
-			"Returns the container this item is part of by {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				container.getValueClass(),
+				"getContainer",
+				"Returns the container this item is part of by {0}.",
+				"getter"));
 		
 		return Collections.unmodifiableList(result);
 	}

@@ -245,71 +245,83 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		result.addAll(super.getWrappers());
 
 		if(optional)
-			result.add(0/*TODO*/, new Wrapper(
-				boolean.class, "isNull",
-				"Returns whether media {0} is null.", // TODO better text
-				"getter"
-				));
+			result.add(0/*TODO*/,
+				new Wrapper(
+					boolean.class,
+					"isNull",
+					"Returns whether media {0} is null.", // TODO better text
+					"getter"));
 		
-		result.add(new Wrapper(
-			long.class, "getLastModified",
-			"Returns the last modification date of media {0}.",
-			"getter"
-			));
+		result.add(
+			new Wrapper(
+				long.class,
+				"getLastModified",
+				"Returns the last modification date of media {0}.",
+				"getter"));
 		
-		result.add(new Wrapper(
-			long.class, "getLength",
-			"Returns the body length of the media {0}.",
-			"getter"
-			));
+		result.add(
+			new Wrapper(
+				long.class,
+				"getLength",
+				"Returns the body length of the media {0}.",
+				"getter"));
 		
-		result.add(new Wrapper(
-			byte[].class, "getBody",
-			"Returns the body of the media {0}.",
-			"getter"
-			));
+		result.add(
+			new Wrapper(
+				byte[].class,
+				"getBody",
+				"Returns the body of the media {0}.",
+				"getter"));
 			
-		result.add(new Wrapper(
-			void.class, "getBody",
-			"Writes the body of media {0} into the given stream.",
-			"getter",
-			IOException.class
-			).
+		result.add(
+			new Wrapper(
+				void.class,
+				"getBody",
+				"Writes the body of media {0} into the given stream.",
+				"getter",
+				IOException.class).
 			addComment("Does nothing, if the media is null.").
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(OutputStream.class, "body"));
 		
-		result.add(new Wrapper(
-			void.class, "getBody",
-			"Writes the body of media {0} into the given file.",
-			"getter",
-			IOException.class
-			).
+		result.add(
+			new Wrapper(
+				void.class,
+				"getBody",
+				"Writes the body of media {0} into the given file.",
+				"getter",
+				IOException.class).
 			addComment("Does nothing, if the media is null.").
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(File.class, "body"));
 		
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets the content of media {0}.",
-			"setter").
+		result.add(
+			new Wrapper(
+				void.class,
+				"set",
+				"Sets the content of media {0}.",
+				"setter").
 			addParameter(byte[].class, "body").
 			addParameter(String.class, "contentType"));
 			
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets the content of media {0}.",
-			"setter",
-			IOException.class).
+		result.add(
+			new Wrapper(
+				void.class,
+				"set",
+				"Sets the content of media {0}.",
+				"setter",
+				IOException.class).
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(InputStream.class, "body").
 			addParameter(String.class, "contentType"));
 		
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets the content of media {0}.",
-			"setter",
-			IOException.class).
+		result.add(
+			new Wrapper(
+				void.class,
+				"set",
+				"Sets the content of media {0}.",
+				"setter",
+				IOException.class).
 			addComment(IO_EXCEPTION_COMMENT). // TODO make an extra method for exceptions
 			addParameter(File.class, "body").
 			addParameter(String.class, "contentType"));

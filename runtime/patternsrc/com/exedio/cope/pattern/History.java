@@ -161,23 +161,28 @@ public final class History extends Pattern
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			Wrapper.makeTypeExtends(List.class, Event.class), "getEvents",
-			"Returns the events of the history {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Wrapper.makeTypeExtends(List.class, Event.class),
+				"getEvents",
+				"Returns the events of the history {0}.",
+				"getter"));
 		
-		result.add(new Wrapper(
-			Event.class, "createEvent",
-			"Creates a new event for the history {0}.",
-			"setter"
-			).
+		result.add(
+			new Wrapper(
+				Event.class,
+				"createEvent",
+				"Creates a new event for the history {0}.",
+				"setter").
 			addParameter(String.class, "cause").
 			addParameter(boolean.class, "created"));
 			
-		result.add(new Wrapper(
-			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getEventParent",
-			"Returns the parent field of the event type of {0}.",
-			"parent").
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class),
+				"getEventParent",
+				"Returns the parent field of the event type of {0}.",
+				"parent").
 			setMethodWrapperPattern("{1}EventParent").
 			setStatic());
 					

@@ -152,10 +152,12 @@ public abstract class FunctionField<E extends Object>
 		final Class setterType = getWrapperSetterType();
 		final boolean setterTypePrimitive = setterType.isPrimitive();
 		
-		final Wrapper get = new Wrapper(
-			setterType, setterTypePrimitive ? "getMandatory" : "get",
-			"Returns the value of {0}.",
-			"getter");
+		final Wrapper get =
+			new Wrapper(
+				setterType,
+				setterTypePrimitive ? "getMandatory" : "get",
+				"Returns the value of {0}.",
+				"getter");
 		if(setterTypePrimitive)
 			get.setMethodWrapperPattern("get{0}");
 		result.add(get);
@@ -166,31 +168,36 @@ public abstract class FunctionField<E extends Object>
 			if(setterTypePrimitive)
 				exceptions.remove(MandatoryViolationException.class);
 			
-			result.add(new Wrapper(
-				void.class, "set",
-				"Sets a new value for {0}.",
-				"setter",
-				exceptions.toArray(new Class[exceptions.size()])
-				).
+			result.add(
+				new Wrapper(
+					void.class,
+					"set",
+					"Sets a new value for {0}.",
+					"setter",
+					exceptions.toArray(new Class[exceptions.size()])).
 				addParameter(setterType));
 		}
 			
 		if(unique)
 		{
-			result.add(new Wrapper(
-				Wrapper.ClassVariable.class, "searchUnique",
-				"Finds a {2} by it''s {0}.",
-				"finder").
+			result.add(
+				new Wrapper(
+					Wrapper.ClassVariable.class,
+					"searchUnique",
+					"Finds a {2} by it''s {0}.",
+					"finder").
 				setMethodWrapperPattern("for{0}").
 				setStatic().
 				addComment("@param {1} shall be equal to field {0}.").
 				addComment("@return null if there is no matching item.").
 				addParameter(setterType));
 			
-			result.add(new Wrapper(
-				Wrapper.ClassVariable.class, "searchUnique",
-				"Finds a {2} by it''s {0}.",
-				"finder").
+			result.add(
+				new Wrapper(
+					Wrapper.ClassVariable.class,
+					"searchUnique",
+					"Finds a {2} by it''s {0}.",
+					"finder").
 				setMethodWrapperPattern("findBy{0}").
 				setStatic().
 				deprecate("use for{0} instead.").

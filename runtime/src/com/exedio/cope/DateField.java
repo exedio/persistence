@@ -103,12 +103,12 @@ public final class DateField extends FunctionField<Date>
 			final Set<Class> exceptions = getSetterExceptions();
 			exceptions.remove(MandatoryViolationException.class); // cannot set null
 			
-			result.add(new Wrapper(
-				void.class, "touch",
-				"Sets the current date for the date field {0}.", // TODO better text
-				"toucher",
-				exceptions.toArray(new Class[exceptions.size()])
-				));
+			result.add(
+				new Wrapper(
+					void.class, "touch",
+					"Sets the current date for the date field {0}.", // TODO better text
+					"toucher",
+					exceptions.toArray(new Class[exceptions.size()])));
 		}
 			
 		return Collections.unmodifiableList(result);

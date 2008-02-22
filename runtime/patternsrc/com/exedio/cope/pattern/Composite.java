@@ -150,21 +150,23 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		final Wrapper get = new Wrapper(
-			valueClass, "get",
-			"Returns the value of {0}.",
-			"getter");
-		result.add(get);
+		result.add(
+			new Wrapper(
+				valueClass,
+				"get",
+				"Returns the value of {0}.",
+				"getter"));
 		
 		if(!isfinal)
 		{
 			final Set<Class> exceptions = getSetterExceptions();
-			result.add(new Wrapper(
-				void.class, "set",
-				"Sets a new value for {0}.",
-				"setter",
-				exceptions.toArray(new Class[exceptions.size()])
-				).
+			result.add(
+				new Wrapper(
+					void.class,
+					"set",
+					"Sets a new value for {0}.",
+					"setter",
+					exceptions.toArray(new Class[exceptions.size()])).
 				addParameter(valueClass));
 		}
 			

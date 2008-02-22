@@ -115,33 +115,38 @@ public abstract class Hash extends Pattern implements Settable<String>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			boolean.class, "check",
-			"Returns whether the given value corresponds to the hash in {0}.",
-			"checker"
-			).
-			addParameter(String.class));
+		result.add(
+			new Wrapper(
+				boolean.class,
+				"check",
+				"Returns whether the given value corresponds to the hash in {0}.",
+				"checker").
+				addParameter(String.class));
 		
 		final Set<Class> setterExceptions = getSetterExceptions();
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets a new value for {0}.",
-			"setter",
-			setterExceptions.toArray(new Class[setterExceptions.size()])).
+		result.add(
+			new Wrapper(
+				void.class,
+				"set",
+				"Sets a new value for {0}.",
+				"setter",
+				setterExceptions.toArray(new Class[setterExceptions.size()])).
 			addParameter(String.class));
 		
-		result.add(new Wrapper(
-			String.class, "getHash",
-			"Returns the encoded hash value for hash {0}.",
-			"hashGetter"
-			));
+		result.add(
+			new Wrapper(
+				String.class,
+				"getHash",
+				"Returns the encoded hash value for hash {0}.",
+				"hashGetter"));
 		
-		result.add(new Wrapper(
-			void.class, "setHash",
-			"Sets the encoded hash value for hash {0}.",
-			"hashSetter",
-			setterExceptions.toArray(new Class[setterExceptions.size()])
-			).
+		result.add(
+			new Wrapper(
+				void.class,
+				"setHash",
+				"Sets the encoded hash value for hash {0}.",
+				"hashSetter",
+				setterExceptions.toArray(new Class[setterExceptions.size()])).
 			addParameter(String.class));
 		
 		return Collections.unmodifiableList(result);

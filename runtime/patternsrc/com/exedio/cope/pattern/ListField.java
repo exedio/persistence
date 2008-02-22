@@ -111,17 +111,19 @@ public final class ListField<E> extends Pattern
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
-			"get",
-			"Returns the value of {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
+				"get",
+				"Returns the value of {0}.",
+				"getter"));
 		
-		result.add(new Wrapper(
-			Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
-			"getDistinctParents",
-			"Returns the items, for which field list {0} contains the given element.",
-			"getter").
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
+				"getDistinctParents",
+				"Returns the items, for which field list {0} contains the given element.",
+				"getter").
 			setStatic().
 			setMethodWrapperPattern("getDistinctParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
@@ -130,16 +132,20 @@ public final class ListField<E> extends Pattern
 		exceptions.add(ClassCastException.class);
 		final Class[] exceptionArray = exceptions.toArray(new Class[exceptions.size()]);
 		
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets a new value for {0}.",
-			"setter", exceptionArray).
+		result.add(
+			new Wrapper(
+				void.class, "set",
+				"Sets a new value for {0}.",
+				"setter",
+				exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 			
-		result.add(new Wrapper(
-			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
-			"Returns the parent field of the type of {0}.",
-			"parent").
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class),
+				"getParent",
+				"Returns the parent field of the type of {0}.",
+				"parent").
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 				

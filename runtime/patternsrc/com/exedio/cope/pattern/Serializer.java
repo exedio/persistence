@@ -147,21 +147,23 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		
 		final Class setterType = getWrapperSetterType();
 		
-		result.add(new Wrapper(
-			setterType, "get",
-			"Returns the value of {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				setterType,
+				"get",
+				"Returns the value of {0}.",
+				"getter"));
 		
 		if(!isFinal())
 		{
 			final Set<Class> exceptions = getSetterExceptions();
 			
-			result.add(new Wrapper(
-				void.class, "set",
-				"Sets a new value for {0}.",
-				"setter",
-				exceptions.toArray(new Class[exceptions.size()])
-				).
+			result.add(
+				new Wrapper(
+					void.class, "set",
+					"Sets a new value for {0}.",
+					"setter",
+					exceptions.toArray(new Class[exceptions.size()])).
 				addParameter(setterType));
 		}
 			

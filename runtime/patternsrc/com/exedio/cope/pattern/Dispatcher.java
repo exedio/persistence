@@ -153,36 +153,48 @@ public final class Dispatcher extends Pattern
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			void.class, "dispatch",
-			"Dispatch by {0}.",
-			"dispatch").
+		result.add(
+			new Wrapper(
+				void.class,
+				"dispatch",
+				"Dispatch by {0}.",
+				"dispatch").
 			setStatic());
 			
-		result.add(new Wrapper(
-			boolean.class, "isPending",
-			"Returns, whether this item is yet to be dispatched by {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				boolean.class,
+				"isPending",
+				"Returns, whether this item is yet to be dispatched by {0}.",
+				"getter"));
 				
-		result.add(new Wrapper(
-			Date.class, "getSuccessDate",
-			"Returns the date, this item was successfully dispatched by {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Date.class,
+				"getSuccessDate",
+				"Returns the date, this item was successfully dispatched by {0}.",
+				"getter"));
 			
-		result.add(new Wrapper(
-			Long.class, "getSuccessElapsed",
-			"Returns the milliseconds, this item needed to be successfully dispatched by {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Long.class,
+				"getSuccessElapsed",
+				"Returns the milliseconds, this item needed to be successfully dispatched by {0}.",
+				"getter"));
 				
-		result.add(new Wrapper(
-			Wrapper.makeType(List.class, Failure.class), "getFailures",
-			"Returns the failed attempts to dispatch this item by {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(List.class, Failure.class),
+				"getFailures",
+				"Returns the failed attempts to dispatch this item by {0}.",
+				"getter"));
 			
-		result.add(new Wrapper(
-			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getFailureParent",
-			"Returns the parent field of the failure type of {0}.",
-			"parent").
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class),
+				"getFailureParent",
+				"Returns the parent field of the failure type of {0}.",
+				"parent").
 			setMethodWrapperPattern("{1}FailureParent").
 			setStatic());
 			

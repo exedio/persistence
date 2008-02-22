@@ -134,20 +134,23 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
-			"get",
-			"Returns the value of {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(List.class, Wrapper.TypeVariable0.class),
+				"get",
+				"Returns the value of {0}.",
+				"getter"));
 		
 		final Set<Class> exceptions = sources[0].getSetterExceptions();
 		exceptions.add(ClassCastException.class);
 		final Class[] exceptionArray = exceptions.toArray(new Class[exceptions.size()]);
 		
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets a new value for {0}.",
-			"setter", exceptionArray).
+		result.add(
+			new Wrapper(
+				void.class,
+				"set",
+				"Sets a new value for {0}.",
+				"setter", exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		return Collections.unmodifiableList(result);

@@ -136,74 +136,85 @@ public final class DataField extends Field<DataField.Value>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			boolean.class, "isNull",
-			"Returns, whether there is no data for field {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				boolean.class,
+				"isNull",
+				"Returns, whether there is no data for field {0}.",
+				"getter"));
 		
-		result.add(new Wrapper(
-			long.class, "getLength",
-			"Returns the length of the data of the data field {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				long.class,
+				"getLength",
+				"Returns the length of the data of the data field {0}.",
+				"getter"));
 			
-		result.add(new Wrapper(
-			byte[].class, "getArray",
-			"Returns the value of the persistent field {0}.", // TODO better text
-			"getter"));
+		result.add(
+			new Wrapper(
+				byte[].class,
+				"getArray",
+				"Returns the value of the persistent field {0}.", // TODO better text
+				"getter"));
 		
-		result.add(new Wrapper(
-			void.class, "get",
-			"Writes the data of this persistent data field into the given stream.",
-			"getter",
-			IOException.class
-			).
+		result.add(
+			new Wrapper(
+				void.class,
+				"get",
+				"Writes the data of this persistent data field into the given stream.",
+				"getter",
+				IOException.class).
 			addParameter(OutputStream.class));
 			
-		result.add(new Wrapper(
-			void.class, "get",
-			"Writes the data of this persistent data field into the given file.",
-			"getter",
-			IOException.class
-			).
+		result.add(
+			new Wrapper(
+				void.class, "get",
+				"Writes the data of this persistent data field into the given file.",
+				"getter",
+				IOException.class).
 			addParameter(File.class));
 		
 		if(!isfinal)
 		{
 			final Set<Class> exceptions = getSetterExceptions();
 			
-			result.add(new Wrapper(
-				void.class, "set",
-				"Sets a new value for the persistent field {0}.", // TODO better text
-				"setter",
-				exceptions.toArray(new Class[exceptions.size()])
-				).
+			result.add(
+				new Wrapper(
+					void.class,
+					"set",
+					"Sets a new value for the persistent field {0}.", // TODO better text
+					"setter",
+					exceptions.toArray(new Class[exceptions.size()])).
 				addParameter(Value.class));
 			
-			result.add(new Wrapper(
-				void.class, "set",
-				"Sets a new value for the persistent field {0}.", // TODO better text
-				"setter",
-				exceptions.toArray(new Class[exceptions.size()])
-				).
+			result.add(
+				new Wrapper(
+					void.class,
+					"set",
+					"Sets a new value for the persistent field {0}.", // TODO better text
+					"setter",
+					exceptions.toArray(new Class[exceptions.size()])).
 				addParameter(byte[].class));
 
 			final ArrayList<Class> exceptionWithIO = new ArrayList<Class>(exceptions);
 			exceptionWithIO.add(IOException.class);
 			
-			result.add(new Wrapper(
-				void.class, "set",
-				"Sets a new value for the persistent field {0}.", // TODO better text
-				"setter",
-				exceptionWithIO.toArray(new Class[exceptionWithIO.size()])
-				).
+			result.add(
+				new Wrapper(
+					void.class,
+					"set",
+					"Sets a new value for the persistent field {0}.", // TODO better text
+					"setter",
+					exceptionWithIO.toArray(new Class[exceptionWithIO.size()])).
 				addParameter(InputStream.class));
 			
-			result.add(new Wrapper(
-				void.class, "set",
-				"Sets a new value for the persistent field {0}.", // TODO better text
-				"setter",
-				exceptionWithIO.toArray(new Class[exceptionWithIO.size()])
-				).
+			result.add(
+				new Wrapper(
+					void.class,
+					"set",
+					"Sets a new value for the persistent field {0}.", // TODO better text
+					"setter",
+					exceptionWithIO.toArray(new Class[exceptionWithIO.size()])).
 				addParameter(File.class));
 		}
 			

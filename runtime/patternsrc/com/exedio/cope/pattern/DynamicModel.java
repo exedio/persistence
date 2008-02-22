@@ -218,28 +218,35 @@ public final class DynamicModel<L> extends Pattern
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			Wrapper.DynamicModelType.class, "getType",
-			"Returns the dynamic type of this item in the model {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Wrapper.DynamicModelType.class,
+				"getType",
+				"Returns the dynamic type of this item in the model {0}.",
+				"getter"));
 		
-		result.add(new Wrapper(
-			void.class, "setType",
-			"Sets the dynamic type of this item in the model {0}.",
-			"setter"
-			).
+		result.add(
+			new Wrapper(
+				void.class,
+				"setType",
+				"Sets the dynamic type of this item in the model {0}.",
+				"setter").
 			addParameter(Wrapper.DynamicModelType.class, "type"));
 			
-		result.add(new Wrapper(
-			Object.class, "get",
-			"Returns the value of <tt>field</tt> for this item in the model {0}.",
-			"getter").
+		result.add(
+			new Wrapper(
+				Object.class,
+				"get",
+				"Returns the value of <tt>field</tt> for this item in the model {0}.",
+				"getter").
 			addParameter(Wrapper.DynamicModelField.class, "field"));
 			
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets the value of <tt>field</tt> for this item in the model {0}.",
-			"setter").
+		result.add(
+			new Wrapper(
+				void.class,
+				"set",
+				"Sets the value of <tt>field</tt> for this item in the model {0}.",
+				"setter").
 			addParameter(Wrapper.DynamicModelField.class, "field").
 			addParameter(Object.class, "value"));
 		

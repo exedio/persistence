@@ -105,17 +105,19 @@ public final class SetField<E> extends Pattern
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		result.add(new Wrapper(
-			Wrapper.makeType(Set.class, Wrapper.TypeVariable0.class),
-			"get",
-			"Returns the value of {0}.",
-			"getter"));
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(Set.class, Wrapper.TypeVariable0.class),
+				"get",
+				"Returns the value of {0}.",
+				"getter"));
 		
-		result.add(new Wrapper(
-			Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
-			"getParents",
-			"Returns the items, for which field set {0} contains the given element.",
-			"getter").
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(List.class, Wrapper.ClassVariable.class),
+				"getParents",
+				"Returns the items, for which field set {0} contains the given element.",
+				"getter").
 			setStatic().
 			setMethodWrapperPattern("getParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
@@ -126,34 +128,42 @@ public final class SetField<E> extends Pattern
 		exceptions.add(ClassCastException.class);
 		final Class[] exceptionArray = exceptions.toArray(new Class[exceptions.size()]);
 		
-		result.add(new Wrapper(
-			void.class, "set",
-			"Sets a new value for {0}.",
-			"setter", exceptionArray).
+		result.add(
+			new Wrapper(
+				void.class,
+				"set",
+				"Sets a new value for {0}.",
+				"setter", exceptionArray).
 			addParameter(Wrapper.makeTypeExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
-		result.add(new Wrapper(
-			boolean.class, "add",
-			"Adds a new element to {0}.",
-			"setter",
-			exceptionArray).
+		result.add(
+			new Wrapper(
+				boolean.class,
+				"add",
+				"Adds a new element to {0}.",
+				"setter",
+				exceptionArray).
 			setMethodWrapperPattern("addTo{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
 			addComment(MODIFICATION_RESULT));
 			
-		result.add(new Wrapper(
-			boolean.class, "remove",
-			"Removes an element from {0}.",
-			"setter",
-			exceptionArray).
+		result.add(
+			new Wrapper(
+				boolean.class,
+				"remove",
+				"Removes an element from {0}.",
+				"setter",
+				exceptionArray).
 			setMethodWrapperPattern("removeFrom{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element").
 			addComment(MODIFICATION_RESULT));
 				
-		result.add(new Wrapper(
-			Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class), "getParent",
-			"Returns the parent field of the type of {0}.",
-			"parent").
+		result.add(
+			new Wrapper(
+				Wrapper.makeType(ItemField.class, Wrapper.ClassVariable.class),
+				"getParent",
+				"Returns the parent field of the type of {0}.",
+				"parent").
 			setMethodWrapperPattern("{1}Parent").
 			setStatic());
 		
