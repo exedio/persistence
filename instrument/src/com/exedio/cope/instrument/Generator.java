@@ -57,8 +57,6 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
 {
-	private static final String COLLECTION = Collection.class.getName();
-	private static final String LIST = List.class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
@@ -893,6 +891,10 @@ final class Generator
 	
 	// --------------------------------------- deprecated stuff ----------------------------------------------
 	
+	@Deprecated
+	private static final String COLLECTION = Collection.class.getName();
+	@Deprecated
+	private static final String LIST = List.class.getName();
 	@Deprecated
 	private static final String QUALIFIER = "Returns the qualifier.";
 	@Deprecated
