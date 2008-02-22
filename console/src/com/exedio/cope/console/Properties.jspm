@@ -116,7 +116,7 @@ final class Properties_Jspm extends Console_Jspm
 						{
 							try
 							{
-								final String fileURL = file.toURL().toString();
+								final String fileURL = file.toURI().toURL().toString();
 								%><a href="<%=
 									fileURL
 									%>"><%=
