@@ -27,32 +27,32 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class Wrapper
 {
-	private final String methodName;
+	private final String name;
 	private final String comment;
 	private final String modifier;
 	
 	public Wrapper(
-			final String methodName,
+			final String name,
 			final String comment,
 			final String modifier)
 	{
-		this.methodName = methodName;
+		this.name = name;
 		this.comment = comment;
 		this.modifier = modifier;
 		
 		if(methodReturnType==null)
 			throw new NullPointerException("methodReturnType must not be null");
-		if(methodName==null)
-			throw new NullPointerException("methodName must not be null");
+		if(name==null)
+			throw new NullPointerException("name must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 		if(modifier==null)
 			throw new NullPointerException("modifier must not be null");
 	}
 
-	public String getMethodName()
+	public String getName()
 	{
-		return methodName;
+		return name;
 	}
 
 	public String getComment()

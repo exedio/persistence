@@ -425,7 +425,7 @@ final class Generator
 			if(option!=null && !option.exists)
 				continue;
 
-			final String methodName = wrapper.getMethodName();
+			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getMethodReturnType();
 			final List<java.lang.reflect.Type> parameterTypes = wrapper.getParameterTypes();
 			final List<String> parameterNames = wrapper.getParameterNames(); 
