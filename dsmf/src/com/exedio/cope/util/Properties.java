@@ -425,7 +425,15 @@ public class Properties
 					}
 				}
 				if(error)
-					throw new IllegalArgumentException("property " + key + " in " + source + " is not allowed, but only one of " + allowedValues + " or one starting with " + allowedPrefixes + '.');
+				{
+					// maintain order of fields lost in allowedValues
+					final ArrayList<String> allowedValueList = new ArrayList<String>();
+					for(final Field field : fields)
+						if(!(field instanceof MapField))
+							allowedValueList.add(field.key);
+					
+					throw new IllegalArgumentException("property " + key + " in " + source + " is not allowed, but only one of " + allowedValueList + " or one starting with " + allowedPrefixes + '.');
+				}
 			}
 		}
 	}

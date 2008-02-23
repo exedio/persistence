@@ -215,13 +215,13 @@ public class PropertiesTest extends CopeAssert
 			{
 				assertEquals(
 						"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
+						"boolFalse, " +
 						"boolTrue, " +
 						"int10, " +
-						"boolFalse, " +
-						"file, " +
-						"stringOptional, " +
 						"stringMandatory, " +
-						"stringHidden] " +
+						"stringOptional, " +
+						"stringHidden, " +
+						"file] " +
 						"or one starting with [map.].", e.getMessage());
 			}
 		}
