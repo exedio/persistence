@@ -213,7 +213,16 @@ public class PropertiesTest extends CopeAssert
 			}
 			catch(IllegalArgumentException e)
 			{
-				assertEquals("property wrongKey.zack in wrongkey is not allowed, but only one of [boolTrue, int10, boolFalse, file, stringOptional, stringMandatory, stringHidden] or one starting with [map.].", e.getMessage());
+				assertEquals(
+						"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
+						"boolTrue, " +
+						"int10, " +
+						"boolFalse, " +
+						"file, " +
+						"stringOptional, " +
+						"stringMandatory, " +
+						"stringHidden] " +
+						"or one starting with [map.].", e.getMessage());
 			}
 		}
 		
