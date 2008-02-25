@@ -406,7 +406,8 @@ final class Generator
 			if(deprecated && skipDeprecated)
 				continue;
 			
-			final String modifierTag = wrapper.getModifier();
+			final String pattern = wrapper.getMethodWrapperPattern();
+			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Option option =
 				modifierTag!=null
 				? new Option(Injector.findDocTagLine(
@@ -483,9 +484,9 @@ final class Generator
 					}
 				}
 				writeCommentFooter(
-					modifierTag!=null
+					wrapper.getModifier()!=null // TODO use modifierTag instead
 					?  "It can be customized with the tag " +
-						"<tt>@" + CopeFeature.TAG_PREFIX + modifierTag + ' ' +
+						"<tt>@" + CopeFeature.TAG_PREFIX + wrapper.getModifier() + ' ' + // TODO use modifierTag instead
 						Option.TEXT_VISIBILITY_PUBLIC + '|' +
 						Option.TEXT_VISIBILITY_PACKAGE + '|' +
 						Option.TEXT_VISIBILITY_PROTECTED + '|' +
@@ -523,7 +524,6 @@ final class Generator
 			else
 			{
 				o.write(' ');
-				final String pattern = wrapper.getMethodWrapperPattern();
 				if(pattern!=null)
 					o.write(format(pattern, featureNameCamelCase, feature.name));
 				else

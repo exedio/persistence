@@ -37,32 +37,32 @@ public class QualifiedName extends Item
 	public static final IntegerField optionalNumber = new IntegerField().optional();
 	
 	/**
-	 * @cope.getter none
+	 * @cope.get none
 	 */
 	public static final IntegerField noneGetterNumber = new IntegerField();
 
 	/**
-	 * @cope.getter private
+	 * @cope.get private
 	 */
 	public static final IntegerField privateGetterNumber = new IntegerField();
 
 	/**
-	 * @cope.getter internal
+	 * @cope.get internal
 	 */
 	public static final IntegerField internalGetterNumber = new IntegerField();
 	
 	/**
-	 * @cope.setter none
+	 * @cope.set none
 	 */
 	public static final IntegerField noneSetterNumber = new IntegerField();
 
 	/**
-	 * @cope.setter private
+	 * @cope.set private
 	 */
 	public static final IntegerField privateSetterNumber = new IntegerField();
 
 	/**
-	 * @cope.setter internal
+	 * @cope.set internal
 	 */
 	public static final IntegerField internalSetterNumber = new IntegerField();
 	

@@ -23,14 +23,14 @@ class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	static final StringField nonHiddenSub = new StringField().optional();
 	
 	/**
-	 * @cope.getter none
-	 * @cope.setter none
+	 * @cope.get none
+	 * @cope.set none
 	 */
 	static final StringField hiddenSame = new StringField().optional();
 
 	/**
-	 * @cope.getter none
-	 * @cope.setter none
+	 * @cope.get none
+	 * @cope.set none
 	 */
 	static final IntegerField hiddenOther = new IntegerField().optional();
 	

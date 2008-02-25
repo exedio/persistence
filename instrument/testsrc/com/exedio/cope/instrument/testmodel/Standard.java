@@ -79,52 +79,52 @@ public class Standard extends Item
 	private static final StringField privateString = new StringField().optional();
 
 	/**
-	 * @cope.getter none
+	 * @cope.get none
 	 */
 	public static final StringField noneGetterString = new StringField().optional();
 
 	/**
-	 * @cope.getter private
+	 * @cope.get private
 	 */
 	public static final StringField privateGetterString = new StringField().optional();
 
 	/**
-	 * @cope.getter internal
+	 * @cope.get internal
 	 */
 	public static final StringField internalGetterString = new StringField().optional();
 
 	/**
-	 * @cope.setter none
-	 * @cope.getter boolean-as-is
+	 * @cope.set none
+	 * @cope.get boolean-as-is
 	 */
 	public static final StringField noneSetterString = new StringField().optional();
 
 	/**
-	 * @cope.setter private
-	 * @cope.getter boolean-as-is
+	 * @cope.set private
+	 * @cope.get boolean-as-is
 	 */
 	public static final StringField privateSetterString = new StringField().optional();
 
 	/**
-	 * @cope.setter internal
-	 * @cope.getter boolean-as-is
+	 * @cope.set internal
+	 * @cope.get boolean-as-is
 	 */
 	public static final StringField internalSetterString = new StringField().optional();
 
 	/**
-	 * @cope.getter non-final
-	 * @cope.setter protected
+	 * @cope.get non-final
+	 * @cope.set protected
 	 */
 	public static final StringField nonfinalGetterString = new StringField().optional();
 
 	/**
-	 * @cope.getter protected
-	 * @cope.setter non-final
+	 * @cope.get protected
+	 * @cope.set non-final
 	 */
 	public static final StringField nonfinalSetterString = new StringField().optional();
 
 	/**
-	 * @cope.getter boolean-as-is
+	 * @cope.get boolean-as-is
 	 */
 	public static final BooleanField asIsBoolean = new BooleanField().optional();
 	
@@ -139,11 +139,11 @@ public class Standard extends Item
 	static final Media majorMedia = new Media().optional().contentTypeMajor("major");
 	protected static final Media minorMedia = new Media().optional().contentType("major/minor");
 	/**
-	 * @cope.setter none
+	 * @cope.set none
 	 */
 	public static final Media noSetterMedia = new Media().optional();
 	/**
-	 * @cope.setter private
+	 * @cope.set private
 	 */
 	public static final Media privateSetterMedia = new Media().optional();
 	
@@ -151,7 +151,7 @@ public class Standard extends Item
 	private static final Hash privateHash = new MD5Hash().optional();
 	public static final Hash mandatoryHash = new MD5Hash();
 	/**
-	 * @cope.setter private
+	 * @cope.set private
 	 */
 	public static final Hash privateSetterHash = new MD5Hash();
 	
