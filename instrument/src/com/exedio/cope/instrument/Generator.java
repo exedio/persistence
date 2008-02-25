@@ -484,9 +484,9 @@ final class Generator
 					}
 				}
 				writeCommentFooter(
-					wrapper.getModifier()!=null // TODO use modifierTag instead
+					modifierTag!=null
 					?  "It can be customized with the tag " +
-						"<tt>@" + CopeFeature.TAG_PREFIX + wrapper.getModifier() + ' ' + // TODO use modifierTag instead
+						"<tt>@" + CopeFeature.TAG_PREFIX + modifierTag + ' ' +
 						Option.TEXT_VISIBILITY_PUBLIC + '|' +
 						Option.TEXT_VISIBILITY_PACKAGE + '|' +
 						Option.TEXT_VISIBILITY_PROTECTED + '|' +
