@@ -118,8 +118,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		result.add(
 			new Wrapper(
 				"check",
-				"Returns whether the given value corresponds to the hash in {0}.",
-				"checker").
+				"Returns whether the given value corresponds to the hash in {0}.").
 			setReturn(boolean.class).
 			addParameter(String.class));
 		
@@ -127,23 +126,20 @@ public abstract class Hash extends Pattern implements Settable<String>
 		result.add(
 			new Wrapper(
 				"set",
-				"Sets a new value for {0}.",
-				"setter").
+				"Sets a new value for {0}.").
 			addThrows(setterExceptions).
 			addParameter(String.class));
 		
 		result.add(
 			new Wrapper(
 				"getHash",
-				"Returns the encoded hash value for hash {0}.",
-				"hashGetter").
+				"Returns the encoded hash value for hash {0}.").
 			setReturn(String.class));
 		
 		result.add(
 			new Wrapper(
 				"setHash",
-				"Sets the encoded hash value for hash {0}.",
-				"hashSetter").
+				"Sets the encoded hash value for hash {0}.").
 			addThrows(setterExceptions).
 			addParameter(String.class));
 		

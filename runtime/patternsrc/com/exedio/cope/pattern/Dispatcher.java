@@ -156,43 +156,37 @@ public final class Dispatcher extends Pattern
 		result.add(
 			new Wrapper(
 				"dispatch",
-				"Dispatch by {0}.",
-				"dispatch").
+				"Dispatch by {0}.").
 			setStatic());
 			
 		result.add(
 			new Wrapper(
 				"isPending",
-				"Returns, whether this item is yet to be dispatched by {0}.",
-				"getter").
+				"Returns, whether this item is yet to be dispatched by {0}.").
 			setReturn(boolean.class));
 				
 		result.add(
 			new Wrapper(
 				"getSuccessDate",
-				"Returns the date, this item was successfully dispatched by {0}.",
-				"getter").
+				"Returns the date, this item was successfully dispatched by {0}.").
 			setReturn(Date.class));
 			
 		result.add(
 			new Wrapper(
 				"getSuccessElapsed",
-				"Returns the milliseconds, this item needed to be successfully dispatched by {0}.",
-				"getter").
+				"Returns the milliseconds, this item needed to be successfully dispatched by {0}.").
 			setReturn(Long.class));
 				
 		result.add(
 			new Wrapper(
 				"getFailures",
-				"Returns the failed attempts to dispatch this item by {0}.",
-				"getter").
+				"Returns the failed attempts to dispatch this item by {0}.").
 			setReturn(Wrapper.generic(List.class, Failure.class)));
 			
 		result.add(
 			new Wrapper(
 				"getFailureParent",
-				"Returns the parent field of the failure type of {0}.",
-				"parent").
+				"Returns the parent field of the failure type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}FailureParent").
 			setStatic());

@@ -92,16 +92,14 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		result.add(
 			new Wrapper(
 				"get",
-				"Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.",
-				"getter").
+				"Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.").
 			setReturn(Wrapper.TypeVariable1.class).
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
 		
 		result.add(
 			new Wrapper(
 				"set",
-				"Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.",
-				"setter").
+				"Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.").
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
 			addParameter(Wrapper.TypeVariable1.class));
 		

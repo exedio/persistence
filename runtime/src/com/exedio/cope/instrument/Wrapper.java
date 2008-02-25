@@ -34,8 +34,7 @@ public final class Wrapper
 	
 	public Wrapper(
 			final String name,
-			final String comment,
-			final String modifier)
+			final String comment)
 	{
 		this.name = name;
 		this.comment = comment;
