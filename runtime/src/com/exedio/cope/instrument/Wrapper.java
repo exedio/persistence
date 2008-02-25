@@ -31,7 +31,6 @@ public final class Wrapper
 {
 	private final String name;
 	private final String comment;
-	private final String modifier;
 	
 	public Wrapper(
 			final String name,
@@ -40,14 +39,11 @@ public final class Wrapper
 	{
 		this.name = name;
 		this.comment = comment;
-		this.modifier = modifier;
 		
 		if(name==null)
 			throw new NullPointerException("name must not be null");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
-		if(modifier==null)
-			throw new NullPointerException("modifier must not be null");
 	}
 
 	public String getName()
@@ -58,11 +54,6 @@ public final class Wrapper
 	public String getComment()
 	{
 		return comment;
-	}
-
-	public String getModifier()
-	{
-		return modifier;
 	}
 	
 	
