@@ -30,29 +30,21 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 public final class Wrapper
 {
 	private final String name;
-	private final String comment;
 	
 	public Wrapper(
 			final String name,
 			final String comment)
 	{
 		this.name = name;
-		this.comment = comment;
 		
 		if(name==null)
 			throw new NullPointerException("name must not be null");
-		if(comment==null)
-			throw new NullPointerException("comment must not be null");
+		addComment(comment);
 	}
 
 	public String getName()
 	{
 		return name;
-	}
-
-	public String getComment()
-	{
-		return comment;
 	}
 	
 	

@@ -435,9 +435,6 @@ final class Generator
 					lowerCamelCase(feature.parent.name)};
 			{
 				writeCommentHeader();
-				o.write("\t * ");
-				o.write(format(wrapper.getComment(), arguments));
-				o.write(lineSeparator);
 				for(final String comment : wrapper.getComments())
 				{
 					o.write("\t * ");
