@@ -71,7 +71,7 @@ public final class Wrapper
 	}
 	
 	
-	private java.lang.reflect.Type returnType = void.class;
+	private java.lang.reflect.Type returnType = null;
 	private String returnComment = null;
 	
 	public Wrapper setReturn(final java.lang.reflect.Type type)
@@ -83,7 +83,9 @@ public final class Wrapper
 	{
 		if(type==null)
 			throw new NullPointerException("type must not be null");
-		if(this.returnType!=void.class)
+		if(type==void.class)
+			throw new NullPointerException("type must not be void");
+		if(this.returnType!=null)
 			throw new NullPointerException("type must not be set twice");
 		
 		this.returnType = type;
@@ -94,7 +96,7 @@ public final class Wrapper
 
 	public java.lang.reflect.Type getReturnType()
 	{
-		return returnType;
+		return returnType!=null ? returnType : void.class;
 	}
 
 	public String getReturnComment()
