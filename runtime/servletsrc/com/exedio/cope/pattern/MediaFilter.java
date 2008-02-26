@@ -51,7 +51,7 @@ public abstract class MediaFilter extends CachedMedia
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 
-		result.add(1, // TODO
+		result.add(
 			new Wrapper(
 				"getURLWithFallbackToSource",
 				"Returns a URL the content of {0} is available under."). // TODO better text
