@@ -438,12 +438,6 @@ final class Generator
 				o.write("\t * ");
 				o.write(format(wrapper.getComment(), arguments));
 				o.write(lineSeparator);
-				if(deprecated)
-				{
-					o.write("\t * @deprecated ");
-					o.write(format(wrapper.getDeprecationComment(), arguments));
-					o.write(lineSeparator);
-				}
 				for(final String comment : wrapper.getComments())
 				{
 					o.write("\t * ");
@@ -482,6 +476,12 @@ final class Generator
 						o.write(format(comment, arguments));
 						o.write(lineSeparator);
 					}
+				}
+				if(deprecated)
+				{
+					o.write("\t * @deprecated ");
+					o.write(format(wrapper.getDeprecationComment(), arguments));
+					o.write(lineSeparator);
 				}
 				writeCommentFooter(
 					modifierTag!=null
