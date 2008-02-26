@@ -152,16 +152,16 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		
 		result.add(
 			new Wrapper(
-				"get",
-				"Returns the value of {0}.").
+				"get").
+			addComment("Returns the value of {0}.").
 			setReturn(valueClass));
 		
 		if(!isfinal)
 		{
 			result.add(
 				new Wrapper(
-					"set",
-					"Sets a new value for {0}.").
+					"set").
+				addComment("Sets a new value for {0}.").
 				addThrows(getSetterExceptions()).
 				addParameter(valueClass));
 		}

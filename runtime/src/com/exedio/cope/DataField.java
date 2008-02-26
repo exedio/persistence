@@ -140,33 +140,33 @@ public final class DataField extends Field<DataField.Value>
 		
 		result.add(
 			new Wrapper(
-				"isNull",
-				"Returns, whether there is no data for field {0}.").
+				"isNull").
+			addComment("Returns, whether there is no data for field {0}.").
 			setReturn(boolean.class));
 		
 		result.add(
 			new Wrapper(
-				"getLength",
-				"Returns the length of the data of the data field {0}.").
+				"getLength").
+			addComment("Returns the length of the data of the data field {0}.").
 			setReturn(long.class));
 			
 		result.add(
 			new Wrapper(
-				"getArray",
-				"Returns the value of the persistent field {0}."). // TODO better text
+				"getArray").
+			addComment("Returns the value of the persistent field {0}."). // TODO better text
 			setReturn(byte[].class));
 		
 		result.add(
 			new Wrapper(
-				"get",
-				"Writes the data of this persistent data field into the given stream.").
+				"get").
+			addComment("Writes the data of this persistent data field into the given stream.").
 			addThrows(IOException.class).
 			addParameter(OutputStream.class));
 			
 		result.add(
 			new Wrapper(
-				"get",
-				"Writes the data of this persistent data field into the given file.").
+				"get").
+			addComment("Writes the data of this persistent data field into the given file.").
 			addThrows(IOException.class).
 			addParameter(File.class));
 		
@@ -176,30 +176,30 @@ public final class DataField extends Field<DataField.Value>
 			
 			result.add(
 				new Wrapper(
-					"set",
-					"Sets a new value for the persistent field {0}."). // TODO better text
+					"set").
+				addComment("Sets a new value for the persistent field {0}."). // TODO better text
 				addThrows(exceptions).
 				addParameter(Value.class));
 			
 			result.add(
 				new Wrapper(
-					"set",
-					"Sets a new value for the persistent field {0}."). // TODO better text
+					"set").
+				addComment("Sets a new value for the persistent field {0}."). // TODO better text
 				addThrows(exceptions).
 				addParameter(byte[].class));
 
 			result.add(
 				new Wrapper(
-					"set",
-					"Sets a new value for the persistent field {0}."). // TODO better text
+					"set").
+				addComment("Sets a new value for the persistent field {0}."). // TODO better text
 				addThrows(exceptions).
 				addThrows(IOException.class).
 				addParameter(InputStream.class));
 			
 			result.add(
 				new Wrapper(
-					"set",
-					"Sets a new value for the persistent field {0}."). // TODO better text
+					"set").
+				addComment("Sets a new value for the persistent field {0}."). // TODO better text
 				addThrows(exceptions).
 				addThrows(IOException.class).
 				addParameter(File.class));
