@@ -116,29 +116,25 @@ public abstract class Hash extends Pattern implements Settable<String>
 		result.addAll(super.getWrappers());
 		
 		result.add(
-			new Wrapper(
-				"check").
+			new Wrapper("check").
 			addComment("Returns whether the given value corresponds to the hash in {0}.").
 			setReturn(boolean.class).
 			addParameter(String.class));
 		
 		final Set<Class<? extends Throwable>> setterExceptions = getSetterExceptions();
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(setterExceptions).
 			addParameter(String.class));
 		
 		result.add(
-			new Wrapper(
-				"getHash").
+			new Wrapper("getHash").
 			addComment("Returns the encoded hash value for hash {0}.").
 			setReturn(String.class));
 		
 		result.add(
-			new Wrapper(
-				"setHash").
+			new Wrapper("setHash").
 			addComment("Sets the encoded hash value for hash {0}.").
 			addThrows(setterExceptions).
 			addParameter(String.class));

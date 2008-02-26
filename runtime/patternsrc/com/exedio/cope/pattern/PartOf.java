@@ -57,8 +57,7 @@ public final class PartOf<C extends Item> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(
-			new Wrapper(
-				"getContainer").
+			new Wrapper("getContainer").
 			addComment("Returns the container this item is part of by {0}.").
 			setReturn(container.getValueClass()));
 		

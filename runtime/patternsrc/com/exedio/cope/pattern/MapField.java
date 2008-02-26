@@ -112,22 +112,19 @@ public final class MapField<K,V> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(
-			new Wrapper(
-				"get").
+			new Wrapper("get").
 			addComment("Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.").
 			setReturn(Wrapper.TypeVariable1.class).
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
 		
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.").
 			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
 			addParameter(Wrapper.TypeVariable1.class));
 		
 		result.add(
-			new Wrapper(
-				"getParent").
+			new Wrapper("getParent").
 			addComment("Returns the parent field of the type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").

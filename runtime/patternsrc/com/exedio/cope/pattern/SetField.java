@@ -106,14 +106,12 @@ public final class SetField<E> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(
-			new Wrapper(
-				"get").
+			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(Wrapper.generic(Set.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
-			new Wrapper(
-				"getParents").
+			new Wrapper("getParents").
 			addComment("Returns the items, for which field set {0} contains the given element.").
 			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
 			setStatic().
@@ -126,15 +124,13 @@ public final class SetField<E> extends Pattern
 		exceptions.add(ClassCastException.class);
 		
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
 			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
 		
 		result.add(
-			new Wrapper(
-				"add").
+			new Wrapper("add").
 			addComment("Adds a new element to {0}.").
 			addThrows(exceptions).
 			setMethodWrapperPattern("addTo{0}").
@@ -142,8 +138,7 @@ public final class SetField<E> extends Pattern
 			setReturn(boolean.class, MODIFICATION_RETURN));
 			
 		result.add(
-			new Wrapper(
-				"remove").
+			new Wrapper("remove").
 			addComment("Removes an element from {0}.").
 			addThrows(exceptions).
 			setMethodWrapperPattern("removeFrom{0}").
@@ -151,8 +146,7 @@ public final class SetField<E> extends Pattern
 			setReturn(boolean.class, MODIFICATION_RETURN));
 				
 		result.add(
-			new Wrapper(
-				"getParent").
+			new Wrapper("getParent").
 			addComment("Returns the parent field of the type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}Parent").

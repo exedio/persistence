@@ -246,63 +246,54 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 		if(optional)
 			result.add(
-				new Wrapper(
-					"isNull").
+				new Wrapper("isNull").
 				addComment("Returns whether media {0} is null."). // TODO better text
 				setReturn(boolean.class));
 		
 		result.add(
-			new Wrapper(
-				"getLastModified").
+			new Wrapper("getLastModified").
 			addComment("Returns the last modification date of media {0}.").
 			setReturn(long.class));
 		
 		result.add(
-			new Wrapper(
-				"getLength").
+			new Wrapper("getLength").
 			addComment("Returns the body length of the media {0}.").
 			setReturn(long.class));
 		
 		result.add(
-			new Wrapper(
-				"getBody").
+			new Wrapper("getBody").
 			addComment("Returns the body of the media {0}.").
 			setReturn(byte[].class));
 			
 		result.add(
-			new Wrapper(
-				"getBody").
+			new Wrapper("getBody").
 			addComment("Writes the body of media {0} into the given stream.").
 			addComment("Does nothing, if the media is null.").
 			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
 			addParameter(OutputStream.class, "body"));
 		
 		result.add(
-			new Wrapper(
-				"getBody").
+			new Wrapper("getBody").
 			addComment("Writes the body of media {0} into the given file.").
 			addComment("Does nothing, if the media is null.").
 			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
 			addParameter(File.class, "body"));
 		
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Sets the content of media {0}.").
 			addParameter(byte[].class, "body").
 			addParameter(String.class, "contentType"));
 			
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Sets the content of media {0}.").
 			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
 			addParameter(InputStream.class, "body").
 			addParameter(String.class, "contentType"));
 		
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Sets the content of media {0}.").
 			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
 			addParameter(File.class, "body").

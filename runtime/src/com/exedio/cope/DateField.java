@@ -106,8 +106,7 @@ public final class DateField extends FunctionField<Date>
 			exceptions.remove(MandatoryViolationException.class); // cannot set null
 			
 			result.add(
-				new Wrapper(
-					"touch").
+				new Wrapper("touch").
 				addComment("Sets the current date for the date field {0}."). // TODO better text
 				addThrows(exceptions));
 		}

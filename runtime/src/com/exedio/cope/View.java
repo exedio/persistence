@@ -98,8 +98,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		result.add(
-			new Wrapper(
-				"get").
+			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(valueClass)); // TODO box into primitives
 		return Collections.unmodifiableList(result);

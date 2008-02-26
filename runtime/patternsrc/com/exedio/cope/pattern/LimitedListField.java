@@ -135,8 +135,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		result.addAll(super.getWrappers());
 		
 		result.add(
-			new Wrapper(
-				"get").
+			new Wrapper("get").
 			addComment("Returns the value of {0}.").
 			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
 		
@@ -144,8 +143,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		exceptions.add(ClassCastException.class);
 		
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
 			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));

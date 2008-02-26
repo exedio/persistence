@@ -219,27 +219,23 @@ public final class DynamicModel<L> extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(
-			new Wrapper(
-				"getType").
+			new Wrapper("getType").
 			addComment("Returns the dynamic type of this item in the model {0}.").
 			setReturn(Wrapper.DynamicModelType.class));
 		
 		result.add(
-			new Wrapper(
-				"setType").
+			new Wrapper("setType").
 			addComment("Sets the dynamic type of this item in the model {0}.").
 			addParameter(Wrapper.DynamicModelType.class, "type"));
 			
 		result.add(
-			new Wrapper(
-				"get").
+			new Wrapper("get").
 			addComment("Returns the value of <tt>field</tt> for this item in the model {0}.").
 			setReturn(Object.class).
 			addParameter(Wrapper.DynamicModelField.class, "field"));
 			
 		result.add(
-			new Wrapper(
-				"set").
+			new Wrapper("set").
 			addComment("Sets the value of <tt>field</tt> for this item in the model {0}.").
 			addParameter(Wrapper.DynamicModelField.class, "field").
 			addParameter(Object.class, "value"));

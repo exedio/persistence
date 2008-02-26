@@ -154,8 +154,7 @@ public abstract class FunctionField<E extends Object>
 		final boolean setterTypePrimitive = setterType.isPrimitive();
 		
 		final Wrapper get =
-			new Wrapper(
-				setterTypePrimitive ? "getMandatory" : "get").
+			new Wrapper(setterTypePrimitive ? "getMandatory" : "get").
 			addComment("Returns the value of {0}.").
 			setReturn(setterType);
 		if(setterTypePrimitive)
@@ -169,8 +168,7 @@ public abstract class FunctionField<E extends Object>
 				exceptions.remove(MandatoryViolationException.class);
 			
 			result.add(
-				new Wrapper(
-					"set").
+				new Wrapper("set").
 				addComment("Sets a new value for {0}.").
 				addThrows(exceptions).
 				addParameter(setterType));
@@ -179,8 +177,7 @@ public abstract class FunctionField<E extends Object>
 		if(unique)
 		{
 			result.add(
-				new Wrapper(
-					"searchUnique").
+				new Wrapper("searchUnique").
 				addComment("Finds a {2} by it''s {0}.").
 				setMethodWrapperPattern("for{0}").
 				setStatic().
@@ -188,8 +185,7 @@ public abstract class FunctionField<E extends Object>
 				setReturn(Wrapper.ClassVariable.class, "null if there is no matching item."));
 			
 			result.add(
-				new Wrapper(
-					"searchUnique").
+				new Wrapper("searchUnique").
 				addComment("Finds a {2} by it''s {0}.").
 				setReturn(Wrapper.ClassVariable.class).
 				setMethodWrapperPattern("findBy{0}").
