@@ -31,15 +31,6 @@ public final class Wrapper
 {
 	private final String name;
 	
-	@Deprecated
-	public Wrapper(
-			final String name,
-			final String comment)
-	{
-		this(name);
-		addComment(comment);
-	}
-	
 	public Wrapper(final String name)
 	{
 		this.name = name;
