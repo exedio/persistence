@@ -741,20 +741,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			this.full = full;
 		}
 		
-		/**
-		 * @deprecated is used from deprecated code only
-		 */
-		@Deprecated
-		FixedContentType(final String major, final String minor)
-		{
-			this(major + '/' + minor);
-			
-			if(major==null)
-				throw new NullPointerException("fixedMimeMajor must not be null");
-			if(minor==null)
-				throw new NullPointerException("fixedMimeMinor must not be null");
-		}
-		
 		@Override
 		FixedContentType copy()
 		{
@@ -795,6 +781,22 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		Void set(final String contentType)
 		{
 			throw new RuntimeException();
+		}
+		
+		// ------------------- deprecated stuff -------------------
+		
+		/**
+		 * @deprecated is used from deprecated code only
+		 */
+		@Deprecated
+		FixedContentType(final String major, final String minor)
+		{
+			this(major + '/' + minor);
+			
+			if(major==null)
+				throw new NullPointerException("fixedMimeMajor must not be null");
+			if(minor==null)
+				throw new NullPointerException("fixedMimeMinor must not be null");
 		}
 	}
 
