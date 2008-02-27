@@ -109,7 +109,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 	
 	/**
-	 * Creates a new media, that must contain one the given content types only.
+	 * Creates a new media, that must contain one of the given content types only.
 	 */
 	public Media contentType(final String contentType1, final String contentType2)
 	{
