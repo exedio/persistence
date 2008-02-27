@@ -140,6 +140,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5);
 	}
 	
+	// cannot make this method public, because the instrumentor (i.e. beanshell) does not work with varargs
 	private Media contentTypes(final String... types)
 	{
 		return new Media(optional, body.getMaximumLength(), new EnumContentType(types, optional));
