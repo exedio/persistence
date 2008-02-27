@@ -116,6 +116,30 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return contentTypes(contentType1, contentType2);
 	}
 	
+	/**
+	 * Creates a new media, that must contain one of the given content types only.
+	 */
+	public Media contentType(final String contentType1, final String contentType2, final String contentType3)
+	{
+		return contentTypes(contentType1, contentType2, contentType3);
+	}
+	
+	/**
+	 * Creates a new media, that must contain one of the given content types only.
+	 */
+	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4)
+	{
+		return contentTypes(contentType1, contentType2, contentType3, contentType4);
+	}
+	
+	/**
+	 * Creates a new media, that must contain one of the given content types only.
+	 */
+	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5)
+	{
+		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5);
+	}
+	
 	private Media contentTypes(final String... types)
 	{
 		return new Media(optional, body.getMaximumLength(), new EnumContentType(types, optional));
