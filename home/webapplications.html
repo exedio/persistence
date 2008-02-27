@@ -27,9 +27,9 @@
 		</div>
 		<div>
 			If you already decided to use cope for a project,
-			you may want to use the cope demoshop as a template.
+			you may want to use the demo application as a template.
 			This way you can skip the steps described here.
-			The demoshop is available under the
+			The demo application is available under the
 			<a href="http://www.opensource.org/licenses/mit-license.php">The&nbsp;MIT&nbsp;License</a>.
 			<br>
 			<a href="http://sourceforge.net/project/showfiles.php?group_id=152867">Download</a>
@@ -125,7 +125,7 @@ protected void doGet(
    &lt;filter-class&gt;<a href="api/com/exedio/cope/util/CopeFilter.html">com.exedio.cope.util.CopeFilter</a>&lt;/filter-class&gt;
    &lt;init-param&gt;
       &lt;param-name&gt;model&lt;/param-name&gt;
-      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+      &lt;param-value&gt;<i>com.exedio.copedemo.Main</i>#model&lt;/param-value&gt;
    &lt;/init-param&gt;
 &lt;/filter&gt;
 &lt;filter-mapping&gt;
@@ -137,7 +137,7 @@ protected void doGet(
 		<div>
 			The example above applies the filter for all request to <tt>*.do</tt>,
 			a typical setting for struts.
-			It assumes, that the main class resides in package <tt>com.exedio.demoshop</tt>,
+			It assumes, that the main class resides in package <tt>com.exedio.copedemo</tt>,
 			please adapt this to your package.
 		</div>
 		<div>
@@ -174,7 +174,7 @@ protected void doGet(
    &lt;servlet-class&gt;com.exedio.cope.console.ConsoleServlet&lt;/servlet-class&gt;
    &lt;init-param&gt;
       &lt;param-name&gt;model&lt;/param-name&gt;
-      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+      &lt;param-value&gt;<i>com.exedio.copedemo.Main</i>#model&lt;/param-value&gt;
    &lt;/init-param&gt;
 &lt;/servlet&gt;
 &lt;servlet-mapping&gt;
@@ -218,7 +218,7 @@ protected void doGet(
    &lt;servlet-class&gt;com.exedio.copernica.CopernicaServlet&lt;/servlet-class&gt;
    &lt;init-param&gt;
       &lt;param-name&gt;model&lt;/param-name&gt;
-      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+      &lt;param-value&gt;<i>com.exedio.copedemo.Main</i>#model&lt;/param-value&gt;
    &lt;/init-param&gt;
 &lt;/servlet&gt;
 &lt;servlet-mapping&gt;
@@ -234,7 +234,7 @@ protected void doGet(
 <pre>
    &lt;init-param&gt;
       &lt;param-name&gt;model&lt;/param-name&gt;
-      &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+      &lt;param-value&gt;<i>com.exedio.copedemo.Main</i>#model&lt;/param-value&gt;
    &lt;/init-param&gt;
 </pre>
 		<div>
@@ -246,7 +246,7 @@ protected void doGet(
 <pre>
 &lt;context-param&gt;
    &lt;param-name&gt;model&lt;/param-name&gt;
-   &lt;param-value&gt;<i>com.exedio.demoshop.Main</i>#model&lt;/param-value&gt;
+   &lt;param-value&gt;<i>com.exedio.copedemo.Main</i>#model&lt;/param-value&gt;
 &lt;/context-param&gt;
 </pre>
 		<div>
