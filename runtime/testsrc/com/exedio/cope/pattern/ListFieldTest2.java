@@ -71,7 +71,7 @@ public class ListFieldTest2 extends AbstractLibTest
 		assertEquals(1, r1.get(order).intValue());
 		assertEquals(2, r2.get(order).intValue());
 		
-		r1.deleteCopeItem();
+		r1.deleteCopeItem(); // could happen, if element was a CASCADE ItemField
 		assertEquals(list("0zero", "2two"), item.getStrings());
 		
 		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
