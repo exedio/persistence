@@ -48,7 +48,7 @@ public final class ListField<E> extends Pattern
 
 	private ListField(final FunctionField<E> element)
 	{
-		this.order = new IntegerField().toFinal();
+		this.order = new IntegerField().toFinal().min(0);
 		this.element = element;
 		if(element==null)
 			throw new NullPointerException("element must not be null");

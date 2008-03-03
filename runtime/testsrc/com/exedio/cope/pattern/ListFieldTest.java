@@ -125,7 +125,7 @@ public class ListFieldTest extends AbstractLibTest
 		assertEquals(stringsType, stringsType.getThis().getValueType());
 		assertEquals(model, stringsType.getModel());
 		
-		assertEquals(Integer.MIN_VALUE, stringsOrder.getMinimum());
+		assertEquals(0                , stringsOrder.getMinimum());
 		assertEquals(Integer.MAX_VALUE, stringsOrder.getMaximum());
 
 		assertEquals("ListFieldItem.dates", datesType.getID());
