@@ -584,7 +584,7 @@ public abstract class Editor implements Filter
 						append(item.getCopeID()).
 						append("','").
 						append(block ? Cop.encodeXml(feature.get(item)).replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : Cop.encodeXml(feature.get(item))).		
-					append("');return false;\"").
+					append("');\"").
 			append('>').
 			append(content).
 			append("</").
@@ -614,7 +614,7 @@ public abstract class Editor implements Filter
 						append(item.getCopeID()).
 						append("','").
 						append(Cop.encodeXml(feature.getURL(item))).		
-					append("');return false;\"");
+					append("');\"");
 		
 		return bf.toString();
 	}
