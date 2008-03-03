@@ -26,7 +26,6 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
-import com.exedio.cope.UniqueViolationException;
 
 /**
  * Tests complicated situations for the setter.
@@ -75,26 +74,22 @@ public class ListFieldTest2 extends AbstractLibTest
 		r1.deleteCopeItem();
 		assertEquals(list("0zero", "2two"), item.getStrings());
 		
-		try
-		{
 			item.setStrings(Arrays.asList("0zero", "1one", "2two"));
-			fail();
-		}
-		catch(UniqueViolationException e)
-		{
-			assertEquals(item.strings.getUniqueConstraint(), e.getFeature());
-		}
-		assertEquals(list("0zero", "1one"), item.getStrings());
+		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
+		final Item r3;
 		{
 			final Iterator<? extends Item> i = type.search(null, order, true).iterator();
 			assertEquals(r0, i.next());
 			assertEquals(r2, i.next());
+			r3 = i.next();
 			assertFalse(i.hasNext());
 		}
 		assertEquals("0zero", r0.get(element));
 		assertEquals("1one",  r2.get(element));
+		assertEquals("2two",  r3.get(element));
 		assertEquals(0, r0.get(order).intValue());
 		assertEquals(2, r2.get(order).intValue());
+		assertEquals(3, r3.get(order).intValue());
 		assertFalse(r1.existsCopeItem());
 	}
 }
