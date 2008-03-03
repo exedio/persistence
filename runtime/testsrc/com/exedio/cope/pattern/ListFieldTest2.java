@@ -68,6 +68,9 @@ public class ListFieldTest2 extends AbstractLibTest
 		assertEquals("0zero", r0.get(element));
 		assertEquals("1one", r1.get(element));
 		assertEquals("2two", r2.get(element));
+		assertEquals(0, r0.get(order).intValue());
+		assertEquals(1, r1.get(order).intValue());
+		assertEquals(2, r2.get(order).intValue());
 		
 		r1.deleteCopeItem();
 		assertEquals(list("0zero", "2two"), item.getStrings());
@@ -82,5 +85,16 @@ public class ListFieldTest2 extends AbstractLibTest
 			assertEquals(item.strings.getUniqueConstraint(), e.getFeature());
 		}
 		assertEquals(list("0zero", "1one"), item.getStrings());
+		{
+			final Iterator<? extends Item> i = type.search(null, order, true).iterator();
+			assertEquals(r0, i.next());
+			assertEquals(r2, i.next());
+			assertFalse(i.hasNext());
+		}
+		assertEquals("0zero", r0.get(element));
+		assertEquals("1one",  r2.get(element));
+		assertEquals(0, r0.get(order).intValue());
+		assertEquals(2, r2.get(order).intValue());
+		assertFalse(r1.existsCopeItem());
 	}
 }
