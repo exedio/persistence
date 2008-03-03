@@ -54,6 +54,7 @@ public class ListFieldTest2 extends AbstractLibTest
 		final FunctionField<String> element = item.strings.getElement();
 		
 		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
+		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
 		final Item r0;
 		final Item r1;
 		final Item r2;
@@ -64,10 +65,9 @@ public class ListFieldTest2 extends AbstractLibTest
 			r2 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
 		assertEquals("0zero", r0.get(element));
-		assertEquals("1one", r1.get(element));
-		assertEquals("2two", r2.get(element));
+		assertEquals("1one",  r1.get(element));
+		assertEquals("2two",  r2.get(element));
 		assertEquals(0, r0.get(order).intValue());
 		assertEquals(1, r1.get(order).intValue());
 		assertEquals(2, r2.get(order).intValue());
