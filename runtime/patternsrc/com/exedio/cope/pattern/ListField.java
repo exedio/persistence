@@ -169,8 +169,8 @@ public final class ListField<E> extends Pattern
 		// This code is buggy, which leads to violations of the unique constraint
 		// on parent and order. See annotations below.
 		
-		// TODO query has no deterministic order
-		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item)).iterator();
+		
+		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item), this.order, true).iterator();
 		final Iterator<? extends E> expected = value.iterator();
 		
 		for(int order = 0; ; order++)
