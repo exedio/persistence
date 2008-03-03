@@ -74,7 +74,7 @@ public class ListFieldTest2 extends AbstractLibTest
 		r1.deleteCopeItem();
 		assertEquals(list("0zero", "2two"), item.getStrings());
 		
-			item.setStrings(Arrays.asList("0zero", "1one", "2two"));
+		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
 		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
 		final Item r3;
 		{

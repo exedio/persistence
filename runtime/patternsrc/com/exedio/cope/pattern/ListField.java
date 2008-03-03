@@ -165,11 +165,6 @@ public final class ListField<E> extends Pattern
 	
 	public void set(final Item item, final Collection<? extends E> value)
 	{
-		
-		
-		
-		
-		
 		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item), this.order, true).iterator();
 		final Iterator<? extends E> expected = value.iterator();
 		
