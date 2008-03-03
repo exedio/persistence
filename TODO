@@ -1,19 +1,11 @@
 * runtime
 	- constraints
-		- range (minimum/maximum) for integers/doubles
+		- range (minimum/maximum) for doubles
 		- precision (number of fractional digits) for doubles
 		- arbitrary check constraints
 	- search API
-		- introduce Condition#TRUE/#FALSE and use it for:
-			+ empty composite conditions
-			+ conditions contradicting constraints
-			+ skipping db searches at all
 		- oracle statistics
 		- group by
-	- Transactions: introduce timestamp and use it in
-		* Item#touch
-		* timestamp of data files
-		* list of open transactions in console
 	- EnumField:
 		* allow modification of integers in DB via cope.properties
 		* optionally put strings in DB
