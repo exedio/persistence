@@ -165,6 +165,11 @@ public final class ListField<E> extends Pattern
 	
 	public void set(final Item item, final Collection<? extends E> value)
 	{
+		// TODO
+		// This code is buggy, which leads to violations of the unique constraint
+		// on parent and order. See annotations below.
+		
+		// TODO query has no deterministic order
 		final Iterator<? extends Item> actual = this.relationType.search(Cope.equalAndCast(this.parent, item)).iterator();
 		final Iterator<? extends E> expected = value.iterator();
 		
@@ -190,6 +195,7 @@ public final class ListField<E> extends Pattern
 			}
 			else
 			{
+				// TODO make sure, expected item has correct order
 				this.element.set(actual.next(), expected.next());
 			}
 		}
