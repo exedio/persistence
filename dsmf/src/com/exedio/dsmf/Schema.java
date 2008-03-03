@@ -208,7 +208,7 @@ public final class Schema extends Node
 	
 	public final void tearDownConstraints(final int mask)
 	{
-		tearDownConstraints(mask);
+		tearDownConstraints(mask, null);
 	}
 	
 	public final void tearDownConstraints(final int mask, final StatementListener listener)
@@ -225,5 +225,4 @@ public final class Schema extends Node
 		for(final Table t : getTables())
 			t.checkUnsupportedConstraints();
 	}
-	
 }
