@@ -144,8 +144,7 @@ public final class Type<C extends Item>
 			{
 				if((field.getModifiers()&expectedModifier)==expectedModifier)
 				{
-					final Class fieldType = field.getType();
-					if(Feature.class.isAssignableFrom(fieldType))
+					if(Feature.class.isAssignableFrom(field.getType()))
 					{
 						field.setAccessible(true);
 						final Feature feature = (Feature)field.get(null);
