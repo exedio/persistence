@@ -163,7 +163,12 @@ public final class Type<C extends Item>
 		return result;
 	}
 	
-	Type(final Class<C> javaClass, final boolean uniqueJavaClass, final String id, final Pattern pattern, final LinkedHashMap<String, Feature> featureMap)
+	Type(
+			final Class<C> javaClass,
+			final boolean uniqueJavaClass,
+			final String id,
+			final Pattern pattern,
+			final LinkedHashMap<String, Feature> featureMap)
 	{
 		this.javaClass = javaClass;
 		this.uniqueJavaClass = uniqueJavaClass;
