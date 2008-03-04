@@ -164,17 +164,18 @@
 	</target>
 	
 	<target name="catalina">
+		<property name="catalina.root" value="apache-tomcat-6.0.16" />
 		<untar src="lib/apache-tomcat.tar.gz"
 				 compression="gzip"
 				 dest="${basedir}">
 			<patternset>
-				<exclude name="apache-tomcat-6.0.16/conf/server.xml" />
-				<exclude name="apache-tomcat-6.0.16/conf/tomcat-users.xml" />
-				<exclude name="apache-tomcat-6.0.16/webapps/ROOT/**" />
-				<exclude name="apache-tomcat-6.0.16/webapps/docs/**" />
-				<exclude name="apache-tomcat-6.0.16/webapps/examples/**" />
+				<exclude name="${catalina.root}/conf/server.xml" />
+				<exclude name="${catalina.root}/conf/tomcat-users.xml" />
+				<exclude name="${catalina.root}/webapps/ROOT/**" />
+				<exclude name="${catalina.root}/webapps/docs/**" />
+				<exclude name="${catalina.root}/webapps/examples/**" />
 			</patternset>
-			<mapper type="glob" from="apache-tomcat-6.0.16/*" to="tomcat/*" />
+			<mapper type="glob" from="${catalina.root}/*" to="tomcat/*" />
 		</untar>
 		<chmod dir="tomcat/bin" perm="ugo+x" includes="*.sh" />
 		<copy todir="tomcat/conf">
