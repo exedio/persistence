@@ -669,7 +669,22 @@ public abstract class Editor implements Filter
 			throw new IllegalArgumentException("item " + item.getCopeID() + " does not belong to type of feature " + feature.getID());
 	}
 	
+	interface Out
+	{
+		void print(String s);
+	}
+	
 	public static final void writeBar(final PrintStream out)
+	{
+		writeBar(new Out(){
+			public void print(final String s)
+			{
+				out.print(s);
+			}
+		});
+	}
+	
+	private static final void writeBar(final Out out)
 	{
 		final TL tl = tls.get();
 		if(tl==null)

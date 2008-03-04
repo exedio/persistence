@@ -74,7 +74,7 @@ final class Editor_Jspm
 	}
 	
 	static final void writeBar(
-			final PrintStream out,
+			final Editor.Out out,
 			final String action,
 			final String referer,
 			final boolean borders,
