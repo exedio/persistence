@@ -149,7 +149,7 @@ public final class Type<C extends Item>
 						field.setAccessible(true);
 						final Feature feature = (Feature)field.get(null);
 						if(feature==null)
-							throw new RuntimeException(field.getName());
+							throw new RuntimeException(javaClass.getName() + '-' + field.getName());
 						result.put(field.getName(), feature);
 						feature.setAnnotationField(field);
 					}
