@@ -106,8 +106,8 @@ final class Editor_Jspm
 					%>>
 			</form>
 			<h1>COPE Content Editor</h1>
-			logged in as <%=Cop.encodeXml(loginName)%>
-			<%if(previewNumber>0){%> <sup>*<%if(previewNumber>1){%><%=previewNumber%><%}%></sup><%}%>
+			logged in as <%=Cop.encodeXml(loginName)%><%
+			if(previewNumber>0){%> <sup>*<%if(previewNumber>1){%><%=previewNumber%><%}%></sup><%}%>
 			<br clear="both"><%
 			if(borders)
 			{
