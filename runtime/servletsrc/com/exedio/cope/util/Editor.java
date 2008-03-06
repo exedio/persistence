@@ -494,15 +494,6 @@ public abstract class Editor implements Filter
 	
 	private static final ThreadLocal<TL> tls = new ThreadLocal<TL>();
 	
-	/**
-	 * @deprecated Use {@link #isLoggedIn()} instead
-	 */
-	@Deprecated
-	public static final boolean isActive()
-	{
-		return isLoggedIn();
-	}
-
 	public static final boolean isLoggedIn()
 	{
 		return tls.get()!=null;
@@ -536,15 +527,6 @@ public abstract class Editor implements Filter
 				content,
 				(StringField)feature.getValue(),
 				getItem(feature, key, item));
-	}
-	
-	/**
-	 * @deprecated use {@link #edit(String, MapField, Item, Object)} instead.
-	 */
-	@Deprecated
-	public static final <K> String editBlock(final String content, final MapField<K, String> feature, final Item item, final K key)
-	{
-		return edit(content, feature, item, key);
 	}
 	
 	public static final String edit(final String content, final StringField feature, final Item item)
@@ -708,5 +690,25 @@ public abstract class Editor implements Filter
 	{
 		final String queryString = request.getQueryString();
 		return queryString!=null ? (request.getPathInfo() + '?' + request.getQueryString()) : request.getPathInfo();
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #isLoggedIn()} instead
+	 */
+	@Deprecated
+	public static final boolean isActive()
+	{
+		return isLoggedIn();
+	}
+	
+	/**
+	 * @deprecated use {@link #edit(String, MapField, Item, Object)} instead.
+	 */
+	@Deprecated
+	public static final <K> String editBlock(final String content, final MapField<K, String> feature, final Item item, final K key)
+	{
+		return edit(content, feature, item, key);
 	}
 }
