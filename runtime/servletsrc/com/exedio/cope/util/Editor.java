@@ -520,6 +520,14 @@ public abstract class Editor implements Filter
 			if(borders)
 				bf.append(" bordered");
 			
+			final int previewNumber = previews.size();
+			if(previewNumber>0)
+			{
+				bf.append(" *");
+				if(previewNumber>1)
+					bf.append(previewNumber);
+			}
+			
 			return bf.toString();
 		}
 	}
