@@ -506,13 +506,21 @@ public abstract class Editor implements Filter
 		@Override
 		public String toString()
 		{
+			final StringBuilder bf = new StringBuilder();
+			
 			// must not call login#getName() here,
 			// because this may require a transaction,
 			// which may not be present,
 			// especially when this method is called by lamdba probe.
-			return
-				(loginName!=null ? ('"' + loginName + '"') : login.getClass().getName()) +
-				" borders=" + (borders ? "on" : "off");
+			if(loginName!=null)
+				bf.append('"').append(loginName).append('"');
+			else
+				bf.append(login.getClass().getName());
+			
+			if(borders)
+				bf.append(" bordered");
+			
+			return bf.toString();
 		}
 	}
 	
