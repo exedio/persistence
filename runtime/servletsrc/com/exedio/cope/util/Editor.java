@@ -532,25 +532,19 @@ public abstract class Editor implements Filter
 		checkEdit(feature, item);
 		
 		return edit(
-				tl, false,
+				tl,
 				content,
 				(StringField)feature.getValue(),
 				getItem(feature, key, item));
 	}
 	
+	/**
+	 * @deprecated use {@link #edit(String, MapField, Item, Object)} instead.
+	 */
+	@Deprecated
 	public static final <K> String editBlock(final String content, final MapField<K, String> feature, final Item item, final K key)
 	{
-		final TL tl = tls.get();
-		if(tl==null || !tl.session.borders)
-			return content;
-		
-		checkEdit(feature, item);
-		
-		return edit(
-				tl, true,
-				content,
-				(StringField)feature.getValue(),
-				getItem(feature, key, item));
+		return edit(content, feature, item, key);
 	}
 	
 	public static final String edit(final String content, final StringField feature, final Item item)
@@ -559,18 +553,19 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.session.borders)
 			return content;
 		
-		return edit(tl, false, content, feature, item);
+		return edit(tl, content, feature, item);
 	}
 	
 	static final String EDIT_METHOD = AVOID_COLLISION + "edit";
 	
-	private static final String edit(final TL tl, final boolean block, final String content, final StringField feature, final Item item)
+	private static final String edit(final TL tl, final String content, final StringField feature, final Item item)
 	{
 		assert tl.session.borders;
 		checkEdit(feature, item);
 		if(feature.isFinal())
 			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
+		final boolean block = feature.getMaximumLength()>StringField.DEFAULT_LENGTH;
 		final String tag = block ? "div" : "span";
 		final StringBuilder bf = new StringBuilder();
 		bf.append('<').

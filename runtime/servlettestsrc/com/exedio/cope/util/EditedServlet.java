@@ -80,10 +80,11 @@ public final class EditedServlet extends HttpServlet
 		final EditedItem item1 = new EditedItem(
 				number,
 				"item" + number,
+				"item" + number + "fieldBlock\nsecond line\r\nthird line",
 				Media.toValue(InitServlet.class.getResourceAsStream(image), imageContentType));
 		item1.setMap(1, "item" + number + "map1");
 		item1.setMap(2, "item" + number + "map2");
-		item1.setMap(3, "item" + number + "map3Block\nsecond line\r\nthird line");
+		item1.setMapBlock(1, "item" + number + "map1Block\nsecond line\r\nthird line");
 		return item1;
 	}
 
