@@ -22,7 +22,6 @@ import com.exedio.cope.util.Day;
 
 public final class DayField extends FunctionField<Day>
 {
-	
 	private DayField(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultConstant)
 	{
 		super(isfinal, optional, unique, Day.class, defaultConstant);
@@ -32,15 +31,6 @@ public final class DayField extends FunctionField<Day>
 	public DayField()
 	{
 		this(false, false, false, null);
-	}
-	
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public DayField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null);
 	}
 	
 	@Override
@@ -91,4 +81,14 @@ public final class DayField extends FunctionField<Day>
 		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber(surface)));
 	}
 	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	public DayField(final Option option)
+	{
+		this(option.isFinal, option.optional, option.unique, null);
+	}
 }
