@@ -661,10 +661,7 @@ public abstract class Editor implements Filter
 			return;
 		
 		writeBar(tl, new Out(){
-			public void print(final String s)
-			{
-				out.print(s);
-			}
+			public void print(final String s) { out.print(s); }
 		});
 	}
 	
