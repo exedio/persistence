@@ -556,7 +556,9 @@ public abstract class Editor implements Filter
 		return edit(tl, content, feature, item);
 	}
 	
-	static final String EDIT_METHOD = AVOID_COLLISION + "edit";
+	static final String EDIT_METHOD_SPAN = AVOID_COLLISION + "span";
+	static final String EDIT_METHOD_IMG  = AVOID_COLLISION + "img";
+	static final String EDIT_METHOD_DIV  = AVOID_COLLISION + "div";
 	
 	private static final String edit(final TL tl, final String content, final StringField feature, final Item item)
 	{
@@ -574,7 +576,7 @@ public abstract class Editor implements Filter
 			append(
 				" class=\"contentEditorLink\"" +
 				" onclick=\"" +
-					"return " + EDIT_METHOD + "(this,'").
+					"return " + (block ? EDIT_METHOD_DIV : EDIT_METHOD_SPAN) + "(this,'").
 						append(feature.getID()).
 						append("','").
 						append(item.getCopeID()).
@@ -604,7 +606,7 @@ public abstract class Editor implements Filter
 		bf.append(
 				" class=\"contentEditorLink\"" +
 				" onclick=\"" +
-					"return " + EDIT_METHOD + "(this,'").
+					"return " + EDIT_METHOD_IMG + "(this,'").
 						append(feature.getID()).
 						append("','").
 						append(item.getCopeID()).

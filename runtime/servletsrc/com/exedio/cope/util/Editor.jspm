@@ -125,7 +125,7 @@ final class Editor_Jspm
 			<script>
 				var previousBorder = null;
 				
-				function <%=Editor.EDIT_METHOD%>(border,feature,item,value)
+				function <%=Editor.EDIT_METHOD_SPAN%>(border,feature,item,value)
 				{
 					if(previousBorder==border)
 						return true;
@@ -136,39 +136,71 @@ final class Editor_Jspm
 					var line = document.getElementById("<%=ID_LINE%>");
 					var file = document.getElementById("<%=ID_FILE%>");
 					var area = document.getElementById("<%=ID_AREA%>");
-					if(border.tagName=="SPAN")
-					{
-						fileForm.style.display = "none";
-						areaForm.style.display = "none";
-						file.value = null;
-						area.firstChild.data = null;
-						document.getElementById("<%=ID_LINE_FEATURE%>").value = feature;
-						document.getElementById("<%=ID_LINE_ITEM   %>").value = item;
-						line.value = value;
-						lineForm.style.display = "inline";
-					}
-					else if(border.tagName=="IMG")
-					{
-						lineForm.style.display = "none";
-						areaForm.style.display = "none";
-						line.value = null;
-						area.firstChild.data = null;
-						document.getElementById("<%=ID_FILE_FEATURE%>").value = feature;
-						document.getElementById("<%=ID_FILE_ITEM   %>").value = item;
-						file.src = value;
-						fileForm.style.display = "inline";
-					}
-					else
-					{
-						lineForm.style.display = "none";
-						fileForm.style.display = "none";
-						line.value = null;
-						file.value = null;
-						document.getElementById("<%=ID_AREA_FEATURE%>").value = feature;
-						document.getElementById("<%=ID_AREA_ITEM   %>").value = item;
-						area.firstChild.data = value;
-						areaForm.style.display = "inline";
-					}
+
+					fileForm.style.display = "none";
+					areaForm.style.display = "none";
+					file.value = null;
+					area.firstChild.data = null;
+					document.getElementById("<%=ID_LINE_FEATURE%>").value = feature;
+					document.getElementById("<%=ID_LINE_ITEM   %>").value = item;
+					line.value = value;
+					lineForm.style.display = "inline";
+					
+					if(previousBorder!=null)
+						previousBorder.className='contentEditorLink';
+					border.className='contentEditorLinkEdited';
+					previousBorder = border;
+					
+					return false;
+				}
+				function <%=Editor.EDIT_METHOD_IMG%>(border,feature,item,value)
+				{
+					if(previousBorder==border)
+						return true;
+					
+					var lineForm = document.getElementById("<%=ID_FORM_LINE%>");
+					var fileForm = document.getElementById("<%=ID_FORM_FILE%>");
+					var areaForm = document.getElementById("<%=ID_FORM_AREA%>");
+					var line = document.getElementById("<%=ID_LINE%>");
+					var file = document.getElementById("<%=ID_FILE%>");
+					var area = document.getElementById("<%=ID_AREA%>");
+					
+					lineForm.style.display = "none";
+					areaForm.style.display = "none";
+					line.value = null;
+					area.firstChild.data = null;
+					document.getElementById("<%=ID_FILE_FEATURE%>").value = feature;
+					document.getElementById("<%=ID_FILE_ITEM   %>").value = item;
+					file.src = value;
+					fileForm.style.display = "inline";
+					
+					if(previousBorder!=null)
+						previousBorder.className='contentEditorLink';
+					border.className='contentEditorLinkEdited';
+					previousBorder = border;
+					
+					return false;
+				}
+				function <%=Editor.EDIT_METHOD_DIV%>(border,feature,item,value)
+				{
+					if(previousBorder==border)
+						return true;
+					
+					var lineForm = document.getElementById("<%=ID_FORM_LINE%>");
+					var fileForm = document.getElementById("<%=ID_FORM_FILE%>");
+					var areaForm = document.getElementById("<%=ID_FORM_AREA%>");
+					var line = document.getElementById("<%=ID_LINE%>");
+					var file = document.getElementById("<%=ID_FILE%>");
+					var area = document.getElementById("<%=ID_AREA%>");
+					
+					lineForm.style.display = "none";
+					fileForm.style.display = "none";
+					line.value = null;
+					file.value = null;
+					document.getElementById("<%=ID_AREA_FEATURE%>").value = feature;
+					document.getElementById("<%=ID_AREA_ITEM   %>").value = item;
+					area.firstChild.data = value;
+					areaForm.style.display = "inline";
 					
 					if(previousBorder!=null)
 						previousBorder.className='contentEditorLink';
