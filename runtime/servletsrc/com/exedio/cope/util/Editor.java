@@ -183,6 +183,7 @@ public abstract class Editor implements Filter
 	static final String SAVE_TEXT    = "text";
 	static final String SAVE_FILE    = "file";
 	static final String SAVE_ITEM_FROM = "itemPrevious";
+	static final String PREVIEW = "preview";
 	
 	private static final String CLOSE_IMAGE       = CLOSE       + ".x";
 	private static final String BORDERS_ON_IMAGE  = BORDERS_ON  + ".x";
@@ -307,10 +308,18 @@ public abstract class Editor implements Filter
 						
 						final Item item = model.getItem(itemID);
 	
+						if(request.getParameter(PREVIEW)!=null)
+						{
+							session.setPreview(value, feature, item);
+						}
+						else
+						{
 						String v = value;
 						if("".equals(v))
 							v = null;
 						feature.set(item, v);
+							session.notifySaved(feature, item);
+						}
 						
 						model.commit();
 					}
@@ -428,6 +437,7 @@ public abstract class Editor implements Filter
 		final Login login;
 		final String loginName;
 		boolean borders = false;
+		final HashMap<Preview, String> previews = new HashMap<Preview, String>();
 		
 		Session(final Login login, final String loginName)
 		{
@@ -435,6 +445,63 @@ public abstract class Editor implements Filter
 			this.loginName = loginName;
 			assert login!=null;
 		}
+		
+		private static final class Preview implements Serializable // for session persistence
+		{
+			private static final long serialVersionUID = 1l;
+			
+			final String feature;
+			final Item item;
+			
+			Preview(final StringField feature, final Item item)
+			{
+				this.feature = feature.getID(); // id is serializable
+				this.item = item;
+				
+				assert feature!=null;
+				assert item!=null;
+			}
+			
+			@Override
+			public int hashCode()
+			{
+				return feature.hashCode() ^ item.hashCode();
+			}
+			
+			@Override
+			public boolean equals(final Object other)
+			{
+				if(!(other instanceof Preview))
+					return false;
+				
+				final Preview o = (Preview)other;
+				return feature.equals(o.feature) && item.equals(o.item);
+			}
+		}
+		
+		int getPreviewNumber()
+		{
+			return previews.size();
+		}
+		
+		String getPreview(final StringField feature, final Item item)
+		{
+			if(previews.isEmpty()) // shortcut
+				return null;
+			
+			return previews.get(new Preview(feature, item));
+		}
+		
+		void setPreview(final String content, final StringField feature, final Item item)
+		{
+			previews.put(new Preview(feature, item), content);
+		}
+		
+		void notifySaved(final StringField feature, final Item item)
+		{
+			previews.remove(new Preview(feature, item));
+		}
+		
 		
 		@Override
 		public String toString()
@@ -517,7 +584,7 @@ public abstract class Editor implements Filter
 	public static final <K> String edit(final String content, final MapField<K, String> feature, final Item item, final K key)
 	{
 		final TL tl = tls.get();
-		if(tl==null || !tl.session.borders)
+		if(tl==null)
 			return content;
 		
 		checkEdit(feature, item);
@@ -532,7 +599,7 @@ public abstract class Editor implements Filter
 	public static final String edit(final String content, final StringField feature, final Item item)
 	{
 		final TL tl = tls.get();
-		if(tl==null || !tl.session.borders)
+		if(tl==null)
 			return content;
 		
 		return edit(tl, content, feature, item);
@@ -544,14 +611,39 @@ public abstract class Editor implements Filter
 	
 	private static final String edit(final TL tl, final String content, final StringField feature, final Item item)
 	{
-		assert tl.session.borders;
 		checkEdit(feature, item);
 		if(feature.isFinal())
 			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
+		if(!tl.session.borders)
+		{
+			final String preview = tl.session.getPreview(feature, item);
+			return (preview!=null) ? preview : content;
+		}
+		
 		final boolean block = feature.getMaximumLength()>StringField.DEFAULT_LENGTH;
+		final String savedContent = feature.get(item);
+		final String pageContent;
+		final String editorContent;
+		final boolean previewAllowed;
+		if(content!=null ? content.equals(savedContent) : (savedContent==null))
+		{
+			previewAllowed = true;
+			final String preview = tl.session.getPreview(feature, item);
+			if(preview!=null)
+				pageContent = editorContent = preview;
+			else
+				pageContent = editorContent = savedContent; // equals content anyway
+		}
+		else
+		{
+			previewAllowed = false;
+			pageContent = content;
+			editorContent = savedContent;
+		}
+		
 		final String tag = block ? "div" : "span";
-		final String contentForm = Cop.encodeXml(feature.get(item));
+		final String editorContentEncoded = Cop.encodeXml(editorContent);
 		final StringBuilder bf = new StringBuilder();
 		bf.append('<').
 			append(tag).
@@ -563,10 +655,10 @@ public abstract class Editor implements Filter
 						append("','").
 						append(item.getCopeID()).
 						append("','").
-						append(block ? contentForm.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : contentForm).		
-					append("');\"").
+						append(block ? editorContentEncoded.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : editorContentEncoded).		
+					append("'," + previewAllowed + ");\"").
 			append('>').
-			append(content).
+			append(pageContent).
 			append("</").
 			append(tag).
 			append('>');
@@ -652,6 +744,7 @@ public abstract class Editor implements Filter
 	interface Out
 	{
 		void print(String s);
+		void print(int i);
 	}
 	
 	public static final void writeBar(final PrintStream out)
@@ -662,6 +755,7 @@ public abstract class Editor implements Filter
 		
 		writeBar(tl, new Out(){
 			public void print(final String s) { out.print(s); }
+			public void print(final int    i) { out.print(i); }
 		});
 	}
 	
@@ -675,6 +769,7 @@ public abstract class Editor implements Filter
 				tl.session.borders ? BORDERS_OFF : BORDERS_ON,
 				tl.filter.getBorderButtonURL(request, tl.response, tl.session.borders),
 				tl.filter.getCloseButtonURL(request, tl.response),
+				tl.session.getPreviewNumber(),
 				tl.session.login.getName());
 	}
 	

@@ -81,6 +81,7 @@ final class Editor_Jspm
 			final String borderToggleParameter,
 			final String borderButtonURL,
 			final String closeButtonURL,
+			final int previewNumber,
 			final String loginName)
 	{
 		%>
@@ -106,6 +107,7 @@ final class Editor_Jspm
 			</form>
 			<h1>COPE Content Editor</h1>
 			logged in as <%=Cop.encodeXml(loginName)%>
+			<%if(previewNumber>0){%> <sup>*<%if(previewNumber>1){%><%=previewNumber%><%}%></sup><%}%>
 			<br clear="both"><%
 			if(borders)
 			{
@@ -121,11 +123,13 @@ final class Editor_Jspm
 				final String ID_LINE    = Editor.AVOID_COLLISION + "saveLine";
 				final String ID_FILE    = Editor.AVOID_COLLISION + "saveFile";
 				final String ID_AREA    = Editor.AVOID_COLLISION + "saveArea";
+				final String ID_LINE_PREVIEW = Editor.AVOID_COLLISION + "saveLinePreview";
+				final String ID_AREA_PREVIEW = Editor.AVOID_COLLISION + "saveAreaPreview";
 			%>
 			<script>
 				var previousBorder = null;
 				
-				function <%=Editor.EDIT_METHOD_LINE%>(border,feature,item,value)
+				function <%=Editor.EDIT_METHOD_LINE%>(border,feature,item,value,preview)
 				{
 					if(previousBorder==border)
 						return true;
@@ -137,6 +141,7 @@ final class Editor_Jspm
 					document.getElementById("<%=ID_LINE_FEATURE%>").value = feature;
 					document.getElementById("<%=ID_LINE_ITEM   %>").value = item;
 					document.getElementById("<%=ID_LINE%>").value = value;
+					document.getElementById("<%=ID_LINE_PREVIEW%>").style.display = preview ? "inline" : "none";
 					document.getElementById("<%=ID_FORM_LINE%>").style.display = "inline";
 					
 					if(previousBorder!=null)
@@ -167,7 +172,7 @@ final class Editor_Jspm
 					
 					return false;
 				}
-				function <%=Editor.EDIT_METHOD_AREA%>(border,feature,item,value)
+				function <%=Editor.EDIT_METHOD_AREA%>(border,feature,item,value,preview)
 				{
 					if(previousBorder==border)
 						return true;
@@ -179,6 +184,7 @@ final class Editor_Jspm
 					document.getElementById("<%=ID_AREA_FEATURE%>").value = feature;
 					document.getElementById("<%=ID_AREA_ITEM   %>").value = item;
 					document.getElementById("<%=ID_AREA%>").firstChild.data = value;
+					document.getElementById("<%=ID_AREA_PREVIEW%>").style.display = preview ? "inline" : "none";
 					document.getElementById("<%=ID_FORM_AREA%>").style.display = "inline";
 					
 					if(previousBorder!=null)
@@ -194,7 +200,9 @@ final class Editor_Jspm
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_LINE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_TEXT      %>" id="<%=ID_LINE   %>" class="text">
+				<br>
 				<input type="submit" value="Save">
+				<input type="submit" value="Preview" name="<%=Editor.PREVIEW%>" id="<%=ID_LINE_PREVIEW%>">
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
 				<img id="<%=ID_FILE%>" src="">
@@ -212,6 +220,7 @@ final class Editor_Jspm
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_AREA_ITEM   %>" type="hidden">
 				<textarea name="<%=Editor.SAVE_TEXT      %>" id="<%=ID_AREA   %>" cols="100" rows="15">X</textarea>
 				<input type="submit" value="Save">
+				<input type="submit" value="Preview" name="<%=Editor.PREVIEW%>" id="<%=ID_AREA_PREVIEW%>">
 			</form><%
 			}
 			%>

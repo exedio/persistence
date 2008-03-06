@@ -141,9 +141,9 @@ final class EditedServlet_Jspm
 				<%=item.getCopeID()%>
 				p(<%=item.getPosition()%>,<%=edit(item.position, item)%>)
 				<ul>
-					<li>field: <%=edit(item.getField(), item.field, item)%> (<%=item.getField()%>)</li>
+					<li>field: <%=edit(item.getField(), item.field, item)%> (<%=item.getField()%>) {<%=edit("---"+item.getField()+"---", item.field, item)%>}</li>
 					<li>fieldBlock: <pre><%=edit(item.getFieldBlock(), item.fieldBlock, item)%></pre> <pre><%=item.getFieldBlock()%></pre></li>
-					<li>map(1): <%=edit(item.getMap(1), item.map, item, 1)%> (<%=item.getMap(1)%>)</li>
+					<li>map(1): <%=edit(item.getMap(1), item.map, item, 1)%> (<%=item.getMap(1)%>) {<%=edit("---"+item.getMap(1)+"---", item.map, item, 1)%>}</li>
 					<li>map(2): <%=edit(item.getMap(2), item.map, item, 2)%> (<%=item.getMap(2)%>)</li>
 					<li>mapBlock(1): <pre><%=edit(item.getMapBlock(1), item.mapBlock, item, 1)%></pre> <pre><%=item.getMapBlock(1)%></pre></li>
 					<li>image: <a href="<%=response.encodeURL("image" + item.getPosition() + ".html")%>"><img src="<%=item.getImageURL()%>"<%=edit(item.image, item)%> height="50"></a><%=item.getImageContentType()%></li>
