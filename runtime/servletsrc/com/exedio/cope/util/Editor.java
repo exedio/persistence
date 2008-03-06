@@ -314,10 +314,10 @@ public abstract class Editor implements Filter
 						}
 						else
 						{
-						String v = value;
-						if("".equals(v))
-							v = null;
-						feature.set(item, v);
+							String v = value;
+							if("".equals(v))
+								v = null;
+							feature.set(item, v);
 							session.notifySaved(feature, item);
 						}
 						
