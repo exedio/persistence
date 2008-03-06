@@ -125,7 +125,7 @@ final class Editor_Jspm
 			<script>
 				var previousBorder = null;
 				
-				function <%=Editor.EDIT_METHOD_SPAN%>(border,feature,item,value)
+				function <%=Editor.EDIT_METHOD_LINE%>(border,feature,item,value)
 				{
 					if(previousBorder==border)
 						return true;
@@ -146,7 +146,7 @@ final class Editor_Jspm
 					
 					return false;
 				}
-				function <%=Editor.EDIT_METHOD_IMG%>(border,feature,item,value)
+				function <%=Editor.EDIT_METHOD_FILE%>(border,feature,item,value)
 				{
 					if(previousBorder==border)
 						return true;
@@ -167,7 +167,7 @@ final class Editor_Jspm
 					
 					return false;
 				}
-				function <%=Editor.EDIT_METHOD_DIV%>(border,feature,item,value)
+				function <%=Editor.EDIT_METHOD_AREA%>(border,feature,item,value)
 				{
 					if(previousBorder==border)
 						return true;
