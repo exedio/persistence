@@ -179,7 +179,7 @@ final class Editor_Jspm
 				}
 			</script>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;">
-				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
+				<input name="<%=   Editor.REFERER        %>" value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_LINE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_TEXT      %>" id="<%=ID_LINE   %>" class="text">
@@ -187,7 +187,7 @@ final class Editor_Jspm
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
 				<img id="<%=ID_FILE%>" src="">
-				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
+				<input name="<%=   Editor.REFERER        %>" value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_FILE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.SAVE_FILE      %>" type="file" class="text">
@@ -196,7 +196,7 @@ final class Editor_Jspm
 				<br>
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;">
-				<input name="<%=   Editor.REFERER       %>"  value="<%=referer%>" type="hidden">
+				<input name="<%=   Editor.REFERER        %>" value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.SAVE_FEATURE   %>" id="<%=ID_AREA_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.SAVE_ITEM      %>" id="<%=ID_AREA_ITEM   %>" type="hidden">
 				<textarea name="<%=Editor.SAVE_TEXT      %>" id="<%=ID_AREA   %>" cols="100" rows="15">X</textarea>
