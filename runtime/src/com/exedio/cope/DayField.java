@@ -18,6 +18,12 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Day;
 
 public final class DayField extends FunctionField<Day>
@@ -63,6 +69,26 @@ public final class DayField extends FunctionField<Day>
 	}
 	
 	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		if(!isfinal)
+		{
+			final Set<Class<? extends Throwable>> exceptions = getSetterExceptions();
+			exceptions.remove(MandatoryViolationException.class); // cannot set null
+			
+			result.add(
+				new Wrapper("touch").
+				addComment("Sets today for the date field {0}.").
+				addThrows(exceptions));
+		}
+			
+		return Collections.unmodifiableList(result);
+	}
+	
+	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new DayColumn(table, this, name, optional);
@@ -79,6 +105,25 @@ public final class DayField extends FunctionField<Day>
 	void set(final Row row, final Day surface)
 	{
 		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber(surface)));
+	}
+	
+	/**
+	 * @throws FinalViolationException
+	 *         if this field is {@link #isFinal() final}.
+	 */
+	public void touch(final Item item)
+		throws
+			UniqueViolationException,
+			FinalViolationException
+	{
+		try
+		{
+			set(item, new Day()); // TODO: make a more efficient implementation
+		}
+		catch(MandatoryViolationException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 	
 	// ------------------- deprecated stuff -------------------

@@ -114,6 +114,9 @@ public class DayFieldTest extends AbstractLibTest
 		assertEquals(optionalDay, item.getOptionalDay());
 		restartTransaction();
 		assertEquals(optionalDay, item.getOptionalDay());
+		
+		item.touchOptionalDay();
+		assertEquals(new Day(), item.getOptionalDay());
 
 		item.setOptionalDay(null);
 		assertEquals(null, item.getOptionalDay());
