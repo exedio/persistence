@@ -506,12 +506,12 @@ public abstract class Editor implements Filter
 	}
 	
 	@SuppressWarnings("cast") // OK: for eclipse because of the javac bug
-	private static final <K> Item getItem(final MapField<K, String> map, final K key, final Item item)
+	private static final <K> Item getItem(final MapField<K, String> feature, final K key, final Item item)
 	{
 		return
-				(Item)map.getRelationType().searchSingletonStrict( // cast is needed because of a bug in javac
-						map.getKey().equal(key).and(
-						Cope.equalAndCast(map.getParent(item.getCopeType().getJavaClass()), item)));
+				(Item)feature.getRelationType().searchSingletonStrict( // cast is needed because of a bug in javac
+						feature.getKey().equal(key).and(
+						Cope.equalAndCast(feature.getParent(item.getCopeType().getJavaClass()), item)));
 	}
 	
 	public static final <K> String edit(final String content, final MapField<K, String> feature, final Item item, final K key)
