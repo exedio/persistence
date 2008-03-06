@@ -676,7 +676,11 @@ public abstract class Editor implements Filter
 	
 	public static final void writeBar(final PrintStream out)
 	{
-		writeBar(new Out(){
+		final TL tl = tls.get();
+		if(tl==null)
+			return;
+		
+		writeBar(tl, new Out(){
 			public void print(final String s)
 			{
 				out.print(s);
@@ -684,12 +688,8 @@ public abstract class Editor implements Filter
 		});
 	}
 	
-	private static final void writeBar(final Out out)
+	private static final void writeBar(final TL tl, final Out out)
 	{
-		final TL tl = tls.get();
-		if(tl==null)
-			return;
-		
 		final HttpServletRequest request = tl.request;
 		Editor_Jspm.writeBar(out,
 				action(request, tl.response),
