@@ -567,6 +567,7 @@ public abstract class Editor implements Filter
 		
 		final boolean block = feature.getMaximumLength()>StringField.DEFAULT_LENGTH;
 		final String tag = block ? "div" : "span";
+		final String contentForm = Cop.encodeXml(feature.get(item));
 		final StringBuilder bf = new StringBuilder();
 		bf.append('<').
 			append(tag).
@@ -578,7 +579,7 @@ public abstract class Editor implements Filter
 						append("','").
 						append(item.getCopeID()).
 						append("','").
-						append(block ? Cop.encodeXml(feature.get(item)).replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : Cop.encodeXml(feature.get(item))).		
+						append(block ? contentForm.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : contentForm).		
 					append("');\"").
 			append('>').
 			append(content).
