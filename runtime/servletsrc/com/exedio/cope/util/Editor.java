@@ -775,6 +775,18 @@ public abstract class Editor implements Filter
 		});
 	}
 	
+	public static final void writeBar(final StringBuilder out)
+	{
+		final TL tl = tls.get();
+		if(tl==null)
+			return;
+		
+		writeBar(tl, new Out(){
+			public void print(final String s) { out.append(s); }
+			public void print(final int    i) { out.append(i); }
+		});
+	}
+	
 	private static final void writeBar(final TL tl, final Out out)
 	{
 		final HttpServletRequest request = tl.request;
