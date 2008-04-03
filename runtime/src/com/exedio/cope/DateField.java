@@ -29,6 +29,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class DateField extends FunctionField<Date>
 {
 	final boolean defaultNow;
+	private final boolean suspiciousForWrongDefaultNow;
 
 	private DateField(
 			final boolean isfinal, final boolean optional, final boolean unique,
@@ -36,6 +37,7 @@ public final class DateField extends FunctionField<Date>
 	{
 		super(isfinal, optional, unique, Date.class, defaultConstant);
 		this.defaultNow = defaultNow;
+		this.suspiciousForWrongDefaultNow = defaultConstant!=null && Math.abs(defaultConstant.getTime()-System.currentTimeMillis())<100;
 
 		assert !(defaultConstant!=null && defaultNow);
 		checkDefaultValue();
@@ -120,6 +122,12 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
+		if(suspiciousForWrongDefaultNow)
+			System.out.println(
+					"WARNING: " +
+					"Very probably you called \"DateField.defaultTo(new Date())\" on field " + getID() + ". " +
+					"This will not work as expected, use \"defaultToNow()\" instead.");
+		
 		final Model model = getType().getModel();
 		final boolean useLong =
 			model.getProperties().getDatabaseDontSupportNativeDate() ||
