@@ -35,7 +35,7 @@ public class AttributeEmptyItem extends Item
 	public static final ItemField<EmptyItem> key = newItemField(EmptyItem.class).optional();
 	
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
-	@Deprecated transient // OK: test deprecated api
+	@Deprecated() // OK: test deprecated api
 	public static final Qualifier emptyItem = new Qualifier(parentKey);
 
 	public static final StringField someQualifiedString = new StringField().optional();

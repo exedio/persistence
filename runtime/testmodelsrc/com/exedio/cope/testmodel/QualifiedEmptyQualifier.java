@@ -34,7 +34,7 @@ public class QualifiedEmptyQualifier extends Item
 	public static final ItemField<EmptyItem> key = newItemField(EmptyItem.class).toFinal();
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
-	@Deprecated transient // OK: test deprecated api
+	@Deprecated() // OK: test deprecated api
 	public static final Qualifier qualifier = new Qualifier(qualifyUnique);
 	
 	public static final StringField qualifiedA = new StringField().optional();

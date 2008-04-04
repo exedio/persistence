@@ -35,7 +35,7 @@ public class QualifiedStringQualifier extends Item
 	public static final StringField key = new StringField().toFinal();
 	
 	public static final UniqueConstraint qualifyUnique = new UniqueConstraint(parent, key);
-	@Deprecated transient // OK: test deprecated api
+	@Deprecated() // OK: test deprecated api
 	public static final Qualifier stringQualifier = new Qualifier(qualifyUnique);
 	
 	public static final IntegerField qualifiedA = new IntegerField().optional();

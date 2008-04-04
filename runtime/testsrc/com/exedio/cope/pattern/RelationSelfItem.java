@@ -26,7 +26,7 @@ public class RelationSelfItem extends Item
 	static final ItemField<RelationSourceItem> selfSource = newItemField(RelationSourceItem.class, CASCADE);
 	static final ItemField<RelationSourceItem> selfTarget = newItemField(RelationSourceItem.class, CASCADE);
 	
-	@Deprecated transient // OK: test deprecated api
+	@Deprecated() // OK: test deprecated api
 	static final Relation<RelationSourceItem, RelationSourceItem> relation = Relation.newRelation(selfSource, selfTarget);
 
 	/**

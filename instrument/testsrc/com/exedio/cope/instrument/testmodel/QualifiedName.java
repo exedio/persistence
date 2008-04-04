@@ -30,7 +30,7 @@ public class QualifiedName extends Item
 	public static final ItemField<Qualified> parent = newItemField(Qualified.class, CASCADE).optional();
 	public static final StringField key = new StringField().optional();
 	public static final UniqueConstraint parentKey = new UniqueConstraint(parent, key);
-	@Deprecated transient // OK: test deprecated api
+	@Deprecated() // OK: test deprecated api
 	public static final Qualifier nameQualifier = new Qualifier(parentKey);
 
 	public static final IntegerField number = new IntegerField();
