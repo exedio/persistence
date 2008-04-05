@@ -32,14 +32,14 @@ import java.util.TimeZone;
 
 public final class Revision
 {
-	final int revision;
+	final int number;
 	final String comment;
 	final String[] body;
 	
-	public Revision(final int revision, final String comment, final String... body)
+	public Revision(final int number, final String comment, final String... body)
 	{
-		if(revision<=0)
-			throw new IllegalArgumentException("revision must be greater zero");
+		if(number<=0)
+			throw new IllegalArgumentException("number must be greater zero");
 		if(comment==null)
 			throw new NullPointerException("comment must not be null");
 		if(body==null)
@@ -56,14 +56,14 @@ public final class Revision
 			bodyCopy[i] = body[i];
 		}
 
-		this.revision = revision;
+		this.number = number;
 		this.comment = comment;
 		this.body = bodyCopy;
 	}
 
 	public int getNumber()
 	{
-		return revision;
+		return number;
 	}
 	
 	public String getComment()
@@ -79,7 +79,7 @@ public final class Revision
 	@Override
 	public String toString()
 	{
-		return String.valueOf('M') + revision + ':' + comment;
+		return String.valueOf('M') + number + ':' + comment;
 	}
 	
 	// logs
@@ -121,12 +121,12 @@ public final class Revision
 	
 	static byte[] mutex(
 			final Date date, final String hostname, final DialectParameters dialectParameters,
-			final int expectedRevision, final int actualRevision)
+			final int expectedNumber, final int actualNumber)
 	{
 		final Properties result = newInfo(-1, date, hostname, dialectParameters);
 		result.setProperty("mutex", Boolean.TRUE.toString());
-		result.setProperty("mutex.expected", String.valueOf(expectedRevision));
-		result.setProperty("mutex.actual", String.valueOf(actualRevision));
+		result.setProperty("mutex.expected", String.valueOf(expectedNumber));
+		result.setProperty("mutex.actual", String.valueOf(actualNumber));
 		return toBytes(result);
 	}
 	
@@ -140,11 +140,11 @@ public final class Revision
 	}
 	
 	static Properties migrate(
-			final int revision,
+			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters,
 			final String comment)
 	{
-		final Properties result = newInfo(revision, date, hostname, dialectParameters);
+		final Properties result = newInfo(number, date, hostname, dialectParameters);
 		result.setProperty("comment", comment);
 		return result;
 	}
@@ -158,13 +158,13 @@ public final class Revision
 	}
 	
 	private static Properties newInfo(
-			final int revision,
+			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters)
 	{
 		final Properties result = new Properties();
 
-		if(revision>0)
-			result.setProperty("revision", String.valueOf(revision));
+		if(number>0)
+			result.setProperty("revision", String.valueOf(number));
 
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));

@@ -1562,8 +1562,8 @@ final class Database
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Revision migration = migrations[migrationIndex];
-					final int revision = migration.revision;
-					assert migration.revision == (expectedRevision - migrationIndex);
+					final int revision = migration.number;
+					assert migration.number == (expectedRevision - migrationIndex);
 					final java.util.Properties info = Revision.migrate(revision, date, hostname, dialectParameters, migration.comment);
 					final String[] body = migration.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)

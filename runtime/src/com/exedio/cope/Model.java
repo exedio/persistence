@@ -110,12 +110,12 @@ public final class Model
 				throw new NullPointerException("revision must not be null, but was at index " + i);
 			
 			if(i==0)
-				base = revision.revision;
+				base = revision.number;
 			else
 			{
 				final int expectedNumber = base-i;
-				if(revision.revision!=expectedNumber)
-					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.revision);
+				if(revision.number!=expectedNumber)
+					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
 			}
 		}
 		
@@ -129,7 +129,7 @@ public final class Model
 		else if(revisions.length==0)
 			return 0;
 		else
-			return revisions[0].revision;
+			return revisions[0].number;
 	}
 	
 	public Model(final Revision[] revisions, final Type... types)

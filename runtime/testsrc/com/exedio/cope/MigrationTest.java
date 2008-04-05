@@ -33,7 +33,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("revision must be greater zero", e.getMessage());
+			assertEquals("number must be greater zero", e.getMessage());
 		}
 		try
 		{
@@ -42,7 +42,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("revision must be greater zero", e.getMessage());
+			assertEquals("number must be greater zero", e.getMessage());
 		}
 		try
 		{
