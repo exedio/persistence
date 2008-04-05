@@ -20,7 +20,7 @@ package com.exedio.cope.testmodel;
 
 import java.util.Date;
 
-import com.exedio.cope.Migration;
+import com.exedio.cope.Revision;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
@@ -51,12 +51,12 @@ public class Main
 	};
 	
 	@SuppressWarnings("unused") // OK: to be used by model for debugging
-	private static final Migration[] migrations = new Migration[]
+	private static final Revision[] migrations = new Revision[]
 	{
-		new Migration(2, "comment2 a bit longer",
+		new Revision(2, "comment2 a bit longer",
 				"select nice sql statement of migration two which does not work",
 				"select second nice sql statement of migration two which does not work"),
-		new Migration(1, "comment1<andTag>",
+		new Revision(1, "comment1<andTag>",
 				"select nice sql statement of migration one which does not work <andAnotherTag>"),
 	};
 

@@ -37,15 +37,15 @@ import com.exedio.dsmf.Table;
 
 public class MigrateTest extends CopeAssert
 {
-	private static final Migration[] migrations5 = new Migration[]{
-		new Migration(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5"),
+	private static final Revision[] migrations5 = new Revision[]{
+		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5"),
 	};
 	
 	private static final Model model5 = new Model(migrations5, MigrateItem1.TYPE);
 	
 	
-	private static final Migration[] migrations7Missing = new Migration[]{
-			new Migration(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7"),
+	private static final Revision[] migrations7Missing = new Revision[]{
+			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7"),
 		};
 	
 	private static final Model model7 = new Model(migrations7Missing, MigrateItem2.TYPE);
@@ -147,11 +147,11 @@ public class MigrateTest extends CopeAssert
 		final String body70 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field7"), dialect.getStringType(100));
 		final String body60 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field6"), dialect.getStringType(100));
 		final String body61 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field6b"), dialect.getStringType(100));
-		final Migration[] migrations7 = new Migration[]{
-				new Migration(7, "add column field7" + blah, body70),
-				new Migration(6, "add column field6",        body60, body61),
-				new Migration(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
-				new Migration(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4"),
+		final Revision[] migrations7 = new Revision[]{
+				new Revision(7, "add column field7" + blah, body70),
+				new Revision(6, "add column field6",        body60, body61),
+				new Revision(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
+				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4"),
 			};
 		model7.setMigrations(migrations7);
 		assertTrue(model7.isMigrationSupported());
@@ -183,8 +183,8 @@ public class MigrateTest extends CopeAssert
 			assertEquals(3, logs.size());
 		}
 		
-		final Migration[] migrations8 = new Migration[]{
-				new Migration(8, "nonsense8", "nonsense statement causing a test failure"),
+		final Revision[] migrations8 = new Revision[]{
+				new Revision(8, "nonsense8", "nonsense statement causing a test failure"),
 			};
 		model7.setMigrations(migrations8);
 		assertTrue(model7.isMigrationSupported());
@@ -296,7 +296,7 @@ public class MigrateTest extends CopeAssert
 		assertEquals(date, assertCreate(date, date, logs, revision));
 	}
 	
-	private final Date assertMigrate(final Date before, final Date after, final Migration migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private final Date assertMigrate(final Date before, final Date after, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);
@@ -317,7 +317,7 @@ public class MigrateTest extends CopeAssert
 		return date;
 	}
 	
-	private final void assertMigrate(final Date date, final Migration migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private final void assertMigrate(final Date date, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		assertEquals(date, assertMigrate(date, date, migration, logs, revision));
 	}
@@ -343,7 +343,7 @@ public class MigrateTest extends CopeAssert
 	
 	private static final Properties parse(final byte[] log)
 	{
-		return Migration.parse(log);
+		return Revision.parse(log);
 	}
 	
 	private static final void assertMinInt(final int expectedMinimum, final String actual)

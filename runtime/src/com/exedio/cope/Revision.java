@@ -30,13 +30,13 @@ import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 
-public final class Migration
+public final class Revision
 {
 	final int revision;
 	final String comment;
 	final String[] body;
 	
-	public Migration(final int revision, final String comment, final String... body)
+	public Revision(final int revision, final String comment, final String... body)
 	{
 		if(revision<=0)
 			throw new IllegalArgumentException("revision must be greater zero");

@@ -44,7 +44,7 @@ public final class Model
 {
 	private final boolean migrationSupported;
 	private int migrationRevision;
-	private Migration[] migrations;
+	private Revision[] migrations;
 	private final Object migrationLock = new Object();
 	
 	private final Type<?>[] types;
@@ -90,22 +90,22 @@ public final class Model
 	
 	public Model(final int migrationRevision, final Type... types)
 	{
-		this(checkMigrationRevision(migrationRevision), new Migration[0], types);
+		this(checkMigrationRevision(migrationRevision), new Revision[0], types);
 	}
 	
-	private static final Migration[] checkMigrations(final Migration[] migrations)
+	private static final Revision[] checkMigrations(final Revision[] migrations)
 	{
 		if(migrations==null)
 			throw new NullPointerException("migrations must not be null");
 		
 		// make a copy to avoid modifications afterwards
-		final Migration[] result = new Migration[migrations.length];
+		final Revision[] result = new Revision[migrations.length];
 		System.arraycopy(migrations, 0, result, 0, migrations.length);
 		
 		int base = -1;
 		for(int i = 0; i<result.length; i++)
 		{
-			final Migration migration = result[i];
+			final Revision migration = result[i];
 			if(migration==null)
 				throw new NullPointerException("migration must not be null, but was at index " + i);
 			
@@ -122,7 +122,7 @@ public final class Model
 		return result;
 	}
 	
-	private static final int migrationRevision(final Migration[] migrations)
+	private static final int migrationRevision(final Revision[] migrations)
 	{
 		if(migrations==null)
 			return -1;
@@ -132,12 +132,12 @@ public final class Model
 			return migrations[0].revision;
 	}
 	
-	public Model(final Migration[] migrations, final Type... types)
+	public Model(final Revision[] migrations, final Type... types)
 	{
 		this(migrationRevision(migrations), checkMigrations(migrations), types);
 	}
 	
-	private Model(final int migrationRevision, final Migration[] migrations, final Type... types)
+	private Model(final int migrationRevision, final Revision[] migrations, final Type... types)
 	{
 		assert (migrationRevision>=0) == (migrations!=null);
 		
@@ -370,13 +370,13 @@ public final class Model
 		return migrationRevision;
 	}
 	
-	public List<Migration> getMigrations()
+	public List<Revision> getMigrations()
 	{
 		assertMigrationSupported();
 		return Collections.unmodifiableList(Arrays.asList(migrations));
 	}
 	
-	void setMigrations(final Migration[] migrations) // for test only, not for productive use !!!
+	void setMigrations(final Revision[] migrations) // for test only, not for productive use !!!
 	{
 		assertMigrationSupported();
 		this.migrations = checkMigrations(migrations);

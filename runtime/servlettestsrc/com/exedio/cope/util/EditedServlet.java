@@ -26,20 +26,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.Migration;
+import com.exedio.cope.Revision;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.InitServlet;
 import com.exedio.cope.pattern.Media;
 
 public final class EditedServlet extends HttpServlet
 {
-	static final Migration[] migrations(final int length)
+	static final Revision[] migrations(final int length)
 	{
-		final Migration[] result = new Migration[length];
+		final Revision[] result = new Revision[length];
 		for(int i = 0; i<length; i++)
 		{
 			final int revision = length - i;
-			result[i] = new Migration(revision, "comment " + revision, "sql " + revision + "/1");
+			result[i] = new Revision(revision, "comment " + revision, "sql " + revision + "/1");
 		}
 		return result;
 	}

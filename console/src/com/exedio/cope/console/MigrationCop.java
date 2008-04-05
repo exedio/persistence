@@ -29,7 +29,7 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.exedio.cope.Migration;
+import com.exedio.cope.Revision;
 import com.exedio.cope.Model;
 import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
@@ -93,7 +93,7 @@ final class MigrationCop extends ConsoleCop implements Pageable
 	static class Line
 	{
 		final int revision;
-		Migration migration = null;
+		Revision migration = null;
 		byte[] logRaw = null;
 		String logString = null;
 		TreeMap<String, String> logProperties = null;
@@ -110,7 +110,7 @@ final class MigrationCop extends ConsoleCop implements Pageable
 	{
 		if(model.isMigrationSupported())
 		{
-			for(final Migration m : model.getMigrations())
+			for(final Revision m : model.getMigrations())
 				register(m.getRevision()).migration = m;
 			
 			Map<Integer, byte[]> logsRaw = null;
@@ -132,7 +132,7 @@ final class MigrationCop extends ConsoleCop implements Pageable
 						final Line line = register(revision);
 						line.logRaw = logsRaw.get(revision);
 						final byte[] infoBytes = logsRaw.get(revision);
-						final Properties infoProperties = Migration.parse(infoBytes);
+						final Properties infoProperties = Revision.parse(infoBytes);
 						if(infoProperties!=null)
 						{
 							final TreeMap<String, String> map = new TreeMap<String, String>();

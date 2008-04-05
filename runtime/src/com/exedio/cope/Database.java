@@ -153,7 +153,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertMigration(con, migrationRevision, Migration.create(migrationRevision, getHostname(), dialectParameters));
+				insertMigration(con, migrationRevision, Revision.create(migrationRevision, getHostname(), dialectParameters));
 			}
 			catch(SQLException e)
 			{
@@ -1513,7 +1513,7 @@ final class Database
 		executeSQLUpdate(connection, bf, true);
 	}
 	
-	void migrate(final int expectedRevision, final Migration[] migrations)
+	void migrate(final int expectedRevision, final Revision[] migrations)
 	{
 		assert expectedRevision>=0 : expectedRevision;
 		assert migrationSupported;
@@ -1550,7 +1550,7 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					insertMigration(con, MIGRATION_MUTEX_REVISION, Migration.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
+					insertMigration(con, MIGRATION_MUTEX_REVISION, Revision.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1561,10 +1561,10 @@ final class Database
 				}
 				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
 				{
-					final Migration migration = migrations[migrationIndex];
+					final Revision migration = migrations[migrationIndex];
 					final int revision = migration.revision;
 					assert migration.revision == (expectedRevision - migrationIndex);
-					final java.util.Properties info = Migration.migrate(revision, date, hostname, dialectParameters, migration.comment);
+					final java.util.Properties info = Revision.migrate(revision, date, hostname, dialectParameters, migration.comment);
 					final String[] body = migration.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
@@ -1576,9 +1576,9 @@ final class Database
 						final long start = System.currentTimeMillis();
 						final int rows = executeSQLUpdate(con, bf, false);
 						final long end = System.currentTimeMillis();
-						Migration.migrateSql(info, bodyIndex, sql, rows, end-start);
+						Revision.migrateSql(info, bodyIndex, sql, rows, end-start);
 					}
-					insertMigration(con, revision, Migration.toBytes(info));
+					insertMigration(con, revision, Revision.toBytes(info));
 				}
 				{
 					final Statement bf = createStatement();

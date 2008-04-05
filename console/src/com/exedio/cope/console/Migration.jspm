@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.exedio.cope.Migration;
+import com.exedio.cope.Revision;
 import com.exedio.cope.console.MigrationCop.Line;
 
 final class Migration_Jspm extends Console_Jspm
@@ -58,13 +58,13 @@ final class Migration_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<caption>Migrations<% cop.writePager(out, cop); %></caption>
+			<caption>Revisions<% cop.writePager(out, cop); %></caption>
 			<tr><th>rev.</th><th>declared</th><th>logged</th></tr><%
 			int n = 0;
 			for(final Line line : lines)
 			{
 				n++;
-				final Migration migration = line.migration;
+				final Revision migration = line.migration;
 				final String logString = line.logString;
 				final TreeMap<String, String> logProperty = line.logProperties;
 			%>
@@ -118,14 +118,14 @@ final class Migration_Jspm extends Console_Jspm
 	{
 		%>
 		<table>
-			<caption>Migrations</caption>
+			<caption>Revisions</caption>
 			<tr>
 				<td class="text">
-					Migrations are not enabled for this model.
+					Revisions are not enabled for this model.
 					<br>
 					Use the <a
-						href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Migration[], com.exedio.cope.Type...)"
-						target="_blank">migration constructor</a> to enable.
+						href="http://cope.sourceforge.net/api/com/exedio/cope/Model.html#Model(com.exedio.cope.Revision[], com.exedio.cope.Type...)"
+						target="_blank">revision constructor</a> to enable.
 				</td>
 			</td>
 		</table><%

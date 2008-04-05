@@ -28,7 +28,7 @@ public class MigrationTest extends CopeAssert
 	{
 		try
 		{
-			new Migration(-1, null, (String[])null);
+			new Revision(-1, null, (String[])null);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -37,7 +37,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(0, null, (String[])null);
+			new Revision(0, null, (String[])null);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -46,7 +46,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(1, null, (String[])null);
+			new Revision(1, null, (String[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -55,7 +55,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(1, "some comment", (String[])null);
+			new Revision(1, "some comment", (String[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -64,7 +64,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(1, "some comment", new String[0]);
+			new Revision(1, "some comment", new String[0]);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -73,7 +73,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Migration(1, "some comment", "hallo", null);
+			new Revision(1, "some comment", "hallo", null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -81,7 +81,7 @@ public class MigrationTest extends CopeAssert
 			assertEquals("body must not be null, but was at index 1", e.getMessage());
 		}
 		
-		final Migration m = new Migration(123, "test-comment", "sql1", "sql2");
+		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
 		assertEquals(123, m.getRevision());
 		assertEquals("test-comment", m.getComment());
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
@@ -110,7 +110,7 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Model(new Migration[]{new Migration(1, "migration1", "nonsensesql1"), null}, (Type[])null);
+			new Model(new Revision[]{new Revision(1, "migration1", "nonsensesql1"), null}, (Type[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -119,9 +119,9 @@ public class MigrationTest extends CopeAssert
 		}
 		try
 		{
-			new Model(new Migration[]{
-					new Migration(8, "migration8", "nonsensesql8"),
-					new Migration(6, "migration6", "nonsensesql6"),
+			new Model(new Revision[]{
+					new Revision(8, "migration8", "nonsensesql8"),
+					new Revision(6, "migration6", "nonsensesql6"),
 					}, (Type[])null);
 			fail();
 		}
@@ -133,14 +133,14 @@ public class MigrationTest extends CopeAssert
 	
 	public static void testParse() throws UnsupportedEncodingException
 	{
-		assertEquals(map("key1", "value1", "key2", "value2"), Migration.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
-		assertEquals(null, Migration.parse("migrationlogv01".getBytes("latin1")));
-		assertEquals(null, Migration.parse("#migrationlogv0".getBytes("latin1")));
-		assertEquals(null, Migration.parse("x#migrationlogv01".getBytes("latin1")));
-		assertEquals(null, Migration.parse("".getBytes("latin1")));
+		assertEquals(map("key1", "value1", "key2", "value2"), Revision.parse("#migrationlogv01\nkey1=value1\nkey2=value2".getBytes("latin1")));
+		assertEquals(null, Revision.parse("migrationlogv01".getBytes("latin1")));
+		assertEquals(null, Revision.parse("#migrationlogv0".getBytes("latin1")));
+		assertEquals(null, Revision.parse("x#migrationlogv01".getBytes("latin1")));
+		assertEquals(null, Revision.parse("".getBytes("latin1")));
 		try
 		{
-			Migration.parse(null);
+			Revision.parse(null);
 			fail();
 		}
 		catch(NullPointerException e)
