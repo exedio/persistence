@@ -64,7 +64,7 @@ public final class CopeFilter implements Filter
 		model = connectToken.getModel();
 	}
 	
-	private volatile boolean migrated = false;
+	private volatile boolean revised = false;
 
 	public void doFilter(
 			final ServletRequest request,
@@ -72,14 +72,14 @@ public final class CopeFilter implements Filter
 			final FilterChain chain) throws IOException, ServletException
 	{
 		// This flag is just a small shortcut. No synchronization needed,
-		// because Model#migrate does care about synchronization.
-		if(!migrated)
+		// because Model#revise does care about synchronization.
+		if(!revised)
 		{
 			// Cannot do this in init(), because filters are always initialized on startup.
 			// So the whole application would be useless, if the database schema is not yet created,
 			// including the COPE Console usually used to create the schema.
 			model.reviseIfSupported();
-			migrated = true;
+			revised = true;
 		}
 		
 		try

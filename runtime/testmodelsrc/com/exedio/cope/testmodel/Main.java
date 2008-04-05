@@ -51,19 +51,19 @@ public class Main
 	};
 	
 	@SuppressWarnings("unused") // OK: to be used by model for debugging
-	private static final Revision[] migrations = new Revision[]
+	private static final Revision[] revisions = new Revision[]
 	{
 		new Revision(2, "comment2 a bit longer",
-				"select nice sql statement of migration two which does not work",
-				"select second nice sql statement of migration two which does not work"),
+				"select nice sql statement of revision two which does not work",
+				"select second nice sql statement of revision two which does not work"),
 		new Revision(1, "comment1<andTag>",
-				"select nice sql statement of migration one which does not work <andAnotherTag>"),
+				"select nice sql statement of revision one which does not work <andAnotherTag>"),
 	};
 
 	public static final Date beforeModel = new Date();
 	
 	public static final Model model = new Model(
-		//migrations,
+		//revisions,
 		//0,
 		modelTypes);
 	

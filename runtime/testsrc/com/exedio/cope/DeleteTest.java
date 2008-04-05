@@ -300,9 +300,9 @@ public class DeleteTest extends AbstractLibTest
 	}
 
 	/**
-	 * Tests migration on a model not supporting migrations.
+	 * Tests revision on a model without revisions enabled.
 	 */
-	public void testMigrate()
+	public void testRevise()
 	{
 		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getProperties().getSource());
 		

@@ -33,7 +33,7 @@ import com.exedio.cope.pattern.Media;
 
 public final class EditedServlet extends HttpServlet
 {
-	static final Revision[] migrations(final int length)
+	static final Revision[] revisions(final int length)
 	{
 		final Revision[] result = new Revision[length];
 		for(int i = 0; i<length; i++)
@@ -48,7 +48,7 @@ public final class EditedServlet extends HttpServlet
 	
 	static final String ENCODING = "utf-8";
 	
-	public static final Model model = new Model(migrations(64), EditedItem.TYPE);
+	public static final Model model = new Model(revisions(64), EditedItem.TYPE);
 	
 	private ConnectToken connectToken = null;
 	
