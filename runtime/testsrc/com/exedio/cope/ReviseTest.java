@@ -35,7 +35,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-public class MigrateTest extends CopeAssert
+public class ReviseTest extends CopeAssert
 {
 	private static final Revision[] migrations5 = new Revision[]{
 		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5"),

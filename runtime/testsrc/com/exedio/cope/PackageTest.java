@@ -98,7 +98,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ModificationListenerTest.class );
 		suite.addTestSuite( MigrationTest.class );
-		suite.addTestSuite( MigrateTest.class );
+		suite.addTestSuite( ReviseTest.class );
 		suite.addTestSuite( DatabaseLogTest.class );
 		suite.addTestSuite( QueryCacheTest.class );
 		suite.addTestSuite( UniqueHierarchyTest.class );
