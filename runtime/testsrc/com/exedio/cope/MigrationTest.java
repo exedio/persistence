@@ -82,7 +82,7 @@ public class MigrationTest extends CopeAssert
 		}
 		
 		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
-		assertEquals(123, m.getRevision());
+		assertEquals(123, m.getNumber());
 		assertEquals("test-comment", m.getComment());
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
 		assertEquals("M123:test-comment", m.toString());

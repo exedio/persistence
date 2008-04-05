@@ -62,15 +62,24 @@ public final class Revision
 	}
 	
 	/**
-	 * @deprecated Use {@link #getRevision()} instead
+	 * @deprecated Use {@link #getNumber()} instead
 	 */
 	@Deprecated
 	public int getVersion()
 	{
-		return getRevision();
+		return getNumber();
 	}
 
+	/**
+	 * @deprecated Use {@link #getNumber()} instead
+	 */
+	@Deprecated
 	public int getRevision()
+	{
+		return getNumber();
+	}
+
+	public int getNumber()
 	{
 		return revision;
 	}
