@@ -1561,11 +1561,11 @@ final class Database
 				}
 				for(int revisionIndex = startRevisionIndex; revisionIndex>=0; revisionIndex--)
 				{
-					final Revision migration = migrations[revisionIndex];
-					final int number = migration.number;
-					assert migration.number == (expectedRevision - revisionIndex);
-					final java.util.Properties info = Revision.revise(number, date, hostname, dialectParameters, migration.comment);
-					final String[] body = migration.body;
+					final Revision revision = migrations[revisionIndex];
+					final int number = revision.number;
+					assert revision.number == (expectedRevision - revisionIndex);
+					final java.util.Properties info = Revision.revise(number, date, hostname, dialectParameters, revision.comment);
+					final String[] body = revision.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
 						final String sql = body[bodyIndex];
