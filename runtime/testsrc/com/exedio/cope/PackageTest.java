@@ -97,7 +97,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ModificationListenerTest.class );
-		suite.addTestSuite( MigrationTest.class );
+		suite.addTestSuite( RevisionTest.class );
 		suite.addTestSuite( ReviseTest.class );
 		suite.addTestSuite( DatabaseLogTest.class );
 		suite.addTestSuite( QueryCacheTest.class );

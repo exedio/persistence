@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class MigrationTest extends CopeAssert
+public class RevisionTest extends CopeAssert
 {
 	public void testMigration()
 	{
