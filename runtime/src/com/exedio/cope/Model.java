@@ -122,19 +122,19 @@ public final class Model
 		return result;
 	}
 	
-	private static final int migrationRevision(final Revision[] migrations)
+	private static final int revisionNumber(final Revision[] revisions)
 	{
-		if(migrations==null)
+		if(revisions==null)
 			return -1;
-		else if(migrations.length==0)
+		else if(revisions.length==0)
 			return 0;
 		else
-			return migrations[0].revision;
+			return revisions[0].revision;
 	}
 	
 	public Model(final Revision[] revisions, final Type... types)
 	{
-		this(migrationRevision(revisions), checkRevisions(revisions), types);
+		this(revisionNumber(revisions), checkRevisions(revisions), types);
 	}
 	
 	private Model(final int revisionNumber, final Revision[] revisions, final Type... types)
@@ -380,7 +380,7 @@ public final class Model
 	{
 		assertMigrationSupported();
 		this.revisions = checkRevisions(revisions);
-		this.revisionNumber = migrationRevision(revisions);
+		this.revisionNumber = revisionNumber(revisions);
 	}
 
 	public void revise()
