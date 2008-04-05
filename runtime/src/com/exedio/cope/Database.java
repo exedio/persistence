@@ -153,7 +153,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertMigration(con, revisionNumber, Revision.create(revisionNumber, getHostname(), dialectParameters));
+				insertRevision(con, revisionNumber, Revision.create(revisionNumber, getHostname(), dialectParameters));
 			}
 			catch(SQLException e)
 			{
@@ -1375,7 +1375,7 @@ final class Database
 	
 	private static final String MIGRATION_COLUMN_REVISION_NAME = "v";
 	private static final String MIGRATION_COLUMN_INFO_NAME = "i";
-	private static final int MIGRATION_MUTEX_REVISION = -1;
+	private static final int MIGRATION_MUTEX_NUMBER = -1;
 	
 	Schema makeSchema()
 	{
@@ -1399,7 +1399,7 @@ final class Database
 		if(revisionEnabled)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_REVISION_NAME, dialect.getIntegerType(MIGRATION_MUTEX_REVISION, Integer.MAX_VALUE));
+			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_REVISION_NAME, dialect.getIntegerType(MIGRATION_MUTEX_NUMBER, Integer.MAX_VALUE));
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_REVISION_NAME) + ')');
 		}
@@ -1493,7 +1493,7 @@ final class Database
 		return Collections.unmodifiableMap(result);
 	}
 	
-	private void insertMigration(final Connection connection, final int revision, final byte[] info)
+	private void insertRevision(final Connection connection, final int number, final byte[] info)
 	{
 		assert revisionEnabled;
 		
@@ -1505,7 +1505,7 @@ final class Database
 			append(',').
 			append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).
 			append(")values(").
-			appendParameter(revision).
+			appendParameter(number).
 			append(',').
 			appendParameterBlob(info).
 			append(')');
@@ -1550,7 +1550,7 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					insertMigration(con, MIGRATION_MUTEX_REVISION, Revision.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
+					insertRevision(con, MIGRATION_MUTEX_NUMBER, Revision.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1578,7 +1578,7 @@ final class Database
 						final long end = System.currentTimeMillis();
 						Revision.reviseSql(info, bodyIndex, sql, rows, end-start);
 					}
-					insertMigration(con, revision, Revision.toBytes(info));
+					insertRevision(con, revision, Revision.toBytes(info));
 				}
 				{
 					final Statement bf = createStatement();
@@ -1587,7 +1587,7 @@ final class Database
 						append(" where ").
 						append(driver.protectName(MIGRATION_COLUMN_REVISION_NAME)).
 						append('=').
-						appendParameter(MIGRATION_MUTEX_REVISION);
+						appendParameter(MIGRATION_MUTEX_NUMBER);
 					executeSQLUpdate(con, bf, true);
 				}
 			}
