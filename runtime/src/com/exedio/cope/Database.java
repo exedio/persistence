@@ -1432,7 +1432,7 @@ final class Database
 		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
 	}
 	
-	Map<Integer, byte[]> getMigrationLogs()
+	Map<Integer, byte[]> getRevisionLogs()
 	{
 		final Pool<Connection> connectionPool = this.connectionPool;
 		Connection con = null;
@@ -1513,7 +1513,7 @@ final class Database
 		executeSQLUpdate(connection, bf, true);
 	}
 	
-	void migrate(final int expectedRevision, final Revision[] migrations)
+	void revise(final int expectedRevision, final Revision[] migrations)
 	{
 		assert expectedRevision>=0 : expectedRevision;
 		assert revisionEnabled;

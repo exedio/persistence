@@ -389,7 +389,7 @@ public final class Model
 		
 		synchronized(revisionLock)
 		{
-			getDatabase().migrate(revisionNumber, revisions);
+			getDatabase().revise(revisionNumber, revisions);
 		}
 	}
 
@@ -404,7 +404,7 @@ public final class Model
 	public Map<Integer, byte[]> getRevisionLogs()
 	{
 		assertRevisionEnabled();
-		return getDatabase().getMigrationLogs();
+		return getDatabase().getRevisionLogs();
 	}
 	
 	public ConnectProperties getProperties()
