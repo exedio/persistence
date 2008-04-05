@@ -39,7 +39,10 @@ public final class EditedServlet extends HttpServlet
 		for(int i = 0; i<length; i++)
 		{
 			final int revision = length - i;
-			result[i] = new Revision(revision, "comment " + revision, "sql " + revision + "/1");
+			final String[] body = new String[(revision%4) + 1];
+			for(int j = 0; j<body.length; j++)
+				body[j] = "sql " + revision + "/" + j;
+			result[i] = new Revision(revision, "comment " + revision, body);
 		}
 		return result;
 	}
