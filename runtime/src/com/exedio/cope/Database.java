@@ -1398,7 +1398,7 @@ final class Database
 		
 		if(revisionEnabled)
 		{
-			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
+			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.REVISION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_NUMBER_NAME, dialect.getIntegerType(REVISION_MUTEX_NUMBER, Integer.MAX_VALUE));
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
@@ -1424,7 +1424,7 @@ final class Database
 		bf.append("select max(").
 			append(revision).defineColumnInteger().
 			append(") from ").
-			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+			append(driver.protectName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -1467,7 +1467,7 @@ final class Database
 			append(',').
 			append(driver.protectName(REVISION_COLUMN_INFO_NAME)).defineColumnString().
 			append(" from ").
-			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+			append(driver.protectName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -1499,7 +1499,7 @@ final class Database
 		
 		final Statement bf = createStatement();
 		bf.append("insert into ").
-			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+			append(driver.protectName(Table.REVISION_TABLE_NAME)).
 			append('(').
 			append(driver.protectName(REVISION_COLUMN_NUMBER_NAME)).
 			append(',').
@@ -1583,7 +1583,7 @@ final class Database
 				{
 					final Statement bf = createStatement();
 					bf.append("delete from ").
-						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
+						append(driver.protectName(Table.REVISION_TABLE_NAME)).
 						append(" where ").
 						append(driver.protectName(REVISION_COLUMN_NUMBER_NAME)).
 						append('=').
