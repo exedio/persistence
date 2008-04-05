@@ -69,7 +69,7 @@ final class Migration_Jspm extends Console_Jspm
 				final TreeMap<String, String> logProperty = line.logProperties;
 			%>
 			<tr>
-				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=migration.getRevision()%></td>
+				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=migration.getNumber()%></td>
 				<td class="text"><%
 				if(migration!=null)
 				{
