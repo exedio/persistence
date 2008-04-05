@@ -147,16 +147,16 @@ public class ReviseTest extends CopeAssert
 		final String body70 = driver.createColumn(driver.protectName(mysqlLower("ReviseItem")), driver.protectName("field7"), dialect.getStringType(100));
 		final String body60 = driver.createColumn(driver.protectName(mysqlLower("ReviseItem")), driver.protectName("field6"), dialect.getStringType(100));
 		final String body61 = driver.createColumn(driver.protectName(mysqlLower("ReviseItem")), driver.protectName("field6b"), dialect.getStringType(100));
-		final Revision[] migrations7 = new Revision[]{
+		final Revision[] revisions7 = new Revision[]{
 				new Revision(7, "add column field7" + blah, body70),
 				new Revision(6, "add column field6",        body60, body61),
 				new Revision(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
 				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4"),
 			};
-		model7.setRevisions(migrations7);
+		model7.setRevisions(revisions7);
 		assertTrue(model7.isRevisionEnabled());
 		assertEquals(7, model7.getRevisionNumber());
-		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getRevisions());
+		assertEqualsUnmodifiable(Arrays.asList(revisions7), model7.getRevisions());
 
 		final Date reviseBefore = new Date();
 		model7.reviseIfSupported();
@@ -166,30 +166,30 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			reviseDate = assertRevise(reviseBefore, reviseAfter, migrations7[1], logs, 6);
-			assertRevise(reviseDate, migrations7[0], logs, 7);
+			reviseDate = assertRevise(reviseBefore, reviseAfter, revisions7[1], logs, 6);
+			assertRevise(reviseDate, revisions7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
-		// test, that MigrationStep is not executed again,
+		// test, that revision is not executed again,
 		// causing a SQLException because column does already exist
 		model7.revise();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertRevise(reviseDate, migrations7[1], logs, 6);
-			assertRevise(reviseDate, migrations7[0], logs, 7);
+			assertRevise(reviseDate, revisions7[1], logs, 6);
+			assertRevise(reviseDate, revisions7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
-		final Revision[] migrations8 = new Revision[]{
+		final Revision[] revisions8 = new Revision[]{
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure"),
 			};
-		model7.setRevisions(migrations8);
+		model7.setRevisions(revisions8);
 		assertTrue(model7.isRevisionEnabled());
 		assertEquals(8, model7.getRevisionNumber());
-		assertEqualsUnmodifiable(Arrays.asList(migrations8), model7.getRevisions());
+		assertEqualsUnmodifiable(Arrays.asList(revisions8), model7.getRevisions());
 
 		try
 		{
@@ -203,8 +203,8 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertRevise(reviseDate, migrations7[1], logs, 6);
-			assertRevise(reviseDate, migrations7[0], logs, 7);
+			assertRevise(reviseDate, revisions7[1], logs, 6);
+			assertRevise(reviseDate, revisions7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -220,8 +220,8 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertRevise(reviseDate, migrations7[1], logs, 6);
-			assertRevise(reviseDate, migrations7[0], logs, 7);
+			assertRevise(reviseDate, revisions7[1], logs, 6);
+			assertRevise(reviseDate, revisions7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -271,10 +271,10 @@ public class ReviseTest extends CopeAssert
 		
 		assertFalse(columns.hasNext());
 		
-		final Table migrationTable = schema.getTable("while");
-		assertEquals("while", migrationTable.getName());
-		assertEquals(true, migrationTable.required());
-		assertEquals(true, migrationTable.exists());
+		final Table revisionTable = schema.getTable("while");
+		assertEquals("while", revisionTable.getName());
+		assertEquals(true, revisionTable.required());
+		assertEquals(true, revisionTable.exists());
 	}
 	
 	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
