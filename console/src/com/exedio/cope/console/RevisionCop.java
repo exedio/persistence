@@ -35,13 +35,13 @@ import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
 import com.exedio.dsmf.SQLRuntimeException;
 
-final class MigrationCop extends ConsoleCop implements Pageable
+final class RevisionCop extends ConsoleCop implements Pageable
 {
 	private static final int LIMIT_DEFAULT = 10;
 	
 	final Pager pager;
 	
-	private MigrationCop(final Pager pager)
+	private RevisionCop(final Pager pager)
 	{
 		super(TAB_MIGRATION, "migration");
 		this.pager = pager;
@@ -49,12 +49,12 @@ final class MigrationCop extends ConsoleCop implements Pageable
 		pager.addParameters(this);
 	}
 	
-	MigrationCop()
+	RevisionCop()
 	{
 		this(new Pager(LIMIT_DEFAULT));
 	}
 	
-	MigrationCop(final HttpServletRequest request)
+	RevisionCop(final HttpServletRequest request)
 	{
 		this(Pager.newPager(request, LIMIT_DEFAULT));
 	}
@@ -64,9 +64,9 @@ final class MigrationCop extends ConsoleCop implements Pageable
 		return pager;
 	}
 	
-	public MigrationCop toPage(final Pager pager)
+	public RevisionCop toPage(final Pager pager)
 	{
-		return new MigrationCop(pager);
+		return new RevisionCop(pager);
 	}
 	
 	@Override

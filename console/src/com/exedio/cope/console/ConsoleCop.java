@@ -87,7 +87,7 @@ abstract class ConsoleCop extends Cop
 				new PropertiesCop(),
 				new SchemaCop(),
 				new TypeColumnCop(),
-				new MigrationCop(),
+				new RevisionCop(),
 				new DatabaseLogCop(),
 				new ConnectionPoolCop(),
 				new TransactionCop(),
@@ -202,7 +202,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_PROPERTIES.equals(tab))
 			return new PropertiesCop();
 		if(TAB_MIGRATION.equals(tab))
-			return new MigrationCop(request);
+			return new RevisionCop(request);
 		if(TAB_CONNECTION_POOL.equals(tab))
 			return new ConnectionPoolCop();
 		if(TAB_TRANSACTION.equals(tab))
