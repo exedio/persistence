@@ -79,7 +79,7 @@ public class MigrateTest extends CopeAssert
 		jdbcUrl  = props.getDatabaseUrl();
 		jdbcUser = props.getDatabaseUser();
 		
-		assertTrue(model5.isRevisionSupported());
+		assertTrue(model5.isRevisionEnabled());
 		assertEquals(5, model5.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations5), model5.getRevisions());
 		
@@ -105,7 +105,7 @@ public class MigrateTest extends CopeAssert
 		}
 		model5.disconnect();
 		
-		assertTrue(model7.isRevisionSupported());
+		assertTrue(model7.isRevisionEnabled());
 		assertEquals(7, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(list(migrations7Missing[0]), model7.getRevisions());
 
@@ -154,7 +154,7 @@ public class MigrateTest extends CopeAssert
 				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4"),
 			};
 		model7.setRevisions(migrations7);
-		assertTrue(model7.isRevisionSupported());
+		assertTrue(model7.isRevisionEnabled());
 		assertEquals(7, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getRevisions());
 
@@ -187,7 +187,7 @@ public class MigrateTest extends CopeAssert
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure"),
 			};
 		model7.setRevisions(migrations8);
-		assertTrue(model7.isRevisionSupported());
+		assertTrue(model7.isRevisionEnabled());
 		assertEquals(8, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations8), model7.getRevisions());
 

@@ -108,7 +108,7 @@ final class MigrationCop extends ConsoleCop implements Pageable
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request)
 	{
-		if(model.isRevisionSupported())
+		if(model.isRevisionEnabled())
 		{
 			for(final Revision m : model.getRevisions())
 				register(m.getNumber()).migration = m;

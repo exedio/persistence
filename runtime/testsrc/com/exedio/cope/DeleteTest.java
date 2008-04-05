@@ -306,7 +306,7 @@ public class DeleteTest extends AbstractLibTest
 	{
 		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getProperties().getSource());
 		
-		assertFalse(model.isRevisionSupported());
+		assertFalse(model.isRevisionEnabled());
 		try
 		{
 			model.getRevisionNumber();

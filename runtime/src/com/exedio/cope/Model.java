@@ -42,7 +42,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
-	private final boolean revisionSupported;
+	private final boolean revisionEnabled;
 	private int revisionNumber;
 	private Revision[] revisions;
 	private final Object revisionLock = new Object();
@@ -141,7 +141,7 @@ public final class Model
 	{
 		assert (revisionNumber>=0) == (revisions!=null);
 		
-		this.revisionSupported = (revisions!=null);
+		this.revisionEnabled = (revisions!=null);
 		this.revisionNumber = revisionNumber;
 		this.revisions = revisions;
 		
@@ -300,7 +300,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				// do this at first, to avoid half-connected model if probe connection fails
-				final Database db = properties.createDatabase(revisionSupported);
+				final Database db = properties.createDatabase(revisionEnabled);
 				this.propertiesIfConnected = properties;
 				this.databaseIfConnected = db;
 				
@@ -353,39 +353,39 @@ public final class Model
 		}
 	}
 
-	public boolean isRevisionSupported()
+	public boolean isRevisionEnabled()
 	{
-		return revisionSupported;
+		return revisionEnabled;
 	}
 	
-	private final void assertRevisionSupported()
+	private final void assertRevisionEnabled()
 	{
-		if(!revisionSupported)
+		if(!revisionEnabled)
 			throw new IllegalArgumentException("revisions are not enabled");
 	}
 
 	public int getRevisionNumber()
 	{
-		assertRevisionSupported();
+		assertRevisionEnabled();
 		return revisionNumber;
 	}
 
 	public List<Revision> getRevisions()
 	{
-		assertRevisionSupported();
+		assertRevisionEnabled();
 		return Collections.unmodifiableList(Arrays.asList(revisions));
 	}
 	
 	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!
 	{
-		assertRevisionSupported();
+		assertRevisionEnabled();
 		this.revisions = checkRevisions(revisions);
 		this.revisionNumber = revisionNumber(revisions);
 	}
 
 	public void revise()
 	{
-		assertRevisionSupported();
+		assertRevisionEnabled();
 		
 		synchronized(revisionLock)
 		{
@@ -395,7 +395,7 @@ public final class Model
 
 	public void reviseIfSupported()
 	{
-		if(!revisionSupported)
+		if(!revisionEnabled)
 			return;
 		
 		revise();
@@ -403,7 +403,7 @@ public final class Model
 
 	public Map<Integer, byte[]> getRevisionLogs()
 	{
-		assertRevisionSupported();
+		assertRevisionEnabled();
 		return getDatabase().getMigrationLogs();
 	}
 	
@@ -1060,12 +1060,12 @@ public final class Model
 	}
 	
 	/**
-	 * @deprecated Use {@link #isRevisionSupported()} instead
+	 * @deprecated Use {@link #isRevisionEnabled()} instead
 	 */
 	@Deprecated
 	public boolean isMigrationSupported()
 	{
-		return isRevisionSupported();
+		return isRevisionEnabled();
 	}
 	
 	/**
