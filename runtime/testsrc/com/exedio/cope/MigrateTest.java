@@ -124,7 +124,7 @@ public class MigrateTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("attempt to migrate from 5 to 7, but declared migrations allow from 6 only", e.getMessage());
+			assertEquals("attempt to revise from 5 to 7, but declared revisions allow from 6 only", e.getMessage());
 		}
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
@@ -214,7 +214,7 @@ public class MigrateTest extends CopeAssert
 		}
 		catch(IllegalStateException e)
 		{
-			assertEquals("Migration mutex set: Either a migration is currently underway, or a migration has failed unexpectedly.", e.getMessage());
+			assertEquals("Revision mutex set: Either a revision is currently underway, or a revision has failed unexpectedly.", e.getMessage());
 		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{

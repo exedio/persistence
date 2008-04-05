@@ -1536,15 +1536,15 @@ final class Database
 			
 			if(actualRevision>expectedRevision)
 			{
-				throw new IllegalArgumentException("cannot migrate backwards, expected " + expectedRevision + ", but was " + actualRevision);
+				throw new IllegalArgumentException("cannot revise backwards, expected " + expectedRevision + ", but was " + actualRevision);
 			}
 			else if(actualRevision<expectedRevision)
 			{
 				final int startRevisionIndex = expectedRevision - actualRevision - 1;
 				if(startRevisionIndex>=revisions.length)
 					throw new IllegalArgumentException(
-							"attempt to migrate from " + actualRevision + " to " + expectedRevision +
-							", but declared migrations allow from " + (expectedRevision - revisions.length) + " only");
+							"attempt to revise from " + actualRevision + " to " + expectedRevision +
+							", but declared revisions allow from " + (expectedRevision - revisions.length) + " only");
 				
 				final Date date = new Date();
 				final String hostname = getHostname();
@@ -1555,9 +1555,9 @@ final class Database
 				catch(SQLRuntimeException e)
 				{
 					throw new IllegalStateException(
-							"Migration mutex set: " +
-							"Either a migration is currently underway, " +
-							"or a migration has failed unexpectedly.", e);
+							"Revision mutex set: " +
+							"Either a revision is currently underway, " +
+							"or a revision has failed unexpectedly.", e);
 				}
 				for(int revisionIndex = startRevisionIndex; revisionIndex>=0; revisionIndex--)
 				{
