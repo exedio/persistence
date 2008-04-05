@@ -171,7 +171,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
 	static final String TAB_TYPE_COLUMNS = "typecolumns";
-	static final String TAB_MIGRATION = "migration";
+	static final String TAB_REVISION = "revision";
 	static final String TAB_DATBASE_LOG = "dblogs";
 	static final String TAB_CONNECTION_POOL = "connections";
 	static final String TAB_TRANSACTION = "transactions";
@@ -201,7 +201,7 @@ abstract class ConsoleCop extends Cop
 			return new TypeColumnCop();
 		if(TAB_PROPERTIES.equals(tab))
 			return new PropertiesCop();
-		if(TAB_MIGRATION.equals(tab))
+		if(TAB_REVISION.equals(tab))
 			return new RevisionCop(request);
 		if(TAB_CONNECTION_POOL.equals(tab))
 			return new ConnectionPoolCop();

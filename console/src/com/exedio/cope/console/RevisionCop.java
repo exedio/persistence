@@ -43,7 +43,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	
 	private RevisionCop(final Pager pager)
 	{
-		super(TAB_MIGRATION, "migration");
+		super(TAB_REVISION, "revision");
 		this.pager = pager;
 		
 		pager.addParameters(this);
@@ -120,7 +120,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			}
 			catch(SQLRuntimeException e)
 			{
-				e.printStackTrace(); // TODO show error in page together with declared migrations
+				e.printStackTrace(); // TODO show error in page together with declared revisions
 			}
 
 			if(logsRaw!=null)
