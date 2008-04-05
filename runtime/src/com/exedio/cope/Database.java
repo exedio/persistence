@@ -1559,11 +1559,11 @@ final class Database
 							"Either a migration is currently underway, " +
 							"or a migration has failed unexpectedly.", e);
 				}
-				for(int migrationIndex = startRevisionIndex; migrationIndex>=0; migrationIndex--)
+				for(int revisionIndex = startRevisionIndex; revisionIndex>=0; revisionIndex--)
 				{
-					final Revision migration = migrations[migrationIndex];
+					final Revision migration = migrations[revisionIndex];
 					final int revision = migration.number;
-					assert migration.number == (expectedRevision - migrationIndex);
+					assert migration.number == (expectedRevision - revisionIndex);
 					final java.util.Properties info = Revision.revise(revision, date, hostname, dialectParameters, migration.comment);
 					final String[] body = migration.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
