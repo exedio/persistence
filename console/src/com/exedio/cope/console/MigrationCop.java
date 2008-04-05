@@ -110,7 +110,7 @@ final class MigrationCop extends ConsoleCop implements Pageable
 	{
 		if(model.isRevisionSupported())
 		{
-			for(final Revision m : model.getMigrations())
+			for(final Revision m : model.getRevisions())
 				register(m.getRevision()).migration = m;
 			
 			Map<Integer, byte[]> logsRaw = null;

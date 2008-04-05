@@ -388,7 +388,16 @@ public final class Model
 		return migrationRevision;
 	}
 	
+	/**
+	 * @deprecated Use {@link #getRevisions()} instead
+	 */
+	@Deprecated
 	public List<Revision> getMigrations()
+	{
+		return getRevisions();
+	}
+
+	public List<Revision> getRevisions()
 	{
 		assertMigrationSupported();
 		return Collections.unmodifiableList(Arrays.asList(migrations));
