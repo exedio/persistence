@@ -93,7 +93,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	static class Line
 	{
 		final int number;
-		Revision migration = null;
+		Revision revision = null;
 		byte[] logRaw = null;
 		String logString = null;
 		TreeMap<String, String> logProperties = null;
@@ -111,7 +111,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		if(model.isRevisionEnabled())
 		{
 			for(final Revision m : model.getRevisions())
-				register(m.getNumber()).migration = m;
+				register(m.getNumber()).revision = m;
 			
 			Map<Integer, byte[]> logsRaw = null;
 			try
