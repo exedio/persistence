@@ -80,7 +80,7 @@ public class MigrateTest extends CopeAssert
 		jdbcUser = props.getDatabaseUser();
 		
 		assertTrue(model5.isRevisionSupported());
-		assertEquals(5, model5.getMigrationRevision());
+		assertEquals(5, model5.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations5), model5.getMigrations());
 		
 		model5.connect(props);
@@ -106,7 +106,7 @@ public class MigrateTest extends CopeAssert
 		model5.disconnect();
 		
 		assertTrue(model7.isRevisionSupported());
-		assertEquals(7, model7.getMigrationRevision());
+		assertEquals(7, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(list(migrations7Missing[0]), model7.getMigrations());
 
 		model7.connect(props);
@@ -155,7 +155,7 @@ public class MigrateTest extends CopeAssert
 			};
 		model7.setMigrations(migrations7);
 		assertTrue(model7.isRevisionSupported());
-		assertEquals(7, model7.getMigrationRevision());
+		assertEquals(7, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getMigrations());
 
 		final Date migrateBefore = new Date();
@@ -188,7 +188,7 @@ public class MigrateTest extends CopeAssert
 			};
 		model7.setMigrations(migrations8);
 		assertTrue(model7.isRevisionSupported());
-		assertEquals(8, model7.getMigrationRevision());
+		assertEquals(8, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations8), model7.getMigrations());
 
 		try

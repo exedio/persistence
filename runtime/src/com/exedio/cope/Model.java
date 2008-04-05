@@ -373,7 +373,16 @@ public final class Model
 			throw new IllegalArgumentException("not in migration mode");
 	}
 
+	/**
+	 * @deprecated Use {@link #getRevisionNumber()} instead
+	 */
+	@Deprecated
 	public int getMigrationRevision()
+	{
+		return getRevisionNumber();
+	}
+
+	public int getRevisionNumber()
 	{
 		assertMigrationSupported();
 		return migrationRevision;
@@ -1051,12 +1060,12 @@ public final class Model
 	}
 	
 	/**
-	 * @deprecated Use {@link #getMigrationRevision()} instead
+	 * @deprecated Use {@link #getRevisionNumber()} instead
 	 */
 	@Deprecated
 	public int getMigrationVersion()
 	{
-		return getMigrationRevision();
+		return getRevisionNumber();
 	}
 	
 	/**

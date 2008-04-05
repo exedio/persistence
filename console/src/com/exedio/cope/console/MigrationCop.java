@@ -150,7 +150,7 @@ final class MigrationCop extends ConsoleCop implements Pageable
 				}
 			}
 			
-			register(model.getMigrationRevision()).current = true;
+			register(model.getRevisionNumber()).current = true;
 			
 			final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
 			Collections.reverse(lineList);

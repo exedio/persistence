@@ -309,7 +309,7 @@ public class DeleteTest extends AbstractLibTest
 		assertFalse(model.isRevisionSupported());
 		try
 		{
-			model.getMigrationRevision();
+			model.getRevisionNumber();
 			fail();
 		}
 		catch(IllegalArgumentException e)
