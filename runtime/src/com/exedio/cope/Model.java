@@ -113,9 +113,9 @@ public final class Model
 				base = revision.revision;
 			else
 			{
-				final int expectedRevision = base-i;
-				if(revision.revision!=expectedRevision)
-					throw new IllegalArgumentException("inconsistent migration revision at index " + i + ", expected " + expectedRevision + ", but was " + revision.revision);
+				final int expectedNumber = base-i;
+				if(revision.revision!=expectedNumber)
+					throw new IllegalArgumentException("inconsistent migration revision at index " + i + ", expected " + expectedNumber + ", but was " + revision.revision);
 			}
 		}
 		
