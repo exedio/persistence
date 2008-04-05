@@ -81,16 +81,16 @@ public final class Model
 		this(-1, null, types);
 	}
 	
-	private static final int checkMigrationRevision(final int migrationRevision)
+	private static final int checkRevisionNumber(final int revisionNumber)
 	{
-		if(migrationRevision<0)
-			throw new IllegalArgumentException("migration revision must not be negative, but was " + migrationRevision);
-		return migrationRevision;
+		if(revisionNumber<0)
+			throw new IllegalArgumentException("migration revision must not be negative, but was " + revisionNumber);
+		return revisionNumber;
 	}
 	
-	public Model(final int migrationRevision, final Type... types)
+	public Model(final int revisionNumber, final Type... types)
 	{
-		this(checkMigrationRevision(migrationRevision), new Revision[0], types);
+		this(checkRevisionNumber(revisionNumber), new Revision[0], types);
 	}
 	
 	private static final Revision[] checkMigrations(final Revision[] migrations)
