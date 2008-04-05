@@ -162,7 +162,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 	
-	Database createDatabase(final boolean migrationSupported)
+	Database createDatabase(final boolean revisionEnabled)
 	{
 		final DialectParameters parameters;
 		Connection probeConnection = null;
@@ -209,7 +209,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException(e);
 		}
 		
-		return new Database(dialect.driver, parameters, dialect, migrationSupported);
+		return new Database(dialect.driver, parameters, dialect, revisionEnabled);
 	}
 	
 	public String getDialect()

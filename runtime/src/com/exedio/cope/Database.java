@@ -49,7 +49,7 @@ final class Database
 	final Driver driver;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
-	private final boolean migrationSupported;
+	private final boolean revisionEnabled;
 	final boolean prepare;
 	volatile DatabaseLogConfig log;
 	private final boolean logQueryInfo;
@@ -63,13 +63,13 @@ final class Database
 	
 	private final boolean oracle; // TODO remove
 	
-	Database(final Driver driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean migrationSupported)
+	Database(final Driver driver, final DialectParameters dialectParameters, final Dialect dialect, final boolean revisionEnabled)
 	{
 		final ConnectProperties properties = dialectParameters.properties;
 		this.driver = driver;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
-		this.migrationSupported = migrationSupported;
+		this.revisionEnabled = revisionEnabled;
 		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
 		this.log = properties.getDatabaseLog() ? new DatabaseLogConfig(properties.getDatabaseLogThreshold(), null, System.out) : null;
 		this.logQueryInfo = properties.getDatabaseLogQueryInfo();
@@ -145,7 +145,7 @@ final class Database
 		
 		makeSchema().create();
 		
-		if(migrationSupported)
+		if(revisionEnabled)
 		{
 			final Pool<Connection> connectionPool = this.connectionPool;
 			Connection con = null;
@@ -1396,7 +1396,7 @@ final class Database
 		for(final Table t : tables)
 			t.makeSchema(result);
 		
-		if(migrationSupported)
+		if(revisionEnabled)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
 			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_REVISION_NAME, dialect.getIntegerType(MIGRATION_MUTEX_REVISION, Integer.MAX_VALUE));
@@ -1495,7 +1495,7 @@ final class Database
 	
 	private void insertMigration(final Connection connection, final int revision, final byte[] info)
 	{
-		assert migrationSupported;
+		assert revisionEnabled;
 		
 		final Statement bf = createStatement();
 		bf.append("insert into ").
@@ -1516,7 +1516,7 @@ final class Database
 	void migrate(final int expectedRevision, final Revision[] migrations)
 	{
 		assert expectedRevision>=0 : expectedRevision;
-		assert migrationSupported;
+		assert revisionEnabled;
 
 		final Pool<Connection> connectionPool = this.connectionPool;
 		Connection con = null;
