@@ -64,20 +64,20 @@ final class Revision_Jspm extends Console_Jspm
 			for(final Line line : lines)
 			{
 				n++;
-				final Revision migration = line.revision;
+				final Revision revision = line.revision;
 				final String logString = line.logString;
 				final TreeMap<String, String> logProperty = line.logProperties;
 			%>
 			<tr>
-				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=migration.getNumber()%></td>
+				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=revision.getNumber()%></td>
 				<td class="text"><%
-				if(migration!=null)
+				if(revision!=null)
 				{
 					%>
 					<img class="node" src="<%=ConsoleServlet.nodeFalse%>" onClick="toggleSql(this,<%=n%>)">
-					<%=encode(migration.getComment())%>
+					<%=encode(revision.getComment())%>
 					<ul id="sql<%=n%>" class="expand"><%
-						for(final String sql : migration.getBody())
+						for(final String sql : revision.getBody())
 						{
 						%>
 						<li><%=encode(sql)%></li><%
