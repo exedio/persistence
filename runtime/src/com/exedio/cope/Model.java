@@ -358,7 +358,7 @@ public final class Model
 		return revisionSupported;
 	}
 	
-	private final void assertMigrationSupported()
+	private final void assertRevisionSupported()
 	{
 		if(!revisionSupported)
 			throw new IllegalArgumentException("not in migration mode");
@@ -366,26 +366,26 @@ public final class Model
 
 	public int getRevisionNumber()
 	{
-		assertMigrationSupported();
+		assertRevisionSupported();
 		return revisionNumber;
 	}
 
 	public List<Revision> getRevisions()
 	{
-		assertMigrationSupported();
+		assertRevisionSupported();
 		return Collections.unmodifiableList(Arrays.asList(revisions));
 	}
 	
 	void setMigrations(final Revision[] revisions) // for test only, not for productive use !!!
 	{
-		assertMigrationSupported();
+		assertRevisionSupported();
 		this.revisions = checkRevisions(revisions);
 		this.revisionNumber = revisionNumber(revisions);
 	}
 
 	public void revise()
 	{
-		assertMigrationSupported();
+		assertRevisionSupported();
 		
 		synchronized(revisionLock)
 		{
@@ -403,7 +403,7 @@ public final class Model
 
 	public Map<Integer, byte[]> getRevisionLogs()
 	{
-		assertMigrationSupported();
+		assertRevisionSupported();
 		return getDatabase().getMigrationLogs();
 	}
 	
