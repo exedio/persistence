@@ -157,7 +157,7 @@ final class Database
 			}
 			catch(SQLException e)
 			{
-				throw new SQLRuntimeException(e, "migrate");
+				throw new SQLRuntimeException(e, "revise");
 			}
 			finally
 			{
@@ -1440,11 +1440,11 @@ final class Database
 		{
 			con = connectionPool.get();
 			con.setAutoCommit(true);
-			return getMigrationLogs(con);
+			return getRevisionLogs(con);
 		}
 		catch(SQLException e)
 		{
-			throw new SQLRuntimeException(e, "getMigrationLogs");
+			throw new SQLRuntimeException(e, "getRevisionLogs");
 		}
 		finally
 		{
@@ -1456,7 +1456,7 @@ final class Database
 		}
 	}
 	
-	private Map<Integer, byte[]> getMigrationLogs(final Connection connection)
+	private Map<Integer, byte[]> getRevisionLogs(final Connection connection)
 	{
 		buildStage = false;
 
@@ -1570,7 +1570,7 @@ final class Database
 					{
 						final String sql = body[bodyIndex];
 						if(Model.isLoggingEnabled())
-							System.out.println("COPE migrating " + number + ':' + sql);
+							System.out.println("COPE revising " + number + ':' + sql);
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
