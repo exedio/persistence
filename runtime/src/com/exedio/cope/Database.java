@@ -1415,7 +1415,7 @@ final class Database
 		return result;
 	}
 	
-	private int getActualMigrationRevision(final Connection connection)
+	private int getActualRevisionNumber(final Connection connection)
 	{
 		buildStage = false;
 
@@ -1532,7 +1532,7 @@ final class Database
 				throw new SQLRuntimeException(e, "setAutoCommit");
 			}
 			
-			final int actualRevision = getActualMigrationRevision(con);
+			final int actualRevision = getActualRevisionNumber(con);
 			
 			if(actualRevision>expectedRevision)
 			{
