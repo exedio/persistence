@@ -139,7 +139,7 @@ public final class Revision
 		return toBytes(result);
 	}
 	
-	static Properties migrate(
+	static Properties revise(
 			final int number,
 			final Date date, final String hostname, final DialectParameters dialectParameters,
 			final String comment)
@@ -149,7 +149,7 @@ public final class Revision
 		return result;
 	}
 	
-	static void migrateSql(final Properties info, final int index, final String sql, final int rows, final long elapsed)
+	static void reviseSql(final Properties info, final int index, final String sql, final int rows, final long elapsed)
 	{
 		final String bodyPrefix = "body" + index + '.';
 		info.setProperty(bodyPrefix + "sql", sql);

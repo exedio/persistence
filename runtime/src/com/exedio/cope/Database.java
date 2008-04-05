@@ -1564,7 +1564,7 @@ final class Database
 					final Revision migration = migrations[migrationIndex];
 					final int revision = migration.number;
 					assert migration.number == (expectedRevision - migrationIndex);
-					final java.util.Properties info = Revision.migrate(revision, date, hostname, dialectParameters, migration.comment);
+					final java.util.Properties info = Revision.revise(revision, date, hostname, dialectParameters, migration.comment);
 					final String[] body = migration.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
@@ -1576,7 +1576,7 @@ final class Database
 						final long start = System.currentTimeMillis();
 						final int rows = executeSQLUpdate(con, bf, false);
 						final long end = System.currentTimeMillis();
-						Revision.migrateSql(info, bodyIndex, sql, rows, end-start);
+						Revision.reviseSql(info, bodyIndex, sql, rows, end-start);
 					}
 					insertMigration(con, revision, Revision.toBytes(info));
 				}
