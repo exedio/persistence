@@ -42,7 +42,7 @@ import com.exedio.dsmf.Schema;
 
 public final class Model
 {
-	private final boolean migrationSupported;
+	private final boolean revisionSupported;
 	private int migrationRevision;
 	private Revision[] migrations;
 	private final Object migrationLock = new Object();
@@ -141,7 +141,7 @@ public final class Model
 	{
 		assert (migrationRevision>=0) == (migrations!=null);
 		
-		this.migrationSupported = (migrations!=null);
+		this.revisionSupported = (migrations!=null);
 		this.migrationRevision = migrationRevision;
 		this.migrations = migrations;
 		
@@ -300,7 +300,7 @@ public final class Model
 					throw new RuntimeException();
 		
 				// do this at first, to avoid half-connected model if probe connection fails
-				final Database db = properties.createDatabase(migrationSupported);
+				final Database db = properties.createDatabase(revisionSupported);
 				this.propertiesIfConnected = properties;
 				this.databaseIfConnected = db;
 				
@@ -355,12 +355,12 @@ public final class Model
 
 	public boolean isRevisionSupported()
 	{
-		return migrationSupported;
+		return revisionSupported;
 	}
 	
 	private final void assertMigrationSupported()
 	{
-		if(!migrationSupported)
+		if(!revisionSupported)
 			throw new IllegalArgumentException("not in migration mode");
 	}
 
@@ -395,7 +395,7 @@ public final class Model
 
 	public void reviseIfSupported()
 	{
-		if(!migrationSupported)
+		if(!revisionSupported)
 			return;
 		
 		revise();
