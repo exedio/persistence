@@ -41,14 +41,14 @@ public class ReviseTest extends CopeAssert
 		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5"),
 	};
 	
-	private static final Model model5 = new Model(migrations5, MigrateItem1.TYPE);
+	private static final Model model5 = new Model(migrations5, ReviseItem1.TYPE);
 	
 	
 	private static final Revision[] migrations7Missing = new Revision[]{
 			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7"),
 		};
 	
-	private static final Model model7 = new Model(migrations7Missing, MigrateItem2.TYPE);
+	private static final Model model7 = new Model(migrations7Missing, ReviseItem2.TYPE);
 	
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
@@ -144,9 +144,9 @@ public class ReviseTest extends CopeAssert
 		// Never do this in real projects,
 		// always use plain string literals
 		// containing the sql statement!
-		final String body70 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field7"), dialect.getStringType(100));
-		final String body60 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field6"), dialect.getStringType(100));
-		final String body61 = driver.createColumn(driver.protectName(mysqlLower("MigrateItem")), driver.protectName("field6b"), dialect.getStringType(100));
+		final String body70 = driver.createColumn(driver.protectName(mysqlLower("ReviseItem")), driver.protectName("field7"), dialect.getStringType(100));
+		final String body60 = driver.createColumn(driver.protectName(mysqlLower("ReviseItem")), driver.protectName("field6"), dialect.getStringType(100));
+		final String body61 = driver.createColumn(driver.protectName(mysqlLower("ReviseItem")), driver.protectName("field6b"), dialect.getStringType(100));
 		final Revision[] migrations7 = new Revision[]{
 				new Revision(7, "add column field7" + blah, body70),
 				new Revision(6, "add column field6",        body60, body61),
@@ -230,8 +230,8 @@ public class ReviseTest extends CopeAssert
 	
 	private void assertSchema(final Schema schema, final boolean model2, final boolean migrated)
 	{
-		final Table table = schema.getTable(mysqlLower(("MigrateItem")));
-		assertEquals(mysqlLower("MigrateItem"), table.getName());
+		final Table table = schema.getTable(mysqlLower(("ReviseItem")));
+		assertEquals(mysqlLower("ReviseItem"), table.getName());
 		assertEquals(true, table.required());
 		assertEquals(true, table.exists());
 		final Iterator<Column> columns = table.getColumns().iterator();
