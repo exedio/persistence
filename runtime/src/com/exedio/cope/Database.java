@@ -1373,9 +1373,9 @@ final class Database
 		return executeSQLQuery(connection, bf, null, false, integerResultSetHandler);
 	}
 	
-	private static final String MIGRATION_COLUMN_REVISION_NAME = "v";
-	private static final String MIGRATION_COLUMN_INFO_NAME = "i";
-	private static final int MIGRATION_MUTEX_NUMBER = -1;
+	private static final String REVISION_COLUMN_NUMBER_NAME = "v";
+	private static final String REVISION_COLUMN_INFO_NAME = "i";
+	private static final int REVISION_MUTEX_NUMBER = -1;
 	
 	Schema makeSchema()
 	{
@@ -1383,7 +1383,7 @@ final class Database
 		{
 			public Connection getConnection() throws SQLException
 			{
-				final Connection result =  connectionPool.get();
+				final Connection result = connectionPool.get();
 				result.setAutoCommit(true);
 				return result;
 			}
@@ -1399,9 +1399,9 @@ final class Database
 		if(revisionEnabled)
 		{
 			final com.exedio.dsmf.Table table = new com.exedio.dsmf.Table(result, Table.MIGRATION_TABLE_NAME);
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_REVISION_NAME, dialect.getIntegerType(MIGRATION_MUTEX_NUMBER, Integer.MAX_VALUE));
-			new com.exedio.dsmf.Column(table, MIGRATION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(MIGRATION_COLUMN_REVISION_NAME) + ')');
+			new com.exedio.dsmf.Column(table, REVISION_COLUMN_NUMBER_NAME, dialect.getIntegerType(REVISION_MUTEX_NUMBER, Integer.MAX_VALUE));
+			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
+			new com.exedio.dsmf.UniqueConstraint(table, Table.MIGRATION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
 		}
 		
 		dialect.completeSchema(result);
@@ -1420,7 +1420,7 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String revision = driver.protectName(MIGRATION_COLUMN_REVISION_NAME);
+		final String revision = driver.protectName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select max(").
 			append(revision).defineColumnInteger().
 			append(") from ").
@@ -1461,11 +1461,11 @@ final class Database
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String revision = driver.protectName(MIGRATION_COLUMN_REVISION_NAME);
+		final String revision = driver.protectName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select ").
 			append(revision).defineColumnInteger().
 			append(',').
-			append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).defineColumnString().
+			append(driver.protectName(REVISION_COLUMN_INFO_NAME)).defineColumnString().
 			append(" from ").
 			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 			append(" where ").
@@ -1501,9 +1501,9 @@ final class Database
 		bf.append("insert into ").
 			append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 			append('(').
-			append(driver.protectName(MIGRATION_COLUMN_REVISION_NAME)).
+			append(driver.protectName(REVISION_COLUMN_NUMBER_NAME)).
 			append(',').
-			append(driver.protectName(MIGRATION_COLUMN_INFO_NAME)).
+			append(driver.protectName(REVISION_COLUMN_INFO_NAME)).
 			append(")values(").
 			appendParameter(number).
 			append(',').
@@ -1550,7 +1550,7 @@ final class Database
 				final String hostname = getHostname();
 				try
 				{
-					insertRevision(con, MIGRATION_MUTEX_NUMBER, Revision.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
+					insertRevision(con, REVISION_MUTEX_NUMBER, Revision.mutex(date, hostname, dialectParameters, expectedRevision, actualRevision));
 				}
 				catch(SQLRuntimeException e)
 				{
@@ -1585,9 +1585,9 @@ final class Database
 					bf.append("delete from ").
 						append(driver.protectName(Table.MIGRATION_TABLE_NAME)).
 						append(" where ").
-						append(driver.protectName(MIGRATION_COLUMN_REVISION_NAME)).
+						append(driver.protectName(REVISION_COLUMN_NUMBER_NAME)).
 						append('=').
-						appendParameter(MIGRATION_MUTEX_NUMBER);
+						appendParameter(REVISION_MUTEX_NUMBER);
 					executeSQLUpdate(con, bf, true);
 				}
 			}
