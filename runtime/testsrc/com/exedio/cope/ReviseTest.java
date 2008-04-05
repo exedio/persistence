@@ -296,12 +296,12 @@ public class ReviseTest extends CopeAssert
 		assertEquals(date, assertCreate(date, date, logs, revision));
 	}
 	
-	private final Date assertRevise(final Date before, final Date after, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private final Date assertRevise(final Date before, final Date after, final Revision migration, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
-		final byte[] log = logs.get(revision);
+		final byte[] log = logs.get(number);
 		assertNotNull(log);
 		final Properties logProps = parse(log);
-		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
+		assertEquals(String.valueOf(number), logProps.getProperty("revision"));
 		final Date date = df.parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals(null, logProps.getProperty("create"));
@@ -317,9 +317,9 @@ public class ReviseTest extends CopeAssert
 		return date;
 	}
 	
-	private final void assertRevise(final Date date, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private final void assertRevise(final Date date, final Revision migration, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
-		assertEquals(date, assertRevise(date, date, migration, logs, revision));
+		assertEquals(date, assertRevise(date, date, migration, logs, number));
 	}
 	
 	private final void assertRevisionEnvironment(final Properties p)
