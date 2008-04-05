@@ -139,7 +139,7 @@ final class Database
 		return new Statement(this, query);
 	}
 	
-	void createDatabase(final int migrationRevision)
+	void createDatabase(final int revisionNumber)
 	{
 		buildStage = false;
 		
@@ -153,7 +153,7 @@ final class Database
 			{
 				con = connectionPool.get();
 				con.setAutoCommit(true);
-				insertMigration(con, migrationRevision, Revision.create(migrationRevision, getHostname(), dialectParameters));
+				insertMigration(con, revisionNumber, Revision.create(revisionNumber, getHostname(), dialectParameters));
 			}
 			catch(SQLException e)
 			{

@@ -131,10 +131,10 @@ public final class Revision
 	}
 	
 	static byte[] create(
-			final int revision,
+			final int number,
 			final String hostname, final DialectParameters dialectParameters)
 	{
-		final Properties result = newInfo(revision, new Date(), hostname, dialectParameters);
+		final Properties result = newInfo(number, new Date(), hostname, dialectParameters);
 		result.setProperty("create", Boolean.TRUE.toString());
 		return toBytes(result);
 	}
