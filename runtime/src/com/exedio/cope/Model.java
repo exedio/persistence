@@ -44,7 +44,7 @@ public final class Model
 {
 	private final boolean revisionSupported;
 	private int revisionNumber;
-	private Revision[] migrations;
+	private Revision[] revisions;
 	private final Object migrationLock = new Object();
 	
 	private final Type<?>[] types;
@@ -132,18 +132,18 @@ public final class Model
 			return migrations[0].revision;
 	}
 	
-	public Model(final Revision[] migrations, final Type... types)
+	public Model(final Revision[] revisions, final Type... types)
 	{
-		this(migrationRevision(migrations), checkMigrations(migrations), types);
+		this(migrationRevision(revisions), checkMigrations(revisions), types);
 	}
 	
-	private Model(final int revisionNumber, final Revision[] migrations, final Type... types)
+	private Model(final int revisionNumber, final Revision[] revisions, final Type... types)
 	{
-		assert (revisionNumber>=0) == (migrations!=null);
+		assert (revisionNumber>=0) == (revisions!=null);
 		
-		this.revisionSupported = (migrations!=null);
+		this.revisionSupported = (revisions!=null);
 		this.revisionNumber = revisionNumber;
-		this.migrations = migrations;
+		this.revisions = revisions;
 		
 		if(types==null)
 			throw new NullPointerException("types must not be null");
@@ -373,14 +373,14 @@ public final class Model
 	public List<Revision> getRevisions()
 	{
 		assertMigrationSupported();
-		return Collections.unmodifiableList(Arrays.asList(migrations));
+		return Collections.unmodifiableList(Arrays.asList(revisions));
 	}
 	
-	void setMigrations(final Revision[] migrations) // for test only, not for productive use !!!
+	void setMigrations(final Revision[] revisions) // for test only, not for productive use !!!
 	{
 		assertMigrationSupported();
-		this.migrations = checkMigrations(migrations);
-		this.revisionNumber = migrationRevision(migrations);
+		this.revisions = checkMigrations(revisions);
+		this.revisionNumber = migrationRevision(revisions);
 	}
 
 	public void revise()
@@ -389,7 +389,7 @@ public final class Model
 		
 		synchronized(migrationLock)
 		{
-			getDatabase().migrate(revisionNumber, migrations);
+			getDatabase().migrate(revisionNumber, revisions);
 		}
 	}
 
