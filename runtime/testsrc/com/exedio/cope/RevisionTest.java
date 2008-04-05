@@ -24,7 +24,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class RevisionTest extends CopeAssert
 {
-	public void testMigration()
+	public void testRevision()
 	{
 		try
 		{
@@ -110,7 +110,7 @@ public class RevisionTest extends CopeAssert
 		}
 		try
 		{
-			new Model(new Revision[]{new Revision(1, "migration1", "nonsensesql1"), null}, (Type[])null);
+			new Model(new Revision[]{new Revision(1, "revision1", "nonsensesql1"), null}, (Type[])null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -120,8 +120,8 @@ public class RevisionTest extends CopeAssert
 		try
 		{
 			new Model(new Revision[]{
-					new Revision(8, "migration8", "nonsensesql8"),
-					new Revision(6, "migration6", "nonsensesql6"),
+					new Revision(8, "revision8", "nonsensesql8"),
+					new Revision(6, "revision6", "nonsensesql6"),
 					}, (Type[])null);
 			fail();
 		}
