@@ -60,24 +60,6 @@ public final class Revision
 		this.comment = comment;
 		this.body = bodyCopy;
 	}
-	
-	/**
-	 * @deprecated Use {@link #getNumber()} instead
-	 */
-	@Deprecated
-	public int getVersion()
-	{
-		return getNumber();
-	}
-
-	/**
-	 * @deprecated Use {@link #getNumber()} instead
-	 */
-	@Deprecated
-	public int getRevision()
-	{
-		return getNumber();
-	}
 
 	public int getNumber()
 	{
@@ -218,5 +200,25 @@ public final class Revision
 		}
 		//try{System.out.println("-----------"+new String(baos.toByteArray(), "latin1")+"-----------");}catch(UnsupportedEncodingException e){throw new RuntimeException(e);};
 		return baos.toByteArray();
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #getNumber()} instead
+	 */
+	@Deprecated
+	public int getVersion()
+	{
+		return getNumber();
+	}
+
+	/**
+	 * @deprecated Use {@link #getNumber()} instead
+	 */
+	@Deprecated
+	public int getRevision()
+	{
+		return getNumber();
 	}
 }
