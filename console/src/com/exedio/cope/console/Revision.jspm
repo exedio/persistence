@@ -27,7 +27,7 @@ import java.util.TreeMap;
 import com.exedio.cope.Revision;
 import com.exedio.cope.console.RevisionCop.Line;
 
-final class Migration_Jspm extends Console_Jspm
+final class Revision_Jspm extends Console_Jspm
 {
 	final static void writeHead(final PrintStream out)
 	{

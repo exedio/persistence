@@ -72,7 +72,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	@Override
 	void writeHead(final PrintStream out)
 	{
-		Migration_Jspm.writeHead(out);
+		Revision_Jspm.writeHead(out);
 	}
 	
 	private TreeMap<Integer, Line> lines = null;
@@ -161,11 +161,11 @@ final class RevisionCop extends ConsoleCop implements Pageable
 			
 			pager.init(lineListLimited.size(), lineList.size());
 			
-			Migration_Jspm.writeBody(out, this, lineListLimited);
+			Revision_Jspm.writeBody(out, this, lineListLimited);
 		}
 		else
 		{
-			Migration_Jspm.writeBodyDisabled(out);
+			Revision_Jspm.writeBodyDisabled(out);
 		}
 	}
 }
