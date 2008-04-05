@@ -93,14 +93,14 @@ public final class Model
 		this(checkRevisionNumber(revisionNumber), new Revision[0], types);
 	}
 	
-	private static final Revision[] checkMigrations(final Revision[] migrations)
+	private static final Revision[] checkRevisions(final Revision[] revisions)
 	{
-		if(migrations==null)
+		if(revisions==null)
 			throw new NullPointerException("migrations must not be null");
 		
 		// make a copy to avoid modifications afterwards
-		final Revision[] result = new Revision[migrations.length];
-		System.arraycopy(migrations, 0, result, 0, migrations.length);
+		final Revision[] result = new Revision[revisions.length];
+		System.arraycopy(revisions, 0, result, 0, revisions.length);
 		
 		int base = -1;
 		for(int i = 0; i<result.length; i++)
@@ -134,7 +134,7 @@ public final class Model
 	
 	public Model(final Revision[] revisions, final Type... types)
 	{
-		this(migrationRevision(revisions), checkMigrations(revisions), types);
+		this(migrationRevision(revisions), checkRevisions(revisions), types);
 	}
 	
 	private Model(final int revisionNumber, final Revision[] revisions, final Type... types)
@@ -379,7 +379,7 @@ public final class Model
 	void setMigrations(final Revision[] revisions) // for test only, not for productive use !!!
 	{
 		assertMigrationSupported();
-		this.revisions = checkMigrations(revisions);
+		this.revisions = checkRevisions(revisions);
 		this.revisionNumber = migrationRevision(revisions);
 	}
 
