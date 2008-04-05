@@ -296,7 +296,7 @@ public class ReviseTest extends CopeAssert
 		assertEquals(date, assertCreate(date, date, logs, revision));
 	}
 	
-	private final Date assertRevise(final Date before, final Date after, final Revision migration, final Map<Integer, byte[]> logs, final int number) throws ParseException
+	private final Date assertRevise(final Date before, final Date after, final Revision revision, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
 		final byte[] log = logs.get(number);
 		assertNotNull(log);
@@ -305,21 +305,21 @@ public class ReviseTest extends CopeAssert
 		final Date date = df.parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals(null, logProps.getProperty("create"));
-		assertEquals(migration.comment, logProps.getProperty("comment"));
-		for(int i = 0; i<migration.body.length; i++)
+		assertEquals(revision.comment, logProps.getProperty("comment"));
+		for(int i = 0; i<revision.body.length; i++)
 		{
-			assertEquals(migration.body[i], logProps.getProperty("body" + i + ".sql"));
+			assertEquals(revision.body[i], logProps.getProperty("body" + i + ".sql"));
 			assertMinInt(0, logProps.getProperty("body" + i + ".rows"));
 			assertMinInt(0, logProps.getProperty("body" + i + ".elapsed"));
 		}
 		assertRevisionEnvironment(logProps);
-		assertEquals(14 + (3*migration.body.length), logProps.size());
+		assertEquals(14 + (3*revision.body.length), logProps.size());
 		return date;
 	}
 	
-	private final void assertRevise(final Date date, final Revision migration, final Map<Integer, byte[]> logs, final int number) throws ParseException
+	private final void assertRevise(final Date date, final Revision revision, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
-		assertEquals(date, assertRevise(date, date, migration, logs, number));
+		assertEquals(date, assertRevise(date, date, revision, logs, number));
 	}
 	
 	private final void assertRevisionEnvironment(final Properties p)
