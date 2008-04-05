@@ -37,18 +37,18 @@ import com.exedio.dsmf.Table;
 
 public class ReviseTest extends CopeAssert
 {
-	private static final Revision[] migrations5 = new Revision[]{
+	private static final Revision[] revisions5 = new Revision[]{
 		new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5"),
 	};
 	
-	private static final Model model5 = new Model(migrations5, ReviseItem1.TYPE);
+	private static final Model model5 = new Model(revisions5, ReviseItem1.TYPE);
 	
 	
-	private static final Revision[] migrations7Missing = new Revision[]{
+	private static final Revision[] revisions7Missing = new Revision[]{
 			new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7"),
 		};
 	
-	private static final Model model7 = new Model(migrations7Missing, ReviseItem2.TYPE);
+	private static final Model model7 = new Model(revisions7Missing, ReviseItem2.TYPE);
 	
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
@@ -74,14 +74,14 @@ public class ReviseTest extends CopeAssert
 	String driverName;
 	String driverVersion;
 	
-	public void testMigrate() throws ParseException
+	public void testRevise() throws ParseException
 	{
 		jdbcUrl  = props.getDatabaseUrl();
 		jdbcUser = props.getDatabaseUser();
 		
 		assertTrue(model5.isRevisionEnabled());
 		assertEquals(5, model5.getRevisionNumber());
-		assertEqualsUnmodifiable(Arrays.asList(migrations5), model5.getRevisions());
+		assertEqualsUnmodifiable(Arrays.asList(revisions5), model5.getRevisions());
 		
 		model5.connect(props);
 		model5.tearDownDatabase();
@@ -107,7 +107,7 @@ public class ReviseTest extends CopeAssert
 		
 		assertTrue(model7.isRevisionEnabled());
 		assertEquals(7, model7.getRevisionNumber());
-		assertEqualsUnmodifiable(list(migrations7Missing[0]), model7.getRevisions());
+		assertEqualsUnmodifiable(list(revisions7Missing[0]), model7.getRevisions());
 
 		model7.connect(props);
 		assertSchema(model7.getVerifiedSchema(), true, false);
@@ -158,16 +158,16 @@ public class ReviseTest extends CopeAssert
 		assertEquals(7, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getRevisions());
 
-		final Date migrateBefore = new Date();
+		final Date reviseBefore = new Date();
 		model7.reviseIfSupported();
-		final Date migrateAfter = new Date();
+		final Date reviseAfter = new Date();
 		assertSchema(model7.getVerifiedSchema(), true, true);
-		final Date migrateDate;
+		final Date reviseDate;
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			migrateDate = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs, 6);
-			assertMigrate(migrateDate, migrations7[0], logs, 7);
+			reviseDate = assertRevise(reviseBefore, reviseAfter, migrations7[1], logs, 6);
+			assertRevise(reviseDate, migrations7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -178,8 +178,8 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertMigrate(migrateDate, migrations7[1], logs, 6);
-			assertMigrate(migrateDate, migrations7[0], logs, 7);
+			assertRevise(reviseDate, migrations7[1], logs, 6);
+			assertRevise(reviseDate, migrations7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -203,8 +203,8 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertMigrate(migrateDate, migrations7[1], logs, 6);
-			assertMigrate(migrateDate, migrations7[0], logs, 7);
+			assertRevise(reviseDate, migrations7[1], logs, 6);
+			assertRevise(reviseDate, migrations7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
@@ -220,15 +220,15 @@ public class ReviseTest extends CopeAssert
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
-			assertMigrate(migrateDate, migrations7[1], logs, 6);
-			assertMigrate(migrateDate, migrations7[0], logs, 7);
+			assertRevise(reviseDate, migrations7[1], logs, 6);
+			assertRevise(reviseDate, migrations7[0], logs, 7);
 			assertEquals(3, logs.size());
 		}
 		
 		model7.tearDownDatabase();
 	}
 	
-	private void assertSchema(final Schema schema, final boolean model2, final boolean migrated)
+	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)
 	{
 		final Table table = schema.getTable(mysqlLower(("ReviseItem")));
 		assertEquals(mysqlLower("ReviseItem"), table.getName());
@@ -253,19 +253,19 @@ public class ReviseTest extends CopeAssert
 			final Column column6 = columns.next();
 			assertEquals("field6", column6.getName());
 			assertEquals(true, column6.required());
-			assertEquals(migrated, column6.exists());
+			assertEquals(revised, column6.exists());
 			assertNotNull(column6.getType());
 
 			final Column column6b = columns.next();
 			assertEquals("field6b", column6b.getName());
 			assertEquals(true, column6b.required());
-			assertEquals(migrated, column6b.exists());
+			assertEquals(revised, column6b.exists());
 			assertNotNull(column6b.getType());
 
 			final Column column7 = columns.next();
 			assertEquals("field7", column7.getName());
 			assertEquals(true, column7.required());
-			assertEquals(migrated, column7.exists());
+			assertEquals(revised, column7.exists());
 			assertNotNull(column7.getType());
 		}
 		
@@ -286,7 +286,7 @@ public class ReviseTest extends CopeAssert
 		final Date date = df.parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals("true", logProps.getProperty("create"));
-		assertMigrationEnvironment(logProps);
+		assertRevisionEnvironment(logProps);
 		assertEquals(14, logProps.size());
 		return date;
 	}
@@ -296,7 +296,7 @@ public class ReviseTest extends CopeAssert
 		assertEquals(date, assertCreate(date, date, logs, revision));
 	}
 	
-	private final Date assertMigrate(final Date before, final Date after, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private final Date assertRevise(final Date before, final Date after, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);
@@ -312,17 +312,17 @@ public class ReviseTest extends CopeAssert
 			assertMinInt(0, logProps.getProperty("body" + i + ".rows"));
 			assertMinInt(0, logProps.getProperty("body" + i + ".elapsed"));
 		}
-		assertMigrationEnvironment(logProps);
+		assertRevisionEnvironment(logProps);
 		assertEquals(14 + (3*migration.body.length), logProps.size());
 		return date;
 	}
 	
-	private final void assertMigrate(final Date date, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private final void assertRevise(final Date date, final Revision migration, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
-		assertEquals(date, assertMigrate(date, date, migration, logs, revision));
+		assertEquals(date, assertRevise(date, date, migration, logs, revision));
 	}
 	
-	private final void assertMigrationEnvironment(final Properties p)
+	private final void assertRevisionEnvironment(final Properties p)
 	{
 		assertNotNull(hostname);
 		assertNotNull(jdbcUrl);
