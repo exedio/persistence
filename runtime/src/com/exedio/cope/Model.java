@@ -45,7 +45,7 @@ public final class Model
 	private final boolean revisionSupported;
 	private int revisionNumber;
 	private Revision[] revisions;
-	private final Object migrationLock = new Object();
+	private final Object revisionLock = new Object();
 	
 	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
@@ -387,7 +387,7 @@ public final class Model
 	{
 		assertMigrationSupported();
 		
-		synchronized(migrationLock)
+		synchronized(revisionLock)
 		{
 			getDatabase().migrate(revisionNumber, revisions);
 		}
