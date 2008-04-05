@@ -446,7 +446,16 @@ public final class Model
 		revise();
 	}
 	
+	/**
+	 * @deprecated Use {@link #getRevisionLogs()} instead
+	 */
+	@Deprecated
 	public Map<Integer, byte[]> getMigrationLogs()
+	{
+		return getRevisionLogs();
+	}
+
+	public Map<Integer, byte[]> getRevisionLogs()
 	{
 		assertMigrationSupported();
 		return getDatabase().getMigrationLogs();

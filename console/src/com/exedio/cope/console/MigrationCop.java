@@ -116,7 +116,7 @@ final class MigrationCop extends ConsoleCop implements Pageable
 			Map<Integer, byte[]> logsRaw = null;
 			try
 			{
-				logsRaw = model.getMigrationLogs();
+				logsRaw = model.getRevisionLogs();
 			}
 			catch(SQLRuntimeException e)
 			{

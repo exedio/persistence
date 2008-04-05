@@ -99,7 +99,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model5.getVerifiedSchema(), false, false);
 		final Date createDate;
 		{
-			final Map<Integer, byte[]> logs = model5.getMigrationLogs();
+			final Map<Integer, byte[]> logs = model5.getRevisionLogs();
 			createDate = assertCreate(createBefore, createAfter, logs, 5);
 			assertEquals(1, logs.size());
 		}
@@ -112,7 +112,7 @@ public class MigrateTest extends CopeAssert
 		model7.connect(props);
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
-			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
 			assertEquals(1, logs.size());
 		}
@@ -128,7 +128,7 @@ public class MigrateTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
-			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
 			assertEquals(1, logs.size());
 		}
@@ -164,7 +164,7 @@ public class MigrateTest extends CopeAssert
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		final Date migrateDate;
 		{
-			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
 			migrateDate = assertMigrate(migrateBefore, migrateAfter, migrations7[1], logs, 6);
 			assertMigrate(migrateDate, migrations7[0], logs, 7);
@@ -176,7 +176,7 @@ public class MigrateTest extends CopeAssert
 		model7.revise();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
 			assertMigrate(migrateDate, migrations7[1], logs, 6);
 			assertMigrate(migrateDate, migrations7[0], logs, 7);
@@ -201,7 +201,7 @@ public class MigrateTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
 			assertMigrate(migrateDate, migrations7[1], logs, 6);
 			assertMigrate(migrateDate, migrations7[0], logs, 7);
@@ -218,7 +218,7 @@ public class MigrateTest extends CopeAssert
 		}
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
-			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
+			final Map<Integer, byte[]> logs = model7.getRevisionLogs();
 			assertCreate(createDate, logs, 5);
 			assertMigrate(migrateDate, migrations7[1], logs, 6);
 			assertMigrate(migrateDate, migrations7[0], logs, 7);

@@ -336,7 +336,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		try
 		{
-			model.getMigrationLogs();
+			model.getRevisionLogs();
 			fail();
 		}
 		catch(IllegalArgumentException e)
