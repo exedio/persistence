@@ -106,7 +106,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("migrations must not be null", e.getMessage());
+			assertEquals("revisions must not be null", e.getMessage());
 		}
 		try
 		{
@@ -115,7 +115,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("migration must not be null, but was at index 1", e.getMessage());
+			assertEquals("revision must not be null, but was at index 1", e.getMessage());
 		}
 		try
 		{

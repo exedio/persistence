@@ -96,7 +96,7 @@ public final class Model
 	private static final Revision[] checkRevisions(final Revision[] revisions)
 	{
 		if(revisions==null)
-			throw new NullPointerException("migrations must not be null");
+			throw new NullPointerException("revisions must not be null");
 		
 		// make a copy to avoid modifications afterwards
 		final Revision[] result = new Revision[revisions.length];
@@ -107,7 +107,7 @@ public final class Model
 		{
 			final Revision revision = result[i];
 			if(revision==null)
-				throw new NullPointerException("migration must not be null, but was at index " + i);
+				throw new NullPointerException("revision must not be null, but was at index " + i);
 			
 			if(i==0)
 				base = revision.revision;
