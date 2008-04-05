@@ -361,7 +361,7 @@ public final class Model
 	private final void assertRevisionSupported()
 	{
 		if(!revisionSupported)
-			throw new IllegalArgumentException("not in migration mode");
+			throw new IllegalArgumentException("revisions are not enabled");
 	}
 
 	public int getRevisionNumber()

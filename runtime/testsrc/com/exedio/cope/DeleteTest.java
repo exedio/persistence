@@ -314,7 +314,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("not in migration mode", e.getMessage());
+			assertEquals("revisions are not enabled", e.getMessage());
 		}
 		try
 		{
@@ -323,7 +323,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("not in migration mode", e.getMessage());
+			assertEquals("revisions are not enabled", e.getMessage());
 		}
 		try
 		{
@@ -332,7 +332,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("not in migration mode", e.getMessage());
+			assertEquals("revisions are not enabled", e.getMessage());
 		}
 		try
 		{
@@ -341,7 +341,7 @@ public class DeleteTest extends AbstractLibTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("not in migration mode", e.getMessage());
+			assertEquals("revisions are not enabled", e.getMessage());
 		}
 		model.reviseIfSupported();
 	}
