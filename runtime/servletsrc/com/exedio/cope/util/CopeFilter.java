@@ -78,7 +78,7 @@ public final class CopeFilter implements Filter
 			// Cannot do this in init(), because filters are always initialized on startup.
 			// So the whole application would be useless, if the database schema is not yet created,
 			// including the COPE Console usually used to create the schema.
-			model.migrateIfSupported();
+			model.reviseIfSupported();
 			migrated = true;
 		}
 		

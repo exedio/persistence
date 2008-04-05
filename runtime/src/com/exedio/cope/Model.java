@@ -410,7 +410,16 @@ public final class Model
 		this.migrationRevision = migrationRevision(migrations);
 	}
 	
+	/**
+	 * @deprecated Use {@link #revise()} instead
+	 */
+	@Deprecated
 	public void migrate()
+	{
+		revise();
+	}
+
+	public void revise()
 	{
 		assertMigrationSupported();
 		
@@ -420,12 +429,21 @@ public final class Model
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #reviseIfSupported()} instead
+	 */
+	@Deprecated
 	public void migrateIfSupported()
+	{
+		reviseIfSupported();
+	}
+
+	public void reviseIfSupported()
 	{
 		if(!migrationSupported)
 			return;
 		
-		migrate();
+		revise();
 	}
 	
 	public Map<Integer, byte[]> getMigrationLogs()

@@ -170,7 +170,7 @@ public final class CopernicaServlet extends CopsServlet
 			{
 				connectToken = ServletUtil.getConnectedModel(this);
 				final Model model = connectToken.getModel();
-				model.migrateIfSupported();
+				model.reviseIfSupported();
 				return new PureCopernicaProvider(model);
 			}
 			else

@@ -119,7 +119,7 @@ public class MigrateTest extends CopeAssert
 
 		try
 		{
-			model7.migrateIfSupported();
+			model7.reviseIfSupported();
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -159,7 +159,7 @@ public class MigrateTest extends CopeAssert
 		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getRevisions());
 
 		final Date migrateBefore = new Date();
-		model7.migrateIfSupported();
+		model7.reviseIfSupported();
 		final Date migrateAfter = new Date();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		final Date migrateDate;
@@ -173,7 +173,7 @@ public class MigrateTest extends CopeAssert
 		
 		// test, that MigrationStep is not executed again,
 		// causing a SQLException because column does already exist
-		model7.migrate();
+		model7.revise();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getMigrationLogs();
@@ -193,7 +193,7 @@ public class MigrateTest extends CopeAssert
 
 		try
 		{
-			model7.migrateIfSupported();
+			model7.reviseIfSupported();
 		}
 		catch(SQLRuntimeException e)
 		{
@@ -210,7 +210,7 @@ public class MigrateTest extends CopeAssert
 		
 		try
 		{
-			model7.migrateIfSupported();
+			model7.reviseIfSupported();
 		}
 		catch(IllegalStateException e)
 		{

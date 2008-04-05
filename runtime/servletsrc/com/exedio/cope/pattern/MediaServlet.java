@@ -72,7 +72,7 @@ public final class MediaServlet extends HttpServlet
 
 		connectToken = ServletUtil.getConnectedModel(this);
 		final Model model = connectToken.getModel();
-		model.migrateIfSupported();
+		model.reviseIfSupported();
 		for(final Type<?> type : model.getTypes())
 		{
 			for(final Feature feature : type.getDeclaredFeatures())
