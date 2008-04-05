@@ -352,15 +352,6 @@ public final class Model
 				throw new IllegalStateException("model not yet connected, use connect(Properties)"); // TODO reorder code
 		}
 	}
-	
-	/**
-	 * @deprecated Use {@link #isRevisionSupported()} instead
-	 */
-	@Deprecated
-	public boolean isMigrationSupported()
-	{
-		return isRevisionSupported();
-	}
 
 	public boolean isRevisionSupported()
 	{
@@ -373,28 +364,10 @@ public final class Model
 			throw new IllegalArgumentException("not in migration mode");
 	}
 
-	/**
-	 * @deprecated Use {@link #getRevisionNumber()} instead
-	 */
-	@Deprecated
-	public int getMigrationRevision()
-	{
-		return getRevisionNumber();
-	}
-
 	public int getRevisionNumber()
 	{
 		assertMigrationSupported();
 		return migrationRevision;
-	}
-	
-	/**
-	 * @deprecated Use {@link #getRevisions()} instead
-	 */
-	@Deprecated
-	public List<Revision> getMigrations()
-	{
-		return getRevisions();
 	}
 
 	public List<Revision> getRevisions()
@@ -409,15 +382,6 @@ public final class Model
 		this.migrations = checkMigrations(migrations);
 		this.migrationRevision = migrationRevision(migrations);
 	}
-	
-	/**
-	 * @deprecated Use {@link #revise()} instead
-	 */
-	@Deprecated
-	public void migrate()
-	{
-		revise();
-	}
 
 	public void revise()
 	{
@@ -429,30 +393,12 @@ public final class Model
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link #reviseIfSupported()} instead
-	 */
-	@Deprecated
-	public void migrateIfSupported()
-	{
-		reviseIfSupported();
-	}
-
 	public void reviseIfSupported()
 	{
 		if(!migrationSupported)
 			return;
 		
 		revise();
-	}
-	
-	/**
-	 * @deprecated Use {@link #getRevisionLogs()} instead
-	 */
-	@Deprecated
-	public Map<Integer, byte[]> getMigrationLogs()
-	{
-		return getRevisionLogs();
 	}
 
 	public Map<Integer, byte[]> getRevisionLogs()
@@ -1102,6 +1048,60 @@ public final class Model
 	public int getMigrationVersion()
 	{
 		return getRevisionNumber();
+	}
+
+	/**
+	 * @deprecated Use {@link #getRevisionNumber()} instead
+	 */
+	@Deprecated
+	public int getMigrationRevision()
+	{
+		return getRevisionNumber();
+	}
+	
+	/**
+	 * @deprecated Use {@link #isRevisionSupported()} instead
+	 */
+	@Deprecated
+	public boolean isMigrationSupported()
+	{
+		return isRevisionSupported();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getRevisions()} instead
+	 */
+	@Deprecated
+	public List<Revision> getMigrations()
+	{
+		return getRevisions();
+	}
+	
+	/**
+	 * @deprecated Use {@link #revise()} instead
+	 */
+	@Deprecated
+	public void migrate()
+	{
+		revise();
+	}
+
+	/**
+	 * @deprecated Use {@link #reviseIfSupported()} instead
+	 */
+	@Deprecated
+	public void migrateIfSupported()
+	{
+		reviseIfSupported();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getRevisionLogs()} instead
+	 */
+	@Deprecated
+	public Map<Integer, byte[]> getMigrationLogs()
+	{
+		return getRevisionLogs();
 	}
 	
 	/**
