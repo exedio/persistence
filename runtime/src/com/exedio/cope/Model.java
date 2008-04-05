@@ -376,7 +376,7 @@ public final class Model
 		return Collections.unmodifiableList(Arrays.asList(revisions));
 	}
 	
-	void setMigrations(final Revision[] revisions) // for test only, not for productive use !!!
+	void setRevisions(final Revision[] revisions) // for test only, not for productive use !!!
 	{
 		assertRevisionSupported();
 		this.revisions = checkRevisions(revisions);

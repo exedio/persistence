@@ -153,7 +153,7 @@ public class MigrateTest extends CopeAssert
 				new Revision(5, "nonsense", "nonsense statement causing a test failure if executed for revision 5"),
 				new Revision(4, "nonsense", "nonsense statement causing a test failure if executed for revision 4"),
 			};
-		model7.setMigrations(migrations7);
+		model7.setRevisions(migrations7);
 		assertTrue(model7.isRevisionSupported());
 		assertEquals(7, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations7), model7.getRevisions());
@@ -186,7 +186,7 @@ public class MigrateTest extends CopeAssert
 		final Revision[] migrations8 = new Revision[]{
 				new Revision(8, "nonsense8", "nonsense statement causing a test failure"),
 			};
-		model7.setMigrations(migrations8);
+		model7.setRevisions(migrations8);
 		assertTrue(model7.isRevisionSupported());
 		assertEquals(8, model7.getRevisionNumber());
 		assertEqualsUnmodifiable(Arrays.asList(migrations8), model7.getRevisions());
