@@ -353,7 +353,16 @@ public final class Model
 		}
 	}
 	
+	/**
+	 * @deprecated Use {@link #isRevisionSupported()} instead
+	 */
+	@Deprecated
 	public boolean isMigrationSupported()
+	{
+		return isRevisionSupported();
+	}
+
+	public boolean isRevisionSupported()
 	{
 		return migrationSupported;
 	}
