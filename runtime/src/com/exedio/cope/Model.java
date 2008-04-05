@@ -43,7 +43,7 @@ import com.exedio.dsmf.Schema;
 public final class Model
 {
 	private final boolean revisionSupported;
-	private int migrationRevision;
+	private int revisionNumber;
 	private Revision[] migrations;
 	private final Object migrationLock = new Object();
 	
@@ -137,12 +137,12 @@ public final class Model
 		this(migrationRevision(migrations), checkMigrations(migrations), types);
 	}
 	
-	private Model(final int migrationRevision, final Revision[] migrations, final Type... types)
+	private Model(final int revisionNumber, final Revision[] migrations, final Type... types)
 	{
-		assert (migrationRevision>=0) == (migrations!=null);
+		assert (revisionNumber>=0) == (migrations!=null);
 		
 		this.revisionSupported = (migrations!=null);
-		this.migrationRevision = migrationRevision;
+		this.revisionNumber = revisionNumber;
 		this.migrations = migrations;
 		
 		if(types==null)
@@ -367,7 +367,7 @@ public final class Model
 	public int getRevisionNumber()
 	{
 		assertMigrationSupported();
-		return migrationRevision;
+		return revisionNumber;
 	}
 
 	public List<Revision> getRevisions()
@@ -380,7 +380,7 @@ public final class Model
 	{
 		assertMigrationSupported();
 		this.migrations = checkMigrations(migrations);
-		this.migrationRevision = migrationRevision(migrations);
+		this.revisionNumber = migrationRevision(migrations);
 	}
 
 	public void revise()
@@ -389,7 +389,7 @@ public final class Model
 		
 		synchronized(migrationLock)
 		{
-			getDatabase().migrate(migrationRevision, migrations);
+			getDatabase().migrate(revisionNumber, migrations);
 		}
 	}
 
@@ -543,7 +543,7 @@ public final class Model
 	
 	public void createDatabase()
 	{
-		getDatabase().createDatabase(migrationRevision);
+		getDatabase().createDatabase(revisionNumber);
 		clearCache();
 	}
 
