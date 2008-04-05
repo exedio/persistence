@@ -127,7 +127,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("inconsistent migration revision at index 1, expected 7, but was 6", e.getMessage());
+			assertEquals("inconsistent revision number at index 1, expected 7, but was 6", e.getMessage());
 		}
 	}
 	
