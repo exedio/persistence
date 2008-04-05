@@ -1513,7 +1513,7 @@ final class Database
 		executeSQLUpdate(connection, bf, true);
 	}
 	
-	void revise(final int expectedRevision, final Revision[] migrations)
+	void revise(final int expectedRevision, final Revision[] revisions)
 	{
 		assert expectedRevision>=0 : expectedRevision;
 		assert revisionEnabled;
@@ -1541,10 +1541,10 @@ final class Database
 			else if(actualRevision<expectedRevision)
 			{
 				final int startRevisionIndex = expectedRevision - actualRevision - 1;
-				if(startRevisionIndex>=migrations.length)
+				if(startRevisionIndex>=revisions.length)
 					throw new IllegalArgumentException(
 							"attempt to migrate from " + actualRevision + " to " + expectedRevision +
-							", but declared migrations allow from " + (expectedRevision - migrations.length) + " only");
+							", but declared migrations allow from " + (expectedRevision - revisions.length) + " only");
 				
 				final Date date = new Date();
 				final String hostname = getHostname();
@@ -1561,7 +1561,7 @@ final class Database
 				}
 				for(int revisionIndex = startRevisionIndex; revisionIndex>=0; revisionIndex--)
 				{
-					final Revision revision = migrations[revisionIndex];
+					final Revision revision = revisions[revisionIndex];
 					final int number = revision.number;
 					assert revision.number == (expectedRevision - revisionIndex);
 					final java.util.Properties info = Revision.revise(number, date, hostname, dialectParameters, revision.comment);
