@@ -92,16 +92,16 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	
 	static class Line
 	{
-		final int revision;
+		final int number;
 		Revision migration = null;
 		byte[] logRaw = null;
 		String logString = null;
 		TreeMap<String, String> logProperties = null;
 		boolean current = false;
 		
-		Line(final int revision)
+		Line(final int number)
 		{
-			this.revision = revision;
+			this.number = number;
 		}
 	}
 
