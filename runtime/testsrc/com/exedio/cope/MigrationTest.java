@@ -97,7 +97,7 @@ public class MigrationTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("migration revision must not be negative, but was -1", e.getMessage());
+			assertEquals("revision number must not be negative, but was -1", e.getMessage());
 		}
 		try
 		{

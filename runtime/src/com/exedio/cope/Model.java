@@ -84,7 +84,7 @@ public final class Model
 	private static final int checkRevisionNumber(final int revisionNumber)
 	{
 		if(revisionNumber<0)
-			throw new IllegalArgumentException("migration revision must not be negative, but was " + revisionNumber);
+			throw new IllegalArgumentException("revision number must not be negative, but was " + revisionNumber);
 		return revisionNumber;
 	}
 	
