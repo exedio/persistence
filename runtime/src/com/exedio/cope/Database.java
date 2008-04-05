@@ -1540,8 +1540,8 @@ final class Database
 			}
 			else if(actualRevision<expectedRevision)
 			{
-				final int startMigrationIndex = expectedRevision - actualRevision - 1;
-				if(startMigrationIndex>=migrations.length)
+				final int startRevisionIndex = expectedRevision - actualRevision - 1;
+				if(startRevisionIndex>=migrations.length)
 					throw new IllegalArgumentException(
 							"attempt to migrate from " + actualRevision + " to " + expectedRevision +
 							", but declared migrations allow from " + (expectedRevision - migrations.length) + " only");
@@ -1559,7 +1559,7 @@ final class Database
 							"Either a migration is currently underway, " +
 							"or a migration has failed unexpectedly.", e);
 				}
-				for(int migrationIndex = startMigrationIndex; migrationIndex>=0; migrationIndex--)
+				for(int migrationIndex = startRevisionIndex; migrationIndex>=0; migrationIndex--)
 				{
 					final Revision migration = migrations[migrationIndex];
 					final int revision = migration.number;
