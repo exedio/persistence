@@ -1562,15 +1562,15 @@ final class Database
 				for(int revisionIndex = startRevisionIndex; revisionIndex>=0; revisionIndex--)
 				{
 					final Revision migration = migrations[revisionIndex];
-					final int revision = migration.number;
+					final int number = migration.number;
 					assert migration.number == (expectedRevision - revisionIndex);
-					final java.util.Properties info = Revision.revise(revision, date, hostname, dialectParameters, migration.comment);
+					final java.util.Properties info = Revision.revise(number, date, hostname, dialectParameters, migration.comment);
 					final String[] body = migration.body;
 					for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 					{
 						final String sql = body[bodyIndex];
 						if(Model.isLoggingEnabled())
-							System.out.println("COPE migrating " + revision + ':' + sql);
+							System.out.println("COPE migrating " + number + ':' + sql);
 						final Statement bf = createStatement();
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
@@ -1578,7 +1578,7 @@ final class Database
 						final long end = System.currentTimeMillis();
 						Revision.reviseSql(info, bodyIndex, sql, rows, end-start);
 					}
-					insertRevision(con, revision, Revision.toBytes(info));
+					insertRevision(con, number, Revision.toBytes(info));
 				}
 				{
 					final Statement bf = createStatement();
