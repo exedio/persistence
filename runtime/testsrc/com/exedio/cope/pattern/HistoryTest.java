@@ -75,7 +75,7 @@ public class HistoryTest extends AbstractLibTest
 				item.auditEventParent(),
 				item.audit.getEventDate(),
 				item.audit.getEventUniqueConstraint(),
-				item.audit.getEventOrigin(),
+				item.audit.getEventAuthor(),
 				item.audit.getEventNew()
 			), eventType.getFeatures());
 		assertEqualsUnmodifiable(list(
@@ -116,7 +116,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(eventType, item.auditEventParent().getType());
 		assertEquals(eventType, item.audit.getEventDate().getType());
 		assertEquals(eventType, item.audit.getEventUniqueConstraint().getType());
-		assertEquals(eventType, item.audit.getEventOrigin().getType());
+		assertEquals(eventType, item.audit.getEventAuthor().getType());
 		assertEquals(eventType, item.audit.getEventNew().getType());
 		assertEquals(featureType, item.audit.getFeatureEvent().getType());
 		assertEquals(featureType, item.audit.getFeatureId().getType());
@@ -128,7 +128,7 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals("parent", item.auditEventParent().getName());
 		assertEquals("date", item.audit.getEventDate().getName());
 		assertEquals("uniqueConstraint", item.audit.getEventUniqueConstraint().getName());
-		assertEquals("origin", item.audit.getEventOrigin().getName());
+		assertEquals("author", item.audit.getEventAuthor().getName());
 		assertEquals("new", item.audit.getEventNew().getName());
 		assertEquals("event", item.audit.getFeatureEvent().getName());
 		assertEquals("id", item.audit.getFeatureId().getName());
@@ -159,7 +159,7 @@ public class HistoryTest extends AbstractLibTest
 		assertSame(item.audit, event1.getPattern());
 		assertEquals(item, event1.getParent());
 		assertWithin(before1, after1, event1.getDate());
-		assertEquals("cause1", event1.getCause());
+		assertEquals("cause1", event1.getAuthor());
 		assertEquals(true, event1.isNew());
 		assertEquals(list(), event1.getFeatures());
 		assertEqualsUnmodifiable(list(event1), item.getAuditEvents());
@@ -190,7 +190,7 @@ public class HistoryTest extends AbstractLibTest
 		assertSame(item.audit, event2.getPattern());
 		assertEquals(item, event2.getParent());
 		assertWithin(before2, after2, event2.getDate());
-		assertEquals("cause2", event2.getCause());
+		assertEquals("cause2", event2.getAuthor());
 		assertEquals(false, event2.isNew());
 		assertEquals(list(), event2.getFeatures());
 		assertEqualsUnmodifiable(list(event2, event1), item.getAuditEvents());

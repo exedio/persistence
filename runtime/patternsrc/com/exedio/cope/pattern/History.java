@@ -45,7 +45,7 @@ public final class History extends Pattern
 	ItemField<?> eventParent = null;
 	final DateField eventDate = new DateField().toFinal();
 	private UniqueConstraint eventUnique = null;
-	final StringField eventOrigin = new StringField().toFinal();
+	final StringField eventAuthor = new StringField().toFinal();
 	final BooleanField eventNew = new BooleanField().toFinal();
 	Type<Event> eventType = null;
 	
@@ -68,7 +68,7 @@ public final class History extends Pattern
 		features.put("parent", eventParent);
 		features.put("date", eventDate);
 		features.put("uniqueConstraint", eventUnique);
-		features.put("origin", eventOrigin);
+		features.put("author", eventAuthor);
 		features.put("new", eventNew);
 		eventType = newType(Event.class, features, "Event");
 		
@@ -101,9 +101,18 @@ public final class History extends Pattern
 		return eventUnique;
 	}
 	
+	/**
+	 * @deprecated Use {@link #getEventAuthor()} instead
+	 */
+	@Deprecated
 	public StringField getEventOrigin()
 	{
-		return eventOrigin;
+		return getEventAuthor();
+	}
+
+	public StringField getEventAuthor()
+	{
+		return eventAuthor;
 	}
 	
 	/**
@@ -202,7 +211,7 @@ public final class History extends Pattern
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
 				eventDate.map(new Date()),
-				eventOrigin.map(origin),
+				eventAuthor.map(origin),
 				eventNew.map(isNew)
 			);
 	}
@@ -237,9 +246,18 @@ public final class History extends Pattern
 			return getPattern().eventDate.get(this);
 		}
 		
+		/**
+		 * @deprecated Use {@link #getAuthor()} instead
+		 */
+		@Deprecated
 		public String getCause()
 		{
-			return getPattern().eventOrigin.get(this);
+			return getAuthor();
+		}
+
+		public String getAuthor()
+		{
+			return getPattern().eventAuthor.get(this);
 		}
 		
 		/**
