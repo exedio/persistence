@@ -188,7 +188,7 @@ public final class History extends Pattern
 			new Wrapper("createEvent").
 			addComment("Creates a new event for the history {0}.").
 			setReturn(Event.class).
-			addParameter(String.class, "cause").
+			addParameter(String.class, "author").
 			addParameter(boolean.class, "isNew"));
 			
 		result.add(
@@ -206,12 +206,12 @@ public final class History extends Pattern
 		return eventType.search(Cope.equalAndCast(eventParent, item), eventDate, false);
 	}
 	
-	public Event createEvent(final Item item, final String origin, final boolean isNew)
+	public Event createEvent(final Item item, final String author, final boolean isNew)
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
 				eventDate.map(new Date()),
-				eventAuthor.map(origin),
+				eventAuthor.map(author),
 				eventNew.map(isNew)
 			);
 	}
