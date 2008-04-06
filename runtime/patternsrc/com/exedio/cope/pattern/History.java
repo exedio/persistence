@@ -46,7 +46,7 @@ public final class History extends Pattern
 	final DateField eventDate = new DateField().toFinal();
 	private UniqueConstraint eventUnique = null;
 	final StringField eventOrigin = new StringField().toFinal();
-	final BooleanField eventCreation = new BooleanField().toFinal();
+	final BooleanField eventNew = new BooleanField().toFinal();
 	Type<Event> eventType = null;
 	
 	ItemField<Event> featureEvent = null;
@@ -69,7 +69,7 @@ public final class History extends Pattern
 		features.put("date", eventDate);
 		features.put("uniqueConstraint", eventUnique);
 		features.put("origin", eventOrigin);
-		features.put("creation", eventCreation);
+		features.put("new", eventNew);
 		eventType = newType(Event.class, features, "Event");
 		
 		features.clear();
@@ -106,9 +106,18 @@ public final class History extends Pattern
 		return eventOrigin;
 	}
 	
+	/**
+	 * @deprecated Use {@link #getEventNew()} instead
+	 */
+	@Deprecated
 	public BooleanField getEventCreation()
 	{
-		return eventCreation;
+		return getEventNew();
+	}
+
+	public BooleanField getEventNew()
+	{
+		return eventNew;
 	}
 	
 	public Type<Event> getEventType()
@@ -171,7 +180,7 @@ public final class History extends Pattern
 			addComment("Creates a new event for the history {0}.").
 			setReturn(Event.class).
 			addParameter(String.class, "cause").
-			addParameter(boolean.class, "created"));
+			addParameter(boolean.class, "isNew"));
 			
 		result.add(
 			new Wrapper("getEventParent").
@@ -188,13 +197,13 @@ public final class History extends Pattern
 		return eventType.search(Cope.equalAndCast(eventParent, item), eventDate, false);
 	}
 	
-	public Event createEvent(final Item item, final String origin, final boolean creation)
+	public Event createEvent(final Item item, final String origin, final boolean isNew)
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
 				eventDate.map(new Date()),
 				eventOrigin.map(origin),
-				eventCreation.map(creation)
+				eventNew.map(isNew)
 			);
 	}
 
@@ -233,9 +242,18 @@ public final class History extends Pattern
 			return getPattern().eventOrigin.get(this);
 		}
 		
+		/**
+		 * @deprecated Use {@link #isNew()} instead
+		 */
+		@Deprecated
 		public boolean isCreation()
 		{
-			return getPattern().eventCreation.getMandatory(this);
+			return isNew();
+		}
+
+		public boolean isNew()
+		{
+			return getPattern().eventNew.getMandatory(this);
 		}
 		
 		public List<? extends Feature> getFeatures()
