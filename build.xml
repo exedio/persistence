@@ -179,7 +179,7 @@
 		</untar>
 		<chmod dir="tomcat/bin" perm="ugo+x" includes="*.sh" />
 		<copy todir="tomcat/conf">
-			<fileset dir="lib">
+			<fileset dir="${basedir}">
 				<include name="server.xml" />
 				<include name="tomcat-users.xml" />
 			</fileset>
