@@ -150,6 +150,9 @@ public class HistoryTest extends AbstractLibTest
 		assertSame(History.Event.class, item.audit.getFeatureEvent().getValueClass());
 		assertSame(item.audit.getEventType(), item.audit.getFeatureEvent().getValueType());
 		
+		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
+		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));
+		
 		// test persistence
 		assertEquals(list(), item.getAuditEvents());
 		

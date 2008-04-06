@@ -344,4 +344,22 @@ public final class History extends Pattern
 			return getPattern().featureNew.get(this);
 		}
 	}
+	
+	public static final List<History> getHistories(final Type<?> type)
+	{
+		ArrayList<History> result = null;
+		for(final com.exedio.cope.Feature f : type.getFeatures())
+		{
+			if(f instanceof History)
+			{
+				if(result==null)
+					result = new ArrayList<History>();
+				result.add((History)f);
+			}
+		}
+		return
+			result!=null
+			? Collections.unmodifiableList(result)
+			: Collections.<History>emptyList();
+	}
 }
