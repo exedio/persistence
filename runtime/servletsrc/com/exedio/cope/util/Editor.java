@@ -47,6 +47,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.StringField;
+import com.exedio.cope.pattern.History;
 import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
@@ -317,6 +318,11 @@ public abstract class Editor implements Filter
 							String v = value;
 							if("".equals(v))
 								v = null;
+							for(final History history : History.getHistories(item.getCopeType()))
+							{
+								final History.Event event = history.createEvent(item, session.loginName, false);
+								event.createFeature(feature, feature.getName(), feature.get(item), v);
+							}
 							feature.set(item, v);
 							session.notifySaved(feature, item);
 						}
