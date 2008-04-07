@@ -21,6 +21,8 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Editor.edit;
 
+import com.exedio.cope.pattern.History;
+
 import java.io.PrintStream;
 import java.util.List;
 
@@ -147,6 +149,18 @@ final class EditedServlet_Jspm
 					<li>mapBlock(1): <pre><%=edit(item.getMapBlock(1), item.mapBlock, item, 1)%></pre> <pre><%=item.getMapBlock(1)%></pre></li>
 					<li>image: <a href="<%=response.encodeURL("image" + item.getPosition() + ".html")%>"><img src="<%=item.getImageURL()%>"<%=edit(item.image, item)%> height="50"></a><%=item.getImageContentType()%></li>
 					<li>thumbnail: <img src="<%=item.getThumbnailURL()%>"<%=edit(item.thumbnail, item)%>><%=item.getThumbnailContentType()%></li>
+					<%
+					for(final History.Event event : item.getHistoryEvents())
+					{
+					%>
+					<li>HE: "<%=event.getDate()%>", "<%=event.getAuthor()%>"<%if(event.isNew()){%> NEW<%}%><%
+						for(final History.Feature feature : event.getFeatures())
+						{
+							%><b><%=feature.getId()%></b> "<%=feature.getName()%>" "<%=feature.getOld()%>" "<%=feature.getNew()%>"<%
+						}
+						%></li><%
+					}
+					%>
 				</ul>
 			</li><%
 		}
