@@ -461,7 +461,7 @@ public abstract class Editor implements Filter
 		
 		private final String user;
 		final Login login;
-		private final String loginName;
+		final String loginName;
 		boolean borders = false;
 		private final HashMap<Preview, String> previews = new HashMap<Preview, String>();
 		
@@ -830,7 +830,7 @@ public abstract class Editor implements Filter
 				tl.filter.getBorderButtonURL(request, tl.response, tl.session.borders),
 				tl.filter.getCloseButtonURL(request, tl.response),
 				tl.session.getPreviewNumber(),
-				tl.session.login.getName());
+				tl.session.loginName);
 	}
 	
 	private static final String action(final HttpServletRequest request, final HttpServletResponse response)
