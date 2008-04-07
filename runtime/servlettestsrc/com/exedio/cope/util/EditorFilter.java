@@ -35,15 +35,17 @@ public final class EditorFilter extends Editor
 		private static final long serialVersionUID = 1l;
 		
 		private final String user;
+		private final boolean nameIsNull;
 		
 		Login(final String user)
 		{
 			this.user = user;
+			this.nameIsNull = "noname".equals(user);
 		}
 		
 		public String getName()
 		{
-			return "---" + user + "---getName()---";
+			return nameIsNull ? null : "---" + user + "---getName()---";
 		}
 		
 		@Override

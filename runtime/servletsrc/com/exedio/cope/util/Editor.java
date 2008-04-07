@@ -256,7 +256,7 @@ public abstract class Editor implements Filter
 
 				for(final History history : History.getHistories(item.getCopeType()))
 				{
-					final History.Event event = history.createEvent(item, session.loginName, false);
+					final History.Event event = history.createEvent(item, session.getHistoryAuthor(), false);
 					event.createFeature(
 							feature, feature.getName(),
 							feature.isNull(item) ? null : ("file type=" + feature.getContentType(item) + " size=" + feature.getLength(item)),
@@ -329,7 +329,7 @@ public abstract class Editor implements Filter
 								v = null;
 							for(final History history : History.getHistories(item.getCopeType()))
 							{
-								final History.Event event = history.createEvent(item, session.loginName, false);
+								final History.Event event = history.createEvent(item, session.getHistoryAuthor(), false);
 								event.createFeature(feature, feature.getName(), feature.get(item), v);
 							}
 							feature.set(item, v);
@@ -369,12 +369,12 @@ public abstract class Editor implements Filter
 						
 						for(final History history : History.getHistories(itemFrom.getCopeType()))
 						{
-							final History.Event event = history.createEvent(itemFrom, session.loginName, false);
+							final History.Event event = history.createEvent(itemFrom, session.getHistoryAuthor(), false);
 							event.createFeature(feature, feature.getName(), positionFrom, positionTo);
 						}
 						for(final History history : History.getHistories(itemTo.getCopeType()))
 						{
-							final History.Event event = history.createEvent(itemTo, session.loginName, false);
+							final History.Event event = history.createEvent(itemTo, session.getHistoryAuthor(), false);
 							event.createFeature(feature, feature.getName(), positionTo, positionFrom);
 						}
 						
@@ -426,7 +426,7 @@ public abstract class Editor implements Filter
 					if(login!=null)
 					{
 						final String name = login.getName();
-						httpSession.setAttribute(SESSION, new Session(login, name));
+						httpSession.setAttribute(SESSION, new Session(user, login, name));
 						redirectHome(request, response);
 					}
 					else
@@ -460,15 +460,18 @@ public abstract class Editor implements Filter
 	{
 		private static final long serialVersionUID = 1l;
 		
+		final String user;
 		final Login login;
 		final String loginName;
 		boolean borders = false;
 		final HashMap<Preview, String> previews = new HashMap<Preview, String>();
 		
-		Session(final Login login, final String loginName)
+		Session(final String user, final Login login, final String loginName)
 		{
+			this.user = user;
 			this.login = login;
 			this.loginName = loginName;
+			assert user!=null;
 			assert login!=null;
 		}
 		
@@ -528,6 +531,10 @@ public abstract class Editor implements Filter
 			previews.remove(new Preview(feature, item));
 		}
 		
+		String getHistoryAuthor()
+		{
+			return (loginName!=null ? loginName : user) + " (CT)";
+		}
 		
 		@Override
 		public String toString()
@@ -541,7 +548,7 @@ public abstract class Editor implements Filter
 			if(loginName!=null)
 				bf.append('"').append(loginName).append('"');
 			else
-				bf.append(login.getClass().getName());
+				bf.append(user);
 			
 			if(borders)
 				bf.append(" bordered");
