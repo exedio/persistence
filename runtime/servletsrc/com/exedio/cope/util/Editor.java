@@ -532,7 +532,7 @@ public abstract class Editor implements Filter
 		
 		String getHistoryAuthor()
 		{
-			return (loginName!=null ? loginName : user) + " (CT)";
+			return (loginName!=null ? loginName : user) + " (CCE)";
 		}
 		
 		@Override
