@@ -367,6 +367,17 @@ public abstract class Editor implements Filter
 						feature.set(itemTo,   positionFrom);
 						feature.set(itemFrom, positionTo);
 						
+						for(final History history : History.getHistories(itemFrom.getCopeType()))
+						{
+							final History.Event event = history.createEvent(itemFrom, session.loginName, false);
+							event.createFeature(feature, feature.getName(), positionFrom, positionTo);
+						}
+						for(final History history : History.getHistories(itemTo.getCopeType()))
+						{
+							final History.Event event = history.createEvent(itemTo, session.loginName, false);
+							event.createFeature(feature, feature.getName(), positionTo, positionFrom);
+						}
+						
 						model.commit();
 					}
 					catch(NoSuchIDException e)
