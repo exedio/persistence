@@ -459,11 +459,11 @@ public abstract class Editor implements Filter
 	{
 		private static final long serialVersionUID = 1l;
 		
-		final String user;
+		private final String user;
 		final Login login;
-		final String loginName;
+		private final String loginName;
 		boolean borders = false;
-		final HashMap<Preview, String> previews = new HashMap<Preview, String>();
+		private final HashMap<Preview, String> previews = new HashMap<Preview, String>();
 		
 		Session(final String user, final Login login, final String loginName)
 		{
@@ -478,8 +478,8 @@ public abstract class Editor implements Filter
 		{
 			private static final long serialVersionUID = 1l;
 			
-			final String feature;
-			final Item item;
+			private final String feature;
+			private final Item item;
 			
 			Preview(final StringField feature, final Item item)
 			{
