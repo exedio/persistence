@@ -425,8 +425,7 @@ public abstract class Editor implements Filter
 					final Login login = login(user, password);
 					if(login!=null)
 					{
-						final String name = login.getName();
-						httpSession.setAttribute(SESSION, new Session(user, login, name));
+						httpSession.setAttribute(SESSION, new Session(user, login, login.getName()));
 						redirectHome(request, response);
 					}
 					else
