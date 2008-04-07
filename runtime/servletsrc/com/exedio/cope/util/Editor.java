@@ -259,7 +259,7 @@ public abstract class Editor implements Filter
 					final History.Event event = history.createEvent(item, session.loginName, false);
 					event.createFeature(
 							feature, feature.getName(),
-							null,
+							feature.isNull(item) ? null : ("file type=" + feature.getContentType(item) + " size=" + feature.getLength(item)),
 							"file name=" + file.getName() + " type=" + file.getContentType() + " size=" + file.getSize());
 				}
 				
