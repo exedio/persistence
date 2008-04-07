@@ -254,6 +254,15 @@ public abstract class Editor implements Filter
 				
 				final Item item = model.getItem(itemID);
 
+				for(final History history : History.getHistories(item.getCopeType()))
+				{
+					final History.Event event = history.createEvent(item, session.loginName, false);
+					event.createFeature(
+							feature, feature.getName(),
+							null,
+							"file name=" + file.getName() + " type=" + file.getContentType() + " size=" + file.getSize());
+				}
+				
 				// TODO use more efficient setter with File or byte[]
 				feature.set(item, file.getInputStream(), file.getContentType());
 				
