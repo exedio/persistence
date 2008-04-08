@@ -75,12 +75,8 @@ final class RevisionCop extends ConsoleCop implements Pageable
 		Revision_Jspm.writeHead(out);
 	}
 	
-	private TreeMap<Integer, Line> lines = null;
-	
-	private Line register(final int revision)
+	private Line register(final TreeMap<Integer, Line> lines, final int revision)
 	{
-		if(lines==null)
-			lines = new TreeMap<Integer, Line>();
 		Line result = lines.get(revision);
 		if(result==null)
 		{
@@ -110,8 +106,10 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	{
 		if(model.isRevisionEnabled())
 		{
+			final TreeMap<Integer, Line> lines = new TreeMap<Integer, Line>();
+			
 			for(final Revision m : model.getRevisions())
-				register(m.getNumber()).revision = m;
+				register(lines, m.getNumber()).revision = m;
 			
 			Map<Integer, byte[]> logsRaw = null;
 			try
@@ -129,7 +127,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 				{
 					for(final Integer revision : logsRaw.keySet())
 					{
-						final Line line = register(revision);
+						final Line line = register(lines, revision);
 						line.logRaw = logsRaw.get(revision);
 						final byte[] infoBytes = logsRaw.get(revision);
 						final Properties infoProperties = Revision.parse(infoBytes);
@@ -150,7 +148,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 				}
 			}
 			
-			register(model.getRevisionNumber()).current = true;
+			register(lines, model.getRevisionNumber()).current = true;
 			
 			final ArrayList<Line> lineList = new ArrayList<Line>(lines.values());
 			Collections.reverse(lineList);
