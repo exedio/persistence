@@ -113,9 +113,9 @@ public class RevisionTest extends CopeAssert
 			new Model(new Revision[]{}, (Type[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(IllegalArgumentException e)
 		{
-			assertEquals("types must not be null", e.getMessage()); // TODO should complain about ampty revisions
+			assertEquals("revisions must not be empty", e.getMessage());
 		}
 		try
 		{

@@ -97,6 +97,8 @@ public final class Model
 	{
 		if(revisions==null)
 			throw new NullPointerException("revisions must not be null");
+		if(revisions.length==0)
+			throw new IllegalArgumentException("revisions must not be empty");
 		
 		// make a copy to avoid modifications afterwards
 		final Revision[] result = new Revision[revisions.length];
