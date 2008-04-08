@@ -110,6 +110,15 @@ public class RevisionTest extends CopeAssert
 		}
 		try
 		{
+			new Model(new Revision[]{}, (Type[])null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("types must not be null", e.getMessage()); // TODO should complain about ampty revisions
+		}
+		try
+		{
 			new Model(new Revision[]{new Revision(1, "revision1", "nonsensesql1"), null}, (Type[])null);
 			fail();
 		}
