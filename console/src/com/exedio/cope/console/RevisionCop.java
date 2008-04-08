@@ -130,6 +130,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 						final Line line = register(lines, revision);
 						line.logRaw = logsRaw.get(revision);
 						final byte[] infoBytes = logsRaw.get(revision);
+						line.logString = new String(infoBytes, "latin1");
 						final Properties infoProperties = Revision.parse(infoBytes);
 						if(infoProperties!=null)
 						{
@@ -137,9 +138,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 							for(final Map.Entry<Object, Object> entry : infoProperties.entrySet())
 								map.put((String)entry.getKey(), (String)entry.getValue());
 							line.logProperties = map;
-							continue;
 						}
-						line.logString = new String(infoBytes, "latin1");
 					}
 				}
 				catch(UnsupportedEncodingException e)

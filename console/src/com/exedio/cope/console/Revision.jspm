@@ -92,16 +92,16 @@ final class Revision_Jspm extends Console_Jspm
 				<td class="text"><%
 				final String logString = line.logString;
 				final TreeMap<String, String> logProperty = line.logProperties;
-				if(logString!=null)
-				{
-					%><%=encode(logString)%><%
-				}
-				else if(logProperty!=null)
+				if(logProperty!=null)
 				{
 					for(final Map.Entry<String, String> entry : logProperty.entrySet())
 					{
 						%><%=encode(entry.getKey())%>=<%=encode(entry.getValue())%><br><%
 					}
+				}
+				else if(logString!=null)
+				{
+					%><%=encode(logString)%><%
 				}
 				else
 				{
