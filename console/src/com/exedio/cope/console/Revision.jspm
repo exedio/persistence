@@ -64,13 +64,11 @@ final class Revision_Jspm extends Console_Jspm
 			for(final Line line : lines)
 			{
 				n++;
-				final Revision revision = line.revision;
-				final String logString = line.logString;
-				final TreeMap<String, String> logProperty = line.logProperties;
 			%>
 			<tr>
 				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=line.number%></td>
 				<td class="text"><%
+				final Revision revision = line.revision;
 				if(revision!=null)
 				{
 					%>
@@ -92,6 +90,8 @@ final class Revision_Jspm extends Console_Jspm
 				}
 				%></td>
 				<td class="text"><%
+				final String logString = line.logString;
+				final TreeMap<String, String> logProperty = line.logProperties;
 				if(logString!=null)
 				{
 					%><%=encode(logString)%><%
