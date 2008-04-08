@@ -69,7 +69,7 @@ final class Revision_Jspm extends Console_Jspm
 				final TreeMap<String, String> logProperty = line.logProperties;
 			%>
 			<tr>
-				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=revision.getNumber()%></td>
+				<td><% if(line.current){%>&#187;&nbsp;<%} %><%=line.number%></td>
 				<td class="text"><%
 				if(revision!=null)
 				{
