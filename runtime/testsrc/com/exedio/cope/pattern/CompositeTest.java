@@ -23,6 +23,7 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractLibTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 
 public class CompositeTest extends AbstractLibTest
 {
@@ -55,10 +56,12 @@ public class CompositeTest extends AbstractLibTest
 				oItem.uno,
 				oItem.uno.getComponent(CompositeValue.aString),
 				oItem.uno.getComponent(CompositeValue.anInt),
+				oItem.uno.getComponent(CompositeValue.anEnum),
 				oItem.uno.getComponent(CompositeValue.anItem),
 				oItem.duo,
 				oItem.duo.getComponent(CompositeValue.aString),
 				oItem.duo.getComponent(CompositeValue.anInt),
+				oItem.duo.getComponent(CompositeValue.anEnum),
 				oItem.duo.getComponent(CompositeValue.anItem),
 			}), oItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -67,10 +70,12 @@ public class CompositeTest extends AbstractLibTest
 				oItem.uno,
 				oItem.uno.getComponent(CompositeValue.aString),
 				oItem.uno.getComponent(CompositeValue.anInt),
+				oItem.uno.getComponent(CompositeValue.anEnum),
 				oItem.uno.getComponent(CompositeValue.anItem),
 				oItem.duo,
 				oItem.duo.getComponent(CompositeValue.aString),
 				oItem.duo.getComponent(CompositeValue.anInt),
+				oItem.duo.getComponent(CompositeValue.anEnum),
 				oItem.duo.getComponent(CompositeValue.anItem),
 			}), oItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -79,10 +84,12 @@ public class CompositeTest extends AbstractLibTest
 				fItem.first,
 				fItem.first.getComponent(CompositeValue.aString),
 				fItem.first.getComponent(CompositeValue.anInt),
+				fItem.first.getComponent(CompositeValue.anEnum),
 				fItem.first.getComponent(CompositeValue.anItem),
 				fItem.second,
 				fItem.second.getComponent(CompositeValue.aString),
 				fItem.second.getComponent(CompositeValue.anInt),
+				fItem.second.getComponent(CompositeValue.anEnum),
 				fItem.second.getComponent(CompositeValue.anItem),
 			}), fItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -91,10 +98,12 @@ public class CompositeTest extends AbstractLibTest
 				fItem.first,
 				fItem.first.getComponent(CompositeValue.aString),
 				fItem.first.getComponent(CompositeValue.anInt),
+				fItem.first.getComponent(CompositeValue.anEnum),
 				fItem.first.getComponent(CompositeValue.anItem),
 				fItem.second,
 				fItem.second.getComponent(CompositeValue.aString),
 				fItem.second.getComponent(CompositeValue.anInt),
+				fItem.second.getComponent(CompositeValue.anEnum),
 				fItem.second.getComponent(CompositeValue.anItem),
 			}), fItem.TYPE.getDeclaredFeatures());
 
@@ -118,11 +127,13 @@ public class CompositeTest extends AbstractLibTest
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.uno.getComponent(CompositeValue.aString),
 				oItem.uno.getComponent(CompositeValue.anInt),
+				oItem.uno.getComponent(CompositeValue.anEnum),
 				oItem.uno.getComponent(CompositeValue.anItem),
 			}), oItem.uno.getComponents());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.second.getComponent(CompositeValue.aString),
 				fItem.second.getComponent(CompositeValue.anInt),
+				fItem.second.getComponent(CompositeValue.anEnum),
 				fItem.second.getComponent(CompositeValue.anItem),
 			}), fItem.second.getComponents());
 		
@@ -141,29 +152,35 @@ public class CompositeTest extends AbstractLibTest
 		assertEquals("optional1", oItem.getCode());
 		assertEquals(null, oItem.getUno().getAString());
 		assertEquals(null, oItem.getUno().getAnInt());
+		assertEquals(null, oItem.getUno().getAnEnum());
 		assertEquals(null, oItem.getUno().getAnItem());
 		assertEquals(null, oItem.getDuo().getAString());
 		assertEquals(null, oItem.getDuo().getAnInt());
+		assertEquals(null, oItem.getDuo().getAnEnum());
 		assertEquals(null, oItem.getDuo().getAnItem());
 		
 		fItem = deleteOnTearDown(
 				new CompositeFinalItem("final1",
-						new CompositeValue("firstString1", 1, target1),
-						new CompositeValue("secondString1", 2, target2)));
+						new CompositeValue("firstString1",  1, AnEnumClass.anEnumConstant1, target1),
+						new CompositeValue("secondString1", 2, AnEnumClass.anEnumConstant2, target2)));
 		assertEquals("final1", fItem.getCode());
 		assertEquals("firstString1", fItem.getFirst().getAString());
 		assertEquals(new Integer(1), fItem.getFirst().getAnInt());
+		assertEquals(AnEnumClass.anEnumConstant1, fItem.getFirst().getAnEnum());
 		assertEquals(target1, fItem.getFirst().getAnItem());
 		assertEquals("secondString1", fItem.getSecond().getAString());
 		assertEquals(new Integer(2), fItem.getSecond().getAnInt());
+		assertEquals(AnEnumClass.anEnumConstant2, fItem.getSecond().getAnEnum());
 		assertEquals(target2, fItem.getSecond().getAnItem());
 		
 		oItem.setDuo(fItem.getFirst());
 		assertEquals(null, oItem.getUno().getAString());
 		assertEquals(null, oItem.getUno().getAnInt());
+		assertEquals(null, oItem.getUno().getAnEnum());
 		assertEquals(null, oItem.getUno().getAnItem());
 		assertEquals("firstString1", oItem.getDuo().getAString());
 		assertEquals(new Integer(1), oItem.getDuo().getAnInt());
+		assertEquals(AnEnumClass.anEnumConstant1, oItem.getDuo().getAnEnum());
 		assertEquals(target1, oItem.getDuo().getAnItem());
 
 		// test value independence
