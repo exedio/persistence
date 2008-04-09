@@ -65,15 +65,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		checkDefaultValue();
 	}
 	
-	/**
-	 * @deprecated
-	 * use {@link Item#newEnumField(Class)} instead,
-	 * which allows ommitting the generics:
-	 * instead of <tt>new EnumField&lt;Target&gt;(Target.class)</tt>
-	 * one can write <tt>newEnumField(Target.class)</tt>
-	 */
-	@Deprecated
-	public EnumField(final Class<E> valueClass)
+	EnumField(final Class<E> valueClass)
 	{
 		this(false, false, false, valueClass, null);
 	}

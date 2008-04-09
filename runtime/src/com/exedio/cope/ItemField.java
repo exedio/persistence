@@ -49,28 +49,12 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		checkDefaultValue();
 	}
 	
-	/**
-	 * @deprecated
-	 * use {@link Item#newItemField(Class)} instead,
-	 * which allows ommitting the generics:
-	 * instead of <tt>new ItemField&lt;Target&gt;(Target.class)</tt>
-	 * one can write <tt>newItemField(Target.class)</tt>
-	 */
-	@Deprecated
-	public ItemField(final Class<E> valueClass)
+	ItemField(final Class<E> valueClass)
 	{
 		this(false, false, false, valueClass, null, Item.FORBID);
 	}
 	
-	/**
-	 * @deprecated
-	 * use {@link Item#newItemField(Class, com.exedio.cope.ItemField.DeletePolicy)} instead,
-	 * which allows ommitting the generics:
-	 * instead of <tt>new ItemField&lt;Target&gt;(Target.class, CASCADE)</tt>
-	 * one can write <tt>newItemField(Target.class, CASCADE)</tt>
-	 */
-	@Deprecated
-	public ItemField(final Class<E> valueClass, final DeletePolicy policy)
+	ItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		this(false, policy==DeletePolicy.NULLIFY, false, valueClass, null, policy);
 	}

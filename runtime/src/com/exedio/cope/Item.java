@@ -453,19 +453,16 @@ public abstract class Item implements Serializable
 		return new Type<C>(javaClass);
 	}
 	
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
 		return new EnumField<E>(valueClass);
 	}
 	
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return new ItemField<E>(valueClass);
 	}
 	
-	@SuppressWarnings("deprecation") // OK: constructor is deprecated for public use only
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<E>(valueClass, policy);
