@@ -32,14 +32,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.exedio.cope.EnumField;
 import com.exedio.cope.Field;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class Composite<E extends Composite.Value> extends Pattern implements Settable<E>
@@ -374,6 +377,21 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		public final int hashCode()
 		{
 			return getClass().hashCode() ^ Arrays.hashCode(values);
+		}
+		
+		public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
+		{
+			return Item.newEnumField(valueClass);
+		}
+		
+		public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+		{
+			return Item.newItemField(valueClass);
+		}
+		
+		public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+		{
+			return Item.newItemField(valueClass, policy);
 		}
 	}
 }
