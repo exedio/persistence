@@ -768,10 +768,10 @@ public abstract class Editor implements Filter
 		final String previousPositionButtonURL = tl.filter.getPreviousPositionButtonURL(request, tl.response);
 		return
 			"<form action=\"" + action(request, tl.response) + "\" method=\"POST\" class=\"contentEditorPosition\">" +
-				"<input type=\"hidden\" name=\"" + REFERER + "\" value=\"" + referer(request) + "\">" +
-				"<input type=\"hidden\" name=\"" + SAVE_FEATURE + "\" value=\"" + feature.getID() + "\">" +
+				"<input type=\"hidden\" name=\"" + REFERER        + "\" value=\"" + referer(request)         + "\">" +
+				"<input type=\"hidden\" name=\"" + SAVE_FEATURE   + "\" value=\"" + feature.getID()          + "\">" +
 				"<input type=\"hidden\" name=\"" + SAVE_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
-				"<input type=\"hidden\" name=\"" + SAVE_ITEM + "\" value=\"" + item.getCopeID() + "\">" +
+				"<input type=\"hidden\" name=\"" + SAVE_ITEM      + "\" value=\"" + item.getCopeID()         + "\">" +
 				(
 					previousPositionButtonURL!=null
 					? ("<input type=\"image\" src=\"" + previousPositionButtonURL + "\" alt=\"Swap with previous item\">")
