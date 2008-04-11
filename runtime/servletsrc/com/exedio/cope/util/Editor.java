@@ -400,9 +400,9 @@ public abstract class Editor implements Filter
 	
 	static final String LOGIN_URL = "contentEditorLogin.html";
 	private static final String LOGIN_URL_PATH_INFO = '/' + LOGIN_URL;
-	static final String LOGIN_SUBMIT = "login";
-	static final String LOGIN_USER = "user";
-	static final String LOGIN_PASSWORD = "password";
+	static final String LOGIN_SUBMIT   = "login.submit";
+	static final String LOGIN_USER     = "login.user";
+	static final String LOGIN_PASSWORD = "login.password";
 	
 	private final void doLogin(
 			final HttpServletRequest request,
