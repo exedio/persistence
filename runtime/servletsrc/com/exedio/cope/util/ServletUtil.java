@@ -37,6 +37,7 @@ public class ServletUtil
 		String getInitParameter(String name);
 		String getName();
 		ServletContext getServletContext();
+		String getKind();
 	}
 
 	private static final Config wrap(final ServletConfig config)
@@ -54,6 +55,10 @@ public class ServletUtil
 			public ServletContext getServletContext()
 			{
 				return config.getServletContext();
+			}
+			public String getKind()
+			{
+				return "servlet";
 			}
 		};
 	}
@@ -74,6 +79,10 @@ public class ServletUtil
 			{
 				return config.getServletContext();
 			}
+			public String getKind()
+			{
+				return "filter";
+			}
 		};
 	}
 	
@@ -82,7 +91,6 @@ public class ServletUtil
 	{
 		return getConnectedModel(
 				wrap(servlet.getServletConfig()),
-				"servlet",
 				servlet);
 	}
 	
@@ -91,13 +99,11 @@ public class ServletUtil
 	{
 		return getConnectedModel(
 				wrap(config),
-				"filter",
 				filter);
 	}
 	
 	private static final ConnectToken getConnectedModel(
 					final Config config,
-					final String kind,
 					final Object nameObject)
 	throws ServletException
 	{
@@ -107,7 +113,7 @@ public class ServletUtil
 		final ServletContext context = config.getServletContext();
 		
 		final String description =
-					kind + ' ' +
+					config.getKind() + ' ' +
 					'"' + name + '"' + ' ' +
 					'(' + nameObject.getClass().getName() + '@' + System.identityHashCode(nameObject) + ')';
 		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
