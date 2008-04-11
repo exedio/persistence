@@ -765,7 +765,7 @@ public abstract class Editor implements Filter
 			return "";
 		
 		final HttpServletRequest request = tl.request;
-		final String previousPositionButtonURL = tl.filter.getPreviousPositionButtonURL(request, tl.response);
+		final String buttonURL = tl.filter.getPreviousPositionButtonURL(request, tl.response);
 		return
 			"<form action=\"" + action(request, tl.response) + "\" method=\"POST\" class=\"contentEditorPosition\">" +
 				"<input type=\"hidden\" name=\"" + REFERER        + "\" value=\"" + referer(request)         + "\">" +
@@ -773,8 +773,8 @@ public abstract class Editor implements Filter
 				"<input type=\"hidden\" name=\"" + SAVE_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
 				"<input type=\"hidden\" name=\"" + SAVE_ITEM      + "\" value=\"" + item.getCopeID()         + "\">" +
 				(
-					previousPositionButtonURL!=null
-					? ("<input type=\"image\" src=\"" + previousPositionButtonURL + "\" alt=\"Swap with previous item\">")
+					buttonURL!=null
+					? ("<input type=\"image\" src=\"" + buttonURL + "\" alt=\"Swap with previous item\">")
 					: ("<input type=\"submit\" value=\"Up\">")
 				) +
 			"</form>";
