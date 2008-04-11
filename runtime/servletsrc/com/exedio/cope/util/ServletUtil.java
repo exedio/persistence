@@ -183,6 +183,8 @@ public class ServletUtil
 					}
 				};
 	}
+	
+	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @deprecated Use {@link #getConnectedModel(Servlet)} instead
