@@ -772,9 +772,10 @@ public abstract class Editor implements Filter
 				"<input type=\"hidden\" name=\"" + SAVE_FEATURE + "\" value=\"" + feature.getID() + "\">" +
 				"<input type=\"hidden\" name=\"" + SAVE_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
 				"<input type=\"hidden\" name=\"" + SAVE_ITEM + "\" value=\"" + item.getCopeID() + "\">" +
-				(previousPositionButtonURL!=null
-				? ("<input type=\"image\" src=\"" + previousPositionButtonURL + "\" alt=\"Swap with previous item\">")
-				: ("<input type=\"submit\" value=\"Up" /*+ " " + feature.get(previousItem) + '/' + feature.get(item)*/ + "\">")
+				(
+					previousPositionButtonURL!=null
+					? ("<input type=\"image\" src=\"" + previousPositionButtonURL + "\" alt=\"Swap with previous item\">")
+					: ("<input type=\"submit\" value=\"Up" /*+ " " + feature.get(previousItem) + '/' + feature.get(item)*/ + "\">")
 				) +
 			"</form>";
 	}
