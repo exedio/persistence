@@ -469,4 +469,63 @@ public class PropertiesTest extends CopeAssert
 	{
 		assertEquals(replaced, getContext(raw).stringMandatory.getStringValue());
 	}
+	
+	public void testGetContext()
+	{
+		final java.util.Properties pcontext = new java.util.Properties();
+		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
+		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
+		final TestProperties context = new TestProperties(pcontext, "context", new Properties.Context(){
+
+			public String get(final String key)
+			{
+				if("a".equals(key))
+					return "b";
+				else if("a1".equals(key))
+					return "b1";
+				else if("n".equals(key))
+					return null;
+				else
+					throw new RuntimeException(key);
+			}
+			
+			@Override
+			public String toString()
+			{
+				return "TestGetContext";
+			}
+		});
+		assertEquals("b", context.getContext("a"));
+		assertEquals("b1", context.getContext("a1"));
+		
+		try
+		{
+			context.getContext(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("key must not be null", e.getMessage());
+		}
+		try
+		{
+			context.getContext("n");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("no value available for key >n< in context TestGetContext", e.getMessage());
+		}
+
+		final TestProperties none = new TestProperties(pcontext, "none", null);
+		try
+		{
+			none.getContext("c");
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("no context available", e.getMessage());
+		}
+	}
 }

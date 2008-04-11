@@ -58,6 +58,24 @@ public class Properties
 	{
 		return Collections.unmodifiableList(fields);
 	}
+
+	/**
+	 * @throws IllegalArgumentException if the context does not contain a value for <tt>key</tt>.
+	 * @throws IllegalStateException if there is no context for these properties.
+	 */
+	public final String getContext(final String key)
+	{
+		if(key==null)
+			throw new NullPointerException("key must not be null");
+		if(context==null)
+			throw new IllegalStateException("no context available");
+		
+		final String result = context.get(key);
+		if(result==null)
+			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context);
+		
+		return result;
+	}
 	
 	final String getProperty(final String key)
 	{
