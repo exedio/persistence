@@ -400,7 +400,7 @@ public abstract class Editor implements Filter
 	
 	static final String LOGIN_URL = "contentEditorLogin.html";
 	private static final String LOGIN_URL_PATH_INFO = '/' + LOGIN_URL;
-	static final String LOGIN = "login";
+	static final String LOGIN_SUBMIT = "login";
 	static final String LOGIN_USER = "user";
 	static final String LOGIN_PASSWORD = "password";
 	
@@ -415,7 +415,7 @@ public abstract class Editor implements Filter
 		try
 		{
 			response.setContentType("text/html; charset="+CopsServlet.ENCODING);
-			if(Cop.isPost(request) && request.getParameter(LOGIN)!=null)
+			if(Cop.isPost(request) && request.getParameter(LOGIN_SUBMIT)!=null)
 			{
 				final String user = request.getParameter(LOGIN_USER);
 				final String password = request.getParameter(LOGIN_PASSWORD);

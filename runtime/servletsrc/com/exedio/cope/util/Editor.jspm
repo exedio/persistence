@@ -67,7 +67,7 @@ final class Editor_Jspm
 					<td><input type="password" name="<%=Editor.LOGIN_PASSWORD%>"></td>
 				</tr>
 			</table>
-			<input type="submit" name="<%=Editor.LOGIN%>" value="Login">
+			<input type="submit" name="<%=Editor.LOGIN_SUBMIT%>" value="Login">
 		</form>
 	</body>
 </html><%
