@@ -775,7 +775,7 @@ public abstract class Editor implements Filter
 				(
 					previousPositionButtonURL!=null
 					? ("<input type=\"image\" src=\"" + previousPositionButtonURL + "\" alt=\"Swap with previous item\">")
-					: ("<input type=\"submit\" value=\"Up" /*+ " " + feature.get(previousItem) + '/' + feature.get(item)*/ + "\">")
+					: ("<input type=\"submit\" value=\"Up\">")
 				) +
 			"</form>";
 	}
