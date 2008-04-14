@@ -334,7 +334,7 @@ public class PropertiesTest extends CopeAssert
 	
 	private void assertWrong(
 			final java.util.Properties template,
-			final String source,
+			final String sourceDescription,
 			final String key,
 			final String value,
 			final String message)
@@ -347,7 +347,7 @@ public class PropertiesTest extends CopeAssert
 		
 		try
 		{
-			new TestProperties(wrongProps, source);
+			new TestProperties(wrongProps, sourceDescription);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -358,7 +358,7 @@ public class PropertiesTest extends CopeAssert
 	
 	private void assertInconsistent(
 			final java.util.Properties template,
-			final String source,
+			final String sourceDescription,
 			final String key,
 			final String value,
 			final String message1, final String message2)
@@ -368,7 +368,7 @@ public class PropertiesTest extends CopeAssert
 		
 		final java.util.Properties p = copy(template);
 		p.setProperty(key, value);
-		final TestProperties inconsistentProps = new TestProperties(p, source);
+		final TestProperties inconsistentProps = new TestProperties(p, sourceDescription);
 		try
 		{
 			templateProps.ensureEquality(inconsistentProps);
