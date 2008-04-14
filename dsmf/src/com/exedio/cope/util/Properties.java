@@ -33,24 +33,24 @@ import java.util.List;
 public class Properties
 {
 	final Context properties; // TODO rename
-	final String source;
+	final String sourceDescription;
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	private final Context context;
 	
-	public Properties(final java.util.Properties properties, final String source)
+	public Properties(final java.util.Properties properties, final String sourceDescription)
 	{
-		this(properties, source, null);
+		this(properties, sourceDescription, null);
 	}
 	
-	public Properties(final java.util.Properties properties, final String source, final Context context)
+	public Properties(final java.util.Properties properties, final String sourceDescription, final Context context)
 	{
-		this(getContext(properties, source), source, context);
+		this(getContext(properties, sourceDescription), sourceDescription, context);
 	}
 	
-	public Properties(final Context properties, final String source, final Context context)
+	public Properties(final Context properties, final String sourceDescription, final Context context)
 	{
 		this.properties = properties;
-		this.source = source;
+		this.sourceDescription = sourceDescription;
 		this.context = context;
 		
 		// TODO check, that no other property key do occur
@@ -58,7 +58,7 @@ public class Properties
 	
 	public final String getSource()
 	{
-		return source;
+		return sourceDescription;
 	}
 
 	public final List<Field> getFields()
@@ -161,7 +161,7 @@ public class Properties
 		};
 	}
 	
-	public static final Context getContext(final java.util.Properties properties, final String source)
+	public static final Context getContext(final java.util.Properties properties, final String description)
 	{
 		return new Context(){
 			public String get(final String key)
@@ -180,7 +180,7 @@ public class Properties
 			@Override
 			public String toString()
 			{
-				return source;
+				return description;
 			}
 		};
 	}
@@ -242,7 +242,7 @@ public class Properties
 				else if(s.equals("false"))
 					this.value = false;
 				else
-					throw new IllegalArgumentException("property " + key + " in "+source+" has invalid value, expected >true< or >false<, but got >" + s + "<.");
+					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " has invalid value, expected >true< or >false<, but got >" + s + "<.");
 			}
 		}
 		
@@ -289,13 +289,13 @@ public class Properties
 				catch(NumberFormatException e)
 				{
 					throw new IllegalArgumentException(
-							"property " + key + " in " + source + " has invalid value, " +
+							"property " + key + " in " + sourceDescription + " has invalid value, " +
 							"expected an integer greater or equal " + minimumValue + ", but got >" + s + "<.", e);
 				}
 
 				if(value<minimumValue)
 					throw new IllegalArgumentException(
-							"property " + key + " in " + source + " has invalid value, " +
+							"property " + key + " in " + sourceDescription + " has invalid value, " +
 							"expected an integer greater or equal " + minimumValue + ", but got " + value + '.');
 			}
 		}
@@ -360,7 +360,7 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new IllegalArgumentException("property " + key + " in " + source + " not set and no default value specified.");
+					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " not set and no default value specified.");
 				else
 					this.value = defaultValue;
 			}
@@ -517,7 +517,7 @@ public class Properties
 						if(!(field instanceof MapField))
 							allowedValueList.add(field.key);
 					
-					throw new IllegalArgumentException("property " + key + " in " + source + " is not allowed, but only one of " + allowedValueList + " or one starting with " + allowedPrefixes + '.');
+					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " is not allowed, but only one of " + allowedValueList + " or one starting with " + allowedPrefixes + '.');
 				}
 			}
 		}
@@ -545,7 +545,7 @@ public class Properties
 				(thisValue==null && otherValue!=null))
 				throw new IllegalArgumentException(
 						"inconsistent initialization for " + thisField.key +
-						" between " + source + " and " + other.source +
+						" between " + sourceDescription + " and " + other.sourceDescription +
 						(thisHideValue ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
 		}
 	}
