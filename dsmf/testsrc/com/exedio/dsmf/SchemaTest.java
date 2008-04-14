@@ -60,7 +60,7 @@ public abstract class SchemaTest extends TestCase
 			this(getDefaultPropertyFile(), getSystemPropertySource());
 		}
 		
-		Properties(final File file, final Source context)
+		private Properties(final File file, final Source context)
 		{
 			super(loadProperties(file), file.getAbsolutePath(), context);
 		}
