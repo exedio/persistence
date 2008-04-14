@@ -360,7 +360,7 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new IllegalArgumentException("property " + key + " in " + source + " not set and not default value specified.");
+					throw new IllegalArgumentException("property " + key + " in " + source + " not set and no default value specified.");
 				else
 					this.value = defaultValue;
 			}
