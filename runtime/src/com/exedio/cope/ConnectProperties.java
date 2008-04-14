@@ -216,15 +216,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		return dialect.getDeclaringClass().getName();
 	}
-	
-	/**
-	 * @deprecated Has been renamed to {@link #getDialect()}.
-	 */
-	@Deprecated
-	public String getDatabase()
-	{
-		return getDialect();
-	}
 
 	public String getDatabaseUrl()
 	{
@@ -249,15 +240,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getDatabaseLogThreshold()
 	{
 		return databaseLogThreshold.getIntValue();
-	}
-	
-	/**
-	 * @deprecated Use {@link #getDatabaseLogQueryInfo()} instead
-	 */
-	@Deprecated
-	public boolean getDatabaseLogStatementInfo()
-	{
-		return getDatabaseLogQueryInfo();
 	}
 
 	public boolean getDatabaseLogQueryInfo()
@@ -325,27 +307,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return itemCacheLimit.getIntValue();
 	}
 	
-	/**
-	 * @deprecated renamed to {@link #getItemCacheLimit()}.
-	 */
-	@Deprecated
-	public int getCacheLimit()
-	{
-		return getItemCacheLimit();
-	}
-	
 	public int getQueryCacheLimit()
 	{
 		return queryCacheLimit.getIntValue();
-	}
-	
-	/**
-	 * @deprecated renamed to {@link #getQueryCacheLimit()}.
-	 */
-	@Deprecated
-	public int getCacheQueryLimit()
-	{
-		return getQueryCacheLimit();
 	}
 	
 	public String getMediaRootUrl()
@@ -366,5 +330,43 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getMediaOffsetExpires()
 	{
 		return mediaOffsetExpires.getIntValue();
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Has been renamed to {@link #getDialect()}.
+	 */
+	@Deprecated
+	public String getDatabase()
+	{
+		return getDialect();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getDatabaseLogQueryInfo()} instead
+	 */
+	@Deprecated
+	public boolean getDatabaseLogStatementInfo()
+	{
+		return getDatabaseLogQueryInfo();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getItemCacheLimit()}.
+	 */
+	@Deprecated
+	public int getCacheLimit()
+	{
+		return getItemCacheLimit();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #getQueryCacheLimit()}.
+	 */
+	@Deprecated
+	public int getCacheQueryLimit()
+	{
+		return getQueryCacheLimit();
 	}
 }
