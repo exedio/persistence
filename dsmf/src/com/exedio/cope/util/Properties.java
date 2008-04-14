@@ -37,11 +37,19 @@ public class Properties
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	private final Source context;
 	
+	/**
+	 * @deprecated Use {@link #Properties(Source, Source)} instead.
+	 */
+	@Deprecated
 	public Properties(final java.util.Properties source, final String sourceDescription)
 	{
 		this(source, sourceDescription, null);
 	}
 	
+	/**
+	 * @deprecated Use {@link #Properties(Source, Source)} instead.
+	 */
+	@Deprecated
 	public Properties(final java.util.Properties source, final String sourceDescription, final Source context)
 	{
 		this(getSource(source, sourceDescription), context);
