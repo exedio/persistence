@@ -40,12 +40,12 @@ public class PropertiesTest extends CopeAssert
 		
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
-			super(source, sourceDescription);
+			super(getSource(source, sourceDescription), null);
 		}
 		
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
-			super(source, sourceDescription, context);
+			super(getSource(source, sourceDescription), context);
 		}
 		
 		void assertIt()
