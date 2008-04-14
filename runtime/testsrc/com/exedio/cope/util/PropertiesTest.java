@@ -38,14 +38,14 @@ public class PropertiesTest extends CopeAssert
 		final FileField file = new FileField("file");
 		final MapField map = new MapField("map");
 		
-		public TestProperties(final java.util.Properties properties, final String source)
+		public TestProperties(final java.util.Properties properties, final String sourceDescription)
 		{
-			super(properties, source);
+			super(properties, sourceDescription);
 		}
 		
-		public TestProperties(final java.util.Properties properties, final String source, final Source context)
+		public TestProperties(final java.util.Properties properties, final String sourceDescription, final Source context)
 		{
-			super(properties, source, context);
+			super(properties, sourceDescription, context);
 		}
 		
 		void assertIt()
