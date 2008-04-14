@@ -37,24 +37,6 @@ public class Properties
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	private final Source context;
 	
-	/**
-	 * @deprecated Use {@link #Properties(Source, Source)} instead.
-	 */
-	@Deprecated
-	public Properties(final java.util.Properties source, final String sourceDescription)
-	{
-		this(source, sourceDescription, null);
-	}
-	
-	/**
-	 * @deprecated Use {@link #Properties(Source, Source)} instead.
-	 */
-	@Deprecated
-	public Properties(final java.util.Properties source, final String sourceDescription, final Source context)
-	{
-		this(getSource(source, sourceDescription), context);
-	}
-	
 	public Properties(final Source source, final Source context)
 	{
 		this.source = source;
@@ -83,26 +65,6 @@ public class Properties
 			throw new IllegalStateException("no context available");
 		
 		return context;
-	}
-
-	/**
-	 * @throws IllegalArgumentException if the context does not contain a value for <tt>key</tt>.
-	 * @throws IllegalStateException if there is no context for these properties.
-	 * @deprecated Use {@link #getContext()} instead.
-	 */
-	@Deprecated
-	public final String getContext(final String key)
-	{
-		if(key==null)
-			throw new NullPointerException("key must not be null");
-		if(context==null)
-			throw new IllegalStateException("no context available");
-		
-		final String result = context.get(key);
-		if(result==null)
-			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context.getDescription());
-		
-		return result;
 	}
 	
 	final String resolve(final String key)
@@ -149,15 +111,6 @@ public class Properties
 		
 		String getDescription();
 	}
-	
-	/**
-	 * @deprecated Use {@link #getSystemPropertySource()} instead
-	 */
-	@Deprecated
-	public static final Source getSystemPropertyContext()
-	{
-		return getSystemPropertySource();
-	}
 
 	public static final Source getSystemPropertySource()
 	{
@@ -183,15 +136,6 @@ public class Properties
 				return "java.lang.System.getProperty";
 			}
 		};
-	}
-	
-	/**
-	 * @deprecated Use {@link #getSource(java.util.Properties,String)} instead
-	 */
-	@Deprecated
-	public static final Source getContext(final java.util.Properties properties, final String description)
-	{
-		return getSource(properties, description);
 	}
 
 	public static final Source getSource(final java.util.Properties properties, final String description)
@@ -613,5 +557,63 @@ public class Properties
 				catch(IOException e) {/*IGNORE*/}
 			}
 		}
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #Properties(Source, Source)} instead.
+	 */
+	@Deprecated
+	public Properties(final java.util.Properties source, final String sourceDescription)
+	{
+		this(source, sourceDescription, null);
+	}
+	
+	/**
+	 * @deprecated Use {@link #Properties(Source, Source)} instead.
+	 */
+	@Deprecated
+	public Properties(final java.util.Properties source, final String sourceDescription, final Source context)
+	{
+		this(getSource(source, sourceDescription), context);
+	}
+
+	/**
+	 * @throws IllegalArgumentException if the context does not contain a value for <tt>key</tt>.
+	 * @throws IllegalStateException if there is no context for these properties.
+	 * @deprecated Use {@link #getContext()} instead.
+	 */
+	@Deprecated
+	public final String getContext(final String key)
+	{
+		if(key==null)
+			throw new NullPointerException("key must not be null");
+		if(context==null)
+			throw new IllegalStateException("no context available");
+		
+		final String result = context.get(key);
+		if(result==null)
+			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context.getDescription());
+		
+		return result;
+	}
+	
+	/**
+	 * @deprecated Use {@link #getSystemPropertySource()} instead
+	 */
+	@Deprecated
+	public static final Source getSystemPropertyContext()
+	{
+		return getSystemPropertySource();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getSource(java.util.Properties,String)} instead
+	 */
+	@Deprecated
+	public static final Source getContext(final java.util.Properties properties, final String description)
+	{
+		return getSource(properties, description);
 	}
 }
