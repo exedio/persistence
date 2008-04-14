@@ -43,7 +43,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertNull(model.getConnectDate());
 		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
 		
-		final com.exedio.cope.ConnectProperties props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertyContext());
+		final com.exedio.cope.ConnectProperties props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource());
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = ConnectToken.issue(model, props, "token1Name");
@@ -61,7 +61,7 @@ public class ConnectTokenTest extends CopeAssert
 		
 		final Date before2 = new Date();
 		final ConnectToken token2 = ConnectToken.issue(model,
-				new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertyContext())/* not the same but equal */,
+				new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource())/* not the same but equal */,
 				"token2Name");
 		final Date after2 = new Date();
 		assertSame(props, model.getProperties());
@@ -79,7 +79,7 @@ public class ConnectTokenTest extends CopeAssert
 			final File dpf = ConnectProperties.getDefaultPropertyFile();
 			final java.util.Properties dp = ConnectProperties.loadProperties(dpf);
 			dp.setProperty("database.user", "zack");
-			final ConnectProperties props2 = new ConnectProperties(dp, "ConnectTokenTestChangedProps", ConnectProperties.getSystemPropertyContext());
+			final ConnectProperties props2 = new ConnectProperties(dp, "ConnectTokenTestChangedProps", ConnectProperties.getSystemPropertySource());
 			try
 			{
 				ConnectToken.issue(model, props2, "tokenXName");

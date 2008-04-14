@@ -57,7 +57,7 @@ public abstract class SchemaTest extends TestCase
 
 		Properties()
 		{
-			this(getDefaultPropertyFile(), getSystemPropertyContext());
+			this(getDefaultPropertyFile(), getSystemPropertySource());
 		}
 		
 		Properties(final File file, final Context context)

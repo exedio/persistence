@@ -64,7 +64,7 @@ public class ReviseTest extends CopeAssert
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertyContext());
+		props = new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource());
 	}
 
 	String jdbcUrl;

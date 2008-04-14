@@ -140,7 +140,16 @@ public class Properties
 		Collection<String> keySet();
 	}
 	
+	/**
+	 * @deprecated Use {@link #getSystemPropertySource()} instead
+	 */
+	@Deprecated
 	public static final Context getSystemPropertyContext()
+	{
+		return getSystemPropertySource();
+	}
+
+	public static final Context getSystemPropertySource()
 	{
 		return new Context(){
 			public String get(final String key)

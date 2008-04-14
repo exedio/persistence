@@ -186,7 +186,7 @@ public abstract class CopeTest extends CopeAssert
 	
 	public final ConnectProperties getProperties()
 	{
-		return new ConnectProperties(ConnectProperties.getSystemPropertyContext());
+		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
 	}
 	
 	@Override
