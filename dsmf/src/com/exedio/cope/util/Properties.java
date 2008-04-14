@@ -32,24 +32,24 @@ import java.util.List;
 
 public class Properties
 {
-	final Context properties; // TODO rename
+	final Context source; // TODO rename
 	final String sourceDescription;
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	private final Context context;
 	
-	public Properties(final java.util.Properties properties, final String sourceDescription)
+	public Properties(final java.util.Properties source, final String sourceDescription)
 	{
-		this(properties, sourceDescription, null);
+		this(source, sourceDescription, null);
 	}
 	
-	public Properties(final java.util.Properties properties, final String sourceDescription, final Context context)
+	public Properties(final java.util.Properties source, final String sourceDescription, final Context context)
 	{
-		this(getContext(properties, sourceDescription), sourceDescription, context);
+		this(getContext(source, sourceDescription), sourceDescription, context);
 	}
 	
-	public Properties(final Context properties, final String sourceDescription, final Context context)
+	public Properties(final Context source, final String sourceDescription, final Context context)
 	{
-		this.properties = properties;
+		this.source = source;
 		this.sourceDescription = sourceDescription;
 		this.context = context;
 		
@@ -99,7 +99,7 @@ public class Properties
 	
 	final String getProperty(final String key)
 	{
-		final String raw = properties.get(key);
+		final String raw = source.get(key);
 		if(raw==null || context==null)
 			return raw;
 
@@ -193,7 +193,7 @@ public class Properties
 		Field(final String key)
 		{
 			this.key = key;
-			this.specified = properties.get(key)!=null;
+			this.specified = source.get(key)!=null;
 
 			if(key==null)
 				throw new NullPointerException("key must not be null.");
@@ -438,7 +438,7 @@ public class Properties
 
 			value = new java.util.Properties();
 			
-			final Collection<String> keySet = properties.keySet();
+			final Collection<String> keySet = source.keySet();
 			if(keySet==null)
 				return;
 			
@@ -477,7 +477,7 @@ public class Properties
 
 	public final void ensureValidity(final String... prefixes)
 	{
-		final Collection<String> keySet = properties.keySet();
+		final Collection<String> keySet = source.keySet();
 		if(keySet==null)
 			return;
 		
@@ -495,7 +495,7 @@ public class Properties
 		if(prefixes!=null)
 			allowedPrefixes.addAll(Arrays.asList(prefixes));
 		
-		for(final Object keyObject : properties.keySet())
+		for(final Object keyObject : source.keySet())
 		{
 			final String key = (String)keyObject;
 			if(!allowedValues.contains(key))
