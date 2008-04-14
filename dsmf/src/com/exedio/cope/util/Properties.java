@@ -44,7 +44,7 @@ public class Properties
 	
 	public Properties(final java.util.Properties source, final String sourceDescription, final Context context)
 	{
-		this(getContext(source, sourceDescription), sourceDescription, context);
+		this(getSource(source, sourceDescription), sourceDescription, context);
 	}
 	
 	public Properties(final Context source, final String sourceDescription, final Context context)
@@ -170,7 +170,16 @@ public class Properties
 		};
 	}
 	
+	/**
+	 * @deprecated Use {@link #getSource(java.util.Properties,String)} instead
+	 */
+	@Deprecated
 	public static final Context getContext(final java.util.Properties properties, final String description)
+	{
+		return getSource(properties, description);
+	}
+
+	public static final Context getSource(final java.util.Properties properties, final String description)
 	{
 		return new Context(){
 			public String get(final String key)
