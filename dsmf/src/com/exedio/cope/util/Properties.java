@@ -44,13 +44,13 @@ public class Properties
 	
 	public Properties(final java.util.Properties source, final String sourceDescription, final Source context)
 	{
-		this(getSource(source, sourceDescription), sourceDescription, context);
+		this(getSource(source, sourceDescription), context);
 	}
 	
-	public Properties(final Source source, final String sourceDescription, final Source context)
+	public Properties(final Source source, final Source context)
 	{
 		this.source = source;
-		this.sourceDescription = sourceDescription;
+		this.sourceDescription = source.getDescription();
 		this.context = context;
 		
 		// TODO check, that no other property key do occur
@@ -92,7 +92,7 @@ public class Properties
 		
 		final String result = context.get(key);
 		if(result==null)
-			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context);
+			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context.getDescription());
 		
 		return result;
 	}
@@ -116,7 +116,7 @@ public class Properties
 			final String contextKey = raw.substring(contextKeyBegin, contextKeyEnd);
 			final String replaced = context.get(contextKey);
 			if(replaced==null)
-				throw new IllegalArgumentException("key '" + contextKey + "\' not defined by context " + context);
+				throw new IllegalArgumentException("key '" + contextKey + "\' not defined by context " + context.getDescription());
 			bf.append(raw.substring(previous, dollar)).
 				append(replaced);
 			previous = contextKeyEnd + 1;
@@ -138,6 +138,8 @@ public class Properties
 		 * The result is always unmodifiable.
 		 */
 		Collection<String> keySet();
+		
+		String getDescription();
 	}
 	
 	/**
@@ -160,6 +162,11 @@ public class Properties
 			public Collection<String> keySet()
 			{
 				return null;
+			}
+
+			public String getDescription()
+			{
+				return "java.lang.System.getProperty";
 			}
 
 			@Override
@@ -193,6 +200,11 @@ public class Properties
 				for(final Enumeration<?> names = properties.propertyNames(); names.hasMoreElements(); )
 					result.add((String)names.nextElement());
 				return Collections.unmodifiableList(result);
+			}
+
+			public String getDescription()
+			{
+				return description;
 			}
 
 			@Override

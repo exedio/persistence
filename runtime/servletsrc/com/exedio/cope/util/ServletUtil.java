@@ -188,6 +188,11 @@ public class ServletUtil
 						return null;
 					}
 
+					public String getDescription()
+					{
+						return toString();
+					}
+
 					@Override
 					public String toString()
 					{

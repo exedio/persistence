@@ -414,7 +414,7 @@ public class PropertiesTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("key 'nixus' not defined by context TestContext", e.getMessage());
+			assertEquals("key 'nixus' not defined by context TestContextDescription", e.getMessage());
 		}
 		try
 		{
@@ -462,10 +462,15 @@ public class PropertiesTest extends CopeAssert
 				return Collections.unmodifiableList(Arrays.asList("x", "eimer", "wasser"));
 			}
 			
+			public String getDescription()
+			{
+				return "TestContextDescription";
+			}
+			
 			@Override
 			public String toString()
 			{
-				return "TestContext";
+				return "TestContextToString";
 			}
 		});
 		
@@ -491,6 +496,11 @@ public class PropertiesTest extends CopeAssert
 			}
 			
 			public Collection<String> keySet()
+			{
+				throw new RuntimeException();
+			}
+			
+			public String getDescription()
 			{
 				throw new RuntimeException();
 			}
@@ -541,10 +551,15 @@ public class PropertiesTest extends CopeAssert
 				return Collections.unmodifiableList(Arrays.asList("a", "a1"));
 			}
 			
+			public String getDescription()
+			{
+				return "TestGetContextDescription";
+			}
+			
 			@Override
 			public String toString()
 			{
-				return "TestGetContext";
+				return "TestGetContextToString";
 			}
 		});
 		assertEquals("b", context.getContext("a"));
@@ -566,7 +581,7 @@ public class PropertiesTest extends CopeAssert
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("no value available for key >n< in context TestGetContext", e.getMessage());
+			assertEquals("no value available for key >n< in context TestGetContextDescription", e.getMessage());
 		}
 
 		final TestProperties none = new TestProperties(pcontext, "none", null);
