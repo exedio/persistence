@@ -32,9 +32,9 @@ import java.util.List;
 
 public class Properties
 {
+	final ArrayList<Field> fields = new ArrayList<Field>();
 	final Source source;
 	final String sourceDescription;
-	final ArrayList<Field> fields = new ArrayList<Field>();
 	private final Source context;
 	
 	public Properties(final Source source, final Source context)
@@ -45,15 +45,15 @@ public class Properties
 		
 		// TODO check, that no other property key do occur
 	}
-	
-	public final String getSource()
-	{
-		return sourceDescription;
-	}
 
 	public final List<Field> getFields()
 	{
 		return Collections.unmodifiableList(fields);
+	}
+	
+	public final String getSource()
+	{
+		return sourceDescription;
 	}
 
 	/**
