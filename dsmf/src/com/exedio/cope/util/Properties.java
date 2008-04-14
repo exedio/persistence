@@ -23,14 +23,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
 public class Properties
 {
-	final java.util.Properties properties;
+	final Context properties; // TODO rename
 	final String source;
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	private final Context context;
@@ -41,6 +43,11 @@ public class Properties
 	}
 	
 	public Properties(final java.util.Properties properties, final String source, final Context context)
+	{
+		this(getContext(properties, source), source, context);
+	}
+	
+	public Properties(final Context properties, final String source, final Context context)
 	{
 		this.properties = properties;
 		this.source = source;
@@ -60,9 +67,22 @@ public class Properties
 	}
 
 	/**
-	 * @throws IllegalArgumentException if the context does not contain a value for <tt>key</tt>.
 	 * @throws IllegalStateException if there is no context for these properties.
 	 */
+	public final Context getContext()
+	{
+		if(context==null)
+			throw new IllegalStateException("no context available");
+		
+		return context;
+	}
+
+	/**
+	 * @throws IllegalArgumentException if the context does not contain a value for <tt>key</tt>.
+	 * @throws IllegalStateException if there is no context for these properties.
+	 * @deprecated Use {@link #getContext()} instead.
+	 */
+	@Deprecated
 	public final String getContext(final String key)
 	{
 		if(key==null)
@@ -79,7 +99,7 @@ public class Properties
 	
 	final String getProperty(final String key)
 	{
-		final String raw = properties.getProperty(key);
+		final String raw = properties.get(key);
 		if(raw==null || context==null)
 			return raw;
 
@@ -105,9 +125,19 @@ public class Properties
 		return bf.toString();
 	}
 	
-	public interface Context
+	public interface Context // TODO rename
 	{
 		String get(String key);
+
+		/**
+		 * Returns all keys, for which {@link #get(String)}
+		 * does not return null.
+		 * This operation is optional -
+		 * if this context does not support this operation,
+		 * it returns null.
+		 * The result is always unmodifiable.
+		 */
+		Collection<String> keySet();
 	}
 	
 	public static final Context getSystemPropertyContext()
@@ -117,11 +147,40 @@ public class Properties
 			{
 				return System.getProperty(key);
 			}
+			
+			public Collection<String> keySet()
+			{
+				return null;
+			}
 
 			@Override
 			public String toString()
 			{
 				return "java.lang.System.getProperty";
+			}
+		};
+	}
+	
+	public static final Context getContext(final java.util.Properties properties, final String source)
+	{
+		return new Context(){
+			public String get(final String key)
+			{
+				return properties.getProperty(key);
+			}
+			
+			public Collection<String> keySet()
+			{
+				final ArrayList<String> result = new ArrayList<String>();
+				for(final Enumeration<?> names = properties.propertyNames(); names.hasMoreElements(); )
+					result.add((String)names.nextElement());
+				return Collections.unmodifiableList(result);
+			}
+
+			@Override
+			public String toString()
+			{
+				return source;
 			}
 		};
 	}
@@ -134,7 +193,7 @@ public class Properties
 		Field(final String key)
 		{
 			this.key = key;
-			this.specified = properties.containsKey(key);
+			this.specified = properties.get(key)!=null;
 
 			if(key==null)
 				throw new NullPointerException("key must not be null.");
@@ -376,12 +435,16 @@ public class Properties
 		public MapField(final String key)
 		{
 			super(key);
+
+			value = new java.util.Properties();
+			
+			final Collection<String> keySet = properties.keySet();
+			if(keySet==null)
+				return;
 			
 			final String prefix = key + '.';
 			final int prefixLength = prefix.length();
-
-			value = new java.util.Properties();
-			for(Iterator i = properties.keySet().iterator(); i.hasNext(); )
+			for(Iterator i = keySet.iterator(); i.hasNext(); )
 			{
 				final String currentKey = (String)i.next();
 				if(currentKey.startsWith(prefix))
@@ -414,6 +477,10 @@ public class Properties
 
 	public final void ensureValidity(final String... prefixes)
 	{
+		final Collection<String> keySet = properties.keySet();
+		if(keySet==null)
+			return;
+		
 		final HashSet<String> allowedValues = new HashSet<String>();
 		final ArrayList<String> allowedPrefixes = new ArrayList<String>();
 		

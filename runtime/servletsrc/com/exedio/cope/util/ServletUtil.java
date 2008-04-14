@@ -19,6 +19,7 @@
 package com.exedio.cope.util;
 
 import java.io.File;
+import java.util.Collection;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
@@ -180,6 +181,11 @@ public class ServletUtil
 					public String get(final String key)
 					{
 						return context.getInitParameter(key);
+					}
+					
+					public Collection<String> keySet()
+					{
+						return null;
 					}
 
 					@Override
