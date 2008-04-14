@@ -97,7 +97,7 @@ public class Properties
 		return result;
 	}
 	
-	final String getProperty(final String key)
+	final String resolve(final String key)
 	{
 		final String raw = source.get(key);
 		if(raw==null || context==null)
@@ -232,7 +232,7 @@ public class Properties
 			super(key);
 			this.defaultValue = defaultValue;
 			
-			final String s = getProperty(key);
+			final String s = resolve(key);
 			if(s==null)
 				this.value = defaultValue;
 			else
@@ -277,7 +277,7 @@ public class Properties
 			if(defaultValue<minimumValue)
 				throw new RuntimeException(key+defaultValue+','+minimumValue);
 			
-			final String s = getProperty(key);
+			final String s = resolve(key);
 			if(s==null)
 				value = defaultValue;
 			else
@@ -356,7 +356,7 @@ public class Properties
 			
 			assert !(defaultValue!=null && hideValue);
 			
-			final String s = getProperty(key);
+			final String s = resolve(key);
 			if(s==null)
 			{
 				if(defaultValue==null)
@@ -400,7 +400,7 @@ public class Properties
 		{
 			super(key);
 
-			final String valueString = getProperty(key);
+			final String valueString = resolve(key);
 			this.value = (valueString==null) ? null : new File(valueString);
 		}
 		
@@ -448,7 +448,7 @@ public class Properties
 			{
 				final String currentKey = (String)i.next();
 				if(currentKey.startsWith(prefix))
-					value.put(currentKey.substring(prefixLength), getProperty(currentKey));
+					value.put(currentKey.substring(prefixLength), resolve(currentKey));
 			}
 		}
 		
