@@ -97,7 +97,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public ConnectProperties(final java.util.Properties properties, final String sourceDescription, final Source context)
 	{
-		super(properties, sourceDescription, context);
+		this(getSource(properties, sourceDescription), context);
+	}
+	
+	public ConnectProperties(final Source source, final Source context)
+	{
+		super(source, context);
 
 		final String dialectCodeRaw = this.dialectCode.getStringValue();
 		
@@ -116,7 +121,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		else
 			dialectCode = dialectCodeRaw;
 			
-		dialect = getDialectConstructor(dialectCode, sourceDescription);
+		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
 		databaseCustomProperties = new MapField("database." + dialectCode);
 		
