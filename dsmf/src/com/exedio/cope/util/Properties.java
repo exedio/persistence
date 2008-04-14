@@ -32,22 +32,22 @@ import java.util.List;
 
 public class Properties
 {
-	final Context source; // TODO rename
+	final Source source;
 	final String sourceDescription;
 	final ArrayList<Field> fields = new ArrayList<Field>();
-	private final Context context;
+	private final Source context;
 	
 	public Properties(final java.util.Properties source, final String sourceDescription)
 	{
 		this(source, sourceDescription, null);
 	}
 	
-	public Properties(final java.util.Properties source, final String sourceDescription, final Context context)
+	public Properties(final java.util.Properties source, final String sourceDescription, final Source context)
 	{
 		this(getSource(source, sourceDescription), sourceDescription, context);
 	}
 	
-	public Properties(final Context source, final String sourceDescription, final Context context)
+	public Properties(final Source source, final String sourceDescription, final Source context)
 	{
 		this.source = source;
 		this.sourceDescription = sourceDescription;
@@ -69,7 +69,7 @@ public class Properties
 	/**
 	 * @throws IllegalStateException if there is no context for these properties.
 	 */
-	public final Context getContext()
+	public final Source getContext()
 	{
 		if(context==null)
 			throw new IllegalStateException("no context available");
@@ -125,7 +125,7 @@ public class Properties
 		return bf.toString();
 	}
 	
-	public interface Context // TODO rename
+	public interface Source
 	{
 		String get(String key);
 
@@ -144,14 +144,14 @@ public class Properties
 	 * @deprecated Use {@link #getSystemPropertySource()} instead
 	 */
 	@Deprecated
-	public static final Context getSystemPropertyContext()
+	public static final Source getSystemPropertyContext()
 	{
 		return getSystemPropertySource();
 	}
 
-	public static final Context getSystemPropertySource()
+	public static final Source getSystemPropertySource()
 	{
-		return new Context(){
+		return new Source(){
 			public String get(final String key)
 			{
 				return System.getProperty(key);
@@ -174,14 +174,14 @@ public class Properties
 	 * @deprecated Use {@link #getSource(java.util.Properties,String)} instead
 	 */
 	@Deprecated
-	public static final Context getContext(final java.util.Properties properties, final String description)
+	public static final Source getContext(final java.util.Properties properties, final String description)
 	{
 		return getSource(properties, description);
 	}
 
-	public static final Context getSource(final java.util.Properties properties, final String description)
+	public static final Source getSource(final java.util.Properties properties, final String description)
 	{
-		return new Context(){
+		return new Source(){
 			public String get(final String key)
 			{
 				return properties.getProperty(key);

@@ -43,7 +43,7 @@ public class PropertiesTest extends CopeAssert
 			super(properties, source);
 		}
 		
-		public TestProperties(final java.util.Properties properties, final String source, final Context context)
+		public TestProperties(final java.util.Properties properties, final String source, final Source context)
 		{
 			super(properties, source, context);
 		}
@@ -441,7 +441,7 @@ public class PropertiesTest extends CopeAssert
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", raw);
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
-		final TestProperties minimal = new TestProperties(pminimal, "minimal", new Properties.Context(){
+		final TestProperties minimal = new TestProperties(pminimal, "minimal", new Properties.Source(){
 
 			public String get(final String key)
 			{
@@ -483,7 +483,7 @@ public class PropertiesTest extends CopeAssert
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
 		
-		final Properties.Context context = new Properties.Context(){
+		final Properties.Source context = new Properties.Source(){
 
 			public String get(final String key)
 			{
@@ -522,7 +522,7 @@ public class PropertiesTest extends CopeAssert
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
-		final TestProperties context = new TestProperties(pcontext, "context", new Properties.Context(){
+		final TestProperties context = new TestProperties(pcontext, "context", new Properties.Source(){
 
 			public String get(final String key)
 			{

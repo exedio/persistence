@@ -175,9 +175,9 @@ public class ServletUtil
 				new File(context.getRealPath(propertiesFile)), getPropertyContext(context)), name);
 	}
 	
-	public static final Properties.Context getPropertyContext(final ServletContext context)
+	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
-		return new Properties.Context(){
+		return new Properties.Source(){
 					public String get(final String key)
 					{
 						return context.getInitParameter(key);
