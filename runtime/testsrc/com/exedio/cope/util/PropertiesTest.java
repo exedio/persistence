@@ -20,6 +20,8 @@ package com.exedio.cope.util;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -455,6 +457,11 @@ public class PropertiesTest extends CopeAssert
 					throw new RuntimeException(key);
 			}
 			
+			public Collection<String> keySet()
+			{
+				return Collections.unmodifiableList(Arrays.asList("x", "eimer", "wasser"));
+			}
+			
 			@Override
 			public String toString()
 			{
@@ -475,6 +482,46 @@ public class PropertiesTest extends CopeAssert
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
+		
+		final Properties.Context context = new Properties.Context(){
+
+			public String get(final String key)
+			{
+				throw new RuntimeException(key);
+			}
+			
+			public Collection<String> keySet()
+			{
+				throw new RuntimeException();
+			}
+			
+			@Override
+			public String toString()
+			{
+				throw new RuntimeException();
+			}
+		};
+		final TestProperties properties = new TestProperties(pcontext, "context", context);
+		assertSame(context, properties.getContext());
+		
+		final TestProperties none = new TestProperties(pcontext, "none", null);
+		try
+		{
+			none.getContext();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("no context available", e.getMessage());
+		}
+	}
+	
+	@Deprecated
+	public void testGetContextDeprecated()
+	{
+		final java.util.Properties pcontext = new java.util.Properties();
+		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
+		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
 		final TestProperties context = new TestProperties(pcontext, "context", new Properties.Context(){
 
 			public String get(final String key)
@@ -487,6 +534,11 @@ public class PropertiesTest extends CopeAssert
 					return null;
 				else
 					throw new RuntimeException(key);
+			}
+			
+			public Collection<String> keySet()
+			{
+				return Collections.unmodifiableList(Arrays.asList("a", "a1"));
 			}
 			
 			@Override
