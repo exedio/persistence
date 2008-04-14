@@ -92,7 +92,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public ConnectProperties(final File file, final Source context)
 	{
-		this(loadProperties(file), file.getAbsolutePath(), context);
+		this(getSource(file), context);
 	}
 
 	public ConnectProperties(final java.util.Properties properties, final String sourceDescription, final Source context)

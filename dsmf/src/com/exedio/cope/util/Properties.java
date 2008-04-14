@@ -167,6 +167,11 @@ public class Properties
 		};
 	}
 	
+	public static final Source getSource(final File file)
+	{
+		return getSource(loadProperties(file), file.getAbsolutePath());
+	}
+	
 	public abstract class Field
 	{
 		final String key;
