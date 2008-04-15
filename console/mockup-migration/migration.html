@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>COPE Console - migration</title>
+		<title>COPE Console - revision</title>
 		<link rel="STYLESHEET" type="text/css" href="console.css">
 		<script>
 			function toggleRev(image,revision,dateRevision,bodies)
@@ -70,7 +70,7 @@
 			| <a href="?">properties</a>
 			| <a href="?schema=">schema</a>
 			| <a href="?t=tc">type columns</a>
-			| <b>migration</b>
+			| <b>revision</b>
 			| <a href="?t=dblog">db logs</a>
 			| <a href="?t=cp">connections</a>
 			| <a href="?t=cp">transaction</a>
@@ -85,13 +85,13 @@
 		</div>
 		<hr>
 		<table>
-			<caption>Migrations</caption>
+			<caption>Revisions</caption>
 			<tr><th></th><th>No.</th><th>Date</th><th>Content</th><th>Rows</th><th>Elpsd.</th></tr>
 			<tr>
 				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,12,12,1)"></td>
 				<td>12</td>
 				<td id="r12d" class="text">-</td>
-				<td class="text">migration not yet applied</td>
+				<td class="text">revision not yet applied</td>
 				<td>-</td>
 				<td>-</td>
 			</tr>
@@ -105,7 +105,7 @@
 				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,11,11,1)"></td>
 				<td>&#187;&nbsp;11</td>
 				<td id="r11d" class="text" rowspan="2">2007/03/01 22:30:21.207</td>
-				<td class="text">migration already applied together with its predecessor with a single sql statement</td>
+				<td class="text">revision already applied together with its predecessor with a single sql statement</td>
 				<td>3</td>
 				<td>12</td>
 			</tr>
@@ -132,7 +132,7 @@
 			<tr>
 				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,10,11,2)"></td>
 				<td>10</td>
-				<td class="text">predecessor migration with two sql statements</td>
+				<td class="text">predecessor revision with two sql statements</td>
 				<td>7'471</td>
 				<td>20'895</td>
 			</tr>
@@ -197,7 +197,7 @@
 			| <a href="?">properties</a>
 			| <a href="?schema=">schema</a>
 			| <a href="?t=tc">type columns</a>
-			| <b>migration</b>
+			| <b>revision</b>
 			| <a href="?t=dblog">db logs</a>
 			| <a href="?t=cp">connections</a>
 			| <a href="?t=cp">transaction</a>
