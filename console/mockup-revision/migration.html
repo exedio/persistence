@@ -13,6 +13,7 @@
 					image.src = imageSrc.substring(0, imageSrc.length-8) + "false.png";
 					for(body=0; body<bodies; body++)
 						document.getElementById("r"+revision+"b"+body).style.display = "none";
+					document.getElementById("r"+revision+"n").rowSpan -= bodies;
 					document.getElementById("r"+dateRevision+"d").rowSpan -= bodies;
 				}
 				else
@@ -20,6 +21,7 @@
 					image.src = imageSrc.substring(0, imageSrc.length-9) + "true.png";
 					for(body=0; body<bodies; body++)
 						document.getElementById("r"+revision+"b"+body).style.display = "table-row";
+					document.getElementById("r"+revision+"n").rowSpan += bodies;
 					document.getElementById("r"+dateRevision+"d").rowSpan += bodies;
 				}
 			}
@@ -89,7 +91,7 @@
 			<tr><th></th><th>No.</th><th>Date</th><th>Content</th><th>Rows</th><th>Elpsd.</th></tr>
 			<tr>
 				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,12,12,1)"></td>
-				<td>12</td>
+				<td id="r12n">12</td>
 				<td id="r12d" class="text">-</td>
 				<td class="text">revision not yet applied</td>
 				<td>-</td>
@@ -103,7 +105,7 @@
 			</tr>
 			<tr>
 				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,11,11,1)"></td>
-				<td>&#187;&nbsp;11</td>
+				<td id="r11n">&#187;&nbsp;11</td>
 				<td id="r11d" class="text" rowspan="2">2007/03/01 22:30:21.207</td>
 				<td class="text">revision already applied together with its predecessor with a single sql statement</td>
 				<td>3</td>
@@ -131,7 +133,7 @@
 			</tr>
 			<tr>
 				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,10,11,2)"></td>
-				<td>10</td>
+				<td id="r10n">10</td>
 				<td class="text">predecessor revision with two sql statements</td>
 				<td>7'471</td>
 				<td>20'895</td>
@@ -179,7 +181,7 @@
 			</tr>
 			<tr>
 				<td class="toggle"><img src="nodefalse.png" onClick="toggleRev(this,9,9,1)"></td>
-				<td>9</td>
+				<td id="r9n">9</td>
 				<td id="r9d" class="text">2007/02/12 23:26:33.232</td>
 				<td class="text">create Mail</td>
 				<td>0</td>
