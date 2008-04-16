@@ -46,9 +46,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(QualifierTest.class);
 		suite.addTestSuite(CompositeTest.class);
-		suite.addTestSuite(RelationTest.class);
 		suite.addTestSuite(SerializerTest.class);
-		suite.addTestSuite(VectorRelationTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);
 		suite.addTestSuite(DispatcherTest.class);

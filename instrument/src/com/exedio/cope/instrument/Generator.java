@@ -848,10 +848,6 @@ final class Generator
 			}
 			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
 				writeQualifier(qualifier);
-			for(final CopeRelation relation : sort(type.getRelations(true)))
-				writeRelation(relation, false);
-			for(final CopeRelation relation : sort(type.getRelations(false)))
-				writeRelation(relation, true);
 			
 			writeSerialVersionUID();
 			writeType(type);
@@ -884,23 +880,11 @@ final class Generator
 	// --------------------------------------- deprecated stuff ----------------------------------------------
 	
 	@Deprecated
-	private static final String COLLECTION = Collection.class.getName();
-	@Deprecated
-	private static final String LIST = List.class.getName();
-	@Deprecated
 	private static final String QUALIFIER = "Returns the qualifier.";
 	@Deprecated
 	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
 	@Deprecated
 	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
-	@Deprecated
-	private static final String RELATION_GETTER  = "Returns the items associated to this item by the relation.";
-	@Deprecated
-	private static final String RELATION_ADDER   = "Adds an item to the items associated to this item by the relation.";
-	@Deprecated
-	private static final String RELATION_REMOVER = "Removes an item from the items associated to this item by the relation.";
-	@Deprecated
-	private static final String RELATION_SETTER  = "Sets the items associated to this item by the relation.";
 	
 	@Deprecated
 	private void writeQualifierParameters(final CopeQualifier qualifier)
@@ -1084,161 +1068,5 @@ final class Generator
 	{
 		o.write("\t@SuppressWarnings(\"deprecation\") // pattern is deprecated");
 		o.write(lineSeparator);
-	}
-	
-	@Deprecated
-	private void writeRelation(final CopeRelation relation, final boolean source)
-	throws IOException
-	{
-		final boolean vector = relation.vector;
-		final String endType = relation.getEndType(source);
-		final String endName = relation.getEndName(source);
-		final String endNameCamel = toCamelCase(endName);
-		final String methodName = source ? "Sources" : "Targets";
-		final String className = relation.parent.javaClass.getFullName();
-		
-		// getter
-		if(!vector || !source)
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(RELATION_GETTER);
-			o.write(lineSeparator);
-			writeCommentFooter();
-			writeDeprecated();
-	
-			o.write("\tpublic final " + LIST + '<');
-			o.write(endType);
-			o.write("> get");
-			o.write(endNameCamel);
-			o.write("()");
-			o.write(lineSeparator);
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\treturn ");
-			o.write(className);
-			o.write('.');
-			o.write(relation.name);
-			o.write(".get");
-			o.write(methodName);
-			o.write("(this);");
-			o.write(lineSeparator);
-	
-			o.write("\t}");
-		}
-
-		// adder
-		if(!vector)
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(RELATION_ADDER);
-			o.write(lineSeparator);
-			writeCommentFooter();
-			writeDeprecated();
-	
-			o.write("\tpublic final boolean addTo");
-			o.write(endNameCamel);
-			o.write('(');
-			o.write(finalArgPrefix);
-			o.write(endType);
-			o.write(' ');
-			o.write(endName);
-			o.write(')');
-			o.write(lineSeparator);
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\treturn ");
-			o.write(className);
-			o.write('.');
-			o.write(relation.name);
-			o.write(".addTo");
-			o.write(methodName);
-			o.write("(this,");
-			o.write(endName);
-			o.write(");");
-			o.write(lineSeparator);
-	
-			o.write("\t}");
-		}
-
-		// remover
-		if(!vector)
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(RELATION_REMOVER);
-			o.write(lineSeparator);
-			writeCommentFooter();
-			writeDeprecated();
-	
-			o.write("\tpublic final boolean removeFrom");
-			o.write(endNameCamel);
-			o.write('(');
-			o.write(finalArgPrefix);
-			o.write(endType);
-			o.write(' ');
-			o.write(endName);
-			o.write(')');
-			o.write(lineSeparator);
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\treturn ");
-			o.write(className);
-			o.write('.');
-			o.write(relation.name);
-			o.write(".removeFrom");
-			o.write(methodName);
-			o.write("(this,");
-			o.write(endName);
-			o.write(");");
-			o.write(lineSeparator);
-	
-			o.write("\t}");
-		}
-
-		// setter
-		if(!vector || !source)
-		{
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(RELATION_SETTER);
-			o.write(lineSeparator);
-			writeCommentFooter();
-			writeDeprecated();
-	
-			o.write("\tpublic final void set");
-			o.write(endNameCamel);
-			o.write('(');
-			o.write(finalArgPrefix);
-			o.write(COLLECTION + "<? extends ");
-			o.write(endType);
-			o.write("> ");
-			o.write(endName);
-			o.write(')');
-			o.write(lineSeparator);
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\t");
-			o.write(className);
-			o.write('.');
-			o.write(relation.name);
-			o.write(".set");
-			o.write(methodName);
-			o.write("(this,");
-			o.write(endName);
-			o.write(");");
-			o.write(lineSeparator);
-	
-			o.write("\t}");
-		}
 	}
 }
