@@ -79,17 +79,17 @@ public final class Dispatcher extends Pattern
 	@Override
 	public void initialize()
 	{
-		final String name = getName();
-		initialize(pending, name + "Pending");
-		initialize(successDate, name + "SuccessDate");
-		initialize(successElapsed, name + "SuccessElapsed");
-		
 		final Type<?> type = getType();
 		if(!Dispatchable.class.isAssignableFrom(type.getJavaClass()))
 			throw new ClassCastException(
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
 
+		final String name = getName();
+		initialize(pending, name + "Pending");
+		initialize(successDate, name + "SuccessDate");
+		initialize(successElapsed, name + "SuccessElapsed");
+		
 		failureParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("parent", failureParent);
