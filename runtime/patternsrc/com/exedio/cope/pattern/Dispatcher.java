@@ -63,12 +63,12 @@ public final class Dispatcher extends Pattern
 		this(5, 100);
 	}
 	
-	public Dispatcher(final int maxFailures, final int searchSize)
+	public Dispatcher(final int failureLimit, final int searchSize)
 	{
-		this.failureLimit = maxFailures;
+		this.failureLimit = failureLimit;
 		this.searchSize = searchSize;
-		if(maxFailures<1)
-			throw new IllegalArgumentException("failureLimit must be greater zero, but was " + maxFailures + ".");
+		if(failureLimit<1)
+			throw new IllegalArgumentException("failureLimit must be greater zero, but was " + failureLimit + ".");
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
