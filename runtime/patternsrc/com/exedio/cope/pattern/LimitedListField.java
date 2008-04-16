@@ -211,15 +211,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		for(; i<sources.length; i++)
 			setValues[i] = sources[i].map(null);
 		
-		try
-		{
-			item.set(setValues);
-		}
-		catch(CustomAttributeException e)
-		{
-			// cannot happen, since FunctionField only are allowed for source
-			throw new RuntimeException(e);
-		}
+		item.set(setValues);
 	}
 	
 	public SetValue<Collection<E>> map(final Collection<E> value)
