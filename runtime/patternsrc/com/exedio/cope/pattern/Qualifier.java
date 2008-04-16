@@ -211,8 +211,6 @@ public final class Qualifier extends Pattern
 	 * the parent type {@link #getParent()}.{@link ItemField#getValueType() getValueType()}.
 	 *
 	 * @see #getDeclaredQualifiers(Type)
-	 * @see Relation#getRelations(Type)
-	 * @see VectorRelation#getRelations(Type)
 	 */
 	public static final List<Qualifier> getQualifiers(final Type<?> type)
 	{
@@ -224,8 +222,6 @@ public final class Qualifier extends Pattern
 	 * the parent type {@link #getParent()}.{@link ItemField#getValueType() getValueType()}.
 	 *
 	 * @see #getQualifiers(Type)
-	 * @see Relation#getDeclaredRelations(Type)
-	 * @see VectorRelation#getDeclaredRelations(Type)
 	 */
 	public static final List<Qualifier> getDeclaredQualifiers(final Type<?> type)
 	{
