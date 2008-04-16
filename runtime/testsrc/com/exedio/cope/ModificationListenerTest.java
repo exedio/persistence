@@ -130,10 +130,16 @@ public class ModificationListenerTest extends AbstractLibTest
 		assertEquals(0, model.getModificationListenersCleared());
 
 		// test weakness
-		model.addModificationListener(new FailModificationListener());
-		assertEquals(1, model.getModificationListeners().size());
+		FailModificationListener l1 = new FailModificationListener();
+		model.addModificationListener(l1);
+		assertEquals(list(l1), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());
 		
+		System.gc();
+		assertEquals(list(l1), model.getModificationListeners());
+		assertEquals(0, model.getModificationListenersCleared());
+		
+		l1 = null;
 		System.gc();
 		assertEquals(0, model.getModificationListenersCleared());
 		assertEquals(list(), model.getModificationListeners());
