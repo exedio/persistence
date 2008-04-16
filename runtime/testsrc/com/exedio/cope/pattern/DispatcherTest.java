@@ -152,6 +152,18 @@ public class DispatcherTest extends AbstractLibTest
 		{
 			assertEquals("searchSize must be greater zero, but was -10.", e.getMessage());
 		}
+		try
+		{
+			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals(
+					"type of DispatcherNoneItem.wrong must implement " + Dispatchable.class +
+					", but was " + DispatcherNoneItem.class.getName(),
+					e.getMessage());
+		}
 		
 		// test persistence
 		assertNotDone(list(), item1);

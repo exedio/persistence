@@ -85,6 +85,10 @@ public final class Dispatcher extends Pattern
 		initialize(successElapsed, name + "SuccessElapsed");
 		
 		final Type<?> type = getType();
+		if(!Dispatchable.class.isAssignableFrom(type.getJavaClass()))
+			throw new ClassCastException(
+					"type of " + getID() + " must implement " + Dispatchable.class +
+					", but was " + type.getJavaClass().getName());
 
 		failureParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
