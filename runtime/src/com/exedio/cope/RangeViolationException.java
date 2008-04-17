@@ -80,7 +80,7 @@ public final class RangeViolationException extends ConstraintViolationException
 			"range violation on " + getItemID() +
 			", " + value + " is too " +
 			(isTooSmall?"small":"big") +
-			" for "+ feature +
+			" for " + feature +
 			", must be at " + (isTooSmall?"least":"most") +
 			' ' + border + '.';
 	}
@@ -92,7 +92,6 @@ public final class RangeViolationException extends ConstraintViolationException
 			"range violation on " + getItemID() +
 			", " + value + " is too " +
 			(isTooSmall?"small":"big") +
-			" for "+ feature +
 			", must be at " + (isTooSmall?"least":"most") +
 			' ' + border + '.';
 	}
