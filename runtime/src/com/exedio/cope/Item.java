@@ -172,7 +172,6 @@ public abstract class Item implements Serializable
 			{
 				final FunctionField ff = (FunctionField)field;
 				Object defaultValue = ff.defaultConstant;
-				// TODO factor out defaultValue==null
 				if(defaultValue==null)
 				{
 					if(ff instanceof DateField && ((DateField)ff).defaultNow)
