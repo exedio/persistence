@@ -113,6 +113,11 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 	
+	public IntegerField defaultToNext(final int start)
+	{
+		return new IntegerField(isfinal, optional, unique, defaultConstant, start, minimum, maximum);
+	}
+	
 	public IntegerField range(final int minimum, final int maximum)
 	{
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
@@ -128,21 +133,6 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, Integer.MIN_VALUE, maximum);
 	}
 	
-	public int getMinimum()
-	{
-		return minimum;
-	}
-	
-	public int getMaximum()
-	{
-		return maximum;
-	}
-	
-	public IntegerField defaultToNext(final int start)
-	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, start, minimum, maximum);
-	}
-	
 	public boolean isDefaultNext()
 	{
 		return defaultNextStart!=null;
@@ -151,6 +141,16 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	public Integer getDefaultNextStart()
 	{
 		return defaultNextStart;
+	}
+	
+	public int getMinimum()
+	{
+		return minimum;
+	}
+	
+	public int getMaximum()
+	{
+		return maximum;
 	}
 	
 	int nextDefaultNext()
