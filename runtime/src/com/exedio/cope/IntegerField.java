@@ -30,8 +30,8 @@ import com.exedio.cope.search.SumAggregate;
  */
 public final class IntegerField extends FunctionField<Integer> implements IntegerFunction
 {
-	final int minimum;
-	final int maximum;
+	private final int minimum;
+	private final int maximum;
 
 	private IntegerField(
 			final boolean isfinal, final boolean optional, final boolean unique,
