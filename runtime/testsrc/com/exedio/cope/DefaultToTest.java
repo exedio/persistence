@@ -38,8 +38,19 @@ public class DefaultToTest extends AbstractLibTest
 		assertEquals(null, DefaultToItem.booleanNone.getDefaultConstant());
 		assertEquals(integer(5), DefaultToItem.integerFive.getDefaultConstant());
 		assertEquals(integer(50), DefaultToItem.integerFifty.getDefaultConstant());
+		assertEquals(null, DefaultToItem.integerNext.getDefaultConstant());
 		assertEquals(null, DefaultToItem.integerNone.getDefaultConstant());
 
+		assertEquals(false, DefaultToItem.integerFive.isDefaultNext());
+		assertEquals(false, DefaultToItem.integerFifty.isDefaultNext());
+		assertEquals(true,  DefaultToItem.integerNext.isDefaultNext());
+		assertEquals(false, DefaultToItem.integerNone.isDefaultNext());
+		
+		assertEquals(null, DefaultToItem.integerFive.getDefaultNextStart());
+		assertEquals(null, DefaultToItem.integerFifty.getDefaultNextStart());
+		assertEquals(integer(10001), DefaultToItem.integerNext.getDefaultNextStart());
+		assertEquals(null, DefaultToItem.integerNone.getDefaultNextStart());
+		
 		assertEquals(date(8), DefaultToItem.dateEight.getDefaultConstant());
 		assertEquals(date(80), DefaultToItem.dateEighty.getDefaultConstant());
 		assertEquals(null, DefaultToItem.dateNow.getDefaultConstant());
@@ -66,6 +77,29 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(false, item.getBooleanNone());
 			assertEquals(5, item.getIntegerFive());
 			assertEquals(integer(50), item.getIntegerFifty());
+			assertEquals(integer(10001), item.getIntegerNext());
+			assertEquals(null, item.getIntegerNone());
+			assertEquals(date(8), item.getDateEight());
+			assertEquals(date(80), item.getDateEighty());
+			assertWithin(before, after, item.getDateNow());
+			assertWithin(before, after, item.getDateNowOpt());
+			assertEquals(item.getDateNow(), item.getDateNowOpt());
+			assertEquals(null, item.getDateNone());
+			assertEquals(DefaultToEnum.ONE, item.getEnumOne());
+			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
+			assertEquals(null, item.getEnumNone());
+		}
+		{
+			final Date before = new Date();
+			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
+					DefaultToItem.booleanNone.map(false)
+			));
+			final Date after = new Date();
+			assertEquals(TRUE, item.getBooleanTrue());
+			assertEquals(false, item.getBooleanNone());
+			assertEquals(5, item.getIntegerFive());
+			assertEquals(integer(50), item.getIntegerFifty());
+			assertEquals(integer(10002), item.getIntegerNext());
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(date(80), item.getDateEighty());
@@ -83,6 +117,7 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.booleanNone.map(true),
 					DefaultToItem.integerFive.map(6),
 					DefaultToItem.integerFifty.map(51),
+					DefaultToItem.integerNext.map(20001),
 					DefaultToItem.dateEight.map(date(9)),
 					DefaultToItem.dateEighty.map(date(81)),
 					DefaultToItem.dateNow.map(date(501)),
@@ -96,6 +131,7 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(true, item.getBooleanNone());
 			assertEquals(6, item.getIntegerFive());
 			assertEquals(integer(51), item.getIntegerFifty());
+			assertEquals(integer(20001), item.getIntegerNext());
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(9), item.getDateEight());
 			assertEquals(date(81), item.getDateEighty());
@@ -112,6 +148,7 @@ public class DefaultToTest extends AbstractLibTest
 					DefaultToItem.booleanTrue.map(null),
 					DefaultToItem.booleanNone.map(true),
 					DefaultToItem.integerFifty.map(null),
+					DefaultToItem.integerNext.map(null),
 					DefaultToItem.dateEighty.map(null),
 					DefaultToItem.dateNowOpt.map(null),
 					DefaultToItem.dateNone.map(null),
@@ -125,6 +162,7 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(true, item.getBooleanNone());
 			assertEquals(5, item.getIntegerFive());
 			assertEquals(null, item.getIntegerFifty());
+			assertEquals(null, item.getIntegerNext());
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(null, item.getDateEighty());
@@ -136,6 +174,38 @@ public class DefaultToTest extends AbstractLibTest
 			assertEquals(null, item.getEnumNone());
 		}
 
+		try
+		{
+			DefaultToItem.integerFifty.defaultToNext(88);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("cannot use defaultConstant and defaultNext together", e.getMessage());
+		}
+		try
+		{
+			DefaultToItem.integerNext.defaultTo(99);
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("cannot use defaultConstant and defaultNext together", e.getMessage());
+		}
+		try
+		{
+			DefaultToItem.integerNext.min(10002);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(
+					"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
+					"caused a RangeViolationException: " +
+					"range violation on a newly created item, " +
+					"10001 is too small, " +
+					"must be at least 10002. Start value was '10001'.", e.getMessage());
+		}
 		assertEquals(null, new DateField().defaultTo(date(44)).defaultToNow().getDefaultConstant());
 		assertEquals(true, new DateField().defaultTo(date(44)).defaultToNow().isDefaultNow());
 		assertEquals(date(55), new DateField().defaultToNow().defaultTo(date(55)).getDefaultConstant());

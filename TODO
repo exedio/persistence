@@ -21,6 +21,7 @@
 		* clustered primary key generation
 		* remote cache invalidation
 		* information in console
+		* make IntegerField.defaultToNext cluster-aware
 	- move Item#touch into separate pattern Timestamp
 	- FieldListLimited: allow length terminated instead of null terminated as well
 	- Cache: store values in three arrays int[], double[], String[] instead of a Map,

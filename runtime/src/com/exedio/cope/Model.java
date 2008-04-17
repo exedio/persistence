@@ -577,6 +577,8 @@ public final class Model
 
 	public void dropDatabase()
 	{
+		IntegerField.flushDefaultNextCache(this);
+		
 		// TODO: rework this method
 		final List<Type<?>> types = typeList;
 		for(ListIterator<Type<?>> i = types.listIterator(types.size()); i.hasPrevious(); )

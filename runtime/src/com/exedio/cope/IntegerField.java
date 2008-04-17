@@ -30,22 +30,50 @@ import com.exedio.cope.search.SumAggregate;
  */
 public final class IntegerField extends FunctionField<Integer> implements IntegerFunction
 {
+	final Integer defaultNextStart;
+	private boolean defaultNextValueComputed = false;
+	private int defaultNextValue = Integer.MIN_VALUE;
+	private final Object defaultNextLock;
 	private final int minimum;
 	private final int maximum;
 
 	private IntegerField(
 			final boolean isfinal, final boolean optional, final boolean unique,
-			final Integer defaultConstant,
+			final Integer defaultConstant, final Integer defaultNextStart,
 			final int minimum, final int maximum)
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
+		this.defaultNextStart = defaultNextStart;
+		this.defaultNextLock = defaultNextStart!=null ? new Object() : null;
 		this.minimum = minimum;
 		this.maximum = maximum;
 
+		if(defaultConstant!=null && defaultNextStart!=null)
+			throw new IllegalStateException("cannot use defaultConstant and defaultNext together");
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
 		checkDefaultValue();
+		if(defaultNextStart!=null)
+		{
+			try
+			{
+				checkValue(defaultNextStart, null);
+			}
+			catch(ConstraintViolationException e)
+			{
+				// BEWARE
+				// Must not make exception e available to public,
+				// since it contains a reference to this function field,
+				// which has not been constructed successfully.
+				throw new IllegalArgumentException(
+						"The start value for defaultToNext of the field " +
+						"does not comply to one of it's own constraints, " +
+						"caused a " + e.getClass().getSimpleName() +
+						": " + e.getMessageWithoutFeature() +
+						" Start value was '" + defaultNextStart + "'.");
+			}
+		}
 	}
 	
 	/**
@@ -53,51 +81,51 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	 */
 	public IntegerField()
 	{
-		this(false, false, false, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		this(false, false, false, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 	
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 	
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, unique, defaultConstant, minimum, maximum);
+		return new IntegerField(true, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 	
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, unique, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, true, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 	
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 	
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 	
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, minimum, Integer.MAX_VALUE);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, Integer.MAX_VALUE);
 	}
 	
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, Integer.MIN_VALUE, maximum);
+		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, Integer.MIN_VALUE, maximum);
 	}
 	
 	public int getMinimum()
@@ -108,6 +136,72 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	public int getMaximum()
 	{
 		return maximum;
+	}
+	
+	public IntegerField defaultToNext(final int start)
+	{
+		return new IntegerField(isfinal, optional, unique, defaultConstant, start, minimum, maximum);
+	}
+	
+	public boolean isDefaultNext()
+	{
+		return defaultNextStart!=null;
+	}
+	
+	public Integer getDefaultNextStart()
+	{
+		return defaultNextStart;
+	}
+	
+	int nextDefaultNext()
+	{
+		synchronized(defaultNextLock)
+		{
+			final int result;
+			if(defaultNextValueComputed)
+			{
+				result = defaultNextValue;
+			}
+			else
+			{
+				final Integer current = new Query<Integer>(max()).searchSingleton();
+				result = current!=null ? (current.intValue() + 1) : defaultNextStart.intValue();
+				defaultNextValueComputed = true;
+			}
+			
+			defaultNextValue = result + 1;
+			return result;
+		}
+	}
+	
+	public static final void flushDefaultNextCache(final Model model)
+	{
+		for(final Type<?> t : model.getTypes())
+			for(final Field f : t.getFields())
+				if(f instanceof IntegerField)
+				{
+					final IntegerField fi = (IntegerField)f;
+					
+					if(fi.defaultNextLock==null)
+						continue;
+					
+					synchronized(fi.defaultNextLock)
+					{
+						fi.defaultNextValueComputed = false;
+					}
+				}
+	}
+	
+	/**
+	 * Returns true, if a value for the field should be specified
+	 * on the creation of an item.
+	 * This implementation returns
+	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && !{@link #isDefaultNext()}</tt>.
+	 */
+	@Override
+	public boolean isInitial()
+	{
+		return (defaultNextStart==null) && super.isInitial();
 	}
 	
 	@Override
@@ -128,6 +222,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
+		defaultNextValueComputed = false;
 		return new IntegerColumn(table, this, name, optional, minimum, maximum, false);
 	}
 	
@@ -230,7 +325,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	@Deprecated
 	public IntegerField(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		this(option.isFinal, option.optional, option.unique, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	/**
