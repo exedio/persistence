@@ -206,10 +206,24 @@ public class DefaultToTest extends AbstractLibTest
 					"10001 is too small, " +
 					"must be at least 10002. Start value was '10001'.", e.getMessage());
 		}
-		assertEquals(null, new DateField().defaultTo(date(44)).defaultToNow().getDefaultConstant());
-		assertEquals(true, new DateField().defaultTo(date(44)).defaultToNow().isDefaultNow());
-		assertEquals(date(55), new DateField().defaultToNow().defaultTo(date(55)).getDefaultConstant());
-		assertEquals(false, new DateField().defaultToNow().defaultTo(date(55)).isDefaultNow());
+		try
+		{
+			DefaultToItem.dateEight.defaultToNow();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
+		}
+		try
+		{
+			DefaultToItem.dateNow.defaultTo(new Date(444));
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
+		}
 		try
 		{
 			new StringField().lengthMax(3).defaultTo("1234");
