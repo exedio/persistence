@@ -33,7 +33,10 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	final int minimum;
 	final int maximum;
 
-	private IntegerField(final boolean isfinal, final boolean optional, final boolean unique, final Integer defaultConstant, final int minimum, final int maximum)
+	private IntegerField(
+			final boolean isfinal, final boolean optional, final boolean unique,
+			final Integer defaultConstant,
+			final int minimum, final int maximum)
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		this.minimum = minimum;
