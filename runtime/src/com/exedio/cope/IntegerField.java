@@ -153,45 +153,6 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		return maximum;
 	}
 	
-	int nextDefaultNext()
-	{
-		synchronized(defaultNextLock)
-		{
-			final int result;
-			if(defaultNextValueComputed)
-			{
-				result = defaultNextValue;
-			}
-			else
-			{
-				final Integer current = new Query<Integer>(max()).searchSingleton();
-				result = current!=null ? (current.intValue() + 1) : defaultNextStart.intValue();
-				defaultNextValueComputed = true;
-			}
-			
-			defaultNextValue = result + 1;
-			return result;
-		}
-	}
-	
-	public static final void flushDefaultNextCache(final Model model)
-	{
-		for(final Type<?> t : model.getTypes())
-			for(final Field f : t.getFields())
-				if(f instanceof IntegerField)
-				{
-					final IntegerField fi = (IntegerField)f;
-					
-					if(fi.defaultNextLock==null)
-						continue;
-					
-					synchronized(fi.defaultNextLock)
-					{
-						fi.defaultNextValueComputed = false;
-					}
-				}
-	}
-	
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
@@ -266,6 +227,45 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 			throw new RangeViolationException(this, exceptionItem, value, true, minimum);
 		if(valuePrimitive>maximum)
 			throw new RangeViolationException(this, exceptionItem, value, false, maximum);
+	}
+	
+	int nextDefaultNext()
+	{
+		synchronized(defaultNextLock)
+		{
+			final int result;
+			if(defaultNextValueComputed)
+			{
+				result = defaultNextValue;
+			}
+			else
+			{
+				final Integer current = new Query<Integer>(max()).searchSingleton();
+				result = current!=null ? (current.intValue() + 1) : defaultNextStart.intValue();
+				defaultNextValueComputed = true;
+			}
+			
+			defaultNextValue = result + 1;
+			return result;
+		}
+	}
+	
+	public static final void flushDefaultNextCache(final Model model)
+	{
+		for(final Type<?> t : model.getTypes())
+			for(final Field f : t.getFields())
+				if(f instanceof IntegerField)
+				{
+					final IntegerField fi = (IntegerField)f;
+					
+					if(fi.defaultNextLock==null)
+						continue;
+					
+					synchronized(fi.defaultNextLock)
+					{
+						fi.defaultNextValueComputed = false;
+					}
+				}
 	}
 	
 	@Override
