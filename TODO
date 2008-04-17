@@ -16,6 +16,11 @@
 		* optionally maintain filename param in Content-Disposition header
 		* implement MediaAlias
 		* redundantly maintain width/height for images
+	- enable clustering
+		* a persistent modifcation counters
+		* clustered primary key generation
+		* remote cache invalidation
+		* information in console
 	- move Item#touch into separate pattern Timestamp
 	- FieldListLimited: allow length terminated instead of null terminated as well
 	- Cache: store values in three arrays int[], double[], String[] instead of a Map,
