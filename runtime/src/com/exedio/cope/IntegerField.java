@@ -100,12 +100,12 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		return new IntegerField(isfinal, optional, unique, defaultConstant, Integer.MIN_VALUE, maximum);
 	}
 	
-	public final int getMinimum()
+	public int getMinimum()
 	{
 		return minimum;
 	}
 	
-	public final int getMaximum()
+	public int getMaximum()
 	{
 		return maximum;
 	}
@@ -146,7 +146,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	public final int getMandatory(final Item item)
+	public int getMandatory(final Item item)
 	{
 		if(optional)
 			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
@@ -154,7 +154,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		return get(item).intValue();
 	}
 	
-	public final void set(final Item item, final int value)
+	public void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
 			FinalViolationException,
@@ -212,12 +212,12 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		return new BindIntegerFunction(this, join);
 	}
 	
-	public final PlusView plus(final IntegerFunction other)
+	public PlusView plus(final IntegerFunction other)
 	{
 		return new PlusView(new IntegerFunction[]{this, other});
 	}
 	
-	public final SumAggregate<Integer> sum()
+	public SumAggregate<Integer> sum()
 	{
 		return new SumAggregate<Integer>(this);
 	}
@@ -237,7 +237,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
 	 */
 	@Deprecated
-	public final PlusView sum(final IntegerFunction other)
+	public PlusView sum(final IntegerFunction other)
 	{
 		return plus(other);
 	}
