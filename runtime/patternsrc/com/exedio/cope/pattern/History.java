@@ -43,7 +43,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 public final class History extends Pattern
 {
 	ItemField<?> eventParent = null;
-	final DateField eventDate = new DateField().toFinal();
+	final DateField eventDate = new DateField().toFinal().defaultToNow();
 	final StringField eventAuthor = new StringField().toFinal();
 	final BooleanField eventNew = new BooleanField().toFinal();
 	Type<Event> eventType = null;
@@ -201,7 +201,6 @@ public final class History extends Pattern
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
-				eventDate.map(new Date()),
 				eventAuthor.map(author),
 				eventNew.map(isNew)
 			);
