@@ -44,7 +44,6 @@ public final class History extends Pattern
 {
 	ItemField<?> eventParent = null;
 	final DateField eventDate = new DateField().toFinal();
-	private UniqueConstraint eventUnique = null;
 	final StringField eventAuthor = new StringField().toFinal();
 	final BooleanField eventNew = new BooleanField().toFinal();
 	Type<Event> eventType = null;
@@ -63,11 +62,9 @@ public final class History extends Pattern
 		final Type<?> type = getType();
 		
 		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		eventUnique = new UniqueConstraint(eventParent, eventDate);
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("parent", eventParent);
 		features.put("date", eventDate);
-		features.put("uniqueConstraint", eventUnique);
 		features.put("author", eventAuthor);
 		features.put("new", eventNew);
 		eventType = newType(Event.class, features, "Event");
@@ -93,12 +90,6 @@ public final class History extends Pattern
 	public DateField getEventDate()
 	{
 		return eventDate;
-	}
-	
-	public UniqueConstraint getEventUniqueConstraint()
-	{
-		assert eventUnique!=null;
-		return eventUnique;
 	}
 	
 	/**
