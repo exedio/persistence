@@ -202,11 +202,11 @@ final class CopeType
 		
 		for(final CopeFeature feature : getFeatures())
 		{
-				if(feature.isInitial())
-				{
-					initialFeatures.add(feature);
-					constructorExceptions.addAll(feature.getSetterExceptions());
-				}
+			if(feature.isInitial())
+			{
+				initialFeatures.add(feature);
+				constructorExceptions.addAll(feature.getSetterExceptions());
+			}
 		}
 		constructorExceptions.remove(FinalViolationException.class);
 	}
