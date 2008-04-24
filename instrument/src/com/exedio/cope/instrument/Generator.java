@@ -31,11 +31,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -846,25 +842,10 @@ final class Generator
 						writeUniqueFinder((CopeUniqueConstraint)feature, true);
 				}
 			}
-			for(final CopeQualifier qualifier : sort(type.getQualifiers()))
-				writeQualifier(qualifier);
 			
 			writeSerialVersionUID();
 			writeType(type);
 		}
-	}
-	
-	private static final <X extends CopeFeature> List<X> sort(final List<X> l)
-	{
-		final ArrayList<X> result = new ArrayList<X>(l);
-		Collections.sort(result, new Comparator<X>()
-				{
-					public int compare(final X a, final X b)
-					{
-						return a.parent.javaClass.getFullName().compareTo(b.parent.javaClass.getFullName());
-					}
-				});
-		return result;
 	}
 
 	private void writeModifier(final int modifier) throws IOException
@@ -875,198 +856,5 @@ final class Generator
 			o.write(modifierString);
 			o.write(' ');
 		}
-	}
-	
-	// --------------------------------------- deprecated stuff ----------------------------------------------
-	
-	@Deprecated
-	private static final String QUALIFIER = "Returns the qualifier.";
-	@Deprecated
-	private static final String QUALIFIER_GETTER = "Returns the qualifier.";
-	@Deprecated
-	private static final String QUALIFIER_SETTER = "Sets the qualifier.";
-	
-	@Deprecated
-	private void writeQualifierParameters(final CopeQualifier qualifier)
-	throws IOException, InjectorParseException
-	{
-		final CopeAttribute[] keys = qualifier.getKeyAttributes();
-		for(int i = 0; i<keys.length; i++)
-		{
-			if(i>0)
-				o.write(',');
-			o.write(finalArgPrefix);
-			o.write(keys[i].persistentType);
-			o.write(' ');
-			o.write(keys[i].name);
-		}
-	}
-	
-	@Deprecated
-	private void writeQualifierCall(final CopeQualifier qualifier)
-	throws IOException, InjectorParseException
-	{
-		final CopeAttribute[] keys = qualifier.getKeyAttributes();
-		for(int i = 0; i<keys.length; i++)
-		{
-			o.write(',');
-			o.write(keys[i].name);
-		}
-	}
-	
-	@Deprecated
-	private void writeQualifier(final CopeQualifier qualifier)
-	throws IOException, InjectorParseException
-	{
-		final String qualifierClassName = qualifier.parent.javaClass.getFullName();
-
-		writeCommentHeader();
-		o.write("\t * ");
-		o.write(QUALIFIER);
-		o.write(lineSeparator);
-		writeCommentFooter();
-		writeDeprecated();
-
-		o.write("\tpublic final ");
-		o.write(qualifierClassName);
-		o.write(" get");
-		o.write(toCamelCase(qualifier.name));
-		o.write('(');
-		writeQualifierParameters(qualifier);
-		o.write(')');
-		o.write(lineSeparator);
-
-		o.write("\t{");
-		o.write(lineSeparator);
-
-		o.write("\t\treturn (");
-		o.write(qualifierClassName);
-		o.write(')');
-		o.write(qualifierClassName);
-		o.write('.');
-		o.write(qualifier.name);
-		o.write(".getQualifier(this");
-		writeQualifierCall(qualifier);
-		o.write(");");
-		o.write(lineSeparator);
-
-		o.write("\t}");
-		
-		final List<CopeAttribute> qualifierAttributes = Arrays.asList(qualifier.getAttributes());
-		for(final CopeFeature feature : qualifier.parent.getFeatures())
-		{
-			if(feature instanceof CopeAttribute)
-			{
-				final CopeAttribute attribute = (CopeAttribute)feature;
-				if(qualifierAttributes.contains(attribute))
-					continue;
-				writeQualifierGetter(qualifier, attribute);
-				writeQualifierSetter(qualifier, attribute);
-			}
-		}
-	}
-
-	@Deprecated
-	private void writeQualifierGetter(final CopeQualifier qualifier, final CopeAttribute attribute)
-	throws IOException, InjectorParseException
-	{
-		if(attribute.getterOption.exists)
-		{
-			final String qualifierClassName = qualifier.parent.javaClass.getFullName();
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(QUALIFIER_GETTER);
-			o.write(lineSeparator);
-			writeCommentFooter();
-			writeDeprecated();
-	
-			o.write('\t');
-			writeModifier(attribute.getGeneratedGetterModifier());
-			o.write(attribute.persistentType);
-			o.write(" get");
-			o.write(toCamelCase(attribute.name));
-			o.write(attribute.getterOption.suffix);
-			o.write('(');
-			writeQualifierParameters(qualifier);
-			o.write(')');
-			o.write(lineSeparator);
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\treturn ");
-			o.write(qualifierClassName);
-			o.write('.');
-			o.write(qualifier.name);
-			o.write(".get(");
-			o.write(qualifierClassName);
-			o.write('.');
-			o.write(attribute.name);
-			o.write(",this");
-			writeQualifierCall(qualifier);
-			o.write(");");
-			o.write(lineSeparator);
-	
-			o.write("\t}");
-		}
-	}
-
-	@Deprecated
-	private void writeQualifierSetter(final CopeQualifier qualifier, final CopeAttribute attribute)
-	throws IOException, InjectorParseException
-	{
-		if(attribute.setterOption.exists)
-		{
-			final String qualifierClassName = qualifier.parent.javaClass.getFullName();
-			writeCommentHeader();
-			o.write("\t * ");
-			o.write(QUALIFIER_SETTER);
-			o.write(lineSeparator);
-			writeCommentFooter();
-			writeDeprecated();
-	
-			o.write('\t');
-			writeModifier(attribute.getGeneratedSetterModifier());
-			o.write("void set");
-			o.write(toCamelCase(attribute.name));
-			o.write(attribute.setterOption.suffix);
-			o.write('(');
-			writeQualifierParameters(qualifier);
-			o.write(',');
-			o.write(finalArgPrefix);
-			o.write(attribute.getBoxedType());
-			o.write(' ');
-			o.write(attribute.name);
-			o.write(')');
-			o.write(lineSeparator);
-			
-			writeThrowsClause(attribute.getSetterExceptions());
-	
-			o.write("\t{");
-			o.write(lineSeparator);
-	
-			o.write("\t\t");
-			o.write(qualifierClassName);
-			o.write('.');
-			o.write(qualifier.name);
-			o.write(".set(");
-			o.write(qualifierClassName);
-			o.write('.');
-			o.write(attribute.name);
-			o.write(',');
-			o.write(attribute.name);
-			o.write(",this");
-			writeQualifierCall(qualifier);
-			o.write(");");
-			o.write(lineSeparator);
-			o.write("\t}");
-		}
-	}
-	
-	@Deprecated
-	private void writeDeprecated() throws IOException
-	{
-		o.write("\t@SuppressWarnings(\"deprecation\") // pattern is deprecated");
-		o.write(lineSeparator);
 	}
 }

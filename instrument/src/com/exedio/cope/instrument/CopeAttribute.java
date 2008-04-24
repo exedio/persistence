@@ -25,9 +25,6 @@ abstract class CopeAttribute extends CopeFeature
 	 */
 	@Deprecated
 	final String persistentType;
-
-	@Deprecated
-	final Option getterOption;
 	
 	CopeAttribute(
 			final CopeType parent,
@@ -37,15 +34,6 @@ abstract class CopeAttribute extends CopeFeature
 	{
 		super(parent, javaAttribute);
 		this.persistentType = persistentType;
-		
-		final String docComment = javaAttribute.getDocComment();
-		this.getterOption = new Option(Injector.findDocTagLine(docComment, TAG_GETTER), true);
-	}
-	
-	@Deprecated
-	final int getGeneratedGetterModifier()
-	{
-		return getterOption.getModifier(modifier);
 	}
 
 	/**

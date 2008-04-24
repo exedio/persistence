@@ -114,9 +114,6 @@ final class CopeType
 				supertype.addSubtype(this);
 			}
 		}
-		
-		for(final CopeFeature feature : getFeatures())
-			feature.endBuildStage();
 	}
 
 	void addSubtype(final CopeType subtype)
@@ -148,25 +145,6 @@ final class CopeType
 		return isAbstract() || !getSubtypes().isEmpty();
 	}
 	
-	private final ArrayList<CopeQualifier> qualifiers = new ArrayList<CopeQualifier>();
-	
-	@Deprecated
-	void addQualifier(final CopeQualifier qualifier)
-	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
-		
-		qualifiers.add(qualifier);
-	}
-	
-	List<CopeQualifier> getQualifiers()
-	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
-		
-		return Collections.unmodifiableList(qualifiers);
-	}
-
 	public void register(final CopeFeature feature)
 	{
 		assert !javaClass.file.repository.isBuildStage();
@@ -224,14 +202,11 @@ final class CopeType
 		
 		for(final CopeFeature feature : getFeatures())
 		{
-			if(!(feature instanceof CopeQualifier))
-			{
 				if(feature.isInitial())
 				{
 					initialFeatures.add(feature);
 					constructorExceptions.addAll(feature.getSetterExceptions());
 				}
-			}
 		}
 		constructorExceptions.remove(FinalViolationException.class);
 	}

@@ -45,8 +45,6 @@ import com.exedio.cope.instrument.testmodel.DoubleUnique;
 import com.exedio.cope.instrument.testmodel.Enum2;
 import com.exedio.cope.instrument.testmodel.FullQualifyInput;
 import com.exedio.cope.instrument.testmodel.Input;
-import com.exedio.cope.instrument.testmodel.Qualified;
-import com.exedio.cope.instrument.testmodel.QualifiedName;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.Sub;
 import com.exedio.cope.instrument.testmodel.Super;
@@ -76,8 +74,6 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class TYPE_PRIVATE = TypePrivate.class;
 	final static Class DOUBLE_UNIQUE = DoubleUnique.class;
 	final static Class SUB_TARGET = SubTarget.class;
-	final static Class QUALIFIED = Qualified.class;
-	final static Class QUALIFIED_NAME = QualifiedName.class;
 	final static Class SUPER = Super.class;
 	final static Class SUB = Sub.class;
 	final static Class INPUT = Input.class;
@@ -303,32 +299,6 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PUBLIC|STATIC|FINAL);
-	}
-	
-	public void testQualified()
-	{
-		assertMethod(QUALIFIED, "getNameQualifier", new Class[]{STRING}, QUALIFIED_NAME, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "getNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "setNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "getOptionalNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "setOptionalNumber", new Class[]{STRING, Integer.class}, PUBLIC|FINAL);
-		assertNoMethod(QUALIFIED, "getNoneGetterNumber", new Class[]{STRING});
-		assertMethod(QUALIFIED, "setNoneGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "getPrivateGetterNumber", new Class[]{STRING}, Integer.class, PRIVATE|FINAL);
-		assertMethod(QUALIFIED, "setPrivateGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "getInternalGetterNumberInternal", new Class[]{STRING}, Integer.class, PRIVATE|FINAL);
-		assertMethod(QUALIFIED, "setInternalGetterNumber", new Class[]{STRING, int.class}, PUBLIC|FINAL);
-		assertNoMethod(QUALIFIED, "getInternalGetterNumber", new Class[]{STRING});
-		
-		assertMethod(QUALIFIED, "getNoneSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertNoMethod(QUALIFIED, "setNoneSetterNumber", new Class[]{STRING, int.class});
-		assertNoMethod(QUALIFIED, "setNoneSetterNumber", new Class[]{STRING, Integer.class});
-		assertMethod(QUALIFIED, "getPrivateSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "setPrivateSetterNumber", new Class[]{STRING, int.class}, PRIVATE|FINAL);
-		assertMethod(QUALIFIED, "getInternalSetterNumber", new Class[]{STRING}, Integer.class, PUBLIC|FINAL);
-		assertMethod(QUALIFIED, "setInternalSetterNumberInternal", new Class[]{STRING, int.class}, PRIVATE|FINAL);
-		assertNoMethod(QUALIFIED, "setInternalSetterNumber", new Class[]{STRING, int.class});
-		assertNoMethod(QUALIFIED, "setInternalSetterNumber", new Class[]{STRING, Integer.class});
 	}
 	
 	public void testHierarchy()

@@ -23,12 +23,10 @@ import java.io.PrintStream;
 import java.util.Collection;
 
 import com.exedio.cope.DataField;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.Qualifier;
 import com.exedio.cops.CheckboxField;
 import com.exedio.cops.Field;
 import com.exedio.cops.Form;
@@ -156,35 +154,6 @@ class ItemCop_Jspm
 						}
 						%></td>
 					</tr><%
-				}
-				// qualified attributes
-				for(final Feature feature : type.getFeatures())
-				{
-					if(feature instanceof Qualifier)
-					{
-						final Qualifier qualifier = (Qualifier)feature;
-						final Collection<? extends Item> values =
-							qualifier.getUniqueConstraint().getType().search(qualifier.getParent().equal(item));
-						for(final com.exedio.cope.Field anyAttribute : qualifier.getFields())
-						{
-							for(final Item value : values)
-							{
-								if(anyAttribute instanceof FunctionField)
-								{
-									final FunctionField<? extends Object> attribute = (FunctionField<?>)anyAttribute;
-									final Object qualifiedValue = value.get(attribute);
-									if(qualifiedValue!=null)
-									{
-									%>
-					<tr>
-						<td><%=provider.getDisplayName(null, attribute)%></td>
-						<td><%=qualifiedValue%></td>
-					</tr><%
-									}
-								}
-							}
-						}
-					}
 				}
 				%>
 				</table><%

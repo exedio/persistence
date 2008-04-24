@@ -63,11 +63,6 @@ class CopeFeature
 		return javaAttribute.parent;
 	}
 	
-	void endBuildStage()
-	{
-		// empty default implementation
-	}
-	
 	final Feature getInstance()
 	{
 		if(value==null)

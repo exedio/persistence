@@ -118,10 +118,7 @@ public final class Main
 					{
 						//System.out.println("onClassEnd("+jc.getName()+") writing");
 						for(final CopeFeature feature : type.getFeatures())
-						{
-							if(!(feature instanceof CopeQualifier)) // TODO make it work for all
-								feature.getInstance();
-						}
+							feature.getInstance();
 					}
 				}
 			}

@@ -57,7 +57,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FieldItemTest.class );
 		suite.addTestSuite( FieldEnumTest.class );
 		suite.addTestSuite( FieldMediaTest.class );
-		suite.addTestSuite( FieldQualifierTest.class );
 		
 		suite.addTestSuite( DeleteTest.class );
 		suite.addTestSuite( DeleteHierarchyTest.class );

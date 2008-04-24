@@ -39,8 +39,6 @@ import com.exedio.cope.testmodel.Main;
 import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
-import com.exedio.cope.testmodel.QualifiedIntegerEnumQualifier;
-import com.exedio.cope.testmodel.QualifiedItem;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.testmodel.UniqueFinal;
 import com.exedio.copernica.CopernicaProvider;
@@ -187,25 +185,6 @@ public class InitServlet extends CopsServlet
 			new PlusItem(2, 9, 7);
 			new PlusItem(5, 2, 0);
 			new PlusItem(6, 7, 6);
-
-			{
-				final QualifiedItem qualifiedItem1 = new QualifiedItem();
-				final QualifiedItem qualifiedItem2 = new QualifiedItem();
-				qualifiedItem1.setNumber(Integer.valueOf(1));
-				qualifiedItem2.setNumber(Integer.valueOf(2));
-				qualifiedItem1.setQualifiedA(emptyItem1, "1A1");
-				qualifiedItem1.setQualifiedA(emptyItem2, "1A2");
-				qualifiedItem1.setQualifiedB(emptyItem1, "1B1");
-				qualifiedItem1.setQualifiedA("key1", Integer.valueOf(1));
-				qualifiedItem1.setQualifiedA("key2", Integer.valueOf(2));
-				qualifiedItem1.setQualifiedA("key3", Integer.valueOf(3));
-				qualifiedItem1.setQualifiedA("key4", Integer.valueOf(4));
-				qualifiedItem1.setQualifiedB("key4", Integer.valueOf(14));
-				qualifiedItem1.setQualifiedA(Integer.valueOf(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-8-key1");
-				qualifiedItem1.setQualifiedA(Integer.valueOf(6), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-A-6-key1");
-				qualifiedItem1.setQualifiedA(Integer.valueOf(8), QualifiedIntegerEnumQualifier.KeyEnum.key2, "1-A-8-key2");
-				qualifiedItem1.setQualifiedB(Integer.valueOf(8), QualifiedIntegerEnumQualifier.KeyEnum.key1, "1-B-8-key1");
-			}
 
 			{
 				final PointerTargetItem item2a = new PointerTargetItem("hallo");

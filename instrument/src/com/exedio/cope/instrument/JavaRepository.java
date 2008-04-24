@@ -52,7 +52,6 @@ import com.exedio.cope.StringFunction;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.pattern.Qualifier;
 
 final class JavaRepository
 {
@@ -142,8 +141,6 @@ final class JavaRepository
 					}
 					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
 						new CopeUniqueConstraint(type, javaAttribute);
-					else if(Qualifier.class.isAssignableFrom(typeClass))
-						new CopeQualifier(type, javaAttribute);
 					else if(Feature.class.isAssignableFrom(typeClass))
 						new CopeFeature(type, javaAttribute);
 				}
