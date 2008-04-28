@@ -78,7 +78,7 @@ public class DispatcherTest extends AbstractLibTest
 				item.body,
 				item.fail,
 				item.dispatchCount,
-				item.dispatchLastElapsed,
+				item.dispatchLastSuccessElapsed,
 				item.dispatchFailureElapsed,
 				item.upload,
 				item.upload.getPending(),
@@ -239,8 +239,8 @@ public class DispatcherTest extends AbstractLibTest
 		assertEquals(false, item.isUploadPending());
 		assertWithin(date.before, date.after, item.getUploadSuccessDate());
 		assertTrue(
-				String.valueOf(item.getUploadSuccessElapsed())+">="+item.getDispatchLastElapsed(),
-				item.getUploadSuccessElapsed()>=item.getDispatchLastElapsed());
+				String.valueOf(item.getUploadSuccessElapsed())+">="+item.getDispatchLastSuccessElapsed(),
+				item.getUploadSuccessElapsed()>=item.getDispatchLastSuccessElapsed());
 		assertIt(failures.size()+1, failures, item);
 	}
 	
