@@ -61,10 +61,12 @@ public class DispatcherTest extends AbstractLibTest
 		// test model
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
+				item.dispatchFailureElapsed.getRelationType(),
 				failureType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
+				item.dispatchFailureElapsed.getRelationType(),
 				failureType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
@@ -77,6 +79,7 @@ public class DispatcherTest extends AbstractLibTest
 				item.fail,
 				item.dispatchCount,
 				item.dispatchLastElapsed,
+				item.dispatchFailureElapsed,
 				item.upload,
 				item.upload.getPending(),
 				item.upload.getSuccessDate(),
@@ -257,14 +260,20 @@ public class DispatcherTest extends AbstractLibTest
 		final List<Failure> actualFailures = item.getUploadFailures();
 		assertTrue(actualFailures.size()<=3);
 		assertEquals(failures.size(), actualFailures.size());
+		
+		final List<Integer> failuresElapsed = item.getDispatchFailureElapsed();
+		assertEquals(failures.size(), failuresElapsed.size());
+		final Iterator<Integer> failureElapsedIter = failuresElapsed.iterator();
+		
 		final Iterator expectedFailureIter = failures.iterator();
 		for(final Failure actual : actualFailures)
 		{
+			final Integer failureElapsed = failureElapsedIter.next();
 			final DateRange expected = (DateRange)expectedFailureIter.next();
 			assertSame(item.upload, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			assertWithin(expected.before, expected.after, actual.getDate());
-			assertTrue(String.valueOf(actual.getElapsed()), actual.getElapsed()>=5);
+			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
 			assertTrue(actual.getCause(), actual.getCause().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
 	}
