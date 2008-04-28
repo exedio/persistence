@@ -39,9 +39,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-/**
- * This pattern is still experimental, and its API may change any time.
- */
 public final class History extends Pattern
 {
 	ItemField<?> eventParent = null;
