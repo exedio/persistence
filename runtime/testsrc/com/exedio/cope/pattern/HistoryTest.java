@@ -44,7 +44,7 @@ public class HistoryTest extends AbstractLibTest
 		item = deleteOnTearDown(new HistoryItem());
 	}
 	
-	public void testIt()
+	public void testIt() throws Exception
 	{
 		final Type<?> eventType = item.audit.getEventType();
 		final Type<?> featureType = item.audit.getFeatureType();
@@ -184,7 +184,9 @@ public class HistoryTest extends AbstractLibTest
 		assertEquals(list(feature11, feature12), event1.getFeatures());
 		
 		final Date before2 = new Date();
+		Thread.sleep(1L);
 		History.Event event2 = item.createAuditEvent("author2", false);
+		Thread.sleep(1L);
 		final Date after2 = new Date();
 		assertSame(item.audit, event2.getPattern());
 		assertEquals(item, event2.getParent());
