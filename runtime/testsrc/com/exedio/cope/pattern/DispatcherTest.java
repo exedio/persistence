@@ -217,6 +217,7 @@ public class DispatcherTest extends AbstractLibTest
 		{
 			this.before = before;
 			this.after = after;
+			assertTrue(!after.before(before));
 		}
 	}
 	
