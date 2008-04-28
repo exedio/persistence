@@ -27,9 +27,11 @@ import java.util.List;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
+import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -194,7 +196,11 @@ public final class History extends Pattern
 	
 	public List<Event> getEvents(final Item item)
 	{
-		return eventType.search(Cope.equalAndCast(eventParent, item), eventDate, false);
+		final Query<Event> q = eventType.newQuery(Cope.equalAndCast(eventParent, item));
+		q.setOrderBy(
+				new Function[]{ eventDate, eventType.getThis() },
+				new boolean []{ false,     false });
+		return q.search();
 	}
 	
 	public Event createEvent(final Item item, final String author, final boolean isNew)
