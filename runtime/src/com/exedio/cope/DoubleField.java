@@ -30,7 +30,10 @@ public final class DoubleField extends FunctionField<Double>
 	private final double minimum;
 	private final double maximum;
 
-	private DoubleField(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultConstant, final double minimum, final double maximum)
+	private DoubleField(
+			final boolean isfinal, final boolean optional, final boolean unique,
+			final Double defaultConstant,
+			final double minimum, final double maximum)
 	{
 		super(isfinal, optional, unique, Double.class, defaultConstant);
 		this.minimum = minimum;
