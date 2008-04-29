@@ -26,13 +26,25 @@ final class DoubleColumn extends Column
 {
 	static final int JDBC_TYPE = Types.DOUBLE;
 	
+	final double minimum;
+	final double maximum;
+	
 	DoubleColumn(
 			final Table table,
 			final Field field,
 			final String id,
-			final boolean optional)
+			final boolean optional,
+			final double minimum,
+			final double maximum)
 	{
 		super(table, field, id, false, optional, JDBC_TYPE);
+		this.minimum = minimum;
+		this.maximum = maximum;
+		
+		assert !Double.isInfinite(minimum) : minimum;
+		assert !Double.isInfinite(maximum) : maximum;
+		assert !Double.isNaN(minimum) : minimum;
+		assert !Double.isNaN(maximum) : maximum;
 	}
 	
 	@Override
@@ -44,7 +56,10 @@ final class DoubleColumn extends Column
 	@Override
 	final String getCheckConstraintIgnoringMandatory()
 	{
-		return null;
+		if(table.database.oracle)
+			return null;
+		
+		return '(' + protectedID + ">=" + minimum + ") AND (" + protectedID + "<=" + maximum + ')';
 	}
 
 	@Override

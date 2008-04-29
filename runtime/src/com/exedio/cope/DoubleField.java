@@ -18,20 +18,32 @@
 
 package com.exedio.cope;
 
+import java.util.Set;
+
 import com.exedio.cope.search.SumAggregate;
 
 public final class DoubleField extends FunctionField<Double>
 {
+	private static final double MIN = -Double.MAX_VALUE;
+	private static final double MAX = Double.MAX_VALUE;
+	
+	private final double minimum;
+	private final double maximum;
 
-	private DoubleField(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultConstant)
+	private DoubleField(final boolean isfinal, final boolean optional, final boolean unique, final Double defaultConstant, final double minimum, final double maximum)
 	{
 		super(isfinal, optional, unique, Double.class, defaultConstant);
+		this.minimum = minimum;
+		this.maximum = maximum;
+		
+		if(minimum>=maximum)
+			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 		checkDefaultValue();
 	}
 	
 	public DoubleField()
 	{
-		this(false, false, false, null);
+		this(false, false, false, null, MIN, MAX);
 	}
 
 	/**
@@ -40,36 +52,70 @@ public final class DoubleField extends FunctionField<Double>
 	@Deprecated
 	public DoubleField(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique, null);
+		this(option.isFinal, option.optional, option.unique, null, MIN, MAX);
 	}
 
 	@Override
 	public DoubleField copy()
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant);
+		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
 	}
 	
 	@Override
 	public DoubleField toFinal()
 	{
-		return new DoubleField(true, optional, unique, defaultConstant);
+		return new DoubleField(true, optional, unique, defaultConstant, minimum, maximum);
 	}
 	
 	@Override
 	public DoubleField optional()
 	{
-		return new DoubleField(isfinal, true, unique, defaultConstant);
+		return new DoubleField(isfinal, true, unique, defaultConstant, minimum, maximum);
 	}
 	
 	@Override
 	public DoubleField unique()
 	{
-		return new DoubleField(isfinal, optional, true, defaultConstant);
+		return new DoubleField(isfinal, optional, true, defaultConstant, minimum, maximum);
 	}
 	
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant);
+		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+	}
+	
+	public DoubleField range(final double minimum, final double maximum)
+	{
+		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+	}
+	
+	public DoubleField min(final double minimum)
+	{
+		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, MAX);
+	}
+	
+	public DoubleField max(final double maximum)
+	{
+		return new DoubleField(isfinal, optional, unique, defaultConstant, MIN, maximum);
+	}
+	
+	public double getMinimum()
+	{
+		return minimum;
+	}
+	
+	public double getMaximum()
+	{
+		return maximum;
+	}
+	
+	@Override
+	public Set<Class<? extends Throwable>> getSetterExceptions()
+	{
+		final Set<Class<? extends Throwable>> result = super.getSetterExceptions();
+		if(minimum!=MIN || maximum!=MAX)
+			result.add(DoubleRangeViolationException.class);
+		return result;
 	}
 	
 	@Override
@@ -81,7 +127,7 @@ public final class DoubleField extends FunctionField<Double>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DoubleColumn(table, this, name, optional);
+		return new DoubleColumn(table, this, name, optional, minimum, maximum);
 	}
 
 	@Override
@@ -94,6 +140,16 @@ public final class DoubleField extends FunctionField<Double>
 	void set(final Row row, final Double surface)
 	{
 		row.put(getColumn(), surface);
+	}
+	
+	@Override
+	void checkNotNullValue(final Double value, final Item exceptionItem) throws RangeViolationException
+	{
+		final double valuePrimitive = value.doubleValue();
+		if(valuePrimitive<minimum)
+			throw new DoubleRangeViolationException(this, exceptionItem, value, true, minimum);
+		if(valuePrimitive>maximum)
+			throw new DoubleRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 	
 	/**
@@ -121,6 +177,37 @@ public final class DoubleField extends FunctionField<Double>
 			throw new RuntimeException(e);
 		}
 	}
+	
+	@Override
+	public Condition equal(final Double value)
+	{
+		if(value!=null)
+		{
+			final double valuePrimitive = value.doubleValue();
+			if(valuePrimitive<minimum || valuePrimitive>maximum)
+				return Condition.FALSE;
+			else
+				return super.equal(value);
+		}
+		else
+			return super.equal(value);
+	}
+	
+	@Override
+	public Condition notEqual(final Double value)
+	{
+		if(value!=null)
+		{
+			final double valuePrimitive = value.doubleValue();
+			if(valuePrimitive<minimum || valuePrimitive>maximum)
+				return Condition.TRUE;
+			else
+				return super.notEqual(value);
+		}
+		else
+			return super.notEqual(value);
+	}
+	// TODO the same for less, lessEqual, greater, greaterEqual
 	
 	// convenience methods for conditions and views ---------------------------------
 
