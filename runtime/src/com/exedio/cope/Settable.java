@@ -26,16 +26,18 @@ public interface Settable<E>
 	SetValue[] execute(E value, Item exceptionItem);
 	
 	/**
-	 * Returns true, if a value for the settable should be specified
-	 * on the creation of an item.
-	 */
-	boolean isInitial();
-	
-	/**
 	 * Returns true, if a value for the settable can be specified
 	 * on the creation of an item only, thus cannot be modified later.
 	 */
 	boolean isFinal();
+	
+	// used by instrumentor for creation constructors
+	
+	/**
+	 * Returns true, if a value for the settable should be specified
+	 * on the creation of an item.
+	 */
+	boolean isInitial();
 	
 	Class getInitialType();
 	
