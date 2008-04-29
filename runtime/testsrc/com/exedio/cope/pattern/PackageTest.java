@@ -49,6 +49,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);
 		suite.addTestSuite(DispatcherTest.class);
+		suite.addTestSuite(SingletonTest.class);
 		return suite;
 	}
 }
