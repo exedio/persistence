@@ -42,7 +42,12 @@ public final class RangeViolationException extends ConstraintViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public RangeViolationException(final IntegerField feature, final Item item, final int value, final boolean isTooSmall, final int border)
+	public RangeViolationException(
+			final IntegerField feature,
+			final Item item,
+			final int value,
+			final boolean isTooSmall,
+			final int border)
 	{
 		super(item, null);
 		this.feature = feature;

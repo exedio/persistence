@@ -42,7 +42,12 @@ public final class DoubleRangeViolationException extends ConstraintViolationExce
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public DoubleRangeViolationException(final DoubleField feature, final Item item, final double value, final boolean isTooSmall, final double border)
+	public DoubleRangeViolationException(
+			final DoubleField feature,
+			final Item item,
+			final double value,
+			final boolean isTooSmall,
+			final double border)
 	{
 		super(item, null);
 		this.feature = feature;
