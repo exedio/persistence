@@ -259,6 +259,12 @@ public class DoubleTest extends AbstractLibTest
 			assertEquals(20.2, copy.getMaximum());
 		}
 		
+		assertWrongRange(Double.POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
+		assertWrongRange(44.22, Double.POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
+		assertWrongRange(Double.NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
+		assertWrongRange(44.22, Double.NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
+		assertWrongRange(Double.NaN, 44.22, "minimum must not be NaN, but was NaN.");
+		assertWrongRange(44.22, Double.NaN, "maximum must not be NaN, but was NaN.");
 		assertWrongRange( 0.0,  0.0,  "maximum must be greater than mimimum, but was 0.0 and 0.0.");
 		assertWrongRange(22.2, 22.2, "maximum must be greater than mimimum, but was 22.2 and 22.2.");
 		assertWrongRange(22.2, 21.1, "maximum must be greater than mimimum, but was 21.1 and 22.2.");

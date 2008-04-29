@@ -39,8 +39,17 @@ public final class DoubleField extends FunctionField<Double>
 		this.minimum = minimum;
 		this.maximum = maximum;
 		
+		if(Double.isInfinite(minimum))
+			throw new IllegalArgumentException("minimum must not be infinite, but was " + minimum + '.');
+		if(Double.isInfinite(maximum))
+			throw new IllegalArgumentException("maximum must not be infinite, but was " + maximum + '.');
+		if(Double.isNaN(minimum))
+			throw new IllegalArgumentException("minimum must not be NaN, but was " + minimum + '.');
+		if(Double.isNaN(maximum))
+			throw new IllegalArgumentException("maximum must not be NaN, but was " + maximum + '.');
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
+		
 		checkDefaultValue();
 	}
 	
