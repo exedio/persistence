@@ -175,7 +175,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	@Override
-	public Class getWrapperSetterType()
+	public Class getInitialType()
 	{
 		return optional ? Integer.class : int.class;
 	}

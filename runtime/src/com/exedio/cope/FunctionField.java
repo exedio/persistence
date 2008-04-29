@@ -139,7 +139,7 @@ public abstract class FunctionField<E extends Object>
 	}
 
 	@Override
-	public Class getWrapperSetterType()
+	public Class getInitialType()
 	{
 		return valueClass;
 	}
@@ -150,28 +150,28 @@ public abstract class FunctionField<E extends Object>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		final Class setterType = getWrapperSetterType();
-		final boolean setterTypePrimitive = setterType.isPrimitive();
+		final Class initialType = getInitialType();
+		final boolean initialTypePrimitive = initialType.isPrimitive();
 		
 		final Wrapper get =
-			new Wrapper(setterTypePrimitive ? "getMandatory" : "get").
+			new Wrapper(initialTypePrimitive ? "getMandatory" : "get").
 			addComment("Returns the value of {0}.").
-			setReturn(setterType);
-		if(setterTypePrimitive)
+			setReturn(initialType);
+		if(initialTypePrimitive)
 			get.setMethodWrapperPattern("get{0}");
 		result.add(get);
 		
 		if(!isfinal)
 		{
 			final Set<Class<? extends Throwable>> exceptions = getSetterExceptions();
-			if(setterTypePrimitive)
+			if(initialTypePrimitive)
 				exceptions.remove(MandatoryViolationException.class);
 			
 			result.add(
 				new Wrapper("set").
 				addComment("Sets a new value for {0}.").
 				addThrows(exceptions).
-				addParameter(setterType));
+				addParameter(initialType));
 		}
 			
 		if(unique)
@@ -181,7 +181,7 @@ public abstract class FunctionField<E extends Object>
 				addComment("Finds a {2} by it''s {0}.").
 				setMethodWrapperPattern("for{0}").
 				setStatic().
-				addParameter(setterType, "{1}", "shall be equal to field {0}.").
+				addParameter(initialType, "{1}", "shall be equal to field {0}.").
 				setReturn(Wrapper.ClassVariable.class, "null if there is no matching item."));
 			
 			result.add(
@@ -191,7 +191,7 @@ public abstract class FunctionField<E extends Object>
 				setMethodWrapperPattern("findBy{0}").
 				setStatic().
 				deprecate("use for{0} instead.").
-				addParameter(setterType));
+				addParameter(initialType));
 		}
 			
 		return Collections.unmodifiableList(result);

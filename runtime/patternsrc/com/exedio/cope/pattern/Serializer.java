@@ -129,7 +129,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source.isFinal();
 	}
 	
-	public Class getWrapperSetterType()
+	public Class getInitialType()
 	{
 		return valueClass;
 	}
@@ -145,12 +145,12 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
 		result.addAll(super.getWrappers());
 		
-		final Class setterType = getWrapperSetterType();
+		final Class initialType = getInitialType();
 		
 		result.add(
 			new Wrapper("get").
 			addComment("Returns the value of {0}.").
-			setReturn(setterType));
+			setReturn(initialType));
 		
 		if(!isFinal())
 		{
@@ -158,7 +158,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 				new Wrapper("set").
 				addComment("Sets a new value for {0}.").
 				addThrows(getSetterExceptions()).
-				addParameter(setterType));
+				addParameter(initialType));
 		}
 			
 		return Collections.unmodifiableList(result);

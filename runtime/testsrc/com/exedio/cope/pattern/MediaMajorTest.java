@@ -46,7 +46,7 @@ public class MediaMajorTest extends AbstractLibTest
 	{
 		assertEquals(false, item.image.isInitial());
 		assertEquals(false, item.image.isFinal());
-		assertEquals(Media.Value.class, item.image.getWrapperSetterType());
+		assertEquals(Media.Value.class, item.image.getInitialType());
 		assertContains(item.image.getSetterExceptions());
 		assertEquals(true, item.image.checkContentType("image/png"));
 		assertEquals(true, item.image.checkContentType("image/jpg"));

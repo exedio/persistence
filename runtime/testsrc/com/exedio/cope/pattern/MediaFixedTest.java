@@ -45,7 +45,7 @@ public class MediaFixedTest extends AbstractLibTest
 	{
 		assertEquals(false, item.photo.isInitial());
 		assertEquals(false, item.photo.isFinal());
-		assertEquals(Media.Value.class, item.photo.getWrapperSetterType());
+		assertEquals(Media.Value.class, item.photo.getInitialType());
 		assertContains(item.photo.getSetterExceptions());
 		assertEquals(true, item.photo.checkContentType("image/jpeg"));
 		assertEquals(false, item.photo.checkContentType("imaxge/jpeg"));

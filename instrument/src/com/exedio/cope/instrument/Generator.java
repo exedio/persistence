@@ -304,7 +304,7 @@ final class Generator
 			o.write(lineSeparator);
 			o.write("\t\t\t\t");
 			o.write(finalArgPrefix);
-			o.write(toString(((Settable<?>)feature.getInstance()).getWrapperSetterType(), feature));
+			o.write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature));
 			o.write(' ');
 			o.write(feature.name);
 		}

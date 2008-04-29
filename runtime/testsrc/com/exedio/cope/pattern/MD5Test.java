@@ -73,7 +73,7 @@ public class MD5Test extends AbstractLibTest
 		assertEquals(false, item.password.isInitial());
 		assertEquals(false, item.password.isFinal());
 		assertEquals(false, item.password.isMandatory());
-		assertEquals(String.class, item.password.getWrapperSetterType());
+		assertEquals(String.class, item.password.getInitialType());
 		assertContains(item.password.getSetterExceptions());
 		assertEquals("utf8", item.password.getEncoding());
 		
@@ -83,7 +83,7 @@ public class MD5Test extends AbstractLibTest
 		assertEquals(false, item.passwordLatin.isInitial());
 		assertEquals(false, item.passwordLatin.isFinal());
 		assertEquals(false, item.passwordLatin.isMandatory());
-		assertEquals(String.class, item.passwordLatin.getWrapperSetterType());
+		assertEquals(String.class, item.passwordLatin.getInitialType());
 		assertContains(item.passwordLatin.getSetterExceptions());
 		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
 
@@ -93,7 +93,7 @@ public class MD5Test extends AbstractLibTest
 		assertEquals(true, item.passwordMandatory.isInitial());
 		assertEquals(false, item.passwordMandatory.isFinal());
 		assertEquals(true, item.passwordMandatory.isMandatory());
-		assertEquals(String.class, item.passwordMandatory.getWrapperSetterType());
+		assertEquals(String.class, item.passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getSetterExceptions());
 		assertEquals("utf8", item.passwordMandatory.getEncoding());
 		

@@ -127,7 +127,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 	
 	@Override
-	public Class getWrapperSetterType()
+	public Class getInitialType()
 	{
 		return byte[].class; // TODO remove (use DataField.Value.class)
 	}

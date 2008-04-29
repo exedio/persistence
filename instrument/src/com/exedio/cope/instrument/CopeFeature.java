@@ -102,7 +102,7 @@ class CopeFeature
 		final Set<Class<? extends Throwable>> resultList = ((Settable<?>)instance).getSetterExceptions();
 		final SortedSet<Class<? extends Throwable>> result = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
 		result.addAll(resultList);
-		if(((Settable<?>)instance).getWrapperSetterType().isPrimitive())
+		if(((Settable<?>)instance).getInitialType().isPrimitive())
 			result.remove(MandatoryViolationException.class);
 		return result;
 	}

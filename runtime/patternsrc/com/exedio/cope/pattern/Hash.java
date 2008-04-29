@@ -91,7 +91,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage.isMandatory();
 	}
 	
-	public Class getWrapperSetterType()
+	public Class getInitialType()
 	{
 		return String.class;
 	}

@@ -161,7 +161,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		return isFinal;
 	}
 	
-	public Class getWrapperSetterType()
+	public Class getInitialType()
 	{
 		return List.class;
 	}
