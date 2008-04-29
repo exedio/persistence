@@ -93,22 +93,12 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	}
 	
 	@Override
-	public String getMessage()
+	public String getMessage(final boolean withFeature)
 	{
 		return
 			"length violation on " + getItemID() +
 			", " + length + " bytes " +
 			(lengthExact ? "" : "or more ") +
-			"is too long for " + feature;
-	}
-	
-	@Override
-	public String getMessageWithoutFeature()
-	{
-		return
-			"length violation on " + getItemID() +
-			", " + length + " bytes " +
-			(lengthExact ? "" : "or more ") +
-			"is too long";
+			"is too long" + (withFeature ? (" for " + feature) : "");
 	}
 }

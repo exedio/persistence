@@ -72,14 +72,8 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	}
 	
 	@Override
-	public String getMessage()
+	public String getMessage(final boolean withFeature)
 	{
-		return "integrity violation on deletion of " + getItemID() + " because of " + feature;
-	}
-	
-	@Override
-	public String getMessageWithoutFeature()
-	{
-		return "integrity violation on deletion of " + getItemID();
+		return "integrity violation on deletion of " + getItemID() + (withFeature ? (" because of " + feature) : "");
 	}
 }

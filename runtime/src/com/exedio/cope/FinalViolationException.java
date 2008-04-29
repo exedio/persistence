@@ -67,14 +67,8 @@ public final class FinalViolationException extends ConstraintViolationException
 	}
 	
 	@Override
-	public String getMessage()
+	public String getMessage(final boolean withFeature)
 	{
-		return "final violation on " + getItemID() + " for " + feature;
-	}
-	
-	@Override
-	public String getMessageWithoutFeature()
-	{
-		return "final violation on " + getItemID();
+		return "final violation on " + getItemID() + (withFeature ? (" for " + feature) : "");
 	}
 }

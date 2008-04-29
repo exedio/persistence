@@ -50,8 +50,16 @@ public abstract class ConstraintViolationException extends RuntimeException
 		return item!=null ? item.getCopeID() : "a newly created item";
 	}
 	
-	public String getMessageWithoutFeature()
+	@Override
+	public final String getMessage()
 	{
-		return getMessage();
+		return getMessage(true);
 	}
+	
+	public final String getMessageWithoutFeature()
+	{
+		return getMessage(false);
+	}
+	
+	protected abstract String getMessage(boolean withFeature);
 }

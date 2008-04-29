@@ -52,12 +52,12 @@ public final class IllegalContentTypeException extends ConstraintViolationExcept
 	}
 
 	@Override
-	public String getMessage()
+	public String getMessage(final boolean withFeature)
 	{
 		return
 			"illegal content type '" + contentType +
 			"' on " + getItemID() +
-			" for " + feature +
+			(withFeature ? (" for " + feature) : "") +
 			", allowed is '" + feature.getContentTypeDescription() + "' only.";
 	}
 }

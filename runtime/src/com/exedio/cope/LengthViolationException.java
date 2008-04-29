@@ -83,26 +83,15 @@ public final class LengthViolationException extends ConstraintViolationException
 	}
 
 	@Override
-	public String getMessage()
+	public String getMessage(final boolean withFeature)
 	{
 		return
 			"length violation on " + getItemID() +
 			", '" + value + "' is too " +
 			(isTooShort?"short":"long") +
-			" for "+ feature +
+			(withFeature ? (" for "+ feature) : "") +
 			", must be at " + (isTooShort?"least":"most") +
 			' ' + border + " characters, " +
 			"but was " + value.length() + '.';
-	}
-	
-	@Override
-	public String getMessageWithoutFeature()
-	{
-		return
-			"length violation on " + getItemID() +
-			", '" + value + "' is too " +
-			(isTooShort?"short":"long") +
-			", must be at " + (isTooShort?"least":"most") +
-			' ' + border + " characters.";
 	}
 }

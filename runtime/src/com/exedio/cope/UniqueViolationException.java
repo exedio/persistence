@@ -66,14 +66,8 @@ public final class UniqueViolationException extends ConstraintViolationException
 	}
 	
 	@Override
-	public String getMessage()
+	public String getMessage(final boolean withFeature)
 	{
-		return "unique violation on " + getItemID() + " for " + feature;
-	}
-	
-	@Override
-	public String getMessageWithoutFeature()
-	{
-		return "unique violation on " + getItemID();
+		return "unique violation on " + getItemID() + (withFeature ? (" for " + feature) : "");
 	}
 }

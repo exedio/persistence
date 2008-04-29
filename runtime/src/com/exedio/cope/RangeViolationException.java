@@ -79,24 +79,13 @@ public final class RangeViolationException extends ConstraintViolationException
 	}
 
 	@Override
-	public String getMessage()
+	public String getMessage(final boolean withFeature)
 	{
 		return
 			"range violation on " + getItemID() +
 			", " + value + " is too " +
 			(isTooSmall?"small":"big") +
-			" for " + feature +
-			", must be at " + (isTooSmall?"least":"most") +
-			' ' + border + '.';
-	}
-	
-	@Override
-	public String getMessageWithoutFeature()
-	{
-		return
-			"range violation on " + getItemID() +
-			", " + value + " is too " +
-			(isTooSmall?"small":"big") +
+			(withFeature ? (" for " + feature) : "") +
 			", must be at " + (isTooSmall?"least":"most") +
 			' ' + border + '.';
 	}
