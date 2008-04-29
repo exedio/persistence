@@ -51,7 +51,7 @@ public class IntegerTest extends AbstractLibTest
 		numberOfItems = 2;
 	}
 	
-	public void testIntegers()
+	public void testIt()
 	{
 		// test model
 		assertEquals(item.TYPE, item.any.getType());
