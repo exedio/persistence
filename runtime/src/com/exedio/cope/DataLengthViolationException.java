@@ -99,6 +99,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 			"length violation on " + getItemID() +
 			", " + length + " bytes " +
 			(lengthExact ? "" : "or more ") +
-			"is too long" + (withFeature ? (" for " + feature) : "");
+			"is too long" +
+			(withFeature ? (" for " + feature) : "");
 	}
 }
