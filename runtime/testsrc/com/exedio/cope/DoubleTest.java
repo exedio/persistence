@@ -259,18 +259,18 @@ public class DoubleTest extends AbstractLibTest
 			assertEquals(20.2, copy.getMaximum());
 		}
 		
-		assertWrongRange(Double.POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
-		assertWrongRange(44.22, Double.POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
-		assertWrongRange(Double.NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
-		assertWrongRange(44.22, Double.NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
-		assertWrongRange(Double.NaN, 44.22, "minimum must not be NaN, but was NaN.");
-		assertWrongRange(44.22, Double.NaN, "maximum must not be NaN, but was NaN.");
-		assertWrongRange( 0.0,  0.0,  "maximum must be greater than mimimum, but was 0.0 and 0.0.");
-		assertWrongRange(22.2, 22.2, "maximum must be greater than mimimum, but was 22.2 and 22.2.");
-		assertWrongRange(22.2, 21.1, "maximum must be greater than mimimum, but was 21.1 and 22.2.");
-		assertWrongRange(MAX, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MAX + ".");
-		assertWrongRange(MIN, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MIN + ".");
-		assertWrongRange(MAX, MAX, "maximum must be greater than mimimum, but was " + MAX + " and " + MAX + ".");
+		assertIllegalRange(Double.POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
+		assertIllegalRange(44.22, Double.POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
+		assertIllegalRange(Double.NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
+		assertIllegalRange(44.22, Double.NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
+		assertIllegalRange(Double.NaN, 44.22, "minimum must not be NaN, but was NaN.");
+		assertIllegalRange(44.22, Double.NaN, "maximum must not be NaN, but was NaN.");
+		assertIllegalRange( 0.0,  0.0,  "maximum must be greater than mimimum, but was 0.0 and 0.0.");
+		assertIllegalRange(22.2, 22.2, "maximum must be greater than mimimum, but was 22.2 and 22.2.");
+		assertIllegalRange(22.2, 21.1, "maximum must be greater than mimimum, but was 21.1 and 22.2.");
+		assertIllegalRange(MAX, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MAX + ".");
+		assertIllegalRange(MIN, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MIN + ".");
+		assertIllegalRange(MAX, MAX, "maximum must be greater than mimimum, but was " + MAX + " and " + MAX + ".");
 
 		// test conditions
 		assertEquals(item.any.equal(1.1), item.any.equal(1.1));
@@ -500,7 +500,7 @@ public class DoubleTest extends AbstractLibTest
 		}
 	}
 	
-	void assertWrongRange(final double minimum, final double maximum, final String message)
+	void assertIllegalRange(final double minimum, final double maximum, final String message)
 	{
 		try
 		{

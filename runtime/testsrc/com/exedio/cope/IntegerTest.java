@@ -259,12 +259,12 @@ public class IntegerTest extends AbstractLibTest
 			assertEquals(20, copy.getMaximum());
 		}
 		
-		assertWrongRange(0,  0,  "maximum must be greater than mimimum, but was 0 and 0.");
-		assertWrongRange(22, 22, "maximum must be greater than mimimum, but was 22 and 22.");
-		assertWrongRange(22, 21, "maximum must be greater than mimimum, but was 21 and 22.");
-		assertWrongRange(MAX, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MAX + ".");
-		assertWrongRange(MIN, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MIN + ".");
-		assertWrongRange(MAX, MAX, "maximum must be greater than mimimum, but was " + MAX + " and " + MAX + ".");
+		assertIllegalRange(0,  0,  "maximum must be greater than mimimum, but was 0 and 0.");
+		assertIllegalRange(22, 22, "maximum must be greater than mimimum, but was 22 and 22.");
+		assertIllegalRange(22, 21, "maximum must be greater than mimimum, but was 21 and 22.");
+		assertIllegalRange(MAX, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MAX + ".");
+		assertIllegalRange(MIN, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MIN + ".");
+		assertIllegalRange(MAX, MAX, "maximum must be greater than mimimum, but was " + MAX + " and " + MAX + ".");
 
 		// test conditions
 		assertEquals(item.any.equal(1), item.any.equal(1));
@@ -494,7 +494,7 @@ public class IntegerTest extends AbstractLibTest
 		}
 	}
 	
-	void assertWrongRange(final int minimum, final int maximum, final String message)
+	void assertIllegalRange(final int minimum, final int maximum, final String message)
 	{
 		try
 		{
