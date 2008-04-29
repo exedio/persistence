@@ -40,6 +40,7 @@ import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.DoubleRangeViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
@@ -274,6 +275,8 @@ final class Generator
 			else if(UniqueViolationException.class.equals(constructorException))
 				pattern = THROWS_UNIQUE;
 			else if(RangeViolationException.class.equals(constructorException))
+				pattern = THROWS_RANGE;
+			else if(DoubleRangeViolationException.class.equals(constructorException))
 				pattern = THROWS_RANGE;
 			else if(LengthViolationException.class.equals(constructorException))
 				pattern = THROWS_LENGTH;
