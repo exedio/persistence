@@ -49,15 +49,6 @@ public final class DoubleField extends FunctionField<Double>
 		this(false, false, false, null, MIN, MAX);
 	}
 
-	/**
-	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
-	 */
-	@Deprecated
-	public DoubleField(final Option option)
-	{
-		this(option.isFinal, option.optional, option.unique, null, MIN, MAX);
-	}
-
 	@Override
 	public DoubleField copy()
 	{
@@ -217,5 +208,16 @@ public final class DoubleField extends FunctionField<Double>
 	public final SumAggregate<Double> sum()
 	{
 		return new SumAggregate<Double>(this);
+	}
+	
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated use {@link #toFinal()}, {@link #unique()} and {@link #optional()} instead.
+	 */
+	@Deprecated
+	public DoubleField(final Option option)
+	{
+		this(option.isFinal, option.optional, option.unique, null, MIN, MAX);
 	}
 }
