@@ -149,6 +149,13 @@ public final class DoubleField extends FunctionField<Double>
 	void checkNotNullValue(final Double value, final Item exceptionItem) throws RangeViolationException
 	{
 		final double valuePrimitive = value.doubleValue();
+		
+		// TODO better exceptions
+		if(Double.isInfinite(valuePrimitive))
+			throw new RuntimeException(getID() + '#' + valuePrimitive);
+		if(Double.isNaN(valuePrimitive))
+			throw new RuntimeException(getID() + '#' + valuePrimitive);
+		
 		if(valuePrimitive<minimum)
 			throw new DoubleRangeViolationException(this, exceptionItem, value, true, minimum);
 		if(valuePrimitive>maximum)
