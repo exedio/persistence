@@ -96,7 +96,7 @@ public final class DateField extends FunctionField<Date>
 		
 		if(!isfinal)
 		{
-			final Set<Class<? extends Throwable>> exceptions = getSetterExceptions();
+			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
 			exceptions.remove(MandatoryViolationException.class); // cannot set null
 			
 			result.add(

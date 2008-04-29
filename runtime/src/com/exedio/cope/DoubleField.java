@@ -113,9 +113,9 @@ public final class DoubleField extends FunctionField<Double>
 	}
 	
 	@Override
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Set<Class<? extends Throwable>> result = super.getSetterExceptions();
+		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		if(minimum!=MIN || maximum!=MAX)
 			result.add(DoubleRangeViolationException.class);
 		return result;

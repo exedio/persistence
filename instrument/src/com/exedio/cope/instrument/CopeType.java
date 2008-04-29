@@ -205,7 +205,7 @@ final class CopeType
 			if(feature.isInitial())
 			{
 				initialFeatures.add(feature);
-				constructorExceptions.addAll(feature.getSetterExceptions());
+				constructorExceptions.addAll(feature.getInitialExceptions());
 			}
 		}
 		constructorExceptions.remove(FinalViolationException.class);

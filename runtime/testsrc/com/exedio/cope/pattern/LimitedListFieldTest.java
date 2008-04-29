@@ -83,7 +83,7 @@ public class LimitedListFieldTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.nums), item.num3.getPatterns());
 		assertEquals(false, item.nums.isInitial());
 		assertEquals(false, item.nums.isFinal());
-		assertContains(item.nums.getSetterExceptions());
+		assertContains(item.nums.getInitialExceptions());
 
 		assertEquals(item.TYPE, item.dates.getType());
 		assertEquals("dates", item.dates.getName());
@@ -98,7 +98,7 @@ public class LimitedListFieldTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.dates), date2.getPatterns());
 		assertEquals(false, item.dates.isInitial());
 		assertEquals(false, item.dates.isFinal());
-		assertContains(item.dates.getSetterExceptions());
+		assertContains(item.dates.getInitialExceptions());
 
 		assertEquals(item.TYPE, item.strings.getType());
 		assertEquals("strings", item.strings.getName());
@@ -117,7 +117,7 @@ public class LimitedListFieldTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.strings), string4.getPatterns());
 		assertEquals(false, item.strings.isInitial());
 		assertEquals(false, item.strings.isFinal());
-		assertContains(LengthViolationException.class, item.strings.getSetterExceptions());
+		assertContains(LengthViolationException.class, item.strings.getInitialExceptions());
 
 		assertEquals(
 				list(item.num1, item.num2, item.num3, date1, date2, string1, string2, string3, string4),

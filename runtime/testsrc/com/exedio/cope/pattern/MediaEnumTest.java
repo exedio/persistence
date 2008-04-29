@@ -47,7 +47,7 @@ public class MediaEnumTest extends AbstractLibTest
 		assertEquals(false, item.sheet.isInitial());
 		assertEquals(false, item.sheet.isFinal());
 		assertEquals(Media.Value.class, item.sheet.getInitialType());
-		assertContains(item.sheet.getSetterExceptions());
+		assertContains(item.sheet.getInitialExceptions());
 		assertEquals(true, item.sheet.checkContentType("image/png"));
 		assertEquals(false, item.sheet.checkContentType("image/jpg"));
 		assertEquals(true, item.sheet.checkContentType("application/pdf"));

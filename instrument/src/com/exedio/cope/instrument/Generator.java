@@ -259,7 +259,7 @@ final class Generator
 			final StringBuilder initialAttributesBuf = new StringBuilder();
 			for(final CopeFeature feature : initialFeatures)
 			{
-				if(!feature.getSetterExceptions().contains(constructorException))
+				if(!feature.getInitialExceptions().contains(constructorException))
 					continue;
 
 				if(first)

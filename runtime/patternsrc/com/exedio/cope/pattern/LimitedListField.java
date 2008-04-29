@@ -139,7 +139,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 			addComment("Returns the value of {0}.").
 			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
 		
-		final Set<Class<? extends Throwable>> exceptions = sources[0].getSetterExceptions();
+		final Set<Class<? extends Throwable>> exceptions = sources[0].getInitialExceptions();
 		exceptions.add(ClassCastException.class);
 		
 		result.add(
@@ -166,11 +166,11 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		return List.class;
 	}
 	
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Set<Class<? extends Throwable>> result = sources[0].getSetterExceptions();
+		final Set<Class<? extends Throwable>> result = sources[0].getInitialExceptions();
 		for(int i = 1; i<sources.length; i++)
-			result.addAll(sources[i].getSetterExceptions());
+			result.addAll(sources[i].getInitialExceptions());
 		return result;
 	}
 	

@@ -163,7 +163,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			result.add(
 				new Wrapper("set").
 				addComment("Sets a new value for {0}.").
-				addThrows(getSetterExceptions()).
+				addThrows(getInitialExceptions()).
 				addParameter(valueClass));
 		}
 			
@@ -222,11 +222,11 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
 		for(final FunctionField member : templates.values())
-			result.addAll(member.getSetterExceptions());
+			result.addAll(member.getInitialExceptions());
 		if(isfinal)
 			result.add(FinalViolationException.class);
 		if(!optional)

@@ -124,7 +124,7 @@ public final class ListField<E> extends Pattern
 			setMethodWrapperPattern("getDistinctParentsOf{0}").
 			addParameter(Wrapper.TypeVariable0.class, "element"));
 			
-		final Set<Class<? extends Throwable>> exceptions = element.getSetterExceptions();
+		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
 		exceptions.add(ClassCastException.class);
 		
 		result.add(

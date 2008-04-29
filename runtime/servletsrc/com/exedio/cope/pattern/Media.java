@@ -199,7 +199,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return Value.class;
 	}
 	
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
 		if(!optional)

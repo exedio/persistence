@@ -166,9 +166,9 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 	
 	@Override
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Set<Class<? extends Throwable>> result = super.getSetterExceptions();
+		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		if(minimum!=Integer.MIN_VALUE || maximum!=Integer.MAX_VALUE)
 			result.add(RangeViolationException.class);
 		return result;

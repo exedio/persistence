@@ -119,9 +119,9 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	@Override
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Set<Class<? extends Throwable>> result = super.getSetterExceptions();
+		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		result.add(LengthViolationException.class);
 		return result;
 	}

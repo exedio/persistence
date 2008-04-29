@@ -61,7 +61,7 @@ public class HashTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.explicitExternal), item.explicitExternalWrap.getPatterns());
 		assertEquals(false, item.explicitExternalWrap.isInitial());
 		assertEquals(false, item.explicitExternalWrap.isFinal());
-		assertContains(LengthViolationException.class, item.explicitExternalWrap.getSetterExceptions());
+		assertContains(LengthViolationException.class, item.explicitExternalWrap.getInitialExceptions());
 
 		assertNull(item.getExplicitExternalWrap());
 		assertTrue(item.checkExplicitExternal(null));
@@ -102,7 +102,7 @@ public class HashTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.implicitExternal), item.implicitExternal.getStorage().getPatterns());
 		assertEquals(false, item.implicitExternal.isInitial());
 		assertEquals(false, item.implicitExternal.isFinal());
-		assertContains(LengthViolationException.class, item.implicitExternal.getSetterExceptions());
+		assertContains(LengthViolationException.class, item.implicitExternal.getInitialExceptions());
 		
 		assertEquals(null, item.get(item.implicitExternal.getStorage()));
 		assertTrue(item.checkImplicitExternal(null));
@@ -125,7 +125,7 @@ public class HashTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(item.internal), item.internal.getStorage().getPatterns());
 		assertEquals(false, item.internal.isInitial());
 		assertEquals(false, item.internal.isFinal());
-		assertContains(LengthViolationException.class, item.internal.getSetterExceptions());
+		assertContains(LengthViolationException.class, item.internal.getInitialExceptions());
 		
 		assertEquals(null, item.get(item.internal.getStorage()));
 		assertTrue(item.checkInternal(null));

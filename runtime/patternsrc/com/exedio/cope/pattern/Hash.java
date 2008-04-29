@@ -96,9 +96,9 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return String.class;
 	}
 	
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return storage.getSetterExceptions();
+		return storage.getInitialExceptions();
 	}
 	
 	/**
@@ -121,11 +121,11 @@ public abstract class Hash extends Pattern implements Settable<String>
 			setReturn(boolean.class).
 			addParameter(String.class));
 		
-		final Set<Class<? extends Throwable>> setterExceptions = getSetterExceptions();
+		final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
 		result.add(
 			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
-			addThrows(setterExceptions).
+			addThrows(exceptions).
 			addParameter(String.class));
 		
 		result.add(
@@ -136,7 +136,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		result.add(
 			new Wrapper("setHash").
 			addComment("Sets the encoded hash value for hash {0}.").
-			addThrows(setterExceptions).
+			addThrows(exceptions).
 			addParameter(String.class));
 		
 		return Collections.unmodifiableList(result);

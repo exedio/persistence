@@ -134,9 +134,9 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return valueClass;
 	}
 	
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return source.getSetterExceptions();
+		return source.getInitialExceptions();
 	}
 	
 	@Override
@@ -157,7 +157,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			result.add(
 				new Wrapper("set").
 				addComment("Sets a new value for {0}.").
-				addThrows(getSetterExceptions()).
+				addThrows(getInitialExceptions()).
 				addParameter(initialType));
 		}
 			

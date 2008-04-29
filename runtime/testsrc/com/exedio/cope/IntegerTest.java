@@ -60,29 +60,29 @@ public class IntegerTest extends AbstractLibTest
 		assertEqualsUnmodifiable(list(), item.any.getPatterns());
 		assertEquals(MIN, item.any.getMinimum());
 		assertEquals(MAX, item.any.getMaximum());
-		assertContains(item.any.getSetterExceptions());
+		assertContains(item.any.getInitialExceptions());
 
 		assertEquals(item.TYPE, item.mandatory.getType());
 		assertEquals("mandatory", item.mandatory.getName());
 		assertEquals(true, item.mandatory.isMandatory());
 		assertEquals(MIN, item.mandatory.getMinimum());
 		assertEquals(MAX, item.mandatory.getMaximum());
-		assertContains(MandatoryViolationException.class, item.mandatory.getSetterExceptions());
+		assertContains(MandatoryViolationException.class, item.mandatory.getInitialExceptions());
 
 		assertEquals(false, item.min4.isMandatory());
 		assertEquals(4, item.min4.getMinimum());
 		assertEquals(MAX, item.min4.getMaximum());
-		assertContains(RangeViolationException.class, item.min4.getSetterExceptions());
+		assertContains(RangeViolationException.class, item.min4.getInitialExceptions());
 
 		assertEquals(false, item.max4.isMandatory());
 		assertEquals(MIN, item.max4.getMinimum());
 		assertEquals(4, item.max4.getMaximum());
-		assertContains(RangeViolationException.class, item.max4.getSetterExceptions());
+		assertContains(RangeViolationException.class, item.max4.getInitialExceptions());
 
 		assertEquals(false, item.min4Max8.isMandatory());
 		assertEquals(4, item.min4Max8.getMinimum());
 		assertEquals(8, item.min4Max8.getMaximum());
-		assertContains(RangeViolationException.class, item.min4Max8.getSetterExceptions());
+		assertContains(RangeViolationException.class, item.min4Max8.getInitialExceptions());
 		
 		// test condition canonization
 		{

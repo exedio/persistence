@@ -100,7 +100,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return valueClass;
 	}
 	
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
 		if(isfinal)

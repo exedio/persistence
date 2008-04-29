@@ -78,11 +78,11 @@ public class SerializerTest extends AbstractLibTest
 		assertEquals(false, item.integer.isInitial());
 		assertEquals(false, item.integer.isFinal());
 		assertEquals(Integer.class, item.integer.getInitialType());
-		assertContains(item.integer.getSetterExceptions());
+		assertContains(item.integer.getInitialExceptions());
 		assertEquals(false, item.map.isInitial());
 		assertEquals(false, item.map.isFinal());
 		assertEquals(Map.class, item.map.getInitialType());
-		assertContains(item.map.getSetterExceptions());
+		assertContains(item.map.getInitialExceptions());
 		
 		final HashMap<String, String> map1 = new HashMap<String, String>();
 		map1.put("key1a", "value1a");

@@ -163,7 +163,7 @@ public abstract class FunctionField<E extends Object>
 		
 		if(!isfinal)
 		{
-			final Set<Class<? extends Throwable>> exceptions = getSetterExceptions();
+			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
 			if(initialTypePrimitive)
 				exceptions.remove(MandatoryViolationException.class);
 			
@@ -274,9 +274,9 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	@Override
-	public Set<Class<? extends Throwable>> getSetterExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Set<Class<? extends Throwable>> result = super.getSetterExceptions();
+		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		if(uniqueConstraints!=null)
 			result.add(UniqueViolationException.class);
 		return result;

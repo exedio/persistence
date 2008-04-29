@@ -52,7 +52,7 @@ public class MediaMandatoryTest extends AbstractLibTest
 		assertEquals(true, t.file.isInitial());
 		assertEquals(false, t.file.isFinal());
 		assertEquals(Media.Value.class, t.file.getInitialType());
-		assertContains(MandatoryViolationException.class, t.file.getSetterExceptions());
+		assertContains(MandatoryViolationException.class, t.file.getInitialExceptions());
 		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
 		assertEquals("*/*", t.file.getContentTypeDescription());
 		assertEquals(null, t.file.getContentTypesAllowed());

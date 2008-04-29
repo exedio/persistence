@@ -96,10 +96,10 @@ class CopeFeature
 		return setterOption.getModifier(modifier);
 	}
 	
-	final SortedSet<Class<? extends Throwable>> getSetterExceptions()
+	final SortedSet<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Feature instance = getInstance();
-		final Set<Class<? extends Throwable>> resultList = ((Settable<?>)instance).getSetterExceptions();
+		final Set<Class<? extends Throwable>> resultList = ((Settable<?>)instance).getInitialExceptions();
 		final SortedSet<Class<? extends Throwable>> result = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
 		result.addAll(resultList);
 		if(((Settable<?>)instance).getInitialType().isPrimitive())
