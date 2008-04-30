@@ -30,8 +30,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.exedio.cope.pattern.MediaImageMagickFilter;
-
 import net.sourceforge.jwebunit.WebTestCase;
 
 public class MediaServletTest extends WebTestCase
@@ -93,15 +91,15 @@ public class MediaServletTest extends WebTestCase
 		
 		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.0"), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagick/MediaServletItem.1"), IS_NULL);
-		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.2"), magickCT("image/jpeg")));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.3"), magickCT("image/jpeg")));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.8"), magickCT("image/jpeg")));
+		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.2"), "image/jpeg"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.3"), "image/jpeg"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagick/MediaServletItem.8"), "image/jpeg"));
 		
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.0"), NOT_COMPUTABLE);
 		assertNotFound(new URL(prefix + "thumbnailMagickPng/MediaServletItem.1"), IS_NULL);
-		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.2"), magickCT("image/png")));
-		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.3"), magickCT("image/png")));
-		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.8"), magickCT("image/png")));
+		assertEquals(pngLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.2"), "image/png"));
+		assertEquals(jpegLastModified, assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.3"), "image/png"));
+		assertEquals(gifLastModified,  assertBinary(new URL(prefix + "thumbnailMagickPng/MediaServletItem.8"), "image/png"));
 		
 		assertNotFound(new URL(prefix + "content/schnickschnack"), NOT_AN_ITEM);
 		assertNotFound(new URL(prefix + "content/MediaServletItem.20.jpg"), NO_SUCH_ITEM);
@@ -338,11 +336,6 @@ public class MediaServletTest extends WebTestCase
 			out.close();
 			in.close();
 		}
-	}
-	
-	private static final String magickCT(final String contentType)
-	{
-		return MediaImageMagickFilter.isAvailable() ? contentType : "image/jpeg";
 	}
 	
 	// ----------------------------------- adapted from CopeAssert
