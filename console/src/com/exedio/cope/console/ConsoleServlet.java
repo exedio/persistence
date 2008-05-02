@@ -33,7 +33,7 @@ import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
 
 /**
- * The servlet providing the COPE Database Administration application.
+ * The servlet providing the COPE Console application.
  *
  * In order to use it, you have to deploy the servlet in your <tt>web.xml</tt>,
  * providing the name of the cope model via an init-parameter.
