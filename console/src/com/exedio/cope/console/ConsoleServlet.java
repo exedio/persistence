@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.util.ConnectToken;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
@@ -62,6 +63,7 @@ public final class ConsoleServlet extends CopsServlet
 	
 	private ConnectToken connectToken = null;
 	private Model model = null;
+	private LogThread logThread = null;
 	
 	static final Resource stylesheet = new Resource("console.css");
 	static final Resource schemaScript = new Resource("schema.js");
@@ -95,11 +97,36 @@ public final class ConsoleServlet extends CopsServlet
 		
 		connectToken = ServletUtil.getConnectedModel(this);
 		model = connectToken.getModel();
+
+		Properties.Source context = null;
+		try
+		{
+			context = model.getProperties().getContext();
+		}
+		catch(IllegalStateException e)
+		{
+			// ok, then no logging
+		}
+		if(context!=null)
+		{
+			final String logPropertyFile = context.get("com.exedio.cope.console.log");
+			if(logPropertyFile!=null)
+			{
+				logThread = new LogThread(model, logPropertyFile);
+				logThread.start();
+			}
+		}
 	}
 
 	@Override
 	public void destroy()
 	{
+		if(logThread!=null)
+		{
+			logThread.stopAndJoin();
+			logThread = null;
+		}
+		
 		connectToken.returnIt();
 		connectToken = null;
 		model = null;
