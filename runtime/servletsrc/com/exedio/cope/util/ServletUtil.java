@@ -198,7 +198,10 @@ public class ServletUtil
 					@Override
 					public String toString()
 					{
-						return "javax.servlet.ServletContext.getInitParameter of '" + context.getServletContextName() + '\'' + (prefix!=null ? (" with prefix '"+prefix+'\'') : "");
+						return
+							"javax.servlet.ServletContext.getInitParameter " +
+							"of '" + context.getServletContextName() + '\'' +
+							(prefix!=null ? (" with prefix '"+prefix+'\'') : "");
 					}
 				};
 	}
