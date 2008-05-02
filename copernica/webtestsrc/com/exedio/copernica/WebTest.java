@@ -82,7 +82,7 @@ public class WebTest extends AbstractWebTest
 		assertFormElementEquals("someEnum", someEnum);
 		assertFormElementEquals("someNotNullEnum", someNotNullEnum);
 	
-		assertFormElementEquals("This fails on Ubuntu because of a wrong time zone", "someDate", someDate); // TODO
+		assertFormElementEquals("someDate", someDate); // TODO fails with wrong time zone
 		assertFormElementEquals("someBoolean", someBoolean);
 		if(section.equals(SECTION_OTHER))
 		{
