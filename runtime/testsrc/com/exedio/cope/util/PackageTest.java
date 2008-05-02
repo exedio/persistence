@@ -32,6 +32,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PoolCounterTest.class);
 		suite.addTestSuite(PropertiesTest.class);
 		suite.addTestSuite(ServletUtilTest.class);
+		suite.addTestSuite(ServletUtilContextTest.class);
 		suite.addTestSuite(TransactionSlicerTest.class);
 		return suite;
 	}

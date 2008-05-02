@@ -177,10 +177,12 @@ public class ServletUtil
 	
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
+		final String prefix =
+			context.getInitParameter("com.exedio.cope.contextPrefix");
 		return new Properties.Source(){
 					public String get(final String key)
 					{
-						return context.getInitParameter(key);
+						return context.getInitParameter(prefix!=null ? (prefix+key) : key);
 					}
 					
 					public Collection<String> keySet()
@@ -196,7 +198,7 @@ public class ServletUtil
 					@Override
 					public String toString()
 					{
-						return "javax.servlet.ServletContext.getInitParameter of '" + context.getServletContextName() + '\'';
+						return "javax.servlet.ServletContext.getInitParameter of '" + context.getServletContextName() + '\'' + (prefix!=null ? (" with prefix '"+prefix+'\'') : "");
 					}
 				};
 	}
