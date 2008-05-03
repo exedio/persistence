@@ -80,27 +80,7 @@ final class LogThread extends Thread
 				{
 					System.out.println(topic + "run() LOG " + running);
 					
-					// gather data
-					final Date date = new Date();
-					final long nextTransactionId = loggedModel.getNextTransactionId();
-					
-					// process data
-					final SetValue[] setValues = new SetValue[]{
-							LogModel.date.map(date),
-							LogModel.running.map(running),
-							LogModel.nextTransactionId.map(nextTransactionId)};
-
-					// save data
-					try
-					{
-						loggerModel.startTransaction("log " + running);
-						new LogModel(setValues);
-						loggerModel.commit();
-					}
-					finally
-					{
-						loggerModel.rollbackIfNotCommitted();
-					}
+					log(loggerModel, running);
 					
 					sleepByWait(1000l);
 				}
@@ -121,6 +101,31 @@ final class LogThread extends Thread
 		catch(Exception e)
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	private void log(final Model loggerModel, final int running)
+	{
+		// gather data
+		final Date date = new Date();
+		final long nextTransactionId = loggedModel.getNextTransactionId();
+		
+		// process data
+		final SetValue[] setValues = new SetValue[]{
+				LogModel.date.map(date),
+				LogModel.running.map(running),
+				LogModel.nextTransactionId.map(nextTransactionId)};
+
+		// save data
+		try
+		{
+			loggerModel.startTransaction("log " + running);
+			new LogModel(setValues);
+			loggerModel.commit();
+		}
+		finally
+		{
+			loggerModel.rollbackIfNotCommitted();
 		}
 	}
 	
