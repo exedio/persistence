@@ -100,7 +100,11 @@ public final class ConsoleServlet extends CopsServlet
 		
 		connectToken = ServletUtil.getConnectedModel(this);
 		model = connectToken.getModel();
-
+		startHistory();
+	}
+	
+	private void startHistory()
+	{
 		Properties.Source context = null;
 		try
 		{
@@ -122,15 +126,19 @@ public final class ConsoleServlet extends CopsServlet
 		}
 	}
 
-	@Override
-	public void destroy()
+	private void stopHistory()
 	{
 		if(logThread!=null)
 		{
 			logThread.stopAndJoin();
 			logThread = null;
 		}
+	}
 		
+	@Override
+	public void destroy()
+	{
+		stopHistory();
 		connectToken.returnIt();
 		connectToken = null;
 		model = null;
