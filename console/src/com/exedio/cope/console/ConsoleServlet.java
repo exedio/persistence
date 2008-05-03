@@ -103,38 +103,6 @@ public final class ConsoleServlet extends CopsServlet
 		startHistory();
 	}
 	
-	private void startHistory()
-	{
-		Properties.Source context = null;
-		try
-		{
-			context = model.getProperties().getContext();
-		}
-		catch(IllegalStateException e)
-		{
-			// ok, then no logging
-		}
-		if(context!=null)
-		{
-			final String logPropertyFile = context.get("com.exedio.cope.console.log");
-			if(logPropertyFile!=null)
-			{
-				logEnabled = true;
-				logThread = new LogThread(model, logPropertyFile);
-				logThread.start();
-			}
-		}
-	}
-
-	private void stopHistory()
-	{
-		if(logThread!=null)
-		{
-			logThread.stopAndJoin();
-			logThread = null;
-		}
-	}
-		
 	@Override
 	public void destroy()
 	{
@@ -181,5 +149,37 @@ public final class ConsoleServlet extends CopsServlet
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 		Console_Jspm.write(out, request, response, model, cop, logEnabled, logger);
 		out.close();
+	}
+	
+	private void startHistory()
+	{
+		Properties.Source context = null;
+		try
+		{
+			context = model.getProperties().getContext();
+		}
+		catch(IllegalStateException e)
+		{
+			// ok, then no logging
+		}
+		if(context!=null)
+		{
+			final String logPropertyFile = context.get("com.exedio.cope.console.log");
+			if(logPropertyFile!=null)
+			{
+				logEnabled = true;
+				logThread = new LogThread(model, logPropertyFile);
+				logThread.start();
+			}
+		}
+	}
+
+	private void stopHistory()
+	{
+		if(logThread!=null)
+		{
+			logThread.stopAndJoin();
+			logThread = null;
+		}
 	}
 }
