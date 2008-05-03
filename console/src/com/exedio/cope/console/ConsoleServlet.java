@@ -163,7 +163,7 @@ public final class ConsoleServlet extends CopsServlet
 	{
 		synchronized(historyLock)
 		{
-			return logThread!=null;
+			return logThread!=null && logThread.isAlive();
 		}
 	}
 	
@@ -171,7 +171,7 @@ public final class ConsoleServlet extends CopsServlet
 	{
 		synchronized(historyLock)
 		{
-			if(logThread!=null)
+			if(logThread!=null && logThread.isAlive())
 				throw new RuntimeException("already running");
 			
 			Properties.Source context = null;
