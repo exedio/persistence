@@ -113,8 +113,6 @@ public final class ConsoleServlet extends CopsServlet
 		super.destroy();
 	}
 	
-	static final String LOGGER = "logger";
-	
 	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
@@ -150,6 +148,8 @@ public final class ConsoleServlet extends CopsServlet
 		Console_Jspm.write(out, request, response, model, cop, logEnabled, logger);
 		out.close();
 	}
+	
+	static final String LOGGER = "logger";
 	
 	private void startHistory()
 	{
