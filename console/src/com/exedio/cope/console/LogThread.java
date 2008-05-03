@@ -40,6 +40,7 @@ final class LogThread extends Thread
 	private final String logPropertyFile;
 	private final Object lock = new Object();
 	private final String topic;
+	private final MediaPath[] medias;
 	private volatile boolean proceed = true;
 	
 	LogThread(final Model model, final String logPropertyFile)
@@ -50,6 +51,13 @@ final class LogThread extends Thread
 		
 		assert model!=null;
 		assert logPropertyFile!=null;
+		
+		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
+		for(final Type<?> type : loggedModel.getTypes())
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(feature instanceof MediaPath)
+					medias.add((MediaPath)feature);
+		this.medias = medias.toArray(new MediaPath[medias.size()]);
 	}
 	
 	@Override
@@ -112,13 +120,6 @@ final class LogThread extends Thread
 	
 	private void log(final int running)
 	{
-		// prepare (TODO do once only)
-		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
-		for(final Type<?> type : loggedModel.getTypes())
-			for(final Feature feature : type.getDeclaredFeatures())
-				if(feature instanceof MediaPath)
-					medias.add((MediaPath)feature);
-		
 		// gather data
 		final Date date = new Date();
 		final ConnectionPoolInfo connectionPoolInfo = loggedModel.getConnectionPoolInfo();
