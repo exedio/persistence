@@ -26,24 +26,24 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-final class LogModel extends Item
+final class HistoryModel extends Item
 {
 	static final DateField date = new DateField().toFinal().unique();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	static final LongField nextTransactionId = new LongField().toFinal();
 	
-	LogModel(final SetValue... setValues)
+	HistoryModel(final SetValue... setValues)
 	{
 		super(setValues);
 	}
 	
 	@SuppressWarnings("unused")
-	private LogModel(final ReactivationConstructorDummy d, final int pk)
+	private HistoryModel(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d,pk);
 	}
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type TYPE = newType(LogModel.class);
+	static final Type TYPE = newType(HistoryModel.class);
 }

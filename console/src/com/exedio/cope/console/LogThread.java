@@ -28,7 +28,7 @@ import com.exedio.cope.util.ConnectToken;
 
 final class LogThread extends Thread
 {
-	static final Model loggerModel = new Model(LogModel.TYPE);
+	static final Model loggerModel = new Model(HistoryModel.TYPE);
 	
 	private final Model loggedModel;
 	private final String logPropertyFile;
@@ -112,15 +112,15 @@ final class LogThread extends Thread
 		
 		// process data
 		final SetValue[] setValues = new SetValue[]{
-				LogModel.date.map(date),
-				LogModel.running.map(running),
-				LogModel.nextTransactionId.map(nextTransactionId)};
+				HistoryModel.date.map(date),
+				HistoryModel.running.map(running),
+				HistoryModel.nextTransactionId.map(nextTransactionId)};
 
 		// save data
 		try
 		{
 			loggerModel.startTransaction("log " + running);
-			new LogModel(setValues);
+			new HistoryModel(setValues);
 			loggerModel.commit();
 		}
 		finally
