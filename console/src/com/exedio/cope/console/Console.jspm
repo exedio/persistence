@@ -36,7 +36,9 @@ abstract class Console_Jspm
 				final HttpServletRequest request,
 				final HttpServletResponse response,
 				final Model model,
-				final ConsoleCop cop)
+				final ConsoleCop cop,
+				final boolean logEnabled,
+				final boolean logger)
 	{
 		try
 		{
@@ -67,7 +69,17 @@ abstract class Console_Jspm
 		{
 			%> on <%=encode(hostname)%><%
 		}
-		%></div>
+		%></div><%
+		if(logEnabled)
+		{
+		%>
+		<form action="<%=cop%>" method="POST">
+			Model:
+			<input type="hidden" value="<% if(logger){%>false<%}else{%>true<%} %>" name="<%=ConsoleServlet.LOGGER%>">
+			<input type="submit" value="<% if(logger){%>main<%}else{%>logger<%} %>">
+		</form><%
+		}
+		%>
 		<br clear="right"><%
 		writeMenu(out, cop);
 		%>

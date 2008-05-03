@@ -28,7 +28,7 @@ import com.exedio.cope.util.ConnectToken;
 
 final class LogThread extends Thread
 {
-	private static final Model loggerModel = new Model(LogModel.TYPE);
+	static final Model loggerModel = new Model(LogModel.TYPE);
 	
 	private final Model loggedModel;
 	private final String logPropertyFile;

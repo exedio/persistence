@@ -25,11 +25,13 @@ import java.io.PrintStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServletUtil;
+import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
 
@@ -64,6 +66,7 @@ public final class ConsoleServlet extends CopsServlet
 	private ConnectToken connectToken = null;
 	private Model model = null;
 	private LogThread logThread = null;
+	private boolean logEnabled = false;
 	
 	static final Resource stylesheet = new Resource("console.css");
 	static final Resource schemaScript = new Resource("schema.js");
@@ -112,6 +115,7 @@ public final class ConsoleServlet extends CopsServlet
 			final String logPropertyFile = context.get("com.exedio.cope.console.log");
 			if(logPropertyFile!=null)
 			{
+				logEnabled = true;
 				logThread = new LogThread(model, logPropertyFile);
 				logThread.start();
 			}
@@ -133,17 +137,41 @@ public final class ConsoleServlet extends CopsServlet
 		super.destroy();
 	}
 	
+	static final String LOGGER = "logger";
+	
 	@Override
 	protected void doRequest(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws IOException
 	{
+		final Model model;
+		final boolean logger;
+		if(logEnabled)
+		{
+			if(Cop.isPost(request))
+			{
+				final String d = request.getParameter(LOGGER);
+				if("true".equals(d))
+					request.getSession().setAttribute(LOGGER, Boolean.TRUE);
+				else if("false".equals(d))
+					request.getSession().removeAttribute(LOGGER);
+			}
+			final HttpSession session = request.getSession(false);
+			logger = session!=null && session.getAttribute(LOGGER)!=null;
+			model = logger ? LogThread.loggerModel : this.model;
+		}
+		else
+		{
+			logger = false;
+			model = this.model;
+		}
+		
 		final ConsoleCop cop = ConsoleCop.getCop(model, request);
 		cop.initialize(request, model);
 		response.setStatus(cop.getResponseStatus());
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
-		Console_Jspm.write(out, request, response, model, cop);
+		Console_Jspm.write(out, request, response, model, cop, logEnabled, logger);
 		out.close();
 	}
 }
