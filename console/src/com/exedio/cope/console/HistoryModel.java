@@ -30,7 +30,30 @@ final class HistoryModel extends Item
 {
 	static final DateField date = new DateField().toFinal().unique();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
+	
+	static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
+	static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
+	static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
+	static final IntegerField connectionPoolInvalidFromIdle = new IntegerField().toFinal().min(0);
+	static final IntegerField connectionPoolInvalidIntoIdle = new IntegerField().toFinal().min(0);
+	
 	static final LongField nextTransactionId = new LongField().toFinal();
+	
+	static final IntegerField itemCacheHits = new IntegerField().toFinal().min(0);
+	static final IntegerField itemCacheMisses = new IntegerField().toFinal().min(0);
+	static final IntegerField itemCacheNumberOfCleanups = new IntegerField().toFinal().min(0);
+	static final IntegerField itemCacheItemsCleanedUp = new IntegerField().toFinal().min(0);
+	
+	static final LongField queryCacheHits = new LongField().toFinal();
+	static final LongField queryCacheMisses = new LongField().toFinal();
+	
+	static final IntegerField mediasException = new IntegerField().toFinal().min(0);
+	static final IntegerField mediasNotAnItem = new IntegerField().toFinal().min(0);
+	static final IntegerField mediasNoSuchItem = new IntegerField().toFinal().min(0);
+	static final IntegerField mediasIsNull = new IntegerField().toFinal().min(0);
+	static final IntegerField mediasNotComputable = new IntegerField().toFinal().min(0);
+	static final IntegerField mediasNotModified = new IntegerField().toFinal().min(0);
+	static final IntegerField mediasDelivered = new IntegerField().toFinal().min(0);
 	
 	HistoryModel(final SetValue... setValues)
 	{

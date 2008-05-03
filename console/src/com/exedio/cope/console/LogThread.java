@@ -19,12 +19,18 @@
 package com.exedio.cope.console;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Type;
+import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.ConnectToken;
+import com.exedio.cope.util.ConnectionPoolInfo;
 
 final class LogThread extends Thread
 {
@@ -106,15 +112,73 @@ final class LogThread extends Thread
 	
 	private void log(final int running)
 	{
+		// prepare (TODO do once only)
+		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
+		for(final Type<?> type : loggedModel.getTypes())
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(feature instanceof MediaPath)
+					medias.add((MediaPath)feature);
+		
 		// gather data
 		final Date date = new Date();
+		final ConnectionPoolInfo connectionPoolInfo = loggedModel.getConnectionPoolInfo();
 		final long nextTransactionId = loggedModel.getNextTransactionId();
+		final CacheInfo[] itemCacheInfos = loggedModel.getItemCacheInfo();
+		final long[] queryCacheInfo = loggedModel.getQueryCacheInfo();
+		int mediasException = 0;
+		int mediasNotAnItem = 0;
+		int mediasNoSuchItem = 0;
+		int mediasIsNull = 0;
+		int mediasNotComputable = 0;
+		int mediasNotModified = 0;
+		int mediasDelivered = 0;
+		for(final MediaPath path : medias)
+		{
+			mediasException += path.exception.get();
+			mediasNotAnItem += path.notAnItem.get();
+			mediasNoSuchItem += path.noSuchItem.get();
+			mediasIsNull += path.isNull.get();
+			mediasNotComputable += path.notComputable.get();
+			mediasNotModified += path.notModified.get();
+			mediasDelivered += path.delivered.get();
+		}
 		
 		// process data
+		int itemCacheHits = 0;
+		int itemCacheMisses = 0;
+		int itemCacheNumberOfCleanups = 0;
+		int itemCacheItemsCleanedUp = 0;
+		for(final CacheInfo ci : itemCacheInfos)
+		{
+			itemCacheHits += ci.getHits();
+			itemCacheMisses += ci.getMisses();
+			itemCacheNumberOfCleanups += ci.getNumberOfCleanups();
+			itemCacheItemsCleanedUp += ci.getItemsCleanedUp();
+		}
+		
 		final SetValue[] setValues = new SetValue[]{
 				HistoryModel.date.map(date),
 				HistoryModel.running.map(running),
-				HistoryModel.nextTransactionId.map(nextTransactionId)};
+				HistoryModel.connectionPoolIdle.map(connectionPoolInfo.getIdleCounter()),
+				HistoryModel.connectionPoolGet.map(connectionPoolInfo.getCounter().getGetCounter()),
+				HistoryModel.connectionPoolPut.map(connectionPoolInfo.getCounter().getPutCounter()),
+				HistoryModel.connectionPoolInvalidFromIdle.map(connectionPoolInfo.getInvalidFromIdle()),
+				HistoryModel.connectionPoolInvalidIntoIdle.map(connectionPoolInfo.getInvalidIntoIdle()),
+				HistoryModel.nextTransactionId.map(nextTransactionId),
+				HistoryModel.itemCacheHits.map(itemCacheHits),
+				HistoryModel.itemCacheMisses.map(itemCacheMisses),
+				HistoryModel.itemCacheNumberOfCleanups.map(itemCacheNumberOfCleanups),
+				HistoryModel.itemCacheItemsCleanedUp.map(itemCacheItemsCleanedUp),
+				HistoryModel.queryCacheHits.map(queryCacheInfo[0]),
+				HistoryModel.queryCacheMisses.map(queryCacheInfo[1]),
+				HistoryModel.mediasException.map(mediasException),
+				HistoryModel.mediasNotAnItem.map(mediasNotAnItem),
+				HistoryModel.mediasNoSuchItem.map(mediasNoSuchItem),
+				HistoryModel.mediasIsNull.map(mediasIsNull),
+				HistoryModel.mediasNotComputable.map(mediasNotComputable),
+				HistoryModel.mediasNotModified.map(mediasNotModified),
+				HistoryModel.mediasDelivered.map(mediasDelivered)
+		};
 
 		// save data
 		try
