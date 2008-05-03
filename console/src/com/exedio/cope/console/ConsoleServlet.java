@@ -65,6 +65,8 @@ public final class ConsoleServlet extends CopsServlet
 	
 	private ConnectToken connectToken = null;
 	private Model model = null;
+	
+	private final Object historyLock = new Object();
 	private LogThread logThread = null;
 	private boolean logEnabled = false;
 	
@@ -130,6 +132,10 @@ public final class ConsoleServlet extends CopsServlet
 					request.getSession().setAttribute(LOGGER, Boolean.TRUE);
 				else if("false".equals(d))
 					request.getSession().removeAttribute(LOGGER);
+				else if(HISTORY_START.equals(d))
+					startHistory();
+				else if(HISTORY_STOP.equals(d))
+					stopHistory();
 			}
 			final HttpSession session = request.getSession(false);
 			logger = session!=null && session.getAttribute(LOGGER)!=null;
@@ -145,41 +151,60 @@ public final class ConsoleServlet extends CopsServlet
 		cop.initialize(request, model);
 		response.setStatus(cop.getResponseStatus());
 		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
-		Console_Jspm.write(out, request, response, model, cop, logEnabled, logger);
+		Console_Jspm.write(out, request, response, model, cop, logEnabled, logger, isHistoryRunning());
 		out.close();
 	}
 	
 	static final String LOGGER = "logger";
+	static final String HISTORY_START = "history.start";
+	static final String HISTORY_STOP  = "history.stop";
+	
+	private boolean isHistoryRunning()
+	{
+		synchronized(historyLock)
+		{
+			return logThread!=null;
+		}
+	}
 	
 	private void startHistory()
 	{
-		Properties.Source context = null;
-		try
+		synchronized(historyLock)
 		{
-			context = model.getProperties().getContext();
-		}
-		catch(IllegalStateException e)
-		{
-			// ok, then no logging
-		}
-		if(context!=null)
-		{
-			final String logPropertyFile = context.get("com.exedio.cope.console.log");
-			if(logPropertyFile!=null)
+			if(logThread!=null)
+				throw new RuntimeException("already running");
+			
+			Properties.Source context = null;
+			try
 			{
-				logEnabled = true;
-				logThread = new LogThread(model, logPropertyFile);
-				logThread.start();
+				context = model.getProperties().getContext();
+			}
+			catch(IllegalStateException e)
+			{
+				// ok, then no logging
+			}
+			if(context!=null)
+			{
+				final String logPropertyFile = context.get("com.exedio.cope.console.log");
+				if(logPropertyFile!=null)
+				{
+					logEnabled = true;
+					logThread = new LogThread(model, logPropertyFile);
+					logThread.start();
+				}
 			}
 		}
 	}
 
 	private void stopHistory()
 	{
-		if(logThread!=null)
+		synchronized(historyLock)
 		{
-			logThread.stopAndJoin();
-			logThread = null;
+			if(logThread!=null)
+			{
+				logThread.stopAndJoin();
+				logThread = null;
+			}
 		}
 	}
 }

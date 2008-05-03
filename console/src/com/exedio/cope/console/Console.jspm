@@ -38,7 +38,8 @@ abstract class Console_Jspm
 				final Model model,
 				final ConsoleCop cop,
 				final boolean logEnabled,
-				final boolean logger)
+				final boolean logger,
+				final boolean historyRunning)
 	{
 		try
 		{
@@ -77,6 +78,15 @@ abstract class Console_Jspm
 			Model:
 			<input type="hidden" value="<% if(logger){%>false<%}else{%>true<%} %>" name="<%=ConsoleServlet.LOGGER%>">
 			<input type="submit" value="<% if(logger){%>main<%}else{%>logger<%} %>">
+		</form>
+		History:<% if(!historyRunning){%> not<%} %> running
+		<form action="<%=cop%>" method="POST">
+			<input type="hidden" value="<%=ConsoleServlet.HISTORY_START%>" name="<%=ConsoleServlet.LOGGER%>">
+			<input type="submit" value="Start">
+		</form>
+		<form action="<%=cop%>" method="POST">
+			<input type="hidden" value="<%=ConsoleServlet.HISTORY_STOP%>" name="<%=ConsoleServlet.LOGGER%>">
+			<input type="submit" value="Stop">
 		</form><%
 		}
 		%>
