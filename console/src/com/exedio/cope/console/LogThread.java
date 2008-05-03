@@ -96,7 +96,7 @@ final class LogThread extends Thread
 					
 					log(running);
 					
-					sleepByWait(1000l);
+					sleepByWait(60000l);
 				}
 			}
 			finally
@@ -198,7 +198,7 @@ final class LogThread extends Thread
 	{
 		synchronized(lock)
 		{
-			System.out.println(topic + "run() sleeping (" + millis + "ms)");
+			//System.out.println(topic + "run() sleeping (" + millis + "ms)");
 			final long sleeping = System.currentTimeMillis();
 			try
 			{
@@ -208,7 +208,7 @@ final class LogThread extends Thread
 			{
 				throw new RuntimeException(e);
 			}
-			System.out.println(topic + "run() slept    (" + (System.currentTimeMillis()-sleeping) + "ms)");
+			//System.out.println(topic + "run() slept    (" + (System.currentTimeMillis()-sleeping) + "ms)");
 		}
 	}
 	
