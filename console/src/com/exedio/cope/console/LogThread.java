@@ -197,7 +197,7 @@ final class LogThread extends Thread
 		synchronized(lock)
 		{
 			//System.out.println(topic + "run() sleeping (" + millis + "ms)");
-			final long sleeping = System.currentTimeMillis();
+			//final long sleeping = System.currentTimeMillis();
 			try
 			{
 				lock.wait(millis);
