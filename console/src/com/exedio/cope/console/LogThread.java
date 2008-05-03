@@ -93,9 +93,7 @@ final class LogThread extends Thread
 				for(int running = 0; proceed; running++)
 				{
 					System.out.println(topic + "run() LOG " + running);
-					
 					log(running);
-					
 					sleepByWait(60000l);
 				}
 			}
