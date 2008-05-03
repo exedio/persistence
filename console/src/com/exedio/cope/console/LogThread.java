@@ -28,6 +28,8 @@ import com.exedio.cope.util.ConnectToken;
 
 final class LogThread extends Thread
 {
+	private static final Model loggerModel = new Model(LogModel.TYPE);
+	
 	private final Model loggedModel;
 	private final String logPropertyFile;
 	private final Object lock = new Object();
@@ -50,8 +52,6 @@ final class LogThread extends Thread
 		System.out.println(topic + "run() started");
 		try
 		{
-			final Model loggerModel = new Model(LogModel.TYPE);
-			
 			sleepByWait(2000l);
 			if(!proceed)
 				return;
@@ -80,7 +80,7 @@ final class LogThread extends Thread
 				{
 					System.out.println(topic + "run() LOG " + running);
 					
-					log(loggerModel, running);
+					log(running);
 					
 					sleepByWait(1000l);
 				}
@@ -104,7 +104,7 @@ final class LogThread extends Thread
 		}
 	}
 	
-	private void log(final Model loggerModel, final int running)
+	private void log(final int running)
 	{
 		// gather data
 		final Date date = new Date();
