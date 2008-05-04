@@ -69,7 +69,7 @@ public final class ConsoleServlet extends CopsServlet
 	private Model model = null;
 	
 	private final Object historyLock = new Object();
-	private LogThread logThread = null;
+	private HistoryThread logThread = null;
 	private boolean logEnabled = false;
 	
 	static final Resource stylesheet = new Resource("console.css");
@@ -144,12 +144,12 @@ public final class ConsoleServlet extends CopsServlet
 				}
 				final HttpSession session = request.getSession(false);
 				logger = session!=null && session.getAttribute(LOGGER)!=null;
-				model = logger ? LogThread.loggerModel : this.model;
+				model = logger ? HistoryThread.loggerModel : this.model;
 				if(logger)
 				{
 					loggerConnectToken =
 						ConnectToken.issue(
-								LogThread.loggerModel,
+								HistoryThread.loggerModel,
 								new ConnectProperties(new File(this.model.getProperties().getContext().
 										get("com.exedio.cope.console.log"))),
 								"ConsoleServlet");
@@ -209,7 +209,7 @@ public final class ConsoleServlet extends CopsServlet
 				if(logPropertyFile!=null)
 				{
 					logEnabled = true;
-					logThread = new LogThread(model, logPropertyFile);
+					logThread = new HistoryThread(model, logPropertyFile);
 					logThread.start();
 				}
 			}

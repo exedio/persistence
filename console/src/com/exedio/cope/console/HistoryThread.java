@@ -32,7 +32,7 @@ import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ConnectionPoolInfo;
 
-final class LogThread extends Thread
+final class HistoryThread extends Thread
 {
 	static final Model loggerModel = new Model(HistoryModel.TYPE);
 	private static final String NAME = "COPE History";
@@ -44,7 +44,7 @@ final class LogThread extends Thread
 	private final MediaPath[] medias;
 	private volatile boolean proceed = true;
 	
-	LogThread(final Model model, final String logPropertyFile)
+	HistoryThread(final Model model, final String logPropertyFile)
 	{
 		super(NAME);
 		final String name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
