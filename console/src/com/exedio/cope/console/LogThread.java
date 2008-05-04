@@ -35,6 +35,7 @@ import com.exedio.cope.util.ConnectionPoolInfo;
 final class LogThread extends Thread
 {
 	static final Model loggerModel = new Model(HistoryModel.TYPE);
+	private static final String NAME = "COPE History";
 	
 	private final Model loggedModel;
 	private final String logPropertyFile;
@@ -45,8 +46,8 @@ final class LogThread extends Thread
 	
 	LogThread(final Model model, final String logPropertyFile)
 	{
-		super("COPE History");
-		final String name = "COPE History (" + Integer.toString(System.identityHashCode(this), 36) + ')';
+		super(NAME);
+		final String name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		setName(name);
 		this.loggedModel = model;
 		this.logPropertyFile = logPropertyFile;
