@@ -45,9 +45,12 @@ final class LogThread extends Thread
 	
 	LogThread(final Model model, final String logPropertyFile)
 	{
+		super("COPE History");
+		final String name = "COPE History (" + Integer.toString(System.identityHashCode(this), 36) + ')';
+		setName(name);
 		this.loggedModel = model;
 		this.logPropertyFile = logPropertyFile;
-		this.topic = "LogThread(" + Integer.toString(System.identityHashCode(this), 36) + ") ";
+		this.topic = name + ' ';
 		
 		assert model!=null;
 		assert logPropertyFile!=null;
