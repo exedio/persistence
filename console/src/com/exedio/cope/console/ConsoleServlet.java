@@ -144,12 +144,12 @@ public final class ConsoleServlet extends CopsServlet
 				}
 				final HttpSession session = request.getSession(false);
 				logger = session!=null && session.getAttribute(LOGGER)!=null;
-				model = logger ? HistoryThread.loggerModel : this.model;
+				model = logger ? HistoryThread.HISTORY_MODEL : this.model;
 				if(logger)
 				{
 					loggerConnectToken =
 						ConnectToken.issue(
-								HistoryThread.loggerModel,
+								HistoryThread.HISTORY_MODEL,
 								new ConnectProperties(new File(this.model.getProperties().getContext().
 										get("com.exedio.cope.console.log"))),
 								"ConsoleServlet");

@@ -34,7 +34,7 @@ import com.exedio.cope.util.ConnectionPoolInfo;
 
 final class HistoryThread extends Thread
 {
-	static final Model loggerModel = new Model(HistoryModel.TYPE);
+	static final Model HISTORY_MODEL = new Model(HistoryModel.TYPE);
 	private static final String NAME = "COPE History";
 	
 	private final Model loggedModel;
@@ -80,18 +80,18 @@ final class HistoryThread extends Thread
 			try
 			{
 				loggerConnectToken =
-					ConnectToken.issue(loggerModel, new ConnectProperties(new File(logPropertyFile)), "logger");
+					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(logPropertyFile)), "logger");
 				System.out.println(topic + "run() connected (" + (System.currentTimeMillis() - connecting) + "ms)");
 				//loggerModel.tearDownDatabase(); loggerModel.createDatabase();
 				try
 				{
-					loggerModel.startTransaction("check");
-					loggerModel.checkDatabase();
-					loggerModel.commit();
+					HISTORY_MODEL.startTransaction("check");
+					HISTORY_MODEL.checkDatabase();
+					HISTORY_MODEL.commit();
 				}
 				finally
 				{
-					loggerModel.rollbackIfNotCommitted();
+					HISTORY_MODEL.rollbackIfNotCommitted();
 				}
 				
 				for(int running = 0; proceed; running++)
@@ -186,13 +186,13 @@ final class HistoryThread extends Thread
 		// save data
 		try
 		{
-			loggerModel.startTransaction("log " + running);
+			HISTORY_MODEL.startTransaction("log " + running);
 			new HistoryModel(setValues);
-			loggerModel.commit();
+			HISTORY_MODEL.commit();
 		}
 		finally
 		{
-			loggerModel.rollbackIfNotCommitted();
+			HISTORY_MODEL.rollbackIfNotCommitted();
 		}
 	}
 	
