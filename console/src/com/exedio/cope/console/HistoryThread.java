@@ -37,6 +37,7 @@ final class HistoryThread extends Thread
 	static final Model HISTORY_MODEL = new Model(HistoryModel.TYPE);
 	private static final String NAME = "COPE History";
 	
+	private final String name;
 	private final Model loggedModel;
 	private final String logPropertyFile;
 	private final Object lock = new Object();
@@ -47,7 +48,7 @@ final class HistoryThread extends Thread
 	HistoryThread(final Model model, final String logPropertyFile)
 	{
 		super(NAME);
-		final String name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
+		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		setName(name);
 		this.loggedModel = model;
 		this.logPropertyFile = logPropertyFile;
@@ -80,7 +81,7 @@ final class HistoryThread extends Thread
 			try
 			{
 				loggerConnectToken =
-					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(logPropertyFile)), "logger");
+					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(logPropertyFile)), name);
 				System.out.println(topic + "run() connected (" + (System.currentTimeMillis() - connecting) + "ms)");
 				//loggerModel.tearDownDatabase(); loggerModel.createDatabase();
 				try
