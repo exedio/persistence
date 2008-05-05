@@ -145,7 +145,8 @@ final class HistoryThread extends Thread
 			mediaValues[mediaValuesIndex][3] = path.isNull.get();
 			mediaValues[mediaValuesIndex][4] = path.notComputable.get();
 			mediaValues[mediaValuesIndex][5] = path.notModified.get();
-			mediaValues[mediaValuesIndex][6] = path.delivered.get(); mediaValuesIndex++;
+			mediaValues[mediaValuesIndex][6] = path.delivered.get();
+			mediaValuesIndex++;
 		}
 		
 		// process data
@@ -182,13 +183,13 @@ final class HistoryThread extends Thread
 				HistoryModel.queryCacheHits.map(queryCacheInfo[0]),
 				HistoryModel.queryCacheMisses.map(queryCacheInfo[1]),
 				HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath),
-				HistoryModel.mediasException.map(mediaTotal[0]),
-				HistoryModel.mediasNotAnItem.map(mediaTotal[1]),
-				HistoryModel.mediasNoSuchItem.map(mediaTotal[2]),
-				HistoryModel.mediasIsNull.map(mediaTotal[3]),
+				HistoryModel.mediasException    .map(mediaTotal[0]),
+				HistoryModel.mediasNotAnItem    .map(mediaTotal[1]),
+				HistoryModel.mediasNoSuchItem   .map(mediaTotal[2]),
+				HistoryModel.mediasIsNull       .map(mediaTotal[3]),
 				HistoryModel.mediasNotComputable.map(mediaTotal[4]),
-				HistoryModel.mediasNotModified.map(mediaTotal[5]),
-				HistoryModel.mediasDelivered.map(mediaTotal[6])
+				HistoryModel.mediasNotModified  .map(mediaTotal[5]),
+				HistoryModel.mediasDelivered    .map(mediaTotal[6])
 		};
 
 		// save data
