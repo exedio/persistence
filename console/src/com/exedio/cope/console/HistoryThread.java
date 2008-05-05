@@ -129,6 +129,7 @@ final class HistoryThread extends Thread
 		final long nextTransactionId = loggedModel.getNextTransactionId();
 		final CacheInfo[] itemCacheInfos = loggedModel.getItemCacheInfo();
 		final long[] queryCacheInfo = loggedModel.getQueryCacheInfo();
+		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
 		int mediasException = 0;
 		int mediasNotAnItem = 0;
 		int mediasNoSuchItem = 0;
@@ -175,6 +176,7 @@ final class HistoryThread extends Thread
 				HistoryModel.itemCacheItemsCleanedUp.map(itemCacheItemsCleanedUp),
 				HistoryModel.queryCacheHits.map(queryCacheInfo[0]),
 				HistoryModel.queryCacheMisses.map(queryCacheInfo[1]),
+				HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath),
 				HistoryModel.mediasException.map(mediasException),
 				HistoryModel.mediasNotAnItem.map(mediasNotAnItem),
 				HistoryModel.mediasNoSuchItem.map(mediasNoSuchItem),

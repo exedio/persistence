@@ -47,6 +47,7 @@ final class HistoryModel extends Item
 	static final LongField queryCacheHits = new LongField().toFinal();
 	static final LongField queryCacheMisses = new LongField().toFinal();
 	
+	static final IntegerField mediasNoSuchPath = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasException = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasNotAnItem = new IntegerField().toFinal().min(0);
 	static final IntegerField mediasNoSuchItem = new IntegerField().toFinal().min(0);
