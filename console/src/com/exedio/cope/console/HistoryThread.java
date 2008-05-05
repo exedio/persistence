@@ -123,6 +123,12 @@ final class HistoryThread extends Thread
 	
 	private void log(final int running)
 	{
+		// prepare
+		final int MEDIAS_STAT_LENGTH = 7;
+		final int[][] mediaValues = new int[medias.length][];
+		for(int i = 0; i<mediaValues.length; i++)
+			mediaValues[i] = new int[MEDIAS_STAT_LENGTH];
+		
 		// gather data
 		final Date date = new Date();
 		final ConnectionPoolInfo connectionPoolInfo = loggedModel.getConnectionPoolInfo();
@@ -130,22 +136,16 @@ final class HistoryThread extends Thread
 		final CacheInfo[] itemCacheInfos = loggedModel.getItemCacheInfo();
 		final long[] queryCacheInfo = loggedModel.getQueryCacheInfo();
 		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
-		int mediasException = 0;
-		int mediasNotAnItem = 0;
-		int mediasNoSuchItem = 0;
-		int mediasIsNull = 0;
-		int mediasNotComputable = 0;
-		int mediasNotModified = 0;
-		int mediasDelivered = 0;
+		int mediaValuesIndex = 0;
 		for(final MediaPath path : medias)
 		{
-			mediasException += path.exception.get();
-			mediasNotAnItem += path.notAnItem.get();
-			mediasNoSuchItem += path.noSuchItem.get();
-			mediasIsNull += path.isNull.get();
-			mediasNotComputable += path.notComputable.get();
-			mediasNotModified += path.notModified.get();
-			mediasDelivered += path.delivered.get();
+			mediaValues[mediaValuesIndex][0] = path.exception.get();
+			mediaValues[mediaValuesIndex][1] = path.notAnItem.get();
+			mediaValues[mediaValuesIndex][2] = path.noSuchItem.get();
+			mediaValues[mediaValuesIndex][3] = path.isNull.get();
+			mediaValues[mediaValuesIndex][4] = path.notComputable.get();
+			mediaValues[mediaValuesIndex][5] = path.notModified.get();
+			mediaValues[mediaValuesIndex][6] = path.delivered.get(); mediaValuesIndex++;
 		}
 		
 		// process data
@@ -160,6 +160,11 @@ final class HistoryThread extends Thread
 			itemCacheNumberOfCleanups += ci.getNumberOfCleanups();
 			itemCacheItemsCleanedUp += ci.getItemsCleanedUp();
 		}
+		
+		final int[] mediaTotal = new int[MEDIAS_STAT_LENGTH];
+		for(int[] mediaValue : mediaValues)
+			for(int i = 0; i<MEDIAS_STAT_LENGTH; i++)
+				mediaTotal[i] += mediaValue[i];
 		
 		final SetValue[] setValues = new SetValue[]{
 				HistoryModel.date.map(date),
@@ -177,13 +182,13 @@ final class HistoryThread extends Thread
 				HistoryModel.queryCacheHits.map(queryCacheInfo[0]),
 				HistoryModel.queryCacheMisses.map(queryCacheInfo[1]),
 				HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath),
-				HistoryModel.mediasException.map(mediasException),
-				HistoryModel.mediasNotAnItem.map(mediasNotAnItem),
-				HistoryModel.mediasNoSuchItem.map(mediasNoSuchItem),
-				HistoryModel.mediasIsNull.map(mediasIsNull),
-				HistoryModel.mediasNotComputable.map(mediasNotComputable),
-				HistoryModel.mediasNotModified.map(mediasNotModified),
-				HistoryModel.mediasDelivered.map(mediasDelivered)
+				HistoryModel.mediasException.map(mediaTotal[0]),
+				HistoryModel.mediasNotAnItem.map(mediaTotal[1]),
+				HistoryModel.mediasNoSuchItem.map(mediaTotal[2]),
+				HistoryModel.mediasIsNull.map(mediaTotal[3]),
+				HistoryModel.mediasNotComputable.map(mediaTotal[4]),
+				HistoryModel.mediasNotModified.map(mediaTotal[5]),
+				HistoryModel.mediasDelivered.map(mediaTotal[6])
 		};
 
 		// save data
