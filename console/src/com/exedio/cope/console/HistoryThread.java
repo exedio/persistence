@@ -34,7 +34,7 @@ import com.exedio.cope.util.ConnectionPoolInfo;
 
 final class HistoryThread extends Thread
 {
-	static final Model HISTORY_MODEL = new Model(HistoryModel.TYPE);
+	static final Model HISTORY_MODEL = new Model(HistoryModel.TYPE, HistoryMedia.TYPE);
 	private static final String NAME = "COPE History";
 	
 	private final String name;
@@ -163,9 +163,28 @@ final class HistoryThread extends Thread
 		}
 		
 		final int[] mediaTotal = new int[MEDIAS_STAT_LENGTH];
+		final SetValue[][] mediaSetValues = new SetValue[medias.length][];
+		int mediaSetValuesIndex = 0;
 		for(int[] mediaValue : mediaValues)
+		{
 			for(int i = 0; i<MEDIAS_STAT_LENGTH; i++)
 				mediaTotal[i] += mediaValue[i];
+			mediaSetValues[mediaSetValuesIndex] =
+				new SetValue[]{
+					null, // will be HistoryMedia.model
+					HistoryMedia.media.map(medias[mediaSetValuesIndex].getID()),
+					HistoryMedia.date.map(date),
+					HistoryMedia.running.map(running),
+					HistoryMedia.exception    .map(mediaValue[0]),
+					HistoryMedia.notAnItem    .map(mediaValue[1]),
+					HistoryMedia.noSuchItem   .map(mediaValue[2]),
+					HistoryMedia.isNull       .map(mediaValue[3]),
+					HistoryMedia.notComputable.map(mediaValue[4]),
+					HistoryMedia.notModified  .map(mediaValue[5]),
+					HistoryMedia.delivered    .map(mediaValue[6]),
+			};
+			mediaSetValuesIndex++;
+		}
 		
 		final SetValue[] setValues = new SetValue[]{
 				HistoryModel.date.map(date),
@@ -196,7 +215,14 @@ final class HistoryThread extends Thread
 		try
 		{
 			HISTORY_MODEL.startTransaction("log " + running);
-			new HistoryModel(setValues);
+			final HistoryModel model = new HistoryModel(setValues);
+			final SetValue modelSetValue = HistoryMedia.model.map(model);
+			for(SetValue[] mediaSetValue : mediaSetValues)
+			{
+				assert mediaSetValue[0]==null : mediaSetValue[0];
+				mediaSetValue[0] = modelSetValue;
+				new HistoryMedia(mediaSetValue);
+			}
 			HISTORY_MODEL.commit();
 		}
 		finally
