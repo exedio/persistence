@@ -7,7 +7,7 @@
 
 	<!--context-param>
 		<param-name>com.exedio.cope.console.log</param-name>
-		<param-value>/your/path/logging.cope.properties</param-value>
+		<param-value>/your/path/history.cope.properties</param-value>
 	</context-param-->
 	
 	<servlet>
