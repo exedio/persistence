@@ -34,7 +34,7 @@ import com.exedio.cope.util.ConnectionPoolInfo;
 
 final class HistoryThread extends Thread
 {
-	static final Model HISTORY_MODEL = new Model(HistoryModel.TYPE, HistoryMedia.TYPE);
+	static final Model HISTORY_MODEL = new Model(HistoryModel.TYPE, HistoryItemCache.TYPE, HistoryMedia.TYPE);
 	private static final String NAME = "COPE History";
 	
 	private final String name;
@@ -151,16 +151,37 @@ final class HistoryThread extends Thread
 		}
 		
 		// process data
-		int itemCacheHits = 0;
-		int itemCacheMisses = 0;
+		long itemCacheHits = 0;
+		long itemCacheMisses = 0;
 		int itemCacheNumberOfCleanups = 0;
 		int itemCacheItemsCleanedUp = 0;
+		final SetValue[][] itemCacheSetValues = new SetValue[itemCacheInfos.length][];
+		int itemCacheSetValuesIndex = 0;
 		for(final CacheInfo ci : itemCacheInfos)
 		{
 			itemCacheHits += ci.getHits();
 			itemCacheMisses += ci.getMisses();
 			itemCacheNumberOfCleanups += ci.getNumberOfCleanups();
 			itemCacheItemsCleanedUp += ci.getItemsCleanedUp();
+			itemCacheSetValues[itemCacheSetValuesIndex] =
+				new SetValue[]{
+					null, // will be HistoryItemCache.model
+					HistoryItemCache.type.map(ci.getType().getID()),
+					HistoryItemCache.date.map(date),
+					HistoryItemCache.thread.map(thread),
+					HistoryItemCache.running.map(running),
+					HistoryItemCache.limit.map(ci.getLimit()),
+					HistoryItemCache.level.map(ci.getLevel()),
+					HistoryItemCache.hits.map(ci.getHits()),
+					HistoryItemCache.misses.map(ci.getMisses()),
+					HistoryItemCache.numberOfCleanups.map(ci.getNumberOfCleanups()),
+					HistoryItemCache.itemsCleanedUp.map(ci.getItemsCleanedUp()),
+					HistoryItemCache.lastCleanup.map(ci.getLastCleanup()),
+					HistoryItemCache.ageAverageMillis.map(ci.getAgeAverageMillis()),
+					HistoryItemCache.ageMinMillis.map(ci.getAgeMinMillis()),
+					HistoryItemCache.ageMaxMillis.map(ci.getAgeMaxMillis()),
+			};
+			itemCacheSetValuesIndex++;
 		}
 		
 		final int[] mediaTotal = new int[MEDIAS_STAT_LENGTH];
@@ -217,8 +238,17 @@ final class HistoryThread extends Thread
 		// save data
 		try
 		{
-			HISTORY_MODEL.startTransaction("log " + running);
+			HISTORY_MODEL.startTransaction(topic + running);
 			final HistoryModel model = new HistoryModel(setValues);
+			{
+				final SetValue modelSetValue = HistoryItemCache.model.map(model);
+				for(final SetValue[] itemCacheSetValue : itemCacheSetValues)
+				{
+					assert itemCacheSetValue[0]==null : itemCacheSetValue[0];
+					itemCacheSetValue[0] = modelSetValue;
+					new HistoryItemCache(itemCacheSetValue);
+				}
+			}
 			final SetValue modelSetValue = HistoryMedia.model.map(model);
 			for(SetValue[] mediaSetValue : mediaSetValues)
 			{

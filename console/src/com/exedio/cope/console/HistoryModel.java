@@ -40,8 +40,8 @@ final class HistoryModel extends Item
 	
 	static final LongField nextTransactionId = new LongField().toFinal();
 	
-	static final IntegerField itemCacheHits = new IntegerField().toFinal().min(0);
-	static final IntegerField itemCacheMisses = new IntegerField().toFinal().min(0);
+	static final LongField itemCacheHits = new LongField().toFinal();
+	static final LongField itemCacheMisses = new LongField().toFinal();
 	static final IntegerField itemCacheNumberOfCleanups = new IntegerField().toFinal().min(0);
 	static final IntegerField itemCacheItemsCleanedUp = new IntegerField().toFinal().min(0);
 	
