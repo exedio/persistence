@@ -273,4 +273,10 @@ final class HistoryThread extends Thread
 		}
 		System.out.println(topic + "stopAndJoin() joined (" + (System.currentTimeMillis() - joining) + "ms)");
 	}
+	
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }
