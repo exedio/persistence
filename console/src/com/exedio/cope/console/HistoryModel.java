@@ -29,6 +29,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 final class HistoryModel extends Item
 {
 	static final DateField date = new DateField().toFinal().unique();
+	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	
 	static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);

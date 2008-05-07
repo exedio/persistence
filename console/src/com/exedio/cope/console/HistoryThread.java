@@ -124,6 +124,7 @@ final class HistoryThread extends Thread
 	private void log(final int running)
 	{
 		// prepare
+		final int thread = System.identityHashCode(this);
 		final int MEDIAS_STAT_LENGTH = 7;
 		final int[][] mediaValues = new int[medias.length][];
 		for(int i = 0; i<mediaValues.length; i++)
@@ -174,6 +175,7 @@ final class HistoryThread extends Thread
 					null, // will be HistoryMedia.model
 					HistoryMedia.media.map(medias[mediaSetValuesIndex].getID()),
 					HistoryMedia.date.map(date),
+					HistoryMedia.thread.map(thread),
 					HistoryMedia.running.map(running),
 					HistoryMedia.exception    .map(mediaValue[0]),
 					HistoryMedia.notAnItem    .map(mediaValue[1]),
@@ -188,6 +190,7 @@ final class HistoryThread extends Thread
 		
 		final SetValue[] setValues = new SetValue[]{
 				HistoryModel.date.map(date),
+				HistoryModel.thread.map(thread),
 				HistoryModel.running.map(running),
 				HistoryModel.connectionPoolIdle.map(connectionPoolInfo.getIdleCounter()),
 				HistoryModel.connectionPoolGet.map(connectionPoolInfo.getCounter().getGetCounter()),

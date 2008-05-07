@@ -35,6 +35,7 @@ final class HistoryMedia extends Item
 	
 	static final DateField date = new DateField().toFinal();
 	static final UniqueConstraint mediaAndDate = new UniqueConstraint(media, date);
+	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	
 	static final IntegerField exception = new IntegerField().toFinal().min(0);
