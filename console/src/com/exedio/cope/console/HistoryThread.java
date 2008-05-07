@@ -34,7 +34,12 @@ import com.exedio.cope.util.ConnectionPoolInfo;
 
 final class HistoryThread extends Thread
 {
-	static final Model HISTORY_MODEL = new Model(HistoryModel.TYPE, HistoryItemCache.TYPE, HistoryMedia.TYPE);
+	static final Model HISTORY_MODEL =
+		new Model(
+			HistoryModel.TYPE,
+			HistoryItemCache.TYPE,
+			HistoryMedia.TYPE);
+	
 	private static final String NAME = "COPE History";
 	
 	private final String name;
