@@ -49,6 +49,7 @@ public class MediaDefaultTest extends AbstractLibTest
 	{
 		assertEquals(false, item.file.isInitial());
 		assertEquals(false, item.file.isFinal());
+		assertEquals(false, item.file.isMandatory());
 		assertEquals(Media.Value.class, item.file.getInitialType());
 		assertContains(item.file.getInitialExceptions());
 		assertEquals(true, item.file.checkContentType("some/thing"));

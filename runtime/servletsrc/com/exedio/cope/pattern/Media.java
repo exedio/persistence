@@ -154,6 +154,11 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return new Media(optional, body.getMaximumLength(), new MajorContentType(majorContentType, optional));
 	}
 	
+	public final boolean isMandatory()
+	{
+		return !optional;
+	}
+	
 	public boolean checkContentType(final String contentType)
 	{
 		return this.contentType.check(contentType);
