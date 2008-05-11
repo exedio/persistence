@@ -88,7 +88,6 @@ final class HistoryThread extends Thread
 				connectToken =
 					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
 				System.out.println(topic + "run() connected (" + (System.currentTimeMillis() - connecting) + "ms)");
-				//loggerModel.tearDownDatabase(); loggerModel.createDatabase();
 				try
 				{
 					HISTORY_MODEL.startTransaction("check");
