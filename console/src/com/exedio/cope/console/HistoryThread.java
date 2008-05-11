@@ -44,23 +44,23 @@ final class HistoryThread extends Thread
 	
 	private final String name;
 	private final Model loggedModel;
-	private final String logPropertyFile;
+	private final String propertyFile;
 	private final Object lock = new Object();
 	private final String topic;
 	private final MediaPath[] medias;
 	private volatile boolean proceed = true;
 	
-	HistoryThread(final Model model, final String logPropertyFile)
+	HistoryThread(final Model model, final String propertyFile)
 	{
 		super(NAME);
 		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		setName(name);
 		this.loggedModel = model;
-		this.logPropertyFile = logPropertyFile;
+		this.propertyFile = propertyFile;
 		this.topic = name + ' ';
 		
 		assert model!=null;
-		assert logPropertyFile!=null;
+		assert propertyFile!=null;
 		
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 		for(final Type<?> type : loggedModel.getTypes())
@@ -86,7 +86,7 @@ final class HistoryThread extends Thread
 			try
 			{
 				loggerConnectToken =
-					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(logPropertyFile)), name);
+					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
 				System.out.println(topic + "run() connected (" + (System.currentTimeMillis() - connecting) + "ms)");
 				//loggerModel.tearDownDatabase(); loggerModel.createDatabase();
 				try

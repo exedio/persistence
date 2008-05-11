@@ -222,11 +222,11 @@ public final class ConsoleServlet extends CopsServlet
 			}
 			if(context!=null)
 			{
-				final String logPropertyFile = context.get("com.exedio.cope.console.log");
-				if(logPropertyFile!=null)
+				final String propertyFile = context.get("com.exedio.cope.console.log");
+				if(propertyFile!=null)
 				{
 					historyAvailable = true;
-					historyThread = new HistoryThread(model, logPropertyFile);
+					historyThread = new HistoryThread(model, propertyFile);
 					historyThread.start();
 				}
 			}
