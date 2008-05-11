@@ -72,7 +72,7 @@ public final class ConsoleServlet extends CopsServlet
 	private Model model = null;
 	
 	private final Object historyLock = new Object();
-	private HistoryThread logThread = null;
+	private HistoryThread historyThread = null;
 	private boolean historyAvailable = false;
 	
 	static final Resource stylesheet = new Resource("console.css");
@@ -200,7 +200,7 @@ public final class ConsoleServlet extends CopsServlet
 	{
 		synchronized(historyLock)
 		{
-			return logThread!=null && logThread.isAlive();
+			return historyThread!=null && historyThread.isAlive();
 		}
 	}
 	
@@ -208,7 +208,7 @@ public final class ConsoleServlet extends CopsServlet
 	{
 		synchronized(historyLock)
 		{
-			if(logThread!=null && logThread.isAlive())
+			if(historyThread!=null && historyThread.isAlive())
 				throw new RuntimeException("already running");
 			
 			Properties.Source context = null;
@@ -226,8 +226,8 @@ public final class ConsoleServlet extends CopsServlet
 				if(logPropertyFile!=null)
 				{
 					historyAvailable = true;
-					logThread = new HistoryThread(model, logPropertyFile);
-					logThread.start();
+					historyThread = new HistoryThread(model, logPropertyFile);
+					historyThread.start();
 				}
 			}
 		}
@@ -237,10 +237,10 @@ public final class ConsoleServlet extends CopsServlet
 	{
 		synchronized(historyLock)
 		{
-			if(logThread!=null)
+			if(historyThread!=null)
 			{
-				logThread.stopAndJoin();
-				logThread = null;
+				historyThread.stopAndJoin();
+				historyThread = null;
 			}
 		}
 	}
