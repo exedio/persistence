@@ -50,16 +50,16 @@ final class HistoryThread extends Thread
 	private final MediaPath[] medias;
 	private volatile boolean proceed = true;
 	
-	HistoryThread(final Model model, final String propertyFile)
+	HistoryThread(final Model watchedModel, final String propertyFile)
 	{
 		super(NAME);
 		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		setName(name);
-		this.watchedModel = model;
+		this.watchedModel = watchedModel;
 		this.propertyFile = propertyFile;
 		this.topic = name + ' ';
 		
-		assert model!=null;
+		assert watchedModel!=null;
 		assert propertyFile!=null;
 		
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
