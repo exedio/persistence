@@ -48,9 +48,10 @@ abstract class ConsoleCop extends Cop
 	DecimalFormat nf;
 	
 	/**
+	 * @param request used in subclasses
 	 * @param model used in subclasses
 	 */
-	void initialize(@SuppressWarnings("unused") final HttpServletRequest request, final Model model)
+	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
 		fullDateFormat = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss'<small>'.SSS'</small>'");
