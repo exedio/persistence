@@ -218,7 +218,7 @@ public final class ConsoleServlet extends CopsServlet
 			}
 			catch(IllegalStateException e)
 			{
-				// ok, then no logging
+				// ok, then no history
 			}
 			if(context!=null)
 			{
