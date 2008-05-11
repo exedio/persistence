@@ -222,7 +222,7 @@ public final class ConsoleServlet extends CopsServlet
 			}
 			if(context!=null)
 			{
-				final String propertyFile = context.get("com.exedio.cope.console.log");
+				final String propertyFile = context.get("com.exedio.cope.console.log"); // TODO rename to history
 				if(propertyFile!=null)
 				{
 					historyAvailable = true;
