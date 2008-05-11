@@ -37,7 +37,7 @@ abstract class Console_Jspm
 				final HttpServletResponse response,
 				final Model model,
 				final ConsoleCop cop,
-				final boolean logEnabled,
+				final boolean historyAvailable,
 				final boolean logger,
 				final boolean historyRunning)
 	{
@@ -71,7 +71,7 @@ abstract class Console_Jspm
 			%> on <%=encode(hostname)%><%
 		}
 		%></div><%
-		if(logEnabled)
+		if(historyAvailable)
 		{
 		%>
 		<form action="<%=cop%>" method="POST">

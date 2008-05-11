@@ -70,7 +70,7 @@ public final class ConsoleServlet extends CopsServlet
 	
 	private final Object historyLock = new Object();
 	private HistoryThread logThread = null;
-	private boolean logEnabled = false;
+	private boolean historyAvailable = false;
 	
 	static final Resource stylesheet = new Resource("console.css");
 	static final Resource schemaScript = new Resource("schema.js");
@@ -128,7 +128,7 @@ public final class ConsoleServlet extends CopsServlet
 		ConnectToken loggerConnectToken = null;
 		try
 		{
-			if(logEnabled)
+			if(historyAvailable)
 			{
 				if(Cop.isPost(request))
 				{
@@ -165,7 +165,7 @@ public final class ConsoleServlet extends CopsServlet
 			cop.initialize(request, model);
 			response.setStatus(cop.getResponseStatus());
 			final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
-			Console_Jspm.write(out, request, response, model, cop, logEnabled, logger, isHistoryRunning());
+			Console_Jspm.write(out, request, response, model, cop, historyAvailable, logger, isHistoryRunning());
 			out.close();
 		}
 		finally
@@ -208,7 +208,7 @@ public final class ConsoleServlet extends CopsServlet
 				final String logPropertyFile = context.get("com.exedio.cope.console.log");
 				if(logPropertyFile!=null)
 				{
-					logEnabled = true;
+					historyAvailable = true;
 					logThread = new HistoryThread(model, logPropertyFile);
 					logThread.start();
 				}
