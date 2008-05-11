@@ -154,7 +154,7 @@ public final class ConsoleServlet extends CopsServlet
 						ConnectToken.issue(
 								HistoryThread.HISTORY_MODEL,
 								new ConnectProperties(new File(this.model.getProperties().getContext().
-										get("com.exedio.cope.console.log"))),
+										get(HISTORY_PROPERTY_FILE))),
 								"ConsoleServlet");
 				}
 			}
@@ -192,6 +192,7 @@ public final class ConsoleServlet extends CopsServlet
 		}
 	}
 	
+	private static final String HISTORY_PROPERTY_FILE = "com.exedio.cope.console.log"; // TODO rename to history
 	static final String HISTORY_MODEL_SHOWN = "logger";
 	static final String HISTORY_START = "history.start";
 	static final String HISTORY_STOP  = "history.stop";
@@ -222,7 +223,7 @@ public final class ConsoleServlet extends CopsServlet
 			}
 			if(context!=null)
 			{
-				final String propertyFile = context.get("com.exedio.cope.console.log"); // TODO rename to history
+				final String propertyFile = context.get(HISTORY_PROPERTY_FILE);
 				if(propertyFile!=null)
 				{
 					historyAvailable = true;
