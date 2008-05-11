@@ -22,6 +22,9 @@ package com.exedio.cope.console;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -163,10 +166,22 @@ public final class ConsoleServlet extends CopsServlet
 			
 			final ConsoleCop cop = ConsoleCop.getCop(model, request);
 			cop.initialize(request, model);
+			final Principal principal = request.getUserPrincipal();
+			final String authentication = principal!=null ? principal.getName() : null;
+			String hostname = null;
+			try
+			{
+				hostname = InetAddress.getLocalHost().getHostName();
+			}
+			catch(UnknownHostException e)
+			{
+				// leave hostname==null
+			}
 			response.setStatus(cop.getResponseStatus());
 			final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 			Console_Jspm.write(
 					out, request, response, model, cop,
+					authentication, hostname,
 					historyAvailable, historyModelShown, isHistoryRunning());
 			out.close();
 		}

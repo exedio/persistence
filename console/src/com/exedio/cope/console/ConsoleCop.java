@@ -19,9 +19,6 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -49,8 +46,6 @@ abstract class ConsoleCop extends Cop
 	long start = 0;
 	private SimpleDateFormat fullDateFormat, todayDateFormat;
 	DecimalFormat nf;
-	String authentication;
-	String hostname;
 	
 	/**
 	 * @param model used in subclasses
@@ -64,16 +59,6 @@ abstract class ConsoleCop extends Cop
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
 		nf = new DecimalFormat("", nfs);
-		final Principal principal = request.getUserPrincipal();
-		authentication = principal!=null ? principal.getName() : null;
-		try
-		{
-			hostname = InetAddress.getLocalHost().getHostName();
-		}
-		catch(UnknownHostException e)
-		{
-			// leave hostname==null
-		}
 	}
 	
 	int getResponseStatus()
@@ -116,16 +101,6 @@ abstract class ConsoleCop extends Cop
 			throw new RuntimeException();
 
 		return System.currentTimeMillis() - start;
-	}
-	
-	final String getAuthentication()
-	{
-		return authentication;
-	}
-	
-	final String getHostname()
-	{
-		return hostname;
 	}
 	
 	private static final long todayInterval = 6 * 60 * 60 * 1000; // 6 hours

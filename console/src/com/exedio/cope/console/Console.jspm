@@ -37,14 +37,14 @@ abstract class Console_Jspm
 				final HttpServletResponse response,
 				final Model model,
 				final ConsoleCop cop,
+				final String authentication,
+				final String hostname,
 				final boolean historyAvailable,
 				final boolean historyModelShown,
 				final boolean historyRunning)
 	{
 		try
 		{
-			final String authentication = cop.getAuthentication();
-			final String hostname = cop.getHostname();
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
