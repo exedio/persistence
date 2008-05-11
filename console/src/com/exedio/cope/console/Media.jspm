@@ -39,7 +39,9 @@ final class Media_Jspm extends Console_Jspm
 	final static void writeBody(
 			final MediaStatsCop cop,
 			final PrintStream out,
-			final Collection<MediaPath> media)
+			final Collection<MediaPath> media,
+			final int[][] logs,
+			final int[] total)
 	{
 		final String[] names = {
 			"Exception (500)",
@@ -63,24 +65,15 @@ final class Media_Jspm extends Console_Jspm
 				<th>Name</th>
 				<th>Description</th>
 			</tr><%
+			int mediaIndex = 0;
 			boolean firstMediaImageMagickFilter = true;
 			for(final MediaPath path : media)
 			{
 				final String type = path.getType().getID();
 				final String name = path.getName();
-				final String[] data = {
-					cop.formatAndHide(0, path.exception.get()),
-					cop.formatAndHide(0, path.notAnItem.get()),
-					cop.formatAndHide(0, path.noSuchItem.get()),
-					cop.formatAndHide(0, path.isNull.get()),
-					cop.formatAndHide(0, path.notComputable.get()),
-					cop.formatAndHide(0, path.notModified.get()),
-					cop.formatAndHide(0, path.delivered.get()),
-				};
-	
 				%>
 			<tr><%
-				writeColouredData(out, data);
+				writeColouredData(out, cop.format(logs[mediaIndex++]));
 				%>
 				<td class="text"><%=type%></td>
 				<td class="text"><a href="<%=cop.toMedia(path)%>"><%=name%></a></td>
@@ -135,6 +128,11 @@ final class Media_Jspm extends Console_Jspm
 			</tr><%
 			}
 		%>
+			<tr><%
+				writeColouredData(out, cop.format(total));
+				%>
+				<td class="text" colspan="3">Total</td>
+			</tr>
 		</table><%
 	}
 

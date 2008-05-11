@@ -56,7 +56,37 @@ final class MediaStatsCop extends ConsoleCop
 			}
 		}
 
-		Media_Jspm.writeBody(this, out, medias);
+		final int[] total = new int[7];
+		final int[][] logs = new int[medias.size()][];
+
+		int mediaIndex = 0;
+		for(final MediaPath media : medias)
+		{
+			final int[] log = {
+				media.exception.get(),
+				media.notAnItem.get(),
+				media.noSuchItem.get(),
+				media.isNull.get(),
+				media.notComputable.get(),
+				media.notModified.get(),
+				media.delivered.get(),
+			};
+			for(int i = 0; i<log.length; i++)
+				total[i] += log[i];
+
+			logs[mediaIndex++] = log;
+		}
+		
+		Media_Jspm.writeBody(this, out, medias, logs, total);
+	}
+	
+	final String[] format(final int[] numbers)
+	{
+		final int length = numbers.length;
+		final String[] result = new String[length];
+		for(int i = 0; i<length; i++)
+			result[i] = formatAndHide(0, numbers[i]);
+		return result;
 	}
 	
 	private static final void collapse(final TreeSet<String> contentTypes, final String r, final String a, final String b)
