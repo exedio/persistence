@@ -193,7 +193,7 @@ public final class ConsoleServlet extends CopsServlet
 	}
 	
 	private static final String HISTORY_PROPERTY_FILE = "com.exedio.cope.console.log"; // TODO rename to history
-	static final String HISTORY_MODEL_SHOWN = "logger";
+	static final String HISTORY_MODEL_SHOWN = "history.showModel";
 	static final String HISTORY_START = "history.start";
 	static final String HISTORY_STOP  = "history.stop";
 	
