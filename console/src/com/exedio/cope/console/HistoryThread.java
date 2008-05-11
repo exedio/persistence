@@ -81,11 +81,11 @@ final class HistoryThread extends Thread
 				return;
 			
 			System.out.println(topic + "run() connecting");
-			ConnectToken loggerConnectToken = null;
+			ConnectToken connectToken = null;
 			final long connecting = System.currentTimeMillis();
 			try
 			{
-				loggerConnectToken =
+				connectToken =
 					ConnectToken.issue(HISTORY_MODEL, new ConnectProperties(new File(propertyFile)), name);
 				System.out.println(topic + "run() connected (" + (System.currentTimeMillis() - connecting) + "ms)");
 				//loggerModel.tearDownDatabase(); loggerModel.createDatabase();
@@ -109,11 +109,11 @@ final class HistoryThread extends Thread
 			}
 			finally
 			{
-				if(loggerConnectToken!=null)
+				if(connectToken!=null)
 				{
 					System.out.println(topic + "run() disconnecting");
 					final long disconnecting = System.currentTimeMillis();
-					loggerConnectToken.returnIt();
+					connectToken.returnIt();
 					System.out.println(topic + "run() disconnected (" + (System.currentTimeMillis() - disconnecting) + "ms)");
 				}
 				else
