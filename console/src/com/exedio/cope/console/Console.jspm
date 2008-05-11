@@ -71,30 +71,17 @@ abstract class Console_Jspm
 			%> on <%=encode(hostname)%><%
 		}
 		%></div><%
-		if(historyAvailable)
+		if(historyModelShown)
 		{
 		%>
-		<form action="<%=cop%>" method="POST">
-			Model:
-			<input type="hidden" value="<% if(historyModelShown){%>false<%}else{%>true<%} %>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
-			<input type="submit" value="<% if(historyModelShown){%>main<%}else{%>logger<%} %>">
-		</form>
-		History:<% if(!historyRunning){%> not<%} %> running
-		<form action="<%=cop%>" method="POST">
-			<input type="hidden" value="<%=ConsoleServlet.HISTORY_START%>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
-			<input type="submit" value="Start">
-		</form>
-		<form action="<%=cop%>" method="POST">
-			<input type="hidden" value="<%=ConsoleServlet.HISTORY_STOP%>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
-			<input type="submit" value="Stop">
-		</form><%
+		<div class="authenticated">Showing model of COPE History.</div><%
 		}
 		%>
 		<br clear="right"><%
 		writeMenu(out, cop);
 		%>
 		<hr><%
-		cop.writeBody(out, model, request);
+		cop.writeBody(out, model, request, historyAvailable, historyModelShown, historyRunning);
 		%>
 		<hr><%
 		writeMenu(out, cop);

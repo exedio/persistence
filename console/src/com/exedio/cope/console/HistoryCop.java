@@ -24,16 +24,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 
-final class HiddenCop extends ConsoleCop
+final class HistoryCop extends ConsoleCop
 {
-	HiddenCop()
+	HistoryCop()
 	{
-		super(TAB_HIDDEN, "hidden");
+		super(TAB_HISTORY, "history");
 	}
 	
 	@Override
 	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final boolean historyAvailable, final boolean historyModelShown, final boolean historyRunning)
 	{
-		Hidden_Jspm.writeBody(out, model.getHiddenFeatures());
+		if(historyAvailable)
+			History_Jspm.writeBody(this, out, historyModelShown, historyRunning);
+		else
+			History_Jspm.writeBodyNotAvailable(out);
 	}
 }

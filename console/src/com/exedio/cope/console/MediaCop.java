@@ -138,7 +138,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 	final void writeBody(
 			final PrintStream out,
 			final Model model,
-			final HttpServletRequest request)
+			final HttpServletRequest request, final boolean historyAvailable, final boolean historyModelShown, final boolean historyRunning)
 	{
 		try
 		{

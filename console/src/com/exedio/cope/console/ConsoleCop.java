@@ -79,6 +79,7 @@ abstract class ConsoleCop extends Cop
 				new TransactionCop(),
 				new ItemCacheCop(),
 				new QueryCacheCop(),
+				new HistoryCop(),
 				new PrimaryKeysCop(),
 				new MediaStatsCop(),
 				new VmCop(false, false),
@@ -142,7 +143,7 @@ abstract class ConsoleCop extends Cop
 		// default implementation does nothing
 	}
 	
-	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request);
+	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request, boolean historyAvailable, boolean historyModelShown, boolean historyRunning);
 	
 	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
@@ -153,6 +154,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_TRANSACTION = "transactions";
 	static final String TAB_ITEM_CACHE = "itemcache";
 	static final String TAB_QUERY_CACHE = "querycache";
+	static final String TAB_HISTORY = "history";
 	static final String TAB_PRIMARY_KEY = "primarykeys";
 	static final String TAB_MEDIA_STATS = "mediastats";
 	static final String TAB_VM = "vm";
@@ -189,6 +191,8 @@ abstract class ConsoleCop extends Cop
 			return new ItemCacheCop();
 		if(TAB_QUERY_CACHE.equals(tab))
 			return QueryCacheCop.getQueryCacheCop(request);
+		if(TAB_HISTORY.equals(tab))
+			return new HistoryCop();
 		if(TAB_PRIMARY_KEY.equals(tab))
 			return new PrimaryKeysCop();
 		if(TAB_MEDIA_STATS.equals(tab))
@@ -226,7 +230,7 @@ abstract class ConsoleCop extends Cop
 		}
 
 		@Override
-		void writeBody(PrintStream out, Model model, HttpServletRequest request)
+		void writeBody(PrintStream out, Model model, HttpServletRequest request, final boolean historyAvailable, final boolean historyModelShown, final boolean historyRunning)
 		{
 			Console_Jspm.writeNotFound(out, pathInfo);
 		}
