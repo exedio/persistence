@@ -128,7 +128,7 @@ public final class ConsoleServlet extends CopsServlet
 	{
 		final Model model;
 		final boolean historyModelShown;
-		ConnectToken loggerConnectToken = null;
+		ConnectToken historyConnectToken = null;
 		try
 		{
 			if(historyAvailable)
@@ -150,7 +150,7 @@ public final class ConsoleServlet extends CopsServlet
 				model = historyModelShown ? HistoryThread.HISTORY_MODEL : this.model;
 				if(historyModelShown)
 				{
-					loggerConnectToken =
+					historyConnectToken =
 						ConnectToken.issue(
 								HistoryThread.HISTORY_MODEL,
 								new ConnectProperties(new File(this.model.getProperties().getContext().
@@ -187,8 +187,8 @@ public final class ConsoleServlet extends CopsServlet
 		}
 		finally
 		{
-			if(loggerConnectToken!=null)
-				loggerConnectToken.returnIt();
+			if(historyConnectToken!=null)
+				historyConnectToken.returnIt();
 		}
 	}
 	
