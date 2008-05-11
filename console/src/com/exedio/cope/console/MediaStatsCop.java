@@ -56,6 +56,15 @@ final class MediaStatsCop extends ConsoleCop
 			}
 		}
 
+		final String[] names = {
+				"Exception (500)",
+				"Not An Item (404)",
+				"No Such Item (404)",
+				"Is Null (404)",
+				"Not Computable (404)",
+				"Not Modified (304)",
+				"Delivered (200/301)",
+			};
 		final int[] total = new int[7];
 		final int[][] logs = new int[medias.size()][];
 
@@ -77,7 +86,7 @@ final class MediaStatsCop extends ConsoleCop
 			logs[mediaIndex++] = log;
 		}
 		
-		Media_Jspm.writeBody(this, out, medias, logs, total);
+		Media_Jspm.writeBody(this, out, medias, names, logs, total);
 	}
 	
 	final String[] format(final int[] numbers)

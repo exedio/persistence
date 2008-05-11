@@ -40,18 +40,10 @@ final class Media_Jspm extends Console_Jspm
 			final MediaStatsCop cop,
 			final PrintStream out,
 			final Collection<MediaPath> media,
+			final String[] names,
 			final int[][] logs,
 			final int[] total)
 	{
-		final String[] names = {
-			"Exception (500)",
-			"Not An Item (404)",
-			"No Such Item (404)",
-			"Is Null (404)",
-			"Not Computable (404)",
-			"Not Modified (304)",
-			"Delivered (200/301)",
-		};
 		%>
 		<table>
 			<caption>Media Statistics</caption>
