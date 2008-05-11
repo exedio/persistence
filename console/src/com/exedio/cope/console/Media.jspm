@@ -47,7 +47,7 @@ final class Media_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Media Statistics</caption>
-			<tr><th colspan="<%=names.length+1%>">No Such Path (404)</th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
+			<tr><th colspan="<%=names.length+1%>">No Such Path <small>(404)</small></th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
 			writeColouredHeader(out, names, 0, 2);
 			%>
 			<tr><%

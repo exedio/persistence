@@ -57,13 +57,13 @@ final class MediaStatsCop extends ConsoleCop
 		}
 
 		final String[] names = {
-				"Exception (500)",
-				"Not An Item (404)",
-				"No Such Item (404)",
-				"Is Null (404)",
-				"Not Computable (404)",
-				"Not Modified (304)",
-				"Delivered (200/301)",
+				"Exception <small>(500)</small>",
+				"Not An Item <small>(404)</small>",
+				"No Such Item <small>(404)</small>",
+				"Is Null <small>(404)</small>",
+				"Not Computable <small>(404)</small>",
+				"Not Modified <small>(304)</small>",
+				"Delivered <small>(200/301)</small>",
 			};
 		final int[] total = new int[7];
 		final int[][] logs = new int[medias.size()][];
