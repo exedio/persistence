@@ -43,7 +43,7 @@ final class HistoryThread extends Thread
 	private static final String NAME = "COPE History";
 	
 	private final String name;
-	private final Model loggedModel;
+	private final Model watchedModel;
 	private final String propertyFile;
 	private final Object lock = new Object();
 	private final String topic;
@@ -55,7 +55,7 @@ final class HistoryThread extends Thread
 		super(NAME);
 		this.name = NAME + ' ' + '(' + Integer.toString(System.identityHashCode(this), 36) + ')';
 		setName(name);
-		this.loggedModel = model;
+		this.watchedModel = model;
 		this.propertyFile = propertyFile;
 		this.topic = name + ' ';
 		
@@ -63,7 +63,7 @@ final class HistoryThread extends Thread
 		assert propertyFile!=null;
 		
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
-		for(final Type<?> type : loggedModel.getTypes())
+		for(final Type<?> type : watchedModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPath)
 					medias.add((MediaPath)feature);
@@ -137,10 +137,10 @@ final class HistoryThread extends Thread
 		
 		// gather data
 		final Date date = new Date();
-		final ConnectionPoolInfo connectionPoolInfo = loggedModel.getConnectionPoolInfo();
-		final long nextTransactionId = loggedModel.getNextTransactionId();
-		final CacheInfo[] itemCacheInfos = loggedModel.getItemCacheInfo();
-		final long[] queryCacheInfo = loggedModel.getQueryCacheInfo();
+		final ConnectionPoolInfo connectionPoolInfo = watchedModel.getConnectionPoolInfo();
+		final long nextTransactionId = watchedModel.getNextTransactionId();
+		final CacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
+		final long[] queryCacheInfo = watchedModel.getQueryCacheInfo();
 		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
 		int mediaValuesIndex = 0;
 		for(final MediaPath path : medias)
