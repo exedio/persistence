@@ -101,8 +101,8 @@ final class HistoryThread extends Thread
 				
 				for(int running = 0; proceed; running++)
 				{
-					System.out.println(topic + "run() LOG " + running);
-					log(running);
+					System.out.println(topic + "run() store " + running);
+					store(running);
 					sleepByWait(60000l);
 				}
 			}
@@ -125,7 +125,7 @@ final class HistoryThread extends Thread
 		}
 	}
 	
-	private void log(final int running)
+	private void store(final int running)
 	{
 		// prepare
 		final int thread = System.identityHashCode(this);
