@@ -135,18 +135,18 @@ public final class ConsoleServlet extends CopsServlet
 			{
 				if(Cop.isPost(request))
 				{
-					final String d = request.getParameter(LOGGER);
+					final String d = request.getParameter(HISTORY_MODEL_SHOWN);
 					if("true".equals(d))
-						request.getSession().setAttribute(LOGGER, Boolean.TRUE);
+						request.getSession().setAttribute(HISTORY_MODEL_SHOWN, Boolean.TRUE);
 					else if("false".equals(d))
-						request.getSession().removeAttribute(LOGGER);
+						request.getSession().removeAttribute(HISTORY_MODEL_SHOWN);
 					else if(HISTORY_START.equals(d))
 						startHistory();
 					else if(HISTORY_STOP.equals(d))
 						stopHistory();
 				}
 				final HttpSession session = request.getSession(false);
-				historyModelShown = session!=null && session.getAttribute(LOGGER)!=null;
+				historyModelShown = session!=null && session.getAttribute(HISTORY_MODEL_SHOWN)!=null;
 				model = historyModelShown ? HistoryThread.HISTORY_MODEL : this.model;
 				if(historyModelShown)
 				{
@@ -192,7 +192,7 @@ public final class ConsoleServlet extends CopsServlet
 		}
 	}
 	
-	static final String LOGGER = "logger";
+	static final String HISTORY_MODEL_SHOWN = "logger";
 	static final String HISTORY_START = "history.start";
 	static final String HISTORY_STOP  = "history.stop";
 	
