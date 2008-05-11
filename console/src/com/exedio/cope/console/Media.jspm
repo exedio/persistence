@@ -131,7 +131,7 @@ final class Media_Jspm extends Console_Jspm
 			<tr><%
 				writeColouredData(out, cop.format(total));
 				%>
-				<td class="text" colspan="3">Total</td>
+				<th colspan="3">Total</th>
 			</tr>
 		</table><%
 	}
