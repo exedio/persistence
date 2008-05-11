@@ -124,7 +124,7 @@ public final class ConsoleServlet extends CopsServlet
 		throws IOException
 	{
 		final Model model;
-		final boolean logger;
+		final boolean historyModelShown;
 		ConnectToken loggerConnectToken = null;
 		try
 		{
@@ -143,9 +143,9 @@ public final class ConsoleServlet extends CopsServlet
 						stopHistory();
 				}
 				final HttpSession session = request.getSession(false);
-				logger = session!=null && session.getAttribute(LOGGER)!=null;
-				model = logger ? HistoryThread.HISTORY_MODEL : this.model;
-				if(logger)
+				historyModelShown = session!=null && session.getAttribute(LOGGER)!=null;
+				model = historyModelShown ? HistoryThread.HISTORY_MODEL : this.model;
+				if(historyModelShown)
 				{
 					loggerConnectToken =
 						ConnectToken.issue(
@@ -157,7 +157,7 @@ public final class ConsoleServlet extends CopsServlet
 			}
 			else
 			{
-				logger = false;
+				historyModelShown = false;
 				model = this.model;
 			}
 			
@@ -167,7 +167,7 @@ public final class ConsoleServlet extends CopsServlet
 			final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
 			Console_Jspm.write(
 					out, request, response, model, cop,
-					historyAvailable, logger, isHistoryRunning());
+					historyAvailable, historyModelShown, isHistoryRunning());
 			out.close();
 		}
 		finally

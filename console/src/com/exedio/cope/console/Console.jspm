@@ -38,7 +38,7 @@ abstract class Console_Jspm
 				final Model model,
 				final ConsoleCop cop,
 				final boolean historyAvailable,
-				final boolean logger,
+				final boolean historyModelShown,
 				final boolean historyRunning)
 	{
 		try
@@ -76,8 +76,8 @@ abstract class Console_Jspm
 		%>
 		<form action="<%=cop%>" method="POST">
 			Model:
-			<input type="hidden" value="<% if(logger){%>false<%}else{%>true<%} %>" name="<%=ConsoleServlet.LOGGER%>">
-			<input type="submit" value="<% if(logger){%>main<%}else{%>logger<%} %>">
+			<input type="hidden" value="<% if(historyModelShown){%>false<%}else{%>true<%} %>" name="<%=ConsoleServlet.LOGGER%>">
+			<input type="submit" value="<% if(historyModelShown){%>main<%}else{%>logger<%} %>">
 		</form>
 		History:<% if(!historyRunning){%> not<%} %> running
 		<form action="<%=cop%>" method="POST">
