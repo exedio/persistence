@@ -32,36 +32,6 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>consoleAuth</servlet-name>
-		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
-		<init-param>
-			<param-name>model</param-name>
-			<param-value>com.exedio.cope.testmodel.Main#model</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>consoleAuth</servlet-name>
-		<url-pattern>/consoleAuth/*</url-pattern>
-	</servlet-mapping>
-	<security-constraint>
-		<web-resource-collection>
-			<url-pattern>/consoleAuth/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<!--  manager is the same role as required by Tomcat Manager
-					and Lambda Probe for full access to all functionality -->
-			<role-name>manager</role-name>
-		</auth-constraint>
-	</security-constraint>
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>example realm name</realm-name>
-	</login-config>
-	<security-role>
-		<role-name>manager</role-name>
-	</security-role>
-
-	<servlet>
 		<servlet-name>copernica</servlet-name>
 		<servlet-class>com.exedio.copernica.CopernicaServlet</servlet-class>
 		<init-param>
