@@ -253,12 +253,14 @@ final class HistoryThread extends Thread
 					new HistoryItemCache(itemCacheSetValue);
 				}
 			}
-			final SetValue modelSetValue = HistoryMedia.model.map(model);
-			for(SetValue[] mediaSetValue : mediaSetValues)
 			{
-				assert mediaSetValue[0]==null : mediaSetValue[0];
-				mediaSetValue[0] = modelSetValue;
-				new HistoryMedia(mediaSetValue);
+				final SetValue modelSetValue = HistoryMedia.model.map(model);
+				for(SetValue[] mediaSetValue : mediaSetValues)
+				{
+					assert mediaSetValue[0]==null : mediaSetValue[0];
+					mediaSetValue[0] = modelSetValue;
+					new HistoryMedia(mediaSetValue);
+				}
 			}
 			HISTORY_MODEL.commit();
 		}
