@@ -20,6 +20,7 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -148,27 +149,36 @@ abstract class Console_Jspm
 	
 	private static final int COLORS = 2;
 	
-	static final void writeColouredHeader(final PrintStream out, final String[] names, final int postColumns)
+	static final void writeColouredHeader(final PrintStream out, final String[] names, final String[] shortNames)
 	{
+			final int postColumns = names.length - shortNames.length;
+			if(postColumns<=0)
+				throw new RuntimeException(Arrays.toString(names) + Arrays.toString(shortNames));
+			
 			%>
 			<tr>
-				<th colspan="<%= names.length + postColumns %>" class="color0"><%=names[0]%></th>
+				<th colspan="<%= shortNames.length + postColumns %>" class="color0"><%=names[0]%></th>
 			</tr><%
 	
-			for(int i = 1; i<names.length; i++)
+			for(int i = 1; i<shortNames.length; i++)
 			{
 			%>
 			<tr>
-				<th rowspan="<%= names.length - i + 1 %>" class="color<%= (i-1)%COLORS %>"></th>
-				<th colspan="<%= names.length - i + postColumns %>" class="color<%= i%COLORS %>"><%=names[i]%></th>
+				<th rowspan="<%= shortNames.length - i %>" class="color<%= (i-1)%COLORS %>"></th>
+				<th colspan="<%= shortNames.length - i + postColumns %>" class="color<%= i%COLORS %>"><%=names[i]%></th>
 			</tr><%
 			}
-	}
-
-	static final void writeColouredHeaderSchnips(final PrintStream out, final String[] names)
-	{
+			int i = 0;
+			for(; i<shortNames.length; i++)
+			{
 				%>
-				<th class="color<%= (names.length-1)%COLORS %>"></th><%
+				<th class="color<%= i%COLORS %>s"><%= shortNames[i]  %></th><%
+			}
+			for(; i<names.length; i++)
+			{
+				%>
+				<th><%= names[i] %></th><%
+			}
 	}
 	
 	static final void writeColouredData(final PrintStream out, final String[] data)

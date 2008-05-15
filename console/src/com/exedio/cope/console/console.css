@@ -102,6 +102,9 @@ table tr.unspecified td
 table th.color0 { margin:0px; background:#ccc; border-color:#ccc; text-align:left; padding-left:0.3em; }
 table th.color1 { margin:0px; background:#fff; border-color:#fff; text-align:left; padding-left:0.3em; }
 
+table th.color0s { margin:0px; background:#ccc; border-color:#ccc; text-align:center; min-width:1.5em; }
+table th.color1s { margin:0px; background:#fff; border-color:#fff; text-align:center; min-width:1.5em; }
+
 table td.color0 { margin:0px; background:#ddf; border-color:#ddf; }
 table td.color1 { margin:0px; background:#fff; border-color:#ddf; }
 

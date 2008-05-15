@@ -52,17 +52,25 @@ final class ItemCache_Jspm extends Console_Jspm
 			"Age Min (s)",
 			"Age Average (s)",
 			"Age Max (s)",
+			"Type",
+		};
+		final String[] shortNames = {
+			"lm",
+			"lv",
+			"ht",
+			"ms",
+			"noc",
+			"icu",
+			"lc",
+			"an",
+			"aa",
+			"ax",
 		};
 		%>
 		<table>
 			<caption>Item Cache Statistics</caption><%
-			writeColouredHeader(out, names, 1);
+			writeColouredHeader(out, names, shortNames);
 			%>
-			<tr><%
-				writeColouredHeaderSchnips(out, names);
-				%>
-				<th>Type</th>
-			</tr>
 			<tr><%
 				final String[] allData = {
 						cop.formatAndHide(0, allLimit),

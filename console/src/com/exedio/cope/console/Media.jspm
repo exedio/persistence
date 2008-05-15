@@ -41,22 +41,15 @@ final class Media_Jspm extends Console_Jspm
 			final PrintStream out,
 			final Collection<MediaPath> media,
 			final String[] names,
+			final String[] shortNames,
 			final int[][] logs,
 			final int[] total)
 	{
 		%>
 		<table>
 			<caption>Media Statistics</caption>
-			<tr><th colspan="<%=names.length+1%>">No Such Path <small>(404)</small></th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
-			writeColouredHeader(out, names, 2);
-			%>
-			<tr><%
-				writeColouredHeaderSchnips(out, names);
-				%>
-				<th>Type</th>
-				<th>Name</th>
-				<th>Description</th>
-			</tr><%
+			<tr><th colspan="<%=shortNames.length+1%>">No Such Path <small>(404)</small></th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
+			writeColouredHeader(out, names, shortNames);
 			int mediaIndex = 0;
 			boolean firstMediaImageMagickFilter = true;
 			for(final MediaPath path : media)

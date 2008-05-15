@@ -71,17 +71,18 @@ final class QueryCache_Jspm extends Console_Jspm
 			"Count",
 			"Result Size (Sum)",
 			"Cache Hits (Sum)",
+			"Query",
+		};
+		final String[] shortNames = {
+			"ru",
+			"cnt",
+			"rs",
+			"ch",
 		};
 		%>
 		<table>
 			<caption>Query Cache Histogram</caption><%
-			writeColouredHeader(out, names, 1);
-			%>
-			<tr><%
-				writeColouredHeaderSchnips(out, names);
-				%>
-				<th>Query</th>
-			</tr><%
+			writeColouredHeader(out, names, shortNames);
 		
 		final int histogramLimit = cop.histogramLimit;
 		
@@ -91,7 +92,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			{
 			%>
 			<tr>
-				<td class="text" colspan="<%=names.length+1%>">
+				<td class="text" colspan="<%=names.length%>">
 					Skipped display of <%=content.histogramCondensed.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
 					<form action="<%=cop%>" method="GET">
 						New limit:
@@ -124,17 +125,17 @@ final class QueryCache_Jspm extends Console_Jspm
 			"Recent Usage (LRU)",
 			"Result Size",
 			"Cache Hits",
+			"Query",
+		};
+		final String[] shortNames = {
+			"ru",
+			"rs",
+			"ch",
 		};
 		%>
 		<table>
 			<caption>Query Cache Histogram</caption><%
-			writeColouredHeader(out, names, 1);
-			%>
-			<tr><%
-				writeColouredHeaderSchnips(out, names);
-				%>
-				<th>Query</th>
-			</tr><%
+			writeColouredHeader(out, names, shortNames);
 		
 		final int histogramLimit = cop.histogramLimit;
 		
@@ -144,7 +145,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			{
 			%>
 			<tr>
-				<td class="text" colspan="<%=names.length+1%>">
+				<td class="text" colspan="<%=names.length%>">
 					Skipped display of <%=content.histogram.length-histogramLimit%> more queries because limited to <%=histogramLimit%> queries.
 					<form action="<%=cop%>" method="GET">
 						New limit:

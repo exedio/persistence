@@ -64,6 +64,18 @@ final class MediaStatsCop extends ConsoleCop
 				"Not Computable <small>(404)</small>",
 				"Not Modified <small>(304)</small>",
 				"Delivered <small>(200/301)</small>",
+				"Type",
+				"Name",
+				"Description",
+			};
+		final String[] shortNames = {
+				"ex",
+				"nai",
+				"nsi",
+				"in",
+				"nc",
+				"nm",
+				"del",
 			};
 		final int[] total = new int[7];
 		final int[][] logs = new int[medias.size()][];
@@ -86,7 +98,7 @@ final class MediaStatsCop extends ConsoleCop
 			logs[mediaIndex++] = log;
 		}
 		
-		Media_Jspm.writeBody(this, out, medias, names, logs, total);
+		Media_Jspm.writeBody(this, out, medias, names, shortNames, logs, total);
 	}
 	
 	final String[] format(final int[] numbers)

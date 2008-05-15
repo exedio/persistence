@@ -38,6 +38,14 @@ final class ConnectionPool_Jspm extends Console_Jspm
 			"Idle Maximum",
 			"Create",
 			"Destroy",
+			"Idle Limit",
+		};
+		final String[] shortNames = {
+			"%",
+			"id",
+			"ix",
+			"cr",
+			"dy",
 		};
 		%>
 		<table>
@@ -66,13 +74,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 		<hr>
 		<table>
 			<caption>Hypothetical</caption><%
-			writeColouredHeader(out, names, 1);
-			%>
-			<tr><%
-				writeColouredHeaderSchnips(out, names);
-				%>
-				<th>Idle Limit</th>
-			</tr><%
+			writeColouredHeader(out, names, shortNames);
 			for(final PoolCounter.Pool pool : poolCounter.getPools())
 			{
 				final boolean inconsistent = !pool.isConsistent();
