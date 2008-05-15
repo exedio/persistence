@@ -56,7 +56,7 @@ final class ItemCache_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Item Cache Statistics</caption><%
-			writeColouredHeader(out, names, 0, 1);
+			writeColouredHeader(out, names, 1);
 			%>
 			<tr><%
 				writeColouredHeaderSchnips(out, names);

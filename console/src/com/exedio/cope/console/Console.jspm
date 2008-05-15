@@ -148,16 +148,10 @@ abstract class Console_Jspm
 	
 	private static final int COLORS = 2;
 	
-	static final void writeColouredHeader(final PrintStream out, final String[] names, final int preColumns, final int postColumns)
+	static final void writeColouredHeader(final PrintStream out, final String[] names, final int postColumns)
 	{
 			%>
-			<tr><%
-				if(preColumns>0)
-				{
-				%>
-				<th colspan="<%=preColumns%>" rowspan="<%=names.length%>"></th><%
-				}
-				%>
+			<tr>
 				<th colspan="<%= names.length + postColumns %>" class="color0"><%=names[0]%></th>
 			</tr><%
 	

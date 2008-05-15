@@ -75,7 +75,7 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Query Cache Histogram</caption><%
-			writeColouredHeader(out, names, 0, 1);
+			writeColouredHeader(out, names, 1);
 			%>
 			<tr><%
 				writeColouredHeaderSchnips(out, names);
@@ -128,7 +128,7 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Query Cache Histogram</caption><%
-			writeColouredHeader(out, names, 0, 1);
+			writeColouredHeader(out, names, 1);
 			%>
 			<tr><%
 				writeColouredHeaderSchnips(out, names);
