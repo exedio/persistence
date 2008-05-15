@@ -151,13 +151,12 @@ abstract class Console_Jspm
 	
 	static final void writeColouredHeader(final PrintStream out, final String[] names, final String[] shortNames)
 	{
-			final int postColumns = names.length - shortNames.length;
-			if(postColumns<=0)
+			if(names.length<=shortNames.length)
 				throw new RuntimeException(Arrays.toString(names) + Arrays.toString(shortNames));
 			
 			%>
 			<tr>
-				<th colspan="<%= shortNames.length + postColumns %>" class="color0"><%=names[0]%></th>
+				<th colspan="<%= names.length %>" class="color0"><%=names[0]%></th>
 			</tr><%
 	
 			for(int i = 1; i<shortNames.length; i++)
@@ -165,7 +164,7 @@ abstract class Console_Jspm
 			%>
 			<tr>
 				<th rowspan="<%= shortNames.length - i %>" class="color<%= (i-1)%COLORS %>"></th>
-				<th colspan="<%= shortNames.length - i + postColumns %>" class="color<%= i%COLORS %>"><%=names[i]%></th>
+				<th colspan="<%=      names.length - i %>" class="color<%= i%COLORS %>"><%=names[i]%></th>
 			</tr><%
 			}
 			int i = 0;
