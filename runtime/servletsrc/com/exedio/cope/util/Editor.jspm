@@ -79,8 +79,11 @@ final class Editor_Jspm
 					<td>Password</td>
 					<td><input type="password" name="<%=Editor.LOGIN_PASSWORD%>"></td>
 				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" name="<%=Editor.LOGIN_SUBMIT%>" value="Login"></td>
+				</tr>
 			</table>
-			<input type="submit" name="<%=Editor.LOGIN_SUBMIT%>" value="Login">
 		</form>
 		<div class="footer">
 			<%=encode(thePackage.getSpecificationTitle())%>
