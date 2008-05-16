@@ -431,7 +431,7 @@ public abstract class Editor implements Filter
 					else
 					{
 						out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
-						Editor_Jspm.writeLogin(out, response, user);
+						Editor_Jspm.writeLogin(out, response, Editor.class.getPackage(), user);
 					}
 					model.commit();
 				}
@@ -443,7 +443,7 @@ public abstract class Editor implements Filter
 			else
 			{
 				out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
-				Editor_Jspm.writeLogin(out, response, null);
+				Editor_Jspm.writeLogin(out, response, Editor.class.getPackage(), null);
 			}
 		}
 		finally

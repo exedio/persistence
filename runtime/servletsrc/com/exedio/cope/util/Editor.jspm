@@ -19,6 +19,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cops.Cop.encode;
+
 import java.io.PrintStream;
 
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +33,7 @@ final class Editor_Jspm
 	static final void writeLogin(
 			final PrintStream out,
 			final HttpServletResponse response,
+			final Package thePackage,
 			final String failureUser)
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
@@ -41,14 +44,24 @@ final class Editor_Jspm
 		<style>
 			img
 			{
-				float: right;
-				margin: 0px 20px;
-				border: 0px;
+				border:0;
+			}
+			
+			img.logo
+			{
+				float:right;
+				width:198px;
+				height:60px;
+			}
+			
+			div.footer
+			{
+				font-size:70%;
 			}
 		</style>
 	</head>
 	<body>
-		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" width="198" height="60" border="0"></a>
+		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<h1>COPE Content Editor</h1><%
 		if(failureUser!=null)
 		{
@@ -69,6 +82,10 @@ final class Editor_Jspm
 			</table>
 			<input type="submit" name="<%=Editor.LOGIN_SUBMIT%>" value="Login">
 		</form>
+		<div class="footer">
+			<%=encode(thePackage.getSpecificationTitle())%>
+			<%=encode(thePackage.getSpecificationVersion())%>
+		</div>
 	</body>
 </html><%
 	}
