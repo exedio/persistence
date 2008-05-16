@@ -45,6 +45,17 @@ hr
 	border-top:1px solid #999;
 }
 
+table caption
+{
+	font-style:italic;
+	text-align:left;
+	white-space:nowrap;
+	background:#ccc;
+	padding:1px 5px;
+	border:solid 2px white;
+	border-bottom-width:0px;
+}
+
 table th
 {
 	text-align:left;
@@ -61,17 +72,6 @@ table td
 	vertical-align:top;
 	border:solid 1px #ccc;
 	padding:1px 3px;
-}
-
-table caption
-{
-	font-style:italic;
-	text-align:left;
-	white-space:nowrap;
-	background:#ccc;
-	padding:1px 5px;
-	border:solid 2px white;
-	border-bottom-width:0px;
 }
 
 table td.text
