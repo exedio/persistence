@@ -1,12 +1,4 @@
 
-body
-{
-	font-family:Arial,Helvetica,Helv,sans-serif;
-	font-size:12pt;
-	color:#000;
-	background-color:#FFF;
-}
-
 a:link      { color:#009; }
 a:visited   { color:#606; }
 a:active    { color:#900; }
@@ -14,13 +6,12 @@ a:hover     { color:#606; background-color:#eef; }
 
 h1
 {
-	font-size:24pt;
+	font-size:180%;
 	width:100%;
 	font-family:Arial,Helvetica,Helv,sans-serif;
 	font-weight:bold;
 	color:#000;
 	background-color:#fff;
-	padding:2pt;
 	border-width:1px; border-color:#fff;
 }
 
@@ -42,9 +33,9 @@ h2,h3,h4
 	border-width:1px; border-color:#fff;
 }
 
-h2 { font-size:18pt; }
-h3 { font-size:14pt; }
-h4 { font-size:12pt; }
+h2 { font-size:150%; }
+h3 { font-size:116%; }
+h4 { font-size:100%; }
 
 div
 {
