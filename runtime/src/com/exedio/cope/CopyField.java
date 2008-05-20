@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.util.Map;
 import java.util.Set;
 
-
 public final class CopyField<E> extends Pattern implements Settable<E>
 {
 	private final ItemField target;
@@ -95,6 +94,13 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		return new SetValue<E>(this, value);
 	}
 	
+	void check2(final SetValue v, final Map<Field, Object> fieldValues)
+	{
+		final Item targetItem = (Item)fieldValues.get(target);
+		if(targetItem!=null)
+			check(v, targetItem);
+	}
+	
 	private void check(final SetValue v, final Item targetItem)
 	{
 		final FunctionField templateField = (FunctionField)target.getValueType().getFeature(getName());
@@ -106,12 +112,5 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		final Object copyValue = v.value;
 		if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
 			throw new IllegalArgumentException("mismatch on copy: " + targetItem + '/' + this + '/' + templateValue + '/' + copyValue);
-	}
-	
-	void check2(final SetValue v, final Map<Field, Object> fieldValues)
-	{
-		final Item targetItem = (Item)fieldValues.get(target);
-		if(targetItem!=null)
-			check(v, targetItem);
 	}
 }
