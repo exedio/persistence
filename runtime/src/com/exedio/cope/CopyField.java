@@ -24,7 +24,7 @@ import java.util.Set;
 public final class CopyField<E> extends Pattern implements Settable<E>
 {
 	final ItemField target;
-	final FunctionField<E> copy;
+	private final FunctionField<E> copy;
 
 	private CopyField(final ItemField target, final FunctionField<E> copy)
 	{
@@ -92,5 +92,18 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 	public SetValue map(E value)
 	{
 		return new SetValue<E>(this, value);
+	}
+	
+	void check(final SetValue v, final Item targetItem)
+	{
+		final FunctionField templateField = (FunctionField)target.getValueType().getFeature(getName());
+		if(templateField==null)
+			throw new RuntimeException("not found on copy: " + targetItem + '/' + this);
+		if(!templateField.isfinal)
+			throw new RuntimeException("not final on copy: " + targetItem + '/' + this + '/' + templateField);
+		final Object templateValue = templateField.get(targetItem);
+		final Object copyValue = v.value;
+		if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
+			throw new IllegalArgumentException("mismatch on copy: " + targetItem + '/' + this + '/' + templateValue + '/' + copyValue);
 	}
 }
