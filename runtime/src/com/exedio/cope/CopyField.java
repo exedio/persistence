@@ -107,7 +107,7 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 			final Object templateValue = templateField.get(targetItem);
 			final Object copyValue = v.value;
 			if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
-				throw new IllegalArgumentException("mismatch on copy: " + targetItem + '/' + this + '/' + templateValue + '/' + copyValue);
+				throw new CopyViolationException(targetItem, this, templateValue, copyValue);
 		}
 	}
 }

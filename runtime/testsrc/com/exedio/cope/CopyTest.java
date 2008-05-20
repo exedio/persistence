@@ -158,8 +158,13 @@ public class CopyTest extends AbstractLibTest
 			new CopySourceItem(target2, "template1", value2);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(CopyViolationException e)
 		{
+			assertEquals(CopySourceItem.templateString, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("template2", e.getExpectedValue());
+			assertEquals("template1", e.getActualValue());
+			assertEquals(target2, e.getTargetItem());
 			assertEquals(
 					"mismatch on copy: " + target2.getCopeID() +
 					"/" + CopySourceItem.templateString +
@@ -174,8 +179,13 @@ public class CopyTest extends AbstractLibTest
 			new CopySourceItem(target2, null, value2);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(CopyViolationException e)
 		{
+			assertEquals(CopySourceItem.templateString, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("template2", e.getExpectedValue());
+			assertEquals(null, e.getActualValue());
+			assertEquals(target2, e.getTargetItem());
 			assertEquals(
 					"mismatch on copy: " + target2.getCopeID() +
 					"/" + CopySourceItem.templateString +
@@ -190,8 +200,13 @@ public class CopyTest extends AbstractLibTest
 			new CopySourceItem(target2, "template2", value1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(CopyViolationException e)
 		{
+			assertEquals(CopySourceItem.templateItem, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(value2, e.getExpectedValue());
+			assertEquals(value1, e.getActualValue());
+			assertEquals(target2, e.getTargetItem());
 			assertEquals(
 					"mismatch on copy: " + target2.getCopeID() +
 					"/" + CopySourceItem.templateItem +
@@ -206,8 +221,13 @@ public class CopyTest extends AbstractLibTest
 			new CopySourceItem(target2, "template2", null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(CopyViolationException e)
 		{
+			assertEquals(CopySourceItem.templateItem, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(value2, e.getExpectedValue());
+			assertEquals(null, e.getActualValue());
+			assertEquals(target2, e.getTargetItem());
 			assertEquals(
 					"mismatch on copy: " + target2.getCopeID() +
 					"/" + CopySourceItem.templateItem +
@@ -217,17 +237,18 @@ public class CopyTest extends AbstractLibTest
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
 		
-
-	
-	
-	
 		try
 		{
 			new CopySourceItem(targetN, "template1", value2);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(CopyViolationException e)
 		{
+			assertEquals(CopySourceItem.templateString, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(null, e.getExpectedValue());
+			assertEquals("template1", e.getActualValue());
+			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
 					"mismatch on copy: " + targetN.getCopeID() +
 					"/" + CopySourceItem.templateString +
@@ -242,8 +263,13 @@ public class CopyTest extends AbstractLibTest
 			new CopySourceItem(targetN, null, value1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(CopyViolationException e)
 		{
+			assertEquals(CopySourceItem.templateItem, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(null, e.getExpectedValue());
+			assertEquals(value1, e.getActualValue());
+			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
 					"mismatch on copy: " + targetN.getCopeID() +
 					"/" + CopySourceItem.templateItem +
