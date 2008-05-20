@@ -199,6 +199,27 @@ public abstract class Item implements Serializable
 		}
 		
 		checkUniqueConstraints(type, null, fieldValues);
+		
+		for(final SetValue v : setValues)
+		{
+			if(v.settable instanceof CopyField)
+			{
+				final CopyField cv = (CopyField)v.settable;
+				final Item targetItem = (Item)fieldValues.get(cv.target);
+				if(targetItem!=null)
+				{
+					final FunctionField templateField = (FunctionField)cv.target.getValueType().getFeature(cv.getName());
+					if(templateField==null)
+						throw new RuntimeException("not found on copy: " + targetItem + '/' + cv);
+					if(!templateField.isfinal)
+						throw new RuntimeException("not final on copy: " + targetItem + '/' + cv + '/' + templateField);
+					final Object templateValue = templateField.get(targetItem);
+					final Object copyValue = v.value;
+					if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
+						throw new IllegalArgumentException("mismatch on copy: " + targetItem + '/' + cv + '/' + templateValue + '/' + copyValue);
+				}
+			}
+		}
 
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
