@@ -89,6 +89,9 @@ public class CopyTest extends AbstractLibTest
 				FinalViolationException.class,
 				CopySourceItem.templateItem.getInitialExceptions());
 		
+		assertSame(CopySourceItem.targetItem, CopySourceItem.templateString.getTarget());
+		assertSame(CopySourceItem.targetItem, CopySourceItem.templateItem.getTarget());
+		
 		try
 		{
 			CopyField.newField(null, null);
