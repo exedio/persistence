@@ -59,14 +59,19 @@ public final class CopyViolationException extends ConstraintViolationException
 	{
 		return targetItem;
 	}
+	
+	private static final String toString(final Object s)
+	{
+		return s!=null ? ('\'' + s.toString() + '\'') : "null";
+	}
 
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
 		return
-			"mismatch on copy: " + targetItem + '/' +
-			feature + '/' +
-			expectedValue + '/' +
-			actualValue;
+			"mismatch on copy field " + feature +
+			", expected " + toString(expectedValue) +
+			" from target " + targetItem +
+			", but was " +	toString(actualValue);
 	}
 }

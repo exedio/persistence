@@ -166,10 +166,10 @@ public class CopyTest extends AbstractLibTest
 			assertEquals("template1", e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy: " + target2.getCopeID() +
-					"/" + CopySourceItem.templateString +
-					"/template2" +
-					"/template1",
+					"mismatch on copy field " + CopySourceItem.templateString + ", " +
+					"expected 'template2' " +
+					"from target " + target2.getCopeID() + ", " +
+					"but was 'template1'",
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
@@ -187,10 +187,10 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy: " + target2.getCopeID() +
-					"/" + CopySourceItem.templateString +
-					"/template2" +
-					"/null",
+					"mismatch on copy field " + CopySourceItem.templateString + ", " +
+					"expected 'template2' " +
+					"from target " + target2.getCopeID() + ", " +
+					"but was null",
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
@@ -208,10 +208,10 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(value1, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy: " + target2.getCopeID() +
-					"/" + CopySourceItem.templateItem +
-					"/" + value2.getCopeID() + 
-					"/" + value1.getCopeID(),
+					"mismatch on copy field " + CopySourceItem.templateItem + ", " +
+					"expected '" + value2.getCopeID() + "' " +
+					"from target " + target2.getCopeID() + ", " +
+					"but was '" + value1.getCopeID() + "'",
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
@@ -229,10 +229,10 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy: " + target2.getCopeID() +
-					"/" + CopySourceItem.templateItem +
-					"/" + value2.getCopeID() + 
-					"/null",
+					"mismatch on copy field " + CopySourceItem.templateItem + ", " +
+					"expected '" + value2.getCopeID() + "' " +
+					"from target " + target2.getCopeID() + ", " +
+					"but was null",
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
@@ -250,10 +250,10 @@ public class CopyTest extends AbstractLibTest
 			assertEquals("template1", e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy: " + targetN.getCopeID() +
-					"/" + CopySourceItem.templateString +
-					"/null" +
-					"/template1",
+					"mismatch on copy field " + CopySourceItem.templateString + ", " +
+					"expected null " +
+					"from target " + targetN.getCopeID() + ", " +
+					"but was 'template1'",
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
@@ -271,10 +271,10 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(value1, e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy: " + targetN.getCopeID() +
-					"/" + CopySourceItem.templateItem +
-					"/null" +  
-					"/" + value1.getCopeID(),
+					"mismatch on copy field " + CopySourceItem.templateItem + ", " +
+					"expected null " +
+					"from target " + targetN.getCopeID() + ", " +
+					"but was '" + value1.getCopeID() + "'",
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
