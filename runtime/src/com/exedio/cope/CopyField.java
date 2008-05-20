@@ -98,11 +98,7 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem!=null)
-			check(v, targetItem);
-	}
-	
-	private void check(final SetValue v, final Item targetItem)
-	{
+		{
 		final FunctionField templateField = (FunctionField)target.getValueType().getFeature(getName());
 		if(templateField==null)
 			throw new RuntimeException("not found on copy: " + targetItem + '/' + this);
@@ -112,5 +108,6 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		final Object copyValue = v.value;
 		if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
 			throw new IllegalArgumentException("mismatch on copy: " + targetItem + '/' + this + '/' + templateValue + '/' + copyValue);
+		}
 	}
 }
