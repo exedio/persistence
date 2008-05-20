@@ -105,9 +105,9 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 			if(!templateField.isfinal)
 				throw new RuntimeException("not final on copy: " + targetItem + '/' + this + '/' + templateField);
 			final Object expectedValue = templateField.get(targetItem);
-			final Object copyValue = v.value;
-			if(expectedValue==null ? copyValue!=null : !expectedValue.equals(copyValue))
-				throw new CopyViolationException(targetItem, this, expectedValue, copyValue);
+			final Object actualValue = v.value;
+			if(expectedValue==null ? actualValue!=null : !expectedValue.equals(actualValue))
+				throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
 		}
 	}
 }
