@@ -104,10 +104,10 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 				throw new RuntimeException("not found on copy: " + targetItem + '/' + this);
 			if(!templateField.isfinal)
 				throw new RuntimeException("not final on copy: " + targetItem + '/' + this + '/' + templateField);
-			final Object templateValue = templateField.get(targetItem);
+			final Object expectedValue = templateField.get(targetItem);
 			final Object copyValue = v.value;
-			if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
-				throw new CopyViolationException(targetItem, this, templateValue, copyValue);
+			if(expectedValue==null ? copyValue!=null : !expectedValue.equals(copyValue))
+				throw new CopyViolationException(targetItem, this, expectedValue, copyValue);
 		}
 	}
 }
