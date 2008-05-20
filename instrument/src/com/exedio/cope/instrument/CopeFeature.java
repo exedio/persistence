@@ -29,8 +29,6 @@ import com.exedio.cope.Settable;
 class CopeFeature
 {
 	static final String TAG_PREFIX = "cope.";
-	static final String TAG_GETTER  = TAG_PREFIX + "get";
-	static final String TAG_SETTER  = TAG_PREFIX + "set";
 	static final String TAG_INITIAL = TAG_PREFIX + "initial";
 
 	final CopeType parent;
@@ -39,7 +37,6 @@ class CopeFeature
 	final int modifier;
 	final Visibility visibility;
 	final String docComment;
-	final Option setterOption;
 	final boolean initial;
 	private Feature value;
 	
@@ -52,7 +49,6 @@ class CopeFeature
 		this.visibility = javaAttribute.getVisibility();
 
 		this.docComment = javaAttribute.getDocComment();
-		this.setterOption = new Option(Injector.findDocTagLine(docComment, TAG_SETTER), true);
 		this.initial = Injector.hasTag(docComment, TAG_INITIAL);
 		
 		parent.register(this);
@@ -80,22 +76,6 @@ class CopeFeature
 		return instance instanceof Settable && ((Settable)instance).isInitial();
 	}
 
-	private final boolean isWriteable()
-	{
-		final Feature instance = getInstance();
-		return instance instanceof Settable && !((Settable)instance).isFinal();
-	}
-	
-	final boolean hasGeneratedSetter()
-	{
-		return isWriteable() && setterOption.exists;
-	}
-	
-	final int getGeneratedSetterModifier()
-	{
-		return setterOption.getModifier(modifier);
-	}
-	
 	final SortedSet<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Feature instance = getInstance();
