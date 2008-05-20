@@ -202,7 +202,7 @@ public abstract class Item implements Serializable
 		
 		for(final SetValue v : setValues)
 			if(v.settable instanceof CopyField)
-				((CopyField<?>)v.settable).check2(v, fieldValues);
+				((CopyField<?>)v.settable).check(v, fieldValues);
 
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);

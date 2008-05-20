@@ -94,7 +94,7 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		return new SetValue<E>(this, value);
 	}
 	
-	void check2(final SetValue v, final Map<Field, Object> fieldValues)
+	void check(final SetValue v, final Map<Field, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem!=null)
