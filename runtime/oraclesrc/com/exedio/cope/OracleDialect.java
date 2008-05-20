@@ -52,8 +52,6 @@ final class OracleDialect extends Dialect
 		}
 	}
 	
-	private static final String VARCHAR = "varchar";
-
 	/**
 	 * whether to use varchar instead of nvarchar
 	 */
@@ -65,7 +63,7 @@ final class OracleDialect extends Dialect
 				new OracleDriver(
 						parameters.properties.getDatabaseUser().toUpperCase()),
 				"LENGTH");
-		this.varchar = "true".equalsIgnoreCase(parameters.properties.getDatabaseCustomProperty(VARCHAR));
+		this.varchar = parameters.properties.getOracleVarchar();
 	}
 	
 	@Override

@@ -318,7 +318,7 @@ public class SchemaTest extends TestmodelTest
 				string8 = "varchar(8) character set utf8 binary";
 			else
 			{
-				if(model.getProperties().getDatabaseCustomProperty("varchar")!=null)
+				if(model.getProperties().getOracleVarchar())
 					string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 				else
 					string8 = "NVARCHAR2(8)"; // nvarchar specifies characters

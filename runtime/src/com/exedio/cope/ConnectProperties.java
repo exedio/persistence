@@ -44,9 +44,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField databaseDontSupportLimit = new BooleanField("database.dontSupport.limit", false);
 	
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("mysql.lower_case_table_names", false);
+	private final BooleanField oracleVarchar = new BooleanField("database.oracle.varchar", false); // TODO rename to oracle.varchar
 	
 	private final MapField databaseTableOptions = new MapField("database.tableOption");
-	private final MapField databaseCustomProperties;
 	
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
@@ -123,8 +123,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
-		databaseCustomProperties = new MapField("database." + dialectCode);
-		
 		if(connectionPoolIdleInitial.getIntValue()>connectionPoolIdleLimit.getIntValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
 		
@@ -277,14 +275,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return mysqlLowerCaseTableNames.getBooleanValue();
 	}
 	
+	public boolean getOracleVarchar()
+	{
+		return oracleVarchar.getBooleanValue();
+	}
+	
 	java.util.Properties getDatabaseTableOptions()
 	{
 		return databaseTableOptions.getMapValue();
-	}
-	
-	String getDatabaseCustomProperty(final String key)
-	{
-		return databaseCustomProperties.getValue(key);
 	}
 	
 	public boolean getFulltextIndex()
