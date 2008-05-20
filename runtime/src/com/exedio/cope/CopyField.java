@@ -99,15 +99,15 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem!=null)
 		{
-		final FunctionField templateField = (FunctionField)target.getValueType().getFeature(getName());
-		if(templateField==null)
-			throw new RuntimeException("not found on copy: " + targetItem + '/' + this);
-		if(!templateField.isfinal)
-			throw new RuntimeException("not final on copy: " + targetItem + '/' + this + '/' + templateField);
-		final Object templateValue = templateField.get(targetItem);
-		final Object copyValue = v.value;
-		if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
-			throw new IllegalArgumentException("mismatch on copy: " + targetItem + '/' + this + '/' + templateValue + '/' + copyValue);
+			final FunctionField templateField = (FunctionField)target.getValueType().getFeature(getName());
+			if(templateField==null)
+				throw new RuntimeException("not found on copy: " + targetItem + '/' + this);
+			if(!templateField.isfinal)
+				throw new RuntimeException("not final on copy: " + targetItem + '/' + this + '/' + templateField);
+			final Object templateValue = templateField.get(targetItem);
+			final Object copyValue = v.value;
+			if(templateValue==null ? copyValue!=null : !templateValue.equals(copyValue))
+				throw new IllegalArgumentException("mismatch on copy: " + targetItem + '/' + this + '/' + templateValue + '/' + copyValue);
 		}
 	}
 }
