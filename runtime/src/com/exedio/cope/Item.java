@@ -204,10 +204,7 @@ public abstract class Item implements Serializable
 		{
 			if(v.settable instanceof CopyField)
 			{
-				final CopyField cv = (CopyField)v.settable;
-				final Item targetItem = (Item)fieldValues.get(cv.target);
-				if(targetItem!=null)
-					cv.check(v, targetItem);
+				((CopyField<?>)v.settable).check2(v, fieldValues);
 			}
 		}
 
