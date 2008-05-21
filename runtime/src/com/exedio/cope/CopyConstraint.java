@@ -20,12 +20,12 @@ package com.exedio.cope;
 
 import java.util.Map;
 
-public final class CopyConstraint<E> extends Pattern
+public final class CopyConstraint extends Pattern
 {
 	private final ItemField target;
-	private final FunctionField<E> copy;
+	private final FunctionField copy;
 
-	private CopyConstraint(final ItemField target, final FunctionField<E> copy)
+	public CopyConstraint(final ItemField target, final FunctionField copy)
 	{
 		if(target==null)
 			throw new NullPointerException("target must not be null");
@@ -41,17 +41,12 @@ public final class CopyConstraint<E> extends Pattern
 		registerSource(copy);
 	}
 	
-	public static final <E> CopyConstraint<E> newField(final ItemField target, final FunctionField<E> copy)
-	{
-		return new CopyConstraint<E>(target, copy);
-	}
-
 	public ItemField getTarget()
 	{
 		return target;
 	}
 
-	public FunctionField<E> getCopy()
+	public FunctionField getCopy()
 	{
 		return copy;
 	}

@@ -98,7 +98,7 @@ public class CopyTest extends AbstractLibTest
 		assertSame(CopySourceItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getCopy());
 		try
 		{
-			CopyConstraint.newField(null, null);
+			new CopyConstraint(null, null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -107,7 +107,7 @@ public class CopyTest extends AbstractLibTest
 		}
 		try
 		{
-			CopyConstraint.newField(Item.newItemField(CopyValueItem.class), null);
+			new CopyConstraint(Item.newItemField(CopyValueItem.class), null);
 			fail();
 		}
 		catch(NullPointerException e)
@@ -116,7 +116,7 @@ public class CopyTest extends AbstractLibTest
 		}
 		try
 		{
-			CopyConstraint.newField(Item.newItemField(CopyValueItem.class), new StringField());
+			new CopyConstraint(Item.newItemField(CopyValueItem.class), new StringField());
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -125,7 +125,7 @@ public class CopyTest extends AbstractLibTest
 		}
 		try
 		{
-			CopyConstraint.newField(Item.newItemField(CopyValueItem.class).toFinal(), new StringField());
+			new CopyConstraint(Item.newItemField(CopyValueItem.class).toFinal(), new StringField());
 			fail();
 		}
 		catch(IllegalArgumentException e)

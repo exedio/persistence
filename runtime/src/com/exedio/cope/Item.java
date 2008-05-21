@@ -202,7 +202,7 @@ public abstract class Item implements Serializable
 		
 		for(final Feature v : type.getFeatures())
 			if(v instanceof CopyConstraint)
-				((CopyConstraint<?>)v).check(fieldValues);
+				((CopyConstraint)v).check(fieldValues);
 
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
