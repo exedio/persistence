@@ -18,8 +18,13 @@
 
 package com.exedio.cope;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.exedio.cope.instrument.Wrapper;
 
 public final class CopyField<E> extends Pattern implements Settable<E>
 {
@@ -94,6 +99,20 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		return new SetValue<E>(this, value);
 	}
 	
+	@Override
+	public List<Wrapper> getWrappers()
+	{
+		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		result.addAll(super.getWrappers());
+		
+		result.add(
+			new Wrapper("get").
+			addComment("Returns the value of {0}.").
+			setReturn(getInitialType()));
+			
+		return Collections.unmodifiableList(result);
+	}
+	
 	void check(final SetValue v, final Map<Field, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
@@ -109,5 +128,10 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 			if(expectedValue==null ? actualValue!=null : !expectedValue.equals(actualValue))
 				throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
 		}
+	}
+	
+	E get(final Item item)
+	{
+		return copy.get(item);
 	}
 }
