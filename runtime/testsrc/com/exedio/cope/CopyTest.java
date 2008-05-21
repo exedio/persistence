@@ -91,6 +91,8 @@ public class CopyTest extends AbstractLibTest
 		
 		assertSame(CopySourceItem.targetItem, CopySourceItem.templateString.getTarget());
 		assertSame(CopySourceItem.targetItem, CopySourceItem.templateItem.getTarget());
+		assertSame(CopyTargetItem.templateString, CopySourceItem.templateString.getTemplate());
+		assertSame(CopyTargetItem.templateItem,   CopySourceItem.templateItem.getTemplate());
 		
 		try
 		{

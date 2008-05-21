@@ -113,16 +113,25 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		return Collections.unmodifiableList(result);
 	}
 	
+	public FunctionField getTemplate()
+	{
+		final Feature feature = target.getValueType().getFeature(getName());
+		if(feature==null)
+			throw new RuntimeException("not found on copy: " + this);
+		if(!(feature instanceof FunctionField))
+			throw new ClassCastException("not a FunctionField on copy: " + this + '/' + feature + '/' + feature.getClass().getName());
+		final FunctionField field = (FunctionField)feature;
+		if(!field.isfinal)
+			throw new RuntimeException("not final on copy: " + this + '/' + field);
+		return field;
+	}
+	
 	void check(final SetValue v, final Map<Field, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem!=null)
 		{
-			final FunctionField templateField = (FunctionField)target.getValueType().getFeature(getName());
-			if(templateField==null)
-				throw new RuntimeException("not found on copy: " + targetItem + '/' + this);
-			if(!templateField.isfinal)
-				throw new RuntimeException("not final on copy: " + targetItem + '/' + this + '/' + templateField);
+			final FunctionField templateField = getTemplate();
 			final Object expectedValue = templateField.get(targetItem);
 			final Object actualValue = v.value;
 			if(expectedValue==null ? actualValue!=null : !expectedValue.equals(actualValue))
