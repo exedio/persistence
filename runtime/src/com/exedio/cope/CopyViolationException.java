@@ -69,7 +69,7 @@ public final class CopyViolationException extends ConstraintViolationException
 	public String getMessage(final boolean withFeature)
 	{
 		return
-			"mismatch on copy field " + feature +
+			"copy violation on " + feature +
 			", expected " + toString(expectedValue) +
 			" from target " + targetItem +
 			", but was " +	toString(actualValue);

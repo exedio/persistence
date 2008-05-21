@@ -182,7 +182,7 @@ public class CopyTest extends AbstractLibTest
 			assertEquals("template1", e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateStringCopyFromTarget + ", " +
+					"copy violation on " + CopySourceItem.templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was 'template1'",
@@ -203,7 +203,7 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateStringCopyFromTarget + ", " +
+					"copy violation on " + CopySourceItem.templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was null",
@@ -224,7 +224,7 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(value1, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateItemCopyFromTarget + ", " +
+					"copy violation on " + CopySourceItem.templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'",
@@ -245,7 +245,7 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateItemCopyFromTarget + ", " +
+					"copy violation on " + CopySourceItem.templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was null",
@@ -266,7 +266,7 @@ public class CopyTest extends AbstractLibTest
 			assertEquals("template1", e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateStringCopyFromTarget + ", " +
+					"copy violation on " + CopySourceItem.templateStringCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + targetN.getCopeID() + ", " +
 					"but was 'template1'",
@@ -287,7 +287,7 @@ public class CopyTest extends AbstractLibTest
 			assertEquals(value1, e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateItemCopyFromTarget + ", " +
+					"copy violation on " + CopySourceItem.templateItemCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + targetN.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'",
