@@ -125,12 +125,12 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 			throw new RuntimeException("not found on copy: " + this);
 		if(!(feature instanceof FunctionField))
 			throw new ClassCastException("not a FunctionField on copy: " + this + '/' + feature + '/' + feature.getClass().getName());
-		final FunctionField field = (FunctionField)feature;
-		if(!field.isfinal)
-			throw new RuntimeException("not final on copy: " + this + '/' + field);
+		final FunctionField result = (FunctionField)feature;
+		if(!result.isfinal)
+			throw new RuntimeException("not final on copy: " + this + '/' + result);
 		
-		template = field;
-		return field;
+		template = result;
+		return result;
 	}
 	
 	void check(final SetValue v, final Map<Field, Object> fieldValues)
