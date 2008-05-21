@@ -223,8 +223,6 @@ public final class Type<C extends Item>
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 			}
-			
-			
 			this.declaredFields            = finish(declaredFields);
 			this.declaredUniqueConstraints = finish(declaredUniqueConstraints);
 			this.declaredCopyConstraints   = finish(declaredCopyConstraints);
