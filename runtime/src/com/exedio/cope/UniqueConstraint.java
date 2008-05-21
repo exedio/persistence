@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public final class UniqueConstraint extends Feature
 {
@@ -173,5 +174,33 @@ public final class UniqueConstraint extends Feature
 	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
 	{
 		return Cope.verboseCast(typeClass, searchUnique(values));
+	}
+	
+	void check(final Item item, final Map<? extends Field, ?> fieldValues)
+	{
+		final List<FunctionField<?>> fields = getFields();
+		field:
+		for(FunctionField testField : fields)
+		{
+			if(fieldValues.containsKey(testField))
+			{
+				final Object[] values = new Object[fields.size()];
+				int i = 0;
+				
+				for(FunctionField<?> f : fields)
+				{
+					final Object value = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
+					if(value==null)
+						break field;
+					values[i++] = value;
+				}
+				
+				final Item collision = searchUnique(values);
+				if(collision!=null && (item==null || !item.equals(collision)))
+					throw new UniqueViolationException(this, item);
+				
+				break field;
+			}
+		}
 	}
 }
