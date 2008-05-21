@@ -81,4 +81,13 @@ public final class CopyConstraint extends Feature
 				throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
 		}
 	}
+	
+	public int check()
+	{
+		final Query q = getType().newQuery();
+		final Join j = q.join(target.getValueType());
+		j.setCondition(target.equalTarget(j));
+		q.setCondition(copy.notEqual(getTemplate().bind(j)));
+		return q.total();
+	}
 }

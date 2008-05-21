@@ -201,6 +201,19 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>copyConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.CopyTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>copyConsole</servlet-name>
+		<url-pattern>/copy/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>badQueryConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>

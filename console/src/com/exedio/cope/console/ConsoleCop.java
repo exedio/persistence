@@ -73,6 +73,7 @@ abstract class ConsoleCop extends Cop
 				new PropertiesCop(),
 				new SchemaCop(),
 				new TypeColumnCop(),
+				new CopyConstraintCop(),
 				new RevisionCop(),
 				new DatabaseLogCop(),
 				new ConnectionPoolCop(),
@@ -148,6 +149,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
 	static final String TAB_TYPE_COLUMNS = "typecolumns";
+	static final String TAB_COPY_CONSTRAINTS = "copyconstraints";
 	static final String TAB_REVISION = "revision";
 	static final String TAB_DATBASE_LOG = "dblogs";
 	static final String TAB_CONNECTION_POOL = "connections";
@@ -177,6 +179,8 @@ abstract class ConsoleCop extends Cop
 			return new SchemaCop();
 		if(TAB_TYPE_COLUMNS.equals(tab))
 			return new TypeColumnCop();
+		if(TAB_COPY_CONSTRAINTS.equals(tab))
+			return new CopyConstraintCop();
 		if(TAB_PROPERTIES.equals(tab))
 			return new PropertiesCop();
 		if(TAB_REVISION.equals(tab))

@@ -1,0 +1,108 @@
+<%
+/*
+ * Copyright (C) 2004-2008  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.console;
+
+import java.io.PrintStream;
+import java.util.ArrayList;
+
+import com.exedio.cope.CopyConstraint;
+
+final class CopyConstraint_Jspm
+{
+	final static void writeBody(
+			final CopyConstraintCop cop,
+			final PrintStream out,
+			final ArrayList<CopyConstraint> constraints,
+			final boolean test)
+	{
+		if(constraints.isEmpty())
+			return;
+		
+		writeButton(cop, out);
+		int totalFailures = 0;
+		int totalElapsed = 0;
+		%>
+		<table>
+			<caption>Copy Constraints</caption>
+			<tr>
+				<th>Constraint</th>
+				<th>Target</th><%
+				if(test)
+				{
+				%>
+				<th>Failures</th>
+				<th>Elapsed/ms</th><%
+				}
+				%>
+			</tr><%
+		for(final CopyConstraint constraint : constraints)
+		{
+			%>
+			<tr>
+				<td class="text"><%=constraint.toString()%></td>
+				<td class="text"><%=constraint.getTarget().getValueType().getID()%></td><%
+			if(test)
+			{
+				%>
+				<td><%
+				out.flush();
+				final long start = System.currentTimeMillis();
+				final int failures = constraint.check();
+				final long elapsed = System.currentTimeMillis() - start;
+				totalFailures += failures;
+				totalElapsed += elapsed;
+				if(failures!=0)
+				{
+					%><b><%=failures%></b><%
+				}
+				else
+				{
+					%>ok<%
+				}
+				%></td>
+				<td><%=cop.format(elapsed)%></td><%
+			}
+			%></tr><%
+		}
+		if(test)
+		{
+			%>
+			<tr>
+				<th colspan="2"><a name="overall">T</a>otal</th>
+				<td><% if(totalFailures!=0){%><b><%=totalFailures%></b><%}else{%>ok<%} %></td>
+				<td><%=cop.format(totalElapsed)%></td>
+			</tr><%
+		}
+		%>
+		</table><%
+		if(constraints.size()>10)
+			writeButton(cop, out);
+	}
+	
+	private final static void writeButton(
+			final CopyConstraintCop cop,
+			final PrintStream out)
+	{
+		%>
+		<form action="<%=cop%>#overall" method="POST">
+			<input type="submit" name="<%=cop.TEST%>" value="test all" />
+		</form><%
+	}
+}%>

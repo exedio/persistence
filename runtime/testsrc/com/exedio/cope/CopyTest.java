@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 public class CopyTest extends AbstractLibTest
 {
-	static final Model MODEL = new Model(CopySourceItem.TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(CopySourceItem.TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
 	
 	public CopyTest()
 	{
@@ -144,30 +144,40 @@ public class CopyTest extends AbstractLibTest
 		
 		// test persistence
 		assertContains(CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		final CopySourceItem source1 = deleteOnTearDown(new CopySourceItem(target1, "template1", value1));
 		assertEquals(target1, source1.getTargetItem());
 		assertEquals("template1", source1.getTemplateString());
 		assertEquals(value1, source1.getTemplateItem());
 		assertContains(source1, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		final CopySourceItem source2 = deleteOnTearDown(new CopySourceItem(target2, "template2", value2));
 		assertEquals(target2, source2.getTargetItem());
 		assertEquals("template2", source2.getTemplateString());
 		assertEquals(value2, source2.getTemplateItem());
 		assertContains(source1, source2, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		final CopySourceItem sourceN = deleteOnTearDown(new CopySourceItem(targetN, null, null));
 		assertEquals(targetN, sourceN.getTargetItem());
 		assertEquals(null, sourceN.getTemplateString());
 		assertEquals(null, sourceN.getTemplateItem());
 		assertContains(source1, source2, sourceN, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		final CopySourceItem sourceNT = deleteOnTearDown(new CopySourceItem(null, "templateN", value2));
 		assertEquals(null, sourceNT.getTargetItem());
 		assertEquals("templateN", sourceNT.getTemplateString());
 		assertEquals(value2, sourceNT.getTemplateItem());
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		try
 		{
@@ -189,6 +199,8 @@ public class CopyTest extends AbstractLibTest
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		try
 		{
@@ -210,6 +222,8 @@ public class CopyTest extends AbstractLibTest
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		try
 		{
@@ -231,6 +245,8 @@ public class CopyTest extends AbstractLibTest
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		try
 		{
@@ -252,6 +268,8 @@ public class CopyTest extends AbstractLibTest
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		try
 		{
@@ -273,6 +291,8 @@ public class CopyTest extends AbstractLibTest
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 		
 		try
 		{
@@ -294,5 +314,7 @@ public class CopyTest extends AbstractLibTest
 				e.getMessage());
 		}
 		assertContains(source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
+		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
 	}
 }
