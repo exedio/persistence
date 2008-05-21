@@ -64,13 +64,13 @@ final class TypeColumn_Jspm
 				<td><%
 				out.flush();
 				final long start = System.currentTimeMillis();
-				final int count = function.checkTypeColumn();
+				final int failures = function.checkTypeColumn();
 				final long elapsed = System.currentTimeMillis() - start;
-				totalFailures += count;
+				totalFailures += failures;
 				totalElapsed += elapsed;
-				if(count!=0)
+				if(failures!=0)
 				{
-					%><b><%=count%></b><%
+					%><b><%=failures%></b><%
 				}
 				else
 				{
