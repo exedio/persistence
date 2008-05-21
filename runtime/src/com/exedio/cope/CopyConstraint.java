@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Map;
 
-public final class CopyConstraint extends Pattern
+public final class CopyConstraint extends Feature
 {
 	private final ItemField target;
 	private final FunctionField copy;
@@ -38,7 +38,6 @@ public final class CopyConstraint extends Pattern
 
 		this.target = target;
 		this.copy = copy;
-		registerSource(copy);
 	}
 	
 	public ItemField getTarget()
