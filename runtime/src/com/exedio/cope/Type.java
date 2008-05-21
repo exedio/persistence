@@ -259,9 +259,9 @@ public final class Type<C extends Item>
 					result.put(f.getName(), f);
 				this.featuresByName = result;
 			}
-			this.fields = inherit(supertype.getFields(), this.declaredFields);
-			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
-			this.copyConstraints = inherit(supertype.getCopyConstraints(), this.declaredCopyConstraints);
+			this.fields = inherit(supertype.fields, this.declaredFields);
+			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
+			this.copyConstraints = inherit(supertype.copyConstraints, this.declaredCopyConstraints);
 		}
 
 		// IMPLEMENTATION NOTE
