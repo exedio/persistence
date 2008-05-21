@@ -145,7 +145,7 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		}
 	}
 	
-	E get(final Item item)
+	public E get(final Item item)
 	{
 		return copy.get(item);
 	}
