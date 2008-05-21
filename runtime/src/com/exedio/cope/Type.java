@@ -223,11 +223,11 @@ public final class Type<C extends Item>
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 			}
-			declaredFields.trimToSize();
-			declaredUniqueConstraints.trimToSize();
-			this.declaredFields = Collections.unmodifiableList(declaredFields);
-			this.declaredUniqueConstraints = Collections.unmodifiableList(declaredUniqueConstraints);
-			this.declaredCopyConstraints = Collections.unmodifiableList(declaredCopyConstraints);
+			
+			
+			this.declaredFields            = finish(declaredFields);
+			this.declaredUniqueConstraints = finish(declaredUniqueConstraints);
+			this.declaredCopyConstraints   = finish(declaredCopyConstraints);
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
 
@@ -303,6 +303,17 @@ public final class Type<C extends Item>
 			result.addAll(declared);
 			result.trimToSize();
 			return Collections.<F>unmodifiableList(result);
+		}
+	}
+	
+	private static final <F extends Feature> List<F> finish(final ArrayList<F> list)
+	{
+		if(list.isEmpty())
+			return Collections.<F>emptyList();
+		else
+		{
+			list.trimToSize();
+			return Collections.<F>unmodifiableList(list);
 		}
 	}
 	
