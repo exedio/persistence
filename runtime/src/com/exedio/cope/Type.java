@@ -216,10 +216,11 @@ public final class Type<C extends Item>
 			{
 				if(feature instanceof Field)
 					declaredFields.add((Field)feature);
-				if(feature instanceof UniqueConstraint)
+				else if(feature instanceof UniqueConstraint)
 					declaredUniqueConstraints.add((UniqueConstraint)feature);
-				if(feature instanceof CopyConstraint)
+				else if(feature instanceof CopyConstraint)
 					declaredCopyConstraints.add((CopyConstraint)feature);
+				
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 			}
