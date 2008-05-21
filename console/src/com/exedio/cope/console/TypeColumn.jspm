@@ -38,13 +38,29 @@ final class TypeColumn_Jspm
 		writeButton(cop, out);
 		int sumCount = 0;
 		%>
-		<ol><%
+		<table>
+			<caption>Type Columns</caption>
+			<tr>
+				<th>Function</th>
+				<th>Value</th><%
+				if(test)
+				{
+				%>
+				<th>Failures</th>
+				<th>Elapsed/ms</th><%
+				}
+				%>
+			</tr><%
 		for(final ItemFunction function : functions)
 		{
 			%>
-			<li><%=function.toString()%><%
+			<tr>
+				<td class="text"><%=function.toString()%></td>
+				<td class="text"><%=function.getValueType().getID()%></td><%
 			if(test)
 			{
+				%>
+				<td><%
 				out.flush();
 				final long startMillis = System.currentTimeMillis();
 				final int count = function.checkTypeColumn();
@@ -52,32 +68,28 @@ final class TypeColumn_Jspm
 				sumCount += count;
 				if(count!=0)
 				{
-					%>: <b>bad tupels: <%=count%>.</b><%
+					%><b><%=count%></b><%
 				}
 				else
 				{
-					%>: ok.<%
+					%>ok<%
 				}
-				%> (<%=cop.format(finishMillis-startMillis)%>ms)<%
+				%></td>
+				<td><%=cop.format(finishMillis-startMillis)%></td><%
 			}
-			%></li><%
+			%></tr><%
 		}
-		%>
-		</ol><%
 		if(test)
 		{
-		%>
-		<p>Overall: <a name="overall"><%
-			if(sumCount!=0)
-			{
-				%><b>bad tupels: <%=sumCount%>.</b><%
-			}
-			else
-			{
-				%>ok.<%
-			}
-			%></a></p><%
+			%>
+			<tr>
+				<th colspan="2"><a name="overall">T</a>otal</th>
+				<td><% if(sumCount!=0){%><b><%=sumCount%></b><%}else{%>ok<%} %></td>
+				<td></td>
+			</tr><%
 		}
+		%>
+		</table><%
 		if(functions.size()>10)
 			writeButton(cop, out);
 	}
