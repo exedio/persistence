@@ -307,10 +307,13 @@ public final class Type<C extends Item>
 	
 	private static final <F extends Feature> List<F> finish(final ArrayList<F> list)
 	{
-		if(list.isEmpty())
-			return Collections.<F>emptyList();
-		else
+		switch(list.size())
 		{
+		case 0:
+			return Collections.<F>emptyList();
+		case 1:
+			return Collections.singletonList(list.get(0));
+		default:
 			list.trimToSize();
 			return Collections.<F>unmodifiableList(list);
 		}
