@@ -131,8 +131,7 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem!=null)
 		{
-			final FunctionField templateField = getTemplate();
-			final Object expectedValue = templateField.get(targetItem);
+			final Object expectedValue = getTemplate().get(targetItem);
 			final Object actualValue = v.value;
 			if(expectedValue==null ? actualValue!=null : !expectedValue.equals(actualValue))
 				throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
