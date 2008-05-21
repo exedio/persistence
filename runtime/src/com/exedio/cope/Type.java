@@ -54,8 +54,12 @@ public final class Type<C extends Item>
 
 	private final List<Field> declaredFields;
 	private final List<Field> fields;
+	
 	private final List<UniqueConstraint> declaredUniqueConstraints;
 	final List<UniqueConstraint> uniqueConstraints;
+	
+	private final List<CopyConstraint> declaredCopyConstraints;
+	final List<CopyConstraint> copyConstraints;
 
 	private final Constructor<C> creationConstructor;
 	private final Constructor<C> reactivationConstructor;
@@ -206,6 +210,7 @@ public final class Type<C extends Item>
 		{
 			final ArrayList<Field> declaredFields = new ArrayList<Field>(declaredFeatures.size());
 			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
+			final ArrayList<CopyConstraint> declaredCopyConstraints = new ArrayList<CopyConstraint>(declaredFeatures.size());
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
 			for(final Feature feature : declaredFeatures)
 			{
@@ -213,6 +218,8 @@ public final class Type<C extends Item>
 					declaredFields.add((Field)feature);
 				if(feature instanceof UniqueConstraint)
 					declaredUniqueConstraints.add((UniqueConstraint)feature);
+				if(feature instanceof CopyConstraint)
+					declaredCopyConstraints.add((CopyConstraint)feature);
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException("duplicate feature "+feature.getName()+" for type "+javaClass.getName());
 			}
@@ -220,16 +227,18 @@ public final class Type<C extends Item>
 			declaredUniqueConstraints.trimToSize();
 			this.declaredFields = Collections.unmodifiableList(declaredFields);
 			this.declaredUniqueConstraints = Collections.unmodifiableList(declaredUniqueConstraints);
+			this.declaredCopyConstraints = Collections.unmodifiableList(declaredCopyConstraints);
 			this.declaredFeaturesByName = declaredFeaturesByName;
 		}
 
-		// inherit features / fields
+		// inherit features / fields / constraints
 		if(supertype==null)
 		{
 			this.features = this.declaredFeatures;
 			this.featuresByName = this.declaredFeaturesByName;
 			this.fields = this.declaredFields;
 			this.uniqueConstraints = this.declaredUniqueConstraints;
+			this.copyConstraints = this.declaredCopyConstraints;
 		}
 		else
 		{
@@ -252,6 +261,7 @@ public final class Type<C extends Item>
 			}
 			this.fields = inherit(supertype.getFields(), this.declaredFields);
 			this.uniqueConstraints = inherit(supertype.getUniqueConstraints(), this.declaredUniqueConstraints);
+			this.copyConstraints = inherit(supertype.getCopyConstraints(), this.declaredCopyConstraints);
 		}
 
 		// IMPLEMENTATION NOTE
@@ -767,6 +777,16 @@ public final class Type<C extends Item>
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints;
+	}
+	
+	public List<CopyConstraint> getDeclaredCopyConstraints()
+	{
+		return declaredCopyConstraints;
+	}
+	
+	public List<CopyConstraint> getCopyConstraints()
+	{
+		return copyConstraints;
 	}
 	
 	public Pattern getPattern()

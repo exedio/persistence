@@ -72,6 +72,15 @@ public class CopyTest extends AbstractLibTest
 		assertEquals("templateStringCopyFromTarget", CopySourceItem.templateStringCopyFromTarget.getName());
 		assertEquals("templateItem", CopySourceItem.templateItem.getName());
 		assertEquals("templateItemCopyFromTarget", CopySourceItem.templateItemCopyFromTarget.getName());
+		
+		assertEqualsUnmodifiable(
+				list(CopySourceItem.templateStringCopyFromTarget, CopySourceItem.templateItemCopyFromTarget),
+				CopySourceItem.TYPE.getDeclaredCopyConstraints());
+		assertEqualsUnmodifiable(
+				list(CopySourceItem.templateStringCopyFromTarget, CopySourceItem.templateItemCopyFromTarget),
+				CopySourceItem.TYPE.getCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getDeclaredCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getCopyConstraints());
 
 		assertEqualsUnmodifiable(list(), CopySourceItem.templateString.getPatterns());
 		assertEqualsUnmodifiable(list(), CopySourceItem.templateItem.getPatterns());
