@@ -49,12 +49,12 @@ final class TypeColumnCop extends ConsoleCop
 			if(tt.needsCheckTypeColumn())
 				functions.add(tt);
 			
-			for(final Field a : t.getDeclaredFields())
-				if(a instanceof ItemField)
+			for(final Field f : t.getDeclaredFields())
+				if(f instanceof ItemField)
 				{
-					final ItemField ia = (ItemField)a;
-					if(ia.needsCheckTypeColumn())
-						functions.add(ia);
+					final ItemField itf = (ItemField)f;
+					if(itf.needsCheckTypeColumn())
+						functions.add(itf);
 				}
 		}
 		
