@@ -113,8 +113,13 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		return Collections.unmodifiableList(result);
 	}
 	
+	private FunctionField template = null;
+	
 	public FunctionField getTemplate()
 	{
+		if(template!=null)
+			return template;
+		
 		final Feature feature = target.getValueType().getFeature(getName());
 		if(feature==null)
 			throw new RuntimeException("not found on copy: " + this);
@@ -123,6 +128,8 @@ public final class CopyField<E> extends Pattern implements Settable<E>
 		final FunctionField field = (FunctionField)feature;
 		if(!field.isfinal)
 			throw new RuntimeException("not final on copy: " + this + '/' + field);
+		
+		template = field;
 		return field;
 	}
 	
