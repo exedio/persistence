@@ -234,11 +234,11 @@ public final class Type<C extends Item>
 		// inherit features / fields / constraints
 		if(supertype==null)
 		{
-			this.features = this.declaredFeatures;
-			this.featuresByName = this.declaredFeaturesByName;
-			this.fields = this.declaredFields;
+			this.features          = this.declaredFeatures;
+			this.featuresByName    = this.declaredFeaturesByName;
+			this.fields            = this.declaredFields;
 			this.uniqueConstraints = this.declaredUniqueConstraints;
-			this.copyConstraints = this.declaredCopyConstraints;
+			this.copyConstraints   = this.declaredCopyConstraints;
 		}
 		else
 		{
@@ -259,9 +259,9 @@ public final class Type<C extends Item>
 					result.put(f.getName(), f);
 				this.featuresByName = result;
 			}
-			this.fields = inherit(supertype.fields, this.declaredFields);
+			this.fields            = inherit(supertype.fields,            this.declaredFields);
 			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
-			this.copyConstraints = inherit(supertype.copyConstraints, this.declaredCopyConstraints);
+			this.copyConstraints   = inherit(supertype.copyConstraints,   this.declaredCopyConstraints);
 		}
 
 		// IMPLEMENTATION NOTE
