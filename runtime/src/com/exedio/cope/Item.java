@@ -200,6 +200,7 @@ public abstract class Item implements Serializable
 		
 		checkUniqueConstraints(type, null, fieldValues);
 		
+		// TODO precompute CopyConstraints
 		for(final Feature v : type.getFeatures())
 			if(v instanceof CopyConstraint)
 				((CopyConstraint)v).check(fieldValues);
