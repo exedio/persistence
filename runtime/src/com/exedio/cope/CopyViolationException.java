@@ -22,12 +22,12 @@ public final class CopyViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final CopyField feature;
+	private final CopyConstraint feature;
 	private final Object expectedValue;
 	private final Object actualValue;
 	private final Item targetItem;
 	
-	public CopyViolationException(final Item targetItem, final CopyField feature, final Object expectedValue, final Object actualValue)
+	public CopyViolationException(final Item targetItem, final CopyConstraint feature, final Object expectedValue, final Object actualValue)
 	{
 		super(null, null);
 		this.feature = feature;
@@ -40,7 +40,7 @@ public final class CopyViolationException extends ConstraintViolationException
 	 * Returns the field, that was attempted to be written.
 	 */
 	@Override
-	public CopyField getFeature()
+	public CopyConstraint getFeature()
 	{
 		return feature;
 	}
