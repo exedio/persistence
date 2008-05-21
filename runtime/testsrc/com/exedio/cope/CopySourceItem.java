@@ -22,9 +22,11 @@ class CopySourceItem extends Item
 {
 	static final ItemField<CopyTargetItem> targetItem = newItemField(CopyTargetItem.class).toFinal().optional();
 	
-	static final CopyField<String> templateString = CopyField.newField(targetItem, new StringField().toFinal().optional());
-	static final CopyField<CopyValueItem> templateItem = CopyField.newField(targetItem, newItemField(CopyValueItem.class).toFinal().optional());
+	static final StringField templateString = new StringField().toFinal().optional();
+	static final ItemField<CopyValueItem> templateItem = newItemField(CopyValueItem.class).toFinal().optional();
 	
+	static final CopyField<String> templateStringCopyFromTarget = CopyField.newField(targetItem, templateString);
+	static final CopyField<CopyValueItem> templateItemCopyFromTarget = CopyField.newField(targetItem, templateItem);
 	
 	/**
 

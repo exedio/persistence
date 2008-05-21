@@ -51,30 +51,30 @@ public class CopyTest extends AbstractLibTest
 				CopySourceItem.TYPE.getThis(),
 				CopySourceItem.targetItem,
 				CopySourceItem.templateString,
-				CopySourceItem.templateString.getCopy(),
 				CopySourceItem.templateItem,
-				CopySourceItem.templateItem.getCopy(),
+				CopySourceItem.templateStringCopyFromTarget,
+				CopySourceItem.templateItemCopyFromTarget,
 			}), CopySourceItem.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				CopySourceItem.TYPE.getThis(),
 				CopySourceItem.targetItem,
 				CopySourceItem.templateString,
-				CopySourceItem.templateString.getCopy(),
 				CopySourceItem.templateItem,
-				CopySourceItem.templateItem.getCopy(),
+				CopySourceItem.templateStringCopyFromTarget,
+				CopySourceItem.templateItemCopyFromTarget,
 			}), CopySourceItem.TYPE.getDeclaredFeatures());
 
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateString.getCopy().getType());
 		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateString.getType());
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateItem.getCopy().getType());
+		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateStringCopyFromTarget.getType());
 		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateItem.getType());
-		assertEquals("templateStringCopy", CopySourceItem.templateString.getCopy().getName());
+		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateItemCopyFromTarget.getType());
 		assertEquals("templateString", CopySourceItem.templateString.getName());
-		assertEquals("templateItemCopy", CopySourceItem.templateItem.getCopy().getName());
+		assertEquals("templateStringCopyFromTarget", CopySourceItem.templateStringCopyFromTarget.getName());
 		assertEquals("templateItem", CopySourceItem.templateItem.getName());
+		assertEquals("templateItemCopyFromTarget", CopySourceItem.templateItemCopyFromTarget.getName());
 
-		assertEqualsUnmodifiable(list(CopySourceItem.templateString), CopySourceItem.templateString.getCopy().getPatterns());
-		assertEqualsUnmodifiable(list(CopySourceItem.templateItem),   CopySourceItem.templateItem.getCopy().getPatterns());
+		assertEqualsUnmodifiable(list(CopySourceItem.templateStringCopyFromTarget), CopySourceItem.templateString.getPatterns());
+		assertEqualsUnmodifiable(list(CopySourceItem.templateItemCopyFromTarget),   CopySourceItem.templateItem.getPatterns());
 		
 		assertEquals(true, CopySourceItem.templateString.isInitial());
 		assertEquals(true, CopySourceItem.templateString.isFinal());
@@ -89,11 +89,13 @@ public class CopyTest extends AbstractLibTest
 				FinalViolationException.class,
 				CopySourceItem.templateItem.getInitialExceptions());
 		
-		assertSame(CopySourceItem.targetItem, CopySourceItem.templateString.getTarget());
-		assertSame(CopySourceItem.targetItem, CopySourceItem.templateItem.getTarget());
-		assertSame(CopyTargetItem.templateString, CopySourceItem.templateString.getTemplate());
-		assertSame(CopyTargetItem.templateItem,   CopySourceItem.templateItem.getTemplate());
+		assertSame(CopySourceItem.targetItem, CopySourceItem.templateStringCopyFromTarget.getTarget());
+		assertSame(CopySourceItem.targetItem, CopySourceItem.templateItemCopyFromTarget.getTarget());
+		assertSame(CopyTargetItem.templateString, CopySourceItem.templateStringCopyFromTarget.getTemplate());
+		assertSame(CopyTargetItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getTemplate());
 		
+		assertSame(CopySourceItem.templateString, CopySourceItem.templateStringCopyFromTarget.getCopy());
+		assertSame(CopySourceItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getCopy());
 		try
 		{
 			CopyField.newField(null, null);
@@ -165,13 +167,13 @@ public class CopyTest extends AbstractLibTest
 		}
 		catch(CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateString, e.getFeature());
+			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("template2", e.getExpectedValue());
 			assertEquals("template1", e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateString + ", " +
+					"mismatch on copy field " + CopySourceItem.templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was 'template1'",
@@ -186,13 +188,13 @@ public class CopyTest extends AbstractLibTest
 		}
 		catch(CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateString, e.getFeature());
+			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("template2", e.getExpectedValue());
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateString + ", " +
+					"mismatch on copy field " + CopySourceItem.templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was null",
@@ -207,13 +209,13 @@ public class CopyTest extends AbstractLibTest
 		}
 		catch(CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateItem, e.getFeature());
+			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(value2, e.getExpectedValue());
 			assertEquals(value1, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateItem + ", " +
+					"mismatch on copy field " + CopySourceItem.templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'",
@@ -228,13 +230,13 @@ public class CopyTest extends AbstractLibTest
 		}
 		catch(CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateItem, e.getFeature());
+			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(value2, e.getExpectedValue());
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateItem + ", " +
+					"mismatch on copy field " + CopySourceItem.templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was null",
@@ -249,13 +251,13 @@ public class CopyTest extends AbstractLibTest
 		}
 		catch(CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateString, e.getFeature());
+			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(null, e.getExpectedValue());
 			assertEquals("template1", e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateString + ", " +
+					"mismatch on copy field " + CopySourceItem.templateStringCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + targetN.getCopeID() + ", " +
 					"but was 'template1'",
@@ -270,13 +272,13 @@ public class CopyTest extends AbstractLibTest
 		}
 		catch(CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateItem, e.getFeature());
+			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(null, e.getExpectedValue());
 			assertEquals(value1, e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"mismatch on copy field " + CopySourceItem.templateItem + ", " +
+					"mismatch on copy field " + CopySourceItem.templateItemCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + targetN.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'",
