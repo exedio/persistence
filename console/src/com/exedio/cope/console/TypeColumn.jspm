@@ -37,6 +37,7 @@ final class TypeColumn_Jspm
 		
 		writeButton(cop, out);
 		int totalFailures = 0;
+		int totalElapsed = 0;
 		%>
 		<table>
 			<caption>Type Columns</caption>
@@ -62,10 +63,11 @@ final class TypeColumn_Jspm
 				%>
 				<td><%
 				out.flush();
-				final long startMillis = System.currentTimeMillis();
+				final long start = System.currentTimeMillis();
 				final int count = function.checkTypeColumn();
-				final long finishMillis = System.currentTimeMillis();
+				final long elapsed = System.currentTimeMillis() - start;
 				totalFailures += count;
+				totalElapsed += elapsed;
 				if(count!=0)
 				{
 					%><b><%=count%></b><%
@@ -75,7 +77,7 @@ final class TypeColumn_Jspm
 					%>ok<%
 				}
 				%></td>
-				<td><%=cop.format(finishMillis-startMillis)%></td><%
+				<td><%=cop.format(elapsed)%></td><%
 			}
 			%></tr><%
 		}
@@ -85,7 +87,7 @@ final class TypeColumn_Jspm
 			<tr>
 				<th colspan="2"><a name="overall">T</a>otal</th>
 				<td><% if(totalFailures!=0){%><b><%=totalFailures%></b><%}else{%>ok<%} %></td>
-				<td></td>
+				<td><%=cop.format(totalElapsed)%></td>
 			</tr><%
 		}
 		%>
