@@ -47,50 +47,11 @@ public class HashTest extends AbstractLibTest
 	{
 		assertEquals(Arrays.asList(
 				item.TYPE.getThis(),
-				item.explicitExternalWrap,
-				item.explicitExternal,
 				item.implicitExternal,
 				item.implicitExternal.getStorage(),
 				item.internal,
 				item.internal.getStorage()
 			), item.TYPE.getFeatures());
-
-		assertEquals(item.TYPE, item.explicitExternal.getType());
-		assertEquals("explicitExternal", item.explicitExternal.getName());
-		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
-		assertEqualsUnmodifiable(list(item.explicitExternal), item.explicitExternalWrap.getPatterns());
-		assertEquals(false, item.explicitExternalWrap.isInitial());
-		assertEquals(false, item.explicitExternalWrap.isFinal());
-		assertContains(LengthViolationException.class, item.explicitExternalWrap.getInitialExceptions());
-
-		assertNull(item.getExplicitExternalWrap());
-		assertTrue(item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("bing"));
-		assertContains(item, item.TYPE.search(item.explicitExternal.equal(null)));
-		assertContains(item.TYPE.search(item.explicitExternal.equal("bing")));
-		assertContains(item.TYPE.search(item.explicitExternal.notEqual(null)));
-		assertContains(item.TYPE.search(item.explicitExternal.notEqual("bing")));
-		
-		item.setExplicitExternalWrap("bello");
-		assertEquals("bello", item.getExplicitExternalWrap());
-		assertTrue(!item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("bello"));
-		assertContains(item.TYPE.search(item.explicitExternal.equal(null)));
-		assertContains(item.TYPE.search(item.explicitExternal.equal("bello")));
-		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual(null)));
-		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual("bello")));
-		
-		item.setExplicitExternal("knollo");
-		assertEquals("[knollo]", item.getExplicitExternalWrap());
-		assertTrue(!item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("bello"));
-		assertTrue(item.checkExplicitExternal("knollo"));
-		assertContains(item.TYPE.search(item.explicitExternal.equal(null)));
-		assertContains(item, item.TYPE.search(item.explicitExternal.equal("knollo")));
-		assertContains(item.TYPE.search(item.explicitExternal.equal("bello")));
-		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual(null)));
-		assertContains(item.TYPE.search(item.explicitExternal.notEqual("knollo")));
-		assertContains(item, item.TYPE.search(item.explicitExternal.notEqual("bello")));
 	}
 	
 	public void testImplicitExternal()
