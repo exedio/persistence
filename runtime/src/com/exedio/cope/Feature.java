@@ -36,6 +36,9 @@ public abstract class Feature
 	 */
 	void initialize(final Type<? extends Item> type, final String name)
 	{
+		if(this.type!=null)
+			throw new IllegalStateException("feature already initialized: " + id);
+		
 		assert type!=null;
 		assert name!=null;
 		assert this.type==null;
