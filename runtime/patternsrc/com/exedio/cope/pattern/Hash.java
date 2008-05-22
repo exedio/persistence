@@ -67,7 +67,8 @@ public abstract class Hash extends Pattern implements Settable<String>
 	@Override
 	public void initialize()
 	{
-		initialize(storage, getName()+"Hash");
+		if(!storage.isInitialized())
+			initialize(storage, getName()+"Hash");
 	}
 	
 	public final StringField getStorage()
