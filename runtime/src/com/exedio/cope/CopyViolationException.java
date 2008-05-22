@@ -62,7 +62,7 @@ public final class CopyViolationException extends ConstraintViolationException
 	
 	private static final String toString(final Object s)
 	{
-		return s!=null ? ('\'' + s.toString() + '\'') : "null";
+		return s!=null ? ('\'' + (s instanceof Item ? ((Item)s).getCopeID() : s.toString()) + '\'') : "null";
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public final class CopyViolationException extends ConstraintViolationException
 		return
 			"copy violation on " + feature +
 			", expected " + toString(expectedValue) +
-			" from target " + targetItem +
+			" from target " + targetItem.getCopeID() +
 			", but was " +	toString(actualValue);
 	}
 }

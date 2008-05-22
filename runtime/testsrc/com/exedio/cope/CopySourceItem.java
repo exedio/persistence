@@ -28,6 +28,13 @@ class CopySourceItem extends Item
 	static final CopyConstraint templateStringCopyFromTarget = new CopyConstraint(targetItem, templateString);
 	static final CopyConstraint templateItemCopyFromTarget = new CopyConstraint(targetItem, templateItem);
 	
+	@Override
+	public String toString()
+	{
+		// for testing, that CopyViolation#getMessage does not call toString(), but getCopeID()
+		return "toString(" + getCopeID() + ')';
+	}
+	
 	/**
 
 	 **
