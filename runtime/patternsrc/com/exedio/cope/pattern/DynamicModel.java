@@ -69,7 +69,7 @@ public final class DynamicModel<L> extends Pattern
 	private final BooleanField[] booleans;
 	private final IntegerField[] integers;
 	private final DoubleField[]  doubles;
-	private final ItemField<?>[]  enums;
+	private final ItemField<?>[] enums;
 	
 	private DynamicModel(
 			final FunctionField<L> locale,
@@ -91,13 +91,13 @@ public final class DynamicModel<L> extends Pattern
 
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(fields[n++] = strings [i] = new StringField().optional(),  "String" + (i+1));
+			registerSource(fields[n++] = strings [i] = new StringField().optional(),  "String"+i);
 		for(int i = 0; i<booleans.length; i++)
-			registerSource(fields[n++] = booleans[i] = new BooleanField().optional(), "Bool" + (i+1));
+			registerSource(fields[n++] = booleans[i] = new BooleanField().optional(), "Bool"  +i);
 		for(int i = 0; i<integers.length; i++)
-			registerSource(fields[n++] = integers[i] = new IntegerField().optional(), "Int" + (i+1));
+			registerSource(fields[n++] = integers[i] = new IntegerField().optional(), "Int"   +i);
 		for(int i = 0; i<doubles.length; i++)
-			registerSource(fields[n++] = doubles [i] = new DoubleField().optional(),  "Double" + (i+1));
+			registerSource(fields[n++] = doubles [i] = new DoubleField().optional(),  "Double"+i);
 	}
 	
 	public static final <L> DynamicModel<L> newModel(
@@ -176,7 +176,7 @@ public final class DynamicModel<L> extends Pattern
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
 			for(int i = 0; i<enums.length; i++)
-				registerSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), "Enum" + (i+1));
+				registerSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), "Enum"+i);
 		}
 		
 		registerSource(type = typeType.newItemField(FORBID).optional(), "Type");

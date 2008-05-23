@@ -51,7 +51,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 
 		boolean initial = false;
 		boolean isFinal = false;
-		int i = 1; // TODO: make this '1' customizable
+		int i = 0;
 		for(FunctionField<E> source : sources)
 		{
 			registerSource(source, String.valueOf(i++));
