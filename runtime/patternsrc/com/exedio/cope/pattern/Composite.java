@@ -100,10 +100,9 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		
 		for(Map.Entry<String, FunctionField> e : templates.entrySet())
 		{
-			final String templateName = e.getKey();
 			final FunctionField template = e.getValue();
 			final FunctionField component = copy(template);
-			registerSource(component, toCamelCase(templateName));
+			registerSource(component, toCamelCase(e.getKey()));
 			templateToComponent.put(template, component);
 		}
 		this.templateToComponent = templateToComponent;
