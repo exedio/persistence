@@ -19,8 +19,10 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 
@@ -44,6 +46,13 @@ public class DynamicModelTest extends AbstractLibTest
 		item2 = deleteOnTearDown(new DynamicModelItem("item2"));
 		de = deleteOnTearDown(new DynamicModelLocalizationItem("de"));
 		en = deleteOnTearDown(new DynamicModelLocalizationItem("en"));
+	}
+	
+	private static final void assertIt(final Pattern pattern, final Field field, final String postfix)
+	{
+		assertEquals(pattern.getType(), field.getType());
+		assertEquals(pattern.getName() + postfix, field.getName());
+		assertEqualsUnmodifiable(list(pattern), field.getPatterns());
 	}
 	
 	public void testIt()
@@ -71,6 +80,28 @@ public class DynamicModelTest extends AbstractLibTest
 				// no getEnumType()
 				DynamicModelLocalizationItem.TYPE
 			), model.getTypes());
+		assertEquals(list(
+				DynamicModelItem.TYPE.getThis(),
+				DynamicModelItem.name,
+				DynamicModelItem.features,
+				DynamicModelItem.features.getTypeField(),
+				DynamicModelItem.features.getField(ValueType.STRING, 0, null),
+				DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null),
+				DynamicModelItem.features.getField(ValueType.INTEGER, 0, null),
+				DynamicModelItem.features.getField(ValueType.DOUBLE, 0, null),
+				DynamicModelItem.features.getField(ValueType.ENUM, 0, null),
+				DynamicModelItem.features.getField(ValueType.ENUM, 1, null),
+				DynamicModelItem.small,
+				DynamicModelItem.small.getTypeField(),
+				DynamicModelItem.small.getField(ValueType.STRING, 0, null)
+			), DynamicModelItem.TYPE.getFeatures());
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.STRING,  0, null), "String1");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null), "Bool1");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.INTEGER, 0, null), "Int1");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.DOUBLE,  0, null), "Double1");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    0, null), "Enum1");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    1, null), "Enum2");
+		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(ValueType.STRING, 0, null), "String1");
 		
 		// test persistence
 		assertContains(item.features.getTypes());

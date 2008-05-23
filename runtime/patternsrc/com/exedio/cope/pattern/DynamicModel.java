@@ -316,7 +316,11 @@ public final class DynamicModel<L> extends Pattern
 	{
 		final ValueType valueType = field.getValueType();
 		final int pos = field.getPositionPerValueType();
+		return getField(valueType, pos, field);
+	}
 
+	FunctionField<?> getField(final ValueType valueType, final int pos, final Field field)
+	{
 		final FunctionField[] array = array(valueType);
 		
 		// make a more verbose exception instead
