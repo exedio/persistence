@@ -27,7 +27,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
-import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.StringField.LengthViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;

@@ -33,7 +33,7 @@ public class IntegerItem extends Item
 	public static final IntegerField max4 = new IntegerField().optional().max(4);
 	public static final IntegerField min4Max8 = new IntegerField().optional().range(4, 8);
 	
-	IntegerItem(final Integer mandatory) throws LengthViolationException, MandatoryViolationException
+	IntegerItem(final Integer mandatory) throws StringField.LengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
 			IntegerItem.mandatory.map(mandatory),
@@ -43,7 +43,7 @@ public class IntegerItem extends Item
 	/**
 	 * @param dummy is a dummy
 	 */
-	IntegerItem(final Integer max4, final Date dummy) throws LengthViolationException, MandatoryViolationException
+	IntegerItem(final Integer max4, final Date dummy) throws StringField.LengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
 			IntegerItem.mandatory.map(7777777),

@@ -172,6 +172,84 @@ public final class StringField extends FunctionField<String> implements StringFu
 			throw new LengthViolationException(this, exceptionItem, value, false, maximumLength);
 	}
 	
+	/**
+	 * Signals, that an attempt to write a {@link StringField string field} has been failed,
+	 * because value to be written violated the length constraint on that field.
+	 *
+	 * This exception will be thrown by {@link FunctionField#set(Item,Object)}
+	 * and item constructors.
+	 *
+	 * @author Ralf Wiebicke
+	 */
+	public static final class LengthViolationException extends ConstraintViolationException
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final StringField feature;
+		private final String value;
+		private final boolean isTooShort;
+		private final int border;
+		
+		/**
+		 * Creates a new LengthViolationException with the neccessary information about the violation.
+		 * @param item initializes, what is returned by {@link #getItem()}.
+		 * @param feature initializes, what is returned by {@link #getFeature()}.
+		 * @param value initializes, what is returned by {@link #getValue()}.
+		 */
+		public LengthViolationException(final StringField feature, final Item item, final String value, final boolean isTooShort, final int border)
+		{
+			super(item, null);
+			this.feature = feature;
+			this.value = value;
+			this.isTooShort = isTooShort;
+			this.border = border;
+		}
+		
+		/**
+		 * Returns the field, that was attempted to be written.
+		 */
+		@Override
+		public StringField getFeature()
+		{
+			return feature;
+		}
+		
+		/**
+		 * @deprecated Renamed to {@link #getFeature()}.
+		 */
+		@Deprecated
+		public StringField getStringAttribute()
+		{
+			return feature;
+		}
+
+		/**
+		 * Returns the value, that was attempted to be written.
+		 */
+		public String getValue()
+		{
+			return value;
+		}
+		
+		public boolean isTooShort()
+		{
+			return isTooShort;
+		}
+
+		@Override
+		public String getMessage(final boolean withFeature)
+		{
+			return
+				"length violation on " + getItemID() +
+				", '" + value + "' is too " +
+				(isTooShort?"short":"long") +
+				(withFeature ? (" for "+ feature) : "") +
+				", must be at " + (isTooShort?"least":"most") +
+				' ' + border + " characters, " +
+				"but was " + value.length() + '.';
+		}
+	}
+	
 	// convenience methods for conditions and views ---------------------------------
 
 	public final LikeCondition like(final String value)

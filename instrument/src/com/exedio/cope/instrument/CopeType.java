@@ -27,8 +27,13 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.exedio.cope.DoubleRangeViolationException;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.RangeViolationException;
+import com.exedio.cope.StringField;
+import com.exedio.cope.UniqueViolationException;
 
 final class CopeType
 {
@@ -236,7 +241,27 @@ final class CopeType
 	{
 		public int compare(final Class c1, final Class c2)
 		{
+			final int i1 = zack(c1);
+			final int i2 = zack(c2);
+			if(i1>=0&&i2>=0)
+				return i1-i2;
 			return c1.getName().compareTo(c2.getName());
+		}
+		
+		private int zack(final Class c)
+		{
+			if(StringField.LengthViolationException.class.equals(c))
+				return 0;
+			else if(MandatoryViolationException.class.equals(c))
+				return 1;
+			else if(UniqueViolationException.class.equals(c))
+				return 2;
+			else if(RangeViolationException.class.equals(c))
+				return 3;
+			else if(DoubleRangeViolationException.class.equals(c))
+				return 4;
+			else
+				return -1;
 		}
 	};
 	

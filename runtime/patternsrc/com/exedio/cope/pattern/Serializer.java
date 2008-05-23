@@ -34,7 +34,6 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Field;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
-import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -204,7 +203,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			LengthViolationException,
+			StringField.LengthViolationException,
 			FinalViolationException,
 			ClassCastException
 	{

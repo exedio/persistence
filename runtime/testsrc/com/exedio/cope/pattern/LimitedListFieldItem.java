@@ -212,7 +212,7 @@ public class LimitedListFieldItem extends Item
 	 */
 	final void setStrings(final java.util.Collection<? extends String> strings)
 			throws
-				com.exedio.cope.LengthViolationException,
+				com.exedio.cope.StringField.LengthViolationException,
 				java.lang.ClassCastException
 	{
 		LimitedListFieldItem.strings.set(this,strings);

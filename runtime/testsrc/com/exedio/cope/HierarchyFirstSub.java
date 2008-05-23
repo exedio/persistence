@@ -84,7 +84,7 @@ public class HierarchyFirstSub extends HierarchySuper
 	 */
 	public final void setFirstSubString(final java.lang.String firstSubString)
 			throws
-				com.exedio.cope.LengthViolationException,
+				com.exedio.cope.StringField.LengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
 		HierarchyFirstSub.firstSubString.set(this,firstSubString);
