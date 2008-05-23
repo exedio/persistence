@@ -84,7 +84,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	 */
 	public final void setSubString(final java.lang.String subString)
 			throws
-				com.exedio.cope.StringField.LengthViolationException
+				com.exedio.cope.LengthViolationException
 	{
 		HierarchySingleSub.subString.set(this,subString);
 	}/**

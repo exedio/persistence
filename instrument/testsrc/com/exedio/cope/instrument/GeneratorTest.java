@@ -35,7 +35,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.exedio.cope.StringField.LengthViolationException;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;

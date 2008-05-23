@@ -100,7 +100,7 @@ public class HistoryItem extends Item
 	 */
 	final void setComment(final java.lang.String comment)
 			throws
-				com.exedio.cope.StringField.LengthViolationException
+				com.exedio.cope.LengthViolationException
 	{
 		HistoryItem.comment.set(this,comment);
 	}/**

@@ -85,7 +85,7 @@ class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	 */
 	final void setNonHiddenSub(final java.lang.String nonHiddenSub)
 			throws
-				com.exedio.cope.StringField.LengthViolationException
+				com.exedio.cope.LengthViolationException
 	{
 		HiddenFeatureSubItem.nonHiddenSub.set(this,nonHiddenSub);
 	}/**

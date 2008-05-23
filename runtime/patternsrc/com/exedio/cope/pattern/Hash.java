@@ -28,6 +28,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -138,7 +139,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			StringField.LengthViolationException,
+			LengthViolationException,
 			FinalViolationException
 	{
 		storage.set(item, plainText!=null ? hash(plainText) : null);

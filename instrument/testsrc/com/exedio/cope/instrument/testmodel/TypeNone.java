@@ -88,7 +88,7 @@ public class TypeNone extends Item
 	 */
 	public final void setDefaultString(final java.lang.String defaultString)
 			throws
-				com.exedio.cope.StringField.LengthViolationException
+				com.exedio.cope.LengthViolationException
 	{
 		TypeNone.defaultString.set(this,defaultString);
 	}/**

@@ -104,7 +104,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(true, CopySourceItem.templateString.isFinal());
 		assertEquals(String.class, CopySourceItem.templateString.getInitialType());
 		assertContains(
-				StringField.LengthViolationException.class, FinalViolationException.class,
+				LengthViolationException.class, FinalViolationException.class,
 				CopySourceItem.templateString.getInitialExceptions());
 		assertEquals(true, CopySourceItem.templateItem.isInitial());
 		assertEquals(true, CopySourceItem.templateItem.isFinal());

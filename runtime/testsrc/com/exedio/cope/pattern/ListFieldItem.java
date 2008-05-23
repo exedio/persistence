@@ -91,7 +91,7 @@ public class ListFieldItem extends Item
 	 */
 	final void setStrings(final java.util.Collection<? extends String> strings)
 			throws
-				com.exedio.cope.StringField.LengthViolationException,
+				com.exedio.cope.LengthViolationException,
 				java.lang.ClassCastException
 	{
 		ListFieldItem.strings.set(this,strings);

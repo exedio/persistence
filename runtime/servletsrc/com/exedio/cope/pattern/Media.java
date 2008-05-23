@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
+import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
@@ -357,7 +358,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
 	public void set(final Item item, final byte[] body, final String contentType)
-		throws DataField.DataLengthViolationException
+		throws DataLengthViolationException
 	{
 		try
 		{
@@ -394,7 +395,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
 	public void set(final Item item, final InputStream body, final String contentType)
-		throws DataField.DataLengthViolationException, IOException
+		throws DataLengthViolationException, IOException
 	{
 		try
 		{
@@ -429,13 +430,13 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	 * @throws IOException if reading <tt>body</tt> throws an IOException.
 	 */
 	public void set(final Item item, final File body, final String contentType)
-		throws DataField.DataLengthViolationException, IOException
+		throws DataLengthViolationException, IOException
 	{
 		set(item, DataField.toValue(body), contentType);
 	}
 	
 	private void set(final Item item, final DataField.Value body, final String contentType)
-		throws DataField.DataLengthViolationException, IOException
+		throws DataLengthViolationException, IOException
 	{
 		if(false)
 			throw new IOException(); // disables warning about throws clause, TODO

@@ -280,7 +280,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.setData10(data11);
 			fail();
 		}
-		catch(DataField.DataLengthViolationException e)
+		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -295,7 +295,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.setData10(stream(data11));
 			fail();
 		}
-		catch(DataField.DataLengthViolationException e)
+		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -310,7 +310,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.setData10(file(data11));
 			fail();
 		}
-		catch(DataField.DataLengthViolationException e)
+		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -373,7 +373,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.set(DataItem.data10.map(data11));
 			fail();
 		}
-		catch(DataField.DataLengthViolationException e)
+		catch(DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.data10, e.getFeature());
@@ -389,7 +389,7 @@ public class DataTest extends AbstractRuntimeTest
 			DataItem.TYPE.newItem(DataItem.data10.map(data11));
 			fail();
 		}
-		catch(DataField.DataLengthViolationException e)
+		catch(DataLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.data10, e.getFeature());

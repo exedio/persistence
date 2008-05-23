@@ -43,11 +43,11 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.DoubleRangeViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.RangeViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.util.ReactivationConstructorDummy;
@@ -182,7 +182,7 @@ final class Generator
 					o.write(',');
 				o.write(lineSeparator);
 				o.write("\t\t\t\t");
-				o.write(e.getCanonicalName());
+				o.write(e.getName());
 			}
 			o.write(lineSeparator);
 		}
@@ -252,7 +252,7 @@ final class Generator
 		for(final Class constructorException : constructorExceptions)
 		{
 			o.write("\t * @throws ");
-			o.write(constructorException.getCanonicalName());
+			o.write(constructorException.getName());
 			o.write(' ');
 
 			boolean first = true;
@@ -278,7 +278,7 @@ final class Generator
 				pattern = THROWS_RANGE;
 			else if(DoubleRangeViolationException.class.equals(constructorException))
 				pattern = THROWS_RANGE;
-			else if(StringField.LengthViolationException.class.equals(constructorException))
+			else if(LengthViolationException.class.equals(constructorException))
 				pattern = THROWS_LENGTH;
 			else
 				throw new RuntimeException(constructorException.getName());

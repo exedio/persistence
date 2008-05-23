@@ -99,7 +99,7 @@ public class ItemWithSingleUnique extends Item
 	 */
 	public final void setUniqueString(final java.lang.String uniqueString)
 			throws
-				com.exedio.cope.StringField.LengthViolationException,
+				com.exedio.cope.LengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
 		ItemWithSingleUnique.uniqueString.set(this,uniqueString);
@@ -146,7 +146,7 @@ public class ItemWithSingleUnique extends Item
 	 */
 	public final void setOtherString(final java.lang.String otherString)
 			throws
-				com.exedio.cope.StringField.LengthViolationException
+				com.exedio.cope.LengthViolationException
 	{
 		ItemWithSingleUnique.otherString.set(this,otherString);
 	}/**

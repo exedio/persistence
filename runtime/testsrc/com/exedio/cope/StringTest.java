@@ -24,7 +24,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.testmodel.StringItem;
-import com.exedio.cope.StringField.LengthViolationException;
 
 public class StringTest extends TestmodelTest
 {

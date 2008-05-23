@@ -115,7 +115,7 @@ public class MediaItem extends Item
 	 */
 	final void setName(final java.lang.String name)
 			throws
-				com.exedio.cope.StringField.LengthViolationException
+				com.exedio.cope.LengthViolationException
 	{
 		MediaItem.name.set(this,name);
 	}/**

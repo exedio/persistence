@@ -150,7 +150,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	final void checkValue(final Object value, final Item exceptionItem)
 		throws
 			MandatoryViolationException,
-			StringField.LengthViolationException
+			LengthViolationException
 	{
 		if(value == null)
 		{
@@ -181,7 +181,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 */
 	void checkNotNullValue(final E value, final Item exceptionItem)
 		throws
-			StringField.LengthViolationException
+			LengthViolationException
 	{
 		// empty default implementation
 	}

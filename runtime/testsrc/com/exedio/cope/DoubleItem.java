@@ -33,7 +33,7 @@ public class DoubleItem extends Item
 	public static final DoubleField max4 = new DoubleField().optional().max(4.0);
 	public static final DoubleField min4Max8 = new DoubleField().optional().range(4.0, 8.0);
 	
-	DoubleItem(final Double mandatory) throws StringField.LengthViolationException, MandatoryViolationException
+	DoubleItem(final Double mandatory) throws LengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
 			DoubleItem.mandatory.map(mandatory),
@@ -43,7 +43,7 @@ public class DoubleItem extends Item
 	/**
 	 * @param dummy is a dummy
 	 */
-	DoubleItem(final Double max4, final Date dummy) throws StringField.LengthViolationException, MandatoryViolationException
+	DoubleItem(final Double max4, final Date dummy) throws LengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue[]{
 			DoubleItem.mandatory.map(7777777.77),

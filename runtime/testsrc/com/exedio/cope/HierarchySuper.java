@@ -133,7 +133,7 @@ public abstract class HierarchySuper extends Item
 	 */
 	public final void setSuperString(final java.lang.String superString)
 			throws
-				com.exedio.cope.StringField.LengthViolationException
+				com.exedio.cope.LengthViolationException
 	{
 		HierarchySuper.superString.set(this,superString);
 	}/**
