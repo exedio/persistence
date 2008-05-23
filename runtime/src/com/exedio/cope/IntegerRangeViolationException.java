@@ -27,7 +27,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
-public final class RangeViolationException extends ConstraintViolationException
+public final class IntegerRangeViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -42,7 +42,7 @@ public final class RangeViolationException extends ConstraintViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public RangeViolationException(
+	public IntegerRangeViolationException(
 			final IntegerField feature,
 			final Item item,
 			final int value,

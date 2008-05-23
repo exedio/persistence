@@ -45,7 +45,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.RangeViolationException;
+import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
@@ -274,7 +274,7 @@ final class Generator
 				pattern = THROWS_MANDATORY;
 			else if(UniqueViolationException.class.equals(constructorException))
 				pattern = THROWS_UNIQUE;
-			else if(RangeViolationException.class.equals(constructorException))
+			else if(IntegerRangeViolationException.class.equals(constructorException))
 				pattern = THROWS_RANGE;
 			else if(DoubleRangeViolationException.class.equals(constructorException))
 				pattern = THROWS_RANGE;

@@ -72,17 +72,17 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(false, item.min4.isMandatory());
 		assertEquals(4, item.min4.getMinimum());
 		assertEquals(MAX, item.min4.getMaximum());
-		assertContains(RangeViolationException.class, item.min4.getInitialExceptions());
+		assertContains(IntegerRangeViolationException.class, item.min4.getInitialExceptions());
 
 		assertEquals(false, item.max4.isMandatory());
 		assertEquals(MIN, item.max4.getMinimum());
 		assertEquals(4, item.max4.getMaximum());
-		assertContains(RangeViolationException.class, item.max4.getInitialExceptions());
+		assertContains(IntegerRangeViolationException.class, item.max4.getInitialExceptions());
 
 		assertEquals(false, item.min4Max8.isMandatory());
 		assertEquals(4, item.min4Max8.getMinimum());
 		assertEquals(8, item.min4Max8.getMaximum());
-		assertContains(RangeViolationException.class, item.min4Max8.getInitialExceptions());
+		assertContains(IntegerRangeViolationException.class, item.min4Max8.getInitialExceptions());
 		
 		// test condition canonization
 		{
@@ -336,7 +336,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMin4(3);
 			fail();
 		}
-		catch(RangeViolationException e)
+		catch(IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4, e.getFeature());
@@ -364,7 +364,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMax4(5);
 			fail();
 		}
-		catch(RangeViolationException e)
+		catch(IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -387,7 +387,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			new IntegerItem(5, (Date)null);
 			fail();
 		}
-		catch(RangeViolationException e)
+		catch(IntegerRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -408,7 +408,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			);
 			fail();
 		}
-		catch(RangeViolationException e)
+		catch(IntegerRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -428,7 +428,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMin4Max8(3);
 			fail();
 		}
-		catch(RangeViolationException e)
+		catch(IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -459,7 +459,7 @@ public class IntegerTest extends AbstractRuntimeTest
 			item.setMin4Max8(9);
 			fail();
 		}
-		catch(RangeViolationException e)
+		catch(IntegerRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());

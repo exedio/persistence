@@ -145,7 +145,7 @@ public class IntegerItem extends Item
 	 */
 	public final void setMin4(final java.lang.Integer min4)
 			throws
-				com.exedio.cope.RangeViolationException
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		IntegerItem.min4.set(this,min4);
 	}/**
@@ -167,7 +167,7 @@ public class IntegerItem extends Item
 	 */
 	public final void setMax4(final java.lang.Integer max4)
 			throws
-				com.exedio.cope.RangeViolationException
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		IntegerItem.max4.set(this,max4);
 	}/**
@@ -189,7 +189,7 @@ public class IntegerItem extends Item
 	 */
 	public final void setMin4Max8(final java.lang.Integer min4Max8)
 			throws
-				com.exedio.cope.RangeViolationException
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		IntegerItem.min4Max8.set(this,min4Max8);
 	}/**

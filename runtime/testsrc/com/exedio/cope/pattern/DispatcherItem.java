@@ -157,7 +157,7 @@ public class DispatcherItem extends Item implements Dispatchable
 	 */
 	final void setDispatchCount(final int dispatchCount)
 			throws
-				com.exedio.cope.RangeViolationException
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		DispatcherItem.dispatchCount.set(this,dispatchCount);
 	}/**
@@ -179,7 +179,7 @@ public class DispatcherItem extends Item implements Dispatchable
 	 */
 	final void setDispatchLastSuccessElapsed(final int dispatchLastSuccessElapsed)
 			throws
-				com.exedio.cope.RangeViolationException
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		DispatcherItem.dispatchLastSuccessElapsed.set(this,dispatchLastSuccessElapsed);
 	}/**
@@ -211,8 +211,8 @@ public class DispatcherItem extends Item implements Dispatchable
 	 */
 	final void setDispatchFailureElapsed(final java.util.Collection<? extends Integer> dispatchFailureElapsed)
 			throws
+				com.exedio.cope.IntegerRangeViolationException,
 				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.RangeViolationException,
 				java.lang.ClassCastException
 	{
 		DispatcherItem.dispatchFailureElapsed.set(this,dispatchFailureElapsed);

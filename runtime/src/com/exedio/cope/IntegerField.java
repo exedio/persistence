@@ -170,7 +170,7 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		if(minimum!=Integer.MIN_VALUE || maximum!=Integer.MAX_VALUE)
-			result.add(RangeViolationException.class);
+			result.add(IntegerRangeViolationException.class);
 		return result;
 	}
 	
@@ -214,19 +214,19 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 		throws
 			UniqueViolationException,
 			FinalViolationException,
-			RangeViolationException
+			IntegerRangeViolationException
 	{
 		set(item, Integer.valueOf(value));
 	}
 
 	@Override
-	void checkNotNullValue(final Integer value, final Item exceptionItem) throws RangeViolationException
+	void checkNotNullValue(final Integer value, final Item exceptionItem) throws IntegerRangeViolationException
 	{
 		final int valuePrimitive = value.intValue();
 		if(valuePrimitive<minimum)
-			throw new RangeViolationException(this, exceptionItem, value, true, minimum);
+			throw new IntegerRangeViolationException(this, exceptionItem, value, true, minimum);
 		if(valuePrimitive>maximum)
-			throw new RangeViolationException(this, exceptionItem, value, false, maximum);
+			throw new IntegerRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 	
 	int nextDefaultNext()

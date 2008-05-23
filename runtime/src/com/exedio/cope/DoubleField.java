@@ -146,7 +146,7 @@ public final class DoubleField extends FunctionField<Double>
 	}
 	
 	@Override
-	void checkNotNullValue(final Double value, final Item exceptionItem) throws RangeViolationException
+	void checkNotNullValue(final Double value, final Item exceptionItem) throws IntegerRangeViolationException
 	{
 		final double valuePrimitive = value.doubleValue();
 		
