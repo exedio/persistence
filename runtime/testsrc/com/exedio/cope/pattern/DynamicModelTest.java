@@ -18,11 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Arrays;
+
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 
@@ -70,7 +74,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertSame(item.features.getTypeType(), item.features.getTypeField().getValueType());
 		assertEquals("featuresType", item.features.getTypeField().getName());
 		
-		assertEquals(list(
+		assertEquals(Arrays.asList(new Type[]{
 				DynamicModelItem.TYPE,
 				DynamicModelItem.features.getTypeType(), DynamicModelItem.features.getTypeLocalizationType(),
 				DynamicModelItem.features.getFieldType(), DynamicModelItem.features.getFieldLocalizationType(),
@@ -78,9 +82,9 @@ public class DynamicModelTest extends AbstractRuntimeTest
 				DynamicModelItem.small.getTypeType(), DynamicModelItem.small.getTypeLocalizationType(),
 				DynamicModelItem.small.getFieldType(), DynamicModelItem.small.getFieldLocalizationType(),
 				// no getEnumType()
-				DynamicModelLocalizationItem.TYPE
-			), model.getTypes());
-		assertEquals(list(
+				DynamicModelLocalizationItem.TYPE,
+			}), model.getTypes());
+		assertEquals(Arrays.asList(new Feature[]{
 				DynamicModelItem.TYPE.getThis(),
 				DynamicModelItem.name,
 				DynamicModelItem.features,
@@ -93,8 +97,8 @@ public class DynamicModelTest extends AbstractRuntimeTest
 				DynamicModelItem.features.getField(ValueType.ENUM, 1, null),
 				DynamicModelItem.small,
 				DynamicModelItem.small.getTypeField(),
-				DynamicModelItem.small.getField(ValueType.STRING, 0, null)
-			), DynamicModelItem.TYPE.getFeatures());
+				DynamicModelItem.small.getField(ValueType.STRING, 0, null),
+			}), DynamicModelItem.TYPE.getFeatures());
 		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.STRING,  0, null), "String1");
 		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null), "Bool1");
 		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.INTEGER, 0, null), "Int1");
