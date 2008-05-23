@@ -65,10 +65,10 @@ public final class DynamicModel<L> extends Pattern
 	private ItemField<?> type = null;
 	private final FunctionField<?>[] fields;
 
-	private final StringField[]  strings;
+	private final StringField [] strings;
 	private final BooleanField[] booleans;
 	private final IntegerField[] integers;
-	private final DoubleField[]  doubles;
+	private final DoubleField [] doubles;
 	private final ItemField<?>[] enums;
 	
 	private DynamicModel(
@@ -82,11 +82,11 @@ public final class DynamicModel<L> extends Pattern
 		this.localeTemplate = locale;
 		fieldPositionPerValueType = new IntegerField().toFinal().range(0,
 				max(max(max(max(stringCapacity, booleanCapacity), integerCapacity), doubleCapacity), enumCapacity));
-		strings  = new StringField[stringCapacity];
+		strings  = new StringField [stringCapacity];
 		booleans = new BooleanField[booleanCapacity];
 		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleField [doubleCapacity];
-		enums    = new ItemField[enumCapacity];
+		enums    = new ItemField   [enumCapacity];
 		fields   = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		int n = 0;
