@@ -88,16 +88,16 @@ public class DynamicModelTest extends AbstractRuntimeTest
 				DynamicModelItem.TYPE.getThis(),
 				DynamicModelItem.name,
 				DynamicModelItem.features,
-				DynamicModelItem.features.getTypeField(),
 				DynamicModelItem.features.getField(ValueType.STRING, 0, null),
 				DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null),
 				DynamicModelItem.features.getField(ValueType.INTEGER, 0, null),
 				DynamicModelItem.features.getField(ValueType.DOUBLE, 0, null),
 				DynamicModelItem.features.getField(ValueType.ENUM, 0, null),
 				DynamicModelItem.features.getField(ValueType.ENUM, 1, null),
+				DynamicModelItem.features.getTypeField(),
 				DynamicModelItem.small,
-				DynamicModelItem.small.getTypeField(),
 				DynamicModelItem.small.getField(ValueType.STRING, 0, null),
+				DynamicModelItem.small.getTypeField(),
 			}), DynamicModelItem.TYPE.getFeatures());
 		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.STRING,  0, null), "String1");
 		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null), "Bool1");

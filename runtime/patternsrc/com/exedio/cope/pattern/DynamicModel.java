@@ -164,9 +164,6 @@ public final class DynamicModel<L> extends Pattern
 		fieldType = newType(PatternItem.class, features, "Field");
 		fieldLocalization = new Localization(fieldType, localeTemplate, "Field");
 		
-		registerSource(type = typeType.newItemField(FORBID).optional());
-		initialize(type, name + "Type");
-
 		if(enums.length>0)
 		{
 			features.clear();
@@ -191,6 +188,9 @@ public final class DynamicModel<L> extends Pattern
 			for(int i = 0; i<array.length; i++)
 				initialize(array[i], name + postfix + (i+1/*TODO: make this '1' customizable*/));
 		}
+		
+		registerSource(type = typeType.newItemField(FORBID).optional());
+		initialize(type, name + "Type");
 	}
 	
 	public DynamicModel<L>.Type createType(final String code)
