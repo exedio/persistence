@@ -665,4 +665,90 @@ public final class DataField extends Field<DataField.Value>
 			return "DataField.Value:" + file.toString();
 		}
 	}
+	
+	/**
+	 * Signals, that an attempt to write a {@link DataField data field} has been failed,
+	 * because value to be written violated the length constraint on that field.
+	 *
+	 * This exception will be thrown by {@link DataField#set(Item,byte[])} etc.
+	 * and item constructors.
+	 *
+	 * @author Ralf Wiebicke
+	 */
+	public static final class DataLengthViolationException extends ConstraintViolationException // TODO rename
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final DataField feature;
+		private final long length;
+		private final boolean lengthExact;
+		
+		/**
+		 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
+		 * @param item initializes, what is returned by {@link #getItem()}.
+		 * @param feature initializes, what is returned by {@link #getFeature()}.
+		 * @param length initializes, what is returned by {@link #getLength()}.
+		 * @param lengthExact initializes, what is returned by {@link #isLengthExact()}.
+		 */
+		public DataLengthViolationException(final DataField feature, final Item item, final long length, final boolean lengthExact)
+		{
+			super(item, null);
+			
+			if(length<feature.getMaximumLength())
+				throw new RuntimeException(feature.toString()+'/'+length+'/'+feature.getMaximumLength());
+			
+			this.feature = feature;
+			this.length = length;
+			this.lengthExact = lengthExact;
+		}
+		
+		/**
+		 * Returns the field, that was attempted to be written.
+		 */
+		@Override
+		public DataField getFeature()
+		{
+			return feature;
+		}
+
+		/**
+		 * @deprecated Renamed to {@link #getFeature()}.
+		 */
+		@Deprecated
+		public DataField getDataAttribute()
+		{
+			return feature;
+		}
+
+		/**
+		 * Returns the length of the data, that was attempted to be written.
+		 * Returns -1, if that length is unknown.
+		 * @see #isLengthExact()
+		 */
+		public long getLength()
+		{
+			return length;
+		}
+		
+		/**
+		 * Returns, whether the value returned by {@link #getLength()}
+		 * is the exact length of the data attempted to be written (true)
+		 * or just a lower bound of that length (false).
+		 */
+		public boolean isLengthExact()
+		{
+			return lengthExact;
+		}
+		
+		@Override
+		public String getMessage(final boolean withFeature)
+		{
+			return
+				"length violation on " + getItemID() +
+				", " + length + " bytes " +
+				(lengthExact ? "" : "or more ") +
+				"is too long" +
+				(withFeature ? (" for " + feature) : "");
+		}
+	}
 }

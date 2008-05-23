@@ -25,7 +25,6 @@ import java.util.Date;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DataField;
-import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.StringField;
 
@@ -165,7 +164,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				item.setFile(data21, "emptyMajorLong/emptyMinorLong");
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(DataField.DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
@@ -180,7 +179,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				item.setFile(file(data21), "emptyMajorLong/emptyMinorLong");
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(DataField.DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
@@ -195,7 +194,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				item.setFile(stream(data21), "emptyMajorLong/emptyMinorLong");
 				fail();
 			}
-			catch(DataLengthViolationException e)
+			catch(DataField.DataLengthViolationException e)
 			{
 				assertSame(body, e.getFeature());
 				assertSame(body, e.getFeature());
