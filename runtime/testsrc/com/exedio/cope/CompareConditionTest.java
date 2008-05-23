@@ -23,7 +23,7 @@ import java.util.Date;
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
 
-public class CompareConditionTest extends AbstractLibTest
+public class CompareConditionTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(CompareConditionItem.TYPE);
 

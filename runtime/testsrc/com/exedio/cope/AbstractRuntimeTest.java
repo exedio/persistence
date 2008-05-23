@@ -34,14 +34,14 @@ import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.UniqueConstraint;
 
-public abstract class AbstractLibTest extends CopeTest
+public abstract class AbstractRuntimeTest extends CopeTest
 {
-	public AbstractLibTest(final Model model)
+	public AbstractRuntimeTest(final Model model)
 	{
 		super(model);
 	}
 	
-	public AbstractLibTest(final Model model, final boolean exclusive)
+	public AbstractRuntimeTest(final Model model, final boolean exclusive)
 	{
 		super(model, exclusive);
 	}

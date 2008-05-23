@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class HardJoinTest extends AbstractLibTest
+public class HardJoinTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(
 			HardJoinA1Item.TYPE,

@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.exedio.cope.CompareCondition.Operator;
 
-public class DoubleTest extends AbstractLibTest
+public class DoubleTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DoubleItem.TYPE);
 

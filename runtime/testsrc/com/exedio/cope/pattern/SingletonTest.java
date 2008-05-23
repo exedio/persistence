@@ -20,11 +20,11 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public final class SingletonTest extends AbstractLibTest
+public final class SingletonTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SingletonItem.TYPE);
 	

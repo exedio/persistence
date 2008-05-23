@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 
-public class EnumTest extends AbstractLibTest
+public class EnumTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);
 

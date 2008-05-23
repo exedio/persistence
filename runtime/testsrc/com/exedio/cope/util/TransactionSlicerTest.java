@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Transaction;
 
-public class TransactionSlicerTest extends AbstractLibTest
+public class TransactionSlicerTest extends AbstractRuntimeTest
 {
 	public TransactionSlicerTest()
 	{

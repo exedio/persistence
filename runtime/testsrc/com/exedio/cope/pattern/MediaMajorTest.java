@@ -21,12 +21,12 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.StringField;
 
-public class MediaMajorTest extends AbstractLibTest
+public class MediaMajorTest extends AbstractRuntimeTest
 {
 	public MediaMajorTest()
 	{

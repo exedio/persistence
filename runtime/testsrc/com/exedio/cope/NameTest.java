@@ -25,7 +25,7 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 
 import com.exedio.dsmf.Schema;
 
-public class NameTest extends AbstractLibTest
+public class NameTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
 			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,

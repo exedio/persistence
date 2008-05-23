@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -32,7 +32,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
-public class LimitedListFieldTest extends AbstractLibTest
+public class LimitedListFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(LimitedListFieldItem.TYPE);
 	

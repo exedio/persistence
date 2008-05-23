@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
@@ -26,7 +26,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 
-public class DynamicModelTest extends AbstractLibTest
+public class DynamicModelTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(DynamicModelItem.TYPE, DynamicModelLocalizationItem.TYPE);
 

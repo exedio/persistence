@@ -23,14 +23,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 
-public class MediaMandatoryTest extends AbstractLibTest
+public class MediaMandatoryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(MediaMandatoryItem.TYPE);
 

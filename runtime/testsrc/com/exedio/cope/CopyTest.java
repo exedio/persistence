@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 
-public class CopyTest extends AbstractLibTest
+public class CopyTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(CopySourceItem.TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
 	

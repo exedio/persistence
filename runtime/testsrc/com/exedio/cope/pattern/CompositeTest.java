@@ -20,12 +20,12 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 
-public class CompositeTest extends AbstractLibTest
+public class CompositeTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE);
 	

@@ -18,10 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 
-public class EnumMapFieldTest extends AbstractLibTest
+public class EnumMapFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
 

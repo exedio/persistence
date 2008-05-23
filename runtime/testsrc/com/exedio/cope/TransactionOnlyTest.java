@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TransactionOnlyTest extends AbstractLibTest
+public class TransactionOnlyTest extends AbstractRuntimeTest
 {
 	public TransactionOnlyTest()
 	{

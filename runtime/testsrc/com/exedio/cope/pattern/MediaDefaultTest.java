@@ -23,13 +23,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.StringField;
 
-public class MediaDefaultTest extends AbstractLibTest
+public class MediaDefaultTest extends AbstractRuntimeTest
 {
 	public MediaDefaultTest()
 	{

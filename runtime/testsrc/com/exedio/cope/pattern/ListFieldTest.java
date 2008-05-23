@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Date;
 import java.util.Iterator;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -33,7 +33,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 
-public class ListFieldTest extends AbstractLibTest
+public class ListFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(ListFieldItem.TYPE);
 	

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -26,7 +26,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.ItemField.DeletePolicy;
 
-public class MapFieldTest extends AbstractLibTest
+public class MapFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(MapFieldItem.TYPE);
 

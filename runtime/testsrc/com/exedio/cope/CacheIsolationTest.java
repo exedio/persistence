@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class CacheIsolationTest extends AbstractLibTest
+public class CacheIsolationTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(CacheIsolationItem.TYPE);
 

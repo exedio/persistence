@@ -23,13 +23,13 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Dispatcher.Failure;
 
-public class DispatcherTest extends AbstractLibTest
+public class DispatcherTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DispatcherItem.TYPE);
 	

@@ -22,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DataMandatoryTest extends AbstractLibTest
+public class DataMandatoryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(DataMandatoryItem.TYPE);
 	private static final DataField data = DataMandatoryItem.data;

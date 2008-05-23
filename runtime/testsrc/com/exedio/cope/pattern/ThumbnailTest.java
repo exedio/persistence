@@ -21,11 +21,11 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 import java.util.Set;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public class ThumbnailTest extends AbstractLibTest
+public class ThumbnailTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ThumbnailItem.TYPE);
 

@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.exedio.cope.CompareCondition.Operator;
 
-public class IntegerTest extends AbstractLibTest
+public class IntegerTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(IntegerItem.TYPE);
 

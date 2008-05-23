@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class DeleteHierarchyTest extends AbstractLibTest
+public class DeleteHierarchyTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(DeleteHierarchySource.TYPE, DeleteHierarchyTargetSuper.TYPE, DeleteHierarchyTargetSub.TYPE);
 

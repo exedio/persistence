@@ -25,7 +25,7 @@ import java.util.List;
 
 import com.exedio.cope.util.CacheQueryInfo;
 
-public class QueryCacheTest extends AbstractLibTest
+public class QueryCacheTest extends AbstractRuntimeTest
 {
 	public QueryCacheTest()
 	{

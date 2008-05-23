@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -30,7 +30,7 @@ import com.exedio.cope.Type;
 /**
  * Tests complicated situations for the setter.
  */
-public class ListFieldTest2 extends AbstractLibTest
+public class ListFieldTest2 extends AbstractRuntimeTest
 {
 	public ListFieldTest2()
 	{

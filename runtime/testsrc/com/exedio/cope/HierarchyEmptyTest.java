@@ -23,7 +23,7 @@ import com.exedio.dsmf.Constraint;
 
 
 
-public class HierarchyEmptyTest extends AbstractLibTest
+public class HierarchyEmptyTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE);
 

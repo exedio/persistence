@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.io.IOException;
 
-public class DataFinalTest extends AbstractLibTest
+public class DataFinalTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(DataFinalItem.TYPE);
 	private static final DataField data = DataFinalItem.data;

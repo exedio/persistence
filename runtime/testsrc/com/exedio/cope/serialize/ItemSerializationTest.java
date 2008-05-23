@@ -22,10 +22,10 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 
-public class ItemSerializationTest extends AbstractLibTest
+public class ItemSerializationTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ItemSerializationItem.TYPE);
 

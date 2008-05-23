@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class MatchTest extends AbstractLibTest
+public class MatchTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(MatchItem.TYPE);
 

@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class JoinFunctionTest extends AbstractLibTest
+public class JoinFunctionTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE);
 

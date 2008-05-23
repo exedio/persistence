@@ -23,7 +23,7 @@ import java.util.List;
 
 import com.exedio.cope.util.ModificationListener;
 
-public class ModificationListenerTest extends AbstractLibTest
+public class ModificationListenerTest extends AbstractRuntimeTest
 {
 	public ModificationListenerTest()
 	{

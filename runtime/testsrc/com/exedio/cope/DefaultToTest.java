@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.exedio.cope.DefaultToItem.DefaultToEnum;
 
-public class DefaultToTest extends AbstractLibTest
+public class DefaultToTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(DefaultToItem.TYPE);
 

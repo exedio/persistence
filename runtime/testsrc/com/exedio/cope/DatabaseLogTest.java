@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class DatabaseLogTest extends AbstractLibTest
+public class DatabaseLogTest extends AbstractRuntimeTest
 {
 	public DatabaseLogTest()
 	{

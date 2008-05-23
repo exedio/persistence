@@ -20,13 +20,13 @@ package com.exedio.cope.pattern;
 
 import java.util.Date;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.History.Feature;
 
-public class HistoryTest extends AbstractLibTest
+public class HistoryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(HistoryItem.TYPE);
 	

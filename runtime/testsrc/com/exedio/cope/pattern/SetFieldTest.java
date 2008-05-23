@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Date;
 import java.util.Iterator;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -31,7 +31,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 
-public class SetFieldTest extends AbstractLibTest
+public class SetFieldTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SetFieldItem.TYPE);
 	

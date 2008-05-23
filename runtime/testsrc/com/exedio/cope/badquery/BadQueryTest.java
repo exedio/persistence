@@ -18,12 +18,12 @@
 
 package com.exedio.cope.badquery;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 
-public class BadQueryTest extends AbstractLibTest
+public class BadQueryTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE);
 	

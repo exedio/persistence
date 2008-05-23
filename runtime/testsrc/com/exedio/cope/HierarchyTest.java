@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.dsmf.Constraint;
 
-public class HierarchyTest extends AbstractLibTest
+public class HierarchyTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
 			HierarchyFirstSub.TYPE,

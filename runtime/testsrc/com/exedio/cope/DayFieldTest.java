@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.exedio.cope.util.Day;
 
-public class DayFieldTest extends AbstractLibTest
+public class DayFieldTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DayItem.TYPE);
 

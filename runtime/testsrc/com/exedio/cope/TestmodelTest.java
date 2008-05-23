@@ -24,7 +24,7 @@ import java.io.IOException;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
 
-public abstract class TestmodelTest extends AbstractLibTest
+public abstract class TestmodelTest extends AbstractRuntimeTest
 {
 	public static final Type[] modelTypes = Main.modelTypes;
 	

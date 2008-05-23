@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-public class TransactionEmptyTest extends AbstractLibTest
+public class TransactionEmptyTest extends AbstractRuntimeTest
 {
 	public TransactionEmptyTest()
 	{

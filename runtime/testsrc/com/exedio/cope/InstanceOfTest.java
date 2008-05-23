@@ -23,7 +23,7 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 
-public class InstanceOfTest extends AbstractLibTest
+public class InstanceOfTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
 			InstanceOfAItem.TYPE,

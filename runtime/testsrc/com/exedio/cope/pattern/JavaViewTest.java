@@ -20,11 +20,11 @@ package com.exedio.cope.pattern;
 
 import java.util.Arrays;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public class JavaViewTest extends AbstractLibTest
+public class JavaViewTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(JavaViewItem.TYPE);
 	private static final Double d2 = new Double(2.25d);

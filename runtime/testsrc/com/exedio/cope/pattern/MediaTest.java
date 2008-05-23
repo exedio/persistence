@@ -22,11 +22,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public final class MediaTest extends AbstractLibTest
+public final class MediaTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(MediaItem.TYPE);
 

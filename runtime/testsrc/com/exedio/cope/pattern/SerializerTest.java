@@ -22,12 +22,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 
-public class SerializerTest extends AbstractLibTest
+public class SerializerTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(SerializerItem.TYPE);
 	

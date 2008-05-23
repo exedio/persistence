@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
 
-public class QueryTest extends AbstractLibTest
+public class QueryTest extends AbstractRuntimeTest
 {
 	private static final Condition TRUE  = Condition.TRUE;
 	private static final Condition FALSE = Condition.FALSE;

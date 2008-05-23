@@ -22,11 +22,11 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 
-public class MD5Test extends AbstractLibTest
+public class MD5Test extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(MD5Item.TYPE);
 	

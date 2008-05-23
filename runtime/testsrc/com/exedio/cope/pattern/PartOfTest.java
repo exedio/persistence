@@ -18,10 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractLibTest;
+import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 
-public class PartOfTest extends AbstractLibTest
+public class PartOfTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PartOfItem.TYPE, PartOfContainerItem.TYPE);
 	

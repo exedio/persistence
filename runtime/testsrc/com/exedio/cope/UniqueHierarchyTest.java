@@ -23,7 +23,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
-public class UniqueHierarchyTest extends AbstractLibTest
+public class UniqueHierarchyTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(UniqueHierarchySuperItem.TYPE, UniqueHierarchySubItem.TYPE);
 	
