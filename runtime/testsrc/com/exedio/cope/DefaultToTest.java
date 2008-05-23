@@ -201,7 +201,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
-					"caused a RangeViolationException: " +
+					"caused a IntegerRangeViolationException: " +
 					"range violation on a newly created item, " +
 					"10001 is too small, " +
 					"must be at least 10002. Start value was '10001'.", e.getMessage());
