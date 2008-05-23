@@ -91,13 +91,13 @@ public final class DynamicModel<L> extends Pattern
 
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(fields[n++] = strings [i] = new StringField().optional(),  ValueType.STRING .postfix + (i+1));
+			registerSource(fields[n++] = strings [i] = new StringField().optional(),  "String" + (i+1));
 		for(int i = 0; i<booleans.length; i++)
-			registerSource(fields[n++] = booleans[i] = new BooleanField().optional(), ValueType.BOOLEAN.postfix + (i+1));
+			registerSource(fields[n++] = booleans[i] = new BooleanField().optional(), "Bool" + (i+1));
 		for(int i = 0; i<integers.length; i++)
-			registerSource(fields[n++] = integers[i] = new IntegerField().optional(), ValueType.INTEGER.postfix + (i+1));
+			registerSource(fields[n++] = integers[i] = new IntegerField().optional(), "Int" + (i+1));
 		for(int i = 0; i<doubles.length; i++)
-			registerSource(fields[n++] = doubles [i] = new DoubleField().optional(),  ValueType.DOUBLE .postfix + (i+1));
+			registerSource(fields[n++] = doubles [i] = new DoubleField().optional(),  "Double" + (i+1));
 	}
 	
 	public static final <L> DynamicModel<L> newModel(
@@ -176,7 +176,7 @@ public final class DynamicModel<L> extends Pattern
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
 			for(int i = 0; i<enums.length; i++)
-				registerSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), ValueType.ENUM.postfix + (i+1));
+				registerSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), "Enum" + (i+1));
 		}
 		
 		registerSource(type = typeType.newItemField(FORBID).optional(), "Type");
@@ -360,19 +360,17 @@ public final class DynamicModel<L> extends Pattern
 
 	public static enum ValueType
 	{
-		STRING (String.class,            "String"),
-		BOOLEAN(Boolean.class,           "Bool"),
-		INTEGER(Integer.class,           "Int"),
-		DOUBLE (Double.class,            "Double"),
-		ENUM   (DynamicModel.Enum.class, "Enum");
+		STRING (String.class),
+		BOOLEAN(Boolean.class),
+		INTEGER(Integer.class),
+		DOUBLE (Double.class),
+		ENUM   (DynamicModel.Enum.class);
 		
 		final Class valueClass;
-		final String postfix;
 		
-		ValueType(final Class valueClass, final String postfix)
+		ValueType(final Class valueClass)
 		{
 			this.valueClass = valueClass;
-			this.postfix = postfix;
 		}
 		
 		public final Class getValueClass()
