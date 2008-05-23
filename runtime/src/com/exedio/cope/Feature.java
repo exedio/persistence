@@ -52,7 +52,7 @@ public abstract class Feature
 		type.registerInitialization(this);
 	}
 	
-	public final boolean isInitialized()
+	final boolean isInitialized()
 	{
 		return type!=null;
 	}

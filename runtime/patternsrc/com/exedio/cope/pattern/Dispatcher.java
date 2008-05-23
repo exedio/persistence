@@ -72,8 +72,8 @@ public final class Dispatcher extends Pattern
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
-		registerSource(pending);
-		registerSource(successDate);
+		registerSource(pending, "Pending");
+		registerSource(successDate, "SuccessDate"); registerSource(successElapsed, "SuccessElapsed");
 	}
 	
 	@Override
@@ -85,11 +85,6 @@ public final class Dispatcher extends Pattern
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
 
-		final String name = getName();
-		initialize(pending, name + "Pending");
-		initialize(successDate, name + "SuccessDate");
-		initialize(successElapsed, name + "SuccessElapsed");
-		
 		failureParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("parent", failureParent);

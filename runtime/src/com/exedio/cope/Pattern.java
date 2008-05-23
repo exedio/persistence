@@ -52,7 +52,7 @@ import java.util.LinkedHashMap;
 public abstract class Pattern extends Feature
 {
 	// TODO SOON introduce getSources
-	private final ArrayList<Field> sources = new ArrayList<Field>();
+	private final LinkedHashMap<Field, String> sources = new LinkedHashMap<Field, String>();
 	final ArrayList<Type<? extends Item>> generatedTypes = new ArrayList<Type<? extends Item>>();
 	
 	@Override
@@ -61,10 +61,10 @@ public abstract class Pattern extends Feature
 		super.initialize(type, name);
 		initialize();
 
-		for(final Field source : sources)
+		for(final Field<?> source : sources.keySet())
 		{
 			if(!source.isInitialized())
-				throw new RuntimeException("Source " + source + " of pattern " + this + " has not been initialized.");
+				source.initialize(type, name + sources.get(source));
 			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
@@ -72,10 +72,16 @@ public abstract class Pattern extends Feature
 		}
 	}
 	
-	protected final void registerSource(final Field field)
+	protected final void registerSource(final Field field, final String postfix)
 	{
+		if(postfix==null)
+			throw new NullPointerException("postfix must not be null");
+		if(field==null)
+			throw new NullPointerException("field must not be null for postfix '" + postfix + '\'');
 		field.registerPattern(this);
-		sources.add(field);
+		final String collision = sources.put(field, postfix);
+		if(collision!=null)
+			throw new IllegalStateException("duplicate source registration " + field + '/' + collision);
 	}
 
 	/**
@@ -86,11 +92,6 @@ public abstract class Pattern extends Feature
 	public void initialize()
 	{
 		// empty default implementation
-	}
-	
-	protected final void initialize(final Field<?> field, final String name)
-	{
-		field.initialize(getType(), name);
 	}
 	
 	protected final void initialize(final UniqueConstraint uniqueConstraint, final String name)

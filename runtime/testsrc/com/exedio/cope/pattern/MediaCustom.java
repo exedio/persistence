@@ -44,16 +44,6 @@ final class MediaCustom extends MediaPath
 	}
 	
 	@Override
-	public void initialize()
-	{
-		super.initialize();
-		
-		final String name = getName();
-		if(source!=null && !source.isInitialized())
-			initialize(source, name+"Source");
-	}
-	
-	@Override
 	public String getContentType(final Item item)
 	{
 		return source.get(item)!=null ? "text/plain" : null;

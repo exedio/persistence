@@ -62,12 +62,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private Media(final boolean optional, final long bodyMaximumLength, final ContentType contentType)
 	{
 		this.optional = optional;
-		registerSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength));
+		registerSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "Body");
 		this.contentType = contentType;
 		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null)
-			registerSource(contentTypeField);
-		registerSource(this.lastModified = optional(new DateField(), optional));
+			registerSource(contentTypeField, contentType.name);
+		registerSource(this.lastModified = optional(new DateField(), optional), "LastModified");
 		
 		assert optional == !body.isMandatory();
 		assert (contentTypeField==null) || (optional == !contentTypeField.isMandatory());
@@ -291,20 +291,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	public SetValue map(final Value value)
 	{
 		return new SetValue<Value>(this, value);
-	}
-	
-	@Override
-	public void initialize()
-	{
-		super.initialize();
-		
-		final String name = getName();
-		if(!body.isInitialized())
-			initialize(body, name + "Body");
-		final FunctionField contentTypeField = contentType.field;
-		if(contentTypeField!=null && !contentTypeField.isInitialized())
-			initialize(contentTypeField, name + contentType.name);
-		initialize(lastModified, name + "LastModified");
 	}
 	
 	public boolean isNull(final Item item)

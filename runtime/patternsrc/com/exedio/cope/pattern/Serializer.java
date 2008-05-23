@@ -69,7 +69,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		this.valueClass = valueClass;
 		this.source = source;
 
-		registerSource(source);
+		registerSource(source, "Data");
 	}
 	
 	/**
@@ -106,13 +106,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	}
 	
 	// TODO allow setting of length of DataField
-	
-	@Override
-	public void initialize()
-	{
-		if(!source.isInitialized())
-			initialize(source, getName() + "Data");
-	}
 	
 	public DataField getSource()
 	{

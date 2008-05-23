@@ -39,14 +39,7 @@ public final class Singleton extends Pattern
 	
 	public Singleton()
 	{
-		registerSource(source);
-	}
-	
-	@Override
-	public void initialize()
-	{
-		if(!source.isInitialized())
-			initialize(source, getName() + "Once");
+		registerSource(source, "Once");
 	}
 	
 	public IntegerField getSource()

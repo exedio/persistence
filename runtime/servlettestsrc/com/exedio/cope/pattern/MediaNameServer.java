@@ -39,21 +39,13 @@ final class MediaNameServer extends MediaPath
 	MediaNameServer(final StringField source)
 	{
 		this.source = source;
+		if(source!=null)
+			registerSource(source, "Source");
 	}
 	
 	StringField getSource()
 	{
 		return source;
-	}
-	
-	@Override
-	public void initialize()
-	{
-		super.initialize();
-		
-		final String name = getName();
-		if(source!=null && !source.isInitialized())
-			initialize(source, name+"Source");
 	}
 	
 	@Override

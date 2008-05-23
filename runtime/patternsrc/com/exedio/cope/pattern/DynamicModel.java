@@ -91,13 +91,13 @@ public final class DynamicModel<L> extends Pattern
 
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			registerSource(fields[n++] = strings [i] = new StringField().optional());
+			registerSource(fields[n++] = strings [i] = new StringField().optional(),  ValueType.STRING .postfix + (i+1));
 		for(int i = 0; i<booleans.length; i++)
-			registerSource(fields[n++] = booleans[i] = new BooleanField().optional());
+			registerSource(fields[n++] = booleans[i] = new BooleanField().optional(), ValueType.BOOLEAN.postfix + (i+1));
 		for(int i = 0; i<integers.length; i++)
-			registerSource(fields[n++] = integers[i] = new IntegerField().optional());
+			registerSource(fields[n++] = integers[i] = new IntegerField().optional(), ValueType.INTEGER.postfix + (i+1));
 		for(int i = 0; i<doubles.length; i++)
-			registerSource(fields[n++] = doubles [i] = new DoubleField().optional());
+			registerSource(fields[n++] = doubles [i] = new DoubleField().optional(),  ValueType.DOUBLE .postfix + (i+1));
 	}
 	
 	public static final <L> DynamicModel<L> newModel(
@@ -144,8 +144,6 @@ public final class DynamicModel<L> extends Pattern
 	@Override
 	public void initialize()
 	{
-		final String name = getName();
-		
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("code", typeCode);
 		typeType = newType(PatternItem.class, features, "Type");
@@ -178,19 +176,10 @@ public final class DynamicModel<L> extends Pattern
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
 			for(int i = 0; i<enums.length; i++)
-				registerSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional());
+				registerSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), ValueType.ENUM.postfix + (i+1));
 		}
 		
-		for(final ValueType valueType : ValueType.values())
-		{
-			final FunctionField<?>[] array = array(valueType);
-			final String postfix = valueType.postfix;
-			for(int i = 0; i<array.length; i++)
-				initialize(array[i], name + postfix + (i+1/*TODO: make this '1' customizable*/));
-		}
-		
-		registerSource(type = typeType.newItemField(FORBID).optional());
-		initialize(type, name + "Type");
+		registerSource(type = typeType.newItemField(FORBID).optional(), "Type");
 	}
 	
 	public DynamicModel<L>.Type createType(final String code)

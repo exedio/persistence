@@ -51,9 +51,10 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 
 		boolean initial = false;
 		boolean isFinal = false;
+		int i = 1; // TODO: make this '1' customizable
 		for(FunctionField<E> source : sources)
 		{
-			registerSource(source);
+			registerSource(source, String.valueOf(i++));
 			initial = initial || source.isInitial();
 			isFinal = isFinal || source.isFinal();
 		}
@@ -108,19 +109,6 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 			result[i] = template.copy();
 
 		return result;
-	}
-	
-	@Override
-	public void initialize()
-	{
-		final String name = getName();
-		
-		for(int i = 0; i<sources.length; i++)
-		{
-			final FunctionField<E> source = sources[i];
-			if(!source.isInitialized())
-				initialize(source, name+(i+1/*TODO: make this '1' customizable*/));
-		}
 	}
 	
 	public List<FunctionField<E>> getSources()

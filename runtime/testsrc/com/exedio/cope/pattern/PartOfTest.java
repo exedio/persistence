@@ -77,7 +77,7 @@ public class PartOfTest extends AbstractRuntimeTest
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("field must not be null for postfix 'Container'", e.getMessage());
 		}
 
 		// test persistence

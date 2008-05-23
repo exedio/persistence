@@ -41,7 +41,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		for(K key : keyClass.getEnumConstants())
 		{
 			final FunctionField<V> value = valueTemplate.copy();
-			registerSource(value);
+			registerSource(value, key.name());
 			fields.put(key, value);
 		}
 	}
@@ -49,18 +49,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(final Class<K> keyClass, final FunctionField<V> value)
 	{
 		return new EnumMapField<K,V>(keyClass, value);
-	}
-	
-	@Override
-	public void initialize()
-	{
-		final String name = getName();
-		
-		for(K key : keyClass.getEnumConstants())
-		{
-			final FunctionField<V> value = fields.get(key);
-			initialize(value, name+key.name());
-		}
 	}
 	
 	public Class<K> getKeyClass()

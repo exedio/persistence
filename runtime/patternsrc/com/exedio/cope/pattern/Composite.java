@@ -95,7 +95,6 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	@Override
 	public void initialize()
 	{
-		final String name = getName();
 		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
 			new LinkedHashMap<FunctionField, FunctionField>();
 		
@@ -104,8 +103,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			final String templateName = e.getKey();
 			final FunctionField template = e.getValue();
 			final FunctionField component = copy(template);
-			registerSource(component);
-			initialize(component, name + toCamelCase(templateName));
+			registerSource(component, toCamelCase(templateName));
 			templateToComponent.put(template, component);
 		}
 		this.templateToComponent = templateToComponent;
