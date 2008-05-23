@@ -100,7 +100,7 @@ public class MediaMandatoryItem extends Item
 	 */
 	final void setName(final java.lang.String name)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		MediaMandatoryItem.name.set(this,name);
 	}/**

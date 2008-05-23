@@ -84,7 +84,7 @@ public class JavaViewItem extends Item
 	 */
 	final void setNumberString(final java.lang.String numberString)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		JavaViewItem.numberString.set(this,numberString);
 	}/**

@@ -75,7 +75,7 @@ class HiddenFeatureSuperItem extends Item
 	 */
 	final void setNonHiddenSuper(final java.lang.String nonHiddenSuper)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HiddenFeatureSuperItem.nonHiddenSuper.set(this,nonHiddenSuper);
 	}/**
@@ -97,7 +97,7 @@ class HiddenFeatureSuperItem extends Item
 	 */
 	final void setHiddenSame(final java.lang.String hiddenSame)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HiddenFeatureSuperItem.hiddenSame.set(this,hiddenSame);
 	}/**
@@ -119,7 +119,7 @@ class HiddenFeatureSuperItem extends Item
 	 */
 	final void setHiddenOther(final java.lang.String hiddenOther)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HiddenFeatureSuperItem.hiddenOther.set(this,hiddenOther);
 	}/**

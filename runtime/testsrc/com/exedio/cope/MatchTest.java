@@ -36,7 +36,7 @@ public class MatchTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new MatchItem());
 	}
 	
-	public void testStrings() throws LengthViolationException
+	public void testStrings() throws StringLengthViolationException
 	{
 		item.setText("hallo bello cnallo");
 		assertEquals(list(item), item.TYPE.search(new MatchCondition(item.text, "hallo")));

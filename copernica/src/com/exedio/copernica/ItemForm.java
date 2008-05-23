@@ -38,7 +38,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
-import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
@@ -508,7 +508,7 @@ final class ItemForm extends Form
 			final Field field = getFieldByKey(e.getFeature().getFields().iterator().next());
 			field.error = e.getClass().getName();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			final Field field = getFieldByKey(e.getFeature());
 			field.error = e.getClass().getName();

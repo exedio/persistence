@@ -234,7 +234,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			//e.printStackTrace();
 			assertEquals(
 					"The default constant of the field does not comply to one of it's own constraints, " +
-					"caused a LengthViolationException: " +
+					"caused a StringLengthViolationException: " +
 					"length violation on a newly created item, '1234' is too long, " +
 					"must be at most 3 characters, but was 4. " +
 					"Default constant was '1234'.",

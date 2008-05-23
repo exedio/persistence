@@ -485,7 +485,7 @@ class DataItem extends Item
 	 */
 	final void setName(final java.lang.String name)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		DataItem.name.set(this,name);
 	}/**

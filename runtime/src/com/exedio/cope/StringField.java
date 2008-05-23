@@ -122,7 +122,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
-		result.add(LengthViolationException.class);
+		result.add(StringLengthViolationException.class);
 		return result;
 	}
 	
@@ -160,16 +160,16 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Override
 	void checkNotNullValue(final String value, final Item exceptionItem)
 		throws
-			LengthViolationException
+			StringLengthViolationException
 	{
 		if(convertEmptyStrings && value.length()==0 && !optional)
 			throw new MandatoryViolationException(this, exceptionItem);
 		
 		final int length = value.length();
 		if(length<minimumLength)
-			throw new LengthViolationException(this, exceptionItem, value, true, minimumLength);
+			throw new StringLengthViolationException(this, exceptionItem, value, true, minimumLength);
 		if(length>maximumLength)
-			throw new LengthViolationException(this, exceptionItem, value, false, maximumLength);
+			throw new StringLengthViolationException(this, exceptionItem, value, false, maximumLength);
 	}
 	
 	// convenience methods for conditions and views ---------------------------------

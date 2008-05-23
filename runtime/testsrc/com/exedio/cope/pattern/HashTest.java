@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 
@@ -61,7 +61,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.explicitExternal), item.explicitExternalWrap.getPatterns());
 		assertEquals(false, item.explicitExternalWrap.isInitial());
 		assertEquals(false, item.explicitExternalWrap.isFinal());
-		assertContains(LengthViolationException.class, item.explicitExternalWrap.getInitialExceptions());
+		assertContains(StringLengthViolationException.class, item.explicitExternalWrap.getInitialExceptions());
 
 		assertNull(item.getExplicitExternalWrap());
 		assertTrue(item.checkExplicitExternal(null));
@@ -102,7 +102,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.implicitExternal), item.implicitExternal.getStorage().getPatterns());
 		assertEquals(false, item.implicitExternal.isInitial());
 		assertEquals(false, item.implicitExternal.isFinal());
-		assertContains(LengthViolationException.class, item.implicitExternal.getInitialExceptions());
+		assertContains(StringLengthViolationException.class, item.implicitExternal.getInitialExceptions());
 		
 		assertEquals(null, item.get(item.implicitExternal.getStorage()));
 		assertTrue(item.checkImplicitExternal(null));
@@ -125,7 +125,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.internal), item.internal.getStorage().getPatterns());
 		assertEquals(false, item.internal.isInitial());
 		assertEquals(false, item.internal.isFinal());
-		assertContains(LengthViolationException.class, item.internal.getInitialExceptions());
+		assertContains(StringLengthViolationException.class, item.internal.getInitialExceptions());
 		
 		assertEquals(null, item.get(item.internal.getStorage()));
 		assertTrue(item.checkInternal(null));

@@ -82,7 +82,7 @@ class MatchItem extends Item
 	 */
 	final void setText(final java.lang.String text)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		MatchItem.text.set(this,text);
 	}/**

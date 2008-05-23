@@ -270,7 +270,7 @@ public class StringTest extends TestmodelTest
 			item.setMin4("123");
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4, e.getFeature());
@@ -298,7 +298,7 @@ public class StringTest extends TestmodelTest
 			item.setMax4("12345");
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -321,7 +321,7 @@ public class StringTest extends TestmodelTest
 			new StringItem("12345", (Date)null);
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -342,7 +342,7 @@ public class StringTest extends TestmodelTest
 			);
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.max4, e.getFeature());
@@ -362,7 +362,7 @@ public class StringTest extends TestmodelTest
 			item.setMin4Max8("123");
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -393,7 +393,7 @@ public class StringTest extends TestmodelTest
 			item.setMin4Max8("123456789");
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.min4Max8, e.getFeature());
@@ -416,7 +416,7 @@ public class StringTest extends TestmodelTest
 			item.setExact6("12345");
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.exact6, e.getFeature());
@@ -444,7 +444,7 @@ public class StringTest extends TestmodelTest
 			item.setExact6("1234567");
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.exact6, e.getFeature());
@@ -467,7 +467,7 @@ public class StringTest extends TestmodelTest
 			new StringItem("1234567", 40);
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.exact6, e.getFeature());
@@ -489,7 +489,7 @@ public class StringTest extends TestmodelTest
 			);
 			fail();
 		}
-		catch(LengthViolationException e)
+		catch(StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
 			assertEquals(item.exact6, e.getFeature());

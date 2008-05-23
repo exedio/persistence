@@ -27,7 +27,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
-public final class LengthViolationException extends ConstraintViolationException
+public final class StringLengthViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -42,7 +42,7 @@ public final class LengthViolationException extends ConstraintViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LengthViolationException(final StringField feature, final Item item, final String value, final boolean isTooShort, final int border)
+	public StringLengthViolationException(final StringField feature, final Item item, final String value, final boolean isTooShort, final int border)
 	{
 		super(item, null);
 		this.feature = feature;

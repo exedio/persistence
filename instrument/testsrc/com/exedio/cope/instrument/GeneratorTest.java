@@ -35,7 +35,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
@@ -66,7 +66,7 @@ public class GeneratorTest extends InstrumentorTest
 	final static Class SET_VALUE_ARRAY = SetValue[].class;
 	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
 	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
-	final static Class LENGTH_VIOLATION = LengthViolationException.class;
+	final static Class LENGTH_VIOLATION = StringLengthViolationException.class;
 	final static Class REACTIVATION_DUMMY = ReactivationConstructorDummy.class;
 	
 	final static Class STANDARD = Standard.class;
@@ -96,8 +96,8 @@ public class GeneratorTest extends InstrumentorTest
 				String.class, // privateSetterHash
 			}, PUBLIC,
 			new Class[]{
-				LENGTH_VIOLATION,
 				MANDATORY_VIOLATION,
+				LENGTH_VIOLATION,
 			});
 		assertConstructor(STANDARD, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
 		assertConstructor(STANDARD, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
@@ -105,11 +105,11 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getDefaultString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setDefaultString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getNotNullString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNotNullString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setNotNullString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getFinalString", STRING, PUBLIC|FINAL);
 		assertNoMethod(STANDARD, "setFinalString", new Class[]{STRING});
 		assertMethod(STANDARD, "getDefaultToString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultToString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setDefaultToString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(STANDARD, "forUniqueString", new Class[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);
@@ -295,7 +295,7 @@ public class GeneratorTest extends InstrumentorTest
 
 	public void testDoubleUnique()
 	{
-		assertConstructor(DOUBLE_UNIQUE, new Class[]{STRING, SUB_TARGET}, PUBLIC, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION, UNIQUE_VIOLATION});
+		assertConstructor(DOUBLE_UNIQUE, new Class[]{STRING, SUB_TARGET}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PUBLIC|STATIC|FINAL);
@@ -308,8 +308,8 @@ public class GeneratorTest extends InstrumentorTest
 				Integer.class, // superInitial
 			}, PUBLIC,
 			new Class[]{
-				LengthViolationException.class,
 				MANDATORY_VIOLATION,
+				LENGTH_VIOLATION,
 			});
 		assertConstructor(SUPER, new Class[]{SET_VALUE_ARRAY}, PROTECTED|VARARGS);
 		assertConstructor(SUPER, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
@@ -321,20 +321,20 @@ public class GeneratorTest extends InstrumentorTest
 				Long.class, // subInitial
 			}, PUBLIC,
 			new Class[]{
-				LengthViolationException.class,
 				MANDATORY_VIOLATION,
+				LENGTH_VIOLATION,
 			});
 		assertConstructor(SUB, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
 		assertConstructor(SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 
 		// test protected constructors on non-abstract types
-		assertConstructor(INPUT, new Class[]{String.class, int.class}, PUBLIC, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION, UNIQUE_VIOLATION});
+		assertConstructor(INPUT, new Class[]{String.class, int.class}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertConstructor(INPUT, new Class[]{SET_VALUE_ARRAY}, PROTECTED|VARARGS);
 		assertConstructor(INPUT, new Class[]{REACTIVATION_DUMMY, int.class}, PROTECTED);
-		assertConstructor(INPUT_SUB, new Class[]{String.class, int.class}, PUBLIC, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION, UNIQUE_VIOLATION});
+		assertConstructor(INPUT_SUB, new Class[]{String.class, int.class}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertConstructor(INPUT_SUB, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
 		assertConstructor(INPUT_SUB, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
-		assertConstructor(INPUT_SUB2, new Class[]{String.class, int.class}, PUBLIC, new Class[]{LENGTH_VIOLATION, MANDATORY_VIOLATION, UNIQUE_VIOLATION});
+		assertConstructor(INPUT_SUB2, new Class[]{String.class, int.class}, PUBLIC, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertConstructor(INPUT_SUB2, new Class[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
 		assertConstructor(INPUT_SUB2, new Class[]{REACTIVATION_DUMMY, int.class}, PRIVATE);
 	}
@@ -446,5 +446,4 @@ public class GeneratorTest extends InstrumentorTest
 		assertEquals(modifiers, constructor.getModifiers());
 		assertEquals(Arrays.asList(exceptionTypes), Arrays.asList(constructor.getExceptionTypes()));
 	}
-
 }

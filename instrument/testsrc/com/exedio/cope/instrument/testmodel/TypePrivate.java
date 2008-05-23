@@ -86,7 +86,7 @@ public class TypePrivate extends Item
 	 */
 	public final void setDefaultString(final java.lang.String defaultString)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		TypePrivate.defaultString.set(this,defaultString);
 	}/**

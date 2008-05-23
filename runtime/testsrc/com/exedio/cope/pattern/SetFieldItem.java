@@ -91,7 +91,7 @@ public class SetFieldItem extends Item
 	 */
 	final void setStrings(final java.util.Collection<? extends String> strings)
 			throws
-				com.exedio.cope.LengthViolationException,
+				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
 		SetFieldItem.strings.set(this,strings);
@@ -105,7 +105,7 @@ public class SetFieldItem extends Item
 	 */
 	final boolean addToStrings(final String element)
 			throws
-				com.exedio.cope.LengthViolationException,
+				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
 		return SetFieldItem.strings.add(this,element);
@@ -119,7 +119,7 @@ public class SetFieldItem extends Item
 	 */
 	final boolean removeFromStrings(final String element)
 			throws
-				com.exedio.cope.LengthViolationException,
+				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
 		return SetFieldItem.strings.remove(this,element);

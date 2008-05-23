@@ -43,7 +43,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.DoubleRangeViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.SetValue;
@@ -278,7 +278,7 @@ final class Generator
 				pattern = THROWS_RANGE;
 			else if(DoubleRangeViolationException.class.equals(constructorException))
 				pattern = THROWS_RANGE;
-			else if(LengthViolationException.class.equals(constructorException))
+			else if(StringLengthViolationException.class.equals(constructorException))
 				pattern = THROWS_LENGTH;
 			else
 				throw new RuntimeException(constructorException.getName());

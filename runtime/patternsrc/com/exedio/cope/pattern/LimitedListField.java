@@ -31,7 +31,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
-import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -185,7 +185,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			LengthViolationException,
+			StringLengthViolationException,
 			FinalViolationException,
 			ClassCastException
 	{

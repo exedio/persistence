@@ -86,7 +86,7 @@ public class HashItem extends Item
 	 */
 	final void setExplicitExternalWrap(final java.lang.String explicitExternalWrap)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.explicitExternalWrap.set(this,explicitExternalWrap);
 	}/**
@@ -108,7 +108,7 @@ public class HashItem extends Item
 	 */
 	final void setExplicitExternal(final java.lang.String explicitExternal)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.explicitExternal.set(this,explicitExternal);
 	}/**
@@ -130,7 +130,7 @@ public class HashItem extends Item
 	 */
 	final void setExplicitExternalHash(final java.lang.String explicitExternal)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.explicitExternal.setHash(this,explicitExternal);
 	}/**
@@ -152,7 +152,7 @@ public class HashItem extends Item
 	 */
 	final void setImplicitExternal(final java.lang.String implicitExternal)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.implicitExternal.set(this,implicitExternal);
 	}/**
@@ -174,7 +174,7 @@ public class HashItem extends Item
 	 */
 	final void setImplicitExternalHash(final java.lang.String implicitExternal)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.implicitExternal.setHash(this,implicitExternal);
 	}/**
@@ -196,7 +196,7 @@ public class HashItem extends Item
 	 */
 	final void setInternal(final java.lang.String internal)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.internal.set(this,internal);
 	}/**
@@ -218,7 +218,7 @@ public class HashItem extends Item
 	 */
 	final void setInternalHash(final java.lang.String internal)
 			throws
-				com.exedio.cope.LengthViolationException
+				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.internal.setHash(this,internal);
 	}/**

@@ -27,7 +27,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
-import com.exedio.cope.LengthViolationException;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
@@ -117,7 +117,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.strings), string3.getPatterns());
 		assertEquals(false, item.strings.isInitial());
 		assertEquals(false, item.strings.isFinal());
-		assertContains(LengthViolationException.class, item.strings.getInitialExceptions());
+		assertContains(StringLengthViolationException.class, item.strings.getInitialExceptions());
 
 		assertEquals(
 				list(item.num1, item.num2, item.num3, date0, date1, string0, string1, string2, string3),

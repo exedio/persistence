@@ -268,7 +268,7 @@ public abstract class Item implements Serializable
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			LengthViolationException,
+			StringLengthViolationException,
 			FinalViolationException,
 			ClassCastException
 	{
@@ -299,7 +299,7 @@ public abstract class Item implements Serializable
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
-			LengthViolationException,
+			StringLengthViolationException,
 			FinalViolationException,
 			ClassCastException
 	{
