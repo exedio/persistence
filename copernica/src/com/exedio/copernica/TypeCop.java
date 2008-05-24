@@ -35,7 +35,7 @@ final class TypeCop extends CopernicaCop
 {
 	private static final String ORDER_ASCENDING = "oa";
 	private static final String ORDER_DESCENDING = "od";
-	private static final int LIMIT_DEFAULT = 10;
+	private static final Pager.Config PAGER_CONFIG = new Pager.Config(10, 20, 50, 100, 200, 500);
 
 	final Type type;
 	final Function orderBy;
@@ -47,7 +47,7 @@ final class TypeCop extends CopernicaCop
 
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type)
 	{
-		this(provider, language, type, null, true, new Pager(LIMIT_DEFAULT));
+		this(provider, language, type, null, true, PAGER_CONFIG.newPager());
 	}
 	
 	TypeCop(final CopernicaProvider provider, final CopernicaLanguage language, final Type type,
@@ -166,6 +166,6 @@ final class TypeCop extends CopernicaCop
 		return new TypeCop(
 				provider, language, type,
 				orderBy, orderAscending,
-				Pager.newPager(request, LIMIT_DEFAULT));
+				PAGER_CONFIG.newPager(request));
 	}
 }

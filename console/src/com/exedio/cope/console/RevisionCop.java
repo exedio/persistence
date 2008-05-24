@@ -37,7 +37,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class RevisionCop extends ConsoleCop implements Pageable
 {
-	private static final int LIMIT_DEFAULT = 10;
+	private static final Pager.Config PAGER_CONFIG = new Pager.Config(10, 20, 50, 100, 200, 500);
 	
 	final Pager pager;
 	
@@ -51,12 +51,12 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	
 	RevisionCop()
 	{
-		this(new Pager(LIMIT_DEFAULT));
+		this(PAGER_CONFIG.newPager());
 	}
 	
 	RevisionCop(final HttpServletRequest request)
 	{
-		this(Pager.newPager(request, LIMIT_DEFAULT));
+		this(PAGER_CONFIG.newPager(request));
 	}
 	
 	public Pager getPager()

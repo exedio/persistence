@@ -38,7 +38,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 	private static final String MEDIA_INLINE = "m";
 	private static final String OTHER_INLINE = "o";
 	
-	private static final int LIMIT_DEFAULT = 10;
+	private static final Pager.Config PAGER_CONFIG = new Pager.Config(10, 20, 50, 100, 200, 500);
 	
 	final MediaPath media;
 	final MediaPath other;
@@ -48,7 +48,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 
 	MediaCop(final MediaPath media)
 	{
-		this(media, false, false, new Pager(LIMIT_DEFAULT));
+		this(media, false, false, PAGER_CONFIG.newPager());
 	}
 
 	private MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline, final Pager pager)
@@ -99,7 +99,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 		return new MediaCop(
 				(MediaPath)model.getFeature(mediaID),
 				mediaInline, otherInline,
-				Pager.newPager(request, LIMIT_DEFAULT));
+				PAGER_CONFIG.newPager(request));
 	}
 	
 	MediaCop toggleInlineMedia()
