@@ -111,7 +111,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getDefaultToString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setDefaultToString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{MANDATORY_VIOLATION, LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "setUniqueString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION, LENGTH_VIOLATION});
 		assertMethod(STANDARD, "forUniqueString", new Class[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);
 		assertMethod(STANDARD, "getInitialString", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setInitialString", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION});
@@ -182,7 +182,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "setAsIsBoolean", new Class[]{Boolean.class}, PUBLIC|FINAL);
 		
 		assertMethod(STANDARD, "getDoubleUnique1", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDoubleUnique1", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{LENGTH_VIOLATION, UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "setDoubleUnique1", new Class[]{STRING}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION, LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setDoubleUnique2", new Class[]{Integer.class}, PUBLIC|FINAL, new Class[]{UNIQUE_VIOLATION});
 		assertMethod(STANDARD, "forDoubleUnique", new Class[]{STRING, Integer.class}, STANDARD, PUBLIC|STATIC|FINAL);

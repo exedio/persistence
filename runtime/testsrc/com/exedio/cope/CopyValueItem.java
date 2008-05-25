@@ -91,8 +91,8 @@ class CopyValueItem extends Item
 	final void setCode(final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		CopyValueItem.code.set(this,code);
 	}/**

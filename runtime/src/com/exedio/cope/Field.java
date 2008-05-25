@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -102,7 +102,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
+		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
 		if(isfinal)
 			result.add(FinalViolationException.class);
 		if(!optional)

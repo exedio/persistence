@@ -93,8 +93,8 @@ class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	final void setSubField(final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		UniqueHierarchySubItem.subField.set(this,subField);
 	}/**

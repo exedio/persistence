@@ -211,8 +211,8 @@ public class DispatcherItem extends Item implements Dispatchable
 	 */
 	final void setDispatchFailureElapsed(final java.util.Collection<? extends Integer> dispatchFailureElapsed)
 			throws
-				com.exedio.cope.IntegerRangeViolationException,
 				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.IntegerRangeViolationException,
 				java.lang.ClassCastException
 	{
 		DispatcherItem.dispatchFailureElapsed.set(this,dispatchFailureElapsed);

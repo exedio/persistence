@@ -83,8 +83,8 @@ class CacheIsolationItem extends Item
 	 */
 	final void setUniqueString(final java.lang.String uniqueString)
 			throws
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		CacheIsolationItem.uniqueString.set(this,uniqueString);
 	}/**

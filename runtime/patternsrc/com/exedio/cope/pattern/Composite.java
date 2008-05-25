@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -221,7 +221,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	@SuppressWarnings("unchecked")
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
+		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
 		for(final FunctionField member : templates.values())
 			result.addAll(member.getInitialExceptions());
 		if(isfinal)

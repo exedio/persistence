@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -161,7 +161,7 @@ public final class Wrapper
 	}
 	
 	
-	private HashMap<Class<? extends Throwable>, String> throwsClause;
+	private LinkedHashMap<Class<? extends Throwable>, String> throwsClause;
 	
 	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
@@ -182,7 +182,7 @@ public final class Wrapper
 			throw new NullPointerException("throwable must not be null");
 		
 		if(throwsClause==null)
-			throwsClause = new HashMap<Class<? extends Throwable>, String>();
+			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String>();
 		
 		throwsClause.put(throwable, comment);
 		

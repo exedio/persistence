@@ -93,8 +93,8 @@ class HardJoinB1Item extends Item
 	final void setCode(final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		HardJoinB1Item.code.set(this,code);
 	}/**

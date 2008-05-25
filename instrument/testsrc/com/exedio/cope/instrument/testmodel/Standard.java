@@ -363,8 +363,8 @@ public class Standard extends Item
 	 */
 	public final void setUniqueString(final java.lang.String uniqueString)
 			throws
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		Standard.uniqueString.set(this,uniqueString);
 	}/**
@@ -924,8 +924,8 @@ public class Standard extends Item
 	 */
 	public final void setDoubleUnique1(final java.lang.String doubleUnique1)
 			throws
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		Standard.doubleUnique1.set(this,doubleUnique1);
 	}/**

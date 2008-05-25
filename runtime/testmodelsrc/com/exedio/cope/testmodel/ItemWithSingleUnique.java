@@ -99,8 +99,8 @@ public class ItemWithSingleUnique extends Item
 	 */
 	public final void setUniqueString(final java.lang.String uniqueString)
 			throws
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		ItemWithSingleUnique.uniqueString.set(this,uniqueString);
 	}/**

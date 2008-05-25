@@ -100,8 +100,8 @@ public class ItemWithDoubleUnique extends Item
 	public final void setString(final java.lang.String string)
 			throws
 				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		ItemWithDoubleUnique.string.set(this,string);
 	}/**

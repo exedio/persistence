@@ -94,8 +94,8 @@ public class ItemWithSingleUniqueNotNull extends Item
 	public final void setUniqueNotNullString(final java.lang.String uniqueNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		ItemWithSingleUniqueNotNull.uniqueNotNullString.set(this,uniqueNotNullString);
 	}/**

@@ -92,8 +92,8 @@ class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	final void setCode(final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		NameLongNameLongNameLongNameLongNameLongNameLongItem.code.set(this,code);
 	}/**
@@ -139,8 +139,8 @@ class NameLongNameLongNameLongNameLongNameLongNameLongItem extends Item
 	 */
 	final void setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 			throws
-				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.UniqueViolationException
+				com.exedio.cope.UniqueViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
 		NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.set(this,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
 	}/**
