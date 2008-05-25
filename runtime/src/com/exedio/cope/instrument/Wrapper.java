@@ -76,6 +76,8 @@ public final class Wrapper
 			throw new NullPointerException("type must not be void");
 		if(this.returnType!=null)
 			throw new NullPointerException("type must not be set twice");
+		if(comment!=null)
+			assertComment(comment);
 		
 		this.returnType = type;
 		this.returnComment = comment;
@@ -144,6 +146,8 @@ public final class Wrapper
 			throw new NullPointerException("type must not be null");
 		if(name==null)
 			throw new NullPointerException("name must not be null");
+		if(comment!=null)
+			assertComment(comment);
 		
 		if(parameters==null)
 			parameters = new ArrayList<Parameter>();
@@ -180,6 +184,8 @@ public final class Wrapper
 	{
 		if(throwable==null)
 			throw new NullPointerException("throwable must not be null");
+		if(comment!=null)
+			assertComment(comment);
 		
 		if(throwsClause==null)
 			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String>();
@@ -217,10 +223,7 @@ public final class Wrapper
 	
 	public Wrapper addComment(final String comment)
 	{
-		if(comment==null)
-			throw new NullPointerException("comment must not be null");
-		if(comment.startsWith("@"))
-			throw new IllegalArgumentException("comment must not contain tag, but was " + comment);
+		assertComment(comment);
 		
 		if(comments==null)
 			comments = new ArrayList<String>();
@@ -242,8 +245,8 @@ public final class Wrapper
 	
 	public Wrapper deprecate(final String comment)
 	{
-		if(comment==null)
-			throw new NullPointerException();
+		assertComment(comment);
+		
 		deprecationComment = comment;
 
 		return this;
@@ -257,6 +260,17 @@ public final class Wrapper
 	public String getDeprecationComment()
 	{
 		return deprecationComment;
+	}
+	
+	
+	private static final void assertComment(final String comment)
+	{
+		if(comment==null)
+			throw new NullPointerException("comment must not be null");
+		if(comment.startsWith(" "))
+			throw new IllegalArgumentException("comment must not start with space, but was '" + comment + '\'');
+		if(comment.startsWith("@"))
+			throw new IllegalArgumentException("comment must not contain tag, but was " + comment);
 	}
 	
 	
