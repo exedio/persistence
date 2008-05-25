@@ -73,9 +73,9 @@ public final class Wrapper
 		if(type==null)
 			throw new NullPointerException("type must not be null");
 		if(type==void.class)
-			throw new NullPointerException("type must not be void");
+			throw new IllegalArgumentException("type must not be void");
 		if(this.returnType!=null)
-			throw new NullPointerException("type must not be set twice");
+			throw new IllegalStateException("type must not be set twice");
 		if(comment!=null)
 			assertComment(comment);
 		
