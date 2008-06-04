@@ -156,10 +156,13 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		item.setFile((byte[])null, null);
 		assertNull();
 		{
+			// test length violation
 			final Date before = new Date();
 			item.setFile(data20, "emptyMajor/emptyMinor");
 			final Date after = new Date();
 			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
+			
+			// byte[]
 			try
 			{
 				item.setFile(data21, "emptyMajorLong/emptyMinorLong");
@@ -177,6 +180,22 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
 			try
 			{
+				new MediaItem(Media.toValue(data21, "emptyMajorLong/emptyMinorLong"));
+				fail();
+			}
+			catch(DataLengthViolationException e)
+			{
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(null, e.getItem());
+				assertEquals(21, e.getLength());
+				assertEquals(true, e.isLengthExact());
+				assertEquals("length violation on a newly created item, 21 bytes is too long for " + body, e.getMessage());
+			}
+			
+			// file
+			try
+			{
 				item.setFile(file(data21), "emptyMajorLong/emptyMinorLong");
 				fail();
 			}
@@ -190,6 +209,22 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
 			}
 			assertContent(data20, before, after, "emptyMajor/emptyMinor", "");
+			try
+			{
+				new MediaItem(Media.toValue(file(data21), "emptyMajorLong/emptyMinorLong"));
+				fail();
+			}
+			catch(DataLengthViolationException e)
+			{
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(null, e.getItem());
+				assertEquals(21, e.getLength());
+				assertEquals(true, e.isLengthExact());
+				assertEquals("length violation on a newly created item, 21 bytes is too long for " + body, e.getMessage());
+			}
+			
+			// stream
 			try
 			{
 				item.setFile(stream(data21), "emptyMajorLong/emptyMinorLong");
@@ -206,6 +241,21 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			}
 			assertStreamClosed();
 			//assertContent(data20, before, after, "emptyMajorLong/emptyMinorLong", ".emptyMajorLong.emptyMinorLong"); TODO
+			try
+			{
+				new MediaItem(Media.toValue(stream(data21), "emptyMajorLong/emptyMinorLong"));
+				fail();
+			}
+			catch(DataLengthViolationException e)
+			{
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(null, e.getItem());
+				assertEquals(21, e.getLength());
+				assertEquals(false, e.isLengthExact());
+				assertEquals("length violation on a newly created item, 21 bytes or more is too long for " + body, e.getMessage());
+			}
+			assertStreamClosed();
 		}
 		item.setFile((byte[])null, null);
 		assertNull();
