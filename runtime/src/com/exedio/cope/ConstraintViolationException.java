@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 /**
  * Is thrown, when a persistent modification violates a constraint.
  *
@@ -45,7 +44,16 @@ public abstract class ConstraintViolationException extends RuntimeException
 		return item;
 	}
 
+	/**
+	 * @deprecated Use {@link #getItemText()} instead
+	 */
+	@Deprecated
 	public final String getItemID()
+	{
+		return getItemText();
+	}
+
+	public final String getItemText()
 	{
 		return item!=null ? item.getCopeID() : "a newly created item";
 	}

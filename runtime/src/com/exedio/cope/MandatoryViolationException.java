@@ -69,6 +69,6 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		return "mandatory violation on " + getItemID() + (withFeature ? (" for " + feature) : "");
+		return "mandatory violation on " + getItemText() + (withFeature ? (" for " + feature) : "");
 	}
 }

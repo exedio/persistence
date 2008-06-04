@@ -96,7 +96,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	public String getMessage(final boolean withFeature)
 	{
 		return
-			"length violation on " + getItemID() +
+			"length violation on " + getItemText() +
 			", " + length + " bytes " +
 			(lengthExact ? "" : "or more ") +
 			"is too long" +
