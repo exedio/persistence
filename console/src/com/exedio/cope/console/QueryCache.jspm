@@ -80,7 +80,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			"ch",
 		};
 		%>
-		<table>
+		<table id="coloredTable">
 			<caption>Query Cache Histogram</caption><%
 			writeColouredHeader(out, names, shortNames);
 		

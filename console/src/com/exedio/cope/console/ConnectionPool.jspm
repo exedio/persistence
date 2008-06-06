@@ -72,7 +72,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 			</tr>
 		</table>
 		<hr>
-		<table>
+		<table id="coloredTable">
 			<caption>Hypothetical</caption><%
 			writeColouredHeader(out, names, shortNames);
 			for(final PoolCounter.Pool pool : poolCounter.getPools())

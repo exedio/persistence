@@ -114,6 +114,13 @@ table th.color1s { margin:0px; background:#fff; border-color:#fff; text-align:ce
 table td.color0 { margin:0px; background:#ddf; border-color:#ddf; }
 table td.color1 { margin:0px; background:#fff; border-color:#ddf; }
 
+span.help
+{
+	font-size:70%;
+	vertical-align:top;
+	color:#375798;
+}
+
 div.message
 {
 	color: #000;
