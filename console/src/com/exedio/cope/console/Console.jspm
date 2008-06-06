@@ -116,10 +116,9 @@ abstract class Console_Jspm
 		%>
 		<div class="menu"><%
 		
-		final ConsoleCop[] tabs = cop.TABS;
-		for(int i = 0; i<tabs.length; i++)
+		
+		for(final ConsoleCop tab : cop.TABS)
 		{
-			final ConsoleCop tab = tabs[i];
 			if(cop.name.equals(tab.name))
 			{
 			%>
