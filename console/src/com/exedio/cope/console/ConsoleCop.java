@@ -67,9 +67,9 @@ abstract class ConsoleCop extends Cop
 		return HttpServletResponse.SC_OK;
 	}
 	
-	final ConsoleCop[] getTabs()
-	{
-		return new ConsoleCop[]{
+	static final ConsoleCop[] TABS =
+	
+		new ConsoleCop[]{
 				new PropertiesCop(),
 				new SchemaCop(),
 				new TypeColumnCop(),
@@ -88,7 +88,7 @@ abstract class ConsoleCop extends Cop
 				new HiddenCop(),
 				new ModificationListenerCop(),
 			};
-	}
+	
 	
 	final String getStart()
 	{
