@@ -165,6 +165,8 @@ abstract class Console_Jspm
 				<th colspan="<%=      names.length - i %>" class="color<%= i%COLORS %>"><%=names[i]%></th>
 			</tr><%
 			}
+			%>
+			<tr><%
 			int i = 0;
 			for(; i<shortNames.length; i++)
 			{
@@ -176,6 +178,8 @@ abstract class Console_Jspm
 				%>
 				<th><%= names[i] %></th><%
 			}
+			%>
+			</tr><%
 	}
 	
 	static final void writeColouredData(final PrintStream out, final String[] data)
