@@ -116,7 +116,6 @@ abstract class Console_Jspm
 		%>
 		<div class="menu"><%
 		
-		
 		for(final ConsoleCop tab : cop.TABS)
 		{
 			if(cop.name.equals(tab.name))
