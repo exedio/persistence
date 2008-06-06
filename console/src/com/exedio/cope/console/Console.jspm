@@ -121,7 +121,7 @@ abstract class Console_Jspm
 			if(cop.name.equals(tab.name))
 			{
 			%>
-			| <b><%=tab.name%></b><%
+			| <%=tab.name%><%
 			}
 			else
 			{
