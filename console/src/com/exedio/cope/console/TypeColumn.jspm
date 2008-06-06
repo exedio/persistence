@@ -33,7 +33,11 @@ final class TypeColumn_Jspm
 			final boolean test)
 	{
 		if(functions.isEmpty())
+		{
+			%>
+			There are no type columns in this model.<%
 			return;
+		}
 		
 		writeButton(cop, out);
 		int totalFailures = 0;
