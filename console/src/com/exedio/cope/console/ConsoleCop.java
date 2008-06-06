@@ -243,12 +243,12 @@ abstract class ConsoleCop extends Cop
 		final Pager pager = cop.getPager();
 		if(pager.isNeeded())
 		{
-			Media_Jspm.writePagerButton(out, cop, pager.first(),    "&lt;&lt;");
-			Media_Jspm.writePagerButton(out, cop, pager.previous(), "&lt;");
-			Media_Jspm.writePagerButton(out, cop, pager.next(),     "&gt;");
-			Media_Jspm.writePagerButton(out, cop, pager.last(),     "&gt;&gt;");
+			Console_Jspm.writePagerButton(out, cop, pager.first(),    "&lt;&lt;");
+			Console_Jspm.writePagerButton(out, cop, pager.previous(), "&lt;");
+			Console_Jspm.writePagerButton(out, cop, pager.next(),     "&gt;");
+			Console_Jspm.writePagerButton(out, cop, pager.last(),     "&gt;&gt;");
 			for(final Pager newLimit : pager.newLimits())
-				Media_Jspm.writePagerButton(out, cop, newLimit, String.valueOf(newLimit.getLimit()));
+				Console_Jspm.writePagerButton(out, cop, newLimit, String.valueOf(newLimit.getLimit()));
 			out.print(' ');
 			out.print(pager.getFrom());
 			out.print('-');
