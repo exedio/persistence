@@ -68,7 +68,6 @@ abstract class ConsoleCop extends Cop
 	}
 	
 	static final ConsoleCop[] TABS =
-	
 		new ConsoleCop[]{
 				new PropertiesCop(),
 				new SchemaCop(),
@@ -88,7 +87,6 @@ abstract class ConsoleCop extends Cop
 				new HiddenCop(),
 				new ModificationListenerCop(),
 			};
-	
 	
 	final String getStart()
 	{
