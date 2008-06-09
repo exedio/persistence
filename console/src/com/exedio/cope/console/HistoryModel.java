@@ -70,5 +70,5 @@ final class HistoryModel extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type TYPE = newType(HistoryModel.class);
+	static final Type<HistoryModel> TYPE = newType(HistoryModel.class);
 }

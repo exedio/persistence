@@ -59,5 +59,5 @@ final class HistoryMedia extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type TYPE = newType(HistoryMedia.class);
+	static final Type<HistoryMedia> TYPE = newType(HistoryMedia.class);
 }

@@ -63,5 +63,5 @@ final class HistoryItemCache extends Item
 	
 	private static final long serialVersionUID = 1l;
 	
-	static final Type TYPE = newType(HistoryItemCache.class);
+	static final Type<HistoryItemCache> TYPE = newType(HistoryItemCache.class);
 }
