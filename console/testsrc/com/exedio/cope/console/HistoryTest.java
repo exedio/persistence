@@ -20,8 +20,8 @@ package com.exedio.cope.console;
 
 import static com.exedio.cope.console.HistoryThread.HISTORY_MODEL;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -32,6 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
+import com.exedio.cope.util.Properties;
 
 public class HistoryTest extends TestCase
 {
@@ -41,8 +42,32 @@ public class HistoryTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		MODEL.connect(new ConnectProperties(new File("hsqldb.test.cope.properties")));
-		HISTORY_MODEL.connect(new ConnectProperties(new File("hsqldb.test.cope.properties")));
+		final Properties.Source s = new Properties.Source(){
+
+			public String get(final String key)
+			{
+				if(key.equals("database.url"))
+					return "jdbc:hsqldb:mem:copetest";
+				else if(key.equals("database.user"))
+					return "sa";
+				else if(key.equals("database.password"))
+					return "";
+				else
+					return null;
+			}
+
+			public String getDescription()
+			{
+				return "HistoryTest Properties.Source";
+			}
+
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+		};
+		MODEL.connect(new ConnectProperties(s, null));
+		HISTORY_MODEL.connect(new ConnectProperties(s, null));
 		HISTORY_MODEL.createDatabase();
 	}
 	
