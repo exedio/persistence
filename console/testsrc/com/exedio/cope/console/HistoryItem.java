@@ -18,20 +18,29 @@
 
 package com.exedio.cope.console;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public class PackageTest extends TestCase
+public class HistoryItem extends Item
 {
-	public static Test suite()
+	static final StringField code = new StringField();
+	static final Media media = new Media();
+	
+	HistoryItem(final SetValue... values)
 	{
-		final TestSuite suite = new TestSuite();
-		
-		suite.addTestSuite(MimeTypesTest.class);
-		suite.addTestSuite(QueryCacheTest.class);
-		suite.addTestSuite(HistoryTest.class);
-		
-		return suite;
+		super(values);
 	}
+	
+	HistoryItem(final ReactivationConstructorDummy d, final int pk)
+	{
+		super(d, pk);
+	}
+	
+	private static final long serialVersionUID = 1l;
+	
+	static final Type<HistoryItem> TYPE = newType(HistoryItem.class);
 }

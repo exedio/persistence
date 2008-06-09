@@ -685,6 +685,8 @@
 				<pathelement location="build/console/classes" />
 				<pathelement location="build/console/testclasses" />
 				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/hsqldb.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljunit>

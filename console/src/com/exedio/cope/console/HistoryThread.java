@@ -125,7 +125,7 @@ final class HistoryThread extends Thread
 		}
 	}
 	
-	private void store(final int running)
+	void store(final int running) // non-private for testing
 	{
 		// prepare
 		final int thread = System.identityHashCode(this);
