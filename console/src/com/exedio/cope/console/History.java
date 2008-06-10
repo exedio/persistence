@@ -24,38 +24,38 @@ import com.exedio.cope.util.Properties;
 final class History
 {
 	private final Model model;
-	private final Object historyLock = new Object();
-	private HistoryThread historyThread = null;
-	private boolean historyAvailable = false;
+	private final Object lock = new Object();
+	private HistoryThread thread = null;
+	private boolean available = false;
 	
 	History(final Model model)
 	{
 		this.model = model;
 		assert model!=null;
-		startHistory();
+		start();
 	}
 	
-	boolean isHistoryAvailable()
+	boolean isAvailable()
 	{
-		synchronized(historyLock)
+		synchronized(lock)
 		{
-			return historyAvailable;
+			return available;
 		}
 	}
 	
-	boolean isHistoryRunning()
+	boolean isRunning()
 	{
-		synchronized(historyLock)
+		synchronized(lock)
 		{
-			return historyThread!=null && historyThread.isAlive();
+			return thread!=null && thread.isAlive();
 		}
 	}
 	
-	void startHistory()
+	void start()
 	{
-		synchronized(historyLock)
+		synchronized(lock)
 		{
-			if(historyThread!=null && historyThread.isAlive())
+			if(thread!=null && thread.isAlive())
 				throw new RuntimeException("already running");
 			
 			Properties.Source context = null;
@@ -72,22 +72,22 @@ final class History
 				final String propertyFile = context.get(ConsoleServlet.HISTORY_PROPERTY_FILE);
 				if(propertyFile!=null)
 				{
-					historyAvailable = true;
-					historyThread = new HistoryThread(model, propertyFile);
-					historyThread.start();
+					available = true;
+					thread = new HistoryThread(model, propertyFile);
+					thread.start();
 				}
 			}
 		}
 	}
 
-	void stopHistory()
+	void stop()
 	{
-		synchronized(historyLock)
+		synchronized(lock)
 		{
-			if(historyThread!=null)
+			if(thread!=null)
 			{
-				historyThread.stopAndJoin();
-				historyThread = null;
+				thread.stopAndJoin();
+				thread = null;
 			}
 		}
 	}

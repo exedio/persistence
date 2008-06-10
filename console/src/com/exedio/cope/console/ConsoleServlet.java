@@ -108,7 +108,7 @@ public final class ConsoleServlet extends CopsServlet
 	@Override
 	public void destroy()
 	{
-		history.stopHistory();
+		history.stop();
 		connectToken.returnIt();
 		connectToken = null;
 		model = null;
@@ -126,7 +126,7 @@ public final class ConsoleServlet extends CopsServlet
 		ConnectToken historyConnectToken = null;
 		try
 		{
-			if(history.isHistoryAvailable())
+			if(history.isAvailable())
 			{
 				if(Cop.isPost(request))
 				{
@@ -136,9 +136,9 @@ public final class ConsoleServlet extends CopsServlet
 					else if("false".equals(d))
 						request.getSession().removeAttribute(HISTORY_MODEL_SHOWN);
 					else if(HISTORY_START.equals(d))
-						history.startHistory();
+						history.start();
 					else if(HISTORY_STOP.equals(d))
-						history.stopHistory();
+						history.stop();
 				}
 				final HttpSession session = request.getSession(false);
 				historyModelShown = session!=null && session.getAttribute(HISTORY_MODEL_SHOWN)!=null;
@@ -177,7 +177,7 @@ public final class ConsoleServlet extends CopsServlet
 			Console_Jspm.write(
 					out, request, response, model, cop,
 					authentication, hostname,
-					history.isHistoryAvailable(), historyModelShown, history.isHistoryRunning());
+					history.isAvailable(), historyModelShown, history.isRunning());
 			out.close();
 		}
 		finally
