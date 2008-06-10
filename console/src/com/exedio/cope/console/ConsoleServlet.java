@@ -18,7 +18,6 @@
 
 package com.exedio.cope.console;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -34,7 +33,6 @@ import javax.servlet.http.HttpSession;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.ConnectToken;
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
@@ -70,10 +68,7 @@ public final class ConsoleServlet extends CopsServlet
 	
 	private ConnectToken connectToken = null;
 	private Model model = null;
-	
-	private final Object historyLock = new Object();
-	private HistoryThread historyThread = null;
-	private boolean historyAvailable = false;
+	private History history;
 	
 	static final Resource stylesheet = new Resource("console.css");
 	static final Resource schemaScript = new Resource("schema.js");
@@ -107,13 +102,13 @@ public final class ConsoleServlet extends CopsServlet
 		
 		connectToken = ServletUtil.getConnectedModel(this);
 		model = connectToken.getModel();
-		startHistory();
+		history = new History(model);
 	}
 	
 	@Override
 	public void destroy()
 	{
-		stopHistory();
+		history.stopHistory();
 		connectToken.returnIt();
 		connectToken = null;
 		model = null;
@@ -131,7 +126,7 @@ public final class ConsoleServlet extends CopsServlet
 		ConnectToken historyConnectToken = null;
 		try
 		{
-			if(historyAvailable)
+			if(history.isHistoryAvailable())
 			{
 				if(Cop.isPost(request))
 				{
@@ -141,9 +136,9 @@ public final class ConsoleServlet extends CopsServlet
 					else if("false".equals(d))
 						request.getSession().removeAttribute(HISTORY_MODEL_SHOWN);
 					else if(HISTORY_START.equals(d))
-						startHistory();
+						history.startHistory();
 					else if(HISTORY_STOP.equals(d))
-						stopHistory();
+						history.stopHistory();
 				}
 				final HttpSession session = request.getSession(false);
 				historyModelShown = session!=null && session.getAttribute(HISTORY_MODEL_SHOWN)!=null;
@@ -182,7 +177,7 @@ public final class ConsoleServlet extends CopsServlet
 			Console_Jspm.write(
 					out, request, response, model, cop,
 					authentication, hostname,
-					historyAvailable, historyModelShown, isHistoryRunning());
+					history.isHistoryAvailable(), historyModelShown, history.isHistoryRunning());
 			out.close();
 		}
 		finally
@@ -192,57 +187,9 @@ public final class ConsoleServlet extends CopsServlet
 		}
 	}
 	
-	private static final String HISTORY_PROPERTY_FILE = "com.exedio.cope.console.log"; // TODO rename to history
+	static final String HISTORY_PROPERTY_FILE = "com.exedio.cope.console.log"; // TODO rename to history
 	static final String HISTORY_MODEL_SHOWN = "history.showModel";
 	static final String HISTORY_START = "history.start";
 	static final String HISTORY_STOP  = "history.stop";
 	
-	private boolean isHistoryRunning()
-	{
-		synchronized(historyLock)
-		{
-			return historyThread!=null && historyThread.isAlive();
-		}
-	}
-	
-	private void startHistory()
-	{
-		synchronized(historyLock)
-		{
-			if(historyThread!=null && historyThread.isAlive())
-				throw new RuntimeException("already running");
-			
-			Properties.Source context = null;
-			try
-			{
-				context = model.getProperties().getContext();
-			}
-			catch(IllegalStateException e)
-			{
-				// ok, then no history
-			}
-			if(context!=null)
-			{
-				final String propertyFile = context.get(HISTORY_PROPERTY_FILE);
-				if(propertyFile!=null)
-				{
-					historyAvailable = true;
-					historyThread = new HistoryThread(model, propertyFile);
-					historyThread.start();
-				}
-			}
-		}
-	}
-
-	private void stopHistory()
-	{
-		synchronized(historyLock)
-		{
-			if(historyThread!=null)
-			{
-				historyThread.stopAndJoin();
-				historyThread = null;
-			}
-		}
-	}
 }
