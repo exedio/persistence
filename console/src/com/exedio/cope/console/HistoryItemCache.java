@@ -36,6 +36,8 @@ final class HistoryItemCache extends Item
 	
 	static final DateField date = new DateField().toFinal();
 	static final UniqueConstraint typeAndDate = new UniqueConstraint(type, date);
+	static final DateField initializeDate = new DateField().toFinal();
+	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
 	

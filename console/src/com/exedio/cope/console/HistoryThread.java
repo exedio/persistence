@@ -136,6 +136,8 @@ final class HistoryThread extends Thread
 		
 		// gather data
 		final Date date = new Date();
+		final Date initializeDate = watchedModel.getInitializeDate();
+		final Date connectDate = watchedModel.getConnectDate();
 		final ConnectionPoolInfo connectionPoolInfo = watchedModel.getConnectionPoolInfo();
 		final long nextTransactionId = watchedModel.getNextTransactionId();
 		final CacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
@@ -172,6 +174,8 @@ final class HistoryThread extends Thread
 					null, // will be HistoryItemCache.model
 					HistoryItemCache.type.map(ci.getType().getID()),
 					HistoryItemCache.date.map(date),
+					HistoryItemCache.initializeDate.map(initializeDate),
+					HistoryItemCache.connectDate.map(connectDate),
 					HistoryItemCache.thread.map(thread),
 					HistoryItemCache.running.map(running),
 					HistoryItemCache.limit.map(ci.getLimit()),
@@ -200,6 +204,8 @@ final class HistoryThread extends Thread
 					null, // will be HistoryMedia.model
 					HistoryMedia.media.map(medias[mediaSetValuesIndex].getID()),
 					HistoryMedia.date.map(date),
+					HistoryMedia.initializeDate.map(initializeDate),
+					HistoryMedia.connectDate.map(connectDate),
 					HistoryMedia.thread.map(thread),
 					HistoryMedia.running.map(running),
 					HistoryMedia.exception    .map(mediaValue[0]),
@@ -215,6 +221,8 @@ final class HistoryThread extends Thread
 		
 		final SetValue[] setValues = new SetValue[]{
 				HistoryModel.date.map(date),
+				HistoryModel.initializeDate.map(initializeDate),
+				HistoryModel.connectDate.map(connectDate),
 				HistoryModel.thread.map(thread),
 				HistoryModel.running.map(running),
 				HistoryModel.connectionPoolIdle.map(connectionPoolInfo.getIdleCounter()),
