@@ -21,7 +21,7 @@ package com.exedio.cope.console;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Properties;
 
-final class History extends Thread
+final class History
 {
 	private final Model model;
 	private final Object historyLock = new Object();
