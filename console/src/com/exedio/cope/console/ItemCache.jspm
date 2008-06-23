@@ -86,7 +86,7 @@ final class ItemCache_Jspm extends Console_Jspm
 					};
 				writeColouredData(out, allData);
 				%>
-				<td class="text">(all)</td>
+				<th>All</th>
 			</tr><%
 			for(int i = 0; i<infos.length; i++)
 			{
