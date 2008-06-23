@@ -88,9 +88,8 @@ final class ItemCache_Jspm extends Console_Jspm
 				%>
 				<th>All</th>
 			</tr><%
-			for(int i = 0; i<infos.length; i++)
+			for(final CacheInfo info : infos)
 			{
-				final CacheInfo info = infos[i];
 				final String[] data = {
 						cop.formatAndHide(0, info.getLimit()),
 						cop.formatAndHide(0, info.getLevel()),
