@@ -141,18 +141,18 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 			((EnumMapField)item.name).get(item, X.A);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(ClassCastException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldTest$X", e.getMessage());
 		}
 		try
 		{
 			((EnumMapField)item.name).set(item, X.A, "hallo");
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(ClassCastException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldTest$X", e.getMessage());
 		}
 	}
 	

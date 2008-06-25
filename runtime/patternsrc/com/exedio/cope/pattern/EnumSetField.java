@@ -83,19 +83,28 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 			
 		return Collections.unmodifiableList(result);
 	}
+	
+	private void assertKey(final K key)
+	{
+		if(keyClass!=key.getClass())
+			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
+	}
 
 	public boolean contains(final Item item, final K key)
 	{
+		assertKey(key);
 		return fields.get(key).get(item);
 	}
 	
 	public void add(final Item item, final K key)
 	{
+		assertKey(key);
 		fields.get(key).set(item, true);
 	}
 	
 	public void remove(final Item item, final K key)
 	{
+		assertKey(key);
 		fields.get(key).set(item, false);
 	}
 }

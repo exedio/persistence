@@ -92,13 +92,21 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 
+	private void assertKey(final K key)
+	{
+		if(keyClass!=key.getClass())
+			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
+	}
+
 	public V get(final Item item, final K key)
 	{
+		assertKey(key);
 		return fields.get(key).get(item);
 	}
 	
 	public void set(final Item item, final K key, final V value)
 	{
+		assertKey(key);
 		fields.get(key).set(item, value);
 	}
 }
