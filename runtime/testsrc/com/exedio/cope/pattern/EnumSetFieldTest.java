@@ -97,4 +97,41 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		assertEquals(true,  item.containsActiveLanguage(EN));
 		assertEquals(false, itemX.containsActiveLanguage(DE));
 	}
+	
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
+		try
+		{
+			((EnumSetField)item.activeLanguage).contains(item, X.A);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			((EnumSetField)item.activeLanguage).add(item, X.A);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			((EnumSetField)item.activeLanguage).remove(item, X.A);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+	
+	enum X
+	{
+		A, B, C;
+	}
 }
