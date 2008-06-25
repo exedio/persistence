@@ -86,6 +86,8 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 	
 	private void assertKey(final K key)
 	{
+		if(key==null)
+			throw new NullPointerException("key must not be null");
 		if(keyClass!=key.getClass())
 			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
 	}
