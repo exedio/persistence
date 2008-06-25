@@ -34,6 +34,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ListFieldTest.class);
 		suite.addTestSuite(ListFieldTest2.class);
 		suite.addTestSuite(SetFieldTest.class);
+		suite.addTestSuite(EnumSetFieldTest.class);
 		suite.addTestSuite(EnumMapFieldTest.class);
 		suite.addTestSuite(MapFieldTest.class);
 		suite.addTestSuite(JavaViewTest.class);
