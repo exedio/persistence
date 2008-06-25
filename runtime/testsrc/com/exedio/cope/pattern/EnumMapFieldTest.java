@@ -112,6 +112,25 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		
+		try
+		{
+			item.getName(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			item.setName(null, "hallo");
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 	
 	@SuppressWarnings("unchecked") // OK: test bad API usage
