@@ -21,11 +21,13 @@ package com.exedio.cope.pattern;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.List;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumSetField<K extends Enum<K>> extends Pattern
@@ -80,6 +82,15 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 		result.add(
 			new Wrapper("remove").
 			addParameter(Wrapper.TypeVariable0.class));
+
+		final java.lang.reflect.Type valueType =
+			Wrapper.generic(EnumSet.class, Wrapper.TypeVariable0.class);
+		result.add(
+			new Wrapper("get").
+			setReturn(valueType));
+		result.add(
+			new Wrapper("set").
+			addParameter(valueType));
 			
 		return Collections.unmodifiableList(result);
 	}
@@ -108,5 +119,25 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 	{
 		assertKey(key);
 		fields.get(key).set(item, false);
+	}
+	
+	public EnumSet<K> get(final Item item)
+	{
+		final EnumSet<K> result = EnumSet.<K>noneOf(keyClass);
+		for(final K key : fields.keySet())
+		{
+			if(fields.get(key).getMandatory(item))
+				result.add(key);
+		}
+		return result;
+	}
+	
+	public void set(final Item item, final EnumSet<K> value)
+	{
+		final SetValue[] setValues = new SetValue[fields.size()];
+		int i = 0;
+		for(final K key : fields.keySet())
+			setValues[i++] = fields.get(key).map(value.contains(key));
+		item.set(setValues);
 	}
 }

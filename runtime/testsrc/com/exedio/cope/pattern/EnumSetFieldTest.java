@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.EnumSet;
+
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
@@ -75,27 +77,66 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		// test persistence
 		assertEquals(false, item.containsActiveLanguage(DE));
 		assertEquals(false, item.containsActiveLanguage(EN));
+		assertEquals(false, item.containsActiveLanguage(PL));
 		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 
 		item.addActiveLanguage(DE);
 		assertEquals(true,  item.containsActiveLanguage(DE));
 		assertEquals(false, item.containsActiveLanguage(EN));
+		assertEquals(false, item.containsActiveLanguage(PL));
 		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.of(DE), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 		
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));
 		assertEquals(true,  item.containsActiveLanguage(EN));
+		assertEquals(false, item.containsActiveLanguage(PL));
 		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 		
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));
 		assertEquals(true,  item.containsActiveLanguage(EN));
+		assertEquals(false, item.containsActiveLanguage(PL));
 		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 		
 		item.removeActiveLanguage(DE);
 		assertEquals(false, item.containsActiveLanguage(DE));
 		assertEquals(true,  item.containsActiveLanguage(EN));
+		assertEquals(false, item.containsActiveLanguage(PL));
 		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.of(EN), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
+		
+		item.removeActiveLanguage(DE);
+		assertEquals(false, item.containsActiveLanguage(DE));
+		assertEquals(true,  item.containsActiveLanguage(EN));
+		assertEquals(false, item.containsActiveLanguage(PL));
+		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.of(EN), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
+		
+		item.setActiveLanguage(EnumSet.of(EN, PL));
+		assertEquals(false, item.containsActiveLanguage(DE));
+		assertEquals(true,  item.containsActiveLanguage(EN));
+		assertEquals(true,  item.containsActiveLanguage(PL));
+		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.of(EN, PL), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
+		
+		item.setActiveLanguage(EnumSet.noneOf(EnumSetFieldItem.Language.class));
+		assertEquals(false, item.containsActiveLanguage(DE));
+		assertEquals(false, item.containsActiveLanguage(EN));
+		assertEquals(false, item.containsActiveLanguage(PL));
+		assertEquals(false, itemX.containsActiveLanguage(DE));
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), item.getActiveLanguage());
+		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 		
 		try
 		{
@@ -123,6 +164,15 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		catch(NullPointerException e)
 		{
 			assertEquals("key must not be null", e.getMessage());
+		}
+		try
+		{
+			item.setActiveLanguage(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
 		}
 	}
 	
