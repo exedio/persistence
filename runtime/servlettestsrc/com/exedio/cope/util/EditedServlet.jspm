@@ -90,6 +90,11 @@ final class EditedServlet_Jspm
 				font-size: 12pt;
 			}
 			
+			div.contentEditorBar sup a
+			{
+				text-decoration: none;
+			}
+			
 			form.contentEditorBarSwitches
 			{
 				float: right;

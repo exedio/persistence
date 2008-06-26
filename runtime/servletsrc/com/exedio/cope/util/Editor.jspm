@@ -22,6 +22,7 @@ package com.exedio.cope.util;
 import static com.exedio.cops.Cop.encode;
 
 import java.io.PrintStream;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -140,7 +141,7 @@ final class Editor_Jspm
 			if(previewNumber>0)
 			{
 			%>
-			<sup>*<% if(previewNumber>1){ %><%=previewNumber%><% } %></sup><%
+			<sup><a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor Preview">*<% if(previewNumber>1){ %><%=previewNumber%><% } %></a></sup><%
 			}
 			%>
 			<br clear="both"><%
@@ -260,6 +261,56 @@ final class Editor_Jspm
 			}
 			%>
 		</div><%
+	}
+	
+	static final void writePreviewOverview(
+			final PrintStream out,
+			final Collection<String> previews)
+	{
+%><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=<%=CopsServlet.ENCODING%>">
+		<title>Content Editor Preview</title>
+		<style>
+			h1
+			{
+				font-family:sans-serif;
+				font-size:180%;
+			}
+			
+			img
+			{
+				border:0;
+			}
+			
+			img.logo
+			{
+				float:right;
+				width:198px;
+				height:60px;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
+		<h1>COPE Content Editor Previews</h1>
+		<table border="1">
+			<tr>
+				<th>Text</th>
+			</tr><%
+			
+			for(final String preview : previews)
+			{
+			%>
+			<tr>
+				<td><%=preview%></td>
+			</tr><%
+			}
+			%>
+		</table>
+	</body>
+</html><%
 	}
 }
 %>

@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -196,6 +197,8 @@ public abstract class Editor implements Filter
 		return ServletFileUpload.isMultipartContent(request);
 	}
 	
+	static final String PREVIEW_OVERVIEW = "po";
+	
 	private final void doBar(
 			final HttpServletRequest request,
 			final HttpSession httpSession,
@@ -203,6 +206,23 @@ public abstract class Editor implements Filter
 			final Session session)
 	throws IOException
 	{
+		if(request.getParameter(PREVIEW_OVERVIEW)!=null)
+		{
+			PrintStream out = null;
+			try
+			{
+				response.setContentType("text/html; charset="+CopsServlet.ENCODING);
+				out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
+				Editor_Jspm.writePreviewOverview(out, session.getPreviews());
+			}
+			finally
+			{
+				if(out!=null)
+					out.close();
+			}
+			return;
+		}
+		
 		if(!Cop.isPost(request))
 		{
 			redirectHome(request, response);
@@ -518,6 +538,11 @@ public abstract class Editor implements Filter
 				return null;
 			
 			return previews.get(new Preview(feature, item));
+		}
+		
+		Collection<String> getPreviews()
+		{
+			return previews.values();
 		}
 		
 		void setPreview(final String content, final StringField feature, final Item item)
