@@ -32,12 +32,12 @@ import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern
 {
-	private final Class<E> keyClass;
+	private final Class<E> elementClass;
 	private final EnumMap<E, BooleanField> fields;
 
 	private EnumSetField(final Class<E> keyClass)
 	{
-		this.keyClass = keyClass;
+		this.elementClass = keyClass;
 		this.fields = new EnumMap<E, BooleanField>(keyClass);
 
 		for(E key : keyClass.getEnumConstants())
@@ -53,9 +53,18 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		return new EnumSetField<K>(keyClass);
 	}
 	
+	/**
+	 * @deprecated Use {@link #getElementClass()} instead
+	 */
+	@Deprecated
 	public Class<E> getKeyClass()
 	{
-		return keyClass;
+		return getElementClass();
+	}
+
+	public Class<E> getElementClass()
+	{
+		return elementClass;
 	}
 
 	public BooleanField getField(final E key)
@@ -99,8 +108,8 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	{
 		if(key==null)
 			throw new NullPointerException("key must not be null");
-		if(keyClass!=key.getClass())
-			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
+		if(elementClass!=key.getClass())
+			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + key.getClass().getName());
 	}
 
 	public boolean contains(final Item item, final E key)
@@ -123,7 +132,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	
 	public EnumSet<E> get(final Item item)
 	{
-		final EnumSet<E> result = EnumSet.<E>noneOf(keyClass);
+		final EnumSet<E> result = EnumSet.<E>noneOf(elementClass);
 		for(final E key : fields.keySet())
 		{
 			if(fields.get(key).getMandatory(item))
