@@ -25,6 +25,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -148,5 +149,11 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		for(final E key : fields.keySet())
 			setValues[i++] = fields.get(key).map(value.contains(key));
 		item.set(setValues);
+	}
+	
+	public Condition contains(final E element)
+	{
+		assertElement(element);
+		return getField(element).equal(true);
 	}
 }

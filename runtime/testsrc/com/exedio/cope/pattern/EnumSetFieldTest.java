@@ -81,6 +81,8 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		assertEquals(false, itemX.containsActiveLanguage(DE));
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), item.getActiveLanguage());
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
+		assertContains(item.TYPE.search(item.activeLanguage.contains(DE)));
+		assertContains(item.TYPE.search(item.activeLanguage.contains(EN)));
 
 		item.addActiveLanguage(DE);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -89,6 +91,8 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		assertEquals(false, itemX.containsActiveLanguage(DE));
 		assertEquals(EnumSet.of(DE), item.getActiveLanguage());
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
+		assertContains(item, item.TYPE.search(item.activeLanguage.contains(DE)));
+		assertContains(item.TYPE.search(item.activeLanguage.contains(EN)));
 		
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -97,6 +101,8 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		assertEquals(false, itemX.containsActiveLanguage(DE));
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
+		assertContains(item, item.TYPE.search(item.activeLanguage.contains(DE)));
+		assertContains(item, item.TYPE.search(item.activeLanguage.contains(EN)));
 		
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -174,6 +180,15 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals(null, e.getMessage());
 		}
+		try
+		{
+			item.activeLanguage.contains(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("element must not be null", e.getMessage());
+		}
 	}
 	
 	@SuppressWarnings("unchecked") // OK: test bad API usage
@@ -200,6 +215,15 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		try
 		{
 			((EnumSetField)item.activeLanguage).remove(item, X.A);
+			fail();
+		}
+		catch(ClassCastException e)
+		{
+			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
+		}
+		try
+		{
+			((EnumSetField)item.activeLanguage).contains(X.A);
 			fail();
 		}
 		catch(ClassCastException e)
