@@ -67,9 +67,9 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		return elementClass;
 	}
 
-	public BooleanField getField(final E key)
+	public BooleanField getField(final E element)
 	{
-		return fields.get(key);
+		return fields.get(element);
 	}
 
 	@Override
@@ -104,30 +104,30 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	private void assertKey(final E key)
+	private void assertKey(final E element)
 	{
-		if(key==null)
-			throw new NullPointerException("key must not be null");
-		if(elementClass!=key.getClass())
-			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + key.getClass().getName());
+		if(element==null)
+			throw new NullPointerException("element must not be null");
+		if(elementClass!=element.getClass())
+			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
 	}
 
-	public boolean contains(final Item item, final E key)
+	public boolean contains(final Item item, final E element)
 	{
-		assertKey(key);
-		return fields.get(key).get(item);
+		assertKey(element);
+		return fields.get(element).get(item);
 	}
 	
-	public void add(final Item item, final E key)
+	public void add(final Item item, final E element)
 	{
-		assertKey(key);
-		fields.get(key).set(item, true);
+		assertKey(element);
+		fields.get(element).set(item, true);
 	}
 	
-	public void remove(final Item item, final E key)
+	public void remove(final Item item, final E element)
 	{
-		assertKey(key);
-		fields.get(key).set(item, false);
+		assertKey(element);
+		fields.get(element).set(item, false);
 	}
 	
 	public EnumSet<E> get(final Item item)
