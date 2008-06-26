@@ -30,17 +30,17 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Wrapper;
 
-public final class EnumSetField<K extends Enum<K>> extends Pattern
+public final class EnumSetField<E extends Enum<E>> extends Pattern
 {
-	private final Class<K> keyClass;
-	private final EnumMap<K, BooleanField> fields;
+	private final Class<E> keyClass;
+	private final EnumMap<E, BooleanField> fields;
 
-	private EnumSetField(final Class<K> keyClass)
+	private EnumSetField(final Class<E> keyClass)
 	{
 		this.keyClass = keyClass;
-		this.fields = new EnumMap<K, BooleanField>(keyClass);
+		this.fields = new EnumMap<E, BooleanField>(keyClass);
 
-		for(K key : keyClass.getEnumConstants())
+		for(E key : keyClass.getEnumConstants())
 		{
 			final BooleanField value = new BooleanField().defaultTo(false);
 			registerSource(value, key.name());
@@ -53,12 +53,12 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 		return new EnumSetField<K>(keyClass);
 	}
 	
-	public Class<K> getKeyClass()
+	public Class<E> getKeyClass()
 	{
 		return keyClass;
 	}
 
-	public BooleanField getField(final K key)
+	public BooleanField getField(final E key)
 	{
 		return fields.get(key);
 	}
@@ -95,7 +95,7 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	private void assertKey(final K key)
+	private void assertKey(final E key)
 	{
 		if(key==null)
 			throw new NullPointerException("key must not be null");
@@ -103,28 +103,28 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
 	}
 
-	public boolean contains(final Item item, final K key)
+	public boolean contains(final Item item, final E key)
 	{
 		assertKey(key);
 		return fields.get(key).get(item);
 	}
 	
-	public void add(final Item item, final K key)
+	public void add(final Item item, final E key)
 	{
 		assertKey(key);
 		fields.get(key).set(item, true);
 	}
 	
-	public void remove(final Item item, final K key)
+	public void remove(final Item item, final E key)
 	{
 		assertKey(key);
 		fields.get(key).set(item, false);
 	}
 	
-	public EnumSet<K> get(final Item item)
+	public EnumSet<E> get(final Item item)
 	{
-		final EnumSet<K> result = EnumSet.<K>noneOf(keyClass);
-		for(final K key : fields.keySet())
+		final EnumSet<E> result = EnumSet.<E>noneOf(keyClass);
+		for(final E key : fields.keySet())
 		{
 			if(fields.get(key).getMandatory(item))
 				result.add(key);
@@ -132,11 +132,11 @@ public final class EnumSetField<K extends Enum<K>> extends Pattern
 		return result;
 	}
 	
-	public void set(final Item item, final EnumSet<K> value)
+	public void set(final Item item, final EnumSet<E> value)
 	{
 		final SetValue[] setValues = new SetValue[fields.size()];
 		int i = 0;
-		for(final K key : fields.keySet())
+		for(final E key : fields.keySet())
 			setValues[i++] = fields.get(key).map(value.contains(key));
 		item.set(setValues);
 	}
