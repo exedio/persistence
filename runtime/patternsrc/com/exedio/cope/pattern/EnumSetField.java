@@ -104,7 +104,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	private void assertKey(final E element)
+	private void assertElement(final E element)
 	{
 		if(element==null)
 			throw new NullPointerException("element must not be null");
@@ -114,19 +114,19 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 
 	public boolean contains(final Item item, final E element)
 	{
-		assertKey(element);
+		assertElement(element);
 		return fields.get(element).get(item);
 	}
 	
 	public void add(final Item item, final E element)
 	{
-		assertKey(element);
+		assertElement(element);
 		fields.get(element).set(item, true);
 	}
 	
 	public void remove(final Item item, final E element)
 	{
-		assertKey(element);
+		assertElement(element);
 		fields.get(element).set(item, false);
 	}
 	
