@@ -212,6 +212,12 @@ public abstract class Editor implements Filter
 			try
 			{
 				response.setContentType("text/html; charset="+CopsServlet.ENCODING);
+				response.addHeader("Cache-Control", "no-cache");
+				response.addHeader("Cache-Control", "no-store");
+				response.addHeader("Cache-Control", "max-age=0");
+				response.addHeader("Cache-Control", "must-revalidate");
+				response.setHeader("Pragma", "no-cache");
+				response.setDateHeader("Expires", System.currentTimeMillis());
 				out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
 				Editor_Jspm.writePreviewOverview(out, session.getPreviews());
 			}
