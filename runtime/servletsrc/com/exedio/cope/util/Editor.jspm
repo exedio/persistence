@@ -22,7 +22,7 @@ package com.exedio.cope.util;
 import static com.exedio.cops.Cop.encode;
 
 import java.io.PrintStream;
-import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -265,7 +265,7 @@ final class Editor_Jspm
 	
 	static final void writePreviewOverview(
 			final PrintStream out,
-			final Collection<String> previews)
+			final List<Editor.Proposal> proposals)
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -297,14 +297,16 @@ final class Editor_Jspm
 		<h1>COPE Content Editor Previews</h1>
 		<table border="1">
 			<tr>
-				<th>Text</th>
+				<th>Old</th>
+				<th>New</th>
 			</tr><%
 			
-			for(final String preview : previews)
+			for(final Editor.Proposal proposal : proposals)
 			{
 			%>
 			<tr>
-				<td><%=preview%></td>
+				<td><%=proposal.oldValue%></td>
+				<td><%=proposal.newValue%></td>
 			</tr><%
 			}
 			%>

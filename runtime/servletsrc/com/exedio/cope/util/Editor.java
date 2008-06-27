@@ -21,9 +21,11 @@ package com.exedio.cope.util;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -199,6 +201,18 @@ public abstract class Editor implements Filter
 	
 	static final String PREVIEW_OVERVIEW = "po";
 	
+	static final class Proposal
+	{
+		final String oldValue;
+		final String newValue;
+		
+		Proposal(final String oldValue, final String newValue)
+		{
+			this.oldValue = oldValue;
+			this.newValue = newValue;
+		}
+	}
+	
 	private final void doBar(
 			final HttpServletRequest request,
 			final HttpSession httpSession,
@@ -211,6 +225,20 @@ public abstract class Editor implements Filter
 			PrintStream out = null;
 			try
 			{
+				final Map<Session.Preview, String> previews = session.getPreviews();
+				final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+				try
+				{
+					model.startTransaction(getClass().getName() + "#proposal");
+					for(final Map.Entry<Session.Preview, String> e : previews.entrySet())
+						proposals.add(new Proposal(e.getKey().getOldValue(model), e.getValue()));
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+				
 				response.setContentType("text/html; charset="+CopsServlet.ENCODING);
 				response.addHeader("Cache-Control", "no-cache");
 				response.addHeader("Cache-Control", "no-store");
@@ -219,7 +247,7 @@ public abstract class Editor implements Filter
 				response.setHeader("Pragma", "no-cache");
 				response.setDateHeader("Expires", System.currentTimeMillis());
 				out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
-				Editor_Jspm.writePreviewOverview(out, session.getPreviews());
+				Editor_Jspm.writePreviewOverview(out, proposals);
 			}
 			finally
 			{
@@ -516,6 +544,11 @@ public abstract class Editor implements Filter
 				assert item!=null;
 			}
 			
+			String getOldValue(final Model model)
+			{
+				return ((StringField)model.getFeature(feature)).get(item);
+			}
+			
 			@Override
 			public int hashCode()
 			{
@@ -546,9 +579,9 @@ public abstract class Editor implements Filter
 			return previews.get(new Preview(feature, item));
 		}
 		
-		Collection<String> getPreviews()
+		Map<Preview, String> getPreviews()
 		{
-			return previews.values();
+			return Collections.unmodifiableMap(previews);
 		}
 		
 		void setPreview(final String content, final StringField feature, final Item item)
