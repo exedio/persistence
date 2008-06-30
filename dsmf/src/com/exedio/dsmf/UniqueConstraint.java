@@ -36,7 +36,7 @@ public class UniqueConstraint extends Constraint
 			final boolean required,
 			final String clause)
 	{
-		super(table, name, Type.Unique, false, required, clause);
+		super(table, name, Type.Unique, required, clause);
 
 		if(clause==null)
 			throw new RuntimeException(name);

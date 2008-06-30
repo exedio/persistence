@@ -36,7 +36,7 @@ public class PrimaryKeyConstraint extends Constraint
 			final boolean required,
 			final String primaryKeyColumn)
 	{
-		super(table, name, Type.PrimaryKey, false, required, null);
+		super(table, name, Type.PrimaryKey, required, null);
 
 		if(required && primaryKeyColumn==null)
 			throw new RuntimeException(name);

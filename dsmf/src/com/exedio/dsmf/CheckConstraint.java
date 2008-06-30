@@ -38,7 +38,7 @@ public class CheckConstraint extends Constraint
 			final boolean required,
 			final String condition)
 	{
-		super(table, name, Type.Check, false, required, condition);
+		super(table, name, Type.Check, required, condition);
 		
 		if(condition==null)
 			throw new RuntimeException(name);

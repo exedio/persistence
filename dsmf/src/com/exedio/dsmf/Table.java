@@ -259,7 +259,7 @@ public final class Table extends Node
 		
 		for(final Constraint c : constraintList)
 		{
-			if(!c.secondPhase)
+			if(!c.type.secondPhase)
 				c.createInTable(bf);
 		}
 
@@ -322,7 +322,7 @@ public final class Table extends Node
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.isSupported() && types.contains(constraint.type) && constraint.secondPhase==secondPhase)
+			if(constraint.isSupported() && types.contains(constraint.type) && constraint.type.secondPhase==secondPhase)
 				constraint.create(listener);
 		}
 	}
@@ -331,7 +331,7 @@ public final class Table extends Node
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.isSupported() && types.contains(constraint.type) && constraint.secondPhase==secondPhase)
+			if(constraint.isSupported() && types.contains(constraint.type) && constraint.type.secondPhase==secondPhase)
 				constraint.drop(listener);
 		}
 	}
@@ -340,7 +340,7 @@ public final class Table extends Node
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(types.contains(constraint.type) && constraint.secondPhase==secondPhase)
+			if(types.contains(constraint.type) && constraint.type.secondPhase==secondPhase)
 			{
 				try
 				{

@@ -22,13 +22,19 @@ public abstract class Constraint extends Node
 {
 	public enum Type
 	{
-		PrimaryKey, ForeignKey, Unique, Check;
+		PrimaryKey(false), ForeignKey(true), Unique(false), Check(false);
+		
+		final boolean secondPhase;
+		
+		Type(final boolean secondPhase)
+		{
+			this.secondPhase = secondPhase;
+		}
 	}
 	
 	final Table table;
 	final String name;
 	final Type type;
-	final boolean secondPhase;
 	private final boolean required;
 	final String requiredCondition;
 	private boolean exists = false;
@@ -38,7 +44,6 @@ public abstract class Constraint extends Node
 			final Table table,
 			final String name,
 			final Type type,
-			final boolean secondPhase,
 			final boolean required,
 			final String condition)
 	{
@@ -54,7 +59,6 @@ public abstract class Constraint extends Node
 		this.table = table;
 		this.name = name;
 		this.type = type;
-		this.secondPhase = secondPhase;
 		this.required = required;
 		if(required)
 			this.requiredCondition = condition;
