@@ -34,7 +34,13 @@ public abstract class Constraint extends Node
 	private boolean exists = false;
 	private String existingCondition;
 		
-	Constraint(final Table table, final String name, final Type type, final boolean secondPhase, final boolean required, final String condition)
+	Constraint(
+			final Table table,
+			final String name,
+			final Type type,
+			final boolean secondPhase,
+			final boolean required,
+			final String condition)
 	{
 		super(table.driver, table.connectionProvider);
 		

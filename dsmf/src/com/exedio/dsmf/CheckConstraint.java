@@ -24,13 +24,19 @@ import java.sql.SQLException;
 
 public class CheckConstraint extends Constraint
 {
-
-	public CheckConstraint(final Table table, final String name, final String condition)
+	public CheckConstraint(
+			final Table table,
+			final String name,
+			final String condition)
 	{
 		this(table, name, true, condition);
 	}
 
-	CheckConstraint(final Table table, final String name, final boolean required, final String condition)
+	CheckConstraint(
+			final Table table,
+			final String name,
+			final boolean required,
+			final String condition)
 	{
 		super(table, name, Type.Check, false, required, condition);
 		

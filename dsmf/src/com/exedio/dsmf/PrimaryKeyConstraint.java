@@ -22,12 +22,19 @@ public class PrimaryKeyConstraint extends Constraint
 {
 	final String primaryKeyColumn;
 	
-	public PrimaryKeyConstraint(final Table table, final String name, final String primaryKeyColumn)
+	public PrimaryKeyConstraint(
+			final Table table,
+			final String name,
+			final String primaryKeyColumn)
 	{
 		this(table, name, true, primaryKeyColumn);
 	}
 	
-	PrimaryKeyConstraint(final Table table, final String name, final boolean required, final String primaryKeyColumn)
+	PrimaryKeyConstraint(
+			final Table table,
+			final String name,
+			final boolean required,
+			final String primaryKeyColumn)
 	{
 		super(table, name, Type.PrimaryKey, false, required, null);
 
