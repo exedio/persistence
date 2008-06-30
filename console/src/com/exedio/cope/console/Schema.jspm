@@ -50,18 +50,17 @@ final class Schema_Jspm extends Console_Jspm
 		</style><%
 	}
 	
-	private static final String type(final Constraint constraint)
+	private static final String type(final Constraint.Type type)
 	{
-		if(constraint instanceof CheckConstraint)
-			return "check";
-		else if(constraint instanceof PrimaryKeyConstraint)
-			return "pk";
-		else if(constraint instanceof ForeignKeyConstraint)
-			return "fk";
-		else if(constraint instanceof UniqueConstraint)
-			return "unique";
-		else
-			throw new RuntimeException(constraint.getClass().getName());
+		switch(type)
+		{
+			case PrimaryKey: return "pk";
+			case ForeignKey: return "fk";
+			case Unique:     return "unique";
+			case Check:      return "check";
+			default:
+				throw new RuntimeException(type.name());
+		}
 	}
 	
 	final static void writeBody(
@@ -242,7 +241,7 @@ final class Schema_Jspm extends Console_Jspm
 						%>
 						<li>
 							<img class="node" src="<%=leaf(constraint.getCumulativeColor())%>">
-							<small><%=type(constraint)%><%=constraintCount%></small>
+							<small><%=type(constraint.getType())%><%=constraintCount%></small>
 							<%=constraintName%><%
 						
 							final String constraintCondition = constraint.getRequiredCondition();

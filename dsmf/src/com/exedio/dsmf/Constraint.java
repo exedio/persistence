@@ -81,6 +81,11 @@ public abstract class Constraint extends Node
 		return name;
 	}
 	
+	public final Type getType()
+	{
+		return type;
+	}
+	
 	public final String getRequiredCondition()
 	{
 		return requiredCondition;
