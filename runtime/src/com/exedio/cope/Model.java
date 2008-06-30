@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,6 +39,7 @@ import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.CacheQueryInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ModificationListener;
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
 public final class Model
@@ -549,7 +551,7 @@ public final class Model
 		clearCache();
 	}
 
-	public void createDatabaseConstraints(final int mask)
+	public void createDatabaseConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		getDatabase().createDatabaseConstraints(mask);
 	}
@@ -588,7 +590,7 @@ public final class Model
 		clearCache();
 	}
 
-	public void dropDatabaseConstraints(final int mask)
+	public void dropDatabaseConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		getDatabase().dropDatabaseConstraints(mask);
 	}
@@ -599,7 +601,7 @@ public final class Model
 		clearCache();
 	}
 	
-	public void tearDownDatabaseConstraints(final int mask)
+	public void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		getDatabase().tearDownDatabaseConstraints(mask);
 	}

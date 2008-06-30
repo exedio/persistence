@@ -30,11 +30,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.exedio.dsmf.ConnectionProvider;
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -170,7 +172,7 @@ final class Database
 		}
 	}
 
-	void createDatabaseConstraints(final int mask)
+	void createDatabaseConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		buildStage = false;
 		
@@ -263,7 +265,7 @@ final class Database
 		makeSchema().drop();
 	}
 	
-	void dropDatabaseConstraints(final int mask)
+	void dropDatabaseConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		buildStage = false;
 
@@ -277,7 +279,7 @@ final class Database
 		makeSchema().tearDown();
 	}
 
-	void tearDownDatabaseConstraints(final int mask)
+	void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		buildStage = false;
 

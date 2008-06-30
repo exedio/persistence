@@ -20,7 +20,10 @@ package com.exedio.dsmf;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
+
+import com.exedio.dsmf.Constraint.Type;
 
 public final class Table extends Node
 {
@@ -315,7 +318,7 @@ public final class Table extends Node
 
 	}
 	
-	final void createConstraints(final int mask, final boolean secondPhase, final StatementListener listener)
+	final void createConstraints(final EnumSet<Type> mask, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -324,7 +327,7 @@ public final class Table extends Node
 		}
 	}
 	
-	final void dropConstraints(final int mask, final boolean secondPhase, final StatementListener listener)
+	final void dropConstraints(final EnumSet<Type> mask, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -333,7 +336,7 @@ public final class Table extends Node
 		}
 	}
 	
-	final void tearDownConstraints(final int mask, final boolean secondPhase, final StatementListener listener)
+	final void tearDownConstraints(final EnumSet<Type> mask, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{

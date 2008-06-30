@@ -19,6 +19,7 @@
 package com.exedio.dsmf;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -103,7 +104,7 @@ public final class Schema extends Node
 			t.create(listener);
 	
 		for(final Table t : tableList)
-			t.createConstraints(Constraint.MASK_ALL, true, listener);
+			t.createConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 	
 		//final long amount = (System.currentTimeMillis()-time);
 		//createTableTime += amount;
@@ -120,7 +121,7 @@ public final class Schema extends Node
 		//final long time = System.currentTimeMillis();
 		// must delete in reverse order, to obey integrity constraints
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(Constraint.MASK_ALL, true, listener);
+			i.previous().dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().drop(listener);
 		//final long amount = (System.currentTimeMillis()-time);
@@ -139,7 +140,7 @@ public final class Schema extends Node
 		{
 			try
 			{
-				table.dropConstraints(Constraint.MASK_ALL, true, listener);
+				table.dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 			}
 			catch(SQLRuntimeException e2)
 			{
@@ -180,12 +181,12 @@ public final class Schema extends Node
 		while(deleted);
 	}
 
-	public final void createConstraints(final int mask)
+	public final void createConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		createConstraints(mask, null);
 	}
 	
-	public final void createConstraints(final int mask, final StatementListener listener)
+	public final void createConstraints(final EnumSet<Constraint.Type> mask, final StatementListener listener)
 	{
 		for(final Table t : tableList)
 			t.createConstraints(mask, false, listener);
@@ -193,12 +194,12 @@ public final class Schema extends Node
 			t.createConstraints(mask, true, listener);
 	}
 
-	public final void dropConstraints(final int mask)
+	public final void dropConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		dropConstraints(mask, null);
 	}
 	
-	public final void dropConstraints(final int mask, final StatementListener listener)
+	public final void dropConstraints(final EnumSet<Constraint.Type> mask, final StatementListener listener)
 	{
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().dropConstraints(mask, true, listener);
@@ -206,12 +207,12 @@ public final class Schema extends Node
 			i.previous().dropConstraints(mask, false, listener);
 	}
 	
-	public final void tearDownConstraints(final int mask)
+	public final void tearDownConstraints(final EnumSet<Constraint.Type> mask)
 	{
 		tearDownConstraints(mask, null);
 	}
 	
-	public final void tearDownConstraints(final int mask, final StatementListener listener)
+	public final void tearDownConstraints(final EnumSet<Constraint.Type> mask, final StatementListener listener)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )

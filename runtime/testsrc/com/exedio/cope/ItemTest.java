@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -129,19 +130,19 @@ public class ItemTest extends TestmodelTest
 		model.checkDatabase();
 		if(!postgresql)
 		{
-			model.dropDatabaseConstraints(Constraint.MASK_ALL);
-			model.createDatabaseConstraints(Constraint.MASK_ALL);
-			model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-			model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-			model.dropDatabaseConstraints(Constraint.MASK_FK);
-			model.createDatabaseConstraints(Constraint.MASK_FK);
+			model.dropDatabaseConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.createDatabaseConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.ForeignKey));
 			if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
 			{
-				model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
-				model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
+				model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.Unique));
+				model.createDatabaseConstraints(EnumSet.of(Constraint.Type.Unique));
 			}
-			model.dropDatabaseConstraints(Constraint.MASK_CHECK);
-			model.createDatabaseConstraints(Constraint.MASK_CHECK);
+			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.Check));
+			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.Check));
 		}
 		assertNotNull(model.getItemCacheInfo());
 		assertNotNull(model.getQueryCacheInfo());

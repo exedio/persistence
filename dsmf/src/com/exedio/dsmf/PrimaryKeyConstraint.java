@@ -29,7 +29,7 @@ public class PrimaryKeyConstraint extends Constraint
 	
 	PrimaryKeyConstraint(final Table table, final String name, final boolean required, final String primaryKeyColumn)
 	{
-		super(table, name, MASK_PK, false, required, null);
+		super(table, name, Type.PrimaryKey, false, required, null);
 
 		if(required && primaryKeyColumn==null)
 			throw new RuntimeException(name);

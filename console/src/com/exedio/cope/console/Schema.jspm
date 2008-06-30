@@ -20,6 +20,7 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
+import java.util.EnumSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -77,10 +78,10 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="DROP" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
 			<hr>
 			<h4>Constraints</h4>
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_PK     %>" checked="checked" />pk
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_FK     %>" checked="checked" />fk
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_UNIQUE %>" checked="checked" />unique
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.MASK_CHECK  %>" checked="checked" />check
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.PrimaryKey %>" checked="checked" />pk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.ForeignKey %>" checked="checked" />fk
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.Unique     %>" checked="checked" />unique
+			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.Check      %>" checked="checked" />check
 			<br>
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
@@ -94,11 +95,11 @@ final class Schema_Jspm extends Console_Jspm
 			<h4>Details</h4><%
 			if("POST".equals(request.getMethod()))
 			{
-				int mask = 0;
+				final EnumSet<Constraint.Type> mask = EnumSet.noneOf(Constraint.Type.class);
 				final String[] constraintMaskParameterValues = request.getParameterValues("CONSTRAINT_MASK");
 				if(constraintMaskParameterValues!=null)
 					for(String s : constraintMaskParameterValues)
-						mask = mask | Integer.parseInt(s);
+						mask.add(Constraint.Type.valueOf(s));
 					
 				if(request.getParameter("CREATE")!=null)
 				{

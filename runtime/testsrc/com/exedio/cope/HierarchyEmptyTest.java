@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.EnumSet;
+
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.dsmf.Constraint;
 
@@ -142,16 +144,16 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		model.checkDatabase();
 		if(!postgresql)
 		{
-			model.dropDatabaseConstraints(Constraint.MASK_ALL);
-			model.createDatabaseConstraints(Constraint.MASK_ALL);
-			model.dropDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-			model.createDatabaseConstraints(Constraint.MASK_PK|Constraint.MASK_FK);
-			model.dropDatabaseConstraints(Constraint.MASK_FK);
-			model.createDatabaseConstraints(Constraint.MASK_FK);
-			model.dropDatabaseConstraints(Constraint.MASK_UNIQUE);
-			model.createDatabaseConstraints(Constraint.MASK_UNIQUE);
-			model.dropDatabaseConstraints(Constraint.MASK_CHECK);
-			model.createDatabaseConstraints(Constraint.MASK_CHECK);
+			model.dropDatabaseConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.createDatabaseConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.Check));
+			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.Check));
 		}
 		
 		assertEqualsUnmodifiable(list(

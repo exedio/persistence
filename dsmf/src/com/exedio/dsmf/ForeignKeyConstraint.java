@@ -31,7 +31,7 @@ public class ForeignKeyConstraint extends Constraint
 	
 	ForeignKeyConstraint(final Table table, final String name, final boolean required, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
-		super(table, name, MASK_FK, true, required, null);
+		super(table, name, Type.ForeignKey, true, required, null);
 		
 		if(required && foreignKeyColumn==null)
 			throw new RuntimeException(name);
