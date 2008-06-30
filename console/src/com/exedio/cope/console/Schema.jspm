@@ -96,9 +96,9 @@ final class Schema_Jspm extends Console_Jspm
 			if("POST".equals(request.getMethod()))
 			{
 				final EnumSet<Constraint.Type> constraintTypes = EnumSet.noneOf(Constraint.Type.class);
-				final String[] constraintMaskParameterValues = request.getParameterValues("CONSTRAINT_MASK");
-				if(constraintMaskParameterValues!=null)
-					for(String s : constraintMaskParameterValues)
+				final String[] constraintTypeParameterValues = request.getParameterValues("CONSTRAINT_MASK");
+				if(constraintTypeParameterValues!=null)
+					for(String s : constraintTypeParameterValues)
 						constraintTypes.add(Constraint.Type.valueOf(s));
 					
 				if(request.getParameter("CREATE")!=null)
