@@ -18,8 +18,6 @@
 
 package com.exedio.dsmf;
 
-import java.util.EnumSet;
-
 public abstract class Constraint extends Node
 {
 	public enum Type
@@ -71,11 +69,6 @@ public abstract class Constraint extends Node
 	public final String getName()
 	{
 		return name;
-	}
-	
-	public boolean matchesMask(final EnumSet<Type> types)
-	{
-		return types.contains(this.type);
 	}
 	
 	public final String getRequiredCondition()
