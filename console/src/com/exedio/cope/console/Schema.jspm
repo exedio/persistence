@@ -78,10 +78,10 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="DROP" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
 			<hr>
 			<h4>Constraints</h4>
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.PrimaryKey %>" checked="checked" />pk
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.ForeignKey %>" checked="checked" />fk
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.Unique     %>" checked="checked" />unique
-			<input type="checkbox" name="CONSTRAINT_MASK" value="<%= Constraint.Type.Check      %>" checked="checked" />check
+			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.PrimaryKey %>" checked="checked" />pk
+			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.ForeignKey %>" checked="checked" />fk
+			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.Unique     %>" checked="checked" />unique
+			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.Check      %>" checked="checked" />check
 			<br>
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
@@ -96,7 +96,7 @@ final class Schema_Jspm extends Console_Jspm
 			if("POST".equals(request.getMethod()))
 			{
 				final EnumSet<Constraint.Type> constraintTypes = EnumSet.noneOf(Constraint.Type.class);
-				final String[] constraintTypeParameterValues = request.getParameterValues("CONSTRAINT_MASK");
+				final String[] constraintTypeParameterValues = request.getParameterValues("CONSTRAINT_TYPE");
 				if(constraintTypeParameterValues!=null)
 					for(String s : constraintTypeParameterValues)
 						constraintTypes.add(Constraint.Type.valueOf(s));
