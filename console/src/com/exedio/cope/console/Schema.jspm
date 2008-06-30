@@ -26,15 +26,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.cops.Resource;
-import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.Node;
-import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
-import com.exedio.dsmf.UniqueConstraint;
 
 final class Schema_Jspm extends Console_Jspm
 {
@@ -76,11 +72,13 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="TEARDOWN" value="tear down" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?')" />
 			<input type="submit" name="DROP" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
 			<hr>
-			<h4>Constraints</h4>
-			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.PrimaryKey %>" checked="checked" />pk
-			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.ForeignKey %>" checked="checked" />fk
-			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.Unique     %>" checked="checked" />unique
-			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%= Constraint.Type.Check      %>" checked="checked" />check
+			<h4>Constraints</h4><%
+			for(final Constraint.Type type : Constraint.Type.values())
+			{
+			%>
+			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%=type.name()%>" checked="checked" /><%=type(type)%><%
+			}
+			%>
 			<br>
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
