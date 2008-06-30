@@ -95,11 +95,11 @@ final class Schema_Jspm extends Console_Jspm
 			<h4>Details</h4><%
 			if("POST".equals(request.getMethod()))
 			{
-				final EnumSet<Constraint.Type> mask = EnumSet.noneOf(Constraint.Type.class);
+				final EnumSet<Constraint.Type> constraintTypes = EnumSet.noneOf(Constraint.Type.class);
 				final String[] constraintMaskParameterValues = request.getParameterValues("CONSTRAINT_MASK");
 				if(constraintMaskParameterValues!=null)
 					for(String s : constraintMaskParameterValues)
-						mask.add(Constraint.Type.valueOf(s));
+						constraintTypes.add(Constraint.Type.valueOf(s));
 					
 				if(request.getParameter("CREATE")!=null)
 				{
@@ -118,17 +118,17 @@ final class Schema_Jspm extends Console_Jspm
 				}
 				else if(request.getParameter("CREATE_CONSTRAINTS")!=null)
 				{
-					model.createDatabaseConstraints(mask);
+					model.createDatabaseConstraints(constraintTypes);
 					%><div class="message">Database constraints successfully created!</div><%
 				}
 				else if(request.getParameter("TEARDOWN_CONSTRAINTS")!=null)
 				{
-					model.tearDownDatabaseConstraints(mask);
+					model.tearDownDatabaseConstraints(constraintTypes);
 					%><div class="message">Database constraints successfully torn down!</div><%
 				}
 				else if(request.getParameter("DROP_CONSTRAINTS")!=null)
 				{
-					model.dropDatabaseConstraints(mask);
+					model.dropDatabaseConstraints(constraintTypes);
 					%><div class="message">Database constraints successfully dropped!</div><%
 				}
 				else if(request.getParameter("CHECK_UNSUPPORTED_CONSTRAINTS")!=null)
