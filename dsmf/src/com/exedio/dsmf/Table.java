@@ -318,29 +318,29 @@ public final class Table extends Node
 
 	}
 	
-	final void createConstraints(final EnumSet<Type> mask, final boolean secondPhase, final StatementListener listener)
+	final void createConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.isSupported() && constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
+			if(constraint.isSupported() && constraint.matchesMask(types) && constraint.secondPhase==secondPhase)
 				constraint.create(listener);
 		}
 	}
 	
-	final void dropConstraints(final EnumSet<Type> mask, final boolean secondPhase, final StatementListener listener)
+	final void dropConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.isSupported() && constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
+			if(constraint.isSupported() && constraint.matchesMask(types) && constraint.secondPhase==secondPhase)
 				constraint.drop(listener);
 		}
 	}
 	
-	final void tearDownConstraints(final EnumSet<Type> mask, final boolean secondPhase, final StatementListener listener)
+	final void tearDownConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
-			if(constraint.matchesMask(mask) && constraint.secondPhase==secondPhase)
+			if(constraint.matchesMask(types) && constraint.secondPhase==secondPhase)
 			{
 				try
 				{

@@ -29,14 +29,14 @@ public abstract class Constraint extends Node
 	
 	final Table table;
 	final String name;
-	final Type mask;
+	final Type type;
 	final boolean secondPhase;
 	private final boolean required;
 	final String requiredCondition;
 	private boolean exists = false;
 	private String existingCondition;
 		
-	Constraint(final Table table, final String name, final Type mask, final boolean secondPhase, final boolean required, final String condition)
+	Constraint(final Table table, final String name, final Type type, final boolean secondPhase, final boolean required, final String condition)
 	{
 		super(table.driver, table.connectionProvider);
 		
@@ -44,12 +44,12 @@ public abstract class Constraint extends Node
 			throw new RuntimeException(name);
 		if(name==null)
 			throw new RuntimeException(table.name);
-		if(mask==null)
+		if(type==null)
 			throw new RuntimeException(table.name);
 
 		this.table = table;
 		this.name = name;
-		this.mask = mask;
+		this.type = type;
 		this.secondPhase = secondPhase;
 		this.required = required;
 		if(required)
@@ -73,9 +73,9 @@ public abstract class Constraint extends Node
 		return name;
 	}
 	
-	public boolean matchesMask(final EnumSet<Type> mask)
+	public boolean matchesMask(final EnumSet<Type> types)
 	{
-		return mask.contains(this.mask);
+		return types.contains(this.type);
 	}
 	
 	public final String getRequiredCondition()

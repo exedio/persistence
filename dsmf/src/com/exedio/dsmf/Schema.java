@@ -181,44 +181,44 @@ public final class Schema extends Node
 		while(deleted);
 	}
 
-	public final void createConstraints(final EnumSet<Constraint.Type> mask)
+	public final void createConstraints(final EnumSet<Constraint.Type> types)
 	{
-		createConstraints(mask, null);
+		createConstraints(types, null);
 	}
 	
-	public final void createConstraints(final EnumSet<Constraint.Type> mask, final StatementListener listener)
+	public final void createConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		for(final Table t : tableList)
-			t.createConstraints(mask, false, listener);
+			t.createConstraints(types, false, listener);
 		for(final Table t : tableList)
-			t.createConstraints(mask, true, listener);
+			t.createConstraints(types, true, listener);
 	}
 
-	public final void dropConstraints(final EnumSet<Constraint.Type> mask)
+	public final void dropConstraints(final EnumSet<Constraint.Type> types)
 	{
-		dropConstraints(mask, null);
+		dropConstraints(types, null);
 	}
 	
-	public final void dropConstraints(final EnumSet<Constraint.Type> mask, final StatementListener listener)
+	public final void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(mask, true, listener);
+			i.previous().dropConstraints(types, true, listener);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(mask, false, listener);
+			i.previous().dropConstraints(types, false, listener);
 	}
 	
-	public final void tearDownConstraints(final EnumSet<Constraint.Type> mask)
+	public final void tearDownConstraints(final EnumSet<Constraint.Type> types)
 	{
-		tearDownConstraints(mask, null);
+		tearDownConstraints(types, null);
 	}
 	
-	public final void tearDownConstraints(final EnumSet<Constraint.Type> mask, final StatementListener listener)
+	public final void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(mask, true, listener);
+			i.previous().tearDownConstraints(types, true, listener);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(mask, false, listener);
+			i.previous().tearDownConstraints(types, false, listener);
 	}
 	
 	public final void checkUnsupportedConstraints()

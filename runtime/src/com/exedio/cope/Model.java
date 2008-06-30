@@ -551,9 +551,9 @@ public final class Model
 		clearCache();
 	}
 
-	public void createDatabaseConstraints(final EnumSet<Constraint.Type> mask)
+	public void createDatabaseConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().createDatabaseConstraints(mask);
+		getDatabase().createDatabaseConstraints(types);
 	}
 
 	/**
@@ -590,9 +590,9 @@ public final class Model
 		clearCache();
 	}
 
-	public void dropDatabaseConstraints(final EnumSet<Constraint.Type> mask)
+	public void dropDatabaseConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().dropDatabaseConstraints(mask);
+		getDatabase().dropDatabaseConstraints(types);
 	}
 
 	public void tearDownDatabase()
@@ -601,9 +601,9 @@ public final class Model
 		clearCache();
 	}
 	
-	public void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> mask)
+	public void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().tearDownDatabaseConstraints(mask);
+		getDatabase().tearDownDatabaseConstraints(types);
 	}
 
 	public Schema getVerifiedSchema()

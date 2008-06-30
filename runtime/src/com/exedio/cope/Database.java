@@ -172,11 +172,11 @@ final class Database
 		}
 	}
 
-	void createDatabaseConstraints(final EnumSet<Constraint.Type> mask)
+	void createDatabaseConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 		
-		makeSchema().createConstraints(mask);
+		makeSchema().createConstraints(types);
 	}
 
 	//private static int checkTableTime = 0;
@@ -265,11 +265,11 @@ final class Database
 		makeSchema().drop();
 	}
 	
-	void dropDatabaseConstraints(final EnumSet<Constraint.Type> mask)
+	void dropDatabaseConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().dropConstraints(mask);
+		makeSchema().dropConstraints(types);
 	}
 	
 	void tearDownDatabase()
@@ -279,11 +279,11 @@ final class Database
 		makeSchema().tearDown();
 	}
 
-	void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> mask)
+	void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema().tearDownConstraints(mask);
+		makeSchema().tearDownConstraints(types);
 	}
 	
 	void checkEmptyDatabase(final Connection connection)
