@@ -297,22 +297,22 @@ final class Editor_Jspm
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<h1>COPE Content Editor Previews</h1>
 		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
-		<table border="1">
-			<tr>
-				<th>Old</th>
-				<th>New</th>
-			</tr><%
-			
-			for(final Editor.Proposal proposal : proposals)
-			{
-			%>
-			<tr>
-				<td><%=proposal.oldValue%></td>
-				<td><%=proposal.newValue%></td>
-			</tr><%
-			}
-			%>
-		</table>
+			<table border="1">
+				<tr>
+					<th>Old</th>
+					<th>New</th>
+				</tr><%
+				
+				for(final Editor.Proposal proposal : proposals)
+				{
+				%>
+				<tr>
+					<td><%=proposal.oldValue%></td>
+					<td><%=proposal.newValue%></td>
+				</tr><%
+				}
+				%>
+			</table>
 			<input name="<%=Editor.PREVIEW_SAVE%>" type="submit" value="Save">
 		</form>
 	</body>
