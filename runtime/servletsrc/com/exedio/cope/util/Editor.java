@@ -132,18 +132,18 @@ public abstract class Editor implements Filter
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
 			servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
-			final HttpServletResponse httpResponse = (HttpServletResponse)servletResponse;
+			final HttpServletResponse response = (HttpServletResponse)servletResponse;
 			final HttpSession httpSession = request.getSession(true);
 			final Object session = httpSession.getAttribute(SESSION);
 			
 			if(session==null)
-				doLogin(request, httpSession, httpResponse);
+				doLogin(request, httpSession, response);
 			else
 			{
 				if(request.getParameter(PREVIEW_OVERVIEW)!=null)
-					doPreviewOverview(request, httpResponse, (Session)session);
+					doPreviewOverview(request, response, (Session)session);
 				else
-					doBar(request, httpSession, httpResponse, (Session)session);
+					doBar(request, httpSession, response, (Session)session);
 			}
 			
 			return;
