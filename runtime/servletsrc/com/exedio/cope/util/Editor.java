@@ -117,13 +117,13 @@ public abstract class Editor implements Filter
 	
 	public final void doFilter(
 			final ServletRequest servletRequest,
-			final ServletResponse response,
+			final ServletResponse servletResponse,
 			final FilterChain chain)
 	throws IOException, ServletException
 	{
 		if(!(servletRequest instanceof HttpServletRequest))
 		{
-			chain.doFilter(servletRequest, response);
+			chain.doFilter(servletRequest, servletResponse);
 			return;
 		}
 		
@@ -132,7 +132,7 @@ public abstract class Editor implements Filter
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
 			servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
-			final HttpServletResponse httpResponse = (HttpServletResponse)response;
+			final HttpServletResponse httpResponse = (HttpServletResponse)servletResponse;
 			final HttpSession httpSession = request.getSession(true);
 			final Object session = httpSession.getAttribute(SESSION);
 			
@@ -157,8 +157,8 @@ public abstract class Editor implements Filter
 			{
 				try
 				{
-					tls.set(new TL(this, request, (HttpServletResponse)response, (Session)session));
-					chain.doFilter(request, response);
+					tls.set(new TL(this, request, (HttpServletResponse)servletResponse, (Session)session));
+					chain.doFilter(request, servletResponse);
 				}
 				finally
 				{
@@ -166,11 +166,11 @@ public abstract class Editor implements Filter
 				}
 			}
 			else
-				chain.doFilter(request, response);
+				chain.doFilter(request, servletResponse);
 		}
 		else
 		{
-			chain.doFilter(request, response);
+			chain.doFilter(request, servletResponse);
 		}
 	}
 	
