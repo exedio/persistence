@@ -265,6 +265,7 @@ final class Editor_Jspm
 	
 	static final void writePreviewOverview(
 			final PrintStream out,
+			final HttpServletResponse response,
 			final List<Editor.Proposal> proposals)
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
@@ -295,6 +296,7 @@ final class Editor_Jspm
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<h1>COPE Content Editor Previews</h1>
+		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
 		<table border="1">
 			<tr>
 				<th>Old</th>
@@ -311,6 +313,8 @@ final class Editor_Jspm
 			}
 			%>
 		</table>
+			<input name="<%=Editor.PREVIEW_SAVE%>" type="submit" value="Save">
+		</form>
 	</body>
 </html><%
 	}

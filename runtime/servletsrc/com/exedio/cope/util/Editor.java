@@ -141,7 +141,7 @@ public abstract class Editor implements Filter
 			else
 			{
 				if(request.getParameter(PREVIEW_OVERVIEW)!=null)
-					doPreviewOverview(httpResponse, (Session)session);
+					doPreviewOverview(request, httpResponse, (Session)session);
 				else
 					doBar(request, httpSession, httpResponse, (Session)session);
 			}
@@ -205,6 +205,7 @@ public abstract class Editor implements Filter
 	}
 	
 	static final String PREVIEW_OVERVIEW = "po";
+	static final String PREVIEW_SAVE = "prevsave";
 	
 	static final class Proposal
 	{
@@ -219,10 +220,36 @@ public abstract class Editor implements Filter
 	}
 	
 	private final void doPreviewOverview(
+			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Session session)
 	throws IOException
 	{
+		if(Cop.isPost(request))
+		{
+			if(request.getParameter(PREVIEW_SAVE)!=null)
+			{
+				final Map<Session.Preview, String> previews = session.getPreviewsModifiable();
+				try
+				{
+					model.startTransaction(getClass().getName() + "#saveProposals");
+					for(final Iterator<Map.Entry<Session.Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					{
+						final Map.Entry<Session.Preview, String> e = i.next();
+						final Session.Preview p = e.getKey();
+						p.save(model, e.getValue());
+						i.remove();
+					}
+					// TODO maintain history
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
+		}
+		
 		PrintStream out = null;
 		try
 		{
@@ -248,7 +275,7 @@ public abstract class Editor implements Filter
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", System.currentTimeMillis());
 			out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
-			Editor_Jspm.writePreviewOverview(out, proposals);
+			Editor_Jspm.writePreviewOverview(out, response, proposals);
 		}
 		finally
 		{
@@ -556,6 +583,11 @@ public abstract class Editor implements Filter
 				return ((StringField)model.getFeature(feature)).get(item);
 			}
 			
+			void save(final Model model, final String value)
+			{
+				((StringField)model.getFeature(feature)).set(item, value);
+			}
+			
 			@Override
 			public int hashCode()
 			{
@@ -589,6 +621,11 @@ public abstract class Editor implements Filter
 		Map<Preview, String> getPreviews()
 		{
 			return Collections.unmodifiableMap(previews);
+		}
+		
+		HashMap<Preview, String> getPreviewsModifiable()
+		{
+			return previews;
 		}
 		
 		void setPreview(final String content, final StringField feature, final Item item)
