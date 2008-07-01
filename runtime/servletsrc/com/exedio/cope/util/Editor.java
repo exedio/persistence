@@ -213,6 +213,45 @@ public abstract class Editor implements Filter
 		}
 	}
 	
+	private final void doPreviewOverview(
+			final HttpServletResponse response,
+			final Session session)
+	throws IOException
+	{
+		PrintStream out = null;
+		try
+		{
+			final Map<Session.Preview, String> previews = session.getPreviews();
+			final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+			try
+			{
+				model.startTransaction(getClass().getName() + "#proposal");
+				for(final Map.Entry<Session.Preview, String> e : previews.entrySet())
+					proposals.add(new Proposal(e.getKey().getOldValue(model), e.getValue()));
+				model.commit();
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
+			}
+			
+			response.setContentType("text/html; charset="+CopsServlet.ENCODING);
+			response.addHeader("Cache-Control", "no-cache");
+			response.addHeader("Cache-Control", "no-store");
+			response.addHeader("Cache-Control", "max-age=0");
+			response.addHeader("Cache-Control", "must-revalidate");
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", System.currentTimeMillis());
+			out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
+			Editor_Jspm.writePreviewOverview(out, proposals);
+		}
+		finally
+		{
+			if(out!=null)
+				out.close();
+		}
+	}
+	
 	private final void doBar(
 			final HttpServletRequest request,
 			final HttpSession httpSession,
@@ -222,38 +261,7 @@ public abstract class Editor implements Filter
 	{
 		if(request.getParameter(PREVIEW_OVERVIEW)!=null)
 		{
-			PrintStream out = null;
-			try
-			{
-				final Map<Session.Preview, String> previews = session.getPreviews();
-				final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
-				try
-				{
-					model.startTransaction(getClass().getName() + "#proposal");
-					for(final Map.Entry<Session.Preview, String> e : previews.entrySet())
-						proposals.add(new Proposal(e.getKey().getOldValue(model), e.getValue()));
-					model.commit();
-				}
-				finally
-				{
-					model.rollbackIfNotCommitted();
-				}
-				
-				response.setContentType("text/html; charset="+CopsServlet.ENCODING);
-				response.addHeader("Cache-Control", "no-cache");
-				response.addHeader("Cache-Control", "no-store");
-				response.addHeader("Cache-Control", "max-age=0");
-				response.addHeader("Cache-Control", "must-revalidate");
-				response.setHeader("Pragma", "no-cache");
-				response.setDateHeader("Expires", System.currentTimeMillis());
-				out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
-				Editor_Jspm.writePreviewOverview(out, proposals);
-			}
-			finally
-			{
-				if(out!=null)
-					out.close();
-			}
+			doPreviewOverview(response, session);
 			return;
 		}
 		
