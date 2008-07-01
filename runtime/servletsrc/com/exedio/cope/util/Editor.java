@@ -139,7 +139,12 @@ public abstract class Editor implements Filter
 			if(session==null)
 				doLogin(request, httpSession, httpResponse);
 			else
-				doBar(request, httpSession, httpResponse, (Session)session);
+			{
+				if(request.getParameter(PREVIEW_OVERVIEW)!=null)
+					doPreviewOverview(httpResponse, (Session)session);
+				else
+					doBar(request, httpSession, httpResponse, (Session)session);
+			}
 			
 			return;
 		}
@@ -259,12 +264,6 @@ public abstract class Editor implements Filter
 			final Session session)
 	throws IOException
 	{
-		if(request.getParameter(PREVIEW_OVERVIEW)!=null)
-		{
-			doPreviewOverview(response, session);
-			return;
-		}
-		
 		if(!Cop.isPost(request))
 		{
 			redirectHome(request, response);
