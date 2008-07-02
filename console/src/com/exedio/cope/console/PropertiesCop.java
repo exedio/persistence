@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.ConnectToken;
+import com.exedio.cops.XMLEncoder;
 
 final class PropertiesCop extends ConsoleCop
 {
@@ -59,7 +60,7 @@ final class PropertiesCop extends ConsoleCop
 			for(int len = r.read(b); len>=0; len = r.read(b))
 				bf.append(b, 0, len);
 
-			sourceContent = encodeXml(bf.toString());
+			sourceContent = XMLEncoder.encode(bf.toString());
 			for(final ConnectProperties.Field field : props.getFields())
 			{
 				if(field.hasHiddenValue())
@@ -95,7 +96,7 @@ final class PropertiesCop extends ConsoleCop
 		else if(o instanceof Long)
 			return format(((Long)o).longValue());
 		else if(o instanceof String)
-			return encodeXml((String)o);
+			return XMLEncoder.encode((String)o);
 		else
 			return o.toString();
 	}

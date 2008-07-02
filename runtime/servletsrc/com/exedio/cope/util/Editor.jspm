@@ -19,14 +19,13 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cops.Cop.encode;
+import static com.exedio.cops.XMLEncoder.encode;
 
 import java.io.PrintStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 
 final class Editor_Jspm
@@ -80,7 +79,7 @@ final class Editor_Jspm
 			<table>
 				<tr>
 					<td>Login</td>
-					<td><input name="<%=Editor.LOGIN_USER%>"<% if(failureUser!=null){%> value="<%=Cop.encodeXml(failureUser)%>"<%} %>></td>
+					<td><input name="<%=Editor.LOGIN_USER%>"<% if(failureUser!=null){%> value="<%=encode(failureUser)%>"<%} %>></td>
 				</tr>
 				<tr>
 					<td>Password</td>
@@ -136,7 +135,7 @@ final class Editor_Jspm
 			if(loginName!=null)
 			{
 			%>
-			logged in as <%=Cop.encodeXml(loginName)%><%
+			logged in as <%=encode(loginName)%><%
 			}
 			if(previewNumber>0)
 			{

@@ -26,6 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
+import static com.exedio.cops.XMLEncoder.encode;
+
 final class Vm_Jspm extends Console_Jspm
 {
 	private final static void write(final PrintStream out, final String key, final String title, final String version, final String vendor)

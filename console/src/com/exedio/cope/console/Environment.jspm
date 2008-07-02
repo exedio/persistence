@@ -26,6 +26,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static com.exedio.cops.XMLEncoder.encode;
+
 final class Environment_Jspm extends Console_Jspm
 {
 	final static void writeCurrent(final PrintStream out, final String dialect, final java.util.Properties properties)

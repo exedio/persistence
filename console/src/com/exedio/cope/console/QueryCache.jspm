@@ -23,6 +23,8 @@ import java.io.PrintStream;
 
 import com.exedio.cope.util.CacheQueryInfo;
 
+import static com.exedio.cops.XMLEncoder.encode;
+
 final class QueryCache_Jspm extends Console_Jspm
 {
 	final static void writeBody(

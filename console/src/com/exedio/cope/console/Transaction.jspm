@@ -24,6 +24,8 @@ import java.util.Date;
 
 import com.exedio.cope.Transaction;
 
+import static com.exedio.cops.XMLEncoder.encode;
+
 final class Transaction_Jspm extends Console_Jspm
 {
 	final static void writeHead(final PrintStream out)

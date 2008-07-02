@@ -26,9 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
-import com.exedio.cops.Cop;
 import com.exedio.cops.Pageable;
 import com.exedio.cops.Pager;
+
+import static com.exedio.cops.XMLEncoder.encode;
 
 abstract class Console_Jspm
 {
@@ -222,10 +223,5 @@ abstract class Console_Jspm
 	{
 				%>
 				<a href="<%=cop.toPage(href)%>"<% if(href.isNeutral()){%> class="disabled"<%}%>><%=text%></a><%
-	}
-	
-	static final String encode(final String s)
-	{
-		return Cop.encodeXml(s);
 	}
 }%>

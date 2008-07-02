@@ -56,6 +56,7 @@ import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
+import com.exedio.cops.XMLEncoder;
 
 public abstract class Editor implements Filter
 {
@@ -799,7 +800,7 @@ public abstract class Editor implements Filter
 		}
 		
 		final String tag = block ? "div" : "span";
-		final String editorContentEncoded = Cop.encodeXml(editorContent);
+		final String editorContentEncoded = XMLEncoder.encode(editorContent);
 		final StringBuilder bf = new StringBuilder();
 		bf.append('<').
 			append(tag).
@@ -841,7 +842,7 @@ public abstract class Editor implements Filter
 						append("','").
 						append(item.getCopeID()).
 						append("','").
-						append(Cop.encodeXml(feature.getURL(item))).		
+						append(XMLEncoder.encode(feature.getURL(item))).		
 					append("');\"");
 		
 		return bf.toString();
