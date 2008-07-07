@@ -258,6 +258,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		result.add(
 			new Wrapper("set").
 			addComment("Sets the content of media {0}.").
+			addThrows(IOException.class, IO_EXCEPTION_COMMENT).
+			addParameter(Value.class));
+			
+		result.add(
+			new Wrapper("set").
+			addComment("Sets the content of media {0}.").
 			addParameter(byte[].class, "body").
 			addParameter(String.class, "contentType"));
 			
@@ -340,6 +346,22 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return result;
 	}
 
+	/**
+	 * Sets the contents of this media.
+	 * @param value give null to make this media null.
+	 * @throws MandatoryViolationException
+	 *         if body is null and field is {@link Field#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if body is longer than {@link #getMaximumLength()}
+	 */
+	public void set(final Item item, final Media.Value value)
+		throws DataLengthViolationException, IOException
+	{
+		if(false)
+			throw new IOException(); // disables warning about throws clause, TODO
+		item.set(execute(value, item));
+	}
+	
 	/**
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.

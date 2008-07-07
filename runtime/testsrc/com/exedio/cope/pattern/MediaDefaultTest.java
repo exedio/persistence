@@ -156,6 +156,14 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		item.setFile((byte[])null, null);
 		assertNull();
 		{
+			final Date before = new Date();
+			item.setFile(Media.toValue(data8, "emptyMajor/emptyMinor"));
+			final Date after = new Date();
+			assertContent(data8, before, after, "emptyMajor/emptyMinor", "");
+		}
+		item.setFile((Media.Value)null);
+		assertNull();
+		{
 			// test length violation
 			final Date before = new Date();
 			item.setFile(data20, "emptyMajor/emptyMinor");
