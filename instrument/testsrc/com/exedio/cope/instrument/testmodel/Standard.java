@@ -183,6 +183,7 @@ public class Standard extends Item
 		setPrivateSetterMedia((byte[])null, null);
 		try
 		{
+			setPrivateSetterMedia((Media.Value)null);
 			setPrivateSetterMedia((File)null, null);
 			setPrivateSetterMedia((InputStream)null, null);
 		}
