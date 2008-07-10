@@ -128,6 +128,13 @@ public final class ListField<E> extends Pattern
 		exceptions.add(ClassCastException.class);
 		
 		result.add(
+			new Wrapper("add").
+			setMethodWrapperPattern("addTo{0}").
+			addComment("Adds a new value for {0}.").
+			addThrows(exceptions).
+			addParameter(Wrapper.TypeVariable0.class));
+				
+		result.add(
 			new Wrapper("set").
 			addComment("Sets a new value for {0}.").
 			addThrows(exceptions).
@@ -161,6 +168,17 @@ public final class ListField<E> extends Pattern
 		final Query<P> q = new Query<P>(this.parent.as(parentClass), Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
 		return q.search();
+	}
+	
+	public void add(final Item item, final E value)
+	{
+		final Query<Integer> q = new Query<Integer>(this.order.max(), Cope.equalAndCast(this.parent, item));
+		final Integer max = q.searchSingleton();
+		final int newOrder = max!=null ? (max.intValue()+1) : 0;
+		this.relationType.newItem(
+				Cope.mapAndCast(this.parent, item),
+				this.order.map(newOrder),
+				this.element.map(value));
 	}
 	
 	public void set(final Item item, final Collection<? extends E> value)

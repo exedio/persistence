@@ -336,6 +336,31 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(2, r2.get(stringsOrder).intValue());
 		assertFalse(r3.existsCopeItem());
 
+		item.addToStrings("dup3");
+		assertEquals(list("dup1", "dup2", "dup1", "dup3"), item.getStrings());
+		assertContains(item.getDistinctParentsOfStrings(null));
+		assertContains(item, item.getDistinctParentsOfStrings("dup1"));
+		assertContains(item, item.getDistinctParentsOfStrings("dup2"));
+		assertContains(item, item.getDistinctParentsOfStrings("dup3"));
+		final Item r4;
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsOrder, true).iterator();
+			assertSame(r0, i.next());
+			assertSame(r1, i.next());
+			assertSame(r2, i.next());
+			r4 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("dup1", r0.get(stringsElement));
+		assertEquals("dup2", r1.get(stringsElement));
+		assertEquals("dup1", r2.get(stringsElement));
+		assertEquals("dup3", r4.get(stringsElement));
+		assertEquals(0, r0.get(stringsOrder).intValue());
+		assertEquals(1, r1.get(stringsOrder).intValue());
+		assertEquals(2, r2.get(stringsOrder).intValue());
+		assertEquals(3, r4.get(stringsOrder).intValue());
+		assertFalse(r3.existsCopeItem());
+
 		item.setStrings(CopeAssert.<String>listg());
 		assertEquals(list(), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
@@ -345,6 +370,21 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertFalse(r1.existsCopeItem());
 		assertFalse(r2.existsCopeItem());
 		assertFalse(r3.existsCopeItem());
+		assertFalse(r4.existsCopeItem());
+
+		item.addToStrings("dup4");
+		assertEquals(list("dup4"), item.getStrings());
+		assertContains(item.getDistinctParentsOfStrings(null));
+		assertContains(      item.getDistinctParentsOfStrings("dup1"));
+		assertContains(item, item.getDistinctParentsOfStrings("dup4"));
+		final Item r5;
+		{
+			final Iterator<? extends Item> i = stringsType.search(null, stringsOrder, true).iterator();
+			r5 = i.next();
+			assertFalse(i.hasNext());
+		}
+		assertEquals("dup4", r5.get(stringsElement));
+		assertEquals(0, r5.get(stringsOrder).intValue());
 
 		// dates
 		assertEquals(list(), item.getDates());
