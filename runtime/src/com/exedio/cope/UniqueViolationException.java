@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.ConstructorComment;
+
 /**
  * Signals, that an attempt to write an field has been failed,
  * and the value to be set violated a unique constraint.
@@ -29,6 +31,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
+@ConstructorComment("if {0} is not unique.")
 public final class UniqueViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;

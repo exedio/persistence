@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.ConstructorComment;
+
 /**
  * Signals, that an attempt to write a {@link StringField string field} has been failed,
  * because value to be written violated the length constraint on that field.
@@ -27,6 +29,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
+@ConstructorComment("if {0} violates its length constraint.")
 public final class StringLengthViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;

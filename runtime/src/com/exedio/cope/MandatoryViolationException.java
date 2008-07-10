@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.ConstructorComment;
+
 /**
  * Signals, that an attempt to write an field has been failed,
  * because it cannot be written with a null value.
@@ -31,6 +33,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
+@ConstructorComment("if {0} is null.")
 public final class MandatoryViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;

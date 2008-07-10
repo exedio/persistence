@@ -39,16 +39,11 @@ import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.DoubleRangeViolationException;
 import com.exedio.cope.Feature;
-import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.Item;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.Type;
-import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 final class Generator
@@ -58,10 +53,6 @@ final class Generator
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String REACTIVATION = ReactivationConstructorDummy.class.getName();
 	
-	private static final String THROWS_MANDATORY = "if {0} is null.";
-	private static final String THROWS_UNIQUE    = "if {0} is not unique.";
-	private static final String THROWS_RANGE     = "if {0} violates its range constraint.";
-	private static final String THROWS_LENGTH    = "if {0} violates its length constraint.";
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
 	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE = "It can be customized with the tags " +
@@ -248,8 +239,12 @@ final class Generator
 			o.write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
 			o.write(lineSeparator);
 		}
-		for(final Class constructorException : constructorExceptions)
+		for(final Class<?> constructorException : constructorExceptions)
 		{
+			final ConstructorComment a = constructorException.getAnnotation(ConstructorComment.class);
+			if(a==null)
+				continue;
+			
 			o.write("\t * @throws ");
 			o.write(constructorException.getName());
 			o.write(' ');
@@ -268,20 +263,7 @@ final class Generator
 				initialAttributesBuf.append(feature.name);
 			}
 
-			final String pattern;
-			if(MandatoryViolationException.class.equals(constructorException))
-				pattern = THROWS_MANDATORY;
-			else if(UniqueViolationException.class.equals(constructorException))
-				pattern = THROWS_UNIQUE;
-			else if(IntegerRangeViolationException.class.equals(constructorException))
-				pattern = THROWS_RANGE;
-			else if(DoubleRangeViolationException.class.equals(constructorException))
-				pattern = THROWS_RANGE;
-			else if(StringLengthViolationException.class.equals(constructorException))
-				pattern = THROWS_LENGTH;
-			else
-				throw new RuntimeException(constructorException.getName());
-
+			final String pattern = a.value();
 			o.write(format(pattern, initialAttributesBuf.toString()));
 			o.write(lineSeparator);
 		}

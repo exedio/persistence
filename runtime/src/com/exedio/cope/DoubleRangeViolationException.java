@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.ConstructorComment;
+
 /**
  * Signals, that an attempt to write an {@link DoubleField} has been failed,
  * because the value to be written violated the range constraint on that field.
@@ -27,6 +29,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
+@ConstructorComment("if {0} violates its range constraint.")
 public final class DoubleRangeViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
