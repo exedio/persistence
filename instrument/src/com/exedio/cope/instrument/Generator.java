@@ -358,10 +358,11 @@ final class Generator
 		o.write(lineSeparator);
 		writeCommentFooter();
 		
+		final boolean allowSubTypes = type.allowSubTypes();
 		o.write('\t');
-		if(!type.allowSubTypes())
+		if(!allowSubTypes)
 			o.write("@SuppressWarnings(\"unused\") ");
-		writeModifier(option.getModifier(type.allowSubTypes() ? PROTECTED : PRIVATE));
+		writeModifier(option.getModifier(allowSubTypes ? PROTECTED : PRIVATE));
 		o.write(type.name);
 		o.write('(');
 		o.write(finalArgPrefix);
