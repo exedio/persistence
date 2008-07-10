@@ -752,7 +752,7 @@ final class Generator
 		if(serialVersionUID)
 		{
 			writeCommentHeader();
-			writeCommentFooter(null);
+			writeCommentFooter();
 			
 			o.write('\t');
 			writeModifier(PRIVATE|STATIC|FINAL);
