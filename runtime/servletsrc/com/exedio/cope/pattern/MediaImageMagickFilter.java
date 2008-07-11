@@ -203,6 +203,8 @@ public class MediaImageMagickFilter extends MediaFilter
 			throw new RuntimeException(
 					"process " + process +
 					" exited with " + exitValue +
+					" for feature " + getID() +
+					" and item " + item.getCopeID() +
 					", left " + inFile.getAbsolutePath() +
 					" and " + outFile.getAbsolutePath());
 		
