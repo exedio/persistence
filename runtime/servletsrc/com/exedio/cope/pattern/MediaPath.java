@@ -71,6 +71,8 @@ public abstract class MediaPath extends Pattern
 		contentTypeToExtension.put("image/pjpeg", ".jpg");
 		contentTypeToExtension.put("image/gif", ".gif");
 		contentTypeToExtension.put("image/png", ".png");
+		contentTypeToExtension.put("image/x-icon", ".ico");
+		contentTypeToExtension.put("image/icon", ".ico");
 		contentTypeToExtension.put("text/html", ".html");
 		contentTypeToExtension.put("text/plain", ".txt");
 		contentTypeToExtension.put("text/css", ".css");
