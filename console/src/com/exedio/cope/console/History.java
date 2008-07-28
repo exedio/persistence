@@ -91,4 +91,12 @@ final class History
 			}
 		}
 	}
+	
+	String getThreadID()
+	{
+		return
+			thread!=null
+			? thread.toString()
+			: null;
+	}
 }

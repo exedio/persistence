@@ -27,6 +27,7 @@ final class History_Jspm
 			final HistoryCop cop,
 			final PrintStream out,
 			final boolean historyModelShown,
+			final String threadId,
 			final boolean historyRunning)
 	{
 		%>
@@ -34,7 +35,13 @@ final class History_Jspm
 			<input type="hidden" value="<% if(historyModelShown){%>false<%}else{%>true<%} %>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
 			<input type="submit" value="<% if(historyModelShown){%>Switch console back to main model<%}else{%>Switch console to model of COPE History<%} %>">
 		</form>
-		History:<% if(!historyRunning){%> not<%} %> running
+		History:<% if(!historyRunning){%> not<%} %> running<%
+		if(threadId!=null)
+		{
+		%>
+		<small><%=threadId%></small><%
+		}
+		%>
 		<form action="<%=cop%>" method="POST">
 			<input type="hidden" value="<%=ConsoleServlet.HISTORY_START%>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
 			<input type="submit" value="Start">

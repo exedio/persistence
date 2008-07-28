@@ -40,7 +40,7 @@ final class HistoryCop extends ConsoleCop
 			final boolean historyModelShown)
 	{
 		if(history.isAvailable())
-			History_Jspm.writeBody(this, out, historyModelShown, history.isRunning());
+			History_Jspm.writeBody(this, out, historyModelShown, history.getThreadID(), history.isRunning());
 		else
 			History_Jspm.writeBodyNotAvailable(out);
 	}
