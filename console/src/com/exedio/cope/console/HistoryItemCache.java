@@ -18,6 +18,7 @@
 
 package com.exedio.cope.console;
 
+import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -40,6 +41,12 @@ final class HistoryItemCache extends Item
 	static final DateField connectDate = new DateField().toFinal();
 	static final IntegerField thread = new IntegerField().toFinal();
 	static final IntegerField running = new IntegerField().toFinal().min(0);
+	
+	static final CopyConstraint dateCC = new CopyConstraint(model, date);
+	static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
+	static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
+	static final CopyConstraint threadCC = new CopyConstraint(model, thread);
+	static final CopyConstraint runningCC = new CopyConstraint(model, running);
 	
 	static final IntegerField limit = new IntegerField().toFinal().min(0);
 	static final IntegerField level = new IntegerField().toFinal().min(0);
