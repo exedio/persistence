@@ -142,7 +142,7 @@ abstract class ConsoleCop extends Cop
 		// default implementation does nothing
 	}
 	
-	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request, boolean historyAvailable, boolean historyModelShown, boolean historyRunning);
+	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request, History history, boolean historyModelShown);
 	
 	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
@@ -232,7 +232,7 @@ abstract class ConsoleCop extends Cop
 		}
 
 		@Override
-		void writeBody(PrintStream out, Model model, HttpServletRequest request, final boolean historyAvailable, final boolean historyModelShown, final boolean historyRunning)
+		final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
 		{
 			Console_Jspm.writeNotFound(out, pathInfo);
 		}

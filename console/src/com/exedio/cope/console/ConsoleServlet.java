@@ -177,7 +177,7 @@ public final class ConsoleServlet extends CopsServlet
 			Console_Jspm.write(
 					out, request, response, model, cop,
 					authentication, hostname,
-					history.isAvailable(), historyModelShown, history.isRunning());
+					history, historyModelShown);
 			out.close();
 		}
 		finally

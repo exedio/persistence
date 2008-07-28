@@ -45,7 +45,7 @@ final class PropertiesCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final boolean historyAvailable, final boolean historyModelShown, final boolean historyRunning)
+	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
 	{
 		final ConnectProperties props = model.getProperties();
 		final String source = props.getSource();

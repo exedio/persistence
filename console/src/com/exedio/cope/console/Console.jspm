@@ -41,9 +41,8 @@ abstract class Console_Jspm
 				final ConsoleCop cop,
 				final String authentication,
 				final String hostname,
-				final boolean historyAvailable,
-				final boolean historyModelShown,
-				final boolean historyRunning)
+				final History history,
+				final boolean historyModelShown)
 	{
 		try
 		{
@@ -83,7 +82,7 @@ abstract class Console_Jspm
 		writeMenu(out, cop);
 		%>
 		<hr><%
-		cop.writeBody(out, model, request, historyAvailable, historyModelShown, historyRunning);
+		cop.writeBody(out, model, request, history, historyModelShown);
 		%>
 		<hr><%
 		writeMenu(out, cop);
