@@ -232,7 +232,12 @@ abstract class ConsoleCop extends Cop
 		}
 
 		@Override
-		final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
+		final void writeBody(
+				final PrintStream out,
+				final Model model,
+				final HttpServletRequest request,
+				final History history,
+				final boolean historyModelShown)
 		{
 			Console_Jspm.writeNotFound(out, pathInfo);
 		}

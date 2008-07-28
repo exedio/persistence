@@ -46,7 +46,12 @@ final class EnvironmentCop extends ConsoleCop
 	}
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request,
+			final History history,
+			final boolean historyModelShown)
 	{
 		final java.util.Properties current = model.getDatabaseInfo();
 		for(Iterator i = current.keySet().iterator(); i.hasNext(); )

@@ -74,7 +74,12 @@ final class TransactionCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request,
+			final History history,
+			final boolean historyModelShown)
 	{
 		final Transaction[] openTransactions = model.getOpenTransactions().toArray(new Transaction[]{});
 		Arrays.sort(openTransactions, new Comparator<Transaction>(){

@@ -45,7 +45,12 @@ final class SchemaCop extends ConsoleCop
 	}
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request,
+			final History history,
+			final boolean historyModelShown)
 	{
 		Schema_Jspm.writeBody(this, out, model, request);
 	}

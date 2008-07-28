@@ -32,7 +32,12 @@ final class HistoryCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request,
+			final History history,
+			final boolean historyModelShown)
 	{
 		if(history.isAvailable())
 			History_Jspm.writeBody(this, out, historyModelShown, history.isRunning());

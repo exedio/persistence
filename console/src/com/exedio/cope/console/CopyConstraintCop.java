@@ -37,7 +37,12 @@ final class CopyConstraintCop extends ConsoleCop
 	}
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request,
+			final History history,
+			final boolean historyModelShown)
 	{
 		final ArrayList<CopyConstraint> constraints = new ArrayList<CopyConstraint>();
 		

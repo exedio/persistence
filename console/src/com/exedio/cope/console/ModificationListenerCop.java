@@ -47,7 +47,12 @@ final class ModificationListenerCop extends ConsoleCop
 	//static int debugNumber = 0;
 
 	@Override
-	final void writeBody(final PrintStream out, final Model model, final HttpServletRequest request, final History history, final boolean historyModelShown)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request,
+			final History history,
+			final boolean historyModelShown)
 	{
 		if(isPost(request))
 		{
