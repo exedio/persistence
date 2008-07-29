@@ -36,7 +36,6 @@ import com.exedio.cope.testmodel.ItemWithDoubleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUnique;
 import com.exedio.cope.testmodel.ItemWithSingleUniqueNotNull;
 import com.exedio.cope.testmodel.Main;
-import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.StringItem;
@@ -173,19 +172,6 @@ public class InitServlet extends CopsServlet
 				
 				item3.setAny("Herzliche Gr\u00fc\u00dfe!");
 			}
-			
-			new PlusItem(1, 2, 3);
-			new PlusItem(4, 5, 4);
-			new PlusItem(9, 2, 6);
-			new PlusItem(2, 8, 1);
-			new PlusItem(5, 6, 7);
-			new PlusItem(3, 5, 9);
-			new PlusItem(6, 4, 0);
-			new PlusItem(8, 1, 2);
-			new PlusItem(2, 9, 7);
-			new PlusItem(5, 2, 0);
-			new PlusItem(6, 7, 6);
-
 			{
 				final PointerTargetItem item2a = new PointerTargetItem("hallo");
 				final PointerTargetItem item2b = new PointerTargetItem("bello");

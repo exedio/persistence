@@ -36,7 +36,6 @@ public class Main
 		EmptyItem2.TYPE,
 		AttributeItem.TYPE,
 		StringItem.TYPE,
-		PlusItem.TYPE,
 		PointerTargetItem.TYPE,
 		PointerItem.TYPE,
 		FinalItem.TYPE,

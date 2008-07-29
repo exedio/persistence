@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
-import com.exedio.cope.testmodel.PlusItem;
+import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 
@@ -33,8 +33,8 @@ public class FieldItemTest extends FieldTest
 		assertEquals(EmptyItem.TYPE, item.someItem.getValueType());
 		assertEquals(EmptyItem.class, item.someItem.getValueClass());
 		assertEquals(Item.FORBID, item.someItem.getDeletePolicy());
-		assertEqualsUnmodifiable(list(), PlusItem.TYPE.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(), PlusItem.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getReferences());
 		
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(someItem);

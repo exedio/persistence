@@ -22,10 +22,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.testmodel.PlusItem;
-
-public class PlusOrderTest extends TestmodelTest
+public class PlusOrderTest extends AbstractRuntimeTest
 {
+	public PlusOrderTest()
+	{
+		super(PlusTest.MODEL);
+	}
+	
 	PlusItem item1;
 	PlusItem item2;
 	PlusItem item3;

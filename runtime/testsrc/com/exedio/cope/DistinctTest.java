@@ -20,11 +20,15 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.testmodel.PlusItem;
 import com.exedio.dsmf.SQLRuntimeException;
 
-public class DistinctTest extends TestmodelTest
+public class DistinctTest extends AbstractRuntimeTest
 {
+	public DistinctTest()
+	{
+		super(PlusTest.MODEL);
+	}
+	
 	PlusItem item1, item2, item3, item4;
 	
 	@Override

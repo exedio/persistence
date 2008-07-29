@@ -18,10 +18,15 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.PlusItem;
-
-public class PlusTest extends TestmodelTest
+public class PlusTest extends AbstractRuntimeTest
 {
+	static final Model MODEL = new Model(PlusItem.TYPE);
+	
+	public PlusTest()
+	{
+		super(MODEL);
+	}
+	
 	PlusItem item;
 	PlusItem item2;
 	

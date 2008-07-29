@@ -23,23 +23,23 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.PlusItem;
+import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
 public class SchemaTest extends TestmodelTest
 {
-	private static final String TABLE1X = "PlusItemX";
-	private static final String COLUMN1X = "num2X";
+	private static final String TABLE1X = "FinalItemX";
+	private static final String COLUMN1X = "nonFinalIntegerX";
 
 	public void testSchema()
 	{
 		if(postgresql) return;
-		final String TABLE1 = getTableName(PlusItem.TYPE);
-		final String COLUMN1 = getColumnName(PlusItem.num2);
-		assertEquals(mysqlLower("PlusItem"), TABLE1);
-		assertEquals("num2", COLUMN1);
+		final String TABLE1 = getTableName(FinalItem.TYPE);
+		final String COLUMN1 = getColumnName(FinalItem.nonFinalInteger);
+		assertEquals(mysqlLower("FinalItem"), TABLE1);
+		assertEquals("nonFinalInteger", COLUMN1);
 
 		final String column1Type;
 		// OK
@@ -118,7 +118,7 @@ public class SchemaTest extends TestmodelTest
 			assertEquals(null, table.getError());
 			assertEquals(Schema.Color.OK, table.getParticularColor());
 
-			final Constraint constraint = table.getConstraint("PlusItem_num2_Ck");
+			final Constraint constraint = table.getConstraint("FinalItem_nonFinalInte_Ck");
 			if(model.supportsCheckConstraints())
 				constraint.drop();
 			
