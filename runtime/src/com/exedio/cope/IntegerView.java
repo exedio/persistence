@@ -80,6 +80,13 @@ public abstract class IntegerView extends View<Integer> implements IntegerFuncti
 	{
 		return new PlusView(new IntegerFunction[]{this, other});
 	}
+
+	public final SumAggregate<Integer> sum()
+	{
+		return new SumAggregate<Integer>(this);
+	}
+	
+	// ------------------- deprecated stuff -------------------
 	
 	/**
 	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
@@ -88,10 +95,5 @@ public abstract class IntegerView extends View<Integer> implements IntegerFuncti
 	public final PlusView sum(final IntegerFunction other)
 	{
 		return plus(other);
-	}
-
-	public final SumAggregate<Integer> sum()
-	{
-		return new SumAggregate<Integer>(this);
 	}
 }

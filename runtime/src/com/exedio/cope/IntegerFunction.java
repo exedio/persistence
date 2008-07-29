@@ -27,12 +27,14 @@ public interface IntegerFunction extends Function<Integer>
 	BindIntegerFunction bind(Join join);
 	
 	PlusView plus(IntegerFunction other);
+
+	SumAggregate<Integer> sum();
+	
+	// ------------------- deprecated stuff -------------------
 	
 	/**
 	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
 	 */
 	@Deprecated
 	PlusView sum(IntegerFunction other);
-
-	SumAggregate<Integer> sum();
 }
