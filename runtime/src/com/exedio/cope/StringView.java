@@ -26,7 +26,7 @@ public abstract class StringView extends View<String> implements StringFunction
 {
 	public StringView(final Function<?>[] sources, final String name)
 	{
-		super(sources, name, String.class, StringColumn.JDBC_TYPE);
+		super(sources, name, String.class);
 	}
 
 	@Override

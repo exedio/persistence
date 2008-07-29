@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntArrayList;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -197,22 +195,5 @@ abstract class Dialect
 	protected void completeSchema(final Schema schema)
 	{
 		// empty default implementation
-	}
-	
-	boolean isDefiningColumnTypes()
-	{
-		return false;
-	}
-	
-	/**
-	 * @param columnTypes used in subclasses
-	 * @param statement used in subclasses
-	 */
-	void defineColumnTypes(TIntArrayList columnTypes, java.sql.Statement statement)
-			throws SQLException
-	{
-		// default implementation does nothing, may be overwritten by subclasses
-		if(false)
-			throw new SQLException(); // disables warning about throws clause
 	}
 }

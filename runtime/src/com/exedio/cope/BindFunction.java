@@ -73,15 +73,6 @@ public class BindFunction<E> implements Function<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public final int getTypeForDefiningColumn()
-	{
-		return function.getTypeForDefiningColumn();
-	}
-	
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		bf.appendParameter(function, value);

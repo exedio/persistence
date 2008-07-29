@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntArrayList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,7 +33,6 @@ final class Statement
 	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
-	final TIntArrayList columnTypes;
 	
 	Statement(final Database database, final boolean qualifyTable)
 	{
@@ -48,7 +45,6 @@ final class Statement
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
-		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new TIntArrayList() : null;
 	}
 
 	Statement(final Database database, final Query<? extends Object> query)
@@ -122,7 +118,6 @@ final class Statement
 		//System.out.println("-------"+joinTables.keySet().toString());
 		
 		this.qualifyTable = joinTables.size()>1;
-		this.columnTypes = database.dialect.isDefiningColumnTypes() ? new TIntArrayList() : null;
 		this.ambiguousTables = ambiguousTables;
 	}
 	
@@ -294,35 +289,6 @@ final class Statement
 		database.appendMatchClause(this, function, value);
 	}
 
-	@SuppressWarnings("deprecation") // OK: Selectable.getTypeForDefiningColumn is for internal use within COPE only
-	Statement defineColumn(final Selectable select)
-	{
-		if(columnTypes!=null)
-			columnTypes.add(select.getTypeForDefiningColumn());
-		return this;
-	}
-		
-	Statement defineColumn(final Column column)
-	{
-		if(columnTypes!=null)
-			columnTypes.add(column.typeForDefiningColumn);
-		return this;
-	}
-		
-	Statement defineColumnInteger()
-	{
-		if(columnTypes!=null)
-			columnTypes.add(IntegerColumn.JDBC_TYPE_INT);
-		return this;
-	}
-		
-	Statement defineColumnString()
-	{
-		if(columnTypes!=null)
-			columnTypes.add(StringColumn.JDBC_TYPE);
-		return this;
-	}
-		
 	String getText()
 	{
 		return text.toString();

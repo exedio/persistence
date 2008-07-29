@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntArrayList;
 import gnu.trove.TIntObjectHashMap;
 
 import java.sql.Blob;
@@ -29,8 +28,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
-
-import oracle.jdbc.OracleStatement;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.OracleDriver;
@@ -173,27 +170,6 @@ final class OracleDialect extends Dialect
 			return null;
 
 		return DataField.copy(blob.getBinaryStream(), blob.length());
-	}
-
-	@Override
-	boolean isDefiningColumnTypes()
-	{
-		return true;
-	}
-	
-	@Override
-	void defineColumnTypes(final TIntArrayList columnTypes, final java.sql.Statement statement)
-			throws SQLException
-	{
-		//System.out.println("defineColumnTypes: "+columnTypes);
-		final OracleStatement s = (OracleStatement)statement;
-		final int columnTypesSize = columnTypes.size();
-		int columnIndex = 1;
-		for(int i = 0; i<columnTypesSize; i++, columnIndex++)
-		{
-			final int columnType = columnTypes.get(i);
-			s.defineColumnType(columnIndex, columnType);
-		}
 	}
 
 	@Override

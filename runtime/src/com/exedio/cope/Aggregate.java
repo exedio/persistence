@@ -78,15 +78,6 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append(')');
 	}
 	
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final int getTypeForDefiningColumn()
-	{
-		return source.getTypeForDefiningColumn();
-	}
-	
 	@Override
 	public final boolean equals(final Object other)
 	{

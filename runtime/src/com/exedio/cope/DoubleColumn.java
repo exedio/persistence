@@ -20,12 +20,9 @@ package com.exedio.cope;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
 final class DoubleColumn extends Column
 {
-	static final int JDBC_TYPE = Types.DOUBLE;
-	
 	final double minimum;
 	final double maximum;
 	
@@ -37,7 +34,7 @@ final class DoubleColumn extends Column
 			final double minimum,
 			final double maximum)
 	{
-		super(table, field, id, false, optional, JDBC_TYPE);
+		super(table, field, id, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		

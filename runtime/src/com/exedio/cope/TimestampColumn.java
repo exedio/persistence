@@ -21,21 +21,18 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 final class TimestampColumn extends Column
 {
-	static final int JDBC_TYPE = Types.TIMESTAMP;
-	
 	TimestampColumn(
 			final Table table,
 			final Field field,
 			final String id,
 			final boolean optional)
 	{
-		super(table, field, id, false, optional, JDBC_TYPE);
+		super(table, field, id, false, optional);
 		assert table.database.dialect.getDateTimestampType()!=null;
 	}
 	

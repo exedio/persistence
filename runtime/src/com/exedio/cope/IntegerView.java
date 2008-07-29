@@ -28,7 +28,7 @@ public abstract class IntegerView extends View<Integer> implements IntegerFuncti
 {
 	public IntegerView(final Function<?>[] sources, final String name)
 	{
-		super(sources, name, Integer.class, IntegerColumn.JDBC_TYPE_INT);
+		super(sources, name, Integer.class);
 	}
 
 	@Override

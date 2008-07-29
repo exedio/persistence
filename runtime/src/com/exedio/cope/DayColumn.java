@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -29,15 +28,13 @@ import com.exedio.cope.util.Day;
 
 final class DayColumn extends Column
 {
-	static final int JDBC_TYPE = Types.DATE;
-	
 	DayColumn(
 			final Table table,
 			final Field field,
 			final String id,
 			final boolean optional)
 	{
-		super(table, field, id, false, optional, JDBC_TYPE);
+		super(table, field, id, false, optional);
 	}
 	
 	@Override

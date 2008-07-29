@@ -20,12 +20,9 @@ package com.exedio.cope;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
 final class StringColumn extends Column
 {
-	static final int JDBC_TYPE = Types.VARCHAR;
-	
 	final int minimumLength;
 	final int maximumLength;
 	final String[] allowedValues;
@@ -38,7 +35,7 @@ final class StringColumn extends Column
 			final int minimumLength,
 			final int maximumLength)
 	{
-		super(table, field, id, false, optional, JDBC_TYPE);
+		super(table, field, id, false, optional);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.allowedValues = null;
@@ -53,7 +50,7 @@ final class StringColumn extends Column
 			final boolean optional,
 			final String[] allowedValues)
 	{
-		super(table, field, id, false, optional, JDBC_TYPE);
+		super(table, field, id, false, optional);
 		this.minimumLength = 0;
 		this.maximumLength = maxLength(allowedValues);
 		this.allowedValues = allowedValues;

@@ -19,12 +19,9 @@
 package com.exedio.cope;
 
 import java.sql.ResultSet;
-import java.sql.Types;
 
 final class BlobColumn extends Column
 {
-	static final int JDBC_TYPE = Types.BLOB;
-	
 	final long maximumLength;
 	
 	BlobColumn(
@@ -34,7 +31,7 @@ final class BlobColumn extends Column
 			final boolean optional,
 			final long maximumLength)
 	{
-		super(table, field, id, false, optional, JDBC_TYPE);
+		super(table, field, id, false, optional);
 		this.maximumLength = maximumLength;
 		
 		if(table.database.dialect.getBlobType(maximumLength)==null)

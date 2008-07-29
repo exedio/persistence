@@ -200,7 +200,7 @@ final class Database
 			final List<Table> tableChunk = tables.subList(chunkFromIndex, chunkToIndex);
 			
 			final Statement bf = createStatement(true);
-			bf.append("select count(*) from ").defineColumnInteger();
+			bf.append("select count(*) from ");
 			boolean first = true;
 	
 			for(final Table table : tableChunk)
@@ -358,7 +358,7 @@ final class Database
 				
 				if(select instanceof Aggregate)
 				{
-					bf.append(select, null).defineColumn(select);
+					bf.append(select, null);
 					final Function selectSource = ((Aggregate)select).getSource();
 					
 					if(selectSource instanceof FunctionField)
@@ -384,18 +384,18 @@ final class Database
 					{
 						selectColumn = null;
 						final View view = (View)selectSource;
-						bf.append(view, (Join)null).defineColumn(view);
+						bf.append(view, (Join)null);
 					}
 				}
 				else if(select instanceof FunctionField)
 				{
 					selectColumn = ((FunctionField)select).getColumn();
-					bf.append(select, (Join)null).defineColumn(select);
+					bf.append(select, (Join)null);
 					if(select instanceof ItemField)
 					{
 						final StringColumn typeColumn = ((ItemField)select).getTypeColumn();
 						if(typeColumn!=null)
-							bf.append(',').append(typeColumn).defineColumn(typeColumn);
+							bf.append(',').append(typeColumn);
 					}
 				}
 				else if(select instanceof Type.This)
@@ -404,7 +404,7 @@ final class Database
 					selectPrimaryKey = selectTable.primaryKey;
 					selectColumn = selectPrimaryKey;
 	
-					bf.appendPK(selectType, (Join)null).defineColumn(select);
+					bf.appendPK(selectType, (Join)null);
 	
 					if(selectColumn.primaryKey)
 					{
@@ -412,7 +412,7 @@ final class Database
 						if(selectTypeColumn!=null)
 						{
 							bf.append(',').
-								append(selectTypeColumn).defineColumn(selectTypeColumn);
+								append(selectTypeColumn);
 						}
 						else
 							selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
@@ -424,7 +424,7 @@ final class Database
 				{
 					selectColumn = null;
 					final View view = (View)select;
-					bf.append(view, (Join)null).defineColumn(view);
+					bf.append(view, (Join)null);
 				}
 	
 				selectColumns[selectIndex] = selectColumn;
@@ -643,7 +643,7 @@ final class Database
 					else
 						bf.append(',');
 
-					bf.append(column).defineColumn(column);
+					bf.append(column);
 				}
 			}
 		}
@@ -832,7 +832,7 @@ final class Database
 		final Table table = column.table;
 		final Statement bf = createStatement();
 		bf.append("select ").
-			append(column.protectedID).defineColumn(column).
+			append(column.protectedID).
 			append(" from ").
 			append(table.protectedID).
 			append(" where ").
@@ -860,7 +860,7 @@ final class Database
 		final Table table = column.table;
 		final Statement bf = createStatement();
 		bf.append("select ").
-			append(column.protectedID).defineColumn(column).
+			append(column.protectedID).
 			append(" from ").
 			append(table.protectedID).
 			append(" where ").
@@ -890,7 +890,7 @@ final class Database
 		final Table table = column.table;
 		final Statement bf = createStatement();
 		bf.append("select length(").
-			append(column.protectedID).defineColumnInteger().
+			append(column.protectedID).
 			append(") from ").
 			append(table.protectedID).
 			append(" where ").
@@ -999,8 +999,6 @@ final class Database
 			if(!prepare)
 			{
 				sqlStatement = connection.createStatement();
-
-				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = sqlStatement.executeQuery(sqlText);
@@ -1012,8 +1010,6 @@ final class Database
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
-
-				dialect.defineColumnTypes(statement.columnTypes, sqlStatement);
 				
 				timePrepared = takeTimes ? System.currentTimeMillis() : 0;
 				resultSet = prepared.executeQuery();
@@ -1272,7 +1268,7 @@ final class Database
 	private int countTable(final Connection connection, final Table table)
 	{
 		final Statement bf = createStatement();
-		bf.append("select count(*) from ").defineColumnInteger().
+		bf.append("select count(*) from ").
 			append(table.protectedID);
 
 		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
@@ -1294,7 +1290,7 @@ final class Database
 		final Statement bf = createStatement();
 		final String primaryKeyProtectedID = table.primaryKey.protectedID;
 		bf.append("select max(").
-			append(primaryKeyProtectedID).defineColumnInteger().
+			append(primaryKeyProtectedID).
 			append(") from ").
 			append(table.protectedID);
 			
@@ -1424,7 +1420,7 @@ final class Database
 		final Statement bf = createStatement();
 		final String revision = driver.protectName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select max(").
-			append(revision).defineColumnInteger().
+			append(revision).
 			append(") from ").
 			append(driver.protectName(Table.REVISION_TABLE_NAME)).
 			append(" where ").
@@ -1465,9 +1461,9 @@ final class Database
 		final Statement bf = createStatement();
 		final String revision = driver.protectName(REVISION_COLUMN_NUMBER_NAME);
 		bf.append("select ").
-			append(revision).defineColumnInteger().
+			append(revision).
 			append(',').
-			append(driver.protectName(REVISION_COLUMN_INFO_NAME)).defineColumnString().
+			append(driver.protectName(REVISION_COLUMN_INFO_NAME)).
 			append(" from ").
 			append(driver.protectName(Table.REVISION_TABLE_NAME)).
 			append(" where ").

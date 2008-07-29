@@ -1041,12 +1041,6 @@ public final class Type<C extends Item>
 		}
 		
 		@Deprecated // OK: for internal use within COPE only
-		public final int getTypeForDefiningColumn()
-		{
-			return IntegerColumn.JDBC_TYPE_INT;
-		}
-		
-		@Deprecated // OK: for internal use within COPE only
 		public void appendParameter(final Statement bf, final E value)
 		{
 			bf.appendParameter(value.pk);

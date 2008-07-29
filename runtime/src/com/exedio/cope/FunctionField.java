@@ -233,15 +233,6 @@ public abstract class FunctionField<E extends Object>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public final int getTypeForDefiningColumn()
-	{
-		return getColumn().typeForDefiningColumn;
-	}
-	
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		final Row dummyRow = new Row();

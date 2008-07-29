@@ -46,16 +46,14 @@ public abstract class View<E> extends Feature implements Function<E>
 	private final List<Function<?>> sourceList;
 	private final String name;
 	final Class<E> valueClass;
-	final int typeForDefiningColumn;
 	final Type<? extends Item> sourceType;
 
-	public View(final Function<?>[] sources, final String name, final Class<E> valueClass, final int typeForDefiningColumn)
+	public View(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		this.sources = sources;
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(sources));
 		this.name = name;
 		this.valueClass = valueClass;
-		this.typeForDefiningColumn = typeForDefiningColumn;
 		
 		Type<? extends Item> sourceType;
 		try
@@ -126,15 +124,6 @@ public abstract class View<E> extends Feature implements Function<E>
 	public final Class<E> getValueClass()
 	{
 		return valueClass;
-	}
-	
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final int getTypeForDefiningColumn()
-	{
-		return typeForDefiningColumn;
 	}
 	
 	/**

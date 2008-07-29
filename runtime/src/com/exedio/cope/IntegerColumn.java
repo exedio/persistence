@@ -19,13 +19,9 @@ package com.exedio.cope;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
 class IntegerColumn extends Column
 {
-	static final int JDBC_TYPE_INT = Types.INTEGER;
-	static final int JDBC_TYPE_LONG = Types.BIGINT;
-	
 	final long minimum;
 	final long maximum;
 	final boolean longInsteadOfInt;
@@ -40,7 +36,7 @@ class IntegerColumn extends Column
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
-		super(table, field, id, false, optional, longInsteadOfInt ? JDBC_TYPE_LONG : JDBC_TYPE_INT);
+		super(table, field, id, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
@@ -56,7 +52,7 @@ class IntegerColumn extends Column
 			final boolean optional,
 			final int[] allowedValues)
 	{
-		super(table, field, id, false, optional, JDBC_TYPE_INT);
+		super(table, field, id, false, optional);
 		this.minimum = 0;
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
@@ -102,9 +98,9 @@ class IntegerColumn extends Column
 		// should work as well. I tried this once (uncomment the line below),
 		// and it did pass all tests.
 		//
-		//super(table, Table.PK_COLUMN_NAME+table.id, true, true, JDBC_TYPE_INT);
+		//super(table, Table.PK_COLUMN_NAME+table.id, true, true);
 
-		super(table, null, Table.PK_COLUMN_NAME, true, true, JDBC_TYPE_INT);
+		super(table, null, Table.PK_COLUMN_NAME, true, true);
 
 		this.minimum = PkSource.MIN_VALUE;
 		this.maximum = PkSource.MAX_VALUE;

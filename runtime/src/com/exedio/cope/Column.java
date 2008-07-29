@@ -32,15 +32,13 @@ abstract class Column
 	final String protectedID;
 	final boolean primaryKey;
 	final boolean optional;
-	final int typeForDefiningColumn;
 	
 	Column(
 			final Table table,
 			final Field field,
 			final String id,
 			final boolean primaryKey,
-			final boolean optional,
-			final int typeForDefiningColumn)
+			final boolean optional)
 	{
 		final Database database = table.database;
 		this.table = table;
@@ -49,7 +47,6 @@ abstract class Column
 		this.protectedID = database.intern(database.getDriver().protectName(this.id));
 		this.primaryKey = primaryKey;
 		this.optional = optional;
-		this.typeForDefiningColumn = typeForDefiningColumn;
 		table.addColumn(this);
 	}
 	
