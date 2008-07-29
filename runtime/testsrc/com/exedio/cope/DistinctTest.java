@@ -26,20 +26,20 @@ public class DistinctTest extends AbstractRuntimeTest
 {
 	public DistinctTest()
 	{
-		super(PlusTest.MODEL);
+		super(PlusIntegerTest.MODEL);
 	}
 	
-	PlusItem item1, item2, item3, item4;
+	PlusIntegerItem item1, item2, item3, item4;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new PlusItem(1, 2, 0));
-		item2 = deleteOnTearDown(new PlusItem(1, 3, 0));
-		item3 = deleteOnTearDown(new PlusItem(1, 4, 0));
-		item4 = deleteOnTearDown(new PlusItem(1, 4, 0));
-		item4 = deleteOnTearDown(new PlusItem(2, 4, 0));
+		item1 = deleteOnTearDown(new PlusIntegerItem(1, 2, 0));
+		item2 = deleteOnTearDown(new PlusIntegerItem(1, 3, 0));
+		item3 = deleteOnTearDown(new PlusIntegerItem(1, 4, 0));
+		item4 = deleteOnTearDown(new PlusIntegerItem(1, 4, 0));
+		item4 = deleteOnTearDown(new PlusIntegerItem(2, 4, 0));
 	}
 	
 	public void testDistinct()

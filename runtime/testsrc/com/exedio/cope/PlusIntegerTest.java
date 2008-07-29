@@ -18,24 +18,24 @@
 
 package com.exedio.cope;
 
-public class PlusTest extends AbstractRuntimeTest
+public class PlusIntegerTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(PlusItem.TYPE);
+	static final Model MODEL = new Model(PlusIntegerItem.TYPE);
 	
-	public PlusTest()
+	public PlusIntegerTest()
 	{
 		super(MODEL);
 	}
 	
-	PlusItem item;
-	PlusItem item2;
+	PlusIntegerItem item;
+	PlusIntegerItem item2;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new PlusItem(1, 2, 3));
-		item2 = deleteOnTearDown(new PlusItem(3, 4, 5));
+		item = deleteOnTearDown(new PlusIntegerItem(1, 2, 3));
+		item2 = deleteOnTearDown(new PlusIntegerItem(3, 4, 5));
 	}
 	
 	public void testSum()

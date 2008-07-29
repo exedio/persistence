@@ -22,24 +22,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PlusOrderTest extends AbstractRuntimeTest
+public class PlusIntegerOrderTest extends AbstractRuntimeTest
 {
-	public PlusOrderTest()
+	public PlusIntegerOrderTest()
 	{
-		super(PlusTest.MODEL);
+		super(PlusIntegerTest.MODEL);
 	}
 	
-	PlusItem item1;
-	PlusItem item2;
-	PlusItem item3;
+	PlusIntegerItem item1;
+	PlusIntegerItem item2;
+	PlusIntegerItem item3;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new PlusItem(1, 6, -1000));
-		item2 = deleteOnTearDown(new PlusItem(2, 1, -1000));
-		item3 = deleteOnTearDown(new PlusItem(6, 2, -1000));
+		item1 = deleteOnTearDown(new PlusIntegerItem(1, 6, -1000));
+		item2 = deleteOnTearDown(new PlusIntegerItem(2, 1, -1000));
+		item3 = deleteOnTearDown(new PlusIntegerItem(6, 2, -1000));
 	}
 	
 	public void testSumOrder()
