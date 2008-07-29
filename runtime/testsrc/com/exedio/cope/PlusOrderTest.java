@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.exedio.cope.testmodel.PlusItem;
 
-
 public class PlusOrderTest extends TestmodelTest
 {
 	PlusItem item1;

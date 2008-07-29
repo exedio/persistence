@@ -24,9 +24,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.PlusView;
 import com.exedio.cope.SetValue;
 
-/**
- * @author Ralf Wiebicke
- */
 public class PlusItem extends Item
 {
 	public static final IntegerField num1 = new IntegerField().optional();
@@ -54,7 +51,7 @@ public class PlusItem extends Item
 		});
 	}
 
-/**
+	/**
 
 	 **
 	 * Creates a new PlusItem with all the fields initially needed.

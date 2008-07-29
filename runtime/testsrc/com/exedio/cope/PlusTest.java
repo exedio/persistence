@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.testmodel.PlusItem;
 
-
 public class PlusTest extends TestmodelTest
 {
 	PlusItem item;
@@ -99,5 +98,4 @@ public class PlusTest extends TestmodelTest
 		assertContains(item, item.TYPE.search(item.plus123.equal((Integer)null)));
 		assertContains(item, item.TYPE.search(item.plus12a3.equal((Integer)null)));
 	}
-	
 }
