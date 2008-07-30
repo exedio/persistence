@@ -18,9 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.SumAggregate;
-
-public final class LongField extends FunctionField<Long> implements NumberFunction<Long>
+public final class LongField extends NumberField<Long>
 {
 
 	private LongField(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
@@ -113,34 +111,5 @@ public final class LongField extends FunctionField<Long> implements NumberFuncti
 			FinalViolationException
 	{
 		set(item, Long.valueOf(value));
-	}
-	
-	// convenience methods for conditions and views ---------------------------------
-
-	@Override
-	public BindNumberFunction<Long> bind(final Join join)
-	{
-		return new BindNumberFunction<Long>(this, join);
-	}
-	
-	public PlusView<Long> plus(final NumberFunction<Long> other)
-	{
-		return new PlusView<Long>(new NumberFunction[]{this, other});
-	}
-
-	public final SumAggregate<Long> sum()
-	{
-		return new SumAggregate<Long>(this);
-	}
-
-	// ------------------- deprecated stuff -------------------
-	
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction)}.
-	 */
-	@Deprecated
-	public PlusView<Long> sum(final NumberFunction<Long> other)
-	{
-		return plus(other);
 	}
 }

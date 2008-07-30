@@ -20,15 +20,13 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-import com.exedio.cope.search.SumAggregate;
-
 /**
  * Represents a field within a {@link Type type},
  * that enables instances of that type to store a integer.
  *
  * @author Ralf Wiebicke
  */
-public final class IntegerField extends FunctionField<Integer> implements NumberFunction<Integer>
+public final class IntegerField extends NumberField<Integer>
 {
 	final Integer defaultNextStart;
 	private boolean defaultNextValueComputed = false;
@@ -299,24 +297,6 @@ public final class IntegerField extends FunctionField<Integer> implements Number
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
 	
-	// convenience methods for conditions and views ---------------------------------
-
-	@Override
-	public BindNumberFunction<Integer> bind(final Join join)
-	{
-		return new BindNumberFunction<Integer>(this, join);
-	}
-	
-	public PlusView<Integer> plus(final NumberFunction<Integer> other)
-	{
-		return new PlusView<Integer>(new NumberFunction[]{this, other});
-	}
-	
-	public SumAggregate<Integer> sum()
-	{
-		return new SumAggregate<Integer>(this);
-	}
-	
 	// ------------------- deprecated stuff -------------------
 	
 	/**
@@ -326,14 +306,5 @@ public final class IntegerField extends FunctionField<Integer> implements Number
 	public IntegerField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction)}.
-	 */
-	@Deprecated
-	public PlusView<Integer> sum(final NumberFunction<Integer> other)
-	{
-		return plus(other);
 	}
 }
