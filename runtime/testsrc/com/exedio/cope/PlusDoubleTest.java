@@ -39,6 +39,7 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 	}
 	
 	private static final double EPS = 0.000000000000001d;
+	private static final Double d6x = Double.valueOf(d2.doubleValue() * d3.doubleValue());
 	
 	public void testSum()
 	{
@@ -48,16 +49,19 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.plus23.getType());
 		assertEquals(item.TYPE, item.plus123.getType());
 		assertEquals(item.TYPE, item.plus12a3.getType());
+		assertEquals(item.TYPE, item.multiply23.getType());
 		assertEquals("plus12", item.plus12.getName());
 		assertEquals("plus13", item.plus13.getName());
 		assertEquals("plus23", item.plus23.getName());
 		assertEquals("plus123", item.plus123.getName());
 		assertEquals("plus12a3", item.plus12a3.getName());
+		assertEquals("multiply23", item.multiply23.getName());
 		assertEqualsUnmodifiable(list(item.num1, item.num2), item.plus12.getSources());
 		assertEqualsUnmodifiable(list(item.num1, item.num3), item.plus13.getSources());
 		assertEqualsUnmodifiable(list(item.num2, item.num3), item.plus23.getSources());
 		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.plus123.getSources());
 		assertEqualsUnmodifiable(list(item.plus12, item.num3), item.plus12a3.getSources());
+		assertEqualsUnmodifiable(list(item.num2, item.num3), item.multiply23.getSources());
 		
 		// test equals/hashCode
 		assertEquals(item.plus12, item.plus12);
@@ -65,6 +69,7 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertNotEquals(item.plus12, item.num2.plus(item.num1));
 		assertNotEquals(item.plus12, item.plus23);
 		assertNotEquals(item.plus12, item.num1);
+		assertNotEquals(item.plus23, item.multiply23);
 
 		// test normal operation
 		assertEquals(d1, item.getNum1());
@@ -78,12 +83,15 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertEquals(d4, item.getPlus13());
 		assertEquals(d5, item.getPlus23());
 		assertEquals(d6, item.getPlus123());
+		assertEquals(d6x,item.getMultiply23());
 		assertContains(item, item.TYPE.search(item.plus12.between(3.3-EPS, 3.3+EPS)));
 		assertContains(item, item.TYPE.search(item.plus13.equal(4.4)));
 		assertContains(item, item.TYPE.search(item.plus23.equal(5.5)));
 		assertContains(item, item.TYPE.search(item.plus123.equal(6.6)));
 		assertContains(item, item.TYPE.search(item.plus12a3.equal(6.6)));
+		assertContains(item, item.TYPE.search(item.multiply23.equal(d6x)));
 		assertContains(item, item.TYPE.search(item.num1.plus(item.num2).between(3.3-EPS, 3.3+EPS)));
+		assertContains(item, item.TYPE.search(item.num2.multiply(item.num3).equal(d6x)));
 		
 		// test null propagation
 		item.setNum1(null);
@@ -104,5 +112,6 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.plus23.equal(5.5)));
 		assertContains(item, item.TYPE.search(item.plus123.equal((Double)null)));
 		assertContains(item, item.TYPE.search(item.plus12a3.equal((Double)null)));
+		assertContains(item, item.TYPE.search(item.num1.multiply(item.num2).equal((Double)null)));
 	}
 }

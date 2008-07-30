@@ -49,10 +49,14 @@ public class PlusDoubleOrderTest extends AbstractRuntimeTest
 		assertEquals(d7.doubleValue(), item1.getPlus12(), EPS);
 		assertEquals(d3.doubleValue(), item2.getPlus12(), EPS);
 		assertEquals(d8, item3.getPlus12());
+		assertEquals(new Double(6.6 * -1000.99), item1.getMultiply23());
+		assertEquals(new Double(1.1 * -1000.99), item2.getMultiply23());
+		assertEquals(new Double(2.2 * -1000.99), item3.getMultiply23());
 
 		assertOrder(list(item1, item2, item3), item1.num1);
 		assertOrder(list(item2, item3, item1), item1.num2);
 		assertOrder(list(item2, item1, item3), item1.plus12);
+		assertOrder(list(item1, item3, item2), item1.multiply23);
 	}
 
 	private void assertOrder(final List<? extends Object> expectedOrder, final Function searchFunction)

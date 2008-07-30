@@ -46,16 +46,19 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.plus23.getType());
 		assertEquals(item.TYPE, item.plus123.getType());
 		assertEquals(item.TYPE, item.plus12a3.getType());
+		assertEquals(item.TYPE, item.multiply23.getType());
 		assertEquals("plus12", item.plus12.getName());
 		assertEquals("plus13", item.plus13.getName());
 		assertEquals("plus23", item.plus23.getName());
 		assertEquals("plus123", item.plus123.getName());
 		assertEquals("plus12a3", item.plus12a3.getName());
+		assertEquals("multiply23", item.multiply23.getName());
 		assertEqualsUnmodifiable(list(item.num1, item.num2), item.plus12.getSources());
 		assertEqualsUnmodifiable(list(item.num1, item.num3), item.plus13.getSources());
 		assertEqualsUnmodifiable(list(item.num2, item.num3), item.plus23.getSources());
 		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.plus123.getSources());
 		assertEqualsUnmodifiable(list(item.plus12, item.num3), item.plus12a3.getSources());
+		assertEqualsUnmodifiable(list(item.num2, item.num3), item.multiply23.getSources());
 		
 		// test equals/hashCode
 		assertEquals(item.plus12, item.plus12);
@@ -63,6 +66,7 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertNotEquals(item.plus12, item.num2.plus(item.num1));
 		assertNotEquals(item.plus12, item.plus23);
 		assertNotEquals(item.plus12, item.num1);
+		assertNotEquals(item.plus23, item.multiply23);
 
 		// test normal operation
 		assertEquals(l1, item.getNum1());
@@ -76,12 +80,15 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertEquals(l4, item.getPlus13());
 		assertEquals(l5, item.getPlus23());
 		assertEquals(l6, item.getPlus123());
+		assertEquals(l6, item.getMultiply23());
 		assertContains(item, item.TYPE.search(item.plus12.equal(3l)));
 		assertContains(item, item.TYPE.search(item.plus13.equal(4l)));
 		assertContains(item, item.TYPE.search(item.plus23.equal(5l)));
 		assertContains(item, item.TYPE.search(item.plus123.equal(6l)));
 		assertContains(item, item.TYPE.search(item.plus12a3.equal(6l)));
+		assertContains(item, item.TYPE.search(item.multiply23.equal(6l)));
 		assertContains(item, item.TYPE.search(item.num1.plus(item.num2).equal(3l)));
+		assertContains(item, item.TYPE.search(item.num2.multiply(item.num3).equal(6l)));
 		
 		// test null propagation
 		item.setNum1(null);
@@ -102,5 +109,6 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.plus23.equal(5l)));
 		assertContains(item, item.TYPE.search(item.plus123.equal((Long)null)));
 		assertContains(item, item.TYPE.search(item.plus12a3.equal((Long)null)));
+		assertContains(item, item.TYPE.search(item.num1.multiply(item.num2).equal((Long)null)));
 	}
 }

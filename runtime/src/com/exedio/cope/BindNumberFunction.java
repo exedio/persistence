@@ -52,6 +52,11 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E> 
 	{
 		return new PlusView<E>(new NumberFunction[]{this, other});
 	}
+	
+	public final MultiplyView<E> multiply(final NumberFunction<E> other)
+	{
+		return new MultiplyView<E>(new NumberFunction[]{this, other});
+	}
 
 	/**
 	 * @deprecated renamed to {@link #plus(NumberFunction)}.

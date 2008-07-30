@@ -19,30 +19,21 @@
 package com.exedio.cope;
 
 
-public final class PlusView<E extends Number> extends NumberView<E> implements NumberFunction<E>
+public final class MultiplyView<E extends Number> extends NumberView<E> implements NumberFunction<E>
 {
-	private final NumberFunction[] addends;
+	private final NumberFunction[] addends; // TODO rename to multiplier
 	
-	static Class valueClass(final NumberFunction[] sources)
-	{
-		final Class result = sources[0].getValueClass();
-		for(int i = 1; i<sources.length; i++)
-			if(!result.equals(sources[i].getValueClass()))
-				throw new RuntimeException(result.getName()+'/'+sources[i].getValueClass().getName()+'/'+i);
-		return result;
-	}
-
 	/**
-	 * Creates a new PlusView.
+	 * Creates a new MultiplyView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#plus(NumberFunction)
-	 * @see Cope#plus(NumberFunction,NumberFunction)
-	 * @see Cope#plus(NumberFunction,NumberFunction,NumberFunction)
+	 * @see NumberFunction#multiply(NumberFunction)
+	 * @see Cope#multiply(NumberFunction,NumberFunction)
+	 * @see Cope#multiply(NumberFunction,NumberFunction,NumberFunction)
 	 */
-	public PlusView(final NumberFunction[] addends)
+	public MultiplyView(final NumberFunction[] addends)
 	{
-		super(addends, "plus", valueClass(addends));
+		super(addends, "multiply", PlusView.valueClass(addends));
 		this.addends = addends;
 	}
 	
@@ -52,34 +43,34 @@ public final class PlusView<E extends Number> extends NumberView<E> implements N
 		final Class<E> vc = valueClass;
 		if(valueClass==Integer.class)
 		{
-			int result = 0;
+			int result = 1;
 			for(int i=0; i<sourceValues.length; i++)
 			{
 				if(sourceValues[i]==null)
 					return null;
-				result += ((Integer)sourceValues[i]).intValue();
+				result *= ((Integer)sourceValues[i]).intValue();
 			}
 			return (E)Integer.valueOf(result);
 		}
 		else if(valueClass==Long.class)
 		{
-			long result = 0;
+			long result = 1l;
 			for(int i=0; i<sourceValues.length; i++)
 			{
 				if(sourceValues[i]==null)
 					return null;
-				result += ((Long)sourceValues[i]).longValue();
+				result *= ((Long)sourceValues[i]).longValue();
 			}
 			return (E)Long.valueOf(result);
 		}
 		else if(valueClass==Double.class)
 		{
-			double result = 0;
+			double result = 1.0;
 			for(int i=0; i<sourceValues.length; i++)
 			{
 				if(sourceValues[i]==null)
 					return null;
-				result += ((Double)sourceValues[i]).doubleValue();
+				result *= ((Double)sourceValues[i]).doubleValue();
 			}
 			return (E)Double.valueOf(result);
 		}
@@ -94,7 +85,7 @@ public final class PlusView<E extends Number> extends NumberView<E> implements N
 		for(int i = 0; i<addends.length; i++)
 		{
 			if(i>0)
-				bf.append('+');
+				bf.append('*');
 			bf.append(addends[i], join);
 		}
 		bf.append(')');

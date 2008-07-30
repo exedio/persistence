@@ -47,10 +47,14 @@ public class PlusLongOrderTest extends AbstractRuntimeTest
 		assertEquals(l7, item1.getPlus12());
 		assertEquals(l3, item2.getPlus12());
 		assertEquals(l8, item3.getPlus12());
+		assertEquals(new Long(-6000l), item1.getMultiply23());
+		assertEquals(new Long(-1000l), item2.getMultiply23());
+		assertEquals(new Long(-2000l), item3.getMultiply23());
 
 		assertOrder(list(item1, item2, item3), item1.num1);
 		assertOrder(list(item2, item3, item1), item1.num2);
 		assertOrder(list(item2, item1, item3), item1.plus12);
+		assertOrder(list(item1, item3, item2), item1.multiply23);
 	}
 
 	private void assertOrder(final List<? extends Object> expectedOrder, final Function searchFunction)
