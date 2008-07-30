@@ -37,16 +37,16 @@ public final class CompareCondition<E> extends Condition
 	 */
 	public CompareCondition(final Operator operator, final Function<E> function, final E value)
 	{
-		this.operator = operator;
-		this.function = function;
-		this.value = value;
-
 		if(operator==null)
 			throw new NullPointerException();
 		if(function==null)
 			throw new NullPointerException();
 		if(value==null)
 			throw new NullPointerException();
+		
+		this.operator = operator;
+		this.function = function;
+		this.value = value;
 	}
 	
 	@Override
