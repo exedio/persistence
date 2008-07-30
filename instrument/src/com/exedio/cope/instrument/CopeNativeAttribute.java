@@ -27,7 +27,7 @@ import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
-import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.NumberFunction;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.util.Day;
@@ -53,8 +53,8 @@ final class CopeNativeAttribute extends CopeAttribute
 	{
 		if(StringFunction.class.isAssignableFrom(typeClass))
 			return StringFunction.class;
-		else if(IntegerFunction.class.isAssignableFrom(typeClass))
-			return IntegerFunction.class;
+		else if(NumberFunction.class.isAssignableFrom(typeClass))
+			return NumberFunction.class;
 		else
 			return typeClass;
 	}
@@ -97,7 +97,7 @@ final class CopeNativeAttribute extends CopeAttribute
 	{
 		fillNativeTypeMap(BooleanField.class,    Boolean.class, boolean.class);
 		fillNativeTypeMap(LongField.class,       Long.class,    long.class);
-		fillNativeTypeMap(IntegerFunction.class, Integer.class, int.class);
+		fillNativeTypeMap(NumberFunction.class, Integer.class, int.class);
 		fillNativeTypeMap(DoubleField.class,     Double.class,  double.class);
 		fillNativeTypeMap(StringFunction.class,  String.class);
 		fillNativeTypeMap(DateField.class,       Date.class);

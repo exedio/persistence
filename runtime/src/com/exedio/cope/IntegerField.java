@@ -28,7 +28,7 @@ import com.exedio.cope.search.SumAggregate;
  *
  * @author Ralf Wiebicke
  */
-public final class IntegerField extends FunctionField<Integer> implements IntegerFunction<Integer>
+public final class IntegerField extends FunctionField<Integer> implements NumberFunction<Integer>
 {
 	final Integer defaultNextStart;
 	private boolean defaultNextValueComputed = false;
@@ -302,14 +302,14 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
-	public BindIntegerFunction<Integer> bind(final Join join)
+	public BindNumberFunction<Integer> bind(final Join join)
 	{
-		return new BindIntegerFunction<Integer>(this, join);
+		return new BindNumberFunction<Integer>(this, join);
 	}
 	
-	public PlusView<Integer> plus(final IntegerFunction<Integer> other)
+	public PlusView<Integer> plus(final NumberFunction<Integer> other)
 	{
-		return new PlusView<Integer>(new IntegerFunction[]{this, other});
+		return new PlusView<Integer>(new NumberFunction[]{this, other});
 	}
 	
 	public SumAggregate<Integer> sum()
@@ -329,10 +329,10 @@ public final class IntegerField extends FunctionField<Integer> implements Intege
 	}
 
 	/**
-	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */
 	@Deprecated
-	public PlusView<Integer> sum(final IntegerFunction<Integer> other)
+	public PlusView<Integer> sum(final NumberFunction<Integer> other)
 	{
 		return plus(other);
 	}

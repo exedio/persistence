@@ -127,30 +127,30 @@ public abstract class Cope
 		}
 	}
 	
-	public static final <E extends Number> PlusView<E> plus(final IntegerFunction<E> addend1, final IntegerFunction<E> addend2)
+	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
-		return new PlusView<E>(new IntegerFunction[]{addend1, addend2});
+		return new PlusView<E>(new NumberFunction[]{addend1, addend2});
 	}
 
-	public static final <E extends Number> PlusView<E> plus(final IntegerFunction<E> addend1, final IntegerFunction<E> addend2, final IntegerFunction<E> addend3)
+	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
-		return new PlusView<E>(new IntegerFunction[]{addend1, addend2, addend3});
+		return new PlusView<E>(new NumberFunction[]{addend1, addend2, addend3});
 	}
 
 	/**
-	 * @deprecated renamed to {@link #plus(IntegerFunction, IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView sum(final IntegerFunction<E> addend1, final IntegerFunction<E> addend2)
+	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
 		return plus(addend1, addend2);
 	}
 
 	/**
-	 * @deprecated renamed to {@link #plus(IntegerFunction, IntegerFunction, IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView sum(final IntegerFunction<E> addend1, final IntegerFunction<E> addend2, final IntegerFunction<E> addend3)
+	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
 		return plus(addend1, addend2, addend3);
 	}

@@ -24,9 +24,9 @@ import java.sql.SQLException;
 
 import com.exedio.cope.search.SumAggregate;
 
-public abstract class IntegerView<E extends Number> extends View<E> implements IntegerFunction<E> // TODO rename to NumberView
+public abstract class NumberView<E extends Number> extends View<E> implements NumberFunction<E>
 {
-	public IntegerView(final Function<?>[] sources, final String name, final Class<E> valueClass)
+	public NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		super(sources, name, valueClass);
 	}
@@ -71,14 +71,14 @@ public abstract class IntegerView<E extends Number> extends View<E> implements I
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
-	public final BindIntegerFunction<E> bind(final Join join)
+	public final BindNumberFunction<E> bind(final Join join)
 	{
-		return new BindIntegerFunction<E>(this, join);
+		return new BindNumberFunction<E>(this, join);
 	}
 	
-	public final PlusView<E> plus(final IntegerFunction<E> other)
+	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
-		return new PlusView<E>(new IntegerFunction[]{this, other});
+		return new PlusView<E>(new NumberFunction[]{this, other});
 	}
 
 	public final SumAggregate<E> sum()
@@ -89,10 +89,10 @@ public abstract class IntegerView<E extends Number> extends View<E> implements I
 	// ------------------- deprecated stuff -------------------
 	
 	/**
-	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */
 	@Deprecated
-	public final PlusView<E> sum(final IntegerFunction<E> other)
+	public final PlusView<E> sum(final NumberFunction<E> other)
 	{
 		return plus(other);
 	}

@@ -20,16 +20,16 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public final class BindIntegerFunction<E extends Number> extends BindFunction<E> implements IntegerFunction<E> // TODO rename to BindNumberFunction
+public final class BindNumberFunction<E extends Number> extends BindFunction<E> implements NumberFunction<E>
 {
-	final IntegerFunction<E> integerFunction;
+	final NumberFunction<E> integerFunction;
 	
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see IntegerFunction#bind(Join)
+	 * @see NumberFunction#bind(Join)
 	 */
-	public BindIntegerFunction(final IntegerFunction<E> function, final Join join)
+	public BindNumberFunction(final NumberFunction<E> function, final Join join)
 	{
 		super(function, join);
 		this.integerFunction = function;
@@ -43,21 +43,21 @@ public final class BindIntegerFunction<E extends Number> extends BindFunction<E>
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public BindIntegerFunction<E> bind(final Join join)
+	public BindNumberFunction<E> bind(final Join join)
 	{
 		return this;
 	}
 	
-	public final PlusView<E> plus(final IntegerFunction<E> other)
+	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
-		return new PlusView<E>(new IntegerFunction[]{this, other});
+		return new PlusView<E>(new NumberFunction[]{this, other});
 	}
 
 	/**
-	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */
 	@Deprecated
-	public final PlusView<E> sum(final IntegerFunction<E> other)
+	public final PlusView<E> sum(final NumberFunction<E> other)
 	{
 		return plus(other);
 	}

@@ -20,21 +20,21 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public interface IntegerFunction<E extends Number> extends Function<E> // TODO rename to NumberFunction
+public interface NumberFunction<E extends Number> extends Function<E>
 {
 	// convenience methods for conditions and views ---------------------------------
 
-	BindIntegerFunction<E> bind(Join join);
+	BindNumberFunction<E> bind(Join join);
 	
-	PlusView plus(IntegerFunction<E> other);
+	PlusView plus(NumberFunction<E> other);
 
 	SumAggregate<E> sum();
 	
 	// ------------------- deprecated stuff -------------------
 	
 	/**
-	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
+	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */
 	@Deprecated
-	PlusView<E> sum(IntegerFunction<E> other);
+	PlusView<E> sum(NumberFunction<E> other);
 }

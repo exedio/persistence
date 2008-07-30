@@ -19,11 +19,11 @@
 package com.exedio.cope;
 
 
-public final class PlusView<E extends Number> extends IntegerView<E> implements IntegerFunction<E>
+public final class PlusView<E extends Number> extends NumberView<E> implements NumberFunction<E>
 {
-	private final IntegerFunction[] addends;
+	private final NumberFunction[] addends;
 	
-	private static Class valueClass(final IntegerFunction[] sources)
+	private static Class valueClass(final NumberFunction[] sources)
 	{
 		final Class result = sources[0].getValueClass();
 		for(int i = 1; i<sources.length; i++)
@@ -36,11 +36,11 @@ public final class PlusView<E extends Number> extends IntegerView<E> implements 
 	 * Creates a new PlusView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper methods.
-	 * @see IntegerFunction#plus(IntegerFunction)
-	 * @see Cope#plus(IntegerFunction,IntegerFunction)
-	 * @see Cope#plus(IntegerFunction,IntegerFunction,IntegerFunction)
+	 * @see NumberFunction#plus(NumberFunction)
+	 * @see Cope#plus(NumberFunction,NumberFunction)
+	 * @see Cope#plus(NumberFunction,NumberFunction,NumberFunction)
 	 */
-	public PlusView(final IntegerFunction[] addends)
+	public PlusView(final NumberFunction[] addends)
 	{
 		super(addends, "plus", valueClass(addends));
 		this.addends = addends;

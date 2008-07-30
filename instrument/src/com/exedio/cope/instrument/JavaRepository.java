@@ -42,7 +42,7 @@ import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.Function;
-import com.exedio.cope.IntegerFunction;
+import com.exedio.cope.NumberFunction;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
@@ -116,7 +116,7 @@ final class JavaRepository
 					if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 					{
 						if(
-							IntegerFunction.class.isAssignableFrom(typeClass) ||
+							NumberFunction.class.isAssignableFrom(typeClass) ||
 							LongField.class.equals(typeClass) ||
 							DoubleField.class.equals(typeClass) ||
 							BooleanField.class.equals(typeClass) ||

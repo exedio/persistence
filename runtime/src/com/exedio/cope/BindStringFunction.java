@@ -27,7 +27,7 @@ public class BindStringFunction extends BindFunction<String> implements StringFu
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see IntegerFunction#bind(Join)
+	 * @see NumberFunction#bind(Join)
 	 */
 	public BindStringFunction(final StringFunction function, final Join join)
 	{

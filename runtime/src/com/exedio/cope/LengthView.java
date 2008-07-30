@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class LengthView extends IntegerView<Integer> implements IntegerFunction<Integer>
+public final class LengthView extends NumberView<Integer> implements NumberFunction<Integer>
 {
 	private final StringFunction source;
 
