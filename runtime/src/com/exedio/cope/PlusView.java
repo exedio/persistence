@@ -52,14 +52,14 @@ public final class PlusView<E extends Number> extends IntegerView<E> implements 
 		final Class<E> vc = valueClass;
 		if(valueClass==Integer.class)
 		{
-		int result = 0;
-		for(int i=0; i<sourceValues.length; i++)
-		{
-			if(sourceValues[i]==null)
-				return null;
-			result += ((Integer)sourceValues[i]).intValue();
-		}
-		return (E)Integer.valueOf(result);
+			int result = 0;
+			for(int i=0; i<sourceValues.length; i++)
+			{
+				if(sourceValues[i]==null)
+					return null;
+				result += ((Integer)sourceValues[i]).intValue();
+			}
+			return (E)Integer.valueOf(result);
 		}
 		else if(valueClass==Long.class)
 		{
