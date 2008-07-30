@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public final class PlusView<E extends Number> extends NumberView<E> implements NumberFunction<E>
 {
 	private final NumberFunction[] addends;
