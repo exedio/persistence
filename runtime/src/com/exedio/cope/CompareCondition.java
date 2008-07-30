@@ -40,9 +40,9 @@ public final class CompareCondition<E> extends Condition
 		if(operator==null)
 			throw new NullPointerException();
 		if(left==null)
-			throw new NullPointerException();
+			throw new NullPointerException("left function must not be null");
 		if(right==null)
-			throw new NullPointerException();
+			throw new NullPointerException("right function must not be null");
 		
 		this.operator = operator;
 		this.left = left;
