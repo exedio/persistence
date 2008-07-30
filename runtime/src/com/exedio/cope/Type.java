@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.CompareCondition.Operator;
 import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
@@ -1109,22 +1110,22 @@ public final class Type<C extends Item>
 		
 		public CompareCondition<E> less(final E value)
 		{
-			return new CompareCondition<E>(CompareCondition.Operator.Less, this, value);
+			return new CompareCondition<E>(Operator.Less, this, value);
 		}
 		
 		public CompareCondition<E> lessOrEqual(final E value)
 		{
-			return new CompareCondition<E>(CompareCondition.Operator.LessEqual, this, value);
+			return new CompareCondition<E>(Operator.LessEqual, this, value);
 		}
 		
 		public CompareCondition<E> greater(final E value)
 		{
-			return new CompareCondition<E>(CompareCondition.Operator.Greater, this, value);
+			return new CompareCondition<E>(Operator.Greater, this, value);
 		}
 		
 		public CompareCondition<E> greaterOrEqual(final E value)
 		{
-			return new CompareCondition<E>(CompareCondition.Operator.GreaterEqual, this, value);
+			return new CompareCondition<E>(Operator.GreaterEqual, this, value);
 		}
 		
 		public Condition between(final E lowerBound, final E upperBound)
@@ -1134,32 +1135,32 @@ public final class Type<C extends Item>
 		
 		public CompareFunctionCondition<E> equal(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.Equal, this, right);
+			return new CompareFunctionCondition<E>(Operator.Equal, this, right);
 		}
 
 		public CompareFunctionCondition<E> notEqual(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.NotEqual, this, right);
+			return new CompareFunctionCondition<E>(Operator.NotEqual, this, right);
 		}
 
 		public final CompareFunctionCondition<E> less(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.Less, this, right);
+			return new CompareFunctionCondition<E>(Operator.Less, this, right);
 		}
 		
 		public final CompareFunctionCondition<E> lessOrEqual(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.LessEqual, this, right);
+			return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
 		}
 		
 		public final CompareFunctionCondition<E> greater(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.Greater, this, right);
+			return new CompareFunctionCondition<E>(Operator.Greater, this, right);
 		}
 		
 		public final CompareFunctionCondition<E> greaterOrEqual(final Function<E> right)
 		{
-			return new CompareFunctionCondition<E>(CompareCondition.Operator.GreaterEqual, this, right);
+			return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
 		}
 
 		public ExtremumAggregate<E> min()

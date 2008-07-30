@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.List;
 
+import com.exedio.cope.CompareCondition.Operator;
 
 /**
  * Utility class for creating conditions.
@@ -33,12 +34,12 @@ public abstract class Cope
 
 	public static final <E> Condition equal(final Function<E> function, final E value)
 	{
-		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
+		return value!=null ? new CompareCondition<E>(Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
 	}
 	
 	public static final <E> Condition notEqual(final Function<E> function, final E value)
 	{
-		return value!=null ? new CompareCondition<E>(CompareCondition.Operator.NotEqual, function, value) : new IsNullCondition<E>(function, true);
+		return value!=null ? new CompareCondition<E>(Operator.NotEqual, function, value) : new IsNullCondition<E>(function, true);
 	}
 	
 	public static final Condition and(final List<? extends Condition> conditions)
