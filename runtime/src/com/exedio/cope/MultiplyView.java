@@ -44,33 +44,33 @@ public final class MultiplyView<E extends Number> extends NumberView<E> implemen
 		if(valueClass==Integer.class)
 		{
 			int result = 1;
-			for(int i=0; i<sourceValues.length; i++)
+			for(final Object sourceValue : sourceValues)
 			{
-				if(sourceValues[i]==null)
+				if(sourceValue==null)
 					return null;
-				result *= ((Integer)sourceValues[i]).intValue();
+				result *= ((Integer)sourceValue).intValue();
 			}
 			return (E)Integer.valueOf(result);
 		}
 		else if(valueClass==Long.class)
 		{
 			long result = 1l;
-			for(int i=0; i<sourceValues.length; i++)
+			for(final Object sourceValue : sourceValues)
 			{
-				if(sourceValues[i]==null)
+				if(sourceValue==null)
 					return null;
-				result *= ((Long)sourceValues[i]).longValue();
+				result *= ((Long)sourceValue).longValue();
 			}
 			return (E)Long.valueOf(result);
 		}
 		else if(valueClass==Double.class)
 		{
 			double result = 1.0;
-			for(int i=0; i<sourceValues.length; i++)
+			for(final Object sourceValue : sourceValues)
 			{
-				if(sourceValues[i]==null)
+				if(sourceValue==null)
 					return null;
-				result *= ((Double)sourceValues[i]).doubleValue();
+				result *= ((Double)sourceValue).doubleValue();
 			}
 			return (E)Double.valueOf(result);
 		}
