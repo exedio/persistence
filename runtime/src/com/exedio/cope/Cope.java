@@ -155,6 +155,16 @@ public abstract class Cope
 		return plus(addend1, addend2, addend3);
 	}
 
+	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)
+	{
+		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2});
+	}
+
+	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2, final NumberFunction<E> multiplier3)
+	{
+		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2, multiplier3});
+	}
+
 	/**
 	 * Does the same as {@link Class#cast(Object)},
 	 * but throws a ClassCastException
