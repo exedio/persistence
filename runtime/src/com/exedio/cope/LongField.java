@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public final class LongField extends FunctionField<Long>
+public final class LongField extends FunctionField<Long> implements IntegerFunction<Long>
 {
 
 	private LongField(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
@@ -117,8 +117,30 @@ public final class LongField extends FunctionField<Long>
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
+	public BindIntegerFunction<Long> bind(final Join join)
+	{
+		return new BindIntegerFunction<Long>(this, join);
+	}
+	
+	public PlusView<Long> plus(final IntegerFunction<Long> other)
+	{
+		return new PlusView<Long>(new IntegerFunction[]{this, other});
+	}
+
 	public final SumAggregate<Long> sum()
 	{
 		return new SumAggregate<Long>(this);
+	}
+
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
+	 */
+	@Deprecated
+	public PlusView<Long> sum(final IntegerFunction<Long> other)
+	{
+		return plus(other);
 	}
 }

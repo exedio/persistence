@@ -63,7 +63,7 @@ public class StringItem extends Item
 	public static final LengthView min4UpperLength = min4Upper.length();
 	public static final LengthView max4UpperLength = max4Upper.length();
 	
-	public static final PlusView min4AndMax4UpperLength = min4UpperLength.plus(max4UpperLength);
+	public static final PlusView<Integer> min4AndMax4UpperLength = min4UpperLength.plus(max4UpperLength);
 	
 	/**
 	 * @param dummy is a dummy

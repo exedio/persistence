@@ -22,7 +22,7 @@ import java.util.Set;
 
 import com.exedio.cope.search.SumAggregate;
 
-public final class DoubleField extends FunctionField<Double>
+public final class DoubleField extends FunctionField<Double> implements IntegerFunction<Double>
 {
 	private static final double MIN = -Double.MAX_VALUE;
 	private static final double MAX = Double.MAX_VALUE;
@@ -221,6 +221,17 @@ public final class DoubleField extends FunctionField<Double>
 	
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
+	public BindIntegerFunction<Double> bind(final Join join)
+	{
+		return new BindIntegerFunction<Double>(this, join);
+	}
+
+	public PlusView<Double> plus(final IntegerFunction<Double> other)
+	{
+		return new PlusView<Double>(new IntegerFunction[]{this, other});
+	}
+	
 	public final SumAggregate<Double> sum()
 	{
 		return new SumAggregate<Double>(this);
@@ -235,5 +246,14 @@ public final class DoubleField extends FunctionField<Double>
 	public DoubleField(final Option option)
 	{
 		this(option.isFinal, option.optional, option.unique, null, MIN, MAX);
+	}
+
+	/**
+	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
+	 */
+	@Deprecated
+	public PlusView<Double> sum(final IntegerFunction<Double> other)
+	{
+		return plus(other);
 	}
 }

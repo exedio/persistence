@@ -19,9 +19,18 @@
 package com.exedio.cope;
 
 
-public final class PlusView extends IntegerView implements IntegerFunction
+public final class PlusView<E extends Number> extends IntegerView<E> implements IntegerFunction<E>
 {
 	private final IntegerFunction[] addends;
+	
+	private static Class valueClass(final IntegerFunction[] sources)
+	{
+		final Class result = sources[0].getValueClass();
+		for(int i = 1; i<sources.length; i++)
+			if(!result.equals(sources[i].getValueClass()))
+				throw new RuntimeException(result.getName()+'/'+sources[i].getValueClass().getName()+'/'+i);
+		return result;
+	}
 
 	/**
 	 * Creates a new PlusView.
@@ -33,13 +42,16 @@ public final class PlusView extends IntegerView implements IntegerFunction
 	 */
 	public PlusView(final IntegerFunction[] addends)
 	{
-		super(addends, "plus");
+		super(addends, "plus", valueClass(addends));
 		this.addends = addends;
 	}
 	
 	@Override
-	public final Integer mapJava(final Object[] sourceValues)
+	public final E mapJava(final Object[] sourceValues)
 	{
+		final Class<E> vc = valueClass;
+		if(valueClass==Integer.class)
+		{
 		int result = 0;
 		for(int i=0; i<sourceValues.length; i++)
 		{
@@ -47,7 +59,32 @@ public final class PlusView extends IntegerView implements IntegerFunction
 				return null;
 			result += ((Integer)sourceValues[i]).intValue();
 		}
-		return Integer.valueOf(result);
+		return (E)Integer.valueOf(result);
+		}
+		else if(valueClass==Long.class)
+		{
+			long result = 0;
+			for(int i=0; i<sourceValues.length; i++)
+			{
+				if(sourceValues[i]==null)
+					return null;
+				result += ((Long)sourceValues[i]).longValue();
+			}
+			return (E)Long.valueOf(result);
+		}
+		else if(valueClass==Double.class)
+		{
+			double result = 0;
+			for(int i=0; i<sourceValues.length; i++)
+			{
+				if(sourceValues[i]==null)
+					return null;
+				result += ((Double)sourceValues[i]).doubleValue();
+			}
+			return (E)Double.valueOf(result);
+		}
+		else
+			throw new RuntimeException(vc.getName());
 	}
 
 	@Deprecated // OK: for internal use within COPE only

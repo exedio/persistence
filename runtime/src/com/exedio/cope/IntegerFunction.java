@@ -20,15 +20,15 @@ package com.exedio.cope;
 
 import com.exedio.cope.search.SumAggregate;
 
-public interface IntegerFunction extends Function<Integer>
+public interface IntegerFunction<E extends Number> extends Function<E> // TODO rename to NumberFunction
 {
 	// convenience methods for conditions and views ---------------------------------
 
-	BindIntegerFunction bind(Join join);
+	BindIntegerFunction<E> bind(Join join);
 	
-	PlusView plus(IntegerFunction other);
+	PlusView plus(IntegerFunction<E> other);
 
-	SumAggregate<Integer> sum();
+	SumAggregate<E> sum();
 	
 	// ------------------- deprecated stuff -------------------
 	
@@ -36,5 +36,5 @@ public interface IntegerFunction extends Function<Integer>
 	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
 	 */
 	@Deprecated
-	PlusView sum(IntegerFunction other);
+	PlusView<E> sum(IntegerFunction<E> other);
 }

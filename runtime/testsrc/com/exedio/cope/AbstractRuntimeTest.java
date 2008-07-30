@@ -56,6 +56,24 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Integer i8 = Integer.valueOf(8);
 	protected static final Integer i9 = Integer.valueOf(9);
 	
+	protected static final Long l1 = Long.valueOf(1l);
+	protected static final Long l2 = Long.valueOf(2l);
+	protected static final Long l3 = Long.valueOf(3l);
+	protected static final Long l4 = Long.valueOf(4l);
+	protected static final Long l5 = Long.valueOf(5l);
+	protected static final Long l6 = Long.valueOf(6l);
+	protected static final Long l7 = Long.valueOf(7l);
+	protected static final Long l8 = Long.valueOf(8l);
+	
+	protected static final Double d1 = Double.valueOf(1.1);
+	protected static final Double d2 = Double.valueOf(2.2);
+	protected static final Double d3 = Double.valueOf(3.3);
+	protected static final Double d4 = Double.valueOf(4.4);
+	protected static final Double d5 = Double.valueOf(5.5);
+	protected static final Double d6 = Double.valueOf(6.6);
+	protected static final Double d7 = Double.valueOf(7.7);
+	protected static final Double d8 = Double.valueOf(8.8);
+	
 	protected static final byte[] data0  = {};
 	protected static final byte[] data4  = {-86,122,-8,23};
 	protected static final byte[] data6  = {-97,35,-126,86,19,-8};

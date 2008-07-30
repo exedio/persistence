@@ -24,11 +24,11 @@ import java.sql.SQLException;
 
 import com.exedio.cope.search.SumAggregate;
 
-public abstract class IntegerView extends View<Integer> implements IntegerFunction
+public abstract class IntegerView<E extends Number> extends View<E> implements IntegerFunction<E> // TODO rename to NumberView
 {
-	public IntegerView(final Function<?>[] sources, final String name)
+	public IntegerView(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
-		super(sources, name, Integer.class);
+		super(sources, name, valueClass);
 	}
 
 	@Override
@@ -59,31 +59,31 @@ public abstract class IntegerView extends View<Integer> implements IntegerFuncti
 		if(value==null)
 			return "NULL";
 		else
-			return ((Integer)value).toString();
+			return ((Number)value).toString();
 	}
 	
 	@Override
 	final void surface2DatabasePrepared(final Statement bf, final Object value)
 	{
-		bf.appendParameter(((Integer)value).intValue());
+		bf.appendParameter((Number)value);
 	}
 	
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
-	public final BindIntegerFunction bind(final Join join)
+	public final BindIntegerFunction<E> bind(final Join join)
 	{
-		return new BindIntegerFunction(this, join);
+		return new BindIntegerFunction<E>(this, join);
 	}
 	
-	public final PlusView plus(final IntegerFunction other)
+	public final PlusView<E> plus(final IntegerFunction<E> other)
 	{
-		return new PlusView(new IntegerFunction[]{this, other});
+		return new PlusView<E>(new IntegerFunction[]{this, other});
 	}
 
-	public final SumAggregate<Integer> sum()
+	public final SumAggregate<E> sum()
 	{
-		return new SumAggregate<Integer>(this);
+		return new SumAggregate<E>(this);
 	}
 	
 	// ------------------- deprecated stuff -------------------
@@ -92,7 +92,7 @@ public abstract class IntegerView extends View<Integer> implements IntegerFuncti
 	 * @deprecated renamed to {@link #plus(IntegerFunction)}.
 	 */
 	@Deprecated
-	public final PlusView sum(final IntegerFunction other)
+	public final PlusView<E> sum(final IntegerFunction<E> other)
 	{
 		return plus(other);
 	}

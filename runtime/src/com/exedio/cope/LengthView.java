@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public final class LengthView extends IntegerView implements IntegerFunction
+public final class LengthView extends IntegerView<Integer> implements IntegerFunction<Integer>
 {
 	private final StringFunction source;
 
@@ -31,7 +31,7 @@ public final class LengthView extends IntegerView implements IntegerFunction
 	 */
 	public LengthView(final StringFunction source)
 	{
-		super(new StringFunction[]{source}, "length");
+		super(new StringFunction[]{source}, "length", Integer.class);
 		this.source = source;
 	}
 

@@ -255,6 +255,18 @@ final class Statement
 		return this;
 	}
 	
+	Statement appendParameter(final Number value)
+	{
+		if(parameters==null)
+			this.text.append(value.toString());
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.parameters.add(value);
+		}
+		return this;
+	}
+	
 	Statement appendParameter(final String value)
 	{
 		if(parameters==null)
