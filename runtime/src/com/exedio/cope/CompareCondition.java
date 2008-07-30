@@ -21,8 +21,8 @@ package com.exedio.cope;
 public final class CompareCondition<E> extends Condition
 {
 	private final Operator operator;
-	private final Function<E> function;
-	private final E value;
+	private final Function<E> left;
+	private final E right;
 
 	/**
 	 * Creates a new CompareCondition.
@@ -35,32 +35,32 @@ public final class CompareCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#greater(Object)
 	 * @see com.exedio.cope.Function#greaterOrEqual(Object)
 	 */
-	public CompareCondition(final Operator operator, final Function<E> function, final E value)
+	public CompareCondition(final Operator operator, final Function<E> left, final E right)
 	{
 		if(operator==null)
 			throw new NullPointerException();
-		if(function==null)
+		if(left==null)
 			throw new NullPointerException();
-		if(value==null)
+		if(right==null)
 			throw new NullPointerException();
 		
 		this.operator = operator;
-		this.function = function;
-		this.value = value;
+		this.left = left;
+		this.right = right;
 	}
 	
 	@Override
 	void append(final Statement bf)
 	{
-		bf.append(function, (Join)null).
+		bf.append(left, (Join)null).
 			append(operator.sql).
-			appendParameter(function, value);
+			appendParameter(left, right);
 	}
 
 	@Override
 	void check(final TC tc)
 	{
-		Cope.check(function, tc, null);
+		Cope.check(left, tc, null);
 	}
 
 	@Override
@@ -71,22 +71,22 @@ public final class CompareCondition<E> extends Condition
 		
 		final CompareCondition o = (CompareCondition)other;
 		
-		return operator.equals(o.operator) && function.equals(o.function) && value.equals(o.value);
+		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return operator.hashCode() ^ function.hashCode() ^ value.hashCode() ^ 918276;
+		return operator.hashCode() ^ left.hashCode() ^ right.hashCode() ^ 918276;
 	}
 
 	@Override
 	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
 	{
-		function.toString(bf, defaultType);
+		left.toString(bf, defaultType);
 		bf.append(operator.sql).
 			append('\'').
-			append(toStringForValue(value, key)).
+			append(toStringForValue(right, key)).
 			append('\'');
 	}
 
