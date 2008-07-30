@@ -21,7 +21,7 @@ package com.exedio.cope;
 
 public final class MultiplyView<E extends Number> extends NumberView<E> implements NumberFunction<E>
 {
-	private final NumberFunction[] addends; // TODO rename to multiplier
+	private final NumberFunction[] multipliers;
 	
 	/**
 	 * Creates a new MultiplyView.
@@ -31,10 +31,10 @@ public final class MultiplyView<E extends Number> extends NumberView<E> implemen
 	 * @see Cope#multiply(NumberFunction,NumberFunction)
 	 * @see Cope#multiply(NumberFunction,NumberFunction,NumberFunction)
 	 */
-	public MultiplyView(final NumberFunction[] addends)
+	public MultiplyView(final NumberFunction[] multipliers)
 	{
-		super(addends, "multiply", PlusView.valueClass(addends));
-		this.addends = addends;
+		super(multipliers, "multiply", PlusView.valueClass(multipliers));
+		this.multipliers = multipliers;
 	}
 	
 	@Override
@@ -82,11 +82,11 @@ public final class MultiplyView<E extends Number> extends NumberView<E> implemen
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append('(');
-		for(int i = 0; i<addends.length; i++)
+		for(int i = 0; i<multipliers.length; i++)
 		{
 			if(i>0)
 				bf.append('*');
-			bf.append(addends[i], join);
+			bf.append(multipliers[i], join);
 		}
 		bf.append(')');
 	}
