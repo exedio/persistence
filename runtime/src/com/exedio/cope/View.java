@@ -26,7 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import com.exedio.cope.CompareCondition.Operator;
+import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.search.ExtremumAggregate;
 

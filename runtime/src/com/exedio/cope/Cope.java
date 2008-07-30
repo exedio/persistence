@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.List;
 
-import com.exedio.cope.CompareCondition.Operator;
+import com.exedio.cope.CompareFunctionCondition.Operator;
 
 /**
  * Utility class for creating conditions.

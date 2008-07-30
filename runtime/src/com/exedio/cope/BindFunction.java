@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Collection;
 
-import com.exedio.cope.CompareCondition.Operator;
+import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.ExtremumAggregate;
 
 public class BindFunction<E> implements Function<E>

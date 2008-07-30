@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-import com.exedio.cope.CompareCondition.Operator;
+import com.exedio.cope.CompareFunctionCondition.Operator;
 
 public class IntegerTest extends AbstractRuntimeTest
 {

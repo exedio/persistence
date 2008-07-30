@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public final class CompareCondition<E> extends Condition
 {
-	private final Operator operator;
+	private final CompareFunctionCondition.Operator operator;
 	private final Function<E> left;
 	private final E right;
 
@@ -35,7 +35,7 @@ public final class CompareCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#greater(Object)
 	 * @see com.exedio.cope.Function#greaterOrEqual(Object)
 	 */
-	public CompareCondition(final Operator operator, final Function<E> left, final E right)
+	public CompareCondition(final CompareFunctionCondition.Operator operator, final Function<E> left, final E right)
 	{
 		if(operator==null)
 			throw new NullPointerException();
@@ -88,22 +88,5 @@ public final class CompareCondition<E> extends Condition
 			append('\'').
 			append(toStringForValue(right, key)).
 			append('\'');
-	}
-
-	public static enum Operator
-	{
-		Equal("="),
-		NotEqual("<>"),
-		Less("<"),
-		LessEqual("<="),
-		Greater(">"),
-		GreaterEqual(">=");
-		
-		final String sql;
-		
-		Operator(final String sql)
-		{
-			this.sql = sql;
-		}
 	}
 }

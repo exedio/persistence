@@ -30,7 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.CompareCondition.Operator;
+import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
