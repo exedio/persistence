@@ -35,9 +35,9 @@ public final class LikeCondition extends Condition
 		this.value = value;
 
 		if(function==null)
-			throw new NullPointerException("function must ot be null");
+			throw new NullPointerException("function must not be null");
 		if(value==null)
-			throw new NullPointerException("value must ot be null");
+			throw new NullPointerException("value must not be null");
 	}
 	
 	@Override
