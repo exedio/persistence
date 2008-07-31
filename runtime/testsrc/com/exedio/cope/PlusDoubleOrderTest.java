@@ -46,17 +46,17 @@ public class PlusDoubleOrderTest extends AbstractRuntimeTest
 	
 	public void testSumOrder()
 	{
-		assertEquals(d7.doubleValue(), item1.getPlus12(), EPS);
-		assertEquals(d3.doubleValue(), item2.getPlus12(), EPS);
-		assertEquals(d8, item3.getPlus12());
-		assertEquals(new Double(6.6 * -1000.99), item1.getMultiply23());
-		assertEquals(new Double(1.1 * -1000.99), item2.getMultiply23());
-		assertEquals(new Double(2.2 * -1000.99), item3.getMultiply23());
+		assertEquals(d7.doubleValue(), item1.getPlusAB(), EPS);
+		assertEquals(d3.doubleValue(), item2.getPlusAB(), EPS);
+		assertEquals(d8, item3.getPlusAB());
+		assertEquals(new Double(6.6 * -1000.99), item1.getMultiplyBC());
+		assertEquals(new Double(1.1 * -1000.99), item2.getMultiplyBC());
+		assertEquals(new Double(2.2 * -1000.99), item3.getMultiplyBC());
 
-		assertOrder(list(item1, item2, item3), item1.num1);
-		assertOrder(list(item2, item3, item1), item1.num2);
-		assertOrder(list(item2, item1, item3), item1.plus12);
-		assertOrder(list(item1, item3, item2), item1.multiply23);
+		assertOrder(list(item1, item2, item3), item1.numA);
+		assertOrder(list(item2, item3, item1), item1.numB);
+		assertOrder(list(item2, item1, item3), item1.plusAB);
+		assertOrder(list(item1, item3, item2), item1.multiplyBC);
 	}
 
 	private void assertOrder(final List<? extends Object> expectedOrder, final Function searchFunction)

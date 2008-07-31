@@ -45,7 +45,7 @@ public class DistinctTest extends AbstractRuntimeTest
 	public void testDistinct()
 	{
 		{
-			final Query<List> q = new Query<List>(new Function[]{item1.num2}, item1.TYPE, null);
+			final Query<List> q = new Query<List>(new Function[]{item1.numB}, item1.TYPE, null);
 			assertContains(2, 3, 4, 4, 4, q.search());
 			assertEquals(5, q.total());
 			q.setDistinct(true);
@@ -53,7 +53,7 @@ public class DistinctTest extends AbstractRuntimeTest
 			assertEquals(3, q.total());
 		}
 		{
-			final Query<List> q = new Query<List>(new Function[]{item1.num1, item1.num2}, item1.TYPE, null);
+			final Query<List> q = new Query<List>(new Function[]{item1.numA, item1.numB}, item1.TYPE, null);
 			assertContains(
 					list(1, 2),
 					list(1, 3),
