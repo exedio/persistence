@@ -945,10 +945,20 @@ final class Injector
 							c = readToken();
 							if (c != '\0')
 								throw new ParseException("class name expected.");
-							String importstring = buf.toString();
-							//System.out.println("import >"+importstring+"<");
-							javaFile.addImport(importstring);
-							consumer.onImport(importstring);
+							if("static".equals(buf.toString()))
+							{
+								c = readToken();
+								if (c != '\0')
+									throw new ParseException("static import expected.");
+								//System.out.println("---------"+buf.toString());
+							}
+							else
+							{
+								String importstring = buf.toString();
+								//System.out.println("import >"+importstring+"<");
+								javaFile.addImport(importstring);
+								consumer.onImport(importstring);
+							}
 							c = readToken();
 							if (c != ';')
 								throw new ParseException("';' expected.");
