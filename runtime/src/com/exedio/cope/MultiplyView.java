@@ -30,6 +30,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E> implemen
 	 * @see Cope#multiply(NumberFunction,NumberFunction)
 	 * @see Cope#multiply(NumberFunction,NumberFunction,NumberFunction)
 	 */
+	@SuppressWarnings("unchecked")
 	public MultiplyView(final NumberFunction[] multipliers)
 	{
 		super(multipliers, "multiply", PlusView.valueClass(multipliers));
@@ -37,6 +38,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E> implemen
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)
 	{
 		final Class<E> vc = valueClass;

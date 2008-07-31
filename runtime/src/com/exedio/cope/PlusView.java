@@ -39,6 +39,7 @@ public final class PlusView<E extends Number> extends NumberView<E> implements N
 	 * @see Cope#plus(NumberFunction,NumberFunction)
 	 * @see Cope#plus(NumberFunction,NumberFunction,NumberFunction)
 	 */
+	@SuppressWarnings("unchecked")
 	public PlusView(final NumberFunction[] addends)
 	{
 		super(addends, "plus", valueClass(addends));
@@ -46,6 +47,7 @@ public final class PlusView<E extends Number> extends NumberView<E> implements N
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public final E mapJava(final Object[] sourceValues)
 	{
 		final Class<E> vc = valueClass;
