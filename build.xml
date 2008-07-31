@@ -318,6 +318,9 @@
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
 				<exclude name="NameTest.java" /><!-- TODO remove -->
 				<exclude name="FieldTest.java" /><!-- TODO remove -->
+				<exclude name="PlusIntegerTest.java" /><!-- TODO remove -->
+				<exclude name="PlusLongTest.java" /><!-- TODO remove -->
+				<exclude name="PlusDoubleTest.java" /><!-- TODO remove -->
 				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->

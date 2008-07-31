@@ -18,9 +18,22 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PlusIntegerItem.TYPE;
+import static com.exedio.cope.PlusIntegerItem.multiplyB9;
+import static com.exedio.cope.PlusIntegerItem.multiplyBC;
+import static com.exedio.cope.PlusIntegerItem.numA;
+import static com.exedio.cope.PlusIntegerItem.numB;
+import static com.exedio.cope.PlusIntegerItem.numC;
+import static com.exedio.cope.PlusIntegerItem.plusA9;
+import static com.exedio.cope.PlusIntegerItem.plusAB;
+import static com.exedio.cope.PlusIntegerItem.plusABC;
+import static com.exedio.cope.PlusIntegerItem.plusABaC;
+import static com.exedio.cope.PlusIntegerItem.plusAC;
+import static com.exedio.cope.PlusIntegerItem.plusBC;
+
 public class PlusIntegerTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(PlusIntegerItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 	
 	public PlusIntegerTest()
 	{
@@ -41,48 +54,48 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 	public void testSum()
 	{
 		// test model
-		assertEquals(item.TYPE, item.plusA9.getType());
-		assertEquals(item.TYPE, item.plusAB.getType());
-		assertEquals(item.TYPE, item.plusAC.getType());
-		assertEquals(item.TYPE, item.plusBC.getType());
-		assertEquals(item.TYPE, item.plusABC.getType());
-		assertEquals(item.TYPE, item.plusABaC.getType());
-		assertEquals(item.TYPE, item.multiplyB9.getType());
-		assertEquals(item.TYPE, item.multiplyBC.getType());
-		assertEquals("plusA9", item.plusA9.getName());
-		assertEquals("plusAB", item.plusAB.getName());
-		assertEquals("plusAC", item.plusAC.getName());
-		assertEquals("plusBC", item.plusBC.getName());
-		assertEquals("plusABC", item.plusABC.getName());
-		assertEquals("plusABaC", item.plusABaC.getName());
-		assertEquals("multiplyB9", item.multiplyB9.getName());
-		assertEquals("multiplyBC", item.multiplyBC.getName());
-		assertEqualsUnmodifiable(list(item.numA), item.plusA9.getSources());
-		assertEqualsUnmodifiable(list(item.numA, item.numB), item.plusAB.getSources());
-		assertEqualsUnmodifiable(list(item.numA, item.numC), item.plusAC.getSources());
-		assertEqualsUnmodifiable(list(item.numB, item.numC), item.plusBC.getSources());
-		assertEqualsUnmodifiable(list(item.numA, item.numB, item.numC), item.plusABC.getSources());
-		assertEqualsUnmodifiable(list(item.plusAB, item.numC), item.plusABaC.getSources());
-		assertEqualsUnmodifiable(list(item.numB), item.multiplyB9.getSources());
-		assertEqualsUnmodifiable(list(item.numB, item.numC), item.multiplyBC.getSources());
+		assertEquals(TYPE, plusA9.getType());
+		assertEquals(TYPE, plusAB.getType());
+		assertEquals(TYPE, plusAC.getType());
+		assertEquals(TYPE, plusBC.getType());
+		assertEquals(TYPE, plusABC.getType());
+		assertEquals(TYPE, plusABaC.getType());
+		assertEquals(TYPE, multiplyB9.getType());
+		assertEquals(TYPE, multiplyBC.getType());
+		assertEquals("plusA9", plusA9.getName());
+		assertEquals("plusAB", plusAB.getName());
+		assertEquals("plusAC", plusAC.getName());
+		assertEquals("plusBC", plusBC.getName());
+		assertEquals("plusABC", plusABC.getName());
+		assertEquals("plusABaC", plusABaC.getName());
+		assertEquals("multiplyB9", multiplyB9.getName());
+		assertEquals("multiplyBC", multiplyBC.getName());
+		assertEqualsUnmodifiable(list(numA), plusA9.getSources());
+		assertEqualsUnmodifiable(list(numA, numB), plusAB.getSources());
+		assertEqualsUnmodifiable(list(numA, numC), plusAC.getSources());
+		assertEqualsUnmodifiable(list(numB, numC), plusBC.getSources());
+		assertEqualsUnmodifiable(list(numA, numB, numC), plusABC.getSources());
+		assertEqualsUnmodifiable(list(plusAB, numC), plusABaC.getSources());
+		assertEqualsUnmodifiable(list(numB), multiplyB9.getSources());
+		assertEqualsUnmodifiable(list(numB, numC), multiplyBC.getSources());
 		
 		// test equals/hashCode
-		assertEquals(item.plusA9, item.plusA9);
-		assertEquals(item.plusAB, item.plusAB);
-		assertEquals(item.plusAB, item.numA.plus(item.numB));
-		assertEquals(item.multiplyB9, item.multiplyB9);
-		assertNotEquals(item.plusAB, item.numB.plus(item.numA));
-		assertNotEquals(item.plusAB, item.plusBC);
-		assertNotEquals(item.plusAB, item.numA);
-		assertNotEquals(item.plusBC, item.multiplyBC);
+		assertEquals(plusA9, plusA9);
+		assertEquals(plusAB, plusAB);
+		assertEquals(plusAB, numA.plus(numB));
+		assertEquals(multiplyB9, multiplyB9);
+		assertNotEquals(plusAB, numB.plus(numA));
+		assertNotEquals(plusAB, plusBC);
+		assertNotEquals(plusAB, numA);
+		assertNotEquals(plusBC, multiplyBC);
 
 		// test normal operation
 		assertEquals(i1, item.getNumA());
 		assertEquals(i2, item.getNumB());
 		assertEquals(i3, item.getNumC());
-		assertContains(item, item.TYPE.search(item.numA.equal(1)));
-		assertContains(item, item.TYPE.search(item.numB.equal(2)));
-		assertContains(item, item.TYPE.search(item.numC.equal(3)));
+		assertContains(item, TYPE.search(numA.equal(1)));
+		assertContains(item, TYPE.search(numB.equal(2)));
+		assertContains(item, TYPE.search(numC.equal(3)));
 
 		assertEquals(i10,item.getPlusA9());
 		assertEquals(i3, item.getPlusAB());
@@ -91,18 +104,18 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertEquals(i6, item.getPlusABC());
 		assertEquals(i18,item.getMultiplyB9());
 		assertEquals(i6, item.getMultiplyBC());
-		assertContains(item, item.TYPE.search(item.plusA9.equal(10)));
-		assertContains(item, item.TYPE.search(item.plusAB.equal(3)));
-		assertContains(item, item.TYPE.search(item.plusAC.equal(4)));
-		assertContains(item, item.TYPE.search(item.plusBC.equal(5)));
-		assertContains(item, item.TYPE.search(item.plusABC.equal(6)));
-		assertContains(item, item.TYPE.search(item.plusABaC.equal(6)));
-		assertContains(item, item.TYPE.search(item.multiplyB9.equal(18)));
-		assertContains(item, item.TYPE.search(item.multiplyBC.equal(6)));
-		assertContains(item, item.TYPE.search(item.numA.plus(9        ).equal(10)));
-		assertContains(item, item.TYPE.search(item.numA.plus(item.numB).equal(3)));
-		assertContains(item, item.TYPE.search(item.numB.multiply(9        ).equal(18)));
-		assertContains(item, item.TYPE.search(item.numB.multiply(item.numC).equal(6)));
+		assertContains(item, TYPE.search(plusA9.equal(10)));
+		assertContains(item, TYPE.search(plusAB.equal(3)));
+		assertContains(item, TYPE.search(plusAC.equal(4)));
+		assertContains(item, TYPE.search(plusBC.equal(5)));
+		assertContains(item, TYPE.search(plusABC.equal(6)));
+		assertContains(item, TYPE.search(plusABaC.equal(6)));
+		assertContains(item, TYPE.search(multiplyB9.equal(18)));
+		assertContains(item, TYPE.search(multiplyBC.equal(6)));
+		assertContains(item, TYPE.search(numA.plus(9   ).equal(10)));
+		assertContains(item, TYPE.search(numA.plus(numB).equal(3)));
+		assertContains(item, TYPE.search(numB.multiply(9   ).equal(18)));
+		assertContains(item, TYPE.search(numB.multiply(numC).equal(6)));
 		
 		// test null propagation
 		item.setNumA(null);
@@ -110,22 +123,22 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertEquals(null, item.getNumA());
 		assertEquals(i2, item.getNumB());
 		assertEquals(i3, item.getNumC());
-		assertContains(item, item.TYPE.search(item.numA.equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.numB.equal(2)));
-		assertContains(item, item.TYPE.search(item.numC.equal(3)));
+		assertContains(item, TYPE.search(numA.equal((Integer)null)));
+		assertContains(item, TYPE.search(numB.equal(2)));
+		assertContains(item, TYPE.search(numC.equal(3)));
 
 		assertEquals(null, item.getPlusA9());
 		assertEquals(null, item.getPlusAB());
 		assertEquals(null, item.getPlusAC());
 		assertEquals(i5, item.getPlusBC());
 		assertEquals(null, item.getPlusABC());
-		assertContains(item, item.TYPE.search(item.plusA9.equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.plusAB.equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.plusAC.equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.plusBC.equal(5)));
-		assertContains(item, item.TYPE.search(item.plusABC.equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.plusABaC.equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.numA.multiply(9        ).equal((Integer)null)));
-		assertContains(item, item.TYPE.search(item.numA.multiply(item.numB).equal((Integer)null)));
+		assertContains(item, TYPE.search(plusA9.equal((Integer)null)));
+		assertContains(item, TYPE.search(plusAB.equal((Integer)null)));
+		assertContains(item, TYPE.search(plusAC.equal((Integer)null)));
+		assertContains(item, TYPE.search(plusBC.equal(5)));
+		assertContains(item, TYPE.search(plusABC.equal((Integer)null)));
+		assertContains(item, TYPE.search(plusABaC.equal((Integer)null)));
+		assertContains(item, TYPE.search(numA.multiply(9   ).equal((Integer)null)));
+		assertContains(item, TYPE.search(numA.multiply(numB).equal((Integer)null)));
 	}
 }
