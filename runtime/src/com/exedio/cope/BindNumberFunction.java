@@ -48,6 +48,16 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E> 
 		return this;
 	}
 	
+	public final PlusLiteralView<E> plus(final E value)
+	{
+		return new PlusLiteralView<E>(this, value);
+	}
+	
+	public final MultiplyLiteralView<E> multiply(final E value)
+	{
+		return new MultiplyLiteralView<E>(this, value);
+	}
+	
 	public final PlusView<E> plus(final NumberFunction<E> other)
 	{
 		return new PlusView<E>(new NumberFunction[]{this, other});

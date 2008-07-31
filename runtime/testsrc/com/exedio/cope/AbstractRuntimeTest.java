@@ -55,6 +55,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Integer i7 = Integer.valueOf(7);
 	protected static final Integer i8 = Integer.valueOf(8);
 	protected static final Integer i9 = Integer.valueOf(9);
+	protected static final Integer i10= Integer.valueOf(10);
+	protected static final Integer i18= Integer.valueOf(18);
 	
 	protected static final Long l1 = Long.valueOf(1l);
 	protected static final Long l2 = Long.valueOf(2l);
@@ -64,6 +66,9 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Long l6 = Long.valueOf(6l);
 	protected static final Long l7 = Long.valueOf(7l);
 	protected static final Long l8 = Long.valueOf(8l);
+	protected static final Long l9 = Long.valueOf(9l);
+	protected static final Long l10= Long.valueOf(10l);
+	protected static final Long l18= Long.valueOf(18l);
 	
 	protected static final Double d1 = Double.valueOf(1.1);
 	protected static final Double d2 = Double.valueOf(2.2);
@@ -73,6 +78,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Double d6 = Double.valueOf(6.6);
 	protected static final Double d7 = Double.valueOf(7.7);
 	protected static final Double d8 = Double.valueOf(8.8);
+	protected static final Double d9 = Double.valueOf(9.9);
 	
 	protected static final byte[] data0  = {};
 	protected static final byte[] data4  = {-86,122,-8,23};
