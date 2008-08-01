@@ -59,6 +59,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Integer i10= Integer.valueOf(10);
 	protected static final Integer i18= Integer.valueOf(18);
 	
+	protected static final Long l0 = Long.valueOf(0l);
 	protected static final Long l1 = Long.valueOf(1l);
 	protected static final Long l2 = Long.valueOf(2l);
 	protected static final Long l3 = Long.valueOf(3l);
