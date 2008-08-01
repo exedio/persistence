@@ -74,7 +74,16 @@ public final class DivideView<E extends Number> extends NumberView<E> implements
 	public final void append(final Statement bf, final Join join)
 	{
 		bf.append('(');
+		if(valueClass==Double.class)
+		{
+			bf.append(dividend, join).
+				append('/').
+				append(divisor, join);
+		}
+		else
+		{
 		bf.appendIntegerDivisionOperator(dividend, divisor, join);
+		}
 		bf.append(')');
 	}
 }
