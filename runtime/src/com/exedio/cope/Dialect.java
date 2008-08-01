@@ -134,6 +134,17 @@ abstract class Dialect
 		DataField.appendAsHex(parameter, parameter.length, statementText);
 		statementText.append('\'');
 	}
+	
+	<E extends Number> void  appendIntegerDivision(
+			final Statement bf,
+			final NumberFunction<E> dividend,
+			final NumberFunction<E> divisor,
+			final Join join)
+	{
+		bf.append(dividend, join).
+			append("/").
+			append(divisor, join);
+	}
 
 	abstract String getIntegerType(long minimum, long maximum);
 	abstract String getDoubleType();

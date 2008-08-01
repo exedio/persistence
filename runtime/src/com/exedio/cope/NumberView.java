@@ -96,6 +96,11 @@ public abstract class NumberView<E extends Number> extends View<E> implements Nu
 		return new MultiplyView<E>(new NumberFunction[]{this, other});
 	}
 
+	public final DivideView<E> divide(final NumberFunction<E> other)
+	{
+		return new DivideView<E>(this, other);
+	}
+
 	public final SumAggregate<E> sum()
 	{
 		return new SumAggregate<E>(this);

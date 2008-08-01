@@ -301,6 +301,14 @@ final class Statement
 		database.appendMatchClause(this, function, value);
 	}
 
+	<E extends Number >void appendIntegerDivisionOperator(
+			final NumberFunction<E> dividend,
+			final NumberFunction<E> divisor,
+			final Join join)
+	{
+		database.dialect.appendIntegerDivision(this, dividend, divisor, join);
+	}
+
 	String getText()
 	{
 		return text.toString();

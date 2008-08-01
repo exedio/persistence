@@ -30,6 +30,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	MultiplyLiteralView multiply(E value);
 	PlusView plus(NumberFunction<E> other);
 	MultiplyView multiply(NumberFunction<E> other);
+	DivideView divide(NumberFunction<E> other);
 
 	SumAggregate<E> sum();
 	

@@ -46,6 +46,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		super(model, exclusive);
 	}
 	
+	protected static final Integer i0 = Integer.valueOf(0);
 	protected static final Integer i1 = Integer.valueOf(1);
 	protected static final Integer i2 = Integer.valueOf(2);
 	protected static final Integer i3 = Integer.valueOf(3);

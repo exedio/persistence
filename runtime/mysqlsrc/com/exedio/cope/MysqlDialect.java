@@ -154,6 +154,18 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
+	<E extends Number> void  appendIntegerDivision(
+			final Statement bf,
+			final NumberFunction<E> dividend,
+			final NumberFunction<E> divisor,
+			final Join join)
+	{
+		bf.append(dividend, join).
+			append(" DIV ").
+			append(divisor, join);
+	}
+	
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_WHERE;

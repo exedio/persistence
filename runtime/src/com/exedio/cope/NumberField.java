@@ -55,6 +55,11 @@ public abstract class NumberField<E extends Number> extends FunctionField<E> imp
 		return new MultiplyView<E>(new NumberFunction[]{this, other});
 	}
 
+	public final DivideView<E> divide(final NumberFunction<E> other)
+	{
+		return new DivideView<E>(this, other);
+	}
+
 	public final SumAggregate<E> sum()
 	{
 		return new SumAggregate<E>(this);

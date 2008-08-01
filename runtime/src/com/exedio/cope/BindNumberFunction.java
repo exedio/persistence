@@ -68,6 +68,11 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E> 
 		return new MultiplyView<E>(new NumberFunction[]{this, other});
 	}
 
+	public final DivideView<E> divide(final NumberFunction<E> other)
+	{
+		return new DivideView<E>(this, other);
+	}
+
 	/**
 	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */
