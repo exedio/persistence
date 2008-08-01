@@ -70,16 +70,16 @@ public class DivideIntegerTest extends AbstractRuntimeTest
 		assertEquals(i7, item.getNumA());
 		assertEquals(i9, item.getNumB());
 		assertEquals(i3, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(i7)));
-		assertContains(item, TYPE.search(numB.equal(i9)));
-		assertContains(item, TYPE.search(numC.equal(i3)));
+		assertContains(item, TYPE.search(numA.equal(7)));
+		assertContains(item, TYPE.search(numB.equal(9)));
+		assertContains(item, TYPE.search(numC.equal(3)));
 
 		assertEquals(i0, item.getDivideAB());
 		assertEquals(i2, item.getDivideAC());
 		assertEquals(i3, item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal(i0)));
-		assertContains(item, TYPE.search(divideAC.equal(i2)));
-		assertContains(item, TYPE.search(divideBC.equal(i3)));
+		assertContains(item, TYPE.search(divideAB.equal(0)));
+		assertContains(item, TYPE.search(divideAC.equal(2)));
+		assertContains(item, TYPE.search(divideBC.equal(3)));
 		
 		// test null propagation
 		item.setNumA(null);
