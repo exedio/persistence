@@ -137,6 +137,10 @@ public class CompositeTest extends AbstractRuntimeTest
 				fItem.second.getComponent(CompositeValue.anItem),
 			}), fItem.second.getComponents());
 		
+		// test type safety of getComponent
+		fItem.second.getComponent(CompositeValue.aString).startsWith("zack");
+		fItem.second.getComponent(CompositeValue.anInt).plus(1);
+		
 		try
 		{
 			oItem.uno.getComponent(oItem.code);

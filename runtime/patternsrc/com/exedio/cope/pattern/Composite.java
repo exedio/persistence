@@ -131,9 +131,9 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 			return Character.toUpperCase(first) + name.substring(1);
 	}
 
-	public FunctionField getComponent(final FunctionField template)
+	@SuppressWarnings("unchecked") public <X extends FunctionField> X getComponent(final X template)
 	{
-		final FunctionField result = templateToComponent.get(template);
+		final X result = (X)templateToComponent.get(template);
 		if(result==null)
 			throw new IllegalArgumentException(template + " is not a template of " + toString());
 		return result;
