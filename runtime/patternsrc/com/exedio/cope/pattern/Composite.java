@@ -218,11 +218,10 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
-		for(final FunctionField member : templates.values())
+		for(final FunctionField<?> member : templates.values())
 			result.addAll(member.getInitialExceptions());
 		if(isfinal)
 			result.add(FinalViolationException.class);
