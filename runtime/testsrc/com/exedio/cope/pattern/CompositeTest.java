@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.CompositeValue.aString;
+import static com.exedio.cope.pattern.CompositeValue.anEnum;
+import static com.exedio.cope.pattern.CompositeValue.anInt;
+import static com.exedio.cope.pattern.CompositeValue.anItem;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -54,92 +59,92 @@ public class CompositeTest extends AbstractRuntimeTest
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
-				oItem.uno.of(CompositeValue.aString),
-				oItem.uno.of(CompositeValue.anInt),
-				oItem.uno.of(CompositeValue.anEnum),
-				oItem.uno.of(CompositeValue.anItem),
+				oItem.uno.of(aString),
+				oItem.uno.of(anInt),
+				oItem.uno.of(anEnum),
+				oItem.uno.of(anItem),
 				oItem.duo,
-				oItem.duo.of(CompositeValue.aString),
-				oItem.duo.of(CompositeValue.anInt),
-				oItem.duo.of(CompositeValue.anEnum),
-				oItem.duo.of(CompositeValue.anItem),
+				oItem.duo.of(aString),
+				oItem.duo.of(anInt),
+				oItem.duo.of(anEnum),
+				oItem.duo.of(anItem),
 			}), oItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
 				oItem.uno,
-				oItem.uno.of(CompositeValue.aString),
-				oItem.uno.of(CompositeValue.anInt),
-				oItem.uno.of(CompositeValue.anEnum),
-				oItem.uno.of(CompositeValue.anItem),
+				oItem.uno.of(aString),
+				oItem.uno.of(anInt),
+				oItem.uno.of(anEnum),
+				oItem.uno.of(anItem),
 				oItem.duo,
-				oItem.duo.of(CompositeValue.aString),
-				oItem.duo.of(CompositeValue.anInt),
-				oItem.duo.of(CompositeValue.anEnum),
-				oItem.duo.of(CompositeValue.anItem),
+				oItem.duo.of(aString),
+				oItem.duo.of(anInt),
+				oItem.duo.of(anEnum),
+				oItem.duo.of(anItem),
 			}), oItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
-				fItem.first.of(CompositeValue.aString),
-				fItem.first.of(CompositeValue.anInt),
-				fItem.first.of(CompositeValue.anEnum),
-				fItem.first.of(CompositeValue.anItem),
+				fItem.first.of(aString),
+				fItem.first.of(anInt),
+				fItem.first.of(anEnum),
+				fItem.first.of(anItem),
 				fItem.second,
-				fItem.second.of(CompositeValue.aString),
-				fItem.second.of(CompositeValue.anInt),
-				fItem.second.of(CompositeValue.anEnum),
-				fItem.second.of(CompositeValue.anItem),
+				fItem.second.of(aString),
+				fItem.second.of(anInt),
+				fItem.second.of(anEnum),
+				fItem.second.of(anItem),
 			}), fItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
 				fItem.first,
-				fItem.first.of(CompositeValue.aString),
-				fItem.first.of(CompositeValue.anInt),
-				fItem.first.of(CompositeValue.anEnum),
-				fItem.first.of(CompositeValue.anItem),
+				fItem.first.of(aString),
+				fItem.first.of(anInt),
+				fItem.first.of(anEnum),
+				fItem.first.of(anItem),
 				fItem.second,
-				fItem.second.of(CompositeValue.aString),
-				fItem.second.of(CompositeValue.anInt),
-				fItem.second.of(CompositeValue.anEnum),
-				fItem.second.of(CompositeValue.anItem),
+				fItem.second.of(aString),
+				fItem.second.of(anInt),
+				fItem.second.of(anEnum),
+				fItem.second.of(anItem),
 			}), fItem.TYPE.getDeclaredFeatures());
 
-		assertEquals(oItem.TYPE, oItem.uno.of(CompositeValue.aString).getType());
+		assertEquals(oItem.TYPE, oItem.uno.of(aString).getType());
 		assertEquals(oItem.TYPE, oItem.uno.getType());
-		assertEquals("unoAString", oItem.uno.of(CompositeValue.aString).getName());
+		assertEquals("unoAString", oItem.uno.of(aString).getName());
 		assertEquals("uno", oItem.uno.getName());
-		assertEqualsUnmodifiable(list(oItem.uno), oItem.uno.of(CompositeValue.aString).getPatterns());
+		assertEqualsUnmodifiable(list(oItem.uno), oItem.uno.of(aString).getPatterns());
 		
 		assertEquals(false, oItem.uno.isInitial());
 		assertEquals(false, oItem.uno.isFinal());
-		assertEquals(false, oItem.uno.of(CompositeValue.aString).isInitial());
-		assertEquals(false, oItem.uno.of(CompositeValue.aString).isFinal());
-		assertEquals(false, oItem.uno.of(CompositeValue.aString).isMandatory());
+		assertEquals(false, oItem.uno.of(aString).isInitial());
+		assertEquals(false, oItem.uno.of(aString).isFinal());
+		assertEquals(false, oItem.uno.of(aString).isMandatory());
 		assertEquals(true, fItem.first.isInitial());
 		assertEquals(true, fItem.first.isFinal());
-		assertEquals(true, fItem.first.of(CompositeValue.aString).isInitial());
-		assertEquals(true, fItem.first.of(CompositeValue.aString).isFinal());
-		assertEquals(true, fItem.first.of(CompositeValue.aString).isMandatory());
+		assertEquals(true, fItem.first.of(aString).isInitial());
+		assertEquals(true, fItem.first.of(aString).isFinal());
+		assertEquals(true, fItem.first.of(aString).isMandatory());
 		
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				oItem.uno.of(CompositeValue.aString),
-				oItem.uno.of(CompositeValue.anInt),
-				oItem.uno.of(CompositeValue.anEnum),
-				oItem.uno.of(CompositeValue.anItem),
+				oItem.uno.of(aString),
+				oItem.uno.of(anInt),
+				oItem.uno.of(anEnum),
+				oItem.uno.of(anItem),
 			}), oItem.uno.getComponents());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				fItem.second.of(CompositeValue.aString),
-				fItem.second.of(CompositeValue.anInt),
-				fItem.second.of(CompositeValue.anEnum),
-				fItem.second.of(CompositeValue.anItem),
+				fItem.second.of(aString),
+				fItem.second.of(anInt),
+				fItem.second.of(anEnum),
+				fItem.second.of(anItem),
 			}), fItem.second.getComponents());
 		
 		// test type safety of getComponent
-		fItem.second.of(CompositeValue.aString).startsWith("zack");
-		fItem.second.of(CompositeValue.anInt).plus(1);
+		fItem.second.of(aString).startsWith("zack");
+		fItem.second.of(anInt).plus(1);
 		
 		try
 		{
