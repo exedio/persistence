@@ -256,7 +256,7 @@
 	</target>
 	
 	<target name="runtime.servlet.jspm">
-		<jspm>
+		<jspm method="print">
 			<fileset dir="runtime/servletsrc" includes="**/*.jspm" />
 		</jspm>
 	</target>
@@ -494,7 +494,7 @@
 	</target>
 
 	<target name="runtime.servlet.test.jspm">
-		<jspm>
+		<jspm method="print">
 			<fileset dir="runtime/servlettestsrc" includes="**/*.jspm" />
 		</jspm>
 	</target>
@@ -638,7 +638,7 @@
 	<!-- console -->
 	
 	<target name="console.jspm">
-		<jspm>
+		<jspm method="print">
 			<fileset dir="console/src" includes="**/*.jspm" />
 		</jspm>
 	</target>
@@ -706,7 +706,7 @@
 	<!-- copernica -->
 	
 	<target name="copernica.jspm">
-		<jspm>
+		<jspm method="print">
 			<fileset dir="copernica/src" includes="**/*.jspm" />
 		</jspm>
 	</target>
@@ -735,7 +735,7 @@
 	</target>
 	
 	<target name="copernica.test.jspm">
-		<jspm>
+		<jspm method="print">
 			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
 		</jspm>
 	</target>
