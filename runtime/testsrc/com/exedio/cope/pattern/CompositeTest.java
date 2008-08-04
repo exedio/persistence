@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.CompositeFinalItem.first;
+import static com.exedio.cope.pattern.CompositeFinalItem.second;
+import static com.exedio.cope.pattern.CompositeOptionalItem.duo;
+import static com.exedio.cope.pattern.CompositeOptionalItem.uno;
 import static com.exedio.cope.pattern.CompositeValue.aString;
 import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
@@ -58,97 +62,97 @@ public class CompositeTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
-				oItem.uno,
-				oItem.uno.of(aString),
-				oItem.uno.of(anInt),
-				oItem.uno.of(anEnum),
-				oItem.uno.of(anItem),
-				oItem.duo,
-				oItem.duo.of(aString),
-				oItem.duo.of(anInt),
-				oItem.duo.of(anEnum),
-				oItem.duo.of(anItem),
+				uno,
+				uno.of(aString),
+				uno.of(anInt),
+				uno.of(anEnum),
+				uno.of(anItem),
+				duo,
+				duo.of(aString),
+				duo.of(anInt),
+				duo.of(anEnum),
+				duo.of(anItem),
 			}), oItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				oItem.TYPE.getThis(),
 				oItem.code,
-				oItem.uno,
-				oItem.uno.of(aString),
-				oItem.uno.of(anInt),
-				oItem.uno.of(anEnum),
-				oItem.uno.of(anItem),
-				oItem.duo,
-				oItem.duo.of(aString),
-				oItem.duo.of(anInt),
-				oItem.duo.of(anEnum),
-				oItem.duo.of(anItem),
+				uno,
+				uno.of(aString),
+				uno.of(anInt),
+				uno.of(anEnum),
+				uno.of(anItem),
+				duo,
+				duo.of(aString),
+				duo.of(anInt),
+				duo.of(anEnum),
+				duo.of(anItem),
 			}), oItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
-				fItem.first,
-				fItem.first.of(aString),
-				fItem.first.of(anInt),
-				fItem.first.of(anEnum),
-				fItem.first.of(anItem),
-				fItem.second,
-				fItem.second.of(aString),
-				fItem.second.of(anInt),
-				fItem.second.of(anEnum),
-				fItem.second.of(anItem),
+				first,
+				first.of(aString),
+				first.of(anInt),
+				first.of(anEnum),
+				first.of(anItem),
+				second,
+				second.of(aString),
+				second.of(anInt),
+				second.of(anEnum),
+				second.of(anItem),
 			}), fItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				fItem.TYPE.getThis(),
 				fItem.code,
-				fItem.first,
-				fItem.first.of(aString),
-				fItem.first.of(anInt),
-				fItem.first.of(anEnum),
-				fItem.first.of(anItem),
-				fItem.second,
-				fItem.second.of(aString),
-				fItem.second.of(anInt),
-				fItem.second.of(anEnum),
-				fItem.second.of(anItem),
+				first,
+				first.of(aString),
+				first.of(anInt),
+				first.of(anEnum),
+				first.of(anItem),
+				second,
+				second.of(aString),
+				second.of(anInt),
+				second.of(anEnum),
+				second.of(anItem),
 			}), fItem.TYPE.getDeclaredFeatures());
 
-		assertEquals(oItem.TYPE, oItem.uno.of(aString).getType());
-		assertEquals(oItem.TYPE, oItem.uno.getType());
-		assertEquals("unoAString", oItem.uno.of(aString).getName());
-		assertEquals("uno", oItem.uno.getName());
-		assertEqualsUnmodifiable(list(oItem.uno), oItem.uno.of(aString).getPatterns());
+		assertEquals(oItem.TYPE, uno.of(aString).getType());
+		assertEquals(oItem.TYPE, uno.getType());
+		assertEquals("unoAString", uno.of(aString).getName());
+		assertEquals("uno", uno.getName());
+		assertEqualsUnmodifiable(list(uno), uno.of(aString).getPatterns());
 		
-		assertEquals(false, oItem.uno.isInitial());
-		assertEquals(false, oItem.uno.isFinal());
-		assertEquals(false, oItem.uno.of(aString).isInitial());
-		assertEquals(false, oItem.uno.of(aString).isFinal());
-		assertEquals(false, oItem.uno.of(aString).isMandatory());
-		assertEquals(true, fItem.first.isInitial());
-		assertEquals(true, fItem.first.isFinal());
-		assertEquals(true, fItem.first.of(aString).isInitial());
-		assertEquals(true, fItem.first.of(aString).isFinal());
-		assertEquals(true, fItem.first.of(aString).isMandatory());
+		assertEquals(false, uno.isInitial());
+		assertEquals(false, uno.isFinal());
+		assertEquals(false, uno.of(aString).isInitial());
+		assertEquals(false, uno.of(aString).isFinal());
+		assertEquals(false, uno.of(aString).isMandatory());
+		assertEquals(true, first.isInitial());
+		assertEquals(true, first.isFinal());
+		assertEquals(true, first.of(aString).isInitial());
+		assertEquals(true, first.of(aString).isFinal());
+		assertEquals(true, first.of(aString).isMandatory());
 		
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				oItem.uno.of(aString),
-				oItem.uno.of(anInt),
-				oItem.uno.of(anEnum),
-				oItem.uno.of(anItem),
-			}), oItem.uno.getComponents());
+				uno.of(aString),
+				uno.of(anInt),
+				uno.of(anEnum),
+				uno.of(anItem),
+			}), uno.getComponents());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				fItem.second.of(aString),
-				fItem.second.of(anInt),
-				fItem.second.of(anEnum),
-				fItem.second.of(anItem),
-			}), fItem.second.getComponents());
+				second.of(aString),
+				second.of(anInt),
+				second.of(anEnum),
+				second.of(anItem),
+			}), second.getComponents());
 		
 		// test type safety of getComponent
-		fItem.second.of(aString).startsWith("zack");
-		fItem.second.of(anInt).plus(1);
+		second.of(aString).startsWith("zack");
+		second.of(anInt).plus(1);
 		
 		try
 		{
-			oItem.uno.of(oItem.code);
+			uno.of(oItem.code);
 			fail();
 		}
 		catch(IllegalArgumentException e)
