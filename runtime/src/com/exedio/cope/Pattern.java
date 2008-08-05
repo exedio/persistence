@@ -75,7 +75,7 @@ public abstract class Pattern extends Feature
 		}
 		this.sources = sourceWhileRegistration;
 		this.sourceWhileRegistration = null;
-		this.sourceList = Collections.unmodifiableList(new ArrayList<Field>(sources.keySet()));
+		this.sourceList = sources.isEmpty() ? Collections.<Field>emptyList() : Collections.unmodifiableList(new ArrayList<Field>(sources.keySet()));
 	}
 	
 	protected final void registerSource(final Field field, final String postfix)
