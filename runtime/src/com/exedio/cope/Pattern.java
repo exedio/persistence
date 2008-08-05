@@ -55,6 +55,7 @@ public abstract class Pattern extends Feature
 {
 	private LinkedHashMap<Field, String> sourceWhileRegistration = new LinkedHashMap<Field, String>();
 	private LinkedHashMap<Field, String> sources;
+	private List<Field> sourceList;
 	final ArrayList<Type<? extends Item>> generatedTypes = new ArrayList<Type<? extends Item>>();
 	
 	@Override
@@ -74,6 +75,7 @@ public abstract class Pattern extends Feature
 		}
 		this.sources = sourceWhileRegistration;
 		this.sourceWhileRegistration = null;
+		this.sourceList = Collections.unmodifiableList(new ArrayList<Field>(sources.keySet()));
 	}
 	
 	protected final void registerSource(final Field field, final String postfix)
@@ -85,6 +87,7 @@ public abstract class Pattern extends Feature
 		if(sourceWhileRegistration==null)
 			throw new IllegalStateException("registerSource can be called only until initialize() is called, not afterwards");
 		assert sources== null;
+		assert sourceList==null;
 		field.registerPattern(this);
 		final String collision = sourceWhileRegistration.put(field, postfix);
 		if(collision!=null)
@@ -98,8 +101,9 @@ public abstract class Pattern extends Feature
 	{
 		if(sources==null)
 			throw new IllegalStateException("getSources can be called only after initialize() is called");
+		assert sourceList!=null;
 		assert sourceWhileRegistration==null;
-		return Collections.unmodifiableList(new ArrayList<Field>(sources.keySet()));
+		return sourceList;
 	}
 	
 	/**
