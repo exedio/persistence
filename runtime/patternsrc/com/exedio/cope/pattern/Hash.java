@@ -55,15 +55,6 @@ public abstract class Hash extends Pattern implements Settable<String>
 		this(new StringField());
 	}
 	
-	/**
-	 * @deprecated use {@link #optional()} instead.
-	 */
-	@Deprecated
-	public Hash(final Option storageOption)
-	{
-		this(new StringField(storageOption));
-	}
-	
 	public final StringField getStorage()
 	{
 		return storage;
@@ -188,5 +179,16 @@ public abstract class Hash extends Pattern implements Settable<String>
 	public final Condition notEqual(final String value)
 	{
 		return value!=null ? storage.notEqual(hash(value)) : storage.isNotNull();
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated use {@link #optional()} instead.
+	 */
+	@Deprecated
+	public Hash(final Option storageOption)
+	{
+		this(new StringField(storageOption));
 	}
 }

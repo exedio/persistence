@@ -43,15 +43,6 @@ public final class MD5Hash extends JavaSecurityHash
 	{
 		super(false, HASH, LENGTH);
 	}
-	
-	/**
-	 * @deprecated use {@link com.exedio.cope.Field#toFinal()}, {@link com.exedio.cope.FunctionField#unique()} and {@link com.exedio.cope.Field#optional()} instead.
-	 */
-	@Deprecated
-	public MD5Hash(final Option storageOption)
-	{
-		super(storageOption.optional, HASH, LENGTH);
-	}
 
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
@@ -67,5 +58,16 @@ public final class MD5Hash extends JavaSecurityHash
 	public MD5Hash optional()
 	{
 		return new MD5Hash(true, getEncoding());
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated use {@link com.exedio.cope.Field#toFinal()}, {@link com.exedio.cope.FunctionField#unique()} and {@link com.exedio.cope.Field#optional()} instead.
+	 */
+	@Deprecated
+	public MD5Hash(final Option storageOption)
+	{
+		super(storageOption.optional, HASH, LENGTH);
 	}
 }
