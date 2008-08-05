@@ -72,6 +72,12 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(null, item.TYPE.getPattern());
+		
+		List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
+		assertEquals(1, partOfs.size());
+		PartOf partOf = partOfs.get(0);
+		assertSame(failureType, partOf.getType());
+		assertEquals(DispatcherItem.TYPE, partOf.getContainer().getValueType());
 
 		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
@@ -88,6 +94,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(
 				failureType.getThis(),
 				item.uploadFailureParent(),
+				item.upload.getFailureFailures(),
 				item.upload.getFailureDate(),
 				item.upload.getFailureElapsed(),
 				item.upload.getFailureCause()

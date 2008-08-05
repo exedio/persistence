@@ -53,6 +53,7 @@ public final class Dispatcher extends Pattern
 	private final LongField successElapsed = new LongField().optional();
 
 	ItemField<?> failureParent = null;
+	PartOf<?> failureFailures = null;
 	final DateField failureDate = new DateField().toFinal();
 	final LongField failureElapsed = new LongField();
 	final DataField failureCause = new DataField().toFinal();
@@ -87,8 +88,10 @@ public final class Dispatcher extends Pattern
 					", but was " + type.getJavaClass().getName());
 
 		failureParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		failureFailures = PartOf.newPartOf(failureParent);
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("parent", failureParent);
+		features.put("failures", failureFailures);
 		features.put("date", failureDate);
 		features.put("elapsed", failureElapsed);
 		features.put("cause", failureCause);
@@ -124,6 +127,11 @@ public final class Dispatcher extends Pattern
 	{
 		assert failureParent!=null;
 		return failureParent.as(parentClass);
+	}
+	
+	public PartOf getFailureFailures()
+	{
+		return failureFailures;
 	}
 	
 	public DateField getFailureDate()
