@@ -32,6 +32,7 @@ import java.util.Arrays;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 
 public class CompositeTest extends AbstractRuntimeTest
@@ -128,6 +129,42 @@ public class CompositeTest extends AbstractRuntimeTest
 		
 		try
 		{
+			Composite.newComposite(null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals("valueClass must not be null", e.getMessage());
+		}
+		try
+		{
+			Composite.newComposite(ValueWithoutConstructor.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(ValueWithoutConstructor.class.getName() + " does not have a constructor [class [Lcom.exedio.cope.SetValue;]", e.getMessage());
+		}
+		try
+		{
+			Composite.newComposite(ValueWithoutFields.class);
+			//fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("", e.getMessage());
+		}
+		try
+		{
+			Composite.newComposite(Composite.Value.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("is not a subclass of " + Composite.Value.class.getName() + " but Composite.Value itself", e.getMessage());
+		}
+		try
+		{
 			uno.of(oItem.code);
 			fail();
 		}
@@ -203,5 +240,34 @@ public class CompositeTest extends AbstractRuntimeTest
 		final CompositeValue serializedValue = reserialize(value, 500);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
+	}
+	
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	public void testUnchecked()
+	{
+		try
+		{
+			Composite.newComposite((Class)CompositeTest.class);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("is not a subclass of " + Composite.Value.class.getName() + ": " + CompositeTest.class.getName(), e.getMessage());
+		}
+	}
+	
+	static class ValueWithoutConstructor extends Composite.Value
+	{
+		private static final long serialVersionUID = 1l;
+	}
+	
+	static class ValueWithoutFields extends Composite.Value
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private ValueWithoutFields(final SetValue[] setValues)
+		{
+			super(setValues);
+		}
 	}
 }
