@@ -394,7 +394,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #of(X)} instead
+	 * @deprecated Use {@link #of(FunctionField)} instead
 	 */
 	@Deprecated
 	public <X extends FunctionField> X getComponent(final X template)
