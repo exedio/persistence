@@ -204,6 +204,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		patternsWhileTypeInitialization.add(pattern);
 	}
 	
+	/**
+	 * @see Pattern#getSources()
+	 */
 	public List<Pattern> getPatterns()
 	{
 		if(!isInitialized())

@@ -85,6 +85,9 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("duplicate source registration " + field + '/' + collision);
 	}
 
+	/**
+	 * @see Field#getPatterns()
+	 */
 	public List<? extends Field> getSources()
 	{
 		return Collections.unmodifiableList(new ArrayList<Field>(sources.keySet()));
