@@ -87,7 +87,7 @@ public abstract class Pattern extends Feature
 
 	public List<? extends Field> getSources()
 	{
-		return Collections.unmodifiableList(new ArrayList(sources.keySet()));
+		return Collections.unmodifiableList(new ArrayList<Field>(sources.keySet()));
 	}
 	
 	/**

@@ -111,6 +111,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		return result;
 	}
 	
+	@Override
 	public List<FunctionField<E>> getSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
