@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -78,7 +79,7 @@ public abstract class Pattern extends Feature
 		this.sourceList =
 			sourceMap.isEmpty()
 			? Collections.<Field>emptyList()
-			: Collections.unmodifiableList(new ArrayList<Field>(sourceMap.keySet()));
+			: Collections.unmodifiableList(Arrays.asList(sourceMap.keySet().toArray(new Field[sourceMap.size()])));
 	}
 	
 	protected final void registerSource(final Field field, final String postfix)
