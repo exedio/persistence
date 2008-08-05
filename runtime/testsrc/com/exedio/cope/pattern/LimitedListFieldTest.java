@@ -81,6 +81,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.nums), item.num1.getPatterns());
 		assertEqualsUnmodifiable(list(item.nums), item.num2.getPatterns());
 		assertEqualsUnmodifiable(list(item.nums), item.num3.getPatterns());
+		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSources());
 		assertEquals(false, item.nums.isInitial());
 		assertEquals(false, item.nums.isFinal());
 		assertContains(item.nums.getInitialExceptions());
@@ -96,6 +97,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertTrue(!dateSourcesIterator.hasNext());
 		assertEqualsUnmodifiable(list(item.dates), date0.getPatterns());
 		assertEqualsUnmodifiable(list(item.dates), date1.getPatterns());
+		assertEqualsUnmodifiable(list(date0, date1), item.dates.getSources());
 		assertEquals(false, item.dates.isInitial());
 		assertEquals(false, item.dates.isFinal());
 		assertContains(item.dates.getInitialExceptions());
@@ -115,6 +117,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(item.strings), string1.getPatterns());
 		assertEqualsUnmodifiable(list(item.strings), string2.getPatterns());
 		assertEqualsUnmodifiable(list(item.strings), string3.getPatterns());
+		assertEqualsUnmodifiable(list(string0, string1, string2, string3), item.strings.getSources());
 		assertEquals(false, item.strings.isInitial());
 		assertEquals(false, item.strings.isFinal());
 		assertContains(StringLengthViolationException.class, item.strings.getInitialExceptions());

@@ -19,7 +19,9 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * A common super class for all patterns.
@@ -51,7 +53,6 @@ import java.util.LinkedHashMap;
  */
 public abstract class Pattern extends Feature
 {
-	// TODO SOON introduce getSources
 	private final LinkedHashMap<Field, String> sources = new LinkedHashMap<Field, String>();
 	final ArrayList<Type<? extends Item>> generatedTypes = new ArrayList<Type<? extends Item>>();
 	
@@ -84,6 +85,11 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("duplicate source registration " + field + '/' + collision);
 	}
 
+	public List<? extends Field> getSources()
+	{
+		return Collections.unmodifiableList(new ArrayList(sources.keySet()));
+	}
+	
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
