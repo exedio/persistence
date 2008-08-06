@@ -803,6 +803,9 @@ public final class Type<C extends Item>
 		return copyConstraints;
 	}
 	
+	/**
+	 * @see Pattern#getGeneratedTypes()
+	 */
 	public Pattern getPattern()
 	{
 		return pattern;

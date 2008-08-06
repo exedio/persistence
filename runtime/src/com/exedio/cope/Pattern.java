@@ -154,6 +154,9 @@ public abstract class Pattern extends Feature
 		return sourceList;
 	}
 	
+	/**
+	 * @see Type#getPattern()
+	 */
 	public List<Type<? extends Item>> getGeneratedTypes()
 	{
 		if(generatedTypes==null)
