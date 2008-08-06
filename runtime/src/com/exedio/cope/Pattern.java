@@ -57,7 +57,8 @@ public abstract class Pattern extends Feature
 	private LinkedHashMap<Field, String> sourceMapWhileRegistration = new LinkedHashMap<Field, String>();
 	private LinkedHashMap<Field, String> sourceMap;
 	private List<Field> sourceList;
-	final ArrayList<Type<? extends Item>> generatedTypes = new ArrayList<Type<? extends Item>>();
+	private ArrayList<Type<? extends Item>> generatedTypesWhileRegistration = new ArrayList<Type<? extends Item>>();
+	private List<Type<? extends Item>> generatedTypes;
 	
 	@Override
 	final void initialize(final Type<? extends Item> type, final String name)
@@ -80,6 +81,9 @@ public abstract class Pattern extends Feature
 			sourceMap.isEmpty()
 			? Collections.<Field>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(sourceMap.keySet().toArray(new Field[sourceMap.size()])));
+		this.generatedTypesWhileRegistration.trimToSize();
+		this.generatedTypes = Collections.unmodifiableList(generatedTypesWhileRegistration);
+		this.generatedTypesWhileRegistration = null;
 	}
 	
 	protected final void registerSource(final Field field, final String postfix)
@@ -112,7 +116,10 @@ public abstract class Pattern extends Feature
 	
 	public List<Type<? extends Item>> getGeneratedTypes()
 	{
-		return Collections.unmodifiableList(generatedTypes);
+		if(generatedTypes==null)
+			throw new IllegalStateException("getGeneratedTypes can be called only after initialize() is called");
+		assert generatedTypesWhileRegistration==null;
+		return generatedTypes;
 	}
 	
 	/**
@@ -137,9 +144,12 @@ public abstract class Pattern extends Feature
 	
 	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
+		if(generatedTypesWhileRegistration==null)
+			throw new IllegalStateException("newType can be called only until initialize() is called, not afterwards");
+		assert generatedTypes==null;
 		final String id = getType().getID() + '.' + getName() + postfix;
 		final Type<X> result = new Type<X>(javaClass, false, id, this, features);
-		generatedTypes.add(result);
+		generatedTypesWhileRegistration.add(result);
 		return result;
 	}
 	

@@ -251,7 +251,7 @@ public final class Model
 		result.add(type);
 		for(final Feature f : type.getDeclaredFeatures())
 			if(f instanceof Pattern)
-				for(final Type<?> generatedType : ((Pattern)f).generatedTypes)
+				for(final Type<?> generatedType : ((Pattern)f).getGeneratedTypes())
 					addTypeIncludingGenerated(generatedType, result, hopCount);
 	}
 	
