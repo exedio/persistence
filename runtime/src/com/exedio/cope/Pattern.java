@@ -139,7 +139,7 @@ public abstract class Pattern extends Feature
 	public List<? extends Field> getSourceFields()
 	{
 		if(sourceMap==null)
-			throw new IllegalStateException("getSources can be called only after initialize() is called");
+			throw new IllegalStateException("getSourceFields can be called only after initialize() is called");
 		assert sourceList!=null;
 		assert sourceMapWhileRegistration==null;
 		return sourceList;
@@ -151,7 +151,7 @@ public abstract class Pattern extends Feature
 	public List<Type<? extends Item>> getSourceTypes()
 	{
 		if(generatedTypes==null)
-			throw new IllegalStateException("getGeneratedTypes can be called only after initialize() is called");
+			throw new IllegalStateException("getSourceTypes can be called only after initialize() is called");
 		assert generatedTypesWhileRegistration==null;
 		return generatedTypes;
 	}
