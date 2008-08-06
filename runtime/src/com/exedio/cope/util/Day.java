@@ -98,14 +98,19 @@ public final class Day // TODO implement Comparable
 	
 	public long getTimeInMillis()
 	{
-		return new GregorianCalendar(year, month-1, day).getTimeInMillis();
+		return calendar().getTimeInMillis();
 	}
 	
 	public Day add(final int days)
 	{
-		final GregorianCalendar cal = new GregorianCalendar(year, month-1, day);
+		final GregorianCalendar cal = calendar();
 		cal.add(cal.DATE, days);
 		return new Day(cal);
+	}
+	
+	private GregorianCalendar calendar()
+	{
+		return new GregorianCalendar(year, month-1, day);
 	}
 	
 	@Override
