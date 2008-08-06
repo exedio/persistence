@@ -75,8 +75,8 @@ public final class Day // TODO implement Comparable
 			throw new IllegalArgumentException("month must be in range 1..12, but was: " + month);
 		if(day<1 || day>31)
 			throw new IllegalArgumentException("day must be in range 1..31, but was: " + day);
+		
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
-
 		this.year = c.get(GregorianCalendar.YEAR);
 		this.month = c.get(GregorianCalendar.MONTH)+1;
 		this.day = c.get(GregorianCalendar.DAY_OF_MONTH);
