@@ -54,9 +54,9 @@ import java.util.List;
  */
 public abstract class Pattern extends Feature
 {
-	private LinkedHashMap<Field, String> sourceMapWhileRegistration = new LinkedHashMap<Field, String>();
-	private LinkedHashMap<Field, String> sourceMap = null;
-	private List<Field> sourceList = null;
+	private LinkedHashMap<Field, String> sourceFieldMapWhileRegistration = new LinkedHashMap<Field, String>();
+	private LinkedHashMap<Field, String> sourceFieldMap = null;
+	private List<Field> sourceFieldList = null;
 	private ArrayList<Type<? extends Item>> sourceTypesWhileRegistration = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
@@ -66,21 +66,21 @@ public abstract class Pattern extends Feature
 		super.initialize(type, name);
 		initialize();
 
-		for(final Field<?> source : sourceMapWhileRegistration.keySet())
+		for(final Field<?> source : sourceFieldMapWhileRegistration.keySet())
 		{
 			if(!source.isInitialized())
-				source.initialize(type, name + sourceMapWhileRegistration.get(source));
+				source.initialize(type, name + sourceFieldMapWhileRegistration.get(source));
 			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
 				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
 		}
-		this.sourceMap = sourceMapWhileRegistration;
-		this.sourceMapWhileRegistration = null;
-		this.sourceList =
-			sourceMap.isEmpty()
+		this.sourceFieldMap = sourceFieldMapWhileRegistration;
+		this.sourceFieldMapWhileRegistration = null;
+		this.sourceFieldList =
+			sourceFieldMap.isEmpty()
 			? Collections.<Field>emptyList()
-			: Collections.unmodifiableList(Arrays.asList(sourceMap.keySet().toArray(new Field[sourceMap.size()])));
+			: Collections.unmodifiableList(Arrays.asList(sourceFieldMap.keySet().toArray(new Field[sourceFieldMap.size()])));
 		this.sourceTypesWhileRegistration.trimToSize();
 		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileRegistration);
 		this.sourceTypesWhileRegistration = null;
@@ -92,12 +92,12 @@ public abstract class Pattern extends Feature
 			throw new NullPointerException("postfix must not be null");
 		if(field==null)
 			throw new NullPointerException("field must not be null for postfix '" + postfix + '\'');
-		if(sourceMapWhileRegistration==null)
+		if(sourceFieldMapWhileRegistration==null)
 			throw new IllegalStateException("registerSource can be called only until initialize() is called, not afterwards");
-		assert sourceMap== null;
-		assert sourceList==null;
+		assert sourceFieldMap== null;
+		assert sourceFieldList==null;
 		field.registerPattern(this);
-		final String collision = sourceMapWhileRegistration.put(field, postfix);
+		final String collision = sourceFieldMapWhileRegistration.put(field, postfix);
 		if(collision!=null)
 			throw new IllegalStateException("duplicate source registration " + field + '/' + collision);
 	}
@@ -138,11 +138,11 @@ public abstract class Pattern extends Feature
 	 */
 	public List<? extends Field> getSourceFields()
 	{
-		if(sourceMap==null)
+		if(sourceFieldMap==null)
 			throw new IllegalStateException("getSourceFields can be called only after initialize() is called");
-		assert sourceList!=null;
-		assert sourceMapWhileRegistration==null;
-		return sourceList;
+		assert sourceFieldList!=null;
+		assert sourceFieldMapWhileRegistration==null;
+		return sourceFieldList;
 	}
 
 	/**
