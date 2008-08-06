@@ -101,26 +101,6 @@ public abstract class Pattern extends Feature
 		if(collision!=null)
 			throw new IllegalStateException("duplicate source registration " + field + '/' + collision);
 	}
-
-	/**
-	 * @see Field#getPatterns()
-	 */
-	public List<? extends Field> getSources()
-	{
-		if(sourceMap==null)
-			throw new IllegalStateException("getSources can be called only after initialize() is called");
-		assert sourceList!=null;
-		assert sourceMapWhileRegistration==null;
-		return sourceList;
-	}
-	
-	public List<Type<? extends Item>> getGeneratedTypes()
-	{
-		if(generatedTypes==null)
-			throw new IllegalStateException("getGeneratedTypes can be called only after initialize() is called");
-		assert generatedTypesWhileRegistration==null;
-		return generatedTypes;
-	}
 	
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
@@ -151,6 +131,26 @@ public abstract class Pattern extends Feature
 		final Type<X> result = new Type<X>(javaClass, false, id, this, features);
 		generatedTypesWhileRegistration.add(result);
 		return result;
+	}
+
+	/**
+	 * @see Field#getPatterns()
+	 */
+	public List<? extends Field> getSources()
+	{
+		if(sourceMap==null)
+			throw new IllegalStateException("getSources can be called only after initialize() is called");
+		assert sourceList!=null;
+		assert sourceMapWhileRegistration==null;
+		return sourceList;
+	}
+	
+	public List<Type<? extends Item>> getGeneratedTypes()
+	{
+		if(generatedTypes==null)
+			throw new IllegalStateException("getGeneratedTypes can be called only after initialize() is called");
+		assert generatedTypesWhileRegistration==null;
+		return generatedTypes;
 	}
 	
 	// Make non-final method from super class final
