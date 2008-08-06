@@ -54,10 +54,10 @@ import java.util.List;
  */
 public abstract class Pattern extends Feature
 {
-	private LinkedHashMap<Field, String> sourceFieldMapWhileRegistration = new LinkedHashMap<Field, String>();
+	private LinkedHashMap<Field, String> sourceFieldMapGather = new LinkedHashMap<Field, String>();
 	private LinkedHashMap<Field, String> sourceFieldMap = null;
 	private List<Field> sourceFieldList = null;
-	private ArrayList<Type<? extends Item>> sourceTypesWhileRegistration = new ArrayList<Type<? extends Item>>();
+	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
 	@Override
@@ -66,24 +66,24 @@ public abstract class Pattern extends Feature
 		super.initialize(type, name);
 		initialize();
 
-		for(final Field<?> source : sourceFieldMapWhileRegistration.keySet())
+		for(final Field<?> source : sourceFieldMapGather.keySet())
 		{
 			if(!source.isInitialized())
-				source.initialize(type, name + sourceFieldMapWhileRegistration.get(source));
+				source.initialize(type, name + sourceFieldMapGather.get(source));
 			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
 				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
 		}
-		this.sourceFieldMap = sourceFieldMapWhileRegistration;
-		this.sourceFieldMapWhileRegistration = null;
+		this.sourceFieldMap = sourceFieldMapGather;
+		this.sourceFieldMapGather = null;
 		this.sourceFieldList =
 			sourceFieldMap.isEmpty()
 			? Collections.<Field>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(sourceFieldMap.keySet().toArray(new Field[sourceFieldMap.size()])));
-		this.sourceTypesWhileRegistration.trimToSize();
-		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileRegistration);
-		this.sourceTypesWhileRegistration = null;
+		this.sourceTypesWhileGather.trimToSize();
+		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
+		this.sourceTypesWhileGather = null;
 	}
 	
 	protected final void registerSource(final Field field, final String postfix)
@@ -92,12 +92,12 @@ public abstract class Pattern extends Feature
 			throw new NullPointerException("postfix must not be null");
 		if(field==null)
 			throw new NullPointerException("field must not be null for postfix '" + postfix + '\'');
-		if(sourceFieldMapWhileRegistration==null)
+		if(sourceFieldMapGather==null)
 			throw new IllegalStateException("registerSource can be called only until initialize() is called, not afterwards");
 		assert sourceFieldMap== null;
 		assert sourceFieldList==null;
 		field.registerPattern(this);
-		final String collision = sourceFieldMapWhileRegistration.put(field, postfix);
+		final String collision = sourceFieldMapGather.put(field, postfix);
 		if(collision!=null)
 			throw new IllegalStateException("duplicate source registration " + field + '/' + collision);
 	}
@@ -124,12 +124,12 @@ public abstract class Pattern extends Feature
 	
 	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
-		if(sourceTypesWhileRegistration==null)
+		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newType can be called only until initialize() is called, not afterwards");
 		assert sourceTypes==null;
 		final String id = getType().getID() + '.' + getName() + postfix;
 		final Type<X> result = new Type<X>(javaClass, false, id, this, features);
-		sourceTypesWhileRegistration.add(result);
+		sourceTypesWhileGather.add(result);
 		return result;
 	}
 
@@ -141,7 +141,7 @@ public abstract class Pattern extends Feature
 		if(sourceFieldMap==null)
 			throw new IllegalStateException("getSourceFields can be called only after initialize() is called");
 		assert sourceFieldList!=null;
-		assert sourceFieldMapWhileRegistration==null;
+		assert sourceFieldMapGather==null;
 		return sourceFieldList;
 	}
 
@@ -152,7 +152,7 @@ public abstract class Pattern extends Feature
 	{
 		if(sourceTypes==null)
 			throw new IllegalStateException("getSourceTypes can be called only after initialize() is called");
-		assert sourceTypesWhileRegistration==null;
+		assert sourceTypesWhileGather==null;
 		return sourceTypes;
 	}
 	
