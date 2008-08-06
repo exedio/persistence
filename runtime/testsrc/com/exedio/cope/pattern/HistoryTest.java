@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.History.Feature;
+import java.util.List;
 
 public class HistoryTest extends AbstractRuntimeTest
 {
@@ -63,6 +64,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(HistoryItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(null, item.TYPE.getPattern());
+		assertEqualsUnmodifiable(list(HistoryItem.audit.eventType, HistoryItem.audit.featureType), HistoryItem.audit.getGeneratedTypes());
 
 		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
@@ -73,6 +75,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(
 				eventType.getThis(),
 				item.auditEventParent(),
+				item.audit.getEventEvents(),
 				item.audit.getEventDate(),
 				item.audit.getEventAuthor(),
 				item.audit.getEventNew()
@@ -80,6 +83,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(
 				featureType.getThis(),
 				item.audit.getFeatureEvent(),
+				item.audit.getFeatureFeatures(),
 				item.audit.getFeatureId(),
 				item.audit.getFeatureUniqueConstraint(),
 				item.audit.getFeatureName(),
@@ -148,6 +152,17 @@ public class HistoryTest extends AbstractRuntimeTest
 		
 		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
 		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));
+		
+		List<PartOf> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
+		assertEquals(1, historyPartOfs.size());
+		PartOf eventPartOf = historyPartOfs.get(0);
+		assertSame(eventType, eventPartOf.getType());
+		assertEquals(list(eventPartOf), PartOf.getPartOfs(HistoryItem.audit));
+		List<PartOf> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
+		assertEquals(1, eventPartOfs.size());
+		PartOf featurePartOf = eventPartOfs.get(0);
+		assertSame(featureType, featurePartOf.getType());
+		assertEquals(list(), PartOf.getPartOfs(eventPartOf));
 		
 		// test persistence
 		assertEquals(list(), item.getAuditEvents());

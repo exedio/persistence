@@ -42,12 +42,14 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 public final class History extends Pattern
 {
 	ItemField<?> eventParent = null;
+	PartOf<?> eventEvents = null;
 	final DateField eventDate = new DateField().toFinal().defaultToNow();
 	final StringField eventAuthor = new StringField().toFinal();
 	final BooleanField eventNew = new BooleanField().toFinal();
 	Type<Event> eventType = null;
 	
 	ItemField<Event> featureEvent = null;
+	PartOf<?> featureFeatures = null;
 	final StringField featureId = new StringField().toFinal();
 	private UniqueConstraint featureUnique = null;
 	final StringField featureName = new StringField().toFinal();
@@ -61,8 +63,10 @@ public final class History extends Pattern
 		final Type<?> type = getType();
 		
 		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		eventEvents = PartOf.newPartOf(eventParent);
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("parent", eventParent);
+		features.put("events", eventEvents);
 		features.put("date", eventDate);
 		features.put("author", eventAuthor);
 		features.put("new", eventNew);
@@ -70,8 +74,10 @@ public final class History extends Pattern
 		
 		features.clear();
 		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		featureFeatures = PartOf.newPartOf(featureEvent);
 		featureUnique = new UniqueConstraint(featureEvent, featureId);
 		features.put("event", featureEvent);
+		features.put("features", featureFeatures);
 		features.put("id", featureId);
 		features.put("uniqueConstraint", featureUnique);
 		features.put("name", featureName);
@@ -85,6 +91,11 @@ public final class History extends Pattern
 		assert eventParent!=null;
 		return eventParent.as(parentClass);
 	}
+	
+	public PartOf getEventEvents()
+	{
+		return eventEvents;
+	}	
 	
 	public DateField getEventDate()
 	{
@@ -130,6 +141,11 @@ public final class History extends Pattern
 		assert featureEvent!=null;
 		return featureEvent;
 	}
+	
+	public PartOf getFeatureFeatures()
+	{
+		return featureFeatures;
+	}	
 	
 	public StringField getFeatureId()
 	{

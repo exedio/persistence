@@ -131,4 +131,21 @@ public final class PartOf<C extends Item> extends Pattern
 			return result;
 		}
 	}
+	
+	/**
+	 * Returns all partofs of the <tt>pattern</tt>.
+	 */
+	public static final List<PartOf> getPartOfs(final Pattern pattern)
+	{
+		final ArrayList<PartOf> result = new ArrayList<PartOf>();
+		for(PartOf partOf : PartOf.getPartOfs(pattern.getType()))
+		{			
+			if(pattern.getGeneratedTypes().contains(partOf.getType()))
+			{
+				result.add(partOf);
+			}
+		}
+		return result;
+	}	
+	
 }

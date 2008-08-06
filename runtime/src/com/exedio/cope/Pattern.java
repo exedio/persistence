@@ -110,6 +110,11 @@ public abstract class Pattern extends Feature
 		return sourceList;
 	}
 	
+	public List<Type<? extends Item>> getGeneratedTypes()
+	{
+		return Collections.unmodifiableList(generatedTypes);
+	}
+	
 	/**
 	 * Here you can do additional initialization not yet done in the constructor.
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
