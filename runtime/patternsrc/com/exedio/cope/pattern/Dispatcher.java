@@ -95,7 +95,7 @@ public final class Dispatcher extends Pattern
 		features.put("date", failureDate);
 		features.put("elapsed", failureElapsed);
 		features.put("cause", failureCause);
-		failureType = newType(Failure.class, features, "Failure");
+		failureType = newSourceType(Failure.class, features, "Failure");
 	}
 	
 	public int getFailureLimit()

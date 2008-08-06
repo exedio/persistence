@@ -75,7 +75,7 @@ public final class ListField<E> extends Pattern
 		features.put("order", order);
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
-		this.relationType = newType(PatternItem.class, features);
+		this.relationType = newSourceType(PatternItem.class, features);
 	}
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)

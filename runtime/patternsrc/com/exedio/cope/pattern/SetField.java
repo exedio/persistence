@@ -74,7 +74,7 @@ public final class SetField<E> extends Pattern
 		features.put("parent", parent);
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueConstraint);
-		this.relationType = newType(PatternItem.class, features);
+		this.relationType = newSourceType(PatternItem.class, features);
 	}
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)

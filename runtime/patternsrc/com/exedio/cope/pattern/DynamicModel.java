@@ -146,7 +146,7 @@ public final class DynamicModel<L> extends Pattern
 	{
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("code", typeCode);
-		typeType = newType(PatternItem.class, features, "Type");
+		typeType = newSourceType(PatternItem.class, features, "Type");
 		typeLocalization = new Localization(typeType, localeTemplate, "Type");
 		
 		features.clear();
@@ -159,7 +159,7 @@ public final class DynamicModel<L> extends Pattern
 		features.put("uniqueConstraintPerValueType", new UniqueConstraint(fieldParent, fieldValueType, fieldPositionPerValueType));
 		features.put("code", fieldCode);
 		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
-		fieldType = newType(PatternItem.class, features, "Field");
+		fieldType = newSourceType(PatternItem.class, features, "Field");
 		fieldLocalization = new Localization(fieldType, localeTemplate, "Field");
 		
 		if(enums.length>0)
@@ -171,7 +171,7 @@ public final class DynamicModel<L> extends Pattern
 			features.put("uniquePosition", new UniqueConstraint(enumParent, enumPosition));
 			features.put("code", enumCode);
 			features.put("uniqueCode", new UniqueConstraint(enumParent, enumCode));
-			enumType = newType(PatternItem.class, features, "Enum");
+			enumType = newSourceType(PatternItem.class, features, "Enum");
 			enumLocalization = new Localization(enumType, localeTemplate, "Enum");
 			
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
@@ -699,7 +699,7 @@ public final class DynamicModel<L> extends Pattern
 	// just for making newType accessible
 	com.exedio.cope.Type newLocalizationType(final LinkedHashMap<String, com.exedio.cope.Feature> features, final String postfix)
 	{
-		return newType(PatternItem.class, features, postfix);
+		return newSourceType(PatternItem.class, features, postfix);
 	}
 	
 	class Localization

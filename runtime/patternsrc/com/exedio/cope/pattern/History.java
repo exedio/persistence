@@ -70,7 +70,7 @@ public final class History extends Pattern
 		features.put("date", eventDate);
 		features.put("author", eventAuthor);
 		features.put("new", eventNew);
-		eventType = newType(Event.class, features, "Event");
+		eventType = newSourceType(Event.class, features, "Event");
 		
 		features.clear();
 		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
@@ -83,7 +83,7 @@ public final class History extends Pattern
 		features.put("name", featureName);
 		features.put("old", featureOld);
 		features.put("new", featureNew);
-		featureType = newType(Feature.class, features, "Feature");
+		featureType = newSourceType(Feature.class, features, "Feature");
 	}
 	
 	public <P extends Item> ItemField<P> getEventParent(final Class<P> parentClass)

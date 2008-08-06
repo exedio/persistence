@@ -74,7 +74,7 @@ public final class MapField<K,V> extends Pattern
 		relationTypeFeatures.put("key", key);
 		relationTypeFeatures.put("uniqueConstraint", uniqueConstraint);
 		relationTypeFeatures.put("value", value);
-		this.relationType = newType(PatternItem.class, relationTypeFeatures);
+		this.relationType = newSourceType(PatternItem.class, relationTypeFeatures);
 	}
 	
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)

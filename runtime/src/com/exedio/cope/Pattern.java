@@ -92,12 +92,12 @@ public abstract class Pattern extends Feature
 		uniqueConstraint.initialize(getType(), name);
 	}
 	
-	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features)
+	protected final <X extends Item> Type<X> newSourceType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features)
 	{
-		return newType(javaClass, features, "");
+		return newSourceType(javaClass, features, "");
 	}
 	
-	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
+	protected final <X extends Item> Type<X> newSourceType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newType can be called only until initialize() is called, not afterwards");
@@ -167,7 +167,7 @@ public abstract class Pattern extends Feature
 	
 	/**
 	 * Common super class for all wrapper classes backed by a real
-	 * item of a type created by {@link #newType(Class, LinkedHashMap, String)};
+	 * item of a type created by {@link #newSourceType(Class, LinkedHashMap, String)};
 	 * TODO: remove, support custom classes for such types.
 	 */
 	public abstract class BackedItem
@@ -222,5 +222,23 @@ public abstract class Pattern extends Feature
 	public List<Type<? extends Item>> getGeneratedTypes()
 	{
 		return getSourceTypes();
+	}
+	
+	/**
+	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap)} instead
+	 */
+	@Deprecated
+	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features)
+	{
+		return newSourceType(javaClass, features);
+	}
+	
+	/**
+	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap,String)} instead
+	 */
+	@Deprecated
+	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
+	{
+		return newSourceType(javaClass, features, postfix);
 	}
 }
