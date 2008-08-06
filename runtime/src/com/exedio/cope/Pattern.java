@@ -128,6 +128,7 @@ public abstract class Pattern extends Feature
 			sourceFieldMap.isEmpty()
 			? Collections.<Field>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(sourceFieldMap.keySet().toArray(new Field[sourceFieldMap.size()])));
+		
 		this.sourceTypesWhileGather.trimToSize();
 		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
 		this.sourceTypesWhileGather = null;
