@@ -55,10 +55,10 @@ import java.util.List;
 public abstract class Pattern extends Feature
 {
 	private LinkedHashMap<Field, String> sourceMapWhileRegistration = new LinkedHashMap<Field, String>();
-	private LinkedHashMap<Field, String> sourceMap;
-	private List<Field> sourceList;
+	private LinkedHashMap<Field, String> sourceMap = null;
+	private List<Field> sourceList = null;
 	private ArrayList<Type<? extends Item>> generatedTypesWhileRegistration = new ArrayList<Type<? extends Item>>();
-	private List<Type<? extends Item>> generatedTypes;
+	private List<Type<? extends Item>> generatedTypes = null;
 	
 	@Override
 	final void initialize(final Type<? extends Item> type, final String name)
