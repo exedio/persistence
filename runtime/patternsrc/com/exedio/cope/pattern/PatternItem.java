@@ -32,13 +32,13 @@ final class PatternItem extends Item
 {
 	private static final long serialVersionUID = 1l;
 
-	PatternItem(final SetValue[] setValues, final Type<? extends Item> type)
+	PatternItem(final SetValue[] setValues, final Type<?> type)
 	{
 		super(setValues, type);
 		assert type!=null;
 	}
 
-	PatternItem(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
+	PatternItem(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<?> type)
 	{
 		super(reactivationDummy, pk, type);
 	}

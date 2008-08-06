@@ -26,7 +26,7 @@ import com.exedio.cope.instrument.Wrapper;
 
 public abstract class Feature
 {
-	private Type<? extends Item> type;
+	private Type<?> type;
 	private String name;
 	private String id;
 	private java.lang.reflect.Field annotationField = null;
@@ -34,7 +34,7 @@ public abstract class Feature
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void initialize(final Type<? extends Item> type, final String name)
+	void initialize(final Type<?> type, final String name)
 	{
 		if(this.type!=null)
 			throw new IllegalStateException("feature already initialized: " + id);
@@ -57,7 +57,7 @@ public abstract class Feature
 		return type!=null;
 	}
 	
-	public Type<? extends Item> getType()
+	public Type<?> getType()
 	{
 		if(this.type==null)
 			throw new FeatureNotInitializedException();

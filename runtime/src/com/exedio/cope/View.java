@@ -47,7 +47,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	private final List<Function<?>> sourceList;
 	private final String name;
 	final Class<E> valueClass;
-	final Type<? extends Item> sourceType;
+	final Type<?> sourceType;
 
 	public View(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
@@ -56,7 +56,7 @@ public abstract class View<E> extends Feature implements Function<E>
 		this.name = name;
 		this.valueClass = valueClass;
 		
-		Type<? extends Item> sourceType;
+		Type<?> sourceType;
 		try
 		{
 			sourceType = sources[0].getType();
@@ -188,7 +188,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	// second initialization phase ---------------------------------------------------
 
 	@Override
-	final void initialize(final Type<? extends Item> type, final String name)
+	final void initialize(final Type<?> type, final String name)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
@@ -197,7 +197,7 @@ public abstract class View<E> extends Feature implements Function<E>
 	}
 	
 	@Override
-	public final Type<? extends Item> getType()
+	public final Type<?> getType()
 	{
 		return (sourceType!=null) ? sourceType : super.getType();
 	}

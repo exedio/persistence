@@ -557,7 +557,7 @@ public class StringTest extends TestmodelTest
 
 	void assertString(final Item item, final Item item2, final StringField sa)
 	{
-		final Type<? extends Item> type = item.getCopeType();
+		final Type<?> type = item.getCopeType();
 		assertEquals(type, item2.getCopeType());
 
 		final String VALUE = "someString";

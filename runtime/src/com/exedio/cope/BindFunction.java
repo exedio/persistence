@@ -79,7 +79,7 @@ public class BindFunction<E> implements Function<E>
 		bf.appendParameter(function, value);
 	}
 	
-	public final Type<? extends Item> getType()
+	public final Type<?> getType()
 	{
 		return function.getType();
 	}

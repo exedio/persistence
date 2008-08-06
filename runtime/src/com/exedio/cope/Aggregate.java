@@ -53,7 +53,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name;
 	}
 
-	public final Type<? extends Item> getType()
+	public final Type<?> getType()
 	{
 		return source.getType();
 	}

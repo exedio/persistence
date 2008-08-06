@@ -38,7 +38,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
 {
-	private static final HashMap<Class<? extends Item>, Type<? extends Item>> typesByClass = new HashMap<Class<? extends Item>, Type<? extends Item>>();
+	private static final HashMap<Class<? extends Item>, Type<?>> typesByClass = new HashMap<Class<? extends Item>, Type<?>>();
 
 	private final Class<C> javaClass;
 	private final boolean uniqueJavaClass;
@@ -116,7 +116,7 @@ public final class Type<C extends Item>
 	 */
 	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
-		final Type<? extends Item> result = typesByClass.get(javaClass);
+		final Type<?> result = typesByClass.get(javaClass);
 		if(result==null)
 			throw new IllegalArgumentException("there is no type for " + javaClass);
 		return result;
@@ -1006,7 +1006,7 @@ public final class Type<C extends Item>
 		}
 		
 		@Override
-		void initialize(final Type<? extends Item> type, final String name)
+		void initialize(final Type<?> type, final String name)
 		{
 			super.initialize(type, name);
 			assert this.type == type;
