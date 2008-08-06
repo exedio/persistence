@@ -60,32 +60,6 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
-	@Override
-	final void initialize(final Type<? extends Item> type, final String name)
-	{
-		super.initialize(type, name);
-		initialize();
-
-		for(final Field<?> source : sourceFieldMapGather.keySet())
-		{
-			if(!source.isInitialized())
-				source.initialize(type, name + sourceFieldMapGather.get(source));
-			final Type<? extends Item> sourceType = source.getType();
-			//System.out.println("----------check"+source);
-			if(!sourceType.equals(type))
-				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
-		}
-		this.sourceFieldMap = sourceFieldMapGather;
-		this.sourceFieldMapGather = null;
-		this.sourceFieldList =
-			sourceFieldMap.isEmpty()
-			? Collections.<Field>emptyList()
-			: Collections.unmodifiableList(Arrays.asList(sourceFieldMap.keySet().toArray(new Field[sourceFieldMap.size()])));
-		this.sourceTypesWhileGather.trimToSize();
-		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
-		this.sourceTypesWhileGather = null;
-	}
-	
 	protected final void registerSource(final Field field, final String postfix)
 	{
 		if(postfix==null)
@@ -131,6 +105,32 @@ public abstract class Pattern extends Feature
 		final Type<X> result = new Type<X>(javaClass, false, id, this, features);
 		sourceTypesWhileGather.add(result);
 		return result;
+	}
+	
+	@Override
+	final void initialize(final Type<? extends Item> type, final String name)
+	{
+		super.initialize(type, name);
+		initialize();
+
+		for(final Field<?> source : sourceFieldMapGather.keySet())
+		{
+			if(!source.isInitialized())
+				source.initialize(type, name + sourceFieldMapGather.get(source));
+			final Type<? extends Item> sourceType = source.getType();
+			//System.out.println("----------check"+source);
+			if(!sourceType.equals(type))
+				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
+		}
+		this.sourceFieldMap = sourceFieldMapGather;
+		this.sourceFieldMapGather = null;
+		this.sourceFieldList =
+			sourceFieldMap.isEmpty()
+			? Collections.<Field>emptyList()
+			: Collections.unmodifiableList(Arrays.asList(sourceFieldMap.keySet().toArray(new Field[sourceFieldMap.size()])));
+		this.sourceTypesWhileGather.trimToSize();
+		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
+		this.sourceTypesWhileGather = null;
 	}
 
 	/**
