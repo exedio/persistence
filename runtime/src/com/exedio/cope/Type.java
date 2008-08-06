@@ -804,7 +804,7 @@ public final class Type<C extends Item>
 	}
 	
 	/**
-	 * @see Pattern#getGeneratedTypes()
+	 * @see Pattern#getSourceTypes()
 	 */
 	public Pattern getPattern()
 	{

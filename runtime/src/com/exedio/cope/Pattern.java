@@ -155,9 +155,18 @@ public abstract class Pattern extends Feature
 	}
 	
 	/**
+	 * @deprecated Use {@link #getSourceTypes()} instead
+	 */
+	@Deprecated
+	public List<Type<? extends Item>> getGeneratedTypes()
+	{
+		return getSourceTypes();
+	}
+
+	/**
 	 * @see Type#getPattern()
 	 */
-	public List<Type<? extends Item>> getGeneratedTypes()
+	public List<Type<? extends Item>> getSourceTypes()
 	{
 		if(generatedTypes==null)
 			throw new IllegalStateException("getGeneratedTypes can be called only after initialize() is called");

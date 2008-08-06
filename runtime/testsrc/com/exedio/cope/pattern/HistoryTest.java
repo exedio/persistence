@@ -64,7 +64,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(HistoryItem.class, item.TYPE.getJavaClass());
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(null, item.TYPE.getPattern());
-		assertEqualsUnmodifiable(list(HistoryItem.audit.eventType, HistoryItem.audit.featureType), HistoryItem.audit.getGeneratedTypes());
+		assertEqualsUnmodifiable(list(HistoryItem.audit.eventType, HistoryItem.audit.featureType), HistoryItem.audit.getSourceTypes());
 
 		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
