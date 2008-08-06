@@ -47,7 +47,7 @@ public abstract class Item implements Serializable
 {
 	static final char ID_SEPARATOR = '.';
 	
-	transient Type<?> type;
+	transient Type<? extends Item> type;
 
 	/**
 	 * The primary key of the item,
@@ -73,7 +73,7 @@ public abstract class Item implements Serializable
 	 * Returns the type of this item.
 	 * Never returns null.
 	 */
-	public final Type<?> getCopeType()
+	public final Type<? extends Item> getCopeType()
 	{
 		assert type!=null;
 		return type;
@@ -156,7 +156,7 @@ public abstract class Item implements Serializable
 		this(setValues, null);
 	}
 
-	public Item(final SetValue[] setValues, final Type<?> typeWithoutJavaClass)
+	public Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
 	{
 		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
 		this.pk = type.getPkSource().next(type.getModel().getCurrentTransaction().getConnection());
@@ -233,7 +233,7 @@ public abstract class Item implements Serializable
 		this(reactivationDummy, pk, null);
 	}
 
-	protected Item(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<?> typeWithoutJavaClass)
+	protected Item(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> typeWithoutJavaClass)
 	{
 		if(reactivationDummy!=Type.REACTIVATION_DUMMY)
 			throw new RuntimeException("reactivation constructor is for internal purposes only, don't use it in your application!");

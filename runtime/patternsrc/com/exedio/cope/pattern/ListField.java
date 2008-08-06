@@ -99,7 +99,7 @@ public final class ListField<E> extends Pattern
 		return element;
 	}
 
-	public Type<?> getRelationType()
+	public Type<? extends Item> getRelationType()
 	{
 		assert relationType!=null;
 		return relationType;

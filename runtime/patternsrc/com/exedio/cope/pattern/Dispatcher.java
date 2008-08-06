@@ -313,13 +313,13 @@ public final class Dispatcher extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 		
-		Failure(final SetValue[] setValues, final Type<?> type)
+		Failure(final SetValue[] setValues, final Type<? extends Item> type)
 		{
 			super(setValues, type);
 			assert type!=null;
 		}
 
-		Failure(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<?> type)
+		Failure(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
 		{
 			super(reactivationDummy, pk, type);
 		}

@@ -90,7 +90,7 @@ public abstract class FunctionField<E extends Object>
 	}
 	
 	@Override
-	final void initialize(final Type<?> type, final String name)
+	final void initialize(final Type<? extends Item> type, final String name)
 	{
 		super.initialize(type, name);
 		

@@ -42,7 +42,7 @@ final class ItemColumn extends IntegerColumn
 	/**
 	 * Creates a primary key column with a foreign key contraint.
 	 */
-	ItemColumn(final Table table, final Type<?> targetType)
+	ItemColumn(final Table table, final Type<? extends Item> targetType)
 	{
 		super(table);
 		assert targetType!=null;

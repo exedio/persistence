@@ -41,7 +41,7 @@ class ItemCop_Jspm
 	static void writeBody(final PrintStream out, final ItemCop cop)
 	{
 		final Item item = cop.item;
-		final Type<?> type = item.getCopeType();
+		final Type<? extends Item> type = item.getCopeType();
 		final ItemForm form = cop.form;
 		final CopernicaProvider provider = cop.provider;
 		final CopernicaLanguage language = cop.language;

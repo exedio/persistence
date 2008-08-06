@@ -82,11 +82,6 @@ public final class MapField<K,V> extends Pattern
 		return parent.as(parentClass);
 	}
 	
-	public ItemField<?> getParent()
-	{
-		return parent;
-	}
-	
 	public FunctionField<K> getKey()
 	{
 		return key;

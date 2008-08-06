@@ -222,7 +222,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	private Column column;
 	
 	@Override
-	void initialize(final Type<?> type, final String name)
+	void initialize(final Type<? extends Item> type, final String name)
 	{
 		super.initialize(type, name);
 		

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public interface Selectable<E extends Object>
 {
-	Type<?> getType();
+	Type<? extends Item> getType();
 	
 	void toString(StringBuilder bf, Type defaultType);
 

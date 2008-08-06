@@ -36,7 +36,7 @@ final class Table
 	Table(
 			final Database database,
 			final String id,
-			final Type<?> supertype,
+			final Type<? extends Item> supertype,
 			final String[] typesOfInstancesColumnValues)
 	{
 		this.database = database;

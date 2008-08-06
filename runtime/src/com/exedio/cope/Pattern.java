@@ -57,10 +57,10 @@ public abstract class Pattern extends Feature
 	private LinkedHashMap<Field, String> sourceMapWhileRegistration = new LinkedHashMap<Field, String>();
 	private LinkedHashMap<Field, String> sourceMap;
 	private List<Field> sourceList;
-	final ArrayList<Type<?>> generatedTypes = new ArrayList<Type<?>>();
+	final ArrayList<Type<? extends Item>> generatedTypes = new ArrayList<Type<? extends Item>>();
 	
 	@Override
-	final void initialize(final Type<?> type, final String name)
+	final void initialize(final Type<? extends Item> type, final String name)
 	{
 		super.initialize(type, name);
 		initialize();
@@ -69,7 +69,7 @@ public abstract class Pattern extends Feature
 		{
 			if(!source.isInitialized())
 				source.initialize(type, name + sourceMapWhileRegistration.get(source));
-			final Type<?> sourceType = source.getType();
+			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
 				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
@@ -140,7 +140,7 @@ public abstract class Pattern extends Feature
 	
 	// Make non-final method from super class final
 	@Override
-	public final Type<?> getType()
+	public final Type<? extends Item> getType()
 	{
 		return super.getType();
 	}

@@ -213,13 +213,13 @@ public final class History extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
-		Event(final SetValue[] setValues, final Type<?> type)
+		Event(final SetValue[] setValues, final Type<? extends Item> type)
 		{
 			super(setValues, type);
 			assert type!=null;
 		}
 
-		Event(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<?> type)
+		Event(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
 		{
 			super(reactivationDummy, pk, type);
 		}
@@ -290,13 +290,13 @@ public final class History extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
-		Feature(final SetValue[] setValues, final Type<?> type)
+		Feature(final SetValue[] setValues, final Type<? extends Item> type)
 		{
 			super(setValues, type);
 			assert type!=null;
 		}
 
-		Feature(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<?> type)
+		Feature(final ReactivationConstructorDummy reactivationDummy, final int pk, final Type<? extends Item> type)
 		{
 			super(reactivationDummy, pk, type);
 		}
