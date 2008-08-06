@@ -57,8 +57,8 @@ public abstract class Pattern extends Feature
 	private LinkedHashMap<Field, String> sourceMapWhileRegistration = new LinkedHashMap<Field, String>();
 	private LinkedHashMap<Field, String> sourceMap = null;
 	private List<Field> sourceList = null;
-	private ArrayList<Type<? extends Item>> generatedTypesWhileRegistration = new ArrayList<Type<? extends Item>>();
-	private List<Type<? extends Item>> generatedTypes = null;
+	private ArrayList<Type<? extends Item>> sourceTypesWhileRegistration = new ArrayList<Type<? extends Item>>();
+	private List<Type<? extends Item>> sourceTypes = null;
 	
 	@Override
 	final void initialize(final Type<? extends Item> type, final String name)
@@ -81,9 +81,9 @@ public abstract class Pattern extends Feature
 			sourceMap.isEmpty()
 			? Collections.<Field>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(sourceMap.keySet().toArray(new Field[sourceMap.size()])));
-		this.generatedTypesWhileRegistration.trimToSize();
-		this.generatedTypes = Collections.unmodifiableList(generatedTypesWhileRegistration);
-		this.generatedTypesWhileRegistration = null;
+		this.sourceTypesWhileRegistration.trimToSize();
+		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileRegistration);
+		this.sourceTypesWhileRegistration = null;
 	}
 	
 	protected final void registerSource(final Field field, final String postfix)
@@ -124,12 +124,12 @@ public abstract class Pattern extends Feature
 	
 	protected final <X extends Item> Type<X> newType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
-		if(generatedTypesWhileRegistration==null)
+		if(sourceTypesWhileRegistration==null)
 			throw new IllegalStateException("newType can be called only until initialize() is called, not afterwards");
-		assert generatedTypes==null;
+		assert sourceTypes==null;
 		final String id = getType().getID() + '.' + getName() + postfix;
 		final Type<X> result = new Type<X>(javaClass, false, id, this, features);
-		generatedTypesWhileRegistration.add(result);
+		sourceTypesWhileRegistration.add(result);
 		return result;
 	}
 
@@ -150,10 +150,10 @@ public abstract class Pattern extends Feature
 	 */
 	public List<Type<? extends Item>> getSourceTypes()
 	{
-		if(generatedTypes==null)
+		if(sourceTypes==null)
 			throw new IllegalStateException("getSourceTypes can be called only after initialize() is called");
-		assert generatedTypesWhileRegistration==null;
-		return generatedTypes;
+		assert sourceTypesWhileRegistration==null;
+		return sourceTypes;
 	}
 	
 	// Make non-final method from super class final
