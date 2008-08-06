@@ -111,8 +111,18 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		return result;
 	}
 	
+	/**
+	 * @deprecated Use {@link #getSourceFields()} instead
+	 */
+	@Deprecated
 	@Override
 	public List<FunctionField<E>> getSources()
+	{
+		return getSourceFields();
+	}
+
+	@Override
+	public List<FunctionField<E>> getSourceFields()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
 	}

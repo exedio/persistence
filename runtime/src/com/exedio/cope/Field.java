@@ -205,7 +205,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 	
 	/**
-	 * @see Pattern#getSources()
+	 * @see Pattern#getSourceFields()
 	 */
 	public List<Pattern> getPatterns()
 	{

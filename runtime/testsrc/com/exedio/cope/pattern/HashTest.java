@@ -59,7 +59,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals("explicitExternal", item.explicitExternal.getName());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
 		assertEqualsUnmodifiable(list(item.explicitExternal), item.explicitExternalWrap.getPatterns());
-		assertEqualsUnmodifiable(list(item.explicitExternalWrap), item.explicitExternal.getSources());
+		assertEqualsUnmodifiable(list(item.explicitExternalWrap), item.explicitExternal.getSourceFields());
 		assertEquals(false, item.explicitExternalWrap.isInitial());
 		assertEquals(false, item.explicitExternalWrap.isFinal());
 		assertContains(StringLengthViolationException.class, item.explicitExternalWrap.getInitialExceptions());
@@ -101,7 +101,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
 		assertEquals("implicitExternalHash", item.implicitExternal.getStorage().getName());
 		assertEqualsUnmodifiable(list(item.implicitExternal), item.implicitExternal.getStorage().getPatterns());
-		assertEqualsUnmodifiable(list(item.implicitExternal.getStorage()), item.implicitExternal.getSources());
+		assertEqualsUnmodifiable(list(item.implicitExternal.getStorage()), item.implicitExternal.getSourceFields());
 		assertEquals(false, item.implicitExternal.isInitial());
 		assertEquals(false, item.implicitExternal.isFinal());
 		assertContains(StringLengthViolationException.class, item.implicitExternal.getInitialExceptions());
@@ -125,7 +125,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
 		assertEquals("internalHash", item.internal.getStorage().getName());
 		assertEqualsUnmodifiable(list(item.internal), item.internal.getStorage().getPatterns());
-		assertEqualsUnmodifiable(list(item.internal.getStorage()), item.internal.getSources());
+		assertEqualsUnmodifiable(list(item.internal.getStorage()), item.internal.getSourceFields());
 		assertEquals(false, item.internal.isInitial());
 		assertEquals(false, item.internal.isFinal());
 		assertContains(StringLengthViolationException.class, item.internal.getInitialExceptions());

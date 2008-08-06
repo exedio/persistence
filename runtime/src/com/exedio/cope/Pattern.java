@@ -134,9 +134,18 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
+	 * @deprecated Use {@link #getSourceFields()} instead
+	 */
+	@Deprecated
+	public List<? extends Field> getSources()
+	{
+		return getSourceFields();
+	}
+
+	/**
 	 * @see Field#getPatterns()
 	 */
-	public List<? extends Field> getSources()
+	public List<? extends Field> getSourceFields()
 	{
 		if(sourceMap==null)
 			throw new IllegalStateException("getSources can be called only after initialize() is called");

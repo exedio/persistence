@@ -139,8 +139,8 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertTrue(!item.TYPE.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(item.TYPE));
 		
-		assertEqualsUnmodifiable(list(), item.strings.getSources());
-		assertEqualsUnmodifiable(list(), item.dates.getSources());
+		assertEqualsUnmodifiable(list(), item.strings.getSourceFields());
+		assertEqualsUnmodifiable(list(), item.dates.getSourceFields());
 		
 		try
 		{
