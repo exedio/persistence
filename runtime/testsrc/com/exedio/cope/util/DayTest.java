@@ -82,6 +82,9 @@ public class DayTest extends CopeAssert
 		{
 			assertEquals("day must be in range 1..31, but was: 32", e.getMessage());
 		}
+		assertEquals(2005, new Day(2005, 2, 31).getYear()); // TODO this is not ok
+		assertEquals(2,    new Day(2005, 2, 31).getMonth());
+		assertEquals(31,   new Day(2005, 2, 31).getDay());
 
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
