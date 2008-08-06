@@ -57,6 +57,7 @@ public abstract class Pattern extends Feature
 	private LinkedHashMap<Field, String> sourceFieldMapGather = new LinkedHashMap<Field, String>();
 	private LinkedHashMap<Field, String> sourceFieldMap = null;
 	private List<Field> sourceFieldList = null;
+	
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
