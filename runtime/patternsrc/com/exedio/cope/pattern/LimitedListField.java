@@ -110,16 +110,6 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 
 		return result;
 	}
-	
-	/**
-	 * @deprecated Use {@link #getSourceFields()} instead
-	 */
-	@Deprecated
-	@Override
-	public List<FunctionField<E>> getSources()
-	{
-		return getSourceFields();
-	}
 
 	@Override
 	public List<FunctionField<E>> getSourceFields()
@@ -272,5 +262,17 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 			conditions[i] = sources[i].equal(value);
 
 		return Cope.or(conditions);
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #getSourceFields()} instead
+	 */
+	@Deprecated
+	@Override
+	public List<FunctionField<E>> getSources()
+	{
+		return getSourceFields();
 	}
 }

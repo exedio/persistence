@@ -134,15 +134,6 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @deprecated Use {@link #getSourceFields()} instead
-	 */
-	@Deprecated
-	public List<? extends Field> getSources()
-	{
-		return getSourceFields();
-	}
-
-	/**
 	 * @see Field#getPatterns()
 	 */
 	public List<? extends Field> getSourceFields()
@@ -152,15 +143,6 @@ public abstract class Pattern extends Feature
 		assert sourceList!=null;
 		assert sourceMapWhileRegistration==null;
 		return sourceList;
-	}
-	
-	/**
-	 * @deprecated Use {@link #getSourceTypes()} instead
-	 */
-	@Deprecated
-	public List<Type<? extends Item>> getGeneratedTypes()
-	{
-		return getSourceTypes();
 	}
 
 	/**
@@ -218,5 +200,25 @@ public abstract class Pattern extends Feature
 		{
 			return backingItem.toString();
 		}
+	}
+	
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getSourceFields()} instead
+	 */
+	@Deprecated
+	public List<? extends Field> getSources()
+	{
+		return getSourceFields();
+	}
+	
+	/**
+	 * @deprecated Use {@link #getSourceTypes()} instead
+	 */
+	@Deprecated
+	public List<Type<? extends Item>> getGeneratedTypes()
+	{
+		return getSourceTypes();
 	}
 }
