@@ -54,7 +54,7 @@ public final class LimitedListField<E> extends Pattern implements Settable<Colle
 		int i = 0;
 		for(FunctionField<E> source : sources)
 		{
-			registerSource(source, String.valueOf(i++));
+			addSource(source, String.valueOf(i++));
 			initial = initial || source.isInitial();
 			isFinal = isFinal || source.isFinal();
 		}

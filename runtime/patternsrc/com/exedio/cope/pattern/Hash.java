@@ -47,7 +47,7 @@ public abstract class Hash extends Pattern implements Settable<String>
 		if(storage==null)
 			throw new NullPointerException("hash storage must not be null");
 
-		registerSource(this.storage = storage, "Hash");
+		addSource(this.storage = storage, "Hash");
 	}
 	
 	public Hash()

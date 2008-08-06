@@ -69,7 +69,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		this.valueClass = valueClass;
 		this.source = source;
 
-		registerSource(source, "Data");
+		addSource(source, "Data");
 	}
 	
 	/**

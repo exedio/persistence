@@ -40,7 +40,7 @@ final class MediaNameServer extends MediaPath
 	{
 		this.source = source;
 		if(source!=null)
-			registerSource(source, "Source");
+			addSource(source, "Source");
 	}
 	
 	StringField getSource()

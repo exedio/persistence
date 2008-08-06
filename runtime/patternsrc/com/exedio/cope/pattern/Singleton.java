@@ -39,7 +39,7 @@ public final class Singleton extends Pattern
 	
 	public Singleton()
 	{
-		registerSource(source, "Once");
+		addSource(source, "Once");
 	}
 	
 	public IntegerField getSource()

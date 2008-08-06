@@ -62,12 +62,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private Media(final boolean optional, final long bodyMaximumLength, final ContentType contentType)
 	{
 		this.optional = optional;
-		registerSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "Body");
+		addSource(this.body = optional(new DataField(), optional).lengthMax(bodyMaximumLength), "Body");
 		this.contentType = contentType;
 		final FunctionField contentTypeField = contentType.field;
 		if(contentTypeField!=null)
-			registerSource(contentTypeField, contentType.name);
-		registerSource(this.lastModified = optional(new DateField(), optional), "LastModified");
+			addSource(contentTypeField, contentType.name);
+		addSource(this.lastModified = optional(new DateField(), optional), "LastModified");
 		
 		assert optional == !body.isMandatory();
 		assert (contentTypeField==null) || (optional == !contentTypeField.isMandatory());

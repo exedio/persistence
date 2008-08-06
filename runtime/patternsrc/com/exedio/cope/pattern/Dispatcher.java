@@ -73,9 +73,9 @@ public final class Dispatcher extends Pattern
 		if(searchSize<1)
 			throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + ".");
 		
-		registerSource(pending, "Pending");
-		registerSource(successDate, "SuccessDate");
-		registerSource(successElapsed, "SuccessElapsed");
+		addSource(pending, "Pending");
+		addSource(successDate, "SuccessDate");
+		addSource(successElapsed, "SuccessElapsed");
 	}
 	
 	@Override

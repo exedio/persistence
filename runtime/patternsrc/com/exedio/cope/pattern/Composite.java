@@ -102,7 +102,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 		{
 			final FunctionField template = e.getValue();
 			final FunctionField component = copy(template);
-			registerSource(component, toCamelCase(e.getKey()));
+			addSource(component, toCamelCase(e.getKey()));
 			templateToComponent.put(template, component);
 		}
 		this.templateToComponent = templateToComponent;

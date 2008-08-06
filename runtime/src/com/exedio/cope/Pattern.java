@@ -61,7 +61,7 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
 	private List<Type<? extends Item>> sourceTypes = null;
 	
-	protected final void registerSource(final Field field, final String postfix)
+	protected final void addSource(final Field field, final String postfix)
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix must not be null");
@@ -224,6 +224,15 @@ public abstract class Pattern extends Feature
 		return getSourceTypes();
 	}
 	
+	/**
+	 * @deprecated Use {@link #addSource(Field,String)} instead
+	 */
+	@Deprecated
+	protected final void registerSource(final Field field, final String postfix)
+	{
+		addSource(field, postfix);
+	}
+
 	/**
 	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap)} instead
 	 */

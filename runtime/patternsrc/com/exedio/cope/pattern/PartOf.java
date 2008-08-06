@@ -37,7 +37,7 @@ public final class PartOf<C extends Item> extends Pattern
 	private PartOf(final ItemField<C> container)
 	{
 		this.container = container;
-		registerSource(container, "Container");
+		addSource(container, "Container");
 	}
 	
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
