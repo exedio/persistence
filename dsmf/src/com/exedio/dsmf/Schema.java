@@ -136,6 +136,18 @@ public final class Schema extends Node
 	
 	public final void tearDown(final StatementListener listener)
 	{
+		// IMPLEMENTATION NOTE
+		//
+		// On MySQL its much faster to drop whole tables instead of
+		// foreign key constraints. Therefore we first try to drop as many
+		// tables as possible before dropping foreign key constraints.
+		tearDownTables(listener);
+		tearDownForeignKeys(listener);
+		tearDownTables(listener);
+	}
+	
+	private final void tearDownForeignKeys(final StatementListener listener)
+	{
 		for(final Table table : tableList)
 		{
 			try
@@ -148,7 +160,10 @@ public final class Schema extends Node
 				//System.err.println("failed:"+e2.getMessage());
 			}
 		}
+	}
 		
+	private final void tearDownTables(final StatementListener listener)
+	{
 		final ArrayList<Table> tablesToDelete = new ArrayList<Table>(tableList);
 
 		boolean deleted;
