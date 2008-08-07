@@ -152,7 +152,7 @@ public final class Schema extends Node
 		{
 			try
 			{
-				table.dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
+				table.tearDownConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 			}
 			catch(SQLRuntimeException e2)
 			{
