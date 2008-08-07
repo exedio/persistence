@@ -162,7 +162,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(1, eventPartOfs.size());
 		PartOf featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
-		assertEquals(list(), PartOf.getPartOfs(eventPartOf));
+		assertEquals(list(featurePartOf), PartOf.getPartOfs(eventPartOf));
 		
 		// test persistence
 		assertEquals(list(), item.getAuditEvents());

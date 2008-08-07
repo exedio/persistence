@@ -70,6 +70,7 @@ public class PartOfTest extends AbstractRuntimeTest
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.TYPE));
 		assertEquals(list(PartOfItem.parts), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(PartOfItem.parts), PartOf.getPartOfs(PartOfContainerItem.TYPE));
+		assertEquals(list(), PartOf.getPartOfs(PartOfItem.parts));
 
 		try
 		{
