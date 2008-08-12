@@ -135,5 +135,4 @@ public final class Day // TODO implement Comparable
 	{
 		return String.valueOf(year) + '/' + month + '/' + day;
 	}
-	
 }
