@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Set;
 
+import com.exedio.cope.util.CharacterSet;
+
 /**
  * Represents a field within a {@link Type type},
  * that enables instances of that type to store a string.
@@ -30,16 +32,18 @@ public final class StringField extends FunctionField<String> implements StringFu
 {
 	private final int minimumLength;
 	private final int maximumLength;
+	private final CharacterSet characterSet;
 	
 	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
-			final int minimumLength, final int maximumLength)
+			final int minimumLength, final int maximumLength, final CharacterSet characterSet)
 	{
 		super(isfinal, optional, unique, String.class, defaultConstant);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
+		this.characterSet = characterSet;
 
 		if(minimumLength<0)
 			throw new IllegalArgumentException("mimimum length must be positive, but was " + minimumLength + '.');
@@ -56,56 +60,61 @@ public final class StringField extends FunctionField<String> implements StringFu
 	 */
 	public StringField()
 	{
-		this(false, false, false, null, 0, DEFAULT_LENGTH);
+		this(false, false, false, null, 0, DEFAULT_LENGTH, null);
 	}
 	
 	@Override
 	public StringField copy()
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
 	
 	@Override
 	public StringField toFinal()
 	{
-		return new StringField(true, optional, unique, defaultConstant, minimumLength, maximumLength);
+		return new StringField(true, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
 	
 	@Override
 	public StringField optional()
 	{
-		return new StringField(isfinal, true, unique, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, true, unique, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
 	
 	@Override
 	public StringField unique()
 	{
-		return new StringField(isfinal, optional, true, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, true, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
 	
 	public StringField defaultTo(final String defaultConstant)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
 	
 	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
 	
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH, characterSet);
 	}
 	
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength, characterSet);
 	}
 	
 	public StringField lengthExact(final int exactLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength);
+		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength, characterSet);
+	}
+	
+	public StringField characterSet(final CharacterSet characterSet)
+	{
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
 	
 	public final int getMinimumLength()
@@ -118,11 +127,18 @@ public final class StringField extends FunctionField<String> implements StringFu
 		return maximumLength;
 	}
 	
+	public final CharacterSet getCharacterSet()
+	{
+		return characterSet;
+	}
+	
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		result.add(StringLengthViolationException.class);
+		if(characterSet!=null)
+			result.add(StringCharacterSetViolationException.class);
 		return result;
 	}
 	
@@ -160,7 +176,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Override
 	void checkNotNullValue(final String value, final Item exceptionItem)
 		throws
-			StringLengthViolationException
+			StringLengthViolationException, StringCharacterSetViolationException
 	{
 		if(convertEmptyStrings && value.length()==0 && !optional)
 			throw new MandatoryViolationException(this, exceptionItem);
@@ -170,6 +186,12 @@ public final class StringField extends FunctionField<String> implements StringFu
 			throw new StringLengthViolationException(this, exceptionItem, value, true, minimumLength);
 		if(length>maximumLength)
 			throw new StringLengthViolationException(this, exceptionItem, value, false, maximumLength);
+		if(characterSet!=null)
+		{
+			for(int i = 0; i<length; i++)
+				if(!characterSet.contains(value.charAt(i)))
+					throw new StringCharacterSetViolationException(this, exceptionItem, value, value.charAt(i), i);
+		}
 	}
 	
 	// convenience methods for conditions and views ---------------------------------
@@ -243,7 +265,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Deprecated
 	public StringField(final Option option)
 	{
-		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH);
+		this(option.isFinal, option.optional, option.unique, null, 0, DEFAULT_LENGTH, null);
 	}
 	
 	/**
@@ -252,7 +274,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Deprecated
 	public StringField(final Option option, final int minimumLength)
 	{
-		this(option.isFinal, option.optional, option.unique, null, minimumLength, DEFAULT_LENGTH);
+		this(option.isFinal, option.optional, option.unique, null, minimumLength, DEFAULT_LENGTH, null);
 	}
 	
 	/**
@@ -261,7 +283,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Deprecated
 	public StringField(final Option option, final int minimumLength, final int maximumLength)
 	{
-		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength);
+		this(option.isFinal, option.optional, option.unique, null, minimumLength, maximumLength, null);
 	}
 	
 	/**

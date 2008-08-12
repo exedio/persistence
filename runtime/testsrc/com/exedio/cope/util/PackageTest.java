@@ -29,6 +29,7 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(ConnectTokenTest.class);
 		suite.addTestSuite(DayTest.class);
+		suite.addTestSuite(CharacterSetTest.class);
 		suite.addTestSuite(PoolCounterTest.class);
 		suite.addTestSuite(PropertiesTest.class);
 		suite.addTestSuite(ServletUtilTest.class);

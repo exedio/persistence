@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.testmodel.StringItem;
+import com.exedio.cope.util.CharacterSet;
 
 public class StringTest extends TestmodelTest
 {
@@ -52,6 +53,7 @@ public class StringTest extends TestmodelTest
 		assertEqualsUnmodifiable(list(), item.any.getPatterns());
 		assertEquals(0, item.any.getMinimumLength());
 		assertEquals(StringField.DEFAULT_LENGTH, item.any.getMaximumLength());
+		assertEquals(null, item.any.getCharacterSet());
 
 		assertEquals(item.TYPE, item.mandatory.getType());
 		assertEquals("mandatory", item.mandatory.getName());
@@ -62,12 +64,19 @@ public class StringTest extends TestmodelTest
 
 		assertEquals(0, item.max4.getMinimumLength());
 		assertEquals(4, item.max4.getMaximumLength());
+		assertEquals(null, item.max4.getCharacterSet());
 
 		assertEquals(4, item.min4Max8.getMinimumLength());
 		assertEquals(8, item.min4Max8.getMaximumLength());
+		assertEquals(null, item.min4Max8.getCharacterSet());
 		
 		assertEquals(6, item.exact6.getMinimumLength());
 		assertEquals(6, item.exact6.getMaximumLength());
+		assertEquals(null, item.exact6.getCharacterSet());
+		
+		assertEquals(0, item.lowercase.getMinimumLength());
+		assertEquals(StringField.DEFAULT_LENGTH, item.lowercase.getMaximumLength());
+		assertEquals(new CharacterSet('a', 'z'), item.lowercase.getCharacterSet());
 		
 		assertEquals(item.TYPE, item.min4Upper.getType());
 		assertEquals("min4Upper", item.min4Upper.getName());
@@ -503,6 +512,33 @@ public class StringTest extends TestmodelTest
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		
+		// lowercase
+		try
+		{
+			item.setLowercase("abcABC");
+			fail();
+		}
+		catch(StringCharacterSetViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(item.lowercase, e.getFeature());
+			assertEquals("abcABC", e.getValue());
+			assertEquals('A', e.getCharacter());
+			assertEquals(3, e.getPosition());
+			assertEquals(
+					"character set violation on " + item + ", " +
+					"'abcABC' for " + item.lowercase + ", " +
+					"contains forbidden character 'A' on position 3.",
+					e.getMessage());
+		}
+		assertEquals(null, item.getLowercase());
+		restartTransaction();
+		assertEquals(null, item.getLowercase());
+		item.setLowercase("abcdef");
+		assertEquals("abcdef", item.getLowercase());
+		restartTransaction();
+		assertEquals("abcdef", item.getLowercase());
 		
 		model.checkUnsupportedConstraints();
 	}
