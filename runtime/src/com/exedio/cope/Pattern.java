@@ -87,11 +87,6 @@ public abstract class Pattern extends Feature
 		// empty default implementation
 	}
 	
-	protected final void initialize(final UniqueConstraint uniqueConstraint, final String name)
-	{
-		uniqueConstraint.initialize(getType(), name);
-	}
-	
 	protected final <X extends Item> Type<X> newSourceType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features)
 	{
 		return newSourceType(javaClass, features, "");
