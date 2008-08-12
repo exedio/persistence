@@ -134,7 +134,7 @@ public final class PartOf<C extends Item> extends Pattern
 	
 	/**
 	 * Returns all partofs of the <tt>pattern</tt>. Considers a one step recursion
-	 * for {@see History}. 
+	 * for {@link History}. 
 	 */
 	public static final List<PartOf> getPartOfs(final Pattern pattern)
 	{
