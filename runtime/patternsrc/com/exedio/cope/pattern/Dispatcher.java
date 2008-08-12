@@ -79,7 +79,7 @@ public final class Dispatcher extends Pattern
 	}
 	
 	@Override
-	public void initialize()
+	protected void initialize()
 	{
 		final Type<?> type = getType();
 		if(!Dispatchable.class.isAssignableFrom(type.getJavaClass()))

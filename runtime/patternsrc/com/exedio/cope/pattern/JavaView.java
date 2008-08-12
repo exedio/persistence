@@ -31,7 +31,7 @@ public final class JavaView extends Pattern
 	private java.lang.reflect.Type valueGenericType;
 	
 	@Override
-	public void initialize()
+	protected void initialize()
 	{
 		final String name = getName();
 		

@@ -58,7 +58,7 @@ public final class History extends Pattern
 	Type<Feature> featureType = null;
 
 	@Override
-	public void initialize()
+	protected void initialize()
 	{
 		final Type<?> type = getType();
 		

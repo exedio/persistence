@@ -82,7 +82,7 @@ public abstract class Pattern extends Feature
 	 * In this method you can call methods {@link #getType()} and {@link #getName()}
 	 * for the first time.
 	 */
-	public void initialize()
+	protected void initialize()
 	{
 		// empty default implementation
 	}

@@ -142,7 +142,7 @@ public final class DynamicModel<L> extends Pattern
 	}
 	
 	@Override
-	public void initialize()
+	protected void initialize()
 	{
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("code", typeCode);

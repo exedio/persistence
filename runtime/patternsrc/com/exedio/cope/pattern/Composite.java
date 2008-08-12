@@ -93,7 +93,7 @@ public final class Composite<E extends Composite.Value> extends Pattern implemen
 	}
 	
 	@Override
-	public void initialize()
+	protected void initialize()
 	{
 		final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
 			new LinkedHashMap<FunctionField, FunctionField>();
