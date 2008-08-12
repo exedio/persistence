@@ -68,13 +68,13 @@ public abstract class Pattern extends Feature
 		if(field==null)
 			throw new NullPointerException("field must not be null for postfix '" + postfix + '\'');
 		if(sourceFieldMapGather==null)
-			throw new IllegalStateException("registerSource can be called only until initialize() is called, not afterwards");
+			throw new IllegalStateException("addSource can be called only until initialize() is called, not afterwards");
 		assert sourceFieldMap== null;
 		assert sourceFieldList==null;
 		field.registerPattern(this);
 		final String collision = sourceFieldMapGather.put(field, postfix);
 		if(collision!=null)
-			throw new IllegalStateException("duplicate source registration " + field + '/' + collision);
+			throw new IllegalStateException("duplicate addSource " + field + '/' + collision);
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public abstract class Pattern extends Feature
 	protected final <X extends Item> Type<X> newSourceType(final Class<X> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
 	{
 		if(sourceTypesWhileGather==null)
-			throw new IllegalStateException("newType can be called only until initialize() is called, not afterwards");
+			throw new IllegalStateException("newSourceType can be called only until initialize() is called, not afterwards");
 		assert sourceTypes==null;
 		final String id = getType().getID() + '.' + getName() + postfix;
 		final Type<X> result = new Type<X>(javaClass, false, id, this, features);
