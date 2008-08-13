@@ -34,12 +34,12 @@ import java.util.Arrays;
  */
 public final class CharacterSet
 {
-	public static final CharacterSet ALPA = new CharacterSet('A', 'Z', 'a', 'z');
-	public static final CharacterSet ALPA_UPPER = new CharacterSet('A', 'Z');
-	public static final CharacterSet ALPA_LOWER = new CharacterSet('a', 'z');
-	public static final CharacterSet ALPA_NUMERIC = new CharacterSet('0', '9', 'A', 'Z', 'a', 'z');
-	public static final CharacterSet ALPA_UPPER_NUMERIC = new CharacterSet('0', '9', 'A', 'Z');
-	public static final CharacterSet ALPA_LOWER_NUMERIC = new CharacterSet('0', '9', 'a', 'z');
+	public static final CharacterSet ALPHA = new CharacterSet('A', 'Z', 'a', 'z');
+	public static final CharacterSet ALPHA_UPPER = new CharacterSet('A', 'Z');
+	public static final CharacterSet ALPHA_LOWER = new CharacterSet('a', 'z');
+	public static final CharacterSet ALPHA_NUMERIC = new CharacterSet('0', '9', 'A', 'Z', 'a', 'z');
+	public static final CharacterSet ALPHA_UPPER_NUMERIC = new CharacterSet('0', '9', 'A', 'Z');
+	public static final CharacterSet ALPHA_LOWER_NUMERIC = new CharacterSet('0', '9', 'a', 'z');
 	public static final CharacterSet NUMERIC = new CharacterSet('0', '9');
 	
 	private final char[] set;
