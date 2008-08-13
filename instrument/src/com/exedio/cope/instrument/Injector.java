@@ -1001,7 +1001,7 @@ final class Injector
 					}
 
 					default :
-						System.out.println("bufc >" + c + "<");
+						//System.out.println("bufc >" + c + "<");
 						break;
 				}
 			}
