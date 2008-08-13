@@ -41,6 +41,8 @@ public final class CharacterSet
 	public static final CharacterSet ALPHA_UPPER_NUMERIC = new CharacterSet('0', '9', 'A', 'Z');
 	public static final CharacterSet ALPHA_LOWER_NUMERIC = new CharacterSet('0', '9', 'a', 'z');
 	public static final CharacterSet NUMERIC = new CharacterSet('0', '9');
+	public static final CharacterSet DOMAIN = new CharacterSet('-', '.', '0', '9', 'a', 'z');
+	public static final CharacterSet EMAIL  = new CharacterSet('-', '.', '0', '9', '@', 'Z', 'a', 'z');
 	
 	private final char[] set;
 	
@@ -57,6 +59,11 @@ public final class CharacterSet
 	public CharacterSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3)
 	{
 		this(new char[]{from1, to1, from2, to2, from3, to3});
+	}
+	
+	public CharacterSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3, final char from4, final char to4)
+	{
+		this(new char[]{from1, to1, from2, to2, from3, to3, from4, to4});
 	}
 	
 	private CharacterSet(final char... set)
