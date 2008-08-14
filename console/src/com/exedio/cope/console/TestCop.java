@@ -35,6 +35,12 @@ abstract class TestCop<I> extends ConsoleCop
 	}
 
 	@Override
+	void writeHead(PrintStream out)
+	{
+		Test_Jspm.writeHead(out);
+	}
+	
+	@Override
 	final void writeBody(
 			final PrintStream out,
 			final Model model,

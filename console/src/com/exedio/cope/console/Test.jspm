@@ -24,6 +24,41 @@ import java.util.List;
 
 final class Test_Jspm
 {
+	final static void writeHead(final PrintStream out)
+	{
+		%>
+		<style>
+			td.failure
+			{
+				background: #fbb;
+			}
+		</style>
+		<script>
+			function hide()
+			{
+				var table = document.getElementById("test_table");
+				var rows = table.rows;
+				for(rowCount = 0; rowCount<rows.length; rowCount++)
+				{
+					var row = rows[rowCount];
+					var cells = row.cells;
+					var keep = false;
+					for(cellCount = 0; cellCount<cells.length; cellCount++)
+					{
+						var cell = cells[cellCount];
+						if(cell.tagName=="TH" || cell.className=="failure")
+						{
+							keep = true;
+							break;
+						}
+					}
+					if(!keep)
+						row.style.display = "none";
+				}
+			}
+		</script><%
+	}
+	
 	final static <I> void writeBody(
 			final TestCop<I> cop,
 			final PrintStream out,
@@ -43,7 +78,7 @@ final class Test_Jspm
 		int totalFailures = 0;
 		int totalElapsed = 0;
 		%>
-		<table>
+		<table id="test_table">
 			<caption><%=caption%></caption>
 			<tr><%
 				
@@ -72,17 +107,18 @@ final class Test_Jspm
 			}
 			if(test)
 			{
-				%>
-				<td><%
 				out.flush();
 				final long start = System.currentTimeMillis();
 				final int failures = cop.test(item);
 				final long elapsed = System.currentTimeMillis() - start;
 				totalFailures += failures;
 				totalElapsed += elapsed;
+				%>
+				<td<% if(failures!=0){%> class="failure"<%} %>><%
+				
 				if(failures!=0)
 				{
-					%><b><%=failures%></b><%
+					%><%=failures%><%
 				}
 				else
 				{
@@ -99,12 +135,19 @@ final class Test_Jspm
 			%>
 			<tr>
 				<th colspan="<%=headings.length%>"><a name="overall">T</a>otal</th>
-				<td><% if(totalFailures!=0){%><b><%=totalFailures%></b><%}else{%>ok<%} %></td>
+				<td<% if(totalFailures!=0){%> class="failure"<%} %>><% if(totalFailures!=0){%><%=totalFailures%><%}else{%>ok<%} %></td>
 				<td><%=cop.format(totalElapsed)%></td>
 			</tr><%
 		}
 		%>
 		</table><%
+		
+		if(totalFailures!=0)
+		{
+		%>
+		<a href="javascript:hide()">hide non-failures</a><%
+		}
+		
 		if(items.size()>10)
 			writeButton(cop, out);
 	}
