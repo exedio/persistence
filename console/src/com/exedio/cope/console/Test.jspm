@@ -44,8 +44,8 @@ final class Test_Jspm
 		%>
 		<table>
 			<caption><%=cop.name%></caption>
-			<tr>
-				<%
+			<tr><%
+				
 				for(final String heading : headings)
 				{
 				%>
@@ -62,8 +62,8 @@ final class Test_Jspm
 		for(final I function : functions)
 		{
 			%>
-			<tr>
-			<%
+			<tr><%
+			
 			for(final String value : cop.getValues(function))
 			{
 				%>
