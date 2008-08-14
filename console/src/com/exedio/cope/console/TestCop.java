@@ -63,6 +63,6 @@ abstract class TestCop<I> extends ConsoleCop
 	
 	abstract List<I> getItems(Model model);
 	abstract String[] getHeadings();
-	abstract String[] getValues(final I item);
-	abstract int test(final I item);
+	abstract String[] getValues(I item);
+	abstract int test(I item);
 }
