@@ -259,25 +259,4 @@ final class SchemaCop extends ConsoleCop
 			}
 		}
 	}
-
-	final static void writeCheckUnsupportedConstraints(final PrintStream out,
-			final Model model)
-	{
-		int sumCount = 0;
-		final Schema schema = model.getSchema();
-		for(final Table t : schema.getTables())
-		{
-			for(final Constraint c : t.getConstraints())
-				if(!c.isSupported())
-				{
-					Schema_Jspm.writeCheck(out, c);
-					out.flush();
-					final long startTime = System.currentTimeMillis();
-					final int count = c.check();
-					Schema_Jspm.writeDoneCheck(out, startTime, count);
-					sumCount += count;
-				}
-		}
-		Schema_Jspm.writeDoneCheckSum(out, sumCount);
-	}
 }

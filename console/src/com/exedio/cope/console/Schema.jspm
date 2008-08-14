@@ -85,7 +85,6 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
 			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
 			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
-			<input type="submit" name="CHECK_UNSUPPORTED_CONSTRAINTS" value="check unsupported"/>
 			<br>
 			supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
 			<br>
@@ -129,14 +128,6 @@ final class Schema_Jspm extends Console_Jspm
 				{
 					model.dropDatabaseConstraints(constraintTypes);
 					%><div class="message">Database constraints successfully dropped!</div><%
-				}
-				else if(request.getParameter("CHECK_UNSUPPORTED_CONSTRAINTS")!=null)
-				{
-			%>
-			<ol><%
-					SchemaCop.writeCheckUnsupportedConstraints(out, model);
-			%>
-			</ol><%
 				}
 				else if(request.getParameter("APPLY")!=null)
 				{
@@ -339,46 +330,6 @@ final class Schema_Jspm extends Console_Jspm
 							%>
 							<%=text%><%
 		}
-	}
-	
-	final static void writeDoneCheck(final PrintStream out, final long startTime, final int count)
-	{
-		final long endTime = System.currentTimeMillis();
-		%><li class="timelog"><%
-		if(count==0)
-		{
-			%>ok<%
-		}
-		else
-		{
-			%><font color="#F00"><b>violated for <%=count%> tupels</b></font><%
-		}
-		%>, <%=endTime-startTime%>ms.</li><%
-		out.flush();
-	}
-	
-	final static void writeDoneCheckSum(final PrintStream out, final int count)
-	{
-		%><li class="timelog"><a name="overall">Overall: <%
-		if(count==0)
-		{
-			%>ok.<%
-		}
-		else
-		{
-			%><font color="#F00"><b>violated for <%=count%> tupels.</b></font><%
-		}
-		%></a></li><%
-		out.flush();
-	}
-	
-	final static void writeCheck(final PrintStream out, final Constraint constraint)
-	{
-		%>
-		<li>schema.getTable(&quot;<b><%=
-			constraint.getTable().getName()%></b>&quot;).getConstraint(&quot;<b><%=
-			constraint.getName()%></b>&quot;).check(); // <%=
-			encode(constraint.getRequiredCondition())%></li><%
 	}
 }
 %>
