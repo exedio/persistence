@@ -71,6 +71,7 @@ abstract class ConsoleCop extends Cop
 		new ConsoleCop[]{
 				new PropertiesCop(),
 				new SchemaCop(),
+				new UnsupportedConstraintCop(),
 				new TypeColumnCop(),
 				new CopyConstraintCop(),
 				new RevisionCop(),
@@ -146,6 +147,7 @@ abstract class ConsoleCop extends Cop
 	
 	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
+	static final String TAB_UNSUPPORTED_CONSTRAINTS = "unsupportedconstraints";
 	static final String TAB_TYPE_COLUMNS = "typecolumns";
 	static final String TAB_COPY_CONSTRAINTS = "copyconstraints";
 	static final String TAB_REVISION = "revision";
@@ -175,6 +177,8 @@ abstract class ConsoleCop extends Cop
 		final String tab = pathInfo.substring(1, pathInfo.length()-NAME_POSTFIX.length());
 		if(TAB_SCHEMA.equals(tab))
 			return new SchemaCop();
+		if(TAB_UNSUPPORTED_CONSTRAINTS.equals(tab))
+			return new UnsupportedConstraintCop();
 		if(TAB_TYPE_COLUMNS.equals(tab))
 			return new TypeColumnCop();
 		if(TAB_COPY_CONSTRAINTS.equals(tab))
