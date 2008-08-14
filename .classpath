@@ -34,8 +34,8 @@
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/trove.jar" sourcepath="lib/trove-src.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/cops"/>
 	<classpathentry kind="var" path="ANT_JAR"/>
 	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-sources.jar"/>
+	<classpathentry kind="lib" path="lib/exedio-cops.jar" sourcepath="lib/exedio-cops.jar-src.zip"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
