@@ -20,22 +20,21 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
+import java.util.List;
 
-import com.exedio.cope.CopyConstraint;
-
-final class CopyConstraint_Jspm
+final class Test_Jspm
 {
-	final static void writeBody(
-			final CopyConstraintCop cop,
+	final static <I> void writeBody(
+			final TestCop<I> cop,
 			final PrintStream out,
-			final ArrayList<CopyConstraint> constraints,
+			final String[] headings,
+			final List<I> functions,
 			final boolean test)
 	{
-		if(constraints.isEmpty())
+		if(functions.isEmpty())
 		{
 			%>
-			There are no copy constraints in this model.<%
+			There are no <%=cop.name%> in this model.<%
 			return;
 		}
 		
@@ -44,10 +43,14 @@ final class CopyConstraint_Jspm
 		int totalElapsed = 0;
 		%>
 		<table>
-			<caption>Copy Constraints</caption>
+			<caption><%=cop.name%></caption>
 			<tr>
-				<th>Constraint</th>
-				<th>Target</th><%
+				<%
+				for(final String heading : headings)
+				{
+				%>
+				<th><%=heading%></th><%
+				}
 				if(test)
 				{
 				%>
@@ -56,19 +59,23 @@ final class CopyConstraint_Jspm
 				}
 				%>
 			</tr><%
-		for(final CopyConstraint constraint : constraints)
+		for(final I function : functions)
 		{
 			%>
 			<tr>
-				<td class="text"><%=constraint.toString()%></td>
-				<td class="text"><%=constraint.getTarget().getValueType().getID()%></td><%
+			<%
+			for(final String value : cop.getValues(function))
+			{
+				%>
+				<td class="text"><%=value%></td><%
+			}
 			if(test)
 			{
 				%>
 				<td><%
 				out.flush();
 				final long start = System.currentTimeMillis();
-				final int failures = constraint.check();
+				final int failures = cop.test(function);
 				final long elapsed = System.currentTimeMillis() - start;
 				totalFailures += failures;
 				totalElapsed += elapsed;
@@ -90,19 +97,19 @@ final class CopyConstraint_Jspm
 		{
 			%>
 			<tr>
-				<th colspan="2"><a name="overall">T</a>otal</th>
+				<th colspan="<%=headings.length%>"><a name="overall">T</a>otal</th>
 				<td><% if(totalFailures!=0){%><b><%=totalFailures%></b><%}else{%>ok<%} %></td>
 				<td><%=cop.format(totalElapsed)%></td>
 			</tr><%
 		}
 		%>
 		</table><%
-		if(constraints.size()>10)
+		if(functions.size()>10)
 			writeButton(cop, out);
 	}
 	
 	private final static void writeButton(
-			final CopyConstraintCop cop,
+			final TestCop cop,
 			final PrintStream out)
 	{
 		%>

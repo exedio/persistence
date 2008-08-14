@@ -18,47 +18,51 @@
 
 package com.exedio.cope.console;
 
-import java.util.ArrayList;
+import java.io.PrintStream;
 import java.util.List;
 
-import com.exedio.cope.CopyConstraint;
+import javax.servlet.http.HttpServletRequest;
+
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
 
-final class CopyConstraintCop extends TestCop<CopyConstraint>
+abstract class TestCop<I> extends ConsoleCop
 {
-	CopyConstraintCop()
+	final static String TEST = "TEST";
+
+	TestCop(final String tab, final String name)
 	{
-		super(TAB_COPY_CONSTRAINTS, "copy constraints");
+		super(tab, name);
 	}
 
 	@Override
-	List<CopyConstraint> getItems(final Model model)
+	final void writeBody(
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request,
+			final History history,
+			final boolean historyModelShown)
 	{
-		final ArrayList<CopyConstraint> constraints = new ArrayList<CopyConstraint>();
+		final List<I> functions = getItems(model);
 		
-		for(final Type<?> t : model.getTypes())
-			for(final CopyConstraint cc : t.getDeclaredCopyConstraints())
-				constraints.add(cc);
-		
-		return constraints;
+		if(request.getParameter(TEST)!=null)
+		{
+			try
+			{
+				model.startTransaction();
+				Test_Jspm.writeBody(this, out, getHeadings(), functions, true);
+				model.commit();
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
+			}
+		}
+		else
+			Test_Jspm.writeBody(this, out, getHeadings(), functions, false);
 	}
 	
-	@Override
-	String[] getHeadings()
-	{
-		return new String[]{"Constraint", "Target"};
-	}
-	
-	@Override
-	String[] getValues(final CopyConstraint constraint)
-	{
-		return new String[]{constraint.toString(), constraint.getTarget().getValueType().getID()};
-	}
-	
-	@Override
-	int test(final CopyConstraint constraint)
-	{
-		return constraint.check();
-	}
+	abstract List<I> getItems(Model model);
+	abstract String[] getHeadings();
+	abstract String[] getValues(final I item);
+	abstract int test(final I item);
 }

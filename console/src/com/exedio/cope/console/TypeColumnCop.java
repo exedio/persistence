@@ -18,10 +18,8 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
@@ -29,22 +27,15 @@ import com.exedio.cope.ItemFunction;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
-final class TypeColumnCop extends ConsoleCop
+final class TypeColumnCop extends TestCop<ItemFunction>
 {
-	final static String TEST = "TEST_TYPE_COLUMNS";
-
 	TypeColumnCop()
 	{
 		super(TAB_TYPE_COLUMNS, "type columns");
 	}
 
 	@Override
-	final void writeBody(
-			final PrintStream out,
-			final Model model,
-			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+	List<ItemFunction> getItems(final Model model)
 	{
 		final ArrayList<ItemFunction> functions = new ArrayList<ItemFunction>();
 		
@@ -63,20 +54,24 @@ final class TypeColumnCop extends ConsoleCop
 				}
 		}
 		
-		if(request.getParameter(TEST)!=null)
-		{
-			try
-			{
-				model.startTransaction();
-				TypeColumn_Jspm.writeBody(this, out, functions, true);
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
-			}
-		}
-		else
-			TypeColumn_Jspm.writeBody(this, out, functions, false);
+		return functions;
+	}
+	
+	@Override
+	String[] getHeadings()
+	{
+		return new String[]{"Function", "Value"};
+	}
+	
+	@Override
+	String[] getValues(final ItemFunction function)
+	{
+		return new String[]{function.toString(), function.getValueType().getID()};
+	}
+	
+	@Override
+	int test(final ItemFunction function)
+	{
+		return function.checkTypeColumn();
 	}
 }
