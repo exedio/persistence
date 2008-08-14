@@ -44,7 +44,7 @@ abstract class TestCop<I> extends ConsoleCop
 	{
 		final List<I> items = getItems(model);
 		
-		if(request.getParameter(TEST)!=null)
+		if(isPost(request) && request.getParameter(TEST)!=null)
 		{
 			try
 			{
