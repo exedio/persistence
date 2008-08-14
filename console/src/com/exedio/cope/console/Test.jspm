@@ -27,6 +27,7 @@ final class Test_Jspm
 	final static <I> void writeBody(
 			final TestCop<I> cop,
 			final PrintStream out,
+			final String caption,
 			final String[] headings,
 			final List<I> items,
 			final boolean test)
@@ -43,7 +44,7 @@ final class Test_Jspm
 		int totalElapsed = 0;
 		%>
 		<table>
-			<caption><%=cop.name%></caption>
+			<caption><%=caption%></caption>
 			<tr><%
 				
 				for(final String heading : headings)

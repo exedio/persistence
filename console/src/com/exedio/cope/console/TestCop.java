@@ -49,7 +49,7 @@ abstract class TestCop<I> extends ConsoleCop
 			try
 			{
 				model.startTransaction();
-				Test_Jspm.writeBody(this, out, getHeadings(), items, true);
+				Test_Jspm.writeBody(this, out, getCaption(), getHeadings(), items, true);
 				model.commit();
 			}
 			finally
@@ -58,10 +58,11 @@ abstract class TestCop<I> extends ConsoleCop
 			}
 		}
 		else
-			Test_Jspm.writeBody(this, out, getHeadings(), items, false);
+			Test_Jspm.writeBody(this, out, getCaption(), getHeadings(), items, false);
 	}
 	
 	abstract List<I> getItems(Model model);
+	abstract String getCaption();
 	abstract String[] getHeadings();
 	abstract String[] getValues(I item);
 	abstract int test(I item);

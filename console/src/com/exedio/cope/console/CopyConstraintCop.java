@@ -45,6 +45,12 @@ final class CopyConstraintCop extends TestCop<CopyConstraint>
 	}
 	
 	@Override
+	String getCaption()
+	{
+		return "Copy Constraints";
+	}
+	
+	@Override
 	String[] getHeadings()
 	{
 		return new String[]{"Constraint", "Target"};

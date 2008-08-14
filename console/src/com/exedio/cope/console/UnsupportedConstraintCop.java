@@ -50,6 +50,12 @@ final class UnsupportedConstraintCop extends TestCop<Constraint>
 	}
 	
 	@Override
+	String getCaption()
+	{
+		return "Unsupported Constraints";
+	}
+	
+	@Override
 	String[] getHeadings()
 	{
 		return new String[]{"Table", "Name", "Condition"};
