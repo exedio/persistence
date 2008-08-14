@@ -28,10 +28,10 @@ final class Test_Jspm
 			final TestCop<I> cop,
 			final PrintStream out,
 			final String[] headings,
-			final List<I> functions,
+			final List<I> items,
 			final boolean test)
 	{
-		if(functions.isEmpty())
+		if(items.isEmpty())
 		{
 			%>
 			There are no <%=cop.name%> in this model.<%
@@ -59,12 +59,12 @@ final class Test_Jspm
 				}
 				%>
 			</tr><%
-		for(final I function : functions)
+		for(final I item : items)
 		{
 			%>
 			<tr><%
 			
-			for(final String value : cop.getValues(function))
+			for(final String value : cop.getValues(item))
 			{
 				%>
 				<td class="text"><%=value%></td><%
@@ -75,7 +75,7 @@ final class Test_Jspm
 				<td><%
 				out.flush();
 				final long start = System.currentTimeMillis();
-				final int failures = cop.test(function);
+				final int failures = cop.test(item);
 				final long elapsed = System.currentTimeMillis() - start;
 				totalFailures += failures;
 				totalElapsed += elapsed;
@@ -104,7 +104,7 @@ final class Test_Jspm
 		}
 		%>
 		</table><%
-		if(functions.size()>10)
+		if(items.size()>10)
 			writeButton(cop, out);
 	}
 	

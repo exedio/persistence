@@ -42,14 +42,14 @@ abstract class TestCop<I> extends ConsoleCop
 			final History history,
 			final boolean historyModelShown)
 	{
-		final List<I> functions = getItems(model);
+		final List<I> items = getItems(model);
 		
 		if(request.getParameter(TEST)!=null)
 		{
 			try
 			{
 				model.startTransaction();
-				Test_Jspm.writeBody(this, out, getHeadings(), functions, true);
+				Test_Jspm.writeBody(this, out, getHeadings(), items, true);
 				model.commit();
 			}
 			finally
@@ -58,7 +58,7 @@ abstract class TestCop<I> extends ConsoleCop
 			}
 		}
 		else
-			Test_Jspm.writeBody(this, out, getHeadings(), functions, false);
+			Test_Jspm.writeBody(this, out, getHeadings(), items, false);
 	}
 	
 	abstract List<I> getItems(Model model);
