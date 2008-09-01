@@ -729,11 +729,10 @@ public abstract class Editor implements Filter
 		return tl!=null ? tl.session.login : null;
 	}
 	
-	@SuppressWarnings("cast") // OK: for eclipse because of the javac bug
 	private static final <K> Item getItem(final MapField<K, String> feature, final K key, final Item item)
 	{
 		return
-				(Item)feature.getRelationType().searchSingletonStrict( // cast is needed because of a bug in javac
+				feature.getRelationType().searchSingletonStrict(
 						feature.getKey().equal(key).and(
 						Cope.equalAndCast(feature.getParent(), item)));
 	}

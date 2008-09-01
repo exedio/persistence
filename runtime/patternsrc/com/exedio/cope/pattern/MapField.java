@@ -103,7 +103,7 @@ public final class MapField<K,V> extends Pattern
 		return value;
 	}
 
-	public Type<?> getRelationType()
+	public Type<? extends Item> getRelationType()
 	{
 		assert relationType!=null;
 		return relationType;
