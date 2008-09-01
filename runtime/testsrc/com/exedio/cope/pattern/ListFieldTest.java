@@ -162,6 +162,9 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(itemsType, item.items.getOrder().getType());
 		assertEquals(itemsType, item.items.getUniqueConstraint().getType());
 		assertEquals(itemsType, item.items.getElement().getType());
+		assertSame(item.stringsParent(), item.strings.getParent());
+		assertSame(item.datesParent(), item.dates.getParent());
+		assertSame(item.itemsParent(), item.items.getParent());
 
 		assertEquals("parent", item.stringsParent().getName());
 		assertEquals("order", stringsOrder.getName());

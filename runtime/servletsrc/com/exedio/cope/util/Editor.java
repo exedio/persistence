@@ -735,7 +735,7 @@ public abstract class Editor implements Filter
 		return
 				(Item)feature.getRelationType().searchSingletonStrict( // cast is needed because of a bug in javac
 						feature.getKey().equal(key).and(
-						Cope.equalAndCast(feature.getParent(item.getCopeType().getJavaClass()), item)));
+						Cope.equalAndCast(feature.getParent(), item)));
 	}
 	
 	public static final <K> String edit(final String content, final MapField<K, String> feature, final Item item, final K key)

@@ -123,6 +123,8 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals(datesType, item.datesParent().getType());
 		assertEquals(datesType, item.dates.getElement().getType());
 		assertEquals(datesType, item.dates.getUniqueConstraint().getType());
+		assertSame(item.stringsParent(), item.strings.getParent());
+		assertSame(item.datesParent(), item.dates.getParent());
 
 		assertEquals("parent", item.stringsParent().getName());
 		assertEquals("element", stringsElement.getName());

@@ -82,6 +82,11 @@ public final class SetField<E> extends Pattern
 		return parent.as(parentClass);
 	}
 	
+	public ItemField<?> getParent()
+	{
+		return parent;
+	}
+	
 	public FunctionField<E> getElement()
 	{
 		return element;

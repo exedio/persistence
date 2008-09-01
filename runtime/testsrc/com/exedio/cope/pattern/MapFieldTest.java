@@ -62,6 +62,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(DeletePolicy.CASCADE, item.nameParent().getDeletePolicy());
 		assertSame(item.name.getRelationType(), item.nameParent().getType());
 		assertEqualsUnmodifiable(list(), item.nameParent().getPatterns());
+		assertSame(item.nameParent(), item.name.getParent());
 
 		assertEquals(MapFieldItem.Language.class, ((EnumField<MapFieldItem.Language>)item.name.getKey()).getValueClass());
 		assertEquals("key", item.name.getKey().getName());

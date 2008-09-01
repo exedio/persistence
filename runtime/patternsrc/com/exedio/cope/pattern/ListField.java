@@ -83,6 +83,11 @@ public final class ListField<E> extends Pattern
 		return parent.as(parentClass);
 	}
 	
+	public ItemField<?> getParent()
+	{
+		return parent;
+	}
+	
 	public IntegerField getOrder()
 	{
 		return order;
