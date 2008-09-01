@@ -51,11 +51,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
-	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 10, 0);
+	private final IntField connectionPoolIdleLimit = new IntField("connectionPool.idleLimit", 50, 0);
 	
 	private final BooleanField transactionLog = new BooleanField("transaction.log", false);
 
-	private final IntField itemCacheLimit = new IntField("cache.limit", 10000, 0);
+	private final IntField itemCacheLimit = new IntField("cache.limit", 100000, 0);
 	private final IntField queryCacheLimit = new IntField("cache.queryLimit", 10000, 0);
 
 	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
