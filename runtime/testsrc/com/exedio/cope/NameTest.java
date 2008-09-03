@@ -52,64 +52,56 @@ public class NameTest extends AbstractRuntimeTest
 	
 	public void test()
 	{
-		final Type NameLongItem_TYPE = NameLongItem.TYPE;
-		final Field NameLongItem_code = NameLongItem.code;
 		final Field NameLongItem_codeLongName =
 			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 		final ItemField NameLongItem_pointerLongName =
 			NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 		
-		final Type NameCollisionlongaItem_TYPE = NameCollisionlongaItem.TYPE;
-		final Field NameCollisionlongaItem_code = NameCollisionlongaItem.code;
 		final Field NameCollisionlongaItem_collisionlongaNumber =
 			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber;
 		final Field NameCollisionlongaItem_collisionlongbNumber =
 			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber;
 		
-		final Type NameCollisionlongbItem_TYPE = NameCollisionlongbItem.TYPE;
-		final Field NameCollisionlongbItem_code =
-			NameCollisionlongbItem.code;
-		
 		// test model
 		
-		assertEquals("NameLongNameLongNameLongNameLongNameLongNameLongItem", NameLongItem_TYPE.getID());
-		assertEquals("this", NameLongItem_TYPE.getThis().getName());
-		assertEquals("code", NameLongItem_code.getName());
+		assertEquals("NameLongNameLongNameLongNameLongNameLongNameLongItem", NameLongItem.TYPE.getID());
+		assertEquals("this", NameLongItem.TYPE.getThis().getName());
+		assertEquals("code", NameLongItem.code.getName());
 		assertEquals("codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName", NameLongItem_codeLongName.getName());
 		assertEquals("pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName", NameLongItem_pointerLongName.getName());
 		
-		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", NameCollisionlongaItem_TYPE.getID());
-		assertEquals("this", NameCollisionlongaItem_TYPE.getThis().getName());
-		assertEquals("code", NameCollisionlongaItem_code.getName());
+		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem", NameCollisionlongaItem.TYPE.getID());
+		assertEquals("this", NameCollisionlongaItem.TYPE.getThis().getName());
+		assertEquals("code", NameCollisionlongaItem.code.getName());
 		assertEquals("collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber", NameCollisionlongaItem_collisionlongaNumber.getName());
 		assertEquals("collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber", NameCollisionlongaItem_collisionlongbNumber.getName());
 		
-		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem", NameCollisionlongbItem_TYPE.getID());
-		assertEquals("this", NameCollisionlongbItem_TYPE.getThis().getName());
-		assertEquals("code", NameCollisionlongbItem_code.getName());
+		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem", NameCollisionlongbItem.TYPE.getID());
+		assertEquals("this", NameCollisionlongbItem.TYPE.getThis().getName());
+		assertEquals("code", NameCollisionlongbItem.code.getName());
 		
 		assertEquals("NameSubItemX", NameSubItem.TYPE.getID());
 		assertEquals("this", NameSubItem.TYPE.getThis().getName());
 		
 		// test schema
 		
-		assertEquals(mysqlLower("NameLongItem"), getTableName(NameLongItem_TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(NameLongItem_TYPE));
-		assertEquals("class", getTypeColumnName(NameLongItem_TYPE));
-		assertEquals("code", getColumnName(NameLongItem_code));
+		assertEquals(mysqlLower("NameLongItem"), getTableName(NameLongItem.TYPE));
+		assertEquals("this", getPrimaryKeyColumnName(NameLongItem.TYPE));
+		assertEquals("class", getTypeColumnName(NameLongItem.TYPE));
+		assertEquals("code", getColumnName(NameLongItem.code));
 		assertEquals("codeLooooooooooooooooName", getColumnName(NameLongItem_codeLongName));
 		assertEquals("pointerLoooooooooooooName", getColumnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLoooooooooNameType", getTypeColumnName(NameLongItem_pointerLongName));
 		
-		assertEquals(mysqlLower("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem_TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongaItem_TYPE));
-		assertEquals("code", getColumnName(NameCollisionlongaItem_code));
+		assertEquals(mysqlLower("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem.TYPE));
+		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
+		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
 		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 		
-		assertEquals(mysqlLower("NameCollisionlongBItem"), getTableName(NameCollisionlongbItem_TYPE));
-		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongbItem_TYPE));
-		assertEquals("code", getColumnName(NameCollisionlongbItem_code));
+		assertEquals(mysqlLower("NameCollisionlongBItem"), getTableName(NameCollisionlongbItem.TYPE));
+		assertEquals("this", getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
+		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
 		
 		if(!postgresql)
 		{
