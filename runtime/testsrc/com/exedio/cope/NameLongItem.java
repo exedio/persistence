@@ -19,7 +19,8 @@
 package com.exedio.cope;
 
 @CopeSchemaName("NameLongItem")
-@CopeID("NameLongNameLongNameLongNameLongNameLongNameLongItem") class NameLongItem extends Item
+@CopeID("NameLongNameLongNameLongNameLongNameLongNameLongItem")
+class NameLongItem extends Item
 {
 
 	static final StringField code = new StringField().unique();
@@ -30,7 +31,7 @@ package com.exedio.cope;
 	static final ItemField<NameLongItem> pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName =
 		newItemField(NameLongItem.class, NULLIFY);
 	
-/**
+	/**
 
 	 **
 	 * Creates a new NameLongItem with all the fields initially needed.

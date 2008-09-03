@@ -19,12 +19,13 @@
 package com.exedio.cope;
 
 @CopeSchemaName("NameCollisionlongBItem")
-@CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem") class NameCollisionlongbItem extends Item
+@CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem")
+class NameCollisionlongbItem extends Item
 {
 
 	static final StringField code = new StringField().unique();
 
-/**
+	/**
 
 	 **
 	 * Creates a new NameCollisionlongbItem with all the fields initially needed.

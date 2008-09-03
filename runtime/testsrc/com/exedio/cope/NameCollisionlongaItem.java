@@ -25,7 +25,8 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
-@CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem") class NameCollisionlongaItem extends Item
+@CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem")
+class NameCollisionlongaItem extends Item
 {
 
 	static final StringField code = new StringField().unique();
@@ -43,7 +44,7 @@ package com.exedio.cope;
 	static final IntegerField collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber =
 		new IntegerField().optional();
 	
-/**
+	/**
 
 	 **
 	 * Creates a new NameCollisionlongaItem with all the fields initially needed.
