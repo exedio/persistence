@@ -28,47 +28,47 @@ import com.exedio.dsmf.Schema;
 public class NameTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
-			NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE,
+			NameLongItem.TYPE,
 			NameSubItem.TYPE,
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE,
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE);
+			NameCollisionlongaItem.TYPE,
+			NameCollisionlongbItem.TYPE);
 	
 	public NameTest()
 	{
 		super(MODEL);
 	}
 	
-	NameLongNameLongNameLongNameLongNameLongNameLongItem item;
-	NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem itemca, itemcb;
+	NameLongItem item;
+	NameCollisionlongaItem itemca, itemcb;
 	
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new NameLongNameLongNameLongNameLongNameLongNameLongItem("long name item"));
-		itemca = deleteOnTearDown(new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision A"));
-		itemcb = deleteOnTearDown(new NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem("collision B"));
+		item = deleteOnTearDown(new NameLongItem("long name item"));
+		itemca = deleteOnTearDown(new NameCollisionlongaItem("collision A"));
+		itemcb = deleteOnTearDown(new NameCollisionlongaItem("collision B"));
 	}
 	
 	public void test()
 	{
-		final Type NameLongItem_TYPE = NameLongNameLongNameLongNameLongNameLongNameLongItem.TYPE;
-		final Field NameLongItem_code = NameLongNameLongNameLongNameLongNameLongNameLongItem.code;
+		final Type NameLongItem_TYPE = NameLongItem.TYPE;
+		final Field NameLongItem_code = NameLongItem.code;
 		final Field NameLongItem_codeLongName =
-			NameLongNameLongNameLongNameLongNameLongNameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
+			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 		final ItemField NameLongItem_pointerLongName =
-			NameLongNameLongNameLongNameLongNameLongNameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
+			NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 		
-		final Type NameCollisionlongaItem_TYPE = NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.TYPE;
-		final Field NameCollisionlongaItem_code = NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.code;
+		final Type NameCollisionlongaItem_TYPE = NameCollisionlongaItem.TYPE;
+		final Field NameCollisionlongaItem_code = NameCollisionlongaItem.code;
 		final Field NameCollisionlongaItem_collisionlongaNumber =
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber;
+			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber;
 		final Field NameCollisionlongaItem_collisionlongbNumber =
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber;
+			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber;
 		
-		final Type NameCollisionlongbItem_TYPE = NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.TYPE;
+		final Type NameCollisionlongbItem_TYPE = NameCollisionlongbItem.TYPE;
 		final Field NameCollisionlongbItem_code =
-			NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem.code;
+			NameCollisionlongbItem.code;
 		
 		// test model
 		

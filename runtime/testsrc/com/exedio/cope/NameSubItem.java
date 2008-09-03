@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 @CopeID("NameSubItemX")
-public class NameSubItem extends NameLongNameLongNameLongNameLongNameLongNameLongItem
+public class NameSubItem extends NameLongItem
 {
 	@CopeSchemaType(dialect="hsqldbx", type="zack")
 	static final IntegerField unique = new IntegerField().unique();
