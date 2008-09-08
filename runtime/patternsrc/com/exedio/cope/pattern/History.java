@@ -289,6 +289,24 @@ public final class History extends Pattern
 			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
 		}
 		
+		private static final SetValue cut(final StringField f, final Object o)
+		{
+			final String result;
+			
+			if(o!=null)
+			{
+				final String s = o.toString();
+				final int max = f.getMaximumLength();
+				result = (max<s.length()) ? s.substring(0, max) : s;
+			}
+			else
+			{
+				result = null;
+			}
+			
+			return f.map(result);
+		}
+		
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
 			final History pattern = getPattern();
@@ -296,8 +314,8 @@ public final class History extends Pattern
 					Cope.mapAndCast(pattern.featureEvent, this),
 					pattern.featureId.map(f.getID()),
 					pattern.featureName.map(name),
-					pattern.featureOld.map(oldValue!=null ? oldValue.toString() : null),
-					pattern.featureNew.map(newValue!=null ? newValue.toString() : null)
+					cut(pattern.featureOld, oldValue),
+					cut(pattern.featureNew, newValue)
 				);
 		}
 	}

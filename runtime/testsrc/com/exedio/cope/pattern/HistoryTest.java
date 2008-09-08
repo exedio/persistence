@@ -210,5 +210,16 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(event2, event1), item.getAuditEvents());
 		assertEquals(event1, event1);
 		assertTrue(!event1.equals(event2));
+		
+		// test string length exceeded
+		final String LONG_STRING_SHORT = "01234567890123456789012345678901234567890123456789012345678901234567890123456789";
+		final String LONG_STRING = LONG_STRING_SHORT + "X";
+		final Feature feature21 = event2.createFeature(item.comment, "Short", LONG_STRING, "newValue");
+		assertEquals(LONG_STRING_SHORT, feature21.getOld());
+		assertEquals("newValue", feature21.getNew());
+		
+		final Feature feature22 = event2.createFeature(item.amount, "Short", "oldValue", LONG_STRING);
+		assertEquals("oldValue", feature22.getOld());
+		assertEquals(LONG_STRING_SHORT, feature22.getNew());
 	}
 }
