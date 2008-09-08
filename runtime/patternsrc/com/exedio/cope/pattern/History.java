@@ -297,7 +297,7 @@ public final class History extends Pattern
 			{
 				final String s = o.toString();
 				final int max = f.getMaximumLength();
-				result = (max<s.length()) ? s.substring(0, max) : s;
+				result = (max<s.length()) ? (s.substring(0, max-3) + "...") : s;
 			}
 			else
 			{
