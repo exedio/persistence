@@ -163,7 +163,7 @@ public final class Revision
 	{
 		final Properties result = new Properties();
 
-		if(number>0)
+		if(number>=0)
 			result.setProperty("revision", String.valueOf(number));
 
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
