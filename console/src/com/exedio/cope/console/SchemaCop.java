@@ -127,97 +127,97 @@ final class SchemaCop extends ConsoleCop
 				out.print(" rows</li>");
 			}
 		};
-			for(final String dropConstraint : getParameters(request, DROP_CONSTRAINT))
-			{
-				final Constraint constraint = getConstraint(schema, dropConstraint);
-				constraint.drop(listener);
-			}
-			for(final String dropColumn : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
-			{
-				final Column column = getColumn(schema, dropColumn);
-				column.drop(listener);
-			}
-			for(final String dropTable : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
-			{
-				final Table table = schema.getTable(dropTable);
-				if (table == null)
-					throw new RuntimeException(dropTable);
-				table.drop(listener);
-			}
-			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
-			{
-				final String parameterName = (String) i.next();
-				if (!parameterName.startsWith("RENAME_TABLE_")) // TODO use constant and use the constant in Schema.jspm
-					continue;
+		for(final String dropConstraint : getParameters(request, DROP_CONSTRAINT))
+		{
+			final Constraint constraint = getConstraint(schema, dropConstraint);
+			constraint.drop(listener);
+		}
+		for(final String dropColumn : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
+		{
+			final Column column = getColumn(schema, dropColumn);
+			column.drop(listener);
+		}
+		for(final String dropTable : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
+		{
+			final Table table = schema.getTable(dropTable);
+			if (table == null)
+				throw new RuntimeException(dropTable);
+			table.drop(listener);
+		}
+		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String) i.next();
+			if (!parameterName.startsWith("RENAME_TABLE_")) // TODO use constant and use the constant in Schema.jspm
+				continue;
 
-				final String targetName = request.getParameter(parameterName).trim();
-				if (targetName.length() == 0)
-					continue;
+			final String targetName = request.getParameter(parameterName).trim();
+			if (targetName.length() == 0)
+				continue;
 
-				final String sourceName = parameterName.substring("RENAME_TABLE_" // TODO use constant and use the constant in Schema.jspm
-						.length());
-				final Table table = schema.getTable(sourceName);
-				if (table == null)
-					throw new RuntimeException(sourceName);
+			final String sourceName = parameterName.substring("RENAME_TABLE_" // TODO use constant and use the constant in Schema.jspm
+					.length());
+			final Table table = schema.getTable(sourceName);
+			if (table == null)
+				throw new RuntimeException(sourceName);
 
-				table.renameTo(targetName, listener);
-			}
-			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
-			{
-				final String parameterName = (String) i.next();
-				if (!parameterName.startsWith("MODIFY_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
-					continue;
+			table.renameTo(targetName, listener);
+		}
+		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String) i.next();
+			if (!parameterName.startsWith("MODIFY_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
+				continue;
 
-				final String targetType = request.getParameter(parameterName).trim();
-				if (targetType.length() == 0)
-					continue;
+			final String targetType = request.getParameter(parameterName).trim();
+			if (targetType.length() == 0)
+				continue;
 
-				final String sourceName = parameterName.substring("MODIFY_COLUMN_" // TODO use constant and use the constant in Schema.jspm
-						.length());
+			final String sourceName = parameterName.substring("MODIFY_COLUMN_" // TODO use constant and use the constant in Schema.jspm
+					.length());
 
-				final Column column = getColumn(schema, sourceName);
-				if (column == null)
-					throw new RuntimeException(sourceName);
+			final Column column = getColumn(schema, sourceName);
+			if (column == null)
+				throw new RuntimeException(sourceName);
 
-				column.modify(targetType, listener);
-			}
-			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
-			{
-				final String parameterName = (String) i.next();
-				if (!parameterName.startsWith("RENAME_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
-					continue;
+			column.modify(targetType, listener);
+		}
+		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
+		{
+			final String parameterName = (String) i.next();
+			if (!parameterName.startsWith("RENAME_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
+				continue;
 
-				final String targetName = request.getParameter(parameterName).trim();
-				if (targetName.length() == 0)
-					continue;
+			final String targetName = request.getParameter(parameterName).trim();
+			if (targetName.length() == 0)
+				continue;
 
-				final String sourceName = parameterName.substring("RENAME_COLUMN_" // TODO use constant and use the constant in Schema.jspm
-						.length());
+			final String sourceName = parameterName.substring("RENAME_COLUMN_" // TODO use constant and use the constant in Schema.jspm
+					.length());
 
-				final Column column = getColumn(schema, sourceName);
-				if (column == null)
-					throw new RuntimeException(sourceName);
+			final Column column = getColumn(schema, sourceName);
+			if (column == null)
+				throw new RuntimeException(sourceName);
 
-				column.renameTo(targetName, listener);
-			}
-			for(final String createTable : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
-			{
-				final Table table = schema.getTable(createTable);
-				if (table == null)
-					throw new RuntimeException(createTable);
+			column.renameTo(targetName, listener);
+		}
+		for(final String createTable : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
+		{
+			final Table table = schema.getTable(createTable);
+			if (table == null)
+				throw new RuntimeException(createTable);
 
-				table.create(listener);
-			}
-			for(final String createColumn : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
-			{
-				final Column column = getColumn(schema, createColumn);
-				column.create(listener);
-			}
-			for(final String createConstraint : getParameters(request, CREATE_CONSTRAINT))
-			{
-				final Constraint constraint = getConstraint(schema, createConstraint);
-				constraint.create(listener);
-			}
+			table.create(listener);
+		}
+		for(final String createColumn : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
+		{
+			final Column column = getColumn(schema, createColumn);
+			column.create(listener);
+		}
+		for(final String createConstraint : getParameters(request, CREATE_CONSTRAINT))
+		{
+			final Constraint constraint = getConstraint(schema, createConstraint);
+			constraint.create(listener);
+		}
 	}
 	
 	private static final String[] EMPTY_STRINGS = new String[]{};
