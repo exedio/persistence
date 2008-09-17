@@ -128,10 +128,7 @@ final class SchemaCop extends ConsoleCop
 			}
 		};
 		{
-			final String[] dropConstraints = getParameters(request, DROP_CONSTRAINT);
-			
-			
-			for(final String dropConstraint : dropConstraints)
+			for(final String dropConstraint : getParameters(request, DROP_CONSTRAINT))
 			{
 				final Constraint constraint = getConstraint(schema, dropConstraint);
 				constraint.drop(listener);
