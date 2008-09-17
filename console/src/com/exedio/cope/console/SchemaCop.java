@@ -127,22 +127,16 @@ final class SchemaCop extends ConsoleCop
 				out.print(" rows</li>");
 			}
 		};
-		{
 			for(final String dropConstraint : getParameters(request, DROP_CONSTRAINT))
 			{
 				final Constraint constraint = getConstraint(schema, dropConstraint);
 				constraint.drop(listener);
 			}
-			
-		}
-		{
 			for(final String dropColumn : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
 			{
 				final Column column = getColumn(schema, dropColumn);
 				column.drop(listener);
 			}
-		}
-		{
 			for(final String dropTable : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
 			{
 				final Table table = schema.getTable(dropTable);
@@ -150,7 +144,6 @@ final class SchemaCop extends ConsoleCop
 					throw new RuntimeException(dropTable);
 				table.drop(listener);
 			}
-		}
 		{
 			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 			{
@@ -213,7 +206,6 @@ final class SchemaCop extends ConsoleCop
 				column.renameTo(targetName, listener);
 			}
 		}
-		{
 			for(final String createTable : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
 			{
 				final Table table = schema.getTable(createTable);
@@ -222,21 +214,16 @@ final class SchemaCop extends ConsoleCop
 
 				table.create(listener);
 			}
-		}
-		{
 			for(final String createColumn : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
 			{
 				final Column column = getColumn(schema, createColumn);
 				column.create(listener);
 			}
-		}
-		{
 			for(final String createConstraint : getParameters(request, CREATE_CONSTRAINT))
 			{
 				final Constraint constraint = getConstraint(schema, createConstraint);
 				constraint.create(listener);
 			}
-		}
 	}
 	
 	private static final String[] EMPTY_STRINGS = new String[]{};
