@@ -129,13 +129,13 @@ final class SchemaCop extends ConsoleCop
 		};
 		for(final String dropConstraint : getParameters(request, DROP_CONSTRAINT))
 		{
-			final Constraint constraint = getConstraint(schema, dropConstraint);
-			constraint.drop(listener);
+			getConstraint(schema, dropConstraint).drop(listener);
+			
 		}
 		for(final String dropColumn : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
 		{
-			final Column column = getColumn(schema, dropColumn);
-			column.drop(listener);
+			getColumn(schema, dropColumn).drop(listener);
+			
 		}
 		for(final String dropTable : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
 		{
@@ -210,13 +210,13 @@ final class SchemaCop extends ConsoleCop
 		}
 		for(final String createColumn : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
 		{
-			final Column column = getColumn(schema, createColumn);
-			column.create(listener);
+			getColumn(schema, createColumn).create(listener);
+			
 		}
 		for(final String createConstraint : getParameters(request, CREATE_CONSTRAINT))
 		{
-			final Constraint constraint = getConstraint(schema, createConstraint);
-			constraint.create(listener);
+			getConstraint(schema, createConstraint).create(listener);
+			
 		}
 	}
 	
