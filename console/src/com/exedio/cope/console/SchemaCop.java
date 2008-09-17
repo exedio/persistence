@@ -55,6 +55,14 @@ final class SchemaCop extends ConsoleCop
 		Schema_Jspm.writeBody(this, out, model, request);
 	}
 	
+	private static final Table getTable(final Schema schema, final String param)
+	{
+		final Table result = schema.getTable(param);
+		if(result==null)
+			throw new RuntimeException(param);
+		return result;
+	}
+	
 	private static final Column getColumn(final Schema schema, final String param)
 	{
 		final int pos = param.indexOf('#');
@@ -139,10 +147,7 @@ final class SchemaCop extends ConsoleCop
 		}
 		for(final String dropTable : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
 		{
-			final Table table = schema.getTable(dropTable);
-			if (table == null)
-				throw new RuntimeException(dropTable);
-			table.drop(listener);
+			getTable(schema, dropTable).drop(listener);
 		}
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
@@ -202,11 +207,7 @@ final class SchemaCop extends ConsoleCop
 		}
 		for(final String createTable : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
 		{
-			final Table table = schema.getTable(createTable);
-			if (table == null)
-				throw new RuntimeException(createTable);
-
-			table.create(listener);
+			getTable(schema, createTable).create(listener);
 		}
 		for(final String createColumn : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
 		{
