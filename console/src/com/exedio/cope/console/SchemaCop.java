@@ -140,6 +140,7 @@ final class SchemaCop extends ConsoleCop
 				out.print(" rows</li>");
 			}
 		};
+		
 		for(final String p : getParameters(request, DROP_CONSTRAINT))
 			getConstraint(schema, p).drop(listener);
 		for(final String p : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
