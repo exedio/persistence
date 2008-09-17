@@ -174,9 +174,6 @@ final class SchemaCop extends ConsoleCop
 					.length());
 
 			final Column column = getColumn(schema, sourceName);
-			if (column == null)
-				throw new RuntimeException(sourceName);
-
 			column.modify(targetType, listener);
 		}
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
@@ -193,9 +190,6 @@ final class SchemaCop extends ConsoleCop
 					.length());
 
 			final Column column = getColumn(schema, sourceName);
-			if (column == null)
-				throw new RuntimeException(sourceName);
-
 			column.renameTo(targetName, listener);
 		}
 		for(final String p : getParameters(request, "CREATE_TABLE")) // TODO use constant and use the constant in Schema.jspm
