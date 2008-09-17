@@ -136,19 +136,12 @@ final class SchemaCop extends ConsoleCop
 			}
 		};
 		for(final String p : getParameters(request, DROP_CONSTRAINT))
-		{
 			getConstraint(schema, p).drop(listener);
-			
-		}
 		for(final String p : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
-		{
 			getColumn(schema, p).drop(listener);
-			
-		}
 		for(final String p : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
-		{
 			getTable(schema, p).drop(listener);
-		}
+		
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String parameterName = (String) i.next();
@@ -206,19 +199,11 @@ final class SchemaCop extends ConsoleCop
 			column.renameTo(targetName, listener);
 		}
 		for(final String p : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
-		{
 			getTable(schema, p).create(listener);
-		}
 		for(final String p : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
-		{
 			getColumn(schema, p).create(listener);
-			
-		}
 		for(final String p : getParameters(request, CREATE_CONSTRAINT))
-		{
 			getConstraint(schema, p).create(listener);
-			
-		}
 	}
 	
 	private static final String[] EMPTY_STRINGS = new String[]{};
