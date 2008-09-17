@@ -154,9 +154,9 @@ final class SchemaCop extends ConsoleCop
 
 			final String sourceName = parameterName.substring("RENAME_TABLE_" // TODO use constant and use the constant in Schema.jspm
 					.length());
-			final Table table = schema.getTable(sourceName);
-			if (table == null)
-				throw new RuntimeException(sourceName);
+			final Table table = getTable(schema, sourceName);
+			
+			
 
 			table.renameTo(targetName, listener);
 		}
