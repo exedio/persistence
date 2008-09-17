@@ -67,6 +67,8 @@ final class Schema_Jspm extends Console_Jspm
 			final Model model,
 			final HttpServletRequest request)
 	{
+		final String APPLY_DRY = "APPLYDRY";
+		
 		%>
 		<form action="<%=cop%>#overall" method="POST">
 			<h4>Schema</h4>
@@ -129,12 +131,12 @@ final class Schema_Jspm extends Console_Jspm
 					model.dropDatabaseConstraints(constraintTypes);
 					%><div class="message">Database constraints successfully dropped!</div><%
 				}
-				else if(request.getParameter("APPLY")!=null)
+				else if(request.getParameter("APPLY")!=null || request.getParameter(APPLY_DRY)!=null)
 				{
 					%><hr>
 			<a href="<%=cop%>">flush log</a>
 			<ol><%
-				SchemaCop.writeApply(out, request, model);
+				SchemaCop.writeApply(out, request, model, request.getParameter(APPLY_DRY)!=null);
 			%>
 			</ol>
 			<a href="<%=cop%>">flush log</a>
@@ -147,6 +149,7 @@ final class Schema_Jspm extends Console_Jspm
 			<img class="node" onClick="togSch(this)" src="<%=node(schema.getCumulativeColor())%>">
 			Schema
 			<input id="schApp" class="expand" type="submit" name="APPLY" value="apply"/>
+			<input id="schAppDry" class="expand" type="submit" name="<%=APPLY_DRY%>" value="dry run"/>
 			<ul id="schBdy" class="expand"><%
 			
 			int tableCount = 0;

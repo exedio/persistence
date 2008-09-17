@@ -93,20 +93,28 @@ final class SchemaCop extends ConsoleCop
 	static final String CREATE_CONSTRAINT = "CREATE_CONSTRAINT";
 	
 	final static void writeApply(final PrintStream out,
-			final HttpServletRequest request, final Model model)
+			final HttpServletRequest request, final Model model, final boolean dryRun)
 	{
 		final Schema schema = model.getVerifiedSchema();
 		final StatementListener listener = new StatementListener()
 		{
 			long beforeExecuteTime = Long.MIN_VALUE;
 			
-			public void beforeExecute(final String statement)
+			public boolean beforeExecute(final String statement)
 			{
 				out.print("\n\t\t<li>");
 				out.print(XMLEncoder.encode(statement));
 				out.print("</li>");
-				out.flush();
-				beforeExecuteTime = System.currentTimeMillis();
+				if(dryRun)
+				{
+					return false;
+				}
+				else
+				{
+					out.flush();
+					beforeExecuteTime = System.currentTimeMillis();
+					return true;
+				}
 			}
 			
 			public void afterExecute(final String statement, final int rows)

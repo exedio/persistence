@@ -20,6 +20,10 @@ package com.exedio.dsmf;
 
 public interface StatementListener
 {
-	void beforeExecute(String statement);
+	/**
+	 * @return true, if the statement is really to be executed
+	 *         false, if this is just a dry run
+	 */
+	boolean beforeExecute(String statement);
 	void afterExecute(String statement, int rows);
 }

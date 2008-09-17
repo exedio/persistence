@@ -162,12 +162,12 @@ public abstract class Node
 			connection = connectionProvider.getConnection();
 			if ( logAllStatements ) System.out.println(statement);
 			sqlStatement = connection.createStatement();
-			if(listener!=null)
-				listener.beforeExecute(statement);
-			final int rows = sqlStatement.executeUpdate(statement);
-			if(listener!=null)
-				listener.afterExecute(statement, rows);
-			if ( logAllStatements ) System.out.println("  ("+rows+")");
+			if(listener==null ||
+				listener.beforeExecute(statement)){
+				final int rows = sqlStatement.executeUpdate(statement);
+				if(listener!=null)
+					listener.afterExecute(statement, rows);
+				if ( logAllStatements ) System.out.println("  ("+rows+")");}
 		}
 		catch(SQLException e)
 		{
