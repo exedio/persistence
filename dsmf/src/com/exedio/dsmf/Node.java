@@ -156,23 +156,22 @@ public abstract class Node
 	{
 		Connection connection = null;
 		java.sql.Statement sqlStatement = null;
-		final boolean logAllStatements = false;
 		try
 		{
 			connection = connectionProvider.getConnection();
-			if ( logAllStatements ) System.out.println(statement);
+			//System.out.println(statement);
 			sqlStatement = connection.createStatement();
 			if(listener==null || listener.beforeExecute(statement))
 			{
 				final int rows = sqlStatement.executeUpdate(statement);
 				if(listener!=null)
 					listener.afterExecute(statement, rows);
-				if ( logAllStatements ) System.out.println("  ("+rows+")");
+				//System.out.println("  ("+rows+")");
 			}
 		}
 		catch(SQLException e)
 		{
-			if ( logAllStatements ) System.out.println("  -> "+e.getMessage());
+			//System.out.println("  -> "+e.getMessage());
 			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
