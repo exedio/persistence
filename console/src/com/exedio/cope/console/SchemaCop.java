@@ -135,19 +135,19 @@ final class SchemaCop extends ConsoleCop
 				out.print(" rows</li>");
 			}
 		};
-		for(final String dropConstraint : getParameters(request, DROP_CONSTRAINT))
+		for(final String p : getParameters(request, DROP_CONSTRAINT))
 		{
-			getConstraint(schema, dropConstraint).drop(listener);
+			getConstraint(schema, p).drop(listener);
 			
 		}
-		for(final String dropColumn : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
 		{
-			getColumn(schema, dropColumn).drop(listener);
+			getColumn(schema, p).drop(listener);
 			
 		}
-		for(final String dropTable : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
 		{
-			getTable(schema, dropTable).drop(listener);
+			getTable(schema, p).drop(listener);
 		}
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
@@ -205,18 +205,18 @@ final class SchemaCop extends ConsoleCop
 
 			column.renameTo(targetName, listener);
 		}
-		for(final String createTable : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
 		{
-			getTable(schema, createTable).create(listener);
+			getTable(schema, p).create(listener);
 		}
-		for(final String createColumn : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
 		{
-			getColumn(schema, createColumn).create(listener);
+			getColumn(schema, p).create(listener);
 			
 		}
-		for(final String createConstraint : getParameters(request, CREATE_CONSTRAINT))
+		for(final String p : getParameters(request, CREATE_CONSTRAINT))
 		{
-			getConstraint(schema, createConstraint).create(listener);
+			getConstraint(schema, p).create(listener);
 			
 		}
 	}
