@@ -144,7 +144,6 @@ final class SchemaCop extends ConsoleCop
 					throw new RuntimeException(dropTable);
 				table.drop(listener);
 			}
-		{
 			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 			{
 				final String parameterName = (String) i.next();
@@ -163,8 +162,6 @@ final class SchemaCop extends ConsoleCop
 
 				table.renameTo(targetName, listener);
 			}
-		}
-		{
 			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 			{
 				final String parameterName = (String) i.next();
@@ -184,8 +181,6 @@ final class SchemaCop extends ConsoleCop
 
 				column.modify(targetType, listener);
 			}
-		}
-		{
 			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 			{
 				final String parameterName = (String) i.next();
@@ -205,7 +200,6 @@ final class SchemaCop extends ConsoleCop
 
 				column.renameTo(targetName, listener);
 			}
-		}
 			for(final String createTable : getParameters(request, "CREATE_TABLE"))// TODO use constant and use the constant in Schema.jspm
 			{
 				final Table table = schema.getTable(createTable);
