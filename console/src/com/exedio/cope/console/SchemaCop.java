@@ -131,34 +131,34 @@ final class SchemaCop extends ConsoleCop
 			final String[] dropConstraints = getParameters(request, DROP_CONSTRAINT);
 			
 			
-				for(final String dropConstraint : dropConstraints)
-				{
-					final Constraint constraint = getConstraint(schema, dropConstraint);
-					constraint.drop(listener);
-				}
+			for(final String dropConstraint : dropConstraints)
+			{
+				final Constraint constraint = getConstraint(schema, dropConstraint);
+				constraint.drop(listener);
+			}
 			
 		}
 		{
 			final String[] dropColumns = getParameters(request, "DROP_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			
 			
-				for(final String dropColumn : dropColumns)
-				{
-					final Column column = getColumn(schema, dropColumn);
-					column.drop(listener);
-				}
+			for(final String dropColumn : dropColumns)
+			{
+				final Column column = getColumn(schema, dropColumn);
+				column.drop(listener);
+			}
 		}
 		{
 			final String[] dropTables = getParameters(request, "DROP_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			
 			
-				for(final String dropTable : dropTables)
-				{
-					final Table table = schema.getTable(dropTable);
-					if (table == null)
-						throw new RuntimeException(dropTable);
-					table.drop(listener);
-				}
+			for(final String dropTable : dropTables)
+			{
+				final Table table = schema.getTable(dropTable);
+				if (table == null)
+					throw new RuntimeException(dropTable);
+				table.drop(listener);
+			}
 		}
 		{
 			for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
@@ -226,34 +226,34 @@ final class SchemaCop extends ConsoleCop
 			final String[] createTables = getParameters(request, "CREATE_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			
 			
-				for(final String createTable : createTables)
-				{
-					final Table table = schema.getTable(createTable);
-					if (table == null)
-						throw new RuntimeException(createTable);
+			for(final String createTable : createTables)
+			{
+				final Table table = schema.getTable(createTable);
+				if (table == null)
+					throw new RuntimeException(createTable);
 
-					table.create(listener);
-				}
+				table.create(listener);
+			}
 		}
 		{
 			final String[] createColumns = getParameters(request, "CREATE_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			
 			
-				for(final String createColumn : createColumns)
-				{
-					final Column column = getColumn(schema, createColumn);
-					column.create(listener);
-				}
+			for(final String createColumn : createColumns)
+			{
+				final Column column = getColumn(schema, createColumn);
+				column.create(listener);
+			}
 		}
 		{
 			final String[] createConstraints = getParameters(request, CREATE_CONSTRAINT);
 			
 			
-				for(final String createConstraint : createConstraints)
-				{
-					final Constraint constraint = getConstraint(schema, createConstraint);
-					constraint.create(listener);
-				}
+			for(final String createConstraint : createConstraints)
+			{
+				final Constraint constraint = getConstraint(schema, createConstraint);
+				constraint.create(listener);
+			}
 		}
 	}
 	
