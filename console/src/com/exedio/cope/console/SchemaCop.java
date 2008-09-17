@@ -55,6 +55,11 @@ final class SchemaCop extends ConsoleCop
 		Schema_Jspm.writeBody(this, out, model, request);
 	}
 	
+	private static final String strip(final String s, final String prefix)
+	{
+		return s.startsWith(prefix) ? s.substring(prefix.length()) : null;
+	}
+	
 	private static final Table getTable(final Schema schema, final String param)
 	{
 		final Table result = schema.getTable(param);
@@ -145,43 +150,40 @@ final class SchemaCop extends ConsoleCop
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String p = (String) i.next();
-			if (!p.startsWith("RENAME_TABLE_")) // TODO use constant and use the constant in Schema.jspm
+			final String sourceName = strip(p, "RENAME_TABLE_"); // TODO use constant and use the constant in Schema.jspm
+			if(sourceName==null)
 				continue;
 
 			final String targetName = request.getParameter(p).trim();
 			if (targetName.length() == 0)
 				continue;
 
-			final String sourceName = p.substring("RENAME_TABLE_" // TODO use constant and use the constant in Schema.jspm
-					.length());
 			getTable(schema, sourceName).renameTo(targetName, listener);
 		}
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String p = (String) i.next();
-			if (!p.startsWith("MODIFY_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
+			final String sourceName = strip(p, "MODIFY_COLUMN_"); // TODO use constant and use the constant in Schema.jspm
+			if(sourceName==null)
 				continue;
 
 			final String targetType = request.getParameter(p).trim();
 			if (targetType.length() == 0)
 				continue;
 
-			final String sourceName = p.substring("MODIFY_COLUMN_" // TODO use constant and use the constant in Schema.jspm
-					.length());
 			getColumn(schema, sourceName).modify(targetType, listener);
 		}
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String p = (String) i.next();
-			if (!p.startsWith("RENAME_COLUMN_")) // TODO use constant and use the constant in Schema.jspm
+			final String sourceName = strip(p, "RENAME_COLUMN_"); // TODO use constant and use the constant in Schema.jspm
+			if(sourceName==null)
 				continue;
 
 			final String targetName = request.getParameter(p).trim();
 			if (targetName.length() == 0)
 				continue;
 
-			final String sourceName = p.substring("RENAME_COLUMN_" // TODO use constant and use the constant in Schema.jspm
-					.length());
 			getColumn(schema, sourceName).renameTo(targetName, listener);
 		}
 		for(final String p : getParameters(request, "CREATE_TABLE")) // TODO use constant and use the constant in Schema.jspm
