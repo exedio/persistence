@@ -131,9 +131,8 @@ final class SchemaCop extends ConsoleCop
 			final String[] dropConstraints = (String[]) request.getParameterMap().get(DROP_CONSTRAINT);
 			if (dropConstraints != null)
 			{
-				for (int i = 0; i < dropConstraints.length; i++)
+				for(final String dropConstraint : dropConstraints)
 				{
-					final String dropConstraint = dropConstraints[i];
 					final Constraint constraint = getConstraint(schema, dropConstraint);
 					constraint.drop(listener);
 				}
@@ -143,9 +142,8 @@ final class SchemaCop extends ConsoleCop
 			final String[] dropColumns = (String[]) request.getParameterMap().get("DROP_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			if (dropColumns != null)
 			{
-				for (int i = 0; i < dropColumns.length; i++)
+				for(final String dropColumn : dropColumns)
 				{
-					final String dropColumn = dropColumns[i];
 					final Column column = getColumn(schema, dropColumn);
 					column.drop(listener);
 				}
@@ -155,9 +153,8 @@ final class SchemaCop extends ConsoleCop
 			final String[] dropTables = (String[]) request.getParameterMap().get("DROP_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (dropTables != null)
 			{
-				for (int i = 0; i < dropTables.length; i++)
+				for(final String dropTable : dropTables)
 				{
-					final String dropTable = dropTables[i];
 					final Table table = schema.getTable(dropTable);
 					if (table == null)
 						throw new RuntimeException(dropTable);
@@ -231,9 +228,8 @@ final class SchemaCop extends ConsoleCop
 			final String[] createTables = (String[]) request.getParameterMap().get("CREATE_TABLE"); // TODO use constant and use the constant in Schema.jspm
 			if (createTables != null)
 			{
-				for (int i = 0; i < createTables.length; i++)
+				for(final String createTable : createTables)
 				{
-					final String createTable = createTables[i];
 					final Table table = schema.getTable(createTable);
 					if (table == null)
 						throw new RuntimeException(createTable);
@@ -246,9 +242,8 @@ final class SchemaCop extends ConsoleCop
 			final String[] createColumns = (String[]) request.getParameterMap().get("CREATE_COLUMN"); // TODO use constant and use the constant in Schema.jspm
 			if (createColumns != null)
 			{
-				for (int i = 0; i < createColumns.length; i++)
+				for(final String createColumn : createColumns)
 				{
-					final String createColumn = createColumns[i];
 					final Column column = getColumn(schema, createColumn);
 					column.create(listener);
 				}
@@ -258,9 +253,8 @@ final class SchemaCop extends ConsoleCop
 			final String[] createConstraints = (String[]) request.getParameterMap().get(CREATE_CONSTRAINT);
 			if (createConstraints != null)
 			{
-				for (int i = 0; i < createConstraints.length; i++)
+				for(final String createConstraint : createConstraints)
 				{
-					final String createConstraint = createConstraints[i];
 					final Constraint constraint = getConstraint(schema, createConstraint);
 					constraint.create(listener);
 				}
