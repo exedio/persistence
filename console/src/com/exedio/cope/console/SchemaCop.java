@@ -154,10 +154,6 @@ final class SchemaCop extends ConsoleCop
 
 			final String sourceName = parameterName.substring("RENAME_TABLE_" // TODO use constant and use the constant in Schema.jspm
 					.length());
-			
-			
-			
-
 			getTable(schema, sourceName).renameTo(targetName, listener);
 		}
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
@@ -172,8 +168,6 @@ final class SchemaCop extends ConsoleCop
 
 			final String sourceName = parameterName.substring("MODIFY_COLUMN_" // TODO use constant and use the constant in Schema.jspm
 					.length());
-
-			
 			getColumn(schema, sourceName).modify(targetType, listener);
 		}
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
@@ -188,8 +182,6 @@ final class SchemaCop extends ConsoleCop
 
 			final String sourceName = parameterName.substring("RENAME_COLUMN_" // TODO use constant and use the constant in Schema.jspm
 					.length());
-
-			
 			getColumn(schema, sourceName).renameTo(targetName, listener);
 		}
 		for(final String p : getParameters(request, "CREATE_TABLE")) // TODO use constant and use the constant in Schema.jspm
