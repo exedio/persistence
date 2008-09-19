@@ -68,7 +68,7 @@ public class HistoryTest extends TestCase
 		};
 		MODEL.connect(new ConnectProperties(s, null));
 		HISTORY_MODEL.connect(new ConnectProperties(s, null));
-		HISTORY_MODEL.createDatabase();
+		HISTORY_MODEL.createSchema();
 	}
 	
 	@Override

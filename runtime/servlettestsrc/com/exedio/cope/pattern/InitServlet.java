@@ -44,7 +44,7 @@ public class InitServlet extends HttpServlet
 		
 		final Class thisClass = InitServlet.class;
 		connectToken = ServletUtil.connect(model, getServletConfig(), thisClass.getName());
-		model.createDatabase();
+		model.createSchema();
 		try
 		{
 			model.startTransaction(thisClass.getName());

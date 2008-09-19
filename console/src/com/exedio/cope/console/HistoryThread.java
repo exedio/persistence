@@ -91,7 +91,7 @@ final class HistoryThread extends Thread
 				try
 				{
 					HISTORY_MODEL.startTransaction("check");
-					HISTORY_MODEL.checkDatabase();
+					HISTORY_MODEL.checkSchema();
 					HISTORY_MODEL.commit();
 				}
 				finally

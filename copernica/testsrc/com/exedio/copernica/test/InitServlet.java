@@ -87,7 +87,7 @@ public class InitServlet extends CopsServlet
 			try
 			{
 				// make transaction connected
-				Main.model.checkDatabase();
+				Main.model.checkSchema();
 			}
 			catch(SQLRuntimeException e)
 			{

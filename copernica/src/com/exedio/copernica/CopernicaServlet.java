@@ -119,7 +119,7 @@ public final class CopernicaServlet extends CopsServlet
 			if(!checked)
 			{
 				model.startTransaction("copernica.checkDatabase");
-				model.checkDatabase();
+				model.checkSchema();
 				checked = true;
 				model.commit();
 			}

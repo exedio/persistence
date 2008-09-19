@@ -327,11 +327,11 @@ public abstract class Cope
 		model.connect(new ConnectProperties(ConnectProperties.getSystemPropertySource()));
 		final String action = args[1];
 		if("create".equals(action))
-			model.createDatabase();
+			model.createSchema();
 		else if("drop".equals(action))
-			model.dropDatabase();
+			model.dropSchema();
 		else if("tearDown".equals(action))
-			model.tearDownDatabase();
+			model.tearDownSchema();
 		else
 			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
 		model.disconnect();

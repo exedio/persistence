@@ -84,7 +84,7 @@ public class ReviseTest extends CopeAssert
 		assertEqualsUnmodifiable(Arrays.asList(revisions5), model5.getRevisions());
 		
 		model5.connect(props);
-		model5.tearDownDatabase();
+		model5.tearDownSchema();
 
 		final Properties info = model5.getDatabaseInfo();
 		databaseName = info.getProperty("database.name");
@@ -93,7 +93,7 @@ public class ReviseTest extends CopeAssert
 		driverVersion = info.getProperty("driver.version");
 		
 		final Date createBefore = new Date();
-		model5.createDatabase();
+		model5.createSchema();
 		final Date createAfter = new Date();
 		
 		assertSchema(model5.getVerifiedSchema(), false, false);
@@ -225,7 +225,7 @@ public class ReviseTest extends CopeAssert
 			assertEquals(3, logs.size());
 		}
 		
-		model7.tearDownDatabase();
+		model7.tearDownSchema();
 	}
 	
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)

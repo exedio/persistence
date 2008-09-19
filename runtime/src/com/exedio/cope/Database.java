@@ -141,7 +141,7 @@ final class Database
 		return new Statement(this, query);
 	}
 	
-	void createDatabase(final int revisionNumber)
+	void createSchema(final int revisionNumber)
 	{
 		buildStage = false;
 		
@@ -172,7 +172,7 @@ final class Database
 		}
 	}
 
-	void createDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 		
@@ -181,7 +181,7 @@ final class Database
 
 	//private static int checkTableTime = 0;
 
-	void checkDatabase(final Connection connection)
+	void checkSchema(final Connection connection)
 	{
 		buildStage = false;
 
@@ -258,35 +258,35 @@ final class Database
 		}
 	}
 
-	void dropDatabase()
+	void dropSchema()
 	{
 		buildStage = false;
 
 		makeSchema().drop();
 	}
 	
-	void dropDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
 		makeSchema().dropConstraints(types);
 	}
 	
-	void tearDownDatabase()
+	void tearDownSchema()
 	{
 		buildStage = false;
 
 		makeSchema().tearDown();
 	}
 
-	void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
 		makeSchema().tearDownConstraints(types);
 	}
 	
-	void checkEmptyDatabase(final Connection connection)
+	void checkEmptySchema(final Connection connection)
 	{
 		buildStage = false;
 

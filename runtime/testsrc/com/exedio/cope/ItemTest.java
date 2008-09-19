@@ -127,22 +127,22 @@ public class ItemTest extends TestmodelTest
 	
 	public void testCheckDatabase()
 	{
-		model.checkDatabase();
+		model.checkSchema();
 		if(!postgresql)
 		{
-			model.dropDatabaseConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.createDatabaseConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
 			if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
 			{
-				model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.Unique));
-				model.createDatabaseConstraints(EnumSet.of(Constraint.Type.Unique));
+				model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+				model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
 			}
-			model.dropDatabaseConstraints(EnumSet.of(Constraint.Type.Check));
-			model.createDatabaseConstraints(EnumSet.of(Constraint.Type.Check));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 		}
 		assertNotNull(model.getItemCacheInfo());
 		assertNotNull(model.getQueryCacheInfo());

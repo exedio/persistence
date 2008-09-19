@@ -545,39 +545,39 @@ public final class Model
 		return getDatabase().setListener(listener);
 	}
 	
-	public void createDatabase()
+	public void createSchema()
 	{
-		getDatabase().createDatabase(revisionNumber);
+		getDatabase().createSchema(revisionNumber);
 		clearCache();
 	}
 
-	public void createDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().createDatabaseConstraints(types);
+		getDatabase().createSchemaConstraints(types);
 	}
 
 	/**
-	 * Checks the database,
-	 * whether the database tables representing the types do exist.
+	 * Checks the schema,
+	 * whether the tables representing the types do exist.
 	 * Issues a single database statement,
 	 * that touches all tables and columns,
 	 * that would have been created by
-	 * {@link #createDatabase()}.
+	 * {@link #createSchema()}.
 	 * @throws RuntimeException
 	 * 	if something is wrong with the database.
 	 * 	TODO: use a more specific exception.
 	 */
-	public void checkDatabase()
+	public void checkSchema()
 	{
-		getDatabase().checkDatabase(getCurrentTransaction().getConnection());
+		getDatabase().checkSchema(getCurrentTransaction().getConnection());
 	}
 
-	public void checkEmptyDatabase()
+	public void checkEmptySchema()
 	{
-		getDatabase().checkEmptyDatabase(getCurrentTransaction().getConnection());
+		getDatabase().checkEmptySchema(getCurrentTransaction().getConnection());
 	}
 
-	public void dropDatabase()
+	public void dropSchema()
 	{
 		IntegerField.flushDefaultNextCache(this);
 		
@@ -586,24 +586,24 @@ public final class Model
 		for(ListIterator<Type<?>> i = types.listIterator(types.size()); i.hasPrevious(); )
 			i.previous().onDropTable();
 
-		getDatabase().dropDatabase();
+		getDatabase().dropSchema();
 		clearCache();
 	}
 
-	public void dropDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().dropDatabaseConstraints(types);
+		getDatabase().dropSchemaConstraints(types);
 	}
 
-	public void tearDownDatabase()
+	public void tearDownSchema()
 	{
-		getDatabase().tearDownDatabase();
+		getDatabase().tearDownSchema();
 		clearCache();
 	}
 	
-	public void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		getDatabase().tearDownDatabaseConstraints(types);
+		getDatabase().tearDownSchemaConstraints(types);
 	}
 
 	public Schema getVerifiedSchema()
@@ -1153,5 +1153,77 @@ public final class Model
 	public Feature findFeatureByID(final String id)
 	{
 		return getFeature(id);
+	}
+	
+	/**
+	 * @deprecated Use {@link #createSchema()} instead
+	 */
+	@Deprecated
+	public void createDatabase()
+	{
+		createSchema();
+	}
+
+	/**
+	 * @deprecated Use {@link #createSchemaConstraints(EnumSet<Constraint.Type>)} instead
+	 */
+	@Deprecated
+	public void createDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	{
+		createSchemaConstraints(types);
+	}
+
+	/**
+	 * @deprecated Use {@link #checkSchema()} instead
+	 */
+	@Deprecated
+	public void checkDatabase()
+	{
+		checkSchema();
+	}
+
+	/**
+	 * @deprecated Use {@link #checkEmptySchema()} instead
+	 */
+	@Deprecated
+	public void checkEmptyDatabase()
+	{
+		checkEmptySchema();
+	}
+
+	/**
+	 * @deprecated Use {@link #dropSchema()} instead
+	 */
+	@Deprecated
+	public void dropDatabase()
+	{
+		dropSchema();
+	}
+
+	/**
+	 * @deprecated Use {@link #dropSchemaConstraints(EnumSet<Constraint.Type>)} instead
+	 */
+	@Deprecated
+	public void dropDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	{
+		dropSchemaConstraints(types);
+	}
+
+	/**
+	 * @deprecated Use {@link #tearDownSchema()} instead
+	 */
+	@Deprecated
+	public void tearDownDatabase()
+	{
+		tearDownSchema();
+	}
+
+	/**
+	 * @deprecated Use {@link #tearDownSchemaConstraints(EnumSet<Constraint.Type>)} instead
+	 */
+	@Deprecated
+	public void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> types)
+	{
+		tearDownSchemaConstraints(types);
 	}
 }

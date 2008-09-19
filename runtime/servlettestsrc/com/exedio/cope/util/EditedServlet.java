@@ -61,7 +61,7 @@ public final class EditedServlet extends HttpServlet
 		super.init();
 		
 		connectToken = ServletUtil.connect(model, getServletConfig(), "EditedServlet#init");
-		model.createDatabase();
+		model.createSchema();
 		try
 		{
 			model.startTransaction("create sample data");
@@ -94,7 +94,7 @@ public final class EditedServlet extends HttpServlet
 	@Override
 	public void destroy()
 	{
-		model.dropDatabase();
+		model.dropSchema();
 		connectToken.returnIt();
 		connectToken = null;
 		super.destroy();
