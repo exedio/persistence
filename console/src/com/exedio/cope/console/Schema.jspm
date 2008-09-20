@@ -67,26 +67,34 @@ final class Schema_Jspm extends Console_Jspm
 			final Model model,
 			final HttpServletRequest request)
 	{
+		final String CREATE = "CREATE";
+		final String TEARDOWN = "TEARDOWN";
+		final String DROP = "DROP";
+		final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
+		final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
+		final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
+		final String DROP_CONSTRAINTS = "DROP_CONSTRAINTS";
+		final String APPLY = "APPLY";
 		final String APPLY_DRY = "APPLYDRY";
 		
 		%>
 		<form action="<%=cop%>#overall" method="POST">
 			<h4>Schema</h4>
-			<input type="submit" name="CREATE" value="create" />
-			<input type="submit" name="TEARDOWN" value="tear down" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?')" />
-			<input type="submit" name="DROP" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
+			<input type="submit" name="<%=CREATE  %>" value="create" />
+			<input type="submit" name="<%=TEARDOWN%>" value="tear down" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?')" />
+			<input type="submit" name="<%=DROP    %>" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
 			<hr>
 			<h4>Constraints</h4><%
 			for(final Constraint.Type type : Constraint.Type.values())
 			{
 			%>
-			<input type="checkbox" name="CONSTRAINT_TYPE" value="<%=type.name()%>" checked="checked" /><%=type(type)%><%
+			<input type="checkbox" name="<%=CONSTRAINT_TYPE%>" value="<%=type.name()%>" checked="checked" /><%=type(type)%><%
 			}
 			%>
 			<br>
-			<input type="submit" name="CREATE_CONSTRAINTS" value="create" />
-			<input type="submit" name="TEARDOWN_CONSTRAINTS" value="tear down"/>
-			<input type="submit" name="DROP_CONSTRAINTS" value="drop"/>
+			<input type="submit" name="<%=CREATE_CONSTRAINTS  %>" value="create" />
+			<input type="submit" name="<%=TEARDOWN_CONSTRAINTS%>" value="tear down"/>
+			<input type="submit" name="<%=DROP_CONSTRAINTS    %>" value="drop"/>
 			<br>
 			supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
 			<br>
@@ -96,42 +104,42 @@ final class Schema_Jspm extends Console_Jspm
 			if("POST".equals(request.getMethod()))
 			{
 				final EnumSet<Constraint.Type> constraintTypes = EnumSet.noneOf(Constraint.Type.class);
-				final String[] constraintTypeParameterValues = request.getParameterValues("CONSTRAINT_TYPE");
+				final String[] constraintTypeParameterValues = request.getParameterValues(CONSTRAINT_TYPE);
 				if(constraintTypeParameterValues!=null)
 					for(String s : constraintTypeParameterValues)
 						constraintTypes.add(Constraint.Type.valueOf(s));
 					
-				if(request.getParameter("CREATE")!=null)
+				if(request.getParameter(CREATE)!=null)
 				{
 					model.createSchema();
 					%><div class="message">Schema successfully created!</div><%
 				}
-				else if(request.getParameter("TEARDOWN")!= null)
+				else if(request.getParameter(TEARDOWN)!= null)
 				{
 					model.tearDownSchema();
 					%><div class="message">Schema successfully torn down!</div><%
 				}
-				else if(request.getParameter("DROP")!=null)
+				else if(request.getParameter(DROP)!=null)
 				{
 					model.dropSchema();
 					%><div class="message">Schema successfully dropped!</div><%
 				}
-				else if(request.getParameter("CREATE_CONSTRAINTS")!=null)
+				else if(request.getParameter(CREATE_CONSTRAINTS)!=null)
 				{
 					model.createSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully created!</div><%
 				}
-				else if(request.getParameter("TEARDOWN_CONSTRAINTS")!=null)
+				else if(request.getParameter(TEARDOWN_CONSTRAINTS)!=null)
 				{
 					model.tearDownSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully torn down!</div><%
 				}
-				else if(request.getParameter("DROP_CONSTRAINTS")!=null)
+				else if(request.getParameter(DROP_CONSTRAINTS)!=null)
 				{
 					model.dropSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully dropped!</div><%
 				}
-				else if(request.getParameter("APPLY")!=null || request.getParameter(APPLY_DRY)!=null)
+				else if(request.getParameter(APPLY)!=null || request.getParameter(APPLY_DRY)!=null)
 				{
 					%><hr>
 			<a href="<%=cop%>">flush log</a>
@@ -148,7 +156,7 @@ final class Schema_Jspm extends Console_Jspm
 			%>
 			<img class="node" onClick="togSch(this)" src="<%=node(schema.getCumulativeColor())%>">
 			Schema
-			<input id="schApp" class="expand" type="submit" name="APPLY" value="apply"/>
+			<input id="schApp" class="expand" type="submit" name="<%=APPLY%>" value="apply"/>
 			<input id="schAppDry" class="expand" type="submit" name="<%=APPLY_DRY%>" value="dry run"/>
 			<ul id="schBdy" class="expand"><%
 			
