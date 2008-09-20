@@ -103,6 +103,13 @@ final class SchemaCop extends ConsoleCop
 	}
 	
 	static final String DROP_CONSTRAINT = "DROP_CONSTRAINT";
+	static final String DROP_COLUMN     = "DROP_COLUMN";
+	static final String DROP_TABLE      = "DROP_TABLE";
+	static final String RENAME_TABLE_PREFIX  = "RENAME_TABLE_";
+	static final String MODIFY_COLUMN_PREFIX = "MODIFY_COLUMN__";
+	static final String RENAME_COLUMN_PREFIX = "RENAME_COLUMN__";
+	static final String CREATE_TABLE      = "CREATE_TABLE";
+	static final String CREATE_COLUMN     = "CREATE_COLUMN";
 	static final String CREATE_CONSTRAINT = "CREATE_CONSTRAINT";
 	
 	final static void writeApply(final PrintStream out,
@@ -143,15 +150,15 @@ final class SchemaCop extends ConsoleCop
 		
 		for(final String p : getParameters(request, DROP_CONSTRAINT))
 			getConstraint(schema, p).drop(listener);
-		for(final String p : getParameters(request, "DROP_COLUMN")) // TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, DROP_COLUMN))
 			getColumn    (schema, p).drop(listener);
-		for(final String p : getParameters(request, "DROP_TABLE")) // TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, DROP_TABLE))
 			getTable     (schema, p).drop(listener);
 		
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String p = (String) i.next();
-			final String sourceName = strip(p, "RENAME_TABLE_"); // TODO use constant and use the constant in Schema.jspm
+			final String sourceName = strip(p, RENAME_TABLE_PREFIX);
 			if(sourceName==null)
 				continue;
 
@@ -164,7 +171,7 @@ final class SchemaCop extends ConsoleCop
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String p = (String) i.next();
-			final String sourceName = strip(p, "MODIFY_COLUMN_"); // TODO use constant and use the constant in Schema.jspm
+			final String sourceName = strip(p, MODIFY_COLUMN_PREFIX);
 			if(sourceName==null)
 				continue;
 
@@ -177,7 +184,7 @@ final class SchemaCop extends ConsoleCop
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
 			final String p = (String) i.next();
-			final String sourceName = strip(p, "RENAME_COLUMN_"); // TODO use constant and use the constant in Schema.jspm
+			final String sourceName = strip(p, RENAME_COLUMN_PREFIX);
 			if(sourceName==null)
 				continue;
 
@@ -187,9 +194,9 @@ final class SchemaCop extends ConsoleCop
 
 			getColumn(schema, sourceName).renameTo(targetName, listener);
 		}
-		for(final String p : getParameters(request, "CREATE_TABLE")) // TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, CREATE_TABLE))
 			getTable     (schema, p).create(listener);
-		for(final String p : getParameters(request, "CREATE_COLUMN")) // TODO use constant and use the constant in Schema.jspm
+		for(final String p : getParameters(request, CREATE_COLUMN))
 			getColumn    (schema, p).create(listener);
 		for(final String p : getParameters(request, CREATE_CONSTRAINT))
 			getConstraint(schema, p).create(listener);

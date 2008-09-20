@@ -162,7 +162,7 @@ final class Schema_Jspm extends Console_Jspm
 					<img class="node" onClick="togTab(this,<%=tableCount%>)" src="<%=node(table.getCumulativeColor())%>">
 					<small>tab<%=tableCount%></small><%
 					
-					writeEdit(tableName, table.exists(), "RENAME_TABLE_" + tableName, out);
+					writeEdit(tableName, table.exists(), SchemaCop.RENAME_TABLE_PREFIX + tableName, out);
 				
 					final String tableError = table.getError();
 					if(tableError!=null)
@@ -173,12 +173,12 @@ final class Schema_Jspm extends Console_Jspm
 					if(table.exists())
 					{
 					%>
-					<span id="tabDrp<%=tableCount%>" class="expand">, <input type="checkbox" name="DROP_TABLE" value="<%=tableName%>"/>drop</span><%
+					<span id="tabDrp<%=tableCount%>" class="expand">, <input type="checkbox" name="<%=SchemaCop.DROP_TABLE%>" value="<%=tableName%>"/>drop</span><%
 					}
 					else if(table.required())
 					{
 					%>,
-					<input type="checkbox" name="CREATE_TABLE" value="<%=tableName%>"/>create<%
+					<input type="checkbox" name="<%=SchemaCop.CREATE_TABLE%>" value="<%=tableName%>"/>create<%
 					}
 					
 					%>
@@ -203,8 +203,8 @@ final class Schema_Jspm extends Console_Jspm
 							<img class="node" src="<%=leaf(column.getCumulativeColor())%>">
 							<small>col<%=columnCount%></small><%
 							
-							writeEdit(columnName,       column.exists(), "RENAME_COLUMN_" + tableName + '#' + columnName, out);
-							writeEdit(column.getType(), column.exists(), "MODIFY_COLUMN_" + tableName + '#' + columnName, out);
+							writeEdit(columnName,       column.exists(), SchemaCop.RENAME_COLUMN_PREFIX + tableName + '#' + columnName, out);
+							writeEdit(column.getType(), column.exists(), SchemaCop.MODIFY_COLUMN_PREFIX + tableName + '#' + columnName, out);
 						
 							final String error = column.getError();
 							if(error!=null)
@@ -215,13 +215,13 @@ final class Schema_Jspm extends Console_Jspm
 							if(column.exists())
 							{
 							%>
-							<input type="checkbox" name="DROP_COLUMN" value="<%=tableName%>#<%=columnName%>"/>drop<%
+							<input type="checkbox" name="<%=SchemaCop.DROP_COLUMN%>" value="<%=tableName%>#<%=columnName%>"/>drop<%
 							}
 							else if(column.required() &&
 									column.getTable().exists() )
 							{
 							%>,
-							<input type="checkbox" name="CREATE_COLUMN" value="<%=tableName%>#<%=columnName%>"/>create<%
+							<input type="checkbox" name="<%=SchemaCop.CREATE_COLUMN%>" value="<%=tableName%>#<%=columnName%>"/>create<%
 							}
 						%>
 						</li><%
