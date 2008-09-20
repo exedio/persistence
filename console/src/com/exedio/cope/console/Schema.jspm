@@ -103,33 +103,33 @@ final class Schema_Jspm extends Console_Jspm
 					
 				if(request.getParameter("CREATE")!=null)
 				{
-					model.createDatabase();
-					%><div class="message">Database successfully created!</div><%
+					model.createSchema();
+					%><div class="message">Schema successfully created!</div><%
 				}
 				else if(request.getParameter("TEARDOWN")!= null)
 				{
-					model.tearDownDatabase();
-					%><div class="message">Database successfully torn down!</div><%
+					model.tearDownSchema();
+					%><div class="message">Schema successfully torn down!</div><%
 				}
 				else if(request.getParameter("DROP")!=null)
 				{
-					model.dropDatabase();
-					%><div class="message">Database successfully dropped!</div><%
+					model.dropSchema();
+					%><div class="message">Schema successfully dropped!</div><%
 				}
 				else if(request.getParameter("CREATE_CONSTRAINTS")!=null)
 				{
-					model.createDatabaseConstraints(constraintTypes);
-					%><div class="message">Database constraints successfully created!</div><%
+					model.createSchemaConstraints(constraintTypes);
+					%><div class="message">Schema constraints successfully created!</div><%
 				}
 				else if(request.getParameter("TEARDOWN_CONSTRAINTS")!=null)
 				{
-					model.tearDownDatabaseConstraints(constraintTypes);
-					%><div class="message">Database constraints successfully torn down!</div><%
+					model.tearDownSchemaConstraints(constraintTypes);
+					%><div class="message">Schema constraints successfully torn down!</div><%
 				}
 				else if(request.getParameter("DROP_CONSTRAINTS")!=null)
 				{
-					model.dropDatabaseConstraints(constraintTypes);
-					%><div class="message">Database constraints successfully dropped!</div><%
+					model.dropSchemaConstraints(constraintTypes);
+					%><div class="message">Schema constraints successfully dropped!</div><%
 				}
 				else if(request.getParameter("APPLY")!=null || request.getParameter(APPLY_DRY)!=null)
 				{
