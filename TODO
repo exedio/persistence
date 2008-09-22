@@ -36,12 +36,6 @@
 		* separate test model for lib tests and testwebapp (webtests)
 		* make small test models for each lib test
 	- support JMX for information displayed by ConsoleServlet
-	- implement property database.dontSupport.defineColumnTypes,
-		gains a small performance benefit for oracle thin drivers,
-		see http://www.oracle.com/technology/tech/java/sqlj_jdbc/htdocs/jdbc_faq.htm#06_01
-	- write documention
-		* support for Defining Column Types on oracle
-			http://download-west.oracle.com/docs/cd/B10501_01/java.920/a96654/oraperf.htm#1002524
 * instrument
 	- localized generated comments
 	- instrumentation for modified files only
