@@ -1165,7 +1165,7 @@ public final class Model
 	}
 
 	/**
-	 * @deprecated Use {@link #createSchemaConstraints(EnumSet<Constraint.Type>)} instead
+	 * @deprecated Use {@link #createSchemaConstraints(EnumSet)} instead
 	 */
 	@Deprecated
 	public void createDatabaseConstraints(final EnumSet<Constraint.Type> types)
@@ -1201,7 +1201,7 @@ public final class Model
 	}
 
 	/**
-	 * @deprecated Use {@link #dropSchemaConstraints(EnumSet<Constraint.Type>)} instead
+	 * @deprecated Use {@link #dropSchemaConstraints(EnumSet)} instead
 	 */
 	@Deprecated
 	public void dropDatabaseConstraints(final EnumSet<Constraint.Type> types)
@@ -1219,7 +1219,7 @@ public final class Model
 	}
 
 	/**
-	 * @deprecated Use {@link #tearDownSchemaConstraints(EnumSet<Constraint.Type>)} instead
+	 * @deprecated Use {@link #tearDownSchemaConstraints(EnumSet)} instead
 	 */
 	@Deprecated
 	public void tearDownDatabaseConstraints(final EnumSet<Constraint.Type> types)
