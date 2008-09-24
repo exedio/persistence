@@ -589,7 +589,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return lastModified.isNotNull();
 	}
 	
-	public static final class Value // TODO add getter methods
+	public static final class Value
 	{
 		final String contentType;
 		final DataField.Value body;
@@ -601,6 +601,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 
 			this.body = body;
 			this.contentType = contentType;
+		}
+		
+		public DataField.Value getBody()
+		{
+			return body;
+		}
+		
+		public String getContentType()
+		{
+			return contentType;
 		}
 	}
 	

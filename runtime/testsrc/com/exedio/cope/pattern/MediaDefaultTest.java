@@ -47,6 +47,12 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 	
 	public void testIt() throws IOException
 	{
+		{
+			final DataField.Value dataValue = DataField.toValue(data8);
+			assertSame(dataValue, Media.toValue(dataValue, "zack").getBody());
+			assertSame("zack",    Media.toValue(dataValue, "zack").getContentType());
+		}
+		
 		assertEquals(false, item.file.isInitial());
 		assertEquals(false, item.file.isFinal());
 		assertEquals(false, item.file.isMandatory());
