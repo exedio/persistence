@@ -221,7 +221,7 @@ public abstract class MediaPath extends Pattern
 			this.responseStatus = responseStatus;
 		}
 		
-		public final void increment()
+		final void increment()
 		{
 			synchronized(lock)
 			{
