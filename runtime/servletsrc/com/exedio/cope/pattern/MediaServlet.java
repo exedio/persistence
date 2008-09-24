@@ -144,14 +144,9 @@ public final class MediaServlet extends HttpServlet
 						"</head>\n" +
 						"<body>\n" +
 						"<h1>Not Found</h1>\n" +
-						"The requested URL was not found on this server");
-				if(log!=null)
-				{
-					out.print(" (");
-					out.print(log.name);
-					out.print(')');
-				}
-				out.print(".\n" +
+						"The requested URL was not found on this server (");
+				out.print(log.name);
+				out.print(").\n" +
 						"</body>\n" +
 						"</html>\n");
 				break;
