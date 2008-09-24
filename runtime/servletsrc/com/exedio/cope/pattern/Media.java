@@ -591,8 +591,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	
 	public static final class Value
 	{
-		final String contentType;
 		final DataField.Value body;
+		final String contentType;
 		
 		Value(final DataField.Value body, final String contentType)
 		{
