@@ -24,7 +24,7 @@ public final class LongField extends NumberField<Long>
 	private LongField(final boolean isfinal, final boolean optional, final boolean unique, final Long defaultConstant)
 	{
 		super(isfinal, optional, unique, Long.class, defaultConstant);
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	public LongField()

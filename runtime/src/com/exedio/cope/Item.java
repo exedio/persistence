@@ -194,7 +194,7 @@ public abstract class Item implements Serializable
 		}
 		for(final Field field : type.getFields())
 		{
-			field.checkValue(fieldValues.get(field), null);
+			field.check(fieldValues.get(field), null);
 		}
 		
 		checkUniqueConstraints(type, null, fieldValues);
@@ -277,7 +277,7 @@ public abstract class Item implements Serializable
 		if(field.isfinal)
 			throw new FinalViolationException(field, this);
 
-		field.checkValue(value, this);
+		field.check(value, this);
 
 		checkUniqueConstraints(type, this, Collections.singletonMap(field, value));
 		
@@ -311,7 +311,7 @@ public abstract class Item implements Serializable
 			if(field.isfinal)
 				throw new FinalViolationException(field, this);
 
-			field.checkValue(fieldValues.get(field), this);
+			field.check(fieldValues.get(field), this);
 		}
 		checkUniqueConstraints(type, this, fieldValues);
 

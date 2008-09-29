@@ -26,7 +26,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	private BooleanField(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
 	{
 		super(isfinal, optional, unique, Boolean.class, defaultConstant);
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	public BooleanField()

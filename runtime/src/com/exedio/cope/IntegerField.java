@@ -51,12 +51,12 @@ public final class IntegerField extends NumberField<Integer>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
-		checkDefaultValue();
+		checkDefaultConstant();
 		if(defaultNextStart!=null)
 		{
 			try
 			{
-				checkValue(defaultNextStart, null);
+				check(defaultNextStart, null);
 			}
 			catch(ConstraintViolationException e)
 			{
@@ -218,7 +218,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
-	void checkNotNullValue(final Integer value, final Item exceptionItem) throws IntegerRangeViolationException
+	void checkNotNull(final Integer value, final Item exceptionItem) throws IntegerRangeViolationException
 	{
 		final int valuePrimitive = value.intValue();
 		if(valuePrimitive<minimum)

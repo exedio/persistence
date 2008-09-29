@@ -48,13 +48,13 @@ public abstract class FunctionField<E extends Object>
 		this.defaultConstant = defaultConstant;
 	}
 	
-	final void checkDefaultValue()
+	final void checkDefaultConstant()
 	{
 		if(defaultConstant!=null)
 		{
 			try
 			{
-				checkValue(defaultConstant, null);
+				check(defaultConstant, null);
 			}
 			catch(ConstraintViolationException e)
 			{

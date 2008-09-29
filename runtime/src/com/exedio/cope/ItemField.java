@@ -46,7 +46,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 			if(isfinal)
 				throw new IllegalArgumentException("final item field cannot have delete policy nullify");
 		}
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	ItemField(final Class<E> valueClass)

@@ -62,7 +62,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
 		
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	EnumField(final Class<E> valueClass)

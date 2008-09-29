@@ -41,7 +41,7 @@ public final class DateField extends FunctionField<Date>
 
 		if(defaultConstant!=null && defaultNow)
 			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	public DateField()

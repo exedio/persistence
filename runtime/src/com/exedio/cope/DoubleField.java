@@ -48,7 +48,7 @@ public final class DoubleField extends NumberField<Double>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 		
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	public DoubleField()
@@ -144,7 +144,7 @@ public final class DoubleField extends NumberField<Double>
 	}
 	
 	@Override
-	void checkNotNullValue(final Double value, final Item exceptionItem) throws IntegerRangeViolationException
+	void checkNotNull(final Double value, final Item exceptionItem) throws IntegerRangeViolationException
 	{
 		final double valuePrimitive = value.doubleValue();
 		

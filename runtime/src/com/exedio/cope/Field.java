@@ -147,7 +147,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * and {@link Item#Item(SetValue[])}
 	 * and throws the exception specified there.
 	 */
-	final void checkValue(final Object value, final Item exceptionItem)
+	final void check(final Object value, final Item exceptionItem)
 		throws
 			MandatoryViolationException,
 			StringLengthViolationException
@@ -167,19 +167,19 @@ public abstract class Field<E> extends Feature implements Settable<E>
 						" for " + toString() + '.');
 			}
 			
-			checkNotNullValue(valueClass.cast(value), exceptionItem);
+			checkNotNull(valueClass.cast(value), exceptionItem);
 		}
 	}
 	
 	/**
 	 * Further checks non-null field values already checked by
-	 * {@link #checkValue(Object, Item)}.
+	 * {@link #check(Object, Item)}.
 	 * To be overidden by subclasses,
 	 * the default implementation does nothing.
 	 * @param value used in subclasses
 	 * @param exceptionItem used in subclasses
 	 */
-	void checkNotNullValue(final E value, final Item exceptionItem)
+	void checkNotNull(final E value, final Item exceptionItem)
 		throws
 			StringLengthViolationException
 	{

@@ -306,7 +306,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 		else
 		{
-			checkNotNullValue(data, item);
+			checkNotNull(data, item);
 		}
 		
 		column.table.database.store(model.getCurrentTransaction().getConnection(), column, item, data, this);
@@ -400,7 +400,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 	
 	@Override
-	final void checkNotNullValue(final Value value, final Item item) throws MandatoryViolationException
+	final void checkNotNull(final Value value, final Item item) throws MandatoryViolationException
 	{
 		final long lengthIfKnown = value.estimateLength();
 		if(lengthIfKnown>maximumLength)

@@ -31,7 +31,7 @@ public final class DayField extends FunctionField<Day>
 	private DayField(final boolean isfinal, final boolean optional, final boolean unique, final Day defaultConstant)
 	{
 		super(isfinal, optional, unique, Day.class, defaultConstant);
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	public DayField()

@@ -52,7 +52,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 		if(minimumLength>maximumLength)
 			throw new IllegalArgumentException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
 		
-		checkDefaultValue();
+		checkDefaultConstant();
 	}
 	
 	/**
@@ -174,7 +174,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	}
 	
 	@Override
-	void checkNotNullValue(final String value, final Item exceptionItem)
+	void checkNotNull(final String value, final Item exceptionItem)
 		throws
 			StringLengthViolationException, StringCharacterSetViolationException
 	{
