@@ -141,6 +141,11 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return new SetValue[]{ map(value) };
 	}
 	
+	public final void check(final E value) throws ConstraintViolationException
+	{
+		check(value, null);
+	}
+	
 	/**
 	 * Checks field values set by
 	 * {@link Item#set(FunctionField,Object)}

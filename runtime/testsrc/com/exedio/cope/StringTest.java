@@ -160,6 +160,48 @@ public class StringTest extends TestmodelTest
 		assertEquals(item.any.endsWithIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO"));
 		assertEquals(item.any.containsIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO%"));
 
+		// test check method
+		try
+		{
+			item.mandatory.check(null);
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(item.mandatory, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+		}
+		try
+		{
+			item.mandatory.check("");
+			assert supports;
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertTrue(!supports);
+			assertEquals(item.mandatory, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+		}
+		try
+		{
+			item.min4.check("123");
+			fail();
+		}
+		catch(StringLengthViolationException e)
+		{
+			assertEquals(item.min4, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("123", e.getValue());
+			assertEquals(true, e.isTooShort());
+			assertEquals(
+					"length violation on a newly created item, " +
+					"'123' is too short for " + item.min4 + ", " +
+					"must be at least 4 characters, but was 3.",
+					e.getMessage());
+		}
+		
 		// any
 		item.setAny("1234");
 		assertEquals("1234", item.getAny());

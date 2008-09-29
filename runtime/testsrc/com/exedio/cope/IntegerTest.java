@@ -266,6 +266,36 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertIllegalRange(MIN, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MIN + ".");
 		assertIllegalRange(MAX, MAX, "maximum must be greater than mimimum, but was " + MAX + " and " + MAX + ".");
 
+		// test check method
+		try
+		{
+			item.mandatory.check(null);
+			fail();
+		}
+		catch(MandatoryViolationException e)
+		{
+			assertEquals(item.mandatory, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("mandatory violation on a newly created item for " + item.mandatory, e.getMessage());
+		}
+		try
+		{
+			item.min4.check(3);
+			fail();
+		}
+		catch(IntegerRangeViolationException e)
+		{
+			assertEquals(item.min4, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(3, e.getValue());
+			assertEquals(true, e.isTooSmall());
+			assertEquals(
+					"range violation on a newly created item, " +
+					"3 is too small for " + item.min4 + ", " +
+					"must be at least 4.",
+					e.getMessage());
+		}
+		
 		// test conditions
 		assertEquals(item.any.equal(1), item.any.equal(1));
 		assertNotEquals(item.any.equal(1), item.any.equal(2));
