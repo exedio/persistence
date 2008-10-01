@@ -218,9 +218,10 @@ abstract class Console_Jspm
 			final PrintStream out,
 			final Pageable cop,
 			final Pager href,
-			final String text)
+			final String text,
+			final String neutralClass)
 	{
 				%>
-				<a href="<%=cop.toPage(href)%>"<% if(href.isNeutral()){%> class="disabled"<%}%>><%=text%></a><%
+				<a href="<%=cop.toPage(href)%>"<% if(href.isNeutral()){%> class="<%=neutralClass%>"<%}%>><%=text%></a><%
 	}
 }%>
