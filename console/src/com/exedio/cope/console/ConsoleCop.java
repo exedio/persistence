@@ -252,6 +252,7 @@ abstract class ConsoleCop extends Cop
 		final Pager pager = cop.getPager();
 		if(pager.isNeeded())
 		{
+			out.print("<span class=\"pager\">");
 			Console_Jspm.writePagerButton(out, cop, pager.first(),    "&lt;&lt;", "disabled");
 			Console_Jspm.writePagerButton(out, cop, pager.previous(), "&lt;",     "disabled");
 			Console_Jspm.writePagerButton(out, cop, pager.next(),     "&gt;",     "disabled");
@@ -264,6 +265,7 @@ abstract class ConsoleCop extends Cop
 			out.print(pager.getTo());
 			out.print('/');
 			out.print(pager.getTotal());
+			out.print("</span>");
 		}
 	}
 }
