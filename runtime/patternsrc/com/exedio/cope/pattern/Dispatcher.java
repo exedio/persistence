@@ -155,6 +155,11 @@ public final class Dispatcher extends Pattern
 		return failureType;
 	}
 	
+	public interface Interrupter
+	{
+		boolean isRequested();
+	}
+	
 	@Override
 	public List<Wrapper> getWrappers()
 	{
@@ -164,6 +169,7 @@ public final class Dispatcher extends Pattern
 		result.add(
 			new Wrapper("dispatch").
 			addComment("Dispatch by {0}.").
+			addParameter(Interrupter.class, "interrupter").
 			setStatic());
 			
 		result.add(
@@ -196,7 +202,7 @@ public final class Dispatcher extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	public <P extends Item> void dispatch(final Class<P> parentClass)
+	public <P extends Item> void dispatch(final Class<P> parentClass, final Interrupter interrupter)
 	{
 		final Type<P> type = getType().castType(parentClass);
 		final Type.This<P> typeThis = type.getThis();
@@ -228,6 +234,9 @@ public final class Dispatcher extends Pattern
 			
 			for(final P item : toDispatch)
 			{
+				if(interrupter!=null && interrupter.isRequested())
+					return;
+				
 				lastDispatched = item;
 				final String itemID = item.getCopeID();
 				try

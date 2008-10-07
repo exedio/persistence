@@ -206,13 +206,67 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class);
+			DispatcherItem.toTarget.dispatch(HashItem.class, null);
 			fail();
 		}
 		catch(ClassCastException e)
 		{
 			assertEquals("expected " + HashItem.class.getName() + ", but was " + DispatcherItem.class.getName(), e.getMessage());
 		}
+	}
+	
+	public void testInterrupt0()
+	{
+		dispatch(0);
+		assertPending(item1, 0, list());
+		assertPending(item2, 0, list());
+		assertPending(item3, 0, list());
+		assertPending(item4, 0, list());
+	}
+	
+	public void testInterrupt1()
+	{
+		final DateRange d = dispatch(1);
+		assertSuccess(item1, 1, d, list());
+		assertPending(item2, 0, list());
+		assertPending(item3, 0, list());
+		assertPending(item4, 0, list());
+	}
+	
+	public void testInterrupt2()
+	{
+		final DateRange d = dispatch(2);
+		assertSuccess(item1, 1, d, list());
+		assertPending(item2, 0, list(d));
+		assertPending(item3, 0, list());
+		assertPending(item4, 0, list());
+	}
+	
+	public void testInterrupt3()
+	{
+		final DateRange d = dispatch(3);
+		assertSuccess(item1, 1, d, list());
+		assertPending(item2, 0, list(d));
+		assertSuccess(item3, 1, d, list());
+		assertPending(item4, 0, list());
+	}
+	
+	public void testInterrupt4()
+	{
+		final DateRange d = dispatch(4, 4);
+		assertSuccess(item1, 1, d, list());
+		assertPending(item2, 0, list(d));
+		assertSuccess(item3, 1, d, list());
+		assertPending(item4, 0, list(d));
+	}
+	
+	public void testInterrupt5()
+	{
+		final DateRange d = dispatch(5, 4);
+		assertSuccess(item1, 1, d, list());
+		assertPending(item2, 0, list(d));
+		assertSuccess(item3, 1, d, list());
+		assertPending(item4, 0, list(d));
 	}
 	
 	private static class DateRange
@@ -230,12 +284,46 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	private DateRange dispatch()
 	{
+		return dispatch(null);
+	}
+	
+	private DateRange dispatch(final Dispatcher.Interrupter interrupter)
+	{
 		model.commit();
 		final Date before = new Date();
-		item.dispatchToTarget();
+		item.dispatchToTarget(interrupter);
 		final Date after = new Date();
 		model.startTransaction("DispatcherTest");
 		return new DateRange(before, after);
+	}
+	
+	private static class CountInterrupter implements Dispatcher.Interrupter
+	{
+		final int callsWithoutInterrupt;
+		int calls = 0;
+		
+		CountInterrupter(final int callsWithoutInterrupt)
+		{
+			this.callsWithoutInterrupt = callsWithoutInterrupt;
+		}
+
+		public boolean isRequested()
+		{
+			return (calls++)>=callsWithoutInterrupt;
+		}
+	}
+	
+	private DateRange dispatch(final int callsWithoutInterrupt)
+	{
+		return dispatch(callsWithoutInterrupt, callsWithoutInterrupt+1);
+	}
+	
+	private DateRange dispatch(final int callsWithoutInterrupt, final int expectedCalls)
+	{
+		final CountInterrupter ci = new CountInterrupter(callsWithoutInterrupt);
+		final DateRange result = dispatch(ci);
+		assertEquals(expectedCalls, ci.calls);
+		return result;
 	}
 	
 	private static void assertSuccess(final DispatcherItem item, final int dispatchCountCommitted, final DateRange date, final List failures)
