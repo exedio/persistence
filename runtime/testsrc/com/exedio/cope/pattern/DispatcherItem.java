@@ -53,6 +53,7 @@ public class DispatcherItem extends Item implements Dispatchable
 	public void dispatch() throws IOException, InterruptedException
 	{
 		Assert.assertTrue(DispatcherTest.MODEL.hasCurrentTransaction());
+		Assert.assertEquals(DispatcherItem.toTarget.getID() + " dispatch " + getCopeID(), DispatcherTest.MODEL.getCurrentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
 		final Log log = logs.get(this);
 		final long start = System.currentTimeMillis();
