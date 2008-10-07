@@ -207,7 +207,7 @@ public final class Dispatcher extends Pattern
 		final Type<P> type = getType().castType(parentClass);
 		final Type.This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
-		final String featureID = getID();
+		final String id = getID();
 		
 		P lastDispatched = null;
 		while(true)
@@ -215,7 +215,7 @@ public final class Dispatcher extends Pattern
 			final List<P> toDispatch;
 			try
 			{
-				model.startTransaction(featureID + " search");
+				model.startTransaction(id + " search");
 				final Query<P> q  = type.newQuery(pending.equal(true));
 				if(lastDispatched!=null)
 					q.narrow(typeThis.greater(lastDispatched));
@@ -241,11 +241,11 @@ public final class Dispatcher extends Pattern
 				final String itemID = item.getCopeID();
 				try
 				{
-					model.startTransaction(featureID + " dispatch " + itemID);
+					model.startTransaction(id + " dispatch " + itemID);
 					
 					if(!isPending(item))
 					{
-						System.out.println("Already dispatched " + itemID + " by " + featureID + ", probably due to concurrent dispatching.");
+						System.out.println("Already dispatched " + itemID + " by " + id + ", probably due to concurrent dispatching.");
 						continue;
 					}
 					
@@ -267,7 +267,7 @@ public final class Dispatcher extends Pattern
 						final long elapsed = System.currentTimeMillis() - start;
 						model.rollbackIfNotCommitted();
 						
-						model.startTransaction(featureID + " register failure " + itemID);
+						model.startTransaction(id + " register failure " + itemID);
 						final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 						final PrintStream out;
 						try
