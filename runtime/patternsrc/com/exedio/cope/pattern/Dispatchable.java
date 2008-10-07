@@ -21,5 +21,5 @@ package com.exedio.cope.pattern;
 public interface Dispatchable
 {
 	void dispatch() throws Exception;
-	void notifyFinalFailure();
+	void notifyFinalFailure(Exception cause);
 }

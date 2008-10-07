@@ -66,9 +66,10 @@ public class DispatcherItem extends Item implements Dispatchable
 		log.dispatchLastSuccessElapsed = ((int)(System.currentTimeMillis() - start));
 	}
 	
-	public void notifyFinalFailure()
+	public void notifyFinalFailure(final Exception cause)
 	{
 		Assert.assertTrue(!DispatcherTest.MODEL.hasCurrentTransaction());
+		Assert.assertEquals(IOException.class, cause.getClass());
 		logs.get(this).notifyFinalFailureCount++;
 	}
 	
