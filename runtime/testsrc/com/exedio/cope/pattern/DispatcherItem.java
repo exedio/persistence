@@ -56,9 +56,7 @@ public class DispatcherItem extends Item implements Dispatchable
 		Thread.sleep(5);
 		if(log.fail)
 		{
-			
 			log.dispatchFailureElapsed.add((int)(System.currentTimeMillis() - start));
-			
 			throw new IOException(getBody());
 		}
 		log.dispatchLastSuccessElapsed = ((int)(System.currentTimeMillis() - start));
