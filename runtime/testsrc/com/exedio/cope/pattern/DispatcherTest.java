@@ -249,7 +249,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size()+1, failures, item, 0);
 	}
 	
-	
 	private static void assertPending(final DispatcherItem item, final int dispatchCountCommitted, final List failures, final int notifyFinalFailureCount)
 	{
 		assertEquals(failures.size()!=3, item.isToTargetPending());
