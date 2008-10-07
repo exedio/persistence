@@ -250,11 +250,15 @@ public final class Dispatcher extends Pattern
 							pending.map(false),
 							successDate.map(new Date(start)),
 							successElapsed.map(elapsed));
+						
+						model.commit();
 					}
 					catch(Exception cause)
 					{
 						final long elapsed = System.currentTimeMillis() - start;
+						model.rollbackIfNotCommitted();
 						
+						model.startTransaction(featureID + " register failure " + itemID);
 						final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 						final PrintStream out;
 						try
@@ -278,8 +282,8 @@ public final class Dispatcher extends Pattern
 						
 						if(failureType.newQuery(failureParent.equal(item)).total()>=failureLimit)
 							pending.set(item, false);
+						model.commit();
 					}
-					model.commit();
 				}
 				finally
 				{

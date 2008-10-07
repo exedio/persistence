@@ -181,28 +181,28 @@ public class DispatcherTest extends AbstractRuntimeTest
 		
 		final DateRange d1 = dispatch();
 		assertDone(1, d1, list(), item1);
-		assertNotDone(1, list(d1), item2);
+		assertNotDone(0, list(d1), item2);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(1, list(d1), item4);
+		assertNotDone(0, list(d1), item4);
 		
 		final DateRange d2 = dispatch();
 		assertDone(1, d1, list(), item1);
-		assertNotDone(2, list(d1, d2), item2);
+		assertNotDone(0, list(d1, d2), item2);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(2, list(d1, d2), item4);
+		assertNotDone(0, list(d1, d2), item4);
 		
 		DispatcherItem.logs.get(item2).fail = false;
 		final DateRange d3 = dispatch();
 		assertDone(1, d1, list(), item1);
-		assertDone(3, d3, list(d1, d2), item2);
+		assertDone(1, d3, list(d1, d2), item2);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(3, list(d1, d2, d3), item4);
+		assertNotDone(0, list(d1, d2, d3), item4);
 		
 		dispatch();
 		assertDone(1, d1, list(), item1);
-		assertDone(3, d3, list(d1, d2), item2);
+		assertDone(1, d3, list(d1, d2), item2);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(3, list(d1, d2, d3), item4);
+		assertNotDone(0, list(d1, d2, d3), item4);
 		
 		try
 		{
