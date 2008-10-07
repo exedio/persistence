@@ -174,35 +174,35 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		
 		// test persistence
-		assertNotDone(0, list(), item1);
-		assertNotDone(0, list(), item2);
-		assertNotDone(0, list(), item3);
-		assertNotDone(0, list(), item4);
+		assertNotDone(0, list(), item1, 0);
+		assertNotDone(0, list(), item2, 0);
+		assertNotDone(0, list(), item3, 0);
+		assertNotDone(0, list(), item4, 0);
 		
 		final DateRange d1 = dispatch();
 		assertDone(1, d1, list(), item1);
-		assertNotDone(0, list(d1), item2);
+		assertNotDone(0, list(d1), item2, 0);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(0, list(d1), item4);
+		assertNotDone(0, list(d1), item4, 0);
 		
 		final DateRange d2 = dispatch();
 		assertDone(1, d1, list(), item1);
-		assertNotDone(0, list(d1, d2), item2);
+		assertNotDone(0, list(d1, d2), item2, 0);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(0, list(d1, d2), item4);
+		assertNotDone(0, list(d1, d2), item4, 0);
 		
 		DispatcherItem.logs.get(item2).fail = false;
 		final DateRange d3 = dispatch();
 		assertDone(1, d1, list(), item1);
 		assertDone(1, d3, list(d1, d2), item2);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(0, list(d1, d2, d3), item4);
+		assertNotDone(0, list(d1, d2, d3), item4, 1);
 		
 		dispatch();
 		assertDone(1, d1, list(), item1);
 		assertDone(1, d3, list(d1, d2), item2);
 		assertDone(1, d1, list(), item3);
-		assertNotDone(0, list(d1, d2, d3), item4);
+		assertNotDone(0, list(d1, d2, d3), item4, 1);
 		
 		try
 		{
@@ -246,19 +246,19 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertTrue(
 				String.valueOf(item.getToTargetSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
 				item.getToTargetSuccessElapsed()>=log.dispatchLastSuccessElapsed);
-		assertIt(dispatchCountCommitted, failures.size()+1, failures, item);
+		assertIt(dispatchCountCommitted, failures.size()+1, failures, item, 0);
 	}
 	
 	
-	private static void assertNotDone(final int dispatchCountCommitted, final List failures, final DispatcherItem item)
+	private static void assertNotDone(final int dispatchCountCommitted, final List failures, final DispatcherItem item, final int notifyFinalFailureCount)
 	{
 		assertEquals(failures.size()!=3, item.isToTargetPending());
 		assertNull(item.getToTargetSuccessDate());
 		assertNull(item.getToTargetSuccessElapsed());
-		assertIt(dispatchCountCommitted, failures.size(), failures, item);
+		assertIt(dispatchCountCommitted, failures.size(), failures, item, notifyFinalFailureCount);
 	}
 	
-	private static void assertIt(final int dispatchCountCommitted, final int dispatchCount, final List failures, final DispatcherItem item)
+	private static void assertIt(final int dispatchCountCommitted, final int dispatchCount, final List failures, final DispatcherItem item, final int notifyFinalFailureCount)
 	{
 		assertEquals(dispatchCountCommitted, item.getDispatchCountCommitted());
 		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);
@@ -282,5 +282,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
 			assertTrue(actual.getCause(), actual.getCause().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
+		assertEquals(notifyFinalFailureCount, DispatcherItem.logs.get(item).notifyFinalFailureCount);
 	}
 }

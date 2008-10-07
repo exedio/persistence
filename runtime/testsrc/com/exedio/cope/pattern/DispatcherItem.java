@@ -40,6 +40,7 @@ public class DispatcherItem extends Item implements Dispatchable
 		int dispatchCount = 0;
 		int dispatchLastSuccessElapsed = 0;
 		final ArrayList<Integer> dispatchFailureElapsed = new ArrayList<Integer>();
+		int notifyFinalFailureCount = 0;
 		
 		Log(final boolean fail)
 		{
@@ -63,6 +64,12 @@ public class DispatcherItem extends Item implements Dispatchable
 			throw new IOException(getBody());
 		}
 		log.dispatchLastSuccessElapsed = ((int)(System.currentTimeMillis() - start));
+	}
+	
+	public void notifyFinalFailure()
+	{
+		Assert.assertTrue(!DispatcherTest.MODEL.hasCurrentTransaction());
+		logs.get(this).notifyFinalFailureCount++;
 	}
 	
 	DispatcherItem(final String body, final boolean fail)

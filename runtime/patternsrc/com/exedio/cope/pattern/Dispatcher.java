@@ -280,9 +280,14 @@ public final class Dispatcher extends Pattern
 							failureElapsed.map(elapsed),
 							failureCause.map(baos.toByteArray()));
 						
-						if(failureType.newQuery(failureParent.equal(item)).total()>=failureLimit)
+						final boolean done = failureType.newQuery(failureParent.equal(item)).total()>=failureLimit;
+						if(done)
 							pending.set(item, false);
+						
 						model.commit();
+						
+						if(done)
+							((Dispatchable)item).notifyFinalFailure();
 					}
 				}
 				finally
