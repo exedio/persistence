@@ -174,35 +174,35 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		
 		// test persistence
-		assertPending(0, list(), item1, 0);
-		assertPending(0, list(), item2, 0);
-		assertPending(0, list(), item3, 0);
-		assertPending(0, list(), item4, 0);
+		assertPending(item1, 0, list(), 0);
+		assertPending(item2, 0, list(), 0);
+		assertPending(item3, 0, list(), 0);
+		assertPending(item4, 0, list(), 0);
 		
 		final DateRange d1 = dispatch();
-		assertSuccess(1, d1, list(), item1);
-		assertPending(0, list(d1), item2, 0);
-		assertSuccess(1, d1, list(), item3);
-		assertPending(0, list(d1), item4, 0);
+		assertSuccess(item1, 1, d1, list());
+		assertPending(item2, 0, list(d1), 0);
+		assertSuccess(item3, 1, d1, list());
+		assertPending(item4, 0, list(d1), 0);
 		
 		final DateRange d2 = dispatch();
-		assertSuccess(1, d1, list(), item1);
-		assertPending(0, list(d1, d2), item2, 0);
-		assertSuccess(1, d1, list(), item3);
-		assertPending(0, list(d1, d2), item4, 0);
+		assertSuccess(item1, 1, d1, list());
+		assertPending(item2, 0, list(d1, d2), 0);
+		assertSuccess(item3, 1, d1, list());
+		assertPending(item4, 0, list(d1, d2), 0);
 		
 		DispatcherItem.logs.get(item2).fail = false;
 		final DateRange d3 = dispatch();
-		assertSuccess(1, d1, list(), item1);
-		assertSuccess(1, d3, list(d1, d2), item2);
-		assertSuccess(1, d1, list(), item3);
-		assertPending(0, list(d1, d2, d3), item4, 1);
+		assertSuccess(item1, 1, d1, list());
+		assertSuccess(item2, 1, d3, list(d1, d2));
+		assertSuccess(item3, 1, d1, list());
+		assertPending(item4, 0, list(d1, d2, d3), 1);
 		
 		dispatch();
-		assertSuccess(1, d1, list(), item1);
-		assertSuccess(1, d3, list(d1, d2), item2);
-		assertSuccess(1, d1, list(), item3);
-		assertPending(0, list(d1, d2, d3), item4, 1);
+		assertSuccess(item1, 1, d1, list());
+		assertSuccess(item2, 1, d3, list(d1, d2));
+		assertSuccess(item3, 1, d1, list());
+		assertPending(item4, 0, list(d1, d2, d3), 1);
 		
 		try
 		{
@@ -238,7 +238,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return new DateRange(before, after);
 	}
 	
-	private static void assertSuccess(final int dispatchCountCommitted, final DateRange date, final List failures, final DispatcherItem item)
+	private static void assertSuccess(final DispatcherItem item, final int dispatchCountCommitted, final DateRange date, final List failures)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
@@ -250,7 +250,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	}
 	
 	
-	private static void assertPending(final int dispatchCountCommitted, final List failures, final DispatcherItem item, final int notifyFinalFailureCount)
+	private static void assertPending(final DispatcherItem item, final int dispatchCountCommitted, final List failures, final int notifyFinalFailureCount)
 	{
 		assertEquals(failures.size()!=3, item.isToTargetPending());
 		assertNull(item.getToTargetSuccessDate());
