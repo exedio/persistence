@@ -61,12 +61,10 @@ public class DispatcherTest extends AbstractRuntimeTest
 		// test model
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
-				item.dispatchFailureElapsed.getRelationType(),
 				failureType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
 				item.TYPE,
-				item.dispatchFailureElapsed.getRelationType(),
 				failureType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
@@ -84,10 +82,6 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(
 				item.TYPE.getThis(),
 				item.body,
-				item.fail,
-				item.dispatchCount,
-				item.dispatchLastSuccessElapsed,
-				item.dispatchFailureElapsed,
 				item.toTarget,
 				item.toTarget.getPending(),
 				item.toTarget.getSuccessDate(),
@@ -196,7 +190,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertDone(d1, list(), item3);
 		assertNotDone(list(d1, d2), item4);
 		
-		item2.setFail(false);
+		DispatcherItem.logs.get(item2).fail = false;
 		final DateRange d3 = dispatch();
 		assertDone(d1, list(), item1);
 		assertDone(d3, list(d1, d2), item2);
@@ -245,11 +239,12 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	private static void assertDone(final DateRange date, final List failures, final DispatcherItem item)
 	{
+		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
 		assertWithin(date.before, date.after, item.getToTargetSuccessDate());
 		assertTrue(
-				String.valueOf(item.getToTargetSuccessElapsed())+">="+item.getDispatchLastSuccessElapsed(),
-				item.getToTargetSuccessElapsed()>=item.getDispatchLastSuccessElapsed());
+				String.valueOf(item.getToTargetSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
+				item.getToTargetSuccessElapsed()>=log.dispatchLastSuccessElapsed);
 		assertIt(failures.size()+1, failures, item);
 	}
 	
@@ -264,13 +259,13 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	private static void assertIt(final int dispatchCount, final List failures, final DispatcherItem item)
 	{
-		assertEquals(dispatchCount, item.getDispatchCount());
+		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);
 		
 		final List<Failure> actualFailures = item.getToTargetFailures();
 		assertTrue(actualFailures.size()<=3);
 		assertEquals(failures.size(), actualFailures.size());
 		
-		final List<Integer> failuresElapsed = item.getDispatchFailureElapsed();
+		final List<Integer> failuresElapsed = DispatcherItem.logs.get(item).dispatchFailureElapsed;
 		assertEquals(failures.size(), failuresElapsed.size());
 		final Iterator<Integer> failureElapsedIter = failuresElapsed.iterator();
 		
