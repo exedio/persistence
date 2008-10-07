@@ -174,35 +174,35 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		
 		// test persistence
-		assertPending(item1, 0, list(), 0);
-		assertPending(item2, 0, list(), 0);
-		assertPending(item3, 0, list(), 0);
-		assertPending(item4, 0, list(), 0);
+		assertPending(item1, 0, list());
+		assertPending(item2, 0, list());
+		assertPending(item3, 0, list());
+		assertPending(item4, 0, list());
 		
 		final DateRange d1 = dispatch();
 		assertSuccess(item1, 1, d1, list());
-		assertPending(item2, 0, list(d1), 0);
+		assertPending(item2, 0, list(d1));
 		assertSuccess(item3, 1, d1, list());
-		assertPending(item4, 0, list(d1), 0);
+		assertPending(item4, 0, list(d1));
 		
 		final DateRange d2 = dispatch();
 		assertSuccess(item1, 1, d1, list());
-		assertPending(item2, 0, list(d1, d2), 0);
+		assertPending(item2, 0, list(d1, d2));
 		assertSuccess(item3, 1, d1, list());
-		assertPending(item4, 0, list(d1, d2), 0);
+		assertPending(item4, 0, list(d1, d2));
 		
 		DispatcherItem.logs.get(item2).fail = false;
 		final DateRange d3 = dispatch();
 		assertSuccess(item1, 1, d1, list());
 		assertSuccess(item2, 1, d3, list(d1, d2));
 		assertSuccess(item3, 1, d1, list());
-		assertPending(item4, 0, list(d1, d2, d3), 1);
+		assertFailed (item4, 0, list(d1, d2, d3));
 		
 		dispatch();
 		assertSuccess(item1, 1, d1, list());
 		assertSuccess(item2, 1, d3, list(d1, d2));
 		assertSuccess(item3, 1, d1, list());
-		assertPending(item4, 0, list(d1, d2, d3), 1);
+		assertFailed (item4, 0, list(d1, d2, d3));
 		
 		try
 		{
@@ -249,12 +249,20 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertIt(dispatchCountCommitted, failures.size()+1, failures, item, 0);
 	}
 	
-	private static void assertPending(final DispatcherItem item, final int dispatchCountCommitted, final List failures, final int notifyFinalFailureCount)
+	private static void assertPending(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
 	{
-		assertEquals(failures.size()!=3, item.isToTargetPending());
+		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetSuccessDate());
 		assertNull(item.getToTargetSuccessElapsed());
-		assertIt(dispatchCountCommitted, failures.size(), failures, item, notifyFinalFailureCount);
+		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
+	}
+	
+	private static void assertFailed(final DispatcherItem item, final int dispatchCountCommitted, final List failures)
+	{
+		assertFalse(item.isToTargetPending());
+		assertNull(item.getToTargetSuccessDate());
+		assertNull(item.getToTargetSuccessElapsed());
+		assertIt(dispatchCountCommitted, failures.size(), failures, item, 1);
 	}
 	
 	private static void assertIt(final int dispatchCountCommitted, final int dispatchCount, final List failures, final DispatcherItem item, final int notifyFinalFailureCount)
