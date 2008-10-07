@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -187,8 +189,23 @@ public final class MediaServlet extends HttpServlet
 		}
 		catch(RuntimeException e)
 		{
-			e.printStackTrace(); // TODO better logging
+			System.out.println("--------MediaServlet-----");
+			System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
+			printHeader(request, "Host");
+			printHeader(request, "Referer");
+			printHeader(request, "User-Agent");
+			e.printStackTrace(System.out);
+			System.out.println("-------/MediaServlet-----");
 			return path.exception;
 		}
+	}
+	
+	private static final void printHeader(final HttpServletRequest request, final String name)
+	{
+		final String value = request.getHeader(name);
+		if(value!=null)
+			System.out.println(name + ": >" + value + '<');
+		else
+			System.out.println(name + " does not exist");
 	}
 }
