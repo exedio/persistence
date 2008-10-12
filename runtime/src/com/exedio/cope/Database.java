@@ -1573,12 +1573,12 @@ final class Database
 						bf.append(sql);
 						final long start = System.currentTimeMillis();
 						final int rows = executeSQLUpdate(con, bf, false);
-						final long end = System.currentTimeMillis();
-						if((end-start)>1000)
+						final long elapsed = System.currentTimeMillis() - start;
+						if(elapsed>1000)
 							System.out.println(
 									"Warning: slow cope revision " + number +
-									" body " + bodyIndex + " takes " + (end-start) + "ms: " + sql);
-						Revision.reviseSql(info, bodyIndex, sql, rows, end-start);
+									" body " + bodyIndex + " takes " + elapsed + "ms: " + sql);
+						Revision.reviseSql(info, bodyIndex, sql, rows, elapsed);
 					}
 					insertRevision(con, number, Revision.toBytes(info));
 				}
