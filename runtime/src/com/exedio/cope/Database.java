@@ -1574,6 +1574,10 @@ final class Database
 						final long start = System.currentTimeMillis();
 						final int rows = executeSQLUpdate(con, bf, false);
 						final long end = System.currentTimeMillis();
+						if((end-start)>1000)
+							System.out.println(
+									"Warning: slow cope revision " + number +
+									" body " + bodyIndex + " takes " + (end-start) + "ms: " + sql);
 						Revision.reviseSql(info, bodyIndex, sql, rows, end-start);
 					}
 					insertRevision(con, number, Revision.toBytes(info));
