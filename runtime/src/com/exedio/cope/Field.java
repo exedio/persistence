@@ -222,6 +222,20 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return patterns;
 	}
 	
+	// TODO: refactor
+	public Pattern getPattern()
+	{
+		switch(getPatterns().size())
+		{
+			case 0:
+				return null;
+			case 1:
+				return getPatterns().iterator().next();
+			default:
+				throw new RuntimeException("Did not expect field "+this+" to have more than one Pattern.");
+		}
+	}
+	
 	// second initialization phase ---------------------------------------------------
 
 	private Column column;
