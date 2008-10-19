@@ -84,7 +84,7 @@ final class Transaction_Jspm extends Console_Jspm
 		assert openTransactions.length==threadStates.length;
 		assert openTransactions.length==stacktraces.length;
 		%>
-		<table>
+		<table style="float:left;">
 			<caption>Transaction Statistics</caption>
 			<tr><th>Next ID</th><td><%=cop.format(nextId)%></td></tr>
 			<tr><th>Last Start Date</th><td><%
