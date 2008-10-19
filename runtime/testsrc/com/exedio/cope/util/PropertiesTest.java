@@ -595,4 +595,23 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("no context available", e.getMessage());
 		}
 	}
+	
+	static class DuplicateProperties extends Properties
+	{
+		final BooleanField duplicate1 = new BooleanField("duplicate", false);
+		final BooleanField duplicate2 = new BooleanField("duplicate", true);
+		
+		DuplicateProperties()
+		{
+			super(getSource(new java.util.Properties(), "duplicateDescriptin"), null);
+		}
+	}
+	
+	public void testDuplicate()
+	{
+		// TODO should throw exception
+		final DuplicateProperties p = new DuplicateProperties();
+		assertFalse(p.duplicate1.getBooleanValue());
+		assertTrue(p.duplicate2.getBooleanValue());
+	}
 }
