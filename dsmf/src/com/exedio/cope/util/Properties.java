@@ -33,6 +33,7 @@ import java.util.List;
 public class Properties
 {
 	final ArrayList<Field> fields = new ArrayList<Field>();
+	final HashSet<String> detectDuplicateKeys = new HashSet<String>();
 	final Source source;
 	final String sourceDescription;
 	private final Source context;
@@ -186,6 +187,8 @@ public class Properties
 				throw new NullPointerException("key must not be null.");
 			if(key.length()==0)
 				throw new RuntimeException("key must not be empty.");
+			if(!detectDuplicateKeys.add(key))
+				throw new IllegalArgumentException("duplicate key '" + key + '\'');
 			
 			fields.add(this);
 		}

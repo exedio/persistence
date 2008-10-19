@@ -609,9 +609,14 @@ public class PropertiesTest extends CopeAssert
 	
 	public void testDuplicate()
 	{
-		// TODO should throw exception
-		final DuplicateProperties p = new DuplicateProperties();
-		assertFalse(p.duplicate1.getBooleanValue());
-		assertTrue(p.duplicate2.getBooleanValue());
+		try
+		{
+			new DuplicateProperties();
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("duplicate key 'duplicate'", e.getMessage());
+		}
 	}
 }
