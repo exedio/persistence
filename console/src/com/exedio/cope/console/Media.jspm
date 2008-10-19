@@ -52,6 +52,14 @@ final class Media_Jspm extends Console_Jspm
 			<caption>Media Statistics</caption>
 			<tr><th colspan="<%=shortNames.length+1%>">No Such Path <small>(404)</small></th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
 			writeColouredHeader(out, names, shortNames);
+			
+			%>
+			<tr><%
+				writeColouredData(out, cop.format(total));
+				%>
+				<th colspan="3">Total</th>
+			</tr><%
+			
 			int mediaIndex = 0;
 			boolean firstMediaImageMagickFilter = true;
 			for(final MediaPath path : media)
@@ -115,11 +123,6 @@ final class Media_Jspm extends Console_Jspm
 			</tr><%
 			}
 		%>
-			<tr><%
-				writeColouredData(out, cop.format(total));
-				%>
-				<th colspan="3">Total</th>
-			</tr>
 		</table><%
 	}
 
