@@ -78,6 +78,11 @@ public final class Model
 	private final HashSet<Transaction> openTransactions = new HashSet<Transaction>();
 	private final ThreadLocal<Transaction> boundTransactions = new ThreadLocal<Transaction>();
 	
+	private volatile long transactionsCommitWithoutConnection = 0;
+	private volatile long transactionsCommitWithConnection = 0;
+	private volatile long transactionsRollbackWithoutConnection = 0;
+	private volatile long transactionsRollbackWithConnection = 0;
+	
 	public Model(final Type... types)
 	{
 		this(-1, null, types);
@@ -931,7 +936,18 @@ public final class Model
 			openTransactions.remove(tx);
 		}
 		setTransaction(null);
-		tx.commitOrRollback(rollback);
+		final boolean hadConnection = tx.commitOrRollback(rollback);
+		
+		if(hadConnection)
+			if(rollback)
+				transactionsRollbackWithConnection++;
+			else
+				transactionsCommitWithConnection++;
+		else
+			if(rollback)
+				transactionsRollbackWithoutConnection++;
+			else
+				transactionsCommitWithoutConnection++;
 	}
 
 	/**
@@ -958,6 +974,15 @@ public final class Model
 			result = openTransactions.toArray(new Transaction[openTransactions.size()]);
 		}
 		return Collections.unmodifiableCollection(Arrays.asList(result));
+	}
+	
+	public TransactionCounters getTransactionCounters()
+	{
+		return new TransactionCounters(
+				transactionsCommitWithoutConnection,
+				transactionsCommitWithConnection,
+				transactionsRollbackWithoutConnection,
+				transactionsRollbackWithConnection);
 	}
 	
 	public void clearCache()

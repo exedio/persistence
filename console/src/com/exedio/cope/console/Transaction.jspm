@@ -23,6 +23,7 @@ import java.io.PrintStream;
 import java.util.Date;
 
 import com.exedio.cope.Transaction;
+import com.exedio.cope.TransactionCounters;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
@@ -65,6 +66,7 @@ final class Transaction_Jspm extends Console_Jspm
 			final TransactionCop cop,
 			final long nextId,
 			final Date lastStartDate,
+			final TransactionCounters transactionCounters,
 			final Transaction[] openTransactions,
 			final Thread[] threads,
 			final long[] threadIds,
@@ -95,6 +97,30 @@ final class Transaction_Jspm extends Console_Jspm
 					%>none started yet<%
 				}
 				%></td></tr>
+		</table>
+		<table>
+			<caption>Transaction Counters</caption>
+			<tr>
+				<td rowspan="2"></td>
+				<th rowspan="2">All</th>
+				<th colspan="2">Connection</th>
+			</tr>
+			<tr>
+				<th>With</th>
+				<th>Without</th>
+			</tr>
+			<tr>
+				<th>Commit</th>
+				<td><%=transactionCounters.getCommit()%></td>
+				<td><%=transactionCounters.getCommitWithoutConnection()%></td>
+				<td><%=transactionCounters.getCommitWithConnection()%></td>
+			</tr>
+			<tr>
+				<th>Rollback</th>
+				<td><%=transactionCounters.getRollback()%></td>
+				<td><%=transactionCounters.getRollbackWithoutConnection()%></td>
+				<td><%=transactionCounters.getRollbackWithConnection()%></td>
+			</tr>
 		</table>
 		<hr>
 		<table>

@@ -123,6 +123,7 @@ final class TransactionCop extends ConsoleCop
 				out, this,
 				model.getNextTransactionId(),
 				model.getLastTransactionStartDate(),
+				model.getTransactionCounters(),
 				openTransactions,
 				threads, threadIds, threadNames, threadPriorities, threadStates, stacktraces,
 				model.getModificationListeners().contains(listener),

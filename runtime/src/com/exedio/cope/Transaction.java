@@ -268,16 +268,19 @@ public final class Transaction
 	
 	/**
 	 * calling this method directly breaks model.openTransactions
+	 * @return whether this transaction had an associated database connection
 	 */
-	void commitOrRollback(final boolean rollback)
+	boolean commitOrRollback(final boolean rollback)
 	{
 		assert !closed : name;
 
 		// notify database
+		boolean hadConnection = false;
 		try
 		{
 			if(connection!=null)
 			{
+				hadConnection = true;
 				try
 				{
 					if(rollback)
@@ -372,6 +375,8 @@ public final class Transaction
 				invalidations[typeTransiently] = null;
 			}
 		}
+		
+		return hadConnection;
 	}
 
 	public long getID()
