@@ -169,6 +169,7 @@ public final class Dispatcher extends Pattern
 		result.add(
 			new Wrapper("dispatch").
 			addComment("Dispatch by {0}.").
+			setReturn(int.class, "the number of successfully dispatched items").
 			addParameter(Interrupter.class, "interrupter").
 			setStatic());
 			
@@ -202,7 +203,10 @@ public final class Dispatcher extends Pattern
 		return Collections.unmodifiableList(result);
 	}
 	
-	public <P extends Item> void dispatch(final Class<P> parentClass, final Interrupter interrupter)
+	/**
+	 * @return the number of successfully dispatched items
+	 */
+	public <P extends Item> int dispatch(final Class<P> parentClass, final Interrupter interrupter)
 	{
 		final Type<P> type = getType().castType(parentClass);
 		final Type.This<P> typeThis = type.getThis();
@@ -210,6 +214,7 @@ public final class Dispatcher extends Pattern
 		final String id = getID();
 		
 		P lastDispatched = null;
+		int result = 0;
 		while(true)
 		{
 			final List<P> toDispatch;
@@ -235,7 +240,7 @@ public final class Dispatcher extends Pattern
 			for(final P item : toDispatch)
 			{
 				if(interrupter!=null && interrupter.isRequested())
-					return;
+					return result;
 				
 				lastDispatched = item;
 				final String itemID = item.getCopeID();
@@ -261,6 +266,7 @@ public final class Dispatcher extends Pattern
 							successElapsed.map(elapsed));
 						
 						model.commit();
+						result++;
 					}
 					catch(Exception cause)
 					{
@@ -305,6 +311,8 @@ public final class Dispatcher extends Pattern
 				}
 			}
 		}
+		
+		return result;
 	}
 	
 	public boolean isPending(final Item item)

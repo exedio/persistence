@@ -179,26 +179,26 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item3, 0, list());
 		assertPending(item4, 0, list());
 		
-		final DateRange d1 = dispatch();
+		final DateRange d1 = dispatch(2);
 		assertSuccess(item1, 1, d1, list());
 		assertPending(item2, 0, list(d1));
 		assertSuccess(item3, 1, d1, list());
 		assertPending(item4, 0, list(d1));
 		
-		final DateRange d2 = dispatch();
+		final DateRange d2 = dispatch(0);
 		assertSuccess(item1, 1, d1, list());
 		assertPending(item2, 0, list(d1, d2));
 		assertSuccess(item3, 1, d1, list());
 		assertPending(item4, 0, list(d1, d2));
 		
 		DispatcherItem.logs.get(item2).fail = false;
-		final DateRange d3 = dispatch();
+		final DateRange d3 = dispatch(1);
 		assertSuccess(item1, 1, d1, list());
 		assertSuccess(item2, 1, d3, list(d1, d2));
 		assertSuccess(item3, 1, d1, list());
 		assertFailed (item4, 0, list(d1, d2, d3));
 		
-		dispatch();
+		dispatch(0);
 		assertSuccess(item1, 1, d1, list());
 		assertSuccess(item2, 1, d3, list(d1, d2));
 		assertSuccess(item3, 1, d1, list());
@@ -217,7 +217,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	public void testInterrupt0()
 	{
-		dispatch(0);
+		dispatch(0, 0);
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
@@ -226,7 +226,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	public void testInterrupt1()
 	{
-		final DateRange d = dispatch(1);
+		final DateRange d = dispatch(1, 1);
 		assertSuccess(item1, 1, d, list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
@@ -235,7 +235,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	public void testInterrupt2()
 	{
-		final DateRange d = dispatch(2);
+		final DateRange d = dispatch(1, 2);
 		assertSuccess(item1, 1, d, list());
 		assertPending(item2, 0, list(d));
 		assertPending(item3, 0, list());
@@ -244,7 +244,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	public void testInterrupt3()
 	{
-		final DateRange d = dispatch(3);
+		final DateRange d = dispatch(2, 3);
 		assertSuccess(item1, 1, d, list());
 		assertPending(item2, 0, list(d));
 		assertSuccess(item3, 1, d, list());
@@ -253,7 +253,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	public void testInterrupt4()
 	{
-		final DateRange d = dispatch(4, 4);
+		final DateRange d = dispatch(2, 4, 4);
 		assertSuccess(item1, 1, d, list());
 		assertPending(item2, 0, list(d));
 		assertSuccess(item3, 1, d, list());
@@ -262,7 +262,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	
 	public void testInterrupt5()
 	{
-		final DateRange d = dispatch(5, 4);
+		final DateRange d = dispatch(2, 5, 4);
 		assertSuccess(item1, 1, d, list());
 		assertPending(item2, 0, list(d));
 		assertSuccess(item3, 1, d, list());
@@ -282,18 +282,19 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 	
-	private DateRange dispatch()
+	private DateRange dispatch(final int expectedResult)
 	{
-		return dispatch(null);
+		return dispatch(expectedResult, null);
 	}
 	
-	private DateRange dispatch(final Dispatcher.Interrupter interrupter)
+	private DateRange dispatch(final int expectedResult, final Dispatcher.Interrupter interrupter)
 	{
 		model.commit();
 		final Date before = new Date();
-		item.dispatchToTarget(interrupter);
+		final int actualResult = item.dispatchToTarget(interrupter);
 		final Date after = new Date();
 		model.startTransaction("DispatcherTest");
+		assertEquals(expectedResult, actualResult);
 		return new DateRange(before, after);
 	}
 	
@@ -313,15 +314,15 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 	
-	private DateRange dispatch(final int callsWithoutInterrupt)
+	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt)
 	{
-		return dispatch(callsWithoutInterrupt, callsWithoutInterrupt+1);
+		return dispatch(expectedResult, callsWithoutInterrupt, callsWithoutInterrupt+1);
 	}
 	
-	private DateRange dispatch(final int callsWithoutInterrupt, final int expectedCalls)
+	private DateRange dispatch(final int expectedResult, final int callsWithoutInterrupt, final int expectedCalls)
 	{
 		final CountInterrupter ci = new CountInterrupter(callsWithoutInterrupt);
-		final DateRange result = dispatch(ci);
+		final DateRange result = dispatch(expectedResult, ci);
 		assertEquals(expectedCalls, ci.calls);
 		return result;
 	}
