@@ -196,7 +196,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	private ArrayList<Pattern> patternsWhileTypeInitialization = null;
 	private List<Pattern> patterns = null;
 	
-	void registerPattern(final Pattern pattern)
+	final void registerPattern(final Pattern pattern)
 	{
 		if(isInitialized())
 			throw new RuntimeException("registerPattern cannot be called after initialization of the field.");
@@ -212,7 +212,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	/**
 	 * @see Pattern#getSourceFields()
 	 */
-	public List<Pattern> getPatterns()
+	public final List<Pattern> getPatterns()
 	{
 		if(!isInitialized())
 			throw new RuntimeException("getPatterns cannot be called before initialization of the field.");
@@ -223,7 +223,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 	
 	// TODO: refactor
-	public Pattern getPattern()
+	public final Pattern getPattern()
 	{
 		switch(getPatterns().size())
 		{
