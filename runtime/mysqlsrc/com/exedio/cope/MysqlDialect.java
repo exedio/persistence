@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import com.exedio.cope.util.CharacterSet;
 import com.exedio.dsmf.MysqlDriver;
 import com.mysql.jdbc.Driver;
 
@@ -211,6 +212,17 @@ final class MysqlDialect extends Dialect
 			append(")against(").
 			appendParameter(function, value).
 			append("))");
+	}
+	
+	@Override
+	protected String getClause(final String column, final CharacterSet set)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append(column).
+			append(" regexp '").
+			append(set.getRegularExpression()).
+			append('\'');
+		return bf.toString();
 	}
 	
 	@Override

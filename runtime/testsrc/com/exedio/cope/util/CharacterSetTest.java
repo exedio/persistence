@@ -62,6 +62,7 @@ public class CharacterSetTest extends CopeAssert
 		}
 		{
 			CharacterSet cs = new CharacterSet('C', 'C');
+			assertRegexp("^[C]*$", cs);
 			assertEquals(cs.toString(), "[C-C]", cs.toString());
 			assertFalse(cs.contains('A'));
 			assertTrue(cs.contains('C'));
@@ -69,6 +70,7 @@ public class CharacterSetTest extends CopeAssert
 		}
 		{
 			CharacterSet cs = new CharacterSet('C', 'C', 'M', 'O', 'm', 'o');
+			assertRegexp("^[C,M-O,m-o]*$", cs);
 			assertEquals(cs.toString(), "[C-C,M-O,m-o]", cs.toString());
 			assertFalse(cs.contains('A'));
 			assertTrue(cs.contains('C'));
@@ -94,6 +96,10 @@ public class CharacterSetTest extends CopeAssert
 		assertNotEquals(
 				new CharacterSet('A', 'X', 'a', 'x'),
 				new CharacterSet('A', 'X', 'a', 'y'));
+		
+		assertRegexp("^[-,a-z]*$", new CharacterSet('-', '-', 'a', 'z'));
+		assertRegexp("^[-,(-)]*$", new CharacterSet('(', ')', '-', '-'));
+		assertRegexp("^[-,(-),0-9]*$", new CharacterSet('(', ')', '-', '-', '0', '9'));
 	}
 	
 	private static void assertEquals(final CharacterSet cs1, final CharacterSet cs2)
@@ -108,5 +114,11 @@ public class CharacterSetTest extends CopeAssert
 		assertTrue(!cs1.equals(cs2));
 		assertTrue(!cs2.equals(cs1));
 		assertTrue(cs1.hashCode()!=cs2.hashCode());
+	}
+	
+	private static void assertRegexp(final String regularExpression, final CharacterSet cs)
+	{
+		final String actual = cs.getRegularExpression();
+		assertEquals(actual, regularExpression, actual);
 	}
 }

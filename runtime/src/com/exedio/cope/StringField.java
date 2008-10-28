@@ -148,7 +148,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
-		return new StringColumn(table, this, name, optional, minimumLength, maximumLength);
+		return new StringColumn(table, this, name, optional, minimumLength, maximumLength, characterSet);
 	}
 	
 	@Override

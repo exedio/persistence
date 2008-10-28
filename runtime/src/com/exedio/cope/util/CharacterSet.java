@@ -128,4 +128,46 @@ public final class CharacterSet
 		
 		return bf.toString();
 	}
+	
+	public String getRegularExpression()
+	{
+		// ^[0-9,a-z,A-Z]*$
+		final StringBuilder bf = new StringBuilder();
+		bf.append("^[");
+		
+		boolean prependComma = false;
+		
+		if(contains('-'))
+		{
+			bf.append('-');
+			prependComma = true;
+		}
+		
+		for(int i = 0; i<set.length; i+=2)
+		{
+			char from = set[i];
+			char to = set[i+1];
+			
+			if(from=='-')
+				from++;
+			if(to=='-')
+				to--;
+			
+			if(from<=to)
+			{
+				if(prependComma)
+					bf.append(',');
+			
+				if(from==to)
+					bf.append(from);
+				else if(from<to)
+					bf.append(from).append('-').append(to);
+			
+				prependComma = true;
+			}
+		}
+		
+		bf.append("]*$");
+		return bf.toString();
+	}
 }

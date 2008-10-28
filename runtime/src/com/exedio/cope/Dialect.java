@@ -26,6 +26,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.util.CharacterSet;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
 
@@ -198,6 +199,19 @@ abstract class Dialect
 		bf.append(function, (Join)null).
 			append(" like ").
 			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
+	}
+	
+	/**
+	 * Returns null, if the dialect does not support clauses for CharacterSet.
+	 */
+	protected String getClause(final String column, final CharacterSet set)
+	{
+		if(column==null)
+			throw new NullPointerException();
+		if(set==null)
+			throw new NullPointerException();
+		
+		return null;
 	}
 	
 	/**

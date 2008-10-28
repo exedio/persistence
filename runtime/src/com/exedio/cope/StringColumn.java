@@ -21,10 +21,13 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exedio.cope.util.CharacterSet;
+
 final class StringColumn extends Column
 {
 	final int minimumLength;
 	final int maximumLength;
+	final CharacterSet characterSet;
 	final String[] allowedValues;
 
 	StringColumn(
@@ -33,11 +36,13 @@ final class StringColumn extends Column
 			final String id,
 			final boolean optional,
 			final int minimumLength,
-			final int maximumLength)
+			final int maximumLength,
+			final CharacterSet characterSet)
 	{
 		super(table, field, id, false, optional);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
+		this.characterSet  = characterSet;
 		this.allowedValues = null;
 		
 		assert minimumLength<=maximumLength;
@@ -53,6 +58,7 @@ final class StringColumn extends Column
 		super(table, field, id, false, optional);
 		this.minimumLength = 0;
 		this.maximumLength = maxLength(allowedValues);
+		this.characterSet  = null;
 		this.allowedValues = allowedValues;
 
 		if(allowedValues.length<2)
@@ -120,6 +126,14 @@ final class StringColumn extends Column
 			else
 			{
 				bf.append(length + '(' + protectedID + ")<=" + maximumLength);
+			}
+			if(characterSet!=null)
+			{
+				final String clause = table.database.dialect.getClause(protectedID, characterSet);
+				if(clause!=null)
+					bf.append(" AND (").
+						append(clause).
+						append(')');
 			}
 		}
 
