@@ -53,7 +53,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		restartTransaction();
 		
 		final boolean enabled = model.getProperties().getQueryCacheLimit()>0;
-		assertEquals(list(), cqi());
+		assertEquals(list(), qch());
 		
 		final DBL l = new DBL();
 		model.setDatabaseListener(l);
@@ -63,35 +63,35 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		q1.search();
 		assertEquals(list(sc(q1, false)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 0, 0)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q1, 0, 0)) : list(), qch());
 		
 		q1.search();
 		assertEquals(enabled ? list() : list(sc(q1, false)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q1, 0, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q1, 0, 1)) : list(), qch());
 		
 		q2.search();
 		assertEquals(list(sc(q2, false)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 		
 		q1.total();
 		assertEquals(list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(C1, 1, 0), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C1, 1, 0), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 		
 		q1.total();
 		assertEquals(enabled ? list() : list(sc(q1, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 		
 		q2.total();
 		assertEquals(list(sc(q2, true)), l.scs);
 		l.clear();
-		assertEquals(enabled ? list(cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), cqi());
+		assertEquals(enabled ? list(cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 		
 		model.clearCache();
-		assertEquals(list(), cqi());
+		assertEquals(list(), qch());
 		
 		model.setDatabaseListener(null);
 	}
@@ -101,7 +101,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		return new QueryCacheHistogram(query, resultSize, hits);
 	}
 
-	private List<QueryCacheHistogram> cqi()
+	private List<QueryCacheHistogram> qch()
 	{
 		return Arrays.asList(model.getQueryCacheHistogram());
 	}
