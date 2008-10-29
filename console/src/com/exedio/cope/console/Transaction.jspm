@@ -106,8 +106,8 @@ final class Transaction_Jspm extends Console_Jspm
 				<th colspan="2">Connection</th>
 			</tr>
 			<tr>
-				<th>With</th>
 				<th>Without</th>
+				<th>With</th>
 			</tr>
 			<tr>
 				<th>Commit</th>
