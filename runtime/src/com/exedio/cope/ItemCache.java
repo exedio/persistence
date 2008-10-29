@@ -35,11 +35,27 @@ final class ItemCache
 	 */
 	private final Cachlet[] cachlets;
 	
-	ItemCache(final Type[] types, final int[] limits)
+	ItemCache(final Type[] types, final int limit)
 	{
-		assert types.length==limits.length;
+		final int l = types.length;
 		
-		final int l = limits.length;
+		final int[] weights = new int[l];
+		int weightSum = 0;
+		for(int i = 0; i<l; i++)
+		{
+			final Type<?> type = types[i];
+			final CopeCacheWeight weightAnnotation = type.getAnnotation(CopeCacheWeight.class);
+			final int weight = weightAnnotation!=null ? weightAnnotation.value() : 100;
+			if(weight<0)
+				throw new IllegalArgumentException("illegal CopeCacheWeight for type " + type.getID() + ", must not be negative, but was " + weight);
+			weights[i] = weight;
+			weightSum += weight;
+		}
+		
+		final int[] limits = new int[l];
+		for(int i = 0; i<l; i++)
+			limits[i] = weights[i] * limit / weightSum;
+		
 		cachlets = new Cachlet[l];
 		for(int i=0; i<l; i++)
 			cachlets[i] = (limits[i]>0) ? new Cachlet(types[i], limits[i]) : null;

@@ -316,25 +316,7 @@ public final class Model
 				for(final Type type : typesSorted)
 					type.connect(db);
 				
-				final int[] weights = new int[concreteTypeCount];
-				int weightSum = 0;
-				for(int i = 0; i<weights.length; i++)
-				{
-					final Type<?> type = concreteTypes[i];
-					final CopeCacheWeight weightAnnotation = type.getAnnotation(CopeCacheWeight.class);
-					final int weight = weightAnnotation!=null ? weightAnnotation.value() : 100;
-					if(weight<0)
-						throw new IllegalArgumentException("illegal CopeCacheWeight for type " + type.getID() + ", must not be negative, but was " + weight);
-					weights[i] = weight;
-					weightSum += weight;
-				}
-				
-				final int[] itemCacheLimits = new int[concreteTypeCount];
-				final int itemCacheLimit = properties.getItemCacheLimit();
-				for(int i = 0; i<itemCacheLimits.length; i++)
-					itemCacheLimits[i] = weights[i] * itemCacheLimit / weightSum;
-				
-				this.itemCacheIfConnected = new ItemCache(concreteTypes, itemCacheLimits);
+				this.itemCacheIfConnected = new ItemCache(concreteTypes, properties.getItemCacheLimit());
 				this.queryCacheIfConnected = new QueryCache(properties.getQueryCacheLimit());
 				this.logTransactions = properties.getTransactionLog();
 				this.connectDate = new Date();
