@@ -69,6 +69,7 @@ final class MediaStatsCop extends ConsoleCop
 				"Not Computable <small>(404)</small>",
 				"Not Modified <small>(304)</small>",
 				"Delivered <small>(200/301)</small>",
+				"log<sub>10</sub> Not Modified / Delivered",
 				"Type",
 				"Name",
 				"Description",
@@ -81,6 +82,7 @@ final class MediaStatsCop extends ConsoleCop
 				"nc",
 				"nm",
 				"del",
+				"ratio",
 			};
 		final int[] total = new int[7];
 		final int[][] logs = new int[medias.size()][];
