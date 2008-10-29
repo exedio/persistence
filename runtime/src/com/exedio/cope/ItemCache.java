@@ -52,13 +52,12 @@ final class ItemCache
 			weightSum += weight;
 		}
 		
-		final int[] limits = new int[l];
-		for(int i = 0; i<l; i++)
-			limits[i] = weights[i] * limit / weightSum;
-		
 		cachlets = new Cachlet[l];
 		for(int i=0; i<l; i++)
-			cachlets[i] = (limits[i]>0) ? new Cachlet(types[i], limits[i]) : null;
+		{
+			final int iLimit = weights[i] * limit / weightSum;
+			cachlets[i] = (iLimit>0) ? new Cachlet(types[i], iLimit) : null;
+		}
 	}
 	
 	WrittenState getState(final Transaction connectionSource, final Item item)
