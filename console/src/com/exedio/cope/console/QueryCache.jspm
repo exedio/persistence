@@ -40,6 +40,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			<caption>Query Cache Statistics</caption>
 			<tr><th colspan="2">Limit</th><td><%= cop.format(limit)%></td></tr>
 			<tr><th colspan="2">Level</th><td><%= cop.format(queryCacheInfo.getLevel()) %></td></tr>
+			<tr><th colspan="2">Replacements</th><td><%=cop.format(queryCacheInfo.getReplacements())%></td></tr>
 			<tr><th colspan="2">Hits</th><td><%=  cop.format(queryCacheInfo.getHits())  %></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=cop.format(queryCacheInfo.getMisses())%></td></tr><%
 			if(content.histogram.length>0)

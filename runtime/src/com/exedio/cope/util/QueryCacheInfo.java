@@ -22,15 +22,18 @@ public final class QueryCacheInfo
 {
 	private final long hits;
 	private final long misses;
+	private final long replacements;
 	private final int level;
 	
 	public QueryCacheInfo(
 			final long hits,
 			final long misses,
+			final long replacements,
 			final int level)
 	{
 		this.hits = hits;
 		this.misses = misses;
+		this.replacements = replacements;
 		this.level = level;
 	}
 
@@ -42,6 +45,11 @@ public final class QueryCacheInfo
 	public long getMisses()
 	{
 		return misses;
+	}
+
+	public long getReplacements()
+	{
+		return replacements;
 	}
 
 	public int getLevel()

@@ -141,7 +141,7 @@ final class QueryCache
 		else
 			level = 0;
 		
-		return new QueryCacheInfo(hits, misses, level);
+		return new QueryCacheInfo(hits, misses, map.replacements, level);
 	}
 	
 	QueryCacheHistogram[] getHistogram()
@@ -250,6 +250,7 @@ final class QueryCache
 		private static final long serialVersionUID = 1l;
 		
 		private final int maxSize;
+		volatile long replacements = 0;
 		
 		LRUMap(final int maxSize)
 		{
@@ -261,7 +262,10 @@ final class QueryCache
 		protected boolean removeEldestEntry(final Map.Entry<Key,Value> eldest)
 		{
 			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
-			return size() > maxSize;
+			final boolean result = size() > maxSize;
+			if(result)
+				replacements++;
+			return result;
 		}
 	}
 }
