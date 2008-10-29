@@ -22,15 +22,6 @@ package com.exedio.cope.console;
 import java.io.PrintStream;
 import java.util.Arrays;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.exedio.cope.Model;
-import com.exedio.cops.Pageable;
-import com.exedio.cops.Pager;
-
-import static com.exedio.cops.XMLEncoder.encode;
-
 abstract class ColoredTable_Jspm
 {
 	private static final int COLORS = 2;
