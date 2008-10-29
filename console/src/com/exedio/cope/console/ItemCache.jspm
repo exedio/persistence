@@ -73,7 +73,7 @@ final class ItemCache_Jspm extends Console_Jspm
 		%>
 		<table id="coloredTable">
 			<caption>Item Cache Statistics</caption><%
-			writeColouredHeader(out, names, shortNames);
+			ColoredTable_Jspm.writeColouredHeader(out, names, shortNames);
 			%>
 			<tr><%
 				final String[] allData = {
@@ -88,7 +88,7 @@ final class ItemCache_Jspm extends Console_Jspm
 						cop.formatAndHide(0, allAgeAverageMillis/1000l),
 						cop.formatAndHide(0, allAgeMaxMillis/1000l),
 					};
-				writeColouredData(out, allData);
+				ColoredTable_Jspm.writeColouredData(out, allData);
 				%>
 				<td class="color0"><%=ratio(allHits, allMisses)%></td>
 				<th>All</th>
@@ -109,7 +109,7 @@ final class ItemCache_Jspm extends Console_Jspm
 					};
 			%>
 			<tr><%
-				writeColouredData(out, data);
+				ColoredTable_Jspm.writeColouredData(out, data);
 				%>
 				<td class="color0"><%=ratio(info.getHits(), info.getMisses())%></td>
 				<td class="text"><%=info.getType().getID()%></td>

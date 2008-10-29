@@ -53,11 +53,11 @@ final class Media_Jspm extends Console_Jspm
 		<table id="coloredTable">
 			<caption>Media Statistics</caption>
 			<tr><th colspan="<%=shortNames.length+1%>">No Such Path <small>(404)</small></th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
-			writeColouredHeader(out, names, shortNames);
+			ColoredTable_Jspm.writeColouredHeader(out, names, shortNames);
 			
 			%>
 			<tr><%
-				writeColouredData(out, cop.format(total));
+				ColoredTable_Jspm.writeColouredData(out, cop.format(total));
 				%>
 				<td class="color1"><%=ratio(total[5], total[6])%></td>
 				<th colspan="3">Total</th>
@@ -71,7 +71,7 @@ final class Media_Jspm extends Console_Jspm
 				final String name = path.getName();
 				%>
 			<tr><%
-				writeColouredData(out, cop.format(logs[mediaIndex]));
+				ColoredTable_Jspm.writeColouredData(out, cop.format(logs[mediaIndex]));
 				%>
 				<td class="color1"><%=ratio(logs[mediaIndex][5], logs[mediaIndex][6])%></td>
 				<td class="text"><%=type%></td>
