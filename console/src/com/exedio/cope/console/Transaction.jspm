@@ -19,6 +19,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.ConsoleCop.ratio;
+
 import java.io.PrintStream;
 import java.util.Date;
 
@@ -103,23 +105,26 @@ final class Transaction_Jspm extends Console_Jspm
 			<tr>
 				<td rowspan="2"></td>
 				<th rowspan="2">All</th>
-				<th colspan="2">Connection</th>
+				<th colspan="3">Connection</th>
 			</tr>
 			<tr>
 				<th>Without</th>
 				<th>With</th>
+				<th>log<sub>10</sub>Ratio</th>
 			</tr>
 			<tr>
 				<th>Commit</th>
 				<td><%=cop.format(transactionCounters.getCommit())%></td>
 				<td><%=cop.format(transactionCounters.getCommitWithoutConnection())%></td>
 				<td><%=cop.format(transactionCounters.getCommitWithConnection())%></td>
+				<td><%=ratio(transactionCounters.getCommitWithoutConnection(), transactionCounters.getCommitWithConnection())%></td>
 			</tr>
 			<tr>
 				<th>Rollback</th>
 				<td><%=cop.format(transactionCounters.getRollback())%></td>
 				<td><%=cop.format(transactionCounters.getRollbackWithoutConnection())%></td>
 				<td><%=cop.format(transactionCounters.getRollbackWithConnection())%></td>
+				<td><%=ratio(transactionCounters.getRollbackWithoutConnection(), transactionCounters.getRollbackWithConnection())%></td>
 			</tr>
 		</table>
 		<hr>

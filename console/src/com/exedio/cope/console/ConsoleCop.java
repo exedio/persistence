@@ -268,4 +268,16 @@ abstract class ConsoleCop extends Cop
 			out.print("</span>");
 		}
 	}
+
+	private static final DecimalFormat RATIO_FORMAT = new DecimalFormat("####.000");
+	
+	static String ratio(final long dividend, final long divisor)
+	{
+		if(dividend<0 || divisor<0)
+			return "<0";
+		if(divisor==0)
+			return "/0";
+		
+		return RATIO_FORMAT.format(Math.log10(((double)dividend) / ((double)divisor)));
+	}
 }
