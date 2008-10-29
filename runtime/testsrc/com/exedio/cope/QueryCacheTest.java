@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.exedio.cope.util.CacheQueryInfo;
+import com.exedio.cope.util.QueryCacheHistogram;
 
 public class QueryCacheTest extends AbstractRuntimeTest
 {
@@ -96,12 +96,12 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		model.setDatabaseListener(null);
 	}
 	
-	private CacheQueryInfo cqi(final String query, final int resultSize, final int hits)
+	private QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
 	{
-		return new CacheQueryInfo(query, resultSize, hits);
+		return new QueryCacheHistogram(query, resultSize, hits);
 	}
 
-	private List<CacheQueryInfo> cqi()
+	private List<QueryCacheHistogram> cqi()
 	{
 		return Arrays.asList(model.getQueryCacheHistogram());
 	}

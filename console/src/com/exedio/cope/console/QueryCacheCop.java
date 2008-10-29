@@ -26,7 +26,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.util.CacheQueryInfo;
+import com.exedio.cope.util.QueryCacheHistogram;
 
 final class QueryCacheCop extends ConsoleCop
 {
@@ -67,7 +67,7 @@ final class QueryCacheCop extends ConsoleCop
 	
 	static final class Content
 	{
-		final CacheQueryInfo[] histogram;
+		final QueryCacheHistogram[] histogram;
 		final Condense[] histogramCondensed;
 		
 		final int avgKeyLength;
@@ -83,7 +83,7 @@ final class QueryCacheCop extends ConsoleCop
 		final long maxHits;
 		final long minHits;
 
-		Content(final CacheQueryInfo[] histogram, final boolean condense)
+		Content(final QueryCacheHistogram[] histogram, final boolean condense)
 		{
 			if(histogram.length>0)
 			{
@@ -105,7 +105,7 @@ final class QueryCacheCop extends ConsoleCop
 				long minHits = Integer.MAX_VALUE;
 				
 				int recentUsage = 0;
-				for(final CacheQueryInfo info : histogram)
+				for(final QueryCacheHistogram info : histogram)
 				{
 					final String q = info.getQuery();
 					
@@ -243,7 +243,7 @@ final class QueryCacheCop extends ConsoleCop
 		private int resultSize;
 		private long hits;
 		
-		Condense(final String query, final int recentUsage, final CacheQueryInfo info)
+		Condense(final String query, final int recentUsage, final QueryCacheHistogram info)
 		{
 			this.query = query;
 			this.count = 1;
@@ -252,7 +252,7 @@ final class QueryCacheCop extends ConsoleCop
 			this.hits        = info.getHits();
 		}
 		
-		void accumulate(final String query, final int recentUsage, final CacheQueryInfo info)
+		void accumulate(final String query, final int recentUsage, final QueryCacheHistogram info)
 		{
 			assert this.query.equals(query);
 			this.count++;
@@ -290,7 +290,7 @@ final class QueryCacheCop extends ConsoleCop
 			final History history,
 			final boolean historyModelShown)
 	{
-		final CacheQueryInfo[] histogram = model.getQueryCacheHistogram();
+		final QueryCacheHistogram[] histogram = model.getQueryCacheHistogram();
 		QueryCache_Jspm.writeBody(this, out,
 				model.getProperties().getQueryCacheLimit(),
 				model.getQueryCacheInfo(),

@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
-import com.exedio.cope.util.CacheQueryInfo;
+import com.exedio.cope.util.QueryCacheHistogram;
 
 public class QueryCacheTest extends TestCase
 {
@@ -38,7 +38,7 @@ public class QueryCacheTest extends TestCase
 			assertEquals(null, e.getMessage());
 		}
 		{
-			final CacheQueryInfo[] histogram = new CacheQueryInfo[]{};
+			final QueryCacheHistogram[] histogram = new QueryCacheHistogram[]{};
 			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, false);
 			assertSame(histogram, content.histogram);
 			assertNull(content.histogramCondensed);
@@ -54,9 +54,9 @@ public class QueryCacheTest extends TestCase
 			assertEquals(-1, content.maxHits);
 		}
 		{
-			final CacheQueryInfo[] histogram = new CacheQueryInfo[]{
-					new CacheQueryInfo("query1",   3, 101),
-					new CacheQueryInfo("query2xx", 7, 103),
+			final QueryCacheHistogram[] histogram = new QueryCacheHistogram[]{
+					new QueryCacheHistogram("query1",   3, 101),
+					new QueryCacheHistogram("query2xx", 7, 103),
 			};
 			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, false);
 			assertSame(histogram, content.histogram);
@@ -73,15 +73,15 @@ public class QueryCacheTest extends TestCase
 			assertEquals(103, content.maxHits);
 		}
 		{
-			final CacheQueryInfo[] histogram = new CacheQueryInfo[]{
-					new CacheQueryInfo("query1 'hallo' and 'bello' order by",   11, 31),
-					new CacheQueryInfo("query1 'knollo' and 'knallo' order by", 13, 33),
-					new CacheQueryInfo("query2 nixus",                          14, 34),
-					new CacheQueryInfo("query3 'backus'",                       15, 35),
-					new CacheQueryInfo("'frontus' query4",                      16, 36),
-					new CacheQueryInfo("'' query5",                             17, 37),
-					new CacheQueryInfo("query6 ''",                             18, 38),
-					new CacheQueryInfo("query7 '' order by",                    19, 39),
+			final QueryCacheHistogram[] histogram = new QueryCacheHistogram[]{
+					new QueryCacheHistogram("query1 'hallo' and 'bello' order by",   11, 31),
+					new QueryCacheHistogram("query1 'knollo' and 'knallo' order by", 13, 33),
+					new QueryCacheHistogram("query2 nixus",                          14, 34),
+					new QueryCacheHistogram("query3 'backus'",                       15, 35),
+					new QueryCacheHistogram("'frontus' query4",                      16, 36),
+					new QueryCacheHistogram("'' query5",                             17, 37),
+					new QueryCacheHistogram("query6 ''",                             18, 38),
+					new QueryCacheHistogram("query7 '' order by",                    19, 39),
 			};
 			final QueryCacheCop.Content content = new QueryCacheCop.Content(histogram, true);
 			assertSame(histogram, content.histogram);

@@ -29,7 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.util.CacheQueryInfo;
+import com.exedio.cope.util.QueryCacheHistogram;
 
 final class QueryCache
 {
@@ -143,10 +143,10 @@ final class QueryCache
 		return new long[]{hits, misses, level};
 	}
 	
-	CacheQueryInfo[] getHistogram()
+	QueryCacheHistogram[] getHistogram()
 	{
 		if(map==null)
-			return new CacheQueryInfo[0];
+			return new QueryCacheHistogram[0];
 		
 		final Key[] keys;
 		final Value[] values;
@@ -157,11 +157,11 @@ final class QueryCache
 			values = map.values().toArray(new Value[size]);
 		}
 
-		final CacheQueryInfo[] result = new CacheQueryInfo[keys.length];
+		final QueryCacheHistogram[] result = new QueryCacheHistogram[keys.length];
 		int i = result.length-1;
 		int j = 0;
 		for(final Key key : keys)
-			result[i--] = new CacheQueryInfo(key.getText(), values[j].list.size(), values[j++].hits);
+			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits);
 		
 		return result;
 	}

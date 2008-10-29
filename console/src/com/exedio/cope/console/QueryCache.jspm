@@ -21,7 +21,7 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 
-import com.exedio.cope.util.CacheQueryInfo;
+import com.exedio.cope.util.QueryCacheHistogram;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
@@ -158,7 +158,7 @@ final class QueryCache_Jspm extends Console_Jspm
 			</tr><%
 				break;
 			}
-			final CacheQueryInfo info = content.histogram[i];
+			final QueryCacheHistogram info = content.histogram[i];
 			final String[] data = {
 					cop.format(i),
 					cop.format(info.getResultSize()),

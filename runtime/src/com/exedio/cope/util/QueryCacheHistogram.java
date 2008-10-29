@@ -19,13 +19,13 @@
 package com.exedio.cope.util;
 
 
-public final class CacheQueryInfo
+public final class QueryCacheHistogram
 {
 	private final String query;
 	private final int resultSize;
 	private final long hits;
 	
-	public CacheQueryInfo(
+	public QueryCacheHistogram(
 			final String query,
 			final int resultSize,
 			final long hits)
@@ -56,10 +56,10 @@ public final class CacheQueryInfo
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CacheQueryInfo))
+		if(!(other instanceof QueryCacheHistogram))
 			return false;
 		
-		final CacheQueryInfo o = (CacheQueryInfo)other;
+		final QueryCacheHistogram o = (QueryCacheHistogram)other;
 		
 		return query.equals(o.query) && resultSize==o.resultSize && hits==o.hits;
 	}
