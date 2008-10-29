@@ -185,7 +185,13 @@ abstract class Console_Jspm
 			for(; i<shortNames.length; i++)
 			{
 				%>
-				<th class="color<%= i%COLORS %>s" title="<%=names[i]%>"><%= shortNames[i]  %><% if(i==0){%><span class="help" onClick="return displayColored();">?</span><%} %></th><%
+				<th class="color<%= i%COLORS %>s" title="<%=names[i]%>"><%=
+					shortNames[i] %><%
+					if(i==0)
+					{
+						%><span class="help" onClick="return displayColored();">?</span><%
+					}
+					%></th><%
 			}
 			for(; i<names.length; i++)
 			{
