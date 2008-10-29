@@ -74,7 +74,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 		<hr>
 		<table id="coloredTable">
 			<caption>Hypothetical</caption><%
-			ColoredTable_Jspm.writeColouredHeader(out, names, shortNames);
+			ColoredTable_Jspm.writeHeader(out, names, shortNames);
 			for(final PoolCounter.Pool pool : poolCounter.getPools())
 			{
 				final boolean inconsistent = !pool.isConsistent();
@@ -88,7 +88,7 @@ final class ConnectionPool_Jspm extends Console_Jspm
 					};
 			%>
 			<tr<%if(inconsistent){%> class="inconsistent"<%}%>><%
-				ColoredTable_Jspm.writeColouredData(out, data);
+				ColoredTable_Jspm.writeData(out, data);
 				%>
 				<td><%if(inconsistent){%>inconsistent <%}%><%=pool.getIdleLimit()%></td>
 			</tr><%

@@ -89,7 +89,7 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		<table id="coloredTable">
 			<caption>Query Cache Histogram</caption><%
-			ColoredTable_Jspm.writeColouredHeader(out, names, shortNames);
+			ColoredTable_Jspm.writeHeader(out, names, shortNames);
 		
 		final int histogramLimit = cop.histogramLimit;
 		
@@ -119,7 +119,7 @@ final class QueryCache_Jspm extends Console_Jspm
 				};
 			%>
 			<tr><%
-				ColoredTable_Jspm.writeColouredData(out, data); %>
+				ColoredTable_Jspm.writeData(out, data); %>
 				<td class="text"><%=encode(condense.query)%></td>
 			</tr><%
 		}
@@ -142,7 +142,7 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		<table id="coloredTable">
 			<caption>Query Cache Histogram</caption><%
-			ColoredTable_Jspm.writeColouredHeader(out, names, shortNames);
+			ColoredTable_Jspm.writeHeader(out, names, shortNames);
 		
 		final int histogramLimit = cop.histogramLimit;
 		
@@ -171,7 +171,7 @@ final class QueryCache_Jspm extends Console_Jspm
 				};
 			%>
 			<tr><%
-				ColoredTable_Jspm.writeColouredData(out, data); %>
+				ColoredTable_Jspm.writeData(out, data); %>
 				<td class="text"><%=encode(histogram.getQuery())%></td>
 			</tr><%
 		}
