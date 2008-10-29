@@ -269,7 +269,7 @@ abstract class ConsoleCop extends Cop
 		}
 	}
 
-	private static final DecimalFormat RATIO_FORMAT = new DecimalFormat("####.000");
+	private static final DecimalFormat RATIO_FORMAT = new DecimalFormat("###0.00");
 	
 	static String ratio(final long dividend, final long divisor)
 	{
