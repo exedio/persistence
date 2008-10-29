@@ -111,15 +111,15 @@ final class Transaction_Jspm extends Console_Jspm
 			</tr>
 			<tr>
 				<th>Commit</th>
-				<td><%=transactionCounters.getCommit()%></td>
-				<td><%=transactionCounters.getCommitWithoutConnection()%></td>
-				<td><%=transactionCounters.getCommitWithConnection()%></td>
+				<td><%=cop.format(transactionCounters.getCommit())%></td>
+				<td><%=cop.format(transactionCounters.getCommitWithoutConnection())%></td>
+				<td><%=cop.format(transactionCounters.getCommitWithConnection())%></td>
 			</tr>
 			<tr>
 				<th>Rollback</th>
-				<td><%=transactionCounters.getRollback()%></td>
-				<td><%=transactionCounters.getRollbackWithoutConnection()%></td>
-				<td><%=transactionCounters.getRollbackWithConnection()%></td>
+				<td><%=cop.format(transactionCounters.getRollback())%></td>
+				<td><%=cop.format(transactionCounters.getRollbackWithoutConnection())%></td>
+				<td><%=cop.format(transactionCounters.getRollbackWithConnection())%></td>
 			</tr>
 		</table>
 		<hr>
