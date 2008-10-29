@@ -398,9 +398,21 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		return type.cast(constraint);
 	}
 	
-	protected static void assertCacheInfo(final Type type, final int limit, final CacheInfo ci)
+	protected void assertCacheInfo(final Type[] types, final int[] limits)
 	{
-		assertEquals(type, ci.getType());
-		assertEquals(limit, ci.getLimit());
+		assertEquals(types.length, limits.length);
+		
+		final CacheInfo[] ci = model.getItemCacheInfo();
+		if(model.getProperties().getItemCacheLimit()>0)
+		{
+			assertEquals(types.length, ci.length);
+			for(int i = 0; i<ci.length; i++)
+			{
+				assertEquals(types [i], ci[i].getType());
+				assertEquals(limits[i], ci[i].getLimit());
+			}
+		}
+		else
+			assertEquals(0, ci.length);
 	}
 }

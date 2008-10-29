@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.EnumSet;
 
-import com.exedio.cope.util.CacheInfo;
 import com.exedio.dsmf.Constraint;
 
 public class HierarchyTest extends AbstractRuntimeTest
@@ -319,15 +318,9 @@ public class HierarchyTest extends AbstractRuntimeTest
 				HierarchySingleSub.TYPE
 			), model.getConcreteTypes());
 		
-		final CacheInfo[] itemCacheInfo = model.getItemCacheInfo();
-		if(model.getProperties().getItemCacheLimit()>0)
-		{
-			assertCacheInfo(HierarchyFirstSub .TYPE, 33333, itemCacheInfo[0]);
-			assertCacheInfo(HierarchySecondSub.TYPE, 33333, itemCacheInfo[1]);
-			assertCacheInfo(HierarchySingleSub.TYPE, 33333, itemCacheInfo[2]);
-		}
-		else
-			assertEquals(0, itemCacheInfo.length);
+		assertCacheInfo(
+				new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE}, 
+				new int []{33333, 33333, 33333});
 		
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
