@@ -276,7 +276,7 @@ abstract class ConsoleCop extends Cop
 		if(dividend<0 || divisor<0)
 			return "<0";
 		if(divisor==0)
-			return "/0";
+			return "";
 		
 		return RATIO_FORMAT.format(Math.log10(((double)dividend) / ((double)divisor)));
 	}
