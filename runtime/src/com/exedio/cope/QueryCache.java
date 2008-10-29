@@ -141,7 +141,7 @@ final class QueryCache
 		else
 			level = 0;
 		
-		return new QueryCacheInfo(hits, misses, map.replacements, level);
+		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements : 0l, level);
 	}
 	
 	QueryCacheHistogram[] getHistogram()
