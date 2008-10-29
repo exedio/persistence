@@ -31,16 +31,16 @@ final class QueryCache_Jspm extends Console_Jspm
 			final QueryCacheCop cop,
 			final PrintStream out,
 			final int limit,
-			final long[] queryInfos,
+			final long[] queryCacheInfo,
 			final QueryCacheCop.Content content)
 	{
 		%>
 		<table>
 			<caption>Query Cache Statistics</caption>
 			<tr><th colspan="2">Limit</th><td><%=cop.format(limit)%></td></tr>
-			<tr><th colspan="2">Level</th><td><%=cop.format(queryInfos[2])%></td></tr>
-			<tr><th colspan="2">Hits</th><td><%=cop.format(queryInfos[0])%></td></tr>
-			<tr><th colspan="2">Misses</th><td><%=cop.format(queryInfos[1])%></td></tr><%
+			<tr><th colspan="2">Level</th><td><%=cop.format(queryCacheInfo[2])%></td></tr>
+			<tr><th colspan="2">Hits</th><td><%=cop.format(queryCacheInfo[0])%></td></tr>
+			<tr><th colspan="2">Misses</th><td><%=cop.format(queryCacheInfo[1])%></td></tr><%
 			if(content.histogram.length>0)
 			{
 			%>
