@@ -158,16 +158,16 @@ final class QueryCache_Jspm extends Console_Jspm
 			</tr><%
 				break;
 			}
-			final QueryCacheHistogram info = content.histogram[i];
+			final QueryCacheHistogram histogram = content.histogram[i];
 			final String[] data = {
 					cop.format(i),
-					cop.format(info.getResultSize()),
-					cop.formatAndHide(0, info.getHits()),
+					cop.format(histogram.getResultSize()),
+					cop.formatAndHide(0, histogram.getHits()),
 				};
 			%>
 			<tr><%
 				writeColouredData(out, data); %>
-				<td class="text"><%=encode(info.getQuery())%></td>
+				<td class="text"><%=encode(histogram.getQuery())%></td>
 			</tr><%
 		}
 		
