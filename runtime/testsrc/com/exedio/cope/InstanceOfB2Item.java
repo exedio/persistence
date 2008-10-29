@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeCacheWeight(0)
 class InstanceOfB2Item extends InstanceOfAItem
 {
 	static final StringField textb2 = new StringField().optional();

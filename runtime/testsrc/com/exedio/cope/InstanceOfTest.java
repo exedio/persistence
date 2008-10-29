@@ -23,6 +23,8 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 
+import com.exedio.cope.util.CacheInfo;
+
 public class InstanceOfTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(
@@ -234,6 +236,21 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		{
 			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
 		}
+	}
+	
+	public void testItemCache()
+	{
+		final CacheInfo[] itemCacheInfo = model.getItemCacheInfo();
+		if(model.getProperties().getItemCacheLimit()>0)
+		{
+			assertEquals(4, itemCacheInfo.length);
+			assertCacheInfo(InstanceOfAItem  .TYPE, 62500, itemCacheInfo[0]);
+			assertCacheInfo(InstanceOfB1Item .TYPE, 12500, itemCacheInfo[1]);
+			assertCacheInfo(InstanceOfC1Item .TYPE, 12500, itemCacheInfo[2]);
+			assertCacheInfo(InstanceOfRefItem.TYPE, 12500, itemCacheInfo[3]);
+		}
+		else
+			assertEquals(0, itemCacheInfo.length);
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad API usage

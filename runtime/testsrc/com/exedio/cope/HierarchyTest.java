@@ -322,9 +322,9 @@ public class HierarchyTest extends AbstractRuntimeTest
 		final CacheInfo[] itemCacheInfo = model.getItemCacheInfo();
 		if(model.getProperties().getItemCacheLimit()>0)
 		{
-			assertEquals(HierarchyFirstSub.TYPE, itemCacheInfo[0].getType());
-			assertEquals(HierarchySecondSub.TYPE, itemCacheInfo[1].getType());
-			assertEquals(HierarchySingleSub.TYPE, itemCacheInfo[2].getType());
+			assertCacheInfo(HierarchyFirstSub .TYPE, 33333, itemCacheInfo[0]);
+			assertCacheInfo(HierarchySecondSub.TYPE, 33333, itemCacheInfo[1]);
+			assertCacheInfo(HierarchySingleSub.TYPE, 33333, itemCacheInfo[2]);
 		}
 		else
 			assertEquals(0, itemCacheInfo.length);

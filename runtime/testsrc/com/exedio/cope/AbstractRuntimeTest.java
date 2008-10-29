@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.util.CacheInfo;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
@@ -395,5 +396,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
 		assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
 		return type.cast(constraint);
+	}
+	
+	protected static void assertCacheInfo(final Type type, final int limit, final CacheInfo ci)
+	{
+		assertEquals(type, ci.getType());
+		assertEquals(limit, ci.getLimit());
 	}
 }

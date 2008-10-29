@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeCacheWeight(500)
 class InstanceOfAItem extends Item
 {
 	static final StringField code = new StringField().toFinal().unique();
