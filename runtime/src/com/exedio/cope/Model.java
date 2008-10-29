@@ -747,7 +747,7 @@ public final class Model
 	
 	public QueryCacheInfo getQueryCacheInfo()
 	{
-		return getQueryCache().getQueryInfo();
+		return getQueryCache().getInfo();
 	}
 	
 	public QueryCacheHistogram[] getQueryCacheHistogram()

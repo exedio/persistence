@@ -127,7 +127,7 @@ final class QueryCache
 		}
 	}
 	
-	QueryCacheInfo getQueryInfo()
+	QueryCacheInfo getInfo()
 	{
 		final int level;
 		
