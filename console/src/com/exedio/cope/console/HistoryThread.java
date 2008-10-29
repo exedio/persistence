@@ -31,6 +31,7 @@ import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.CacheInfo;
 import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ConnectionPoolInfo;
+import com.exedio.cope.util.QueryCacheInfo;
 
 final class HistoryThread extends Thread
 {
@@ -141,7 +142,7 @@ final class HistoryThread extends Thread
 		final ConnectionPoolInfo connectionPoolInfo = watchedModel.getConnectionPoolInfo();
 		final long nextTransactionId = watchedModel.getNextTransactionId();
 		final CacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
-		final long[] queryCacheInfo = watchedModel.getQueryCacheInfo();
+		final QueryCacheInfo queryCacheInfo = watchedModel.getQueryCacheInfo();
 		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
 		int mediaValuesIndex = 0;
 		for(final MediaPath path : medias)
@@ -235,8 +236,8 @@ final class HistoryThread extends Thread
 				HistoryModel.itemCacheMisses.map(itemCacheMisses),
 				HistoryModel.itemCacheNumberOfCleanups.map(itemCacheNumberOfCleanups),
 				HistoryModel.itemCacheItemsCleanedUp.map(itemCacheItemsCleanedUp),
-				HistoryModel.queryCacheHits.map(queryCacheInfo[0]),
-				HistoryModel.queryCacheMisses.map(queryCacheInfo[1]),
+				HistoryModel.queryCacheHits  .map(queryCacheInfo.getHits()),
+				HistoryModel.queryCacheMisses.map(queryCacheInfo.getMisses()),
 				HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath),
 				HistoryModel.mediasException    .map(mediaTotal[0]),
 				HistoryModel.mediasNotAnItem    .map(mediaTotal[1]),

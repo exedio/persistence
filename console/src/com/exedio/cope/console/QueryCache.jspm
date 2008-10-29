@@ -22,6 +22,7 @@ package com.exedio.cope.console;
 import java.io.PrintStream;
 
 import com.exedio.cope.util.QueryCacheHistogram;
+import com.exedio.cope.util.QueryCacheInfo;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
@@ -31,16 +32,16 @@ final class QueryCache_Jspm extends Console_Jspm
 			final QueryCacheCop cop,
 			final PrintStream out,
 			final int limit,
-			final long[] queryCacheInfo,
+			final QueryCacheInfo queryCacheInfo,
 			final QueryCacheCop.Content content)
 	{
 		%>
 		<table>
 			<caption>Query Cache Statistics</caption>
-			<tr><th colspan="2">Limit</th><td><%=cop.format(limit)%></td></tr>
-			<tr><th colspan="2">Level</th><td><%=cop.format(queryCacheInfo[2])%></td></tr>
-			<tr><th colspan="2">Hits</th><td><%=cop.format(queryCacheInfo[0])%></td></tr>
-			<tr><th colspan="2">Misses</th><td><%=cop.format(queryCacheInfo[1])%></td></tr><%
+			<tr><th colspan="2">Limit</th><td><%= cop.format(limit)%></td></tr>
+			<tr><th colspan="2">Level</th><td><%= cop.format(queryCacheInfo.getLevel()) %></td></tr>
+			<tr><th colspan="2">Hits</th><td><%=  cop.format(queryCacheInfo.getHits())  %></td></tr>
+			<tr><th colspan="2">Misses</th><td><%=cop.format(queryCacheInfo.getMisses())%></td></tr><%
 			if(content.histogram.length>0)
 			{
 			%>

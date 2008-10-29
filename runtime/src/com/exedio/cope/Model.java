@@ -36,9 +36,10 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import com.exedio.cope.util.CacheInfo;
-import com.exedio.cope.util.QueryCacheHistogram;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.QueryCacheHistogram;
+import com.exedio.cope.util.QueryCacheInfo;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
@@ -744,7 +745,7 @@ public final class Model
 		return getItemCache().getInfo();
 	}
 	
-	public long[] getQueryCacheInfo()
+	public QueryCacheInfo getQueryCacheInfo()
 	{
 		return getQueryCache().getQueryInfo();
 	}
@@ -1064,7 +1065,7 @@ public final class Model
 	 * @deprecated renamed to {@link #getQueryCacheInfo()}.
 	 */
 	@Deprecated
-	public long[] getCacheQueryInfo()
+	public QueryCacheInfo getCacheQueryInfo()
 	{
 		return getQueryCacheInfo();
 	}

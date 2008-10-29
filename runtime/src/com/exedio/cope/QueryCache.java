@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.util.QueryCacheHistogram;
+import com.exedio.cope.util.QueryCacheInfo;
 
 final class QueryCache
 {
@@ -126,7 +127,7 @@ final class QueryCache
 		}
 	}
 	
-	long[] getQueryInfo()
+	QueryCacheInfo getQueryInfo()
 	{
 		final int level;
 		
@@ -140,7 +141,7 @@ final class QueryCache
 		else
 			level = 0;
 		
-		return new long[]{hits, misses, level};
+		return new QueryCacheInfo(hits, misses, level);
 	}
 	
 	QueryCacheHistogram[] getHistogram()
