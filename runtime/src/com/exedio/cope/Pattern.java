@@ -131,7 +131,7 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @see Field#getPatterns()
+	 * @see Field#getPattern()
 	 */
 	public List<? extends Field> getSourceFields()
 	{

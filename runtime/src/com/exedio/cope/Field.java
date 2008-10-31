@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -193,8 +192,8 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		
 	// patterns ---------------------------------------------------------------------
 	
-	private ArrayList<Pattern> patternsWhileTypeInitialization = null;
-	private List<Pattern> patterns = null;
+	private Pattern patternWhileTypeInitialization = null;
+	private Pattern pattern = null;
 	
 	final void registerPattern(final Pattern pattern)
 	{
@@ -203,37 +202,33 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		if(pattern==null)
 			throw new NullPointerException();
 		
-		if(patternsWhileTypeInitialization==null)
-			patternsWhileTypeInitialization = new ArrayList<Pattern>();
+		if(patternWhileTypeInitialization!=null)
+			throw new IllegalStateException("field has already registered pattern " + this.patternWhileTypeInitialization + " and tried to register a new one: " + pattern);
 		
-		patternsWhileTypeInitialization.add(pattern);
+		this.patternWhileTypeInitialization = pattern;
 	}
 	
 	/**
 	 * @see Pattern#getSourceFields()
 	 */
-	public final List<Pattern> getPatterns()
-	{
-		if(!isInitialized())
-			throw new RuntimeException("getPatterns cannot be called before initialization of the field.");
-		if(patterns==null)
-			throw new RuntimeException();
-
-		return patterns;
-	}
-	
-	// TODO: refactor
 	public final Pattern getPattern()
 	{
-		switch(getPatterns().size())
-		{
-			case 0:
-				return null;
-			case 1:
-				return getPatterns().iterator().next();
-			default:
-				throw new RuntimeException("Did not expect field "+this+" to have more than one Pattern.");
-		}
+		if(!isInitialized())
+			throw new RuntimeException("getPattern cannot be called before initialization of the field.");
+		if(patternWhileTypeInitialization!=null)
+			throw new RuntimeException();
+
+		return pattern;
+	}
+	
+	@Deprecated
+	public final List<Pattern> getPatterns()
+	{
+		final Pattern pattern = getPattern();
+		return
+			pattern!=null
+			? Collections.singletonList(pattern)
+			: Collections.<Pattern>emptyList();
 	}
 	
 	// second initialization phase ---------------------------------------------------
@@ -245,12 +240,8 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		super.initialize(type, name);
 		
-		final ArrayList<Pattern> patterns = patternsWhileTypeInitialization;
-		patternsWhileTypeInitialization = null;
-		this.patterns =
-			patterns==null
-			? Collections.<Pattern>emptyList()
-			: Collections.unmodifiableList(Arrays.asList(patterns.toArray(new Pattern[patterns.size()])));
+		this.pattern = this.patternWhileTypeInitialization;
+		this.patternWhileTypeInitialization = null;
 	}
 	
 	final void connect(final Table table)
