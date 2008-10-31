@@ -69,7 +69,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(false, item.password.getStorage().isMandatory());
 		assertEquals(32, item.password.getStorage().getMinimumLength());
 		assertEquals(32, item.password.getStorage().getMaximumLength());
-		assertEqualsUnmodifiable(list(item.password), item.password.getStorage().getPatterns());
+		assertEquals(item.password, item.password.getStorage().getPattern());
 		assertEquals(false, item.password.isInitial());
 		assertEquals(false, item.password.isFinal());
 		assertEquals(false, item.password.isMandatory());
@@ -79,7 +79,7 @@ public class MD5Test extends AbstractRuntimeTest
 		
 		assertEquals(item.TYPE, item.passwordLatin.getType());
 		assertEquals("passwordLatin", item.passwordLatin.getName());
-		assertEqualsUnmodifiable(list(item.passwordLatin), item.passwordLatin.getStorage().getPatterns());
+		assertEquals(item.passwordLatin, item.passwordLatin.getStorage().getPattern());
 		assertEquals(false, item.passwordLatin.isInitial());
 		assertEquals(false, item.passwordLatin.isFinal());
 		assertEquals(false, item.passwordLatin.isMandatory());
@@ -89,7 +89,7 @@ public class MD5Test extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
-		assertEqualsUnmodifiable(list(item.passwordMandatory), item.passwordMandatory.getStorage().getPatterns());
+		assertEquals(item.passwordMandatory, item.passwordMandatory.getStorage().getPattern());
 		assertEquals(true, item.passwordMandatory.isInitial());
 		assertEquals(false, item.passwordMandatory.isFinal());
 		assertEquals(true, item.passwordMandatory.isMandatory());

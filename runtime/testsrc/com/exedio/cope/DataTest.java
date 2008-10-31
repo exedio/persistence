@@ -156,14 +156,14 @@ public class DataTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.data.getType());
 		assertEquals("data", item.data.getName());
 		assertEquals(false, item.data.isMandatory());
-		assertEqualsUnmodifiable(list(), item.data.getPatterns());
+		assertEquals(null, item.data.getPattern());
 		assertEquals(item.data.DEFAULT_LENGTH, item.data.getMaximumLength());
 		assertEquals(DataField.Value.class, item.data.getValueClass());
 		
 		assertEquals(item.TYPE, item.data10.getType());
 		assertEquals("data10", item.data10.getName());
 		assertEquals(false, item.data10.isMandatory());
-		assertEqualsUnmodifiable(list(), item.data10.getPatterns());
+		assertEquals(null, item.data10.getPattern());
 		assertEquals(10, item.data10.getMaximumLength());
 		assertEquals(DataField.Value.class, item.data10.getValueClass());
 

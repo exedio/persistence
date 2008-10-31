@@ -57,7 +57,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.any.getType());
 		assertEquals("any", item.any.getName());
 		assertEquals(false, item.any.isMandatory());
-		assertEqualsUnmodifiable(list(), item.any.getPatterns());
+		assertEquals(null, item.any.getPattern());
 		assertEquals(MIN, item.any.getMinimum());
 		assertEquals(MAX, item.any.getMaximum());
 		assertContains(item.any.getInitialExceptions());

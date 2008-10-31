@@ -61,7 +61,7 @@ public final class SingletonTest extends AbstractRuntimeTest
 		assertEquals("einzigartigOnce", item.einzigartig.getSource().getName());
 		assertEquals("einzigartig",     item.einzigartig.getName());
 
-		assertEqualsUnmodifiable(list(item.einzigartig), item.einzigartig.getSource().getPatterns());
+		assertEquals(item.einzigartig, item.einzigartig.getSource().getPattern());
 		
 		// test persistence
 		assertEquals(list(), item.TYPE.search());

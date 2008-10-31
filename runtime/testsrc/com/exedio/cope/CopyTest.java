@@ -96,9 +96,9 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getDeclaredCopyConstraints());
 		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getCopyConstraints());
 
-		assertEqualsUnmodifiable(list(), CopySourceItem.templateString.getPatterns());
-		assertEqualsUnmodifiable(list(), CopySourceItem.templateItem.getPatterns());
-		assertEqualsUnmodifiable(list(), CopySourceItem.selfTemplateItem.getPatterns());
+		assertEquals(null, CopySourceItem.templateString.getPattern());
+		assertEquals(null, CopySourceItem.templateItem.getPattern());
+		assertEquals(null, CopySourceItem.selfTemplateItem.getPattern());
 		
 		assertEquals(true, CopySourceItem.templateString.isInitial());
 		assertEquals(true, CopySourceItem.templateString.isFinal());

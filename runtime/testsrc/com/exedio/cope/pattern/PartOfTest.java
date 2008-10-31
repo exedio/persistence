@@ -63,7 +63,7 @@ public class PartOfTest extends AbstractRuntimeTest
 		assertEquals("parts", PartOfItem.parts.getName());
 
 		assertSame(PartOfItem.container, PartOfItem.parts.getContainer());
-		assertEqualsUnmodifiable(list(PartOfItem.parts), PartOfItem.container.getPatterns());
+		assertEquals(PartOfItem.parts, PartOfItem.container.getPattern());
 		assertEqualsUnmodifiable(list(PartOfItem.container), PartOfItem.parts.getSourceFields());
 		
 		assertEquals(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));

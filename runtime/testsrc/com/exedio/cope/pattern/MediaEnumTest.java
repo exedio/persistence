@@ -63,13 +63,13 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(5000, body.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.sheet), body.getPatterns());
+		assertEquals(item.sheet, body.getPattern());
 		assertSame(item.sheet, Media.get(body));
 		
 		final IntegerField contentType = (IntegerField)item.sheet.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("sheetContentType", contentType.getName());
-		assertEqualsUnmodifiable(list(item.sheet), contentType.getPatterns());
+		assertEquals(item.sheet, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
@@ -77,7 +77,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		final DateField lastModified = item.sheet.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
 		assertEquals("sheetLastModified", lastModified.getName());
-		assertEqualsUnmodifiable(list(item.sheet), lastModified.getPatterns());
+		assertEquals(item.sheet, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());

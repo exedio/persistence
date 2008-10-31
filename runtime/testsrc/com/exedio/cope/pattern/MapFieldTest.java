@@ -61,13 +61,13 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals("parent", item.nameParent().getName());
 		assertEquals(DeletePolicy.CASCADE, item.nameParent().getDeletePolicy());
 		assertSame(item.name.getRelationType(), item.nameParent().getType());
-		assertEqualsUnmodifiable(list(), item.nameParent().getPatterns());
+		assertEquals(null, item.nameParent().getPattern());
 		assertSame(item.nameParent(), item.name.getParent());
 
 		assertEquals(MapFieldItem.Language.class, ((EnumField<MapFieldItem.Language>)item.name.getKey()).getValueClass());
 		assertEquals("key", item.name.getKey().getName());
 		assertSame(item.name.getRelationType(), item.name.getKey().getType());
-		assertEqualsUnmodifiable(list(), item.name.getKey().getPatterns());
+		assertEquals(null, item.name.getKey().getPattern());
 
 		assertEqualsUnmodifiable(list(item.nameParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
 		assertEquals("uniqueConstraint", item.name.getUniqueConstraint().getName());
@@ -77,7 +77,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(String.class, item.name.getValue().getValueClass());
 		assertEquals("value", item.name.getValue().getName());
 		assertSame(item.name.getRelationType(), item.name.getValue().getType());
-		assertEqualsUnmodifiable(list(), item.name.getValue().getPatterns());
+		assertEquals(null, item.name.getValue().getPattern());
 
 		assertEquals("MapFieldItem.name", item.name.getRelationType().getID());
 		assertEquals(PatternItem.class, item.name.getRelationType().getJavaClass());

@@ -56,7 +56,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 	{
 		assertEquals(pattern.getType(), field.getType());
 		assertEquals(pattern.getName() + postfix, field.getName());
-		assertEqualsUnmodifiable(list(pattern), field.getPatterns());
+		assertEquals(pattern, field.getPattern());
 	}
 	
 	public void testIt()

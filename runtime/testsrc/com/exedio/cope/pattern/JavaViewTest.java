@@ -54,7 +54,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.number.getType());
 		assertEquals("number", item.number.getName());
-		assertEqualsUnmodifiable(list(), item.numberString.getPatterns());
+		assertEquals(null, item.numberString.getPattern());
 		assertEquals(Double.class, item.number.getValueType());
 		assertEquals(Double.class, item.number.getValueGenericType());
 

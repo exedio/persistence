@@ -58,7 +58,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
-		assertEqualsUnmodifiable(list(item.explicitExternal), item.explicitExternalWrap.getPatterns());
+		assertEquals(item.explicitExternal, item.explicitExternalWrap.getPattern());
 		assertEqualsUnmodifiable(list(item.explicitExternalWrap), item.explicitExternal.getSourceFields());
 		assertEquals(false, item.explicitExternalWrap.isInitial());
 		assertEquals(false, item.explicitExternalWrap.isFinal());
@@ -100,7 +100,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals("implicitExternal", item.implicitExternal.getName());
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
 		assertEquals("implicitExternalHash", item.implicitExternal.getStorage().getName());
-		assertEqualsUnmodifiable(list(item.implicitExternal), item.implicitExternal.getStorage().getPatterns());
+		assertEquals(item.implicitExternal, item.implicitExternal.getStorage().getPattern());
 		assertEqualsUnmodifiable(list(item.implicitExternal.getStorage()), item.implicitExternal.getSourceFields());
 		assertEquals(false, item.implicitExternal.isInitial());
 		assertEquals(false, item.implicitExternal.isFinal());
@@ -124,7 +124,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals("internal", item.internal.getName());
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
 		assertEquals("internalHash", item.internal.getStorage().getName());
-		assertEqualsUnmodifiable(list(item.internal), item.internal.getStorage().getPatterns());
+		assertEquals(item.internal, item.internal.getStorage().getPattern());
 		assertEqualsUnmodifiable(list(item.internal.getStorage()), item.internal.getSourceFields());
 		assertEquals(false, item.internal.isInitial());
 		assertEquals(false, item.internal.isFinal());

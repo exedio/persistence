@@ -62,13 +62,13 @@ public class MediaMajorTest extends AbstractRuntimeTest
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(Media.DEFAULT_LENGTH, body.getMaximumLength());
-		assertEqualsUnmodifiable(list(item.image), body.getPatterns());
+		assertEquals(item.image, body.getPattern());
 		assertSame(item.image, Media.get(body));
 		
 		final StringField contentType = (StringField)item.image.getContentType();
 		assertSame(item.TYPE, contentType.getType());
 		assertEquals("imageMinor", contentType.getName());
-		assertEqualsUnmodifiable(list(item.image), contentType.getPatterns());
+		assertEquals(item.image, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
@@ -78,7 +78,7 @@ public class MediaMajorTest extends AbstractRuntimeTest
 		final DateField lastModified = item.image.getLastModified();
 		assertSame(item.TYPE, lastModified.getType());
 		assertEquals("imageLastModified", lastModified.getName());
-		assertEqualsUnmodifiable(list(item.image), lastModified.getPatterns());
+		assertEquals(item.image, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());

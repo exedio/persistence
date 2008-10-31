@@ -65,7 +65,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(false, body.isFinal());
 		assertEquals(true, body.isMandatory());
 		assertEquals(20, body.getMaximumLength());
-		assertEqualsUnmodifiable(list(t.file), body.getPatterns());
+		assertEquals(t.file, body.getPattern());
 		assertSame(t.file, Media.get(body));
 		
 		final StringField contentType = (StringField)t.file.getContentType();
@@ -76,7 +76,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
-		assertEqualsUnmodifiable(list(t.file), contentType.getPatterns());
+		assertEquals(t.file, contentType.getPattern());
 		
 		final DateField lastModified = t.file.getLastModified();
 		assertSame(t.TYPE, lastModified.getType());
@@ -84,7 +84,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(true, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		assertEqualsUnmodifiable(list(t.file), lastModified.getPatterns());
+		assertEquals(t.file, lastModified.getPattern());
 		
 		// test persistence
 		assertEquals(list(), t.TYPE.search());
@@ -102,7 +102,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(list(item.file), e.getFeature().getPatterns());
+			assertEquals(item.file, e.getFeature().getPattern());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -114,7 +114,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(list(item.file), e.getFeature().getPatterns());
+			assertEquals(item.file, e.getFeature().getPattern());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -126,7 +126,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(list(item.file), e.getFeature().getPatterns());
+			assertEquals(item.file, e.getFeature().getPattern());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -143,7 +143,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(MandatoryViolationException e)
 		{
-			assertEquals(list(item.file), e.getFeature().getPatterns());
+			assertEquals(item.file, e.getFeature().getPattern());
 			assertEquals(null, e.getItem());
 		}
 		assertEquals(list(item), item.TYPE.search());

@@ -58,7 +58,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		assertEquals(BooleanField.class, item.activeLanguage.getField(DE).getClass());
 		assertEquals("activeLanguageDE", item.activeLanguage.getField(DE).getName());
 		assertSame(item.TYPE, item.activeLanguage.getField(DE).getType());
-		assertEqualsUnmodifiable(list(item.activeLanguage), item.activeLanguage.getField(DE).getPatterns());
+		assertEquals(item.activeLanguage, item.activeLanguage.getField(DE).getPattern());
 		assertEqualsUnmodifiable(list(item.activeLanguage.getField(DE), item.activeLanguage.getField(EN), item.activeLanguage.getField(PL)), item.activeLanguage.getSourceFields());
 
 		assertEqualsUnmodifiable(

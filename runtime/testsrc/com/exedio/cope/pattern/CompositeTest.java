@@ -97,7 +97,7 @@ public class CompositeTest extends AbstractRuntimeTest
 		assertEquals(oItem.TYPE, uno.getType());
 		assertEquals("unoAString", uno.of(aString).getName());
 		assertEquals("uno", uno.getName());
-		assertEqualsUnmodifiable(list(uno), uno.of(aString).getPatterns());
+		assertEquals(uno, uno.of(aString).getPattern());
 		assertEqualsUnmodifiable(list(uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem)), uno.getSourceFields());
 		
 		assertEquals(false, uno.isInitial());

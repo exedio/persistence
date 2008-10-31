@@ -50,7 +50,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(item.TYPE, item.any.getType());
 		assertEquals("any", item.any.getName());
 		assertEquals(false, item.any.isMandatory());
-		assertEqualsUnmodifiable(list(), item.any.getPatterns());
+		assertEquals(null, item.any.getPattern());
 		assertEquals(0, item.any.getMinimumLength());
 		assertEquals(StringField.DEFAULT_LENGTH, item.any.getMaximumLength());
 		assertEquals(null, item.any.getCharacterSet());

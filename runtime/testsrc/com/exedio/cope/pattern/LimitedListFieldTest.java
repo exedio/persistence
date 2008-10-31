@@ -78,9 +78,9 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.nums.getType());
 		assertEquals("nums", item.nums.getName());
 		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSourceFields());
-		assertEqualsUnmodifiable(list(item.nums), item.num1.getPatterns());
-		assertEqualsUnmodifiable(list(item.nums), item.num2.getPatterns());
-		assertEqualsUnmodifiable(list(item.nums), item.num3.getPatterns());
+		assertEquals(item.nums, item.num1.getPattern());
+		assertEquals(item.nums, item.num2.getPattern());
+		assertEquals(item.nums, item.num3.getPattern());
 		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSourceFields());
 		assertEquals(false, item.nums.isInitial());
 		assertEquals(false, item.nums.isFinal());
@@ -95,8 +95,8 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		final DateField date0 = assertDate(dateSourcesIterator, 0);
 		final DateField date1 = assertDate(dateSourcesIterator, 1);
 		assertTrue(!dateSourcesIterator.hasNext());
-		assertEqualsUnmodifiable(list(item.dates), date0.getPatterns());
-		assertEqualsUnmodifiable(list(item.dates), date1.getPatterns());
+		assertEquals(item.dates, date0.getPattern());
+		assertEquals(item.dates, date1.getPattern());
 		assertEqualsUnmodifiable(list(date0, date1), item.dates.getSourceFields());
 		assertEquals(false, item.dates.isInitial());
 		assertEquals(false, item.dates.isFinal());
@@ -113,10 +113,10 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		final StringField string2 = assertString(stringSourcesIterator, 2);
 		final StringField string3 = assertString(stringSourcesIterator, 3);
 		assertTrue(!stringSourcesIterator.hasNext());
-		assertEqualsUnmodifiable(list(item.strings), string0.getPatterns());
-		assertEqualsUnmodifiable(list(item.strings), string1.getPatterns());
-		assertEqualsUnmodifiable(list(item.strings), string2.getPatterns());
-		assertEqualsUnmodifiable(list(item.strings), string3.getPatterns());
+		assertEquals(item.strings, string0.getPattern());
+		assertEquals(item.strings, string1.getPattern());
+		assertEquals(item.strings, string2.getPattern());
+		assertEquals(item.strings, string3.getPattern());
 		assertEqualsUnmodifiable(list(string0, string1, string2, string3), item.strings.getSourceFields());
 		assertEquals(false, item.strings.isInitial());
 		assertEquals(false, item.strings.isFinal());
