@@ -531,14 +531,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	
 	public final static Media get(final DataField field)
 	{
-		for(final Pattern pattern : field.getPatterns())
+		final Pattern pattern = field.getPattern();
+		if(pattern instanceof Media)
 		{
-			if(pattern instanceof Media)
-			{
-				final Media media = (Media)pattern;
-				if(media.getBody()==field)
-					return media;
-			}
+			final Media media = (Media)pattern;
+			if(media.getBody()==field)
+				return media;
 		}
 		throw new NullPointerException(field.toString());
 	}
