@@ -20,18 +20,6 @@ package com.exedio.cope.util;
 
 import java.util.Arrays;
 
-/**
- * The class <tt>Day</tt> represents a specific day.
- * It is similar to {@link java.util.Date},
- * but with &quot;day precision&quot; instead of millisecond precision.
- * Like {@link java.util.Date} its immutable,
- * so you cannot change the value of an instance of this class.
- * <p>
- * This class is used within cope as a value class for
- * {@link com.exedio.cope.DayField}.
- *
- * @author Ralf Wiebicke
- */
 public final class CharacterSet
 {
 	public static final CharacterSet ALPHA = new CharacterSet('A', 'Z', 'a', 'z');
