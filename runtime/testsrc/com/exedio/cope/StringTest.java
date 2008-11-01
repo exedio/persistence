@@ -53,7 +53,7 @@ public class StringTest extends TestmodelTest
 		assertEquals(null, item.any.getPattern());
 		assertEquals(0, item.any.getMinimumLength());
 		assertEquals(StringField.DEFAULT_LENGTH, item.any.getMaximumLength());
-		assertEquals(null, item.any.getCharacterSet());
+		assertEquals(null, item.any.getCharSet());
 
 		assertEquals(item.TYPE, item.mandatory.getType());
 		assertEquals("mandatory", item.mandatory.getName());
@@ -64,19 +64,19 @@ public class StringTest extends TestmodelTest
 
 		assertEquals(0, item.max4.getMinimumLength());
 		assertEquals(4, item.max4.getMaximumLength());
-		assertEquals(null, item.max4.getCharacterSet());
+		assertEquals(null, item.max4.getCharSet());
 
 		assertEquals(4, item.min4Max8.getMinimumLength());
 		assertEquals(8, item.min4Max8.getMaximumLength());
-		assertEquals(null, item.min4Max8.getCharacterSet());
+		assertEquals(null, item.min4Max8.getCharSet());
 		
 		assertEquals(6, item.exact6.getMinimumLength());
 		assertEquals(6, item.exact6.getMaximumLength());
-		assertEquals(null, item.exact6.getCharacterSet());
+		assertEquals(null, item.exact6.getCharSet());
 		
 		assertEquals(0, item.lowercase.getMinimumLength());
 		assertEquals(StringField.DEFAULT_LENGTH, item.lowercase.getMaximumLength());
-		assertEquals(new CharSet('a', 'z'), item.lowercase.getCharacterSet());
+		assertEquals(new CharSet('a', 'z'), item.lowercase.getCharSet());
 		
 		assertEquals(item.TYPE, item.min4Upper.getType());
 		assertEquals("min4Upper", item.min4Upper.getName());

@@ -32,18 +32,18 @@ public final class StringField extends FunctionField<String> implements StringFu
 {
 	private final int minimumLength;
 	private final int maximumLength;
-	private final CharSet characterSet;
+	private final CharSet charSet;
 	
 	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
-			final int minimumLength, final int maximumLength, final CharSet characterSet)
+			final int minimumLength, final int maximumLength, final CharSet charSet)
 	{
 		super(isfinal, optional, unique, String.class, defaultConstant);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
-		this.characterSet = characterSet;
+		this.charSet = charSet;
 
 		if(minimumLength<0)
 			throw new IllegalArgumentException("mimimum length must be positive, but was " + minimumLength + '.');
@@ -66,55 +66,55 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Override
 	public StringField copy()
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 	
 	@Override
 	public StringField toFinal()
 	{
-		return new StringField(true, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
+		return new StringField(true, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 	
 	@Override
 	public StringField optional()
 	{
-		return new StringField(isfinal, true, unique, defaultConstant, minimumLength, maximumLength, characterSet);
+		return new StringField(isfinal, true, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 	
 	@Override
 	public StringField unique()
 	{
-		return new StringField(isfinal, optional, true, defaultConstant, minimumLength, maximumLength, characterSet);
+		return new StringField(isfinal, optional, true, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 	
 	public StringField defaultTo(final String defaultConstant)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 	
 	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 	
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH, characterSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH, charSet);
 	}
 	
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength, characterSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength, charSet);
 	}
 	
 	public StringField lengthExact(final int exactLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength, characterSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength, charSet);
 	}
 	
-	public StringField characterSet(final CharSet characterSet)
+	public StringField charSet(final CharSet charSet)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
+		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 	
 	public final int getMinimumLength()
@@ -127,9 +127,9 @@ public final class StringField extends FunctionField<String> implements StringFu
 		return maximumLength;
 	}
 	
-	public final CharSet getCharacterSet()
+	public final CharSet getCharSet()
 	{
-		return characterSet;
+		return charSet;
 	}
 	
 	@Override
@@ -137,7 +137,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		result.add(StringLengthViolationException.class);
-		if(characterSet!=null)
+		if(charSet!=null)
 			result.add(StringCharacterSetViolationException.class);
 		return result;
 	}
@@ -148,7 +148,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
-		return new StringColumn(table, this, name, optional, minimumLength, maximumLength, characterSet);
+		return new StringColumn(table, this, name, optional, minimumLength, maximumLength, charSet);
 	}
 	
 	@Override
@@ -186,10 +186,10 @@ public final class StringField extends FunctionField<String> implements StringFu
 			throw new StringLengthViolationException(this, exceptionItem, value, true, minimumLength);
 		if(length>maximumLength)
 			throw new StringLengthViolationException(this, exceptionItem, value, false, maximumLength);
-		if(characterSet!=null)
+		if(charSet!=null)
 		{
 			for(int i = 0; i<length; i++)
-				if(!characterSet.contains(value.charAt(i)))
+				if(!charSet.contains(value.charAt(i)))
 					throw new StringCharacterSetViolationException(this, exceptionItem, value, value.charAt(i), i);
 		}
 	}
@@ -302,5 +302,23 @@ public final class StringField extends FunctionField<String> implements StringFu
 	public final UppercaseView uppercase()
 	{
 		return toUpperCase();
+	}
+	
+	/**
+	 * @deprecated Use {@link #charSet(CharSet)} instead
+	 */
+	@Deprecated
+	public StringField characterSet(final com.exedio.cope.util.CharacterSet characterSet)
+	{
+		return charSet(characterSet.getCharSet());
+	}
+	
+	/**
+	 * @deprecated Use {@link #getCharSet()} instead
+	 */
+	@Deprecated
+	public com.exedio.cope.util.CharacterSet getCharacterSet()
+	{
+		return new com.exedio.cope.util.CharacterSet(getCharSet());
 	}
 }

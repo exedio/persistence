@@ -27,7 +27,7 @@ final class StringColumn extends Column
 {
 	final int minimumLength;
 	final int maximumLength;
-	final CharSet characterSet;
+	final CharSet charSet;
 	final String[] allowedValues;
 
 	StringColumn(
@@ -37,12 +37,12 @@ final class StringColumn extends Column
 			final boolean optional,
 			final int minimumLength,
 			final int maximumLength,
-			final CharSet characterSet)
+			final CharSet charSet)
 	{
 		super(table, field, id, false, optional);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
-		this.characterSet  = characterSet;
+		this.charSet = charSet;
 		this.allowedValues = null;
 		
 		assert minimumLength<=maximumLength;
@@ -58,7 +58,7 @@ final class StringColumn extends Column
 		super(table, field, id, false, optional);
 		this.minimumLength = 0;
 		this.maximumLength = maxLength(allowedValues);
-		this.characterSet  = null;
+		this.charSet  = null;
 		this.allowedValues = allowedValues;
 
 		if(allowedValues.length<2)
@@ -127,9 +127,9 @@ final class StringColumn extends Column
 			{
 				bf.append(length + '(' + protectedID + ")<=" + maximumLength);
 			}
-			if(characterSet!=null)
+			if(charSet!=null)
 			{
-				final String clause = table.database.dialect.getClause(protectedID, characterSet);
+				final String clause = table.database.dialect.getClause(protectedID, charSet);
 				if(clause!=null)
 					bf.append(" AND (").
 						append(clause).

@@ -66,7 +66,7 @@ public final class CharacterSet
 		this(new CharSet(from1, to1, from2, to2, from3, to3, from4, to4, from5, to5, from6, to6));
 	}
 	
-	private CharacterSet(final CharSet set)
+	public CharacterSet(final CharSet set)
 	{
 		this.set = set;
 	}
@@ -100,5 +100,10 @@ public final class CharacterSet
 	public String getRegularExpression()
 	{
 		return set.getRegularExpression();
+	}
+	
+	public CharSet getCharSet()
+	{
+		return set;
 	}
 }
