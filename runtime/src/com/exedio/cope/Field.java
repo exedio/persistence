@@ -221,16 +221,6 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return pattern;
 	}
 	
-	@Deprecated
-	public final List<Pattern> getPatterns()
-	{
-		final Pattern pattern = getPattern();
-		return
-			pattern!=null
-			? Collections.singletonList(pattern)
-			: Collections.<Pattern>emptyList();
-	}
-	
 	// second initialization phase ---------------------------------------------------
 
 	private Column column;
@@ -353,5 +343,15 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	public final String getColumnName()
 	{
 		return SchemaInfo.getColumnName(this);
+	}
+	
+	@Deprecated
+	public final List<Pattern> getPatterns()
+	{
+		final Pattern pattern = getPattern();
+		return
+			pattern!=null
+			? Collections.singletonList(pattern)
+			: Collections.<Pattern>emptyList();
 	}
 }
