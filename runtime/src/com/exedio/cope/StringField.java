@@ -138,7 +138,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		result.add(StringLengthViolationException.class);
 		if(charSet!=null)
-			result.add(StringCharacterSetViolationException.class);
+			result.add(StringCharSetViolationException.class);
 		return result;
 	}
 	
@@ -176,7 +176,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 	@Override
 	void checkNotNull(final String value, final Item exceptionItem)
 		throws
-			StringLengthViolationException, StringCharacterSetViolationException
+			StringLengthViolationException, StringCharSetViolationException
 	{
 		if(convertEmptyStrings && value.length()==0 && !optional)
 			throw new MandatoryViolationException(this, exceptionItem);
@@ -190,7 +190,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 		{
 			for(int i = 0; i<length; i++)
 				if(!charSet.contains(value.charAt(i)))
-					throw new StringCharacterSetViolationException(this, exceptionItem, value, value.charAt(i), i);
+					throw new StringCharSetViolationException(this, exceptionItem, value, value.charAt(i), i);
 		}
 	}
 	

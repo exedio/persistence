@@ -305,7 +305,7 @@ public class StringItem extends Item
 	public final void setLowercase(final java.lang.String lowercase)
 			throws
 				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.StringCharacterSetViolationException
+				com.exedio.cope.StringCharSetViolationException
 	{
 		StringItem.lowercase.set(this,lowercase);
 	}/**
@@ -328,7 +328,7 @@ public class StringItem extends Item
 	public final void setLowercaseMin4(final java.lang.String lowercaseMin4)
 			throws
 				com.exedio.cope.StringLengthViolationException,
-				com.exedio.cope.StringCharacterSetViolationException
+				com.exedio.cope.StringCharSetViolationException
 	{
 		StringItem.lowercaseMin4.set(this,lowercaseMin4);
 	}/**

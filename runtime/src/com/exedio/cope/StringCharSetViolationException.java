@@ -30,7 +30,7 @@ import com.exedio.cope.instrument.ConstructorComment;
  * @author Ralf Wiebicke
  */
 @ConstructorComment("if {0} violates its character set constraint.")
-public final class StringCharacterSetViolationException extends ConstraintViolationException
+public final class StringCharSetViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -45,7 +45,7 @@ public final class StringCharacterSetViolationException extends ConstraintViolat
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public StringCharacterSetViolationException(final StringField feature, final Item item, final String value, final char character, final int position)
+	public StringCharSetViolationException(final StringField feature, final Item item, final String value, final char character, final int position)
 	{
 		super(item, null);
 		this.feature = feature;

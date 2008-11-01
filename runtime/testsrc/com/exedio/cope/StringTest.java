@@ -561,7 +561,7 @@ public class StringTest extends TestmodelTest
 			item.setLowercase("abcABC");
 			fail();
 		}
-		catch(StringCharacterSetViolationException e)
+		catch(StringCharSetViolationException e)
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(item.lowercase, e.getFeature());
