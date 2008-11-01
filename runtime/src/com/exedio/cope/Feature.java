@@ -23,10 +23,12 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.CharacterSet;
 
 public abstract class Feature
 {
 	private Type<? extends Item> type;
+	private static final CharacterSet NAME_CHARACTER_SET = new CharacterSet('0', '9', 'A', 'Z', 'a', 'z');
 	private String name;
 	private String id;
 	private java.lang.reflect.Field annotationField = null;
@@ -36,6 +38,13 @@ public abstract class Feature
 	 */
 	void initialize(final Type<? extends Item> type, final String name)
 	{
+		{
+			final int l = name.length();
+			for(int i = 0; i<l; i++)
+				if(!NAME_CHARACTER_SET.contains(name.charAt(i)))
+					throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >"+ name.charAt(i) + "< at position " + i);
+		}
+		
 		if(this.type!=null)
 			throw new IllegalStateException("feature already initialized: " + id);
 		

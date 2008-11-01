@@ -34,6 +34,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
+import com.exedio.cope.util.CharacterSet;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -42,6 +43,7 @@ public final class Type<C extends Item>
 
 	private final Class<C> javaClass;
 	private final boolean uniqueJavaClass;
+	private static final CharacterSet ID_CHARACTER_SET = new CharacterSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	private final Pattern pattern;
 	final boolean isAbstract;
@@ -175,6 +177,13 @@ public final class Type<C extends Item>
 			final Pattern pattern,
 			final LinkedHashMap<String, Feature> featureMap)
 	{
+		{
+			final int l = id.length();
+			for(int i = 0; i<l; i++)
+				if(!ID_CHARACTER_SET.contains(id.charAt(i)))
+					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >"+ id.charAt(i) + "< at position " + i);
+		}
+		
 		this.javaClass = javaClass;
 		this.uniqueJavaClass = uniqueJavaClass;
 		this.id = id;
