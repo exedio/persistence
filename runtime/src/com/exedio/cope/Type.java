@@ -43,7 +43,7 @@ public final class Type<C extends Item>
 
 	private final Class<C> javaClass;
 	private final boolean uniqueJavaClass;
-	private static final CharSet ID_CHARACTER_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
+	private static final CharSet ID_CHAR_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	private final Pattern pattern;
 	final boolean isAbstract;
@@ -180,7 +180,7 @@ public final class Type<C extends Item>
 		{
 			final int l = id.length();
 			for(int i = 0; i<l; i++)
-				if(!ID_CHARACTER_SET.contains(id.charAt(i)))
+				if(!ID_CHAR_SET.contains(id.charAt(i)))
 					throw new IllegalArgumentException("name >" + id + "< of feature in contains illegal character >"+ id.charAt(i) + "< at position " + i);
 		}
 		

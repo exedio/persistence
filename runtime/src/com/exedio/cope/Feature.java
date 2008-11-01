@@ -28,7 +28,7 @@ import com.exedio.cope.util.CharSet;
 public abstract class Feature
 {
 	private Type<? extends Item> type;
-	private static final CharSet NAME_CHARACTER_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
+	private static final CharSet NAME_CHAR_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
 	private String name;
 	private String id;
 	private java.lang.reflect.Field annotationField = null;
@@ -41,7 +41,7 @@ public abstract class Feature
 		{
 			final int l = name.length();
 			for(int i = 0; i<l; i++)
-				if(!NAME_CHARACTER_SET.contains(name.charAt(i)))
+				if(!NAME_CHAR_SET.contains(name.charAt(i)))
 					throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >"+ name.charAt(i) + "< at position " + i);
 		}
 		
