@@ -26,6 +26,7 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.CacheInfo;
@@ -141,6 +142,7 @@ final class HistoryThread extends Thread
 		final Date connectDate = watchedModel.getConnectDate();
 		final ConnectionPoolInfo connectionPoolInfo = watchedModel.getConnectionPoolInfo();
 		final long nextTransactionId = watchedModel.getNextTransactionId();
+		final TransactionCounters transactionCounters = watchedModel.getTransactionCounters();
 		final CacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
 		final QueryCacheInfo queryCacheInfo = watchedModel.getQueryCacheInfo();
 		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
@@ -232,6 +234,10 @@ final class HistoryThread extends Thread
 				HistoryModel.connectionPoolInvalidFromIdle.map(connectionPoolInfo.getInvalidFromIdle()),
 				HistoryModel.connectionPoolInvalidIntoIdle.map(connectionPoolInfo.getInvalidIntoIdle()),
 				HistoryModel.nextTransactionId.map(nextTransactionId),
+				HistoryModel.commitWithoutConnection.map(transactionCounters.getCommitWithoutConnection()),
+				HistoryModel.commitWithConnection.map(transactionCounters.getCommitWithConnection()),
+				HistoryModel.rollbackWithoutConnection.map(transactionCounters.getRollbackWithoutConnection()),
+				HistoryModel.rollbackWithConnection.map(transactionCounters.getRollbackWithConnection()),
 				HistoryModel.itemCacheHits.map(itemCacheHits),
 				HistoryModel.itemCacheMisses.map(itemCacheMisses),
 				HistoryModel.itemCacheNumberOfCleanups.map(itemCacheNumberOfCleanups),

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.console;
 
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -41,6 +42,12 @@ final class HistoryModel extends Item
 	static final IntegerField connectionPoolInvalidIntoIdle = new IntegerField().toFinal().min(0);
 	
 	static final LongField nextTransactionId = new LongField().toFinal();
+	@CopeSchemaName("commitOutConnection")
+	static final LongField commitWithoutConnection = new LongField().toFinal();
+	static final LongField commitWithConnection = new LongField().toFinal();
+	@CopeSchemaName("rollbackOutConnection")
+	static final LongField rollbackWithoutConnection = new LongField().toFinal();
+	static final LongField rollbackWithConnection = new LongField().toFinal();
 	
 	static final LongField itemCacheHits = new LongField().toFinal();
 	static final LongField itemCacheMisses = new LongField().toFinal();
