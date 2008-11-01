@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 import com.exedio.dsmf.MysqlDriver;
 import com.mysql.jdbc.Driver;
 
@@ -215,7 +215,7 @@ final class MysqlDialect extends Dialect
 	}
 	
 	@Override
-	protected String getClause(final String column, final CharacterSet set)
+	protected String getClause(final String column, final CharSet set)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append(column).

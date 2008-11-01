@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 
 /**
  * Represents a field within a {@link Type type},
@@ -32,13 +32,13 @@ public final class StringField extends FunctionField<String> implements StringFu
 {
 	private final int minimumLength;
 	private final int maximumLength;
-	private final CharacterSet characterSet;
+	private final CharSet characterSet;
 	
 	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
 	private StringField(
 			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
-			final int minimumLength, final int maximumLength, final CharacterSet characterSet)
+			final int minimumLength, final int maximumLength, final CharSet characterSet)
 	{
 		super(isfinal, optional, unique, String.class, defaultConstant);
 		this.minimumLength = minimumLength;
@@ -112,7 +112,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength, characterSet);
 	}
 	
-	public StringField characterSet(final CharacterSet characterSet)
+	public StringField characterSet(final CharSet characterSet)
 	{
 		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, characterSet);
 	}
@@ -127,7 +127,7 @@ public final class StringField extends FunctionField<String> implements StringFu
 		return maximumLength;
 	}
 	
-	public final CharacterSet getCharacterSet()
+	public final CharSet getCharacterSet()
 	{
 		return characterSet;
 	}

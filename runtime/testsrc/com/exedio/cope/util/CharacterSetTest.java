@@ -26,7 +26,7 @@ public class CharacterSetTest extends CopeAssert
 	{
 		try
 		{
-			new CharacterSet('Z', 'A');
+			new CharSet('Z', 'A');
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -35,7 +35,7 @@ public class CharacterSetTest extends CopeAssert
 		}
 		try
 		{
-			new CharacterSet('B', 'A');
+			new CharSet('B', 'A');
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -44,7 +44,7 @@ public class CharacterSetTest extends CopeAssert
 		}
 		try
 		{
-			new CharacterSet('A', 'C', 'B', 'A');
+			new CharSet('A', 'C', 'B', 'A');
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -53,7 +53,7 @@ public class CharacterSetTest extends CopeAssert
 		}
 		try
 		{
-			new CharacterSet('A', 'C', 'N', 'M');
+			new CharSet('A', 'C', 'N', 'M');
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -61,7 +61,7 @@ public class CharacterSetTest extends CopeAssert
 			assertEquals("inconsistent character set, character 'M' on position 3 is less character 'N' on position 2", e.getMessage());
 		}
 		{
-			CharacterSet cs = new CharacterSet('C', 'C');
+			CharSet cs = new CharSet('C', 'C');
 			assertRegexp("^[C]*$", cs);
 			assertEquals(cs.toString(), "[C-C]", cs.toString());
 			assertFalse(cs.contains('A'));
@@ -69,7 +69,7 @@ public class CharacterSetTest extends CopeAssert
 			assertFalse(cs.contains('D'));
 		}
 		{
-			CharacterSet cs = new CharacterSet('C', 'C', 'M', 'O', 'm', 'o');
+			CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
 			assertRegexp("^[C,M-O,m-o]*$", cs);
 			assertEquals(cs.toString(), "[C-C,M-O,m-o]", cs.toString());
 			assertFalse(cs.contains('A'));
@@ -85,38 +85,38 @@ public class CharacterSetTest extends CopeAssert
 			assertFalse(cs.contains('q'));
 		}
 		assertEquals(
-				new CharacterSet('A', 'A'),
-				new CharacterSet('A', 'A'));
+				new CharSet('A', 'A'),
+				new CharSet('A', 'A'));
 		assertEquals(
-				new CharacterSet('A', 'X', 'a', 'x'),
-				new CharacterSet('A', 'X', 'a', 'x'));
+				new CharSet('A', 'X', 'a', 'x'),
+				new CharSet('A', 'X', 'a', 'x'));
 		assertNotEquals(
-				new CharacterSet('A', 'A'),
-				new CharacterSet('A', 'A', 'a', 'x'));
+				new CharSet('A', 'A'),
+				new CharSet('A', 'A', 'a', 'x'));
 		assertNotEquals(
-				new CharacterSet('A', 'X', 'a', 'x'),
-				new CharacterSet('A', 'X', 'a', 'y'));
+				new CharSet('A', 'X', 'a', 'x'),
+				new CharSet('A', 'X', 'a', 'y'));
 		
-		assertRegexp("^[-,a-z]*$", new CharacterSet('-', '-', 'a', 'z'));
-		assertRegexp("^[-,(-)]*$", new CharacterSet('(', ')', '-', '-'));
-		assertRegexp("^[-,(-),0-9]*$", new CharacterSet('(', ')', '-', '-', '0', '9'));
+		assertRegexp("^[-,a-z]*$", new CharSet('-', '-', 'a', 'z'));
+		assertRegexp("^[-,(-)]*$", new CharSet('(', ')', '-', '-'));
+		assertRegexp("^[-,(-),0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
 	}
 	
-	private static void assertEquals(final CharacterSet cs1, final CharacterSet cs2)
+	private static void assertEquals(final CharSet cs1, final CharSet cs2)
 	{
 		assertEquals((Object)cs1, (Object)cs2);
 		assertEquals((Object)cs2, (Object)cs1);
 		assertEquals(cs1.hashCode(), cs2.hashCode());
 	}
 	
-	private static void assertNotEquals(final CharacterSet cs1, final CharacterSet cs2)
+	private static void assertNotEquals(final CharSet cs1, final CharSet cs2)
 	{
 		assertTrue(!cs1.equals(cs2));
 		assertTrue(!cs2.equals(cs1));
 		assertTrue(cs1.hashCode()!=cs2.hashCode());
 	}
 	
-	private static void assertRegexp(final String regularExpression, final CharacterSet cs)
+	private static void assertRegexp(final String regularExpression, final CharSet cs)
 	{
 		final String actual = cs.getRegularExpression();
 		assertEquals(actual, regularExpression, actual);

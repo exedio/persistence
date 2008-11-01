@@ -23,12 +23,12 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 
 public abstract class Feature
 {
 	private Type<? extends Item> type;
-	private static final CharacterSet NAME_CHARACTER_SET = new CharacterSet('0', '9', 'A', 'Z', 'a', 'z');
+	private static final CharSet NAME_CHARACTER_SET = new CharSet('0', '9', 'A', 'Z', 'a', 'z');
 	private String name;
 	private String id;
 	private java.lang.reflect.Field annotationField = null;

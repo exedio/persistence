@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.exedio.cope.testmodel.StringItem;
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 
 public class StringTest extends TestmodelTest
 {
@@ -76,7 +76,7 @@ public class StringTest extends TestmodelTest
 		
 		assertEquals(0, item.lowercase.getMinimumLength());
 		assertEquals(StringField.DEFAULT_LENGTH, item.lowercase.getMaximumLength());
-		assertEquals(new CharacterSet('a', 'z'), item.lowercase.getCharacterSet());
+		assertEquals(new CharSet('a', 'z'), item.lowercase.getCharacterSet());
 		
 		assertEquals(item.TYPE, item.min4Upper.getType());
 		assertEquals("min4Upper", item.min4Upper.getName());

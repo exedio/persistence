@@ -29,7 +29,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UppercaseView;
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 
 /**
  * @cope.generic.constructor public
@@ -51,8 +51,8 @@ public class StringItem extends Item
 	@CopeSchemaName("EXACT_6")
 	public static final StringField exact6 = new StringField().optional().lengthExact(6);
 	
-	public static final StringField lowercase = new StringField().optional().characterSet(new CharacterSet('a', 'z'));
-	public static final StringField lowercaseMin4 = new StringField().optional().lengthMin(4).characterSet(new CharacterSet('a', 'z'));
+	public static final StringField lowercase = new StringField().optional().characterSet(new CharSet('a', 'z'));
+	public static final StringField lowercaseMin4 = new StringField().optional().lengthMin(4).characterSet(new CharSet('a', 'z'));
 	
 	public static final StringField long1K = new StringField().optional().lengthMax(1000);
 	public static final StringField long1M = new StringField().optional().lengthMax(1000*1000);

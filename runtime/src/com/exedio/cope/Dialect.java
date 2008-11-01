@@ -26,7 +26,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 import com.exedio.dsmf.Driver;
 import com.exedio.dsmf.Schema;
 
@@ -204,7 +204,7 @@ abstract class Dialect
 	/**
 	 * Returns null, if the dialect does not support clauses for CharacterSet.
 	 */
-	protected String getClause(final String column, final CharacterSet set)
+	protected String getClause(final String column, final CharSet set)
 	{
 		if(column==null)
 			throw new NullPointerException();

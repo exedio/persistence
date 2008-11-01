@@ -34,7 +34,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -43,7 +43,7 @@ public final class Type<C extends Item>
 
 	private final Class<C> javaClass;
 	private final boolean uniqueJavaClass;
-	private static final CharacterSet ID_CHARACTER_SET = new CharacterSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
+	private static final CharSet ID_CHARACTER_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	private final Pattern pattern;
 	final boolean isAbstract;

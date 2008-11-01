@@ -21,13 +21,13 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.exedio.cope.util.CharacterSet;
+import com.exedio.cope.util.CharSet;
 
 final class StringColumn extends Column
 {
 	final int minimumLength;
 	final int maximumLength;
-	final CharacterSet characterSet;
+	final CharSet characterSet;
 	final String[] allowedValues;
 
 	StringColumn(
@@ -37,7 +37,7 @@ final class StringColumn extends Column
 			final boolean optional,
 			final int minimumLength,
 			final int maximumLength,
-			final CharacterSet characterSet)
+			final CharSet characterSet)
 	{
 		super(table, field, id, false, optional);
 		this.minimumLength = minimumLength;
