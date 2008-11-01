@@ -20,7 +20,7 @@ package com.exedio.cope.util;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class CharacterSetTest extends CopeAssert
+public class CharSetTest extends CopeAssert
 {
 	public void testIt()
 	{
