@@ -115,9 +115,9 @@ public final class PartOf<C extends Item> extends Pattern
 			
 			final ArrayList<PartOf> resultModifiable = new ArrayList<PartOf>();
 			
-			for(final ItemField<?> ia : declared ? type.getDeclaredReferences() : type.getReferences())
+			for(final ItemField<?> field : declared ? type.getDeclaredReferences() : type.getReferences())
 			{
-				final Pattern pattern = ia.getPattern();
+				final Pattern pattern = field.getPattern();
 				if(pattern instanceof PartOf)
 					resultModifiable.add((PartOf)pattern);
 			}
