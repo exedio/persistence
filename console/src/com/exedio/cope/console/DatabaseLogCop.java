@@ -30,9 +30,15 @@ final class DatabaseLogCop extends ConsoleCop
 	static final String THRESHOLD = "dblogthreshold";
 	static final String SQL = "dblogsql";
 	
-	DatabaseLogCop()
+	DatabaseLogCop(final Args args)
 	{
-		super(TAB_DATBASE_LOG, "db logs");
+		super(TAB_DATBASE_LOG, "db logs", args);
+	}
+
+	@Override
+	protected DatabaseLogCop newArgs(final Args args)
+	{
+		return new DatabaseLogCop(args);
 	}
 	
 	@Override

@@ -41,22 +41,28 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	
 	final Pager pager;
 	
-	private RevisionCop(final Pager pager)
+	private RevisionCop(final Args args, final Pager pager)
 	{
-		super(TAB_REVISION, "revision");
+		super(TAB_REVISION, "revision", args);
 		this.pager = pager;
 		
 		pager.addParameters(this);
 	}
 	
-	RevisionCop()
+	RevisionCop(final Args args)
 	{
-		this(PAGER_CONFIG.newPager());
+		this(args, PAGER_CONFIG.newPager());
 	}
 	
-	RevisionCop(final HttpServletRequest request)
+	RevisionCop(final Args args, final HttpServletRequest request)
 	{
-		this(PAGER_CONFIG.newPager(request));
+		this(args, PAGER_CONFIG.newPager(request));
+	}
+
+	@Override
+	protected RevisionCop newArgs(final Args args)
+	{
+		return new RevisionCop(args, pager);
 	}
 	
 	public Pager getPager()
@@ -66,7 +72,7 @@ final class RevisionCop extends ConsoleCop implements Pageable
 	
 	public RevisionCop toPage(final Pager pager)
 	{
-		return new RevisionCop(pager);
+		return new RevisionCop(args, pager);
 	}
 	
 	@Override

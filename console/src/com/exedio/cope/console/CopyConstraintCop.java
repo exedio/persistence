@@ -27,9 +27,15 @@ import com.exedio.cope.Type;
 
 final class CopyConstraintCop extends TestCop<CopyConstraint>
 {
-	CopyConstraintCop()
+	CopyConstraintCop(final Args args)
 	{
-		super(TAB_COPY_CONSTRAINTS, "copy constraints");
+		super(TAB_COPY_CONSTRAINTS, "copy constraints", args);
+	}
+
+	@Override
+	protected CopyConstraintCop newArgs(final Args args)
+	{
+		return new CopyConstraintCop(args);
 	}
 
 	@Override

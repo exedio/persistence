@@ -32,14 +32,20 @@ import com.exedio.cope.pattern.MediaPath;
 
 final class MediaStatsCop extends ConsoleCop
 {
-	MediaStatsCop()
+	MediaStatsCop(final Args args)
 	{
-		super(TAB_MEDIA_STATS, "media");
+		super(TAB_MEDIA_STATS, "media", args);
+	}
+
+	@Override
+	protected MediaStatsCop newArgs(final Args args)
+	{
+		return new MediaStatsCop(args);
 	}
 	
 	MediaCop toMedia(final MediaPath media)
 	{
-		return new MediaCop(media);
+		return new MediaCop(args, media);
 	}
 	
 	@Override

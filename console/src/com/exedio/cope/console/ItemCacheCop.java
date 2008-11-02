@@ -28,9 +28,15 @@ import com.exedio.cope.util.CacheInfo;
 
 final class ItemCacheCop extends ConsoleCop
 {
-	ItemCacheCop()
+	ItemCacheCop(final Args args)
 	{
-		super(TAB_ITEM_CACHE, "item cache");
+		super(TAB_ITEM_CACHE, "item cache", args);
+	}
+
+	@Override
+	protected ItemCacheCop newArgs(final Args args)
+	{
+		return new ItemCacheCop(args);
 	}
 
 	@Override

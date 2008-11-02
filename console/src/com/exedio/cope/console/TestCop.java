@@ -29,9 +29,9 @@ abstract class TestCop<I> extends ConsoleCop
 {
 	final static String TEST = "TEST";
 
-	TestCop(final String tab, final String name)
+	TestCop(final String tab, final String name, final Args args)
 	{
-		super(tab, name);
+		super(tab, name, args);
 	}
 
 	@Override

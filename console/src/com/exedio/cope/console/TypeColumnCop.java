@@ -29,9 +29,15 @@ import com.exedio.cope.Type;
 
 final class TypeColumnCop extends TestCop<ItemFunction>
 {
-	TypeColumnCop()
+	TypeColumnCop(final Args args)
 	{
-		super(TAB_TYPE_COLUMNS, "type columns");
+		super(TAB_TYPE_COLUMNS, "type columns", args);
+	}
+
+	@Override
+	protected TypeColumnCop newArgs(final Args args)
+	{
+		return new TypeColumnCop(args);
 	}
 
 	@Override

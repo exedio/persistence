@@ -37,9 +37,15 @@ final class TransactionCop extends ConsoleCop
 	static final String DISABLE = "txlistenerdisable";
 	static final String CLEAR   = "txlistenerclear";
 
-	TransactionCop()
+	TransactionCop(final Args args)
 	{
-		super(TAB_TRANSACTION, "transactions");
+		super(TAB_TRANSACTION, "transactions", args);
+	}
+
+	@Override
+	protected TransactionCop newArgs(final Args args)
+	{
+		return new TransactionCop(args);
 	}
 	
 	@Override

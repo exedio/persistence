@@ -46,14 +46,14 @@ final class MediaCop extends ConsoleCop implements Pageable
 	final boolean otherInline;
 	final Pager pager;
 
-	MediaCop(final MediaPath media)
+	MediaCop(final Args args, final MediaPath media)
 	{
-		this(media, false, false, PAGER_CONFIG.newPager());
+		this(args, media, false, false, PAGER_CONFIG.newPager());
 	}
 
-	private MediaCop(final MediaPath media, final boolean mediaInline, final boolean otherInline, final Pager pager)
+	private MediaCop(final Args args, final MediaPath media, final boolean mediaInline, final boolean otherInline, final Pager pager)
 	{
-		super("media", "media - " + media.getID());
+		super("media", "media - " + media.getID(), args);
 		
 		this.media = media;
 		
@@ -76,7 +76,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 		pager.addParameters(this);
 	}
 	
-	static MediaCop getMediaCop(final Model model, final HttpServletRequest request)
+	static MediaCop getMediaCop(final Model model, final Args args, final HttpServletRequest request)
 	{
 		final String mediaID = request.getParameter(MEDIA);
 		if(mediaID==null)
@@ -97,19 +97,26 @@ final class MediaCop extends ConsoleCop implements Pageable
 		}
 		
 		return new MediaCop(
+				args,
 				(MediaPath)model.getFeature(mediaID),
 				mediaInline, otherInline,
 				PAGER_CONFIG.newPager(request));
 	}
+
+	@Override
+	protected MediaCop newArgs(final Args args)
+	{
+		return new MediaCop(args, media, mediaInline, otherInline, pager);
+	}
 	
 	MediaCop toggleInlineMedia()
 	{
-		return new MediaCop(media, !mediaInline, otherInline, pager);
+		return new MediaCop(args, media, !mediaInline, otherInline, pager);
 	}
 
 	MediaCop toggleInlineOther()
 	{
-		return new MediaCop(media, mediaInline, !otherInline, pager);
+		return new MediaCop(args, media, mediaInline, !otherInline, pager);
 	}
 
 	public Pager getPager()
@@ -119,12 +126,12 @@ final class MediaCop extends ConsoleCop implements Pageable
 	
 	public MediaCop toPage(final Pager pager)
 	{
-		return new MediaCop(media, mediaInline, otherInline, pager);
+		return new MediaCop(args, media, mediaInline, otherInline, pager);
 	}
 	
 	MediaCop toOther()
 	{
-		return new MediaCop(other, otherInline, false, pager);
+		return new MediaCop(args, other, otherInline, false, pager);
 	}
 	
 	@Override

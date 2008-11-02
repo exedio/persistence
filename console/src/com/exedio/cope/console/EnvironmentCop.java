@@ -35,9 +35,15 @@ import com.exedio.cope.Model;
 
 final class EnvironmentCop extends ConsoleCop
 {
-	EnvironmentCop()
+	EnvironmentCop(final Args args)
 	{
-		super(TAB_ENVIRONMENT, "environment");
+		super(TAB_ENVIRONMENT, "environment", args);
+	}
+
+	@Override
+	protected EnvironmentCop newArgs(final Args args)
+	{
+		return new EnvironmentCop(args);
 	}
 	
 	private static final String replaceNull(final String s)

@@ -33,9 +33,15 @@ import com.exedio.cops.XMLEncoder;
 
 final class PropertiesCop extends ConsoleCop
 {
-	PropertiesCop()
+	PropertiesCop(final Args args)
 	{
-		super(TAB_PROPERTIES, "properties");
+		super(TAB_PROPERTIES, "properties", args);
+	}
+
+	@Override
+	protected PropertiesCop newArgs(final Args args)
+	{
+		return new PropertiesCop(args);
 	}
 	
 	@Override

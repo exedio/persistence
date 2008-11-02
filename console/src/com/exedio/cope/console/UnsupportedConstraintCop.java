@@ -28,9 +28,15 @@ import com.exedio.dsmf.Table;
 
 final class UnsupportedConstraintCop extends TestCop<Constraint>
 {
-	UnsupportedConstraintCop()
+	UnsupportedConstraintCop(final Args args)
 	{
-		super(TAB_UNSUPPORTED_CONSTRAINTS, "unsupported constraints");
+		super(TAB_UNSUPPORTED_CONSTRAINTS, "unsupported constraints", args);
+	}
+
+	@Override
+	protected UnsupportedConstraintCop newArgs(final Args args)
+	{
+		return new UnsupportedConstraintCop(args);
 	}
 
 	@Override

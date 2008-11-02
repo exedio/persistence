@@ -26,9 +26,15 @@ import com.exedio.cope.Model;
 
 final class HiddenCop extends ConsoleCop
 {
-	HiddenCop()
+	HiddenCop(final Args args)
 	{
-		super(TAB_HIDDEN, "hidden");
+		super(TAB_HIDDEN, "hidden", args);
+	}
+
+	@Override
+	protected HiddenCop newArgs(final Args args)
+	{
+		return new HiddenCop(args);
 	}
 	
 	@Override

@@ -39,9 +39,15 @@ final class ModificationListenerCop extends ConsoleCop
 	static final String REMOVE_SELECTED = "removeSelected";
 	static final String REMOVE_CHECKBOX = "rm";
 
-	ModificationListenerCop()
+	ModificationListenerCop(final Args args)
 	{
-		super(TAB_MODIFICATION_LISTENER, "mods");
+		super(TAB_MODIFICATION_LISTENER, "mods", args);
+	}
+
+	@Override
+	protected ModificationListenerCop newArgs(final Args args)
+	{
+		return new ModificationListenerCop(args);
 	}
 	
 	//static int debugNumber = 0;

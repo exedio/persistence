@@ -33,9 +33,15 @@ import com.exedio.dsmf.Table;
 
 final class SchemaCop extends ConsoleCop
 {
-	SchemaCop()
+	SchemaCop(final Args args)
 	{
-		super(TAB_SCHEMA, "schema");
+		super(TAB_SCHEMA, "schema", args);
+	}
+
+	@Override
+	protected SchemaCop newArgs(final Args args)
+	{
+		return new SchemaCop(args);
 	}
 	
 	@Override

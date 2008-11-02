@@ -37,14 +37,14 @@ final class QueryCacheCop extends ConsoleCop
 	final int histogramLimit;
 	final boolean condense;
 
-	QueryCacheCop()
+	QueryCacheCop(final Args args)
 	{
-		this(HISTOGRAM_LIMIT_DEFAULT, true);
+		this(args, HISTOGRAM_LIMIT_DEFAULT, true);
 	}
 	
-	private QueryCacheCop(final int histogramLimit, final boolean condense)
+	private QueryCacheCop(final Args args, final int histogramLimit, final boolean condense)
 	{
-		super(TAB_QUERY_CACHE, "query cache");
+		super(TAB_QUERY_CACHE, "query cache", args);
 		if(histogramLimit!=HISTOGRAM_LIMIT_DEFAULT)
 			addParameter(HISTOGRAM_LIMIT, String.valueOf(histogramLimit));
 		if(!condense)
@@ -54,15 +54,21 @@ final class QueryCacheCop extends ConsoleCop
 		this.condense = condense;
 	}
 
-	static QueryCacheCop getQueryCacheCop(final HttpServletRequest request)
+	static QueryCacheCop getQueryCacheCop(final Args args, final HttpServletRequest request)
 	{
 		final String hl = request.getParameter(HISTOGRAM_LIMIT);
-		return new QueryCacheCop(hl!=null ? Integer.valueOf(hl) : HISTOGRAM_LIMIT_DEFAULT, request.getParameter(CONDENSE)==null);
+		return new QueryCacheCop(args, hl!=null ? Integer.valueOf(hl) : HISTOGRAM_LIMIT_DEFAULT, request.getParameter(CONDENSE)==null);
+	}
+
+	@Override
+	protected QueryCacheCop newArgs(final Args args)
+	{
+		return new QueryCacheCop(args, histogramLimit, condense);
 	}
 	
 	QueryCacheCop toToggleCondense()
 	{
-		return new QueryCacheCop(histogramLimit, !condense);
+		return new QueryCacheCop(args, histogramLimit, !condense);
 	}
 	
 	static final class Content

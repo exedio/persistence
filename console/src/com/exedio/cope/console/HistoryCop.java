@@ -26,9 +26,15 @@ import com.exedio.cope.Model;
 
 final class HistoryCop extends ConsoleCop
 {
-	HistoryCop()
+	HistoryCop(final Args args)
 	{
-		super(TAB_HISTORY, "history");
+		super(TAB_HISTORY, "history", args);
+	}
+
+	@Override
+	protected HistoryCop newArgs(final Args args)
+	{
+		return new HistoryCop(args);
 	}
 	
 	@Override

@@ -37,9 +37,9 @@ final class VmCop extends ConsoleCop
 	final boolean detailed;
 	final boolean allPackages;
 
-	VmCop(final boolean detailed, final boolean allPackages)
+	VmCop(final Args args, final boolean detailed, final boolean allPackages)
 	{
-		super(TAB_VM, "vm");
+		super(TAB_VM, "vm", args);
 		this.detailed = detailed;
 		this.allPackages = allPackages;
 		
@@ -49,19 +49,25 @@ final class VmCop extends ConsoleCop
 			addParameter(ALL_PACKAGES, "t");
 	}
 	
-	static final VmCop getVmCop(final HttpServletRequest request)
+	static final VmCop getVmCop(final Args args, final HttpServletRequest request)
 	{
-		return new VmCop(request.getParameter(DETAILED)!=null, request.getParameter(ALL_PACKAGES)!=null);
+		return new VmCop(args, request.getParameter(DETAILED)!=null, request.getParameter(ALL_PACKAGES)!=null);
+	}
+
+	@Override
+	protected VmCop newArgs(final Args args)
+	{
+		return new VmCop(args, detailed, allPackages);
 	}
 	
 	VmCop toToggleDetailed()
 	{
-		return new VmCop(!detailed, allPackages);
+		return new VmCop(args, !detailed, allPackages);
 	}
 	
 	VmCop toToggleAllPackages()
 	{
-		return new VmCop(detailed, !allPackages);
+		return new VmCop(args, detailed, !allPackages);
 	}
 	
 	private static final Comparator<Package> COMPARATOR = new Comparator<Package>()

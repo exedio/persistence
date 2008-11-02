@@ -26,9 +26,15 @@ import com.exedio.cope.Model;
 
 final class ConnectionPoolCop extends ConsoleCop
 {
-	ConnectionPoolCop()
+	ConnectionPoolCop(final Args args)
 	{
-		super(TAB_CONNECTION_POOL, "connections");
+		super(TAB_CONNECTION_POOL, "connections", args);
+	}
+
+	@Override
+	protected ConnectionPoolCop newArgs(final Args args)
+	{
+		return new ConnectionPoolCop(args);
 	}
 
 	@Override

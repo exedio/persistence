@@ -34,13 +34,38 @@ import com.exedio.cops.Pager;
 
 abstract class ConsoleCop extends Cop
 {
+	protected static class Args
+	{
+		private static final String AUTO_REFRESH = "ar";
+		final int autoRefresh;
+		
+		Args(final int autoRefresh)
+		{
+			this.autoRefresh = autoRefresh;
+		}
+		
+		Args(final HttpServletRequest request)
+		{
+			this.autoRefresh = getIntParameter(request, AUTO_REFRESH, 0);
+		}
+		
+		void addParameters(final ConsoleCop cop)
+		{
+			cop.addParameter(AUTO_REFRESH, autoRefresh, 0);
+		}
+	}
+	
 	private static final String NAME_POSTFIX = ".html";
 	final String name;
+	final Args args;
+	static final int[] AUTO_REFRESHS = new int[]{0, 2, 5, 15, 60};
 
-	protected ConsoleCop(final String tab, final String name)
+	protected ConsoleCop(final String tab, final String name, final Args args)
 	{
 		super(tab + NAME_POSTFIX);
 		this.name = name;
+		this.args = args;
+		args.addParameters(this);
 	}
 	
 	long start = 0;
@@ -62,32 +87,42 @@ abstract class ConsoleCop extends Cop
 		nf = new DecimalFormat("", nfs);
 	}
 	
+	protected abstract ConsoleCop newArgs(final Args args);
+	
+	final ConsoleCop toAutoRefresh(final int autoRefresh)
+	{
+		return newArgs(new Args(autoRefresh));
+	}
+	
 	int getResponseStatus()
 	{
 		return HttpServletResponse.SC_OK;
 	}
 	
-	static final ConsoleCop[] TABS =
+	final ConsoleCop[] getTabs()
+	{
+		return
 		new ConsoleCop[]{
-				new PropertiesCop(),
-				new SchemaCop(),
-				new UnsupportedConstraintCop(),
-				new TypeColumnCop(),
-				new CopyConstraintCop(),
-				new RevisionCop(),
-				new DatabaseLogCop(),
-				new ConnectionPoolCop(),
-				new TransactionCop(),
-				new ItemCacheCop(),
-				new QueryCacheCop(),
-				new HistoryCop(),
-				new PrimaryKeysCop(),
-				new MediaStatsCop(),
-				new VmCop(false, false),
-				new EnvironmentCop(),
-				new HiddenCop(),
-				new ModificationListenerCop(),
+				new PropertiesCop(args),
+				new SchemaCop(args),
+				new UnsupportedConstraintCop(args),
+				new TypeColumnCop(args),
+				new CopyConstraintCop(args),
+				new RevisionCop(args),
+				new DatabaseLogCop(args),
+				new ConnectionPoolCop(args),
+				new TransactionCop(args),
+				new ItemCacheCop(args),
+				new QueryCacheCop(args),
+				new HistoryCop(args),
+				new PrimaryKeysCop(args),
+				new MediaStatsCop(args),
+				new VmCop(args, false, false),
+				new EnvironmentCop(args),
+				new HiddenCop(args),
+				new ModificationListenerCop(args),
 			};
+	}
 	
 	final String getStart()
 	{
@@ -166,67 +201,74 @@ abstract class ConsoleCop extends Cop
 	
 	static final ConsoleCop getCop(final Model model, final HttpServletRequest request)
 	{
+		final Args args = new Args(request);
 		final String pathInfo = request.getPathInfo();
 		
 		if("/".equals(pathInfo))
-			return new PropertiesCop();
+			return new PropertiesCop(args);
 		
 		if(pathInfo==null || !pathInfo.startsWith("/") || !pathInfo.endsWith(NAME_POSTFIX))
-			return new NotFound(pathInfo);
+			return new NotFound(args, pathInfo);
 		
 		final String tab = pathInfo.substring(1, pathInfo.length()-NAME_POSTFIX.length());
 		if(TAB_SCHEMA.equals(tab))
-			return new SchemaCop();
+			return new SchemaCop(args);
 		if(TAB_UNSUPPORTED_CONSTRAINTS.equals(tab))
-			return new UnsupportedConstraintCop();
+			return new UnsupportedConstraintCop(args);
 		if(TAB_TYPE_COLUMNS.equals(tab))
-			return new TypeColumnCop();
+			return new TypeColumnCop(args);
 		if(TAB_COPY_CONSTRAINTS.equals(tab))
-			return new CopyConstraintCop();
+			return new CopyConstraintCop(args);
 		if(TAB_PROPERTIES.equals(tab))
-			return new PropertiesCop();
+			return new PropertiesCop(args);
 		if(TAB_REVISION.equals(tab))
-			return new RevisionCop(request);
+			return new RevisionCop(args, request);
 		if(TAB_CONNECTION_POOL.equals(tab))
-			return new ConnectionPoolCop();
+			return new ConnectionPoolCop(args);
 		if(TAB_TRANSACTION.equals(tab))
-			return new TransactionCop();
+			return new TransactionCop(args);
 		if(TAB_DATBASE_LOG.equals(tab))
-			return new DatabaseLogCop();
+			return new DatabaseLogCop(args);
 		if(TAB_ITEM_CACHE.equals(tab))
-			return new ItemCacheCop();
+			return new ItemCacheCop(args);
 		if(TAB_QUERY_CACHE.equals(tab))
-			return QueryCacheCop.getQueryCacheCop(request);
+			return QueryCacheCop.getQueryCacheCop(args, request);
 		if(TAB_HISTORY.equals(tab))
-			return new HistoryCop();
+			return new HistoryCop(args);
 		if(TAB_PRIMARY_KEY.equals(tab))
-			return new PrimaryKeysCop();
+			return new PrimaryKeysCop(args);
 		if(TAB_MEDIA_STATS.equals(tab))
-			return new MediaStatsCop();
+			return new MediaStatsCop(args);
 		if(TAB_VM.equals(tab))
-			return VmCop.getVmCop(request);
+			return VmCop.getVmCop(args, request);
 		if(TAB_ENVIRONMENT.equals(tab))
-			return new EnvironmentCop();
+			return new EnvironmentCop(args);
 		if(TAB_HIDDEN.equals(tab))
-			return new HiddenCop();
+			return new HiddenCop(args);
 		if(TAB_MODIFICATION_LISTENER.equals(tab))
-			return new ModificationListenerCop();
+			return new ModificationListenerCop(args);
 
-		final MediaCop mediaCop = MediaCop.getMediaCop(model, request);
+		final MediaCop mediaCop = MediaCop.getMediaCop(model, args, request);
 		if(mediaCop!=null)
 			return mediaCop;
 
-		return new NotFound(pathInfo);
+		return new NotFound(args, pathInfo);
 	}
 	
-	private static class NotFound extends ConsoleCop
+	private final static class NotFound extends ConsoleCop
 	{
 		private final String pathInfo;
 		
-		protected NotFound(final String pathInfo)
+		protected NotFound(final Args args, final String pathInfo)
 		{
-			super("Not Found", "Not Found");
+			super("Not Found", "Not Found", args);
 			this.pathInfo = pathInfo;
+		}
+
+		@Override
+		protected ConsoleCop newArgs(final Args args)
+		{
+			return new NotFound(args, pathInfo);
 		}
 		
 		@Override
