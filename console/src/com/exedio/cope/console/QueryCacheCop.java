@@ -45,10 +45,8 @@ final class QueryCacheCop extends ConsoleCop
 	private QueryCacheCop(final Args args, final int histogramLimit, final boolean condense)
 	{
 		super(TAB_QUERY_CACHE, "query cache", args);
-		if(histogramLimit!=HISTOGRAM_LIMIT_DEFAULT)
-			addParameter(HISTOGRAM_LIMIT, String.valueOf(histogramLimit));
-		if(!condense)
-			addParameter(CONDENSE, "f");
+		addParameter(HISTOGRAM_LIMIT, histogramLimit, HISTOGRAM_LIMIT_DEFAULT);
+		addParameter(CONDENSE, condense);
 		
 		this.histogramLimit = histogramLimit;
 		this.condense = condense;
@@ -56,8 +54,8 @@ final class QueryCacheCop extends ConsoleCop
 
 	static QueryCacheCop getQueryCacheCop(final Args args, final HttpServletRequest request)
 	{
-		final String hl = request.getParameter(HISTOGRAM_LIMIT);
-		return new QueryCacheCop(args, hl!=null ? Integer.valueOf(hl) : HISTOGRAM_LIMIT_DEFAULT, request.getParameter(CONDENSE)==null);
+		return new QueryCacheCop(args, getIntParameter(request, HISTOGRAM_LIMIT, HISTOGRAM_LIMIT_DEFAULT),
+				getBooleanParameter(request, CONDENSE));
 	}
 
 	@Override

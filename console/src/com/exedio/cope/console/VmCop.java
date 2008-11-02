@@ -43,15 +43,13 @@ final class VmCop extends ConsoleCop
 		this.detailed = detailed;
 		this.allPackages = allPackages;
 		
-		if(detailed)
-			addParameter(DETAILED, "t");
-		if(allPackages)
-			addParameter(ALL_PACKAGES, "t");
+		addParameter(DETAILED, detailed);
+		addParameter(ALL_PACKAGES, allPackages);
 	}
 	
 	static final VmCop getVmCop(final Args args, final HttpServletRequest request)
 	{
-		return new VmCop(args, request.getParameter(DETAILED)!=null, request.getParameter(ALL_PACKAGES)!=null);
+		return new VmCop(args, getBooleanParameter(request, DETAILED), getBooleanParameter(request, ALL_PACKAGES));
 	}
 
 	@Override

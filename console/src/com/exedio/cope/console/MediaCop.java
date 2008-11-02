@@ -34,9 +34,8 @@ import com.exedio.cops.Pager;
 final class MediaCop extends ConsoleCop implements Pageable
 {
 	private static final String MEDIA = "m";
-	private static final String INLINE = "il";
-	private static final String MEDIA_INLINE = "m";
-	private static final String OTHER_INLINE = "o";
+	private static final String MEDIA_INLINE = "ilm";
+	private static final String OTHER_INLINE = "ilo";
 	
 	private static final Pager.Config PAGER_CONFIG = new Pager.Config(10, 20, 50, 100, 200, 500);
 	
@@ -69,10 +68,8 @@ final class MediaCop extends ConsoleCop implements Pageable
 		this.pager = pager;
 		
 		addParameter(MEDIA, media.getID());
-		if(mediaInline)
-			addParameter(INLINE, MEDIA_INLINE);
-		if(otherInline)
-			addParameter(INLINE, OTHER_INLINE);
+		addParameter(MEDIA_INLINE, mediaInline);
+		addParameter(OTHER_INLINE, otherInline);
 		pager.addParameters(this);
 	}
 	
@@ -82,24 +79,11 @@ final class MediaCop extends ConsoleCop implements Pageable
 		if(mediaID==null)
 			return null;
 
-		boolean mediaInline = false;
-		boolean otherInline = false;
-		final String[] inlineParameters = request.getParameterValues(INLINE);
-		if(inlineParameters!=null)
-		{
-			for(final String p : inlineParameters)
-			{
-				if(MEDIA_INLINE.equals(p))
-					mediaInline = true;
-				else if(OTHER_INLINE.equals(p))
-					otherInline = true;
-			}
-		}
-		
 		return new MediaCop(
 				args,
 				(MediaPath)model.getFeature(mediaID),
-				mediaInline, otherInline,
+				getBooleanParameter(request, MEDIA_INLINE),
+				getBooleanParameter(request, OTHER_INLINE),
 				PAGER_CONFIG.newPager(request));
 	}
 
