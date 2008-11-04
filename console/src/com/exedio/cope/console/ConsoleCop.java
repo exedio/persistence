@@ -102,26 +102,26 @@ abstract class ConsoleCop extends Cop
 	final ConsoleCop[] getTabs()
 	{
 		return
-		new ConsoleCop[]{
-				new PropertiesCop(args),
-				new SchemaCop(args),
-				new UnsupportedConstraintCop(args),
-				new TypeColumnCop(args),
-				new CopyConstraintCop(args),
-				new RevisionCop(args),
-				new DatabaseLogCop(args),
-				new ConnectionPoolCop(args),
-				new TransactionCop(args),
-				new ItemCacheCop(args),
-				new QueryCacheCop(args),
-				new PrimaryKeysCop(args),
-				new MediaStatsCop(args),
-				new VmCop(args, false, false),
-				new EnvironmentCop(args),
-				new HiddenCop(args),
-				new ModificationListenerCop(args),
-				new HistoryCop(args),
-			};
+			new ConsoleCop[]{
+					new PropertiesCop(args),
+					new SchemaCop(args),
+					new UnsupportedConstraintCop(args),
+					new TypeColumnCop(args),
+					new CopyConstraintCop(args),
+					new RevisionCop(args),
+					new DatabaseLogCop(args),
+					new ConnectionPoolCop(args),
+					new TransactionCop(args),
+					new ItemCacheCop(args),
+					new QueryCacheCop(args),
+					new PrimaryKeysCop(args),
+					new MediaStatsCop(args),
+					new VmCop(args, false, false),
+					new EnvironmentCop(args),
+					new HiddenCop(args),
+					new ModificationListenerCop(args),
+					new HistoryCop(args),
+				};
 	}
 	
 	final String getStart()
