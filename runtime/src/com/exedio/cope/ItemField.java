@@ -197,7 +197,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(cell==null)
 		{
 			if(typeColumn!=null && row.get(typeColumn)!=null)
-				throw new RuntimeException("inconsistent type column: "+row.get(typeColumn));
+				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn));
 			
 			return null;
 		}
@@ -209,7 +209,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 				final String cellTypeID = (String)row.get(typeColumn);
 				
 				if(cellTypeID==null)
-					throw new RuntimeException("inconsistent type column");
+					throw new RuntimeException("inconsistent type column on field " + toString());
 				
 				cellType = getValueType().getTypeOfInstance(cellTypeID);
 				
