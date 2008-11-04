@@ -114,13 +114,13 @@ abstract class ConsoleCop extends Cop
 				new TransactionCop(args),
 				new ItemCacheCop(args),
 				new QueryCacheCop(args),
-				new HistoryCop(args),
 				new PrimaryKeysCop(args),
 				new MediaStatsCop(args),
 				new VmCop(args, false, false),
 				new EnvironmentCop(args),
 				new HiddenCop(args),
 				new ModificationListenerCop(args),
+				new HistoryCop(args),
 			};
 	}
 	
