@@ -151,7 +151,7 @@ public final class OracleDriver extends Driver
 						if("C".equals(constraintType))
 						{
 							final String searchCondition = resultSet.getString(4);
-							//System.out.println("searchCondition:>"+searchCondition+"<");
+							//System.out.println("searchCondition:>"+constraintName+"< >"+searchCondition+"<");
 							final String duplicateCondition =
 								duplicateCheckConstraints.put(constraintName, searchCondition);
 							if(duplicateCondition!=null)
