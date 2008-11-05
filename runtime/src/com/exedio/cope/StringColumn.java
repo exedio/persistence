@@ -23,7 +23,7 @@ import java.sql.SQLException;
 
 import com.exedio.cope.util.CharSet;
 
-final class StringColumn extends Column
+class StringColumn extends Column
 {
 	final int minimumLength;
 	final int maximumLength;
@@ -91,7 +91,7 @@ final class StringColumn extends Column
 	}
 
 	@Override
-	final String getCheckConstraintIfNotNull()
+	String getCheckConstraintIfNotNull()
 	{
 		final StringBuilder bf = new StringBuilder();
 
@@ -141,7 +141,7 @@ final class StringColumn extends Column
 	}
 
 	@Override
-	void load(final ResultSet resultSet, final int columnIndex, final Row row)
+	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		// TODO: should have numbers in cache instead of strings if allowedValues!=null
@@ -149,12 +149,12 @@ final class StringColumn extends Column
 	}
 
 	@Override
-	String cacheToDatabase(final Object cache)
+	final String cacheToDatabase(final Object cache)
 	{
 		return cacheToDatabaseStatic(cache);
 	}
 	
-	static String cacheToDatabaseStatic(final Object cache)
+	final static String cacheToDatabaseStatic(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";
@@ -186,14 +186,14 @@ final class StringColumn extends Column
 	}
 
 	@Override
-	Object cacheToDatabasePrepared(final Object cache)
+	final Object cacheToDatabasePrepared(final Object cache)
 	{
 		assert cache==null || cache instanceof String;
 		return cache;
 	}
 	
 	@Override
-	Object getCheckValue()
+	final Object getCheckValue()
 	{
 		return "z";
 	}

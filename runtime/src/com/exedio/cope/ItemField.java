@@ -156,7 +156,7 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		if(typeColumnValues==null)
 			onlyPossibleValueType = valueType.getOnlyPossibleTypeOfInstances();
 		else
-			typeColumn = new StringColumn(table, null, result.id + "Type"/* not equal to "name"! */, optional, typeColumnValues);
+			typeColumn = new TypeColumn(table, result, optional, typeColumnValues);
 
 		return result;
 	}

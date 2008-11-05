@@ -61,6 +61,13 @@ abstract class Column
 	}
 
 	abstract String getCheckConstraintIfNotNull();
+	String getCheckConstraintIfNull()
+	{
+		if(!optional)
+			throw new IllegalStateException(table.id + '.' + id);
+		
+		return null;
+	}
 	
 	@Override
 	public final String toString()
@@ -115,10 +122,21 @@ abstract class Column
 			
 			if(optional)
 			{
+				final String checkNull = getCheckConstraintIfNull();
 				if(checkNotNull!=null)
-					checkConstraint = "(" + checkNotNull + ") OR (" + protectedID + " IS NULL)";
+				{
+					if(checkNull!=null)
+						checkConstraint = "((" + protectedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR ((" + protectedID + " IS NULL) AND (" + checkNull + "))";
+					else
+						checkConstraint = "((" + protectedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR (" + protectedID + " IS NULL)";
+				}
 				else
-					checkConstraint = null;
+				{
+					if(checkNull!=null)
+						checkConstraint = "(" + protectedID + " IS NOT NULL) OR ((" + protectedID + " IS NULL) AND (" + checkNull + "))";
+					else
+						checkConstraint = null;
+				}
 			}
 			else
 			{
