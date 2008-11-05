@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
@@ -135,6 +136,7 @@ public final class OracleDriver extends Driver
 				final ArrayList<String> uniqueColumns = new ArrayList<String>();
 				public void run(final ResultSet resultSet) throws SQLException
 				{
+					final HashMap<String, String> duplicateCheckConstraints = new HashMap<String, String>();
 					while(resultSet.next())
 					{
 						//printRow(resultSet);
@@ -150,6 +152,17 @@ public final class OracleDriver extends Driver
 						{
 							final String searchCondition = resultSet.getString(4);
 							//System.out.println("searchCondition:>"+searchCondition+"<");
+							final String duplicateCondition =
+								duplicateCheckConstraints.put(constraintName, searchCondition);
+							if(duplicateCondition!=null)
+							{
+								System.out.println(
+										"mysterious duplicate check constraint >" + constraintName +
+										"< with " +(searchCondition.equals(duplicateCondition)
+												? ("equal condition >" + searchCondition + '<')
+												: ("different conditions >" + searchCondition + "< and >" + duplicateCondition + '<')));
+								continue;
+							}
 							table.notifyExistentCheckConstraint(constraintName, searchCondition);
 						}
 						else if("P".equals(constraintType))
