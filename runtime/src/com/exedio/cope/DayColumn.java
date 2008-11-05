@@ -44,7 +44,7 @@ final class DayColumn extends Column
 	}
 
 	@Override
-	final String getCheckConstraintIgnoringMandatory()
+	final String getCheckConstraintIfNotNull()
 	{
 		return null;
 	}

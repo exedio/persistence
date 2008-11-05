@@ -51,7 +51,7 @@ final class DoubleColumn extends Column
 	}
 
 	@Override
-	final String getCheckConstraintIgnoringMandatory()
+	final String getCheckConstraintIfNotNull()
 	{
 		if(table.database.oracle)
 			return null;
