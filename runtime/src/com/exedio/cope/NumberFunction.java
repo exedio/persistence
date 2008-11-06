@@ -26,11 +26,11 @@ public interface NumberFunction<E extends Number> extends Function<E>
 
 	BindNumberFunction<E> bind(Join join);
 	
-	PlusLiteralView plus(E value);
-	MultiplyLiteralView multiply(E value);
-	PlusView plus(NumberFunction<E> other);
-	MultiplyView multiply(NumberFunction<E> other);
-	DivideView divide(NumberFunction<E> other);
+	PlusLiteralView<E> plus(E value);
+	MultiplyLiteralView<E> multiply(E value);
+	PlusView<E> plus(NumberFunction<E> other);
+	MultiplyView<E> multiply(NumberFunction<E> other);
+	DivideView<E> divide(NumberFunction<E> other);
 
 	SumAggregate<E> sum();
 	
