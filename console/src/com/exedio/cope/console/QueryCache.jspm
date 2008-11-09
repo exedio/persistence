@@ -34,18 +34,18 @@ final class QueryCache_Jspm extends Console_Jspm
 			final QueryCacheCop cop,
 			final PrintStream out,
 			final int limit,
-			final QueryCacheInfo cacheInfo,
+			final QueryCacheInfo info,
 			final QueryCacheCop.Content content)
 	{
-		final long hits = cacheInfo.getHits();
-		final long misses = cacheInfo.getMisses();
+		final long hits = info.getHits();
+		final long misses = info.getMisses();
 		%>
 		<table>
 			<caption>Query Cache Statistics</caption>
 			<tr><th colspan="2">Limit</th><td><%= cop.format(limit)%></td></tr>
-			<tr><th colspan="2">Level</th><td><%= cop.format(cacheInfo.getLevel()) %></td></tr>
-			<tr><th colspan="2">Replacements</th><td><%=cop.format(cacheInfo.getReplacements())%></td></tr>
-			<tr><th colspan="2">Invalidations</th><td><%=cop.format(cacheInfo.getInvalidations())%></td></tr>
+			<tr><th colspan="2">Level</th><td><%= cop.format(info.getLevel()) %></td></tr>
+			<tr><th colspan="2">Replacements</th><td><%=cop.format(info.getReplacements())%></td></tr>
+			<tr><th colspan="2">Invalidations</th><td><%=cop.format(info.getInvalidations())%></td></tr>
 			<tr><th colspan="2">log<sub>10</sub> Hits/Misses</th><td><%=ratio(hits, misses)%></td></tr>
 			<tr><th colspan="2">Hits</th><td><%=  cop.format(hits)  %></td></tr>
 			<tr><th colspan="2">Misses</th><td><%=cop.format(misses)%></td></tr><%
