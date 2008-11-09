@@ -51,7 +51,7 @@ abstract class ConsoleCop extends Cop
 		
 		void addParameters(final ConsoleCop cop)
 		{
-			cop.addParameter(AUTO_REFRESH, autoRefresh, 0);
+			cop.addParameterAccessor(AUTO_REFRESH, autoRefresh, 0);
 		}
 	}
 	
@@ -71,6 +71,11 @@ abstract class ConsoleCop extends Cop
 	long start = 0;
 	private SimpleDateFormat fullDateFormat, todayDateFormat;
 	DecimalFormat nf;
+	
+	void addParameterAccessor(final String key, final int value, final int defaultValue)
+	{
+		addParameter(key, value, defaultValue);
+	}
 	
 	/**
 	 * @param request used in subclasses
