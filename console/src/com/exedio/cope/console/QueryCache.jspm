@@ -37,6 +37,8 @@ final class QueryCache_Jspm extends Console_Jspm
 			final QueryCacheInfo cacheInfo,
 			final QueryCacheCop.Content content)
 	{
+		final long hits = cacheInfo.getHits();
+		final long misses = cacheInfo.getMisses();
 		%>
 		<table>
 			<caption>Query Cache Statistics</caption>
@@ -44,9 +46,9 @@ final class QueryCache_Jspm extends Console_Jspm
 			<tr><th colspan="2">Level</th><td><%= cop.format(cacheInfo.getLevel()) %></td></tr>
 			<tr><th colspan="2">Replacements</th><td><%=cop.format(cacheInfo.getReplacements())%></td></tr>
 			<tr><th colspan="2">Invalidations</th><td><%=cop.format(cacheInfo.getInvalidations())%></td></tr>
-			<tr><th colspan="2">log<sub>10</sub> Hits/Misses</th><td><%=ratio(cacheInfo.getHits(), cacheInfo.getMisses())%></td></tr>
-			<tr><th colspan="2">Hits</th><td><%=  cop.format(cacheInfo.getHits())  %></td></tr>
-			<tr><th colspan="2">Misses</th><td><%=cop.format(cacheInfo.getMisses())%></td></tr><%
+			<tr><th colspan="2">log<sub>10</sub> Hits/Misses</th><td><%=ratio(hits, misses)%></td></tr>
+			<tr><th colspan="2">Hits</th><td><%=  cop.format(hits)  %></td></tr>
+			<tr><th colspan="2">Misses</th><td><%=cop.format(misses)%></td></tr><%
 			if(content.histogram.length>0)
 			{
 			%>
