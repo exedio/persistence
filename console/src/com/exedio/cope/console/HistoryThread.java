@@ -245,6 +245,7 @@ final class HistoryThread extends Thread
 				HistoryModel.queryCacheHits  .map(queryCacheInfo.getHits()),
 				HistoryModel.queryCacheMisses.map(queryCacheInfo.getMisses()),
 				HistoryModel.queryCacheReplacements.map(queryCacheInfo.getReplacements()),
+				HistoryModel.queryCacheInvalidations.map(queryCacheInfo.getInvalidations()),
 				HistoryModel.mediasNoSuchPath.map(mediasNoSuchPath),
 				HistoryModel.mediasException    .map(mediaTotal[0]),
 				HistoryModel.mediasNotAnItem    .map(mediaTotal[1]),

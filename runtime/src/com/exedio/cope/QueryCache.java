@@ -35,7 +35,7 @@ import com.exedio.cope.util.QueryCacheInfo;
 final class QueryCache
 {
 	private final LRUMap map;
-	private volatile long hits = 0, misses = 0;
+	private volatile long hits = 0, misses = 0, invalidations = 0;
 
 	QueryCache(final int limit)
 	{
@@ -95,6 +95,7 @@ final class QueryCache
 		if(map!=null && !invalidatedTypesTransientlyList.isEmpty())
 		{
 			final int[] invalidatedTypesTransiently = invalidatedTypesTransientlyList.toNativeArray();
+			long invalidationsCounter = 0;
 			
 			synchronized(map)
 			{
@@ -108,11 +109,13 @@ final class QueryCache
 						if(queryTypeTransiently==invalidatedTypeTransiently)
 						{
 							values.remove();
+							invalidationsCounter++;
 							break query;
 						}
 					}
 				}
 			}
+			this.invalidations += invalidationsCounter;
 		}
 	}
 	
@@ -141,7 +144,7 @@ final class QueryCache
 		else
 			level = 0;
 		
-		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements : 0l, level);
+		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements : 0l, invalidations, level);
 	}
 	
 	QueryCacheHistogram[] getHistogram()

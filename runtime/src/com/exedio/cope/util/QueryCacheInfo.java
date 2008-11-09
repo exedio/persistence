@@ -23,17 +23,20 @@ public final class QueryCacheInfo
 	private final long hits;
 	private final long misses;
 	private final long replacements;
+	private final long invalidations;
 	private final int level;
 	
 	public QueryCacheInfo(
 			final long hits,
 			final long misses,
 			final long replacements,
+			final long invalidations,
 			final int level)
 	{
 		this.hits = hits;
 		this.misses = misses;
 		this.replacements = replacements;
+		this.invalidations = invalidations;
 		this.level = level;
 	}
 
@@ -52,6 +55,11 @@ public final class QueryCacheInfo
 		return replacements;
 	}
 
+	public long getInvalidations()
+	{
+		return invalidations;
+	}
+
 	public int getLevel()
 	{
 		return level;
@@ -65,18 +73,18 @@ public final class QueryCacheInfo
 		
 		final QueryCacheInfo o = (QueryCacheInfo)other;
 		
-		return hits==o.hits && misses==o.misses && level==o.level;
+		return hits==o.hits && misses==o.misses && invalidations==o.invalidations && level==o.level;
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return ((int)hits) ^ ((int)misses) ^ level ^ 938675923;
+		return ((int)hits) ^ ((int)misses) ^ ((int)invalidations) ^ level ^ 938675923;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "QueryCacheInfo:" + hits + '/' + misses + '/' + level;
+		return "QueryCacheInfo:" + hits + '/' + misses + '/' + invalidations + '/' + level;
 	}
 }
