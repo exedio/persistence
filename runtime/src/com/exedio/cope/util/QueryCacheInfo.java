@@ -73,18 +73,18 @@ public final class QueryCacheInfo
 		
 		final QueryCacheInfo o = (QueryCacheInfo)other;
 		
-		return hits==o.hits && misses==o.misses && invalidations==o.invalidations && level==o.level;
+		return hits==o.hits && misses==o.misses && replacements==o.replacements && invalidations==o.invalidations && level==o.level;
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return ((int)hits) ^ ((int)misses) ^ ((int)invalidations) ^ level ^ 938675923;
+		return ((int)hits) ^ ((int)misses) ^ ((int)replacements) ^ ((int)invalidations) ^ level ^ 938675923;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "QueryCacheInfo:" + hits + '/' + misses + '/' + invalidations + '/' + level;
+		return "QueryCacheInfo:" + hits + '/' + misses + '/' + replacements + '/' + invalidations + '/' + level;
 	}
 }
