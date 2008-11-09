@@ -24,7 +24,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 
 final class ItemCacheCop extends ConsoleCop
 {
@@ -47,7 +47,7 @@ final class ItemCacheCop extends ConsoleCop
 			final History history,
 			final boolean historyModelShown)
 	{
-		final CacheInfo[] infos = model.getItemCacheInfo();
+		final ItemCacheInfo[] infos = model.getItemCacheInfo();
 		
 		int allLimit = 0;
 		int allLevel = 0;
@@ -61,7 +61,7 @@ final class ItemCacheCop extends ConsoleCop
 		long allSumAgeAverageMillis = 0l;
 		long allAgeMaxMillis = 0l;
 		
-		for(final CacheInfo info : infos)
+		for(final ItemCacheInfo info : infos)
 		{
 			allLimit += info.getLimit();
 			allLevel += info.getLevel();

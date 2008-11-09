@@ -26,7 +26,7 @@ import gnu.trove.TIntObjectIterator;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 
 final class ItemCache
 {
@@ -102,9 +102,9 @@ final class ItemCache
 		}
 	}
 
-	CacheInfo[] getInfo()
+	ItemCacheInfo[] getInfo()
 	{
-		final ArrayList<CacheInfo> result = new ArrayList<CacheInfo>(cachlets.length);
+		final ArrayList<ItemCacheInfo> result = new ArrayList<ItemCacheInfo>(cachlets.length);
 		
 		for(int i = 0; i<cachlets.length; i++)
 		{
@@ -113,7 +113,7 @@ final class ItemCache
 				result.add(cachlet.getInfo());
 		}
 		
-		return result.toArray(new CacheInfo[result.size()]);
+		return result.toArray(new ItemCacheInfo[result.size()]);
 	}
 	
 	private static final class Cachlet
@@ -215,7 +215,7 @@ final class ItemCache
 			}
 		}
 		
-		CacheInfo getInfo()
+		ItemCacheInfo getInfo()
 		{
 			final long now = System.currentTimeMillis();
 			final int level;
@@ -242,7 +242,7 @@ final class ItemCache
 				}
 			}
 			
-			return new CacheInfo(
+			return new ItemCacheInfo(
 				type,
 				limit, level,
 				hits, misses,

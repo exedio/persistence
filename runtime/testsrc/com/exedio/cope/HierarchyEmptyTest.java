@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.EnumSet;
 
-import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.dsmf.Constraint;
 
 
@@ -169,7 +169,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 				HierarchyEmptySuper.TYPE
 			), model.getConcreteTypes());
 		
-		final CacheInfo[] itemCacheInfo = model.getItemCacheInfo();
+		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheInfo();
 		if(model.getProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(HierarchyEmptySub.TYPE, itemCacheInfo[0].getType());

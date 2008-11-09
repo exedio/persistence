@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeTest;
-import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
@@ -402,7 +402,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertEquals(types.length, limits.length);
 		
-		final CacheInfo[] ci = model.getItemCacheInfo();
+		final ItemCacheInfo[] ci = model.getItemCacheInfo();
 		if(model.getProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(types.length, ci.length);

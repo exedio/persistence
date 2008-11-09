@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.exedio.cope.Type;
 
-public final class CacheInfo
+public final class ItemCacheInfo
 {
 	private final Type type;
 	private final int limit;
@@ -36,7 +36,7 @@ public final class CacheInfo
 	private final long ageMin;
 	private final long ageMax;
 	
-	public CacheInfo(
+	public ItemCacheInfo(
 			final Type type,
 			final int limit,
 			final int level,

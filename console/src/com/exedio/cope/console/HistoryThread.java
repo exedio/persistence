@@ -29,7 +29,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
-import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.QueryCacheInfo;
@@ -143,7 +143,7 @@ final class HistoryThread extends Thread
 		final ConnectionPoolInfo connectionPoolInfo = watchedModel.getConnectionPoolInfo();
 		final long nextTransactionId = watchedModel.getNextTransactionId();
 		final TransactionCounters transactionCounters = watchedModel.getTransactionCounters();
-		final CacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
+		final ItemCacheInfo[] itemCacheInfos = watchedModel.getItemCacheInfo();
 		final QueryCacheInfo queryCacheInfo = watchedModel.getQueryCacheInfo();
 		final int mediasNoSuchPath = MediaPath.noSuchPath.get();
 		int mediaValuesIndex = 0;
@@ -166,7 +166,7 @@ final class HistoryThread extends Thread
 		int itemCacheItemsCleanedUp = 0;
 		final SetValue[][] itemCacheSetValues = new SetValue[itemCacheInfos.length][];
 		int itemCacheSetValuesIndex = 0;
-		for(final CacheInfo ci : itemCacheInfos)
+		for(final ItemCacheInfo ci : itemCacheInfos)
 		{
 			itemCacheHits += ci.getHits();
 			itemCacheMisses += ci.getMisses();

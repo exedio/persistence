@@ -24,7 +24,7 @@ import static com.exedio.cope.console.ConsoleCop.ratio;
 import java.io.PrintStream;
 import java.util.Date;
 
-import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 
 final class ItemCache_Jspm extends Console_Jspm
 {
@@ -41,7 +41,7 @@ final class ItemCache_Jspm extends Console_Jspm
 			final long allAgeMinMillis,
 			final long allAgeAverageMillis,
 			final long allAgeMaxMillis,
-			final CacheInfo[] infos)
+			final ItemCacheInfo[] infos)
 	{
 		final String[] names = {
 			"Limit",
@@ -93,7 +93,7 @@ final class ItemCache_Jspm extends Console_Jspm
 				<td class="color0"><%=ratio(allHits, allMisses)%></td>
 				<th>All</th>
 			</tr><%
-			for(final CacheInfo info : infos)
+			for(final ItemCacheInfo info : infos)
 			{
 				final String[] data = {
 						cop.formatAndHide(0, info.getLimit()),

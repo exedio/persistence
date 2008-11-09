@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import com.exedio.cope.util.CacheInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.QueryCacheHistogram;
@@ -740,7 +740,7 @@ public final class Model
 		}
 	}
 	
-	public CacheInfo[] getItemCacheInfo()
+	public ItemCacheInfo[] getItemCacheInfo()
 	{
 		return getItemCache().getInfo();
 	}
@@ -1047,7 +1047,7 @@ public final class Model
 	 * @deprecated renamed to {@link #getItemCacheInfo()}.
 	 */
 	@Deprecated
-	public CacheInfo[] getCacheInfo()
+	public ItemCacheInfo[] getCacheInfo()
 	{
 		return getItemCacheInfo();
 	}
