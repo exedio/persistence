@@ -123,9 +123,9 @@ final class ItemCache
 		private final TIntObjectHashMap<WrittenState> map;
 		private volatile long hits = 0;
 		private volatile long misses = 0;
-		private int numberOfCleanups = 0;
-		private int itemsCleanedUp = 0;
-		private long lastCleanup = 0;
+		private int replacementRuns = 0;
+		private int replacements = 0;
+		private long lastReplacementRun = 0;
 
 		Cachlet(final Type type, final int limit)
 		{
@@ -187,9 +187,9 @@ final class ItemCache
 						if(timeLimit>currentLastUsage)
 							i.remove();
 					}
-					numberOfCleanups++;
-					itemsCleanedUp += (mapSize - map.size());
-					lastCleanup = now;
+					replacementRuns++;
+					replacements += (mapSize - map.size());
+					lastReplacementRun = now;
 				}
 			}
 			
@@ -219,7 +219,7 @@ final class ItemCache
 		{
 			final long now = System.currentTimeMillis();
 			final int level;
-			final long lastCleanup;
+			final long lastReplacementRun;
 			long ageSum = 0;
 			long ageMin = Long.MAX_VALUE;
 			long ageMax = 0;
@@ -227,7 +227,7 @@ final class ItemCache
 			synchronized(map)
 			{
 				level = map.size();
-				lastCleanup = this.lastCleanup;
+				lastReplacementRun = this.lastReplacementRun;
 				for(final TIntObjectIterator<WrittenState> stateMapI = map.iterator(); stateMapI.hasNext(); )
 				{
 					stateMapI.advance();
@@ -246,7 +246,7 @@ final class ItemCache
 				type,
 				limit, level,
 				hits, misses,
-				numberOfCleanups, itemsCleanedUp, (lastCleanup!=0 ? new Date(lastCleanup) : null),
+				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax);
 		}
 	}

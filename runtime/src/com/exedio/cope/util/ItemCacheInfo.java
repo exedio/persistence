@@ -29,9 +29,9 @@ public final class ItemCacheInfo
 	private final int level;
 	private final long hits;
 	private final long misses;
-	private final int numberOfCleanups;
-	private final int itemsCleanedUp;
-	private final Date lastCleanup;
+	private final int replacementRuns;
+	private final int replacements;
+	private final Date lastReplacementRun;
 	private final long ageSum;
 	private final long ageMin;
 	private final long ageMax;
@@ -41,7 +41,7 @@ public final class ItemCacheInfo
 			final int limit,
 			final int level,
 			final long hits, final long misses,
-			final int numberOfCleanups, final int itemsCleanedUp, final Date lastCleanup,
+			final int replacementRuns, final int replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax)
 	{
 		this.type = type;
@@ -49,9 +49,9 @@ public final class ItemCacheInfo
 		this.level = level;
 		this.hits = hits;
 		this.misses = misses;
-		this.numberOfCleanups = numberOfCleanups;
-		this.itemsCleanedUp = itemsCleanedUp;
-		this.lastCleanup = lastCleanup;
+		this.replacementRuns = replacementRuns;
+		this.replacements = replacements;
+		this.lastReplacementRun = lastReplacementRun;
 		this.ageSum = ageSum;
 		this.ageMin = ageMin;
 		this.ageMax = ageMax;
@@ -88,19 +88,19 @@ public final class ItemCacheInfo
 		return misses;
 	}
 	
-	public int getNumberOfCleanups()
+	public int getReplacementRuns()
 	{
-		return numberOfCleanups;
+		return replacementRuns;
 	}
 	
-	public int getItemsCleanedUp()
+	public int getReplacements()
 	{
-		return itemsCleanedUp;
+		return replacements;
 	}
 	
-	public Date getLastCleanup()
+	public Date getLastReplacementRun()
 	{
-		return lastCleanup;
+		return lastReplacementRun;
 	}
 	
 	public long getAgeAverageMillis()

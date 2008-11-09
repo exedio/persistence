@@ -170,8 +170,8 @@ final class HistoryThread extends Thread
 		{
 			itemCacheHits += ci.getHits();
 			itemCacheMisses += ci.getMisses();
-			itemCacheNumberOfCleanups += ci.getNumberOfCleanups();
-			itemCacheItemsCleanedUp += ci.getItemsCleanedUp();
+			itemCacheNumberOfCleanups += ci.getReplacementRuns();
+			itemCacheItemsCleanedUp += ci.getReplacements();
 			itemCacheSetValues[itemCacheSetValuesIndex] =
 				new SetValue[]{
 					null, // will be HistoryItemCache.model
@@ -185,9 +185,9 @@ final class HistoryThread extends Thread
 					HistoryItemCache.level.map(ci.getLevel()),
 					HistoryItemCache.hits.map(ci.getHits()),
 					HistoryItemCache.misses.map(ci.getMisses()),
-					HistoryItemCache.numberOfCleanups.map(ci.getNumberOfCleanups()),
-					HistoryItemCache.itemsCleanedUp.map(ci.getItemsCleanedUp()),
-					HistoryItemCache.lastCleanup.map(ci.getLastCleanup()),
+					HistoryItemCache.numberOfCleanups.map(ci.getReplacementRuns()),
+					HistoryItemCache.itemsCleanedUp.map(ci.getReplacements()),
+					HistoryItemCache.lastCleanup.map(ci.getLastReplacementRun()),
 					HistoryItemCache.ageAverageMillis.map(ci.getAgeAverageMillis()),
 					HistoryItemCache.ageMinMillis.map(ci.getAgeMinMillis()),
 					HistoryItemCache.ageMaxMillis.map(ci.getAgeMaxMillis()),
