@@ -200,7 +200,7 @@ public class ServletUtil
 					{
 						return
 							"javax.servlet.ServletContext.getInitParameter " +
-							"of '" + context.getServletContextName() + '\'' +
+							"of '" + context.getContextPath() + '\'' +
 							(prefix!=null ? (" with prefix '"+prefix+'\'') : "");
 					}
 				};

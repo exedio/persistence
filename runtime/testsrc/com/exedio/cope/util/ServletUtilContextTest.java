@@ -38,14 +38,14 @@ public class ServletUtilContextTest extends CopeAssert
 			assertEquals("v1", s.get("p1"));
 			assertEquals("v2", s.get("p2"));
 			assertFails(s, "p3", "prfx.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextName' with prefix 'prfx.'", s.toString());
+			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath' with prefix 'prfx.'", s.toString());
 		}
 		{
 			final Properties.Source s = ServletUtil.getPropertyContext(new TestContext(null));
 			assertEquals("v1", s.get("prfx.p1"));
 			assertEquals("v2", s.get("prfx.p2"));
 			assertFails(s, "prfx.p3", "prfx.p3");
-			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextName'", s.toString());
+			assertEquals("javax.servlet.ServletContext.getInitParameter of 'testContextPath'", s.toString());
 		}
 	}
 	
@@ -85,7 +85,7 @@ public class ServletUtilContextTest extends CopeAssert
 
 		public String getServletContextName()
 		{
-			return "testContextName";
+			throw new RuntimeException();
 		}
 
 		public Object getAttribute(String arg0)
@@ -105,7 +105,7 @@ public class ServletUtilContextTest extends CopeAssert
 
 		public String getContextPath()
 		{
-			throw new RuntimeException();
+			return "testContextPath";
 		}
 
 		public Enumeration getInitParameterNames()
