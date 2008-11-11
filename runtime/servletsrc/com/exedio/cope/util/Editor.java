@@ -457,7 +457,7 @@ public abstract class Editor implements Filter
 					
 					try
 					{
-						startTransaction("savePosition(" + featureID + ',' + itemIDFrom +  + ',' + itemID + ')');
+						startTransaction("savePosition(" + featureID + ',' + itemIDFrom + ',' + itemID + ')');
 						
 						final Item itemFrom = model.getItem(itemIDFrom);
 						final Item itemTo   = model.getItem(itemID);
