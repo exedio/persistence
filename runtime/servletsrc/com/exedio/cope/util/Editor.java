@@ -88,7 +88,10 @@ public abstract class Editor implements Filter
 		synchronized(connectTokenLock)
 		{
 			if(connectToken==null)
+			{
 				connectToken = ServletUtil.connect(model, config, getClass().getName());
+				model.reviseIfSupported();
+			}
 		}
 		model.startTransaction(getClass().getName() + '#' + name);
 	}
