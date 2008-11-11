@@ -179,8 +179,6 @@ public class ServletUtil
 	{
 		final String prefix =
 			context.getInitParameter("com.exedio.cope.contextPrefix");
-		if(prefix!=null)
-			System.out.println("DEPRECATION WARNING: webapp \"" + context.getContextPath() + "\" uses context parameter com.exedio.cope.contextPrefix");
 		return new Properties.Source(){
 					public String get(final String key)
 					{
