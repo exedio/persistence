@@ -74,11 +74,23 @@ public abstract class Editor implements Filter
 		this.model = model;
 	}
 	
+	private FilterConfig config = null;
 	private ConnectToken connectToken = null;
+	private final Object connectTokenLock = new Object();
 	
 	public final void init(final FilterConfig config)
 	{
-		connectToken = ServletUtil.connect(model, config, getClass().getName());
+		this.config = config;
+	}
+	
+	private final void startTransaction(final String name)
+	{
+		synchronized(connectTokenLock)
+		{
+			if(connectToken==null)
+				connectToken = ServletUtil.connect(model, config, getClass().getName());
+		}
+		model.startTransaction(getClass().getName() + '#' + name);
 	}
 	
 	public final void destroy()
@@ -233,7 +245,7 @@ public abstract class Editor implements Filter
 				final Map<Session.Preview, String> previews = session.getPreviewsModifiable();
 				try
 				{
-					model.startTransaction(getClass().getName() + "#saveProposals");
+					startTransaction("saveProposals");
 					for(final Iterator<Map.Entry<Session.Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
 						final Map.Entry<Session.Preview, String> e = i.next();
@@ -258,7 +270,7 @@ public abstract class Editor implements Filter
 			final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
 			try
 			{
-				model.startTransaction(getClass().getName() + "#proposal");
+				startTransaction("proposal");
 				for(final Map.Entry<Session.Preview, String> e : previews.entrySet())
 					proposals.add(new Proposal(e.getKey().getOldValue(model), e.getValue()));
 				model.commit();
@@ -339,7 +351,7 @@ public abstract class Editor implements Filter
 		
 			try
 			{
-				model.startTransaction(getClass().getName() + "#saveFile(" + featureID + ',' + itemID + ')');
+				startTransaction("saveFile(" + featureID + ',' + itemID + ')');
 				
 				final Item item = model.getItem(itemID);
 
@@ -403,7 +415,7 @@ public abstract class Editor implements Filter
 				
 					try
 					{
-						model.startTransaction(getClass().getName() + "#saveText(" + featureID + ',' + itemID + ')');
+						startTransaction("saveText(" + featureID + ',' + itemID + ')');
 						
 						final Item item = model.getItem(itemID);
 	
@@ -445,7 +457,7 @@ public abstract class Editor implements Filter
 					
 					try
 					{
-						model.startTransaction(getClass().getName() + "#savePosition(" + featureID + ',' + itemIDFrom +  + ',' + itemID + ')');
+						startTransaction("savePosition(" + featureID + ',' + itemIDFrom +  + ',' + itemID + ')');
 						
 						final Item itemFrom = model.getItem(itemIDFrom);
 						final Item itemTo   = model.getItem(itemID);
@@ -510,7 +522,7 @@ public abstract class Editor implements Filter
 				final String password = request.getParameter(LOGIN_PASSWORD);
 				try
 				{
-					model.startTransaction(getClass().getName() + "#login");
+					startTransaction("login");
 					final Login login = login(user, password);
 					if(login!=null)
 					{
