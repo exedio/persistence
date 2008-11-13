@@ -257,7 +257,7 @@ public final class Dispatcher extends Pattern
 					final long start = System.currentTimeMillis();
 					try
 					{
-						((Dispatchable)item).dispatch();
+						((Dispatchable)item).dispatch(this);
 
 						final long elapsed = System.currentTimeMillis() - start;
 						item.set(
@@ -302,7 +302,7 @@ public final class Dispatcher extends Pattern
 						model.commit();
 						
 						if(done)
-							((Dispatchable)item).notifyFinalFailure(cause);
+							((Dispatchable)item).notifyFinalFailure(this, cause);
 					}
 				}
 				finally

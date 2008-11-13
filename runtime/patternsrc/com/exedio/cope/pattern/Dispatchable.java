@@ -20,6 +20,6 @@ package com.exedio.cope.pattern;
 
 public interface Dispatchable
 {
-	void dispatch() throws Exception;
-	void notifyFinalFailure(Exception cause);
+	void dispatch(Dispatcher dispatcher) throws Exception;
+	void notifyFinalFailure(Dispatcher dispatcher, Exception cause);
 }

@@ -50,8 +50,9 @@ public class DispatcherItem extends Item implements Dispatchable
 
 	static final Dispatcher toTarget = new Dispatcher(3, 2);
 	
-	public void dispatch() throws IOException, InterruptedException
+	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{
+		Assert.assertSame(toTarget, dispatcher);
 		Assert.assertTrue(DispatcherTest.MODEL.hasCurrentTransaction());
 		Assert.assertEquals(DispatcherItem.toTarget.getID() + " dispatch " + getCopeID(), DispatcherTest.MODEL.getCurrentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
@@ -67,8 +68,9 @@ public class DispatcherItem extends Item implements Dispatchable
 		log.dispatchLastSuccessElapsed = ((int)(System.currentTimeMillis() - start));
 	}
 	
-	public void notifyFinalFailure(final Exception cause)
+	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 	{
+		Assert.assertSame(toTarget, dispatcher);
 		Assert.assertTrue(!DispatcherTest.MODEL.hasCurrentTransaction());
 		Assert.assertEquals(IOException.class, cause.getClass());
 		logs.get(this).notifyFinalFailureCount++;
