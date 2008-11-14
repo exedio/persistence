@@ -104,17 +104,8 @@ public final class MediaServlet extends HttpServlet
 		throws IOException
 	{
 		final Media.Log log = serveContent(request, response);
+		
 		log.increment();
-		serveError(response, log);
-		
-		// TODO make 500 error page without stack trace
-	}
-		
-	private final void serveError(
-			final HttpServletResponse response,
-			final Media.Log log)
-		throws IOException
-	{
 		if(log.responseStatus==HttpServletResponse.SC_OK)
 			return;
 		
