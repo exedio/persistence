@@ -92,11 +92,11 @@ public final class PasswordRecovery extends Pattern
 			setReturn(Date.class));
 		result.add(
 			new Wrapper("issue").
-			setReturn(long.class));
+			setReturn(long.class, "a valid token for password recovery"));
 		result.add(
 			new Wrapper("redeem").
-			addParameter(long.class, "token").
-			setReturn(String.class));
+			addParameter(long.class, "token", "a token for password recovery").
+			setReturn(String.class, "a new password, if the token was valid, otherwise null"));
 		
 		return Collections.unmodifiableList(result);
 	}
@@ -111,6 +111,9 @@ public final class PasswordRecovery extends Pattern
 		return date.get(item);
 	}
 	
+	/**
+	 * @return a valid token for password recovery
+	 */
 	public long issue(final Item item)
 	{
 		long result = NOT_A_TOKEN;
@@ -123,6 +126,10 @@ public final class PasswordRecovery extends Pattern
 		return result;
 	}
 	
+	/**
+	 * @param token a token for password recovery
+	 * @return a new password, if the token was valid, otherwise null
+	 */
 	public String redeem(final Item item, final long token)
 	{
 		if(token==NOT_A_TOKEN)
