@@ -98,8 +98,14 @@ public abstract class Editor implements Filter
 	
 	public final void destroy()
 	{
-		connectToken.returnIt();
-		connectToken = null;
+		synchronized(connectTokenLock)
+		{
+			if(connectToken!=null)
+			{
+				connectToken.returnIt();
+				connectToken = null;
+			}
+		}
 	}
 	
 	/**
