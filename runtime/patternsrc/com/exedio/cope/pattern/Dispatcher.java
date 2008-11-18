@@ -172,34 +172,34 @@ public final class Dispatcher extends Pattern
 			setReturn(int.class, "the number of successfully dispatched items").
 			addParameter(Interrupter.class, "interrupter").
 			setStatic());
-			
+		
 		result.add(
 			new Wrapper("isPending").
 			addComment("Returns, whether this item is yet to be dispatched by {0}.").
 			setReturn(boolean.class));
-				
+		
 		result.add(
 			new Wrapper("getSuccessDate").
 			addComment("Returns the date, this item was successfully dispatched by {0}.").
 			setReturn(Date.class));
-			
+		
 		result.add(
 			new Wrapper("getSuccessElapsed").
 			addComment("Returns the milliseconds, this item needed to be successfully dispatched by {0}.").
 			setReturn(Long.class));
-				
+		
 		result.add(
 			new Wrapper("getFailures").
 			addComment("Returns the failed attempts to dispatch this item by {0}.").
 			setReturn(Wrapper.generic(List.class, Failure.class)));
-			
+		
 		result.add(
 			new Wrapper("getFailureParent").
 			addComment("Returns the parent field of the failure type of {0}.").
 			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
 			setMethodWrapperPattern("{1}FailureParent").
 			setStatic());
-			
+		
 		return Collections.unmodifiableList(result);
 	}
 	
