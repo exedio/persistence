@@ -51,6 +51,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(HistoryTest.class);
 		suite.addTestSuite(DispatcherTest.class);
 		suite.addTestSuite(SingletonTest.class);
+		suite.addTestSuite(PasswordRecoveryTest.class);
 		return suite;
 	}
 }
