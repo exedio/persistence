@@ -91,13 +91,12 @@ public final class PasswordRecovery extends Pattern
 			new Wrapper("getDate").
 			setReturn(Date.class));
 		result.add(
-			new Wrapper("createToken").
+			new Wrapper("issue").
 			setReturn(long.class));
 		result.add(
-			new Wrapper("tryToken").
+			new Wrapper("redeem").
 			addParameter(long.class, "token").
-			setReturn(String.class).
-			setMethodWrapperPattern("try{0}"));
+			setReturn(String.class));
 		
 		return Collections.unmodifiableList(result);
 	}
@@ -112,7 +111,7 @@ public final class PasswordRecovery extends Pattern
 		return date.get(item);
 	}
 	
-	public long createToken(final Item item)
+	public long issue(final Item item)
 	{
 		long result = NOT_A_TOKEN;
 		while(result==NOT_A_TOKEN)
@@ -124,7 +123,7 @@ public final class PasswordRecovery extends Pattern
 		return result;
 	}
 	
-	public String tryToken(final Item item, final long token)
+	public String redeem(final Item item, final long token)
 	{
 		if(token==NOT_A_TOKEN)
 			throw new IllegalArgumentException("not a valid token: " + NOT_A_TOKEN);

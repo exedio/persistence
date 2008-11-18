@@ -106,7 +106,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(null, i.getPasswordRecoveryDate());
 		
 		final Date before = new Date();
-		final long token = i.createPasswordRecoveryToken();
+		final long token = i.issuePasswordRecovery();
 		final Date after = new Date();
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(token, i.getPasswordRecoveryToken());
@@ -116,18 +116,18 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(token, i.getPasswordRecoveryToken());
 		assertWithin(before, after, i.getPasswordRecoveryDate());
 		
-		assertEquals(null, i.tryPasswordRecovery(token+1));
+		assertEquals(null, i.redeemPasswordRecovery(token+1));
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(token, i.getPasswordRecoveryToken());
 		assertWithin(before, after, i.getPasswordRecoveryDate());
 		
-		final String newPassword = i.tryPasswordRecovery(token);
+		final String newPassword = i.redeemPasswordRecovery(token);
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
 		assertEquals(0, i.getPasswordRecoveryToken());
 		assertEquals(null, i.getPasswordRecoveryDate());
 		
-		assertEquals(null, i.tryPasswordRecovery(token));
+		assertEquals(null, i.redeemPasswordRecovery(token));
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
 		assertEquals(0, i.getPasswordRecoveryToken());
@@ -135,7 +135,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		
 		try
 		{
-			i.tryPasswordRecovery(0);
+			i.redeemPasswordRecovery(0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
