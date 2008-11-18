@@ -38,48 +38,48 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 	
-	PasswordRecoveryItem c;
+	PasswordRecoveryItem i;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		c = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
+		i = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
 	}
 	
 	public void testIt() throws Exception
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
-				c.TYPE.getThis(),
-				c.password,
-				c.password.getStorage(),
-				c.passwordRecovery,
-				c.passwordRecovery.getToken(),
-				c.passwordRecovery.getDate(),
-			}), c.TYPE.getFeatures());
+				i.TYPE.getThis(),
+				i.password,
+				i.password.getStorage(),
+				i.passwordRecovery,
+				i.passwordRecovery.getToken(),
+				i.passwordRecovery.getDate(),
+			}), i.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
-				c.TYPE.getThis(),
-				c.password,
-				c.password.getStorage(),
-				c.passwordRecovery,
-				c.passwordRecovery.getToken(),
-				c.passwordRecovery.getDate(),
-			}), c.TYPE.getDeclaredFeatures());
+				i.TYPE.getThis(),
+				i.password,
+				i.password.getStorage(),
+				i.passwordRecovery,
+				i.passwordRecovery.getToken(),
+				i.passwordRecovery.getDate(),
+			}), i.TYPE.getDeclaredFeatures());
 		
-		assertEquals(c.TYPE, c.password.getType());
-		assertEquals(c.TYPE, c.passwordRecovery.getToken().getType());
-		assertEquals(c.TYPE, c.passwordRecovery.getDate().getType());
-		assertEquals("password", c.password.getName());
-		assertEquals("passwordRecoveryToken", c.passwordRecovery.getToken().getName());
-		assertEquals("passwordRecoveryDate", c.passwordRecovery.getDate().getName());
+		assertEquals(i.TYPE, i.password.getType());
+		assertEquals(i.TYPE, i.passwordRecovery.getToken().getType());
+		assertEquals(i.TYPE, i.passwordRecovery.getDate().getType());
+		assertEquals("password", i.password.getName());
+		assertEquals("passwordRecoveryToken", i.passwordRecovery.getToken().getName());
+		assertEquals("passwordRecoveryDate", i.passwordRecovery.getDate().getName());
 		
-		assertEquals(list(c.passwordRecovery.getToken(), c.passwordRecovery.getDate()), c.passwordRecovery.getSourceFields());
-		assertEquals(c.passwordRecovery, c.passwordRecovery.getToken().getPattern());
-		assertEquals(c.passwordRecovery, c.passwordRecovery.getDate().getPattern());
+		assertEquals(list(i.passwordRecovery.getToken(), i.passwordRecovery.getDate()), i.passwordRecovery.getSourceFields());
+		assertEquals(i.passwordRecovery, i.passwordRecovery.getToken().getPattern());
+		assertEquals(i.passwordRecovery, i.passwordRecovery.getDate().getPattern());
 		
-		assertSame(c.password, c.passwordRecovery.getPassword());
-		assertEquals(15*60*1000, c.passwordRecovery.getExpiryMillis());
+		assertSame(i.password, i.passwordRecovery.getPassword());
+		assertEquals(15*60*1000, i.passwordRecovery.getExpiryMillis());
 		
 		try
 		{
@@ -92,7 +92,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new PasswordRecovery(c.password, 0);
+			new PasswordRecovery(i.password, 0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
@@ -101,41 +101,41 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		}
 		
 		// test persistence
-		assertTrue(c.checkPassword("oldpass"));
-		assertEquals(0, c.getPasswordRecoveryToken());
-		assertEquals(null, c.getPasswordRecoveryDate());
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(0, i.getPasswordRecoveryToken());
+		assertEquals(null, i.getPasswordRecoveryDate());
 		
 		final Date before = new Date();
-		final long token = c.createPasswordRecoveryToken();
+		final long token = i.createPasswordRecoveryToken();
 		final Date after = new Date();
-		assertTrue(c.checkPassword("oldpass"));
-		assertEquals(token, c.getPasswordRecoveryToken());
-		assertWithin(before, after, c.getPasswordRecoveryDate());
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(token, i.getPasswordRecoveryToken());
+		assertWithin(before, after, i.getPasswordRecoveryDate());
 		
-		assertTrue(c.checkPassword("oldpass"));
-		assertEquals(token, c.getPasswordRecoveryToken());
-		assertWithin(before, after, c.getPasswordRecoveryDate());
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(token, i.getPasswordRecoveryToken());
+		assertWithin(before, after, i.getPasswordRecoveryDate());
 		
-		assertEquals(null, c.tryPasswordRecovery(token+1));
-		assertTrue(c.checkPassword("oldpass"));
-		assertEquals(token, c.getPasswordRecoveryToken());
-		assertWithin(before, after, c.getPasswordRecoveryDate());
+		assertEquals(null, i.tryPasswordRecovery(token+1));
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(token, i.getPasswordRecoveryToken());
+		assertWithin(before, after, i.getPasswordRecoveryDate());
 		
-		final String newPassword = c.tryPasswordRecovery(token);
+		final String newPassword = i.tryPasswordRecovery(token);
 		assertNotNull(newPassword);
-		assertTrue(c.checkPassword(newPassword));
-		assertEquals(0, c.getPasswordRecoveryToken());
-		assertEquals(null, c.getPasswordRecoveryDate());
+		assertTrue(i.checkPassword(newPassword));
+		assertEquals(0, i.getPasswordRecoveryToken());
+		assertEquals(null, i.getPasswordRecoveryDate());
 		
-		assertEquals(null, c.tryPasswordRecovery(token));
+		assertEquals(null, i.tryPasswordRecovery(token));
 		assertNotNull(newPassword);
-		assertTrue(c.checkPassword(newPassword));
-		assertEquals(0, c.getPasswordRecoveryToken());
-		assertEquals(null, c.getPasswordRecoveryDate());
+		assertTrue(i.checkPassword(newPassword));
+		assertEquals(0, i.getPasswordRecoveryToken());
+		assertEquals(null, i.getPasswordRecoveryDate());
 		
 		try
 		{
-			c.tryPasswordRecovery(0);
+			i.tryPasswordRecovery(0);
 			fail();
 		}
 		catch(IllegalArgumentException e)
