@@ -64,6 +64,12 @@ public final class LongField extends NumberField<Long>
 	{
 		return new LongField(isfinal, optional, true, defaultConstant);
 	}
+
+	@Override
+	public LongField nonUnique()
+	{
+		return new LongField(isfinal, optional, false, defaultConstant);
+	}
 	
 	public LongField defaultTo(final Long defaultConstant)
 	{

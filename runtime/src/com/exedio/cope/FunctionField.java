@@ -125,6 +125,8 @@ public abstract class FunctionField<E extends Object>
 	 * @see #getImplicitUniqueConstraint()
 	 */
 	public abstract FunctionField<E> unique();
+	
+	public abstract FunctionField<E> nonUnique();
 
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);

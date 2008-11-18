@@ -79,6 +79,12 @@ public final class DoubleField extends NumberField<Double>
 	{
 		return new DoubleField(isfinal, optional, true, defaultConstant, minimum, maximum);
 	}
+
+	@Override
+	public DoubleField nonUnique()
+	{
+		return new DoubleField(isfinal, optional, false, defaultConstant, minimum, maximum);
+	}
 	
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
