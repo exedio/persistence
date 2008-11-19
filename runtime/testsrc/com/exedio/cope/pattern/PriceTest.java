@@ -47,7 +47,17 @@ public final class PriceTest extends CopeAssert
 		// valueof(double)
 		assertEquals(222, valueOf(2.22).value());
 		assertEquals(220, valueOf(2.2).value());
+		assertEquals(Integer.MAX_VALUE, valueOf(Integer.MAX_VALUE/100d).value());
 		assertSame(ZERO, valueOf(0.0));
+		try
+		{
+			valueOf((Integer.MAX_VALUE/100d) + 0.01);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("too big: 2.147483648E7", e.getMessage());
+		}
 		try
 		{
 			valueOf(Double.NaN);

@@ -26,8 +26,8 @@ public class Price implements Serializable
 	
 	private static final double FACTOR_D = 100d;
 	private static final int    FACTOR_I = 100;
-	private static final double MIN_VALUE_D = Integer.MIN_VALUE;
-	private static final double MAX_VALUE_D = Integer.MAX_VALUE;
+	private static final double MIN_VALUE_D = Integer.MIN_VALUE/FACTOR_D;
+	private static final double MAX_VALUE_D = Integer.MAX_VALUE/FACTOR_D;
 	
 	public static final Price ZERO = new Price(0);
 	
