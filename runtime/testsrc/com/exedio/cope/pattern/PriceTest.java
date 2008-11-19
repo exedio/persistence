@@ -116,5 +116,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals("0.23", valueOf( 23).toString());
 		assertEquals("0.03", valueOf(  3).toString());
 		assertEquals("0.00", valueOf(  0).toString());
+		
+		// serialization
+		assertEquals(valueOf(3456), reserialize(valueOf(3456), 100));
 	}
 }
