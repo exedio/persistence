@@ -48,12 +48,6 @@ public final class PriceTest extends CopeAssert
 		assertEquals(222, valueOf(2.22).value());
 		assertEquals(220, valueOf(2.2).value());
 		assertSame(ZERO, valueOf(0.0));
-		// TODO test and implement proper rounding
-		
-		// doubleValue
-		assertEquals(2.22, valueOf(222).doubleValue());
-		assertEquals(2.2, valueOf(220).doubleValue());
-		assertEquals(0.0, valueOf(0).doubleValue());
 		try
 		{
 			valueOf(Double.NaN);
@@ -81,6 +75,12 @@ public final class PriceTest extends CopeAssert
 		{
 			assertEquals("Infinity not allowed", e.getMessage());
 		}
+		// TODO test and implement proper rounding
+		
+		// doubleValue
+		assertEquals(2.22, valueOf(222).doubleValue());
+		assertEquals(2.2, valueOf(220).doubleValue());
+		assertEquals(0.0, valueOf(0).doubleValue());
 		
 		// add
 		assertEquals(555, valueOf(333).add(valueOf(222)).value());
