@@ -59,7 +59,7 @@ public class Price implements Serializable
 		if(Double.isNaN(value))
 			throw new IllegalArgumentException("NaN not allowed");
 		if(Double.isInfinite(value))
-			throw new IllegalArgumentException("infinite not allowed");
+			throw new IllegalArgumentException("Infinity not allowed");
 		if(value<MIN_VALUE_D)
 			throw new IllegalArgumentException("too small: " + value);
 		if(value>MAX_VALUE_D)
