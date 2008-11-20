@@ -38,7 +38,7 @@ public class Price implements Serializable
 		this.store = store;
 	}
 	
-	static final Price storeOf(final int store)
+	public static final Price storeOf(final int store)
 	{
 		if(store==0)
 			return ZERO;
@@ -46,7 +46,7 @@ public class Price implements Serializable
 		return new Price(store);
 	}
 	
-	static final Price storeOf(final Integer store)
+	public static final Price storeOf(final Integer store)
 	{
 		return store!=null ? storeOf(store.intValue()) : null;
 	}
