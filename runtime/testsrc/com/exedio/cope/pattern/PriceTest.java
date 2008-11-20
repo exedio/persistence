@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
 import static com.exedio.cope.pattern.Price.ZERO;
 
@@ -27,32 +28,32 @@ public final class PriceTest extends CopeAssert
 {
 	public void testIt()
 	{
-		assertEquals(5, new Price(5).value());
-		assertEquals(0, new Price(0).value());
+		assertEquals(5, new Price(5).store());
+		assertEquals(0, new Price(0).store());
 		
 		// ZERO
-		assertEquals(0, ZERO.value());
+		assertEquals(0, ZERO.store());
 		assertEquals(0.0, ZERO.doubleValue());
 		
-		// valueOf(int)
-		assertEquals(valueOf(1), valueOf(1));
-		assertNotSame(valueOf(1), valueOf(1));
-		assertEquals(valueOf(-1), valueOf(-1));
-		assertSame(ZERO, valueOf(0));
+		// storeOf(int)
+		assertEquals(storeOf(1), storeOf(1));
+		assertNotSame(storeOf(1), storeOf(1));
+		assertEquals(storeOf(-1), storeOf(-1));
+		assertSame(ZERO, storeOf(0));
 		
-		// valueOf(Integer)
-		assertEquals( 5, valueOf(new Integer( 5)).value());
-		assertEquals(-5, valueOf(new Integer(-5)).value());
-		assertSame(ZERO, valueOf(new Integer(0)));
-		assertEquals(null, valueOf((Integer)null));
+		// storeOf(Integer)
+		assertEquals( 5, storeOf(new Integer( 5)).store());
+		assertEquals(-5, storeOf(new Integer(-5)).store());
+		assertSame(ZERO, storeOf(new Integer(0)));
+		assertEquals(null, storeOf((Integer)null));
 		
 		// valueof(double)
-		assertEquals( 222, valueOf( 2.22).value());
-		assertEquals(-222, valueOf(-2.22).value());
-		assertEquals( 220, valueOf( 2.2).value());
-		assertEquals(-220, valueOf(-2.2).value());
-		assertEquals(Integer.MAX_VALUE, valueOf(Integer.MAX_VALUE/100d).value());
-		assertEquals(Integer.MIN_VALUE, valueOf(Integer.MIN_VALUE/100d).value());
+		assertEquals( 222, valueOf( 2.22).store());
+		assertEquals(-222, valueOf(-2.22).store());
+		assertEquals( 220, valueOf( 2.2).store());
+		assertEquals(-220, valueOf(-2.2).store());
+		assertEquals(Integer.MAX_VALUE, valueOf(Integer.MAX_VALUE/100d).store());
+		assertEquals(Integer.MIN_VALUE, valueOf(Integer.MIN_VALUE/100d).store());
 		assertSame(ZERO, valueOf( 0.0));
 		assertSame(ZERO, valueOf(-0.0));
 		try
@@ -103,53 +104,53 @@ public final class PriceTest extends CopeAssert
 		// TODO test and implement proper rounding
 		
 		// doubleValue
-		assertEquals( 2.22, valueOf( 222).doubleValue());
-		assertEquals(-2.22, valueOf(-222).doubleValue());
-		assertEquals( 2.2,  valueOf( 220).doubleValue());
-		assertEquals(-2.2,  valueOf(-220).doubleValue());
-		assertEquals( 0.0,  valueOf(   0).doubleValue());
+		assertEquals( 2.22, storeOf( 222).doubleValue());
+		assertEquals(-2.22, storeOf(-222).doubleValue());
+		assertEquals( 2.2,  storeOf( 220).doubleValue());
+		assertEquals(-2.2,  storeOf(-220).doubleValue());
+		assertEquals( 0.0,  storeOf(   0).doubleValue());
 		
 		// add
-		assertEquals( 555, valueOf( 333).add(valueOf( 222)).value());
-		assertEquals(-111, valueOf(-333).add(valueOf( 222)).value());
-		assertEquals( 111, valueOf( 333).add(valueOf(-222)).value());
-		assertEquals(-555, valueOf(-333).add(valueOf(-222)).value());
+		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
+		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
+		assertEquals( 111, storeOf( 333).add(storeOf(-222)).store());
+		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
 		
 		// multiply
-		assertEquals( 999, valueOf( 333).multiply( 3).value());
-		assertEquals(-999, valueOf(-333).multiply( 3).value());
-		assertEquals(-999, valueOf( 333).multiply(-3).value());
-		assertEquals( 999, valueOf(-333).multiply(-3).value());
+		assertEquals( 999, storeOf( 333).multiply( 3).store());
+		assertEquals(-999, storeOf(-333).multiply( 3).store());
+		assertEquals(-999, storeOf( 333).multiply(-3).store());
+		assertEquals( 999, storeOf(-333).multiply(-3).store());
 		
 		// equals
-		assertEquals(valueOf( 123), valueOf( 123));
-		assertEquals(valueOf(-123), valueOf(-123));
-		assertFalse(valueOf(123).equals(valueOf( 124)));
-		assertFalse(valueOf(123).equals(valueOf(-123)));
-		assertNotSame(valueOf(123), valueOf(123));
-		assertFalse(valueOf(123).equals(new Integer(123)));
-		assertFalse(valueOf(123).equals(new Double(1.23)));
-		assertFalse(valueOf(123).equals(null));
+		assertEquals(storeOf( 123), storeOf( 123));
+		assertEquals(storeOf(-123), storeOf(-123));
+		assertFalse(storeOf(123).equals(storeOf( 124)));
+		assertFalse(storeOf(123).equals(storeOf(-123)));
+		assertNotSame(storeOf(123), storeOf(123));
+		assertFalse(storeOf(123).equals(new Integer(123)));
+		assertFalse(storeOf(123).equals(new Double(1.23)));
+		assertFalse(storeOf(123).equals(null));
 		
 		// hashCode
-		assertEquals(valueOf( 123).hashCode(), valueOf( 123).hashCode());
-		assertEquals(valueOf(-123).hashCode(), valueOf(-123).hashCode());
-		assertFalse(valueOf(123).hashCode()==valueOf( 124).hashCode());
-		assertFalse(valueOf(123).hashCode()==valueOf(-123).hashCode());
+		assertEquals(storeOf( 123).hashCode(), storeOf( 123).hashCode());
+		assertEquals(storeOf(-123).hashCode(), storeOf(-123).hashCode());
+		assertFalse(storeOf(123).hashCode()==storeOf( 124).hashCode());
+		assertFalse(storeOf(123).hashCode()==storeOf(-123).hashCode());
 		
 		// toString()
-		assertEquals( "1.23", valueOf( 123).toString());
-		assertEquals("-1.23", valueOf(-123).toString());
-		assertEquals( "1.03", valueOf( 103).toString());
-		assertEquals("-1.03", valueOf(-103).toString());
-		assertEquals( "0.23", valueOf(  23).toString());
-		assertEquals("-0.23", valueOf( -23).toString());
-		assertEquals( "0.03", valueOf(   3).toString());
-		assertEquals("-0.03", valueOf(  -3).toString());
-		assertEquals( "0.00", valueOf(   0).toString());
+		assertEquals( "1.23", storeOf( 123).toString());
+		assertEquals("-1.23", storeOf(-123).toString());
+		assertEquals( "1.03", storeOf( 103).toString());
+		assertEquals("-1.03", storeOf(-103).toString());
+		assertEquals( "0.23", storeOf(  23).toString());
+		assertEquals("-0.23", storeOf( -23).toString());
+		assertEquals( "0.03", storeOf(   3).toString());
+		assertEquals("-0.03", storeOf(  -3).toString());
+		assertEquals( "0.00", storeOf(   0).toString());
 		
 		// serialization
-		assertEquals(valueOf( 3456), reserialize(valueOf( 3456), 100));
-		assertEquals(valueOf(-3456), reserialize(valueOf(-3456), 100));
+		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 100));
+		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 100));
 	}
 }

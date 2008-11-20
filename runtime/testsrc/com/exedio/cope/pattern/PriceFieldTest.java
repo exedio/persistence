@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Price.valueOf;
+import static com.exedio.cope.pattern.Price.storeOf;
 
 import java.util.Arrays;
 
@@ -45,7 +45,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new PriceFieldItem(valueOf(555), valueOf(7777)));
+		item = deleteOnTearDown(new PriceFieldItem(storeOf(555), storeOf(7777)));
 	}
 	
 	public void testSerializer()
@@ -103,33 +103,33 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, item.bigPrice.getInitialExceptions());
 		
 		// test persistence
-		assertEquals(valueOf(555), item.getFinalPrice());
+		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
-		assertEquals(valueOf(7777), item.getBigPrice());
+		assertEquals(storeOf(7777), item.getBigPrice());
 		
-		item.setOptionalPrice(valueOf(333));
-		assertEquals(valueOf(555), item.getFinalPrice());
-		assertEquals(valueOf(333), item.getOptionalPrice());
-		assertEquals(valueOf(7777), item.getBigPrice());
+		item.setOptionalPrice(storeOf(333));
+		assertEquals(storeOf(555), item.getFinalPrice());
+		assertEquals(storeOf(333), item.getOptionalPrice());
+		assertEquals(storeOf(7777), item.getBigPrice());
 		
-		item.setOptionalPrice(valueOf(-444));
-		assertEquals(valueOf(555), item.getFinalPrice());
-		assertEquals(valueOf(-444), item.getOptionalPrice());
-		assertEquals(valueOf(7777), item.getBigPrice());
+		item.setOptionalPrice(storeOf(-444));
+		assertEquals(storeOf(555), item.getFinalPrice());
+		assertEquals(storeOf(-444), item.getOptionalPrice());
+		assertEquals(storeOf(7777), item.getBigPrice());
 		
 		item.setOptionalPrice(null);
-		assertEquals(valueOf(555), item.getFinalPrice());
+		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
-		assertEquals(valueOf(7777), item.getBigPrice());
+		assertEquals(storeOf(7777), item.getBigPrice());
 		
-		item.setBigPrice(valueOf(5000));
-		assertEquals(valueOf(555), item.getFinalPrice());
+		item.setBigPrice(storeOf(5000));
+		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
-		assertEquals(valueOf(5000), item.getBigPrice());
+		assertEquals(storeOf(5000), item.getBigPrice());
 		
 		try
 		{
-			item.setBigPrice(valueOf(4999));
+			item.setBigPrice(storeOf(4999));
 			fail();
 		}
 		catch(IntegerRangeViolationException e)
@@ -139,9 +139,9 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			assertEquals(4999, e.getValue());
 			assertTrue(e.isTooSmall());
 		}
-		assertEquals(valueOf(555), item.getFinalPrice());
+		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
-		assertEquals(valueOf(5000), item.getBigPrice());
+		assertEquals(storeOf(5000), item.getBigPrice());
 		
 		try
 		{
@@ -153,16 +153,16 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			assertEquals(item.bigPrice.getInt(), e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		assertEquals(valueOf(555), item.getFinalPrice());
+		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());
-		assertEquals(valueOf(5000), item.getBigPrice());
+		assertEquals(storeOf(5000), item.getBigPrice());
 		
 		final PriceFieldItem item2 = deleteOnTearDown(new PriceFieldItem(new SetValue[]{
-				item.finalPrice.map(valueOf(567)),
-				item.bigPrice.map(valueOf(5001)),
+				item.finalPrice.map(storeOf(567)),
+				item.bigPrice.map(storeOf(5001)),
 		}));
-		assertEquals(valueOf(567), item2.getFinalPrice());
+		assertEquals(storeOf(567), item2.getFinalPrice());
 		assertEquals(null, item2.getOptionalPrice());
-		assertEquals(valueOf(5001), item2.getBigPrice());
+		assertEquals(storeOf(5001), item2.getBigPrice());
 	}
 }

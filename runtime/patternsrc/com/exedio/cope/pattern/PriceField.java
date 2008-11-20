@@ -110,12 +110,12 @@ public final class PriceField extends Pattern implements Settable<Price>
 	
 	public Price get(final Item item)
 	{
-		return Price.valueOf(integer.get(item));
+		return Price.storeOf(integer.get(item));
 	}
 	
 	public void set(final Item item, final Price value)
 	{
-		integer.set(item, value!=null ? value.value : null);
+		integer.set(item, value!=null ? value.store : null);
 	}
 	
 	public SetValue<Price> map(final Price value)
@@ -125,6 +125,6 @@ public final class PriceField extends Pattern implements Settable<Price>
 	
 	public SetValue[] execute(final Price value, final Item exceptionItem)
 	{
-		return new SetValue[]{ integer.map(value!=null ? value.value : null) };
+		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
 	}
 }

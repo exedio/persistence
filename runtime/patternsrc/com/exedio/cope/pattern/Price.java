@@ -31,24 +31,24 @@ public class Price implements Serializable
 	
 	public static final Price ZERO = new Price(0);
 	
-	final int value;
+	final int store;
 	
-	public Price(final int value)
+	Price(final int store)
 	{
-		this.value = value;
+		this.store = store;
 	}
 	
-	public static final Price valueOf(final int value)
+	static final Price storeOf(final int store)
 	{
-		if(value==0)
+		if(store==0)
 			return ZERO;
 		
-		return new Price(value);
+		return new Price(store);
 	}
 	
-	public static final Price valueOf(final Integer value)
+	static final Price storeOf(final Integer store)
 	{
-		return value!=null ? valueOf(value.intValue()) : null;
+		return store!=null ? storeOf(store.intValue()) : null;
 	}
 	
 	public static final Price valueOf(final double value)
@@ -62,27 +62,27 @@ public class Price implements Serializable
 		if(value>MAX_VALUE_D)
 			throw new IllegalArgumentException("too big: " + value);
 		
-		return valueOf((int)Math.round(value * FACTOR_D));
+		return storeOf((int)Math.round(value * FACTOR_D));
 	}
 	
-	public int value()
+	int store()
 	{
-		return value;
+		return store;
 	}
 	
 	public double doubleValue()
 	{
-		return value / FACTOR_D;
+		return store / FACTOR_D;
 	}
 	
 	public Price add(final Price other)
 	{
-		return valueOf(value + other.value);
+		return storeOf(store + other.store);
 	}
 	
 	public Price multiply(final int other)
 	{
-		return valueOf(value * other);
+		return storeOf(store * other);
 	}
 	
 	@Override
@@ -91,19 +91,19 @@ public class Price implements Serializable
 		if(!(other instanceof Price))
 			return false;
 		
-		return value==((Price)other).value;
+		return store==((Price)other).store;
 	}
 	
 	@Override
 	public int hashCode()
 	{
-		return value ^ 827345123;
+		return store ^ 827345123;
 	}
 	
 	@Override
 	public String toString()
 	{
-		final int minor = Math.abs(value%FACTOR_I);
-		return ((value<0 && value>(-FACTOR_I)) ? "-" : "") + String.valueOf(value/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
+		final int minor = Math.abs(store%FACTOR_I);
+		return ((store<0 && store>(-FACTOR_I)) ? "-" : "") + String.valueOf(store/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
 	}
 }
