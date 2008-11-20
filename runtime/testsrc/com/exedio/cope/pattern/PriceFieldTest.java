@@ -48,7 +48,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new PriceFieldItem(storeOf(555), storeOf(7777)));
 	}
 	
-	public void testSerializer()
+	public void testIt()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
