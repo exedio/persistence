@@ -112,6 +112,11 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(valueOf(333), item.getOptionalPrice());
 		assertEquals(valueOf(7777), item.getBigPrice());
 		
+		item.setOptionalPrice(valueOf(-444));
+		assertEquals(valueOf(555), item.getFinalPrice());
+		assertEquals(valueOf(-444), item.getOptionalPrice());
+		assertEquals(valueOf(7777), item.getBigPrice());
+		
 		item.setOptionalPrice(null);
 		assertEquals(valueOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());

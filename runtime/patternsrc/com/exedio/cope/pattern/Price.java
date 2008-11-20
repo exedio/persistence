@@ -35,9 +35,6 @@ public class Price implements Serializable
 	
 	public Price(final int value)
 	{
-		if(value<0)
-			throw new RuntimeException("negative not yet supported: " + value); // TODO
-		
 		this.value = value;
 	}
 	
@@ -106,7 +103,7 @@ public class Price implements Serializable
 	@Override
 	public String toString()
 	{
-		final int minor = value%FACTOR_I;
-		return String.valueOf(value/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
+		final int minor = Math.abs(value%FACTOR_I);
+		return ((value<0 && value>(-FACTOR_I)) ? "-" : "") + String.valueOf(value/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
 	}
 }
