@@ -35,7 +35,7 @@ public final class PasswordRecovery extends Pattern
 	private static final long NOT_A_TOKEN = 0l;
 	
 	private final Hash password;
-	private final long expiryMillis;
+	private final int expiryMillis;
 	private final LongField token = new LongField().defaultTo(NOT_A_TOKEN);
 	private final DateField date = new DateField().optional();
 	private final SecureRandom random = new SecureRandom();
@@ -45,7 +45,7 @@ public final class PasswordRecovery extends Pattern
 		this(password, 15*60*1000); // 15 minutes
 	}
 	
-	public PasswordRecovery(final Hash password, final long expiryMillis)
+	public PasswordRecovery(final Hash password, final int expiryMillis)
 	{
 		this.password = password;
 		this.expiryMillis = expiryMillis;
@@ -63,12 +63,12 @@ public final class PasswordRecovery extends Pattern
 		return password;
 	}
 	
-	public long getExpiryMillis()
+	public int getExpiryMillis()
 	{
 		return expiryMillis;
 	}
 	
-	public long getExpiryMinutes()
+	public int getExpiryMinutes()
 	{
 		return expiryMillis / (60*1000);
 	}
