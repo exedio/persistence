@@ -76,6 +76,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		
 		assertSame(i.password, i.passwordRecovery.getPassword());
 		assertEquals(15*60*1000, i.passwordRecovery.getExpiryMillis());
+		assertEquals(15,         i.passwordRecovery.getExpiryMinutes());
 		
 		try
 		{

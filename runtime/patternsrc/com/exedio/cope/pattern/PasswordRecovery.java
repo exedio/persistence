@@ -68,6 +68,11 @@ public final class PasswordRecovery extends Pattern
 		return expiryMillis;
 	}
 	
+	public long getExpiryMinutes()
+	{
+		return expiryMillis / (60*1000);
+	}
+	
 	public LongField getToken()
 	{
 		return token;
