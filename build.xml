@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cope.persistence" default="build" basedir=".">
+<project name="cope" default="build" basedir=".">
 
 	<property name="build.file.tag" value="unlabeled" />
 	
