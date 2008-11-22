@@ -129,13 +129,13 @@ public final class PasswordRecovery extends Pattern
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
 		
-		long result = NOT_A_SECRET;
-		while(result==NOT_A_SECRET)
-			result = random.nextLong();
+		long secret = NOT_A_SECRET;
+		while(secret==NOT_A_SECRET)
+			secret = random.nextLong();
 		
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
-			this.secret.map(result),
+			this.secret.map(secret),
 			this.expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
 	}
 	
