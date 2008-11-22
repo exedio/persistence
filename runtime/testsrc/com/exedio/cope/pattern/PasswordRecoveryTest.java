@@ -100,10 +100,6 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(token, i.getPasswordRecoveryToken());
 		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), i.getPasswordRecoveryExpires());
 		
-		assertTrue(i.checkPassword("oldpass"));
-		assertEquals(token, i.getPasswordRecoveryToken());
-		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), i.getPasswordRecoveryExpires());
-		
 		assertEquals(null, i.redeemPasswordRecovery(token+1));
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(token, i.getPasswordRecoveryToken());
