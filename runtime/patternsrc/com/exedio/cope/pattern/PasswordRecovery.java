@@ -135,8 +135,8 @@ public final class PasswordRecovery extends Pattern
 		
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
-			secret.map(result),
-			expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
+			this.secret.map(result),
+			this.expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
 	}
 	
 	/**
