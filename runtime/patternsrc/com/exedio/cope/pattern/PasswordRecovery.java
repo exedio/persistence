@@ -44,8 +44,8 @@ public final class PasswordRecovery extends Pattern
 	
 	ItemField<?> parent = null;
 	PartOf<?> tokens = null;
-	private final LongField token = new LongField().toFinal();
-	private final DateField expires = new DateField().toFinal();
+	final LongField token = new LongField().toFinal();
+	final DateField expires = new DateField().toFinal();
 	Type<Token> tokenType = null;
 	
 	private final SecureRandom random = new SecureRandom();
