@@ -157,7 +157,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		}
 		catch(IllegalArgumentException e)
 		{
-			assertEquals("not a valid token: 0", e.getMessage());
+			assertEquals("not a valid secret: 0", e.getMessage());
 		}
 	}
 }
