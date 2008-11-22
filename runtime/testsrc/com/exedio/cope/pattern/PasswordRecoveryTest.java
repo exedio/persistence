@@ -24,6 +24,8 @@ import java.util.Date;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
+import com.exedio.cope.pattern.PasswordRecovery.Token;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
@@ -46,33 +48,33 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	public void testIt() throws Exception
 	{
 		// test model
+		assertEquals(Arrays.asList(new Type[]{
+				i.TYPE,
+				i.passwordRecovery.getTokenType(),
+		}), MODEL.getTypes());
 		assertEquals(Arrays.asList(new Feature[]{
 				i.TYPE.getThis(),
 				i.password,
 				i.password.getStorage(),
 				i.passwordRecovery,
-				i.passwordRecovery.getToken(),
-				i.passwordRecovery.getExpires(),
 			}), i.TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				i.TYPE.getThis(),
 				i.password,
 				i.password.getStorage(),
 				i.passwordRecovery,
-				i.passwordRecovery.getToken(),
-				i.passwordRecovery.getExpires(),
 			}), i.TYPE.getDeclaredFeatures());
 		
 		assertEquals(i.TYPE, i.password.getType());
-		assertEquals(i.TYPE, i.passwordRecovery.getToken().getType());
-		assertEquals(i.TYPE, i.passwordRecovery.getExpires().getType());
+		assertEquals(i.passwordRecovery.getTokenType(), i.passwordRecovery.getToken().getType());
+		assertEquals(i.passwordRecovery.getTokenType(), i.passwordRecovery.getExpires().getType());
 		assertEquals("password", i.password.getName());
-		assertEquals("passwordRecoveryToken", i.passwordRecovery.getToken().getName());
-		assertEquals("passwordRecoveryExpires", i.passwordRecovery.getExpires().getName());
+		assertEquals("token", i.passwordRecovery.getToken().getName());
+		assertEquals("expires", i.passwordRecovery.getExpires().getName());
 		
-		assertEquals(list(i.passwordRecovery.getToken(), i.passwordRecovery.getExpires()), i.passwordRecovery.getSourceFields());
-		assertEquals(i.passwordRecovery, i.passwordRecovery.getToken().getPattern());
-		assertEquals(i.passwordRecovery, i.passwordRecovery.getExpires().getPattern());
+		assertEquals(list(), i.passwordRecovery.getSourceFields());
+		assertEquals(null, i.passwordRecovery.getToken().getPattern());
+		assertEquals(null, i.passwordRecovery.getExpires().getPattern());
 		
 		assertSame(i.password, i.passwordRecovery.getPassword());
 		
@@ -90,33 +92,33 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final int EXPIRY_MILLIS = 60*1000;
 		
 		assertTrue(i.checkPassword("oldpass"));
-		assertEquals(0, i.getPasswordRecoveryToken());
-		assertEquals(null, i.getPasswordRecoveryExpires());
+		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 		
 		final Date before = new Date();
-		final long token = i.issuePasswordRecovery(EXPIRY_MILLIS);
+		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
 		final Date after = new Date();
+		final long tokenValue = token.getToken();
 		assertTrue(i.checkPassword("oldpass"));
-		assertEquals(token, i.getPasswordRecoveryToken());
-		final Date expires = i.getPasswordRecoveryExpires();
+		final Date expires = token.getExpires();
 		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), expires);
+		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 		
-		assertEquals(null, i.redeemPasswordRecovery(token+1));
+		assertEquals(null, i.redeemPasswordRecovery(tokenValue+1));
 		assertTrue(i.checkPassword("oldpass"));
-		assertEquals(token, i.getPasswordRecoveryToken());
-		assertEquals(expires, i.getPasswordRecoveryExpires());
+		assertEquals(tokenValue, token.getToken());
+		assertEquals(expires, token.getExpires());
 		
-		final String newPassword = i.redeemPasswordRecovery(token);
+		final String newPassword = i.redeemPasswordRecovery(tokenValue);
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
-		assertEquals(0, i.getPasswordRecoveryToken());
-		assertEquals(null, i.getPasswordRecoveryExpires());
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 		
-		assertEquals(null, i.redeemPasswordRecovery(token));
+		assertEquals(null, i.redeemPasswordRecovery(tokenValue));
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
-		assertEquals(0, i.getPasswordRecoveryToken());
-		assertEquals(null, i.getPasswordRecoveryExpires());
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 	}
 	
 	public void testExpired() throws Exception
@@ -124,18 +126,20 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		final int EXPIRY_MILLIS = 1;
 		
 		final Date before = new Date();
-		final long token = i.issuePasswordRecovery(EXPIRY_MILLIS);
+		final Token token = i.issuePasswordRecovery(EXPIRY_MILLIS);
 		final Date after = new Date();
+		final long tokenValue = token.getToken();
 		Thread.sleep(EXPIRY_MILLIS + 1);
 		assertTrue(i.checkPassword("oldpass"));
-		assertEquals(token, i.getPasswordRecoveryToken());
-		final Date expires = i.getPasswordRecoveryExpires();
+		final Date expires = token.getExpires();
 		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), expires);
+		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 		
-		assertEquals(null, i.redeemPasswordRecovery(token));
+		assertEquals(null, i.redeemPasswordRecovery(tokenValue));
 		assertTrue(i.checkPassword("oldpass"));
-		assertEquals(token, i.getPasswordRecoveryToken());
-		assertEquals(expires, i.getPasswordRecoveryExpires());
+		assertEquals(tokenValue, token.getToken());
+		assertEquals(expires, token.getExpires());
+		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 		
 		try
 		{
