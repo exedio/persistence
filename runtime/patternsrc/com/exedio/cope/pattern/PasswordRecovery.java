@@ -36,7 +36,7 @@ public final class PasswordRecovery extends Pattern
 	
 	private final Hash password;
 	private final LongField token = new LongField().defaultTo(NOT_A_TOKEN);
-	private final DateField date = new DateField().optional();
+	private final DateField expires = new DateField().optional();
 	private final SecureRandom random = new SecureRandom();
 
 	public PasswordRecovery(final Hash password)
@@ -46,7 +46,7 @@ public final class PasswordRecovery extends Pattern
 			throw new IllegalArgumentException("password must not be null");
 		
 		addSource(token, "Token");
-		addSource(date, "Date");
+		addSource(expires, "Expires");
 	}
 	
 	public Hash getPassword()
@@ -59,9 +59,9 @@ public final class PasswordRecovery extends Pattern
 		return token;
 	}
 	
-	public DateField getDate()
+	public DateField getExpires()
 	{
-		return date;
+		return expires;
 	}
 	
 	@Override
@@ -74,7 +74,7 @@ public final class PasswordRecovery extends Pattern
 			new Wrapper("getToken").
 			setReturn(long.class));
 		result.add(
-			new Wrapper("getDate").
+			new Wrapper("getExpires").
 			setReturn(Date.class));
 		result.add(
 			new Wrapper("issue").
@@ -93,9 +93,9 @@ public final class PasswordRecovery extends Pattern
 		return token.getMandatory(item);
 	}
 	
-	public Date getDate(final Item item)
+	public Date getExpires(final Item item)
 	{
-		return date.get(item);
+		return expires.get(item);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public final class PasswordRecovery extends Pattern
 		
 		item.set(
 			token.map(result),
-			date.map(new Date(System.currentTimeMillis() + expiryMillis)));
+			expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
 		return result;
 	}
 	
@@ -126,14 +126,14 @@ public final class PasswordRecovery extends Pattern
 			throw new IllegalArgumentException("not a valid token: " + NOT_A_TOKEN);
 		
 		if(this.token.getMandatory(item)!=token ||
-			this.date.get(item).before(new Date()))
+			this.expires.get(item).before(new Date()))
 			return null;
 		
 		final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);
 		item.set(
 			this.password.map(newPassword),
 			this.token.map(NOT_A_TOKEN),
-			this.date.map(null));
+			this.expires.map(null));
 		return newPassword;
 	}
 }
