@@ -28,8 +28,6 @@ import com.exedio.cope.Model;
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PasswordRecoveryItem.TYPE);
-	private final int EXPIRY_MILLIS = 60*1000;
-	private final int SMALL_EXPIRY_MILLIS = 1;
 	
 	public PasswordRecoveryTest()
 	{
@@ -89,6 +87,8 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		}
 		
 		// test persistence
+		final int EXPIRY_MILLIS = 60*1000;
+		
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(0, i.getPasswordRecoveryToken());
 		assertEquals(null, i.getPasswordRecoveryExpires());
@@ -121,6 +121,8 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	
 	public void testExpired() throws Exception
 	{
+		final int SMALL_EXPIRY_MILLIS = 1;
+		
 		final Date before = new Date();
 		final long token = i.issuePasswordRecovery(SMALL_EXPIRY_MILLIS);
 		final Date after = new Date();
