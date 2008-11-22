@@ -38,13 +38,13 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class PasswordRecovery extends Pattern
 {
-	private static final long NOT_A_TOKEN = 0l;
+	private static final long NOT_A_SECRET = 0l;
 	
 	private final Hash password;
 	
 	ItemField<?> parent = null;
 	PartOf<?> tokens = null;
-	final LongField token = new LongField().toFinal();
+	final LongField secret = new LongField().toFinal();
 	final DateField expires = new DateField().toFinal();
 	Type<Token> tokenType = null;
 	
@@ -67,7 +67,7 @@ public final class PasswordRecovery extends Pattern
 		final LinkedHashMap<String, com.exedio.cope.Feature> features = new LinkedHashMap<String, com.exedio.cope.Feature>();
 		features.put("parent", parent);
 		features.put("tokens", tokens);
-		features.put("token", token);
+		features.put("secret", secret);
 		features.put("expires", expires);
 		tokenType = newSourceType(Token.class, features, "Token");
 	}
@@ -88,9 +88,9 @@ public final class PasswordRecovery extends Pattern
 		return tokens;
 	}
 	
-	public LongField getToken()
+	public LongField getSecret()
 	{
-		return token;
+		return secret;
 	}
 	
 	public DateField getExpires()
@@ -115,7 +115,7 @@ public final class PasswordRecovery extends Pattern
 			setReturn(Token.class));
 		result.add(
 			new Wrapper("redeem").
-			addParameter(long.class, "token", "a token for password recovery").
+			addParameter(long.class, "secret", "a token secret for password recovery").
 			setReturn(String.class, "a new password, if the token was valid, otherwise null"));
 		
 		return Collections.unmodifiableList(result);
@@ -129,29 +129,29 @@ public final class PasswordRecovery extends Pattern
 		if(expiryMillis<=0)
 			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
 		
-		long result = NOT_A_TOKEN;
-		while(result==NOT_A_TOKEN)
+		long result = NOT_A_SECRET;
+		while(result==NOT_A_SECRET)
 			result = random.nextLong();
 		
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
-			token.map(result),
+			secret.map(result),
 			expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
 	}
 	
 	/**
-	 * @param token a token for password recovery
+	 * @param secret a token for password recovery
 	 * @return a new password, if the token was valid, otherwise null
 	 */
-	public String redeem(final Item item, final long token)
+	public String redeem(final Item item, final long secret)
 	{
-		if(token==NOT_A_TOKEN)
-			throw new IllegalArgumentException("not a valid token: " + NOT_A_TOKEN);
+		if(secret==NOT_A_SECRET)
+			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
 		
 		final List<Token> tokens =
 			tokenType.search(Cope.and(
 				Cope.equalAndCast(this.parent, item),
-				this.token.equal(token),
+				this.secret.equal(secret),
 				this.expires.greaterOrEqual(new Date())));
 		
 		if(!tokens.isEmpty())
@@ -191,9 +191,9 @@ public final class PasswordRecovery extends Pattern
 			return getPattern().parent.get(this);
 		}
 		
-		public long getToken()
+		public long getSecret()
 		{
-			return getPattern().token.get(this);
+			return getPattern().secret.get(this);
 		}
 		
 		public Date getExpires()
