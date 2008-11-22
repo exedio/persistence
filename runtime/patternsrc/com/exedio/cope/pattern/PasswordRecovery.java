@@ -35,24 +35,15 @@ public final class PasswordRecovery extends Pattern
 	private static final long NOT_A_TOKEN = 0l;
 	
 	private final Hash password;
-	private final int expiryMillis;
 	private final LongField token = new LongField().defaultTo(NOT_A_TOKEN);
 	private final DateField date = new DateField().optional();
 	private final SecureRandom random = new SecureRandom();
 
 	public PasswordRecovery(final Hash password)
 	{
-		this(password, 15*60*1000); // 15 minutes
-	}
-	
-	public PasswordRecovery(final Hash password, final int expiryMillis)
-	{
 		this.password = password;
-		this.expiryMillis = expiryMillis;
 		if(password==null)
 			throw new IllegalArgumentException("password must not be null");
-		if(expiryMillis<=0)
-			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
 		
 		addSource(token, "Token");
 		addSource(date, "Date");
@@ -61,16 +52,6 @@ public final class PasswordRecovery extends Pattern
 	public Hash getPassword()
 	{
 		return password;
-	}
-	
-	public int getExpiryMillis()
-	{
-		return expiryMillis;
-	}
-	
-	public int getExpiryMinutes()
-	{
-		return expiryMillis / (60*1000);
 	}
 	
 	public LongField getToken()
@@ -97,6 +78,7 @@ public final class PasswordRecovery extends Pattern
 			setReturn(Date.class));
 		result.add(
 			new Wrapper("issue").
+			addParameter(int.class, "expiryMillis", "the time span, after which this token will not be valid anymore, in milliseconds").
 			setReturn(long.class, "a valid token for password recovery"));
 		result.add(
 			new Wrapper("redeem").
@@ -119,15 +101,18 @@ public final class PasswordRecovery extends Pattern
 	/**
 	 * @return a valid token for password recovery
 	 */
-	public long issue(final Item item)
+	public long issue(final Item item, final int expiryMillis)
 	{
+		if(expiryMillis<=0)
+			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
+		
 		long result = NOT_A_TOKEN;
 		while(result==NOT_A_TOKEN)
 			result = random.nextLong();
 		
 		item.set(
 			token.map(result),
-			date.map(new Date()));
+			date.map(new Date(System.currentTimeMillis() + expiryMillis)));
 		return result;
 	}
 	
@@ -141,7 +126,7 @@ public final class PasswordRecovery extends Pattern
 			throw new IllegalArgumentException("not a valid token: " + NOT_A_TOKEN);
 		
 		if(this.token.getMandatory(item)!=token ||
-			this.date.get(item).before(new Date(System.currentTimeMillis() - expiryMillis)))
+			this.date.get(item).before(new Date()))
 			return null;
 		
 		final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);

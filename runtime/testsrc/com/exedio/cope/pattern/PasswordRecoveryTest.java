@@ -28,6 +28,8 @@ import com.exedio.cope.Model;
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(PasswordRecoveryItem.TYPE);
+	private final int EXPIRY_MILLIS = 60*1000;
+	private final int SMALL_EXPIRY_MILLIS = 1;
 	
 	public PasswordRecoveryTest()
 	{
@@ -75,26 +77,15 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(i.passwordRecovery, i.passwordRecovery.getDate().getPattern());
 		
 		assertSame(i.password, i.passwordRecovery.getPassword());
-		assertEquals(15*60*1000, i.passwordRecovery.getExpiryMillis());
-		assertEquals(15,         i.passwordRecovery.getExpiryMinutes());
 		
 		try
 		{
-			new PasswordRecovery(null, 1);
+			new PasswordRecovery(null);
 			fail();
 		}
 		catch(IllegalArgumentException e)
 		{
 			assertEquals("password must not be null", e.getMessage());
-		}
-		try
-		{
-			new PasswordRecovery(i.password, 0);
-			fail();
-		}
-		catch(IllegalArgumentException e)
-		{
-			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
 		}
 		
 		// test persistence
@@ -103,20 +94,20 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(null, i.getPasswordRecoveryDate());
 		
 		final Date before = new Date();
-		final long token = i.issuePasswordRecovery();
+		final long token = i.issuePasswordRecovery(EXPIRY_MILLIS);
 		final Date after = new Date();
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(token, i.getPasswordRecoveryToken());
-		assertWithin(before, after, i.getPasswordRecoveryDate());
+		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), i.getPasswordRecoveryDate());
 		
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(token, i.getPasswordRecoveryToken());
-		assertWithin(before, after, i.getPasswordRecoveryDate());
+		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), i.getPasswordRecoveryDate());
 		
 		assertEquals(null, i.redeemPasswordRecovery(token+1));
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(token, i.getPasswordRecoveryToken());
-		assertWithin(before, after, i.getPasswordRecoveryDate());
+		assertWithin(new Date(before.getTime() + EXPIRY_MILLIS), new Date(after.getTime() + EXPIRY_MILLIS), i.getPasswordRecoveryDate());
 		
 		final String newPassword = i.redeemPasswordRecovery(token);
 		assertNotNull(newPassword);
@@ -130,6 +121,28 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(0, i.getPasswordRecoveryToken());
 		assertEquals(null, i.getPasswordRecoveryDate());
 		
+		final Date beforeExpired = new Date();
+		final long tokenExpired = i.issuePasswordRecovery(SMALL_EXPIRY_MILLIS);
+		final Date afterExpired = new Date();
+		Thread.sleep(SMALL_EXPIRY_MILLIS + 1);
+		assertTrue(i.checkPassword(newPassword));
+		assertEquals(tokenExpired, i.getPasswordRecoveryToken());
+		assertWithin(new Date(beforeExpired.getTime() + SMALL_EXPIRY_MILLIS), new Date(afterExpired.getTime() + SMALL_EXPIRY_MILLIS), i.getPasswordRecoveryDate());
+		
+		assertEquals(null, i.redeemPasswordRecovery(tokenExpired));
+		assertTrue(i.checkPassword(newPassword));
+		assertEquals(tokenExpired, i.getPasswordRecoveryToken());
+		assertWithin(new Date(beforeExpired.getTime() + SMALL_EXPIRY_MILLIS), new Date(afterExpired.getTime() + SMALL_EXPIRY_MILLIS), i.getPasswordRecoveryDate());
+		
+		try
+		{
+			i.issuePasswordRecovery(0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
+		}
 		try
 		{
 			i.redeemPasswordRecovery(0);
