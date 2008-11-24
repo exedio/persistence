@@ -189,12 +189,13 @@ public final class PasswordRecovery extends Pattern
 				final Query<Token> query = tokenType.newQuery(this.expires.less(now));
 				query.setLimit(0, LIMIT);
 				final List<Token> tokens = query.search();
-				if(tokens.isEmpty())
+				final int tokensSize = tokens.size();
+				if(tokensSize==0)
 					return result;
 				for(final Token token : tokens)
 					token.deleteCopeItem();
-				result += tokens.size();
-				if(tokens.size()<LIMIT)
+				result += tokensSize;
+				if(tokensSize<LIMIT)
 				{
 					model.commit();
 					return result;
