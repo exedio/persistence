@@ -30,7 +30,9 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
+import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
@@ -117,6 +119,10 @@ public final class PasswordRecovery extends Pattern
 			new Wrapper("redeem").
 			addParameter(long.class, "secret", "a token secret for password recovery").
 			setReturn(String.class, "a new password, if the token was valid, otherwise null"));
+		result.add(
+			new Wrapper("purge").
+			setStatic().
+			setReturn(int.class, "the number of tokens purged"));
 		
 		return Collections.unmodifiableList(result);
 	}
@@ -164,6 +170,40 @@ public final class PasswordRecovery extends Pattern
 		}
 		
 		return null;
+	}
+	
+	public int purge(final Class parentClass)
+	{
+		assert parentClass!=null;
+		
+		final Date now = new Date();
+		final Model model = getType().getModel();
+		int result = 0;
+		for(int transaction = 0; transaction<30; transaction++)
+		{
+			try
+			{
+				model.startTransaction("PasswordRecovery#purge " + getID() + " #" + transaction);
+				
+				final Query<Token> query = tokenType.newQuery(this.expires.less(now));
+				query.setLimit(0, 100);
+				final List<Token> tokens = query.search();
+				if(tokens.isEmpty())
+					return result;
+				for(final Token token : tokens)
+					token.deleteCopeItem();
+				result += tokens.size();
+				
+				model.commit();
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
+			}
+		}
+		
+		System.out.println("Aborting PasswordRecovery#purge " + getID() + " after " + result);
+		return result;
 	}
 	
 	public static final class Token extends Item

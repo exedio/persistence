@@ -119,6 +119,13 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
+		
+		model.commit();
+		assertEquals(0, i.purgePasswordRecovery());
+		model.startTransaction("PasswordRecoveryTest");
+		assertTrue(i.checkPassword(newPassword));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 	}
 	
 	public void testExpired() throws Exception
@@ -140,6 +147,13 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
+		
+		model.commit();
+		assertEquals(1, i.purgePasswordRecovery());
+		model.startTransaction("PasswordRecoveryTest");
+		assertTrue(i.checkPassword("oldpass"));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 		
 		try
 		{
