@@ -190,7 +190,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		Thread.sleep(EXPIRY_MILLIS + 1);
 		model.commit();
 		final long t = model.getNextTransactionId();
-		i.purgePasswordRecovery();
+		assertEquals(tokenNumber, i.purgePasswordRecovery());
 		assertEquals(t+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("PasswordRecoveryTest");
 		for(final Token token : tokens)
