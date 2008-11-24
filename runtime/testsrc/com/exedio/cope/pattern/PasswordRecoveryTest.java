@@ -157,9 +157,9 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 		
 		assertPurge(  0, 1);
-		assertPurge(  1, 2);
+		assertPurge(  1, 1);
 		assertPurge(100, 2);
-		assertPurge(101, 3);
+		assertPurge(101, 2);
 		
 		try
 		{

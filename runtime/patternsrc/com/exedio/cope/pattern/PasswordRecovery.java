@@ -176,6 +176,7 @@ public final class PasswordRecovery extends Pattern
 	{
 		assert parentClass!=null;
 		
+		final int LIMIT = 100;
 		final Date now = new Date();
 		final Model model = getType().getModel();
 		int result = 0;
@@ -186,13 +187,18 @@ public final class PasswordRecovery extends Pattern
 				model.startTransaction("PasswordRecovery#purge " + getID() + " #" + transaction);
 				
 				final Query<Token> query = tokenType.newQuery(this.expires.less(now));
-				query.setLimit(0, 100);
+				query.setLimit(0, LIMIT);
 				final List<Token> tokens = query.search();
 				if(tokens.isEmpty())
 					return result;
 				for(final Token token : tokens)
 					token.deleteCopeItem();
 				result += tokens.size();
+				if(tokens.size()<LIMIT)
+				{
+					model.commit();
+					return result;
+				}
 				
 				model.commit();
 			}
