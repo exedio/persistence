@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Price implements Serializable
 {
@@ -62,7 +64,7 @@ public class Price implements Serializable
 		if(value>MAX_VALUE_D)
 			throw new IllegalArgumentException("too big: " + value);
 		
-		return storeOf((int)Math.round(value * FACTOR_D));
+		return storeOf(new BigDecimal(value).movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
 	}
 	
 	int store()

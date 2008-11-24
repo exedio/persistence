@@ -62,11 +62,11 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 302, valueOf( 3.016  ).store()); // because the next digit (6) is 6 or more)
 		assertEquals( 301, valueOf( 3.013  ).store()); // because the next digit (3) is 4 or less)
 		assertEquals( 302, valueOf( 3.015  ).store()); // because the next digit is 5, and the hundredths digit (1) is odd)
-		assertEquals( 305, valueOf( 3.045  ).store()); // because the next digit is 5, and the hundredths digit (4) is even) // TODO 304
+		assertEquals( 304, valueOf( 3.045  ).store()); // because the next digit is 5, and the hundredths digit (4) is even)
 		assertEquals( 305, valueOf( 3.04501).store()); // because the next digit is 5, but it is followed by non-zero digits)
 		assertEquals(-302, valueOf(-3.016  ).store());
 		assertEquals(-301, valueOf(-3.013  ).store());
-		assertEquals(-301, valueOf(-3.015  ).store()); // TODO -302
+		assertEquals(-302, valueOf(-3.015  ).store());
 		assertEquals(-304, valueOf(-3.045  ).store());
 		assertEquals(-305, valueOf(-3.04501).store());
 		
