@@ -58,6 +58,18 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-202, valueOf(-2.02).store());
 		assertEquals( 002, valueOf( 0.02).store());
 		assertEquals(-002, valueOf(-0.02).store());
+		// from wikipedia
+		assertEquals( 302, valueOf( 3.016  ).store()); // because the next digit (6) is 6 or more)
+		assertEquals( 301, valueOf( 3.013  ).store()); // because the next digit (3) is 4 or less)
+		assertEquals( 302, valueOf( 3.015  ).store()); // because the next digit is 5, and the hundredths digit (1) is odd)
+		assertEquals( 305, valueOf( 3.045  ).store()); // because the next digit is 5, and the hundredths digit (4) is even) // TODO 304
+		assertEquals( 305, valueOf( 3.04501).store()); // because the next digit is 5, but it is followed by non-zero digits)
+		assertEquals(-302, valueOf(-3.016  ).store());
+		assertEquals(-301, valueOf(-3.013  ).store());
+		assertEquals(-301, valueOf(-3.015  ).store()); // TODO -302
+		assertEquals(-304, valueOf(-3.045  ).store());
+		assertEquals(-305, valueOf(-3.04501).store());
+		
 		assertEquals(Integer.MAX_VALUE, valueOf(Integer.MAX_VALUE/100d).store());
 		assertEquals(Integer.MIN_VALUE, valueOf(Integer.MIN_VALUE/100d).store());
 		assertSame(ZERO, valueOf( 0.0));
@@ -107,7 +119,6 @@ public final class PriceTest extends CopeAssert
 		{
 			assertEquals("Infinity not allowed", e.getMessage());
 		}
-		// TODO test and implement proper rounding
 		
 		// doubleValue
 		assertEquals( 2.22, storeOf( 222).doubleValue());
