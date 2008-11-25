@@ -22,7 +22,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Price implements Serializable
+public final class Price implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -40,7 +40,7 @@ public class Price implements Serializable
 		this.store = store;
 	}
 	
-	public static final Price storeOf(final int store)
+	public static Price storeOf(final int store)
 	{
 		if(store==0)
 			return ZERO;
@@ -48,12 +48,12 @@ public class Price implements Serializable
 		return new Price(store);
 	}
 	
-	public static final Price storeOf(final Integer store)
+	public static Price storeOf(final Integer store)
 	{
 		return store!=null ? storeOf(store.intValue()) : null;
 	}
 	
-	public static final Price valueOf(final double value)
+	public static Price valueOf(final double value)
 	{
 		if(Double.isNaN(value))
 			throw new IllegalArgumentException("NaN not allowed");
