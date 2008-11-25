@@ -155,11 +155,6 @@ public final class Dispatcher extends Pattern
 		return failureType;
 	}
 	
-	public interface Interrupter
-	{
-		boolean isRequested();
-	}
-	
 	@Override
 	public List<Wrapper> getWrappers()
 	{

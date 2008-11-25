@@ -287,7 +287,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return dispatch(expectedResult, null);
 	}
 	
-	private DateRange dispatch(final int expectedResult, final Dispatcher.Interrupter interrupter)
+	private DateRange dispatch(final int expectedResult, final Interrupter interrupter)
 	{
 		model.commit();
 		final Date before = new Date();
@@ -298,7 +298,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		return new DateRange(before, after);
 	}
 	
-	private static class CountInterrupter implements Dispatcher.Interrupter
+	private static class CountInterrupter implements Interrupter
 	{
 		final int callsWithoutInterrupt;
 		int calls = 0;
