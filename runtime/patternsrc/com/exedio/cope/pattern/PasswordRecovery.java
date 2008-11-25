@@ -122,6 +122,7 @@ public final class PasswordRecovery extends Pattern
 		result.add(
 			new Wrapper("purge").
 			setStatic().
+			addParameter(Interrupter.class, "interrupter").
 			setReturn(int.class, "the number of tokens purged"));
 		
 		return Collections.unmodifiableList(result);
@@ -172,7 +173,7 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 	
-	public int purge(final Class parentClass)
+	public int purge(final Class parentClass, final Interrupter interrupter)
 	{
 		assert parentClass!=null;
 		
@@ -182,6 +183,9 @@ public final class PasswordRecovery extends Pattern
 		int result = 0;
 		for(int transaction = 0; transaction<30; transaction++)
 		{
+			if(interrupter!=null && interrupter.isRequested())
+				return result;
+			
 			try
 			{
 				model.startTransaction("PasswordRecovery#purge " + getID() + " #" + transaction);

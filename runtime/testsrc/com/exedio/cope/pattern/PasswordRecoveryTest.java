@@ -122,7 +122,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(list(), i.passwordRecovery.getTokenType().search());
 		
 		model.commit();
-		assertEquals(0, i.purgePasswordRecovery());
+		assertEquals(0, i.purgePasswordRecovery(null));
 		model.startTransaction("PasswordRecoveryTest");
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
@@ -150,7 +150,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertEquals(list(token), i.passwordRecovery.getTokenType().search());
 		
 		model.commit();
-		assertEquals(1, i.purgePasswordRecovery());
+		assertEquals(1, i.purgePasswordRecovery(null));
 		model.startTransaction("PasswordRecoveryTest");
 		assertTrue(i.checkPassword("oldpass"));
 		assertFalse(token.existsCopeItem());
@@ -189,8 +189,14 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 			tokens.add(i.issuePasswordRecovery(EXPIRY_MILLIS));
 		Thread.sleep(EXPIRY_MILLIS + 1);
 		model.commit();
+		final Interrupter interrupter = new Interrupter(){
+			public boolean isRequested()
+			{
+				return false;
+			}
+		};
 		final long t = model.getNextTransactionId();
-		assertEquals(tokenNumber, i.purgePasswordRecovery());
+		assertEquals(tokenNumber, i.purgePasswordRecovery(interrupter));
 		assertEquals(t+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("PasswordRecoveryTest");
 		for(final Token token : tokens)
