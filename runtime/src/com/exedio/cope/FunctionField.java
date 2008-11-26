@@ -236,6 +236,17 @@ public abstract class FunctionField<E extends Object>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
+	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	{
+		final Column column = getColumn();
+		bf.append(column, join);
+		columnHolder.value = column;
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated // OK: for internal use within COPE only
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		final Row dummyRow = new Row();

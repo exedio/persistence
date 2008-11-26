@@ -189,6 +189,19 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
+	@Deprecated // OK: for internal use within COPE only
+	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	{
+		super.appendSelect(bf, join, columnHolder, typeHolder);
+		final StringColumn typeColumn = getTypeColumn();
+		if(typeColumn!=null)
+			bf.append(',').append(typeColumn);
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
 	@Deprecated // OK: for internal use within COPE only
 	public void appendType(final Statement bf, final Join join)
 	{

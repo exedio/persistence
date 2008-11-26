@@ -1048,6 +1048,26 @@ public final class Type<C extends Item>
 		}
 		
 		@Deprecated // OK: for internal use within COPE only
+		public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+		{
+			final Type selectType = getType();
+			bf.appendPK(selectType, join);
+
+			final IntegerColumn column = selectType.getTable().primaryKey;
+			assert column.primaryKey;
+			columnHolder.value = column;
+			
+			final StringColumn typeColumn = column.getTypeColumn();
+			if(typeColumn!=null)
+			{
+				bf.append(',').
+					append(typeColumn);
+			}
+			else
+				typeHolder.value = selectType.getOnlyPossibleTypeOfInstances();
+		}
+		
+		@Deprecated // OK: for internal use within COPE only
 		public void appendType(final Statement bf, final Join join)
 		{
 			bf.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);

@@ -344,91 +344,23 @@ final class Database
 				bf.append("count(");
 			if(distinct)
 				bf.append("distinct ");
+			
+			final Holder<Column> selectColumn = new Holder<Column>();
+			final Holder<Type  > selectType   = new Holder<Type  >();
 
 			for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 			{
-				final Selectable selectBound = selects[selectIndex];
-				final Column selectColumn;
+				final Selectable select = selects[selectIndex];
+				selectColumn.value = null;
+				selectType  .value = null;
 
 				if(selectIndex>0)
 					bf.append(',');
 				
-				final Selectable select;
-				final Join join;
-				if(selectBound instanceof BindFunction)
-				{
-					final BindFunction sb = (BindFunction)selectBound;
-					select = sb.function;
-					join = sb.join;
-				}
-				else
-				{
-					select = selectBound;
-					join = null;
-				}
-				
-				if(select instanceof Aggregate)
-				{
-					bf.append(select, null);
-					final Function selectSource = ((Aggregate)select).getSource();
-					
-					if(selectSource instanceof FunctionField)
-					{
-						selectColumn = ((FunctionField)selectSource).getColumn();
-					}
-					else if(selectSource instanceof Type.This)
-					{
-						final Type selectType = selectBound.getType();
-						selectColumn = selectType.getTable().primaryKey;
-		
-						assert selectColumn.primaryKey;
-						final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
-						if(selectTypeColumn==null)
-							selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
-					}
-					else
-					{
-						selectColumn = null;
-						final View view = (View)selectSource;
-						bf.append(view, join);
-					}
-				}
-				else if(select instanceof FunctionField)
-				{
-					selectColumn = ((FunctionField)select).getColumn();
-					bf.append(select, join);
-					if(select instanceof ItemField)
-					{
-						final StringColumn typeColumn = ((ItemField)select).getTypeColumn();
-						if(typeColumn!=null)
-							bf.append(',').append(typeColumn);
-					}
-				}
-				else if(select instanceof Type.This)
-				{
-					final Type selectType = selectBound.getType();
-					selectColumn = selectType.getTable().primaryKey;
+				bf.appendSelect(select, null, selectColumn, selectType);
 	
-					bf.appendPK(selectType, join);
-	
-					assert selectColumn.primaryKey;
-					final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
-					if(selectTypeColumn!=null)
-					{
-						bf.append(',').
-							append(selectTypeColumn);
-					}
-					else
-						selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
-				}
-				else
-				{
-					selectColumn = null;
-					final View view = (View)select;
-					bf.append(view, join);
-				}
-	
-				selectColumns[selectIndex] = selectColumn;
+				selectColumns[selectIndex] = selectColumn.value;
+				selectTypes  [selectIndex] = selectType  .value;
 			}
 			
 			if(totalOnly)

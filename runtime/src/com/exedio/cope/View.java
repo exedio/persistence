@@ -126,6 +126,15 @@ public abstract class View<E> extends Feature implements Function<E>
 	{
 		return valueClass;
 	}
+
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated // OK: for internal use within COPE only
+	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	{
+		append(bf, join);
+	}
 	
 	/**
 	 * @deprecated For internal use within COPE only.
