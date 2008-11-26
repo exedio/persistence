@@ -347,7 +347,6 @@ final class Database
 			
 			final Holder<Column> selectColumn = new Holder<Column>();
 			final Holder<Type  > selectType   = new Holder<Type  >();
-
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
