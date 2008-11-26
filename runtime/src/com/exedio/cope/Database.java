@@ -381,13 +381,9 @@ final class Database
 					{
 						selectColumn = selectType.getTable().primaryKey;
 		
-						if(selectColumn.primaryKey)
-						{
-							final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
-							if(selectTypeColumn==null)
-								selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
-						}
-						else
+						assert selectColumn.primaryKey;
+						final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
+						if(selectTypeColumn==null)
 							selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
 					}
 					else
@@ -414,16 +410,12 @@ final class Database
 	
 					bf.appendPK(selectType, join);
 	
-					if(selectColumn.primaryKey)
+					assert selectColumn.primaryKey;
+					final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
+					if(selectTypeColumn!=null)
 					{
-						final StringColumn selectTypeColumn = selectColumn.getTypeColumn();
-						if(selectTypeColumn!=null)
-						{
-							bf.append(',').
-								append(selectTypeColumn);
-						}
-						else
-							selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
+						bf.append(',').
+							append(selectTypeColumn);
 					}
 					else
 						selectTypes[selectIndex] = selectType.getOnlyPossibleTypeOfInstances();
