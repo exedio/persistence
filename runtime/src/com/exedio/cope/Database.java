@@ -379,9 +379,7 @@ final class Database
 					}
 					else if(selectSource instanceof Type.This)
 					{
-						final Table selectTable = selectType.getTable();
-						final Column selectPrimaryKey = selectTable.primaryKey;
-						selectColumn = selectPrimaryKey;
+						selectColumn = selectType.getTable().primaryKey;
 		
 						if(selectColumn.primaryKey)
 						{
@@ -412,9 +410,7 @@ final class Database
 				}
 				else if(select instanceof Type.This)
 				{
-					final Table selectTable = selectType.getTable();
-					final Column selectPrimaryKey = selectTable.primaryKey;
-					selectColumn = selectPrimaryKey;
+					selectColumn = selectType.getTable().primaryKey;
 	
 					bf.appendPK(selectType, join);
 	
