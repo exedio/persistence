@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public abstract class Aggregate<E> implements Selectable<E>
 {
 	/**
@@ -87,6 +90,16 @@ public abstract class Aggregate<E> implements Selectable<E>
 		bf.append(sqlPrefix).
 			appendSelect(source, join, columnHolder, typeHolder).
 			append(')');
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated // OK: for internal use within COPE only
+	public final Object loadSearch(final ResultSet resultSet, final IntHolder columnIndex, final Row dummyRow, final Column selectColumn, final Type selectType)
+	throws SQLException
+	{
+		return source.loadSearch(resultSet, columnIndex, dummyRow, selectColumn, selectType);
 	}
 	
 	@Override

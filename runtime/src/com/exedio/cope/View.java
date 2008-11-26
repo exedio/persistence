@@ -140,6 +140,16 @@ public abstract class View<E> extends Feature implements Function<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
+	public final Object loadSearch(final ResultSet resultSet, final IntHolder columnIndex, final Row dummyRow, final Column selectColumn, final Type selectType)
+	throws SQLException
+	{
+		return load(resultSet, columnIndex.value++);
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated // OK: for internal use within COPE only
 	public final void appendParameter(final Statement bf, final E value)
 	{
 		if(bf.parameters==null)

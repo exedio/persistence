@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public final class ItemField<E extends Item> extends FunctionField<E> implements ItemFunction<E>
 {
 	private final Type<E> initialValueType;
@@ -197,6 +200,21 @@ public final class ItemField<E extends Item> extends FunctionField<E> implements
 		final StringColumn typeColumn = getTypeColumn();
 		if(typeColumn!=null)
 			bf.append(',').append(typeColumn);
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Override
+	@Deprecated // OK: for internal use within COPE only
+	public Object loadSearch(final ResultSet resultSet, final IntHolder columnIndex, final Row dummyRow, final Column selectColumn, final Type selectType)
+	throws SQLException
+	{
+		final Object result = super.loadSearch(resultSet, columnIndex, dummyRow, selectColumn, selectType);
+		final StringColumn typeColumn = getTypeColumn();
+		if(typeColumn!=null)
+			typeColumn.load(resultSet, columnIndex.value++, dummyRow);
+		return result;
 	}
 	
 	/**

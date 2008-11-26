@@ -22,6 +22,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1065,6 +1067,41 @@ public final class Type<C extends Item>
 			}
 			else
 				typeHolder.value = selectType.getOnlyPossibleTypeOfInstances();
+		}
+		
+		/**
+		 * @deprecated For internal use within COPE only.
+		 */
+		@Deprecated // OK: for internal use within COPE only
+		public final Object loadSearch(final ResultSet resultSet, final IntHolder columnIndex, final Row dummyRow, final Column selectColumn, final Type selectType)
+		throws SQLException
+		{
+			final Number pk = (Number)resultSet.getObject(columnIndex.value++);
+			//System.out.println("pk:"+pk);
+			if(pk==null)
+			{
+				// can happen when using right outer joins
+				return null;
+			}
+			else
+			{
+				final Type type = selectType;
+				final Type currentType;
+				if(type==null)
+				{
+					final String typeID = resultSet.getString(columnIndex.value++);
+					currentType = this.type.getModel().getType(typeID);
+					if(currentType==null)
+						throw new RuntimeException("no type with type id "+typeID);
+				}
+				else
+					currentType = type;
+
+				final int pkPrimitive = pk.intValue();
+				if(!PkSource.isValid(pkPrimitive))
+					throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
+				return currentType.getItemObject(pkPrimitive);
+			}
 		}
 		
 		@Deprecated // OK: for internal use within COPE only

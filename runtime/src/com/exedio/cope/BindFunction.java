@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
@@ -77,6 +79,16 @@ public class BindFunction<E> implements Function<E>
 	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
 	{
 		function.appendSelect(bf, this.join, columnHolder, typeHolder);
+	}
+	
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Deprecated // OK: for internal use within COPE only
+	public final Object loadSearch(final ResultSet resultSet, final IntHolder columnIndex, final Row dummyRow, final Column selectColumn, final Type selectType)
+	throws SQLException
+	{
+		return function.loadSearch(resultSet, columnIndex, dummyRow, selectColumn, selectType);
 	}
 	
 	/**

@@ -432,7 +432,6 @@ final class Database
 			dialect.appendLimitClause2(bf, offset, limit);
 		
 		final Type[] types = selectTypes;
-		final Model model = query.model;
 		final ArrayList<Object> result = new ArrayList<Object>();
 
 		if(offset<0)
@@ -474,69 +473,13 @@ final class Database
 				
 				while(resultSet.next() && (--i)>=0)
 				{
-					int columnIndex = 1;
+					final IntHolder columnIndex = new IntHolder(1);
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 					final Row dummyRow = new Row();
 						
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
-						final Selectable select;
-						{
-							Selectable select0 = selects[selectIndex];
-							if(select0 instanceof BindFunction)
-								select0 = ((BindFunction)select0).function;
-							if(select0 instanceof Aggregate)
-								select0 = ((Aggregate)select0).getSource();
-							select = select0;
-						}
-						
-						final Object resultCell;
-						if(select instanceof FunctionField)
-						{
-							selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
-							final FunctionField selectField = (FunctionField)select;
-							if(select instanceof ItemField)
-							{
-								final StringColumn typeColumn = ((ItemField)selectField).getTypeColumn();
-								if(typeColumn!=null)
-									typeColumn.load(resultSet, columnIndex++, dummyRow);
-							}
-							resultCell = selectField.get(dummyRow);
-						}
-						else if(select instanceof View)
-						{
-							final View selectFunction = (View)select;
-							resultCell = selectFunction.load(resultSet, columnIndex++);
-						}
-						else
-						{
-							final Number pk = (Number)resultSet.getObject(columnIndex++);
-							//System.out.println("pk:"+pk);
-							if(pk==null)
-							{
-								// can happen when using right outer joins
-								resultCell = null;
-							}
-							else
-							{
-								final Type type = types[selectIndex];
-								final Type currentType;
-								if(type==null)
-								{
-									final String typeID = resultSet.getString(columnIndex++);
-									currentType = model.getType(typeID);
-									if(currentType==null)
-										throw new RuntimeException("no type with type id "+typeID);
-								}
-								else
-									currentType = type;
-
-								final int pkPrimitive = pk.intValue();
-								if(!PkSource.isValid(pkPrimitive))
-									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
-								resultCell = currentType.getItemObject(pkPrimitive);
-							}
-						}
+						final Object resultCell = loadSearch(selects[selectIndex], resultSet, columnIndex, dummyRow, selectColumns[selectIndex], selectTypes[selectIndex]);
 						if(resultRow!=null)
 							resultRow[selectIndex] = resultCell;
 						else
@@ -551,6 +494,12 @@ final class Database
 		});
 
 		return result;
+	}
+	
+	@SuppressWarnings("deprecation") // OK: Selectable.loadSearch is for internal use within COPE only
+	Object loadSearch(final Selectable select, ResultSet resultSet, IntHolder columnIndex, Row dummyRow, Column selectColumn, Type selectType) throws SQLException
+	{
+		return select.loadSearch(resultSet, columnIndex, dummyRow, selectColumn, selectType);
 	}
 	
 	void load(final Connection connection, final WrittenState state)
