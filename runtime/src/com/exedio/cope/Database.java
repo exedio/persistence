@@ -355,9 +355,7 @@ final class Database
 				
 				selectColumn.value = null;
 				selectType  .value = null;
-
 				bf.appendSelect(selects[selectIndex], null, selectColumn, selectType);
-	
 				selectColumns[selectIndex] = selectColumn.value;
 				selectTypes  [selectIndex] = selectType  .value;
 			}
