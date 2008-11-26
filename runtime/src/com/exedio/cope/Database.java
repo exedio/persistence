@@ -477,11 +477,11 @@ final class Database
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 					final Row dummyRow = new Row();
 						
-					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
+					for(int j = 0; j<selects.length; j++)
 					{
-						final Object resultCell = loadSearch(selects[selectIndex], resultSet, columnIndex, dummyRow, selectColumns[selectIndex], selectTypes[selectIndex]);
+						final Object resultCell = loadSearch(selects[j], resultSet, columnIndex, dummyRow, selectColumns[j], selectTypes[j]);
 						if(resultRow!=null)
-							resultRow[selectIndex] = resultCell;
+							resultRow[j] = resultCell;
 						else
 							result.add(resultCell);
 					}
