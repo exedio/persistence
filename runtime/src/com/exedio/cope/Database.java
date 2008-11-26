@@ -439,14 +439,7 @@ final class Database
 			}
 		}
 		
-		final Type[] types = selectTypes;
 		final ArrayList<Object> result = new ArrayList<Object>();
-
-		if(selects.length!=selectColumns.length)
-			throw new RuntimeException();
-		if(selects.length!=types.length)
-			throw new RuntimeException();
-		
 		//System.out.println(bf.toString());
 
 		executeSQLQuery(connection, bf, queryInfos, false, new ResultSetHandler<Void>()
