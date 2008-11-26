@@ -350,8 +350,6 @@ final class Database
 				final Selectable selectBound = selects[selectIndex];
 				final Column selectColumn;
 				final Type selectType = selectBound.getType();
-				final Table selectTable;
-				final Column selectPrimaryKey;
 
 				if(selectIndex>0)
 					bf.append(',');
@@ -381,8 +379,8 @@ final class Database
 					}
 					else if(selectSource instanceof Type.This)
 					{
-						selectTable = selectType.getTable();
-						selectPrimaryKey = selectTable.primaryKey;
+						final Table selectTable = selectType.getTable();
+						final Column selectPrimaryKey = selectTable.primaryKey;
 						selectColumn = selectPrimaryKey;
 		
 						if(selectColumn.primaryKey)
@@ -414,8 +412,8 @@ final class Database
 				}
 				else if(select instanceof Type.This)
 				{
-					selectTable = selectType.getTable();
-					selectPrimaryKey = selectTable.primaryKey;
+					final Table selectTable = selectType.getTable();
+					final Column selectPrimaryKey = selectTable.primaryKey;
 					selectColumn = selectPrimaryKey;
 	
 					bf.appendPK(selectType, join);
