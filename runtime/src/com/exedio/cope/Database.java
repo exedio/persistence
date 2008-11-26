@@ -347,14 +347,28 @@ final class Database
 
 			for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 			{
-				final Selectable select = selects[selectIndex];
+				final Selectable selectBound = selects[selectIndex];
 				final Column selectColumn;
-				final Type selectType = select.getType();
+				final Type selectType = selectBound.getType();
 				final Table selectTable;
 				final Column selectPrimaryKey;
 
 				if(selectIndex>0)
 					bf.append(',');
+				
+				final Selectable select;
+				final Join join;
+				if(selectBound instanceof BindFunction)
+				{
+					final BindFunction sb = (BindFunction)selectBound;
+					select = sb.function;
+					join = sb.join;
+				}
+				else
+				{
+					select = selectBound;
+					join = null;
+				}
 				
 				if(select instanceof Aggregate)
 				{
@@ -384,13 +398,13 @@ final class Database
 					{
 						selectColumn = null;
 						final View view = (View)selectSource;
-						bf.append(view, (Join)null);
+						bf.append(view, join);
 					}
 				}
 				else if(select instanceof FunctionField)
 				{
 					selectColumn = ((FunctionField)select).getColumn();
-					bf.append(select, (Join)null);
+					bf.append(select, join);
 					if(select instanceof ItemField)
 					{
 						final StringColumn typeColumn = ((ItemField)select).getTypeColumn();
@@ -404,7 +418,7 @@ final class Database
 					selectPrimaryKey = selectTable.primaryKey;
 					selectColumn = selectPrimaryKey;
 	
-					bf.appendPK(selectType, (Join)null);
+					bf.appendPK(selectType, join);
 	
 					if(selectColumn.primaryKey)
 					{
@@ -424,7 +438,7 @@ final class Database
 				{
 					selectColumn = null;
 					final View view = (View)select;
-					bf.append(view, (Join)null);
+					bf.append(view, join);
 				}
 	
 				selectColumns[selectIndex] = selectColumn;
@@ -554,6 +568,8 @@ final class Database
 						final Selectable select;
 						{
 							Selectable select0 = selects[selectIndex];
+							if(select0 instanceof BindFunction)
+								select0 = ((BindFunction)select0).function;
 							if(select0 instanceof Aggregate)
 								select0 = ((Aggregate)select0).getSource();
 							select = select0;

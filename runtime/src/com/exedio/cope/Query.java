@@ -29,7 +29,7 @@ public final class Query<R>
 	final static int UNLIMITED = -66;
 	
 	final Model model;
-	final Selectable[] selects;
+	Selectable[] selects;
 	boolean distinct = false;
 	final Type<?> type;
 	private int joinIndex = 0;
@@ -69,6 +69,21 @@ public final class Query<R>
 		this.selects = selects;
 		this.type = type;
 		this.condition = replaceTrue(condition);
+	}
+	
+	public void setSelects(final Selectable... selects)
+	{
+		check(selects);
+		this.selects = selects;
+	}
+	
+	private static final void check(final Selectable[] selects)
+	{
+		if(selects.length==0)
+			throw new IllegalArgumentException("must not be empty");
+		for(int i = 0; i<selects.length; i++)
+			if(selects[i]==null)
+				throw new NullPointerException("must not be null on position " + i);
 	}
 	
 	public boolean isDistinct()
