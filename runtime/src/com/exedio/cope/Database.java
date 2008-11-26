@@ -350,12 +350,12 @@ final class Database
 
 			for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 			{
-				selectColumn.value = null;
-				selectType  .value = null;
-
 				if(selectIndex>0)
 					bf.append(',');
 				
+				selectColumn.value = null;
+				selectType  .value = null;
+
 				bf.appendSelect(selects[selectIndex], null, selectColumn, selectType);
 	
 				selectColumns[selectIndex] = selectColumn.value;
