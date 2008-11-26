@@ -309,15 +309,6 @@ public final class Query<R>
 	{
 		return o;
 	}
-	
-	/**
-	 * @deprecated Use {@link #total()} instead
-	 */
-	@Deprecated
-	public int countWithoutLimit()
-	{
-		return total();
-	}
 
 	/**
 	 * Counts the items matching this query.
@@ -360,15 +351,6 @@ public final class Query<R>
 				Cope.check(ob, tc, null);
 		
 		return tc;
-	}
-
-	/**
-	 * @deprecated Use {@link #searchAndTotal()} instead
-	 */
-	@Deprecated
-	public Result<R> searchAndCountWithoutLimit()
-	{
-		return searchAndTotal();
 	}
 
 	/**
@@ -415,15 +397,6 @@ public final class Query<R>
 			return data;
 		}
 		
-		/**
-		 * @deprecated Use {@link #getTotal()} instead
-		 */
-		@Deprecated
-		public int getCountWithoutLimit()
-		{
-			return getTotal();
-		}
-		
 		public int getTotal()
 		{
 			return total;
@@ -451,6 +424,17 @@ public final class Query<R>
 		public String toString()
 		{
 			return data.toString() + '(' + total + ')';
+		}
+		
+		// ------------------- deprecated stuff -------------------
+		
+		/**
+		 * @deprecated Use {@link #getTotal()} instead
+		 */
+		@Deprecated
+		public int getCountWithoutLimit()
+		{
+			return getTotal();
 		}
 	}
 	
@@ -513,15 +497,6 @@ public final class Query<R>
 						"but was " + resultList +
 						" for query: " + toString());
 		}
-	}
-	
-	/**
-	 * @deprecated renamed to {@link #searchSingleton()}.
-	 */
-	@Deprecated
-	public R searchUnique()
-	{
-		return searchSingleton();
 	}
 	
 	@Override
@@ -612,5 +587,34 @@ public final class Query<R>
 	private static final Condition replaceTrue(final Condition c)
 	{
 		return c==Condition.TRUE ? null : c;
+	}
+	
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #searchAndTotal()} instead
+	 */
+	@Deprecated
+	public Result<R> searchAndCountWithoutLimit()
+	{
+		return searchAndTotal();
+	}
+	
+	/**
+	 * @deprecated Use {@link #total()} instead
+	 */
+	@Deprecated
+	public int countWithoutLimit()
+	{
+		return total();
+	}
+	
+	/**
+	 * @deprecated renamed to {@link #searchSingleton()}.
+	 */
+	@Deprecated
+	public R searchUnique()
+	{
+		return searchSingleton();
 	}
 }
