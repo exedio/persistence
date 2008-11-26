@@ -316,6 +316,8 @@ final class Database
 		final int limit = query.limit;
 		final boolean limitActive = offset>0 || limit!=Query.UNLIMITED;
 		final boolean distinct = query.distinct;
+		if(offset<0)
+			throw new RuntimeException();
 
 		final ArrayList<Join> queryJoins = query.joins;
 		final Statement bf = createStatement(query);
@@ -440,8 +442,6 @@ final class Database
 		final Type[] types = selectTypes;
 		final ArrayList<Object> result = new ArrayList<Object>();
 
-		if(offset<0)
-			throw new RuntimeException();
 		if(selects.length!=selectColumns.length)
 			throw new RuntimeException();
 		if(selects.length!=types.length)
