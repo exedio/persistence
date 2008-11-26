@@ -426,10 +426,9 @@ final class Database
 			
 			if(limitActive && limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_WHERE)
 				dialect.appendLimitClause(bf, offset, limit);
+			if(limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
+				dialect.appendLimitClause2(bf, offset, limit);
 		}
-
-		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
-			dialect.appendLimitClause2(bf, offset, limit);
 		
 		final Type[] types = selectTypes;
 		final ArrayList<Object> result = new ArrayList<Object>();
