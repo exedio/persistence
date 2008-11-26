@@ -426,10 +426,14 @@ final class Database
 			
 			if(limitActive)
 			{
-				if(limitSupport==Dialect.LimitSupport.CLAUSE_AFTER_WHERE)
-					dialect.appendLimitClause(bf, offset, limit);
-				if(limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
-					dialect.appendLimitClause2(bf, offset, limit);
+				switch(limitSupport)
+				{
+					case CLAUSE_AFTER_WHERE: dialect.appendLimitClause (bf, offset, limit); break;
+					case CLAUSES_AROUND:     dialect.appendLimitClause2(bf, offset, limit); break;
+					case CLAUSE_AFTER_SELECT:
+					case NONE:
+						break;
+				}
 			}
 		}
 		
