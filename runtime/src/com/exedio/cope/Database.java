@@ -349,7 +349,6 @@ final class Database
 			{
 				final Selectable selectBound = selects[selectIndex];
 				final Column selectColumn;
-				final Type selectType = selectBound.getType();
 
 				if(selectIndex>0)
 					bf.append(',');
@@ -379,6 +378,7 @@ final class Database
 					}
 					else if(selectSource instanceof Type.This)
 					{
+						final Type selectType = selectBound.getType();
 						selectColumn = selectType.getTable().primaryKey;
 		
 						assert selectColumn.primaryKey;
@@ -406,6 +406,7 @@ final class Database
 				}
 				else if(select instanceof Type.This)
 				{
+					final Type selectType = selectBound.getType();
 					selectColumn = selectType.getTable().primaryKey;
 	
 					bf.appendPK(selectType, join);
