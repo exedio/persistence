@@ -1085,9 +1085,8 @@ public final class Type<C extends Item>
 			}
 			else
 			{
-				final Type type = selectType;
 				final Type currentType;
-				if(type==null)
+				if(selectType==null)
 				{
 					final String typeID = resultSet.getString(columnIndex.value++);
 					currentType = this.type.getModel().getType(typeID);
@@ -1095,11 +1094,11 @@ public final class Type<C extends Item>
 						throw new RuntimeException("no type with type id "+typeID);
 				}
 				else
-					currentType = type;
+					currentType = selectType;
 
 				final int pkPrimitive = pk.intValue();
 				if(!PkSource.isValid(pkPrimitive))
-					throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
+					throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + selectType.id);
 				return currentType.getItemObject(pkPrimitive);
 			}
 		}
