@@ -348,16 +348,16 @@ final class Database
 			final Holder<Column> selectColumn = new Holder<Column>();
 			final Holder<Type  > selectType   = new Holder<Type  >();
 
-			for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
+			for(int i = 0; i<selects.length; i++)
 			{
-				if(selectIndex>0)
+				if(i>0)
 					bf.append(',');
 				
 				selectColumn.value = null;
 				selectType  .value = null;
-				bf.appendSelect(selects[selectIndex], null, selectColumn, selectType);
-				selectColumns[selectIndex] = selectColumn.value;
-				selectTypes  [selectIndex] = selectType  .value;
+				bf.appendSelect(selects[i], null, selectColumn, selectType);
+				selectColumns[i] = selectColumn.value;
+				selectTypes  [i] = selectType  .value;
 			}
 			
 			if(totalOnly)
