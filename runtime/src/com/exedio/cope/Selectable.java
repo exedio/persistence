@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public interface Selectable<E extends Object>
 {
 	Type<? extends Item> getType();
@@ -44,10 +41,4 @@ public interface Selectable<E extends Object>
 	 */
 	@Deprecated // OK: for internal use within COPE only
 	void appendSelect(Statement bf, Join join, Holder<Column> columnHolder, Holder<Type> typeHolder);
-	
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	Object loadSearch(ResultSet resultSet, IntHolder columnIndex, Row dummyRow, Column selectColumn, Type selectType) throws SQLException;
 }

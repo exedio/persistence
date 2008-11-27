@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -243,17 +241,6 @@ public abstract class FunctionField<E extends Object>
 		final Column column = getColumn();
 		bf.append(column, join);
 		columnHolder.value = column;
-	}
-	
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public Object loadSearch(final ResultSet resultSet, final IntHolder columnIndex, final Row dummyRow, final Column selectColumn, final Type selectType)
-	throws SQLException
-	{
-		selectColumn.load(resultSet, columnIndex.value++, dummyRow);
-		return get(dummyRow);
 	}
 	
 	/**
