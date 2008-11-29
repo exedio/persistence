@@ -54,6 +54,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PasswordRecoveryTest.class);
 		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceFieldTest.class);
+		suite.addTestSuite(ScheduleTest.class);
 		return suite;
 	}
 }
