@@ -832,7 +832,7 @@ public abstract class Editor implements Filter
 						append("','").
 						append(item.getCopeID()).
 						append("','").
-						append(block ? editorContentEncoded.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : editorContentEncoded).		
+						append(block ? editorContentEncoded.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : editorContentEncoded).
 					append("'," + previewAllowed + ");\"").
 			append('>').
 			append(pageContent).
@@ -862,7 +862,7 @@ public abstract class Editor implements Filter
 						append("','").
 						append(item.getCopeID()).
 						append("','").
-						append(XMLEncoder.encode(feature.getURL(item))).		
+						append(XMLEncoder.encode(feature.getURL(item))).
 					append("');\"");
 		
 		return bf.toString();

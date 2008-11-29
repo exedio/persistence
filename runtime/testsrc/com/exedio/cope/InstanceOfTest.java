@@ -235,7 +235,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
 		}
 		assertCacheInfo(
-			new Type[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE}, 
+			new Type[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},
 			new int []{62500, 12500, 12500, 12500});
 	}
 

@@ -95,7 +95,7 @@ public final class History extends Pattern
 	public PartOf getEventEvents()
 	{
 		return eventEvents;
-	}	
+	}
 	
 	public DateField getEventDate()
 	{
@@ -145,7 +145,7 @@ public final class History extends Pattern
 	public PartOf getFeatureFeatures()
 	{
 		return featureFeatures;
-	}	
+	}
 	
 	public StringField getFeatureId()
 	{

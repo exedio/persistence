@@ -134,15 +134,15 @@ public final class PartOf<C extends Item> extends Pattern
 	
 	/**
 	 * Returns all partofs of the <tt>pattern</tt>. Considers a one step recursion
-	 * for {@link History}. 
+	 * for {@link History}.
 	 */
 	public static final List<PartOf> getPartOfs(final Pattern pattern)
 	{
 		final ArrayList<PartOf> result = new ArrayList<PartOf>();
 		for(PartOf partOf : PartOf.getPartOfs(pattern.getType()))
-		{			
+		{
 			if (pattern.getSourceTypes().contains(partOf.getType()) ||
-					( pattern.getType().getPattern()!=null && 
+					( pattern.getType().getPattern()!=null &&
 					  pattern.getType().getPattern().getSourceTypes().contains(partOf.getType()) )
 				)
 			{
@@ -150,6 +150,6 @@ public final class PartOf<C extends Item> extends Pattern
 			}
 		}
 		return result;
-	}	
+	}
 	
 }

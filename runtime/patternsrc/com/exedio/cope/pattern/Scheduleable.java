@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.Date;
 
-public interface Scheduleable 
+public interface Scheduleable
 {
 	public void run(Schedule schedule, Date from, Date until) throws Exception;
 }

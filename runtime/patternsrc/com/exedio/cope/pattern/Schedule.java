@@ -101,7 +101,7 @@ public final class Schedule extends Pattern
 			setStatic());
 				
 		return Collections.unmodifiableList(result);
-	}	
+	}
 	
 	public <P extends Item> int run(final Class<P> parentClass)
 	{

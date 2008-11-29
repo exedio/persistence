@@ -319,7 +319,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 			), model.getConcreteTypes());
 		
 		assertCacheInfo(
-				new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE}, 
+				new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
 				new int []{33333, 33333, 33333});
 		
 		assertNotNull(model.getQueryCacheInfo());

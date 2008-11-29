@@ -128,9 +128,9 @@ public class NameTest extends AbstractRuntimeTest
 			assertEquals("uniqueY",  nameSub.getColumn("uniqueY") .getName());
 			assertEquals("integerY", nameSub.getColumn("integerY").getName());
 			assertEquals("itemY",    nameSub.getColumn("itemY")   .getName());
-			assertUniqueConstraint(nameSub, "NameSubItemX_uniqueY_Unq",  "("+p("uniqueY")+")"); 
+			assertUniqueConstraint(nameSub, "NameSubItemX_uniqueY_Unq",  "("+p("uniqueY")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_itemY_Fk",     "itemY", mysqlLower("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
-			assertUniqueConstraint(nameSub, "NameSubItemX_integerY_Unq", "("+p("integerY")+","+p("itemY")+")"); 
+			assertUniqueConstraint(nameSub, "NameSubItemX_integerY_Unq", "("+p("integerY")+","+p("itemY")+")");
 			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_Ck",   "("+p("uniqueY")+" IS NOT NULL) AND (("+p("uniqueY")+">=-2147483648) AND ("+p("uniqueY")+"<=2147483647))");
 			assertCheckConstraint (nameSub, "NameSubItemX_integerY_Ck",  "("+p("integerY")+" IS NOT NULL) AND (("+p("integerY")+">=-2147483648) AND ("+p("integerY")+"<=2147483647))");
 			assertCheckConstraint (nameSub, "NameSubItemX_itemY_Ck",     "("+p("itemY")+" IS NOT NULL) AND (("+p("itemY")+">=0) AND ("+p("itemY")+"<=2147483647))");

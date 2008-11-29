@@ -71,12 +71,12 @@ final class PostgresqlDialect extends Dialect
 	 * Datatype "varchar" can have at most 10485760 characters is postgresql.
 	 * <p>
 	 * Does never return "char(n)", because even if minChars==maxChars,
-	 * in postgresql datatype "char" has no performance advantage compared to "varchar". 
+	 * in postgresql datatype "char" has no performance advantage compared to "varchar".
 	 */
 	@Override
 	String getStringType(final int maxBytes /* TODO should be maxChars*/)
 	{
-		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')'; 
+		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')';
 	}
 	
 	@Override
