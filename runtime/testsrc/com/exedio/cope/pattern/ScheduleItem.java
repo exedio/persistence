@@ -36,7 +36,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	
 	private static final ArrayList<Log> logs = new ArrayList<Log>();
 	
-	public void run(final Schedule schedule, final Date from, final Date until) throws Exception
+	public void run(final Schedule schedule, final Date from, final Date until)
 	{
 		assertSame(this.report, schedule);
 		logs.add(new Log(this, from, until));

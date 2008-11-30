@@ -136,7 +136,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("java.lang.RuntimeException: schedule test failure", e.getMessage());
+			assertEquals("schedule test failure", e.getMessage());
 		}
 		item.assertLogs(listg(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 		assertRuns(ScheduleTest.<ExpectedRun>listg());
