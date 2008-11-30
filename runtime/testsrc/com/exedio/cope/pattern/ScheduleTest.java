@@ -148,12 +148,43 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				ern(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 	}
 	
+	public void testInterrupter1()
+	{
+		assertEquals(1, run(date("2008/03/11-00:00:00.000"), 1));
+		item.assertLogs(listg(log(date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000"))));
+	}
+	
+	public void testInterrupter0()
+	{
+		assertEquals(0, run(date("2008/03/11-00:00:00.000"), 0));
+		item.assertLogs(ScheduleTest.<Log>listg());
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+	}
+	
 	private final int run(final Date now)
+	{
+		return run(now, null);
+	}
+	
+	private final int run(final Date now, final int interruptRequests)
+	{
+		return run(now, new Interrupter(){
+			int i = interruptRequests;
+			public boolean isRequested()
+			{
+				return (i--)<=0;
+			}
+		});
+	}
+	
+	private final int run(final Date now, final Interrupter interrupter)
 	{
 		try
 		{
 			model.commit();
-			return report.run(ScheduleItem.class, now);
+			return report.run(ScheduleItem.class, interrupter, now);
 		}
 		finally
 		{

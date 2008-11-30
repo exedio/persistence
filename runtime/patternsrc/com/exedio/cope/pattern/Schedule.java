@@ -98,17 +98,18 @@ public final class Schedule extends Pattern
 		result.add(
 			new Wrapper("run").
 			setReturn(int.class).
+			addParameter(Interrupter.class, "interrupter").
 			setStatic());
 				
 		return Collections.unmodifiableList(result);
 	}
 	
-	public <P extends Item> int run(final Class<P> parentClass)
+	public <P extends Item> int run(final Class<P> parentClass, final Interrupter interrupter)
 	{
-		return run(parentClass, new Date());
+		return run(parentClass, interrupter, new Date());
 	}
 	
-	<P extends Item> int run(final Class<P> parentClass, final Date now)
+	<P extends Item> int run(final Class<P> parentClass, final Interrupter interrupter, final Date now)
 	{
 		final Type<P> type = getType().castType(parentClass);
 		final Type.This<P> typeThis = type.getThis();
@@ -143,6 +144,9 @@ public final class Schedule extends Pattern
 		int result = 0;
 		for(final P item : toRun)
 		{
+			if(interrupter!=null && interrupter.isRequested())
+				return result;
+			
 			final String itemID = item.getCopeID();
 			cal.setTime(until);
 			cal.add(GregorianCalendar.DAY_OF_WEEK, -1);
