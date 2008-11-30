@@ -158,10 +158,6 @@ public final class Schedule extends Pattern
 				model.commit();
 				result++;
 			}
-			catch(Exception cause)
-			{
-				throw new RuntimeException(cause); // TODO
-			}
 			finally
 			{
 				model.rollbackIfNotCommitted();
