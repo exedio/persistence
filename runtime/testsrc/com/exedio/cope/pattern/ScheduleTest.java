@@ -210,6 +210,40 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				ern(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
 	}
 	
+	public void testMonthly()
+	{
+		assertEquals(Interval.DAILY, item.getReportInterval());
+		
+		item.setReportInterval(Interval.MONTHLY);
+		assertEquals(Interval.MONTHLY, item.getReportInterval());
+		
+		if(oracle) // TODO
+			return;
+		
+		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
+		item.assertLogs(listg(log(date("2008/02/01-00:00:00.000"), date("2008/03/01-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/02/01-00:00:00.000"), date("2008/03/01-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
+		
+		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
+		item.assertLogs(ScheduleTest.<Log>listg());
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		
+		assertEquals(0, run(date("2008/03/31-23:59:59.999")));
+		item.assertLogs(ScheduleTest.<Log>listg());
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		
+		assertEquals(1, run(date("2008/04/01-00:00:00.000")));
+		item.assertLogs(listg(log(date("2008/03/01-00:00:00.000"), date("2008/04/01-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/01-00:00:00.000"), date("2008/04/01-00:00:00.000"), date("2008/04/01-00:00:00.000"))));
+		
+		assertEquals(1, run(date("2008/06/01-00:00:00.000"))); // TODO should be 2
+		item.assertLogs(listg(log(date("2008/05/01-00:00:00.000"), date("2008/06/01-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/05/01-00:00:00.000"), date("2008/06/01-00:00:00.000"), date("2008/06/01-00:00:00.000"))));
+	}
+	
 	private final int run(final Date now)
 	{
 		return run(now, null);

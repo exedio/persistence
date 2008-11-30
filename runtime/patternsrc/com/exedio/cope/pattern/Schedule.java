@@ -44,7 +44,8 @@ public final class Schedule extends Pattern
 	public enum Interval
 	{
 		DAILY,
-		WEEKLY;
+		WEEKLY,
+		MONTHLY;
 	}
 	
 	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
@@ -174,6 +175,9 @@ public final class Schedule extends Pattern
 		final Date untilDaily = cal.getTime();
 		cal.set(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.MONDAY);
 		final Date untilWeekly = cal.getTime();
+		cal.setTime(untilDaily);
+		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
+		final Date untilMonthly = cal.getTime();
 		
 		
 		final List<P> toRun;
@@ -184,7 +188,8 @@ public final class Schedule extends Pattern
 			q.joinOuterLeft(runType,
 					runParent.as(parentClass).equal(typeThis).and(Cope.or(
 							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
-							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly))
+							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
+							interval.equal(Interval.MONTHLY).and(runUntil.greaterOrEqual(untilMonthly))
 					))
 			);
 			q.setOrderBy(typeThis, true);
@@ -215,6 +220,7 @@ public final class Schedule extends Pattern
 				{
 					case DAILY:  until = untilDaily ; break;
 					case WEEKLY: until = untilWeekly; break;
+					case MONTHLY:until = untilMonthly;break;
 					default: throw new RuntimeException(interval.name());
 				}
 				cal.setTime(until);
@@ -222,6 +228,7 @@ public final class Schedule extends Pattern
 				{
 					case DAILY:  cal.add(GregorianCalendar.DAY_OF_WEEK  , -1); break;
 					case WEEKLY: cal.add(GregorianCalendar.WEEK_OF_MONTH, -1); break;
+					case MONTHLY:cal.add(GregorianCalendar.MONTH,         -1); break;
 					default: throw new RuntimeException(interval.name());
 				}
 				final Date from = cal.getTime();
