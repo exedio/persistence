@@ -71,7 +71,9 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				report.getRunParent(),
 				report.getRunRuns(),
 				report.getRunFrom(),
-				report.getRunUntil()
+				report.getRunUntil(),
+				report.getRunRun(),
+				report.getRunElapsed()
 			), report.getRunType().getFeatures());
 		
 		assertEquals("ScheduleItem.reportRun", report.getRunType().getID());
@@ -89,11 +91,15 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(report.getRunType(), report.getRunRuns()  .getType());
 		assertEquals(report.getRunType(), report.getRunFrom()  .getType());
 		assertEquals(report.getRunType(), report.getRunUntil() .getType());
+		assertEquals(report.getRunType(), report.getRunRun()   .getType());
+		assertEquals(report.getRunType(), report.getRunElapsed().getType());
 		
 		assertEquals("parent", report.getRunParent().getName());
 		assertEquals("runs",   report.getRunRuns()  .getName());
 		assertEquals("from",   report.getRunFrom()  .getName());
 		assertEquals("until",  report.getRunUntil() .getName());
+		assertEquals("run",    report.getRunRun()   .getName());
+		assertEquals("elapsed",report.getRunElapsed().getName());
 		
 		// test persistence
 		assertEquals(Interval.DAILY, item.getReportInterval());
@@ -103,7 +109,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
 		item.assertLogs(listg(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
+				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 		
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
 		item.assertLogs(ScheduleTest.<Log>listg());
@@ -116,7 +122,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(1, run(date("2008/03/15-00:00:00.000")));
 		item.assertLogs(listg(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
+				ern(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 		
 		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
 		item.assertLogs(ScheduleTest.<Log>listg());
@@ -129,7 +135,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(1, run(date("2008/03/17-00:00:00.000"))); // TODO should be 2
 		item.assertLogs(listg(log(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
+				ern(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 
 		item.setFail(true);
 		assertEquals(0, run(date("2008/03/17-00:00:00.000")));
@@ -152,7 +158,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(1, run(date("2008/03/18-00:00:00.000")));
 		item.assertLogs(listg(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
+				ern(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 	}
 	
 	public void testInterrupter1()
@@ -160,7 +166,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(1, run(date("2008/03/11-00:00:00.000"), 1));
 		item.assertLogs(listg(log(date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000"))));
+				ern(date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000"), date("2008/03/11-00:00:00.000"))));
 	}
 	
 	public void testInterrupter0()
@@ -183,7 +189,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
 		item.assertLogs(listg(log(date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"))));
+				ern(date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 		
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
 		item.assertLogs(ScheduleTest.<Log>listg());
@@ -196,12 +202,12 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(1, run(date("2008/03/17-00:00:00.000")));
 		item.assertLogs(listg(log(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
+				ern(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 		
 		assertEquals(1, run(date("2008/03/31-00:00:00.000"))); // TODO should be 2
 		item.assertLogs(listg(log(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
 		assertRuns(listg(
-				ern(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
+				ern(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
 	}
 	
 	private final int run(final Date now)
@@ -289,9 +295,9 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 	}
 	
-	private final ExpectedRun ern(final Date from, final Date until)
+	private final ExpectedRun ern(final Date from, final Date until, final Date run)
 	{
-		return new ExpectedRun(from, until);
+		return new ExpectedRun(from, until, run);
 	}
 	
 	void assertRuns(final List<ExpectedRun> expectedMore)
@@ -308,38 +314,43 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	{
 		final Date from;
 		final Date until;
+		final Date run;
 		
 		ExpectedRun(final Run run)
 		{
-			this(run.getFrom(), run.getUntil());
+			this(run.getFrom(), run.getUntil(), run.getRun());
+			assertTrue(run.getElapsed()>=0);
 		}
 
-		ExpectedRun(final Date from, final Date until)
+		ExpectedRun(final Date from, final Date until, final Date run)
 		{
 			this.from = from;
 			this.until = until;
+			this.run = run;
 			assertNotNull(from);
 			assertNotNull(until);
+			assertNotNull(run);
 			assertTrue(from.before(until));
+			assertTrue(!run.before(until));
 		}
 
 		@Override
 		public boolean equals(final Object other)
 		{
 			final ExpectedRun o = (ExpectedRun)other;
-			return from.equals(o.from) && until.equals(o.until);
+			return from.equals(o.from) && until.equals(o.until) && run.equals(o.run);
 		}
 
 		@Override
 		public int hashCode()
 		{
-			return from.hashCode() ^ until.hashCode();
+			return from.hashCode() ^ until.hashCode() ^ run.hashCode();
 		}
 
 		@Override
 		public String toString()
 		{
-			return df.format(from) + "---" + df.format(until);
+			return df.format(from) + "---" + df.format(until) + "---" + df.format(run);
 		}
 	}
 }

@@ -30,6 +30,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
@@ -52,6 +53,8 @@ public final class Schedule extends Pattern
 	PartOf<?> runRuns = null;
 	final DateField runFrom = new DateField().toFinal();
 	final DateField runUntil = new DateField().toFinal();
+	final DateField runRun = new DateField().toFinal();
+	final LongField runElapsed = new LongField().toFinal();
 	Type<Run> runType = null;
 	
 	public Schedule()
@@ -75,6 +78,8 @@ public final class Schedule extends Pattern
 		features.put("runs",  runRuns);
 		features.put("from",  runFrom);
 		features.put("until", runUntil);
+		features.put("run",   runRun);
+		features.put("elapsed", runElapsed);
 		runType = newSourceType(Run.class, features, "Run");
 	}
 	
@@ -101,6 +106,16 @@ public final class Schedule extends Pattern
 	public DateField getRunUntil()
 	{
 		return runUntil;
+	}
+	
+	public DateField getRunRun()
+	{
+		return runRun;
+	}
+	
+	public LongField getRunElapsed()
+	{
+		return runElapsed;
 	}
 	
 	public Type<Run> getRunType()
@@ -210,11 +225,15 @@ public final class Schedule extends Pattern
 					default: throw new RuntimeException(interval.name());
 				}
 				final Date from = cal.getTime();
+				final long elapsedStart = System.currentTimeMillis();
 				((Scheduleable)item).run(this, from, until);
+				final long elapsed = System.currentTimeMillis() - elapsedStart;
 				runType.newItem(
 					Cope.mapAndCast(this.runParent, item),
 					this.runFrom.map(from),
-					this.runUntil.map(until));
+					this.runUntil.map(until),
+					this.runRun.map(now),
+					this.runElapsed.map(elapsed));
 				model.commit();
 				result++;
 			}
@@ -259,6 +278,16 @@ public final class Schedule extends Pattern
 		public Date getUntil()
 		{
 			return getPattern().runUntil.get(this);
+		}
+		
+		public Date getRun()
+		{
+			return getPattern().runRun.get(this);
+		}
+		
+		public long getElapsed()
+		{
+			return getPattern().runElapsed.getMandatory(this);
 		}
 	}
 }
