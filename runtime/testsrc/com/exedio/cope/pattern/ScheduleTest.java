@@ -30,6 +30,7 @@ import java.util.List;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 
 public final class ScheduleTest extends AbstractRuntimeTest
@@ -61,7 +62,10 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(null, item.TYPE.getPattern());
 		
-		assertEqualsUnmodifiable(list(TYPE.getThis(), report, ScheduleItem.fail), TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(TYPE.getThis(), report, report.getInterval(), ScheduleItem.fail), TYPE.getFeatures());
+		assertEquals(TYPE, report.getInterval().getType());
+		assertEquals("reportInterval", report.getInterval().getName());
+		
 		assertEqualsUnmodifiable(list(
 				report.getRunType().getThis(),
 				report.getRunParent(),
@@ -92,6 +96,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals("until",  report.getRunUntil() .getName());
 		
 		// test persistence
+		assertEquals(Interval.DAILY, item.getReportInterval());
 		
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
 		item.assertLogs(listg(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
@@ -161,6 +166,37 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(0, run(date("2008/03/11-00:00:00.000"), 0));
 		item.assertLogs(ScheduleTest.<Log>listg());
 		assertRuns(ScheduleTest.<ExpectedRun>listg());
+	}
+	
+	public void testWeekly()
+	{
+		assertEquals(Interval.DAILY, item.getReportInterval());
+		
+		item.setReportInterval(Interval.WEEKLY);
+		assertEquals(Interval.WEEKLY, item.getReportInterval());
+		
+		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
+		item.assertLogs(listg(log(date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"))));
+		
+		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
+		item.assertLogs(ScheduleTest.<Log>listg());
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		
+		assertEquals(0, run(date("2008/03/16-23:59:59.999")));
+		item.assertLogs(ScheduleTest.<Log>listg());
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		
+		assertEquals(1, run(date("2008/03/17-00:00:00.000")));
+		item.assertLogs(listg(log(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
+		
+		assertEquals(1, run(date("2008/03/31-00:00:00.000"))); // TODO should be 2
+		item.assertLogs(listg(log(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
 	}
 	
 	private final int run(final Date now)

@@ -27,6 +27,7 @@ import java.util.List;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
@@ -39,11 +40,24 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Schedule extends Pattern
 {
+	public enum Interval
+	{
+		DAILY,
+		WEEKLY;
+	}
+	
+	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
+	
 	ItemField<?> runParent = null;
 	PartOf<?> runRuns = null;
 	final DateField runFrom = new DateField().toFinal();
 	final DateField runUntil = new DateField().toFinal();
 	Type<Run> runType = null;
+	
+	public Schedule()
+	{
+		addSource(interval, "Interval");
+	}
 	
 	@Override
 	public void initialize()
@@ -62,6 +76,11 @@ public final class Schedule extends Pattern
 		features.put("from",  runFrom);
 		features.put("until", runUntil);
 		runType = newSourceType(Run.class, features, "Run");
+	}
+	
+	public EnumField<Interval> getInterval()
+	{
+		return interval;
 	}
 	
 	public ItemField<?> getRunParent()
@@ -96,12 +115,28 @@ public final class Schedule extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(
+			new Wrapper("getInterval").
+			setReturn(Interval.class));
+		result.add(
+			new Wrapper("setInterval").
+			addParameter(Interval.class, "interval"));
+		result.add(
 			new Wrapper("run").
 			setReturn(int.class).
 			addParameter(Interrupter.class, "interrupter").
 			setStatic());
 				
 		return Collections.unmodifiableList(result);
+	}
+	
+	public Interval getInterval(final Item item)
+	{
+		return this.interval.get(item);
+	}
+	
+	public void setInterval(final Item item, final Interval interval)
+	{
+		this.interval.set(item, interval);
 	}
 	
 	public <P extends Item> int run(final Class<P> parentClass, final Interrupter interrupter)
@@ -121,14 +156,22 @@ public final class Schedule extends Pattern
 		cal.set(GregorianCalendar.SECOND, 0);
 		cal.set(GregorianCalendar.MINUTE, 0);
 		cal.set(GregorianCalendar.HOUR_OF_DAY, 0);
-		final Date until = cal.getTime();
+		final Date untilDaily = cal.getTime();
+		cal.set(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.MONDAY);
+		final Date untilWeekly = cal.getTime();
+		
 		
 		final List<P> toRun;
 		try
 		{
 			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(runType.getThis().isNull());
-			q.joinOuterLeft(runType, runParent.as(parentClass).equal(typeThis).and(runUntil.greaterOrEqual(until)));
+			q.joinOuterLeft(runType,
+					runParent.as(parentClass).equal(typeThis).and(Cope.or(
+							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
+							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly))
+					))
+			);
 			q.setOrderBy(typeThis, true);
 			toRun = q.search();
 			model.commit();
@@ -148,12 +191,25 @@ public final class Schedule extends Pattern
 				return result;
 			
 			final String itemID = item.getCopeID();
-			cal.setTime(until);
-			cal.add(GregorianCalendar.DAY_OF_WEEK, -1);
-			final Date from = cal.getTime();
 			try
 			{
 				model.startTransaction(featureID + " schedule " + itemID);
+				final Interval interval = this.interval.get(item);
+				final Date until;
+				switch(interval)
+				{
+					case DAILY:  until = untilDaily ; break;
+					case WEEKLY: until = untilWeekly; break;
+					default: throw new RuntimeException(interval.name());
+				}
+				cal.setTime(until);
+				switch(interval)
+				{
+					case DAILY:  cal.add(GregorianCalendar.DAY_OF_WEEK  , -1); break;
+					case WEEKLY: cal.add(GregorianCalendar.WEEK_OF_MONTH, -1); break;
+					default: throw new RuntimeException(interval.name());
+				}
+				final Date from = cal.getTime();
 				((Scheduleable)item).run(this, from, until);
 				runType.newItem(
 					Cope.mapAndCast(this.runParent, item),
