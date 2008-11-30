@@ -48,15 +48,6 @@ public final class ScheduleItem extends Item implements Scheduleable
 		logs.clear();
 	}
 	
-	void assertRuns(final List<ExpectedRun> expected)
-	{
-		final List<Run> actualList = report.runType.search(null, report.runType.getThis(), true);
-		final ArrayList<ExpectedRun> actual = new ArrayList<ExpectedRun>();
-		for(final Run run : actualList)
-			actual.add(new ExpectedRun(run));
-		assertEquals(expected, actual);
-	}
-	
 	
 	/**
 

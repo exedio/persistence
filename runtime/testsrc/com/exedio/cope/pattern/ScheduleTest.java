@@ -23,7 +23,9 @@ import static com.exedio.cope.pattern.ScheduleItem.report;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
@@ -40,12 +42,14 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	}
 	
 	ScheduleItem item;
+	ArrayList<ExpectedRun> expectedRuns;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new ScheduleItem());
+		expectedRuns = new ArrayList<ExpectedRun>();
 	}
 
 	public void testIt()
@@ -91,42 +95,33 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
 		item.assertLogs(listg(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
-		item.assertRuns(listg(
+		assertRuns(listg(
 				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
 		
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
 		item.assertLogs(ScheduleTest.<Log>listg());
-		item.assertRuns(listg(
-				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
 		
 		assertEquals(0, run(date("2008/03/14-23:59:59.999")));
 		item.assertLogs(ScheduleTest.<Log>listg());
-		item.assertRuns(listg(
-				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
 		
 		assertEquals(1, run(date("2008/03/15-00:00:00.000")));
 		item.assertLogs(listg(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
-		item.assertRuns(listg(
-				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000")),
+		assertRuns(listg(
 				ern(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 		
 		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
 		item.assertLogs(ScheduleTest.<Log>listg());
-		item.assertRuns(listg(
-				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000")),
-				ern(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
 		
 		assertEquals(0, run(date("2008/03/15-23:59:59.999")));
 		item.assertLogs(ScheduleTest.<Log>listg());
-		item.assertRuns(listg(
-				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000")),
-				ern(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
 		
 		assertEquals(1, run(date("2008/03/17-00:00:00.000"))); // TODO should be 2
 		item.assertLogs(listg(log(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
-		item.assertRuns(listg(
-				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000")),
-				ern(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000")),
+		assertRuns(listg(
 				ern(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 	}
 	
@@ -197,6 +192,16 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	private final ExpectedRun ern(final Date from, final Date until)
 	{
 		return new ExpectedRun(from, until);
+	}
+	
+	void assertRuns(final List<ExpectedRun> expectedMore)
+	{
+		expectedRuns.addAll(expectedMore);
+		final List<Run> actualList = report.runType.search(null, report.runType.getThis(), true);
+		final ArrayList<ExpectedRun> actual = new ArrayList<ExpectedRun>();
+		for(final Run run : actualList)
+			actual.add(new ExpectedRun(run));
+		assertEquals(expectedRuns, actual);
 	}
 	
 	static class ExpectedRun
