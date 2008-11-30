@@ -61,7 +61,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(null, item.TYPE.getPattern());
 		
-		assertEqualsUnmodifiable(list(TYPE.getThis(), report), TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(TYPE.getThis(), report, ScheduleItem.fail), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				report.getRunType().getThis(),
 				report.getRunParent(),
@@ -123,14 +123,42 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		item.assertLogs(listg(log(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 		assertRuns(listg(
 				ern(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
+
+		item.setFail(true);
+		assertEquals(0, run(date("2008/03/17-00:00:00.000")));
+		item.assertLogs(ScheduleTest.<Log>listg());
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		
+		try
+		{
+			run(date("2008/03/18-00:00:00.000"));
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("java.lang.RuntimeException: schedule test failure", e.getMessage());
+		}
+		item.assertLogs(listg(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		
+		item.setFail(false);
+		assertEquals(1, run(date("2008/03/18-00:00:00.000")));
+		item.assertLogs(listg(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 	}
 	
 	private final int run(final Date now)
 	{
-		model.commit();
-		final int result = report.run(ScheduleItem.class, now);
-		model.startTransaction("ScheduleTest");
-		return result;
+		try
+		{
+			model.commit();
+			return report.run(ScheduleItem.class, now);
+		}
+		finally
+		{
+			model.startTransaction("ScheduleTest");
+		}
 	}
 	
 	static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
