@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,9 +37,10 @@ public final class ScheduleItem extends Item implements Scheduleable
 	
 	private static final ArrayList<Log> logs = new ArrayList<Log>();
 	
-	public void run(final Schedule schedule, final Date from, final Date until)
+	public void run(final Schedule schedule, final Date from, final Date until, final Interrupter interrupter)
 	{
 		assertSame(this.report, schedule);
+		assertTrue(interrupter!=null);
 		logs.add(new Log(this, from, until));
 		if(getFail())
 			throw new RuntimeException("schedule test failure");

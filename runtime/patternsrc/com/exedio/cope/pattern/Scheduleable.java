@@ -22,5 +22,5 @@ import java.util.Date;
 
 public interface Scheduleable
 {
-	public void run(Schedule schedule, Date from, Date until);
+	public void run(Schedule schedule, Date from, Date until, Interrupter interrupter);
 }

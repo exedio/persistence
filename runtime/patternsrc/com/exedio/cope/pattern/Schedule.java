@@ -226,7 +226,7 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = System.currentTimeMillis();
-				((Scheduleable)item).run(this, from, until);
+				((Scheduleable)item).run(this, from, until, interrupter!=null ? interrupter : DEFAULT_INTERRUPTER);
 				final long elapsed = System.currentTimeMillis() - elapsedStart;
 				runType.newItem(
 					Cope.mapAndCast(this.runParent, item),
@@ -244,6 +244,14 @@ public final class Schedule extends Pattern
 		}
 		return result;
 	}
+	
+	private static final Interrupter DEFAULT_INTERRUPTER = new Interrupter()
+	{
+		public boolean isRequested()
+		{
+			return false;
+		}
+	};
 	
 	public static final class Run extends Item
 	{
