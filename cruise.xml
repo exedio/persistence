@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<project name="cope cruise" default="cruise" basedir=".">
+
+	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
+	
+	<target name="cruise">
+		<delete dir="cruise" />
+		<mkdir dir="cruise" />
+		<echo message="starting subversion update" />
+		<exec dir="${basedir}" executable="svn" failonerror="true"
+				output="cruise/svn-update.log">
+			<arg value="update" />
+		</exec>
+		<echo message="finished subversion update" />
+		<echo message="starting subversion version" />
+		<exec dir="${basedir}" executable="svnversion" failonerror="true"
+				output="cruise/svn-version.log">
+			<arg value="--no-newline" />
+			<arg value="." />
+		</exec>
+		<echo message="finished subversion version" />
+		<LoadFile srcFile="cruise/svn-version.log" property="svn.revision" />
+		<property name="build.tag" value="svn.${svn.revision} ${label} ${cctimestamp}" />
+		<echo message="${build.tag}" file="cruise/build-tag.log" />
+		<echo message="${label}" file="cruise/label" />
+		<copy file="cruise/label" tofile="cruise/label-without-dot">
+			<filterset begintoken="bui" endtoken=".">
+				<filter token="ld" value="build" />
+			</filterset>
+		</copy>
+		<delete file="cruise/label" />
+		<LoadFile srcFile="cruise/label-without-dot" property="build.file.tag" />
+		<delete file="cruise/label-without-dot" />
+		<echo message="${build.file.tag}" file="cruise/build.file.tag" />
+		<ant antfile="build.xml" target="cruise" />
+	</target>
+
+</project>
