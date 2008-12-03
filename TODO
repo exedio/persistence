@@ -18,7 +18,7 @@
 		* redundantly maintain width/height for images
 	- Hash:
 		* support a maximum of failed checks
-		* support blocking for a short time anfter a failed check
+		* support blocking for a short time after a failed check
 	- enable clustering
 		* a persistent modifcation counters
 		* clustered primary key generation
