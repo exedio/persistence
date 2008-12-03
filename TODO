@@ -1,6 +1,6 @@
 * runtime
 	- constraints
-		- range (minimum/maximum) for doubles
+		- range (minimum/maximum) for LongField
 		- precision (number of fractional digits) for doubles
 		- arbitrary check constraints
 	- search API
