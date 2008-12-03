@@ -1056,6 +1056,14 @@
 		<delete dir="cruise" />
 		<mkdir dir="cruise" />
 		<copy todir="${basedir}/cruise">
+			<fileset file="${basedir}/lib/bsh-core.jar" />
+			<fileset file="${basedir}/lib/cojen.jar" />
+			<fileset file="${basedir}/lib/trove.jar" />
+			<fileset file="${basedir}/lib/commons-fileupload.jar" />
+			<fileset file="${basedir}/lib/commons-io.jar" />
+			<fileset dir="${basedir}/lib/jdbc">
+				<include name="*.jar" />
+			</fileset>
 			<fileset file="${basedir}/build/exedio-cope.jar" />
 			<fileset file="${basedir}/build/exedio-cope.jar-src.zip" />
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
