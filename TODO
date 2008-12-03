@@ -61,6 +61,13 @@
 	- disable/different access modifier for all generated methods
 * console
 	- allow changing the database connection parameters
+	- pager for modification listeners and query cache
+	- media stats:
+		* for 404 last 10 requests with pathInfo, referrer
+		* for 500 last 10 requests with pathInfo, referrer, exception
+	- history
+		* add stats about modification listeners
+	- ensure complete consistency of class/-Type columns
 * copernica
 	- query designer
 	- improve presentation of qualified fields / relation / dynamic type system
