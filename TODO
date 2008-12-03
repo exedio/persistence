@@ -1,14 +1,16 @@
 * runtime
 	- constraints
 		- range (minimum/maximum) for LongField
-		- precision (number of fractional digits) for doubles
+		- precision (number of fractional digits) for doubles (see PriceField)
 		- arbitrary check constraints
 	- search API
 		- oracle statistics
 		- group by
+	- application triggered Save Points for partial transaction rollback
 	- EnumField:
 		* allow modification of integers in DB via cope.properties
 		* optionally put strings in DB
+	- EnumSetField and EnumMapField should implement Settable
 	- DataField:
 		* write tests for up/downloading data in copernica
 	- Media:
@@ -16,9 +18,18 @@
 		* optionally maintain filename param in Content-Disposition header
 		* implement MediaAlias
 		* redundantly maintain width/height for images
+	- Editor:
+		* preview management
+		* persistent previews / staging area
+		* resolve conflict for persistent previews
+		* preview for images
 	- Hash:
 		* support a maximum of failed checks
 		* support blocking for a short time after a failed check
+	- interface Deletable, to allow explicitly deleting items
+		otherwise its forbidden.
+	- a pattern Range
+	- a pattern Replicator
 	- enable clustering
 		* a persistent modifcation counters
 		* clustered primary key generation
@@ -40,6 +51,7 @@
 		* make small test models for each lib test
 	- support JMX for information displayed by ConsoleServlet
 * instrument
+	- use annotations instead of javadoc tags (such as @cope.initial)
 	- localized generated comments
 	- instrumentation for modified files only
 	- disable/different access modifier for all generated methods
