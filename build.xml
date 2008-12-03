@@ -208,7 +208,7 @@
 					<classpath>
 						<pathelement location="build/runtime/classes" />
 						<pathelement location="build/dsmf/testclasses" />
-						<pathelement location="lib/@{env.driver}" />
+						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
@@ -244,7 +244,7 @@
 				<ljavac srcdir="runtime/${@{driver.file}.name}src" destdir="build/runtime/classes">
 					<classpath>
 						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/${@{driver.file}.jar}" />
+						<pathelement location="lib/jdbc/${@{driver.file}.jar}" />
 					</classpath>
 				</ljavac>
 			</sequential>
@@ -371,7 +371,7 @@
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
-						<pathelement location="lib/@{env.driver}" />
+						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{env}" />
@@ -397,7 +397,7 @@
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/@{env.driver}" />
+						<pathelement location="lib/jdbc/@{env.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<assertions><enable/></assertions>
@@ -430,7 +430,7 @@
 						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/@{env.driver}" />
+						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/servlet-api.jar" />
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" />
@@ -459,7 +459,7 @@
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
-					<fileset file="lib/@{env.driver}" />
+					<fileset file="lib/jdbc/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
 				
@@ -523,7 +523,7 @@
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/commons-fileupload.jar" />
 			<fileset file="lib/commons-io.jar" />
-			<fileset file="lib/hsqldb.jar" />
+			<fileset file="lib/jdbc/hsqldb.jar" />
 		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
 			<fileset dir="build/console/classes" />
@@ -686,7 +686,7 @@
 				<pathelement location="build/console/testclasses" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/trove.jar" />
-				<pathelement location="lib/hsqldb.jar" />
+				<pathelement location="lib/jdbc/hsqldb.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljunit>
@@ -775,7 +775,7 @@
 					<fileset file="lib/commons-fileupload.jar" />
 					<fileset file="lib/commons-io.jar" />
 					<fileset file="lib/exedio-cops.jar" />
-					<fileset file="lib/@{env.driver}" />
+					<fileset file="lib/jdbc/@{env.driver}" />
 				</copy>
 				
 				<copy tofile="build/copernica/web-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
