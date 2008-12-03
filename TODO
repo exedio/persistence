@@ -19,7 +19,6 @@
 	- Hash:
 		* support a maximum of failed checks
 		* support blocking for a short time anfter a failed check
-		* a pattern for password recovery
 	- enable clustering
 		* a persistent modifcation counters
 		* clustered primary key generation
