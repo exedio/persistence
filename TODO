@@ -18,6 +18,10 @@
 		* optionally maintain filename param in Content-Disposition header
 		* implement MediaAlias
 		* redundantly maintain width/height for images
+		* check contentType against body, available in console
+			needs before
+			- condition DataField.startsWith(byte[])
+			- condition Media.contentTypeEquals(String)
 	- Editor:
 		* preview management
 		* persistent previews / staging area
