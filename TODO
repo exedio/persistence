@@ -7,15 +7,13 @@ TODO for cope
 		- precision (number of fractional digits) for doubles (see PriceField)
 		- arbitrary check constraints
 	- search API
-		- oracle statistics
+		- oracle statistics / mysql execution plan
 		- group by
 	- application triggered Save Points for partial transaction rollback
 	- EnumField:
-		* allow modification of integers in DB via cope.properties
+		* allow modification of integers in DB via annotation
 		* optionally put strings in DB
 	- EnumSetField and EnumMapField should implement Settable
-	- DataField:
-		* write tests for up/downloading data in copernica
 	- Media:
 		* maintain charset in Content-Type for texts
 		* optionally maintain filename param in Content-Disposition header
@@ -37,6 +35,8 @@ TODO for cope
 		otherwise its forbidden.
 	- a pattern Range
 	- a pattern Replicator
+	- Global History / Undo facility for backoffice, that can undo deletes as well.
+	- MySQL: warning, if row could exceed 8000 bytes limit
 	- implement Comparable
 		* Item
 		* Day
@@ -44,6 +44,7 @@ TODO for cope
 	- implement Serializable
 		* items of types without unique java class
 		* Type and Feature (for backoffice and ContentEditor sessions)
+	- Connection Pool: throw exception, if transaction is not closed when putting back to pool
 	- enable clustering
 		* a persistent modifcation counters
 		* clustered primary key generation
