@@ -34,6 +34,13 @@
 		otherwise its forbidden.
 	- a pattern Range
 	- a pattern Replicator
+	- implement Comparable
+		* Item
+		* Day
+		* Price
+	- implement Serializable
+		* items of types without unique java class
+		* Type and Feature (for backoffice and ContentEditor sessions)
 	- enable clustering
 		* a persistent modifcation counters
 		* clustered primary key generation
