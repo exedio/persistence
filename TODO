@@ -49,6 +49,8 @@
 		* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
 	- allow (fulltext) indexes to be declared in java source code,
 		and generate useful finders for index.
+	- migrate to Oracle 11 from Oracle 9
+		* revisit all oracle-specific code in framework and tests
 	- test model:
 		* put classes for patterns into separate package
 		* separate test model for lib tests and testwebapp (webtests)
