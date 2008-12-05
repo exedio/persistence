@@ -38,6 +38,8 @@
 					 optimize="off">
 				<classpath />
 				<compilerarg value="-Xlint" />
+				<compilerarg value="-encoding" />
+				<compilerarg value="ascii" />
 			</javac>
 		</sequential>
 	</macrodef>
