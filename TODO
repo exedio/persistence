@@ -23,6 +23,7 @@ TODO for cope
 			needs before
 			- condition DataField.startsWith(byte[])
 			- condition Media.contentTypeEquals(String)
+		* store text/* gzipped and deliver as such to the browser
 	- Editor:
 		* preview management
 		* persistent previews / staging area
