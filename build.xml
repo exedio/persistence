@@ -1074,6 +1074,7 @@
 			<fileset file="${basedir}/build/exedio-cope-home.tar.bz2" />
 			<fileset file="${basedir}/home/testprotocol.html" />
 		</copy>
+		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope.jar-CHANGELOG" />
 	</target>
 	
 </project>
