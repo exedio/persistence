@@ -428,11 +428,11 @@ public final class Query<R>
 		}
 		
 		@Override
-		public boolean equals(final Object o)
+		public boolean equals(final Object other)
 		{
-			final Result or = (Result)o;
+			final Result o = (Result)other;
 
-			return total==or.total && data.equals(or.data);
+			return total==o.total && data.equals(o.data);
 		}
 		
 		@Override
