@@ -1,3 +1,4 @@
 
 CHANGELOG for cope
 
+* added Query.emptyResult()

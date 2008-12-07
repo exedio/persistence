@@ -407,6 +407,17 @@ public final class Query<R>
 					: query.total();
 		}
 		
+		/**
+		 * Creates an empty Result.
+		 */
+		Result()
+		{
+			this.data = Collections.emptyList();
+			this.total = 0;
+			this.offset = 0;
+			this.limit = UNLIMITED;
+		}
+		
 		public List<R> getData()
 		{
 			return data;
@@ -451,6 +462,11 @@ public final class Query<R>
 		{
 			return getTotal();
 		}
+	}
+	
+	public static <R> Result<R> emptyResult()
+	{
+		return new Result<R>();
 	}
 	
 	/**
