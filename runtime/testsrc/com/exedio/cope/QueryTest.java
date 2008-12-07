@@ -112,5 +112,44 @@ public class QueryTest extends AbstractRuntimeTest
 		assertNotSame(Query.emptyResult(), Query.emptyResult());
 		assertEquals(Query.emptyResult(), Query.emptyResult());
 		assertEquals(Query.emptyResult().hashCode(), Query.emptyResult().hashCode());
+		
+		deleteOnTearDown(new DayItem(d1));
+		deleteOnTearDown(new DayItem(d2));
+		deleteOnTearDown(new DayItem(d3));
+		deleteOnTearDown(new DayItem(d1));
+		deleteOnTearDown(new DayItem(d2));
+		deleteOnTearDown(new DayItem(d3));
+		assertEquals(list(d2, d3, d1, d2), r(1, 4).getData());
+		assertEquals(6, r(1, 4).getTotal());
+		assertEquals(1, r(1, 4).getOffset());
+		assertEquals(4, r(1, 4).getLimit());
+		assertEqualsResult(r(0, 3), r(0, 3));
+		assertEqualsResult(r(1, 3), r(1, 3));
+		assertNotEqualsResult(r(0, 3), r(1, 3));
+		assertNotEqualsResult(r(0, 3), r(1, 4));
+		assertNotEqualsResult(r(0, 3), r(2, 3));
+		assertEqualsResult(r(0, 3), r(3, 3)); // TODO
+	}
+	
+	private static Query.Result<Day> r(final int offset, final int limit)
+	{
+		final Query<Day> q = new Query<Day>(DayItem.day);
+		q.setOrderBy(DayItem.TYPE.getThis(), true);
+		q.setLimit(offset, limit);
+		return q.searchAndTotal();
+	}
+	
+	private static void assertEqualsResult(final Query.Result<Day> expected, final Query.Result<Day> actual)
+	{
+		assertEquals(expected, actual);
+		assertEquals(actual, expected);
+		assertEquals(actual.hashCode(), expected.hashCode());
+	}
+	
+	private static void assertNotEqualsResult(final Query.Result<Day> expected, final Query.Result<Day> actual)
+	{
+		assertFalse(expected.equals(actual));
+		assertFalse(actual.equals(expected));
+		assertFalse(actual.hashCode()==expected.hashCode());
 	}
 }
