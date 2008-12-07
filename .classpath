@@ -23,14 +23,14 @@
 	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>
 	<classpathentry kind="lib" path="lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io.jar"/>
-	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/jdbc/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/jwebunit/httpunit-1.5.4.jar"/>
 	<classpathentry kind="lib" path="lib/jwebunit/js-1.5R4.1.jar"/>
 	<classpathentry kind="lib" path="lib/jwebunit/jwebunit-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/jwebunit/nekohtml-0.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.12-bin.jar"/>
-	<classpathentry kind="lib" path="lib/postgresql-8.1-404.jdbc3.jar"/>
+	<classpathentry kind="lib" path="lib/jdbc/mysql-connector-java-3.1.12-bin.jar"/>
+	<classpathentry kind="lib" path="lib/jdbc/postgresql-8.1-404.jdbc3.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/trove.jar" sourcepath="lib/trove-src.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
