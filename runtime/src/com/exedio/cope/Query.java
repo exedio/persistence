@@ -443,13 +443,13 @@ public final class Query<R>
 		{
 			final Result o = (Result)other;
 
-			return total==o.total && data.equals(o.data);
+			return total==o.total && offset==o.offset && limit==o.limit && data.equals(o.data);
 		}
 		
 		@Override
 		public int hashCode()
 		{
-			return total ^ data.hashCode();
+			return total ^ (offset<<8) ^ (limit<<16) ^ data.hashCode();
 		}
 		
 		@Override

@@ -128,7 +128,7 @@ public class QueryTest extends AbstractRuntimeTest
 		assertNotEqualsResult(r(0, 3), r(1, 3));
 		assertNotEqualsResult(r(0, 3), r(1, 4));
 		assertNotEqualsResult(r(0, 3), r(2, 3));
-		assertEqualsResult(r(0, 3), r(3, 3)); // TODO
+		assertNotEqualsResult(r(0, 3), r(3, 3));
 	}
 	
 	private static Query.Result<Day> r(final int offset, final int limit)
