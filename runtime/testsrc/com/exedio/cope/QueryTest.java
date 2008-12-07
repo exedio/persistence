@@ -111,6 +111,6 @@ public class QueryTest extends AbstractRuntimeTest
 		assertEquals(-1, Query.emptyResult().getLimit());
 		assertNotSame(Query.emptyResult(), Query.emptyResult());
 		assertEquals(Query.emptyResult(), Query.emptyResult());
-		assertFalse(Query.emptyResult().hashCode()==Query.emptyResult().hashCode()); // TODO
+		assertEquals(Query.emptyResult().hashCode(), Query.emptyResult().hashCode());
 	}
 }

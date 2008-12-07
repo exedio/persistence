@@ -447,6 +447,12 @@ public final class Query<R>
 		}
 		
 		@Override
+		public int hashCode()
+		{
+			return total ^ data.hashCode();
+		}
+		
+		@Override
 		public String toString()
 		{
 			return data.toString() + '(' + total + ')';
