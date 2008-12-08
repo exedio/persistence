@@ -5,8 +5,8 @@
 	<target name="properties">
 		<property file="getlib.properties" />
 		
-		<property name="jspm.version"    value="20080804103240" />
-		<property name="cops.version"    value="20080813141523" />
+		<property name="jspm.version"    value="${exedio-jspm}" />
+		<property name="cops.version"    value="${exedio-cops}" />
 		
 		<property name="host" value="cruise1.exedio.com" />
 		<property name="url" value="http://${host}/artifacts/" />

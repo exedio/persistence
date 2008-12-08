@@ -1077,6 +1077,7 @@
 			<fileset file="${basedir}/home/testprotocol.html" />
 		</copy>
 		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope.jar-CHANGELOG" />
+		<copy file="getlib.properties" tofile="${basedir}/cruise/getlib.properties" />
 	</target>
 	
 </project>
