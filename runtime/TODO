@@ -1,80 +1,80 @@
 
 TODO for cope runtime
 
-	- constraints
-		- range (minimum/maximum) for LongField
-		- precision (number of fractional digits) for doubles (see PriceField)
-		- arbitrary check constraints
-	- search API
-		- oracle statistics / mysql execution plan
-		- group by
-	- application triggered Save Points for partial transaction rollback
-	- EnumField:
-		* allow modification of integers in DB via annotation
-		* optionally put strings in DB
-	- EnumSetField and EnumMapField should implement Settable
-	- Media:
-		* maintain charset in Content-Type for texts
-		* optionally maintain filename param in Content-Disposition header
-		* implement MediaAlias
-		* redundantly maintain width/height for images
-		* check contentType against body, available in console
-			needs before
-			- condition DataField.startsWith(byte[])
-			- condition Media.contentTypeEquals(String)
-		* store text/* gzipped and deliver as such to the browser
-	- Editor:
-		* preview management
-		* persistent previews / staging area
-		* resolve conflict for persistent previews
-		* preview for images
-	- Hash:
-		* support a maximum of failed checks
-		* support blocking for a short time after a failed check
-	- interface Deletable, to allow explicitly deleting items
-		otherwise its forbidden.
-	- a pattern Range
-	- a pattern Replicator
-	- Global History / Undo facility for backoffice, that can undo deletes as well.
-	- MySQL: warning, if row could exceed 8000 bytes limit
-	- implement Comparable
-		* Item
-		* Day
-		* Price
-	- implement Serializable
-		* items of types without unique java class
-		* Type and Feature (for backoffice and ContentEditor sessions)
-	- Connection Pool: throw exception, if transaction is not closed when putting back to pool
-	- enable clustering
-		* persistent modification counters
-			- option for disable
-			- omit if all fields are final
-		* clustered primary key generation
-		* remote cache invalidation
-		* information in console
-		* make IntegerField.defaultToNext cluster-aware
-		* make migrations cluster aware
-		* test configuration of tomcat
-	- move DateField#touch into separate pattern Timestamp
-	- FieldListLimited: allow length terminated instead of null terminated as well
-	- patterns such as PriceField as function for select and orderBy
-	- Cache: store values in three arrays int[], double[], String[] instead of a Map,
-		saves lots of objects going through full GC.
-		* implement pooling for various classes, especcially when trove LinkedHashMap is done
-	- QueryCache:
-		* implement similar compact representation as for Cache
-		* special handling for empty/singleton results saving memory
-	- allow declaring indexes / other schema modification in SQL.
-	- trove:
-		* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
-		* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
-	- rethink internal structure of Entity, State, Row
-	- allow (fulltext) indexes to be declared in java source code,
-		and generate useful finders for index.
-	- migrate to Oracle 11 from Oracle 9
-		* revisit all oracle-specific code in framework and tests
-	- test model:
-		* put classes for patterns into separate package
-		* separate test model for lib tests and testwebapp (webtests)
-		* make small test models for each lib test
-	- support JMX for information displayed by ConsoleServlet
+- constraints
+	- range (minimum/maximum) for LongField
+	- precision (number of fractional digits) for doubles (see PriceField)
+	- arbitrary check constraints
+- search API
+	- oracle statistics / mysql execution plan
+	- group by
+- application triggered Save Points for partial transaction rollback
+- EnumField:
+	* allow modification of integers in DB via annotation
+	* optionally put strings in DB
+- EnumSetField and EnumMapField should implement Settable
+- Media:
+	* maintain charset in Content-Type for texts
+	* optionally maintain filename param in Content-Disposition header
+	* implement MediaAlias
+	* redundantly maintain width/height for images
+	* check contentType against body, available in console
+		needs before
+		- condition DataField.startsWith(byte[])
+		- condition Media.contentTypeEquals(String)
+	* store text/* gzipped and deliver as such to the browser
+- Editor:
+	* preview management
+	* persistent previews / staging area
+	* resolve conflict for persistent previews
+	* preview for images
+- Hash:
+	* support a maximum of failed checks
+	* support blocking for a short time after a failed check
+- interface Deletable, to allow explicitly deleting items
+	otherwise its forbidden.
+- a pattern Range
+- a pattern Replicator
+- Global History / Undo facility for backoffice, that can undo deletes as well.
+- MySQL: warning, if row could exceed 8000 bytes limit
+- implement Comparable
+	* Item
+	* Day
+	* Price
+- implement Serializable
+	* items of types without unique java class
+	* Type and Feature (for backoffice and ContentEditor sessions)
+- Connection Pool: throw exception, if transaction is not closed when putting back to pool
+- enable clustering
+	* persistent modification counters
+		- option for disable
+		- omit if all fields are final
+	* clustered primary key generation
+	* remote cache invalidation
+	* information in console
+	* make IntegerField.defaultToNext cluster-aware
+	* make migrations cluster aware
+	* test configuration of tomcat
+- move DateField#touch into separate pattern Timestamp
+- FieldListLimited: allow length terminated instead of null terminated as well
+- patterns such as PriceField as function for select and orderBy
+- Cache: store values in three arrays int[], double[], String[] instead of a Map,
+	saves lots of objects going through full GC.
+	* implement pooling for various classes, especcially when trove LinkedHashMap is done
+- QueryCache:
+	* implement similar compact representation as for Cache
+	* special handling for empty/singleton results saving memory
+- allow declaring indexes / other schema modification in SQL.
+- trove:
+	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
+	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
+- rethink internal structure of Entity, State, Row
+- allow (fulltext) indexes to be declared in java source code,
+	and generate useful finders for index.
+- migrate to Oracle 11 from Oracle 9
+	* revisit all oracle-specific code in framework and tests
+- test model:
+	* put classes for patterns into separate package
+	* separate test model for lib tests and testwebapp (webtests)
+	* make small test models for each lib test
+- support JMX for information displayed by ConsoleServlet
