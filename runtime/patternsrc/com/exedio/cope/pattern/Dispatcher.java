@@ -203,7 +203,7 @@ public final class Dispatcher extends Pattern
 	 */
 	public <P extends Item> int dispatch(final Class<P> parentClass, final Interrupter interrupter)
 	{
-		final Type<P> type = getType().castType(parentClass);
+		final Type<P> type = getType().as(parentClass);
 		final Type.This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String id = getID();

@@ -100,11 +100,11 @@ public final class Type<C extends Item>
 	 */
 	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
-		return forClassUnchecked(javaClass).castType(javaClass);
+		return forClassUnchecked(javaClass).as(javaClass);
 	}
 	
 	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
-	public <X extends Item> Type<X> castType(final Class<X> clazz)
+	public <X extends Item> Type<X> as(final Class<X> clazz)
 	{
 		if(javaClass!=clazz)
 			throw new ClassCastException("expected " + clazz.getName() + ", but was " + javaClass.getName());
@@ -1427,4 +1427,12 @@ public final class Type<C extends Item>
 		return searchSingleton(condition);
 	}
 	
+	/**
+	 * @deprecated Use {@link #as(Class)} instead
+	 */
+	@Deprecated
+	public <X extends Item> Type<X> castType(final Class<X> clazz)
+	{
+		return as(clazz);
+	}
 }

@@ -162,7 +162,7 @@ public final class Schedule extends Pattern
 	
 	<P extends Item> int run(final Class<P> parentClass, final Interrupter interrupter, final Date now)
 	{
-		final Type<P> type = getType().castType(parentClass);
+		final Type<P> type = getType().as(parentClass);
 		final Type.This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();

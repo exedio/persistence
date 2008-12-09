@@ -63,10 +63,10 @@ public class ItemTest extends TestmodelTest
 			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + item3.TYPE.getJavaClass().getName(), e.getMessage());
 		}
 
-		assertSame(item1.TYPE, item1.TYPE.castType(EmptyItem.class));
+		assertSame(item1.TYPE, item1.TYPE.as(EmptyItem.class));
 		try
 		{
-			item1.TYPE.castType(EmptyItem2.class);
+			item1.TYPE.as(EmptyItem2.class);
 			fail();
 		}
 		catch(ClassCastException e)

@@ -328,7 +328,7 @@ public abstract class FunctionField<E extends Object>
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
-		return getType().castType(typeClass).searchSingleton(equal(value));
+		return getType().as(typeClass).searchSingleton(equal(value));
 	}
 
 	// convenience methods for conditions and views ---------------------------------
