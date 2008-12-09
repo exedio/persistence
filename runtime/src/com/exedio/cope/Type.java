@@ -524,7 +524,7 @@ public final class Type<C extends Item>
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		return
-			(uniqueJavaClass && javaClass!=null)
+			uniqueJavaClass
 			? javaClass.getAnnotation(annotationClass)
 			: null;
 	}
