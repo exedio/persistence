@@ -133,6 +133,9 @@ public final class Type<C extends Item>
 	
 	private static final String getID(final Class<?> javaClass)
 	{
+		if(javaClass==null)
+			return null;
+		
 		final CopeID annotation = javaClass.getAnnotation(CopeID.class);
 		return
 			annotation!=null
@@ -142,6 +145,9 @@ public final class Type<C extends Item>
 	
 	private static final LinkedHashMap<String, Feature> getFeatureMap(final Class<?> javaClass)
 	{
+		if(javaClass==null)
+			return null;
+		
 		final LinkedHashMap<String, Feature> result = new LinkedHashMap<String, Feature>();
 		final java.lang.reflect.Field[] fields = javaClass.getDeclaredFields();
 		final int expectedModifier = Modifier.STATIC | Modifier.FINAL;

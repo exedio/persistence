@@ -183,7 +183,9 @@ public class ModelTest extends TestmodelTest
 			fail();
 		}
 		catch(NullPointerException e)
-		{/*OK*/}
+		{
+			assertEquals("javaClass must not be null", e.getMessage());
+		}
 		try
 		{
 			new Type<Item>(Item.class);
