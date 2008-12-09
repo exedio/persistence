@@ -156,13 +156,8 @@ public abstract class Item implements Serializable
 		this(setValues, null);
 	}
 
-	public Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
+	private static final Map<Field, Object> prepareCreate(final SetValue[] setValues, final Type<? extends Item> type)
 	{
-		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
-		this.pk = type.getPkSource().next(type.getModel().getCurrentTransaction().getConnection());
-		assert PkSource.isValid(pk) : pk;
-		//System.out.println("create item "+type+" "+pk);
-		
 		final Map<Field, Object> fieldValues = executeSetValues(setValues, null);
 		Date now = null;
 		for(final Field field : type.getFields())
@@ -202,6 +197,17 @@ public abstract class Item implements Serializable
 		for(final CopyConstraint cc : type.copyConstraints)
 			cc.check(fieldValues);
 
+		return fieldValues;
+	}
+	
+	public Item(final SetValue[] setValues, final Type<? extends Item> typeWithoutJavaClass)
+	{
+		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
+		this.pk = type.getPkSource().next(type.getModel().getCurrentTransaction().getConnection());
+		assert PkSource.isValid(pk) : pk;
+		//System.out.println("create item "+type+" "+pk);
+		
+		final Map<Field, Object> fieldValues = prepareCreate(setValues, type);
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
 		entity.write(toBlobs(fieldValues, null));
