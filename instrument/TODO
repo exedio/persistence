@@ -1,0 +1,7 @@
+
+TODO for cope instrument
+
+	- use annotations instead of javadoc tags (such as @cope.initial)
+	- localized generated comments
+	- instrumentation for modified files only
+	- disable/different access modifier for all generated methods

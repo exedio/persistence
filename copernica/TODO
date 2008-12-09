@@ -1,0 +1,9 @@
+
+TODO for copernica
+
+	- query designer
+	- improve presentation of qualified fields / relation / dynamic type system
+	- restrictions
+	- save medias on "Save", not on upload
+	- use <link rel="prev/next/copyright/home"
+	- show warning on website, if account runs with empty/default/bad password

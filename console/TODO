@@ -1,0 +1,11 @@
+
+TODO for cope console
+
+	- allow changing the database connection parameters
+	- pager for modification listeners and query cache
+	- media stats:
+		* for 404 last 10 requests with pathInfo, referrer
+		* for 500 last 10 requests with pathInfo, referrer, exception
+	- history
+		* add stats about modification listeners
+	- ensure complete consistency of class/-Type columns
