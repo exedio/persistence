@@ -90,7 +90,7 @@ public final class Type<C extends Item>
 	 * This id is negative for abstract types and positive
 	 * (including zero) for non-abstract types.
 	 */
-	int idTransiently = -1;
+	int idTransiently = Integer.MIN_VALUE;
 
 	Table table;
 	
