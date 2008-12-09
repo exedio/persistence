@@ -177,6 +177,10 @@ public final class Type<C extends Item>
 			final Pattern pattern,
 			final LinkedHashMap<String, Feature> featureMap)
 	{
+		if(!Item.class.isAssignableFrom(javaClass))
+			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
+		if(javaClass.equals(Item.class))
+			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
 		{
 			final int l = id.length();
 			for(int i = 0; i<l; i++)
@@ -190,11 +194,6 @@ public final class Type<C extends Item>
 		this.pattern = pattern;
 		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
-		if(!Item.class.isAssignableFrom(javaClass))
-			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
-		if(javaClass.equals(Item.class))
-			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
-
 		// supertype
 		final Class superClass = javaClass.getSuperclass();
 		
