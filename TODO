@@ -47,16 +47,25 @@ TODO for cope
 		* Type and Feature (for backoffice and ContentEditor sessions)
 	- Connection Pool: throw exception, if transaction is not closed when putting back to pool
 	- enable clustering
-		* a persistent modifcation counters
+		* persistent modification counters
+			- option for disable
+			- omit if all fields are final
 		* clustered primary key generation
 		* remote cache invalidation
 		* information in console
 		* make IntegerField.defaultToNext cluster-aware
+		* make migrations cluster aware
+		* test configuration of tomcat
 	- move DateField#touch into separate pattern Timestamp
 	- FieldListLimited: allow length terminated instead of null terminated as well
+	- patterns such as PriceField as function for select and orderBy
 	- Cache: store values in three arrays int[], double[], String[] instead of a Map,
 		saves lots of objects going through full GC.
 		* implement pooling for various classes, especcially when trove LinkedHashMap is done
+	- QueryCache:
+		* implement similar compact representation as for Cache
+		* special handling for empty/singleton results saving memory
+	- allow declaring indexes / other schema modification in SQL.
 	- trove:
 		* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
 		* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
