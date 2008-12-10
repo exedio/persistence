@@ -31,7 +31,7 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 	PkSourceSequenceImpl(final Type type, final Database database)
 	{
 		this.type = type;
-		this.name = /*database.makeName(*/type.id + "_PkSeq"/*)*/; // TODO
+		this.name = database.makeName(type.schemaId + "_PkSeq");
 	}
 
 	public void makeSchema(final Schema schema)
