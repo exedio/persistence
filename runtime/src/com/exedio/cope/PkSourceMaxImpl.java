@@ -52,7 +52,6 @@ final class PkSourceMaxImpl implements PkSourceImpl
 				final Integer maxPK = table.database.maxPK(connection, table);
 				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
-			
 			return next++;
 		}
 	}
