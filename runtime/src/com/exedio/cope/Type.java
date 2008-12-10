@@ -66,7 +66,7 @@ public final class Type<C extends Item>
 
 	private final Constructor<C> creationConstructor;
 	private final Constructor<C> reactivationConstructor;
-	private final PkSource pkSource;
+	final PkSource pkSource;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
 
@@ -293,7 +293,7 @@ public final class Type<C extends Item>
 
 		this.pkSource =
 			supertype!=null
-			? supertype.getPkSource()
+			? supertype.pkSource
 			: new PkSource(this);
 		
 		// register type at the end of the constructor, so the
@@ -568,8 +568,6 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		if(this.table==null)
 			throw new RuntimeException();
-		if(this.pkSource==null)
-			throw new RuntimeException();
 
 		table = null;
 		pkSource.flush();
@@ -667,7 +665,7 @@ public final class Type<C extends Item>
 	
 	public Integer getPrimaryKeyInfo()
 	{
-		return getPkSource().getInfo();
+		return pkSource.getInfo();
 	}
 	
 	/**
@@ -966,17 +964,9 @@ public final class Type<C extends Item>
 		return id;
 	}
 	
-	PkSource getPkSource()
-	{
-		if(pkSource==null)
-			throw new RuntimeException("no primary key source in " + id + "; maybe you have to initialize the model first");
-		
-		return pkSource;
-	}
-	
 	void onDropTable()
 	{
-		getPkSource().flush();
+		pkSource.flush();
 	}
 
 	

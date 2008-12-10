@@ -204,7 +204,7 @@ public abstract class Item implements Serializable
 	{
 		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
 		final Map<Field, Object> fieldValues = prepareCreate(setValues, type);
-		this.pk = type.getPkSource().next(type.getModel().getCurrentTransaction().getConnection());
+		this.pk = type.pkSource.next(type.getModel().getCurrentTransaction().getConnection());
 		assert PkSource.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
 		
