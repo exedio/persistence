@@ -24,16 +24,19 @@ public final class PrimaryKeyInfo
 {
 	private final Type type;
 	private final boolean known;
+	private final int count;
 	private final int first;
 	private final int last;
 	
 	public PrimaryKeyInfo(
 			final Type type,
+			final int count,
 			final int first,
 			final int last)
 	{
 		this.type = type;
 		this.known = true;
+		this.count = count;
 		this.first = first;
 		this.last = last;
 	}
@@ -42,6 +45,7 @@ public final class PrimaryKeyInfo
 	{
 		this.type = type;
 		this.known = false;
+		this.count = 0;
 		this.first = 0;
 		this.last = 0;
 	}
@@ -49,6 +53,11 @@ public final class PrimaryKeyInfo
 	public Type getType()
 	{
 		return type;
+	}
+	
+	public int getCount()
+	{
+		return count;
 	}
 	
 	public boolean isKnown()

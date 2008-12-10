@@ -31,6 +31,7 @@ final class PkSource
 
 	private final Type type;
 	private PkSourceImpl impl;
+	private volatile int count = 0;
 	private volatile int first = PkSource.NaPK;
 	private volatile int last = PkSource.NaPK;
 	
@@ -65,6 +66,7 @@ final class PkSource
 	void flush()
 	{
 		impl().flush();
+		count = 0;
 		first = PkSource.NaPK;
 		last = PkSource.NaPK;
 	}
@@ -75,6 +77,7 @@ final class PkSource
 		
 		if(!isValid(result))
 			throw new RuntimeException("primary key overflow to " + result + " in type " + type.id);
+		count++;
 		if(first==NaPK)
 			first = result;
 		last = result;
@@ -89,11 +92,12 @@ final class PkSource
 
 	PrimaryKeyInfo getInfo()
 	{
+		final int count = this.count;
 		final int first = this.first;
 		final int last = this.last;
 		return
-			first!=PkSource.NaPK && last!=PkSource.NaPK
-			? new PrimaryKeyInfo(type, first, last)
+			count!=0 && first!=PkSource.NaPK && last!=PkSource.NaPK
+			? new PrimaryKeyInfo(type, count, first, last)
 			: new PrimaryKeyInfo(type);
 	}
 
