@@ -22,7 +22,6 @@ package com.exedio.cope.console;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import com.exedio.cope.Type;
 import com.exedio.cope.util.PrimaryKeyInfo;
 
 final class PrimaryKeys_Jspm
