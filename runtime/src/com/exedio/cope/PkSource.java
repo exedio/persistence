@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
+import com.exedio.dsmf.Schema;
+
 final class PkSource
 {
 	static final int MIN_VALUE = 0;
@@ -80,5 +82,10 @@ final class PkSource
 	Integer getInfo()
 	{
 		return impl().getInfo();
+	}
+
+	void makeSchema(final Schema schema)
+	{
+		impl().makeSchema(schema);
 	}
 }

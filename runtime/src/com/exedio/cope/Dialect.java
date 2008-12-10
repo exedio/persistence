@@ -221,4 +221,12 @@ abstract class Dialect
 	{
 		// empty default implementation
 	}
+	
+	protected Integer nextSequence(
+			@SuppressWarnings("unused") final Database database,
+			@SuppressWarnings("unused") final Connection connection,
+			@SuppressWarnings("unused") final String name)
+	{
+		throw new RuntimeException("not implemented");
+	}
 }

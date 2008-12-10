@@ -20,13 +20,18 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
+
 final class PkSourceSequenceImpl implements PkSourceImpl
 {
 	private final Type type;
+	private final String name;
 	
 	PkSourceSequenceImpl(final Type type)
 	{
 		this.type = type;
+		this.name = type.id + "_PkSeq";
 	}
 
 	private int last = PkSource.NaPK;
@@ -38,11 +43,18 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 
 	public int next(final Connection connection)
 	{
-		throw new RuntimeException("not yet implemented"); // TODO
+		final int result = type.table.database.dialect.nextSequence(type.table.database, connection, name);
+		last = result + 1;
+		return result;
 	}
 
 	public Integer getInfo()
 	{
 		return last!=PkSource.NaPK ? last : null;
+	}
+
+	public void makeSchema(final Schema schema)
+	{
+		new Sequence(schema, name);
 	}
 }

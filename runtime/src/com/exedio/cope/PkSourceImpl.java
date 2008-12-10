@@ -20,9 +20,12 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
+import com.exedio.dsmf.Schema;
+
 interface PkSourceImpl
 {
 	void flush();
 	int next(Connection connection);
 	Integer getInfo();
+	void makeSchema(Schema schema);
 }

@@ -551,7 +551,10 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 		
 		if(supertype==null)
+		{
 			pkSource.connect(database.cluster);
+			database.addPkSource(pkSource);
+		}
 		final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
 		final String tableID = annotation!=null ? annotation.value(): id;
 		this.table = new Table(database, tableID, supertype, typesOfInstancesColumnValues);

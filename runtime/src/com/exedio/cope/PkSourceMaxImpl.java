@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
+import com.exedio.dsmf.Schema;
+
 final class PkSourceMaxImpl implements PkSourceImpl
 {
 	private final Type type;
@@ -58,5 +60,10 @@ final class PkSourceMaxImpl implements PkSourceImpl
 	public Integer getInfo()
 	{
 		return next!=PkSource.NaPK ? next : null;
+	}
+
+	public void makeSchema(final Schema schema)
+	{
+		// empty
 	}
 }

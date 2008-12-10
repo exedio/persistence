@@ -18,8 +18,13 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.hsqldb.jdbcDriver;
 
+import com.exedio.cope.Database.ResultSetHandler;
 import com.exedio.dsmf.HsqldbDriver;
 
 final class HsqldbDialect extends Dialect
@@ -124,5 +129,59 @@ final class HsqldbDialect extends Dialect
 	boolean fakesSupportReadCommitted()
 	{
 		return true;
+	}
+	
+	@Override
+	protected Integer nextSequence(
+			final Database database,
+			final Connection connection,
+			final String name)
+	{
+		final String TEMP_TABLE = driver.protectName("hsqldb_temp_table_for_sequences");
+		{
+			final Statement bf = database.createStatement();
+			bf.append("CREATE TEMPORARY TABLE ").
+				append(TEMP_TABLE).
+				append(" (x integer)");
+			database.executeSQLUpdate(connection, bf, false);
+		}
+		{
+			final Statement bf = database.createStatement();
+			bf.append("INSERT INTO ").
+				append(TEMP_TABLE).
+				append(" VALUES (0)");
+			database.executeSQLUpdate(connection, bf, true);
+		}
+		final Integer result;
+		{
+			final Statement bf = database.createStatement();
+			bf.append("SELECT NEXT VALUE FOR ").
+				append(driver.protectName(name)).
+				append(" FROM ").
+				append(TEMP_TABLE);
+				
+			result = database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+			{
+				public Integer handle(final ResultSet resultSet) throws SQLException
+				{
+					if(!resultSet.next())
+						throw new RuntimeException("empty in sequence " + name);
+					final Object o = resultSet.getObject(1);
+					if(o==null)
+						throw new RuntimeException("null in sequence " + name);
+					final int result = ((Integer)o).intValue();
+					if(!PkSource.isValid(result))
+						throw new RuntimeException("invalid primary key " + result + " in sequence " + name);
+					return result;
+				}
+			});
+		}
+		{
+			final Statement bf = database.createStatement();
+			bf.append("DROP TABLE ").
+				append(TEMP_TABLE);
+			database.executeSQLUpdate(connection, bf, false);
+		}
+		return result;
 	}
 }

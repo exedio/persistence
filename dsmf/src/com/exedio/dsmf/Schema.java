@@ -29,6 +29,8 @@ public final class Schema extends Node
 {
 	private final HashMap<String, Table> tableMap = new HashMap<String, Table>();
 	private final ArrayList<Table> tableList = new ArrayList<Table>();
+	private final HashMap<String, Sequence> sequenceMap = new HashMap<String, Sequence>();
+	private final ArrayList<Sequence> sequenceList = new ArrayList<Sequence>();
 	private boolean verified = false;
 	
 	public Schema(final Driver driver, final ConnectionProvider connectionProvider)
@@ -62,6 +64,34 @@ public final class Schema extends Node
 	public List<Table> getTables()
 	{
 		return tableList;
+	}
+	
+	final void register(final Sequence sequence)
+	{
+		if(sequenceMap.put(sequence.name, sequence)!=null)
+			throw new RuntimeException("duplicate sequence name in schema: " + sequence.name);
+		sequenceList.add(sequence);
+	}
+	
+	final Sequence notifyExistentSequence(final String sequenceName)
+	{
+		Sequence result = sequenceMap.get(sequenceName);
+		if(result==null)
+			result = new Sequence(this, sequenceName, false);
+		else
+			result.notifyExists();
+
+		return result;
+	}
+	
+	public Sequence getSequence(final String name)
+	{
+		return sequenceMap.get(name);
+	}
+	
+	public List<Sequence> getSequences()
+	{
+		return sequenceList;
 	}
 	
 	public void verify()
@@ -100,6 +130,9 @@ public final class Schema extends Node
 	public final void create(final StatementListener listener)
 	{
 		//final long time = System.currentTimeMillis();
+		for(final Sequence s : sequenceList)
+			s.create(listener);
+	
 		for(final Table t : tableList)
 			t.create(listener);
 	
@@ -124,6 +157,8 @@ public final class Schema extends Node
 			i.previous().dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 		for(ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
 			i.previous().drop(listener);
+		for(ListIterator<Sequence> i = sequenceList.listIterator(sequenceList.size()); i.hasPrevious(); )
+			i.previous().drop(listener);
 		//final long amount = (System.currentTimeMillis()-time);
 		//dropTableTime += amount;
 		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
@@ -136,6 +171,18 @@ public final class Schema extends Node
 	
 	public final void tearDown(final StatementListener listener)
 	{
+		for(final Sequence sequence : sequenceList)
+		{
+			try
+			{
+				sequence.drop(listener);
+			}
+			catch(SQLRuntimeException e2)
+			{
+				// ignored in teardown
+				//System.err.println("failed:"+e2.getMessage());
+			}
+		}
 		// IMPLEMENTATION NOTE
 		//
 		// On MySQL its much faster to drop whole tables instead of

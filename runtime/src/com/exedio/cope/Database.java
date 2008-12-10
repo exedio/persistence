@@ -47,6 +47,7 @@ final class Database
 	
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
+	private final ArrayList<PkSource> pkSources = new ArrayList<PkSource>();
 	private boolean buildStage = true;
 	final Driver driver;
 	final DialectParameters dialectParameters;
@@ -121,6 +122,13 @@ final class Database
 		final Object collision = uniqueConstraintsByID.put(constraintID, constraint);
 		if(collision!=null)
 			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
+	}
+	
+	void addPkSource(final PkSource pkSource)
+	{
+		if(!buildStage)
+			throw new RuntimeException();
+		pkSources.add(pkSource);
 	}
 	
 	final String intern(final String s)
@@ -1013,7 +1021,7 @@ final class Database
 		}
 	}
 	
-	private int executeSQLUpdate(
+	int executeSQLUpdate(
 			final Connection connection,
 			final Statement statement, final boolean checkRows)
 		throws UniqueViolationException
@@ -1333,6 +1341,8 @@ final class Database
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
 		}
+		for(final PkSource p : pkSources)
+			p.makeSchema(result);
 		
 		dialect.completeSchema(result);
 		return result;
