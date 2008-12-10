@@ -57,11 +57,6 @@ final class PkSourceMaxImpl implements PkSourceImpl
 		}
 	}
 
-	public Integer getInfo()
-	{
-		return next!=PkSource.NaPK ? next : null;
-	}
-
 	public void makeSchema(final Schema schema)
 	{
 		// empty

@@ -26,6 +26,5 @@ interface PkSourceImpl
 {
 	void flush();
 	int next(Connection connection);
-	Integer getInfo(); // TODO remove, make info in PkSource
 	void makeSchema(Schema schema);
 }

@@ -30,6 +30,7 @@ final class PkSource
 
 	private final Type type;
 	private PkSourceImpl impl;
+	private volatile int last = PkSource.NaPK;
 	
 	PkSource(final Type type)
 	{
@@ -62,6 +63,7 @@ final class PkSource
 	void flush()
 	{
 		impl().flush();
+		last = PkSource.NaPK;
 	}
 
 	int next(final Connection connection)
@@ -70,6 +72,7 @@ final class PkSource
 		
 		if(!isValid(result))
 			throw new RuntimeException("primary key overflow to " + result + " in type " + type.id);
+		last = result;
 		
 		return result;
 	}
@@ -81,7 +84,8 @@ final class PkSource
 
 	Integer getInfo()
 	{
-		return impl().getInfo();
+		final int last = this.last;
+		return last!=PkSource.NaPK ? last : null;
 	}
 
 	void makeSchema(final Schema schema)

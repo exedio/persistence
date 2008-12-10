@@ -46,7 +46,7 @@ public class ItemTest extends TestmodelTest
 		final EmptyItem item2 = new EmptyItem();
 		assertEquals("EmptyItem.1", item2.getCopeID());
 		final EmptyItem2 item3 = new EmptyItem2();
-		assertEquals(2, EmptyItem.TYPE.getPrimaryKeyInfo().intValue());
+		assertEquals(1, EmptyItem.TYPE.getPrimaryKeyInfo().intValue());
 
 		assertEquals(EmptyItem.TYPE, item1.getCopeType());
 		assertEquals(EmptyItem.TYPE, item2.getCopeType());

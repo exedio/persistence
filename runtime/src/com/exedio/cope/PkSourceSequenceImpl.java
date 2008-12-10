@@ -34,23 +34,15 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 		this.name = type.id + "_PkSeq";
 	}
 
-	private int last = PkSource.NaPK;
-	
 	public void flush()
 	{
-		last = PkSource.NaPK;
+		// empty
 	}
 
 	public int next(final Connection connection)
 	{
 		final int result = type.table.database.dialect.nextSequence(type.table.database, connection, name);
-		last = result + 1;
 		return result;
-	}
-
-	public Integer getInfo()
-	{
-		return last!=PkSource.NaPK ? last : null;
 	}
 
 	public void makeSchema(final Schema schema)
