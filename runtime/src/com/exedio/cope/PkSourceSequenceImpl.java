@@ -25,12 +25,12 @@ import com.exedio.dsmf.Sequence;
 
 final class PkSourceSequenceImpl implements PkSourceImpl
 {
-	private final Type type;
+	private final Database database;
 	private final String name;
 	
 	PkSourceSequenceImpl(final Type type, final Database database)
 	{
-		this.type = type;
+		this.database = database;
 		this.name = database.makeName(type.schemaId + "_PkSeq");
 	}
 
@@ -41,7 +41,7 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 
 	public int next(final Connection connection)
 	{
-		return type.table.database.dialect.nextSequence(type.table.database, connection, name);
+		return database.dialect.nextSequence(database, connection, name);
 	}
 
 	public void flush()
