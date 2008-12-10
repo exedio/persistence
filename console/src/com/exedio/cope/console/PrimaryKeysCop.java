@@ -18,16 +18,14 @@
 
 package com.exedio.cope.console;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.PrimaryKeyInfo;
 
-final class PrimaryKeysCop extends ConsoleCop
+final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 {
 	PrimaryKeysCop(final Args args)
 	{
@@ -41,12 +39,7 @@ final class PrimaryKeysCop extends ConsoleCop
 	}
 	
 	@Override
-	final void writeBody(
-			final PrintStream out,
-			final Model model,
-			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+	List<PrimaryKeyInfo> getItems(final Model model)
 	{
 		final ArrayList<PrimaryKeyInfo> primaryKeys = new ArrayList<PrimaryKeyInfo>();
 		for(final Type t : model.getTypes())
@@ -54,6 +47,35 @@ final class PrimaryKeysCop extends ConsoleCop
 			if(t.getSupertype()==null)
 				primaryKeys.add(t.getPrimaryKeyInfo());
 		}
-		PrimaryKeys_Jspm.writeBody(this, out, primaryKeys);
+		return primaryKeys;
+	}
+	
+	@Override
+	String getCaption()
+	{
+		return "Primary Keys";
+	}
+	
+	@Override
+	String[] getHeadings()
+	{
+		return new String[]{"Type", "Count", "First", "Last"};
+	}
+	
+	@Override
+	String[] getValues(final PrimaryKeyInfo info)
+	{
+		final boolean unknown = !info.isKnown();
+		return new String[]{
+				info.getType().getID(),
+				format(info.getCount()),
+				unknown ? "-" : format(info.getFirst()),
+				unknown ? "-" : format(info.getLast())};
+	}
+	
+	@Override
+	int test(final PrimaryKeyInfo info)
+	{
+		return 0;
 	}
 }
