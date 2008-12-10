@@ -19,6 +19,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cops.XMLEncoder.encode;
+
 import java.io.PrintStream;
 import java.util.EnumSet;
 
@@ -30,9 +32,8 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
-
-import static com.exedio.cops.XMLEncoder.encode;
 
 final class Schema_Jspm extends Console_Jspm
 {
@@ -276,6 +277,36 @@ final class Schema_Jspm extends Console_Jspm
 					}
 					%>
 					</ul>
+				</li><%
+			}
+			int sequenceCount = 0;
+			for(final Sequence sequence : schema.getSequences())
+			{
+				sequenceCount++;
+				final String sequenceName = sequence.getName();
+				%>
+				<li>
+					<img class="node" src="<%=leaf(sequence.getCumulativeColor())%>">
+					<small>seq<%=sequenceCount%></small>
+					<%=sequenceName%><%
+					
+					final String sequenceError = sequence.getError();
+					if(sequenceError!=null)
+					{
+					%>
+					<% write(sequence.getParticularColor(), out); %> <%=sequenceError%><%
+					}
+					if(sequence.exists())
+					{
+					%>
+					<span id="seqDrp<%=sequenceCount%>" class="expand">, <input type="checkbox" name="<%=SchemaCop.DROP_SEQUENCE%>" value="<%=sequenceName%>"/>drop</span><%
+					}
+					else if(sequence.required())
+					{
+					%>,
+					<input type="checkbox" name="<%=SchemaCop.CREATE_SEQUENCE%>" value="<%=sequenceName%>"/>create<%
+					}
+				%>
 				</li><%
 			}
 			%>

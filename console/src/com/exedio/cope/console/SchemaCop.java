@@ -28,6 +28,7 @@ import com.exedio.cops.XMLEncoder;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.StatementListener;
 import com.exedio.dsmf.Table;
 
@@ -64,6 +65,14 @@ final class SchemaCop extends ConsoleCop
 	private static final String strip(final String s, final String prefix)
 	{
 		return s.startsWith(prefix) ? s.substring(prefix.length()) : null;
+	}
+	
+	private static final Sequence getSequence(final Schema schema, final String param)
+	{
+		final Sequence result = schema.getSequence(param);
+		if(result==null)
+			throw new RuntimeException(param);
+		return result;
 	}
 	
 	private static final Table getTable(final Schema schema, final String param)
@@ -111,9 +120,11 @@ final class SchemaCop extends ConsoleCop
 	static final String DROP_CONSTRAINT = "DROP_CONSTRAINT";
 	static final String DROP_COLUMN     = "DROP_COLUMN";
 	static final String DROP_TABLE      = "DROP_TABLE";
+	static final String DROP_SEQUENCE   = "DROP_SEQUENCE";
 	static final String RENAME_TABLE_PREFIX  = "RENAME_TABLE_";
 	static final String MODIFY_COLUMN_PREFIX = "MODIFY_COLUMN__";
 	static final String RENAME_COLUMN_PREFIX = "RENAME_COLUMN__";
+	static final String CREATE_SEQUENCE   = "CREATE_SEQUENCE";
 	static final String CREATE_TABLE      = "CREATE_TABLE";
 	static final String CREATE_COLUMN     = "CREATE_COLUMN";
 	static final String CREATE_CONSTRAINT = "CREATE_CONSTRAINT";
@@ -160,6 +171,8 @@ final class SchemaCop extends ConsoleCop
 			getColumn    (schema, p).drop(listener);
 		for(final String p : getParameters(request, DROP_TABLE))
 			getTable     (schema, p).drop(listener);
+		for(final String p : getParameters(request, DROP_SEQUENCE))
+			getSequence  (schema, p).drop(listener);
 		
 		for (Iterator i = request.getParameterMap().keySet().iterator(); i.hasNext(); )
 		{
@@ -200,6 +213,8 @@ final class SchemaCop extends ConsoleCop
 
 			getColumn(schema, sourceName).renameTo(targetName, listener);
 		}
+		for(final String p : getParameters(request, CREATE_SEQUENCE))
+			getSequence  (schema, p).create(listener);
 		for(final String p : getParameters(request, CREATE_TABLE))
 			getTable     (schema, p).create(listener);
 		for(final String p : getParameters(request, CREATE_COLUMN))

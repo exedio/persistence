@@ -118,6 +118,11 @@ public final class Schema extends Node
 			table.finish();
 			cumulativeColor = cumulativeColor.max(table.cumulativeColor);
 		}
+		for(final Sequence sequence : sequenceList)
+		{
+			sequence.finish();
+			cumulativeColor = cumulativeColor.max(sequence.cumulativeColor);
+		}
 	}
 	
 	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
