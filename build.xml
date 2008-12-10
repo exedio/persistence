@@ -847,7 +847,7 @@
 	
 	<target name="jspm" depends="runtime.servlet.jspm, runtime.servlet.test.jspm, console.jspm, copernica.jspm, copernica.test.jspm" />
 	
-	<target name="src" depends="jspm" description="creates all sources, so the IDE does not complain" />
+	<target name="src" depends="jspm, index" description="creates all sources, so the IDE does not complain" />
 	
 	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.testmodel.instrument" />
 	
