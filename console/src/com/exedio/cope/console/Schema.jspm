@@ -299,7 +299,7 @@ final class Schema_Jspm extends Console_Jspm
 					if(sequence.exists())
 					{
 					%>
-					<span id="seqDrp<%=sequenceCount%>" class="expand">, <input type="checkbox" name="<%=SchemaCop.DROP_SEQUENCE%>" value="<%=sequenceName%>"/>drop</span><%
+					<input type="checkbox" name="<%=SchemaCop.DROP_SEQUENCE%>" value="<%=sequenceName%>"/>drop<%
 					}
 					else if(sequence.required())
 					{
