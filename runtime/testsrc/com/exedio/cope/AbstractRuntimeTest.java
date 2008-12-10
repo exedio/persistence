@@ -417,10 +417,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(0, ci.length);
 	}
 	
-	protected void assertPrimaryKeyInfo(final Type type, final int last, final PrimaryKeyInfo info)
+	protected void assertPrimaryKeyInfo(final Type type, final int first, final int last, final PrimaryKeyInfo info)
 	{
 		assertSame(type, info.getType());
 		assertTrue(info.isKnown());
+		assertEquals(first, info.getFirst());
 		assertEquals(last, info.getLast());
 	}
 	
@@ -428,6 +429,15 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertSame(type, info.getType());
 		assertFalse(info.isKnown());
+		try
+		{
+			info.getFirst();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("not known", e.getMessage());
+		}
 		try
 		{
 			info.getLast();

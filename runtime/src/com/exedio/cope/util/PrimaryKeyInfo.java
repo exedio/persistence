@@ -24,14 +24,17 @@ public final class PrimaryKeyInfo
 {
 	private final Type type;
 	private final boolean known;
+	private final int first;
 	private final int last;
 	
 	public PrimaryKeyInfo(
 			final Type type,
+			final int first,
 			final int last)
 	{
 		this.type = type;
 		this.known = true;
+		this.first = first;
 		this.last = last;
 	}
 	
@@ -39,6 +42,7 @@ public final class PrimaryKeyInfo
 	{
 		this.type = type;
 		this.known = false;
+		this.first = 0;
 		this.last = 0;
 	}
 	
@@ -50,6 +54,17 @@ public final class PrimaryKeyInfo
 	public boolean isKnown()
 	{
 		return known;
+	}
+	
+	/**
+	 * Returns the first primary key number generated for the type since the startup of the application.
+	 */
+	public int getFirst()
+	{
+		if(!known)
+			throw new IllegalStateException("not known");
+		
+		return first;
 	}
 	
 	/**

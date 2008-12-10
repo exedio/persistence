@@ -36,6 +36,7 @@ final class PrimaryKeys_Jspm
 			<caption>Primary Keys</caption>
 			<tr>
 				<th>Type</th>
+				<th>First</th>
 				<th>Last</th>
 			</tr><%
 			for(final PrimaryKeyInfo info : primaryKeys)
@@ -44,6 +45,7 @@ final class PrimaryKeys_Jspm
 			%>
 			<tr>
 				<td class="text"><%=info.getType().getID()%></td>
+				<td><% if(unknown) { %>-<% } else { %><%=cop.format(info.getFirst())%><% } %></td>
 				<td><% if(unknown) { %>-<% } else { %><%=cop.format(info.getLast())%><% } %></td>
 			</tr><%
 			}
