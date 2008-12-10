@@ -41,11 +41,11 @@ final class PkSource
 		this.type = type;
 	}
 	
-	void connect(final boolean cluster)
+	void connect(final Database database)
 	{
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + type);
-		impl = cluster ? new PkSourceSequenceImpl(type) : new PkSourceMaxImpl(type);
+		impl = database.cluster ? new PkSourceSequenceImpl(type, database) : new PkSourceMaxImpl(type);
 	}
 	
 	void disconnect()

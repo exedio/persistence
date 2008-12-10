@@ -553,7 +553,7 @@ public final class Type<C extends Item>
 		
 		if(supertype==null)
 		{
-			pkSource.connect(database.cluster);
+			pkSource.connect(database);
 			database.addPkSource(pkSource);
 		}
 		final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);

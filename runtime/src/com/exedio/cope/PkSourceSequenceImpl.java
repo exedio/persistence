@@ -28,10 +28,10 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 	private final Type type;
 	private final String name;
 	
-	PkSourceSequenceImpl(final Type type)
+	PkSourceSequenceImpl(final Type type, final Database database)
 	{
 		this.type = type;
-		this.name = type.id + "_PkSeq";
+		this.name = database.makeName(type.id + "_PkSeq");
 	}
 
 	public void flush()
