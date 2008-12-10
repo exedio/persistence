@@ -45,7 +45,10 @@ final class PkSource
 	{
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + type);
-		impl = database.cluster ? new PkSourceSequenceImpl(type, database) : new PkSourceMaxImpl(type);
+		impl =
+			database.cluster
+			? new PkSourceSequenceImpl(type, database)
+			: new PkSourceMaxImpl(type);
 	}
 	
 	void disconnect()
