@@ -42,8 +42,6 @@ final class PkSourceMaxImpl implements PkSourceImpl
 
 	public int next(final Connection connection)
 	{
-		final int result;
-		
 		synchronized(lock)
 		{
 			if(next==PkSource.NaPK)
@@ -53,10 +51,8 @@ final class PkSourceMaxImpl implements PkSourceImpl
 				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
 			
-			result = next++;
+			return next++;
 		}
-		
-		return result;
 	}
 
 	public Integer getInfo()
