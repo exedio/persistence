@@ -33,13 +33,10 @@ final class PkSourceMaxImpl implements PkSourceImpl
 
 	private int next = PkSource.NaPK;
 	private final Object lock = new Object();
-	
-	public void flush()
+
+	public void makeSchema(final Schema schema)
 	{
-		synchronized(lock)
-		{
-			next = PkSource.NaPK;
-		}
+		// empty
 	}
 
 	public int next(final Connection connection)
@@ -55,9 +52,12 @@ final class PkSourceMaxImpl implements PkSourceImpl
 			return next++;
 		}
 	}
-
-	public void makeSchema(final Schema schema)
+	
+	public void flush()
 	{
-		// empty
+		synchronized(lock)
+		{
+			next = PkSource.NaPK;
+		}
 	}
 }

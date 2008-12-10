@@ -24,7 +24,7 @@ import com.exedio.dsmf.Schema;
 
 interface PkSourceImpl
 {
-	void flush();
-	int next(Connection connection);
 	void makeSchema(Schema schema);
+	int next(Connection connection);
+	void flush();
 }

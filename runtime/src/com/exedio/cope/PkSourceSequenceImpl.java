@@ -34,9 +34,9 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 		this.name = database.makeName(type.id + "_PkSeq");
 	}
 
-	public void flush()
+	public void makeSchema(final Schema schema)
 	{
-		// empty
+		new Sequence(schema, name);
 	}
 
 	public int next(final Connection connection)
@@ -44,8 +44,8 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 		return type.table.database.dialect.nextSequence(type.table.database, connection, name);
 	}
 
-	public void makeSchema(final Schema schema)
+	public void flush()
 	{
-		new Sequence(schema, name);
+		// empty
 	}
 }
