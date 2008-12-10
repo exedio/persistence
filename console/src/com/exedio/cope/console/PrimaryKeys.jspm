@@ -34,14 +34,18 @@ final class PrimaryKeys_Jspm
 		%>
 		<table>
 			<caption>Primary Keys</caption>
-			<tr><th>Type</th><th>Last</th></tr><%
+			<tr>
+				<th>Type</th>
+				<th>Last</th>
+			</tr><%
 			for(final PrimaryKeyInfo info : primaryKeys)
 			{
-			%>
-			<tr><td class="text"><%=info.getType().getID()%></td><td><%
 				final boolean unknown = !info.isKnown();
-				if(unknown) { %>-<% } else { %><%=cop.format(info.getLast())%><% }
-				%></td></tr><%
+			%>
+			<tr>
+				<td class="text"><%=info.getType().getID()%></td>
+				<td><% if(unknown) { %>-<% } else { %><%=cop.format(info.getLast())%><% } %></td>
+			</tr><%
 			}
 		%>
 		</table><%
