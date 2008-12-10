@@ -27,10 +27,11 @@ final class PkSource
 	static final int NaPK = Integer.MIN_VALUE;
 
 	private final Type type;
-	private PkSourceImpl impl;
+	private final PkSourceImpl impl;
 	
 	PkSource(final Type type)
 	{
+		assert type!=null;
 		this.type = type;
 		this.impl = new PkSourceMaxImpl(type);
 	}
