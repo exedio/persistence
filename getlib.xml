@@ -2,8 +2,11 @@
 
 <project name="cope getlib" default="getlib" basedir=".">
 
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/ant-contrib.jar" />
+
 	<target name="properties">
-		<property file="getlib.properties" />
+		<property file="getlib-local.properties"/>
+		<property file="getlib.properties"/>
 		
 		<property name="jspm.version"    value="${exedio-jspm}" />
 		<property name="cops.version"    value="${exedio-cops}" />
@@ -12,9 +15,73 @@
 		<property name="url" value="http://${host}/artifacts/" />
 		<property name="jspm"    value="${url}jspm/${jspm.version}" />
 		<property name="cops"    value="${url}cope/${cops.version}" />
+
+		<property name="premises" value="cops,jspm"/>
+		<property name="libraries" value="commons-io,commons-fileupload,commons-collections,jakarta-regexp,servlet-api,trove,exedio-cops,exedio-jspm"/>
+	</target>
+
+	<target name ="check.version" depends="properties">
+		<for param="premise" list="${premises}">
+			<sequential>
+		 		<trycatch>
+					<try>
+						<echo message=""/>
+						<echo message="Checking library @{premise} for dependencies:"/>
+
+						<get  src="${@{premise}}/getlib.properties" dest="@{premise}.getlib.properties"/>
+						<property file="@{premise}.getlib.properties" prefix="@{premise}"/>
+
+						<for param="key" list="${libraries}">
+							<sequential>
+								<if>
+									<isset property="@{key}" />
+									<then>
+										<if>
+											<isset property="@{premise}.@{key}" />
+											<then>
+												<if>
+													<equals arg1="${@{premise}.@{key}}" arg2="${@{key}}" />
+													<then>
+														<echo message="   --- Dependence check for @{key} is ok, version ${@{key}} is same as ${@{premise}.@{key}}"/>
+													</then>
+													<else>
+														<math result="result" operation="min" operand1="${@{key}}"  operand2="${@{premise}.@{key}}" datatype="double"/>
+														<math result="rounded.key" operation="round" operand1="${@{key}}" datatype="double"/>
+														<if>
+															<equals arg1="${result}" arg2="${rounded.key}" />
+															<then>
+																<fail message="Dependence check  for @{key} of premise library @{premise} FAILED, version ${@{key}} is NOT newer than ${@{premise}.@{key}}"/>
+															</then>
+															<else>
+																<echo message="   --- Dependence check  for @{key} is ok, version ${@{key}} is newer than ${@{premise}.@{key}}"/>
+															</else>		
+														</if>
+													</else>	
+												</if>
+											</then>
+											<else>
+												<echo message="   --- No dependence for @{key} found."/>
+											</else>
+										</if>
+									</then>
+								</if>
+							</sequential>
+						</for>
+						<delete file="@{premise}.getlib.properties" quiet="true"/>
+						<echo message=""/>
+					</try>
+					<catch>	
+						<echo></echo>
+						<echo>--- NOTE:</echo>
+						<echo>--- Please be aware that @{premise} does not (yet) provide a getlib.properties for library dependency checks.</echo>
+						<echo>---</echo>
+					</catch>
+				</trycatch>	
+			</sequential>
+		</for>
 	</target>
 	
-	<target name="getlib" depends="properties">
+	<target name="getlib" depends="check.version">
 		<cget url="${jspm}"    file="exedio-jspm.jar"      dest="lib" />
 		<sget url="${cops}"    file="exedio-cops.jar"      dest="lib" />
 	</target>
