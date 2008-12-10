@@ -86,7 +86,10 @@ final class PkSource
 	PrimaryKeyInfo getInfo()
 	{
 		final int last = this.last;
-		return last!=PkSource.NaPK ? new PrimaryKeyInfo(type, last) : new PrimaryKeyInfo(type);
+		return
+			last!=PkSource.NaPK
+			? new PrimaryKeyInfo(type, last)
+			: new PrimaryKeyInfo(type);
 	}
 
 	void makeSchema(final Schema schema)
