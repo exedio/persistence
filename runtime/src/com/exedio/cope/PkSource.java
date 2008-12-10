@@ -66,12 +66,9 @@ final class PkSource
 		return impl;
 	}
 
-	void flush()
+	void makeSchema(final Schema schema)
 	{
-		impl().flush();
-		count = 0;
-		first = PkSource.NaPK;
-		last = PkSource.NaPK;
+		impl().makeSchema(schema);
 	}
 
 	int next(final Connection connection)
@@ -88,6 +85,14 @@ final class PkSource
 		return result;
 	}
 
+	void flush()
+	{
+		impl().flush();
+		count = 0;
+		first = PkSource.NaPK;
+		last = PkSource.NaPK;
+	}
+
 	static boolean isValid(final int pk)
 	{
 		return pk>=MIN_VALUE && pk<=MAX_VALUE;
@@ -102,10 +107,5 @@ final class PkSource
 			count!=0 && first!=PkSource.NaPK && last!=PkSource.NaPK
 			? new PrimaryKeyInfo(type, count, first, last)
 			: new PrimaryKeyInfo(type);
-	}
-
-	void makeSchema(final Schema schema)
-	{
-		impl().makeSchema(schema);
 	}
 }
