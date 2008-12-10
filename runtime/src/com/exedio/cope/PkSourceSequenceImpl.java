@@ -41,8 +41,7 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 
 	public int next(final Connection connection)
 	{
-		final int result = type.table.database.dialect.nextSequence(type.table.database, connection, name);
-		return result;
+		return type.table.database.dialect.nextSequence(type.table.database, connection, name);
 	}
 
 	public void makeSchema(final Schema schema)
