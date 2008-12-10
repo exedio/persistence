@@ -130,6 +130,22 @@ public final class HsqldbDriver extends Driver
 					}
 				}
 			});
+		schema.querySQL(
+				"select SEQUENCE_NAME " +
+				"from INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
+			new Node.ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					//printMeta(resultSet);
+					while(resultSet.next())
+					{
+						//printRow(resultSet);
+						final String name = resultSet.getString(1);
+						schema.notifyExistentSequence(name);
+					}
+				}
+			});
 	}
 
 	@Override
