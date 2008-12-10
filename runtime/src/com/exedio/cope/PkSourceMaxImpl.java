@@ -20,43 +20,47 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
-final class PkSource
+final class PkSourceMaxImpl implements PkSourceImpl
 {
-	static final int MIN_VALUE = 0;
-	static final int MAX_VALUE = Integer.MAX_VALUE;
-	static final int NaPK = Integer.MIN_VALUE;
-
 	private final Type type;
-	private PkSourceImpl impl;
 	
-	PkSource(final Type type)
+	PkSourceMaxImpl(final Type type)
 	{
 		this.type = type;
-		this.impl = new PkSourceMaxImpl(type);
 	}
 
-	void flush()
+	private int next = PkSource.NaPK;
+	private final Object lock = new Object();
+	
+	public void flush()
 	{
-		impl.flush();
+		synchronized(lock)
+		{
+			next = PkSource.NaPK;
+		}
 	}
 
-	int next(final Connection connection)
+	public int next(final Connection connection)
 	{
-		final int result = impl.next(connection);
+		final int result;
 		
-		if(!isValid(result))
-			throw new RuntimeException("primary key overflow to " + result + " in type " + type.id);
+		synchronized(lock)
+		{
+			if(next==PkSource.NaPK)
+			{
+				final Table table = type.getTable();
+				final Integer maxPK = table.database.maxPK(connection, table);
+				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
+			}
+			
+			result = next++;
+		}
 		
 		return result;
 	}
 
-	static boolean isValid(final int pk)
+	public Integer getInfo()
 	{
-		return pk>=MIN_VALUE && pk<=MAX_VALUE;
-	}
-
-	Integer getInfo()
-	{
-		return impl.getInfo();
+		return next!=PkSource.NaPK ? next : null;
 	}
 }
