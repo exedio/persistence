@@ -550,7 +550,8 @@ public final class Type<C extends Item>
 		if(this.table!=null)
 			throw new RuntimeException();
 		
-		pkSource.connect(database.cluster);
+		if(supertype==null)
+			pkSource.connect(database.cluster);
 		final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
 		final String tableID = annotation!=null ? annotation.value(): id;
 		this.table = new Table(database, tableID, supertype, typesOfInstancesColumnValues);
@@ -571,7 +572,8 @@ public final class Type<C extends Item>
 			throw new RuntimeException();
 
 		table = null;
-		pkSource.disconnect();
+		if(supertype==null)
+			pkSource.disconnect();
 		
 		for(final Field a : declaredFields)
 			a.disconnect();

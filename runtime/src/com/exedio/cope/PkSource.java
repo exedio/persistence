@@ -37,11 +37,15 @@ final class PkSource
 	
 	void connect(final boolean cluster)
 	{
+		if(impl!=null)
+			throw new IllegalStateException("already connected " + type);
 		impl = cluster ? new PkSourceSequenceImpl(type) : new PkSourceMaxImpl(type);
 	}
 	
 	void disconnect()
 	{
+		if(impl==null)
+			throw new IllegalStateException("not yet connected " + type);
 		impl = null;
 	}
 	
