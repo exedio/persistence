@@ -328,4 +328,37 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 	}
 	
+	public void testPrimaryKeyInfo()
+	{
+		// for flushing the info
+		MODEL.dropSchema();
+		MODEL.createSchema();
+		
+		assertEquals(null, HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+		
+		deleteOnTearDown(new HierarchyFirstSub(0));
+		assertEquals(new Integer(1), HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(1), HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(1), HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+		
+		deleteOnTearDown(new HierarchyFirstSub(1));
+		assertEquals(new Integer(2), HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(2), HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(2), HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(null, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+		
+		deleteOnTearDown(new HierarchySingleSub());
+		assertEquals(new Integer(2), HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(2), HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(2), HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(1), HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertEquals(new Integer(1), HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+	}
 }
