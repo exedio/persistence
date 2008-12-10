@@ -48,7 +48,7 @@ final class PrimaryKeys_Jspm
 				<td class="text"><%=info.getType().getID()%></td>
 				<td><%=cop.format(info.getCount())%></td>
 				<td><% if(unknown) { %>-<% } else { %><%=cop.format(info.getFirst())%><% } %></td>
-				<td><% if(unknown) { %>-<% } else { %><%=cop.format(info.getLast())%><% } %></td>
+				<td><% if(unknown) { %>-<% } else { %><%=cop.format(info.getLast() )%><% } %></td>
 			</tr><%
 			}
 		%>
