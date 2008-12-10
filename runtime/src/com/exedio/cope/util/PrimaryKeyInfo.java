@@ -1,4 +1,3 @@
-<%
 /*
  * Copyright (C) 2004-2008  exedio GmbH (www.exedio.com)
  *
@@ -17,34 +16,50 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.console;
-
-import java.io.PrintStream;
-import java.util.ArrayList;
+package com.exedio.cope.util;
 
 import com.exedio.cope.Type;
-import com.exedio.cope.util.PrimaryKeyInfo;
 
-final class PrimaryKeys_Jspm
+public final class PrimaryKeyInfo
 {
-	final static void writeBody(
-			final PrimaryKeysCop cop,
-			final PrintStream out,
-			final ArrayList<PrimaryKeyInfo> primaryKeys)
+	private final Type type;
+	private final boolean known;
+	private final int last;
+	
+	public PrimaryKeyInfo(
+			final Type type,
+			final int last)
 	{
-		%>
-		<table>
-			<caption>Primary Keys</caption>
-			<tr><th>Type</th><th>Last</th></tr><%
-			for(final PrimaryKeyInfo info : primaryKeys)
-			{
-			%>
-			<tr><td class="text"><%=info.getType().getID()%></td><td><%
-				final boolean unknown = !info.isKnown();
-				if(unknown) { %>-<% } else { %><%=cop.format(info.getLast())%><% }
-				%></td></tr><%
-			}
-		%>
-		</table><%
+		this.type = type;
+		this.known = true;
+		this.last = last;
 	}
-}%>
+	
+	public PrimaryKeyInfo(final Type type)
+	{
+		this.type = type;
+		this.known = false;
+		this.last = 0;
+	}
+	
+	public Type getType()
+	{
+		return type;
+	}
+	
+	public boolean isKnown()
+	{
+		return known;
+	}
+	
+	/**
+	 * Returns the last primary key number generated for the type.
+	 */
+	public int getLast()
+	{
+		if(!known)
+			throw new IllegalStateException("not known");
+		
+		return last;
+	}
+}

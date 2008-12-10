@@ -28,6 +28,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.util.ItemCacheInfo;
+import com.exedio.cope.util.PrimaryKeyInfo;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
@@ -414,5 +415,27 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 		else
 			assertEquals(0, ci.length);
+	}
+	
+	protected void assertPrimaryKeyInfo(final Type type, final int last, final PrimaryKeyInfo info)
+	{
+		assertSame(type, info.getType());
+		assertTrue(info.isKnown());
+		assertEquals(last, info.getLast());
+	}
+	
+	protected void assertPrimaryKeyInfo(final Type type, final PrimaryKeyInfo info)
+	{
+		assertSame(type, info.getType());
+		assertFalse(info.isKnown());
+		try
+		{
+			info.getLast();
+			fail();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("not known", e.getMessage());
+		}
 	}
 }

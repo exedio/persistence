@@ -35,6 +35,7 @@ import com.exedio.cope.Field.Option;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.PrimaryKeyInfo;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Type<C extends Item>
@@ -669,7 +670,7 @@ public final class Type<C extends Item>
 		return table;
 	}
 	
-	public Integer getPrimaryKeyInfo()
+	public PrimaryKeyInfo getPrimaryKeyInfo()
 	{
 		return pkSource.getInfo();
 	}

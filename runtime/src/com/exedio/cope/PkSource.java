@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
+import com.exedio.cope.util.PrimaryKeyInfo;
 import com.exedio.dsmf.Schema;
 
 final class PkSource
@@ -82,10 +83,10 @@ final class PkSource
 		return pk>=MIN_VALUE && pk<=MAX_VALUE;
 	}
 
-	Integer getInfo()
+	PrimaryKeyInfo getInfo()
 	{
 		final int last = this.last;
-		return last!=PkSource.NaPK ? last : null;
+		return last!=PkSource.NaPK ? new PrimaryKeyInfo(type, last) : new PrimaryKeyInfo(type);
 	}
 
 	void makeSchema(final Schema schema)

@@ -19,13 +19,13 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.util.Comparator;
-import java.util.TreeMap;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.util.PrimaryKeyInfo;
 
 final class PrimaryKeysCop extends ConsoleCop
 {
@@ -40,14 +40,6 @@ final class PrimaryKeysCop extends ConsoleCop
 		return new PrimaryKeysCop(args);
 	}
 	
-	private static final Comparator<Type> TYPE_COMPARATOR = new Comparator<Type>()
-	{
-		public int compare(final Type t1, final Type t2)
-		{
-			return t1.getID().compareTo(t2.getID());
-		}
-	};
-
 	@Override
 	final void writeBody(
 			final PrintStream out,
@@ -56,11 +48,11 @@ final class PrimaryKeysCop extends ConsoleCop
 			final History history,
 			final boolean historyModelShown)
 	{
-		final TreeMap<Type, Integer> primaryKeys = new TreeMap<Type, Integer>(TYPE_COMPARATOR);
+		final ArrayList<PrimaryKeyInfo> primaryKeys = new ArrayList<PrimaryKeyInfo>();
 		for(final Type t : model.getTypes())
 		{
 			if(t.getSupertype()==null)
-				primaryKeys.put(t, t.getPrimaryKeyInfo());
+				primaryKeys.add(t.getPrimaryKeyInfo());
 		}
 		PrimaryKeys_Jspm.writeBody(this, out, primaryKeys);
 	}

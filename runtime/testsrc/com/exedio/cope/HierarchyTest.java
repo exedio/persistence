@@ -334,31 +334,31 @@ public class HierarchyTest extends AbstractRuntimeTest
 		MODEL.dropSchema();
 		MODEL.createSchema();
 		
-		assertEquals(null, HierarchySuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 		
 		deleteOnTearDown(new HierarchyFirstSub(0));
-		assertEquals(new Integer(0), HierarchySuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(0), HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(0), HierarchySecondSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 0, HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 0, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 0, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 		
 		deleteOnTearDown(new HierarchyFirstSub(1));
-		assertEquals(new Integer(1), HierarchySuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(1), HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(1), HierarchySecondSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(null, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 1, HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 1, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 1, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 		
 		deleteOnTearDown(new HierarchySingleSub());
-		assertEquals(new Integer(1), HierarchySuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(1), HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(1), HierarchySecondSub.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(0), HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
-		assertEquals(new Integer(0), HierarchySingleSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 1, HierarchySuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 1, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySuper.TYPE, 1, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, 0, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
+		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, 0, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 	}
 }
