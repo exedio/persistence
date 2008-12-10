@@ -27,23 +27,40 @@ final class PkSource
 	static final int NaPK = Integer.MIN_VALUE;
 
 	private final Type type;
-	private final PkSourceImpl impl;
+	private PkSourceImpl impl;
 	
 	PkSource(final Type type)
 	{
 		assert type!=null;
 		this.type = type;
-		this.impl = new PkSourceMaxImpl(type);
+	}
+	
+	void connect(final boolean cluster)
+	{
+		impl = cluster ? new PkSourceSequenceImpl(type) : new PkSourceMaxImpl(type);
+	}
+	
+	void disconnect()
+	{
+		impl = null;
+	}
+	
+	private PkSourceImpl impl()
+	{
+		final PkSourceImpl impl = this.impl;
+		if(impl==null)
+			throw new IllegalStateException("not yet connected " + type);
+		return impl;
 	}
 
 	void flush()
 	{
-		impl.flush();
+		impl().flush();
 	}
 
 	int next(final Connection connection)
 	{
-		final int result = impl.next(connection);
+		final int result = impl().next(connection);
 		
 		if(!isValid(result))
 			throw new RuntimeException("primary key overflow to " + result + " in type " + type.id);
@@ -58,6 +75,6 @@ final class PkSource
 
 	Integer getInfo()
 	{
-		return impl.getInfo();
+		return impl().getInfo();
 	}
 }

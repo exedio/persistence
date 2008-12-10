@@ -62,6 +62,7 @@ final class Database
 	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
+	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
 	
@@ -84,6 +85,7 @@ final class Database
 		this.tableOptions = properties.getDatabaseTableOptions();
 		this.limitSupport = properties.getDatabaseDontSupportLimit() ? Dialect.LimitSupport.NONE : dialect.getLimitSupport();
 		this.blobLengthFactor = dialect.getBlobLengthFactor();
+		this.cluster = properties.cluster.getBooleanValue();
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 		
 		//System.out.println("using database "+getClass());
