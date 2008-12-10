@@ -46,6 +46,7 @@ public final class Type<C extends Item>
 	private final boolean uniqueJavaClass;
 	private static final CharSet ID_CHAR_SET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
+	final String schemaId;
 	private final Pattern pattern;
 	final boolean isAbstract;
 	final Type<? super C> supertype;
@@ -204,6 +205,8 @@ public final class Type<C extends Item>
 		this.javaClass = javaClass;
 		this.uniqueJavaClass = uniqueJavaClass;
 		this.id = id;
+		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
+		this.schemaId = schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id;
 		this.pattern = pattern;
 		this.isAbstract = ( javaClass.getModifiers() & Modifier.ABSTRACT ) > 0;
 		
@@ -556,9 +559,7 @@ public final class Type<C extends Item>
 			pkSource.connect(database);
 			database.addPkSource(pkSource);
 		}
-		final CopeSchemaName annotation = getAnnotation(CopeSchemaName.class);
-		final String tableID = annotation!=null ? annotation.value(): id;
-		this.table = new Table(database, tableID, supertype, typesOfInstancesColumnValues);
+		this.table = new Table(database, schemaId, supertype, typesOfInstancesColumnValues);
 
 		for(final Field a : declaredFields)
 			a.connect(table);
