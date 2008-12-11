@@ -136,6 +136,7 @@ public final class Copernica_Jspm
 	public static final void writeException(
 				final PrintStream out,
 				final CopsServlet servlet,
+				final HttpServletRequest request,
 				final Exception exception,
 				final boolean onPage)
 	{
@@ -162,7 +163,7 @@ public final class Copernica_Jspm
 		{
 		%>
 		Please report the error code <i><%=
-			servlet.reportException(exception)
+			servlet.reportException(request, exception)
 			%></i> to the webmaster.<%
 		}
 		%>

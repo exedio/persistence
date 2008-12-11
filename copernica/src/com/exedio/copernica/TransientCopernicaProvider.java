@@ -263,7 +263,7 @@ public abstract class TransientCopernicaProvider implements CopernicaProvider
 			final HttpServletRequest request, final Exception e)
 	{
 		final boolean onPage = "jo-man".equals(request.getParameter("display_error"));
-		Copernica_Jspm.writeException(out, servlet, e, onPage);
+		Copernica_Jspm.writeException(out, servlet, request, e, onPage);
 	}
 
 
