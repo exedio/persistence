@@ -29,9 +29,7 @@ import java.util.Set;
 public final class IntegerField extends NumberField<Integer>
 {
 	final Integer defaultNextStart;
-	private boolean defaultNextValueComputed = false;
-	private int defaultNextValue = Integer.MIN_VALUE;
-	private final Object defaultNextLock;
+	private DefaultToNextImpl defaultToNextImpl;
 	private final int minimum;
 	private final int maximum;
 
@@ -42,7 +40,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		this.defaultNextStart = defaultNextStart;
-		this.defaultNextLock = defaultNextStart!=null ? new Object() : null;
+		this.defaultToNextImpl = defaultNextStart!=null ? new DefaultToNextImpl(this, defaultNextStart) : null;
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -187,7 +185,8 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		defaultNextValueComputed = false;
+		if(defaultToNextImpl!=null)
+			defaultToNextImpl.flushDefaultNextCache();
 		return new IntegerColumn(table, this, name, optional, minimum, maximum, false);
 	}
 	
@@ -235,23 +234,7 @@ public final class IntegerField extends NumberField<Integer>
 	
 	int nextDefaultNext()
 	{
-		synchronized(defaultNextLock)
-		{
-			final int result;
-			if(defaultNextValueComputed)
-			{
-				result = defaultNextValue;
-			}
-			else
-			{
-				final Integer current = new Query<Integer>(max()).searchSingleton();
-				result = current!=null ? (current.intValue() + 1) : defaultNextStart.intValue();
-				defaultNextValueComputed = true;
-			}
-			
-			defaultNextValue = result + 1;
-			return result;
-		}
+		return defaultToNextImpl.nextDefaultNext();
 	}
 	
 	public static final void flushDefaultNextCache(final Model model)
@@ -262,13 +245,10 @@ public final class IntegerField extends NumberField<Integer>
 				{
 					final IntegerField fi = (IntegerField)f;
 					
-					if(fi.defaultNextLock==null)
+					if(fi.defaultToNextImpl==null)
 						continue;
 					
-					synchronized(fi.defaultNextLock)
-					{
-						fi.defaultNextValueComputed = false;
-					}
+					fi.defaultToNextImpl.flushDefaultNextCache();
 				}
 	}
 	
