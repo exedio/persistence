@@ -30,6 +30,9 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 	
 	PkSourceSequenceImpl(final Type type, final Database database)
 	{
+		if(!database.driver.supportsSequences())
+			throw new RuntimeException("database does not support sequences");
+		
 		this.database = database;
 		this.name = database.makeName(type.schemaId + "_PkSeq");
 	}

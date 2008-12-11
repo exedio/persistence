@@ -61,6 +61,12 @@ public final class PostgresqlDriver extends Driver
 	}
 
 	@Override
+	public boolean supportsSequences()
+	{
+		return false; // TODO implement support
+	}
+
+	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);

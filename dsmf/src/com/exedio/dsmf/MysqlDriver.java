@@ -56,6 +56,12 @@ public final class MysqlDriver extends Driver
 	}
 
 	@Override
+	public boolean supportsSequences()
+	{
+		return false;
+	}
+
+	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");

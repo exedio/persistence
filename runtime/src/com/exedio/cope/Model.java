@@ -497,6 +497,11 @@ public final class Model
 		return getDatabase().driver.supportsCheckConstraints();
 	}
 	
+	public boolean supportsSequences()
+	{
+		return getDatabase().driver.supportsSequences();
+	}
+	
 	/**
 	 * Returns, whether the database can store empty strings.
 	 * <p>

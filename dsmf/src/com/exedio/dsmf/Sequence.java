@@ -38,6 +38,8 @@ public final class Sequence extends Node
 			throw new RuntimeException();
 		if(name==null)
 			throw new RuntimeException();
+		if(!schema.driver.supportsSequences())
+			throw new RuntimeException("database does not support sequences");
 
 		this.name = name;
 		this.startWith = startWith;

@@ -36,6 +36,9 @@ final class DefaultToNextSequenceImpl implements DefaultToNextImpl
 
 	DefaultToNextSequenceImpl(final IntegerField field, final int start, final Database database)
 	{
+		if(!database.driver.supportsSequences())
+			throw new RuntimeException("database does not support sequences");
+		
 		this.model = field.getType().getModel();
 		this.start = start;
 		this.database = database;
