@@ -21,15 +21,16 @@ package com.exedio.dsmf;
 public final class Sequence extends Node
 {
 	final String name;
+	private final int startWith;
 	private final boolean required;
 	private boolean exists;
 	
-	public Sequence(final Schema schema, final String name)
+	public Sequence(final Schema schema, final String name, final int startWith)
 	{
-		this(schema, name, true);
+		this(schema, name, startWith, true);
 	}
 	
-	Sequence(final Schema schema, final String name, final boolean required)
+	Sequence(final Schema schema, final String name, final int startWith, final boolean required)
 	{
 		super(schema.driver, schema.connectionProvider);
 		
@@ -39,6 +40,7 @@ public final class Sequence extends Node
 			throw new RuntimeException();
 
 		this.name = name;
+		this.startWith = startWith;
 		this.required = required;
 		this.exists = !required;
 
@@ -48,6 +50,11 @@ public final class Sequence extends Node
 	public String getName()
 	{
 		return name;
+	}
+
+	public int getStartWith()
+	{
+		return startWith;
 	}
 
 	final void notifyExists()
@@ -101,7 +108,7 @@ public final class Sequence extends Node
 	
 	public void create(final StatementListener listener)
 	{
-		executeSQL(driver.createSequence(protectName(name)), listener);
+		executeSQL(driver.createSequence(protectName(name), startWith), listener);
 	}
 	
 	public void drop()

@@ -36,7 +36,7 @@ final class PkSourceSequenceImpl implements PkSourceImpl
 
 	public void makeSchema(final Schema schema)
 	{
-		new Sequence(schema, name);
+		new Sequence(schema, name, PkSource.MIN_VALUE);
 	}
 
 	public int next(final Connection connection)

@@ -181,14 +181,14 @@ public final class HsqldbDriver extends Driver
 	}
 
 	@Override
-	public String createSequence(final String sequenceName)
+	public String createSequence(final String sequenceName, final int startWith)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("create sequence ").
 			append(sequenceName).
 			append(
 					" as integer" +
-					" start with 0" +
+					" start with " + startWith +
 					" increment by 1");
 		return bf.toString();
 	}

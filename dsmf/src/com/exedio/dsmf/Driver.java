@@ -151,9 +151,9 @@ public abstract class Driver
 		return dropConstraint(tableName, constraintName);
 	}
 
-	public String createSequence(final String sequenceName)
+	public String createSequence(final String sequenceName, final int startWith)
 	{
-		throw new RuntimeException("sequences not implemented: " + sequenceName);
+		throw new RuntimeException("sequences not implemented: " + sequenceName + '(' + startWith + ')');
 	}
 	
 	/**

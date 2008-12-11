@@ -29,7 +29,7 @@ import java.util.Set;
 public final class IntegerField extends NumberField<Integer>
 {
 	final Integer defaultNextStart;
-	private DefaultToNextMaxImpl defaultToNextImpl;
+	private DefaultToNextImpl defaultToNextImpl = null;
 	private final int minimum;
 	private final int maximum;
 
@@ -40,7 +40,6 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		this.defaultNextStart = defaultNextStart;
-		this.defaultToNextImpl = defaultNextStart!=null ? new DefaultToNextMaxImpl(this, defaultNextStart.intValue()) : null;
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -185,8 +184,16 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		if(defaultToNextImpl!=null)
-			defaultToNextImpl.flush();
+		if(defaultNextStart!=null)
+		{
+			final Database database = table.database;
+			final DefaultToNextImpl defaultToNextImpl =
+				database.cluster
+				? new DefaultToNextSequenceImpl(this, defaultNextStart.intValue(), database)
+				: new DefaultToNextMaxImpl(this, defaultNextStart.intValue());
+			this.defaultToNextImpl = defaultToNextImpl;
+			database.addDefaultToNexts(defaultToNextImpl);
+		}
 		return new IntegerColumn(table, this, name, optional, minimum, maximum, false);
 	}
 	

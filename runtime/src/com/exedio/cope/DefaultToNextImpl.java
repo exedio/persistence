@@ -26,51 +26,9 @@ import com.exedio.dsmf.Schema;
  *
  * @author Ralf Wiebicke
  */
-final class DefaultToNextMaxImpl implements DefaultToNextImpl
+interface DefaultToNextImpl
 {
-	private final IntegerField field;
-	private final int start;
-	private boolean computed = false;
-	private int next = Integer.MIN_VALUE;
-	private final Object lock = new Object();
-
-	DefaultToNextMaxImpl(final IntegerField field, final int start)
-	{
-		this.field = field;
-		this.start = start;
-	}
-	
-	public void makeSchema(final Schema schema)
-	{
-		// empty
-	}
-	
-	public int next()
-	{
-		synchronized(lock)
-		{
-			final int result;
-			if(computed)
-			{
-				result = next;
-			}
-			else
-			{
-				final Integer current = new Query<Integer>(field.max()).searchSingleton();
-				result = current!=null ? (current.intValue() + 1) : start;
-				computed = true;
-			}
-			
-			next = result + 1;
-			return result;
-		}
-	}
-	
-	public void flush()
-	{
-		synchronized(lock)
-		{
-			computed = false;
-		}
-	}
+	void makeSchema(Schema schema);
+	int next();
+	void flush();
 }

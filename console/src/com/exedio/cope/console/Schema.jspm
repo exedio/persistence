@@ -288,7 +288,7 @@ final class Schema_Jspm extends Console_Jspm
 				<li>
 					<img class="node" src="<%=leaf(sequence.getCumulativeColor())%>">
 					<small>seq<%=sequenceCount%></small>
-					<%=sequenceName%><%
+					<%=sequenceName%> (<%=sequence.getStartWith()%>)<%
 					
 					final String sequenceError = sequence.getError();
 					if(sequenceError!=null)

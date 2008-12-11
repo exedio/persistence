@@ -257,16 +257,16 @@ public final class OracleDriver extends Driver
 	}
 
 	@Override
-	public String createSequence(final String sequenceName)
+	public String createSequence(final String sequenceName, final int startWith)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("create sequence ").
 			append(sequenceName).
 			append(
 					" increment by 1" +
-					" start with 0" +
+					" start with " + startWith +
 					" maxvalue " + Integer.MAX_VALUE +
-					" minvalue 0" +
+					" minvalue " + startWith +
 					" nocycle" +
 					" noorder");
 		return bf.toString();

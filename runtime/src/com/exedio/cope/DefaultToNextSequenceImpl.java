@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 
 /**
  * Implements the defaultToNext functionality.
@@ -26,51 +27,33 @@ import com.exedio.dsmf.Schema;
  *
  * @author Ralf Wiebicke
  */
-final class DefaultToNextMaxImpl implements DefaultToNextImpl
+final class DefaultToNextSequenceImpl implements DefaultToNextImpl
 {
-	private final IntegerField field;
+	final Model model;
 	private final int start;
-	private boolean computed = false;
-	private int next = Integer.MIN_VALUE;
-	private final Object lock = new Object();
+	private final Database database;
+	private final String name;
 
-	DefaultToNextMaxImpl(final IntegerField field, final int start)
+	DefaultToNextSequenceImpl(final IntegerField field, final int start, final Database database)
 	{
-		this.field = field;
+		this.model = field.getType().getModel();
 		this.start = start;
+		this.database = database;
+		this.name = database.makeName(field.getType().schemaId + '_' + field.getName() + "_Seq");
 	}
 	
 	public void makeSchema(final Schema schema)
 	{
-		// empty
+		new Sequence(schema, name, start);
 	}
-	
+
 	public int next()
 	{
-		synchronized(lock)
-		{
-			final int result;
-			if(computed)
-			{
-				result = next;
-			}
-			else
-			{
-				final Integer current = new Query<Integer>(field.max()).searchSingleton();
-				result = current!=null ? (current.intValue() + 1) : start;
-				computed = true;
-			}
-			
-			next = result + 1;
-			return result;
-		}
+		return database.dialect.nextSequence(database, model.getCurrentTransaction().getConnection(), name);
 	}
 	
 	public void flush()
 	{
-		synchronized(lock)
-		{
-			computed = false;
-		}
+		// empty
 	}
 }

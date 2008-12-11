@@ -77,7 +77,7 @@ public final class Schema extends Node
 	{
 		Sequence result = sequenceMap.get(sequenceName);
 		if(result==null)
-			result = new Sequence(this, sequenceName, false);
+			result = new Sequence(this, sequenceName, 0, false); // TODO extract startWith from dictionary
 		else
 			result.notifyExists();
 
