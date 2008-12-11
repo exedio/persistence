@@ -198,6 +198,22 @@ public final class OracleDriver extends Driver
 						makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
 				}
 			});
+		schema.querySQL(
+				"select SEQUENCE_NAME " +
+				"from USER_SEQUENCES",
+			new Node.ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					//printMeta(resultSet);
+					while(resultSet.next())
+					{
+						//printRow(resultSet);
+						final String name = resultSet.getString(1);
+						schema.notifyExistentSequence(name);
+					}
+				}
+			});
 	}
 
 	@Override
