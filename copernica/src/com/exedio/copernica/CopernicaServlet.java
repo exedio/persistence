@@ -130,7 +130,7 @@ public final class CopernicaServlet extends CopsServlet
 			final CopernicaCop cop = CopernicaCop.getCop(provider, request);
 			cop.init(request);
 
-			out = new PrintStream(response.getOutputStream(), false, ENCODING);
+			out = new PrintStream(response.getOutputStream(), false, UTF8);
 			Copernica_Jspm.write(out, user, cop);
 			out.close();
 			
@@ -140,7 +140,7 @@ public final class CopernicaServlet extends CopsServlet
 		{
 			provider.getModel().rollback();
 			if(out==null)
-				out = new PrintStream(response.getOutputStream(), false, ENCODING);
+				out = new PrintStream(response.getOutputStream(), false, UTF8);
 
 			Cop.rejectAuthorizeBasic(response, "Copernica");
 			Copernica_Jspm.writeAuthenticationError(out, e);
@@ -150,7 +150,7 @@ public final class CopernicaServlet extends CopsServlet
 			provider.getModel().rollback();
 			response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
 			if(out==null)
-				out = new PrintStream(response.getOutputStream(), false, ENCODING);
+				out = new PrintStream(response.getOutputStream(), false, UTF8);
 
 			provider.handleException(out, this, request, e);
 		}

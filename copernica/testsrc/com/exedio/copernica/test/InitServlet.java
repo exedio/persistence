@@ -76,7 +76,7 @@ public class InitServlet extends CopsServlet
 			}
 		}
 
-		final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
+		final PrintStream out = new PrintStream(response.getOutputStream(), false, UTF8);
 		
 		final Transaction tx1;
 		if(transaction)

@@ -153,7 +153,7 @@ public abstract class Editor implements Filter
 		
 		if(LOGIN_URL_PATH_INFO.equals(request.getPathInfo()))
 		{
-			servletRequest.setCharacterEncoding(CopsServlet.ENCODING);
+			servletRequest.setCharacterEncoding(CopsServlet.UTF8);
 			final HttpServletResponse response = (HttpServletResponse)servletResponse;
 			final HttpSession httpSession = request.getSession(true);
 			final Object session = httpSession.getAttribute(SESSION);
@@ -289,14 +289,14 @@ public abstract class Editor implements Filter
 				model.rollbackIfNotCommitted();
 			}
 			
-			response.setContentType("text/html; charset="+CopsServlet.ENCODING);
+			response.setContentType("text/html; charset="+CopsServlet.UTF8);
 			response.addHeader("Cache-Control", "no-cache");
 			response.addHeader("Cache-Control", "no-store");
 			response.addHeader("Cache-Control", "max-age=0");
 			response.addHeader("Cache-Control", "must-revalidate");
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", System.currentTimeMillis());
-			out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
+			out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
 			Editor_Jspm.writePreviewOverview(out, response, proposals);
 		}
 		finally
@@ -327,14 +327,14 @@ public abstract class Editor implements Filter
 			final HashMap<String, FileItem> files = new HashMap<String, FileItem>();
 			final FileItemFactory factory = new DiskFileItemFactory();
 			final ServletFileUpload upload = new ServletFileUpload(factory);
-			upload.setHeaderEncoding(CopsServlet.ENCODING);
+			upload.setHeaderEncoding(CopsServlet.UTF8);
 			try
 			{
 				for(Iterator<?> i = upload.parseRequest(request).iterator(); i.hasNext(); )
 				{
 					final FileItem item = (FileItem)i.next();
 					if(item.isFormField())
-						fields.put(item.getFieldName(), item.getString(CopsServlet.ENCODING));
+						fields.put(item.getFieldName(), item.getString(CopsServlet.UTF8));
 					else
 						files.put(item.getFieldName(), item);
 				}
@@ -524,7 +524,7 @@ public abstract class Editor implements Filter
 		PrintStream out = null;
 		try
 		{
-			response.setContentType("text/html; charset="+CopsServlet.ENCODING);
+			response.setContentType("text/html; charset="+CopsServlet.UTF8);
 			if(Cop.isPost(request) && request.getParameter(LOGIN_SUBMIT)!=null)
 			{
 				final String user = request.getParameter(LOGIN_USER);
@@ -540,7 +540,7 @@ public abstract class Editor implements Filter
 					}
 					else
 					{
-						out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
+						out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
 						Editor_Jspm.writeLogin(out, response, Editor.class.getPackage(), user);
 					}
 					model.commit();
@@ -552,7 +552,7 @@ public abstract class Editor implements Filter
 			}
 			else
 			{
-				out = new PrintStream(response.getOutputStream(), false, CopsServlet.ENCODING);
+				out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
 				Editor_Jspm.writeLogin(out, response, Editor.class.getPackage(), null);
 			}
 		}

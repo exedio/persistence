@@ -27,7 +27,7 @@ final class Init_Jspm
 	{%>
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=<%=InitServlet.ENCODING%>">
+		<meta http-equiv="content-type" content="text/html; charset=<%=InitServlet.UTF8%>">
 		<title>
 			Copernica - Database Administration
 		</title>

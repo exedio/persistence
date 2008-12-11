@@ -153,7 +153,7 @@ final class EnvironmentCop extends ConsoleCop
 		{
 			out = new FileOutputStream(args[0]);
 			Environment_Jspm.writeTestBody(
-					new PrintStream(out, false, ConsoleServlet.ENCODING),
+					new PrintStream(out, false, ConsoleServlet.UTF8),
 					new java.util.Properties(),
 					makeTestedDatabases());
 		}

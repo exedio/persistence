@@ -173,7 +173,7 @@ public final class ConsoleServlet extends CopsServlet
 				// leave hostname==null
 			}
 			response.setStatus(cop.getResponseStatus());
-			final PrintStream out = new PrintStream(response.getOutputStream(), false, ENCODING);
+			final PrintStream out = new PrintStream(response.getOutputStream(), false, UTF8);
 			Console_Jspm.write(
 					out, request, response, model, cop,
 					authentication, hostname,

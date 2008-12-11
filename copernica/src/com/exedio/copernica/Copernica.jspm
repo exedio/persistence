@@ -45,7 +45,7 @@ public final class Copernica_Jspm
 	
 %><html>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=<%=CopernicaServlet.ENCODING%>">
+		<meta http-equiv="content-type" content="text/html; charset=<%=CopernicaServlet.UTF8%>">
 		<title><%=cop.getTitle()%></title><%
 		
 		final CopernicaCop home = cop.toHome();
