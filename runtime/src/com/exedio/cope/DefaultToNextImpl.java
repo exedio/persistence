@@ -27,44 +27,44 @@ package com.exedio.cope;
 final class DefaultToNextImpl
 {
 	private final IntegerField field;
-	final Integer defaultNextStart;
-	private boolean defaultNextValueComputed = false;
-	private int defaultNextValue = Integer.MIN_VALUE;
-	private final Object defaultNextLock;
+	final Integer start;
+	private boolean computed = false;
+	private int next = Integer.MIN_VALUE;
+	private final Object lock;
 
-	DefaultToNextImpl(final IntegerField field, final Integer defaultNextStart)
+	DefaultToNextImpl(final IntegerField field, final Integer start)
 	{
 		this.field = field;
-		this.defaultNextStart = defaultNextStart;
-		this.defaultNextLock = new Object();
+		this.start = start;
+		this.lock = new Object();
 	}
 	
-	int nextDefaultNext()
+	int next()
 	{
-		synchronized(defaultNextLock)
+		synchronized(lock)
 		{
 			final int result;
-			if(defaultNextValueComputed)
+			if(computed)
 			{
-				result = defaultNextValue;
+				result = next;
 			}
 			else
 			{
 				final Integer current = new Query<Integer>(field.max()).searchSingleton();
-				result = current!=null ? (current.intValue() + 1) : defaultNextStart.intValue();
-				defaultNextValueComputed = true;
+				result = current!=null ? (current.intValue() + 1) : start.intValue();
+				computed = true;
 			}
 			
-			defaultNextValue = result + 1;
+			next = result + 1;
 			return result;
 		}
 	}
 	
-	void flushDefaultNextCache()
+	void flush()
 	{
-		synchronized(defaultNextLock)
+		synchronized(lock)
 		{
-			defaultNextValueComputed = false;
+			computed = false;
 		}
 	}
 }

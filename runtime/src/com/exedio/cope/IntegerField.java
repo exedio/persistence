@@ -186,7 +186,7 @@ public final class IntegerField extends NumberField<Integer>
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		if(defaultToNextImpl!=null)
-			defaultToNextImpl.flushDefaultNextCache();
+			defaultToNextImpl.flush();
 		return new IntegerColumn(table, this, name, optional, minimum, maximum, false);
 	}
 	
@@ -234,7 +234,7 @@ public final class IntegerField extends NumberField<Integer>
 	
 	int nextDefaultNext()
 	{
-		return defaultToNextImpl.nextDefaultNext();
+		return defaultToNextImpl.next();
 	}
 	
 	public static final void flushDefaultNextCache(final Model model)
@@ -248,7 +248,7 @@ public final class IntegerField extends NumberField<Integer>
 					if(fi.defaultToNextImpl==null)
 						continue;
 					
-					fi.defaultToNextImpl.flushDefaultNextCache();
+					fi.defaultToNextImpl.flush();
 				}
 	}
 	
