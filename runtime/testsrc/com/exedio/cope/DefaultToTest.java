@@ -24,7 +24,7 @@ import com.exedio.cope.DefaultToItem.DefaultToEnum;
 
 public class DefaultToTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(DefaultToItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(DefaultToItem.TYPE);
 
 	public DefaultToTest()
 	{

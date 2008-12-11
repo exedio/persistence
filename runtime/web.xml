@@ -214,6 +214,19 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>defaultToConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.DefaultToTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>defaultToConsole</servlet-name>
+		<url-pattern>/defaultTo/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>badQueryConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
