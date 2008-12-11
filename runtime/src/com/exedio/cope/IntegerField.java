@@ -29,7 +29,7 @@ import java.util.Set;
 public final class IntegerField extends NumberField<Integer>
 {
 	final Integer defaultNextStart;
-	private DefaultToNextImpl defaultToNextImpl;
+	private DefaultToNextMaxImpl defaultToNextImpl;
 	private final int minimum;
 	private final int maximum;
 
@@ -40,7 +40,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		this.defaultNextStart = defaultNextStart;
-		this.defaultToNextImpl = defaultNextStart!=null ? new DefaultToNextImpl(this, defaultNextStart) : null;
+		this.defaultToNextImpl = defaultNextStart!=null ? new DefaultToNextMaxImpl(this, defaultNextStart) : null;
 		this.minimum = minimum;
 		this.maximum = maximum;
 

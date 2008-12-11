@@ -24,7 +24,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
-final class DefaultToNextImpl
+final class DefaultToNextMaxImpl
 {
 	private final IntegerField field;
 	final Integer start;
@@ -32,7 +32,7 @@ final class DefaultToNextImpl
 	private int next = Integer.MIN_VALUE;
 	private final Object lock;
 
-	DefaultToNextImpl(final IntegerField field, final Integer start)
+	DefaultToNextMaxImpl(final IntegerField field, final Integer start)
 	{
 		this.field = field;
 		this.start = start;
