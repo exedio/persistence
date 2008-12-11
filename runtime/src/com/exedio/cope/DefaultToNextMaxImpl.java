@@ -27,7 +27,7 @@ package com.exedio.cope;
 final class DefaultToNextMaxImpl
 {
 	private final IntegerField field;
-	final Integer start;
+	private final Integer start;
 	private boolean computed = false;
 	private int next = Integer.MIN_VALUE;
 	private final Object lock;
@@ -39,7 +39,7 @@ final class DefaultToNextMaxImpl
 		this.lock = new Object();
 	}
 	
-	int next()
+	public int next()
 	{
 		synchronized(lock)
 		{
@@ -60,7 +60,7 @@ final class DefaultToNextMaxImpl
 		}
 	}
 	
-	void flush()
+	public void flush()
 	{
 		synchronized(lock)
 		{
