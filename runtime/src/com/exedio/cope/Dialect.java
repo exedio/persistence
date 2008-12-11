@@ -225,8 +225,8 @@ abstract class Dialect
 	protected Integer nextSequence(
 			@SuppressWarnings("unused") final Database database,
 			@SuppressWarnings("unused") final Connection connection,
-			@SuppressWarnings("unused") final String name)
+			final String name)
 	{
-		throw new RuntimeException("not implemented");
+		throw new RuntimeException("sequences not implemented: " + name);
 	}
 }
