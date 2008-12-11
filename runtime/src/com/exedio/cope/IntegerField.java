@@ -40,7 +40,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		this.defaultNextStart = defaultNextStart;
-		this.defaultToNextImpl = defaultNextStart!=null ? new DefaultToNextMaxImpl(this, defaultNextStart) : null;
+		this.defaultToNextImpl = defaultNextStart!=null ? new DefaultToNextMaxImpl(this, defaultNextStart.intValue()) : null;
 		this.minimum = minimum;
 		this.maximum = maximum;
 

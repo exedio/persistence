@@ -27,12 +27,12 @@ package com.exedio.cope;
 final class DefaultToNextMaxImpl
 {
 	private final IntegerField field;
-	private final Integer start;
+	private final int start;
 	private boolean computed = false;
 	private int next = Integer.MIN_VALUE;
 	private final Object lock;
 
-	DefaultToNextMaxImpl(final IntegerField field, final Integer start)
+	DefaultToNextMaxImpl(final IntegerField field, final int start)
 	{
 		this.field = field;
 		this.start = start;
@@ -51,7 +51,7 @@ final class DefaultToNextMaxImpl
 			else
 			{
 				final Integer current = new Query<Integer>(field.max()).searchSingleton();
-				result = current!=null ? (current.intValue() + 1) : start.intValue();
+				result = current!=null ? (current.intValue() + 1) : start;
 				computed = true;
 			}
 			
