@@ -14,7 +14,7 @@
 		<property name="host" value="cruise1.exedio.com" />
 		<property name="url" value="http://${host}/artifacts/" />
 		<property name="jspm"    value="${url}jspm/${jspm.version}" />
-		<property name="cops"    value="${url}cope/${cops.version}" />
+		<property name="cops"    value="${url}cops/${cops.version}" />
 
 		<property name="premises" value="cops,jspm"/>
 		<property name="libraries" value="commons-io,commons-fileupload,commons-collections,jakarta-regexp,servlet-api,trove,exedio-cops,exedio-jspm"/>

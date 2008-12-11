@@ -1,5 +1,6 @@
 
 CHANGELOG for cope
 
+* updated cops library to build.54, do get it from cops project now
 * updated jspm library to build.14, added check.version target to getlib.xml
 * added Query.emptyResult()
