@@ -179,4 +179,17 @@ public final class HsqldbDriver extends Driver
 	{
 		throw new RuntimeException("not implemented");
 	}
+
+	@Override
+	public String createSequence(final String sequenceName)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append("create sequence ").
+			append(sequenceName).
+			append(
+					" as integer" +
+					" start with 0" +
+					" increment by 1");
+		return bf.toString();
+	}
 }

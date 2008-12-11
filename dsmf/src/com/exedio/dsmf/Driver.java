@@ -151,6 +151,11 @@ public abstract class Driver
 		return dropConstraint(tableName, constraintName);
 	}
 
+	public String createSequence(final String sequenceName)
+	{
+		throw new RuntimeException("sequences not implemented: " + sequenceName);
+	}
+	
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */

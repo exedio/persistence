@@ -101,11 +101,7 @@ public final class Sequence extends Node
 	
 	public void create(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("create sequence ").
-			append(protectName(name));
-		
-		executeSQL(bf.toString(), listener);
+		executeSQL(driver.createSequence(protectName(name)), listener);
 	}
 	
 	public void drop()

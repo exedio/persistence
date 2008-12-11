@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import gnu.trove.TIntObjectHashMap;
 
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
+import com.exedio.cope.Database.ResultSetHandler;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.OracleDriver;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -375,6 +377,38 @@ final class OracleDialect extends Dialect
 		//System.out.println(statement.getText());
 		//root.print(System.out);
 		//System.out.println("######################");
+		return result;
+	}
+	
+	@Override
+	protected Integer nextSequence(
+			final Database database,
+			final Connection connection,
+			final String name)
+	{
+		final Integer result;
+		{
+			final Statement bf = database.createStatement();
+			bf.append("SELECT ").
+				append(driver.protectName(name)).
+				append(".nextval FROM DUAL");
+				
+			result = database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+			{
+				public Integer handle(final ResultSet resultSet) throws SQLException
+				{
+					if(!resultSet.next())
+						throw new RuntimeException("empty in sequence " + name);
+					final Object o = resultSet.getObject(1);
+					if(o==null)
+						throw new RuntimeException("null in sequence " + name);
+					final int result = ((BigDecimal)o).intValue();
+					if(!PkSource.isValid(result))
+						throw new RuntimeException("invalid primary key " + result + " in sequence " + name);
+					return result;
+				}
+			});
+		}
 		return result;
 	}
 }

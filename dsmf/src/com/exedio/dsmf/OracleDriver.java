@@ -239,4 +239,20 @@ public final class OracleDriver extends Driver
 			append(newColumnType);
 		return bf.toString();
 	}
+
+	@Override
+	public String createSequence(final String sequenceName)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append("create sequence ").
+			append(sequenceName).
+			append(
+					" increment by 1" +
+					" start with 0" +
+					" maxvalue " + Integer.MAX_VALUE +
+					" minvalue 0" +
+					" nocycle" +
+					" noorder");
+		return bf.toString();
+	}
 }
