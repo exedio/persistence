@@ -30,13 +30,12 @@ final class DefaultToNextMaxImpl
 	private final int start;
 	private boolean computed = false;
 	private int next = Integer.MIN_VALUE;
-	private final Object lock;
+	private final Object lock = new Object();
 
 	DefaultToNextMaxImpl(final IntegerField field, final int start)
 	{
 		this.field = field;
 		this.start = start;
-		this.lock = new Object();
 	}
 	
 	public int next()
