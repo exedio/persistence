@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.ConnectToken;
 import com.exedio.cope.util.ServletUtil;
-import com.exedio.cops.Cop;
+import com.exedio.cops.BasicAuthorization;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
 
@@ -142,7 +142,7 @@ public final class CopernicaServlet extends CopsServlet
 			if(out==null)
 				out = new PrintStream(response.getOutputStream(), false, UTF8);
 
-			Cop.rejectAuthorizeBasic(response, "Copernica");
+			BasicAuthorization.reject(response, "Copernica");
 			Copernica_Jspm.writeAuthenticationError(out, e);
 		}
 		catch(Exception e)
@@ -201,7 +201,7 @@ public final class CopernicaServlet extends CopsServlet
 		if(!provider.requiresAuthorization())
 			return null;
 		
-		final String[] authorization = Cop.authorizeBasic(request);
+		final String[] authorization = BasicAuthorization.getUserAndPassword(request);
 		if(authorization==null)
 			throw new CopernicaAuthorizationFailedException("noauth");
 
