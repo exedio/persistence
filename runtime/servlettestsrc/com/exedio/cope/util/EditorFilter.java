@@ -23,6 +23,8 @@ import java.io.Serializable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.exedio.cope.editor.Editor;
+
 public final class EditorFilter extends Editor
 {
 	public EditorFilter()

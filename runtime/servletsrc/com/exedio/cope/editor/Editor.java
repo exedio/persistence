@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.util;
+package com.exedio.cope.editor;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -54,6 +54,8 @@ import com.exedio.cope.pattern.History;
 import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
+import com.exedio.cope.util.ConnectToken;
+import com.exedio.cope.util.ServletUtil;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.XMLEncoder;

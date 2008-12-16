@@ -19,14 +19,15 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Editor.edit;
-
-import com.exedio.cope.pattern.History;
+import static com.exedio.cope.editor.Editor.edit;
 
 import java.io.PrintStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+
+import com.exedio.cope.editor.Editor;
+import com.exedio.cope.pattern.History;
 
 final class EditedServlet_Jspm
 {
