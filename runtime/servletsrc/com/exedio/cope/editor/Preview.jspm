@@ -61,6 +61,15 @@ final class Preview_Jspm
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<h1>COPE Content Editor Previews</h1>
+		<%
+	if(proposals.isEmpty())
+	{
+		%>
+		<div>There are no more pending previews in this Content Editor session.</div><%
+	}
+	else
+	{
+		%>
 		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
 			<table border="1">
 				<tr>
@@ -81,7 +90,9 @@ final class Preview_Jspm
 				%>
 			</table>
 			<input name="<%=Editor.PREVIEW_SAVE%>" type="submit" value="Save">
-		</form>
+		</form><%
+	}
+	%>
 	</body>
 </html><%
 	}
