@@ -523,10 +523,10 @@ public abstract class Editor implements Filter
 				try
 				{
 					startTransaction("login");
-					final Session login = login(user, password);
-					if(login!=null)
+					final Session session = login(user, password);
+					if(session!=null)
 					{
-						httpSession.setAttribute(ANCHOR, new Anchor(user, login, login.getName()));
+						httpSession.setAttribute(ANCHOR, new Anchor(user, session, session.getName()));
 						redirectHome(request, response);
 					}
 					else
