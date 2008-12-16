@@ -606,10 +606,10 @@ public abstract class Editor implements Filter
 		return tls.get()!=null;
 	}
 	
-	public static final Session getLogin()
+	public static final Session getSession()
 	{
 		final TL tl = tls.get();
-		return tl!=null ? tl.anchor.login : null;
+		return tl!=null ? tl.anchor.session : null;
 	}
 	
 	private static final <K> Item getItem(final MapField<K, String> feature, final K key, final Item item)
@@ -822,7 +822,7 @@ public abstract class Editor implements Filter
 				tl.filter.getBorderButtonURL(request, tl.response, tl.anchor.borders),
 				tl.filter.getCloseButtonURL(request, tl.response),
 				tl.anchor.getPreviewNumber(),
-				tl.anchor.loginName);
+				tl.anchor.sessionName);
 	}
 	
 	private static final String action(final HttpServletRequest request, final HttpServletResponse response)
@@ -854,5 +854,14 @@ public abstract class Editor implements Filter
 	public static final <K> String editBlock(final String content, final MapField<K, String> feature, final Item item, final K key)
 	{
 		return edit(content, feature, item, key);
+	}
+	
+	/**
+	 * @deprecated Use {@link #getSession()} instead
+	 */
+	@Deprecated
+	public static final Session getLogin()
+	{
+		return getSession();
 	}
 }

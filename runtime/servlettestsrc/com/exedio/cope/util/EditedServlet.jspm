@@ -129,7 +129,7 @@ final class EditedServlet_Jspm
 		Editor.writeBar(out);
 		%>
 		isLoggedIn:<%=Editor.isLoggedIn()%>
-		getLogin:<%=Editor.getLogin()%>
+		getSession:<%=Editor.getSession()%>
 		duplicate: <%=item1.getCopeID()%>, <a href="<%=response.encodeURL("duplicate.html")%>"><%=edit(item1.getField(), item1.field, item1)%></a> (<%=item1.getField()%>)
 		<br>
 		to login page:

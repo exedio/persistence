@@ -31,18 +31,18 @@ final class Anchor implements Serializable // for session persistence
 	private static final long serialVersionUID = 1l;
 	
 	private final String user;
-	final Session login;
-	final String loginName;
+	final Session session;
+	final String sessionName;
 	boolean borders = false;
 	private final HashMap<Preview, String> previews = new HashMap<Preview, String>();
 	
-	Anchor(final String user, final Session login, final String loginName)
+	Anchor(final String user, final Session session, final String sessionName)
 	{
 		this.user = user;
-		this.login = login;
-		this.loginName = loginName;
+		this.session = session;
+		this.sessionName = sessionName;
 		assert user!=null;
-		assert login!=null;
+		assert session!=null;
 	}
 	
 	int getPreviewNumber()
@@ -80,7 +80,7 @@ final class Anchor implements Serializable // for session persistence
 	
 	String getHistoryAuthor()
 	{
-		return (loginName!=null ? loginName : user) + " (CCE)";
+		return (sessionName!=null ? sessionName : user) + " (CCE)";
 	}
 	
 	@Override
@@ -92,8 +92,8 @@ final class Anchor implements Serializable // for session persistence
 		// because this may require a transaction,
 		// which may not be present,
 		// especially when this method is called by lamdba probe.
-		if(loginName!=null)
-			bf.append('"').append(loginName).append('"');
+		if(sessionName!=null)
+			bf.append('"').append(sessionName).append('"');
 		else
 			bf.append(user);
 		
