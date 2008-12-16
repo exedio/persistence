@@ -554,7 +554,7 @@ public abstract class Editor implements Filter
 		}
 	}
 	
-	private static final String SESSION = Session.class.getCanonicalName();
+	private static final String SESSION = Session.class.getName();
 	
 	private static final class TL
 	{
