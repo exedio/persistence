@@ -23,7 +23,7 @@ import static com.exedio.cops.XMLEncoder.encode;
 
 final class Bar_Jspm
 {
-	static final void writeBar(
+	static final void write(
 			final Editor.Out out,
 			final String action,
 			final String referer,

@@ -288,7 +288,7 @@ public abstract class Editor implements Filter
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", System.currentTimeMillis());
 			out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
-			Preview_Jspm.writePreviewOverview(out, response, proposals);
+			Preview_Jspm.writeOverview(out, response, proposals);
 		}
 		finally
 		{
@@ -532,7 +532,7 @@ public abstract class Editor implements Filter
 					else
 					{
 						out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
-						Login_Jspm.writeLogin(out, response, Editor.class.getPackage(), user);
+						Login_Jspm.write(out, response, Editor.class.getPackage(), user);
 					}
 					model.commit();
 				}
@@ -544,7 +544,7 @@ public abstract class Editor implements Filter
 			else
 			{
 				out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
-				Login_Jspm.writeLogin(out, response, Editor.class.getPackage(), null);
+				Login_Jspm.write(out, response, Editor.class.getPackage(), null);
 			}
 		}
 		finally
@@ -814,7 +814,7 @@ public abstract class Editor implements Filter
 	private static final void writeBar(final TL tl, final Out out)
 	{
 		final HttpServletRequest request = tl.request;
-		Bar_Jspm.writeBar(out,
+		Bar_Jspm.write(out,
 				action(request, tl.response),
 				referer(request),
 				tl.session.borders,

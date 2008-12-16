@@ -28,7 +28,7 @@ import com.exedio.cops.CopsServlet;
 
 final class Preview_Jspm
 {
-	static final void writePreviewOverview(
+	static final void writeOverview(
 			final PrintStream out,
 			final HttpServletResponse response,
 			final List<Editor.Proposal> proposals)
