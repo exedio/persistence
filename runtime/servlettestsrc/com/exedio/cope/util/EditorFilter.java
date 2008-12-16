@@ -32,14 +32,14 @@ public final class EditorFilter extends Editor
 		super(EditedServlet.model);
 	}
 	
-	private static class Login implements com.exedio.cope.editor.Session, Serializable
+	private static class Session implements com.exedio.cope.editor.Session, Serializable
 	{
 		private static final long serialVersionUID = 1l;
 		
 		private final String user;
 		private final boolean nameIsNull;
 		
-		Login(final String user)
+		Session(final String user)
 		{
 			this.user = user;
 			this.nameIsNull = "noname".equals(user);
@@ -58,10 +58,10 @@ public final class EditorFilter extends Editor
 	};
 	
 	@Override
-	protected Login login(final String user, final String password)
+	protected Session login(final String user, final String password)
 	{
 		if(password.equals(user+"1234"))
-			return new Login(user);
+			return new Session(user);
 		
 		return null;
 	}
