@@ -147,16 +147,16 @@ public abstract class Editor implements Filter
 			servletRequest.setCharacterEncoding(CopsServlet.UTF8);
 			final HttpServletResponse response = (HttpServletResponse)servletResponse;
 			final HttpSession httpSession = request.getSession(true);
-			final Object session = httpSession.getAttribute(SESSION);
+			final Object anchor = httpSession.getAttribute(ANCHOR);
 			
-			if(session==null)
+			if(anchor==null)
 				doLogin(request, httpSession, response);
 			else
 			{
 				if(request.getParameter(PREVIEW_OVERVIEW)!=null)
-					doPreviewOverview(request, response, (Anchor)session);
+					doPreviewOverview(request, response, (Anchor)anchor);
 				else
-					doBar(request, httpSession, response, (Anchor)session);
+					doBar(request, httpSession, response, (Anchor)anchor);
 			}
 			
 			return;
@@ -165,12 +165,12 @@ public abstract class Editor implements Filter
 		final HttpSession httpSession = request.getSession(false);
 		if(httpSession!=null)
 		{
-			final Object session = httpSession.getAttribute(SESSION);
-			if(session!=null)
+			final Object anchor = httpSession.getAttribute(ANCHOR);
+			if(anchor!=null)
 			{
 				try
 				{
-					tls.set(new TL(this, request, (HttpServletResponse)servletResponse, (Anchor)session));
+					tls.set(new TL(this, request, (HttpServletResponse)servletResponse, (Anchor)anchor));
 					chain.doFilter(request, servletResponse);
 				}
 				finally
@@ -235,14 +235,14 @@ public abstract class Editor implements Filter
 	private final void doPreviewOverview(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
-			final Anchor session)
+			final Anchor anchor)
 	throws IOException
 	{
 		if(Cop.isPost(request))
 		{
 			if(request.getParameter(PREVIEW_SAVE)!=null)
 			{
-				final Map<Preview, String> previews = session.getPreviewsModifiable();
+				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
 				try
 				{
 					startTransaction("saveProposals");
@@ -266,7 +266,7 @@ public abstract class Editor implements Filter
 		PrintStream out = null;
 		try
 		{
-			final Map<Preview, String> previews = session.getPreviews();
+			final Map<Preview, String> previews = anchor.getPreviews();
 			final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
 			try
 			{
@@ -301,7 +301,7 @@ public abstract class Editor implements Filter
 			final HttpServletRequest request,
 			final HttpSession httpSession,
 			final HttpServletResponse response,
-			final Anchor session)
+			final Anchor anchor)
 	throws IOException
 	{
 		if(!Cop.isPost(request))
@@ -357,7 +357,7 @@ public abstract class Editor implements Filter
 
 				for(final History history : History.getHistories(item.getCopeType()))
 				{
-					final History.Event event = history.createEvent(item, session.getHistoryAuthor(), false);
+					final History.Event event = history.createEvent(item, anchor.getHistoryAuthor(), false);
 					event.createFeature(
 							feature, feature.getName(),
 							feature.isNull(item) ? null : ("file type=" + feature.getContentType(item) + " size=" + feature.getLength(item)),
@@ -384,15 +384,15 @@ public abstract class Editor implements Filter
 		{
 			if(request.getParameter(BORDERS_ON)!=null || request.getParameter(BORDERS_ON_IMAGE)!=null)
 			{
-				session.borders = true;
+				anchor.borders = true;
 			}
 			else if(request.getParameter(BORDERS_OFF)!=null || request.getParameter(BORDERS_OFF_IMAGE)!=null)
 			{
-				session.borders = false;
+				anchor.borders = false;
 			}
 			else if(request.getParameter(CLOSE)!=null || request.getParameter(CLOSE_IMAGE)!=null)
 			{
-				httpSession.removeAttribute(SESSION);
+				httpSession.removeAttribute(ANCHOR);
 			}
 			else
 			{
@@ -421,7 +421,7 @@ public abstract class Editor implements Filter
 	
 						if(request.getParameter(PREVIEW)!=null)
 						{
-							session.setPreview(value, feature, item);
+							anchor.setPreview(value, feature, item);
 						}
 						else
 						{
@@ -430,11 +430,11 @@ public abstract class Editor implements Filter
 								v = null;
 							for(final History history : History.getHistories(item.getCopeType()))
 							{
-								final History.Event event = history.createEvent(item, session.getHistoryAuthor(), false);
+								final History.Event event = history.createEvent(item, anchor.getHistoryAuthor(), false);
 								event.createFeature(feature, feature.getName(), feature.get(item), v);
 							}
 							feature.set(item, v);
-							session.notifySaved(feature, item);
+							anchor.notifySaved(feature, item);
 						}
 						
 						model.commit();
@@ -470,12 +470,12 @@ public abstract class Editor implements Filter
 						
 						for(final History history : History.getHistories(itemFrom.getCopeType()))
 						{
-							final History.Event event = history.createEvent(itemFrom, session.getHistoryAuthor(), false);
+							final History.Event event = history.createEvent(itemFrom, anchor.getHistoryAuthor(), false);
 							event.createFeature(feature, feature.getName(), positionFrom, positionTo);
 						}
 						for(final History history : History.getHistories(itemTo.getCopeType()))
 						{
-							final History.Event event = history.createEvent(itemTo, session.getHistoryAuthor(), false);
+							final History.Event event = history.createEvent(itemTo, anchor.getHistoryAuthor(), false);
 							event.createFeature(feature, feature.getName(), positionTo, positionFrom);
 						}
 						
@@ -526,7 +526,7 @@ public abstract class Editor implements Filter
 					final Login login = login(user, password);
 					if(login!=null)
 					{
-						httpSession.setAttribute(SESSION, new Anchor(user, login, login.getName()));
+						httpSession.setAttribute(ANCHOR, new Anchor(user, login, login.getName()));
 						redirectHome(request, response);
 					}
 					else
@@ -554,31 +554,31 @@ public abstract class Editor implements Filter
 		}
 	}
 	
-	private static final String SESSION = Anchor.class.getName();
+	private static final String ANCHOR = Anchor.class.getName();
 	
 	private static final class TL
 	{
 		final Editor filter;
 		final HttpServletRequest request;
 		final HttpServletResponse response;
-		final Anchor session;
+		final Anchor anchor;
 		private HashMap<IntegerField, Item> positionItems = null;
 		
 		TL(
 				final Editor filter,
 				final HttpServletRequest request,
 				final HttpServletResponse response,
-				final Anchor session)
+				final Anchor anchor)
 		{
 			this.filter = filter;
 			this.request = request;
 			this.response = response;
-			this.session = session;
+			this.anchor = anchor;
 			
 			assert filter!=null;
 			assert request!=null;
 			assert response!=null;
-			assert session!=null;
+			assert anchor!=null;
 		}
 		
 		Item registerPositionItem(final IntegerField feature, final Item item)
@@ -609,7 +609,7 @@ public abstract class Editor implements Filter
 	public static final Login getLogin()
 	{
 		final TL tl = tls.get();
-		return tl!=null ? tl.session.login : null;
+		return tl!=null ? tl.anchor.login : null;
 	}
 	
 	private static final <K> Item getItem(final MapField<K, String> feature, final K key, final Item item)
@@ -654,9 +654,9 @@ public abstract class Editor implements Filter
 		if(feature.isFinal())
 			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
-		if(!tl.session.borders)
+		if(!tl.anchor.borders)
 		{
-			final String preview = tl.session.getPreview(feature, item);
+			final String preview = tl.anchor.getPreview(feature, item);
 			return (preview!=null) ? preview : content;
 		}
 		
@@ -668,7 +668,7 @@ public abstract class Editor implements Filter
 		if(content!=null ? content.equals(savedContent) : (savedContent==null))
 		{
 			previewAllowed = true;
-			final String preview = tl.session.getPreview(feature, item);
+			final String preview = tl.anchor.getPreview(feature, item);
 			if(preview!=null)
 				pageContent = editorContent = preview;
 			else
@@ -708,7 +708,7 @@ public abstract class Editor implements Filter
 	public static final String edit(final Media feature, final Item item)
 	{
 		final TL tl = tls.get();
-		if(tl==null || !tl.session.borders)
+		if(tl==null || !tl.anchor.borders)
 			return "";
 		
 		checkEdit(feature, item);
@@ -733,7 +733,7 @@ public abstract class Editor implements Filter
 	public static final String edit(final MediaFilter feature, final Item item)
 	{
 		final TL tl = tls.get();
-		if(tl==null || !tl.session.borders)
+		if(tl==null || !tl.anchor.borders)
 			return "";
 		
 		checkEdit(feature, item);
@@ -744,7 +744,7 @@ public abstract class Editor implements Filter
 	public static final String edit(final IntegerField feature, final Item item)
 	{
 		final TL tl = tls.get();
-		if(tl==null || !tl.session.borders)
+		if(tl==null || !tl.anchor.borders)
 			return "";
 		
 		checkEdit(feature, item);
@@ -817,12 +817,12 @@ public abstract class Editor implements Filter
 		Bar_Jspm.write(out,
 				action(request, tl.response),
 				referer(request),
-				tl.session.borders,
-				tl.session.borders ? BORDERS_OFF : BORDERS_ON,
-				tl.filter.getBorderButtonURL(request, tl.response, tl.session.borders),
+				tl.anchor.borders,
+				tl.anchor.borders ? BORDERS_OFF : BORDERS_ON,
+				tl.filter.getBorderButtonURL(request, tl.response, tl.anchor.borders),
 				tl.filter.getCloseButtonURL(request, tl.response),
-				tl.session.getPreviewNumber(),
-				tl.session.loginName);
+				tl.anchor.getPreviewNumber(),
+				tl.anchor.loginName);
 	}
 	
 	private static final String action(final HttpServletRequest request, final HttpServletResponse response)
