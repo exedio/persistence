@@ -56,6 +56,24 @@ final class Preview_Jspm
 				width:198px;
 				height:60px;
 			}
+			
+			table th
+			{
+				text-align:left;
+				vertical-align:top;
+				background:#ccc;
+				border:solid 1px #ccc;
+				padding:1px 3px;
+				font-weight:normal;
+			}
+			
+			table td
+			{
+				text-align:left;
+				vertical-align:top;
+				border:solid 1px #ccc;
+				padding:1px 3px;
+			}
 		</style>
 	</head>
 	<body>
