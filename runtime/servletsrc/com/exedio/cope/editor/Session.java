@@ -1,0 +1,157 @@
+/*
+ * Copyright (C) 2004-2008  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.editor;
+
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
+
+final class Session implements Serializable // for session persistence
+{
+	private static final long serialVersionUID = 1l;
+	
+	private final String user;
+	final Login login;
+	final String loginName;
+	boolean borders = false;
+	private final HashMap<Preview, String> previews = new HashMap<Preview, String>();
+	
+	Session(final String user, final Login login, final String loginName)
+	{
+		this.user = user;
+		this.login = login;
+		this.loginName = loginName;
+		assert user!=null;
+		assert login!=null;
+	}
+	
+	static final class Preview implements Serializable // for session persistence
+	{
+		private static final long serialVersionUID = 1l;
+		
+		private final String feature;
+		private final Item item;
+		
+		Preview(final StringField feature, final Item item)
+		{
+			this.feature = feature.getID(); // id is serializable
+			this.item = item;
+			
+			assert feature!=null;
+			assert item!=null;
+		}
+		
+		String getOldValue(final Model model)
+		{
+			return ((StringField)model.getFeature(feature)).get(item);
+		}
+		
+		void save(final Model model, final String value)
+		{
+			((StringField)model.getFeature(feature)).set(item, value);
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return feature.hashCode() ^ item.hashCode();
+		}
+		
+		@Override
+		public boolean equals(final Object other)
+		{
+			if(!(other instanceof Preview))
+				return false;
+			
+			final Preview o = (Preview)other;
+			return feature.equals(o.feature) && item.equals(o.item);
+		}
+	}
+	
+	int getPreviewNumber()
+	{
+		return previews.size();
+	}
+	
+	String getPreview(final StringField feature, final Item item)
+	{
+		if(previews.isEmpty()) // shortcut
+			return null;
+		
+		return previews.get(new Preview(feature, item));
+	}
+	
+	Map<Preview, String> getPreviews()
+	{
+		return Collections.unmodifiableMap(previews);
+	}
+	
+	HashMap<Preview, String> getPreviewsModifiable()
+	{
+		return previews;
+	}
+	
+	void setPreview(final String content, final StringField feature, final Item item)
+	{
+		previews.put(new Preview(feature, item), content);
+	}
+	
+	void notifySaved(final StringField feature, final Item item)
+	{
+		previews.remove(new Preview(feature, item));
+	}
+	
+	String getHistoryAuthor()
+	{
+		return (loginName!=null ? loginName : user) + " (CCE)";
+	}
+	
+	@Override
+	public String toString()
+	{
+		final StringBuilder bf = new StringBuilder();
+		
+		// must not call login#getName() here,
+		// because this may require a transaction,
+		// which may not be present,
+		// especially when this method is called by lamdba probe.
+		if(loginName!=null)
+			bf.append('"').append(loginName).append('"');
+		else
+			bf.append(user);
+		
+		if(borders)
+			bf.append(" bordered");
+		
+		final int previewNumber = previews.size();
+		if(previewNumber>0)
+		{
+			bf.append(" *");
+			if(previewNumber>1)
+				bf.append(previewNumber);
+		}
+		
+		return bf.toString();
+	}
+}
