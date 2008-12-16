@@ -242,14 +242,14 @@ public abstract class Editor implements Filter
 		{
 			if(request.getParameter(PREVIEW_SAVE)!=null)
 			{
-				final Map<Session.Preview, String> previews = session.getPreviewsModifiable();
+				final Map<Preview, String> previews = session.getPreviewsModifiable();
 				try
 				{
 					startTransaction("saveProposals");
-					for(final Iterator<Map.Entry<Session.Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
-						final Map.Entry<Session.Preview, String> e = i.next();
-						final Session.Preview p = e.getKey();
+						final Map.Entry<Preview, String> e = i.next();
+						final Preview p = e.getKey();
 						p.save(model, e.getValue());
 						i.remove();
 					}
@@ -266,12 +266,12 @@ public abstract class Editor implements Filter
 		PrintStream out = null;
 		try
 		{
-			final Map<Session.Preview, String> previews = session.getPreviews();
+			final Map<Preview, String> previews = session.getPreviews();
 			final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
 			try
 			{
 				startTransaction("proposal");
-				for(final Map.Entry<Session.Preview, String> e : previews.entrySet())
+				for(final Map.Entry<Preview, String> e : previews.entrySet())
 					proposals.add(new Proposal(e.getKey().getOldValue(model), e.getValue()));
 				model.commit();
 			}
