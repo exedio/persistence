@@ -249,7 +249,8 @@ public abstract class Editor implements Filter
 			if(request.getParameter(PREVIEW_SAVE)!=null)
 			{
 				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
-				final HashSet<String> ids = new HashSet<String>(Arrays.asList(request.getParameterValues(PREVIEW_IDS)));
+				final String[] idA = request.getParameterValues(PREVIEW_IDS);
+				final HashSet<String> ids = idA!=null ? new HashSet<String>(Arrays.asList(idA)) : null;
 				try
 				{
 					startTransaction("saveProposals");
@@ -257,7 +258,7 @@ public abstract class Editor implements Filter
 					{
 						final Map.Entry<Preview, String> e = i.next();
 						final Preview p = e.getKey();
-						if(ids.contains(p.getID()))
+						if(ids!=null && ids.contains(p.getID()))
 						{
 							p.save(model, e.getValue());
 							i.remove();
