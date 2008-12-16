@@ -288,7 +288,7 @@ public abstract class Editor implements Filter
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", System.currentTimeMillis());
 			out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
-			Editor_Jspm.writePreviewOverview(out, response, proposals);
+			Preview_Jspm.writePreviewOverview(out, response, proposals);
 		}
 		finally
 		{

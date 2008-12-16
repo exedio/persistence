@@ -21,13 +21,6 @@ package com.exedio.cope.editor;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
-import java.io.PrintStream;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
-import com.exedio.cops.CopsServlet;
-
 final class Editor_Jspm
 {
 	static final void writeBar(
@@ -191,62 +184,6 @@ final class Editor_Jspm
 			}
 			%>
 		</div><%
-	}
-	
-	static final void writePreviewOverview(
-			final PrintStream out,
-			final HttpServletResponse response,
-			final List<Editor.Proposal> proposals)
-	{
-%><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=<%=CopsServlet.UTF8%>">
-		<title>Content Editor Preview</title>
-		<style>
-			h1
-			{
-				font-family:sans-serif;
-				font-size:180%;
-			}
-			
-			img
-			{
-				border:0;
-			}
-			
-			img.logo
-			{
-				float:right;
-				width:198px;
-				height:60px;
-			}
-		</style>
-	</head>
-	<body>
-		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
-		<h1>COPE Content Editor Previews</h1>
-		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
-			<table border="1">
-				<tr>
-					<th>Old</th>
-					<th>New</th>
-				</tr><%
-				
-				for(final Editor.Proposal proposal : proposals)
-				{
-				%>
-				<tr>
-					<td><%=proposal.oldValue%></td>
-					<td><%=proposal.newValue%></td>
-				</tr><%
-				}
-				%>
-			</table>
-			<input name="<%=Editor.PREVIEW_SAVE%>" type="submit" value="Save">
-		</form>
-	</body>
-</html><%
 	}
 }
 %>
