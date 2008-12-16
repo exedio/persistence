@@ -231,6 +231,7 @@ public abstract class Editor implements Filter
 		
 		Proposal(final String id, final String oldValue, final String newValue)
 		{
+			assert id!=null;
 			this.id = id;
 			this.oldValue = oldValue;
 			this.newValue = newValue;
