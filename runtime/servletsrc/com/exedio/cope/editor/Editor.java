@@ -554,7 +554,7 @@ public abstract class Editor implements Filter
 		}
 	}
 	
-	private static final String ANCHOR = Anchor.class.getName();
+	private static final String ANCHOR = Session.class.getName();
 	
 	private static final class TL
 	{
