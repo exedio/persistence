@@ -40,6 +40,11 @@ final class Preview implements Serializable // for session persistence
 		assert item!=null;
 	}
 	
+	final String getID()
+	{
+		return feature + '/' + item.getCopeID();
+	}
+	
 	String getOldValue(final Model model)
 	{
 		return ((StringField)model.getFeature(feature)).get(item);

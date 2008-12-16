@@ -21,7 +21,9 @@ package com.exedio.cope.editor;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -219,14 +221,17 @@ public abstract class Editor implements Filter
 	
 	static final String PREVIEW_OVERVIEW = "po";
 	static final String PREVIEW_SAVE = "prevsave";
+	static final String PREVIEW_IDS = "id";
 	
 	static final class Proposal
 	{
+		final String id;
 		final String oldValue;
 		final String newValue;
 		
-		Proposal(final String oldValue, final String newValue)
+		Proposal(final String id, final String oldValue, final String newValue)
 		{
+			this.id = id;
 			this.oldValue = oldValue;
 			this.newValue = newValue;
 		}
@@ -243,6 +248,7 @@ public abstract class Editor implements Filter
 			if(request.getParameter(PREVIEW_SAVE)!=null)
 			{
 				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
+				final HashSet<String> ids = new HashSet<String>(Arrays.asList(request.getParameterValues(PREVIEW_IDS)));
 				try
 				{
 					startTransaction("saveProposals");
@@ -250,8 +256,11 @@ public abstract class Editor implements Filter
 					{
 						final Map.Entry<Preview, String> e = i.next();
 						final Preview p = e.getKey();
-						p.save(model, e.getValue());
-						i.remove();
+						if(ids.contains(p.getID()))
+						{
+							p.save(model, e.getValue());
+							i.remove();
+						}
 					}
 					// TODO maintain history
 					model.commit();
@@ -272,7 +281,7 @@ public abstract class Editor implements Filter
 			{
 				startTransaction("proposal");
 				for(final Map.Entry<Preview, String> e : previews.entrySet())
-					proposals.add(new Proposal(e.getKey().getOldValue(model), e.getValue()));
+					proposals.add(new Proposal(e.getKey().getID(), e.getKey().getOldValue(model), e.getValue()));
 				model.commit();
 			}
 			finally

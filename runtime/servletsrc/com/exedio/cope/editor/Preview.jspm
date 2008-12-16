@@ -64,6 +64,7 @@ final class Preview_Jspm
 		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
 			<table border="1">
 				<tr>
+					<th></th>
 					<th>Old</th>
 					<th>New</th>
 				</tr><%
@@ -72,6 +73,7 @@ final class Preview_Jspm
 				{
 				%>
 				<tr>
+					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=proposal.id%>" checked="checked"></td>
 					<td><%=proposal.oldValue%></td>
 					<td><%=proposal.newValue%></td>
 				</tr><%
