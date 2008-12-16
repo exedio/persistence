@@ -110,15 +110,6 @@ public abstract class Editor implements Filter
 		}
 	}
 	
-	/**
-	 * If you want persistent http sessions,
-	 * make implementions of this interface serializable.
-	 */
-	public interface Login
-	{
-		String getName();
-	}
-	
 	protected abstract Login login(String user, String password);
 	
 	@SuppressWarnings("unused")
