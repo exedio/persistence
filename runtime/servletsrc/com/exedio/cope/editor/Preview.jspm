@@ -60,8 +60,8 @@ final class Preview_Jspm
 	</head>
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
-		<h1>COPE Content Editor Previews</h1>
-		<%
+		<h1>COPE Content Editor Previews</h1><%
+	
 	if(proposals.isEmpty())
 	{
 		%>
