@@ -1,0 +1,101 @@
+<%
+/*
+ * Copyright (C) 2004-2008  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.editor;
+
+import static com.exedio.cops.XMLEncoder.encode;
+
+import java.io.PrintStream;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.exedio.cops.CopsServlet;
+
+final class Login_Jspm
+{
+	static final void writeLogin(
+			final PrintStream out,
+			final HttpServletResponse response,
+			final Package thePackage,
+			final String failureUser)
+	{
+%><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=<%=CopsServlet.UTF8%>">
+		<title>Content Editor Login</title>
+		<style>
+			h1
+			{
+				font-family:sans-serif;
+				font-size:180%;
+			}
+			
+			img
+			{
+				border:0;
+			}
+			
+			img.logo
+			{
+				float:right;
+				width:198px;
+				height:60px;
+			}
+			
+			div.footer
+			{
+				font-size:70%;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
+		<h1>COPE Content Editor</h1><%
+		if(failureUser!=null)
+		{
+		%>
+		<div>Login failed, because either user or password was not correct.</div><%
+		}
+		%>
+		<form action="<%=response.encodeURL(Editor.LOGIN_URL)%>" method="POST">
+			<table>
+				<tr>
+					<td>Login</td>
+					<td><input name="<%=Editor.LOGIN_USER%>"<% if(failureUser!=null){%> value="<%=encode(failureUser)%>"<%} %>></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input name="<%=Editor.LOGIN_PASSWORD%>" type="password"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input name="<%=Editor.LOGIN_SUBMIT%>" type="submit" value="Login"></td>
+				</tr>
+			</table>
+		</form>
+		<div class="footer">
+			<%=encode(thePackage.getSpecificationTitle())%>
+			<%=encode(thePackage.getSpecificationVersion())%>
+		</div>
+	</body>
+</html><%
+	}
+}
+%>

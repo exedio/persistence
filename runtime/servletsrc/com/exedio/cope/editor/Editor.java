@@ -532,7 +532,7 @@ public abstract class Editor implements Filter
 					else
 					{
 						out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
-						Editor_Jspm.writeLogin(out, response, Editor.class.getPackage(), user);
+						Login_Jspm.writeLogin(out, response, Editor.class.getPackage(), user);
 					}
 					model.commit();
 				}
@@ -544,7 +544,7 @@ public abstract class Editor implements Filter
 			else
 			{
 				out = new PrintStream(response.getOutputStream(), false, CopsServlet.UTF8);
-				Editor_Jspm.writeLogin(out, response, Editor.class.getPackage(), null);
+				Login_Jspm.writeLogin(out, response, Editor.class.getPackage(), null);
 			}
 		}
 		finally
