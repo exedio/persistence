@@ -26,7 +26,7 @@ import java.util.Map;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-final class Session implements Serializable // for session persistence
+final class Anchor implements Serializable // for session persistence
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -36,7 +36,7 @@ final class Session implements Serializable // for session persistence
 	boolean borders = false;
 	private final HashMap<Preview, String> previews = new HashMap<Preview, String>();
 	
-	Session(final String user, final Login login, final String loginName)
+	Anchor(final String user, final Login login, final String loginName)
 	{
 		this.user = user;
 		this.login = login;

@@ -154,9 +154,9 @@ public abstract class Editor implements Filter
 			else
 			{
 				if(request.getParameter(PREVIEW_OVERVIEW)!=null)
-					doPreviewOverview(request, response, (Session)session);
+					doPreviewOverview(request, response, (Anchor)session);
 				else
-					doBar(request, httpSession, response, (Session)session);
+					doBar(request, httpSession, response, (Anchor)session);
 			}
 			
 			return;
@@ -170,7 +170,7 @@ public abstract class Editor implements Filter
 			{
 				try
 				{
-					tls.set(new TL(this, request, (HttpServletResponse)servletResponse, (Session)session));
+					tls.set(new TL(this, request, (HttpServletResponse)servletResponse, (Anchor)session));
 					chain.doFilter(request, servletResponse);
 				}
 				finally
@@ -235,7 +235,7 @@ public abstract class Editor implements Filter
 	private final void doPreviewOverview(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
-			final Session session)
+			final Anchor session)
 	throws IOException
 	{
 		if(Cop.isPost(request))
@@ -301,7 +301,7 @@ public abstract class Editor implements Filter
 			final HttpServletRequest request,
 			final HttpSession httpSession,
 			final HttpServletResponse response,
-			final Session session)
+			final Anchor session)
 	throws IOException
 	{
 		if(!Cop.isPost(request))
@@ -526,7 +526,7 @@ public abstract class Editor implements Filter
 					final Login login = login(user, password);
 					if(login!=null)
 					{
-						httpSession.setAttribute(SESSION, new Session(user, login, login.getName()));
+						httpSession.setAttribute(SESSION, new Anchor(user, login, login.getName()));
 						redirectHome(request, response);
 					}
 					else
@@ -554,21 +554,21 @@ public abstract class Editor implements Filter
 		}
 	}
 	
-	private static final String SESSION = Session.class.getName();
+	private static final String SESSION = Anchor.class.getName();
 	
 	private static final class TL
 	{
 		final Editor filter;
 		final HttpServletRequest request;
 		final HttpServletResponse response;
-		final Session session;
+		final Anchor session;
 		private HashMap<IntegerField, Item> positionItems = null;
 		
 		TL(
 				final Editor filter,
 				final HttpServletRequest request,
 				final HttpServletResponse response,
-				final Session session)
+				final Anchor session)
 		{
 			this.filter = filter;
 			this.request = request;
