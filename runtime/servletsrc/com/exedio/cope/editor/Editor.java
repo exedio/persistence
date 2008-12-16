@@ -814,7 +814,7 @@ public abstract class Editor implements Filter
 	private static final void writeBar(final TL tl, final Out out)
 	{
 		final HttpServletRequest request = tl.request;
-		Editor_Jspm.writeBar(out,
+		Bar_Jspm.writeBar(out,
 				action(request, tl.response),
 				referer(request),
 				tl.session.borders,

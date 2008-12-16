@@ -21,7 +21,7 @@ package com.exedio.cope.editor;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
-final class Editor_Jspm
+final class Bar_Jspm
 {
 	static final void writeBar(
 			final Editor.Out out,
