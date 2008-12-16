@@ -22,7 +22,7 @@ package com.exedio.cope.editor;
  * If you want persistent http sessions,
  * make implementions of this interface serializable.
  */
-public interface Login
+public interface Session
 {
 	String getName();
 }

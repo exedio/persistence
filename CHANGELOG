@@ -3,7 +3,7 @@ CHANGELOG for cope
 
 * Editor
 	- put classes into separate package com.exedio.cope.editor
-	- make Login a top-level interface
+	- make Login a top-level interface and rename it to Session
 * updated cops library to build.54, do get it from cops project now
 * updated jspm library to build.14, added check.version target to getlib.xml
 * added Query.emptyResult()

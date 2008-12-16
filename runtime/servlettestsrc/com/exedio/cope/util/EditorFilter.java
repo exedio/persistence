@@ -32,7 +32,7 @@ public final class EditorFilter extends Editor
 		super(EditedServlet.model);
 	}
 	
-	private static class Login implements com.exedio.cope.editor.Login, Serializable
+	private static class Login implements com.exedio.cope.editor.Session, Serializable
 	{
 		private static final long serialVersionUID = 1l;
 		

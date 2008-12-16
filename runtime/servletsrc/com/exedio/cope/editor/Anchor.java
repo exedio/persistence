@@ -31,12 +31,12 @@ final class Anchor implements Serializable // for session persistence
 	private static final long serialVersionUID = 1l;
 	
 	private final String user;
-	final Login login;
+	final Session login;
 	final String loginName;
 	boolean borders = false;
 	private final HashMap<Preview, String> previews = new HashMap<Preview, String>();
 	
-	Anchor(final String user, final Login login, final String loginName)
+	Anchor(final String user, final Session login, final String loginName)
 	{
 		this.user = user;
 		this.login = login;

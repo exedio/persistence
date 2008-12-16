@@ -108,7 +108,7 @@ public abstract class Editor implements Filter
 		}
 	}
 	
-	protected abstract Login login(String user, String password);
+	protected abstract Session login(String user, String password);
 	
 	@SuppressWarnings("unused")
 	protected String getBorderButtonURL(HttpServletRequest request, HttpServletResponse response, boolean bordersEnabled)
@@ -523,7 +523,7 @@ public abstract class Editor implements Filter
 				try
 				{
 					startTransaction("login");
-					final Login login = login(user, password);
+					final Session login = login(user, password);
 					if(login!=null)
 					{
 						httpSession.setAttribute(ANCHOR, new Anchor(user, login, login.getName()));
@@ -606,7 +606,7 @@ public abstract class Editor implements Filter
 		return tls.get()!=null;
 	}
 	
-	public static final Login getLogin()
+	public static final Session getLogin()
 	{
 		final TL tl = tls.get();
 		return tl!=null ? tl.anchor.login : null;
