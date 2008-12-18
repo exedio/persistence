@@ -223,6 +223,7 @@ public abstract class Editor implements Filter
 	
 	static final String PREVIEW_OVERVIEW = "po";
 	static final String PREVIEW_SAVE = "prevsave";
+	static final String PREVIEW_DISCARD = "preview.discard";
 	static final String PREVIEW_IDS = "id";
 	
 	static final class Proposal
@@ -248,11 +249,11 @@ public abstract class Editor implements Filter
 	{
 		if(Cop.isPost(request))
 		{
+			final String[] idA = request.getParameterValues(PREVIEW_IDS);
+			final HashSet<String> ids = idA!=null ? new HashSet<String>(Arrays.asList(idA)) : null;
 			if(request.getParameter(PREVIEW_SAVE)!=null)
 			{
 				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
-				final String[] idA = request.getParameterValues(PREVIEW_IDS);
-				final HashSet<String> ids = idA!=null ? new HashSet<String>(Arrays.asList(idA)) : null;
 				try
 				{
 					startTransaction("saveProposals");
@@ -268,6 +269,24 @@ public abstract class Editor implements Filter
 					}
 					// TODO maintain history
 					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
+			else if(request.getParameter(PREVIEW_DISCARD)!=null)
+			{
+				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
+				try
+				{
+					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					{
+						final Map.Entry<Preview, String> e = i.next();
+						final Preview p = e.getKey();
+						if(ids!=null && ids.contains(p.getID()))
+							i.remove();
+					}
 				}
 				finally
 				{
