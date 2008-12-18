@@ -47,13 +47,13 @@ public final class EditorFilter extends Editor
 		
 		public String getName()
 		{
-			return nameIsNull ? null : "---" + user + "---getName()---";
+			return nameIsNull ? null : "getName(" + user + ')';
 		}
 		
 		@Override
 		public String toString()
 		{
-			return "---" + user + "---toString()---";
+			return "toString(" + user + ')';
 		}
 	};
 	
