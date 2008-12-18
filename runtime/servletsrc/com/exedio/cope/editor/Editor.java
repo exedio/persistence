@@ -278,19 +278,12 @@ public abstract class Editor implements Filter
 			else if(request.getParameter(PREVIEW_DISCARD)!=null)
 			{
 				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
-				try
+				for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 				{
-					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
-					{
-						final Map.Entry<Preview, String> e = i.next();
-						final Preview p = e.getKey();
-						if(ids!=null && ids.contains(p.getID()))
-							i.remove();
-					}
-				}
-				finally
-				{
-					model.rollbackIfNotCommitted();
+					final Map.Entry<Preview, String> e = i.next();
+					final Preview p = e.getKey();
+					if(ids!=null && ids.contains(p.getID()))
+						i.remove();
 				}
 			}
 		}
