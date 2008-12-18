@@ -50,6 +50,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
 import com.exedio.cope.pattern.History;
 import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.pattern.Media;
@@ -79,12 +80,19 @@ public abstract class Editor implements Filter
 	}
 	
 	private FilterConfig config = null;
+	private boolean persistentPreviews = false;
 	private ConnectToken connectToken = null;
 	private final Object connectTokenLock = new Object();
 	
 	public final void init(final FilterConfig config)
 	{
 		this.config = config;
+		for(final Type<?> type : model.getTypes())
+			if(type==EditorPreview.TYPE)
+			{
+				persistentPreviews = true;
+				break;
+			}
 	}
 	
 	private final void startTransaction(final String name)
@@ -224,6 +232,7 @@ public abstract class Editor implements Filter
 	static final String PREVIEW_OVERVIEW = "po";
 	static final String PREVIEW_SAVE = "prevsave";
 	static final String PREVIEW_DISCARD = "preview.discard";
+	static final String PREVIEW_PERSIST = "preview.persist";
 	static final String PREVIEW_IDS = "id";
 	
 	static final class Proposal
@@ -275,6 +284,31 @@ public abstract class Editor implements Filter
 					model.rollbackIfNotCommitted();
 				}
 			}
+			else if(request.getParameter(PREVIEW_PERSIST)!=null)
+			{
+				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
+				try
+				{
+					startTransaction("persistProposals");
+					final EditorPreview parent = new EditorPreview(anchor.user, anchor.sessionName);
+					int position = 0;
+					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					{
+						final Map.Entry<Preview, String> e = i.next();
+						final Preview p = e.getKey();
+						if(ids!=null && ids.contains(p.getID()))
+						{
+							new EditorPreviewFeature(parent, position++, p.feature, p.item, p.getOldValue(model), e.getValue());
+							i.remove();
+						}
+					}
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
 			else if(request.getParameter(PREVIEW_DISCARD)!=null)
 			{
 				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
@@ -293,11 +327,15 @@ public abstract class Editor implements Filter
 		{
 			final Map<Preview, String> previews = anchor.getPreviews();
 			final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+			final ArrayList<String> persistent = new ArrayList<String>();
 			try
 			{
 				startTransaction("proposal");
 				for(final Map.Entry<Preview, String> e : previews.entrySet())
 					proposals.add(new Proposal(e.getKey().getID(), e.getKey().getOldValue(model), e.getValue()));
+				if(persistentPreviews)
+					for(final EditorPreview p : EditorPreview.TYPE.search(null, EditorPreview.date, false))
+						persistent.add(p.getText());
 				model.commit();
 			}
 			finally
@@ -313,7 +351,7 @@ public abstract class Editor implements Filter
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", System.currentTimeMillis());
 			out = new PrintStream(response.getOutputStream(), false, UTF8);
-			Preview_Jspm.writeOverview(out, response, proposals);
+			Preview_Jspm.writeOverview(out, response, proposals, persistent);
 		}
 		finally
 		{

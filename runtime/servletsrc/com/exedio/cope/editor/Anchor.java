@@ -31,7 +31,7 @@ final class Anchor implements Serializable // for session persistence
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final String user;
+	final String user;
 	final Session session;
 	final String sessionName;
 	boolean borders = false;

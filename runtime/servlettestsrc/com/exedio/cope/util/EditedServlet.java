@@ -26,8 +26,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.Revision;
 import com.exedio.cope.Model;
+import com.exedio.cope.Revision;
+import com.exedio.cope.editor.EditorPreview;
+import com.exedio.cope.editor.EditorPreviewFeature;
 import com.exedio.cope.pattern.InitServlet;
 import com.exedio.cope.pattern.Media;
 
@@ -51,7 +53,7 @@ public final class EditedServlet extends HttpServlet
 	
 	static final String ENCODING = "utf-8";
 	
-	public static final Model model = new Model(revisions(64), EditedItem.TYPE);
+	public static final Model model = new Model(revisions(64), EditedItem.TYPE, EditorPreview.TYPE, EditorPreviewFeature.TYPE);
 	
 	private ConnectToken connectToken = null;
 	

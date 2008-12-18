@@ -28,8 +28,8 @@ final class Preview implements Serializable // for session persistence
 {
 	private static final long serialVersionUID = 1l;
 	
-	private final String feature;
-	private final Item item;
+	final String feature;
+	final Item item;
 	
 	Preview(final StringField feature, final Item item)
 	{
