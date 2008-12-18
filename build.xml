@@ -1058,6 +1058,7 @@
 		<delete dir="cruise" />
 		<mkdir dir="cruise" />
 		<copy todir="${basedir}/cruise">
+			<fileset file="${basedir}/getlib.properties" />
 			<fileset file="${basedir}/lib/bsh-core.jar" />
 			<fileset file="${basedir}/lib/cojen.jar" />
 			<fileset file="${basedir}/lib/trove.jar" />
@@ -1077,7 +1078,6 @@
 			<fileset file="${basedir}/home/testprotocol.html" />
 		</copy>
 		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope.jar-CHANGELOG" />
-		<copy file="getlib.properties" tofile="${basedir}/cruise/getlib.properties" />
 	</target>
 	
 </project>
