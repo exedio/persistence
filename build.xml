@@ -754,7 +754,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 		</ljavac>
-		<copy todir="build/copernica/testclasses/com/exedio/copernica">
+		<copy todir="build/copernica/testclasses/com/exedio/copernica/test">
 			<fileset dir="copernica/testresources" />
 		</copy>
 	</target>

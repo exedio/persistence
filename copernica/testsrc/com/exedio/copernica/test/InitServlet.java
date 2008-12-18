@@ -40,7 +40,6 @@ import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.testmodel.UniqueFinal;
-import com.exedio.copernica.CopernicaProvider;
 import com.exedio.cops.Cop;
 import com.exedio.cops.CopsServlet;
 import com.exedio.cops.Resource;
@@ -118,7 +117,7 @@ public class InitServlet extends CopsServlet
 	{
 		try
 		{
-			final Class thisClass = CopernicaProvider.class;
+			final Class thisClass = InitServlet.class;
 			{
 				final ItemWithSingleUnique item1 = new ItemWithSingleUnique();
 				item1.setUniqueString("item1");
