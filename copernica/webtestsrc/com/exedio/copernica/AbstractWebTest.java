@@ -18,18 +18,15 @@
 
 package com.exedio.copernica;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.sourceforge.jwebunit.TestContext;
-import net.sourceforge.jwebunit.WebTestCase;
+import junit.framework.TestCase;
 
-import org.xml.sax.SAXException;
-
-import com.meterware.httpunit.Button;
-import com.meterware.httpunit.WebForm;
-
-public class AbstractWebTest extends WebTestCase
+public class AbstractWebTest extends TestCase
 {
 	protected static final String SAVE_BUTTON = "Save";
 
@@ -37,50 +34,38 @@ public class AbstractWebTest extends WebTestCase
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		final TestContext ctx = getTestContext();
-		ctx.setBaseUrl("http://127.0.0.1:8080/copetest-hsqldb/");
-		ctx.setAuthorization("admin", "nimda");
-		beginAt("console/schema.html");
-		submit("CREATE");
-		beginAt("init.jsp");
-		submit("INIT");
+		
+		post("console/schema.html", "CREATE");
+		post("init.jsp", "INIT");
+	}
+	
+	private static final void post(final String url, final String button) throws Exception
+	{
+		final byte[] content = new String(button + "=true").getBytes("UTF8");
+		final URL u = new URL("http://127.0.0.1:8080/copetest-hsqldb/" + url);
+		//final long start = System.currentTimeMillis();
+		final HttpURLConnection con = (HttpURLConnection)u.openConnection();
+		con.setConnectTimeout(5000);
+		con.setReadTimeout(5000);
+		con.setRequestMethod("POST");
+		con.setFixedLengthStreamingMode(content.length);
+		con.setDoInput(true);
+		con.setDoOutput(true);
+		con.getOutputStream().write(content);
+		final int responseCode = con.getResponseCode();
+		final String responseMessage = con.getResponseMessage();
+		
+		con.disconnect();
+		//System.out.println("test tomcat connect " + (System.currentTimeMillis() - start) + "ms");
+		if(responseCode!=200)
+			throw new IOException("expected http response 200 (OK), but was " + responseCode + ' ' + '(' + responseMessage + ')');
 	}
 	
 	@Override
 	public void tearDown() throws Exception
 	{
-		beginAt("console/schema.html");
-		submit("DROP");
+		post("console/schema.html", "DROP");
 		super.tearDown();
-	}
-	
-	protected final void assertFormElementEqualsWithLabel(final String formElementLabel, final String expectedValue)
-	{
-		final String formElementName = getDialog().getFormElementNameForLabel(formElementLabel);
-		assertNotNull("no form element with label "+formElementLabel, formElementName);
-		assertFormElementEquals(formElementName, expectedValue);
-	}
-	
-	protected final void submitWithValue(final String buttonValue) throws SAXException
-	{
-		final Button buttonWithValue = null;
-		for(final WebForm form : getDialog().getResponse().getForms())
-		{
-			for(final Button button : form.getButtons())
-			{
-				if(button.getValue().equals(buttonValue))
-				{
-					if(buttonWithValue!=null)
-						fail("there is more than one button with value "+buttonValue);
-					else
-					{
-						submit(button.getName());
-						return;
-					}
-				}
-			}
-		}
-		fail("there is no button with value "+buttonValue);
 	}
 	
 	

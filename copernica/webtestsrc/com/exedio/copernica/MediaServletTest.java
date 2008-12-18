@@ -30,9 +30,9 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.sourceforge.jwebunit.WebTestCase;
+import junit.framework.TestCase;
 
-public class MediaServletTest extends WebTestCase
+public class MediaServletTest extends TestCase
 {
 	private static final String NO_SUCH_PATH = "no such path";
 	private static final String NOT_AN_ITEM = "not an item";

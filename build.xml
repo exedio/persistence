@@ -804,9 +804,7 @@
 	<target name="copernica.webtest.compile">
 		<ljavac srcdir="copernica/webtestsrc" destdir="build/copernica/webtestclasses">
 			<classpath>
-				<fileset dir="lib/jwebunit">
-					<include name="*.jar" />
-				</fileset>
+				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -820,9 +818,7 @@
 				<ljunit test="com.exedio.copernica.PackageTest">
 					<classpath>
 						<pathelement location="build/copernica/webtestclasses" />
-						<fileset dir="lib/jwebunit">
-							<include name="*.jar" />
-						</fileset>
+						<pathelement location="lib/junit.jar" />
 					</classpath>
 				</ljunit>
 			</body>

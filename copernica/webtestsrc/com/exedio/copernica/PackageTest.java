@@ -30,11 +30,6 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(ResourceTest.class);
 		suite.addTestSuite(MediaServletTest.class);
-		suite.addTestSuite(ErrorTest.class);
-		suite.addTestSuite(AuthorizationTest.class);
-		suite.addTestSuite(WebTest.class);
-		suite.addTestSuite(StringTest.class);
-		suite.addTestSuite(SaveButtonExistTest.class);
 		return suite;
 	}
 
