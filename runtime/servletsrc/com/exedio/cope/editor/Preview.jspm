@@ -24,8 +24,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cops.CopsServlet;
-
 final class Preview_Jspm
 {
 	static final void writeOverview(
@@ -36,7 +34,7 @@ final class Preview_Jspm
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=<%=CopsServlet.UTF8%>">
+		<meta http-equiv="content-type" content="text/html; charset=<%=Editor.UTF8%>">
 		<title>Content Editor Preview</title>
 		<style>
 			h1
