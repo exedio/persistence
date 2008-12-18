@@ -1055,8 +1055,6 @@
 	<target name="all" depends="build, runtime.jar.src, dist" />
 
 	<target name="cruise" depends="clean, all">
-		<delete dir="cruise" />
-		<mkdir dir="cruise" />
 		<copy todir="${basedir}/cruise">
 			<fileset file="${basedir}/getlib.properties" />
 			<fileset file="${basedir}/lib/bsh-core.jar" />
