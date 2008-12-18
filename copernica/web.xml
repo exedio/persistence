@@ -32,40 +32,6 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>copernica</servlet-name>
-		<servlet-class>com.exedio.copernica.CopernicaServlet</servlet-class>
-		<init-param>
-			<param-name>provider</param-name>
-			<param-value>com.exedio.copernica.test.CopernicaTestProvider</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>copernica</servlet-name>
-		<url-pattern>/copernica.jsp/*</url-pattern>
-	</servlet-mapping>
-
-	<!--
-		 This is an alternative method of mounting the copernica servlet,
-		 if you don't want any customization possible with your own
-		 implementation of CopernicaProvider.
-		 It provides a complete view of the persistent data without any
-		 restrictions or end-user-friendly renaming of types or attributes,
-		 which you may find useful for debugging.
-		 -->
-	<servlet>
-		<servlet-name>copernica.pure</servlet-name>
-		<servlet-class>com.exedio.copernica.CopernicaServlet</servlet-class>
-		<init-param>
-			<param-name>model</param-name>
-			<param-value>com.exedio.cope.testmodel.Main#model</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>copernica.pure</servlet-name>
-		<url-pattern>/copernica-pure.jsp/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>init</servlet-name>
 		<servlet-class>com.exedio.copernica.test.InitServlet</servlet-class>
 	</servlet>

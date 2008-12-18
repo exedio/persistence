@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="console/src"/>
 	<classpathentry kind="src" path="runtime/servlettestsrc"/>
 	<classpathentry kind="src" path="console/testsrc"/>
-	<classpathentry kind="src" path="copernica/src"/>
 	<classpathentry kind="src" path="copernica/testsrc"/>
 	<classpathentry kind="src" path="copernica/webtestsrc"/>
 	<classpathentry kind="src" path="dsmf/src"/>

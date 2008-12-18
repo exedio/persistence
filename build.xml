@@ -445,7 +445,7 @@
 
 	<target name="runtime.web"
 			  depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile,
-							console.compile, copernica.compile">
+							console.compile">
 		<foreachEnvironment skipSwitch="runtime.web">
 			<body>
 				<mkdir dir="build/runtime/web-@{env}" />
@@ -455,7 +455,6 @@
 					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="build/console/classes" />
-					<fileset dir="build/copernica/classes" />
 				</copy>
 				
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
@@ -707,35 +706,6 @@
 	
 	<!-- copernica -->
 	
-	<target name="copernica.jspm">
-		<jspm method="print">
-			<fileset dir="copernica/src" includes="**/*.jspm" />
-		</jspm>
-	</target>
-	
-	<target name="copernica.compile" depends="runtime.compile, copernica.jspm">
-		<ljavac srcdir="copernica/src" destdir="build/copernica/classes">
-			<classpath>
-				<pathelement location="build/runtime/classes" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-			</classpath>
-		</ljavac>
-		<copy todir="build/copernica/classes">
-			<fileset dir="copernica/src">
-				<include name="**/*.css" />
-				<include name="**/*.js" />
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
-	</target>
-	
-	<target name="copernica.jar" depends="copernica.compile">
-		<ljar name="copernica" jarfile="build/exedio-copernica.jar" classpath="exedio-cope.jar exedio-cops.jar">
-			<fileset dir="build/copernica/classes" />
-		</ljar>
-	</target>
-	
 	<target name="copernica.test.jspm">
 		<jspm method="print">
 			<fileset dir="copernica/testsrc" includes="**/*.jspm" />
@@ -743,12 +713,11 @@
 	</target>
 	
 	<target name="copernica.test.compile"
-				depends="runtime.compile, runtime.test.compile, copernica.compile, copernica.test.jspm">
+				depends="runtime.compile, runtime.test.compile, copernica.test.jspm">
 		<ljavac srcdir="copernica/testsrc" destdir="build/copernica/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/runtime/testmodelclasses" />
-				<pathelement location="build/copernica/classes" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/servlet-api.jar" />
@@ -759,7 +728,7 @@
 		</copy>
 	</target>
 	
-	<target name="copernica.web" depends="copernica.compile, copernica.test.compile">
+	<target name="copernica.web" depends="copernica.test.compile">
 		<foreachEnvironment skipSwitch="copernica.web">
 			<body>
 				<mkdir dir="build/copernica/web-@{env}" />
@@ -768,7 +737,6 @@
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="build/console/classes" />
-					<fileset dir="build/copernica/classes" />
 					<fileset dir="build/copernica/testclasses" />
 				</copy>
 				
@@ -828,20 +796,15 @@
 	<target name="copernica.clean">
 		<delete dir="build/copernica" />
 		<delete>
-			<fileset dir="copernica/src">
-				<include name="**/*_Jspm.java" />
-			</fileset>
 			<fileset dir="copernica/testsrc">
 				<include name="**/*_Jspm.java" />
 			</fileset>
 		</delete>
 	</target>
 	
-	<target name="copernica" depends="copernica.compile" />
-	
 	<!-- common -->
 	
-	<target name="jspm" depends="runtime.servlet.jspm, runtime.servlet.test.jspm, console.jspm, copernica.jspm, copernica.test.jspm" />
+	<target name="jspm" depends="runtime.servlet.jspm, runtime.servlet.test.jspm, console.jspm, copernica.test.jspm" />
 	
 	<target name="src" depends="jspm, index" description="creates all sources, so the IDE does not complain" />
 	
@@ -852,9 +815,9 @@
 			  runtime.servlet.test.web,
 			  instrument.compile,
 			  console.compile,
-			  copernica.compile, copernica.test.compile" />
+			  copernica.test.compile" />
 	
-	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar, copernica.jar" />
+	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar, console.jar" />
 	
 	<target name="teardown" depends="runtime.test.teardown" />
 	
@@ -936,7 +899,6 @@
 			<fileset file="instrument/src/com" includes="**/*.java" />
 			<fileset file="instrument/antsrc/com" includes="**/*.java" />
 			<fileset file="console/src/com" includes="**/*.java" />
-			<fileset file="copernica/src/com" includes="**/*.java" />
 			<classpath>
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -948,7 +910,6 @@
 				<pathelement location="lib/commons-fileupload.jar" />
 			</classpath>
 			<group title="Cope Runtime Library" packages="com.exedio.cope:com.exedio.cope.*" />
-			<group title="Copernica - Generic Backoffice" packages="com.exedio.copernica*" />
 			<group title="Cope Instrumentor" packages="com.exedio.cope.instrument" />
 			<group title="Database Schema Management Facility" packages="com.exedio.dsmf" />
 		</javadoc>
