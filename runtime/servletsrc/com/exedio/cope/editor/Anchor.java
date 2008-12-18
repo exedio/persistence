@@ -21,6 +21,7 @@ package com.exedio.cope.editor;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.exedio.cope.Item;
@@ -34,7 +35,7 @@ final class Anchor implements Serializable // for session persistence
 	final Session session;
 	final String sessionName;
 	boolean borders = false;
-	private final HashMap<Preview, String> previews = new HashMap<Preview, String>();
+	private final LinkedHashMap<Preview, String> previews = new LinkedHashMap<Preview, String>();
 	
 	Anchor(final String user, final Session session, final String sessionName)
 	{
