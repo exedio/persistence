@@ -31,6 +31,7 @@ import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -322,8 +323,6 @@ public abstract class Editor implements Filter
 			}
 		}
 		
-		PrintStream out = null;
-		try
 		{
 			final Map<Preview, String> previews = anchor.getPreviews();
 			final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
@@ -350,13 +349,9 @@ public abstract class Editor implements Filter
 			response.addHeader("Cache-Control", "must-revalidate");
 			response.setHeader("Pragma", "no-cache");
 			response.setDateHeader("Expires", System.currentTimeMillis());
-			out = new PrintStream(response.getOutputStream(), false, UTF8);
+			final StringBuilder out = new StringBuilder();
 			Preview_Jspm.writeOverview(out, response, proposals, persistentPreviews, persistent);
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
+			writeBody(out, response);
 		}
 	}
 	
@@ -575,8 +570,6 @@ public abstract class Editor implements Filter
 	throws IOException
 	{
 		assert httpSession!=null;
-		PrintStream out = null;
-		try
 		{
 			response.setContentType("text/html; charset="+UTF8);
 			if(Cop.isPost(request) && request.getParameter(LOGIN_SUBMIT)!=null)
@@ -594,8 +587,9 @@ public abstract class Editor implements Filter
 					}
 					else
 					{
-						out = new PrintStream(response.getOutputStream(), false, UTF8);
+						final StringBuilder out = new StringBuilder();
 						Login_Jspm.write(out, response, Editor.class.getPackage(), user);
+						writeBody(out, response);
 					}
 					model.commit();
 				}
@@ -606,14 +600,10 @@ public abstract class Editor implements Filter
 			}
 			else
 			{
-				out = new PrintStream(response.getOutputStream(), false, UTF8);
+				final StringBuilder out = new StringBuilder();
 				Login_Jspm.write(out, response, Editor.class.getPackage(), null);
+				writeBody(out, response);
 			}
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
 		}
 	}
 	
@@ -846,8 +836,8 @@ public abstract class Editor implements Filter
 	
 	interface Out
 	{
-		void print(String s);
-		void print(int i);
+		void append(String s);
+		void append(int i);
 	}
 	
 	public static final void writeBar(final PrintStream out)
@@ -857,8 +847,8 @@ public abstract class Editor implements Filter
 			return;
 		
 		writeBar(tl, new Out(){
-			public void print(final String s) { out.print(s); }
-			public void print(final int    i) { out.print(i); }
+			public void append(final String s) { out.print(s); }
+			public void append(final int    i) { out.print(i); }
 		});
 	}
 	
@@ -869,8 +859,8 @@ public abstract class Editor implements Filter
 			return;
 		
 		writeBar(tl, new Out(){
-			public void print(final String s) { out.append(s); }
-			public void print(final int    i) { out.append(i); }
+			public void append(final String s) { out.append(s); }
+			public void append(final int    i) { out.append(i); }
 		});
 	}
 	
@@ -897,6 +887,25 @@ public abstract class Editor implements Filter
 	{
 		final String queryString = request.getQueryString();
 		return queryString!=null ? (request.getPathInfo() + '?' + request.getQueryString()) : request.getPathInfo();
+	}
+	
+	private static final void writeBody(
+			final StringBuilder out,
+			final HttpServletResponse response)
+		throws IOException
+	{
+		ServletOutputStream outStream = null;
+		try
+		{
+			outStream = response.getOutputStream();
+			final byte[] outBytes = out.toString().getBytes(UTF8);
+			outStream.write(outBytes);
+		}
+		finally
+		{
+			if(outStream!=null)
+				outStream.close();
+		}
 	}
 	
 	// ------------------- deprecated stuff -------------------

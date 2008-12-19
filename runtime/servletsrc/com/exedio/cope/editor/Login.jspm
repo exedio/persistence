@@ -21,14 +21,12 @@ package com.exedio.cope.editor;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
-import java.io.PrintStream;
-
 import javax.servlet.http.HttpServletResponse;
 
 final class Login_Jspm
 {
 	static final void write(
-			final PrintStream out,
+			final StringBuilder out,
 			final HttpServletResponse response,
 			final Package thePackage,
 			final String failureUser)

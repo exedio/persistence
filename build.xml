@@ -258,7 +258,7 @@
 	</target>
 	
 	<target name="runtime.servlet.jspm">
-		<jspm method="print">
+		<jspm>
 			<fileset dir="runtime/servletsrc" includes="**/*.jspm" />
 		</jspm>
 	</target>
