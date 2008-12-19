@@ -235,6 +235,7 @@ public abstract class Editor implements Filter
 	static final String PREVIEW_SAVE = "prevsave";
 	static final String PREVIEW_DISCARD = "preview.discard";
 	static final String PREVIEW_PERSIST = "preview.persist";
+	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
 	static final String PREVIEW_IDS = "id";
 	
 	static final class Proposal
@@ -292,7 +293,7 @@ public abstract class Editor implements Filter
 				try
 				{
 					startTransaction("persistProposals");
-					final EditorPreview parent = new EditorPreview(anchor.user, anchor.sessionName);
+					final EditorPreview parent = new EditorPreview(anchor.user, anchor.sessionName, request.getParameter(PREVIEW_PERSIST_COMMENT));
 					int position = 0;
 					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{

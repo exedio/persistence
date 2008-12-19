@@ -30,6 +30,7 @@ public final class EditorPreview extends Item
 	static final StringField user = new StringField().toFinal();
 	static final StringField name = new StringField().toFinal().optional();
 	static final DateField date = new DateField().toFinal().defaultToNow();
+	static final StringField comment = new StringField().toFinal();
 	
 	String getDate()
 	{
@@ -42,13 +43,21 @@ public final class EditorPreview extends Item
 		return name!=null ? name : EditorPreview.user.get(this);
 	}
 	
+	String getComment()
+	{
+		return EditorPreview.comment.get(this);
+	}
+	
 	EditorPreview(
 				java.lang.String user,
-				java.lang.String name)
+				java.lang.String name,
+				java.lang.String comment)
 	{
 		this(new com.exedio.cope.SetValue[]{
 			EditorPreview.user.map(user),
-			EditorPreview.name.map(name)});
+			EditorPreview.name.map(name),
+			EditorPreview.comment.map(comment)
+			});
 	}
 	
 	private EditorPreview(com.exedio.cope.SetValue... setValues)

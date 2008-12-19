@@ -112,6 +112,9 @@ final class Preview_Jspm
 			if(persistentPreviews)
 			{
 			%>
+			<br>
+			comment:
+			<input name="<%=Editor.PREVIEW_PERSIST_COMMENT%>" type="text">
 			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Persist"><%
 			}
 			%>
@@ -125,6 +128,7 @@ final class Preview_Jspm
 			<tr>
 				<th>Date</th>
 				<th>Author</th>
+				<th>Comment</th>
 			</tr><%
 			for(final EditorPreview p : persistent)
 			{
@@ -132,6 +136,7 @@ final class Preview_Jspm
 			<tr>
 				<td><%=p.getDate()%></td>
 				<td><%=p.getAuthor()%></td>
+				<td><%=p.getComment()%></td>
 			</tr><%
 			}
 		%>
