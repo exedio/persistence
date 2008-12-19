@@ -36,6 +36,17 @@ public final class EditorPreviewFeature extends Item
 	static final StringField newValue = new StringField().toFinal().lengthMax(50000);
 	
 	
+	public EditorPreviewFeature(
+			EditorPreview parent,
+			int position,
+			StringField feature,
+			Item item,
+			String oldValue,
+			String newValue)
+	{
+		this(parent, position, feature.getID(), item, oldValue, newValue);
+	}
+	
 	EditorPreviewFeature(
 				EditorPreview parent,
 				int position,

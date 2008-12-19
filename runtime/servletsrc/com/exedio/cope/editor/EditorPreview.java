@@ -48,7 +48,7 @@ public final class EditorPreview extends Item
 		return EditorPreview.comment.get(this);
 	}
 	
-	EditorPreview(
+	public EditorPreview(
 				java.lang.String user,
 				java.lang.String name,
 				java.lang.String comment)
