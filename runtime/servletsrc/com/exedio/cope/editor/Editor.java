@@ -88,7 +88,7 @@ public abstract class Editor implements Filter
 	{
 		this.config = config;
 		for(final Type<?> type : model.getTypes())
-			if(type==EditorPreview.TYPE)
+			if(type==EditorPreviewFeature.TYPE) // EditorPreviewFeature implies EditorPreview because of the parent field
 			{
 				persistentPreviews = true;
 				break;
