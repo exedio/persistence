@@ -18,6 +18,9 @@
 
 package com.exedio.cope.editor;
 
+import java.text.DateFormat;
+import java.util.Locale;
+
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
@@ -25,12 +28,18 @@ import com.exedio.cope.StringField;
 public final class EditorPreview extends Item
 {
 	static final StringField user = new StringField().toFinal();
-	static final StringField name = new StringField().toFinal();
+	static final StringField name = new StringField().toFinal().optional();
 	static final DateField date = new DateField().toFinal().defaultToNow();
 	
-	String getText()
+	String getDate()
 	{
-		return user.get(this) + ' ' + name.get(this) + ' ' + date.get(this);
+		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault()).format(date.get(this));
+	}
+	
+	String getAuthor()
+	{
+		final String name = EditorPreview.name.get(this);
+		return name!=null ? name : EditorPreview.user.get(this);
 	}
 	
 	EditorPreview(

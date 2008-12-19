@@ -121,14 +121,21 @@ final class Preview_Jspm
 	if(persistentPreviews && !persistent.isEmpty())
 	{
 		%>
-		<ul><%
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>Author</th>
+			</tr><%
 			for(final EditorPreview p : persistent)
 			{
 			%>
-			<li><%=p.getText()%></li><%
+			<tr>
+				<td><%=p.getDate()%></td>
+				<td><%=p.getAuthor()%></td>
+			</tr><%
 			}
 		%>
-		</ul><%
+		</table><%
 	}
 	%>
 	</body>
