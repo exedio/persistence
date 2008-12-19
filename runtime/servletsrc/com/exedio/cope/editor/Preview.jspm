@@ -20,15 +20,19 @@
 package com.exedio.cope.editor;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+
+import com.exedio.cope.Model;
 
 final class Preview_Jspm
 {
 	static final void writeOverview(
 			final StringBuilder out,
+			final Model model,
 			final HttpServletResponse response,
-			final List<Editor.Proposal> proposals,
+			final Map<Preview, String> previews,
 			final boolean persistentPreviews,
 			final List<EditorPreview> persistent)
 	{
@@ -79,7 +83,7 @@ final class Preview_Jspm
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<h1>COPE Content Editor Preview</h1><%
 	
-	if(proposals.isEmpty())
+	if(previews.isEmpty())
 	{
 		%>
 		<div>There are no more pending previews in this Content Editor session.</div><%
@@ -95,13 +99,14 @@ final class Preview_Jspm
 					<th>New</th>
 				</tr><%
 				
-				for(final Editor.Proposal proposal : proposals)
+				for(final Map.Entry<Preview, String> e : previews.entrySet())
 				{
+					final Preview p = e.getKey();
 				%>
 				<tr>
-					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=proposal.id%>" checked="checked"></td>
-					<td><%=proposal.oldValue%></td>
-					<td><%=proposal.newValue%></td>
+					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=p.getID()%>" checked="checked"></td>
+					<td><%=p.getOldValue(model)%></td>
+					<td><%=e.getValue()%></td>
 				</tr><%
 				}
 				%>

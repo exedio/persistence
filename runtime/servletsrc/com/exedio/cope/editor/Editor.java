@@ -20,7 +20,6 @@ package com.exedio.cope.editor;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -238,21 +237,6 @@ public abstract class Editor implements Filter
 	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
 	static final String PREVIEW_IDS = "id";
 	
-	static final class Proposal
-	{
-		final String id;
-		final String oldValue;
-		final String newValue;
-		
-		Proposal(final String id, final String oldValue, final String newValue)
-		{
-			assert id!=null;
-			this.id = id;
-			this.oldValue = oldValue;
-			this.newValue = newValue;
-		}
-	}
-	
 	private final void doPreviewOverview(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
@@ -325,19 +309,15 @@ public abstract class Editor implements Filter
 			}
 		}
 		
-		final Map<Preview, String> previews = anchor.getPreviews();
-		final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
 		final StringBuilder out = new StringBuilder();
 		try
 		{
 			startTransaction("proposal");
-			for(final Map.Entry<Preview, String> e : previews.entrySet())
-				proposals.add(new Proposal(e.getKey().getID(), e.getKey().getOldValue(model), e.getValue()));
 			final List<EditorPreview> persistent =
 				persistentPreviews
 				? EditorPreview.TYPE.search(null, EditorPreview.date, false)
 				: null;
-			Preview_Jspm.writeOverview(out, response, proposals, persistentPreviews, persistent);
+			Preview_Jspm.writeOverview(out, model, response, anchor.getPreviews(), persistentPreviews, persistent);
 			model.commit();
 		}
 		finally
