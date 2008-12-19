@@ -1,6 +1,8 @@
 
 CHANGELOG for cope
 
+* support for
+	<taskdef resource="com/exedio/cope/instrument/ant.properties" classpath="lib/exedio-cope-instrument.jar" />
 * Editor
 	- put classes into separate package com.exedio.cope.editor
 	- make Login a top-level interface and rename it to Session
