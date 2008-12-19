@@ -88,7 +88,7 @@ final class Preview_Jspm
 	{
 		%>
 		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
-			<table border="1">
+			<table>
 				<tr>
 					<th></th>
 					<th>Old</th>
