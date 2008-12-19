@@ -19,6 +19,7 @@
 package com.exedio.cope.editor;
 
 import java.text.DateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import com.exedio.cope.DateField;
@@ -46,6 +47,11 @@ public final class EditorPreview extends Item
 	String getComment()
 	{
 		return EditorPreview.comment.get(this);
+	}
+	
+	List<EditorPreviewFeature> getFeatures()
+	{
+		return EditorPreviewFeature.TYPE.search(EditorPreviewFeature.parent.equal(this));
 	}
 	
 	public EditorPreview(

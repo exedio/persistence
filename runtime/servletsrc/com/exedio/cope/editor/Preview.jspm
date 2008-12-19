@@ -129,8 +129,10 @@ final class Preview_Jspm
 	if(persistentPreviews && !persistent.isEmpty())
 	{
 		%>
+		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
 		<table>
 			<tr>
+				<th></th>
 				<th>Date</th>
 				<th>Author</th>
 				<th>Comment</th>
@@ -139,13 +141,16 @@ final class Preview_Jspm
 			{
 			%>
 			<tr>
+				<td><input name="<%=Editor.PERSISTENT_PREVIEW_ID%>" type="radio" value="<%=p.getCopeID()%>"></td>
 				<td><%=p.getDate()%></td>
 				<td><%=p.getAuthor()%></td>
 				<td><%=p.getComment()%></td>
 			</tr><%
 			}
 		%>
-		</table><%
+		</table>
+			<input name="<%=Editor.PERSISTENT_PREVIEW_LOAD%>" type="submit" value="Load">
+		</form><%
 	}
 	%>
 	</body>

@@ -236,6 +236,8 @@ public abstract class Editor implements Filter
 	static final String PREVIEW_PERSIST = "preview.persist";
 	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
 	static final String PREVIEW_IDS = "id";
+	static final String PERSISTENT_PREVIEW_ID = "persistent_preview.id";
+	static final String PERSISTENT_PREVIEW_LOAD = "persistent_preview.load";
 	
 	private final void doPreviewOverview(
 			final HttpServletRequest request,
@@ -305,6 +307,28 @@ public abstract class Editor implements Filter
 					final Preview p = e.getKey();
 					if(ids!=null && ids.contains(p.getID()))
 						i.remove();
+				}
+			}
+			else if(request.getParameter(PERSISTENT_PREVIEW_LOAD)!=null)
+			{
+				try
+				{
+					startTransaction("loadPreview");
+					final EditorPreview p =
+						(EditorPreview)model.getItem(request.getParameter(PERSISTENT_PREVIEW_ID));
+					for(final EditorPreviewFeature f : p.getFeatures())
+						anchor.setPreview(
+								EditorPreviewFeature.newValue.get(f),
+								(StringField)model.getFeature(EditorPreviewFeature.feature.get(f)),
+								model.getItem(EditorPreviewFeature.item.get(f)));
+				}
+				catch(NoSuchIDException e)
+				{
+					throw new RuntimeException(e);
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
 				}
 			}
 		}
