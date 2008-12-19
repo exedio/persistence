@@ -30,6 +30,7 @@ final class Preview_Jspm
 			final PrintStream out,
 			final HttpServletResponse response,
 			final List<Editor.Proposal> proposals,
+			final boolean persistentPreviews,
 			final List<String> persistent)
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
@@ -108,11 +109,18 @@ final class Preview_Jspm
 			</table>
 			<input name="<%=Editor.PREVIEW_SAVE%>" type="submit" value="Save">
 			<input name="<%=Editor.PREVIEW_DISCARD%>" type="submit" value="Discard">
+			<%
+			if(persistentPreviews)
+			{
+			%>
 			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Persist">
+			<%
+			}
+			%>
 		</form><%
 	}
 	
-	if(!persistent.isEmpty())
+	if(persistentPreviews && !persistent.isEmpty())
 	{
 		%>
 		<ul><%
