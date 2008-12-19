@@ -323,36 +323,34 @@ public abstract class Editor implements Filter
 			}
 		}
 		
+		final Map<Preview, String> previews = anchor.getPreviews();
+		final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
+		final ArrayList<String> persistent = new ArrayList<String>();
+		try
 		{
-			final Map<Preview, String> previews = anchor.getPreviews();
-			final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
-			final ArrayList<String> persistent = new ArrayList<String>();
-			try
-			{
-				startTransaction("proposal");
-				for(final Map.Entry<Preview, String> e : previews.entrySet())
-					proposals.add(new Proposal(e.getKey().getID(), e.getKey().getOldValue(model), e.getValue()));
-				if(persistentPreviews)
-					for(final EditorPreview p : EditorPreview.TYPE.search(null, EditorPreview.date, false))
-						persistent.add(p.getText());
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
-			}
-			
-			response.setContentType("text/html; charset="+UTF8);
-			response.addHeader("Cache-Control", "no-cache");
-			response.addHeader("Cache-Control", "no-store");
-			response.addHeader("Cache-Control", "max-age=0");
-			response.addHeader("Cache-Control", "must-revalidate");
-			response.setHeader("Pragma", "no-cache");
-			response.setDateHeader("Expires", System.currentTimeMillis());
-			final StringBuilder out = new StringBuilder();
-			Preview_Jspm.writeOverview(out, response, proposals, persistentPreviews, persistent);
-			writeBody(out, response);
+			startTransaction("proposal");
+			for(final Map.Entry<Preview, String> e : previews.entrySet())
+				proposals.add(new Proposal(e.getKey().getID(), e.getKey().getOldValue(model), e.getValue()));
+			if(persistentPreviews)
+				for(final EditorPreview p : EditorPreview.TYPE.search(null, EditorPreview.date, false))
+					persistent.add(p.getText());
+			model.commit();
 		}
+		finally
+		{
+			model.rollbackIfNotCommitted();
+		}
+		
+		response.setContentType("text/html; charset="+UTF8);
+		response.addHeader("Cache-Control", "no-cache");
+		response.addHeader("Cache-Control", "no-store");
+		response.addHeader("Cache-Control", "max-age=0");
+		response.addHeader("Cache-Control", "must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", System.currentTimeMillis());
+		final StringBuilder out = new StringBuilder();
+		Preview_Jspm.writeOverview(out, response, proposals, persistentPreviews, persistent);
+		writeBody(out, response);
 	}
 	
 	private final void doBar(
@@ -570,40 +568,38 @@ public abstract class Editor implements Filter
 	throws IOException
 	{
 		assert httpSession!=null;
+		response.setContentType("text/html; charset="+UTF8);
+		if(Cop.isPost(request) && request.getParameter(LOGIN_SUBMIT)!=null)
 		{
-			response.setContentType("text/html; charset="+UTF8);
-			if(Cop.isPost(request) && request.getParameter(LOGIN_SUBMIT)!=null)
+			final String user = request.getParameter(LOGIN_USER);
+			final String password = request.getParameter(LOGIN_PASSWORD);
+			try
 			{
-				final String user = request.getParameter(LOGIN_USER);
-				final String password = request.getParameter(LOGIN_PASSWORD);
-				try
+				startTransaction("login");
+				final Session session = login(user, password);
+				if(session!=null)
 				{
-					startTransaction("login");
-					final Session session = login(user, password);
-					if(session!=null)
-					{
-						httpSession.setAttribute(ANCHOR, new Anchor(user, session, session.getName()));
-						redirectHome(request, response);
-					}
-					else
-					{
-						final StringBuilder out = new StringBuilder();
-						Login_Jspm.write(out, response, Editor.class.getPackage(), user);
-						writeBody(out, response);
-					}
-					model.commit();
+					httpSession.setAttribute(ANCHOR, new Anchor(user, session, session.getName()));
+					redirectHome(request, response);
 				}
-				finally
+				else
 				{
-					model.rollbackIfNotCommitted();
+					final StringBuilder out = new StringBuilder();
+					Login_Jspm.write(out, response, Editor.class.getPackage(), user);
+					writeBody(out, response);
 				}
+				model.commit();
 			}
-			else
+			finally
 			{
-				final StringBuilder out = new StringBuilder();
-				Login_Jspm.write(out, response, Editor.class.getPackage(), null);
-				writeBody(out, response);
+				model.rollbackIfNotCommitted();
 			}
+		}
+		else
+		{
+			final StringBuilder out = new StringBuilder();
+			Login_Jspm.write(out, response, Editor.class.getPackage(), null);
+			writeBody(out, response);
 		}
 	}
 	
