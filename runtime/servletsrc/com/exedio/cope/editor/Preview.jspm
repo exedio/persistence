@@ -30,7 +30,7 @@ final class Preview_Jspm
 			final HttpServletResponse response,
 			final List<Editor.Proposal> proposals,
 			final boolean persistentPreviews,
-			final List<String> persistent)
+			final List<EditorPreview> persistent)
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -122,10 +122,10 @@ final class Preview_Jspm
 	{
 		%>
 		<ul><%
-			for(final String p : persistent)
+			for(final EditorPreview p : persistent)
 			{
 			%>
-			<li><%=p%></li><%
+			<li><%=p.getText()%></li><%
 			}
 		%>
 		</ul><%

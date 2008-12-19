@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -325,15 +326,17 @@ public abstract class Editor implements Filter
 		
 		final Map<Preview, String> previews = anchor.getPreviews();
 		final ArrayList<Proposal> proposals = new ArrayList<Proposal>();
-		final ArrayList<String> persistent = new ArrayList<String>();
+		final StringBuilder out = new StringBuilder();
 		try
 		{
 			startTransaction("proposal");
 			for(final Map.Entry<Preview, String> e : previews.entrySet())
 				proposals.add(new Proposal(e.getKey().getID(), e.getKey().getOldValue(model), e.getValue()));
-			if(persistentPreviews)
-				for(final EditorPreview p : EditorPreview.TYPE.search(null, EditorPreview.date, false))
-					persistent.add(p.getText());
+			final List<EditorPreview> persistent =
+				persistentPreviews
+				? EditorPreview.TYPE.search(null, EditorPreview.date, false)
+				: null;
+			Preview_Jspm.writeOverview(out, response, proposals, persistentPreviews, persistent);
 			model.commit();
 		}
 		finally
@@ -348,8 +351,6 @@ public abstract class Editor implements Filter
 		response.addHeader("Cache-Control", "must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", System.currentTimeMillis());
-		final StringBuilder out = new StringBuilder();
-		Preview_Jspm.writeOverview(out, response, proposals, persistentPreviews, persistent);
 		writeBody(out, response);
 	}
 	
