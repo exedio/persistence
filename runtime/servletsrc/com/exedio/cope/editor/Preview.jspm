@@ -22,8 +22,6 @@ package com.exedio.cope.editor;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import com.exedio.cope.Model;
 
 final class Preview_Jspm
@@ -31,7 +29,7 @@ final class Preview_Jspm
 	static final void writeOverview(
 			final StringBuilder out,
 			final Model model,
-			final HttpServletResponse response,
+			final String url,
 			final Map<Preview, String> previews,
 			final boolean persistentPreviews,
 			final List<EditorPreview> persistent)
@@ -91,7 +89,7 @@ final class Preview_Jspm
 	else
 	{
 		%>
-		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
+		<form action="<%=url%>" method="POST">
 			<table>
 				<tr>
 					<th></th>
@@ -129,7 +127,7 @@ final class Preview_Jspm
 	if(persistentPreviews && !persistent.isEmpty())
 	{
 		%>
-		<form action="<%=response.encodeURL(Editor.LOGIN_URL + '?' + Editor.PREVIEW_OVERVIEW + "=t")%>" method="POST">
+		<form action="<%=url%>" method="POST">
 			<table>
 				<tr>
 					<th></th>
