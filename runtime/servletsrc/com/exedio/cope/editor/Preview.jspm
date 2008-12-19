@@ -114,7 +114,6 @@ final class Preview_Jspm
 			{
 			%>
 			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Persist"><%
-			
 			}
 			%>
 		</form><%
