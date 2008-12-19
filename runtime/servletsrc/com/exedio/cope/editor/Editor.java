@@ -341,7 +341,11 @@ public abstract class Editor implements Filter
 				persistentPreviews
 				? EditorPreview.TYPE.search(null, EditorPreview.date, false)
 				: null;
-			Preview_Jspm.writeOverview(out, model, response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"), anchor.getPreviews(), persistentPreviews, persistent);
+			Preview_Jspm.writeOverview(
+					out, model,
+					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
+					anchor.getPreviews(),
+					persistentPreviews, persistent);
 			model.commit();
 		}
 		finally
