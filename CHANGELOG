@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* added SHAHash as a replacement for MD5Hash, which is no longer secure
 * field for storing hashes uses algorithm for name,
 	i.e. passwordHash becomes passwordMD5
 	affects instrumented methods and persistent schema

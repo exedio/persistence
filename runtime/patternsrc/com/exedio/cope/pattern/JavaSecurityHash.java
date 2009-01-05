@@ -43,7 +43,7 @@ public class JavaSecurityHash extends Hash
 			final String algorithm,
 			final String encoding)
 	{
-		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm), algorithm);
+		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm), name(algorithm));
 		this.algorithm = algorithm;
 		this.encoding = encoding;
 
@@ -81,6 +81,11 @@ public class JavaSecurityHash extends Hash
 		return f.lengthExact(2 * digestLength);
 	}
 
+	private static final String name(final String algorithm)
+	{
+		return algorithm.replaceAll("-", "");
+	}
+	
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */

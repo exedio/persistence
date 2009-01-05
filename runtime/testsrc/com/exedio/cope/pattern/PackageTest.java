@@ -29,6 +29,7 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(HashTest.class);
 		suite.addTestSuite(MD5Test.class);
+		suite.addTestSuite(SHATest.class);
 		suite.addTestSuite(PartOfTest.class);
 		suite.addTestSuite(LimitedListFieldTest.class);
 		suite.addTestSuite(ListFieldTest.class);
