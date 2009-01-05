@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.Set;
 
+import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
@@ -51,6 +52,7 @@ public final class MD5Hash extends JavaSecurityHash
 		final StringField storage = getStorage();
 		if(storage.getMinimumLength()<=LENGTH && storage.getMaximumLength()>=LENGTH)
 			result.remove(StringLengthViolationException.class);
+		result.remove(StringCharSetViolationException.class);
 		return result;
 	}
 	

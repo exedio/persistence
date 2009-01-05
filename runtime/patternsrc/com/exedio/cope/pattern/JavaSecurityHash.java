@@ -23,6 +23,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.exedio.cope.StringField;
+import com.exedio.cope.util.CharSet;
 
 /**
  * Uses hash algorithms from {@link MessageDigest}.
@@ -44,7 +45,7 @@ public class JavaSecurityHash extends Hash
 			final int algorithmLength,
 			final String encoding)
 	{
-		super(optional(new StringField().lengthExact(algorithmLength), optional));
+		super(optional(new StringField().lengthExact(algorithmLength).charSet(CharSet.HEX_LOWER), optional));
 		this.algorithm = algorithm;
 		this.algorithmLength = algorithmLength;
 		this.encoding = encoding;
