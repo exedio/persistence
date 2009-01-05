@@ -33,7 +33,6 @@ import com.exedio.cope.util.CharSet;
 public class JavaSecurityHash extends Hash
 {
 	private final String algorithm;
-	private final int algorithmLength;
 	private final String encoding;
 
 	/**
@@ -42,22 +41,15 @@ public class JavaSecurityHash extends Hash
 	public JavaSecurityHash(
 			final boolean optional,
 			final String algorithm,
-			final int algorithmLength,
 			final String encoding)
 	{
-		super(optional(new StringField().lengthExact(algorithmLength).charSet(CharSet.HEX_LOWER), optional));
+		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm));
 		this.algorithm = algorithm;
-		this.algorithmLength = algorithmLength;
 		this.encoding = encoding;
 
 		try
 		{
-			createDigest();
 			encode("test");
-		}
-		catch(NoSuchAlgorithmException e)
-		{
-			throw new IllegalArgumentException(e);
 		}
 		catch(UnsupportedEncodingException e)
 		{
@@ -69,16 +61,27 @@ public class JavaSecurityHash extends Hash
 	{
 		return optional ? f.optional() : f;
 	}
+	
+	private static final StringField length(final StringField f, final String algorithm)
+	{
+		try
+		{
+			return f.lengthExact(2 * MessageDigest.getInstance(algorithm).getDigestLength());
+		}
+		catch(NoSuchAlgorithmException e)
+		{
+			throw new IllegalArgumentException(e);
+		}
+	}
 
 	/**
 	 * @param algorithm an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
 	public JavaSecurityHash(
 			final boolean optional,
-			final String algorithm,
-			final int algorithmLength)
+			final String algorithm)
 	{
-		this(optional, algorithm, algorithmLength, "utf8");
+		this(optional, algorithm, "utf8");
 	}
 	
 	private final MessageDigest createDigest() throws NoSuchAlgorithmException
@@ -89,7 +92,7 @@ public class JavaSecurityHash extends Hash
 	@Override
 	public JavaSecurityHash optional()
 	{
-		return new JavaSecurityHash(true, algorithm, algorithmLength, encoding);
+		return new JavaSecurityHash(true, algorithm, encoding);
 	}
 	
 	public final String getEncoding()

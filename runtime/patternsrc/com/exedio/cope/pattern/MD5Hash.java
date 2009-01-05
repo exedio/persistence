@@ -22,36 +22,32 @@ import java.util.Set;
 
 import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Field.Option;
 
 public final class MD5Hash extends JavaSecurityHash
 {
 	private static final String HASH = "MD5";
-	private static final int LENGTH = 32;
 
 	private MD5Hash(final boolean optional, final String encoding)
 	{
-		super(optional, HASH, LENGTH, encoding);
+		super(optional, HASH, encoding);
 	}
 
 	public MD5Hash(final String encoding)
 	{
-		super(false, HASH, LENGTH, encoding);
+		super(false, HASH, encoding);
 	}
 
 	public MD5Hash()
 	{
-		super(false, HASH, LENGTH);
+		super(false, HASH);
 	}
 
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
-		final StringField storage = getStorage();
-		if(storage.getMinimumLength()<=LENGTH && storage.getMaximumLength()>=LENGTH)
-			result.remove(StringLengthViolationException.class);
+		result.remove(StringLengthViolationException.class);
 		result.remove(StringCharSetViolationException.class);
 		return result;
 	}
@@ -70,6 +66,6 @@ public final class MD5Hash extends JavaSecurityHash
 	@Deprecated
 	public MD5Hash(final Option storageOption)
 	{
-		super(storageOption.optional, HASH, LENGTH);
+		super(storageOption.optional, HASH);
 	}
 }
