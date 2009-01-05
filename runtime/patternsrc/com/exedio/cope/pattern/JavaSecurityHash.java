@@ -64,14 +64,21 @@ public class JavaSecurityHash extends Hash
 	
 	private static final StringField length(final StringField f, final String algorithm)
 	{
+		final MessageDigest digest;
 		try
 		{
-			return f.lengthExact(2 * MessageDigest.getInstance(algorithm).getDigestLength());
+			digest = MessageDigest.getInstance(algorithm);
 		}
 		catch(NoSuchAlgorithmException e)
 		{
 			throw new IllegalArgumentException(e);
 		}
+		
+		final int digestLength = digest.getDigestLength();
+		if(digestLength<=0)
+			throw new IllegalArgumentException("digest length not supported: " + digestLength);
+		
+		return f.lengthExact(2 * digestLength);
 	}
 
 	/**
