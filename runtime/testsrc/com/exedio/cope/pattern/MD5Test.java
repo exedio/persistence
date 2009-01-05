@@ -234,9 +234,8 @@ public class MD5Test extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.passwordMandatory.notEqual(null)));
 		
 		// reference example from http://de.wikipedia.org/wiki/MD5
-		final String appendix = "ranz jagt im komplett verwahrlosten Taxi quer durch Bayern";
-		final String upper = "F" + appendix;
-		final String lower = "f" + appendix;
+		final String upper = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
+		final String lower = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";
 		
 		item.setPassword(upper);
 		assertEquals("a3cca2b2aa1e3b5b3b5aad99a8529074", item.getPasswordMD5());
@@ -254,7 +253,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.password.notEqual(null)));
 
 		item.setPassword(lower);
-		assertEquals("4679e94e07f9a61f42b3d7f50cae0aef", item.getPasswordMD5());
+		assertEquals("7e716d0e702df0505fc72e2b89467910", item.getPasswordMD5());
 		assertTrue(!item.checkPassword(upper));
 		assertTrue(item.checkPassword(lower));
 		assertTrue(!item.checkPassword(""));
