@@ -99,7 +99,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.implicitExternal.getType());
 		assertEquals("implicitExternal", item.implicitExternal.getName());
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
-		assertEquals("implicitExternalHash", item.implicitExternal.getStorage().getName());
+		assertEquals("implicitExternalWrap", item.implicitExternal.getStorage().getName());
 		assertEquals(item.implicitExternal, item.implicitExternal.getStorage().getPattern());
 		assertEqualsUnmodifiable(list(item.implicitExternal.getStorage()), item.implicitExternal.getSourceFields());
 		assertEquals(false, item.implicitExternal.isInitial());
@@ -123,7 +123,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(item.TYPE, item.internal.getType());
 		assertEquals("internal", item.internal.getName());
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
-		assertEquals("internalHash", item.internal.getStorage().getName());
+		assertEquals("internalWrap", item.internal.getStorage().getName());
 		assertEquals(item.internal, item.internal.getStorage().getPattern());
 		assertEqualsUnmodifiable(list(item.internal.getStorage()), item.internal.getSourceFields());
 		assertEquals(false, item.internal.isInitial());

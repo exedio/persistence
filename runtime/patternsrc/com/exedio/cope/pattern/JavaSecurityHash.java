@@ -43,7 +43,7 @@ public class JavaSecurityHash extends Hash
 			final String algorithm,
 			final String encoding)
 	{
-		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm));
+		super(length(optional(new StringField().charSet(CharSet.HEX_LOWER), optional), algorithm), algorithm);
 		this.algorithm = algorithm;
 		this.encoding = encoding;
 

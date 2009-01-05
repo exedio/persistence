@@ -326,12 +326,12 @@ final class JavaRepository
 	{
 		public DummyHash()
 		{
-			super();
+			super("Dummy");
 		}
 		
 		public DummyHash(final StringField storage)
 		{
-			super(storage);
+			super(storage, "Dummy");
 		}
 		
 		/**
@@ -339,7 +339,7 @@ final class JavaRepository
 		 */
 		public DummyHash(final com.exedio.cope.Field.Option storageOption)
 		{
-			super();
+			super("Dummy");
 		}
 		
 		@Override

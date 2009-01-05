@@ -30,12 +30,12 @@ public class WrapHash extends Hash
 {
 	public WrapHash(final StringField storage)
 	{
-		super(storage);
+		super(storage, "Wrap");
 	}
 
 	public WrapHash()
 	{
-		super();
+		super("Wrap");
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class WrapHash extends Hash
 	@Deprecated
 	public WrapHash(final Option storageOption)
 	{
-		super(storageOption);
+		super(storageOption, "Wrap");
 	}
 
 	@Override

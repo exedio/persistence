@@ -41,18 +41,23 @@ import com.exedio.cope.instrument.Wrapper;
 public abstract class Hash extends Pattern implements Settable<String>
 {
 	private final StringField storage;
+	private final String algorithmName;
 
-	public Hash(final StringField storage)
+	public Hash(final StringField storage, final String algorithmName)
 	{
 		if(storage==null)
 			throw new NullPointerException("hash storage must not be null");
+		if(algorithmName==null)
+			throw new NullPointerException("algorithmName must not be null");
+		if(algorithmName.length()==0)
+			throw new IllegalArgumentException("algorithmName must not be empty");
 
-		addSource(this.storage = storage, "Hash");
+		addSource(this.storage = storage, this.algorithmName = algorithmName);
 	}
 	
-	public Hash()
+	public Hash(final String algorithmName)
 	{
-		this(new StringField());
+		this(new StringField(), algorithmName);
 	}
 	
 	public final StringField getStorage()
@@ -114,11 +119,13 @@ public abstract class Hash extends Pattern implements Settable<String>
 		
 		result.add(
 			new Wrapper("getHash").
+			setMethodWrapperPattern("get{0}" + algorithmName).
 			addComment("Returns the encoded hash value for hash {0}.").
 			setReturn(String.class));
 		
 		result.add(
 			new Wrapper("setHash").
+			setMethodWrapperPattern("set{0}" + algorithmName).
 			addComment("Sets the encoded hash value for hash {0}.").
 			addThrows(exceptions).
 			addParameter(String.class));
@@ -187,8 +194,8 @@ public abstract class Hash extends Pattern implements Settable<String>
 	 * @deprecated use {@link #optional()} instead.
 	 */
 	@Deprecated
-	public Hash(final Option storageOption)
+	public Hash(final Option storageOption, final String algorithmName)
 	{
-		this(new StringField(storageOption));
+		this(new StringField(storageOption), algorithmName);
 	}
 }
