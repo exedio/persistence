@@ -96,11 +96,6 @@ public class JavaSecurityHash extends Hash
 		this(optional, algorithm, "utf8");
 	}
 	
-	private final MessageDigest createDigest() throws NoSuchAlgorithmException
-	{
-		return MessageDigest.getInstance(algorithm);
-	}
-	
 	@Override
 	public JavaSecurityHash optional()
 	{
@@ -122,7 +117,7 @@ public class JavaSecurityHash extends Hash
 	{
 		try
 		{
-			final MessageDigest messageDigest = createDigest();
+			final MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
 			messageDigest.reset();
 			messageDigest.update(encode(plainText));
 			final byte[] resultBytes = messageDigest.digest();
