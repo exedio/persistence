@@ -65,6 +65,11 @@ public abstract class Hash extends Pattern implements Settable<String>
 		return storage;
 	}
 	
+	public final String getAlgorithmName()
+	{
+		return algorithmName;
+	}
+	
 	public final boolean isInitial()
 	{
 		return storage.isInitial();

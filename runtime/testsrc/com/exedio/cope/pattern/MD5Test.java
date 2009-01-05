@@ -63,6 +63,7 @@ public class MD5Test extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.password.getType());
 		assertEquals("password", item.password.getName());
+		assertEquals("MD5", item.password.getAlgorithmName());
 		assertEquals(item.TYPE, item.password.getStorage().getType());
 		assertEquals("passwordMD5", item.password.getStorage().getName());
 		assertEquals(false, item.password.getStorage().isFinal());
@@ -89,6 +90,7 @@ public class MD5Test extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
+		assertEquals("MD5", item.passwordMandatory.getAlgorithmName());
 		assertEquals(item.passwordMandatory, item.passwordMandatory.getStorage().getPattern());
 		assertEquals(true, item.passwordMandatory.isInitial());
 		assertEquals(false, item.passwordMandatory.isFinal());
