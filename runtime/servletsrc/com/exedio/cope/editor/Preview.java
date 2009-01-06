@@ -50,7 +50,7 @@ final class Preview implements Serializable // for session persistence
 		return ((StringField)model.getFeature(feature)).get(item);
 	}
 	
-	void save(final Model model, final String value)
+	void publish(final Model model, final String value)
 	{
 		((StringField)model.getFeature(feature)).set(item, value);
 	}

@@ -109,7 +109,7 @@ final class Preview_Jspm
 				}
 				%>
 			</table>
-			<input name="<%=Editor.PREVIEW_SAVE%>" type="submit" value="Save">
+			<input name="<%=Editor.PREVIEW_PUBLISH%>" type="submit" value="Publish">
 			<input name="<%=Editor.PREVIEW_DISCARD%>" type="submit" value="Discard"><%
 			
 			if(persistentPreviews)

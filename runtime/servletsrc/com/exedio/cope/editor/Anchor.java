@@ -74,7 +74,7 @@ final class Anchor implements Serializable // for session persistence
 		previews.put(new Preview(feature, item), content);
 	}
 	
-	void notifySaved(final StringField feature, final Item item)
+	void notifyPublished(final StringField feature, final Item item)
 	{
 		previews.remove(new Preview(feature, item));
 	}

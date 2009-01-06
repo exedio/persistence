@@ -213,11 +213,11 @@ public abstract class Editor implements Filter
 	private static final String BORDERS_ON  = "bordersOn";
 	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
-	static final String SAVE_FEATURE = "feature";
-	static final String SAVE_ITEM    = "item";
-	static final String SAVE_TEXT    = "text";
-	static final String SAVE_FILE    = "file";
-	static final String SAVE_ITEM_FROM = "itemPrevious";
+	static final String BAR_FEATURE = "feature";
+	static final String BAR_ITEM    = "item";
+	static final String BAR_TEXT    = "text";
+	static final String BAR_FILE    = "file";
+	static final String BAR_ITEM_FROM = "itemPrevious";
 	static final String PREVIEW = "preview";
 	
 	private static final String CLOSE_IMAGE       = CLOSE       + ".x";
@@ -231,7 +231,7 @@ public abstract class Editor implements Filter
 	}
 	
 	static final String PREVIEW_OVERVIEW = "po";
-	static final String PREVIEW_SAVE = "prevsave";
+	static final String PREVIEW_PUBLISH = "preview.publish";
 	static final String PREVIEW_DISCARD = "preview.discard";
 	static final String PREVIEW_PERSIST = "preview.persist";
 	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
@@ -249,19 +249,19 @@ public abstract class Editor implements Filter
 		{
 			final String[] idA = request.getParameterValues(PREVIEW_IDS);
 			final HashSet<String> ids = idA!=null ? new HashSet<String>(Arrays.asList(idA)) : null;
-			if(request.getParameter(PREVIEW_SAVE)!=null)
+			if(request.getParameter(PREVIEW_PUBLISH)!=null)
 			{
 				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
 				try
 				{
-					startTransaction("saveProposals");
+					startTransaction("publishPreviews");
 					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
 						final Map.Entry<Preview, String> e = i.next();
 						final Preview p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							p.save(model, e.getValue());
+							p.publish(model, e.getValue());
 							i.remove();
 						}
 					}
@@ -401,7 +401,7 @@ public abstract class Editor implements Filter
 				throw new RuntimeException(e);
 			}
 			
-			final String featureID = fields.get(SAVE_FEATURE);
+			final String featureID = fields.get(BAR_FEATURE);
 			if(featureID==null)
 				throw new NullPointerException();
 			
@@ -409,15 +409,15 @@ public abstract class Editor implements Filter
 			if(feature==null)
 				throw new NullPointerException(featureID);
 			
-			final String itemID = fields.get(SAVE_ITEM);
+			final String itemID = fields.get(BAR_ITEM);
 			if(itemID==null)
 				throw new NullPointerException();
 			
-			final FileItem file = files.get(SAVE_FILE);
+			final FileItem file = files.get(BAR_FILE);
 		
 			try
 			{
-				startTransaction("saveFile(" + featureID + ',' + itemID + ')');
+				startTransaction("publishFile(" + featureID + ',' + itemID + ')');
 				
 				final Item item = model.getItem(itemID);
 
@@ -462,7 +462,7 @@ public abstract class Editor implements Filter
 			}
 			else
 			{
-				final String featureID = request.getParameter(SAVE_FEATURE);
+				final String featureID = request.getParameter(BAR_FEATURE);
 				if(featureID==null)
 					throw new NullPointerException();
 				
@@ -470,18 +470,18 @@ public abstract class Editor implements Filter
 				if(featureO==null)
 					throw new NullPointerException(featureID);
 				
-				final String itemID = request.getParameter(SAVE_ITEM);
+				final String itemID = request.getParameter(BAR_ITEM);
 				if(itemID==null)
 					throw new NullPointerException();
 				
 				if(featureO instanceof StringField)
 				{
 					final StringField feature = (StringField)featureO;
-					final String value = request.getParameter(SAVE_TEXT);
+					final String value = request.getParameter(BAR_TEXT);
 				
 					try
 					{
-						startTransaction("saveText(" + featureID + ',' + itemID + ')');
+						startTransaction("barText(" + featureID + ',' + itemID + ')');
 						
 						final Item item = model.getItem(itemID);
 	
@@ -500,7 +500,7 @@ public abstract class Editor implements Filter
 								event.createFeature(feature, feature.getName(), feature.get(item), v);
 							}
 							feature.set(item, v);
-							anchor.notifySaved(feature, item);
+							anchor.notifyPublished(feature, item);
 						}
 						
 						model.commit();
@@ -517,13 +517,13 @@ public abstract class Editor implements Filter
 				else
 				{
 					final IntegerField feature = (IntegerField)featureO;
-					final String itemIDFrom = request.getParameter(SAVE_ITEM_FROM);
+					final String itemIDFrom = request.getParameter(BAR_ITEM_FROM);
 					if(itemIDFrom==null)
 						throw new NullPointerException();
 					
 					try
 					{
-						startTransaction("savePosition(" + featureID + ',' + itemIDFrom + ',' + itemID + ')');
+						startTransaction("swapPosition(" + featureID + ',' + itemIDFrom + ',' + itemID + ')');
 						
 						final Item itemFrom = model.getItem(itemIDFrom);
 						final Item itemTo   = model.getItem(itemID);
@@ -819,9 +819,9 @@ public abstract class Editor implements Filter
 		return
 			"<form action=\"" + action(request, tl.response) + "\" method=\"POST\" class=\"contentEditorPosition\">" +
 				"<input type=\"hidden\" name=\"" + REFERER        + "\" value=\"" + referer(request)         + "\">" +
-				"<input type=\"hidden\" name=\"" + SAVE_FEATURE   + "\" value=\"" + feature.getID()          + "\">" +
-				"<input type=\"hidden\" name=\"" + SAVE_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
-				"<input type=\"hidden\" name=\"" + SAVE_ITEM      + "\" value=\"" + item.getCopeID()         + "\">" +
+				"<input type=\"hidden\" name=\"" + BAR_FEATURE   + "\" value=\"" + feature.getID()          + "\">" +
+				"<input type=\"hidden\" name=\"" + BAR_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
+				"<input type=\"hidden\" name=\"" + BAR_ITEM      + "\" value=\"" + item.getCopeID()         + "\">" +
 				(
 					buttonURL!=null
 					? ("<input type=\"image\" src=\"" + buttonURL + "\" alt=\"Swap with previous item\">")
