@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.ItemCacheInfo;
+
 public class CacheIsolationTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(CacheIsolationItem.TYPE);
@@ -29,6 +31,9 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 	
+	long setupInvalidationsOrdered;
+	long setupInvalidationsDone;
+	
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -36,12 +41,21 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new CacheIsolationItem("blub"));
 		collisionItem = deleteOnTearDown(new CacheIsolationItem("collision"));
 		collisionItem.setUniqueString( "unique" );
+		
+		if(model.getProperties().getItemCacheLimit()>0)
+		{
+			final ItemCacheInfo[] ci = model.getItemCacheInfo();
+			setupInvalidationsOrdered = ci[0].getInvalidationsOrdered();
+			setupInvalidationsDone    = ci[0].getInvalidationsDone();
+		}
 	}
 	
 	public void test() throws MandatoryViolationException
 	{
 		if(postgresql) return;
+		assertInvalidations(0, 0);
 		model.commit();
+		assertInvalidations(2, 0);
 		final Transaction txChangeItem = model.startTransaction( "change item" );
 		if ( ! model.supportsReadCommitted() )
 		{
@@ -75,16 +89,22 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		{
 			assertEquals( null, item.getUniqueString() );
 		}
+		assertInvalidations(2, 0);
 		model.commit();
+		assertInvalidations(2, 0);
 		model.joinTransaction( txChangeCollisionItem );
+		assertInvalidations(2, 0);
 		model.commit();
+		assertInvalidations(3, 1);
 		model.startTransaction("just for tearDown");
 		assertSame(listener, model.setDatabaseListener(null));
 	}
 	
 	public void testRollback() throws MandatoryViolationException
 	{
+		assertInvalidations(0, 0);
 		model.commit();
+		assertInvalidations(2, 0);
 		final Transaction txRollback = model.startTransaction("rollback");
 		item.setName( "somenewname" );
 		model.leaveTransaction();
@@ -102,7 +122,9 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 			assertEquals( "somenewname", item.getName() );
 		}
 		listener.verifyExpectations();
+		assertInvalidations(2, 0);
 		model.commit();
+		assertInvalidations(2, 0);
 		model.joinTransaction( txRollback );
 		model.rollback();
 		Transaction txCheck = model.startTransaction( "check" );
@@ -124,7 +146,9 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		if ( ! model.supportsReadCommitted() ) return;
 		
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
+		assertInvalidations(0, 0);
 		model.commit();
+		assertInvalidations(2, 0);
 		Transaction txChange = model.startTransaction("change");
 		item.setName("notblub");
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
@@ -145,8 +169,26 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		listener.expectSearch( txSearch, CacheIsolationItem.TYPE );
 		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("notblub")) );
 		listener.verifyExpectations();
+		assertInvalidations(2, 0);
 		model.commit();
+		assertInvalidations(2, 0);
 		model.joinTransaction( txChange );
 		assertSame(listener, model.setDatabaseListener(null));
+	}
+	
+	private final void assertInvalidations(final int ordered, final int done)
+	{
+		final ItemCacheInfo[] ci = model.getItemCacheInfo();
+		if(model.getProperties().getItemCacheLimit()>0)
+		{
+			assertEquals(1, ci.length);
+			assertSame(CacheIsolationItem.TYPE, ci[0].getType());
+			assertEquals("ordered", ordered, ci[0].getInvalidationsOrdered() - setupInvalidationsOrdered);
+			assertEquals("done",    done,    ci[0].getInvalidationsDone() - setupInvalidationsDone);
+		}
+		else
+		{
+			assertEquals(0, ci.length);
+		}
 	}
 }

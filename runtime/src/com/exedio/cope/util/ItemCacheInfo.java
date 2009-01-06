@@ -35,6 +35,8 @@ public final class ItemCacheInfo
 	private final long ageSum;
 	private final long ageMin;
 	private final long ageMax;
+	private final long invalidationsOrdered;
+	private final long invalidationsDone;
 	
 	public ItemCacheInfo(
 			final Type type,
@@ -42,7 +44,8 @@ public final class ItemCacheInfo
 			final int level,
 			final long hits, final long misses,
 			final int replacementRuns, final int replacements, final Date lastReplacementRun,
-			final long ageSum, final long ageMin, final long ageMax)
+			final long ageSum, final long ageMin, final long ageMax,
+			final long invalidationsOrdered, final long invalidationsDone)
 	{
 		this.type = type;
 		this.limit = limit;
@@ -55,6 +58,8 @@ public final class ItemCacheInfo
 		this.ageSum = ageSum;
 		this.ageMin = ageMin;
 		this.ageMax = ageMax;
+		this.invalidationsOrdered = invalidationsOrdered;
+		this.invalidationsDone = invalidationsDone;
 	}
 	
 	public Type getType()
@@ -116,5 +121,15 @@ public final class ItemCacheInfo
 	public long getAgeMaxMillis()
 	{
 		return ageMax;
+	}
+	
+	public long getInvalidationsOrdered()
+	{
+		return invalidationsOrdered;
+	}
+	
+	public long getInvalidationsDone()
+	{
+		return invalidationsDone;
 	}
 }

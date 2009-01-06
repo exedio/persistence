@@ -60,6 +60,8 @@ final class ItemCacheCop extends ConsoleCop
 		long allAgeMinMillis = Long.MAX_VALUE;
 		long allSumAgeAverageMillis = 0l;
 		long allAgeMaxMillis = 0l;
+		long allInvalidationsOrdered = 0l;
+		long allInvalidationsDone = 0l;
 		
 		for(final ItemCacheInfo info : infos)
 		{
@@ -89,6 +91,9 @@ final class ItemCacheCop extends ConsoleCop
 				if(allAgeMaxMillis<maxAge)
 					allAgeMaxMillis = maxAge;
 			}
+			
+			allInvalidationsOrdered += info.getInvalidationsOrdered();
+			allInvalidationsDone += info.getInvalidationsDone();
 		}
 		
 		ItemCache_Jspm.writeBody(this, out,
@@ -98,6 +103,7 @@ final class ItemCacheCop extends ConsoleCop
 				allAgeMinMillis!=Long.MAX_VALUE ? allAgeMinMillis : 0,
 				allNum>0 ? allSumAgeAverageMillis/allNum : 0,
 				allAgeMaxMillis,
+				allInvalidationsOrdered, allInvalidationsDone,
 				infos);
 	}
 }

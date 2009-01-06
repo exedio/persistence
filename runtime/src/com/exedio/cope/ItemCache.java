@@ -126,6 +126,8 @@ final class ItemCache
 		private int replacementRuns = 0;
 		private int replacements = 0;
 		private long lastReplacementRun = 0;
+		private long invalidationsOrdered = 0;
+		private long invalidationsDone = 0;
 
 		Cachlet(final Type type, final int limit)
 		{
@@ -201,9 +203,14 @@ final class ItemCache
 		{
 			synchronized(map)
 			{
+				final int mapSizeBefore = map.size();
+				
 				// TODO implement and use a removeAll
 				for(TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
 					map.remove(i.next());
+				
+				invalidationsOrdered += invalidatedPKs.size();
+				invalidationsDone    += (mapSizeBefore - map.size());
 			}
 		}
 		
@@ -247,7 +254,8 @@ final class ItemCache
 				limit, level,
 				hits, misses,
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
-				ageSum, ageMin, ageMax);
+				ageSum, ageMin, ageMax,
+				invalidationsOrdered, invalidationsDone);
 		}
 	}
 }

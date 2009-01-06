@@ -191,6 +191,8 @@ final class HistoryThread extends Thread
 					HistoryItemCache.ageAverageMillis.map(ci.getAgeAverageMillis()),
 					HistoryItemCache.ageMinMillis.map(ci.getAgeMinMillis()),
 					HistoryItemCache.ageMaxMillis.map(ci.getAgeMaxMillis()),
+					HistoryItemCache.invalidationsOrdered.map(ci.getInvalidationsOrdered()),
+					HistoryItemCache.invalidationsDone.map(ci.getInvalidationsDone()),
 			};
 			itemCacheSetValuesIndex++;
 		}

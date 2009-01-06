@@ -58,6 +58,8 @@ final class HistoryItemCache extends Item
 	static final LongField ageAverageMillis = new LongField().toFinal();
 	static final LongField ageMinMillis = new LongField().toFinal();
 	static final LongField ageMaxMillis = new LongField().toFinal();
+	static final LongField invalidationsOrdered = new LongField().toFinal();
+	static final LongField invalidationsDone = new LongField().toFinal();
 	
 	HistoryItemCache(final SetValue... setValues)
 	{
