@@ -28,7 +28,6 @@ import java.security.Principal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
@@ -122,7 +121,7 @@ public final class ConsoleServlet extends CopsServlet
 		throws IOException
 	{
 		final Model model;
-		final boolean historyModelShown;
+		final boolean historyModelShown = Cop.getBooleanParameter(request, ConsoleCop.Args.HISTORY_MODEL_SHOWN);
 		ConnectToken historyConnectToken = null;
 		try
 		{
@@ -130,18 +129,11 @@ public final class ConsoleServlet extends CopsServlet
 			{
 				if(Cop.isPost(request))
 				{
-					final String d = request.getParameter(HISTORY_MODEL_SHOWN);
-					if("true".equals(d))
-						request.getSession().setAttribute(HISTORY_MODEL_SHOWN, Boolean.TRUE);
-					else if("false".equals(d))
-						request.getSession().removeAttribute(HISTORY_MODEL_SHOWN);
-					else if(HISTORY_START.equals(d))
+					if(request.getParameter(HISTORY_START)!=null)
 						history.start();
-					else if(HISTORY_STOP.equals(d))
+					else if(request.getParameter(HISTORY_STOP)!=null)
 						history.stop();
 				}
-				final HttpSession session = request.getSession(false);
-				historyModelShown = session!=null && session.getAttribute(HISTORY_MODEL_SHOWN)!=null;
 				model = historyModelShown ? HistoryThread.HISTORY_MODEL : this.model;
 				if(historyModelShown)
 				{
@@ -155,7 +147,6 @@ public final class ConsoleServlet extends CopsServlet
 			}
 			else
 			{
-				historyModelShown = false;
 				model = this.model;
 			}
 			
@@ -177,7 +168,7 @@ public final class ConsoleServlet extends CopsServlet
 			Console_Jspm.write(
 					out, request, response, model, cop,
 					authentication, hostname,
-					history, historyModelShown);
+					history);
 			out.close();
 		}
 		finally
@@ -188,7 +179,6 @@ public final class ConsoleServlet extends CopsServlet
 	}
 	
 	static final String HISTORY_PROPERTY_FILE = "com.exedio.cope.console.log"; // TODO rename to history
-	static final String HISTORY_MODEL_SHOWN = "history.showModel";
 	static final String HISTORY_START = "history.start";
 	static final String HISTORY_STOP  = "history.stop";
 	

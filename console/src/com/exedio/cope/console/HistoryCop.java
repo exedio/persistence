@@ -42,11 +42,10 @@ final class HistoryCop extends ConsoleCop
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+			final History history)
 	{
 		if(history.isAvailable())
-			History_Jspm.writeBody(this, out, historyModelShown, history.getThreadID(), history.isRunning());
+			History_Jspm.writeBody(this, out, args.historyModelShown, history.getThreadID(), history.isRunning());
 		else
 			History_Jspm.writeBodyNotAvailable(out);
 	}

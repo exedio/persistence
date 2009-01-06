@@ -40,8 +40,7 @@ abstract class Console_Jspm
 				final ConsoleCop cop,
 				final String authentication,
 				final String hostname,
-				final History history,
-				final boolean historyModelShown)
+				final History history)
 	{
 		try
 		{
@@ -88,17 +87,17 @@ abstract class Console_Jspm
 			}
 			%>
 		</div><%
-		if(historyModelShown)
+		if(cop.args.historyModelShown)
 		{
 		%>
-		<div class="authenticated">Showing model of COPE History.</div><%
+		<div class="authenticated">Showing model of COPE History (<a href="<%=cop.toHistoryModelShown(false)%>">off</a>).</div><%
 		}
 		%>
 		<br clear="right"><%
 		writeMenu(out, cop);
 		%>
 		<hr><%
-		cop.writeBody(out, model, request, history, historyModelShown);
+		cop.writeBody(out, model, request, history);
 		%>
 		<hr><%
 		writeMenu(out, cop);

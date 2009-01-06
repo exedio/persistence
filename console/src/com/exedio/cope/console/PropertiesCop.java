@@ -55,8 +55,7 @@ final class PropertiesCop extends ConsoleCop
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+			final History history)
 	{
 		final ConnectProperties props = model.getProperties();
 		final String source = props.getSource();

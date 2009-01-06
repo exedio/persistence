@@ -63,8 +63,7 @@ final class DatabaseLogCop extends ConsoleCop
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+			final History history)
 	{
 		DatabaseLog_Jspm.writeBody(this, out,
 				model.isDatabaseLogEnabled(),

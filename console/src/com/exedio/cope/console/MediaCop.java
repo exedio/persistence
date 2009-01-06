@@ -130,8 +130,7 @@ final class MediaCop extends ConsoleCop implements Pageable
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+			final History history)
 	{
 		try
 		{

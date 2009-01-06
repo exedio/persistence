@@ -44,8 +44,7 @@ final class ItemCacheCop extends ConsoleCop
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+			final History history)
 	{
 		final ItemCacheInfo[] infos = model.getItemCacheInfo();
 		

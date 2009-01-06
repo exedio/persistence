@@ -36,21 +36,27 @@ abstract class ConsoleCop extends Cop
 {
 	protected static class Args
 	{
+		static final String HISTORY_MODEL_SHOWN = "sh";
 		private static final String AUTO_REFRESH = "ar";
+		
+		final boolean historyModelShown;
 		final int autoRefresh;
 		
-		Args(final int autoRefresh)
+		Args(final boolean historyModelShown, final int autoRefresh)
 		{
+			this.historyModelShown = historyModelShown;
 			this.autoRefresh = autoRefresh;
 		}
 		
 		Args(final HttpServletRequest request)
 		{
+			this.historyModelShown = getBooleanParameter(request, HISTORY_MODEL_SHOWN);
 			this.autoRefresh = getIntParameter(request, AUTO_REFRESH, 0);
 		}
 		
 		void addParameters(final ConsoleCop cop)
 		{
+			cop.addParameterAccessor(HISTORY_MODEL_SHOWN, historyModelShown);
 			cop.addParameterAccessor(AUTO_REFRESH, autoRefresh, 0);
 		}
 	}
@@ -71,6 +77,11 @@ abstract class ConsoleCop extends Cop
 	long start = 0;
 	private SimpleDateFormat fullDateFormat, todayDateFormat;
 	DecimalFormat nf;
+	
+	void addParameterAccessor(final String key, final boolean value)
+	{
+		addParameter(key, value);
+	}
 	
 	void addParameterAccessor(final String key, final int value, final int defaultValue)
 	{
@@ -94,9 +105,14 @@ abstract class ConsoleCop extends Cop
 	
 	protected abstract ConsoleCop newArgs(final Args args);
 	
+	final ConsoleCop toHistoryModelShown(final boolean historyModelShown)
+	{
+		return newArgs(new Args(historyModelShown, args.autoRefresh));
+	}
+	
 	final ConsoleCop toAutoRefresh(final int autoRefresh)
 	{
-		return newArgs(new Args(autoRefresh));
+		return newArgs(new Args(args.historyModelShown, autoRefresh));
 	}
 	
 	int getResponseStatus()
@@ -183,7 +199,7 @@ abstract class ConsoleCop extends Cop
 		// default implementation does nothing
 	}
 	
-	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request, History history, boolean historyModelShown);
+	abstract void writeBody(PrintStream out, Model model, HttpServletRequest request, History history);
 	
 	static final String TAB_PROPERTIES = "properties";
 	static final String TAB_SCHEMA = "schema";
@@ -287,8 +303,7 @@ abstract class ConsoleCop extends Cop
 				final PrintStream out,
 				final Model model,
 				final HttpServletRequest request,
-				final History history,
-				final boolean historyModelShown)
+				final History history)
 		{
 			Console_Jspm.writeNotFound(out, pathInfo);
 		}

@@ -31,10 +31,10 @@ final class History_Jspm
 			final boolean historyRunning)
 	{
 		%>
-		<form action="<%=cop%>" method="POST">
-			<input type="hidden" value="<% if(historyModelShown){%>false<%}else{%>true<%} %>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
-			<input type="submit" value="<% if(historyModelShown){%>Switch console back to main model<%}else{%>Switch console to model of COPE History<%} %>">
-		</form>
+		Showing model of COPE History:
+		<a href="<%=cop.toHistoryModelShown(true )%>"<% if( historyModelShown){%> class="selected"<%} %>>on</a>
+		<a href="<%=cop.toHistoryModelShown(false)%>"<% if(!historyModelShown){%> class="selected"<%} %>>off</a>
+		<br>
 		History:<% if(!historyRunning){%> not<%} %> running<%
 		if(threadId!=null)
 		{
@@ -43,12 +43,8 @@ final class History_Jspm
 		}
 		%>
 		<form action="<%=cop%>" method="POST">
-			<input type="hidden" value="<%=ConsoleServlet.HISTORY_START%>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
-			<input type="submit" value="Start">
-		</form>
-		<form action="<%=cop%>" method="POST">
-			<input type="hidden" value="<%=ConsoleServlet.HISTORY_STOP%>" name="<%=ConsoleServlet.HISTORY_MODEL_SHOWN%>">
-			<input type="submit" value="Stop">
+			<input type="submit" name="<%=ConsoleServlet.HISTORY_START%>" value="Start">
+			<input type="submit" name="<%=ConsoleServlet.HISTORY_STOP %>" value="Stop">
 		</form><%
 	}
 	

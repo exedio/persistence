@@ -45,8 +45,7 @@ abstract class TestCop<I> extends ConsoleCop
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+			final History history)
 	{
 		final List<I> items = getItems(model);
 		

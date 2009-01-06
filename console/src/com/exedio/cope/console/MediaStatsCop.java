@@ -53,8 +53,7 @@ final class MediaStatsCop extends ConsoleCop
 			final PrintStream out,
 			final Model model,
 			final HttpServletRequest request,
-			final History history,
-			final boolean historyModelShown)
+			final History history)
 	{
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
 
