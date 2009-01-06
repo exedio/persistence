@@ -840,22 +840,15 @@ public abstract class Editor implements Filter
 			throw new IllegalArgumentException("item " + item.getCopeID() + " does not belong to type of feature " + feature.getID());
 	}
 	
-	interface Out
-	{
-		void append(String s);
-		void append(int i);
-	}
-	
 	public static final void writeBar(final PrintStream out)
 	{
 		final TL tl = tls.get();
 		if(tl==null)
 			return;
 		
-		writeBar(tl, new Out(){
-			public void append(final String s) { out.print(s); }
-			public void append(final int    i) { out.print(i); }
-		});
+		final StringBuilder bf = new StringBuilder();
+		writeBar(bf);
+		out.print(bf);
 	}
 	
 	public static final void writeBar(final StringBuilder out)
@@ -864,14 +857,6 @@ public abstract class Editor implements Filter
 		if(tl==null)
 			return;
 		
-		writeBar(tl, new Out(){
-			public void append(final String s) { out.append(s); }
-			public void append(final int    i) { out.append(i); }
-		});
-	}
-	
-	private static final void writeBar(final TL tl, final Out out)
-	{
 		final HttpServletRequest request = tl.request;
 		Bar_Jspm.write(out,
 				action(request, tl.response),

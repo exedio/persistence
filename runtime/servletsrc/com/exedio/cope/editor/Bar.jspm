@@ -24,7 +24,7 @@ import static com.exedio.cops.XMLEncoder.encode;
 final class Bar_Jspm
 {
 	static final void write(
-			final Editor.Out out,
+			final StringBuilder out,
 			final String action,
 			final String referer,
 			final boolean borders,
