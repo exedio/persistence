@@ -40,23 +40,23 @@ public final class EditorPreviewFeature extends Item
 	
 	
 	public EditorPreviewFeature(
-			EditorPreview parent,
-			int position,
-			StringField feature,
-			Item item,
-			String oldValue,
-			String newValue)
+			final EditorPreview parent,
+			final int position,
+			final StringField feature,
+			final Item item,
+			final String oldValue,
+			final String newValue)
 	{
 		this(parent, position, feature.getID(), item, oldValue, newValue);
 	}
 	
 	EditorPreviewFeature(
-				EditorPreview parent,
-				int position,
-				String feature,
-				Item item,
-				String oldValue,
-				String newValue)
+			final EditorPreview parent,
+			final int position,
+			final String feature,
+			final Item item,
+			final String oldValue,
+			final String newValue)
 	{
 		this(new com.exedio.cope.SetValue[]{
 			EditorPreviewFeature.parent.map(parent),
@@ -68,12 +68,12 @@ public final class EditorPreviewFeature extends Item
 		});
 	}
 	
-	private EditorPreviewFeature(SetValue... setValues)
+	private EditorPreviewFeature(final SetValue... setValues)
 	{
 		super(setValues);
 	}
 	
-	@SuppressWarnings("unused") private EditorPreviewFeature(ReactivationConstructorDummy d,int pk)
+	@SuppressWarnings("unused") private EditorPreviewFeature(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d,pk);
 	}

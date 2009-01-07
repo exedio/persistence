@@ -58,9 +58,9 @@ public final class EditorPreview extends Item
 	}
 	
 	public EditorPreview(
-				String user,
-				String name,
-				String comment)
+			final String user,
+			final String name,
+			final String comment)
 	{
 		this(new SetValue[]{
 			EditorPreview.user.map(user),
@@ -69,12 +69,12 @@ public final class EditorPreview extends Item
 			});
 	}
 	
-	private EditorPreview(SetValue... setValues)
+	private EditorPreview(final SetValue... setValues)
 	{
 		super(setValues);
 	}
 	
-	@SuppressWarnings("unused") private EditorPreview(ReactivationConstructorDummy d, int pk)
+	@SuppressWarnings("unused") private EditorPreview(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d,pk);
 	}
