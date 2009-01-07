@@ -160,7 +160,7 @@ final class Preview_Jspm
 				}
 			%>
 			</table>
-			<input name="<%=Editor.PERSISTENT_PREVIEW_LOAD%>" type="submit" value="Load into Preview">
+			<input name="<%=Editor.DRAFT_LOAD%>" type="submit" value="Load into Preview">
 		</form><%
 		}
 		else

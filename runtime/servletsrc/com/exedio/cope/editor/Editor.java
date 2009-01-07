@@ -236,8 +236,8 @@ public abstract class Editor implements Filter
 	static final String PREVIEW_PERSIST = "preview.persist";
 	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
 	static final String PREVIEW_IDS = "id";
-	static final String DRAFT_ID = "draft.id";
-	static final String PERSISTENT_PREVIEW_LOAD = "persistent_preview.load";
+	static final String DRAFT_ID   = "draft.id";
+	static final String DRAFT_LOAD = "draft.load";
 	
 	private final void doPreviewOverview(
 			final HttpServletRequest request,
@@ -309,7 +309,7 @@ public abstract class Editor implements Filter
 						i.remove();
 				}
 			}
-			else if(request.getParameter(PERSISTENT_PREVIEW_LOAD)!=null)
+			else if(request.getParameter(DRAFT_LOAD)!=null)
 			{
 				try
 				{
