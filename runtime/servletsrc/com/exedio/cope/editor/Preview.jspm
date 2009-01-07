@@ -135,14 +135,14 @@ final class Preview_Jspm
 					<th>Author</th>
 					<th>Comment</th>
 				</tr><%
-				for(final Draft p : drafts)
+				for(final Draft draft : drafts)
 				{
 				%>
 				<tr>
-					<td><input name="<%=Editor.PERSISTENT_PREVIEW_ID%>" type="radio" value="<%=p.getCopeID()%>"></td>
-					<td><%=p.getDate()%></td>
-					<td><%=p.getAuthor()%></td>
-					<td><%=p.getComment()%></td>
+					<td><input name="<%=Editor.PERSISTENT_PREVIEW_ID%>" type="radio" value="<%=draft.getCopeID()%>"></td>
+					<td><%=draft.getDate()%></td>
+					<td><%=draft.getAuthor()%></td>
+					<td><%=draft.getComment()%></td>
 				</tr><%
 				}
 			%>
