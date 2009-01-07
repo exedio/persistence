@@ -565,7 +565,7 @@ public abstract class Editor implements Filter
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
 	}
 	
-	static final String LOGIN_URL = "contentEditorLogin.html";
+	static final String LOGIN_URL = "copeContentEditor.html";
 	private static final String LOGIN_URL_PATH_INFO = '/' + LOGIN_URL;
 	static final String LOGIN_SUBMIT   = "login.submit";
 	static final String LOGIN_USER     = "login.user";
