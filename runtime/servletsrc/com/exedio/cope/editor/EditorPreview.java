@@ -24,7 +24,10 @@ import java.util.Locale;
 
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class EditorPreview extends Item
 {
@@ -55,28 +58,28 @@ public final class EditorPreview extends Item
 	}
 	
 	public EditorPreview(
-				java.lang.String user,
-				java.lang.String name,
-				java.lang.String comment)
+				String user,
+				String name,
+				String comment)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new SetValue[]{
 			EditorPreview.user.map(user),
 			EditorPreview.name.map(name),
 			EditorPreview.comment.map(comment)
 			});
 	}
 	
-	private EditorPreview(com.exedio.cope.SetValue... setValues)
+	private EditorPreview(SetValue... setValues)
 	{
 		super(setValues);
 	}
 	
-	@SuppressWarnings("unused") private EditorPreview(com.exedio.cope.util.ReactivationConstructorDummy d,int pk)
+	@SuppressWarnings("unused") private EditorPreview(ReactivationConstructorDummy d, int pk)
 	{
 		super(d,pk);
 	}
 	
 	private static final long serialVersionUID = 1l;
 
-	public static final com.exedio.cope.Type<EditorPreview> TYPE = newType(EditorPreview.class);
+	public static final Type<EditorPreview> TYPE = newType(EditorPreview.class);
 }

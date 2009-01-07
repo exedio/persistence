@@ -21,8 +21,11 @@ package com.exedio.cope.editor;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class EditorPreviewFeature extends Item
 {
@@ -65,17 +68,17 @@ public final class EditorPreviewFeature extends Item
 		});
 	}
 	
-	private EditorPreviewFeature(com.exedio.cope.SetValue... setValues)
+	private EditorPreviewFeature(SetValue... setValues)
 	{
 		super(setValues);
 	}
 	
-	@SuppressWarnings("unused") private EditorPreviewFeature(com.exedio.cope.util.ReactivationConstructorDummy d,int pk)
+	@SuppressWarnings("unused") private EditorPreviewFeature(ReactivationConstructorDummy d,int pk)
 	{
 		super(d,pk);
 	}
 	
 	private static final long serialVersionUID = 1l;
 	
-	public static final com.exedio.cope.Type<EditorPreviewFeature> TYPE = newType(EditorPreviewFeature.class);
+	public static final Type<EditorPreviewFeature> TYPE = newType(EditorPreviewFeature.class);
 }
