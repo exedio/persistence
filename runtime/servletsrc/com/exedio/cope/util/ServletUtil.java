@@ -31,8 +31,13 @@ import javax.servlet.ServletException;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 
-public class ServletUtil
+public final class ServletUtil
 {
+	private ServletUtil()
+	{
+		// prevent instantiation
+	}
+	
 	private interface Config
 	{
 		String getInitParameter(String name);
