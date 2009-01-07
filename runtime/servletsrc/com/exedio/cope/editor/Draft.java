@@ -63,6 +63,11 @@ public final class Draft extends Item
 		return new Query<DraftItem>(DraftItem.TYPE.getThis(), DraftItem.parent.equal(this)).total();
 	}
 	
+	public DraftItem addItem(final int position, final StringField feature, final Item item, final String value)
+	{
+		return new DraftItem(this, position, feature, item, feature.get(item), value);
+	}
+	
 	public Draft(
 			final String user,
 			final String name,

@@ -41,7 +41,7 @@ public final class DraftItem extends Item
 	static final StringField newValue = new StringField().toFinal().lengthMax(50000);
 	
 	
-	public DraftItem(
+	DraftItem(
 			final Draft parent,
 			final int position,
 			final StringField feature,
