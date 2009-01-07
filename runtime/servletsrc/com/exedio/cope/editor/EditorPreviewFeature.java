@@ -25,12 +25,14 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.PartOf;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class EditorPreviewFeature extends Item
 {
 	static final ItemField<EditorPreview> parent = newItemField(EditorPreview.class).toFinal();
 	static final IntegerField position = new IntegerField().toFinal();
+	static final PartOf<EditorPreview> features = PartOf.newPartOf(parent);
 	static final UniqueConstraint parentAndPosition = new UniqueConstraint(parent, position);
 	
 	static final StringField feature = new StringField().toFinal();
