@@ -314,9 +314,9 @@ public abstract class Editor implements Filter
 				try
 				{
 					startTransaction("loadPreview");
-					final Draft p =
+					final Draft draft =
 						(Draft)model.getItem(request.getParameter(PERSISTENT_PREVIEW_ID));
-					for(final DraftItem f : p.getFeatures())
+					for(final DraftItem f : draft.getFeatures())
 						anchor.setPreview(
 								DraftItem.newValue.get(f),
 								(StringField)model.getFeature(DraftItem.feature.get(f)),
