@@ -24,6 +24,7 @@ import java.util.Locale;
 
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -55,6 +56,11 @@ public final class Draft extends Item
 	List<DraftItem> getItems()
 	{
 		return DraftItem.TYPE.search(DraftItem.parent.equal(this));
+	}
+	
+	int getItemsCount()
+	{
+		return new Query<DraftItem>(DraftItem.TYPE.getThis(), DraftItem.parent.equal(this)).total();
 	}
 	
 	public Draft(

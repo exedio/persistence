@@ -75,6 +75,11 @@ final class Preview_Jspm
 				border:solid 1px #ccc;
 				padding:1px 3px;
 			}
+			
+			table td.number
+			{
+				text-align:right;
+			}
 		</style>
 	</head>
 	<body>
@@ -140,6 +145,7 @@ final class Preview_Jspm
 					<th>Date</th>
 					<th>Author</th>
 					<th>Comment</th>
+					<th>Items</th>
 				</tr><%
 				for(final Draft draft : drafts)
 				{
@@ -149,6 +155,7 @@ final class Preview_Jspm
 					<td><%=draft.getDate()%></td>
 					<td><%=draft.getAuthor()%></td>
 					<td><%=draft.getComment()%></td>
+					<td class="number"><%=draft.getItemsCount()%></td>
 				</tr><%
 				}
 			%>
