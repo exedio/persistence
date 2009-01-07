@@ -65,8 +65,8 @@ public final class EditorPreview extends Item
 		this(new SetValue[]{
 			EditorPreview.user.map(user),
 			EditorPreview.name.map(name),
-			EditorPreview.comment.map(comment)
-			});
+			EditorPreview.comment.map(comment),
+		});
 	}
 	
 	private EditorPreview(final SetValue... setValues)
