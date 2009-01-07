@@ -89,7 +89,7 @@ public abstract class Editor implements Filter
 	{
 		this.config = config;
 		for(final Type<?> type : model.getTypes())
-			if(type==EditorPreviewFeature.TYPE) // EditorPreviewFeature implies EditorPreview because of the parent field
+			if(type==DraftItem.TYPE) // DraftItem implies Draft because of the parent field
 			{
 				persistentPreviews = true;
 				break;
@@ -279,7 +279,7 @@ public abstract class Editor implements Filter
 				try
 				{
 					startTransaction("persistProposals");
-					final EditorPreview parent = new EditorPreview(anchor.user, anchor.sessionName, request.getParameter(PREVIEW_PERSIST_COMMENT));
+					final Draft parent = new Draft(anchor.user, anchor.sessionName, request.getParameter(PREVIEW_PERSIST_COMMENT));
 					int position = 0;
 					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
@@ -287,7 +287,7 @@ public abstract class Editor implements Filter
 						final Preview p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							new EditorPreviewFeature(parent, position++, p.feature, p.item, p.getOldValue(model), e.getValue());
+							new DraftItem(parent, position++, p.feature, p.item, p.getOldValue(model), e.getValue());
 							i.remove();
 						}
 					}
@@ -314,13 +314,13 @@ public abstract class Editor implements Filter
 				try
 				{
 					startTransaction("loadPreview");
-					final EditorPreview p =
-						(EditorPreview)model.getItem(request.getParameter(PERSISTENT_PREVIEW_ID));
-					for(final EditorPreviewFeature f : p.getFeatures())
+					final Draft p =
+						(Draft)model.getItem(request.getParameter(PERSISTENT_PREVIEW_ID));
+					for(final DraftItem f : p.getFeatures())
 						anchor.setPreview(
-								EditorPreviewFeature.newValue.get(f),
-								(StringField)model.getFeature(EditorPreviewFeature.feature.get(f)),
-								model.getItem(EditorPreviewFeature.item.get(f)));
+								DraftItem.newValue.get(f),
+								(StringField)model.getFeature(DraftItem.feature.get(f)),
+								model.getItem(DraftItem.item.get(f)));
 				}
 				catch(NoSuchIDException e)
 				{
@@ -337,9 +337,9 @@ public abstract class Editor implements Filter
 		try
 		{
 			startTransaction("proposal");
-			final List<EditorPreview> persistent =
+			final List<Draft> persistent =
 				persistentPreviews
-				? EditorPreview.TYPE.search(null, EditorPreview.date, false)
+				? Draft.TYPE.search(null, Draft.date, false)
 				: null;
 			Preview_Jspm.writeOverview(
 					out, model,

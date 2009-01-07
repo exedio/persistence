@@ -28,11 +28,11 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.PartOf;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class EditorPreviewFeature extends Item
+public final class DraftItem extends Item
 {
-	static final ItemField<EditorPreview> parent = newItemField(EditorPreview.class).toFinal();
+	static final ItemField<Draft> parent = newItemField(Draft.class).toFinal();
 	static final IntegerField position = new IntegerField().toFinal();
-	static final PartOf<EditorPreview> features = PartOf.newPartOf(parent);
+	static final PartOf<Draft> items = PartOf.newPartOf(parent);
 	static final UniqueConstraint parentAndPosition = new UniqueConstraint(parent, position);
 	
 	static final StringField feature = new StringField().toFinal();
@@ -41,8 +41,8 @@ public final class EditorPreviewFeature extends Item
 	static final StringField newValue = new StringField().toFinal().lengthMax(50000);
 	
 	
-	public EditorPreviewFeature(
-			final EditorPreview parent,
+	public DraftItem(
+			final Draft parent,
 			final int position,
 			final StringField feature,
 			final Item item,
@@ -52,8 +52,8 @@ public final class EditorPreviewFeature extends Item
 		this(parent, position, feature.getID(), item, oldValue, newValue);
 	}
 	
-	EditorPreviewFeature(
-			final EditorPreview parent,
+	DraftItem(
+			final Draft parent,
 			final int position,
 			final String feature,
 			final Item item,
@@ -61,26 +61,26 @@ public final class EditorPreviewFeature extends Item
 			final String newValue)
 	{
 		this(new com.exedio.cope.SetValue[]{
-			EditorPreviewFeature.parent.map(parent),
-			EditorPreviewFeature.position.map(position),
-			EditorPreviewFeature.feature.map(feature),
-			EditorPreviewFeature.item.map(item.getCopeID()),
-			EditorPreviewFeature.oldValue.map(oldValue),
-			EditorPreviewFeature.newValue.map(newValue),
+			DraftItem.parent.map(parent),
+			DraftItem.position.map(position),
+			DraftItem.feature.map(feature),
+			DraftItem.item.map(item.getCopeID()),
+			DraftItem.oldValue.map(oldValue),
+			DraftItem.newValue.map(newValue),
 		});
 	}
 	
-	private EditorPreviewFeature(final SetValue... setValues)
+	private DraftItem(final SetValue... setValues)
 	{
 		super(setValues);
 	}
 	
-	@SuppressWarnings("unused") private EditorPreviewFeature(final ReactivationConstructorDummy d, final int pk)
+	@SuppressWarnings("unused") private DraftItem(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d,pk);
 	}
 	
 	private static final long serialVersionUID = 1l;
 	
-	public static final Type<EditorPreviewFeature> TYPE = newType(EditorPreviewFeature.class);
+	public static final Type<DraftItem> TYPE = newType(DraftItem.class);
 }

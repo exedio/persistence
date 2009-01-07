@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
-import com.exedio.cope.editor.EditorPreview;
-import com.exedio.cope.editor.EditorPreviewFeature;
+import com.exedio.cope.editor.Draft;
+import com.exedio.cope.editor.DraftItem;
 import com.exedio.cope.pattern.InitServlet;
 import com.exedio.cope.pattern.Media;
 
@@ -53,7 +53,7 @@ public final class EditedServlet extends HttpServlet
 	
 	static final String ENCODING = "utf-8";
 	
-	public static final Model model = new Model(revisions(64), EditedItem.TYPE, EditorPreview.TYPE, EditorPreviewFeature.TYPE);
+	public static final Model model = new Model(revisions(64), EditedItem.TYPE, Draft.TYPE, DraftItem.TYPE);
 	
 	private ConnectToken connectToken = null;
 	
@@ -70,11 +70,11 @@ public final class EditedServlet extends HttpServlet
 			final EditedItem i1 = createItem(0, "osorno.png", "image/png");
 			final EditedItem i2 = createItem(1, "tree.jpg", "image/jpeg");
 			createItem(2, "tree.jpg", "image/jpeg");
-			final EditorPreview p1 = new EditorPreview("jim", "Jim Smith", "comment for jim");
-			new EditorPreviewFeature(p1, 0, EditedItem.field, i1, "old value", "new value");
-			new EditorPreviewFeature(p1, 1, EditedItem.field, i2, "old value", "new value");
-			final EditorPreview p2 = new EditorPreview("john", null, "comment for john");
-			new EditorPreviewFeature(p2, 0, EditedItem.field, i1, "old value", "new value");
+			final Draft p1 = new Draft("jim", "Jim Smith", "comment for jim");
+			new DraftItem(p1, 0, EditedItem.field, i1, "old value", "new value");
+			new DraftItem(p1, 1, EditedItem.field, i2, "old value", "new value");
+			final Draft p2 = new Draft("john", null, "comment for john");
+			new DraftItem(p2, 0, EditedItem.field, i1, "old value", "new value");
 			model.commit();
 		}
 		finally

@@ -29,7 +29,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class EditorPreview extends Item
+public final class Draft extends Item
 {
 	static final StringField user = new StringField().toFinal();
 	static final StringField name = new StringField().toFinal().optional();
@@ -43,43 +43,43 @@ public final class EditorPreview extends Item
 	
 	String getAuthor()
 	{
-		final String name = EditorPreview.name.get(this);
-		return name!=null ? name : EditorPreview.user.get(this);
+		final String name = Draft.name.get(this);
+		return name!=null ? name : Draft.user.get(this);
 	}
 	
 	String getComment()
 	{
-		return EditorPreview.comment.get(this);
+		return Draft.comment.get(this);
 	}
 	
-	List<EditorPreviewFeature> getFeatures()
+	List<DraftItem> getFeatures()
 	{
-		return EditorPreviewFeature.TYPE.search(EditorPreviewFeature.parent.equal(this));
+		return DraftItem.TYPE.search(DraftItem.parent.equal(this));
 	}
 	
-	public EditorPreview(
+	public Draft(
 			final String user,
 			final String name,
 			final String comment)
 	{
 		this(new SetValue[]{
-			EditorPreview.user.map(user),
-			EditorPreview.name.map(name),
-			EditorPreview.comment.map(comment),
+			Draft.user.map(user),
+			Draft.name.map(name),
+			Draft.comment.map(comment),
 		});
 	}
 	
-	private EditorPreview(final SetValue... setValues)
+	private Draft(final SetValue... setValues)
 	{
 		super(setValues);
 	}
 	
-	@SuppressWarnings("unused") private EditorPreview(final ReactivationConstructorDummy d, final int pk)
+	@SuppressWarnings("unused") private Draft(final ReactivationConstructorDummy d, final int pk)
 	{
 		super(d,pk);
 	}
 	
 	private static final long serialVersionUID = 1l;
 
-	public static final Type<EditorPreview> TYPE = newType(EditorPreview.class);
+	public static final Type<Draft> TYPE = newType(Draft.class);
 }
