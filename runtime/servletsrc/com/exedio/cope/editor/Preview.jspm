@@ -38,7 +38,7 @@ final class Preview_Jspm
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=Editor.UTF8%>">
-		<title>Content Editor Preview</title>
+		<title>Content Editor</title>
 		<style>
 			h1
 			{
@@ -79,7 +79,8 @@ final class Preview_Jspm
 	</head>
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
-		<h1>COPE Content Editor Preview</h1><%
+		<h1>COPE Content Editor</h1>
+		<h2>Preview</h2><%
 	
 	if(previews.isEmpty())
 	{
@@ -116,16 +117,21 @@ final class Preview_Jspm
 			{
 			%>
 			<br>
-			comment:
+			Comment:
 			<input name="<%=Editor.PREVIEW_PERSIST_COMMENT%>" type="text">
-			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Persist"><%
+			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Save as Draft"><%
 			}
 			%>
 		</form><%
 	}
 	
-	if(draftsEnabled && !drafts.isEmpty())
+	if(draftsEnabled)
 	{
+		%>
+		<h2>Drafts</h2><%
+		
+		if(!drafts.isEmpty())
+		{
 		%>
 		<form action="<%=url%>" method="POST">
 			<table>
@@ -147,8 +153,14 @@ final class Preview_Jspm
 				}
 			%>
 			</table>
-			<input name="<%=Editor.PERSISTENT_PREVIEW_LOAD%>" type="submit" value="Load">
+			<input name="<%=Editor.PERSISTENT_PREVIEW_LOAD%>" type="submit" value="Load into Preview">
 		</form><%
+		}
+		else
+		{
+		%>
+		<div>There are no drafts available.</div><%
+		}
 	}
 	%>
 	</body>
