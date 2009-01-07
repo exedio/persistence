@@ -52,7 +52,7 @@ public final class Draft extends Item
 		return Draft.comment.get(this);
 	}
 	
-	List<DraftItem> getFeatures()
+	List<DraftItem> getItems()
 	{
 		return DraftItem.TYPE.search(DraftItem.parent.equal(this));
 	}
