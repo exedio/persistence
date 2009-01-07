@@ -337,7 +337,7 @@ public abstract class Editor implements Filter
 		try
 		{
 			startTransaction("proposal");
-			final List<Draft> persistent =
+			final List<Draft> drafts =
 				draftsEnabled
 				? Draft.TYPE.search(null, Draft.date, false)
 				: null;
@@ -345,7 +345,7 @@ public abstract class Editor implements Filter
 					out, model,
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
 					anchor.getPreviews(),
-					draftsEnabled, persistent);
+					draftsEnabled, drafts);
 			model.commit();
 		}
 		finally
