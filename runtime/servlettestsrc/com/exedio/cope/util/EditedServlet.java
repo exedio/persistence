@@ -70,11 +70,11 @@ public final class EditedServlet extends HttpServlet
 			final EditedItem i1 = createItem(0, "osorno.png", "image/png");
 			final EditedItem i2 = createItem(1, "tree.jpg", "image/jpeg");
 			createItem(2, "tree.jpg", "image/jpeg");
-			final Draft p1 = new Draft("jim", "Jim Smith", "comment for jim");
-			new DraftItem(p1, 0, EditedItem.field, i1, "old value", "new value");
-			new DraftItem(p1, 1, EditedItem.field, i2, "old value", "new value");
-			final Draft p2 = new Draft("john", null, "comment for john");
-			new DraftItem(p2, 0, EditedItem.field, i1, "old value", "new value");
+			final Draft d1 = new Draft("jim", "Jim Smith", "comment for jim");
+			new DraftItem(d1, 0, EditedItem.field, i1, "old value", "new value");
+			new DraftItem(d1, 1, EditedItem.field, i2, "old value", "new value");
+			final Draft d2 = new Draft("john", null, "comment for john");
+			new DraftItem(d2, 0, EditedItem.field, i1, "old value", "new value");
 			model.commit();
 		}
 		finally
