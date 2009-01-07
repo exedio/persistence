@@ -316,11 +316,11 @@ public abstract class Editor implements Filter
 					startTransaction("loadPreview");
 					final Draft draft =
 						(Draft)model.getItem(request.getParameter(PERSISTENT_PREVIEW_ID));
-					for(final DraftItem f : draft.getFeatures())
+					for(final DraftItem i : draft.getFeatures())
 						anchor.setPreview(
-								DraftItem.newValue.get(f),
-								(StringField)model.getFeature(DraftItem.feature.get(f)),
-								model.getItem(DraftItem.item.get(f)));
+								DraftItem.newValue.get(i),
+								(StringField)model.getFeature(DraftItem.feature.get(i)),
+								model.getItem(DraftItem.item.get(i)));
 				}
 				catch(NoSuchIDException e)
 				{
