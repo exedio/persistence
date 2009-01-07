@@ -73,6 +73,8 @@ public final class EditedServlet extends HttpServlet
 			final Draft d1 = new Draft("jim", "Jim Smith", "comment for jim");
 			d1.addItem(0, EditedItem.field, i1, "new value");
 			d1.addItem(1, EditedItem.field, i2, "new value");
+			d1.addItem(2, EditedItem.map, 1, i2, "new value");
+			d1.addItem(3, EditedItem.map, 2, i2, "new value");
 			final Draft d2 = new Draft("john", null, "comment for john");
 			d2.addItem(0, EditedItem.field, i1, "new value");
 			model.commit();

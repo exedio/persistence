@@ -22,12 +22,14 @@ import java.text.DateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class Draft extends Item
@@ -66,6 +68,19 @@ public final class Draft extends Item
 	public DraftItem addItem(final int position, final StringField feature, final Item item, final String value)
 	{
 		return new DraftItem(this, position, feature, item, feature.get(item), value);
+	}
+	
+	public <K> DraftItem addItem(
+			final int position,
+			final MapField<K, String> feature,
+			final K key,
+			final Item item,
+			final String value)
+	{
+		final Item ritem = feature.getRelationType().searchSingletonStrict(
+				feature.getKey().equal(key).and(
+				Cope.equalAndCast(feature.getParent(), item)));
+		return addItem(position, (StringField)feature.getValue(), ritem, value);
 	}
 	
 	public Draft(
