@@ -236,7 +236,7 @@ public abstract class Editor implements Filter
 	static final String PREVIEW_PERSIST = "preview.persist";
 	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
 	static final String PREVIEW_IDS = "id";
-	static final String PERSISTENT_PREVIEW_ID = "persistent_preview.id";
+	static final String DRAFT_ID = "draft.id";
 	static final String PERSISTENT_PREVIEW_LOAD = "persistent_preview.load";
 	
 	private final void doPreviewOverview(
@@ -315,7 +315,7 @@ public abstract class Editor implements Filter
 				{
 					startTransaction("loadPreview");
 					final Draft draft =
-						(Draft)model.getItem(request.getParameter(PERSISTENT_PREVIEW_ID));
+						(Draft)model.getItem(request.getParameter(DRAFT_ID));
 					for(final DraftItem i : draft.getItems())
 						anchor.setPreview(
 								DraftItem.newValue.get(i),

@@ -151,7 +151,7 @@ final class Preview_Jspm
 				{
 				%>
 				<tr>
-					<td><input name="<%=Editor.PERSISTENT_PREVIEW_ID%>" type="radio" value="<%=draft.getCopeID()%>"></td>
+					<td><input name="<%=Editor.DRAFT_ID%>" type="radio" value="<%=draft.getCopeID()%>"></td>
 					<td><%=draft.getDate()%></td>
 					<td><%=draft.getAuthor()%></td>
 					<td><%=draft.getComment()%></td>
