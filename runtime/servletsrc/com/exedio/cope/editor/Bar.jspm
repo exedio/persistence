@@ -87,6 +87,7 @@ final class Bar_Jspm
 			%>
 			<script>
 				var previousBorder = null;
+				var previousPreview = false;
 				
 				function <%=Editor.EDIT_METHOD_LINE%>(border,feature,item,value,preview)
 				{
@@ -107,6 +108,7 @@ final class Bar_Jspm
 						previousBorder.className='contentEditorLink';
 					border.className='contentEditorLinkEdited';
 					previousBorder = border;
+					previousPreview = preview;
 					
 					return false;
 				}
@@ -128,6 +130,7 @@ final class Bar_Jspm
 						previousBorder.className='contentEditorLink';
 					border.className='contentEditorLinkEdited';
 					previousBorder = border;
+					previousPreview = false;
 					
 					return false;
 				}
@@ -150,15 +153,23 @@ final class Bar_Jspm
 						previousBorder.className='contentEditorLink';
 					border.className='contentEditorLinkEdited';
 					previousBorder = border;
+					previousPreview = preview;
 					
 					return false;
+				}
+				function <%=Editor.ONKEY_METHOD_LINE%>(line)
+				{
+					if(previousBorder==null || !previousPreview)
+						return true;
+					previousBorder.innerHTML = line.value;
+					return true;
 				}
 			</script>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;">
 				<input name="<%=   Editor.REFERER    %>" value="<%=referer%>" type="hidden">
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_LINE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
-				<input name="<%=   Editor.BAR_TEXT   %>" id="<%=ID_LINE_VALUE  %>" class="text">
+				<input name="<%=   Editor.BAR_TEXT   %>" id="<%=ID_LINE_VALUE  %>" class="text" onkeyup="return <%=Editor.ONKEY_METHOD_LINE%>(this);">
 				<br>
 				<input type="submit" value="Publish">
 				<input type="submit" value="Preview" name="<%=Editor.PREVIEW%>" id="<%=ID_LINE_PREVIEW%>">
