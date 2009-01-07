@@ -32,7 +32,7 @@ final class Preview_Jspm
 			final String url,
 			final Map<Preview, String> previews,
 			final boolean persistentPreviews,
-			final List<Draft> persistent)
+			final List<Draft> drafts)
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -124,7 +124,7 @@ final class Preview_Jspm
 		</form><%
 	}
 	
-	if(persistentPreviews && !persistent.isEmpty())
+	if(persistentPreviews && !drafts.isEmpty())
 	{
 		%>
 		<form action="<%=url%>" method="POST">
@@ -135,7 +135,7 @@ final class Preview_Jspm
 					<th>Author</th>
 					<th>Comment</th>
 				</tr><%
-				for(final Draft p : persistent)
+				for(final Draft p : drafts)
 				{
 				%>
 				<tr>
