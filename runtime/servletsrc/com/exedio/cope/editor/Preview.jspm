@@ -31,7 +31,7 @@ final class Preview_Jspm
 			final Model model,
 			final String url,
 			final Map<Preview, String> previews,
-			final boolean persistentPreviews,
+			final boolean draftsEnabled,
 			final List<Draft> drafts)
 	{
 %><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
@@ -112,7 +112,7 @@ final class Preview_Jspm
 			<input name="<%=Editor.PREVIEW_PUBLISH%>" type="submit" value="Publish">
 			<input name="<%=Editor.PREVIEW_DISCARD%>" type="submit" value="Discard"><%
 			
-			if(persistentPreviews)
+			if(draftsEnabled)
 			{
 			%>
 			<br>
@@ -124,7 +124,7 @@ final class Preview_Jspm
 		</form><%
 	}
 	
-	if(persistentPreviews && !drafts.isEmpty())
+	if(draftsEnabled && !drafts.isEmpty())
 	{
 		%>
 		<form action="<%=url%>" method="POST">

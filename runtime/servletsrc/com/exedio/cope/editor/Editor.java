@@ -81,7 +81,7 @@ public abstract class Editor implements Filter
 	}
 	
 	private FilterConfig config = null;
-	private boolean persistentPreviews = false;
+	private boolean draftsEnabled = false;
 	private ConnectToken connectToken = null;
 	private final Object connectTokenLock = new Object();
 	
@@ -91,7 +91,7 @@ public abstract class Editor implements Filter
 		for(final Type<?> type : model.getTypes())
 			if(type==DraftItem.TYPE) // DraftItem implies Draft because of the parent field
 			{
-				persistentPreviews = true;
+				draftsEnabled = true;
 				break;
 			}
 	}
@@ -338,14 +338,14 @@ public abstract class Editor implements Filter
 		{
 			startTransaction("proposal");
 			final List<Draft> persistent =
-				persistentPreviews
+				draftsEnabled
 				? Draft.TYPE.search(null, Draft.date, false)
 				: null;
 			Preview_Jspm.writeOverview(
 					out, model,
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
 					anchor.getPreviews(),
-					persistentPreviews, persistent);
+					draftsEnabled, persistent);
 			model.commit();
 		}
 		finally
