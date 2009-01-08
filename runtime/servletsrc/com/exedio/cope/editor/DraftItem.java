@@ -80,6 +80,36 @@ public final class DraftItem extends Item
 		super(d,pk);
 	}
 	
+	Draft getParent()
+	{
+		return parent.get(this);
+	}
+	
+	int getPosition()
+	{
+		return position.getMandatory(this);
+	}
+	
+	String getFeature()
+	{
+		return feature.get(this);
+	}
+	
+	String getItem()
+	{
+		return item.get(this);
+	}
+	
+	String getOldValue()
+	{
+		return oldValue.get(this);
+	}
+	
+	String getNewValue()
+	{
+		return newValue.get(this);
+	}
+	
 	private static final long serialVersionUID = 1l;
 	
 	public static final Type<DraftItem> TYPE = newType(DraftItem.class);
