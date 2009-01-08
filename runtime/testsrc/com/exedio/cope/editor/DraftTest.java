@@ -59,6 +59,8 @@ public class DraftTest extends AbstractRuntimeTest
 		
 		i1.setString("oldString1");
 		final DraftItem d0 = d.addItem(0, DraftedItem.string, i1, "newString1");
+		assertEquals(list(d0), d.getItems());
+		assertEquals(1, d.getItemsCount());
 		assertEquals(d, d0.getParent());
 		assertEquals(0, d0.getPosition());
 		assertEquals("DraftedItem.string", d0.getFeature());
@@ -68,6 +70,8 @@ public class DraftTest extends AbstractRuntimeTest
 		
 		i1.setString("oldString2");
 		final DraftItem d1 = d.addItem(1, DraftedItem.string, i1, "newString2");
+		assertEquals(list(d0, d1), d.getItems());
+		assertEquals(2, d.getItemsCount());
 		assertEquals(d, d1.getParent());
 		assertEquals(1, d1.getPosition());
 		assertEquals("DraftedItem.string", d1.getFeature());
