@@ -45,7 +45,7 @@ final class Bar_Jspm
 		%>
 		<style type="text/css">
 			
-			div.contentEditorBar
+			div#contentEditorBar
 			{
 				margin: 10px;
 				border-bottom: solid 1px #dde;
@@ -55,7 +55,7 @@ final class Bar_Jspm
 				color: #002;
 			}
 			
-			div.contentEditorBar h1
+			div#contentEditorBar h1
 			{
 				margin: 0px;
 				border: 0px;
@@ -63,12 +63,12 @@ final class Bar_Jspm
 				font-size: 12pt;
 			}
 			
-			div.contentEditorBar sup a
+			div#contentEditorBar sup a
 			{
 				text-decoration: none;
 			}
 			
-			form.contentEditorBarSwitches
+			form#contentEditorBarSwitches
 			{
 				float: right;
 			}<%
@@ -77,7 +77,7 @@ final class Bar_Jspm
 		{
 		%>
 			
-			div.contentEditorBar hr
+			div#contentEditorBar hr
 			{
 				height: 0px;
 				margin: 1em 0px;
@@ -85,14 +85,14 @@ final class Bar_Jspm
 				border-top: 1px solid #99d;
 			}
 			
-			div.contentEditorBar input
+			div#contentEditorBar input
 			{
 				background: #eef;
 				font-size: 80%;
 				color: #002;
 			}
 			
-			div.contentEditorBar input.text
+			div#contentEditorBar input.text
 			{
 				width: 90%;
 			}
@@ -208,8 +208,8 @@ final class Bar_Jspm
 			final String loginName)
 	{
 		%>
-		<div class="contentEditorBar">
-			<form action="<%=action%>" method="POST" class="contentEditorBarSwitches">
+		<div id="contentEditorBar">
+			<form action="<%=action%>" method="POST" id="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
 				<input type="<%
 					if(borderButtonURL!=null) { %>image<% } else { %>submit<% }
