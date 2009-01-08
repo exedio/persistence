@@ -233,20 +233,20 @@
 		</ljavac>
 	</target>
 	
-	<target name="runtime.driver.compile" depends="runtime.core.compile">
-		<for param="driver.file">
+	<target name="runtime.dialect.compile" depends="runtime.core.compile">
+		<for param="dialect.file">
 			<path>
 				<fileset dir="${basedir}" includes="*.driver.properties" />
 			</path>
 			<sequential>
-				<basename file="@{driver.file}" property="@{driver.file}.name" suffix=".driver.properties" />
-				<property file="@{driver.file}" prefix="@{driver.file}." />
-				<echo message="Compiling driver ${@{driver.file}.name} with ${@{driver.file}.jar}." />
-				<!--echo message="file=@{driver.file},driver=${@{driver.file}.name},jar=${@{driver.file}.jar}." /-->
-				<ljavac srcdir="runtime/${@{driver.file}.name}src" destdir="build/runtime/classes">
+				<basename file="@{dialect.file}" property="@{dialect.file}.name" suffix=".driver.properties" />
+				<property file="@{dialect.file}" prefix="@{dialect.file}." />
+				<echo message="Compiling dialect ${@{dialect.file}.name} with ${@{dialect.file}.jar}." />
+				<!--echo message="file=@{dialect.file},dialect=${@{dialect.file}.name},jar=${@{dialect.file}.jar}." /-->
+				<ljavac srcdir="runtime/${@{dialect.file}.name}src" destdir="build/runtime/classes">
 					<classpath>
 						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/jdbc/${@{driver.file}.jar}" />
+						<pathelement location="lib/jdbc/${@{dialect.file}.jar}" />
 					</classpath>
 				</ljavac>
 			</sequential>
@@ -282,7 +282,7 @@
 	
 	<target name="runtime.compile"
 				depends="runtime.core.compile,
-							runtime.driver.compile,
+							runtime.dialect.compile,
 							runtime.pattern.compile,
 							runtime.servlet.compile,
 							runtime.junit.compile" />
