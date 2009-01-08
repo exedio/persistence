@@ -23,6 +23,21 @@ import static com.exedio.cops.XMLEncoder.encode;
 
 final class Bar_Jspm
 {
+	private static final String ID_FORM_LINE = Editor.AVOID_COLLISION + "barFormLine";
+	private static final String ID_FORM_FILE = Editor.AVOID_COLLISION + "barFormFile";
+	private static final String ID_FORM_AREA = Editor.AVOID_COLLISION + "barFormArea";
+	private static final String ID_LINE_FEATURE = Editor.AVOID_COLLISION + "barLineFeature";
+	private static final String ID_FILE_FEATURE = Editor.AVOID_COLLISION + "barFileFeature";
+	private static final String ID_AREA_FEATURE = Editor.AVOID_COLLISION + "barAreaFeature";
+	private static final String ID_LINE_ITEM    = Editor.AVOID_COLLISION + "barLineItem";
+	private static final String ID_FILE_ITEM    = Editor.AVOID_COLLISION + "barFileItem";
+	private static final String ID_AREA_ITEM    = Editor.AVOID_COLLISION + "barAreaItem";
+	private static final String ID_LINE_VALUE   = Editor.AVOID_COLLISION + "barLineValue";
+	private static final String ID_FILE_VALUE   = Editor.AVOID_COLLISION + "barFileValue";
+	private static final String ID_AREA_VALUE   = Editor.AVOID_COLLISION + "barAreaValue";
+	private static final String ID_LINE_PREVIEW = Editor.AVOID_COLLISION + "barLinePreview";
+	private static final String ID_AREA_PREVIEW = Editor.AVOID_COLLISION + "barAreaPreview";
+	
 	static final void write(
 			final StringBuilder out,
 			final String action,
@@ -70,20 +85,6 @@ final class Bar_Jspm
 			<br clear="both"><%
 			if(borders)
 			{
-				final String ID_FORM_LINE = Editor.AVOID_COLLISION + "barFormLine";
-				final String ID_FORM_FILE = Editor.AVOID_COLLISION + "barFormFile";
-				final String ID_FORM_AREA = Editor.AVOID_COLLISION + "barFormArea";
-				final String ID_LINE_FEATURE = Editor.AVOID_COLLISION + "barLineFeature";
-				final String ID_FILE_FEATURE = Editor.AVOID_COLLISION + "barFileFeature";
-				final String ID_AREA_FEATURE = Editor.AVOID_COLLISION + "barAreaFeature";
-				final String ID_LINE_ITEM    = Editor.AVOID_COLLISION + "barLineItem";
-				final String ID_FILE_ITEM    = Editor.AVOID_COLLISION + "barFileItem";
-				final String ID_AREA_ITEM    = Editor.AVOID_COLLISION + "barAreaItem";
-				final String ID_LINE_VALUE   = Editor.AVOID_COLLISION + "barLineValue";
-				final String ID_FILE_VALUE   = Editor.AVOID_COLLISION + "barFileValue";
-				final String ID_AREA_VALUE   = Editor.AVOID_COLLISION + "barAreaValue";
-				final String ID_LINE_PREVIEW = Editor.AVOID_COLLISION + "barLinePreview";
-				final String ID_AREA_PREVIEW = Editor.AVOID_COLLISION + "barAreaPreview";
 			%>
 			<script>
 				var previousBorder = null;
