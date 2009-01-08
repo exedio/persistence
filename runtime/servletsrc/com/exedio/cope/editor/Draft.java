@@ -67,7 +67,16 @@ public final class Draft extends Item
 	
 	public DraftItem addItem(final int position, final StringField feature, final Item item, final String value)
 	{
-		return new DraftItem(this, position, feature, item, feature.get(item), value);
+		final DraftItem i = DraftItem.forParentFeatureAndItem(this, feature, item);
+		if(i==null)
+		{
+			return new DraftItem(this, position, feature, item, feature.get(item), value);
+		}
+		else
+		{
+			i.setNewValue(value);
+			return i;
+		}
 	}
 	
 	public <K> DraftItem addItem(

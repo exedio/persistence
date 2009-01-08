@@ -37,8 +37,10 @@ public final class DraftItem extends Item
 	
 	static final StringField feature = new StringField().toFinal();
 	static final StringField item = new StringField().toFinal();
+	static final UniqueConstraint parentFeatureAndItem = new UniqueConstraint(parent, feature, item);
+	
 	static final StringField oldValue = new StringField().toFinal().lengthMax(50000);
-	static final StringField newValue = new StringField().toFinal().lengthMax(50000);
+	static final StringField newValue = new StringField().lengthMax(50000);
 	
 	
 	DraftItem(
@@ -89,6 +91,11 @@ public final class DraftItem extends Item
 		return item.get(this);
 	}
 	
+	static DraftItem forParentFeatureAndItem(final Draft parent, final StringField feature, final Item item)
+	{
+		return parentFeatureAndItem.searchUnique(DraftItem.class, parent, feature.getID(), item.getCopeID());
+	}
+	
 	String getOldValue()
 	{
 		return oldValue.get(this);
@@ -97,6 +104,11 @@ public final class DraftItem extends Item
 	String getNewValue()
 	{
 		return newValue.get(this);
+	}
+	
+	void setNewValue(final String newValue)
+	{
+		DraftItem.newValue.set(this, newValue);
 	}
 	
 	private static final long serialVersionUID = 1l;
