@@ -78,5 +78,16 @@ public class DraftTest extends AbstractRuntimeTest
 		assertEquals(i1.getCopeID(), d0.getItem());
 		assertEquals("oldString1", d0.getOldValue());
 		assertEquals("newString2", d0.getNewValue());
+		
+		i2.setString("oldString3");
+		final DraftItem d1 = d.addItem(1, DraftedItem.string, i2, "newString3");
+		assertEquals(list(d0, d1), d.getItems());
+		assertEquals(2, d.getItemsCount());
+		assertEquals(d, d1.getParent());
+		assertEquals(1, d1.getPosition());
+		assertEquals("DraftedItem.string", d1.getFeature());
+		assertEquals(i2.getCopeID(), d1.getItem());
+		assertEquals("oldString3", d1.getOldValue());
+		assertEquals("newString3", d1.getNewValue());
 	}
 }
