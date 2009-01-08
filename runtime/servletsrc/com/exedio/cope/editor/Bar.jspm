@@ -97,7 +97,7 @@ final class Bar_Jspm
 				width: 90%;
 			}
 			
-			#<%=ID_FORM_FILE%> img
+			img#<%=ID_FILE_VALUE%>
 			{
 				margin: 0px;
 				float: right;
