@@ -113,7 +113,7 @@ final class EditedServlet_Jspm
 				width: 90%;
 			}
 			
-			#contentEditorBar823658617saveFormFile img
+			#contentEditorBar823658617barFormFile img
 			{
 				margin: 0px;
 				float: right;
