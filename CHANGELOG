@@ -8,6 +8,7 @@ The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
 * changed url of content editor from contentEditorLogin.html to copeContentEditor.html
+* contentEditor.css must change key contentEditorBar823658617saveFormFile to contentEditorBar823658617barFormFile
 * renamed EditorPreview to Draft
 * added SHAHash as a replacement for MD5Hash, which is no longer secure
 * field for storing hashes uses algorithm for name,
