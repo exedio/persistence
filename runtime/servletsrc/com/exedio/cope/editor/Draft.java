@@ -55,6 +55,11 @@ public final class Draft extends Item
 		return Draft.comment.get(this);
 	}
 	
+	String getDropDownSummary()
+	{
+		return getAuthor() + " - " + getComment();
+	}
+	
 	List<DraftItem> getItems()
 	{
 		return DraftItem.TYPE.search(DraftItem.parent.equal(this));

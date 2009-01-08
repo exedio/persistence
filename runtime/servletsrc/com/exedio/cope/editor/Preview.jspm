@@ -121,7 +121,21 @@ final class Preview_Jspm
 			<br>
 			Comment:
 			<input name="<%=Editor.PREVIEW_PERSIST_COMMENT%>" type="text">
-			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Save as Draft"><%
+			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Save as new Draft"><%
+			if(!drafts.isEmpty())
+			{
+			%>
+			<br>
+			<input name="<%=Editor.SAVE_TO_DRAFT%>" type="submit" value="Save to Draft">
+			<select name="<%=Editor.DRAFT_ID%>"><%
+			for(final Draft draft : drafts)
+			{
+				%>
+				<option value="<%=draft.getCopeID()%>"><%=draft.getDropDownSummary()%></option><%
+			}
+			%>
+			</select><%
+			}
 			}
 			%>
 		</form><%

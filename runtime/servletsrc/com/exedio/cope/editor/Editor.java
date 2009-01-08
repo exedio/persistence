@@ -236,6 +236,7 @@ public abstract class Editor implements Filter
 	static final String PREVIEW_PERSIST = "preview.persist";
 	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
 	static final String PREVIEW_IDS = "id";
+	static final String SAVE_TO_DRAFT = "draft.saveTo";
 	static final String DRAFT_ID   = "draft.id";
 	static final String DRAFT_LOAD = "draft.load";
 	
@@ -291,6 +292,34 @@ public abstract class Editor implements Filter
 						}
 					}
 					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
+			else if(request.getParameter(SAVE_TO_DRAFT)!=null)
+			{
+				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
+				try
+				{
+					startTransaction("saveToDraft");
+					final Draft parent = (Draft)model.getItem(request.getParameter(DRAFT_ID));
+					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					{
+						final Map.Entry<Preview, String> e = i.next();
+						final Preview p = e.getKey();
+						if(ids!=null && ids.contains(p.getID()))
+						{
+							parent.addItem(p.getFeature(), p.item, e.getValue());
+							i.remove();
+						}
+					}
+					model.commit();
+				}
+				catch(NoSuchIDException e)
+				{
+					throw new RuntimeException(e);
 				}
 				finally
 				{

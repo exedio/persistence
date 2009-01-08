@@ -49,11 +49,13 @@ public class DraftTest extends AbstractRuntimeTest
 	{
 		assertEquals("userNull", dn.getAuthor());
 		assertEquals("commentNull", dn.getComment());
+		assertEquals("userNull - commentNull", dn.getDropDownSummary());
 		assertEquals(list(), dn.getItems());
 		assertEquals(0, dn.getItemsCount());
 		
 		assertEquals("name", d.getAuthor());
 		assertEquals("comment", d.getComment());
+		assertEquals("name - comment", d.getDropDownSummary());
 		assertEquals(list(), d.getItems());
 		assertEquals(0, d.getItemsCount());
 		
