@@ -93,7 +93,7 @@ final class Bar_Jspm
 				width: 90%;
 			}
 			
-			#contentEditorBar823658617barFormFile img
+			#<%=ID_FORM_FILE%> img
 			{
 				margin: 0px;
 				float: right;
