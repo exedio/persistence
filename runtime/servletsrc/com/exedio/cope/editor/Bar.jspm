@@ -71,7 +71,11 @@ final class Bar_Jspm
 			form.contentEditorBarSwitches
 			{
 				float: right;
-			}
+			}<%
+		
+		if(borders)
+		{
+		%>
 			
 			div.contentEditorBar hr
 			{
@@ -99,7 +103,10 @@ final class Bar_Jspm
 				float: right;
 				border: solid #ccd 5px;
 				height: 40px;
-			}
+			}<%
+		
+		}
+		%>
 			
 		</style><%
 		
