@@ -44,7 +44,7 @@ final class Preview implements Serializable // for session persistence
 		return (StringField)item.getCopeType().getModel().getFeature(feature);
 	}
 	
-	final String getID()
+	String getID()
 	{
 		return feature + '/' + item.getCopeID();
 	}
