@@ -68,17 +68,17 @@ final class Bar_Jspm
 				text-decoration: none;
 			}
 			
+			form.contentEditorBarSwitches
+			{
+				float: right;
+			}
+			
 			div.contentEditorBar hr
 			{
 				height: 0px;
 				margin: 1em 0px;
 				border-width: 0px;
 				border-top: 1px solid #99d;
-			}
-			
-			form.contentEditorBarSwitches
-			{
-				float: right;
 			}
 			
 			div.contentEditorBar input
