@@ -30,7 +30,7 @@ import com.exedio.cope.util.ReactivationConstructorDummy;
 
 public final class DraftItem extends Item
 {
-	static final ItemField<Draft> parent = newItemField(Draft.class).toFinal();
+	static final ItemField<Draft> parent = newItemField(Draft.class, CASCADE).toFinal();
 	static final IntegerField position = new IntegerField().toFinal();
 	static final PartOf<Draft> items = PartOf.newPartOf(parent);
 	static final UniqueConstraint parentAndPosition = new UniqueConstraint(parent, position);
