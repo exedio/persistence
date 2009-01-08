@@ -73,62 +73,6 @@ final class EditedServlet_Jspm
 				font-size: 7pt;
 			}
 			
-			div.contentEditorBar
-			{
-				margin: 10px;
-				border-bottom: solid 1px #dde;
-				background: #eef;
-				padding: 5px;
-				font-size: 10pt;
-				color: #002;
-			}
-			
-			div.contentEditorBar h1
-			{
-				margin: 0px;
-				border: 0px;
-				padding: 0px;
-				font-size: 12pt;
-			}
-			
-			div.contentEditorBar sup a
-			{
-				text-decoration: none;
-			}
-			
-			div.contentEditorBar hr
-			{
-				height: 0px;
-				margin: 1em 0px;
-				border-width: 0px;
-				border-top: 1px solid #99d;
-			}
-			
-			form.contentEditorBarSwitches
-			{
-				float: right;
-			}
-			
-			div.contentEditorBar input
-			{
-				background: #eef;
-				font-size: 80%;
-				color: #002;
-			}
-			
-			div.contentEditorBar input.text
-			{
-				width: 90%;
-			}
-			
-			#contentEditorBar823658617barFormFile img
-			{
-				margin: 0px;
-				float: right;
-				border: solid #ccd 5px;
-				height: 40px;
-			}
-			
 		</style><%
 		}
 		Editor.writeHead(out);
