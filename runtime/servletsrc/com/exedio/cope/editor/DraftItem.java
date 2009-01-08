@@ -49,21 +49,10 @@ public final class DraftItem extends Item
 			final String oldValue,
 			final String newValue)
 	{
-		this(parent, position, feature.getID(), item, oldValue, newValue);
-	}
-	
-	private DraftItem(
-			final Draft parent,
-			final int position,
-			final String feature,
-			final Item item,
-			final String oldValue,
-			final String newValue)
-	{
 		this(new com.exedio.cope.SetValue[]{
 			DraftItem.parent.map(parent),
 			DraftItem.position.map(position),
-			DraftItem.feature.map(feature),
+			DraftItem.feature.map(feature.getID()),
 			DraftItem.item.map(item.getCopeID()),
 			DraftItem.oldValue.map(oldValue),
 			DraftItem.newValue.map(newValue),
