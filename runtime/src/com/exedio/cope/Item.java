@@ -253,7 +253,7 @@ public abstract class Item implements Serializable
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		in.defaultReadObject();
-		type = Type.forClass(getClass()); // TODO dows not work for types without unique java class
+		type = Type.forClass(getClass()); // TODO does not work for types without unique java class
 	}
 	
 	public final <E> E get(final Function<E> function)
