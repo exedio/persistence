@@ -96,6 +96,14 @@ final class EditedServlet_Jspm
 				text-decoration: none;
 			}
 			
+			div.contentEditorBar hr
+			{
+				height: 0px;
+				margin: 1em 0px;
+				border-width: 0px;
+				border-top: 1px solid #99d;
+			}
+			
 			form.contentEditorBarSwitches
 			{
 				float: right;

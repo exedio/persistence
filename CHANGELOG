@@ -7,6 +7,14 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* contentEditor.css must have:
+		div.contentEditorBar hr
+		{
+			height: 0px;
+			margin: 1em 0px;
+			border-width: 0px;
+			border-top: 1px solid #99d;
+		}
 * changed url of content editor from contentEditorLogin.html to copeContentEditor.html
 * contentEditor.css must change key contentEditorBar823658617saveFormFile to contentEditorBar823658617barFormFile
 * renamed EditorPreview to Draft
