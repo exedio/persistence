@@ -287,7 +287,7 @@ public abstract class Editor implements Filter
 						final Preview p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							new DraftItem(parent, position++, p.getFeature(), p.item, p.getOldValue(), e.getValue());
+							parent.addItem(position++, p.getFeature(), p.item, e.getValue());
 							i.remove();
 						}
 					}
