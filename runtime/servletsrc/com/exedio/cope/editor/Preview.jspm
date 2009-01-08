@@ -22,13 +22,10 @@ package com.exedio.cope.editor;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.Model;
-
 final class Preview_Jspm
 {
 	static final void writeOverview(
 			final StringBuilder out,
-			final Model model,
 			final String url,
 			final Map<Preview, String> previews,
 			final boolean draftsEnabled,
@@ -109,7 +106,7 @@ final class Preview_Jspm
 				%>
 				<tr>
 					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=p.getID()%>" checked="checked"></td>
-					<td><%=p.getOldValue(model)%></td>
+					<td><%=p.getOldValue()%></td>
 					<td><%=e.getValue()%></td>
 				</tr><%
 				}

@@ -261,7 +261,7 @@ public abstract class Editor implements Filter
 						final Preview p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							p.publish(model, e.getValue());
+							p.publish(e.getValue());
 							i.remove();
 						}
 					}
@@ -287,7 +287,7 @@ public abstract class Editor implements Filter
 						final Preview p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							new DraftItem(parent, position++, p.feature, p.item, p.getOldValue(model), e.getValue());
+							new DraftItem(parent, position++, p.getFeature(), p.item, p.getOldValue(), e.getValue());
 							i.remove();
 						}
 					}
@@ -342,7 +342,7 @@ public abstract class Editor implements Filter
 				? Draft.TYPE.search(null, Draft.date, false)
 				: null;
 			Preview_Jspm.writeOverview(
-					out, model,
+					out,
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
 					anchor.getPreviews(),
 					draftsEnabled, drafts);

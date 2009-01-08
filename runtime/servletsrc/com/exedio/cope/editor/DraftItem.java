@@ -52,7 +52,7 @@ public final class DraftItem extends Item
 		this(parent, position, feature.getID(), item, oldValue, newValue);
 	}
 	
-	DraftItem(
+	private DraftItem(
 			final Draft parent,
 			final int position,
 			final String feature,

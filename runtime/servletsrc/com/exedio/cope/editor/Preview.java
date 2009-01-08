@@ -21,14 +21,13 @@ package com.exedio.cope.editor;
 import java.io.Serializable;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 
 final class Preview implements Serializable // for session persistence
 {
 	private static final long serialVersionUID = 1l;
 	
-	final String feature;
+	private final String feature;
 	final Item item;
 	
 	Preview(final StringField feature, final Item item)
@@ -40,19 +39,24 @@ final class Preview implements Serializable // for session persistence
 		assert item!=null;
 	}
 	
+	StringField getFeature()
+	{
+		return (StringField)item.getCopeType().getModel().getFeature(feature);
+	}
+	
 	final String getID()
 	{
 		return feature + '/' + item.getCopeID();
 	}
 	
-	String getOldValue(final Model model)
+	String getOldValue()
 	{
-		return ((StringField)model.getFeature(feature)).get(item);
+		return getFeature().get(item);
 	}
 	
-	void publish(final Model model, final String value)
+	void publish(final String value)
 	{
-		((StringField)model.getFeature(feature)).set(item, value);
+		getFeature().set(item, value);
 	}
 	
 	@Override
