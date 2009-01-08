@@ -280,14 +280,13 @@ public abstract class Editor implements Filter
 				{
 					startTransaction("persistProposals");
 					final Draft parent = new Draft(anchor.user, anchor.sessionName, request.getParameter(PREVIEW_PERSIST_COMMENT));
-					int position = 0;
 					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
 						final Map.Entry<Preview, String> e = i.next();
 						final Preview p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							parent.addItem(position++, p.getFeature(), p.item, e.getValue());
+							parent.addItem(p.getFeature(), p.item, e.getValue());
 							i.remove();
 						}
 					}

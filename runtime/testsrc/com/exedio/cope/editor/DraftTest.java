@@ -58,7 +58,7 @@ public class DraftTest extends AbstractRuntimeTest
 		assertEquals(0, d.getItemsCount());
 		
 		i1.setString("oldString1");
-		final DraftItem d0 = d.addItem(0, DraftedItem.string, i1, "newString1");
+		final DraftItem d0 = d.addItem(DraftedItem.string, i1, "newString1");
 		assertEquals(list(d0), d.getItems());
 		assertEquals(1, d.getItemsCount());
 		assertEquals(d, d0.getParent());
@@ -69,7 +69,7 @@ public class DraftTest extends AbstractRuntimeTest
 		assertEquals("newString1", d0.getNewValue());
 		
 		i1.setString("oldString2");
-		assertSame(d0, d.addItem(1, DraftedItem.string, i1, "newString2"));
+		assertSame(d0, d.addItem(DraftedItem.string, i1, "newString2"));
 		assertEquals(list(d0), d.getItems());
 		assertEquals(1, d.getItemsCount());
 		assertEquals(d, d0.getParent());
@@ -80,7 +80,7 @@ public class DraftTest extends AbstractRuntimeTest
 		assertEquals("newString2", d0.getNewValue());
 		
 		i2.setString("oldString3");
-		final DraftItem d1 = d.addItem(1, DraftedItem.string, i2, "newString3");
+		final DraftItem d1 = d.addItem(DraftedItem.string, i2, "newString3");
 		assertEquals(list(d0, d1), d.getItems());
 		assertEquals(2, d.getItemsCount());
 		assertEquals(d, d1.getParent());

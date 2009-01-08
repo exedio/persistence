@@ -65,12 +65,14 @@ public final class Draft extends Item
 		return new Query<DraftItem>(DraftItem.TYPE.getThis(), DraftItem.parent.equal(this)).total();
 	}
 	
-	public DraftItem addItem(final int position, final StringField feature, final Item item, final String value)
+	public DraftItem addItem(final StringField feature, final Item item, final String value)
 	{
 		final DraftItem i = DraftItem.forParentFeatureAndItem(this, feature, item);
 		if(i==null)
 		{
-			return new DraftItem(this, position, feature, item, feature.get(item), value);
+			final Query<Integer> q = new Query<Integer>(DraftItem.position.max(), DraftItem.parent.equal(this));
+			final Integer position = q.searchSingleton();
+			return new DraftItem(this, position!=null ? (position.intValue()+1) : 0, feature, item, feature.get(item), value);
 		}
 		else
 		{
@@ -80,7 +82,6 @@ public final class Draft extends Item
 	}
 	
 	public <K> DraftItem addItem(
-			final int position,
 			final MapField<K, String> feature,
 			final K key,
 			final Item item,
@@ -89,7 +90,7 @@ public final class Draft extends Item
 		final Item ritem = feature.getRelationType().searchSingletonStrict(
 				feature.getKey().equal(key).and(
 				Cope.equalAndCast(feature.getParent(), item)));
-		return addItem(position, (StringField)feature.getValue(), ritem, value);
+		return addItem((StringField)feature.getValue(), ritem, value);
 	}
 	
 	public Draft(
