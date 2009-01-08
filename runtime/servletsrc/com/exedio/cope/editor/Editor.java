@@ -869,6 +869,17 @@ public abstract class Editor implements Filter
 			throw new IllegalArgumentException("item " + item.getCopeID() + " does not belong to type of feature " + feature.getID());
 	}
 	
+	public static final void writeHead(final PrintStream out)
+	{
+		final TL tl = tls.get();
+		if(tl==null)
+			return;
+		
+		final StringBuilder bf = new StringBuilder();
+		writeHead(bf);
+		out.print(bf);
+	}
+	
 	public static final void writeBar(final PrintStream out)
 	{
 		final TL tl = tls.get();
@@ -878,6 +889,15 @@ public abstract class Editor implements Filter
 		final StringBuilder bf = new StringBuilder();
 		writeBar(bf);
 		out.print(bf);
+	}
+	
+	public static final void writeHead(final StringBuilder out)
+	{
+		final TL tl = tls.get();
+		if(tl==null)
+			return;
+		
+		Bar_Jspm.writeHead(out, tl.anchor.borders);
 	}
 	
 	public static final void writeBar(final StringBuilder out)

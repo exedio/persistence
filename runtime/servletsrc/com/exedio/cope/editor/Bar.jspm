@@ -38,6 +38,96 @@ final class Bar_Jspm
 	private static final String ID_LINE_PREVIEW = Editor.AVOID_COLLISION + "barLinePreview";
 	private static final String ID_AREA_PREVIEW = Editor.AVOID_COLLISION + "barAreaPreview";
 	
+	static final void writeHead(
+			final StringBuilder out,
+			final boolean borders)
+	{
+		if(borders)
+		{
+		%>
+		<script>
+			var previousBorder = null;
+			var previousPreview = false;
+			
+			function <%=Editor.EDIT_METHOD_LINE%>(border,feature,item,value,preview)
+			{
+				if(previousBorder==border)
+					return true;
+				
+				document.getElementById("<%=ID_FORM_FILE%>").style.display = "none";
+				document.getElementById("<%=ID_FORM_AREA%>").style.display = "none";
+				document.getElementById("<%=ID_FILE_VALUE%>").value = null;
+				document.getElementById("<%=ID_AREA_VALUE%>").firstChild.data = null;
+				document.getElementById("<%=ID_LINE_FEATURE%>").value = feature;
+				document.getElementById("<%=ID_LINE_ITEM   %>").value = item;
+				document.getElementById("<%=ID_LINE_VALUE  %>").value = value;
+				document.getElementById("<%=ID_LINE_PREVIEW%>").style.display = preview ? "inline" : "none";
+				document.getElementById("<%=ID_FORM_LINE%>").style.display = "inline";
+				
+				if(previousBorder!=null)
+					previousBorder.className='contentEditorLink';
+				border.className='contentEditorLinkEdited';
+				previousBorder = border;
+				previousPreview = preview;
+				
+				return false;
+			}
+			function <%=Editor.EDIT_METHOD_FILE%>(border,feature,item,value)
+			{
+				if(previousBorder==border)
+					return true;
+				
+				document.getElementById("<%=ID_FORM_LINE%>").style.display = "none";
+				document.getElementById("<%=ID_FORM_AREA%>").style.display = "none";
+				document.getElementById("<%=ID_LINE_VALUE%>").value = null;
+				document.getElementById("<%=ID_AREA_VALUE%>").firstChild.data = null;
+				document.getElementById("<%=ID_FILE_FEATURE%>").value = feature;
+				document.getElementById("<%=ID_FILE_ITEM   %>").value = item;
+				document.getElementById("<%=ID_FILE_VALUE%>").src = value;
+				document.getElementById("<%=ID_FORM_FILE%>").style.display = "inline";
+				
+				if(previousBorder!=null)
+					previousBorder.className='contentEditorLink';
+				border.className='contentEditorLinkEdited';
+				previousBorder = border;
+				previousPreview = false;
+				
+				return false;
+			}
+			function <%=Editor.EDIT_METHOD_AREA%>(border,feature,item,value,preview)
+			{
+				if(previousBorder==border)
+					return true;
+				
+				document.getElementById("<%=ID_FORM_LINE%>").style.display = "none";
+				document.getElementById("<%=ID_FORM_FILE%>").style.display = "none";
+				document.getElementById("<%=ID_LINE_VALUE%>").value = null;
+				document.getElementById("<%=ID_FILE_VALUE%>").value = null;
+				document.getElementById("<%=ID_AREA_FEATURE%>").value = feature;
+				document.getElementById("<%=ID_AREA_ITEM   %>").value = item;
+				document.getElementById("<%=ID_AREA_VALUE  %>").firstChild.data = value;
+				document.getElementById("<%=ID_AREA_PREVIEW%>").style.display = preview ? "inline" : "none";
+				document.getElementById("<%=ID_FORM_AREA%>").style.display = "inline";
+				
+				if(previousBorder!=null)
+					previousBorder.className='contentEditorLink';
+				border.className='contentEditorLinkEdited';
+				previousBorder = border;
+				previousPreview = preview;
+				
+				return false;
+			}
+			function <%=Editor.ONKEY_METHOD_LINE%>(line)
+			{
+				if(previousBorder==null || !previousPreview)
+					return true;
+				previousBorder.innerHTML = line.value;
+				return true;
+			}
+		</script><%
+		}
+	}
+	
 	static final void write(
 			final StringBuilder out,
 			final String action,
@@ -86,86 +176,6 @@ final class Bar_Jspm
 			if(borders)
 			{
 			%>
-			<script>
-				var previousBorder = null;
-				var previousPreview = false;
-				
-				function <%=Editor.EDIT_METHOD_LINE%>(border,feature,item,value,preview)
-				{
-					if(previousBorder==border)
-						return true;
-					
-					document.getElementById("<%=ID_FORM_FILE%>").style.display = "none";
-					document.getElementById("<%=ID_FORM_AREA%>").style.display = "none";
-					document.getElementById("<%=ID_FILE_VALUE%>").value = null;
-					document.getElementById("<%=ID_AREA_VALUE%>").firstChild.data = null;
-					document.getElementById("<%=ID_LINE_FEATURE%>").value = feature;
-					document.getElementById("<%=ID_LINE_ITEM   %>").value = item;
-					document.getElementById("<%=ID_LINE_VALUE  %>").value = value;
-					document.getElementById("<%=ID_LINE_PREVIEW%>").style.display = preview ? "inline" : "none";
-					document.getElementById("<%=ID_FORM_LINE%>").style.display = "inline";
-					
-					if(previousBorder!=null)
-						previousBorder.className='contentEditorLink';
-					border.className='contentEditorLinkEdited';
-					previousBorder = border;
-					previousPreview = preview;
-					
-					return false;
-				}
-				function <%=Editor.EDIT_METHOD_FILE%>(border,feature,item,value)
-				{
-					if(previousBorder==border)
-						return true;
-					
-					document.getElementById("<%=ID_FORM_LINE%>").style.display = "none";
-					document.getElementById("<%=ID_FORM_AREA%>").style.display = "none";
-					document.getElementById("<%=ID_LINE_VALUE%>").value = null;
-					document.getElementById("<%=ID_AREA_VALUE%>").firstChild.data = null;
-					document.getElementById("<%=ID_FILE_FEATURE%>").value = feature;
-					document.getElementById("<%=ID_FILE_ITEM   %>").value = item;
-					document.getElementById("<%=ID_FILE_VALUE%>").src = value;
-					document.getElementById("<%=ID_FORM_FILE%>").style.display = "inline";
-					
-					if(previousBorder!=null)
-						previousBorder.className='contentEditorLink';
-					border.className='contentEditorLinkEdited';
-					previousBorder = border;
-					previousPreview = false;
-					
-					return false;
-				}
-				function <%=Editor.EDIT_METHOD_AREA%>(border,feature,item,value,preview)
-				{
-					if(previousBorder==border)
-						return true;
-					
-					document.getElementById("<%=ID_FORM_LINE%>").style.display = "none";
-					document.getElementById("<%=ID_FORM_FILE%>").style.display = "none";
-					document.getElementById("<%=ID_LINE_VALUE%>").value = null;
-					document.getElementById("<%=ID_FILE_VALUE%>").value = null;
-					document.getElementById("<%=ID_AREA_FEATURE%>").value = feature;
-					document.getElementById("<%=ID_AREA_ITEM   %>").value = item;
-					document.getElementById("<%=ID_AREA_VALUE  %>").firstChild.data = value;
-					document.getElementById("<%=ID_AREA_PREVIEW%>").style.display = preview ? "inline" : "none";
-					document.getElementById("<%=ID_FORM_AREA%>").style.display = "inline";
-					
-					if(previousBorder!=null)
-						previousBorder.className='contentEditorLink';
-					border.className='contentEditorLinkEdited';
-					previousBorder = border;
-					previousPreview = preview;
-					
-					return false;
-				}
-				function <%=Editor.ONKEY_METHOD_LINE%>(line)
-				{
-					if(previousBorder==null || !previousPreview)
-						return true;
-					previousBorder.innerHTML = line.value;
-					return true;
-				}
-			</script>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;">
 				<hr>
 				<input name="<%=   Editor.REFERER    %>" value="<%=referer     %>" type="hidden">

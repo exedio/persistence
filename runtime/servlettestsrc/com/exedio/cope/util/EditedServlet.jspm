@@ -131,6 +131,7 @@ final class EditedServlet_Jspm
 			
 		</style><%
 		}
+		Editor.writeHead(out);
 		%>
 	</head>
 	<body><%
