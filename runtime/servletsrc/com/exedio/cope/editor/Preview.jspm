@@ -145,17 +145,18 @@ final class Preview_Jspm
 			else
 			{
 				final Draft draft = ((TargetDraft)target).draft;
+				final int itemsCount = draft.getItemsCount();
 				%>
 				<td><%=draft.getDate()%></td>
 				<td><%=draft.getAuthor()%></td>
 				<td><%=draft.getComment()%></td>
-				<td class="number"><%=draft.getItemsCount()%></td><%
+				<td class="number"><%=itemsCount%></td><%
 				%>
 				<td>
 					<form action="<%=url%>" method="POST" style="display:inline;">
 						<input type="hidden" name="<%=Editor.DRAFT_ID    %>" value="<%=target.getID()%>">
 						<input type="submit" name="<%=Editor.DRAFT_LOAD  %>" value="Load">
-						<input type="submit" name="<%=Editor.DRAFT_DELETE%>" value="Delete" onclick="return confirm('Do you really want to delete <%=encode(target.getDescription())%>?.\nYou cannot undo this operation.')">
+						<input type="submit" name="<%=Editor.DRAFT_DELETE%>" value="Delete"<% if(itemsCount>0){%> onclick="return confirm('Do you really want to delete <%=encode(target.getDescription())%>?.\nYou cannot undo this operation.')"<%} %>>
 					</form>
 				</td><%
 			}
