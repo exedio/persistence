@@ -184,11 +184,15 @@ final class Preview_Jspm
 			<table>
 				<tr>
 					<th></th>
-					<th>Target</th>
+					<th>Date</th>
+					<th>Author</th>
+					<th>Comment</th>
+					<th>Items</th>
 				</tr><%
 				for(final Target t : targets)
 				{
 					final boolean open = target.equals(t);
+					final boolean live = t.isLive();
 				%>
 				<tr<% if(open){%> class="open"<%} %>>
 					<td>
@@ -196,8 +200,22 @@ final class Preview_Jspm
 							<input type="hidden" name="<%=Editor.TARGET_ID%>"   value="<%=t.getID()%>">
 							<input type="submit" name="<%=Editor.TARGET_OPEN%>" value="Open">
 						</form>
-					</td>
-					<td><%=t.getDescription()%></td>
+					</td><%
+				if(live)
+				{
+					%>
+					<td colspan="4"><%=t.getDescription()%></td><%
+				}
+				else
+				{
+					final Draft draft = ((TargetDraft)t).draft;
+					%>
+					<td><%=draft.getDate()%></td>
+					<td><%=draft.getAuthor()%></td>
+					<td><%=draft.getComment()%></td>
+					<td class="number"><%=draft.getItemsCount()%></td><%
+				}
+				%>
 				</tr><%
 				}
 			%>

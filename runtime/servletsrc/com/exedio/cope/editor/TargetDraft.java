@@ -25,7 +25,7 @@ import com.exedio.cope.StringField;
 
 final class TargetDraft implements Target
 {
-	private final Draft draft;
+	final Draft draft;
 	
 	TargetDraft(final Draft draft)
 	{
