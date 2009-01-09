@@ -948,7 +948,7 @@ public abstract class Editor implements Filter
 				tl.anchor.borders ? BORDERS_OFF : BORDERS_ON,
 				tl.filter.getBorderButtonURL(request, tl.response, tl.anchor.borders),
 				tl.filter.getCloseButtonURL(request, tl.response),
-				tl.anchor.getPreviewNumber(),
+				tl.anchor.getModificationsCount(),
 				tl.anchor.sessionName);
 	}
 	

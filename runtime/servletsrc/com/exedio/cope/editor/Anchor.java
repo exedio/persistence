@@ -59,7 +59,7 @@ final class Anchor implements Serializable // for session persistence
 		this.target = target;
 	}
 	
-	int getPreviewNumber()
+	int getModificationsCount()
 	{
 		return modifications.size();
 	}
