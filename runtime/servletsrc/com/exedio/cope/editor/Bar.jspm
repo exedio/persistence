@@ -72,6 +72,13 @@ final class Bar_Jspm
 				text-decoration: none;
 			}
 			
+			div#contentEditorBar input
+			{
+				background: #f0f8ff;
+				font-size: 80%;
+				color: #002;
+			}
+			
 			form#contentEditorBarSwitches
 			{
 				float: right;
@@ -87,13 +94,6 @@ final class Bar_Jspm
 				margin: 1em 0px;
 				border-width: 0px;
 				border-top: 1px solid #99d;
-			}
-			
-			div#contentEditorBar input
-			{
-				background: #f0f8ff;
-				font-size: 80%;
-				color: #002;
 			}
 			
 			div#contentEditorBar input.text
