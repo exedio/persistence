@@ -28,7 +28,7 @@ final class Preview_Jspm
 			final StringBuilder out,
 			final String url,
 			final Map<Modification, String> modifications,
-			final Target target,
+			final Target activeTarget,
 			final List<Target> targets,
 			final boolean draftsEnabled,
 			final List<Draft> drafts)
@@ -191,7 +191,7 @@ final class Preview_Jspm
 				</tr><%
 				for(final Target t : targets)
 				{
-					final boolean open = target.equals(t);
+					final boolean open = activeTarget.equals(t);
 					final boolean live = t.isLive();
 				%>
 				<tr<% if(open){%> class="open"<%} %>>
