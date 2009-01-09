@@ -82,7 +82,7 @@ final class Anchor implements Serializable // for session persistence
 		return modifications;
 	}
 	
-	void setPreview(final String content, final StringField feature, final Item item)
+	void modify(final String content, final StringField feature, final Item item)
 	{
 		modifications.put(new Modification(feature, item), content);
 	}

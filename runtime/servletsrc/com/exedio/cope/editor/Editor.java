@@ -348,7 +348,7 @@ public abstract class Editor implements Filter
 					final Draft draft =
 						(Draft)model.getItem(request.getParameter(DRAFT_ID));
 					for(final DraftItem i : draft.getItems())
-						anchor.setPreview(
+						anchor.modify(
 								DraftItem.newValue.get(i),
 								(StringField)model.getFeature(DraftItem.feature.get(i)),
 								model.getItem(DraftItem.item.get(i)));
@@ -561,7 +561,7 @@ public abstract class Editor implements Filter
 						}
 						else
 						{
-							anchor.setPreview(value, feature, item);
+							anchor.modify(value, feature, item);
 						}
 						
 						model.commit();
