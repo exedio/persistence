@@ -40,6 +40,11 @@ final class TargetDraft implements Target
 		return draft.getCopeID();
 	}
 	
+	public boolean exists()
+	{
+		return draft.existsCopeItem();
+	}
+	
 	public String getDescription()
 	{
 		return "Draft \"" + draft.getComment() + "\" by " + draft.getAuthor();

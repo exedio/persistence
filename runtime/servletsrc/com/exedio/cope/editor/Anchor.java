@@ -49,6 +49,8 @@ final class Anchor implements Serializable // for session persistence
 	
 	Target getTarget()
 	{
+		if(!target.exists())
+			target = TargetLive.INSTANCE;
 		return target;
 	}
 	

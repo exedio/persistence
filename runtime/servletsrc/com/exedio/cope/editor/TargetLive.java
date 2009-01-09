@@ -38,6 +38,11 @@ final class TargetLive implements Target
 		return ID;
 	}
 	
+	public boolean exists()
+	{
+		return true;
+	}
+	
 	public String getDescription()
 	{
 		return "Live Site";

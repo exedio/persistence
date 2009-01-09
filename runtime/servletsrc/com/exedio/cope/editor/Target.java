@@ -27,6 +27,7 @@ import com.exedio.cope.StringField;
 interface Target extends Serializable
 {
 	String getID();
+	boolean exists();
 	String getDescription();
 	boolean isLive();
 	String get(StringField feature, Item item);
