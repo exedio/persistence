@@ -90,12 +90,12 @@ final class Preview_Jspm
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<h1>COPE Content Editor</h1>
-		<h2>Preview</h2><%
+		<h2>Modifications</h2><%
 	
 	if(modifications.isEmpty())
 	{
 		%>
-		<div>There are no more pending previews in this Content Editor session.</div><%
+		<div>There are no unsaved modifications in this Content Editor session.</div><%
 	}
 	else
 	{
