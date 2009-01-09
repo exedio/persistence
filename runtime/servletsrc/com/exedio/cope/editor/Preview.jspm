@@ -27,7 +27,7 @@ final class Preview_Jspm
 	static final void writeOverview(
 			final StringBuilder out,
 			final String url,
-			final Map<Modification, String> previews,
+			final Map<Modification, String> modifications,
 			final Target target,
 			final List<Target> targets,
 			final boolean draftsEnabled,
@@ -92,7 +92,7 @@ final class Preview_Jspm
 		<h1>COPE Content Editor</h1>
 		<h2>Preview</h2><%
 	
-	if(previews.isEmpty())
+	if(modifications.isEmpty())
 	{
 		%>
 		<div>There are no more pending previews in this Content Editor session.</div><%
@@ -108,7 +108,7 @@ final class Preview_Jspm
 					<th>New</th>
 				</tr><%
 				
-				for(final Map.Entry<Modification, String> e : previews.entrySet())
+				for(final Map.Entry<Modification, String> e : modifications.entrySet())
 				{
 					final Modification p = e.getKey();
 				%>
