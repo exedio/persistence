@@ -777,8 +777,8 @@ public abstract class Editor implements Filter
 		
 		if(!tl.anchor.borders)
 		{
-			final String preview = tl.anchor.getModification(feature, item);
-			return (preview!=null) ? preview : content;
+			final String modification = tl.anchor.getModification(feature, item);
+			return (modification!=null) ? modification : content;
 		}
 		
 		final boolean block = feature.getMaximumLength()>StringField.DEFAULT_LENGTH;
@@ -789,9 +789,9 @@ public abstract class Editor implements Filter
 		if(content!=null ? content.equals(savedContent) : (savedContent==null))
 		{
 			previewAllowed = true;
-			final String preview = tl.anchor.getModification(feature, item);
-			if(preview!=null)
-				pageContent = editorContent = preview;
+			final String modification = tl.anchor.getModification(feature, item);
+			if(modification!=null)
+				pageContent = editorContent = modification;
 			else
 				pageContent = editorContent = savedContent; // equals content anyway
 		}
