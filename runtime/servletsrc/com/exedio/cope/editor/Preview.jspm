@@ -153,33 +153,6 @@ final class Preview_Jspm
 	if(draftsEnabled && !drafts.isEmpty())
 	{
 		%>
-		<h2>Drafts</h2><%
-		%>
-		<form action="<%=url%>" method="POST">
-			<table>
-				<tr>
-					<th></th>
-					<th>Date</th>
-					<th>Author</th>
-					<th>Comment</th>
-					<th>Items</th>
-				</tr><%
-				for(final Draft draft : drafts)
-				{
-				%>
-				<tr>
-					<td><input name="<%=Editor.DRAFT_ID%>" type="radio" value="<%=draft.getCopeID()%>"></td>
-					<td><%=draft.getDate()%></td>
-					<td><%=draft.getAuthor()%></td>
-					<td><%=draft.getComment()%></td>
-					<td class="number"><%=draft.getItemsCount()%></td>
-				</tr><%
-				}
-			%>
-			</table>
-			<input name="<%=Editor.DRAFT_LOAD%>" type="submit" value="Load into Preview">
-		</form><%
-		%>
 		<h2>Targets</h2>
 			<table>
 				<tr>
@@ -188,6 +161,7 @@ final class Preview_Jspm
 					<th>Author</th>
 					<th>Comment</th>
 					<th>Items</th>
+					<th></th>
 				</tr><%
 				for(final Target target : targets)
 				{
@@ -204,7 +178,7 @@ final class Preview_Jspm
 				if(live)
 				{
 					%>
-					<td colspan="4"><%=target.getDescription()%></td><%
+					<td colspan="5"><%=target.getDescription()%></td><%
 				}
 				else
 				{
@@ -214,6 +188,13 @@ final class Preview_Jspm
 					<td><%=draft.getAuthor()%></td>
 					<td><%=draft.getComment()%></td>
 					<td class="number"><%=draft.getItemsCount()%></td><%
+					%>
+					<td>
+						<form action="<%=url%>" method="POST" style="display:inline;">
+							<input type="hidden" name="<%=Editor.DRAFT_ID%>"   value="<%=target.getID()%>">
+							<input type="submit" name="<%=Editor.DRAFT_LOAD%>" value="Load">
+						</form>
+					</td><%
 				}
 				%>
 				</tr><%
