@@ -179,7 +179,6 @@ final class Preview_Jspm
 			</table>
 			<input name="<%=Editor.DRAFT_LOAD%>" type="submit" value="Load into Preview">
 		</form><%
-	}
 		%>
 		<h2>Targets</h2>
 			<table>
@@ -202,7 +201,9 @@ final class Preview_Jspm
 				</tr><%
 				}
 			%>
-			</table>
+			</table><%
+	}
+	%>
 	</body>
 </html><%
 	}
