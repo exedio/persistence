@@ -35,8 +35,11 @@ final class Bar_Jspm
 	private static final String ID_LINE_VALUE   = Editor.AVOID_COLLISION + "barLineValue";
 	private static final String ID_FILE_VALUE   = Editor.AVOID_COLLISION + "barFileValue";
 	private static final String ID_AREA_VALUE   = Editor.AVOID_COLLISION + "barAreaValue";
+	
 	private static final String ID_LINE_APPLY   = Editor.AVOID_COLLISION + "barLineApply";
 	private static final String ID_AREA_APPLY   = Editor.AVOID_COLLISION + "barAreaApply";
+	private static final String ID_LINE_PUBLISH = Editor.AVOID_COLLISION + "barLinePublish";
+	private static final String ID_AREA_PUBLISH = Editor.AVOID_COLLISION + "barAreaPublish";
 	
 	static final void writeHead(
 			final StringBuilder out,
@@ -136,6 +139,7 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_LINE_ITEM   %>").value = item;
 				document.getElementById("<%=ID_LINE_VALUE  %>").value = value;
 				document.getElementById("<%=ID_LINE_APPLY  %>").style.display = preview ? "inline" : "none";
+				document.getElementById("<%=ID_LINE_PUBLISH%>").style.display = preview ? "none" : "inline";
 				document.getElementById("<%=ID_FORM_LINE%>").style.display = "inline";
 				
 				if(previousBorder!=null)
@@ -181,6 +185,7 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_AREA_ITEM   %>").value = item;
 				document.getElementById("<%=ID_AREA_VALUE  %>").firstChild.data = value;
 				document.getElementById("<%=ID_AREA_APPLY  %>").style.display = preview ? "inline" : "none";
+				document.getElementById("<%=ID_AREA_PUBLISH%>").style.display = preview ? "none" : "inline";
 				document.getElementById("<%=ID_FORM_AREA%>").style.display = "inline";
 				
 				if(previousBorder!=null)
@@ -262,8 +267,8 @@ final class Bar_Jspm
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.BAR_TEXT   %>" id="<%=ID_LINE_VALUE  %>" class="text" onkeyup="return <%=Editor.ONKEY_METHOD_LINE%>(this);">
 				<br>
-				<input type="submit" value="Publish Now!" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
-				<input type="submit" value="Apply" id="<%=ID_LINE_APPLY%>">
+				<input type="submit" value="Publish Now!" id="<%=ID_LINE_PUBLISH%>" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
+				<input type="submit" value="Apply"        id="<%=ID_LINE_APPLY%>">
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
 				<hr>
@@ -282,8 +287,8 @@ final class Bar_Jspm
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_AREA_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_AREA_ITEM   %>" type="hidden">
 				<textarea name="<%=Editor.BAR_TEXT   %>" id="<%=ID_AREA_VALUE  %>" cols="100" rows="15">X</textarea>
-				<input type="submit" value="Publish Now!" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
-				<input type="submit" value="Apply" id="<%=ID_AREA_APPLY%>">
+				<input type="submit" value="Publish Now!" id="<%=ID_AREA_PUBLISH%>" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
+				<input type="submit" value="Apply"        id="<%=ID_AREA_APPLY%>">
 			</form><%
 			}
 			%>
