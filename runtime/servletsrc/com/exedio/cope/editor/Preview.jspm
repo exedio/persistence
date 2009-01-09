@@ -110,11 +110,11 @@ final class Preview_Jspm
 				
 				for(final Map.Entry<Modification, String> e : modifications.entrySet())
 				{
-					final Modification p = e.getKey();
+					final Modification m = e.getKey();
 				%>
 				<tr>
-					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=p.getID()%>" checked="checked"></td>
-					<td><%=p.getOldValue()%></td>
+					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=m.getID()%>" checked="checked"></td>
+					<td><%=m.getOldValue()%></td>
 					<td><%=e.getValue()%></td>
 				</tr><%
 				}
