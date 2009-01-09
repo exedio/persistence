@@ -131,7 +131,7 @@ final class Preview_Jspm
 				<td>
 					<form action="<%=url%>" method="POST" style="display:inline;">
 						<input type="hidden" name="<%=Editor.TARGET_ID%>"   value="<%=target.getID()%>">
-						<input type="submit" name="<%=Editor.TARGET_OPEN%>" value="Open">
+						<input type="submit" name="<%=Editor.TARGET_OPEN%>" value="Open"<% if(open){%> disabled="disabled"<%} %>>
 					</form>
 				</td><%
 			if(live)
