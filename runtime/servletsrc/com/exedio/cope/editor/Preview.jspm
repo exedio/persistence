@@ -89,7 +89,61 @@ final class Preview_Jspm
 	</head>
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
-		<h1>COPE Content Editor</h1>
+		<h1>COPE Content Editor</h1><%
+		
+	if(draftsEnabled && !drafts.isEmpty())
+	{
+		%>
+		<h2>Targets</h2>
+		<table>
+			<tr>
+				<th></th>
+				<th>Date</th>
+				<th>Author</th>
+				<th>Comment</th>
+				<th>Items</th>
+				<th></th>
+			</tr><%
+			for(final Target target : targets)
+			{
+				final boolean open = activeTarget.equals(target);
+				final boolean live = target.isLive();
+			%>
+			<tr<% if(open){%> class="open"<%} %>>
+				<td>
+					<form action="<%=url%>" method="POST" style="display:inline;">
+						<input type="hidden" name="<%=Editor.TARGET_ID%>"   value="<%=target.getID()%>">
+						<input type="submit" name="<%=Editor.TARGET_OPEN%>" value="Open">
+					</form>
+				</td><%
+			if(live)
+			{
+				%>
+				<td colspan="5"><%=target.getDescription()%></td><%
+			}
+			else
+			{
+				final Draft draft = ((TargetDraft)target).draft;
+				%>
+				<td><%=draft.getDate()%></td>
+				<td><%=draft.getAuthor()%></td>
+				<td><%=draft.getComment()%></td>
+				<td class="number"><%=draft.getItemsCount()%></td><%
+				%>
+				<td>
+					<form action="<%=url%>" method="POST" style="display:inline;">
+						<input type="hidden" name="<%=Editor.DRAFT_ID%>"   value="<%=target.getID()%>">
+						<input type="submit" name="<%=Editor.DRAFT_LOAD%>" value="Load">
+					</form>
+				</td><%
+			}
+			%>
+			</tr><%
+			}
+		%>
+		</table><%
+	}
+		%>
 		<h2>Modifications</h2><%
 	
 	if(modifications.isEmpty())
@@ -148,59 +202,6 @@ final class Preview_Jspm
 		}
 		%>
 		</form><%
-	}
-	
-	if(draftsEnabled && !drafts.isEmpty())
-	{
-		%>
-		<h2>Targets</h2>
-		<table>
-			<tr>
-				<th></th>
-				<th>Date</th>
-				<th>Author</th>
-				<th>Comment</th>
-				<th>Items</th>
-				<th></th>
-			</tr><%
-			for(final Target target : targets)
-			{
-				final boolean open = activeTarget.equals(target);
-				final boolean live = target.isLive();
-			%>
-			<tr<% if(open){%> class="open"<%} %>>
-				<td>
-					<form action="<%=url%>" method="POST" style="display:inline;">
-						<input type="hidden" name="<%=Editor.TARGET_ID%>"   value="<%=target.getID()%>">
-						<input type="submit" name="<%=Editor.TARGET_OPEN%>" value="Open">
-					</form>
-				</td><%
-			if(live)
-			{
-				%>
-				<td colspan="5"><%=target.getDescription()%></td><%
-			}
-			else
-			{
-				final Draft draft = ((TargetDraft)target).draft;
-				%>
-				<td><%=draft.getDate()%></td>
-				<td><%=draft.getAuthor()%></td>
-				<td><%=draft.getComment()%></td>
-				<td class="number"><%=draft.getItemsCount()%></td><%
-				%>
-				<td>
-					<form action="<%=url%>" method="POST" style="display:inline;">
-						<input type="hidden" name="<%=Editor.DRAFT_ID%>"   value="<%=target.getID()%>">
-						<input type="submit" name="<%=Editor.DRAFT_LOAD%>" value="Load">
-					</form>
-				</td><%
-			}
-			%>
-			</tr><%
-			}
-		%>
-		</table><%
 	}
 	%>
 	</body>
