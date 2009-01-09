@@ -161,7 +161,9 @@ final class Preview_Jspm
 							{
 								%> onclick="return confirm('Do you really want to delete <%=
 								encode(target.getDescription())
-								%>? It contains <%=itemsCount%> item(s).\n\nYou cannot undo this operation.')"<%
+								%>? It contains <%=
+								itemsCount
+								%> item(s).\n\nYou cannot undo this operation.')"<%
 							}
 						%>>
 					</form>
