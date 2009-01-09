@@ -242,6 +242,7 @@ public abstract class Editor implements Filter
 	static final String SAVE_TO_DRAFT = "draft.saveTo";
 	static final String DRAFT_ID   = "draft.id";
 	static final String DRAFT_LOAD = "draft.load";
+	static final String DRAFT_DELETE = "draft.delete";
 	static final String TARGET_ID   = "target.id";
 	static final String TARGET_OPEN = "target.load";
 	
@@ -346,7 +347,7 @@ public abstract class Editor implements Filter
 			{
 				try
 				{
-					startTransaction("loadPreview");
+					startTransaction("loadDraft");
 					final Draft draft =
 						(Draft)model.getItem(request.getParameter(DRAFT_ID));
 					for(final DraftItem i : draft.getItems())
@@ -354,6 +355,23 @@ public abstract class Editor implements Filter
 								DraftItem.newValue.get(i),
 								(StringField)model.getFeature(DraftItem.feature.get(i)),
 								model.getItem(DraftItem.item.get(i)));
+				}
+				catch(NoSuchIDException e)
+				{
+					throw new RuntimeException(e);
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
+			else if(request.getParameter(DRAFT_DELETE)!=null)
+			{
+				try
+				{
+					startTransaction("deleteDraft");
+					((Draft)model.getItem(request.getParameter(DRAFT_ID))).deleteCopeItem();
+					model.commit();
 				}
 				catch(NoSuchIDException e)
 				{

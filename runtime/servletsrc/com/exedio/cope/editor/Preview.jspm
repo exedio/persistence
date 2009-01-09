@@ -152,6 +152,7 @@ final class Preview_Jspm
 					<form action="<%=url%>" method="POST" style="display:inline;">
 						<input type="hidden" name="<%=Editor.DRAFT_ID%>"   value="<%=target.getID()%>">
 						<input type="submit" name="<%=Editor.DRAFT_LOAD%>" value="Load">
+						<input type="submit" name="<%=Editor.DRAFT_DELETE%>" value="Delete">
 					</form>
 				</td><%
 			}
