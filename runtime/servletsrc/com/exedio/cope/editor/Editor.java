@@ -377,7 +377,7 @@ public abstract class Editor implements Filter
 					try
 					{
 						startTransaction("findDraft");
-						target = (Draft)model.getItem(targetID);
+						target = new TargetDraft((Draft)model.getItem(targetID));
 					}
 					catch(NoSuchIDException e)
 					{
@@ -402,7 +402,8 @@ public abstract class Editor implements Filter
 				: null;
 			final ArrayList<Target> targets = new ArrayList<Target>();
 			targets.add(LiveSite.INSTANCE);
-			targets.addAll(drafts);
+			for(final Draft draft : drafts)
+				targets.add(new TargetDraft(draft));
 			Preview_Jspm.writeOverview(
 					out,
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),

@@ -48,7 +48,7 @@ public class SaveTest extends AbstractRuntimeTest
 	public void testDraft()
 	{
 		assertEquals(list(), d.getItems());
-		d.save(mods);
+		new TargetDraft(d).save(mods);
 		assertEquals(1, d.getItemsCount());
 		final DraftItem di1 = d.getItems().get(0);
 		assertEquals("DraftedItem.string", di1.getFeature());

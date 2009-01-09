@@ -21,7 +21,6 @@ package com.exedio.cope.editor;
 import java.text.DateFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -33,7 +32,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class Draft extends Item implements Target
+public final class Draft extends Item
 {
 	static final StringField user = new StringField().toFinal();
 	static final StringField name = new StringField().toFinal().optional();
@@ -69,34 +68,6 @@ public final class Draft extends Item implements Target
 	int getItemsCount()
 	{
 		return new Query<DraftItem>(DraftItem.TYPE.getThis(), DraftItem.parent.equal(this)).total();
-	}
-	
-	public String getID()
-	{
-		return getCopeID();
-	}
-	
-	public String getDescription()
-	{
-		return "Draft \"" + getComment() + "\" by " + getAuthor();
-	}
-	
-	public boolean isLive()
-	{
-		return false;
-	}
-	
-	public String get(final StringField feature, final Item item)
-	{
-		final DraftItem i = DraftItem.forParentFeatureAndItem(this, feature, item);
-		return i!=null ? i.getNewValue() : null;
-	}
-	
-	public void save(final Map<Modification, String> modifications)
-	{
-		for(final Map.Entry<Modification, String> e : modifications.entrySet())
-			e.getKey().saveTo(this, e.getValue());
-		// TODO maintain some special draft history
 	}
 	
 	public DraftItem addItem(final StringField feature, final Item item, final String value)

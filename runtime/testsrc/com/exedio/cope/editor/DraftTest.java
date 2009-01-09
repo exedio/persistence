@@ -63,9 +63,9 @@ public class DraftTest extends AbstractRuntimeTest
 		final DraftItem d0 = d.addItem(DraftedItem.string, i1, "newString1");
 		assertEquals(list(d0), d.getItems());
 		assertEquals(1, d.getItemsCount());
-		assertEquals("newString1", d.get(DraftedItem.string, i1));
-		assertEquals(null, d.get(DraftedItem.string2, i1));
-		assertEquals(null, d.get(DraftedItem.string, i2));
+		assertEquals("newString1", new TargetDraft(d).get(DraftedItem.string, i1));
+		assertEquals(null, new TargetDraft(d).get(DraftedItem.string2, i1));
+		assertEquals(null, new TargetDraft(d).get(DraftedItem.string, i2));
 		assertEquals(d, d0.getParent());
 		assertEquals(0, d0.getPosition());
 		assertEquals("DraftedItem.string", d0.getFeature());
