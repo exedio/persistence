@@ -404,7 +404,7 @@ public abstract class Editor implements Filter
 			Preview_Jspm.writeOverview(
 					out,
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
-					anchor.getPreviews(),
+					anchor.getModifications(),
 					anchor.getTarget(), targets,
 					draftsEnabled, drafts);
 			model.commit();
