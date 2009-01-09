@@ -211,7 +211,7 @@ final class Bar_Jspm
 			final String borderToggleParameter,
 			final String borderButtonURL,
 			final String closeButtonURL,
-			final int previewNumber,
+			final int modificationsCount,
 			final String loginName)
 	{
 		%>
@@ -245,10 +245,10 @@ final class Bar_Jspm
 			<br>
 			<a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor Preview"><%=target.getDescription()%></a><%
 			
-			if(previewNumber>0)
+			if(modificationsCount>0)
 			{
 			%>
-			 - modified<% if(previewNumber>1){ %> (<%=previewNumber%>)<% } %><%
+			 - modified<% if(modificationsCount>1){ %> (<%=modificationsCount%>)<% } %><%
 			}
 			%>
 			<br clear="both"><%
