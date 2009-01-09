@@ -57,6 +57,17 @@ final class Preview_Jspm
 				height:60px;
 			}
 			
+			table caption
+			{
+				font-style:italic;
+				text-align:left;
+				white-space:nowrap;
+				background:#ccc;
+				padding:1px 5px;
+				border:solid 2px white;
+				border-bottom-width:0px;
+			}
+			
 			table th
 			{
 				text-align:left;
@@ -85,6 +96,14 @@ final class Preview_Jspm
 				background-color:#bbd;
 				border-color:#bbd;
 			}
+			
+			hr
+			{
+				height:0px;
+				margin:1em 0px;
+				border-width:0px;
+				border-top:1px solid #999;
+			}
 		</style>
 	</head>
 	<body>
@@ -94,7 +113,6 @@ final class Preview_Jspm
 	if(draftsEnabled && !drafts.isEmpty())
 	{
 		%>
-		<h2>Targets</h2>
 		<table>
 			<tr>
 				<th></th>
@@ -141,10 +159,9 @@ final class Preview_Jspm
 			</tr><%
 			}
 		%>
-		</table><%
+		</table>
+		<hr><%
 	}
-		%>
-		<h2>Modifications</h2><%
 	
 	if(modifications.isEmpty())
 	{
@@ -156,6 +173,7 @@ final class Preview_Jspm
 		%>
 		<form action="<%=url%>" method="POST">
 			<table>
+				<caption>Modifications</caption>
 				<tr>
 					<th></th>
 					<th>Old</th>
