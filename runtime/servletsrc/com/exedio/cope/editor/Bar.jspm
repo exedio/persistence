@@ -255,7 +255,7 @@ final class Bar_Jspm
 			%>
 			<form action="<%=action%>" method="POST" style="display:inline;">
 				<input type="hidden" name="<%=Editor.REFERER    %>" value="<%=referer%>">
-				<input type="submit" name="<%=Editor.SAVE_TARGET%>" value="Save<%
+				<input type="submit" name="<%=Editor.SAVE_TARGET%>" value="<% if(target.isLive()){%>Publish<%}else{%>Save<%} %><%
 					if(modificationsCount>1)
 					{
 						%> (<%=modificationsCount%>)<%

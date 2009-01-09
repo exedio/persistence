@@ -40,6 +40,11 @@ final class LiveSite implements Target
 		return "Live Site";
 	}
 	
+	public boolean isLive()
+	{
+		return true;
+	}
+	
 	public void save(final Map<Modification, String> modifications)
 	{
 		for(final Map.Entry<Modification, String> e : modifications.entrySet())

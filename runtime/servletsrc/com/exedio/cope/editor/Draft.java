@@ -81,6 +81,11 @@ public final class Draft extends Item implements Target
 		return "Draft \"" + getComment() + "\" by " + getAuthor();
 	}
 	
+	public boolean isLive()
+	{
+		return false;
+	}
+	
 	public void save(final Map<Modification, String> modifications)
 	{
 		for(final Map.Entry<Modification, String> e : modifications.entrySet())

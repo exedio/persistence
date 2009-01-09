@@ -25,5 +25,6 @@ interface Target extends Serializable
 {
 	String getID();
 	String getDescription();
+	boolean isLive();
 	void save(Map<Modification, String> modifications);
 }
