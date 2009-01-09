@@ -777,7 +777,7 @@ public abstract class Editor implements Filter
 		
 		if(!tl.anchor.borders)
 		{
-			final String preview = tl.anchor.getPreview(feature, item);
+			final String preview = tl.anchor.getModification(feature, item);
 			return (preview!=null) ? preview : content;
 		}
 		
@@ -789,7 +789,7 @@ public abstract class Editor implements Filter
 		if(content!=null ? content.equals(savedContent) : (savedContent==null))
 		{
 			previewAllowed = true;
-			final String preview = tl.anchor.getPreview(feature, item);
+			final String preview = tl.anchor.getModification(feature, item);
 			if(preview!=null)
 				pageContent = editorContent = preview;
 			else

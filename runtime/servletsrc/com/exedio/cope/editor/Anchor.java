@@ -64,7 +64,7 @@ final class Anchor implements Serializable // for session persistence
 		return modifications.size();
 	}
 	
-	String getPreview(final StringField feature, final Item item)
+	String getModification(final StringField feature, final Item item)
 	{
 		if(modifications.isEmpty()) // shortcut
 			return null;
