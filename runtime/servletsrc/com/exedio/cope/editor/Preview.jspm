@@ -191,7 +191,6 @@ final class Preview_Jspm
 	}
 		%>
 		<h2>Targets</h2>
-		<form action="<%=url%>" method="POST">
 			<table>
 				<tr>
 					<th></th>
@@ -202,14 +201,17 @@ final class Preview_Jspm
 					final boolean open = target.equals(t);
 				%>
 				<tr<% if(open){%> class="open"<%} %>>
-					<td><input name="<%=Editor.TARGET_ID%>" type="radio" value="<%=t.getID()%>"<% if(open){%> checked="checked"<%} %>></td>
+					<td>
+						<form action="<%=url%>" method="POST" style="display:inline;">
+							<input type="hidden" name="<%=Editor.TARGET_ID%>"   value="<%=t.getID()%>">
+							<input type="submit" name="<%=Editor.TARGET_OPEN%>" value="Open">
+						</form>
+					</td>
 					<td><%=t.getDescription()%></td>
 				</tr><%
 				}
 			%>
 			</table>
-			<input name="<%=Editor.TARGET_OPEN%>" type="submit" value="Open">
-		</form>
 	</body>
 </html><%
 	}
