@@ -113,23 +113,23 @@ final class Preview_Jspm
 					final Modification m = e.getKey();
 				%>
 				<tr>
-					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=m.getID()%>" checked="checked"></td>
+					<td><input name="<%=Editor.MODIFICATION_IDS%>" type="checkbox" value="<%=m.getID()%>" checked="checked"></td>
 					<td><%=m.getOldValue()%></td>
 					<td><%=e.getValue()%></td>
 				</tr><%
 				}
 				%>
 			</table>
-			<input name="<%=Editor.PREVIEW_PUBLISH%>" type="submit" value="Publish">
-			<input name="<%=Editor.PREVIEW_DISCARD%>" type="submit" value="Discard"><%
+			<input name="<%=Editor.MODIFICATION_PUBLISH%>" type="submit" value="Publish">
+			<input name="<%=Editor.MODIFICATION_DISCARD%>" type="submit" value="Discard"><%
 			
 		if(draftsEnabled)
 		{
 			%>
 			<br>
 			Comment:
-			<input name="<%=Editor.PREVIEW_PERSIST_COMMENT%>" type="text">
-			<input name="<%=Editor.PREVIEW_PERSIST%>" type="submit" value="Save as new Draft"><%
+			<input name="<%=Editor.MODIFICATION_PERSIST_COMMENT%>" type="text">
+			<input name="<%=Editor.MODIFICATION_PERSIST%>" type="submit" value="Save as new Draft"><%
 			
 			if(!drafts.isEmpty())
 			{

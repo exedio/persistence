@@ -232,11 +232,11 @@ public abstract class Editor implements Filter
 	}
 	
 	static final String PREVIEW_OVERVIEW = "po";
-	static final String PREVIEW_PUBLISH = "preview.publish";
-	static final String PREVIEW_DISCARD = "preview.discard";
-	static final String PREVIEW_PERSIST = "preview.persist";
-	static final String PREVIEW_PERSIST_COMMENT = "preview.persistComment";
-	static final String PREVIEW_IDS = "id";
+	static final String MODIFICATION_PUBLISH = "modification.publish";
+	static final String MODIFICATION_DISCARD = "modification.discard";
+	static final String MODIFICATION_PERSIST = "modification.persist";
+	static final String MODIFICATION_PERSIST_COMMENT = "modification.persistComment";
+	static final String MODIFICATION_IDS = "id";
 	static final String SAVE_TO_DRAFT = "draft.saveTo";
 	static final String DRAFT_ID   = "draft.id";
 	static final String DRAFT_LOAD = "draft.load";
@@ -251,9 +251,9 @@ public abstract class Editor implements Filter
 	{
 		if(Cop.isPost(request))
 		{
-			final String[] idA = request.getParameterValues(PREVIEW_IDS);
+			final String[] idA = request.getParameterValues(MODIFICATION_IDS);
 			final HashSet<String> ids = idA!=null ? new HashSet<String>(Arrays.asList(idA)) : null;
-			if(request.getParameter(PREVIEW_PUBLISH)!=null)
+			if(request.getParameter(MODIFICATION_PUBLISH)!=null)
 			{
 				final Map<Modification, String> previews = anchor.getPreviewsModifiable();
 				try
@@ -277,13 +277,13 @@ public abstract class Editor implements Filter
 					model.rollbackIfNotCommitted();
 				}
 			}
-			else if(request.getParameter(PREVIEW_PERSIST)!=null)
+			else if(request.getParameter(MODIFICATION_PERSIST)!=null)
 			{
 				final Map<Modification, String> previews = anchor.getPreviewsModifiable();
 				try
 				{
 					startTransaction("persistProposals");
-					final Draft parent = new Draft(anchor.user, anchor.sessionName, request.getParameter(PREVIEW_PERSIST_COMMENT));
+					final Draft parent = new Draft(anchor.user, anchor.sessionName, request.getParameter(MODIFICATION_PERSIST_COMMENT));
 					for(final Iterator<Map.Entry<Modification, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
 						final Map.Entry<Modification, String> e = i.next();
@@ -329,7 +329,7 @@ public abstract class Editor implements Filter
 					model.rollbackIfNotCommitted();
 				}
 			}
-			else if(request.getParameter(PREVIEW_DISCARD)!=null)
+			else if(request.getParameter(MODIFICATION_DISCARD)!=null)
 			{
 				final Map<Modification, String> previews = anchor.getPreviewsModifiable();
 				for(final Iterator<Map.Entry<Modification, String>> i = previews.entrySet().iterator(); i.hasNext(); )
