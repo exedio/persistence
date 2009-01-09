@@ -785,10 +785,10 @@ public abstract class Editor implements Filter
 		final String savedContent = feature.get(item);
 		final String pageContent;
 		final String editorContent;
-		final boolean previewAllowed;
+		final boolean modificationAllowed;
 		if(content!=null ? content.equals(savedContent) : (savedContent==null))
 		{
-			previewAllowed = true;
+			modificationAllowed = true;
 			final String modification = tl.anchor.getModification(feature, item);
 			if(modification!=null)
 				pageContent = editorContent = modification;
@@ -797,7 +797,7 @@ public abstract class Editor implements Filter
 		}
 		else
 		{
-			previewAllowed = false;
+			modificationAllowed = false;
 			pageContent = content;
 			editorContent = savedContent;
 		}
@@ -816,7 +816,7 @@ public abstract class Editor implements Filter
 						append(item.getCopeID()).
 						append("','").
 						append(block ? editorContentEncoded.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r") : editorContentEncoded).
-					append("'," + previewAllowed + ");\"").
+					append("'," + modificationAllowed + ");\"").
 			append('>').
 			append(pageContent).
 			append("</").
