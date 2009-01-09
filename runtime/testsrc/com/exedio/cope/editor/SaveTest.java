@@ -60,7 +60,7 @@ public class SaveTest extends AbstractRuntimeTest
 	public void testLive()
 	{
 		assertEquals("oldString1", i.getString());
-		LiveSite.INSTANCE.save(mods);
+		TargetLive.INSTANCE.save(mods);
 		assertEquals("newString1", i.getString());
 	}
 }

@@ -368,9 +368,9 @@ public abstract class Editor implements Filter
 			{
 				final String targetID = request.getParameter(TARGET_ID);
 				final Target target;
-				if(LiveSite.ID.equals(targetID))
+				if(TargetLive.ID.equals(targetID))
 				{
-					target = LiveSite.INSTANCE;
+					target = TargetLive.INSTANCE;
 				}
 				else
 				{
@@ -401,7 +401,7 @@ public abstract class Editor implements Filter
 				? Draft.TYPE.search(null, Draft.date, false)
 				: null;
 			final ArrayList<Target> targets = new ArrayList<Target>();
-			targets.add(LiveSite.INSTANCE);
+			targets.add(TargetLive.INSTANCE);
 			for(final Draft draft : drafts)
 				targets.add(new TargetDraft(draft));
 			Preview_Jspm.writeOverview(

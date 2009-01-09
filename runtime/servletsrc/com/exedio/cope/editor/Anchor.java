@@ -34,7 +34,7 @@ final class Anchor implements Serializable // for session persistence
 	final String user;
 	final Session session;
 	final String sessionName;
-	private Target target = LiveSite.INSTANCE;
+	private Target target = TargetLive.INSTANCE;
 	boolean borders = false;
 	private final LinkedHashMap<Modification, String> modifications = new LinkedHashMap<Modification, String>();
 	

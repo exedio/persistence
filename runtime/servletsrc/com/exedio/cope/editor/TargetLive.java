@@ -23,12 +23,12 @@ import java.util.Map;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-final class LiveSite implements Target
+final class TargetLive implements Target
 {
-	static final LiveSite INSTANCE = new LiveSite();
+	static final TargetLive INSTANCE = new TargetLive();
 	static final String ID = "Live";
 	
-	private LiveSite()
+	private TargetLive()
 	{
 		// prevent public instantiation
 	}
@@ -69,7 +69,7 @@ final class LiveSite implements Target
 	@Override
 	public boolean equals(final Object other)
 	{
-		return (other!=null) && (other instanceof LiveSite);
+		return (other!=null) && (other instanceof TargetLive);
 	}
 	
 	private static final long serialVersionUID = 1l;
