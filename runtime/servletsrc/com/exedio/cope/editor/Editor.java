@@ -243,6 +243,8 @@ public abstract class Editor implements Filter
 	static final String DRAFT_ID     = "draft.id";
 	static final String DRAFT_LOAD   = "draft.load";
 	static final String DRAFT_DELETE = "draft.delete";
+	static final String DRAFT_NEW    = "draft.new";
+	static final String DRAFT_COMMENT= "draft.comment";
 	static final String TARGET_ID   = "target.id";
 	static final String TARGET_OPEN = "target.load";
 	
@@ -382,6 +384,19 @@ public abstract class Editor implements Filter
 					model.rollbackIfNotCommitted();
 				}
 			}
+			else if(request.getParameter(DRAFT_NEW)!=null)
+			{
+				try
+				{
+					startTransaction("newDraft");
+					new Draft(anchor.user, anchor.sessionName, request.getParameter(DRAFT_COMMENT));
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+			}
 			else if(request.getParameter(TARGET_OPEN)!=null)
 			{
 				final String targetID = request.getParameter(TARGET_ID);
@@ -427,6 +442,7 @@ public abstract class Editor implements Filter
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
 					anchor.getModifications(),
 					anchor.getTarget(), targets,
+					anchor.getDraftAuthor(),
 					draftsEnabled, drafts);
 			model.commit();
 		}

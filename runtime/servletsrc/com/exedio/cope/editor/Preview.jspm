@@ -30,6 +30,7 @@ final class Preview_Jspm
 			final Map<Modification, String> modifications,
 			final Target activeTarget,
 			final List<Target> targets,
+			final String activeAuthor,
 			final boolean draftsEnabled,
 			final List<Draft> drafts)
 	{
@@ -110,7 +111,7 @@ final class Preview_Jspm
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
 		<h1>COPE Content Editor</h1><%
 		
-	if(draftsEnabled && !drafts.isEmpty())
+	if(draftsEnabled)
 	{
 		%>
 		<table>
@@ -160,6 +161,16 @@ final class Preview_Jspm
 			</tr><%
 			}
 		%>
+			<tr>
+				<form action="<%=url%>" method="POST">
+					<td></td>
+					<td></td>
+					<td><%=activeAuthor%></td>
+					<td><input name="<%=Editor.DRAFT_COMMENT%>" type="text"></td>
+					<td></td>
+					<td><input type="submit" name="<%=Editor.DRAFT_NEW%>" value="New"></td>
+				</form>
+			</tr>
 		</table>
 		<hr><%
 	}
