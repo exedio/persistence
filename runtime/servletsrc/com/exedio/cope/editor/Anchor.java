@@ -66,10 +66,13 @@ final class Anchor implements Serializable // for session persistence
 	
 	String getModification(final StringField feature, final Item item)
 	{
-		if(modifications.isEmpty()) // shortcut
-			return null;
-		
-		return modifications.get(new Modification(feature, item));
+		if(!modifications.isEmpty()) // shortcut
+		{
+			final String m = modifications.get(new Modification(feature, item));
+			if(m!=null)
+				return m;
+		}
+		return target.get(feature, item);
 	}
 	
 	Map<Modification, String> getModifications()

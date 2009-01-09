@@ -20,6 +20,9 @@ package com.exedio.cope.editor;
 
 import java.util.Map;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
+
 final class LiveSite implements Target
 {
 	static final LiveSite INSTANCE = new LiveSite();
@@ -43,6 +46,11 @@ final class LiveSite implements Target
 	public boolean isLive()
 	{
 		return true;
+	}
+	
+	public String get(final StringField feature, final Item item)
+	{
+		return null;
 	}
 	
 	public void save(final Map<Modification, String> modifications)

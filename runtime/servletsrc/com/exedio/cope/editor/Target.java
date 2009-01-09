@@ -21,10 +21,14 @@ package com.exedio.cope.editor;
 import java.io.Serializable;
 import java.util.Map;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
+
 interface Target extends Serializable
 {
 	String getID();
 	String getDescription();
 	boolean isLive();
+	String get(StringField feature, Item item);
 	void save(Map<Modification, String> modifications);
 }

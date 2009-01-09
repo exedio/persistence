@@ -86,6 +86,12 @@ public final class Draft extends Item implements Target
 		return false;
 	}
 	
+	public String get(final StringField feature, final Item item)
+	{
+		final DraftItem i = DraftItem.forParentFeatureAndItem(this, feature, item);
+		return i!=null ? i.getNewValue() : null;
+	}
+	
 	public void save(final Map<Modification, String> modifications)
 	{
 		for(final Map.Entry<Modification, String> e : modifications.entrySet())
