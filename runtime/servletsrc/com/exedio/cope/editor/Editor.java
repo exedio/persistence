@@ -219,7 +219,7 @@ public abstract class Editor implements Filter
 	static final String BAR_TEXT    = "text";
 	static final String BAR_FILE    = "file";
 	static final String BAR_ITEM_FROM = "itemPrevious";
-	static final String PREVIEW = "preview";
+	static final String BAR_PUBLISH_NOW = "publishNow";
 	
 	private static final String CLOSE_IMAGE       = CLOSE       + ".x";
 	private static final String BORDERS_ON_IMAGE  = BORDERS_ON  + ".x";
@@ -546,11 +546,7 @@ public abstract class Editor implements Filter
 						
 						final Item item = model.getItem(itemID);
 	
-						if(request.getParameter(PREVIEW)!=null)
-						{
-							anchor.setPreview(value, feature, item);
-						}
-						else
+						if(request.getParameter(BAR_PUBLISH_NOW)!=null)
 						{
 							String v = value;
 							if("".equals(v))
@@ -562,6 +558,10 @@ public abstract class Editor implements Filter
 							}
 							feature.set(item, v);
 							anchor.notifyPublished(feature, item);
+						}
+						else
+						{
+							anchor.setPreview(value, feature, item);
 						}
 						
 						model.commit();

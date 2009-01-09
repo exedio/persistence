@@ -262,8 +262,8 @@ final class Bar_Jspm
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.BAR_TEXT   %>" id="<%=ID_LINE_VALUE  %>" class="text" onkeyup="return <%=Editor.ONKEY_METHOD_LINE%>(this);">
 				<br>
-				<input type="submit" value="Publish Now!" class="publishNow">
-				<input type="submit" value="Preview" name="<%=Editor.PREVIEW%>" id="<%=ID_LINE_PREVIEW%>">
+				<input type="submit" value="Publish Now!" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
+				<input type="submit" value="Preview" id="<%=ID_LINE_PREVIEW%>">
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
 				<hr>
@@ -273,7 +273,7 @@ final class Bar_Jspm
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.BAR_FILE   %>" type="file" class="text">
 				<br>
-				<input type="submit" value="Publish Now!" class="publishNow">
+				<input type="submit" value="Publish Now!" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
 				<br>
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;">
@@ -282,8 +282,8 @@ final class Bar_Jspm
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_AREA_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_AREA_ITEM   %>" type="hidden">
 				<textarea name="<%=Editor.BAR_TEXT   %>" id="<%=ID_AREA_VALUE  %>" cols="100" rows="15">X</textarea>
-				<input type="submit" value="Publish Now!" class="publishNow">
-				<input type="submit" value="Preview" name="<%=Editor.PREVIEW%>" id="<%=ID_AREA_PREVIEW%>">
+				<input type="submit" value="Publish Now!" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
+				<input type="submit" value="Preview" id="<%=ID_AREA_PREVIEW%>">
 			</form><%
 			}
 			%>
