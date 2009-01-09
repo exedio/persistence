@@ -77,7 +77,7 @@ final class Anchor implements Serializable // for session persistence
 		return Collections.unmodifiableMap(modifications);
 	}
 	
-	HashMap<Modification, String> getPreviewsModifiable()
+	HashMap<Modification, String> getModificationsModifiable()
 	{
 		return modifications;
 	}
