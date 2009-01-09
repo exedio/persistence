@@ -238,12 +238,12 @@ final class Bar_Jspm
 			}
 			%>
 			<br>
-			editing <a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor Preview"><%=target.getDescription()%></a><%
+			<a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor Preview"><%=target.getDescription()%></a><%
 			
 			if(previewNumber>0)
 			{
 			%>
-			<sup>*<% if(previewNumber>1){ %><%=previewNumber%><% } %></sup><%
+			 - modified<% if(previewNumber>1){ %> (<%=previewNumber%>)<% } %><%
 			}
 			%>
 			<br clear="both"><%
