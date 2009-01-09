@@ -27,7 +27,7 @@ final class Preview_Jspm
 	static final void writeOverview(
 			final StringBuilder out,
 			final String url,
-			final Map<Preview, String> previews,
+			final Map<Modification, String> previews,
 			final Target target,
 			final List<Target> targets,
 			final boolean draftsEnabled,
@@ -108,9 +108,9 @@ final class Preview_Jspm
 					<th>New</th>
 				</tr><%
 				
-				for(final Map.Entry<Preview, String> e : previews.entrySet())
+				for(final Map.Entry<Modification, String> e : previews.entrySet())
 				{
-					final Preview p = e.getKey();
+					final Modification p = e.getKey();
 				%>
 				<tr>
 					<td><input name="<%=Editor.PREVIEW_IDS%>" type="checkbox" value="<%=p.getID()%>" checked="checked"></td>

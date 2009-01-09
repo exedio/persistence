@@ -255,14 +255,14 @@ public abstract class Editor implements Filter
 			final HashSet<String> ids = idA!=null ? new HashSet<String>(Arrays.asList(idA)) : null;
 			if(request.getParameter(PREVIEW_PUBLISH)!=null)
 			{
-				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
+				final Map<Modification, String> previews = anchor.getPreviewsModifiable();
 				try
 				{
 					startTransaction("publishPreviews");
-					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					for(final Iterator<Map.Entry<Modification, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
-						final Map.Entry<Preview, String> e = i.next();
-						final Preview p = e.getKey();
+						final Map.Entry<Modification, String> e = i.next();
+						final Modification p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
 							p.publish(e.getValue());
@@ -279,15 +279,15 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(PREVIEW_PERSIST)!=null)
 			{
-				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
+				final Map<Modification, String> previews = anchor.getPreviewsModifiable();
 				try
 				{
 					startTransaction("persistProposals");
 					final Draft parent = new Draft(anchor.user, anchor.sessionName, request.getParameter(PREVIEW_PERSIST_COMMENT));
-					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					for(final Iterator<Map.Entry<Modification, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
-						final Map.Entry<Preview, String> e = i.next();
-						final Preview p = e.getKey();
+						final Map.Entry<Modification, String> e = i.next();
+						final Modification p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
 							parent.addItem(p.getFeature(), p.item, e.getValue());
@@ -303,15 +303,15 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(SAVE_TO_DRAFT)!=null)
 			{
-				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
+				final Map<Modification, String> previews = anchor.getPreviewsModifiable();
 				try
 				{
 					startTransaction("saveToDraft");
 					final Draft parent = (Draft)model.getItem(request.getParameter(DRAFT_ID));
-					for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+					for(final Iterator<Map.Entry<Modification, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 					{
-						final Map.Entry<Preview, String> e = i.next();
-						final Preview p = e.getKey();
+						final Map.Entry<Modification, String> e = i.next();
+						final Modification p = e.getKey();
 						if(ids!=null && ids.contains(p.getID()))
 						{
 							parent.addItem(p.getFeature(), p.item, e.getValue());
@@ -331,11 +331,11 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(PREVIEW_DISCARD)!=null)
 			{
-				final Map<Preview, String> previews = anchor.getPreviewsModifiable();
-				for(final Iterator<Map.Entry<Preview, String>> i = previews.entrySet().iterator(); i.hasNext(); )
+				final Map<Modification, String> previews = anchor.getPreviewsModifiable();
+				for(final Iterator<Map.Entry<Modification, String>> i = previews.entrySet().iterator(); i.hasNext(); )
 				{
-					final Map.Entry<Preview, String> e = i.next();
-					final Preview p = e.getKey();
+					final Map.Entry<Modification, String> e = i.next();
+					final Modification p = e.getKey();
 					if(ids!=null && ids.contains(p.getID()))
 						i.remove();
 				}

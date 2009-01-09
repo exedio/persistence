@@ -23,14 +23,14 @@ import java.io.Serializable;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-final class Preview implements Serializable // for session persistence
+final class Modification implements Serializable // for session persistence
 {
 	private static final long serialVersionUID = 1l;
 	
 	private final String feature;
 	final Item item;
 	
-	Preview(final StringField feature, final Item item)
+	Modification(final StringField feature, final Item item)
 	{
 		this.feature = feature.getID(); // id is serializable
 		this.item = item;
@@ -68,10 +68,10 @@ final class Preview implements Serializable // for session persistence
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Preview))
+		if(!(other instanceof Modification))
 			return false;
 		
-		final Preview o = (Preview)other;
+		final Modification o = (Modification)other;
 		return feature.equals(o.feature) && item.equals(o.item);
 	}
 }

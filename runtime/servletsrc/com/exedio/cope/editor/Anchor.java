@@ -36,7 +36,7 @@ final class Anchor implements Serializable // for session persistence
 	final String sessionName;
 	private Target target = LiveSite.INSTANCE;
 	boolean borders = false;
-	private final LinkedHashMap<Preview, String> previews = new LinkedHashMap<Preview, String>();
+	private final LinkedHashMap<Modification, String> previews = new LinkedHashMap<Modification, String>();
 	
 	Anchor(final String user, final Session session, final String sessionName)
 	{
@@ -69,27 +69,27 @@ final class Anchor implements Serializable // for session persistence
 		if(previews.isEmpty()) // shortcut
 			return null;
 		
-		return previews.get(new Preview(feature, item));
+		return previews.get(new Modification(feature, item));
 	}
 	
-	Map<Preview, String> getPreviews()
+	Map<Modification, String> getPreviews()
 	{
 		return Collections.unmodifiableMap(previews);
 	}
 	
-	HashMap<Preview, String> getPreviewsModifiable()
+	HashMap<Modification, String> getPreviewsModifiable()
 	{
 		return previews;
 	}
 	
 	void setPreview(final String content, final StringField feature, final Item item)
 	{
-		previews.put(new Preview(feature, item), content);
+		previews.put(new Modification(feature, item), content);
 	}
 	
 	void notifyPublished(final StringField feature, final Item item)
 	{
-		previews.remove(new Preview(feature, item));
+		previews.remove(new Modification(feature, item));
 	}
 	
 	String getHistoryAuthor()
