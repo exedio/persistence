@@ -150,13 +150,10 @@ final class Preview_Jspm
 		</form><%
 	}
 	
-	if(draftsEnabled)
+	if(draftsEnabled && !drafts.isEmpty())
 	{
 		%>
 		<h2>Drafts</h2><%
-		
-		if(!drafts.isEmpty())
-		{
 		%>
 		<form action="<%=url%>" method="POST">
 			<table>
@@ -182,12 +179,6 @@ final class Preview_Jspm
 			</table>
 			<input name="<%=Editor.DRAFT_LOAD%>" type="submit" value="Load into Preview">
 		</form><%
-		}
-		else
-		{
-		%>
-		<div>There are no drafts available.</div><%
-		}
 	}
 		%>
 		<h2>Targets</h2>
