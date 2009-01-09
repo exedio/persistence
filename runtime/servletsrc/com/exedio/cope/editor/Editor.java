@@ -431,7 +431,7 @@ public abstract class Editor implements Filter
 			startTransaction("proposal");
 			final List<Draft> drafts =
 				draftsEnabled
-				? Draft.TYPE.search(null, Draft.date, false)
+				? Draft.TYPE.search(null, Draft.date, true)
 				: null;
 			final ArrayList<Target> targets = new ArrayList<Target>();
 			targets.add(TargetLive.INSTANCE);
