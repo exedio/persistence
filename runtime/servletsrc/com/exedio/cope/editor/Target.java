@@ -19,9 +19,11 @@
 package com.exedio.cope.editor;
 
 import java.io.Serializable;
+import java.util.Map;
 
 interface Target extends Serializable
 {
 	String getID();
 	String getDescription();
+	void save(Map<Modification, String> modifications);
 }

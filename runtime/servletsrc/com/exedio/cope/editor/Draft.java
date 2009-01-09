@@ -21,6 +21,7 @@ package com.exedio.cope.editor;
 import java.text.DateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -78,6 +79,13 @@ public final class Draft extends Item implements Target
 	public String getDescription()
 	{
 		return "Draft \"" + getComment() + "\" by " + getAuthor();
+	}
+	
+	public void save(final Map<Modification, String> modifications)
+	{
+		for(final Map.Entry<Modification, String> e : modifications.entrySet())
+			e.getKey().saveTo(this, e.getValue());
+		// TODO maintain some special draft history
 	}
 	
 	public DraftItem addItem(final StringField feature, final Item item, final String value)

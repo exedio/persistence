@@ -59,6 +59,11 @@ final class Modification implements Serializable // for session persistence
 		getFeature().set(item, value);
 	}
 	
+	void saveTo(final Draft draft, final String value)
+	{
+		draft.addItem(getFeature(), item, value);
+	}
+	
 	@Override
 	public int hashCode()
 	{

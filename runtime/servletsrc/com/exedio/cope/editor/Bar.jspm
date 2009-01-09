@@ -253,7 +253,15 @@ final class Bar_Jspm
 			if(modificationsCount>0)
 			{
 			%>
-			 - modified<% if(modificationsCount>1){ %> (<%=modificationsCount%>)<% } %><%
+			<form action="<%=action%>" method="POST" style="display:inline;">
+				<input type="hidden" name="<%=Editor.REFERER    %>" value="<%=referer%>">
+				<input type="submit" name="<%=Editor.SAVE_TARGET%>" value="Save<%
+					if(modificationsCount>1)
+					{
+						%> (<%=modificationsCount%>)<%
+					}
+					%>" style="padding:0px;">
+			</form><%
 			}
 			%>
 			<br clear="both"><%

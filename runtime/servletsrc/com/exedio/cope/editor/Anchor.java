@@ -92,6 +92,11 @@ final class Anchor implements Serializable // for session persistence
 		modifications.remove(new Modification(feature, item));
 	}
 	
+	void notifyPublishedAll()
+	{
+		modifications.clear();
+	}
+	
 	String getHistoryAuthor()
 	{
 		return (sessionName!=null ? sessionName : user) + " (CCE)";

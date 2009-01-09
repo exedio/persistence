@@ -214,6 +214,8 @@ public abstract class Editor implements Filter
 	private static final String BORDERS_ON  = "bordersOn";
 	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
+	static final String SAVE_TARGET = "saveTarget";
+	
 	static final String BAR_FEATURE = "feature";
 	static final String BAR_ITEM    = "item";
 	static final String BAR_TEXT    = "text";
@@ -520,6 +522,21 @@ public abstract class Editor implements Filter
 			else if(request.getParameter(CLOSE)!=null || request.getParameter(CLOSE_IMAGE)!=null)
 			{
 				httpSession.removeAttribute(ANCHOR);
+			}
+			else if(request.getParameter(SAVE_TARGET)!=null)
+			{
+				final Map<Modification, String> modifications = anchor.getModifications();
+				try
+				{
+					startTransaction("saveTarget");
+					anchor.getTarget().save(modifications);
+					model.commit();
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+				anchor.notifyPublishedAll();
 			}
 			else
 			{

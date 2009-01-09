@@ -18,6 +18,8 @@
 
 package com.exedio.cope.editor;
 
+import java.util.Map;
+
 final class LiveSite implements Target
 {
 	static final LiveSite INSTANCE = new LiveSite();
@@ -36,6 +38,13 @@ final class LiveSite implements Target
 	public String getDescription()
 	{
 		return "Live Site";
+	}
+	
+	public void save(final Map<Modification, String> modifications)
+	{
+		for(final Map.Entry<Modification, String> e : modifications.entrySet())
+			e.getKey().publish(e.getValue());
+		// TODO maintain history
 	}
 	
 	@Override
