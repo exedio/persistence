@@ -64,7 +64,7 @@ final class Bar_Jspm
 				font-size: 12pt;
 			}
 			
-			div#contentEditorBar sup a
+			div#contentEditorBar a
 			{
 				text-decoration: none;
 			}
@@ -199,6 +199,7 @@ final class Bar_Jspm
 	
 	static final void write(
 			final StringBuilder out,
+			final Target target,
 			final String action,
 			final String referer,
 			final boolean borders,
@@ -235,10 +236,14 @@ final class Bar_Jspm
 			%>
 			logged in as <%=encode(loginName)%><%
 			}
+			%>
+			<br>
+			editing <a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor Preview"><%=target.getDescription()%></a><%
+			
 			if(previewNumber>0)
 			{
 			%>
-			<sup><a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor Preview">*<% if(previewNumber>1){ %><%=previewNumber%><% } %></a></sup><%
+			<sup>*<% if(previewNumber>1){ %><%=previewNumber%><% } %></sup><%
 			}
 			%>
 			<br clear="both"><%

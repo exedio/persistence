@@ -32,7 +32,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.util.ReactivationConstructorDummy;
 
-public final class Draft extends Item
+public final class Draft extends Item implements Target
 {
 	static final StringField user = new StringField().toFinal();
 	static final StringField name = new StringField().toFinal().optional();
@@ -68,6 +68,16 @@ public final class Draft extends Item
 	int getItemsCount()
 	{
 		return new Query<DraftItem>(DraftItem.TYPE.getThis(), DraftItem.parent.equal(this)).total();
+	}
+	
+	public String getID()
+	{
+		return getCopeID();
+	}
+	
+	public String getDescription()
+	{
+		return "Draft \"" + getComment() + "\" by " + getAuthor();
 	}
 	
 	public DraftItem addItem(final StringField feature, final Item item, final String value)

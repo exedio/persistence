@@ -20,6 +20,7 @@ package com.exedio.cope.editor;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -239,6 +240,8 @@ public abstract class Editor implements Filter
 	static final String SAVE_TO_DRAFT = "draft.saveTo";
 	static final String DRAFT_ID   = "draft.id";
 	static final String DRAFT_LOAD = "draft.load";
+	static final String TARGET_ID   = "target.id";
+	static final String TARGET_OPEN = "target.load";
 	
 	private final void doPreviewOverview(
 			final HttpServletRequest request,
@@ -359,6 +362,32 @@ public abstract class Editor implements Filter
 					model.rollbackIfNotCommitted();
 				}
 			}
+			else if(request.getParameter(TARGET_OPEN)!=null)
+			{
+				final String targetID = request.getParameter(TARGET_ID);
+				final Target target;
+				if(LiveSite.ID.equals(targetID))
+				{
+					target = LiveSite.INSTANCE;
+				}
+				else
+				{
+					try
+					{
+						startTransaction("findDraft");
+						target = (Draft)model.getItem(targetID);
+					}
+					catch(NoSuchIDException e)
+					{
+						throw new RuntimeException(e);
+					}
+					finally
+					{
+						model.rollbackIfNotCommitted();
+					}
+				}
+				anchor.setTarget(target);
+			}
 		}
 		
 		final StringBuilder out = new StringBuilder();
@@ -369,10 +398,14 @@ public abstract class Editor implements Filter
 				draftsEnabled
 				? Draft.TYPE.search(null, Draft.date, false)
 				: null;
+			final ArrayList<Target> targets = new ArrayList<Target>();
+			targets.add(LiveSite.INSTANCE);
+			targets.addAll(drafts);
 			Preview_Jspm.writeOverview(
 					out,
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
 					anchor.getPreviews(),
+					anchor.getTarget(), targets,
 					draftsEnabled, drafts);
 			model.commit();
 		}
@@ -908,6 +941,7 @@ public abstract class Editor implements Filter
 		
 		final HttpServletRequest request = tl.request;
 		Bar_Jspm.write(out,
+				tl.anchor.getTarget(),
 				action(request, tl.response),
 				referer(request),
 				tl.anchor.borders,

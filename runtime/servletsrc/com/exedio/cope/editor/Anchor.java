@@ -34,6 +34,7 @@ final class Anchor implements Serializable // for session persistence
 	final String user;
 	final Session session;
 	final String sessionName;
+	private Target target = LiveSite.INSTANCE;
 	boolean borders = false;
 	private final LinkedHashMap<Preview, String> previews = new LinkedHashMap<Preview, String>();
 	
@@ -44,6 +45,18 @@ final class Anchor implements Serializable // for session persistence
 		this.sessionName = sessionName;
 		assert user!=null;
 		assert session!=null;
+	}
+	
+	Target getTarget()
+	{
+		return target;
+	}
+	
+	void setTarget(final Target target)
+	{
+		if(target==null)
+			throw new NullPointerException();
+		this.target = target;
 	}
 	
 	int getPreviewNumber()

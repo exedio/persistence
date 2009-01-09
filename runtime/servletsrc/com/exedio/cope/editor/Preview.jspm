@@ -28,6 +28,8 @@ final class Preview_Jspm
 			final StringBuilder out,
 			final String url,
 			final Map<Preview, String> previews,
+			final Target target,
+			final List<Target> targets,
 			final boolean draftsEnabled,
 			final List<Draft> drafts)
 	{
@@ -76,6 +78,12 @@ final class Preview_Jspm
 			table td.number
 			{
 				text-align:right;
+			}
+			
+			table tr.open td
+			{
+				background-color:#bbd;
+				border-color:#bbd;
 			}
 		</style>
 	</head>
@@ -181,7 +189,27 @@ final class Preview_Jspm
 		<div>There are no drafts available.</div><%
 		}
 	}
-	%>
+		%>
+		<h2>Targets</h2>
+		<form action="<%=url%>" method="POST">
+			<table>
+				<tr>
+					<th></th>
+					<th>Target</th>
+				</tr><%
+				for(final Target t : targets)
+				{
+					final boolean open = target.equals(t);
+				%>
+				<tr<% if(open){%> class="open"<%} %>>
+					<td><input name="<%=Editor.TARGET_ID%>" type="radio" value="<%=t.getID()%>"<% if(open){%> checked="checked"<%} %>></td>
+					<td><%=t.getDescription()%></td>
+				</tr><%
+				}
+			%>
+			</table>
+			<input name="<%=Editor.TARGET_OPEN%>" type="submit" value="Open">
+		</form>
 	</body>
 </html><%
 	}
