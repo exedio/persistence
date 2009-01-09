@@ -252,15 +252,23 @@ final class Bar_Jspm
 			
 			if(modificationsCount>0)
 			{
+				final boolean live = target.isLive();
 			%>
 			<form action="<%=action%>" method="POST" style="display:inline;">
 				<input type="hidden" name="<%=Editor.REFERER    %>" value="<%=referer%>">
-				<input type="submit" name="<%=Editor.SAVE_TARGET%>" value="<% if(target.isLive()){%>Publish<%}else{%>Save<%} %><%
+				<input type="submit" name="<%=Editor.SAVE_TARGET%>" value="<% if(live){%>Publish<%}else{%>Save<%} %><%
 					if(modificationsCount>1)
 					{
 						%> (<%=modificationsCount%>)<%
 					}
-					%>" style="padding:0px;">
+					%>" style="padding:0px;"<%
+					if(live)
+					{
+						%> onclick="return confirm('Do you really want to publish <%=
+						modificationsCount
+						%> modification(s) directly to the live web site?\n\nYou cannot undo this operation.')"<%
+					}
+					%>>
 			</form><%
 			}
 			%>
