@@ -70,13 +70,13 @@ public final class EditedServlet extends HttpServlet
 			final EditedItem i1 = createItem(0, "osorno.png", "image/png");
 			final EditedItem i2 = createItem(1, "tree.jpg", "image/jpeg");
 			createItem(2, "tree.jpg", "image/jpeg");
-			final Draft d1 = new Draft("jim", "Jim Smith", "comment for jim");
-			d1.addItem(EditedItem.field, i1, "new value");
-			d1.addItem(EditedItem.field, i2, "new value");
-			d1.addItem(EditedItem.map, 1, i2, "new value");
-			d1.addItem(EditedItem.map, 2, i2, "new value");
-			final Draft d2 = new Draft("john", null, "comment for john");
-			d2.addItem(EditedItem.field, i1, "new value");
+			final Draft d1 = new Draft("jim", "Jim Smith", "Many New Values");
+			d1.addItem(EditedItem.field, i1, "item0New");
+			d1.addItem(EditedItem.field, i2, "item1New");
+			d1.addItem(EditedItem.map, 1, i2, "item1map1New");
+			d1.addItem(EditedItem.map, 2, i2, "item1map2New");
+			final Draft d2 = new Draft("john", null, "A Single New Value");
+			d2.addItem(EditedItem.field, i1, "item0NewSingle");
 			model.commit();
 		}
 		finally
