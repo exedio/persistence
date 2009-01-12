@@ -399,29 +399,7 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(TARGET_OPEN)!=null)
 			{
-				final String targetID = request.getParameter(TARGET_ID);
-				final Target target;
-				if(TargetLive.ID.equals(targetID))
-				{
-					target = TargetLive.INSTANCE;
-				}
-				else
-				{
-					try
-					{
-						startTransaction("findDraft");
-						target = new TargetDraft((Draft)model.getItem(targetID));
-					}
-					catch(NoSuchIDException e)
-					{
-						throw new RuntimeException(e);
-					}
-					finally
-					{
-						model.rollbackIfNotCommitted();
-					}
-				}
-				anchor.setTarget(target);
+				anchor.setTarget(getTarget(request.getParameter(TARGET_ID)));
 			}
 		}
 		
@@ -459,6 +437,30 @@ public abstract class Editor implements Filter
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", System.currentTimeMillis());
 		writeBody(out, response);
+	}
+	
+	private final Target getTarget(final String id)
+	{
+		if(TargetLive.ID.equals(id))
+		{
+			return TargetLive.INSTANCE;
+		}
+		else
+		{
+			try
+			{
+				startTransaction("findDraft");
+				return new TargetDraft((Draft)model.getItem(id));
+			}
+			catch(NoSuchIDException e)
+			{
+				throw new RuntimeException(e);
+			}
+			finally
+			{
+				model.rollbackIfNotCommitted();
+			}
+		}
 	}
 	
 	private final void doBar(
