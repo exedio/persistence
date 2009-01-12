@@ -211,9 +211,9 @@ public abstract class Editor implements Filter
 	
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
 	static final String BAR_REFERER = "referer";
-	private static final String BORDERS_ON  = "bordersOn";
-	private static final String BORDERS_OFF = "bordersOff";
-	static final String CLOSE = "close";
+	private static final String BAR_BORDERS_ON  = "bordersOn";
+	private static final String BAR_BORDERS_OFF = "bordersOff";
+	static final String BAR_CLOSE = "close";
 	static final String BAR_SWITCH_TARGET = "target.switch";
 	static final String BAR_SAVE_TARGET   = "target.save";
 	
@@ -224,9 +224,9 @@ public abstract class Editor implements Filter
 	static final String BAR_ITEM_FROM = "itemPrevious";
 	static final String BAR_PUBLISH_NOW = "publishNow";
 	
-	private static final String CLOSE_IMAGE       = CLOSE       + ".x";
-	private static final String BORDERS_ON_IMAGE  = BORDERS_ON  + ".x";
-	private static final String BORDERS_OFF_IMAGE = BORDERS_OFF + ".x";
+	private static final String BAR_CLOSE_IMAGE       = BAR_CLOSE       + ".x";
+	private static final String BAR_BORDERS_ON_IMAGE  = BAR_BORDERS_ON  + ".x";
+	private static final String BAR_BORDERS_OFF_IMAGE = BAR_BORDERS_OFF + ".x";
 	
 	@SuppressWarnings("deprecation")
 	private static final boolean isMultipartContent(final HttpServletRequest request)
@@ -549,15 +549,15 @@ public abstract class Editor implements Filter
 		}
 		else // isMultipartContent
 		{
-			if(request.getParameter(BORDERS_ON)!=null || request.getParameter(BORDERS_ON_IMAGE)!=null)
+			if(request.getParameter(BAR_BORDERS_ON)!=null || request.getParameter(BAR_BORDERS_ON_IMAGE)!=null)
 			{
 				anchor.borders = true;
 			}
-			else if(request.getParameter(BORDERS_OFF)!=null || request.getParameter(BORDERS_OFF_IMAGE)!=null)
+			else if(request.getParameter(BAR_BORDERS_OFF)!=null || request.getParameter(BAR_BORDERS_OFF_IMAGE)!=null)
 			{
 				anchor.borders = false;
 			}
-			else if(request.getParameter(CLOSE)!=null || request.getParameter(CLOSE_IMAGE)!=null)
+			else if(request.getParameter(BAR_CLOSE)!=null || request.getParameter(BAR_CLOSE_IMAGE)!=null)
 			{
 				httpSession.removeAttribute(ANCHOR);
 			}
@@ -1020,7 +1020,7 @@ public abstract class Editor implements Filter
 				action(request, tl.response),
 				referer(request),
 				tl.anchor.borders,
-				tl.anchor.borders ? BORDERS_OFF : BORDERS_ON,
+				tl.anchor.borders ? BAR_BORDERS_OFF : BAR_BORDERS_ON,
 				tl.filter.getBorderButtonURL(request, tl.response, tl.anchor.borders),
 				tl.filter.getCloseButtonURL(request, tl.response),
 				tl.anchor.getModificationsCount(),

@@ -252,7 +252,7 @@ final class Bar_Jspm
 					%>>
 				<input type="<%
 					if(closeButtonURL!=null) { %>image<% } else { %>submit<% }
-					%>" name="<%=Editor.CLOSE%>" <%
+					%>" name="<%=Editor.BAR_CLOSE%>" <%
 					if(closeButtonURL!=null)
 					{ %>src="<%=closeButtonURL%>" alt="Close Content Editor"<% }
 					else
