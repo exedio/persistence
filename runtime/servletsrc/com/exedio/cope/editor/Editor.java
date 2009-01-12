@@ -210,12 +210,12 @@ public abstract class Editor implements Filter
 	}
 	
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
-	static final String REFERER = "referer";
+	static final String BAR_REFERER = "referer";
 	private static final String BORDERS_ON  = "bordersOn";
 	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
-	static final String SWITCH_TARGET = "target.switch";
-	static final String SAVE_TARGET   = "target.save";
+	static final String BAR_SWITCH_TARGET = "target.switch";
+	static final String BAR_SAVE_TARGET   = "target.save";
 	
 	static final String BAR_FEATURE = "feature";
 	static final String BAR_ITEM    = "item";
@@ -545,7 +545,7 @@ public abstract class Editor implements Filter
 				model.rollbackIfNotCommitted();
 			}
 			
-			referer = fields.get(REFERER);
+			referer = fields.get(BAR_REFERER);
 		}
 		else // isMultipartContent
 		{
@@ -561,11 +561,11 @@ public abstract class Editor implements Filter
 			{
 				httpSession.removeAttribute(ANCHOR);
 			}
-			else if(request.getParameter(SWITCH_TARGET)!=null)
+			else if(request.getParameter(BAR_SWITCH_TARGET)!=null)
 			{
-				anchor.setTarget(getTarget(request.getParameter(SWITCH_TARGET)));
+				anchor.setTarget(getTarget(request.getParameter(BAR_SWITCH_TARGET)));
 			}
-			else if(request.getParameter(SAVE_TARGET)!=null)
+			else if(request.getParameter(BAR_SAVE_TARGET)!=null)
 			{
 				final Map<Modification, String> modifications = anchor.getModifications();
 				try
@@ -678,7 +678,7 @@ public abstract class Editor implements Filter
 				}
 			}
 			
-			referer = request.getParameter(REFERER);
+			referer = request.getParameter(BAR_REFERER);
 		}
 		
 		if(referer!=null)
@@ -939,7 +939,7 @@ public abstract class Editor implements Filter
 		final String buttonURL = tl.filter.getPreviousPositionButtonURL(request, tl.response);
 		return
 			"<form action=\"" + action(request, tl.response) + "\" method=\"POST\" class=\"contentEditorPosition\">" +
-				"<input type=\"hidden\" name=\"" + REFERER        + "\" value=\"" + referer(request)         + "\">" +
+				"<input type=\"hidden\" name=\"" + BAR_REFERER   + "\" value=\"" + referer(request)         + "\">" +
 				"<input type=\"hidden\" name=\"" + BAR_FEATURE   + "\" value=\"" + feature.getID()          + "\">" +
 				"<input type=\"hidden\" name=\"" + BAR_ITEM_FROM + "\" value=\"" + previousItem.getCopeID() + "\">" +
 				"<input type=\"hidden\" name=\"" + BAR_ITEM      + "\" value=\"" + item.getCopeID()         + "\">" +

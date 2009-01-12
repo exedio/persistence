@@ -237,7 +237,7 @@ final class Bar_Jspm
 		%>
 		<div id="contentEditorBar">
 			<form action="<%=action%>" method="POST" id="contentEditorBarSwitches">
-				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
+				<input type="hidden" name="<%=Editor.BAR_REFERER%>" value="<%=referer%>">
 				<input type="<%
 					if(borderButtonURL!=null) { %>image<% } else { %>submit<% }
 					%>" name="<%=borderToggleParameter%>" <%
@@ -264,8 +264,8 @@ final class Bar_Jspm
 			%>
 			<br>
 			<form action="<%=action%>" method="POST" style="display:inline;">
-				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
-				<select name="<%=Editor.SWITCH_TARGET%>" onchange="this.form.submit();"><%
+				<input type="hidden" name="<%=Editor.BAR_REFERER%>" value="<%=referer%>">
+				<select name="<%=Editor.BAR_SWITCH_TARGET%>" onchange="this.form.submit();"><%
 				for(final Target t : targets)
 				{
 					final boolean active = t.equals(target);
@@ -283,8 +283,8 @@ final class Bar_Jspm
 				final boolean live = target.isLive();
 			%>
 			<form action="<%=action%>" method="POST" style="display:inline;">
-				<input type="hidden" name="<%=Editor.REFERER    %>" value="<%=referer%>">
-				<input type="submit" name="<%=Editor.SAVE_TARGET%>" value="<% if(live){%>Publish<%}else{%>Save<%} %><%
+				<input type="hidden" name="<%=Editor.BAR_REFERER    %>" value="<%=referer%>">
+				<input type="submit" name="<%=Editor.BAR_SAVE_TARGET%>" value="<% if(live){%>Publish<%}else{%>Save<%} %><%
 					if(modificationsCount>1)
 					{
 						%> (<%=modificationsCount%>)<%
@@ -306,7 +306,7 @@ final class Bar_Jspm
 			%>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;">
 				<hr>
-				<input name="<%=   Editor.REFERER    %>" value="<%=referer     %>" type="hidden">
+				<input name="<%=   Editor.BAR_REFERER%>" value="<%=referer     %>" type="hidden">
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_LINE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_LINE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.BAR_TEXT   %>" id="<%=ID_LINE_VALUE  %>" class="text" onkeyup="return <%=Editor.ONKEY_METHOD_LINE%>(this);">
@@ -317,7 +317,7 @@ final class Bar_Jspm
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
 				<hr>
 				<img id="<%=ID_FILE_VALUE%>" src="">
-				<input name="<%=   Editor.REFERER    %>" value="<%=referer     %>" type="hidden">
+				<input name="<%=   Editor.BAR_REFERER%>" value="<%=referer     %>" type="hidden">
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_FILE_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.BAR_FILE   %>" type="file" class="text">
@@ -327,7 +327,7 @@ final class Bar_Jspm
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;">
 				<hr>
-				<input name="<%=   Editor.REFERER    %>" value="<%=referer     %>" type="hidden">
+				<input name="<%=   Editor.BAR_REFERER%>" value="<%=referer     %>" type="hidden">
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_AREA_FEATURE%>" type="hidden">
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_AREA_ITEM   %>" type="hidden">
 				<textarea name="<%=Editor.BAR_TEXT   %>" id="<%=ID_AREA_VALUE  %>" cols="100" rows="15">X</textarea>
