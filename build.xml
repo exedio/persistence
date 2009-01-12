@@ -236,10 +236,10 @@
 	<target name="runtime.dialect.compile" depends="runtime.core.compile">
 		<for param="dialect.file">
 			<path>
-				<fileset dir="${basedir}" includes="*.driver.properties" />
+				<fileset dir="${basedir}" includes="*.dialect.properties" />
 			</path>
 			<sequential>
-				<basename file="@{dialect.file}" property="@{dialect.file}.name" suffix=".driver.properties" />
+				<basename file="@{dialect.file}" property="@{dialect.file}.name" suffix=".dialect.properties" />
 				<property file="@{dialect.file}" prefix="@{dialect.file}." />
 				<echo message="Compiling dialect ${@{dialect.file}.name} with ${@{dialect.file}.jar}." />
 				<!--echo message="file=@{dialect.file},dialect=${@{dialect.file}.name},jar=${@{dialect.file}.jar}." /-->
@@ -992,7 +992,7 @@
 				<exclude name="runtime/servlettestweb/WEB-INF/classes/**" />
 				<exclude name="runtime/servlettestweb/WEB-INF/lib/**" />
 				<!-- oracle is not open source -->
-				<exclude name="oracle.driver.properties" />
+				<exclude name="oracle.dialect.properties" />
 				<exclude name="lib/ojdbc14*.jar" />
 			</tarfileset>
 			<tarfileset dir="${basedir}">
