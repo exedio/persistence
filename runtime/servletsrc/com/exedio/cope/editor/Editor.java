@@ -214,8 +214,8 @@ public abstract class Editor implements Filter
 	private static final String BORDERS_ON  = "bordersOn";
 	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
-	static final String SWITCH_TARGET = "switchTarget";
-	static final String SAVE_TARGET = "saveTarget";
+	static final String SWITCH_TARGET = "target.switch";
+	static final String SAVE_TARGET   = "target.save";
 	
 	static final String BAR_FEATURE = "feature";
 	static final String BAR_ITEM    = "item";
