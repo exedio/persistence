@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 final class Bar_Jspm
 {
-	private static final String ID_LINE_FORM = Editor.AVOID_COLLISION + "barFormLine";
-	private static final String ID_FILE_FORM = Editor.AVOID_COLLISION + "barFormFile";
-	private static final String ID_AREA_FORM = Editor.AVOID_COLLISION + "barFormArea";
+	private static final String ID_LINE_FORM    = Editor.AVOID_COLLISION + "barFormLine";
+	private static final String ID_FILE_FORM    = Editor.AVOID_COLLISION + "barFormFile";
+	private static final String ID_AREA_FORM    = Editor.AVOID_COLLISION + "barFormArea";
 	private static final String ID_LINE_FEATURE = Editor.AVOID_COLLISION + "barLineFeature";
 	private static final String ID_FILE_FEATURE = Editor.AVOID_COLLISION + "barFileFeature";
 	private static final String ID_AREA_FEATURE = Editor.AVOID_COLLISION + "barAreaFeature";
