@@ -261,7 +261,7 @@ public abstract class Editor implements Filter
 			final HashSet<String> ids = idA!=null ? new HashSet<String>(Arrays.asList(idA)) : null;
 			if(request.getParameter(MODIFICATION_PUBLISH)!=null)
 			{
-				final Map<Modification, String> modifications = anchor.getModificationsModifiable();
+				final Map<Modification, String> modifications = anchor.modifications;
 				try
 				{
 					startTransaction("publishPreviews");
@@ -285,7 +285,7 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(MODIFICATION_PERSIST)!=null)
 			{
-				final Map<Modification, String> modifications = anchor.getModificationsModifiable();
+				final Map<Modification, String> modifications = anchor.modifications;
 				try
 				{
 					startTransaction("persistProposals");
@@ -309,7 +309,7 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(SAVE_TO_DRAFT)!=null)
 			{
-				final Map<Modification, String> modifications = anchor.getModificationsModifiable();
+				final Map<Modification, String> modifications = anchor.modifications;
 				try
 				{
 					startTransaction("saveToDraft");
@@ -337,7 +337,7 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(MODIFICATION_DISCARD)!=null)
 			{
-				final Map<Modification, String> modifications = anchor.getModificationsModifiable();
+				final Map<Modification, String> modifications = anchor.modifications;
 				for(final Iterator<Map.Entry<Modification, String>> i = modifications.entrySet().iterator(); i.hasNext(); )
 				{
 					final Map.Entry<Modification, String> e = i.next();

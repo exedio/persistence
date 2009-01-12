@@ -20,7 +20,6 @@ package com.exedio.cope.editor;
 
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -36,7 +35,7 @@ final class Anchor implements Serializable // for session persistence
 	final String sessionName;
 	private Target target = TargetLive.INSTANCE;
 	boolean borders = false;
-	private final LinkedHashMap<Modification, String> modifications = new LinkedHashMap<Modification, String>();
+	final LinkedHashMap<Modification, String> modifications = new LinkedHashMap<Modification, String>();
 	
 	Anchor(final String user, final Session session, final String sessionName)
 	{
@@ -80,11 +79,6 @@ final class Anchor implements Serializable // for session persistence
 	Map<Modification, String> getModifications()
 	{
 		return Collections.unmodifiableMap(modifications);
-	}
-	
-	HashMap<Modification, String> getModificationsModifiable()
-	{
-		return modifications;
 	}
 	
 	void modify(final String content, final StringField feature, final Item item)
