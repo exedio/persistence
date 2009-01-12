@@ -927,6 +927,15 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.anchor.borders)
 			return "";
 		
+		return edit(feature, item, tl.filter.getPreviousPositionButtonURL(tl.request, tl.response));
+	}
+	
+	public static final String edit(final IntegerField feature, final Item item, final String buttonURL)
+	{
+		final TL tl = tls.get();
+		if(tl==null || !tl.anchor.borders)
+			return "";
+		
 		checkEdit(feature, item);
 		if(feature.isFinal())
 			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
@@ -936,7 +945,6 @@ public abstract class Editor implements Filter
 			return "";
 		
 		final HttpServletRequest request = tl.request;
-		final String buttonURL = tl.filter.getPreviousPositionButtonURL(request, tl.response);
 		return
 			"<form action=\"" + action(request, tl.response) + "\" method=\"POST\" class=\"contentEditorPosition\">" +
 				"<input type=\"hidden\" name=\"" + BAR_REFERER   + "\" value=\"" + referer(request)         + "\">" +
