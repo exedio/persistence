@@ -211,8 +211,8 @@ public abstract class Editor implements Filter
 	
 	static final String AVOID_COLLISION = "contentEditorBar823658617";
 	static final String BAR_REFERER = "referer";
-	private static final String BAR_BORDERS_ON  = "bordersOn";
-	private static final String BAR_BORDERS_OFF = "bordersOff";
+	private static final String BAR_BORDERS_ON  = "borders.on";
+	private static final String BAR_BORDERS_OFF = "borders.off";
 	static final String BAR_CLOSE = "close";
 	static final String BAR_SWITCH_TARGET = "target.switch";
 	static final String BAR_SAVE_TARGET   = "target.save";
