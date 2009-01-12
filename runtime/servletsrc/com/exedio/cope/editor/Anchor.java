@@ -123,12 +123,12 @@ final class Anchor implements Serializable // for session persistence
 		if(borders)
 			bf.append(" bordered");
 		
-		final int previewNumber = modifications.size();
-		if(previewNumber>0)
+		final int modificationsCount = modifications.size();
+		if(modificationsCount>0)
 		{
 			bf.append(" *");
-			if(previewNumber>1)
-				bf.append(previewNumber);
+			if(modificationsCount>1)
+				bf.append(modificationsCount);
 		}
 		
 		return bf.toString();
