@@ -826,7 +826,6 @@ public abstract class Editor implements Filter
 	static final String EDIT_METHOD_LINE = AVOID_COLLISION + "line";
 	static final String EDIT_METHOD_FILE = AVOID_COLLISION + "file";
 	static final String EDIT_METHOD_AREA = AVOID_COLLISION + "area";
-	static final String ONKEY_METHOD_LINE = AVOID_COLLISION + "onkeyline";
 	
 	private static final String edit(final TL tl, final String content, final StringField feature, final Item item)
 	{
