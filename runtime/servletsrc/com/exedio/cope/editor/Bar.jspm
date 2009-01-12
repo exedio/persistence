@@ -26,19 +26,19 @@ import java.util.ArrayList;
 
 final class Bar_Jspm
 {
-	private static final String ID_LINE_FORM    = AVOID_COLLISION + "barFormLine";
+	private static final String ID_LINE_FORM    = AVOID_COLLISION + "barLineForm";
 	private static final String ID_LINE_FEATURE = AVOID_COLLISION + "barLineFeature";
 	private static final String ID_LINE_ITEM    = AVOID_COLLISION + "barLineItem";
 	private static final String ID_LINE_VALUE   = AVOID_COLLISION + "barLineValue";
 	private static final String ID_LINE_APPLY   = AVOID_COLLISION + "barLineApply";
 	private static final String ID_LINE_PUBLISH = AVOID_COLLISION + "barLinePublish";
 	
-	private static final String ID_FILE_FORM    = AVOID_COLLISION + "barFormFile";
+	private static final String ID_FILE_FORM    = AVOID_COLLISION + "barFileForm";
 	private static final String ID_FILE_FEATURE = AVOID_COLLISION + "barFileFeature";
 	private static final String ID_FILE_ITEM    = AVOID_COLLISION + "barFileItem";
 	private static final String ID_FILE_VALUE   = AVOID_COLLISION + "barFileValue";
 	
-	private static final String ID_AREA_FORM    = AVOID_COLLISION + "barFormArea";
+	private static final String ID_AREA_FORM    = AVOID_COLLISION + "barAreaForm";
 	private static final String ID_AREA_FEATURE = AVOID_COLLISION + "barAreaFeature";
 	private static final String ID_AREA_ITEM    = AVOID_COLLISION + "barAreaItem";
 	private static final String ID_AREA_VALUE   = AVOID_COLLISION + "barAreaValue";
