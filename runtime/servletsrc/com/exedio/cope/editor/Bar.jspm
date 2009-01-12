@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 final class Bar_Jspm
 {
-	private static final String ID_FORM_LINE = Editor.AVOID_COLLISION + "barFormLine";
-	private static final String ID_FORM_FILE = Editor.AVOID_COLLISION + "barFormFile";
-	private static final String ID_FORM_AREA = Editor.AVOID_COLLISION + "barFormArea";
+	private static final String ID_LINE_FORM = Editor.AVOID_COLLISION + "barFormLine";
+	private static final String ID_FILE_FORM = Editor.AVOID_COLLISION + "barFormFile";
+	private static final String ID_AREA_FORM = Editor.AVOID_COLLISION + "barFormArea";
 	private static final String ID_LINE_FEATURE = Editor.AVOID_COLLISION + "barLineFeature";
 	private static final String ID_FILE_FEATURE = Editor.AVOID_COLLISION + "barFileFeature";
 	private static final String ID_AREA_FEATURE = Editor.AVOID_COLLISION + "barAreaFeature";
@@ -145,8 +145,8 @@ final class Bar_Jspm
 				if(previousBorder==border)
 					return true;
 				
-				document.getElementById("<%=ID_FORM_FILE%>").style.display = "none";
-				document.getElementById("<%=ID_FORM_AREA%>").style.display = "none";
+				document.getElementById("<%=ID_FILE_FORM%>").style.display = "none";
+				document.getElementById("<%=ID_AREA_FORM%>").style.display = "none";
 				document.getElementById("<%=ID_FILE_VALUE%>").value = null;
 				document.getElementById("<%=ID_AREA_VALUE%>").firstChild.data = null;
 				document.getElementById("<%=ID_LINE_FEATURE%>").value = feature;
@@ -154,7 +154,7 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_LINE_VALUE  %>").value = value;
 				document.getElementById("<%=ID_LINE_APPLY  %>").style.display = modifiable ? "inline" : "none";
 				document.getElementById("<%=ID_LINE_PUBLISH%>").style.display = modifiable ? "none" : "inline";
-				document.getElementById("<%=ID_FORM_LINE%>").style.display = "inline";
+				document.getElementById("<%=ID_LINE_FORM%>").style.display = "inline";
 				
 				if(previousBorder!=null)
 					previousBorder.className='contentEditorLink';
@@ -169,14 +169,14 @@ final class Bar_Jspm
 				if(previousBorder==border)
 					return true;
 				
-				document.getElementById("<%=ID_FORM_LINE%>").style.display = "none";
-				document.getElementById("<%=ID_FORM_AREA%>").style.display = "none";
+				document.getElementById("<%=ID_LINE_FORM%>").style.display = "none";
+				document.getElementById("<%=ID_AREA_FORM%>").style.display = "none";
 				document.getElementById("<%=ID_LINE_VALUE%>").value = null;
 				document.getElementById("<%=ID_AREA_VALUE%>").firstChild.data = null;
 				document.getElementById("<%=ID_FILE_FEATURE%>").value = feature;
 				document.getElementById("<%=ID_FILE_ITEM   %>").value = item;
 				document.getElementById("<%=ID_FILE_VALUE%>").src = value;
-				document.getElementById("<%=ID_FORM_FILE%>").style.display = "inline";
+				document.getElementById("<%=ID_FILE_FORM%>").style.display = "inline";
 				
 				if(previousBorder!=null)
 					previousBorder.className='contentEditorLink';
@@ -191,8 +191,8 @@ final class Bar_Jspm
 				if(previousBorder==border)
 					return true;
 				
-				document.getElementById("<%=ID_FORM_LINE%>").style.display = "none";
-				document.getElementById("<%=ID_FORM_FILE%>").style.display = "none";
+				document.getElementById("<%=ID_LINE_FORM%>").style.display = "none";
+				document.getElementById("<%=ID_FILE_FORM%>").style.display = "none";
 				document.getElementById("<%=ID_LINE_VALUE%>").value = null;
 				document.getElementById("<%=ID_FILE_VALUE%>").value = null;
 				document.getElementById("<%=ID_AREA_FEATURE%>").value = feature;
@@ -200,7 +200,7 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_AREA_VALUE  %>").firstChild.data = value;
 				document.getElementById("<%=ID_AREA_APPLY  %>").style.display = modifiable ? "inline" : "none";
 				document.getElementById("<%=ID_AREA_PUBLISH%>").style.display = modifiable ? "none" : "inline";
-				document.getElementById("<%=ID_FORM_AREA%>").style.display = "inline";
+				document.getElementById("<%=ID_AREA_FORM%>").style.display = "inline";
 				
 				if(previousBorder!=null)
 					previousBorder.className='contentEditorLink';
@@ -304,7 +304,7 @@ final class Bar_Jspm
 			if(borders)
 			{
 			%>
-			<form action="<%=action%>" method="POST" id="<%=ID_FORM_LINE%>" style="display:none;">
+			<form action="<%=action%>" method="POST" id="<%=ID_LINE_FORM%>" style="display:none;">
 				<hr>
 				<input name="<%=   Editor.BAR_REFERER%>" value="<%=referer     %>" type="hidden">
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_LINE_FEATURE%>" type="hidden">
@@ -314,7 +314,7 @@ final class Bar_Jspm
 				<input type="submit" value="Publish Now!" id="<%=ID_LINE_PUBLISH%>" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
 				<input type="submit" value="Apply"        id="<%=ID_LINE_APPLY%>">
 			</form>
-			<form action="<%=action%>" method="POST" id="<%=ID_FORM_FILE%>" style="display:none;" enctype="multipart/form-data">
+			<form action="<%=action%>" method="POST" id="<%=ID_FILE_FORM%>" style="display:none;" enctype="multipart/form-data">
 				<hr>
 				<img id="<%=ID_FILE_VALUE%>" src="">
 				<input name="<%=   Editor.BAR_REFERER%>" value="<%=referer     %>" type="hidden">
@@ -325,7 +325,7 @@ final class Bar_Jspm
 				<input type="submit" value="Publish Now!" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
 				<br>
 			</form>
-			<form action="<%=action%>" method="POST" id="<%=ID_FORM_AREA%>" style="display:none;">
+			<form action="<%=action%>" method="POST" id="<%=ID_AREA_FORM%>" style="display:none;">
 				<hr>
 				<input name="<%=   Editor.BAR_REFERER%>" value="<%=referer     %>" type="hidden">
 				<input name="<%=   Editor.BAR_FEATURE%>" id="<%=ID_AREA_FEATURE%>" type="hidden">
