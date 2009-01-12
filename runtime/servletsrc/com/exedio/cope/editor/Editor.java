@@ -214,6 +214,7 @@ public abstract class Editor implements Filter
 	private static final String BORDERS_ON  = "bordersOn";
 	private static final String BORDERS_OFF = "bordersOff";
 	static final String CLOSE = "close";
+	static final String SWITCH_TARGET = "switchTarget";
 	static final String SAVE_TARGET = "saveTarget";
 	
 	static final String BAR_FEATURE = "feature";
@@ -559,6 +560,10 @@ public abstract class Editor implements Filter
 			else if(request.getParameter(CLOSE)!=null || request.getParameter(CLOSE_IMAGE)!=null)
 			{
 				httpSession.removeAttribute(ANCHOR);
+			}
+			else if(request.getParameter(SWITCH_TARGET)!=null)
+			{
+				anchor.setTarget(getTarget(request.getParameter(SWITCH_TARGET)));
 			}
 			else if(request.getParameter(SAVE_TARGET)!=null)
 			{
@@ -994,8 +999,17 @@ public abstract class Editor implements Filter
 			return;
 		
 		final HttpServletRequest request = tl.request;
+		final List<Draft> drafts =
+			tl.filter.draftsEnabled
+			? Draft.TYPE.search(null, Draft.date, true)
+			: null;
+		final ArrayList<Target> targets = new ArrayList<Target>();
+		targets.add(TargetLive.INSTANCE);
+		for(final Draft draft : drafts)
+			targets.add(new TargetDraft(draft));
 		Bar_Jspm.write(out,
 				tl.anchor.getTarget(),
+				targets,
 				action(request, tl.response),
 				referer(request),
 				tl.anchor.borders,

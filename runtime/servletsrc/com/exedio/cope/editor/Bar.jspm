@@ -21,6 +21,8 @@ package com.exedio.cope.editor;
 
 import static com.exedio.cops.XMLEncoder.encode;
 
+import java.util.ArrayList;
+
 final class Bar_Jspm
 {
 	private static final String ID_FORM_LINE = Editor.AVOID_COLLISION + "barFormLine";
@@ -67,12 +69,24 @@ final class Bar_Jspm
 				font-size: 12pt;
 			}
 			
+			div#contentEditorBar h1 a
+			{
+				color: #000;
+			}
+			
 			div#contentEditorBar a
 			{
 				text-decoration: none;
 			}
 			
 			div#contentEditorBar input
+			{
+				background: #f0f8ff;
+				font-size: 80%;
+				color: #002;
+			}
+			
+			div#contentEditorBar select
 			{
 				background: #f0f8ff;
 				font-size: 80%;
@@ -210,6 +224,7 @@ final class Bar_Jspm
 	static final void write(
 			final StringBuilder out,
 			final Target target,
+			final ArrayList<Target> targets,
 			final String action,
 			final String referer,
 			final boolean borders,
@@ -240,7 +255,7 @@ final class Bar_Jspm
 					{ %>value="X"<% }
 					%>>
 			</form>
-			<h1>COPE Content Editor</h1><%
+			<h1><a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor">COPE Content Editor</a></h1><%
 			if(loginName!=null)
 			{
 			%>
@@ -248,7 +263,20 @@ final class Bar_Jspm
 			}
 			%>
 			<br>
-			<a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor Preview"><%=target.getDescription()%></a><%
+			<form action="<%=action%>" method="POST" style="display:inline;">
+				<input type="hidden" name="<%=Editor.REFERER%>" value="<%=referer%>">
+				<select name="<%=Editor.SWITCH_TARGET%>" onchange="this.form.submit();"><%
+				for(final Target t : targets)
+				{
+					final boolean active = t.equals(target);
+					%>
+					<option value="<%=t.getID()%>"<%
+						if(active){%> selected="selected"<%}
+						%>><%=t.getDescription()%></option><%
+				}
+				%>
+				</select>
+			</form><%
 			
 			if(modificationsCount>0)
 			{
