@@ -29,11 +29,18 @@ final class Modification implements Serializable // for session persistence
 	
 	private final String feature;
 	final Item item;
+	String value;
 	
 	Modification(final StringField feature, final Item item)
 	{
+		this(feature, item, null);
+	}
+	
+	Modification(final StringField feature, final Item item, final String value)
+	{
 		this.feature = feature.getID(); // id is serializable
 		this.item = item;
+		this.value = value;
 		
 		assert feature!=null;
 		assert item!=null;
@@ -54,12 +61,12 @@ final class Modification implements Serializable // for session persistence
 		return getFeature().get(item);
 	}
 	
-	void publish(final String value)
+	void publish()
 	{
 		getFeature().set(item, value);
 	}
 	
-	void saveTo(final Draft draft, final String value)
+	void saveTo(final Draft draft)
 	{
 		draft.addItem(getFeature(), item, value);
 	}

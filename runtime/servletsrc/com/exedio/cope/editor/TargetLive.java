@@ -18,7 +18,7 @@
 
 package com.exedio.cope.editor;
 
-import java.util.Map;
+import java.util.Set;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
@@ -58,10 +58,10 @@ final class TargetLive implements Target
 		return null;
 	}
 	
-	public void save(final Map<Modification, String> modifications)
+	public void save(final Set<Modification> modifications)
 	{
-		for(final Map.Entry<Modification, String> e : modifications.entrySet())
-			e.getKey().publish(e.getValue());
+		for(final Modification m : modifications)
+			m.publish();
 		// TODO maintain history
 	}
 	

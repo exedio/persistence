@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -264,13 +264,12 @@ public abstract class Editor implements Filter
 				try
 				{
 					startTransaction("publishPreviews");
-					for(final Iterator<Map.Entry<Modification, String>> i = anchor.modifications.entrySet().iterator(); i.hasNext(); )
+					for(final Iterator<Modification> i = anchor.modifications.iterator(); i.hasNext(); )
 					{
-						final Map.Entry<Modification, String> e = i.next();
-						final Modification p = e.getKey();
+						final Modification p = i.next();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							p.publish(e.getValue());
+							p.publish();
 							i.remove();
 						}
 					}
@@ -288,13 +287,12 @@ public abstract class Editor implements Filter
 				{
 					startTransaction("persistProposals");
 					final Draft parent = new Draft(anchor.user, anchor.sessionName, request.getParameter(MODIFICATION_PERSIST_COMMENT));
-					for(final Iterator<Map.Entry<Modification, String>> i = anchor.modifications.entrySet().iterator(); i.hasNext(); )
+					for(final Iterator<Modification> i = anchor.modifications.iterator(); i.hasNext(); )
 					{
-						final Map.Entry<Modification, String> e = i.next();
-						final Modification p = e.getKey();
+						final Modification p = i.next();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							parent.addItem(p.getFeature(), p.item, e.getValue());
+							parent.addItem(p.getFeature(), p.item, p.value);
 							i.remove();
 						}
 					}
@@ -311,13 +309,12 @@ public abstract class Editor implements Filter
 				{
 					startTransaction("saveToDraft");
 					final Draft parent = (Draft)model.getItem(request.getParameter(DRAFT_ID));
-					for(final Iterator<Map.Entry<Modification, String>> i = anchor.modifications.entrySet().iterator(); i.hasNext(); )
+					for(final Iterator<Modification> i = anchor.modifications.iterator(); i.hasNext(); )
 					{
-						final Map.Entry<Modification, String> e = i.next();
-						final Modification p = e.getKey();
+						final Modification p = i.next();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							parent.addItem(p.getFeature(), p.item, e.getValue());
+							parent.addItem(p.getFeature(), p.item, p.value);
 							i.remove();
 						}
 					}
@@ -334,10 +331,9 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(MODIFICATION_DISCARD)!=null)
 			{
-				for(final Iterator<Map.Entry<Modification, String>> i = anchor.modifications.entrySet().iterator(); i.hasNext(); )
+				for(final Iterator<Modification> i = anchor.modifications.iterator(); i.hasNext(); )
 				{
-					final Map.Entry<Modification, String> e = i.next();
-					final Modification p = e.getKey();
+					final Modification p = i.next();
 					if(ids!=null && ids.contains(p.getID()))
 						i.remove();
 				}
@@ -563,7 +559,7 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(BAR_SAVE_TARGET)!=null)
 			{
-				final Map<Modification, String> modifications = anchor.getModifications();
+				final Set<Modification> modifications = anchor.getModifications();
 				try
 				{
 					startTransaction("saveTarget");

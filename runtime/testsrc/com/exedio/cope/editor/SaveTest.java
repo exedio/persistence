@@ -18,8 +18,6 @@
 
 package com.exedio.cope.editor;
 
-import java.util.LinkedHashMap;
-
 import com.exedio.cope.AbstractRuntimeTest;
 
 public class SaveTest extends AbstractRuntimeTest
@@ -31,7 +29,7 @@ public class SaveTest extends AbstractRuntimeTest
 	
 	DraftedItem i;
 	Draft d;
-	LinkedHashMap<Modification, String> mods;
+	GetterSet<Modification> mods;
 	
 	@Override
 	public void setUp() throws Exception
@@ -40,9 +38,9 @@ public class SaveTest extends AbstractRuntimeTest
 		i = deleteOnTearDown(new DraftedItem());
 		d = deleteOnTearDown(new Draft("user", "name", "comment"));
 		i.setString("oldString1");
-		final Modification mod1 = new Modification(DraftedItem.string, i);
-		mods = new LinkedHashMap<Modification, String>();
-		mods.put(mod1, "newString1");
+		final Modification mod1 = new Modification(DraftedItem.string, i, "newString1");
+		mods = new GetterSet<Modification>();
+		mods.add(mod1);
 	}
 	
 	public void testDraft()

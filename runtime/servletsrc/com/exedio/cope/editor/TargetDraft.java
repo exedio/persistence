@@ -18,7 +18,7 @@
 
 package com.exedio.cope.editor;
 
-import java.util.Map;
+import java.util.Set;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
@@ -61,10 +61,10 @@ final class TargetDraft implements Target
 		return i!=null ? i.getNewValue() : null;
 	}
 	
-	public void save(final Map<Modification, String> modifications)
+	public void save(final Set<Modification> modifications)
 	{
-		for(final Map.Entry<Modification, String> e : modifications.entrySet())
-			e.getKey().saveTo(draft, e.getValue());
+		for(final Modification m : modifications)
+			m.saveTo(draft);
 		// TODO maintain some special draft history
 	}
 	

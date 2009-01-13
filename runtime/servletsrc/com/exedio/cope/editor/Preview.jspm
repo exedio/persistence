@@ -22,14 +22,14 @@ package com.exedio.cope.editor;
 import static com.exedio.cops.XMLEncoder.encode;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 final class Preview_Jspm
 {
 	static final void writeOverview(
 			final StringBuilder out,
 			final String url,
-			final Map<Modification, String> modifications,
+			final Set<Modification> modifications,
 			final Target activeTarget,
 			final List<Target> targets,
 			final String activeAuthor,
@@ -204,14 +204,13 @@ final class Preview_Jspm
 					<th>New</th>
 				</tr><%
 				
-				for(final Map.Entry<Modification, String> e : modifications.entrySet())
+				for(final Modification m : modifications)
 				{
-					final Modification m = e.getKey();
 				%>
 				<tr>
 					<td><input name="<%=Editor.MODIFICATION_IDS%>" type="checkbox" value="<%=m.getID()%>" checked="checked"></td>
 					<td><%=m.getOldValue()%></td>
-					<td><%=e.getValue()%></td>
+					<td><%=m.value%></td>
 				</tr><%
 				}
 				%>
