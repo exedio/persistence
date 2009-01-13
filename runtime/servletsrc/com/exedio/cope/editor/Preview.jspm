@@ -24,10 +24,15 @@ import static com.exedio.cops.XMLEncoder.encode;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 final class Preview_Jspm
 {
 	static final void writeOverview(
 			final StringBuilder out,
+			final HttpServletRequest request,
+			final HttpServletResponse response,
 			final String url,
 			final Set<Modification> modifications,
 			final Target activeTarget,
@@ -209,8 +214,22 @@ final class Preview_Jspm
 				%>
 				<tr>
 					<td><input name="<%=Editor.MODIFICATION_IDS%>" type="checkbox" value="<%=m.getID()%>" checked="checked"></td>
-					<td><%=m.getOldValue()%></td>
-					<td><%=m.value%></td>
+				<%
+				if(m instanceof ModificationString)
+				{
+					final ModificationString ms = (ModificationString)m;
+					%>
+					<td><%=ms.getOldValue()%></td>
+					<td><%=ms.value%></td><%
+				}
+				else
+				{
+					final ModificationMedia mm = (ModificationMedia)m;
+					final String u = encode(mm.getURL(request, response));
+					%>
+					<td colspan="2"><a href="<%=u%>"><img src="<%=u%>" height="50"></a></td><%
+				}
+				%>
 				</tr><%
 				}
 				%>

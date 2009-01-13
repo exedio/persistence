@@ -30,9 +30,9 @@ final class GetterSet<E> implements Set<E>, Serializable // for session persiste
 	
 	private final LinkedHashMap<E,E> map = new LinkedHashMap<E,E>();
 	
-	E get(final E e)
+	@SuppressWarnings("unchecked") <X extends E> X get(final X e) // OK map consistency is maintained by GetterSet
 	{
-		return map.get(e);
+		return (X)map.get(e);
 	}
 
 	public boolean add(final E e)
@@ -51,10 +51,9 @@ final class GetterSet<E> implements Set<E>, Serializable // for session persiste
 		map.clear();
 	}
 
-	@Deprecated
 	public boolean contains(Object o)
 	{
-		throw new RuntimeException();
+		return map.containsKey(o);
 	}
 
 	@Deprecated

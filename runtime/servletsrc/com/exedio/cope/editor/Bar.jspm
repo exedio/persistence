@@ -37,6 +37,8 @@ final class Bar_Jspm
 	private static final String ID_FILE_FEATURE = AVOID_COLLISION + "barFileFeature";
 	private static final String ID_FILE_ITEM    = AVOID_COLLISION + "barFileItem";
 	private static final String ID_FILE_VALUE   = AVOID_COLLISION + "barFileValue";
+	private static final String ID_FILE_APPLY   = AVOID_COLLISION + "barFileApply";
+	private static final String ID_FILE_PUBLISH = AVOID_COLLISION + "barFilePublish";
 	
 	private static final String ID_AREA_FORM    = AVOID_COLLISION + "barAreaForm";
 	private static final String ID_AREA_FEATURE = AVOID_COLLISION + "barAreaFeature";
@@ -168,7 +170,7 @@ final class Bar_Jspm
 				
 				return false;
 			}
-			function <%=Editor.EDIT_METHOD_FILE%>(border,feature,item,value)
+			function <%=Editor.EDIT_METHOD_FILE%>(border,feature,item,value,modifiable)
 			{
 				if(previousBorder==border)
 					return true;
@@ -180,13 +182,15 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_FILE_FEATURE%>").value = feature;
 				document.getElementById("<%=ID_FILE_ITEM   %>").value = item;
 				document.getElementById("<%=ID_FILE_VALUE%>").src = value;
+				document.getElementById("<%=ID_FILE_APPLY  %>").style.display = modifiable ? "inline" : "none";
+				document.getElementById("<%=ID_FILE_PUBLISH%>").style.display = modifiable ? "none" : "inline";
 				document.getElementById("<%=ID_FILE_FORM%>").style.display = "inline";
 				
 				if(previousBorder!=null)
 					previousBorder.className='contentEditorLink';
 				border.className='contentEditorLinkEdited';
 				previousBorder = border;
-				previousModifiable = false;
+				previousModifiable = modifiable;
 				
 				return false;
 			}
@@ -326,7 +330,8 @@ final class Bar_Jspm
 				<input name="<%=   Editor.BAR_ITEM   %>" id="<%=ID_FILE_ITEM   %>" type="hidden">
 				<input name="<%=   Editor.BAR_FILE   %>" type="file" class="text">
 				<br>
-				<input type="submit" value="Publish Now!" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
+				<input type="submit" value="Publish Now!" id="<%=ID_FILE_PUBLISH%>" name="<%=Editor.BAR_PUBLISH_NOW%>" class="publishNow">
+				<input type="submit" value="Apply"        id="<%=ID_FILE_APPLY%>">
 				<br>
 			</form>
 			<form action="<%=action%>" method="POST" id="<%=ID_AREA_FORM%>" style="display:none;">

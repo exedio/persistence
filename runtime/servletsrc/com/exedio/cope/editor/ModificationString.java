@@ -18,51 +18,46 @@
 
 package com.exedio.cope.editor;
 
-import java.io.Serializable;
-
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
 
-abstract class Modification implements Serializable // for session persistence
+final class ModificationString extends Modification
 {
-	private final String feature;
-	final Item item;
+	private static final long serialVersionUID = 1l;
 	
-	Modification(final Feature feature, final Item item)
+	String value;
+	
+	ModificationString(final StringField feature, final Item item)
 	{
-		this.feature = feature.getID(); // id is serializable
-		this.item = item;
-		
-		assert feature!=null;
-		assert item!=null;
+		this(feature, item, null);
 	}
 	
-	Feature getFeature()
+	ModificationString(final StringField feature, final Item item, final String value)
 	{
-		return item.getCopeType().getModel().getFeature(feature);
-	}
-	
-	final String getID()
-	{
-		return feature + '/' + item.getCopeID();
-	}
-	
-	abstract void publish();
-	abstract void saveTo(final Draft draft);
-	
-	@Override
-	public final int hashCode()
-	{
-		return feature.hashCode() ^ item.hashCode();
+		super(feature, item);
+		this.value = value;
 	}
 	
 	@Override
-	public final boolean equals(final Object other)
+	StringField getFeature()
 	{
-		if(!(other instanceof Modification))
-			return false;
-		
-		final Modification o = (Modification)other;
-		return feature.equals(o.feature) && item.equals(o.item);
+		return (StringField)super.getFeature();
+	}
+	
+	String getOldValue()
+	{
+		return getFeature().get(item);
+	}
+	
+	@Override
+	void publish()
+	{
+		getFeature().set(item, value);
+	}
+	
+	@Override
+	void saveTo(final Draft draft)
+	{
+		draft.addItem(getFeature(), item, value);
 	}
 }

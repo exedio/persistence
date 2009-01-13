@@ -22,8 +22,14 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.pattern.Media;
 
 final class Anchor implements Serializable // for session persistence
 {
@@ -68,11 +74,33 @@ final class Anchor implements Serializable // for session persistence
 	{
 		if(!modifications.isEmpty()) // shortcut
 		{
-			final Modification m = modifications.get(new Modification(feature, item));
+			final ModificationString m = modifications.get(new ModificationString(feature, item));
 			if(m!=null)
 				return m.value;
 		}
 		return target.get(feature, item);
+	}
+	
+	FileItem getModification(final Media feature, final Item item)
+	{
+		if(!modifications.isEmpty()) // shortcut
+		{
+			final ModificationMedia fi = modifications.get(new ModificationMedia(feature, item));
+			if(fi!=null)
+				return fi.value;
+		}
+		return null;
+	}
+	
+	String getModificationURL(final Media feature, final Item item, final HttpServletRequest request, final HttpServletResponse response)
+	{
+		if(!modifications.isEmpty()) // shortcut
+		{
+			final ModificationMedia m = new ModificationMedia(feature, item);
+			if(modifications.contains(m))
+				return m.getURL(request, response);
+		}
+		return null;
 	}
 	
 	Set<Modification> getModifications()
@@ -82,12 +110,17 @@ final class Anchor implements Serializable // for session persistence
 	
 	void modify(final String content, final StringField feature, final Item item)
 	{
-		modifications.add(new Modification(feature, item, content));
+		modifications.add(new ModificationString(feature, item, content));
+	}
+	
+	void modify(final FileItem content, final Media feature, final Item item)
+	{
+		modifications.add(new ModificationMedia(feature, item, content));
 	}
 	
 	void notifyPublished(final StringField feature, final Item item)
 	{
-		modifications.remove(new Modification(feature, item));
+		modifications.remove(new ModificationString(feature, item));
 	}
 	
 	void notifyPublishedAll()

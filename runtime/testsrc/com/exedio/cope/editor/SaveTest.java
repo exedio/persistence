@@ -38,7 +38,7 @@ public class SaveTest extends AbstractRuntimeTest
 		i = deleteOnTearDown(new DraftedItem());
 		d = deleteOnTearDown(new Draft("user", "name", "comment"));
 		i.setString("oldString1");
-		final Modification mod1 = new Modification(DraftedItem.string, i, "newString1");
+		final Modification mod1 = new ModificationString(DraftedItem.string, i, "newString1");
 		mods = new GetterSet<Modification>();
 		mods.add(mod1);
 	}

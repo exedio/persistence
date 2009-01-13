@@ -19,6 +19,7 @@
 package com.exedio.cope.editor;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -169,6 +170,8 @@ public abstract class Editor implements Filter
 			{
 				if(request.getParameter(PREVIEW_OVERVIEW)!=null)
 					doPreviewOverview(request, response, (Anchor)anchor);
+				else if(request.getParameter(MEDIA_FEATURE)!=null)
+					doMedia(request, response, (Anchor)anchor);
 				else
 					doBar(request, httpSession, response, (Anchor)anchor);
 			}
@@ -410,6 +413,7 @@ public abstract class Editor implements Filter
 				targets.add(new TargetDraft(draft));
 			Preview_Jspm.writeOverview(
 					out,
+					request, response,
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
 					anchor.getModifications(),
 					anchor.getTarget(), targets,
@@ -514,17 +518,24 @@ public abstract class Editor implements Filter
 				
 				final Item item = model.getItem(itemID);
 
-				for(final History history : History.getHistories(item.getCopeType()))
+				if(fields.get(BAR_PUBLISH_NOW)!=null)
 				{
-					final History.Event event = history.createEvent(item, anchor.getHistoryAuthor(), false);
-					event.createFeature(
-							feature, feature.getName(),
-							feature.isNull(item) ? null : ("file type=" + feature.getContentType(item) + " size=" + feature.getLength(item)),
-							"file name=" + file.getName() + " type=" + file.getContentType() + " size=" + file.getSize());
+					for(final History history : History.getHistories(item.getCopeType()))
+					{
+						final History.Event event = history.createEvent(item, anchor.getHistoryAuthor(), false);
+						event.createFeature(
+								feature, feature.getName(),
+								feature.isNull(item) ? null : ("file type=" + feature.getContentType(item) + " size=" + feature.getLength(item)),
+								"file name=" + file.getName() + " type=" + file.getContentType() + " size=" + file.getSize());
+					}
+					
+					// TODO use more efficient setter with File or byte[]
+					feature.set(item, file.getInputStream(), file.getContentType());
 				}
-				
-				// TODO use more efficient setter with File or byte[]
-				feature.set(item, file.getInputStream(), file.getContentType());
+				else
+				{
+					anchor.modify(file, feature, item);
+				}
 				
 				model.commit();
 			}
@@ -677,8 +688,97 @@ public abstract class Editor implements Filter
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + request.getServletPath() + referer));
 	}
 	
+	static final String MEDIA_FEATURE = "mf";
+	static final String MEDIA_ITEM = "mi";
+	
+	private final void doMedia(
+			final HttpServletRequest request,
+			final HttpServletResponse response,
+			final Anchor anchor)
+	{
+		final String featureID = request.getParameter(MEDIA_FEATURE);
+		if(featureID==null)
+			throw new NullPointerException();
+		final Media feature = (Media)model.getFeature(featureID);
+		if(feature==null)
+			throw new NullPointerException(featureID);
+		
+		final String itemID = request.getParameter(MEDIA_ITEM);
+		if(itemID==null)
+			throw new NullPointerException();
+		
+		final Item item;
+		try
+		{
+			startTransaction("media(" + featureID + ',' + itemID + ')');
+			item = model.getItem(itemID);
+			model.commit();
+		}
+		catch(NoSuchIDException e)
+		{
+			throw new RuntimeException(e);
+		}
+		finally
+		{
+			model.rollbackIfNotCommitted();
+		}
+		
+		final FileItem fi = anchor.getModification(feature, item);
+		if(fi==null)
+			throw new NullPointerException(featureID + '-' + itemID);
+		response.addHeader("Cache-Control", "no-cache");
+		response.addHeader("Cache-Control", "no-store");
+		response.addHeader("Cache-Control", "max-age=0");
+		response.addHeader("Cache-Control", "must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", System.currentTimeMillis());
+		response.setContentType(fi.getContentType());
+		response.setContentLength((int)fi.getSize());
+		
+		InputStream in = null;
+		ServletOutputStream out = null;
+		try
+		{
+			in  = fi.getInputStream();
+			out = response.getOutputStream();
+			
+			final byte[] b = new byte[20*1024];
+			for(int len = in.read(b); len>=0; len = in.read(b))
+				out.write(b, 0, len);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		finally
+		{
+			if(in!=null)
+			{
+				try
+				{
+					in.close();
+				}
+				catch(IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			if(out!=null)
+			{
+				try
+				{
+					out.close();
+				}
+				catch(IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	static final String LOGIN_URL = "copeContentEditor.html";
-	private static final String LOGIN_URL_PATH_INFO = '/' + LOGIN_URL;
+	static final String LOGIN_URL_PATH_INFO = '/' + LOGIN_URL;
 	static final String LOGIN_SUBMIT   = "login.submit";
 	static final String LOGIN_USER     = "login.user";
 	static final String LOGIN_PASSWORD = "login.password";
@@ -882,13 +982,24 @@ public abstract class Editor implements Filter
 		if(tl==null || !tl.anchor.borders)
 			return "";
 		
+		return edit(tl, feature, item, true);
+	}
+	
+	private static final String edit(final TL tl, final Media feature, final Item item, final boolean modifiable)
+	{
 		checkEdit(feature, item);
 		if(feature.isFinal())
 			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
+		final String modificationURL = modifiable ? tl.anchor.getModificationURL(feature, item, tl.request, tl.response) : null;
 		final StringBuilder bf = new StringBuilder();
 		bf.append(
 				" class=\"contentEditorLink\"" +
+				(
+						modificationURL!=null
+						? (" onload=\"this.src='" + XMLEncoder.encode(modificationURL) + "';\"")
+						: ""
+				) +
 				" onclick=\"" +
 					"return " + EDIT_METHOD_FILE + "(this,'").
 						append(feature.getID()).
@@ -896,7 +1007,7 @@ public abstract class Editor implements Filter
 						append(item.getCopeID()).
 						append("','").
 						append(XMLEncoder.encode(feature.getURL(item))).
-					append("');\"");
+					append("'," + modifiable + ");\"");
 		
 		return bf.toString();
 	}
@@ -909,7 +1020,7 @@ public abstract class Editor implements Filter
 		
 		checkEdit(feature, item);
 		
-		return edit(feature.getSource(), item);
+		return edit(tl, feature.getSource(), item, false);
 	}
 	
 	public static final String edit(final IntegerField feature, final Item item)
