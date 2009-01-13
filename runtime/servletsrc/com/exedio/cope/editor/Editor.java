@@ -292,7 +292,7 @@ public abstract class Editor implements Filter
 						final Modification p = i.next();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							parent.addItem(p.getFeature(), p.item, p.value);
+							p.saveTo(parent);
 							i.remove();
 						}
 					}
@@ -314,7 +314,7 @@ public abstract class Editor implements Filter
 						final Modification p = i.next();
 						if(ids!=null && ids.contains(p.getID()))
 						{
-							parent.addItem(p.getFeature(), p.item, p.value);
+							p.saveTo(parent);
 							i.remove();
 						}
 					}
