@@ -65,4 +65,10 @@ abstract class Modification implements Serializable // for session persistence
 		final Modification o = (Modification)other;
 		return feature.equals(o.feature) && item.equals(o.item);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return feature + '-' + item.getCopeID();
+	}
 }

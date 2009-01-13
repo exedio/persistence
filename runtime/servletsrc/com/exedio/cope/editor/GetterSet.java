@@ -117,4 +117,10 @@ final class GetterSet<E> implements Set<E>, Serializable // for session persiste
 	{
 		return (other instanceof GetterSet) && map.equals(((GetterSet)other).map);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return map.keySet().toString();
+	}
 }
