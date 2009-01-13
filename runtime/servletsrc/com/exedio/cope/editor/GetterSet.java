@@ -40,6 +40,7 @@ final class GetterSet<E> implements Set<E>, Serializable // for session persiste
 		return map.put(e, e)==null;
 	}
 
+	@Deprecated
 	public boolean addAll(Collection<? extends E> c)
 	{
 		throw new RuntimeException();
@@ -50,11 +51,13 @@ final class GetterSet<E> implements Set<E>, Serializable // for session persiste
 		map.clear();
 	}
 
+	@Deprecated
 	public boolean contains(Object o)
 	{
 		throw new RuntimeException();
 	}
 
+	@Deprecated
 	public boolean containsAll(Collection<?> c)
 	{
 		throw new RuntimeException();
@@ -75,11 +78,13 @@ final class GetterSet<E> implements Set<E>, Serializable // for session persiste
 		return map.remove(o)!=null;
 	}
 
+	@Deprecated
 	public boolean removeAll(Collection<?> c)
 	{
 		throw new RuntimeException();
 	}
 
+	@Deprecated
 	public boolean retainAll(Collection<?> c)
 	{
 		throw new RuntimeException();
@@ -90,11 +95,13 @@ final class GetterSet<E> implements Set<E>, Serializable // for session persiste
 		return map.size();
 	}
 
+	@Deprecated
 	public Object[] toArray()
 	{
 		throw new RuntimeException();
 	}
 
+	@Deprecated
 	public <T> T[] toArray(T[] a)
 	{
 		throw new RuntimeException();
