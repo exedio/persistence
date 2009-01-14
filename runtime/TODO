@@ -81,3 +81,7 @@ TODO for cope runtime
 	* separate test model for lib tests and testwebapp (webtests)
 	* make small test models for each lib test
 - support JMX for information displayed by ConsoleServlet
+- separate into own sub-projects:
+	* console
+	* editor
+	* homepage
