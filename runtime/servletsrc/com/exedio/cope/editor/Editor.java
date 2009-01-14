@@ -979,7 +979,7 @@ public abstract class Editor implements Filter
 	public static final String edit(final Media feature, final Item item)
 	{
 		final TL tl = tls.get();
-		if(tl==null || !tl.anchor.borders)
+		if(tl==null)
 			return "";
 		
 		return edit(tl, feature, item, true);
@@ -992,14 +992,18 @@ public abstract class Editor implements Filter
 			throw new IllegalArgumentException("feature " + feature.getID() + " must not be final");
 		
 		final String modificationURL = modifiable ? tl.anchor.getModificationURL(feature, item, tl.request, tl.response) : null;
+		final String onload =
+			modificationURL!=null
+				? (" onload=\"this.src='" + XMLEncoder.encode(modificationURL) + "';\"")
+				: "";
+		
+		if(!tl.anchor.borders)
+			return onload;
+		
 		final StringBuilder bf = new StringBuilder();
 		bf.append(
 				" class=\"contentEditorLink\"" +
-				(
-						modificationURL!=null
-						? (" onload=\"this.src='" + XMLEncoder.encode(modificationURL) + "';\"")
-						: ""
-				) +
+				onload +
 				" onclick=\"" +
 					"return " + EDIT_METHOD_FILE + "(this,'").
 						append(feature.getID()).
