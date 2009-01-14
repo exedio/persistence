@@ -71,6 +71,7 @@ TODO for cope runtime
 	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
 	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
 - rethink internal structure of Entity, State, Row
+- use getForeignKeyInfo() etc. from JDBC for verifying dsmf schema
 - allow (fulltext) indexes to be declared in java source code,
 	and generate useful finders for index.
 - migrate to Oracle 11 from Oracle 9
