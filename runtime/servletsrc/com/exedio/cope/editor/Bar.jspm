@@ -59,6 +59,7 @@ final class Bar_Jspm
 			div#contentEditorBar
 			{
 				position: fixed; top: 20px; right: 20px; min-width: 350px;
+				z-index: 1;
 				border: outset 4px #f0f8ff;
 				background: #f0f8ff;
 				padding: 5px;
