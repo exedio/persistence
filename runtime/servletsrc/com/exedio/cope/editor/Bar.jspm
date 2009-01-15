@@ -58,8 +58,8 @@ final class Bar_Jspm
 			
 			div#contentEditorBar
 			{
-				margin: 10px;
-				border-bottom: solid 1px #eef;
+				position: fixed; top: 20px; right: 20px; min-width: 350px;
+				border: outset 4px #f0f8ff;
 				background: #f0f8ff;
 				padding: 5px;
 				text-align: left;
@@ -118,7 +118,7 @@ final class Bar_Jspm
 			
 			div#contentEditorBar input.text
 			{
-				width: 90%;
+				width: 80%;
 			}
 			
 			div#contentEditorBar input.publishNow
