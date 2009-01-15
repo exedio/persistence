@@ -777,7 +777,7 @@ public abstract class Editor implements Filter
 		}
 	}
 	
-	static final String LOGIN_URL = "copeContentEditor.html";
+	static final String LOGIN_URL = "copeLiveEdit.html";
 	static final String LOGIN_URL_PATH_INFO = '/' + LOGIN_URL;
 	static final String LOGIN_SUBMIT   = "login.submit";
 	static final String LOGIN_USER     = "login.user";
