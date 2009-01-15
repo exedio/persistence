@@ -35,7 +35,7 @@ final class Login_Jspm
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=Editor.UTF8%>">
-		<title>Content Editor Login</title>
+		<title>Live Edit Login</title>
 		<style>
 			h1
 			{
@@ -63,7 +63,7 @@ final class Login_Jspm
 	</head>
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
-		<h1>COPE Content Editor</h1><%
+		<h1>COPE Live Edit</h1><%
 		if(failureUser!=null)
 		{
 		%>

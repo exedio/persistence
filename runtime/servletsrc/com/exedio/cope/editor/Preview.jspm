@@ -45,7 +45,7 @@ final class Preview_Jspm
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=<%=Editor.UTF8%>">
-		<title>Content Editor</title>
+		<title>Live Edit</title>
 		<style>
 			h1
 			{
@@ -116,7 +116,7 @@ final class Preview_Jspm
 	</head>
 	<body>
 		<a href="http://cope.sourceforge.net/" target="_blank"><img src="http://cope.sourceforge.net/exedio.png" alt="Exedio Logo" class="logo"></a>
-		<h1>COPE Content Editor</h1><%
+		<h1>COPE Live Edit</h1><%
 		
 	if(draftsEnabled)
 	{
@@ -195,7 +195,7 @@ final class Preview_Jspm
 	if(modifications.isEmpty())
 	{
 		%>
-		<div>There are no unsaved modifications in this Content Editor session.</div><%
+		<div>There are no unsaved modifications in this Live Edit session.</div><%
 	}
 	else
 	{

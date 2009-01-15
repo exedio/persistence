@@ -258,12 +258,12 @@ final class Bar_Jspm
 					if(closeButtonURL!=null) { %>image<% } else { %>submit<% }
 					%>" name="<%=Editor.BAR_CLOSE%>" <%
 					if(closeButtonURL!=null)
-					{ %>src="<%=closeButtonURL%>" alt="Close Content Editor"<% }
+					{ %>src="<%=closeButtonURL%>" alt="Close Live Edit"<% }
 					else
 					{ %>value="X"<% }
 					%>>
 			</form>
-			<h1><a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Content Editor">COPE Content Editor</a></h1><%
+			<h1><a href="<%=action%>?<%=Editor.PREVIEW_OVERVIEW%>=t" target="Live Edit">COPE Live Edit</a></h1><%
 			if(loginName!=null)
 			{
 			%>
