@@ -131,6 +131,8 @@ public abstract class Editor implements Filter
 		return null;
 	}
 	
+	protected abstract String getHideButtonURL(HttpServletRequest request, HttpServletResponse response);
+	
 	@SuppressWarnings("unused")
 	protected String getCloseButtonURL(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -1129,6 +1131,7 @@ public abstract class Editor implements Filter
 				tl.anchor.borders,
 				tl.anchor.borders ? BAR_BORDERS_OFF : BAR_BORDERS_ON,
 				tl.filter.getBorderButtonURL(request, tl.response, tl.anchor.borders),
+				tl.filter.getHideButtonURL (request, tl.response),
 				tl.filter.getCloseButtonURL(request, tl.response),
 				tl.anchor.getModificationsCount(),
 				tl.anchor.sessionName);

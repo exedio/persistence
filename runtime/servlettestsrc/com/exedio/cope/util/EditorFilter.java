@@ -74,6 +74,12 @@ public final class EditorFilter extends Editor
 	}
 	
 	@Override
+	protected String getHideButtonURL(final HttpServletRequest request, final HttpServletResponse response)
+	{
+		return request.getContextPath() + "/hide.png";
+	}
+	
+	@Override
 	protected String getCloseButtonURL(final HttpServletRequest request, final HttpServletResponse response)
 	{
 		return request.getContextPath() + "/close.png";

@@ -58,7 +58,7 @@ final class Bar_Jspm
 			
 			div#contentEditorBar
 			{
-				position: fixed; top: 20px; right: 20px; min-width: 350px;
+				position: fixed; top: 20px; min-width: 350px;
 				z-index: 1;
 				border: outset 4px #f0f8ff;
 				background: #f0f8ff;
@@ -162,6 +162,7 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_LINE_APPLY  %>").style.display = modifiable ? "inline" : "none";
 				document.getElementById("<%=ID_LINE_PUBLISH%>").style.display = modifiable ? "none" : "inline";
 				document.getElementById("<%=ID_LINE_FORM%>").style.display = "inline";
+				document.getElementById("contentEditorBar").style.display = "block";
 				
 				if(previousBorder!=null)
 					previousBorder.className='contentEditorLink';
@@ -186,6 +187,7 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_FILE_APPLY  %>").style.display = modifiable ? "inline" : "none";
 				document.getElementById("<%=ID_FILE_PUBLISH%>").style.display = modifiable ? "none" : "inline";
 				document.getElementById("<%=ID_FILE_FORM%>").style.display = "inline";
+				document.getElementById("contentEditorBar").style.display = "block";
 				
 				if(previousBorder!=null)
 					previousBorder.className='contentEditorLink';
@@ -210,6 +212,7 @@ final class Bar_Jspm
 				document.getElementById("<%=ID_AREA_APPLY  %>").style.display = modifiable ? "inline" : "none";
 				document.getElementById("<%=ID_AREA_PUBLISH%>").style.display = modifiable ? "none" : "inline";
 				document.getElementById("<%=ID_AREA_FORM%>").style.display = "inline";
+				document.getElementById("contentEditorBar").style.display = "block";
 				
 				if(previousBorder!=null)
 					previousBorder.className='contentEditorLink';
@@ -239,12 +242,13 @@ final class Bar_Jspm
 			final boolean borders,
 			final String borderToggleParameter,
 			final String borderButtonURL,
+			final String hideButtonURL,
 			final String closeButtonURL,
 			final int modificationsCount,
 			final String loginName)
 	{
 		%>
-		<div id="contentEditorBar">
+		<div id="contentEditorBar" style="right:20px;">
 			<form action="<%=action%>" method="POST" id="contentEditorBarSwitches">
 				<input type="hidden" name="<%=Editor.BAR_REFERER%>" value="<%=referer%>">
 				<input type="<%
@@ -255,6 +259,7 @@ final class Bar_Jspm
 					else
 					{ %>value="<%if(borders){%>dis<%}else{%>en<%}%>able borders"<% }
 					%>>
+				<img src="<%=hideButtonURL%>" onclick="document.getElementById('contentEditorBar').style.display = 'none';">
 				<input type="<%
 					if(closeButtonURL!=null) { %>image<% } else { %>submit<% }
 					%>" name="<%=Editor.BAR_CLOSE%>" <%
