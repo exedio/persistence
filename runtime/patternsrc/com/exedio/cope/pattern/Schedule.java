@@ -210,11 +210,15 @@ public final class Schedule extends Pattern
 			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(runType.getThis().isNull());
 			q.joinOuterLeft(runType,
-					Cope.and(runParent.as(parentClass).equal(typeThis), enabled.equal(true), Cope.or(
+					Cope.and(
+						runParent.as(parentClass).equal(typeThis),
+						enabled.equal(true),
+						Cope.or(
 							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
 							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
 							interval.equal(Interval.MONTHLY).and(runUntil.greaterOrEqual(untilMonthly))
-					))
+						)
+					)
 			);
 			q.setOrderBy(typeThis, true);
 			toRun = q.search();
