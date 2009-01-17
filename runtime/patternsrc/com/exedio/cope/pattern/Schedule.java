@@ -25,6 +25,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
@@ -48,6 +49,7 @@ public final class Schedule extends Pattern
 		MONTHLY;
 	}
 	
+	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
 	
 	ItemField<?> runParent = null;
@@ -60,6 +62,7 @@ public final class Schedule extends Pattern
 	
 	public Schedule()
 	{
+		addSource(enabled,  "Enabled");
 		addSource(interval, "Interval");
 	}
 	
@@ -82,6 +85,11 @@ public final class Schedule extends Pattern
 		features.put("run",   runRun);
 		features.put("elapsed", runElapsed);
 		runType = newSourceType(Run.class, features, "Run");
+	}
+	
+	public BooleanField getEnabled()
+	{
+		return enabled;
 	}
 	
 	public EnumField<Interval> getInterval()
@@ -131,6 +139,12 @@ public final class Schedule extends Pattern
 		result.addAll(super.getWrappers());
 		
 		result.add(
+			new Wrapper("isEnabled").
+			setReturn(boolean.class));
+		result.add(
+			new Wrapper("setEnabled").
+			addParameter(boolean.class, "enabled"));
+		result.add(
 			new Wrapper("getInterval").
 			setReturn(Interval.class));
 		result.add(
@@ -143,6 +157,16 @@ public final class Schedule extends Pattern
 			setStatic());
 				
 		return Collections.unmodifiableList(result);
+	}
+	
+	public boolean isEnabled(final Item item)
+	{
+		return this.enabled.getMandatory(item);
+	}
+	
+	public void setEnabled(final Item item, final boolean enabled)
+	{
+		this.enabled.set(item, enabled);
 	}
 	
 	public Interval getInterval(final Item item)
@@ -186,7 +210,7 @@ public final class Schedule extends Pattern
 			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(runType.getThis().isNull());
 			q.joinOuterLeft(runType,
-					runParent.as(parentClass).equal(typeThis).and(Cope.or(
+					Cope.and(runParent.as(parentClass).equal(typeThis), enabled.equal(true), Cope.or(
 							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
 							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
 							interval.equal(Interval.MONTHLY).and(runUntil.greaterOrEqual(untilMonthly))

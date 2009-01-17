@@ -62,9 +62,11 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(true, item.TYPE.hasUniqueJavaClass());
 		assertEquals(null, item.TYPE.getPattern());
 		
-		assertEqualsUnmodifiable(list(TYPE.getThis(), report, report.getInterval(), ScheduleItem.fail), TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(TYPE.getThis(), report, report.getEnabled(), report.getInterval(), ScheduleItem.fail), TYPE.getFeatures());
 		assertEquals(TYPE, report.getInterval().getType());
 		assertEquals("reportInterval", report.getInterval().getName());
+		assertEquals(TYPE, report.getEnabled().getType());
+		assertEquals("reportEnabled", report.getEnabled().getName());
 		
 		assertEqualsUnmodifiable(list(
 				report.getRunType().getThis(),
@@ -242,6 +244,35 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		item.assertLogs(listg(log(date("2008/05/01-00:00:00.000"), date("2008/06/01-00:00:00.000"))));
 		assertRuns(listg(
 				ern(date("2008/05/01-00:00:00.000"), date("2008/06/01-00:00:00.000"), date("2008/06/01-00:00:00.000"))));
+	}
+	
+	public void testEnabled()
+	{
+		assertEquals(true, item.isReportEnabled());
+		assertEquals(Interval.DAILY, item.getReportInterval());
+		
+		if(oracle) // TODO
+			return;
+		
+		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
+		item.assertLogs(listg(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
+		
+		item.setReportEnabled(false);
+		assertEquals(false, item.isReportEnabled());
+		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
+		item.assertLogs(ScheduleTest.<Log>listg());
+		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		
+		item.setReportEnabled(true);
+		assertEquals(true, item.isReportEnabled());
+		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(1, run(date("2008/03/15-00:00:00.000")));
+		item.assertLogs(listg(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
+		assertRuns(listg(
+				ern(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 	}
 	
 	private final int run(final Date now)
