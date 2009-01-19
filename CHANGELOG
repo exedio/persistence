@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. lastest items are on top
 
 --------------------------------------------------------------------------
+* add Schedule.enabled, adds new columns to schema, should be initialized with "true"
 * changed url of content editor from contentEditorLogin.html or copeContentEditor.html to copeLiveEdit.html
 * in contentEditor.css remove any styles related to contentEditorBar
 * for content editor, Editor.writeHead must be called in html head
