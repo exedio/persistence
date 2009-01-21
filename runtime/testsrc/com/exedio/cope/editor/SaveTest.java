@@ -37,7 +37,7 @@ public class SaveTest extends AbstractRuntimeTest
 	
 	DraftedItem i;
 	Draft d;
-	Anchor mods;
+	Anchor anchor;
 	
 	@Override
 	public void setUp() throws Exception
@@ -46,14 +46,14 @@ public class SaveTest extends AbstractRuntimeTest
 		i = deleteOnTearDown(new DraftedItem());
 		d = deleteOnTearDown(new Draft("user", "name", "comment"));
 		i.setString("oldString1");
-		mods = new Anchor("anchorUser", SESSION, "anchorSessionName");
-		mods.modify("newString1", DraftedItem.string, i);
+		anchor = new Anchor("anchorUser", SESSION, "anchorSessionName");
+		anchor.modify("newString1", DraftedItem.string, i);
 	}
 	
 	public void testDraft()
 	{
 		assertEquals(list(), d.getItems());
-		new TargetDraft(d).save(mods);
+		new TargetDraft(d).save(anchor);
 		assertEquals(1, d.getItemsCount());
 		final DraftItem di1 = d.getItems().get(0);
 		assertEquals("DraftedItem.string", di1.getFeature());
@@ -65,7 +65,7 @@ public class SaveTest extends AbstractRuntimeTest
 	public void testLive()
 	{
 		assertEquals("oldString1", i.getString());
-		TargetLive.INSTANCE.save(mods);
+		TargetLive.INSTANCE.save(anchor);
 		assertEquals("newString1", i.getString());
 	}
 }
