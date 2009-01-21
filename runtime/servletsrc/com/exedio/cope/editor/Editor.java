@@ -419,7 +419,6 @@ public abstract class Editor implements Filter
 					response.encodeURL(LOGIN_URL + '?' + PREVIEW_OVERVIEW + "=t"),
 					anchor.getModifications(),
 					anchor.getTarget(), targets,
-					anchor.getDraftAuthor(),
 					draftsEnabled, drafts);
 			model.commit();
 		}

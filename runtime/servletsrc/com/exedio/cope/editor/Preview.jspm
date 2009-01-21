@@ -37,7 +37,6 @@ final class Preview_Jspm
 			final Set<Modification> modifications,
 			final Target activeTarget,
 			final List<Target> targets,
-			final String activeAuthor,
 			final boolean draftsEnabled,
 			final List<Draft> drafts)
 	{

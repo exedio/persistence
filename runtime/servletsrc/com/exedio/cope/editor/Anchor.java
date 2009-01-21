@@ -128,11 +128,6 @@ final class Anchor implements Serializable // for session persistence
 		modifications.clear();
 	}
 	
-	String getDraftAuthor()
-	{
-		return (sessionName!=null ? sessionName : user);
-	}
-	
 	String getHistoryAuthor()
 	{
 		return (sessionName!=null ? sessionName : user) + " (CCE)";
