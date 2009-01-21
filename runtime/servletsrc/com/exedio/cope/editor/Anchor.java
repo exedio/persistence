@@ -38,7 +38,7 @@ final class Anchor implements Serializable // for session persistence
 	final String user;
 	final Session session;
 	final String sessionName;
-	private Target target = TargetLive.INSTANCE;
+	private Target target = TargetNewDraft.INSTANCE;
 	boolean borders = false;
 	final GetterSet<Modification> modifications = new GetterSet<Modification>();
 	
@@ -54,7 +54,7 @@ final class Anchor implements Serializable // for session persistence
 	Target getTarget()
 	{
 		if(!target.exists())
-			target = TargetLive.INSTANCE;
+			target = TargetNewDraft.INSTANCE;
 		return target;
 	}
 	

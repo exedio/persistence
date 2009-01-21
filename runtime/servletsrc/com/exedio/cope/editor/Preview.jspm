@@ -133,7 +133,6 @@ final class Preview_Jspm
 			for(final Target target : targets)
 			{
 				final boolean open = activeTarget.equals(target);
-				final boolean live = target.isLive();
 			%>
 			<tr<% if(open){%> class="open"<%} %>>
 				<td>
@@ -142,10 +141,21 @@ final class Preview_Jspm
 						<input type="submit" name="<%=Editor.TARGET_OPEN%>" value="Open"<% if(open){%> disabled="disabled"<%} %>>
 					</form>
 				</td><%
-			if(live)
+			if(target instanceof TargetLive)
 			{
 				%>
 				<td colspan="5"><%=target.getDescription()%></td><%
+			}
+			else if(target instanceof TargetNewDraft)
+			{
+				%>
+				<td colspan="5">
+					<form action="<%=url%>" method="POST" style="display:inline;">
+						Comment:
+						<input name="<%=Editor.DRAFT_COMMENT%>" type="text">
+						<input type="submit" name="<%=Editor.DRAFT_NEW%>" value="New">
+					</form>
+				</td><%
 			}
 			else
 			{
@@ -178,16 +188,6 @@ final class Preview_Jspm
 			</tr><%
 			}
 		%>
-			<tr>
-				<form action="<%=url%>" method="POST">
-					<td></td>
-					<td></td>
-					<td><%=activeAuthor%></td>
-					<td><input name="<%=Editor.DRAFT_COMMENT%>" type="text"></td>
-					<td></td>
-					<td><input type="submit" name="<%=Editor.DRAFT_NEW%>" value="New"></td>
-				</form>
-			</tr>
 		</table>
 		<hr><%
 	}

@@ -412,6 +412,7 @@ public abstract class Editor implements Filter
 			targets.add(TargetLive.INSTANCE);
 			for(final Draft draft : drafts)
 				targets.add(new TargetDraft(draft));
+			targets.add(TargetNewDraft.INSTANCE);
 			Preview_Jspm.writeOverview(
 					out,
 					request, response,
@@ -442,6 +443,10 @@ public abstract class Editor implements Filter
 		if(TargetLive.ID.equals(id))
 		{
 			return TargetLive.INSTANCE;
+		}
+		else if(TargetNewDraft.ID.equals(id))
+		{
+			return TargetNewDraft.INSTANCE;
 		}
 		else
 		{
@@ -1121,6 +1126,7 @@ public abstract class Editor implements Filter
 		targets.add(TargetLive.INSTANCE);
 		for(final Draft draft : drafts)
 			targets.add(new TargetDraft(draft));
+		targets.add(TargetNewDraft.INSTANCE);
 		Bar_Jspm.write(out,
 				tl.anchor.getTarget(),
 				targets,

@@ -76,4 +76,26 @@ public class SaveTest extends AbstractRuntimeTest
 		assertEquals(0, draft.getItemsCount());
 		assertContains(draft, Draft.TYPE.search());
 	}
+	
+	public void testNewDraft()
+	{
+		assertContains(draft, Draft.TYPE.search());
+		
+		TargetNewDraft.INSTANCE.save(anchor);
+		final Draft newDraft = deleteOnTearDown(Draft.TYPE.searchSingleton(Draft.TYPE.getThis().notEqual(draft)));
+		assertEquals("anchorSessionName", newDraft.getAuthor());
+		assertEquals("new draft", newDraft.getComment());
+		assertEquals("anchorSessionName - new draft", newDraft.getDropDownSummary());
+		assertEquals(1, newDraft.getItemsCount());
+		final DraftItem di1 = newDraft.getItems().get(0);
+		assertEquals("DraftedItem.string", di1.getFeature());
+		assertEquals(item.getCopeID(), di1.getItem());
+		assertEquals("oldString1", di1.getOldValue());
+		assertEquals("newString1", di1.getNewValue());
+
+		
+		assertContains(draft, newDraft, Draft.TYPE.search());
+		assertEquals(0, draft.getItemsCount());
+		assertEquals("oldString1", item.getString());
+	}
 }
