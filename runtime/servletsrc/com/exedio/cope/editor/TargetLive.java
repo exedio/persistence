@@ -18,8 +18,6 @@
 
 package com.exedio.cope.editor;
 
-import java.util.Set;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -58,9 +56,9 @@ final class TargetLive implements Target
 		return null;
 	}
 	
-	public void save(final Set<Modification> modifications)
+	public void save(final Anchor anchor)
 	{
-		for(final Modification m : modifications)
+		for(final Modification m : anchor.getModifications())
 			m.publish();
 		// TODO maintain history
 	}

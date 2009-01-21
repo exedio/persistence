@@ -18,8 +18,6 @@
 
 package com.exedio.cope.editor;
 
-import java.util.Set;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
@@ -61,9 +59,9 @@ final class TargetDraft implements Target
 		return i!=null ? i.getNewValue() : null;
 	}
 	
-	public void save(final Set<Modification> modifications)
+	public void save(final Anchor anchor)
 	{
-		for(final Modification m : modifications)
+		for(final Modification m : anchor.getModifications())
 			m.saveTo(draft);
 		// TODO maintain some special draft history
 	}

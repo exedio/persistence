@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -572,11 +571,10 @@ public abstract class Editor implements Filter
 			}
 			else if(request.getParameter(BAR_SAVE_TARGET)!=null)
 			{
-				final Set<Modification> modifications = anchor.getModifications();
 				try
 				{
 					startTransaction("saveTarget");
-					anchor.getTarget().save(modifications);
+					anchor.getTarget().save(anchor);
 					model.commit();
 				}
 				finally

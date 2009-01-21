@@ -19,7 +19,6 @@
 package com.exedio.cope.editor;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
@@ -31,5 +30,5 @@ interface Target extends Serializable
 	String getDescription();
 	boolean isLive();
 	String get(StringField feature, Item item);
-	void save(Set<Modification> modifications);
+	void save(Anchor anchor);
 }

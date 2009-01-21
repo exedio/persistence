@@ -27,9 +27,17 @@ public class SaveTest extends AbstractRuntimeTest
 		super(DraftTest.MODEL);
 	}
 	
+	static final Session SESSION = new Session()
+	{
+		public String getName()
+		{
+			throw new RuntimeException();
+		}
+	};
+	
 	DraftedItem i;
 	Draft d;
-	GetterSet<Modification> mods;
+	Anchor mods;
 	
 	@Override
 	public void setUp() throws Exception
@@ -38,9 +46,8 @@ public class SaveTest extends AbstractRuntimeTest
 		i = deleteOnTearDown(new DraftedItem());
 		d = deleteOnTearDown(new Draft("user", "name", "comment"));
 		i.setString("oldString1");
-		final Modification mod1 = new ModificationString(DraftedItem.string, i, "newString1");
-		mods = new GetterSet<Modification>();
-		mods.add(mod1);
+		mods = new Anchor("anchorUser", SESSION, "anchorSessionName");
+		mods.modify("newString1", DraftedItem.string, i);
 	}
 	
 	public void testDraft()
