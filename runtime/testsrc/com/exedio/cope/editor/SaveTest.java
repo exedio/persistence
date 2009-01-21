@@ -53,6 +53,7 @@ public class SaveTest extends AbstractRuntimeTest
 	public void testDraft()
 	{
 		assertEquals(list(), draft.getItems());
+		
 		new TargetDraft(draft).save(anchor);
 		assertEquals(1, draft.getItemsCount());
 		final DraftItem di1 = draft.getItems().get(0);
@@ -60,12 +61,19 @@ public class SaveTest extends AbstractRuntimeTest
 		assertEquals(item.getCopeID(), di1.getItem());
 		assertEquals("oldString1", di1.getOldValue());
 		assertEquals("newString1", di1.getNewValue());
+		
+		assertEquals("oldString1", item.getString());
+		assertContains(draft, Draft.TYPE.search());
 	}
 	
 	public void testLive()
 	{
 		assertEquals("oldString1", item.getString());
+		
 		TargetLive.INSTANCE.save(anchor);
 		assertEquals("newString1", item.getString());
+		
+		assertEquals(0, draft.getItemsCount());
+		assertContains(draft, Draft.TYPE.search());
 	}
 }
