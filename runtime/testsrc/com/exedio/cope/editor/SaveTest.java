@@ -36,7 +36,7 @@ public class SaveTest extends AbstractRuntimeTest
 	};
 	
 	DraftedItem i;
-	Draft d;
+	Draft draft;
 	Anchor anchor;
 	
 	@Override
@@ -44,7 +44,7 @@ public class SaveTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		i = deleteOnTearDown(new DraftedItem());
-		d = deleteOnTearDown(new Draft("user", "name", "comment"));
+		draft = deleteOnTearDown(new Draft("user", "name", "comment"));
 		i.setString("oldString1");
 		anchor = new Anchor("anchorUser", SESSION, "anchorSessionName");
 		anchor.modify("newString1", DraftedItem.string, i);
@@ -52,10 +52,10 @@ public class SaveTest extends AbstractRuntimeTest
 	
 	public void testDraft()
 	{
-		assertEquals(list(), d.getItems());
-		new TargetDraft(d).save(anchor);
-		assertEquals(1, d.getItemsCount());
-		final DraftItem di1 = d.getItems().get(0);
+		assertEquals(list(), draft.getItems());
+		new TargetDraft(draft).save(anchor);
+		assertEquals(1, draft.getItemsCount());
+		final DraftItem di1 = draft.getItems().get(0);
 		assertEquals("DraftedItem.string", di1.getFeature());
 		assertEquals(i.getCopeID(), di1.getItem());
 		assertEquals("oldString1", di1.getOldValue());
