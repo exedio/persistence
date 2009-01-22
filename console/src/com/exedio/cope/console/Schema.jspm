@@ -69,10 +69,6 @@ final class Schema_Jspm extends Console_Jspm
 			final Model model,
 			final HttpServletRequest request)
 	{
-		final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
-		final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
-		final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
-		final String DROP_CONSTRAINTS = "DROP_CONSTRAINTS";
 		final String APPLY = "APPLY";
 		final String APPLY_DRY = "APPLYDRY";
 		
@@ -116,6 +112,11 @@ final class Schema_Jspm extends Console_Jspm
 		%>
 			<hr>
 			<h4>Constraints</h4><%
+		{
+			final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
+			final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
+			final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
+			final String DROP_CONSTRAINTS = "DROP_CONSTRAINTS";
 			for(final Constraint.Type type : Constraint.Type.values())
 			{
 			%>
@@ -126,15 +127,8 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="<%=CREATE_CONSTRAINTS  %>" value="create" />
 			<input type="submit" name="<%=TEARDOWN_CONSTRAINTS%>" value="tear down"/>
 			<input type="submit" name="<%=DROP_CONSTRAINTS    %>" value="drop"/>
-			<br>
-			supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
-			<br>
-			supports sequences: <i><%if(model.supportsSequences()){%>yes<%}else{%>no<%}%></i>
-			<br>
-			supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
-			<hr>
-			<h4>Details</h4><%
-			if("POST".equals(request.getMethod()))
+			<%
+			if(isPost(request))
 			{
 				final EnumSet<Constraint.Type> constraintTypes = EnumSet.noneOf(Constraint.Type.class);
 				final String[] constraintTypeParameterValues = request.getParameterValues(CONSTRAINT_TYPE);
@@ -157,7 +151,20 @@ final class Schema_Jspm extends Console_Jspm
 					model.dropSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully dropped!</div><%
 				}
-				else if(request.getParameter(APPLY)!=null || request.getParameter(APPLY_DRY)!=null)
+			}
+		}
+			%>
+			<br>
+			supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
+			<br>
+			supports sequences: <i><%if(model.supportsSequences()){%>yes<%}else{%>no<%}%></i>
+			<br>
+			supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
+			<hr>
+			<h4>Details</h4><%
+			if("POST".equals(request.getMethod()))
+			{
+				if(request.getParameter(APPLY)!=null || request.getParameter(APPLY_DRY)!=null)
 				{
 					%><hr>
 			<a href="<%=cop%>">flush log</a>
