@@ -43,7 +43,7 @@ final class PkSource
 			throw new IllegalStateException("already connected " + type);
 		impl =
 			database.cluster
-			? new DefaultToNextSequenceImpl(PK.MIN_VALUE, database, database.makeName(type.schemaId + "_PkSeq"))
+			? new DefaultToNextSequenceImpl(PK.MIN_VALUE, database, column)
 			: new DefaultToNextMaxImpl(column, PK.MIN_VALUE);
 	}
 	

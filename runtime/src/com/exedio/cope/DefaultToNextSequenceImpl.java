@@ -35,14 +35,14 @@ final class DefaultToNextSequenceImpl implements PkSourceImpl
 	private final Database database;
 	private final String name;
 
-	DefaultToNextSequenceImpl(final int start, final Database database, final String name)
+	DefaultToNextSequenceImpl(final int start, final Database database, final IntegerColumn column)
 	{
 		if(!database.driver.supportsSequences())
 			throw new RuntimeException("database does not support sequences");
 		
 		this.start = start;
 		this.database = database;
-		this.name = name;
+		this.name = database.makeName(column.table.id + '_' + column.id + "_Seq");
 	}
 	
 	public void makeSchema(final Schema schema)
