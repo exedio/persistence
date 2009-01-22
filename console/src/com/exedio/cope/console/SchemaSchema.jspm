@@ -29,11 +29,11 @@ import com.exedio.cope.Model;
 
 final class SchemaSchema_Jspm extends Console_Jspm
 {
-	private static final String CREATE = "CREATE";
-	private static final String TEARDOWN = "TEARDOWN";
-	private static final String TEARDOWN_AND_CREATE = "TEARDOWNCREATE";
-	private static final String DROP = "DROP";
-	private static final String DROP_AND_CREATE = "DROPCREATE";
+	private static final String CREATE = "schema.create";
+	private static final String TEARDOWN = "schema.teardown";
+	private static final String TEARDOWN_AND_CREATE = "schema.teardown.create";
+	private static final String DROP = "schema.drop";
+	private static final String DROP_AND_CREATE = "schema.drop.create";
 	
 	final static void writeBody(
 			final SchemaCop cop,

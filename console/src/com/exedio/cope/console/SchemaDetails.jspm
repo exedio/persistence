@@ -49,8 +49,8 @@ final class SchemaDetails_Jspm extends Console_Jspm
 		}
 	}
 	
-	private static final String APPLY = "APPLY";
-	private static final String APPLY_DRY = "APPLYDRY";
+	private static final String APPLY = "details.apply";
+	private static final String APPLY_DRY = "details.dry";
 	
 	final static void writeBody(
 			final SchemaCop cop,

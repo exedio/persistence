@@ -44,10 +44,10 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 		}
 	}
 	
-	private static final String TYPE = "CONSTRAINT_TYPE";
-	private static final String CREATE = "CREATE_CONSTRAINTS";
-	private static final String TEARDOWN = "TEARDOWN_CONSTRAINTS";
-	private static final String DROP = "DROP_CONSTRAINTS";
+	private static final String TYPE = "constraint.type";
+	private static final String CREATE = "constraint.create";
+	private static final String TEARDOWN = "constraint.teardown";
+	private static final String DROP = "constraint.drop";
 	
 	final static void writeBody(
 			final SchemaCop cop,
