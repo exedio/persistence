@@ -18,50 +18,19 @@
 
 package com.exedio.cope;
 
-import java.util.Map;
-
-
-abstract class State
+final class PK
 {
-	final Item item;
-	final Type type;
-	final int pk;
+	static final int MIN_VALUE = 0;
+	static final int MAX_VALUE = Integer.MAX_VALUE;
+	static final int NaPK = Integer.MIN_VALUE;
 
-
-	protected State(final Item item)
+	private PK()
 	{
-		this.item = item;
-		this.type = item.type;
-		this.pk = item.pk;
-
-		assert PK.isValid(pk) : pk;
+		// prevent instantiation
 	}
 	
-	abstract Object get(FunctionField field);
-	
-	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
-	
-	abstract State write(Transaction transaction, Map<BlobColumn, byte[]> blobs);
-	
-	
-	abstract Object store(final Column column);
-
-	abstract State delete( Transaction transaction );
-	
-	void discard( final Transaction transaction )
+	static boolean isValid(final int pk)
 	{
-		transaction.removeEntity( item );
+		return pk>=MIN_VALUE && pk<=MAX_VALUE;
 	}
-	
-	abstract Row stealValues();
-	
-	abstract boolean exists();
-
-	@Override
-	public String toString()
-	{
-		return getClass().getName()+"-"+item.getCopeID();
-	}
-
-	public abstract String toStringWithValues();
 }

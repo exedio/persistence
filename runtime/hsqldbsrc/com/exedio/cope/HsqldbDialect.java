@@ -170,7 +170,7 @@ final class HsqldbDialect extends Dialect
 					if(o==null)
 						throw new RuntimeException("null in sequence " + name);
 					final int result = ((Integer)o).intValue();
-					if(!PkSource.isValid(result))
+					if(!PK.isValid(result))
 						throw new RuntimeException("invalid primary key " + result + " in sequence " + name);
 					return result;
 				}

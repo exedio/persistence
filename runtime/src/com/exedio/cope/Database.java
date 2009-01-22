@@ -243,7 +243,7 @@ final class Database
 				final Column primaryKey = table.primaryKey;
 				bf.append(primaryKey).
 					append('=').
-					appendParameter(PkSource.NaPK);
+					appendParameter(PK.NaPK);
 				
 				for(final Column column : table.getColumns())
 				{
@@ -549,7 +549,7 @@ final class Database
 									currentType = type;
 
 								final int pkPrimitive = pk.intValue();
-								if(!PkSource.isValid(pkPrimitive))
+								if(!PK.isValid(pkPrimitive))
 									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
 								resultCell = currentType.getItemObject(pkPrimitive);
 							}

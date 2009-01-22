@@ -102,8 +102,8 @@ class IntegerColumn extends Column
 
 		super(table, null, Table.PK_COLUMN_NAME, true, true);
 
-		this.minimum = PkSource.MIN_VALUE;
-		this.maximum = PkSource.MAX_VALUE;
+		this.minimum = PK.MIN_VALUE;
+		this.maximum = PK.MAX_VALUE;
 		this.longInsteadOfInt = false;
 		this.allowedValues = null;
 		

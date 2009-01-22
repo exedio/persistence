@@ -205,7 +205,7 @@ public abstract class Item implements Serializable
 		this.type = typeWithoutJavaClass==null ? Type.forClass(getClass()) : typeWithoutJavaClass;
 		final Map<Field, Object> fieldValues = prepareCreate(setValues, type);
 		this.pk = type.pkSource.next(type.getModel().getCurrentTransaction().getConnection());
-		assert PkSource.isValid(pk) : pk;
+		assert PK.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
 		
 		final Entity entity = getEntity(false);
@@ -247,7 +247,7 @@ public abstract class Item implements Serializable
 		this.pk = pk;
 		//System.out.println("reactivate item:"+type+" "+pk);
 
-		assert PkSource.isValid(pk) : pk;
+		assert PK.isValid(pk) : pk;
 	}
 	
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException

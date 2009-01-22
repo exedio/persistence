@@ -25,15 +25,11 @@ import com.exedio.dsmf.Schema;
 
 final class PkSource
 {
-	static final int MIN_VALUE = 0;
-	static final int MAX_VALUE = Integer.MAX_VALUE;
-	static final int NaPK = Integer.MIN_VALUE;
-
 	private final Type type;
 	private PkSourceImpl impl;
 	private volatile int count = 0;
-	private volatile int first = PkSource.NaPK;
-	private volatile int last = PkSource.NaPK;
+	private volatile int first = PK.NaPK;
+	private volatile int last = PK.NaPK;
 	
 	PkSource(final Type type)
 	{
@@ -47,8 +43,8 @@ final class PkSource
 			throw new IllegalStateException("already connected " + type);
 		impl =
 			database.cluster
-			? new DefaultToNextSequenceImpl(PkSource.MIN_VALUE, database, database.makeName(type.schemaId + "_PkSeq"))
-			: new DefaultToNextMaxImpl(column, PkSource.MIN_VALUE);
+			? new DefaultToNextSequenceImpl(PK.MIN_VALUE, database, database.makeName(type.schemaId + "_PkSeq"))
+			: new DefaultToNextMaxImpl(column, PK.MIN_VALUE);
 	}
 	
 	void disconnect()
@@ -75,10 +71,10 @@ final class PkSource
 	{
 		final int result = impl().next(connection);
 		
-		if(!isValid(result))
+		if(!PK.isValid(result))
 			throw new RuntimeException("primary key overflow to " + result + " in type " + type.id);
 		count++;
-		if(first==NaPK)
+		if(first==PK.NaPK)
 			first = result;
 		last = result;
 		
@@ -89,13 +85,8 @@ final class PkSource
 	{
 		impl().flush();
 		count = 0;
-		first = PkSource.NaPK;
-		last = PkSource.NaPK;
-	}
-
-	static boolean isValid(final int pk)
-	{
-		return pk>=MIN_VALUE && pk<=MAX_VALUE;
+		first = PK.NaPK;
+		last = PK.NaPK;
 	}
 
 	PrimaryKeyInfo getInfo()
@@ -104,7 +95,7 @@ final class PkSource
 		final int first = this.first;
 		final int last = this.last;
 		return
-			count!=0 && first!=PkSource.NaPK && last!=PkSource.NaPK
+			count!=0 && first!=PK.NaPK && last!=PK.NaPK
 			? new PrimaryKeyInfo(type, count, first, last)
 			: new PrimaryKeyInfo(type);
 	}

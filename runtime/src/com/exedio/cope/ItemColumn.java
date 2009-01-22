@@ -32,7 +32,7 @@ final class ItemColumn extends IntegerColumn
 			final boolean optional,
 			final Type<?> targetType)
 	{
-		super(table, field, id, optional, PkSource.MIN_VALUE, PkSource.MAX_VALUE, false);
+		super(table, field, id, optional, PK.MIN_VALUE, PK.MAX_VALUE, false);
 		final Database database = table.database;
 		assert targetType!=null;
 		this.targetType = targetType;
