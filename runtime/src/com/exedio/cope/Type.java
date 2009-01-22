@@ -554,12 +554,12 @@ public final class Type<C extends Item>
 		if(this.table!=null)
 			throw new RuntimeException();
 		
+		this.table = new Table(database, schemaId, supertype, typesOfInstancesColumnValues);
 		if(supertype==null)
 		{
-			pkSource.connect(database);
+			pkSource.connect(database, table.primaryKey);
 			database.addPkSource(pkSource);
 		}
-		this.table = new Table(database, schemaId, supertype, typesOfInstancesColumnValues);
 
 		for(final Field a : declaredFields)
 			a.connect(table);

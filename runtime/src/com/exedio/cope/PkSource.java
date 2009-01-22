@@ -41,14 +41,14 @@ final class PkSource
 		this.type = type;
 	}
 	
-	void connect(final Database database)
+	void connect(final Database database, final IntegerColumn column)
 	{
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + type);
 		impl =
 			database.cluster
 			? new PkSourceSequenceImpl(type, database)
-			: new PkSourceMaxImpl(type);
+			: new DefaultToNextMaxImpl(column, PkSource.MIN_VALUE);
 	}
 	
 	void disconnect()
