@@ -69,9 +69,6 @@ final class Schema_Jspm extends Console_Jspm
 			final Model model,
 			final HttpServletRequest request)
 	{
-		final String APPLY = "APPLY";
-		final String APPLY_DRY = "APPLYDRY";
-		
 		%>
 		<form action="<%=cop%>#overall" method="POST"><%
 		
@@ -162,6 +159,10 @@ final class Schema_Jspm extends Console_Jspm
 			supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
 			<hr>
 			<h4>Details</h4><%
+		{
+			final String APPLY = "APPLY";
+			final String APPLY_DRY = "APPLYDRY";
+		
 			if("POST".equals(request.getMethod()))
 			{
 				if(request.getParameter(APPLY)!=null || request.getParameter(APPLY_DRY)!=null)
@@ -336,6 +337,7 @@ final class Schema_Jspm extends Console_Jspm
 			%>
 			</ul>
 		</form><%
+		}
 	}
 	
 	private final static Resource node(final Node.Color color)
