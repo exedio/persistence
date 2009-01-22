@@ -70,7 +70,9 @@ final class Schema_Jspm extends Console_Jspm
 	{
 		final String CREATE = "CREATE";
 		final String TEARDOWN = "TEARDOWN";
+		final String TEARDOWN_AND_CREATE = "TEARDOWNCREATE";
 		final String DROP = "DROP";
+		final String DROP_AND_CREATE = "DROPCREATE";
 		final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
 		final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
 		final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
@@ -84,6 +86,9 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="<%=CREATE  %>" value="create" />
 			<input type="submit" name="<%=TEARDOWN%>" value="tear down" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?')" />
 			<input type="submit" name="<%=DROP    %>" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
+			&nbsp;
+			<input type="submit" name="<%=TEARDOWN_AND_CREATE%>" value="tear down &amp; create" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
+			<input type="submit" name="<%=    DROP_AND_CREATE%>" value="drop &amp; create" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
 			<hr>
 			<h4>Constraints</h4><%
 			for(final Constraint.Type type : Constraint.Type.values())
@@ -112,22 +117,22 @@ final class Schema_Jspm extends Console_Jspm
 					for(String s : constraintTypeParameterValues)
 						constraintTypes.add(Constraint.Type.valueOf(s));
 					
-				if(request.getParameter(TEARDOWN)!= null)
+				if(request.getParameter(TEARDOWN)!=null || request.getParameter(TEARDOWN_AND_CREATE)!=null)
 				{
 					model.tearDownSchema();
 					%><div class="message">Schema successfully torn down!</div><%
 				}
-				else if(request.getParameter(DROP)!=null)
+				if(request.getParameter(DROP)!=null || request.getParameter(DROP_AND_CREATE)!=null)
 				{
 					model.dropSchema();
 					%><div class="message">Schema successfully dropped!</div><%
 				}
-				else if(request.getParameter(CREATE)!=null)
+				if(request.getParameter(CREATE)!=null || request.getParameter(TEARDOWN_AND_CREATE)!=null || request.getParameter(DROP_AND_CREATE)!=null)
 				{
 					model.createSchema();
 					%><div class="message">Schema successfully created!</div><%
 				}
-				else if(request.getParameter(CREATE_CONSTRAINTS)!=null)
+				if(request.getParameter(CREATE_CONSTRAINTS)!=null)
 				{
 					model.createSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully created!</div><%
