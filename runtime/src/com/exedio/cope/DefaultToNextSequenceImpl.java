@@ -31,20 +31,18 @@ import com.exedio.dsmf.Sequence;
  */
 final class DefaultToNextSequenceImpl implements PkSourceImpl
 {
-	final Model model;
 	private final int start;
 	private final Database database;
 	private final String name;
 
-	DefaultToNextSequenceImpl(final IntegerField field, final int start, final Database database)
+	DefaultToNextSequenceImpl(final int start, final Database database, final String name)
 	{
 		if(!database.driver.supportsSequences())
 			throw new RuntimeException("database does not support sequences");
 		
-		this.model = field.getType().getModel();
 		this.start = start;
 		this.database = database;
-		this.name = database.makeName(field.getType().schemaId + '_' + field.getName() + "_Seq");
+		this.name = name;
 	}
 	
 	public void makeSchema(final Schema schema)

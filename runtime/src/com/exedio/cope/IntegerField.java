@@ -190,7 +190,7 @@ public final class IntegerField extends NumberField<Integer>
 			final Database database = table.database;
 			final PkSourceImpl defaultToNextImpl =
 				database.cluster
-				? new DefaultToNextSequenceImpl(this, defaultNextStart.intValue(), database)
+				? new DefaultToNextSequenceImpl(defaultNextStart.intValue(), database, database.makeName(getType().schemaId + '_' + getName() + "_Seq"))
 				: new DefaultToNextMaxImpl(result, defaultNextStart.intValue());
 			this.defaultToNextImpl = defaultToNextImpl;
 			database.addDefaultToNexts(defaultToNextImpl);
