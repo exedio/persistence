@@ -20,6 +20,7 @@
 package com.exedio.cope.console;
 
 import static com.exedio.cops.XMLEncoder.encode;
+import static com.exedio.cops.Cop.isPost;
 
 import java.io.PrintStream;
 import java.util.EnumSet;
@@ -82,6 +83,9 @@ final class Schema_Jspm extends Console_Jspm
 		
 		%>
 		<form action="<%=cop%>#overall" method="POST">
+		<%
+		{
+			%>
 			<h4>Schema</h4>
 			<input type="submit" name="<%=CREATE  %>" value="create" />
 			<input type="submit" name="<%=TEARDOWN%>" value="tear down" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?')" />
@@ -89,6 +93,27 @@ final class Schema_Jspm extends Console_Jspm
 			&nbsp;
 			<input type="submit" name="<%=TEARDOWN_AND_CREATE%>" value="tear down &amp; create" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
 			<input type="submit" name="<%=    DROP_AND_CREATE%>" value="drop &amp; create" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
+			<%
+			if(isPost(request))
+			{
+				if(request.getParameter(TEARDOWN)!=null || request.getParameter(TEARDOWN_AND_CREATE)!=null)
+				{
+					model.tearDownSchema();
+					%><div class="message">Schema successfully torn down!</div><%
+				}
+				if(request.getParameter(DROP)!=null || request.getParameter(DROP_AND_CREATE)!=null)
+				{
+					model.dropSchema();
+					%><div class="message">Schema successfully dropped!</div><%
+				}
+				if(request.getParameter(CREATE)!=null || request.getParameter(TEARDOWN_AND_CREATE)!=null || request.getParameter(DROP_AND_CREATE)!=null)
+				{
+					model.createSchema();
+					%><div class="message">Schema successfully created!</div><%
+				}
+			}
+		}
+		%>
 			<hr>
 			<h4>Constraints</h4><%
 			for(final Constraint.Type type : Constraint.Type.values())
@@ -117,21 +142,6 @@ final class Schema_Jspm extends Console_Jspm
 					for(String s : constraintTypeParameterValues)
 						constraintTypes.add(Constraint.Type.valueOf(s));
 					
-				if(request.getParameter(TEARDOWN)!=null || request.getParameter(TEARDOWN_AND_CREATE)!=null)
-				{
-					model.tearDownSchema();
-					%><div class="message">Schema successfully torn down!</div><%
-				}
-				if(request.getParameter(DROP)!=null || request.getParameter(DROP_AND_CREATE)!=null)
-				{
-					model.dropSchema();
-					%><div class="message">Schema successfully dropped!</div><%
-				}
-				if(request.getParameter(CREATE)!=null || request.getParameter(TEARDOWN_AND_CREATE)!=null || request.getParameter(DROP_AND_CREATE)!=null)
-				{
-					model.createSchema();
-					%><div class="message">Schema successfully created!</div><%
-				}
 				if(request.getParameter(CREATE_CONSTRAINTS)!=null)
 				{
 					model.createSchemaConstraints(constraintTypes);
