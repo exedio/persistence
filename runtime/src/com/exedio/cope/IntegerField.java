@@ -29,7 +29,7 @@ import java.util.Set;
 public final class IntegerField extends NumberField<Integer>
 {
 	final Integer defaultNextStart;
-	private DefaultToNextImpl defaultToNextImpl = null;
+	private PkSourceImpl defaultToNextImpl = null;
 	private final int minimum;
 	private final int maximum;
 
@@ -188,7 +188,7 @@ public final class IntegerField extends NumberField<Integer>
 		if(defaultNextStart!=null)
 		{
 			final Database database = table.database;
-			final DefaultToNextImpl defaultToNextImpl =
+			final PkSourceImpl defaultToNextImpl =
 				database.cluster
 				? new DefaultToNextSequenceImpl(this, defaultNextStart.intValue(), database)
 				: new DefaultToNextMaxImpl(result, defaultNextStart.intValue());

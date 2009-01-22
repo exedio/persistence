@@ -48,7 +48,7 @@ final class Database
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
 	private final ArrayList<PkSource> pkSources = new ArrayList<PkSource>();
-	private final ArrayList<DefaultToNextImpl> defaultToNextImpls = new ArrayList<DefaultToNextImpl>();
+	private final ArrayList<PkSourceImpl> pkSourceImpls = new ArrayList<PkSourceImpl>();
 	private boolean buildStage = true;
 	final Driver driver;
 	final DialectParameters dialectParameters;
@@ -132,11 +132,11 @@ final class Database
 		pkSources.add(pkSource);
 	}
 	
-	void addDefaultToNexts(final DefaultToNextImpl defaultToNext)
+	void addDefaultToNexts(final PkSourceImpl pkSourceImpl)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
-		defaultToNextImpls.add(defaultToNext);
+		pkSourceImpls.add(pkSourceImpl);
 	}
 	
 	final String intern(final String s)
@@ -1350,7 +1350,7 @@ final class Database
 		}
 		for(final PkSource p : pkSources)
 			p.makeSchema(result);
-		for(final DefaultToNextImpl dtni : defaultToNextImpls)
+		for(final PkSourceImpl dtni : pkSourceImpls)
 			dtni.makeSchema(result);
 		
 		dialect.completeSchema(result);

@@ -29,7 +29,7 @@ import com.exedio.dsmf.Sequence;
  *
  * @author Ralf Wiebicke
  */
-final class DefaultToNextSequenceImpl implements DefaultToNextImpl
+final class DefaultToNextSequenceImpl implements PkSourceImpl
 {
 	final Model model;
 	private final int start;
