@@ -59,8 +59,8 @@ final class SchemaDetails_Jspm extends Console_Jspm
 			final HttpServletRequest request)
 	{
 		%>
-		<h4>Details</h4>
 		<hr>
+		<h4>Details</h4>
 		<form action="<%=cop%>#overall" method="POST"><%
 		
 			if("POST".equals(request.getMethod()))
