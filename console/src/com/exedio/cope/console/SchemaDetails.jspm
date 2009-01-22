@@ -59,11 +59,9 @@ final class SchemaDetails_Jspm extends Console_Jspm
 			final HttpServletRequest request)
 	{
 		%>
-		<form action="<%=cop%>#overall" method="POST"><%
-			%>
+		<form action="<%=cop%>#overall" method="POST">
 			<hr>
 			<h4>Details</h4><%
-		{
 		
 			if("POST".equals(request.getMethod()))
 			{
@@ -239,7 +237,6 @@ final class SchemaDetails_Jspm extends Console_Jspm
 			%>
 			</ul>
 		</form><%
-		}
 	}
 	
 	private final static Resource node(final Node.Color color)
