@@ -77,8 +77,8 @@ final class Schema_Jspm extends Console_Jspm
 		final String APPLY_DRY = "APPLYDRY";
 		
 		%>
-		<form action="<%=cop%>#overall" method="POST">
-		<%
+		<form action="<%=cop%>#overall" method="POST"><%
+		
 		{
 			final String CREATE = "CREATE";
 			final String TEARDOWN = "TEARDOWN";
@@ -92,8 +92,8 @@ final class Schema_Jspm extends Console_Jspm
 			<input type="submit" name="<%=DROP    %>" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />
 			&nbsp;
 			<input type="submit" name="<%=TEARDOWN_AND_CREATE%>" value="tear down &amp; create" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
-			<input type="submit" name="<%=    DROP_AND_CREATE%>" value="drop &amp; create" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" />
-			<%
+			<input type="submit" name="<%=    DROP_AND_CREATE%>" value="drop &amp; create" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?\nAfterwards all tables will be recreated.')" /><%
+			
 			if(isPost(request))
 			{
 				if(request.getParameter(TEARDOWN)!=null || request.getParameter(TEARDOWN_AND_CREATE)!=null)
