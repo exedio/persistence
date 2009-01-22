@@ -69,11 +69,6 @@ final class Schema_Jspm extends Console_Jspm
 			final Model model,
 			final HttpServletRequest request)
 	{
-		final String CREATE = "CREATE";
-		final String TEARDOWN = "TEARDOWN";
-		final String TEARDOWN_AND_CREATE = "TEARDOWNCREATE";
-		final String DROP = "DROP";
-		final String DROP_AND_CREATE = "DROPCREATE";
 		final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
 		final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
 		final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
@@ -85,6 +80,11 @@ final class Schema_Jspm extends Console_Jspm
 		<form action="<%=cop%>#overall" method="POST">
 		<%
 		{
+			final String CREATE = "CREATE";
+			final String TEARDOWN = "TEARDOWN";
+			final String TEARDOWN_AND_CREATE = "TEARDOWNCREATE";
+			final String DROP = "DROP";
+			final String DROP_AND_CREATE = "DROPCREATE";
 			%>
 			<h4>Schema</h4>
 			<input type="submit" name="<%=CREATE  %>" value="create" />
