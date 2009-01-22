@@ -35,7 +35,7 @@ public class AbstractWebTest extends TestCase
 	{
 		super.setUp();
 		
-		post("console/schema.html", "CREATE");
+		post("console/schema.html", "schema.create");
 		post("init.jsp", "INIT");
 	}
 	
