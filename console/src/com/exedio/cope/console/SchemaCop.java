@@ -58,7 +58,9 @@ final class SchemaCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
-		Schema_Jspm.writeBody(this, out, model, request);
+		SchemaSchema_Jspm.writeBody(this, out, model, request);
+		SchemaConstraints_Jspm.writeBody(this, out, model, request);
+		SchemaDetails_Jspm.writeBody(this, out, model, request);
 	}
 	
 	private static final String strip(final String s, final String prefix)

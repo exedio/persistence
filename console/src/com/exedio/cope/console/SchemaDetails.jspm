@@ -1,0 +1,304 @@
+<%
+/*
+ * Copyright (C) 2004-2008  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.console;
+
+import static com.exedio.cops.XMLEncoder.encode;
+
+import java.io.PrintStream;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.exedio.cope.Model;
+import com.exedio.cops.Resource;
+import com.exedio.dsmf.Column;
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Node;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
+import com.exedio.dsmf.Table;
+
+final class SchemaDetails_Jspm extends Console_Jspm
+{
+	private static final String type(final Constraint.Type type)
+	{
+		switch(type)
+		{
+			case PrimaryKey: return "pk";
+			case ForeignKey: return "fk";
+			case Unique:     return "unique";
+			case Check:      return "check";
+			default:
+				throw new RuntimeException(type.name());
+		}
+	}
+	
+	final static void writeBody(
+			final SchemaCop cop,
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request)
+	{
+		%>
+		<form action="<%=cop%>#overall" method="POST"><%
+			%>
+			<hr>
+			<h4>Details</h4><%
+		{
+			final String APPLY = "APPLY";
+			final String APPLY_DRY = "APPLYDRY";
+		
+			if("POST".equals(request.getMethod()))
+			{
+				if(request.getParameter(APPLY)!=null || request.getParameter(APPLY_DRY)!=null)
+				{
+					%><hr>
+			<a href="<%=cop%>">flush log</a>
+			<ol><%
+				SchemaCop.writeApply(out, request, model, request.getParameter(APPLY_DRY)!=null);
+			%>
+			</ol>
+			<a href="<%=cop%>">flush log</a>
+			<hr><%
+				}
+			}
+
+			final Schema schema = model.getVerifiedSchema();
+			%>
+			<img class="node" onClick="togSch(this)" src="<%=node(schema.getCumulativeColor())%>">
+			Schema
+			<input id="schApp" class="expand" type="submit" name="<%=APPLY%>" value="apply"/>
+			<input id="schAppDry" class="expand" type="submit" name="<%=APPLY_DRY%>" value="dry run"/>
+			<ul id="schBdy" class="expand"><%
+			
+			int tableCount = 0;
+			for(final Table table : schema.getTables())
+			{
+				tableCount++;
+				final String tableName = table.getName();
+				%>
+				<li>
+					<img class="node" onClick="togTab(this,<%=tableCount%>)" src="<%=node(table.getCumulativeColor())%>">
+					<small>tab<%=tableCount%></small><%
+					
+					writeEdit(tableName, table.exists(), SchemaCop.RENAME_TABLE_PREFIX + tableName, out);
+				
+					final String tableError = table.getError();
+					if(tableError!=null)
+					{
+					%>
+					<% write(table.getParticularColor(), out); %> <%=tableError%><%
+					}
+					if(table.exists())
+					{
+					%>
+					<span id="tabDrp<%=tableCount%>" class="expand">, <input type="checkbox" name="<%=SchemaCop.DROP_TABLE%>" value="<%=tableName%>"/>drop</span><%
+					}
+					else if(table.required())
+					{
+					%>,
+					<input type="checkbox" name="<%=SchemaCop.CREATE_TABLE%>" value="<%=tableName%>"/>create<%
+					}
+					
+					%>
+					<ul id="tabBdy<%=tableCount%>" class="expand"><%
+					
+					final String options = table.getOptions();
+					if(options!=null)
+					{
+						%>
+						<li>
+							options: <pre><%=options%></pre>
+						</li><%
+					}
+					
+					int columnCount = 0;
+					for(final Column column : table.getColumns())
+					{
+						columnCount++;
+						final String columnName = column.getName();
+						%>
+						<li>
+							<img class="node" src="<%=leaf(column.getCumulativeColor())%>">
+							<small>col<%=columnCount%></small><%
+							
+							writeEdit(columnName,       column.exists(), SchemaCop.RENAME_COLUMN_PREFIX + tableName + '#' + columnName, out);
+							writeEdit(column.getType(), column.exists(), SchemaCop.MODIFY_COLUMN_PREFIX + tableName + '#' + columnName, out);
+						
+							final String error = column.getError();
+							if(error!=null)
+							{
+							%>
+							<% write(column.getParticularColor(), out); %> <%=error%></span><%
+							}
+							if(column.exists())
+							{
+							%>
+							<input type="checkbox" name="<%=SchemaCop.DROP_COLUMN%>" value="<%=tableName%>#<%=columnName%>"/>drop<%
+							}
+							else if(column.required() &&
+									column.getTable().exists() )
+							{
+							%>,
+							<input type="checkbox" name="<%=SchemaCop.CREATE_COLUMN%>" value="<%=tableName%>#<%=columnName%>"/>create<%
+							}
+						%>
+						</li><%
+					}
+					
+					int constraintCount = 0;
+					for(final Constraint constraint : table.getConstraints())
+					{
+						constraintCount++;
+						final String constraintName = constraint.getName();
+						%>
+						<li>
+							<img class="node" src="<%=leaf(constraint.getCumulativeColor())%>">
+							<small><%=type(constraint.getType())%><%=constraintCount%></small>
+							<%=constraintName%><%
+						
+							final String constraintCondition = constraint.getRequiredCondition();
+							if(constraintCondition!=null)
+							{
+							%>
+							<small><%=encode(constraintCondition)%></small><%
+							}
+						
+							final String constraintError = constraint.getError();
+							if(constraintError!=null)
+							{
+							%>
+							<% write(constraint.getParticularColor(), out); %> <%=encode(constraintError)%><%
+							}
+							if(constraint.exists())
+							{
+							%>
+							<input type="checkbox" name="<%=SchemaCop.DROP_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>drop<%
+							}
+							else if( constraint.required() &&
+									constraint.isSupported() &&
+									constraint.getTable().exists() )
+							{
+							%>
+							<input type="checkbox" name="<%=SchemaCop.CREATE_CONSTRAINT%>" value="<%=tableName%>#<%=constraintName%>"/>create<%
+							}
+						%>
+						</li><%
+					}
+					%>
+					</ul>
+				</li><%
+			}
+			int sequenceCount = 0;
+			for(final Sequence sequence : schema.getSequences())
+			{
+				sequenceCount++;
+				final String sequenceName = sequence.getName();
+				%>
+				<li>
+					<img class="node" src="<%=leaf(sequence.getCumulativeColor())%>">
+					<small>seq<%=sequenceCount%></small>
+					<%=sequenceName%> (<%=sequence.getStartWith()%>)<%
+					
+					final String sequenceError = sequence.getError();
+					if(sequenceError!=null)
+					{
+					%>
+					<% write(sequence.getParticularColor(), out); %> <%=sequenceError%><%
+					}
+					if(sequence.exists())
+					{
+					%>
+					<input type="checkbox" name="<%=SchemaCop.DROP_SEQUENCE%>" value="<%=sequenceName%>"/>drop<%
+					}
+					else if(sequence.required())
+					{
+					%>,
+					<input type="checkbox" name="<%=SchemaCop.CREATE_SEQUENCE%>" value="<%=sequenceName%>"/>create<%
+					}
+				%>
+				</li><%
+			}
+			%>
+			</ul>
+		</form><%
+		}
+	}
+	
+	private final static Resource node(final Node.Color color)
+	{
+		switch(color)
+		{
+			case OK:      return ConsoleServlet.nodeFalse;
+			case WARNING: return ConsoleServlet.nodeWarningFalse;
+			case ERROR:   return ConsoleServlet.nodeErrorFalse;
+			default:
+				throw new RuntimeException(color.toString());
+		}
+	}
+	
+	private final static Resource leaf(final Node.Color color)
+	{
+		switch(color)
+		{
+			case OK:      return ConsoleServlet.nodeLeaf;
+			case WARNING: return ConsoleServlet.nodeLeafWarning;
+			case ERROR:   return ConsoleServlet.nodeLeafError;
+			default:
+				throw new RuntimeException(color.toString());
+		}
+	}
+	
+	private final static void write(final Node.Color color, final PrintStream out)
+	{
+		switch(color)
+		{
+			case OK:
+				break;
+			case WARNING:
+				%><img class="check" src="<%=ConsoleServlet.warning%>"><%
+				break;
+			case ERROR:
+				%><img class="check" src="<%=ConsoleServlet.error%>"><%
+				break;
+			default:
+				throw new RuntimeException(color.toString());
+		}
+	}
+	
+	private final static void writeEdit(
+			final String text, final boolean editable, final String name,
+			final PrintStream out)
+	{
+		if(editable)
+		{
+							%>
+							<span class="textedit" onClick="edit(this)">
+								<%=text%><img class="write" src="<%=ConsoleServlet.write%>">
+								<input name="<%=name%>" size="<%=text.length()%>">
+							</span><%
+		}
+		else
+		{
+							%>
+							<%=text%><%
+		}
+	}
+}
+%>

@@ -1,0 +1,109 @@
+<%
+/*
+ * Copyright (C) 2004-2008  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.console;
+
+import static com.exedio.cops.Cop.isPost;
+
+import java.io.PrintStream;
+import java.util.EnumSet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.exedio.cope.Model;
+import com.exedio.dsmf.Constraint;
+
+final class SchemaConstraints_Jspm extends Console_Jspm
+{
+	private static final String type(final Constraint.Type type)
+	{
+		switch(type)
+		{
+			case PrimaryKey: return "pk";
+			case ForeignKey: return "fk";
+			case Unique:     return "unique";
+			case Check:      return "check";
+			default:
+				throw new RuntimeException(type.name());
+		}
+	}
+	
+	final static void writeBody(
+			final SchemaCop cop,
+			final PrintStream out,
+			final Model model,
+			final HttpServletRequest request)
+	{
+		%>
+		<form action="<%=cop%>#overall" method="POST"><%
+		%>
+			<hr>
+			<h4>Constraints</h4><%
+		{
+			final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
+			final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
+			final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
+			final String DROP_CONSTRAINTS = "DROP_CONSTRAINTS";
+			for(final Constraint.Type type : Constraint.Type.values())
+			{
+			%>
+			<input type="checkbox" name="<%=CONSTRAINT_TYPE%>" value="<%=type.name()%>" checked="checked" /><%=type(type)%><%
+			}
+			%>
+			<br>
+			<input type="submit" name="<%=CREATE_CONSTRAINTS  %>" value="create" />
+			<input type="submit" name="<%=TEARDOWN_CONSTRAINTS%>" value="tear down"/>
+			<input type="submit" name="<%=DROP_CONSTRAINTS    %>" value="drop"/>
+			<%
+			if(isPost(request))
+			{
+				final EnumSet<Constraint.Type> constraintTypes = EnumSet.noneOf(Constraint.Type.class);
+				final String[] constraintTypeParameterValues = request.getParameterValues(CONSTRAINT_TYPE);
+				if(constraintTypeParameterValues!=null)
+					for(String s : constraintTypeParameterValues)
+						constraintTypes.add(Constraint.Type.valueOf(s));
+					
+				if(request.getParameter(CREATE_CONSTRAINTS)!=null)
+				{
+					model.createSchemaConstraints(constraintTypes);
+					%><div class="message">Schema constraints successfully created!</div><%
+				}
+				else if(request.getParameter(TEARDOWN_CONSTRAINTS)!=null)
+				{
+					model.tearDownSchemaConstraints(constraintTypes);
+					%><div class="message">Schema constraints successfully torn down!</div><%
+				}
+				else if(request.getParameter(DROP_CONSTRAINTS)!=null)
+				{
+					model.dropSchemaConstraints(constraintTypes);
+					%><div class="message">Schema constraints successfully dropped!</div><%
+				}
+			}
+			%>
+			<br>
+			supports check constraints: <i><%if(model.supportsCheckConstraints()){%>yes<%}else{%>no<%}%></i>
+			<br>
+			supports sequences: <i><%if(model.supportsSequences()){%>yes<%}else{%>no<%}%></i>
+			<br>
+			supports empty strings: <i><%if(model.supportsEmptyStrings()){%>yes<%}else{%>no<%}%></i>
+		</form><%
+		}
+	}
+}
+%>
