@@ -112,12 +112,7 @@ final class Schema_Jspm extends Console_Jspm
 					for(String s : constraintTypeParameterValues)
 						constraintTypes.add(Constraint.Type.valueOf(s));
 					
-				if(request.getParameter(CREATE)!=null)
-				{
-					model.createSchema();
-					%><div class="message">Schema successfully created!</div><%
-				}
-				else if(request.getParameter(TEARDOWN)!= null)
+				if(request.getParameter(TEARDOWN)!= null)
 				{
 					model.tearDownSchema();
 					%><div class="message">Schema successfully torn down!</div><%
@@ -126,6 +121,11 @@ final class Schema_Jspm extends Console_Jspm
 				{
 					model.dropSchema();
 					%><div class="message">Schema successfully dropped!</div><%
+				}
+				else if(request.getParameter(CREATE)!=null)
+				{
+					model.createSchema();
+					%><div class="message">Schema successfully created!</div><%
 				}
 				else if(request.getParameter(CREATE_CONSTRAINTS)!=null)
 				{
