@@ -44,10 +44,10 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 		}
 	}
 	
-	private static final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
-	private static final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
-	private static final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
-	private static final String DROP_CONSTRAINTS = "DROP_CONSTRAINTS";
+	private static final String TYPE = "CONSTRAINT_TYPE";
+	private static final String CREATE = "CREATE_CONSTRAINTS";
+	private static final String TEARDOWN = "TEARDOWN_CONSTRAINTS";
+	private static final String DROP = "DROP_CONSTRAINTS";
 	
 	final static void writeBody(
 			final SchemaCop cop,
@@ -63,33 +63,33 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 			for(final Constraint.Type type : Constraint.Type.values())
 			{
 			%>
-			<input type="checkbox" name="<%=CONSTRAINT_TYPE%>" value="<%=type.name()%>" checked="checked" /><%=type(type)%><%
+			<input type="checkbox" name="<%=TYPE%>" value="<%=type.name()%>" checked="checked" /><%=type(type)%><%
 			}
 			%>
 			<br>
-			<input type="submit" name="<%=CREATE_CONSTRAINTS  %>" value="create" />
-			<input type="submit" name="<%=TEARDOWN_CONSTRAINTS%>" value="tear down"/>
-			<input type="submit" name="<%=DROP_CONSTRAINTS    %>" value="drop"/>
+			<input type="submit" name="<%=CREATE  %>" value="create" />
+			<input type="submit" name="<%=TEARDOWN%>" value="tear down"/>
+			<input type="submit" name="<%=DROP    %>" value="drop"/>
 			<%
 			if(isPost(request))
 			{
 				final EnumSet<Constraint.Type> constraintTypes = EnumSet.noneOf(Constraint.Type.class);
-				final String[] constraintTypeParameterValues = request.getParameterValues(CONSTRAINT_TYPE);
+				final String[] constraintTypeParameterValues = request.getParameterValues(TYPE);
 				if(constraintTypeParameterValues!=null)
 					for(String s : constraintTypeParameterValues)
 						constraintTypes.add(Constraint.Type.valueOf(s));
 					
-				if(request.getParameter(CREATE_CONSTRAINTS)!=null)
+				if(request.getParameter(CREATE)!=null)
 				{
 					model.createSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully created!</div><%
 				}
-				else if(request.getParameter(TEARDOWN_CONSTRAINTS)!=null)
+				else if(request.getParameter(TEARDOWN)!=null)
 				{
 					model.tearDownSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully torn down!</div><%
 				}
-				else if(request.getParameter(DROP_CONSTRAINTS)!=null)
+				else if(request.getParameter(DROP)!=null)
 				{
 					model.dropSchemaConstraints(constraintTypes);
 					%><div class="message">Schema constraints successfully dropped!</div><%
