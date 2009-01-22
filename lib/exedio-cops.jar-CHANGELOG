@@ -1,0 +1,5 @@
+
+CHANGELOG for cops
+
+* updated jspm library to build.14, added getlib.properties and check.version target to getlib.xml
+

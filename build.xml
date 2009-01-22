@@ -1018,11 +1018,6 @@
 	<target name="cruise" depends="clean, all">
 		<copy todir="${basedir}/cruise">
 			<fileset file="${basedir}/getlib.properties" />
-			<fileset file="${basedir}/lib/bsh-core.jar" />
-			<fileset file="${basedir}/lib/cojen.jar" />
-			<fileset file="${basedir}/lib/trove.jar" />
-			<fileset file="${basedir}/lib/commons-fileupload.jar" />
-			<fileset file="${basedir}/lib/commons-io.jar" />
 			<fileset dir="${basedir}/lib/jdbc">
 				<include name="*.jar" />
 			</fileset>
