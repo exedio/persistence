@@ -1231,16 +1231,15 @@ final class Database
 		});
 	}
 
-	Integer maxPK(final Connection connection, final Table table)
+	Integer max(final Connection connection, final IntegerColumn column)
 	{
 		buildStage = false;
 
 		final Statement bf = createStatement();
-		final String primaryKeyProtectedID = table.primaryKey.protectedID;
 		bf.append("select max(").
-			append(primaryKeyProtectedID).
+			append(column.protectedID).
 			append(") from ").
-			append(table.protectedID);
+			append(column.table.protectedID);
 			
 		return executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
@@ -1253,8 +1252,8 @@ final class Database
 				if(o!=null)
 				{
 					final int result = convertSQLResult(o);
-					if(!PkSource.isValid(result))
-						throw new RuntimeException("invalid primary key " + result + " in table " + table.id);
+					if(result<column.minimum || result>column.maximum)
+						throw new RuntimeException("invalid maximum " + result + " in column " + column.id);
 					return result;
 				}
 				else

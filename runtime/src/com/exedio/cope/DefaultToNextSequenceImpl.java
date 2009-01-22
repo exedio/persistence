@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 
@@ -50,9 +52,9 @@ final class DefaultToNextSequenceImpl implements DefaultToNextImpl
 		new Sequence(schema, name, start);
 	}
 
-	public int next()
+	public int next(final Connection connection)
 	{
-		return database.dialect.nextSequence(database, model.getCurrentTransaction().getConnection(), name);
+		return database.dialect.nextSequence(database, connection, name);
 	}
 	
 	public void flush()

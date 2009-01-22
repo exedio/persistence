@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+
 import com.exedio.dsmf.Schema;
 
 /**
@@ -28,15 +30,15 @@ import com.exedio.dsmf.Schema;
  */
 final class DefaultToNextMaxImpl implements DefaultToNextImpl
 {
-	private final IntegerField field;
+	private final IntegerColumn column;
 	private final int start;
 	private boolean computed = false;
 	private int next = Integer.MIN_VALUE;
 	private final Object lock = new Object();
 
-	DefaultToNextMaxImpl(final IntegerField field, final int start)
+	DefaultToNextMaxImpl(final IntegerColumn column, final int start)
 	{
-		this.field = field;
+		this.column = column;
 		this.start = start;
 	}
 	
@@ -45,7 +47,7 @@ final class DefaultToNextMaxImpl implements DefaultToNextImpl
 		// empty
 	}
 	
-	public int next()
+	public int next(final Connection connection)
 	{
 		synchronized(lock)
 		{
@@ -56,7 +58,7 @@ final class DefaultToNextMaxImpl implements DefaultToNextImpl
 			}
 			else
 			{
-				final Integer current = new Query<Integer>(field.max()).searchSingleton();
+				final Integer current = column.table.database.max(connection, column);
 				result = current!=null ? (current.intValue() + 1) : start;
 				computed = true;
 			}

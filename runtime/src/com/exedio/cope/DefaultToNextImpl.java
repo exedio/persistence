@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
+
 import com.exedio.dsmf.Schema;
 
 /**
@@ -29,6 +31,6 @@ import com.exedio.dsmf.Schema;
 interface DefaultToNextImpl
 {
 	void makeSchema(Schema schema);
-	int next();
+	int next(Connection connection);
 	void flush();
 }

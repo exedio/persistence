@@ -46,7 +46,7 @@ final class PkSourceMaxImpl implements PkSourceImpl
 			if(next==PkSource.NaPK)
 			{
 				final Table table = type.getTable();
-				final Integer maxPK = table.database.maxPK(connection, table);
+				final Integer maxPK = table.database.max(connection, table.primaryKey);
 				next = maxPK!=null ? (maxPK.intValue()+1) : 0;
 			}
 			return next++;
