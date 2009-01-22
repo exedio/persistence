@@ -49,6 +49,9 @@ final class SchemaDetails_Jspm extends Console_Jspm
 		}
 	}
 	
+	private static final String APPLY = "APPLY";
+	private static final String APPLY_DRY = "APPLYDRY";
+	
 	final static void writeBody(
 			final SchemaCop cop,
 			final PrintStream out,
@@ -61,8 +64,6 @@ final class SchemaDetails_Jspm extends Console_Jspm
 			<hr>
 			<h4>Details</h4><%
 		{
-			final String APPLY = "APPLY";
-			final String APPLY_DRY = "APPLYDRY";
 		
 			if("POST".equals(request.getMethod()))
 			{

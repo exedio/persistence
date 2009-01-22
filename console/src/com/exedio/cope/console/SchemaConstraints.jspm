@@ -44,6 +44,11 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 		}
 	}
 	
+	private static final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
+	private static final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
+	private static final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
+	private static final String DROP_CONSTRAINTS = "DROP_CONSTRAINTS";
+	
 	final static void writeBody(
 			final SchemaCop cop,
 			final PrintStream out,
@@ -56,10 +61,6 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 			<hr>
 			<h4>Constraints</h4><%
 		{
-			final String CONSTRAINT_TYPE = "CONSTRAINT_TYPE";
-			final String CREATE_CONSTRAINTS = "CREATE_CONSTRAINTS";
-			final String TEARDOWN_CONSTRAINTS = "TEARDOWN_CONSTRAINTS";
-			final String DROP_CONSTRAINTS = "DROP_CONSTRAINTS";
 			for(final Constraint.Type type : Constraint.Type.values())
 			{
 			%>

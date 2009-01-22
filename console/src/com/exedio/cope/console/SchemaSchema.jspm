@@ -29,6 +29,12 @@ import com.exedio.cope.Model;
 
 final class SchemaSchema_Jspm extends Console_Jspm
 {
+	private static final String CREATE = "CREATE";
+	private static final String TEARDOWN = "TEARDOWN";
+	private static final String TEARDOWN_AND_CREATE = "TEARDOWNCREATE";
+	private static final String DROP = "DROP";
+	private static final String DROP_AND_CREATE = "DROPCREATE";
+	
 	final static void writeBody(
 			final SchemaCop cop,
 			final PrintStream out,
@@ -37,13 +43,7 @@ final class SchemaSchema_Jspm extends Console_Jspm
 	{
 		%>
 		<form action="<%=cop%>#overall" method="POST"><%
-		
 		{
-			final String CREATE = "CREATE";
-			final String TEARDOWN = "TEARDOWN";
-			final String TEARDOWN_AND_CREATE = "TEARDOWNCREATE";
-			final String DROP = "DROP";
-			final String DROP_AND_CREATE = "DROPCREATE";
 			%>
 			<h4>Schema</h4>
 			<input type="submit" name="<%=CREATE  %>" value="create" />
