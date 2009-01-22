@@ -42,8 +42,8 @@ final class SchemaSchema_Jspm extends Console_Jspm
 			final HttpServletRequest request)
 	{
 		%>
+		<h4>Schema</h4>
 		<form action="<%=cop%>#overall" method="POST">
-			<h4>Schema</h4>
 			<input type="submit" name="<%=CREATE  %>" value="create" />
 			<input type="submit" name="<%=TEARDOWN%>" value="tear down" onclick="return confirm('This operation will desperately try to drop all your database tables.\nDo you really want to do this?')" />
 			<input type="submit" name="<%=DROP    %>" value="drop" onclick="return confirm('This operation will drop all your database tables.\nDo you really want to do this?')" />

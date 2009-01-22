@@ -56,9 +56,9 @@ final class SchemaConstraints_Jspm extends Console_Jspm
 			final HttpServletRequest request)
 	{
 		%>
-		<form action="<%=cop%>#overall" method="POST">
-			<hr>
-			<h4>Constraints</h4><%
+		<h4>Constraints</h4>
+		<hr>
+		<form action="<%=cop%>#overall" method="POST"><%
 			
 			for(final Constraint.Type type : Constraint.Type.values())
 			{
