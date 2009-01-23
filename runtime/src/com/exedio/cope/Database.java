@@ -1349,8 +1349,8 @@ final class Database
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
 		}
-		for(final Sequence p : sequences)
-			p.makeSchema(result);
+		for(final Sequence sequence : sequences)
+			sequence.makeSchema(result);
 		
 		dialect.completeSchema(result);
 		return result;
