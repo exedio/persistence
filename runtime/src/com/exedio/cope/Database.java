@@ -125,11 +125,11 @@ final class Database
 			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
-	void addSequence(final Sequence pkSource)
+	void addSequence(final Sequence sequence)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
-		sequences.add(pkSource);
+		sequences.add(sequence);
 	}
 	
 	public List<PrimaryKeyInfo> getSequenceInfo()
