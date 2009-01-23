@@ -50,7 +50,7 @@ final class PkSource
 			throw new IllegalStateException("already connected " + type);
 		impl =
 			database.cluster
-			? new DefaultToNextSequenceImpl(start, database, column)
+			? new DefaultToNextSequenceImpl(column, start, database)
 			: new DefaultToNextMaxImpl(column, start);
 	}
 	

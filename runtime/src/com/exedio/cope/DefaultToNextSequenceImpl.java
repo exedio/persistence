@@ -35,7 +35,7 @@ final class DefaultToNextSequenceImpl implements PkSourceImpl
 	private final Database database;
 	private final String name;
 
-	DefaultToNextSequenceImpl(final int start, final Database database, final IntegerColumn column)
+	DefaultToNextSequenceImpl(final IntegerColumn column, final int start, final Database database)
 	{
 		if(!database.driver.supportsSequences())
 			throw new RuntimeException("database does not support sequences");
