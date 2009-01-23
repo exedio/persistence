@@ -248,18 +248,6 @@ public final class IntegerField extends NumberField<Integer>
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
 	
-	public static final void flushDefaultNextCache(final Model model)
-	{
-		for(final Type<?> t : model.getTypes())
-			for(final Field f : t.getFields())
-				if(f instanceof IntegerField)
-				{
-					final Sequence sequence = ((IntegerField)f).defaultToNextSequence;
-					if(sequence!=null)
-						sequence.flush();
-				}
-	}
-	
 	@Override
 	public Condition equal(final Integer value)
 	{

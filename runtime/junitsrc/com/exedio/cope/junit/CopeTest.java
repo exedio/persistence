@@ -24,7 +24,6 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
@@ -207,8 +206,6 @@ public abstract class CopeTest extends CopeAssert
 	@Override
 	protected void tearDown() throws Exception
 	{
-		IntegerField.flushDefaultNextCache(model);
-		
 		if(manageTransactions)
 		{
 			final boolean hadTransaction = model.hasCurrentTransaction();

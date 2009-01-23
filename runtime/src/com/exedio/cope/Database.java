@@ -281,6 +281,8 @@ final class Database
 	{
 		buildStage = false;
 
+		for(final Sequence sequence : sequences)
+			sequence.flush();
 		makeSchema().drop();
 	}
 	

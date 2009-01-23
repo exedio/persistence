@@ -588,13 +588,6 @@ public final class Model
 
 	public void dropSchema()
 	{
-		IntegerField.flushDefaultNextCache(this);
-		
-		// TODO: rework this method
-		final List<Type<?>> types = typeList;
-		for(ListIterator<Type<?>> i = types.listIterator(types.size()); i.hasPrevious(); )
-			i.previous().onDropTable();
-
 		getDatabase().dropSchema();
 		clearCache();
 	}

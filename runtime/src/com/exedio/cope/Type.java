@@ -971,11 +971,6 @@ public final class Type<C extends Item>
 	{
 		return id;
 	}
-	
-	void onDropTable()
-	{
-		primaryKeySequence.flush();
-	}
 
 	
 	static final ReactivationConstructorDummy REACTIVATION_DUMMY = new ReactivationConstructorDummy();
