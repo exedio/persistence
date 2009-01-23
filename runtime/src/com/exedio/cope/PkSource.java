@@ -29,6 +29,7 @@ final class PkSource
 	private final int start;
 	private final int minimum;
 	private final int maximum;
+	
 	private PkSourceImpl impl;
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
