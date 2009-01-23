@@ -23,7 +23,7 @@ import java.sql.Connection;
 import com.exedio.cope.util.PrimaryKeyInfo;
 import com.exedio.dsmf.Schema;
 
-final class PkSource
+final class Sequence
 {
 	private final Feature feature;
 	private final int start;
@@ -35,7 +35,7 @@ final class PkSource
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
 	
-	PkSource(final Feature feature, final int start, final int minimum, final int maximum)
+	Sequence(final Feature feature, final int start, final int minimum, final int maximum)
 	{
 		if(feature==null)
 			throw new NullPointerException();

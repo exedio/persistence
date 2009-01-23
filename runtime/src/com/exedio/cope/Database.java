@@ -48,7 +48,7 @@ final class Database
 	
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
-	private final ArrayList<PkSource> pkSources = new ArrayList<PkSource>();
+	private final ArrayList<Sequence> pkSources = new ArrayList<Sequence>();
 	private boolean buildStage = true;
 	final Driver driver;
 	final DialectParameters dialectParameters;
@@ -125,7 +125,7 @@ final class Database
 			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
-	void addPkSource(final PkSource pkSource)
+	void addPkSource(final Sequence pkSource)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
@@ -135,7 +135,7 @@ final class Database
 	public List<PrimaryKeyInfo> getSequenceInfo()
 	{
 		final ArrayList<PrimaryKeyInfo> result = new ArrayList<PrimaryKeyInfo>(pkSources.size());
-		for(final PkSource sequence : pkSources)
+		for(final Sequence sequence : pkSources)
 			result.add(sequence.getInfo());
 		return Collections.unmodifiableList(result);
 	}
@@ -1349,7 +1349,7 @@ final class Database
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
 		}
-		for(final PkSource p : pkSources)
+		for(final Sequence p : pkSources)
 			p.makeSchema(result);
 		
 		dialect.completeSchema(result);

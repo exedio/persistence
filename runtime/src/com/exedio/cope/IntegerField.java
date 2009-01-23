@@ -31,7 +31,7 @@ import com.exedio.cope.util.PrimaryKeyInfo;
 public final class IntegerField extends NumberField<Integer>
 {
 	final Integer defaultNextStart;
-	private final PkSource defaultToNextSequence;
+	private final Sequence defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
@@ -70,7 +70,7 @@ public final class IntegerField extends NumberField<Integer>
 						": " + e.getMessageWithoutFeature() +
 						" Start value was '" + defaultNextStart + "'.");
 			}
-			this.defaultToNextSequence = new PkSource(this, defaultNextStart.intValue(), minimum, maximum);
+			this.defaultToNextSequence = new Sequence(this, defaultNextStart.intValue(), minimum, maximum);
 		}
 		else
 		{

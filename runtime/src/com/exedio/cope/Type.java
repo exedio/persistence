@@ -68,7 +68,7 @@ public final class Type<C extends Item>
 
 	private final Constructor<C> creationConstructor;
 	private final Constructor<C> reactivationConstructor;
-	final PkSource pkSource;
+	final Sequence pkSource;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
 
@@ -298,7 +298,7 @@ public final class Type<C extends Item>
 		this.pkSource =
 			supertype!=null
 			? supertype.pkSource
-			: new PkSource(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
+			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 		
 		// register type at the end of the constructor, so the
 		// type is not registered, if the constructor throws
