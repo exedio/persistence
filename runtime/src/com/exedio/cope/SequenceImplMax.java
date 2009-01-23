@@ -22,7 +22,7 @@ import java.sql.Connection;
 
 import com.exedio.dsmf.Schema;
 
-final class DefaultToNextMaxImpl implements SequenceImpl
+final class SequenceImplMax implements SequenceImpl
 {
 	private final IntegerColumn column;
 	private final int start;
@@ -30,7 +30,7 @@ final class DefaultToNextMaxImpl implements SequenceImpl
 	private int next = Integer.MIN_VALUE;
 	private final Object lock = new Object();
 
-	DefaultToNextMaxImpl(final IntegerColumn column, final int start)
+	SequenceImplMax(final IntegerColumn column, final int start)
 	{
 		this.column = column;
 		this.start = start;

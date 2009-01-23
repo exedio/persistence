@@ -55,7 +55,7 @@ final class Sequence
 		impl =
 			database.cluster
 			? new DefaultToNextSequenceImpl(column, start, database)
-			: new DefaultToNextMaxImpl(column, start);
+			: new SequenceImplMax(column, start);
 	}
 	
 	void disconnect()
