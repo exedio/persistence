@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.util.ItemCacheInfo;
@@ -449,5 +450,14 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		{
 			assertEquals("not known", e.getMessage());
 		}
+	}
+	
+	protected void assertPrimaryKeyInfo(final List<PrimaryKeyInfo> actual, final Type... expected)
+	{
+		assertUnmodifiable(actual);
+		final ArrayList<Type> actualTypes = new ArrayList<Type>();
+		for(final PrimaryKeyInfo i : actual)
+			actualTypes.add(i.getType());
+		assertEquals(Arrays.asList(expected), actualTypes);
 	}
 }

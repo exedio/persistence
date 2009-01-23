@@ -67,6 +67,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 		assertEquals(DefaultToEnum.TWO, DefaultToItem.enumTwo.getDefaultConstant());
 		assertEquals(null, DefaultToItem.enumNone.getDefaultConstant());
 		
+		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE);
+		assertPrimaryKeyInfo(DefaultToItem.TYPE, DefaultToItem.TYPE.getPrimaryKeyInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
@@ -89,6 +91,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
+		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE);
+		assertPrimaryKeyInfo(DefaultToItem.TYPE, 1, 0, 0, DefaultToItem.TYPE.getPrimaryKeyInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
@@ -111,6 +115,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
+		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE);
+		assertPrimaryKeyInfo(DefaultToItem.TYPE, 2, 0, 1, DefaultToItem.TYPE.getPrimaryKeyInfo());
 		{
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					DefaultToItem.booleanTrue.map(false),
@@ -142,6 +148,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.ONE, item.getEnumTwo());
 			assertEquals(DefaultToEnum.TWO, item.getEnumNone());
 		}
+		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE);
+		assertPrimaryKeyInfo(DefaultToItem.TYPE, 3, 0, 2, DefaultToItem.TYPE.getPrimaryKeyInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = new DefaultToItem(
@@ -173,6 +181,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(null, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
+		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE);
+		assertPrimaryKeyInfo(DefaultToItem.TYPE, 4, 0, 3, DefaultToItem.TYPE.getPrimaryKeyInfo());
 
 		try
 		{
@@ -254,5 +264,4 @@ public class DefaultToTest extends AbstractRuntimeTest
 	{
 		return new Date(l);
 	}
-	
 }

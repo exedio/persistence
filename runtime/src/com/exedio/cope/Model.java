@@ -38,6 +38,7 @@ import java.util.Map;
 import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.PrimaryKeyInfo;
 import com.exedio.cope.util.QueryCacheHistogram;
 import com.exedio.cope.util.QueryCacheInfo;
 import com.exedio.dsmf.Constraint;
@@ -743,6 +744,11 @@ public final class Model
 			if(cleared>0)
 				this.modificationListenersCleared += cleared;
 		}
+	}
+	
+	public List<PrimaryKeyInfo> getSequenceInfo()
+	{
+		return getDatabase().getSequenceInfo();
 	}
 	
 	public ItemCacheInfo[] getItemCacheInfo()

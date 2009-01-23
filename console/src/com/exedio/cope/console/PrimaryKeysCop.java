@@ -18,11 +18,9 @@
 
 package com.exedio.cope.console;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
 import com.exedio.cope.util.PrimaryKeyInfo;
 
 final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
@@ -41,13 +39,7 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 	@Override
 	List<PrimaryKeyInfo> getItems(final Model model)
 	{
-		final ArrayList<PrimaryKeyInfo> primaryKeys = new ArrayList<PrimaryKeyInfo>();
-		for(final Type t : model.getTypes())
-		{
-			if(t.getSupertype()==null)
-				primaryKeys.add(t.getPrimaryKeyInfo());
-		}
-		return primaryKeys;
+		return model.getSequenceInfo();
 	}
 	
 	@Override
