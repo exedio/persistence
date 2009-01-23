@@ -28,6 +28,8 @@ final class PkSource
 	private final Type type;
 	private final int start;
 	private PkSourceImpl impl;
+	private int minimum = Integer.MIN_VALUE;
+	private int maximum = Integer.MAX_VALUE;
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
@@ -47,6 +49,8 @@ final class PkSource
 			database.cluster
 			? new DefaultToNextSequenceImpl(start, database, column)
 			: new DefaultToNextMaxImpl(column, start);
+		minimum = toInt(column.minimum);
+		maximum = toInt(column.maximum);
 	}
 	
 	void disconnect()
@@ -54,6 +58,15 @@ final class PkSource
 		if(impl==null)
 			throw new IllegalStateException("not yet connected " + type);
 		impl = null;
+	}
+	
+	private static int toInt(final long l)
+	{
+		if(l<Integer.MIN_VALUE)
+			throw new IllegalArgumentException(String.valueOf(l));
+		if(l>Integer.MAX_VALUE)
+			throw new IllegalArgumentException(String.valueOf(l));
+		return (int)l;
 	}
 	
 	private PkSourceImpl impl()
@@ -73,8 +86,8 @@ final class PkSource
 	{
 		final int result = impl().next(connection);
 		
-		if(!PK.isValid(result))
-			throw new RuntimeException("primary key overflow to " + result + " in type " + type.id);
+		if(result<minimum || result>maximum)
+			throw new RuntimeException("sequence overflow to " + result + " in type " + type.id);
 		if((count++)==0)
 			first = result;
 		last = result;
