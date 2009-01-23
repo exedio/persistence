@@ -26,6 +26,7 @@ import com.exedio.dsmf.Schema;
 final class PkSource
 {
 	private final Type type;
+	private final int start;
 	private PkSourceImpl impl;
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
@@ -35,6 +36,7 @@ final class PkSource
 	{
 		assert type!=null;
 		this.type = type;
+		this.start = PK.MIN_VALUE;
 	}
 	
 	void connect(final Database database, final IntegerColumn column)
@@ -43,8 +45,8 @@ final class PkSource
 			throw new IllegalStateException("already connected " + type);
 		impl =
 			database.cluster
-			? new DefaultToNextSequenceImpl(PK.MIN_VALUE, database, column)
-			: new DefaultToNextMaxImpl(column, PK.MIN_VALUE);
+			? new DefaultToNextSequenceImpl(start, database, column)
+			: new DefaultToNextMaxImpl(column, start);
 	}
 	
 	void disconnect()
