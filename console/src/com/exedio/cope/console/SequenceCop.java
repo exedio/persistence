@@ -28,7 +28,7 @@ final class SequenceCop extends TestCop<SequenceInfo>
 {
 	SequenceCop(final Args args)
 	{
-		super(TAB_PRIMARY_KEY, "sequences", args);
+		super(TAB_SEQUENCE, "sequences", args);
 	}
 
 	@Override

@@ -213,7 +213,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_ITEM_CACHE = "itemcache";
 	static final String TAB_QUERY_CACHE = "querycache";
 	static final String TAB_HISTORY = "history";
-	static final String TAB_PRIMARY_KEY = "sequence";
+	static final String TAB_SEQUENCE = "sequence";
 	static final String TAB_MEDIA_STATS = "mediastats";
 	static final String TAB_VM = "vm";
 	static final String TAB_ENVIRONMENT = "environment";
@@ -256,7 +256,7 @@ abstract class ConsoleCop extends Cop
 			return QueryCacheCop.getQueryCacheCop(args, request);
 		if(TAB_HISTORY.equals(tab))
 			return new HistoryCop(args);
-		if(TAB_PRIMARY_KEY.equals(tab))
+		if(TAB_SEQUENCE.equals(tab))
 			return new SequenceCop(args);
 		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop(args);
