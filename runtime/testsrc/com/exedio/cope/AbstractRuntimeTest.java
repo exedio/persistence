@@ -420,17 +420,18 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	
 	protected void assertInfo(final Type type, final int count, final int first, final int last, final PrimaryKeyInfo info)
 	{
-		assertInfoX(type.getThis(), 0, Integer.MAX_VALUE, count, first, last, info);
+		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
 	}
 	
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final PrimaryKeyInfo info)
 	{
-		assertInfoX(feature, feature.getMinimum(), feature.getMaximum(), count, first, last, info);
+		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
 	}
 	
-	private void assertInfoX(final Feature feature, final int minimum, final int maximum, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final PrimaryKeyInfo info)
 	{
 		assertSame(feature, info.getFeature());
+		assertEquals(start, info.getStart());
 		assertEquals(minimum, info.getMinimum());
 		assertEquals(maximum, info.getMaximum());
 		assertEquals(count, info.getCount());
@@ -441,17 +442,18 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	
 	protected void assertInfo(final Type type, final PrimaryKeyInfo info)
 	{
-		assertInfoX(type.getThis(), 0, Integer.MAX_VALUE, info);
+		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
 	}
 	
 	protected void assertInfo(final IntegerField feature, final PrimaryKeyInfo info)
 	{
-		assertInfoX(feature, feature.getMinimum(), feature.getMaximum(), info);
+		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
 	}
 	
-	private void assertInfoX(final Feature feature, final int minimum, final int maximum, final PrimaryKeyInfo info)
+	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final PrimaryKeyInfo info)
 	{
 		assertSame(feature, info.getFeature());
+		assertEquals(start, info.getStart());
 		assertEquals(minimum, info.getMinimum());
 		assertEquals(maximum, info.getMaximum());
 		assertEquals(0, info.getCount());

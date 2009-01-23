@@ -23,6 +23,7 @@ import com.exedio.cope.Feature;
 public final class PrimaryKeyInfo
 {
 	private final Feature feature;
+	private final int start;
 	private final int minimum;
 	private final int maximum;
 	
@@ -33,6 +34,7 @@ public final class PrimaryKeyInfo
 	
 	public PrimaryKeyInfo(
 			final Feature feature,
+			final int start,
 			final int minimum,
 			final int maximum,
 			final int count,
@@ -40,6 +42,7 @@ public final class PrimaryKeyInfo
 			final int last)
 	{
 		this.feature = feature;
+		this.start = start;
 		this.minimum = minimum;
 		this.maximum = maximum;
 		
@@ -51,10 +54,12 @@ public final class PrimaryKeyInfo
 	
 	public PrimaryKeyInfo(
 			final Feature feature,
+			final int start,
 			final int minimum,
 			final int maximum)
 	{
 		this.feature = feature;
+		this.start = start;
 		this.minimum = minimum;
 		this.maximum = maximum;
 		
@@ -67,6 +72,11 @@ public final class PrimaryKeyInfo
 	public Feature getFeature()
 	{
 		return feature;
+	}
+	
+	public int getStart()
+	{
+		return start;
 	}
 	
 	public int getMinimum()
