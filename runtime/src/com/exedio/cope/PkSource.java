@@ -25,7 +25,7 @@ import com.exedio.dsmf.Schema;
 
 final class PkSource
 {
-	private final Type type;
+	private final Feature feature;
 	private final int start;
 	private final int minimum;
 	private final int maximum;
@@ -38,16 +38,29 @@ final class PkSource
 	PkSource(final Type type)
 	{
 		assert type!=null;
-		this.type = type;
+		this.feature = type.getThis();
 		this.start = PK.MIN_VALUE;
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = PK.MAX_VALUE;
 	}
 	
+	PkSource(final Feature feature, final int start, final int minimum, final int maximum)
+	{
+		if(feature==null)
+			throw new NullPointerException();
+		if(start<minimum || start>maximum)
+			throw new IllegalArgumentException(String.valueOf(start) + '/' + String.valueOf(minimum) + '/' + String.valueOf(maximum));
+		
+		this.feature = feature;
+		this.start = start;
+		this.minimum = minimum;
+		this.maximum = maximum;
+	}
+	
 	void connect(final Database database, final IntegerColumn column)
 	{
 		if(impl!=null)
-			throw new IllegalStateException("already connected " + type);
+			throw new IllegalStateException("already connected " + feature);
 		impl =
 			database.cluster
 			? new DefaultToNextSequenceImpl(column, start, database)
@@ -57,7 +70,7 @@ final class PkSource
 	void disconnect()
 	{
 		if(impl==null)
-			throw new IllegalStateException("not yet connected " + type);
+			throw new IllegalStateException("not yet connected " + feature);
 		impl = null;
 	}
 	
@@ -65,7 +78,7 @@ final class PkSource
 	{
 		final PkSourceImpl impl = this.impl;
 		if(impl==null)
-			throw new IllegalStateException("not yet connected " + type);
+			throw new IllegalStateException("not yet connected " + feature);
 		return impl;
 	}
 
@@ -79,7 +92,7 @@ final class PkSource
 		final int result = impl().next(connection);
 		
 		if(result<minimum || result>maximum)
-			throw new RuntimeException("sequence overflow to " + result + " in type " + type.id);
+			throw new RuntimeException("sequence overflow to " + result + " in " + feature);
 		if((count++)==0)
 			first = result;
 		last = result;
@@ -102,7 +115,7 @@ final class PkSource
 		final int last  = this.last;
 		return
 			count!=0 && first!=Integer.MAX_VALUE && last!=Integer.MIN_VALUE
-			? new PrimaryKeyInfo(type, minimum, maximum, count, first, last)
-			: new PrimaryKeyInfo(type, minimum, maximum);
+			? new PrimaryKeyInfo(feature, minimum, maximum, count, first, last)
+			: new PrimaryKeyInfo(feature, minimum, maximum);
 	}
 }

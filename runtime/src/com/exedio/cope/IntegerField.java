@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Set;
 
+import com.exedio.cope.util.PrimaryKeyInfo;
+
 /**
  * Represents a field within a {@link Type type},
  * that enables instances of that type to store a integer.
@@ -29,7 +31,7 @@ import java.util.Set;
 public final class IntegerField extends NumberField<Integer>
 {
 	final Integer defaultNextStart;
-	private PkSourceImpl defaultToNextImpl = null;
+	private final PkSource defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
@@ -68,6 +70,11 @@ public final class IntegerField extends NumberField<Integer>
 						": " + e.getMessageWithoutFeature() +
 						" Start value was '" + defaultNextStart + "'.");
 			}
+			this.defaultToNextSequence = new PkSource(this, defaultNextStart.intValue(), minimum, maximum);
+		}
+		else
+		{
+			this.defaultToNextSequence = null;
 		}
 	}
 	
@@ -185,15 +192,11 @@ public final class IntegerField extends NumberField<Integer>
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		final IntegerColumn result = new IntegerColumn(table, this, name, optional, minimum, maximum, false);
-		if(defaultNextStart!=null)
+		if(defaultToNextSequence!=null)
 		{
 			final Database database = table.database;
-			final PkSourceImpl defaultToNextImpl =
-				database.cluster
-				? new DefaultToNextSequenceImpl(result, defaultNextStart.intValue(), database)
-				: new DefaultToNextMaxImpl(result, defaultNextStart.intValue());
-			this.defaultToNextImpl = defaultToNextImpl;
-			database.addDefaultToNexts(defaultToNextImpl);
+			defaultToNextSequence.connect(database, result);
+			database.addPkSource(defaultToNextSequence);
 		}
 		return result;
 	}
@@ -240,9 +243,14 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IntegerRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 	
+	public PrimaryKeyInfo getSequenceInfo()
+	{
+		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
+	}
+	
 	int nextDefaultNext()
 	{
-		return defaultToNextImpl.next(getType().getModel().getCurrentTransaction().getConnection());
+		return defaultToNextSequence.next(getType().getModel().getCurrentTransaction().getConnection());
 	}
 	
 	public static final void flushDefaultNextCache(final Model model)
@@ -253,10 +261,10 @@ public final class IntegerField extends NumberField<Integer>
 				{
 					final IntegerField fi = (IntegerField)f;
 					
-					if(fi.defaultToNextImpl==null)
+					if(fi.defaultToNextSequence==null)
 						continue;
 					
-					fi.defaultToNextImpl.flush();
+					fi.defaultToNextSequence.flush();
 				}
 	}
 	

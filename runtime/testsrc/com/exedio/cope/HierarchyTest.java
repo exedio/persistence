@@ -337,7 +337,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 		MODEL.dropSchema();
 		MODEL.createSchema();
 		
-		assertPrimaryKeyInfo(model.getSequenceInfo(), HierarchySuper.TYPE, HierarchySingleSuper.TYPE);
+		assertPrimaryKeyInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 		
 		assertPrimaryKeyInfo(HierarchySuper.TYPE, HierarchySuper.TYPE.getPrimaryKeyInfo());
 		assertPrimaryKeyInfo(HierarchySuper.TYPE, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
@@ -366,6 +366,6 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, 1, 0, 0, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
 		assertPrimaryKeyInfo(HierarchySingleSuper.TYPE, 1, 0, 0, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 		
-		assertPrimaryKeyInfo(model.getSequenceInfo(), HierarchySuper.TYPE, HierarchySingleSuper.TYPE);
+		assertPrimaryKeyInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 	}
 }

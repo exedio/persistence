@@ -420,9 +420,19 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	
 	protected void assertPrimaryKeyInfo(final Type type, final int count, final int first, final int last, final PrimaryKeyInfo info)
 	{
-		assertSame(type, info.getType());
-		assertEquals(0, info.getMinimum());
-		assertEquals(Integer.MAX_VALUE, info.getMaximum());
+		assertPrimaryKeyInfo(type.getThis(), 0, Integer.MAX_VALUE, count, first, last, info);
+	}
+	
+	protected void assertPrimaryKeyInfo(final IntegerField feature, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	{
+		assertPrimaryKeyInfo(feature, feature.getMinimum(), feature.getMaximum(), count, first, last, info);
+	}
+	
+	private void assertPrimaryKeyInfo(final Feature feature, final int minimum, final int maximum, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	{
+		assertSame(feature, info.getFeature());
+		assertEquals(minimum, info.getMinimum());
+		assertEquals(maximum, info.getMaximum());
 		assertEquals(count, info.getCount());
 		assertTrue(info.isKnown());
 		assertEquals(first, info.getFirst());
@@ -431,9 +441,19 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	
 	protected void assertPrimaryKeyInfo(final Type type, final PrimaryKeyInfo info)
 	{
-		assertSame(type, info.getType());
-		assertEquals(0, info.getMinimum());
-		assertEquals(Integer.MAX_VALUE, info.getMaximum());
+		assertPrimaryKeyInfo(type.getThis(), 0, Integer.MAX_VALUE, info);
+	}
+	
+	protected void assertPrimaryKeyInfo(final IntegerField feature, final PrimaryKeyInfo info)
+	{
+		assertPrimaryKeyInfo(feature, feature.getMinimum(), feature.getMaximum(), info);
+	}
+	
+	private void assertPrimaryKeyInfo(final Feature feature, final int minimum, final int maximum, final PrimaryKeyInfo info)
+	{
+		assertSame(feature, info.getFeature());
+		assertEquals(minimum, info.getMinimum());
+		assertEquals(maximum, info.getMaximum());
 		assertEquals(0, info.getCount());
 		assertFalse(info.isKnown());
 		try
@@ -456,12 +476,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 	
-	protected void assertPrimaryKeyInfo(final List<PrimaryKeyInfo> actual, final Type... expected)
+	protected void assertPrimaryKeyInfo(final List<PrimaryKeyInfo> actual, final Feature... expected)
 	{
 		assertUnmodifiable(actual);
-		final ArrayList<Type> actualTypes = new ArrayList<Type>();
+		final ArrayList<Feature> actualTypes = new ArrayList<Feature>();
 		for(final PrimaryKeyInfo i : actual)
-			actualTypes.add(i.getType());
+			actualTypes.add(i.getFeature());
 		assertEquals(Arrays.asList(expected), actualTypes);
 	}
 }

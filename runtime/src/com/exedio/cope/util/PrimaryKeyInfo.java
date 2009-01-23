@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
-import com.exedio.cope.Type;
+import com.exedio.cope.Feature;
 
 public final class PrimaryKeyInfo
 {
-	private final Type type;
+	private final Feature feature;
 	private final int minimum;
 	private final int maximum;
 	
@@ -32,14 +32,14 @@ public final class PrimaryKeyInfo
 	private final int last;
 	
 	public PrimaryKeyInfo(
-			final Type type,
+			final Feature feature,
 			final int minimum,
 			final int maximum,
 			final int count,
 			final int first,
 			final int last)
 	{
-		this.type = type;
+		this.feature = feature;
 		this.minimum = minimum;
 		this.maximum = maximum;
 		
@@ -50,11 +50,11 @@ public final class PrimaryKeyInfo
 	}
 	
 	public PrimaryKeyInfo(
-			final Type type,
+			final Feature feature,
 			final int minimum,
 			final int maximum)
 	{
-		this.type = type;
+		this.feature = feature;
 		this.minimum = minimum;
 		this.maximum = maximum;
 		
@@ -64,9 +64,9 @@ public final class PrimaryKeyInfo
 		this.last = 0;
 	}
 	
-	public Type getType()
+	public Feature getFeature()
 	{
-		return type;
+		return feature;
 	}
 	
 	public int getMinimum()
