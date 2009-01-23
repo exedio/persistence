@@ -27,7 +27,7 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 {
 	PrimaryKeysCop(final Args args)
 	{
-		super(TAB_PRIMARY_KEY, "pk", args);
+		super(TAB_PRIMARY_KEY, "sequences", args);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 	@Override
 	String getCaption()
 	{
-		return "Primary Keys";
+		return "Sequences";
 	}
 	
 	@Override

@@ -127,6 +127,7 @@ abstract class ConsoleCop extends Cop
 					new PropertiesCop(args),
 					new SchemaCop(args),
 					new UnsupportedConstraintCop(args),
+					new PrimaryKeysCop(args),
 					new TypeColumnCop(args),
 					new CopyConstraintCop(args),
 					new RevisionCop(args),
@@ -135,7 +136,6 @@ abstract class ConsoleCop extends Cop
 					new TransactionCop(args),
 					new ItemCacheCop(args),
 					new QueryCacheCop(args),
-					new PrimaryKeysCop(args),
 					new MediaStatsCop(args),
 					new VmCop(args, false, false),
 					new EnvironmentCop(args),
@@ -213,7 +213,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_ITEM_CACHE = "itemcache";
 	static final String TAB_QUERY_CACHE = "querycache";
 	static final String TAB_HISTORY = "history";
-	static final String TAB_PRIMARY_KEY = "primarykeys";
+	static final String TAB_PRIMARY_KEY = "sequence";
 	static final String TAB_MEDIA_STATS = "mediastats";
 	static final String TAB_VM = "vm";
 	static final String TAB_ENVIRONMENT = "environment";
