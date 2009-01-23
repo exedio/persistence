@@ -23,6 +23,9 @@ import com.exedio.cope.Type;
 public final class PrimaryKeyInfo
 {
 	private final Type type;
+	private final int minimum;
+	private final int maximum;
+	
 	private final boolean known;
 	private final int count;
 	private final int first;
@@ -30,20 +33,31 @@ public final class PrimaryKeyInfo
 	
 	public PrimaryKeyInfo(
 			final Type type,
+			final int minimum,
+			final int maximum,
 			final int count,
 			final int first,
 			final int last)
 	{
 		this.type = type;
+		this.minimum = minimum;
+		this.maximum = maximum;
+		
 		this.known = true;
 		this.count = count;
 		this.first = first;
 		this.last = last;
 	}
 	
-	public PrimaryKeyInfo(final Type type)
+	public PrimaryKeyInfo(
+			final Type type,
+			final int minimum,
+			final int maximum)
 	{
 		this.type = type;
+		this.minimum = minimum;
+		this.maximum = maximum;
+		
 		this.known = false;
 		this.count = 0;
 		this.first = 0;
@@ -53,6 +67,16 @@ public final class PrimaryKeyInfo
 	public Type getType()
 	{
 		return type;
+	}
+	
+	public int getMinimum()
+	{
+		return minimum;
+	}
+	
+	public int getMaximum()
+	{
+		return maximum;
 	}
 	
 	public int getCount()

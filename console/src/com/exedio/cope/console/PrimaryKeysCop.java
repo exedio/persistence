@@ -51,7 +51,7 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 	@Override
 	String[] getHeadings()
 	{
-		return new String[]{"Type", "Count", "First", "Last"};
+		return new String[]{"Type", "Min", "Max", "Count", "First", "Last"};
 	}
 	
 	@Override
@@ -60,6 +60,8 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 		final boolean unknown = !info.isKnown();
 		return new String[]{
 				info.getType().getID(),
+				format(info.getMinimum()),
+				format(info.getMaximum()),
 				format(info.getCount()),
 				unknown ? "-" : format(info.getFirst()),
 				unknown ? "-" : format(info.getLast())};
