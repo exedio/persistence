@@ -254,12 +254,9 @@ public final class IntegerField extends NumberField<Integer>
 			for(final Field f : t.getFields())
 				if(f instanceof IntegerField)
 				{
-					final IntegerField fi = (IntegerField)f;
-					
-					if(fi.defaultToNextSequence==null)
-						continue;
-					
-					fi.defaultToNextSequence.flush();
+					final Sequence sequence = ((IntegerField)f).defaultToNextSequence;
+					if(sequence!=null)
+						sequence.flush();
 				}
 	}
 	
