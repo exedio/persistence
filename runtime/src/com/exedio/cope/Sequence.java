@@ -30,7 +30,7 @@ final class Sequence
 	private final int minimum;
 	private final int maximum;
 	
-	private PkSourceImpl impl;
+	private SequenceImpl impl;
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
@@ -65,9 +65,9 @@ final class Sequence
 		impl = null;
 	}
 	
-	private PkSourceImpl impl()
+	private SequenceImpl impl()
 	{
-		final PkSourceImpl impl = this.impl;
+		final SequenceImpl impl = this.impl;
 		if(impl==null)
 			throw new IllegalStateException("not yet connected " + feature);
 		return impl;

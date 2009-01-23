@@ -28,7 +28,7 @@ import com.exedio.dsmf.Schema;
  *
  * @author Ralf Wiebicke
  */
-final class DefaultToNextMaxImpl implements PkSourceImpl
+final class DefaultToNextMaxImpl implements SequenceImpl
 {
 	private final IntegerColumn column;
 	private final int start;

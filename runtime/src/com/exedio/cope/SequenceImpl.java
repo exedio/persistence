@@ -22,7 +22,7 @@ import java.sql.Connection;
 
 import com.exedio.dsmf.Schema;
 
-interface PkSourceImpl
+interface SequenceImpl
 {
 	void makeSchema(Schema schema);
 	int next(Connection connection);
