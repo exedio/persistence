@@ -125,7 +125,7 @@ final class Database
 			throw new RuntimeException("ambiguous unique constraint "+constraint+" trimmed to >"+constraintID+"< colliding with "+collision);
 	}
 	
-	void addPkSource(final Sequence pkSource)
+	void addSequence(final Sequence pkSource)
 	{
 		if(!buildStage)
 			throw new RuntimeException();

@@ -558,7 +558,7 @@ public final class Type<C extends Item>
 		if(supertype==null)
 		{
 			pkSource.connect(database, table.primaryKey);
-			database.addPkSource(pkSource);
+			database.addSequence(pkSource);
 		}
 
 		for(final Field a : declaredFields)

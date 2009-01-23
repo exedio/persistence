@@ -196,7 +196,7 @@ public final class IntegerField extends NumberField<Integer>
 		{
 			final Database database = table.database;
 			defaultToNextSequence.connect(database, result);
-			database.addPkSource(defaultToNextSequence);
+			database.addSequence(defaultToNextSequence);
 		}
 		return result;
 	}
