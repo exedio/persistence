@@ -23,13 +23,13 @@ import java.sql.Connection;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 
-final class DefaultToNextSequenceImpl implements SequenceImpl
+final class SequenceImplSequence implements SequenceImpl
 {
 	private final int start;
 	private final Database database;
 	private final String name;
 
-	DefaultToNextSequenceImpl(final IntegerColumn column, final int start, final Database database)
+	SequenceImplSequence(final IntegerColumn column, final int start, final Database database)
 	{
 		if(!database.driver.supportsSequences())
 			throw new RuntimeException("database does not support sequences");

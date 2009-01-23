@@ -54,7 +54,7 @@ final class Sequence
 			throw new IllegalStateException("already connected " + feature);
 		impl =
 			database.cluster
-			? new DefaultToNextSequenceImpl(column, start, database)
+			? new SequenceImplSequence(column, start, database)
 			: new SequenceImplMax(column, start);
 	}
 	
