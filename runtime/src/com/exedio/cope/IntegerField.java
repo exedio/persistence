@@ -30,8 +30,8 @@ import com.exedio.cope.util.PrimaryKeyInfo;
  */
 public final class IntegerField extends NumberField<Integer>
 {
-	final Integer defaultNextStart;
-	private final Sequence defaultToNextSequence;
+	private final Integer defaultNextStart;
+	final Sequence defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
@@ -246,11 +246,6 @@ public final class IntegerField extends NumberField<Integer>
 	public PrimaryKeyInfo getSequenceInfo()
 	{
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
-	}
-	
-	int nextDefaultNext()
-	{
-		return defaultToNextSequence.next(getType().getModel().getCurrentTransaction().getConnection());
 	}
 	
 	public static final void flushDefaultNextCache(final Model model)

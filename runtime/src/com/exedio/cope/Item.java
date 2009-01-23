@@ -174,9 +174,11 @@ public abstract class Item implements Serializable
 							now = new Date();
 						defaultValue = now;
 					}
-					else if(ff instanceof IntegerField && ((IntegerField)ff).defaultNextStart!=null)
+					else if(ff instanceof IntegerField)
 					{
-						defaultValue = ((IntegerField)ff).nextDefaultNext();
+						final Sequence sequence = ((IntegerField)ff).defaultToNextSequence;
+						if(sequence!=null)
+							defaultValue = sequence.next(type.getModel().getCurrentTransaction().getConnection());
 					}
 				}
 				if(defaultValue!=null)
