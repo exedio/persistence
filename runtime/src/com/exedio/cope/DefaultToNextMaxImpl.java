@@ -22,12 +22,6 @@ import java.sql.Connection;
 
 import com.exedio.dsmf.Schema;
 
-/**
- * Implements the defaultToNext functionality.
- * @see IntegerField#defaultToNext(int)
- *
- * @author Ralf Wiebicke
- */
 final class DefaultToNextMaxImpl implements SequenceImpl
 {
 	private final IntegerColumn column;

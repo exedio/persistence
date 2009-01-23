@@ -23,12 +23,6 @@ import java.sql.Connection;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 
-/**
- * Implements the defaultToNext functionality.
- * @see IntegerField#defaultToNext(int)
- *
- * @author Ralf Wiebicke
- */
 final class DefaultToNextSequenceImpl implements SequenceImpl
 {
 	private final int start;
