@@ -48,7 +48,7 @@ final class Database
 	
 	private final ArrayList<Table> tables = new ArrayList<Table>();
 	private final HashMap<String, UniqueConstraint> uniqueConstraintsByID = new HashMap<String, UniqueConstraint>();
-	private final ArrayList<Sequence> pkSources = new ArrayList<Sequence>();
+	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
 	private boolean buildStage = true;
 	final Driver driver;
 	final DialectParameters dialectParameters;
@@ -129,13 +129,13 @@ final class Database
 	{
 		if(!buildStage)
 			throw new RuntimeException();
-		pkSources.add(pkSource);
+		sequences.add(pkSource);
 	}
 	
 	public List<PrimaryKeyInfo> getSequenceInfo()
 	{
-		final ArrayList<PrimaryKeyInfo> result = new ArrayList<PrimaryKeyInfo>(pkSources.size());
-		for(final Sequence sequence : pkSources)
+		final ArrayList<PrimaryKeyInfo> result = new ArrayList<PrimaryKeyInfo>(sequences.size());
+		for(final Sequence sequence : sequences)
 			result.add(sequence.getInfo());
 		return Collections.unmodifiableList(result);
 	}
@@ -1349,7 +1349,7 @@ final class Database
 			new com.exedio.dsmf.Column(table, REVISION_COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 			new com.exedio.dsmf.UniqueConstraint(table, Table.REVISION_UNIQUE_CONSTRAINT_NAME, '(' + driver.protectName(REVISION_COLUMN_NUMBER_NAME) + ')');
 		}
-		for(final Sequence p : pkSources)
+		for(final Sequence p : sequences)
 			p.makeSchema(result);
 		
 		dialect.completeSchema(result);
