@@ -20,6 +20,7 @@ package com.exedio.cope.console;
 
 import java.util.List;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.PrimaryKeyInfo;
 
@@ -51,15 +52,17 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 	@Override
 	String[] getHeadings()
 	{
-		return new String[]{"Feature", "Start", "Min", "Max", "Count", "First", "Last"};
+		return new String[]{"Type", "Name", "Start", "Min", "Max", "Count", "First", "Last"};
 	}
 	
 	@Override
 	String[] getValues(final PrimaryKeyInfo info)
 	{
+		final Feature feature = info.getFeature();
 		final boolean unknown = !info.isKnown();
 		return new String[]{
-				info.getFeature().getID(),
+				feature.getType().getID(),
+				feature.getName(),
 				format(info.getStart()),
 				format(info.getMinimum()),
 				format(info.getMaximum()),
