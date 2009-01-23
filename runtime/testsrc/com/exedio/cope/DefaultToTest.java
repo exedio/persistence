@@ -69,8 +69,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 		
 		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
 		assertInfo(DefaultToItem.TYPE, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, DefaultToItem.integerNext.getSequenceInfo());
-		assertNull(DefaultToItem.integerNone.getSequenceInfo());
+		assertInfo(DefaultToItem.integerNext, DefaultToItem.integerNext.getDefaultToNextInfo());
+		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
@@ -95,8 +95,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
 		assertInfo(DefaultToItem.TYPE, 1, 0, 0, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 1, 10001, 10001, DefaultToItem.integerNext.getSequenceInfo());
-		assertNull(DefaultToItem.integerNone.getSequenceInfo());
+		assertInfo(DefaultToItem.integerNext, 1, 10001, 10001, DefaultToItem.integerNext.getDefaultToNextInfo());
+		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
@@ -121,8 +121,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
 		assertInfo(DefaultToItem.TYPE, 2, 0, 1, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
-		assertNull(DefaultToItem.integerNone.getSequenceInfo());
+		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
+		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
 		{
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					DefaultToItem.booleanTrue.map(false),
@@ -156,8 +156,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
 		assertInfo(DefaultToItem.TYPE, 3, 0, 2, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
-		assertNull(DefaultToItem.integerNone.getSequenceInfo());
+		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
+		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = new DefaultToItem(
@@ -191,8 +191,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
 		assertInfo(DefaultToItem.TYPE, 4, 0, 3, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
-		assertNull(DefaultToItem.integerNone.getSequenceInfo());
+		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
+		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
 
 		try
 		{

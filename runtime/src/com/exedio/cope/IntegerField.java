@@ -243,7 +243,7 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IntegerRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 	
-	public SequenceInfo getSequenceInfo()
+	public SequenceInfo getDefaultToNextInfo()
 	{
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
