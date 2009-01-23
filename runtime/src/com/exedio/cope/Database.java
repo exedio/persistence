@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.util.PrimaryKeyInfo;
+import com.exedio.cope.util.SequenceInfo;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Driver;
@@ -132,9 +132,9 @@ final class Database
 		sequences.add(sequence);
 	}
 	
-	public List<PrimaryKeyInfo> getSequenceInfo()
+	public List<SequenceInfo> getSequenceInfo()
 	{
-		final ArrayList<PrimaryKeyInfo> result = new ArrayList<PrimaryKeyInfo>(sequences.size());
+		final ArrayList<SequenceInfo> result = new ArrayList<SequenceInfo>(sequences.size());
 		for(final Sequence sequence : sequences)
 			result.add(sequence.getInfo());
 		return Collections.unmodifiableList(result);

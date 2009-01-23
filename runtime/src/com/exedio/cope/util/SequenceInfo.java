@@ -20,7 +20,7 @@ package com.exedio.cope.util;
 
 import com.exedio.cope.Feature;
 
-public final class PrimaryKeyInfo
+public final class SequenceInfo
 {
 	private final Feature feature;
 	private final int start;
@@ -32,7 +32,7 @@ public final class PrimaryKeyInfo
 	private final int first;
 	private final int last;
 	
-	public PrimaryKeyInfo(
+	public SequenceInfo(
 			final Feature feature,
 			final int start,
 			final int minimum,
@@ -52,7 +52,7 @@ public final class PrimaryKeyInfo
 		this.last = last;
 	}
 	
-	public PrimaryKeyInfo(
+	public SequenceInfo(
 			final Feature feature,
 			final int start,
 			final int minimum,

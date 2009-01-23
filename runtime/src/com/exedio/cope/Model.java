@@ -38,7 +38,7 @@ import java.util.Map;
 import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ModificationListener;
-import com.exedio.cope.util.PrimaryKeyInfo;
+import com.exedio.cope.util.SequenceInfo;
 import com.exedio.cope.util.QueryCacheHistogram;
 import com.exedio.cope.util.QueryCacheInfo;
 import com.exedio.dsmf.Constraint;
@@ -739,7 +739,7 @@ public final class Model
 		}
 	}
 	
-	public List<PrimaryKeyInfo> getSequenceInfo()
+	public List<SequenceInfo> getSequenceInfo()
 	{
 		return getDatabase().getSequenceInfo();
 	}

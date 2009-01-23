@@ -22,9 +22,9 @@ import java.util.List;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.util.PrimaryKeyInfo;
+import com.exedio.cope.util.SequenceInfo;
 
-final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
+final class PrimaryKeysCop extends TestCop<SequenceInfo>
 {
 	PrimaryKeysCop(final Args args)
 	{
@@ -38,7 +38,7 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 	}
 	
 	@Override
-	List<PrimaryKeyInfo> getItems(final Model model)
+	List<SequenceInfo> getItems(final Model model)
 	{
 		return model.getSequenceInfo();
 	}
@@ -56,7 +56,7 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 	}
 	
 	@Override
-	String[] getValues(final PrimaryKeyInfo info)
+	String[] getValues(final SequenceInfo info)
 	{
 		final Feature feature = info.getFeature();
 		final boolean unknown = !info.isKnown();
@@ -72,7 +72,7 @@ final class PrimaryKeysCop extends TestCop<PrimaryKeyInfo>
 	}
 	
 	@Override
-	int test(final PrimaryKeyInfo info)
+	int test(final SequenceInfo info)
 	{
 		return 0;
 	}

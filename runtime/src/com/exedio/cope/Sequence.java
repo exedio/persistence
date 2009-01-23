@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.sql.Connection;
 
-import com.exedio.cope.util.PrimaryKeyInfo;
+import com.exedio.cope.util.SequenceInfo;
 import com.exedio.dsmf.Schema;
 
 final class Sequence
@@ -99,14 +99,14 @@ final class Sequence
 		last = Integer.MIN_VALUE;
 	}
 
-	PrimaryKeyInfo getInfo()
+	SequenceInfo getInfo()
 	{
 		final int count = this.count;
 		final int first = this.first;
 		final int last  = this.last;
 		return
 			count!=0 && first!=Integer.MAX_VALUE && last!=Integer.MIN_VALUE
-			? new PrimaryKeyInfo(feature, start, minimum, maximum, count, first, last)
-			: new PrimaryKeyInfo(feature, start, minimum, maximum);
+			? new SequenceInfo(feature, start, minimum, maximum, count, first, last)
+			: new SequenceInfo(feature, start, minimum, maximum);
 	}
 }

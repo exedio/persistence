@@ -29,7 +29,7 @@ import java.util.List;
 
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.util.ItemCacheInfo;
-import com.exedio.cope.util.PrimaryKeyInfo;
+import com.exedio.cope.util.SequenceInfo;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
@@ -418,17 +418,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(0, ci.length);
 	}
 	
-	protected void assertInfo(final Type type, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
 	}
 	
-	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
 	}
 	
-	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertSame(feature, info.getFeature());
 		assertEquals(start, info.getStart());
@@ -440,17 +440,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertEquals(last, info.getLast());
 	}
 	
-	protected void assertInfo(final Type type, final PrimaryKeyInfo info)
+	protected void assertInfo(final Type type, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
 	}
 	
-	protected void assertInfo(final IntegerField feature, final PrimaryKeyInfo info)
+	protected void assertInfo(final IntegerField feature, final SequenceInfo info)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
 	}
 	
-	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final PrimaryKeyInfo info)
+	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
 	{
 		assertSame(feature, info.getFeature());
 		assertEquals(start, info.getStart());
@@ -478,11 +478,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 	
-	protected void assertInfo(final List<PrimaryKeyInfo> actual, final Feature... expected)
+	protected void assertInfo(final List<SequenceInfo> actual, final Feature... expected)
 	{
 		assertUnmodifiable(actual);
 		final ArrayList<Feature> actualTypes = new ArrayList<Feature>();
-		for(final PrimaryKeyInfo i : actual)
+		for(final SequenceInfo i : actual)
 			actualTypes.add(i.getFeature());
 		assertEquals(Arrays.asList(expected), actualTypes);
 	}

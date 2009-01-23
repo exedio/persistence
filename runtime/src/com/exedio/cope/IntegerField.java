@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-import com.exedio.cope.util.PrimaryKeyInfo;
+import com.exedio.cope.util.SequenceInfo;
 
 /**
  * Represents a field within a {@link Type type},
@@ -243,7 +243,7 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IntegerRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 	
-	public PrimaryKeyInfo getSequenceInfo()
+	public SequenceInfo getSequenceInfo()
 	{
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
