@@ -94,7 +94,7 @@ final class PkSource
 	{
 		final int count = this.count;
 		final int first = this.first;
-		final int last = this.last;
+		final int last  = this.last;
 		return
 			count!=0 && first!=Integer.MAX_VALUE && last!=Integer.MIN_VALUE
 			? new PrimaryKeyInfo(type, count, first, last)
