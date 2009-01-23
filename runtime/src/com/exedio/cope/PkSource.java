@@ -35,15 +35,6 @@ final class PkSource
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
 	
-	PkSource(final Type type)
-	{
-		assert type!=null;
-		this.feature = type.getThis();
-		this.start = PK.MIN_VALUE;
-		this.minimum = PK.MIN_VALUE;
-		this.maximum = PK.MAX_VALUE;
-	}
-	
 	PkSource(final Feature feature, final int start, final int minimum, final int maximum)
 	{
 		if(feature==null)
