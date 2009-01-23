@@ -68,7 +68,7 @@ public final class Type<C extends Item>
 
 	private final Constructor<C> creationConstructor;
 	private final Constructor<C> reactivationConstructor;
-	final Sequence pkSource;
+	final Sequence primaryKeySequence;
 
 	private ArrayList<Type<? extends C>> subTypes = null;
 
@@ -295,9 +295,9 @@ public final class Type<C extends Item>
 		this.creationConstructor = getConstructor("creation", SetValue[].class);
 		this.reactivationConstructor = getConstructor("reactivation", ReactivationConstructorDummy.class, int.class);
 
-		this.pkSource =
+		this.primaryKeySequence =
 			supertype!=null
-			? supertype.pkSource
+			? supertype.primaryKeySequence
 			: new Sequence(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 		
 		// register type at the end of the constructor, so the
@@ -557,8 +557,8 @@ public final class Type<C extends Item>
 		this.table = new Table(database, schemaId, supertype, typesOfInstancesColumnValues);
 		if(supertype==null)
 		{
-			pkSource.connect(database, table.primaryKey);
-			database.addSequence(pkSource);
+			primaryKeySequence.connect(database, table.primaryKey);
+			database.addSequence(primaryKeySequence);
 		}
 
 		for(final Field a : declaredFields)
@@ -578,7 +578,7 @@ public final class Type<C extends Item>
 
 		table = null;
 		if(supertype==null)
-			pkSource.disconnect();
+			primaryKeySequence.disconnect();
 		
 		for(final Field a : declaredFields)
 			a.disconnect();
@@ -673,7 +673,7 @@ public final class Type<C extends Item>
 	
 	public PrimaryKeyInfo getPrimaryKeyInfo()
 	{
-		return pkSource.getInfo();
+		return primaryKeySequence.getInfo();
 	}
 	
 	/**
@@ -974,7 +974,7 @@ public final class Type<C extends Item>
 	
 	void onDropTable()
 	{
-		pkSource.flush();
+		primaryKeySequence.flush();
 	}
 
 	
