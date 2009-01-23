@@ -67,9 +67,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 		assertEquals(DefaultToEnum.TWO, DefaultToItem.enumTwo.getDefaultConstant());
 		assertEquals(null, DefaultToItem.enumNone.getDefaultConstant());
 		
-		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertPrimaryKeyInfo(DefaultToItem.TYPE, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertPrimaryKeyInfo(DefaultToItem.integerNext, DefaultToItem.integerNext.getSequenceInfo());
+		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
+		assertInfo(DefaultToItem.TYPE, DefaultToItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(DefaultToItem.integerNext, DefaultToItem.integerNext.getSequenceInfo());
 		assertNull(DefaultToItem.integerNone.getSequenceInfo());
 		{
 			final Date before = new Date();
@@ -93,9 +93,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
-		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertPrimaryKeyInfo(DefaultToItem.TYPE, 1, 0, 0, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertPrimaryKeyInfo(DefaultToItem.integerNext, 1, 10001, 10001, DefaultToItem.integerNext.getSequenceInfo());
+		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
+		assertInfo(DefaultToItem.TYPE, 1, 0, 0, DefaultToItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(DefaultToItem.integerNext, 1, 10001, 10001, DefaultToItem.integerNext.getSequenceInfo());
 		assertNull(DefaultToItem.integerNone.getSequenceInfo());
 		{
 			final Date before = new Date();
@@ -119,9 +119,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
-		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertPrimaryKeyInfo(DefaultToItem.TYPE, 2, 0, 1, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertPrimaryKeyInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
+		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
+		assertInfo(DefaultToItem.TYPE, 2, 0, 1, DefaultToItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
 		assertNull(DefaultToItem.integerNone.getSequenceInfo());
 		{
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
@@ -154,9 +154,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.ONE, item.getEnumTwo());
 			assertEquals(DefaultToEnum.TWO, item.getEnumNone());
 		}
-		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertPrimaryKeyInfo(DefaultToItem.TYPE, 3, 0, 2, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertPrimaryKeyInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
+		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
+		assertInfo(DefaultToItem.TYPE, 3, 0, 2, DefaultToItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
 		assertNull(DefaultToItem.integerNone.getSequenceInfo());
 		{
 			final Date before = new Date();
@@ -189,9 +189,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(null, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
-		assertPrimaryKeyInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertPrimaryKeyInfo(DefaultToItem.TYPE, 4, 0, 3, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertPrimaryKeyInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
+		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
+		assertInfo(DefaultToItem.TYPE, 4, 0, 3, DefaultToItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getSequenceInfo());
 		assertNull(DefaultToItem.integerNone.getSequenceInfo());
 
 		try

@@ -418,17 +418,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(0, ci.length);
 	}
 	
-	protected void assertPrimaryKeyInfo(final Type type, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	protected void assertInfo(final Type type, final int count, final int first, final int last, final PrimaryKeyInfo info)
 	{
-		assertPrimaryKeyInfo(type.getThis(), 0, Integer.MAX_VALUE, count, first, last, info);
+		assertInfo(type.getThis(), 0, Integer.MAX_VALUE, count, first, last, info);
 	}
 	
-	protected void assertPrimaryKeyInfo(final IntegerField feature, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final PrimaryKeyInfo info)
 	{
-		assertPrimaryKeyInfo(feature, feature.getMinimum(), feature.getMaximum(), count, first, last, info);
+		assertInfo(feature, feature.getMinimum(), feature.getMaximum(), count, first, last, info);
 	}
 	
-	private void assertPrimaryKeyInfo(final Feature feature, final int minimum, final int maximum, final int count, final int first, final int last, final PrimaryKeyInfo info)
+	private void assertInfo(final Feature feature, final int minimum, final int maximum, final int count, final int first, final int last, final PrimaryKeyInfo info)
 	{
 		assertSame(feature, info.getFeature());
 		assertEquals(minimum, info.getMinimum());
@@ -439,17 +439,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertEquals(last, info.getLast());
 	}
 	
-	protected void assertPrimaryKeyInfo(final Type type, final PrimaryKeyInfo info)
+	protected void assertInfo(final Type type, final PrimaryKeyInfo info)
 	{
-		assertPrimaryKeyInfo(type.getThis(), 0, Integer.MAX_VALUE, info);
+		assertInfo(type.getThis(), 0, Integer.MAX_VALUE, info);
 	}
 	
-	protected void assertPrimaryKeyInfo(final IntegerField feature, final PrimaryKeyInfo info)
+	protected void assertInfo(final IntegerField feature, final PrimaryKeyInfo info)
 	{
-		assertPrimaryKeyInfo(feature, feature.getMinimum(), feature.getMaximum(), info);
+		assertInfo(feature, feature.getMinimum(), feature.getMaximum(), info);
 	}
 	
-	private void assertPrimaryKeyInfo(final Feature feature, final int minimum, final int maximum, final PrimaryKeyInfo info)
+	private void assertInfo(final Feature feature, final int minimum, final int maximum, final PrimaryKeyInfo info)
 	{
 		assertSame(feature, info.getFeature());
 		assertEquals(minimum, info.getMinimum());
@@ -476,7 +476,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 	
-	protected void assertPrimaryKeyInfo(final List<PrimaryKeyInfo> actual, final Feature... expected)
+	protected void assertInfo(final List<PrimaryKeyInfo> actual, final Feature... expected)
 	{
 		assertUnmodifiable(actual);
 		final ArrayList<Feature> actualTypes = new ArrayList<Feature>();

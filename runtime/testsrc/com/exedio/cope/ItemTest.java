@@ -40,13 +40,13 @@ public class ItemTest extends TestmodelTest
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypes());
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypesSortedByHierarchy());
 		
-		assertPrimaryKeyInfo(EmptyItem.TYPE, EmptyItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(EmptyItem.TYPE, EmptyItem.TYPE.getPrimaryKeyInfo());
 		final EmptyItem item1 = new EmptyItem();
 		assertEquals("EmptyItem.0", item1.getCopeID());
 		final EmptyItem item2 = new EmptyItem();
 		assertEquals("EmptyItem.1", item2.getCopeID());
 		final EmptyItem2 item3 = new EmptyItem2();
-		assertPrimaryKeyInfo(EmptyItem.TYPE, 2, 0, 1, EmptyItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(EmptyItem.TYPE, 2, 0, 1, EmptyItem.TYPE.getPrimaryKeyInfo());
 
 		assertEquals(EmptyItem.TYPE, item1.getCopeType());
 		assertEquals(EmptyItem.TYPE, item2.getCopeType());
