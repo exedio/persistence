@@ -31,7 +31,7 @@ final class SequenceImplSequence implements SequenceImpl
 
 	SequenceImplSequence(final IntegerColumn column, final int start, final Database database)
 	{
-		if(!database.driver.supportsSequences())
+		if(!database.supportsSequences)
 			throw new RuntimeException("database does not support sequences");
 		
 		this.start = start;

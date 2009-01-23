@@ -500,7 +500,7 @@ public final class Model
 	
 	public boolean supportsSequences()
 	{
-		return getDatabase().driver.supportsSequences();
+		return getDatabase().supportsSequences;
 	}
 	
 	/**

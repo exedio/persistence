@@ -64,6 +64,7 @@ final class Database
 	final Dialect.LimitSupport limitSupport;
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
+	final boolean supportsSequences;
 	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
@@ -96,6 +97,7 @@ final class Database
 		this.supportsReadCommitted =
 			!dialect.fakesSupportReadCommitted() &&
 			dialectParameters.supportsTransactionIsolationLevel;
+		this.supportsSequences = driver.supportsSequences();
 	}
 	
 	Driver getDriver()
