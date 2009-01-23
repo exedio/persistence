@@ -127,7 +127,7 @@ abstract class ConsoleCop extends Cop
 					new PropertiesCop(args),
 					new SchemaCop(args),
 					new UnsupportedConstraintCop(args),
-					new PrimaryKeysCop(args),
+					new SequenceCop(args),
 					new TypeColumnCop(args),
 					new CopyConstraintCop(args),
 					new RevisionCop(args),
@@ -257,7 +257,7 @@ abstract class ConsoleCop extends Cop
 		if(TAB_HISTORY.equals(tab))
 			return new HistoryCop(args);
 		if(TAB_PRIMARY_KEY.equals(tab))
-			return new PrimaryKeysCop(args);
+			return new SequenceCop(args);
 		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop(args);
 		if(TAB_VM.equals(tab))

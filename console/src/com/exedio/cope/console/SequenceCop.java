@@ -24,17 +24,17 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.SequenceInfo;
 
-final class PrimaryKeysCop extends TestCop<SequenceInfo>
+final class SequenceCop extends TestCop<SequenceInfo>
 {
-	PrimaryKeysCop(final Args args)
+	SequenceCop(final Args args)
 	{
 		super(TAB_PRIMARY_KEY, "sequences", args);
 	}
 
 	@Override
-	protected PrimaryKeysCop newArgs(final Args args)
+	protected SequenceCop newArgs(final Args args)
 	{
-		return new PrimaryKeysCop(args);
+		return new SequenceCop(args);
 	}
 	
 	@Override
