@@ -52,10 +52,7 @@ final class Sequence
 	{
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
-		impl =
-			database.cluster
-			? new SequenceImplSequence(column, start, database)
-			: new SequenceImplMax(column, start);
+		impl = database.newSequenceImpl(start, column);
 	}
 	
 	void disconnect()

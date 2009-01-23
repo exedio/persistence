@@ -65,7 +65,7 @@ final class Database
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
 	final boolean supportsSequences;
-	final boolean cluster;
+	private final boolean cluster;
 	
 	final boolean oracle; // TODO remove
 	
@@ -108,6 +108,14 @@ final class Database
 	java.util.Properties getTableOptions()
 	{
 		return tableOptions;
+	}
+	
+	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
+	{
+		return
+			cluster
+			? new SequenceImplSequence(column, start, this)
+			: new SequenceImplMax(column, start);
 	}
 	
 	void addTable(final Table table)
