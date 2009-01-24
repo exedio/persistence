@@ -304,12 +304,7 @@
 		</zip>
 	</target>
 	
-	<target name="runtime.testmodel.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument finalArgs="true" createDeprecated="true" verbose="false">
-			<fileset dir="runtime/testmodelsrc/com/exedio/cope/testmodel">
-				<include name="**/*.java" />
-			</fileset>
-		</instrument>
+	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument finalArgs="true" createDeprecated="true" verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
@@ -327,21 +322,11 @@
 		</instrument>
 	</target>
 	
-	<target name="runtime.testmodel.compile" depends="runtime.testmodel.instrument">
-		<ljavac srcdir="runtime/testmodelsrc" destdir="build/runtime/testmodelclasses">
-			<classpath>
-				<pathelement location="build/runtime/classes" />
-				<pathelement location="lib/servlet-api.jar" />
-			</classpath>
-		</ljavac>
-	</target>
-	
 	<target name="runtime.test.compile"
-			depends="runtime.testmodel.compile, runtime.junit.compile">
+			depends="runtime.junit.compile">
 		<ljavac srcdir="runtime/testsrc" destdir="build/runtime/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
-				<pathelement location="build/runtime/testmodelclasses" />
 				<pathelement location="lib/commons-fileupload.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -353,7 +338,6 @@
 		<ljar name="cope test" jarfile="build/exedio-cope-test.jar" classpath="exedio-cope.jar junit.jar">
 			<fileset dir="build/dsmf/testclasses" />
 			<fileset dir="build/runtime/testclasses" />
-			<fileset dir="build/runtime/testmodelclasses" />
 		</ljar>
 	</target>
 	
@@ -370,7 +354,6 @@
 					<formatter type="xml" />
 					<classpath>
 						<pathelement location="build/runtime/classes" />
-						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
@@ -395,7 +378,6 @@
 						fork="yes" failonerror="yes">
 					<classpath>
 						<pathelement location="build/runtime/classes" />
-						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
@@ -430,7 +412,6 @@
 					<formatter type="brief" usefile="false" />
 					<classpath>
 						<pathelement location="build/runtime/classes.emma" />
-						<pathelement location="build/runtime/testmodelclasses" />
 						<pathelement location="build/runtime/testclasses" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
@@ -445,7 +426,7 @@
 	</target>
 
 	<target name="runtime.web"
-			  depends="runtime.compile, runtime.test.compile, runtime.testmodel.compile,
+			  depends="runtime.compile, runtime.test.compile,
 							console.compile">
 		<foreachEnvironment skipSwitch="runtime.web">
 			<body>
@@ -454,7 +435,6 @@
 				<copy todir="build/runtime/web-@{env}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
 					<fileset dir="build/runtime/testclasses" />
-					<fileset dir="build/runtime/testmodelclasses" />
 					<fileset dir="build/console/classes" />
 				</copy>
 				
@@ -721,7 +701,7 @@
 		<ljavac srcdir="copernica/testsrc" destdir="build/copernica/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
-				<pathelement location="build/runtime/testmodelclasses" />
+				<pathelement location="build/runtime/testclasses" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/servlet-api.jar" />
@@ -739,7 +719,7 @@
 				
 				<copy todir="build/copernica/web-@{env}/WEB-INF/classes">
 					<fileset dir="build/runtime/classes" />
-					<fileset dir="build/runtime/testmodelclasses" />
+					<fileset dir="build/runtime/testclasses" />
 					<fileset dir="build/console/classes" />
 					<fileset dir="build/copernica/testclasses" />
 				</copy>
@@ -812,7 +792,7 @@
 	
 	<target name="src" depends="jspm, index" description="creates all sources, so the IDE does not complain" />
 	
-	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.testmodel.instrument" />
+	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
 	
 	<target name="compile"
 			  depends="runtime.compile,
