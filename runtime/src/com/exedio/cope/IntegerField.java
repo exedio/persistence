@@ -248,6 +248,11 @@ public final class IntegerField extends NumberField<Integer>
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
 	
+	public int checkDefaultToNext()
+	{
+		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().getCurrentTransaction().getConnection()) : 0;
+	}
+	
 	@Override
 	public Condition equal(final Integer value)
 	{

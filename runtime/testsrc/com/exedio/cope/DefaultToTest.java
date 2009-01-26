@@ -129,7 +129,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 					DefaultToItem.booleanNone.map(true),
 					DefaultToItem.integerFive.map(6),
 					DefaultToItem.integerFifty.map(51),
-					DefaultToItem.integerNext.map(20001),
+					DefaultToItem.integerNext.map(7001),
 					DefaultToItem.dateEight.map(date(9)),
 					DefaultToItem.dateEighty.map(date(81)),
 					DefaultToItem.dateNow.map(date(501)),
@@ -143,7 +143,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(true, item.getBooleanNone());
 			assertEquals(6, item.getIntegerFive());
 			assertEquals(integer(51), item.getIntegerFifty());
-			assertEquals(integer(20001), item.getIntegerNext());
+			assertEquals(integer(7001), item.getIntegerNext());
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(9), item.getDateEight());
 			assertEquals(date(81), item.getDateEighty());
@@ -259,6 +259,19 @@ public class DefaultToTest extends AbstractRuntimeTest
 					"must be at most 3 characters, but was 4. " +
 					"Default constant was '1234'.",
 					e.getMessage());
+		}
+		
+		// test breaking the sequence
+		{
+			assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
+			
+			final DefaultToItem item1 = deleteOnTearDown(new DefaultToItem(DefaultToItem.booleanNone.map(false)));
+			assertEquals(integer(10003), item1.getIntegerNext());
+			assertInfo(DefaultToItem.integerNext, 3, 10001, 10003, DefaultToItem.integerNext.getDefaultToNextInfo());
+			
+			final DefaultToItem item2 = deleteOnTearDown(new DefaultToItem(DefaultToItem.booleanNone.map(false), DefaultToItem.integerNext.map(10028)));
+			assertEquals(integer(10028), item2.getIntegerNext());
+			assertEquals(25, DefaultToItem.integerNext.checkDefaultToNext());
 		}
 	}
 

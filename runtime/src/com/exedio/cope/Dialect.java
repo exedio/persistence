@@ -229,4 +229,12 @@ abstract class Dialect
 	{
 		throw new RuntimeException("sequences not implemented: " + name);
 	}
+	
+	protected Integer getNextSequence(
+			@SuppressWarnings("unused") final Database database,
+			@SuppressWarnings("unused") final Connection connection,
+			final String name)
+	{
+		throw new RuntimeException("sequences not implemented: " + name);
+	}
 }

@@ -62,6 +62,25 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 	
+	public int getNext(final Connection connection)
+	{
+		synchronized(lock)
+		{
+			final int result;
+			if(computed)
+			{
+				result = next;
+			}
+			else
+			{
+				final Integer current = column.table.database.max(connection, column);
+				result = current!=null ? (current.intValue() + 1) : start;
+			}
+			
+			return result;
+		}
+	}
+	
 	public void flush()
 	{
 		synchronized(lock)

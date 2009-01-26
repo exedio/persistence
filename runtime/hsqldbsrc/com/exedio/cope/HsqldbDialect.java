@@ -181,4 +181,29 @@ final class HsqldbDialect extends Dialect
 		}
 		return result;
 	}
+	
+	@Override
+	protected Integer getNextSequence(
+			final Database database,
+			final Connection connection,
+			final String name)
+	{
+		final Statement bf = database.createStatement();
+		bf.append("SELECT START_WITH" +
+					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
+					" WHERE SEQUENCE_NAME='").append(name).append('\'');
+		
+		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		{
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty in sequence " + name);
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					throw new RuntimeException("null in sequence " + name);
+				return Integer.valueOf((String)o);
+			}
+		});
+	}
 }

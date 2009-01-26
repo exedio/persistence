@@ -21,7 +21,9 @@ package com.exedio.cope.console;
 import java.util.List;
 
 import com.exedio.cope.Feature;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 import com.exedio.cope.util.SequenceInfo;
 
 final class SequenceCop extends TestCop<SequenceInfo>
@@ -74,6 +76,12 @@ final class SequenceCop extends TestCop<SequenceInfo>
 	@Override
 	int test(final SequenceInfo info)
 	{
-		return 0;
+		final Feature feature = info.getFeature();
+		if(feature instanceof Type.This)
+			return ((Type.This)feature).getType().checkPrimaryKey();
+		else if(feature instanceof IntegerField)
+			return ((IntegerField)feature).checkDefaultToNext();
+		else
+			return 111111111;
 	}
 }

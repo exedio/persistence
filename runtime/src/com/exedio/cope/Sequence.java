@@ -31,6 +31,7 @@ final class Sequence
 	private final int maximum;
 	
 	private SequenceImpl impl;
+	private IntegerColumn column;
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
@@ -53,6 +54,7 @@ final class Sequence
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
 		impl = database.newSequenceImpl(start, column);
+		this.column = column;
 	}
 	
 	void disconnect()
@@ -60,6 +62,7 @@ final class Sequence
 		if(impl==null)
 			throw new IllegalStateException("not yet connected " + feature);
 		impl = null;
+		column = null;
 	}
 	
 	private SequenceImpl impl()
@@ -105,5 +108,17 @@ final class Sequence
 			count!=0 && first!=Integer.MAX_VALUE && last!=Integer.MIN_VALUE
 			? new SequenceInfo(feature, start, minimum, maximum, count, first, last)
 			: new SequenceInfo(feature, start, minimum, maximum);
+	}
+
+	int check(final Connection connection)
+	{
+		final Integer maxO = column.table.database.max(connection, column);
+		if(maxO==null)
+			return 0;
+		
+		final int max = maxO.intValue();
+		final int current = impl().getNext(connection);
+		//System.out.println("---" + impl().getClass().getSimpleName() + "----"+feature.getID()+": " + max + " / " + current);
+		return (max<current) ? 0 : (max-current+1);
 	}
 }

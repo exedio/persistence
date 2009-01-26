@@ -676,6 +676,11 @@ public final class Type<C extends Item>
 		return primaryKeySequence.getInfo();
 	}
 	
+	public int checkPrimaryKey()
+	{
+		return primaryKeySequence.check(getModel().getCurrentTransaction().getConnection());
+	}
+	
 	/**
 	 * Returns the type representing the {@link Class#getSuperclass() superclass}
 	 * of this type's {@link #getJavaClass() java class}.

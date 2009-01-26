@@ -49,6 +49,11 @@ final class SequenceImplSequence implements SequenceImpl
 		return database.dialect.nextSequence(database, connection, name);
 	}
 	
+	public int getNext(final Connection connection)
+	{
+		return database.dialect.getNextSequence(database, connection, name);
+	}
+	
 	public void flush()
 	{
 		// empty
