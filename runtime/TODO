@@ -51,12 +51,13 @@ TODO for cope runtime
 	* persistent modification counters
 		- option for disable
 		- omit if all fields are final
-	* clustered primary key generation
 	* remote cache invalidation
 	* information in console
-	* make IntegerField.defaultToNext cluster-aware
 	* make migrations cluster aware
 	* test configuration of tomcat
+	* sequences for primary keys and IntegerField.defaultToNext
+		- implement for MySQL on cluster without db sequences
+		- implement consistency check in console
 - move DateField#touch into separate pattern Timestamp
 - FieldListLimited: allow length terminated instead of null terminated as well
 - patterns such as PriceField as function for select and orderBy
