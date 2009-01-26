@@ -402,10 +402,7 @@ final class OracleDialect extends Dialect
 					final Object o = resultSet.getObject(1);
 					if(o==null)
 						throw new RuntimeException("null in sequence " + name);
-					final int result = ((BigDecimal)o).intValue();
-					if(!PK.isValid(result))
-						throw new RuntimeException("invalid primary key " + result + " in sequence " + name);
-					return result;
+					return ((BigDecimal)o).intValue();
 				}
 			});
 		}
