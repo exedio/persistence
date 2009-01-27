@@ -108,6 +108,11 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		if(node==unmarshal(pos, buf))
 			return null;
 		pos += 4;
+
+		// sequence
+		final int sequence = unmarshal(pos, buf);
+		System.out.println("COPE Cluster Invalidation received sequence " + sequence);
+		pos += 4;
 		
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
 		while(pos<length)

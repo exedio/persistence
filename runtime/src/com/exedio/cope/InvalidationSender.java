@@ -35,6 +35,9 @@ final class InvalidationSender extends InvalidationEndpoint
 	private static final int PROLOG_SIZE = 12;
 	private final byte[] prolog;
 	
+	private int sequenceCount = 0;
+	private final Object sequenceLock = new Object();
+	
 	InvalidationSender(final int secret, final int node, final ConnectProperties properties)
 	{
 		super(secret, node, properties);
@@ -69,11 +72,18 @@ final class InvalidationSender extends InvalidationEndpoint
 			for(final TIntHashSet invalidation : invalidations)
 				if(invalidation!=null)
 					pos += 2 + invalidation.size();
-			length = PROLOG_SIZE + (pos << 2);
+			length = PROLOG_SIZE + 4 + (pos << 2);
 		}
 		final byte[] buf = new byte[length];
 		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
 		int pos = PROLOG_SIZE;
+		
+		final int sequence;
+		synchronized(sequenceLock)
+		{
+			sequence = sequenceCount++;
+		}
+		pos = marshal(pos, buf, sequence);
 		
 		for(int typeIdTransiently = 0; typeIdTransiently<invalidations.length; typeIdTransiently++)
 		{
