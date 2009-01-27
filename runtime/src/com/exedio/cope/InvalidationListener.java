@@ -120,19 +120,18 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 			final int typeIdTransiently = unmarshal(pos, buf);
 			pos += 4;
 			
-			final int pkLength = unmarshal(pos, buf);
-			pos += 4;
-			
-			if(pkLength>0)
+			final TIntHashSet set = new TIntHashSet();
+			while(true)
 			{
-				final TIntHashSet set = new TIntHashSet();
-				for(int i = 0; i<pkLength; i++)
-				{
-					set.add(unmarshal(pos, buf));
-					pos += 4;
-				}
-				result[typeIdTransiently] = set;
+				final int pk = unmarshal(pos, buf);
+				pos += 4;
+				
+				if(pk!=PK.NaPK)
+					set.add(pk);
+				else
+					break;
 			}
+			result[typeIdTransiently] = set;
 		}
 		return result;
 	}

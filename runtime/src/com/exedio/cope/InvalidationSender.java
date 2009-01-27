@@ -91,9 +91,9 @@ final class InvalidationSender extends InvalidationEndpoint
 			if(invalidation!=null)
 			{
 				pos = marshal(pos, buf, typeIdTransiently);
-				pos = marshal(pos, buf, invalidation.size());
 				for(final TIntIterator i = invalidation.iterator(); i.hasNext(); )
 					pos = marshal(pos, buf, i.next());
+				pos = marshal(pos, buf, PK.NaPK);
 			}
 		}
 		

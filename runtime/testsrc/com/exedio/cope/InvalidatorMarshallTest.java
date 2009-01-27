@@ -74,11 +74,11 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
 				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // sequence
 				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
-					(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // length
 					(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
 					(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, // pk1
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80, // NaPK for end
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00); // length
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
 		
 		final byte[] buf2 = m(new int[][]{new int[]{0x456789ac, 0xaf896746}, null, new int[]{}, null});
 		assertEqualsBytes(buf2,
@@ -87,11 +87,11 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
 				(byte)0x01, (byte)0x00, (byte)0x00, (byte)0x00, // sequence
 				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
-					(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // length
 					(byte)0x46, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
 					(byte)0xac, (byte)0x89, (byte)0x67, (byte)0x45, // pk1
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80, // NaPK for end
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
-					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00); // length
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
 		{
 			final TIntHashSet[] is = um(0, buf, buf.length, 0x88776655, 0x11224434, 4);
 			
@@ -100,7 +100,7 @@ public class InvalidatorMarshallTest extends TestCase
 			assertEquals(2, is[0].size());
 			
 			assertEquals(null, is[1]);
-			assertEquals(null, is[2]);
+			assertTrue(is[2].isEmpty());
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
