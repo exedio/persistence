@@ -31,9 +31,9 @@ final class InvalidationSender extends InvalidationEndpoint
 	private final int destinationPort;
 	private final DatagramSocket socket;
 	
-	InvalidationSender(final int secret, final int id, final ConnectProperties properties)
+	InvalidationSender(final int secret, final int node, final ConnectProperties properties)
 	{
-		super(secret, id, properties);
+		super(secret, node, properties);
 		this.sourcePort      = properties.clusterSendSourcePort.getIntValue();
 		this.destinationPort = properties.clusterSendDestinationPort.getIntValue();
 		try
@@ -50,7 +50,7 @@ final class InvalidationSender extends InvalidationEndpoint
 	{
 		try
 		{
-			final byte[] buf = marshal(secret, id, invalidations);
+			final byte[] buf = marshal(secret, node, invalidations);
 			final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
 			final long start = System.currentTimeMillis();
 			socket.send(packet);
@@ -62,7 +62,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		}
 	}
 	
-	static byte[] marshal(final int secret, final int id, final TIntHashSet[] invalidations)
+	static byte[] marshal(final int secret, final int node, final TIntHashSet[] invalidations)
 	{
 		final int length;
 		{
@@ -79,7 +79,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		buf[3] = MAGIC3;
 		int pos = 4;
 		pos = marshal(pos, buf, secret);
-		pos = marshal(pos, buf, id);
+		pos = marshal(pos, buf, node);
 		for(int typeIdTransiently = 0; typeIdTransiently<invalidations.length; typeIdTransiently++)
 		{
 			final TIntHashSet invalidation = invalidations[typeIdTransiently];

@@ -97,8 +97,8 @@ public class InvalidatorMarshallTest extends TestCase
 		return InvalidationSender.marshal(secret, id, invalidations);
 	}
 	
-	private TIntHashSet[] um(final int pos, final byte[] buf, final int length, final int secret, final int id, final int typeLength)
+	private TIntHashSet[] um(final int pos, final byte[] buf, final int length, final int secret, final int node, final int typeLength)
 	{
-		return InvalidationListener.unmarshal(pos, buf, length, secret, id, typeLength);
+		return InvalidationListener.unmarshal(pos, buf, length, secret, node, typeLength);
 	}
 }

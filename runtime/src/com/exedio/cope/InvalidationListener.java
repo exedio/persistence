@@ -37,10 +37,10 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 	private volatile boolean threadRun = true;
 	
 	InvalidationListener(
-			final int secret, final int id, final ConnectProperties properties,
+			final int secret, final int node, final ConnectProperties properties,
 			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
 	{
-		super(secret, id, properties);
+		super(secret, node, properties);
 		this.port = properties.clusterListenPort.getIntValue();
 		try
 		{
@@ -73,7 +73,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				if(!threadRun)
 					return;
 				final TIntHashSet[] invalidations =
-					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, id, typeLength);
+					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, node, typeLength);
 				if(invalidations!=null)
 				{
 					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + toString(invalidations));
@@ -93,7 +93,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		}
 	}
 	
-	static TIntHashSet[] unmarshal(int pos, final byte[] buf, final int length, final int secret, final int id, final int typeLength)
+	static TIntHashSet[] unmarshal(int pos, final byte[] buf, final int length, final int secret, final int node, final int typeLength)
 	{
 		if(buf[pos++]!=MAGIC0 ||
 			buf[pos++]!=MAGIC1 ||
@@ -105,7 +105,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 			throw new RuntimeException("wrong secret");
 		pos += 4;
 		
-		if(id==unmarshal(pos, buf))
+		if(node==unmarshal(pos, buf))
 			return null;
 		pos += 4;
 		
