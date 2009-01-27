@@ -93,7 +93,7 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00); // length
 		{
-			final TIntHashSet[] is = um(0, buf, 32, 0x88776655, 0x11224434, 4);
+			final TIntHashSet[] is = um(0, buf, buf.length, 0x88776655, 0x11224434, 4);
 			
 			assertTrue(is[0].contains(0x456789ab));
 			assertTrue(is[0].contains(0xaf896745));
