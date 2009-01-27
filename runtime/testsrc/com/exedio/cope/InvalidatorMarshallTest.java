@@ -73,11 +73,11 @@ public class InvalidatorMarshallTest extends TestCase
 	}
 	
 	
-	private void assertEqualsBytes(final byte[] buf, final byte... expectedData)
+	private void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
 	{
-		for(int i = 0; i<buf.length; i++)
-			assertEquals(String.valueOf(i), expectedData[i], buf[i]);
-		assertEquals(expectedData.length, buf.length);
+		for(int i = 0; i<actualData.length; i++)
+			assertEquals(String.valueOf(i), expectedData[i], actualData[i]);
+		assertEquals(expectedData.length, actualData.length);
 	}
 	
 	private byte[] m(final int secret, final int id, final int[][] invalidationNumbers)
