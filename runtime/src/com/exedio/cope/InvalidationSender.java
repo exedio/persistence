@@ -50,8 +50,7 @@ final class InvalidationSender extends InvalidationEndpoint
 	{
 		try
 		{
-			final byte[] buf = new byte[marshalSize(invalidations)];
-			marshal(buf, secret, id, invalidations);
+			final byte[] buf = marshal(secret, id, invalidations);
 			final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
 			final long start = System.currentTimeMillis();
 			socket.send(packet);
@@ -63,17 +62,17 @@ final class InvalidationSender extends InvalidationEndpoint
 		}
 	}
 	
-	static int marshalSize(final TIntHashSet[] invalidations)
+	static byte[] marshal(final int secret, final int id, final TIntHashSet[] invalidations)
 	{
-		int pos = 12;
-		for(final TIntHashSet invalidation : invalidations)
-			if(invalidation!=null)
-				pos += 8 + (invalidation.size() << 2);
-		return pos;
-	}
-	
-	static int marshal(final byte[] buf, final int secret, final int id, final TIntHashSet[] invalidations)
-	{
+		final int length;
+		{
+			int pos = 12;
+			for(final TIntHashSet invalidation : invalidations)
+				if(invalidation!=null)
+					pos += 8 + (invalidation.size() << 2);
+			length = pos;
+		}
+		final byte[] buf = new byte[length];
 		buf[0] = MAGIC0;
 		buf[1] = MAGIC1;
 		buf[2] = MAGIC2;
@@ -92,7 +91,7 @@ final class InvalidationSender extends InvalidationEndpoint
 					pos = marshal(pos, buf, i.next());
 			}
 		}
-		return pos;
+		return buf;
 	}
 	
 	static int marshal(int pos, final byte[] buf, final int i)

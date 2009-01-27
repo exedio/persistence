@@ -59,8 +59,8 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	public void testSet()
 	{
-		assertEquals(36, m(0x88776655, 0x11224433, new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null}));
-		assertBuf(
+		buf = m(0x88776655, 0x11224433, new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
+		assertEqualsBytes(
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // cluster id
@@ -116,6 +116,13 @@ public class InvalidatorMarshallTest extends TestCase
 			assertEquals(String.valueOf(i), FILL, buf[i]);
 	}
 	
+	private void assertEqualsBytes(final byte... expectedData)
+	{
+		for(int i = 0; i<buf.length; i++)
+			assertEquals(String.valueOf(i), expectedData[i], buf[i]);
+		assertEquals(expectedData.length, buf.length);
+	}
+	
 	private int m(final int pos, final int i)
 	{
 		return InvalidationSender.marshal(pos, buf, i);
@@ -126,7 +133,7 @@ public class InvalidatorMarshallTest extends TestCase
 		return InvalidationListener.unmarshal(pos, buf);
 	}
 	
-	private int m(final int secret, final int id, final int[][] invalidationNumbers)
+	private byte[] m(final int secret, final int id, final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = new TIntHashSet[invalidationNumbers.length];
 		for(int i = 0; i<invalidationNumbers.length; i++)
@@ -140,7 +147,7 @@ public class InvalidatorMarshallTest extends TestCase
 			}
 		}
 		
-		return InvalidationSender.marshal(buf, secret, id, invalidations);
+		return InvalidationSender.marshal(secret, id, invalidations);
 	}
 	
 	private TIntHashSet[] um(final int pos, final int length, final int secret, final int id, final int typeLength)
