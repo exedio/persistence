@@ -68,7 +68,6 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		{
 			try
 			{
-				System.out.println("--r----");
 				if(!threadRun)
 					return;
 				socket.receive(packet);
