@@ -70,7 +70,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		}
 	}
 	
-	static byte[] marshal(final int secret, final int node, final TIntHashSet[] invalidations)
+	private static byte[] marshal(final int secret, final int node, final TIntHashSet[] invalidations)
 	{
 		final int length;
 		{
