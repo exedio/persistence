@@ -327,6 +327,7 @@
 		<ljavac srcdir="runtime/testsrc" destdir="build/runtime/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
+				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/commons-fileupload.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />

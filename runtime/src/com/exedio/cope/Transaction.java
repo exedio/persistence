@@ -310,8 +310,24 @@ public final class Transaction
 		// notify global cache
 		if(!rollback || !model.supportsReadCommitted() /* please send any complaints to derschuldige@hsqldb.org */)
 		{
-			model.getItemCache().invalidate(invalidations);
-			model.getQueryCache().invalidate(invalidations);
+			boolean modified = false;
+			for(final TIntHashSet invalidation : invalidations)
+			{
+				if(invalidation!=null)
+				{
+					modified = true;
+					break;
+				}
+			}
+			
+			if(modified)
+			{
+				model.getItemCache().invalidate(invalidations);
+				model.getQueryCache().invalidate(invalidations);
+				final InvalidationSender ib = model.invalidationSender;
+				if(ib!=null)
+					ib.invalidate(invalidations);
+			}
 		}
 
 		// notify ModificationListeners

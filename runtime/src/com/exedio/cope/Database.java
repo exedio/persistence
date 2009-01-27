@@ -65,7 +65,7 @@ final class Database
 	final long blobLengthFactor;
 	final boolean supportsReadCommitted;
 	final boolean supportsSequences;
-	private final boolean cluster;
+	final boolean cluster;
 	
 	final boolean oracle; // TODO remove
 	

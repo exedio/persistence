@@ -35,12 +35,13 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
+import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ModificationListener;
-import com.exedio.cope.util.SequenceInfo;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.QueryCacheHistogram;
 import com.exedio.cope.util.QueryCacheInfo;
+import com.exedio.cope.util.SequenceInfo;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
@@ -70,6 +71,8 @@ public final class Model
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
+	InvalidationSender invalidationSender;
+	private InvalidationListener invalidationListener;
 	private Date connectDate = null;
 	private boolean logTransactions = false;
 
@@ -307,6 +310,10 @@ public final class Model
 					throw new RuntimeException();
 				if(this.queryCacheIfConnected!=null)
 					throw new RuntimeException();
+				if(this.invalidationSender!=null)
+					throw new RuntimeException();
+				if(this.invalidationListener!=null)
+					throw new RuntimeException();
 				if(this.connectDate!=null)
 					throw new RuntimeException();
 		
@@ -320,6 +327,29 @@ public final class Model
 				
 				this.itemCacheIfConnected = new ItemCache(concreteTypes, properties.getItemCacheLimit());
 				this.queryCacheIfConnected = new QueryCache(properties.getQueryCacheLimit());
+				
+				if(db.cluster)
+				{
+					final Properties.Source context = properties.getContext();
+					{
+						final String secretS = context.get("cluster.secret");
+						if(secretS!=null)
+						{
+							final int secret;
+							try
+							{
+								secret = Integer.valueOf(secretS);
+							}
+							catch(NumberFormatException e)
+							{
+								throw new RuntimeException("cluster.secret muts be a valid integer, but was >" + secretS + '<', e);
+							}
+							this.invalidationSender   = new InvalidationSender  (secret, properties);
+							this.invalidationListener = new InvalidationListener(secret, properties, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
+						}
+					}
+				}
+				
 				this.logTransactions = properties.getTransactionLog();
 				this.connectDate = new Date();
 			}
@@ -352,6 +382,10 @@ public final class Model
 				
 				this.itemCacheIfConnected = null;
 				this.queryCacheIfConnected = null;
+				this.invalidationSender = null;
+				if(this.invalidationListener!=null)
+					this.invalidationListener.close();
+				this.invalidationListener = null;
 				this.connectDate = null;
 				
 				db.close();
