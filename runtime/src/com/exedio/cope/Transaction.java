@@ -326,7 +326,7 @@ public final class Transaction
 				model.getQueryCache().invalidate(invalidations);
 				final InvalidationSender ib = model.invalidationSender;
 				if(ib!=null)
-					ib.invalidate(invalidations);
+					ib.invalidate(invalidations, null);
 			}
 		}
 

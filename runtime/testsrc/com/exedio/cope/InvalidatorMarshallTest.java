@@ -19,13 +19,53 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import junit.framework.TestCase;
+
+import com.exedio.cope.util.Properties;
 
 public class InvalidatorMarshallTest extends TestCase
 {
+	private InvalidationSender is;
+	
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		final ConnectProperties properties = new ConnectProperties(
+				new Properties.Source()
+				{
+					public String get(final String key)
+					{
+						if(key.equals("dialect"))
+							return "hsqldb";
+						else if(key.equals("database.url")||key.equals("database.user")||key.equals("database.password"))
+							return "v(" + key + ")";
+						else
+							return null;
+					}
+		
+					public String getDescription()
+					{
+						return "source description";
+					}
+		
+					public Collection<String> keySet()
+					{
+						return null;
+					}
+				},
+				null
+		);
+		is = new InvalidationSender(0x88776655, 0x11224433, properties);
+	}
+	
 	public void testSet()
 	{
-		final byte[] buf = m(0x88776655, 0x11224433, new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
+		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
@@ -80,7 +120,7 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(expectedData.length, actualData.length);
 	}
 	
-	private byte[] m(final int secret, final int id, final int[][] invalidationNumbers)
+	private byte[] m(final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = new TIntHashSet[invalidationNumbers.length];
 		for(int i = 0; i<invalidationNumbers.length; i++)
@@ -94,7 +134,10 @@ public class InvalidatorMarshallTest extends TestCase
 			}
 		}
 		
-		return InvalidationSender.marshal(secret, id, invalidations);
+		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		is.invalidate(invalidations, sink);
+		assertEquals(1, sink.size());
+		return sink.get(0);
 	}
 	
 	private TIntHashSet[] um(final int pos, final byte[] buf, final int length, final int secret, final int node, final int typeLength)

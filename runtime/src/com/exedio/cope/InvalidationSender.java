@@ -24,6 +24,7 @@ import gnu.trove.TIntIterator;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.util.ArrayList;
 
 final class InvalidationSender extends InvalidationEndpoint
 {
@@ -46,19 +47,26 @@ final class InvalidationSender extends InvalidationEndpoint
 		}
 	}
 	
-	void invalidate(final TIntHashSet[] invalidations)
+	void invalidate(final TIntHashSet[] invalidations, final ArrayList<byte[]> testSink)
 	{
 		final byte[] buf = marshal(secret, node, invalidations);
-		try
+		if(testSink!=null)
 		{
-			final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
-			final long start = System.currentTimeMillis();
-			socket.send(packet);
-			System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + toString(invalidations));
-      }
-		catch(IOException e)
+			testSink.add(buf);
+		}
+		else
 		{
-			throw new RuntimeException(e);
+			try
+			{
+				final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
+				final long start = System.currentTimeMillis();
+				socket.send(packet);
+				System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + toString(invalidations));
+	      }
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
 		}
 	}
 	
