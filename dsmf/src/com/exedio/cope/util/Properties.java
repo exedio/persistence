@@ -52,6 +52,11 @@ public class Properties
 		return Collections.unmodifiableList(fields);
 	}
 	
+	public final Source getSourceObject()
+	{
+		return source;
+	}
+	
 	public final String getSource()
 	{
 		return sourceDescription;

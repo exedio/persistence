@@ -21,8 +21,11 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import junit.framework.TestCase;
+
+import com.exedio.cope.util.Properties;
 
 public class InvalidatorMarshallTest extends TestCase
 {
@@ -32,13 +35,37 @@ public class InvalidatorMarshallTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final ConnectProperties properties = new ConnectProperties();
+		final ConnectProperties defaultProperties = new ConnectProperties();
+		final Properties.Source source = defaultProperties.getSourceObject();
+		final ConnectProperties properties = new ConnectProperties(
+				new Properties.Source()
+				{
+					public String get(final String key)
+					{
+						if(key.equals("cluster.packetSize"))
+							return "103";
+						else
+							return source.get(key);
+					}
+
+					public String getDescription()
+					{
+						return source.getDescription();
+					}
+
+					public Collection<String> keySet()
+					{
+						return source.keySet();
+					}
+				},
+				null
+			);
 		is = new InvalidationSender(0x88776655, 0x11224433, properties);
 	}
 	
 	public void testSet()
 	{
-		assertEquals(4000, is.packetSize);
+		assertEquals(103, is.packetSize);
 		
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
