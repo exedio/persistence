@@ -49,29 +49,6 @@ final class InvalidationSender extends InvalidationEndpoint
 	
 	void invalidate(final TIntHashSet[] invalidations, final ArrayList<byte[]> testSink)
 	{
-		final byte[] buf = marshal(secret, node, invalidations);
-		if(testSink!=null)
-		{
-			testSink.add(buf);
-		}
-		else
-		{
-			try
-			{
-				final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
-				final long start = System.currentTimeMillis();
-				socket.send(packet);
-				System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + toString(invalidations));
-	      }
-			catch(IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-	}
-	
-	private static byte[] marshal(final int secret, final int node, final TIntHashSet[] invalidations)
-	{
 		final int length;
 		{
 			int pos = 3;
@@ -99,7 +76,25 @@ final class InvalidationSender extends InvalidationEndpoint
 					pos = marshal(pos, buf, i.next());
 			}
 		}
-		return buf;
+		
+		if(testSink!=null)
+		{
+			testSink.add(buf);
+		}
+		else
+		{
+			try
+			{
+				final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
+				final long start = System.currentTimeMillis();
+				socket.send(packet);
+				System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + toString(invalidations));
+	      }
+			catch(IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
 	}
 	
 	static int marshal(int pos, final byte[] buf, final int i)
