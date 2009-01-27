@@ -48,9 +48,9 @@ final class InvalidationSender extends InvalidationEndpoint
 	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
+		final byte[] buf = marshal(secret, node, invalidations);
 		try
 		{
-			final byte[] buf = marshal(secret, node, invalidations);
 			final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
 			final long start = System.currentTimeMillis();
 			socket.send(packet);
