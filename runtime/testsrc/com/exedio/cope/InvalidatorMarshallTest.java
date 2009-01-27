@@ -59,10 +59,11 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	public void testSet()
 	{
-		assertEquals(32, m(0x88776655, new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null}));
+		assertEquals(36, m(0x88776655, 0x11224433, new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null}));
 		assertBuf(
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // cluster id
 				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
 					(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // length
 					(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
@@ -71,7 +72,7 @@ public class InvalidatorMarshallTest extends TestCase
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00); // length
 		
 		{
-			final TIntHashSet[] is = um(0, 32, 0x88776655, 4);
+			final TIntHashSet[] is = um(0, 32, 0x88776655, 0x11224434, 4);
 			
 			assertTrue(is[0].contains(0x456789ab));
 			assertTrue(is[0].contains(0xaf896745));
@@ -82,10 +83,11 @@ public class InvalidatorMarshallTest extends TestCase
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
+		assertEquals(null, um(0, 32, 0x88776655, 0x11224433, 4));
 		
 		try
 		{
-			um(0, 32, 0x88776654, 4);
+			um(0, 32, 0x88776654, 0x11224433, 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -95,7 +97,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[0] = 0x11;
 		try
 		{
-			um(0, 32, 0x88776654, 4);
+			um(0, 32, 0x88776654, 0x11224433, 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -124,7 +126,7 @@ public class InvalidatorMarshallTest extends TestCase
 		return InvalidationListener.unmarshal(pos, buf);
 	}
 	
-	private int m(final int secret, final int[][] invalidationNumbers)
+	private int m(final int secret, final int id, final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = new TIntHashSet[invalidationNumbers.length];
 		for(int i = 0; i<invalidationNumbers.length; i++)
@@ -138,11 +140,11 @@ public class InvalidatorMarshallTest extends TestCase
 			}
 		}
 		
-		return InvalidationSender.marshal(buf, secret, invalidations);
+		return InvalidationSender.marshal(buf, secret, id, invalidations);
 	}
 	
-	private TIntHashSet[] um(final int pos, final int length, final int secret, final int typeLength)
+	private TIntHashSet[] um(final int pos, final int length, final int secret, final int id, final int typeLength)
 	{
-		return InvalidationListener.unmarshal(pos, buf, length, secret, typeLength);
+		return InvalidationListener.unmarshal(pos, buf, length, secret, id, typeLength);
 	}
 }

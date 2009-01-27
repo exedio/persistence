@@ -34,6 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Random;
 
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ItemCacheInfo;
@@ -335,6 +336,8 @@ public final class Model
 						final String secretS = context.get("cluster.secret");
 						if(secretS!=null)
 						{
+							final int id = new Random().nextInt();
+							System.out.println("COPE Cluster Invalidation id: " + id);
 							final int secret;
 							try
 							{
@@ -344,8 +347,8 @@ public final class Model
 							{
 								throw new RuntimeException("cluster.secret muts be a valid integer, but was >" + secretS + '<', e);
 							}
-							this.invalidationSender   = new InvalidationSender  (secret, properties);
-							this.invalidationListener = new InvalidationListener(secret, properties, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
+							this.invalidationSender   = new InvalidationSender  (secret, id, properties);
+							this.invalidationListener = new InvalidationListener(secret, id, properties, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}
 					}
 				}

@@ -30,11 +30,13 @@ abstract class InvalidationEndpoint
 	protected static final int BUFFER_SIZE = 4000;
 	
 	protected final int secret;
+	protected final int id;
 	protected final InetAddress group;
 	
-	protected InvalidationEndpoint(final int secret, final ConnectProperties properties)
+	protected InvalidationEndpoint(final int secret, final int id, final ConnectProperties properties)
 	{
 		this.secret = secret;
+		this.id = id;
 		try
 		{
 			this.group = InetAddress.getByName(properties.clusterGroup.getStringValue());

@@ -32,9 +32,9 @@ final class InvalidationSender extends InvalidationEndpoint
 	private final int destinationPort;
 	private final DatagramSocket socket;
 	
-	InvalidationSender(final int secret, final ConnectProperties properties)
+	InvalidationSender(final int secret, final int id, final ConnectProperties properties)
 	{
-		super(secret, properties);
+		super(secret, id, properties);
 		this.sourcePort      = properties.clusterSendSourcePort.getIntValue();
 		this.destinationPort = properties.clusterSendDestinationPort.getIntValue();
 		try
@@ -52,7 +52,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		try
 		{
 			final byte[] buf = new byte[marshalSize(invalidations)];
-			marshal(buf, secret, invalidations);
+			marshal(buf, secret, id, invalidations);
 			final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
 			socket.send(packet);
 			System.out.println("COPE Cluster Invalidation sent (" + buf.length + "): " + Arrays.asList(invalidations));
@@ -65,14 +65,14 @@ final class InvalidationSender extends InvalidationEndpoint
 	
 	static int marshalSize(final TIntHashSet[] invalidations)
 	{
-		int pos = 8;
+		int pos = 12;
 		for(final TIntHashSet invalidation : invalidations)
 			if(invalidation!=null)
 				pos += 8 + (invalidation.size() << 2);
 		return pos;
 	}
 	
-	static int marshal(final byte[] buf, final int secret, final TIntHashSet[] invalidations)
+	static int marshal(final byte[] buf, final int secret, final int id, final TIntHashSet[] invalidations)
 	{
 		buf[0] = MAGIC0;
 		buf[1] = MAGIC1;
@@ -80,6 +80,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		buf[3] = MAGIC3;
 		int pos = 4;
 		pos = marshal(pos, buf, secret);
+		pos = marshal(pos, buf, id);
 		for(int typeIdTransiently = 0; typeIdTransiently<invalidations.length; typeIdTransiently++)
 		{
 			final TIntHashSet invalidation = invalidations[typeIdTransiently];

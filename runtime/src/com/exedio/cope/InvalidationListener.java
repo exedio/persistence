@@ -38,10 +38,10 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 	private volatile boolean threadRun = true;
 	
 	InvalidationListener(
-			final int secret, final ConnectProperties properties,
+			final int secret, final int id, final ConnectProperties properties,
 			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
 	{
-		super(secret, properties);
+		super(secret, id, properties);
 		this.port = properties.clusterListenPort.getIntValue();
 		try
 		{
@@ -74,10 +74,17 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				if(!threadRun)
 					return;
 				final TIntHashSet[] invalidations =
-					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, typeLength);
-				System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + Arrays.asList(invalidations));
-				itemCache.invalidate(invalidations);
-				queryCache.invalidate(invalidations);
+					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, id, typeLength);
+				if(invalidations!=null)
+				{
+					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + Arrays.asList(invalidations));
+					itemCache.invalidate(invalidations);
+					queryCache.invalidate(invalidations);
+				}
+				else
+				{
+					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
+				}
 	      }
 			catch(Exception e)
 			{
@@ -87,7 +94,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		}
 	}
 	
-	static TIntHashSet[] unmarshal(int pos, final byte[] buf, final int length, final int secret, final int typeLength)
+	static TIntHashSet[] unmarshal(int pos, final byte[] buf, final int length, final int secret, final int id, final int typeLength)
 	{
 		if(buf[pos++]!=MAGIC0 ||
 			buf[pos++]!=MAGIC1 ||
@@ -97,6 +104,10 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		
 		if(secret!=unmarshal(pos, buf))
 			throw new RuntimeException("wrong secret");
+		pos += 4;
+		
+		if(id==unmarshal(pos, buf))
+			return null;
 		pos += 4;
 		
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
