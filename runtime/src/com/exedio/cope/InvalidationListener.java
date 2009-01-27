@@ -126,10 +126,10 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				final int pk = unmarshal(pos, buf);
 				pos += 4;
 				
-				if(pk!=PK.NaPK)
-					set.add(pk);
-				else
+				if(pk==PK.NaPK)
 					break;
+				
+				set.add(pk);
 			}
 			result[typeIdTransiently] = set;
 		}
