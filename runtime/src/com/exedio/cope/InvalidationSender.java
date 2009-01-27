@@ -66,11 +66,11 @@ final class InvalidationSender extends InvalidationEndpoint
 	{
 		final int length;
 		{
-			int pos = 12;
+			int pos = 3;
 			for(final TIntHashSet invalidation : invalidations)
 				if(invalidation!=null)
-					pos += 8 + (invalidation.size() << 2);
-			length = pos;
+					pos += 2 + invalidation.size();
+			length = pos << 2;
 		}
 		final byte[] buf = new byte[length];
 		buf[0] = MAGIC0;
