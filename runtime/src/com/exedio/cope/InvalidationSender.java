@@ -32,6 +32,9 @@ final class InvalidationSender extends InvalidationEndpoint
 	private final int destinationPort;
 	private final DatagramSocket socket;
 	
+	private static final int PROLOG_SIZE = 12;
+	private final byte[] prolog;
+	
 	InvalidationSender(final int secret, final int node, final ConnectProperties properties)
 	{
 		super(secret, node, properties);
@@ -45,26 +48,33 @@ final class InvalidationSender extends InvalidationEndpoint
 		{
 			throw new RuntimeException(e);
 		}
+		
+		final byte[] prolog = new byte[PROLOG_SIZE];
+		prolog[0] = MAGIC0;
+		prolog[1] = MAGIC1;
+		prolog[2] = MAGIC2;
+		prolog[3] = MAGIC3;
+		int pos = 4;
+		pos = marshal(pos, prolog, secret);
+		pos = marshal(pos, prolog, node);
+		assert pos==PROLOG_SIZE;
+		this.prolog = prolog;
 	}
 	
 	void invalidate(final TIntHashSet[] invalidations, final ArrayList<byte[]> testSink)
 	{
 		final int length;
 		{
-			int pos = 3;
+			int pos = 0;
 			for(final TIntHashSet invalidation : invalidations)
 				if(invalidation!=null)
 					pos += 2 + invalidation.size();
-			length = pos << 2;
+			length = PROLOG_SIZE + (pos << 2);
 		}
 		final byte[] buf = new byte[length];
-		buf[0] = MAGIC0;
-		buf[1] = MAGIC1;
-		buf[2] = MAGIC2;
-		buf[3] = MAGIC3;
-		int pos = 4;
-		pos = marshal(pos, buf, secret);
-		pos = marshal(pos, buf, node);
+		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
+		int pos = PROLOG_SIZE;
+		
 		for(int typeIdTransiently = 0; typeIdTransiently<invalidations.length; typeIdTransiently++)
 		{
 			final TIntHashSet invalidation = invalidations[typeIdTransiently];
