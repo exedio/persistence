@@ -21,11 +21,8 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import junit.framework.TestCase;
-
-import com.exedio.cope.util.Properties;
 
 public class InvalidatorMarshallTest extends TestCase
 {
@@ -35,31 +32,7 @@ public class InvalidatorMarshallTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final ConnectProperties properties = new ConnectProperties(
-				new Properties.Source()
-				{
-					public String get(final String key)
-					{
-						if(key.equals("dialect"))
-							return "hsqldb";
-						else if(key.equals("database.url")||key.equals("database.user")||key.equals("database.password"))
-							return "v(" + key + ")";
-						else
-							return null;
-					}
-		
-					public String getDescription()
-					{
-						return "source description";
-					}
-		
-					public Collection<String> keySet()
-					{
-						return null;
-					}
-				},
-				null
-		);
+		final ConnectProperties properties = new ConnectProperties();
 		is = new InvalidationSender(0x88776655, 0x11224433, properties);
 	}
 	
