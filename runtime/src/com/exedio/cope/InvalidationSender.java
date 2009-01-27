@@ -24,7 +24,6 @@ import gnu.trove.TIntIterator;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.Arrays;
 
 final class InvalidationSender extends InvalidationEndpoint
 {
@@ -55,7 +54,7 @@ final class InvalidationSender extends InvalidationEndpoint
 			marshal(buf, secret, id, invalidations);
 			final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
 			socket.send(packet);
-			System.out.println("COPE Cluster Invalidation sent (" + buf.length + "): " + Arrays.asList(invalidations));
+			System.out.println("COPE Cluster Invalidation sent (" + buf.length + "): " + toString(invalidations));
       }
 		catch(IOException e)
 		{

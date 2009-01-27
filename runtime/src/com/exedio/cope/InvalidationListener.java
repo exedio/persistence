@@ -23,7 +23,6 @@ import gnu.trove.TIntHashSet;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
-import java.util.Arrays;
 
 final class InvalidationListener extends InvalidationEndpoint implements Runnable
 {
@@ -77,7 +76,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, id, typeLength);
 				if(invalidations!=null)
 				{
-					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + Arrays.asList(invalidations));
+					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + toString(invalidations));
 					itemCache.invalidate(invalidations);
 					queryCache.invalidate(invalidations);
 				}
