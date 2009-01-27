@@ -50,6 +50,17 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00); // length
 		
+		final byte[] buf2 = m(new int[][]{new int[]{0x456789ac, 0xaf896746}, null, new int[]{}, null});
+		assertEqualsBytes(buf2,
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
+				(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, // id 0
+					(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // length
+					(byte)0x46, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
+					(byte)0xac, (byte)0x89, (byte)0x67, (byte)0x45, // pk1
+				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00); // length
 		{
 			final TIntHashSet[] is = um(0, buf, 32, 0x88776655, 0x11224434, 4);
 			
