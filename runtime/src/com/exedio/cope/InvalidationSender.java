@@ -51,16 +51,25 @@ final class InvalidationSender extends InvalidationEndpoint
 	{
 		try
 		{
-			final byte[] buf = new byte[BUFFER_SIZE];
+			final byte[] buf = new byte[marshalSize(invalidations)];
 			marshal(buf, secret, invalidations);
 			final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
 			socket.send(packet);
-			System.out.println("COPE Cluster Invalidation sent: " + Arrays.asList(invalidations));
+			System.out.println("COPE Cluster Invalidation sent (" + buf.length + "): " + Arrays.asList(invalidations));
       }
 		catch(IOException e)
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	static int marshalSize(final TIntHashSet[] invalidations)
+	{
+		int pos = 8;
+		for(final TIntHashSet invalidation : invalidations)
+			if(invalidation!=null)
+				pos += 8 + (invalidation.size() << 2);
+		return pos;
 	}
 	
 	static int marshal(final byte[] buf, final int secret, final TIntHashSet[] invalidations)

@@ -27,7 +27,7 @@ abstract class InvalidationEndpoint
 	protected static final byte MAGIC1 = (byte)0xbe;
 	protected static final byte MAGIC2 = 0x11;
 	protected static final byte MAGIC3 = 0x11;
-	protected static final int BUFFER_SIZE = 200;
+	protected static final int BUFFER_SIZE = 4000;
 	
 	protected final int secret;
 	protected final InetAddress group;
