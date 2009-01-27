@@ -60,7 +60,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 	
 	public void run()
 	{
-		final byte[] buf = new byte[BUFFER_SIZE];
+		final byte[] buf = new byte[packetSize];
 		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
 		
 		while(threadRun)

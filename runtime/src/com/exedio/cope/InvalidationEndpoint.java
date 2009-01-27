@@ -30,16 +30,17 @@ abstract class InvalidationEndpoint
 	protected static final byte MAGIC1 = (byte)0xbe;
 	protected static final byte MAGIC2 = 0x11;
 	protected static final byte MAGIC3 = 0x11;
-	protected static final int BUFFER_SIZE = 4000;
 	
 	protected final int secret;
 	protected final int node;
+	protected final int packetSize;
 	protected final InetAddress group;
 	
 	protected InvalidationEndpoint(final int secret, final int node, final ConnectProperties properties)
 	{
 		this.secret = secret;
 		this.node = node;
+		this.packetSize = properties.clusterPacketSize.getIntValue();
 		try
 		{
 			this.group = InetAddress.getByName(properties.clusterGroup.getStringValue());
