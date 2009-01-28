@@ -130,14 +130,23 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 
 		// sequence
 		final int sequence = unmarshal(pos, buf);
+		pos += 4;
 		switch(sequence)
 		{
 			case InvalidationSender.PING_AT_SEQUENCE:
 			case InvalidationSender.PONG_AT_SEQUENCE:
+				
+				while(pos<length)
+				{
+					final int val = unmarshal(pos, buf);
+					if(val!=pos)
+						throw new RuntimeException("invalid ping/pong package " + sequence + " at position " + pos + " was " + val);
+					pos += 4;
+				}
+				
 				return sequence;
 		}
 		System.out.println("COPE Cluster Invalidation received sequence " + sequence);
-		pos += 4;
 		
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
 		while(pos<length)

@@ -55,7 +55,6 @@ TODO for cope runtime
 		- log of ping/pong
 		- lost/late packets by sequence number
 		- number of messages
-		- check complete content of ping/pong packages
 	* make migrations cluster aware
 	* test configuration of tomcat
 	* sequences for primary keys and IntegerField.defaultToNext

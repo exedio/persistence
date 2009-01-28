@@ -420,7 +420,13 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff);    // 16 ping
+				(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff,     // 16 ping
+				(byte)16,   (byte)0x00, (byte)0x00, (byte)0x00,     // 20 fillup
+				(byte)20,   (byte)0x00, (byte)0x00, (byte)0x00,     // 24 fillup
+				(byte)24,   (byte)0x00, (byte)0x00, (byte)0x00,     // 28 fillup
+				(byte)28,   (byte)0x00, (byte)0x00, (byte)0x00,     // 32 fillup
+				(byte)32,   (byte)0x00, (byte)0x00, (byte)0x00,     // 36 fillup
+				(byte)36,   (byte)0x00, (byte)0x00, (byte)0x00);    // 40 fillup
 		
 		assertEquals(
 				new Integer(InvalidationEndpoint.PING_AT_SEQUENCE),
@@ -439,7 +445,13 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
-				(byte)0xfe, (byte)0xff, (byte)0xff, (byte)0xff);    // 16 pong
+				(byte)0xfe, (byte)0xff, (byte)0xff, (byte)0xff,     // 16 pong
+				(byte)16,   (byte)0x00, (byte)0x00, (byte)0x00,     // 20 fillup
+				(byte)20,   (byte)0x00, (byte)0x00, (byte)0x00,     // 24 fillup
+				(byte)24,   (byte)0x00, (byte)0x00, (byte)0x00,     // 28 fillup
+				(byte)28,   (byte)0x00, (byte)0x00, (byte)0x00,     // 32 fillup
+				(byte)32,   (byte)0x00, (byte)0x00, (byte)0x00,     // 36 fillup
+				(byte)36,   (byte)0x00, (byte)0x00, (byte)0x00);    // 40 fillup
 		
 		assertEquals(
 				new Integer(InvalidationEndpoint.PONG_AT_SEQUENCE),

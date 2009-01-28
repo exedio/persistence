@@ -86,10 +86,11 @@ final class InvalidationSender extends InvalidationEndpoint
 		int pos = PROLOG_SIZE;
 		pos = marshal(pos, buf, messageAtSequence);
 			
-		while(pos>=packetSize)
+		while(pos<packetSize)
 			pos = marshal(pos, buf, pos);
+		assert pos==packetSize : pos;
 			
-		send(pos, buf, new TIntHashSet[]{});
+		send(packetSize, buf, new TIntHashSet[]{});
 	}
 	
 	private int nextSequence()
