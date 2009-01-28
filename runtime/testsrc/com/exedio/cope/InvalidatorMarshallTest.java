@@ -443,7 +443,9 @@ public class InvalidatorMarshallTest extends TestCase
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
-		is.invalidate(invalidations, sink);
+		is.testSink = sink;
+		is.invalidate(invalidations);
+		is.testSink = null;
 		assertEquals(1, sink.size());
 		return sink.get(0);
 	}
@@ -452,7 +454,9 @@ public class InvalidatorMarshallTest extends TestCase
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
-		is.invalidate(invalidations, sink);
+		is.testSink = sink;
+		is.invalidate(invalidations);
+		is.testSink = null;
 		final byte[][] result = new byte[sink.size()][];
 		int i = 0;
 		for(final byte[] b : sink)

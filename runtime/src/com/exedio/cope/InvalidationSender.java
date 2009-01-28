@@ -38,6 +38,8 @@ final class InvalidationSender extends InvalidationEndpoint
 	private int sequenceCount = 0;
 	private final Object sequenceLock = new Object();
 	
+	ArrayList<byte[]> testSink = null;
+	
 	InvalidationSender(final int secret, final int node, final ConnectProperties properties)
 	{
 		super(secret, node, properties);
@@ -64,7 +66,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		this.prolog = prolog;
 	}
 	
-	void invalidate(final TIntHashSet[] invalidations, final ArrayList<byte[]> testSink)
+	void invalidate(final TIntHashSet[] invalidations)
 	{
 		final int length;
 		{
@@ -103,7 +105,7 @@ final class InvalidationSender extends InvalidationEndpoint
 				{
 					if(pos>=packetSize)
 					{
-						send(pos, buf, invalidations, testSink);
+						send(pos, buf, invalidations);
 						continue packetLoop;
 					}
 					pos = marshal(pos, buf, typeIdTransiently);
@@ -114,7 +116,7 @@ final class InvalidationSender extends InvalidationEndpoint
 					{
 						if(pos>=packetSize)
 						{
-							send(pos, buf, invalidations, testSink);
+							send(pos, buf, invalidations);
 							continue packetLoop;
 						}
 						pos = marshal(pos, buf, i.next());
@@ -122,7 +124,7 @@ final class InvalidationSender extends InvalidationEndpoint
 					
 					if(pos>=packetSize)
 					{
-						send(pos, buf, invalidations, testSink);
+						send(pos, buf, invalidations);
 						continue packetLoop;
 					}
 					pos = marshal(pos, buf, PK.NaPK);
@@ -131,13 +133,13 @@ final class InvalidationSender extends InvalidationEndpoint
 				}
 			}
 			
-			send(pos, buf, invalidations, testSink);
+			send(pos, buf, invalidations);
 			break;
 		}
 		while(true);
 	}
 	
-	private void send(final int length, final byte[] buf, final TIntHashSet[] invalidations, final ArrayList<byte[]> testSink)
+	private void send(final int length, final byte[] buf, final TIntHashSet[] invalidations)
 	{
 		if(testSink!=null)
 		{
