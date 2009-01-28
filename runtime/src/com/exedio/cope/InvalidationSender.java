@@ -74,29 +74,71 @@ final class InvalidationSender extends InvalidationEndpoint
 					pos += 2 + invalidation.size();
 			length = PROLOG_SIZE + 4 + (pos << 2);
 		}
-		final byte[] buf = new byte[length];
+		final byte[] buf = new byte[Math.min(length, packetSize)];
 		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
-		int pos = PROLOG_SIZE;
 		
-		final int sequence;
-		synchronized(sequenceLock)
+		int typeIdTransiently = 0;
+		TIntIterator i = null;
+		packetLoop: do
 		{
-			sequence = sequenceCount++;
-		}
-		pos = marshal(pos, buf, sequence);
-		
-		for(int typeIdTransiently = 0; typeIdTransiently<invalidations.length; typeIdTransiently++)
-		{
-			final TIntHashSet invalidation = invalidations[typeIdTransiently];
-			if(invalidation!=null)
+			int pos = PROLOG_SIZE;
+			
+			final int sequence;
+			synchronized(sequenceLock)
 			{
-				pos = marshal(pos, buf, typeIdTransiently);
-				for(final TIntIterator i = invalidation.iterator(); i.hasNext(); )
-					pos = marshal(pos, buf, i.next());
-				pos = marshal(pos, buf, PK.NaPK);
+				sequence = sequenceCount++;
 			}
+			pos = marshal(pos, buf, sequence);
+			
+			for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
+			{
+				if(i!=null && !i.hasNext())
+				{
+					i = null;
+					continue;
+				}
+				
+				final TIntHashSet invalidation = invalidations[typeIdTransiently];
+				if(invalidation!=null)
+				{
+					if(pos>=packetSize)
+					{
+						send(pos, buf, invalidations, testSink);
+						continue packetLoop;
+					}
+					pos = marshal(pos, buf, typeIdTransiently);
+					
+					if(i==null)
+						i = invalidation.iterator();
+					while(i.hasNext())
+					{
+						if(pos>=packetSize)
+						{
+							send(pos, buf, invalidations, testSink);
+							continue packetLoop;
+						}
+						pos = marshal(pos, buf, i.next());
+					}
+					
+					if(pos>=packetSize)
+					{
+						send(pos, buf, invalidations, testSink);
+						continue packetLoop;
+					}
+					pos = marshal(pos, buf, PK.NaPK);
+					
+					i = null;
+				}
+			}
+			
+			send(pos, buf, invalidations, testSink);
+			break;
 		}
-		
+		while(true);
+	}
+	
+	private void send(final int length, final byte[] buf, final TIntHashSet[] invalidations, final ArrayList<byte[]> testSink)
+	{
 		if(testSink!=null)
 		{
 			final byte[] bufCopy = new byte[length];
@@ -107,7 +149,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		{
 			try
 			{
-				final DatagramPacket packet = new DatagramPacket(buf, buf.length, group, destinationPort);
+				final DatagramPacket packet = new DatagramPacket(buf, length, group, destinationPort);
 				final long start = System.currentTimeMillis();
 				socket.send(packet);
 				System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + toString(invalidations));

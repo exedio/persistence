@@ -130,6 +130,284 @@ public class InvalidatorMarshallTest extends TestCase
 		}
 	}
 	
+	public void testSplitBeforeTypeSingle()
+	{
+		assertEquals(40, is.packetSize);
+		
+		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}});
+		assertEqualsBytes(bufs[0],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 1
+					(byte)6,    (byte)0,    (byte)0,    (byte)0);    // 40 pk 6
+		assertEqualsBytes(bufs[1],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+		assertEquals(2, bufs.length);
+
+		{
+			final TIntHashSet[] pks = um(0, bufs[0], 0x88776655, 0x11224434, 1);
+			assertContains(pks[0], 5, 2, 4, 1, 6);
+			assertEquals(1, pks.length);
+		}
+		{
+			final TIntHashSet[] pks = um(0, bufs[1], 0x88776655, 0x11224434, 1);
+			assertContains(pks[0], 3);
+			assertEquals(1, pks.length);
+		}
+	}
+	
+	public void testSplitBeforeType()
+	{
+		assertEquals(40, is.packetSize);
+		
+		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}, new int[]{11}});
+		assertEqualsBytes(bufs[0],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 1
+					(byte)6,    (byte)0,    (byte)0,    (byte)0);    // 40 pk 6
+		assertEqualsBytes(bufs[1],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 28 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 32 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 36 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 40 NaPK for end
+		assertEquals(2, bufs.length);
+
+		{
+			final TIntHashSet[] pks = um(0, bufs[0], 0x88776655, 0x11224434, 2);
+			assertContains(pks[0], 5, 2, 4, 1, 6);
+			assertEquals(null, pks[1]);
+			assertEquals(2, pks.length);
+		}
+		{
+			final TIntHashSet[] pks = um(0, bufs[1], 0x88776655, 0x11224434, 2);
+			assertContains(pks[0], 3);
+			assertContains(pks[1], 11);
+			assertEquals(2, pks.length);
+		}
+	}
+	
+	public void testSplitAtType()
+	{
+		assertEquals(40, is.packetSize);
+		
+		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5}, new int[]{11}});
+		assertEqualsBytes(bufs[0],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)5,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 5
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 1
+					(byte)3,    (byte)0,    (byte)0,    (byte)0);    // 40 pk 3
+		assertEqualsBytes(bufs[1],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+		assertEquals(2, bufs.length);
+
+		{
+			final TIntHashSet[] pks = um(0, bufs[0], 0x88776655, 0x11224434, 2);
+			assertContains(pks[0], 5, 2, 4, 3, 1);
+			assertEquals(null, pks[1]);
+			assertEquals(2, pks.length);
+		}
+		{
+			final TIntHashSet[] pks = um(0, bufs[1], 0x88776655, 0x11224434, 2);
+			assertEquals(null, pks[0]);
+			assertContains(pks[1], 11);
+			assertEquals(2, pks.length);
+		}
+	}
+	
+	public void testSplitAfterType()
+	{
+		assertEquals(40, is.packetSize);
+		
+		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4}, new int[]{11}});
+		assertEqualsBytes(bufs[0],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
+					(byte)4,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 4
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 1
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 36 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 40 NaPK for end
+		assertEqualsBytes(bufs[1],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+		assertEquals(2, bufs.length);
+
+		{
+			final TIntHashSet[] pks = um(0, bufs[0], 0x88776655, 0x11224434, 2);
+			assertContains(pks[0], 2, 4, 3, 1);
+			assertEquals(null, pks[1]);
+			assertEquals(2, pks.length);
+		}
+		{
+			final TIntHashSet[] pks = um(0, bufs[1], 0x88776655, 0x11224434, 2);
+			assertEquals(null, pks[0]);
+			assertContains(pks[1], 11);
+			assertEquals(2, pks.length);
+		}
+	}
+	
+	public void testSplitAfterAfterType()
+	{
+		assertEquals(40, is.packetSize);
+		
+		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3}, new int[]{11}});
+		assertEqualsBytes(bufs[0],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 1
+					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 32 pk 3
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 36 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 40 type 1
+		assertEqualsBytes(bufs[1],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
+					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+		assertEquals(2, bufs.length);
+
+		{
+			final TIntHashSet[] pks = um(0, bufs[0], 0x88776655, 0x11224434, 2);
+			assertContains(pks[0], 2, 3, 1);
+			assertTrue(pks[1].isEmpty());
+			assertEquals(2, pks.length);
+		}
+		{
+			final TIntHashSet[] pks = um(0, bufs[1], 0x88776655, 0x11224434, 2);
+			assertEquals(null, pks[0]);
+			assertContains(pks[1], 11);
+			assertEquals(2, pks.length);
+		}
+	}
+	
+	public void testSplitAfterAfterAfterType()
+	{
+		assertEquals(40, is.packetSize);
+		
+		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11, 12}});
+		assertEqualsBytes(bufs[0],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 1
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 32 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 36 type 1
+					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 40 pk 11
+		assertEqualsBytes(bufs[1],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 20 type 1
+					(byte)12,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 12
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
+		assertEquals(2, bufs.length);
+
+		{
+			final TIntHashSet[] pks = um(0, bufs[0], 0x88776655, 0x11224434, 2);
+			assertContains(pks[0], 2, 1);
+			assertContains(pks[1], 11);
+			assertEquals(2, pks.length);
+		}
+		{
+			final TIntHashSet[] pks = um(0, bufs[1], 0x88776655, 0x11224434, 2);
+			assertEquals(null, pks[0]);
+			assertContains(pks[1], 12);
+			assertEquals(2, pks.length);
+		}
+	}
+	
+	public void testSplitAfterAfterAfterTypeCollapse()
+	{
+		assertEquals(40, is.packetSize);
+		
+		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});
+		assertEqualsBytes(bufs[0],
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 16 sequence
+				(byte)0,    (byte)0,    (byte)0,    (byte)0,        // 20 type 0
+					(byte)2,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 2
+					(byte)1,    (byte)0,    (byte)0,    (byte)0,     // 28 pk 1
+					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80,  // 32 NaPK for end
+				(byte)1,    (byte)0,    (byte)0,    (byte)0,        // 36 type 1
+					(byte)11,    (byte)0,    (byte)0,    (byte)0);   // 40 pk 11
+		assertEqualsBytes(bufs[1], // TODO should not be there
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 16 sequence
+		assertEquals(2, bufs.length);
+
+		{
+			final TIntHashSet[] pks = um(0, bufs[0], 0x88776655, 0x11224434, 2);
+			assertContains(pks[0], 2, 1);
+			assertContains(pks[1], 11);
+			assertEquals(2, pks.length);
+		}
+		{
+			final TIntHashSet[] pks = um(0, bufs[1], 0x88776655, 0x11224434, 2);
+			assertEquals(null, pks[0]);
+			assertEquals(null, pks[1]);
+			assertEquals(2, pks.length);
+		}
+	}
+	
 	
 	private static void assertContains(final TIntHashSet actual, final int... expected)
 	{
@@ -168,6 +446,18 @@ public class InvalidatorMarshallTest extends TestCase
 		is.invalidate(invalidations, sink);
 		assertEquals(1, sink.size());
 		return sink.get(0);
+	}
+	
+	private byte[][] mm(final int[][] invalidationNumbers)
+	{
+		final TIntHashSet[] invalidations = convert(invalidationNumbers);
+		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		is.invalidate(invalidations, sink);
+		final byte[][] result = new byte[sink.size()][];
+		int i = 0;
+		for(final byte[] b : sink)
+			result[i++] = b;
+		return result;
 	}
 	
 	private TIntHashSet[] um(final int pos, final byte[] buf, final int secret, final int node, final int typeLength)
