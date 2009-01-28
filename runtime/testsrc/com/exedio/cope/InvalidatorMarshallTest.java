@@ -101,11 +101,7 @@ public class InvalidatorMarshallTest extends TestCase
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
 		{
 			final TIntHashSet[] is = um(0, buf, 0x88776655, 0x11224434, 4);
-			
-			assertTrue(is[0].contains(0x456789ab));
-			assertTrue(is[0].contains(0xaf896745));
-			assertEquals(2, is[0].size());
-			
+			assertContains(is[0], 0x456789ab, 0xaf896745);
 			assertEquals(null, is[1]);
 			assertTrue(is[2].isEmpty());
 			assertEquals(null, is[3]);
@@ -134,6 +130,13 @@ public class InvalidatorMarshallTest extends TestCase
 		}
 	}
 	
+	
+	private static void assertContains(final TIntHashSet actual, final int... expected)
+	{
+		for(int i : expected)
+			assertTrue(actual.contains(i));
+		assertEquals(expected.length, actual.size());
+	}
 	
 	private void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
 	{
