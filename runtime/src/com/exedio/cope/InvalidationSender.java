@@ -99,7 +99,9 @@ final class InvalidationSender extends InvalidationEndpoint
 		
 		if(testSink!=null)
 		{
-			testSink.add(buf);
+			final byte[] bufCopy = new byte[length];
+			System.arraycopy(buf, 0, bufCopy, 0, length);
+			testSink.add(bufCopy);
 		}
 		else
 		{
