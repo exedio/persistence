@@ -93,7 +93,7 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
 		{
-			final TIntHashSet[] is = um(0, buf, buf.length, 0x88776655, 0x11224434, 4);
+			final TIntHashSet[] is = um(0, buf, 0x88776655, 0x11224434, 4);
 			
 			assertTrue(is[0].contains(0x456789ab));
 			assertTrue(is[0].contains(0xaf896745));
@@ -104,11 +104,11 @@ public class InvalidatorMarshallTest extends TestCase
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
-		assertEquals(null, um(0, buf, 32, 0x88776655, 0x11224433, 4));
+		assertEquals(null, um(0, buf, 0x88776655, 0x11224433, 4));
 		
 		try
 		{
-			um(0, buf, 32, 0x88776654, 0x11224433, 4);
+			um(0, buf, 0x88776654, 0x11224433, 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -118,7 +118,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[0] = 0x11;
 		try
 		{
-			um(0, buf, 32, 0x88776654, 0x11224433, 4);
+			um(0, buf, 0x88776654, 0x11224433, 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -155,8 +155,8 @@ public class InvalidatorMarshallTest extends TestCase
 		return sink.get(0);
 	}
 	
-	private TIntHashSet[] um(final int pos, final byte[] buf, final int length, final int secret, final int node, final int typeLength)
+	private TIntHashSet[] um(final int pos, final byte[] buf, final int secret, final int node, final int typeLength)
 	{
-		return InvalidationListener.unmarshal(pos, buf, length, secret, node, typeLength);
+		return InvalidationListener.unmarshal(pos, buf, buf.length, secret, node, typeLength);
 	}
 }
