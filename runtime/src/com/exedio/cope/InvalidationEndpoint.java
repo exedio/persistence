@@ -31,6 +31,9 @@ abstract class InvalidationEndpoint
 	protected static final byte MAGIC2 = 0x11;
 	protected static final byte MAGIC3 = 0x11;
 	
+	protected static final int PING_AT_SEQUENCE = -1;
+	protected static final int PONG_AT_SEQUENCE = -2;
+	
 	protected final int secret;
 	protected final int node;
 	protected final int packetSize;

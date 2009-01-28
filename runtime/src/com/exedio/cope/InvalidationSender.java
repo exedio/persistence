@@ -66,6 +66,32 @@ final class InvalidationSender extends InvalidationEndpoint
 		this.prolog = prolog;
 	}
 	
+	void ping()
+	{
+		pingPong(PING_AT_SEQUENCE);
+	}
+	
+	void pong()
+	{
+		pingPong(PONG_AT_SEQUENCE);
+	}
+	
+	private void pingPong(final int messageAtSequence)
+	{
+		assert messageAtSequence<0 : messageAtSequence;
+		
+		final byte[] buf = new byte[packetSize];
+		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
+		
+		int pos = PROLOG_SIZE;
+		pos = marshal(pos, buf, messageAtSequence);
+			
+		while(pos>=packetSize)
+			pos = marshal(pos, buf, pos);
+			
+		send(pos, buf, new TIntHashSet[]{});
+	}
+	
 	private int nextSequence()
 	{
 		synchronized(sequenceLock)

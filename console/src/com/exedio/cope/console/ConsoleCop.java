@@ -137,6 +137,7 @@ abstract class ConsoleCop extends Cop
 					new ItemCacheCop(args),
 					new QueryCacheCop(args),
 					new MediaStatsCop(args),
+					new ClusterCop(args),
 					new VmCop(args, false, false),
 					new EnvironmentCop(args),
 					new HiddenCop(args),
@@ -215,6 +216,7 @@ abstract class ConsoleCop extends Cop
 	static final String TAB_HISTORY = "history";
 	static final String TAB_SEQUENCE = "sequence";
 	static final String TAB_MEDIA_STATS = "mediastats";
+	static final String TAB_CLUSTER = "cluster";
 	static final String TAB_VM = "vm";
 	static final String TAB_ENVIRONMENT = "environment";
 	static final String TAB_HIDDEN = "hidden";
@@ -260,6 +262,8 @@ abstract class ConsoleCop extends Cop
 			return new SequenceCop(args);
 		if(TAB_MEDIA_STATS.equals(tab))
 			return new MediaStatsCop(args);
+		if(TAB_CLUSTER.equals(tab))
+			return new ClusterCop(args);
 		if(TAB_VM.equals(tab))
 			return VmCop.getVmCop(args, request);
 		if(TAB_ENVIRONMENT.equals(tab))

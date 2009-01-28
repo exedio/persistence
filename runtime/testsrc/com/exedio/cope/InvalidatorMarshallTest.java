@@ -408,6 +408,36 @@ public class InvalidatorMarshallTest extends TestCase
 		}
 	}
 	
+	public void testPing()
+	{
+		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		is.testSink = sink;
+		is.ping();
+		is.testSink = null;
+		assertEquals(1, sink.size());
+		
+		assertEqualsBytes(sink.get(0),
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff);    // 16 ping
+	}
+	
+	public void testPong()
+	{
+		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		is.testSink = sink;
+		is.pong();
+		is.testSink = null;
+		assertEquals(1, sink.size());
+		
+		assertEqualsBytes(sink.get(0),
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11,     //  4 magic
+				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
+				(byte)0xfe, (byte)0xff, (byte)0xff, (byte)0xff);    // 16 pong
+	}
+	
 	
 	private static void assertContains(final TIntHashSet actual, final int... expected)
 	{
@@ -466,6 +496,6 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	private TIntHashSet[] um(final int pos, final byte[] buf, final int secret, final int node, final int typeLength)
 	{
-		return InvalidationListener.unmarshal(pos, buf, buf.length, secret, node, typeLength);
+		return (TIntHashSet[])InvalidationListener.unmarshal(pos, buf, buf.length, secret, node, typeLength);
 	}
 }

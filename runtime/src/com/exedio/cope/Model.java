@@ -348,7 +348,7 @@ public final class Model
 								throw new RuntimeException("cluster.secret muts be a valid integer, but was >" + secretS + '<', e);
 							}
 							this.invalidationSender   = new InvalidationSender  (secret, node, properties);
-							this.invalidationListener = new InvalidationListener(secret, node, properties, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
+							this.invalidationListener = new InvalidationListener(secret, node, properties, invalidationSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}
 					}
 				}
@@ -1059,6 +1059,19 @@ public final class Model
 	public void checkUnsupportedConstraints()
 	{
 		getDatabase().makeSchema().checkUnsupportedConstraints();
+	}
+	
+	public boolean isClusterNetworkEnabled()
+	{
+		return this.invalidationSender!=null;
+	}
+	
+	public void pingClusterNetwork()
+	{
+		final InvalidationSender s = this.invalidationSender;
+		if(s==null)
+			throw new IllegalStateException("cluster network not enabled");
+		s.ping();
 	}
 	
 	private static final boolean skipIntern = Boolean.valueOf(System.getProperty("com.exedio.cope.skipIntern"));
