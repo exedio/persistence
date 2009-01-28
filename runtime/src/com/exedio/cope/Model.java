@@ -385,6 +385,8 @@ public final class Model
 				
 				this.itemCacheIfConnected = null;
 				this.queryCacheIfConnected = null;
+				if(this.invalidationSender!=null)
+					this.invalidationSender.close();
 				this.invalidationSender = null;
 				if(this.invalidationListener!=null)
 					this.invalidationListener.close();

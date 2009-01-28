@@ -125,4 +125,9 @@ final class InvalidationSender extends InvalidationEndpoint
 		buf[pos++] = (byte)((i>>>24) & 0xff);
 		return pos;
 	}
+	
+	void close()
+	{
+		socket.close();
+	}
 }

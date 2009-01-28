@@ -63,6 +63,13 @@ public class InvalidatorMarshallTest extends TestCase
 		is = new InvalidationSender(0x88776655, 0x11224433, properties);
 	}
 	
+	@Override
+	protected void tearDown() throws Exception
+	{
+		is.close();
+		super.tearDown();
+	}
+	
 	public void testSet()
 	{
 		assertEquals(40, is.packetSize);
