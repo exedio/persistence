@@ -98,6 +98,8 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 						case InvalidationSender.PONG_AT_SEQUENCE:
 							System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
 							break;
+						default:
+							throw new RuntimeException(String.valueOf(unmarshalled));
 					}
 				}
 	      }
