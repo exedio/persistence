@@ -93,7 +93,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 					switch(((Integer)unmarshalled).intValue())
 					{
 						case InvalidationSender.PING_AT_SEQUENCE:
-							System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
+							System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
 							sender.pong();
 							break;
 						case InvalidationSender.PONG_AT_SEQUENCE:
