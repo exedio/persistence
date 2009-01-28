@@ -66,6 +66,14 @@ final class InvalidationSender extends InvalidationEndpoint
 		this.prolog = prolog;
 	}
 	
+	private int nextSequence()
+	{
+		synchronized(sequenceLock)
+		{
+			return sequenceCount++;
+		}
+	}
+	
 	void invalidate(final TIntHashSet[] invalidations)
 	{
 		final int length;
@@ -85,12 +93,7 @@ final class InvalidationSender extends InvalidationEndpoint
 		{
 			int pos = PROLOG_SIZE;
 			
-			final int sequence;
-			synchronized(sequenceLock)
-			{
-				sequence = sequenceCount++;
-			}
-			pos = marshal(pos, buf, sequence);
+			pos = marshal(pos, buf, nextSequence());
 			
 			for(; typeIdTransiently<invalidations.length; typeIdTransiently++)
 			{
