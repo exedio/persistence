@@ -421,6 +421,10 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 				(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff);    // 16 ping
+		
+		assertEquals(
+				new Integer(InvalidationEndpoint.PING_AT_SEQUENCE),
+				InvalidationListener.unmarshal(0, sink.get(0), sink.get(0).length, 0x88776655, 0x11224434, 0));
 	}
 	
 	public void testPong()
@@ -436,6 +440,10 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88,     //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 				(byte)0xfe, (byte)0xff, (byte)0xff, (byte)0xff);    // 16 pong
+		
+		assertEquals(
+				new Integer(InvalidationEndpoint.PONG_AT_SEQUENCE),
+				InvalidationListener.unmarshal(0, sink.get(0), sink.get(0).length, 0x88776655, 0x11224434, 0));
 	}
 	
 	
