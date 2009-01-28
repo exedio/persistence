@@ -40,7 +40,7 @@ abstract class InvalidationEndpoint
 	{
 		this.secret = secret;
 		this.node = node;
-		this.packetSize = properties.clusterPacketSize.getIntValue();
+		this.packetSize = properties.clusterPacketSize.getIntValue() & (~3);
 		try
 		{
 			this.group = InetAddress.getByName(properties.clusterGroup.getStringValue());

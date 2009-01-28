@@ -65,7 +65,7 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	public void testSet()
 	{
-		assertEquals(103, is.packetSize);
+		assertEquals(100, is.packetSize);
 		
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
