@@ -142,8 +142,8 @@ final class InvalidationListener implements Runnable
 					throw new RuntimeException(m + ", expected length " + config.packetSize + ", but was " + length);
 				for(; pos<length; pos++)
 				{
-					if(InvalidationConfig.PING_PAYLOAD[pos]!=buf[pos])
-						throw new RuntimeException(m + ", at position " + pos + " expected " + InvalidationConfig.PING_PAYLOAD[pos] + ", but was " + buf[pos]);
+					if(config.pingPayload[pos]!=buf[pos])
+						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
 				return sequence;

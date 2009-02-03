@@ -39,6 +39,7 @@ final class InvalidationConfig
 	final int node;
 	final int packetSize;
 	final InetAddress group;
+	final byte[] pingPayload;
 	
 	InvalidationConfig(final int secret, final int node, final ConnectProperties properties)
 	{
@@ -52,6 +53,13 @@ final class InvalidationConfig
 		catch(UnknownHostException e)
 		{
 			throw new RuntimeException(e);
+		}
+		{
+			final Random r = new Random(secret);
+			final byte[] pingPayload = new byte[packetSize];
+			for(int pos = 16; pos<pingPayload.length; pos++)
+				pingPayload[pos] = (byte)(r.nextInt()>>8);
+			this.pingPayload = pingPayload;
 		}
 	}
 	
@@ -88,14 +96,5 @@ final class InvalidationConfig
 		bf.append(']');
 		
 		return bf.toString();
-	}
-	
-	static final byte[] PING_PAYLOAD = new byte[20000];
-	
-	static
-	{
-		final Random r = new Random(0x88776655);
-		for(int pos = 16; pos<PING_PAYLOAD.length; pos++)
-			PING_PAYLOAD[pos] = (byte)(r.nextInt()>>8);
 	}
 }

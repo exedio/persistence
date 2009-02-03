@@ -88,7 +88,7 @@ final class InvalidationSender
 		pos = marshal(pos, buf, messageAtSequence);
 			
 		for(; pos<config.packetSize; pos++)
-			buf[pos] = InvalidationConfig.PING_PAYLOAD[pos];
+			buf[pos] = config.pingPayload[pos];
 		assert pos==config.packetSize : pos;
 			
 		send(config.packetSize, buf, new TIntHashSet[]{});
