@@ -76,39 +76,44 @@ final class InvalidationListener implements Runnable
 				socket.receive(packet);
 				if(!threadRun)
 					return;
-				final Object unmarshalled =
-					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), config, typeLength);
-				if(unmarshalled instanceof TIntHashSet[])
-				{
-					final TIntHashSet[] invalidations = (TIntHashSet[])unmarshalled;
-					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationConfig.toString(invalidations));
-					itemCache.invalidate(invalidations);
-					queryCache.invalidate(invalidations);
-				}
-				else if(unmarshalled==null)
-				{
-					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
-				}
-				else if(unmarshalled instanceof Integer)
-				{
-					switch(((Integer)unmarshalled).intValue())
-					{
-						case InvalidationConfig.PING_AT_SEQUENCE:
-							System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
-							sender.pong();
-							break;
-						case InvalidationConfig.PONG_AT_SEQUENCE:
-							System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
-							break;
-						default:
-							throw new RuntimeException(String.valueOf(unmarshalled));
-					}
-				}
+				handle(packet);
 	      }
 			catch(Exception e)
 			{
 				// TODO count and display in console
 				e.printStackTrace();
+			}
+		}
+	}
+	
+	void handle(final DatagramPacket packet)
+	{
+		final Object unmarshalled =
+			unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), config, typeLength);
+		if(unmarshalled instanceof TIntHashSet[])
+		{
+			final TIntHashSet[] invalidations = (TIntHashSet[])unmarshalled;
+			System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationConfig.toString(invalidations));
+			itemCache.invalidate(invalidations);
+			queryCache.invalidate(invalidations);
+		}
+		else if(unmarshalled==null)
+		{
+			System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
+		}
+		else if(unmarshalled instanceof Integer)
+		{
+			switch(((Integer)unmarshalled).intValue())
+			{
+				case InvalidationConfig.PING_AT_SEQUENCE:
+					System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
+					sender.pong();
+					break;
+				case InvalidationConfig.PONG_AT_SEQUENCE:
+					System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
+					break;
+				default:
+					throw new RuntimeException(String.valueOf(unmarshalled));
 			}
 		}
 	}
