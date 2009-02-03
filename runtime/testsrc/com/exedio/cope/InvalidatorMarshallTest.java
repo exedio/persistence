@@ -134,7 +134,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[0] = 0x11;
 		try
 		{
-			um(buf, new InvalidationConfig(0x88776654, 0x11224433, properties), 4);
+			um(buf, icl, 4);
 			fail();
 		}
 		catch(RuntimeException e)
