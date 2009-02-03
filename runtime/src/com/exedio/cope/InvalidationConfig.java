@@ -27,20 +27,20 @@ import java.util.Random;
 
 final class InvalidationConfig
 {
-	protected static final byte MAGIC0 = (byte)0xc0;
-	protected static final byte MAGIC1 = (byte)0xbe;
-	protected static final byte MAGIC2 = 0x11;
-	protected static final byte MAGIC3 = 0x11;
+	static final byte MAGIC0 = (byte)0xc0;
+	static final byte MAGIC1 = (byte)0xbe;
+	static final byte MAGIC2 = 0x11;
+	static final byte MAGIC3 = 0x11;
 	
-	protected static final int PING_AT_SEQUENCE = -1;
-	protected static final int PONG_AT_SEQUENCE = -2;
+	static final int PING_AT_SEQUENCE = -1;
+	static final int PONG_AT_SEQUENCE = -2;
 	
-	protected final int secret;
-	protected final int node;
-	protected final int packetSize;
-	protected final InetAddress group;
+	final int secret;
+	final int node;
+	final int packetSize;
+	final InetAddress group;
 	
-	protected InvalidationConfig(final int secret, final int node, final ConnectProperties properties)
+	InvalidationConfig(final int secret, final int node, final ConnectProperties properties)
 	{
 		this.secret = secret;
 		this.node = node;
@@ -55,7 +55,7 @@ final class InvalidationConfig
 		}
 	}
 	
-	protected static final String toString(final TIntHashSet[] invalidations)
+	static final String toString(final TIntHashSet[] invalidations)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('[');
@@ -90,7 +90,7 @@ final class InvalidationConfig
 		return bf.toString();
 	}
 	
-	protected static final byte[] PING_PAYLOAD = new byte[20000];
+	static final byte[] PING_PAYLOAD = new byte[20000];
 	
 	static
 	{
