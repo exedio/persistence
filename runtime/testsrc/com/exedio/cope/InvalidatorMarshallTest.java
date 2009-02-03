@@ -439,14 +439,14 @@ public class InvalidatorMarshallTest extends TestCase
 		
 		assertEquals(
 				new Integer(InvalidationConfig.PING_AT_SEQUENCE),
-				InvalidationListener.unmarshal(0, buf, buf.length, icl, 0));
+				um(buf, icl, 0));
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -459,7 +459,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -472,7 +472,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -485,7 +485,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -496,7 +496,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[36] = (byte)35;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, icl, 0);
+			um(buf, icl, 0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -506,7 +506,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[28] = (byte)29;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, icl, 0);
+			um(buf, icl, 0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -538,14 +538,14 @@ public class InvalidatorMarshallTest extends TestCase
 		
 		assertEquals(
 				new Integer(InvalidationConfig.PONG_AT_SEQUENCE),
-				InvalidationListener.unmarshal(0, buf, buf.length, icl, 0));
+				um(buf, icl, 0));
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -558,7 +558,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -571,7 +571,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -584,7 +584,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, icl, 0);
+				um(buf2, icl, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -595,7 +595,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[36] = (byte)35;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, icl, 0);
+			um(buf, icl, 0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -605,7 +605,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[28] = (byte)29;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, icl, 0);
+			um(buf, icl, 0);
 			fail();
 		}
 		catch(RuntimeException e)
