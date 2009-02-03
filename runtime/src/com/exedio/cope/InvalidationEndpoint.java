@@ -25,7 +25,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-abstract class InvalidationEndpoint
+final class InvalidationEndpoint
 {
 	protected static final byte MAGIC0 = (byte)0xc0;
 	protected static final byte MAGIC1 = (byte)0xbe;

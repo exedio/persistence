@@ -24,8 +24,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
 
-final class InvalidationListener extends InvalidationEndpoint implements Runnable
+final class InvalidationListener implements Runnable
 {
+	private final InvalidationEndpoint config;
 	private final int port;
 	private final MulticastSocket socket;
 	
@@ -38,16 +39,16 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 	private volatile boolean threadRun = true;
 	
 	InvalidationListener(
-			final int secret, final int node, final ConnectProperties properties,
+			final InvalidationEndpoint config, final ConnectProperties properties,
 			final InvalidationSender sender,
 			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
 	{
-		super(secret, node, properties);
+		this.config = config;
 		this.port = properties.clusterListenPort.getIntValue();
 		try
 		{
 			this.socket = new MulticastSocket(port);
-			socket.joinGroup(group);
+			socket.joinGroup(config.group);
 		}
 		catch(IOException e)
 		{
@@ -63,7 +64,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 	
 	public void run()
 	{
-		final byte[] buf = new byte[packetSize];
+		final byte[] buf = new byte[config.packetSize];
 		final DatagramPacket packet = new DatagramPacket(buf, buf.length);
 		
 		while(threadRun)
@@ -76,11 +77,11 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				if(!threadRun)
 					return;
 				final Object unmarshalled =
-					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, node, packetSize, typeLength);
+					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), config, typeLength);
 				if(unmarshalled instanceof TIntHashSet[])
 				{
 					final TIntHashSet[] invalidations = (TIntHashSet[])unmarshalled;
-					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + toString(invalidations));
+					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationEndpoint.toString(invalidations));
 					itemCache.invalidate(invalidations);
 					queryCache.invalidate(invalidations);
 				}
@@ -92,11 +93,11 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				{
 					switch(((Integer)unmarshalled).intValue())
 					{
-						case InvalidationSender.PING_AT_SEQUENCE:
+						case InvalidationEndpoint.PING_AT_SEQUENCE:
 							System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
 							sender.pong();
 							break;
-						case InvalidationSender.PONG_AT_SEQUENCE:
+						case InvalidationEndpoint.PONG_AT_SEQUENCE:
 							System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
 							break;
 						default:
@@ -112,19 +113,19 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		}
 	}
 	
-	static Object unmarshal(int pos, final byte[] buf, final int length, final int secret, final int node, final int packetSize, final int typeLength)
+	static Object unmarshal(int pos, final byte[] buf, final int length, final InvalidationEndpoint config, final int typeLength)
 	{
-		if(buf[pos++]!=MAGIC0 ||
-			buf[pos++]!=MAGIC1 ||
-			buf[pos++]!=MAGIC2 ||
-			buf[pos++]!=MAGIC3)
+		if(buf[pos++]!=InvalidationEndpoint.MAGIC0 ||
+			buf[pos++]!=InvalidationEndpoint.MAGIC1 ||
+			buf[pos++]!=InvalidationEndpoint.MAGIC2 ||
+			buf[pos++]!=InvalidationEndpoint.MAGIC3)
 			throw new RuntimeException("missing magic");
 		
-		if(secret!=unmarshal(pos, buf))
+		if(config.secret!=unmarshal(pos, buf))
 			throw new RuntimeException("wrong secret");
 		pos += 4;
 		
-		if(node==unmarshal(pos, buf))
+		if(config.node==unmarshal(pos, buf))
 			return null;
 		pos += 4;
 
@@ -133,16 +134,16 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		pos += 4;
 		switch(sequence)
 		{
-			case InvalidationSender.PING_AT_SEQUENCE:
-			case InvalidationSender.PONG_AT_SEQUENCE:
-				final String m = (sequence==InvalidationSender.PING_AT_SEQUENCE) ? "invalid ping" : "invalid pong";
+			case InvalidationEndpoint.PING_AT_SEQUENCE:
+			case InvalidationEndpoint.PONG_AT_SEQUENCE:
+				final String m = (sequence==InvalidationEndpoint.PING_AT_SEQUENCE) ? "invalid ping" : "invalid pong";
 				
-				if(length!=packetSize)
-					throw new RuntimeException(m + ", expected length " + packetSize + ", but was " + length);
+				if(length!=config.packetSize)
+					throw new RuntimeException(m + ", expected length " + config.packetSize + ", but was " + length);
 				for(; pos<length; pos++)
 				{
-					if(PING_PAYLOAD[pos]!=buf[pos])
-						throw new RuntimeException(m + ", at position " + pos + " expected " + PING_PAYLOAD[pos] + ", but was " + buf[pos]);
+					if(InvalidationEndpoint.PING_PAYLOAD[pos]!=buf[pos])
+						throw new RuntimeException(m + ", at position " + pos + " expected " + InvalidationEndpoint.PING_PAYLOAD[pos] + ", but was " + buf[pos]);
 				}
 				
 				return sequence;
@@ -188,7 +189,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		threadRun = false;
 		try
 		{
-			socket.leaveGroup(group);
+			socket.leaveGroup(config.group);
 		}
 		catch(IOException e)
 		{

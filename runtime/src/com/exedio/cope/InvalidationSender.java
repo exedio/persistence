@@ -26,8 +26,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
 
-final class InvalidationSender extends InvalidationEndpoint
+final class InvalidationSender
 {
+	private final InvalidationEndpoint config;
 	private final int sourcePort;
 	private final int destinationPort;
 	private final DatagramSocket socket;
@@ -40,9 +41,9 @@ final class InvalidationSender extends InvalidationEndpoint
 	
 	ArrayList<byte[]> testSink = null;
 	
-	InvalidationSender(final int secret, final int node, final ConnectProperties properties)
+	InvalidationSender(final InvalidationEndpoint config, final ConnectProperties properties)
 	{
-		super(secret, node, properties);
+		this.config = config;
 		this.sourcePort      = properties.clusterSendSourcePort.getIntValue();
 		this.destinationPort = properties.clusterSendDestinationPort.getIntValue();
 		try
@@ -55,42 +56,42 @@ final class InvalidationSender extends InvalidationEndpoint
 		}
 		
 		final byte[] prolog = new byte[PROLOG_SIZE];
-		prolog[0] = MAGIC0;
-		prolog[1] = MAGIC1;
-		prolog[2] = MAGIC2;
-		prolog[3] = MAGIC3;
+		prolog[0] = InvalidationEndpoint.MAGIC0;
+		prolog[1] = InvalidationEndpoint.MAGIC1;
+		prolog[2] = InvalidationEndpoint.MAGIC2;
+		prolog[3] = InvalidationEndpoint.MAGIC3;
 		int pos = 4;
-		pos = marshal(pos, prolog, secret);
-		pos = marshal(pos, prolog, node);
+		pos = marshal(pos, prolog, config.secret);
+		pos = marshal(pos, prolog, config.node);
 		assert pos==PROLOG_SIZE;
 		this.prolog = prolog;
 	}
 	
 	void ping()
 	{
-		pingPong(PING_AT_SEQUENCE);
+		pingPong(InvalidationEndpoint.PING_AT_SEQUENCE);
 	}
 	
 	void pong()
 	{
-		pingPong(PONG_AT_SEQUENCE);
+		pingPong(InvalidationEndpoint.PONG_AT_SEQUENCE);
 	}
 	
 	private void pingPong(final int messageAtSequence)
 	{
 		assert messageAtSequence<0 : messageAtSequence;
 		
-		final byte[] buf = new byte[packetSize];
+		final byte[] buf = new byte[config.packetSize];
 		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
 		
 		int pos = PROLOG_SIZE;
 		pos = marshal(pos, buf, messageAtSequence);
 			
-		for(; pos<packetSize; pos++)
-			buf[pos] = PING_PAYLOAD[pos];
-		assert pos==packetSize : pos;
+		for(; pos<config.packetSize; pos++)
+			buf[pos] = InvalidationEndpoint.PING_PAYLOAD[pos];
+		assert pos==config.packetSize : pos;
 			
-		send(packetSize, buf, new TIntHashSet[]{});
+		send(config.packetSize, buf, new TIntHashSet[]{});
 	}
 	
 	private int nextSequence()
@@ -111,7 +112,7 @@ final class InvalidationSender extends InvalidationEndpoint
 					pos += 2 + invalidation.size();
 			length = PROLOG_SIZE + 4 + (pos << 2);
 		}
-		final byte[] buf = new byte[Math.min(length, packetSize)];
+		final byte[] buf = new byte[Math.min(length, config.packetSize)];
 		System.arraycopy(prolog, 0, buf, 0, PROLOG_SIZE);
 		
 		int typeIdTransiently = 0;
@@ -133,7 +134,7 @@ final class InvalidationSender extends InvalidationEndpoint
 				final TIntHashSet invalidation = invalidations[typeIdTransiently];
 				if(invalidation!=null)
 				{
-					if(pos>=packetSize)
+					if(pos>=config.packetSize)
 					{
 						send(pos, buf, invalidations);
 						continue packetLoop;
@@ -144,7 +145,7 @@ final class InvalidationSender extends InvalidationEndpoint
 						i = invalidation.iterator();
 					while(i.hasNext())
 					{
-						if(pos>=packetSize)
+						if(pos>=config.packetSize)
 						{
 							send(pos, buf, invalidations);
 							continue packetLoop;
@@ -152,7 +153,7 @@ final class InvalidationSender extends InvalidationEndpoint
 						pos = marshal(pos, buf, i.next());
 					}
 					
-					if(pos>=packetSize)
+					if(pos>=config.packetSize)
 					{
 						send(pos, buf, invalidations);
 						continue packetLoop;
@@ -181,10 +182,10 @@ final class InvalidationSender extends InvalidationEndpoint
 		{
 			try
 			{
-				final DatagramPacket packet = new DatagramPacket(buf, length, group, destinationPort);
+				final DatagramPacket packet = new DatagramPacket(buf, length, config.group, destinationPort);
 				final long start = System.currentTimeMillis();
 				socket.send(packet);
-				System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + toString(invalidations));
+				System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + InvalidationEndpoint.toString(invalidations));
 	      }
 			catch(IOException e)
 			{
