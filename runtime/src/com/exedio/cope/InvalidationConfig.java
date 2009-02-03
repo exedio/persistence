@@ -41,6 +41,11 @@ final class InvalidationConfig
 	final InetAddress group;
 	final byte[] pingPayload;
 	
+	InvalidationConfig(final int secret, final ConnectProperties properties)
+	{
+		this(secret, new Random().nextInt(), properties);
+	}
+	
 	InvalidationConfig(final int secret, final int node, final ConnectProperties properties)
 	{
 		this.secret = secret;
@@ -61,6 +66,7 @@ final class InvalidationConfig
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;
 		}
+		System.out.println("COPE Cluster Invalidation node id: " + node);
 	}
 	
 	static final String toString(final TIntHashSet[] invalidations)

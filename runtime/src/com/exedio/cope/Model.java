@@ -336,8 +336,6 @@ public final class Model
 						final String secretS = context.get("cluster.secret");
 						if(secretS!=null)
 						{
-							final int node = new Random().nextInt();
-							System.out.println("COPE Cluster Invalidation node id: " + node);
 							final int secret;
 							try
 							{
@@ -347,7 +345,7 @@ public final class Model
 							{
 								throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
 							}
-							final InvalidationConfig config = new InvalidationConfig(secret, node, properties);
+							final InvalidationConfig config = new InvalidationConfig(secret, properties);
 							this.invalidationSender   = new InvalidationSender  (config, properties);
 							this.invalidationListener = new InvalidationListener(config, properties, invalidationSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}
