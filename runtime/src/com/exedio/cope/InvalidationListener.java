@@ -136,7 +136,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 			case InvalidationSender.PING_AT_SEQUENCE:
 			case InvalidationSender.PONG_AT_SEQUENCE:
 				
-				if(length<packetSize)
+				if(length!=packetSize)
 					throw new RuntimeException("invalid ping/pong package " + sequence + " expected length " + packetSize + ", but was " + length);
 				while(pos<length)
 				{

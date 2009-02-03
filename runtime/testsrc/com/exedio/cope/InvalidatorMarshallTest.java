@@ -471,9 +471,9 @@ public class InvalidatorMarshallTest extends TestCase
 				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
-			catch(ArrayIndexOutOfBoundsException e)
+			catch(RuntimeException e)
 			{
-				// TODO better exception
+				assertEquals("invalid ping/pong package -1 expected length 40, but was 41", e.getMessage());
 			}
 		}
 		{
@@ -486,7 +486,7 @@ public class InvalidatorMarshallTest extends TestCase
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid ping/pong package -1 at position 40 was 0", e.getMessage()); // TODO should complain about wrong length
+				assertEquals("invalid ping/pong package -1 expected length 40, but was 44", e.getMessage());
 			}
 		}
 		buf[36] = (byte)35;
@@ -570,9 +570,9 @@ public class InvalidatorMarshallTest extends TestCase
 				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
-			catch(ArrayIndexOutOfBoundsException e)
+			catch(RuntimeException e)
 			{
-				// TODO better exception
+				assertEquals("invalid ping/pong package -2 expected length 40, but was 41", e.getMessage());
 			}
 		}
 		{
@@ -585,7 +585,7 @@ public class InvalidatorMarshallTest extends TestCase
 			}
 			catch(RuntimeException e)
 			{
-				assertEquals("invalid ping/pong package -2 at position 40 was 0", e.getMessage()); // TODO should complain about wrong length
+				assertEquals("invalid ping/pong package -2 expected length 40, but was 44", e.getMessage());
 			}
 		}
 		buf[36] = (byte)35;
