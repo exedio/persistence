@@ -439,7 +439,7 @@ public class InvalidatorMarshallTest extends TestCase
 		
 		assertEquals(
 				new Integer(InvalidationConfig.PING_AT_SEQUENCE),
-				um(buf, icl, 0));
+				umi(buf, icl, 0));
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
@@ -538,7 +538,7 @@ public class InvalidatorMarshallTest extends TestCase
 		
 		assertEquals(
 				new Integer(InvalidationConfig.PONG_AT_SEQUENCE),
-				um(buf, icl, 0));
+				umi(buf, icl, 0));
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
@@ -672,6 +672,16 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	private TIntHashSet[] um(final byte[] buf, final InvalidationConfig config, final int typeLength)
 	{
-		return (TIntHashSet[])InvalidationListener.unmarshal(0, buf, buf.length, config, typeLength);
+		return (TIntHashSet[])umx(buf, config, typeLength);
+	}
+	
+	private Integer umi(final byte[] buf, final InvalidationConfig config, final int typeLength)
+	{
+		return (Integer)umx(buf, config, typeLength);
+	}
+	
+	private Object umx(final byte[] buf, final InvalidationConfig config, final int typeLength)
+	{
+		return InvalidationListener.unmarshal(0, buf, buf.length, config, typeLength);
 	}
 }
