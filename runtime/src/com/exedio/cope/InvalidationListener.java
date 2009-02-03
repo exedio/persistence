@@ -138,12 +138,10 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				
 				if(length!=packetSize)
 					throw new RuntimeException("invalid ping/pong package " + sequence + " expected length " + packetSize + ", but was " + length);
-				while(pos<length)
+				for(; pos<length; pos++)
 				{
-					final int val = unmarshal(pos, buf);
-					if(val!=pos)
-						throw new RuntimeException("invalid ping/pong package " + sequence + " at position " + pos + " was " + val);
-					pos += 4;
+					if(PING_PAYLOAD[pos]!=buf[pos])
+						throw new RuntimeException("invalid ping/pong package " + sequence + " at position expected " + PING_PAYLOAD[pos] + ", but was " + buf[pos]);
 				}
 				
 				return sequence;

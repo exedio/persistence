@@ -23,6 +23,7 @@ import gnu.trove.TIntIterator;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 abstract class InvalidationEndpoint
 {
@@ -87,5 +88,14 @@ abstract class InvalidationEndpoint
 		bf.append(']');
 		
 		return bf.toString();
+	}
+	
+	protected static final byte[] PING_PAYLOAD = new byte[20000];
+	
+	static
+	{
+		final Random r = new Random(0x88776655);
+		for(int pos = 16; pos<PING_PAYLOAD.length; pos++)
+			PING_PAYLOAD[pos] = (byte)(r.nextInt()>>8);
 	}
 }

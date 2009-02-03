@@ -86,8 +86,8 @@ final class InvalidationSender extends InvalidationEndpoint
 		int pos = PROLOG_SIZE;
 		pos = marshal(pos, buf, messageAtSequence);
 			
-		while(pos<packetSize)
-			pos = marshal(pos, buf, pos);
+		for(; pos<packetSize; pos++)
+			buf[pos] = PING_PAYLOAD[pos];
 		assert pos==packetSize : pos;
 			
 		send(packetSize, buf, new TIntHashSet[]{});
