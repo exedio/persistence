@@ -435,6 +435,72 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(
 				new Integer(InvalidationEndpoint.PING_AT_SEQUENCE),
 				InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0));
+		
+		{
+			final byte[] buf2 = new byte[buf.length-4];
+			System.arraycopy(buf, 0, buf2, 0, buf2.length);
+			// TODO should fail
+			InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+		}
+		{
+			final byte[] buf2 = new byte[buf.length-1];
+			System.arraycopy(buf, 0, buf2, 0, buf2.length);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				fail();
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+				// TODO better exception
+			}
+		}
+		{
+			final byte[] buf2 = new byte[buf.length+1];
+			System.arraycopy(buf, 0, buf2, 0, buf.length);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				fail();
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+				// TODO better exception
+			}
+		}
+		{
+			final byte[] buf2 = new byte[buf.length+4];
+			System.arraycopy(buf, 0, buf2, 0, buf.length);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("invalid ping/pong package -1 at position 40 was 0", e.getMessage()); // TODO should complain about wrong length
+			}
+		}
+		buf[36] = (byte)35;
+		try
+		{
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("invalid ping/pong package -1 at position 36 was 35", e.getMessage());
+		}
+		buf[28] = (byte)29;
+		try
+		{
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("invalid ping/pong package -1 at position 28 was 29", e.getMessage());
+		}
 	}
 	
 	public void testPong()
@@ -461,6 +527,72 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(
 				new Integer(InvalidationEndpoint.PONG_AT_SEQUENCE),
 				InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0));
+		
+		{
+			final byte[] buf2 = new byte[buf.length-4];
+			System.arraycopy(buf, 0, buf2, 0, buf2.length);
+			// TODO should fail
+			InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+		}
+		{
+			final byte[] buf2 = new byte[buf.length-1];
+			System.arraycopy(buf, 0, buf2, 0, buf2.length);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				fail();
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+				// TODO better exception
+			}
+		}
+		{
+			final byte[] buf2 = new byte[buf.length+1];
+			System.arraycopy(buf, 0, buf2, 0, buf.length);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				fail();
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+				// TODO better exception
+			}
+		}
+		{
+			final byte[] buf2 = new byte[buf.length+4];
+			System.arraycopy(buf, 0, buf2, 0, buf.length);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("invalid ping/pong package -2 at position 40 was 0", e.getMessage()); // TODO should complain about wrong length
+			}
+		}
+		buf[36] = (byte)35;
+		try
+		{
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("invalid ping/pong package -2 at position 36 was 35", e.getMessage());
+		}
+		buf[28] = (byte)29;
+		try
+		{
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			fail();
+		}
+		catch(RuntimeException e)
+		{
+			assertEquals("invalid ping/pong package -2 at position 28 was 29", e.getMessage());
+		}
 	}
 	
 	
