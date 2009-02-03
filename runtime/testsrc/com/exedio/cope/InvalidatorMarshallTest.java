@@ -497,7 +497,7 @@ public class InvalidatorMarshallTest extends TestCase
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid ping, at position expected 56, but was 35", e.getMessage());
+			assertEquals("invalid ping, at position 36 expected 56, but was 35", e.getMessage());
 		}
 		buf[28] = (byte)29;
 		try
@@ -507,7 +507,7 @@ public class InvalidatorMarshallTest extends TestCase
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid ping, at position expected 98, but was 29", e.getMessage());
+			assertEquals("invalid ping, at position 28 expected 98, but was 29", e.getMessage());
 		}
 	}
 	
@@ -596,7 +596,7 @@ public class InvalidatorMarshallTest extends TestCase
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid pong, at position expected 56, but was 35", e.getMessage());
+			assertEquals("invalid pong, at position 36 expected 56, but was 35", e.getMessage());
 		}
 		buf[28] = (byte)29;
 		try
@@ -606,7 +606,7 @@ public class InvalidatorMarshallTest extends TestCase
 		}
 		catch(RuntimeException e)
 		{
-			assertEquals("invalid pong, at position expected 98, but was 29", e.getMessage());
+			assertEquals("invalid pong, at position 28 expected 98, but was 29", e.getMessage());
 		}
 	}
 	

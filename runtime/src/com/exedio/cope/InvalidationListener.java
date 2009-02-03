@@ -142,7 +142,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				for(; pos<length; pos++)
 				{
 					if(PING_PAYLOAD[pos]!=buf[pos])
-						throw new RuntimeException(m + ", at position expected " + PING_PAYLOAD[pos] + ", but was " + buf[pos]);
+						throw new RuntimeException(m + ", at position " + pos + " expected " + PING_PAYLOAD[pos] + ", but was " + buf[pos]);
 				}
 				
 				return sequence;
