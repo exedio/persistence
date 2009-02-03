@@ -135,13 +135,14 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		{
 			case InvalidationSender.PING_AT_SEQUENCE:
 			case InvalidationSender.PONG_AT_SEQUENCE:
+				final String m = (sequence==InvalidationSender.PING_AT_SEQUENCE) ? "invalid ping" : "invalid pong";
 				
 				if(length!=packetSize)
-					throw new RuntimeException("invalid ping/pong package " + sequence + " expected length " + packetSize + ", but was " + length);
+					throw new RuntimeException(m + ", expected length " + packetSize + ", but was " + length);
 				for(; pos<length; pos++)
 				{
 					if(PING_PAYLOAD[pos]!=buf[pos])
-						throw new RuntimeException("invalid ping/pong package " + sequence + " at position expected " + PING_PAYLOAD[pos] + ", but was " + buf[pos]);
+						throw new RuntimeException(m + ", at position expected " + PING_PAYLOAD[pos] + ", but was " + buf[pos]);
 				}
 				
 				return sequence;
