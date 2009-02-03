@@ -115,7 +115,11 @@ public class InvalidatorMarshallTest extends TestCase
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
-		assertEquals(null, um(buf, new InvalidationConfig(icl.secret, 0x11224433, properties), 4));
+		buf[8] = 0x34;
+		buf[9] = 0x44;
+		buf[10] = 0x22;
+		buf[11] = 0x11;
+		assertEquals(null, um(buf, icl, 4));
 		
 		try
 		{
