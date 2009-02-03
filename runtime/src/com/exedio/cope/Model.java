@@ -345,7 +345,7 @@ public final class Model
 							}
 							catch(NumberFormatException e)
 							{
-								throw new RuntimeException("cluster.secret muts be a valid integer, but was >" + secretS + '<', e);
+								throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
 							}
 							final InvalidationEndpoint config = new InvalidationEndpoint(secret, node, properties);
 							this.invalidationSender   = new InvalidationSender  (config, properties);
