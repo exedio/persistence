@@ -108,18 +108,18 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
 		{
-			final TIntHashSet[] is = um(0, buf, icl, 4);
+			final TIntHashSet[] is = um(buf, icl, 4);
 			assertContains(is[0], 0x456789ab, 0xaf896745);
 			assertEquals(null, is[1]);
 			assertTrue(is[2].isEmpty());
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
-		assertEquals(null, um(0, buf, new InvalidationConfig(icl.secret, 0x11224433, properties), 4));
+		assertEquals(null, um(buf, new InvalidationConfig(icl.secret, 0x11224433, properties), 4));
 		
 		try
 		{
-			um(0, buf, new InvalidationConfig(0x88776654, 0x11224433, properties), 4);
+			um(buf, new InvalidationConfig(0x88776654, 0x11224433, properties), 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -129,7 +129,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[0] = 0x11;
 		try
 		{
-			um(0, buf, new InvalidationConfig(0x88776654, 0x11224433, properties), 4);
+			um(buf, new InvalidationConfig(0x88776654, 0x11224433, properties), 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -165,12 +165,12 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(2, bufs.length);
 
 		{
-			final TIntHashSet[] pks = um(0, bufs[0], icl, 1);
+			final TIntHashSet[] pks = um(bufs[0], icl, 1);
 			assertContains(pks[0], 5, 2, 4, 1, 6);
 			assertEquals(1, pks.length);
 		}
 		{
-			final TIntHashSet[] pks = um(0, bufs[1], icl, 1);
+			final TIntHashSet[] pks = um(bufs[1], icl, 1);
 			assertContains(pks[0], 3);
 			assertEquals(1, pks.length);
 		}
@@ -206,13 +206,13 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(2, bufs.length);
 
 		{
-			final TIntHashSet[] pks = um(0, bufs[0], icl, 2);
+			final TIntHashSet[] pks = um(bufs[0], icl, 2);
 			assertContains(pks[0], 5, 2, 4, 1, 6);
 			assertEquals(null, pks[1]);
 			assertEquals(2, pks.length);
 		}
 		{
-			final TIntHashSet[] pks = um(0, bufs[1], icl, 2);
+			final TIntHashSet[] pks = um(bufs[1], icl, 2);
 			assertContains(pks[0], 3);
 			assertContains(pks[1], 11);
 			assertEquals(2, pks.length);
@@ -246,13 +246,13 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(2, bufs.length);
 
 		{
-			final TIntHashSet[] pks = um(0, bufs[0], icl, 2);
+			final TIntHashSet[] pks = um(bufs[0], icl, 2);
 			assertContains(pks[0], 5, 2, 4, 3, 1);
 			assertEquals(null, pks[1]);
 			assertEquals(2, pks.length);
 		}
 		{
-			final TIntHashSet[] pks = um(0, bufs[1], icl, 2);
+			final TIntHashSet[] pks = um(bufs[1], icl, 2);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 11);
 			assertEquals(2, pks.length);
@@ -286,13 +286,13 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(2, bufs.length);
 
 		{
-			final TIntHashSet[] pks = um(0, bufs[0], icl, 2);
+			final TIntHashSet[] pks = um(bufs[0], icl, 2);
 			assertContains(pks[0], 2, 4, 3, 1);
 			assertEquals(null, pks[1]);
 			assertEquals(2, pks.length);
 		}
 		{
-			final TIntHashSet[] pks = um(0, bufs[1], icl, 2);
+			final TIntHashSet[] pks = um(bufs[1], icl, 2);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 11);
 			assertEquals(2, pks.length);
@@ -326,13 +326,13 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(2, bufs.length);
 
 		{
-			final TIntHashSet[] pks = um(0, bufs[0], icl, 2);
+			final TIntHashSet[] pks = um(bufs[0], icl, 2);
 			assertContains(pks[0], 2, 3, 1);
 			assertTrue(pks[1].isEmpty());
 			assertEquals(2, pks.length);
 		}
 		{
-			final TIntHashSet[] pks = um(0, bufs[1], icl, 2);
+			final TIntHashSet[] pks = um(bufs[1], icl, 2);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 11);
 			assertEquals(2, pks.length);
@@ -366,13 +366,13 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(2, bufs.length);
 
 		{
-			final TIntHashSet[] pks = um(0, bufs[0], icl, 2);
+			final TIntHashSet[] pks = um(bufs[0], icl, 2);
 			assertContains(pks[0], 2, 1);
 			assertContains(pks[1], 11);
 			assertEquals(2, pks.length);
 		}
 		{
-			final TIntHashSet[] pks = um(0, bufs[1], icl, 2);
+			final TIntHashSet[] pks = um(bufs[1], icl, 2);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 12);
 			assertEquals(2, pks.length);
@@ -403,13 +403,13 @@ public class InvalidatorMarshallTest extends TestCase
 		assertEquals(2, bufs.length);
 
 		{
-			final TIntHashSet[] pks = um(0, bufs[0], icl, 2);
+			final TIntHashSet[] pks = um(bufs[0], icl, 2);
 			assertContains(pks[0], 2, 1);
 			assertContains(pks[1], 11);
 			assertEquals(2, pks.length);
 		}
 		{
-			final TIntHashSet[] pks = um(0, bufs[1], icl, 2);
+			final TIntHashSet[] pks = um(bufs[1], icl, 2);
 			assertEquals(null, pks[0]);
 			assertEquals(null, pks[1]);
 			assertEquals(2, pks.length);
@@ -670,8 +670,8 @@ public class InvalidatorMarshallTest extends TestCase
 		return result;
 	}
 	
-	private TIntHashSet[] um(final int pos, final byte[] buf, final InvalidationConfig config, final int typeLength)
+	private TIntHashSet[] um(final byte[] buf, final InvalidationConfig config, final int typeLength)
 	{
-		return (TIntHashSet[])InvalidationListener.unmarshal(pos, buf, buf.length, config, typeLength);
+		return (TIntHashSet[])InvalidationListener.unmarshal(0, buf, buf.length, config, typeLength);
 	}
 }
