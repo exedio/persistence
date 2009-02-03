@@ -76,7 +76,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 				if(!threadRun)
 					return;
 				final Object unmarshalled =
-					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, node, typeLength);
+					unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), secret, node, packetSize, typeLength);
 				if(unmarshalled instanceof TIntHashSet[])
 				{
 					final TIntHashSet[] invalidations = (TIntHashSet[])unmarshalled;
@@ -112,7 +112,7 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 		}
 	}
 	
-	static Object unmarshal(int pos, final byte[] buf, final int length, final int secret, final int node, final int typeLength)
+	static Object unmarshal(int pos, final byte[] buf, final int length, final int secret, final int node, final int packetSize, final int typeLength)
 	{
 		if(buf[pos++]!=MAGIC0 ||
 			buf[pos++]!=MAGIC1 ||
@@ -136,6 +136,8 @@ final class InvalidationListener extends InvalidationEndpoint implements Runnabl
 			case InvalidationSender.PING_AT_SEQUENCE:
 			case InvalidationSender.PONG_AT_SEQUENCE:
 				
+				if(length<packetSize)
+					throw new RuntimeException("invalid ping/pong package " + sequence + " expected length " + packetSize + ", but was " + length);
 				while(pos<length)
 				{
 					final int val = unmarshal(pos, buf);

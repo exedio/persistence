@@ -33,6 +33,7 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	private static final int SECRET = 0x88776655;
 	private static final int NODE   = 0x11224434;
+	private static final int PACKET_SIZE = 40;
 	
 	@Override
 	protected void setUp() throws Exception
@@ -75,7 +76,7 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	public void testSet()
 	{
-		assertEquals(40, is.packetSize);
+		assertEquals(PACKET_SIZE, is.packetSize);
 		
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
@@ -434,25 +435,32 @@ public class InvalidatorMarshallTest extends TestCase
 		
 		assertEquals(
 				new Integer(InvalidationEndpoint.PING_AT_SEQUENCE),
-				InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0));
+				InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, PACKET_SIZE, 0));
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
-			// TODO should fail
-			InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("invalid ping/pong package -1 expected length 40, but was 36", e.getMessage());
+			}
 		}
 		{
 			final byte[] buf2 = new byte[buf.length-1];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
-			catch(ArrayIndexOutOfBoundsException e)
+			catch(RuntimeException e)
 			{
-				// TODO better exception
+				assertEquals("invalid ping/pong package -1 expected length 40, but was 39", e.getMessage());
 			}
 		}
 		{
@@ -460,7 +468,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
 			catch(ArrayIndexOutOfBoundsException e)
@@ -473,7 +481,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -484,7 +492,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[36] = (byte)35;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, PACKET_SIZE, 0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -494,7 +502,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[28] = (byte)29;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, PACKET_SIZE, 0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -526,25 +534,32 @@ public class InvalidatorMarshallTest extends TestCase
 		
 		assertEquals(
 				new Integer(InvalidationEndpoint.PONG_AT_SEQUENCE),
-				InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0));
+				InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, PACKET_SIZE, 0));
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
-			// TODO should fail
-			InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+			try
+			{
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
+				fail();
+			}
+			catch(RuntimeException e)
+			{
+				assertEquals("invalid ping/pong package -2 expected length 40, but was 36", e.getMessage());
+			}
 		}
 		{
 			final byte[] buf2 = new byte[buf.length-1];
 			System.arraycopy(buf, 0, buf2, 0, buf2.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
-			catch(ArrayIndexOutOfBoundsException e)
+			catch(RuntimeException e)
 			{
-				// TODO better exception
+				assertEquals("invalid ping/pong package -2 expected length 40, but was 39", e.getMessage());
 			}
 		}
 		{
@@ -552,7 +567,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
 			catch(ArrayIndexOutOfBoundsException e)
@@ -565,7 +580,7 @@ public class InvalidatorMarshallTest extends TestCase
 			System.arraycopy(buf, 0, buf2, 0, buf.length);
 			try
 			{
-				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, 0);
+				InvalidationListener.unmarshal(0, buf2, buf2.length, SECRET, NODE, PACKET_SIZE, 0);
 				fail();
 			}
 			catch(RuntimeException e)
@@ -576,7 +591,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[36] = (byte)35;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, PACKET_SIZE, 0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -586,7 +601,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[28] = (byte)29;
 		try
 		{
-			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, 0);
+			InvalidationListener.unmarshal(0, buf, buf.length, SECRET, NODE, PACKET_SIZE, 0);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -653,6 +668,6 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	private TIntHashSet[] um(final int pos, final byte[] buf, final int secret, final int node, final int typeLength)
 	{
-		return (TIntHashSet[])InvalidationListener.unmarshal(pos, buf, buf.length, secret, node, typeLength);
+		return (TIntHashSet[])InvalidationListener.unmarshal(pos, buf, buf.length, secret, node, PACKET_SIZE, typeLength);
 	}
 }
