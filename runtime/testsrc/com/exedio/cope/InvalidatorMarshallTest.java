@@ -30,8 +30,8 @@ import com.exedio.cope.util.Properties;
 public class InvalidatorMarshallTest extends TestCase
 {
 	private ConnectProperties properties;
-	private InvalidationEndpoint ics;
-	private InvalidationEndpoint icl;
+	private InvalidationConfig ics;
+	private InvalidationConfig icl;
 	private InvalidationSender is;
 	
 	private static final int SECRET = 0x88776655;
@@ -66,8 +66,8 @@ public class InvalidatorMarshallTest extends TestCase
 				},
 				null
 			);
-		ics = new InvalidationEndpoint(SECRET, 0x11224433, properties);
-		icl = new InvalidationEndpoint(SECRET, 0x11224434, properties);
+		ics = new InvalidationConfig(SECRET, 0x11224433, properties);
+		icl = new InvalidationConfig(SECRET, 0x11224434, properties);
 		is = new InvalidationSender(ics, properties);
 	}
 	
@@ -115,11 +115,11 @@ public class InvalidatorMarshallTest extends TestCase
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
-		assertEquals(null, um(0, buf, new InvalidationEndpoint(icl.secret, 0x11224433, properties), 4));
+		assertEquals(null, um(0, buf, new InvalidationConfig(icl.secret, 0x11224433, properties), 4));
 		
 		try
 		{
-			um(0, buf, new InvalidationEndpoint(0x88776654, 0x11224433, properties), 4);
+			um(0, buf, new InvalidationConfig(0x88776654, 0x11224433, properties), 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -129,7 +129,7 @@ public class InvalidatorMarshallTest extends TestCase
 		buf[0] = 0x11;
 		try
 		{
-			um(0, buf, new InvalidationEndpoint(0x88776654, 0x11224433, properties), 4);
+			um(0, buf, new InvalidationConfig(0x88776654, 0x11224433, properties), 4);
 			fail();
 		}
 		catch(RuntimeException e)
@@ -438,7 +438,7 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
 		
 		assertEquals(
-				new Integer(InvalidationEndpoint.PING_AT_SEQUENCE),
+				new Integer(InvalidationConfig.PING_AT_SEQUENCE),
 				InvalidationListener.unmarshal(0, buf, buf.length, icl, 0));
 		
 		{
@@ -537,7 +537,7 @@ public class InvalidatorMarshallTest extends TestCase
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
 		
 		assertEquals(
-				new Integer(InvalidationEndpoint.PONG_AT_SEQUENCE),
+				new Integer(InvalidationConfig.PONG_AT_SEQUENCE),
 				InvalidationListener.unmarshal(0, buf, buf.length, icl, 0));
 		
 		{
@@ -670,7 +670,7 @@ public class InvalidatorMarshallTest extends TestCase
 		return result;
 	}
 	
-	private TIntHashSet[] um(final int pos, final byte[] buf, final InvalidationEndpoint config, final int typeLength)
+	private TIntHashSet[] um(final int pos, final byte[] buf, final InvalidationConfig config, final int typeLength)
 	{
 		return (TIntHashSet[])InvalidationListener.unmarshal(pos, buf, buf.length, config, typeLength);
 	}

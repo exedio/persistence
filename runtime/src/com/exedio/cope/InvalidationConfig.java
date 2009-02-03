@@ -25,7 +25,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-final class InvalidationEndpoint
+final class InvalidationConfig
 {
 	protected static final byte MAGIC0 = (byte)0xc0;
 	protected static final byte MAGIC1 = (byte)0xbe;
@@ -40,7 +40,7 @@ final class InvalidationEndpoint
 	protected final int packetSize;
 	protected final InetAddress group;
 	
-	protected InvalidationEndpoint(final int secret, final int node, final ConnectProperties properties)
+	protected InvalidationConfig(final int secret, final int node, final ConnectProperties properties)
 	{
 		this.secret = secret;
 		this.node = node;
