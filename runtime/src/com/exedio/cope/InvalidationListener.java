@@ -23,6 +23,7 @@ import gnu.trove.TIntHashSet;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
+import java.util.ArrayList;
 
 final class InvalidationListener implements Runnable
 {
@@ -37,6 +38,8 @@ final class InvalidationListener implements Runnable
 	
 	private final Thread thread;
 	private volatile boolean threadRun = true;
+	
+	ArrayList<Object> testSink = null;
 	
 	InvalidationListener(
 			final InvalidationConfig config, final ConnectProperties properties,
@@ -90,6 +93,13 @@ final class InvalidationListener implements Runnable
 	{
 		final Object unmarshalled =
 			unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), config, typeLength);
+		
+		if(testSink!=null)
+		{
+			testSink.add(unmarshalled);
+			return;
+		}
+		
 		if(unmarshalled instanceof TIntHashSet[])
 		{
 			final TIntHashSet[] invalidations = (TIntHashSet[])unmarshalled;
@@ -118,7 +128,7 @@ final class InvalidationListener implements Runnable
 		}
 	}
 	
-	static Object unmarshal(int pos, final byte[] buf, final int length, final InvalidationConfig config, final int typeLength)
+	private static Object unmarshal(int pos, final byte[] buf, final int length, final InvalidationConfig config, final int typeLength)
 	{
 		if(buf[pos++]!=InvalidationConfig.MAGIC0 ||
 			buf[pos++]!=InvalidationConfig.MAGIC1 ||

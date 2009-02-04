@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
 
+import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -33,6 +34,7 @@ public class InvalidatorMarshallTest extends TestCase
 	private InvalidationConfig ics;
 	private InvalidationConfig icl;
 	private InvalidationSender is;
+	private InvalidationListener il;
 	
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 40;
@@ -69,6 +71,7 @@ public class InvalidatorMarshallTest extends TestCase
 		ics = new InvalidationConfig(SECRET, 0x11224433, properties);
 		icl = new InvalidationConfig(SECRET, 0x11224434, properties);
 		is = new InvalidationSender(ics, properties);
+		il = new InvalidationListener(icl, properties, is, 4, null, null);
 	}
 	
 	@Override
@@ -717,6 +720,11 @@ public class InvalidatorMarshallTest extends TestCase
 	
 	private Object umx(final byte[] buf)
 	{
-		return InvalidationListener.unmarshal(0, buf, buf.length, icl, 4);
+		final ArrayList<Object> sink = new ArrayList<Object>();
+		il.testSink = sink;
+		il.handle(new DatagramPacket(buf, buf.length));
+		il.testSink = null;
+		assertEquals(1, sink.size());
+		return sink.get(0);
 	}
 }
