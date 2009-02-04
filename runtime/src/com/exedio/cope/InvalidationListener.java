@@ -25,6 +25,8 @@ import java.net.DatagramPacket;
 import java.net.MulticastSocket;
 import java.util.ArrayList;
 
+import com.exedio.cope.util.ClusterListenerInfo;
+
 final class InvalidationListener implements Runnable
 {
 	private final InvalidationConfig config;
@@ -99,7 +101,10 @@ final class InvalidationListener implements Runnable
 			buf[pos++]!=InvalidationConfig.MAGIC1 ||
 			buf[pos++]!=InvalidationConfig.MAGIC2 ||
 			buf[pos++]!=InvalidationConfig.MAGIC3)
-			throw new RuntimeException("missing magic");
+		{
+			missingMagic++;
+			return;
+		}
 		
 		if(config.secret!=unmarshal(pos, buf))
 			throw new RuntimeException("wrong secret");
@@ -230,5 +235,14 @@ final class InvalidationListener implements Runnable
 		{
 			throw new RuntimeException(e);
 		}
+	}
+	
+	// info
+	
+	private volatile long missingMagic = 0;
+	
+	ClusterListenerInfo getInfo()
+	{
+		return new ClusterListenerInfo(missingMagic);
 	}
 }
