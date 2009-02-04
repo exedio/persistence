@@ -92,7 +92,7 @@ final class InvalidationListener implements Runnable
 	void handle(final DatagramPacket packet)
 	{
 		final Object unmarshalled =
-			unmarshal(packet.getOffset(), packet.getData(), packet.getLength(), config, typeLength);
+			unmarshal(packet.getOffset(), packet.getData(), packet.getLength());
 		
 		if(testSink!=null)
 		{
@@ -128,7 +128,7 @@ final class InvalidationListener implements Runnable
 		}
 	}
 	
-	private static Object unmarshal(int pos, final byte[] buf, final int length, final InvalidationConfig config, final int typeLength)
+	private Object unmarshal(int pos, final byte[] buf, final int length)
 	{
 		if(buf[pos++]!=InvalidationConfig.MAGIC0 ||
 			buf[pos++]!=InvalidationConfig.MAGIC1 ||
