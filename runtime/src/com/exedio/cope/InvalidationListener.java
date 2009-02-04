@@ -91,45 +91,10 @@ final class InvalidationListener implements Runnable
 	
 	void handle(final DatagramPacket packet)
 	{
-		final Object unmarshalled =
-			unmarshal(packet.getOffset(), packet.getData(), packet.getLength());
+		int pos = packet.getOffset();
+		final byte[] buf = packet.getData();
+		final int length = packet.getLength();
 		
-		if(testSink!=null)
-		{
-			testSink.add(unmarshalled);
-			return;
-		}
-		
-		if(unmarshalled instanceof TIntHashSet[])
-		{
-			final TIntHashSet[] invalidations = (TIntHashSet[])unmarshalled;
-			System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationConfig.toString(invalidations));
-			itemCache.invalidate(invalidations);
-			queryCache.invalidate(invalidations);
-		}
-		else if(unmarshalled==null)
-		{
-			System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
-		}
-		else if(unmarshalled instanceof Integer)
-		{
-			switch(((Integer)unmarshalled).intValue())
-			{
-				case InvalidationConfig.PING_AT_SEQUENCE:
-					System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
-					sender.pong();
-					break;
-				case InvalidationConfig.PONG_AT_SEQUENCE:
-					System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
-					break;
-				default:
-					throw new RuntimeException(String.valueOf(unmarshalled));
-			}
-		}
-	}
-	
-	private Object unmarshal(int pos, final byte[] buf, final int length)
-	{
 		if(buf[pos++]!=InvalidationConfig.MAGIC0 ||
 			buf[pos++]!=InvalidationConfig.MAGIC1 ||
 			buf[pos++]!=InvalidationConfig.MAGIC2 ||
@@ -141,7 +106,16 @@ final class InvalidationListener implements Runnable
 		pos += 4;
 		
 		if(config.node==unmarshal(pos, buf))
-			return null;
+		{
+			if(testSink!=null)
+			{
+				testSink.add(null);
+				return;
+			}
+			
+			System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
+			return;
+		}
 		pos += 4;
 
 		// sequence
@@ -161,10 +135,40 @@ final class InvalidationListener implements Runnable
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
-				return sequence;
+				if(testSink!=null)
+				{
+					testSink.add(sequence);
+				}
+				else
+				{
+					switch(sequence)
+					{
+						case InvalidationConfig.PING_AT_SEQUENCE:
+							System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
+							sender.pong();
+							break;
+						case InvalidationConfig.PONG_AT_SEQUENCE:
+							System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
+							break;
+						default:
+							throw new RuntimeException(String.valueOf(sequence));
+					}
+				}
+				break;
 			
 			default:
-				return handleInvalidation(pos, buf, length, sequence);
+				final TIntHashSet[] invalidations = handleInvalidation(pos, buf, length, sequence);
+				if(testSink!=null)
+				{
+					testSink.add(invalidations);
+				}
+				else
+				{
+					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationConfig.toString(invalidations));
+					itemCache.invalidate(invalidations);
+					queryCache.invalidate(invalidations);
+				}
+				break;
 		}
 	}
 	
