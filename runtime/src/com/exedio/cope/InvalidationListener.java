@@ -163,6 +163,11 @@ final class InvalidationListener implements Runnable
 				
 				return sequence;
 		}
+		return handleInvalidation(pos, buf, length, sequence);
+	}
+	
+	TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length, final int sequence)
+	{
 		System.out.println("COPE Cluster Invalidation received sequence " + sequence);
 		
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
