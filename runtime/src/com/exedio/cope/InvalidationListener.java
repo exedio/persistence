@@ -162,8 +162,10 @@ final class InvalidationListener implements Runnable
 				}
 				
 				return sequence;
+			
+			default:
+				return handleInvalidation(pos, buf, length, sequence);
 		}
-		return handleInvalidation(pos, buf, length, sequence);
 	}
 	
 	TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length, final int sequence)
