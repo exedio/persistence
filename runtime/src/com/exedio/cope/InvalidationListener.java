@@ -107,7 +107,10 @@ final class InvalidationListener implements Runnable
 		}
 		
 		if(config.secret!=unmarshal(pos, buf))
-			throw new RuntimeException("wrong secret");
+		{
+			wrongSecret++;
+			return;
+		}
 		pos += 4;
 		
 		if(config.node==unmarshal(pos, buf))
@@ -240,9 +243,10 @@ final class InvalidationListener implements Runnable
 	// info
 	
 	private volatile long missingMagic = 0;
+	private volatile long wrongSecret = 0;
 	
 	ClusterListenerInfo getInfo()
 	{
-		return new ClusterListenerInfo(missingMagic);
+		return new ClusterListenerInfo(missingMagic, wrongSecret);
 	}
 }

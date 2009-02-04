@@ -21,15 +21,23 @@ package com.exedio.cope.util;
 public final class ClusterListenerInfo
 {
 	private final long missingMagic;
+	private final long wrongSecret;
 	
 	public ClusterListenerInfo(
-			final long missingMagic)
+			final long missingMagic,
+			final long wrongSecret)
 	{
 		this.missingMagic = missingMagic;
+		this.wrongSecret = wrongSecret;
 	}
 	
 	public long getMissingMagic()
 	{
 		return missingMagic;
+	}
+	
+	public long getWrongSecret()
+	{
+		return wrongSecret;
 	}
 }

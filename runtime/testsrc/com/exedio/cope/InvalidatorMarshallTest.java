@@ -84,7 +84,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 	public void testSet()
 	{
 		assertEquals(PACKET_SIZE, ics.packetSize);
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
 		assertEqualsBytes(buf,
@@ -98,7 +98,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80, // NaPK for end
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[] buf2 = m(new int[][]{new int[]{0x456789ac, 0xaf896746}, null, new int[]{}, null});
 		assertEqualsBytes(buf2,
@@ -112,7 +112,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80, // NaPK for end
 				(byte)0x02, (byte)0x00, (byte)0x00, (byte)0x00, // id 2
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // NaPK for end
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] is = um(buf);
@@ -122,36 +122,28 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		buf[8] = 0x34;
 		buf[9] = 0x44;
 		buf[10] = 0x22;
 		buf[11] = 0x11;
 		assertEquals(null, um(buf));
-		assertStats(0);
+		assertStats(0, 0);
 		
 		buf[4] = 0x54;
-		try
-		{
-			um(buf);
-			fail();
-		}
-		catch(RuntimeException e)
-		{
-			assertEquals("wrong secret", e.getMessage());
-		}
-		assertStats(0);
+		ume(buf);
+		assertStats(0, 1);
 
 		buf[0] = 0x11;
 		ume(buf);
-		assertStats(1);
+		assertStats(1, 1);
 	}
 	
 	public void testSplitBeforeTypeSingle()
 	{
 		assertEquals(40, ics.packetSize);
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}});
 		assertEqualsBytes(bufs[0],
@@ -174,7 +166,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)3,    (byte)0,    (byte)0,    (byte)0,     // 24 pk 3
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
 		assertEquals(2, bufs.length);
-		assertStats(0);
+		assertStats(0, 0);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
@@ -184,7 +176,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -194,14 +186,14 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 	}
 	
 	public void testSplitBeforeType()
 	{
 		assertEquals(40, ics.packetSize);
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
@@ -227,7 +219,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 36 pk 11
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 40 NaPK for end
 		assertEquals(2, bufs.length);
-		assertStats(0);
+		assertStats(0, 0);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
@@ -237,7 +229,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -247,13 +239,13 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 	}
 	
 	public void testSplitAtType()
 	{
 		assertEquals(40, ics.packetSize);
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
@@ -276,7 +268,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
 		assertEquals(2, bufs.length);
-		assertStats(0);
+		assertStats(0, 0);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
@@ -286,7 +278,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -296,13 +288,13 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 	}
 	
 	public void testSplitAfterType()
 	{
 		assertEquals(40, ics.packetSize);
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
@@ -325,7 +317,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
 		assertEquals(2, bufs.length);
-		assertStats(0);
+		assertStats(0, 0);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
@@ -335,7 +327,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -345,13 +337,13 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 	}
 	
 	public void testSplitAfterAfterType()
 	{
 		assertEquals(40, ics.packetSize);
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
@@ -374,7 +366,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)11,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 11
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
 		assertEquals(2, bufs.length);
-		assertStats(0);
+		assertStats(0, 0);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
@@ -384,7 +376,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -394,7 +386,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 	}
 	
 	public void testSplitAfterAfterAfterType()
@@ -422,7 +414,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 					(byte)12,   (byte)0,    (byte)0,    (byte)0,     // 24 pk 12
 					(byte)0x00, (byte)0x00, (byte)0x00, (byte)0x80); // 28 NaPK for end
 		assertEquals(2, bufs.length);
-		assertStats(0);
+		assertStats(0, 0);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
@@ -432,7 +424,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -442,13 +434,13 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 	}
 	
 	public void testSplitAfterAfterAfterTypeCollapse()
 	{
 		assertEquals(40, ics.packetSize);
-		assertStats(0);
+		assertStats(0, 0);
 		
 		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});
 		assertEqualsBytes(bufs[0],
@@ -468,7 +460,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11,     // 12 node
 				(byte)1,    (byte)0,    (byte)0,    (byte)0);       // 16 sequence
 		assertEquals(2, bufs.length);
-		assertStats(0);
+		assertStats(0, 0);
 
 		{
 			final TIntHashSet[] pks = um(bufs[0]);
@@ -478,7 +470,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -488,7 +480,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0);
+		assertStats(0, 0);
 	}
 	
 	public void testPing()
@@ -515,7 +507,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 		assertEquals(
 				new Integer(InvalidationConfig.PING_AT_SEQUENCE),
 				umi(buf));
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
@@ -530,7 +522,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid ping, expected length 40, but was 36", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length-1];
@@ -545,7 +537,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid ping, expected length 40, but was 39", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length+1];
@@ -560,7 +552,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid ping, expected length 40, but was 41", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length+4];
@@ -575,7 +567,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid ping, expected length 40, but was 44", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		buf[36] = (byte)35;
 		try
@@ -587,7 +579,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 		{
 			assertEquals("invalid ping, at position 36 expected 56, but was 35", e.getMessage());
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		buf[28] = (byte)29;
 		try
@@ -599,7 +591,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 		{
 			assertEquals("invalid ping, at position 28 expected 98, but was 29", e.getMessage());
 		}
-		assertStats(0);
+		assertStats(0, 0);
 	}
 	
 	public void testPong()
@@ -626,7 +618,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 		assertEquals(
 				new Integer(InvalidationConfig.PONG_AT_SEQUENCE),
 				umi(buf));
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length-4];
@@ -641,7 +633,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid pong, expected length 40, but was 36", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length-1];
@@ -656,7 +648,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid pong, expected length 40, but was 39", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length+1];
@@ -671,7 +663,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid pong, expected length 40, but was 41", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		{
 			final byte[] buf2 = new byte[buf.length+4];
@@ -686,7 +678,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				assertEquals("invalid pong, expected length 40, but was 44", e.getMessage());
 			}
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		buf[36] = (byte)35;
 		try
@@ -698,7 +690,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 		{
 			assertEquals("invalid pong, at position 36 expected 56, but was 35", e.getMessage());
 		}
-		assertStats(0);
+		assertStats(0, 0);
 		
 		buf[28] = (byte)29;
 		try
@@ -798,9 +790,11 @@ public class InvalidatorMarshallTest extends CopeAssert
 	}
 	
 	private void assertStats(
-			final long listenerMissingMagic)
+			final long listenerMissingMagic,
+			final long listenerWrongSecret)
 	{
 		final ClusterListenerInfo listenerInfo = il.getInfo();
 		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic());
+		assertEquals(listenerWrongSecret, listenerInfo.getWrongSecret());
 	}
 }
