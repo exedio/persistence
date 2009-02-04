@@ -22,13 +22,16 @@ public final class ClusterListenerInfo
 {
 	private final long missingMagic;
 	private final long wrongSecret;
+	private final long fromMyself;
 	
 	public ClusterListenerInfo(
 			final long missingMagic,
-			final long wrongSecret)
+			final long wrongSecret,
+			final long fromMyself)
 	{
 		this.missingMagic = missingMagic;
 		this.wrongSecret = wrongSecret;
+		this.fromMyself = fromMyself;
 	}
 	
 	public long getMissingMagic()
@@ -39,5 +42,10 @@ public final class ClusterListenerInfo
 	public long getWrongSecret()
 	{
 		return wrongSecret;
+	}
+	
+	public long getFromMyself()
+	{
+		return fromMyself;
 	}
 }

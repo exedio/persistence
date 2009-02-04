@@ -115,13 +115,10 @@ final class InvalidationListener implements Runnable
 		
 		if(config.node==unmarshal(pos, buf))
 		{
-			if(testSink!=null)
-			{
-				testSink.add(null);
-				return;
-			}
+			fromMyself++;
 			
-			System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
+			if(testSink==null)
+				System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
 			return;
 		}
 		pos += 4;
@@ -244,9 +241,10 @@ final class InvalidationListener implements Runnable
 	
 	private volatile long missingMagic = 0;
 	private volatile long wrongSecret = 0;
+	private volatile long fromMyself = 0;
 	
 	ClusterListenerInfo getInfo()
 	{
-		return new ClusterListenerInfo(missingMagic, wrongSecret);
+		return new ClusterListenerInfo(missingMagic, wrongSecret, fromMyself);
 	}
 }
