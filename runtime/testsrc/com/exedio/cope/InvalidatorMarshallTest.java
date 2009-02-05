@@ -78,6 +78,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		is.close();
+		il.close();
 		super.tearDown();
 	}
 	
