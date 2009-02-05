@@ -23,6 +23,7 @@ import gnu.trove.TIntHashSet;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import com.exedio.cope.util.ClusterListenerInfo;
@@ -83,6 +84,13 @@ final class InvalidationListener implements Runnable
 					return;
 				handle(packet);
 	      }
+			catch(SocketException e)
+			{
+				if(threadRun)
+					e.printStackTrace();
+				else
+					System.out.println("COPE Cluster Invalidation Listener shutdown with message: " + e.getMessage());
+			}
 			catch(Exception e)
 			{
 				// TODO count and display in console
