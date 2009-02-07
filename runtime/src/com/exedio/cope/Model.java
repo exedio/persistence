@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import com.exedio.cope.util.ClusterListenerInfo;
 import com.exedio.cope.util.ConnectionPoolInfo;
 import com.exedio.cope.util.ItemCacheInfo;
 import com.exedio.cope.util.ModificationListener;
@@ -812,6 +813,14 @@ public final class Model
 		return result;
 	}
 
+	public ClusterListenerInfo getClusterListenerInfo()
+	{
+		final InvalidationListener il = invalidationListener;
+		if(il==null)
+			return null;
+		return il.getInfo();
+	}
+	
 	// ----------------------- transaction
 	
 	/**

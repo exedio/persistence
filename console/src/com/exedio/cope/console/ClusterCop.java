@@ -62,6 +62,6 @@ final class ClusterCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
-		Cluster_Jspm.writeBody(this, out, donePing);
+		Cluster_Jspm.writeBody(this, out, model.getClusterListenerInfo(), donePing);
 	}
 }

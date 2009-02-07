@@ -21,14 +21,43 @@ package com.exedio.cope.console;
 
 import java.io.PrintStream;
 
+import com.exedio.cope.util.ClusterListenerInfo;
+
 final class Cluster_Jspm
 {
 	final static void writeBody(
 			final ClusterCop cop,
 			final PrintStream out,
+			final ClusterListenerInfo listenerInfo,
 			final boolean donePing)
 	{
 		%>
+		<table>
+			<caption>Cluster Invalidation Statistics</caption>
+			<tr><th>Missing Magic</th><td><%=cop.format(listenerInfo.getMissingMagic())%></td></tr>
+			<tr><th>Wrong Secret</th><td><%=cop.format(listenerInfo.getWrongSecret())%></td></tr>
+			<tr><th>From Myself</th><td><%=cop.format(listenerInfo.getFromMyself())%></td></tr>
+		</table>
+		<hr>
+		<table>
+			<caption>Cluster Invalidation Node Statistics</caption>
+			<tr>
+				<th>ID</th>
+				<th>Ping</th>
+				<th>Pong</th>
+			</tr><%
+			
+			for(final ClusterListenerInfo.Node node : listenerInfo.getNodes())
+			{
+			%>
+			<tr>
+				<td><%=node.getID()%></td>
+				<td><%=cop.format(node.getPing())%></td>
+				<td><%=cop.format(node.getPong())%></td>
+			</tr><%
+			}
+			%>
+		</table>
 		<form action="<%=cop%>" method="POST">
 			<input type="submit" name="<%=cop.PING%>" value="ping">
 		</form><%
