@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
+import gnu.trove.TIntObjectHashMap;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -121,7 +122,8 @@ final class InvalidationListener implements Runnable
 		}
 		pos += 4;
 		
-		if(config.node==unmarshal(pos, buf))
+		final int node = unmarshal(pos, buf);
+		if(config.node==node)
 		{
 			fromMyself++;
 			
@@ -147,6 +149,8 @@ final class InvalidationListener implements Runnable
 					if(config.pingPayload[pos]!=buf[pos])
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
+				
+				node(node).pingPong(sequence==InvalidationConfig.PING_AT_SEQUENCE);
 				
 				if(testSink!=null)
 				{
@@ -250,9 +254,58 @@ final class InvalidationListener implements Runnable
 	private volatile long missingMagic = 0;
 	private volatile long wrongSecret = 0;
 	private volatile long fromMyself = 0;
+	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<Node>();
+	
+	private static class Node
+	{
+		final int id;
+		volatile long ping = 0;
+		volatile long pong = 0;
+		
+		Node(final int id)
+		{
+			this.id = id;
+			System.out.println("COPE Cluster Invalidation learned about node " + id);
+		}
+		
+		void pingPong(final boolean ping)
+		{
+			if(ping)
+				this.ping++;
+			else
+				this.pong++;
+		}
+		
+		ClusterListenerInfo.Node getInfo()
+		{
+			return new ClusterListenerInfo.Node(id, ping, pong);
+		}
+	}
+	
+	Node node(final int id)
+	{
+		synchronized(nodes)
+		{
+			Node result = nodes.get(id);
+			if(result!=null)
+				return result;
+			
+			nodes.put(id, result = new Node(id));
+			return result;
+		}
+	}
 	
 	ClusterListenerInfo getInfo()
 	{
-		return new ClusterListenerInfo(missingMagic, wrongSecret, fromMyself);
+		final Node[] ns;
+		synchronized(nodes)
+		{
+			ns = nodes.getValues(new Node[nodes.size()]);
+		}
+		final ArrayList<ClusterListenerInfo.Node> infoNodes = new ArrayList<ClusterListenerInfo.Node>(ns.length);
+		for(final Node n : ns)
+			infoNodes.add(n.getInfo());
+		
+		return new ClusterListenerInfo(missingMagic, wrongSecret, fromMyself, infoNodes);
 	}
 }

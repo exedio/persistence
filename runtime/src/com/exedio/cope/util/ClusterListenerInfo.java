@@ -18,20 +18,26 @@
 
 package com.exedio.cope.util;
 
+import java.util.Collections;
+import java.util.List;
+
 public final class ClusterListenerInfo
 {
 	private final long missingMagic;
 	private final long wrongSecret;
 	private final long fromMyself;
+	private final List<Node> nodes;
 	
 	public ClusterListenerInfo(
 			final long missingMagic,
 			final long wrongSecret,
-			final long fromMyself)
+			final long fromMyself,
+			final List<Node> nodes)
 	{
 		this.missingMagic = missingMagic;
 		this.wrongSecret = wrongSecret;
 		this.fromMyself = fromMyself;
+		this.nodes = Collections.unmodifiableList(nodes);
 	}
 	
 	public long getMissingMagic()
@@ -47,5 +53,53 @@ public final class ClusterListenerInfo
 	public long getFromMyself()
 	{
 		return fromMyself;
+	}
+	
+	public List<Node> getNodes()
+	{
+		return nodes;
+	}
+	
+	public static final class Node
+	{
+		private final int id;
+		private final long ping;
+		private final long pong;
+		
+		public Node(
+				final int id,
+				final long ping,
+				final long pong)
+		{
+			this.id = id;
+			this.ping = ping;
+			this.pong = pong;
+			
+			if(ping<0)
+				throw new IllegalArgumentException();
+			if(pong<0)
+				throw new IllegalArgumentException();
+		}
+		
+		public int getID()
+		{
+			return id;
+		}
+		
+		public long getPing()
+		{
+			return ping;
+		}
+		
+		public long getPong()
+		{
+			return pong;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return String.valueOf(id) + '/' + ping + '/' + pong;
+		}
 	}
 }
