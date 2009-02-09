@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
-public class InvalidatorMarshallIntTest extends TestCase
+public class ClusterIntTest extends TestCase
 {
 	private static final byte FILL = (byte)0xee;
 	private byte[] buf;
