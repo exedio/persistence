@@ -31,5 +31,6 @@
 	<classpathentry kind="var" path="ANT_JAR"/>
 	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-sources.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cops.jar" sourcepath="lib/exedio-cops.jar-src.zip"/>
+	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util.jar-src.zip"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
