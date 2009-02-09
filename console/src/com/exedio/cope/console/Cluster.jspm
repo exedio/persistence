@@ -43,11 +43,15 @@ final class Cluster_Jspm
 		<table>
 			<caption>Cluster Network Nodes</caption>
 			<tr>
-				<th>ID</th>
+				<th rowspan="2">ID</th>
+				<th colspan="2">From</th>
+				<th rowspan="2">Ping</th>
+				<th rowspan="2">Pong</th>
+				<th colspan="5">Invalidate</th>
+			</tr>
+			<tr>
 				<th>Address</th>
 				<th>Port</th>
-				<th>Ping</th>
-				<th>Pong</th>
 				<th>In Order</th>
 				<th>Out of Order</th>
 				<th>Duplicate</th>
