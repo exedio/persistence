@@ -787,7 +787,7 @@ public class ClusterTest extends CopeAssert
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
 		cl.testSink = sink;
-		cl.handle(new DatagramPacket(buf, buf.length));
+		cl.handle(new DatagramPacket(buf, buf.length, null, 967));
 		cl.testSink = null;
 		assertEquals(1, sink.size());
 		return sink.get(0);
@@ -797,7 +797,7 @@ public class ClusterTest extends CopeAssert
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
 		cl.testSink = sink;
-		cl.handle(new DatagramPacket(buf, buf.length));
+		cl.handle(new DatagramPacket(buf, buf.length, null, 967));
 		cl.testSink = null;
 		assertEquals(list(), sink);
 	}
@@ -824,6 +824,8 @@ public class ClusterTest extends CopeAssert
 			{
 				if(infoNode.getID()==id)
 				{
+					assertEquals(null, infoNode.getAddress());
+					assertEquals(967, infoNode.getPort());
 					assertEquals("ping", node[1], infoNode.getPing());
 					assertEquals("pong", node[2], infoNode.getPong());
 					break nodes;

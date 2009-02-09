@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import java.net.InetAddress;
 import java.util.Collections;
 import java.util.List;
 
@@ -71,15 +72,21 @@ public final class ClusterListenerInfo
 	public static final class Node
 	{
 		private final int id;
+		private final InetAddress address;
+		private final int port;
 		private final long ping;
 		private final long pong;
 		
 		public Node(
 				final int id,
+				final InetAddress address,
+				final int port,
 				final long ping,
 				final long pong)
 		{
 			this.id = id;
+			this.address = address;
+			this.port = port;
 			this.ping = ping;
 			this.pong = pong;
 			
@@ -92,6 +99,16 @@ public final class ClusterListenerInfo
 		public int getID()
 		{
 			return id;
+		}
+		
+		public InetAddress getAddress()
+		{
+			return address;
+		}
+		
+		public int getPort()
+		{
+			return port;
 		}
 		
 		public long getPing()

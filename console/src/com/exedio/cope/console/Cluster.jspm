@@ -44,6 +44,8 @@ final class Cluster_Jspm
 			<caption>Cluster Network Nodes</caption>
 			<tr>
 				<th>ID</th>
+				<th>Address</th>
+				<th>Port</th>
 				<th>Ping</th>
 				<th>Pong</th>
 			</tr><%
@@ -53,6 +55,8 @@ final class Cluster_Jspm
 			%>
 			<tr>
 				<td><%=node.getID()%></td>
+				<td><%=node.getAddress()%></td>
+				<td><%=node.getPort()%></td>
 				<td><%=cop.format(node.getPing())%></td>
 				<td><%=cop.format(node.getPong())%></td>
 			</tr><%

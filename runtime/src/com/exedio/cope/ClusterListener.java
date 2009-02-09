@@ -23,6 +23,7 @@ import gnu.trove.TIntObjectHashMap;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ final class ClusterListener implements Runnable
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
-				node(node).pingPong(sequence==ClusterConfig.PING_AT_SEQUENCE);
+				node(node).pingPong(sequence==ClusterConfig.PING_AT_SEQUENCE, packet.getAddress(), packet.getPort());
 				
 				if(testSink!=null)
 				{
@@ -269,6 +270,8 @@ final class ClusterListener implements Runnable
 	private static class Node
 	{
 		final int id;
+		volatile InetAddress address = null;
+		volatile int port = -1;
 		volatile long ping = 0;
 		volatile long pong = 0;
 		
@@ -279,8 +282,11 @@ final class ClusterListener implements Runnable
 				System.out.println("COPE Cluster Invalidation learned about node " + id);
 		}
 		
-		void pingPong(final boolean ping)
+		void pingPong(final boolean ping, final InetAddress address, final int port)
 		{
+			this.address = address;
+			this.port = port;
+			
 			if(ping)
 				this.ping++;
 			else
@@ -289,7 +295,7 @@ final class ClusterListener implements Runnable
 		
 		ClusterListenerInfo.Node getInfo()
 		{
-			return new ClusterListenerInfo.Node(id, ping, pong);
+			return new ClusterListenerInfo.Node(id, address, port, ping, pong);
 		}
 	}
 	
