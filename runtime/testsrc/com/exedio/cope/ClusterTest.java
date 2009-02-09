@@ -33,7 +33,7 @@ public class ClusterTest extends CopeAssert
 {
 	private ConnectProperties properties;
 	private ClusterConfig csc;
-	private ClusterConfig icl;
+	private ClusterConfig clc;
 	private ClusterSender cs;
 	private ClusterListener cl;
 	
@@ -81,9 +81,9 @@ public class ClusterTest extends CopeAssert
 				context
 			);
 		csc = new ClusterConfig(SECRET, 0x11224433, properties);
-		icl = new ClusterConfig(SECRET, 0x11224434, properties);
+		clc = new ClusterConfig(SECRET, 0x11224434, properties);
 		cs = new ClusterSender(csc, properties);
-		cl = new ClusterListener(icl, properties, cs, 4, null, null);
+		cl = new ClusterListener(clc, properties, cs, 4, null, null);
 	}
 	
 	@Override
