@@ -37,7 +37,7 @@ public class PackageTest extends TestCase
 		
 		suite.addTestSuite( TrimTest.class );
 		suite.addTestSuite( InvalidatorMarshallIntTest.class );
-		suite.addTestSuite( InvalidatorMarshallTest.class );
+		suite.addTestSuite( ClusterTest.class );
 		suite.addTestSuite( IsInitialTest.class );
 		suite.addTestSuite( GetModelTest.class );
 		suite.addTestSuite( TestGetModelTest.class );

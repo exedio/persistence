@@ -29,7 +29,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.ClusterListenerInfo;
 import com.exedio.cope.util.Properties;
 
-public class InvalidatorMarshallTest extends CopeAssert
+public class ClusterTest extends CopeAssert
 {
 	private ConnectProperties properties;
 	private ClusterConfig ics;
