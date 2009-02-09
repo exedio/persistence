@@ -815,10 +815,10 @@ public final class Model
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		final ClusterListener il = clusterListener;
-		if(il==null)
+		final ClusterListener clusterListener = this.clusterListener;
+		if(clusterListener==null)
 			return null;
-		return il.getInfo();
+		return clusterListener.getInfo();
 	}
 	
 	// ----------------------- transaction
