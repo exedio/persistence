@@ -37,6 +37,7 @@ final class InvalidationConfig
 	
 	final int secret;
 	final int node;
+	final boolean log;
 	final int packetSize;
 	final InetAddress group;
 	final byte[] pingPayload;
@@ -50,6 +51,7 @@ final class InvalidationConfig
 	{
 		this.secret = secret;
 		this.node = node;
+		this.log = properties.clusterLog.getBooleanValue();
 		this.packetSize = properties.clusterPacketSize.getIntValue() & (~3);
 		try
 		{
@@ -66,7 +68,8 @@ final class InvalidationConfig
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;
 		}
-		System.out.println("COPE Cluster Invalidation node id: " + node);
+		if(log)
+			System.out.println("COPE Cluster Invalidation node id: " + node);
 	}
 	
 	static final String toString(final TIntHashSet[] invalidations)

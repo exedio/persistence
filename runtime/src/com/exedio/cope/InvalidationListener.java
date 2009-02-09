@@ -32,6 +32,7 @@ import com.exedio.cope.util.ClusterListenerInfo;
 final class InvalidationListener implements Runnable
 {
 	private final InvalidationConfig config;
+	private final boolean log;
 	private final int port;
 	private final MulticastSocket socket;
 	
@@ -51,6 +52,7 @@ final class InvalidationListener implements Runnable
 			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
 	{
 		this.config = config;
+		this.log = config.log;
 		this.port = properties.clusterListenPort.getIntValue();
 		try
 		{
@@ -90,7 +92,10 @@ final class InvalidationListener implements Runnable
 				if(threadRun)
 					e.printStackTrace();
 				else
-					System.out.println("COPE Cluster Invalidation Listener shutdown with message: " + e.getMessage());
+				{
+					if(log)
+						System.out.println("COPE Cluster Invalidation Listener shutdown with message: " + e.getMessage());
+				}
 			}
 			catch(Exception e)
 			{
@@ -127,7 +132,7 @@ final class InvalidationListener implements Runnable
 		{
 			fromMyself++;
 			
-			if(testSink==null)
+			if(testSink==null && log)
 				System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
 			return;
 		}
@@ -161,11 +166,13 @@ final class InvalidationListener implements Runnable
 					switch(sequence)
 					{
 						case InvalidationConfig.PING_AT_SEQUENCE:
-							System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
+							if(log)
+								System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
 							sender.pong();
 							break;
 						case InvalidationConfig.PONG_AT_SEQUENCE:
-							System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
+							if(log)
+								System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
 							break;
 						default:
 							throw new RuntimeException(String.valueOf(sequence));
@@ -181,7 +188,8 @@ final class InvalidationListener implements Runnable
 				}
 				else
 				{
-					System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationConfig.toString(invalidations));
+					if(log)
+						System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationConfig.toString(invalidations));
 					itemCache.invalidate(invalidations);
 					queryCache.invalidate(invalidations);
 				}
@@ -191,7 +199,8 @@ final class InvalidationListener implements Runnable
 	
 	TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length, final int sequence)
 	{
-		System.out.println("COPE Cluster Invalidation received sequence " + sequence);
+		if(log)
+			System.out.println("COPE Cluster Invalidation received sequence " + sequence);
 		
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
 		while(pos<length)
@@ -262,10 +271,11 @@ final class InvalidationListener implements Runnable
 		volatile long ping = 0;
 		volatile long pong = 0;
 		
-		Node(final int id)
+		Node(final int id, final boolean log)
 		{
 			this.id = id;
-			System.out.println("COPE Cluster Invalidation learned about node " + id);
+			if(log)
+				System.out.println("COPE Cluster Invalidation learned about node " + id);
 		}
 		
 		void pingPong(final boolean ping)
@@ -290,7 +300,7 @@ final class InvalidationListener implements Runnable
 			if(result!=null)
 				return result;
 			
-			nodes.put(id, result = new Node(id));
+			nodes.put(id, result = new Node(id, log));
 			return result;
 		}
 	}

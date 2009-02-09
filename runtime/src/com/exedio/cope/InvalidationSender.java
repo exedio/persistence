@@ -29,6 +29,7 @@ import java.util.ArrayList;
 final class InvalidationSender
 {
 	private final InvalidationConfig config;
+	private final boolean log;
 	private final int sourcePort;
 	private final int destinationPort;
 	private final DatagramSocket socket;
@@ -44,6 +45,7 @@ final class InvalidationSender
 	InvalidationSender(final InvalidationConfig config, final ConnectProperties properties)
 	{
 		this.config = config;
+		this.log = config.log;
 		this.sourcePort      = properties.clusterSendSourcePort.getIntValue();
 		this.destinationPort = properties.clusterSendDestinationPort.getIntValue();
 		try
@@ -185,7 +187,8 @@ final class InvalidationSender
 				final DatagramPacket packet = new DatagramPacket(buf, length, config.group, destinationPort);
 				final long start = System.currentTimeMillis();
 				socket.send(packet);
-				System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + InvalidationConfig.toString(invalidations));
+				if(log)
+					System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + InvalidationConfig.toString(invalidations));
 	      }
 			catch(IOException e)
 			{

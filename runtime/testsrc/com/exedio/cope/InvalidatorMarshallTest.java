@@ -62,6 +62,8 @@ public class InvalidatorMarshallTest extends CopeAssert
 					{
 						if(key.equals("cluster.packetSize"))
 							return "43";
+						else if(key.equals("cluster.log"))
+							return "false";
 						else
 							return source.get(key);
 					}
