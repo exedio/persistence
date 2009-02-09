@@ -32,8 +32,8 @@ import com.exedio.cope.util.Properties;
 public class InvalidatorMarshallTest extends CopeAssert
 {
 	private ConnectProperties properties;
-	private InvalidationConfig ics;
-	private InvalidationConfig icl;
+	private ClusterConfig ics;
+	private ClusterConfig icl;
 	private InvalidationSender is;
 	private InvalidationListener il;
 	
@@ -80,8 +80,8 @@ public class InvalidatorMarshallTest extends CopeAssert
 				},
 				context
 			);
-		ics = new InvalidationConfig(SECRET, 0x11224433, properties);
-		icl = new InvalidationConfig(SECRET, 0x11224434, properties);
+		ics = new ClusterConfig(SECRET, 0x11224433, properties);
+		icl = new ClusterConfig(SECRET, 0x11224434, properties);
 		is = new InvalidationSender(ics, properties);
 		il = new InvalidationListener(icl, properties, is, 4, null, null);
 	}
@@ -518,7 +518,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
 		
 		assertEquals(
-				new Integer(InvalidationConfig.PING_AT_SEQUENCE),
+				new Integer(ClusterConfig.PING_AT_SEQUENCE),
 				umi(buf));
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 		
@@ -629,7 +629,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 				(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 40 fillup
 		
 		assertEquals(
-				new Integer(InvalidationConfig.PONG_AT_SEQUENCE),
+				new Integer(ClusterConfig.PONG_AT_SEQUENCE),
 				umi(buf));
 		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
 		

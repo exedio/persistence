@@ -25,7 +25,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-final class InvalidationConfig
+final class ClusterConfig
 {
 	static final byte MAGIC0 = (byte)0xc0;
 	static final byte MAGIC1 = (byte)0xbe;
@@ -42,12 +42,12 @@ final class InvalidationConfig
 	final InetAddress group;
 	final byte[] pingPayload;
 	
-	InvalidationConfig(final int secret, final ConnectProperties properties)
+	ClusterConfig(final int secret, final ConnectProperties properties)
 	{
 		this(secret, new Random().nextInt(), properties);
 	}
 	
-	InvalidationConfig(final int secret, final int node, final ConnectProperties properties)
+	ClusterConfig(final int secret, final int node, final ConnectProperties properties)
 	{
 		this.secret = secret;
 		this.node = node;

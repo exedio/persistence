@@ -31,7 +31,7 @@ import com.exedio.cope.util.ClusterListenerInfo;
 
 final class InvalidationListener implements Runnable
 {
-	private final InvalidationConfig config;
+	private final ClusterConfig config;
 	private final boolean log;
 	private final int port;
 	private final MulticastSocket socket;
@@ -47,7 +47,7 @@ final class InvalidationListener implements Runnable
 	ArrayList<Object> testSink = null;
 	
 	InvalidationListener(
-			final InvalidationConfig config, final ConnectProperties properties,
+			final ClusterConfig config, final ConnectProperties properties,
 			final InvalidationSender sender,
 			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
 	{
@@ -111,10 +111,10 @@ final class InvalidationListener implements Runnable
 		final byte[] buf = packet.getData();
 		final int length = packet.getLength();
 		
-		if(buf[pos++]!=InvalidationConfig.MAGIC0 ||
-			buf[pos++]!=InvalidationConfig.MAGIC1 ||
-			buf[pos++]!=InvalidationConfig.MAGIC2 ||
-			buf[pos++]!=InvalidationConfig.MAGIC3)
+		if(buf[pos++]!=ClusterConfig.MAGIC0 ||
+			buf[pos++]!=ClusterConfig.MAGIC1 ||
+			buf[pos++]!=ClusterConfig.MAGIC2 ||
+			buf[pos++]!=ClusterConfig.MAGIC3)
 		{
 			missingMagic++;
 			return;
@@ -143,9 +143,9 @@ final class InvalidationListener implements Runnable
 		pos += 4;
 		switch(sequence)
 		{
-			case InvalidationConfig.PING_AT_SEQUENCE:
-			case InvalidationConfig.PONG_AT_SEQUENCE:
-				final String m = (sequence==InvalidationConfig.PING_AT_SEQUENCE) ? "invalid ping" : "invalid pong";
+			case ClusterConfig.PING_AT_SEQUENCE:
+			case ClusterConfig.PONG_AT_SEQUENCE:
+				final String m = (sequence==ClusterConfig.PING_AT_SEQUENCE) ? "invalid ping" : "invalid pong";
 				
 				if(length!=config.packetSize)
 					throw new RuntimeException(m + ", expected length " + config.packetSize + ", but was " + length);
@@ -155,7 +155,7 @@ final class InvalidationListener implements Runnable
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
-				node(node).pingPong(sequence==InvalidationConfig.PING_AT_SEQUENCE);
+				node(node).pingPong(sequence==ClusterConfig.PING_AT_SEQUENCE);
 				
 				if(testSink!=null)
 				{
@@ -165,12 +165,12 @@ final class InvalidationListener implements Runnable
 				{
 					switch(sequence)
 					{
-						case InvalidationConfig.PING_AT_SEQUENCE:
+						case ClusterConfig.PING_AT_SEQUENCE:
 							if(log)
 								System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
 							sender.pong();
 							break;
-						case InvalidationConfig.PONG_AT_SEQUENCE:
+						case ClusterConfig.PONG_AT_SEQUENCE:
 							if(log)
 								System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
 							break;
@@ -189,7 +189,7 @@ final class InvalidationListener implements Runnable
 				else
 				{
 					if(log)
-						System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + InvalidationConfig.toString(invalidations));
+						System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + ClusterConfig.toString(invalidations));
 					itemCache.invalidate(invalidations);
 					queryCache.invalidate(invalidations);
 				}

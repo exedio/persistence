@@ -345,7 +345,7 @@ public final class Model
 							{
 								throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
 							}
-							final InvalidationConfig config = new InvalidationConfig(secret, properties);
+							final ClusterConfig config = new ClusterConfig(secret, properties);
 							this.invalidationSender   = new InvalidationSender  (config, properties);
 							this.invalidationListener = new InvalidationListener(config, properties, invalidationSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}

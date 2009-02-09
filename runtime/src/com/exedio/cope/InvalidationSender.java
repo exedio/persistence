@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 final class InvalidationSender
 {
-	private final InvalidationConfig config;
+	private final ClusterConfig config;
 	private final boolean log;
 	private final int sourcePort;
 	private final int destinationPort;
@@ -42,7 +42,7 @@ final class InvalidationSender
 	
 	ArrayList<byte[]> testSink = null;
 	
-	InvalidationSender(final InvalidationConfig config, final ConnectProperties properties)
+	InvalidationSender(final ClusterConfig config, final ConnectProperties properties)
 	{
 		this.config = config;
 		this.log = config.log;
@@ -58,10 +58,10 @@ final class InvalidationSender
 		}
 		
 		final byte[] prolog = new byte[PROLOG_SIZE];
-		prolog[0] = InvalidationConfig.MAGIC0;
-		prolog[1] = InvalidationConfig.MAGIC1;
-		prolog[2] = InvalidationConfig.MAGIC2;
-		prolog[3] = InvalidationConfig.MAGIC3;
+		prolog[0] = ClusterConfig.MAGIC0;
+		prolog[1] = ClusterConfig.MAGIC1;
+		prolog[2] = ClusterConfig.MAGIC2;
+		prolog[3] = ClusterConfig.MAGIC3;
 		int pos = 4;
 		pos = marshal(pos, prolog, config.secret);
 		pos = marshal(pos, prolog, config.node);
@@ -71,12 +71,12 @@ final class InvalidationSender
 	
 	void ping()
 	{
-		pingPong(InvalidationConfig.PING_AT_SEQUENCE);
+		pingPong(ClusterConfig.PING_AT_SEQUENCE);
 	}
 	
 	void pong()
 	{
-		pingPong(InvalidationConfig.PONG_AT_SEQUENCE);
+		pingPong(ClusterConfig.PONG_AT_SEQUENCE);
 	}
 	
 	private void pingPong(final int messageAtSequence)
@@ -188,7 +188,7 @@ final class InvalidationSender
 				final long start = System.currentTimeMillis();
 				socket.send(packet);
 				if(log)
-					System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + InvalidationConfig.toString(invalidations));
+					System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + ClusterConfig.toString(invalidations));
 	      }
 			catch(IOException e)
 			{
