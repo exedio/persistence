@@ -67,7 +67,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 						return source.keySet();
 					}
 				},
-				null
+				defaultProperties.getContext()
 			);
 		ics = new InvalidationConfig(SECRET, 0x11224433, properties);
 		icl = new InvalidationConfig(SECRET, 0x11224434, properties);
