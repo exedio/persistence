@@ -48,6 +48,11 @@ final class Cluster_Jspm
 				<th>Port</th>
 				<th>Ping</th>
 				<th>Pong</th>
+				<th>In Order</th>
+				<th>Out of Order</th>
+				<th>Duplicate</th>
+				<th>Lost</th>
+				<th>Late</th>
 			</tr><%
 			
 			for(final ClusterListenerInfo.Node node : listenerInfo.getNodes())
@@ -59,6 +64,11 @@ final class Cluster_Jspm
 				<td><%=node.getPort()%></td>
 				<td><%=cop.format(node.getPing())%></td>
 				<td><%=cop.format(node.getPong())%></td>
+				<td><%=cop.format(node.getInvalidateInOrder())%></td>
+				<td><%=cop.format(node.getInvalidateOutOfOrder())%></td>
+				<td><%=cop.format(node.getInvalidateDuplicate())%></td>
+				<td><%=cop.format(node.getInvalidateLost())%></td>
+				<td><%=cop.format(node.getInvalidateLate())%></td>
 			</tr><%
 			}
 			%>

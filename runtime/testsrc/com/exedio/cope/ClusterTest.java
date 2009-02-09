@@ -135,33 +135,28 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, is[3]);
 			assertEquals(4, is.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			// duplicate
-			final TIntHashSet[] is = um(buf);
-			assertContains(is[0], 0x456789ab, 0xaf896745);
-			assertEquals(null, is[1]);
-			assertTrue(is[2].isEmpty());
-			assertEquals(null, is[3]);
-			assertEquals(4, is.length);
+ 			ume(buf);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		buf[8] = 0x34;
 		buf[9] = 0x44;
 		buf[10] = 0x22;
 		buf[11] = 0x11;
 		ume(buf);
-		assertStats(0, 0, 1, new long[0][]);
+		assertStats(0, 0, 1, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		buf[4] = 0x54;
 		ume(buf);
-		assertStats(0, 1, 1, new long[0][]);
+		assertStats(0, 1, 1, new long[][]{new long[]{0x11224433, 0, 0}});
 
 		buf[0] = 0x11;
 		ume(buf);
-		assertStats(1, 1, 1, new long[0][]);
+		assertStats(1, 1, 1, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 	
 	public void testSplitBeforeTypeSingle()
@@ -200,7 +195,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -210,7 +205,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 	}
 	
@@ -253,7 +248,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -263,7 +258,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 	
 	public void testSplitAtType()
@@ -302,7 +297,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -312,7 +307,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 	
 	public void testSplitAfterType()
@@ -351,7 +346,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -361,7 +356,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 	
 	public void testSplitAfterAfterType()
@@ -400,7 +395,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -410,7 +405,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 	
 	public void testSplitAfterAfterAfterType()
@@ -448,7 +443,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -458,7 +453,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 	
 	public void testSplitAfterAfterAfterTypeCollapse()
@@ -494,7 +489,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 		
 		{
 			final TIntHashSet[] pks = um(bufs[1]);
@@ -504,7 +499,7 @@ public class ClusterTest extends CopeAssert
 			assertEquals(null, pks[3]);
 			assertEquals(4, pks.length);
 		}
-		assertStats(0, 0, 0, new long[0][]);
+		assertStats(0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 	
 	public void testPing()

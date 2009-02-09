@@ -29,6 +29,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 
 import com.exedio.cope.util.ClusterListenerInfo;
+import com.exedio.cope.util.SequenceChecker;
 
 final class ClusterListener implements Runnable
 {
@@ -156,7 +157,7 @@ final class ClusterListener implements Runnable
 						throw new RuntimeException(m + ", at position " + pos + " expected " + config.pingPayload[pos] + ", but was " + buf[pos]);
 				}
 				
-				node(node).pingPong(sequence==ClusterConfig.PING_AT_SEQUENCE, packet.getAddress(), packet.getPort());
+				node(node, packet).pingPong(sequence==ClusterConfig.PING_AT_SEQUENCE);
 				
 				if(testSink!=null)
 				{
@@ -182,6 +183,13 @@ final class ClusterListener implements Runnable
 				break;
 			
 			default:
+				if(node(node, packet).invalidate(sequence))
+				{
+					if(log)
+						System.out.println("COPE Cluster Invalidation duplicate " + sequence + " from " + packet.getAddress());
+					break;
+				}
+			
 				final TIntHashSet[] invalidations = handleInvalidation(pos, buf, length, sequence);
 				if(testSink!=null)
 				{
@@ -270,36 +278,50 @@ final class ClusterListener implements Runnable
 	private static class Node
 	{
 		final int id;
-		volatile InetAddress address = null;
-		volatile int port = -1;
+		final InetAddress address;
+		final int port;
 		volatile long ping = 0;
 		volatile long pong = 0;
+		final SequenceChecker sequenceChecker;
 		
-		Node(final int id, final boolean log)
+		Node(final int id, final DatagramPacket packet, final boolean log)
 		{
 			this.id = id;
+			this.address = packet.getAddress();
+			this.port = packet.getPort();
+			this.sequenceChecker = new SequenceChecker(200);
 			if(log)
 				System.out.println("COPE Cluster Invalidation learned about node " + id);
 		}
 		
-		void pingPong(final boolean ping, final InetAddress address, final int port)
+		void pingPong(final boolean ping)
 		{
-			this.address = address;
-			this.port = port;
-			
 			if(ping)
 				this.ping++;
 			else
 				this.pong++;
 		}
 		
+		boolean invalidate(final int sequence)
+		{
+			return sequenceChecker.check(sequence);
+		}
+		
 		ClusterListenerInfo.Node getInfo()
 		{
-			return new ClusterListenerInfo.Node(id, address, port, ping, pong);
+			return new ClusterListenerInfo.Node(
+					id,
+					address, port,
+					ping, pong,
+					sequenceChecker.getCountInOrder(),
+					sequenceChecker.getCountOutOfOrder(),
+					sequenceChecker.getCountDuplicate(),
+					sequenceChecker.getCountLost(),
+					sequenceChecker.getCountLate());
 		}
 	}
 	
-	Node node(final int id)
+	Node node(final int id, final DatagramPacket packet)
 	{
 		synchronized(nodes)
 		{
@@ -307,7 +329,7 @@ final class ClusterListener implements Runnable
 			if(result!=null)
 				return result;
 			
-			nodes.put(id, result = new Node(id, log));
+			nodes.put(id, result = new Node(id, packet, log));
 			return result;
 		}
 	}

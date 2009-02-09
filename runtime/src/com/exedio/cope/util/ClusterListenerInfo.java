@@ -76,23 +76,48 @@ public final class ClusterListenerInfo
 		private final int port;
 		private final long ping;
 		private final long pong;
+		private final int invalidateInOrder;
+		private final int invalidateOutOfOrder;
+		private final int invalidateDuplicate;
+		private final int invalidateLost;
+		private final int invalidateLate;
 		
 		public Node(
 				final int id,
 				final InetAddress address,
 				final int port,
 				final long ping,
-				final long pong)
+				final long pong,
+				final int invalidateInOrder,
+				final int invalidateOutOfOrder,
+				final int invalidateDuplicate,
+				final int invalidateLost,
+				final int invalidateLate)
 		{
 			this.id = id;
 			this.address = address;
 			this.port = port;
 			this.ping = ping;
 			this.pong = pong;
+			this.invalidateInOrder    = invalidateInOrder;
+			this.invalidateOutOfOrder = invalidateOutOfOrder;
+			this.invalidateDuplicate  = invalidateDuplicate;
+			this.invalidateLost       = invalidateLost;
+			this.invalidateLate       = invalidateLate;
 			
 			if(ping<0)
 				throw new IllegalArgumentException();
 			if(pong<0)
+				throw new IllegalArgumentException();
+			if(invalidateInOrder<0)
+				throw new IllegalArgumentException();
+			if(invalidateOutOfOrder<0)
+				throw new IllegalArgumentException();
+			if(invalidateDuplicate<0)
+				throw new IllegalArgumentException();
+			if(invalidateLost<0)
+				throw new IllegalArgumentException();
+			if(invalidateLate<0)
 				throw new IllegalArgumentException();
 		}
 		
@@ -120,11 +145,36 @@ public final class ClusterListenerInfo
 		{
 			return pong;
 		}
+
+		public int getInvalidateInOrder()
+		{
+			return invalidateInOrder;
+		}
+
+		public int getInvalidateOutOfOrder()
+		{
+			return invalidateOutOfOrder;
+		}
+
+		public int getInvalidateDuplicate()
+		{
+			return invalidateDuplicate;
+		}
+
+		public int getInvalidateLost()
+		{
+			return invalidateLost;
+		}
+
+		public int getInvalidateLate()
+		{
+			return invalidateLate;
+		}
 		
 		@Override
 		public String toString()
 		{
-			return String.valueOf(id) + '/' + ping + '/' + pong;
+			return String.valueOf(id) + '/' + ping + '/' + pong + '/' + invalidateInOrder + '/' + invalidateOutOfOrder;
 		}
 	}
 }

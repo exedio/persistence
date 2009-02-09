@@ -51,10 +51,6 @@ TODO for cope runtime
 	* persistent modification counters
 		- option for disable
 		- omit if all fields are final
-	* information in console
-		- log of ping/pong
-		- lost/late packets by sequence number
-		- number of messages
 	* make migrations cluster aware
 	* test configuration of tomcat
 	* sequences for primary keys and IntegerField.defaultToNext
