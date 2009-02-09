@@ -72,6 +72,6 @@ public class InvalidatorMarshallIntTest extends TestCase
 	
 	private int um(final int pos)
 	{
-		return InvalidationListener.unmarshal(pos, buf);
+		return ClusterListener.unmarshal(pos, buf);
 	}
 }

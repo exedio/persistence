@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import com.exedio.cope.util.ClusterListenerInfo;
 
-final class InvalidationListener implements Runnable
+final class ClusterListener implements Runnable
 {
 	private final ClusterConfig config;
 	private final boolean log;
@@ -46,7 +46,7 @@ final class InvalidationListener implements Runnable
 	
 	ArrayList<Object> testSink = null;
 	
-	InvalidationListener(
+	ClusterListener(
 			final ClusterConfig config, final ConnectProperties properties,
 			final InvalidationSender sender,
 			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)

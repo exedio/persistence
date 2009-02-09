@@ -73,7 +73,7 @@ public final class Model
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
 	InvalidationSender invalidationSender;
-	private InvalidationListener invalidationListener;
+	private ClusterListener invalidationListener;
 	private Date connectDate = null;
 	private boolean logTransactions = false;
 
@@ -347,7 +347,7 @@ public final class Model
 							}
 							final ClusterConfig config = new ClusterConfig(secret, properties);
 							this.invalidationSender   = new InvalidationSender  (config, properties);
-							this.invalidationListener = new InvalidationListener(config, properties, invalidationSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
+							this.invalidationListener = new ClusterListener(config, properties, invalidationSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}
 					}
 				}
@@ -815,7 +815,7 @@ public final class Model
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		final InvalidationListener il = invalidationListener;
+		final ClusterListener il = invalidationListener;
 		if(il==null)
 			return null;
 		return il.getInfo();
