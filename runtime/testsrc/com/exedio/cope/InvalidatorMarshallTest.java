@@ -46,6 +46,15 @@ public class InvalidatorMarshallTest extends CopeAssert
 		super.setUp();
 		final ConnectProperties defaultProperties = new ConnectProperties();
 		final Properties.Source source = defaultProperties.getSourceObject();
+		Properties.Source context = null;
+		try
+		{
+			context = defaultProperties.getContext();
+		}
+		catch(IllegalStateException e)
+		{
+			assertEquals("no context available", e.getMessage());
+		}
 		properties = new ConnectProperties(
 				new Properties.Source()
 				{
@@ -67,7 +76,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 						return source.keySet();
 					}
 				},
-				defaultProperties.getContext()
+				context
 			);
 		ics = new InvalidationConfig(SECRET, 0x11224433, properties);
 		icl = new InvalidationConfig(SECRET, 0x11224434, properties);
