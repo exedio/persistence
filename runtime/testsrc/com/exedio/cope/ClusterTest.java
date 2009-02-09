@@ -34,7 +34,7 @@ public class ClusterTest extends CopeAssert
 	private ConnectProperties properties;
 	private ClusterConfig ics;
 	private ClusterConfig icl;
-	private ClusterSender is;
+	private ClusterSender cs;
 	private ClusterListener cl;
 	
 	private static final int SECRET = 0x88776655;
@@ -82,14 +82,14 @@ public class ClusterTest extends CopeAssert
 			);
 		ics = new ClusterConfig(SECRET, 0x11224433, properties);
 		icl = new ClusterConfig(SECRET, 0x11224434, properties);
-		is = new ClusterSender(ics, properties);
-		cl = new ClusterListener(icl, properties, is, 4, null, null);
+		cs = new ClusterSender(ics, properties);
+		cl = new ClusterListener(icl, properties, cs, 4, null, null);
 	}
 	
 	@Override
 	protected void tearDown() throws Exception
 	{
-		is.close();
+		cs.close();
 		cl.close();
 		super.tearDown();
 	}
@@ -499,9 +499,9 @@ public class ClusterTest extends CopeAssert
 	public void testPing()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
-		is.testSink = sink;
-		is.ping();
-		is.testSink = null;
+		cs.testSink = sink;
+		cs.ping();
+		cs.testSink = null;
 		assertEquals(1, sink.size());
 		final byte[] buf = sink.get(0);
 		
@@ -610,9 +610,9 @@ public class ClusterTest extends CopeAssert
 	public void testPong()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
-		is.testSink = sink;
-		is.pong();
-		is.testSink = null;
+		cs.testSink = sink;
+		cs.pong();
+		cs.testSink = null;
 		assertEquals(1, sink.size());
 		final byte[] buf = sink.get(0);
 		
@@ -752,9 +752,9 @@ public class ClusterTest extends CopeAssert
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
-		is.testSink = sink;
-		is.invalidate(invalidations);
-		is.testSink = null;
+		cs.testSink = sink;
+		cs.invalidate(invalidations);
+		cs.testSink = null;
 		assertEquals(1, sink.size());
 		return sink.get(0);
 	}
@@ -763,9 +763,9 @@ public class ClusterTest extends CopeAssert
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
 		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
-		is.testSink = sink;
-		is.invalidate(invalidations);
-		is.testSink = null;
+		cs.testSink = sink;
+		cs.invalidate(invalidations);
+		cs.testSink = null;
 		final byte[][] result = new byte[sink.size()][];
 		int i = 0;
 		for(final byte[] b : sink)
