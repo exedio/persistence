@@ -72,8 +72,8 @@ public final class Model
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
-	ClusterSender invalidationSender;
-	private ClusterListener invalidationListener;
+	ClusterSender clusterSender;
+	private ClusterListener clusterListener;
 	private Date connectDate = null;
 	private boolean logTransactions = false;
 
@@ -311,9 +311,9 @@ public final class Model
 					throw new RuntimeException();
 				if(this.queryCacheIfConnected!=null)
 					throw new RuntimeException();
-				if(this.invalidationSender!=null)
+				if(this.clusterSender!=null)
 					throw new RuntimeException();
-				if(this.invalidationListener!=null)
+				if(this.clusterListener!=null)
 					throw new RuntimeException();
 				if(this.connectDate!=null)
 					throw new RuntimeException();
@@ -346,8 +346,8 @@ public final class Model
 								throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
 							}
 							final ClusterConfig config = new ClusterConfig(secret, properties);
-							this.invalidationSender   = new ClusterSender  (config, properties);
-							this.invalidationListener = new ClusterListener(config, properties, invalidationSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
+							this.clusterSender   = new ClusterSender  (config, properties);
+							this.clusterListener = new ClusterListener(config, properties, clusterSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}
 					}
 				}
@@ -384,12 +384,12 @@ public final class Model
 				
 				this.itemCacheIfConnected = null;
 				this.queryCacheIfConnected = null;
-				if(this.invalidationSender!=null)
-					this.invalidationSender.close();
-				this.invalidationSender = null;
-				if(this.invalidationListener!=null)
-					this.invalidationListener.close();
-				this.invalidationListener = null;
+				if(this.clusterSender!=null)
+					this.clusterSender.close();
+				this.clusterSender = null;
+				if(this.clusterListener!=null)
+					this.clusterListener.close();
+				this.clusterListener = null;
 				this.connectDate = null;
 				
 				db.close();
@@ -815,7 +815,7 @@ public final class Model
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		final ClusterListener il = invalidationListener;
+		final ClusterListener il = clusterListener;
 		if(il==null)
 			return null;
 		return il.getInfo();
@@ -1070,12 +1070,12 @@ public final class Model
 	
 	public boolean isClusterNetworkEnabled()
 	{
-		return this.invalidationSender!=null;
+		return this.clusterSender!=null;
 	}
 	
 	public void pingClusterNetwork()
 	{
-		final ClusterSender s = this.invalidationSender;
+		final ClusterSender s = this.clusterSender;
 		if(s==null)
 			throw new IllegalStateException("cluster network not enabled");
 		s.ping();

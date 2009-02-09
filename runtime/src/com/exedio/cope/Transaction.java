@@ -324,7 +324,7 @@ public final class Transaction
 			{
 				model.getItemCache().invalidate(invalidations);
 				model.getQueryCache().invalidate(invalidations);
-				final ClusterSender ib = model.invalidationSender;
+				final ClusterSender ib = model.clusterSender;
 				if(ib!=null)
 					ib.invalidate(invalidations);
 			}
