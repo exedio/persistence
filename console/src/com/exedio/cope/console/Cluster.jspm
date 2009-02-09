@@ -33,14 +33,14 @@ final class Cluster_Jspm
 	{
 		%>
 		<table>
-			<caption>Cluster Invalidation Statistics</caption>
+			<caption>Cluster Network</caption>
 			<tr><th>Missing Magic</th><td><%=cop.format(listenerInfo.getMissingMagic())%></td></tr>
 			<tr><th>Wrong Secret</th><td><%=cop.format(listenerInfo.getWrongSecret())%></td></tr>
 			<tr><th>From Myself</th><td><%=cop.format(listenerInfo.getFromMyself())%></td></tr>
 		</table>
 		<hr>
 		<table>
-			<caption>Cluster Invalidation Node Statistics</caption>
+			<caption>Cluster Network Nodes</caption>
 			<tr>
 				<th>ID</th>
 				<th>Ping</th>
