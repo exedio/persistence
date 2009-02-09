@@ -23,21 +23,29 @@ import java.util.List;
 
 public final class ClusterListenerInfo
 {
+	private final long exception;
 	private final long missingMagic;
 	private final long wrongSecret;
 	private final long fromMyself;
 	private final List<Node> nodes;
 	
 	public ClusterListenerInfo(
+			final long exception,
 			final long missingMagic,
 			final long wrongSecret,
 			final long fromMyself,
 			final List<Node> nodes)
 	{
+		this.exception = exception;
 		this.missingMagic = missingMagic;
 		this.wrongSecret = wrongSecret;
 		this.fromMyself = fromMyself;
 		this.nodes = Collections.unmodifiableList(nodes);
+	}
+	
+	public long getException()
+	{
+		return exception;
 	}
 	
 	public long getMissingMagic()

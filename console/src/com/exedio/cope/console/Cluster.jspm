@@ -34,6 +34,7 @@ final class Cluster_Jspm
 		%>
 		<table>
 			<caption>Cluster Network</caption>
+			<tr><th>Exception</th><td><%=cop.format(listenerInfo.getException())%></td></tr>
 			<tr><th>Missing Magic</th><td><%=cop.format(listenerInfo.getMissingMagic())%></td></tr>
 			<tr><th>Wrong Secret</th><td><%=cop.format(listenerInfo.getWrongSecret())%></td></tr>
 			<tr><th>From Myself</th><td><%=cop.format(listenerInfo.getFromMyself())%></td></tr>

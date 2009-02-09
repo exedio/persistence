@@ -99,7 +99,7 @@ final class ClusterListener implements Runnable
 			}
 			catch(Exception e)
 			{
-				// TODO count and display in console
+				exception++;
 				e.printStackTrace();
 			}
 		}
@@ -260,6 +260,7 @@ final class ClusterListener implements Runnable
 	
 	// info
 	
+	private volatile long exception = 0;
 	private volatile long missingMagic = 0;
 	private volatile long wrongSecret = 0;
 	private volatile long fromMyself = 0;
@@ -316,6 +317,6 @@ final class ClusterListener implements Runnable
 		for(final Node n : ns)
 			infoNodes.add(n.getInfo());
 		
-		return new ClusterListenerInfo(missingMagic, wrongSecret, fromMyself, infoNodes);
+		return new ClusterListenerInfo(exception, missingMagic, wrongSecret, fromMyself, infoNodes);
 	}
 }
