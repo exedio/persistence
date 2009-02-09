@@ -137,6 +137,17 @@ public class ClusterTest extends CopeAssert
 		}
 		assertStats(0, 0, 0, new long[0][]);
 		
+		{
+			// duplicate
+			final TIntHashSet[] is = um(buf);
+			assertContains(is[0], 0x456789ab, 0xaf896745);
+			assertEquals(null, is[1]);
+			assertTrue(is[2].isEmpty());
+			assertEquals(null, is[3]);
+			assertEquals(4, is.length);
+		}
+		assertStats(0, 0, 0, new long[0][]);
+		
 		buf[8] = 0x34;
 		buf[9] = 0x44;
 		buf[10] = 0x22;
