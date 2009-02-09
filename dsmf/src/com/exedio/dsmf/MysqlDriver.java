@@ -56,12 +56,6 @@ public final class MysqlDriver extends Driver
 	}
 
 	@Override
-	public boolean supportsSequences()
-	{
-		return false;
-	}
-
-	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
@@ -322,6 +316,27 @@ public final class MysqlDriver extends Driver
 			append(tableName).
 			append(" drop index ").
 			append(constraintName);
+		return bf.toString();
+	}
+	
+	public static final String SEQUENCE_COLUMN = "x";
+	
+	@Override
+	public String createSequence(final String sequenceName, final int startWith)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append("create table ").
+			append(sequenceName).
+			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY) engine=InnoDB AUTO_INCREMENT=" + (startWith+1));
+		return bf.toString();
+	}
+	
+	@Override
+	public String dropSequence(final String sequenceName)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append("drop table ").
+			append(sequenceName);
 		return bf.toString();
 	}
 }

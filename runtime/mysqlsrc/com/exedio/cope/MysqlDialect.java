@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import com.exedio.cope.Database.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.dsmf.MysqlDriver;
 import com.mysql.jdbc.Driver;
@@ -271,5 +272,56 @@ final class MysqlDialect extends Dialect
 		}
 		
 		return root;
+	}
+	
+	@Override
+	protected Integer nextSequence(
+			final Database database,
+			final Connection connection,
+			final String name)
+	{
+		final Statement bf = database.createStatement();
+		bf.append("INSERT INTO ").
+			append(driver.protectName(name)).
+			append(" () VALUES ()");
+		
+		return (int)(database.executeSQLInsert(connection, bf, new ResultSetHandler<Long>()
+		{
+			public Long handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty in sequence " + name);
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					throw new RuntimeException("null in sequence " + name);
+				return (Long)o;
+			}
+		}).longValue() - 1);
+	}
+	
+	@Override
+	protected Integer getNextSequence(
+			final Database database,
+			final Connection connection,
+			final String name)
+	{
+		final Statement bf = database.createStatement();
+		bf.append("SELECT MAX(").
+			append(driver.protectName(MysqlDriver.SEQUENCE_COLUMN)).
+			append(") FROM ").
+			append(driver.protectName(name));
+		
+		return database.executeSQLQuery(connection, bf, null, false, new ResultSetHandler<Integer>()
+		{
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty in sequence " + name);
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					throw new RuntimeException("null in sequence " + name);
+				return ((Integer)o);
+			}
+		});
 	}
 }

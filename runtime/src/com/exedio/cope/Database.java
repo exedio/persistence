@@ -1103,6 +1103,77 @@ final class Database
 		}
 	}
 	
+	<X> X executeSQLInsert(
+			final Connection connection,
+			final Statement statement,
+			final ResultSetHandler<X> generatedKeysHandler)
+		throws UniqueViolationException
+	{
+		java.sql.Statement sqlStatement = null;
+		ResultSet generatedKeysResultSet = null;
+		try
+		{
+			final String sqlText = statement.getText();
+			final DatabaseLogConfig log = this.log;
+			final long timeStart = log!=null ? System.currentTimeMillis() : 0;
+			
+			final long timePrepared;
+			if(!prepare)
+			{
+				sqlStatement = connection.createStatement();
+				timePrepared = log!=null ? System.currentTimeMillis() : 0;
+				sqlStatement.executeUpdate(sqlText);
+			}
+			else
+			{
+				final PreparedStatement prepared = connection.prepareStatement(sqlText);
+				sqlStatement = prepared;
+				int parameterIndex = 1;
+				for(final Object p : statement.parameters)
+					prepared.setObject(parameterIndex++, p);
+				timePrepared = log!=null ? System.currentTimeMillis() : 0;
+				prepared.executeUpdate();
+			}
+			
+			final long timeEnd = log!=null ? System.currentTimeMillis() : 0;
+
+			if(log!=null)
+				log.log(statement, timeStart, timePrepared, timeEnd);
+
+			generatedKeysResultSet = sqlStatement.getGeneratedKeys();
+			return generatedKeysHandler.handle(generatedKeysResultSet);
+		}
+		catch(SQLException e)
+		{
+			throw new SQLRuntimeException(e, statement.toString());
+		}
+		finally
+		{
+			if(generatedKeysResultSet!=null)
+			{
+				try
+				{
+					generatedKeysResultSet.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+			if(sqlStatement!=null)
+			{
+				try
+				{
+					sqlStatement.close();
+				}
+				catch(SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+		}
+	}
+	
 	QueryInfo makeQueryInfo(
 			final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)

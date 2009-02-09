@@ -161,6 +161,14 @@ public abstract class Driver
 		throw new RuntimeException("sequences not implemented: " + sequenceName + '(' + startWith + ')');
 	}
 	
+	public String dropSequence(final String sequenceName)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append("drop sequence ").
+			append(sequenceName);
+		return bf.toString();
+	}
+	
 	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */

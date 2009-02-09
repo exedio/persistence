@@ -64,7 +64,7 @@ public class ModelTest extends TestmodelTest
 			assertEquals("model already been connected", e.getMessage());
 		}
 		assertSame(connectDate, model.getConnectDate());
-		assertEquals(!mysql && !postgresql, model.supportsSequences());
+		assertEquals(!postgresql, model.supportsSequences());
 	}
 	
 	@Deprecated // OK: test deprecated api

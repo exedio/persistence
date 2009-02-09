@@ -120,11 +120,7 @@ public final class Sequence extends Node
 	
 	public void drop(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("drop sequence ").
-			append(protectName(name));
-		
-		executeSQL(bf.toString(), listener);
+		executeSQL(driver.dropSequence(protectName(name)), listener);
 	}
 	
 	@Override
