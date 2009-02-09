@@ -35,7 +35,7 @@ public class ClusterTest extends CopeAssert
 	private ClusterConfig ics;
 	private ClusterConfig icl;
 	private ClusterSender is;
-	private ClusterListener il;
+	private ClusterListener cl;
 	
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 40;
@@ -83,14 +83,14 @@ public class ClusterTest extends CopeAssert
 		ics = new ClusterConfig(SECRET, 0x11224433, properties);
 		icl = new ClusterConfig(SECRET, 0x11224434, properties);
 		is = new ClusterSender(ics, properties);
-		il = new ClusterListener(icl, properties, is, 4, null, null);
+		cl = new ClusterListener(icl, properties, is, 4, null, null);
 	}
 	
 	@Override
 	protected void tearDown() throws Exception
 	{
 		is.close();
-		il.close();
+		cl.close();
 		super.tearDown();
 	}
 	
@@ -786,9 +786,9 @@ public class ClusterTest extends CopeAssert
 	private Object umx(final byte[] buf)
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
-		il.testSink = sink;
-		il.handle(new DatagramPacket(buf, buf.length));
-		il.testSink = null;
+		cl.testSink = sink;
+		cl.handle(new DatagramPacket(buf, buf.length));
+		cl.testSink = null;
 		assertEquals(1, sink.size());
 		return sink.get(0);
 	}
@@ -796,9 +796,9 @@ public class ClusterTest extends CopeAssert
 	private void ume(final byte[] buf)
 	{
 		final ArrayList<Object> sink = new ArrayList<Object>();
-		il.testSink = sink;
-		il.handle(new DatagramPacket(buf, buf.length));
-		il.testSink = null;
+		cl.testSink = sink;
+		cl.handle(new DatagramPacket(buf, buf.length));
+		cl.testSink = null;
 		assertEquals(list(), sink);
 	}
 	
@@ -808,7 +808,7 @@ public class ClusterTest extends CopeAssert
 			final long listenerFromMyself,
 			final long[][] listenerNodes)
 	{
-		final ClusterListenerInfo listenerInfo = il.getInfo();
+		final ClusterListenerInfo listenerInfo = cl.getInfo();
 		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic());
 		assertEquals(listenerWrongSecret, listenerInfo.getWrongSecret());
 		assertEquals(listenerFromMyself, listenerInfo.getFromMyself());
