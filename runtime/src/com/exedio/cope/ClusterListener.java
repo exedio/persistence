@@ -134,7 +134,7 @@ final class ClusterListener implements Runnable
 			fromMyself++;
 			
 			if(testSink==null && log)
-				System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + " is from myself.");
+				System.out.println("COPE Cluster Invalidation received from " + packet.getAddress() + " is from myself.");
 			return;
 		}
 		pos += 4;
@@ -168,12 +168,12 @@ final class ClusterListener implements Runnable
 					{
 						case ClusterConfig.PING_AT_SEQUENCE:
 							if(log)
-								System.out.println("COPE Cluster Invalidation PING received from " + packet.getSocketAddress());
+								System.out.println("COPE Cluster Invalidation PING received from " + packet.getAddress());
 							sender.pong();
 							break;
 						case ClusterConfig.PONG_AT_SEQUENCE:
 							if(log)
-								System.out.println("COPE Cluster Invalidation PONG received from " + packet.getSocketAddress());
+								System.out.println("COPE Cluster Invalidation PONG received from " + packet.getAddress());
 							break;
 						default:
 							throw new RuntimeException(String.valueOf(sequence));
@@ -190,7 +190,7 @@ final class ClusterListener implements Runnable
 				else
 				{
 					if(log)
-						System.out.println("COPE Cluster Invalidation received from " + packet.getSocketAddress() + ": " + ClusterConfig.toString(invalidations));
+						System.out.println("COPE Cluster Invalidation received from " + packet.getAddress() + ": " + ClusterConfig.toString(invalidations));
 					itemCache.invalidate(invalidations);
 					queryCache.invalidate(invalidations);
 				}
