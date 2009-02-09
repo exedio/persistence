@@ -198,6 +198,7 @@
 		<ljavac srcdir="dsmf/testsrc" destdir="build/dsmf/testclasses">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
@@ -212,6 +213,7 @@
 						<pathelement location="build/dsmf/testclasses" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 				</ljunit>
@@ -229,6 +231,7 @@
 		<ljavac srcdir="runtime/src" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -267,6 +270,7 @@
 		<ljavac srcdir="runtime/servletsrc" destdir="build/runtime/classes">
 			<classpath>
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 			</classpath>
 		</ljavac>
@@ -275,6 +279,7 @@
 	<target name="runtime.junit.compile" depends="runtime.core.compile">
 		<ljavac srcdir="runtime/junitsrc" destdir="build/runtime/classes">
 			<classpath>
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</ljavac>
@@ -288,7 +293,7 @@
 							runtime.junit.compile" />
 	
 	<target name="runtime.jar" depends="runtime.compile">
-		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove.jar">
+		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove.jar exedio-cope-util.jar">
 			<fileset dir="build/runtime/classes" />
 		</ljar>
 	</target>
@@ -331,6 +336,7 @@
 				<pathelement location="lib/commons-fileupload.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 			</classpath>
 		</ljavac>
 	</target>
@@ -360,6 +366,7 @@
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="com.exedio.cope.PackageTest" todir="build/testresults" outfile="runtime-@{env}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
@@ -384,6 +391,7 @@
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<assertions><enable/></assertions>
@@ -442,6 +450,7 @@
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/exedio-cops.jar" />
+					<fileset file="lib/exedio-cope-util.jar" />
 					<fileset file="lib/jdbc/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
@@ -503,6 +512,7 @@
 		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
+			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/commons-fileupload.jar" />
 			<fileset file="lib/commons-io.jar" />
@@ -633,6 +643,7 @@
 		<ljavac srcdir="console/src" destdir="build/console/classes">
 			<classpath>
 				<pathelement location="build/runtime/classes" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
@@ -657,6 +668,7 @@
 			<classpath>
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/console/classes" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -670,6 +682,7 @@
 				<pathelement location="build/runtime/classes" />
 				<pathelement location="build/console/classes" />
 				<pathelement location="build/console/testclasses" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/jdbc/hsqldb.jar" />
@@ -730,6 +743,7 @@
 					<fileset file="lib/commons-fileupload.jar" />
 					<fileset file="lib/commons-io.jar" />
 					<fileset file="lib/exedio-cops.jar" />
+					<fileset file="lib/exedio-cope-util.jar" />
 					<fileset file="lib/jdbc/@{env.driver}" />
 				</copy>
 				
@@ -891,6 +905,7 @@
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/commons-fileupload.jar" />
 			</classpath>
