@@ -248,6 +248,7 @@
 				<!--echo message="file=@{dialect.file},dialect=${@{dialect.file}.name},jar=${@{dialect.file}.jar}." /-->
 				<ljavac srcdir="runtime/${@{dialect.file}.name}src" destdir="build/runtime/classes">
 					<classpath>
+						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/jdbc/${@{dialect.file}.jar}" />
 					</classpath>
