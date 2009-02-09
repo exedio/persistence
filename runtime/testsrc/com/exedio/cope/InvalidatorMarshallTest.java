@@ -34,7 +34,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 	private ConnectProperties properties;
 	private ClusterConfig ics;
 	private ClusterConfig icl;
-	private InvalidationSender is;
+	private ClusterSender is;
 	private ClusterListener il;
 	
 	private static final int SECRET = 0x88776655;
@@ -82,7 +82,7 @@ public class InvalidatorMarshallTest extends CopeAssert
 			);
 		ics = new ClusterConfig(SECRET, 0x11224433, properties);
 		icl = new ClusterConfig(SECRET, 0x11224434, properties);
-		is = new InvalidationSender(ics, properties);
+		is = new ClusterSender(ics, properties);
 		il = new ClusterListener(icl, properties, is, 4, null, null);
 	}
 	

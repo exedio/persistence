@@ -26,7 +26,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
 
-final class InvalidationSender
+final class ClusterSender
 {
 	private final ClusterConfig config;
 	private final boolean log;
@@ -42,7 +42,7 @@ final class InvalidationSender
 	
 	ArrayList<byte[]> testSink = null;
 	
-	InvalidationSender(final ClusterConfig config, final ConnectProperties properties)
+	ClusterSender(final ClusterConfig config, final ConnectProperties properties)
 	{
 		this.config = config;
 		this.log = config.log;

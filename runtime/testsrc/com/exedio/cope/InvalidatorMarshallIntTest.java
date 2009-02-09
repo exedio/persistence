@@ -67,7 +67,7 @@ public class InvalidatorMarshallIntTest extends TestCase
 	
 	private int m(final int pos, final int i)
 	{
-		return InvalidationSender.marshal(pos, buf, i);
+		return ClusterSender.marshal(pos, buf, i);
 	}
 	
 	private int um(final int pos)

@@ -72,7 +72,7 @@ public final class Model
 	private Database databaseIfConnected;
 	private ItemCache itemCacheIfConnected;
 	private QueryCache queryCacheIfConnected;
-	InvalidationSender invalidationSender;
+	ClusterSender invalidationSender;
 	private ClusterListener invalidationListener;
 	private Date connectDate = null;
 	private boolean logTransactions = false;
@@ -346,7 +346,7 @@ public final class Model
 								throw new RuntimeException("cluster.secret must be a valid integer, but was >" + secretS + '<', e);
 							}
 							final ClusterConfig config = new ClusterConfig(secret, properties);
-							this.invalidationSender   = new InvalidationSender  (config, properties);
+							this.invalidationSender   = new ClusterSender  (config, properties);
 							this.invalidationListener = new ClusterListener(config, properties, invalidationSender, concreteTypeCount, itemCacheIfConnected, queryCacheIfConnected);
 						}
 					}
@@ -1075,7 +1075,7 @@ public final class Model
 	
 	public void pingClusterNetwork()
 	{
-		final InvalidationSender s = this.invalidationSender;
+		final ClusterSender s = this.invalidationSender;
 		if(s==null)
 			throw new IllegalStateException("cluster network not enabled");
 		s.ping();

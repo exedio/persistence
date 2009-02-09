@@ -36,7 +36,7 @@ final class ClusterListener implements Runnable
 	private final int port;
 	private final MulticastSocket socket;
 	
-	private final InvalidationSender sender;
+	private final ClusterSender sender;
 	private final int typeLength;
 	private final ItemCache itemCache;
 	private final QueryCache queryCache;
@@ -48,7 +48,7 @@ final class ClusterListener implements Runnable
 	
 	ClusterListener(
 			final ClusterConfig config, final ConnectProperties properties,
-			final InvalidationSender sender,
+			final ClusterSender sender,
 			final int typeLength, final ItemCache itemCache, final QueryCache queryCache)
 	{
 		this.config = config;
