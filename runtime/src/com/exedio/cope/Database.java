@@ -291,8 +291,7 @@ final class Database
 	{
 		buildStage = false;
 
-		for(final Sequence sequence : sequences)
-			sequence.flush();
+		flushSequences();
 		makeSchema().drop();
 	}
 	
@@ -1705,6 +1704,12 @@ final class Database
 	void close()
 	{
 		connectionPool.flush();
+	}
+	
+	void flushSequences()
+	{
+		for(final Sequence sequence : sequences)
+			sequence.flush();
 	}
 	
 	// listeners ------------------

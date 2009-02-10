@@ -288,6 +288,7 @@ public abstract class CopeTest extends CopeAssert
 		}
 
 		dropDatabase();
+		model.flushSequences();
 		super.tearDown();
 	}
 	

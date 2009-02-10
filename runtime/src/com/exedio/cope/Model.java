@@ -398,6 +398,11 @@ public final class Model
 				throw new IllegalStateException("model not yet connected, use connect(Properties)"); // TODO reorder code
 		}
 	}
+	
+	public void flushSequences()
+	{
+		getDatabase().flushSequences();
+	}
 
 	public boolean isRevisionEnabled()
 	{
