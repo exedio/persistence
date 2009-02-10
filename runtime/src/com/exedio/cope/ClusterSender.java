@@ -188,7 +188,7 @@ final class ClusterSender
 				final long start = System.currentTimeMillis();
 				socket.send(packet);
 				if(log)
-					System.out.println("COPE Cluster Invalidation sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + ClusterConfig.toString(invalidations));
+					System.out.println("COPE Cluster Sender sent (" + buf.length + ',' + (System.currentTimeMillis()-start) + "ms): " + ClusterConfig.toString(invalidations));
 	      }
 			catch(IOException e)
 			{

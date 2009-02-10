@@ -96,7 +96,7 @@ final class ClusterListener implements Runnable
 				else
 				{
 					if(log)
-						System.out.println("COPE Cluster Invalidation Listener shutdown with message: " + e.getMessage());
+						System.out.println("COPE Cluster Listener graceful shutdown: " + e.getMessage());
 				}
 			}
 			catch(Exception e)
@@ -135,7 +135,7 @@ final class ClusterListener implements Runnable
 			fromMyself++;
 			
 			if(testSink==null && log)
-				System.out.println("COPE Cluster Invalidation received from " + packet.getAddress() + " is from myself.");
+				System.out.println("COPE Cluster Listener received from myself: " + packet.getAddress());
 			return;
 		}
 		pos += 4;
@@ -169,12 +169,12 @@ final class ClusterListener implements Runnable
 					{
 						case ClusterConfig.PING_AT_SEQUENCE:
 							if(log)
-								System.out.println("COPE Cluster Invalidation PING received from " + packet.getAddress());
+								System.out.println("COPE Cluster Listener PING from " + packet.getAddress());
 							sender.pong();
 							break;
 						case ClusterConfig.PONG_AT_SEQUENCE:
 							if(log)
-								System.out.println("COPE Cluster Invalidation PONG received from " + packet.getAddress());
+								System.out.println("COPE Cluster Listener PONG from " + packet.getAddress());
 							break;
 						default:
 							throw new RuntimeException(String.valueOf(sequence));
@@ -186,7 +186,7 @@ final class ClusterListener implements Runnable
 				if(node(node, packet).invalidate(sequence))
 				{
 					if(log)
-						System.out.println("COPE Cluster Invalidation duplicate " + sequence + " from " + packet.getAddress());
+						System.out.println("COPE Cluster Listener duplicate " + sequence + " from " + packet.getAddress());
 					break;
 				}
 			
@@ -198,7 +198,7 @@ final class ClusterListener implements Runnable
 				else
 				{
 					if(log)
-						System.out.println("COPE Cluster Invalidation received from " + packet.getAddress() + ": " + ClusterConfig.toString(invalidations));
+						System.out.println("COPE Cluster Listener invalidate from " + packet.getAddress() + ": " + ClusterConfig.toString(invalidations));
 					itemCache.invalidate(invalidations);
 					queryCache.invalidate(invalidations);
 				}
@@ -209,7 +209,7 @@ final class ClusterListener implements Runnable
 	TIntHashSet[] handleInvalidation(int pos, final byte[] buf, final int length, final int sequence)
 	{
 		if(log)
-			System.out.println("COPE Cluster Invalidation received sequence " + sequence);
+			System.out.println("COPE Cluster Listener sequence " + sequence);
 		
 		final TIntHashSet[] result = new TIntHashSet[typeLength];
 		while(pos<length)
@@ -291,7 +291,7 @@ final class ClusterListener implements Runnable
 			this.port = packet.getPort();
 			this.sequenceChecker = new SequenceChecker(200);
 			if(log)
-				System.out.println("COPE Cluster Invalidation learned about node " + id);
+				System.out.println("COPE Cluster Listener encountered new node " + id);
 		}
 		
 		void pingPong(final boolean ping)
