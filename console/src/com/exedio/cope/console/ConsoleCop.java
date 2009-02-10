@@ -75,7 +75,7 @@ abstract class ConsoleCop extends Cop
 	}
 	
 	long start = 0;
-	private SimpleDateFormat fullDateFormat, todayDateFormat;
+	private static SimpleDateFormat fullDateFormat, todayDateFormat;
 	private static DecimalFormat numberFormat;
 	
 	void addParameterAccessor(final String key, final boolean value)
@@ -95,12 +95,12 @@ abstract class ConsoleCop extends Cop
 	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
-		fullDateFormat = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss'<small>'.SSS'</small>'");
-		todayDateFormat = new SimpleDateFormat("HH:mm:ss'<small>'.SSS'</small>'");
 	}
 	
 	static
 	{
+		fullDateFormat = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss'<small>'.SSS'</small>'");
+		todayDateFormat = new SimpleDateFormat("HH:mm:ss'<small>'.SSS'</small>'");
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
@@ -168,20 +168,21 @@ abstract class ConsoleCop extends Cop
 	
 	private static final long todayInterval = 6 * 60 * 60 * 1000; // 6 hours
 	
-	final String formatAndHide(final Date date)
+	static final String formatAndHide(final Date date)
 	{
 		return date!=null ? format(date) : "";
 	}
 	
-	final String format(final Date date)
+	static final String format(final Date date)
 	{
 		final long dateMillis = date.getTime();
+		final long now = System.currentTimeMillis();
 		return (
-			( (start-todayInterval) < dateMillis && dateMillis < (start+todayInterval) )
+			( (now-todayInterval) < dateMillis && dateMillis < (now+todayInterval) )
 			? todayDateFormat : fullDateFormat).format(date);
 	}
 	
-	final String formatDate(final long date)
+	static final String formatDate(final long date)
 	{
 		return format(new Date(date));
 	}
