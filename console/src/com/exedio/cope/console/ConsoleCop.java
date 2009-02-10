@@ -184,6 +184,15 @@ abstract class ConsoleCop extends Cop
 	
 	final String format(final long number)
 	{
+		if(number==Integer.MIN_VALUE)
+			return "min32";
+		if(number==Integer.MAX_VALUE)
+			return "max32";
+		if(number==Long.MIN_VALUE)
+			return "min64";
+		if(number==Long.MAX_VALUE)
+			return "max64";
+		
 		return /*"fm" +*/ nf.format(number);
 	}
 	
