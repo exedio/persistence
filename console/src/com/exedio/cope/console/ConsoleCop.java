@@ -76,7 +76,7 @@ abstract class ConsoleCop extends Cop
 	
 	long start = 0;
 	private SimpleDateFormat fullDateFormat, todayDateFormat;
-	private DecimalFormat numberFormat;
+	private static DecimalFormat numberFormat;
 	
 	void addParameterAccessor(final String key, final boolean value)
 	{
@@ -97,6 +97,10 @@ abstract class ConsoleCop extends Cop
 		start = System.currentTimeMillis();
 		fullDateFormat = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss'<small>'.SSS'</small>'");
 		todayDateFormat = new SimpleDateFormat("HH:mm:ss'<small>'.SSS'</small>'");
+	}
+	
+	static
+	{
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
@@ -182,7 +186,7 @@ abstract class ConsoleCop extends Cop
 		return format(new Date(date));
 	}
 	
-	final String format(final long number)
+	static final String format(final long number)
 	{
 		if(number==Integer.MIN_VALUE)
 			return "min32";
@@ -196,7 +200,7 @@ abstract class ConsoleCop extends Cop
 		return /*"fm" +*/ numberFormat.format(number);
 	}
 	
-	final String formatAndHide(final long hidden, final long number)
+	static final String formatAndHide(final long hidden, final long number)
 	{
 		return /*("["+hidden+']') +*/ (number!=hidden ? format(number) : "");
 	}
