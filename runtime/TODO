@@ -76,7 +76,6 @@ TODO for cope runtime
 	* revisit all oracle-specific code in framework and tests
 - test model:
 	* put classes for patterns into separate package
-	* separate test model for lib tests and testwebapp (webtests)
 	* make small test models for each lib test
 - support JMX for information displayed by ConsoleServlet
 - separate into own sub-projects:
