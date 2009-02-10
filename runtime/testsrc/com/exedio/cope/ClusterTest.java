@@ -830,10 +830,21 @@ public class ClusterTest extends CopeAssert
 			{
 				if(infoNode.getID()==id)
 				{
+					assertNotNull(infoNode.getFirstEncounter());
 					assertEquals(null, infoNode.getAddress());
 					assertEquals(967, infoNode.getPort());
 					assertEquals("ping", node[1], infoNode.getPing());
 					assertEquals("pong", node[2], infoNode.getPong());
+					
+					if(node[1]==0)
+						assertNull(infoNode.getPingLast());
+					else
+						assertNotNull(infoNode.getPingLast());
+					
+					if(node[2]==0)
+						assertNull(infoNode.getPongLast());
+					else
+						assertNotNull(infoNode.getPongLast());
 					break nodes;
 				}
 			}

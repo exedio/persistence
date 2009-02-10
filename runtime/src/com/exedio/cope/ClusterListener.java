@@ -27,6 +27,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.exedio.cope.util.ClusterListenerInfo;
 import com.exedio.cope.util.SequenceChecker;
@@ -278,15 +279,19 @@ final class ClusterListener implements Runnable
 	private static class Node
 	{
 		final int id;
+		final long firstEncounter;
 		final InetAddress address;
 		final int port;
 		volatile long ping = 0;
 		volatile long pong = 0;
+		volatile long pingLast = Long.MIN_VALUE;
+		volatile long pongLast = Long.MIN_VALUE;
 		final SequenceChecker sequenceChecker;
 		
 		Node(final int id, final DatagramPacket packet, final boolean log)
 		{
 			this.id = id;
+			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
 			this.sequenceChecker = new SequenceChecker(200);
@@ -296,10 +301,17 @@ final class ClusterListener implements Runnable
 		
 		void pingPong(final boolean ping)
 		{
+			final long now = System.currentTimeMillis();
 			if(ping)
+			{
 				this.ping++;
+				this.pingLast = now;
+			}
 			else
+			{
 				this.pong++;
+				this.pongLast = now;
+			}
 		}
 		
 		boolean invalidate(final int sequence)
@@ -307,12 +319,19 @@ final class ClusterListener implements Runnable
 			return sequenceChecker.check(sequence);
 		}
 		
+		private static final Date toDate(final long date)
+		{
+			return date!=Long.MIN_VALUE ? new Date(date) : null;
+		}
+		
 		ClusterListenerInfo.Node getInfo()
 		{
 			return new ClusterListenerInfo.Node(
 					id,
+					new Date(firstEncounter), 
 					address, port,
-					ping, pong,
+					ping, toDate(pingLast),
+					pong, toDate(pongLast),
 					sequenceChecker.getCountInOrder(),
 					sequenceChecker.getCountOutOfOrder(),
 					sequenceChecker.getCountDuplicate(),

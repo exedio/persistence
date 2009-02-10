@@ -44,14 +44,19 @@ final class Cluster_Jspm
 			<caption>Cluster Network Nodes</caption>
 			<tr>
 				<th rowspan="2">ID</th>
+				<th rowspan="2">First<br>Encounter</th>
 				<th colspan="2">From</th>
-				<th rowspan="2">Ping</th>
-				<th rowspan="2">Pong</th>
+				<th colspan="2">Ping</th>
+				<th colspan="2">Pong</th>
 				<th colspan="5">Invalidate</th>
 			</tr>
 			<tr>
 				<th>Address</th>
 				<th>Port</th>
+				<th>#</th>
+				<th>Last</th>
+				<th>#</th>
+				<th>Last</th>
 				<th>In Order</th>
 				<th>Out of Order</th>
 				<th>Duplicate</th>
@@ -64,10 +69,13 @@ final class Cluster_Jspm
 			%>
 			<tr>
 				<td><%=node.getID()%></td>
+				<td><%=cop.format(node.getFirstEncounter())%></td>
 				<td><%=node.getAddress()%></td>
 				<td><%=node.getPort()%></td>
 				<td><%=cop.format(node.getPing())%></td>
+				<td><%=cop.format(node.getPingLast())%></td>
 				<td><%=cop.format(node.getPong())%></td>
+				<td><%=cop.format(node.getPongLast())%></td>
 				<td><%=cop.format(node.getInvalidateInOrder())%></td>
 				<td><%=cop.format(node.getInvalidateOutOfOrder())%></td>
 				<td><%=cop.format(node.getInvalidateDuplicate())%></td>

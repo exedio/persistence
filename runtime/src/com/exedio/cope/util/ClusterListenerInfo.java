@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import java.net.InetAddress;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public final class ClusterListenerInfo
@@ -72,10 +73,13 @@ public final class ClusterListenerInfo
 	public static final class Node
 	{
 		private final int id;
+		final Date firstEncounter;
 		private final InetAddress address;
 		private final int port;
 		private final long ping;
+		private final Date pingLast;
 		private final long pong;
+		private final Date pongLast;
 		private final int invalidateInOrder;
 		private final int invalidateOutOfOrder;
 		private final int invalidateDuplicate;
@@ -84,10 +88,13 @@ public final class ClusterListenerInfo
 		
 		public Node(
 				final int id,
+				final Date firstEncounter,
 				final InetAddress address,
 				final int port,
 				final long ping,
+				final Date pingLast,
 				final long pong,
+				final Date pongLast,
 				final int invalidateInOrder,
 				final int invalidateOutOfOrder,
 				final int invalidateDuplicate,
@@ -95,10 +102,13 @@ public final class ClusterListenerInfo
 				final int invalidateLate)
 		{
 			this.id = id;
+			this.firstEncounter = firstEncounter;
 			this.address = address;
 			this.port = port;
 			this.ping = ping;
+			this.pingLast = pingLast;
 			this.pong = pong;
+			this.pongLast = pongLast;
 			this.invalidateInOrder    = invalidateInOrder;
 			this.invalidateOutOfOrder = invalidateOutOfOrder;
 			this.invalidateDuplicate  = invalidateDuplicate;
@@ -126,6 +136,11 @@ public final class ClusterListenerInfo
 			return id;
 		}
 		
+		public Date getFirstEncounter()
+		{
+			return firstEncounter;
+		}
+		
 		public InetAddress getAddress()
 		{
 			return address;
@@ -141,11 +156,21 @@ public final class ClusterListenerInfo
 			return ping;
 		}
 		
+		public Date getPingLast()
+		{
+			return pingLast;
+		}
+		
 		public long getPong()
 		{
 			return pong;
 		}
 
+		public Date getPongLast()
+		{
+			return pongLast;
+		}
+		
 		public int getInvalidateInOrder()
 		{
 			return invalidateInOrder;
