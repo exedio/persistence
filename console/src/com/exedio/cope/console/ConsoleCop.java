@@ -76,7 +76,7 @@ abstract class ConsoleCop extends Cop
 	
 	long start = 0;
 	private SimpleDateFormat fullDateFormat, todayDateFormat;
-	private DecimalFormat nf;
+	private DecimalFormat numberFormat;
 	
 	void addParameterAccessor(final String key, final boolean value)
 	{
@@ -100,7 +100,7 @@ abstract class ConsoleCop extends Cop
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
-		nf = new DecimalFormat("", nfs);
+		numberFormat = new DecimalFormat("", nfs);
 	}
 	
 	protected abstract ConsoleCop newArgs(final Args args);
@@ -193,7 +193,7 @@ abstract class ConsoleCop extends Cop
 		if(number==Long.MAX_VALUE)
 			return "max64";
 		
-		return /*"fm" +*/ nf.format(number);
+		return /*"fm" +*/ numberFormat.format(number);
 	}
 	
 	final String formatAndHide(final long hidden, final long number)
