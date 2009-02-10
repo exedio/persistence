@@ -19,8 +19,6 @@
 package com.exedio.cope.console;
 
 import java.io.PrintStream;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -75,8 +73,6 @@ abstract class ConsoleCop extends Cop
 	}
 	
 	long start = 0;
-	private static SimpleDateFormat fullDateFormat, todayDateFormat;
-	private static DecimalFormat numberFormat;
 	
 	void addParameterAccessor(final String key, final boolean value)
 	{
@@ -95,16 +91,6 @@ abstract class ConsoleCop extends Cop
 	void initialize(final HttpServletRequest request, final Model model)
 	{
 		start = System.currentTimeMillis();
-	}
-	
-	static
-	{
-		fullDateFormat = new SimpleDateFormat("yyyy/MM/dd'&nbsp;'HH:mm:ss'<small>'.SSS'</small>'");
-		todayDateFormat = new SimpleDateFormat("HH:mm:ss'<small>'.SSS'</small>'");
-		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
-		nfs.setDecimalSeparator(',');
-		nfs.setGroupingSeparator('\'');
-		numberFormat = new DecimalFormat("", nfs);
 	}
 	
 	protected abstract ConsoleCop newArgs(final Args args);
@@ -164,46 +150,6 @@ abstract class ConsoleCop extends Cop
 			throw new RuntimeException();
 
 		return System.currentTimeMillis() - start;
-	}
-	
-	private static final long todayInterval = 6 * 60 * 60 * 1000; // 6 hours
-	
-	static final String formatAndHide(final Date date)
-	{
-		return date!=null ? format(date) : "";
-	}
-	
-	static final String format(final Date date)
-	{
-		final long dateMillis = date.getTime();
-		final long now = System.currentTimeMillis();
-		return (
-			( (now-todayInterval) < dateMillis && dateMillis < (now+todayInterval) )
-			? todayDateFormat : fullDateFormat).format(date);
-	}
-	
-	static final String formatDate(final long date)
-	{
-		return format(new Date(date));
-	}
-	
-	static final String format(final long number)
-	{
-		if(number==Integer.MIN_VALUE)
-			return "min32";
-		if(number==Integer.MAX_VALUE)
-			return "max32";
-		if(number==Long.MIN_VALUE)
-			return "min64";
-		if(number==Long.MAX_VALUE)
-			return "max64";
-		
-		return /*"fm" +*/ numberFormat.format(number);
-	}
-	
-	static final String formatAndHide(final long hidden, final long number)
-	{
-		return /*("["+hidden+']') +*/ (number!=hidden ? format(number) : "");
 	}
 	
 	/**
@@ -347,17 +293,5 @@ abstract class ConsoleCop extends Cop
 			out.print(pager.getTotal());
 			out.print("</span>");
 		}
-	}
-
-	private static final DecimalFormat RATIO_FORMAT = new DecimalFormat("###0.00");
-	
-	static String ratio(final long dividend, final long divisor)
-	{
-		if(dividend<0 || divisor<0)
-			return "<0";
-		if(divisor==0)
-			return "";
-		
-		return RATIO_FORMAT.format(Math.log10(((double)dividend) / ((double)divisor)));
 	}
 }

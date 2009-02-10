@@ -18,6 +18,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.format;
+
 import java.util.List;
 
 import com.exedio.cope.Feature;

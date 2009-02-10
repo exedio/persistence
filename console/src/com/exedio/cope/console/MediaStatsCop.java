@@ -113,12 +113,12 @@ final class MediaStatsCop extends ConsoleCop
 		Media_Jspm.writeBody(this, out, medias, names, shortNames, logs, total);
 	}
 	
-	final String[] format(final int[] numbers)
+	static final String[] format(final int[] numbers)
 	{
 		final int length = numbers.length;
 		final String[] result = new String[length];
 		for(int i = 0; i<length; i++)
-			result[i] = formatAndHide(0, numbers[i]);
+			result[i] = Format.formatAndHide(0, numbers[i]);
 		return result;
 	}
 	

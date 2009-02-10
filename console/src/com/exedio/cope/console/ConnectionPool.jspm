@@ -19,6 +19,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.format;
+
 import java.io.PrintStream;
 
 import com.exedio.cope.util.ConnectionPoolInfo;
@@ -27,7 +29,6 @@ import com.exedio.cope.util.PoolCounter;
 final class ConnectionPool_Jspm extends Console_Jspm
 {
 	final static void writeBody(
-			final ConnectionPoolCop cop,
 			final PrintStream out,
 			final ConnectionPoolInfo info)
 	{
@@ -52,23 +53,23 @@ final class ConnectionPool_Jspm extends Console_Jspm
 			<caption>Connection Pool Statistics</caption>
 			<tr>
 				<th>Idle</th>
-				<td><%=cop.format(info.getIdleCounter())%></td>
+				<td><%=format(info.getIdleCounter())%></td>
 			</tr>
 			<tr>
 				<th>Get</th>
-				<td><%=cop.format(poolCounter.getGetCounter())%></td>
+				<td><%=format(poolCounter.getGetCounter())%></td>
 			</tr>
 			<tr>
 				<th>Put</th>
-				<td><%=cop.format(poolCounter.getPutCounter())%></td>
+				<td><%=format(poolCounter.getPutCounter())%></td>
 			</tr>
 			<tr>
 				<th>Invalid From Idle</th>
-				<td><%=cop.format(info.getInvalidFromIdle())%></td>
+				<td><%=format(info.getInvalidFromIdle())%></td>
 			</tr>
 			<tr>
 				<th>Invalid Into Idle</th>
-				<td><%=cop.format(info.getInvalidIntoIdle())%></td>
+				<td><%=format(info.getInvalidIntoIdle())%></td>
 			</tr>
 		</table>
 		<hr>
@@ -80,11 +81,11 @@ final class ConnectionPool_Jspm extends Console_Jspm
 				final boolean inconsistent = !pool.isConsistent();
 				
 				final String[] data = {
-						cop.format(pool.getLoss()),
-						cop.format(pool.getIdleCount()),
-						cop.format(pool.getIdleCountMax()),
-						cop.format(pool.getCreateCounter()),
-						cop.format(pool.getDestroyCounter()),
+						format(pool.getLoss()),
+						format(pool.getIdleCount()),
+						format(pool.getIdleCountMax()),
+						format(pool.getCreateCounter()),
+						format(pool.getDestroyCounter()),
 					};
 			%>
 			<tr<%if(inconsistent){%> class="inconsistent"<%}%>><%

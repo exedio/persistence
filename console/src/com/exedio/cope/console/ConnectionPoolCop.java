@@ -44,6 +44,6 @@ final class ConnectionPoolCop extends ConsoleCop
 			final HttpServletRequest request,
 			final History history)
 	{
-		ConnectionPool_Jspm.writeBody(this, out, model.getConnectionPoolInfo());
+		ConnectionPool_Jspm.writeBody(out, model.getConnectionPoolInfo());
 	}
 }

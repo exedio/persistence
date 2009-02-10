@@ -95,7 +95,7 @@ final class ItemCacheCop extends ConsoleCop
 			allInvalidationsDone += info.getInvalidationsDone();
 		}
 		
-		ItemCache_Jspm.writeBody(this, out,
+		ItemCache_Jspm.writeBody(out,
 				allLimit, allLevel,
 				allHits, allMisses,
 				allReplacementRuns, allReplacements, allLastReplacementRun,

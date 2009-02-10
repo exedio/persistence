@@ -19,6 +19,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.format;
+
 import java.io.PrintStream;
 import java.util.List;
 
@@ -125,7 +127,7 @@ final class Test_Jspm
 					%>ok<%
 				}
 				%></td>
-				<td><%=cop.format(elapsed)%></td><%
+				<td><%=format(elapsed)%></td><%
 			}
 			%>
 			</tr><%
@@ -136,7 +138,7 @@ final class Test_Jspm
 			<tr>
 				<th colspan="<%=headings.length%>"><a name="overall">T</a>otal</th>
 				<td<% if(totalFailures!=0){%> class="failure"<%} %>><% if(totalFailures!=0){%><%=totalFailures%><%}else{%>ok<%} %></td>
-				<td><%=cop.format(totalElapsed)%></td>
+				<td><%=format(totalElapsed)%></td>
 			</tr><%
 		}
 		%>

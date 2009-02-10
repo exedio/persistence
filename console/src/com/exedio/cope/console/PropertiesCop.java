@@ -97,14 +97,14 @@ final class PropertiesCop extends ConsoleCop
 				sourceContent);
 	}
 	
-	String formatObject(final Object o)
+	static String formatObject(final Object o)
 	{
 		if(o==null)
 			return null;
 		else if(o instanceof Integer)
-			return format(((Integer)o).longValue());
+			return Format.format(((Integer)o).longValue());
 		else if(o instanceof Long)
-			return format(((Long)o).longValue());
+			return Format.format(((Long)o).longValue());
 		else if(o instanceof String)
 			return XMLEncoder.encode((String)o);
 		else

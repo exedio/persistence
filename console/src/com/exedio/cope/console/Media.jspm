@@ -19,7 +19,9 @@
 
 package com.exedio.cope.console;
 
-import static com.exedio.cope.console.ConsoleCop.ratio;
+import static com.exedio.cope.console.Format.format;
+import static com.exedio.cope.console.Format.formatDate;
+import static com.exedio.cope.console.Format.ratio;
 
 import java.io.PrintStream;
 import java.util.Collection;
@@ -52,7 +54,7 @@ final class Media_Jspm extends Console_Jspm
 		%>
 		<table id="coloredTable">
 			<caption>Media Statistics</caption>
-			<tr><th colspan="<%=shortNames.length+1%>">No Such Path <small>(404)</small></th><td><%=cop.format(MediaPath.noSuchPath.get())%></td></tr><%
+			<tr><th colspan="<%=shortNames.length+1%>">No Such Path <small>(404)</small></th><td><%=format(MediaPath.noSuchPath.get())%></td></tr><%
 			ColoredTable_Jspm.writeHeader(out, names, shortNames);
 			
 			%>
@@ -193,12 +195,12 @@ final class Media_Jspm extends Console_Jspm
 				if(mediaLastModified!=null)
 				{
 				%>
-				<td><%=cop.formatDate(mediaLastModified.getLastModified(item))%></td><%
+				<td><%=formatDate(mediaLastModified.getLastModified(item))%></td><%
 				}
 				if(mediaLength!=null)
 				{
 				%>
-				<td><%=cop.format(mediaLength.getLength(item))%></td><%
+				<td><%=format(mediaLength.getLength(item))%></td><%
 				}
 				if(other!=null)
 				{

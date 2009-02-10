@@ -19,7 +19,8 @@
 
 package com.exedio.cope.console;
 
-import static com.exedio.cope.console.ConsoleCop.ratio;
+import static com.exedio.cope.console.Format.format;
+import static com.exedio.cope.console.Format.ratio;
 
 import java.io.PrintStream;
 import java.util.Date;
@@ -88,11 +89,11 @@ final class Transaction_Jspm extends Console_Jspm
 		%>
 		<table style="float:left;">
 			<caption>Transaction Statistics</caption>
-			<tr><th>Next ID</th><td><%=cop.format(nextId)%></td></tr>
+			<tr><th>Next ID</th><td><%=format(nextId)%></td></tr>
 			<tr><th>Last Start Date</th><td><%
 				if(lastStartDate!=null)
 				{
-					%><%=cop.format(lastStartDate)%><%
+					%><%=format(lastStartDate)%><%
 				}
 				else
 				{
@@ -114,16 +115,16 @@ final class Transaction_Jspm extends Console_Jspm
 			</tr>
 			<tr>
 				<th>Commit</th>
-				<td><%=cop.format(transactionCounters.getCommit())%></td>
-				<td><%=cop.format(transactionCounters.getCommitWithoutConnection())%></td>
-				<td><%=cop.format(transactionCounters.getCommitWithConnection())%></td>
+				<td><%=format(transactionCounters.getCommit())%></td>
+				<td><%=format(transactionCounters.getCommitWithoutConnection())%></td>
+				<td><%=format(transactionCounters.getCommitWithConnection())%></td>
 				<td><%=ratio(transactionCounters.getCommitWithoutConnection(), transactionCounters.getCommitWithConnection())%></td>
 			</tr>
 			<tr>
 				<th>Rollback</th>
-				<td><%=cop.format(transactionCounters.getRollback())%></td>
-				<td><%=cop.format(transactionCounters.getRollbackWithoutConnection())%></td>
-				<td><%=cop.format(transactionCounters.getRollbackWithConnection())%></td>
+				<td><%=format(transactionCounters.getRollback())%></td>
+				<td><%=format(transactionCounters.getRollbackWithoutConnection())%></td>
+				<td><%=format(transactionCounters.getRollbackWithConnection())%></td>
 				<td><%=ratio(transactionCounters.getRollbackWithoutConnection(), transactionCounters.getRollbackWithConnection())%></td>
 			</tr>
 		</table>
@@ -161,14 +162,14 @@ final class Transaction_Jspm extends Console_Jspm
 				final Thread thread = threads[n];
 			%>
 			<tr>
-				<td><%=cop.format(n)%></td>
-				<td><%=cop.format(t.getID())%></td>
-				<td><%=cop.format(t.getStartDate())%></td>
+				<td><%=format(n)%></td>
+				<td><%=format(t.getID())%></td>
+				<td><%=format(t.getStartDate())%></td>
 				<td class="text"><%=encode(t.getName())%></td>
 				<%
 				if(thread!=null)
 				{
-				%><td><%=cop.format(threadIds[n])%></td>
+				%><td><%=format(threadIds[n])%></td>
 				<td class="text"><%=encode(threadNames[n])%></td>
 				<td><%=threadPriorities[n]%></td>
 				<td class="text"><%=threadStates[n].name().toLowerCase()%></td>
@@ -230,10 +231,10 @@ final class Transaction_Jspm extends Console_Jspm
 				final Commit commit = commits[n];
 			%>
 			<tr>
-				<td><%=cop.format(n)%></td>
-				<td><%=cop.format(commit.id)%></td>
-				<td><%=cop.format(commit.getStartDate())%></td>
-				<td><%=cop.format(commit.elapsed)%></td>
+				<td><%=format(n)%></td>
+				<td><%=format(commit.id)%></td>
+				<td><%=format(commit.getStartDate())%></td>
+				<td><%=format(commit.elapsed)%></td>
 				<td class="text"><%=encode(commit.name)%></td>
 				<td class="text"><%=encode(commit.modifiedItems)%></td>
 			</tr><%

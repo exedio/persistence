@@ -19,6 +19,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.format;
+
 import java.io.PrintStream;
 import java.util.List;
 
@@ -38,11 +40,11 @@ final class ModificationListener_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Listener Statistics</caption>
-			<tr><th>Size</td><td><%=cop.format(listeners.size())%></td></tr>
-			<tr><th>Cleared</td><td><%=cop.format(clearedBefore)%><%
+			<tr><th>Size</td><td><%=format(listeners.size())%></td></tr>
+			<tr><th>Cleared</td><td><%=format(clearedBefore)%><%
 					if(clearedBefore!=clearedAfter)
 					{
-						%>/<%=cop.format(clearedAfter)%><%
+						%>/<%=format(clearedAfter)%><%
 					}
 					%></td></tr>
 		</table>
@@ -73,14 +75,14 @@ final class ModificationListener_Jspm extends Console_Jspm
 				%>
 				<tr>
 					<td><input type="checkbox" name="<%=cop.REMOVE_CHECKBOX%>" value="<%=cop.toID(listener)%>" /></td>
-					<td><%=cop.format(number++)%></td><%
+					<td><%=format(number++)%></td><%
 					if(listener instanceof ModificationListenerCop.Introspector)
 					{
 						final ModificationListenerCop.Introspector introspector =
 							(ModificationListenerCop.Introspector)listener;
 					%>
 					<td class="text" colspan="2">
-						added <%=cop.format(introspector.getStart())%>,
+						added <%=format(introspector.getStart())%>,
 						session <%=encode(introspector.getSessionId())%><%
 						if(introspector.isSessionAttached())
 						{
@@ -95,7 +97,7 @@ final class ModificationListener_Jspm extends Console_Jspm
 							{
 								final String name = commit.getTransactionName();
 							%>
-							<li><%=cop.format(commit.transactionId)%> <%=cop.format(commit.getTimeStamp())%> <%=cop.format(commit.elapsedTime)%>ms <% if(name!=null){%> <u><%=encode(name)%></u><%} %> <%=commit.getModifiedItems()%></li><%
+							<li><%=format(commit.transactionId)%> <%=format(commit.getTimeStamp())%> <%=format(commit.elapsedTime)%>ms <% if(name!=null){%> <u><%=encode(name)%></u><%} %> <%=commit.getModifiedItems()%></li><%
 							}
 							%>
 						</ul><%

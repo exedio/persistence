@@ -19,7 +19,8 @@
 
 package com.exedio.cope.console;
 
-import static com.exedio.cope.console.ConsoleCop.ratio;
+import static com.exedio.cope.console.Format.formatAndHide;
+import static com.exedio.cope.console.Format.ratio;
 
 import java.io.PrintStream;
 import java.util.Date;
@@ -29,7 +30,6 @@ import com.exedio.cope.util.ItemCacheInfo;
 final class ItemCache_Jspm extends Console_Jspm
 {
 	final static void writeBody(
-			final ItemCacheCop cop,
 			final PrintStream out,
 			final int allLimit,
 			final int allLevel,
@@ -83,18 +83,18 @@ final class ItemCache_Jspm extends Console_Jspm
 			%>
 			<tr><%
 				final String[] allData = {
-						cop.formatAndHide(0, allLimit),
-						cop.formatAndHide(0, allLevel),
-						cop.formatAndHide(0, allHits),
-						cop.formatAndHide(0, allMisses),
-						cop.formatAndHide(0, allReplacementRuns),
-						cop.formatAndHide(0, allReplacements),
-						cop.formatAndHide(allLastReplacementRun),
-						cop.formatAndHide(0, allAgeMinMillis/1000l),
-						cop.formatAndHide(0, allAgeAverageMillis/1000l),
-						cop.formatAndHide(0, allAgeMaxMillis/1000l),
-						cop.formatAndHide(0, allInvalidationsOrdered),
-						cop.formatAndHide(0, allInvalidationsDone),
+						formatAndHide(0, allLimit),
+						formatAndHide(0, allLevel),
+						formatAndHide(0, allHits),
+						formatAndHide(0, allMisses),
+						formatAndHide(0, allReplacementRuns),
+						formatAndHide(0, allReplacements),
+						formatAndHide(allLastReplacementRun),
+						formatAndHide(0, allAgeMinMillis/1000l),
+						formatAndHide(0, allAgeAverageMillis/1000l),
+						formatAndHide(0, allAgeMaxMillis/1000l),
+						formatAndHide(0, allInvalidationsOrdered),
+						formatAndHide(0, allInvalidationsDone),
 					};
 				ColoredTable_Jspm.writeData(out, allData);
 				%>
@@ -104,18 +104,18 @@ final class ItemCache_Jspm extends Console_Jspm
 			for(final ItemCacheInfo info : infos)
 			{
 				final String[] data = {
-						cop.formatAndHide(0, info.getLimit()),
-						cop.formatAndHide(0, info.getLevel()),
-						cop.formatAndHide(0, info.getHits()),
-						cop.formatAndHide(0, info.getMisses()),
-						cop.formatAndHide(0, info.getReplacementRuns()),
-						cop.formatAndHide(0, info.getReplacements()),
-						cop.formatAndHide(info.getLastReplacementRun()),
-						cop.formatAndHide(Long.MAX_VALUE/1000l, info.getAgeMinMillis()/1000l),
-						cop.formatAndHide(0, info.getAgeAverageMillis()/1000l),
-						cop.formatAndHide(0, info.getAgeMaxMillis()/1000l),
-						cop.formatAndHide(0, info.getInvalidationsOrdered()),
-						cop.formatAndHide(0, info.getInvalidationsDone()),
+						formatAndHide(0, info.getLimit()),
+						formatAndHide(0, info.getLevel()),
+						formatAndHide(0, info.getHits()),
+						formatAndHide(0, info.getMisses()),
+						formatAndHide(0, info.getReplacementRuns()),
+						formatAndHide(0, info.getReplacements()),
+						formatAndHide(info.getLastReplacementRun()),
+						formatAndHide(Long.MAX_VALUE/1000l, info.getAgeMinMillis()/1000l),
+						formatAndHide(0, info.getAgeAverageMillis()/1000l),
+						formatAndHide(0, info.getAgeMaxMillis()/1000l),
+						formatAndHide(0, info.getInvalidationsOrdered()),
+						formatAndHide(0, info.getInvalidationsDone()),
 					};
 			%>
 			<tr><%

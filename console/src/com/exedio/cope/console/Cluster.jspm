@@ -19,6 +19,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.format;
+
 import java.io.PrintStream;
 
 import com.exedio.cope.util.ClusterListenerInfo;
@@ -34,10 +36,10 @@ final class Cluster_Jspm
 		%>
 		<table>
 			<caption>Cluster Network</caption>
-			<tr><th>Exception</th><td><%=cop.format(listenerInfo.getException())%></td></tr>
-			<tr><th>Missing Magic</th><td><%=cop.format(listenerInfo.getMissingMagic())%></td></tr>
-			<tr><th>Wrong Secret</th><td><%=cop.format(listenerInfo.getWrongSecret())%></td></tr>
-			<tr><th>From Myself</th><td><%=cop.format(listenerInfo.getFromMyself())%></td></tr>
+			<tr><th>Exception</th><td><%=format(listenerInfo.getException())%></td></tr>
+			<tr><th>Missing Magic</th><td><%=format(listenerInfo.getMissingMagic())%></td></tr>
+			<tr><th>Wrong Secret</th><td><%=format(listenerInfo.getWrongSecret())%></td></tr>
+			<tr><th>From Myself</th><td><%=format(listenerInfo.getFromMyself())%></td></tr>
 		</table>
 		<hr>
 		<table>
@@ -69,18 +71,18 @@ final class Cluster_Jspm
 			%>
 			<tr>
 				<td><%=node.getID()%></td>
-				<td><%=cop.format(node.getFirstEncounter())%></td>
+				<td><%=format(node.getFirstEncounter())%></td>
 				<td><%=node.getAddress()%></td>
 				<td><%=node.getPort()%></td>
-				<td><%=cop.format(node.getPing())%></td>
-				<td><%=cop.format(node.getPingLast())%></td>
-				<td><%=cop.format(node.getPong())%></td>
-				<td><%=cop.format(node.getPongLast())%></td>
-				<td><%=cop.format(node.getInvalidateInOrder())%></td>
-				<td><%=cop.format(node.getInvalidateOutOfOrder())%></td>
-				<td><%=cop.format(node.getInvalidateDuplicate())%></td>
-				<td><%=cop.format(node.getInvalidateLost())%></td>
-				<td><%=cop.format(node.getInvalidateLate())%></td>
+				<td><%=format(node.getPing())%></td>
+				<td><%=format(node.getPingLast())%></td>
+				<td><%=format(node.getPong())%></td>
+				<td><%=format(node.getPongLast())%></td>
+				<td><%=format(node.getInvalidateInOrder())%></td>
+				<td><%=format(node.getInvalidateOutOfOrder())%></td>
+				<td><%=format(node.getInvalidateDuplicate())%></td>
+				<td><%=format(node.getInvalidateLost())%></td>
+				<td><%=format(node.getInvalidateLate())%></td>
 			</tr><%
 			}
 			%>

@@ -19,7 +19,9 @@
 
 package com.exedio.cope.console;
 
-import static com.exedio.cope.console.ConsoleCop.ratio;
+import static com.exedio.cope.console.Format.format;
+import static com.exedio.cope.console.Format.formatAndHide;
+import static com.exedio.cope.console.Format.ratio;
 
 import java.io.PrintStream;
 
@@ -42,31 +44,31 @@ final class QueryCache_Jspm extends Console_Jspm
 		%>
 		<table>
 			<caption>Query Cache Statistics</caption>
-			<tr><th colspan="2">Limit</th><td><%= cop.format(limit)%></td></tr>
-			<tr><th colspan="2">Level</th><td><%= cop.format(info.getLevel()) %></td></tr>
-			<tr><th colspan="2">Replacements</th><td><%=cop.format(info.getReplacements())%></td></tr>
-			<tr><th colspan="2">Invalidations</th><td><%=cop.format(info.getInvalidations())%></td></tr>
+			<tr><th colspan="2">Limit</th><td><%= format(limit)%></td></tr>
+			<tr><th colspan="2">Level</th><td><%= format(info.getLevel()) %></td></tr>
+			<tr><th colspan="2">Replacements</th><td><%=format(info.getReplacements())%></td></tr>
+			<tr><th colspan="2">Invalidations</th><td><%=format(info.getInvalidations())%></td></tr>
 			<tr><th colspan="2">log<sub>10</sub> Hits/Misses</th><td><%=ratio(hits, misses)%></td></tr>
-			<tr><th colspan="2">Hits</th><td><%=  cop.format(hits)  %></td></tr>
-			<tr><th colspan="2">Misses</th><td><%=cop.format(misses)%></td></tr><%
+			<tr><th colspan="2">Hits</th><td><%=  format(hits)  %></td></tr>
+			<tr><th colspan="2">Misses</th><td><%=format(misses)%></td></tr><%
 			if(content.histogram.length>0)
 			{
 			%>
-			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=cop.format(content.avgKeyLength)%></td></tr>
-			<tr><th>Maximum</th><td><%=cop.format(content.maxKeyLength)%></td></tr>
-			<tr><th>Minimum</th><td><%=cop.format(content.minKeyLength)%></td></tr>
-			<tr><th rowspan="<%=content.resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=cop.format(content.avgResultSize)%></td></tr>
-			<tr><th>Maximum</th><td><%=cop.format(content.maxResultSize)%></td></tr>
-			<tr><th>Minimum</th><td><%=cop.format(content.minResultSize)%></td></tr><%
+			<tr><th rowspan="3">Key Length</th><th>Average</th><td><%=format(content.avgKeyLength)%></td></tr>
+			<tr><th>Maximum</th><td><%=format(content.maxKeyLength)%></td></tr>
+			<tr><th>Minimum</th><td><%=format(content.minKeyLength)%></td></tr>
+			<tr><th rowspan="<%=content.resultSizes.length+3%>">Result Size</th><th>Average</th><td><%=format(content.avgResultSize)%></td></tr>
+			<tr><th>Maximum</th><td><%=format(content.maxResultSize)%></td></tr>
+			<tr><th>Minimum</th><td><%=format(content.minResultSize)%></td></tr><%
 			for(int i = 0; i<content.resultSizes.length; i++)
 			{
 			%>
-			<tr><th>Size <%=i%></th><td><%=cop.format(content.resultSizes[i])%></td></tr><%
+			<tr><th>Size <%=i%></th><td><%=format(content.resultSizes[i])%></td></tr><%
 			}
 			%>
-			<tr><th rowspan="3">Hits</th><th>Average</th><td><%=cop.format(content.avgHits)%></td></tr>
-			<tr><th>Maximum</th><td><%=cop.format(content.maxHits)%></td></tr>
-			<tr><th>Minimum</th><td><%=cop.format(content.minHits)%></td></tr><%
+			<tr><th rowspan="3">Hits</th><th>Average</th><td><%=format(content.avgHits)%></td></tr>
+			<tr><th>Maximum</th><td><%=format(content.maxHits)%></td></tr>
+			<tr><th>Minimum</th><td><%=format(content.minHits)%></td></tr><%
 			}
 		%>
 		</table>
@@ -115,10 +117,10 @@ final class QueryCache_Jspm extends Console_Jspm
 			}
 			final QueryCacheCop.Condense condense = content.histogramCondensed[i];
 			final String[] data = {
-					cop.format(condense.getRecentUsage()),
-					cop.format(condense.getCount()),
-					cop.format(condense.getResultSize()),
-					cop.formatAndHide(0, condense.getHits()),
+					format(condense.getRecentUsage()),
+					format(condense.getCount()),
+					format(condense.getResultSize()),
+					formatAndHide(0, condense.getHits()),
 				};
 			%>
 			<tr><%
@@ -168,9 +170,9 @@ final class QueryCache_Jspm extends Console_Jspm
 			}
 			final QueryCacheHistogram histogram = content.histogram[i];
 			final String[] data = {
-					cop.format(i),
-					cop.format(histogram.getResultSize()),
-					cop.formatAndHide(0, histogram.getHits()),
+					format(i),
+					format(histogram.getResultSize()),
+					formatAndHide(0, histogram.getHits()),
 				};
 			%>
 			<tr><%

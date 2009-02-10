@@ -19,6 +19,8 @@
 
 package com.exedio.cope.console;
 
+import static com.exedio.cope.console.Format.format;
+
 import java.io.File;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
@@ -79,11 +81,11 @@ final class Properties_Jspm extends Console_Jspm
 			<caption>Connect Properties</caption>
 			<tr>
 				<th>Initialized</th>
-				<td class="text"><%=cop.format(initializeDate)%></td>
+				<td class="text"><%=format(initializeDate)%></td>
 			</tr>
 			<tr>
 				<th>Connected</th>
-				<td class="text"><%=cop.format(connectDate)%></td>
+				<td class="text"><%=format(connectDate)%></td>
 			</tr>
 			<tr>
 				<th colspan="2"><img class="check" onClick="toggleUnspecified(this)" src="<%=ConsoleServlet.checkFalse%>"> show unspecified</th>
@@ -160,9 +162,9 @@ final class Properties_Jspm extends Console_Jspm
 				final String name = token.getName();
 			%>
 			<tr>
-				<td><%=cop.format(number++)%></td>
-				<td><% if(token.didConnect()){%>&#187;&nbsp;<%} %><%=cop.format(token.getID())%></td>
-				<td class="text"><%=cop.format(token.getIssueDate())%></td>
+				<td><%=format(number++)%></td>
+				<td><% if(token.didConnect()){%>&#187;&nbsp;<%} %><%=format(token.getID())%></td>
+				<td class="text"><%=format(token.getIssueDate())%></td>
 				<td class="text"><% if(name!=null) { %><%=encode(name)%><% } %></td>
 			</tr><%
 			}
