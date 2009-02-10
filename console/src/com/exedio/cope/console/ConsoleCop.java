@@ -76,7 +76,7 @@ abstract class ConsoleCop extends Cop
 	
 	long start = 0;
 	private SimpleDateFormat fullDateFormat, todayDateFormat;
-	DecimalFormat nf;
+	private DecimalFormat nf;
 	
 	void addParameterAccessor(final String key, final boolean value)
 	{
